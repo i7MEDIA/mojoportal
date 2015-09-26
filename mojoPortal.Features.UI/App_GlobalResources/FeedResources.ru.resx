@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Добавить/Изменитьленту</value>
+  </data>
+  <data name="AddCommentsLink" xml:space="preserve">
+    <value>Добавить ссылку для вставки комментария в отправляемые заголовки RSS</value>
+  </data>
+  <data name="AddNewFeedLink" xml:space="preserve">
+    <value>Добавить новую ленту</value>
+  </data>
+  <data name="AddSignature" xml:space="preserve">
+    <value>Добавить цифровую подпись для отправляемых заголовков RSS</value>
+  </data>
+  <data name="AtomFeedType" xml:space="preserve">
+    <value>Элемент ленты</value>
+  </data>
+  <data name="AuthorLabel" xml:space="preserve">
+    <value>Название ленты:</value>
+  </data>
+  <data name="BackToPageLinkFormat" xml:space="preserve">
+    <value>Назад к {0}</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="CancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ClearCacheButton" xml:space="preserve">
+    <value>Очистить кэш ленты</value>
+  </data>
+  <data name="ClearCacheWarning" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить все записи из кэша ленты?</value>
+  </data>
+  <data name="CreatedByLabel" xml:space="preserve">
+    <value>Кем создана:</value>
+  </data>
+  <data name="DateCreatedLabel" xml:space="preserve">
+    <value>Дата создания:</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="DeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="DeleteFeedWarning" xml:space="preserve">
+    <value>Вы уверены, что действительно желаете удалить эту ленту?</value>
+  </data>
+  <data name="EditFeedLabel" xml:space="preserve">
+    <value>Изменить ленту</value>
+  </data>
+  <data name="EditImageAltText" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="EnableInPlacePublishing" xml:space="preserve">
+    <value>Использовать вместо выборочной публикации?</value>
+  </data>
+  <data name="EnableSelectivePublishing" xml:space="preserve">
+    <value>Включить выбранную публикацию?</value>
+  </data>
+  <data name="EntryPublishFalseAlternateText" xml:space="preserve">
+    <value>Не опубликовано</value>
+  </data>
+  <data name="EntryPublishTrueAlternateText" xml:space="preserve">
+    <value>Опубликован</value>
+  </data>
+  <data name="FeatureName" xml:space="preserve">
+    <value>Новостные ленты ( RSS)</value>
+  </data>
+  <data name="FeedEditPageTitle" xml:space="preserve">
+    <value>Редактор ленты</value>
+  </data>
+  <data name="FeedTitleRequiredWarning" xml:space="preserve">
+    <value>Требуется заголовок ленты</value>
+  </data>
+  <data name="FeedTypeLabel" xml:space="preserve">
+    <value>Тип ленты</value>
+  </data>
+  <data name="FeedUrlLabel" xml:space="preserve">
+    <value>URL ленты:</value>
+  </data>
+  <data name="FeedUrlRegexWarning" xml:space="preserve">
+    <value>URL ленты должен быть в правильном формате, и начинаться с http:// или ~/ для внутренних лент</value>
+  </data>
+  <data name="FeedUrlRequiredWarning" xml:space="preserve">
+    <value>Требуется URL ленты.</value>
+  </data>
+  <data name="FilterInvalidMarkupAndPotentiallyInsecureContent" xml:space="preserve">
+    <value>Фильтровать неправильную разметку и потенциально опасный контент ленты?</value>
+  </data>
+  <data name="ImageUrlLabel" xml:space="preserve">
+    <value>URL изображения</value>
+  </data>
+  <data name="MalformedMarkupWarning" xml:space="preserve">
+    <value>Данная новостная лента по всё видимости содержит неверную разметку HTML/XHTML. В целях безопасности система удалила эту разметку и закодировала содержимое на случай, если неверная разметка содержит кроссайтовые скрипты.</value>
+  </data>
+  <data name="ManagePublishingLink" xml:space="preserve">
+    <value>Управление публикацией</value>
+  </data>
+  <data name="PublishByDefaultLabel" xml:space="preserve">
+    <value>Публикация по умолчанию</value>
+  </data>
+  <data name="PublishingHeaderFormat" xml:space="preserve">
+    <value>Публикация для {0}</value>
+  </data>
+  <data name="RSSAggregatorExcerptLengthSetting" xml:space="preserve">
+    <value>Длина отрывка</value>
+  </data>
+  <data name="RSSAggregatorExcerptSetting" xml:space="preserve">
+    <value>Использовать отрывки?</value>
+  </data>
+  <data name="RSSAggregatorExcerptSuffixSetting" xml:space="preserve">
+    <value>Окончание отрывка</value>
+  </data>
+  <data name="RSSAggregatorPageSizeSetting" xml:space="preserve">
+    <value>Пункты На Странице</value>
+  </data>
+  <data name="RSSAggregatorShowAuthor" xml:space="preserve">
+    <value>Показать автора?</value>
+  </data>
+  <data name="RSSAggregatorShowFeedName" xml:space="preserve">
+    <value>Показать Название ленты после содержимого?</value>
+  </data>
+  <data name="RSSAggregatorShowFeedNameBeforeContent" xml:space="preserve">
+    <value>Показать Название ленты перед содержимым?</value>
+  </data>
+  <data name="RSSFeedAllowExternalImages" xml:space="preserve">
+    <value>Разрешить внешние картинки?</value>
+  </data>
+  <data name="RSSFeedEntryCacheTimeoutSetting" xml:space="preserve">
+    <value>Время кэширования элементов в минутах</value>
+  </data>
+  <data name="RSSFeedFeedListCacheTimeoutSetting" xml:space="preserve">
+    <value>Время кэширования ленты в минутах</value>
+  </data>
+  <data name="RSSFeedFeedListColumnsSetting" xml:space="preserve">
+    <value>Колонки ленты</value>
+  </data>
+  <data name="RSSFeedListLabelSetting" xml:space="preserve">
+    <value>Метка ленты</value>
+  </data>
+  <data name="RSSFeedMaxDayCountSetting" xml:space="preserve">
+    <value>Отображать сообщения размещённые не позднее указанных дней назад</value>
+  </data>
+  <data name="RSSFeedMaxPostsPerFeedSetting" xml:space="preserve">
+    <value>Максимум сообщений в ленте</value>
+  </data>
+  <data name="RSSFeedShowAggregateFeedLink" xml:space="preserve">
+    <value>Отображать групповые ссылки ленты?</value>
+  </data>
+  <data name="RSSFeedShowErrorMessageOnInvalidPosts" xml:space="preserve">
+    <value>Показывать сообщение об ошибке, если сообщение пользователя содержит неверную разметку?</value>
+  </data>
+  <data name="RSSFeedShowFeedListLeftSetting" xml:space="preserve">
+    <value>Отображать ссылки ленты слева?</value>
+  </data>
+  <data name="RSSFeedShowFeedListRightSetting" xml:space="preserve">
+    <value>Отображать ссылки ленты справа?</value>
+  </data>
+  <data name="RSSFeedShowHeadingsOnlySetting" xml:space="preserve">
+    <value>Отображать только заголовки?</value>
+  </data>
+  <data name="RSSFeedShowIndividualFeedLinks" xml:space="preserve">
+    <value>Отображать индивидуальные ссылки ленты?</value>
+  </data>
+  <data name="RSSFeedSortAscending" xml:space="preserve">
+    <value>Сортировка по возрастанию?</value>
+  </data>
+  <data name="RssFeedType" xml:space="preserve">
+    <value>RSS лента</value>
+  </data>
+  <data name="RSSFeedUseFeedListAsFilterSetting" xml:space="preserve">
+    <value>Использовать ссылки ленты как фильтр?</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="SaveButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="SortRankLabel" xml:space="preserve">
+    <value>Порядок сортировки</value>
+  </data>
+  <data name="WebSiteLabel" xml:space="preserve">
+    <value>URL сайта:</value>
+  </data>
+  <data name="WebUrlRegexWarning" xml:space="preserve">
+    <value>URL сайта должен быть правильного формата, и начинаться с http:// или HTTPS: // или ~/ для внутренних адресов</value>
+  </data>
+  <data name="FeedDateFormatSetting" xml:space="preserve">
+    <value>Строка для задания формата Дата/Время</value>
+  </data>
+  <data name="RSSFeedPadEmptyDaysInCalendarView" xml:space="preserve">
+    <value>Заполнять пробелами не занятые дни в календаре?</value>
+  </data>
+  <data name="RSSFeedUseCalendarView" xml:space="preserve">
+    <value>Использовать календарь?</value>
+  </data>
+  <data name="CacheSettings" xml:space="preserve">
+    <value>Настройки кэша</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Особый класс CSS </value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>Неверный пользовательский класс CSS</value>
+  </data>
+  <data name="ExcerptModeSettings" xml:space="preserve">
+    <value>Настройки режима анонсов</value>
+  </data>
+  <data name="FeedUseExcerptSuffixAsLinkToPost" xml:space="preserve">
+    <value>Использовать суффикс отрывка A  sLink к комментарию?</value>
+  </data>
+  <data name="NavigationSettings" xml:space="preserve">
+    <value>Навигация и макет</value>
+  </data>
+  <data name="OpenLinkInNewWindow" xml:space="preserve">
+    <value>Открывать ссылку в новом окне?</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Настройки безопасности</value>
+  </data>
+  <data name="SelectivePublishingSettings" xml:space="preserve">
+    <value>Выборочная публикация</value>
+  </data>
+  <data name="ShowDateSetting" xml:space="preserve">
+    <value>Показывать дату?</value>
+  </data>
+  <data name="UseAutoDiscoveryAggregateFeedLink" xml:space="preserve">
+    <value>Добавить ссылку обнаружения к заголовку?</value>
+  </data>
+  <data name="UseScrollerSetting" xml:space="preserve">
+    <value>Включить прокрутку?</value>
+  </data>
+</root>

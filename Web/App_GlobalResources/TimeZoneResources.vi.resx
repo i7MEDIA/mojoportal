@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TimeZoneLabelAbuDhabiMuscatBakuTbilisi" xml:space="preserve">
+    <value>(GMT + 4:00) Abu Dhabi, Muscat, Baku, Tbilisi</value>
+  </data>
+  <data name="TimeZoneLabelAdelaideDarwin" xml:space="preserve">
+    <value>(GMT + 9:30) Adelaide, Darwin</value>
+  </data>
+  <data name="TimeZoneLabelAlaska" xml:space="preserve">
+    <value>(GMT - 9:00) Alaska</value>
+  </data>
+  <data name="TimeZoneLabelAlmatyDhakaColombo" xml:space="preserve">
+    <value>(GMT + 6:00) Almaty, Dhaka, Colombo</value>
+  </data>
+  <data name="TimeZoneLabelAtlantic" xml:space="preserve">
+    <value>(GMT - 4:00) Đại Tây Dương (Canada), Caracas, La Paz</value>
+  </data>
+  <data name="TimeZoneLabelAucklandWellingtonFijiKamchatkaMarshallIsland" xml:space="preserve">
+    <value>(GMT + 12:00) Auckland, Wellington, Fiji, Kamchatka, Marshall Island</value>
+  </data>
+  <data name="TimeZoneLabelAzoresCapeVerdeIslands" xml:space="preserve">
+    <value>(GMT - 1:00) Azores, Cape Verde Islands</value>
+  </data>
+  <data name="TimeZoneLabelBaghdadKuwaitRiyadhMoscowStPetersburgVolgogradNairobi" xml:space="preserve">
+    <value>(GMT + 3:00) Baghdad, Kuwait, Riyadh, Moscow, St. Petersburg, Volgograd, Nairobi</value>
+  </data>
+  <data name="TimeZoneLabelBangkokHanoiJakarta" xml:space="preserve">
+    <value>(GMT + 7.00) Bangkok, Hà Nội, Jakarta</value>
+  </data>
+  <data name="TimeZoneLabelBeijingPerthSingaporeHongKongChongqingUrumqiTaipei" xml:space="preserve">
+    <value>(GMT + 8:00) Bắc Kinh, Perth, Singapore, Hồng Kông, Chongqing, Urumqi, Đài Bắc</value>
+  </data>
+  <data name="TimeZoneLabelBombayCalcuttaMadrasNewDelhi" xml:space="preserve">
+    <value>(GMT + 5:50) Bombay, Calcutta, Madras, New Delhi</value>
+  </data>
+  <data name="TimeZoneLabelBrazilBuenosAiresGeorgetown" xml:space="preserve">
+    <value>(GMT - 3:00) Brazil, Buenos Aires, Georgetown</value>
+  </data>
+  <data name="TimeZoneLabelCentral" xml:space="preserve">
+    <value>(GMT - 6:00) Trung Tâm (Hoa Kỳ &amp; Canada)</value>
+  </data>
+  <data name="TimeZoneLabelCentralEurope" xml:space="preserve">
+    <value>(GMT + 1:00) CET (Trung Âu), Brussels, Copenhagen, Madrid, Paris</value>
+  </data>
+  <data name="TimeZoneLabelEASTEastAustralianStandardGuamPapuaNewGuineaVladivostok" xml:space="preserve">
+    <value>(GMT + 10:00) EAST(Chuẩn Đông Úc), Guam, Papua New Guinea, Vladivostok</value>
+  </data>
+  <data name="TimeZoneLabelEastern" xml:space="preserve">
+    <value>(GMT - 5:00) Phía Đông (Hoa Kỳ &amp; Canada)</value>
+  </data>
+  <data name="TimeZoneLabelEasternEurope" xml:space="preserve">
+    <value>(GMT + 2:00) EET (Đông Âu), Athens, Bucharest, Istanbul</value>
+  </data>
+  <data name="TimeZoneLabelEkaterinburgIslamabadKarachiTashkent" xml:space="preserve">
+    <value>(GMT + 5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</value>
+  </data>
+  <data name="TimeZoneLabelEniwetokKwajalein" xml:space="preserve">
+    <value>(GMT - 12:00) Eniwetok, Kwajalein</value>
+  </data>
+  <data name="TimeZoneLabelGMT" xml:space="preserve">
+    <value>(GMT) Tây Âu, Luân Đôn, Lisbon, Casablanca, Monrovia</value>
+  </data>
+  <data name="TimeZoneLabelHawaii" xml:space="preserve">
+    <value>(GMT - 10:00) Hawaii</value>
+  </data>
+  <data name="TimeZoneLabelKabul" xml:space="preserve">
+    <value>(GMT + 4:30) Kabul</value>
+  </data>
+  <data name="TimeZoneLabelMagadanSolomonIslandsNewCaledonia" xml:space="preserve">
+    <value>(GMT + 11:00) Magadan, Solomon Islands, New Caledonia</value>
+  </data>
+  <data name="TimeZoneLabelMidAtlantic" xml:space="preserve">
+    <value>(GMT - 2:00) Mid-Atlantic</value>
+  </data>
+  <data name="TimeZoneLabelMidwayIslandSamoa" xml:space="preserve">
+    <value>(GMT - 11:00) Midway Island, Samoa </value>
+  </data>
+  <data name="TimeZoneLabelMountain" xml:space="preserve">
+    <value>(GMT - 7:00) Vùng Núi (Hoa Kỳ &amp; Canada) </value>
+  </data>
+  <data name="TimeZoneLabelNewfoundland" xml:space="preserve">
+    <value>(GMT - 3:30) Newfoundland</value>
+  </data>
+  <data name="TimeZoneLabelNukualofa" xml:space="preserve">
+    <value>(GMT + 13:00) Nuku"alofa</value>
+  </data>
+  <data name="TimeZoneLabelPacific" xml:space="preserve">
+    <value>(GMT - 8:00) Thái Bình Dương (Hoa Kỳ &amp; Canada)</value>
+  </data>
+  <data name="TimeZoneLabelTehran" xml:space="preserve">
+    <value>(GMT + 3:30) Tehran</value>
+  </data>
+  <data name="TimeZoneLabelTokyoSeoulOsakaSapporoYakutsk" xml:space="preserve">
+    <value>(GMT + 9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</value>
+  </data>
+  <data name="TZ0" xml:space="preserve">
+    <value>(GMT) Tây Âu, Luân Đôn, Lisbon, Casablanca, Monrovia</value>
+  </data>
+  <data name="TZ1" xml:space="preserve">
+    <value>(GMT + 1:00) CET (Trung Âu), Brussels, Copenhagen, Madrid, Paris</value>
+  </data>
+  <data name="TZ10" xml:space="preserve">
+    <value>(GMT + 10:00) EAST (Chuẩn Đông Úc), Guam, Papua New Guinea, Vladivostok</value>
+  </data>
+  <data name="TZ11" xml:space="preserve">
+    <value>(GMT + 11:00) Magadan, Solomon Islands, New Caledonia</value>
+  </data>
+  <data name="TZ12" xml:space="preserve">
+    <value>(GMT + 12:00) Auckland, Wellington, Fiji, Kamchatka, Marshall Island</value>
+  </data>
+  <data name="TZ13" xml:space="preserve">
+    <value>(GMT + 13:00) Nuku"alofa</value>
+  </data>
+  <data name="TZ2" xml:space="preserve">
+    <value>(GMT + 2:00) EET (Đông Âu), Kaliningrad, Nam Phi</value>
+  </data>
+  <data name="TZ3" xml:space="preserve">
+    <value>(GMT + 3:00) Baghdad, Kuwait, Riyadh, Moscow, St. Petersburg, Volgograd, Nairobi</value>
+  </data>
+  <data name="TZ35" xml:space="preserve">
+    <value>(GMT + 3:50) Tehran</value>
+  </data>
+  <data name="TZ4" xml:space="preserve">
+    <value>(GMT + 4:00) Abu Dhabi, Muscat, Baku, Tbilisi</value>
+  </data>
+  <data name="TZ45" xml:space="preserve">
+    <value>(GMT + 4:50) Kabul</value>
+  </data>
+  <data name="TZ5" xml:space="preserve">
+    <value>(GMT + 5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</value>
+  </data>
+  <data name="TZ55" xml:space="preserve">
+    <value>(GMT + 5:50) Bombay, Calcutta, Madras, New Delhi</value>
+  </data>
+  <data name="TZ6" xml:space="preserve">
+    <value>(GMT + 6:00) Almaty, Dhaka, Colombo</value>
+  </data>
+  <data name="TZ7" xml:space="preserve">
+    <value>(GMT + 7.00) Bangkok, Hà Nội, Jakarta</value>
+  </data>
+  <data name="TZ8" xml:space="preserve">
+    <value>(GMT + 8:00) Bắc Kinh, Perth, Singapore, Hồng Kông, Chongqing, Urumqi, Đài Bắc</value>
+  </data>
+  <data name="TZ9" xml:space="preserve">
+    <value>(GMT + 9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</value>
+  </data>
+  <data name="TZ95" xml:space="preserve">
+    <value>(GMT + 9:50) Adelaide, Darwin</value>
+  </data>
+  <data name="TZminus1" xml:space="preserve">
+    <value>(GMT - 1:00) Azores, Cape Verde Islands</value>
+  </data>
+  <data name="TZminus10" xml:space="preserve">
+    <value>(GMT - 10:00) Hawaii</value>
+  </data>
+  <data name="TZminus11" xml:space="preserve">
+    <value>(GMT - 11:00) Midway Island, Samoa </value>
+  </data>
+  <data name="TZminus12" xml:space="preserve">
+    <value>(GMT - 12:00) Eniwetok, Kwajalein</value>
+  </data>
+  <data name="TZminus2" xml:space="preserve">
+    <value>(GMT - 2:00) Mid-Atlantic</value>
+  </data>
+  <data name="TZminus3" xml:space="preserve">
+    <value>(GMT - 3:00) Brazil, Buenos Aires, Georgetown</value>
+  </data>
+  <data name="TZminus35" xml:space="preserve">
+    <value>(GMT - 3:50) Newfoundland</value>
+  </data>
+  <data name="TZminus4" xml:space="preserve">
+    <value>(GMT - 4:00) Đại Tây Dương (Canada), Caracas, La Paz</value>
+  </data>
+  <data name="TZminus5" xml:space="preserve">
+    <value>(GMT - 5:00) Phía Đông (Hoa Kỳ &amp; Canada)</value>
+  </data>
+  <data name="TZminus6" xml:space="preserve">
+    <value>(GMT - 6:00) Trung Tâm (Hoa Kỳ &amp; Canada)</value>
+  </data>
+  <data name="TZminus7" xml:space="preserve">
+    <value>(GMT - 7:00) Vùng Núi (Hoa Kỳ &amp; Canada) </value>
+  </data>
+  <data name="TZminus8" xml:space="preserve">
+    <value>(GMT - 8:00) Thái Bình Dương (Hoa Kỳ &amp; Canada)</value>
+  </data>
+  <data name="TZminus9" xml:space="preserve">
+    <value>(GMT - 9:00) Alaska</value>
+  </data>
+</root>

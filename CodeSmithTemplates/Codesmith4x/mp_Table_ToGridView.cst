@@ -1,0 +1,423 @@
+<%--
+Name:  			ASP.NET Gridview stubber
+Author: 		Joe Audette
+Description: 	Generates a stub for Gridview with paging and sorting
+Last Modified:	2/20/2007
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author" %>
+<%@ Property Name="BusinessLayerNameSpace" Type="System.String" Default="mojoPortal.Business" Category="Style" Description="The Namespace of the Business Layer class" %>
+
+<%@ Property Name="ResourceFileNameSpace" Type="System.String" Default="Resources" Category="Style" Description="" %>
+
+<%@ Property Name="TablePrefix" Type="System.String" Default="mp_" Category="Style" Description="Table Prfix" %>
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+<% if (SourceTable.PrimaryKey == null) throw new ApplicationException("SourceTable does not contain a primary key."); %>
+<% ColumnSchema primaryKey = SourceTable.PrimaryKey.MemberColumns[0]; %>
+
+<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
+<mp:CornerRounderTop ID="ctop1" runat="server" />
+<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper admin">
+<portal:HeadingControl id="heading" runat="server" />
+<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
+<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
+<asp:GridView ID="grd<%= GetClassName() %>" runat="server"
+     AllowPaging="true"
+     AllowSorting="true"
+     AutoGenerateColumns="false"
+     CssClass="editgrid"
+     DataKeyNames="<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %><%= SourceTable.PrimaryKey.MemberColumns[i].Name %><% } %>"
+     >
+     <Columns>
+		<asp:TemplateField ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
+        <ItemTemplate>
+             <asp:Button ID="btnEdit" runat="server" CommandName="Edit" CssClass="buttonlink" Text='<%%# Resources.<%= ResourceFileNameSpace %>.<%= GetClassName() %>GridEditButton %%>' />
+        </ItemTemplate>
+            <EditItemTemplate>
+                <portal:mojoButton id="btnGridUpdate" runat="server" Text='<%%# Resources.<%= ResourceFileNameSpace %>.<%= GetClassName() %>GridUpdateButton %%>' CommandName="Update" />
+                <portal:mojoButton id="btnGridDelete" runat="server" Text='<%%# Resources.<%= ResourceFileNameSpace %>.<%= GetClassName() %>GridDeleteButton %%>' CommandName="Delete" />
+                <portal:mojoButton id="btnGridCancel" runat="server" Text='<%%# Resources.<%= ResourceFileNameSpace %>.<%= GetClassName() %>GridCancelButton %%>' CommandName="Cancel" />
+            </EditItemTemplate>
+        </asp:TemplateField>
+        <% for (int i = 0; i < this.SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+		<asp:TemplateField SortExpression="<%= SourceTable.NonPrimaryKeyColumns[i].Name %>" ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
+			<ItemTemplate>
+                <%%# Eval("<%= SourceTable.NonPrimaryKeyColumns[i].Name %>") %%>
+            </ItemTemplate>
+			<EditItemTemplate>
+			<asp:TextBox ID="txt<%= SourceTable.NonPrimaryKeyColumns[i].Name %>" Columns="20" Text='<%%# Eval("<%= SourceTable.NonPrimaryKeyColumns[i].Name %>") %%>' runat="server" MaxLength="<%= this.SourceTable.NonPrimaryKeyColumns[i].Size %>" />
+			</EditItemTemplate>
+		</asp:TemplateField>
+		<% } %>
+</Columns>
+</asp:GridView>
+<div class="settingrow">
+    <portal:mojoButton ID="btnAddNew" runat="server"  />
+</div>
+<portal:mojoCutePager ID="pgr<%= GetClassName() %>" runat="server" />
+</portal:InnerBodyPanel>
+</portal:OuterBodyPanel>
+<portal:EmptyPanel id="divCleared1" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+</portal:InnerWrapperPanel>
+<mp:CornerRounderBottom ID="CornerRounderBottom1" runat="server" />
+</portal:OuterWrapperPanel>
+
+using mojoPortal.Web;
+using mojoPortal.Web.Framework;
+using System.Data;
+using System.Globalization;
+using <%= BusinessLayerNameSpace %>;
+using Resources;
+
+//TODO: Choose between Non CMS page, or mojoPortal feature
+public partial class Admin<%= GetClassName() %> : NonCmsBasePage
+//public partial class YourFeatureName : SiteModuleControl
+{
+
+//private int pageId = -1;
+//private int moduleId = -1;
+private int totalPages = 1;
+private int pageNumber = 1;
+private int pageSize = 20;
+private string sort = string.Empty;
+
+   protected void Page_Load(object sender, EventArgs e)
+   {
+
+      LoadSettings();
+      if (!WebUser.IsAdmin)
+      {
+         SiteUtils.RedirectToAccessDeniedPage(this);
+         return;
+      }
+
+      PopulateLabels();
+      PopulateControls();
+
+   }
+
+   private void LoadSettings()
+   {
+      pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", 1);
+
+      if (Page.Request.Params["sort"] != null)
+      {
+         sort = Page.Request.Params["sort"];
+      }
+
+      AddClassToBody("administration");
+   }
+
+
+   private void PopulateLabels()
+   {
+      //TODO: Implement admin breadcrumbs if necessary
+      //For .aspx
+      //<portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs">
+      //  <asp:HyperLink ID="lnkAdminMenu" runat="server" NavigateUrl="~/Admin/AdminMenu.aspx" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
+      //  <asp:HyperLink ID="lnkCurrentPage" runat="server" CssClass="selectedcrumb" />
+      //</portal:AdminCrumbContainer>
+
+      //lnkAdminMenu.Text = <%= ResourceFileNameSpace %>.AdminMenuLink;
+      //lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
+
+      //lnkCurrentPage.Text = <%= ResourceFileNameSpace %>.<%= GetClassName() %>AdminLink;
+      //lnkCurrentPage.NavigateUrl = Request.RawUrl;
+
+      Title = SiteUtils.FormatPageTitle(siteSettings, <%= ResourceFileNameSpace %>.<%= GetClassName() %>AppTitle);
+      heading.Text = <%= ResourceFileNameSpace %>.<%= GetClassName() %>PageHdr;
+      btnAddNew.Text = <%= ResourceFileNameSpace %>.<%= GetClassName() %>AddNewButton;
+
+   }
+
+   private void PopulateControls()
+   {
+      if (Page.IsPostBack) return;
+      BindGrid();
+   }
+
+private void BindGrid()
+{
+    List<<%= GetClassName() %>> l = <%= GetClassName() %>.GetPage(pageNumber, pageSize, out totalPages);
+
+    switch(sort)
+    {
+        case "<%= SourceTable.NonPrimaryKeyColumns[0].Name %>":
+        default:
+            l.Sort(delegate(<%= GetClassName() %> a, <%= GetClassName() %> b) { return a.<%= SourceTable.NonPrimaryKeyColumns[0].Name %>.CompareTo(b.<%= SourceTable.NonPrimaryKeyColumns[0].Name %>); });
+            break;
+        <% for (int i = 1; i < this.SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+        case "<%= SourceTable.NonPrimaryKeyColumns[i].Name %>":
+            l.Sort(delegate(<%= GetClassName() %> a, <%= GetClassName() %> b) { return a.<%= SourceTable.NonPrimaryKeyColumns[i].Name %>.CompareTo(b.<%= SourceTable.NonPrimaryKeyColumns[i].Name %>); });
+            break;
+        <% } %>
+    }
+
+    if (this.totalPages > 1)
+    {
+	// TODO: edit this to fix the path as necessary
+	String pageUrl = SiteRoot + "/YourFolder/Admin<%= GetClassName() %>.aspx"
+		+ "?pagenumber=" + pageNumber.ToString(CultureInfo.InvariantCulture)
+		+ "&sort=" + sort;
+		// Uncomment if using pageID/moduleID inside CMS
+		// + "?pageid=" + PageID.ToString(CultureInfo.InvariantCulture)
+		// + "&amp;mid=" + ModuleID.ToString(CultureInfo.InvariantCulture)
+
+	pgr<%= GetClassName() %>.PageURLFormat = pageUrl;
+        pgr<%= GetClassName() %>.ShowFirstLast = true;
+        pgr<%= GetClassName() %>.CurrentIndex = pageNumber;
+        pgr<%= GetClassName() %>.PageSize = pageSize;
+        pgr<%= GetClassName() %>.PageCount = totalPages;
+
+    }
+
+	grd<%= GetClassName() %>.DataSource = l;
+    grd<%= GetClassName() %>.PageIndex = pageNumber;
+    grd<%= GetClassName() %>.PageSize = pageSize;
+    grd<%= GetClassName() %>.DataBind();
+
+}
+
+void grd<%= GetClassName() %>_Sorting(object sender, GridViewSortEventArgs e)
+{
+	// TODO: edit this to fix the path as necessary
+	String pageUrl = SiteRoot + "/YourFolder/Admin<%= GetClassName() %>.aspx"
+		+ "?pagenumber=" + pageNumber.ToString(CultureInfo.InvariantCulture)
+		+ "&sort=" + sort;
+		// Uncomment if using pageID/moduleID inside CMS
+		// + "?pageid=" + PageID.ToString(CultureInfo.InvariantCulture)
+		// + "&amp;mid=" + ModuleID.ToString(CultureInfo.InvariantCulture)
+
+    WebUtils.SetupRedirect(this, pageUrl);
+
+}
+
+void grd<%= GetClassName() %>_RowUpdating(object sender, GridViewUpdateEventArgs e)
+{
+    GridView grid = (GridView)sender;
+
+	<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+	<%= GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) %> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> = (<%= GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) %>)grid.DataKeys[e.RowIndex].Value;
+	<% } %>
+	<% for (int i = 0; i < this.SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+	TextBox txt<%= this.SourceTable.NonPrimaryKeyColumns[i].Name %>  = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txt<%= this.SourceTable.NonPrimaryKeyColumns[i].Name %>");
+	<% } %>
+
+	// TODO: implement update
+	// instantiate business class
+	<% for (int i = 0; i < this.SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+	//<%= GetPrivateName(GetClassName()) %>.<%= this.SourceTable.NonPrimaryKeyColumns[i].Name %>  = txt<%= this.SourceTable.NonPrimaryKeyColumns[i].Name %>.Text;
+	<% } %>
+	//<%= GetPrivateName(GetClassName()) %>.Save();
+
+    WebUtils.SetupRedirect(this, Request.RawUrl);
+
+}
+
+void grd<%= GetClassName() %>_RowDeleting(object sender, GridViewDeleteEventArgs e)
+{
+    GridView grid = (GridView)sender;
+	<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+	<%= GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) %> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> = (<%= GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) %>)grid.DataKeys[e.RowIndex].Value;
+	<% } %>
+	<% for (int i = 0; i < this.SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+	<%= GetClassName() %>.Delete(<%= GetParamName(this.SourceTable.PrimaryKey.MemberColumns[i].Name) %>);
+	<% } %>
+	WebUtils.SetupRedirect(this, Request.RawUrl);
+
+}
+
+void grd<%= GetClassName() %>_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+{
+    WebUtils.SetupRedirect(this, Request.RawUrl);
+}
+
+void grd<%= GetClassName() %>_RowEditing(object sender, GridViewEditEventArgs e)
+{
+    GridView grid = (GridView)sender;
+    grid.EditIndex = e.NewEditIndex;
+    BindGrid();
+
+	Button btnDelete = (Button)grid.Rows[e.NewEditIndex].Cells[0].FindControl("btnGridDelete");
+    if (btnDelete != null)
+    {
+        btnDelete.Attributes.Add("OnClick", "return confirm('"
+            + "Are you sure you want to delete this?" + "');");
+    }
+}
+
+void btnAddNew_Click(object sender, EventArgs e)
+{
+    DataTable dataTable = new DataTable();
+
+	<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+	dataTable.Columns.Add("<%= SourceTable.Columns[i].Name %>",typeof(<%= GetCSharpVariableType(SourceTable.Columns[i]) %>));
+	<% } %>
+	dataTable.Columns.Add("TotalPages", typeof(int));
+
+    DataRow row = dataTable.NewRow();
+	// TODO: set empty values
+	<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+	//row["<%= SourceTable.Columns[i].Name %>"] =
+	<% } %>
+    //row["TotalPages"] = 1;
+   dataTable.Rows.Add(row);
+
+	btnAddNew.Visible = false;
+
+   Button btnDelete = (Button)grd<%= GetClassName() %>.Rows[grd<%= GetClassName() %>.EditIndex].Cells[0].FindControl("btnGridDelete");
+   if (btnDelete != null)
+   {
+      btnDelete.Visible = false;
+   }
+
+    pgr<%= GetClassName() %>.Visible = false;
+    grd<%= GetClassName() %>.EditIndex = 0;
+    grd<%= GetClassName() %>.PageIndex = pageNumber;
+    grd<%= GetClassName() %>.PageSize = pageSize;
+    grd<%= GetClassName() %>.DataSource = dataTable.DefaultView;
+    grd<%= GetClassName() %>.DataBind();
+
+
+}
+
+#region init
+override protected void OnInit(EventArgs e)
+{
+	base.OnInit(e);
+   this.Load += new EventHandler(this.Page_Load);
+
+	this.grd<%= GetClassName() %>.Sorting += new GridViewSortEventHandler(grd<%= GetClassName() %>_Sorting);
+	this.grd<%= GetClassName() %>.RowEditing += new GridViewEditEventHandler(grd<%= GetClassName() %>_RowEditing);
+	this.grd<%= GetClassName() %>.RowCancelingEdit += new GridViewCancelEditEventHandler(grd<%= GetClassName() %>_RowCancelingEdit);
+	this.grd<%= GetClassName() %>.RowUpdating += new GridViewUpdateEventHandler(grd<%= GetClassName() %>_RowUpdating);
+	this.grd<%= GetClassName() %>.RowDeleting += new GridViewDeleteEventHandler(grd<%= GetClassName() %>_RowDeleting);
+	//TODO: Enable the following for additional custom grid command events
+   //this.grd<%= GetClassName() %>.RowCommand += new GridViewCommandEventHandler(grd<%= GetClassName() %>_RowCommand);
+	this.btnAddNew.Click += new EventHandler(btnAddNew_Click);
+}
+#endregion
+
+}
+
+
+<script runat="template">
+
+
+public string GetClassName()
+	{
+		//if (SourceTable.Name.EndsWith("s"))
+		//{
+		//	return RemovePrefix(SourceTable.Name.Substring(0,SourceTable.Name.Length -1));
+		//}
+		//else
+		//{
+			return RemovePrefix(SourceTable.Name);
+		//}
+	}
+
+	public string RemovePrefix(string TableName)
+	{
+
+		return TableName.Replace(TablePrefix,"");
+	}
+
+	public string GetPrivateName(string ColumnName)
+	{
+
+
+		return ColumnName.Substring(0,1).ToLower() + ColumnName.Substring(1,ColumnName.Length -1);
+	}
+
+	public string GetParamName(String columnName)
+	{
+		if(columnName == "ID")
+			return "id";
+
+		string firstLetter = columnName.Substring(0,1).ToLower();
+		string Result = firstLetter + columnName.Remove(0,1);
+
+		return Result;
+	}
+
+	public string GetReaderConversion(ColumnSchema column)
+	{
+		if (column.Name.EndsWith("TypeCode")) return column.Name;
+
+		switch (column.DataType)
+		{
+			case DbType.AnsiString: return "reader[\"" + column.Name + "\"].ToString();";
+			case DbType.AnsiStringFixedLength: return "reader[\"" + column.Name + "\"].ToString();";
+			case DbType.Binary: return "Byte[]";
+			case DbType.Boolean: return "Convert.ToBoolean(reader[\"" + column.Name + "\"]);";
+			case DbType.Byte: return "Convert.ToByte(reader[\"" + column.Name + "\"]);";
+			case DbType.Currency: return "Convert.ToDecimal(reader[\"" + column.Name + "\"]);";
+			case DbType.Date: return "Convert.ToDateTime(reader[\"" + column.Name + "\"]);";
+			case DbType.DateTime: return "Convert.ToDateTime(reader[\"" + column.Name + "\"]);";
+			case DbType.Decimal: return "Convert.ToDecimal(reader[\"" + column.Name + "\"]);";
+			case DbType.Double: return "Convert.ToDouble(reader[\"" + column.Name + "\"]);";
+			case DbType.Guid: return "new Guid(reader[\"" + column.Name + "\"].ToString());";
+			case DbType.Int16: return "Convert.ToInt16(reader[\"" + column.Name + "\"]);";
+			case DbType.Int32: return "Convert.ToInt32(reader[\"" + column.Name + "\"]);";
+			case DbType.Int64: return "Convert.ToInt64(reader[\"" + column.Name + "\"]);";
+			case DbType.SByte: return "Convert.ToSByte(reader[\"" + column.Name + "\"]);";
+			case DbType.Single: return "Convert.ToSingle(reader[\"" + column.Name + "\"]);";
+			case DbType.String: return "reader[\"" + column.Name + "\"].ToString();";
+			case DbType.StringFixedLength: return "reader[\"" + column.Name + "\"].ToString();";
+
+			default:
+			{
+				return "__UNKNOWN__" + column.NativeType;
+			}
+		}
+	}
+
+
+
+	public string GetVBDataType(ColumnSchema column)
+	{
+		if (column.Name.EndsWith("TypeCode")) return column.Name;
+
+		switch (column.DataType)
+		{
+			case DbType.AnsiString: return "String";
+			case DbType.AnsiStringFixedLength: return "String";
+			case DbType.Binary: return "Byte()";
+			case DbType.Boolean: return "Boolean";
+			case DbType.Byte: return "Byte";
+			case DbType.Currency: return "Decimal";
+			case DbType.Date: return "DateTime";
+			case DbType.DateTime: return "DateTime";
+			case DbType.Decimal: return "Decimal";
+			case DbType.Double: return "Double";
+			case DbType.Guid: return "Guid";
+			case DbType.Int16: return "Short";
+			case DbType.Int32: return "Integer";
+			case DbType.Int64: return "Long";
+			case DbType.Object: return "Object";
+			case DbType.SByte: return "SByte";
+			case DbType.Single: return "Float";
+			case DbType.String: return "String";
+			case DbType.StringFixedLength: return "String";
+			case DbType.Time: return "TimeSpan";
+			case DbType.UInt16: return "UShort";
+			case DbType.UInt32: return "UInt";
+			case DbType.UInt64: return "ULong";
+			case DbType.VarNumeric: return "Decimal";
+			default:
+			{
+				return "__UNKNOWN__" + column.NativeType;
+			}
+		}
+	}
+
+</script>

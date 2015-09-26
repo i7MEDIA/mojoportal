@@ -1,0 +1,12 @@
+.aspcalendarmain { margin: 0px 0px 0px 5px; background-color: #e6efdb; color:Black; font-size:10px; width:100%; }
+.aspcalendardayheader { font-weight:bold; font-size:10px; color:#08619a; text-align:center; white-space:nowrap;}
+.aspcalendarday { border: solid 1px black;  font-size:10px; color:Black; text-align:center; white-space:nowrap;}
+.aspcalendarnextprevious {  font-weight:bold; font-size:small; color:Black; text-align:center; white-space:nowrap; }
+.aspcalendarothermonth { border: solid 1px black; background-color:#f3f3f3;  font-size:10px; color:Black; text-align:center; white-space:nowrap; }
+.aspcalendarselectedday { border: solid 1px black; background-color:#FFFFE0;  font-size:10px; color:Black; text-align:center;  }
+.aspcalendarselector {   font-size:8pt; font-weight:bold; text-align:center; white-space:nowrap;  }
+.aspcalendartitle { border: none;  background-color: #e8e8e8; font-size:10px; font-weight:bold; text-align:center; white-space:nowrap; }
+.aspcalendartoday { border: solid 1px black; background-color:#FFFFE0; color:Black; font-size:10px; text-align:center; }
+.aspcalendarweekendday { border: solid 1px black; background-color:#D3D3D3; color:Black; font-size:10px; text-align:center; }
+
+

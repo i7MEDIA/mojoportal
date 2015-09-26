@@ -1,0 +1,774 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlogAddThisCustomBrandSetting" xml:space="preserve">
+    <value>علامة تجارية مخصصة لـ AddThis.com</value>
+  </data>
+  <data name="BlogAddThisCustomLogoBackColorSetting" xml:space="preserve">
+    <value>لون خلفية مخصصة لـ AddThis.com</value>
+  </data>
+  <data name="BlogAddThisCustomLogoForeColorSetting" xml:space="preserve">
+    <value>لون خط مخصص لـ AddThis.com</value>
+  </data>
+  <data name="BlogAddThisCustomLogoUrlSetting" xml:space="preserve">
+    <value>رابط شعار مخصص لـ AddThis.com</value>
+  </data>
+  <data name="BlogAddThisCustomOptionsSetting" xml:space="preserve">
+    <value>خيارات مخصصة لـ AddThis.com</value>
+  </data>
+  <data name="BlogAddThisDotComUseMouseOverWidgetSetting" xml:space="preserve">
+    <value>استخدام قطعة تمرير الفأرة بـ AddTh</value>
+  </data>
+  <data name="BlogAddThisDotComUsernameSetting" xml:space="preserve">
+    <value>اسم مستخدم AddThis.com</value>
+  </data>
+  <data name="BlogAddThisRssButtonImageUrlSetting" xml:space="preserve">
+    <value>عنوان زر مرجع خلاصة ٌRSS لـ  AddThis.com</value>
+  </data>
+  <data name="BlogAddThisSubscribeAltText" xml:space="preserve">
+    <value>اشتراك</value>
+  </data>
+  <data name="BlogAllowComments" xml:space="preserve">
+    <value>تمكين التعليقات؟</value>
+  </data>
+  <data name="BlogArchivesLabel" xml:space="preserve">
+    <value>الأرشيف</value>
+  </data>
+  <data name="BlogArchivesPrefixLabel" xml:space="preserve">
+    <value>مشاركات من</value>
+  </data>
+  <data name="BlogAuthorEmailSetting" xml:space="preserve">
+    <value>بريد المؤلف</value>
+  </data>
+  <data name="BlogAuthorEmailSettingRegexWarning" xml:space="preserve">
+    <value>يجب إدخال عنوان بريد إلكتروني صالح.</value>
+  </data>
+  <data name="BlogAuthorSetting" xml:space="preserve">
+    <value>تجاوز المؤلف</value>
+  </data>
+  <data name="BlogBeginDateRequiredHelp" xml:space="preserve">
+    <value>يجب ادخال تاريخ بداية صالح</value>
+  </data>
+  <data name="BlogCategoriesLabel" xml:space="preserve">
+    <value>التصنيفات</value>
+  </data>
+  <data name="BlogCategoriesPrefixLabel" xml:space="preserve">
+    <value>مشاركات في التصنيف:</value>
+  </data>
+  <data name="BlogCommentCommentLabel" xml:space="preserve">
+    <value>تعليقات</value>
+  </data>
+  <data name="BlogCommentCountLabel" xml:space="preserve">
+    <value>تعليقات</value>
+  </data>
+  <data name="BlogCommentPostCommentButton" xml:space="preserve">
+    <value>ارسال</value>
+  </data>
+  <data name="BlogCommentRemeberMeLabel" xml:space="preserve">
+    <value>تذكرني؟</value>
+  </data>
+  <data name="BlogCommentsClosedMessage" xml:space="preserve">
+    <value>التعليقات مغلقة على هذه المشاركة.</value>
+  </data>
+  <data name="BlogCommentsNotAllowed" xml:space="preserve">
+    <value>غير مسموح</value>
+  </data>
+  <data name="BlogCommentSolveQuestionMessage" xml:space="preserve">
+    <value>حل هذا لإثبات أنك شخص حقيقي و ليس برناج سبام.</value>
+  </data>
+  <data name="BlogCommentsUnlimited" xml:space="preserve">
+    <value>غير محدود</value>
+  </data>
+  <data name="BlogCommentTitleLabel" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="BlogCommentUrlLabel" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="BlogCommentUserNameLabel" xml:space="preserve">
+    <value>الإسم</value>
+  </data>
+  <data name="BlogCopyrightSetting" xml:space="preserve">
+    <value>حقوق النسخ</value>
+  </data>
+  <data name="BlogDeleteCategoryWarning" xml:space="preserve">
+    <value>هل أنت متأكد بأنك ترغب بحذف هذه الفئة؟</value>
+  </data>
+  <data name="BlogDeleteCommentWarning" xml:space="preserve">
+    <value>هل أنت متأكد بأنك ترغب بحذف هذا التعليق؟</value>
+  </data>
+  <data name="BlogDeletePostWarning" xml:space="preserve">
+    <value>هل أنت متأكد بأنك ترغب بحذف هذا السجل من المدونة؟</value>
+  </data>
+  <data name="BlogDescriptionSetting" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+  <data name="BlogDisableFeedSetting" xml:space="preserve">
+    <value>تعطيل مرجع التغذية الصاردة؟</value>
+  </data>
+  <data name="BlogDraftInstructions" xml:space="preserve">
+    <value>حدد تاريخ بادية في المستقبل أو ازل الاختيار عن "منشور" لانشاء مسودة غير منشورة.</value>
+  </data>
+  <data name="BlogDraftsHeading" xml:space="preserve">
+    <value>مشاركات المدونة غير المنشورة</value>
+  </data>
+  <data name="BlogDraftsLink" xml:space="preserve">
+    <value>تحرير المسودة</value>
+  </data>
+  <data name="BlogEditAllowedCommentsForDaysPrefix" xml:space="preserve">
+    <value>تمكين التعليقات علي </value>
+  </data>
+  <data name="BlogEditCancelButton" xml:space="preserve">
+    <value>الغاء</value>
+  </data>
+  <data name="BlogEditCategoriesLabel" xml:space="preserve">
+    <value>تحريرالتصنيفات</value>
+  </data>
+  <data name="BlogEditCategoryLabel" xml:space="preserve">
+    <value>التصنيفات</value>
+  </data>
+  <data name="BlogEditCommentsDaysLabel" xml:space="preserve">
+    <value>الأيام</value>
+  </data>
+  <data name="BlogEditDeleteButton" xml:space="preserve">
+    <value>مسح هذا الموضوع</value>
+  </data>
+  <data name="BlogEditDescriptionLabel" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+  <data name="BlogEditEntryLabel" xml:space="preserve">
+    <value>دخول المدونة</value>
+  </data>
+  <data name="BlogEditEntryLink" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="BlogEditIncludeInFeedLabel" xml:space="preserve">
+    <value>ادراج في مرجع الخلا</value>
+  </data>
+  <data name="BlogEditItemUrlLabel" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="BlogEditLocationLabel" xml:space="preserve">
+    <value>أدخل موقع لعرضه في خريطة جوجل</value>
+  </data>
+  <data name="BlogEditorHeightSetting" xml:space="preserve">
+    <value>ارتفاع المحرر</value>
+  </data>
+  <data name="BlogEditSelectedCategoriesLabel" xml:space="preserve">
+    <value>التصنيفات المختارة</value>
+  </data>
+  <data name="BlogEditStartDateLabel" xml:space="preserve">
+    <value>تاريخ البداية</value>
+  </data>
+  <data name="BlogEditTitleLabel" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="BlogEditUpdateButton" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="BlogEntriesToShowSetting" xml:space="preserve">
+    <value>المدخلات للعرض/حجم الصفحة</value>
+  </data>
+  <data name="BlogEntriesToShowSettingRegexWarning" xml:space="preserve">
+    <value>يجب عليك إدخال عدد صحيح للمقالات. الإعداد الافتراضي هو 10</value>
+  </data>
+  <data name="BlogEntryCountLabel" xml:space="preserve">
+    <value>المدخلات</value>
+  </data>
+  <data name="BlogExcerptLengthSetting" xml:space="preserve">
+    <value>عرض الاقتباس</value>
+  </data>
+  <data name="BlogExcerptSuffixSetting" xml:space="preserve">
+    <value>لاحقة الإقتباس</value>
+  </data>
+  <data name="BlogFeatureName" xml:space="preserve">
+    <value>مدونة</value>
+  </data>
+  <data name="BlogFeedbackLabel" xml:space="preserve">
+    <value>ردود الفعل</value>
+  </data>
+  <data name="BlogFeedburnerFeedUrl" xml:space="preserve">
+    <value>عنوان مرجع خلاصة Feedburne</value>
+  </data>
+  <data name="BlogHideAddThisButtonSetting" xml:space="preserve">
+    <value>اخفاء زر AddThis؟</value>
+  </data>
+  <data name="BlogModuleAddToGoogleLink" xml:space="preserve">
+    <value>اضف الى جوجل</value>
+  </data>
+  <data name="BlogModuleAddToMyMSNLink" xml:space="preserve">
+    <value>أضف الى My MSN</value>
+  </data>
+  <data name="BlogModuleAddToMyYahooLink" xml:space="preserve">
+    <value>أضف الى ياهو</value>
+  </data>
+  <data name="BlogModuleAddToWindowsLiveLink" xml:space="preserve">
+    <value>أضف الى Windows Live</value>
+  </data>
+  <data name="BlogMoreLinkText" xml:space="preserve">
+    <value>نص رابط اقرأ المزيد</value>
+  </data>
+  <data name="BlogNavigationOnRightSetting" xml:space="preserve">
+    <value>الانتقال الى اليمين؟</value>
+  </data>
+  <data name="BlogNextPostLink" xml:space="preserve">
+    <value>المشاركة التالية &gt;&gt;</value>
+  </data>
+  <data name="BlogPreviousPostLink" xml:space="preserve">
+    <value>&lt;&lt; المشاركة السابقة</value>
+  </data>
+  <data name="BlogRSSCacheTimeSetting" xml:space="preserve">
+    <value>وقت كاش مرجع خلاصة RSS بالدقائق</value>
+  </data>
+  <data name="BlogRSSCacheTimeSettingRegexWarning" xml:space="preserve">
+    <value>يجب عليك ادخال عدد صحيح لوقت الكاش. الإعداد الإفتراضي هو 120</value>
+  </data>
+  <data name="BlogRSSLinkTitle" xml:space="preserve">
+    <value>مرجع خلاصة RSS</value>
+  </data>
+  <data name="BlogShowAddFeedLinksSetting" xml:space="preserve">
+    <value>عرض روابط اضافة مرجع خلاصة؟</value>
+  </data>
+  <data name="BlogShowArchiveSetting" xml:space="preserve">
+    <value>عرض الأرشيف؟</value>
+  </data>
+  <data name="BlogShowCalendarSetting" xml:space="preserve">
+    <value>عرض التقويم؟</value>
+  </data>
+  <data name="BlogShowCategoriesSetting" xml:space="preserve">
+    <value>عرض التصنيفات؟</value>
+  </data>
+  <data name="BlogShowFeedLinksSetting" xml:space="preserve">
+    <value>عرض روابط مرجع الخلاصة؟</value>
+  </data>
+  <data name="BlogShowStatisticsSetting" xml:space="preserve">
+    <value>عرض الإحصاءات؟</value>
+  </data>
+  <data name="BlogStatisticsLabel" xml:space="preserve">
+    <value>احصاءات</value>
+  </data>
+  <data name="BlogToBePublishedLabel" xml:space="preserve">
+    <value>ليتم نشره</value>
+  </data>
+  <data name="BlogUrlConflictWithPhysicalPageError" xml:space="preserve">
+    <value>الرجاء إدخال عنوان مختلف. عنوان الموقع المدخل يتعارض مع عنوان صفحة موجودة.</value>
+  </data>
+  <data name="BlogUseCommentSpamBlocker" xml:space="preserve">
+    <value>تمكين حظر التعليق المتطفل</value>
+  </data>
+  <data name="BlogUseExcerptSetting" xml:space="preserve">
+    <value>استخدام الإقتباس؟</value>
+  </data>
+  <data name="BlogUseLinkForHeading" xml:space="preserve">
+    <value>جعل العنوان كرابط</value>
+  </data>
+  <data name="AddThisButtonAltText" xml:space="preserve">
+    <value>شارك هذا باستخدام خدمات المراجع المشهورة</value>
+  </data>
+  <data name="BlogAddCategoriesLabel" xml:space="preserve">
+    <value>اضافة تصنيف</value>
+  </data>
+  <data name="BlogAddCategoryButton" xml:space="preserve">
+    <value>اضافة تصنيف</value>
+  </data>
+  <data name="BlogAddCategoryButtonAccessKey" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="BlogAddPostLabel" xml:space="preserve">
+    <value>أضف مشاركة</value>
+  </data>
+  <data name="BlogCommentPostCommentButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="BlogEditCancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="BlogEditDeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="BlogEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>يرجى الإنتظار...</value>
+  </data>
+  <data name="DeleteImageAltText" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="EditImageAltText" xml:space="preserve">
+    <value>تحرير هذه التدوينة</value>
+  </data>
+  <data name="PageUrlInUseBlogErrorMessage" xml:space="preserve">
+    <value>عنوان الصفحة قيد الغستخدام. لا يمكنك استخدام نفس العنوان لصفحات مختلفة.</value>
+  </data>
+  <data name="PodcastLink" xml:space="preserve">
+    <value>بودكاست</value>
+  </data>
+  <data name="WebSiteUrlRegexWarning" xml:space="preserve">
+    <value>يجب أن يكون عنوان موقع يبدأ بـ http:// أو https://</value>
+  </data>
+  <data name="ContentNotifyOnComment" xml:space="preserve">
+    <value>أخطرني عندما يضيف أحد تعليق</value>
+  </data>
+  <data name="EnableContentRatingSetting" xml:space="preserve">
+    <value>تمكين التصويت على المحتوى؟</value>
+  </data>
+  <data name="EnableRatingCommentsSetting" xml:space="preserve">
+    <value>تمكين التصويت على التعليقات؟</value>
+  </data>
+  <data name="GoogleMapEnableDirectionsSetting" xml:space="preserve">
+    <value>تمكين اتجاهات القيادة؟</value>
+  </data>
+  <data name="GoogleMapEnableLocalSearchSetting" xml:space="preserve">
+    <value>عرض البحث المحلي</value>
+  </data>
+  <data name="GoogleMapEnableMapTypeSetting" xml:space="preserve">
+    <value>عرض خيارات خريطة القمر الصناعي و الخريطة الهجينة</value>
+  </data>
+  <data name="GoogleMapEnableZoomSetting" xml:space="preserve">
+    <value>عرض أداة التكبير</value>
+  </data>
+  <data name="GoogleMapHeightSetting" xml:space="preserve">
+    <value>ارتفاع الخريطة</value>
+  </data>
+  <data name="GoogleMapInitialMapTypeSetting" xml:space="preserve">
+    <value>نوع الخريطة الأساسي</value>
+  </data>
+  <data name="GoogleMapInitialZoomSetting" xml:space="preserve">
+    <value>مستوى تكبير الخريطة</value>
+  </data>
+  <data name="GoogleMapShowInfoWindowSetting" xml:space="preserve">
+    <value>اظهار بالون معلومات الموقع</value>
+  </data>
+  <data name="GoogleMapWidthSetting" xml:space="preserve">
+    <value>عرض الخريطة</value>
+  </data>
+  <data name="OdiogoFeedIDSetting" xml:space="preserve">
+    <value>معرف اشتراك المرجع Odiogo</value>
+  </data>
+  <data name="OdiogoPodcastUrlSetting" xml:space="preserve">
+    <value>عنوان بودكاست Odiogo</value>
+  </data>
+  <data name="ShowPageLeftContentSetting" xml:space="preserve">
+    <value>عرض محتويات الصفحة على اليسار في المدونة؟</value>
+  </data>
+  <data name="ShowPageRightContentSetting" xml:space="preserve">
+    <value>عرض محتويات الصفحة على اليمين في المدونة؟</value>
+  </data>
+  <data name="ContentTab" xml:space="preserve">
+    <value>المحتوى</value>
+  </data>
+  <data name="ExcerptTab" xml:space="preserve">
+    <value>اقتباس</value>
+  </data>
+  <data name="MetaDescriptionLabel" xml:space="preserve">
+    <value>وصف Meta</value>
+  </data>
+  <data name="MetaKeywordsLabel" xml:space="preserve">
+    <value>الكلمات المفتاحي</value>
+  </data>
+  <data name="MetaTab" xml:space="preserve">
+    <value>بيانات Meta للصفحة</value>
+  </data>
+  <data name="UseExcerptInFeedSetting" xml:space="preserve">
+    <value>استخدام الاقتباس في مرجع الخلاصة؟</value>
+  </data>
+  <data name="ShowPostAuthorSetting" xml:space="preserve">
+    <value>عرض اسم مؤلف الموضوع؟</value>
+  </data>
+  <data name="PostAuthorFormat" xml:space="preserve">
+    <value>أرسلت بواصطة {0}</value>
+  </data>
+  <data name="AllowWebSiteUrlForComments" xml:space="preserve">
+    <value>اظهار عنوان الموقع الالكتروني في التعليقات؟</value>
+  </data>
+  <data name="TitleRequiredWarning" xml:space="preserve">
+    <value>العنوان مطلوب.</value>
+  </data>
+  <data name="RequireAuthenticationForComments" xml:space="preserve">
+    <value>يحتاج الى صلاحية للتعليق؟</value>
+  </data>
+  <data name="CommentsRequireAuthenticationMessage" xml:space="preserve">
+    <value>يجب عليك تسجيل الدخول لهذا الموقع لإضافة تعليقات.</value>
+  </data>
+  <data name="FriendlyUrlRegexWarning" xml:space="preserve">
+    <value>يجب أن يبدأ عنوان الصفحة بـ ~/ و يجب أن لا يحتوي على فراغات.</value>
+  </data>
+  <data name="BlogAddThisButtonImageUrlSetting" xml:space="preserve">
+    <value>رابط صورة زر لـ Addthis.com</value>
+  </data>
+  <data name="RSSAddCommentsLink" xml:space="preserve">
+    <value>اضافة رابط التعليقات لخلاصة RSS؟</value>
+  </data>
+  <data name="RSSAddSignature" xml:space="preserve">
+    <value>اضافة التوقيع لخلاصة</value>
+  </data>
+  <data name="GoogleMapIncludeWithExcerptSetting" xml:space="preserve">
+    <value>عرض اقتباس عرض الخريطة؟</value>
+  </data>
+  <data name="ArchiveDateGridHeader" xml:space="preserve">
+    <value>أرشفة</value>
+  </data>
+  <data name="BlogEnableVersioningSetting" xml:space="preserve">
+    <value>الحفاظ على تاريخ الإصدار؟</value>
+  </data>
+  <data name="BlogVersionPageSizeSetting" xml:space="preserve">
+    <value>حجم صفحة تاريخ الإصدار</value>
+  </data>
+  <data name="CompareHistoryToCurrentLink" xml:space="preserve">
+    <value>قارن بالحالي</value>
+  </data>
+  <data name="CreatedDateGridHeader" xml:space="preserve">
+    <value>أنشئ</value>
+  </data>
+  <data name="CurrentVersionHeadingFormat" xml:space="preserve">
+    <value>النسخة الحالية أنشأت {0}</value>
+  </data>
+  <data name="DeleteAllHistoryButton" xml:space="preserve">
+    <value>حذف التاريخ كاملا</value>
+  </data>
+  <data name="DeleteAllHistoryWarning" xml:space="preserve">
+    <value>هل أنت متأكد بأنك ترغب بحذف التاريح كاملا؟</value>
+  </data>
+  <data name="DeleteHistoryButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeleteHistoryItemWarning" xml:space="preserve">
+    <value>هل أنت متأكد بأنك ترغب بحذف عنصر التاريخ هذا؟</value>
+  </data>
+  <data name="DialogCloseLink" xml:space="preserve">
+    <value>اغلاق</value>
+  </data>
+  <data name="RestoreToEditorButton" xml:space="preserve">
+    <value>استعادة للمحرر</value>
+  </data>
+  <data name="VersionAsOfHeadingFormat" xml:space="preserve">
+    <value>نسخة من {0}</value>
+  </data>
+  <data name="BlogUseTagCloudForCategoriesSetting" xml:space="preserve">
+    <value>استخدام غيمة الوسم للتصنيفات؟</value>
+  </data>
+  <data name="BlogSearchName" xml:space="preserve">
+    <value>مدونات</value>
+  </data>
+  <data name="ArchiveMetaDescriptionFormat" xml:space="preserve">
+    <value>{0} أرشفة من {1}</value>
+  </data>
+  <data name="CategoryMetaDescriptionFormat" xml:space="preserve">
+    <value>المواضيع الموسومة تحت {1} من {0}</value>
+  </data>
+  <data name="EditPostPageTitle" xml:space="preserve">
+    <value>محرر المدونة</value>
+  </data>
+  <data name="BlogCommentForDaysDefault" xml:space="preserve">
+    <value>الأيام المسموحة للتعليق</value>
+  </data>
+  <data name="HideDetailsFromUnauthencticated" xml:space="preserve">
+    <value>اخفاء كامل المشاركة من المستخدمين غير المصرح لهم؟</value>
+  </data>
+  <data name="MustSignInToViewFullPost" xml:space="preserve">
+    <value>يجب عليك تسجيل الدخول لمشاهدة كامل المقالة.</value>
+  </data>
+  <data name="DisqusSiteShortName" xml:space="preserve">
+    <value>اسم موقع قصير Disqus</value>
+  </data>
+  <data name="CommentSystemSetting" xml:space="preserve">
+    <value>نظام التعليق</value>
+  </data>
+  <data name="IntenseDebateAccountId" xml:space="preserve">
+    <value>رقم حساب IntenseDebate</value>
+  </data>
+  <data name="MapGetDirectionsButton" xml:space="preserve">
+    <value>الحصول على الإتجهات من</value>
+  </data>
+  <data name="AddMetaButton" xml:space="preserve">
+    <value>اضافة عنصر تعريف</value>
+  </data>
+  <data name="AddMetaLinkButton" xml:space="preserve">
+    <value>اضافة رابط تعريف</value>
+  </data>
+  <data name="ContentMetaContentRequired" xml:space="preserve">
+    <value>المحتوى مطلوب.</value>
+  </data>
+  <data name="ContentMetaDeleteWarning" xml:space="preserve">
+    <value>هل أنت متأكد بأنك ترغب بحذف عنصر التعريف هذا؟</value>
+  </data>
+  <data name="ContentMetaDirLabel" xml:space="preserve">
+    <value>الدليل</value>
+  </data>
+  <data name="ContentMetaGridCancelButton" xml:space="preserve">
+    <value>الغاء</value>
+  </data>
+  <data name="ContentMetaGridDeleteButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="ContentMetaGridEditButton" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="ContentMetaGridMoveDownButton" xml:space="preserve">
+    <value>تحريك للأسفل</value>
+  </data>
+  <data name="ContentMetaGridMoveUpButton" xml:space="preserve">
+    <value>تحريك للأعلى</value>
+  </data>
+  <data name="ContentMetaGridUpdateButton" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="ContentMetaLangCodeLabel" xml:space="preserve">
+    <value>اللغة</value>
+  </data>
+  <data name="ContentMetaLinkDeleteWarning" xml:space="preserve">
+    <value>هل أنت متأكد بأنك ترغب بحذف رابط التعريف هذا؟</value>
+  </data>
+  <data name="ContentMetaLinkHrefRequired" xml:space="preserve">
+    <value>مطلوب الـ Href.</value>
+  </data>
+  <data name="ContentMetaLinkRelRequired" xml:space="preserve">
+    <value>مطلوب الـ Rel.</value>
+  </data>
+  <data name="ContentMetaMetaContentLabel" xml:space="preserve">
+    <value>المحتوى</value>
+  </data>
+  <data name="ContentMetaMetaHrefLabel" xml:space="preserve">
+    <value>الرابط</value>
+  </data>
+  <data name="ContentMetaNameLabel" xml:space="preserve">
+    <value>الإسم</value>
+  </data>
+  <data name="ContentMetaNameRequired" xml:space="preserve">
+    <value>الاسم مطلوب</value>
+  </data>
+  <data name="ContentMetaRelLabel" xml:space="preserve">
+    <value>Rel</value>
+  </data>
+  <data name="ContentMetaSchemeLabel" xml:space="preserve">
+    <value>المخطط</value>
+  </data>
+  <data name="ContentMetHrefLangLabel" xml:space="preserve">
+    <value>HrefLang</value>
+  </data>
+  <data name="MetaAdditionalLabel" xml:space="preserve">
+    <value>وسوم Meta اضافية</value>
+  </data>
+  <data name="VersionHistory" xml:space="preserve">
+    <value>تاريخ النسخة</value>
+  </data>
+  <data name="BlogDateTimeFormat" xml:space="preserve">
+    <value>تنسيق التاريخ/الوقت</value>
+  </data>
+  <data name="IsPublishedLabel" xml:space="preserve">
+    <value>منشور؟</value>
+  </data>
+  <data name="BlogShowTitleOnlySetting" xml:space="preserve">
+    <value>عرض العنوان فقط في القائمة؟</value>
+  </data>
+  <data name="SaveAndPreviewButton" xml:space="preserve">
+    <value>حفظ و عرض</value>
+  </data>
+  <data name="BlogShowPagerInListSetting" xml:space="preserve">
+    <value>عرض Pager في القائمة؟</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>فئة CSS مخصص</value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>نوع CSS مخصص غير صالح</value>
+  </data>
+  <data name="ParseDateFailureMessage" xml:space="preserve">
+    <value>لا يمكن تحليل تاريخ البداية.</value>
+  </data>
+  <data name="UseFacebookLikeButton" xml:space="preserve">
+    <value>عرض زر أعجبني للفيسبوك</value>
+  </data>
+  <data name="PostList" xml:space="preserve">
+    <value>قائمة المرسلات</value>
+  </data>
+  <data name="FacebookLikeButtonHeight" xml:space="preserve">
+    <value>ارتفاع زر أعجبني للفيسبوك</value>
+  </data>
+  <data name="FacebookLikeButtonShowFaces" xml:space="preserve">
+    <value>عرض وجوه زر أعجبني للفيسبوك</value>
+  </data>
+  <data name="FacebookLikeButtonTheme" xml:space="preserve">
+    <value>أشكال زر الإعجاب للفيسبوك</value>
+  </data>
+  <data name="FacebookLikeButtonWidth" xml:space="preserve">
+    <value>عرض زر الإعجاب للفيسبوك</value>
+  </data>
+  <data name="CommentSystemSettings" xml:space="preserve">
+    <value>نظام التعليق</value>
+  </data>
+  <data name="ExcerptModeSettings" xml:space="preserve">
+    <value>اعدادات وضع الإقتباس</value>
+  </data>
+  <data name="FeedSettings" xml:space="preserve">
+    <value>اعدادت مرجع الخلاصة</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>عام</value>
+  </data>
+  <data name="ListViewSettings" xml:space="preserve">
+    <value>اعدادت قائمة العرض</value>
+  </data>
+  <data name="MapSettings" xml:space="preserve">
+    <value>اعدادت الخريطة</value>
+  </data>
+  <data name="MiscellaneousSettings" xml:space="preserve">
+    <value>متنوع</value>
+  </data>
+  <data name="NavigationSettings" xml:space="preserve">
+    <value>اعدادات الملاحة</value>
+  </data>
+  <data name="SocialSettings" xml:space="preserve">
+    <value>الإعدادات الإجتماعية</value>
+  </data>
+  <data name="LowerSidebar" xml:space="preserve">
+    <value>محتويات الشريط الجانبي المنخفض</value>
+  </data>
+  <data name="ShowTweetThisLink" xml:space="preserve">
+    <value>عرض تويت لهذا الرابط؟</value>
+  </data>
+  <data name="SidebarSettings" xml:space="preserve">
+    <value>محتويات اضافية للشريط الجانبي</value>
+  </data>
+  <data name="UpperSidebar" xml:space="preserve">
+    <value>المحتويات العلوية للشريط الجانبي</value>
+  </data>
+  <data name="AddFacebookLikeToFeed" xml:space="preserve">
+    <value>اضافة زر أعجبني للفيسبوك لمرجع الخلاصة؟</value>
+  </data>
+  <data name="AddTweetThisToFeed" xml:space="preserve">
+    <value>أضف تويت لهذه الخلاصة؟</value>
+  </data>
+  <data name="UseBingMap" xml:space="preserve">
+    <value>استخدم خريطة Bing</value>
+  </data>
+  <data name="ShowNextPreviousLinks" xml:space="preserve">
+    <value>عرض رابط التالي/السابق في تفاصيل المدونة؟</value>
+  </data>
+  <data name="AddFeedDiscoveryLink" xml:space="preserve">
+    <value>أضف زر اكتشاف رابط مرجع الخلاصة في الرأس؟</value>
+  </data>
+  <data name="ShowPlusOneButton" xml:space="preserve">
+    <value>Show Plus One Button?</value>
+  </data>
+  <data name="MaxMetaweblogRecentItems" xml:space="preserve">
+    <value>Max Items To Show In Recent Posts for MetaWeblog API</value>
+  </data>
+</root>

@@ -1,0 +1,484 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllowAnonymousPostsLabel" xml:space="preserve">
+    <value>به کاربران ناشناس اجاره ارسال نظر داده شود؟
+</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>لطفا متنظر بمانید...</value>
+  </data>
+  <data name="CutePagerBackToFirstClause" xml:space="preserve">
+    <value>بازگشت به صفحه اول
+</value>
+  </data>
+  <data name="CutePagerBackToPageClause" xml:space="preserve">
+    <value>برگشت به صفحه</value>
+  </data>
+  <data name="CutePagerGoToLastClause" xml:space="preserve">
+    <value>رفتن به آخرین صفحه
+</value>
+  </data>
+  <data name="CutePagerNavigateToPageText" xml:space="preserve">
+    <value>برو به صفحه</value>
+  </data>
+  <data name="CutePagerNextToPageClause" xml:space="preserve">
+    <value>صفحه بعدی
+</value>
+  </data>
+  <data name="CutePagerOfClause" xml:space="preserve">
+    <value>از</value>
+  </data>
+  <data name="CutePagerPageClause" xml:space="preserve">
+    <value>صفحه</value>
+  </data>
+  <data name="EditImageAltText" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="ForumDeletePostWarning" xml:space="preserve">
+    <value>آیا از حذف این موضوع مطمئن هستید؟</value>
+  </data>
+  <data name="ForumDeleteThreadWarning" xml:space="preserve">
+    <value>آیا از حذف این بحث اطمینان داردید؟</value>
+  </data>
+  <data name="ForumEditCancelButton" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="ForumEditCancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ForumEditCreateButton" xml:space="preserve">
+    <value>بحث جدید</value>
+  </data>
+  <data name="ForumEditCreatedByLabel" xml:space="preserve">
+    <value>ایجاد شده توسط</value>
+  </data>
+  <data name="ForumEditCreatedDateLabel" xml:space="preserve">
+    <value>ایجاد</value>
+  </data>
+  <data name="ForumEditDeleteButton" xml:space="preserve">
+    <value>حذف این مورد</value>
+  </data>
+  <data name="ForumEditDeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="ForumEditDescriptionLabel" xml:space="preserve">
+    <value>شرح</value>
+  </data>
+  <data name="ForumEditForumLabel" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="ForumEditIsActiveLabel" xml:space="preserve">
+    <value>فعال است؟</value>
+  </data>
+  <data name="ForumEditIsModeratedLabel" xml:space="preserve">
+    <value>مدیریت می شود؟</value>
+  </data>
+  <data name="ForumEditLabel" xml:space="preserve">
+    <value>بحث جدید</value>
+  </data>
+  <data name="ForumEditNewForumButton" xml:space="preserve">
+    <value>بحث جدید</value>
+  </data>
+  <data name="ForumEditPostLink" xml:space="preserve">
+    <value>ویرایش ارسال</value>
+  </data>
+  <data name="ForumEditPostsPerPageLabel" xml:space="preserve">
+    <value>ارسال ها در صفحه:</value>
+  </data>
+  <data name="ForumEditSortOrderLabel" xml:space="preserve">
+    <value>مرتب سازی به ترتیب</value>
+  </data>
+  <data name="ForumEditSubjectRequiredHelp" xml:space="preserve">
+    <value>موضوع وارد نشده است</value>
+  </data>
+  <data name="ForumEditThreadsPerPageLabel" xml:space="preserve">
+    <value>تعداد عناوین در هر صفحه</value>
+  </data>
+  <data name="ForumEditTitleLabel" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="ForumEditUpdateButton" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="ForumEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ForumEnableAntiSpamSetting" xml:space="preserve">
+    <value>بلاک کردن هرزنامه فعال شود؟</value>
+  </data>
+  <data name="ForumEnableRSSAtForumLevel" xml:space="preserve">
+    <value>خروجی RSS در سطح فاروم فعال باشد؟</value>
+  </data>
+  <data name="ForumEnableRSSAtModuleLevel" xml:space="preserve">
+    <value>خروجی RSS در سطح بحث فعال باشد؟</value>
+  </data>
+  <data name="ForumEnableRSSAtThreadLevel" xml:space="preserve">
+    <value>خروجی RSS در سطح ماژول فعال باشد؟</value>
+  </data>
+  <data name="ForumLabel" xml:space="preserve">
+    <value>تالار بحث</value>
+  </data>
+  <data name="ForumModuleEditSubscriptionsLabel" xml:space="preserve">
+    <value>ویراش آگاه سازی ها</value>
+  </data>
+  <data name="ForumModuleForumLabel" xml:space="preserve">
+    <value>گفتگو</value>
+  </data>
+  <data name="ForumModulePostCountLabel" xml:space="preserve">
+    <value>ارسال ها</value>
+  </data>
+  <data name="ForumModulePostLastPostLabel" xml:space="preserve">
+    <value>آخرین ارسال</value>
+  </data>
+  <data name="ForumModuleSubscribedLabel" xml:space="preserve">
+    <value>اطلاع</value>
+  </data>
+  <data name="ForumModuleThreadCountLabel" xml:space="preserve">
+    <value>بحث ها</value>
+  </data>
+  <data name="ForumMyPostsLink" xml:space="preserve">
+    <value>ارسال های من</value>
+  </data>
+  <data name="ForumPostEditCancelButton" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="ForumPostEditDeleteButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="ForumPostEditMessageLabel" xml:space="preserve">
+    <value>پیغام</value>
+  </data>
+  <data name="ForumPostEditNotifyLabel" xml:space="preserve">
+    <value>جواب ها را از طریق ایمیل اطلاع بده</value>
+  </data>
+  <data name="ForumPostEditSubjectLabel" xml:space="preserve">
+    <value>موضوع</value>
+  </data>
+  <data name="ForumPostEditUpdateButton" xml:space="preserve">
+    <value>ارسال</value>
+  </data>
+  <data name="ForumPostEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ForumsFeatureName" xml:space="preserve">
+    <value>تالارهای بحث</value>
+  </data>
+  <data name="ForumsLoginRequiredLink" xml:space="preserve">
+    <value>برای ارسال مطلب در این فاروم،باید وارد سایت شوید.</value>
+  </data>
+  <data name="ForumsTableSummary" xml:space="preserve">
+    <value>این جدول حاوی لیستی از گفتگو هاست.</value>
+  </data>
+  <data name="ForumThreadCancelButton" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="ForumThreadDeleteButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="ForumThreadEditForumLabel" xml:space="preserve">
+    <value>تالار بحث</value>
+  </data>
+  <data name="ForumThreadEditLabel" xml:space="preserve">
+    <value>ویرایش بحث</value>
+  </data>
+  <data name="ForumThreadEditSortOrderLabel" xml:space="preserve">
+    <value>ترتیب مرتب سازی</value>
+  </data>
+  <data name="ForumThreadEditSubjectLabel" xml:space="preserve">
+    <value>موضوع</value>
+  </data>
+  <data name="ForumThreadUnsubscribeCompleted" xml:space="preserve">
+    <value>لغو اشتراک انجام شد! شما دیگر پیغامی بابت اطلاع از جواب هایی که برای بحث درخواست شده ارسال می گردد، دریافت نخواهید کرد.</value>
+  </data>
+  <data name="ForumThreadUnsubscribeFailed" xml:space="preserve">
+    <value>لغو اشتراک دچار مشکل شد. در حین تلاش برای توقف آگاه سازی از بحث خطایی پیش آمده است. لطفا با مدیر سایت تماس بگیرید.</value>
+  </data>
+  <data name="ForumThreadUpdateButton" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="ForumThreadViewAuthorLabel" xml:space="preserve">
+    <value>نویسنده</value>
+  </data>
+  <data name="ForumThreadViewPagesLabel" xml:space="preserve">
+    <value>صفحات</value>
+  </data>
+  <data name="ForumThreadViewReplyLabel" xml:space="preserve">
+    <value>پاسخ</value>
+  </data>
+  <data name="ForumUnsubscribeCompleted" xml:space="preserve">
+    <value>لغو اشتراک انجام شد! از این به بعد شما هیچ گونه آگاهی وابسته به موضوع های جدید تالار درخواست شده دریافت نخواهید کرد.</value>
+  </data>
+  <data name="ForumUnsubscribeFailed" xml:space="preserve">
+    <value>لغو اشتراک با مشکل روبرو شد! در هنگام غیر فعال کردن دریافت آگاهی های وابسته به موضوع های جدید تالار خطایی رخ داده است. لطفا مدیر سایت را باخبر کنید.</value>
+  </data>
+  <data name="ForumUserPostsLink" xml:space="preserve">
+    <value>مشاهده ارسال ها</value>
+  </data>
+  <data name="ForumUserThreadHeading" xml:space="preserve">
+    <value>{0} ارسال های.</value>
+  </data>
+  <data name="ForumViewNewThreadLabel" xml:space="preserve">
+    <value>موضوع جدید</value>
+  </data>
+  <data name="ForumViewPostLastPostLabel" xml:space="preserve">
+    <value>آخرین ارسالی</value>
+  </data>
+  <data name="ForumViewReplyCountLabel" xml:space="preserve">
+    <value>پاسخ ها</value>
+  </data>
+  <data name="ForumViewStartedByLabel" xml:space="preserve">
+    <value>شروع کننده</value>
+  </data>
+  <data name="ForumViewSubjectLabel" xml:space="preserve">
+    <value>موضوع</value>
+  </data>
+  <data name="ForumViewTableSummary" xml:space="preserve">
+    <value>این جدول شامل لیستی از موضوعات تالار گفتگو می‌باشد. </value>
+  </data>
+  <data name="ForumViewThreadCountLabel" xml:space="preserve">
+    <value>کل عناوین</value>
+  </data>
+  <data name="ForumViewViewCountLabel" xml:space="preserve">
+    <value>مشاهده</value>
+  </data>
+  <data name="IncludePostBodyInNotificationEmail" xml:space="preserve">
+    <value>متن موضوع در ایمیل آگاه سازی آورده شود؟</value>
+  </data>
+  <data name="NewTopicLabel" xml:space="preserve">
+    <value>موضوع جدید</value>
+  </data>
+  <data name="UserSalesLabel" xml:space="preserve">
+    <value>فروش</value>
+  </data>
+  <data name="AdminUnsubscribeUserComplete" xml:space="preserve">
+    <value>لغو اشتراک کاربر از آگاه سازی فاروم تکمیل شد.</value>
+  </data>
+  <data name="ForumsSearchName" xml:space="preserve">
+    <value>تالار گفتگو</value>
+  </data>
+  <data name="ForumThreadMetaDescriptionFormat" xml:space="preserve">
+    <value>Forum Thread - {0}</value>
+  </data>
+  <data name="ForumMetaDescriptionFormat" xml:space="preserve">
+    <value>A discussion forum for {0}</value>
+  </data>
+  <data name="UserThreadMetaFormat" xml:space="preserve">
+    <value>Site member {0} participated in these forum conversations.</value>
+  </data>
+  <data name="UserThreadTitleFormat" xml:space="preserve">
+    <value>موضوعات مطرح شده در  {0}</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>ایمیل</value>
+  </data>
+  <data name="LoginNameLabel" xml:space="preserve">
+    <value>نام کاربری ورود</value>
+  </data>
+  <data name="RSSFeedMaxDaysOldSetting" xml:space="preserve">
+    <value>فرستاده هایی که تا این تعداد روز قبل فرستاده شده اند در فید خروجی قرار داده شوند.</value>
+  </data>
+  <data name="RSSFeedMaxPostsSetting" xml:space="preserve">
+    <value>تعداد فرستاده هایی که از این موضوع، می تواند در فید خروجی قرار بگیرند.</value>
+  </data>
+  <data name="ShowSubscriberCount" xml:space="preserve">
+    <value>تعداد مشترک ها نمایش داده شود؟</value>
+  </data>
+  <data name="SubscribeLink" xml:space="preserve">
+    <value>اشتراک</value>
+  </data>
+  <data name="SubscriberCountFormat" xml:space="preserve">
+    <value>{0} مشترک</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>لغو اشتراک</value>
+  </data>
+  <data name="UnSubscribeLink" xml:space="preserve">
+    <value>لغو اشتراک</value>
+  </data>
+  <data name="UserNameLabel" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="ForumSubscriptions" xml:space="preserve">
+    <value>مشترکین فاروم</value>
+  </data>
+  <data name="SubscribeLongLink" xml:space="preserve">
+    <value>عضویت برای آگاه سازی از این فاروم</value>
+  </data>
+  <data name="SubscribeToAllOfThisForum" xml:space="preserve">
+    <value>اشتراک در همه پست های این تالار گفتگو</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>جستجو</value>
+  </data>
+  <data name="SearchTermRequiredWarning" xml:space="preserve">
+    <value>لطفا کلماتی برای جستجو وارد کنید.</value>
+  </data>
+  <data name="Locked" xml:space="preserve">
+    <value>قفل شده</value>
+  </data>
+  <data name="StickySort" xml:space="preserve">
+    <value>مرتب سازی اهمیتی</value>
+  </data>
+  <data name="GravatarLinkTitle" xml:space="preserve">
+    <value>نمایه خود را تعیین کنید.</value>
+  </data>
+  <data name="LinkGravatarToUserProfile" xml:space="preserve">
+    <value>نمایه کاربر به صفحه مشخصاتش پیوند داده شود؟</value>
+  </data>
+  <data name="UserProfileLinkTooltipFormat" xml:space="preserve">
+    <value>مشاهده پروفایل {0}</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>کلاس CSS دلخواه</value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>کلاس CSS دلخواه نامعتبر است</value>
+  </data>
+  <data name="ShowForumSearchBox" xml:space="preserve">
+    <value>جستجوی تالار گفتگو نمایش داده شود؟</value>
+  </data>
+  <data name="PostedByFormat" xml:space="preserve">
+    <value>ارسال شده توسط {0}</value>
+  </data>
+  <data name="PostedLinks" xml:space="preserve">
+    <value>پیوندهای موجود در نوشته:</value>
+  </data>
+  <data name="DeleteForumWarning" xml:space="preserve">
+    <value>ایا از حذف این فاروم اطمینان دارید؟</value>
+  </data>
+  <data name="ModuleFeedLinkTooltip" xml:space="preserve">
+    <value>مشترک خوراک این تالار شوید.</value>
+  </data>
+  <data name="LastPostBy" xml:space="preserve">
+    <value>نویسنده آخرین پست</value>
+  </data>
+  <data name="AllowEditingPostsLessThanMinutesOld" xml:space="preserve">
+    <value>کاربران اجازه دارند فرستاده خود را تا قبل از این تعداد دقیقه ویرایش نمایند.</value>
+  </data>
+  <data name="IncludeCurrentUserInNotifications" xml:space="preserve">
+    <value>پست کاربر در فهرست اطلاع رسانی قرار داده شود؟</value>
+  </data>
+  <data name="SuppressNotificationOfPostEdits" xml:space="preserve">
+    <value>آگاه سازی از تغییرات پست فعال نباشد؟</value>
+  </data>
+  <data name="ThreadPageTitleFormat" xml:space="preserve">
+    <value>صفحه {0} از {1}</value>
+  </data>
+</root>

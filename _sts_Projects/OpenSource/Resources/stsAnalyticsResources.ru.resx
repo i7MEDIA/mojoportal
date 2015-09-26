@@ -1,0 +1,1145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="gaadClicks" xml:space="preserve">
+    <value>Клики по рекламе</value>
+  </data>
+  <data name="gaadContent" xml:space="preserve">
+    <value>Содержание рекламы</value>
+  </data>
+  <data name="gaadCost" xml:space="preserve">
+    <value>Стоимость</value>
+  </data>
+  <data name="gaadGroup" xml:space="preserve">
+    <value>Рекламная группа</value>
+  </data>
+  <data name="AdminMenuLink" xml:space="preserve">
+    <value>Администрирование</value>
+  </data>
+  <data name="gaadSlot" xml:space="preserve">
+    <value>Рекламный слот</value>
+  </data>
+  <data name="gaadSlotPosition" xml:space="preserve">
+    <value>Позиция рекламного слота</value>
+  </data>
+  <data name="gaaffiliation" xml:space="preserve">
+    <value> Аффилиация</value>
+  </data>
+  <data name="Analytics" xml:space="preserve">
+    <value>Analytics</value>
+  </data>
+  <data name="AnalyticsAccountSettings" xml:space="preserve">
+    <value>Настройки аккаунта Analytics</value>
+  </data>
+  <data name="AnalyticsConfiguration" xml:space="preserve">
+    <value>Конфигуация Analytics</value>
+  </data>
+  <data name="AnalyticsEmailLabel" xml:space="preserve">
+    <value>Емейл/пользователь Google Analytics</value>
+  </data>
+  <data name="AnalyticsLockedMessage" xml:space="preserve">
+    <value>Настройки Analytics на данный момент указаны в Web.config, которые отменяют все настройки сделанные здесь, поэтому изменение настроек отключено.
+Чтобы включить настройки на этой странице удалите настройки GoogleAnalyticsEmail, GoogleAnalyticsPassword и GoogleAnalyticsProfileId в Web.config.</value>
+  </data>
+  <data name="AnalyticsMenuLink" xml:space="preserve">
+    <value>Отчеты по трафику на сайте</value>
+  </data>
+  <data name="AnalyticsPasswordLabel" xml:space="preserve">
+    <value>Пароль к Google Analytics</value>
+  </data>
+  <data name="BeginDate" xml:space="preserve">
+    <value>Дата начала</value>
+  </data>
+  <data name="gabounces" xml:space="preserve">
+    <value>Отказы</value>
+  </data>
+  <data name="gabrowser" xml:space="preserve">
+    <value>Браузер</value>
+  </data>
+  <data name="gabrowserVersion" xml:space="preserve">
+    <value>Версия браузера</value>
+  </data>
+  <data name="gacampaign" xml:space="preserve">
+    <value>Кампания</value>
+  </data>
+  <data name="ChooseProfile" xml:space="preserve">
+    <value>Выбор профиля</value>
+  </data>
+  <data name="gacity" xml:space="preserve">
+    <value>Город</value>
+  </data>
+  <data name="gaconnectionSpeed" xml:space="preserve">
+    <value>Скорость подсоединения</value>
+  </data>
+  <data name="ContainsMatchForRegularExpression" xml:space="preserve">
+    <value>Содержит часть удовлетворяющую регулярному выражению</value>
+  </data>
+  <data name="ContainsSubstring" xml:space="preserve">
+    <value>Содержит подстроку</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Содержание</value>
+  </data>
+  <data name="gacontinent" xml:space="preserve">
+    <value>Континент</value>
+  </data>
+  <data name="gacountry" xml:space="preserve">
+    <value>Страна</value>
+  </data>
+  <data name="gaCPC" xml:space="preserve">
+    <value>CPC</value>
+    <comment>No way. We don't have 3 char abbreviation for such. 
+Examples:
+Цена/клик
+Цена за клик
+If it is possible to put explanations in alt text then it is ok just to use first characters with dots after every abbreviated word</comment>
+  </data>
+  <data name="gaCPM" xml:space="preserve">
+    <value>CPM</value>
+    <comment>Цена/1000
+Цена за 1000</comment>
+  </data>
+  <data name="gaCTR" xml:space="preserve">
+    <value>CTR</value>
+    <comment>No short expression in russian. May be to provide a glossary on page? then all expressions can be abbreviated
+Отношение клик/визит</comment>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Приборная панель</value>
+  </data>
+  <data name="DashboardPageTitle" xml:space="preserve">
+    <value>Приборная панель Analytics</value>
+  </data>
+  <data name="gadate" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="gaday" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="gadaysSinceLastVisit" xml:space="preserve">
+    <value>Количество дней с последнего визита</value>
+  </data>
+  <data name="gadaysToTransaction" xml:space="preserve">
+    <value>Дней до транзакции</value>
+  </data>
+  <data name="Dimensions" xml:space="preserve">
+    <value>Размеры</value>
+  </data>
+  <data name="DoesNotContainSubstring" xml:space="preserve">
+    <value>Не содержит подстроку</value>
+  </data>
+  <data name="DoesNotEqual" xml:space="preserve">
+    <value>Не равняется</value>
+  </data>
+  <data name="DoesNotMatch" xml:space="preserve">
+    <value>Не совпадает</value>
+  </data>
+  <data name="DoesNotMatchRegularExpression" xml:space="preserve">
+    <value>Не удовлетворяет регулярному выражению</value>
+  </data>
+  <data name="Ecommerce" xml:space="preserve">
+    <value>Ecommerce</value>
+    <comment>no translation needed, it is the same in Russian
+"Электронная торговля" is too long but it is in Google Analytics russian version</comment>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>Требуется емайл/пользователь.</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Дата окончания</value>
+  </data>
+  <data name="gaentrances" xml:space="preserve">
+    <value>Заходы</value>
+  </data>
+  <data name="gaeventAction" xml:space="preserve">
+    <value>Действие события</value>
+  </data>
+  <data name="gaeventCategory" xml:space="preserve">
+    <value>Категория события</value>
+  </data>
+  <data name="gaeventLabel" xml:space="preserve">
+    <value>Этикетка события</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>События</value>
+  </data>
+  <data name="gaeventValue" xml:space="preserve">
+    <value>Значение события</value>
+  </data>
+  <data name="ExactMatch" xml:space="preserve">
+    <value>Точное совпадение</value>
+  </data>
+  <data name="gaexitPagePath" xml:space="preserve">
+    <value>Путь страницы выхода</value>
+  </data>
+  <data name="gaexits" xml:space="preserve">
+    <value>Выходы</value>
+  </data>
+  <data name="FinishButton" xml:space="preserve">
+    <value>Закончить</value>
+  </data>
+  <data name="gaflashVersion" xml:space="preserve">
+    <value>Версия Flash</value>
+  </data>
+  <data name="gagoal1Completions" xml:space="preserve">
+    <value>Завершения цели 1</value>
+  </data>
+  <data name="gagoal1Starts" xml:space="preserve">
+    <value>Цель 1 стартует</value>
+  </data>
+  <data name="gagoal1Value" xml:space="preserve">
+    <value>Значение цели 1</value>
+  </data>
+  <data name="gagoal2Completions" xml:space="preserve">
+    <value>Завершения цели 2</value>
+  </data>
+  <data name="gagoal2Starts" xml:space="preserve">
+    <value>Цель 2 стартует</value>
+  </data>
+  <data name="gagoal2Value" xml:space="preserve">
+    <value>Значение цели 2</value>
+  </data>
+  <data name="gagoal3Completions" xml:space="preserve">
+    <value>Завершения цели 3</value>
+  </data>
+  <data name="gagoal3Starts" xml:space="preserve">
+    <value>Goal3 Starts</value>
+  </data>
+  <data name="gagoal3Value" xml:space="preserve">
+    <value>Значение цели 3</value>
+  </data>
+  <data name="gagoal4Completions" xml:space="preserve">
+    <value>Завершения цели 4</value>
+  </data>
+  <data name="gagoal4Starts" xml:space="preserve">
+    <value>Цель 4 стартует</value>
+  </data>
+  <data name="gagoal4Value" xml:space="preserve">
+    <value>Значение цели 4</value>
+  </data>
+  <data name="gagoalCompletionsAll" xml:space="preserve">
+    <value>Все завершения целей</value>
+  </data>
+  <data name="Goals" xml:space="preserve">
+    <value>Цели</value>
+  </data>
+  <data name="gagoalStartsAll" xml:space="preserve">
+    <value>Все старты целей</value>
+  </data>
+  <data name="gagoalValueAll" xml:space="preserve">
+    <value>Все значения целей</value>
+  </data>
+  <data name="GreaterThan" xml:space="preserve">
+    <value>Больше чем</value>
+  </data>
+  <data name="GreaterThanOrEqualTo" xml:space="preserve">
+    <value>Больше или равно</value>
+  </data>
+  <data name="gahostname" xml:space="preserve">
+    <value>Хост</value>
+  </data>
+  <data name="gahour" xml:space="preserve">
+    <value>Час</value>
+  </data>
+  <data name="gaimpressions" xml:space="preserve">
+    <value>Впечатления</value>
+  </data>
+  <data name="InternalSearch" xml:space="preserve">
+    <value>Внутренний поиск</value>
+  </data>
+  <data name="gaitemQuantity" xml:space="preserve">
+    <value>Количество единиц</value>
+    <comment>Need context, but this is common</comment>
+  </data>
+  <data name="gaitemRevenue" xml:space="preserve">
+    <value>Доход с единицы</value>
+  </data>
+  <data name="gajavaEnabled" xml:space="preserve">
+    <value>Java включена</value>
+  </data>
+  <data name="gakeyword" xml:space="preserve">
+    <value>Ключевое слово</value>
+  </data>
+  <data name="galandingPagePath" xml:space="preserve">
+    <value>Путь целевой страницы</value>
+  </data>
+  <data name="galanguage" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="galatitude" xml:space="preserve">
+    <value>Широта</value>
+  </data>
+  <data name="LessThan" xml:space="preserve">
+    <value>Менее чем</value>
+  </data>
+  <data name="LessThanOrEqualTo" xml:space="preserve">
+    <value>Меньше или равно</value>
+  </data>
+  <data name="galongitude" xml:space="preserve">
+    <value>Долгота</value>
+  </data>
+  <data name="gamedium" xml:space="preserve">
+    <value>Средний</value>
+  </data>
+  <data name="Metrics" xml:space="preserve">
+    <value>Метрики</value>
+  </data>
+  <data name="gamonth" xml:space="preserve">
+    <value>Месяц</value>
+  </data>
+  <data name="ganetworkDomain" xml:space="preserve">
+    <value>Сетевой домен</value>
+  </data>
+  <data name="ganetworkLocation" xml:space="preserve">
+    <value>Местонахождение в сети</value>
+  </data>
+  <data name="ganewVisits" xml:space="preserve">
+    <value>Новые посещения</value>
+  </data>
+  <data name="NextButton" xml:space="preserve">
+    <value>Далее&gt;&gt;</value>
+  </data>
+  <data name="ganextPagePath" xml:space="preserve">
+    <value>Путь следующей страницы</value>
+  </data>
+  <data name="NoResultsMessage" xml:space="preserve">
+    <value>Профили не найдены - вы уверены, что ввели правильный логин и пароль?</value>
+  </data>
+  <data name="gaoperatingSystem" xml:space="preserve">
+    <value>Операционная система</value>
+  </data>
+  <data name="gaoperatingSystemVersion" xml:space="preserve">
+    <value>Версия операционной системы</value>
+  </data>
+  <data name="gapageDepth" xml:space="preserve">
+    <value>Глубина страницы</value>
+    <comment>Is it here "page level"? then should be Уровень страницы</comment>
+  </data>
+  <data name="gapagePath" xml:space="preserve">
+    <value>Путь страницы</value>
+  </data>
+  <data name="gapageTitle" xml:space="preserve">
+    <value>Название страницы</value>
+  </data>
+  <data name="gapageviews" xml:space="preserve">
+    <value>Просмотры страниц</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Требуется пароль.</value>
+  </data>
+  <data name="gapreviousPagePath" xml:space="preserve">
+    <value>Путь предыдущей страницы</value>
+  </data>
+  <data name="gaproductCategory" xml:space="preserve">
+    <value>Категория продукта</value>
+  </data>
+  <data name="gaproductName" xml:space="preserve">
+    <value>Наименование продукта</value>
+  </data>
+  <data name="gaproductSku" xml:space="preserve">
+    <value>Идентификатор продукта</value>
+  </data>
+  <data name="ProfileIdLabel" xml:space="preserve">
+    <value>Ид профиля</value>
+  </data>
+  <data name="QueryTool" xml:space="preserve">
+    <value>Инструмент запросов</value>
+  </data>
+  <data name="gareferralPath" xml:space="preserve">
+    <value>Путь реферала</value>
+  </data>
+  <data name="garegion" xml:space="preserve">
+    <value>Регион</value>
+  </data>
+  <data name="gascreenColors" xml:space="preserve">
+    <value>Цвета экрана</value>
+  </data>
+  <data name="gascreenResolution" xml:space="preserve">
+    <value>Разрешение экрана</value>
+  </data>
+  <data name="gasearchCategory" xml:space="preserve">
+    <value>Категория поиска</value>
+  </data>
+  <data name="gasearchDepth" xml:space="preserve">
+    <value>Глубина поиска</value>
+  </data>
+  <data name="gasearchDestinationPage" xml:space="preserve">
+    <value>Страница назначения поиска</value>
+  </data>
+  <data name="gasearchDuration" xml:space="preserve">
+    <value>Пролжительность поиска</value>
+  </data>
+  <data name="gasearchExits" xml:space="preserve">
+    <value>Выходы из поиска</value>
+  </data>
+  <data name="gasearchKeyword" xml:space="preserve">
+    <value>Ключевое слово поиска</value>
+  </data>
+  <data name="gasearchKeywordRefinement" xml:space="preserve">
+    <value>Уточнение ключевых слов поиска</value>
+  </data>
+  <data name="gasearchRefinements" xml:space="preserve">
+    <value>Уточнение поиска</value>
+  </data>
+  <data name="gasearchStartPage" xml:space="preserve">
+    <value>Стартовая страница поиска</value>
+  </data>
+  <data name="gasearchUniques" xml:space="preserve">
+    <value>Поиск уникальных</value>
+  </data>
+  <data name="gasearchUsed" xml:space="preserve">
+    <value>Поиск использовался</value>
+  </data>
+  <data name="gasearchVisits" xml:space="preserve">
+    <value>Искать посещения</value>
+  </data>
+  <data name="gasecondPagePath" xml:space="preserve">
+    <value>Путь второй страницы</value>
+    <comment>PLease verify with context. Can be different</comment>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Сорт.</value>
+    <comment>It is like this in Russian. Big</comment>
+  </data>
+  <data name="gasource" xml:space="preserve">
+    <value>Источник</value>
+  </data>
+  <data name="gasubContinent" xml:space="preserve">
+    <value>Субконтинент</value>
+  </data>
+  <data name="gatimeOnPage" xml:space="preserve">
+    <value>Длительность пребывания на странице</value>
+  </data>
+  <data name="gatimeOnSite" xml:space="preserve">
+    <value>Длительность пребывания на сайте</value>
+  </data>
+  <data name="TodaysTraffic" xml:space="preserve">
+    <value>Траффик на сегодня</value>
+  </data>
+  <data name="gatotalEvents" xml:space="preserve">
+    <value>Всего событий</value>
+  </data>
+  <data name="gatransactionId" xml:space="preserve">
+    <value>Id транзакции</value>
+  </data>
+  <data name="gatransactionRevenue" xml:space="preserve">
+    <value>Доход от транзакции</value>
+  </data>
+  <data name="gatransactions" xml:space="preserve">
+    <value>Транзакции</value>
+  </data>
+  <data name="gatransactionShipping" xml:space="preserve">
+    <value>Доставка по транзакции</value>
+  </data>
+  <data name="gatransactionTax" xml:space="preserve">
+    <value>Налогообложение сделок</value>
+    <comment>Trasnsaction Tax
+error in word transaction in english</comment>
+  </data>
+  <data name="gauniqueEvents" xml:space="preserve">
+    <value>Уникальные события</value>
+  </data>
+  <data name="gauniquePageviews" xml:space="preserve">
+    <value>Уникальные просмотры страниц</value>
+  </data>
+  <data name="gauniquePurchases" xml:space="preserve">
+    <value>Уникальные закупки</value>
+  </data>
+  <data name="gauserDefinedValue" xml:space="preserve">
+    <value>Значение определённое пользователем</value>
+  </data>
+  <data name="gavisitCount" xml:space="preserve">
+    <value>Количество визитов</value>
+  </data>
+  <data name="gavisitLength" xml:space="preserve">
+    <value>Продолжительность визита</value>
+  </data>
+  <data name="Visitor" xml:space="preserve">
+    <value>Посетитель</value>
+  </data>
+  <data name="gavisitors" xml:space="preserve">
+    <value>Посетители</value>
+  </data>
+  <data name="gavisitorType" xml:space="preserve">
+    <value>Тип посетителя</value>
+  </data>
+  <data name="gavisits" xml:space="preserve">
+    <value>Визиты</value>
+  </data>
+  <data name="gavisitsToTransaction" xml:space="preserve">
+    <value>Посещения до транзакции</value>
+  </data>
+  <data name="gaweek" xml:space="preserve">
+    <value>Неделя</value>
+  </data>
+  <data name="gayear" xml:space="preserve">
+    <value>Год</value>
+  </data>
+  <data name="AllowedViewRoles" xml:space="preserve">
+    <value>Роли которым разрешено просматривать отчеты Analytics</value>
+  </data>
+  <data name="gacountOfVisits" xml:space="preserve">
+    <value>Количество заходов</value>
+  </data>
+  <data name="DimensionBuilderLink" xml:space="preserve">
+    <value>Построитель размеров</value>
+  </data>
+  <data name="FilterBuilderLink" xml:space="preserve">
+    <value>Построитель фильтров</value>
+  </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Фильтры</value>
+  </data>
+  <data name="MetricBuilderLink" xml:space="preserve">
+    <value>Построитель метрик</value>
+  </data>
+  <data name="RunQueryButton" xml:space="preserve">
+    <value>Выполнить запрос</value>
+  </data>
+  <data name="SortBuilderLink" xml:space="preserve">
+    <value>Построитель сортировки</value>
+  </data>
+  <data name="Campaign" xml:space="preserve">
+    <value>Кампания</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="DoneButton" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>Сгруппировать по</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Месяц</value>
+  </data>
+  <data name="NoResultsWarning" xml:space="preserve">
+    <value>Результаты не были возвращены для этого запроса, что, вероятно, вызвано неверной комбинацией метрик и измерений.</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Неделя</value>
+  </data>
+  <data name="MediumDirect" xml:space="preserve">
+    <value>Прямо</value>
+    <comment>Context?</comment>
+  </data>
+  <data name="MediumPaid" xml:space="preserve">
+    <value>Оплачено</value>
+  </data>
+  <data name="MediumReferral" xml:space="preserve">
+    <value>Реферал</value>
+  </data>
+  <data name="MediumSearch" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="AllTimeNewVisits" xml:space="preserve">
+    <value>Новые посещения</value>
+  </data>
+  <data name="AllTimePageViews" xml:space="preserve">
+    <value>Просмотры страниц</value>
+  </data>
+  <data name="AllTimeVisits" xml:space="preserve">
+    <value>Визиты</value>
+  </data>
+  <data name="InSiteTitle" xml:space="preserve">
+    <value>Внутренняя аналитика сайта</value>
+  </data>
+  <data name="InSiteTitleFormat" xml:space="preserve">
+    <value>Анализов по сайту - {0}</value>
+  </data>
+  <data name="Last60DaysNewVisits" xml:space="preserve">
+    <value>Новые посещения - последние 60 дней</value>
+  </data>
+  <data name="Last60DaysPageViews" xml:space="preserve">
+    <value>Просмотры страниц - последние 60 дней</value>
+  </data>
+  <data name="Last60DaysVisits" xml:space="preserve">
+    <value>Посещения - последние 60 дней</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="AllTimeBounces" xml:space="preserve">
+    <value>Отказы</value>
+  </data>
+  <data name="AverageTimeOnSite" xml:space="preserve">
+    <value>Среднее время на сайте</value>
+  </data>
+  <data name="BounceRate" xml:space="preserve">
+    <value>Показатель отказов</value>
+  </data>
+  <data name="Bounces" xml:space="preserve">
+    <value>Отказы</value>
+  </data>
+  <data name="BouncesByDateFormat" xml:space="preserve">
+    <value>Отказы - {0} - {1}</value>
+  </data>
+  <data name="BouncesFormat" xml:space="preserve">
+    <value>{0} отказов</value>
+  </data>
+  <data name="FortyFiveDays" xml:space="preserve">
+    <value>45 дней</value>
+  </data>
+  <data name="Last30DaysBounces" xml:space="preserve">
+    <value>Отказы - последние 30 дней</value>
+  </data>
+  <data name="Last30DaysNewVisits" xml:space="preserve">
+    <value>Новые посещения - последние 30 дней</value>
+  </data>
+  <data name="Last30DaysPageViews" xml:space="preserve">
+    <value>Просмотры страниц - последние 30 дней</value>
+  </data>
+  <data name="Last30DaysVisits" xml:space="preserve">
+    <value>Посещения - последние 30 дней</value>
+  </data>
+  <data name="Last45DaysBounces" xml:space="preserve">
+    <value>Отказы - последние 45 дней</value>
+  </data>
+  <data name="Last45DaysNewVisits" xml:space="preserve">
+    <value>Новые посещения - последние 45 дней</value>
+  </data>
+  <data name="Last45DaysPageViews" xml:space="preserve">
+    <value>Просмотры страниц - последние 45 дней</value>
+  </data>
+  <data name="Last45DaysVisits" xml:space="preserve">
+    <value>Посещения - последние 45 дней</value>
+  </data>
+  <data name="Last60DaysBounces" xml:space="preserve">
+    <value>Отказы - последние 60 дней</value>
+  </data>
+  <data name="Last90DaysBounces" xml:space="preserve">
+    <value>Отказы - последние 90 дней</value>
+  </data>
+  <data name="Last90DaysNewVisits" xml:space="preserve">
+    <value>Новые посещения - последние 90 дней</value>
+  </data>
+  <data name="Last90DaysPageViews" xml:space="preserve">
+    <value>Просмотры страниц - последние 90 дней</value>
+  </data>
+  <data name="Last90DaysVisits" xml:space="preserve">
+    <value>Посещения - последние 90 дней</value>
+  </data>
+  <data name="MediumFeeds" xml:space="preserve">
+    <value>Передачи</value>
+  </data>
+  <data name="NewVisits" xml:space="preserve">
+    <value>Новые посещения</value>
+  </data>
+  <data name="NewVisitsByDateFormat" xml:space="preserve">
+    <value>New Visits - {0} - {1}</value>
+  </data>
+  <data name="NewVisitsFormat" xml:space="preserve">
+    <value>{0} Новые посещения</value>
+  </data>
+  <data name="NinetyDays" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="PagesPerVisit" xml:space="preserve">
+    <value>Страниц/посещение</value>
+  </data>
+  <data name="PageViews" xml:space="preserve">
+    <value>Просмотры страниц</value>
+  </data>
+  <data name="PageViewsByDateFormat" xml:space="preserve">
+    <value>Просмотров страниц - {0} - {1}</value>
+  </data>
+  <data name="PageViewsFormat" xml:space="preserve">
+    <value>{0} Просмотров страниц</value>
+  </data>
+  <data name="SixtyDays" xml:space="preserve">
+    <value>60 дней</value>
+  </data>
+  <data name="ThirtyDays" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="Visits" xml:space="preserve">
+    <value>Визиты</value>
+  </data>
+  <data name="VisitsByDateFormat" xml:space="preserve">
+    <value>Посещений - {0} - {1}</value>
+  </data>
+  <data name="VisitsFormat" xml:space="preserve">
+    <value>{0} Посещений</value>
+  </data>
+  <data name="BasicStatsHeading" xml:space="preserve">
+    <value>Пользование сайтом</value>
+  </data>
+  <data name="ChartHeight" xml:space="preserve">
+    <value>Высота диаграммы</value>
+  </data>
+  <data name="ChartWidth" xml:space="preserve">
+    <value>Ширина диаграммы</value>
+  </data>
+  <data name="CountryLabel" xml:space="preserve">
+    <value>Страна</value>
+  </data>
+  <data name="OverrideChartTitle" xml:space="preserve">
+    <value>Переписать заголовок диаграммы</value>
+  </data>
+  <data name="PagesPerVisitLabel" xml:space="preserve">
+    <value>Страниц за посещение</value>
+  </data>
+  <data name="SeeAll" xml:space="preserve">
+    <value>Смотреть все</value>
+    <comment>Просмотреть все - too long</comment>
+  </data>
+  <data name="TopCountries" xml:space="preserve">
+    <value>Топ-страны</value>
+  </data>
+  <data name="TrafficChartFeatureName" xml:space="preserve">
+    <value>Диаграмма Analytics по внутреннему траффику на сайте</value>
+  </data>
+  <data name="VisitorDashboard" xml:space="preserve">
+    <value>Анализ по посетителю</value>
+  </data>
+  <data name="VisitorMap" xml:space="preserve">
+    <value>Карта посетителей</value>
+  </data>
+  <data name="MaxRows" xml:space="preserve">
+    <value>Мах. количество строк в запросе</value>
+  </data>
+  <data name="QueryEditor" xml:space="preserve">
+    <value>Редактор запросов</value>
+  </data>
+  <data name="QueryTitle" xml:space="preserve">
+    <value>Заголовок</value>
+  </data>
+  <data name="Segment" xml:space="preserve">
+    <value>Сегмент</value>
+  </data>
+  <data name="StartIndex" xml:space="preserve">
+    <value>Стартовый индекс</value>
+  </data>
+  <data name="ApiQueryList" xml:space="preserve">
+    <value>Запросы API</value>
+  </data>
+  <data name="BeginDateOffset" xml:space="preserve">
+    <value>Диапазон дат начала</value>
+  </data>
+  <data name="DateMode" xml:space="preserve">
+    <value>Режим даты</value>
+  </data>
+  <data name="DateModeOffsetFromNow" xml:space="preserve">
+    <value>Диапазон дат с текущего момента</value>
+  </data>
+  <data name="DateModeSpecific" xml:space="preserve">
+    <value>Используйте определенную дату</value>
+  </data>
+  <data name="EndDateOffset" xml:space="preserve">
+    <value>Диапазон дат окончания</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="NewQuery" xml:space="preserve">
+    <value>Новый запрос</value>
+  </data>
+  <data name="RunQuery" xml:space="preserve">
+    <value>Выполнить запрос</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Новый</value>
+  </data>
+  <data name="Query" xml:space="preserve">
+    <value>Запрос</value>
+  </data>
+  <data name="QueryResultTitleFormat" xml:space="preserve">
+    <value>{0} {1} - {2}</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>OK</value>
+    <comment>actually should be Сохранить==save,
+but too long</comment>
+  </data>
+  <data name="SiteGuid" xml:space="preserve">
+    <value>Уник. ид. сайта</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Не определено</value>
+  </data>
+  <data name="ReferringSiteLabel" xml:space="preserve">
+    <value>Ссылающийся сайт</value>
+  </data>
+  <data name="TopReferringSites" xml:space="preserve">
+    <value>Топ ссылающихся сайтов</value>
+  </data>
+  <data name="ContentAnalysis" xml:space="preserve">
+    <value>Анализ содержания</value>
+  </data>
+  <data name="Entrances" xml:space="preserve">
+    <value>Заходы</value>
+    <comment>Context?</comment>
+  </data>
+  <data name="PagePath" xml:space="preserve">
+    <value>Путь страницы</value>
+  </data>
+  <data name="SearchTerm" xml:space="preserve">
+    <value>Критерий поиска</value>
+  </data>
+  <data name="TopContent" xml:space="preserve">
+    <value>Топ-содержание</value>
+  </data>
+  <data name="TopExternalSearches" xml:space="preserve">
+    <value>Топ поисков на общих поисковиках</value>
+  </data>
+  <data name="Exits" xml:space="preserve">
+    <value>Выходы</value>
+  </data>
+  <data name="Refinements" xml:space="preserve">
+    <value>Уточнения</value>
+  </data>
+  <data name="SearchDepth" xml:space="preserve">
+    <value>Глубина поиска</value>
+  </data>
+  <data name="TopSiteSearchTerms" xml:space="preserve">
+    <value>Топ-критерии поиска по сайту</value>
+  </data>
+  <data name="UniqueSearches" xml:space="preserve">
+    <value>Поиски</value>
+  </data>
+  <data name="CountryAnalysis" xml:space="preserve">
+    <value>Анализ по стране</value>
+  </data>
+  <data name="PageReport" xml:space="preserve">
+    <value>Отчет по странице</value>
+  </data>
+  <data name="ReferringSites" xml:space="preserve">
+    <value>Ссылающиеся сайты</value>
+  </data>
+  <data name="SearchAnalysis" xml:space="preserve">
+    <value>Анализ поиска</value>
+  </data>
+  <data name="SiteSearchAnalysis" xml:space="preserve">
+    <value>Анализ поиска по сайту</value>
+  </data>
+  <data name="AllowedQueryEditRoles" xml:space="preserve">
+    <value>Роли которым разрешено редактирование запросов API</value>
+  </data>
+  <data name="DataManager" xml:space="preserve">
+    <value>Менеджер данных</value>
+  </data>
+  <data name="DataSourceApi" xml:space="preserve">
+    <value>Данные API</value>
+  </data>
+  <data name="DataSourceDatabase" xml:space="preserve">
+    <value>Данные базы данных</value>
+  </data>
+  <data name="AllowResizingMap" xml:space="preserve">
+    <value>Разрешить изменение размеров карты?</value>
+  </data>
+  <data name="MapHeight" xml:space="preserve">
+    <value>Высота карты</value>
+  </data>
+  <data name="MapWidth" xml:space="preserve">
+    <value>Ширина карты</value>
+  </data>
+  <data name="QueryToolIntro" xml:space="preserve">
+    <value>Это продвинутый инструмент, который требует некоторого понимания Google Analytics Data API.</value>
+  </data>
+  <data name="VisitorMapFeatureName" xml:space="preserve">
+    <value>Analytics-Карта посетителей сайта</value>
+  </data>
+  <data name="Caption" xml:space="preserve">
+    <value>Заголовок</value>
+  </data>
+  <data name="CityStateCountryFormat" xml:space="preserve">
+    <value>{0}, {1} {2}</value>
+  </data>
+  <data name="CountryCityFormat" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="DataSource" xml:space="preserve">
+    <value>Источник данных</value>
+  </data>
+  <data name="DateOffset" xml:space="preserve">
+    <value>Диапазон дат</value>
+  </data>
+  <data name="LastOneYearBounces" xml:space="preserve">
+    <value>Отказы - последний год</value>
+  </data>
+  <data name="LastOneYearNewVisits" xml:space="preserve">
+    <value>Новые посещения - последний год</value>
+  </data>
+  <data name="LastOneYearPageViews" xml:space="preserve">
+    <value>Просмотры страниц - последний год</value>
+  </data>
+  <data name="LastOneYearVisits" xml:space="preserve">
+    <value>Посещения - последний год</value>
+  </data>
+  <data name="LastSixMonthsBounces" xml:space="preserve">
+    <value>Отказы - последние 6 месяцев</value>
+  </data>
+  <data name="LastSixMonthsNewVisits" xml:space="preserve">
+    <value>Новые посещения - последние 6 месяцев</value>
+  </data>
+  <data name="LastSixMonthsPageViews" xml:space="preserve">
+    <value>Просмотры страниц - последние 6 месяцев</value>
+  </data>
+  <data name="LastSixMonthsVisits" xml:space="preserve">
+    <value>Посещения - последние 6 месяцев</value>
+  </data>
+  <data name="LastTwoYearsBounces" xml:space="preserve">
+    <value>Отказы - последние 2 года</value>
+  </data>
+  <data name="LastTwoYearsNewVisits" xml:space="preserve">
+    <value>Новые посещения - последние 2 года</value>
+  </data>
+  <data name="LastTwoYearsPageViews" xml:space="preserve">
+    <value>Просмотры страниц - Последние 2 года</value>
+  </data>
+  <data name="LastTwoYearsVisits" xml:space="preserve">
+    <value>Посещения - последние 6 лет</value>
+  </data>
+  <data name="OneYear" xml:space="preserve">
+    <value>1 год</value>
+  </data>
+  <data name="SixMonths" xml:space="preserve">
+    <value>6 месяцев</value>
+  </data>
+  <data name="TwoYears" xml:space="preserve">
+    <value>2 года</value>
+  </data>
+  <data name="ShowCurrentMonth" xml:space="preserve">
+    <value>Показать текущий месяц?</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
+  <data name="DataSyncButton" xml:space="preserve">
+    <value>Синхронизировать данные от API с базой данных</value>
+  </data>
+  <data name="SyncBrowserDataFinished" xml:space="preserve">
+    <value>Обработка данных броузера/ОС завершена</value>
+  </data>
+  <data name="SyncBrowserDataProcessingFormat" xml:space="preserve">
+    <value>Итерация {0} - Обработка данных броузера/ОС {1} строк возвращено</value>
+  </data>
+  <data name="SyncBrowserDataSkippedRowsFormat" xml:space="preserve">
+    <value>Итерация {0} - Обработка данных броузера/ОС {1} существующих строк пропущено</value>
+  </data>
+  <data name="SyncBrowserNoData" xml:space="preserve">
+    <value>Нет результата для броузера/ОС</value>
+  </data>
+  <data name="SyncExternalSearchFinished" xml:space="preserve">
+    <value>Обработка данных поиска поисковика завершена</value>
+  </data>
+  <data name="SyncExternalSearchNoData" xml:space="preserve">
+    <value>Не возващено результата для поиска с помощью поисковика</value>
+  </data>
+  <data name="SyncExternalSearchProcessingFormat" xml:space="preserve">
+    <value>Итерация {0} - Обрабатываются данные поиска поисковика {1} строк возвращено</value>
+  </data>
+  <data name="SyncExternalSearchSkippedRowsFormat" xml:space="preserve">
+    <value>Итерация {0} - Обработка данных поиска поисковика {1} существующих строк пропущено</value>
+  </data>
+  <data name="SyncFinishedSegments" xml:space="preserve">
+    <value>Обработка сегментов завершена.</value>
+  </data>
+  <data name="SyncGeoDataFinished" xml:space="preserve">
+    <value>Обработка географических данных завершена</value>
+  </data>
+  <data name="SyncGeoDataNoData" xml:space="preserve">
+    <value>Нет результата по географическим данным</value>
+  </data>
+  <data name="SyncGeoDataProcessingFormat" xml:space="preserve">
+    <value>Итерация {0} - Обрабатываются географические данные {1} строк возвращено</value>
+  </data>
+  <data name="SyncGeoDataSkippedRowsFormat" xml:space="preserve">
+    <value>Итерация {0} - Обработка географических данных {1} существующих строк пропущено</value>
+  </data>
+  <data name="SyncGoalDataFinished" xml:space="preserve">
+    <value>Обработка целевых данных завершена</value>
+  </data>
+  <data name="SyncGoalDataProcessing" xml:space="preserve">
+    <value>Обработка целевых данных</value>
+  </data>
+  <data name="SyncGoalDataStarted" xml:space="preserve">
+    <value>Начата обработка целевых данных</value>
+  </data>
+  <data name="SyncMediumFinished" xml:space="preserve">
+    <value>Обработка данных источника/канала завершена</value>
+  </data>
+  <data name="SyncMediumProcessingFormat" xml:space="preserve">
+    <value>Итерация {0} - Обработка данных источника/канала {1} строк возвращено</value>
+  </data>
+  <data name="SyncMediumSkippedRowsFormat" xml:space="preserve">
+    <value>Итерация {0} - Обработка данных источника/канала {1} существующих строк пропущено</value>
+  </data>
+  <data name="SyncNoDataForMedium" xml:space="preserve">
+    <value>Нет результата для этого канала</value>
+  </data>
+  <data name="SyncNoDataForReferringSites" xml:space="preserve">
+    <value>Нет результата для реферрирующих сайтов</value>
+  </data>
+  <data name="SyncNoDatqaForSegmentFormat" xml:space="preserve">
+    <value>Нет результата для сегмента {0}</value>
+  </data>
+  <data name="SyncNullQuery" xml:space="preserve">
+    <value>Сделана попытка получить данные Аналитики но результат запроса был "null"</value>
+  </data>
+  <data name="SyncPageDataFinished" xml:space="preserve">
+    <value>Обработка данных страницы завершена</value>
+  </data>
+  <data name="SyncPageDataProcessingFormat" xml:space="preserve">
+    <value>Итерация {0} - Обработка данных страницы {1} строк возвращено</value>
+  </data>
+  <data name="SyncPageDataSkippedRowsFormat" xml:space="preserve">
+    <value>Итерация {0} - Обработка данных страницы {1} существующих строк пропущено</value>
+  </data>
+  <data name="SyncReferringSitesFinished" xml:space="preserve">
+    <value>Обработка данных реферирующих сайтов завершена</value>
+  </data>
+  <data name="SyncReferringSiteSkippedRowsFormat" xml:space="preserve">
+    <value>Итерация {0} - Обработка данных реферирующих сайтов {1} существующих строк пропущено</value>
+  </data>
+  <data name="SyncReferringSitesProcessingFormat" xml:space="preserve">
+    <value>Итерация {0} - Обработка данных реферирующих сайтов {1} строк возвращено</value>
+  </data>
+  <data name="SyncSegmentFinishedSegmentFormat" xml:space="preserve">
+    <value>Закончена обработка сегмента {0} после {1} итераций</value>
+  </data>
+  <data name="SyncSegmentProcessingFormat" xml:space="preserve">
+    <value>Итерация {0} - Обрабатываются {1} строк возвращенных для сегмента с ИД {2}</value>
+  </data>
+  <data name="SyncSegmentSkippedRowsFormat" xml:space="preserve">
+    <value>Пропущены {0} строк данных которые уже существовали для сегмента с ИД {1}</value>
+  </data>
+  <data name="SyncSiteSearchFinished" xml:space="preserve">
+    <value>Обработка данных поиска по сайту завершена</value>
+  </data>
+  <data name="SyncSiteSearchProcessing" xml:space="preserve">
+    <value>Обрабатываются данные по поиску на сайте</value>
+  </data>
+  <data name="SyncSiteSearchStarted" xml:space="preserve">
+    <value>Обработка данных поиска по сайту начата</value>
+  </data>
+  <data name="AnalyticsIsNotConfigured" xml:space="preserve">
+    <value>Эта функция не включена, поскольку настройки Analytics еще не были сделаны.</value>
+  </data>
+  <data name="InitialZoomSetting" xml:space="preserve">
+    <value>Начальное приближение</value>
+  </data>
+  <data name="NoAccess" xml:space="preserve">
+    <value>Извините но вы не принадлежите к роли которой разрешены просмотры отчетов по трафику.</value>
+  </data>
+</root>

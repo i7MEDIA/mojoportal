@@ -1,0 +1,956 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddEventLink" xml:space="preserve">
+    <value>رويداد جدید</value>
+  </data>
+  <data name="AllDayCheckbox" xml:space="preserve">
+    <value>هر روز</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>لطفا منتظر باشید...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="CancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="DayView" xml:space="preserve">
+    <value>نماش روزانه</value>
+  </data>
+  <data name="DayViewLink" xml:space="preserve">
+    <value>نماش روزانه</value>
+  </data>
+  <data name="DefaultViewSetting" xml:space="preserve">
+    <value>نمای پیش فرض:</value>
+  </data>
+  <data name="DeleteAllButton" xml:space="preserve">
+    <value>این واقعه و تمام تکرارهای آن حذف شود</value>
+  </data>
+  <data name="DeleteAllButtonAccessKey" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="DeleteAllWarning" xml:space="preserve">
+    <value>آیا شما از حذف این واقعه تکرار های آن  مطمئن هستید؟</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="DeleteEventWarning" xml:space="preserve">
+    <value>آیا شما از حذف این واقعه مطمئن هستید؟</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>شرح:</value>
+  </data>
+  <data name="EditEventLink" xml:space="preserve">
+    <value>ویرایش این رخداد</value>
+  </data>
+  <data name="EditLegend" xml:space="preserve">
+    <value>ایجاد/ویرایش رخداد</value>
+  </data>
+  <data name="EnableDayViewSetting" xml:space="preserve">
+    <value>نمای روزانه فعال شود؟</value>
+  </data>
+  <data name="EnableExternalFeedSetting" xml:space="preserve">
+    <value>فیدهای بیرونی فعال شود؟:</value>
+  </data>
+  <data name="EnableListViewSetting" xml:space="preserve">
+    <value>نمای لیست فعال شود:؟</value>
+  </data>
+  <data name="EnableMonthViewSetting" xml:space="preserve">
+    <value>نمای ماهانه فعال شود؟:</value>
+  </data>
+  <data name="EnableTimelineViewSetting" xml:space="preserve">
+    <value>نمای خط زمانی فعال شود؟:</value>
+  </data>
+  <data name="EnableWeekViewSetting" xml:space="preserve">
+    <value>نمای هفتگی فعال شود؟:</value>
+  </data>
+  <data name="EndTimeLabel" xml:space="preserve">
+    <value>ساعت پایان</value>
+  </data>
+  <data name="EventDateLabel" xml:space="preserve">
+    <value>زمان:</value>
+  </data>
+  <data name="EventEditLink" xml:space="preserve">
+    <value>ویرایش </value>
+  </data>
+  <data name="FeatureName" xml:space="preserve">
+    <value>تقویم وقایع پیشرفته</value>
+  </data>
+  <data name="FeedburnerFeedUrl" xml:space="preserve">
+    <value>Feedburner Url:</value>
+  </data>
+  <data name="FeedToolTip" xml:space="preserve">
+    <value>مشترک این فید شوید</value>
+  </data>
+  <data name="GoogleMapApiKeySetting" xml:space="preserve">
+    <value>Google Map API Key:</value>
+  </data>
+  <data name="GoogleMapEnableDirectionsSetting" xml:space="preserve">
+    <value>مسیرهای رانندگی فعال باشد</value>
+  </data>
+  <data name="GoogleMapEnableLocalSearchSetting" xml:space="preserve">
+    <value>جستجوی محلی نمایش داده شود</value>
+  </data>
+  <data name="GoogleMapEnableMapTypeSetting" xml:space="preserve">
+    <value>تنظیمات ماهواره ای و هیبرید نقشه نمایش داده شود</value>
+  </data>
+  <data name="GoogleMapEnableZoomSetting" xml:space="preserve">
+    <value>ابزار بزرگنمایی نمایش داده </value>
+  </data>
+  <data name="GoogleMapHeightSetting" xml:space="preserve">
+    <value>عرض نقشه:</value>
+  </data>
+  <data name="GoogleMapInitialMapTypeSetting" xml:space="preserve">
+    <value>نوع پیش فرض نقشه:</value>
+  </data>
+  <data name="GoogleMapInitialZoomSetting" xml:space="preserve">
+    <value>سطح بزرگنمایی نقشه:</value>
+  </data>
+  <data name="GoogleMapShowInfoWindowSetting" xml:space="preserve">
+    <value>اطلاعات مکان بصورت بالون نمایش داده شود:</value>
+  </data>
+  <data name="GoogleMapWidthSetting" xml:space="preserve">
+    <value>پهنای نقشه:</value>
+  </data>
+  <data name="HoursLabel" xml:space="preserve">
+    <value>ساعت ها</value>
+  </data>
+  <data name="IncludeInFeedLabel" xml:space="preserve">
+    <value>در فید آورده شود؟</value>
+  </data>
+  <data name="ListView" xml:space="preserve">
+    <value>نمای لیست</value>
+  </data>
+  <data name="ListViewLink" xml:space="preserve">
+    <value>نمای لیست</value>
+  </data>
+  <data name="LocationLabel" xml:space="preserve">
+    <value>مکان</value>
+  </data>
+  <data name="MonthView" xml:space="preserve">
+    <value>نمای ماهانه</value>
+  </data>
+  <data name="MonthViewLink" xml:space="preserve">
+    <value>نمای ماهانه</value>
+  </data>
+  <data name="NumberOfTicketsLabel" xml:space="preserve">
+    <value>کل فروش/ثبت نام ها</value>
+  </data>
+  <data name="OdiogoFeedIDSetting" xml:space="preserve">
+    <value>Odiogo Feed ID:</value>
+  </data>
+  <data name="OdiogoPodcastUrlSetting" xml:space="preserve">
+    <value>Odiogo Podcast Url:</value>
+  </data>
+  <data name="PodcastLink" xml:space="preserve">
+    <value>پادکست</value>
+  </data>
+  <data name="RecurrenceLabel" xml:space="preserve">
+    <value>تکرارها</value>
+  </data>
+  <data name="RecurrenceTaskName" xml:space="preserve">
+    <value>Events Pro Create Recurrence Task</value>
+  </data>
+  <data name="RecurrenceTypeDaily" xml:space="preserve">
+    <value>روزانه</value>
+  </data>
+  <data name="RecurrenceTypeDailyWeekDays" xml:space="preserve">
+    <value>هر روز هفته (شنبه تا جمعه)</value>
+  </data>
+  <data name="RecurrenceTypeMondayWednesdayFriday" xml:space="preserve">
+    <value>هر دوشنبه،چهارشنبه و جمعه</value>
+  </data>
+  <data name="RecurrenceTypeMonthly" xml:space="preserve">
+    <value>ماهانه</value>
+  </data>
+  <data name="RecurrenceTypeNone" xml:space="preserve">
+    <value>تکرار نشود</value>
+  </data>
+  <data name="RecurrenceTypeTuesdayThursday" xml:space="preserve">
+    <value>هر سه شنبه و پنج شنبه</value>
+  </data>
+  <data name="RecurrenceTypeWeekly" xml:space="preserve">
+    <value>هفتگی</value>
+  </data>
+  <data name="RecurrenceTypeYearly" xml:space="preserve">
+    <value>سالیانه</value>
+  </data>
+  <data name="RequiresTicketLabel" xml:space="preserve">
+    <value>ثبت نام لازم است؟:</value>
+  </data>
+  <data name="SaveEventButton" xml:space="preserve">
+    <value>ذخیره
+</value>
+  </data>
+  <data name="SaveEventButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ShowMapCheckbox" xml:space="preserve">
+    <value>نمایش نقشه</value>
+  </data>
+  <data name="StartTimeLabel" xml:space="preserve">
+    <value>زمان شروع:</value>
+  </data>
+  <data name="TaskCompleteMessage" xml:space="preserve">
+    <value>تکمیل</value>
+  </data>
+  <data name="TaskProgressFormatString" xml:space="preserve">
+    <value>درحال اجرا . {0} تکرار از {1}ایجاد شد</value>
+  </data>
+  <data name="TaskQueuedMessage" xml:space="preserve">
+    <value>در صف قرار گرفت</value>
+  </data>
+  <data name="TaskStartedMessage" xml:space="preserve">
+    <value>شروع شد</value>
+  </data>
+  <data name="TicketPriceLabel" xml:space="preserve">
+    <value>قیمت بلیط:</value>
+  </data>
+  <data name="TicketsOnSaleDateLabel" xml:space="preserve">
+    <value>تاریخ های مجاز ثبت نام</value>
+  </data>
+  <data name="TimelineView" xml:space="preserve">
+    <value>نمای خط زمان</value>
+  </data>
+  <data name="TimelineViewLink" xml:space="preserve">
+    <value>نمای خط زمان</value>
+  </data>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>عنوان:</value>
+  </data>
+  <data name="UseFillerOnEmptyDays" xml:space="preserve">
+    <value>Add Padding To Empty Days:</value>
+  </data>
+  <data name="WeekView" xml:space="preserve">
+    <value>نمای هفتگی</value>
+  </data>
+  <data name="WeekViewLink" xml:space="preserve">
+    <value>نمای هفتگی</value>
+  </data>
+  <data name="WeekViewNextLink" xml:space="preserve">
+    <value>7 وز به جلو برو</value>
+  </data>
+  <data name="WeekViewPreviousLink" xml:space="preserve">
+    <value>7 روز به عقب برگرد</value>
+  </data>
+  <data name="CardExpiresLabel" xml:space="preserve">
+    <value>منقضی شد</value>
+  </data>
+  <data name="CardNumberLabel" xml:space="preserve">
+    <value>شماره کارت</value>
+  </data>
+  <data name="CardOwnerFirstNameLabel" xml:space="preserve">
+    <value>نام صاحب کارت</value>
+  </data>
+  <data name="CardOwnerLastNameLabel" xml:space="preserve">
+    <value>نام خانوادگی صاحب کارت</value>
+  </data>
+  <data name="CardSecurityCodeLabel" xml:space="preserve">
+    <value>کد امنیتی</value>
+  </data>
+  <data name="CardTypeLabel" xml:space="preserve">
+    <value>نوع کارت</value>
+  </data>
+  <data name="CustomerAddressLine1Label" xml:space="preserve">
+    <value>آدرس اول</value>
+  </data>
+  <data name="CustomerAddressLine2Label" xml:space="preserve">
+    <value>آدرس دوم</value>
+  </data>
+  <data name="CustomerCityLabel" xml:space="preserve">
+    <value>شهر</value>
+  </data>
+  <data name="CustomerCompanyLabel" xml:space="preserve">
+    <value>شرکت</value>
+  </data>
+  <data name="CustomerCountryLabel" xml:space="preserve">
+    <value>کشور</value>
+  </data>
+  <data name="CustomerEmailLabel" xml:space="preserve">
+    <value>ایمیل</value>
+  </data>
+  <data name="CustomerHeader" xml:space="preserve">
+    <value>اطلاعات مشتری</value>
+  </data>
+  <data name="CustomerNameLabel" xml:space="preserve">
+    <value>نام مشتری</value>
+  </data>
+  <data name="CustomerPostalCodeLabel" xml:space="preserve">
+    <value>کد پستی</value>
+  </data>
+  <data name="CustomerStateLabel" xml:space="preserve">
+    <value>استان/ناحیه</value>
+  </data>
+  <data name="CustomerSuburbLabel" xml:space="preserve">
+    <value>حومه</value>
+  </data>
+  <data name="CustomerTelephoneDayLabel" xml:space="preserve">
+    <value>تلفن روز</value>
+  </data>
+  <data name="CustomerTelephoneNightLabel" xml:space="preserve">
+    <value>تلفن شب</value>
+  </data>
+  <data name="MakePaymentButton" xml:space="preserve">
+    <value>پرداخت</value>
+  </data>
+  <data name="PurchaseTicketLink" xml:space="preserve">
+    <value>خرید بلیط</value>
+  </data>
+  <data name="RegisterFreeLink" xml:space="preserve">
+    <value>ثبت نام</value>
+  </data>
+  <data name="TicketPriceFree" xml:space="preserve">
+    <value>رایگان</value>
+  </data>
+  <data name="TicketQuantityLabel" xml:space="preserve">
+    <value>تعداد:</value>
+  </data>
+  <data name="MaxTicketsPerPurchase" xml:space="preserve">
+    <value>حداکثر بلیط در هر سفارش (0 = نامحدود)</value>
+  </data>
+  <data name="OrderTotalLabel" xml:space="preserve">
+    <value>جمع سفارش:</value>
+  </data>
+  <data name="SubTotalLabel" xml:space="preserve">
+    <value>جمع کل:</value>
+  </data>
+  <data name="TaxTotalLabel" xml:space="preserve">
+    <value>مالیات فروش:</value>
+  </data>
+  <data name="TicketForPastEventsNotAvailable" xml:space="preserve">
+    <value>ببخشید این رخداد گذشته و بلیط آن دیگر در دسترس نیست</value>
+  </data>
+  <data name="TicketSalesClosedMessage" xml:space="preserve">
+    <value>ببخشید بلیط ها در حال حاضر در دسترس نیست.</value>
+  </data>
+  <data name="TicketSalesNotOpenYet" xml:space="preserve">
+    <value>ببخشید بلیط ها هنوز برای فروش آماده نیست</value>
+  </data>
+  <data name="TicketsAreTaxable" xml:space="preserve">
+    <value>بلیط ها مشمول مالیات است؟</value>
+  </data>
+  <data name="TicketsSoldOut" xml:space="preserve">
+    <value>ببخشید، بلیط ها فروخته شد.</value>
+  </data>
+  <data name="LiteralOr" xml:space="preserve">
+    <value>یا</value>
+  </data>
+  <data name="CheckoutRequiresLoginOrRegisterMessage" xml:space="preserve">
+    <value>برای تکمیل سفارش شما باید وارد سایت شوید یا ثبت نام کنید</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>ادامه</value>
+  </data>
+  <data name="CustomerAddress1RequiredMessage" xml:space="preserve">
+    <value>آدرس مشتری لازم است</value>
+  </data>
+  <data name="CustomerCityRequiredMessage" xml:space="preserve">
+    <value>شهر مشتری لازم است.</value>
+  </data>
+  <data name="CustomerDayPhoneRequiredMessage" xml:space="preserve">
+    <value>تلفن مشتری لازم است</value>
+  </data>
+  <data name="CustomerEmailRegexFailureMessage" xml:space="preserve">
+    <value>ایمیل مشتری باید معتبر باشد</value>
+  </data>
+  <data name="CustomerEmailRequiredMessage" xml:space="preserve">
+    <value>ایمیل مشتری لازم است.</value>
+  </data>
+  <data name="CustomerFirstNameLabel" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="CustomerFirstNameRequiredMessage" xml:space="preserve">
+    <value>نام مشتری لازم است</value>
+  </data>
+  <data name="CustomerLastNameLabel" xml:space="preserve">
+    <value>نام خانوادگی</value>
+  </data>
+  <data name="CustomerLastNameRequiredMessage" xml:space="preserve">
+    <value>نام مشتری لازم است</value>
+  </data>
+  <data name="CustomerPostalCodeRequiredMessage" xml:space="preserve">
+    <value>کد پستی مشتری لازم است</value>
+  </data>
+  <data name="RequiredFieldSymbol" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="UpdateCustomerButton" xml:space="preserve">
+    <value>ویرایش مشخصات مشتری</value>
+  </data>
+  <data name="CheckoutHeader" xml:space="preserve">
+    <value>لطفا سفارش را بازبینی و ارسال نمائید.</value>
+  </data>
+  <data name="CurrencySetting" xml:space="preserve">
+    <value>ارز</value>
+  </data>
+  <data name="CustomerInfoHeader" xml:space="preserve">
+    <value>اطلاعات مشتری</value>
+  </data>
+  <data name="CustomerTelephoneLabel" xml:space="preserve">
+    <value>تلفن</value>
+  </data>
+  <data name="OrderSummaryHeader" xml:space="preserve">
+    <value>نتیجه سفارش</value>
+  </data>
+  <data name="PaymentGatewayCouldNotConnectMessage" xml:space="preserve">
+    <value>اتصال به درگاه پرداخت امکان پذیر نیست.</value>
+  </data>
+  <data name="PaymentGatewayNotConfiguredForDirectCardProcessing" xml:space="preserve">
+    <value>درگاه پرداختی برای پردازش کارت های اعتباری تنطیم نشده است.</value>
+  </data>
+  <data name="TransactionDeclinedMessage" xml:space="preserve">
+    <value>ببخشید سفارش رد شد. لطفا مطمئن باشید اطلاعات پرداخت درست وارد شده باشد.</value>
+  </data>
+  <data name="TransactionErrorMessage" xml:space="preserve">
+    <value>ببخشید تراکنش تکمیل نشد. خطایی پیش آمده. خطای پیش آمده در سابقه سیستم ثبت شده است.</value>
+  </data>
+  <data name="TransactionNotInitiatedMessage" xml:space="preserve">
+    <value>تراکنشی شروع نشده است.</value>
+  </data>
+  <data name="OrderHistoryLink" xml:space="preserve">
+    <value>سابقه سفارش</value>
+  </data>
+  <data name="OrderIdLabel" xml:space="preserve">
+    <value>شناسه سفارش</value>
+  </data>
+  <data name="PrintNotice" xml:space="preserve">
+    <value>لطفا این صفحه را چاپ کنید و بعنوان بلیط رخداد با خود بیاورید.</value>
+  </data>
+  <data name="BccOrderConfirmationEmailsSetting" xml:space="preserve">
+    <value>آدرس ایمیل برای ارسال رونوشت تاییدیه سفارش</value>
+  </data>
+  <data name="EmailConfirmationFromAddressSetting" xml:space="preserve">
+    <value>آدرس ایمیل از برای تاییدیه</value>
+  </data>
+  <data name="InvalidPriceMessage" xml:space="preserve">
+    <value>قیمیت بلیط وارد شده با واحد پول تطابق ندارد.</value>
+  </data>
+  <data name="OrderConfirmationTask" xml:space="preserve">
+    <value>وظیفه تاییدیه سفارش</value>
+  </data>
+  <data name="TaskCompleted" xml:space="preserve">
+    <value>تکمیل شد</value>
+  </data>
+  <data name="TaskQueued" xml:space="preserve">
+    <value>در صف قرار گرفت</value>
+  </data>
+  <data name="TaskRunning" xml:space="preserve">
+    <value>در حال اجرا</value>
+  </data>
+  <data name="TaskStarted" xml:space="preserve">
+    <value>شروع شد</value>
+  </data>
+  <data name="OrderDateHeader" xml:space="preserve">
+    <value>تاریخ سفارش</value>
+  </data>
+  <data name="OrderHistoryHeader" xml:space="preserve">
+    <value>سابقه سفارش</value>
+  </data>
+  <data name="OrderIDHeader" xml:space="preserve">
+    <value>شناسه سفارش</value>
+  </data>
+  <data name="BrowseCartsLink" xml:space="preserve">
+    <value>نمایش کارت ها</value>
+  </data>
+  <data name="CartBrowserHeading" xml:space="preserve">
+    <value>کارت ها</value>
+  </data>
+  <data name="CheckoutLink" xml:space="preserve">
+    <value>خرید</value>
+  </data>
+  <data name="EventLabel" xml:space="preserve">
+    <value>رخداد:</value>
+  </data>
+  <data name="ManageUserLink" xml:space="preserve">
+    <value>مدیریت کاربر</value>
+  </data>
+  <data name="OrderDetail" xml:space="preserve">
+    <value>جزئیات سفارش</value>
+  </data>
+  <data name="OrderHistoryAdminLink" xml:space="preserve">
+    <value>سابقه سفارش</value>
+  </data>
+  <data name="OrderHistoryCustomerHeading" xml:space="preserve">
+    <value>مشتری</value>
+  </data>
+  <data name="OrderHistoryDateHeader" xml:space="preserve">
+    <value>آخرین ویرایش</value>
+  </data>
+  <data name="OrderHistoryOrderTotalHeader" xml:space="preserve">
+    <value>کل سفارش</value>
+  </data>
+  <data name="OrderHistoryViewDetailLink" xml:space="preserve">
+    <value>نما</value>
+  </data>
+  <data name="SalesManagementLink" xml:space="preserve">
+    <value>مدیریت فروش</value>
+  </data>
+  <data name="SiteUserLabel" xml:space="preserve">
+    <value>کاربر سایت</value>
+  </data>
+  <data name="TicketOrder" xml:space="preserve">
+    <value>سفارش بلیط</value>
+  </data>
+  <data name="UserProfileLink" xml:space="preserve">
+    <value>مشخصات کاربر</value>
+  </data>
+  <data name="EventHeading" xml:space="preserve">
+    <value>رخداد</value>
+  </data>
+  <data name="ViewOrdersLink" xml:space="preserve">
+    <value>مشاهده سفارشات</value>
+  </data>
+  <data name="DeleteCartWarning" xml:space="preserve">
+    <value>آیا شما از حذف این کارت مطمئن هستید؟</value>
+  </data>
+  <data name="DeleteOrderButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeleteOrderWarning" xml:space="preserve">
+    <value>آیا شما از حذف این ئاقعه مطمئن هستید؟</value>
+  </data>
+  <data name="OrderStatusButton" xml:space="preserve">
+    <value>ذخیره
+</value>
+  </data>
+  <data name="OrderStatusLabel" xml:space="preserve">
+    <value>وضعیت سفارش</value>
+  </data>
+  <data name="CommerceNotConfigured" xml:space="preserve">
+    <value>فعالیت تجاری روی این سایت فعال نشده است.شما فقط می توانید. شما فقط می توانید ثبت نام رایگان بپذیرید.</value>
+  </data>
+  <data name="EndDateRequired" xml:space="preserve">
+    <value>تاریخ پایان لازم است</value>
+  </data>
+  <data name="EventDateRequired" xml:space="preserve">
+    <value>تاریخ شروع لازم است</value>
+  </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>ثبت نام برای این رخداد</value>
+  </data>
+  <data name="SoldOut" xml:space="preserve">
+    <value>فروخته شد</value>
+  </data>
+  <data name="TicketOrders" xml:space="preserve">
+    <value>سفارشات بلیط</value>
+  </data>
+  <data name="TimeZoneSetting" xml:space="preserve">
+    <value>منطقه زمانی:</value>
+  </data>
+  <data name="TitleIsRequired" xml:space="preserve">
+    <value>شما باید عنوانی برای رخداد مشخص نمایید</value>
+  </data>
+  <data name="AdaptToUserTimeZoneSetting" xml:space="preserve">
+    <value>با منطقه زمانی کاربر منطبق شود؟</value>
+  </data>
+  <data name="ShowTimeZoneLabelSetting" xml:space="preserve">
+    <value>برچسب منطقه زمانی نمایش داده شود؟</value>
+  </data>
+  <data name="EnableEventSpanRendering" xml:space="preserve">
+    <value>Enable event span rendering?:</value>
+  </data>
+  <data name="InvalidDateFormatException" xml:space="preserve">
+    <value>فرمت تاریخ ارادئه شده صحیح نیست</value>
+  </data>
+  <data name="AllowWillPayLabel" xml:space="preserve">
+    <value>اجازه پرداخت بعد از ثبت نام داده شود؟</value>
+  </data>
+  <data name="BackColorLabel" xml:space="preserve">
+    <value>رنگ پس زمینه:</value>
+  </data>
+  <data name="BorderColorLabel" xml:space="preserve">
+    <value>رنگ حاشیه:</value>
+  </data>
+  <data name="DescriptionTab" xml:space="preserve">
+    <value>جزئیات</value>
+  </data>
+  <data name="DisplaySettingsTab" xml:space="preserve">
+    <value>تنظیمات نمای نمایش ماهانه</value>
+  </data>
+  <data name="ExcerptTab" xml:space="preserve">
+    <value>نتیجه</value>
+  </data>
+  <data name="ForeColorLabel" xml:space="preserve">
+    <value>زنگ نوشته ها:</value>
+  </data>
+  <data name="GetTicketTextLabel" xml:space="preserve">
+    <value>متن بلیط را نشان بده:</value>
+  </data>
+  <data name="LocationAliasLabel" xml:space="preserve">
+    <value>نام مستعار مکان</value>
+  </data>
+  <data name="MetaDataTab" xml:space="preserve">
+    <value>داده های کلی صفحه</value>
+  </data>
+  <data name="MetaDescriptionLabel" xml:space="preserve">
+    <value>شرح های کلی</value>
+  </data>
+  <data name="MetaKeywordsLabel" xml:space="preserve">
+    <value>کلمات کلیدی</value>
+  </data>
+  <data name="PromiseToPayLaterButton" xml:space="preserve">
+    <value>من تعهد می کنم بعدا پرداخت کنم</value>
+  </data>
+  <data name="RecurrenceUntilLabel" xml:space="preserve">
+    <value>تا</value>
+  </data>
+  <data name="SettingsTab" xml:space="preserve">
+    <value>تنظیمات رخداد</value>
+  </data>
+  <data name="MapHeightRegexWarning" xml:space="preserve">
+    <value>عرض نقشه باید عددی و  تا چهار رقم باشد.</value>
+  </data>
+  <data name="MapHeightRequiredWarning" xml:space="preserve">
+    <value>عرض نقشه لازم است.</value>
+  </data>
+  <data name="MapSettingsTab" xml:space="preserve">
+    <value>تنظیمات نقشه</value>
+  </data>
+  <data name="MapWidthRegexWarning" xml:space="preserve">
+    <value>طول نقشه باید عددی و  تا چهار رقم باشد.</value>
+  </data>
+  <data name="MapWidthRequiredWarning" xml:space="preserve">
+    <value>طول نقشه لازم است.</value>
+  </data>
+  <data name="PaymentMethodFreeEvent" xml:space="preserve">
+    <value>رخداد رایگان</value>
+  </data>
+  <data name="PaymentMethodLabel" xml:space="preserve">
+    <value>روش پرداخت:</value>
+  </data>
+  <data name="PaymentMethodWillPayLater" xml:space="preserve">
+    <value>بعدا پرداخت می شود</value>
+  </data>
+  <data name="RegistrationClosedFormat" xml:space="preserve">
+    <value>ثبنت نام در این تاریخ بسته می شود {0}.</value>
+  </data>
+  <data name="RegistrationNotOpenYetFormat" xml:space="preserve">
+    <value>ثبت نام از تاریخ شروع می شود {0}.</value>
+  </data>
+  <data name="WillPayAllowedRolesSetting" xml:space="preserve">
+    <value>نقش هایی که می توانند ثبت نام کنند ولی بعدا پرداخت نمایند</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>تاریخ:</value>
+  </data>
+  <data name="RecurrenceFormat" xml:space="preserve">
+    <value>{0} تا {1}</value>
+  </data>
+  <data name="TicketIncludesRecurrenceLabel" xml:space="preserve">
+    <value>بلیط ورودیه دارد</value>
+  </data>
+  <data name="RecurrenceNotSupportedForMultiDayEvents" xml:space="preserve">
+    <value>تکرار برای رخدادهایی که بیش از یک روز طول می کشند وجود ندارد.شماباید تاریخ شروع و پایان رخداد را یکی کنید یا رخداد را از حالت تکرار درآورید.</value>
+  </data>
+  <data name="ConfirmCustomerInfoButton" xml:space="preserve">
+    <value>اطلاعات مشتری تایید شود</value>
+  </data>
+  <data name="ExportToCSVButton" xml:space="preserve">
+    <value>صدور داده ها بصورت CSV (جداشده با کاما/Excel)</value>
+  </data>
+  <data name="SummaryInfo" xml:space="preserve">
+    <value>نتایج در نمای لیست و صفحه ثبت نام نشان داده می شود.</value>
+  </data>
+  <data name="DefaultCountryStateSetting" xml:space="preserve">
+    <value>کشور/استان پیش فرض</value>
+  </data>
+  <data name="DrivingDirectionsButton" xml:space="preserve">
+    <value>مشاهده مسير دسترسي از:</value>
+  </data>
+  <data name="ListViewPageSize" xml:space="preserve">
+    <value>اندازه صفحه در نمای لیست</value>
+  </data>
+  <data name="ReportsLink" xml:space="preserve">
+    <value>گزارشات</value>
+  </data>
+  <data name="RebuildReportsButton" xml:space="preserve">
+    <value>گزارشات مجددا ساخته شود</value>
+  </data>
+  <data name="ShowCompanyNameOnRegistration" xml:space="preserve">
+    <value>نام شرکت در ثبت نام نشان داده شود؟</value>
+  </data>
+  <data name="ShowSuburbOnRegistration" xml:space="preserve">
+    <value>حومه شهر در ثبت نام نشان داده شود؟:</value>
+  </data>
+  <data name="AllowTicketPurchaseWithoutAuthentication" xml:space="preserve">
+    <value>اجازه خرید بلیط بدون هویت سنجی کاربر داده شود؟ </value>
+  </data>
+  <data name="ClockType24H" xml:space="preserve">
+    <value>24 Hours</value>
+  </data>
+  <data name="ClockTypeAMPM" xml:space="preserve">
+    <value>AM/PM</value>
+  </data>
+  <data name="ClockTypeSetting" xml:space="preserve">
+    <value>نوع ساعت</value>
+  </data>
+  <data name="EditEventPageTitle" xml:space="preserve">
+    <value>ویرایشگر رخداد</value>
+  </data>
+  <data name="FeatureSearchName" xml:space="preserve">
+    <value>رخدادها</value>
+  </data>
+  <data name="HideDetailsFromUnauthenticated" xml:space="preserve">
+    <value>جزئیات از کاربران ناشناس پنهان شود</value>
+  </data>
+  <data name="MustBeAuthenticatedToViewDetails" xml:space="preserve">
+    <value>ببخشید، فقط اعضاء سایت که وارد سایت شوند می توانند جزئیات رخداد را ببینند.</value>
+  </data>
+  <data name="RecurrenceTypeBiWeekly" xml:space="preserve">
+    <value>Bi-weekly (every 14 days)</value>
+  </data>
+  <data name="ShowPageLeftContent" xml:space="preserve">
+    <value>محتوای سمت چپ صفحه در تمام نماها نمایش داده شود؟</value>
+  </data>
+  <data name="ShowPageRightContent" xml:space="preserve">
+    <value>محتوای سمت راست صفحه در تمام نماها نمایش داده شود؟</value>
+  </data>
+  <data name="TimeIncrementSetting" xml:space="preserve">
+    <value>Time Chooser Minutes Increment</value>
+  </data>
+  <data name="TimeZoneIdSetting" xml:space="preserve">
+    <value>منطقه زمانی</value>
+  </data>
+  <data name="UpdateRecurrencesButton" xml:space="preserve">
+    <value>تمام تکرارها اصلاح شود</value>
+  </data>
+  <data name="UserAutoCreatedForTicketPurchase" xml:space="preserve">
+    <value>User Auto Created For Ticket Purchase</value>
+  </data>
+  <data name="UseSameSalesBeginForRecurrences" xml:space="preserve">
+    <value>Use Same Sales Begin Date For Recurrences?</value>
+  </data>
+  <data name="DateTimeSettings" xml:space="preserve">
+    <value>تنظیمات تاریخ/زمان</value>
+  </data>
+  <data name="Distance" xml:space="preserve">
+    <value>مسافت</value>
+  </data>
+  <data name="FeedSettings" xml:space="preserve">
+    <value>تنظیمات فید</value>
+  </data>
+  <data name="GetDirectionsButton" xml:space="preserve">
+    <value>مسیرها داده شود</value>
+  </data>
+  <data name="Kilometers" xml:space="preserve">
+    <value>کیلومتر</value>
+  </data>
+  <data name="Miles" xml:space="preserve">
+    <value>Miles</value>
+  </data>
+  <data name="RegistrationSettings" xml:space="preserve">
+    <value>تنظیمات بلیط/ثبت نام</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="UseBingMaps" xml:space="preserve">
+    <value>Use Bing Maps?</value>
+  </data>
+  <data name="ViewLink" xml:space="preserve">
+    <value>نمایش</value>
+  </data>
+  <data name="ViewSettings" xml:space="preserve">
+    <value>تنظیمات نمایش</value>
+  </data>
+  <data name="AddToGoogleCalendar" xml:space="preserve">
+    <value>Add To Google Calendar</value>
+  </data>
+  <data name="AddToiCalendarOutlook" xml:space="preserve">
+    <value>Add To iCal/Outlook</value>
+  </data>
+  <data name="AddToWindowsLiveCalendar" xml:space="preserve">
+    <value>Add To Windows Live Calendar</value>
+  </data>
+  <data name="AddToYahooCalendar" xml:space="preserve">
+    <value>Add To Yahoo! Calendar</value>
+  </data>
+  <data name="GoogleCalendar" xml:space="preserve">
+    <value>تقویم گوگل</value>
+  </data>
+  <data name="iCalendarOutlook" xml:space="preserve">
+    <value>iCal/Outlook</value>
+  </data>
+  <data name="ShowAddToCalendarLinks" xml:space="preserve">
+    <value>لینک های افزودن به تقویم نمایش داده شود؟</value>
+  </data>
+  <data name="WindowsLiveCalendar" xml:space="preserve">
+    <value>Windows Live Calendar</value>
+  </data>
+  <data name="YahooCalendar" xml:space="preserve">
+    <value>Yahoo! Calendar</value>
+  </data>
+  <data name="AdditionalInfoProvided" xml:space="preserve">
+    <value>Additional Information Provided</value>
+  </data>
+  <data name="AdditionalInfoProvidedEmailNotes" xml:space="preserve">
+    <value>Additional Information Provided (this was not included in the customer copy of this email)</value>
+  </data>
+  <data name="AdditionalInfoRequired" xml:space="preserve">
+    <value>اطلاعات بيشتر مورد نياز:</value>
+  </data>
+  <data name="ShowAddToCalendarLinksOnEvent" xml:space="preserve">
+    <value>لینک های افزودن به تقویم نمایش داده شود؟</value>
+  </data>
+  <data name="TicketNoteInstructions" xml:space="preserve">
+    <value>دستورالعمل هاي يادداشت بليط</value>
+  </data>
+  <data name="TicketRequiresNotes" xml:space="preserve">
+    <value>بليط ياداشت لازم دارد؟</value>
+  </data>
+  <data name="TicketsSoldeFormat" xml:space="preserve">
+    <value>ثبت نام/ فروش براي {0}</value>
+  </data>
+  <data name="AllDay" xml:space="preserve">
+    <value>تمام روز</value>
+  </data>
+  <data name="AllDayFormat" xml:space="preserve">
+    <value>{0} All Day</value>
+  </data>
+  <data name="SaveNotes" xml:space="preserve">
+    <value>ذخيره توضيحات</value>
+  </data>
+  <data name="TicketNotesWarning" xml:space="preserve">
+    <value>توضيحات لازم بايد ارائه شود.</value>
+  </data>
+  <data name="RequireAddressOnFreeEventRegistration" xml:space="preserve">
+    <value>در ثبت نام رخدادهاي رايگان آدرس لازم است؟</value>
+  </data>
+  <data name="RequirePhoneOnFreeEventRegistration" xml:space="preserve">
+    <value>در ثبت نام رخدادهاي رايگان تلفن لازم است؟</value>
+  </data>
+  <data name="ShowAddressOnFreeEventRegistration" xml:space="preserve">
+    <value>در ثبت نام رخدادهاي رايگان آدرس نمايش داده شود؟</value>
+  </data>
+  <data name="ShowPhoneOnFreeEventRegistration" xml:space="preserve">
+    <value>در ثبت نام رخدادهاي رايگان تلفن نمايش داده شود؟</value>
+  </data>
+  <data name="MaxFutureDaysForFeedItems" xml:space="preserve">
+    <value>حداكثر روزهاي آينده براي آوردن در فيد</value>
+  </data>
+  <data name="UseSummaryInsteadOfDetailInFeed" xml:space="preserve">
+    <value>در فيد از خلاصه رخداد بجاي جزئيات استفاده شود؟</value>
+  </data>
+</root>

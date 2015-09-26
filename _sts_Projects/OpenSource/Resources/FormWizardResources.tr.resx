@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOptionButton" xml:space="preserve">
+    <value>Ekleme Opsiyonu</value>
+  </data>
+  <data name="AnalyticsTrackingUrlSetting" xml:space="preserve">
+    <value>Form Gönderme - Analytics Tracking Url</value>
+  </data>
+  <data name="AnswerRequiredLabel" xml:space="preserve">
+    <value>Cevap Gerekir</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Lütfen Bekleyiniz...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Vazgeç</value>
+  </data>
+  <data name="CheckBoxListQuestionType" xml:space="preserve">
+    <value>Seçim Kutuları</value>
+  </data>
+  <data name="CheckBoxQuestionType" xml:space="preserve">
+    <value>Evet/Hayır Seçimi</value>
+  </data>
+  <data name="DateQuestionType" xml:space="preserve">
+    <value>Tarih seçici</value>
+  </data>
+  <data name="DeleteOptionWarning" xml:space="preserve">
+    <value>Bu opsiyonu silmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="DeleteOrphansButton" xml:space="preserve">
+    <value>Yanıtsız Soruları Sil</value>
+  </data>
+  <data name="DeleteOrphansWarning" xml:space="preserve">
+    <value>Yanıtsız soruları silmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="DeleteQuestionWarning" xml:space="preserve">
+    <value>Soruyu silmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="DeleteResponsesButton" xml:space="preserve">
+    <value>Tüm İletileri Sil</value>
+  </data>
+  <data name="DeleteResponsesWarning" xml:space="preserve">
+    <value>Bu işlem geri alınamaz. Tüm iletileri kalıcı olarak silmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="DoneButton" xml:space="preserve">
+    <value>Bitir</value>
+  </data>
+  <data name="DropDownListQuestionType" xml:space="preserve">
+    <value>Listeden seçiniz</value>
+  </data>
+  <data name="DropDownPleaseSelectText" xml:space="preserve">
+    <value>Lütfen seçiniz...</value>
+  </data>
+  <data name="EditLink" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="EditQuestionButton" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="EnableAntiSpamSetting" xml:space="preserve">
+    <value>SPAM engelleyici aktif</value>
+  </data>
+  <data name="ExportFormDefinition" xml:space="preserve">
+    <value>Tanımdan Aktar</value>
+  </data>
+  <data name="ExportOrphansButton" xml:space="preserve">
+    <value>Yanıtsız Soruları Aktar</value>
+  </data>
+  <data name="ExportQuestionButton" xml:space="preserve">
+    <value>Soruyu Aktar</value>
+  </data>
+  <data name="ExportToCSVButton" xml:space="preserve">
+    <value>CSV (Virgülle ayrılmış/Excel) olarak Aktar</value>
+  </data>
+  <data name="FileRequiredWarning" xml:space="preserve">
+    <value>Bir dosya seçmelisiniz.</value>
+  </data>
+  <data name="FinishButton" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="FinishedButton" xml:space="preserve">
+    <value>Gönderildi</value>
+  </data>
+  <data name="FormDefinitionExtensionWarning" xml:space="preserve">
+    <value>Form tanım dosyalarının .config uzantısı olması gerekir.</value>
+  </data>
+  <data name="FormEditPageTitle" xml:space="preserve">
+    <value>Form Editor</value>
+  </data>
+  <data name="FormPageUrlFormat" xml:space="preserve">
+    <value>Url: {0}</value>
+  </data>
+  <data name="FormSubmissionsLink" xml:space="preserve">
+    <value>İletiler</value>
+  </data>
+  <data name="FormSubmitNotificationTask" xml:space="preserve">
+    <value>FormSubmitNotificationTask</value>
+  </data>
+  <data name="FormWizardFeatureName" xml:space="preserve">
+    <value>Form Hazırlama</value>
+  </data>
+  <data name="ImportFormButton" xml:space="preserve">
+    <value>Form Tanımı Al</value>
+  </data>
+  <data name="ImportFormWarning" xml:space="preserve">
+    <value>Form tanımı almak istediğinize emin misiniz? Bu işlem mevcut formdaki tüm içeriğin üzerine yazacaktır. </value>
+  </data>
+  <data name="ImportQuestionButton" xml:space="preserve">
+    <value>Soruyu Aktar</value>
+  </data>
+  <data name="InstructionBlockLabel" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="InstructionBlockQuestionType" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="InstructionsTab" xml:space="preserve">
+    <value>Açıklamalar</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>gereklidir.</value>
+  </data>
+  <data name="MaxRangeLabel" xml:space="preserve">
+    <value>Maks. Değer</value>
+  </data>
+  <data name="MinRangeLabel" xml:space="preserve">
+    <value>Min. Değer</value>
+  </data>
+  <data name="NewQuestionButton" xml:space="preserve">
+    <value>Yeni Soru Ekle</value>
+  </data>
+  <data name="NextButton" xml:space="preserve">
+    <value>İleri &gt;&gt;</value>
+  </data>
+  <data name="NitificationSiteUserFormat" xml:space="preserve">
+    <value>Üye: {0}</value>
+  </data>
+  <data name="NoResultsMessage" xml:space="preserve">
+    <value>Henüz ileti yok.</value>
+  </data>
+  <data name="NotificationAliasLabelSetting" xml:space="preserve">
+    <value>E-Posta Listesi</value>
+  </data>
+  <data name="NotificationAliasSetting" xml:space="preserve">
+    <value>E-Mail Yerine Başka İsim Göster</value>
+  </data>
+  <data name="NotificationEmailBccSetting" xml:space="preserve">
+    <value>Gizli Mailler</value>
+  </data>
+  <data name="NotificationEmailSetting" xml:space="preserve">
+    <value>Gönderileceği Mailler</value>
+  </data>
+  <data name="NotificationIPAddressFormat" xml:space="preserve">
+    <value>IP Adresi: {0}</value>
+  </data>
+  <data name="NotificationSubjectFormat" xml:space="preserve">
+    <value>Gönderilen İleti: {0}</value>
+  </data>
+  <data name="OptionsHeading" xml:space="preserve">
+    <value>Opsiyonlar</value>
+  </data>
+  <data name="OrphanCountLabel" xml:space="preserve">
+    <value>Cevapsız Soru Adedi</value>
+  </data>
+  <data name="Orphans" xml:space="preserve">
+    <value>cevapsızlar</value>
+  </data>
+  <data name="PageNumberLabel" xml:space="preserve">
+    <value>Sayfa No</value>
+  </data>
+  <data name="PreValidateForm" xml:space="preserve">
+    <value>Validasyonu baştan çalıştır?</value>
+  </data>
+  <data name="PreviousButton" xml:space="preserve">
+    <value>&lt;&lt; Geri</value>
+  </data>
+  <data name="QuestionEditOptionsDeleteAlternateText" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="QuestionEditOptionsDownAlternateText" xml:space="preserve">
+    <value>Aşağı Taşı</value>
+  </data>
+  <data name="QuestionEditOptionsEditAlternateText" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="QuestionEditOptionsUpAlternateText" xml:space="preserve">
+    <value>Yukarı Taşı</value>
+  </data>
+  <data name="QuestionsTab" xml:space="preserve">
+    <value>Sorular</value>
+  </data>
+  <data name="QuestionTextLabel" xml:space="preserve">
+    <value>Soru Metni</value>
+  </data>
+  <data name="QuestionTypeLabel" xml:space="preserve">
+    <value>Soru Tipi</value>
+  </data>
+  <data name="RadioButtonListQuestionType" xml:space="preserve">
+    <value>Çoklu seçim</value>
+  </data>
+  <data name="RequiredFieldIndicator" xml:space="preserve">
+    <value> *</value>
+  </data>
+  <data name="ResultsTitleFormat" xml:space="preserve">
+    <value>{0} İleti</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="SliderQuestionType" xml:space="preserve">
+    <value>Kayar ölçü</value>
+  </data>
+  <data name="SliderTooltipFormat" xml:space="preserve">
+    <value>Değer: {0}. Değiştirmek için kaydırın.</value>
+  </data>
+  <data name="SubmissionCountLabel" xml:space="preserve">
+    <value>Toplam İleti:</value>
+  </data>
+  <data name="SubmitButton" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="TaskCompleted" xml:space="preserve">
+    <value>Tamamlandı</value>
+  </data>
+  <data name="TaskQueued" xml:space="preserve">
+    <value>Kuyrukta</value>
+  </data>
+  <data name="TaskRunning" xml:space="preserve">
+    <value>İşlemde</value>
+  </data>
+  <data name="TaskStarted" xml:space="preserve">
+    <value>Başladı</value>
+  </data>
+  <data name="TextAreaQuestionType" xml:space="preserve">
+    <value>Paragraf Metni</value>
+  </data>
+  <data name="TextBoxQuestionType" xml:space="preserve">
+    <value>Metin</value>
+  </data>
+  <data name="ThankYouMessageTab" xml:space="preserve">
+    <value>Teşekkürler Mesajı</value>
+  </data>
+  <data name="TotalPagesLabel" xml:space="preserve">
+    <value>Toplam Sayfa</value>
+  </data>
+  <data name="UpdateOptionButton" xml:space="preserve">
+    <value>Güncelle Opsiyonu</value>
+  </data>
+  <data name="BrowseResultsLink" xml:space="preserve">
+    <value>İletilere Gözat</value>
+  </data>
+  <data name="EnableRegexValidation" xml:space="preserve">
+    <value>Metin sorularında validasyon girilsin?</value>
+  </data>
+  <data name="InvalidRegexTextLabel" xml:space="preserve">
+    <value>Hata Mesajı</value>
+  </data>
+  <data name="RegexExpressionLabel" xml:space="preserve">
+    <value>Validasyon Tanımı</value>
+  </data>
+  <data name="ResultsGridPageSizeSetting" xml:space="preserve">
+    <value>İleti listesinde adet/sayfa</value>
+  </data>
+  <data name="ViewResultsGridLink" xml:space="preserve">
+    <value>İletileri Listele</value>
+  </data>
+  <data name="ViewResultsGridTooltip" xml:space="preserve">
+    <value>İletiler</value>
+  </data>
+  <data name="DeleteQuestionButtonTooltip" xml:space="preserve">
+    <value>Soruyu sil</value>
+  </data>
+  <data name="EditInstructionsLink" xml:space="preserve">
+    <value>Açıklamaları Düzenle</value>
+  </data>
+  <data name="DeleteResponseButton" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="DeleteResponseWarning" xml:space="preserve">
+    <value>Bu iletiyi silmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="ResponseTimeIpFormat" xml:space="preserve">
+    <value>Tarih: {0}   IP Adresi: {1}</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Özel CSS Class</value>
+  </data>
+  <data name="ExportToWord" xml:space="preserve">
+    <value>Word'e Aktar</value>
+  </data>
+  <data name="InvalidRegexWarning" xml:space="preserve">
+    <value>Validasyon tanımı geçerli değil.</value>
+  </data>
+  <data name="BrowseResultsTooltip" xml:space="preserve">
+    <value>İletilere Gözat</value>
+  </data>
+  <data name="AllowedUploadExtensions" xml:space="preserve">
+    <value>İzin Verilen Dosya Tipleri</value>
+  </data>
+  <data name="AllowedUploadExtensionsWarning" xml:space="preserve">
+    <value>İzin Verilen Dosya Tipleri Uyarısı</value>
+  </data>
+  <data name="AllowedUploads" xml:space="preserve">
+    <value>İzin Verilen Yüklemeler</value>
+  </data>
+  <data name="CssClassLabel" xml:space="preserve">
+    <value>CSS Class</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="DeleteAttachmentWarning" xml:space="preserve">
+    <value>Bu iletiyi silmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="DownloadLink" xml:space="preserve">
+    <value>İndir</value>
+  </data>
+  <data name="File1ErrorFormat" xml:space="preserve">
+    <value>Dosya 1: {0}</value>
+  </data>
+  <data name="File2ErrorFormat" xml:space="preserve">
+    <value>Dosya 2: {0}</value>
+  </data>
+  <data name="File3ErrorFormat" xml:space="preserve">
+    <value>Dosya 3: {0}</value>
+  </data>
+  <data name="File4ErrorFormat" xml:space="preserve">
+    <value>Dosya 4: {0}</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Dosyalar</value>
+  </data>
+  <data name="FileUploadGlobalRegexWarning" xml:space="preserve">
+    <value>Dosya tipine genel ayarlarda izin verilmedi.</value>
+  </data>
+  <data name="FileUploadSettings" xml:space="preserve">
+    <value>Dosya Yükleme Ayarları</value>
+  </data>
+  <data name="FormSubmittedEventHandlerSetting" xml:space="preserve">
+    <value>Submission Event Handler</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>Genel Ayarlar</value>
+  </data>
+  <data name="InvalidCssClassWarning" xml:space="preserve">
+    <value>CSS class olarak yalnızca alfanumerik karakterler kullanılmalıdır.</value>
+  </data>
+  <data name="NotificationFilesExcludedWarning" xml:space="preserve">
+    <value>Çok büyük olduğu için dosyalar iletiye eklenmedi. İletiyi görmek ve dosyaları indirmek için linke tıklayınız.</value>
+  </data>
+  <data name="NotificationIncludeDetails" xml:space="preserve">
+    <value>Sorular iletide olsun?</value>
+  </data>
+  <data name="NotificationIncludeFiles" xml:space="preserve">
+    <value>Dosyalar iletiye eklensin?</value>
+  </data>
+  <data name="NotificationIntro" xml:space="preserve">
+    <value>İletiyi görmek için aşağıdaki linke tıklayınız:</value>
+  </data>
+  <data name="NotificationLeaveOutUnansweredQuestions" xml:space="preserve">
+    <value>Cevapsız sorular iletide olmasın?</value>
+  </data>
+  <data name="NotificationSettings" xml:space="preserve">
+    <value>İleti Ayarları</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Yükle/Gönder</value>
+  </data>
+  <data name="UploadInstructions" xml:space="preserve">
+    <value>Yükleme Açıklamaları</value>
+  </data>
+  <data name="FileTooLargeWarning" xml:space="preserve">
+    <value>Dosya {0} MB'den daha büyük olduğu için yükleme iptal edildi.</value>
+  </data>
+  <data name="FileTooLargeWarningFormat" xml:space="preserve">
+    <value>{0} isimli dosya {1} MB'den daha büyük olduğu için yükleme iptal edildi.</value>
+  </data>
+  <data name="FinishWithNoUploadButton" xml:space="preserve">
+    <value>Yüklemeden Gönder</value>
+  </data>
+  <data name="UploadIsRequired" xml:space="preserve">
+    <value>Yükleme Gerekli mi?</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="EnableOptionAliases" xml:space="preserve">
+    <value>Enable Option Aliases?</value>
+  </data>
+  <data name="EnablePerQuestionCssClasses" xml:space="preserve">
+    <value>Enable Per Question CSS Classes?</value>
+  </data>
+  <data name="EnableQuestionAliases" xml:space="preserve">
+    <value>Enable Question Aliases?</value>
+  </data>
+  <data name="FlattenPagesAsGroups" xml:space="preserve">
+    <value>Flatten Pages As Groups?</value>
+  </data>
+  <data name="OverrideSubmitButtonText" xml:space="preserve">
+    <value>Override Submit Button Text</value>
+  </data>
+  <data name="QuestionAliasLabel" xml:space="preserve">
+    <value>Question Alias</value>
+  </data>
+  <data name="UseSslIfAvailable" xml:space="preserve">
+    <value>Use SSL If Available?</value>
+  </data>
+  <data name="ValueAlias" xml:space="preserve">
+    <value>Value/Alias</value>
+  </data>
+  <data name="ForceScrollTopAfterSubmit" xml:space="preserve">
+    <value>Force Scroll To Top After Submit?</value>
+  </data>
+</root>

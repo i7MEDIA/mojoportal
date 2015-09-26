@@ -1,0 +1,476 @@
+<%-- 
+Name:  						Firebird Stored Procedure Generator
+Author: 					Joe Audette
+Created:					2007-07-18
+Description: 				Creates basic CRUD procedures for a table
+							
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="T-SQL" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author of stored procedure" %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="IncludeDrop" Type="System.Boolean" Default="False" Category="Options" Description="If true drop statements will be generated to drop existing stored procedures." %>
+<%@ Property Name="IncludeInsert" Type="System.Boolean" Default="True" Category="Options" Description="If true insert statements will be generated." %>
+<%@ Property Name="IncludeUpdate" Type="System.Boolean" Default="True" Category="Options" Description="If true update statements will be generated." %>
+<%@ Property Name="IncludeDelete" Type="System.Boolean" Default="True" Category="Options" Description="If true delete statements will be generated." %>
+<%@ Property Name="IncludeSelect" Type="System.Boolean" Default="True" Category="Options" Description="If true Select One will be generated." %>
+<%@ Property Name="IncludeSelectAll" Type="System.Boolean" Default="True" Category="Options" Description="If true Select All statements will be generated." %>
+<%@ Property Name="IncludeType" Type="System.Boolean" Default="True" Category="Options" Description="If true return types will be created for tables." %>
+<%@ Property Name="InsertSuffix" Type="System.String" Default="_INSERT" Category="Style" Description="Suffix to use for all generated INSERT stored procedures." %>
+<%@ Property Name="UpdateSuffix" Type="System.String" Default="_UPDATE" Category="Style" Description="Suffix to use for all generated UPDATE stored procedures." %>
+<%@ Property Name="DeleteSuffix" Type="System.String" Default="_DELETE" Category="Style" Description="Suffix to use for all generated DELETE stored procedures." %>
+<%@ Property Name="SelectSuffix" Type="System.String" Default="_SELECT_ONE" Category="Style" Description="Suffix to use for all generated SELECT stored procedures." %>
+<%@ Property Name="SelectAllSuffix" Type="System.String" Default="_SELECT_ALL" Category="Style" Description="Suffix to use for all generated SELECT stored procedures." %>
+<%@ Property Name="TypeSuffix" Type="System.String" Default="_type" Category="Style" Description="Suffix to use for all generated SELECT stored procedures." %>
+
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+<% if (SourceTable.PrimaryKey == null) throw new ApplicationException("SourceTable does not contain a primary key."); %>
+
+<% if (IncludeInsert) { %>
+<% if (SourceTable.PrimaryKey.MemberColumns.Count == 1 && (SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Guid || SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int16 || SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int32 || SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int64)) {
+    ColumnSchema primaryKey = SourceTable.PrimaryKey.MemberColumns[0];
+%>
+<% if (primaryKey.DataType == DbType.Guid) {  %>
+SET TERM ^ ;
+
+CREATE PROCEDURE <%= GetTableName(SourceTable.Name) %><%= InsertSuffix %>(
+<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+	<%= GetColumnName(SourceTable.Columns[i].Name) %>			<%= GetColumnTypeWithDimensions(SourceTable.Columns[i]) %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+<% } %>
+)
+RETURNS
+(
+  AFFECTEDROWS INTEGER
+)
+
+AS
+
+BEGIN
+
+INSERT INTO 	<%= GetTableName(SourceTable.Name) %>
+(				
+                <% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+                <%= GetColumnName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+                <% } %>
+) 
+VALUES 
+(				
+                <% for (int i = 0; i < SourceTable.Columns.Count; i++) { 
+					int j = i + 1;%>
+               :<%= GetColumnName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+                <% } %>                
+);
+
+AFFECTEDROWS = ROW_COUNT;
+
+END^
+
+SET TERM ; ^
+<%
+ } 
+else
+// integer id expected here
+{ %>
+SET TERM ^ ;
+
+CREATE PROCEDURE <%= GetTableName(SourceTable.Name) %><%= InsertSuffix %>(
+<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+	<%= GetColumnName(SourceTable.NonPrimaryKeyColumns[i].Name) %>			<%= GetColumnTypeWithDimensions(SourceTable.NonPrimaryKeyColumns[i]) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %>
+<% } %>
+) 
+RETURNS
+(
+	<%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[0].Name) %> <%= GetColumnTypeWithDimensions(SourceTable.PrimaryKey.MemberColumns[0]) %>
+)
+AS
+
+BEGIN
+ <%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[0].Name) %> = NEXT VALUE FOR <%= SourceTable.Name %>_seq;
+
+INSERT INTO 	<%= GetTableName(SourceTable.Name) %>
+(				
+                <% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+                <%= GetColumnName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+                <% } %>
+) 
+VALUES 
+(				
+                <% for (int i = 0; i < SourceTable.Columns.Count; i++) { 
+					int j = i + 1;%>
+               :<%= GetColumnName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+                <% } %>                 
+);
+
+END^
+
+SET TERM ; ^
+
+<% } %>
+
+<%//} 
+} else { %>
+
+
+-- THIS STORED PROCEDURE NEEDS TO BE MANUALLY COMPLETED
+-- MULITPLE PRIMARY KEY MEMBERS OR NON-GUID/INT PRIMARY KEY
+
+
+<% } %>
+<% } %>
+
+<% if (IncludeUpdate) { %>
+SET TERM ^ ;
+
+CREATE PROCEDURE <%= GetTableName(SourceTable.Name) %><%= UpdateSuffix %>(
+<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+	<%= GetColumnName(SourceTable.Columns[i].Name) %>			<%= GetColumnTypeWithDimensions(SourceTable.Columns[i]) %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+<% } %>
+)
+RETURNS
+(
+  AFFECTEDROWS INTEGER
+)
+
+AS
+
+BEGIN
+UPDATE 		<%= GetTableName(SourceTable.Name) %>
+
+SET
+            <% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) {  
+					int j = i + SourceTable.PrimaryKey.MemberColumns.Count + 1;%>
+            <%= GetColumnName(SourceTable.NonPrimaryKeyColumns[i].Name) %> = :<%= GetColumnName(SourceTable.NonPrimaryKeyColumns[i].Name) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %> 
+            <% } %>
+            
+WHERE
+            <% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { 
+				int j = i + 1;%>
+            <% if (i > 0) { %>and <% } %><%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> = :<%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>,<% } else { %>;<% } %> 
+			<% } %>
+			
+	AFFECTEDROWS = ROW_COUNT;
+END^
+
+SET TERM ; ^
+<% } %>
+
+<% if (IncludeDelete) { %>
+
+SET TERM ^ ;
+
+CREATE PROCEDURE <%= GetTableName(SourceTable.Name) %><%= DeleteSuffix %> 
+(
+<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+	<%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %>			<%= GetColumnTypeWithDimensions(SourceTable.PrimaryKey.MemberColumns[i]) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>,<% } %>
+<% } %>
+)
+RETURNS
+(
+  AFFECTEDROWS INTEGER
+)
+
+AS
+
+BEGIN
+	DELETE FROM <%= GetTableName(SourceTable.Name) %>
+	WHERE <% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { 
+	   int j = i + 1;
+       if (i > 0) { %> and <% } %><%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> = :<%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% } %>;
+	
+AFFECTEDROWS = ROW_COUNT;
+END^
+
+SET TERM ; ^
+
+<% } %>
+<script runat="template">
+
+public string GetFirebirdParameterStatement(ColumnSchema column, bool LastColumn)
+{
+	string retVal = GetColumnTypeWithDimensions(column);
+	if (!LastColumn) {
+		retVal += ",";
+	}
+	
+	retVal += " --:"  + GetColumnName(column.Name);
+	
+    return retVal;
+}
+
+public string GetFirebirdCreateParam(ColumnSchema column, bool LastColumn)
+{
+	string retVal = GetFirebirdCreateTypeNameFromNativeType(column) + GetColumnDimensions(column);
+	if (!LastColumn) {
+		retVal += ",";
+	}
+	
+	retVal += " --:"  + GetColumnName(column.Name);
+	
+    return retVal;
+}
+
+public string GetFirebirdReturnTypeStatement(ColumnSchema column, bool LastColumn)
+{
+	string retVal = GetFirebirdTypeNameFromNativeType(column);
+	if (!LastColumn) {
+		retVal += ",";
+	}
+	
+    return retVal;
+}
+
+public string GetTableName(string TableName) 
+{
+	return TableName.ToUpper();
+	
+}
+
+public string GetColumnTypeWithDimensions(ColumnSchema column) {
+	return GetFirebirdTypeNameFromNativeType(column) + GetColumnDimensions(column);
+}
+
+
+
+public string GetColumnName(string ColumnName) 
+{
+	return ColumnName.ToUpper();
+	
+}
+
+public string GetFirebirdTypeNameFromNativeType(ColumnSchema column) {
+//column.NativeType.Trim().ToLower()
+	switch (column.NativeType.Trim().ToLower())
+	{
+		case "bigint":
+			return "BIGINT";
+		case "binary":
+			return "BLOB";
+		case "bit":
+		case "boolean":
+			return "SMALLINT";
+		case "bstr":
+			return "bytea";
+		case "chapter":
+			return "int4";
+		case "char":
+			return "CHAR";
+		case "currency":
+			return "DECIMAL(18,4)";
+		case "datetime":
+			return "TIMESTAMP";
+		case "date":
+		case "dbdate":
+			return "DATE";
+		case "dbtime":
+			return "TIME";
+		case "dbtimestamp":
+			return "TIMESTAMP";
+		case "decimal":
+			return "DECIMAL";
+		case "double":
+		case "float":
+			return "FLOAT";
+		case "empty":
+			return "text";
+		case "error":
+			return "int4";
+		case "filetime":
+			return "TIMESTAMP";
+		case "guid":
+			return "CHAR(36)";
+		case "image":
+			return "BLOB";
+		case "int":
+		case "integer":
+			return "INTEGER";
+		case "longvarbinary":
+		case "longvarchar":
+		case "longvarwchar":
+			return "BLOB SUB_TYPE 1";
+		case "money":
+			return "DECIMAL(18,4)";
+		case "nchar":
+			return "CHAR";
+		case "ntext":
+			return "BLOB SUB_TYPE 1";
+		case "numeric":
+			return "numeric";
+		case "varchar":
+		case "nvarchar":
+			return "VARCHAR";
+		case "propvariant":
+			return "text";
+		case "real":
+			return "real";
+		case "single":
+			return "float4";
+		case "smalldatetime":
+			return "TIME";
+		case "smallint":
+			return "int2";
+		case "smallmoney":
+			return "DECIMAL(18,4)";
+		case "sql_variant":
+			return "text";
+		case "sysname":
+			return "varchar";
+		case "text":
+			return "text";
+		case "timestamp":
+			return "TIMESTAMP";
+		case "tinyint":
+			return "tinyint";
+		case "uniqueidentifier":
+			return "CHAR(36)";
+		case "unsignedbigint":
+			return "int8";
+		case "unsignedsmallint":
+			return "int2";
+		case "unsignedtinyint":
+			return "int2";
+		//case "varbinary":
+		 
+		case "varwchar": 
+		case "wchar": 
+			return "BLOB SUB_TYPE 1";
+		case "userdefined": 
+		default: 
+			throw new ApplicationException("SourceTable does not contain a primary key.");
+	}
+}
+
+public string GetFirebirdCreateTypeNameFromNativeType(ColumnSchema column) {
+//column.NativeType.Trim().ToLower()
+	switch (column.NativeType.Trim().ToLower())
+	{
+		case "bigint":
+			return "BIGINT";
+		case "binary":
+			return "BLOB";
+		case "bit":
+		case "boolean":
+			return "SMALLINT";
+		case "bstr":
+			return "bytea";
+		case "chapter":
+			return "chapter";
+		case "char":
+			return "CHAR";
+		case "currency":
+			return "DECIMAL(18,4)";
+		case "datetime":
+			return "TIMESTAMP";
+		case "date":
+		case "dbdate":
+			return "DATE";
+		case "dbtime":
+			return "TIME";
+		case "dbtimestamp":
+			return "TIMESTAMPO";
+		case "decimal":
+			return "DECIMAL";
+		case "double":
+		case "float":
+			return "FLOAT";
+		case "empty":
+			return "text";
+		case "error":
+			return "error";
+		case "filetime":
+			return "timestamp";
+		case "guid":
+			return "CHAR(36)";
+		case "image":
+			return "BLOB";
+		case "int":
+		case "integer":
+			return "INTEGER";
+		case "longvarbinary":
+		case "longvarchar":
+		case "longvarwchar":
+			return "BLOB SUB_TYPE 1";
+		case "money":
+			return "DECIMAL(18,4)";
+		case "nchar":
+			return "CHAR";
+		case "ntext":
+			return "BLOB SUB_TYPE 1";
+		case "numeric":
+			return "numeric";
+		case "nvarchar":
+			return "varchar";
+		case "propvariant":
+			return "text";
+		case "real":
+			return "real";
+		case "single":
+			return "float4";
+		case "smalldatetime":
+			return "timestamp";
+		case "smallint":
+			return "int2";
+		case "smallmoney":
+			return "money";
+		case "sql_variant":
+			return "text";
+		case "sysname":
+			return "varchar";
+		case "text":
+			return "text";
+		case "timestamp":
+			return "timestamp";
+		case "tinyint":
+			return "tinyint";
+		case "uniqueidentifier":
+			return "CHAR(36)";
+		case "unsignedbigint":
+			return "int8";
+		case "unsignedsmallint":
+			return "int2";
+		case "unsignedtinyint":
+			return "int2";
+		case "varbinary":
+		case "varchar": 
+		case "varwchar": 
+		case "wchar": 
+			return "text";
+		case "userdefined": 
+		default: 
+			throw new ApplicationException("SourceTable does not contain a primary key.");
+	}
+}
+
+public string GetColumnDimensions(ColumnSchema column) {
+	string retVal = "";
+	switch (column.DataType)
+	{
+		case DbType.Decimal:
+		{
+			retVal = "(" + column.Precision + ", " + column.Scale + ")";
+			break;
+		}
+		case DbType.AnsiString:
+		case DbType.AnsiStringFixedLength:
+		case DbType.String:
+		case DbType.StringFixedLength:
+		{
+			if (column.NativeType != "text" && column.NativeType != "ntext")
+			{
+				if (column.Size > 0)
+				{
+					retVal = "(" + column.Size + ")";
+				}
+			}
+			break;
+		}
+	}
+	return retVal;
+}
+
+</script>

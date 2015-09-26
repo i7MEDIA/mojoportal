@@ -1,0 +1,839 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CountryLabelAlbania" xml:space="preserve">
+    <value>阿尔巴尼亚</value>
+  </data>
+  <data name="CountryLabelAlgerian" xml:space="preserve">
+    <value>阿尔及利亚</value>
+  </data>
+  <data name="CountryLabelAmericanSamoa" xml:space="preserve">
+    <value>美属萨摩亚</value>
+  </data>
+  <data name="CountryLabelAndorra" xml:space="preserve">
+    <value>安道尔</value>
+  </data>
+  <data name="CountryLabelAnguilla" xml:space="preserve">
+    <value>安圭拉岛</value>
+  </data>
+  <data name="CountryLabelAnla" xml:space="preserve">
+    <value>Anla</value>
+  </data>
+  <data name="CountryLabelAntarctica" xml:space="preserve">
+    <value>南极洲</value>
+  </data>
+  <data name="CountryLabelAntiguaandBarbuda" xml:space="preserve">
+    <value>安提瓜和巴布达</value>
+  </data>
+  <data name="CountryLabelArgentina" xml:space="preserve">
+    <value>阿根廷</value>
+  </data>
+  <data name="CountryLabelArmenia" xml:space="preserve">
+    <value>亚美尼亚</value>
+  </data>
+  <data name="CountryLabelAruba" xml:space="preserve">
+    <value>阿鲁巴 </value>
+  </data>
+  <data name="CountryLabelAustralia" xml:space="preserve">
+    <value>澳大利亚</value>
+  </data>
+  <data name="CountryLabelAustria" xml:space="preserve">
+    <value>奥地利</value>
+  </data>
+  <data name="CountryLabelAzerbaijan" xml:space="preserve">
+    <value>阿塞拜疆</value>
+  </data>
+  <data name="CountryLabelBahamas" xml:space="preserve">
+    <value>巴哈马</value>
+  </data>
+  <data name="CountryLabelBahrain" xml:space="preserve">
+    <value>巴林</value>
+  </data>
+  <data name="CountryLabelBangladesh" xml:space="preserve">
+    <value>孟加拉国 </value>
+  </data>
+  <data name="CountryLabelBarbados" xml:space="preserve">
+    <value>巴巴多斯</value>
+  </data>
+  <data name="CountryLabelBelarus" xml:space="preserve">
+    <value>白俄罗斯</value>
+  </data>
+  <data name="CountryLabelBelgium" xml:space="preserve">
+    <value>比利时 </value>
+  </data>
+  <data name="CountryLabelBelize" xml:space="preserve">
+    <value>伯利兹</value>
+  </data>
+  <data name="CountryLabelBenin" xml:space="preserve">
+    <value>贝宁湾</value>
+  </data>
+  <data name="CountryLabelBermuda" xml:space="preserve">
+    <value>百慕大</value>
+  </data>
+  <data name="CountryLabelBhutan" xml:space="preserve">
+    <value>不丹 </value>
+  </data>
+  <data name="CountryLabelBolivia" xml:space="preserve">
+    <value>玻利维亚 </value>
+  </data>
+  <data name="CountryLabelBosniaandHerzewina" xml:space="preserve">
+    <value>波斯尼亚和Herzewina</value>
+  </data>
+  <data name="CountryLabelBotswana" xml:space="preserve">
+    <value>博茨瓦纳</value>
+  </data>
+  <data name="CountryLabelBouvetIsland" xml:space="preserve">
+    <value>布维岛</value>
+  </data>
+  <data name="CountryLabelBrazil" xml:space="preserve">
+    <value>巴西 </value>
+  </data>
+  <data name="CountryLabelBritishIndianOceanTerritory" xml:space="preserve">
+    <value>英属印度洋领地</value>
+  </data>
+  <data name="CountryLabelBruneiDarussalam" xml:space="preserve">
+    <value>文莱达鲁萨兰国</value>
+  </data>
+  <data name="CountryLabelBulgaria" xml:space="preserve">
+    <value>保加利亚 </value>
+  </data>
+  <data name="CountryLabelBurkinaFaso" xml:space="preserve">
+    <value>布基纳法索</value>
+  </data>
+  <data name="CountryLabelBurundi" xml:space="preserve">
+    <value>布隆迪</value>
+  </data>
+  <data name="CountryLabelCambodia" xml:space="preserve">
+    <value>柬埔寨</value>
+  </data>
+  <data name="CountryLabelCameroon" xml:space="preserve">
+    <value>喀麦隆 </value>
+  </data>
+  <data name="CountryLabelCanada" xml:space="preserve">
+    <value>加拿大</value>
+  </data>
+  <data name="CountryLabelCapeVerde" xml:space="preserve">
+    <value>佛得角 </value>
+  </data>
+  <data name="CountryLabelCaymanIslands" xml:space="preserve">
+    <value>开曼群岛</value>
+  </data>
+  <data name="CountryLabelCentralAfricanRepublic" xml:space="preserve">
+    <value>中非共和国</value>
+  </data>
+  <data name="CountryLabelChad" xml:space="preserve">
+    <value>乍得</value>
+  </data>
+  <data name="CountryLabelChile" xml:space="preserve">
+    <value>智利</value>
+  </data>
+  <data name="CountryLabelChina" xml:space="preserve">
+    <value>中国 </value>
+  </data>
+  <data name="CountryLabelChristmasIsland" xml:space="preserve">
+    <value>圣诞岛</value>
+  </data>
+  <data name="CountryLabelCocosKeelingIslands" xml:space="preserve">
+    <value>可可(Keeling群岛)</value>
+  </data>
+  <data name="CountryLabelColombia" xml:space="preserve">
+    <value>哥伦比亚</value>
+  </data>
+  <data name="CountryLabelComoros" xml:space="preserve">
+    <value>科摩罗</value>
+  </data>
+  <data name="CountryLabelCon" xml:space="preserve">
+    <value>Con</value>
+  </data>
+  <data name="CountryLabelCookIslands" xml:space="preserve">
+    <value>库克群岛 </value>
+  </data>
+  <data name="CountryLabelCostaRica" xml:space="preserve">
+    <value>哥斯达黎加</value>
+  </data>
+  <data name="CountryLabelCoteDIvoire" xml:space="preserve">
+    <value>象牙海岸共和国 
+</value>
+  </data>
+  <data name="CountryLabelCroatia" xml:space="preserve">
+    <value>克罗地亚</value>
+  </data>
+  <data name="CountryLabelCuba" xml:space="preserve">
+    <value>古巴</value>
+  </data>
+  <data name="CountryLabelCyprus" xml:space="preserve">
+    <value>塞浦路斯</value>
+  </data>
+  <data name="CountryLabelCzechRepublic" xml:space="preserve">
+    <value>捷克共和国 </value>
+  </data>
+  <data name="CountryLabelDenmark" xml:space="preserve">
+    <value>丹麦</value>
+  </data>
+  <data name="CountryLabelDjibouti" xml:space="preserve">
+    <value>吉布提</value>
+  </data>
+  <data name="CountryLabelDominica" xml:space="preserve">
+    <value>多米尼克</value>
+  </data>
+  <data name="CountryLabelDominicanRepublic" xml:space="preserve">
+    <value>多米尼加共和国 </value>
+  </data>
+  <data name="CountryLabelEastTimor" xml:space="preserve">
+    <value>东帝汶 </value>
+  </data>
+  <data name="CountryLabelEcuador" xml:space="preserve">
+    <value>厄瓜多尔 </value>
+  </data>
+  <data name="CountryLabelEgypt" xml:space="preserve">
+    <value>埃及</value>
+  </data>
+  <data name="CountryLabelElSalvador" xml:space="preserve">
+    <value>萨尔瓦多</value>
+  </data>
+  <data name="CountryLabelEquatorialGuinea" xml:space="preserve">
+    <value>赤道几内亚</value>
+  </data>
+  <data name="CountryLabelEritrea" xml:space="preserve">
+    <value>厄立特里亚</value>
+  </data>
+  <data name="CountryLabelEstonia" xml:space="preserve">
+    <value>爱沙尼亚</value>
+  </data>
+  <data name="CountryLabelEthiopia" xml:space="preserve">
+    <value>埃塞俄比亚</value>
+  </data>
+  <data name="CountryLabelFalklandIslandsMalvinas" xml:space="preserve">
+    <value>福克兰群岛(马岛)</value>
+  </data>
+  <data name="CountryLabelFaroeIslands" xml:space="preserve">
+    <value>法罗群岛</value>
+  </data>
+  <data name="CountryLabelFiji" xml:space="preserve">
+    <value>斐济</value>
+  </data>
+  <data name="CountryLabelFinland" xml:space="preserve">
+    <value>芬兰 </value>
+  </data>
+  <data name="CountryLabelFrance" xml:space="preserve">
+    <value>法国</value>
+  </data>
+  <data name="CountryLabelFranceMetropolitan" xml:space="preserve">
+    <value>法国,大城市</value>
+  </data>
+  <data name="CountryLabelFrenchGuiana" xml:space="preserve">
+    <value>法属圭亚那 </value>
+  </data>
+  <data name="CountryLabelFrenchPolynesia" xml:space="preserve">
+    <value>法属波利尼西亚</value>
+  </data>
+  <data name="CountryLabelFrenchSouthernTerritories" xml:space="preserve">
+    <value>法属南半球领地 </value>
+  </data>
+  <data name="CountryLabelGabon" xml:space="preserve">
+    <value>加蓬</value>
+  </data>
+  <data name="CountryLabelGambia" xml:space="preserve">
+    <value>冈比亚</value>
+  </data>
+  <data name="CountryLabelGeorgia" xml:space="preserve">
+    <value>格鲁吉亚</value>
+  </data>
+  <data name="CountryLabelGermany" xml:space="preserve">
+    <value>德国</value>
+  </data>
+  <data name="CountryLabelGhana" xml:space="preserve">
+    <value>加纳 </value>
+  </data>
+  <data name="CountryLabelGibraltar" xml:space="preserve">
+    <value>直布罗陀</value>
+  </data>
+  <data name="CountryLabelGreece" xml:space="preserve">
+    <value>希腊</value>
+  </data>
+  <data name="CountryLabelGreenland" xml:space="preserve">
+    <value>格陵兰</value>
+  </data>
+  <data name="CountryLabelGrenada" xml:space="preserve">
+    <value>格林纳达 </value>
+  </data>
+  <data name="CountryLabelGuadeloupe" xml:space="preserve">
+    <value>瓜德罗普岛</value>
+  </data>
+  <data name="CountryLabelGuam" xml:space="preserve">
+    <value>关岛 </value>
+  </data>
+  <data name="CountryLabelGuatemala" xml:space="preserve">
+    <value>危地马拉</value>
+  </data>
+  <data name="CountryLabelGuinea" xml:space="preserve">
+    <value>几内亚 </value>
+  </data>
+  <data name="CountryLabelGuineabissau" xml:space="preserve">
+    <value>几内亚比绍</value>
+  </data>
+  <data name="CountryLabelGuyana" xml:space="preserve">
+    <value>圭亚那</value>
+  </data>
+  <data name="CountryLabelHaiti" xml:space="preserve">
+    <value>海地</value>
+  </data>
+  <data name="CountryLabelHeardandMcDonaldIslands" xml:space="preserve">
+    <value>赫德岛和麦克唐纳岛 
+</value>
+  </data>
+  <data name="CountryLabelHonduras" xml:space="preserve">
+    <value>洪都拉斯</value>
+  </data>
+  <data name="CountryLabelHongKong" xml:space="preserve">
+    <value>香港</value>
+  </data>
+  <data name="CountryLabelHungary" xml:space="preserve">
+    <value>匈牙利</value>
+  </data>
+  <data name="CountryLabelIceland" xml:space="preserve">
+    <value>冰岛</value>
+  </data>
+  <data name="CountryLabelIndia" xml:space="preserve">
+    <value>印度 </value>
+  </data>
+  <data name="CountryLabelIndonesia" xml:space="preserve">
+    <value>印度尼西亚 </value>
+  </data>
+  <data name="CountryLabelIranIslamicRepublic" xml:space="preserve">
+    <value>伊朗伊斯兰共和国</value>
+  </data>
+  <data name="CountryLabelIraq" xml:space="preserve">
+    <value>伊拉克</value>
+  </data>
+  <data name="CountryLabelIreland" xml:space="preserve">
+    <value>爱尔兰</value>
+  </data>
+  <data name="CountryLabelIsrael" xml:space="preserve">
+    <value>以色列</value>
+  </data>
+  <data name="CountryLabelItaly" xml:space="preserve">
+    <value>意大利</value>
+  </data>
+  <data name="CountryLabelJamaica" xml:space="preserve">
+    <value>牙买加 </value>
+  </data>
+  <data name="CountryLabelJapan" xml:space="preserve">
+    <value>日本</value>
+  </data>
+  <data name="CountryLabelJordan" xml:space="preserve">
+    <value>约旦 </value>
+  </data>
+  <data name="CountryLabelKazakhstan" xml:space="preserve">
+    <value>哈萨克斯坦 </value>
+  </data>
+  <data name="CountryLabelKenya" xml:space="preserve">
+    <value>肯尼亚</value>
+  </data>
+  <data name="CountryLabelKiribati" xml:space="preserve">
+    <value>基里巴斯</value>
+  </data>
+  <data name="CountryLabelKoreaDemocraticPeoplesRepublic" xml:space="preserve">
+    <value>朝鲜民主人民共和国</value>
+  </data>
+  <data name="CountryLabelKoreaRepublic" xml:space="preserve">
+    <value>大韩民国 
+</value>
+  </data>
+  <data name="CountryLabelKuwait" xml:space="preserve">
+    <value>科威特 </value>
+  </data>
+  <data name="CountryLabelKyrgyzstan" xml:space="preserve">
+    <value>吉尔吉斯 </value>
+  </data>
+  <data name="CountryLabelLaoPeoplesDemocraticRepublic" xml:space="preserve">
+    <value>老挝人民民主共和国</value>
+  </data>
+  <data name="CountryLabelLatvia" xml:space="preserve">
+    <value>拉脱维亚 </value>
+  </data>
+  <data name="CountryLabelLebanon" xml:space="preserve">
+    <value>黎巴嫩</value>
+  </data>
+  <data name="CountryLabelLesotho" xml:space="preserve">
+    <value>莱索托 </value>
+  </data>
+  <data name="CountryLabelLiberia" xml:space="preserve">
+    <value>利比里亚共和国</value>
+  </data>
+  <data name="CountryLabelLibyanArabJamahiriya" xml:space="preserve">
+    <value>利比亚 </value>
+  </data>
+  <data name="CountryLabelLiechtenstein" xml:space="preserve">
+    <value>列支敦士登</value>
+  </data>
+  <data name="CountryLabelLithuania" xml:space="preserve">
+    <value>立陶宛</value>
+  </data>
+  <data name="CountryLabelLuxembourg" xml:space="preserve">
+    <value>卢森堡</value>
+  </data>
+  <data name="CountryLabelMacau" xml:space="preserve">
+    <value>澳门</value>
+  </data>
+  <data name="CountryLabelMacedoniaTheFormerYuslavRepublic" xml:space="preserve">
+    <value>马其顿</value>
+  </data>
+  <data name="CountryLabelMadagascar" xml:space="preserve">
+    <value> 马达加斯加 </value>
+  </data>
+  <data name="CountryLabelMalawi" xml:space="preserve">
+    <value>马拉维 </value>
+  </data>
+  <data name="CountryLabelMalaysia" xml:space="preserve">
+    <value>Malaysia马来西亚 </value>
+  </data>
+  <data name="CountryLabelMaldives" xml:space="preserve">
+    <value>马尔代夫 </value>
+  </data>
+  <data name="CountryLabelMali" xml:space="preserve">
+    <value>马里</value>
+  </data>
+  <data name="CountryLabelMalta" xml:space="preserve">
+    <value>马耳他</value>
+  </data>
+  <data name="CountryLabelMarshallIslands" xml:space="preserve">
+    <value>马绍尔群岛</value>
+  </data>
+  <data name="CountryLabelMartinique" xml:space="preserve">
+    <value>马提尼克岛 </value>
+  </data>
+  <data name="CountryLabelMauritania" xml:space="preserve">
+    <value>毛里塔尼亚 </value>
+  </data>
+  <data name="CountryLabelMauritius" xml:space="preserve">
+    <value>毛里求斯 </value>
+  </data>
+  <data name="CountryLabelMayotte" xml:space="preserve">
+    <value>马约特</value>
+  </data>
+  <data name="CountryLabelMexico" xml:space="preserve">
+    <value>墨西哥</value>
+  </data>
+  <data name="CountryLabelMicronesiaFederatedStates" xml:space="preserve">
+    <value>密克罗尼西亚联邦</value>
+  </data>
+  <data name="CountryLabelMoldovaRepublic" xml:space="preserve">
+    <value> 摩尔多瓦共和国</value>
+  </data>
+  <data name="CountryLabelMonaco" xml:space="preserve">
+    <value>摩纳哥 </value>
+  </data>
+  <data name="CountryLabelMonlia" xml:space="preserve">
+    <value>Monlia</value>
+  </data>
+  <data name="CountryLabelMontserrat" xml:space="preserve">
+    <value>蒙特塞拉特</value>
+  </data>
+  <data name="CountryLabelMorocco" xml:space="preserve">
+    <value>摩洛哥</value>
+  </data>
+  <data name="CountryLabelMozambique" xml:space="preserve">
+    <value>莫桑比克 </value>
+  </data>
+  <data name="CountryLabelMyanmar" xml:space="preserve">
+    <value>缅甸</value>
+  </data>
+  <data name="CountryLabelNamibia" xml:space="preserve">
+    <value>纳米比亚</value>
+  </data>
+  <data name="CountryLabelNauru" xml:space="preserve">
+    <value>瑙鲁</value>
+  </data>
+  <data name="CountryLabelNepal" xml:space="preserve">
+    <value>尼泊尔</value>
+  </data>
+  <data name="CountryLabelNetherlands" xml:space="preserve">
+    <value>荷兰 </value>
+  </data>
+  <data name="CountryLabelNetherlandsAntilles" xml:space="preserve">
+    <value>荷属安的列斯</value>
+  </data>
+  <data name="CountryLabelNewCaledonia" xml:space="preserve">
+    <value>新喀里多尼亚 </value>
+  </data>
+  <data name="CountryLabelNewZealand" xml:space="preserve">
+    <value>新西兰 </value>
+  </data>
+  <data name="CountryLabelNicaragua" xml:space="preserve">
+    <value>尼加拉瓜</value>
+  </data>
+  <data name="CountryLabelNiger" xml:space="preserve">
+    <value>尼日尔 </value>
+  </data>
+  <data name="CountryLabelNigeria" xml:space="preserve">
+    <value>尼日利亚</value>
+  </data>
+  <data name="CountryLabelNiue" xml:space="preserve">
+    <value>纽埃
+</value>
+  </data>
+  <data name="CountryLabelNorfolkIsland" xml:space="preserve">
+    <value>诺福克岛</value>
+  </data>
+  <data name="CountryLabelNorthernMarianaIslands" xml:space="preserve">
+    <value>北马里亚纳群岛</value>
+  </data>
+  <data name="CountryLabelNorway" xml:space="preserve">
+    <value>挪威 </value>
+  </data>
+  <data name="CountryLabelOman" xml:space="preserve">
+    <value>阿曼</value>
+  </data>
+  <data name="CountryLabelPakistan" xml:space="preserve">
+    <value>巴基斯坦 </value>
+  </data>
+  <data name="CountryLabelPalau" xml:space="preserve">
+    <value>帕劳</value>
+  </data>
+  <data name="CountryLabelPanama" xml:space="preserve">
+    <value>巴拿马 </value>
+  </data>
+  <data name="CountryLabelPapuaNewGuinea" xml:space="preserve">
+    <value>巴布亚新几内亚</value>
+  </data>
+  <data name="CountryLabelParaguay" xml:space="preserve">
+    <value>巴拉圭</value>
+  </data>
+  <data name="CountryLabelPeru" xml:space="preserve">
+    <value>秘鲁</value>
+  </data>
+  <data name="CountryLabelPhilippines" xml:space="preserve">
+    <value>菲律宾</value>
+  </data>
+  <data name="CountryLabelPitcairn" xml:space="preserve">
+    <value>皮特凯恩</value>
+  </data>
+  <data name="CountryLabelPoland" xml:space="preserve">
+    <value>波兰</value>
+  </data>
+  <data name="CountryLabelPortugal" xml:space="preserve">
+    <value>葡萄牙 </value>
+  </data>
+  <data name="CountryLabelPuertoRico" xml:space="preserve">
+    <value>波多黎各</value>
+  </data>
+  <data name="CountryLabelQatar" xml:space="preserve">
+    <value>卡塔尔</value>
+  </data>
+  <data name="CountryLabelReunion" xml:space="preserve">
+    <value>留尼旺岛</value>
+  </data>
+  <data name="CountryLabelRomania" xml:space="preserve">
+    <value>罗马尼亚</value>
+  </data>
+  <data name="CountryLabelRussianFederation" xml:space="preserve">
+    <value>俄罗斯联邦</value>
+  </data>
+  <data name="CountryLabelRwanda" xml:space="preserve">
+    <value>卢旺达</value>
+  </data>
+  <data name="CountryLabelSaintKittsandNevis" xml:space="preserve">
+    <value>圣基茨和尼维斯</value>
+  </data>
+  <data name="CountryLabelSaintLucia" xml:space="preserve">
+    <value>圣卢西亚</value>
+  </data>
+  <data name="CountryLabelSaintVincentandtheGrenadines" xml:space="preserve">
+    <value>圣文森特和格林纳丁斯</value>
+  </data>
+  <data name="CountryLabelSamoa" xml:space="preserve">
+    <value>萨摩亚</value>
+  </data>
+  <data name="CountryLabelSanMarino" xml:space="preserve">
+    <value>圣马力诺 </value>
+  </data>
+  <data name="CountryLabelSaoTomeandPrincipe" xml:space="preserve">
+    <value>圣多美和普林西比
+</value>
+  </data>
+  <data name="CountryLabelSaudiArabia" xml:space="preserve">
+    <value>沙特阿拉伯</value>
+  </data>
+  <data name="CountryLabelSenegal" xml:space="preserve">
+    <value>塞内加尔</value>
+  </data>
+  <data name="CountryLabelSeychelles" xml:space="preserve">
+    <value>塞舌尔</value>
+  </data>
+  <data name="CountryLabelSierraLeone" xml:space="preserve">
+    <value>塞拉利昂 </value>
+  </data>
+  <data name="CountryLabelSingapore" xml:space="preserve">
+    <value>新加坡 </value>
+  </data>
+  <data name="CountryLabelSlovakiaSlovakRepublic" xml:space="preserve">
+    <value>斯洛伐克(斯洛伐克共和国)</value>
+  </data>
+  <data name="CountryLabelSlovenia" xml:space="preserve">
+    <value>斯诺文尼亚</value>
+  </data>
+  <data name="CountryLabelSolomonIslands" xml:space="preserve">
+    <value>索罗门群岛 </value>
+  </data>
+  <data name="CountryLabelSomalia" xml:space="preserve">
+    <value>索马里 </value>
+  </data>
+  <data name="CountryLabelSouthAfrica" xml:space="preserve">
+    <value>南非</value>
+  </data>
+  <data name="CountryLabelSouthGeorgiaandtheSouthSandwichIslands" xml:space="preserve">
+    <value>南乔治亚州和南部三文治岛内</value>
+  </data>
+  <data name="CountryLabelSpain" xml:space="preserve">
+    <value>西班牙</value>
+  </data>
+  <data name="CountryLabelSriLanka" xml:space="preserve">
+    <value>斯里兰卡 </value>
+  </data>
+  <data name="CountryLabelStHelena" xml:space="preserve">
+    <value>圣赫勒拿岛 
+</value>
+  </data>
+  <data name="CountryLabelStPierreandMiquelon" xml:space="preserve">
+    <value>圣皮艾尔和密克隆群岛 
+</value>
+  </data>
+  <data name="CountryLabelSudan" xml:space="preserve">
+    <value>苏丹 </value>
+  </data>
+  <data name="CountryLabelSuriname" xml:space="preserve">
+    <value>苏利南</value>
+  </data>
+  <data name="CountryLabelSvalbardandJanMayenIslands" xml:space="preserve">
+    <value>斯瓦尔巴群岛</value>
+  </data>
+  <data name="CountryLabelSwaziland" xml:space="preserve">
+    <value>斯威士兰</value>
+  </data>
+  <data name="CountryLabelSweden" xml:space="preserve">
+    <value>瑞典</value>
+  </data>
+  <data name="CountryLabelSwitzerland" xml:space="preserve">
+    <value>瑞士 </value>
+  </data>
+  <data name="CountryLabelSyrianArabRepublic" xml:space="preserve">
+    <value>阿拉伯叙利亚共和国</value>
+  </data>
+  <data name="CountryLabelTaiwan" xml:space="preserve">
+    <value>台湾</value>
+  </data>
+  <data name="CountryLabelTajikistan" xml:space="preserve">
+    <value>塔吉克斯坦</value>
+  </data>
+  <data name="CountryLabelTanzaniaUnitedRepublic" xml:space="preserve">
+    <value>坦桑尼亚,联合共和国</value>
+  </data>
+  <data name="CountryLabelThailand" xml:space="preserve">
+    <value>泰国</value>
+  </data>
+  <data name="CountryLabelTokelau" xml:space="preserve">
+    <value>托克劳 </value>
+  </data>
+  <data name="CountryLabelTonga" xml:space="preserve">
+    <value>汤加</value>
+  </data>
+  <data name="CountryLabelTrinidadandToba" xml:space="preserve">
+    <value>特立尼达和Toba</value>
+  </data>
+  <data name="CountryLabelTunisia" xml:space="preserve">
+    <value>突尼斯</value>
+  </data>
+  <data name="CountryLabelTurkey" xml:space="preserve">
+    <value>土耳其 </value>
+  </data>
+  <data name="CountryLabelTurkmenistan" xml:space="preserve">
+    <value>土库曼斯坦 </value>
+  </data>
+  <data name="CountryLabelTurksandCaicosIslands" xml:space="preserve">
+    <value>特克斯群岛和凯科斯群岛s</value>
+  </data>
+  <data name="CountryLabelTuvalu" xml:space="preserve">
+    <value>图瓦卢</value>
+  </data>
+  <data name="CountryLabelUganda" xml:space="preserve">
+    <value>乌干达</value>
+  </data>
+  <data name="CountryLabelUkraine" xml:space="preserve">
+    <value>乌克兰 </value>
+  </data>
+  <data name="CountryLabelUnitedArabEmirates" xml:space="preserve">
+    <value>阿拉伯联合酋长国 </value>
+  </data>
+  <data name="CountryLabelUnitedKingdom" xml:space="preserve">
+    <value>联合王国（英国）</value>
+  </data>
+  <data name="CountryLabelUnitedStates" xml:space="preserve">
+    <value>美利坚合众国 </value>
+  </data>
+  <data name="CountryLabelUnitedStatesMinorOutlyingIslands" xml:space="preserve">
+    <value>美国本土外小岛屿 
+</value>
+  </data>
+  <data name="CountryLabelUruguay" xml:space="preserve">
+    <value>乌拉圭 </value>
+  </data>
+  <data name="CountryLabelUzbekistan" xml:space="preserve">
+    <value>乌兹别克斯坦</value>
+  </data>
+  <data name="CountryLabelVanuatu" xml:space="preserve">
+    <value>瓦努阿图 </value>
+  </data>
+  <data name="CountryLabelVaticanCityStateHolySee" xml:space="preserve">
+    <value>梵蒂冈城状态(教廷)</value>
+  </data>
+  <data name="CountryLabelVenezuela" xml:space="preserve">
+    <value>委内瑞拉</value>
+  </data>
+  <data name="CountryLabelVietNam" xml:space="preserve">
+    <value>越南</value>
+  </data>
+  <data name="CountryLabelVirginIslandsBritish" xml:space="preserve">
+    <value>维尔京群岛(英国)</value>
+  </data>
+  <data name="CountryLabelVirginIslandsUS" xml:space="preserve">
+    <value>维尔京群岛(美国)</value>
+  </data>
+  <data name="CountryLabelWallisandFutunaIslands" xml:space="preserve">
+    <value>瓦利斯和富图纳群岛 </value>
+  </data>
+  <data name="CountryLabelWesternSahara" xml:space="preserve">
+    <value>西撒哈拉</value>
+  </data>
+  <data name="CountryLabelYemen" xml:space="preserve">
+    <value>也门 </value>
+  </data>
+  <data name="CountryLabelYuslavia" xml:space="preserve">
+    <value>Yuslavia</value>
+  </data>
+  <data name="CountryLabelZaire" xml:space="preserve">
+    <value>扎伊尔</value>
+  </data>
+  <data name="CountryLabelZambia" xml:space="preserve">
+    <value>赞比亚</value>
+  </data>
+  <data name="CountryLabelZimbabwe" xml:space="preserve">
+    <value>津巴布韦</value>
+  </data>
+</root>

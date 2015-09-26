@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdminMenuLink" xml:space="preserve">
+    <value>Thực đơn Quản trị</value>
+  </data>
+  <data name="AdminMenuWebPartAdminLink" xml:space="preserve">
+    <value>Cài đặt WebPart</value>
+  </data>
+  <data name="AdvancedToolsLink" xml:space="preserve">
+    <value>Công cụ nâng cao</value>
+  </data>
+  <data name="MetaDescriptionMyPageFormat" xml:space="preserve">
+    <value>Trang cổng thông tin cá nhân tùy chỉnh cho các thành viên của {0}.</value>
+  </data>
+  <data name="ModuleSettingsNoIconLabel" xml:space="preserve">
+    <value>Không có</value>
+  </data>
+  <data name="mojoUserCatalogPartTitle" xml:space="preserve">
+    <value>Nội dung sẵn có</value>
+  </data>
+  <data name="MyPageAddContentLabel" xml:space="preserve">
+    <value>Thêm nội dung</value>
+  </data>
+  <data name="MyPageAnonymousMessage" xml:space="preserve">
+    <value>Nếu bạn đăng nhập, bạn có thể tùy chỉnh trang này.</value>
+  </data>
+  <data name="MyPageCancelNewPageButton" xml:space="preserve">
+    <value>Bỏ qua</value>
+  </data>
+  <data name="MyPageCancelRenamePageButton" xml:space="preserve">
+    <value>Bỏ qua</value>
+  </data>
+  <data name="MyPageCenterLabel" xml:space="preserve">
+    <value>Ở giữa</value>
+  </data>
+  <data name="MyPageChangeNameText" xml:space="preserve">
+    <value>Đổi tên</value>
+  </data>
+  <data name="MyPageDefaultUserPageName" xml:space="preserve">
+    <value>Chào mừng</value>
+  </data>
+  <data name="MyPageDeleteWarning" xml:space="preserve">
+    <value>Bạn có chắc muốn xóa nội dung này?</value>
+  </data>
+  <data name="MyPageLeftSideLabel" xml:space="preserve">
+    <value>Bên trái</value>
+  </data>
+  <data name="MyPageLink" xml:space="preserve">
+    <value>Trang Cá Nhân</value>
+  </data>
+  <data name="MyPageMoveLeftText" xml:space="preserve">
+    <value>Chuyển sang trái</value>
+  </data>
+  <data name="MyPageMoveRightText" xml:space="preserve">
+    <value>Chuyển sang phải</value>
+  </data>
+  <data name="MyPageNewPageButton" xml:space="preserve">
+    <value>Thêm trang</value>
+  </data>
+  <data name="MyPageRemoveText" xml:space="preserve">
+    <value>Loại bỏ</value>
+  </data>
+  <data name="MyPageRenamePageButton" xml:space="preserve">
+    <value>Đổi tên</value>
+  </data>
+  <data name="MyPageRightSideLabel" xml:space="preserve">
+    <value>Bên phải</value>
+  </data>
+  <data name="MyPageSkinLabel" xml:space="preserve">
+    <value>Giao diện trang cá nhân</value>
+  </data>
+  <data name="MyPageToggleScopeLabel" xml:space="preserve">
+    <value>Chuyển đổi phạm vi</value>
+  </data>
+  <data name="WebPartAddVerbDescription" xml:space="preserve">
+    <value>Thêm nội dung vào cột được chọn</value>
+  </data>
+  <data name="WebPartAddVerbText" xml:space="preserve">
+    <value>Thêm</value>
+  </data>
+  <data name="WebPartAdminAllWebParts" xml:space="preserve">
+    <value>Tất cả WebPart</value>
+  </data>
+  <data name="WebPartAdminEditButton" xml:space="preserve">
+    <value>Cài đặt...</value>
+  </data>
+  <data name="WebPartAdminMediumTrustMessage" xml:space="preserve">
+    <value>Xin lỗi, trang web này dường như được chạy trong một môi trường bảo mật Medium Trust (Mức tin tưởng trung bình). Các DLL bên thứ 3 đang nạp không hỗ trợ Medium Trust. Bạn vẫn có thể sử dụng tất cả các tính năng dựng sẵn như là  các WebPart, nhưng bạn không thể nạp các WebPart trực tiếp từ các assembly (bộ phận lắp ráp, DLL) trong môi trường này. Để biết thêm thông tin, xem http://www.mojoportal.com/mediumtrust.aspx</value>
+  </data>
+  <data name="WebPartAdminSelectedWebParts" xml:space="preserve">
+    <value>Các WebPart được chọn</value>
+  </data>
+  <data name="WebPartAdminUpdateButton" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="WebPartAllInstalledMessage" xml:space="preserve">
+    <value>Tất cả các WebPart có sẵn hiện đã được cài đặt. Để thêm các WebPart mới, thêm assembly (DLL) vào thư mục bin.</value>
+  </data>
+  <data name="WebPartAllowMultipleInstancesOnMyPageLabel" xml:space="preserve">
+    <value>Cho phép nhiều thực thể trên Trang cá nhân (MyPage)?</value>
+  </data>
+  <data name="WebPartAppearanceEditorTitle" xml:space="preserve">
+    <value>Bề ngoài</value>
+  </data>
+  <data name="WebPartAssemblyNameLabel" xml:space="preserve">
+    <value>Tên bộ phận lắp ráp (Assembly)</value>
+  </data>
+  <data name="WebPartAvailableForContentSystemLabel" xml:space="preserve">
+    <value>Sẵn có cho Hệ thống Nội dung</value>
+  </data>
+  <data name="WebPartAvailableForMyPageLabel" xml:space="preserve">
+    <value>Sẵn có cho Trang cá nhân (MyPage)?</value>
+  </data>
+  <data name="WebPartAvailableNameLabel" xml:space="preserve">
+    <value>Các WebPart sẵn sàng để cài đặt</value>
+  </data>
+  <data name="WebPartBehaviorEditorTitle" xml:space="preserve">
+    <value>Hành vi</value>
+  </data>
+  <data name="WebPartCatalogMoreLink" xml:space="preserve">
+    <value>thêm...</value>
+  </data>
+  <data name="WebPartClassNameLabel" xml:space="preserve">
+    <value>Tên lớp</value>
+  </data>
+  <data name="WebPartCloseVerbDescription" xml:space="preserve">
+    <value>Đóng nội dung này.</value>
+  </data>
+  <data name="WebPartCloseVerbText" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="WebPartDeleteVerbDescription" xml:space="preserve">
+    <value>Xóa nội dung này</value>
+  </data>
+  <data name="WebPartDeleteVerbText" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="WebPartDescriptionLabel" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="WebPartEditCancelButton" xml:space="preserve">
+    <value>Bỏ qua</value>
+  </data>
+  <data name="WebPartEditDeleteButton" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="WebPartEditDeleteWarning" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn loại bỏ WebPart này không?</value>
+  </data>
+  <data name="WebPartEditLabel" xml:space="preserve">
+    <value>Chỉnh sửa WebPart</value>
+  </data>
+  <data name="WebPartEditorApplyVerbDescription" xml:space="preserve">
+    <value>Áp dụng những thay đổi</value>
+  </data>
+  <data name="WebPartEditorApplyVerbText" xml:space="preserve">
+    <value>Áp dụng</value>
+  </data>
+  <data name="WebPartEditorCancelVerbDescription" xml:space="preserve">
+    <value>Hủy bỏ thay đổi và đóng trình soạn thảo.</value>
+  </data>
+  <data name="WebPartEditorCancelVerbText" xml:space="preserve">
+    <value>Bỏ qua</value>
+  </data>
+  <data name="WebPartEditorHeaderCloseVerbDescription" xml:space="preserve">
+    <value>Đóng trình soạn thảo</value>
+  </data>
+  <data name="WebPartEditorHeaderCloseVerbText" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="WebPartEditorHeaderText" xml:space="preserve">
+    <value>Trình soạn thảo WebPart</value>
+  </data>
+  <data name="WebPartEditorInstructionsText" xml:space="preserve">
+    <value>Sửa đổi các thuộc tính của WebPart, sau đó nhấn Đồng ý hoặc Áp dụng để thực thi các thay đổi của bạn. Một số WebPart không có thuộc tính có thể chỉnh sửa.</value>
+  </data>
+  <data name="WebPartEditorOKVerbDescription" xml:space="preserve">
+    <value>Áp dụng các thay đổi và đóng trình soạn thảo.</value>
+  </data>
+  <data name="WebPartEditorOKVerbText" xml:space="preserve">
+    <value>Đồng ý</value>
+  </data>
+  <data name="WebPartEditUpdateButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="WebPartEditVerbDescription" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="WebPartEditVerbText" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="WebPartEmptyCatalogZoneText" xml:space="preserve">
+    <value>Xin lỗi hiện chưa có nội dung nào</value>
+  </data>
+  <data name="WebPartEmptyZoneText" xml:space="preserve">
+    <value>Bạn có thể kéo nội dung từ các cột khác hoặc nhấp vào dấu cộng màu xanh lá cây để thêm nội dung.</value>
+  </data>
+  <data name="WebPartExportVerbDescription" xml:space="preserve">
+    <value>Xuất dữ liệu</value>
+  </data>
+  <data name="WebPartExportVerbText" xml:space="preserve">
+    <value>Xuất dữ liệu</value>
+  </data>
+  <data name="WebPartFeatureName" xml:space="preserve">
+    <value>WebPart</value>
+  </data>
+  <data name="WebPartHelpVerbDescription" xml:space="preserve">
+    <value>Trợ giúp</value>
+  </data>
+  <data name="WebPartHelpVerbText" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="WebPartIconLabel" xml:space="preserve">
+    <value>Biểu tượng</value>
+  </data>
+  <data name="WebPartInstalledWebPartsLabel" xml:space="preserve">
+    <value>Các WebPart đã cài đặt</value>
+  </data>
+  <data name="WebPartLayoutEditorPartTitle" xml:space="preserve">
+    <value>Sắp đặt</value>
+  </data>
+  <data name="WebPartManagerCatalogTooltip" xml:space="preserve">
+    <value>Nhấp vào đây để xem nội dung.</value>
+  </data>
+  <data name="WebPartManagerCloseCatalogTooltip" xml:space="preserve">
+    <value>Nhấp vào đây để đóng catalog.</value>
+  </data>
+  <data name="WebPartManagerResetButton" xml:space="preserve">
+    <value>Thiết lập lại nội dung</value>
+  </data>
+  <data name="WebPartManagerToggleFromUserModeTooltip" xml:space="preserve">
+    <value>Bạn hiện đang ở trong Phạm vi người dùng (User Scope). Bấm vào đây để chuyển sang Phạm vi chia sẻ (Shared Scope).</value>
+  </data>
+  <data name="WebPartManagerToggleToUserModeTooltip" xml:space="preserve">
+    <value>Bạn hiện đang ở trong Phạm vi chia sẻ (Shared Scope). Bấm vào đây để chuyển về Phạm vi người dùng (User Scope).</value>
+  </data>
+  <data name="WebPartMinimizeVerbDescription" xml:space="preserve">
+    <value>Thu nhỏ nội dung này</value>
+  </data>
+  <data name="WebPartMinimizeVerbText" xml:space="preserve">
+    <value>Thu nhỏ</value>
+  </data>
+  <data name="WebPartModuleWebPartSetting" xml:space="preserve">
+    <value>Chọn WebPart</value>
+  </data>
+  <data name="WebPartPageCatalogDescription" xml:space="preserve">
+    <value>Nội dung bị ẩn</value>
+  </data>
+  <data name="WebPartPageCatalogTitle" xml:space="preserve">
+    <value>Nội dung bị ẩn</value>
+  </data>
+  <data name="WebPartPropertyGridEditorTitle" xml:space="preserve">
+    <value>Thuộc tính của WebPart</value>
+  </data>
+  <data name="WebPartRestoreVerbDescription" xml:space="preserve">
+    <value>Khôi phục nội dung này</value>
+  </data>
+  <data name="WebPartRestoreVerbText" xml:space="preserve">
+    <value>Khôi phục</value>
+  </data>
+  <data name="WebPartTitleLabel" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+</root>

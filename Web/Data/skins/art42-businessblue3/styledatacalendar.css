@@ -1,0 +1,15 @@
+.mpcalendarmain { border-style:solid; padding:3px; margin:0; color:Black; font-size:small; width: 100%;}
+.mpcalendardayheader { font-weight:bold; font-size:8pt; color:white; text-align:center; }
+.mpcalendarday { border: solid 1px black;  font-size:8pt; color:Black; text-align:center; }
+.mpcalendarnextprevious {font-weight:bold; font-size:small; color:Black; text-align:center;  }
+.mpcalendarothermonth { border: solid 1px black; background-color:#f3f3f3;  font-size:8pt; color:Black; text-align:center;  }
+.mpcalendarselectedday { border: solid 1px black; background-color:#FFFFE0;  font-size:8pt; color:Black; text-align:center;  }
+.mpcalendarselector { background-color: #eee; color:Green; border-color:Red;  font-size:8pt; font-weight:bold; text-align:center; }
+.mpcalendartitle { font-size:8pt; font-weight:bold; text-align:center;  }
+.mpcalendartoday { border: solid 1px black; background-color:#FFFFE0; color:Black; font-size:8pt; text-align:center; }
+.mpcalendarweekendday { border: solid 1px black; background-color:#D3D3D3; color:Black; font-size:8pt; text-align:center; }
+.mpcalendarweekendday  .dayNumber a,
+.mpcalendarothermonth .dayNumber a,
+.mpcalendartoday  .dayNumber a 
+{color:black;}
+.mpcalendarday  a[href*=javascript]{ color:white !important; }

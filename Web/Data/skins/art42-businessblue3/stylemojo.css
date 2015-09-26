@@ -1,0 +1,199 @@
+/* Form styles */
+fieldset { border:1px solid #ffc796; margin:0; padding:5px 5px 5px 15px; }
+legend { font-size:larger; font-weight:700; }
+ol.formlist { list-style:none; margin: 0px; }
+li.settingrow  { list-style:none; margin-left:2px;  }
+.settinglabel { float:left; clear:left; width:20em; padding:1px; }
+.settinglabelFixedHeight { float:left; clear:left; width:20em; height:77px; padding:1px; }
+.settinglabel,.settinglabelFixedHeight { font-weight:700; font-size:smaller; }
+.settingrow { clear:left; padding:4px 0; }
+.settinglabeltight { float:left; clear:left; width:8em; font-weight:700; padding:1px; }
+.settingrowtight { clear:left; padding:1px 0; }
+.modulebuttonrow { clear:left; text-align:center; }
+input.smalltextbox { width:4em; }
+input.normaltextbox { width:10em; }
+input.mediumtextbox, .login .signinbox, .login .passwordbox { width:15em; }
+input.widetextbox { width:25em; }
+input.verywidetextbox { width:35em; }
+.txterror { color:red; font-weight:700; }
+.txtcopyright { color:#444; font-size:80%; font-weight:400; }
+.watermarktextbox { width:9em; height:19px; color:Gray; }
+.subscribeemail { color:Gray; width:14em; }
+
+
+.pagelayout .addcontent{float: left; margin: 0 0 20px; }
+.pagelayout .panelayout { clear: both; margin: 0 0 20px 0; padding: 0;}
+.pagelayout .panelayout h2 {text-align: center; margin: 0 10px 10px 0;}
+.pagelayout .regularpanes{margin: 0 auto; width: 630px; clear: both;}
+.pagelayout .pane{float: left; clear: none;margin: 20px 0 20px 0; position: relative;}
+.pagelayout .layoutcenter{margin: 20px 30px;}
+.pagelayout .layoutalt1,
+.pagelayout .layoutalt2{float: none;clear: both; width: 190px; margin: 0 auto; position: relative;}
+.pagelayout .altlayoutnotice{margin-bottom: 20px;}
+.pagelayout .panelistbox{position: relative; width: 190px; min-height:150px;}
+.pagelayout .pane select {width: 170px; margin-right: 10px;}
+.pagelayout .layoutbuttons{right: 0; top: 5px; position: absolute;}
+.pagelayout .layoutbuttons input{display: block; margin-bottom: 10px;}
+
+
+
+/* Lists */
+ol.searchresultlist { list-style-type:none; }
+div.simplehorizontalmenu { clear:both; width:100%; height:27px; }
+ul.simplehorizontalmenu { float:left; list-style:none; margin:0 0 3px 6px; padding:0; }
+ul.simplehorizontalmenu li { display:inline; float:left; padding:0 10px; background-image: none; }
+ul.simplehorizontalmenu li.selecteditem { font-weight:700; }
+
+.simplelist,.simplelist li { list-style:none; padding:0 0 4px 10px; }
+
+div.sitemap ul,div.sitemap ul li { list-style:none; font-size:100%; }
+.site-statistics { border-bottom:solid thin #ccc; margin:0 0 5px; padding:0 0 5px; }
+ul.userstats { list-style-type:none; font-size:90%; margin:0 0 0 6px; }
+ul.userstats ul { display:block; margin:0; padding:0; }
+ul.userstats li { position:relative; list-style:none; font-size:100%; margin: 0px 0px 0px 0px; background-image: none; }
+
+
+
+div.panelwrapper ul.simplelist { margin-bottom:0; }
+div.AspNet-RadioButtonList ul,div.AspNet-CheckBoxList ul { list-style-type:none; margin:0; padding:0; }
+ul.firstnav span.sitelink,li.topnavitem,li.firstnav { font-weight:700; font-size:12px; }
+li.AspNet-RadioButtonList-Item,li.AspNet-CheckBoxList-Item { white-space:nowrap; }
+
+div.sitemap .AspNet-TreeView-Expand
+{background:  url('expand.gif') 0 0 no-repeat; width: 15px; margin-right: 5px;
+ float:left; cursor: pointer; line-height: 15px;  }	
+div.sitemap .AspNet-TreeView-Collapse
+{background: url('collapse.gif') 0 0 no-repeat; width: 15px; margin-right: 5px;
+  float:left; cursor: pointer; line-height: 15px;}
+.AspNet-TreeView-Hide { display:none;}
+div.sitemap a.AspNet-TreeView-Expand, div.sitemap a.AspNet-TreeView-Collapse  { text-decoration: none; }
+
+
+ul.tag-cloud  { list-style-type:none; margin:15px 0 3px 10px; }
+ul.tag-cloud li { display:inline; list-style-type:none; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; line-height:100%; }
+.tagcount { font-size:x-small; }
+.tag-cloud .weight1 { font-size:90%; }
+.tag-cloud .weight2 { font-size:110%; }
+.tag-cloud .weight3 { font-size:120%; }
+.tag-cloud .weight4 { font-size:130%; }
+.tag-cloud .weight5 { font-size:140%; }
+.tag-cloud .weight6 { font-size:150%; }
+.tag-cloud .weight7 { font-size:160%; }
+.tag-cloud .weight8 { font-size:180%; }
+.tag-cloud .weight9 { font-size:200%; }
+.tag-cloud .weight10 { font-size:210%; }
+
+/* Links */
+a{color:inherit}
+a.ModuleEditLink,
+a.ModuleEditLink:link,
+a.ModuleEditLink:visited,
+a.ModuleEditLink:hover,
+a.ModuleEditLink:active { font-size:10px !important; }
+.extrasearchlink { padding-left: 10px;  }
+
+.AspNet-GridView td,
+.AspNet-GridView a,
+.AspNet-GridView a:link,
+.AspNet-GridView a:visited,
+.AspNet-GridView a:hover,
+.AspNet-GridView a:active { color:black; }
+
+
+/* Misc */
+div.topnavwrap { position:absolute; top:0; left:0;   margin:0px 0px 0px 0px; width:100%; z-index:100; padding:5px 0px 7px 10px; }
+div.topnav { width: 900px; margin-left:auto; margin-right:0; }
+div.topnav ul {  display:inline; margin:0; padding:0;  }
+li.topnavitem { float:left; list-style-type:none;  padding:0 7px; }
+li.firstnav { float:left; list-style-type:none; padding:0 7px 0 5px; }
+.sitelink,a.sitelink:link,a.sitelink:visited { color:white; text-decoration: none; font-family: "Century Gothic",Arial, Helvetica, Sans-Serif; }
+a.sitelink:hover{ text-decoration:underline; }
+
+.logolist,.pageicons,.skiplink { display:none; }
+
+.modulecontent { padding: 5px; }
+.modulefooter { display: none; }
+
+.gmaptextbox { width:27em; }
+.gmap { margin:0 0 10px; }
+.bmap { position:relative; }
+
+.ratingcontainer { float:left; margin-left:0; }
+
+.albumMetaName { font-weight:700; }
+.foldergallery h1 { font-size:large; margin-bottom:20px; }
+.albumFloat { float:left; text-align:center; margin-right:8px; margin-bottom:4px; }
+.albumMetaSectionHead { background-color:Gray; color:#FFF; font-weight:700; }
+
+.breadcrumbs { padding:10px 4px 4px 10px; clear:left; }
+.breadcrumbs a { color:inherit; }
+.unselectedcrumb { font-weight:400; }
+.selectedcrumb { font-weight:700; }
+.modulepager { vertical-align:top; padding:4px; }
+.modulepager, .ModulePager, .PageInfo, .SelectedPage, .pageditlinks a { font-size: 18px; }
+.buttonlink { background-color:transparent; color:#03F; cursor:pointer; text-decoration:underline; font-size:13px; border-style:none; padding-left: 0px; text-align:left; padding-bottom:5px;}
+.mediaedit .buttonlink { color:white; }
+.forumthread .modulepager { clear: both; }
+
+.eventcalendar table { clear:both; }
+.forumnotify { white-space:nowrap; vertical-align:middle; padding: 10px 0px 5px 0px; }
+.forumnotify img {float:left;}
+.mojo-tabs {  font-size:inherit;}
+.clearpanel { clear:left; padding-top:15px; }
+.clear { clear:both; }
+.minheightpanel { min-height:200px; }
+.center { text-align:center; }
+.cmwrapper { margin:10px; }
+
+.vevent { padding:10px; }
+.vevent abbr { border:0; }
+.whoson { float:left; padding:5px; }
+.searchterm { color:#000; background-color:#FF0; }
+.templatewrapper { border-bottom:solid 4px #000; }
+.linkdescription { padding:5px; }
+.padded { padding:7px; }
+.vevent  h2.moduletitle { clear: both;}
+
+/* password stength meter */
+.pwspoor { background-color: Red; color:White; padding:5px 5px 5px 5px;}
+.pwsweak { background-color: Orange; color:White; padding:5px 5px 5px 5px; }
+.pwsaverage { background-color: Yellow; color:Black; padding:5px 5px 5px 5px; }
+.pwsstrong { background-color:Teal; color:Black; padding:5px 5px 5px 5px; }
+.pwsexcellent { background-color:Green; color:White; padding:5px 5px 5px 5px; }
+.pwdstrengthbarborder { border-style:solid; border-width:1px; width:200px; vertical-align:middle; }
+.pwdstrengthbar { width:200px; height:15px; padding:2px 2px 2px 2px;}
+
+.hidden{ display:none; }
+  
+.fthumbs img{
+    padding:5px;
+    margin:5px;
+    -moz-box-shadow:#333 2px 2px 5px;
+    -webkit-box-shadow:#333 2px 2px 5px;
+    cursor:pointer;
+  }
+  
+  span.btn{
+    padding:10px;
+    margin-left:5px;
+    display:inline-block;
+    cursor:pointer;
+    font:12px/14px Arial, Helvetica, sans-serif;
+    color:#aaa;
+    background-color:#eee;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    -moz-box-shadow:#999 2px 0px 3px;
+    -webkit-box-shadow:#999 2px 0px 3px;
+  }
+  span.btn.pages{ background-color:#fff;}
+  span.btn.pages:hover, span.btn.pages.sel { background-color:#f3f3f3; color:#999; }
+  span.btn:hover, span.btn.sel{ background-color:#000; }
+  .galleryinfo{ position:relative; display:inline-block;  margin-top:10px; }
+
+.floatrightimage { float:right; margin-right:15px; }
+.highlight1 { background-color:#FF0; }
+.highlight2 { background-color:lime; }
+.floatpanel,.floatleftimage { float:left; margin-right:15px; }
+
+

@@ -1,0 +1,66 @@
+body{font-family: Verdana, Helvetica, sans-serif;  }
+img { border: 0px; }
+
+html, body, form{	
+		width: 100%;	/* make the body expand to fill the visible window */
+		height: 100%;
+		overflow: hidden;	/* erase window level scrollbars */
+		padding: 0px 0px 0px 0px;
+		margin: 0px 0px 0px 0px;
+    }
+    
+   
+.extdiv, .extdiv div, div.AspNet-TreeView {padding: 5px 5px 5px 5px; }
+
+.topnav {height:26px; width:100%; margin: 0px 0px 0px 0px; padding: 3px 0px 0px 0px;}
+.topnav ul {float:left; margin: 5px 0px 0px 10px; display:inline;}
+li.topnavitem {float: left;  list-style-type:none; padding: 0px 7px 0px 7px;}
+li.firstnav {float: left;  list-style-type:none; padding: 0px 7px 0px 0px; }
+li.topnavitem { border-left: solid thin #1f669b; }
+
+.officenav{list-style: none; padding: 10px 0px 0px 10px; }
+ul.officenav li { padding: 0px 0px 10px 0px;  }
+
+.settinglabel {float:left; clear:left; width:10em;padding: 1px; font-weight: bold;font-size:smaller;}
+.settingrow { padding: 4px 0px 4px 0px; clear:left; }
+div.settingrow input[type=text], div.settingrow input[type=password]{ width:13em; }
+
+.sitelink {font-size: 85%; }
+a.sitelink:link ,
+a.sitelink:visited {text-decoration: none; }
+a.sitelink:hover { text-decoration: underline; }
+a.sitelink:active { text-decoration: none; }
+
+
+
+.scrollpanel { height: 200px; width:600px; overflow:auto;}
+table.scrolltable, table.scrolltable td, table.scrolltable th 
+{ border:solid 1px #cccccc;  }
+
+.scrolltable > tbody{
+height:180px; 
+overflow:auto;
+} 
+
+h2.siteofficeheading {font-size:20px; }
+/*
+
+
+h1 { font-family: Verdana, Helvetica, sans-serif; font-size:20px; font-weight: normal; color:Black; }
+h2 { font-family: Verdana, Helvetica, sans-serif; font-size:20px; font-weight:normal; color:Black; }
+h3 { font-family: Verdana, Helvetica, sans-serif; font-size:12px; font-weight:bold; color:Black; }
+h4 { font-family: Verdana, Helvetica, sans-serif; font-size:12px; font-weight:normal; color:Black;}
+
+a:link { text-decoration:none; color:Navy; }
+a:visited {  text-decoration:none; color:Navy; }
+a:hover { text-decoration:underline; color:Navy; }
+a:active { text-decoration:none; color:Navy; }
+
+*/
+
+
+
+
+
+
+

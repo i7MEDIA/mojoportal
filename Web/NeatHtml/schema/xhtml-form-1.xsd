@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.w3.org/1999/xhtml"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.w3.org/1999/xhtml">
+
+  <xs:annotation>
+    <xs:documentation>
+      Forms    
+      This is the XML Schema Forms module for XHTML      
+  
+        * form, label, input, select, optgroup, option,
+          textarea, fieldset, legend, button
+    
+      This module declares markup to provide support for online
+      forms, based on the features found in HTML 4.0 forms.
+          
+    
+      $Id: xhtml-form-1.xsd,v 1.1 2003/12/17 03:09:17 ahby Exp $
+    </xs:documentation>
+    <xs:documentation source="xhtml-copyright-1.xsd"/>
+    <xs:documentation 
+       source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_extformsmodule"/>
+  </xs:annotation>
+
+  <!-- form: Form Element -->
+  <xs:attributeGroup name="form.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+    <xs:attribute name="action" type="URI" use="required"/>
+    <xs:attribute name="method" default="get">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="get"/>
+          <xs:enumeration value="post"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="enctype" type="ContentType" default="application/x-www-form-urlencoded"/>
+    <xs:attribute name="accept-charset" type="Charsets"/>
+    <xs:attribute name="accept" type="ContentTypes"/>
+  </xs:attributeGroup>
+
+  <xs:group name="form.content">
+    <xs:sequence>
+      <xs:choice maxOccurs="unbounded">
+        <xs:group ref="BlkNoForm.mix"/>
+        <xs:element ref="fieldset"/>
+      </xs:choice>
+    </xs:sequence>    
+  </xs:group>
+
+  <xs:complexType name="form.type">
+    <xs:group ref="form.content"/>
+    <xs:attributeGroup ref="form.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="form" type="form.type"/>
+
+<!-- 
+    label: Form Field Label Text 
+    Note: Each label must not contain more than ONE field
+-->
+  <xs:group name="label.content">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element ref="input"/>
+         <xs:element ref="select"/>
+         <xs:element ref="textarea"/>
+         <xs:element ref="button"/>
+         <xs:group ref="InlStruct.class"/>
+         <xs:group ref="InlPhras.class"/>
+         <xs:group ref="I18n.class"/>
+         <xs:group ref="InlPres.class"/>
+         <xs:group ref="InlSpecial.class"/>
+         <xs:group ref="Inline.extra"/>
+         <xs:group ref="Misc.class"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+
+  <xs:attributeGroup name="label.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+    <xs:attribute name="for" type="xs:IDREF"/>
+    <xs:attribute name="accesskey" type="Character"/>
+  </xs:attributeGroup>
+
+  <xs:complexType name="label.type" mixed="true">
+    <xs:group ref="label.content"/>
+    <xs:attributeGroup ref="label.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="label" type="label.type"/>
+
+  <!-- input: Form Control -->
+  <xs:simpleType name="InputType.class">
+      <xs:restriction base="xs:NMTOKEN">
+        <xs:enumeration value="text"/>
+        <xs:enumeration value="password"/>
+        <xs:enumeration value="checkbox"/>
+        <xs:enumeration value="radio"/>
+        <xs:enumeration value="submit"/>
+        <xs:enumeration value="reset"/>
+        <xs:enumeration value="hidden"/>
+        <xs:enumeration value="image"/>
+        <xs:enumeration value="button"/>
+        <xs:enumeration value="file"/>
+      </xs:restriction>
+  </xs:simpleType>
+
+<!-- 
+    attribute 'name' required for all but submit & reset
+-->
+  <xs:attributeGroup name="input.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+    <xs:attribute name="type" type="InputType.class" default="text"/>
+    <xs:attribute name="name" type="CDATA"/>
+    <xs:attribute name="value" type="CDATA"/>
+    <xs:attribute name="checked">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="checked"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="disabled">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="disabled"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="readonly">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="readonly"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="size" type="Number"/>
+    <xs:attribute name="maxlength" type="Number"/>
+    <xs:attribute name="src" type="URI"/>
+    <xs:attribute name="alt" type="Text"/>
+    <xs:attribute name="tabindex" type="Number"/>
+    <xs:attribute name="accesskey" type="Character"/>
+    <xs:attribute name="accept" type="ContentTypes"/>
+  </xs:attributeGroup>
+
+  <xs:group name="input.content">
+     <xs:sequence/>
+  </xs:group>  
+  
+  <xs:complexType name="input.type">
+    <xs:group ref="input.content"/>  
+    <xs:attributeGroup ref="input.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="input" type="input.type"/>
+
+  <!-- select: Option Selector  -->
+  <xs:attributeGroup name="select.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+    <xs:attribute name="name" type="CDATA"/>
+    <xs:attribute name="size" type="Number"/>
+    <xs:attribute name="multiple">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="multiple"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="disabled">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="disabled"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="tabindex" type="Number"/>    
+  </xs:attributeGroup>
+
+  <xs:group name="select.content">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="unbounded">
+        <xs:element ref="optgroup"/>
+        <xs:element ref="option"/>
+      </xs:choice>
+    </xs:sequence>      
+  </xs:group>
+
+  <xs:complexType name="select.type">
+     <xs:group ref="select.content"/>
+     <xs:attributeGroup ref="select.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="select" type="select.type"/>
+
+  <!-- optgroup: Option Group  -->
+  <xs:attributeGroup name="optgroup.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+    <xs:attribute name="disabled">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="disabled"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="label" type="Text" use="required"/>
+  </xs:attributeGroup>
+
+  <xs:group name="optgroup.content">
+    <xs:sequence>
+       <xs:element ref="option" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:group>
+
+  <xs:complexType name="optgroup.type">
+    <xs:group ref="optgroup.content"/>
+    <xs:attributeGroup ref="optgroup.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="optgroup" type="optgroup.type"/>
+
+  <!-- option: Selectable Choice  -->
+  <xs:attributeGroup name="option.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+    <xs:attribute name="selected">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="selected"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="disabled">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="disabled"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="label" type="Text"/>
+    <xs:attribute name="value" type="CDATA"/>
+  </xs:attributeGroup>
+
+  <xs:group name="option.content">
+    <xs:sequence/>
+  </xs:group>
+  
+  <xs:complexType name="option.type" mixed="true">
+    <xs:group ref="option.content"/>
+    <xs:attributeGroup ref="option.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="option" type="option.type"/>
+
+  <!-- textarea: Multi-Line Text Field  -->
+  <xs:attributeGroup name="textarea.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+    <xs:attribute name="name" type="CDATA"/>
+    <xs:attribute name="rows" type="Number" use="required"/>
+    <xs:attribute name="cols" type="Number" use="required"/>
+    <xs:attribute name="disabled">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="disabled"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="readonly">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="readonly"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="tabindex" type="Number"/>
+    <xs:attribute name="accesskey" type="Character"/>
+  </xs:attributeGroup>
+
+  <xs:group name="textarea.content">
+    <xs:sequence/>
+  </xs:group>
+  
+  <xs:complexType name="textarea.type" mixed="true">
+    <xs:group ref="textarea.content"/>
+    <xs:attributeGroup ref="textarea.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="textarea" type="textarea.type"/>
+
+  <!-- fieldset: Form Control Group  -->
+  <xs:attributeGroup name="fieldset.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+  </xs:attributeGroup>
+  
+  <xs:group name="fieldset.content">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="legend"/>
+        <xs:group ref="Flow.mix"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+
+  <xs:complexType name="fieldset.type" mixed="true">
+    <xs:group ref="fieldset.content"/>
+    <xs:attributeGroup ref="fieldset.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="fieldset" type="fieldset.type"/>
+
+  <!-- legend: Fieldset Legend  -->
+  <xs:attributeGroup name="legend.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+    <xs:attribute name="accesskey" type="Character"/>
+  </xs:attributeGroup>
+
+  <xs:group name="legend.content">
+    <xs:sequence>
+      <xs:group ref="Inline.mix" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:group>    
+
+  <xs:complexType name="legend.type" mixed="true">
+    <xs:group ref="legend.content"/>
+    <xs:attributeGroup ref="legend.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="legend" type="legend.type"/>
+
+  <!-- button: Push Button  -->
+  <xs:attributeGroup name="button.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+    <xs:attribute name="name" type="CDATA"/>
+    <xs:attribute name="value" type="CDATA"/>
+    <xs:attribute name="type" default="submit">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="button"/>
+          <xs:enumeration value="submit"/>
+          <xs:enumeration value="reset"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="disabled">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="disabled"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="tabindex" type="Number"/>
+    <xs:attribute name="accesskey" type="Character"/>
+  </xs:attributeGroup>
+
+  <xs:group name="button.content">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="BlkNoForm.mix"/>
+        <xs:group ref="InlStruct.class"/>
+        <xs:group ref="InlPhras.class"/>
+        <xs:group ref="InlPres.class"/>
+        <xs:group ref="I18n.class"/>
+        <xs:group ref="InlSpecial.class"/>
+        <xs:group ref="Inline.extra"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+
+  <xs:complexType name="button.type" mixed="true">
+    <xs:group ref="button.content"/>
+    <xs:attributeGroup ref="button.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="button" type="button.type"/>
+
+</xs:schema>

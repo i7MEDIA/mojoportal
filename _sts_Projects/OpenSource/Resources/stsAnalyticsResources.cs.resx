@@ -1,0 +1,1122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="gaadClicks" xml:space="preserve">
+    <value>Ad Clicks</value>
+  </data>
+  <data name="gaadContent" xml:space="preserve">
+    <value>Ad Content</value>
+  </data>
+  <data name="gaadCost" xml:space="preserve">
+    <value>Ad Cost</value>
+  </data>
+  <data name="gaadGroup" xml:space="preserve">
+    <value>Ad Group</value>
+  </data>
+  <data name="AdminMenuLink" xml:space="preserve">
+    <value>Administration</value>
+  </data>
+  <data name="gaadSlot" xml:space="preserve">
+    <value>Ad Slot</value>
+  </data>
+  <data name="gaadSlotPosition" xml:space="preserve">
+    <value>Ad Slot Position</value>
+  </data>
+  <data name="gaaffiliation" xml:space="preserve">
+    <value>Affiliation</value>
+  </data>
+  <data name="Analytics" xml:space="preserve">
+    <value>Analytics</value>
+  </data>
+  <data name="AnalyticsAccountSettings" xml:space="preserve">
+    <value>Analytics Account Settings</value>
+  </data>
+  <data name="AnalyticsConfiguration" xml:space="preserve">
+    <value>Analytics Configuration</value>
+  </data>
+  <data name="AnalyticsEmailLabel" xml:space="preserve">
+    <value>Google Analytics Email/User</value>
+  </data>
+  <data name="AnalyticsLockedMessage" xml:space="preserve">
+    <value>Analytics settings are currently specified in Web.config which overrides any settings made here, so updating settings is disabled. To enable the settings in this page you must remove the Web.config settings for GoogleAnalyticsEmail, GoogleAnalyticsPassword, and GoogleAnalyticsProfileId.</value>
+  </data>
+  <data name="AnalyticsMenuLink" xml:space="preserve">
+    <value>Site Traffic Reports</value>
+  </data>
+  <data name="AnalyticsPasswordLabel" xml:space="preserve">
+    <value>Google Analytics Password</value>
+  </data>
+  <data name="BeginDate" xml:space="preserve">
+    <value>Begin Date</value>
+  </data>
+  <data name="gabounces" xml:space="preserve">
+    <value>Bounces</value>
+  </data>
+  <data name="gabrowser" xml:space="preserve">
+    <value>Browser</value>
+  </data>
+  <data name="gabrowserVersion" xml:space="preserve">
+    <value>Browser Version</value>
+  </data>
+  <data name="gacampaign" xml:space="preserve">
+    <value>Campaign</value>
+  </data>
+  <data name="ChooseProfile" xml:space="preserve">
+    <value>Choose Profile</value>
+  </data>
+  <data name="gacity" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="gaconnectionSpeed" xml:space="preserve">
+    <value>Connection Speed</value>
+  </data>
+  <data name="ContainsMatchForRegularExpression" xml:space="preserve">
+    <value>Contains a match for the regular expression</value>
+  </data>
+  <data name="ContainsSubstring" xml:space="preserve">
+    <value>Contains substring</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="gacontinent" xml:space="preserve">
+    <value>Continent</value>
+  </data>
+  <data name="gacountry" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="gaCPC" xml:space="preserve">
+    <value>CPC</value>
+  </data>
+  <data name="gaCPM" xml:space="preserve">
+    <value>CPM</value>
+  </data>
+  <data name="gaCTR" xml:space="preserve">
+    <value>CTR</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="DashboardPageTitle" xml:space="preserve">
+    <value>Analytics Dashboard</value>
+  </data>
+  <data name="gadate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="gaday" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="gadaysSinceLastVisit" xml:space="preserve">
+    <value>Days since last Visit</value>
+  </data>
+  <data name="gadaysToTransaction" xml:space="preserve">
+    <value>Days to Transaction</value>
+  </data>
+  <data name="Dimensions" xml:space="preserve">
+    <value>Dimensions</value>
+  </data>
+  <data name="DoesNotContainSubstring" xml:space="preserve">
+    <value>Does not contain substring</value>
+  </data>
+  <data name="DoesNotEqual" xml:space="preserve">
+    <value>Does not equal</value>
+  </data>
+  <data name="DoesNotMatch" xml:space="preserve">
+    <value>Does not match</value>
+  </data>
+  <data name="DoesNotMatchRegularExpression" xml:space="preserve">
+    <value>Does not match regular expression</value>
+  </data>
+  <data name="Ecommerce" xml:space="preserve">
+    <value>Ecommerce</value>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>Email/User is required.</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="gaentrances" xml:space="preserve">
+    <value>Entrances</value>
+  </data>
+  <data name="gaeventAction" xml:space="preserve">
+    <value>Event Action</value>
+  </data>
+  <data name="gaeventCategory" xml:space="preserve">
+    <value>Event Category</value>
+  </data>
+  <data name="gaeventLabel" xml:space="preserve">
+    <value>Event Label</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="gaeventValue" xml:space="preserve">
+    <value>Event Value</value>
+  </data>
+  <data name="ExactMatch" xml:space="preserve">
+    <value>Exact match</value>
+  </data>
+  <data name="gaexitPagePath" xml:space="preserve">
+    <value>Exit Page Path</value>
+  </data>
+  <data name="gaexits" xml:space="preserve">
+    <value>Exits</value>
+  </data>
+  <data name="FinishButton" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="gaflashVersion" xml:space="preserve">
+    <value>Flash Version</value>
+  </data>
+  <data name="gagoal1Completions" xml:space="preserve">
+    <value>Goal1 Completions</value>
+  </data>
+  <data name="gagoal1Starts" xml:space="preserve">
+    <value>Goal1 Starts</value>
+  </data>
+  <data name="gagoal1Value" xml:space="preserve">
+    <value>Goal1 Value</value>
+  </data>
+  <data name="gagoal2Completions" xml:space="preserve">
+    <value>Goal2 Completions</value>
+  </data>
+  <data name="gagoal2Starts" xml:space="preserve">
+    <value>Goal2 Starts</value>
+  </data>
+  <data name="gagoal2Value" xml:space="preserve">
+    <value>Goal2 Value</value>
+  </data>
+  <data name="gagoal3Completions" xml:space="preserve">
+    <value>Goal3 Completions</value>
+  </data>
+  <data name="gagoal3Starts" xml:space="preserve">
+    <value>Goal3 Starts</value>
+  </data>
+  <data name="gagoal3Value" xml:space="preserve">
+    <value>Goal3 Value</value>
+  </data>
+  <data name="gagoal4Completions" xml:space="preserve">
+    <value>Goal4 Completions</value>
+  </data>
+  <data name="gagoal4Starts" xml:space="preserve">
+    <value>Goal4 Starts</value>
+  </data>
+  <data name="gagoal4Value" xml:space="preserve">
+    <value>Goal4 Value</value>
+  </data>
+  <data name="gagoalCompletionsAll" xml:space="preserve">
+    <value>Goal Completions all</value>
+  </data>
+  <data name="Goals" xml:space="preserve">
+    <value>Goals</value>
+  </data>
+  <data name="gagoalStartsAll" xml:space="preserve">
+    <value>Goal Starts all</value>
+  </data>
+  <data name="gagoalValueAll" xml:space="preserve">
+    <value>Goal Value all</value>
+  </data>
+  <data name="GreaterThan" xml:space="preserve">
+    <value>Greater than</value>
+  </data>
+  <data name="GreaterThanOrEqualTo" xml:space="preserve">
+    <value>Greater than or equal to</value>
+  </data>
+  <data name="gahostname" xml:space="preserve">
+    <value>Hostname</value>
+  </data>
+  <data name="gahour" xml:space="preserve">
+    <value>Hour</value>
+  </data>
+  <data name="gaimpressions" xml:space="preserve">
+    <value>Impressions</value>
+  </data>
+  <data name="InternalSearch" xml:space="preserve">
+    <value>Internal Search</value>
+  </data>
+  <data name="gaitemQuantity" xml:space="preserve">
+    <value>Item Quantity</value>
+  </data>
+  <data name="gaitemRevenue" xml:space="preserve">
+    <value>Item Revenue</value>
+  </data>
+  <data name="gajavaEnabled" xml:space="preserve">
+    <value>Java enabled</value>
+  </data>
+  <data name="gakeyword" xml:space="preserve">
+    <value>Keyword</value>
+  </data>
+  <data name="galandingPagePath" xml:space="preserve">
+    <value>Landing Page Path</value>
+  </data>
+  <data name="galanguage" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="galatitude" xml:space="preserve">
+    <value>Latitude</value>
+  </data>
+  <data name="LessThan" xml:space="preserve">
+    <value>Less than</value>
+  </data>
+  <data name="LessThanOrEqualTo" xml:space="preserve">
+    <value>Less than or equal to</value>
+  </data>
+  <data name="galongitude" xml:space="preserve">
+    <value>Longitude</value>
+  </data>
+  <data name="gamedium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="Metrics" xml:space="preserve">
+    <value>Metrics</value>
+  </data>
+  <data name="gamonth" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="ganetworkDomain" xml:space="preserve">
+    <value>Network domain</value>
+  </data>
+  <data name="ganetworkLocation" xml:space="preserve">
+    <value>Network location</value>
+  </data>
+  <data name="ganewVisits" xml:space="preserve">
+    <value>New Visits</value>
+  </data>
+  <data name="NextButton" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="ganextPagePath" xml:space="preserve">
+    <value>Next Page Path</value>
+  </data>
+  <data name="NoResultsMessage" xml:space="preserve">
+    <value>No profiles found, are you sure you entered the correct user and password?</value>
+  </data>
+  <data name="gaoperatingSystem" xml:space="preserve">
+    <value>Operating System</value>
+  </data>
+  <data name="gaoperatingSystemVersion" xml:space="preserve">
+    <value>Operating System Version</value>
+  </data>
+  <data name="gapageDepth" xml:space="preserve">
+    <value>Page Depth</value>
+  </data>
+  <data name="gapagePath" xml:space="preserve">
+    <value>Page Path</value>
+  </data>
+  <data name="gapageTitle" xml:space="preserve">
+    <value>Page Title</value>
+  </data>
+  <data name="gapageviews" xml:space="preserve">
+    <value>Page Views</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Password is required.</value>
+  </data>
+  <data name="gapreviousPagePath" xml:space="preserve">
+    <value>Previous Page Path</value>
+  </data>
+  <data name="gaproductCategory" xml:space="preserve">
+    <value>Product Category</value>
+  </data>
+  <data name="gaproductName" xml:space="preserve">
+    <value>Product Name</value>
+  </data>
+  <data name="gaproductSku" xml:space="preserve">
+    <value>Product SKU</value>
+  </data>
+  <data name="ProfileIdLabel" xml:space="preserve">
+    <value>Profile Id</value>
+  </data>
+  <data name="QueryTool" xml:space="preserve">
+    <value>Query Tool</value>
+  </data>
+  <data name="gareferralPath" xml:space="preserve">
+    <value>Referral path</value>
+  </data>
+  <data name="garegion" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="gascreenColors" xml:space="preserve">
+    <value>Screen Colors</value>
+  </data>
+  <data name="gascreenResolution" xml:space="preserve">
+    <value>Screen Resolution</value>
+  </data>
+  <data name="gasearchCategory" xml:space="preserve">
+    <value>Search Category</value>
+  </data>
+  <data name="gasearchDepth" xml:space="preserve">
+    <value>Search Depth</value>
+  </data>
+  <data name="gasearchDestinationPage" xml:space="preserve">
+    <value>Search Destination Page</value>
+  </data>
+  <data name="gasearchDuration" xml:space="preserve">
+    <value>Search Duration</value>
+  </data>
+  <data name="gasearchExits" xml:space="preserve">
+    <value>Search Exits</value>
+  </data>
+  <data name="gasearchKeyword" xml:space="preserve">
+    <value>Search Keyword</value>
+  </data>
+  <data name="gasearchKeywordRefinement" xml:space="preserve">
+    <value>Search Keyword Refinement</value>
+  </data>
+  <data name="gasearchRefinements" xml:space="preserve">
+    <value>Search Refinements</value>
+  </data>
+  <data name="gasearchStartPage" xml:space="preserve">
+    <value>Search Start Page</value>
+  </data>
+  <data name="gasearchUniques" xml:space="preserve">
+    <value>Search Uniques</value>
+  </data>
+  <data name="gasearchUsed" xml:space="preserve">
+    <value>Search Used</value>
+  </data>
+  <data name="gasearchVisits" xml:space="preserve">
+    <value>Search Visits</value>
+  </data>
+  <data name="gasecondPagePath" xml:space="preserve">
+    <value>Second Page Path</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="gasource" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="gasubContinent" xml:space="preserve">
+    <value>Subcontinent</value>
+  </data>
+  <data name="gatimeOnPage" xml:space="preserve">
+    <value>Time on Page</value>
+  </data>
+  <data name="gatimeOnSite" xml:space="preserve">
+    <value>Time on Site</value>
+  </data>
+  <data name="TodaysTraffic" xml:space="preserve">
+    <value>Today's Traffic</value>
+  </data>
+  <data name="gatotalEvents" xml:space="preserve">
+    <value>Total Events</value>
+  </data>
+  <data name="gatransactionId" xml:space="preserve">
+    <value>Transaction Id</value>
+  </data>
+  <data name="gatransactionRevenue" xml:space="preserve">
+    <value>Transaction Revenue</value>
+  </data>
+  <data name="gatransactions" xml:space="preserve">
+    <value>Transactions</value>
+  </data>
+  <data name="gatransactionShipping" xml:space="preserve">
+    <value>Transaction Shipping</value>
+  </data>
+  <data name="gatransactionTax" xml:space="preserve">
+    <value>Trasnsaction Tax</value>
+  </data>
+  <data name="gauniqueEvents" xml:space="preserve">
+    <value>Unique Events</value>
+  </data>
+  <data name="gauniquePageviews" xml:space="preserve">
+    <value>Unique Page Views</value>
+  </data>
+  <data name="gauniquePurchases" xml:space="preserve">
+    <value>Unique Purchases</value>
+  </data>
+  <data name="gauserDefinedValue" xml:space="preserve">
+    <value>User Defined Value</value>
+  </data>
+  <data name="gavisitCount" xml:space="preserve">
+    <value>Visit Count</value>
+  </data>
+  <data name="gavisitLength" xml:space="preserve">
+    <value>Visit Length</value>
+  </data>
+  <data name="Visitor" xml:space="preserve">
+    <value>Visitor</value>
+  </data>
+  <data name="gavisitors" xml:space="preserve">
+    <value>Visitors</value>
+  </data>
+  <data name="gavisitorType" xml:space="preserve">
+    <value>Visitor Type</value>
+  </data>
+  <data name="gavisits" xml:space="preserve">
+    <value>Visits</value>
+  </data>
+  <data name="gavisitsToTransaction" xml:space="preserve">
+    <value>Visits to Transaction</value>
+  </data>
+  <data name="gaweek" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="gayear" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="AllowedViewRoles" xml:space="preserve">
+    <value>Roles allowed to view Analytics Reports</value>
+  </data>
+  <data name="gacountOfVisits" xml:space="preserve">
+    <value>Count of Visits</value>
+  </data>
+  <data name="DimensionBuilderLink" xml:space="preserve">
+    <value>Dimension Builder</value>
+  </data>
+  <data name="FilterBuilderLink" xml:space="preserve">
+    <value>Filter Builder</value>
+  </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Filters</value>
+  </data>
+  <data name="MetricBuilderLink" xml:space="preserve">
+    <value>Metric Builder</value>
+  </data>
+  <data name="RunQueryButton" xml:space="preserve">
+    <value>Run Query</value>
+  </data>
+  <data name="SortBuilderLink" xml:space="preserve">
+    <value>Sort Builder</value>
+  </data>
+  <data name="Campaign" xml:space="preserve">
+    <value>Campaign</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DoneButton" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>Group By</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="NoResultsWarning" xml:space="preserve">
+    <value>No results were returned for this query, probably caused by invalid combinations of metrics and dimensions.</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="MediumDirect" xml:space="preserve">
+    <value>Direct</value>
+  </data>
+  <data name="MediumPaid" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="MediumReferral" xml:space="preserve">
+    <value>Referral</value>
+  </data>
+  <data name="MediumSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="AllTimeNewVisits" xml:space="preserve">
+    <value>New Visits</value>
+  </data>
+  <data name="AllTimePageViews" xml:space="preserve">
+    <value>Page Views</value>
+  </data>
+  <data name="AllTimeVisits" xml:space="preserve">
+    <value>Visits</value>
+  </data>
+  <data name="InSiteTitle" xml:space="preserve">
+    <value>In Site Analytics</value>
+  </data>
+  <data name="InSiteTitleFormat" xml:space="preserve">
+    <value>In Site Analytics - {0}</value>
+  </data>
+  <data name="Last60DaysNewVisits" xml:space="preserve">
+    <value>New Visits - Last 60 Days</value>
+  </data>
+  <data name="Last60DaysPageViews" xml:space="preserve">
+    <value>Page Views - Last 60 Days</value>
+  </data>
+  <data name="Last60DaysVisits" xml:space="preserve">
+    <value>Visits - Last 60 Days</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="AllTimeBounces" xml:space="preserve">
+    <value>Bounces</value>
+  </data>
+  <data name="AverageTimeOnSite" xml:space="preserve">
+    <value>Avg. Time on Site</value>
+  </data>
+  <data name="BounceRate" xml:space="preserve">
+    <value>Bounce Rate</value>
+  </data>
+  <data name="Bounces" xml:space="preserve">
+    <value>Bounces</value>
+  </data>
+  <data name="BouncesByDateFormat" xml:space="preserve">
+    <value>Bounces - {0} - {1}</value>
+  </data>
+  <data name="BouncesFormat" xml:space="preserve">
+    <value>{0} Bounces</value>
+  </data>
+  <data name="FortyFiveDays" xml:space="preserve">
+    <value>45 Days</value>
+  </data>
+  <data name="Last30DaysBounces" xml:space="preserve">
+    <value>Bounces - Last 30 Days</value>
+  </data>
+  <data name="Last30DaysNewVisits" xml:space="preserve">
+    <value>New Visits - Last 30 Days</value>
+  </data>
+  <data name="Last30DaysPageViews" xml:space="preserve">
+    <value>Page Views - Last 30 Days</value>
+  </data>
+  <data name="Last30DaysVisits" xml:space="preserve">
+    <value>Visits - Last 30 Days</value>
+  </data>
+  <data name="Last45DaysBounces" xml:space="preserve">
+    <value>Bounces - Last 45 Days</value>
+  </data>
+  <data name="Last45DaysNewVisits" xml:space="preserve">
+    <value>New Visits - Last 45 Days</value>
+  </data>
+  <data name="Last45DaysPageViews" xml:space="preserve">
+    <value>Page Views - Last 45 Days</value>
+  </data>
+  <data name="Last45DaysVisits" xml:space="preserve">
+    <value>Visits - Last 45 Days</value>
+  </data>
+  <data name="Last60DaysBounces" xml:space="preserve">
+    <value>Bounces - Last 60 Days</value>
+  </data>
+  <data name="Last90DaysBounces" xml:space="preserve">
+    <value>Bounces - Last 90 Days</value>
+  </data>
+  <data name="Last90DaysNewVisits" xml:space="preserve">
+    <value>New Visits - Last 90 Days</value>
+  </data>
+  <data name="Last90DaysPageViews" xml:space="preserve">
+    <value>Page Views - Last 90 Days</value>
+  </data>
+  <data name="Last90DaysVisits" xml:space="preserve">
+    <value>Visits - Last 90 Days</value>
+  </data>
+  <data name="MediumFeeds" xml:space="preserve">
+    <value>Feeds</value>
+  </data>
+  <data name="NewVisits" xml:space="preserve">
+    <value>New Visits</value>
+  </data>
+  <data name="NewVisitsByDateFormat" xml:space="preserve">
+    <value>New Visits - {0} - {1}</value>
+  </data>
+  <data name="NewVisitsFormat" xml:space="preserve">
+    <value>{0} New Visits</value>
+  </data>
+  <data name="NinetyDays" xml:space="preserve">
+    <value>90 Days</value>
+  </data>
+  <data name="PagesPerVisit" xml:space="preserve">
+    <value>Pages/Visit</value>
+  </data>
+  <data name="PageViews" xml:space="preserve">
+    <value>Page Views</value>
+  </data>
+  <data name="PageViewsByDateFormat" xml:space="preserve">
+    <value>Page Views - {0} - {1}</value>
+  </data>
+  <data name="PageViewsFormat" xml:space="preserve">
+    <value>{0} Page Views</value>
+  </data>
+  <data name="SixtyDays" xml:space="preserve">
+    <value>60 Days</value>
+  </data>
+  <data name="ThirtyDays" xml:space="preserve">
+    <value>30 Days</value>
+  </data>
+  <data name="Visits" xml:space="preserve">
+    <value>Visits</value>
+  </data>
+  <data name="VisitsByDateFormat" xml:space="preserve">
+    <value>Visits - {0} - {1}</value>
+  </data>
+  <data name="VisitsFormat" xml:space="preserve">
+    <value>{0} Visits</value>
+  </data>
+  <data name="BasicStatsHeading" xml:space="preserve">
+    <value>Site Usage</value>
+  </data>
+  <data name="ChartHeight" xml:space="preserve">
+    <value>Chart Height</value>
+  </data>
+  <data name="ChartWidth" xml:space="preserve">
+    <value>Chart Width</value>
+  </data>
+  <data name="CountryLabel" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="OverrideChartTitle" xml:space="preserve">
+    <value>Chart Title Override</value>
+  </data>
+  <data name="PagesPerVisitLabel" xml:space="preserve">
+    <value>Pages Per Visit</value>
+  </data>
+  <data name="SeeAll" xml:space="preserve">
+    <value>See All</value>
+  </data>
+  <data name="TopCountries" xml:space="preserve">
+    <value>Top Countries</value>
+  </data>
+  <data name="TrafficChartFeatureName" xml:space="preserve">
+    <value>In Site Analytics Traffic Chart</value>
+  </data>
+  <data name="VisitorDashboard" xml:space="preserve">
+    <value>Visitor Analysis</value>
+  </data>
+  <data name="VisitorMap" xml:space="preserve">
+    <value>Visitor Map</value>
+  </data>
+  <data name="MaxRows" xml:space="preserve">
+    <value>Maximum Rows To Get</value>
+  </data>
+  <data name="QueryEditor" xml:space="preserve">
+    <value>Query Editor</value>
+  </data>
+  <data name="QueryTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Segment" xml:space="preserve">
+    <value>Segment</value>
+  </data>
+  <data name="StartIndex" xml:space="preserve">
+    <value>Start Index</value>
+  </data>
+  <data name="ApiQueryList" xml:space="preserve">
+    <value>API Queries</value>
+  </data>
+  <data name="BeginDateOffset" xml:space="preserve">
+    <value>Begin Date Offset Days</value>
+  </data>
+  <data name="DateMode" xml:space="preserve">
+    <value>Date Mode</value>
+  </data>
+  <data name="DateModeOffsetFromNow" xml:space="preserve">
+    <value>Offset Days From Now</value>
+  </data>
+  <data name="DateModeSpecific" xml:space="preserve">
+    <value>Use Specific Dates</value>
+  </data>
+  <data name="EndDateOffset" xml:space="preserve">
+    <value>End Date Offset Days</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="NewQuery" xml:space="preserve">
+    <value>New Query</value>
+  </data>
+  <data name="RunQuery" xml:space="preserve">
+    <value>Run Query</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Query" xml:space="preserve">
+    <value>Query</value>
+  </data>
+  <data name="QueryResultTitleFormat" xml:space="preserve">
+    <value>{0} {1} - {2}</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SiteGuid" xml:space="preserve">
+    <value>Site Guid</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Not Specified</value>
+  </data>
+  <data name="ReferringSiteLabel" xml:space="preserve">
+    <value>Referring Site</value>
+  </data>
+  <data name="TopReferringSites" xml:space="preserve">
+    <value>Top Referring Sites</value>
+  </data>
+  <data name="ContentAnalysis" xml:space="preserve">
+    <value>Content Analysis</value>
+  </data>
+  <data name="Entrances" xml:space="preserve">
+    <value>Entrances</value>
+  </data>
+  <data name="PagePath" xml:space="preserve">
+    <value>Page Path</value>
+  </data>
+  <data name="SearchTerm" xml:space="preserve">
+    <value>Search Term</value>
+  </data>
+  <data name="TopContent" xml:space="preserve">
+    <value>Top Content</value>
+  </data>
+  <data name="TopExternalSearches" xml:space="preserve">
+    <value>Top Searches From Public Search Engines</value>
+  </data>
+  <data name="Exits" xml:space="preserve">
+    <value>Exits</value>
+  </data>
+  <data name="Refinements" xml:space="preserve">
+    <value>Refinements</value>
+  </data>
+  <data name="SearchDepth" xml:space="preserve">
+    <value>Search Depth</value>
+  </data>
+  <data name="TopSiteSearchTerms" xml:space="preserve">
+    <value>Top Site Search Terms</value>
+  </data>
+  <data name="UniqueSearches" xml:space="preserve">
+    <value>Searches</value>
+  </data>
+  <data name="CountryAnalysis" xml:space="preserve">
+    <value>Country Analysis</value>
+  </data>
+  <data name="PageReport" xml:space="preserve">
+    <value>Page Report</value>
+  </data>
+  <data name="ReferringSites" xml:space="preserve">
+    <value>Referring Sites</value>
+  </data>
+  <data name="SearchAnalysis" xml:space="preserve">
+    <value>Search Analysis</value>
+  </data>
+  <data name="SiteSearchAnalysis" xml:space="preserve">
+    <value>Site Search Analysis</value>
+  </data>
+  <data name="AllowedQueryEditRoles" xml:space="preserve">
+    <value>Roles allowed to edit API Queries</value>
+  </data>
+  <data name="DataManager" xml:space="preserve">
+    <value>Data Manager</value>
+  </data>
+  <data name="DataSourceApi" xml:space="preserve">
+    <value>API Data</value>
+  </data>
+  <data name="DataSourceDatabase" xml:space="preserve">
+    <value>Database Data</value>
+  </data>
+  <data name="AllowResizingMap" xml:space="preserve">
+    <value>Allow Resizing Map?</value>
+  </data>
+  <data name="MapHeight" xml:space="preserve">
+    <value>Map Height</value>
+  </data>
+  <data name="MapWidth" xml:space="preserve">
+    <value>Map Width</value>
+  </data>
+  <data name="QueryToolIntro" xml:space="preserve">
+    <value>This is an advanced tool that requires some understanding of the Google Analytics Data API.</value>
+  </data>
+  <data name="VisitorMapFeatureName" xml:space="preserve">
+    <value>In Site Analytics Visitor Map</value>
+  </data>
+  <data name="Caption" xml:space="preserve">
+    <value>Caption</value>
+  </data>
+  <data name="CityStateCountryFormat" xml:space="preserve">
+    <value>{0}, {1} {2}</value>
+  </data>
+  <data name="CountryCityFormat" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="DataSource" xml:space="preserve">
+    <value>Data Source</value>
+  </data>
+  <data name="DateOffset" xml:space="preserve">
+    <value>Date Range</value>
+  </data>
+  <data name="LastOneYearBounces" xml:space="preserve">
+    <value>Bounces - Last Year</value>
+  </data>
+  <data name="LastOneYearNewVisits" xml:space="preserve">
+    <value>New Visits - Last Year</value>
+  </data>
+  <data name="LastOneYearPageViews" xml:space="preserve">
+    <value>Page Views - Last Year</value>
+  </data>
+  <data name="LastOneYearVisits" xml:space="preserve">
+    <value>Visits - Last Year</value>
+  </data>
+  <data name="LastSixMonthsBounces" xml:space="preserve">
+    <value>Bounces - Last 6 Months</value>
+  </data>
+  <data name="LastSixMonthsNewVisits" xml:space="preserve">
+    <value>New Visits - Last 6 Months</value>
+  </data>
+  <data name="LastSixMonthsPageViews" xml:space="preserve">
+    <value>Page Views - Last 6 Months</value>
+  </data>
+  <data name="LastSixMonthsVisits" xml:space="preserve">
+    <value>Visits - Last 6 Months</value>
+  </data>
+  <data name="LastTwoYearsBounces" xml:space="preserve">
+    <value>Bounces - Last 2 Years</value>
+  </data>
+  <data name="LastTwoYearsNewVisits" xml:space="preserve">
+    <value>New Visits - Last 2 Years</value>
+  </data>
+  <data name="LastTwoYearsPageViews" xml:space="preserve">
+    <value>Page Views - Last 2 Years</value>
+  </data>
+  <data name="LastTwoYearsVisits" xml:space="preserve">
+    <value>Visits - Last 6 Years</value>
+  </data>
+  <data name="OneYear" xml:space="preserve">
+    <value>1 Year</value>
+  </data>
+  <data name="SixMonths" xml:space="preserve">
+    <value>6 Months</value>
+  </data>
+  <data name="TwoYears" xml:space="preserve">
+    <value>2 Years</value>
+  </data>
+  <data name="ShowCurrentMonth" xml:space="preserve">
+    <value>Show Current Month?</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="DataSyncButton" xml:space="preserve">
+    <value>Synchronize Data from the API Into The Database</value>
+  </data>
+  <data name="SyncBrowserDataFinished" xml:space="preserve">
+    <value>Finished processing browser/operating system data</value>
+  </data>
+  <data name="SyncBrowserDataProcessingFormat" xml:space="preserve">
+    <value>Iteration {0} - Processing browser/operating system data {1} rows retrieved</value>
+  </data>
+  <data name="SyncBrowserDataSkippedRowsFormat" xml:space="preserve">
+    <value>Iteration {0} - Processing browser/operating system data {1} existing rows skipped</value>
+  </data>
+  <data name="SyncBrowserNoData" xml:space="preserve">
+    <value>Retrieved no data for browser/operating systems</value>
+  </data>
+  <data name="SyncExternalSearchFinished" xml:space="preserve">
+    <value>Finished processing search engine search data</value>
+  </data>
+  <data name="SyncExternalSearchNoData" xml:space="preserve">
+    <value>Retrieved no data for search engine searches</value>
+  </data>
+  <data name="SyncExternalSearchProcessingFormat" xml:space="preserve">
+    <value>Iteration {0} - Processing search engine search data {1} rows retrieved</value>
+  </data>
+  <data name="SyncExternalSearchSkippedRowsFormat" xml:space="preserve">
+    <value>Iteration {0} - Processing search engine search data {1} existing rows skipped</value>
+  </data>
+  <data name="SyncFinishedSegments" xml:space="preserve">
+    <value>Finished processing segments.</value>
+  </data>
+  <data name="SyncGeoDataFinished" xml:space="preserve">
+    <value>Finished processing geographic data</value>
+  </data>
+  <data name="SyncGeoDataNoData" xml:space="preserve">
+    <value>Retrieved no geographic data</value>
+  </data>
+  <data name="SyncGeoDataProcessingFormat" xml:space="preserve">
+    <value>Iteration {0} - Processing geographic data {1} rows retrieved</value>
+  </data>
+  <data name="SyncGeoDataSkippedRowsFormat" xml:space="preserve">
+    <value>Iteration {0} - Processing geographic data {1} existing rows skipped</value>
+  </data>
+  <data name="SyncGoalDataFinished" xml:space="preserve">
+    <value>Finished processing goal data</value>
+  </data>
+  <data name="SyncGoalDataProcessing" xml:space="preserve">
+    <value>Processing goal data</value>
+  </data>
+  <data name="SyncGoalDataStarted" xml:space="preserve">
+    <value>Started processing goal data</value>
+  </data>
+  <data name="SyncMediumFinished" xml:space="preserve">
+    <value>Finished processing source/medium data</value>
+  </data>
+  <data name="SyncMediumProcessingFormat" xml:space="preserve">
+    <value>Iteration {0} - Processing source/medium data {1} rows retrieved</value>
+  </data>
+  <data name="SyncMediumSkippedRowsFormat" xml:space="preserve">
+    <value>Iteration {0} - Processing source/medium data {1} existing rows skipped</value>
+  </data>
+  <data name="SyncNoDataForMedium" xml:space="preserve">
+    <value>Retrieved no data for medium</value>
+  </data>
+  <data name="SyncNoDataForReferringSites" xml:space="preserve">
+    <value>Retrieved no data for referring sites</value>
+  </data>
+  <data name="SyncNoDatqaForSegmentFormat" xml:space="preserve">
+    <value>No data was returned for segment {0}</value>
+  </data>
+  <data name="SyncNullQuery" xml:space="preserve">
+    <value>Tried to retrieve analytics data but queryResult was null</value>
+  </data>
+  <data name="SyncPageDataFinished" xml:space="preserve">
+    <value>Finished processing page data</value>
+  </data>
+  <data name="SyncPageDataProcessingFormat" xml:space="preserve">
+    <value>Iteration {0} - Processing page data {1} rows retrieved</value>
+  </data>
+  <data name="SyncPageDataSkippedRowsFormat" xml:space="preserve">
+    <value>Iteration {0} - Processing page data {1} existing rows skipped</value>
+  </data>
+  <data name="SyncReferringSitesFinished" xml:space="preserve">
+    <value>Finished processing referring sites data</value>
+  </data>
+  <data name="SyncReferringSiteSkippedRowsFormat" xml:space="preserve">
+    <value>Iteration {0} - Processing referring site data {1} existing rows skipped</value>
+  </data>
+  <data name="SyncReferringSitesProcessingFormat" xml:space="preserve">
+    <value>Iteration {0} - Processing referring sites data {1} rows retrieved</value>
+  </data>
+  <data name="SyncSegmentFinishedSegmentFormat" xml:space="preserve">
+    <value>Finished processing segment {0} after {1} iterations.</value>
+  </data>
+  <data name="SyncSegmentProcessingFormat" xml:space="preserve">
+    <value>Iteration {0} - Processing {1} rows retrieved for segment id {2}</value>
+  </data>
+  <data name="SyncSegmentSkippedRowsFormat" xml:space="preserve">
+    <value>Skipped {0} rows of data that already existed for segment id {1}</value>
+  </data>
+  <data name="SyncSiteSearchFinished" xml:space="preserve">
+    <value>Finished processing site search data</value>
+  </data>
+  <data name="SyncSiteSearchProcessing" xml:space="preserve">
+    <value>Processing site search data</value>
+  </data>
+  <data name="SyncSiteSearchStarted" xml:space="preserve">
+    <value>Started processing site search data</value>
+  </data>
+  <data name="AnalyticsIsNotConfigured" xml:space="preserve">
+    <value>This feature is not enabled because analytics settings have not yet been configured.</value>
+  </data>
+  <data name="InitialZoomSetting" xml:space="preserve">
+    <value>Initial Zoom</value>
+  </data>
+  <data name="NoAccess" xml:space="preserve">
+    <value>Sorry but you are not in a role configured for viewing traffic reports.</value>
+  </data>
+</root>

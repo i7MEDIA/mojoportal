@@ -1,0 +1,91 @@
+/* Easy Slider */
+
+ .easyslidewrap{margin:0 auto;
+		position:relative;
+		text-align:left;
+		width:696px;
+		background:#fff;		
+		margin-bottom:2em;
+		}
+		
+.easyslider { overflow:hidden; }
+
+.easyslider ul, .easyslider li{
+		margin:0;
+		padding:0;
+		list-style:none;
+		}
+
+.easyslider li{ 
+		/* 
+			define width and height of list item (slide)
+			entire slider area will adjust according to the parameters provided here
+		*/ 
+		width:696px;
+		height:241px;
+		overflow:hidden; 
+		}
+
+ /* image replacement */
+        .graphic, #prevBtn, #nextBtn{
+            margin:0;
+            padding:0;
+            display:block;
+            overflow:hidden;
+            text-indent:-8000px;
+            }		
+		
+	#prevBtn, #nextBtn{ 
+		display:block;
+		width:30px;
+		height:77px;
+		position:absolute;
+		left:-30px;
+		top:71px;
+		z-index:1000;
+		}	
+		
+	#nextBtn{ left:696px; }	
+		
+	#prevBtn a, #nextBtn a{  
+		display:block;
+		position:relative;
+		width:30px;
+		height:77px;
+		background:url('btn_prev.gif') no-repeat 0 0;	
+		}	
+		
+	#nextBtn a{ background:url('btn_next.gif') no-repeat 0 0;}	
+	
+	/* numeric controls */	
+
+	ol#controls{
+		margin:1em 0;
+		padding:0;
+		height:28px;	
+		}
+	ol#controls li{
+		margin:0 10px 0 0; 
+		padding:0;
+		float:left;
+		list-style:none;
+		height:28px;
+		line-height:28px;
+		}
+	ol#controls li a{
+		float:left;
+		height:28px;
+		line-height:28px;
+		border:1px solid #ccc;
+		background:#DAF3F8;
+		color:#555;
+		padding:0 10px;
+		text-decoration:none;
+		}
+	ol#controls li.current a{
+		background:#5DC9E1;
+		color:#fff;
+		}
+	ol#controls li a:focus, #prevBtn a:focus, #nextBtn a:focus{outline:none;}
+		
+		

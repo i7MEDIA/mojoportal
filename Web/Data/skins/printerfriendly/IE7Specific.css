@@ -1,0 +1,47 @@
+/*
+
+This file should contain SUPPLEMENTAL rules that are recognized and used only by IE.
+Similar files can be produced, as needed, for other browsers.  Whatever selectors are
+listed here should be listed in at least one other CSS file used in the current ASP.NET
+theme (thus making these supplemental).  The implementation pattern is to add new props
+to some existing rule or to override (using important) some property.
+
+*/
+
+ul.AspNet-Menu li
+{
+    height: 1% !important;
+}
+
+ul.AspNet-Menu li a,
+ul.AspNet-Menu li span
+{
+    height: 1% !important;
+}
+
+ul.userstats { list-style-type:none;  margin: 0px 0px 0px 0px; font-size:85%;  }
+ul.userstats ul { list-style-type:none; margin: -10px 0px 0px 0px;   }
+.qtfile .file-panel .file-actions span
+{
+	/* Fix for IE7 */
+	*text-indent: 0;
+	*font-size: 0;
+}
+.qtfile .file-preview
+{
+	/* Width must be set in IE7 for header get right */
+	*width: 65%;
+}
+.qtfile, 
+.qtfile p,
+.qtfile ul,
+.qtfile li, 
+.qtfile a, 
+.qtfile span,
+.qtfile img
+{ zoom: 1; }
+/* stupid IE6 HasLayout hack */
+.cluetip-rounded #cluetip-title,
+.cluetip-rounded #cluetip-inner {
+  zoom: 1;
+}

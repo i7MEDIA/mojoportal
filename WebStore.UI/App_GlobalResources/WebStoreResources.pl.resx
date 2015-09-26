@@ -1,0 +1,2226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AuthCodeLabel" xml:space="preserve">
+    <value>Kod autoryzacji</value>
+    <comment>Auth Code</comment>
+  </data>
+  <data name="BillingAddress1RequiredMessage" xml:space="preserve">
+    <value>Dane billingowe: adres wymagany</value>
+    <comment>Billing Address is Required</comment>
+  </data>
+  <data name="BillingCityRequiredMessage" xml:space="preserve">
+    <value>Dane billingowe: miasto wymagane</value>
+    <comment>Billing City is Required</comment>
+  </data>
+  <data name="BillingFirstNameRequiredMessage" xml:space="preserve">
+    <value>Dane billingowe: imię wymagane</value>
+    <comment>Billing First Name is Required</comment>
+  </data>
+  <data name="BillingPostalCodeRequiredMessage" xml:space="preserve">
+    <value>Dane billingowe: kod pocztowy wymagany</value>
+    <comment>Billing Postal Code is Required</comment>
+  </data>
+  <data name="CardExpiredWarning" xml:space="preserve">
+    <value>Karta kredytowa wygasła.</value>
+    <comment>Credit Card is Expired.</comment>
+  </data>
+  <data name="CartHeader" xml:space="preserve">
+    <value>Koszyk zakupowy</value>
+    <comment>Shopping Cart</comment>
+  </data>
+  <data name="CartLink" xml:space="preserve">
+    <value>Koszyk</value>
+    <comment>Cart</comment>
+  </data>
+  <data name="CartOrderInfoBillingAddress1Label" xml:space="preserve">
+    <value>Adres 1</value>
+    <comment>Address 1</comment>
+  </data>
+  <data name="CartOrderInfoBillingAddress2Label" xml:space="preserve">
+    <value>Adres 2</value>
+    <comment>Address 2</comment>
+  </data>
+  <data name="CartOrderInfoBillingCityLabel" xml:space="preserve">
+    <value>Miasto</value>
+    <comment>City</comment>
+  </data>
+  <data name="CartOrderInfoBillingCompanyLabel" xml:space="preserve">
+    <value>Firma</value>
+    <comment>Bill To Company</comment>
+  </data>
+  <data name="CartOrderInfoBillingCountryLabel" xml:space="preserve">
+    <value>Kraj</value>
+    <comment>Country</comment>
+  </data>
+  <data name="CartOrderInfoBillingFirstNameLabel" xml:space="preserve">
+    <value>Osoba: imię</value>
+    <comment>Bill To First Name</comment>
+  </data>
+  <data name="CartOrderInfoBillingPostalCodeLabel" xml:space="preserve">
+    <value>Kod pocztowy</value>
+    <comment>Postal Code</comment>
+  </data>
+  <data name="CartOrderInfoBillingStateLabel" xml:space="preserve">
+    <value>Stan</value>
+    <comment>State</comment>
+  </data>
+  <data name="CartOrderInfoBillingSuburbLabel" xml:space="preserve">
+    <value>Dzielnica</value>
+    <comment>Suburb</comment>
+  </data>
+  <data name="CartOrderInfoCardExpiresLabel" xml:space="preserve">
+    <value>Wygasa</value>
+    <comment>Expires</comment>
+  </data>
+  <data name="CartOrderInfoCardNumberLabel" xml:space="preserve">
+    <value>Numer karty</value>
+    <comment>Card Number</comment>
+  </data>
+  <data name="CartOrderInfoCardOwnerFirstNameLabel" xml:space="preserve">
+    <value>Imię posiadacza karty</value>
+    <comment>Card Owner First Name</comment>
+  </data>
+  <data name="CartOrderInfoCardSecurityCodeLabel" xml:space="preserve">
+    <value>Kod bezpieczeństwa karty</value>
+    <comment>Security Code</comment>
+  </data>
+  <data name="CartOrderInfoCardTypeLabel" xml:space="preserve">
+    <value>Rodzaj karty</value>
+    <comment>Card Type</comment>
+  </data>
+  <data name="CartOrderInfoCustomerAddressLine1Label" xml:space="preserve">
+    <value>Adres 1</value>
+    <comment>Address 1</comment>
+  </data>
+  <data name="CartOrderInfoCustomerAddressLine2Label" xml:space="preserve">
+    <value>Adres 2</value>
+    <comment>Address 2</comment>
+  </data>
+  <data name="CartOrderInfoCustomerCityLabel" xml:space="preserve">
+    <value>Miasto</value>
+    <comment>City</comment>
+  </data>
+  <data name="CartOrderInfoCustomerCompanyLabel" xml:space="preserve">
+    <value>Firma</value>
+    <comment>Company</comment>
+  </data>
+  <data name="CartOrderInfoCustomerCountryLabel" xml:space="preserve">
+    <value>Kraj</value>
+    <comment>Country</comment>
+  </data>
+  <data name="CartOrderInfoCustomerEmailLabel" xml:space="preserve">
+    <value>Adres e-mail</value>
+    <comment>Email Address</comment>
+  </data>
+  <data name="CartOrderInfoCustomerFirstNameLabel" xml:space="preserve">
+    <value>Imię klienta</value>
+    <comment>Customer First Name</comment>
+  </data>
+  <data name="CartOrderInfoCustomerPostalCodeLabel" xml:space="preserve">
+    <value>Kod pocztowy</value>
+    <comment>Postal Code</comment>
+  </data>
+  <data name="CartOrderInfoCustomerStateLabel" xml:space="preserve">
+    <value>Stan</value>
+    <comment>State</comment>
+  </data>
+  <data name="CartOrderInfoCustomerSuburbLabel" xml:space="preserve">
+    <value>Dzielnica</value>
+    <comment>Suburb</comment>
+  </data>
+  <data name="CartOrderInfoCustomerTelephoneDayLabel" xml:space="preserve">
+    <value>Telefon do pracy</value>
+    <comment>Daytime Telephone</comment>
+  </data>
+  <data name="CartOrderInfoCustomerTelephoneNightLabel" xml:space="preserve">
+    <value>Telefon prywatny</value>
+    <comment>Evening Telephone</comment>
+  </data>
+  <data name="CartOrderInfoDeliveryAddress1Label" xml:space="preserve">
+    <value>Adres 1</value>
+    <comment>Address 1</comment>
+  </data>
+  <data name="CartOrderInfoDeliveryAddress2Label" xml:space="preserve">
+    <value>Adres 2</value>
+    <comment>Address 2</comment>
+  </data>
+  <data name="CartOrderInfoDeliveryCityLabel" xml:space="preserve">
+    <value>Miasto</value>
+    <comment>City</comment>
+  </data>
+  <data name="CartOrderInfoDeliveryCompanyLabel" xml:space="preserve">
+    <value>Dostarczyć do firmy</value>
+    <comment>Ship To Company</comment>
+  </data>
+  <data name="CartOrderInfoDeliveryCountryLabel" xml:space="preserve">
+    <value>Kraj</value>
+    <comment>Country</comment>
+  </data>
+  <data name="CartOrderInfoDeliveryFirstNameLabel" xml:space="preserve">
+    <value>Odbiorca: imię</value>
+    <comment>Ship To First Name</comment>
+  </data>
+  <data name="CartOrderInfoDeliveryPostalCodeLabel" xml:space="preserve">
+    <value>Kod pocztowy</value>
+    <comment>Postal Code</comment>
+  </data>
+  <data name="CartOrderInfoDeliveryStateLabel" xml:space="preserve">
+    <value>Stan</value>
+    <comment>State</comment>
+  </data>
+  <data name="CartOrderInfoDeliverySuburbLabel" xml:space="preserve">
+    <value>Dzielnica</value>
+    <comment>Suburb</comment>
+  </data>
+  <data name="CartOrderTotalLabel" xml:space="preserve">
+    <value>Suma</value>
+    <comment>Total</comment>
+  </data>
+  <data name="CartShippingTotalLabel" xml:space="preserve">
+    <value>Wartość dostawy</value>
+    <comment>Shipping</comment>
+  </data>
+  <data name="CartSubTotalLabel" xml:space="preserve">
+    <value>Podsuma</value>
+    <comment>Subtotal</comment>
+  </data>
+  <data name="CartTaxTotalLabel" xml:space="preserve">
+    <value>Podatek</value>
+    <comment>Tax</comment>
+  </data>
+  <data name="CategoryAdministrationLink" xml:space="preserve">
+    <value>Administracja kategorii</value>
+    <comment>Category Administration</comment>
+  </data>
+  <data name="CategoryGridAddNewButton" xml:space="preserve">
+    <value>Nowa kategoria</value>
+    <comment>New Category</comment>
+  </data>
+  <data name="CategoryGridCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="CategoryGridDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="CategoryGridDeleteWarning" xml:space="preserve">
+    <value>Czy na pewno usunąć tę kategorię?</value>
+    <comment>Are you sure you want to delete this Category?</comment>
+  </data>
+  <data name="CategoryGridEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="CategoryGridNameHeader" xml:space="preserve">
+    <value>Nazwa</value>
+    <comment>Name</comment>
+  </data>
+  <data name="CategoryGridNoParentListItem" xml:space="preserve">
+    <value>Brak nadrzędnych</value>
+    <comment>No Parent</comment>
+  </data>
+  <data name="CategoryGridParentHeader" xml:space="preserve">
+    <value>Nadrzędny</value>
+    <comment>Parent</comment>
+  </data>
+  <data name="CategoryGridSortHeader" xml:space="preserve">
+    <value>Sort</value>
+    <comment>Sort</comment>
+  </data>
+  <data name="CategoryGridUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="CheckoutBillingInfoHeader" xml:space="preserve">
+    <value>Billing info</value>
+    <comment>Billing Info</comment>
+  </data>
+  <data name="CheckoutHeader" xml:space="preserve">
+    <value>Proszę sprawdzić i wysłać zamówienie</value>
+    <comment>Please review and submit your order</comment>
+  </data>
+  <data name="CheckoutLoginPrompt" xml:space="preserve">
+    <value>Już zarejestrowany?</value>
+    <comment>Already Registered?</comment>
+  </data>
+  <data name="CheckoutOrderSummaryHeader" xml:space="preserve">
+    <value>Podsumowanie zamówienia</value>
+    <comment>Order Summary</comment>
+  </data>
+  <data name="CheckoutRegisterPrompt" xml:space="preserve">
+    <value>Nie masz jeszcze konta?</value>
+    <comment>Not Yet Registered?</comment>
+  </data>
+  <data name="CheckoutShippingInfoHeader" xml:space="preserve">
+    <value>Informacje o dostawie</value>
+    <comment>Shipping Info</comment>
+  </data>
+  <data name="ConfirmOrderBillingHeader" xml:space="preserve">
+    <value>Informacje billingowe</value>
+    <comment>Billing Information</comment>
+  </data>
+  <data name="ConfirmOrderCustomerHeader" xml:space="preserve">
+    <value>Informacje dla klienta</value>
+    <comment>Customer Information</comment>
+  </data>
+  <data name="ConfirmOrderShippingHeader" xml:space="preserve">
+    <value>Informacje o dostawie</value>
+    <comment>Shipping Information</comment>
+  </data>
+  <data name="CopyBillingToShippingLink" xml:space="preserve">
+    <value>Takie same jak billingowe</value>
+    <comment>Same As Billing</comment>
+  </data>
+  <data name="CopyCustomerToBillingLink" xml:space="preserve">
+    <value>Tak jak Klient</value>
+    <comment>Same As Customer</comment>
+  </data>
+  <data name="CopyCustomerToShippingLink" xml:space="preserve">
+    <value>Tak jak Klient</value>
+    <comment>Same As Customer</comment>
+  </data>
+  <data name="CountryGridAddNewButton" xml:space="preserve">
+    <value>Nowy kraj</value>
+    <comment>New Country</comment>
+  </data>
+  <data name="CountryGridCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="CountryGridDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="CountryGridDeleteWarning" xml:space="preserve">
+    <value>Czy na pewno usunąć ten kraj?</value>
+    <comment>Are you sure you want to delete this Country?</comment>
+  </data>
+  <data name="CountryGridEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="CountryGridISOCode2Header" xml:space="preserve">
+    <value>ISO Code 2</value>
+    <comment>ISO Code 2</comment>
+  </data>
+  <data name="CountryGridISOCode3Header" xml:space="preserve">
+    <value>ISO Code 3</value>
+    <comment>ISOCode 3</comment>
+  </data>
+  <data name="CountryGridNameHeader" xml:space="preserve">
+    <value>Nazwa kraju</value>
+    <comment>Country Name</comment>
+  </data>
+  <data name="CountryGridUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="CountryListAdminLink" xml:space="preserve">
+    <value>Administracja listy krajów</value>
+    <comment>Country List Administration</comment>
+  </data>
+  <data name="CurrencyAdministrationLink" xml:space="preserve">
+    <value>Administacja walut</value>
+    <comment>Currency Administration</comment>
+  </data>
+  <data name="CurrencyGridAddNewButton" xml:space="preserve">
+    <value>Nowa waluta</value>
+    <comment>New Currency</comment>
+  </data>
+  <data name="CurrencyGridCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="CurrencyGridCodeHeading" xml:space="preserve">
+    <value>Kod</value>
+    <comment>Code</comment>
+  </data>
+  <data name="CurrencyGridDecimalPlacesHeading" xml:space="preserve">
+    <value>Miejsca dziesiętne</value>
+    <comment>Decimal Places</comment>
+  </data>
+  <data name="CurrencyGridDecimalPointCharHeading" xml:space="preserve">
+    <value>Separator dziesiętny</value>
+    <comment>Decimal Point</comment>
+  </data>
+  <data name="CurrencyGridDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="CurrencyGridDeleteWarning" xml:space="preserve">
+    <value>Czy na pewno usunąć tę walutę?</value>
+    <comment>Are you sure you want to delete this currency?</comment>
+  </data>
+  <data name="CurrencyGridEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="CurrencyGridSymbolLeftHeading" xml:space="preserve">
+    <value>Symbol z lewej</value>
+    <comment>Symbol Left</comment>
+  </data>
+  <data name="CurrencyGridSymbolRightHeading" xml:space="preserve">
+    <value>Symbol z prawej</value>
+    <comment>Symbol Right</comment>
+  </data>
+  <data name="CurrencyGridThousandsPointCharHeading" xml:space="preserve">
+    <value>Separator tysięcy</value>
+    <comment>Thousands Point</comment>
+  </data>
+  <data name="CurrencyGridTitleHeading" xml:space="preserve">
+    <value>Tytuł</value>
+    <comment>Title</comment>
+  </data>
+  <data name="CurrencyGridUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="CurrencyGridValueHeading" xml:space="preserve">
+    <value>Wartość</value>
+    <comment>Value</comment>
+  </data>
+  <data name="CustomerAddress1RequiredMessage" xml:space="preserve">
+    <value>Dane Klienta: adres wymagany</value>
+    <comment>Customer Address is Required</comment>
+  </data>
+  <data name="CustomerCityRequiredMessage" xml:space="preserve">
+    <value>Dane Klienta: miasto wymagane</value>
+    <comment>Customer City is Required</comment>
+  </data>
+  <data name="CustomerDayPhoneRequiredMessage" xml:space="preserve">
+    <value>Dane Klienta: telefon wymagany</value>
+    <comment>Customer Phone is Required</comment>
+  </data>
+  <data name="CustomerEmailRegexFailureMessage" xml:space="preserve">
+    <value>Niepoprawny adres e-mail</value>
+    <comment>Customer Email must be a valid Email Address</comment>
+  </data>
+  <data name="CustomerEmailRequiredMessage" xml:space="preserve">
+    <value>Dane Klienta: adres e-mail wymagany</value>
+    <comment>Customer Email is Required</comment>
+  </data>
+  <data name="CustomerFirstNameRequiredMessage" xml:space="preserve">
+    <value>Dane Klienta: imię wymagane</value>
+    <comment>Customer First Name is Required</comment>
+  </data>
+  <data name="CustomerPostalCodeRequiredMessage" xml:space="preserve">
+    <value>Dane Klienta: kod pocztowy wymagany</value>
+    <comment>Customer Postal Code is Required</comment>
+  </data>
+  <data name="DeliveryAddress1RequiredMessage" xml:space="preserve">
+    <value>Dane dostawy: adres wymagany</value>
+    <comment>Shipping Address is Required</comment>
+  </data>
+  <data name="DeliveryCityRequiredMessage" xml:space="preserve">
+    <value>Dane dostawy: miasto wymagane</value>
+    <comment>Shipping City is Required</comment>
+  </data>
+  <data name="DeliveryFirstNameRequiredMessage" xml:space="preserve">
+    <value>Dane dostawy: imię wymagane</value>
+    <comment>Shipping First Name is Required</comment>
+  </data>
+  <data name="DeliveryPostalCodeRequiredMessage" xml:space="preserve">
+    <value>Dane dostawy: kod pocztowy wymagany</value>
+    <comment>Shipping Postal Code is Required</comment>
+  </data>
+  <data name="DownloadTermsAdministrationLink" xml:space="preserve">
+    <value>Administracja warunkami pobierania</value>
+    <comment>Download Terms Administration</comment>
+  </data>
+  <data name="DownloadTermsDeleteWarning" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć tę pozycję?</value>
+    <comment>Are you sure you want to delete this item?</comment>
+  </data>
+  <data name="DownloadTermsGridAddNewButton" xml:space="preserve">
+    <value>Nowe warunki pobierania</value>
+    <comment>New Download Terms</comment>
+  </data>
+  <data name="DownloadTermsGridCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="DownloadTermsGridCountAfterDownloadHeader" xml:space="preserve">
+    <value>Zacznij liczyć dni od pierwszego pobrania</value>
+    <comment>Begin Counting Days After First Download</comment>
+  </data>
+  <data name="DownloadTermsGridDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="DownloadTermsGridDescriptionHeader" xml:space="preserve">
+    <value>Opis</value>
+    <comment>Description</comment>
+  </data>
+  <data name="DownloadTermsGridDownloadsAllowedHeader" xml:space="preserve">
+    <value>Dozwolona ilość pobrań (0 = bez limitu)</value>
+    <comment>Downloads Allowed (0 = unlimited)</comment>
+  </data>
+  <data name="DownloadTermsGridEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="DownloadTermsGridExpireAfterDaysHeader" xml:space="preserve">
+    <value>Wygasa po dniach (0 = nigdy)</value>
+    <comment>Days Until Expiration (0 = never expires)</comment>
+  </data>
+  <data name="DownloadTermsGridNameHeader" xml:space="preserve">
+    <value>Nazwa</value>
+    <comment>Name</comment>
+  </data>
+  <data name="DownloadTermsGridUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="FileUploadButton" xml:space="preserve">
+    <value>Ładowanie</value>
+    <comment>Upload</comment>
+  </data>
+  <data name="FileUploadLabel" xml:space="preserve">
+    <value>Ładowanie pliku</value>
+    <comment>Upload File</comment>
+  </data>
+  <data name="FullfillmentTypeEnumDownload" xml:space="preserve">
+    <value>Download</value>
+    <comment>Download</comment>
+  </data>
+  <data name="FullfillmentTypeEnumShipped" xml:space="preserve">
+    <value>Fizyczna dostawa</value>
+    <comment>Physical Shipment</comment>
+  </data>
+  <data name="LoginLink" xml:space="preserve">
+    <value>Zaloguj się</value>
+    <comment>Sign In</comment>
+  </data>
+  <data name="MyAccountLink" xml:space="preserve">
+    <value>Historia zamówień</value>
+    <comment>Order History</comment>
+  </data>
+  <data name="MyAccountOrderDateHeader" xml:space="preserve">
+    <value>Data</value>
+    <comment>Date</comment>
+  </data>
+  <data name="MyAccountOrderIDHeader" xml:space="preserve">
+    <value>ID zamówienia</value>
+    <comment>Order ID</comment>
+  </data>
+  <data name="MyAccountOrderNumberHeader" xml:space="preserve">
+    <value>Numer zamówienia</value>
+    <comment>Order No</comment>
+  </data>
+  <data name="OfferAddNewButton" xml:space="preserve">
+    <value>Nowa oferta</value>
+    <comment>New Offer</comment>
+  </data>
+  <data name="OfferAdministrationLink" xml:space="preserve">
+    <value>Administracja ofert</value>
+    <comment>Offer Administration</comment>
+  </data>
+  <data name="OfferAvailabilityBeginDateHeader" xml:space="preserve">
+    <value>Data rozpoczęcia</value>
+    <comment>Begin Date</comment>
+  </data>
+  <data name="OfferAvailabilityEndDateHeader" xml:space="preserve">
+    <value>Data zakończenia</value>
+    <comment>End Date</comment>
+  </data>
+  <data name="OfferAvailabilityGridAddNewButton" xml:space="preserve">
+    <value>Nowe warunki dostępności</value>
+    <comment>New Availability Terms</comment>
+  </data>
+  <data name="OfferAvailabilityGridCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="OfferAvailabilityGridDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="OfferAvailabilityGridDeleteWarning" xml:space="preserve">
+    <value>Czy na pewno usunąć ten obiekt?</value>
+    <comment>Are you sure you want to delete this item?</comment>
+  </data>
+  <data name="OfferAvailabilityGridEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="OfferAvailabilityGridUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="OfferAvailabilityMaxAllowedPerCustomerHeader" xml:space="preserve">
+    <value>Maksymalnie dla jednego klienta</value>
+    <comment>Max Per Customer</comment>
+  </data>
+  <data name="OfferAvailabilityOfferCodeHeader" xml:space="preserve">
+    <value>Kod oferty</value>
+    <comment>Offer Code</comment>
+  </data>
+  <data name="OfferAvailabilityRequiresOfferCodeHeader" xml:space="preserve">
+    <value>Żądanie kodu oferty</value>
+    <comment>Requires Offer Code</comment>
+  </data>
+  <data name="OfferAvailibilityLabel" xml:space="preserve">
+    <value>Dostępność</value>
+    <comment>Availability</comment>
+  </data>
+  <data name="OfferDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="OfferDeleteWarning" xml:space="preserve">
+    <value>Czy na pewno usunąć tę ofertę?</value>
+    <comment>Are you sure you want to delete this offer?</comment>
+  </data>
+  <data name="OfferDescriptionLabel" xml:space="preserve">
+    <value>Opis</value>
+    <comment>Description</comment>
+  </data>
+  <data name="OfferEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="OfferEditGeneralSettingsLabel" xml:space="preserve">
+    <value>Ustawienia</value>
+    <comment>Settings</comment>
+  </data>
+  <data name="OfferEditHeading" xml:space="preserve">
+    <value>Edycja oferty</value>
+    <comment>Edit Offer</comment>
+  </data>
+  <data name="OfferEditRolesLabel" xml:space="preserve">
+    <value>Role które mogą edytować tę ofertę:</value>
+    <comment>Roles that can edit offers:</comment>
+  </data>
+  <data name="OfferIsSpecialLabel" xml:space="preserve">
+    <value>Specjalna</value>
+    <comment>Special</comment>
+  </data>
+  <data name="OfferIsVisibleLabel" xml:space="preserve">
+    <value>Jest widooczna</value>
+    <comment>Is Visible</comment>
+  </data>
+  <data name="OfferNameLabel" xml:space="preserve">
+    <value>Nazwa</value>
+    <comment>Name</comment>
+  </data>
+  <data name="OfferPriceGridAddNewButton" xml:space="preserve">
+    <value>Nowa cena</value>
+    <comment>New Price</comment>
+  </data>
+  <data name="OfferPriceGridCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="OfferPriceGridCurrencyHeader" xml:space="preserve">
+    <value>Waluta</value>
+    <comment>Currency</comment>
+  </data>
+  <data name="OfferPriceGridDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="OfferPriceGridDeleteWarning" xml:space="preserve">
+    <value>Czy na pewno usunąć tę cenę?</value>
+    <comment>Are you sure you want to delete this price?</comment>
+  </data>
+  <data name="OfferPriceGridEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="OfferPriceGridPriceHeader" xml:space="preserve">
+    <value>Cena</value>
+    <comment>Price</comment>
+  </data>
+  <data name="OfferPriceGridUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="OfferPriceLabel" xml:space="preserve">
+    <value>Cena</value>
+    <comment>Price</comment>
+  </data>
+  <data name="OfferProductGridAddNewButton" xml:space="preserve">
+    <value>Dodaj produkt</value>
+    <comment>Add Product</comment>
+  </data>
+  <data name="OfferProductGridCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="OfferProductGridDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="OfferProductGridDeleteWarning" xml:space="preserve">
+    <value>Czy na pewno usunąć tę ofertę produktową?</value>
+    <comment>Are you sure you want to remove this product from the Offer?</comment>
+  </data>
+  <data name="OfferProductGridEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="OfferProductGridFullfillmentTermsHeader" xml:space="preserve">
+    <value>Warunki realizacji</value>
+    <comment>Fulfillment Terms</comment>
+  </data>
+  <data name="OfferProductGridFullfillTypeHeader" xml:space="preserve">
+    <value>Realizacja</value>
+    <comment>Fulfillment</comment>
+  </data>
+  <data name="OfferProductGridNameHeader" xml:space="preserve">
+    <value>Produkt</value>
+    <comment>Product</comment>
+  </data>
+  <data name="OfferProductGridQuantityHeader" xml:space="preserve">
+    <value>Ilość</value>
+    <comment>Quantity</comment>
+  </data>
+  <data name="OfferProductGridSortHeader" xml:space="preserve">
+    <value>Sortowanie</value>
+    <comment>Sort Order</comment>
+  </data>
+  <data name="OfferProductGridUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="OfferProductsLabel" xml:space="preserve">
+    <value>Produkty</value>
+    <comment>Products</comment>
+  </data>
+  <data name="OfferTaxClassLabel" xml:space="preserve">
+    <value>Stawka podatku</value>
+    <comment>Tax Class</comment>
+  </data>
+  <data name="OfferUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="OrderDetailDownloadItemsHeader" xml:space="preserve">
+    <value>Pozycje do pobrania</value>
+    <comment>Download Items</comment>
+  </data>
+  <data name="OrderDetailHeader" xml:space="preserve">
+    <value>Podsumowanie zamówienia</value>
+    <comment>Order Summary</comment>
+  </data>
+  <data name="OrderDetailItemsHeader" xml:space="preserve">
+    <value>Pozycje</value>
+    <comment>Items</comment>
+  </data>
+  <data name="OrderDetailOrderDateLabel" xml:space="preserve">
+    <value>Data zamówienia</value>
+    <comment>Order Date</comment>
+  </data>
+  <data name="OrderDetailOrderTotalLabel" xml:space="preserve">
+    <value>Suma</value>
+    <comment>Total</comment>
+  </data>
+  <data name="OrderDetailShippingTotalLabel" xml:space="preserve">
+    <value>Suma dostawy</value>
+    <comment>Shipping</comment>
+  </data>
+  <data name="OrderDetailSubTotalLabel" xml:space="preserve">
+    <value>Podsuma</value>
+    <comment>Subtotal</comment>
+  </data>
+  <data name="OrderDetailTaxTotalLabel" xml:space="preserve">
+    <value>Podatek</value>
+    <comment>Tax</comment>
+  </data>
+  <data name="OrderHistoryAdminLink" xml:space="preserve">
+    <value>Historia zamówień</value>
+    <comment>Order History</comment>
+  </data>
+  <data name="OrderHistoryHeader" xml:space="preserve">
+    <value>Historia zamówień</value>
+    <comment>Order History</comment>
+  </data>
+  <data name="OrderStatusAdminLink" xml:space="preserve">
+    <value>Administracja statusów zamówienia</value>
+    <comment>Order Status Definition Administration</comment>
+  </data>
+  <data name="OrderStatusGridAddNewButton" xml:space="preserve">
+    <value>Nowy status</value>
+    <comment>New Status</comment>
+  </data>
+  <data name="OrderStatusGridCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="OrderStatusGridDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="OrderStatusGridDeleteWarning" xml:space="preserve">
+    <value>Czy na pewno usunąć ten status zamówienia?</value>
+    <comment>Are you sure you want to delete this order status?</comment>
+  </data>
+  <data name="OrderStatusGridDescriptionHeading" xml:space="preserve">
+    <value>Opis</value>
+    <comment>Description</comment>
+  </data>
+  <data name="OrderStatusGridEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="OrderStatusGridSortHeading" xml:space="preserve">
+    <value>Sortowanie</value>
+    <comment>Sort</comment>
+  </data>
+  <data name="OrderStatusGridUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="PaymentButton" xml:space="preserve">
+    <value>Wykonaj płatność</value>
+    <comment>Make Payment</comment>
+  </data>
+  <data name="PaymentButtonDisabledText" xml:space="preserve">
+    <value>Proszę czekać...</value>
+    <comment>Please wait...</comment>
+  </data>
+  <data name="ProductAdministrationLink" xml:space="preserve">
+    <value>Administracja produktów</value>
+    <comment>Product Administration</comment>
+  </data>
+  <data name="ProductCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="ProductDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="ProductDeleteWarning" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć ten produkt?</value>
+    <comment>Are you sure you want to delete this product?</comment>
+  </data>
+  <data name="ProductDescriptionLabel" xml:space="preserve">
+    <value>Opis</value>
+    <comment>Description</comment>
+  </data>
+  <data name="ProductEditHeading" xml:space="preserve">
+    <value>Edycja produktu</value>
+    <comment>Edit Product</comment>
+  </data>
+  <data name="ProductEditPropertiesLabel" xml:space="preserve">
+    <value>Właściwości</value>
+    <comment>Properties</comment>
+  </data>
+  <data name="ProductEditRolesLabel" xml:space="preserve">
+    <value>Role które mogą edytować ten produkt:</value>
+    <comment>Roles that can edit products:</comment>
+  </data>
+  <data name="ProductFullfillmentTypeLabel" xml:space="preserve">
+    <value>Sposób realizacji</value>
+    <comment>Fulfillment Type</comment>
+  </data>
+  <data name="ProductGridAddNewButton" xml:space="preserve">
+    <value>Nowy produkt</value>
+    <comment>New Product</comment>
+  </data>
+  <data name="ProductGridEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="ProductIDLabel" xml:space="preserve">
+    <value>ID produktu</value>
+    <comment>Product ID</comment>
+  </data>
+  <data name="ProductModelNumberLabel" xml:space="preserve">
+    <value>Numer modelu</value>
+    <comment>Model Number</comment>
+  </data>
+  <data name="ProductNameLabel" xml:space="preserve">
+    <value>Nazwa</value>
+    <comment>Name</comment>
+  </data>
+  <data name="ProductPropertyDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="ProductPropertyEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="ProductPropertyEditCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="ProductPropertyGroupDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="ProductPropertyGroupDescriptionHeader" xml:space="preserve">
+    <value>Grupa (jeśli określona)</value>
+    <comment>Group (if any)</comment>
+  </data>
+  <data name="ProductPropertyGroupEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="ProductPropertyGroupEditCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="ProductPropertyGroupInsertButton" xml:space="preserve">
+    <value>Wstaw</value>
+    <comment>Insert</comment>
+  </data>
+  <data name="ProductPropertyGroupPropertiesHeader" xml:space="preserve">
+    <value>Właściwości</value>
+    <comment>Properties</comment>
+  </data>
+  <data name="ProductPropertyGroupSortHeader" xml:space="preserve">
+    <value>Sortowanie</value>
+    <comment>Sort</comment>
+  </data>
+  <data name="ProductPropertyGroupUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="ProductPropertyInsertButton" xml:space="preserve">
+    <value>Wstaw</value>
+    <comment>Insert</comment>
+  </data>
+  <data name="ProductPropertyNameHeader" xml:space="preserve">
+    <value>Nazwa</value>
+    <comment>Name</comment>
+  </data>
+  <data name="ProductPropertySortHeader" xml:space="preserve">
+    <value>Sortowanie</value>
+    <comment>Sort</comment>
+  </data>
+  <data name="ProductPropertyUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="ProductPropertyValueHeader" xml:space="preserve">
+    <value>Wartość</value>
+    <comment>Value</comment>
+  </data>
+  <data name="ProductQuantityOnHandLabel" xml:space="preserve">
+    <value>Ilość na rękę</value>
+    <comment>Qty On Hand</comment>
+  </data>
+  <data name="ProductSettingsTab" xml:space="preserve">
+    <value>Ustawienia</value>
+    <comment>Settings</comment>
+  </data>
+  <data name="ProductSkuLabel" xml:space="preserve">
+    <value>SKU</value>
+    <comment>Sku</comment>
+  </data>
+  <data name="ProductStatusEnumAvailable" xml:space="preserve">
+    <value>Dostępny</value>
+    <comment>Available</comment>
+  </data>
+  <data name="ProductStatusEnumDiscontinued" xml:space="preserve">
+    <value>Wycofany</value>
+    <comment>Discontinued</comment>
+  </data>
+  <data name="ProductStatusEnumPlanned" xml:space="preserve">
+    <value>Planowany</value>
+    <comment>Planned</comment>
+  </data>
+  <data name="ProductStatusLabel" xml:space="preserve">
+    <value>Status</value>
+    <comment>Status</comment>
+  </data>
+  <data name="ProductTaxClassLabel" xml:space="preserve">
+    <value>Stawka podaktu</value>
+    <comment>Tax Class</comment>
+  </data>
+  <data name="ProductUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="ProductWeightLabel" xml:space="preserve">
+    <value>Waga</value>
+    <comment>Weight</comment>
+  </data>
+  <data name="RegisterLink" xml:space="preserve">
+    <value>Rejestracja</value>
+    <comment>Register</comment>
+  </data>
+  <data name="RequiredFieldSymbol" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="ResponseReasonLabel" xml:space="preserve">
+    <value>Powód</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="StoreAddressLabel" xml:space="preserve">
+    <value>Adres:</value>
+    <comment>Address:</comment>
+  </data>
+  <data name="StoreAllowOtherCurrenciesLabel" xml:space="preserve">
+    <value>Inne waluty dozwolone? :</value>
+    <comment>Allow Other Currencies?:</comment>
+  </data>
+  <data name="StoreAllowOtherLanguagesLabel" xml:space="preserve">
+    <value>Inne języki dozwolone? :</value>
+    <comment>Allow Other Languages?:</comment>
+  </data>
+  <data name="StoreCityLabel" xml:space="preserve">
+    <value>Miasto:</value>
+    <comment>City:</comment>
+  </data>
+  <data name="StoreClosedMessageLabel" xml:space="preserve">
+    <value>Powiadomienie o zamkniętym sklepie:</value>
+    <comment>Store Closed Message:</comment>
+  </data>
+  <data name="StoreConfigRolesLabel" xml:space="preserve">
+    <value>Role które mogą konfigurować ten sklep:</value>
+    <comment>Roles that can configure the store:</comment>
+  </data>
+  <data name="StoreCountryLabel" xml:space="preserve">
+    <value>Kraj:</value>
+    <comment>Country:</comment>
+  </data>
+  <data name="StoreDefaultCountryLabel" xml:space="preserve">
+    <value>Kraj domyślny:</value>
+    <comment>Default Country:</comment>
+  </data>
+  <data name="StoreDefaultCurrencyLabel" xml:space="preserve">
+    <value>Waluta domyślna:</value>
+    <comment>Default Currency:</comment>
+  </data>
+  <data name="StoreDefaultLanguageLabel" xml:space="preserve">
+    <value>Język domyślny:</value>
+    <comment>Default Language:</comment>
+  </data>
+  <data name="StoreDescriptionLabel" xml:space="preserve">
+    <value>Opis sklepu:</value>
+    <comment>Store Description:</comment>
+  </data>
+  <data name="StoreEmailFromLabel" xml:space="preserve">
+    <value>E-mail nadawcy:</value>
+    <comment>Email From Address:</comment>
+  </data>
+  <data name="StoreFaxLabel" xml:space="preserve">
+    <value>Fax:</value>
+    <comment>FAX:</comment>
+  </data>
+  <data name="StoreIsClosedLabel" xml:space="preserve">
+    <value>Jest zamknięty? :</value>
+    <comment>Is Closed?:</comment>
+  </data>
+  <data name="StoreManagerHeading" xml:space="preserve">
+    <value>Manager sklepu</value>
+    <comment>Store Manager</comment>
+  </data>
+  <data name="StoreManagerLink" xml:space="preserve">
+    <value>Manager sklepu</value>
+    <comment>Store Manager</comment>
+  </data>
+  <data name="StoreNameLabel" xml:space="preserve">
+    <value>Nazwa sklepu:</value>
+    <comment>Store Name:</comment>
+  </data>
+  <data name="StoreOrderBCCEmailLabel" xml:space="preserve">
+    <value>UDW adres email:</value>
+    <comment>BCC Orders To Email:</comment>
+  </data>
+  <data name="StoreOwnerEmailLabel" xml:space="preserve">
+    <value>Email właściciela:</value>
+    <comment>Owner Email:</comment>
+  </data>
+  <data name="StoreOwnerNameLabel" xml:space="preserve">
+    <value>Nazwa właściciela:</value>
+    <comment>Owner Name:</comment>
+  </data>
+  <data name="StorePhoneLabel" xml:space="preserve">
+    <value>Telefon:</value>
+    <comment>Phone:</comment>
+  </data>
+  <data name="StorePostalCodeLabel" xml:space="preserve">
+    <value>Kod pocztowy:</value>
+    <comment>Postal Code:</comment>
+  </data>
+  <data name="StoreSalesEmailLabel" xml:space="preserve">
+    <value>Email sprzedawcy:</value>
+    <comment>Sales Email:</comment>
+  </data>
+  <data name="StoreSettingsLink" xml:space="preserve">
+    <value>Ustawienia sklepu</value>
+    <comment>Store Settings</comment>
+  </data>
+  <data name="StoreSettingsSaveButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="StoreShowCategoryCountsLabel" xml:space="preserve">
+    <value>Pokazać sumę dla kategorii? :</value>
+    <comment>Show Category Counts?:</comment>
+  </data>
+  <data name="StoreSupportEmailLabel" xml:space="preserve">
+    <value>Email pomocy:</value>
+    <comment>SupportEmail:</comment>
+  </data>
+  <data name="StoreZoneLabel" xml:space="preserve">
+    <value>Stan lub region:</value>
+    <comment>State or Zone:</comment>
+  </data>
+  <data name="TaxClassAdminLink" xml:space="preserve">
+    <value>Administracja klasami podaktu</value>
+    <comment>Tax Class Administration</comment>
+  </data>
+  <data name="TaxClassGridAddNewButton" xml:space="preserve">
+    <value>Nowa klasa podaktu</value>
+    <comment>New Tax Class</comment>
+  </data>
+  <data name="TaxClassGridCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="TaxClassGridDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="TaxClassGridDeleteWarning" xml:space="preserve">
+    <value>Czy na pewno usunąć tę klasę podatku?</value>
+    <comment>Are you sure you want to delete this tax class?</comment>
+  </data>
+  <data name="TaxClassGridEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="TaxClassGridTitleLabel" xml:space="preserve">
+    <value>Tytuł</value>
+    <comment>Title</comment>
+  </data>
+  <data name="TaxClassGridUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="TaxEditRolesLabel" xml:space="preserve">
+    <value>Role które mogą edytować klasy i stawki podatku:</value>
+    <comment>Roles that can edit Tax Classes and Rates:</comment>
+  </data>
+  <data name="TaxRateAdminLink" xml:space="preserve">
+    <value>Administracja stawkami podatku</value>
+    <comment>Tax Rate Administration</comment>
+  </data>
+  <data name="TaxRateGridAddNewButton" xml:space="preserve">
+    <value>Nowa stawka podatku</value>
+    <comment>New Tax Rate</comment>
+  </data>
+  <data name="TaxRateGridCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="TaxRateGridCountryHeader" xml:space="preserve">
+    <value>Kraj</value>
+    <comment>Country</comment>
+  </data>
+  <data name="TaxRateGridDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="TaxRateGridDeleteWarning" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć tę stawkę podatku?</value>
+    <comment>Are you sure you want to delete this Tax Rate?</comment>
+  </data>
+  <data name="TaxRateGridDescriptionHeader" xml:space="preserve">
+    <value>Opis</value>
+    <comment>Description</comment>
+  </data>
+  <data name="TaxRateGridEditButton" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="TaxRateGridGeoZoneHeader" xml:space="preserve">
+    <value>Geo strefa</value>
+    <comment>Geo Zone</comment>
+  </data>
+  <data name="TaxRateGridPriorityHeader" xml:space="preserve">
+    <value>Priorytet</value>
+    <comment>Priority</comment>
+  </data>
+  <data name="TaxRateGridRateHeader" xml:space="preserve">
+    <value>Stawka</value>
+    <comment>Rate</comment>
+  </data>
+  <data name="TaxRateGridTaxClassHeader" xml:space="preserve">
+    <value>Klasa podatku</value>
+    <comment>Tax Class</comment>
+  </data>
+  <data name="TaxRateGridUpdateButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="TransactionIDLabel" xml:space="preserve">
+    <value>ID transakcji</value>
+    <comment>Transaction ID</comment>
+  </data>
+  <data name="WebStoreName" xml:space="preserve">
+    <value>Sklep internetowy</value>
+    <comment>Web Store</comment>
+  </data>
+  <data name="DownloadUnlimited" xml:space="preserve">
+    <value>Nieograniczone</value>
+    <comment>Unlimited</comment>
+  </data>
+  <data name="StoreClosedDefaultMessage" xml:space="preserve">
+    <value>Przepraszamy, ten sklep jest obecnie zamknięty. Zapraszamy później.</value>
+    <comment>Sorry, this store is currently closed.</comment>
+  </data>
+  <data name="StoreContactInfoTab" xml:space="preserve">
+    <value>Informacje kontraktowe</value>
+    <comment>Contact Info</comment>
+  </data>
+  <data name="StoreDescriptionTab" xml:space="preserve">
+    <value>Opis</value>
+    <comment>Description</comment>
+  </data>
+  <data name="StoreEditRolesTab" xml:space="preserve">
+    <value>Edycja sklepu - role</value>
+    <comment>Store Edit Roles</comment>
+  </data>
+  <data name="StoreLocalizationTab" xml:space="preserve">
+    <value>Lokalizacja</value>
+    <comment>Localization</comment>
+  </data>
+  <data name="StoreOfferEditRolesTab" xml:space="preserve">
+    <value>Edycja oferty - role</value>
+    <comment>Offer Edit Roles</comment>
+  </data>
+  <data name="StoreOpenClosedTab" xml:space="preserve">
+    <value>Otwarty/zamknięty</value>
+    <comment>Open/Closed</comment>
+  </data>
+  <data name="StoreOtherSettingsTab" xml:space="preserve">
+    <value>Inne ustawienia</value>
+    <comment>Other Settings</comment>
+  </data>
+  <data name="StoreProductEditRolesTab" xml:space="preserve">
+    <value>Edycja produktu - role</value>
+    <comment>Product Edit Roles</comment>
+  </data>
+  <data name="StoreSecurityTab" xml:space="preserve">
+    <value>Bezpieczeństwo</value>
+    <comment>Security</comment>
+  </data>
+  <data name="StoreTaxEditRolesTab" xml:space="preserve">
+    <value>Edycja podatku - role</value>
+    <comment>Tax Edit Roles</comment>
+  </data>
+  <data name="TaxClassNotTaxable" xml:space="preserve">
+    <value>Bez podatku</value>
+    <comment>Not Taxable</comment>
+  </data>
+  <data name="TaxClassTaxable" xml:space="preserve">
+    <value>Z podatkiem</value>
+    <comment>Taxable</comment>
+  </data>
+  <data name="CartOrderInfoCardOwnerLastNameLabel" xml:space="preserve">
+    <value>Nazwisko posiadacza karty</value>
+    <comment>Card Owner Last Name</comment>
+  </data>
+  <data name="AddToCartLink" xml:space="preserve">
+    <value>Do koszyka</value>
+    <comment>Add To Cart</comment>
+  </data>
+  <data name="CurrentSpecialsHeading" xml:space="preserve">
+    <value>Oferty specjalne</value>
+    <comment>Current Specials</comment>
+  </data>
+  <data name="PaymentGatewayCouldNotConnectMessage" xml:space="preserve">
+    <value>Nie można połączyć się z bramką płatności.</value>
+    <comment>Could not connect to the payment gateway.</comment>
+  </data>
+  <data name="TransactionDeclinedMessage" xml:space="preserve">
+    <value>Przepraszamy, zamówienie zostało anulowane. Upewnij się że wprowadziłeś poprawne dane płatności.</value>
+    <comment>Sorry order declined. Please make sure you entered your payment information correctly.</comment>
+  </data>
+  <data name="TransactionNotInitiatedMessage" xml:space="preserve">
+    <value>Brak zainicjowanych transakcji.</value>
+    <comment>No transaction initiated.</comment>
+  </data>
+  <data name="PayPalCheckoutButtonAltText" xml:space="preserve">
+    <value>Rozliczenie przez PayPal</value>
+    <comment>Checkout with PayPal</comment>
+  </data>
+  <data name="BrowseCartsLink" xml:space="preserve">
+    <value>Przeglądaj koszyki</value>
+    <comment>Browse Carts</comment>
+  </data>
+  <data name="CartBrowserCreatedHeading" xml:space="preserve">
+    <value>Utworzono</value>
+    <comment>Created</comment>
+  </data>
+  <data name="CartBrowserHeadingFormatString" xml:space="preserve">
+    <value>Przeglądanie koszyków {0}</value>
+    <comment>Browsing Carts for {0}</comment>
+  </data>
+  <data name="CartBrowserLastModifiedHeading" xml:space="preserve">
+    <value>Zmodyfikowano</value>
+    <comment>Modified</comment>
+  </data>
+  <data name="CartBrowserOrderTotalHeading" xml:space="preserve">
+    <value>Suma zamówienia</value>
+    <comment>Order Total</comment>
+  </data>
+  <data name="CartBrowserUserHeading" xml:space="preserve">
+    <value>Użytkownik</value>
+    <comment>User</comment>
+  </data>
+  <data name="CartBrowserViewCartLink" xml:space="preserve">
+    <value>Widok</value>
+    <comment>View</comment>
+  </data>
+  <data name="GCheckoutNotificationHandlerUrlLabel" xml:space="preserve">
+    <value>Rozliczenia Google: adres url powiadomienia</value>
+    <comment>Google Checkout Notification Handler Url:</comment>
+  </data>
+  <data name="GCheckoutTesterPostButton" xml:space="preserve">
+    <value>Umieść</value>
+    <comment>Post</comment>
+  </data>
+  <data name="GCheckoutXmlInputLabel" xml:space="preserve">
+    <value>Xml:</value>
+    <comment>Xml Input:</comment>
+  </data>
+  <data name="GCheckoutXmlResultsLabel" xml:space="preserve">
+    <value>Odpowiedź serwera:</value>
+    <comment>Server Response:</comment>
+  </data>
+  <data name="AdminDeleteCartButton" xml:space="preserve">
+    <value>Usuń koszyk</value>
+    <comment>Delete Cart</comment>
+  </data>
+  <data name="AdminDeleteCartButtonWarning" xml:space="preserve">
+    <value>Czy na pewno usunąć ten koszyk?</value>
+    <comment>Are you sure you want to delete this cart?</comment>
+  </data>
+  <data name="CartKeepShoppingLink" xml:space="preserve">
+    <value>Kontynuacja zakupów</value>
+    <comment>Continue Shopping</comment>
+  </data>
+  <data name="GCheckoutBuyerId" xml:space="preserve">
+    <value>Id kupującego</value>
+    <comment>Buyer Id</comment>
+  </data>
+  <data name="GCheckoutCreatedUtc" xml:space="preserve">
+    <value>Znacznik czasowy</value>
+    <comment>Timestamp</comment>
+  </data>
+  <data name="GCheckoutFinanceState" xml:space="preserve">
+    <value>Stan rozliczeń</value>
+    <comment>Finance State</comment>
+  </data>
+  <data name="GCheckoutFullfillState" xml:space="preserve">
+    <value>Realizacja</value>
+    <comment>Fulfillment State</comment>
+  </data>
+  <data name="GCheckoutNotificationHeading" xml:space="preserve">
+    <value>Rozliczenia Google: log powiadomień</value>
+    <comment>Google Checkout Notification Log</comment>
+  </data>
+  <data name="GCheckoutNotificationType" xml:space="preserve">
+    <value>Sposób powiadamiania</value>
+    <comment>Notification Type</comment>
+  </data>
+  <data name="GCheckoutOrderNumber" xml:space="preserve">
+    <value>Numer zamówienia Google</value>
+    <comment>Google Order Number</comment>
+  </data>
+  <data name="GCheckoutSerialNumber" xml:space="preserve">
+    <value>Numer seryjny</value>
+    <comment>Serial Number</comment>
+  </data>
+  <data name="OrderHistoryCustomerHeading" xml:space="preserve">
+    <value>Klient</value>
+    <comment>Customer</comment>
+  </data>
+  <data name="OrderHistoryDateHeader" xml:space="preserve">
+    <value>Utworzone</value>
+    <comment>Created</comment>
+  </data>
+  <data name="OrderHistoryHeadingFormatString" xml:space="preserve">
+    <value>Przeglądanie zamówień dla {0}</value>
+    <comment>Browsing Orders for {0}</comment>
+  </data>
+  <data name="OrderHistoryOrderTotalHeader" xml:space="preserve">
+    <value>Suma zamówień</value>
+    <comment>Order Total</comment>
+  </data>
+  <data name="OrderHistoryViewDetailLink" xml:space="preserve">
+    <value>Widok</value>
+    <comment>View</comment>
+  </data>
+  <data name="OrderStatusFulfillable" xml:space="preserve">
+    <value>Do zrealizowania</value>
+    <comment>Fulfillable</comment>
+  </data>
+  <data name="OrderStatusFulfilled" xml:space="preserve">
+    <value>Zrealizowane</value>
+    <comment>Fulfilled</comment>
+  </data>
+  <data name="OrderStatusReceived" xml:space="preserve">
+    <value>Otrzymane</value>
+    <comment>Received</comment>
+  </data>
+  <data name="TransactionErrorMessage" xml:space="preserve">
+    <value>Przepraszamy, transakcja nie może zostać zakończona. Błąd został zapisany w logu. Prosimy skontaktować się z obsługą serwisu.</value>
+    <comment>Sorry, the transaction could not be completed. An error occurred and has been logged.</comment>
+  </data>
+  <data name="OrderHeading" xml:space="preserve">
+    <value>Zamówienie</value>
+    <comment>Order</comment>
+  </data>
+  <data name="OrderIdLabel" xml:space="preserve">
+    <value>ID zamówienia</value>
+    <comment>Order ID</comment>
+  </data>
+  <data name="OrderStatusButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="OrderStatusLabel" xml:space="preserve">
+    <value>Status zamówienia</value>
+    <comment>Order Status</comment>
+  </data>
+  <data name="PaymentPendingMessage" xml:space="preserve">
+    <value>Otrzymaliśmy Twoje zamówienie, jednak płatność jeszcze nie wpłynęła. Gdy otrzymamy powiadomienie od systemu realizacji płatności o dokonaniu płatności, linki do pobierania produktów z Twojego zamówienia pojawią się poniżej.</value>
+    <comment>We've received your order but payment is still pending. Once we receive notification from the payment processor that the payment has been finalized, links for any download products in your order will be available below.</comment>
+  </data>
+  <data name="BillingLastNameRequiredMessage" xml:space="preserve">
+    <value>Dane billingowe: nazwisko wymagane</value>
+    <comment>Billing Last Name is Required</comment>
+  </data>
+  <data name="CartOrderInfoBillingLastNameLabel" xml:space="preserve">
+    <value>Osoba: nazwisko</value>
+    <comment>Bill To Last Name</comment>
+  </data>
+  <data name="CartOrderInfoCustomerLastNameLabel" xml:space="preserve">
+    <value>Nazwisko klienta</value>
+    <comment>Customer Last Name</comment>
+  </data>
+  <data name="CartOrderInfoDeliveryLastNameLabel" xml:space="preserve">
+    <value>Odbiorca: nazwisko</value>
+    <comment>Ship To Last Name</comment>
+  </data>
+  <data name="CustomerLastNameRequiredMessage" xml:space="preserve">
+    <value>Dane Klienta: nazwisko wymagane</value>
+    <comment>Customer Last Name is Required</comment>
+  </data>
+  <data name="DeliveryLastNameRequiredMessage" xml:space="preserve">
+    <value>Dane dostawy: nazwisko wymagane</value>
+    <comment>Shipping Last Name is Required</comment>
+  </data>
+  <data name="LiteralOr" xml:space="preserve">
+    <value>Lub</value>
+    <comment>Or</comment>
+  </data>
+  <data name="ConfirmOrderHeading" xml:space="preserve">
+    <value>Potwierdzenie zamówienia</value>
+    <comment>Confirm Order</comment>
+  </data>
+  <data name="CheckoutRequiresLoginOrRegisterMessage" xml:space="preserve">
+    <value>Aby zrealizować zakup, należy się zalogować lub zarejestrować. Założenie konta zapewni m.in. dostęp do historii zamówień.</value>
+    <comment>To complete your order, you need to sign in or register. This will make sure you can view your purchase history and download any downloadable products in your order.</comment>
+  </data>
+  <data name="PayPalReturnErrorMessage" xml:space="preserve">
+    <value>Przepraszamy, nastąpiły kłopoty z automatycznym potwierdzeniem płatności przez system PayPal. Potwierdzenie będzie musiało zostać odebrane przez nasz personel za pomocą serwisu PayPal, zanim Twoje zamówienie zostanie potwierdzone.</value>
+    <comment>Sorry there was an error automatically confirming your payment with PayPal. It will have to be reviewed by our staff using the PayPal site before your order will be confirmed.</comment>
+  </data>
+  <data name="CartOrderInfoCustomerNameLabel" xml:space="preserve">
+    <value>Nazwa klienta</value>
+    <comment>Customer Name</comment>
+  </data>
+  <data name="FullfillmentTypeEnumNone" xml:space="preserve">
+    <value>Brak</value>
+    <comment>None</comment>
+  </data>
+  <data name="MoreInfoLink" xml:space="preserve">
+    <value>więcej informacji...</value>
+    <comment>more info...</comment>
+  </data>
+  <data name="OfferListHeading" xml:space="preserve">
+    <value>Lista produktów</value>
+    <comment>Product List</comment>
+  </data>
+  <data name="OfferUrlSuffix" xml:space="preserve">
+    <value>-oferta</value>
+    <comment>-offer</comment>
+  </data>
+  <data name="DeleteOrderButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="DeleteOrderWarning" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć to zamówienie? Tej operacji nie można cofnąć.</value>
+    <comment>Are you sure you want to delete this order? If you delete it, it will not be possible to recover it.</comment>
+  </data>
+  <data name="TaskCompleted" xml:space="preserve">
+    <value>Zakończone</value>
+    <comment>Completed</comment>
+  </data>
+  <data name="TaskQueued" xml:space="preserve">
+    <value>W kolejce</value>
+    <comment>Queued</comment>
+  </data>
+  <data name="TaskRunning" xml:space="preserve">
+    <value>W trakcie realizacji</value>
+    <comment>Running</comment>
+  </data>
+  <data name="TaskStarted" xml:space="preserve">
+    <value>Uruchomione</value>
+    <comment>Started</comment>
+  </data>
+  <data name="OrderConfirmationTask" xml:space="preserve">
+    <value>Zamówienie do potwierdzenia</value>
+    <comment>Order Confirmation Task</comment>
+  </data>
+  <data name="ManageUserLink" xml:space="preserve">
+    <value>Zarządzaj danymi użytkownika</value>
+    <comment>Manage User</comment>
+  </data>
+  <data name="SiteUserLabel" xml:space="preserve">
+    <value>Użytkownik serwisu</value>
+    <comment>Site User</comment>
+  </data>
+  <data name="UserProfileLink" xml:space="preserve">
+    <value>Profil użytkownika</value>
+    <comment>User Profile</comment>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Kontynuacja</value>
+    <comment>Continue</comment>
+  </data>
+  <data name="UpdateCustomerButton" xml:space="preserve">
+    <value>Aktualizuj</value>
+    <comment>Update</comment>
+  </data>
+  <data name="PaymentGatewayNotConfiguredForDirectCardProcessing" xml:space="preserve">
+    <value>Brak zdefiniowanej bramki do przetwarzania kart kredytowych.</value>
+    <comment>No payment gateway is configured for processing credit cards.</comment>
+  </data>
+  <data name="OrderDetail" xml:space="preserve">
+    <value>Szczegóły zamówienia</value>
+    <comment>Order Detail</comment>
+  </data>
+  <data name="CreditCard" xml:space="preserve">
+    <value>Karta kredytowa</value>
+    <comment>Credit Card</comment>
+  </data>
+  <data name="GoogleCheckout" xml:space="preserve">
+    <value>Rozliczenia Google</value>
+    <comment>Google Checkout</comment>
+  </data>
+  <data name="PayPal" xml:space="preserve">
+    <value>PayPal</value>
+    <comment>PayPal</comment>
+  </data>
+  <data name="OrderDetailPaymentMethodLabel" xml:space="preserve">
+    <value>Sposób płatności</value>
+    <comment>Payment Method:</comment>
+  </data>
+  <data name="OfferIsDonationLabel" xml:space="preserve">
+    <value>Jest sponsorowaniem</value>
+    <comment>Is Donation</comment>
+  </data>
+  <data name="GoogleCheckoutDisabledForDonationsMessage" xml:space="preserve">
+    <value>Rozliczenia Google są wyłączone, ponieważ Twój koszyk zawiera co najmniej jedną pozycję 'sponsorowania'. Google nie zezwala na przetwarzanie tego rodzaju żądań. Przepraszamy za niedogodności.</value>
+    <comment>Google Checkout is disabled because your cart contains at least one donation item. Google does not allow us to process donations. Sorry for the inconvenience.</comment>
+  </data>
+  <data name="IPAddressLabel" xml:space="preserve">
+    <value>Adres IP:</value>
+    <comment>IP Address:</comment>
+  </data>
+  <data name="IPUser" xml:space="preserve">
+    <value>Użytkownik IP:</value>
+    <comment>IP Probable User:</comment>
+  </data>
+  <data name="CheckBoxAnonymousCarts" xml:space="preserve">
+    <value>Usuń tylko anonimowe koszyki</value>
+    <comment>Only Delete Anonymous Carts</comment>
+  </data>
+  <data name="DaysLabel" xml:space="preserve">
+    <value>Dni</value>
+    <comment>Days</comment>
+  </data>
+  <data name="DeleteCartsButton" xml:space="preserve">
+    <value>Usuń koszyki starsze niż</value>
+    <comment>Delete Carts Older Than</comment>
+  </data>
+  <data name="DeleteCartsWarning" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć te koszyki?</value>
+    <comment>Are you sure you want to delete these carts?</comment>
+  </data>
+  <data name="ProductUrlSuffix" xml:space="preserve">
+    <value>-produkt</value>
+    <comment>-product</comment>
+  </data>
+  <data name="OfferDetailLink" xml:space="preserve">
+    <value>Szczegóły oferty...</value>
+    <comment>Offer Details...</comment>
+  </data>
+  <data name="OfferNameOnProductListLabel" xml:space="preserve">
+    <value>Nazwa w liście produktów</value>
+    <comment>Name on Product List</comment>
+  </data>
+  <data name="OfferShowDetailLink" xml:space="preserve">
+    <value>Link do szczegółów produktu</value>
+    <comment>Show Offer Detail Link</comment>
+  </data>
+  <data name="ProductAbstractTab" xml:space="preserve">
+    <value>Nieokreślony</value>
+    <comment>Abstract</comment>
+  </data>
+  <data name="ProductDescriptionTab" xml:space="preserve">
+    <value>Opis</value>
+    <comment>Description</comment>
+  </data>
+  <data name="ProductShowInListLabel" xml:space="preserve">
+    <value>Pokazywać w liście produktów?</value>
+    <comment>Show In Product List?</comment>
+  </data>
+  <data name="EnableContentRatingInProductListSetting" xml:space="preserve">
+    <value>Włączyć ocenę w liście produktów?</value>
+    <comment>Enable Rating in Product List?</comment>
+  </data>
+  <data name="EnableRatingCommentsSetting" xml:space="preserve">
+    <value>Włączyć komentarze oceny?</value>
+    <comment>Enable Rating Comments?</comment>
+  </data>
+  <data name="ProductEnableRatingLabel" xml:space="preserve">
+    <value>Włączyć ocenę?</value>
+    <comment>Enable Rating?</comment>
+  </data>
+  <data name="RatingPrompt" xml:space="preserve">
+    <value>Oceń ten produkt</value>
+    <comment>Rate this Product</comment>
+  </data>
+  <data name="ProductDetailsLink" xml:space="preserve">
+    <value>Szczegóły produktu...</value>
+    <comment>Product details...</comment>
+  </data>
+  <data name="MetaDataTab" xml:space="preserve">
+    <value>Meta-dane strony</value>
+    <comment>Page Meta Data</comment>
+  </data>
+  <data name="MetaDescriptionLabel" xml:space="preserve">
+    <value>Meta-opis strony</value>
+    <comment>Meta Description</comment>
+  </data>
+  <data name="MetaKeywordsLabel" xml:space="preserve">
+    <value>Meta-słowa kluczowe strony</value>
+    <comment>Meta Keywords</comment>
+  </data>
+  <data name="ReportsHeading" xml:space="preserve">
+    <value>Raporty</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="ReportsLink" xml:space="preserve">
+    <value>Raporty</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="SalesOverviewReportHeading" xml:space="preserve">
+    <value>Przegląd sprzedaży</value>
+    <comment>Sales Overview</comment>
+  </data>
+  <data name="AllTimeRevenueFormatString" xml:space="preserve">
+    <value>Całkowity przychód {0}</value>
+    <comment>Total Revenue {0}</comment>
+  </data>
+  <data name="MonthLabel" xml:space="preserve">
+    <value>Miesiąc</value>
+    <comment>Month</comment>
+  </data>
+  <data name="RevenueSummaryOffer" xml:space="preserve">
+    <value>Oferta</value>
+    <comment>Offer</comment>
+  </data>
+  <data name="RevenueSummaryRevenue" xml:space="preserve">
+    <value>Przychód</value>
+    <comment>Revenue</comment>
+  </data>
+  <data name="RevenueSummaryUnitsSold" xml:space="preserve">
+    <value>Jednostki sprzedane</value>
+    <comment>Units Sold</comment>
+  </data>
+  <data name="SalesByMonthChartLabel" xml:space="preserve">
+    <value>Sprzedaż w/g miesięcy</value>
+    <comment>Sales by Month</comment>
+  </data>
+  <data name="SalesByMonthChartMonthLabel" xml:space="preserve">
+    <value>Miesiąc</value>
+    <comment>Month</comment>
+  </data>
+  <data name="SalesByMonthChartSalesLabel" xml:space="preserve">
+    <value>Sprzedaż</value>
+    <comment>Sales</comment>
+  </data>
+  <data name="SalesLabel" xml:space="preserve">
+    <value>Sprzedaż</value>
+    <comment>Sales</comment>
+  </data>
+  <data name="YearLabel" xml:space="preserve">
+    <value>Rok</value>
+    <comment>Year</comment>
+  </data>
+  <data name="OfferDescriptionTab" xml:space="preserve">
+    <value>Opis</value>
+    <comment>Description</comment>
+  </data>
+  <data name="PrimarySortRankLabel" xml:space="preserve">
+    <value>Podstawowy sposób sortowania</value>
+    <comment>Primary Sort Rank</comment>
+  </data>
+  <data name="SecondarySortRankLabel" xml:space="preserve">
+    <value>Drugorzędny sposób sortowania</value>
+    <comment>Secondary Sort Rank</comment>
+  </data>
+  <data name="CartItemsHeading" xml:space="preserve">
+    <value>Obiekt</value>
+    <comment>Item</comment>
+  </data>
+  <data name="CartPriceHeading" xml:space="preserve">
+    <value>Cena</value>
+    <comment>Price</comment>
+  </data>
+  <data name="CartQuantityHeading" xml:space="preserve">
+    <value>Ilość</value>
+    <comment>Qty</comment>
+  </data>
+  <data name="DeleteCartItemButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="UpdateQuantityButton" xml:space="preserve">
+    <value>Aktualizuj ilość</value>
+    <comment>Update Quantity</comment>
+  </data>
+  <data name="RebuildReportsButton" xml:space="preserve">
+    <value>Odświerz raporty</value>
+    <comment>Rebuild Reports</comment>
+  </data>
+  <data name="DiscountAbsoluteDiscountLabel" xml:space="preserve">
+    <value>Wartość zniżki ogółem:</value>
+    <comment>Discount Amount:</comment>
+  </data>
+  <data name="DiscountAdministration" xml:space="preserve">
+    <value>Administracja zniżek</value>
+    <comment>Discount Administration</comment>
+  </data>
+  <data name="DiscountCodeHeading" xml:space="preserve">
+    <value>Kod zniżki</value>
+    <comment>Discount Code</comment>
+  </data>
+  <data name="DiscountCodeLabel" xml:space="preserve">
+    <value>Kod zniżki:</value>
+    <comment>Discount Code:</comment>
+  </data>
+  <data name="DiscountCodeRequiredWarning" xml:space="preserve">
+    <value>Kod zniżki jest wymagany.</value>
+    <comment>Discount Code is required.</comment>
+  </data>
+  <data name="DiscountDeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="DiscountDescriptionHeading" xml:space="preserve">
+    <value>Opis</value>
+    <comment>Description</comment>
+  </data>
+  <data name="DiscountDescriptionLabel" xml:space="preserve">
+    <value>Opis:</value>
+    <comment>Description:</comment>
+  </data>
+  <data name="DiscountDescriptionRequiredWarning" xml:space="preserve">
+    <value>Opis jest wymagany.</value>
+    <comment>Description is required.</comment>
+  </data>
+  <data name="DiscountEditLink" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="DiscountMaxCountLabel" xml:space="preserve">
+    <value>Maksymalna ilość zastosowań:</value>
+    <comment>Max Uses Allowed:</comment>
+  </data>
+  <data name="DiscountMinOrderAmountLabel" xml:space="preserve">
+    <value>Minimalna ilość zamówienia:</value>
+    <comment>Minimum Order Amount:</comment>
+  </data>
+  <data name="DiscountPercentageDiscountLabel" xml:space="preserve">
+    <value>Procent zniżki:</value>
+    <comment>Percentage Discount:</comment>
+  </data>
+  <data name="DiscountSaveButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="DiscountUseCountLabel" xml:space="preserve">
+    <value>Ilość zastosowań:</value>
+    <comment>Use Count:</comment>
+  </data>
+  <data name="DiscountValidityEndDateLabel" xml:space="preserve">
+    <value>Data zakończenia:</value>
+    <comment>End Date:</comment>
+  </data>
+  <data name="DiscountValidityStartDateLabel" xml:space="preserve">
+    <value>Data rozpoczęcia:</value>
+    <comment>Begin Date:</comment>
+  </data>
+  <data name="NewDiscountLink" xml:space="preserve">
+    <value>Nowa zniżka</value>
+    <comment>New Discount</comment>
+  </data>
+  <data name="AllowOtherDiscountsLabel" xml:space="preserve">
+    <value>Łączy się z innymi zniżkami? :</value>
+    <comment>Allow With Other Discounts?:</comment>
+  </data>
+  <data name="ApplyDiscountButton" xml:space="preserve">
+    <value>Zastosuj zniżkę</value>
+    <comment>Apply Discount</comment>
+  </data>
+  <data name="CartDiscountCodeLabel" xml:space="preserve">
+    <value>Kod zniżkowy:</value>
+    <comment>Discount Code:</comment>
+  </data>
+  <data name="CartDiscountTotalLabel" xml:space="preserve">
+    <value>Zniżka</value>
+    <comment>Discount</comment>
+  </data>
+  <data name="CartTotalLabel" xml:space="preserve">
+    <value>Suma</value>
+    <comment>Total</comment>
+  </data>
+  <data name="Checkout" xml:space="preserve">
+    <value>Do kasy</value>
+    <comment>Checkout</comment>
+  </data>
+  <data name="DiscountAmountRequiredFieldWarning" xml:space="preserve">
+    <value>Wartość zniżki wymagana. 0 jest dopuszczalne w przypadku zniżki procentowej.</value>
+    <comment>Discount Amount is required. 0 is allowed if using Percentage Discount.</comment>
+  </data>
+  <data name="DiscountBeginDateRequiredWarning" xml:space="preserve">
+    <value>Data rozpoczęcia jest wymagana.</value>
+    <comment>Begin Date is required.</comment>
+  </data>
+  <data name="DiscountBlankEndDateHelp" xml:space="preserve">
+    <value>Pozostaw puste aby pominąć datę zakończenia.</value>
+    <comment>Leave blank for no end date.</comment>
+  </data>
+  <data name="DiscountCodeExpiredError" xml:space="preserve">
+    <value>kod zniżki wygasł</value>
+    <comment>discount code expired</comment>
+  </data>
+  <data name="DiscountCodeNotActiveError" xml:space="preserve">
+    <value>kod zniżki jest jeszcze nieaktywny</value>
+    <comment>discount code not active yet</comment>
+  </data>
+  <data name="DiscountCodeNotFoundError" xml:space="preserve">
+    <value>niepoprawny kod zniżki</value>
+    <comment>invalid discount code</comment>
+  </data>
+  <data name="DiscountCodeNotProvidedError" xml:space="preserve">
+    <value>nie podano kodu zniżki</value>
+    <comment>no discount code provided</comment>
+  </data>
+  <data name="DiscountInvalidAmountWarning" xml:space="preserve">
+    <value>Niepoprawna wartość zniżki.</value>
+    <comment>Discount Amount is not valid.</comment>
+  </data>
+  <data name="DiscountInvalidCartError" xml:space="preserve">
+    <value>niepoprawny koszyk</value>
+    <comment>invalid cart</comment>
+  </data>
+  <data name="DiscountMaxUseHelp" xml:space="preserve">
+    <value>0 = bez limitu.</value>
+    <comment>0 = no limit.</comment>
+  </data>
+  <data name="DiscountMaxUsesRequiredWarning" xml:space="preserve">
+    <value>Maksymalna ilość zastosowań - wartość wymagana.</value>
+    <comment>Max Uses Allowed is required.</comment>
+  </data>
+  <data name="DiscountMinOrderHelp" xml:space="preserve">
+    <value>0 = bez minimum.</value>
+    <comment>0 = no minimum.</comment>
+  </data>
+  <data name="DiscountMinOrderRequiredFieldWarning" xml:space="preserve">
+    <value>Minimalna ilość zamówienia - wartość wymagana.</value>
+    <comment>Minimum Order Amount is required.</comment>
+  </data>
+  <data name="DiscountPercentageRequiredFieldWarning" xml:space="preserve">
+    <value>Procent zniżki jest wymagany. 0 jest poprawne dla w przypadku zniżki procentowej.</value>
+    <comment>Percentage Discount is required. 0 is allowed if using Discount Amount.</comment>
+  </data>
+  <data name="DiscountPercentInvalidWarning" xml:space="preserve">
+    <value>Procent zniżki - wartość niepoprawna.</value>
+    <comment>Percentage Discount is not valid.</comment>
+  </data>
+  <data name="OrderCustomData" xml:space="preserve">
+    <value>Dane niestandardowe</value>
+    <comment>Custom Data</comment>
+  </data>
+  <data name="OrderDiscountCodesLabel" xml:space="preserve">
+    <value>Kody zniżkowe</value>
+    <comment>Discount Codes</comment>
+  </data>
+  <data name="DuplicateCodeException" xml:space="preserve">
+    <value>Już istnieje inna zniżka o takim samym kodzie.</value>
+    <comment>There is already a Discount with this Discount Code.</comment>
+  </data>
+  <data name="OrderStatusCancelled" xml:space="preserve">
+    <value>Anulowane</value>
+    <comment>Cancelled</comment>
+  </data>
+  <data name="OrderStatusNone" xml:space="preserve">
+    <value>Brak</value>
+    <comment>None</comment>
+  </data>
+  <data name="OfferNameRequired" xml:space="preserve">
+    <value>Nazwa jest wymagana.</value>
+    <comment>Name is required.</comment>
+  </data>
+  <data name="OfferPriceInvalidMessage" xml:space="preserve">
+    <value>Cena jest niepoprawna.</value>
+    <comment>Price is not valid.</comment>
+  </data>
+  <data name="OfferPriceRequired" xml:space="preserve">
+    <value>Cena jest wymagana.</value>
+    <comment>Price is required.</comment>
+  </data>
+  <data name="UserAutoCreatedComment" xml:space="preserve">
+    <value>Ten użytkownik został automatycznie utworzony przez zamówienie w Sklepie.</value>
+    <comment>This user was automatically created from a WebStore Order.</comment>
+  </data>
+  <data name="AddProductToOfferGridButton" xml:space="preserve">
+    <value>Dodaj</value>
+    <comment>Add</comment>
+  </data>
+  <data name="CloseDialogButton" xml:space="preserve">
+    <value>Zamknij</value>
+    <comment>Close</comment>
+  </data>
+  <data name="CheckoutSuggestLoginOrRegisterMessage" xml:space="preserve">
+    <value>Gdy zechcesz wrócić w przyszłości i przeglądać historię zamówień, dobrym wyjściem jest utworzenie konta w serwisie. Jednak nie jest to wymagane. Otrzymasz email z potwierdzeniem Twoich zakupów.</value>
+    <comment>If you want to be able to come back to the site and view your purchase history, we recommend that you sign in or register before completing your order. However, it is not required, you will receive a confirmation email for your purchase.</comment>
+  </data>
+  <data name="MustSignInToDownload" xml:space="preserve">
+    <value>To zamówienie zawiera produkty do pobrania. W celu pobrania, należy się zalogować. Po zalogowaniu wyświetlone zostaną odnośniki pobierania.</value>
+    <comment>This order contains download products. In order to download, you need to sign in, then the download link(s) will be shown.</comment>
+  </data>
+  <data name="WebStoreSearchName" xml:space="preserve">
+    <value>Produkty</value>
+    <comment>Products</comment>
+  </data>
+  <data name="DownloadHistoryHeading" xml:space="preserve">
+    <value>Historia pobierania</value>
+    <comment>Download History</comment>
+  </data>
+  <data name="DownloadHistoryIPAddressHeader" xml:space="preserve">
+    <value>Adres IP</value>
+    <comment>IPAddress</comment>
+  </data>
+  <data name="DownloadHistoryUtcHeader" xml:space="preserve">
+    <value>Czas pobrania w formacie UTC</value>
+    <comment>Download Time UTC</comment>
+  </data>
+  <data name="DownloadHistoryViewLink" xml:space="preserve">
+    <value>Widok</value>
+    <comment>View</comment>
+  </data>
+  <data name="DownloadTicketAllowedHeading" xml:space="preserve">
+    <value>Dozwolona ilość pobrań</value>
+    <comment>Downloads Allowed</comment>
+  </data>
+  <data name="DownloadTicketDownloadsHeading" xml:space="preserve">
+    <value>Pobieranie</value>
+    <comment>Downloads</comment>
+  </data>
+  <data name="DownloadTicketsHeading" xml:space="preserve">
+    <value>Bilety pobierania</value>
+    <comment>Download Tickets</comment>
+  </data>
+  <data name="DownloadTicketsProductHeading" xml:space="preserve">
+    <value>Produkt</value>
+    <comment>Product</comment>
+  </data>
+  <data name="InvalidOrExpiredDownloadWarning" xml:space="preserve">
+    <value>Żądane pobieranie jest niepoprawne lub wygasło.</value>
+    <comment>The requested download is invalid or expired.</comment>
+  </data>
+  <data name="TeaserFileUploadLabel" xml:space="preserve">
+    <value>Załaduj plik 'teaser'</value>
+    <comment>Upload a Teaser File</comment>
+  </data>
+  <data name="TeaserFileInfo" xml:space="preserve">
+    <value>Teaser - specjalny plik może być używany do przeglądu zawartości produktów do pobrania. Na przykład, jeśli produkt jest plikiem mp3 to 'teaser' będzie skróconym klipem utworu. Jeśli sprzedawany jest dokument PDF, to 'teaser' może być jednym rozdziałem publikacji lub spisem treści.</value>
+    <comment>A teaser file can be used for preview content of download products. For example if the product is an mp3 file then the teaser would be a short clip of the song. Or if selling a PDF file the teaser could be a free chapter or table of contents.</comment>
+  </data>
+  <data name="TeaserFileLinkTextLabel" xml:space="preserve">
+    <value>Tekst linku 'teasera'</value>
+    <comment>Teaser File Link Text</comment>
+  </data>
+  <data name="GroupByOffer" xml:space="preserve">
+    <value>Grupuj według oferty</value>
+    <comment>Group By Offer</comment>
+  </data>
+  <data name="GroupByProduct" xml:space="preserve">
+    <value>Grupuj według produktu</value>
+    <comment>Group By Product</comment>
+  </data>
+  <data name="ProductListGroupingSetting" xml:space="preserve">
+    <value>Grupowanie listy produktów</value>
+    <comment>Product List Grouping</comment>
+  </data>
+  <data name="OrderEntry" xml:space="preserve">
+    <value>Pozycja zamówienia</value>
+    <comment>Order Entry</comment>
+  </data>
+  <data name="LookupUser" xml:space="preserve">
+    <value>Wyszukaj użytkownika</value>
+    <comment>Lookup User</comment>
+  </data>
+  <data name="OrderEntryCheckoutHeader" xml:space="preserve">
+    <value>Rozliczenie pozycji zamówienia</value>
+    <comment>Order Entry Checkout</comment>
+  </data>
+  <data name="ClearUserButton" xml:space="preserve">
+    <value>Zresetuj użytkownika</value>
+    <comment>Clear User</comment>
+  </data>
+  <data name="CreateOrderButton" xml:space="preserve">
+    <value>Utwórz zamówienie</value>
+    <comment>Create Order</comment>
+  </data>
+  <data name="DiscountAmountLabel" xml:space="preserve">
+    <value>Wartość zniżki</value>
+    <comment>Discount Amount</comment>
+  </data>
+  <data name="OrderEntryAuthCodeLabel" xml:space="preserve">
+    <value>Kod autoryzacji</value>
+    <comment>Auth Code</comment>
+  </data>
+  <data name="OrderEntryTransactionIdLabel" xml:space="preserve">
+    <value>ID transakcji</value>
+    <comment>Transaction ID</comment>
+  </data>
+  <data name="SendConfirmationEmailLabel" xml:space="preserve">
+    <value>Wysłać e-mail z potwierdzeniem?</value>
+    <comment>Send Confirmation Email?</comment>
+  </data>
+  <data name="AddMetaButton" xml:space="preserve">
+    <value>Add Meta Element</value>
+  </data>
+  <data name="AddMetaLinkButton" xml:space="preserve">
+    <value>Add Meta Link</value>
+  </data>
+  <data name="ContentMetaContentRequired" xml:space="preserve">
+    <value>Content is required.</value>
+  </data>
+  <data name="ContentMetaDeleteWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this meta element?</value>
+  </data>
+  <data name="ContentMetaDirLabel" xml:space="preserve">
+    <value>Dir</value>
+  </data>
+  <data name="ContentMetaGridCancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ContentMetaGridDeleteButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ContentMetaGridEditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ContentMetaGridMoveDownButton" xml:space="preserve">
+    <value>Move Down</value>
+  </data>
+  <data name="ContentMetaGridMoveUpButton" xml:space="preserve">
+    <value>Move Up</value>
+  </data>
+  <data name="ContentMetaGridUpdateButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ContentMetaLangCodeLabel" xml:space="preserve">
+    <value>Lang</value>
+  </data>
+  <data name="ContentMetaLinkDeleteWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this meta link?</value>
+  </data>
+  <data name="ContentMetaLinkHrefRequired" xml:space="preserve">
+    <value>Href is required.</value>
+  </data>
+  <data name="ContentMetaLinkRelRequired" xml:space="preserve">
+    <value>Rel is required.</value>
+  </data>
+  <data name="ContentMetaMetaContentLabel" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="ContentMetaMetaHrefLabel" xml:space="preserve">
+    <value>Href</value>
+  </data>
+  <data name="ContentMetaNameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ContentMetaNameRequired" xml:space="preserve">
+    <value>Name is required.</value>
+  </data>
+  <data name="ContentMetaRelLabel" xml:space="preserve">
+    <value>Rel</value>
+  </data>
+  <data name="ContentMetaSchemeLabel" xml:space="preserve">
+    <value>Scheme</value>
+  </data>
+  <data name="ContentMetHrefLangLabel" xml:space="preserve">
+    <value>HrefLang</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="IndexOffersSetting" xml:space="preserve">
+    <value>Index offers in search index?</value>
+  </data>
+  <data name="MetaAdditionalLabel" xml:space="preserve">
+    <value>Additional Meta Data</value>
+  </data>
+  <data name="ProceedToCheckout" xml:space="preserve">
+    <value>Proceed To Checkout</value>
+  </data>
+  <data name="ProductDeleteTeaserWarning" xml:space="preserve">
+    <value>Are you sure you want to delete the teaser file?</value>
+  </data>
+  <data name="ProductList" xml:space="preserve">
+    <value>Product List</value>
+  </data>
+  <data name="ProductListPageSize" xml:space="preserve">
+    <value>Product List Page Size</value>
+  </data>
+  <data name="UserCreatedForOrder" xml:space="preserve">
+    <value>User created for Web Store order.</value>
+  </data>
+  <data name="CompleteOrderButton" xml:space="preserve">
+    <value>Complete Order</value>
+  </data>
+  <data name="MoveOrderToUser" xml:space="preserve">
+    <value>Move Order To User</value>
+  </data>
+  <data name="MoveOrderWarning" xml:space="preserve">
+    <value>Are you sure you want to move this order to the selected user?</value>
+  </data>
+</root>

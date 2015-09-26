@@ -1,0 +1,31 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>jQuery Date/Time Entry</title>
+<style type="text/css">
+@import "jquery.datetimeentry.css";
+</style>
+<script type="text/javascript" src="jquery-1.6.1.js"></script>
+<script type="text/javascript" src="jquery.datetimeentry.js"></script>
+<script type="text/javascript">
+$(function () {
+	$.datetimeEntry.setDefaults({spinnerImage: 'spinnerDefault.png'});
+	$('#defaultEntry').datetimeEntry();
+	$('#dateEntry').datetimeEntry({datetimeFormat: 'O/D/Y'});
+	$('#timeEntry').datetimeEntry({datetimeFormat: 'H:Ma'});
+});
+</script>
+</head>
+<body>
+<h1>jQuery Date/Time Entry Basics</h1>
+<p>This page demonstrates the very basics of the
+	<a href="http://keith-wood.name/datetimeEntry.html">jQuery Date/Time Entry plugin</a>.
+	It contains the minimum requirements for using the plugin and
+	can be used as the basis for your own experimentation.</p>
+<p>For more detail see the <a href="http://keith-wood.name/datetimeEntryRef.html">documentation reference</a> page.</p>
+<p>Enter your date/time: <input type="text" id="defaultEntry" size="20"></p>
+<p>Date only entry: <input type="text" id="dateEntry" size="10"></p>
+<p>Time only entry: <input type="text" id="timeEntry" size="10"></p>
+</body>
+</html>

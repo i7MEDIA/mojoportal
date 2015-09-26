@@ -1,0 +1,76 @@
+<Template title="Accordion - jQuery" image="jquery-accordion.gif">
+	<Description></Description>
+	<Html>
+		<![CDATA[
+			<p>Paragraph before the accordion</p>
+			<div class="mojo-accordion">
+			<h3><a href="#">Section 1</a></h3>
+			<div>
+			<p>Section 1 content.</p>
+			</div>
+			<h3><a href="#">Section 2</a></h3>
+			<div>
+			<p>Section 2 content</p>
+			</div>
+			<h3><a href="#">Section 3</a></h3>
+			<div>
+			<p>Section 3 content</p>
+			</div>
+			<h3><a href="#">Section 4</a></h3>
+			<div>
+			<p>Section 4 content</p>
+			</div>
+			</div>
+			<p>Paragraph after the accordion</p>
+		]]>
+	</Html>
+</Template>
+<Template title="Tabs - jQueryUI" image="jquerytabs.gif">
+	<Description></Description>
+	<Html>
+		<![CDATA[
+			<p>Paragraph before the tabs</p>
+			<div class="mojo-tabs">
+				<ul>
+					<li><a href="#tab1">Tab 1</a></li>
+					<li><a href="#tab2">Tab 2</a></li>
+					<li><a href="#tab3">Tab 3</a></li>
+				</ul>
+				<div id="tab1">
+					<p>Tab 1 content</p>
+				</div>
+				<div id="tab2">
+					<p>Tab 2 content</p>
+				</div>
+				<div id="tab3">
+					<p>Tab 3 content</p>
+				</div>
+			</div>
+			<p>Paragraph after the tabs</p>
+		]]>
+	</Html>
+</Template>
+<Template title="Tabs - YUI" image="yui-tabs.gif">
+	<Description></Description>
+	<Html>
+		<![CDATA[
+			<p>Paragraph before the tabs</p>
+			<div class="yui-skin-sam">
+			<div class="yui-navset">
+				<ul class="yui-nav">
+					<li class="selected"><a href="#tab1"><em>Tab One Label</em></a></li>
+					<li><a href="#tab2"><em>Tab Two Label</em></a></li>
+					<li><a href="#tab3"><em>Tab Three Label</em></a></li>
+				</ul>            
+				<div class="yui-content">
+					<div id="tab1"><p>Tab One Content</p></div>
+					<div id="tab2"><p>Tab Two Content</p></div>
+					<div id="tab3"><p>Tab Three Content</p></div>
+				</div>
+			</div>
+			</div>
+			<p>Paragraph after the tabs</p>
+		]]>
+	</Html>
+</Template>
+

@@ -1,0 +1,1990 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{103F2B02-3224-48BC-B173-1F7E1C85178A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mojoPortal.Features.UI</RootNamespace>
+    <AssemblyName>mojoPortal.Features.UI</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - MySql|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - MySql|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - Firebird|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - Firebird|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - pgsql|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - pgsql|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - SqlCe|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - SqlCe|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - SQLite|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - SQLite|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=4.5.7.123, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\ajaxtoolkit-v15-1\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Argotic.Common, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\argotic\Argotic.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Argotic.Core, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\argotic\Argotic.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Argotic.Extensions, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\argotic\Argotic.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Brettle.Web.NeatHtml, Version=1.0.3373.23565, Culture=neutral">
+      <HintPath>..\_libs\Brettle.Web.NeatHtml.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlDiff, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\HtmlDiff.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BingMap\BingMapModule.ascx" />
+    <Content Include="Blog\ClosedPosts.aspx" />
+    <Content Include="Blog\CommentDialog.aspx" />
+    <Content Include="Blog\Controls\BlogNav.ascx" />
+    <Content Include="Blog\Controls\PublicationAccessSetting.ascx" />
+    <Content Include="Blog\Controls\SearchBox.ascx" />
+    <Content Include="Blog\Controls\PostList.ascx" />
+    <Content Include="Blog\Controls\RelatedPosts.ascx" />
+    <Content Include="Blog\Controls\RelatedPostsToShowSetting.ascx" />
+    <Content Include="Blog\Manage.aspx" />
+    <Content Include="Blog\ViewList.aspx" />
+    <Content Include="Comments\CommentsDialog.aspx" />
+    <Content Include="Comments\CommentsModule.ascx" />
+    <Content Include="Flickr\FlickrGallery.ascx" />
+    <Content Include="Flickr\FlickrThemeSetting.ascx" />
+    <Content Include="Forums\Controls\ForumList.ascx" />
+    <Content Include="Forums\Controls\ForumListAlt.ascx" />
+    <Content Include="Forums\Controls\PostList.ascx" />
+    <Content Include="Forums\Controls\PostListAlt.ascx" />
+    <Content Include="Forums\Controls\ThreadList.ascx" />
+    <Content Include="Forums\Controls\ThreadListAlt.ascx" />
+    <Content Include="Forums\Controls\UserThreadList.ascx" />
+    <Content Include="Forums\Controls\UserThreadListAlt.ascx" />
+    <Content Include="KDMediaPlayer\AudioPlayer.ascx" />
+    <Content Include="KDMediaPlayer\Edit.aspx" />
+    <Content Include="KDMediaPlayer\EditTrack.aspx" />
+    <Content Include="KDMediaPlayer\VideoPlayer.ascx" />
+    <Content Include="List\Controls\ItemList.ascx" />
+    <Content Include="List\Edit.aspx" />
+    <Content Include="List\EditIntro.aspx" />
+    <Content Include="List\ListModule.ascx" />
+    <Content Include="List\ViewList.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_GlobalResources\BingResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BingResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BlogResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\CommentResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommentResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContactFormResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EventCalResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FeedResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FlickrResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FlickrResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FolderGalleryResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FolderGalleryResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForumResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GalleryResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GMapResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GMapResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GTranslateResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GTranslateResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HtmlIncludeResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\IframeResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IframeResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LinkResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LiveResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LiveResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\MediaPlayerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MediaPlayerResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\MetaweblogResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetaweblogResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PollResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PollResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SharedFileResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SurveyResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SurveyResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\TwitterResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TwitterResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XmlResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_MasterPages\layout.Master.cs">
+      <DependentUpon>layout.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_MasterPages\layout.Master.designer.cs">
+      <DependentUpon>layout.Master</DependentUpon>
+    </Compile>
+    <Compile Include="BingMap\BingMapModule.ascx.cs">
+      <DependentUpon>BingMapModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BingMap\BingMapModule.ascx.designer.cs">
+      <DependentUpon>BingMapModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="BingMap\Components\BingMapConfiguration.cs" />
+    <Compile Include="Blog\BlogCompare.aspx.cs">
+      <DependentUpon>BlogCompare.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\BlogCompare.aspx.designer.cs">
+      <DependentUpon>BlogCompare.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\BlogUrlSuggestService.ashx.cs">
+      <DependentUpon>BlogUrlSuggestService.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ClosedPosts.aspx.cs">
+      <DependentUpon>ClosedPosts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\ClosedPosts.aspx.designer.cs">
+      <DependentUpon>ClosedPosts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\CommentDialog.aspx.cs">
+      <DependentUpon>CommentDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\CommentDialog.aspx.designer.cs">
+      <DependentUpon>CommentDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Components\BlogConfiguration.cs" />
+    <Compile Include="Blog\Components\BlogContentDeleteHandler.cs" />
+    <Compile Include="Blog\Components\BlogContentInstaller.cs" />
+    <Compile Include="Blog\Components\BlogIndexBuilderProvider.cs" />
+    <Compile Include="Blog\Components\BlogNotification.cs" />
+    <Compile Include="Blog\Components\SitePreDeleteBlogHandler.cs" />
+    <Compile Include="Blog\Controls\ArchiveViewControl.ascx.cs">
+      <DependentUpon>ArchiveViewControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\ArchiveViewControl.ascx.designer.cs">
+      <DependentUpon>ArchiveViewControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\ArchiveListControl.ascx.cs">
+      <DependentUpon>ArchiveListControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\ArchiveListControl.ascx.designer.cs">
+      <DependentUpon>ArchiveListControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogDisplaySettings.cs" />
+    <Compile Include="Blog\Controls\BlogNav.ascx.cs">
+      <DependentUpon>BlogNav.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogNav.ascx.designer.cs">
+      <DependentUpon>BlogNav.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\PublicationAccessSetting.ascx.cs">
+      <DependentUpon>PublicationAccessSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\PublicationAccessSetting.ascx.designer.cs">
+      <DependentUpon>PublicationAccessSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\SearchBox.ascx.cs">
+      <DependentUpon>SearchBox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\SearchBox.ascx.designer.cs">
+      <DependentUpon>SearchBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\Panels\BlogPostListWrapperPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogArchiveListPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogBottomSideBarPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogCatListPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogCommentPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogDatePanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogNavPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogPagerPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogPostListItemPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogStatsPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogTopSideBarPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogWrapperPanel.cs" />
+    <Compile Include="Blog\Controls\CategoryListControl.ascx.cs">
+      <DependentUpon>CategoryListControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\CategoryListControl.ascx.designer.cs">
+      <DependentUpon>CategoryListControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogViewControl.ascx.cs">
+      <DependentUpon>BlogViewControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogViewControl.ascx.designer.cs">
+      <DependentUpon>BlogViewControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\CommentDaysSetting.ascx.cs">
+      <DependentUpon>CommentDaysSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\CommentDaysSetting.ascx.designer.cs">
+      <DependentUpon>CommentDaysSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\FeedLinksControl.ascx.cs">
+      <DependentUpon>FeedLinksControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\FeedLinksControl.ascx.designer.cs">
+      <DependentUpon>FeedLinksControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\PostList.ascx.cs">
+      <DependentUpon>PostList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\PostList.ascx.designer.cs">
+      <DependentUpon>PostList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\RelatedPosts.ascx.cs">
+      <DependentUpon>RelatedPosts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\RelatedPosts.ascx.designer.cs">
+      <DependentUpon>RelatedPosts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\RelatedPostsToShowSetting.ascx.cs">
+      <DependentUpon>RelatedPostsToShowSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\RelatedPostsToShowSetting.ascx.designer.cs">
+      <DependentUpon>RelatedPostsToShowSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\StatsControl.ascx.cs">
+      <DependentUpon>StatsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\StatsControl.ascx.designer.cs">
+      <DependentUpon>StatsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Manage.aspx.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Manage.aspx.designer.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\metaweblogapi.ashx.cs">
+      <DependentUpon>metaweblogapi.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\news-map.ashx.cs">
+      <DependentUpon>news-map.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\RSS.aspx.cs">
+      <DependentUpon>RSS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\RSS.aspx.designer.cs">
+      <DependentUpon>RSS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\upload.ashx.cs">
+      <DependentUpon>upload.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewArchive.aspx.cs">
+      <DependentUpon>ViewArchive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\ViewArchive.aspx.designer.cs">
+      <DependentUpon>ViewArchive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\EditCategory.aspx.cs">
+      <DependentUpon>EditCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\EditCategory.aspx.designer.cs">
+      <DependentUpon>EditCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewCategory.aspx.cs">
+      <DependentUpon>ViewCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\ViewCategory.aspx.designer.cs">
+      <DependentUpon>ViewCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Drafts.aspx.cs">
+      <DependentUpon>Drafts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Drafts.aspx.designer.cs">
+      <DependentUpon>Drafts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\EditPost.aspx.cs">
+      <DependentUpon>EditPost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\EditPost.aspx.designer.cs">
+      <DependentUpon>EditPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\BlogModule.ascx.cs">
+      <DependentUpon>BlogModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\BlogModule.ascx.designer.cs">
+      <DependentUpon>BlogModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\BlogSiteMap.ashx.cs">
+      <DependentUpon>BlogSiteMap.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewList.aspx.cs">
+      <DependentUpon>ViewList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\ViewList.aspx.designer.cs">
+      <DependentUpon>ViewList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewPost.aspx.cs">
+      <DependentUpon>ViewPost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\ViewPost.aspx.designer.cs">
+      <DependentUpon>ViewPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Comments\CommentsConfiguration.cs" />
+    <Compile Include="Comments\CommentsDialog.aspx.cs">
+      <DependentUpon>CommentsDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Comments\CommentsDialog.aspx.designer.cs">
+      <DependentUpon>CommentsDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Comments\CommentsModule.ascx.cs">
+      <DependentUpon>CommentsModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Comments\CommentsModule.ascx.designer.cs">
+      <DependentUpon>CommentsModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ContactForm\Components\ContactFormConfiguration.cs" />
+    <Compile Include="ContactForm\Components\ContactFormContentDeleteHandler.cs" />
+    <Compile Include="ContactForm\Components\SitePreDeleteContactFormHandler.cs" />
+    <Compile Include="ContactForm\ContactForm.ascx.cs">
+      <DependentUpon>ContactForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContactForm\ContactForm.ascx.designer.cs">
+      <DependentUpon>ContactForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ContactForm\MessageListDialog.aspx.cs">
+      <DependentUpon>MessageListDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContactForm\MessageListDialog.aspx.designer.cs">
+      <DependentUpon>MessageListDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventCalendar\Components\CalendarConfiguration.cs" />
+    <Compile Include="EventCalendar\Components\CalendarContentDeleteHandler.cs" />
+    <Compile Include="EventCalendar\Components\CalendarEventIndexBuilderProvider.cs" />
+    <Compile Include="EventCalendar\Components\SitePreDeleteEventCalendarHandler.cs" />
+    <Compile Include="EventCalendar\EventCalendarModule.ascx.cs">
+      <DependentUpon>EventCalendarModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EventCalendar\EventCalendarModule.ascx.designer.cs">
+      <DependentUpon>EventCalendarModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="EventCalendar\DayView.aspx.cs">
+      <DependentUpon>DayView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EventCalendar\DayView.aspx.designer.cs">
+      <DependentUpon>DayView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventCalendar\EditEvent.aspx.cs">
+      <DependentUpon>EditEvent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EventCalendar\EditEvent.aspx.designer.cs">
+      <DependentUpon>EditEvent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventCalendar\EventDetails.aspx.cs">
+      <DependentUpon>EventDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EventCalendar\EventDetails.aspx.designer.cs">
+      <DependentUpon>EventDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedManager\Components\FeedContentDeleteHandler.cs" />
+    <Compile Include="FeedManager\Components\FeedManagerConfiguration.cs" />
+    <Compile Include="FeedManager\Components\FeedManagerContentInstaller.cs" />
+    <Compile Include="FeedManager\Components\SitePreDeleteFeedsHandler.cs" />
+    <Compile Include="FeedManager\Controls\FeedManagerDisplaySettings.cs" />
+    <Compile Include="FeedManager\Controls\FeedTypeSetting.ascx.cs">
+      <DependentUpon>FeedTypeSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FeedManager\Controls\FeedTypeSetting.ascx.designer.cs">
+      <DependentUpon>FeedTypeSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedManager\FeedAggregate.aspx.cs">
+      <DependentUpon>FeedAggregate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FeedManager\FeedAggregate.aspx.designer.cs">
+      <DependentUpon>FeedAggregate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedManager\FeedCache.cs" />
+    <Compile Include="FeedManager\FeedEdit.aspx.cs">
+      <DependentUpon>FeedEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FeedManager\FeedEdit.aspx.designer.cs">
+      <DependentUpon>FeedEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedManager\FeedManager.aspx.cs">
+      <DependentUpon>FeedManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FeedManager\FeedManager.aspx.designer.cs">
+      <DependentUpon>FeedManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedManager\FeedManagerModule.ascx.cs">
+      <DependentUpon>FeedManagerModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FeedManager\FeedManagerModule.ascx.designer.cs">
+      <DependentUpon>FeedManagerModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FlashModule\FlashMovieModule.ascx.cs">
+      <DependentUpon>FlashMovieModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlashModule\FlashMovieModule.ascx.designer.cs">
+      <DependentUpon>FlashMovieModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Flickr\Components\FlickrGalleryConfiguration.cs" />
+    <Compile Include="Flickr\Components\FlickrGalleryContentInstaller.cs" />
+    <Compile Include="Flickr\FlickrGallery.ascx.cs">
+      <DependentUpon>FlickrGallery.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Flickr\FlickrGallery.ascx.designer.cs">
+      <DependentUpon>FlickrGallery.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Flickr\FlickrSlideShowModule.ascx.cs">
+      <DependentUpon>FlickrSlideShowModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Flickr\FlickrSlideShowModule.ascx.designer.cs">
+      <DependentUpon>FlickrSlideShowModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Flickr\FlickrThemeSetting.ascx.cs">
+      <DependentUpon>FlickrThemeSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Flickr\FlickrThemeSetting.ascx.designer.cs">
+      <DependentUpon>FlickrThemeSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FolderGallery\Components\FolderGalleryConfiguration.cs" />
+    <Compile Include="FolderGallery\Components\FolderGalleryContentInstaller.cs" />
+    <Compile Include="FolderGallery\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FolderGallery\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FolderGallery\FolderGalleryModule.ascx.cs">
+      <DependentUpon>FolderGalleryModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FolderGallery\FolderGalleryModule.ascx.designer.cs">
+      <DependentUpon>FolderGalleryModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FolderGallery\upload.ashx.cs">
+      <DependentUpon>upload.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Components\FeedParameterParser.cs" />
+    <Compile Include="Forums\Components\ForumConfiguration.cs" />
+    <Compile Include="Forums\Components\ForumContentDeleteHandler.cs" />
+    <Compile Include="Forums\Components\ForumContentInstaller.cs" />
+    <Compile Include="Forums\Components\ForumNotification.cs" />
+    <Compile Include="Forums\Components\ForumParameterParser.cs" />
+    <Compile Include="Forums\Components\ForumThreadIndexBuilderProvider.cs" />
+    <Compile Include="Components\RouteRegistrar.cs" />
+    <Compile Include="Forums\Components\SitePreDeleteForumsHandler.cs" />
+    <Compile Include="Forums\Components\ThreadParameterParser.cs" />
+    <Compile Include="Forums\Controls\ForumDisplaySettings.cs" />
+    <Compile Include="Forums\Controls\ForumList.ascx.cs">
+      <DependentUpon>ForumList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumList.ascx.designer.cs">
+      <DependentUpon>ForumList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumListAlt.ascx.cs">
+      <DependentUpon>ForumListAlt.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumListAlt.ascx.designer.cs">
+      <DependentUpon>ForumListAlt.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumSearchBox.ascx.cs">
+      <DependentUpon>ForumSearchBox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumSearchBox.ascx.designer.cs">
+      <DependentUpon>ForumSearchBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\PostList.ascx.cs">
+      <DependentUpon>PostList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\PostList.ascx.designer.cs">
+      <DependentUpon>PostList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\PostListAlt.ascx.cs">
+      <DependentUpon>PostListAlt.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\PostListAlt.ascx.designer.cs">
+      <DependentUpon>PostListAlt.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ThreadCrumbContainer.cs" />
+    <Compile Include="Forums\Controls\ThreadList.ascx.cs">
+      <DependentUpon>ThreadList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\ThreadList.ascx.designer.cs">
+      <DependentUpon>ThreadList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ThreadListAlt.ascx.cs">
+      <DependentUpon>ThreadListAlt.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\ThreadListAlt.ascx.designer.cs">
+      <DependentUpon>ThreadListAlt.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\UserThreadList.ascx.cs">
+      <DependentUpon>UserThreadList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\UserThreadList.ascx.designer.cs">
+      <DependentUpon>UserThreadList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\UserThreadListAlt.ascx.cs">
+      <DependentUpon>UserThreadListAlt.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\UserThreadListAlt.ascx.designer.cs">
+      <DependentUpon>UserThreadListAlt.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditForum.aspx.cs">
+      <DependentUpon>EditForum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\EditForum.aspx.designer.cs">
+      <DependentUpon>EditForum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\ForumMod.cs" />
+    <Compile Include="Forums\ForumModule.ascx.cs">
+      <DependentUpon>ForumModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\ForumModule.ascx.designer.cs">
+      <DependentUpon>ForumModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditSubscriptions.aspx.cs">
+      <DependentUpon>EditSubscriptions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\EditSubscriptions.aspx.designer.cs">
+      <DependentUpon>EditSubscriptions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditPost.aspx.cs">
+      <DependentUpon>EditPost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\EditPost.aspx.designer.cs">
+      <DependentUpon>EditPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditThread.aspx.cs">
+      <DependentUpon>EditThread.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\EditThread.aspx.designer.cs">
+      <DependentUpon>EditThread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\ForumSiteMap.ashx.cs">
+      <DependentUpon>ForumSiteMap.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Mod.ashx.cs">
+      <DependentUpon>Mod.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\SubscriberDialog.aspx.cs">
+      <DependentUpon>SubscriberDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\SubscriberDialog.aspx.designer.cs">
+      <DependentUpon>SubscriberDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Thread.aspx.cs">
+      <DependentUpon>Thread.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Thread.aspx.designer.cs">
+      <DependentUpon>Thread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UnsubscribeForum.aspx.cs">
+      <DependentUpon>UnsubscribeForum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\UnsubscribeForum.aspx.designer.cs">
+      <DependentUpon>UnsubscribeForum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UnsubscribeThread.aspx.cs">
+      <DependentUpon>UnsubscribeThread.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\UnsubscribeThread.aspx.designer.cs">
+      <DependentUpon>UnsubscribeThread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UserThreads.aspx.cs">
+      <DependentUpon>UserThreads.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\UserThreads.aspx.designer.cs">
+      <DependentUpon>UserThreads.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\ForumView.aspx.cs">
+      <DependentUpon>ForumView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\ForumView.aspx.designer.cs">
+      <DependentUpon>ForumView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\RSS.aspx.cs">
+      <DependentUpon>RSS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\RSS.aspx.designer.cs">
+      <DependentUpon>RSS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GoogleMap\Components\GoogleMapConfiguration.cs" />
+    <Compile Include="GoogleMap\GoogleMapModule.ascx.cs">
+      <DependentUpon>GoogleMapModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GoogleMap\GoogleMapModule.ascx.designer.cs">
+      <DependentUpon>GoogleMapModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="GoogleTranslate\GoogleTranslateModule.ascx.cs">
+      <DependentUpon>GoogleTranslateModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GoogleTranslate\GoogleTranslateModule.ascx.designer.cs">
+      <DependentUpon>GoogleTranslateModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlInclude\HtmlFragmentInclude.ascx.cs">
+      <DependentUpon>HtmlFragmentInclude.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HtmlInclude\HtmlFragmentInclude.ascx.designer.cs">
+      <DependentUpon>HtmlFragmentInclude.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlInclude\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HtmlInclude\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="IFrame\IframeModule.ascx.cs">
+      <DependentUpon>IframeModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="IFrame\IframeModule.ascx.designer.cs">
+      <DependentUpon>IframeModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageGallery\BulkUpload.aspx.cs">
+      <DependentUpon>BulkUpload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ImageGallery\BulkUpload.aspx.designer.cs">
+      <DependentUpon>BulkUpload.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageGallery\Components\GalleryConfiguration.cs" />
+    <Compile Include="ImageGallery\Components\GalleryContentDeleteHandler.cs" />
+    <Compile Include="ImageGallery\Components\GalleryHelper.cs" />
+    <Compile Include="ImageGallery\Components\GalleryImageIndexBuilderProvider.cs" />
+    <Compile Include="ImageGallery\Components\ImageGalleryContentInstaller.cs" />
+    <Compile Include="ImageGallery\Components\SitePreDeleteGalleryHandler.cs" />
+    <Compile Include="ImageGallery\Controls\GalleryDisplaySettings.cs" />
+    <Compile Include="ImageGallery\Gallery.ascx.cs">
+      <DependentUpon>Gallery.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ImageGallery\Gallery.ascx.designer.cs">
+      <DependentUpon>Gallery.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageGallery\GalleryBrowse.aspx.cs">
+      <DependentUpon>GalleryBrowse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ImageGallery\GalleryBrowse.aspx.designer.cs">
+      <DependentUpon>GalleryBrowse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageGallery\EditImage.aspx.cs">
+      <DependentUpon>EditImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ImageGallery\EditImage.aspx.designer.cs">
+      <DependentUpon>EditImage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageGallery\upload.ashx.cs">
+      <DependentUpon>upload.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="KDMediaPlayer\AudioPlayer.ascx.cs">
+      <DependentUpon>AudioPlayer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="KDMediaPlayer\AudioPlayer.ascx.designer.cs">
+      <DependentUpon>AudioPlayer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="KDMediaPlayer\Components\AudioPlayerConfiguration.cs" />
+    <Compile Include="KDMediaPlayer\Components\MediaContentInstaller.cs" />
+    <Compile Include="KDMediaPlayer\Components\MediaPlayerContentDeleteHandler.cs" />
+    <Compile Include="KDMediaPlayer\Components\SitePreDeleteMediaPlayerHandler.cs" />
+    <Compile Include="KDMediaPlayer\Components\VideoPlayerConfiguration.cs" />
+    <Compile Include="KDMediaPlayer\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="KDMediaPlayer\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="KDMediaPlayer\EditTrack.aspx.cs">
+      <DependentUpon>EditTrack.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="KDMediaPlayer\EditTrack.aspx.designer.cs">
+      <DependentUpon>EditTrack.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="KDMediaPlayer\VideoPlayer.ascx.cs">
+      <DependentUpon>VideoPlayer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="KDMediaPlayer\VideoPlayer.ascx.designer.cs">
+      <DependentUpon>VideoPlayer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="List\Components\LinksContentDeleteHandler.cs" />
+    <Compile Include="List\Components\LinksIndexBuilderProvider.cs" />
+    <Compile Include="List\Components\ListConfiguration.cs" />
+    <Compile Include="List\Components\ListContentInstaller.cs" />
+    <Compile Include="List\Components\SitePreDeleteLinksHandler.cs" />
+    <Compile Include="List\Controls\ItemList.ascx.cs">
+      <DependentUpon>ItemList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="List\Controls\ItemList.ascx.designer.cs">
+      <DependentUpon>ItemList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="List\Controls\ListDisplaySettings.cs" />
+    <Compile Include="List\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="List\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="List\EditIntro.aspx.cs">
+      <DependentUpon>EditIntro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="List\EditIntro.aspx.designer.cs">
+      <DependentUpon>EditIntro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="List\ListModule.ascx.cs">
+      <DependentUpon>ListModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="List\ListModule.ascx.designer.cs">
+      <DependentUpon>ListModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="List\ViewList.aspx.cs">
+      <DependentUpon>ViewList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="List\ViewList.aspx.designer.cs">
+      <DependentUpon>ViewList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Poll\Helpers\PollContentDeleteHandler.cs" />
+    <Compile Include="Poll\Helpers\PollUIHelper.cs" />
+    <Compile Include="Poll\Helpers\SitePreDeletePollsHandler.cs" />
+    <Compile Include="Poll\MyPollHistory.aspx.cs">
+      <DependentUpon>MyPollHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Poll\MyPollHistory.aspx.designer.cs">
+      <DependentUpon>MyPollHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Poll\PollChoose.aspx.cs">
+      <DependentUpon>PollChoose.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Poll\PollChoose.aspx.designer.cs">
+      <DependentUpon>PollChoose.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Poll\PollEdit.aspx.cs">
+      <DependentUpon>PollEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Poll\PollEdit.aspx.designer.cs">
+      <DependentUpon>PollEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Poll\PollModule.ascx.cs">
+      <DependentUpon>PollModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Poll\PollModule.ascx.designer.cs">
+      <DependentUpon>PollModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\GalleryDataService.ashx.cs">
+      <DependentUpon>GalleryDataService.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\Components\SharedFilesConfiguration.cs" />
+    <Compile Include="SharedFiles\Components\SharedFilesContentDeleteHandler.cs" />
+    <Compile Include="SharedFiles\Components\SharedFilesContentInstaller.cs" />
+    <Compile Include="SharedFiles\Components\SharedFilesHelper.cs" />
+    <Compile Include="SharedFiles\Components\SharedFilesIndexBuilderProvider.cs" />
+    <Compile Include="SharedFiles\Components\SitePreDeleteSharedFilesHandler.cs" />
+    <Compile Include="SharedFiles\Controls\SharedFilesDisplaySettings.cs" />
+    <Compile Include="SharedFiles\SharedFilesModule.ascx.cs">
+      <DependentUpon>SharedFilesModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SharedFiles\SharedFilesModule.ascx.designer.cs">
+      <DependentUpon>SharedFilesModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\Download.aspx.cs">
+      <DependentUpon>Download.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SharedFiles\Download.aspx.designer.cs">
+      <DependentUpon>Download.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SharedFiles\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\upload.ashx.cs">
+      <DependentUpon>upload.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\CompleteSurvey.aspx.cs">
+      <DependentUpon>CompleteSurvey.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Survey\CompleteSurvey.aspx.designer.cs">
+      <DependentUpon>CompleteSurvey.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\Components\SitePreDeleteSurveyHandler.cs" />
+    <Compile Include="Survey\Components\SurveyContentDeleteHandler.cs" />
+    <Compile Include="Survey\Controls\CheckBoxListQuestion.cs" />
+    <Compile Include="Survey\Controls\CheckBoxListValidator.cs" />
+    <Compile Include="Survey\Controls\DateQuestion.cs" />
+    <Compile Include="Survey\Controls\DropDownListQuestion.cs" />
+    <Compile Include="Survey\Controls\IQuestion.cs" />
+    <Compile Include="Survey\Controls\RadioButtonListQuestion.cs" />
+    <Compile Include="Survey\Controls\TextBoxQuestion.cs" />
+    <Compile Include="Survey\Results.aspx.cs">
+      <DependentUpon>Results.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Survey\Results.aspx.designer.cs">
+      <DependentUpon>Results.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyEdit.aspx.cs">
+      <DependentUpon>SurveyEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Survey\SurveyEdit.aspx.designer.cs">
+      <DependentUpon>SurveyEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyModule.ascx.cs">
+      <DependentUpon>SurveyModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Survey\SurveyModule.ascx.designer.cs">
+      <DependentUpon>SurveyModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyPageEdit.aspx.cs">
+      <DependentUpon>SurveyPageEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Survey\SurveyPageEdit.aspx.designer.cs">
+      <DependentUpon>SurveyPageEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyPages.aspx.cs">
+      <DependentUpon>SurveyPages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Survey\SurveyPages.aspx.designer.cs">
+      <DependentUpon>SurveyPages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyQuestionEdit.aspx.cs">
+      <DependentUpon>SurveyQuestionEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Survey\SurveyQuestionEdit.aspx.designer.cs">
+      <DependentUpon>SurveyQuestionEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyQuestions.aspx.cs">
+      <DependentUpon>SurveyQuestions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Survey\SurveyQuestions.aspx.designer.cs">
+      <DependentUpon>SurveyQuestions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\Surveys.aspx.cs">
+      <DependentUpon>Surveys.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Survey\Surveys.aspx.designer.cs">
+      <DependentUpon>Surveys.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="XmlXsl\Components\XmlConfiguration.cs" />
+    <Compile Include="XmlXsl\uploader.ashx.cs">
+      <DependentUpon>uploader.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="XmlXsl\XmlEdit.aspx.cs">
+      <DependentUpon>XmlEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="XmlXsl\XmlEdit.aspx.designer.cs">
+      <DependentUpon>XmlEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="XmlXsl\XmlModule.ascx.cs">
+      <DependentUpon>XmlModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="XmlXsl\XmlModule.ascx.designer.cs">
+      <DependentUpon>XmlModule.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
+      <Project>{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}</Project>
+      <Name>mojoPortal.Business.WebHelpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Business\mojoPortal.Business.csproj">
+      <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
+      <Name>mojoPortal.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Features.Business\mojoPortal.Features.Business.csproj">
+      <Project>{65849992-8F44-4480-9494-1CA0D6325795}</Project>
+      <Name>mojoPortal.Features.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Net\mojoPortal.Net.csproj">
+      <Project>{30916752-1A97-49CA-95D6-81A5F784EEB5}</Project>
+      <Name>mojoPortal.Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
+      <Project>{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}</Project>
+      <Name>mojoPortal.Web.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
+      <Project>{4F6DDA2C-C9B8-45B2-AADA-3FF922317661}</Project>
+      <Name>mojoPortal.Web.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
+      <Project>{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}</Project>
+      <Name>mojoPortal.Web.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web\mojoPortal.Web.csproj">
+      <Project>{8E511D65-4779-4689-82D4-811D3FE6866E}</Project>
+      <Name>mojoPortal.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_MasterPages\layout.Master" />
+    <Content Include="Poll\MyPollHistory.aspx" />
+    <Content Include="Poll\PollChoose.aspx" />
+    <Content Include="Poll\PollEdit.aspx" />
+    <Content Include="Poll\PollModule.ascx" />
+    <Content Include="Poll\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\FeatureDefinitions\0000_PollFeature.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\surveyfeature\FeatureDefinitions\0000_Survey.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\mssql\0.0.1.1.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\mysql\0.0.1.0.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.3.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.4.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.5.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.6.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.7.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.8.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.9.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.1.0.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.1.1.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.1.2.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mysql\0.0.1.1.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mysql\0.0.1.2.config" />
+    <Content Include="Survey\CompleteSurvey.aspx" />
+    <Content Include="Survey\Results.aspx" />
+    <Content Include="Survey\SurveyEdit.aspx" />
+    <Content Include="Survey\SurveyModule.ascx" />
+    <Content Include="Survey\SurveyPageEdit.aspx" />
+    <Content Include="Survey\SurveyPages.aspx" />
+    <Content Include="Survey\SurveyQuestionEdit.aspx" />
+    <Content Include="Survey\SurveyQuestions.aspx" />
+    <Content Include="Survey\Surveys.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\PollResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PollResources.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_GlobalResources\SurveyResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SurveyResources.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\pgsql\0.0.0.2.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\sqlite\0.0.0.2.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\firebirdsql\0.0.1.1.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\firebirdsql\0.0.1.1\00002tables.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\firebirdsql\0.0.1.2.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\firebirdsql\0.0.1.2\0.0.1.2.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\pgsql\0.0.1.2.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\sqlite\0.0.1.2.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FeedManager\FeedAggregate.aspx" />
+    <Content Include="FeedManager\FeedEdit.aspx" />
+    <Content Include="FeedManager\FeedManager.aspx" />
+    <Content Include="FeedManager\FeedManagerModule.ascx" />
+    <Content Include="Setup\applications\feed-manager\FeatureDefinitions\80000_FeedManagerModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\FeedResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>FeedResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FeedManager\Controls\FeedTypeSetting.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\ViewArchive.aspx" />
+    <Content Include="Blog\EditCategory.aspx" />
+    <Content Include="Blog\ViewCategory.aspx" />
+    <Content Include="Blog\Drafts.aspx" />
+    <Content Include="Blog\EditPost.aspx" />
+    <Content Include="Blog\BlogModule.ascx" />
+    <Content Include="Blog\ViewPost.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\BlogSiteMap.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\BlogResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>BlogResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Blog\RSS.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\FeatureDefinitions\20000_BlogModule.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\BlogUrlSuggestService.ashx" />
+    <Content Include="Blog\Controls\BlogViewControl.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\Controls\ArchiveViewControl.ascx" />
+    <Content Include="Setup\ProviderConfig\indexbuilders\blogindexbuilder.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Forums\EditForum.aspx" />
+    <Content Include="Forums\ForumModule.ascx" />
+    <Content Include="Forums\EditSubscriptions.aspx" />
+    <Content Include="Forums\EditPost.aspx" />
+    <Content Include="Forums\EditThread.aspx" />
+    <Content Include="Forums\Thread.aspx" />
+    <Content Include="Forums\UserThreads.aspx" />
+    <Content Include="Forums\ForumView.aspx" />
+    <Content Include="Forums\RSS.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\ForumResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ForumResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Forums\UnsubscribeForum.aspx" />
+    <Content Include="Forums\UnsubscribeThread.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\forums\FeatureDefinitions\50000_ForumsModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\ProviderConfig\indexbuilders\forumthreadindexbuilder.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EventCalendar\EventCalendarModule.ascx" />
+    <Content Include="EventCalendar\DayView.aspx" />
+    <Content Include="EventCalendar\EditEvent.aspx" />
+    <Content Include="EventCalendar\EventDetails.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\EventCalResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>EventCalResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\ProviderConfig\indexbuilders\eventcalendarindexbuilder.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\eventcalendar\FeatureDefinitions\40000_EventCalendarModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ContactForm\ContactForm.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\ContactFormResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ContactFormResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\contactform\FeatureDefinitions\30000_ContactFormModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ImageGallery\Gallery.ascx" />
+    <Content Include="ImageGallery\GalleryBrowse.aspx" />
+    <Content Include="ImageGallery\EditImage.aspx" />
+    <Content Include="ImageGallery\GalleryMetaData.xsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\GalleryResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>GalleryResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\ProviderConfig\indexbuilders\galleryindexbuilder.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\imagegallery\FeatureDefinitions\60000_ImageGalleryModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\LinkResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>LinkResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\linksmodule\FeatureDefinitions\70000_LinksModule.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\ProviderConfig\indexbuilders\linksindexbuilder.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SharedFiles\SharedFilesModule.ascx" />
+    <Content Include="SharedFiles\Download.aspx" />
+    <Content Include="SharedFiles\Edit.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\SharedFileResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SharedFileResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\sharedfiles\FeatureDefinitions\90000_SharedFilesModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\ProviderConfig\indexbuilders\sharedfilesindexbuilder.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FolderGallery\Edit.aspx" />
+    <Content Include="FolderGallery\FolderGalleryModule.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\FolderGalleryResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>FolderGalleryResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\foldergallery\FeatureDefinitions\50040_FolderGalleryModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\GMapResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>GMapResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>XmlResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>HtmlIncludeResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\googlemap\FeatureDefinitions\50020_GoogleMapModule.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GoogleMap\GoogleMapModule.ascx" />
+    <Content Include="Setup\applications\htmlinclude\FeatureDefinitions\90200_HtmlFragmentInlcudeModule.config" />
+    <Content Include="XmlXsl\XmlEdit.aspx" />
+    <Content Include="XmlXsl\XmlModule.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FlashModule\FlashMovieModule.ascx" />
+    <Content Include="HtmlInclude\HtmlFragmentInclude.ascx" />
+    <Content Include="HtmlInclude\Edit.aspx" />
+    <Content Include="Setup\applications\xmlmodule\FeatureDefinitions\90300_XmlXslModule.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00003ttriggers.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00003ttriggers.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\forums\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\forums\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\forums\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\forums\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\forums\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\firebirdsql\0.0.0.3\00002tables.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\firebirdsql\0.0.0.3.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.0.3.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.0.3.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.0.3.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.0.3.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\BlogCompare.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\livemessenger\FeatureDefinitions\50000_LiveMessengerModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\LiveResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>LiveResources.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\Controls\ArchiveListControl.ascx" />
+    <Content Include="Blog\Controls\CategoryListControl.ascx" />
+    <Content Include="Blog\Controls\StatsControl.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\Controls\FeedLinksControl.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\HelpFiles\en-US-messengercidsetting-help.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\Controls\CommentDaysSetting.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Services\GalleryDataService.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\FlickrResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>FlickrResources.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="Flickr\FlickrSlideShowModule.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\flickrslideshow\FeatureDefinitions\70000_ImageFlickrSlideshowModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\twitter\FeatureDefinitions\90000_TwitterProfileModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\TwitterResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>TwitterResources.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ImageGallery\BulkUpload.aspx" />
+    <Content Include="Setup\applications\twitter\FeatureDefinitions\95000_TwitterSearchModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Forums\SubscriberDialog.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GoogleTranslate\GoogleTranslateModule.ascx" />
+    <Content Include="IFrame\IframeModule.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\IframeResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>IframeResources.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\GTranslateResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>GTranslateResources.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\googletranslate\FeatureDefinitions\GoogleTranslateModule.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\iframe\FeatureDefinitions\IFrameModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ContactForm\MessageListDialog.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Forums\Controls\ForumSearchBox.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Setup\applications\blog\SchemaInstallScripts\mssql\" />
+    <Folder Include="Setup\applications\blog\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
+    <Folder Include="Setup\applications\contactform\SchemaInstallScripts\mssql\" />
+    <Folder Include="Setup\applications\contactform\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
+    <Folder Include="Setup\applications\eventcalendar\SchemaInstallScripts\mssql\" />
+    <Folder Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\firebirdsql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\mssql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\mysql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\pgsql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\sqlite\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\firebirdsql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\mssql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\mysql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\pgsql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\sqlite\" />
+    <Folder Include="Setup\applications\forums\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
+    <Folder Include="Setup\applications\pollfeature-byChristianFredh\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
+    <Folder Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\BingResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>BingResources.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\bingmap\FeatureDefinitions\50020_BingMapModule.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\metaweblogapi.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\MetaweblogResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>MetaweblogResources.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\MediaPlayerResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>MediaPlayerResources.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\CommentResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>CommentResources.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Forums\ForumSiteMap.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SharedFiles\upload.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ImageGallery\upload.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FolderGallery\upload.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="XmlXsl\uploader.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\upload.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\news-map.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Forums\Mod.ashx" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57646</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /s /y /d "$(ProjectDir)bin\mojoPortal.Features.UI.dll" "$(SolutionDir)Web\bin\"
+xcopy /s /y /d "$(ProjectDir)bin\mojoPortal.Features.Business.dll" "$(SolutionDir)Web\bin\"
+xcopy /s /y /d "$(ProjectDir)bin\mojoPortal.Features.Data.dll" "$(SolutionDir)Web\bin\"
+xcopy /s /y /d "$(ProjectDir)bin\CookComputing.XmlRpcV2.dll" "$(SolutionDir)Web\bin\"
+xcopy /s /y /d "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\App_GlobalResources\"
+xcopy /s /y /d "$(ProjectDir)Setup\*" "$(SolutionDir)Web\Setup"
+xcopy /s /y /d "$(ProjectDir)Poll\*.aspx" "$(SolutionDir)Web\Poll\"
+xcopy /s /y /d "$(ProjectDir)Poll\*.ascx" "$(SolutionDir)Web\Poll\"
+xcopy /s /y /d "$(ProjectDir)Survey\*.aspx" "$(SolutionDir)Web\Survey\"
+xcopy /s /y /d "$(ProjectDir)Survey\*.ascx" "$(SolutionDir)Web\Survey\"
+xcopy /s /y /d "$(ProjectDir)FeedManager\*.aspx" "$(SolutionDir)Web\FeedManager\"
+xcopy /s /y /d "$(ProjectDir)FeedManager\*.ascx" "$(SolutionDir)Web\FeedManager\"
+xcopy /s /y /d "$(ProjectDir)bin\Argotic*.dll" "$(SolutionDir)Web\bin\"
+xcopy /s /y /d "$(ProjectDir)Blog\*.aspx" "$(SolutionDir)Web\Blog\"
+xcopy /s /y /d "$(ProjectDir)Blog\*.ascx" "$(SolutionDir)Web\Blog\"
+xcopy /s /y /d "$(ProjectDir)Blog\BlogUrlSuggestService.ashx" "$(SolutionDir)Web\Blog\"
+xcopy /s /y /d "$(ProjectDir)Blog\BlogSiteMap.ashx" "$(SolutionDir)Web\Blog\"
+xcopy /s /y /d "$(ProjectDir)Blog\upload.ashx" "$(SolutionDir)Web\Blog\"
+xcopy /s /y /d "$(ProjectDir)Blog\news-map.ashx" "$(SolutionDir)Web\Blog\"
+xcopy /s /y /d "$(ProjectDir)Blog\metaweblogapi.ashx" "$(SolutionDir)Web\"
+xcopy /s /y /d "$(ProjectDir)Blog\wlwmanifest.xml" "$(SolutionDir)Web\"
+xcopy /s /y /d "$(ProjectDir)ContactForm\*.aspx" "$(SolutionDir)Web\ContactForm\"
+xcopy /s /y /d "$(ProjectDir)ContactForm\*.ascx" "$(SolutionDir)Web\ContactForm\"
+xcopy /s /y /d "$(ProjectDir)EventCalendar\*.aspx" "$(SolutionDir)Web\EventCalendar\"
+xcopy /s /y /d "$(ProjectDir)EventCalendar\*.ascx" "$(SolutionDir)Web\EventCalendar\"
+xcopy /s /y /d "$(ProjectDir)Forums\*.aspx" "$(SolutionDir)Web\Forums\"
+xcopy /s /y /d "$(ProjectDir)Forums\*.ascx" "$(SolutionDir)Web\Forums\"
+xcopy /s /y /d "$(ProjectDir)Forums\*.ashx" "$(SolutionDir)Web\Forums\"
+xcopy /s /y /d "$(ProjectDir)ImageGallery\*.aspx" "$(SolutionDir)Web\ImageGallery\"
+xcopy /s /y /d "$(ProjectDir)ImageGallery\*.ashx" "$(SolutionDir)Web\ImageGallery\"
+xcopy /s /y /d "$(ProjectDir)ImageGallery\*.ascx" "$(SolutionDir)Web\ImageGallery\"
+xcopy /s /y /d "$(ProjectDir)ImageGallery\*.xsl" "$(SolutionDir)Web\ImageGallery\"
+xcopy /s /y /d "$(ProjectDir)List\*.aspx" "$(SolutionDir)Web\List\"
+xcopy /s /y /d "$(ProjectDir)List\*.ascx" "$(SolutionDir)Web\List\"
+xcopy /s /y /d "$(ProjectDir)SharedFiles\*.aspx" "$(SolutionDir)Web\SharedFiles\"
+xcopy /s /y /d "$(ProjectDir)SharedFiles\*.ascx" "$(SolutionDir)Web\SharedFiles\"
+xcopy /s /y /d "$(ProjectDir)SharedFiles\*.ashx" "$(SolutionDir)Web\SharedFiles\"
+xcopy /s /y /d "$(ProjectDir)FolderGallery\*.aspx" "$(SolutionDir)Web\FolderGallery\"
+xcopy /s /y /d "$(ProjectDir)FolderGallery\*.ascx" "$(SolutionDir)Web\FolderGallery\"
+xcopy /s /y /d "$(ProjectDir)FolderGallery\*.ashx" "$(SolutionDir)Web\FolderGallery\"
+xcopy /s /y /d "$(ProjectDir)GoogleMap\*.aspx" "$(SolutionDir)Web\GoogleMap\"
+xcopy /s /y /d "$(ProjectDir)GoogleMap\*.ascx" "$(SolutionDir)Web\GoogleMap\"
+xcopy /s /y /d "$(ProjectDir)XmlXsl\*.aspx" "$(SolutionDir)Web\XmlXsl\"
+xcopy /s /y /d "$(ProjectDir)XmlXsl\*.ascx" "$(SolutionDir)Web\XmlXsl\"
+xcopy /s /y /d "$(ProjectDir)XmlXsl\*.ashx" "$(SolutionDir)Web\XmlXsl\"
+xcopy /s /y /d "$(ProjectDir)HtmlInclude\*.aspx" "$(SolutionDir)Web\HtmlInclude\"
+xcopy /s /y /d "$(ProjectDir)HtmlInclude\*.ascx" "$(SolutionDir)Web\HtmlInclude\"
+xcopy /s /y /d "$(ProjectDir)LiveMessenger\*.ascx" "$(SolutionDir)Web\LiveMessenger\"
+xcopy /s /y /d "$(ProjectDir)Data\*" "$(SolutionDir)Web\Data"
+xcopy /s /y /d "$(ProjectDir)Services\*.ashx" "$(SolutionDir)Web\Services\"
+xcopy /s /y /d "$(ProjectDir)Flickr\*.ascx" "$(SolutionDir)Web\Flickr\"
+xcopy /s /y /d "$(ProjectDir)Twitter\*.ascx" "$(SolutionDir)Web\Twitter\"
+xcopy /s /y /d "$(ProjectDir)IFrame\*.ascx" "$(SolutionDir)Web\IFrame\"
+xcopy /s /y /d "$(ProjectDir)GoogleTranslate\*.ascx" "$(SolutionDir)Web\GoogleTranslate\"
+xcopy /s /y /d "$(ProjectDir)BingMap\*.ascx" "$(SolutionDir)Web\BingMap\"
+
+xcopy /s /y /d "$(ProjectDir)KDMediaPlayer\*.aspx" "$(SolutionDir)Web\KDMediaPlayer\"
+xcopy /s /y /d "$(ProjectDir)KDMediaPlayer\*.ascx" "$(SolutionDir)Web\KDMediaPlayer\"
+
+
+xcopy /s /y /d "$(ProjectDir)Comments\*.aspx" "$(SolutionDir)Web\Comments\"
+xcopy /s /y /d "$(ProjectDir)Comments\*.ascx" "$(SolutionDir)Web\Comments\"
+</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+</Project>

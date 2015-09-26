@@ -1,0 +1,108 @@
+<%-- 
+Name:  			mojoPortal Page stubber
+Author: 		Joe Audette
+Description: 	Generates markup and code behind for pages inheriting from mojoBasePage
+Last Modified:	2010-04-24
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="VB" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author" %>
+<%@ Property Name="BusinessLayerNameSpace" Type="System.String" Default="mojoPortal.Business" Category="Style" Description="The Namespace of the Business Layer class" %>
+<%@ Property Name="UINameSpace" Type="System.String" Default="MyWeb.UI" Category="Style" Description="" %>
+<%@ Property Name="ClassName" Type="System.String" Default="MyClass" Category="Style" Description="" %>
+<%@ Property Name="ControlName" Type="System.String" Default="MyCustomSiteModule.ascx" Category="Style" Description="" %>
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+<%%@ Control Language="VB" ClassName="<%= ControlName%>" Inherits="mojoPortal.Web.SiteModuleControl"   %%>
+
+<%%@ Import Namespace="mojoPortal.Business" %%>
+<%%@ Import Namespace="mojoPortal.Business.WebHelpers" %%>
+<%%@ Import Namespace="mojoPortal.Web.Framework" %%>
+<%%@ Import Namespace="mojoPortal.Web.Controls" %%>
+<%%@ Import Namespace="mojoPortal.Web.UI" %%>
+<%%@ Import Namespace="mojoPortal.Web.Editor" %%>
+<%%@ Import Namespace="mojoPortal.Net" %%>
+
+<script runat="server">
+
+
+Sub Page_Load()
+
+	LoadSettings()
+    PopulateLabels()
+    PopulateControls()
+
+End Sub
+
+Sub Button1_Click(sender As Object, e As System.EventArgs)
+
+	TextBox1.Text = "Hello Web"
+	
+End Sub
+
+    
+
+Sub PopulateControls()
+
+	TextBox1.Text = "Click the button"
+	
+End Sub
+	
+Sub PopulateLabels()
+
+	
+	
+End Sub
+	
+Sub LoadSettings()
+
+	Title1.Visible = Not RenderInWebPartMode
+	
+	If Not ModuleConfiguration Is Nothing Then
+	
+		Title = ModuleConfiguration.ModuleTitle
+        Description = ModuleConfiguration.FeatureName
+		
+	End If
+	
+End Sub
+
+
+
+</script>
+
+<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
+<mp:CornerRounderTop id="ctop1" runat="server" />
+<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server"  CssClass="panelwrapper linksmodule">
+<portal:ModuleTitleControl id="Title1" runat="server" />
+<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
+<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
+
+Your custom form goes here.
+<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+<portal:mojoButton ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+
+</portal:InnerBodyPanel>
+<portal:EmptyPanel id="divFooter" runat="server" CssClass="modulefooter" SkinID="modulefooter"></portal:EmptyPanel>
+</portal:OuterBodyPanel>
+<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+</portal:InnerWrapperPanel>
+<mp:CornerRounderBottom id="cbottom1" runat="server" />
+</portal:OuterWrapperPanel>
+
+
+
+
+<script runat="template">
+
+
+
+	
+</script>

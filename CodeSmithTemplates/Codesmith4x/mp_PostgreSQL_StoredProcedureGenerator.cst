@@ -1,0 +1,656 @@
+<%-- 
+Name:  						PostgreSQL Stored Procedure Generator
+Author: 					Joseph Hill
+Created:					2/19/2005
+Description: 				Creates basic CRUD procedures for a table
+							Modified from MS SQL Stored Procedure Generator
+							by Joe Audette
+							v2 created 4/17/2005 removed use of ProcedurePrefix as table name already has prefix
+							6/4/2006 Joe Audette, added support for guids, treating MS SQL uniqueidentifier as varchar(36)
+							8/23/2006 Joe Audette converted to Codesmith 3.x
+							2007/05/06 added count
+							2007-09-22
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="T-SQL" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author of stored procedure" %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="IncludeDrop" Type="System.Boolean" Default="False" Category="Options" Description="If true drop statements will be generated to drop existing stored procedures." %>
+<%@ Property Name="IncludeInsert" Type="System.Boolean" Default="True" Category="Options" Description="If true insert statements will be generated." %>
+<%@ Property Name="IncludeUpdate" Type="System.Boolean" Default="True" Category="Options" Description="If true update statements will be generated." %>
+<%@ Property Name="IncludeDelete" Type="System.Boolean" Default="True" Category="Options" Description="If true delete statements will be generated." %>
+<%@ Property Name="IncludeSelect" Type="System.Boolean" Default="True" Category="Options" Description="If true Select One will be generated." %>
+<%@ Property Name="IncludeSelectAll" Type="System.Boolean" Default="True" Category="Options" Description="If true Select All statements will be generated." %>
+<%@ Property Name="IncludeType" Type="System.Boolean" Default="True" Category="Options" Description="If true return types will be created for tables." %>
+<%@ Property Name="InsertSuffix" Type="System.String" Default="_insert" Category="Style" Description="Suffix to use for all generated INSERT stored procedures." %>
+<%@ Property Name="UpdateSuffix" Type="System.String" Default="_update" Category="Style" Description="Suffix to use for all generated UPDATE stored procedures." %>
+<%@ Property Name="DeleteSuffix" Type="System.String" Default="_delete" Category="Style" Description="Suffix to use for all generated DELETE stored procedures." %>
+<%@ Property Name="SelectSuffix" Type="System.String" Default="_select_one" Category="Style" Description="Suffix to use for all generated SELECT stored procedures." %>
+<%@ Property Name="SelectAllSuffix" Type="System.String" Default="_select_all" Category="Style" Description="Suffix to use for all generated SELECT stored procedures." %>
+<%@ Property Name="TypeSuffix" Type="System.String" Default="_type" Category="Style" Description="Suffix to use for all generated SELECT stored procedures." %>
+
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+<% if (SourceTable.PrimaryKey == null) throw new ApplicationException("SourceTable does not contain a primary key."); %>
+
+<% if (IncludeInsert) { %>
+<% if (SourceTable.PrimaryKey.MemberColumns.Count == 1 && (SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Guid || SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int16 || SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int32 || SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int64)) {
+    ColumnSchema primaryKey = SourceTable.PrimaryKey.MemberColumns[0];
+%>
+
+<% if (primaryKey.DataType == DbType.Guid) {  %>
+create or replace function <%= GetTableName(SourceTable.Name) %><%= InsertSuffix %>(
+<% for (int i = 0; i < SourceTable.Columns.Count; i++) { 
+	int j = i + 1;%>
+	<%= GetPostgreSqlCreateParam(SourceTable.Columns[i], !(i < SourceTable.Columns.Count - 1)) + " $" + j.ToString()%>
+<% } %>
+) returns int4
+as '
+declare
+<% for (int i = 0; i < SourceTable.Columns.Count; i++) {  
+					int j = i + 1;%>
+            _<%= GetColumnName(SourceTable.Columns[i].Name) %> alias for $<%= j.ToString()%>;
+            <% } %>
+			_rowcount int4;
+begin
+
+insert into 	<%= GetTableName(SourceTable.Name) %>
+(			
+                <% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+                <%= GetColumnName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+                <% } %>
+) 
+values 
+(				
+                <% for (int i = 0; i < SourceTable.Columns.Count; i++) { 
+					int j = i + 1;%>
+                _<%= GetColumnName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %> 
+                <% } %>                
+);
+GET DIAGNOSTICS _rowcount = ROW_COUNT;
+return _rowcount;
+end'
+security definer language plpgsql;
+grant execute on function <%= GetTableName(SourceTable.Name) %><%= InsertSuffix %>(
+<% for (int i = 0; i < SourceTable.Columns.Count; i++) { 
+	int j = i + 1;%>
+	<%= GetPostgreSqlCreateParam(SourceTable.Columns[i], !(i < SourceTable.Columns.Count - 1)) + " $" + j.ToString()%>
+<% } %>
+) to public;
+
+<%
+ } 
+else
+{ %>
+create or replace function <%= GetTableName(SourceTable.Name) %><%= InsertSuffix %>(
+<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { 
+	int j = i + 1;%>
+	<%= GetPostgreSqlCreateParam(SourceTable.NonPrimaryKeyColumns[i], !(i < SourceTable.NonPrimaryKeyColumns.Count - 1)) + " $" + j.ToString()%>
+<% } %>
+) returns <%= GetColumnTypeWithDimensions(SourceTable.PrimaryKey.MemberColumns[0]) %>
+as '
+
+insert into 	<%= GetTableName(SourceTable.Name) %>
+(				<%// if (primaryKey.DataType == DbType.Guid) { %>
+                <%//= primaryKey.Name ,%>
+                <%// } %>
+                <% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+                <%= GetColumnName(SourceTable.NonPrimaryKeyColumns[i].Name) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %>
+                <% } %>
+) 
+values 
+(				<%// if (primaryKey.DataType == DbType.Guid) { %>
+                <%//= primaryKey.Name ,%>
+                <%// } %>
+                <% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { 
+					int j = i + 1;%>
+                $<%= j.ToString()%><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %> --:<%= GetColumnName(SourceTable.NonPrimaryKeyColumns[i].Name) %>
+                <% } %>                
+);
+<% if (primaryKey.DataType == DbType.Int16 || primaryKey.DataType == DbType.Int32 || primaryKey.DataType == DbType.Int64) { %>
+select cast(currval(''<%= GetTableName(SourceTable.Name) %><%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[0].Name) %>_seq'') as <%= GetColumnTypeWithDimensions(SourceTable.PrimaryKey.MemberColumns[0]) %><% } %>);'
+security definer language sql;
+grant execute on function <%= GetTableName(SourceTable.Name) %><%= InsertSuffix %>(
+<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { 
+	int j = i + 1;%>
+	<%= GetPostgreSqlCreateParam(SourceTable.NonPrimaryKeyColumns[i], !(i < SourceTable.NonPrimaryKeyColumns.Count - 1)) + " $" + j.ToString()%>
+<% } %>
+) to public;
+
+<% } %>
+
+<%//} 
+} else { %>
+create or replace function <%= GetTableName(SourceTable.Name) %><%= InsertSuffix %>(
+<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { 
+	int j = i + 1;%>
+	<%= GetPostgreSqlParameterStatement(SourceTable.NonPrimaryKeyColumns[i], !(i < SourceTable.NonPrimaryKeyColumns.Count - 1)) + " $" + j.ToString()%>
+<% } %>
+) returns <%= GetColumnTypeWithDimensions(SourceTable.PrimaryKey.MemberColumns[0]) %>
+as '
+
+-- THIS STORED PROCEDURE NEEDS TO BE MANUALLY COMPLETED
+-- MULITPLE PRIMARY KEY MEMBERS OR NON-GUID/INT PRIMARY KEY
+
+insert into 	<%= GetTableName(SourceTable.Name) %>
+(				<%// if (primaryKey.DataType == DbType.Guid) { %>
+                <%//= primaryKey.Name ,%>
+                <%// } %>
+                <% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+                <%= GetColumnName(SourceTable.NonPrimaryKeyColumns[i].Name) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %>
+                <% } %>
+) 
+values 
+(				<%// if (primaryKey.DataType == DbType.Guid) { %>
+                <%//= primaryKey.Name ,%>
+                <%// } %>
+                <% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { 
+					int j = i + 1;%>
+                $<%= j.ToString()%><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %> --:<%= GetColumnName(SourceTable.NonPrimaryKeyColumns[i].Name) %>
+                <% } %>                
+'
+security definer language sql;
+grant execute on function <%= GetTableName(SourceTable.Name) %><%= InsertSuffix %>(
+<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { 
+	int j = i + 1;%>
+	<%= GetPostgreSqlParameterStatement(SourceTable.NonPrimaryKeyColumns[i], !(i < SourceTable.NonPrimaryKeyColumns.Count - 1)) + " $" + j.ToString()%>
+<% } %>
+) to public;
+<% } %>
+
+<% } %>
+
+<% if (IncludeUpdate) { %>
+create or replace function <%= GetTableName(SourceTable.Name) %><%= UpdateSuffix %>(
+<% for (int i = 0; i < SourceTable.Columns.Count; i++) { 
+	int j = i + 1;%>
+	<%= GetPostgreSqlCreateParam(SourceTable.Columns[i], !(i < SourceTable.Columns.Count - 1)) + " $" + j.ToString()%>
+<% } %>
+) returns int4
+as '
+
+declare
+<% for (int i = 0; i < SourceTable.Columns.Count; i++) {  
+					int j = i + 1;%>
+            _<%= GetColumnName(SourceTable.Columns[i].Name) %> alias for $<%= j.ToString()%>;
+            <% } %>
+			_rowcount int4;
+begin
+update 		<%= GetTableName(SourceTable.Name) %>
+
+set
+            <% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) {  
+					int j = i + SourceTable.PrimaryKey.MemberColumns.Count + 1;%>
+            <%= GetColumnName(SourceTable.NonPrimaryKeyColumns[i].Name) %> = _<%= GetColumnName(SourceTable.NonPrimaryKeyColumns[i].Name) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %> 
+            <% } %>
+            
+where
+            <% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { 
+				int j = i + 1;%>
+            <% if (i > 0) { %>and <% } %><%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> = _<%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>,<% } else { %>;<% } %> 
+			<% } %>
+GET DIAGNOSTICS _rowcount = ROW_COUNT;
+return _rowcount;
+end'
+security definer language plpgsql;
+grant execute on function <%= GetTableName(SourceTable.Name) %><%= UpdateSuffix %>(
+<% for (int i = 0; i < SourceTable.Columns.Count; i++) { 
+	int j = i + 1;%>
+	<%= GetPostgreSqlCreateParam(SourceTable.Columns[i], !(i < SourceTable.Columns.Count - 1)) + " $" + j.ToString()%>
+<% } %>
+) to public;
+<% } %>
+
+<% if (IncludeDelete) { %>
+create or replace function <%= GetTableName(SourceTable.Name) %><%= DeleteSuffix %> 
+(
+<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { 
+	int j = i + 1;%>
+	<%= GetPostgreSqlCreateParam(SourceTable.PrimaryKey.MemberColumns[i], !(i < SourceTable.PrimaryKey.MemberColumns.Count - 1)) + " $" + j.ToString()%>
+<% } %>
+) returns int4
+as '
+declare
+<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) {  
+					int j = i + 1;%>
+            _<%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> alias for $<%= j.ToString()%>;
+            <% } %>
+			_rowcount int4;
+begin
+	delete from <%= GetTableName(SourceTable.Name) %>
+	where <% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { 
+	   int j = i + 1;
+       if (i > 0) { %>and <% } %><%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> = _<%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% } %>;
+	
+GET DIAGNOSTICS _rowcount = ROW_COUNT;
+return _rowcount;
+end'
+security definer language plpgsql;
+grant execute on function <%= GetTableName(SourceTable.Name) %><%= DeleteSuffix %> (
+<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { 
+	int j = i + 1;%>
+	<%= GetPostgreSqlCreateParam(SourceTable.PrimaryKey.MemberColumns[i], !(i < SourceTable.PrimaryKey.MemberColumns.Count - 1)) + " $" + j.ToString() %>
+<% } %>
+) to public;
+
+<% } %>
+<% if (IncludeType) { %>
+<% } %>
+
+<% if (IncludeSelect) { %>
+
+	<% if (IncludeType) { %>
+
+select drop_type('<%= GetTableName(SourceTable.Name) %><%= SelectSuffix %><%= TypeSuffix %>');
+CREATE TYPE public.<%= GetTableName(SourceTable.Name) %><%= SelectSuffix %><%= TypeSuffix %> as (
+<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+	<%= GetColumnName(SourceTable.Columns[i].Name) %> <%= GetColumnTypeWithDimensions(SourceTable.Columns[i])%><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+<% } %>
+);
+
+	<% } %>
+
+create or replace function <%= GetTableName(SourceTable.Name) %><%= SelectSuffix %> (
+<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { 
+	int j = i + 1;%>
+	<%= GetPostgreSqlCreateParam(SourceTable.PrimaryKey.MemberColumns[i], !(i < SourceTable.PrimaryKey.MemberColumns.Count - 1)) + " $" + j.ToString()%>
+<% } %>
+) returns setof <%= GetTableName(SourceTable.Name) %><%= SelectSuffix %><%= TypeSuffix %>
+as '
+
+select
+        <% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+        <%= GetColumnName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+        <% } %>
+from
+        <%= GetTableName(SourceTable.Name) %>
+        
+where
+        <% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { 
+	   int j = i + 1;
+       if (i > 0) { %>and <% } %><%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> = $<%= j.ToString() %><% } %>;'
+security definer language sql;
+grant execute on function <%= GetTableName(SourceTable.Name) %><%= SelectSuffix %> (
+<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { 
+	int j = i + 1;%>
+	<%= GetPostgreSqlCreateParam(SourceTable.PrimaryKey.MemberColumns[i], !(i < SourceTable.PrimaryKey.MemberColumns.Count - 1)) + " $" + j.ToString() %>
+<% } %>
+) to public;
+<% } %>
+
+<% if (IncludeSelectAll) { %>
+
+	<% if (IncludeType) { %>
+	
+select drop_type('<%= GetTableName(SourceTable.Name) %><%= SelectAllSuffix %><%= TypeSuffix %>');
+CREATE TYPE public.<%= GetTableName(SourceTable.Name) %><%= SelectAllSuffix %><%= TypeSuffix %> as (
+<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+	<%= GetColumnName(SourceTable.Columns[i].Name) %> <%= GetColumnTypeWithDimensions(SourceTable.Columns[i])%><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+<% } %>
+);
+
+	<% } %>
+
+create or replace function <%= GetTableName(SourceTable.Name) %><%= SelectAllSuffix %>(
+) returns setof <%= GetTableName(SourceTable.Name) %><%= SelectAllSuffix %><%= TypeSuffix %>
+as '
+
+select
+        <% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+        <%= GetColumnName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+        <% } %>
+from
+        <%= GetTableName(SourceTable.Name) %>
+;'
+	
+security definer language sql;
+grant execute on function <%= GetTableName(SourceTable.Name) %><%= SelectAllSuffix %>(
+) to public;
+<% } %>
+
+create or replace function <%= GetTableName(SourceTable.Name) %>_selectpage
+(
+	int, --:pagenumber $1
+	int --:pagesize $2
+) returns setof <%= GetTableName(SourceTable.Name) %><%= SelectAllSuffix %><%= TypeSuffix %> 
+as '
+declare
+	_pagenumber alias for $1;
+	_pagesize alias for $2;
+	_pagelowerbound int;
+	_rec <%= GetTableName(SourceTable.Name) %><%= SelectAllSuffix %><%= TypeSuffix %>%ROWTYPE;
+
+begin
+
+_pagelowerbound := (_pagesize * _pagenumber) - _pagesize;
+
+for _rec in
+	select 
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+        <%= GetColumnName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+        <% } %>
+
+	from <%= GetTableName(SourceTable.Name) %>
+	-- where
+	-- order by 	
+	limit 	_pagesize
+	offset 	_pagelowerbound
+loop
+	return next _rec;
+end loop;
+return;
+end'
+security definer language plpgsql;
+grant execute on function <%= GetTableName(SourceTable.Name) %>_selectpage
+(
+	int, --:pagenumber $1
+	int --:pagesize $2
+) to public;
+
+
+
+create or replace function <%= GetTableName(SourceTable.Name) %>_count
+(
+) returns int4
+as '
+select  	cast(count(*) as int4)
+from		<%= GetTableName(SourceTable.Name) %>
+; '
+security definer language sql;
+
+grant execute on function <%= GetTableName(SourceTable.Name) %>_count
+(
+) to public;
+
+
+
+<script runat="template">
+
+public string GetPostgreSqlParameterStatement(ColumnSchema column, bool LastColumn)
+{
+	string retVal = GetColumnTypeWithDimensions(column);
+	if (!LastColumn) {
+		retVal += ",";
+	}
+	
+	retVal += " --:"  + GetColumnName(column.Name);
+	
+    return retVal;
+}
+
+public string GetPostgreSqlCreateParam(ColumnSchema column, bool LastColumn)
+{
+	string retVal = GetPostgreSqlCreateTypeNameFromNativeType(column) + GetColumnDimensions(column);
+	if (!LastColumn) {
+		retVal += ",";
+	}
+	
+	retVal += " --:"  + GetColumnName(column.Name);
+	
+    return retVal;
+}
+
+public string GetPostgreSqlReturnTypeStatement(ColumnSchema column, bool LastColumn)
+{
+	string retVal = GetPostgreSqlTypeNameFromNativeType(column);
+	if (!LastColumn) {
+		retVal += ",";
+	}
+	
+    return retVal;
+}
+
+public string GetTableName(string TableName) 
+{
+	return TableName.ToLower();
+	
+}
+
+public string GetColumnTypeWithDimensions(ColumnSchema column) {
+	return GetPostgreSqlTypeNameFromNativeType(column) + GetColumnDimensions(column);
+}
+
+
+
+public string GetColumnName(string ColumnName) 
+{
+	return ColumnName.ToLower();
+	
+}
+
+public string GetPostgreSqlTypeNameFromNativeType(ColumnSchema column) {
+//column.NativeType.Trim().ToLower()
+	switch (column.NativeType.Trim().ToLower())
+	{
+		case "bigint":
+			return "int8";
+		case "binary":
+			return "bytea";
+		case "bit":
+		case "boolean":
+			return "bool";
+		case "bstr":
+			return "bytea";
+		case "chapter":
+			return "int4";
+		case "char":
+			return "char";
+		case "currency":
+			return "money";
+		case "datetime":
+			return "timestamp";
+		case "date":
+		case "dbdate":
+			return "date";
+		case "dbtime":
+			return "time";
+		case "dbtimestamp":
+			return "timestamp";
+		case "decimal":
+			return "numeric";
+		case "double":
+		case "float":
+			return "float8";
+		case "empty":
+			return "text";
+		case "error":
+			return "int4";
+		case "filetime":
+			return "timestamp";
+		case "guid":
+			return "text";
+		case "image":
+			return "bytea";
+		case "int":
+		case "integer":
+			return "int4";
+		case "longvarbinary":
+		case "longvarchar":
+		case "longvarwchar":
+			return "text";
+		case "money":
+			return "money";
+		case "nchar":
+			return "char";
+		case "ntext":
+			return "text";
+		case "numeric":
+			return "numeric";
+		case "nvarchar":
+			return "varchar";
+		case "propvariant":
+			return "text";
+		case "real":
+			return "real";
+		case "single":
+			return "float4";
+		case "smalldatetime":
+			return "timestamp";
+		case "smallint":
+			return "int2";
+		case "smallmoney":
+			return "money";
+		case "sql_variant":
+			return "text";
+		case "sysname":
+			return "varchar";
+		case "text":
+			return "text";
+		case "timestamp":
+			return "timestamp";
+		case "tinyint":
+			return "tinyint";
+		case "uniqueidentifier":
+			return "char(36)";
+		case "unsignedbigint":
+			return "int8";
+		case "unsignedsmallint":
+			return "int2";
+		case "unsignedtinyint":
+			return "int2";
+		case "varbinary":
+		case "varchar": 
+		case "varwchar": 
+		case "wchar": 
+			return "text";
+		case "userdefined": 
+		default: 
+			throw new ApplicationException("SourceTable does not contain a primary key.");
+	}
+}
+
+public string GetPostgreSqlCreateTypeNameFromNativeType(ColumnSchema column) {
+//column.NativeType.Trim().ToLower()
+	switch (column.NativeType.Trim().ToLower())
+	{
+		case "bigint":
+			return "int8";
+		case "binary":
+			return "bytea";
+		case "bit":
+		case "boolean":
+			return "bool";
+		case "bstr":
+			return "bytea";
+		case "chapter":
+			return "int4";
+		case "char":
+			return "char";
+		case "currency":
+			return "money";
+		case "datetime":
+			return "timestamp";
+		case "date":
+		case "dbdate":
+			return "date";
+		case "dbtime":
+			return "time";
+		case "dbtimestamp":
+			return "timestamp";
+		case "decimal":
+			return "numeric";
+		case "double":
+		case "float":
+			return "float8";
+		case "empty":
+			return "text";
+		case "error":
+			return "int4";
+		case "filetime":
+			return "timestamp";
+		case "guid":
+			return "text";
+		case "image":
+			return "bytea";
+		case "int":
+		case "integer":
+			return "int";
+		case "longvarbinary":
+		case "longvarchar":
+		case "longvarwchar":
+			return "text";
+		case "money":
+			return "money";
+		case "nchar":
+			return "char";
+		case "ntext":
+			return "text";
+		case "numeric":
+			return "numeric";
+		case "nvarchar":
+			return "varchar";
+		case "propvariant":
+			return "text";
+		case "real":
+			return "real";
+		case "single":
+			return "float4";
+		case "smalldatetime":
+			return "timestamp";
+		case "smallint":
+			return "int2";
+		case "smallmoney":
+			return "money";
+		case "sql_variant":
+			return "text";
+		case "sysname":
+			return "varchar";
+		case "text":
+			return "text";
+		case "timestamp":
+			return "timestamp";
+		case "tinyint":
+			return "tinyint";
+		case "uniqueidentifier":
+			return "char(36)";
+		case "unsignedbigint":
+			return "int8";
+		case "unsignedsmallint":
+			return "int2";
+		case "unsignedtinyint":
+			return "int2";
+		case "varbinary":
+		case "varchar": 
+		case "varwchar": 
+		case "wchar": 
+			return "text";
+		case "userdefined": 
+		default: 
+			throw new ApplicationException("SourceTable does not contain a primary key.");
+	}
+}
+
+public string GetColumnDimensions(ColumnSchema column) {
+	string retVal = "";
+	switch (column.DataType)
+	{
+		case DbType.Decimal:
+		{
+			retVal = "(" + column.Precision + ", " + column.Scale + ")";
+			break;
+		}
+		case DbType.AnsiString:
+		case DbType.AnsiStringFixedLength:
+		case DbType.String:
+		case DbType.StringFixedLength:
+		{
+			if (column.NativeType != "text" && column.NativeType != "ntext")
+			{
+				if (column.Size > 0)
+				{
+					retVal = "(" + column.Size + ")";
+				}
+			}
+			break;
+		}
+	}
+	return retVal;
+}
+
+</script>

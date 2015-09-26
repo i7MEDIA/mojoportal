@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOptionButton" xml:space="preserve">
+    <value>Add Option</value>
+  </data>
+  <data name="AnalyticsTrackingUrlSetting" xml:space="preserve">
+    <value>Form Submit Analytics Tracking Url</value>
+  </data>
+  <data name="AnswerRequiredLabel" xml:space="preserve">
+    <value>Answer Required</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Please Wait...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CheckBoxListQuestionType" xml:space="preserve">
+    <value>Checkboxes</value>
+  </data>
+  <data name="CheckBoxQuestionType" xml:space="preserve">
+    <value>Yes/No Checkbox</value>
+  </data>
+  <data name="DateQuestionType" xml:space="preserve">
+    <value>Date picker</value>
+  </data>
+  <data name="DeleteOptionWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this option?</value>
+  </data>
+  <data name="DeleteOrphansButton" xml:space="preserve">
+    <value>Delete Orphan Responses</value>
+  </data>
+  <data name="DeleteOrphansWarning" xml:space="preserve">
+    <value>Are you sure you want to delete the orphaned responses?</value>
+  </data>
+  <data name="DeleteQuestionWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this question?</value>
+  </data>
+  <data name="DeleteResponsesButton" xml:space="preserve">
+    <value>Delete All Form Submissions</value>
+  </data>
+  <data name="DeleteResponsesWarning" xml:space="preserve">
+    <value>Are you sure you want to delete all the submitted forms? You cannot undo this operation. You should export the results first to avoid losing the data.</value>
+  </data>
+  <data name="DoneButton" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="DropDownListQuestionType" xml:space="preserve">
+    <value>Choose from  a list</value>
+  </data>
+  <data name="DropDownPleaseSelectText" xml:space="preserve">
+    <value>Please select...</value>
+  </data>
+  <data name="EditLink" xml:space="preserve">
+    <value>Edit Form</value>
+  </data>
+  <data name="EditQuestionButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EnableAntiSpamSetting" xml:space="preserve">
+    <value>Enable SPAM Blocking</value>
+  </data>
+  <data name="ExportFormDefinition" xml:space="preserve">
+    <value>Export Form Definition</value>
+  </data>
+  <data name="ExportOrphansButton" xml:space="preserve">
+    <value>Export Orphan Responses</value>
+  </data>
+  <data name="ExportQuestionButton" xml:space="preserve">
+    <value>Export Question</value>
+  </data>
+  <data name="ExportToCSVButton" xml:space="preserve">
+    <value>Export Data as CSV (Comma Separated Values/Excel)</value>
+  </data>
+  <data name="FileRequiredWarning" xml:space="preserve">
+    <value>You must choose a file.</value>
+  </data>
+  <data name="FinishButton" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="FinishedButton" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="FormDefinitionExtensionWarning" xml:space="preserve">
+    <value>Form definitions files should have a .config extension.</value>
+  </data>
+  <data name="FormEditPageTitle" xml:space="preserve">
+    <value>Form Editor</value>
+  </data>
+  <data name="FormPageUrlFormat" xml:space="preserve">
+    <value>From Url: {0}</value>
+  </data>
+  <data name="FormSubmissionsLink" xml:space="preserve">
+    <value>Submission Data</value>
+  </data>
+  <data name="FormSubmitNotificationTask" xml:space="preserve">
+    <value>FormSubmitNotificationTask</value>
+  </data>
+  <data name="FormWizardFeatureName" xml:space="preserve">
+    <value>Form Wizard Pro by Source Tree Solutions</value>
+  </data>
+  <data name="ImportFormButton" xml:space="preserve">
+    <value>Import Form Definition</value>
+  </data>
+  <data name="ImportFormWarning" xml:space="preserve">
+    <value>Are you sure you want to import a form definition and replace all the contents of the current form? Any existing questions or intructions will be replaced.  If the current form has questions, it might be wise to export it first so you have a backup. You should also export any existing submissions and then delete them, otherwise there will be orphan responses that no longer correspond to existing form questions.</value>
+  </data>
+  <data name="ImportQuestionButton" xml:space="preserve">
+    <value>Import Question</value>
+  </data>
+  <data name="InstructionBlockLabel" xml:space="preserve">
+    <value>Instruction Block</value>
+  </data>
+  <data name="InstructionBlockQuestionType" xml:space="preserve">
+    <value>Instruction Block</value>
+  </data>
+  <data name="InstructionsTab" xml:space="preserve">
+    <value>Instructions</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>is required.</value>
+  </data>
+  <data name="MaxRangeLabel" xml:space="preserve">
+    <value>Maximum Value</value>
+  </data>
+  <data name="MinRangeLabel" xml:space="preserve">
+    <value>Minimum Value</value>
+  </data>
+  <data name="NewQuestionButton" xml:space="preserve">
+    <value>Add New Question</value>
+  </data>
+  <data name="NextButton" xml:space="preserve">
+    <value>Next &gt;&gt;</value>
+  </data>
+  <data name="NitificationSiteUserFormat" xml:space="preserve">
+    <value>Received From Site User: {0}</value>
+  </data>
+  <data name="NoResultsMessage" xml:space="preserve">
+    <value>There have not yet been any form submissions.</value>
+  </data>
+  <data name="NotificationAliasLabelSetting" xml:space="preserve">
+    <value>Label for Email List</value>
+  </data>
+  <data name="NotificationAliasSetting" xml:space="preserve">
+    <value>Display Aliases for Email Addresses</value>
+  </data>
+  <data name="NotificationEmailBccSetting" xml:space="preserve">
+    <value>Notification BCC Email Address(es)</value>
+  </data>
+  <data name="NotificationEmailSetting" xml:space="preserve">
+    <value>Email Address(es) to Receive Form Submissions</value>
+  </data>
+  <data name="NotificationIPAddressFormat" xml:space="preserve">
+    <value>From IP Address: {0}</value>
+  </data>
+  <data name="NotificationSubjectFormat" xml:space="preserve">
+    <value>Form Submission Received: {0}</value>
+  </data>
+  <data name="OptionsHeading" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="OrphanCountLabel" xml:space="preserve">
+    <value>Orphan Response Count</value>
+  </data>
+  <data name="Orphans" xml:space="preserve">
+    <value>orphans</value>
+  </data>
+  <data name="PageNumberLabel" xml:space="preserve">
+    <value>Page Number</value>
+  </data>
+  <data name="PreValidateForm" xml:space="preserve">
+    <value>Pre-Validate the Form?</value>
+  </data>
+  <data name="PreviousButton" xml:space="preserve">
+    <value>&lt;&lt; Back</value>
+  </data>
+  <data name="QuestionEditOptionsDeleteAlternateText" xml:space="preserve">
+    <value>Delete Selected Option</value>
+  </data>
+  <data name="QuestionEditOptionsDownAlternateText" xml:space="preserve">
+    <value>Move Selected Option Down</value>
+  </data>
+  <data name="QuestionEditOptionsEditAlternateText" xml:space="preserve">
+    <value>Edit Selected Option</value>
+  </data>
+  <data name="QuestionEditOptionsUpAlternateText" xml:space="preserve">
+    <value>Move Selected Option Up</value>
+  </data>
+  <data name="QuestionsTab" xml:space="preserve">
+    <value>Questions</value>
+  </data>
+  <data name="QuestionTextLabel" xml:space="preserve">
+    <value>Question Text</value>
+  </data>
+  <data name="QuestionTypeLabel" xml:space="preserve">
+    <value>Question Type</value>
+  </data>
+  <data name="RadioButtonListQuestionType" xml:space="preserve">
+    <value>Multiple choice</value>
+  </data>
+  <data name="RequiredFieldIndicator" xml:space="preserve">
+    <value> *</value>
+  </data>
+  <data name="ResultsTitleFormat" xml:space="preserve">
+    <value>{0} Submissions</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SliderQuestionType" xml:space="preserve">
+    <value>Sliding scale</value>
+  </data>
+  <data name="SliderTooltipFormat" xml:space="preserve">
+    <value>Slider: value {0}. Please slide to change value.</value>
+  </data>
+  <data name="SubmissionCountLabel" xml:space="preserve">
+    <value>Total Submissions</value>
+  </data>
+  <data name="SubmitButton" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="TaskCompleted" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="TaskQueued" xml:space="preserve">
+    <value>Queued</value>
+  </data>
+  <data name="TaskRunning" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="TaskStarted" xml:space="preserve">
+    <value>Started</value>
+  </data>
+  <data name="TextAreaQuestionType" xml:space="preserve">
+    <value>Paragraph text</value>
+  </data>
+  <data name="TextBoxQuestionType" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="ThankYouMessageTab" xml:space="preserve">
+    <value>Thank You Message</value>
+  </data>
+  <data name="TotalPagesLabel" xml:space="preserve">
+    <value>Total Pages</value>
+  </data>
+  <data name="UpdateOptionButton" xml:space="preserve">
+    <value>Update Option</value>
+  </data>
+  <data name="BrowseResultsLink" xml:space="preserve">
+    <value>Browse Submissions</value>
+  </data>
+  <data name="EnableRegexValidation" xml:space="preserve">
+    <value>Enable Regular Expression Validation of Text Questions?</value>
+  </data>
+  <data name="InvalidRegexTextLabel" xml:space="preserve">
+    <value>Invalid Message</value>
+  </data>
+  <data name="RegexExpressionLabel" xml:space="preserve">
+    <value>Validation Regular Expression</value>
+  </data>
+  <data name="ResultsGridPageSizeSetting" xml:space="preserve">
+    <value>Results Grid Page Size</value>
+  </data>
+  <data name="ViewResultsGridLink" xml:space="preserve">
+    <value>View Submissions Grid</value>
+  </data>
+  <data name="ViewResultsGridTooltip" xml:space="preserve">
+    <value>Form Submissions</value>
+  </data>
+  <data name="DeleteQuestionButtonTooltip" xml:space="preserve">
+    <value>Delete this question</value>
+  </data>
+  <data name="EditInstructionsLink" xml:space="preserve">
+    <value>Edit Instructions</value>
+  </data>
+  <data name="DeleteResponseButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteResponseWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this form submission?</value>
+  </data>
+  <data name="ResponseTimeIpFormat" xml:space="preserve">
+    <value>Received {0} from IP Address {1}</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Custom CSS Class</value>
+  </data>
+  <data name="ExportToWord" xml:space="preserve">
+    <value>Export to Word</value>
+  </data>
+  <data name="InvalidRegexWarning" xml:space="preserve">
+    <value>The regular expression entered is not valid.</value>
+  </data>
+  <data name="BrowseResultsTooltip" xml:space="preserve">
+    <value>Browse Submissions</value>
+  </data>
+  <data name="CssClassLabel" xml:space="preserve">
+    <value>CSS Class</value>
+  </data>
+  <data name="InvalidCssClassWarning" xml:space="preserve">
+    <value>Only alphanumeric characters are allowed for CSS classes.</value>
+  </data>
+  <data name="AllowedUploadExtensions" xml:space="preserve">
+    <value>Allowed Upload Extensions</value>
+  </data>
+  <data name="AllowedUploadExtensionsWarning" xml:space="preserve">
+    <value>Allowed Upload Extensions Warning</value>
+  </data>
+  <data name="AllowedUploads" xml:space="preserve">
+    <value>Allowed Uploads</value>
+  </data>
+  <data name="UploadInstructions" xml:space="preserve">
+    <value>Upload Instructions</value>
+  </data>
+  <data name="FileUploadSettings" xml:space="preserve">
+    <value>File Upload Settings</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>General Settings</value>
+  </data>
+  <data name="NotificationSettings" xml:space="preserve">
+    <value>Notification Settings</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Upload/Finish</value>
+  </data>
+  <data name="DeleteAttachmentWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this file submission?</value>
+  </data>
+  <data name="DownloadLink" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="FileUploadGlobalRegexWarning" xml:space="preserve">
+    <value>File type is not allowed by global configuration settings.</value>
+  </data>
+  <data name="NotificationIncludeDetails" xml:space="preserve">
+    <value>Include Details in Notification?</value>
+  </data>
+  <data name="NotificationIntro" xml:space="preserve">
+    <value>A form has been submitted, click the link below to view the submission:</value>
+  </data>
+  <data name="FormSubmittedEventHandlerSetting" xml:space="preserve">
+    <value>Submission Event Handler</value>
+  </data>
+  <data name="NotificationFilesExcludedWarning" xml:space="preserve">
+    <value>File attachment(s) were not included due to the size of the file, click the link to view the submission and download submitted files.</value>
+  </data>
+  <data name="NotificationIncludeFiles" xml:space="preserve">
+    <value>Include Submitted Files as Attachments?</value>
+  </data>
+  <data name="NotificationLeaveOutUnansweredQuestions" xml:space="preserve">
+    <value>Leave unanswered questions out of notification?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="File1ErrorFormat" xml:space="preserve">
+    <value>File 1: {0}</value>
+  </data>
+  <data name="File2ErrorFormat" xml:space="preserve">
+    <value>File 2: {0}</value>
+  </data>
+  <data name="File3ErrorFormat" xml:space="preserve">
+    <value>File 3: {0}</value>
+  </data>
+  <data name="File4ErrorFormat" xml:space="preserve">
+    <value>File 4: {0}</value>
+  </data>
+  <data name="FileTooLargeWarning" xml:space="preserve">
+    <value>The uploaded file was discarded because it is larger than the configured limit. Please upload a file no larger than {0} MegaBytes.</value>
+  </data>
+  <data name="FileTooLargeWarningFormat" xml:space="preserve">
+    <value>File {0} was discarded because it is larger than the configured limit. Please upload a file no larger than {1} MegaBytes.</value>
+  </data>
+  <data name="FinishWithNoUploadButton" xml:space="preserve">
+    <value>Finish Without Uploading</value>
+  </data>
+  <data name="UploadIsRequired" xml:space="preserve">
+    <value>Upload Is Required?</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="EnableOptionAliases" xml:space="preserve">
+    <value>Enable Option Aliases?</value>
+  </data>
+  <data name="EnablePerQuestionCssClasses" xml:space="preserve">
+    <value>Enable Per Question CSS Classes?</value>
+  </data>
+  <data name="EnableQuestionAliases" xml:space="preserve">
+    <value>Enable Question Aliases?</value>
+  </data>
+  <data name="FlattenPagesAsGroups" xml:space="preserve">
+    <value>Flatten Pages As Groups?</value>
+  </data>
+  <data name="OverrideSubmitButtonText" xml:space="preserve">
+    <value>Override Submit Button Text</value>
+  </data>
+  <data name="QuestionAliasLabel" xml:space="preserve">
+    <value>Question Alias</value>
+  </data>
+  <data name="UseSslIfAvailable" xml:space="preserve">
+    <value>Use SSL If Available?</value>
+  </data>
+  <data name="ValueAlias" xml:space="preserve">
+    <value>Value/Alias</value>
+  </data>
+  <data name="ForceScrollTopAfterSubmit" xml:space="preserve">
+    <value>Force Scroll To Top After Submit?</value>
+  </data>
+</root>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.w3.org/1999/xhtml" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns="http://www.w3.org/1999/xhtml">
+    <xs:annotation>
+      <xs:documentation>
+        Base element
+        This is the XML Schema Base Element module for XHTML      
+                
+          * base
+
+        This module declares the base element type and its attributes,        
+        used to define a base URI against which relative URIs in the
+        document will be resolved.
+
+        $Id: xhtml-base-1.xsd,v 1.1 2003/12/17 03:09:17 ahby Exp $
+      </xs:documentation>
+      <xs:documentation source="xhtml-copyright-1.xsd"/>
+      <xs:documentation 
+          source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_basemodule"/>
+    </xs:annotation>
+    
+    <xs:attributeGroup name="base.attlist">
+       <xs:attribute name="href" type="URI" use="required"/>
+    </xs:attributeGroup>
+
+    <xs:group name="base.content">
+       <xs:sequence/>
+    </xs:group>  
+          
+    <xs:complexType name="base.type">
+       <xs:group ref="base.content"/>
+       <xs:attributeGroup ref="base.attlist"/>
+    </xs:complexType>
+    
+    <xs:element name="base" type="base.type"/>
+    
+</xs:schema>

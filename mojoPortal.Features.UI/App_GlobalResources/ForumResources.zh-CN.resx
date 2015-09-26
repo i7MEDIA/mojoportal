@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CutePagerBackToFirstClause" xml:space="preserve">
+    <value>导航到第一页</value>
+  </data>
+  <data name="CutePagerBackToPageClause" xml:space="preserve">
+    <value>回到页面</value>
+  </data>
+  <data name="CutePagerGoToLastClause" xml:space="preserve">
+    <value>导航到最后一页</value>
+  </data>
+  <data name="CutePagerNavigateToPageText" xml:space="preserve">
+    <value>导航到页</value>
+  </data>
+  <data name="CutePagerNextToPageClause" xml:space="preserve">
+    <value>下一页</value>
+  </data>
+  <data name="CutePagerOfClause" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="CutePagerPageClause" xml:space="preserve">
+    <value>页</value>
+  </data>
+  <data name="ForumDeletePostWarning" xml:space="preserve">
+    <value>要删除这个帖子?</value>
+  </data>
+  <data name="ForumDeleteThreadWarning" xml:space="preserve">
+    <value>要删除这个主题?</value>
+  </data>
+  <data name="ForumEditCancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ForumEditCreateButton" xml:space="preserve">
+    <value>创建新论坛</value>
+  </data>
+  <data name="ForumEditCreatedByLabel" xml:space="preserve">
+    <value>创建者:</value>
+  </data>
+  <data name="ForumEditCreatedDateLabel" xml:space="preserve">
+    <value>创建日期:</value>
+  </data>
+  <data name="ForumEditDeleteButton" xml:space="preserve">
+    <value>删除此项</value>
+  </data>
+  <data name="ForumEditDescriptionLabel" xml:space="preserve">
+    <value>描述:</value>
+  </data>
+  <data name="ForumEditForumLabel" xml:space="preserve">
+    <value>编辑论坛</value>
+  </data>
+  <data name="ForumEditIsActiveLabel" xml:space="preserve">
+    <value>激活?</value>
+  </data>
+  <data name="ForumEditIsModeratedLabel" xml:space="preserve">
+    <value>适合的?</value>
+  </data>
+  <data name="ForumEditLabel" xml:space="preserve">
+    <value>添加论坛</value>
+  </data>
+  <data name="ForumEditNewForumButton" xml:space="preserve">
+    <value>新论坛</value>
+  </data>
+  <data name="ForumEditPostLink" xml:space="preserve">
+    <value>编辑发帖</value>
+  </data>
+  <data name="ForumEditPostsPerPageLabel" xml:space="preserve">
+    <value>每页的帖子数:</value>
+  </data>
+  <data name="ForumEditSortOrderLabel" xml:space="preserve">
+    <value>排序顺序:</value>
+  </data>
+  <data name="ForumEditSubjectRequiredHelp" xml:space="preserve">
+    <value>必须输入一个主题</value>
+  </data>
+  <data name="ForumEditThreadsPerPageLabel" xml:space="preserve">
+    <value>每页的主题:</value>
+  </data>
+  <data name="ForumEditTitleLabel" xml:space="preserve">
+    <value>标题:</value>
+  </data>
+  <data name="ForumEditUpdateButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ForumEnableRSSAtForumLevel" xml:space="preserve">
+    <value>在论坛上允许RSS?</value>
+  </data>
+  <data name="ForumEnableRSSAtModuleLevel" xml:space="preserve">
+    <value>在模块上允许RSS?</value>
+  </data>
+  <data name="ForumEnableRSSAtThreadLevel" xml:space="preserve">
+    <value>在主题上允许RSS?</value>
+  </data>
+  <data name="ForumModuleEditSubscriptionsLabel" xml:space="preserve">
+    <value>编辑邮件订阅</value>
+  </data>
+  <data name="ForumModuleForumLabel" xml:space="preserve">
+    <value>论坛</value>
+  </data>
+  <data name="ForumModulePostCountLabel" xml:space="preserve">
+    <value>发帖总数</value>
+  </data>
+  <data name="ForumModulePostLastPostLabel" xml:space="preserve">
+    <value>最近发帖</value>
+  </data>
+  <data name="ForumModuleSubscribedLabel" xml:space="preserve">
+    <value>订阅？</value>
+  </data>
+  <data name="ForumModuleThreadCountLabel" xml:space="preserve">
+    <value>所有主题</value>
+  </data>
+  <data name="ForumPostEditCancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ForumPostEditDeleteButton" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="ForumPostEditMessageLabel" xml:space="preserve">
+    <value>消息:</value>
+  </data>
+  <data name="ForumPostEditNotifyLabel" xml:space="preserve">
+    <value>订阅回复通知？</value>
+  </data>
+  <data name="ForumPostEditSubjectLabel" xml:space="preserve">
+    <value>主题:</value>
+  </data>
+  <data name="ForumPostEditUpdateButton" xml:space="preserve">
+    <value>发布</value>
+  </data>
+  <data name="ForumsFeatureName" xml:space="preserve">
+    <value>论坛</value>
+  </data>
+  <data name="ForumsTableSummary" xml:space="preserve">
+    <value>此表包含的论坛集.</value>
+  </data>
+  <data name="ForumThreadCancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ForumThreadDeleteButton" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="ForumThreadEditForumLabel" xml:space="preserve">
+    <value>论坛</value>
+  </data>
+  <data name="ForumThreadEditLabel" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="ForumThreadEditSortOrderLabel" xml:space="preserve">
+    <value>排序顺序</value>
+  </data>
+  <data name="ForumThreadEditSubjectLabel" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="ForumThreadUnsubscribeCompleted" xml:space="preserve">
+    <value>取消订阅完成</value>
+  </data>
+  <data name="ForumThreadUnsubscribeFailed" xml:space="preserve">
+    <value>取消订阅失败,请联系管理员</value>
+  </data>
+  <data name="ForumThreadUpdateButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ForumThreadViewAuthorLabel" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="ForumThreadViewPagesLabel" xml:space="preserve">
+    <value>页:</value>
+  </data>
+  <data name="ForumThreadViewReplyLabel" xml:space="preserve">
+    <value>回复</value>
+  </data>
+  <data name="ForumUnsubscribeCompleted" xml:space="preserve">
+    <value>取消订阅完成</value>
+  </data>
+  <data name="ForumUnsubscribeFailed" xml:space="preserve">
+    <value>取消订阅失败,请联系管理员</value>
+  </data>
+  <data name="ForumViewNewThreadLabel" xml:space="preserve">
+    <value>新主题</value>
+  </data>
+  <data name="ForumViewPostLastPostLabel" xml:space="preserve">
+    <value>最后发帖</value>
+  </data>
+  <data name="ForumViewReplyCountLabel" xml:space="preserve">
+    <value>所有回复</value>
+  </data>
+  <data name="ForumViewStartedByLabel" xml:space="preserve">
+    <value>发起者</value>
+  </data>
+  <data name="ForumViewSubjectLabel" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="ForumViewTableSummary" xml:space="preserve">
+    <value>此表包含的论坛主题</value>
+  </data>
+  <data name="ForumViewThreadCountLabel" xml:space="preserve">
+    <value>主题总数</value>
+  </data>
+  <data name="ForumViewViewCountLabel" xml:space="preserve">
+    <value>阅读次数</value>
+  </data>
+  <data name="AdminUnsubscribeUserComplete" xml:space="preserve">
+    <value>退订发帖通知已经完成。</value>
+  </data>
+  <data name="AllowAnonymousPostsLabel" xml:space="preserve">
+    <value>允许匿名发帖？</value>
+  </data>
+  <data name="AllowEditingPostsLessThanMinutesOld" xml:space="preserve">
+    <value>Allow Users To Edit Their Posts For Up To This Many Minutes</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>请等待....</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>自定义CSS类</value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>无效的自定义CSS类</value>
+  </data>
+  <data name="DeleteForumWarning" xml:space="preserve">
+    <value>确定要删除这个论坛？</value>
+  </data>
+  <data name="EditImageAltText" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="ForumEditCancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ForumEditDeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="ForumEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ForumEnableAntiSpamSetting" xml:space="preserve">
+    <value>打开反垃圾功能？</value>
+  </data>
+  <data name="ForumLabel" xml:space="preserve">
+    <value>论坛</value>
+  </data>
+  <data name="ForumMetaDescriptionFormat" xml:space="preserve">
+    <value>A discussion forum for {0}</value>
+  </data>
+  <data name="ForumMyPostsLink" xml:space="preserve">
+    <value>我的帖子</value>
+  </data>
+  <data name="ForumPostEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ForumsLoginRequiredLink" xml:space="preserve">
+    <value>您必须登录才能发帖子。</value>
+  </data>
+  <data name="ForumsSearchName" xml:space="preserve">
+    <value>论坛</value>
+  </data>
+  <data name="ForumSubscriptions" xml:space="preserve">
+    <value>订阅论坛</value>
+  </data>
+  <data name="ForumThreadMetaDescriptionFormat" xml:space="preserve">
+    <value>讨论线程 - {0}</value>
+  </data>
+  <data name="ForumUserPostsLink" xml:space="preserve">
+    <value>查看帖子</value>
+  </data>
+  <data name="ForumUserThreadHeading" xml:space="preserve">
+    <value>{0} 加入讨论。</value>
+  </data>
+  <data name="GravatarLinkTitle" xml:space="preserve">
+    <value>获得你的 avatar</value>
+  </data>
+  <data name="IncludeCurrentUserInNotifications" xml:space="preserve">
+    <value>在通知里包括发帖人？</value>
+  </data>
+  <data name="IncludePostBodyInNotificationEmail" xml:space="preserve">
+    <value>在通知邮件里包括发帖内容？</value>
+  </data>
+  <data name="LastPostBy" xml:space="preserve">
+    <value>最后发帖</value>
+  </data>
+  <data name="LinkGravatarToUserProfile" xml:space="preserve">
+    <value>链接Gravatar到用户的简介？</value>
+  </data>
+  <data name="Locked" xml:space="preserve">
+    <value>锁定</value>
+  </data>
+  <data name="LoginNameLabel" xml:space="preserve">
+    <value>登录名</value>
+  </data>
+  <data name="ModuleFeedLinkTooltip" xml:space="preserve">
+    <value>订阅这些论</value>
+  </data>
+  <data name="NewTopicLabel" xml:space="preserve">
+    <value>新主题</value>
+  </data>
+  <data name="PostedByFormat" xml:space="preserve">
+    <value>发帖人{0}</value>
+  </data>
+  <data name="PostedLinks" xml:space="preserve">
+    <value>Posted Links:</value>
+  </data>
+  <data name="RSSFeedMaxDaysOldSetting" xml:space="preserve">
+    <value>Include items up to this many days old in outbound feed.</value>
+  </data>
+  <data name="RSSFeedMaxPostsSetting" xml:space="preserve">
+    <value>Maximum number of items to include in outbound feed.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="SearchTermRequiredWarning" xml:space="preserve">
+    <value>请输入关键词来搜索。</value>
+  </data>
+  <data name="ShowForumSearchBox" xml:space="preserve">
+    <value>显示搜索功能？</value>
+  </data>
+  <data name="ShowSubscriberCount" xml:space="preserve">
+    <value>显示订阅人数？</value>
+  </data>
+  <data name="StickySort" xml:space="preserve">
+    <value>Sticky Sort</value>
+  </data>
+  <data name="SubscribeLink" xml:space="preserve">
+    <value>订阅</value>
+  </data>
+  <data name="SubscribeLongLink" xml:space="preserve">
+    <value>订阅发帖通知</value>
+  </data>
+  <data name="SubscriberCountFormat" xml:space="preserve">
+    <value>{0} 订阅者</value>
+  </data>
+  <data name="SubscribeToAllOfThisForum" xml:space="preserve">
+    <value>订阅这个论坛里的所有帖子？</value>
+  </data>
+  <data name="SuppressNotificationOfPostEdits" xml:space="preserve">
+    <value>对旧帖子进行编辑不再发通知？</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>退订</value>
+  </data>
+  <data name="UnSubscribeLink" xml:space="preserve">
+    <value>退订</value>
+  </data>
+  <data name="UserNameLabel" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="UserProfileLinkTooltipFormat" xml:space="preserve">
+    <value>查看用户介绍 {0}</value>
+  </data>
+  <data name="UserSalesLabel" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="UserThreadMetaFormat" xml:space="preserve">
+    <value>Site member {0} participated in these forum conversations.</value>
+  </data>
+  <data name="UserThreadTitleFormat" xml:space="preserve">
+    <value>Forum Threads for {0}</value>
+  </data>
+  <data name="ThreadPageTitleFormat" xml:space="preserve">
+    <value>{0} - Page {1}</value>
+  </data>
+</root>

@@ -1,0 +1,90 @@
+/* Headings */
+h1 { font-family:arial, sans-serif; font-size:30px;  }
+h2 { font-family:arial, sans-serif; font-size:22px; }
+h3 { font-family:arial, sans-serif; font-size:18px; margin:0; }
+h4 { font-family:arial, sans-serif; font-size:16px; margin:0; }
+h5 { font-family:arial, sans-serif; font-size:14px; margin:0;}
+h6 { font-family:arial, sans-serif; font-size:13px; margin:0;}
+.pagelayout h2, .register h2, .sitesettings h3 { font-size:14px; }
+.foldergallery h1 { font-size: large; margin-bottom: 20px;}
+.album {}
+.albumFloat { float: left; text-align: center; margin-right: 8px; margin-bottom: 4px; }
+.albumDetailsLink {}
+.albumMetaSectionHead {background-color: Gray;color: White;font-weight: bold; }
+.albumMetaName  { font-weight: bold; }
+.albumMetaValue {}
+.center{text-align: center;}
+div.simplehorizontalmenu {clear: both; width: 100%; height: 27px;}
+ul.simplehorizontalmenu { float: left;list-style: none; margin:0; padding: 0;}
+ul.simplehorizontalmenu li { display: inline; padding: 0px 10px 0px 10px; }	
+ul.simplehorizontalmenu li.selecteditem { font-weight: bold; }
+.vevent abbr{border:0}
+.vevent { padding: 10px 10px 10px 10px; }
+.smalltextbox { width: 4em; }
+.normaltextbox { width: 10em; }
+.mediumtextbox { width: 15em; }
+.widetextbox { width: 25em; }
+.verywidetextbox { width: 35em; }
+.whoson { float:left; padding: 5px 5px 5px 5px; }
+.buttonlink { background-color:transparent;border-style:none;color: #0033FF;cursor: pointer;text-decoration: underline; font-size: 9px;}
+.clear { clear:both; }
+
+.searchterm { color:black; background-color:yellow; }
+.templatewrapper { border-bottom: solid 4px black;  }
+ol.formlist { list-style:none; margin: 0px; }
+li.settingrow  { list-style:none; }
+div.sitemap .AspNet-TreeView-Expand
+{background:  url('expand.gif') 0 0 no-repeat; width: 15px; margin-right: 5px;
+ float:left; cursor: pointer; line-height: 15px;  }	
+div.sitemap .AspNet-TreeView-Collapse
+{background: url('collapse.gif') 0 0 no-repeat; width: 15px; margin-right: 5px;
+  float:left; cursor: pointer; line-height: 15px;}
+.AspNet-TreeView-Hide { display:none;}
+div.sitemap a.AspNet-TreeView-Expand, div.sitemap a.AspNet-TreeView-Collapse  { text-decoration: none; }
+ol.searchresultlist { list-style-type:none; }
+.bmap { position:relative; }
+.hidden{ display:none; }
+  
+.fthumbs img{
+    padding:5px;
+    margin:5px;
+    -moz-box-shadow:#333 2px 2px 5px;
+    -webkit-box-shadow:#333 2px 2px 5px;
+    cursor:pointer;
+  }
+  
+  span.btn{
+    padding:10px;
+    margin-left:5px;
+    display:inline-block;
+    cursor:pointer;
+    font:12px/14px Arial, Helvetica, sans-serif;
+    color:#aaa;
+    background-color:#eee;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    -moz-box-shadow:#999 2px 0px 3px;
+    -webkit-box-shadow:#999 2px 0px 3px;
+  }
+  span.btn.pages{ background-color:#fff;}
+  span.btn.pages:hover, span.btn.pages.sel { background-color:#f3f3f3; color:#999; }
+  span.btn:hover, span.btn.sel{ background-color:#000; }
+  .galleryinfo{ position:relative; display:inline-block;  margin-top:10px; }
+  
+  .pagelayout .addcontent{float: left; margin: 0 0 20px; }
+.pagelayout .panelayout { clear: both; margin: 0 0 20px 0; padding: 0;}
+.pagelayout .panelayout h2 {text-align: center; margin: 0 10px 10px 0;}
+.pagelayout .regularpanes{margin: 0 auto; width: 630px; clear: both;}
+.pagelayout .pane{float: left; clear: none;margin: 20px 0 20px 0; position: relative;}
+.pagelayout .layoutcenter{margin: 20px 30px;}
+.pagelayout .layoutalt1,
+.pagelayout .layoutalt2{float: none;clear: both; width: 190px; margin: 0 auto; position: relative;}
+.pagelayout .altlayoutnotice{margin-bottom: 20px;}
+.pagelayout .panelistbox{position: relative; width: 190px;}
+.pagelayout .pane select {width: 170px; margin-right: 10px;}
+.pagelayout .layoutbuttons{right: 0; top: 5px; position: absolute;}
+.pagelayout .layoutbuttons input{display: block; margin-bottom: 10px;}
+
+div.authorinfo { clear: both; }
+div.authorinfo a.avatar, div.authorinfo a.avatar img, div.authorinfo img { float:left;  }
+div.blogdate { clear:both; }

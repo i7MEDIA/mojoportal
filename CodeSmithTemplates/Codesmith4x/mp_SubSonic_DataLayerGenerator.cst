@@ -1,0 +1,352 @@
+<%-- 
+Name:  					C# DataLayer Methods for use against SubSonic generated classes
+Author: 				Joe Audette
+Created:				2008-03-10
+Last Modified:			2008-03-10
+Description: 			Generates C# methods for a Static/Shared Data Layer class
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author of stored procedure" %>
+<%@ Property Name="DataLayerNameSpace" Type="System.String" Default="mojoPortal.Data.Common" Category="Style" Description="The Namespace of the Data Layer class" %>
+<%@ Property Name="TablePrefix" Type="System.String" Default="mp_" Category="Style" Description="Table Prfix" %>
+
+
+<%@ Property Name="MakeClassNameSingular" Type="System.Boolean" Default="True" Category="Options" Description="If true and table name ends with s, class name will trim off the s" %>
+
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+<% if (SourceTable.PrimaryKey == null) throw new ApplicationException("SourceTable does not contain a primary key."); %>
+<% ColumnSchema primaryKey = SourceTable.PrimaryKey.MemberColumns[0]; %>
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Text;
+using SubSonic;
+using log4net;
+
+namespace <%= DataLayerNameSpace %>
+{
+
+	/// <summary>
+	///							DB<%= GetClassName() %>.cs
+	/// Author:					<%= Author %>
+	/// Created:				<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+	/// Last Modified:			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+	/// 
+	/// The use and distribution terms for this software are covered by the 
+	/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
+	/// which can be found in the file CPL.TXT at the root of this distribution.
+	/// By using this software in any fashion, you are agreeing to be bound by 
+	/// the terms of this license.
+	///
+	/// You must not remove this notice, or any other, from this software.
+	/// </summary>
+	public static class DB<%= GetClassName() %>
+    {
+		private static readonly ILog log = LogManager.GetLogger(typeof(DB<%= GetClassName() %>));
+		
+		private static string GetProviderName()
+        {
+            return ConfigurationManager.AppSettings["SubSonicProvider"];
+
+        }
+
+
+	<% if (primaryKey.DataType == DbType.Guid) {  %>
+	
+		<%="///" %> <summary>
+		<%="///" %> Inserts a row in the <%= SourceTable.Name %> table. Returns rows affected count.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.Columns[i].Name) %>"> <%= GetParamName(SourceTable.Columns[i].Name) %> </param>
+				<% } %>
+		/// <returns>int</returns>
+		public static int Create(
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.Columns[i]) %> <%= GetParamName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %>
+		{
+			
+			<%= GetClassName() %> <%= GetInstanceNameName()%> = new <%= GetClassName() %>();
+			
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			<%= GetInstanceNameName()%>.<%= SourceTable.Columns[i].Name %> = <%= GetParamValue(SourceTable.Columns[i]) %>;	
+			<% } %>
+			<%= GetInstanceNameName()%>.Save();
+			
+            if (<%= GetInstanceNameName()%>.HasErrors())
+            {
+                log.Error(<%= GetInstanceNameName()%>.Errors.ToString());
+                return 0;
+            }
+
+            return 1;
+		
+		}
+	
+	<% } else { %>
+	
+		<%="///" %> <summary>
+		<%="///" %> Inserts a row in the <%= SourceTable.Name %> table. Returns new integer id.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.NonPrimaryKeyColumns[i].Name) %>"> <%= GetParamName(SourceTable.NonPrimaryKeyColumns[i].Name) %> </param>
+				<% } %>
+		/// <returns>int</returns>
+		public static int Create(
+		<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.NonPrimaryKeyColumns[i]) %> <%= GetParamName(SourceTable.NonPrimaryKeyColumns[i].Name) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %>
+		{
+		
+			<%= GetClassName() %> <%= GetInstanceNameName()%> = new <%= GetClassName() %>();
+			
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			<%= GetInstanceNameName()%>.<%= SourceTable.NonPrimaryKeyColumns[i].Name %> = <%= GetParamValue(SourceTable.NonPrimaryKeyColumns[i]) %>;	
+			<% } %>
+			<%= GetInstanceNameName()%>.Save();
+			
+            if (<%= GetInstanceNameName()%>.HasErrors())
+            {
+                log.Error(<%= GetInstanceNameName()%>.Errors.ToString());
+                return -1;
+            }
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			return <%= GetInstanceNameName()%>.<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>;
+			<% } %>
+			
+				
+		}
+	
+	<% } %>
+	
+		<%="///" %> <summary>
+		<%="///" %> Updates a row in the <%= SourceTable.Name %> table. Returns true if row updated.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.Columns[i].Name) %>"> <%= GetParamName(SourceTable.Columns[i].Name) %> </param>
+				<% } %>
+		/// <returns>bool</returns>
+		public static bool Update(
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.Columns[i]) %> <%= GetParamName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %> 
+		{
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			<%= GetClassName() %> <%= GetInstanceNameName()%> = new <%= GetClassName() %>(<%= GetParamValue(SourceTable.PrimaryKey.MemberColumns[i]) %>);
+			<% } %>
+	
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			<%= GetInstanceNameName()%>.<%= SourceTable.NonPrimaryKeyColumns[i].Name %> = <%= GetParamValue(SourceTable.NonPrimaryKeyColumns[i]) %>;	
+			<% } %>
+			<%= GetInstanceNameName()%>.Save();
+			
+            if (<%= GetInstanceNameName()%>.HasErrors()) log.Error(<%= GetInstanceNameName()%>.Errors.ToString());
+            
+			return !<%= GetInstanceNameName()%>.HasErrors();
+			
+		}
+		
+		<%="///" %> <summary>
+		<%="///" %> Deletes a row from the <%= SourceTable.Name %> table. Returns true if row deleted.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %>"> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> </param>
+				<% } %>
+		/// <returns>bool</returns>
+		public static bool Delete(
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) %> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %> 
+		{
+			
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			return (<%= GetClassName() %>.Delete("<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>", <%= GetParamValue(SourceTable.PrimaryKey.MemberColumns[i]) %>) > 0);
+			<% } %>
+			
+		}
+		
+		<%="///" %> <summary>
+		<%="///" %> Gets an IDataReader with one row from the <%= SourceTable.Name %> table.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %>"> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> </param>
+				<% } %>
+		public static IDataReader GetOne(
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) %> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %> 
+		{
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			return <%= GetClassName() %>.FetchByParameter("<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>", <%= GetParamValue(SourceTable.PrimaryKey.MemberColumns[i]) %>);
+			<% } %>
+	
+		}
+			
+		
+		
+		
+	}
+}
+
+
+<script runat="template">
+
+
+public string GetClassName()
+{
+	if ((MakeClassNameSingular)&&(SourceTable.Name.EndsWith("s")))
+	{
+		return RemovePrefix(SourceTable.Name.Substring(0,SourceTable.Name.Length -1));
+	}
+	
+		
+	return RemovePrefix(SourceTable.Name);
+	
+}
+
+public string GetInstanceNameName()
+{
+	string className = GetClassName();
+
+	return className.Substring(0,1).ToLower() + className.Substring(1,className.Length -1);
+}
+
+public string RemovePrefix(string TableName)
+{
+
+	return TableName.Replace(TablePrefix,"");
+}
+
+public string GetParamSize(ColumnSchema column)
+{
+	switch(GetSqlDbType(column))
+	{
+		case "VarChar" :
+		
+		return ", " + column.Size.ToString();
+		
+	}
+	
+	return "";
+
+}
+
+
+public string GetParamName(String columnName)
+{
+	if(columnName == "ID")
+			return "id";
+			
+	string firstLetter = columnName.Substring(0,1).ToLower();
+	string Result = firstLetter + columnName.Remove(0,1);
+	
+	return Result;
+}
+
+public string GetParamValue(ColumnSchema column)
+{
+	
+	return GetParamName(column.Name);
+
+
+}
+
+public string GetMySqlDbType(ColumnSchema column)
+{
+	switch(GetSqlDbType(column))
+	{
+		case "Bit" :
+		return "Int32";
+		
+		case "Int" :
+		return "Int32";
+		
+		case "BigInt" :
+		return "Int64";
+		
+		case "UniqueIdentifier" :
+		return "VarChar, 36";
+		
+		case "NVarChar" :
+		return "VarChar, " + column.Size;
+		
+		case "VarChar" :
+		return "VarChar, " + column.Size;
+		
+		case "NChar" :
+		return "VarChar, " + column.Size;
+		
+		case "Char" :
+		return "VarChar, " + column.Size;
+		
+		case "Text" :
+		return "Text";
+		
+		case "NText" :
+		return "Text";
+		
+		case "Image" :
+		return "LongBlob";
+		
+		case "DateTime" :
+		return "Datetime";
+		
+		
+	}
+	
+	return GetSqlDbType(column);
+
+
+
+}
+
+
+public string GetVBDataType(ColumnSchema column)
+{
+	if (column.Name.EndsWith("TypeCode")) return column.Name;
+	
+	switch (column.DataType)
+	{
+		case DbType.AnsiString: return "String";
+		case DbType.AnsiStringFixedLength: return "String";
+		case DbType.Binary: return "Byte()";
+		case DbType.Boolean: return "Boolean";
+		case DbType.Byte: return "Byte";
+		case DbType.Currency: return "Decimal";
+		case DbType.Date: return "DateTime";
+		case DbType.DateTime: return "DateTime";
+		case DbType.Decimal: return "Decimal";
+		case DbType.Double: return "Double";
+		case DbType.Guid: return "Guid";
+		case DbType.Int16: return "Short";
+		case DbType.Int32: return "Integer";
+		case DbType.Int64: return "Long";
+		case DbType.Object: return "Object";
+		case DbType.SByte: return "SByte";
+		case DbType.Single: return "Float";
+		case DbType.String: return "String";
+		case DbType.StringFixedLength: return "String";
+		case DbType.Time: return "TimeSpan";
+		case DbType.UInt16: return "UShort";
+		case DbType.UInt32: return "UInt";
+		case DbType.UInt64: return "ULong";
+		case DbType.VarNumeric: return "Decimal";
+		default:
+		{
+			return "__UNKNOWN__" + column.NativeType;
+		}
+	}
+}
+
+</script>

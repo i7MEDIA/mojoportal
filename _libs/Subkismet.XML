@@ -1,0 +1,1662 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Subkismet</name>
+    </assembly>
+    <members>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.KeyType">
+            <summary>
+            Enumerator for Key type.
+            </summary>
+        </member>
+        <member name="F:Subkismet.Services.GoogleSafeBrowsing.KeyType.Addition">
+            <summary>
+            Addition.
+            </summary>
+        </member>
+        <member name="F:Subkismet.Services.GoogleSafeBrowsing.KeyType.Deletion">
+            <summary>
+            Deletion.
+            </summary>
+        </member>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.Canonicalization">
+            <summary>
+            This class is responsible to provide some methods to convert a 
+            normal URL to RFC2396 valid URL.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Canonicalization.#ctor">
+            <summary>
+            Public constrcutor
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Canonicalization.GetCanonicalizedUrl(System.String)">
+            <summary>
+            Gets a url in general form and returns a canonicalized URL.
+            </summary>
+            <param name="url">A URL in general form.</param>
+            <returns>RFC2396 valid URL.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Canonicalization.GetHostName(System.String)">
+            <summary>
+            Gets the hostname of the URL.
+            </summary>
+            <param name="url">A URL in general form.</param>
+            <returns>Hostname.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Canonicalization.GetRemainder(System.String)">
+            <summary>
+            Gets the remainder of the URL.
+            </summary>
+            <param name="url">A URL in general form.</param>
+            <returns>Remainder.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Canonicalization.RemoveSpecialCharacters(System.String)">
+            <summary>
+            Removes special characters from the hostname.
+            </summary>
+            <param name="hostname">The hostname of the URL.</param>
+            <returns>Escaped hostname.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Canonicalization.ReplaceConsecutiveDots(System.String)">
+            <summary>
+            Replaces consecutive dots with a single dot.
+            </summary>
+            <param name="hostname">The hostname of the URL.</param>
+            <returns>Escaped hostname.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Canonicalization.NormalizeIPAddress(System.String)">
+            <summary>
+            Normalizes the hostname if it is an IP address.
+            </summary>
+            <param name="hostname">The hostname of the URL.</param>
+            <returns>Normalized hostname.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Canonicalization.EscapeSpecialChars(System.String)">
+            <summary>
+            Escapes special characters from URL.
+            </summary>
+            <param name="hostname">Hostname of the URL.</param>
+            <returns>Hostname with escaped URL.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Canonicalization.ResolveSequences(System.String)">
+            <summary>
+            Resolves sequences of dots.
+            </summary>
+            <param name="remainder">Remained of the URL.</param>
+            <returns>Remainder without sequences of dots.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Canonicalization.RemoveFragmentIdentifier(System.String)">
+            <summary>
+            Removes fragment identifier (#) and everything after it.
+            </summary>
+            <param name="remainder">The remainder of the URL.</param>
+            <returns>The remainder of the URL after removing fragment identifier.</returns>
+        </member>
+        <member name="T:Subkismet.IComment">
+            <summary>
+            Defines the base information about a comment submitted to 
+            Akismet.
+            </summary>
+        </member>
+        <member name="P:Subkismet.IComment.Author">
+            <summary>
+            The name submitted with the comment.
+            </summary>
+        </member>
+        <member name="P:Subkismet.IComment.AuthorEmail">
+            <summary>
+            The email submitted with the comment.
+            </summary>
+        </member>
+        <member name="P:Subkismet.IComment.AuthorUrl">
+            <summary>
+            The url submitted if provided.
+            </summary>
+        </member>
+        <member name="P:Subkismet.IComment.Content">
+            <summary>
+            Content of the comment
+            </summary>
+        </member>
+        <member name="P:Subkismet.IComment.Referrer">
+            <summary>
+            The HTTP_REFERER header value of the 
+            originating comment.
+            </summary>
+        </member>
+        <member name="P:Subkismet.IComment.Permalink">
+            <summary>
+            Permanent location of the entry the comment was 
+            submitted to.
+            </summary>
+        </member>
+        <member name="P:Subkismet.IComment.UserAgent">
+            <summary>
+            User agent of the requester. (Required)
+            </summary>
+        </member>
+        <member name="P:Subkismet.IComment.CommentType">
+            <summary>
+            May be one of the following: {blank}, "comment", "trackback", "pingback", or a made-up value 
+            like "registration".
+            </summary>
+        </member>
+        <member name="P:Subkismet.IComment.IPAddress">
+            <summary>
+            IPAddress of the submitter
+            </summary>
+        </member>
+        <member name="P:Subkismet.IComment.ServerEnvironmentVariables">
+            <summary>
+            Optional collection of various server environment variables. 
+            </summary>
+        </member>
+        <member name="T:Subkismet.Trackback.TrackbackBase">
+            <summary>
+            TrackbackBase is an abstract base class to handle trackback requests.
+            <para>
+            Inherit from this class to filter out spammers trying to add comments
+            to a blog post through trackback requests.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Subkismet.Trackback.TrackbackBase.ProcessRequest(System.Web.HttpContext)">
+            <summary>
+            Enables processing of HTTP Web requests by a custom HttpHandler that 
+            implements the <see cref="T:System.Web.IHttpHandler"></see> interface.
+            </summary>
+            <param name="context">An <see cref="T:System.Web.HttpContext"></see> 
+            object that provides references to the intrinsic server objects 
+            (for example, Request, Response, Session, and Server) used to service HTTP requests.
+            </param>
+        </member>
+        <member name="M:Subkismet.Trackback.TrackbackBase.ProcessTrackback(System.Web.HttpContext)">
+            <summary>
+            Processes the trackback if the request isn't invalid.
+            It determines whether or not the request is spam or not.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Trackback.TrackbackBase.SendResponse(System.Web.HttpContext)">
+            <summary>
+            Sends a resonse to the requesting client, based on the
+            validity of the request. If it is spam, then a HTTP
+            status code 404 will be sent.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Trackback.TrackbackBase.IsTrackbackValid">
+            <summary>
+            Returns whether or not the request is valid.
+            </summary>
+            <returns>True if the request is valid; otherwise false.</returns>
+        </member>
+        <member name="M:Subkismet.Trackback.TrackbackBase.ExamineRequest(System.String)">
+            <summary>
+            Analyses the request and if ExamineSendersUrl is True, then it also 
+            examines the senders URL for the referring link.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Trackback.TrackbackBase.ConfirmSender(System.String)">
+            <summary>
+            Parse the HTML of the source page.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Trackback.TrackbackBase.ContainHtml">
+            <summary>
+            Checks whether or not the specified excerpt contains HTML.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Trackback.TrackbackBase.DoesPostExist(System.String)">
+            <summary>
+            Check the specified postId and return a boolean value 
+            indicating whether or not the post exists in the data store.
+            </summary>
+            <param name="postId">The ID of the post that received a trackback request.</param>
+            <returns>True if the post exists, otherwise false.</returns>
+        </member>
+        <member name="M:Subkismet.Trackback.TrackbackBase.GetPostUrl(System.String)">
+            <summary>
+            Retrieve the URL of a post with the specified postId. 
+            This method is only used if the ExamineSendersUrl property
+            is set to true.
+            <para>
+            The returned string will be used to confirm that the sender
+            actually has a link to your post.
+            </para>
+            </summary>
+            <param name="postId">The ID of the post that received a trackback request.</param>
+            <returns>A valid URL or part of the URL that the senders page must contain.</returns>
+        </member>
+        <member name="M:Subkismet.Trackback.TrackbackBase.IsFirstTrackbackBySender">
+            <summary>
+            Checks to see if the sender has already send a trackback to the post.
+            If it has, there is no reason to add it again.
+            <para>
+            Remember that the sender is allowed to send trackback request to different
+            posts, but not more than one per post. Therefore, only examine the post with
+            the PostId of the request.
+            </para>
+            </summary>
+            <returns>True if the sender hasn't had a trackback registered on the requested post; otherwise false</returns>
+        </member>
+        <member name="M:Subkismet.Trackback.TrackbackBase.Finish(Subkismet.Trackback.TrackbackBase.TrackbackStatus)">
+            <summary>
+            This method is called as the last thing after the trackback request
+            has been processed. 
+            <para>
+            Use this method to redirect to the requested page or to change the response.
+            </para>
+            </summary>
+            <param name="status">The status of the trackback request.</param>
+        </member>
+        <member name="P:Subkismet.Trackback.TrackbackBase.SenderHasLink">
+            <summary>
+            Gets whether or not the sender has a valid link to the blog post.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Trackback.TrackbackBase.ExcerptContainsHtml">
+            <summary>
+            Gets if the excerpt contains HTML. It is considered to be spam if it does.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Trackback.TrackbackBase.IsSenderAlreadyRegistered">
+            <summary>
+            Gets whether the sender already had a trackback registered on the post.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Trackback.TrackbackBase.ExamineSendersUrl">
+            <summary>
+            Gets or sets whether or not to send a HTTP request to the sender's URL
+            in order to examine it for a valid back link.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Trackback.TrackbackBase.Status">
+            <summary>
+            Gets the status of the trackback request.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Trackback.TrackbackBase.PostId">
+            <summary>
+            Gets the ID of the post from the request parameters.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Trackback.TrackbackBase.Title">
+            <summary>
+            Gets the title of the senders post from the request parameters.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Trackback.TrackbackBase.Excerpt">
+            <summary>
+            Gets the excerpt from the request parameters.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Trackback.TrackbackBase.BlogName">
+            <summary>
+            Gets the name of the senders blog from the request parameters.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Trackback.TrackbackBase.Url">
+            <summary>
+            Gets the URL of the senders post from the request parameters.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Trackback.TrackbackBase.IsReusable">
+            <summary>
+            Gets a value indicating whether another request can use the <see cref="T:System.Web.IHttpHandler"></see> instance.
+            </summary>
+            <value></value>
+            <returns>true if the <see cref="T:System.Web.IHttpHandler"></see> instance is reusable; otherwise, false.</returns>
+        </member>
+        <member name="T:Subkismet.Trackback.TrackbackBase.TrackbackStatus">
+            <summary>
+            A list of statuses that is associated with a trackback request.
+            </summary>
+        </member>
+        <member name="F:Subkismet.Trackback.TrackbackBase.TrackbackStatus.None">
+            <summary>I used when the request is valid but the post didn't exist in the data store.</summary>
+        </member>
+        <member name="F:Subkismet.Trackback.TrackbackBase.TrackbackStatus.Valid">
+            <summary>Indicates that the trackback isn't spam and hasn't been registered on the requested post before.</summary>
+        </member>
+        <member name="F:Subkismet.Trackback.TrackbackBase.TrackbackStatus.AlreadyRegistered">
+            <summary>Indicates that the trackback has already been registered on the requested post.</summary>
+        </member>
+        <member name="F:Subkismet.Trackback.TrackbackBase.TrackbackStatus.Invalid">
+            <summary>Indicates that the HTTP request was invalid. It didn't send all the right parameters.</summary>
+        </member>
+        <member name="F:Subkismet.Trackback.TrackbackBase.TrackbackStatus.Spam">
+            <summary>Indicates that the trackback request comes from a spammer.</summary>
+        </member>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProviderManager">
+            <summary>
+            The management class for DataProvider.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProviderManager.#cctor">
+            <summary>
+            Public static constructor.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProviderManager.Initialize">
+            <summary>
+            Initialization
+            </summary>
+        </member>
+        <member name="P:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProviderManager.Provider">
+            <summary>
+            Returns the DataProvider instance.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProviderManager.Providers">
+            <summary>
+            Returns the DataProviderCollection instance.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaImage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.Captcha.CaptchaImage"/> class.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaImage.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaImage.Dispose(System.Boolean)">
+            <summary>
+            Disposes the Captcha image.
+            </summary>
+            <param name="disposing">if set to <c>true</c> [disposing].</param>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaImage.Finalize">
+            <summary>
+            Releases unmanaged resources and performs other cleanup operations before the
+            <see cref="T:Subkismet.Captcha.CaptchaImage"/> is reclaimed by garbage collection.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaImage.GenerateImage">
+            <summary>
+            Generates a new Captcha image.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Captcha.CaptchaImage.FontWarp">
+            <summary>
+            Amount of random waping to apply to rendered text.
+            </summary>
+            <value>The font warp.</value>
+        </member>
+        <member name="P:Subkismet.Captcha.CaptchaImage.Height">
+            <summary>
+            Height of the Captcha image in pixels.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Captcha.CaptchaImage.Image">
+            <summary>
+            Gets the captcha image to display based on the current property 
+            values.  Will render the image if it hasn't been rendered yet.
+            </summary>
+            <value>The image.</value>
+        </member>
+        <member name="P:Subkismet.Captcha.CaptchaImage.Width">
+            <summary>
+            Width of the Captcha image in pixels.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Captcha.CaptchaImage.Text">
+            <summary>
+            Gets or sets the text to render (warped of course).
+            </summary>
+            <value>The text.</value>
+        </member>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProvider">
+            <summary>
+            Base provider class for storage system.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProvider.AddKey(System.String,Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Adds a single key to a backlist.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="listType">The blacklist type.</param>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProvider.RemoveKey(System.String,Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Removes a single key from a blacklist.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="listType">The blacklist type.</param>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProvider.AddKeys(System.Collections.Generic.List{Subkismet.Services.GoogleSafeBrowsing.Key},Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Adds a list of keys to a blacklist.
+            </summary>
+            <param name="keys">A list of keys.</param>
+            <param name="listType">The blacklist type.</param>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProvider.GetKeys(Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Returns a list of string values for all keys in a blacklist.
+            </summary>
+            <param name="listType">The blacklist type.</param>
+            <returns>A list of string values representing key values.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProvider.GetLatestVersion(Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Returns the latest list version for a blacklist.
+            </summary>
+            <param name="listType">The blacklist type.</param>
+            <returns>String value of the latest version.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProvider.UpdateVersion(System.String,Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Updates the version of the list for a blacklist.
+            </summary>
+            <param name="updateVersion">The new version.</param>
+            <param name="listType">The blacklist type.</param>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProvider.Clear(Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Clears a blacklist from all items.
+            </summary>
+            <param name="listType">The blacklist type.</param>
+        </member>
+        <member name="T:Subkismet.Captcha.CaptchaBase">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaBase.EncryptString(System.String)">
+            <summary>
+            Encrypts the string and returns a base64 encoded encrypted string.
+            </summary>
+            <param name="clearText">The clear text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaBase.DecryptString(System.String)">
+            <summary>
+            Decrypts the base64 encrypted string and returns the cleartext.
+            </summary>
+            <param name="encryptedEncodedText">The clear text.</param>
+            <exception type="System.Security.Cryptography.CryptographicException">Thrown the string to be decrypted 
+            was encrypted using a different encryptor (for example, if we recompile and 
+            receive an old string).</exception>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaBase.ControlPropertiesValid">
+            <summary>Checks the properties of the control for valid values.</summary>
+            <returns>true if the control properties are valid; otherwise, false.</returns>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaBase.EncryptAnswer(System.String)">
+            <summary>
+            Encrypts the answer along with the current datetime.
+            </summary>
+            <param name="answer">The answer.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaBase.EvaluateIsValid">
+            <summary>
+            When overridden in a derived class, this method contains the code to determine whether the value in the input control is valid.
+            </summary>
+            <returns>
+            true if the value in the input control is valid; otherwise, false.
+            </returns>
+            
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaBase.GetEncryptedAnswerFromForm">
+            <summary>
+            Gets the encrypted answer from form.
+            </summary>
+            <returns></returns>
+            <exception type="CaptchaExpiredException">Thrown when the user takes too long to submit a captcha answer.</exception>
+        </member>
+        <member name="P:Subkismet.Captcha.CaptchaBase.HiddenEncryptedAnswerFieldName">
+            <summary>
+            Gets the name of the hidden form field in which the encrypted answer 
+            is located.  The answer is sent encrypted to the browser, which must 
+            send the answer back.
+            </summary>
+            <value>The name of the hidden encrypted answer field.</value>
+        </member>
+        <member name="P:Subkismet.Captcha.CaptchaBase.AnswerFormFieldName">
+            <summary>
+            The input field (possibly hidden) in which the client 
+            will specify the answer.
+            </summary>
+        </member>
+        <member name="T:Subkismet.Captcha.AnswerAndDate">
+            <summary>
+            Represents the answer and date returned by the 
+            client.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Captcha.AnswerAndDate.ParseAnswerAndDate(System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.Captcha.AnswerAndDate"/> class.
+            </summary>
+            <param name="encryptedAnswer">The encrypted answer.</param>
+            <param name="timeoutInSeconds">Number of seconds before captcha expires.</param>
+        </member>
+        <member name="P:Subkismet.Captcha.AnswerAndDate.Answer">
+            <summary>
+            Gets the answer.
+            </summary>
+            <value>The answer.</value>
+        </member>
+        <member name="P:Subkismet.Captcha.AnswerAndDate.Date">
+            <summary>
+            Gets the date the answer was rendered.
+            </summary>
+            <value>The date.</value>
+        </member>
+        <member name="P:Subkismet.Captcha.AnswerAndDate.Expired">
+            <summary>
+            Gets a value indicating whether this <see cref="T:Subkismet.Captcha.AnswerAndDate"/> is expired.
+            </summary>
+            <value><c>true</c> if expired; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.Synchronizer">
+            <summary>
+            Manages the process of synchronization between local data and Google server.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Synchronizer.#ctor(System.String)">
+            <summary>
+            Public constructor.
+            </summary>
+            <param name="apiKey">The API key for the Google Safe Browsing service.</param>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Synchronizer.Update(Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Updates a black list and synchronizes its local data with the Google server.
+            </summary>
+            <param name="listType">The black list type.</param>
+            <returns>A Boolean value that specifies if the update process was successfull.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Synchronizer.CheckLinks(System.Collections.Generic.List{System.String},System.Int32@,System.Int32@)">
+            <summary>
+            Verifies a list of links with local data and returns
+            the number of the phishing or malware links.
+            </summary>
+            <param name="links">A list of strings for the links.</param>
+            <param name="phishingCount">The number of the phishing links (out).</param>
+            <param name="malwareCount">The number of the malware links (out).</param>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Synchronizer.GetData(Subkismet.Services.GoogleSafeBrowsing.BlackListType,System.String)">
+            <summary>
+            Gets data from Google server for a black list.
+            </summary>
+            <param name="listType">The black list type.</param>
+            <param name="apiKey">The client API key.</param>
+            <returns>The string value of the data.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Synchronizer.GetVersionFromText(System.String)">
+            <summary>
+            Gets the version of the list from the text value of the data.
+            </summary>
+            <param name="data">The data as string.</param>
+            <returns>String value of the version.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Synchronizer.IsUpdate(System.String)">
+            <summary>
+            Checks if the current response from the server is an update
+            to the local lists or a freshh new list.
+            </summary>
+            <param name="data">String value of the data.</param>
+            <returns>Boolean value that specifies if the response is an update or not.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Synchronizer.GetKeysFromText(System.String)">
+            <summary>
+            Fetches the list of keys from the Google server response.
+            </summary>
+            <param name="data">String value of the data returned from the Google server.</param>
+            <returns>A list of Key objects for all keys included in the response.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Synchronizer.GetMd5Hash(System.String)">
+            <summary>
+            Gets the MD5 hash of the string value.
+            </summary>
+            <param name="input">The normal input string.</param>
+            <returns>The MD5 hash string value for the input.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Synchronizer.GetLinksToCheck(System.Collections.Generic.List{System.String})">
+            <summary>
+            Returns a list of final links to be checked with local black lists.
+            </summary>
+            <param name="links">List of incoming links.</param>
+            <returns>List of links to check.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Synchronizer.RemoveDuplicates(System.Collections.Generic.List{System.String})">
+            <summary>
+            Removes duplicate items from the list.
+            </summary>
+            <param name="results">A list of strings with duplicate items.</param>
+            <returns>A list of strings without duplicate items.</returns>
+        </member>
+        <member name="T:Subkismet.Captcha.CaptchaImageHandler">
+            <summary>
+            Handles a special request for a CAPTCHA image.  The request must 
+            pass the specs for the image via an encrypted serialized instance 
+            of <see cref="T:Subkismet.Captcha.CaptchaInfo"/>.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaImageHandler.ProcessRequest(System.Web.HttpContext)">
+            <summary>
+            Renders the Captcha Image.
+            </summary>
+            <param name="context">An <see cref="T:System.Web.HttpContext"></see> object that provides 
+            references to the intrinsic server objects (for example, Request, Response, Session, and Server) 
+            used to service HTTP requests.</param>
+        </member>
+        <member name="P:Subkismet.Captcha.CaptchaImageHandler.IsReusable">
+            <summary>
+            Gets a value indicating whether another request can use the <see cref="T:System.Web.IHttpHandler"></see> instance.
+            </summary>
+            <value></value>
+            <returns>true if the <see cref="T:System.Web.IHttpHandler"></see> instance is reusable; otherwise, false.</returns>
+        </member>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.Key">
+            <summary>
+            Represents a key in a blacklist.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Key.#ctor">
+            <summary>
+            Public constructor.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Key.#ctor(Subkismet.Services.GoogleSafeBrowsing.KeyType,System.String)">
+            <summary>
+            Public constructor with parameters.
+            </summary>
+            <param name="type">The KeyType type of the key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Key.Equals(System.Object)">
+            <summary>
+            Compares the current Key object with the incoming object.
+            </summary>
+            <param name="obj">The object to compare with.</param>
+            <returns>A Boolean value that determines if two objects are equal or not.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Key.GetHashCode">
+            <summary>
+            Gets the hash code for the Key object.
+            </summary>
+            <returns>Integer value of the hash code.</returns>
+        </member>
+        <member name="P:Subkismet.Services.GoogleSafeBrowsing.Key.Type">
+            <summary>
+            The type of the key (phishing or malware).
+            </summary>
+        </member>
+        <member name="P:Subkismet.Services.GoogleSafeBrowsing.Key.Value">
+            <summary>
+            The value of the key.
+            </summary>
+        </member>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.Lookup">
+            <summary>
+            Manages the lookup process for match URLs accroding to Google spec.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Lookup.#ctor">
+            <summary>
+            Public constructor.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Lookup.GetUrls(System.String)">
+            <summary>
+            Returns a list of matched URLs for lookup process.
+            </summary>
+            <param name="url">String value of the incoming URL.</param>
+            <returns>A list of strings for matched URLs.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Lookup.GetExactHostname(System.String)">
+            <summary>
+            Returns the exact hostname for the URL.
+            </summary>
+            <param name="url">URL to get its exact hostname.</param>
+            <returns>The hostname.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Lookup.GetFourHostNames(System.String)">
+            <summary>
+            Returns four hostnames that match the incoming hostname by
+            removing its components from the left.
+            </summary>
+            <param name="hostname">The hostname.</param>
+            <returns>A list of up to four hostnames matching the input.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Lookup.GetExactPath(System.String)">
+            <summary>
+            Returns the exact path for the incoming URL.
+            </summary>
+            <param name="url">The URL.</param>
+            <returns>String value of the exact path for the input.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Lookup.GetExactPathWithoutParameters(System.String)">
+            <summary>
+            Returns the exact path for a URL without parameters.
+            </summary>
+            <param name="url">The URL.</param>
+            <returns>String value of the exact path without parameters for the input.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Lookup.GetFourPaths(System.String,System.String)">
+            <summary>
+            Returns four paths for the hostname and the URL without paramters.
+            </summary>
+            <param name="hostname">The hostname.</param>
+            <param name="urlWithoutParameters">The URL without parameters.</param>
+            <returns>A list of up to four strings for the matched paths.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Lookup.RemoveDuplicates(System.Collections.Generic.List{System.String})">
+            <summary>
+            Removes duplicate items from the list.
+            </summary>
+            <param name="results">A list of strings with duplicate items.</param>
+            <returns>A list of strings without duplicate items.</returns>
+        </member>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.CheckResultType">
+            <summary>
+            Enumerator for Google Safe Browsing check results.
+            </summary>
+        </member>
+        <member name="F:Subkismet.Services.GoogleSafeBrowsing.CheckResultType.Safe">
+            <summary>
+            Safe link.
+            </summary>
+        </member>
+        <member name="F:Subkismet.Services.GoogleSafeBrowsing.CheckResultType.Phishing">
+            <summary>
+            Phishing link.
+            </summary>
+        </member>
+        <member name="F:Subkismet.Services.GoogleSafeBrowsing.CheckResultType.Malware">
+            <summary>
+            Malware link.
+            </summary>
+        </member>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider">
+            <summary>
+            XML implementation for DataProvider.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Initialization
+            </summary>
+            <param name="name">The name of the provider.</param>
+            <param name="config">A NameValueCollection of configuration elements.</param>
+        </member>
+        <member name="F:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider.phishingFilePath">
+            <summary>
+            The path of the phishing XML file.
+            </summary>
+        </member>
+        <member name="F:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider.malwareFilePath">
+            <summary>
+            The path of the malware XML file.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider.AddKey(System.String,Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Adds a single key to a black list.
+            </summary>
+            <param name="key">The string value of the key to be added.</param>
+            <param name="listType">The black list type.</param>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider.RemoveKey(System.String,Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Removes a single key from a black list.
+            </summary>
+            <param name="key">The string value of the key to remove.</param>
+            <param name="listType">The black list type.</param>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider.AddKeys(System.Collections.Generic.List{Subkismet.Services.GoogleSafeBrowsing.Key},Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Adds a list of keys to a black list.
+            </summary>
+            <param name="keys">A list of Ke objects to be added.</param>
+            <param name="listType">The black list type.</param>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider.GetKeys(Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Returns a lis of all keys for a black list.
+            </summary>
+            <param name="listType">The black list type.</param>
+            <returns>List of string values for keys.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider.GetLatestVersion(Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Returns the latest version for a black list.
+            </summary>
+            <param name="listType">The black list type.</param>
+            <returns>String value of the version.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider.UpdateVersion(System.String,Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Updates the version of a black list.
+            </summary>
+            <param name="updateVersion">String value of the version.</param>
+            <param name="listType">The black list type.</param>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider.Clear(Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Clears the content of a black list.
+            </summary>
+            <param name="listType">The black list type.</param>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider.GetListTypePath(Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Returns the path of a black list XML file.
+            </summary>
+            <param name="listType">The black list type.</param>
+            <returns>The path.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider.CreateNewFile(Subkismet.Services.GoogleSafeBrowsing.BlackListType,System.String)">
+            <summary>
+            Creates a new black list file at the specified path.
+            </summary>
+            <param name="listType">The black list type.</param>
+            <param name="path">The file path.</param>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.XmlDataProvider.GetInitialXml(Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Returns the initial XML value of a black list.
+            </summary>
+            <param name="listType">The black list type.</param>
+            <returns>String value of the XML.</returns>
+        </member>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.Provider.StringWriterWithEncoding">
+            <summary>
+            Class to write XML files with custom encoding
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.Provider.StringWriterWithEncoding.#ctor(System.Text.StringBuilder,System.Text.Encoding)">
+            <summary>
+            Public constructor.
+            </summary>
+            <param name="sb">StrinbBuilder to write XML into it.</param>
+            <param name="encoding">Encoding for the </param>
+        </member>
+        <member name="P:Subkismet.Services.GoogleSafeBrowsing.Provider.StringWriterWithEncoding.Encoding">
+            <summary>
+            ReadOnly value for the Encoding.
+            </summary>
+        </member>
+        <member name="T:Subkismet.Captcha.InvisibleCaptcha">
+            <summary>
+            <para>Simple CAPTCHA control that requires the browser to perform a 
+            simple calculation via javascript to pass.  
+            </para>
+            <para>
+            If javascript is not enabled, a form is rendered asking the user to add two random 
+            small numbers, unless the <see cref="P:Subkismet.Captcha.InvisibleCaptcha.Accessible"/>  property is set to false.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Subkismet.Captcha.InvisibleCaptcha.OnInit(System.EventArgs)">
+            <summary>
+            Sets up a hashed answer.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Subkismet.Captcha.InvisibleCaptcha.OnPreRender(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Web.UI.Control.PreRender"></see> event.
+            </summary>
+            <param name="e">A <see cref="T:System.EventArgs"></see> that contains the event data.</param>
+        </member>
+        <member name="M:Subkismet.Captcha.InvisibleCaptcha.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Displays the control on the client.
+            </summary>
+            <param name="writer">A <see cref="T:System.Web.UI.HtmlTextWriter"></see> that contains the output stream for rendering on the client.</param>
+        </member>
+        <member name="P:Subkismet.Captcha.InvisibleCaptcha.VisibleAnswerFieldName">
+            <summary>
+            If Accessible is true and javascript disabled, this is the 
+            form field in which the answer would be entered by the user.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Captcha.InvisibleCaptcha.Accessible">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Subkismet.Captcha.InvisibleCaptcha"/> is accessible 
+            to non-javascript browsers.  If false, then non-javascript browsers will always fail 
+            validation.
+            </summary>
+            <value><c>true</c> if accessible; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Subkismet.Captcha.InvisibleCaptcha.CaptchaInputClientId">
+            <summary>
+            Id of the span used to house the visible captcha section.
+            </summary>
+        </member>
+        <member name="T:Subkismet.Captcha.HoneypotCaptcha">
+            <summary>
+            Simple Spam fighting validator. This renders a text box that should be left blank. 
+            Bots are likely to fill it out by accident.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Captcha.HoneypotCaptcha.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Displays the control on the client.
+            </summary>
+            <param name="writer">A <see cref="T:System.Web.UI.HtmlTextWriter"/> that contains the output stream for rendering on the client.</param>
+        </member>
+        <member name="M:Subkismet.Captcha.HoneypotCaptcha.EvaluateIsValid">
+            <summary>
+            When overridden in a derived class, this method contains the code to determine whether the value in the input control is valid.
+            </summary>
+            
+            <returns>
+            true if the value in the input control is valid; otherwise, false.
+            </returns>
+            
+        </member>
+        <member name="M:Subkismet.Captcha.HoneypotCaptcha.ControlPropertiesValid">
+            <summary>Checks the properties of the control for valid values.</summary>
+            <returns>true if the control properties are valid; otherwise, false.</returns>
+        </member>
+        <member name="P:Subkismet.Captcha.HoneypotCaptcha.ErrorCssClass">
+            <summary>
+            Gets or sets the CSS class for the error message.
+            </summary>
+            <value>The error CSS class.</value>
+        </member>
+        <member name="P:Subkismet.Captcha.HoneypotCaptcha.UseInlineStyleToHide">
+            <summary>
+            Gets a value indicating whether to use style="display: none;" to hide 
+            this honeypot captcha. If this is set to false, it is up to the developer 
+            to use CSS or some other means to hide it.
+            </summary>
+            <value>
+            	<c>true</c> if [use inline style to hide]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Subkismet.Captcha.HoneypotCaptcha.Text">
+            <summary>
+            The text to display for non-css enabled browsers.
+            </summary>
+        </member>
+        <member name="T:Subkismet.IAkismetClient">
+            <summary>
+            The client class used to communicate with the 
+            <see href="http://akismet.com/">Akismet</see> service.
+            </summary>
+        </member>
+        <member name="M:Subkismet.IAkismetClient.CheckCommentForSpam(Subkismet.IComment)">
+            <summary>
+            Checks the comment and returns true if it is spam, otherwise false.
+            </summary>
+            <param name="comment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.IAkismetClient.SubmitHam(Subkismet.IComment)">
+            <summary>
+            Submits a comment to Akismet that should not have been 
+            flagged as SPAM (a false positive).
+            </summary>
+            <param name="comment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.IAkismetClient.SubmitSpam(Subkismet.IComment)">
+            <summary>
+            Submits a comment to Akismet that should have been 
+            flagged as SPAM, but was not flagged by Akismet.
+            </summary>
+            <param name="comment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.IAkismetClient.VerifyApiKey">
+            <summary>
+            Verifies the API key.  You really only need to
+            call this once, perhaps at startup.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Subkismet.IAkismetClient.ApiKey">
+            <summary>
+            Gets or sets the Akismet API key.
+            </summary>
+            <value>The API key.</value>
+        </member>
+        <member name="P:Subkismet.IAkismetClient.RootUrl">
+            <summary>
+            Gets or sets the root URL to the blog.
+            </summary>
+            <value>The blog URL.</value>
+        </member>
+        <member name="P:Subkismet.IAkismetClient.Proxy">
+            <summary>
+            Gets or sets the proxy to use.
+            </summary>
+            <value>The proxy.</value>
+        </member>
+        <member name="P:Subkismet.IAkismetClient.Timeout">
+            <summary>
+            Gets or sets the timeout in milliseconds for the http request to Akismet. 
+            </summary>
+            <value>The timeout.</value>
+        </member>
+        <member name="P:Subkismet.IAkismetClient.UserAgent">
+            <summary>
+            Gets or sets the Usera Agent for the Akismet Client.  
+            Do not confuse this with the user agent for the comment 
+            being checked.
+            </summary>
+        </member>
+        <member name="T:Subkismet.Captcha.CaptchaExpiredException">
+            <summary>
+            Exception thrown when a captcha image has expired.
+            </summary>
+            <remarks>
+            This exception does not have any custom properties, 
+            thus it does not implement ISerializable.
+            </remarks>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaExpiredException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.Captcha.CaptchaExpiredException"/> class.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaExpiredException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.Captcha.CaptchaExpiredException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaExpiredException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.Captcha.CaptchaExpiredException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="T:Subkismet.HttpClient">
+            <summary>
+            Class used to make the actual HTTP requests.
+            </summary>
+            <remarks>
+            Yeah, I know you're thinking this is overkill, but it makes it 
+            easier to write tests to have this layer of abstraction from the 
+            underlying Http request.
+            </remarks>
+        </member>
+        <member name="M:Subkismet.HttpClient.PostRequest(System.Uri,System.String,System.Int32,System.String)">
+            <summary>
+            Posts the request and returns a text response.  
+            This is all that is needed for Akismet.
+            </summary>
+            <param name="url">The URL.</param>
+            <param name="userAgent">The user agent.</param>
+            <param name="timeout">The timeout.</param>
+            <param name="formParameters">The properly formatted parameters.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.HttpClient.PostRequest(System.Uri,System.String,System.Int32,System.String,System.Net.IWebProxy)">
+            <summary>
+            Posts the request.
+            </summary>
+            <param name="url">The URL.</param>
+            <param name="userAgent">The user agent.</param>
+            <param name="timeout">The timeout in milliseconds.</param>
+            <param name="formParameters">The form parameters.</param>
+            <param name="proxy">The proxy.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.HttpClient.GetRequest(System.Uri,System.String,System.Int32,System.Net.IWebProxy)">
+            <summary>
+            Gets the content of a web page.
+            </summary>
+            <param name="url">The URL.</param>
+            <param name="userAgent">The user agent.</param>
+            <param name="timeout">The timeout in miliseconds.</param>
+            <param name="proxy">The proxy.</param>
+            <returns>The string value of requested web page.</returns>
+        </member>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProviderConfiguration">
+            <summary>
+            Represents the configuration section for DataProvider.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProviderConfiguration.Providers">
+            <summary>
+            Represents the "providers" section.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProviderConfiguration.Default">
+            <summary>
+            Represents the "default" section for default provider.
+            </summary>
+        </member>
+        <member name="T:Subkismet.InvalidResponseException">
+            <summary>
+            Exception thrown when a response other than 200 is returned.
+            </summary>
+            <remarks>
+            This exception does not have any custom properties, 
+            thus it does not implement ISerializable.
+            </remarks>
+        </member>
+        <member name="M:Subkismet.InvalidResponseException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.InvalidResponseException"/> class.
+            </summary>
+        </member>
+        <member name="M:Subkismet.InvalidResponseException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.InvalidResponseException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:Subkismet.InvalidResponseException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.InvalidResponseException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:Subkismet.InvalidResponseException.System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo"/>
+            with information about the exception.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="M:Subkismet.InvalidResponseException.#ctor(System.String,System.Net.HttpStatusCode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.InvalidResponseException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="status">The status.</param>
+        </member>
+        <member name="P:Subkismet.InvalidResponseException.HttpStatus">
+            <summary>
+            Gets the HTTP status returned by the service.
+            </summary>
+            <value>The HTTP status.</value>
+        </member>
+        <member name="M:Subkismet.Comment.#ctor(System.Net.IPAddress,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.Comment"/> class.
+            </summary>
+            <param name="authorIpAddress">The author ip address.</param>
+            <param name="authorUserAgent">The author user agent.</param>
+        </member>
+        <member name="P:Subkismet.Comment.Author">
+            <summary>
+            The name submitted with the comment.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Comment.AuthorEmail">
+            <summary>
+            The email submitted with the comment.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Comment.AuthorUrl">
+            <summary>
+            The url submitted if provided.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Comment.Content">
+            <summary>
+            Content of the comment
+            </summary>
+        </member>
+        <member name="P:Subkismet.Comment.Referrer">
+            <summary>
+            The HTTP_REFERER header value of the 
+            originating comment.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Comment.Permalink">
+            <summary>
+            Permanent location of the entry the comment was 
+            submitted to.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Comment.UserAgent">
+            <summary>
+            User agent of the requester. (Required)
+            </summary>
+        </member>
+        <member name="P:Subkismet.Comment.CommentType">
+            <summary>
+            May be one of the following: {blank}, "comment", "trackback", "pingback", or a made-up value 
+            like "registration".
+            </summary>
+        </member>
+        <member name="P:Subkismet.Comment.IPAddress">
+            <summary>
+            IPAddress of the submitter
+            </summary>
+        </member>
+        <member name="P:Subkismet.Comment.ServerEnvironmentVariables">
+            <summary>
+            Optional collection of various server environment variables. 
+            </summary>
+        </member>
+        <member name="T:Subkismet.Captcha.CaptchaControl">
+            <summary>
+            Implements an image based Captcha validator control.
+            </summary>
+            <remarks>
+            In order for the Captcha control to work, you need to map the request for the captcha image 
+            renderer in web.config.
+            <example>
+            &lt;configuration&gt;
+            ...
+              &lt;system.web&gt;
+                &lt;httpHandlers&gt;
+                ...
+                  &lt;add verb="*" path="*CaptchaImage.ashx" type="Subkismet.Captcha.CaptchaImageHandler, Subkismet"/&gt;
+                &lt;/httpHandlers&gt;
+              &lt;/system.web&gt;
+            &lt;/configuration&gt;
+            </example>
+            </remarks>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaControl.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.Captcha.CaptchaControl"/> class.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaControl.LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Loads the post data.
+            </summary>
+            <param name="PostDataKey">The post data key.</param>
+            <param name="Values">The values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaControl.EvaluateIsValid">
+            <summary>
+            When overridden in a derived class, this method contains the code to determine 
+            whether the value in the input control is valid.
+            </summary>
+            <returns>
+            true if the value in the input control is valid; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaControl.OnPreRender(System.EventArgs)">
+            <summary>
+            Generates the captcha if it hasn't been generated already.
+            </summary>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaControl.RaisePostDataChangedEvent">
+            <summary>
+            When implemented by a class, signals the server control to notify the ASP.NET application 
+            that the state of the control has changed.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Captcha.CaptchaControl.CaptchaText">
+            <summary>
+            The text to render.
+            </summary>
+        </member>
+        <member name="F:Subkismet.Captcha.CaptchaControl.Layout.CssBased">
+            <summary>
+            Indicates that the layout will be handled by external css.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaInfo.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.Captcha.CaptchaInfo"/> class.
+            </summary>
+            <param name="text">The text.</param>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaInfo.RandomFontFamily">
+            <summary>
+            Returns a random font family name.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaInfo.ToEncryptedString">
+            <summary>
+            Returns a base 64 encrypted serialized representation of this object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaInfo.FromEncryptedString(System.String)">
+            <summary>
+            Reconstructs an instance of this type from an encrypted serialized string.
+            </summary>
+            <param name="encrypted"></param>
+        </member>
+        <member name="M:Subkismet.Captcha.CaptchaInfo.ToString">
+            <summary>
+            Returns the fully qualified type name of this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"></see> containing a fully qualified type name.
+            </returns>
+        </member>
+        <member name="P:Subkismet.Captcha.CaptchaInfo.TextChars">
+            <summary>
+            A string of valid characters to use in the Captcha text.  
+            A random character will be selected from this string for 
+            each character.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Captcha.CaptchaInfo.Text">
+            <summary>
+            Gets or sets the text to render.
+            </summary>
+            <value>The text.</value>
+        </member>
+        <member name="P:Subkismet.Captcha.CaptchaInfo.TextLength">
+            <summary>
+            Number of characters to use in the CAPTCHA test.
+            </summary>
+            <value>The length of the text.</value>
+        </member>
+        <member name="T:Subkismet.Akismet`1">
+            <summary>
+            Acts as a client to the Akismet service. Use this class to interface with the 
+            Akismet service from your web application. For fine grained control, you have 
+            the option to use the <see cref="T:Subkismet.AkismetClient"/> class directly.
+            </summary>
+            <remarks>
+            <para>
+            The constructors require that you supply a delegate used to convert whatever 
+            representation of a comment you have in your system to one that is understood 
+            by this system.
+            </para>
+            <para>
+            This provides for loose coupling.
+            </para>
+            </remarks>
+            <typeparam name="TInput">The type of the input.</typeparam>
+        </member>
+        <member name="M:Subkismet.Akismet`1.CreateSimpleAkismet(System.String,System.Uri)">
+            <summary>
+            Creates a simple instance of Akismet for those who plan to simply use the <see cref="T:Subkismet.Comment"/> 
+            type in their own code.
+            </summary>
+            <param name="apiKey">The API key.</param>
+            <param name="rootUrl">The root URL.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.Akismet`1.#ctor(System.String,System.Uri,System.Converter{`0,Subkismet.Comment})">
+            <summary>
+            Initializes a new instance of the Akismet class.
+            </summary>
+            <param name="apiKey">The API key.</param>
+            <param name="rootUrl">The url of the site hosting and using the Akismet service.</param>
+            <param name="commentConverter">A delegate used to convert a comment from the host site into one this library understands.</param>
+        </member>
+        <member name="M:Subkismet.Akismet`1.#ctor(System.String,System.Uri,System.Converter{`0,Subkismet.Comment},System.Net.IWebProxy)">
+            <summary>
+            Initializes a new instance of the Akismet class.
+            </summary>
+            <param name="apiKey">The API key.</param>
+            <param name="rootUrl">The url of the site hosting and using the Akismet service.</param>
+            <param name="commentConverter">A delegate used to convert a comment from the host site into one this library understands.</param>
+            <param name="proxy">The proxy.</param>
+        </member>
+        <member name="M:Subkismet.Akismet`1.#ctor(Subkismet.IAkismetClient,System.Converter{`0,Subkismet.Comment})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.Akismet`1"/> class.
+            </summary>
+            <param name="akismetClient">The akismet client.</param>
+            <param name="commentConverter">A delegate used to convert a comment from the host site into one this library understands.</param>
+        </member>
+        <member name="M:Subkismet.Akismet`1.#ctor(Subkismet.IAkismetClient,System.Converter{`0,Subkismet.Comment},System.Net.IWebProxy)">
+            <summary>
+            Initializes a new instance of the Akismet class.
+            </summary>
+            <param name="akismetClient">The akismet client.</param>
+            <param name="commentConverter">A delegate used to convert a comment from the host site into one this library understands.</param>
+            <param name="proxy">The proxy to use if any. Leave it null if no proxy is required.</param>
+        </member>
+        <member name="M:Subkismet.Akismet`1.VerifyApiKey">
+            <summary>
+            Verifies the api key.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.Akismet`1.IsSpam(`0)">
+            <summary>
+            Examines the item and determines whether or not it is spam.
+            </summary>
+            <exception type="InvalidResponseException">Thrown if the response from Akismet is not what we expected.</exception>
+            <param name="comment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.Akismet`1.SubmitGoodFeedback(`0)">
+            <summary>
+            Submits the item to the service as a false positive. 
+            Something that should not have been marked as spam.
+            </summary>
+            <param name="comment"></param>
+        </member>
+        <member name="M:Subkismet.Akismet`1.SubmitSpam(`0)">
+            <summary>
+            Submits the item to the service as a piece of SPAM that got through 
+            the filter. Something that should've been marked as SPAM.
+            </summary>
+            <param name="comment"></param>
+        </member>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.GoogleSafeBrowsing">
+            <summary>
+            Main implementation for Google Safe Browsing.
+            </summary>
+        </member>
+        <member name="F:Subkismet.Services.GoogleSafeBrowsing.GoogleSafeBrowsing.version">
+            <summary>
+            Returns the version of the implementation.
+            </summary>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.GoogleSafeBrowsing.UpdateList(Subkismet.Services.GoogleSafeBrowsing.BlackListType)">
+            <summary>
+            Updates a blacklist and synchronizes the local
+            data with the Google server.
+            </summary>
+            <param name="listType">The blacklist type.</param>
+            <returns>A Boolean value that specifies if the update process was successfull.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.GoogleSafeBrowsing.CheckPost(Subkismet.IComment,System.Int32@,System.Int32@)">
+            <summary>
+            Verifies all links in a comment and returns
+            the number of phishing or malware links.
+            </summary>
+            <param name="comment">An IComment instance.</param>
+            <param name="numberOfPhishingOccurs">The number of the phishing links (out).</param>
+            <param name="numberOfMalwareOccurs">The number of the malware links (out).</param>
+            <returns>A Boolean value that specifies if there was any bad link in the comment</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.GoogleSafeBrowsing.CheckLink(System.String)">
+            <summary>
+            Checks a single link.
+            </summary>
+            <param name="link">The string value of the link.</param>
+            <returns>A CheckResultType enumerator specifying the type of the link.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.GoogleSafeBrowsing.CheckLinks(System.Collections.Generic.List{System.String},System.Int32@,System.Int32@)">
+            <summary>
+            Checks a list of links.
+            </summary>
+            <param name="links">A list of string value for the links.</param>
+            <param name="numberOfPhishingOccurs">The number of the phishing links (out).</param>
+            <param name="numberOfMalwareOccurs">The number of the malware links (out).</param>
+            <returns>A Boolean value specifying if there was any bad link in the list.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.GoogleSafeBrowsing.GetUserAgent(System.String)">
+            <summary>
+            Returns the user agent text for the client.
+            </summary>
+            <param name="applicationName">The name of the application.</param>
+            <returns>The string value of the user agent.</returns>
+        </member>
+        <member name="M:Subkismet.Services.GoogleSafeBrowsing.GoogleSafeBrowsing.GetLinksFromText(System.String)">
+            <summary>
+            Gets a list of links from a text that contains HTML codes.
+            </summary>
+            <param name="text">The text that contains HTML.</param>
+            <returns>A list of strings that contains all links in the text.</returns>
+        </member>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.BlackListType">
+            <summary>
+            Enumerator for Google backlist type.
+            </summary>
+        </member>
+        <member name="F:Subkismet.Services.GoogleSafeBrowsing.BlackListType.Phishing">
+            <summary>
+            Phishing blacklist.
+            </summary>
+        </member>
+        <member name="F:Subkismet.Services.GoogleSafeBrowsing.BlackListType.Malware">
+            <summary>
+            Malware backlist.
+            </summary>
+        </member>
+        <member name="T:Subkismet.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Subkismet.Properties.Resources.ArgumentNull_Generic">
+            <summary>
+              Looks up a localized string similar to Value cannot be null..
+            </summary>
+        </member>
+        <member name="P:Subkismet.Properties.Resources.ArgumentNull_String">
+            <summary>
+              Looks up a localized string similar to String reference not set to an instance of a String..
+            </summary>
+        </member>
+        <member name="P:Subkismet.Properties.Resources.ArgumentNull_Uri">
+            <summary>
+              Looks up a localized string similar to URI cannot be null..
+            </summary>
+        </member>
+        <member name="P:Subkismet.Properties.Resources.InvalidResponse_Generic">
+            <summary>
+              Looks up a localized string similar to The service was not able to handle our request. Http Status &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="T:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProviderCollection">
+            <summary>
+            A collection of defined providers in the configuration
+            </summary>
+        </member>
+        <member name="P:Subkismet.Services.GoogleSafeBrowsing.Provider.DataProviderCollection.Item(System.String)">
+            <summary>
+            A DataProvider in the providers lists.
+            </summary>
+            <param name="name">The name of the provider.</param>
+            <returns>The DataProvider instance.</returns>
+        </member>
+        <member name="T:Subkismet.AkismetClient">
+            <summary>
+            The client class used to communicate with the 
+            <see href="http://akismet.com/">Akismet</see> service.
+            </summary>
+        </member>
+        <member name="M:Subkismet.AkismetClient.#ctor(System.String,System.Uri,Subkismet.HttpClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.AkismetClient"/> class.
+            </summary>
+            <remarks>
+            This constructor takes in all the dependencies to allow for 
+            dependency injection and unit testing. Seems like overkill, 
+            but it's worth it.
+            </remarks>
+            <param name="apiKey">The Akismet API key.</param>
+            <param name="blogUrl">The root url of the blog.</param>
+            <param name="httpClient">Client class used to make the underlying requests.</param>
+        </member>
+        <member name="M:Subkismet.AkismetClient.#ctor(System.String,System.Uri)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Subkismet.AkismetClient"/> class.
+            </summary>
+            <param name="apiKey">The Akismet API key.</param>
+            <param name="rootUrl">The root url of the site using Akismet.</param>
+        </member>
+        <member name="M:Subkismet.AkismetClient.BuildUserAgent(System.String)">
+            <summary>
+            Helper method for building a user agent string in the format 
+            preferred by Akismet.
+            </summary>
+            <param name="applicationName">Name of the application.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.AkismetClient.VerifyApiKey">
+            <summary>
+            Verifies the API key.  You really only need to
+            call this once, perhaps at startup.
+            </summary>
+            <returns></returns>
+            <exception type="Sytsem.Web.WebException">If it cannot make a request of Akismet.</exception>
+        </member>
+        <member name="M:Subkismet.AkismetClient.CheckCommentForSpam(Subkismet.IComment)">
+            <summary>
+            Checks the comment and returns true if it is spam, otherwise false.
+            </summary>
+            <param name="comment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.AkismetClient.SubmitSpam(Subkismet.IComment)">
+            <summary>
+            Submits a comment to Akismet that should have been 
+            flagged as SPAM, but was not flagged by Akismet.
+            </summary>
+            <param name="comment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Subkismet.AkismetClient.SubmitHam(Subkismet.IComment)">
+            <summary>
+            Submits a comment to Akismet that should not have been 
+            flagged as SPAM (a false positive).
+            </summary>
+            <param name="comment"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Subkismet.AkismetClient.ApiKey">
+            <summary>
+            Gets or sets the Akismet API key.
+            </summary>
+            <value>The API key.</value>
+        </member>
+        <member name="P:Subkismet.AkismetClient.UserAgent">
+            <summary>
+            Gets or sets the Usera Agent for the Akismet Client.  
+            Do not confuse this with the user agent for the comment 
+            being checked.
+            </summary>
+            <value>The API key.</value>
+        </member>
+        <member name="P:Subkismet.AkismetClient.Timeout">
+            <summary>
+            Gets or sets the timeout in milliseconds for the http request to Akismet. 
+            By default 5000 (5 seconds).
+            </summary>
+            <value>The timeout.</value>
+        </member>
+        <member name="P:Subkismet.AkismetClient.RootUrl">
+            <summary>
+            Gets or sets the root URL to the blog.
+            </summary>
+            <value>The blog URL.</value>
+        </member>
+        <member name="P:Subkismet.AkismetClient.Proxy">
+            <summary>
+            Gets or sets the proxy to use.
+            </summary>
+            <value>The proxy.</value>
+        </member>
+    </members>
+</doc>

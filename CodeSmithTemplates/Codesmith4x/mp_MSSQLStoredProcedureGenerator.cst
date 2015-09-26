@@ -1,0 +1,476 @@
+<%-- 
+Name:  						MS SQL Stored Procedure Generator
+Author: 					Joe Audette
+Created:					2004-10-04
+Last Modified:				2007-09-22
+Description: 				Creates basic CRUD procedures for a table
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="T-SQL" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author of stored procedure" %>
+<%@ Property Name="IncludeDrop" Type="System.Boolean" Default="True" Category="Options" Description="If true drop statements will be generated to drop existing stored procedures." %>
+<%@ Property Name="IncludeInsert" Type="System.Boolean" Default="True" Category="Options" Description="If true insert statements will be generated." %>
+<%@ Property Name="IncludeUpdate" Type="System.Boolean" Default="True" Category="Options" Description="If true update statements will be generated." %>
+<%@ Property Name="IncludeDelete" Type="System.Boolean" Default="True" Category="Options" Description="If true delete statements will be generated." %>
+<%@ Property Name="IncludeSelect" Type="System.Boolean" Default="True" Category="Options" Description="If true Select One will be generated." %>
+<%@ Property Name="IncludeSelectAll" Type="System.Boolean" Default="True" Category="Options" Description="If true Select All statements will be generated." %>
+<%@ Property Name="IncludeCount" Type="System.Boolean" Default="True" Category="Options" Description="If true a Count Procedure will be generated." %>
+
+
+<%@ Property Name="InsertSuffix" Type="System.String" Default="_Insert" Category="Style" Description="Suffix to use for all generated INSERT stored procedures." %>
+<%@ Property Name="UpdateSuffix" Type="System.String" Default="_Update" Category="Style" Description="Suffix to use for all generated UPDATE stored procedures." %>
+<%@ Property Name="DeleteSuffix" Type="System.String" Default="_Delete" Category="Style" Description="Suffix to use for all generated DELETE stored procedures." %>
+<%@ Property Name="SelectSuffix" Type="System.String" Default="_SelectOne" Category="Style" Description="Suffix to use for all generated SELECT stored procedures." %>
+<%@ Property Name="SelectAllSuffix" Type="System.String" Default="_SelectAll" Category="Style" Description="Suffix to use for all generated SELECT stored procedures." %>
+<%@ Property Name="CountSuffix" Type="System.String" Default="_GetCount" Category="Style" Description="Suffix to use for Count stored procedure." %>
+
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+<% if (SourceTable.PrimaryKey == null) throw new ApplicationException("SourceTable does not contain a primary key."); %>
+<% if (IncludeDrop) { %>
+	<% if (IncludeDelete) { %>
+/****** Object:  Stored Procedure <%= GetTableOwner() %><%= SourceTable.Name %><%= DeleteSuffix %>    Script Date: <%= DateTime.Now.ToLongDateString() %> ******/
+if exists (select * from [dbo].sysobjects where id = object_id(N'[dbo].[<%= SourceTable.Name %><%= DeleteSuffix %>]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure <%= GetTableOwner() %>[<%= SourceTable.Name %><%= DeleteSuffix %>]
+GO
+
+	<% } %>
+	<% if (IncludeSelect) { %>
+/****** Object:  Stored Procedure <%= GetTableOwner() %><%= SourceTable.Name %><%= SelectSuffix %>    Script Date: <%= DateTime.Now.ToLongDateString() %> ******/
+if exists (select * from [dbo].sysobjects where id = object_id(N'[dbo].[<%= SourceTable.Name %><%= SelectSuffix %>]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure <%= GetTableOwner() %>[<%= SourceTable.Name %><%= SelectSuffix %>]
+GO
+
+	<% } %>
+	<% if (IncludeCount) { %>
+/****** Object:  Stored Procedure <%= GetTableOwner() %><%= SourceTable.Name %><%= CountSuffix %>    Script Date: <%= DateTime.Now.ToLongDateString() %> ******/
+if exists (select * from [dbo].sysobjects where id = object_id(N'[dbo].[<%= SourceTable.Name %><%= CountSuffix %>]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure <%= GetTableOwner() %>[<%= SourceTable.Name %><%= CountSuffix %>]
+GO
+
+	<% } %>
+	
+	<% if (IncludeSelectAll) { %>
+/****** Object:  Stored Procedure <%= GetTableOwner() %><%= SourceTable.Name %><%= SelectAllSuffix %>    Script Date: <%= DateTime.Now.ToLongDateString() %> ******/
+if exists (select * from [dbo].sysobjects where id = object_id(N'[dbo].[<%= SourceTable.Name %><%= SelectAllSuffix %>]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure <%= GetTableOwner() %>[<%= SourceTable.Name %><%= SelectAllSuffix %>]
+GO
+
+	<% } %>
+	<% if (IncludeInsert) { %>
+/****** Object:  Stored Procedure <%= GetTableOwner() %><%= SourceTable.Name %><%= InsertSuffix %>    Script Date: <%= DateTime.Now.ToLongDateString() %> ******/
+if exists (select * from [dbo].sysobjects where id = object_id(N'[dbo].[<%= SourceTable.Name %><%= InsertSuffix %>]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure <%= GetTableOwner() %>[<%= SourceTable.Name %><%= InsertSuffix %>]
+GO
+
+	<% } %>
+	<% if (IncludeUpdate) { %>
+/****** Object:  Stored Procedure <%= GetTableOwner() %><%= SourceTable.Name %><%= UpdateSuffix %>    Script Date: <%= DateTime.Now.ToLongDateString() %> ******/
+if exists (select * from [dbo].sysobjects where id = object_id(N'[dbo].[<%= SourceTable.Name %><%= UpdateSuffix %>]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure <%= GetTableOwner() %>[<%= SourceTable.Name %><%= UpdateSuffix %>]
+GO
+
+	<% } %>
+
+/****** Object:  Stored Procedure <%= GetTableOwner() %><%= SourceTable.Name %>_SelectPage    Script Date: <%= DateTime.Now.ToLongDateString() %> ******/
+if exists (select * from [dbo].sysobjects where id = object_id(N'[dbo].[<%= SourceTable.Name %>_SelectPage]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure <%= GetTableOwner() %>[<%= SourceTable.Name %>_SelectPage]
+GO
+
+<% } %>
+<% if (IncludeDelete) { %>
+
+SET QUOTED_IDENTIFIER ON 
+GO
+
+
+CREATE PROCEDURE <%= GetTableOwner() %><%= SourceTable.Name %><%= DeleteSuffix %>
+
+/*
+Author:   			<%= Author %>
+Created: 			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+Last Modified: 		<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+*/
+
+<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+<%= GetSqlParameterStatement(SourceTable.PrimaryKey.MemberColumns[i]) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>,<% } %>
+<% } %>
+
+AS
+
+DELETE FROM <%= GetTableOwner() %>[<%= SourceTable.Name %>]
+WHERE
+	<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+	<% if (i > 0) { %>AND <% } %>[<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>] = @<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>
+	<% } %>
+GO
+
+
+SET QUOTED_IDENTIFIER OFF 
+GO
+
+
+<% } %>
+
+<% if (IncludeCount) { %>
+SET QUOTED_IDENTIFIER ON 
+GO
+
+
+
+CREATE PROCEDURE <%= GetTableOwner() %><%= SourceTable.Name %><%= CountSuffix %>
+
+/*
+Author:   			<%= Author %>
+Created: 			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+Last Modified: 		<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+*/
+
+AS
+
+SELECT COUNT(*) FROM <%= GetTableOwner() %>[<%= SourceTable.Name %>]
+
+GO
+
+
+SET QUOTED_IDENTIFIER OFF 
+GO
+
+
+<% } %>
+
+<% if (IncludeSelect) { %>
+SET QUOTED_IDENTIFIER OFF 
+GO
+
+
+CREATE PROCEDURE <%= GetTableOwner() %><%= SourceTable.Name %><%= SelectSuffix %>
+
+/*
+Author:   			<%= Author %>
+Created: 			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+Last Modified: 		<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+*/
+
+<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+<%= GetSqlParameterStatement(SourceTable.PrimaryKey.MemberColumns[i]) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>,<% } %>
+<% } %>
+
+AS
+
+
+SELECT
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+		[<%= SourceTable.Columns[i].Name %>]<% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+		<% } %>
+		
+FROM
+		<%= GetTableOwner() %>[<%= SourceTable.Name %>]
+		
+WHERE
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+		<% if (i > 0) { %>AND <% } %>[<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>] = @<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>
+		<% } %>
+
+GO
+
+
+
+SET QUOTED_IDENTIFIER OFF 
+GO
+
+
+<% } %>
+
+
+
+
+
+<% if (IncludeSelectAll) { %>
+SET QUOTED_IDENTIFIER ON 
+GO
+
+
+CREATE PROCEDURE <%= GetTableOwner() %><%= SourceTable.Name %><%= SelectAllSuffix %>
+
+/*
+Author:   			<%= Author %>
+Created: 			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+Last Modified: 		<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+*/
+
+AS
+
+
+SELECT
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+		[<%= SourceTable.Columns[i].Name %>]<% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+		<% } %>
+		
+FROM
+		<%= GetTableOwner() %>[<%= SourceTable.Name %>]
+
+GO
+
+
+SET QUOTED_IDENTIFIER OFF 
+GO
+
+
+<% } %>
+SET QUOTED_IDENTIFIER ON 
+GO
+
+<% if (IncludeInsert) { %>
+
+
+<% if (SourceTable.PrimaryKey.MemberColumns.Count == 1 && (SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Guid || SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int16 || SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int32 || SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int64)) {
+	ColumnSchema primaryKey = SourceTable.PrimaryKey.MemberColumns[0];
+%>
+CREATE PROCEDURE <%= GetTableOwner() %><%= SourceTable.Name %><%= InsertSuffix %>
+
+/*
+Author:   			<%= Author %>
+Created: 			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+Last Modified: 		<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+*/
+
+<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) 
+{ 
+	if( SourceTable.PrimaryKey.MemberColumns[i].DataType == DbType.Guid)
+	{
+%><%= GetSqlParameterStatement(SourceTable.PrimaryKey.MemberColumns[i]) %><% if (SourceTable.NonPrimaryKeyColumns.Count > 0) { %>,<% } %>
+<%  } %>
+<% } %>
+<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+<%= GetSqlParameterStatement(SourceTable.NonPrimaryKeyColumns[i]) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %>
+<% } %>
+
+	
+AS
+
+INSERT INTO 	<%= GetTableOwner() %>[<%= SourceTable.Name %>] 
+(
+				<% if (primaryKey.DataType == DbType.Guid) { %>
+				[<%= primaryKey.Name %>],
+				<% } %>
+				<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+				[<%= SourceTable.NonPrimaryKeyColumns[i].Name %>]<% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %>
+				<% } %>
+) 
+
+VALUES 
+(
+				<% if (primaryKey.DataType == DbType.Guid) { %>
+				@<%= primaryKey.Name %>,
+				<% } %>
+				<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+				@<%= SourceTable.NonPrimaryKeyColumns[i].Name %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %>
+				<% } %>
+				
+)
+<% if (primaryKey.DataType == DbType.Int16 || primaryKey.DataType == DbType.Int32 || primaryKey.DataType == DbType.Int64) { %>
+SELECT @@IDENTITY 
+<% } %>
+
+<% } else { %>
+CREATE PROCEDURE <%= GetTableOwner() %><%= SourceTable.Name %><%= InsertSuffix %>
+
+-- THIS STORED PROCEDURE NEEDS TO BE MANUALLY COMPLETED
+-- MULITPLE PRIMARY KEY MEMBERS OR NON-GUID/INT PRIMARY KEY
+
+<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+<%= this.GetSqlParameterStatement(SourceTable.Columns[i]) %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+<% } %>
+
+
+AS
+
+INSERT INTO 		<%= GetTableOwner() %>[<%= SourceTable.Name %>] 
+(
+					<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+					[<%= SourceTable.Columns[i].Name %>]<% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+					<% } %>
+) 
+
+VALUES 
+(
+					<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+					@<%= SourceTable.Columns[i].Name %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+					<% } %>
+)
+
+<% } %>
+
+GO
+
+SET QUOTED_IDENTIFIER OFF 
+GO
+
+
+<% } %>
+<% if (IncludeUpdate) { %>
+
+SET QUOTED_IDENTIFIER ON 
+GO
+
+
+
+CREATE PROCEDURE <%= GetTableOwner() %><%= SourceTable.Name %><%= UpdateSuffix %>
+
+/*
+Author:   			<%= Author %>
+Created: 			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+Last Modified: 		<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+*/
+	
+<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+<%= GetSqlParameterStatement(SourceTable.Columns[i]) %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %> <% if (SourceTable.Columns[i].Description.Length > 0) { %>-- <%= SourceTable.Columns[i].Description %><% } %>
+<% } %>
+
+
+AS
+
+UPDATE 		<%= GetTableOwner() %>[<%= SourceTable.Name %>] 
+
+SET
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			[<%= SourceTable.NonPrimaryKeyColumns[i].Name %>] = @<%= SourceTable.NonPrimaryKeyColumns[i].Name %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %>
+			<% } %>
+			
+WHERE
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			<% if (i > 0) { %>AND <% } %>[<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>] = @<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>
+			<% } %>
+
+GO
+
+SET QUOTED_IDENTIFIER OFF 
+GO
+
+<% } %>
+
+
+
+
+CREATE PROCEDURE <%= GetTableOwner() %><%= SourceTable.Name %>_SelectPage
+
+-- Author:   			<%= Author %>
+-- Created: 			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+-- Last Modified: 		<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+
+@PageNumber 			int,
+@PageSize 			int
+
+AS
+
+DECLARE @PageLowerBound int
+DECLARE @PageUpperBound int
+
+
+SET @PageLowerBound = (@PageSize * @PageNumber) - @PageSize
+SET @PageUpperBound = @PageLowerBound + @PageSize + 1
+
+/*
+Note: temp tables use the server default for collation not the database default
+so if adding character columns be sure and specify to use the database collation like this
+to avoid collation errors:
+
+CREATE TABLE #PageIndexForUsers
+(
+IndexID int IDENTITY (1, 1) NOT NULL,
+UserName nvarchar(50) COLLATE DATABASE_DEFAULT,
+LoginName nvarchar(50) COLLATE DATABASE_DEFAULT
+) 
+
+
+*/
+
+CREATE TABLE #PageIndex 
+(
+	IndexID int IDENTITY (1, 1) NOT NULL,
+	<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+<%= SourceTable.PrimaryKey.MemberColumns[i].Name + " " + this.GetSqlDbType(SourceTable.PrimaryKey.MemberColumns[i]) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>,<% } %>
+<% } %>
+)
+
+BEGIN
+
+INSERT INTO #PageIndex ( <% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+<%= SourceTable.PrimaryKey.MemberColumns[i].Name %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>,<% } %>
+<% } %>)
+
+SELECT
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+		[<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>]<% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>,<% } %>
+		<% } %>
+		
+FROM
+		<%= GetTableOwner() %>[<%= SourceTable.Name %>]
+		
+-- WHERE
+
+-- ORDER BY
+
+END
+
+
+SELECT
+		t1.*
+		
+FROM
+		<%= GetTableOwner() %>[<%= SourceTable.Name %>] t1
+
+JOIN			#PageIndex t2
+ON			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+		t1.[<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>] = t2.[<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>]<% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %> AND <% } %>
+		<% } %>
+		
+WHERE
+		t2.IndexID > @PageLowerBound 
+		AND t2.IndexID < @PageUpperBound
+		
+ORDER BY t2.IndexID
+
+DROP TABLE #PageIndex
+
+GO
+
+
+SET QUOTED_IDENTIFIER OFF 
+GO
+
+
+
+
+
+
+
+<script runat="template">
+// My methods here.
+
+public string GetTableOwner()
+{
+	return GetTableOwner(true);
+}
+
+public string GetTableOwner(bool includeDot)
+{
+	if (SourceTable.Owner.Length > 0)
+	{
+		return "[" + SourceTable.Owner + "].";
+	}
+	else
+	{
+		return "";
+	}
+}
+</script>

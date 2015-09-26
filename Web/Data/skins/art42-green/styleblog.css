@@ -1,0 +1,32 @@
+ul.relatedposts,
+ul.blognav { list-style-type:none;  }
+.blognavright ul li , .blognavleft ul li { background-image: none;}
+ul.relatedposts li,
+ul.blognav li { margin: 0px 0px 3px -15px;  }
+div.blognavright  h3 , div.blognavleft  h3{ padding: 10px 0 0 0; margin: 0px 0px -10px 0px; text-align:left;  }
+.blognavleft { width: 27%; max-width:265px; float:left; }
+.blognavright {  width: 27%; max-width:265px; float:right; }
+.blogcenter-nonav {margin: 0 0 0 0; padding: 5px 0px 0px 5px;    }
+.blogcenter-leftnav {float:right; width: 71%; margin: 0 0 0 0; padding: 5px 0px 0px 5px;   }
+.blogcenter-rightnav { float: left; width: 71%; margin:0 0 0 0; padding: 5px 0px 0px 5px;     }
+.bloginfo {   }
+.bloginfotitle {   font-weight: bold; }
+.blogtitle { margin: 5px 0px 0px 0px;   font-weight: bold;  }
+.blogdate { padding: 7px 0px 7px 0px; text-align:left; font-size:11px;  }
+.blogcommentlink { font-size:11px; text-align:right; padding: 0px 5px 3px 0px; }
+div.blogcommentlink{ border-bottom: 1px solid #cccccc; }
+div.blogcommenttext { border-bottom: 1px solid #cccccc;   }
+.blogcommentposter { font-size:11px;   }
+.blognav ul { list-style-type:none;  }
+.blognav li { list-style: none; margin: 0px 0px 3px -30px;  }
+.blognav li a  img{ margin:0; padding:0;  }
+.blogcommentservice { clear: both;  width:95%;}
+.blogpagerbottom{ padding-top:5px; padding-bottom:5px;}
+.bsocial { clear:left; }
+.bsocial .fblikebutton {margin-top: 3px; }
+.bsocial iframe{ margin-top:7px; }
+.blognavleft div.ui-datepicker,
+
+
+
+

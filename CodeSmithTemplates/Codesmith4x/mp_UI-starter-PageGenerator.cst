@@ -1,0 +1,163 @@
+<%-- 
+Name:  			mojoPortal Page stubber
+Author: 		Joe Audette
+Description: 	Generates markup and code behind for pages inheriting from mojoBasePage
+Last Modified:	2/19/2007
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author" %>
+<%@ Property Name="BusinessLayerNameSpace" Type="System.String" Default="mojoPortal.Business" Category="Style" Description="The Namespace of the Business Layer class" %>
+<%@ Property Name="UINameSpace" Type="System.String" Default="MyWeb.UI" Category="Style" Description="" %>
+<%@ Property Name="ClassName" Type="System.String" Default="MyClass" Category="Style" Description="" %>
+<%@ Property Name="PageName" Type="System.String" Default="MyCustomPage.aspx" Category="Style" Description="" %>
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+
+
+<%%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/layout.Master" CodeBehind="<%= PageName%>.cs" Inherits="<%= UINameSpace%>.<%= ClassName%>Page" %%>
+
+<asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
+<asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
+<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
+<mp:CornerRounderTop id="ctop1" runat="server" EnableViewState="false"  />
+<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper ">
+<portal:HeadingControl ID="heading" runat="server" />
+<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
+<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
+
+
+
+
+</portal:InnerBodyPanel>
+</portal:OuterBodyPanel>
+<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+</portal:InnerWrapperPanel> 
+<mp:CornerRounderBottom id="cbottom1" runat="server" EnableViewState="false" />	
+</portal:OuterWrapperPanel>
+</asp:Content>
+<asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />
+<asp:Content ContentPlaceHolderID="pageEditContent" ID="MPPageEdit" runat="server" />
+
+// Author:					<%= Author %>
+// Created:					<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+// Last Modified:			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+// 
+// The use and distribution terms for this software are covered by the 
+// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
+// which can be found in the file CPL.TXT at the root of this distribution.
+// By using this software in any fashion, you are agreeing to be bound by 
+// the terms of this license.
+//
+// You must not remove this notice, or any other, from this software.
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Globalization;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using mojoPortal.Web;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.UI;
+using log4net;
+using <%= BusinessLayerNameSpace%>;
+using mojoPortal.Business.WebHelpers;
+using Resources;
+
+
+
+namespace <%= UINameSpace%>
+{
+	
+    public partial class <%= ClassName%>Page : mojoBasePage
+    {
+		private int pageId = -1;
+        private int moduleId = -1;
+		// replace this with your own feature guid or make a static property on one of your business objects
+		// like MyFeature.FeatureGuid, then you can use that instead of this variable
+		private Guid featureGuid = Guid.Empty; 
+		
+        protected void Page_Load(object sender, EventArgs e)
+        {
+			LoadParams();
+
+			// one of these may be usefull
+            //if (!UserCanViewPage(moduleId, featureGuid))
+            //{
+            //    SiteUtils.RedirectToAccessDeniedPage(this);
+            //    return;
+            //}
+            //if (!UserCanEditModule(moduleId, featureGuid))
+            //{
+            //    SiteUtils.RedirectToAccessDeniedPage(this);
+            //    return;
+            //}
+			
+            LoadSettings();
+            PopulateLabels();
+            PopulateControls();
+
+        }
+
+        private void PopulateControls()
+        {
+
+
+        }
+
+
+        private void PopulateLabels()
+        {
+			heading.Text = "Hello World";
+        }
+
+        private void LoadSettings()
+        {
+
+
+        }
+		
+		private void LoadParams()
+        {
+            pageId = WebUtils.ParseInt32FromQueryString("pageid", pageId);
+            moduleId = WebUtils.ParseInt32FromQueryString("mid", moduleId);
+
+        }
+
+
+        #region OnInit
+
+        override protected void OnInit(EventArgs e)
+        {
+			base.OnInit(e);
+            this.Load += new EventHandler(this.Page_Load);
+
+            
+        }
+
+        #endregion
+    }
+}
+
+
+
+<script runat="template">
+
+
+
+	
+</script>

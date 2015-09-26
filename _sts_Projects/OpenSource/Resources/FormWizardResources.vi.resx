@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOptionButton" xml:space="preserve">
+    <value>Thêm tùy chọn</value>
+  </data>
+  <data name="AnalyticsTrackingUrlSetting" xml:space="preserve">
+    <value>URL theo dõi phân tích biểu mẫu gửi lên</value>
+  </data>
+  <data name="AnswerRequiredLabel" xml:space="preserve">
+    <value>Bắt buộc trả lời</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Xin hãy đợi...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="CheckBoxListQuestionType" xml:space="preserve">
+    <value>Hộp kiểm</value>
+  </data>
+  <data name="CheckBoxQuestionType" xml:space="preserve">
+    <value>Hộp kiểm Có/Không</value>
+  </data>
+  <data name="DateQuestionType" xml:space="preserve">
+    <value>Hộp chọn ngày</value>
+  </data>
+  <data name="DeleteOptionWarning" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa tùy chọn này không?</value>
+  </data>
+  <data name="DeleteOrphansButton" xml:space="preserve">
+    <value>Xóa phản hồi đơn lẻ</value>
+  </data>
+  <data name="DeleteOrphansWarning" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa các phản hồi đơn lẻ không?</value>
+  </data>
+  <data name="DeleteQuestionWarning" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa câu hỏi này không?</value>
+  </data>
+  <data name="DeleteResponsesButton" xml:space="preserve">
+    <value>Xóa tất cả các thông tin đệ trình biểu mẫu</value>
+  </data>
+  <data name="DeleteResponsesWarning" xml:space="preserve">
+    <value>Bạn có chắc bạn muốn xóa tất cả các biểu mẫu gửi lên không? Bạn không thể hoàn tác lệnh này. Bạn nên xuất các kết quả trước khi thực hiện để tránh mất dữ liệu.</value>
+  </data>
+  <data name="DoneButton" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="DropDownListQuestionType" xml:space="preserve">
+    <value>Chọn từ danh sách</value>
+  </data>
+  <data name="DropDownPleaseSelectText" xml:space="preserve">
+    <value>Xin hãy chọn...</value>
+  </data>
+  <data name="EditLink" xml:space="preserve">
+    <value>Chỉnh sửa biểu mẫu</value>
+  </data>
+  <data name="EditQuestionButton" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="EnableAntiSpamSetting" xml:space="preserve">
+    <value>Kích hoạt tính năng chặn thư rác</value>
+  </data>
+  <data name="ExportFormDefinition" xml:space="preserve">
+    <value>Xuất khẩu định nghĩa biểu mẫu</value>
+  </data>
+  <data name="ExportOrphansButton" xml:space="preserve">
+    <value>Xuất khẩu các phản hồi đơn lẻ</value>
+  </data>
+  <data name="ExportQuestionButton" xml:space="preserve">
+    <value>Xuất khẩu câu hỏi</value>
+  </data>
+  <data name="ExportToCSVButton" xml:space="preserve">
+    <value>Xuất dữ liệu ra CSV/Excel</value>
+  </data>
+  <data name="FileRequiredWarning" xml:space="preserve">
+    <value>Bạn phải chọn một tập tin.</value>
+  </data>
+  <data name="FinishButton" xml:space="preserve">
+    <value>Kết thúc</value>
+  </data>
+  <data name="FinishedButton" xml:space="preserve">
+    <value>Kết thúc</value>
+  </data>
+  <data name="FormDefinitionExtensionWarning" xml:space="preserve">
+    <value>Các tập tin định nghĩa biểu mẫu cần có đuôi mở rộng là .config</value>
+  </data>
+  <data name="FormEditPageTitle" xml:space="preserve">
+    <value>Trình biên tập biểu mẫu</value>
+  </data>
+  <data name="FormPageUrlFormat" xml:space="preserve">
+    <value>Từ Url: {0}</value>
+  </data>
+  <data name="FormSubmissionsLink" xml:space="preserve">
+    <value>Dữ liệu gửi lên</value>
+  </data>
+  <data name="FormSubmitNotificationTask" xml:space="preserve">
+    <value>Nhiệm vụ thông báo gửi biểu mẫu</value>
+  </data>
+  <data name="FormWizardFeatureName" xml:space="preserve">
+    <value>Form Wizard Pro bởi Source Tree Solutions</value>
+  </data>
+  <data name="ImportFormButton" xml:space="preserve">
+    <value>Nhập khẩu định nghĩa biểu mẫu</value>
+  </data>
+  <data name="ImportFormWarning" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn nhập khẩu một định nghĩa biểu mẫu và thay thế tất cả các nội dung của biểu mẫu hiện tại? Bất kỳ câu hỏi hoặc chỉ dẫn hiện có sẽ được thay thế. Nếu biểu mẫu hiện tại có các câu hỏi, tốt hơn là xuất khẩu trước để có bản sao lưu. Bạn cũng nên xuất khẩu các đệ trình hiện có và sau đó xóa chúng, nếu không sẽ có câu trả lời thừa không còn tương ứng với các câu hỏi trong các biểu mẫu hiện có.</value>
+  </data>
+  <data name="ImportQuestionButton" xml:space="preserve">
+    <value>Nhập khẩu câu hỏi</value>
+  </data>
+  <data name="InstructionBlockLabel" xml:space="preserve">
+    <value>Khối chỉ dẫn</value>
+  </data>
+  <data name="InstructionBlockQuestionType" xml:space="preserve">
+    <value>Khối chỉ dẫn</value>
+  </data>
+  <data name="InstructionsTab" xml:space="preserve">
+    <value>Chỉ dẫn</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>là bắt buộc.</value>
+  </data>
+  <data name="MaxRangeLabel" xml:space="preserve">
+    <value>Giá trị cực đại</value>
+  </data>
+  <data name="MinRangeLabel" xml:space="preserve">
+    <value>Giá trị cực tiểu</value>
+  </data>
+  <data name="NewQuestionButton" xml:space="preserve">
+    <value>Thêm câu hỏi mới</value>
+  </data>
+  <data name="NextButton" xml:space="preserve">
+    <value>Tiếp tục &gt;&gt;</value>
+  </data>
+  <data name="NitificationSiteUserFormat" xml:space="preserve">
+    <value>Đã nhận từ người dùng của trang: {0}</value>
+  </data>
+  <data name="NoResultsMessage" xml:space="preserve">
+    <value>Có chưa được bất kỳ biểu mẫu đệ trình nào.</value>
+  </data>
+  <data name="NotificationAliasLabelSetting" xml:space="preserve">
+    <value>Nhãn cho danh sách email</value>
+  </data>
+  <data name="NotificationAliasSetting" xml:space="preserve">
+    <value>Hiện bí danh thay cho địa chỉ email</value>
+  </data>
+  <data name="NotificationEmailBccSetting" xml:space="preserve">
+    <value>Địa chỉ email BCC thông báo</value>
+  </data>
+  <data name="NotificationEmailSetting" xml:space="preserve">
+    <value>Địa chỉ email nhận biểu mẫu đệ trình</value>
+  </data>
+  <data name="NotificationIPAddressFormat" xml:space="preserve">
+    <value>Từ địa chỉ IP: {0}</value>
+  </data>
+  <data name="NotificationSubjectFormat" xml:space="preserve">
+    <value>Biểu mẫu gửi lên đã nhận: {0}</value>
+  </data>
+  <data name="OptionsHeading" xml:space="preserve">
+    <value>Tùy chọn</value>
+  </data>
+  <data name="OrphanCountLabel" xml:space="preserve">
+    <value>Số lượng phản hồi đơn lẻ</value>
+  </data>
+  <data name="Orphans" xml:space="preserve">
+    <value>đơn lẻ</value>
+  </data>
+  <data name="PageNumberLabel" xml:space="preserve">
+    <value>Số trang</value>
+  </data>
+  <data name="PreValidateForm" xml:space="preserve">
+    <value>Xác nhận trước mẫu?</value>
+  </data>
+  <data name="PreviousButton" xml:space="preserve">
+    <value>&lt;&lt; Quay lại</value>
+  </data>
+  <data name="QuestionEditOptionsDeleteAlternateText" xml:space="preserve">
+    <value>Xóa tùy chọn được chọn</value>
+  </data>
+  <data name="QuestionEditOptionsDownAlternateText" xml:space="preserve">
+    <value>Chuyển tùy chọn được chọn xuống dưới</value>
+  </data>
+  <data name="QuestionEditOptionsEditAlternateText" xml:space="preserve">
+    <value>Chỉnh sửa tùy chọn được chọn</value>
+  </data>
+  <data name="QuestionEditOptionsUpAlternateText" xml:space="preserve">
+    <value>Chuyển tùy chọn được chọn lên trên</value>
+  </data>
+  <data name="QuestionsTab" xml:space="preserve">
+    <value>Câu hỏi</value>
+  </data>
+  <data name="QuestionTextLabel" xml:space="preserve">
+    <value>Nội dung câu hỏi</value>
+  </data>
+  <data name="QuestionTypeLabel" xml:space="preserve">
+    <value>Loại câu hỏi</value>
+  </data>
+  <data name="RadioButtonListQuestionType" xml:space="preserve">
+    <value>Nhiều lựa chọn</value>
+  </data>
+  <data name="RequiredFieldIndicator" xml:space="preserve">
+    <value> *</value>
+  </data>
+  <data name="ResultsTitleFormat" xml:space="preserve">
+    <value>{0} gửi lên</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="SliderQuestionType" xml:space="preserve">
+    <value>Khoảng trượt</value>
+  </data>
+  <data name="SliderTooltipFormat" xml:space="preserve">
+    <value>Thanh trượt: giá trị {0}. Hãy trượt để thay đổi giá trị.</value>
+  </data>
+  <data name="SubmissionCountLabel" xml:space="preserve">
+    <value>Tổng số gửi lên</value>
+  </data>
+  <data name="SubmitButton" xml:space="preserve">
+    <value>Gửi lên</value>
+  </data>
+  <data name="TaskCompleted" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="TaskQueued" xml:space="preserve">
+    <value>Đang đợi</value>
+  </data>
+  <data name="TaskRunning" xml:space="preserve">
+    <value>Đang chạy</value>
+  </data>
+  <data name="TaskStarted" xml:space="preserve">
+    <value>Bắt đầu</value>
+  </data>
+  <data name="TextAreaQuestionType" xml:space="preserve">
+    <value>Đoạn văn bản</value>
+  </data>
+  <data name="TextBoxQuestionType" xml:space="preserve">
+    <value>Văn bản</value>
+  </data>
+  <data name="ThankYouMessageTab" xml:space="preserve">
+    <value>Lời cảm ơn</value>
+  </data>
+  <data name="TotalPagesLabel" xml:space="preserve">
+    <value>Tổng số trang</value>
+  </data>
+  <data name="UpdateOptionButton" xml:space="preserve">
+    <value>Tùy chọn cập nhật</value>
+  </data>
+  <data name="BrowseResultsLink" xml:space="preserve">
+    <value>Duyệt các đệ trình</value>
+  </data>
+  <data name="EnableRegexValidation" xml:space="preserve">
+    <value>Kích hoạt xác nhận biểu thức chính quy của nội dung câu hỏi?</value>
+  </data>
+  <data name="InvalidRegexTextLabel" xml:space="preserve">
+    <value>Nội dung không hợp lệ</value>
+  </data>
+  <data name="RegexExpressionLabel" xml:space="preserve">
+    <value>Phê chuẩn biểu thức chính quy</value>
+  </data>
+  <data name="ResultsGridPageSizeSetting" xml:space="preserve">
+    <value>Kích cỡ trang kết quả</value>
+  </data>
+  <data name="ViewResultsGridLink" xml:space="preserve">
+    <value>Xem danh sách các gửi lên</value>
+  </data>
+  <data name="ViewResultsGridTooltip" xml:space="preserve">
+    <value>Các biểu mẫu gửi lên</value>
+  </data>
+  <data name="DeleteQuestionButtonTooltip" xml:space="preserve">
+    <value>Xóa câu hỏi này</value>
+  </data>
+  <data name="EditInstructionsLink" xml:space="preserve">
+    <value>Chỉnh sửa chỉ dẫn</value>
+  </data>
+  <data name="DeleteResponseButton" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="DeleteResponseWarning" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa đệ trình biểu mẫu này không?</value>
+  </data>
+  <data name="ResponseTimeIpFormat" xml:space="preserve">
+    <value>Đã nhận {0} từ địa chỉ IP {1}</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Lớp CSS tùy chỉnh</value>
+  </data>
+  <data name="ExportToWord" xml:space="preserve">
+    <value>Xuất ra Word</value>
+  </data>
+  <data name="InvalidRegexWarning" xml:space="preserve">
+    <value>Biểu thức chính quy nhập vào không hợp lệ.</value>
+  </data>
+  <data name="BrowseResultsTooltip" xml:space="preserve">
+    <value>Duyệt các đệ trình được gửi lên</value>
+  </data>
+  <data name="CssClassLabel" xml:space="preserve">
+    <value>Lớp CSS</value>
+  </data>
+  <data name="InvalidCssClassWarning" xml:space="preserve">
+    <value>Chỉ các ký tự là được phép cho các lớp CSS.</value>
+  </data>
+  <data name="AllowedUploadExtensions" xml:space="preserve">
+    <value>Những đuôi mở rộng được phép tải lên</value>
+  </data>
+  <data name="AllowedUploadExtensionsWarning" xml:space="preserve">
+    <value>Cảnh báo những đuôi mở rộng được phép tải lên</value>
+  </data>
+  <data name="AllowedUploads" xml:space="preserve">
+    <value>Những tải lên được phép</value>
+  </data>
+  <data name="UploadInstructions" xml:space="preserve">
+    <value>Hướng dẫn Tải lên</value>
+  </data>
+  <data name="FileUploadSettings" xml:space="preserve">
+    <value>Thiết lập tập tin tải lên</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>Thiết lập chung</value>
+  </data>
+  <data name="NotificationSettings" xml:space="preserve">
+    <value>Thiết lập thông báo</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Tải lên/Kết thúc</value>
+  </data>
+  <data name="DeleteAttachmentWarning" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa đệ trình tập tin này không?</value>
+  </data>
+  <data name="DownloadLink" xml:space="preserve">
+    <value>Tải về</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Tập tin</value>
+  </data>
+  <data name="FileTooLargeWarning" xml:space="preserve">
+    <value>Tập tin tải lên bị loại bỏ do vượt qua giới hạn đã được cấu hình. Xin vui lòng tải lên một tập tin không lớn hơn {0} MB.</value>
+  </data>
+  <data name="FileTooLargeWarningFormat" xml:space="preserve">
+    <value>Tập tin {0} bị loại bỏ do vượt qua giới hạn đã được cấu hình. Xin vui lòng tải lên một tập tin không lớn hơn {1} MB.</value>
+  </data>
+  <data name="FileUploadGlobalRegexWarning" xml:space="preserve">
+    <value>Loại tập tin không được phép bởi các thiết lập cấu hình toàn cục.</value>
+  </data>
+  <data name="NotificationIncludeDetails" xml:space="preserve">
+    <value>Thêm nội dung chi tiết vào thông báo?</value>
+  </data>
+  <data name="NotificationIntro" xml:space="preserve">
+    <value>Một biểu mẫu đã được gửi đi, nhấp vào liên kết dưới đây để xem nội dung:</value>
+  </data>
+  <data name="FormSubmittedEventHandlerSetting" xml:space="preserve">
+    <value>Bộ xử lý sự kiện gửi lên</value>
+  </data>
+  <data name="NotificationFilesExcludedWarning" xml:space="preserve">
+    <value>Tập tin đính kèm không được thêm do kích thước của tập tin, nhấp vào liên kết để xem đệ trình và tải về các tập tin đã được gửi.</value>
+  </data>
+  <data name="NotificationIncludeFiles" xml:space="preserve">
+    <value>Thêm các tập tin đệ trình vào đính kèm?</value>
+  </data>
+  <data name="NotificationLeaveOutUnansweredQuestions" xml:space="preserve">
+    <value>Bỏ các câu hỏi chưa được trả lời ra khỏi thông báo?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="File1ErrorFormat" xml:space="preserve">
+    <value>Tập tin 1: {0}</value>
+  </data>
+  <data name="File2ErrorFormat" xml:space="preserve">
+    <value>Tập tin 2: {0}</value>
+  </data>
+  <data name="File3ErrorFormat" xml:space="preserve">
+    <value>Tập tin 3: {0}</value>
+  </data>
+  <data name="File4ErrorFormat" xml:space="preserve">
+    <value>Tập tin 4: {0}</value>
+  </data>
+  <data name="FinishWithNoUploadButton" xml:space="preserve">
+    <value>Kết thúc mà không tải lên</value>
+  </data>
+  <data name="UploadIsRequired" xml:space="preserve">
+    <value>Yêu cầu tải lên?</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="EnableOptionAliases" xml:space="preserve">
+    <value>Kích hoạt biệt hiệu tùy chọn?</value>
+  </data>
+  <data name="EnablePerQuestionCssClasses" xml:space="preserve">
+    <value>Kích hoạt lớp CSS cho từng câu hỏi?</value>
+  </data>
+  <data name="EnableQuestionAliases" xml:space="preserve">
+    <value>Cho phép bí danh câu hỏi?</value>
+  </data>
+  <data name="FlattenPagesAsGroups" xml:space="preserve">
+    <value>Dát phẳng các trang như các nhóm?</value>
+  </data>
+  <data name="OverrideSubmitButtonText" xml:space="preserve">
+    <value>Ghi đè lên phần chữ của nút Gửi lên</value>
+  </data>
+  <data name="QuestionAliasLabel" xml:space="preserve">
+    <value>Bí danh câu hỏi</value>
+  </data>
+  <data name="UseSslIfAvailable" xml:space="preserve">
+    <value>Sử dụng SSL nếu có?</value>
+  </data>
+  <data name="ValueAlias" xml:space="preserve">
+    <value>Giá trị/Bí danh</value>
+  </data>
+  <data name="ForceScrollTopAfterSubmit" xml:space="preserve">
+    <value>Bắt buộc cuộn về đầu trang sau khi gửi?</value>
+  </data>
+</root>

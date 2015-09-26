@@ -1,0 +1,127 @@
+/* overrides for Artisteer you should not modify the files exported from Artisteer such as style.css, you can override things as needed here or in stylemojo.css */
+
+/* this is needed because the artisteer buttons otherwise looke enabled even when disable */
+input.art-button[disabled="disabled"] { background-color: #ccccff !important; color: #9999cc !important; }
+
+/* this keeps the background images out of the editor and dialog pages */
+body.dialogpage ,
+body.filedialog,
+body.wysiwygeditor
+{
+	background-color: white;
+	color:black;
+	background-image: none;
+	font-size: 12px; 
+	min-width: 100px;
+}
+
+.cke_panel_frame {background:white;}
+
+body.help-page
+{
+	color:black;
+	background-color: white;
+	background-image: none;
+	
+}
+
+
+body { overflow-x:hidden;  }
+
+form { height:100%; }
+
+img
+{
+  border: 0!important;
+}
+input, select, textarea { text-transform:none; }
+
+/* this keeps side bar background images from pushing past the footer in some designs */
+.leftside , .rightside{ overflow: hidden;} 
+
+ul.userstats img,
+ul.linkitem  img{ margin:0; }
+
+.art-logo h1 a { text-decoration: none;}
+
+.art-blockheader .t {max-height:40px; overflow:hidden; }
+
+.folder-panel, div.file-wraper { background-color:white; }
+ul.file-list,
+ul.file-list li ,
+ul.folder-list,
+ul.folder-list li 
+{ background-image:none; color:black; }
+
+div.mojo-tabs ul  > li::before, 
+div.adminmenu ul.simplelist  > li::before ,
+ul.simplelist   > li::before,
+div.gallerymodule ul  > li::before,
+ul.simplehorizontalmenu  > li::before,
+ul.blognav  > li::before
+{ content: ''; display:block;}
+
+
+ul.tag-cloud  > li::before { content: ''; }
+ul.tag-cloud  a { padding-right:5px; }
+
+.aspcalendarmain th, .aspcalendarmain td,
+.mpcalendarmain th, .mpcalendarmain td { text-align:center; }
+.eventweekview  table,
+.eventdayview  table { color:black; width:100%; }
+
+.AspNet-DataList table td,
+.eventdayview  table th,
+.eventdayview  table td,
+.eventweekview  table th,
+.eventweekview  table td
+{padding: 0px; border:none; }
+
+table.FileManager_table {  border-spacing: 0px; }
+
+.permission td,
+.permission th,
+.formwizard th,  
+.formwizard td ,
+.sharedfiles th,  .sharedfiles td , .filemanager th , .filemanager td{ border:none; padding: 3px 0px 3px 0px!important;}
+.filemanager th img, .filemanager td img, .sharedfiles th img, .sharedfiles td  img { margin:0px 2px 0px 2px ; }
+
+table.aspcheckboxlist td, table.aspcheckboxlist th { border:none; }
+body.querytool { overflow-x:scroll; }
+
+ul.simplehorizontalmenu > li:before { display: inline; }
+ul.simplehorizontalmenu   li a { white-space:nowrap; }
+
+.jp-playlist ul > li::before , 
+ul.jp-controls > li::before , 
+ul.jp-toggles > li::before 
+{ content: ''!important; margin:0 0 0 0; display: inline; }
+
+div.art-search { margin:0; padding:0; }
+
+/*
+html.chrome.desktop #art-resp { display: none; }
+*/
+
+/* needed to keep from showing through mega menu */
+h1.art-headline { z-index: 70; }
+/* needed to keep menu from obscurring colorbox */
+.art-nav { z-index: 90; }
+
+.simplelist img,
+.modulelinks img,
+a.mhelp img,
+a.feedlink img,
+a.editlink img {margin: 0 0 0 0;}
+
+.mce-fullscreen  { z-index: 103!important; }
+
+ul.jqtree-tree .jqtree-toggler,
+ul.jqtree-tree .jqtree-toggler:hover ,
+ul.jqtree-tree .jqtree-title {
+    color: #FDE7AA!important;
+}
+ul.jqtree-tree li.jqtree-selected > .jqtree-element,
+ul.jqtree-tree li.jqtree-selected > .jqtree-element:hover {
+	background: #2D5E71!important;
+	}

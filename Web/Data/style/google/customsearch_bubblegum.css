@@ -1,0 +1,283 @@
+/**
+ * Bubblegum theme
+ * A purple-pinkish colored theme that has a bubble-like appearance
+ * for rollover states for each result and a soft pillowy look.
+ */
+/* Slight reset to make the preview have ample padding. */
+.cse .gsc-control-cse,
+.gsc-control-cse {
+  padding: 2%;
+  width: 96%;
+}
+.cse .gsc-branding,
+.gsc-branding {
+  display: none;
+}
+.cse .gsc-control-cse div,
+.gsc-control-cse div {
+  position: normal;
+}
+/* Selector for entire element. */
+.cse .gsc-control-cse,
+.gsc-control-cse {
+  font-family: Arial, serif;
+  background-color: #f9f5ff;
+  border: 1px solid;
+  border-color: #f9f5ff;
+}
+.cse .gsc-control-cse:after,
+.gsc-control-cse:after {
+  content:".";
+  display:block;
+  height:0;
+  clear:both;
+  visibility:hidden;
+}
+/**
+ * Table cell containing the search input.
+ * 4 pixels added to create more space between input and button.
+ */
+.cse td.gsc-input,
+td.gsc-input {
+  padding-right: 4px;
+}
+/* Search input */
+.cse input.gsc-input,
+input.gsc-input {
+  font-family: inherit;
+  font-size: 16px;
+  border: 1px outset;
+  border-color: #decaff;
+  border-radius: 4px;
+  padding: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: 0 1px 2px #9587ab;
+  -moz-box-shadow: 0 1px 2px #9587ab;
+}
+/* Search button */
+.cse input.gsc-search-button,
+input.gsc-search-button {
+  font-family: inherit;
+  font-size: 15px;
+  color: #000000;
+  font-weight: bold;
+  text-shadow: 0 1px 2px #fff;
+  padding: 3px 8px 4px 8px;
+  background: #c78dcc;
+  border: 1px outset;
+  border-color: #923c99;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: 0 1px 2px #999999;
+  -moz-box-shadow: 0 1px 2px #999999;
+}
+/* Base tab selector styles */
+.cse .gsc-tabHeader,
+.gsc-tabHeader {
+  text-shadow: 0 1px 2px #ffffff;
+  padding: 2px 8px 0 8px;
+  border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  -webkit-border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  -webkit-border-top-left-radius: 4px;
+}
+/* Inactive tab */
+.cse .gsc-tabHeader.gsc-tabhInactive,
+.gsc-tabHeader.gsc-tabhInactive {
+  background-color: #decaff;
+  border: 1px solid #decaff;
+  border-bottom: none;
+  color: #000000;
+}
+/* Active tab */
+.cse .gsc-tabHeader.gsc-tabhActive,
+.gsc-tabHeader.gsc-tabhActive {
+  background-color: #c78dcc;
+  border: 1px solid #c78dcc;
+  border-bottom: none;
+  color: #000000;
+}
+/* This is the tab bar bottom border. */
+.cse .gsc-tabsArea,
+.gsc-tabsArea {
+  margin-top: 1em;
+  border-bottom: 1px solid;
+  border-color: #c78dcc;
+  padding: 0;
+}
+.cse .gsc-resultsHeader,
+.gsc-resultsHeader {
+  margin-bottom: 12px;
+  border:none;
+}
+/* Wrapper for all results */
+.cse .gsc-results,
+.gsc-results {
+  width: 100%;
+}
+/* Uber-wrapper for a result. Add padding to elements within a result block */
+.cse div.gs-title,
+div.gs-title,
+.cse .gs-snippet,
+.gs-snippet,
+.cse .gs-visibleUrl,
+.gs-visibleUrl,
+.cse .gs-visibleUrl-short,
+.gs-visibleUrl-short {
+  padding: 0 8px;
+}
+/* Inner wrapper for a result */
+.cse .gsc-webResult.gsc-result,
+.gsc-webResult.gsc-result {
+  padding: 6px 0;
+  border: 1px solid;
+  border-color: #f9f5ff;
+  margin-bottom: 2px;
+}
+/* Result hover event styling */
+.cse .gsc-webResult.gsc-result:hover,
+.gsc-webResult.gsc-result:hover {
+  border: 1px solid;
+  border-color: #decaff;
+  background-color: #ffffff;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: 0 1px 4px #dddddd;
+  -moz-box-shadow: 0 2px 2px #dddddd;
+}
+/* Set link colors. */
+.cse .gs-webResult.gs-result a.gs-title:link,
+.gs-webResult.gs-result a.gs-title:link,
+.cse .gs-webResult.gs-result a.gs-title:link b,
+.gs-webResult.gs-result a.gs-title:link b,
+.cse .gs-webResult.gs-result a.gs-title:visited,
+.gs-webResult.gs-result a.gs-title:visited,
+.cse .gs-webResult.gs-result a.gs-title:visited b,
+.gs-webResult.gs-result a.gs-title:visited b,
+.cse .gs-webResult.gs-result a.gs-title:hover,
+.gs-webResult.gs-result a.gs-title:hover,
+.cse .gs-webResult.gs-result a.gs-title:hover b,
+.gs-webResult.gs-result a.gs-title:hover b,
+.cse .gs-webResult.gs-result a.gs-title:active,
+.gs-webResult.gs-result a.gs-title:active,
+.cse .gs-webResult.gs-result a.gs-title:active b,
+.gs-webResult.gs-result a.gs-title:active b,
+.cse .gsc-cursor-page,
+.gsc-cursor-page,
+.cse a.gsc-trailing-more-results:link,
+a.gsc-trailing-more-results:link {
+  color: #0568cd;
+}
+/* Override default.css selector to disable underlines. */
+.cse .gs-result .gs-title,
+.gs-result .gs-title,
+.cse .gs-result .gs-title *,
+.gs-result .gs-title * {
+  text-decoration: none;
+}
+/* Snippet text color */
+.cse .gs-webResult.gs-result .gs-snippet,
+.gs-webResult.gs-result .gs-snippet {
+  color: #000000;
+}
+/* URL colors */
+.cse .gs-webResult.gs-result a.gs-visibleUrl,
+.gs-webResult.gs-result a.gs-visibleUrl,
+.cse .gs-webResult.gs-result .gs-visibleUrl,
+.gs-webResult.gs-result .gs-visibleUrl {
+  color: #cc7a9f;
+}
+/* Pagination container centered */
+.cse .gsc-cursor-box,
+.gsc-cursor-box {
+  border-top: 1px dotted;
+  border-color: #c78dcc;
+  padding-top: 1.5em;
+  text-align: center;
+}
+/* Pagination */
+.cse .gsc-cursor-page,
+.gsc-cursor-page {
+  text-decoration: none;
+  padding: .2em .5em;
+  background-color: #f9f5ff;
+  border: 1px solid;
+  border-color: #c78dcc;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+/* Selected pagination */
+.cse .gsc-results .gsc-cursor-page.gsc-cursor-current-page,
+.gsc-results .gsc-cursor-page.gsc-cursor-current-page {
+  color: #1c001e;
+  text-shadow: 0 1px 1px #fff;
+  text-shadow: 0 1px 2px #fff;
+  background-color: #c78dcc;
+}
+/*Promotion Settings*/
+/* The entire promo */
+.cse .gs-promotion.gs-result,
+.gs-promotion.gs-result {
+  background-color: #F0E9FF;
+  border: 1px solid;
+  border-color: #DECAFF;
+}
+/* Promotion image */
+.cse .gs-promotion.gs-result .gs-promotion-image,
+.gs-promotion.gs-result .gs-promotion-image {}
+/* Promotion title */
+.cse .gs-promotion.gs-result a.gs-title:link,
+.gs-promotion.gs-result a.gs-title:link {
+  color: #0066CC;
+}
+.cse .gs-promotion.gs-result a.gs-title:visited,
+.gs-promotion.gs-result a.gs-title:visited {
+  color: #0066CC;
+}
+.cse .gs-promotion.gs-result a.gs-title:hover,
+.gs-promotion.gs-result a.gs-title:hover {
+  color: #0066CC;
+}
+.cse .gs-promotion.gs-result a.gs-title:active,
+.gs-promotion.gs-result a.gs-title:active {
+  color: #0066CC;
+}
+/* Promotion snippet */
+.cse .gs-promotion.gs-result .gs-snippet,
+.gs-promotion.gs-result .gs-snippet {
+  color: #000000;
+}
+/* Promotion url */
+.cse .gs-promotion.gs-result .gs-visibleUrl,
+.gs-promotion.gs-result .gs-visibleUrl {
+  color: #CC7A9F;
+}
+/* Style for auto-completion table
+ * .gsc-completion-selected : styling for a suggested query which the user has moused-over
+ * .gsc-completion-container : styling for the table which contains the completions
+ */
+.gsc-completion-selected {
+  background: #decaff;
+}
+.gsc-completion-container {
+  font-family: Arial, serif;
+  font-size: 16px;
+  position: absolute;
+  background: white;
+  border: 1px solid #decaff;
+  margin-left: 0;
+  margin-right: 0;
+  border-radius: 4px;
+  padding: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: 0 1px 2px #9587ab;
+  -moz-box-shadow: 0 1px 2px #9587ab;
+  /* The top, left, and width are set in JavaScript. */
+}

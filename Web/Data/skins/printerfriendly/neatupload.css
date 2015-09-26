@@ -1,0 +1,13 @@
+.ProgressDisplay {font-weight: bold;}
+.ProgressDisplay .StatusMessage { margin: 1px; height: 1.5em; }
+.ProgressDisplay .ProgressBar { background-color: rgb(204, 204, 204); }
+.ProgressDisplay .ImageButton { border-width: 0px; margin: 0px; padding: 0px; background-color: inherit; }
+.ProgressDisplay .ImageButton img { border-width: 2px; border-style: outset; border-color: white; margin: 0px;  padding: 0px; height: 1.5em; vertical-align: top;}
+.ProgressDisplay .StatusMessage { color: black; border-color: #33CCFF; }
+#progressDisplayCenterer { vertical-align: middle; width: 100%; height: 100%;}
+#progressDisplay { vertical-align: middle; width: 100%; }
+#barTd { width: 100%; }
+#statusDiv { border-width: 1px; border-style: solid; padding: 0px; position: relative;
+			width: 100%; text-align: center; z-index: 1; }
+#barDiv,#barDetailsDiv { border: 0px none ; margin: 0px;  padding: 0px; position: absolute; top: 0pt; 
+			left: 0pt; z-index: -1; height: 100%;width: 75%; }

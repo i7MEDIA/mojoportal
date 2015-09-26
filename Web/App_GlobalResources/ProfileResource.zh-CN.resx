@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AIMLabel" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="CountryLabel" xml:space="preserve">
+    <value>国家</value>
+  </data>
+  <data name="DateOfBirthLabel" xml:space="preserve">
+    <value>出身日期</value>
+  </data>
+  <data name="GenderFemaleLabel" xml:space="preserve">
+    <value>女</value>
+  </data>
+  <data name="GenderLabel" xml:space="preserve">
+    <value>性别</value>
+  </data>
+  <data name="GenderMaleLabel" xml:space="preserve">
+    <value>男</value>
+  </data>
+  <data name="GenderUnselectedLabel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ICQLabel" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="InterestsLabel" xml:space="preserve">
+    <value>兴趣</value>
+  </data>
+  <data name="MSNLabel" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="OccupationLabel" xml:space="preserve">
+    <value>职业</value>
+  </data>
+  <data name="ProfileRequiredItemFormat" xml:space="preserve">
+    <value>{0} 必须</value>
+  </data>
+  <data name="RequiredLabel" xml:space="preserve">
+    <value>必须</value>
+  </data>
+  <data name="SignatureLabel" xml:space="preserve">
+    <value>签名</value>
+  </data>
+  <data name="StateLabel" xml:space="preserve">
+    <value>州</value>
+  </data>
+  <data name="TimeOffsetLabel" xml:space="preserve">
+    <value>时区</value>
+  </data>
+  <data name="TimeZoneLabelAbuDhabiMuscatBakuTbilisi" xml:space="preserve">
+    <value>(GMT + 4.00) 阿布扎比,阿曼巴库，第比利斯</value>
+  </data>
+  <data name="TimeZoneLabelAdelaideDarwin" xml:space="preserve">
+    <value>(GMT + 9.50) 阿德莱德,达尔文</value>
+  </data>
+  <data name="TimeZoneLabelAlaska" xml:space="preserve">
+    <value>(GMT - 9.00) 阿拉斯加州</value>
+  </data>
+  <data name="TimeZoneLabelAlmatyDhakaColombo" xml:space="preserve">
+    <value>(GMT + 6.00)阿拉木图、达卡、科伦坡</value>
+  </data>
+  <data name="TimeZoneLabelAtlantic" xml:space="preserve">
+    <value>(GMT - 4.00) 大西洋时间(加拿大)、加拉加斯</value>
+  </data>
+  <data name="TimeZoneLabelAucklandWellingtonFijiKamchatkaMarshallIsland" xml:space="preserve">
+    <value>(GMT + 12.00) 奥克兰、惠灵顿,斐济,堪察加,马歇尔岛</value>
+  </data>
+  <data name="TimeZoneLabelAzoresCapeVerdeIslands" xml:space="preserve">
+    <value>(GMT - 1.00) Azores,佛得角群岛</value>
+  </data>
+  <data name="TimeZoneLabelBaghdadKuwaitRiyadhMoscowStPetersburgVolgogradNairobi" xml:space="preserve">
+    <value>(GMT + 3.00) 巴格达,科威特,沙特政府、莫斯科、圣彼得堡领取,第,内罗毕</value>
+  </data>
+  <data name="TimeZoneLabelBangkokHanoiJakarta" xml:space="preserve">
+    <value>(GMT + 7.00) 曼谷、河内、雅加达</value>
+  </data>
+  <data name="TimeZoneLabelBeijingPerthSingaporeHongKongChongqingUrumqiTaipei" xml:space="preserve">
+    <value>(GMT + 8.00) 北京,佩思、新加坡、香港、重庆、乌鲁木齐,台北</value>
+  </data>
+  <data name="TimeZoneLabelBombayCalcuttaMadrasNewDelhi" xml:space="preserve">
+    <value>(GMT + 5.50) 孟买,印度加尔各答、马达拉斯,新德里</value>
+  </data>
+  <data name="TimeZoneLabelBrazilBuenosAiresGeorgetown" xml:space="preserve">
+    <value>(GMT - 3.00) 巴西,布宜诺斯艾利斯,乔治敦</value>
+  </data>
+  <data name="TimeZoneLabelCentral" xml:space="preserve">
+    <value>(GMT - 6.00) 中部时间(美国和加拿大)、墨西哥市</value>
+  </data>
+  <data name="TimeZoneLabelCentralEurope" xml:space="preserve">
+    <value>(GMT + 1.00) CET(欧洲中部时间)、布鲁塞尔、哥本哈根、马德里、巴黎</value>
+  </data>
+  <data name="TimeZoneLabelEASTEastAustralianStandardGuamPapuaNewGuineaVladivostok" xml:space="preserve">
+    <value>(GMT + 10.00) 东方(东澳标准)、关岛、巴布亚新几内亚、海参崴</value>
+  </data>
+  <data name="TimeZoneLabelEastern" xml:space="preserve">
+    <value>(GMT - 5.00) 东部时间(美国和加拿大),波哥大,利马,基多</value>
+  </data>
+  <data name="TimeZoneLabelEasternEurope" xml:space="preserve">
+    <value>(GMT + 2.00)EET(东欧时间)、加里宁格勒,南非</value>
+  </data>
+  <data name="TimeZoneLabelEkaterinburgIslamabadKarachiTashkent" xml:space="preserve">
+    <value>(GMT + 5.00)叶卡捷琳堡,伊斯兰堡卡拉奇、塔什干</value>
+  </data>
+  <data name="TimeZoneLabelEniwetokKwajalein" xml:space="preserve">
+    <value>(GMT - 12.00) 埃尼威托克岛, 夸贾林环礁</value>
+  </data>
+  <data name="TimeZoneLabelGMT" xml:space="preserve">
+    <value>(GMT)西欧时间、伦敦、里斯本、卡萨布兰卡、蒙罗维纳</value>
+  </data>
+  <data name="TimeZoneLabelHawaii" xml:space="preserve">
+    <value>(GMT - 10.00) 夏威夷（美国州名）</value>
+  </data>
+  <data name="TimeZoneLabelKabul" xml:space="preserve">
+    <value>(GMT + 4.50) 喀布尔（阿富汗的首都）</value>
+  </data>
+  <data name="TimeZoneLabelMagadanSolomonIslandsNewCaledonia" xml:space="preserve">
+    <value>(GMT + 11.00) Magadan、所罗门群岛,新卡里多尼亚，新喀里多尼亚</value>
+  </data>
+  <data name="TimeZoneLabelMidAtlantic" xml:space="preserve">
+    <value>(GMT - 2.00) 大西洋中部的</value>
+  </data>
+  <data name="TimeZoneLabelMidwayIslandSamoa" xml:space="preserve">
+    <value>(GMT - 11.00) 中途岛、萨摩亚群岛</value>
+  </data>
+  <data name="TimeZoneLabelMountain" xml:space="preserve">
+    <value>(GMT - 7.00) 山地时间(美国和加拿大)</value>
+  </data>
+  <data name="TimeZoneLabelNewfoundland" xml:space="preserve">
+    <value>(GMT - 3.50)  纽芬兰</value>
+  </data>
+  <data name="TimeZoneLabelNukualofa" xml:space="preserve">
+    <value>(GMT + 13.00) Nuku"alofa</value>
+  </data>
+  <data name="TimeZoneLabelPacific" xml:space="preserve">
+    <value>(GMT - 8.00) 太平洋时间(美国和加拿大)</value>
+  </data>
+  <data name="TimeZoneLabelTehran" xml:space="preserve">
+    <value>(GMT + 3.50)  德黑兰</value>
+  </data>
+  <data name="TimeZoneLabelTokyoSeoulOsakaSapporoYakutsk" xml:space="preserve">
+    <value>(GMT + 9.00) 东京、首尔、大阪、札幌, 雅库茨克</value>
+  </data>
+  <data name="WebSiteUrlLabel" xml:space="preserve">
+    <value>网站URL</value>
+  </data>
+  <data name="WebSiteUrlRegexWarning" xml:space="preserve">
+    <value>URL必须以http://或者https://开头</value>
+  </data>
+  <data name="WouldSeeMoreIfAuthenticatedMessage" xml:space="preserve">
+    <value>有些信息没有显示，因为您没有登录。</value>
+  </data>
+  <data name="YahooLabel" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+</root>

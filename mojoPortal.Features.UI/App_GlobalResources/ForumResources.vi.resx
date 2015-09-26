@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllowAnonymousPostsLabel" xml:space="preserve">
+    <value>Cho phép gửi bài nặc danh?</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Xin hãy đợi...</value>
+  </data>
+  <data name="CutePagerBackToFirstClause" xml:space="preserve">
+    <value>Chuyển đến trang đầu tiên</value>
+  </data>
+  <data name="CutePagerBackToPageClause" xml:space="preserve">
+    <value>Quay lại trang</value>
+  </data>
+  <data name="CutePagerGoToLastClause" xml:space="preserve">
+    <value>Chuyển đến trang cuối</value>
+  </data>
+  <data name="CutePagerNavigateToPageText" xml:space="preserve">
+    <value>Chuyển tới trang</value>
+  </data>
+  <data name="CutePagerNextToPageClause" xml:space="preserve">
+    <value>Trang tiếp theo</value>
+  </data>
+  <data name="CutePagerOfClause" xml:space="preserve">
+    <value>của</value>
+  </data>
+  <data name="CutePagerPageClause" xml:space="preserve">
+    <value>Trang</value>
+  </data>
+  <data name="EditImageAltText" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="ForumDeletePostWarning" xml:space="preserve">
+    <value>Bạn có chắc muốn xoá bài viết này không?</value>
+  </data>
+  <data name="ForumDeleteThreadWarning" xml:space="preserve">
+    <value>Bạn có chắc muốn xoá luồng này không?</value>
+  </data>
+  <data name="ForumEditCancelButton" xml:space="preserve">
+    <value>Huỷ bỏ</value>
+  </data>
+  <data name="ForumEditCancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ForumEditCreateButton" xml:space="preserve">
+    <value>Tạo diễn đàn mới</value>
+  </data>
+  <data name="ForumEditCreatedByLabel" xml:space="preserve">
+    <value>Tạo bởi:</value>
+  </data>
+  <data name="ForumEditCreatedDateLabel" xml:space="preserve">
+    <value>Ngày tạo:</value>
+  </data>
+  <data name="ForumEditDeleteButton" xml:space="preserve">
+    <value>Xoá mục này</value>
+  </data>
+  <data name="ForumEditDeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="ForumEditDescriptionLabel" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="ForumEditForumLabel" xml:space="preserve">
+    <value>Sửa diễn đàn</value>
+  </data>
+  <data name="ForumEditIsActiveLabel" xml:space="preserve">
+    <value>Đang hoạt động?</value>
+  </data>
+  <data name="ForumEditIsModeratedLabel" xml:space="preserve">
+    <value>Được điều tiết?</value>
+  </data>
+  <data name="ForumEditLabel" xml:space="preserve">
+    <value>Thêm diễn dàn</value>
+  </data>
+  <data name="ForumEditNewForumButton" xml:space="preserve">
+    <value>Diễn đàn mới</value>
+  </data>
+  <data name="ForumEditPostLink" xml:space="preserve">
+    <value>Sửa bài viết</value>
+  </data>
+  <data name="ForumEditPostsPerPageLabel" xml:space="preserve">
+    <value>Số bài viết trên mỗi trang:</value>
+  </data>
+  <data name="ForumEditSortOrderLabel" xml:space="preserve">
+    <value>Thứ tự sắp xếp:</value>
+  </data>
+  <data name="ForumEditSubjectRequiredHelp" xml:space="preserve">
+    <value>Bạn phải nhập một tiêu đề</value>
+  </data>
+  <data name="ForumEditThreadsPerPageLabel" xml:space="preserve">
+    <value>Số chủ đề trên trang:</value>
+  </data>
+  <data name="ForumEditTitleLabel" xml:space="preserve">
+    <value>Tiêu đề:</value>
+  </data>
+  <data name="ForumEditUpdateButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="ForumEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ForumEnableAntiSpamSetting" xml:space="preserve">
+    <value>Kích hoạt tính năng chặn SPAM?</value>
+  </data>
+  <data name="ForumEnableRSSAtForumLevel" xml:space="preserve">
+    <value>Kích hoạt RSS tại cấp độ diễn đàn?</value>
+  </data>
+  <data name="ForumEnableRSSAtModuleLevel" xml:space="preserve">
+    <value>Kích hoạt RSS tại cấp độ mô-đun?</value>
+  </data>
+  <data name="ForumEnableRSSAtThreadLevel" xml:space="preserve">
+    <value>Kích hoạt RSS tại cấp độ luồng?</value>
+  </data>
+  <data name="ForumLabel" xml:space="preserve">
+    <value>Diễn đàn</value>
+  </data>
+  <data name="ForumModuleEditSubscriptionsLabel" xml:space="preserve">
+    <value>Chỉnh sửa email đăng kí</value>
+  </data>
+  <data name="ForumModuleForumLabel" xml:space="preserve">
+    <value>Diễn dàn</value>
+  </data>
+  <data name="ForumModulePostCountLabel" xml:space="preserve">
+    <value>Tổng số bài viết</value>
+  </data>
+  <data name="ForumModulePostLastPostLabel" xml:space="preserve">
+    <value>Bài viết cuối cùng</value>
+  </data>
+  <data name="ForumModuleSubscribedLabel" xml:space="preserve">
+    <value>Theo dõi?</value>
+  </data>
+  <data name="ForumModuleThreadCountLabel" xml:space="preserve">
+    <value>Tổng số luồng</value>
+  </data>
+  <data name="ForumMyPostsLink" xml:space="preserve">
+    <value>Bài viết của tôi</value>
+  </data>
+  <data name="ForumPostEditCancelButton" xml:space="preserve">
+    <value>Huỷ bỏ</value>
+  </data>
+  <data name="ForumPostEditDeleteButton" xml:space="preserve">
+    <value>Xoá</value>
+  </data>
+  <data name="ForumPostEditMessageLabel" xml:space="preserve">
+    <value>Thông báo:</value>
+  </data>
+  <data name="ForumPostEditNotifyLabel" xml:space="preserve">
+    <value>Theo dõi phản hồi trong luồng này?</value>
+  </data>
+  <data name="ForumPostEditSubjectLabel" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="ForumPostEditUpdateButton" xml:space="preserve">
+    <value>Bài viết</value>
+  </data>
+  <data name="ForumPostEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ForumsFeatureName" xml:space="preserve">
+    <value>Diễn đàn</value>
+  </data>
+  <data name="ForumsLoginRequiredLink" xml:space="preserve">
+    <value>Bạn phải đăng nhập mới có thể gửi bài viết trong diễn đàn này.</value>
+  </data>
+  <data name="ForumsTableSummary" xml:space="preserve">
+    <value>Bảng này chứa danh sách các diễn đàn.</value>
+  </data>
+  <data name="ForumThreadCancelButton" xml:space="preserve">
+    <value>Huỷ bỏ</value>
+  </data>
+  <data name="ForumThreadDeleteButton" xml:space="preserve">
+    <value>Xoá</value>
+  </data>
+  <data name="ForumThreadEditForumLabel" xml:space="preserve">
+    <value>Diễn đàn</value>
+  </data>
+  <data name="ForumThreadEditLabel" xml:space="preserve">
+    <value>Chỉnh luồng</value>
+  </data>
+  <data name="ForumThreadEditSortOrderLabel" xml:space="preserve">
+    <value>Thứ tự sắp xếp</value>
+  </data>
+  <data name="ForumThreadEditSubjectLabel" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="ForumThreadUnsubscribeCompleted" xml:space="preserve">
+    <value>Hủy đăng ký hoàn thành! Bạn sẽ không nhận bất kỳ thông báo nào về các tin nhắn trong luồng này.</value>
+  </data>
+  <data name="ForumThreadUnsubscribeFailed" xml:space="preserve">
+    <value>Hủy đăng ký thất bại! Có lỗi xảy ra khi thực hiện dừng thông báo từ một luồng. Vui lòng liên hệ với quản trị trang web.</value>
+  </data>
+  <data name="ForumThreadUpdateButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="ForumThreadViewAuthorLabel" xml:space="preserve">
+    <value>Tác giả</value>
+  </data>
+  <data name="ForumThreadViewPagesLabel" xml:space="preserve">
+    <value>Trang:</value>
+  </data>
+  <data name="ForumThreadViewReplyLabel" xml:space="preserve">
+    <value>trả lời</value>
+  </data>
+  <data name="ForumUnsubscribeCompleted" xml:space="preserve">
+    <value>Hủy đăng ký hoàn thành! Bạn sẽ không nhận bất kỳ thông báo nào về các luồng mới trong diễn đàn này.</value>
+  </data>
+  <data name="ForumUnsubscribeFailed" xml:space="preserve">
+    <value>Hủy đăng ký thất bại! Có lỗi xảy ra khi thực hiện dừng thông báo về các luồng mới của diễn đàn. Vui lòng liên hệ với quản trị trang web.</value>
+  </data>
+  <data name="ForumUserPostsLink" xml:space="preserve">
+    <value>Xem bài viết</value>
+  </data>
+  <data name="ForumUserThreadHeading" xml:space="preserve">
+    <value>{0} tham gia thảo luận.</value>
+  </data>
+  <data name="ForumViewNewThreadLabel" xml:space="preserve">
+    <value>chủ đề mới</value>
+  </data>
+  <data name="ForumViewPostLastPostLabel" xml:space="preserve">
+    <value>Bài viết cuối cùng</value>
+  </data>
+  <data name="ForumViewReplyCountLabel" xml:space="preserve">
+    <value>Tổng số bài trả lời</value>
+  </data>
+  <data name="ForumViewStartedByLabel" xml:space="preserve">
+    <value>Bắt đầu bởi</value>
+  </data>
+  <data name="ForumViewSubjectLabel" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="ForumViewTableSummary" xml:space="preserve">
+    <value>Bảng này chứa danh sách luồng diễn đàn.</value>
+  </data>
+  <data name="ForumViewThreadCountLabel" xml:space="preserve">
+    <value>Tổng số chủ đề</value>
+  </data>
+  <data name="ForumViewViewCountLabel" xml:space="preserve">
+    <value>Tổng số người xem</value>
+  </data>
+  <data name="IncludePostBodyInNotificationEmail" xml:space="preserve">
+    <value>Thêm nội dung bài viết vào email thông báo?</value>
+  </data>
+  <data name="NewTopicLabel" xml:space="preserve">
+    <value>Chủ đề mới</value>
+  </data>
+  <data name="UserSalesLabel" xml:space="preserve">
+    <value>Bán hàng</value>
+  </data>
+  <data name="AdminUnsubscribeUserComplete" xml:space="preserve">
+    <value>Hủy đăng ký của người dùng từ diễn đàn thông báo hoàn thành.</value>
+  </data>
+  <data name="ForumsSearchName" xml:space="preserve">
+    <value>Diễn đàn</value>
+  </data>
+  <data name="ForumThreadMetaDescriptionFormat" xml:space="preserve">
+    <value>Luồng diễn đàn - {0}</value>
+  </data>
+  <data name="ForumMetaDescriptionFormat" xml:space="preserve">
+    <value>Một diễn đàn thảo luận cho {0}</value>
+  </data>
+  <data name="UserThreadMetaFormat" xml:space="preserve">
+    <value>Thành viên {0} đã tham gia trong hội thoại diễn đàn này.</value>
+  </data>
+  <data name="UserThreadTitleFormat" xml:space="preserve">
+    <value>Luồng diễn đàn cho {0}</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="LoginNameLabel" xml:space="preserve">
+    <value>Tên đăng nhập</value>
+  </data>
+  <data name="RSSFeedMaxDaysOldSetting" xml:space="preserve">
+    <value>Thêm các mục có nhiều nhất số ngày tuổi này ra nguồn cấp tin ra bên ngoài.</value>
+  </data>
+  <data name="RSSFeedMaxPostsSetting" xml:space="preserve">
+    <value>Số mục tối đa đưa ra nguồn cấp tin ra bên ngoài.</value>
+  </data>
+  <data name="ShowSubscriberCount" xml:space="preserve">
+    <value>Hiển thị số người theo dõi?</value>
+  </data>
+  <data name="SubscribeLink" xml:space="preserve">
+    <value>Theo dõi</value>
+  </data>
+  <data name="SubscriberCountFormat" xml:space="preserve">
+    <value>{0} theo dõi</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Dừng theo dõi</value>
+  </data>
+  <data name="UnSubscribeLink" xml:space="preserve">
+    <value>Dừng theo dõi</value>
+  </data>
+  <data name="UserNameLabel" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="ForumSubscriptions" xml:space="preserve">
+    <value>Theo dõi diễn đàn</value>
+  </data>
+  <data name="SubscribeLongLink" xml:space="preserve">
+    <value>Đăng ký thông báo từ diễn đàn này</value>
+  </data>
+  <data name="SubscribeToAllOfThisForum" xml:space="preserve">
+    <value>Theo dõi tất cả bài viết trong diễn đàn?</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="SearchTermRequiredWarning" xml:space="preserve">
+    <value>Hãy nhập vài từ khóa để tìm kiếm.</value>
+  </data>
+  <data name="Locked" xml:space="preserve">
+    <value>Đã Khoá</value>
+  </data>
+  <data name="StickySort" xml:space="preserve">
+    <value>Sắp xếp chú ý</value>
+  </data>
+  <data name="GravatarLinkTitle" xml:space="preserve">
+    <value>Lấy hình đại diện của bạn</value>
+  </data>
+  <data name="LinkGravatarToUserProfile" xml:space="preserve">
+    <value>Liên kết Gravatar với hồ sơ người dùng?</value>
+  </data>
+  <data name="UserProfileLinkTooltipFormat" xml:space="preserve">
+    <value>Xem hồ sơ người dùng của {0}</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Lớp CSS tùy chỉnh</value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>Lớp CSS tùy chỉnh không hợp lệ</value>
+  </data>
+  <data name="ShowForumSearchBox" xml:space="preserve">
+    <value>Hiển thị tìm kiếm diễn đàn?</value>
+  </data>
+  <data name="PostedByFormat" xml:space="preserve">
+    <value>Gửi bởi {0}</value>
+  </data>
+  <data name="PostedLinks" xml:space="preserve">
+    <value>Liên kết đã gửi:</value>
+  </data>
+  <data name="DeleteForumWarning" xml:space="preserve">
+    <value>Bạn có chắc muốn xoá diễn đàn này không?</value>
+  </data>
+  <data name="ModuleFeedLinkTooltip" xml:space="preserve">
+    <value>Theo dõi các nguồn cấp dữ liệu cho các diễn đàn này</value>
+  </data>
+  <data name="LastPostBy" xml:space="preserve">
+    <value>Người gửi cuối cùng</value>
+  </data>
+  <data name="AllowEditingPostsLessThanMinutesOld" xml:space="preserve">
+    <value>Cho phép người dùng chỉnh sửa bài viết của họ trong số phút tối đa</value>
+  </data>
+  <data name="IncludeCurrentUserInNotifications" xml:space="preserve">
+    <value>Thêm người gửi bải vào danh sách thông báo?</value>
+  </data>
+  <data name="SuppressNotificationOfPostEdits" xml:space="preserve">
+    <value>Chặn thông báo chỉnh sửa bài viết?</value>
+  </data>
+  <data name="ThreadPageTitleFormat" xml:space="preserve">
+    <value>{0} - Trang {1}</value>
+  </data>
+</root>

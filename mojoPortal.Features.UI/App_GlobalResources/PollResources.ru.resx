@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PollAddNewLabel" xml:space="preserve">
+    <value>Новый опрос</value>
+  </data>
+  <data name="PollBackToVoteButton" xml:space="preserve">
+    <value>&lt;&lt; Назад</value>
+  </data>
+  <data name="PollBackToVoteToolTip" xml:space="preserve">
+    <value>Нажмите для возврата к голосованию.</value>
+  </data>
+  <data name="PollChooseAddNewPollButton" xml:space="preserve">
+    <value>Новый опрос</value>
+  </data>
+  <data name="PollChooseAddNewPollToolTip" xml:space="preserve">
+    <value>Добавить новый опрос.</value>
+  </data>
+  <data name="PollChooseCancelLabel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="PollChooseCancelToolTip" xml:space="preserve">
+    <value>Нажмите здесь, если вы желаете отменить действие и вернуться на страницу с которой вы пришли.</value>
+  </data>
+  <data name="PollChooseChooseAlternateText" xml:space="preserve">
+    <value>Выбор опроса</value>
+  </data>
+  <data name="PollChooseLabel" xml:space="preserve">
+    <value>Выбор опроса</value>
+  </data>
+  <data name="PollChooseRemoveCurrentPollButton" xml:space="preserve">
+    <value>Удалить текущий опрос</value>
+  </data>
+  <data name="PollChooseRemoveCurrentPollToolTip" xml:space="preserve">
+    <value>Нажмите здесь для удаления текущего опроса из модуля.</value>
+  </data>
+  <data name="PollChooseViewPollsButton" xml:space="preserve">
+    <value>Просмотр/Изменение опросов</value>
+  </data>
+  <data name="PollChooseViewPollsToolTip" xml:space="preserve">
+    <value>Нажмите здесь для просмотра или редактирования существующих опросов.</value>
+  </data>
+  <data name="PollDeactivatedLabel" xml:space="preserve">
+    <value>Этот опрос сейчас не активен.</value>
+  </data>
+  <data name="PollDeactivatedText" xml:space="preserve">
+    <value>деактивирован</value>
+  </data>
+  <data name="PollEditActivateButton" xml:space="preserve">
+    <value>Активировать</value>
+  </data>
+  <data name="PollEditActivateToolTip" xml:space="preserve">
+    <value>Нажмите здесь для активации опроса.</value>
+  </data>
+  <data name="PollEditActiveFromToLabel" xml:space="preserve">
+    <value>Активный период:</value>
+  </data>
+  <data name="PollEditAddNewPollLabel" xml:space="preserve">
+    <value>Добавить новый опрос</value>
+  </data>
+  <data name="PollEditAddNewPollToolTip" xml:space="preserve">
+    <value>Кликните здесь, если вы желаете добавить новый опрос.</value>
+  </data>
+  <data name="PollEditAllowViewingResultsBeforeVotingLabel" xml:space="preserve">
+    <value>Разрешить просмотр результатов до голосования?</value>
+  </data>
+  <data name="PollEditAllowViewingResultsBeforeVotingToolTip" xml:space="preserve">
+    <value>Если включено, то пользователи могут просматривать результат перед голосованием.</value>
+  </data>
+  <data name="PollEditAnonymousVotingLabel" xml:space="preserve">
+    <value>Анонимное голосование?</value>
+  </data>
+  <data name="PollEditAnonymousVotingToolTip" xml:space="preserve">
+    <value>Если включено, то гости могут принять участи в опросе.</value>
+  </data>
+  <data name="PollEditDeactivateButton" xml:space="preserve">
+    <value>Деактивировать</value>
+  </data>
+  <data name="PollEditDeactivateToolTip" xml:space="preserve">
+    <value>Нажмите здесь, чтобы деактивировать опрос.</value>
+  </data>
+  <data name="PollEditDeleteButton" xml:space="preserve">
+    <value>Удалить опрос</value>
+  </data>
+  <data name="PollEditDeleteConfirmMessage" xml:space="preserve">
+    <value>Вы уверены, что действительно хотите удалить этот опрос?</value>
+  </data>
+  <data name="PollEditDeleteToolTip" xml:space="preserve">
+    <value>Нажмите здесь для удаления опроса.</value>
+  </data>
+  <data name="PollEditLabel" xml:space="preserve">
+    <value>Изменить опрос</value>
+  </data>
+  <data name="PollEditLessThanTwoOptionsErrorMesssage" xml:space="preserve">
+    <value>Необходимо добавить хотя бы  две опции.</value>
+  </data>
+  <data name="PollEditOptionsAddButton" xml:space="preserve">
+    <value>Добавить к вариантам</value>
+  </data>
+  <data name="PollEditOptionsAddToolTip" xml:space="preserve">
+    <value>Нажмите здесь, чтобы сохранить введённый вариант ответа.</value>
+  </data>
+  <data name="PollEditOptionsDeleteAlternateText" xml:space="preserve">
+    <value>Нажмите здесь, чтобы удалить выбранный вариант ответа.</value>
+  </data>
+  <data name="PollEditOptionsDeleteConfirmMessage" xml:space="preserve">
+    <value>Вы уверены, что действительно желаете удалить этот вариант ответа. Отмена действия невозможна.</value>
+  </data>
+  <data name="PollEditOptionsDownAlternateText" xml:space="preserve">
+    <value>Нажмите здесь, чтобы переместить выбранный вариант ответа  вниз по списку.</value>
+  </data>
+  <data name="PollEditOptionsEditAlternateText" xml:space="preserve">
+    <value>Нажмите здесь, чтобы отредактировать вариант ответа.</value>
+  </data>
+  <data name="PollEditOptionsLabel" xml:space="preserve">
+    <value>Варианты ответа:</value>
+  </data>
+  <data name="PollEditOptionsSaveButton" xml:space="preserve">
+    <value>Сохранить вариант</value>
+  </data>
+  <data name="PollEditOptionsUpAlternateText" xml:space="preserve">
+    <value>Нажмите здесь, чтобы переместить вариант ответа вверх по списку.</value>
+  </data>
+  <data name="PollEditQuestionEmptyErrorMessage" xml:space="preserve">
+    <value>Необходимо ввести вопрос.</value>
+  </data>
+  <data name="PollEditQuestionLabel" xml:space="preserve">
+    <value>Вопрос:</value>
+  </data>
+  <data name="PollEditSaveButton" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="PollEditSaveToolTip" xml:space="preserve">
+    <value>Нажмите здесь, чтобы сохранить опрос.</value>
+  </data>
+  <data name="PollEditShowOrderNumbersLabel" xml:space="preserve">
+    <value>Показывать порядковые номера?</value>
+  </data>
+  <data name="PollEditShowOrderNumbersToolTip" xml:space="preserve">
+    <value>Если включено, то будет отображаться порядковые номера вариантов ответа.</value>
+  </data>
+  <data name="PollEditShowResultsWhenDeactivatedLabel" xml:space="preserve">
+    <value>Показывать результаты, когда опрос деактивирован?</value>
+  </data>
+  <data name="PollEditShowResultsWhenDeactivatedToolTip" xml:space="preserve">
+    <value>Если включено и вопрос деактивирован, то будут отображаться его результаты, в ином случае вы увидите сообщение, что ни один опрос не активирован.</value>
+  </data>
+  <data name="PollEditStartDeactivatedLabel" xml:space="preserve">
+    <value>Начать неактивированным?</value>
+  </data>
+  <data name="PollEditStartDeactivatedToolTip" xml:space="preserve">
+    <value> неактивен после сохранения.</value>
+  </data>
+  <data name="PollEditToLabel" xml:space="preserve">
+    <value>до</value>
+  </data>
+  <data name="PollEditViewPollsLabel" xml:space="preserve">
+    <value>Просмотр/Изменение опросов</value>
+  </data>
+  <data name="PollEditViewPollsToolTip" xml:space="preserve">
+    <value>Нажмите здесь для просмотра существующих опросов.</value>
+  </data>
+  <data name="PollFeatureName" xml:space="preserve">
+    <value>Опрос</value>
+  </data>
+  <data name="PollFromText" xml:space="preserve">
+    <value>с</value>
+  </data>
+  <data name="PollHistoryBackLabel" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="PollHistoryBackToolTip" xml:space="preserve">
+    <value>Нажмите здесь для возврата.</value>
+  </data>
+  <data name="PollHistoryLabel" xml:space="preserve">
+    <value>История опросов</value>
+  </data>
+  <data name="PollHistoryYouVotedLabel" xml:space="preserve">
+    <value>Вы проголосовали:</value>
+  </data>
+  <data name="PollModuleEditText" xml:space="preserve">
+    <value>Выберите опрос</value>
+  </data>
+  <data name="PollMustLoginToVoteLabel" xml:space="preserve">
+    <value>Вы должны войти на сайт, чтобы проголосовать.</value>
+  </data>
+  <data name="PollMyPollHistoryButton" xml:space="preserve">
+    <value>История опросов</value>
+  </data>
+  <data name="PollMyPollHistoryToolTip" xml:space="preserve">
+    <value>Нажмите здесь, если хотите просмотреть историю опросов.</value>
+  </data>
+  <data name="PollNoActivePollLabel" xml:space="preserve">
+    <value>В данный момент нет активных опросов.</value>
+  </data>
+  <data name="PollPollRunsText" xml:space="preserve">
+    <value>Опрос действует</value>
+  </data>
+  <data name="PollShowMyPollHistoryButtonSetting" xml:space="preserve">
+    <value>Показывать кнопку 'История опросов' ?</value>
+  </data>
+  <data name="PollShowResultsButton" xml:space="preserve">
+    <value>Показать результаты</value>
+  </data>
+  <data name="PollShowResultsToolTip" xml:space="preserve">
+    <value>Нажмите здесь для просмотра результатов.</value>
+  </data>
+  <data name="PollTotalVotesLabel" xml:space="preserve">
+    <value>Проголосовало: </value>
+  </data>
+  <data name="PollToText" xml:space="preserve">
+    <value>до</value>
+  </data>
+  <data name="PollViewAddNewPollButton" xml:space="preserve">
+    <value>Добавить опрос</value>
+  </data>
+  <data name="PollViewAddNewPollToolTip" xml:space="preserve">
+    <value>Нажмите здесь, если вы желаете добавить новый опрос.</value>
+  </data>
+  <data name="PollViewCopyToNewPollButton" xml:space="preserve">
+    <value>Копировать в новый опрос</value>
+  </data>
+  <data name="PollViewCopyToNewPollToolTip" xml:space="preserve">
+    <value>Нажмите здесь, если желаете создать новый опрос на основе существующего.</value>
+  </data>
+  <data name="PollViewEditAlternateText" xml:space="preserve">
+    <value>Изменить опрос</value>
+  </data>
+  <data name="PollViewLabel" xml:space="preserve">
+    <value>Просмотр/Изменение опросов</value>
+  </data>
+  <data name="PollVotesText" xml:space="preserve">
+    <value>голосов</value>
+  </data>
+  <data name="PollVoteText" xml:space="preserve">
+    <value>голос</value>
+  </data>
+  <data name="ActiveLink" xml:space="preserve">
+    <value>Активно</value>
+  </data>
+  <data name="ChooseActivePollFormatString" xml:space="preserve">
+    <value>Выберите активный опрос для {0}</value>
+  </data>
+  <data name="MakeActive" xml:space="preserve">
+    <value>Сделать активным</value>
+  </data>
+  <data name="PollDateRangeFormatString" xml:space="preserve">
+    <value>Опрос проводится с {0} по {1}</value>
+  </data>
+  <data name="PollRunsFormatString" xml:space="preserve">
+    <value>Опрос использует {0}</value>
+  </data>
+  <data name="AlreadyVotedMessage" xml:space="preserve">
+    <value>Ваш голос был учтен.</value>
+  </data>
+  <data name="ResultBarColor" xml:space="preserve">
+    <value>Цвет гистограммы результатов</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Особый класс CSS </value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>Неверный особый класс CSS</value>
+  </data>
+</root>

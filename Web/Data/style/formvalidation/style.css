@@ -1,0 +1,45 @@
+      
+/* Registration jQuery Validation contributed by David Dean of Yamisee */
+div.hint 
+{
+    position:relative;
+    left: 5px;
+   top: 0px;
+	font:normal 11px/14px verdana;
+	/* background:#eee url('bg-span-hint-gray.gif') no-repeat top left; */
+	background:#eee;
+	color:#444;
+	border:1px solid #888;
+	padding:5px 5px 5px 5px;
+	min-width:255px;
+	/* height: 20px; */
+ white-space:nowrap;
+	vertical-align: middle;
+	/* margin: -12px 0 0 14px; */
+	display:none;
+	z-index: 100;
+ 
+}
+
+
+div.welldone div.hint 
+{
+	background:#9fd680 url('bg-span-hint-welldone.jpg') no-repeat top left;
+	border-color:#749e5c;
+	color:#000;
+}
+div.kindagood div.hint {
+	background:#ffffcc url('bg-span-hint-kindagood.jpg') no-repeat top left;
+	border-color:#cc9933;
+}
+
+
+div.welldone {
+	background:transparent url('bg-fieldset-welldone.gif') no-repeat 350px -2px;
+}
+div.kindagood {
+	background:transparent url('bg-fieldset-kindagood.gif') no-repeat 350px -2px;
+}
+
+
+

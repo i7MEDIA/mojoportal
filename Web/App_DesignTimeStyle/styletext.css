@@ -1,0 +1,82 @@
+body { font: 70%/1.5  Verdana, 'Trebuchet MS', arial, sans-serif;  }
+.pagebody { text-align:center;  }
+#wrapwebsite { text-align:left;  }
+#wrapfooter {text-align: center; }
+.siteheading {font-size: 130%; text-decoration: none;}
+h1.siteheading {font: bolder 30px 'Trebuchet MS', Arial, Sans-serif;
+	letter-spacing: -2px; text-transform: none;}
+.topnav { text-align:right; font-weight: bold;}
+legend { font-size:larger; font-weight: bold; }
+legend a { text-decoration:none;}
+.settinglabel, .settinglabelFixedHeight { font-weight: bold; font-size:smaller; }
+.modulebuttonrow {text-align:center;  }
+a.ModuleEditLink ,
+a.ModuleEditLink:link ,
+a.ModuleEditLink:visited ,
+a.ModuleEditLink:hover ,
+a.ModuleEditLink:active {  font-size:10px; }
+a.siteheading:link { text-decoration: none;  }
+a.siteheading:visited { text-decoration: none; }
+a.siteheading:hover { text-decoration: none; }
+a.siteheading:active { text-decoration: none; }
+ul.firstnav span.sitelink,
+li.topnavitem,
+li.firstnav,
+.WelcomeMessage ,
+.sitelink {  font-weight: bold; font-size: 9px;  }
+a.sitelink:link { text-decoration: none; }
+a.sitelink:visited { text-decoration: none; }
+a.sitelink:hover { text-decoration: underline; }
+a.sitelink:active { text-decoration: none; }
+.accent { font-weight: bold; }
+a.ModulePager:link { text-decoration: underline; }
+a.ModulePager:visited { text-decoration: underline;}
+a.ModulePager:hover { text-decoration: underline; }
+a.ModulePager:active { text-decoration: underline; }
+.selectedpage{ font-weight: bold;}
+a.SelectedPage:link { font-weight: bold; text-decoration: none; }
+a.SelectedPage:visited { font-weight: bold; text-decoration: none; }
+a.SelectedPage:hover { font-weight: bold; text-decoration: underline; }
+a.SelectedPage:active { font-weight: bold; text-decoration: none;}
+a:hover { text-decoration: underline; }
+legend a.ModuleEditLink { font-size:smaller; }
+legend a.ModuleEditLink:link { font-size:smaller;}
+legend a.ModuleEditLink:visited { font-size:smaller;}
+legend a.ModuleEditLink:hover { font-size:smaller;  }
+legend a.ModuleEditLink:active {  font-size:smaller;}
+h1, h2, h3 {font-family: 'Trebuchet MS', Arial, sans-serif;font-weight: bold;}
+h1 {font-size: 1.7em;	}
+h2 {font-size: 1.5em;}
+h3 {font-size: 16px;}
+.txtcopyright { font-size: 80%;font-weight: normal; }
+.txterror { font-weight: bold;  }
+.moduleedit { text-indent: 4px; }
+div.moduletitle, span.moduletitle, tr.moduletitle, h2.moduletitle 
+{ font-size:1.5em;  font-weight: bold;text-transform: none;  }
+.modulesubtitle { font-weight: bold; } 
+.modulecontent {text-align:left;  }
+.modulefooter { font-size:11px; text-align:center;  }
+.filesfooter { text-align:left; white-space:nowrap;}
+.linkdescription { padding: 5px 5px 5px 5px; }
+div.sitemap ul , div.sitemap ul li { font-size:100%; }
+.skiplink {display:none}
+ul.userstats {font-size:90%;  }
+ul.userstats li {font-size:100%;  }
+.unselectedcrumb { font-weight:normal;}
+.selectedcrumb { font-weight:bold; }
+a.selectedcrumb:link ,
+a.selectedcrumb:visited { text-decoration: none;}
+a.selectedcrumb:hover { text-decoration: underline;}
+a.selectedcrumb:active { text-decoration: none;}
+a.unselectedcrumb:link ,
+a.unselectedcrumb:visited { text-decoration: none;}
+a.unselectedcrumb:hover { text-decoration: underline;}
+a.unselectedcrumb:active { text-decoration: none;}
+ul.linkitem a { font-weight: bold; text-decoration:none;}
+#wrapfooter { font-size: 92%;}
+#wrapfooter a { text-decoration: none; font-weight: bold;}
+.aspbutton, input.button , input[type=submit] 
+{  margin: 0; font: bolder 12px Arial, Sans-serif; 
+	border: 1px solid #EAEAEA;padding: 2px 3px; 
+	background: #CCC url(images/buttonbg.gif) repeat-x left bottom; 
+	color: #333; }

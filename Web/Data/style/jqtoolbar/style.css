@@ -1,0 +1,173 @@
+div#toolbar, div#toolbarbut 
+{
+ position:fixed; 
+  bottom: 0px;
+  right: 0px;
+  z-index: 99; 
+  height: 36px;
+  background-image: url('bcktool.jpg');
+  
+  /*
+using a png caused issues in IE8
+background-image: url('bcktool.png');
+ 
+  */
+  border-top: 1px solid #eee;
+  border-left: 1px solid #eee; 
+  border-right: 1px solid #eee;  
+  
+  /* CSS3 */
+  -moz-border-radius-topleft: 8px;
+	-khtml-border-radius-topleft: 8px;
+	-webkit-border-top-left-radius: 8px;
+	-moz-border-radius-topright: 8px;
+	-khtml-border-radius-topright: 8px;
+	-webkit-border-top-right-radius: 8px;
+	-moz-box-shadow: 0px 1px 10px #666, inset 1px 1px 0px #a4a4a4; 
+  -khtml-box-shadow: 0px 1px 10px #666;
+  -webkit-box-shadow: 0px 1px 10px #666;
+  /* CSS3 end */
+  
+  
+	
+}
+
+div#toolbar {
+  width: 90%;
+  min-width: 800px; /* to limit the width when an excessive window resize */
+  margin: 0px auto; /* centered toolbar */
+  left: 0px;
+}
+
+div#toolbarbut { /* div for the 'hide status' */
+  width: 60px;
+  height: 15px;
+  margin-right: 3%;
+  display: none;
+}
+
+span.showbar a { /* show button */
+  padding: 5px;  
+  font-size: 10px;
+  color: #555;
+}
+
+.toolbarleft{
+  float: left; display:none;
+}
+
+.toolbarright 
+{ white-space:nowrap;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    margin-left:10px;
+  float: right;
+  
+  
+}
+
+/* for ipad fixed positioning is problematic */
+
+/*
+@media only screen and (device-width: 768px) { 
+    div#toolbar, div#toolbarbut { position:static;  }
+	
+}
+*/
+
+
+
+
+
+/*-- Left Side --*/
+
+ul#social li {
+  display: inline;
+}
+
+#social { float: left;}
+
+a.rss, a.facebook, a.twitter, a.digg, a.delicious, a.stumble {
+  display: inline-block;
+  width: 40px;
+  height: 35px;        
+  margin-top: 1px;
+}
+
+a.rss:hover, a.facebook:hover, a.twitter:hover, a.digg:hover, a.delicious:hover, a.stumble:hover {
+  background-position: 1px 1px; /* simple css hover effect */
+}
+
+a.rss {
+  background: url('rss.png') no-repeat;
+}
+
+a.facebook {
+  background: url('facebook.png') no-repeat;
+}
+
+a.twitter {
+  background: url('twitter.png') no-repeat;
+}
+
+a.delicious {
+  background: url('delicious.png') no-repeat;
+}
+
+a.digg {
+  background: url('digg.png') no-repeat;
+}
+
+a.stumble {
+  background: url('stumble.png') no-repeat;
+}
+
+/*-- Right Side --*/
+
+span.downarr { /* hide button */ 
+  float: right;
+  border-left: 1px solid #a4a4a4;
+}
+
+span.downarr a {
+  display: block;
+  width: 36px;
+  height: 26px;
+  padding: 25px 0 0 10px;
+  background: url('downarrow.png') no-repeat 5px 7px;
+}
+
+#toolbar ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+ 
+  
+}
+
+#toolbar a.adminlink ,
+#toolbar a.adminlink:link ,
+#toolbar a.adminlink:visited ,
+#toolbar a.adminlink:hover ,
+#toolbar a.adminlink:active { 
+font-size: 14px!important; 
+border-left: 1px solid #a4a4a4;
+  padding: 8px 8px 10px 23px;
+  line-height: 32px;
+  color: #555;
+  text-decoration:none;
+}
+#toolbar a.adminlink:hover {  text-decoration:underline;}
+
+#toolbar a.adminlink { font-weight:700; text-decoration: underline; }
+#toolbar a.adminlink:hover { color: #666;}
+
+#toolbar a.adminmenulink { background: transparent url('key.png') no-repeat; background-position : 5px 50%;  }
+#toolbar a.filemanlink { background: transparent url('folder_explore.png') no-repeat; background-position : 5px 50%;  }
+#toolbar a.newpagelink { background: transparent url('page_white_add.png') no-repeat; background-position : 5px 50%;  }
+#toolbar a.pageeditlink { background: transparent url('page_white_edit.png') no-repeat; background-position : 5px 50%;  }
+#toolbar a.pagesettingslink { background: transparent url('page_white_wrench.png') no-repeat; background-position : 2px 50%;  }
+
+
+       
+

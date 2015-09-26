@@ -1,0 +1,533 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOptionButton" xml:space="preserve">
+    <value>Lägg till val</value>
+  </data>
+  <data name="AnalyticsTrackingUrlSetting" xml:space="preserve">
+    <value>Skicka Analytics Tracking Url för formulär</value>
+  </data>
+  <data name="AnswerRequiredLabel" xml:space="preserve">
+    <value>Svar krävs</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Vänligen vänta ...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="CheckBoxListQuestionType" xml:space="preserve">
+    <value>Checkruta</value>
+  </data>
+  <data name="CheckBoxQuestionType" xml:space="preserve">
+    <value>Ja/Nej Checkruta</value>
+  </data>
+  <data name="DateQuestionType" xml:space="preserve">
+    <value>Datumväljare</value>
+  </data>
+  <data name="DeleteOptionWarning" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort detta val?</value>
+  </data>
+  <data name="DeleteOrphansButton" xml:space="preserve">
+    <value>Ta bort föräldralösa svar</value>
+  </data>
+  <data name="DeleteOrphansWarning" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort föräldralösa svar?</value>
+  </data>
+  <data name="DeleteQuestionWarning" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort denna fråga?</value>
+  </data>
+  <data name="DeleteResponsesButton" xml:space="preserve">
+    <value>Ta bort alla svar</value>
+  </data>
+  <data name="DeleteResponsesWarning" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort alla inlämnade svar? Du kan inte ångra denna aktivitet. Du bör exportera resultatet först, för att undvika att förlora data.</value>
+  </data>
+  <data name="DoneButton" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="DropDownListQuestionType" xml:space="preserve">
+    <value>Välj från en lista</value>
+  </data>
+  <data name="DropDownPleaseSelectText" xml:space="preserve">
+    <value>Vänligen välj ...</value>
+  </data>
+  <data name="EditLink" xml:space="preserve">
+    <value>Redigera formulär</value>
+  </data>
+  <data name="EditQuestionButton" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="EnableAntiSpamSetting" xml:space="preserve">
+    <value>Slå på SPAM blockering</value>
+  </data>
+  <data name="ExportFormDefinition" xml:space="preserve">
+    <value>Exportera formulär definition</value>
+  </data>
+  <data name="ExportOrphansButton" xml:space="preserve">
+    <value>Exportera föräldralösa svar</value>
+  </data>
+  <data name="ExportQuestionButton" xml:space="preserve">
+    <value>Exportera fråga</value>
+  </data>
+  <data name="ExportToCSVButton" xml:space="preserve">
+    <value>Exportera data till CSV (Kommaseparerad fil)</value>
+  </data>
+  <data name="FileRequiredWarning" xml:space="preserve">
+    <value>Du måste välja en fil.</value>
+  </data>
+  <data name="FinishButton" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="FinishedButton" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="FormDefinitionExtensionWarning" xml:space="preserve">
+    <value>Definitionsfilen till ett formulär skall sluta med .config</value>
+  </data>
+  <data name="FormEditPageTitle" xml:space="preserve">
+    <value>Formulärredigerare</value>
+  </data>
+  <data name="FormPageUrlFormat" xml:space="preserve">
+    <value>Från Url: {0}</value>
+  </data>
+  <data name="FormSubmissionsLink" xml:space="preserve">
+    <value>Svars data</value>
+  </data>
+  <data name="FormSubmitNotificationTask" xml:space="preserve">
+    <value>FormSubmitNotificationTask</value>
+  </data>
+  <data name="FormWizardFeatureName" xml:space="preserve">
+    <value>Form Wizard Pro av Source Tree Solutions</value>
+  </data>
+  <data name="ImportFormButton" xml:space="preserve">
+    <value>Importera formulärdefinition</value>
+  </data>
+  <data name="ImportFormWarning" xml:space="preserve">
+    <value>Är du säker på att du vill importera en formulärdefinition och byta ut allt innehåll i det aktuella formuläret? Befintliga frågor och instruktioner kommer att ersättas. Om det aktuella formuläret har frågor, kan det vara klokt att exportera dessa först, så att man har en säkerhetskopia. Du bör också exportera alla befintliga inlagor och ta bort dem, annars blir dessa föräldralösa svar som inte längre motsvarar existerande formulär frågorna.</value>
+  </data>
+  <data name="ImportQuestionButton" xml:space="preserve">
+    <value>Importera fråga</value>
+  </data>
+  <data name="InstructionBlockLabel" xml:space="preserve">
+    <value>Instruktionsblock</value>
+  </data>
+  <data name="InstructionBlockQuestionType" xml:space="preserve">
+    <value>Instruktionsblock</value>
+  </data>
+  <data name="InstructionsTab" xml:space="preserve">
+    <value>Instruktioner</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>krävs.</value>
+  </data>
+  <data name="MaxRangeLabel" xml:space="preserve">
+    <value>Maxvärde</value>
+  </data>
+  <data name="MinRangeLabel" xml:space="preserve">
+    <value>Minimivärde</value>
+  </data>
+  <data name="NewQuestionButton" xml:space="preserve">
+    <value>Lägga till nya fråga</value>
+  </data>
+  <data name="NextButton" xml:space="preserve">
+    <value>Nästa &gt;&gt;</value>
+  </data>
+  <data name="NitificationSiteUserFormat" xml:space="preserve">
+    <value>Erhölls från användaren: {0}</value>
+  </data>
+  <data name="NoResultsMessage" xml:space="preserve">
+    <value>Det finns ännu inga svar för detta formulär.</value>
+    <comment>Det har ännu inte skett några formulär synpunkter.</comment>
+  </data>
+  <data name="NotificationAliasLabelSetting" xml:space="preserve">
+    <value>Etikett för e-post lista</value>
+  </data>
+  <data name="NotificationAliasSetting" xml:space="preserve">
+    <value>Visa alias för e-postadresser</value>
+  </data>
+  <data name="NotificationEmailBccSetting" xml:space="preserve">
+    <value>Hemlig e-postadress(er) för avisering</value>
+  </data>
+  <data name="NotificationEmailSetting" xml:space="preserve">
+    <value>E-postadress(er) som får formulärets svar</value>
+  </data>
+  <data name="NotificationIPAddressFormat" xml:space="preserve">
+    <value>Från IP Adress: {0}</value>
+  </data>
+  <data name="NotificationSubjectFormat" xml:space="preserve">
+    <value>Mottagna svar: {0}</value>
+  </data>
+  <data name="OptionsHeading" xml:space="preserve">
+    <value>Alternativ</value>
+  </data>
+  <data name="OrphanCountLabel" xml:space="preserve">
+    <value>Antal föräldralösa svar</value>
+  </data>
+  <data name="Orphans" xml:space="preserve">
+    <value>Föräldralösa</value>
+  </data>
+  <data name="PageNumberLabel" xml:space="preserve">
+    <value>Sidnummer</value>
+  </data>
+  <data name="PreValidateForm" xml:space="preserve">
+    <value>Validera formulär i förväg?</value>
+  </data>
+  <data name="PreviousButton" xml:space="preserve">
+    <value>&lt;&lt; Tillbaka</value>
+  </data>
+  <data name="QuestionEditOptionsDeleteAlternateText" xml:space="preserve">
+    <value>Ta bort markerade alternativ</value>
+  </data>
+  <data name="QuestionEditOptionsDownAlternateText" xml:space="preserve">
+    <value>Flytta markerat alternativ nedåt</value>
+  </data>
+  <data name="QuestionEditOptionsEditAlternateText" xml:space="preserve">
+    <value>Redigera markerat alternativ</value>
+  </data>
+  <data name="QuestionEditOptionsUpAlternateText" xml:space="preserve">
+    <value>Flytta markerat alternativ uppåt</value>
+  </data>
+  <data name="QuestionsTab" xml:space="preserve">
+    <value>Frågor</value>
+  </data>
+  <data name="QuestionTextLabel" xml:space="preserve">
+    <value>Frågetext</value>
+  </data>
+  <data name="QuestionTypeLabel" xml:space="preserve">
+    <value>Frågetyp</value>
+  </data>
+  <data name="RadioButtonListQuestionType" xml:space="preserve">
+    <value>Flera alternativ</value>
+  </data>
+  <data name="RequiredFieldIndicator" xml:space="preserve">
+    <value> *</value>
+  </data>
+  <data name="ResultsTitleFormat" xml:space="preserve">
+    <value>{0} Svar</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="SliderQuestionType" xml:space="preserve">
+    <value>Skjutreglage</value>
+  </data>
+  <data name="SliderTooltipFormat" xml:space="preserve">
+    <value>Skjutreglage: värd {0}. Flytta reglaget för att ändra värdet.</value>
+  </data>
+  <data name="SubmissionCountLabel" xml:space="preserve">
+    <value>Totalt antal svar</value>
+  </data>
+  <data name="SubmitButton" xml:space="preserve">
+    <value>Skicka in</value>
+  </data>
+  <data name="TaskCompleted" xml:space="preserve">
+    <value>Färdig</value>
+  </data>
+  <data name="TaskQueued" xml:space="preserve">
+    <value>I kö</value>
+  </data>
+  <data name="TaskRunning" xml:space="preserve">
+    <value>Kör</value>
+  </data>
+  <data name="TaskStarted" xml:space="preserve">
+    <value>Startat</value>
+    <comment>Påbörjat</comment>
+  </data>
+  <data name="TextAreaQuestionType" xml:space="preserve">
+    <value>Stycketext</value>
+  </data>
+  <data name="TextBoxQuestionType" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="ThankYouMessageTab" xml:space="preserve">
+    <value>Tackmeddelande</value>
+  </data>
+  <data name="TotalPagesLabel" xml:space="preserve">
+    <value>Totalt antal sidor</value>
+  </data>
+  <data name="UpdateOptionButton" xml:space="preserve">
+    <value>Uppdatera alternativ</value>
+  </data>
+  <data name="BrowseResultsLink" xml:space="preserve">
+    <value>Bläddra inlämnade svar</value>
+  </data>
+  <data name="EnableRegexValidation" xml:space="preserve">
+    <value>Aktivera "Regular Expression" i validering av svar på text frågor?</value>
+  </data>
+  <data name="InvalidRegexTextLabel" xml:space="preserve">
+    <value>Ogiltigt meddelande</value>
+  </data>
+  <data name="RegexExpressionLabel" xml:space="preserve">
+    <value>Validering via reguljära uttryck</value>
+  </data>
+  <data name="ResultsGridPageSizeSetting" xml:space="preserve">
+    <value>Antal svar per sida</value>
+  </data>
+  <data name="ViewResultsGridLink" xml:space="preserve">
+    <value>Visa svar</value>
+    <comment>Inlagor rutnät</comment>
+  </data>
+  <data name="ViewResultsGridTooltip" xml:space="preserve">
+    <value>Svar</value>
+  </data>
+  <data name="DeleteQuestionButtonTooltip" xml:space="preserve">
+    <value>Ta bort denna fråga</value>
+  </data>
+  <data name="EditInstructionsLink" xml:space="preserve">
+    <value>Redigera instruktioner</value>
+  </data>
+  <data name="DeleteResponseButton" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="DeleteResponseWarning" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort detta svar?</value>
+  </data>
+  <data name="ResponseTimeIpFormat" xml:space="preserve">
+    <value>Mottog {0} från IP-adressen {1}</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Anpassad CSS-klass</value>
+  </data>
+  <data name="ExportToWord" xml:space="preserve">
+    <value>Exportera till Word</value>
+  </data>
+  <data name="InvalidRegexWarning" xml:space="preserve">
+    <value>Det reguljära uttrycket som angetts är ogiltig.</value>
+  </data>
+  <data name="BrowseResultsTooltip" xml:space="preserve">
+    <value>Bläddra inlämnade svar</value>
+  </data>
+  <data name="AllowedUploadExtensions" xml:space="preserve">
+    <value>Tillåtna filtyper för uppladdning</value>
+  </data>
+  <data name="AllowedUploadExtensionsWarning" xml:space="preserve">
+    <value>Varning; tillåtna filer för uppladdning</value>
+  </data>
+  <data name="AllowedUploads" xml:space="preserve">
+    <value>Tillåtna uppladdningar</value>
+  </data>
+  <data name="CssClassLabel" xml:space="preserve">
+    <value>CSS-klass</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="DeleteAttachmentWarning" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort bifogad fil?</value>
+  </data>
+  <data name="DownloadLink" xml:space="preserve">
+    <value>Ladda ner</value>
+  </data>
+  <data name="File1ErrorFormat" xml:space="preserve">
+    <value>Fil 1: {0}</value>
+  </data>
+  <data name="File2ErrorFormat" xml:space="preserve">
+    <value>Fil 2: {0}</value>
+  </data>
+  <data name="File3ErrorFormat" xml:space="preserve">
+    <value>Fil 3: {0}</value>
+  </data>
+  <data name="File4ErrorFormat" xml:space="preserve">
+    <value>Fil 4: {0}</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Filer</value>
+  </data>
+  <data name="FileUploadGlobalRegexWarning" xml:space="preserve">
+    <value>Filtypen är inte tillåten av globala konfigurationsinställningar.</value>
+  </data>
+  <data name="FileUploadSettings" xml:space="preserve">
+    <value>Inställningar för uppladdning</value>
+  </data>
+  <data name="FormSubmittedEventHandlerSetting" xml:space="preserve">
+    <value>Händelsehanterare 'Skicka'</value>
+    <comment>Inlämnande händelsehanterare according to bing</comment>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>Generella Inställningar</value>
+    <comment>Allmänna inställningar/Generella Inställningar</comment>
+  </data>
+  <data name="InvalidCssClassWarning" xml:space="preserve">
+    <value>Endast alfanumeriska tecken är tillåtna för CSS-klasser.</value>
+  </data>
+  <data name="NotificationFilesExcludedWarning" xml:space="preserve">
+    <value>Filen/filerna bifogades inte då de var för stora, klicka på länken för att visa vad som skickats och hämta fil(er).</value>
+  </data>
+  <data name="NotificationIncludeDetails" xml:space="preserve">
+    <value>Inkludera detaljer i aviseringen?</value>
+  </data>
+  <data name="NotificationIncludeFiles" xml:space="preserve">
+    <value>Inkludera uppladdade filer som bifogade filer?</value>
+  </data>
+  <data name="NotificationIntro" xml:space="preserve">
+    <value>Ett svar har skickats, klicka på länken nedan för att se svaret:</value>
+  </data>
+  <data name="NotificationLeaveOutUnansweredQuestions" xml:space="preserve">
+    <value>Lämna obesvarade frågor utanför aviseringen?</value>
+  </data>
+  <data name="NotificationSettings" xml:space="preserve">
+    <value>Inställningar för avisering</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Ladda upp/Klar</value>
+  </data>
+  <data name="UploadInstructions" xml:space="preserve">
+    <value>Ladda upp instruktioner</value>
+  </data>
+  <data name="FileTooLargeWarning" xml:space="preserve">
+    <value>Den uppladdade filen togs bort eftersom den är större än den konfigurerade gränsen. Lägg upp en fil som inte är större än {0} megabyte.</value>
+  </data>
+  <data name="FileTooLargeWarningFormat" xml:space="preserve">
+    <value>Filen {0} har valts bort eftersom den är större än den konfigurerade gränsen. Lägg upp en fil som inte är större än {1} megabyte.</value>
+  </data>
+  <data name="FinishWithNoUploadButton" xml:space="preserve">
+    <value>Gör klart utan att ladda upp</value>
+  </data>
+  <data name="UploadIsRequired" xml:space="preserve">
+    <value>Är uppladdning ett krav?</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Visa</value>
+  </data>
+  <data name="EnableOptionAliases" xml:space="preserve">
+    <value>Aktivera alias för alternativ​​?</value>
+  </data>
+  <data name="EnablePerQuestionCssClasses" xml:space="preserve">
+    <value>Aktivera CSS-klasser per fråga?</value>
+  </data>
+  <data name="EnableQuestionAliases" xml:space="preserve">
+    <value>Aktivera alias för frågor?</value>
+  </data>
+  <data name="FlattenPagesAsGroups" xml:space="preserve">
+    <value>Platta till sidor som grupper?</value>
+  </data>
+  <data name="OverrideSubmitButtonText" xml:space="preserve">
+    <value>Åsidosätt knapptexten "Skicka"</value>
+  </data>
+  <data name="QuestionAliasLabel" xml:space="preserve">
+    <value>Alias fråga</value>
+  </data>
+  <data name="UseSslIfAvailable" xml:space="preserve">
+    <value>Använd SSL om det är tillgängligt?</value>
+  </data>
+  <data name="ValueAlias" xml:space="preserve">
+    <value>Värde/Alias</value>
+  </data>
+</root>

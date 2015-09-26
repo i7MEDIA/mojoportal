@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Dodaj/edytuj kanały</value>
+    <comment>Add/Edit Feeds</comment>
+  </data>
+  <data name="AddCommentsLink" xml:space="preserve">
+    <value>Dodaj link komentarzy do wychodzącego RSS</value>
+    <comment>Add Comments Link to outgoing RSS feed</comment>
+  </data>
+  <data name="AddNewFeedLink" xml:space="preserve">
+    <value>Dodaj nowy kanał</value>
+    <comment>Add New Feed</comment>
+  </data>
+  <data name="AddSignature" xml:space="preserve">
+    <value>Dodaj link podpisu do wychodzącego RSS</value>
+    <comment>Add Signature Link to outgoing RSS feed</comment>
+  </data>
+  <data name="AtomFeedType" xml:space="preserve">
+    <value>Kanał Atom</value>
+    <comment>Atom Feed</comment>
+  </data>
+  <data name="AuthorLabel" xml:space="preserve">
+    <value>Nazwa kanału</value>
+    <comment>Feed Name</comment>
+  </data>
+  <data name="BackToPageLinkFormat" xml:space="preserve">
+    <value>Wróć do {0}</value>
+    <comment>Back To {0}</comment>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="CancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+    <comment>2</comment>
+  </data>
+  <data name="ClearCacheButton" xml:space="preserve">
+    <value>Wyczyść bufor kanału</value>
+    <comment>Clear The Feed Cache</comment>
+  </data>
+  <data name="ClearCacheWarning" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć wszystko z cache kanału?</value>
+    <comment>Are you sure you want to delete all entries from the feed cache?</comment>
+  </data>
+  <data name="CreatedByLabel" xml:space="preserve">
+    <value>Utworzony przez</value>
+    <comment>Created By</comment>
+  </data>
+  <data name="DateCreatedLabel" xml:space="preserve">
+    <value>Utworzony dnia</value>
+    <comment>Date Created</comment>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="DeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+    <comment>3</comment>
+  </data>
+  <data name="DeleteFeedWarning" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć ten kanał?</value>
+    <comment>Are you sure you want to delete this feed?</comment>
+  </data>
+  <data name="EditFeedLabel" xml:space="preserve">
+    <value>Edycja kanału</value>
+    <comment>Edit Feed</comment>
+  </data>
+  <data name="EditImageAltText" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="EnableInPlacePublishing" xml:space="preserve">
+    <value>Użyj wybiórczej publikacji 'In Place'?</value>
+    <comment>Use In Place Selective Publishing?</comment>
+  </data>
+  <data name="EnableSelectivePublishing" xml:space="preserve">
+    <value>Włączyć selektywną publikację?</value>
+    <comment>Enable Selective Publishing?</comment>
+  </data>
+  <data name="EntryPublishFalseAlternateText" xml:space="preserve">
+    <value>Nie opublikowane</value>
+    <comment>Not Published</comment>
+  </data>
+  <data name="EntryPublishTrueAlternateText" xml:space="preserve">
+    <value>Opublikowane</value>
+    <comment>Published</comment>
+  </data>
+  <data name="FeatureName" xml:space="preserve">
+    <value>Manager kanałów</value>
+    <comment>Feed Manager</comment>
+  </data>
+  <data name="FeedEditPageTitle" xml:space="preserve">
+    <value>Edytor kanałów</value>
+    <comment>Feed Editor</comment>
+  </data>
+  <data name="FeedTitleRequiredWarning" xml:space="preserve">
+    <value>Tytuł kanału jest wymagany.</value>
+    <comment>Feed Title is required.</comment>
+  </data>
+  <data name="FeedTypeLabel" xml:space="preserve">
+    <value>Rodzaj kanału</value>
+    <comment>Feed Type</comment>
+  </data>
+  <data name="FeedUrlLabel" xml:space="preserve">
+    <value>Url kanału</value>
+    <comment>Feed Url</comment>
+  </data>
+  <data name="FeedUrlRegexWarning" xml:space="preserve">
+    <value>Url kanału musi być poprawnym adresem 'http://'</value>
+    <comment>Feed Url must be a valid format starting with http://</comment>
+  </data>
+  <data name="FeedUrlRequiredWarning" xml:space="preserve">
+    <value>Url kanału jest wymagany.</value>
+    <comment>Feed url is required.</comment>
+  </data>
+  <data name="FilterInvalidMarkupAndPotentiallyInsecureContent" xml:space="preserve">
+    <value>Odfiltruj niepoprawne znaczniki oraz potencjalnie niebezpieczną zawartość z kanałów?</value>
+    <comment>Filter Invalid Markup and Potentially Dangerous Content From Feeds?</comment>
+  </data>
+  <data name="ImageUrlLabel" xml:space="preserve">
+    <value>Url obrazu</value>
+    <comment>Image Url</comment>
+  </data>
+  <data name="MalformedMarkupWarning" xml:space="preserve">
+    <value>Ten kanał wydaje się zawierać niepoprawne znaczniki (x)html. Ze względów bezpieczeństwa system usunął te znaczniki i przekonwertował jego zawartość. Ma to zapobiegać ew. próbom niebezpiecznego skryptowania.</value>
+    <comment>This feed entry appears to contain invalid (x)html markup. 
+For security purposes the system has removed the markup and encoded this content in case the invalid markup contains cross site scripting.</comment>
+  </data>
+  <data name="ManagePublishingLink" xml:space="preserve">
+    <value>Zarządzaj publikacją</value>
+    <comment>Manage Publishing</comment>
+  </data>
+  <data name="PublishByDefaultLabel" xml:space="preserve">
+    <value>Publikuj domyślnie</value>
+    <comment>Publish By Default</comment>
+  </data>
+  <data name="PublishingHeaderFormat" xml:space="preserve">
+    <value>Publikowanie dla {0}</value>
+    <comment>Publishing for {0}</comment>
+  </data>
+  <data name="RSSAggregatorExcerptLengthSetting" xml:space="preserve">
+    <value>Długość wyncinka</value>
+    <comment>Excerpt Length</comment>
+  </data>
+  <data name="RSSAggregatorExcerptSetting" xml:space="preserve">
+    <value>Użyj wycinka?</value>
+    <comment>Use Excerpt?</comment>
+  </data>
+  <data name="RSSAggregatorExcerptSuffixSetting" xml:space="preserve">
+    <value>Sufix wycinka</value>
+    <comment>Excerpt Suffix</comment>
+  </data>
+  <data name="RSSAggregatorPageSizeSetting" xml:space="preserve">
+    <value>Obiektów na stronę</value>
+    <comment>Items Per Page</comment>
+  </data>
+  <data name="RSSAggregatorShowAuthor" xml:space="preserve">
+    <value>Pokazać autora?</value>
+    <comment>Show Author?</comment>
+  </data>
+  <data name="RSSFeedAllowExternalImages" xml:space="preserve">
+    <value>Włączyć zewnętrzne obrazy?</value>
+    <comment>Allow External Images?</comment>
+  </data>
+  <data name="RSSFeedEntryCacheTimeoutSetting" xml:space="preserve">
+    <value>Wejściowy czas buforowania w minutach</value>
+    <comment>Entry Cache Time In Minutes</comment>
+  </data>
+  <data name="RSSFeedFeedListCacheTimeoutSetting" xml:space="preserve">
+    <value>Czas buforowania listy w minutach</value>
+    <comment>Feed List Cache Time In Minutes</comment>
+  </data>
+  <data name="RSSFeedFeedListColumnsSetting" xml:space="preserve">
+    <value>Kolumny listy kanałów</value>
+    <comment>Feed List Columns</comment>
+  </data>
+  <data name="RSSFeedListLabelSetting" xml:space="preserve">
+    <value>Etykieta listy kanałów</value>
+    <comment>Feed List Label</comment>
+  </data>
+  <data name="RSSFeedMaxDayCountSetting" xml:space="preserve">
+    <value>Pokazuj posty sprzed dni</value>
+    <comment>Show Posts up to this many days old</comment>
+  </data>
+  <data name="RSSFeedMaxPostsPerFeedSetting" xml:space="preserve">
+    <value>Maksymalna ilość postów na kanał</value>
+    <comment>Maximum Posts Per Feed</comment>
+  </data>
+  <data name="RSSFeedShowAggregateFeedLink" xml:space="preserve">
+    <value>Pokazać link kanału zbiorczego?</value>
+    <comment>Show Aggregate Feed Link?</comment>
+  </data>
+  <data name="RSSFeedShowErrorMessageOnInvalidPosts" xml:space="preserve">
+    <value>Pokaż błąd w postach z wadliwymi znacznikami html?</value>
+    <comment>Show Error Message on Posts with Invalid Markup?</comment>
+  </data>
+  <data name="RSSFeedShowFeedListLeftSetting" xml:space="preserve">
+    <value>Pokaż listę kanałów po lewej?</value>
+    <comment>Show Feed List Links on Left?</comment>
+  </data>
+  <data name="RSSFeedShowFeedListRightSetting" xml:space="preserve">
+    <value>Pokaż listę kanałów po prawej?</value>
+    <comment>Show Feed List Links on Right?</comment>
+  </data>
+  <data name="RSSFeedShowHeadingsOnlySetting" xml:space="preserve">
+    <value>Pokaż tylko nagłówki?</value>
+    <comment>Show Headings Only?</comment>
+  </data>
+  <data name="RSSFeedShowIndividualFeedLinks" xml:space="preserve">
+    <value>Pokaż indywidualne linki kanałów?</value>
+    <comment>Show Individual Feed Links?</comment>
+  </data>
+  <data name="RSSFeedSortAscending" xml:space="preserve">
+    <value>Sortuj rosnąco?</value>
+    <comment>Sort Ascending?</comment>
+  </data>
+  <data name="RssFeedType" xml:space="preserve">
+    <value>Kanał RSS</value>
+    <comment>RSS Feed</comment>
+  </data>
+  <data name="RSSFeedUseFeedListAsFilterSetting" xml:space="preserve">
+    <value>Użyj linków kanału jako filtra?</value>
+    <comment>Use Feed Links as Filter?</comment>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>Save</comment>
+  </data>
+  <data name="SaveButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+    <comment>1</comment>
+  </data>
+  <data name="WebSiteLabel" xml:space="preserve">
+    <value>Url witryny:</value>
+    <comment>Web Site Url:</comment>
+  </data>
+  <data name="WebUrlRegexWarning" xml:space="preserve">
+    <value>Url witryny musi być poprawnym adresem (http:// lub https://)</value>
+    <comment>Web Site Url must be a valid format starting with http:// or https://</comment>
+  </data>
+  <data name="CacheSettings" xml:space="preserve">
+    <value>Cache Settings</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Custom CSS Class</value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>Invalid Custom CSS Class</value>
+  </data>
+  <data name="ExcerptModeSettings" xml:space="preserve">
+    <value>Excerpt Mode Settings</value>
+  </data>
+  <data name="FeedDateFormatSetting" xml:space="preserve">
+    <value>Date/Time Format String</value>
+  </data>
+  <data name="FeedUseExcerptSuffixAsLinkToPost" xml:space="preserve">
+    <value>Use Excerpt Suffix A sLink To Post?</value>
+  </data>
+  <data name="NavigationSettings" xml:space="preserve">
+    <value>Navigation and Layout</value>
+  </data>
+  <data name="OpenLinkInNewWindow" xml:space="preserve">
+    <value>Open Link In New Window?</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="RSSAggregatorShowFeedName" xml:space="preserve">
+    <value>Show Feed Name After Content?</value>
+  </data>
+  <data name="RSSAggregatorShowFeedNameBeforeContent" xml:space="preserve">
+    <value>Show Feed Name Before Content?</value>
+  </data>
+  <data name="RSSFeedPadEmptyDaysInCalendarView" xml:space="preserve">
+    <value>Pad empty days with spaces in calendar view?</value>
+  </data>
+  <data name="RSSFeedUseCalendarView" xml:space="preserve">
+    <value>Use Calendar View?</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Security Settings</value>
+  </data>
+  <data name="SelectivePublishingSettings" xml:space="preserve">
+    <value>Selective Publishing</value>
+  </data>
+  <data name="ShowDateSetting" xml:space="preserve">
+    <value>Show Date?</value>
+  </data>
+  <data name="SortRankLabel" xml:space="preserve">
+    <value>Sort Rank</value>
+  </data>
+  <data name="UseAutoDiscoveryAggregateFeedLink" xml:space="preserve">
+    <value>Add Aggregate Feed Discovery Link To Head?</value>
+  </data>
+  <data name="UseScrollerSetting" xml:space="preserve">
+    <value>Enable Scroller?</value>
+  </data>
+</root>

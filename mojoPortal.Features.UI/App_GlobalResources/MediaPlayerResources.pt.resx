@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddFileValidationSummaryHeaderText" xml:space="preserve">
+    <value>Não foi possível adicionar o arquivo</value>
+  </data>
+  <data name="AddMediaFileLinkButtonText" xml:space="preserve">
+    <value>Adicionar o arquivo selecionado</value>
+  </data>
+  <data name="AddTrackButtonText" xml:space="preserve">
+    <value>Adicionar faixa</value>
+  </data>
+  <data name="AddTrackFieldsetLabel" xml:space="preserve">
+    <value>Adicionar faixa mídia</value>
+  </data>
+  <data name="AddTrackValidationSummaryHeaderText" xml:space="preserve">
+    <value>Não é possível adicionar a faixa</value>
+  </data>
+  <data name="ArtistRequiredValidatorErrorMessage" xml:space="preserve">
+    <value>Por favor insira um artista</value>
+  </data>
+  <data name="AtLeastOneFileSelectedValidatorErrorMessage" xml:space="preserve">
+    <value>Por favor, adicione pelo menos um arquivo</value>
+  </data>
+  <data name="AutoStartSetting" xml:space="preserve">
+    <value>Auto-início</value>
+  </data>
+  <data name="CancelButtonText" xml:space="preserve">
+    <value>Cancelar/terminar</value>
+  </data>
+  <data name="CancelButtonTooltip" xml:space="preserve">
+    <value>Cancelar a edição desta faixa</value>
+  </data>
+  <data name="ContinuousPlaySetting" xml:space="preserve">
+    <value>Reprodução contínua</value>
+  </data>
+  <data name="DeleteFileConfirmationDialogText" xml:space="preserve">
+    <value>Tem a certeza de que deseja excluir {0}?</value>
+  </data>
+  <data name="DeleteFileLinkButtonText" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="DeleteFileLinkButtonTooltip" xml:space="preserve">
+    <value>Apagar este ficheiro</value>
+  </data>
+  <data name="DeleteTrackButtonText" xml:space="preserve">
+    <value>Apagar faixas</value>
+  </data>
+  <data name="DeleteTrackButtonTooltip" xml:space="preserve">
+    <value>Excluir esta faixa</value>
+  </data>
+  <data name="DeleteTrackConfirmationDialogText" xml:space="preserve">
+    <value>Tem a certeza de que deseja excluir esta faixa?</value>
+  </data>
+  <data name="DisableShuffleSetting" xml:space="preserve">
+    <value>Desativar ordem aleatória</value>
+  </data>
+  <data name="EditAudioPlayerArtistLabel" xml:space="preserve">
+    <value>Artista</value>
+  </data>
+  <data name="EditAudioPlayerLinkText" xml:space="preserve">
+    <value>Editar jogador</value>
+  </data>
+  <data name="EditAudioPlayerPageHeaderText" xml:space="preserve">
+    <value>Editar Media Player</value>
+  </data>
+  <data name="EditAudioPlayerTrackNameLabel" xml:space="preserve">
+    <value>Nome da faixa</value>
+  </data>
+  <data name="EditMediaTrackPageTitleText" xml:space="preserve">
+    <value>Editar controle de mídia</value>
+  </data>
+  <data name="EditTrackHyperLinkText" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EditTrackHyperLinkToolTip" xml:space="preserve">
+    <value>Editar a faixa</value>
+  </data>
+  <data name="EditTrackPageHeaderText" xml:space="preserve">
+    <value>Editar faixa</value>
+  </data>
+  <data name="FileHeaderTextSiteLabel" xml:space="preserve">
+    <value>Atual arquivo (s)</value>
+  </data>
+  <data name="FileNameGridViewHeaderSiteLabelText" xml:space="preserve">
+    <value>Nome do arquivo</value>
+  </data>
+  <data name="FileTypeAlreadyExistsErrorText" xml:space="preserve">
+    <value>Já existe um arquivo com a extensão de {0}.</value>
+  </data>
+  <data name="FullScreenText" xml:space="preserve">
+    <value>Tela cheia</value>
+  </data>
+  <data name="InvalidAudioFileErrorMessage" xml:space="preserve">
+    <value>Somente os arquivos de formato de áudio válido permitidos</value>
+  </data>
+  <data name="InvalidVideoFileErrorMessage" xml:space="preserve">
+    <value>Somente os arquivos de formato de vídeo válido permitidos</value>
+  </data>
+  <data name="ManageMediaFilesFieldsetLabel" xml:space="preserve">
+    <value>Gerenciar arquivos de mídia</value>
+  </data>
+  <data name="ManageTracksFieldSetLabel" xml:space="preserve">
+    <value>Gerenciar mídia faixas</value>
+  </data>
+  <data name="MaxVolumeText" xml:space="preserve">
+    <value>Max Volume</value>
+  </data>
+  <data name="MediaFileBrowserLinkText" xml:space="preserve">
+    <value>Procurar...</value>
+  </data>
+  <data name="MediaFileRegularExpValidatorErrorMessage" xml:space="preserve">
+    <value>Por favor, selecione um formato de arquivo com suporte</value>
+  </data>
+  <data name="MediaFileRequiredValidatorErrorMessage" xml:space="preserve">
+    <value>Por favor, selecione ou insira um arquivo de mídia</value>
+  </data>
+  <data name="MediaTrackPropertiesFieldsetLabel" xml:space="preserve">
+    <value>Propriedades da faixa Media</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Mídia Player</value>
+  </data>
+  <data name="MoveTrackDownButtonText" xml:space="preserve">
+    <value>Para baixo</value>
+  </data>
+  <data name="MoveTrackDownOrderTooltip" xml:space="preserve">
+    <value>Mover faixa para baixo na ordem de lista de reprodução</value>
+  </data>
+  <data name="MoveTrackUpButtonText" xml:space="preserve">
+    <value>Até</value>
+  </data>
+  <data name="MoveTrackUpOrderTooltip" xml:space="preserve">
+    <value>Mover faixa acima na ordem da lista de reprodução</value>
+  </data>
+  <data name="MuteText" xml:space="preserve">
+    <value>Sem som</value>
+  </data>
+  <data name="NextButtonText" xml:space="preserve">
+    <value>Próximo</value>
+  </data>
+  <data name="NextText" xml:space="preserve">
+    <value>Próximo</value>
+  </data>
+  <data name="NoFilesSiteLabel" xml:space="preserve">
+    <value>Não há arquivos existem para esta faixa</value>
+  </data>
+  <data name="NoFilesSiteLabelText" xml:space="preserve">
+    <value>Não existem ficheiros existem para esta faixa</value>
+  </data>
+  <data name="NoSolutionMessageMarkup" xml:space="preserve">
+    <value>&lt;span&gt;Atualização necessária&lt;/span&gt; Para reproduzir a mídia você precisará atualizar seu navegador para uma versão recente ou atualize seu &lt;a href="http://get.adobe.com/flashplayer/" target="_blank"&gt;Flash plugin&lt;/a&gt;.</value>
+  </data>
+  <data name="NoTracksSiteLabelText" xml:space="preserve">
+    <value>Sem faixas existem para esse Media Player</value>
+  </data>
+  <data name="PauseText" xml:space="preserve">
+    <value>Pausar</value>
+  </data>
+  <data name="PlaybackControlSection" xml:space="preserve">
+    <value>Controle de reprodução</value>
+  </data>
+  <data name="PlayerSkinNotFoundErrorMessage" xml:space="preserve">
+    <value>A pele para o Media Player não pôde ser carregado.</value>
+  </data>
+  <data name="PlayerTypeLabelText" xml:space="preserve">
+    <value>Tipo de mídia</value>
+  </data>
+  <data name="PlayText" xml:space="preserve">
+    <value>Jogar</value>
+  </data>
+  <data name="PreviousText" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="RepeatOffText" xml:space="preserve">
+    <value>Repita fora</value>
+  </data>
+  <data name="RepeatText" xml:space="preserve">
+    <value>Repita</value>
+  </data>
+  <data name="RestoreScreenText" xml:space="preserve">
+    <value>Tela restauração</value>
+  </data>
+  <data name="SelectedFilesSiteLabelText" xml:space="preserve">
+    <value>Arquivos adicionados</value>
+  </data>
+  <data name="SelectFileSiteLabelText" xml:space="preserve">
+    <value>Local do arquivo</value>
+  </data>
+  <data name="SetupInstructionsSiteLabelText" xml:space="preserve">
+    <value>Uma instância do Media Player pode reproduzir arquivos de áudio ou arquivos de vídeo. Como parte da configuração inicial de uma instância do Media Player, você deve selecionar qual o tipo de mídia que ele vai jogar. Depois de selecionar o tipo de mídia e clique em Avançar, o tipo não pode ser alterado para esta instância (módulo).</value>
+  </data>
+  <data name="SetupNeededLabel" xml:space="preserve">
+    <value>Nenhum arquivo está disponível para jogar, conjunto acima é necessário em primeiro lugar.</value>
+  </data>
+  <data name="SetupPageHeaderText" xml:space="preserve">
+    <value>O programa de configuração do Media Player</value>
+  </data>
+  <data name="ShuffleOffText" xml:space="preserve">
+    <value>Shuffle Off</value>
+  </data>
+  <data name="ShuffleText" xml:space="preserve">
+    <value>Shuffle</value>
+  </data>
+  <data name="StopText" xml:space="preserve">
+    <value>Parar</value>
+  </data>
+  <data name="TrackArtistHeaderLabelText" xml:space="preserve">
+    <value>Artist(s)</value>
+  </data>
+  <data name="TrackFilesHeaderLabelText" xml:space="preserve">
+    <value>Associado (s)</value>
+  </data>
+  <data name="TrackNameHeaderLabelText" xml:space="preserve">
+    <value>Nome da faixa</value>
+  </data>
+  <data name="TrackNameRequiredValidatorErrorMessage" xml:space="preserve">
+    <value>Por favor, digite o nome de uma faixa</value>
+  </data>
+  <data name="TrackOrderHeaderLabelText" xml:space="preserve">
+    <value>Monitorizar a encomenda</value>
+  </data>
+  <data name="UnmuteText" xml:space="preserve">
+    <value>Não mudo</value>
+  </data>
+  <data name="UpdateTrackButtonText" xml:space="preserve">
+    <value>Atualizar propriedades da faixa</value>
+  </data>
+  <data name="UpdateTrackButtonTooltip" xml:space="preserve">
+    <value>Atualizar as propriedades da faixa</value>
+  </data>
+  <data name="UpdateTrackValidationSummaryHeaderText" xml:space="preserve">
+    <value>A faixa não pôde ser atualizada</value>
+  </data>
+  <data name="ValidationErrorMarking" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Classe CSS personalizado</value>
+  </data>
+  <data name="AudioPlayerFeatureName" xml:space="preserve">
+    <value>Leitor de áudio</value>
+  </data>
+  <data name="VideoPlayerFeatureName" xml:space="preserve">
+    <value>Player de vídeo</value>
+  </data>
+  <data name="MiscellaneousSection" xml:space="preserve">
+    <value>Miscelânea</value>
+  </data>
+  <data name="FooterContent" xml:space="preserve">
+    <value>Conteúdo do rodapé</value>
+  </data>
+  <data name="HeaderContent" xml:space="preserve">
+    <value>Conteúdo do cabeçalho</value>
+  </data>
+  <data name="AllowFullScreen" xml:space="preserve">
+    <value>Permitir a reprodução de tela cheia?</value>
+  </data>
+</root>

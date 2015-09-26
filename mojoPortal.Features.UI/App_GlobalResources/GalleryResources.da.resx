@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="GalleryAddImageLabel" xml:space="preserve">
+    <value>Tilføj billede</value>
+  </data>
+  <data name="GalleryAllowFullSizeViewSetting" xml:space="preserve">
+    <value>Tillad visning i fuld størrelse</value>
+  </data>
+  <data name="GalleryCaptionLabel" xml:space="preserve">
+    <value>Overskrift</value>
+  </data>
+  <data name="GalleryClickForBiggerLabel" xml:space="preserve">
+    <value>Klik på billedet for at se det i fuld størrelse</value>
+  </data>
+  <data name="GalleryCompactModeSetting" xml:space="preserve">
+    <value>Kompakt tilstand</value>
+  </data>
+  <data name="GalleryDeleteImageWarning" xml:space="preserve">
+    <value>Er du sikker på at du vil slette dette billede?</value>
+  </data>
+  <data name="GalleryDescriptionLabel" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="GalleryDisplayOrderLabel" xml:space="preserve">
+    <value>Visningsrækkefølge</value>
+  </data>
+  <data name="GalleryEditCancelButton" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="GalleryEditCancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="GalleryEditDeleteButton" xml:space="preserve">
+    <value>Slet dette element</value>
+  </data>
+  <data name="GalleryEditDeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="GalleryEditImageLabel" xml:space="preserve">
+    <value>Billedindstillinger</value>
+  </data>
+  <data name="GalleryEditImageLink" xml:space="preserve">
+    <value>Redigér billede</value>
+  </data>
+  <data name="GalleryEditUpdateButton" xml:space="preserve">
+    <value>Opdater</value>
+  </data>
+  <data name="GalleryEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="GalleryFileLabel" xml:space="preserve">
+    <value>Fil</value>
+  </data>
+  <data name="GalleryNotUseFoldersSetting" xml:space="preserve">
+    <value>Deaktivér oprettelse af underfoldere til billedgalleriet</value>
+  </data>
+  <data name="GalleryPagerLabel" xml:space="preserve">
+    <value>Billedvælger:</value>
+  </data>
+  <data name="GalleryShowTechnicalDataSetting" xml:space="preserve">
+    <value>Vis tekniske data</value>
+  </data>
+  <data name="GalleryThumbnailHeightSetting" xml:space="preserve">
+    <value>Ikon-højde</value>
+  </data>
+  <data name="GalleryThumbnailHeightSettingRegexWarning" xml:space="preserve">
+    <value>Skal være et heltal. Standard er 75</value>
+  </data>
+  <data name="GalleryThumbnailsPerPageSetting" xml:space="preserve">
+    <value>Antal ikoner per side</value>
+  </data>
+  <data name="GalleryThumbnailsPerPageSettingRegexWarning" xml:space="preserve">
+    <value>Skal være et heltal. Standard er 5</value>
+  </data>
+  <data name="GalleryThumbnailWidthSetting" xml:space="preserve">
+    <value>Ikon-bredde</value>
+  </data>
+  <data name="GalleryThumbnailWidthSettingRegexWarning" xml:space="preserve">
+    <value>Skal være et heltal. Standard er 100</value>
+  </data>
+  <data name="GalleryWebImageAltText" xml:space="preserve">
+    <value>Klik på billedet for at vise det i original størrelse.</value>
+  </data>
+  <data name="GalleryWebImageHeightSetting" xml:space="preserve">
+    <value>Web-billede højde</value>
+  </data>
+  <data name="GalleryWebImageHeightSettingRegexWarning" xml:space="preserve">
+    <value>Skal være et heltal. Standard er 320</value>
+  </data>
+  <data name="GalleryWebImageWidthSetting" xml:space="preserve">
+    <value>Web-billede bredde</value>
+  </data>
+  <data name="GalleryWebImageWidthSettingRegexWarning" xml:space="preserve">
+    <value>Skal være et heltal. Standard er 480</value>
+  </data>
+  <data name="GalleryWebPartMoreLink" xml:space="preserve">
+    <value>mere...</value>
+  </data>
+  <data name="ImageGalleryFeatureName" xml:space="preserve">
+    <value>Billedgalleri</value>
+  </data>
+  <data name="LaunchGalleryLink" xml:space="preserve">
+    <value>Åben Galleri</value>
+  </data>
+  <data name="ImageGallerySearchName" xml:space="preserve">
+    <value>Billed Gallerier</value>
+  </data>
+  <data name="EditImagePageTitle" xml:space="preserve">
+    <value>Galleri billed opsætning</value>
+  </data>
+  <data name="OnlyImageFilesAllowed" xml:space="preserve">
+    <value>Kun jpg, gif, and png filer er tilladt.</value>
+  </data>
+  <data name="UseSilverlightSlideshow" xml:space="preserve">
+    <value>Brug Silverlight Slide Show?</value>
+  </data>
+  <data name="SlideShowHeight" xml:space="preserve">
+    <value>Slide Show højde</value>
+  </data>
+  <data name="SlideShowTheme" xml:space="preserve">
+    <value>Slide Show Tema</value>
+  </data>
+  <data name="SlideShowWidth" xml:space="preserve">
+    <value>Slide Show bredde</value>
+  </data>
+  <data name="AddFileButton" xml:space="preserve">
+    <value>Tilføj fil</value>
+  </data>
+  <data name="BulkUploadButton" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="BulkUploadHeading" xml:space="preserve">
+    <value>Upload alle</value>
+  </data>
+  <data name="BulkUploadLink" xml:space="preserve">
+    <value>Masse Upload</value>
+  </data>
+  <data name="SlideShowWindowlessMode" xml:space="preserve">
+    <value>Gør Silverlight Vindue løst?</value>
+  </data>
+  <data name="InvalidFile" xml:space="preserve">
+    <value>Forkert fil type</value>
+  </data>
+  <data name="BrowseGalleryPageTitle" xml:space="preserve">
+    <value>Se galleri</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Bruger CSS klasse</value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>Forkert Bruger CSS klasse</value>
+  </data>
+  <data name="ResizeBackgroundColor" xml:space="preserve">
+    <value>Forhøj/formindsk baggrunds farve</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Luk</value>
+  </data>
+  <data name="ColorBoxOpacity" xml:space="preserve">
+    <value>Gennemsigtig</value>
+  </data>
+  <data name="ColorBoxSettings" xml:space="preserve">
+    <value>Galleri Effekter</value>
+  </data>
+  <data name="ColorBoxSlideShowAuto" xml:space="preserve">
+    <value>Start Slide show når der klikkes på et billed?</value>
+  </data>
+  <data name="ColorBoxSlideshowSpeed" xml:space="preserve">
+    <value>Slide Show hastighed</value>
+  </data>
+  <data name="ColorBoxTransition" xml:space="preserve">
+    <value>Overgang</value>
+  </data>
+  <data name="ColorBoxTransitionSpeed" xml:space="preserve">
+    <value>Overgang hastighed</value>
+  </data>
+  <data name="ColorBoxUseSlideshow" xml:space="preserve">
+    <value>Brug Slide Show?</value>
+  </data>
+  <data name="ImageCountJsFormat" xml:space="preserve">
+    <value>billed {current} af {total}</value>
+  </data>
+  <data name="ImageSettings" xml:space="preserve">
+    <value>Billed Opsætning</value>
+  </data>
+  <data name="MiscSettings" xml:space="preserve">
+    <value>Forskelligt</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Næste &gt;&gt;</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>&lt;&lt; Forrige</value>
+  </data>
+  <data name="SilverlightSettings" xml:space="preserve">
+    <value>Silverlight Slide Show opsætning</value>
+  </data>
+  <data name="StartSlideShow" xml:space="preserve">
+    <value>Start Slide Show</value>
+  </data>
+  <data name="StopSlideShow" xml:space="preserve">
+    <value>Stop Slide Show</value>
+  </data>
+  <data name="ColorBoxOpacityRegexWarning" xml:space="preserve">
+    <value>Gennemsigtighed skal være mellem 0 og 1. Normal er .7</value>
+  </data>
+  <data name="ColorBoxSlideshowSpeedRegexWarning" xml:space="preserve">
+    <value>Slide Show hastighed skal være et tal. Normal er 2500</value>
+  </data>
+  <data name="ColorBoxTransitionSpeedRegexWarning" xml:space="preserve">
+    <value>Overgangs hastighed skal være et tal. Normal er 350</value>
+  </data>
+  <data name="ColorBoxSlideShowStartAuto" xml:space="preserve">
+    <value>Start Slide Show Automatically?</value>
+  </data>
+  <data name="UseNivoSlider" xml:space="preserve">
+    <value>Use Nivo Slider?</value>
+  </data>
+</root>

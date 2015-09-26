@@ -1,0 +1,788 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlogAddCategoriesLabel" xml:space="preserve">
+    <value>Добавить тему</value>
+  </data>
+  <data name="BlogAddCategoryButton" xml:space="preserve">
+    <value>Добавить тему</value>
+  </data>
+  <data name="BlogAddPostLabel" xml:space="preserve">
+    <value>Добавить запись</value>
+  </data>
+  <data name="BlogAllowComments" xml:space="preserve">
+    <value>Разрешить комментарии?</value>
+  </data>
+  <data name="BlogArchivesLabel" xml:space="preserve">
+    <value>Архив</value>
+  </data>
+  <data name="BlogArchivesPrefixLabel" xml:space="preserve">
+    <value>Добавлено за </value>
+  </data>
+  <data name="BlogAuthorEmailSetting" xml:space="preserve">
+    <value>Email автора</value>
+  </data>
+  <data name="BlogAuthorEmailSettingRegexWarning" xml:space="preserve">
+    <value>Вы должны ввести правильный адрес электронной почты.</value>
+  </data>
+  <data name="BlogAuthorSetting" xml:space="preserve">
+    <value>Замена автора</value>
+  </data>
+  <data name="BlogBeginDateRequiredHelp" xml:space="preserve">
+    <value>Вы должны ввести правильную начальную дату</value>
+  </data>
+  <data name="BlogCategoriesLabel" xml:space="preserve">
+    <value>Темы</value>
+  </data>
+  <data name="BlogCategoriesPrefixLabel" xml:space="preserve">
+    <value>Записи с темой: </value>
+  </data>
+  <data name="BlogCommentCommentLabel" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
+  <data name="BlogCommentCountLabel" xml:space="preserve">
+    <value>Комментариев</value>
+  </data>
+  <data name="BlogCommentPostCommentButton" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="BlogCommentRemeberMeLabel" xml:space="preserve">
+    <value>Запомнить вас?</value>
+  </data>
+  <data name="BlogCommentsClosedMessage" xml:space="preserve">
+    <value>Для данного сообщения комментарии запрещены.</value>
+  </data>
+  <data name="BlogCommentsNotAllowed" xml:space="preserve">
+    <value>Комментарии запрещены</value>
+  </data>
+  <data name="BlogCommentSolveQuestionMessage" xml:space="preserve">
+    <value>Впишите ответ для подтверждения того, что Вы - человек, а не спамбот.</value>
+  </data>
+  <data name="BlogCommentsUnlimited" xml:space="preserve">
+    <value>Не ограничено</value>
+  </data>
+  <data name="BlogCommentTitleLabel" xml:space="preserve">
+    <value>Заголовок</value>
+  </data>
+  <data name="BlogCommentUrlLabel" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="BlogCommentUserNameLabel" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="BlogCopyrightSetting" xml:space="preserve">
+    <value>Строка копирайта</value>
+  </data>
+  <data name="BlogDeleteCategoryWarning" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить выбранную тему?</value>
+  </data>
+  <data name="BlogDeleteCommentWarning" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить выбранный комментарий?</value>
+  </data>
+  <data name="BlogDeletePostWarning" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить выбранную запись?</value>
+  </data>
+  <data name="BlogDescriptionSetting" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="BlogDraftInstructions" xml:space="preserve">
+    <value>Установить будущую дату публикации неопубликованного черновика статьи.</value>
+  </data>
+  <data name="BlogDraftsHeading" xml:space="preserve">
+    <value>Статьи не опубликованные в блоге</value>
+  </data>
+  <data name="BlogDraftsLink" xml:space="preserve">
+    <value>Изменить черновики</value>
+  </data>
+  <data name="BlogEditAllowedCommentsForDaysPrefix" xml:space="preserve">
+    <value>Разрешить комментарии в течение</value>
+  </data>
+  <data name="BlogEditCancelButton" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="BlogEditCategoriesLabel" xml:space="preserve">
+    <value>Изменить категории</value>
+  </data>
+  <data name="BlogEditCategoryLabel" xml:space="preserve">
+    <value>Категории:</value>
+  </data>
+  <data name="BlogEditCommentsDaysLabel" xml:space="preserve">
+    <value>дня/дней</value>
+  </data>
+  <data name="BlogEditDeleteButton" xml:space="preserve">
+    <value>Удалить запись</value>
+  </data>
+  <data name="BlogEditDescriptionLabel" xml:space="preserve">
+    <value>Описание:</value>
+  </data>
+  <data name="BlogEditEntryLabel" xml:space="preserve">
+    <value>Запись</value>
+  </data>
+  <data name="BlogEditEntryLink" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="BlogEditIncludeInFeedLabel" xml:space="preserve">
+    <value>Включить в новостную ленту?</value>
+  </data>
+  <data name="BlogEditLocationLabel" xml:space="preserve">
+    <value>Укажите отображаемое  место для карты Google</value>
+  </data>
+  <data name="BlogEditorHeightSetting" xml:space="preserve">
+    <value>Высота окна редактора</value>
+  </data>
+  <data name="BlogEditSelectedCategoriesLabel" xml:space="preserve">
+    <value>Выбранные категории</value>
+  </data>
+  <data name="BlogEditStartDateLabel" xml:space="preserve">
+    <value>Начальная дата</value>
+  </data>
+  <data name="BlogEditTitleLabel" xml:space="preserve">
+    <value>Заголовок</value>
+  </data>
+  <data name="BlogEditUpdateButton" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="BlogEntriesToShowSetting" xml:space="preserve">
+    <value>Отображать записей</value>
+  </data>
+  <data name="BlogEntriesToShowSettingRegexWarning" xml:space="preserve">
+    <value>Вы должны ввести целое число для кол-ва показываемых записей. Значение по умолчанию: 10</value>
+  </data>
+  <data name="BlogEntryCountLabel" xml:space="preserve">
+    <value>Записей</value>
+  </data>
+  <data name="BlogFeatureName" xml:space="preserve">
+    <value>Блог</value>
+  </data>
+  <data name="BlogFeedbackLabel" xml:space="preserve">
+    <value>Обратная связь</value>
+  </data>
+  <data name="BlogModuleAddToGoogleLink" xml:space="preserve">
+    <value>Добавить в Google</value>
+  </data>
+  <data name="BlogModuleAddToMyMSNLink" xml:space="preserve">
+    <value>Добавить в My MSN</value>
+  </data>
+  <data name="BlogModuleAddToMyYahooLink" xml:space="preserve">
+    <value>Добавить в My Yahoo</value>
+  </data>
+  <data name="BlogModuleAddToWindowsLiveLink" xml:space="preserve">
+    <value>Добавить в Windows Live</value>
+  </data>
+  <data name="BlogNavigationOnRightSetting" xml:space="preserve">
+    <value>Навигация справа?</value>
+  </data>
+  <data name="BlogRSSCacheTimeSetting" xml:space="preserve">
+    <value>Время кэширования RSS (в минутах)</value>
+  </data>
+  <data name="BlogRSSCacheTimeSettingRegexWarning" xml:space="preserve">
+    <value>Вы должны ввести целое число для времени кэширования. Значение по умолчанию: 120</value>
+  </data>
+  <data name="BlogRSSLinkTitle" xml:space="preserve">
+    <value>RSS</value>
+  </data>
+  <data name="BlogShowAddFeedLinksSetting" xml:space="preserve">
+    <value>Показывать ссылки «добавить RSS»?</value>
+  </data>
+  <data name="BlogShowArchiveSetting" xml:space="preserve">
+    <value>Показывать архивы?</value>
+  </data>
+  <data name="BlogShowCalendarSetting" xml:space="preserve">
+    <value>Показывать календарь?</value>
+  </data>
+  <data name="BlogShowCategoriesSetting" xml:space="preserve">
+    <value>Показывать категории?</value>
+  </data>
+  <data name="BlogShowFeedLinksSetting" xml:space="preserve">
+    <value>Показывать ссылки на RSS?</value>
+  </data>
+  <data name="BlogShowStatisticsSetting" xml:space="preserve">
+    <value>Показывать статистику?</value>
+  </data>
+  <data name="BlogStatisticsLabel" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
+  <data name="BlogToBePublishedLabel" xml:space="preserve">
+    <value>Ожидается публикация</value>
+  </data>
+  <data name="BlogUseCommentSpamBlocker" xml:space="preserve">
+    <value>Включить защиту комментариев от спама?</value>
+  </data>
+  <data name="BlogUseLinkForHeading" xml:space="preserve">
+    <value>Отображать заголовок как ссылку?</value>
+  </data>
+  <data name="ContentNotifyOnComment" xml:space="preserve">
+    <value>Уведомлять меня, если кто-то оставит комментарий</value>
+  </data>
+  <data name="GoogleMapEnableDirectionsSetting" xml:space="preserve">
+    <value>Задействовать направления прокрутки</value>
+  </data>
+  <data name="GoogleMapEnableLocalSearchSetting" xml:space="preserve">
+    <value>Показывать локальный поиск</value>
+  </data>
+  <data name="GoogleMapEnableMapTypeSetting" xml:space="preserve">
+    <value>Показывать опции снимка со спутника и гибридной карты</value>
+  </data>
+  <data name="GoogleMapEnableZoomSetting" xml:space="preserve">
+    <value>Инструмент масштабирования</value>
+  </data>
+  <data name="GoogleMapHeightSetting" xml:space="preserve">
+    <value>Высота карты</value>
+  </data>
+  <data name="GoogleMapInitialZoomSetting" xml:space="preserve">
+    <value>Начальный масштаб</value>
+  </data>
+  <data name="GoogleMapShowInfoWindowSetting" xml:space="preserve">
+    <value>Показывать информационный блок о текущем положении</value>
+  </data>
+  <data name="GoogleMapWidthSetting" xml:space="preserve">
+    <value>Ширина карты</value>
+  </data>
+  <data name="AddThisButtonAltText" xml:space="preserve">
+    <value>Поделитесь закладкой используя популярные службы закладок</value>
+  </data>
+  <data name="AllowWebSiteUrlForComments" xml:space="preserve">
+    <value>Показывать адрес URL в комментариях?</value>
+  </data>
+  <data name="BlogAddCategoryButtonAccessKey" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="BlogAddThisCustomBrandSetting" xml:space="preserve">
+    <value>Пользовательский логотип AddThis.com:</value>
+  </data>
+  <data name="BlogAddThisCustomLogoBackColorSetting" xml:space="preserve">
+    <value>Цвет заднего фона  AddThis.com:</value>
+  </data>
+  <data name="BlogAddThisCustomLogoForeColorSetting" xml:space="preserve">
+    <value>Цвет переднего фона AddThis.com:</value>
+  </data>
+  <data name="BlogAddThisCustomLogoUrlSetting" xml:space="preserve">
+    <value>Пользовательский адрес URL логотипа AddThis.com :</value>
+  </data>
+  <data name="BlogAddThisCustomOptionsSetting" xml:space="preserve">
+    <value>Пользовательские настройки AddThis.com:</value>
+  </data>
+  <data name="BlogAddThisDotComUseMouseOverWidgetSetting" xml:space="preserve">
+    <value>Использовать виджет движения мыши AddThis.com:</value>
+  </data>
+  <data name="BlogAddThisDotComUsernameSetting" xml:space="preserve">
+    <value>Имя пользователя AddThis.com:</value>
+  </data>
+  <data name="BlogAddThisRssButtonImageUrlSetting" xml:space="preserve">
+    <value>Адрес URL кнопки RSS AddThis.com:</value>
+  </data>
+  <data name="BlogAddThisSubscribeAltText" xml:space="preserve">
+    <value>Подписаться</value>
+  </data>
+  <data name="BlogCommentPostCommentButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="BlogDisableFeedSetting" xml:space="preserve">
+    <value>Отключить исходящую ленту новостей?</value>
+  </data>
+  <data name="BlogEditCancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="BlogEditDeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="BlogEditItemUrlLabel" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="BlogEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="BlogExcerptLengthSetting" xml:space="preserve">
+    <value>Длина анонса</value>
+  </data>
+  <data name="BlogExcerptSuffixSetting" xml:space="preserve">
+    <value>Окончание анонса:</value>
+  </data>
+  <data name="BlogFeedburnerFeedUrl" xml:space="preserve">
+    <value>URL ленты новостей для Feedburner</value>
+  </data>
+  <data name="BlogHideAddThisButtonSetting" xml:space="preserve">
+    <value>Скрыть кнопку AddThis?</value>
+  </data>
+  <data name="BlogMoreLinkText" xml:space="preserve">
+    <value>Текст ссылки «Далее»</value>
+  </data>
+  <data name="BlogNextPostLink" xml:space="preserve">
+    <value>&gt;&gt; Далее</value>
+  </data>
+  <data name="BlogPreviousPostLink" xml:space="preserve">
+    <value>Предыдущее &lt;&lt;</value>
+  </data>
+  <data name="BlogUrlConflictWithPhysicalPageError" xml:space="preserve">
+    <value>Пожалуйста, введите другой адрес URL. Этот уже используется на другой странице.</value>
+  </data>
+  <data name="BlogUseExcerptSetting" xml:space="preserve">
+    <value>Использовать анонсы?</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Пожалуйста, подождите...</value>
+  </data>
+  <data name="CommentsRequireAuthenticationMessage" xml:space="preserve">
+    <value>Чтобы добавить комментарий, Вы должны зарегистрироваться на сайте.</value>
+  </data>
+  <data name="ContentTab" xml:space="preserve">
+    <value>Контент</value>
+  </data>
+  <data name="DeleteImageAltText" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="EditImageAltText" xml:space="preserve">
+    <value>Редактировать это сообщение</value>
+  </data>
+  <data name="EnableContentRatingSetting" xml:space="preserve">
+    <value>Включить рейтинги контента?</value>
+  </data>
+  <data name="EnableRatingCommentsSetting" xml:space="preserve">
+    <value>Включить комментарии для контента?</value>
+  </data>
+  <data name="ExcerptTab" xml:space="preserve">
+    <value>Анонс</value>
+  </data>
+  <data name="FriendlyUrlRegexWarning" xml:space="preserve">
+    <value>URL должен начинаться с  ~/ и не должен содержать пробелов</value>
+  </data>
+  <data name="GoogleMapInitialMapTypeSetting" xml:space="preserve">
+    <value>Начальный вид карты</value>
+  </data>
+  <data name="MetaDescriptionLabel" xml:space="preserve">
+    <value>Описание мета-тегов</value>
+  </data>
+  <data name="MetaKeywordsLabel" xml:space="preserve">
+    <value>Ключевые слова мета-тегов</value>
+  </data>
+  <data name="MetaTab" xml:space="preserve">
+    <value>Метаданные страницы</value>
+  </data>
+  <data name="OdiogoFeedIDSetting" xml:space="preserve">
+    <value>ID фида Odiogo:</value>
+  </data>
+  <data name="OdiogoPodcastUrlSetting" xml:space="preserve">
+    <value>URL  подкаста Odiogo:</value>
+  </data>
+  <data name="PageUrlInUseBlogErrorMessage" xml:space="preserve">
+    <value>Этот URL уже используется. Вы не можете использовать один и тот же URL для разных страниц.</value>
+  </data>
+  <data name="PodcastLink" xml:space="preserve">
+    <value>Подкаст</value>
+  </data>
+  <data name="PostAuthorFormat" xml:space="preserve">
+    <value>Автор  {0}</value>
+  </data>
+  <data name="RequireAuthenticationForComments" xml:space="preserve">
+    <value>Требовать авторизацию для комментариев?</value>
+  </data>
+  <data name="ShowPageLeftContentSetting" xml:space="preserve">
+    <value>Показывать содержимое левого блока  в блоге?</value>
+  </data>
+  <data name="ShowPageRightContentSetting" xml:space="preserve">
+    <value>Показывать содержимое правого блока в блоге?</value>
+  </data>
+  <data name="ShowPostAuthorSetting" xml:space="preserve">
+    <value>Показывать имя автора сообщения?</value>
+  </data>
+  <data name="TitleRequiredWarning" xml:space="preserve">
+    <value>Заголовок обязателен!</value>
+  </data>
+  <data name="UseExcerptInFeedSetting" xml:space="preserve">
+    <value>Использовать анонсы в ленте?</value>
+  </data>
+  <data name="WebSiteUrlRegexWarning" xml:space="preserve">
+    <value>URL должен начинаться с http://  или  https://</value>
+  </data>
+  <data name="ArchiveDateGridHeader" xml:space="preserve">
+    <value>Архив</value>
+  </data>
+  <data name="ArchiveMetaDescriptionFormat" xml:space="preserve">
+    <value>{0} архивов из {1}</value>
+  </data>
+  <data name="BlogAddThisButtonImageUrlSetting" xml:space="preserve">
+    <value>Кнопка AddThis.com:</value>
+  </data>
+  <data name="BlogCommentForDaysDefault" xml:space="preserve">
+    <value>По умолчанию комментарии разрешены (дней)</value>
+  </data>
+  <data name="BlogEnableVersioningSetting" xml:space="preserve">
+    <value>Сохранить Историю версий?</value>
+  </data>
+  <data name="BlogSearchName" xml:space="preserve">
+    <value>Блоги</value>
+  </data>
+  <data name="BlogUseTagCloudForCategoriesSetting" xml:space="preserve">
+    <value>Использовать облако ссылок для категорий?</value>
+  </data>
+  <data name="BlogVersionPageSizeSetting" xml:space="preserve">
+    <value>Размер страницы Истории версий</value>
+  </data>
+  <data name="CategoryMetaDescriptionFormat" xml:space="preserve">
+    <value>Отмеченные пункты с {1} до {0}</value>
+  </data>
+  <data name="CommentSystemSetting" xml:space="preserve">
+    <value>Система комментариев</value>
+  </data>
+  <data name="CompareHistoryToCurrentLink" xml:space="preserve">
+    <value>Сравнить с текущим</value>
+  </data>
+  <data name="CreatedDateGridHeader" xml:space="preserve">
+    <value>Создан</value>
+  </data>
+  <data name="CurrentVersionHeadingFormat" xml:space="preserve">
+    <value>Текущая версия создана {0}</value>
+  </data>
+  <data name="DeleteAllHistoryButton" xml:space="preserve">
+    <value>Удалить всю историю</value>
+  </data>
+  <data name="DeleteAllHistoryWarning" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить всю историю создания этого содержания?</value>
+  </data>
+  <data name="DeleteHistoryButton" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="DeleteHistoryItemWarning" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить этот пункт истории?</value>
+  </data>
+  <data name="DialogCloseLink" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="DisqusSiteShortName" xml:space="preserve">
+    <value>Краткое название</value>
+  </data>
+  <data name="EditPostPageTitle" xml:space="preserve">
+    <value>Редактор блога</value>
+  </data>
+  <data name="HideDetailsFromUnauthencticated" xml:space="preserve">
+    <value>Скрыть полное сообщение от неавторизованных пользователей?</value>
+  </data>
+  <data name="IntenseDebateAccountId" xml:space="preserve">
+    <value>Аккаунт IntenseDebate Id</value>
+  </data>
+  <data name="MustSignInToViewFullPost" xml:space="preserve">
+    <value>Вы должны войти в систему, чтобы увидеть полный текст статьи.</value>
+  </data>
+  <data name="RestoreToEditorButton" xml:space="preserve">
+    <value>Возвратить редактору</value>
+  </data>
+  <data name="RSSAddCommentsLink" xml:space="preserve">
+    <value>Добавить комментарии на канал RSS?</value>
+  </data>
+  <data name="RSSAddSignature" xml:space="preserve">
+    <value>Добавить подписку на канал RSS?</value>
+  </data>
+  <data name="VersionAsOfHeadingFormat" xml:space="preserve">
+    <value>Версии от {0}</value>
+  </data>
+  <data name="AddMetaButton" xml:space="preserve">
+    <value>Добавить Мета-теги</value>
+  </data>
+  <data name="AddMetaLinkButton" xml:space="preserve">
+    <value>Добавить Мета-ссылку</value>
+  </data>
+  <data name="ContentMetaContentRequired" xml:space="preserve">
+    <value>Требуется содержание</value>
+  </data>
+  <data name="ContentMetaDeleteWarning" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить этот мета элемент?</value>
+  </data>
+  <data name="ContentMetaDirLabel" xml:space="preserve">
+    <value>Папка</value>
+  </data>
+  <data name="ContentMetaGridCancelButton" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="ContentMetaGridDeleteButton" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="ContentMetaGridEditButton" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="ContentMetaGridMoveDownButton" xml:space="preserve">
+    <value>Вниз</value>
+  </data>
+  <data name="ContentMetaGridMoveUpButton" xml:space="preserve">
+    <value>Вверх</value>
+  </data>
+  <data name="ContentMetaGridUpdateButton" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="ContentMetaLangCodeLabel" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="ContentMetaLinkDeleteWarning" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить эту мета-ссылку?</value>
+  </data>
+  <data name="ContentMetaLinkHrefRequired" xml:space="preserve">
+    <value>Требуется Href.</value>
+  </data>
+  <data name="ContentMetaLinkRelRequired" xml:space="preserve">
+    <value>Требуется Rel.</value>
+  </data>
+  <data name="ContentMetaMetaContentLabel" xml:space="preserve">
+    <value>Содержимое</value>
+  </data>
+  <data name="ContentMetaMetaHrefLabel" xml:space="preserve">
+    <value>Ссылка</value>
+  </data>
+  <data name="ContentMetaNameLabel" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="ContentMetaNameRequired" xml:space="preserve">
+    <value>Требуется название</value>
+  </data>
+  <data name="ContentMetaRelLabel" xml:space="preserve">
+    <value>Rel</value>
+    <comment>Связь but needs a phrase as description of role attribute in link - too long in Russian</comment>
+  </data>
+  <data name="ContentMetaSchemeLabel" xml:space="preserve">
+    <value>Схема</value>
+  </data>
+  <data name="ContentMetHrefLangLabel" xml:space="preserve">
+    <value>HrefLang</value>
+    <comment>term, better to keep international</comment>
+  </data>
+  <data name="GoogleMapIncludeWithExcerptSetting" xml:space="preserve">
+    <value>Показывать карту с анонсом?</value>
+  </data>
+  <data name="MapGetDirectionsButton" xml:space="preserve">
+    <value>Как проехать от</value>
+  </data>
+  <data name="MetaAdditionalLabel" xml:space="preserve">
+    <value>Дополнительные Мета-теги</value>
+  </data>
+  <data name="VersionHistory" xml:space="preserve">
+    <value>История версий</value>
+  </data>
+  <data name="BlogDateTimeFormat" xml:space="preserve">
+    <value>Строка для задания формата Дата/Время</value>
+  </data>
+  <data name="BlogShowPagerInListSetting" xml:space="preserve">
+    <value>Разбить список по страницам?</value>
+  </data>
+  <data name="BlogShowTitleOnlySetting" xml:space="preserve">
+    <value>Показывать только Заголовки</value>
+  </data>
+  <data name="IsPublishedLabel" xml:space="preserve">
+    <value>Опубликовано?</value>
+  </data>
+  <data name="SaveAndPreviewButton" xml:space="preserve">
+    <value>Сохранить и просмотреть</value>
+  </data>
+  <data name="AddFacebookLikeToFeed" xml:space="preserve">
+    <value>Добавить к ленте «Facebook Like»?</value>
+  </data>
+  <data name="AddFeedDiscoveryLink" xml:space="preserve">
+    <value>Добавить ссылку «Feed Discovery» к заголовку?</value>
+  </data>
+  <data name="AddTweetThisToFeed" xml:space="preserve">
+    <value>Добавить «Tweet This» к ленте?</value>
+  </data>
+  <data name="CommentSystemSettings" xml:space="preserve">
+    <value>Система комментариев</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Пользовательский класс CSS</value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>Неверный пользовательский класс CSS</value>
+  </data>
+  <data name="ExcerptModeSettings" xml:space="preserve">
+    <value>Настройки режима анонсов</value>
+  </data>
+  <data name="FacebookLikeButtonHeight" xml:space="preserve">
+    <value>Высота кнопки «Facebook Like»</value>
+  </data>
+  <data name="FacebookLikeButtonShowFaces" xml:space="preserve">
+    <value>Показывать изображения на кнопке «Facebook Like»?</value>
+  </data>
+  <data name="FacebookLikeButtonTheme" xml:space="preserve">
+    <value>Тема кнопки «Facebook Like»</value>
+  </data>
+  <data name="FacebookLikeButtonWidth" xml:space="preserve">
+    <value>Ширина кнопки «Facebook Like»</value>
+  </data>
+  <data name="FeedSettings" xml:space="preserve">
+    <value>Настройки ленты</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>Общее</value>
+  </data>
+  <data name="ListViewSettings" xml:space="preserve">
+    <value>Настройки списка</value>
+  </data>
+  <data name="LowerSidebar" xml:space="preserve">
+    <value>Контент левого нижнего блока</value>
+  </data>
+  <data name="MapSettings" xml:space="preserve">
+    <value>Настройки карты</value>
+  </data>
+  <data name="MiscellaneousSettings" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="NavigationSettings" xml:space="preserve">
+    <value>Настройки навигации</value>
+  </data>
+  <data name="ParseDateFailureMessage" xml:space="preserve">
+    <value>Невозможно прочитать начальную дату.</value>
+  </data>
+  <data name="PostList" xml:space="preserve">
+    <value>Список сообщений</value>
+  </data>
+  <data name="ShowNextPreviousLinks" xml:space="preserve">
+    <value>Показывать ссылки Далее/Предыдущее в деталях блога?</value>
+  </data>
+  <data name="ShowPlusOneButton" xml:space="preserve">
+    <value>Показывать кнопку «Плюс Один»?</value>
+  </data>
+  <data name="ShowTweetThisLink" xml:space="preserve">
+    <value>Показывать «Tweet This Link»?</value>
+  </data>
+  <data name="SidebarSettings" xml:space="preserve">
+    <value>Дополнительное содержимое левой панели</value>
+  </data>
+  <data name="SocialSettings" xml:space="preserve">
+    <value>Социальные настройки</value>
+  </data>
+  <data name="UpperSidebar" xml:space="preserve">
+    <value>Верхний контент боковой панели</value>
+  </data>
+  <data name="UseBingMap" xml:space="preserve">
+    <value>Использовать карты Bing?</value>
+  </data>
+  <data name="UseFacebookLikeButton" xml:space="preserve">
+    <value>Показывать кнопку «Facebook Like»?</value>
+  </data>
+  <data name="MaxMetaweblogRecentItems" xml:space="preserve">
+    <value>Максимум элементов для отображения в Последних сообщениях через Мета Weblog API</value>
+  </data>
+  <data name="PostCategories" xml:space="preserve">
+    <value>Категории:</value>
+  </data>
+  <data name="MaxFeedItems" xml:space="preserve">
+    <value>Максимальное количество элементов которое включить в поток</value>
+  </data>
+  <data name="RelatedPosts" xml:space="preserve">
+    <value>Связанные сообщения</value>
+  </data>
+  <data name="RelatedItemsToShow" xml:space="preserve">
+    <value>Связанные элементы для отображения</value>
+  </data>
+</root>

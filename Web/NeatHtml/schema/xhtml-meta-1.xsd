@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.w3.org/1999/xhtml"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.w3.org/1999/xhtml">
+
+  <xs:annotation>
+    <xs:documentation>
+      This is the XML Schema Metainformation module for XHTML
+      $Id: xhtml-meta-1.xsd,v 1.1 2003/12/17 03:09:17 ahby Exp $
+    </xs:documentation>
+    <xs:documentation source="xhtml-copyright-1.xsd"/>
+  </xs:annotation>
+
+  <xs:annotation>
+    <xs:documentation>
+      Meta Information
+
+        * meta
+
+      This module declares the meta element type and its attributes,
+      used to provide declarative document metainformation.
+    </xs:documentation>
+    <xs:documentation 
+        source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_metamodule"/>
+  </xs:annotation>
+
+  <xs:attributeGroup name="meta.attlist">
+    <xs:attributeGroup ref="I18n.attrib"/>
+    <xs:attribute name="http-equiv" type="xs:NMTOKEN"/>
+    <xs:attribute name="name" type="xs:NMTOKEN"/>
+    <xs:attribute name="content" type="CDATA" use="required"/>
+    <xs:attribute name="scheme" type="CDATA"/>
+  </xs:attributeGroup>
+  
+  <xs:group name="meta.content">
+     <xs:sequence/>
+  </xs:group>    
+
+  <xs:complexType name="meta.type">
+    <xs:group ref="meta.content"/>  
+    <xs:attributeGroup ref="meta.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="meta" type="meta.type"/>
+
+</xs:schema>

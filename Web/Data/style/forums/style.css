@@ -1,0 +1,7 @@
+
+span.normalthread{ background: url('folder.png') no-repeat; display:inline-block; width:18px; height:20px; }
+span.lockedthread{ background: url('lock.png') no-repeat; display:inline-block; width:18px; height:20px; }
+span.stickythread{ background: url('folder_star.png') no-repeat; display:inline-block; width:18px; height:20px; }
+.newthread, .newpost { background: url('folder_edit.png') no-repeat; background-position: 0px 2px; padding-left:18px;  }
+.forumEdit, .threadEdit, .postEdit { background: url('pencil.png') no-repeat; background-position: 0px 0px; padding-left:18px;  }
+.forumfeed { background: url('feed.png') no-repeat; background-position: 0px 0px; padding-left:18px; }

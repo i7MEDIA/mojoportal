@@ -1,0 +1,152 @@
+<%-- 
+Name:  			mojoPortal Page stubber
+Author: 		Joe Audette
+Description: 	Generates markup and code behind for pages inheriting from mojoBasePage
+Last Modified:	2/19/2007
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author" %>
+<%@ Property Name="BusinessLayerNameSpace" Type="System.String" Default="mojoPortal.Business" Category="Style" Description="The Namespace of the Business Layer class" %>
+<%@ Property Name="UINameSpace" Type="System.String" Default="MyWeb.UI" Category="Style" Description="" %>
+<%@ Property Name="ClassName" Type="System.String" Default="MyClass" Category="Style" Description="" %>
+<%@ Property Name="PageName" Type="System.String" Default="MyCustomPage.aspx" Category="Style" Description="" %>
+<%@ Property Name="UsemojoBasePage" Type="System.Boolean" Default="True" Category="Options" Description="If true generates a page that inherits from mojoBasePage" %>
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+<% if(UsemojoBasePage) { %>
+<%%@ Page Language="C#" ClassName="<%= PageName%>" Inherits="mojoPortal.Web.mojoBasePage" MasterPageFile="~/App_MasterPages/layout.Master"  %%>
+<% }else { %>
+<%%@ Page Language="C#" ClassName="<%= PageName%>" Inherits="System.Web.UI.Page"   %%>
+<% } %>
+<%%@ Import Namespace="mojoPortal.Business" %%>
+<%%@ Import Namespace="mojoPortal.Business.WebHelpers" %%>
+<%%@ Import Namespace="mojoPortal.Web" %%>
+<%%@ Import Namespace="mojoPortal.Web.Framework" %%>
+<%%@ Import Namespace="mojoPortal.Web.Controls" %%>
+<%%@ Import Namespace="mojoPortal.Web.UI" %%>
+<%%@ Import Namespace="mojoPortal.Web.Editor" %%>
+<%%@ Import Namespace="mojoPortal.Net" %%>
+
+<script runat="server">
+	// Author:					<%= Author %>
+	// Created:					<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+	// Last Modified:			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+	// 
+	// The use and distribution terms for this software are covered by the 
+	// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
+	// which can be found in the file CPL.TXT at the root of this distribution.
+	// By using this software in any fashion, you are agreeing to be bound by 
+	// the terms of this license.
+	//
+	// You must not remove this notice, or any other, from this software.
+
+    /// <summary>
+    /// 
+    /// </summary>
+	
+    protected override void OnPreInit(EventArgs e)
+    {
+        base.OnPreInit(e);
+    }
+
+    protected override void OnInit(EventArgs e)
+    {
+        base.OnInit(e);
+		<% if(UsemojoBasePage) { %>
+        //this.SuppressPageMenu();
+		<% } %>
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //TODO: permission checks
+        LoadSettings();
+        PopulateLabels();
+        PopulateControls();
+		Title = "Custom Page";
+        
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        TextBox1.Text = "Hello Web";
+    }
+	
+	private void PopulateControls()
+    {
+		TextBox1.Text = "Click the button";
+
+    }
+
+
+    private void PopulateLabels()
+    {
+		heading.Text = "My Heading";
+    }
+
+    private void LoadSettings()
+    {
+
+
+    }
+
+</script>
+
+<% if(UsemojoBasePage) { %>
+<asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
+<asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
+<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
+<mp:CornerRounderTop id="ctop1" runat="server" EnableViewState="false"  />
+<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper ">
+<portal:HeadingControl ID="heading" runat="server" />
+<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
+<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
+
+Your custom form goes here.
+<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+<portal:mojoButton ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+
+</portal:InnerBodyPanel>
+</portal:OuterBodyPanel>
+<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+</portal:InnerWrapperPanel> 
+<mp:CornerRounderBottom id="cbottom1" runat="server" EnableViewState="false" />	
+</portal:OuterWrapperPanel>
+</asp:Content>
+<asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />
+<asp:Content ContentPlaceHolderID="pageEditContent" ID="MPPageEdit" runat="server" />
+<% }else { %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <title><%= ClassName%></title> 
+</head>
+<body>
+ <form id="form1" runat="server">
+<div>
+Your custom form goes here.
+<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+<asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+</div>
+</form>
+</body>
+</html>
+<% } %>
+
+
+
+<script runat="template">
+
+
+
+	
+</script>

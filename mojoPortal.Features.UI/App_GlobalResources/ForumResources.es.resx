@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AdminUnsubscribeUserComplete" xml:space="preserve">
+    <value>El usuario ha sido eliminado de las notificaciones del foro.</value>
+  </data>
+	<data name="AllowAnonymousPostsLabel" xml:space="preserve">
+    <value>¿Permitir entradas anónimas?</value>
+  </data>
+	<data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Espere, por favor...</value>
+  </data>
+	<data name="CutePagerBackToFirstClause" xml:space="preserve">
+    <value>Ir a la primera página</value>
+  </data>
+	<data name="CutePagerBackToPageClause" xml:space="preserve">
+    <value>Regresar a la página</value>
+  </data>
+	<data name="CutePagerGoToLastClause" xml:space="preserve">
+    <value>Ir a la última página</value>
+  </data>
+	<data name="CutePagerNavigateToPageText" xml:space="preserve">
+    <value>Ir a la página</value>
+  </data>
+	<data name="CutePagerNextToPageClause" xml:space="preserve">
+    <value>Avanzar a la página</value>
+  </data>
+	<data name="CutePagerOfClause" xml:space="preserve">
+    <value>de</value>
+  </data>
+	<data name="CutePagerPageClause" xml:space="preserve">
+    <value>Página</value>
+  </data>
+	<data name="EditImageAltText" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+	<data name="ForumDeletePostWarning" xml:space="preserve">
+    <value>¿Está seguro de eliminar esta entrada?</value>
+  </data>
+	<data name="ForumDeleteThreadWarning" xml:space="preserve">
+    <value>¿Está seguro de eliminar esta conversación?</value>
+  </data>
+	<data name="ForumEditCancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+	<data name="ForumEditCancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+	<data name="ForumEditCreateButton" xml:space="preserve">
+    <value>Crear un foro nuevo</value>
+  </data>
+	<data name="ForumEditCreatedByLabel" xml:space="preserve">
+    <value>Creado por:</value>
+  </data>
+	<data name="ForumEditCreatedDateLabel" xml:space="preserve">
+    <value>Creado:</value>
+  </data>
+	<data name="ForumEditDeleteButton" xml:space="preserve">
+    <value>Eliminar este elemento</value>
+  </data>
+	<data name="ForumEditDeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+	<data name="ForumEditDescriptionLabel" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+	<data name="ForumEditForumLabel" xml:space="preserve">
+    <value>Editar el foro</value>
+  </data>
+	<data name="ForumEditIsActiveLabel" xml:space="preserve">
+    <value>¿Está activo?</value>
+  </data>
+	<data name="ForumEditIsModeratedLabel" xml:space="preserve">
+    <value>¿Está moderado?</value>
+  </data>
+	<data name="ForumEditLabel" xml:space="preserve">
+    <value>Agregar foro</value>
+  </data>
+	<data name="ForumEditNewForumButton" xml:space="preserve">
+    <value>Foro nuevo</value>
+  </data>
+	<data name="ForumEditPostLink" xml:space="preserve">
+    <value>Editar entrada</value>
+  </data>
+	<data name="ForumEditPostsPerPageLabel" xml:space="preserve">
+    <value>Entradas por página:</value>
+  </data>
+	<data name="ForumEditSortOrderLabel" xml:space="preserve">
+    <value>Orden:</value>
+  </data>
+	<data name="ForumEditSubjectRequiredHelp" xml:space="preserve">
+    <value>Debe especificar un asunto</value>
+  </data>
+	<data name="ForumEditThreadsPerPageLabel" xml:space="preserve">
+    <value>Temas por página:</value>
+  </data>
+	<data name="ForumEditTitleLabel" xml:space="preserve">
+    <value>Título:</value>
+  </data>
+	<data name="ForumEditUpdateButton" xml:space="preserve">
+    <value>Grabar</value>
+  </data>
+	<data name="ForumEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+	<data name="ForumEnableAntiSpamSetting" xml:space="preserve">
+    <value>¿Habilitar el bloqueo de SPAM?</value>
+  </data>
+	<data name="ForumEnableRSSAtForumLevel" xml:space="preserve">
+    <value>¿Habilitar feed RSS al nivel del foro?</value>
+  </data>
+	<data name="ForumEnableRSSAtModuleLevel" xml:space="preserve">
+    <value>¿Habilitar feed RSS al nivel del módulo?</value>
+  </data>
+	<data name="ForumEnableRSSAtThreadLevel" xml:space="preserve">
+    <value>¿Habilitar feed RSS al nivel del tema?</value>
+  </data>
+	<data name="ForumLabel" xml:space="preserve">
+    <value>Foro</value>
+  </data>
+	<data name="ForumMetaDescriptionFormat" xml:space="preserve">
+    <value>Un foro de discusión para {0}</value>
+  </data>
+	<data name="ForumModuleEditSubscriptionsLabel" xml:space="preserve">
+    <value>Editar notificaciones por correo</value>
+  </data>
+	<data name="ForumModuleForumLabel" xml:space="preserve">
+    <value>Foro</value>
+  </data>
+	<data name="ForumModulePostCountLabel" xml:space="preserve">
+    <value>Total de entradas</value>
+  </data>
+	<data name="ForumModulePostLastPostLabel" xml:space="preserve">
+    <value>Última entrada</value>
+  </data>
+	<data name="ForumModuleSubscribedLabel" xml:space="preserve">
+    <value>¿Suscribirse?</value>
+  </data>
+	<data name="ForumModuleThreadCountLabel" xml:space="preserve">
+    <value>Total de conversaciones</value>
+  </data>
+	<data name="ForumMyPostsLink" xml:space="preserve">
+    <value>Mis entradas</value>
+  </data>
+	<data name="ForumPostEditCancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+	<data name="ForumPostEditDeleteButton" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+	<data name="ForumPostEditMessageLabel" xml:space="preserve">
+    <value>Mensaje:</value>
+  </data>
+	<data name="ForumPostEditNotifyLabel" xml:space="preserve">
+    <value>¿Suscribirse a las respuestas de esta conversación?</value>
+  </data>
+	<data name="ForumPostEditSubjectLabel" xml:space="preserve">
+    <value>Asunto</value>
+  </data>
+	<data name="ForumPostEditUpdateButton" xml:space="preserve">
+    <value>Publicar</value>
+  </data>
+	<data name="ForumPostEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+	<data name="ForumsFeatureName" xml:space="preserve">
+    <value>Foros</value>
+  </data>
+	<data name="ForumsLoginRequiredLink" xml:space="preserve">
+    <value>Debe iniciar sesión para participar en los foros.</value>
+  </data>
+	<data name="ForumsSearchName" xml:space="preserve">
+    <value>Foros</value>
+  </data>
+	<data name="ForumsTableSummary" xml:space="preserve">
+    <value>Esta tabla contiene una lista de los foros.</value>
+  </data>
+	<data name="ForumThreadCancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+	<data name="ForumThreadDeleteButton" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+	<data name="ForumThreadEditForumLabel" xml:space="preserve">
+    <value>Foro</value>
+  </data>
+	<data name="ForumThreadEditLabel" xml:space="preserve">
+    <value>Editar conversación</value>
+  </data>
+	<data name="ForumThreadEditSortOrderLabel" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+	<data name="ForumThreadEditSubjectLabel" xml:space="preserve">
+    <value>Asunto</value>
+  </data>
+	<data name="ForumThreadMetaDescriptionFormat" xml:space="preserve">
+    <value>Conversación del foro - {0}</value>
+  </data>
+	<data name="ForumThreadUnsubscribeCompleted" xml:space="preserve">
+    <value>¡Se ha anulado su suscripción! Ya no debería recibir más notificaciones de nuevos mensajes en esta conversación.</value>
+  </data>
+	<data name="ForumThreadUnsubscribeFailed" xml:space="preserve">
+    <value>¡Ha FALLADO la anulación de su suscripción! Se ha producido un error al intentar detener las notificaciones para una conversación. Por favor, póngase en contacto con el administrador del sitio.</value>
+  </data>
+	<data name="ForumThreadUpdateButton" xml:space="preserve">
+    <value>Grabar</value>
+  </data>
+	<data name="ForumThreadViewAuthorLabel" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+	<data name="ForumThreadViewPagesLabel" xml:space="preserve">
+    <value>Páginas:</value>
+  </data>
+	<data name="ForumThreadViewReplyLabel" xml:space="preserve">
+    <value>contestar</value>
+  </data>
+	<data name="ForumUnsubscribeCompleted" xml:space="preserve">
+    <value>¡Se ha anulado su suscripción! Ya no debería recibir más notificaciones de nuevas conversaciones en este foro.</value>
+  </data>
+	<data name="ForumUnsubscribeFailed" xml:space="preserve">
+    <value>¡Ha FALLADO la anulación de su suscripción! Se ha producido un error al intentar detener las notificaciones para nuevas conversaciones en un foro. Por favor, póngase en contacto con el administrador del sitio.</value>
+  </data>
+	<data name="ForumUserPostsLink" xml:space="preserve">
+    <value>Ver entradas</value>
+  </data>
+	<data name="ForumUserThreadHeading" xml:space="preserve">
+    <value>{0} han participado en este foro.</value>
+  </data>
+	<data name="ForumViewNewThreadLabel" xml:space="preserve">
+    <value>nuevo tema</value>
+  </data>
+	<data name="ForumViewPostLastPostLabel" xml:space="preserve">
+    <value>Última entrada</value>
+  </data>
+	<data name="ForumViewReplyCountLabel" xml:space="preserve">
+    <value>Total de respuestas</value>
+  </data>
+	<data name="ForumViewStartedByLabel" xml:space="preserve">
+    <value>Iniciado por</value>
+  </data>
+	<data name="ForumViewSubjectLabel" xml:space="preserve">
+    <value>Asunto</value>
+  </data>
+	<data name="ForumViewTableSummary" xml:space="preserve">
+    <value>Esta tabla contiene una lista de las conversaciones del foro.</value>
+  </data>
+	<data name="ForumViewThreadCountLabel" xml:space="preserve">
+    <value>Total de temas</value>
+  </data>
+	<data name="ForumViewViewCountLabel" xml:space="preserve">
+    <value>Total de visitas</value>
+  </data>
+	<data name="IncludePostBodyInNotificationEmail" xml:space="preserve">
+    <value>¿Incluir el cuerpo de la entrada en el correo de notificación?</value>
+  </data>
+	<data name="NewTopicLabel" xml:space="preserve">
+    <value>Nuevo tema</value>
+  </data>
+	<data name="UserSalesLabel" xml:space="preserve">
+    <value>Ventas</value>
+  </data>
+	<data name="UserThreadMetaFormat" xml:space="preserve">
+    <value>El miembro {0} ha participado en estas conversaciones en los foros.</value>
+  </data>
+	<data name="UserThreadTitleFormat" xml:space="preserve">
+    <value>Conversaciones en los foros de {0}</value>
+  </data>
+	<data name="EmailLabel" xml:space="preserve">
+    <value>Correo</value>
+  </data>
+	<data name="ForumSubscriptions" xml:space="preserve">
+    <value>Suscripciones al foro</value>
+  </data>
+	<data name="LoginNameLabel" xml:space="preserve">
+    <value>Nombre de usuario</value>
+  </data>
+	<data name="RSSFeedMaxDaysOldSetting" xml:space="preserve">
+    <value>Incluir en el feed de salida elementos hasta con esta antigüedad en días.</value>
+  </data>
+	<data name="RSSFeedMaxPostsSetting" xml:space="preserve">
+    <value>Máximo de elementos a incluir en el feed de salida.</value>
+  </data>
+	<data name="ShowSubscriberCount" xml:space="preserve">
+    <value>¿Mostrar el contador de suscriptores?</value>
+  </data>
+	<data name="SubscribeLink" xml:space="preserve">
+    <value>Suscribirse</value>
+  </data>
+	<data name="SubscribeLongLink" xml:space="preserve">
+    <value>Suscribirse a las notificaciones de este foro</value>
+  </data>
+	<data name="SubscriberCountFormat" xml:space="preserve">
+    <value>{0} Suscriptores</value>
+  </data>
+	<data name="SubscribeToAllOfThisForum" xml:space="preserve">
+    <value>¿Suscribirse a todas las entradas de este foro?</value>
+  </data>
+	<data name="UnsubscribeButton" xml:space="preserve">
+    <value>Cancelar suscripción</value>
+  </data>
+	<data name="UnSubscribeLink" xml:space="preserve">
+    <value>Cancelar suscripción</value>
+  </data>
+	<data name="UserNameLabel" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+	<data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Clase CSS personalizada</value>
+  </data>
+	<data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>Clase CSS personalizada inválida</value>
+  </data>
+	<data name="GravatarLinkTitle" xml:space="preserve">
+    <value>Obtenga su avatar</value>
+  </data>
+	<data name="LinkGravatarToUserProfile" xml:space="preserve">
+    <value>¿Enlazar el Gravatar al perfil de usuario?</value>
+  </data>
+	<data name="Locked" xml:space="preserve">
+    <value>Bloqueado</value>
+  </data>
+	<data name="PostedByFormat" xml:space="preserve">
+    <value>Publicado por {0}</value>
+  </data>
+	<data name="Search" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+	<data name="SearchTermRequiredWarning" xml:space="preserve">
+    <value>Por favor ingrese el texto a buscar.</value>
+  </data>
+	<data name="ShowForumSearchBox" xml:space="preserve">
+    <value>¿Mostrar búsqueda en foros?</value>
+  </data>
+	<data name="StickySort" xml:space="preserve">
+    <value>Orden permanente</value>
+  </data>
+	<data name="UserProfileLinkTooltipFormat" xml:space="preserve">
+    <value>Ver el perfil de usuario de {0}</value>
+  </data>
+	<data name="PostedLinks" xml:space="preserve">
+    <value>Enlaces publicados:</value>
+  </data>
+	<data name="DeleteForumWarning" xml:space="preserve">
+    <value>¿Está seguro de eliminar este foro?</value>
+  </data>
+	<data name="ModuleFeedLinkTooltip" xml:space="preserve">
+    <value>Suscribirse al feed de estos foros</value>
+  </data>
+	<data name="LastPostBy" xml:space="preserve">
+    <value>Última publicación por</value>
+  </data>
+	<data name="AllowEditingPostsLessThanMinutesOld" xml:space="preserve">
+    <value>Permitir que los usuarios editen sus entradas durante estos minutos</value>
+  </data>
+	<data name="IncludeCurrentUserInNotifications" xml:space="preserve">
+    <value>¿Incluir el usuario que publica en la lista de notificaciones?</value>
+  </data>
+	<data name="SuppressNotificationOfPostEdits" xml:space="preserve">
+    <value>¿Suprimir la notificación de edición de entradas?</value>
+  </data>
+	<data name="ThreadPageTitleFormat" xml:space="preserve">
+    <value>{0} - Página {1}</value>
+  </data>
+	<data name="AddNoIndexMeta" xml:space="preserve">
+		<value>¿Agregar metaetiqueta "No Index"?</value>
+	</data>
+	<data name="IncludeInSiteMap" xml:space="preserve">
+		<value>¿Incluir en el mapa del sitio de Google?</value>
+	</data>
+	<data name="PageTitleOverride" xml:space="preserve">
+		<value>Forzar el título de la página</value>
+	</data>
+</root>

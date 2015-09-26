@@ -1,0 +1,527 @@
+﻿
+/* Reset */
+.qtfile, 
+.qtfile p,
+.qtfile ul,
+.qtfile li, 
+.qtfile a, 
+.qtfile span,
+.qtfile img
+{
+	border-style: none;
+	border-width: 0;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+	outline: 0;
+	/*
+	zoom: 1;
+    */
+}
+
+.qtfile
+{
+	min-width: 650px;
+}
+
+.qtfile span
+{
+	vertical-align: text-top;
+	line-height: 100%;
+}
+
+/* Button elements */
+.qtfile .button
+{
+	cursor: pointer;
+}
+
+.qtfile .button.button-disabled
+{
+	color: Gray;
+	cursor: default;
+}
+
+/* Icons */
+/* Command buttons */
+.qtfile .button.folder-create .icon,
+.qtfile .button.folder-rename .icon,
+.qtfile .button.folder-move .icon,
+.qtfile .button.folder-delete .icon,
+.qtfile .button.file-upload .icon,
+.qtfile .button.file-refresh .icon,
+.qtfile .button.folder-refresh .icon,
+/* File actions */
+.qtfile .file-panel .icon-file-name,
+.qtfile .file-panel .file-actions span,
+/* Folder items */
+.qtfile .folder-panel .folder-bullet,
+.qtfile .folder-panel .folder-bullet.folder-bullet-closed,
+.qtfile .folder-panel .folder-bullet.folder-bullet-opened,
+.qtfile .folder-panel .icon-folder,
+.qtfile .folder-panel .icon-folder-end,
+/* Status icons */
+.qtfile .qtfile-footer .icon-status
+{
+	background-image: url('icons.png');
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	overflow: hidden;
+}
+
+/* Header */
+.qtfile .qtfile-header
+{
+	padding: 7px 0 3px 10px;
+}
+
+/* Footer */
+.qtfile .qtfile-footer
+{
+	border-top: none;
+	padding: 6px 0 5px 5px;
+	position: relative;
+}
+
+.qtfile .qtfile-footer .status-message
+{
+	position: absolute;
+	left: 10px;
+	top: 8px;
+}
+
+.qtfile .qtfile-footer .icon-status
+{
+	margin: 0 5px 0 0;
+}
+
+.qtfile .qtfile-footer .status-info .icon-status { background-position: 64px 64px; }
+.qtfile .qtfile-footer .status-warn .icon-status { background-position: 32px 64px; }
+.qtfile .qtfile-footer .status-error .icon-status { background-position: 16px 64px; }
+
+.qtfile .qtfile-footer .credit
+{
+	display: block;
+	float: right;
+	margin-right: 15px;
+}
+
+.qtfile .qtfile-footer .credit a
+{
+	line-height: 1.6em;
+}
+
+.qtfile .qtfile-footer .credit a:hover
+{
+	text-decoration: underline;
+}
+
+/* Menu list */
+.qtfile .menu-bar
+{
+	margin: 5px 0 5px 5px;
+	position: relative;
+}
+
+.qtfile .menu-bar .icon
+{
+	margin-right: 3px;
+}
+
+.qtfile .menu-bar .button.file-refresh
+{
+	position: absolute;
+	right: 3px;
+	top: 2px;
+}
+
+.qtfile .button.file-refresh .icon { background-position: 0 32px; }
+.qtfile .button.folder-create .icon { background-position: 0 48px; }
+.qtfile .button.folder-rename .icon { background-position: 64px 48px; }
+.qtfile .button.folder-delete .icon { background-position: 32px 48px; }
+.qtfile .button.folder-move .icon { background-position: 48px 48px; }
+.qtfile .button.file-upload .icon { background-position: 64px 32px; }
+
+
+.qtfile .qtfile-content
+{
+	position: relative;
+	height: 389px;
+	/* Only need the top border from jquery-ui */
+	border-bottom: none;
+	border-right: none;
+	border-left: none;
+}
+
+/* Headers */
+
+.qtfile .file-header *,
+.qtfile .folder-header *
+{
+	line-height: 27px;
+}
+
+.qtfile .folder-header
+{
+	border-right: none;
+	border-left: none;
+	position: relative;
+	padding-left: 2%;
+	margin-right: -2%;
+}
+
+.qtfile .folder-header .button.folder-refresh
+{
+	position: absolute;
+	right: 3%;
+	top: 3px;
+}
+
+.qtfile .button.folder-refresh .icon { background-position: 0 32px; }
+
+.qtfile .file-header
+{
+	border-right: none;
+	padding-left: 0px;
+	position: relative;
+}
+
+.qtfile .file-header .file-size-header,
+.qtfile .file-header .file-name-header,
+.qtfile .file-header .file-actions-header
+{
+	float: left;
+	text-align: center;
+	background-image: none;
+	background-color: Transparent;
+	border-top: none;
+	border-right: none;
+	border-bottom: none;
+	margin-right: -1px;
+}
+
+.qtfile .file-header .file-name-header
+{
+	border: none;
+	width: 55%;
+	text-align: left;
+	text-indent: 1%;
+}
+
+.qtfile .file-header .file-size-header
+{
+	width: 20%;
+}
+
+.qtfile .file-header .file-actions-header
+{
+	width: 25%;
+	text-indent: -10000px;
+}
+
+/* Folders */
+
+.qtfile .folder-wraper
+{
+	width: 26%;
+	position: absolute;
+}
+
+/* Folder list */
+
+.qtfile .folder-panel
+{
+	height: 360px;
+	overflow: auto;
+}
+
+.qtfile .folder-panel li,
+.qtfile .file-panel li
+{
+	white-space: nowrap;
+}
+
+.qtfile .folder-panel li li
+{
+	padding-left: 16px;
+}
+
+.qtfile .folder-panel .folder-bullet,
+.qtfile .folder-panel .folder-name
+{
+	cursor: pointer;
+}
+
+.qtfile .folder-panel .folder-name-text
+{
+	line-height: 1.5em;
+}
+
+.qtfile .folder-panel .folder-name:hover
+{
+	color: Blue;
+}
+
+.qtfile .folder-bullet { background-image: none; }
+.qtfile .icon-folder-end { background-position: 16px 32px; }
+.qtfile .icon-folder { background-position: 16px 48px; }
+.qtfile .folder-bullet.folder-bullet-closed { background-position: 48px 32px; }
+.qtfile .folder-bullet.folder-bullet-opened { background-position: 32px 32px; }
+
+.qtfile .folder-panel .folder-name .icon-folder,
+.qtfile .folder-panel .folder-name .icon-folder-end
+{
+	margin-right: 5px;
+}
+
+.qtfile .folder-panel .folder-name .icon-folder-end
+{
+	visibility: hidden;
+	left: 5px;
+}
+
+.qtfile .folder-panel .folder-name-selected .icon-folder-end
+{
+	visibility: visible;
+}
+
+/* Files */
+
+.qtfile .file-wraper
+{
+	width: 74%;
+	position: absolute;
+	right: 0;
+}
+
+.qtfile .file-panel
+{
+	padding-left: 0px;
+	border-top: none;
+	border-right: none;
+	border-bottom: none;
+	background-image: none;
+	background-color: Transparent;
+	height: 360px;
+	overflow: auto;
+}
+.qtfile .file-panel.file-list-empty
+{
+	/* background: url('empty_folder_bg.png') 50% 50% no-repeat; */
+}
+
+.qtfile .file-panel .file-name, 
+.qtfile .file-panel .file-size, 
+.qtfile .file-panel .file-actions
+{
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+	float: left;
+	line-height: 1.7em;
+}
+
+.qtfile .file-panel .file-name
+{
+	width: 55%;
+	text-indent: 1%;
+}
+
+.qtfile .file-panel li:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.qtfile .file-panel li { display: inline-block; }
+/* required comment for clearfix to work in Opera \*/
+.qtfile .file-panel li { height:1%; }
+.qtfile .file-panel li { display:block; }
+/* end clearfix */
+
+.qtfile .file-panel li.even
+{
+	background-image: url('file_even_bg.png');
+}
+
+.qtfile .file-panel li:hover
+{
+	background-image: url('file_hover_bg.png');
+}
+
+.qtfile .file-panel .file-size
+{
+	width: 19%;
+	text-align: right;
+}
+
+.qtfile .file-panel .file-actions
+{
+	float: right;
+	width: 22%;
+	text-align: center;
+	margin: 0  0 0 1%;
+}
+
+.qtfile .file-panel .icon-file-name
+{
+	margin: 0 1% 0 0;
+}
+
+.qtfile .file-panel .file-actions span
+{
+	cursor: pointer;
+	margin: 0  0 0 1%;
+	text-indent: -10000px;
+	
+	/* Fix for IE7 moved to IE7Specific css
+	*text-indent: 0;
+	*font-size: 0;
+    */
+
+}
+
+.qtfile .file-panel .file-action-link { background-position: 48px 64px; }
+.qtfile .file-panel .file-action-delete { background-position: 16px 16px; }
+.qtfile .file-panel .file-action-move { background-position: 32px 16px; }
+.qtfile .file-panel .file-action-rename { background-position: 48px 16px; }
+.qtfile .file-panel .file-action-download { background-position: 64px 16px; }
+.qtfile .file-panel .file-action-preview { background-position: 80px 64px; }
+
+/* File preview */
+
+.qtfile .file-preview p,
+.qtfile .file-preview img
+{
+	margin: 0;
+	padding: 0;
+}
+
+.qtfile .file-preview p
+{
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.qtfile .file-preview p span
+{
+	line-height: 1.6em;
+	vertical-align: text-top;
+}
+
+.qtfile .file-preview
+{
+	position: absolute;
+	right: -1px;
+	bottom: -1px;
+	width: auto;
+	max-width: 65%;
+	display: none;
+	/* Width must be set in IE7 for header get right moved to IE7Specific.css
+	*width: 65%;
+    */
+}
+
+.qtfile .file-preview-field-name
+{
+	display: inline-block;
+	width: 7.5em;
+	font-weight: bold;
+}
+
+.qtfile .file-preview p.file-preview-image
+{
+	line-height: 0;
+	width: auto;
+}
+
+.qtfile .file-preview .file-preview-image img
+{
+	max-width: 100%;
+	overflow: auto;
+	max-height: 150px;
+}
+
+.qtfile .file-preview .file-preview-image-loading
+{
+	display: block;
+	width: 48px;
+	height: 48px;
+	background: url('indicator.gif') no-repeat;
+}
+
+/* File icons */
+
+.qtfile .file-panel .icon-file-name
+{
+	background-image: url('file_types.png');
+	background-position: 16px 16px;
+}
+
+.qtfile .file-panel .icon-file-bmp { background-position: 256px 256px; }
+.qtfile .file-panel .icon-file-jpg, .qtfile .file-panel .icon-file-jpeg { background-position: 240px 0; }
+.qtfile .file-panel .icon-file-png { background-position: 224px 0; }
+.qtfile .file-panel .icon-file-gif { background-position: 208px 0; }
+
+.qtfile .file-panel .icon-file-txt { background-position: 256px 240px; }
+.qtfile .file-panel .icon-file-pdf { background-position: 240px 240px; }
+
+/* Impromptu 
+http://trentrichardson.com/Impromptu/index.php
+*/
+.jqifade{
+	position: absolute; 
+	background-color: #aaaaaa; 
+}
+div.jqi{ 
+	width: 400px; 
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; 
+	position: absolute; 
+	background-color: #ffffff; 
+	font-size: 11px; 
+	text-align: left; 
+	border: solid 1px #eeeeee;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	padding: 7px;
+}
+div.jqi .jqicontainer{ 
+	font-weight: bold; 
+}
+div.jqi .jqiclose{ 
+	position: absolute;
+	top: 4px; right: -2px; 
+	width: 18px; 
+	cursor: default; 
+	color: #bbbbbb; 
+	font-weight: bold; 
+}
+div.jqi .jqimessage{ 
+	padding: 10px; 
+	line-height: 20px; 
+	color: #444444; 
+}
+div.jqi .jqibuttons{ 
+	text-align: right; 
+	padding: 5px 0 5px 0; 
+	border: solid 1px #eeeeee; 
+	background-color: #f4f4f4;
+}
+div.jqi button{ 
+	padding: 3px 10px; 
+	margin: 0 10px; 
+	background-color: #2F6073; 
+	border: solid 1px #f4f4f4; 
+	color: #ffffff; 
+	font-weight: bold; 
+	font-size: 12px; 
+}
+div.jqi button:hover{ 
+	background-color: #728A8C;
+}
+div.jqi button.jqidefaultbutton{ 
+	/*background-color: #8DC05B;*/
+	background-color: #BF5E26;
+}
+.jqiwarning .jqi .jqibuttons{ 
+	background-color: #BF5E26;
+}
+

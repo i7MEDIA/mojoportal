@@ -1,0 +1,48 @@
+.left-mypage { display:none;  }
+html>body .center-mypage { margin: 0px 0px 0px 0px;  }
+.center-mypage {  margin: 0px 0px 0px 0px; voice-family: "\"}\""; voice-family: inherit; margin: 0px 0px 0px 0px; }
+.right-mypage { display:none; }
+.WebPartTitleStyle
+{ padding: 4px 0px 0px 5px; height: 23px;  font-size:120%;  font-weight: bold; 
+	background-color: #6f7389; color:White;  vertical-align: bottom; }
+.WebPartTitleStyle a:link { color: white;  font-weight: bold; text-decoration: none; }
+.WebPartTitleStyle a:visited { color: white;  font-weight: bold; text-decoration: none; }
+.WebPartTitleStyle a:hover { color: white;  font-weight: bold; }
+.mypageminibox { clear:left; font-size: 80%; }
+.webpartcatalogmorelink { margin: 0px 0px 10px 0px; }
+ul.userpagemenu { position: relative; }
+ul.userpagemenu, 
+ul.userpagemenu ul { margin: 0; padding: 0; display: block; }
+ul.userpagemenu li { position: relative; list-style: none; }
+ul.userpagemenu li a { display: block; text-decoration: none; }
+ul.userpagemenu ul { position: absolute; display: none; }
+ul.userpagemenu li:hover ul ul,
+ul.userpagemenu li:hover ul ul ul { display: none; }
+ul.userpagemenu li:hover ul,
+ul.userpagemenu li li:hover ul
+ul.userpagemenu li li li:hover ul,
+ul.userpagemenu li li li li:hover ul,
+ul.userpagemenu li li li li li:hover ul,
+ul.userpagemenu li li li li li li:hover ul,
+ul.userpagemenu li.userpagemenu-Hover ul,
+ul.userpagemenu li li.userpagemenu-Hover ul,
+ul.userpagemenu li li li.userpagemenu-Hover ul,
+ul.userpagemenu li li li li.userpagemenu-Hover ul,
+ul.userpagemenu li li li li li.userpagemenu-Hover ul,
+ul.userpagemenu li li li li li li.userpagemenu-Hover ul{ display: block; }
+.userpagemenucontainer ul.userpagemenu li { float: left; }
+.userpagemenucontainer ul.userpagemenu li li { float: none; border-left: none; border-top: none; 
+	background-color:#e6efdb; }
+.userpagemenucontainer {  z-index: 300; }
+.userpagemenucontainer ul.userpagemenu {  width: 900px; }
+.userpagemenucontainer ul.userpagemenu ul { width: 140px; left: 3px; top: 20px; }
+ul.userpagemenu, 
+ul.userpagemenu ul { width: 145px;  font-weight: bold; font-size: small; }
+ul.userpagemenu ul { left: 145px; top: 0px;   }
+ul.userpagemenu li { background: #ffffff; border-left:solid 1px; border-top: solid 1px;  }
+ul.userpagemenu li a { padding: 4px 4px 4px 4px; }
+.newuserpage { border-left:solid 1px; border-top: solid 1px; border-right: solid 1px; }
+ul.userpagemenu li:hover, 
+ul.userpagemenu li.userpagemenu-Hover { background:#e6efdb; }
+ul.userpagemenu li.userpagemenu-Selected { background: #e6efdb ;  }
+ul.userpagemenu li.userpagemenu-Selected ul li.userpagemenu-submenu {background:#e6efdb; }

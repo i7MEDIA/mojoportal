@@ -1,0 +1,47 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="~/App_MasterPages/layout.Master.cs" Inherits="mojoPortal.Web.layout" %>
+<!DOCTYPE html>
+<html id="Html1" runat="server">
+<head id="Head1" runat="server">
+    <meta charset="utf-8">
+    <title></title>
+    <portal:MetaContent ID="MetaContent" runat="server" DisableContentType="true" />
+    <portal:StyleSheetCombiner id="StyleSheetCombiner" runat="server" IncludejQueryUI="false" />
+    <portal:IEStyleIncludes id="IEStyleIncludes1"  runat="server" />
+	<portal:Favicon id="Favicon1"  runat="server" />
+	<portal:ScriptLoader ID="ScriptLoader1" runat="server" />
+</head>
+<body class="pagebody" id="Body" runat="server">
+<portal:AnalyticsAsyncTopScript id="analyticsTop" runat="server" />
+<portal:LayoutDisplaySettings ID="LayoutDisplaySettings1" runat="server" />
+<form id="frmMain" runat="server">
+<asp:SiteMapDataSource ID="SiteMapData" runat="server" ShowStartingNode="false" />
+<asp:SiteMapDataSource ID="PageMapDataSource" runat="server" ShowStartingNode="false" />
+<asp:SiteMapDataSource ID="ChildPageSiteMapData" runat="server" ShowStartingNode="false" />
+<asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server" EnableScriptGlobalization="true" EnableScriptLocalization="true" />
+<div id="wrapwebsite">
+	<portal:SiteTitle id="SiteTitle1" runat="server" />
+	<portal:AdminMenuLink id="lnkAdminMenu" runat="server" />
+<portal:FileManagerLink id="lnkFileManager" runat="server" />
+<portal:NewPageLink id="lnkNewPage" runat="server" />
+<portal:PageEditFeaturesLink id="lnkPageContent" runat="server" />
+<portal:PageEditSettingsLink id="lnkPageSettings" runat="server" />
+	<asp:contentplaceholder ID="pageEditContent" runat="server" Visible="false"></asp:contentplaceholder>&nbsp;
+	<div class="wrapcenter">
+	    <portal:LayoutPanel id="divCenter" runat="server" visible="true" cssclass="center-nomargins" SkinID="pnlPlain">
+		    <portal:Breadcrumbs id="Breadcrumbs1" runat="server" CssClass="Normal" CurrentPageCssClass="NormalBold" />
+		    <portal:ChildPageMenu id="ChildPageMenu1" runat="server" CssClass="Head" />
+		    <asp:ContentPlaceHolder ID="mainContent" runat="server"></asp:ContentPlaceHolder>
+	    </portal:LayoutPanel>
+	    <portal:LayoutPanel id="divLeft" runat="server" cssclass="leftside" visible="True" SkinID="pnlPlain">							
+		    <asp:contentplaceholder ID="leftContent" runat="server"></asp:contentplaceholder>
+	    </portal:LayoutPanel>
+	    <portal:LayoutPanel id="divRight" runat="server" visible="true" cssclass="rightside" SkinID="pnlPlain">
+		    <asp:contentplaceholder ID="rightContent" runat="server"></asp:contentplaceholder>
+	    </portal:LayoutPanel>
+	</div>	
+<portal:QRCodeImage id="qr1" runat="server" AutoDetectPageUrl="true" />	
+</div>
+</form>
+<portal:AnalyticsAsyncBottomScript ID="analyticsBottom" runat="server" />
+</body>
+</html>

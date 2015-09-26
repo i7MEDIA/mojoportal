@@ -1,0 +1,12 @@
+body { margin: 0px 0px 0px 0px; }
+.formwizlist ul { margin: 0px 0px 0px 0px; padding: 0px; }
+.formwizlist, .formwizlist li, .formwizlist ul li { list-style: none; padding: 0px 0px 4px 0px; margin-left:0px; }
+.draghandle {width:50px;height:25px;margin-right:5px;background-image:url('draghandle.gif');background-repeat:repeat; cursor:move;float:left;}
+.callbackstyle, .callbackStyle ul li {border:thin #6297BC inset; list-style: none;}
+.draghandle  li {list-style: none; }
+.reordercue { border:dashed thin black; width:100%; height:25px;  }
+.questioncontainer { padding: 5px; border: dashed 1px black; }
+.editcontainer { float:left; }
+.draghandle .buttoncontainer {float:left;margin:0px;padding:0px; }
+.draghandle .buttoncontainer .upbutton { float:left;margin:0px;padding:0px;}
+.draghandle .buttoncontainer .downbutton { float:left;clear:left;margin:0px;padding:0px; }

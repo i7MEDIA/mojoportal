@@ -1,0 +1,39 @@
+body { font: 11px/1.5  Verdana, 'Trebuchet MS', arial, sans-serif;  }
+/*
+
+This file should contain SUPPLEMENTAL rules that are recognized and used only by IE.
+Similar files can be produced, as needed, for other browsers.  Whatever selectors are
+listed here should be listed in at least one other CSS file used in the current ASP.NET
+theme (thus making these supplemental).  The implementation pattern is to add new props
+to some existing rule or to override (using important) some property.
+
+*/
+
+
+h2.moduletitle { vertical-align:middle; }
+h2.moduletitle {background: url(images/square_arrow.gif) no-repeat ;
+	 background-position:left; }
+
+a.AspNet-Menu {font-size: 0.85em ;  }
+
+div.AspNet-Menu-Vertical ul.AspNet-Menu 
+{ position:relative; top: 0px; left: -50px;  }
+
+div.AspNet-Menu-Vertical ul.AspNet-Menu ul 
+{position:relative; left: 180px; top: -20px; }
+
+div.AspNet-Menu-Vertical ul.AspNet-Menu li.AspNet-Menu-Leaf,
+div.AspNet-Menu-Vertical ul.AspNet-Menu li.AspNet-Menu-WithChildren
+{ padding:0px 0px 0px 0px;
+	border: 1px solid #f2f2f2;
+	border-bottom:solid 1px white;
+	clear:left;	
+	float:left;
+	list-style:none;
+	margin: 0px 0px 0px 0px;
+}
+
+ul.userstats { list-style-type:none;  margin: 0px 0px 0px 0px;   }
+ul.userstats ul { list-style-type:none; margin: -10px 0px 0px 0px;   }
+div.blognavright div h3 { margin: 0px 0px -20px 18px; }
+

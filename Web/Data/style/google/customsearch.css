@@ -1,0 +1,145 @@
+/**
+ * Default theme
+ *
+ */
+/* Slight reset to make the preview have ample padding. */
+.cse .gsc-control-cse,
+.gsc-control-cse {
+  padding: 2%;
+  width: 96%;
+}
+.cse .gsc-branding,
+.gsc-branding {
+  display: none;
+}
+.cse .gsc-control-cse div,
+.gsc-control-cse div {
+  position: normal;
+}
+/* Selector for entire element. */
+.cse .gsc-control-cse,
+.gsc-control-cse {
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #ffffff;
+}
+.cse .gsc-control-cse:after,
+.gsc-control-cse:after {
+  content:".";
+  display:block;
+  height:0;
+  clear:both;
+  visibility:hidden;
+}
+.cse .gsc-resultsHeader,
+.gsc-resultsHeader {
+  border:none;
+}
+/* Search button */
+.cse input.gsc-search-button,
+input.gsc-search-button {
+  font-family: inherit;
+  color: #000000;
+  text-shadow: 0 1px 2px #FFFFFF;
+  background-color: #CECECE;
+  border: 1px outset;
+  border-color: #666666;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+/* Inactive tab */
+.cse .gsc-tabHeader.gsc-tabhInactive,
+.gsc-tabHeader.gsc-tabhInactive {
+  border-bottom: none;
+  color: #666666;
+  background-color: #e9e9e9;
+  border: 1px solid;
+  border-color: #e9e9e9;
+  border-bottom: none;
+}
+/* Active tab */
+.cse .gsc-tabHeader.gsc-tabhActive,
+.gsc-tabHeader.gsc-tabhActive {
+  background-color: #FFFFFF;
+  border: 1px solid;
+  border-top: 2px solid;
+  border-color: #e9e9e9;
+  border-top-color: #FF9900;
+  border-bottom: none;
+}
+/* This is the tab bar bottom border. */
+.cse .gsc-tabsArea,
+.gsc-tabsArea {
+  margin-top: 1em;
+  border-bottom: 1px solid #e9e9e9;
+}
+/* Inner wrapper for a result */
+.cse .gsc-webResult.gsc-result,
+.gsc-webResult.gsc-result {
+  padding: .25em;
+  border: 1px solid;
+  border-color: #ffffff;
+  margin-bottom: 1em;
+}
+/* Result hover event styling */
+.cse .gsc-webResult.gsc-result:hover,
+.gsc-webResult.gsc-result:hover {
+  border: 1px solid;
+  border-color: #FFFFFF;
+}
+/*Promotion Settings*/
+/* The entire promo */
+.cse .gs-promotion.gs-result,
+.gs-promotion.gs-result {
+  background-color: #FFFFFF;
+  border: 1px solid;
+  border-color: #336699;
+}
+/* Promotion image */
+.cse .gs-promotion.gs-result .gs-promotion-image,
+.gs-promotion.gs-result .gs-promotion-image {}
+/* Promotion title */
+.cse .gs-promotion.gs-result a.gs-title:link,
+.gs-promotion.gs-result a.gs-title:link {
+  color: #0000CC;
+}
+.cse .gs-promotion.gs-result a.gs-title:visited,
+.gs-promotion.gs-result a.gs-title:visited {
+  color: #0000CC;
+}
+.cse .gs-promotion.gs-result a.gs-title:hover,
+.gs-promotion.gs-result a.gs-title:hover {
+  color: #0000CC;
+}
+.cse .gs-promotion.gs-result a.gs-title:active,
+.gs-promotion.gs-result a.gs-title:active {
+  color: #0000CC;
+}
+/* Promotion snippet */
+.cse .gs-promotion.gs-result .gs-snippet,
+.gs-promotion.gs-result .gs-snippet {
+  color: #000000;
+}
+/* Promotion url */
+.cse .gs-promotion.gs-result ..gs-visibleUrl,
+.gs-promotion.gs-result .gs-visibleUrl {
+  color: #008000;
+}
+/* Style for auto-completion table
+ * .gsc-completion-selected : styling for a suggested query which the user has moused-over
+ * .gsc-completion-container : styling for the table which contains the completions
+ */
+.gsc-completion-selected {
+  background: #D5E2FF;
+}
+.gsc-completion-container {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  position: absolute;
+  background: white;
+  border: 1px solid #666666;
+  margin-left: 0;
+  margin-right: 0;
+  /* The top, left, and width are set in JavaScript. */
+}

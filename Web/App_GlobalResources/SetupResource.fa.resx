@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CantAlterSchemaWarning" xml:space="preserve">
+    <value>mojoSetup متوجه شده است که کاربر پایگاه داده مجوز کافی برای نغییر شمای پایگاه داده را ندارد. شما باید این موضوع را حل کنید، و یا یک connection string با مجوز کافی تعریف نمایید.</value>
+  </data>
+  <data name="CantCreateTempTablesMessage" xml:space="preserve">
+    <value>mojoSetup متوجه شده است که کاربر پایگاه داده مجوز کافی برای ایجاد جداول موقت را در پایگاه داده ندارد. شما باید این موضوع را حل کنید، و یا بعضی ویژگی های مهم کار نخواهند کرد.</value>
+  </data>
+  <data name="CantProceedMessage" xml:space="preserve">
+    <value>امکان ادامه نصب تا وقتی موارد بالا حل نشده اند وجود ندارد.</value>
+  </data>
+  <data name="CodeUpgradeNeededMessage" xml:space="preserve">
+    <value>شما باید کد سایت و کد پایگاه را به همان نسخه شمای پایگاه داده به روز کنید</value>
+  </data>
+  <data name="ConfigureFeatureMessage" xml:space="preserve">
+    <value>پیکربندی ماژول {0}</value>
+  </data>
+  <data name="ConfigureFeaturesMessage" xml:space="preserve">
+    <value>پیکربندی {0}...</value>
+  </data>
+  <data name="ConnectionStringFailedMessage" xml:space="preserve">
+    <value>connection string ای که شما وارد کرده اید، صحیح نیست، و یا مجوز کافی برای ایجاد تغییرات در پایگاه داده را ندارد</value>
+  </data>
+  <data name="ConnectionStringRequiredError" xml:space="preserve">
+    <value>وجود connection string الزامی است</value>
+  </data>
+  <data name="CouldNotInstallFeatureSchemaMessage" xml:space="preserve">
+    <value>امکان نصب نرم افزار {0} وجود نداشت، چون پوشه {1} وجود ندارد.</value>
+  </data>
+  <data name="CreateInitialDataButton" xml:space="preserve">
+    <value>ايجاد داده هاي اوليه</value>
+  </data>
+  <data name="CreatingDefaultContent" xml:space="preserve">
+    <value>هیچ صفحه ای پیدا نشد، بنابراین محتوای پیش فرض ایجاد می گردد...</value>
+  </data>
+  <data name="CreatingPageMessage" xml:space="preserve">
+    <value>در حال ایجاد صفحه {0}</value>
+  </data>
+  <data name="CreatingRolesAndAdminUserMessage" xml:space="preserve">
+    <value>ایجاد نقش ها و کاربر مدیر...</value>
+  </data>
+  <data name="CreatingSiteMessage" xml:space="preserve">
+    <value>ایجاد سایت با تنظیمات پیش فرض...</value>
+  </data>
+  <data name="DatabaseCanAlterSchemaMessage" xml:space="preserve">
+    <value>مجوز تغییر در پایگاه داده درست می باشد.</value>
+  </data>
+  <data name="DatabaseCanCreateTempTablesMessage" xml:space="preserve">
+    <value>مجوز ایجاد جداول موقت در پایگاه داده کافی می باشد.</value>
+  </data>
+  <data name="DatabaseCodeVersionLabel" xml:space="preserve">
+    <value>نسخه پایگاه داده در سورس</value>
+  </data>
+  <data name="DatabaseConnectionOKMessage" xml:space="preserve">
+    <value>ارتباط با بانک اطلاعاتی برقرار است.</value>
+  </data>
+  <data name="DatabasePlatformLabel" xml:space="preserve">
+    <value>بستر پایگاه داده</value>
+  </data>
+  <data name="DatabaseSchemaAlreadyExistsMessage" xml:space="preserve">
+    <value>شمای اولیه پایگاه داده موجود می باشد.</value>
+  </data>
+  <data name="DatabaseSchemaNeedsUpgradeMessage" xml:space="preserve">
+    <value>پایگاه داده هسته نیاز به بروزرسانی دارد.</value>
+  </data>
+  <data name="DatabaseSchemaNotCreatedYetMessage" xml:space="preserve">
+    <value>پایگاه داده اولیه لازم است ایجاد شود.</value>
+  </data>
+  <data name="DatabaseSchemaUpToDateMessage" xml:space="preserve">
+    <value>شمای پایگاه داده هسته به روز می باشد.</value>
+  </data>
+  <data name="DatabaseStatusLabel" xml:space="preserve">
+    <value>وضعيت</value>
+  </data>
+  <data name="DataFolderNotWritableMessage" xml:space="preserve">
+    <value>The Data folder beneath the root of the web site is not writable by the ASP.NET worker process. 
+
+You need to make this folder and all its child folders and files writable before setup can proceed. mojoPortal needs this to be able to write search index files, error logs, image gallery uploads, and other important features. 
+
+Right Click the Data folder in Windows explorer, choose properties and go to the Security tab. (On XP if you don't see the security tab then google for XP Simple File sharing to learn how to make that tab appear.) On XP you typically need to give write permission to ASPNET user while on Windows 2003 you need to give it to IIS_WPG user. 
+
+Obviously, instructions are a little different on Linux/Mono but the same principle is true, the Data folder and all its child objects must be writable.
+</value>
+  </data>
+  <data name="DataGalleryFolderNotWritableMessage" xml:space="preserve">
+    <value>فولدر Data/Sites/1/GalleryImages قابل نوشتن نیست.</value>
+  </data>
+  <data name="DataRootNotWritableMessage" xml:space="preserve">
+    <value>فولدر Data قابل نوشتن نیست.</value>
+  </data>
+  <data name="DataSharedFilesFolderNotWritableMessage" xml:space="preserve">
+    <value>پوشه Data/Sites/1/SharedFiles/ قابل نوشتن نیست</value>
+  </data>
+  <data name="DataSharedFilesHistoryFolderNotWritableMessage" xml:space="preserve">
+    <value>پوشه Data/Sites/1/SharedFiles/History/ قابل نوشتن نیست</value>
+  </data>
+  <data name="DataSiteFolderNotWritableMessage" xml:space="preserve">
+    <value>پوشه Data/Sites/1/ قابل نوشتن نیست</value>
+  </data>
+  <data name="DataSiteIndexFolderNotWritableMessage" xml:space="preserve">
+    <value>پوشه Data/Sites/1/index قابل نوشتن نیست</value>
+  </data>
+  <data name="DataSystemFilesFolderNotWritableMessage" xml:space="preserve">
+    <value>پوشه Data/Sites/1/systemfiles/ قابل نوشتن نیست</value>
+  </data>
+  <data name="EnsuringFeaturesInAdminSites" xml:space="preserve">
+    <value>اطمینان از نصب تمام ماژول ها روی سایت هایی که مدیر به آنها دسترسی دارد...</value>
+  </data>
+  <data name="ErrorMessageLabel" xml:space="preserve">
+    <value>پيغام خطا</value>
+  </data>
+  <data name="ErrorOccurredLabel" xml:space="preserve">
+    <value>خطاي رخ  داده است</value>
+  </data>
+  <data name="ExistingSiteCountMessageMessage" xml:space="preserve">
+    <value>{0}سایت پیدا شد</value>
+  </data>
+  <data name="FailedToConnectToDatabase" xml:space="preserve">
+    <value>سیستم نمی تواند به پایگاه داده {0} متصل شود. لطفا connection string خود را مجددا بررسی نمایید.</value>
+  </data>
+  <data name="FailedToConnectToDatabaseHelp" xml:space="preserve">
+    <value>برای مشاهده دقیق خطای connection، مقدار ShowConnectionErrorOnSetup را در Web.config برابر true قرار دهید.</value>
+  </data>
+  <data name="FileSystemPermissionProblemsMessage" xml:space="preserve">
+    <value>مشکل حق دسترسی به فایل های سیستم</value>
+  </data>
+  <data name="FileSystemPermissionsOKMesage" xml:space="preserve">
+    <value>حق دسترسی به فایل ها درست است.</value>
+  </data>
+  <data name="FirebirdAutoDBCreationNotYetSupportedException" xml:space="preserve">
+    <value>ایجاد خودکار شمای پایگاه هنوز برای Firebird Sql کار نمی کند. شما باید خودتان اسکریپت آن را اجرا کنید، محل اسکریپت ها: </value>
+  </data>
+  <data name="FirebirdAutoUpgradeNotYetSupportedException" xml:space="preserve">
+    <value>به روز رسانی خودکار شمای پایگاه هنوز برای Firebird Sql پشتیبانی نمی شود. شما باید خودتان اسکریپت آن را که در {0} قرار دارد با شروع از {1}.config به بعد اجرا کنید.</value>
+  </data>
+  <data name="FolderDetailsLabel" xml:space="preserve">
+    <value>جزئیات فولدر</value>
+  </data>
+  <data name="HomeLink" xml:space="preserve">
+    <value>صفحه اول سايت</value>
+  </data>
+  <data name="InstallationUpToDateMessage" xml:space="preserve">
+    <value>نصب شما بروز است.</value>
+  </data>
+  <data name="LastServerErrorLabel" xml:space="preserve">
+    <value>آخرین خطای سرور این بود:</value>
+  </data>
+  <data name="MediumTrustCommentOutNeatUploadInstructionLine1" xml:space="preserve">
+    <value>برای تبدیل NeatUpload به کامنت (حذف عملکرد آن)، در فایل Web.config در قسمت &lt;httpModules&gt; توجه کنید و این را تغییر دهید:</value>
+  </data>
+  <data name="MediumTrustCommentOutNeatUploadPreambleMessage" xml:space="preserve">
+    <value>از آنجا که NeatUpload در Medium Trust پشتیبانی نمی شود (مگر آنکه در سرور در GAC نصب شده باشد)، شما باید آن را به کامنت تبدیل کنید (حذف عملکرد آن). برای اطلاعات بیشتر: http://www.mojoportal.com/mediumtrust.aspx</value>
+  </data>
+  <data name="MediumTrustGeneralMessage" xml:space="preserve">
+    <value>به نظر می رسد این سایت در یک محیط با ایمن سازی بالا، Medium Trust یا حداقل اعتماد کمتر از Full Trust در حال اجراست.</value>
+  </data>
+  <data name="MediumTrustLuceneConfigPreambleMessage" xml:space="preserve">
+    <value>برای اینکه موتور جستجو در حالت Medium Trust کار کند، شما باید این را در Web.config در قسمت AppSettings وارد کنید:</value>
+  </data>
+  <data name="MediumTrustMySQLMessage" xml:space="preserve">
+    <value>In order to use MySQL under Medium Trust, The MySQL Connector for .NET must be installed in the Global Assembly Cache on the server. If you see a SecurityException in the error message then the Connector is not installed.
+You can download the MySql Connector for .NET from here: http://dev.mysql.com/downloads/connector/net/5.0.html</value>
+  </data>
+  <data name="MediumTrustNeatUploadCommentedOutExample" xml:space="preserve">
+    <value>&lt;!--
+&lt;add name="HttpUploadModule" type="Brettle.Web.NeatUpload.UploadHttpModule, Brettle.Web.NeatUpload" /&gt;
+--&gt;</value>
+  </data>
+  <data name="MediumTrustNeatUploadWrongConfigExample" xml:space="preserve">
+    <value>&lt;add name="HttpUploadModule" type="Brettle.Web.NeatUpload.UploadHttpModule, Brettle.Web.NeatUpload" /&gt;</value>
+  </data>
+  <data name="MediumTrustnpgsqlMessage" xml:space="preserve">
+    <value>In order to use PostgreSQL under Medium Trust, the npgsql Data Access library must be installedin the Global Assembly Cache on the server. If you see a SecurityException below then the npgsql component is not installed.
+You can get more information or download npgsql from here: http://npgsql.projects.postgresql.org/</value>
+  </data>
+  <data name="NoScriptsFilesFoundMessage" xml:space="preserve">
+    <value>هیچ اسکریپتی در این فولدر پیدا نشد</value>
+  </data>
+  <data name="NoSitesMessage" xml:space="preserve">
+    <value>هنوز هیچ سایتی ایجاد نشده است، برای ایجاد سایت با داده های اولیه روی دکمه کلیک نمائید.</value>
+  </data>
+  <data name="NoUpgradeScriptsFound" xml:space="preserve">
+    <value>اسکریپت به روزرسانی برای {0} پیدا نشد. احتمالا به روز است.</value>
+  </data>
+  <data name="OverrideConnectionStringLabel" xml:space="preserve">
+    <value>Connection String:</value>
+  </data>
+  <data name="ProbingSystemMessage" xml:space="preserve">
+    <value>تنظیم سیستم ...</value>
+  </data>
+  <data name="RunningScriptMessage" xml:space="preserve">
+    <value>درحال اجرای اسکریپت {0} - {1}</value>
+  </data>
+  <data name="RunningSetupForAdminUser" xml:space="preserve">
+    <value>نصب غیرفعال است. اما چون کاربر جاری مدیر سایت است پروسه نصب اجرا می شود.</value>
+  </data>
+  <data name="RunTimeLabel" xml:space="preserve">
+    <value>زمان اجرا به UTC</value>
+  </data>
+  <data name="SchemaUpgradeFolderNotFound" xml:space="preserve">
+    <value>به روز رسانی نرم افزار {0} انجام نشد. چون پوشه {1} وجود ندارد.</value>
+  </data>
+  <data name="SchemaUpgradeNeededMessage" xml:space="preserve">
+    <value>برای اینکه شمای پایگاه داده مشابه با کد باشد، باید شمای پایگاه داده را به روز رسانی کنید.</value>
+  </data>
+  <data name="ScriptFileLabel" xml:space="preserve">
+    <value>فایل اسکریپت</value>
+  </data>
+  <data name="ScriptFolderNotFoundAddendum" xml:space="preserve">
+    <value>پیدا نشد. امکان اجرا اسکریپت ها وجود ندارد.</value>
+  </data>
+  <data name="ScriptFolderNotFoundMessage" xml:space="preserve">
+    <value>پیدا نشد. امکان اجرا اسکریپت ها وجود ندارد.</value>
+  </data>
+  <data name="SetupDisabledMessage" xml:space="preserve">
+    <value>نصب و بروز رسانی غیر فعال است. لطفا DisableSetup را در web.config به false نمائید.</value>
+  </data>
+  <data name="SetupEnabledMessage" xml:space="preserve">
+    <value>توجه:این صفحه اطلاعات مفیدی در مورد نصب و بروز رسانی نمایش می دهد اما بهتر آنست که وقتی سیستم ارتقاء داده شد هیچ اطلاعاتی نمایش داده نشود.
+شما می توانید با DisableSetup=true در Web.config امکان نصب و ارتقاء را غیرفعال نمائید تا این اطلاعات در این صفحه نمایش داده نشوند.وقتی به ارتقاء سیستم نیاز دارید می توانید دوباره DisableSetup=false را درWeb.config   تنظیم نمائید.اگر شما با دسترسی مدیر سایت وارد شده باشید پروسه ارتقاء و نصب اجرا خواهد شد و شما قادر خواهید بود اطلاعات این صفحه را ببینید حتی اگر آن را درWeb.configغیرفعال کرده باشید، بنابراین شما می توانید آنرا غیر فعال کنید و برای ارتقاء ابتدا وارد سایت شوید.اما اگر وارد نشده باشید باید آنرا در web.config فعال نمائید.</value>
+  </data>
+  <data name="SetupSuccessMessage" xml:space="preserve">
+    <value>نصب تمام شد لینک زیر را کلیک کنید تا به صفحه اول سایت بروید.</value>
+  </data>
+  <data name="SetupTitle" xml:space="preserve">
+    <value>راه اندازي موجوپرتال</value>
+  </data>
+  <data name="SetupWelcomeMessage" xml:space="preserve">
+    <value>خوش آمديد</value>
+  </data>
+  <data name="ToThisLabel" xml:space="preserve">
+    <value>تا این:</value>
+  </data>
+  <data name="UpgradeOverrideInstructions" xml:space="preserve">
+    <value>سیستم نمی تواند با استفاده از connection string فعلی تغییرات مورد نیاز را اعمال کند. لطفا یک connection string با مجوز کافی برای تغییر پایگاه داده تنظیم کنید.</value>
+  </data>
+  <data name="UpgradeSchemaButton" xml:space="preserve">
+    <value>به روزرساني پایگاه</value>
+  </data>
+  <data name="UpgradeTitle" xml:space="preserve">
+    <value>بروز رسانی موجوپرتال</value>
+  </data>
+  <data name="VersionLabel" xml:space="preserve">
+    <value>نسخه:</value>
+  </data>
+  <data name="DatabaseCreationSucceeded" xml:space="preserve">
+    <value>ایجاد پایگاه داده انجام شد.</value>
+  </data>
+  <data name="TryingToCreateDatabase" xml:space="preserve">
+    <value>تلاش برای ایجاد پایگاه داده</value>
+  </data>
+</root>

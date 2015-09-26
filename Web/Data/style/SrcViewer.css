@@ -1,0 +1,79 @@
+﻿#SCVPanel
+{
+    position:absolute;
+    top: 0;
+    left: 220px;
+    font-family: Courier;
+    font-size:10pt;
+    padding: 0;
+}
+
+#SCVPanel h1
+{
+    position:relative;
+    color:Black;
+    font-size:medium;
+    font-family: Verdana;
+}
+
+.SCVTree
+{
+    float: left;
+    width: 200px;
+    font-family: Verdana;
+    font-size:x-small;
+}
+
+.SCVTree div.AspNet-TreeView
+{
+    
+}
+
+.SCVTree div.AspNet-TreeView ul li
+{
+    white-space: nowrap;
+    padding: 3px 0 2px 0; 
+}
+
+.SCVTree div.AspNet-TreeView ul ul
+{
+    margin: 2px 0 2px 10px;
+}
+
+.SCVTree div.AspNet-TreeView ul li img
+{
+    border: none;
+    vertical-align: middle;
+    margin: 0 2px 0 0;
+}
+
+.SCVTree div.AspNet-TreeView li a
+{
+    text-decoration: none;
+}
+
+.SCVTree div.AspNet-TreeView li.AspNet-TreeView-Leaf
+{
+    margin-left: 10px;
+}
+
+.SCVTree div.AspNet-TreeView .AspNet-TreeView-ClickableNonlink
+{
+    cursor: n-resize;
+}
+
+.SCVTree div.AspNet-TreeView .AspNet-TreeView-Collapse
+{
+    background: url(collapse.gif) 0 -2px no-repeat;
+    width: 15px;
+    float:left;
+    cursor: n-resize;
+}
+
+.SCVTree div.AspNet-TreeView .AspNet-TreeView-Expand
+{
+    background: url(expand.gif) 0 -2px no-repeat;
+    width: 15px;
+    float:left;
+    cursor: n-resize;
+}

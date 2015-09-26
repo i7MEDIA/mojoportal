@@ -1,0 +1,15 @@
+h2.forumhead { margin: 0px 0px 0px 0px; padding: 0px 0px 3px 5px; font-size:170%;}
+h2.forumthreadcrumbs, h2.forumthreadcrumbs a{ font-size: 16px; margin: 0px 0px 10px 0px;}
+.forumpostheader {padding: 0px 0px 0px 5px;margin: 0px 0px 0px 0px;  font-weight: bold; }
+.postwrapper {float: left; width: 100%;  margin: 0px 0px 0px 0px; 
+	padding: 0px 0px 0px 0px; border:solid thin #EAEAEA; float:left; clear:both; width: 99%;}
+.postleft {clear: left; float: left; text-align:center;  width: 20%; padding: 15px 5px 5px 5px; 
+	margin: 0px 0px 0px 0px; }
+.postright {  padding: 0px 0px 0px 0px; margin: 0px 0px 0px 21%;  }
+.posttopic {  }
+.postbody { padding: 10px 5px 0px 5px; min-height: 250px; }
+.forumpostuserpropertylist {  margin: 0px 0px 0px 0px; text-align: center; }
+.forumpostusername { list-style-type:none;   }
+.forumpostuseravatar { list-style-type:none; }
+.forumpostuserattribute { list-style-type:none; }
+a.forumEdit, a.forumfeed { text-decoration:none !important; }

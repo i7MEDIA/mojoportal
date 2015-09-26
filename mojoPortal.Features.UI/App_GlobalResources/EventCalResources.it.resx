@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Attendere prego...</value>
+  </data>
+  <data name="CalendarUseFillerOnEmptyDays" xml:space="preserve">
+    <value>Riempi i giorni vuoti:</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Classe CSS Personalizzata</value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>Classe CSS Personalizzata non valida</value>
+  </data>
+  <data name="DrivingDirectionsButton" xml:space="preserve">
+    <value>Ottieni indicazioni stradali da</value>
+  </data>
+  <data name="EditEventPageTitle" xml:space="preserve">
+    <value>Modifica Evento</value>
+  </data>
+  <data name="EventCalendarAddEventLabel" xml:space="preserve">
+    <value>Aggiungi evento</value>
+  </data>
+  <data name="EventCalendarDeleteEventWarning" xml:space="preserve">
+    <value>Sei sicuro di volere cancellare questo evento?</value>
+  </data>
+  <data name="EventCalendarEditCancelButton" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="EventCalendarEditCancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="EventCalendarEditDeleteButton" xml:space="preserve">
+    <value>Cancella questo elemento</value>
+  </data>
+  <data name="EventCalendarEditDeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="EventCalendarEditDescriptionLabel" xml:space="preserve">
+    <value>Descrizione:</value>
+  </data>
+  <data name="EventCalendarEditEndTimeLabel" xml:space="preserve">
+    <value>Ora fine:</value>
+  </data>
+  <data name="EventCalendarEditEntryLabel" xml:space="preserve">
+    <value>Crea/Modifica Evento</value>
+  </data>
+  <data name="EventCalendarEditEventDateLabel" xml:space="preserve">
+    <value>Data evento:</value>
+  </data>
+  <data name="EventCalendarEditEventLink" xml:space="preserve">
+    <value>Modifica evento</value>
+  </data>
+  <data name="EventCalendarEditImageLabel" xml:space="preserve">
+    <value>Immagine:</value>
+  </data>
+  <data name="EventCalendarEditStartTimeLabel" xml:space="preserve">
+    <value>Ora inizio:</value>
+  </data>
+  <data name="EventCalendarEditTitleLabel" xml:space="preserve">
+    <value>Titolo evento:</value>
+  </data>
+  <data name="EventCalendarEditUpdateButton" xml:space="preserve">
+    <value>Aggiorna</value>
+  </data>
+  <data name="EventCalendarEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="EventCalendarFeatureName" xml:space="preserve">
+    <value>Calendario Eventi</value>
+  </data>
+  <data name="EventCalendarSearchName" xml:space="preserve">
+    <value>Calendari</value>
+  </data>
+  <data name="GoogleMapEnableDirectionsSetting" xml:space="preserve">
+    <value>Abilita indicazioni stradali:</value>
+  </data>
+  <data name="GoogleMapEnableLocalSearchSetting" xml:space="preserve">
+    <value>Mostra ricerca locale:</value>
+  </data>
+  <data name="GoogleMapEnableMapTypeSetting" xml:space="preserve">
+    <value>Mostra opzioni mappa satellite ed ibrida:</value>
+  </data>
+  <data name="GoogleMapEnableZoomSetting" xml:space="preserve">
+    <value>Mostra strumento zoom:</value>
+  </data>
+  <data name="GoogleMapHeightSetting" xml:space="preserve">
+    <value>Altezza mappa:</value>
+  </data>
+  <data name="GoogleMapInitialMapTypeSetting" xml:space="preserve">
+    <value>Tipo mappa iniziale:</value>
+  </data>
+  <data name="GoogleMapInitialZoomSetting" xml:space="preserve">
+    <value>Livello zoom mappa:</value>
+  </data>
+  <data name="GoogleMapShowInfoWindowSetting" xml:space="preserve">
+    <value>Mostra fumetto localita':</value>
+  </data>
+  <data name="GoogleMapWidthSetting" xml:space="preserve">
+    <value>Larghezza mappa:</value>
+  </data>
+  <data name="LocationLabel" xml:space="preserve">
+    <value>Localita'</value>
+  </data>
+</root>

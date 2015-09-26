@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C224A35B-AB21-4476-A411-CA5BA406598B}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>mojoPortal.Data</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>mojoPortal.Data</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>1</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DocumentationFile>
+    </DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>1</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Mono.Data.Sqlite" />
+    <Reference Include="log4net">
+      <HintPath>..\_libs\log4net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DBAuthorizeNetLog.cs" />
+    <Compile Include="dbBannedIP.cs" />
+    <Compile Include="DBCategory.cs" />
+    <Compile Include="DBComment.cs" />
+    <Compile Include="DBCommerceReport.cs" />
+    <Compile Include="DBContentHistory.cs" />
+    <Compile Include="DBContentMeta.cs" />
+    <Compile Include="DBContentMetaLink.cs" />
+    <Compile Include="DBContentRating.cs" />
+    <Compile Include="DBContentStyle.cs" />
+    <Compile Include="DBContentTemplate.cs" />
+    <Compile Include="DBContentWorkflow.cs" />
+    <Compile Include="DBCurrency.cs" />
+    <Compile Include="DBEmailSendLog.cs" />
+    <Compile Include="DBEmailSendQueue.cs" />
+    <Compile Include="DBEmailTemplate.cs" />
+    <Compile Include="DBFileAttachment.cs" />
+    <Compile Include="dbFriendlyUrl.cs" />
+    <Compile Include="DBGeoCountry.cs" />
+    <Compile Include="DBGeoZone.cs" />
+    <Compile Include="DBGoogleCheckoutLog.cs" />
+    <Compile Include="dbHtmlContent.cs" />
+    <Compile Include="DBIndexingQueue.cs" />
+    <Compile Include="DBLanguage.cs" />
+    <Compile Include="DBLetter.cs" />
+    <Compile Include="DBLetterHtmlTemplate.cs" />
+    <Compile Include="DBLetterInfo.cs" />
+    <Compile Include="DBLetterSendLog.cs" />
+    <Compile Include="DBLetterSubscription.cs" />
+    <Compile Include="dbModule.cs" />
+    <Compile Include="dbModuleDefinition.cs" />
+    <Compile Include="dbModuleSettings.cs" />
+    <Compile Include="dbPageSettings.cs" />
+    <Compile Include="DBPayPalLog.cs" />
+    <Compile Include="DBPlugNPayLog.cs" />
+    <Compile Include="dbPortal.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DBRedirectList.cs" />
+    <Compile Include="dbRoles.cs" />
+    <Compile Include="DBSavedQuery.cs" />
+    <Compile Include="dbSiteFolder.cs" />
+    <Compile Include="dbSitePersonalization.cs" />
+    <Compile Include="dbSiteSettings.cs" />
+    <Compile Include="DBSiteSettingsEx.cs" />
+    <Compile Include="dbSiteUser.cs" />
+    <Compile Include="DBTaskQueue.cs" />
+    <Compile Include="DBTaxClass.cs" />
+    <Compile Include="DBTaxRate.cs" />
+    <Compile Include="DBUserLocation.cs" />
+    <Compile Include="dbUserPage.cs" />
+    <Compile Include="dbWebPartContent.cs" />
+    <Compile Include="SqliteHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DBSystemLog.cs" />
+    <Compile Include="DBTag.cs" />
+    <Compile Include="DBTagItem.cs" />
+    <Compile Include="DBCategoryItem.cs" />
+    <Compile Include="ConnectionString.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

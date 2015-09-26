@@ -1,0 +1,579 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisButtonAltText" xml:space="preserve">
+    <value>ブックマークサービスを使用して共有</value>
+  </data>
+  <data name="AllowWebSiteUrlForComments" xml:space="preserve">
+    <value>コメントにUrlを表示?:</value>
+  </data>
+  <data name="ArchiveDateGridHeader" xml:space="preserve">
+    <value>アーカイブ</value>
+  </data>
+  <data name="ArchiveMetaDescriptionFormat" xml:space="preserve">
+    <value>{1} から {0} アーカイブ </value>
+  </data>
+  <data name="BlogAddCategoriesLabel" xml:space="preserve">
+    <value>カテゴリの追加</value>
+  </data>
+  <data name="BlogAddCategoryButton" xml:space="preserve">
+    <value>カテゴリの追加</value>
+  </data>
+  <data name="BlogAddCategoryButtonAccessKey" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="BlogAddPostLabel" xml:space="preserve">
+    <value>新規投稿</value>
+  </data>
+  <data name="BlogAddThisButtonImageUrlSetting" xml:space="preserve">
+    <value>AddThis.com ボタンイメージ Url</value>
+  </data>
+  <data name="BlogAddThisCustomBrandSetting" xml:space="preserve">
+    <value>AddThis.com カスタム商標:</value>
+  </data>
+  <data name="BlogAddThisCustomLogoBackColorSetting" xml:space="preserve">
+    <value>AddThis.com カスタム背景色:</value>
+  </data>
+  <data name="BlogAddThisCustomLogoForeColorSetting" xml:space="preserve">
+    <value>AddThis.com カスタム前景色:</value>
+  </data>
+  <data name="BlogAddThisCustomLogoUrlSetting" xml:space="preserve">
+    <value>AddThis.com カスタムロゴ Url:</value>
+  </data>
+  <data name="BlogAddThisCustomOptionsSetting" xml:space="preserve">
+    <value>AddThis.com カスタムオプション:</value>
+  </data>
+  <data name="BlogAddThisDotComUseMouseOverWidgetSetting" xml:space="preserve">
+    <value>AddThis.com マウスオーバーウィジェットの使用:</value>
+  </data>
+  <data name="BlogAddThisDotComUsernameSetting" xml:space="preserve">
+    <value>AddThis.com ユーザー名:</value>
+  </data>
+  <data name="BlogAddThisRssButtonImageUrlSetting" xml:space="preserve">
+    <value>AddThis.com RSS ボタン Url:</value>
+  </data>
+  <data name="BlogAddThisSubscribeAltText" xml:space="preserve">
+    <value>購読</value>
+  </data>
+  <data name="BlogAllowComments" xml:space="preserve">
+    <value>コメントの許可:</value>
+  </data>
+  <data name="BlogArchivesLabel" xml:space="preserve">
+    <value>アーカイブ</value>
+  </data>
+  <data name="BlogArchivesPrefixLabel" xml:space="preserve">
+    <value>記事 From </value>
+  </data>
+  <data name="BlogAuthorEmailSetting" xml:space="preserve">
+    <value>管理者のメール</value>
+  </data>
+  <data name="BlogAuthorEmailSettingRegexWarning" xml:space="preserve">
+    <value>有効なメールアドレスを入力してください。</value>
+  </data>
+  <data name="BlogAuthorSetting" xml:space="preserve">
+    <value>管理者</value>
+  </data>
+  <data name="BlogBeginDateRequiredHelp" xml:space="preserve">
+    <value>有効な開始日を入力してください。</value>
+  </data>
+  <data name="BlogCategoriesLabel" xml:space="preserve">
+    <value>カテゴリ</value>
+  </data>
+  <data name="BlogCategoriesPrefixLabel" xml:space="preserve">
+    <value>記事のカテゴリ: </value>
+  </data>
+  <data name="BlogCommentCommentLabel" xml:space="preserve">
+    <value>コメント</value>
+  </data>
+  <data name="BlogCommentCountLabel" xml:space="preserve">
+    <value>コメント</value>
+  </data>
+  <data name="BlogCommentPostCommentButton" xml:space="preserve">
+    <value>投稿</value>
+  </data>
+  <data name="BlogCommentPostCommentButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="BlogCommentRemeberMeLabel" xml:space="preserve">
+    <value>よろしく?</value>
+  </data>
+  <data name="BlogCommentsClosedMessage" xml:space="preserve">
+    <value>この記事へのコメントは終了しました。</value>
+  </data>
+  <data name="BlogCommentsNotAllowed" xml:space="preserve">
+    <value>許可されていません。</value>
+  </data>
+  <data name="BlogCommentSolveQuestionMessage" xml:space="preserve">
+    <value>スパムでないことを確認するため答えを入力してください。</value>
+  </data>
+  <data name="BlogCommentsUnlimited" xml:space="preserve">
+    <value>制限なし</value>
+  </data>
+  <data name="BlogCommentTitleLabel" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="BlogCommentUrlLabel" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="BlogCommentUserNameLabel" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="BlogCopyrightSetting" xml:space="preserve">
+    <value>コピーライト</value>
+  </data>
+  <data name="BlogDeleteCategoryWarning" xml:space="preserve">
+    <value>このカテゴリを削除してよろしいか？</value>
+  </data>
+  <data name="BlogDeleteCommentWarning" xml:space="preserve">
+    <value>このコメントを削除してよろしいか？</value>
+  </data>
+  <data name="BlogDeletePostWarning" xml:space="preserve">
+    <value>このブログを削除してよろしいか？</value>
+  </data>
+  <data name="BlogDescriptionSetting" xml:space="preserve">
+    <value>内容</value>
+  </data>
+  <data name="BlogDisableFeedSetting" xml:space="preserve">
+    <value>外部フィードを無効?</value>
+  </data>
+  <data name="BlogDraftInstructions" xml:space="preserve">
+    <value>開始日を将来の日付に設定すると未公開の下書きになる</value>
+  </data>
+  <data name="BlogDraftsHeading" xml:space="preserve">
+    <value>未公開ブログ</value>
+  </data>
+  <data name="BlogDraftsLink" xml:space="preserve">
+    <value>下書きの編集</value>
+  </data>
+  <data name="BlogEditAllowedCommentsForDaysPrefix" xml:space="preserve">
+    <value>コメントの許可:</value>
+  </data>
+  <data name="BlogEditCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="BlogEditCancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="BlogEditCategoriesLabel" xml:space="preserve">
+    <value>カテゴリの編集</value>
+  </data>
+  <data name="BlogEditCategoryLabel" xml:space="preserve">
+    <value>カテゴリ:</value>
+  </data>
+  <data name="BlogEditCommentsDaysLabel" xml:space="preserve">
+    <value>日数</value>
+  </data>
+  <data name="BlogEditDeleteButton" xml:space="preserve">
+    <value>記事の削除</value>
+  </data>
+  <data name="BlogEditDeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="BlogEditDescriptionLabel" xml:space="preserve">
+    <value>内容:</value>
+  </data>
+  <data name="BlogEditEntryLabel" xml:space="preserve">
+    <value>ブログ記事</value>
+  </data>
+  <data name="BlogEditEntryLink" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="BlogEditIncludeInFeedLabel" xml:space="preserve">
+    <value>フィードに含める?:</value>
+  </data>
+  <data name="BlogEditItemUrlLabel" xml:space="preserve">
+    <value>Url:</value>
+  </data>
+  <data name="BlogEditLocationLabel" xml:space="preserve">
+    <value>Google Map を表示する住所:</value>
+  </data>
+  <data name="BlogEditorHeightSetting" xml:space="preserve">
+    <value>エディタ画面の高さ</value>
+  </data>
+  <data name="BlogEditSelectedCategoriesLabel" xml:space="preserve">
+    <value>カテゴリの選択</value>
+  </data>
+  <data name="BlogEditStartDateLabel" xml:space="preserve">
+    <value>開始日:</value>
+  </data>
+  <data name="BlogEditTitleLabel" xml:space="preserve">
+    <value>タイトル:</value>
+  </data>
+  <data name="BlogEditUpdateButton" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="BlogEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="BlogEnableVersioningSetting" xml:space="preserve">
+    <value>バージョンの履歴を保持？</value>
+  </data>
+  <data name="BlogEntriesToShowSetting" xml:space="preserve">
+    <value>表示記事数</value>
+  </data>
+  <data name="BlogEntriesToShowSettingRegexWarning" xml:space="preserve">
+    <value>表示記事数は整数で入力してください。デフォルトの設定は10です。</value>
+  </data>
+  <data name="BlogEntryCountLabel" xml:space="preserve">
+    <value>記事</value>
+  </data>
+  <data name="BlogExcerptLengthSetting" xml:space="preserve">
+    <value>抄録の文字数</value>
+  </data>
+  <data name="BlogExcerptSuffixSetting" xml:space="preserve">
+    <value>抄録の添字</value>
+  </data>
+  <data name="BlogFeatureName" xml:space="preserve">
+    <value>ブログ</value>
+  </data>
+  <data name="BlogFeedbackLabel" xml:space="preserve">
+    <value>フィードバック</value>
+  </data>
+  <data name="BlogFeedburnerFeedUrl" xml:space="preserve">
+    <value>Feedburner フィード Url:</value>
+  </data>
+  <data name="BlogHideAddThisButtonSetting" xml:space="preserve">
+    <value>AddThis ボタンを隠す?:</value>
+  </data>
+  <data name="BlogModuleAddToGoogleLink" xml:space="preserve">
+    <value>Googleに追加</value>
+  </data>
+  <data name="BlogModuleAddToMyMSNLink" xml:space="preserve">
+    <value>My MSNに追加</value>
+  </data>
+  <data name="BlogModuleAddToMyYahooLink" xml:space="preserve">
+    <value>My Yahooに追加</value>
+  </data>
+  <data name="BlogModuleAddToWindowsLiveLink" xml:space="preserve">
+    <value>Windows Liveに追加</value>
+  </data>
+  <data name="BlogMoreLinkText" xml:space="preserve">
+    <value>続きを読むリンクのテキスト</value>
+  </data>
+  <data name="BlogNavigationOnRightSetting" xml:space="preserve">
+    <value>ナビゲーターの位置を右側?</value>
+  </data>
+  <data name="BlogNextPostLink" xml:space="preserve">
+    <value>&gt;&gt; 次</value>
+  </data>
+  <data name="BlogPreviousPostLink" xml:space="preserve">
+    <value>前 &lt;&lt;</value>
+  </data>
+  <data name="BlogRSSCacheTimeSetting" xml:space="preserve">
+    <value>RSSのキャッシュ時間（分）</value>
+  </data>
+  <data name="BlogRSSCacheTimeSettingRegexWarning" xml:space="preserve">
+    <value>キャッシュの時間は整数で入力してｋださい。デフォルトの設定は120です。</value>
+  </data>
+  <data name="BlogRSSLinkTitle" xml:space="preserve">
+    <value>RSS</value>
+  </data>
+  <data name="BlogSearchName" xml:space="preserve">
+    <value>ブログ</value>
+  </data>
+  <data name="BlogShowAddFeedLinksSetting" xml:space="preserve">
+    <value>フィードリンクの追加の表示?</value>
+  </data>
+  <data name="BlogShowArchiveSetting" xml:space="preserve">
+    <value>アーカイブの表示?</value>
+  </data>
+  <data name="BlogShowCalendarSetting" xml:space="preserve">
+    <value>カレンダーの表示?</value>
+  </data>
+  <data name="BlogShowCategoriesSetting" xml:space="preserve">
+    <value>カテゴリの表示?</value>
+  </data>
+  <data name="BlogShowFeedLinksSetting" xml:space="preserve">
+    <value>フィードリンクの表示?</value>
+  </data>
+  <data name="BlogShowStatisticsSetting" xml:space="preserve">
+    <value>統計の表示?</value>
+  </data>
+  <data name="BlogStatisticsLabel" xml:space="preserve">
+    <value>統計</value>
+  </data>
+  <data name="BlogToBePublishedLabel" xml:space="preserve">
+    <value>公開予定</value>
+  </data>
+  <data name="BlogUrlConflictWithPhysicalPageError" xml:space="preserve">
+    <value>別の Url を入力してください。この Url は既に使われています。</value>
+  </data>
+  <data name="BlogUseCommentSpamBlocker" xml:space="preserve">
+    <value>スパム防止を有効にする</value>
+  </data>
+  <data name="BlogUseExcerptSetting" xml:space="preserve">
+    <value>抄録を使用?</value>
+  </data>
+  <data name="BlogUseLinkForHeading" xml:space="preserve">
+    <value>タイトルをリンクとして表示</value>
+  </data>
+  <data name="BlogUseTagCloudForCategoriesSetting" xml:space="preserve">
+    <value>カテゴリーでタグクラウドを使用</value>
+  </data>
+  <data name="BlogVersionPageSizeSetting" xml:space="preserve">
+    <value>バージョンの履歴のページサイズ</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>しばらくお待ちください</value>
+  </data>
+  <data name="CategoryMetaDescriptionFormat" xml:space="preserve">
+    <value>Items tagged under {1} from {0}</value>
+  </data>
+  <data name="CommentsRequireAuthenticationMessage" xml:space="preserve">
+    <value>コメントを投稿するにはログインしてください。</value>
+  </data>
+  <data name="CompareHistoryToCurrentLink" xml:space="preserve">
+    <value>最新版と比較</value>
+  </data>
+  <data name="ContentNotifyOnComment" xml:space="preserve">
+    <value>コメントが投稿された時に通知</value>
+  </data>
+  <data name="ContentTab" xml:space="preserve">
+    <value>コンテンツ</value>
+  </data>
+  <data name="CreatedDateGridHeader" xml:space="preserve">
+    <value>作成日時</value>
+  </data>
+  <data name="CurrentVersionHeadingFormat" xml:space="preserve">
+    <value>最新版の作成日時 {0}</value>
+  </data>
+  <data name="DeleteAllHistoryButton" xml:space="preserve">
+    <value>すべての履歴の削除</value>
+  </data>
+  <data name="DeleteAllHistoryWarning" xml:space="preserve">
+    <value>このコンテンツのすべての履歴を削除してよろしいか？</value>
+  </data>
+  <data name="DeleteHistoryButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DeleteHistoryItemWarning" xml:space="preserve">
+    <value>この履歴を削除してよろしいか？</value>
+  </data>
+  <data name="DeleteImageAltText" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DialogCloseLink" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="EditImageAltText" xml:space="preserve">
+    <value>このブログの編集</value>
+  </data>
+  <data name="EditPostPageTitle" xml:space="preserve">
+    <value>ブログエディター</value>
+  </data>
+  <data name="EnableContentRatingSetting" xml:space="preserve">
+    <value>レーティングを有効?:</value>
+  </data>
+  <data name="EnableRatingCommentsSetting" xml:space="preserve">
+    <value>レーティングのコメントを有効?:</value>
+  </data>
+  <data name="ExcerptTab" xml:space="preserve">
+    <value>抄録</value>
+  </data>
+  <data name="FriendlyUrlRegexWarning" xml:space="preserve">
+    <value>Url は、 ~/ で始まり空白を含んではいけません。</value>
+  </data>
+  <data name="GoogleMapEnableDirectionsSetting" xml:space="preserve">
+    <value>ルート案内を有効にする :</value>
+  </data>
+  <data name="GoogleMapEnableLocalSearchSetting" xml:space="preserve">
+    <value>場所を検索を表示:</value>
+  </data>
+  <data name="GoogleMapEnableMapTypeSetting" xml:space="preserve">
+    <value>航空写真+地図を表示:</value>
+  </data>
+  <data name="GoogleMapEnableZoomSetting" xml:space="preserve">
+    <value>ズームコントロールを表示:</value>
+  </data>
+  <data name="GoogleMapHeightSetting" xml:space="preserve">
+    <value>地図の高さ:</value>
+  </data>
+  <data name="GoogleMapIncludeWithExcerptSetting" xml:space="preserve">
+    <value>抄録に地図を表示</value>
+  </data>
+  <data name="GoogleMapInitialMapTypeSetting" xml:space="preserve">
+    <value>初期のマップの種類:</value>
+  </data>
+  <data name="GoogleMapInitialZoomSetting" xml:space="preserve">
+    <value>ズームレベル</value>
+  </data>
+  <data name="GoogleMapShowInfoWindowSetting" xml:space="preserve">
+    <value>住所を吹き出しに表示:</value>
+  </data>
+  <data name="GoogleMapWidthSetting" xml:space="preserve">
+    <value>地図の幅:</value>
+  </data>
+  <data name="MetaDescriptionLabel" xml:space="preserve">
+    <value>メタ・ディスクリプション</value>
+  </data>
+  <data name="MetaKeywordsLabel" xml:space="preserve">
+    <value>メタ・キーワード</value>
+  </data>
+  <data name="MetaTab" xml:space="preserve">
+    <value>ページのメタデータ</value>
+  </data>
+  <data name="OdiogoFeedIDSetting" xml:space="preserve">
+    <value>Odiogo フィード ID:</value>
+  </data>
+  <data name="OdiogoPodcastUrlSetting" xml:space="preserve">
+    <value>Odiogo ポッドキャスト Url:</value>
+  </data>
+  <data name="PageUrlInUseBlogErrorMessage" xml:space="preserve">
+    <value>この Url は既に使用しています。別の Url にしてください。</value>
+  </data>
+  <data name="PodcastLink" xml:space="preserve">
+    <value>ポッドキャスト</value>
+  </data>
+  <data name="PostAuthorFormat" xml:space="preserve">
+    <value>投稿者： {0}</value>
+  </data>
+  <data name="RequireAuthenticationForComments" xml:space="preserve">
+    <value>コメントに認証が必要?:</value>
+  </data>
+  <data name="RestoreToEditorButton" xml:space="preserve">
+    <value>エディターを旧版に戻す</value>
+  </data>
+  <data name="RSSAddCommentsLink" xml:space="preserve">
+    <value>RSS にコメントリンクを追加</value>
+  </data>
+  <data name="RSSAddSignature" xml:space="preserve">
+    <value>RSS に署名を追加</value>
+  </data>
+  <data name="ShowPageLeftContentSetting" xml:space="preserve">
+    <value>ブログでページの左コンテンツを表示?:</value>
+  </data>
+  <data name="ShowPageRightContentSetting" xml:space="preserve">
+    <value>ブログでページの右コンテンツを表示?:</value>
+  </data>
+  <data name="ShowPostAuthorSetting" xml:space="preserve">
+    <value>投稿者名を表示?:</value>
+  </data>
+  <data name="TitleRequiredWarning" xml:space="preserve">
+    <value>タイトルが必要です。</value>
+  </data>
+  <data name="UseExcerptInFeedSetting" xml:space="preserve">
+    <value>フィードに抄録を使用?</value>
+  </data>
+  <data name="VersionAsOfHeadingFormat" xml:space="preserve">
+    <value>作成日時 {0} の版</value>
+  </data>
+  <data name="WebSiteUrlRegexWarning" xml:space="preserve">
+    <value>urlは，http:// 又は https:// で始まります。</value>
+  </data>
+</root>

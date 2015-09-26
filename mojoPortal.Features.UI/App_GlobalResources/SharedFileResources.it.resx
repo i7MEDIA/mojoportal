@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FileManagerDelete" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="FileManagerDeleteConfirm" xml:space="preserve">
+    <value>Sicuro di volere eliminare i file selezionati?</value>
+  </data>
+  <data name="FileManagerFileNameLabel" xml:space="preserve">
+    <value>Nome File</value>
+  </data>
+  <data name="FileManagerFolderDeleteConfirm" xml:space="preserve">
+    <value>Sicuro di volere eliminare le cartelle e i file selezionati?</value>
+  </data>
+  <data name="FileManagerGoUp" xml:space="preserve">
+    <value>Su di Un Livello</value>
+  </data>
+  <data name="FileManagerModifiedLabel" xml:space="preserve">
+    <value>Modificato</value>
+  </data>
+  <data name="FileManagerNewFolderButton" xml:space="preserve">
+    <value>Nuova Cartella</value>
+  </data>
+  <data name="FileManagerObjectsLabel" xml:space="preserve">
+    <value>oggetto(i)</value>
+  </data>
+  <data name="FileManagerRename" xml:space="preserve">
+    <value>Rinomina</value>
+  </data>
+  <data name="FileManagerSizeLabel" xml:space="preserve">
+    <value>Dim.(KB)</value>
+  </data>
+  <data name="FileManagerUploadButton" xml:space="preserve">
+    <value>Carica</value>
+  </data>
+  <data name="SharedFilesArchiveDateLabel" xml:space="preserve">
+    <value>Data Archivio</value>
+  </data>
+  <data name="SharedFilesCancelButton" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="SharedFilesDeleteButton" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="SharedFilesDownloadLink" xml:space="preserve">
+    <value>Scarica</value>
+  </data>
+  <data name="SharedFilesEditFolderLabel" xml:space="preserve">
+    <value>Modifica Cartella</value>
+  </data>
+  <data name="SharedFilesEditLabel" xml:space="preserve">
+    <value>Modifica File</value>
+  </data>
+  <data name="SharedFilesEditLink" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="SharedFilesEditUploadDateLabel" xml:space="preserve">
+    <value>Caricato il</value>
+  </data>
+  <data name="SharedFilesEnableVersioningSetting" xml:space="preserve">
+    <value>Mantieni storia del file?:</value>
+  </data>
+  <data name="SharedFilesFeatureName" xml:space="preserve">
+    <value>Files Condivisi</value>
+  </data>
+  <data name="SharedFilesFileNameLabel" xml:space="preserve">
+    <value>Nome File:</value>
+  </data>
+  <data name="SharedFilesFileSizeLabel" xml:space="preserve">
+    <value>Dimensione File KB:</value>
+  </data>
+  <data name="SharedFilesFolderLabel" xml:space="preserve">
+    <value>Cartella</value>
+  </data>
+  <data name="SharedFilesFolderNameLabel" xml:space="preserve">
+    <value>Nome cartella:</value>
+  </data>
+  <data name="SharedFilesFolderParentLabel" xml:space="preserve">
+    <value>Cartella padre:</value>
+  </data>
+  <data name="SharedFilesHistoryLabel" xml:space="preserve">
+    <value>Storico file</value>
+  </data>
+  <data name="SharedFilesNotFoundMessage" xml:space="preserve">
+    <value>File Non Trovato</value>
+  </data>
+  <data name="SharedFilesRestoreLabel" xml:space="preserve">
+    <value>Ripristina</value>
+  </data>
+  <data name="SharedFilesUpdateButton" xml:space="preserve">
+    <value>Aggiorna</value>
+  </data>
+  <data name="SharedFilesUploadByLabel" xml:space="preserve">
+    <value>Caricato da:</value>
+  </data>
+  <data name="SharedFilesUploadDateLabel" xml:space="preserve">
+    <value>Caricato il:</value>
+  </data>
+  <data name="SharedFilesUploadedByLabel" xml:space="preserve">
+    <value>Caricato da</value>
+  </data>
+  <data name="SharedFilesUploadLabel" xml:space="preserve">
+    <value>Carica file</value>
+  </data>
+  <data name="SharedFilesSearchName" xml:space="preserve">
+    <value>Files Condivisi</value>
+  </data>
+  <data name="AddFileButton" xml:space="preserve">
+    <value>Aggiungi File...</value>
+  </data>
+  <data name="FileDescription" xml:space="preserve">
+    <value>Descrizione</value>
+  </data>
+  <data name="DownloadCountLabel" xml:space="preserve">
+    <value>Scaricato</value>
+  </data>
+  <data name="ShowDownloadCountToAllUsers" xml:space="preserve">
+    <value>Mostra conteggio scaricamento a tutti gli utenti?</value>
+  </data>
+  <data name="ShowDescription" xml:space="preserve">
+    <value>Mostra Descrizione?</value>
+  </data>
+  <data name="ShowModified" xml:space="preserve">
+    <value>Mostra Data di Modifica?</value>
+  </data>
+  <data name="ShowObjectCount" xml:space="preserve">
+    <value>Mostra Conteggio di Documenti e Cartelle?</value>
+  </data>
+  <data name="ShowSize" xml:space="preserve">
+    <value>Mostra Dimensione?</value>
+  </data>
+  <data name="ShowUploadedBy" xml:space="preserve">
+    <value>Mostra Caricato da?</value>
+  </data>
+  <data name="RootDirectoryReached" xml:space="preserve">
+    <value>Raggiunta cartella radice</value>
+  </data>
+  <data name="DefaultSortSetting" xml:space="preserve">
+    <value>Ordinamento Default</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Classe CSS Personalizzata</value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>Classe CSS Personalizzata non valida</value>
+  </data>
+  <data name="EditPageTitle" xml:space="preserve">
+    <value>Modifica File</value>
+  </data>
+  <data name="DropFile" xml:space="preserve">
+    <value>Trascina  un file qui o clicca il pulsante per selezionare un file</value>
+  </data>
+  <data name="DropFiles" xml:space="preserve">
+    <value>Trascina i files qui o clicca il pulsante per selezionare i files</value>
+  </data>
+  <data name="SelectFileButton" xml:space="preserve">
+    <value>Seleziona File...</value>
+  </data>
+  <data name="SelectFilesButton" xml:space="preserve">
+    <value>Seleziona i Files...</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>Caricamento Completato</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Caricamento...</value>
+  </data>
+  <data name="Root" xml:space="preserve">
+    <value>Radice</value>
+  </data>
+</root>

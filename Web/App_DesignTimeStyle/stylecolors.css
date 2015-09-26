@@ -1,0 +1,53 @@
+body { color: #555;}
+.pagebody {  background-color: #3A3A3A;  color: #555;  }
+
+#wrapwebsite {background-color:#FFF; }
+
+.div2columnright { background-color: #669966;  }
+a.ModuleEditLink ,
+a.ModuleEditLink:link ,
+a.ModuleEditLink:visited { color: #72A545; }
+a.ModuleEditLink:hover { color: #006699; }
+a.ModuleEditLink:active ,
+a.siteheading:link ,
+a.siteheading:visited ,
+a.siteheading:hover ,
+a.siteheading:active ,
+.sitelink ,
+a.sitelink:link ,
+a.sitelink:visited { color: #FFF; }
+a.sitelink:hover { color: #FFF; }
+a.sitelink:active { color: #FFF; }
+.accent { color: #FFF; }
+.selectedpage{color:Black; }
+a.SelectedPage:link { color:Black; }
+a.SelectedPage:visited { color:Black; }
+a.SelectedPage:hover {color:Black; }
+a.SelectedPage:active {color:Black; }
+a:link { color: #72A545;  }
+a:visited { color: #72A545;  }
+a:hover { color: #006699; }
+a:active { color: #72A545;  }
+legend a.ModuleEditLink { color: #ffc796; }
+legend a.ModuleEditLink:link {color: #ffc796; }
+legend a.ModuleEditLink:visited {color: #ffc796; }
+legend a.ModuleEditLink:hover {color: #ffc796; }
+legend a.ModuleEditLink:active {color: #ffc796; }
+.txtcopyright {color: #444; }
+.txterror {color: red }
+.TextLabel { background-color:#ECECEC; }
+.watermarktextbox { color:Gray; }
+.moduleedit { background-color: #C7D0D7; }
+div.moduletitle, span.moduletitle, tr.moduletitle, h2.moduletitle 
+{  color: #339900; }
+.modulesubtitle { color: white; background-color: #EAEAEA; } 
+.filesfooter { background-color: #00688E; color:White; }
+ul.linkitem li {background: #f2f2f2;}
+ul.linkitem a { color: #333;}
+ul.linkitem a:hover {background: #f2f2f2;color: #339900;}
+.modulerow{ background-color:#EAEAEA; }
+.modulealtrow { background-color: #eee;}
+h2 {color: #339900;}
+h3 {color: #333;}
+#wrapfooter { color: #CCC;background: #000;}
+#wrapfooter a { color: #FFF; }

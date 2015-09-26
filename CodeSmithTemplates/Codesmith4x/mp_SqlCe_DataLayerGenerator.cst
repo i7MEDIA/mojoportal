@@ -1,0 +1,467 @@
+<%-- 
+Name:  					C# DataLayer Methods for Sqlserver Compact Edition
+Author: 				Joe Audette
+Created:				2010-03-09
+Last Modified:			2012-08-11
+Description: 			Generates C#  a Static/Shared Data Layer class for Sqlserver Compact Edition
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author of stored procedure" %>
+<%@ Property Name="DataLayerNameSpace" Type="System.String" Default="mojoPortal.Data" Category="Style" Description="The Namespace of the Data Layer class" %>
+<%@ Property Name="TablePrefix" Type="System.String" Default="mp_" Category="Style" Description="Table Prfix" %>
+
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+<% if (SourceTable.PrimaryKey == null) throw new ApplicationException("SourceTable does not contain a primary key."); %>
+<% ColumnSchema primaryKey = SourceTable.PrimaryKey.MemberColumns[0]; %>
+// Author:					<%= Author %>
+// Created:					<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+// Last Modified:			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+// 
+// The use and distribution terms for this software are covered by the 
+// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
+// which can be found in the file CPL.TXT at the root of this distribution.
+// By using this software in any fashion, you are agreeing to be bound by 
+// the terms of this license.
+//
+// You must not remove this notice, or any other, from this software.
+	
+using System;
+using System.Data;
+using System.Data.Common;
+using System.Configuration;
+using System.Globalization;
+using System.IO;
+using System.Text;
+using System.Web;
+using System.Data.SqlServerCe;
+using mojoPortal.Data;
+
+namespace <%= DataLayerNameSpace %>
+{
+	public static class DB<%= GetClassName() %>
+    {
+       
+<% if (primaryKey.DataType == DbType.Guid) {  %>
+
+		<%="///" %> <summary>
+		<%="///" %> Inserts a row in the <%= SourceTable.Name %> table. Returns rows affected count.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.Columns[i].Name) %>"> <%= GetParamName(SourceTable.Columns[i].Name) %> </param>
+				<% } %>
+		/// <returns>int</returns>
+		public static int Create(
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.Columns[i]) %> <%= GetParamName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %>
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("INSERT INTO <%= SourceTable.Name %> ");
+			sqlCommand.Append("(");
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			sqlCommand.Append("<%= SourceTable.Columns[i].Name %><% if (i < SourceTable.Columns.Count - 1) { %>, ");<% }else{ %> "); <% } %>
+			<% } %>
+			sqlCommand.Append(")");
+			
+			sqlCommand.Append(" VALUES ");
+			sqlCommand.Append("(");
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			sqlCommand.Append("@<%= SourceTable.Columns[i].Name %><% if (i < SourceTable.Columns.Count - 1) { %>, ");<% }else{ %> "); <% } %>
+			<% } %>
+			sqlCommand.Append(")");
+			sqlCommand.Append(";");
+			
+			SqlCeParameter[] arParams = new SqlCeParameter[<%= SourceTable.Columns.Count%>];
+			
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			arParams[<%= i%>] = new SqlCeParameter("@<%= SourceTable.Columns[i].Name %>", SqlDbType.<%= GetSqlCeDbType(SourceTable.Columns[i]) %><%= GetParamSize(SourceTable.Columns[i]) %>);
+			arParams[<%= i%>].Direction = ParameterDirection.Input;
+			arParams[<%= i%>].Value = <%= GetParamValue(SourceTable.Columns[i]) %>;
+			
+			<% } %>
+			int rowsAffected = SqlHelper.ExecuteNonQuery(
+				ConnectionString.GetConnectionString(), 
+				CommandType.Text,
+				sqlCommand.ToString(), 
+				arParams);
+			
+			return rowsAffected;
+	
+		}
+	
+	<% } else { %>
+	
+		<%="///" %> <summary>
+		<%="///" %> Inserts a row in the <%= SourceTable.Name %> table. Returns new integer id.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.NonPrimaryKeyColumns[i].Name) %>"> <%= GetParamName(SourceTable.NonPrimaryKeyColumns[i].Name) %> </param>
+				<% } %>
+		/// <returns>int</returns>
+		public static int Create(
+		<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.NonPrimaryKeyColumns[i]) %> <%= GetParamName(SourceTable.NonPrimaryKeyColumns[i].Name) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %>
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("INSERT INTO <%= SourceTable.Name %> ");
+			sqlCommand.Append("(");
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			sqlCommand.Append("<%= SourceTable.NonPrimaryKeyColumns[i].Name %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>, ");<% }else{ %> "); <% } %>
+			<% } %>
+			sqlCommand.Append(")");
+			
+			sqlCommand.Append(" VALUES ");
+			sqlCommand.Append("(");
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			sqlCommand.Append("@<%= SourceTable.NonPrimaryKeyColumns[i].Name %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>, ");<% }else{ %> "); <% } %>
+			<% } %>
+			sqlCommand.Append(")");
+			sqlCommand.Append(";");
+	
+			SqlCeParameter[] arParams = new SqlCeParameter[<%= SourceTable.NonPrimaryKeyColumns.Count%>];
+			
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			arParams[<%= i%>] = new SqlCeParameter("@<%= SourceTable.NonPrimaryKeyColumns[i].Name %>", SqlDbType.<%= GetSqlCeDbType(SourceTable.NonPrimaryKeyColumns[i]) %><%= GetParamSize(SourceTable.NonPrimaryKeyColumns[i]) %>);
+			arParams[<%= i%>].Direction = ParameterDirection.Input;
+			arParams[<%= i%>].Value = <%= GetParamValue(SourceTable.NonPrimaryKeyColumns[i]) %>;
+			
+			<% } %>
+			
+			int newId = Convert.ToInt32(SqlHelper.DoInsertGetIdentitiy(
+                ConnectionString.GetConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams));
+			
+			return newId;
+	
+		}
+	
+	<% } %>
+	
+	
+		<%="///" %> <summary>
+		<%="///" %> Updates a row in the <%= SourceTable.Name %> table. Returns true if row updated.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.Columns[i].Name) %>"> <%= GetParamName(SourceTable.Columns[i].Name) %> </param>
+		<% } %>
+		/// <returns>bool</returns>
+		public static bool Update(
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.Columns[i]) %> <%= GetParamName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %> 
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("UPDATE <%= SourceTable.Name %> ");
+			sqlCommand.Append("SET  ");
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			sqlCommand.Append("<%= SourceTable.NonPrimaryKeyColumns[i].Name %> = @<%= SourceTable.NonPrimaryKeyColumns[i].Name %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>, ");<% }else{ %> "); <% } %>
+			<% } %>
+			
+			sqlCommand.Append("WHERE  ");
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			sqlCommand.Append("<%= SourceTable.PrimaryKey.MemberColumns[i].Name %> = @<%= SourceTable.PrimaryKey.MemberColumns[i].Name %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %> AND ");<% }else{ %> "); <% } %>
+			<% } %>
+			sqlCommand.Append(";");
+		
+			SqlCeParameter[] arParams = new SqlCeParameter[<%= SourceTable.Columns.Count %>];
+			
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			arParams[<%= i%>] = new SqlCeParameter("@<%= SourceTable.Columns[i].Name %>", SqlDbType.<%= GetSqlDbType(SourceTable.Columns[i]) %><%= GetParamSize(SourceTable.Columns[i]) %>);
+			arParams[<%= i%>].Direction = ParameterDirection.Input;
+			arParams[<%= i%>].Value = <%= GetParamValue(SourceTable.Columns[i]) %>;
+			
+			<% } %>
+			int rowsAffected = SqlHelper.ExecuteNonQuery(
+				ConnectionString.GetConnectionString(), 
+				CommandType.Text,
+				sqlCommand.ToString(), 
+				arParams);
+				
+			return (rowsAffected > -1);
+	
+		}
+		
+	
+		<%="///" %> <summary>
+		<%="///" %> Deletes a row from the <%= SourceTable.Name %> table. Returns true if row deleted.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %>"> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> </param>
+				<% } %>
+		/// <returns>bool</returns>
+		public static bool Delete(
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) %> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %> 
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("DELETE FROM <%=SourceTable.Name %> ");
+			sqlCommand.Append("WHERE ");
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			sqlCommand.Append("<%= SourceTable.PrimaryKey.MemberColumns[i].Name %> = @<%= SourceTable.PrimaryKey.MemberColumns[i].Name %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %> AND ");<% }else{ %> "); <% } %>
+			<% } %>
+			sqlCommand.Append(";");
+		
+			SqlCeParameter[] arParams = new SqlCeParameter[<%= SourceTable.PrimaryKey.MemberColumns.Count%>];
+			
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			arParams[<%= i%>] = new SqlCeParameter("@<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>", SqlDbType.<%= GetSqlDbType(SourceTable.PrimaryKey.MemberColumns[i]) %><%= GetParamSize(SourceTable.PrimaryKey.MemberColumns[i]) %>);
+			arParams[<%= i%>].Direction = ParameterDirection.Input;	
+			arParams[<%= i%>].Value = <%= GetParamValue(SourceTable.PrimaryKey.MemberColumns[i]) %>;
+				
+			<% } %> 
+			int rowsAffected = SqlHelper.ExecuteNonQuery(
+				ConnectionString.GetConnectionString(), 
+				CommandType.Text,
+				sqlCommand.ToString(), 
+				arParams);
+				
+			return (rowsAffected > -1);
+	
+		}
+		
+		<%="///" %> <summary>
+		<%="///" %> Gets an IDataReader with one row from the <%= SourceTable.Name %> table.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %>"> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> </param>
+				<% } %>
+		public static IDataReader GetOne(
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) %> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %> 
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT  * ");
+			sqlCommand.Append("FROM	<%= SourceTable.Name %> ");
+			sqlCommand.Append("WHERE ");
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			sqlCommand.Append("<%= SourceTable.PrimaryKey.MemberColumns[i].Name %> = @<%= SourceTable.PrimaryKey.MemberColumns[i].Name %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %> AND ");<% }else{ %> "); <% } %>
+			<% } %>
+			sqlCommand.Append(";");
+	
+			SqlCeParameter[] arParams = new SqlCeParameter[<%= SourceTable.PrimaryKey.MemberColumns.Count%>];
+			
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			arParams[<%= i%>] = new SqlCeParameter("@<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>", SqlDbType.<%= GetSqlDbType(SourceTable.PrimaryKey.MemberColumns[i]) %><%= GetParamSize(SourceTable.PrimaryKey.MemberColumns[i]) %>);
+			arParams[<%= i%>].Direction = ParameterDirection.Input;
+			arParams[<%= i%>].Value = <%= GetParamValue(SourceTable.PrimaryKey.MemberColumns[i]) %>;
+				
+			<% } %> 
+			return SqlHelper.ExecuteReader(
+				ConnectionString.GetConnectionString(), 
+				CommandType.Text,
+				sqlCommand.ToString(), 
+				arParams);
+				
+		}
+		
+		/// <summary>
+		/// Gets a count of rows in the <%= SourceTable.Name %> table.
+		/// </summary>
+		public static int GetCount()
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT  Count(*) ");
+			sqlCommand.Append("FROM	<%= SourceTable.Name %> ");
+			sqlCommand.Append(";");
+			
+			//SqlCeParameter[] arParams = new SqlCeParameter[1];
+
+            //arParams[0] = new SqlCeParameter("@ApplicationID", SqlDbType.UniqueIdentifier);
+            //arParams[0].Direction = ParameterDirection.Input;
+			//arParams[0].Value = applicationId;
+			
+			return Convert.ToInt32(SqlHelper.ExecuteScalar(
+				ConnectionString.GetConnectionString(),
+				CommandType.Text,
+				sqlCommand.ToString(),
+				null));
+		
+		}
+		
+		/// <summary>
+		/// Gets an IDataReader with all rows in the <%= SourceTable.Name %> table.
+		/// </summary>
+		public static IDataReader GetAll()
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT  * ");
+			sqlCommand.Append("FROM	<%= SourceTable.Name %> ");
+			sqlCommand.Append(";");
+			
+			//SqlCeParameter[] arParams = new SqlCeParameter[1];
+
+            //arParams[0] = new SqlCeParameter("@ApplicationID", SqlDbType.UniqueIdentifier);
+            //arParams[0].Direction = ParameterDirection.Input;
+			//arParams[0].Value = applicationId;
+			
+			return SqlHelper.ExecuteReader(
+				ConnectionString.GetConnectionString(),
+				CommandType.Text,
+				sqlCommand.ToString(),
+				null);
+		
+		}
+	
+		
+		/// <summary>
+		/// Gets a page of data from the <%= SourceTable.Name %> table.
+		/// </summary>
+		/// <param name="pageNumber">The page number.</param>
+		/// <param name="pageSize">Size of the page.</param>
+		/// <param name="totalPages">total pages</param>
+		public static IDataReader GetPage(
+			int pageNumber, 
+			int pageSize,
+			out int totalPages)
+		{
+			int pageLowerBound = (pageSize * pageNumber) - pageSize;
+			totalPages = 1;
+			int totalRows = GetCount();
+			
+			if (pageSize > 0) totalPages = totalRows / pageSize;
+			
+			if (totalRows <= pageSize)
+			{
+				totalPages = 1;
+			}
+			else
+			{
+				int remainder;
+				Math.DivRem(totalRows, pageSize, out remainder);
+				if (remainder > 0)
+				{
+					totalPages += 1;
+				}
+			}
+			
+			int offset = 0;
+            if (pageNumber > 1) { offset = (pageSize * pageNumber) - pageSize; }
+			
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT * ");
+			sqlCommand.Append("FROM	<%= SourceTable.Name %>  ");
+			//sqlCommand.Append("WHERE   ");
+			
+			//sqlCommand.Append("ORDER BY  "); 
+			//order by is required if using fetch and offset or an error will occur, uncomment it and put at least one column to sort by
+			
+			sqlCommand.Append("OFFSET " + offset.ToString(CultureInfo.InvariantCulture) + " ROWS ");
+            sqlCommand.Append("FETCH NEXT " + pageSize.ToString(CultureInfo.InvariantCulture) + "ROWS ONLY ");
+			
+			sqlCommand.Append(";");
+			
+			
+			//SqlCeParameter[] arParams = new SqlCeParameter[1];
+
+            //arParams[0] = new SqlCeParameter("@ApplicationID", SqlDbType.UniqueIdentifier);
+            //arParams[0].Direction = ParameterDirection.Input;
+			//arParams[0].Value = applicationId;
+            
+			return SqlHelper.ExecuteReader(
+				ConnectionString.GetConnectionString(),
+				CommandType.Text,
+				sqlCommand.ToString(),
+				null);
+			
+		}
+	}
+}
+
+
+<script runat="template">
+
+
+public string GetClassName()
+{
+	//if (SourceTable.Name.EndsWith("s"))
+	//{
+	//	return RemovePrefix(SourceTable.Name.Substring(0,SourceTable.Name.Length -1));
+	//}
+	//else
+	//{
+		return RemovePrefix(SourceTable.Name);
+	//}
+}
+
+public string RemovePrefix(string TableName)
+{
+
+	return TableName.Replace(TablePrefix,"");
+}
+
+public string GetParamSize(ColumnSchema column)
+{
+	switch(GetSqlDbType(column))
+	{
+		case "VarChar" :
+		case "NVarChar" :
+		case "NChar" :
+		if(column.Size == -1) { return "";}
+		return ", " + column.Size.ToString();
+		
+	}
+	
+	return "";
+
+}
+
+public string GetSqlCeDbType(ColumnSchema column)
+{
+	switch(GetSqlDbType(column))
+	{
+		
+		case "NVarChar" :
+		if(column.Size == -1) { return "NText"; }
+		return "NVarChar";
+		
+		case "VarBinary" :
+		return "Image";
+		
+	}
+	
+	return GetSqlDbType(column);
+
+
+
+}
+
+
+public string GetParamName(String columnName)
+{
+	if(columnName == "ID")
+			return "id";
+			
+	string firstLetter = columnName.Substring(0,1).ToLower();
+	string Result = firstLetter + columnName.Remove(0,1);
+	
+	return Result;
+}
+
+public string GetParamValue(ColumnSchema column)
+{
+	
+	return GetParamName(column.Name);
+
+
+}
+
+
+
+
+
+</script>

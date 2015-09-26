@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Clear" xml:space="preserve">
+    <value>Limpar</value>
+  </data>
+	<data name="DeleteSavedQuery" xml:space="preserve">
+    <value>Excluir consulta salva</value>
+  </data>
+	<data name="DevToolsHeading" xml:space="preserve">
+    <value>Ferramentas de desenvolvimento</value>
+  </data>
+	<data name="ExecuteNonQuery" xml:space="preserve">
+    <value>Executar consulta não</value>
+  </data>
+	<data name="ExecuteQuery" xml:space="preserve">
+    <value>Executar consulta</value>
+  </data>
+	<data name="LoadSavedQuery" xml:space="preserve">
+    <value>Carregar consulta salva</value>
+  </data>
+	<data name="NoQueryWarning" xml:space="preserve">
+    <value>Você não informou uma consulta</value>
+  </data>
+	<data name="QueryNameRequired" xml:space="preserve">
+    <value>Você deve informar um nome de consulta válido</value>
+  </data>
+	<data name="QueryToolHeadingFormat" xml:space="preserve">
+    <value>{0} Ferramenta de consulta</value>
+  </data>
+	<data name="QueryToolLink" xml:space="preserve">
+    <value>Ferramenta de consulta</value>
+  </data>
+	<data name="QueryToolWarning" xml:space="preserve">
+    <value>Grandes poderes requerem grandes responsabilidades. É possível excluir todo o conteúdo do site com esta ferramenta. Não use se você não conhece SQL.</value>
+  </data>
+	<data name="SavedQueries" xml:space="preserve">
+    <value>Consultas Salvas</value>
+  </data>
+	<data name="SaveQueryAs" xml:space="preserve">
+    <value>Salvar consulta como...</value>
+  </data>
+	<data name="ServerVariablesLink" xml:space="preserve">
+    <value>Variáveis de servidor</value>
+  </data>
+	<data name="SqlQuery" xml:space="preserve">
+    <value>Consultas SQL</value>
+  </data>
+	<data name="SelectButton" xml:space="preserve">
+    <value>Selecionar</value>
+  </data>
+	<data name="Tables" xml:space="preserve">
+    <value>Tabelas</value>
+  </data>
+	<data name="DesignTools" xml:space="preserve">
+    <value>Ferramentas de Design</value>
+  </data>
+	<data name="DisableCssCaching" xml:space="preserve">
+    <value>Desativar cache de CSS</value>
+  </data>
+	<data name="EnableCssCaching" xml:space="preserve">
+    <value>Ativar cache de CSS</value>
+  </data>
+	<data name="CacheTool" xml:space="preserve">
+    <value>Ferramenta de Cache</value>
+  </data>
+	<data name="DownloadSkin" xml:space="preserve">
+    <value>Baixar Skin</value>
+  </data>
+	<data name="SkinManagement" xml:space="preserve">
+    <value>Gerenciador de Skins</value>
+  </data>
+	<data name="GenerateCss" xml:space="preserve">
+    <value>Gerar CSS</value>
+  </data>
+	<data name="LessInstructions" xml:space="preserve">
+    <value>Digite o código menos na parte superior e clique no botão para gerar CSS na parte inferior.</value>
+  </data>
+	<data name="LessUtility" xml:space="preserve">
+    <value>MENOS utilidade</value>
+  </data>
+	<data name="ExportQueryDataAsCSV" xml:space="preserve">
+    <value>Executar a consulta e exportar como CSV</value>
+  </data>
+</root>

@@ -1,0 +1,6 @@
+body{}
+.AspNet-GridView table thead tr th { padding: 2px; }
+.AspNet-GridView table tbody tr td
+{ color: #333333; background: White; padding: 2px 20px 2px 2px; border-bottom: solid 1px #CCCCCC;
+    border-right: solid 1px #CCCCCC; text-align: left; }
+.AspNet-GridView table tbody tr.AspNet-GridView-Alternate td { background: #F7F6F3; }

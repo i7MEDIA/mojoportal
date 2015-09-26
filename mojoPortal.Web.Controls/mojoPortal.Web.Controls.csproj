@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>mojoPortal.Web.Controls</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>mojoPortal.Web.Controls</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>..\Documents\xml\mojoPortal.Web.Controls.XML</DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <NoWarn>1591</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - MySql|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug - MySql\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - MySql|AnyCPU'">
+    <OutputPath>bin\Release - MySql\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>..\Documents\xml\mojoPortal.Web.Controls.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <FileAlignment>4096</FileAlignment>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <NoWarn>1591</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - Firebird|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug - Firebird\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - Firebird|AnyCPU'">
+    <OutputPath>bin\Release - Firebird\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>..\Documents\xml\mojoPortal.Web.Controls.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <FileAlignment>4096</FileAlignment>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <NoWarn>1591</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - pgsql|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug - pgsql\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - pgsql|AnyCPU'">
+    <OutputPath>bin\Release - pgsql\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>..\Documents\xml\mojoPortal.Web.Controls.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <FileAlignment>4096</FileAlignment>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <NoWarn>1591</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - SqlCe|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug - SqlCe\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - SqlCe|AnyCPU'">
+    <OutputPath>bin\Release - SqlCe\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>..\Documents\xml\mojoPortal.Web.Controls.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <FileAlignment>4096</FileAlignment>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <NoWarn>1591</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - SQLite|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug - SQLite\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - SQLite|AnyCPU'">
+    <OutputPath>bin\Release - SQLite\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>..\Documents\xml\mojoPortal.Web.Controls.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <FileAlignment>4096</FileAlignment>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <NoWarn>1591</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MetaDataExtractor, Version=2.3.0.38010, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\MetaDataExtractor.dll</HintPath>
+    </Reference>
+    <Reference Include="Subkismet, Version=1.0.3.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\_libs\Subkismet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions">
+      <SpecificVersion>False</SpecificVersion>
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdRotator\AdCreatedEventArgs.cs" />
+    <Compile Include="AdRotator\AdCreatedEventHandler.cs" />
+    <Compile Include="AdRotator\AdRotator.cs" />
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Captcha\CaptchaConfiguration.cs" />
+    <Compile Include="Captcha\CaptchaControl.cs" />
+    <Compile Include="Captcha\CaptchaManager.cs" />
+    <Compile Include="Captcha\CaptchaProvider.cs" />
+    <Compile Include="Captcha\CaptchaProviderCollection.cs" />
+    <Compile Include="Captcha\ICaptcha.cs" />
+    <Compile Include="Captcha\SimpleMathCaptchaAdapter.cs" />
+    <Compile Include="Captcha\SimpleMathCaptchaControl.cs" />
+    <Compile Include="Captcha\SimpleMathCaptchaProvider.cs" />
+    <Compile Include="Captcha\SimpleMathQuestion.cs" />
+    <Compile Include="Captcha\SubkismetCaptchaAdapter.cs" />
+    <Compile Include="Captcha\SubkismetCaptchaProvider.cs" />
+    <Compile Include="Captcha\SubkismetInvisibleCaptchaAdapter.cs" />
+    <Compile Include="Captcha\SubkismetInvisibleCaptchaProvider.cs" />
+    <Compile Include="CollapseLinkButton.cs" />
+    <Compile Include="CornerRounderBottom.cs" />
+    <Compile Include="CornerRounderTop.cs" />
+    <Compile Include="CutePager.cs" />
+    <Compile Include="DataCalendar.cs" />
+    <Compile Include="DataCalendarItem.cs" />
+    <Compile Include="DatePicker\DatePickerConfiguration.cs" />
+    <Compile Include="DatePicker\DatePickerControl.cs" />
+    <Compile Include="DatePicker\DatePickerManager.cs" />
+    <Compile Include="DatePicker\DatePickerProvider.cs" />
+    <Compile Include="DatePicker\DatePickerProviderCollection.cs" />
+    <Compile Include="DatePicker\IDatePicker.cs" />
+    <Compile Include="DatePicker\jsCalendarDatePickerAdapter.cs" />
+    <Compile Include="DatePicker\jsCalendarDatePickerProvider.cs" />
+    <Compile Include="EventCalendar\CalendarDay.cs" />
+    <Compile Include="EventCalendar\ItemTemplates.cs" />
+    <Compile Include="EventCalendar\DayNumberDiv.cs" />
+    <Compile Include="EventCalendar\EventCalendar.cs" />
+    <Compile Include="FancyPagerTemplate.cs" />
+    <Compile Include="FlashMovie.cs" />
+    <Compile Include="FlexibleGridView.cs" />
+    <Compile Include="FolderGallery\AlbumControl.cs" />
+    <Compile Include="FolderGallery\AlbumFolderInfo.cs" />
+    <Compile Include="FolderGallery\AlbumHandlerMode.cs" />
+    <Compile Include="FolderGallery\AlbumNavigationMode.cs" />
+    <Compile Include="FolderGallery\AlbumPageInfo.cs" />
+    <Compile Include="FolderGallery\AlbumTemplateContainer.cs" />
+    <Compile Include="FolderGallery\ImageCacheLocation.cs" />
+    <Compile Include="FolderGallery\ImageHelper.cs" />
+    <Compile Include="FolderGallery\ImageInfo.cs" />
+    <Compile Include="google\Analytics\AnalyticsTransaction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="google\Analytics\AnalyticsTransactionItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="google\Analytics\GoogleAnalyticsScript.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="google\GMapBasePanel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="google\GmapType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="google\GStaticMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="google\GStaticMapType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="google\LocationMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GraphicalCheckBox.cs" />
+    <Compile Include="GraphicalControlsSettings.cs" />
+    <Compile Include="GraphicalRadioButton.cs" />
+    <Compile Include="Gravatar\Gravatar.cs" />
+    <Compile Include="HelpLinkButton.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="InsecurePanel.cs" />
+    <Compile Include="jsCalendarDatePicker.cs" />
+    <Compile Include="mojoGridView.cs" />
+    <Compile Include="Odiogo\OdiogoItem.cs" />
+    <Compile Include="SeparatorControl.cs" />
+    <Compile Include="Sharing\AddThisButton.cs" />
+    <Compile Include="SiteLabel.cs" />
+    <Compile Include="SmartCombo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WatermarkTextBox.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GraphicalCheckBox.bmp" />
+    <Content Include="GraphicalRadioButton.bmp" />
+    <Content Include="Gravatar\Gravatar.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
+      <Project>{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}</Project>
+      <Name>mojoPortal.Web.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

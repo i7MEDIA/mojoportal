@@ -1,0 +1,7 @@
+.TaskbarMain		{ overflow: hidden; font-family: Arial, Helvetica; font-size: 11px; background: buttonface; border: 1px solid threedshadow }
+.TaskbarFolder		{ font-family: Arial, Helvetica; font-size: 11px; cursor: default; background-color:buttonface; border-bottom:1px solid buttonshadow; border-top:1px solid window; border-right:1px solid buttonshadow; border-left:1px solid window; }
+.TaskbarItemOut		{ border:1px solid buttonface }
+.TaskbarItemOver	{ border:1px solid threedshadow }
+.TaskbarImgOut      { background-color:buttonface; border:3px solid buttonface; }
+.TaskbarImgOver		{ background-color:#B5BED6; border:3px solid #B5BED6; }
+.TaskbarItem		{ background: buttonface; }

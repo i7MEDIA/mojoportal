@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.w3.org/1999/xhtml"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.w3.org/1999/xhtml">
+
+  <xs:annotation>
+    <xs:documentation>
+      This is the XML Schema Inline Frame Element module for XHTML
+      $Id: xhtml-iframe-1.xsd,v 1.1 2003/12/17 03:09:17 ahby Exp $
+    </xs:documentation>
+    <xs:documentation source="xhtml-copyright-1.xsd"/>
+  </xs:annotation>
+
+  <xs:annotation>
+    <xs:documentation>
+      Inline Frames 
+      
+        * iframe
+    
+      This module declares the iframe element type and its attributes,
+      used to create an inline frame within a document. 
+    </xs:documentation>
+    <xs:documentation 
+         source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_iframemodule"/>
+  </xs:annotation>
+
+  <xs:attributeGroup name="iframe.attlist">
+    <xs:attributeGroup ref="Core.attrib"/>
+    <xs:attribute name="longdesc" type="URI"/>
+    <xs:attribute name="src" type="URI"/>
+    <xs:attribute name="frameborder" default="1">
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="marginwidth" type="Pixels"/>
+    <xs:attribute name="marginheight" type="Pixels"/>
+    <xs:attribute name="scrolling" default="auto">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="yes"/>
+          <xs:enumeration value="no"/>
+          <xs:enumeration value="auto"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="height" type="Length"/>
+    <xs:attribute name="width" type="Length"/>
+  </xs:attributeGroup>
+
+  <xs:group name="iframe.content">
+     <xs:sequence>
+        <xs:group ref="Flow.mix" minOccurs="0" maxOccurs="unbounded"/>
+     </xs:sequence>
+  </xs:group>  
+  
+  <xs:complexType name="iframe.type" mixed="true">
+    <xs:group ref="iframe.content"/>
+    <xs:attributeGroup ref="iframe.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="iframe" type="iframe.type"/>
+
+</xs:schema>

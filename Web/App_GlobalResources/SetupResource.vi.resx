@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CantAlterSchemaWarning" xml:space="preserve">
+    <value>mojoSetup đã phát hiện ra rằng người sử dụng cơ sở dữ liệu không được phép thay đổi giản đồ cơ sở dữ liệu. Bạn cần phải sửa điều này hoặc cung cấp một chuỗi kết nối với sự cho phép đầy đủ.</value>
+  </data>
+  <data name="CantCreateTempTablesMessage" xml:space="preserve">
+    <value>mojoSetup đã phát hiện ra rằng người sử dụng cơ sở dữ liệu không được phép tạo ra các bảng tạm thời. Bạn cần phải sửa điều này hoặc một số tính năng quan trọng sẽ không làm việc.</value>
+  </data>
+  <data name="CantProceedMessage" xml:space="preserve">
+    <value>Trình cài đặt không thể tiến hành cho đến khi các vấn đề hiển thị ở trên được sửa đúng.</value>
+  </data>
+  <data name="CodeUpgradeNeededMessage" xml:space="preserve">
+    <value>Bạn cần phải nâng cấp trang web và mã cơ sở dữ liệu cùng một phiên bản với lược đồ cơ sở dữ liệu.</value>
+  </data>
+  <data name="ConfigureFeatureMessage" xml:space="preserve">
+    <value>Đang cấu hình tính năng {0}</value>
+  </data>
+  <data name="ConfigureFeaturesMessage" xml:space="preserve">
+    <value>Đang cấu hình {0}...</value>
+  </data>
+  <data name="ConnectionStringFailedMessage" xml:space="preserve">
+    <value>Chuổi kết nối bạn nhập vào không đúng hoặc quyền hạn không đủ để thay đổi cơ sở dữ liệu</value>
+  </data>
+  <data name="ConnectionStringRequiredError" xml:space="preserve">
+    <value>Yêu cầu phải có chuổi kết nối</value>
+  </data>
+  <data name="CouldNotInstallFeatureSchemaMessage" xml:space="preserve">
+    <value>Không thể cài đặt ứng dụng {0} bởi vì thư mục {1} không tồn tại.</value>
+  </data>
+  <data name="CreateInitialDataButton" xml:space="preserve">
+    <value>Tạo ra dữ liệu ban đầu</value>
+  </data>
+  <data name="CreatingDefaultContent" xml:space="preserve">
+    <value>Không tìm thấy trang nào, đang tạo nội dung mặc định...</value>
+  </data>
+  <data name="CreatingPageMessage" xml:space="preserve">
+    <value>Đang tạo trang {0}</value>
+  </data>
+  <data name="CreatingRolesAndAdminUserMessage" xml:space="preserve">
+    <value>Đang tạo quyền và người dùng quản trị...</value>
+  </data>
+  <data name="CreatingSiteMessage" xml:space="preserve">
+    <value>Đang tạo site với cấu hình chuẩn...</value>
+  </data>
+  <data name="DatabaseCanAlterSchemaMessage" xml:space="preserve">
+    <value>Quyền truy cập cơ sở dữ liệu đủ để thay đổi giản đồ.</value>
+  </data>
+  <data name="DatabaseCanCreateTempTablesMessage" xml:space="preserve">
+    <value>Quyền truy cập cơ sở dữ liệu đủ để tạo các bảng tạm thời.</value>
+  </data>
+  <data name="DatabaseCodeVersionLabel" xml:space="preserve">
+    <value>Phiên bản mã cơ sở dữ liệu</value>
+  </data>
+  <data name="DatabaseConnectionOKMessage" xml:space="preserve">
+    <value>kết nối cơ sở dữ liệu tốt.</value>
+  </data>
+  <data name="DatabasePlatformLabel" xml:space="preserve">
+    <value>Nền tảng cơ sở dữ liệu</value>
+  </data>
+  <data name="DatabaseSchemaAlreadyExistsMessage" xml:space="preserve">
+    <value>Lược đồ cơ sở dữ liệu ban đầu đã tồn tại.</value>
+  </data>
+  <data name="DatabaseSchemaNeedsUpgradeMessage" xml:space="preserve">
+    <value>Lược đồ cơ sở dữ liệu lõi cần được nâng cấp.</value>
+  </data>
+  <data name="DatabaseSchemaNotCreatedYetMessage" xml:space="preserve">
+    <value>Cần tạo lược đồ cơ sở dữ liệu ban đầu.</value>
+  </data>
+  <data name="DatabaseSchemaUpToDateMessage" xml:space="preserve">
+    <value>Lược đồ cơ sở dữ liệu lõi cần đã được cập nhật.</value>
+  </data>
+  <data name="DatabaseStatusLabel" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="DataFolderNotWritableMessage" xml:space="preserve">
+    <value>Thư mục Data ở thư mục gốc của trang web không thể ghi bởi tiến trình làm việc của ASP.NET.
+
+Bạn cần phải làm cho thư mục này và tất cả các thư mục và tập tin con của nó có thể ghi được trước khi cài đặt có thể tiến hành. mojoPortal cần điều này để có thể ghi tập tin chỉ mục tìm kiếm, các bản ghi lỗi, tải lên thư viện hình ảnh và các tính năng quan trọng khác.
+
+Nhấn chuột phải lên thư mục Data trong Windows Explorer, chọn Properties và vào tab Security. (Trên XP nếu bạn không thấy tab Security thì tìm kiến trên Google với từ khóa XP Simple File Sharing để tìm hiểu làm thế nào để tab đó xuất hiện.) Trên XP, bạn thường cần phải cấp quyền ghi cho người dùng ASPNET trong khi trên Windows 2003 bạn cần phải cấp cho người dùng IIS_WPG.
+
+Rõ ràng, chỉ dẫn có khác một chút với Linux/Mono nhưng có cùng một nguyên tắc, thư mục Data và tất cả các đối tượng con phải được phép ghi.
+
+</value>
+  </data>
+  <data name="DataGalleryFolderNotWritableMessage" xml:space="preserve">
+    <value>Thư mục Data/Sites/1/GalleryImages không có quyền ghi</value>
+  </data>
+  <data name="DataRootNotWritableMessage" xml:space="preserve">
+    <value>Thư mục Data không có quyền ghi</value>
+  </data>
+  <data name="DataSharedFilesFolderNotWritableMessage" xml:space="preserve">
+    <value>Thư mục Data/Sites/1/SharedFiles/ không có quyền ghi</value>
+  </data>
+  <data name="DataSharedFilesHistoryFolderNotWritableMessage" xml:space="preserve">
+    <value>Thư mục Data/Sites/1/SharedFiles/History/ không có quyền ghi</value>
+  </data>
+  <data name="DataSiteFolderNotWritableMessage" xml:space="preserve">
+    <value>Thư mục Data/Sites/1/ không có quyền ghi</value>
+  </data>
+  <data name="DataSiteIndexFolderNotWritableMessage" xml:space="preserve">
+    <value>Thư mục Data/Sites/1/index/ không có quyền ghi</value>
+  </data>
+  <data name="DataSystemFilesFolderNotWritableMessage" xml:space="preserve">
+    <value>Thư mục Data/Sites/1/systemfiles/ không có quyền ghi</value>
+  </data>
+  <data name="EnsuringFeaturesInAdminSites" xml:space="preserve">
+    <value>Bảo đảm tất cả các tính năng được cài đặt trong các trang web quản trị máy chủ ...</value>
+  </data>
+  <data name="ErrorMessageLabel" xml:space="preserve">
+    <value>Thông báo lỗi</value>
+  </data>
+  <data name="ErrorOccurredLabel" xml:space="preserve">
+    <value>Có lỗi xảy ra</value>
+  </data>
+  <data name="ExistingSiteCountMessageMessage" xml:space="preserve">
+    <value>{0} trang được tìm thấy.</value>
+  </data>
+  <data name="FailedToConnectToDatabase" xml:space="preserve">
+    <value>Hệ thống không thể kết nối với cơ sở dữ liệu {0}. Xin vui lòng kiểm tra chuỗi kết nối.</value>
+  </data>
+  <data name="FailedToConnectToDatabaseHelp" xml:space="preserve">
+    <value>Để xem các thông báo lỗi kết nối cụ thể, đặt ShowConnectionErrorOnSetup thành true trong Web.config</value>
+  </data>
+  <data name="FileSystemPermissionProblemsMessage" xml:space="preserve">
+    <value>Tìm thấy vấn đề về quyền hệ thống tập tin.</value>
+  </data>
+  <data name="FileSystemPermissionsOKMesage" xml:space="preserve">
+    <value>Quyền hệ thống tập tin OK</value>
+  </data>
+  <data name="FirebirdAutoDBCreationNotYetSupportedException" xml:space="preserve">
+    <value>Tạo lược đồ tự động chưa làm việc trên Firebird Sql. Bạn sẽ cần phải chạy thủ công các script đặt tại</value>
+  </data>
+  <data name="FirebirdAutoUpgradeNotYetSupportedException" xml:space="preserve">
+    <value>Tự động nâng cấp lược đồ chưa được hỗ trợ trên Firebird. Bạn sẽ cần phải chạy các script đặt tại {0} bắt đầu sau {1}.config</value>
+  </data>
+  <data name="FolderDetailsLabel" xml:space="preserve">
+    <value>Chi tiết thư mục</value>
+  </data>
+  <data name="HomeLink" xml:space="preserve">
+    <value>Trang chủ</value>
+  </data>
+  <data name="InstallationUpToDateMessage" xml:space="preserve">
+    <value>Cài đặt của bạn được cập nhật.</value>
+  </data>
+  <data name="LastServerErrorLabel" xml:space="preserve">
+    <value>Lỗi máy chủ gần đây nhất:</value>
+  </data>
+  <data name="MediumTrustCommentOutNeatUploadInstructionLine1" xml:space="preserve">
+    <value>Để loại bỏ NeatUpload, tìm trong file Web.config trong phần &lt;httpModules&gt; và thay bằng:</value>
+  </data>
+  <data name="MediumTrustCommentOutNeatUploadPreambleMessage" xml:space="preserve">
+    <value>Bạn nên bỏ mô-đun NeatUpload vì nó không được hỗ trợ trong Medium Trust, trừ khi nó được cài đặt trong Global Assembly Cache trên máy chủ.
+Để biết thêm thông tin, xem tại http://www.mojoportal.com/mediumtrust.aspx</value>
+  </data>
+  <data name="MediumTrustGeneralMessage" xml:space="preserve">
+    <value>Trang web này có vẻ được chạy trong môi trường sử dụng chính sách Medium Trust hoặc ít nhất hơn thấp hơn Full Trust.</value>
+  </data>
+  <data name="MediumTrustLuceneConfigPreambleMessage" xml:space="preserve">
+    <value>Để Search Engine làm việc trong Medium Trust, bạn cần phải thêm mục sau vào Web.config trong phần appSettings:</value>
+  </data>
+  <data name="MediumTrustMySQLMessage" xml:space="preserve">
+    <value>Để sử dụng MySQL dưới Medium Trust, MySQL Connector for .NET phải được cài đặt trong Global Assembly Cache trên máy chủ. Nếu bạn thấy SecurityException trong thông báo lỗi thì Connector chưa được cài đặt.
+Bạn có thể tải MySql Connector for .NET từ đây: http://dev.mysql.com/downloads/connector/net/5.0.html</value>
+  </data>
+  <data name="MediumTrustNeatUploadCommentedOutExample" xml:space="preserve">
+    <value>&lt;!--
+&lt;add name="HttpUploadModule" type="Brettle.Web.NeatUpload.UploadHttpModule, Brettle.Web.NeatUpload" /&gt;
+--&gt;</value>
+  </data>
+  <data name="MediumTrustNeatUploadWrongConfigExample" xml:space="preserve">
+    <value>&lt;add name="HttpUploadModule" type="Brettle.Web.NeatUpload.UploadHttpModule, Brettle.Web.NeatUpload" /&gt;</value>
+  </data>
+  <data name="MediumTrustnpgsqlMessage" xml:space="preserve">
+    <value>Để sử dụng PostgreSQL dưới Medium Trust, thư viện npgsql Data Access phải được cài đặt dưới Global Assembly Cache trên máy chủ. Nếu bạn thấy SecurityException dưới đây thì thành phần npgsql vẫn chưa được cài đặt.
+Bạn có thể xem thêm thông tin hoặc tải về npgsql từ đây: http://npgsql.projects.postgresql.org/</value>
+  </data>
+  <data name="NoScriptsFilesFoundMessage" xml:space="preserve">
+    <value>Không có script nào được tìm thấy trong thư mục</value>
+  </data>
+  <data name="NoSitesMessage" xml:space="preserve">
+    <value>Không có trang web được tạo ra, nhấp vào nút để tạo dữ liệu cho trang web đầu tiên.</value>
+  </data>
+  <data name="NoUpgradeScriptsFound" xml:space="preserve">
+    <value>Không tìm thấy script nâng cấp nào cho {0}. Có lẽ đã được cập nhật.</value>
+  </data>
+  <data name="OverrideConnectionStringLabel" xml:space="preserve">
+    <value>Chuỗi kết nối:</value>
+  </data>
+  <data name="ProbingSystemMessage" xml:space="preserve">
+    <value>Thăm dò hệ thống ...</value>
+  </data>
+  <data name="RunningScriptMessage" xml:space="preserve">
+    <value>Đang chạy script {0} / {1}</value>
+  </data>
+  <data name="RunningSetupForAdminUser" xml:space="preserve">
+    <value>Cài đặt bị vô hiệu hóa nhưng vẫn chạy cài đặt bởi vì người dùng hiện tại là một quản trị viên.</value>
+  </data>
+  <data name="RunTimeLabel" xml:space="preserve">
+    <value>UTC Run Time</value>
+  </data>
+  <data name="SchemaUpgradeFolderNotFound" xml:space="preserve">
+    <value>Không nâng cấp ứng dụng {0} bởi vì thư mục {1} không tồn tại.</value>
+  </data>
+  <data name="SchemaUpgradeNeededMessage" xml:space="preserve">
+    <value>Bạn cần phải nâng cấp lược đồ cơ sở dữ liệu để có cùng phiên bản với mã nguồn.</value>
+  </data>
+  <data name="ScriptFileLabel" xml:space="preserve">
+    <value>Tập tin script</value>
+  </data>
+  <data name="ScriptFolderNotFoundAddendum" xml:space="preserve">
+    <value>không tìm thấy. Không thể chạy script.</value>
+  </data>
+  <data name="ScriptFolderNotFoundMessage" xml:space="preserve">
+    <value>không tìm thấy. Không thể chạy script.</value>
+  </data>
+  <data name="SetupDisabledMessage" xml:space="preserve">
+    <value>Cài đặt đã bị vô hiệu hóa. Để tiếp tục, xin vui lòng đặt lại DisableSetup thành false trong Web.config</value>
+  </data>
+  <data name="SetupEnabledMessage" xml:space="preserve">
+    <value>Lưu ý: Trang này hiển thị một số thông tin hữu ích trong quá trình cài đặt và nâng cấp, nhưng để bảo mật, tốt nhất là không hiện bất kỳ thông tin nào khi hệ thống đã được cập nhật. Bạn có thể vô hiệu hóa cài đặt và ngăn chặn tất cả các thông tin trên trang này bằng thiết lập DisableSetup=true trong Web.config. Khi bạn cần nâng cấp, bạn có thể đặt lại là false. Nếu bạn đăng nhập với tài khoản quản trị cài đặt sẽ chạy và bạn sẽ có thể thấy trang này ngay cả khi nó bị vô hiệu hóa trong Web.config, do đó bạn có thể cứ để vô hiệu hóa và chỉ cần đăng nhập trước khi nâng cấp. Nhưng nếu bạn chưa đăng nhập bạn sẽ cần cho phép cài đặt trong Web.config.
+</value>
+  </data>
+  <data name="SetupSuccessMessage" xml:space="preserve">
+    <value>Cài đặt hoàn tất, bấm vào liên kết bên dưới để vào trang chủ.</value>
+  </data>
+  <data name="SetupTitle" xml:space="preserve">
+    <value>Cài đặt mojoPortal</value>
+  </data>
+  <data name="SetupWelcomeMessage" xml:space="preserve">
+    <value>Chào mừng đến với trình cài đặt mojoPortal</value>
+  </data>
+  <data name="ToThisLabel" xml:space="preserve">
+    <value>này:</value>
+  </data>
+  <data name="UpgradeOverrideInstructions" xml:space="preserve">
+    <value>Hệ thống không thể thực hiện các thay đổi lược đồ cần thiết bằng cách sử dụng chuỗi kết nối hiện tại. Xin vui lòng nhập vào một chuỗi kết nối ở đây với sự cho phép đủ để làm thay đổi lược đồ.</value>
+  </data>
+  <data name="UpgradeSchemaButton" xml:space="preserve">
+    <value>Nâng cấp lược đồ</value>
+  </data>
+  <data name="UpgradeTitle" xml:space="preserve">
+    <value>Nâng cấp mojoPortal</value>
+  </data>
+  <data name="VersionLabel" xml:space="preserve">
+    <value>Phiên bản</value>
+  </data>
+  <data name="DatabaseCreationSucceeded" xml:space="preserve">
+    <value>Cơ sở dữ liệu đã được tạo thành công</value>
+  </data>
+  <data name="TryingToCreateDatabase" xml:space="preserve">
+    <value>Đang tạo cơ sở dữ liệu</value>
+  </data>
+</root>

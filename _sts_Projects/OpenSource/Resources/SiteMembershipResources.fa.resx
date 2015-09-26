@@ -1,0 +1,618 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewMembershipDefinition" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="AddNewProduct" xml:space="preserve">
+    <value>جدید</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>و</value>
+  </data>
+  <data name="AvailableOnlyForNewMembers" xml:space="preserve">
+    <value>* تنها برای کاربران جدید ممکن است</value>
+  </data>
+  <data name="BeginDate" xml:space="preserve">
+    <value>تاریخ شروع</value>
+  </data>
+  <data name="PlainTextBody" xml:space="preserve">
+    <value>متن ایمیل در فرمت متنی ساده</value>
+  </data>
+  <data name="BrowseCarts" xml:space="preserve">
+    <value>مرور سبدهای خرید</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>لطفا منتظر بمانید...</value>
+  </data>
+  <data name="BuyNow" xml:space="preserve">
+    <value>خرید</value>
+  </data>
+  <data name="CardExpires" xml:space="preserve">
+    <value>منقضی می شود</value>
+  </data>
+  <data name="CardNumber" xml:space="preserve">
+    <value>شماره کارت</value>
+  </data>
+  <data name="CardOwnerFirstName" xml:space="preserve">
+    <value>نام صاحب کارت</value>
+  </data>
+  <data name="CardOwnerLastName" xml:space="preserve">
+    <value>نام خانوادگی صاحب کارت</value>
+  </data>
+  <data name="CardSecurityCode" xml:space="preserve">
+    <value>کد امنیتی</value>
+  </data>
+  <data name="CardType" xml:space="preserve">
+    <value>نوع کارت</value>
+  </data>
+  <data name="CheckoutHeader" xml:space="preserve">
+    <value>لطفا درخواست خود را بررسی کنید و در صورت تایید ارسال نمایید</value>
+  </data>
+  <data name="CheckoutLink" xml:space="preserve">
+    <value>ثبت خرید</value>
+  </data>
+  <data name="CompleteOrder" xml:space="preserve">
+    <value>تکمیل سفارش</value>
+  </data>
+  <data name="CompleteYourOrder" xml:space="preserve">
+    <value>سفارش خود را تکمیل نمایید</value>
+  </data>
+  <data name="ConfirmCustomerInfoButton" xml:space="preserve">
+    <value>اطلاعات خریدار را تایید نمایید</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>ادامه</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="CustomerAddress1RequiredMessage" xml:space="preserve">
+    <value>آدرس خریدار الزامی است</value>
+  </data>
+  <data name="CustomerAddressLine1Label" xml:space="preserve">
+    <value>آدرس 1</value>
+  </data>
+  <data name="CustomerAddressLine2Label" xml:space="preserve">
+    <value>آدرس 2</value>
+  </data>
+  <data name="CustomerCityLabel" xml:space="preserve">
+    <value>شهر</value>
+  </data>
+  <data name="CustomerCityRequiredMessage" xml:space="preserve">
+    <value>شهر خریدار الزامی است</value>
+  </data>
+  <data name="CustomerCompanyLabel" xml:space="preserve">
+    <value>شرکت</value>
+  </data>
+  <data name="CustomerCountryLabel" xml:space="preserve">
+    <value>کشور</value>
+  </data>
+  <data name="CustomerDayPhoneRequiredMessage" xml:space="preserve">
+    <value>تلفن خریدار الزامی است</value>
+  </data>
+  <data name="CustomerEmailLabel" xml:space="preserve">
+    <value>آدرس ایمیل</value>
+  </data>
+  <data name="CustomerEmailRegexFailureMessage" xml:space="preserve">
+    <value>آدرس ایمیل خریدار باید قالب صحیحی داشته باشد</value>
+  </data>
+  <data name="CustomerEmailRequiredMessage" xml:space="preserve">
+    <value>آدرس ایمیل خریدار الزامی است</value>
+  </data>
+  <data name="CustomerFirstNameLabel" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="CustomerFirstNameRequiredMessage" xml:space="preserve">
+    <value>Customer First Name is Required</value>
+  </data>
+  <data name="CustomerHeader" xml:space="preserve">
+    <value>Customer Information</value>
+  </data>
+  <data name="CustomerInfoHeader" xml:space="preserve">
+    <value>Customer Information</value>
+  </data>
+  <data name="CustomerLastNameLabel" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="CustomerLastNameRequiredMessage" xml:space="preserve">
+    <value>Customer Last Name is Required</value>
+  </data>
+  <data name="CustomerNameLabel" xml:space="preserve">
+    <value>Customer Name</value>
+  </data>
+  <data name="CustomerPostalCodeLabel" xml:space="preserve">
+    <value>Postal Code</value>
+  </data>
+  <data name="CustomerPostalCodeRequiredMessage" xml:space="preserve">
+    <value>Customer Postal Code is Required</value>
+  </data>
+  <data name="CustomerStateLabel" xml:space="preserve">
+    <value>State/Region</value>
+  </data>
+  <data name="CustomerSuburbLabel" xml:space="preserve">
+    <value>Suburb</value>
+  </data>
+  <data name="CustomerTelephoneDayLabel" xml:space="preserve">
+    <value>Daytime Telephone</value>
+  </data>
+  <data name="CustomerTelephoneLabel" xml:space="preserve">
+    <value>Telephone</value>
+  </data>
+  <data name="CustomerTelephoneNightLabel" xml:space="preserve">
+    <value>Evening Telephone</value>
+  </data>
+  <data name="DefinitionName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DurationInDays" xml:space="preserve">
+    <value>Duration In Days</value>
+  </data>
+  <data name="EditMembershipDefinition" xml:space="preserve">
+    <value>Edit Membership Definition</value>
+  </data>
+  <data name="EditMembershipProduct" xml:space="preserve">
+    <value>Edit Membership Product</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="ExpiredSubscriptions" xml:space="preserve">
+    <value>Expired Subscriptions</value>
+  </data>
+  <data name="ExpiredSubscriptionsWithNoRenewal" xml:space="preserve">
+    <value>Expired Subscriptions With No Renewal</value>
+  </data>
+  <data name="ExpiringSoon" xml:space="preserve">
+    <value>Expiring Soon</value>
+  </data>
+  <data name="ExpiringWithinDays" xml:space="preserve">
+    <value>Expiring Within Days</value>
+  </data>
+  <data name="FeatureName" xml:space="preserve">
+    <value>Site Membership Pro</value>
+  </data>
+  <data name="GracePeriodDays" xml:space="preserve">
+    <value>Grace Period Days</value>
+  </data>
+  <data name="GrantedRoles" xml:space="preserve">
+    <value>Granted Roles</value>
+  </data>
+  <data name="IsAvailable" xml:space="preserve">
+    <value>Is Available?</value>
+  </data>
+  <data name="IsTaxable" xml:space="preserve">
+    <value>Is Taxable?</value>
+  </data>
+  <data name="LiteralOr" xml:space="preserve">
+    <value>Or</value>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="LookupUser" xml:space="preserve">
+    <value>Lookup User</value>
+  </data>
+  <data name="MakePaymentButton" xml:space="preserve">
+    <value>Make Payment</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="ManagePremiumMembership" xml:space="preserve">
+    <value>Manage Premium Membership</value>
+  </data>
+  <data name="ManageUserLink" xml:space="preserve">
+    <value>Manage User</value>
+  </data>
+  <data name="MembershipDefinition" xml:space="preserve">
+    <value>Membership Definition</value>
+  </data>
+  <data name="MembershipDefinitions" xml:space="preserve">
+    <value>Membership Definitions</value>
+  </data>
+  <data name="MembershipMenuLink" xml:space="preserve">
+    <value>Premium Membership Management</value>
+  </data>
+  <data name="MembershipProducts" xml:space="preserve">
+    <value>Membership Products</value>
+  </data>
+  <data name="MembershipSubscription" xml:space="preserve">
+    <value>Site Membership Subscription</value>
+  </data>
+  <data name="Modified" xml:space="preserve">
+    <value>Modified</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="NewMemberOnly" xml:space="preserve">
+    <value>Only Available for New Members?</value>
+  </data>
+  <data name="OfferBeginDate" xml:space="preserve">
+    <value>Offer Begin Date</value>
+  </data>
+  <data name="OfferEndDate" xml:space="preserve">
+    <value>Offer End Date</value>
+  </data>
+  <data name="OrderDate" xml:space="preserve">
+    <value>Order Date</value>
+  </data>
+  <data name="OrderDateBetween" xml:space="preserve">
+    <value>Order Date Between</value>
+  </data>
+  <data name="OrderDetail" xml:space="preserve">
+    <value>Oder Detail</value>
+  </data>
+  <data name="OrderHistory" xml:space="preserve">
+    <value>Order History</value>
+  </data>
+  <data name="OrderId" xml:space="preserve">
+    <value>Order ID</value>
+  </data>
+  <data name="OrderSearch" xml:space="preserve">
+    <value>Order Search</value>
+  </data>
+  <data name="OrderSummaryHeader" xml:space="preserve">
+    <value>Order Summary</value>
+  </data>
+  <data name="OrderTotal" xml:space="preserve">
+    <value>Order Total</value>
+  </data>
+  <data name="PaymentGatewayCouldNotConnectMessage" xml:space="preserve">
+    <value>Could not connect to the payment gateway.</value>
+  </data>
+  <data name="PaymentGatewayNotConfiguredForDirectCardProcessing" xml:space="preserve">
+    <value>No payment gateway is configured for processing credit cards.</value>
+  </data>
+  <data name="PaymentMethod" xml:space="preserve">
+    <value>Payment Method</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="ReminderTemplates" xml:space="preserve">
+    <value>Reminder Templates</value>
+  </data>
+  <data name="RenewBy" xml:space="preserve">
+    <value>Renew By</value>
+  </data>
+  <data name="RequiredFieldSymbol" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="ResetForm" xml:space="preserve">
+    <value>Clear/Reset Form</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SignInOrRegisterPrompt" xml:space="preserve">
+    <value>You must first sign in to this site or register in order to purchase premium membership.</value>
+  </data>
+  <data name="SiteUser" xml:space="preserve">
+    <value>Site User</value>
+  </data>
+  <data name="SortRank" xml:space="preserve">
+    <value>Sort Rank</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Sub Total</value>
+  </data>
+  <data name="TaxTotal" xml:space="preserve">
+    <value>Tax Total</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="TransactionDeclinedMessage" xml:space="preserve">
+    <value>Sorry order declined. Please make sure you entered your payment information correctly.</value>
+  </data>
+  <data name="TransactionErrorMessage" xml:space="preserve">
+    <value>Sorry, the transaction could not be completed. An error occurred and has been logged.</value>
+  </data>
+  <data name="TransactionNotInitiatedMessage" xml:space="preserve">
+    <value>No transaction initiated.</value>
+  </data>
+  <data name="UpdateCustomerButton" xml:space="preserve">
+    <value>Update Customer Information</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="UserProfileLink" xml:space="preserve">
+    <value>View Profile</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="DaysAfter" xml:space="preserve">
+    <value>Days After</value>
+  </data>
+  <data name="DaysBefore" xml:space="preserve">
+    <value>Days Before</value>
+  </data>
+  <data name="EditReminder" xml:space="preserve">
+    <value>Edit Reminder</value>
+  </data>
+  <data name="EditTemplate" xml:space="preserve">
+    <value>Edit Template</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="GracePeriodEndDate" xml:space="preserve">
+    <value>Grace Period End Date</value>
+  </data>
+  <data name="MembershipEndDate" xml:space="preserve">
+    <value>Membership End Date</value>
+  </data>
+  <data name="MembershipReminders" xml:space="preserve">
+    <value>Membership Reminders</value>
+  </data>
+  <data name="NoTemplatesWarning" xml:space="preserve">
+    <value>You must first create at least one reminder template before you can create reminders.</value>
+  </data>
+  <data name="ProductPageUrl" xml:space="preserve">
+    <value>Product Page Url</value>
+  </data>
+  <data name="ReminderGridFormat" xml:space="preserve">
+    <value>{0} {1} {2}</value>
+  </data>
+  <data name="ReminderTemplate" xml:space="preserve">
+    <value>Reminder Template</value>
+  </data>
+  <data name="Schedule" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="ToBeSent" xml:space="preserve">
+    <value>To Be Sent</value>
+  </data>
+  <data name="TemplateUsedInProductReminders" xml:space="preserve">
+    <value>Used in Reminders for These Products</value>
+  </data>
+  <data name="AdminsAndRoleAdminsOnlyMessage" xml:space="preserve">
+    <value>Only Administrators and Role Administrators can create Membership Definitions.</value>
+  </data>
+  <data name="BeginDateRequired" xml:space="preserve">
+    <value>Begin Date is required.</value>
+  </data>
+  <data name="DurationRegexWarning" xml:space="preserve">
+    <value>Duration must be a positive integer.</value>
+  </data>
+  <data name="DurationRequired" xml:space="preserve">
+    <value>Duration is required.</value>
+  </data>
+  <data name="GracePeriodRegexWarning" xml:space="preserve">
+    <value>Grace period must be 0 or a positive integer.</value>
+  </data>
+  <data name="GracePeriodRequired" xml:space="preserve">
+    <value>Grace period is required, enter 0 for no grace period.</value>
+  </data>
+  <data name="MemberDefinitionRequired" xml:space="preserve">
+    <value>Membership Definition is required.</value>
+  </data>
+  <data name="MembershipCantBeDeletedFormat" xml:space="preserve">
+    <value>This membership definition cannot be delted because it has {0} active members.</value>
+  </data>
+  <data name="MembershipDefinitionDeleteWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this Membership Definition?</value>
+  </data>
+  <data name="NameRequired" xml:space="preserve">
+    <value>Name is required.</value>
+  </data>
+  <data name="NewReminder" xml:space="preserve">
+    <value>New Reminder</value>
+  </data>
+  <data name="PriceRequired" xml:space="preserve">
+    <value>Price is required.</value>
+  </data>
+  <data name="ProductDeleteWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this product?</value>
+  </data>
+  <data name="ProductWithMembersDeleteWarningFormat" xml:space="preserve">
+    <value>Are you sure you want to delete this product? There are {0} members who purchased this product and they will not receive renewal reminders if you delete it.</value>
+  </data>
+  <data name="RoleAdministration" xml:space="preserve">
+    <value>Role Administration</value>
+  </data>
+  <data name="RoleIsRequired" xml:space="preserve">
+    <value>You must select at least one role to create a membership definition.</value>
+  </data>
+  <data name="SortRankRegexWarning" xml:space="preserve">
+    <value>Sort Rank must be a positive integer or 0.</value>
+  </data>
+  <data name="SortRankRequired" xml:space="preserve">
+    <value>Sort Rank is required.</value>
+  </data>
+  <data name="TitleRequired" xml:space="preserve">
+    <value>Title is required.</value>
+  </data>
+  <data name="ActiveMembershipFormat" xml:space="preserve">
+    <value>{0} from {1} to {2}</value>
+  </data>
+  <data name="PlainTextBodyRequiredWarning" xml:space="preserve">
+    <value>Plain Text Email Body is required.</value>
+  </data>
+  <data name="ProductPageUrlRegexWarning" xml:space="preserve">
+    <value>Product Page Url must be a valid url starting with http:// or https://</value>
+  </data>
+  <data name="ProductPageUrlRequiredWarning" xml:space="preserve">
+    <value>Product Page Url is required.</value>
+  </data>
+  <data name="ReminderDaysWarning" xml:space="preserve">
+    <value>You must enter an integer in the schedule.</value>
+  </data>
+  <data name="ReminderTemplateDeleteWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this Reminder Template?</value>
+  </data>
+  <data name="SubjectRequiredWarning" xml:space="preserve">
+    <value>Subject is required.</value>
+  </data>
+  <data name="RenewalExtensionFormat" xml:space="preserve">
+    <value>Extend your membership until {0}</value>
+  </data>
+  <data name="RenewNow" xml:space="preserve">
+    <value>Renew Now</value>
+  </data>
+  <data name="SupportedTokens" xml:space="preserve">
+    <value>Supported Tokens</value>
+  </data>
+  <data name="BuyNowButtonOverrideText" xml:space="preserve">
+    <value>Buy Now Button Override Text</value>
+  </data>
+  <data name="LiteralBottomContent" xml:space="preserve">
+    <value>Extra Content Below the Product List</value>
+  </data>
+  <data name="LiteralTopContent" xml:space="preserve">
+    <value>Extra Content Above the Product List</value>
+  </data>
+  <data name="RenewNowButtonOverrideText" xml:space="preserve">
+    <value>Renew Now Button Override Text</value>
+  </data>
+  <data name="SignInOrRegisterOverrideText" xml:space="preserve">
+    <value>Sign In Or Register Override Text</value>
+  </data>
+  <data name="YourCurrentMembership" xml:space="preserve">
+    <value>Your Current Membership</value>
+  </data>
+  <data name="HideBuyButtonsWhenNotAuthenticated" xml:space="preserve">
+    <value>Hide Buy Buttons When Not Authenticated?</value>
+  </data>
+  <data name="StartManagementTask" xml:space="preserve">
+    <value>Start Management Task</value>
+  </data>
+  <data name="StopManagementTask" xml:space="preserve">
+    <value>Delete/Stop Management Task</value>
+  </data>
+</root>

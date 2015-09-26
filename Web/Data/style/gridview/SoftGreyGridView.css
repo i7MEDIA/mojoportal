@@ -1,0 +1,97 @@
+﻿/* http://weblogs.asp.net/kevinbrammer/archive/2008/05/31/asp-net-gridview-themes.aspx */
+
+.AspNet-GridView
+{
+    font-family: Arial, Sans-Serif;
+    font-size:small;
+    table-layout: auto;
+    border-collapse: collapse;
+    border:#444 1px solid;
+}
+.AspNet-GridView table { width: 100%; }
+.AspNet-GridView table.editgrid { margin:0px;}
+
+
+.AspNet-GridView table thead
+{
+    background-image: url('HeaderSoftGrey.jpg');
+    background-position:center;
+    background-repeat:repeat-x;
+    background-color:#1d1d1d;
+}
+
+.AspNet-GridView table thead th
+{
+    padding: 5px;
+    color: #ffffff;
+	text-align:left;
+}
+
+.AspNet-GridView table thead th a
+{
+    text-decoration:none;
+    color:#ffffff;
+    display:block;
+    text-align:left;
+    
+}
+
+.AspNet-GridView table tbody tr td
+{
+    padding: 5px;
+    border-right: solid 1px #1d1d1d;
+	background-color: #c9c9c9;
+}
+
+.AspNet-GridView table tbody tr.AspNet-GridView-Alternate td
+{
+    background-color: #f0f0f0;
+}
+
+.AspNet-GridView div.AspNet-GridView-Pagination
+{
+background-image: url('HeaderSoftGrey.jpg');
+    background-position:center;
+    background-repeat:repeat-x;
+    background-color:#1d1d1d;
+}
+
+.AspNet-GridView div.AspNet-GridView-Pagination a
+{
+    color:#ffffff;
+    text-decoration:none;
+    padding:2px 10px 2px 10px;
+    border-top:solid 1px #777777;
+    border-right:solid 1px #333333;
+    border-bottom:solid 1px #333333;
+    border-left:solid 1px #777777;
+	font-size: 16px;
+}
+.AspNet-GridView div.AspNet-GridView-Pagination span
+{
+	font-size: 16px;
+    font-weight:bold;
+    color:#FFFFFF;
+    text-decoration:none;
+    padding:2px 10px 2px 10px;
+}
+
+.AspNet-GridView tr.AspNet-GridView-Empty
+{
+	
+	color:#ffffff;
+    background-color: #c9c9c9;
+	 text-align:center; 
+}
+
+.AspNet-GridView tr.AspNet-GridView-Empty p
+{ padding-top:20px;}
+
+.formResults .AspNet-GridView table thead, .formResults  div.AspNet-GridView-Pagination
+{
+background-image: none;
+}
+
+html[dir='rtl'] .AspNet-GridView table thead th { text-align: right;}
+html[dir='rtl'] .AspNet-GridView table thead th a { text-align: right; }
+

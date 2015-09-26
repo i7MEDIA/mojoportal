@@ -1,0 +1,6 @@
+body {  }
+.productlist h3 { color: #505050; }
+.productcontainer { border-bottom: solid thin #505050; padding:7px; float:left; clear:both; width:100%;}
+.productcontainer h4 { margin-top: 0px; margin-bottom: 3px;  font-size: 1.3em; color: #505050; }
+.productcontainer p { margin: 0px;  }
+.offercontainer { clear:both; }

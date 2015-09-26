@@ -1,0 +1,353 @@
+<%-- 
+Name:  			C#/ASP.NET edit controls generator
+Author: 		Joe Audette
+Description: 	Generates edit controls
+Last Modified:	2/19/2007
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author" %>
+<%@ Property Name="BusinessLayerNameSpace" Type="System.String" Default="mojoPortal.Business" Category="Style" Description="The Namespace of the Business Layer class" %>
+<%@ Property Name="TablePrefix" Type="System.String" Default="mp_" Category="Style" Description="Table Prfix" %>
+<%@ Property Name="ResourceFile" Type="System.String" Default="Resource" Category="Style" Description="Resx file name without .resx" %>
+<%@ Property Name="InlcudeHelpLinks" Type="System.Boolean" Default="false" Category="Style" Description="Include help links?" %>
+
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+<% if (SourceTable.PrimaryKey == null) throw new ApplicationException("SourceTable does not contain a primary key."); %>
+<% ColumnSchema primaryKey = SourceTable.PrimaryKey.MemberColumns[0]; %>
+
+<ol class="formlist">
+<% for (int i = 0; i < this.SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+<li class="settingrow">
+<mp:SiteLabel id="lbl<%= SourceTable.NonPrimaryKeyColumns[i].Name %>" runat="server" ForControl="<%= GetEditControlName(SourceTable.NonPrimaryKeyColumns[i])%>" CssClass="settinglabel" ConfigKey="<%= SourceTable.NonPrimaryKeyColumns[i].Name %>Label" ResourceFile="<%= ResourceFile %>" />
+<%= GetEditControl(SourceTable.NonPrimaryKeyColumns[i])%>	<% if(InlcudeHelpLinks){%><%= GetHelpLink(SourceTable.NonPrimaryKeyColumns[i])%> <%} %>
+</li>
+<% } %> 
+</ol>
+
+
+using <%= BusinessLayerNameSpace %>;
+
+
+private void PopulateControls()
+{
+    <%=GetClassName()%> <%= GetClassInstanceName()%> = new <%=GetClassName()%>(<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %><%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% } %><% } %> );
+
+<% for (int i = 0; i < this.SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+    <%= GetEditControlPropertyAssignment(SourceTable.NonPrimaryKeyColumns[i])%>
+<% } %> 
+	
+	
+}
+
+private void Save()
+{
+	<%=GetClassName()%> <%= GetClassInstanceName()%> = new <%=GetClassName()%>(<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %><%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% } %><% } %> );
+
+	<% for (int i = 0; i < this.SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+    <%= GetPropertyAssignment(SourceTable.NonPrimaryKeyColumns[i])%>
+<% } %> 
+	
+}
+
+
+
+
+
+
+<script runat="template">
+
+
+public string GetClassName()
+{
+	return RemovePrefix(SourceTable.Name);
+}
+
+public string GetClassInstanceName()
+{
+	string result = RemovePrefix(SourceTable.Name);
+		
+	result = result.Substring(0,1).ToLower() + result.Substring(1,result.Length -1);
+		
+	return result;
+	
+}
+
+public string RemovePrefix(string TableName)
+{
+	return TableName.Replace(TablePrefix,"");
+}
+
+public string GetPrivateName(string ColumnName)
+{
+	
+	return ColumnName.Substring(0,1).ToLower() + ColumnName.Substring(1,ColumnName.Length -1);
+}
+
+public string GetParamName(String columnName)
+{
+	if(columnName == "ID")
+		return "id";
+	
+	string firstLetter = columnName.Substring(0,1).ToLower();
+	string Result = firstLetter + columnName.Remove(0,1);
+	
+	return Result;
+}
+
+
+public string GetEditControl(ColumnSchema column)
+{
+	string result =  "<asp:TextBox ID=\"txt" + column.Name 
+				+ "\" CssClass=\"verywidetextbox forminput\"  runat=\"server\" MaxLength=\""
+				+ column.Size.ToString() + "\" />";
+				
+	switch (column.DataType)
+	{
+		case DbType.Boolean: 
+		
+			result = "<asp:CheckBox ID=\"chk" + column.Name 
+				+ "\"  runat=\"server\" CssClass=\"forminput\" />";
+				
+			break;
+		
+		//case DbType.Date: return "DateTime";
+		//case DbType.DateTime: return "DateTime";
+		case DbType.Guid:
+			result = "<asp:DropDownList ID=\"dd" + column.Name 
+				+ "\"   runat=\"server\" CssClass=\"forminput\"  />";
+		
+		break;
+		
+		
+		
+		case DbType.AnsiString: 
+		case DbType.AnsiStringFixedLength: 
+		
+			result = "<asp:TextBox ID=\"txt" + column.Name 
+				+ "\" CssClass=\"verywidetextbox forminput\"  runat=\"server\" MaxLength=\""
+				+ column.Size.ToString() + "\" />";
+				
+			break;
+		case DbType.Currency:
+		case DbType.Decimal:
+		case DbType.Double:
+		case DbType.Int16: 
+		case DbType.Int32: 
+		case DbType.Int64: 
+		case DbType.Single: 
+		case DbType.String: 
+		case DbType.StringFixedLength: 
+		case DbType.Time: 
+		case DbType.UInt16: 
+		case DbType.UInt32: 
+		case DbType.UInt64: 
+		case DbType.VarNumeric: 
+		default:
+		
+			result = "<asp:TextBox ID=\"txt" + column.Name 
+				+ "\" CssClass=\"verywidetextbox forminput\"  runat=\"server\" />";
+				
+			break;
+		
+	}
+	
+	return result;
+}
+
+public string GetEditControlPrefix(ColumnSchema column)
+{
+	string result =  "txt";
+				
+	switch (column.DataType)
+	{
+		case DbType.Boolean: 
+		
+			result = "chk";
+				
+			break;
+		
+		//case DbType.Date: return "DateTime";
+		//case DbType.DateTime: return "DateTime";
+		
+		case DbType.Guid:
+			result = "dd";
+			break;
+		case DbType.AnsiString: 
+		case DbType.AnsiStringFixedLength: 
+		case DbType.Currency:
+		case DbType.Decimal:
+		case DbType.Double:
+		case DbType.Int16: 
+		case DbType.Int32: 
+		case DbType.Int64: 
+		case DbType.Single: 
+		case DbType.String: 
+		case DbType.StringFixedLength: 
+		case DbType.Time: 
+		case DbType.UInt16: 
+		case DbType.UInt32: 
+		case DbType.UInt64: 
+		case DbType.VarNumeric: 
+		default:
+		
+			result = "txt";
+				
+			break;
+		
+	}
+	
+	return result;
+}
+
+public string GetEditControlName(ColumnSchema column)
+{
+	string result =  "txt" + column.Name;
+				
+	switch (column.DataType)
+	{
+		case DbType.Boolean: 
+		
+			result = "chk" + column.Name;
+				
+			break;
+		
+		//case DbType.Date: return "DateTime";
+		//case DbType.DateTime: return "DateTime";
+		case DbType.Guid:
+			result = "dd" + column.Name;
+			break;
+		
+		case DbType.AnsiString: 
+		case DbType.AnsiStringFixedLength: 
+		case DbType.Currency:
+		case DbType.Decimal:
+		case DbType.Double:
+		case DbType.Int16: 
+		case DbType.Int32: 
+		case DbType.Int64: 
+		case DbType.Single: 
+		case DbType.String: 
+		case DbType.StringFixedLength: 
+		case DbType.Time: 
+		case DbType.UInt16: 
+		case DbType.UInt32: 
+		case DbType.UInt64: 
+		case DbType.VarNumeric: 
+		default:
+		
+			result = "txt" + column.Name;
+				
+			break;
+		
+	}
+	
+	return result;
+}
+
+public string GetEditControlPropertyAssignment(ColumnSchema column)
+{
+	string result =  "";
+				
+	switch (column.DataType)
+	{
+		case DbType.Boolean: 
+		
+			result = "chk" + column.Name + ".Checked = " 
+				+ GetClassInstanceName() + "." + column.Name + ";";
+				
+			break;
+		
+		//case DbType.Date: return "DateTime";
+		//case DbType.DateTime: return "DateTime";
+		
+		case DbType.AnsiString: 
+		case DbType.AnsiStringFixedLength: 
+		case DbType.Currency:
+		case DbType.Decimal:
+		case DbType.Double:
+		case DbType.Int16: 
+		case DbType.Int32: 
+		case DbType.Int64: 
+		case DbType.Single: 
+		case DbType.String: 
+		case DbType.StringFixedLength: 
+		case DbType.Time: 
+		case DbType.UInt16: 
+		case DbType.UInt32: 
+		case DbType.UInt64: 
+		case DbType.VarNumeric: 
+		default:
+		
+			result = "txt" + column.Name + ".Text = " 
+			+ GetClassInstanceName() 
+			+ "." + column.Name + ".ToString();";
+				
+			break;
+		
+	}
+	
+	return result;
+}
+
+public string GetPropertyAssignment(ColumnSchema column)
+{
+	string result =  "";
+				
+	switch (column.DataType)
+	{
+		case DbType.Boolean: 
+		
+			result = GetClassInstanceName() + "." + column.Name + " = chk" + column.Name + ".Checked;";
+				
+			break;
+		
+		//case DbType.Date: return "DateTime";
+		//case DbType.DateTime: return "DateTime";
+		
+		case DbType.AnsiString: 
+		case DbType.AnsiStringFixedLength: 
+		case DbType.Currency:
+		case DbType.Decimal:
+		case DbType.Double:
+		case DbType.Int16: 
+		case DbType.Int32: 
+		case DbType.Int64: 
+		case DbType.Single: 
+		case DbType.String: 
+		case DbType.StringFixedLength: 
+		case DbType.Time: 
+		case DbType.UInt16: 
+		case DbType.UInt32: 
+		case DbType.UInt64: 
+		case DbType.VarNumeric: 
+		default:
+		
+			result = GetClassInstanceName() + "." + column.Name + " = txt" + column.Name + ".Text;";
+				
+			break;
+		
+	}
+	
+	return result;
+}
+
+public string GetHelpLink(ColumnSchema column)
+{
+	string result = "\n<portal:mojoHelpLink runat=\"server\" id=\"HelpLink" + column.Name 
+		+ "\" HelpKey=\"" + GetClassName().ToLower() + "-" 
+		+ column.Name.ToLower() + "-help\"  />";	
+				
+	return result;
+				
+}
+	
+</script>

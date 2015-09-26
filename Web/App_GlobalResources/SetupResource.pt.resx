@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CantAlterSchemaWarning" xml:space="preserve">
+    <value>mojoSetup detectou que o usuário de banco de dados não tem permissão para alterar o esquema de banco de dados. Você precisa corrigir o problema ou fornecer uma Cadeia de caracteres de conexão com permissão suficiente.</value>
+  </data>
+  <data name="CantCreateTempTablesMessage" xml:space="preserve">
+    <value>mojoSetup detectou que o usuário de banco de dados não tem permissão para criar tabelas temporárias. Você precisa corrigir isso ou alguns importantes recursos não funcionarão.</value>
+  </data>
+  <data name="CantProceedMessage" xml:space="preserve">
+    <value>A instalação não pode continuar até que as questões acima foram corrigidas.</value>
+  </data>
+  <data name="CodeUpgradeNeededMessage" xml:space="preserve">
+    <value>Você precisa atualizar o Site e o código de banco de dados para a mesma versão que o esquema de banco de dados.</value>
+  </data>
+  <data name="ConfigureFeatureMessage" xml:space="preserve">
+    <value>Configurando o recurso {0}</value>
+  </data>
+  <data name="ConfigureFeaturesMessage" xml:space="preserve">
+    <value>Configurando {0}...</value>
+  </data>
+  <data name="ConnectionStringFailedMessage" xml:space="preserve">
+    <value>A Cadeia de caracteres de conexão digitada não está correta ou não tem permissão suficiente para alterar o banco de dados</value>
+  </data>
+  <data name="ConnectionStringRequiredError" xml:space="preserve">
+    <value>Cadeia de caracteres de conexão é necessária</value>
+  </data>
+  <data name="CouldNotInstallFeatureSchemaMessage" xml:space="preserve">
+    <value>Não foi possível instalar o aplicativo {0} porque a pasta {1} não existe.</value>
+  </data>
+  <data name="CreateInitialDataButton" xml:space="preserve">
+    <value>Criar dados iniciais</value>
+  </data>
+  <data name="CreatingDefaultContent" xml:space="preserve">
+    <value>Nenhuma página encontrada tão criando conteúdo padrão...</value>
+  </data>
+  <data name="CreatingPageMessage" xml:space="preserve">
+    <value>Criando página {0}</value>
+  </data>
+  <data name="CreatingRolesAndAdminUserMessage" xml:space="preserve">
+    <value>Criando funções e usuário admin...</value>
+  </data>
+  <data name="CreatingSiteMessage" xml:space="preserve">
+    <value>Criação de site com as configurações padrão...</value>
+  </data>
+  <data name="DatabaseCanAlterSchemaMessage" xml:space="preserve">
+    <value>permissões de banco de dados são suficientes para alterar o esquema.</value>
+  </data>
+  <data name="DatabaseCanCreateTempTablesMessage" xml:space="preserve">
+    <value>permissões de banco de dados são suficientes para criar tabelas temporárias.</value>
+  </data>
+  <data name="DatabaseCodeVersionLabel" xml:space="preserve">
+    <value>Versão de código do banco de dados</value>
+  </data>
+  <data name="DatabaseConnectionOKMessage" xml:space="preserve">
+    <value>ok de conexão de banco de dados.</value>
+  </data>
+  <data name="DatabasePlatformLabel" xml:space="preserve">
+    <value>Plataforma de banco de dados</value>
+  </data>
+  <data name="DatabaseSchemaAlreadyExistsMessage" xml:space="preserve">
+    <value>esquema inicial do banco de dados já existe.</value>
+  </data>
+  <data name="DatabaseSchemaNeedsUpgradeMessage" xml:space="preserve">
+    <value>esquema do banco de dados principal precisa de atualização.</value>
+  </data>
+  <data name="DatabaseSchemaNotCreatedYetMessage" xml:space="preserve">
+    <value>esquema inicial do banco de dados precisa ser criado.</value>
+  </data>
+  <data name="DatabaseSchemaUpToDateMessage" xml:space="preserve">
+    <value>esquema do banco de dados principal é até à data.</value>
+  </data>
+  <data name="DatabaseStatusLabel" xml:space="preserve">
+    <value>Estatuto</value>
+  </data>
+  <data name="DataFolderNotWritableMessage" xml:space="preserve">
+    <value>A pasta de dados abaixo da raiz do web site não é gravável, o ASP.Processo de trabalho líquido. 
+
+Você precisa tornar esta pasta e todos os seus filhos pastas e arquivos gravável antes que a instalação possa prosseguir. mojoPortal precisa para ser capaz de gravar arquivos de índice de pesquisa, logs de erros, uploads de Galeria de imagem e outros recursos importantes. 
+
+Clique com o botão direito a pasta de dados no Windows explorer, escolha Propriedades e vá para o separador de segurança (no XP se você não visualizar o separador Segurança então google para partilha de ficheiros simples XP para saber como fazer essa guia aparecem.) No XP é normalmente necessário dar permissão de gravação para usuário ASPNET, enquanto no Windows 2003 você precisa para dar a usuário IIS_WPG. 
+
+Obviamente, as instruções são um pouco diferentes em Linux/Mono, mas o mesmo princípio é verdadeiro, a pasta de dados e todos os seus objetos filho devem ser graváveis.</value>
+  </data>
+  <data name="DataGalleryFolderNotWritableMessage" xml:space="preserve">
+    <value>A pasta de dados/Sites/1/GalleryImages não é gravável</value>
+  </data>
+  <data name="DataRootNotWritableMessage" xml:space="preserve">
+    <value>A pasta de dados não é gravável.</value>
+  </data>
+  <data name="DataSharedFilesFolderNotWritableMessage" xml:space="preserve">
+    <value>Os dados/Sites/1/SharedFiles/pasta não é gravável</value>
+  </data>
+  <data name="DataSharedFilesHistoryFolderNotWritableMessage" xml:space="preserve">
+    <value>Dados/Sites/1/SharedFiles/história/pasta não é gravável</value>
+  </data>
+  <data name="DataSiteFolderNotWritableMessage" xml:space="preserve">
+    <value>Dados/Sites/1/pasta não é gravável</value>
+  </data>
+  <data name="DataSiteIndexFolderNotWritableMessage" xml:space="preserve">
+    <value>O dados/Sites/1/índice/pasta não é gravável</value>
+  </data>
+  <data name="DataSystemFilesFolderNotWritableMessage" xml:space="preserve">
+    <value>Os dados/Sites/1/systemfiles/pasta não é gravável</value>
+  </data>
+  <data name="EnsuringFeaturesInAdminSites" xml:space="preserve">
+    <value>Garantindo a todos os recursos instalados no servidor admin sites...</value>
+  </data>
+  <data name="ErrorMessageLabel" xml:space="preserve">
+    <value>Mensagem de erro</value>
+  </data>
+  <data name="ErrorOccurredLabel" xml:space="preserve">
+    <value>Ocorreu um erro</value>
+  </data>
+  <data name="ExistingSiteCountMessageMessage" xml:space="preserve">
+    <value>{0} s encontrados.</value>
+  </data>
+  <data name="FailedToConnectToDatabase" xml:space="preserve">
+    <value>O sistema não pode conectar ao banco de dados {0}. Por favor, verifique sua seqüência de conexão.</value>
+  </data>
+  <data name="FailedToConnectToDatabaseHelp" xml:space="preserve">
+    <value>Para ver a mensagem de erro de conexão específica, defina ShowConnectionErrorOnSetup como true no Web. config</value>
+  </data>
+  <data name="FileSystemPermissionProblemsMessage" xml:space="preserve">
+    <value>Problemas de permissões do sistema de arquivos encontrados.</value>
+  </data>
+  <data name="FileSystemPermissionsOKMesage" xml:space="preserve">
+    <value>Permissões do sistema de arquivos ok.</value>
+  </data>
+  <data name="FirebirdAutoDBCreationNotYetSupportedException" xml:space="preserve">
+    <value>Criação de esquema automático não está funcionando ainda para Firebird Sql. Você precisa para maually executará o script localizado em</value>
+  </data>
+  <data name="FirebirdAutoUpgradeNotYetSupportedException" xml:space="preserve">
+    <value>Shemá automática atualização ainda não é suportado para Firebird. Você precisará executar os scripts localizados em {0) iniciando após {1}. config</value>
+  </data>
+  <data name="FolderDetailsLabel" xml:space="preserve">
+    <value>Detalhes de pasta</value>
+  </data>
+  <data name="HomeLink" xml:space="preserve">
+    <value>Página inicial do site</value>
+  </data>
+  <data name="InstallationUpToDateMessage" xml:space="preserve">
+    <value>Sua instalação é até à data.</value>
+  </data>
+  <data name="LastServerErrorLabel" xml:space="preserve">
+    <value>Foi o último erro no servidor:</value>
+  </data>
+  <data name="MediumTrustCommentOutNeatUploadInstructionLine1" xml:space="preserve">
+    <value>Para comentar NeatUpload, procure no arquivo Web. config no &lt;httpModules&gt;seção e alterar isso:&lt;/httpModules&gt;</value>
+  </data>
+  <data name="MediumTrustCommentOutNeatUploadPreambleMessage" xml:space="preserve">
+    <value>Você deve comente o módulo NeatUpload, pois não é suportado no Medium Confiar, a menos que seu instalados em Global Assembly Cache no servidor.
+Para obter mais informações, consulte http://www.mojoportal.com/mediumtrust.aspx</value>
+  </data>
+  <data name="MediumTrustGeneralMessage" xml:space="preserve">
+    <value>Este site parece estar sendo executado em um ambiente seguro, usando a diretiva de confiança média ou pelo menos inferior completo Confiar.</value>
+  </data>
+  <data name="MediumTrustLuceneConfigPreambleMessage" xml:space="preserve">
+    <value>Em ordem para o mecanismo de pesquisa trabalhar em confiança média, você precisará adicionar isso no Web. config na seção AppSettings:</value>
+  </data>
+  <data name="MediumTrustMySQLMessage" xml:space="preserve">
+    <value>Para usar o MySQL sob Medium Confiar, O MySQL Connector para.NET deve ser instalado no Cache de Assembly Global no servidor. Se você ver um SecurityException na mensagem de erro o conector não está instalado.
+Você pode baixar o conector MySql.NET a partir daqui: http://dev.mysql.com/downloads/connector/net/5.0.html</value>
+  </data>
+  <data name="MediumTrustNeatUploadCommentedOutExample" xml:space="preserve">
+    <value>&lt;!--
+&lt;add name="HttpUploadModule" type="Brettle.Web.NeatUpload.UploadHttpModule, Brettle.Web.NeatUpload" /&gt;
+--&gt;</value>
+  </data>
+  <data name="MediumTrustNeatUploadWrongConfigExample" xml:space="preserve">
+    <value>&lt;add name="HttpUploadModule" type="Brettle.Web.NeatUpload.UploadHttpModule, Brettle.Web.NeatUpload"&gt;&lt;/add&gt;</value>
+  </data>
+  <data name="MediumTrustnpgsqlMessage" xml:space="preserve">
+    <value>Para utilizar o PostgreSQL em Medium Confiar, a biblioteca de acesso a dados do npgsql deve ser instaladasnas o Global Assembly Cache no servidor. Se você vir um SecurityException abaixo o npgsql componente não está instalado.
+Você pode obter mais informações ou baixar npgsql daqui: http://npgsql.projects.postgresql.org/</value>
+  </data>
+  <data name="NoScriptsFilesFoundMessage" xml:space="preserve">
+    <value>Sem scripts localizados na pasta</value>
+  </data>
+  <data name="NoSitesMessage" xml:space="preserve">
+    <value>Não há Sites foram criados ainda, clique no botão criar dados site inicial.</value>
+  </data>
+  <data name="NoUpgradeScriptsFound" xml:space="preserve">
+    <value>Sem scripts de atualização encontrado para {0}. Provavelmente até à data.</value>
+  </data>
+  <data name="OverrideConnectionStringLabel" xml:space="preserve">
+    <value>Cadeia de caracteres de conexão:</value>
+  </data>
+  <data name="ProbingSystemMessage" xml:space="preserve">
+    <value>Sistema de sondagem...</value>
+  </data>
+  <data name="RunningScriptMessage" xml:space="preserve">
+    <value>Executando o script: {0} - {1}</value>
+  </data>
+  <data name="RunningSetupForAdminUser" xml:space="preserve">
+    <value>Instalação é desativada, mas executando a instalação de qualquer maneira porque o atual usuário é um administrador.</value>
+  </data>
+  <data name="RunTimeLabel" xml:space="preserve">
+    <value>Tempo de execução do UTC</value>
+  </data>
+  <data name="SchemaUpgradeFolderNotFound" xml:space="preserve">
+    <value>Não tentar atualizar o aplicativo {0} porque a pasta {1} não existe.</value>
+  </data>
+  <data name="SchemaUpgradeNeededMessage" xml:space="preserve">
+    <value>Você precisará atualizar o esquema do banco de dados para torná-lo a mesma versão do código.</value>
+  </data>
+  <data name="ScriptFileLabel" xml:space="preserve">
+    <value>Arquivo de script</value>
+  </data>
+  <data name="ScriptFolderNotFoundAddendum" xml:space="preserve">
+    <value>não foi encontrado. Não é possível executar scripts.</value>
+  </data>
+  <data name="ScriptFolderNotFoundMessage" xml:space="preserve">
+    <value>não foi encontrado. Não é possível executar scripts.</value>
+  </data>
+  <data name="SetupDisabledMessage" xml:space="preserve">
+    <value>Programa de configuração está desabilitado. Para continuar, por favor, defina DisableSetup como false no Web. config</value>
+  </data>
+  <data name="SetupEnabledMessage" xml:space="preserve">
+    <value>Nota: Esta página mostra algumas informações que é útil durante a instalação e upgrades mas por segurança, seria melhor não mostrar qualquer informação quando o sistema é atualizado. Você pode desativar o programa de configuração e suprimir todas as informações nesta página definindo DisableSetup = true no Web. config. Quando você precisa fazer o upgrade, você pode definir esta de volta como false. Se você efetuou logon no como modo de instalação Administrador será executado e você será capaz de ver esta página, mesmo se ele estiver desativado no Web. config para que você possa facilmente deixá-lo desabilitado e apenas login antes de atualizar. Mas se você não está conectado em você precisará habilitar a configuração no Web. config.</value>
+  </data>
+  <data name="SetupSuccessMessage" xml:space="preserve">
+    <value>A instalação está concluída, clique no link abaixo para ir para a página inicial.</value>
+  </data>
+  <data name="SetupTitle" xml:space="preserve">
+    <value>mojoPortal instalação</value>
+  </data>
+  <data name="SetupWelcomeMessage" xml:space="preserve">
+    <value>Bem-vindo ao mojoPortal instalação</value>
+  </data>
+  <data name="ToThisLabel" xml:space="preserve">
+    <value>para isso:</value>
+  </data>
+  <data name="UpgradeOverrideInstructions" xml:space="preserve">
+    <value>O sistema não é ble para fazer as alterações de esquema necessária usando a Cadeia de caracteres de conexão atual. Por favor, digite uma Cadeia de conexão aqui com permissão suficiente para alterar o esquema.</value>
+  </data>
+  <data name="UpgradeSchemaButton" xml:space="preserve">
+    <value>Atualizar o esquema</value>
+  </data>
+  <data name="UpgradeTitle" xml:space="preserve">
+    <value>mojoPortal atualização</value>
+  </data>
+  <data name="VersionLabel" xml:space="preserve">
+    <value>Versão</value>
+  </data>
+</root>

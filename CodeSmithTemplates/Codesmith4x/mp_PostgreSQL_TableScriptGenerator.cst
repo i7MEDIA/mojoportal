@@ -1,0 +1,400 @@
+<%-- 
+Name:  						PostgreSQL Stored Procedure Generator
+Author: 					Joe Audette
+Created:					2006-06-03
+Last Modified:				2008-09-12
+Description: 				Creates table script for pgsql based on MS SQL Schema
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="T-SQL" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="TablePrefix" Type="System.String" Default="mp_" Category="Style" Description="Table Prfix" %>
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+<% if (SourceTable.PrimaryKey.MemberColumns.Count >= 1 
+&& (SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Guid 
+|| SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int16 
+|| SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int32 
+|| SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int64
+|| SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.String
+)) {
+    ColumnSchema primaryKey = SourceTable.PrimaryKey.MemberColumns[0];
+%>
+
+<% if (primaryKey.DataType == DbType.Guid) {  %>
+
+-- this generation script doesn't create default values for non null columns so be sure and add those as appropriate
+CREATE TABLE "<%= GetTableName(SourceTable.Name) %>" (
+	<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+	"<%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %>" <%= GetColumnTypeWithDimensions(SourceTable.PrimaryKey.MemberColumns[i]) %> <%= GetNullStatement(SourceTable.PrimaryKey.MemberColumns[i]) %>, <% }  %>
+	<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+    "<%= GetColumnName(SourceTable.NonPrimaryKeyColumns[i].Name) %>" <%= GetColumnTypeWithDimensions(SourceTable.NonPrimaryKeyColumns[i]) %> <%= GetNullStatement(SourceTable.NonPrimaryKeyColumns[i]) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %>
+        <% } %>
+	);
+	
+<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) {  %>
+CREATE UNIQUE INDEX "<%= GetTableName(SourceTable.Name) %>_pkey"
+  ON "<%= GetTableName(SourceTable.Name) %>"("<%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %>");     
+            <% } %>
+
+
+
+<% } else { %>
+
+CREATE SEQUENCE "<%= GetTableName(SourceTable.Name) %>id_seq";
+
+-- this generation script doesn't create default values for non null columns so be sure and add those as appropriate
+CREATE TABLE "<%= GetTableName(SourceTable.Name) %>" (
+	<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+	"<%= GetColumnName(SourceTable.Columns[i].Name) %>" <%= GetColumnTypeWithDimensions(SourceTable.PrimaryKey.MemberColumns[i]) %> <%= GetNullStatement(SourceTable.PrimaryKey.MemberColumns[i]) %> DEFAULT nextval('"<%= GetTableName(SourceTable.Name) %>id_seq"'::text), <% }  %>
+	<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+    "<%= GetColumnName(SourceTable.NonPrimaryKeyColumns[i].Name) %>" <%= GetColumnTypeWithDimensions(SourceTable.NonPrimaryKeyColumns[i]) %> <%= GetNullStatement(SourceTable.NonPrimaryKeyColumns[i]) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %>
+        <% } %>
+	);
+	
+<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) {  %>
+CREATE UNIQUE INDEX "<%= GetTableName(SourceTable.Name) %>_pkey"
+  ON "<%= GetTableName(SourceTable.Name) %>"("<%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %>");     
+            <% } %>
+<% } %>
+ALTER TABLE <%= GetTableName(SourceTable.Name) %>
+ADD CONSTRAINT pk_<%= GetTableNameWithoutPrefix() %> PRIMARY KEY (<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) {  %><%= GetColumnName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>,<% } %>);      
+<% } %>
+
+<% for (int i = 0; i < SourceTable.ForeignKeys.Count; i++) {  %>
+ALTER TABLE <%= GetTableName(SourceTable.Name) %>
+ADD CONSTRAINT fk_<%= RemovePrefix(GetTableName(SourceTable.Name)) %>_<%= RemovePrefix(SourceTable.ForeignKeys[i].PrimaryKeyTable.Name).ToLower() %> FOREIGN KEY(<%= GetColumnName(SourceTable.ForeignKeyColumns[i].Name) %>)
+REFERENCES <%= SourceTable.ForeignKeys[i].PrimaryKeyTable.Name.ToLower() %>  MATCH SIMPLE
+ON UPDATE RESTRICT ON DELETE RESTRICT; 
+
+CREATE INDEX ifk_<%= RemovePrefix(GetTableName(SourceTable.Name)) %>_<%= GetColumnName(SourceTable.ForeignKeyColumns[i].Name) %> ON <%= GetTableName(SourceTable.Name) %>(<%= GetColumnName(SourceTable.ForeignKeyColumns[i].Name) %>);
+            <% } %>
+			
+
+
+<% } else { 
+%>
+
+-- there is a problem generating this table script
+-- this generator only works with tables having a single field primary key, either int or varchar(36) to represent a guid
+-- if the single column pk is an int it will create a sequence for the autogeneration of int primary keys
+
+
+
+<% } %>
+
+
+<script runat="template">
+
+public string GetPostgreSqlParameterStatement(ColumnSchema column, bool LastColumn)
+{
+	string retVal = GetColumnTypeWithDimensions(column);
+	if (!LastColumn) {
+		retVal += ",";
+	}
+	
+	retVal += " --:"  + GetColumnName(column.Name);
+	
+    return retVal;
+}
+
+public string GetPostgreSqlCreateParam(ColumnSchema column, bool LastColumn)
+{
+	string retVal = GetPostgreSqlCreateTypeNameFromNativeType(column) + GetColumnDimensions(column);
+	if (!LastColumn) {
+		retVal += ",";
+	}
+	
+	retVal += " --:"  + GetColumnName(column.Name);
+	
+    return retVal;
+}
+
+public string GetPostgreSqlReturnTypeStatement(ColumnSchema column, bool LastColumn)
+{
+	string retVal = GetPostgreSqlTypeNameFromNativeType(column);
+	if (!LastColumn) {
+		retVal += ",";
+	}
+	
+    return retVal;
+}
+
+public string GetTableName(string TableName) 
+{
+	return TableName.ToLower();
+	
+}
+
+public string GetColumnTypeWithDimensions(ColumnSchema column) {
+	return GetPostgreSqlTypeNameFromNativeType(column) + GetColumnDimensions(column);
+}
+
+
+
+public string GetColumnName(string ColumnName) 
+{
+	return ColumnName.ToLower();
+	
+}
+
+public string GetTableNameWithoutPrefix()
+{
+	
+	return RemovePrefix(SourceTable.Name.ToLower());
+	
+}
+
+public string RemovePrefix(string TableName)
+{
+
+	return TableName.Replace(TablePrefix,"");
+}
+
+public string GetNullStatement(ColumnSchema column)
+{
+	if(column.AllowDBNull)
+	{
+		return "NULL";
+	}
+	
+	return "NOT NULL";
+
+}
+
+public string GetPostgreSqlTypeNameFromNativeType(ColumnSchema column) {
+//column.NativeType.Trim().ToLower()
+	switch (column.NativeType.Trim().ToLower())
+	{
+		case "bigint":
+			return "int8";
+		case "binary":
+			return "bytea";
+		case "bit":
+		case "boolean":
+			return "bool";
+		case "bstr":
+			return "bytea";
+		case "chapter":
+			return "int4";
+		case "char":
+			return "char";
+		case "currency":
+			return "money";
+		case "datetime":
+			return "timestamp";
+		case "date":
+		case "dbdate":
+			return "date";
+		case "dbtime":
+			return "time";
+		case "dbtimestamp":
+			return "timestamp";
+		case "decimal":
+			return "numeric";
+		case "double":
+		case "float":
+			return "float8";
+		case "empty":
+			return "text";
+		case "error":
+			return "int4";
+		case "filetime":
+			return "timestamp";
+		case "guid":
+			return "text";
+		case "image":
+			return "bytea";
+		case "int":
+		case "integer":
+			return "int4";
+		case "longvarbinary":
+		case "longvarchar":
+		case "longvarwchar":
+			return "text";
+		case "money":
+			return "money";
+		case "nchar":
+			return "char";
+		case "ntext":
+			return "text";
+		case "numeric":
+			return "numeric";
+		case "nvarchar":
+			return "varchar";
+		case "propvariant":
+			return "text";
+		case "real":
+			return "real";
+		case "single":
+			return "float4";
+		case "smalldatetime":
+			return "timestamp";
+		case "smallint":
+			return "int2";
+		case "smallmoney":
+			return "money";
+		case "sql_variant":
+			return "text";
+		case "sysname":
+			return "varchar";
+		case "text":
+			return "text";
+		case "timestamp":
+			return "timestamp";
+		case "tinyint":
+			return "tinyint";
+		case "uniqueidentifier":
+			return "char(36)";
+		case "unsignedbigint":
+			return "int8";
+		case "unsignedsmallint":
+			return "int2";
+		case "unsignedtinyint":
+			return "int2";
+		case "varbinary":
+		case "varchar": 
+		case "varwchar": 
+		case "wchar": 
+			return "text";
+		case "userdefined": 
+		default: 
+			throw new ApplicationException("SourceTable does not contain a primary key.");
+	}
+}
+
+public string GetPostgreSqlCreateTypeNameFromNativeType(ColumnSchema column) {
+//column.NativeType.Trim().ToLower()
+	switch (column.NativeType.Trim().ToLower())
+	{
+		case "bigint":
+			return "int8";
+		case "binary":
+			return "bytea";
+		case "bit":
+		case "boolean":
+			return "bool";
+		case "bstr":
+			return "bytea";
+		case "chapter":
+			return "int4";
+		case "char":
+			return "char";
+		case "currency":
+			return "money";
+		case "datetime":
+			return "timestamp";
+		case "date":
+		case "dbdate":
+			return "date";
+		case "dbtime":
+			return "time";
+		case "dbtimestamp":
+			return "timestamp";
+		case "decimal":
+			return "numeric";
+		case "double":
+		case "float":
+			return "float8";
+		case "empty":
+			return "text";
+		case "error":
+			return "int4";
+		case "filetime":
+			return "timestamp";
+		case "guid":
+			return "text";
+		case "image":
+			return "bytea";
+		case "int":
+		case "integer":
+			return "int";
+		case "longvarbinary":
+		case "longvarchar":
+		case "longvarwchar":
+			return "text";
+		case "money":
+			return "money";
+		case "nchar":
+			return "char";
+		case "ntext":
+			return "text";
+		case "numeric":
+			return "numeric";
+		case "nvarchar":
+			return "varchar";
+		case "propvariant":
+			return "text";
+		case "real":
+			return "real";
+		case "single":
+			return "float4";
+		case "smalldatetime":
+			return "timestamp";
+		case "smallint":
+			return "int2";
+		case "smallmoney":
+			return "money";
+		case "sql_variant":
+			return "text";
+		case "sysname":
+			return "varchar";
+		case "text":
+			return "text";
+		case "timestamp":
+			return "timestamp";
+		case "tinyint":
+			return "tinyint";
+		case "uniqueidentifier":
+			return "char(36)";
+		case "unsignedbigint":
+			return "int8";
+		case "unsignedsmallint":
+			return "int2";
+		case "unsignedtinyint":
+			return "int2";
+		case "varbinary":
+		case "varchar": 
+		case "varwchar": 
+		case "wchar": 
+			return "text";
+		case "userdefined": 
+		default: 
+			throw new ApplicationException("SourceTable does not contain a primary key.");
+	}
+}
+
+public string GetColumnDimensions(ColumnSchema column) {
+	string retVal = "";
+	switch (column.DataType)
+	{
+		case DbType.Decimal:
+		{
+			retVal = "(" + column.Precision + ", " + column.Scale + ")";
+			break;
+		}
+		case DbType.AnsiString:
+		case DbType.AnsiStringFixedLength:
+		case DbType.String:
+		case DbType.StringFixedLength:
+		{
+			if (column.NativeType != "text" && column.NativeType != "ntext")
+			{
+				if (column.Size > 0)
+				{
+					retVal = "(" + column.Size + ")";
+				}
+			}
+			break;
+		}
+	}
+	return retVal;
+}
+
+</script>

@@ -1,0 +1,3323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8E511D65-4779-4689-82D4-811D3FE6866E}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>mojoPortal.Web</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>mojoPortal.Web</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <ExcludeApp_Data>false</ExcludeApp_Data>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Data\systemfiles\FolderGalleryCache;Setup\applications\mojoportal-core\SchemaUpgradeScripts\mysql;Setup\applications\mojoportal-core\SchemaUpgradeScripts\pgsql;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Setup\applications\mojoportal-core\SchemaUpgradeScripts\sqlite</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;DesignTools\*.cs;bin\FirebirdSql.Data.FirebirdClient.dll;bin\MySql.Data.dll;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <PublishDatabases>false</PublishDatabases>
+    <PackageAsSingleFile>false</PackageAsSingleFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PublishDatabases>true</PublishDatabases>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Data\systemfiles\FolderGalleryCache;Setup\applications\mojoportal-core\SchemaUpgradeScripts\mysql;Setup\applications\mojoportal-core\SchemaUpgradeScripts\pgsql;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Setup\applications\mojoportal-core\SchemaUpgradeScripts\sqlite</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;bin\FirebirdSql.Data.FirebirdClient.dll;bin\MySql.Data.dll;bin\Mono.Data.Sqlite.dll;bin\Npgsql.dll;Web.Debug.config;Web.Release.config;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <PackageAsSingleFile>true</PackageAsSingleFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - MySql|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - MySql|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <Optimize>true</Optimize>
+    <FileAlignment>4096</FileAlignment>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - Firebird|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\msql\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - Firebird|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <Optimize>true</Optimize>
+    <FileAlignment>4096</FileAlignment>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;Web.Debug.config;Web.Release.config;bin\MySql.Data.dll;bin\Npgsql.dll;bin\Mono.Data.Sqlite.dll;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - pgsql|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - pgsql|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <Optimize>true</Optimize>
+    <FileAlignment>4096</FileAlignment>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;Web.Debug.config;Web.Release.config;bin\FirebirdSql.Data.FirebirdClient.dll;bin\MySql.Data.dll;bin\Mono.Data.Sqlite.dll;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - SqlCe|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - SqlCe|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <Optimize>true</Optimize>
+    <FileAlignment>4096</FileAlignment>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;DesignTools\*.cs;Web.Debug.config;Web.Release.config;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - SQLite|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - SQLite|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <Optimize>true</Optimize>
+    <FileAlignment>4096</FileAlignment>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=4.5.7.123, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\ajaxtoolkit-v15-1\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="AjaxControlToolkit.HtmlEditor.Sanitizer">
+      <HintPath>..\packages\AjaxControlToolkit.HtmlEditor.Sanitizer.15.1.1.100\lib\net40\AjaxControlToolkit.HtmlEditor.Sanitizer.dll</HintPath>
+    </Reference>
+    <Reference Include="AjaxControlToolkit.StaticResources, Version=15.1.1.100, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AjaxControlToolkit.StaticResources.15.1.1.100\lib\net40\AjaxControlToolkit.StaticResources.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Argotic.Common, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\argotic\Argotic.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Argotic.Core, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\argotic\Argotic.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Argotic.Extensions, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\argotic\Argotic.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Brettle.Web.NeatHtml, Version=1.0.3373.23565, Culture=neutral">
+      <HintPath>..\_libs\Brettle.Web.NeatHtml.dll</HintPath>
+    </Reference>
+    <Reference Include="CSSFriendly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\CSSFriendly.dll</HintPath>
+    </Reference>
+    <Reference Include="dotless.Core, Version=1.3.0.4, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\dotless-v1.3.1.0\dotless.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth, Version=3.1.0.9122, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\dotnetopenauth\DotNetOpenAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="GCheckout, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\_libs\GCheckout1.3.2\GCheckout.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Analytics, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9e229226d7996434, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\gdata-1-9\Google.GData.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Client, Version=2.1.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\gdata-1-9\Google.GData.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Extensions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\gdata-1-9\Google.GData.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlDiff">
+      <HintPath>..\_libs\HtmlDiff.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip.Reduced">
+      <HintPath>..\_libs\Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=2.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\Apache-Lucene.Net-3.0.3\NET40\bin\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Analyzers">
+      <HintPath>..\_libs\Apache-Lucene.Net-3.0.3\NET40\bin\Contrib\Lucene.Net.Contrib.Analyzers.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Highlighter">
+      <HintPath>..\_libs\Apache-Lucene.Net-3.0.3\NET40\bin\Contrib\Lucene.Net.Contrib.Highlighter.dll</HintPath>
+    </Reference>
+    <Reference Include="MetaDataExtractor, Version=2.3.0.38010, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\MetaDataExtractor.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Client, Version=101.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\Azure\Microsoft.ApplicationServer.Caching.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Core, Version=101.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\Azure\Microsoft.ApplicationServer.Caching.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ScriptManager.MSAjax">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.MSAjax.5.0.0\lib\net45\Microsoft.ScriptManager.MSAjax.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.WebForms">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.WebForms.5.0.0\lib\net45\Microsoft.ScriptManager.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.DistributedCache, Version=101.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\Azure\Microsoft.Web.DistributedCache.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\aspnetmvc\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Preview, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\Microsoft.Web.Preview.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsFabric.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\Azure\Microsoft.WindowsFabric.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsFabric.Data.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\Azure\Microsoft.WindowsFabric.Data.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Recaptcha">
+      <HintPath>..\_libs\Recaptcha.dll</HintPath>
+    </Reference>
+    <Reference Include="SanitizerProviders, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\ajaxtoolkit-jan2013\AjaxControlToolkit.Binary.NET4\SanitizerProviders\SanitizerProviders.dll</HintPath>
+    </Reference>
+    <Reference Include="Subkismet, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\Subkismet.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Design">
+      <Name>system.design</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="TimelineNet, Version=1.0.0.21467, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\TimelineNet.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="..\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
+      <Project>{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}</Project>
+      <Name>mojoPortal.Business.WebHelpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Business\mojoPortal.Business.csproj">
+      <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
+      <Name>mojoPortal.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Net\mojoPortal.Net.csproj">
+      <Project>{30916752-1A97-49CA-95D6-81A5F784EEB5}</Project>
+      <Name>mojoPortal.Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
+      <Project>{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}</Project>
+      <Name>mojoPortal.Web.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
+      <Project>{4F6DDA2C-C9B8-45B2-AADA-3FF922317661}</Project>
+      <Name>mojoPortal.Web.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
+      <Project>{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}</Project>
+      <Name>mojoPortal.Web.Framework</Name>
+    </ProjectReference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="ZedGraph, Version=5.1.5.26203, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\ZedGraph\ZedGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="ZedGraph.Web, Version=5.1.5.26204, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\ZedGraph\ZedGraph.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AccessDenied.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Admin\ContentAwaitingPublishing.aspx" />
+    <Content Include="Admin\ContentManager.aspx" />
+    <Content Include="Admin\ContentManagerPreview.aspx" />
+    <Content Include="Admin\ContentPublishDialog.aspx" />
+    <Content Include="Admin\ContentValidation.aspx" />
+    <Content Include="Admin\Controls\PageContentWizard.ascx" />
+    <Content Include="Admin\Controls\UserRoles.ascx" />
+    <Content Include="Admin\dbUtils.aspx" />
+    <Content Include="Admin\EditLoginInfo.aspx" />
+    <Content Include="Admin\EditRegistrationAgreement.aspx" />
+    <Content Include="Admin\EditSiteClosedMessage.aspx" />
+    <Content Include="Admin\FeaturePermissions.aspx" />
+    <Content Include="Admin\ManageUsers.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Admin\ModuleDefinitions.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Admin\ModuleDefinitionSettings.aspx" />
+    <Content Include="Admin\ModulePermissions.aspx" />
+    <Content Include="Admin\ModuleSettings.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Admin\Monitor.aspx" />
+    <Content Include="Admin\PageLayout.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Admin\PagePermission.aspx" />
+    <Content Include="Admin\PagePermissionsMenu.aspx" />
+    <Content Include="Admin\PageSettings.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Admin\PermissionEdit.aspx" />
+    <Content Include="Admin\PermissionsMenu.aspx" />
+    <Content Include="Admin\SecurityAdvisor.aspx" />
+    <Content Include="Admin\SecurityRoles.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Admin\SiteList.aspx" />
+    <Content Include="App_GlobalResources\AccessKeys.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AccessKeys.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="BingSearch.aspx" />
+    <Content Include="blank.html" />
+    <Content Include="ChooseContent.aspx" />
+    <Content Include="closed.aspx" />
+    <Content Include="ConfirmRegistration.aspx" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Controls\BreadcrumbsControl.ascx">
+    </Content>
+    <Content Include="Controls\ChildPageBreadcrumbs.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="Controls\ChildPageMenu.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Controls\ColorBoxTransitionSetting.ascx" />
+    <Content Include="Controls\CommentSystems\Controls\CommentEditor.ascx" />
+    <Content Include="Controls\CommentSystems\CommentsWidget.ascx" />
+    <Content Include="Controls\CountryISOCode2Setting.ascx" />
+    <Content Include="Controls\CultureFlag.ascx" />
+    <Content Include="Controls\EmailTemplates\EmailTemplateEditor.ascx" />
+    <Content Include="Controls\Gravatar\Gravatar.bmp" />
+    <Content Include="Controls\HtmlSetting.ascx" />
+    <Content Include="Controls\LoginControl.ascx" />
+    <Content Include="Controls\MetaContent.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="Controls\Microsoft\BingMapDistanceUnitSetting.ascx" />
+    <Content Include="Controls\Microsoft\BingMapStyleSetting.ascx" />
+    <Content Include="Controls\Microsoft\BingMapZoomSetting.ascx" />
+    <Content Include="Controls\Microsoft\BingSearchControl.ascx" />
+    <Content Include="Controls\ModuleWrapper.ascx" />
+    <Content Include="Controls\NeatUploadStylesheet.ascx" />
+    <Content Include="Controls\PaymentLogList.ascx" />
+    <Content Include="Controls\PublishTypeSetting.ascx" />
+    <Content Include="Controls\RelatedNewsletterSetting.ascx" />
+    <Content Include="Controls\SearchableFeatureFilterSetting.ascx" />
+    <Content Include="Controls\SearchInput.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="Controls\Sharing\FacebookLikeButtonThemeSetting.ascx" />
+    <Content Include="Controls\SiteMenu.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Controls\SkinSetting.ascx" />
+    <Content Include="Controls\StyleSheet.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="cpl.txt" />
+    <Content Include="Default.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="DesignTools\CacheTool.aspx" />
+    <Content Include="DesignTools\CssEditor.aspx" />
+    <Content Include="DesignTools\Default.aspx" />
+    <Content Include="DesignTools\DownloadSkin.aspx" />
+    <Content Include="DesignTools\LessUtility.aspx" />
+    <Content Include="DesignTools\ManageSkin.aspx" />
+    <Content Include="DesignTools\MasterPageEditor.aspx" />
+    <Content Include="DesignTools\SkinFileEditor.aspx" />
+    <Content Include="DesignTools\SkinList.aspx" />
+    <Content Include="Dialog\GlobalContentDialog.aspx" />
+    <Content Include="Dialog\ParentPageDialog.aspx" />
+    <Content Include="Dialog\UserRolesDialog.aspx" />
+    <Content Include="EditAccessDenied.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="eletter\OptInUsersDialog.aspx" />
+    <Content Include="Error.htm" />
+    <Content Include="Global.asax">
+      <SubType>Component</SubType>
+    </Content>
+    <Content Include="GoogleSearch.aspx" />
+    <Content Include="Help.aspx" />
+    <Content Include="HelpEdit.aspx" />
+    <Content Include="HtmlEdit.aspx">
+    </Content>
+    <Content Include="HtmlView.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Logoff.aspx" />
+    <Content Include="MemberList.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Modules\ChildPageSiteMapModule.ascx" />
+    <Content Include="Modules\CustomScript.ascx" />
+    <Content Include="Modules\HtmlModule.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Modules\LoginModule.ascx" />
+    <Content Include="Modules\RecentContentModule.ascx" />
+    <Content Include="Modules\SiteSearchModule.ascx" />
+    <Content Include="Modules\WebPartModule.ascx" />
+    <Content Include="ProfileView.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Redirect.aspx" />
+    <Content Include="robots.txt" />
+    <Content Include="SearchResults.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Secure\ChangePassword.aspx" />
+    <Content Include="Secure\Login.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Secure\PasswordReset.aspx" />
+    <Content Include="Secure\RecoverPassword.aspx" />
+    <Content Include="Secure\Register.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Secure\UserProfile.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Services\HtmlEditService.aspx" />
+    <Content Include="Services\RecentContentRss.aspx" />
+    <Compile Include="AccessDenied.aspx.cs">
+      <DependentUpon>AccessDenied.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccessDenied.aspx.designer.cs">
+      <DependentUpon>AccessDenied.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminCountry.aspx.cs">
+      <DependentUpon>AdminCountry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminCountry.aspx.designer.cs">
+      <DependentUpon>AdminCountry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminCurrency.aspx.cs">
+      <DependentUpon>AdminCurrency.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminCurrency.aspx.designer.cs">
+      <DependentUpon>AdminCurrency.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminGeoZone.aspx.cs">
+      <DependentUpon>AdminGeoZone.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminGeoZone.aspx.designer.cs">
+      <DependentUpon>AdminGeoZone.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminLanguage.aspx.cs">
+      <DependentUpon>AdminLanguage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminLanguage.aspx.designer.cs">
+      <DependentUpon>AdminLanguage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminMenu.aspx.cs">
+      <DependentUpon>AdminMenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminMenu.aspx.designer.cs">
+      <DependentUpon>AdminMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminTaxClass.aspx.cs">
+      <DependentUpon>AdminTaxClass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminTaxClass.aspx.designer.cs">
+      <DependentUpon>AdminTaxClass.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminTaxRate.aspx.cs">
+      <DependentUpon>AdminTaxRate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminTaxRate.aspx.designer.cs">
+      <DependentUpon>AdminTaxRate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdvancedTools.aspx.cs">
+      <DependentUpon>AdvancedTools.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdvancedTools.aspx.designer.cs">
+      <DependentUpon>AdvancedTools.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\BannedIPAddresses.aspx.cs">
+      <DependentUpon>BannedIPAddresses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\BannedIPAddresses.aspx.designer.cs">
+      <DependentUpon>BannedIPAddresses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContentAwaitingApproval.aspx.cs">
+      <DependentUpon>ContentAwaitingApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContentAwaitingApproval.aspx.designer.cs">
+      <DependentUpon>ContentAwaitingApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContentAwaitingPublishing.aspx.cs">
+      <DependentUpon>ContentAwaitingPublishing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContentAwaitingPublishing.aspx.designer.cs">
+      <DependentUpon>ContentAwaitingPublishing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContentCatalog.aspx.cs">
+      <DependentUpon>ContentCatalog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContentCatalog.aspx.designer.cs">
+      <DependentUpon>ContentCatalog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContentManager.aspx.cs">
+      <DependentUpon>ContentManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContentManager.aspx.designer.cs">
+      <DependentUpon>ContentManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContentManagerPreview.aspx.cs">
+      <DependentUpon>ContentManagerPreview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContentManagerPreview.aspx.designer.cs">
+      <DependentUpon>ContentManagerPreview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContentPublishDialog.aspx.cs">
+      <DependentUpon>ContentPublishDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContentPublishDialog.aspx.designer.cs">
+      <DependentUpon>ContentPublishDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Controls\AdvFileManager.ascx.cs">
+      <DependentUpon>AdvFileManager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Controls\AdvFileManager.ascx.designer.cs">
+      <DependentUpon>AdvFileManager.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Controls\FileManager.ascx.cs">
+      <DependentUpon>FileManager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Controls\FileManager.ascx.designer.cs">
+      <DependentUpon>FileManager.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Controls\PageContentWizard.ascx.cs">
+      <DependentUpon>PageContentWizard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Controls\PageContentWizard.ascx.designer.cs">
+      <DependentUpon>PageContentWizard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Controls\UserRoles.ascx.cs">
+      <DependentUpon>UserRoles.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Controls\UserRoles.ascx.designer.cs">
+      <DependentUpon>UserRoles.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditLoginInfo.aspx.cs">
+      <DependentUpon>EditLoginInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditLoginInfo.aspx.designer.cs">
+      <DependentUpon>EditLoginInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditRegistrationAgreement.aspx.cs">
+      <DependentUpon>EditRegistrationAgreement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditRegistrationAgreement.aspx.designer.cs">
+      <DependentUpon>EditRegistrationAgreement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditSiteClosedMessage.aspx.cs">
+      <DependentUpon>EditSiteClosedMessage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditSiteClosedMessage.aspx.designer.cs">
+      <DependentUpon>EditSiteClosedMessage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\FeaturePermissions.aspx.cs">
+      <DependentUpon>FeaturePermissions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\FeaturePermissions.aspx.designer.cs">
+      <DependentUpon>FeaturePermissions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\FileManagerAlt.aspx.cs">
+      <DependentUpon>FileManagerAlt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\FileManagerAlt.aspx.designer.cs">
+      <DependentUpon>FileManagerAlt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ModulePermissions.aspx.cs">
+      <DependentUpon>ModulePermissions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ModulePermissions.aspx.designer.cs">
+      <DependentUpon>ModulePermissions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Monitor.aspx.cs">
+      <DependentUpon>Monitor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Monitor.aspx.designer.cs">
+      <DependentUpon>Monitor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PagePermission.aspx.cs">
+      <DependentUpon>PagePermission.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PagePermission.aspx.designer.cs">
+      <DependentUpon>PagePermission.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PagePermissionsMenu.aspx.cs">
+      <DependentUpon>PagePermissionsMenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PagePermissionsMenu.aspx.designer.cs">
+      <DependentUpon>PagePermissionsMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PermissionEdit.aspx.cs">
+      <DependentUpon>PermissionEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PermissionEdit.aspx.designer.cs">
+      <DependentUpon>PermissionEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PermissionsMenu.aspx.cs">
+      <DependentUpon>PermissionsMenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PermissionsMenu.aspx.designer.cs">
+      <DependentUpon>PermissionsMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SecurityAdvisor.aspx.cs">
+      <DependentUpon>SecurityAdvisor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SecurityAdvisor.aspx.designer.cs">
+      <DependentUpon>SecurityAdvisor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SiteList.aspx.cs">
+      <DependentUpon>SiteList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SiteList.aspx.designer.cs">
+      <DependentUpon>SiteList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\AccessKeys.designer.cs">
+      <DependentUpon>AccessKeys.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="App_GlobalResources\CountryISOCode2Resources.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CountryISOCode2Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_MasterPages\LayoutDisplaySettings.cs" />
+    <Compile Include="BingSearch.aspx.cs">
+      <DependentUpon>BingSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BingSearch.aspx.designer.cs">
+      <DependentUpon>BingSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="channel.ashx.cs">
+      <DependentUpon>channel.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="closed.aspx.cs">
+      <DependentUpon>closed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="closed.aspx.designer.cs">
+      <DependentUpon>closed.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\BundleConfig.cs" />
+    <Compile Include="Components\Routing\RoutesConfig.cs" />
+    <Compile Include="Components\Routing\IRegisterRoutes.cs" />
+    <Compile Include="Components\BaseContentUploadHandler.cs" />
+    <Compile Include="Components\CacheHelper.cs" />
+    <Compile Include="Components\Caching\AppFabricCacheAdapter.cs" />
+    <Compile Include="Components\Caching\AppFabricCacheFactory.cs" />
+    <Compile Include="Components\Caching\CacheManager.cs" />
+    <Compile Include="Components\Caching\CacheProvider.cs" />
+    <Compile Include="Components\Caching\CacheSettingEnumeration.cs" />
+    <Compile Include="Components\Caching\CacheTypes.cs" />
+    <Compile Include="Components\Caching\DistributedCacheFactoryBase.cs" />
+    <Compile Include="Components\Caching\ICache.cs" />
+    <Compile Include="Components\Caching\ICacheProvider.cs" />
+    <Compile Include="Components\Caching\MemoryCache.cs" />
+    <Compile Include="Components\Caching\ServerNode.cs" />
+    <Compile Include="Components\CorePermission.cs" />
+    <Compile Include="Components\FileSystem\AbstractFileSystemItem.cs" />
+    <Compile Include="Components\FileSystem\DiskFileSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\FileSystem\DiskFileSystemProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\FileSystem\FileMgrViewData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\FileSystem\FileSystemConfiguration.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\FileSystem\FileSystemManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\FileSystem\FileSystemPermission.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\FileSystem\FileSystemProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\FileSystem\FileSystemProviderCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\FileSystem\IFileSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\FileSystem\IFileSystemPermission.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\FileSystem\OpResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\FileSystem\WebFile.cs" />
+    <Compile Include="Components\FileSystem\WebFileInfo.cs" />
+    <Compile Include="Components\FileSystem\WebFolder.cs" />
+    <Compile Include="Components\HtmlConfiguration.cs" />
+    <Compile Include="Components\HtmlContentInstaller.cs" />
+    <Compile Include="Components\IContentInstaller.cs" />
+    <Compile Include="Components\ImageHelper.cs" />
+    <Compile Include="Components\IRefreshAfterPostback.cs" />
+    <Compile Include="Components\IUpdateCommentStats.cs" />
+    <Compile Include="Components\LetterOptInTask.cs" />
+    <Compile Include="Components\MetaWeblog\MetaWeblogException.cs" />
+    <Compile Include="Components\MetaWeblog\MWAAuthor.cs" />
+    <Compile Include="Components\MetaWeblog\MWABlogInfo.cs" />
+    <Compile Include="Components\MetaWeblog\MWACategory.cs" />
+    <Compile Include="Components\MetaWeblog\MWAFault.cs" />
+    <Compile Include="Components\MetaWeblog\MWAMediaInfo.cs" />
+    <Compile Include="Components\MetaWeblog\MWAMediaObject.cs" />
+    <Compile Include="Components\MetaWeblog\MWAPage.cs" />
+    <Compile Include="Components\MetaWeblog\MWAPost.cs" />
+    <Compile Include="Components\MetaWeblog\MWAUserInfo.cs" />
+    <Compile Include="Components\MetaWeblog\XMLRPCRequest.cs" />
+    <Compile Include="Components\MetaWeblog\XMLRPCResponse.cs" />
+    <Compile Include="Components\mojoBasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\mojoEditServiceBasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\mojoThemeVirtualDirectory.cs" />
+    <Compile Include="Components\NonCmsBasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\PaymentGateway\AuthorizeNetPaymentGatewayProvider.cs" />
+    <Compile Include="Components\PaymentGateway\NotImplementedPaymentGatewayProvider.cs" />
+    <Compile Include="Components\PaymentGateway\PaymentGatewayConfiguration.cs" />
+    <Compile Include="Components\PaymentGateway\PaymentGatewayManager.cs" />
+    <Compile Include="Components\PaymentGateway\PaymentGatewayProvider.cs" />
+    <Compile Include="Components\PaymentGateway\PaymentGatewayProviderCollection.cs" />
+    <Compile Include="Components\PaymentGateway\PayPalDirectPaymentGatewayProvider.cs" />
+    <Compile Include="Components\PaymentGateway\PlugNPayPaymentGatewayProvider.cs" />
+    <Compile Include="Components\PaymentGateway\WorldPay\DoNothingWorldPayResponseHandler.cs" />
+    <Compile Include="Components\PaymentGateway\WorldPay\WorldPayResponseHandlerProviderCollection.cs" />
+    <Compile Include="Components\PaymentGateway\WorldPay\WorldPayResponseHandlerProviderConfig.cs" />
+    <Compile Include="Components\PaymentGateway\WorldPay\WorldPayPaymentResponse.cs" />
+    <Compile Include="Components\PaymentGateway\WorldPay\WorldPayResponseHandlerProvider.cs" />
+    <Compile Include="Components\PaymentGateway\WorldPay\WorldPayResponseHandlerProviderManager.cs" />
+    <Compile Include="Components\RequestException.cs" />
+    <Compile Include="Components\Routing\FilterConfig.cs" />
+    <Compile Include="Components\Routing\mojoRoutingModule.cs" />
+    <Compile Include="Components\Routing\RouteRegistrar.cs" />
+    <Compile Include="Components\Routing\WebApiConfig.cs" />
+    <Compile Include="Components\SearchIndex\FakeIndexBuilderProvider.cs" />
+    <Compile Include="Components\SearchIndex\HtmlContentIndexBuilderProvider.cs" />
+    <Compile Include="Components\SearchIndex\IndexBuilderConfiguration.cs" />
+    <Compile Include="Components\SearchIndex\IndexBuilderManager.cs" />
+    <Compile Include="Components\SearchIndex\IndexBuilderProvider.cs" />
+    <Compile Include="Components\SearchIndex\IndexBuilderProviderCollection.cs" />
+    <Compile Include="Components\SearchIndex\IndexHelper.cs" />
+    <Compile Include="Components\SearchIndex\IndexItem.cs" />
+    <Compile Include="Components\SearchIndex\IndexItemCollection.cs" />
+    <Compile Include="Components\SearchIndex\IndexTerm.cs" />
+    <Compile Include="Components\SearchIndex\IndexWriterTask.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\ArabicAnalysisProvider.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\BrazilianAnalysisProvider.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\ChineseAnalysisProvider.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\CJKAnalysisProvider.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\CzechAnalysisProvider.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\DutchAnalysisProvider.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\FrenchAnalysisProvider.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\GermanAnalysisProvider.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\GreekAnalysisProvider.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\LuceneSettingsConfiguration.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\LuceneSettingsManager.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\LuceneSettingsProvider.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\LuceneSettingsProviderCollection.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\PersianAnalysisProvider.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\RussianAnalysisProvider.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\StandardAnalysisProvider.cs" />
+    <Compile Include="Components\SearchIndex\LuceneSettingsProvider\ThaiAnalysisProvider.cs" />
+    <Compile Include="Components\SecurityAdvisor.cs" />
+    <Compile Include="Components\SiteMapHelper.cs" />
+    <Compile Include="Components\SkinHelper.cs" />
+    <Compile Include="Components\SystemLogAppender.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controls\Adapters\SiteMapTreeViewAdapter.cs" />
+    <Compile Include="Controls\Analytics\AnalyticsAsyncBottomScript.cs" />
+    <Compile Include="Controls\Analytics\AnalyticsAsyncTopScript.cs" />
+    <Compile Include="Controls\Analytics\mojoGoogleAnalyticsScript.cs" />
+    <Compile Include="Controls\AppleTouchIcon.cs" />
+    <Compile Include="Controls\Artisteer\ArtisteerTreeView.cs" />
+    <Compile Include="Controls\Artisteer\ArtisteerTreeViewAdapter.cs" />
+    <Compile Include="Controls\Artisteer\MenuAdapterArtisteer.cs" />
+    <Compile Include="Controls\AdminMenuLink.cs" />
+    <Compile Include="Controls\Artisteer\MenuAdapterArtisteerVertical.cs" />
+    <Compile Include="Controls\Artisteer\mojoMenuArtisteerVertical.cs" />
+    <Compile Include="Controls\AutoHidePanel.cs" />
+    <Compile Include="Controls\Captcha\RecaptchaControl.cs" />
+    <Compile Include="Controls\Captcha\RecaptchaResponse.cs" />
+    <Compile Include="Controls\Captcha\RecaptchaValidator.cs" />
+    <Compile Include="Controls\ColorBoxTransitionSetting.ascx.cs">
+      <DependentUpon>ColorBoxTransitionSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorBoxTransitionSetting.ascx.designer.cs">
+      <DependentUpon>ColorBoxTransitionSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CommentSystems\Controls\CommentDateWrapper.cs" />
+    <Compile Include="Controls\CommentSystems\Controls\CommentItemBodyPanel.cs" />
+    <Compile Include="Controls\CommentSystems\Controls\CommentItemInnerPanel.cs" />
+    <Compile Include="Controls\CommentSystems\Controls\CommentItemLeftPanel.cs" />
+    <Compile Include="Controls\CommentSystems\Controls\CommentItemRightPanel.cs" />
+    <Compile Include="Controls\CommentSystems\Controls\CommentItemTitlePanel.cs" />
+    <Compile Include="Controls\CommentSystems\Controls\CommentItemWrapper.cs" />
+    <Compile Include="Controls\CommentSystems\Controls\CommentEditor.ascx.cs">
+      <DependentUpon>CommentEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CommentSystems\Controls\CommentEditor.ascx.designer.cs">
+      <DependentUpon>CommentEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CommentSystems\Controls\CommentsInnerPanel.cs" />
+    <Compile Include="Controls\CommentSystems\Controls\CommentsOuterPanel.cs" />
+    <Compile Include="Controls\CommentSystems\CommentsWidget.ascx.cs">
+      <DependentUpon>CommentsWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CommentSystems\CommentsWidget.ascx.designer.cs">
+      <DependentUpon>CommentsWidget.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CommentSystems\CommentSystemDisplaySettings.cs" />
+    <Compile Include="Controls\CommentSystems\FacebookCommentWidget.cs" />
+    <Compile Include="Controls\ContentExpiredLabel.cs" />
+    <Compile Include="Controls\CountryISOCode2Setting.ascx.cs">
+      <DependentUpon>CountryISOCode2Setting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CountryISOCode2Setting.ascx.designer.cs">
+      <DependentUpon>CountryISOCode2Setting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditLinkToggle.cs" />
+    <Compile Include="Controls\Editors\AjaxControlToolkit\AjaxEditor.cs" />
+    <Compile Include="Controls\Editors\AjaxControlToolkit\AjaxEditorAdapter.cs" />
+    <Compile Include="Controls\Editors\AjaxControlToolkit\AjaxEditorProvider.cs" />
+    <Compile Include="Controls\Editors\mojoTextArea.cs" />
+    <Compile Include="Controls\Editors\TinyMCE\TinyMceEditor.cs" />
+    <Compile Include="Controls\EmailTemplates\EmailTemplateEditor.ascx.cs">
+      <DependentUpon>EmailTemplateEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\EmailTemplates\EmailTemplateEditor.ascx.designer.cs">
+      <DependentUpon>EmailTemplateEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FeedDiscoveryLink.cs" />
+    <Compile Include="Controls\FileBrowserTextBoxExtender.cs" />
+    <Compile Include="Controls\FileManagerLink.cs" />
+    <Compile Include="Controls\FlexMenu.cs" />
+    <Compile Include="Controls\FlexSearch.cs" />
+    <Compile Include="Controls\FriendlyTreeView.cs" />
+    <Compile Include="Controls\GoogleTranslatePanel.cs" />
+    <Compile Include="Controls\Google\GoogleCustomSearchControl.cs" />
+    <Compile Include="Controls\Google\LocationMap.cs" />
+    <Compile Include="Controls\Google\QRCodeImage.cs" />
+    <Compile Include="Controls\Gravatar\Avatar.cs" />
+    <Compile Include="Controls\jPlayerPanel.cs" />
+    <Compile Include="Controls\jQuery\bxSlider.cs" />
+    <Compile Include="Controls\jQuery\CalendarDatePickerAdapter.cs" />
+    <Compile Include="Controls\jQuery\CalendarDatePickerProvider.cs" />
+    <Compile Include="Controls\jQuery\CalendarsDatePicker.cs" />
+    <Compile Include="Controls\jQuery\jQueryAutoCompleteTextBox.cs" />
+    <Compile Include="Controls\jQuery\jQueryFileUpload.cs" />
+    <Compile Include="Controls\jQuery\NivoSlider.cs" />
+    <Compile Include="Controls\jQuery\WorkflowStatusIcon.cs" />
+    <Compile Include="Controls\Literals\CompanyAddressCountryLiteral.cs" />
+    <Compile Include="Controls\Literals\CompanyAddressLocalityLiteral.cs" />
+    <Compile Include="Controls\Literals\CompanyAddressRegionLiteral.cs" />
+    <Compile Include="Controls\Literals\CompanyFaxLiteral.cs" />
+    <Compile Include="Controls\Literals\CompanyNameLiteral.cs" />
+    <Compile Include="Controls\Literals\CompanyPhoneLiteral.cs" />
+    <Compile Include="Controls\Literals\CompanyPostalCodeLiteral.cs" />
+    <Compile Include="Controls\Literals\CompanyStreetAddress2Literal.cs" />
+    <Compile Include="Controls\Literals\CompanyStreetAddressLiteral.cs" />
+    <Compile Include="Controls\Literals\PublicEmailLiteral.cs" />
+    <Compile Include="Controls\MediaElement.cs" />
+    <Compile Include="Controls\Microsoft\BingSearchContainer.cs" />
+    <Compile Include="Controls\MobileSkinLink.cs" />
+    <Compile Include="Controls\mojoListBox.cs" />
+    <Compile Include="Controls\mojoRegisterButton.cs" />
+    <Compile Include="Controls\mojoScriptManager.cs" />
+    <Compile Include="Controls\NoFollowHyperlink.cs" />
+    <Compile Include="Controls\PageTreeLink.cs" />
+    <Compile Include="Controls\Panels\AdminCrumbContainer.cs" />
+    <Compile Include="Controls\Panels\BreadcrumbContainer.cs" />
+    <Compile Include="Controls\Panels\LayoutPanel.cs" />
+    <Compile Include="Controls\Panels\MobileViewPanel.cs" />
+    <Compile Include="Controls\Panels\SearchPanel.cs" />
+    <Compile Include="Controls\PaymentLogList.ascx.cs">
+      <DependentUpon>PaymentLogList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\PaymentLogList.ascx.designer.cs">
+      <DependentUpon>PaymentLogList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PublishTypeSetting.ascx.cs">
+      <DependentUpon>PublishTypeSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\PublishTypeSetting.ascx.designer.cs">
+      <DependentUpon>PublishTypeSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RelatedNewsletterSetting.ascx.cs">
+      <DependentUpon>RelatedNewsletterSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\RelatedNewsletterSetting.ascx.designer.cs">
+      <DependentUpon>RelatedNewsletterSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RoleEnabledHyperlink.cs" />
+    <Compile Include="Controls\SchemaOrg\OrganizationControl.cs" />
+    <Compile Include="Controls\SearchableFeatureFilterSetting.ascx.cs">
+      <DependentUpon>SearchableFeatureFilterSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SearchableFeatureFilterSetting.ascx.designer.cs">
+      <DependentUpon>SearchableFeatureFilterSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Sharing\AddThisWidget.cs" />
+    <Compile Include="Controls\Sharing\FacebookSdk.cs" />
+    <Compile Include="Controls\Sharing\JanrainSharingElement.cs" />
+    <Compile Include="Controls\Sharing\JanrainSharingScript.cs" />
+    <Compile Include="Controls\Sharing\PlusOneButton.cs" />
+    <Compile Include="Controls\Gravatar\Gravatar.cs" />
+    <Compile Include="Controls\HeadingControl.cs" />
+    <Compile Include="Controls\HtmlSetting.ascx.cs">
+      <DependentUpon>HtmlSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\HtmlSetting.ascx.designer.cs">
+      <DependentUpon>HtmlSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\InsecurePanel.cs" />
+    <Compile Include="Controls\jQuery\Carousel.cs" />
+    <Compile Include="Controls\jQuery\EasySlider.cs" />
+    <Compile Include="Controls\jQuery\ExtrudeConfigurator.cs" />
+    <Compile Include="Controls\jQuery\jDatePicker.cs" />
+    <Compile Include="Controls\jQuery\jDatePickerAdapter.cs" />
+    <Compile Include="Controls\jQuery\jDatePickerProvider.cs" />
+    <Compile Include="Controls\jQuery\JQueryUIThemePicker.cs" />
+    <Compile Include="Controls\LoginControl.ascx.cs">
+      <DependentUpon>LoginControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\LoginControl.ascx.designer.cs">
+      <DependentUpon>LoginControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Microsoft\BingMap.cs" />
+    <Compile Include="Controls\Microsoft\BingMapDistanceUnitSetting.ascx.cs">
+      <DependentUpon>BingMapDistanceUnitSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Microsoft\BingMapDistanceUnitSetting.ascx.designer.cs">
+      <DependentUpon>BingMapDistanceUnitSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Microsoft\BingMapStyleSetting.ascx.cs">
+      <DependentUpon>BingMapStyleSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Microsoft\BingMapStyleSetting.ascx.designer.cs">
+      <DependentUpon>BingMapStyleSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Microsoft\BingMapZoomSetting.ascx.cs">
+      <DependentUpon>BingMapZoomSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Microsoft\BingMapZoomSetting.ascx.designer.cs">
+      <DependentUpon>BingMapZoomSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Microsoft\BingSearchControl.ascx.cs">
+      <DependentUpon>BingSearchControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Microsoft\BingSearchControl.ascx.designer.cs">
+      <DependentUpon>BingSearchControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Microsoft\MsTranslatorControl.cs" />
+    <Compile Include="Controls\ModuleContainer.cs" />
+    <Compile Include="Controls\mojoButton.cs" />
+    <Compile Include="Controls\mojoCutePager.cs" />
+    <Compile Include="Controls\mojoDropDownList.cs" />
+    <Compile Include="Controls\mojoLabel.cs" />
+    <Compile Include="Controls\Artisteer\mojoMenuArtisteer.cs" />
+    <Compile Include="Controls\mojoSiteMapTreeView.cs" />
+    <Compile Include="Controls\NewPageLink.cs" />
+    <Compile Include="Controls\PageEditFeaturesLink.cs" />
+    <Compile Include="Controls\PageEditSettingsLink.cs" />
+    <Compile Include="Controls\Panels\BasePanel.cs" />
+    <Compile Include="Controls\Panels\EmptyPanel.cs" />
+    <Compile Include="Controls\Panels\InnerBodyPanel.cs" />
+    <Compile Include="Controls\Panels\InnerWrapperPanel.cs" />
+    <Compile Include="Controls\Panels\OuterBodyPanel.cs" />
+    <Compile Include="Controls\Panels\OuterWrapperPanel.cs" />
+    <Compile Include="Controls\PrivacyPageLink.cs" />
+    <Compile Include="Controls\Rating\Rating.cs" />
+    <Compile Include="Controls\Rating\RatingExtender.cs" />
+    <Compile Include="Controls\Sharing\DeliciousLink.cs" />
+    <Compile Include="Controls\Sharing\DiggLink.cs" />
+    <Compile Include="Controls\Sharing\FacebookLikeButton.cs" />
+    <Compile Include="Controls\Sharing\FacebookLikeButtonThemeSetting.ascx.cs">
+      <DependentUpon>FacebookLikeButtonThemeSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Sharing\FacebookLikeButtonThemeSetting.ascx.designer.cs">
+      <DependentUpon>FacebookLikeButtonThemeSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Sharing\StumbleUponLink.cs" />
+    <Compile Include="Controls\Sharing\TweetThisLink.cs" />
+    <Compile Include="Controls\Sharing\TwitterFollowButton.cs" />
+    <Compile Include="Controls\SiteSlogan.cs" />
+    <Compile Include="Controls\SkinFolderCssFile.cs" />
+    <Compile Include="Controls\SkinFolderScript.cs" />
+    <Compile Include="Controls\SkinSetting.ascx.cs">
+      <DependentUpon>SkinSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SkinSetting.ascx.designer.cs">
+      <DependentUpon>SkinSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SortSetting.ascx.cs">
+      <DependentUpon>SortSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SortSetting.ascx.designer.cs">
+      <DependentUpon>SortSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TimeZoneIdSetting.ascx.cs">
+      <DependentUpon>TimeZoneIdSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TimeZoneIdSetting.ascx.designer.cs">
+      <DependentUpon>TimeZoneIdSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Validators\CheckBoxListValidator.cs" />
+    <Compile Include="Controls\Validators\EmailValidator.cs" />
+    <Compile Include="Controls\WorldPay\WorldPayAcceptanceMark.cs" />
+    <Compile Include="Controls\WorldPay\WorldPayPurchaseButton.cs" />
+    <Compile Include="DesignTools\CacheTool.aspx.cs">
+      <DependentUpon>CacheTool.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DesignTools\CacheTool.aspx.designer.cs">
+      <DependentUpon>CacheTool.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DesignTools\CssEditor.aspx.cs">
+      <DependentUpon>CssEditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DesignTools\CssEditor.aspx.designer.cs">
+      <DependentUpon>CssEditor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DesignTools\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DesignTools\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DesignTools\DownloadSkin.aspx.cs">
+      <DependentUpon>DownloadSkin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DesignTools\DownloadSkin.aspx.designer.cs">
+      <DependentUpon>DownloadSkin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DesignTools\LessUtility.aspx.cs">
+      <DependentUpon>LessUtility.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DesignTools\LessUtility.aspx.designer.cs">
+      <DependentUpon>LessUtility.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DesignTools\ManageSkin.aspx.cs">
+      <DependentUpon>ManageSkin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DesignTools\ManageSkin.aspx.designer.cs">
+      <DependentUpon>ManageSkin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DesignTools\MasterPageEditor.aspx.cs">
+      <DependentUpon>MasterPageEditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DesignTools\MasterPageEditor.aspx.designer.cs">
+      <DependentUpon>MasterPageEditor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DesignTools\SkinFileEditor.aspx.cs">
+      <DependentUpon>SkinFileEditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DesignTools\SkinFileEditor.aspx.designer.cs">
+      <DependentUpon>SkinFileEditor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DesignTools\SkinList.aspx.cs">
+      <DependentUpon>SkinList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DesignTools\SkinList.aspx.designer.cs">
+      <DependentUpon>SkinList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DevAdmin\Controls\QueryTool.ascx.cs">
+      <DependentUpon>QueryTool.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DevAdmin\Controls\QueryTool.ascx.designer.cs">
+      <DependentUpon>QueryTool.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DevAdmin\Controls\ServerVars.ascx.cs">
+      <DependentUpon>ServerVars.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DevAdmin\Controls\ServerVars.ascx.designer.cs">
+      <DependentUpon>ServerVars.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DevAdmin\QueryTool.aspx.cs">
+      <DependentUpon>QueryTool.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DevAdmin\QueryTool.aspx.designer.cs">
+      <DependentUpon>QueryTool.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\ContentRatingsDialog.aspx.cs">
+      <DependentUpon>ContentRatingsDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialog\ContentRatingsDialog.aspx.designer.cs">
+      <DependentUpon>ContentRatingsDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContentStyles.aspx.cs">
+      <DependentUpon>ContentStyles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContentStyles.aspx.designer.cs">
+      <DependentUpon>ContentStyles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContentTemplateEdit.aspx.cs">
+      <DependentUpon>ContentTemplateEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContentTemplateEdit.aspx.designer.cs">
+      <DependentUpon>ContentTemplateEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContentTemplates.aspx.cs">
+      <DependentUpon>ContentTemplates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContentTemplates.aspx.designer.cs">
+      <DependentUpon>ContentTemplates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContentValidation.aspx.cs">
+      <DependentUpon>ContentValidation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContentValidation.aspx.designer.cs">
+      <DependentUpon>ContentValidation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContentWorkflow.aspx.cs">
+      <DependentUpon>ContentWorkflow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContentWorkflow.aspx.designer.cs">
+      <DependentUpon>ContentWorkflow.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\CoreData.aspx.cs">
+      <DependentUpon>CoreData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\CoreData.aspx.designer.cs">
+      <DependentUpon>CoreData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\dbUtils.aspx.cs">
+      <DependentUpon>dbUtils.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\dbUtils.aspx.designer.cs">
+      <DependentUpon>dbUtils.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\FileManager.aspx.cs">
+      <DependentUpon>FileManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\FileManager.aspx.designer.cs">
+      <DependentUpon>FileManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageUsers.aspx.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageUsers.aspx.designer.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ModuleAdmin.aspx.cs">
+      <DependentUpon>ModuleAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ModuleAdmin.aspx.designer.cs">
+      <DependentUpon>ModuleAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ModuleDefinitions.aspx.cs">
+      <DependentUpon>ModuleDefinitions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ModuleDefinitions.aspx.designer.cs">
+      <DependentUpon>ModuleDefinitions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ModuleDefinitionSettings.aspx.cs">
+      <DependentUpon>ModuleDefinitionSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ModuleDefinitionSettings.aspx.designer.cs">
+      <DependentUpon>ModuleDefinitionSettings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ModuleSettings.aspx.cs">
+      <DependentUpon>ModuleSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ModuleSettings.aspx.designer.cs">
+      <DependentUpon>ModuleSettings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PageLayout.aspx.cs">
+      <DependentUpon>PageLayout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PageLayout.aspx.designer.cs">
+      <DependentUpon>PageLayout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PageSettings.aspx.cs">
+      <DependentUpon>PageSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PageSettings.aspx.designer.cs">
+      <DependentUpon>PageSettings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PageSettingsSaved.ashx.cs">
+      <DependentUpon>PageSettingsSaved.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PendingPages.aspx.cs">
+      <DependentUpon>PendingPages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PendingPages.aspx.designer.cs">
+      <DependentUpon>PendingPages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\RedirectManager.aspx.cs">
+      <DependentUpon>RedirectManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\RedirectManager.aspx.designer.cs">
+      <DependentUpon>RedirectManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\RejectContent.aspx.cs">
+      <DependentUpon>RejectContent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\RejectContent.aspx.designer.cs">
+      <DependentUpon>RejectContent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\RejectedContent.aspx.cs">
+      <DependentUpon>RejectedContent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\RejectedContent.aspx.designer.cs">
+      <DependentUpon>RejectedContent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\RoleManager.aspx.cs">
+      <DependentUpon>RoleManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\RoleManager.aspx.designer.cs">
+      <DependentUpon>RoleManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SalesByItem.aspx.cs">
+      <DependentUpon>SalesByItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SalesByItem.aspx.designer.cs">
+      <DependentUpon>SalesByItem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SalesByModule.aspx.cs">
+      <DependentUpon>SalesByModule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SalesByModule.aspx.designer.cs">
+      <DependentUpon>SalesByModule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SalesCustomerDetail.aspx.cs">
+      <DependentUpon>SalesCustomerDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SalesCustomerDetail.aspx.designer.cs">
+      <DependentUpon>SalesCustomerDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SalesCustomerReport.aspx.cs">
+      <DependentUpon>SalesCustomerReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SalesCustomerReport.aspx.designer.cs">
+      <DependentUpon>SalesCustomerReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SalesItemReport.aspx.cs">
+      <DependentUpon>SalesItemReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SalesItemReport.aspx.designer.cs">
+      <DependentUpon>SalesItemReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SalesSummary.aspx.cs">
+      <DependentUpon>SalesSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SalesSummary.aspx.designer.cs">
+      <DependentUpon>SalesSummary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SecurityRoles.aspx.cs">
+      <DependentUpon>SecurityRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SecurityRoles.aspx.designer.cs">
+      <DependentUpon>SecurityRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ServerInformation.aspx.cs">
+      <DependentUpon>ServerInformation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ServerInformation.aspx.designer.cs">
+      <DependentUpon>ServerInformation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ServerLog.aspx.cs">
+      <DependentUpon>ServerLog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ServerLog.aspx.designer.cs">
+      <DependentUpon>ServerLog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SiteSettings.aspx.cs">
+      <DependentUpon>SiteSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SiteSettings.aspx.designer.cs">
+      <DependentUpon>SiteSettings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\TaskQueueHistory.aspx.cs">
+      <DependentUpon>TaskQueueHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\TaskQueueHistory.aspx.designer.cs">
+      <DependentUpon>TaskQueueHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\TaskQueueMonitor.aspx.cs">
+      <DependentUpon>TaskQueueMonitor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\TaskQueueMonitor.aspx.designer.cs">
+      <DependentUpon>TaskQueueMonitor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UrlManager.aspx.cs">
+      <DependentUpon>UrlManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UrlManager.aspx.designer.cs">
+      <DependentUpon>UrlManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\DevTools.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DevTools.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ProfileResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProfileResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SetupResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SetupResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\TimeZoneResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimeZoneResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_MasterPages\DialogMaster.Master.cs">
+      <DependentUpon>DialogMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_MasterPages\DialogMaster.Master.designer.cs">
+      <DependentUpon>DialogMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="App_MasterPages\layout.Master.cs">
+      <DependentUpon>layout.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ChooseContent.aspx.cs">
+      <DependentUpon>ChooseContent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChooseContent.aspx.designer.cs">
+      <DependentUpon>ChooseContent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\AppKeepAliveTask.cs" />
+    <Compile Include="Components\AuthHandlerHttpModule.cs" />
+    <Compile Include="Components\BannedIPBlockingHttpModule.cs" />
+    <Compile Include="Components\CommerceConfiguration.cs" />
+    <Compile Include="Components\ContentAdminLink.cs" />
+    <Compile Include="Components\ContentAdminLinksConfiguration.cs" />
+    <Compile Include="Components\ContentApprovedEventArgs.cs" />
+    <Compile Include="Components\ContentFeature.cs" />
+    <Compile Include="Components\ContentFeatureConfiguration.cs" />
+    <Compile Include="Components\ContentFeatureSetting.cs" />
+    <Compile Include="Components\ContentPage.cs" />
+    <Compile Include="Components\ContentPageConfiguration.cs" />
+    <Compile Include="Components\ContentPageItem.cs" />
+    <Compile Include="Components\CoreDataSitePreDeleteHandler.cs" />
+    <Compile Include="Components\CSSHandler.cs" />
+    <Compile Include="Components\CultureHelperHttpModule.cs" />
+    <Compile Include="Components\EmailMessageTask.cs" />
+    <Compile Include="Components\FolderDeleteTask.cs" />
+    <Compile Include="Components\GCheckoutBasicAuthenticationModule.cs" />
+    <Compile Include="Components\HtmlContentDeleteHandler.cs" />
+    <Compile Include="Components\IProcessRequest.cs" />
+    <Compile Include="Components\ISettingControl.cs" />
+    <Compile Include="Components\IWorkflow.cs" />
+    <Compile Include="Components\LetterSendTask.cs" />
+    <Compile Include="Components\ModuleDecoratedSiteMapNode.cs" />
+    <Compile Include="Components\NewsletterHelper.cs" />
+    <Compile Include="Components\PageViewMode.cs" />
+    <Compile Include="Components\WorkflowHelper.cs" />
+    <Compile Include="Controls\Captcha\RecaptchaAdapter.cs" />
+    <Compile Include="Controls\Captcha\RecaptchaCaptchaProvider.cs" />
+    <Compile Include="Controls\ClueTipHelpLink.cs" />
+    <Compile Include="Controls\ClueTipHyperlink.cs" />
+    <Compile Include="Controls\CodeEditor.cs" />
+    <Compile Include="Controls\CommentSystems\CommentSystemSetting.ascx.cs">
+      <DependentUpon>CommentSystemSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CommentSystems\CommentSystemSetting.ascx.designer.cs">
+      <DependentUpon>CommentSystemSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CommentSystems\DisqusWidget.cs" />
+    <Compile Include="Controls\CommentSystems\IntenseDebateCommentLink.cs" />
+    <Compile Include="Controls\CommentSystems\IntenseDebateDiscussion.cs" />
+    <Compile Include="Controls\DateFormatSetting.ascx.cs">
+      <DependentUpon>DateFormatSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\DateFormatSetting.ascx.designer.cs">
+      <DependentUpon>DateFormatSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Editors\CKEditor\CKEditorAdapter.cs" />
+    <Compile Include="Controls\Editors\CKEditor\CKEditorControl.cs" />
+    <Compile Include="Controls\Editors\CKEditor\CKEditorProvider.cs" />
+    <Compile Include="Controls\Editors\TinyMCE\TinyMCE.cs" />
+    <Compile Include="Controls\Editors\TinyMCE\TinyMCEAdapter.cs" />
+    <Compile Include="Controls\Editors\TinyMCE\TinyMceConfiguration.cs" />
+    <Compile Include="Controls\Editors\TinyMCE\TinyMCEProvider.cs" />
+    <Compile Include="Controls\Editors\TinyMCE\Utils\Json.cs" />
+    <Compile Include="Controls\Editors\TinyMCE\Utils\JsonReader.cs" />
+    <Compile Include="Controls\Editors\TinyMCE\Utils\JsonWriter.cs" />
+    <Compile Include="Controls\ImageCropper.ascx.cs">
+      <DependentUpon>ImageCropper.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ImageCropper.ascx.designer.cs">
+      <DependentUpon>ImageCropper.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ModulePanel.cs" />
+    <Compile Include="Components\mojoAdminCatalogPart.cs" />
+    <Compile Include="Components\mojoDialogBasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\mojoHtml32TextWriter.cs" />
+    <Compile Include="Components\mojoHtmlTextWriter.cs" />
+    <Compile Include="Components\mojoIdentity.cs" />
+    <Compile Include="Components\mojoMembershipException.cs" />
+    <Compile Include="Components\mojoMembershipProvider.cs" />
+    <Compile Include="Components\mojoPrincipal.cs" />
+    <Compile Include="Components\mojoProfileConfiguration.cs" />
+    <Compile Include="Components\mojoProfilePropertyDefinition.cs" />
+    <Compile Include="Components\mojoProfilePropertyOption.cs" />
+    <Compile Include="Components\mojoRoleProvider.cs" />
+    <Compile Include="Components\mojoServiceHost.cs" />
+    <Compile Include="Components\mojoServiceHostFactory.cs" />
+    <Compile Include="Components\mojoSetup.cs" />
+    <Compile Include="Components\mojoSiteMapNode.cs" />
+    <Compile Include="Components\mojoSiteMapProvider.cs" />
+    <Compile Include="Components\mojoThemeVirtualFile.cs" />
+    <Compile Include="Components\mojoVirtualPathProvider.cs" />
+    <Compile Include="Components\mojoWebAuthenticationFailureAuditEvent.cs" />
+    <Compile Include="Components\mojoWebAuthenticationSuccessAuditEvent.cs" />
+    <Compile Include="Components\NotifyAdminUserRegisteredHandler.cs" />
+    <Compile Include="Components\OpenIdRpxAccountInfo.cs" />
+    <Compile Include="Components\OpenIdRpxAuthInfo.cs" />
+    <Compile Include="Components\OpenIdRpxHelper.cs" />
+    <Compile Include="Components\PageNotFoundHttpModule.cs" />
+    <Compile Include="Components\SitePreDeleteHtmlHandler.cs" />
+    <Compile Include="Components\WebPageInfo.cs" />
+    <Compile Include="Components\WebConfigSettings.cs" />
+    <Compile Include="Components\SiteUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\WebTaskManager.cs" />
+    <Compile Include="Components\WindowsLive.cs" />
+    <Compile Include="Components\WindowsLiveApplicationContactList.cs" />
+    <Compile Include="Components\WindowsLiveHelper.cs" />
+    <Compile Include="Components\WindowsLiveMessenger.cs" />
+    <Compile Include="Components\WindowsLiveMessengerTicket.cs" />
+    <Compile Include="ConfirmRegistration.aspx.cs">
+      <DependentUpon>ConfirmRegistration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConfirmRegistration.aspx.designer.cs">
+      <DependentUpon>ConfirmRegistration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AccessibilityCynthiaValidatorLink.cs" />
+    <Compile Include="Controls\Adapters\ChangePasswordAdapter.cs" />
+    <Compile Include="Controls\Adapters\CreateUserWizardAdapter.cs" />
+    <Compile Include="Controls\Adapters\ExtGridViewAdapter.cs" />
+    <Compile Include="Controls\Adapters\GridViewAdapter.cs" />
+    <Compile Include="Controls\Adapters\MenuAdapter.cs" />
+    <Compile Include="Controls\Adapters\MenuAdapterSuperfish.cs" />
+    <Compile Include="Controls\Adapters\MenuAdapterSuperfishVertical.cs" />
+    <Compile Include="Controls\Adapters\MenuAdapterWith3SpansInLink.cs" />
+    <Compile Include="Controls\Adapters\MenuAdapterWithSpanInLinks.cs" />
+    <Compile Include="Controls\Adapters\SiteMapMenuAdapter.cs" />
+    <Compile Include="Controls\Adapters\TreeViewAdapter.cs" />
+    <Compile Include="Controls\Adapters\WebControlAdapterExtender.cs" />
+    <Compile Include="Controls\AllowedRolesSetting.ascx.cs">
+      <DependentUpon>AllowedRolesSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\AllowedRolesSetting.ascx.designer.cs">
+      <DependentUpon>AllowedRolesSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AuthorizeNetLogList.ascx.cs">
+      <DependentUpon>AuthorizeNetLogList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\AuthorizeNetLogList.ascx.designer.cs">
+      <DependentUpon>AuthorizeNetLogList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BreadcrumbsControl.ascx.designer.cs">
+      <DependentUpon>BreadcrumbsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CachedSiteModuleControl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\ChangePasswordLink.cs" />
+    <Compile Include="Controls\ChildPageBreadcrumbs.ascx.designer.cs">
+      <DependentUpon>ChildPageBreadcrumbs.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChildPageMenu.ascx.designer.cs">
+      <DependentUpon>ChildPageMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ColorSetting.ascx.cs">
+      <DependentUpon>ColorSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorSetting.ascx.designer.cs">
+      <DependentUpon>ColorSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CommerceTestModeWarning.cs" />
+    <Compile Include="Controls\CopyrightLabel.cs" />
+    <Compile Include="Controls\CountryStateSetting.ascx.cs">
+      <DependentUpon>CountryStateSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CountryStateSetting.ascx.designer.cs">
+      <DependentUpon>CountryStateSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CSSIncludeExtJs.cs" />
+    <Compile Include="Controls\CSSValidatorLink.cs" />
+    <Compile Include="Controls\CultureFlag.ascx.cs">
+      <DependentUpon>CultureFlag.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CultureFlag.ascx.designer.cs">
+      <DependentUpon>CultureFlag.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CurrencySetting.ascx.cs">
+      <DependentUpon>CurrencySetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CurrencySetting.ascx.designer.cs">
+      <DependentUpon>CurrencySetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Favicon.cs" />
+    <Compile Include="Controls\ForumMyThreadsLink.cs" />
+    <Compile Include="Controls\ForumUserThreadLink.cs" />
+    <Compile Include="Controls\GCheckoutLogList.ascx.cs">
+      <DependentUpon>GCheckoutLogList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\GCheckoutLogList.ascx.designer.cs">
+      <DependentUpon>GCheckoutLogList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GMapTypeSetting.ascx.cs">
+      <DependentUpon>GMapTypeSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\GMapTypeSetting.ascx.designer.cs">
+      <DependentUpon>GMapTypeSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GMapZoomLevelSetting.ascx.cs">
+      <DependentUpon>GMapZoomLevelSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\GMapZoomLevelSetting.ascx.designer.cs">
+      <DependentUpon>GMapZoomLevelSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GreyBoxHyperlink.cs" />
+    <Compile Include="Controls\HomeLink.cs" />
+    <Compile Include="Controls\IEStyleIncludes.cs" />
+    <Compile Include="Controls\InsecurePageWarning.cs" />
+    <Compile Include="Controls\LiveMessengerControl.cs" />
+    <Compile Include="Controls\LoginLink.cs" />
+    <Compile Include="Controls\LogoutLink.cs" />
+    <Compile Include="Controls\MailboxLink.cs">
+    </Compile>
+    <Compile Include="Controls\MemberListLink.cs">
+    </Compile>
+    <Compile Include="Controls\MembershipStatisticsControl.ascx.cs">
+      <DependentUpon>MembershipStatisticsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\MembershipStatisticsControl.ascx.designer.cs">
+      <DependentUpon>MembershipStatisticsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MetaContent.ascx.designer.cs">
+      <DependentUpon>MetaContent.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ModuleTitleControl.cs" />
+    <Compile Include="Controls\ModuleWrapper.ascx.cs">
+      <DependentUpon>ModuleWrapper.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ModuleWrapper.ascx.designer.cs">
+      <DependentUpon>ModuleWrapper.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\mojoAddThisButton.cs" />
+    <Compile Include="Controls\mojoDataList.cs" />
+    <Compile Include="Controls\mojoGCheckoutButton.cs" />
+    <Compile Include="Controls\mojoHelpLink.cs" />
+    <Compile Include="Controls\mojoLiteral.cs" />
+    <Compile Include="Controls\mojoMenu.cs" />
+    <Compile Include="Controls\mojoMenuSuperfish.cs" />
+    <Compile Include="Controls\mojoMenuSuperfishVertical.cs" />
+    <Compile Include="Controls\mojoMenuWith3SpansInLinks.cs" />
+    <Compile Include="Controls\mojoMenuWithSpanInLinks.cs" />
+    <Compile Include="Controls\mojoOpenIdLogin.cs" />
+    <Compile Include="Controls\mojoOpenIdRegister.cs" />
+    <Compile Include="Controls\mojoPanel.cs" />
+    <Compile Include="Controls\mojoPortalLink.cs" />
+    <Compile Include="Controls\mojoRating.ascx.cs">
+      <DependentUpon>mojoRating.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\mojoRating.ascx.designer.cs">
+      <DependentUpon>mojoRating.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\mojoSiteMapMenu.cs" />
+    <Compile Include="Controls\mojoSiteMapPath.cs" />
+    <Compile Include="Controls\mojoTreeNode.cs" />
+    <Compile Include="Controls\mojoTreeView.cs" />
+    <Compile Include="Controls\mojoUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\MyPageLink.cs">
+    </Compile>
+    <Compile Include="Controls\NeatUploadStylesheet.ascx.cs">
+      <DependentUpon>NeatUploadStylesheet.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\NeatUploadStylesheet.ascx.designer.cs">
+      <DependentUpon>NeatUploadStylesheet.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OnlineMemberListControl.ascx.cs">
+      <DependentUpon>OnlineMemberListControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\OnlineMemberListControl.ascx.designer.cs">
+      <DependentUpon>OnlineMemberListControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OnlineStatisticsControl.ascx.cs">
+      <DependentUpon>OnlineStatisticsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\OnlineStatisticsControl.ascx.designer.cs">
+      <DependentUpon>OnlineStatisticsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OpenIDLoginControl.ascx.cs">
+      <DependentUpon>OpenIDLoginControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\OpenIDLoginControl.ascx.designer.cs">
+      <DependentUpon>OpenIDLoginControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OpenIdRpxNowLink.cs" />
+    <Compile Include="Controls\OrderStatusSetting.ascx.cs">
+      <DependentUpon>OrderStatusSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\OrderStatusSetting.ascx.designer.cs">
+      <DependentUpon>OrderStatusSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PageLastModified.ascx.cs">
+      <DependentUpon>PageLastModified.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\PageLastModified.ascx.designer.cs">
+      <DependentUpon>PageLastModified.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PageMenu.ascx.cs">
+      <DependentUpon>PageMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\PageMenu.ascx.designer.cs">
+      <DependentUpon>PageMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PageTitle.cs" />
+    <Compile Include="Controls\PaymentAcceptanceMark.ascx.cs">
+      <DependentUpon>PaymentAcceptanceMark.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\PaymentAcceptanceMark.ascx.designer.cs">
+      <DependentUpon>PaymentAcceptanceMark.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PayPalLogList.ascx.cs">
+      <DependentUpon>PayPalLogList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\PayPalLogList.ascx.designer.cs">
+      <DependentUpon>PayPalLogList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PlugNPayLogList.ascx.cs">
+      <DependentUpon>PlugNPayLogList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\PlugNPayLogList.ascx.designer.cs">
+      <DependentUpon>PlugNPayLogList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RegisterLink.cs">
+    </Compile>
+    <Compile Include="Controls\ScriptLoader.cs" />
+    <Compile Include="Controls\SearchInput.ascx.designer.cs">
+      <DependentUpon>SearchInput.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SessionKeepAliveControl.cs" />
+    <Compile Include="Controls\SignInOrRegisterPrompt.ascx.cs">
+      <DependentUpon>SignInOrRegisterPrompt.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SignInOrRegisterPrompt.ascx.designer.cs">
+      <DependentUpon>SignInOrRegisterPrompt.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SilktideSiteScoreLink.cs" />
+    <Compile Include="Controls\SiteLogin.cs" />
+    <Compile Include="Controls\SiteLogo.cs">
+    </Compile>
+    <Compile Include="Controls\SiteMapLink.cs">
+    </Compile>
+    <Compile Include="Controls\SiteMenu.ascx.designer.cs">
+      <DependentUpon>SiteMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SiteModuleControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\UrlRewriter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\BreadcrumbsControl.ascx.cs">
+      <DependentUpon>BreadcrumbsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ChildPageBreadcrumbs.ascx.cs">
+      <DependentUpon>ChildPageBreadcrumbs.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ChildPageMenu.ascx.cs">
+      <DependentUpon>ChildPageMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\MetaContent.ascx.cs">
+      <DependentUpon>MetaContent.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SearchInput.ascx.cs">
+      <DependentUpon>SearchInput.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SiteMenu.ascx.cs">
+      <DependentUpon>SiteMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SiteScript.cs">
+    </Compile>
+    <Compile Include="Controls\SiteTitle.cs">
+    </Compile>
+    <Compile Include="Controls\SkinFolderImage.cs" />
+    <Compile Include="Controls\SkinPreview.cs">
+    </Compile>
+    <Compile Include="Controls\SkipLink.cs" />
+    <Compile Include="Controls\SlidePanel.cs" />
+    <Compile Include="Controls\StyleSheet.ascx.cs">
+      <DependentUpon>StyleSheet.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\StyleSheet.ascx.designer.cs">
+      <DependentUpon>StyleSheet.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StyleSheetCombiner.ascx.cs">
+      <DependentUpon>StyleSheetCombiner.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\StyleSheetCombiner.ascx.designer.cs">
+      <DependentUpon>StyleSheetCombiner.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Subscribe.ascx.cs">
+      <DependentUpon>Subscribe.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Subscribe.ascx.designer.cs">
+      <DependentUpon>Subscribe.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TagCloudControl.cs" />
+    <Compile Include="Controls\TimeZoneSetting.ascx.cs">
+      <DependentUpon>TimeZoneSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TimeZoneSetting.ascx.designer.cs">
+      <DependentUpon>TimeZoneSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TwitterWidget.cs" />
+    <Compile Include="Controls\UpdateProgressSpan.cs" />
+    <Compile Include="Controls\UserCommerceHistory.ascx.cs">
+      <DependentUpon>UserCommerceHistory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\UserCommerceHistory.ascx.designer.cs">
+      <DependentUpon>UserCommerceHistory.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserProfileLink.cs">
+    </Compile>
+    <Compile Include="Controls\VertigoSlideshow.cs" />
+    <Compile Include="Controls\VertigoThemeSetting.ascx.cs">
+      <DependentUpon>VertigoThemeSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\VertigoThemeSetting.ascx.designer.cs">
+      <DependentUpon>VertigoThemeSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WelcomeMessage.cs">
+    </Compile>
+    <Compile Include="Controls\WindowsLiveLoginControl.ascx.cs">
+      <DependentUpon>WindowsLiveLoginControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WindowsLiveLoginControl.ascx.designer.cs">
+      <DependentUpon>WindowsLiveLoginControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WoopraScript.ascx.cs">
+      <DependentUpon>WoopraScript.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WoopraScript.ascx.designer.cs">
+      <DependentUpon>WoopraScript.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\XhtmlValidatorLink.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DevAdmin\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DevAdmin\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DevAdmin\ServerVariables.aspx.cs">
+      <DependentUpon>ServerVariables.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DevAdmin\ServerVariables.aspx.designer.cs">
+      <DependentUpon>ServerVariables.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\AvatarUploadDialog.aspx.cs">
+      <DependentUpon>AvatarUploadDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialog\AvatarUploadDialog.aspx.designer.cs">
+      <DependentUpon>AvatarUploadDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\FileDialog.aspx.cs">
+      <DependentUpon>FileDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialog\FileDialog.aspx.designer.cs">
+      <DependentUpon>FileDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\FileManagerAltDialog.aspx.cs">
+      <DependentUpon>FileManagerAltDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialog\FileManagerAltDialog.aspx.designer.cs">
+      <DependentUpon>FileManagerAltDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\FileManagerDialog.aspx.cs">
+      <DependentUpon>FileManagerDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialog\FileManagerDialog.aspx.designer.cs">
+      <DependentUpon>FileManagerDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\GlobalContentDialog.aspx.cs">
+      <DependentUpon>GlobalContentDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialog\GlobalContentDialog.aspx.designer.cs">
+      <DependentUpon>GlobalContentDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\ImageCropperDialog.aspx.cs">
+      <DependentUpon>ImageCropperDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialog\ImageCropperDialog.aspx.designer.cs">
+      <DependentUpon>ImageCropperDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\ParentPageDialog.aspx.cs">
+      <DependentUpon>ParentPageDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialog\ParentPageDialog.aspx.designer.cs">
+      <DependentUpon>ParentPageDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\RoleUserSelectDialog.aspx.cs">
+      <DependentUpon>RoleUserSelectDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialog\RoleUserSelectDialog.aspx.designer.cs">
+      <DependentUpon>RoleUserSelectDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\UserRolesDialog.aspx.cs">
+      <DependentUpon>UserRolesDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialog\UserRolesDialog.aspx.designer.cs">
+      <DependentUpon>UserRolesDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\UserSelectorDialog.aspx.cs">
+      <DependentUpon>UserSelectorDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialog\UserSelectorDialog.aspx.designer.cs">
+      <DependentUpon>UserSelectorDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditAccessDenied.aspx.cs">
+      <DependentUpon>EditAccessDenied.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditAccessDenied.aspx.designer.cs">
+      <DependentUpon>EditAccessDenied.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\Admin.aspx.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\Admin.aspx.designer.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\Archive.aspx.cs">
+      <DependentUpon>Archive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\Archive.aspx.designer.cs">
+      <DependentUpon>Archive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\Confirm.aspx.cs">
+      <DependentUpon>Confirm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\Confirm.aspx.designer.cs">
+      <DependentUpon>Confirm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\LetterArchive.aspx.cs">
+      <DependentUpon>LetterArchive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\LetterArchive.aspx.designer.cs">
+      <DependentUpon>LetterArchive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\LetterDrafts.aspx.cs">
+      <DependentUpon>LetterDrafts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\LetterDrafts.aspx.designer.cs">
+      <DependentUpon>LetterDrafts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\LetterEdit.aspx.cs">
+      <DependentUpon>LetterEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\LetterEdit.aspx.designer.cs">
+      <DependentUpon>LetterEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\LetterInfoEdit.aspx.cs">
+      <DependentUpon>LetterInfoEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\LetterInfoEdit.aspx.designer.cs">
+      <DependentUpon>LetterInfoEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\LetterSubscribers.aspx.cs">
+      <DependentUpon>LetterSubscribers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\LetterSubscribers.aspx.designer.cs">
+      <DependentUpon>LetterSubscribers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\LetterTemplateEdit.aspx.cs">
+      <DependentUpon>LetterTemplateEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\LetterTemplateEdit.aspx.designer.cs">
+      <DependentUpon>LetterTemplateEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\LetterTemplates.aspx.cs">
+      <DependentUpon>LetterTemplates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\LetterTemplates.aspx.designer.cs">
+      <DependentUpon>LetterTemplates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\LetterView.aspx.cs">
+      <DependentUpon>LetterView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\LetterView.aspx.designer.cs">
+      <DependentUpon>LetterView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\OptInUsersDialog.aspx.cs">
+      <DependentUpon>OptInUsersDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\OptInUsersDialog.aspx.designer.cs">
+      <DependentUpon>OptInUsersDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\Preferences.aspx.cs">
+      <DependentUpon>Preferences.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\Preferences.aspx.designer.cs">
+      <DependentUpon>Preferences.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\SendLog.aspx.cs">
+      <DependentUpon>SendLog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\SendLog.aspx.designer.cs">
+      <DependentUpon>SendLog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SubscriberPreferencesControl.ascx.cs">
+      <DependentUpon>SubscriberPreferencesControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SubscriberPreferencesControl.ascx.designer.cs">
+      <DependentUpon>SubscriberPreferencesControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\SendProgress.aspx.cs">
+      <DependentUpon>SendProgress.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\SendProgress.aspx.designer.cs">
+      <DependentUpon>SendProgress.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\ThankYou.aspx.cs">
+      <DependentUpon>ThankYou.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\ThankYou.aspx.designer.cs">
+      <DependentUpon>ThankYou.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="eletter\Unsubscribe.aspx.cs">
+      <DependentUpon>Unsubscribe.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="eletter\Unsubscribe.aspx.designer.cs">
+      <DependentUpon>Unsubscribe.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GoogleSearch.aspx.cs">
+      <DependentUpon>GoogleSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GoogleSearch.aspx.designer.cs">
+      <DependentUpon>GoogleSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Help.aspx.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Help.aspx.designer.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HelpEdit.aspx.cs">
+      <DependentUpon>HelpEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HelpEdit.aspx.designer.cs">
+      <DependentUpon>HelpEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlCompare.aspx.cs">
+      <DependentUpon>HtmlCompare.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HtmlCompare.aspx.designer.cs">
+      <DependentUpon>HtmlCompare.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlEdit.aspx.cs">
+      <DependentUpon>HtmlEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HtmlEdit.aspx.designer.cs">
+      <DependentUpon>HtmlEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlView.aspx.cs">
+      <DependentUpon>HtmlView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HtmlView.aspx.designer.cs">
+      <DependentUpon>HtmlView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Logoff.aspx.cs">
+      <DependentUpon>Logoff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logoff.aspx.designer.cs">
+      <DependentUpon>Logoff.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberList.aspx.cs">
+      <DependentUpon>MemberList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MemberList.aspx.designer.cs">
+      <DependentUpon>MemberList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ChildPageSiteMapModule.ascx.cs">
+      <DependentUpon>ChildPageSiteMapModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\ChildPageSiteMapModule.ascx.designer.cs">
+      <DependentUpon>ChildPageSiteMapModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CustomScript.ascx.cs">
+      <DependentUpon>CustomScript.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\CustomScript.ascx.designer.cs">
+      <DependentUpon>CustomScript.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\EmptyModule.ascx.cs">
+      <DependentUpon>EmptyModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\EmptyModule.ascx.designer.cs">
+      <DependentUpon>EmptyModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\HtmlModule.ascx.cs">
+      <DependentUpon>HtmlModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\HtmlModule.ascx.designer.cs">
+      <DependentUpon>HtmlModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\LoginModule.ascx.cs">
+      <DependentUpon>LoginModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\LoginModule.ascx.designer.cs">
+      <DependentUpon>LoginModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\NewsLetterSubscribeModule.ascx.cs">
+      <DependentUpon>NewsLetterSubscribeModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\NewsLetterSubscribeModule.ascx.designer.cs">
+      <DependentUpon>NewsLetterSubscribeModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RecentContentModule.ascx.cs">
+      <DependentUpon>RecentContentModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\RecentContentModule.ascx.designer.cs">
+      <DependentUpon>RecentContentModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SiteSearchModule.ascx.cs">
+      <DependentUpon>SiteSearchModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\SiteSearchModule.ascx.designer.cs">
+      <DependentUpon>SiteSearchModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SiteStatisticsModule.ascx.cs">
+      <DependentUpon>SiteStatisticsModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\SiteStatisticsModule.ascx.designer.cs">
+      <DependentUpon>SiteStatisticsModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\WebPartModule.ascx.cs">
+      <DependentUpon>WebPartModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\WebPartModule.ascx.designer.cs">
+      <DependentUpon>WebPartModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PageTree.aspx.cs">
+      <DependentUpon>PageTree.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PageTree.aspx.designer.cs">
+      <DependentUpon>PageTree.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PageNotFound.aspx.cs">
+      <DependentUpon>PageNotFound.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PageNotFound.aspx.designer.cs">
+      <DependentUpon>PageNotFound.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProfileView.aspx.cs">
+      <DependentUpon>ProfileView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProfileView.aspx.designer.cs">
+      <DependentUpon>ProfileView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Redirect.aspx.cs">
+      <DependentUpon>Redirect.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Redirect.aspx.designer.cs">
+      <DependentUpon>Redirect.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="robots.ashx.cs">
+      <DependentUpon>robots.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="SearchEngineInfo.ashx.cs">
+      <DependentUpon>SearchEngineInfo.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="SearchResults.ashx.cs">
+      <DependentUpon>SearchResults.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="SearchResults.aspx.cs">
+      <DependentUpon>SearchResults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchResults.aspx.designer.cs">
+      <DependentUpon>SearchResults.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Secure\ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Secure\ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Secure\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Secure\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Secure\OpenIdRpxHandler.aspx.cs">
+      <DependentUpon>OpenIdRpxHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Secure\OpenIdRpxHandler.aspx.designer.cs">
+      <DependentUpon>OpenIdRpxHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Secure\PasswordReset.aspx.cs">
+      <DependentUpon>PasswordReset.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Secure\PasswordReset.aspx.designer.cs">
+      <DependentUpon>PasswordReset.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Secure\RecoverPassword.aspx.cs">
+      <DependentUpon>RecoverPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Secure\RecoverPassword.aspx.designer.cs">
+      <DependentUpon>RecoverPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Secure\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Secure\Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Secure\RegisterWithOpenID.aspx.cs">
+      <DependentUpon>RegisterWithOpenID.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Secure\RegisterWithOpenID.aspx.designer.cs">
+      <DependentUpon>RegisterWithOpenID.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Secure\RegisterWithWindowsLiveID.aspx.cs">
+      <DependentUpon>RegisterWithWindowsLiveID.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Secure\RegisterWithWindowsLiveID.aspx.designer.cs">
+      <DependentUpon>RegisterWithWindowsLiveID.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Secure\UpdateOpenID.aspx.cs">
+      <DependentUpon>UpdateOpenID.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Secure\UpdateOpenID.aspx.designer.cs">
+      <DependentUpon>UpdateOpenID.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Secure\UserProfile.aspx.cs">
+      <DependentUpon>UserProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Secure\UserProfile.aspx.designer.cs">
+      <DependentUpon>UserProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Secure\WindowsLiveAuthHandler.aspx.cs">
+      <DependentUpon>WindowsLiveAuthHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Secure\WindowsLiveAuthHandler.aspx.designer.cs">
+      <DependentUpon>WindowsLiveAuthHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\CKeditorStyles.ashx.cs">
+      <DependentUpon>CKeditorStyles.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\CKeditorTemplates.ashx.cs">
+      <DependentUpon>CKeditorTemplates.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ContentRatingService.ashx.cs">
+      <DependentUpon>ContentRatingService.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\EditorStyles.ashx.cs">
+      <DependentUpon>EditorStyles.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\FileService.ashx.cs">
+      <DependentUpon>FileService.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\FriendlyUrlSuggestXml.aspx.cs">
+      <DependentUpon>FriendlyUrlSuggestXml.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Services\FriendlyUrlSuggestXml.aspx.designer.cs">
+      <DependentUpon>FriendlyUrlSuggestXml.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\GCheckoutNotificationHandler.ashx.cs">
+      <DependentUpon>GCheckoutNotificationHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\GCheckoutNotificationTester.aspx.cs">
+      <DependentUpon>GCheckoutNotificationTester.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Services\GCheckoutNotificationTester.aspx.designer.cs">
+      <DependentUpon>GCheckoutNotificationTester.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\HtmlEditService.aspx.cs">
+      <DependentUpon>HtmlEditService.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Services\HtmlEditService.aspx.designer.cs">
+      <DependentUpon>HtmlEditService.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\HtmlTemplates.ashx.cs">
+      <DependentUpon>HtmlTemplates.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\jqueryFileTreeMediaBrowser.ashx.cs">
+      <DependentUpon>jqueryFileTreeMediaBrowser.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\MathMLHandler.ashx.cs">
+      <DependentUpon>MathMLHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\PayPalIPNHandler.aspx.cs">
+      <DependentUpon>PayPalIPNHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Services\PayPalIPNHandler.aspx.designer.cs">
+      <DependentUpon>PayPalIPNHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\PayPalPDTHandler.aspx.cs">
+      <DependentUpon>PayPalPDTHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Services\PayPalPDTHandler.aspx.designer.cs">
+      <DependentUpon>PayPalPDTHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\PayPalReturnHandler.ashx.cs">
+      <DependentUpon>PayPalReturnHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\RecentContentRss.aspx.cs">
+      <DependentUpon>RecentContentRss.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Services\RpxPluginResponseHandler.ashx.cs">
+      <DependentUpon>RpxPluginResponseHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\SessionKeepAlive.aspx.cs">
+      <DependentUpon>SessionKeepAlive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Services\SessionKeepAlive.aspx.designer.cs">
+      <DependentUpon>SessionKeepAlive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\TaskProgress.ashx.cs">
+      <DependentUpon>TaskProgress.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\TinyMceTemplates.ashx.cs">
+      <DependentUpon>TinyMceTemplates.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\TrackLocation.ashx.cs">
+      <DependentUpon>TrackLocation.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\UserLookup.asmx.cs">
+      <DependentUpon>UserLookup.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\WorldPayPostbackHandler.aspx.cs">
+      <DependentUpon>WorldPayPostbackHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Services\WorldPayPostbackHandler.aspx.designer.cs">
+      <DependentUpon>WorldPayPostbackHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Setup\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SiteMap.ashx.cs">
+      <DependentUpon>SiteMap.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="SiteMap.aspx.cs">
+      <DependentUpon>SiteMap.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SiteMap.aspx.designer.cs">
+      <DependentUpon>SiteMap.aspx</DependentUpon>
+    </Compile>
+    <Content Include="App_GlobalResources\Resource.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_Browsers\CSSFriendlyAdapters.browser">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Browsers\w3cvalidator.browser" />
+    <Content Include="log4net.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\NeatHtml.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-applet-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-attribs-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-base-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-basic-form-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-bdo-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-blkphras-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-blkpres-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-blkstruct-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-charent-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-copyright-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-csismap-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-datatypes-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-edit-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-events-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-form-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-frames-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-framework-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-hypertext-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-iframe-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-image-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-inlphras-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-inlpres-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-inlstruct-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-inlstyle-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-legacy-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-link-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-list-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-meta-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-misc-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-nameident-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-notations-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-object-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-param-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-pres-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-ruby-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-ruby-basic-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-script-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-ssismap-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-struct-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-style-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-table-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-target-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml-text-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml11-model-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml11-module-redefines-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml11-modules-1.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xhtml11.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NeatHtml\schema\xml.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Services\FriendlyUrlSuggestXml.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controls\PageMenu.ascx" />
+    <Content Include="delorie.htm" />
+    <Content Include="Services\UserLookup.asmx" />
+    <Content Include="Services\WorldPayPostbackHandler.aspx" />
+    <Content Include="Setup\Default.aspx" />
+    <Content Include="SiteMap.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_MasterPages\layout.Master" />
+    <Content Include="Controls\MembershipStatisticsControl.ascx" />
+    <Content Include="Controls\OnlineMemberListControl.ascx" />
+    <Content Include="Controls\OnlineStatisticsControl.ascx" />
+    <Content Include="Modules\SiteStatisticsModule.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Services\SessionKeepAlive.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\ProfileResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ProfileResource.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\SetupResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SetupResource.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Modules\EmptyModule.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Services\HtmlTemplates.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\AdminMenu.aspx" />
+    <Content Include="Admin\ContentCatalog.aspx" />
+    <Content Include="Admin\FileManager.aspx" />
+    <Content Include="Admin\ModuleAdmin.aspx" />
+    <Content Include="Admin\RoleManager.aspx" />
+    <Content Include="Admin\SiteSettings.aspx" />
+    <Content Include="Admin\UrlManager.aspx" />
+    <Content Include="Admin\PageTree.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="mojoEditor.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="mojoProfile.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\BannedIPAddresses.aspx" />
+    <Content Include="eletter\Admin.aspx" />
+    <Content Include="eletter\Default.aspx" />
+    <Content Include="eletter\LetterArchive.aspx" />
+    <Content Include="eletter\LetterDrafts.aspx" />
+    <Content Include="eletter\LetterEdit.aspx" />
+    <Content Include="eletter\LetterInfoEdit.aspx" />
+    <Content Include="eletter\LetterSubscribers.aspx" />
+    <Content Include="eletter\LetterView.aspx" />
+    <Content Include="eletter\Preferences.aspx" />
+    <Content Include="eletter\SendLog.aspx" />
+    <Content Include="eletter\Unsubscribe.aspx" />
+    <Content Include="Secure\UpdateOpenID.aspx" />
+    <Content Include="Controls\WindowsLiveLoginControl.ascx" />
+    <Content Include="Controls\OpenIDLoginControl.ascx" />
+    <Content Include="Secure\RegisterWithOpenID.aspx" />
+    <Content Include="Secure\RegisterWithWindowsLiveID.aspx" />
+    <Content Include="Secure\WindowsLiveAuthHandler.aspx" />
+    <Content Include="mojoCaptcha.config" />
+    <Content Include="Admin\ServerInformation.aspx" />
+    <Content Include="Admin\ServerLog.aspx" />
+    <Content Include="SiteMap.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_DesignTimeStyle\layout.Master" />
+    <Content Include="App_DesignTimeStyle\theme.skin" />
+    <Content Include="App_DesignTimeStyle\activeArrowRight.gif" />
+    <Content Include="App_DesignTimeStyle\admin.png" />
+    <Content Include="App_DesignTimeStyle\arrowRight.gif" />
+    <Content Include="App_DesignTimeStyle\aspcalendar.css" />
+    <Content Include="App_DesignTimeStyle\blank.gif" />
+    <Content Include="App_DesignTimeStyle\blogmodule.css" />
+    <Content Include="App_DesignTimeStyle\buttonbg.gif" />
+    <Content Include="App_DesignTimeStyle\close.png" />
+    <Content Include="App_DesignTimeStyle\collapse.gif" />
+    <Content Include="App_DesignTimeStyle\del.png" />
+    <Content Include="App_DesignTimeStyle\designinfo.txt" />
+    <Content Include="App_DesignTimeStyle\edit.png" />
+    <Content Include="App_DesignTimeStyle\editsettings.png" />
+    <Content Include="App_DesignTimeStyle\expand.gif" />
+    <Content Include="App_DesignTimeStyle\false.png" />
+    <Content Include="App_DesignTimeStyle\favicon.ico" />
+    <Content Include="App_DesignTimeStyle\firefox-gray.jpg" />
+    <Content Include="App_DesignTimeStyle\forummodule.css" />
+    <Content Include="App_DesignTimeStyle\headerbg.jpg" />
+    <Content Include="App_DesignTimeStyle\ibox.css" />
+    <Content Include="App_DesignTimeStyle\IE7Specific.css" />
+    <Content Include="App_DesignTimeStyle\IESpecific.css" />
+    <Content Include="App_DesignTimeStyle\input.png" />
+    <Content Include="App_DesignTimeStyle\max.png" />
+    <Content Include="App_DesignTimeStyle\min.png" />
+    <Content Include="App_DesignTimeStyle\mpdatacalendar.css" />
+    <Content Include="App_DesignTimeStyle\mypage.css" />
+    <Content Include="App_DesignTimeStyle\neatupload.css" />
+    <Content Include="App_DesignTimeStyle\newpage.png" />
+    <Content Include="App_DesignTimeStyle\openidlogin.gif" />
+    <Content Include="App_DesignTimeStyle\quote.gif" />
+    <Content Include="App_DesignTimeStyle\rss.gif" />
+    <Content Include="App_DesignTimeStyle\rssmodule.css" />
+    <Content Include="App_DesignTimeStyle\square_arrow.gif" />
+    <Content Include="App_DesignTimeStyle\style-editor.css" />
+    <Content Include="App_DesignTimeStyle\style-ext-override.css" />
+    <Content Include="App_DesignTimeStyle\style-gridview.css" />
+    <Content Include="App_DesignTimeStyle\style.css" />
+    <Content Include="App_DesignTimeStyle\styleborders.css" />
+    <Content Include="App_DesignTimeStyle\stylecolors.css" />
+    <Content Include="App_DesignTimeStyle\styleimages.css" />
+    <Content Include="App_DesignTimeStyle\stylelayout.css" />
+    <Content Include="App_DesignTimeStyle\stylemenu.css" />
+    <Content Include="App_DesignTimeStyle\styleprinter.css" />
+    <Content Include="App_DesignTimeStyle\styletext.css" />
+    <Content Include="App_DesignTimeStyle\styletextlarge.css" />
+    <Content Include="App_DesignTimeStyle\styletextmedium.css" />
+    <Content Include="App_DesignTimeStyle\styletreeview.css" />
+    <Content Include="App_DesignTimeStyle\tableft.gif" />
+    <Content Include="App_DesignTimeStyle\tabright.gif" />
+    <Content Include="App_DesignTimeStyle\true.png" />
+    <Content Include="mojoDatePicker.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_MasterPages\DialogMaster.Master" />
+    <Content Include="Admin\PageSettingsSaved.ashx" />
+    <Content Include="Services\TaskProgress.ashx" />
+    <Content Include="Services\CKeditorStyles.ashx" />
+    <Content Include="Services\CKeditorTemplates.ashx" />
+    <Content Include="Services\jqueryFileTreeMediaBrowser.ashx" />
+    <Content Include="Services\TinyMceTemplates.ashx" />
+    <Content Include="robots.ashx" />
+    <Content Include="SearchResults.ashx" />
+    <Content Include="SearchEngineInfo.ashx" />
+    <Content Include="Services\RpxPluginResponseHandler.ashx" />
+    <Content Include="settings.map.config" />
+    <Content Include="mojoEncryption.config" />
+    <Content Include="Services\PayPalReturnHandler.ashx" />
+    <Content Include="Services\GCheckoutNotificationHandler.ashx" />
+    <Content Include="mojoSiteMap.config" />
+    <Content Include="Services\EditorStyles.ashx" />
+    <Content Include="Admin\TaskQueueHistory.aspx" />
+    <Content Include="Admin\TaskQueueMonitor.aspx" />
+    <Content Include="Controls\SubscriberPreferencesControl.ascx" />
+    <Content Include="eletter\LetterTemplateEdit.aspx" />
+    <Content Include="eletter\LetterTemplates.aspx" />
+    <Content Include="Services\MathMLHandler.ashx" />
+    <Content Include="csshandler.ashx" />
+    <Content Include="channel.ashx" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\AdminCountry.aspx" />
+    <Content Include="Admin\AdminCurrency.aspx" />
+    <Content Include="Admin\AdminGeoZone.aspx" />
+    <Content Include="Admin\AdminLanguage.aspx" />
+    <Content Include="Admin\AdminTaxClass.aspx" />
+    <Content Include="Admin\AdminTaxRate.aspx" />
+    <Content Include="Admin\AdvancedTools.aspx" />
+    <Content Include="Admin\CoreData.aspx" />
+    <Content Include="apple-touch-icon.png" />
+    <Content Include="App_GlobalResources\DevTools.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>DevTools.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Controls\AuthorizeNetLogList.ascx" />
+    <Content Include="Controls\GCheckoutLogList.ascx" />
+    <Content Include="Controls\GMapTypeSetting.ascx" />
+    <Content Include="Controls\GMapZoomLevelSetting.ascx" />
+    <Content Include="Controls\OrderStatusSetting.ascx" />
+    <Content Include="Controls\PaymentAcceptanceMark.ascx" />
+    <Content Include="Controls\PayPalLogList.ascx" />
+    <Content Include="DevAdmin\Default.aspx" />
+    <Content Include="DevAdmin\ServerVariables.aspx" />
+    <Content Include="Services\GCheckoutNotificationTester.aspx" />
+    <Content Include="Services\PayPalIPNHandler.aspx" />
+    <Content Include="Services\PayPalPDTHandler.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controls\CurrencySetting.ascx" />
+    <Content Include="Controls\PageLastModified.ascx" />
+    <Content Include="Controls\SignInOrRegisterPrompt.ascx" />
+    <Content Include="Controls\TimeZoneSetting.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\TimeZoneResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>TimeZoneResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controls\mojoRating.ascx" />
+    <Content Include="Controls\StyleSheetCombiner.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\RedirectManager.aspx" />
+    <Content Include="Controls\AllowedRolesSetting.ascx" />
+    <Content Include="Controls\ColorSetting.ascx" />
+    <Content Include="PageNotFound.aspx" />
+    <Content Include="Services\AuthenticationService.svc" />
+    <Content Include="Services\RoleService.svc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controls\CountryStateSetting.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\SalesByItem.aspx" />
+    <Content Include="Admin\SalesByModule.aspx" />
+    <Content Include="Admin\SalesSummary.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\SalesCustomerDetail.aspx" />
+    <Content Include="Admin\SalesCustomerReport.aspx" />
+    <Content Include="Admin\SalesItemReport.aspx" />
+    <Content Include="Controls\UserCommerceHistory.ascx" />
+    <Content Include="Controls\WoopraScript.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\Default.aspx" />
+    <Content Include="Controls\PlugNPayLogList.ascx" />
+    <Content Include="HtmlCompare.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\ContentTemplates.aspx" />
+    <Content Include="Secure\OpenIdRpxHandler.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\ContentStyles.aspx" />
+    <Content Include="Admin\ContentTemplateEdit.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\ContentAwaitingApproval.aspx" />
+    <Content Include="Admin\ContentWorkflow.aspx" />
+    <Content Include="Admin\PendingPages.aspx" />
+    <Content Include="Admin\RejectContent.aspx" />
+    <Content Include="Admin\RejectedContent.aspx" />
+    <Content Include="Dialog\UserSelectorDialog.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dialog\FileDialog.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controls\CommentSystems\CommentSystemSetting.ascx" />
+    <Content Include="Controls\VertigoThemeSetting.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Services\ContentRatingService.ashx" />
+    <Content Include="Services\TrackLocation.ashx" />
+    <Content Include="mojoFileSystem.config" />
+    <Content Include="Services\FileService.ashx" />
+    <Content Include="Controls\DateFormatSetting.ascx" />
+    <Content Include="Controls\ImageCropper.ascx" />
+    <Content Include="Controls\Subscribe.ascx" />
+    <Content Include="Dialog\AvatarUploadDialog.aspx" />
+    <Content Include="Dialog\ImageCropperDialog.aspx" />
+    <Content Include="eletter\Archive.aspx" />
+    <Content Include="eletter\Confirm.aspx" />
+    <Content Include="eletter\SendProgress.aspx" />
+    <Content Include="eletter\ThankYou.aspx" />
+    <Content Include="Modules\NewsLetterSubscribeModule.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\Controls\AdvFileManager.ascx" />
+    <Content Include="Admin\Controls\FileManager.ascx" />
+    <Content Include="Admin\FileManagerAlt.aspx" />
+    <Content Include="DevAdmin\Controls\QueryTool.ascx" />
+    <Content Include="DevAdmin\Controls\ServerVars.ascx" />
+    <Content Include="DevAdmin\QueryTool.aspx" />
+    <Content Include="Dialog\ContentRatingsDialog.aspx" />
+    <Content Include="Dialog\FileManagerAltDialog.aspx" />
+    <Content Include="Dialog\FileManagerDialog.aspx" />
+    <Content Include="Dialog\RoleUserSelectDialog.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\CountryISOCode2Resources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>CountryISOCode2Resources.designer.cs</LastGenOutput>
+    </Content>
+    <EmbeddedResource Include="Controls\Rating\AjaxRatingBehavior.debug.js" />
+    <EmbeddedResource Include="Controls\Rating\AjaxRatingBehavior.js" />
+    <Content Include="Controls\SortSetting.ascx" />
+    <Content Include="Controls\TimeZoneIdSetting.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\NeatUpload_Temp\" />
+    <Folder Include="App_Themes\" />
+    <Folder Include="bin\" />
+    <Folder Include="ClientBin\" />
+    <Folder Include="ClientScript\" />
+    <Folder Include="Components\api\" />
+    <Folder Include="Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Setup\applications\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Browsers\generic.browser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+</Project>

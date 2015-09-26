@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddFileValidationSummaryHeaderText" xml:space="preserve">
+    <value>Không thể thêm tập tin</value>
+  </data>
+  <data name="AddMediaFileLinkButtonText" xml:space="preserve">
+    <value>Thêm tập tin được chọn</value>
+  </data>
+  <data name="AddTrackButtonText" xml:space="preserve">
+    <value>Thêm Track</value>
+  </data>
+  <data name="AddTrackFieldsetLabel" xml:space="preserve">
+    <value>Thêm Media Track</value>
+  </data>
+  <data name="AddTrackValidationSummaryHeaderText" xml:space="preserve">
+    <value>Không thể thêm đường chạy</value>
+  </data>
+  <data name="ArtistRequiredValidatorErrorMessage" xml:space="preserve">
+    <value>Hãy nhập một nghệ sĩ</value>
+  </data>
+  <data name="AtLeastOneFileSelectedValidatorErrorMessage" xml:space="preserve">
+    <value>Hãy thêm ít nhất một tệp tin</value>
+  </data>
+  <data name="AutoStartSetting" xml:space="preserve">
+    <value>Tự khởi động</value>
+  </data>
+  <data name="CancelButtonText" xml:space="preserve">
+    <value>Hủy bỏ/Kết thúc</value>
+  </data>
+  <data name="CancelButtonTooltip" xml:space="preserve">
+    <value>Hủy bỏ chỉnh sửa track này</value>
+  </data>
+  <data name="ContinuousPlaySetting" xml:space="preserve">
+    <value>Tiếp tục chơi</value>
+  </data>
+  <data name="DeleteFileConfirmationDialogText" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa {0} không?</value>
+  </data>
+  <data name="DeleteFileLinkButtonText" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="DeleteFileLinkButtonTooltip" xml:space="preserve">
+    <value>Xóa tập tin này</value>
+  </data>
+  <data name="DeleteTrackButtonText" xml:space="preserve">
+    <value>Xóa track</value>
+  </data>
+  <data name="DeleteTrackButtonTooltip" xml:space="preserve">
+    <value>Xóa track này</value>
+  </data>
+  <data name="DeleteTrackConfirmationDialogText" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa track này không?</value>
+  </data>
+  <data name="DisableShuffleSetting" xml:space="preserve">
+    <value>Không cho phép chơi ngẫu nhiên</value>
+  </data>
+  <data name="EditAudioPlayerArtistLabel" xml:space="preserve">
+    <value>Nghệ sĩ</value>
+  </data>
+  <data name="EditAudioPlayerLinkText" xml:space="preserve">
+    <value>Chỉnh sửa trình chơi</value>
+  </data>
+  <data name="EditAudioPlayerPageHeaderText" xml:space="preserve">
+    <value>Chỉnh sửa trình chơi Media</value>
+  </data>
+  <data name="EditAudioPlayerTrackNameLabel" xml:space="preserve">
+    <value>Tên Track</value>
+  </data>
+  <data name="EditMediaTrackPageTitleText" xml:space="preserve">
+    <value>Chỉnh sửa track media</value>
+  </data>
+  <data name="EditTrackHyperLinkText" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="EditTrackHyperLinkToolTip" xml:space="preserve">
+    <value>Chỉnh sửa track</value>
+  </data>
+  <data name="EditTrackPageHeaderText" xml:space="preserve">
+    <value>Chỉnh sửa track</value>
+  </data>
+  <data name="FileHeaderTextSiteLabel" xml:space="preserve">
+    <value>Tập tin hiện tại</value>
+  </data>
+  <data name="FileNameGridViewHeaderSiteLabelText" xml:space="preserve">
+    <value>Tên tập tin</value>
+  </data>
+  <data name="FileTypeAlreadyExistsErrorText" xml:space="preserve">
+    <value>Một tập tin với phần mở rộng {0} đã tồn tại.</value>
+  </data>
+  <data name="FullScreenText" xml:space="preserve">
+    <value>Toàn màn hình</value>
+  </data>
+  <data name="InvalidAudioFileErrorMessage" xml:space="preserve">
+    <value>Chỉ cho phép các tập tin có định dạng âm thanh hợp lệ</value>
+  </data>
+  <data name="InvalidVideoFileErrorMessage" xml:space="preserve">
+    <value>Chỉ cho phép các tập tin có định dạng video hợp lệ</value>
+  </data>
+  <data name="ManageMediaFilesFieldsetLabel" xml:space="preserve">
+    <value>Quản lý tập tin media</value>
+  </data>
+  <data name="ManageTracksFieldSetLabel" xml:space="preserve">
+    <value>Quản lý các track media</value>
+  </data>
+  <data name="MaxVolumeText" xml:space="preserve">
+    <value>Âm lượng lớn nhất</value>
+  </data>
+  <data name="MediaFileBrowserLinkText" xml:space="preserve">
+    <value>Duyệt...</value>
+  </data>
+  <data name="MediaFileRegularExpValidatorErrorMessage" xml:space="preserve">
+    <value>Hãy chọn một định dạng tập tin được hỗ trợ</value>
+  </data>
+  <data name="MediaFileRequiredValidatorErrorMessage" xml:space="preserve">
+    <value>Hãy chọn hoặc nhập một tập tin media</value>
+  </data>
+  <data name="MediaTrackPropertiesFieldsetLabel" xml:space="preserve">
+    <value>Thuộc tính track media</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Trình chơi media</value>
+  </data>
+  <data name="MoveTrackDownButtonText" xml:space="preserve">
+    <value>Xuống</value>
+  </data>
+  <data name="MoveTrackDownOrderTooltip" xml:space="preserve">
+    <value>Chuyển track xuống dưới trong danh sách chơi</value>
+  </data>
+  <data name="MoveTrackUpButtonText" xml:space="preserve">
+    <value>Lên</value>
+  </data>
+  <data name="MoveTrackUpOrderTooltip" xml:space="preserve">
+    <value>Chuyển track lên trên trong danh sách chơi</value>
+  </data>
+  <data name="MuteText" xml:space="preserve">
+    <value>Tắt tiếng</value>
+  </data>
+  <data name="NextButtonText" xml:space="preserve">
+    <value>Tiếp</value>
+  </data>
+  <data name="NextText" xml:space="preserve">
+    <value>Tiếp</value>
+  </data>
+  <data name="NoFilesSiteLabel" xml:space="preserve">
+    <value>Không có tập tin nào tồn tại cho track này</value>
+  </data>
+  <data name="NoFilesSiteLabelText" xml:space="preserve">
+    <value>Không có tập tin nào tồn tại cho track này</value>
+  </data>
+  <data name="NoSolutionMessageMarkup" xml:space="preserve">
+    <value>&lt;span&gt;Yêu cầu cập nhật&lt;/span&gt; Để xem media bạn cần cập nhật trình duyệt lên phiên bản mới nhất hoặc cập nhật &lt;a href="http://get.adobe.com/flashplayer/" target="_blank"&gt;Trình cắm Flash&lt;/a&gt;.</value>
+  </data>
+  <data name="NoTracksSiteLabelText" xml:space="preserve">
+    <value>Không có track nào tồn tại cho trình chơi media này</value>
+  </data>
+  <data name="PauseText" xml:space="preserve">
+    <value>Tạm dừng</value>
+  </data>
+  <data name="PlaybackControlSection" xml:space="preserve">
+    <value>Điều khiển phát lại</value>
+  </data>
+  <data name="PlayerSkinNotFoundErrorMessage" xml:space="preserve">
+    <value>Không thể nạp giao diện cho trình chơi media.</value>
+  </data>
+  <data name="PlayerTypeLabelText" xml:space="preserve">
+    <value>Loại media</value>
+  </data>
+  <data name="PlayText" xml:space="preserve">
+    <value>Xem</value>
+  </data>
+  <data name="PreviousText" xml:space="preserve">
+    <value>Trước</value>
+  </data>
+  <data name="RepeatOffText" xml:space="preserve">
+    <value>Tắt lặp</value>
+  </data>
+  <data name="RepeatText" xml:space="preserve">
+    <value>Lặp</value>
+  </data>
+  <data name="RestoreScreenText" xml:space="preserve">
+    <value>Khôi phục màn hình</value>
+  </data>
+  <data name="SelectedFilesSiteLabelText" xml:space="preserve">
+    <value>Tập tin đã được thêm</value>
+  </data>
+  <data name="SelectFileSiteLabelText" xml:space="preserve">
+    <value>Vị trí tập tin</value>
+  </data>
+  <data name="SetupInstructionsSiteLabelText" xml:space="preserve">
+    <value>Trình chơi Media có thể chơi các tập tin âm thanh hoặc video. Bạn phải chọn loại media sẽ chơi như là một phần của cài đặt ban đầu. Khi bạn chọn loại media và bấm vào Tiếp theo, loại sẽ không được thay đổi thực thể (module) này .</value>
+  </data>
+  <data name="SetupNeededLabel" xml:space="preserve">
+    <value>Không có tập tin nào để chơi, bạn phải thiết lập trước.</value>
+  </data>
+  <data name="SetupPageHeaderText" xml:space="preserve">
+    <value>Cài đặt Trình chơi Media</value>
+  </data>
+  <data name="ShuffleOffText" xml:space="preserve">
+    <value>Tắt chơi ngẫu nhiên</value>
+  </data>
+  <data name="ShuffleText" xml:space="preserve">
+    <value>Ngẫu nhiên</value>
+  </data>
+  <data name="StopText" xml:space="preserve">
+    <value>Dừng</value>
+  </data>
+  <data name="TrackArtistHeaderLabelText" xml:space="preserve">
+    <value>Nghệ sĩ</value>
+  </data>
+  <data name="TrackFilesHeaderLabelText" xml:space="preserve">
+    <value>Tập tin liên kết</value>
+  </data>
+  <data name="TrackNameHeaderLabelText" xml:space="preserve">
+    <value>Tên track</value>
+  </data>
+  <data name="TrackNameRequiredValidatorErrorMessage" xml:space="preserve">
+    <value>Vui lòng nhập tên track</value>
+  </data>
+  <data name="TrackOrderHeaderLabelText" xml:space="preserve">
+    <value>Thứ tự track</value>
+  </data>
+  <data name="UnmuteText" xml:space="preserve">
+    <value>Bật tiếng</value>
+  </data>
+  <data name="UpdateTrackButtonText" xml:space="preserve">
+    <value>Cập nhật thuộc tính track</value>
+  </data>
+  <data name="UpdateTrackButtonTooltip" xml:space="preserve">
+    <value>Cập nhật thuộc tính của track này</value>
+  </data>
+  <data name="UpdateTrackValidationSummaryHeaderText" xml:space="preserve">
+    <value>Không thể cập nhật track</value>
+  </data>
+  <data name="ValidationErrorMarking" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Lớp CSS tùy chỉnh</value>
+  </data>
+  <data name="AudioPlayerFeatureName" xml:space="preserve">
+    <value>Trình nghe nhạc</value>
+  </data>
+  <data name="VideoPlayerFeatureName" xml:space="preserve">
+    <value>Trình xem video</value>
+  </data>
+  <data name="MiscellaneousSection" xml:space="preserve">
+    <value>Hỗn hợp</value>
+  </data>
+  <data name="FooterContent" xml:space="preserve">
+    <value>Nội dung phần cuối</value>
+  </data>
+  <data name="HeaderContent" xml:space="preserve">
+    <value>Nội dung đầu đề</value>
+  </data>
+  <data name="AllowFullScreen" xml:space="preserve">
+    <value>Cho phép chế độ phát toàn màn hình?</value>
+  </data>
+</root>

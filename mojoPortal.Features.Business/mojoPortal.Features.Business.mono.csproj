@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{65849992-8F44-4480-9494-1CA0D6325795}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mojoPortal.Features.Business</RootNamespace>
+    <AssemblyName>mojoPortal.Features.Business</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="log4net">
+      <HintPath>..\_libs\log4net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Blog\Blog.cs" />
+    <Compile Include="ContactForm\ContactFormMessage.cs" />
+    <Compile Include="EventCalendar\CalendarEvent.cs" />
+    <Compile Include="FeedManager\RssFeed.cs" />
+    <Compile Include="Forums\Forum.cs" />
+    <Compile Include="Forums\ForumThread.cs" />
+    <Compile Include="Forums\ForumThreadMovedArgs.cs" />
+    <Compile Include="Forums\RSSForum.cs" />
+    <Compile Include="ImageGallery\Gallery.cs" />
+    <Compile Include="ImageGallery\GalleryImage.cs" />
+    <Compile Include="LinkModule\Links.cs" />
+    <Compile Include="Poll\Poll.cs" />
+    <Compile Include="Poll\PollOption.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedFiles\SharedFile.cs" />
+    <Compile Include="SharedFiles\SharedFileFolder.cs" />
+    <Compile Include="SharedFiles\SharedFileHistory.cs" />
+    <Compile Include="Survey\Page.cs" />
+    <Compile Include="Survey\Question.cs" />
+    <Compile Include="Survey\QuestionAnswer.cs" />
+    <Compile Include="Survey\QuestionOption.cs" />
+    <Compile Include="Survey\QuestionType.cs" />
+    <Compile Include="Survey\Result.cs" />
+    <Compile Include="Survey\Survey.cs" />
+    <Compile Include="Survey\SurveyManager.cs" />
+    <Compile Include="Survey\SurveyResponse.cs" />
+    <Compile Include="KDMediaPlayer\MediaFile.cs" />
+    <Compile Include="KDMediaPlayer\MediaPlayer.cs" />
+    <Compile Include="KDMediaPlayer\MediaTrack.cs" />
+    <Compile Include="KDMediaPlayer\MediaType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mojoPortal.Business\mojoPortal.Business.mono.csproj">
+      <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
+      <Name>mojoPortal.Business.mono</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Features.Data.SQLite\mojoPortal.Features.Data.SQLite.mono.csproj">
+      <Project>{C9FC1EB2-96C9-4458-AAD4-0432E0D33C39}</Project>
+      <Name>mojoPortal.Features.Data.SQLite.mono</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

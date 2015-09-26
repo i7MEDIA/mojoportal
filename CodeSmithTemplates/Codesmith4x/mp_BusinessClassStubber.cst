@@ -1,0 +1,516 @@
+<%-- 
+Name:  			C# Business Class Stubber
+Author: 		Joe Audette
+Description: 	Generates a starter C# business class for a table. Will need review and edit after generation
+Last Modified:	2009-12-01
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author" %>
+<%@ Property Name="BusinessLayerNameSpace" Type="System.String" Default="mojoPortal.Business" Category="Style" Description="The Namespace of the Business Layer class" %>
+<%@ Property Name="DataLayerNameSpace" Type="System.String" Default="mojoPortal.Data" Category="Style" Description="The Namespace of the Data Layer class" %>
+
+<%@ Property Name="TablePrefix" Type="System.String" Default="mp_" Category="Style" Description="Table Prfix" %>
+<%@ Property Name="RemoveEndingS" Type="System.Boolean" Default="true" Category="Style" Description="If table name ends in s, class name will not if this is set to true." %>
+
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+
+<% if (SourceTable.PrimaryKey == null) throw new ApplicationException("SourceTable does not contain a primary key."); %>
+<% ColumnSchema primaryKey = SourceTable.PrimaryKey.MemberColumns[0]; %>
+
+// Author:					<%= Author %>
+// Created:					<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+// Last Modified:			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+// 
+// The use and distribution terms for this software are covered by the 
+// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
+// which can be found in the file CPL.TXT at the root of this distribution.
+// By using this software in any fashion, you are agreeing to be bound by 
+// the terms of this license.
+//
+// You must not remove this notice, or any other, from this software.
+	
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using <%= DataLayerNameSpace %>;
+	
+namespace <%= BusinessLayerNameSpace %>
+{
+	
+	public class <%= GetClassName() %>
+	{
+
+#region Constructors
+
+	    public <%= GetClassName() %>()
+		{}
+	    
+	
+	    public <%= GetClassName() %>(
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) %> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% }else{ %>) <% } %>
+			<% } %> 
+		{
+	        Get<%= GetClassName() %>(
+				<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %> 
+				<%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% }else{ %>); <% } %>
+						<% } %>
+	    }
+
+#endregion
+
+#region Private Properties
+
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+		private <%= GetCSharpVariableType(SourceTable.Columns[i]) %> <%= GetPrivateName(SourceTable.Columns[i].Name) %><%= GetDefaultValueString(SourceTable.Columns[i]) %>;
+		<% } %>
+		
+#endregion
+
+#region Public Properties
+
+	<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+		public <%= GetCSharpVariableType(SourceTable.Columns[i]) %> <%= SourceTable.Columns[i].Name %> 
+		{
+			get { return <%= GetPrivateName(SourceTable.Columns[i].Name) %>; }
+			set { <%= GetPrivateName(SourceTable.Columns[i].Name) %> = value; }
+		}
+	<% } %>
+
+#endregion
+
+#region Private Methods
+
+		<%="///" %> <summary>
+		<%="///" %> Gets an instance of <%= GetClassName() %>.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %>"> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> </param>
+				<% } %>
+		private void Get<%= GetClassName() %>(
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) %> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% }else{ %>) <% } %>
+			<% } %> 
+		{
+			using(IDataReader reader = DB<%= GetClassName() %>.GetOne(
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+				<%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% }else{ %>)) <% } %>
+			<% } %> 
+			{
+			PopulateFromReader(reader);
+			}
+			
+		}
+		
+		
+		private void PopulateFromReader(IDataReader reader) 
+		{
+			if(reader.Read())
+			{
+				<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+				this.<%= GetPrivateName(SourceTable.Columns[i].Name) %> = <%= GetReaderConversion(SourceTable.Columns[i]) %>
+				<% } %>
+			
+			}
+			
+		}
+		
+<% if (primaryKey.DataType == DbType.Guid) {  %>
+		/// <summary>
+        /// Persists a new instance of <%= GetClassName() %>. Returns true on success.
+        /// </summary>
+        /// <returns></returns>
+		private bool Create()
+		{ 
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			this.<%= GetPrivateName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> = Guid.NewGuid();
+			<% } %> 
+		
+			int rowsAffected = DB<%= GetClassName() %>.Create(
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+				this.<%= GetPrivateName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>, <% }else{ %>); <% } %>
+			<% } %>
+				
+			return (rowsAffected > 0);
+
+		}
+
+<% } else { %>
+		/// <summary>
+        /// Persists a new instance of <%= GetClassName() %>. Returns true on success.
+        /// </summary>
+        /// <returns></returns>
+		private bool Create()
+		{ 
+			int newID = 0;
+			
+			newID = DB<%= GetClassName() %>.Create(
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+				this.<%= GetPrivateName(SourceTable.NonPrimaryKeyColumns[i].Name) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>, <% }else{ %>); <% } %>
+			<% } %>
+				
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			this.<%= GetPrivateName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> = newID;
+			<% } %> 
+					
+			return (newID > 0);
+
+		}
+
+<% } %>
+		
+		/// <summary>
+        /// Updates this instance of <%= GetClassName() %>. Returns true on success.
+        /// </summary>
+        /// <returns>bool</returns>
+		private bool Update()
+		{
+
+			return DB<%= GetClassName() %>.Update(
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+				this.<%= GetPrivateName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>, <% }else{ %>); <% } %>
+			<% } %>
+				
+		}
+		
+		
+		
+
+
+#endregion
+
+#region Public Methods
+
+<% if (primaryKey.DataType == DbType.Guid) {  %>
+		/// <summary>
+        /// Saves this instance of <%= GetClassName() %>. Returns true on success.
+        /// </summary>
+        /// <returns>bool</returns>
+		public bool Save()
+		{
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			if(this.<%= GetPrivateName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> != Guid.Empty)
+			{
+				return Update();
+			}
+			else
+			{
+				return Create();
+			}
+			<% } %>	
+		}
+		
+<% } else { %>
+		/// <summary>
+        /// Saves this instance of <%= GetClassName() %>. Returns true on success.
+        /// </summary>
+        /// <returns>bool</returns>
+		public bool Save()
+		{
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			if( this.<%= GetPrivateName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> > 0)
+			{
+				return Update();
+			}
+			else
+			{
+				return Create();
+			}
+			<% } %>	
+		}
+		
+<% } %>
+		
+	
+		
+#endregion
+
+#region Static Methods
+
+		<%="///" %> <summary>
+		<%="///" %> Deletes an instance of <%= GetClassName() %>. Returns true on success.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %>"> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> </param>
+				<% } %>
+		/// <returns>bool</returns>
+		public static bool Delete(
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) %>  <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% } %>)<% } %> 
+		{
+			return DB<%= GetClassName() %>.Delete(
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+				<%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% }else{ %>); <% } %>
+			<% } %> 
+		}
+		
+		
+		<%="///" %> <summary>
+		<%="///" %> Gets a count of <%= GetClassName() %>. 
+		<%="///" %> </summary>
+		public static int GetCount()
+		{
+			return DB<%= GetClassName() %>.GetCount();
+		}
+	
+		private static List<<%= GetClassName() %>> LoadListFromReader(IDataReader reader)
+		{
+			List<<%= GetClassName() %>> <%= GetPrivateName(GetClassName()) %>List = new List<<%= GetClassName() %>>();
+			try
+			{
+				while (reader.Read())
+				{
+					<%= GetClassName() %> <%= GetPrivateName(GetClassName()) %> = new <%= GetClassName() %>();
+					<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+					<%= GetPrivateName(GetClassName()) %>.<%= GetPrivateName(SourceTable.Columns[i].Name) %> = <%= GetReaderConversion(SourceTable.Columns[i]) %>
+					<% } %>
+					<%= GetPrivateName(GetClassName()) %>List.Add(<%= GetPrivateName(GetClassName()) %>);
+					
+				}
+			}
+			finally
+			{
+				reader.Close();
+			}
+	
+			return <%= GetPrivateName(GetClassName()) %>List;
+		
+		}
+	
+		/// <summary>
+		/// Gets an IList with all instances of <%= GetClassName() %>.
+		/// </summary>
+		public static List<<%= GetClassName() %>> GetAll()
+		{
+			IDataReader reader = DB<%= GetClassName() %>.GetAll();
+			return LoadListFromReader(reader);
+	
+		}
+	
+		/// <summary>
+		/// Gets an IList with page of instances of <%= GetClassName() %>.
+		/// </summary>
+		/// <param name="pageNumber">The page number.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <param name="totalPages">total pages</param>
+		public static List<<%= GetClassName() %>> GetPage(int pageNumber, int pageSize, out int totalPages)
+		{
+			totalPages = 1;
+			IDataReader reader = DB<%= GetClassName() %>.GetPage(pageNumber, pageSize, out totalPages);	
+			return LoadListFromReader(reader);
+		}
+	
+
+	
+#endregion
+
+#region Comparison Methods
+
+<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+	<% if(IsComparible(SourceTable.Columns[i])){%>
+		/// <summary>
+		/// Compares 2 instances of <%= GetClassName() %>.
+		/// </summary>
+		public static int CompareBy<%= SourceTable.Columns[i].Name %>(<%= GetClassName() %> <%= GetPrivateName(GetClassName()) %>1, <%= GetClassName() %> <%= GetPrivateName(GetClassName()) %>2)
+		{
+			return <%= GetPrivateName(GetClassName()) %>1.<%= SourceTable.Columns[i].Name %>.CompareTo(<%= GetPrivateName(GetClassName()) %>2.<%= SourceTable.Columns[i].Name %>);
+		}	
+		<% } %>
+		<% } %>
+
+#endregion
+
+
+	}
+	
+}
+
+
+
+
+
+<script runat="template">
+
+
+public string GetClassName()
+{
+	
+	if ((this.RemoveEndingS)
+		&&(SourceTable.Name.EndsWith("s"))
+		)
+	{
+		return RemovePrefix(SourceTable.Name.Substring(0,SourceTable.Name.Length -1));
+	}
+	else
+	{
+		return RemovePrefix(SourceTable.Name);
+	}
+}
+
+public string RemovePrefix(string TableName)
+{
+
+	return TableName.Replace(TablePrefix,"");
+}
+
+public string GetPrivateName(string ColumnName)
+{
+	
+
+	return ColumnName.Substring(0,1).ToLower() + ColumnName.Substring(1,ColumnName.Length -1);
+}
+
+public string GetParamName(String columnName)
+{
+	if(columnName == "ID")
+		return "id";
+	
+	string firstLetter = columnName.Substring(0,1).ToLower();
+	string Result = firstLetter + columnName.Remove(0,1);
+	
+	return Result;
+}
+
+public string GetDefaultValueString(ColumnSchema column)
+{
+	switch(column.DataType)
+	{	
+		case DbType.Guid: 
+			return " = Guid.Empty";
+		
+		case DbType.Int32 : 
+			return " = -1";
+			
+		case DbType.DateTime:
+			return " = DateTime.UtcNow";
+			
+		case DbType.Boolean:
+			return " = false";
+		
+		case DbType.AnsiString :
+		case DbType.AnsiStringFixedLength :
+		case DbType.String :
+		case DbType.StringFixedLength :
+		
+			return " = string.Empty";
+		
+		default:
+		{
+			return string.Empty;
+		}
+		
+	}
+	
+	
+	
+
+}
+
+public bool IsComparible(ColumnSchema column)
+{
+	switch(GetSqlDbType(column))
+	{
+		case "Char" :
+		case "NChar" :
+		case "VarChar" :
+		case "NVarChar" :
+		case "Text" :
+		case "NText" :
+		case "Int" :
+		case "DateTime" :
+		return true;
+		
+		break;
+	
+		default:
+			return false;
+		
+	}
+	
+	
+	
+
+}
+
+public string GetReaderConversion(ColumnSchema column)
+{
+	if (column.Name.EndsWith("TypeCode")) return column.Name;
+	
+	switch (column.DataType)
+	{
+		case DbType.AnsiString: return "reader[\"" + column.Name + "\"].ToString();";
+		case DbType.AnsiStringFixedLength: return "reader[\"" + column.Name + "\"].ToString();";
+		case DbType.Binary: return "Byte[]";
+		case DbType.Boolean: return "Convert.ToBoolean(reader[\"" + column.Name + "\"]);";
+		case DbType.Byte: return "Convert.ToByte(reader[\"" + column.Name + "\"]);";
+		case DbType.Currency: return "Convert.ToDecimal(reader[\"" + column.Name + "\"]);";
+		case DbType.Date: return "Convert.ToDateTime(reader[\"" + column.Name + "\"]);";
+		case DbType.DateTime: return "Convert.ToDateTime(reader[\"" + column.Name + "\"]);";
+		case DbType.Decimal: return "Convert.ToDecimal(reader[\"" + column.Name + "\"]);";
+		case DbType.Double: return "Convert.ToDouble(reader[\"" + column.Name + "\"]);";
+		case DbType.Guid: return "new Guid(reader[\"" + column.Name + "\"].ToString());";
+		case DbType.Int16: return "Convert.ToInt16(reader[\"" + column.Name + "\"]);";
+		case DbType.Int32: return "Convert.ToInt32(reader[\"" + column.Name + "\"]);";
+		case DbType.Int64: return "Convert.ToInt64(reader[\"" + column.Name + "\"]);";
+		case DbType.SByte: return "Convert.ToSByte(reader[\"" + column.Name + "\"]);";
+		case DbType.Single: return "Convert.ToSingle(reader[\"" + column.Name + "\"]);";
+		case DbType.String: return "reader[\"" + column.Name + "\"].ToString();";
+		case DbType.StringFixedLength: return "reader[\"" + column.Name + "\"].ToString();";
+		
+		default:
+		{
+			return "__UNKNOWN__" + column.NativeType;
+		}
+	}
+}
+
+
+
+public string GetVBDataType(ColumnSchema column)
+{
+	if (column.Name.EndsWith("TypeCode")) return column.Name;
+	
+	switch (column.DataType)
+	{
+		case DbType.AnsiString: return "String";
+		case DbType.AnsiStringFixedLength: return "String";
+		case DbType.Binary: return "Byte()";
+		case DbType.Boolean: return "Boolean";
+		case DbType.Byte: return "Byte";
+		case DbType.Currency: return "Decimal";
+		case DbType.Date: return "DateTime";
+		case DbType.DateTime: return "DateTime";
+		case DbType.Decimal: return "Decimal";
+		case DbType.Double: return "Double";
+		case DbType.Guid: return "Guid";
+		case DbType.Int16: return "Short";
+		case DbType.Int32: return "Integer";
+		case DbType.Int64: return "Long";
+		case DbType.Object: return "Object";
+		case DbType.SByte: return "SByte";
+		case DbType.Single: return "Float";
+		case DbType.String: return "String";
+		case DbType.StringFixedLength: return "String";
+		case DbType.Time: return "TimeSpan";
+		case DbType.UInt16: return "UShort";
+		case DbType.UInt32: return "UInt";
+		case DbType.UInt64: return "ULong";
+		case DbType.VarNumeric: return "Decimal";
+		default:
+		{
+			return "__UNKNOWN__" + column.NativeType;
+		}
+	}
+}
+	
+</script>

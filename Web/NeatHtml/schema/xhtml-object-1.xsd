@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.w3.org/1999/xhtml"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.w3.org/1999/xhtml">
+
+  <xs:annotation>
+    <xs:documentation>
+      This is the XML Schema Embedded Object module for XHTML
+      $Id: xhtml-object-1.xsd,v 1.1 2003/12/17 03:09:17 ahby Exp $
+    </xs:documentation>
+    <xs:documentation source="xhtml-copyright-1.xsd"/>
+  </xs:annotation>
+
+  <xs:annotation>
+    <xs:documentation>
+      This module declares the object element type and its attributes,
+      used to embed external objects as part of XHTML pages. In the
+      document, place param elements prior to the object elements 
+      that require their content.
+          
+      Note that use of this module requires instantiation of the 
+      Param Element Module prior to this module.
+      
+      Elements defined here: 
+      
+        * object (param)
+    </xs:documentation>
+    <xs:documentation 
+        source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_objectmodule"/>
+  </xs:annotation>
+
+  
+  <xs:include schemaLocation="xhtml-param-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Param module
+        
+        Elements defined here:
+          * param
+      </xs:documentation>
+    </xs:annotation>
+  </xs:include>
+    
+  <xs:attributeGroup name="object.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+    <xs:attribute name="declare">
+      <xs:simpleType>
+         <xs:restriction base="xs:NMTOKEN">
+           <xs:enumeration value="declare"/>
+         </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="classid" type="URI"/>
+    <xs:attribute name="codebase" type="URI"/>
+    <xs:attribute name="data" type="URI"/>
+    <xs:attribute name="type" type="ContentType"/>
+    <xs:attribute name="codetype" type="ContentType"/>
+    <xs:attribute name="archive" type="URIs"/>
+    <xs:attribute name="standby" type="Text"/>
+    <xs:attribute name="height" type="Length"/>
+    <xs:attribute name="width" type="Length"/>
+    <xs:attribute name="name" type="CDATA"/>
+    <xs:attribute name="tabindex" type="Number"/>
+  </xs:attributeGroup>
+
+  <xs:group name="object.content">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="param"/>
+        <xs:group ref="Flow.mix"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+
+  <xs:complexType name="object.type" mixed="true">
+    <xs:group ref="object.content"/>
+    <xs:attributeGroup ref="object.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="object" type="object.type"/>
+
+</xs:schema>

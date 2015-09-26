@@ -1,0 +1,145 @@
+<%@ Register Namespace="mojoPortal.Web.UI" Assembly="mojoPortal.Web" TagPrefix="portal" %>
+<%@ Register Namespace="mojoPortal.Web.Controls" Assembly="mojoPortal.Web.Controls" TagPrefix="mp" %>
+
+<%--
+
+@@@IMPORTANT@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+it is better to only set css classes here in the theme
+because themes are cached and if you only use css then
+page level and user level skins will over-ride the default
+skin correctly because the css will adapt to the current mojoportal skin 
+but if you use other style properties the cached skin will be applied.
+Also using the style properties results in inline styles on
+the rendered markup which makes page size larger
+and therefore slower performance
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+--%>
+
+     
+     <portal:mojoTreeView runat="server" SkinID="SiteMapPage"
+			ContainerCssClass="sitemap"
+			RootUlCssClass=""
+			RenderLiCssClasses="false"
+			RenderAnchorCss="true"
+			LiCssClass=""
+			LiRootExpandableCssClass=""
+			LiRootNonExpandableCssClass=""
+			LiNonRootExpnadableCssClass=""
+			LiSelectedCssClass=""
+			LiChildSelectedCssClass=""
+			LiParentSelectedCssClass=""
+			AnchorCssClass=""
+			AnchorSelectedCssClass=""
+			ExpandDepth="-1"
+			ShowExpandCollapse="false"
+			PopulateNodesFromClient="false"
+		
+		/>
+			
+	<portal:mojoTreeView runat="server" SkinID="ChildSiteMap"
+			ContainerCssClass="sitemap"
+			RootUlCssClass=""
+			RenderLiCssClasses="false"
+			RenderAnchorCss="true"
+			LiCssClass=""
+			LiRootExpandableCssClass=""
+			LiRootNonExpandableCssClass=""
+			LiNonRootExpnadableCssClass=""
+			LiSelectedCssClass=""
+			LiChildSelectedCssClass=""
+			LiParentSelectedCssClass=""
+			AnchorCssClass=""
+			AnchorSelectedCssClass=""
+			ExpandDepth="-1"
+			ShowExpandCollapse="false"
+			PopulateNodesFromClient="false"
+		
+		/>
+       
+       <asp:CheckBoxList  runat="server"
+       CssClass="aspcheckboxlist"
+       RepeatColumns="2"
+       RepeatDirection="horizontal"
+       RepeatLayout="Table"
+
+       />
+       
+       <asp:CheckBoxList  runat="server" SkinID="Roles"
+       CssClass="aspcheckboxlist"
+       RepeatColumns="2"
+       RepeatDirection="horizontal"
+       RepeatLayout="Table"
+       
+       />
+       
+       <asp:CheckBoxList  runat="server" SkinID="Blog"
+       CssClass="aspcheckboxlist"
+       RepeatColumns="4"
+       RepeatDirection="horizontal"
+       RepeatLayout="Table"
+       
+       />
+       
+       <asp:Calendar  runat="server"
+     CaptionAlign="Top"
+     CssClass="aspcalendarmain"
+     DayHeaderStyle-CssClass="aspcalendardayheader"
+     DayNameFormat="FirstLetter"
+     DayStyle-CssClass="aspcalendarday"
+     FirstDayOfWeek="sunday"
+     NextMonthText="+"
+     NextPrevFormat="CustomText"
+     NextPrevStyle-CssClass="aspcalendarnextprevious"
+     OtherMonthDayStyle-CssClass="aspcalendarothermonth"
+     PrevMonthText="-"
+     SelectedDayStyle-CssClass="aspcalendarselectedday"
+     SelectorStyle-CssClass="aspcalendarselector"
+     ShowDayHeader="true"
+     ShowGridLines="false"
+     ShowNextPrevMonth="true"
+     ShowTitle="true"
+     TitleFormat="MonthYear"
+     TitleStyle-CssClass="aspcalendartitle"
+     TodayDayStyle-CssClass="aspcalendartoday"
+     WeekendDayStyle-CssClass="aspcalendarweekendday"
+   
+    /> 
+
+    
+    <%--  this is the EventCalendar  --%>
+    
+     <mp:DataCalendar runat="server"
+     CaptionAlign="Top"
+     CssClass="mpcalendarmain"
+     DayHeaderStyle-CssClass="mpcalendardayheader"
+     DayNameFormat="Short"
+     DayStyle-CssClass="mpcalendarday"
+     FirstDayOfWeek="sunday"
+     NextMonthText="+"
+     NextPrevFormat="CustomText"
+     NextPrevStyle-CssClass="mpcalendarnextprevious"
+     OtherMonthDayStyle-CssClass="mpcalendarothermonth"
+     PrevMonthText="-"
+     SelectedDayStyle-CssClass="mpcalendarselectedday"
+     SelectorStyle-CssClass="mpcalendarselector"
+     ShowDayHeader="true"
+     ShowGridLines="false"
+     ShowNextPrevMonth="true"
+     ShowTitle="true"
+     TitleFormat="MonthYear"
+     TitleStyle-CssClass="mpcalendartitle"
+     TodayDayStyle-CssClass="mpcalendartoday"
+     WeekendDayStyle-CssClass="mpcalendarweekendday"
+   
+    /> 
+    
+
+<asp:ListBox  runat="server" SkinID="PageTree"
+         CssClass=""
+         Width="400px"
+            
+/>          
+
+    

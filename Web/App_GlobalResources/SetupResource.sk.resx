@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SchemaUpgradeNeededMessage" xml:space="preserve">
+    <value>Je nutné vykonať aktualizáciu Databázovej schémy na verziu totožnú s kódom.</value>
+  </data>
+  <data name="ToThisLabel" xml:space="preserve">
+    <value>pre tento:</value>
+  </data>
+  <data name="UpgradeOverrideInstructions" xml:space="preserve">
+    <value>Systém nemôže vykonať požadované zmeny schémy s aktuálnym "connection string". Prosim zadajte "connection string" z právomocmi pre zmenu schémy tu.</value>
+  </data>
+  <data name="UpgradeSchemaButton" xml:space="preserve">
+    <value>Upgrade schémy</value>
+  </data>
+  <data name="UpgradeTitle" xml:space="preserve">
+    <value>Upgrade mojoPortal</value>
+  </data>
+  <data name="VersionLabel" xml:space="preserve">
+    <value>Verzia</value>
+  </data>
+  <data name="CantAlterSchemaWarning" xml:space="preserve">
+    <value>Inštalácia mojoPortal detekovala, že užívateľ použitý pre aktuálne pripojenie nemá právomoci na úpravy databázovej schémy. Upravte hodnotu vo Web.config, alebo zadajte connection string s potrebnými právomocmi.</value>
+  </data>
+  <data name="CantCreateTempTablesMessage" xml:space="preserve">
+    <value>Inštalácia mojoPortal detekovala, že užívateľ použitý pre aktuálne pripojenie nemá právomoci na úpravy databázovej schémy. Upravte hodnotu vo Web.config, alebo niektoré dôležité vlastnosti nebudú fungovať.</value>
+  </data>
+  <data name="CantProceedMessage" xml:space="preserve">
+    <value>Inštalácia nemôže pokračovať, dokiaľ problémy zobrazené vyššie neodstránite.</value>
+  </data>
+  <data name="CodeUpgradeNeededMessage" xml:space="preserve">
+    <value>Musíte aktualizovať verziu kodu stránky s databázovou schémou.</value>
+  </data>
+  <data name="ConfigureFeatureMessage" xml:space="preserve">
+    <value>Konfigurácia vlastnosti {0}</value>
+  </data>
+  <data name="ConfigureFeaturesMessage" xml:space="preserve">
+    <value>Konfigurácia</value>
+  </data>
+  <data name="ConnectionStringFailedMessage" xml:space="preserve">
+    <value>Connection string, ktorý ste zadali nie je správny alebo neobsahuje dostatočné právomoci pre aktualizáciu databázy</value>
+  </data>
+  <data name="ConnectionStringRequiredError" xml:space="preserve">
+    <value>Zadanie Connection String je nutné</value>
+  </data>
+  <data name="CouldNotInstallFeatureSchemaMessage" xml:space="preserve">
+    <value>Nie je možné nainštalovať aplikáciu {0}, pretože adresár {1} neexistuje.</value>
+  </data>
+  <data name="CreateInitialDataButton" xml:space="preserve">
+    <value>Vytvoriť prvotné dáta</value>
+  </data>
+  <data name="CreatingDefaultContent" xml:space="preserve">
+    <value>Nenájdený žiaden obsah, vytvára sa prednastavený obsah...</value>
+  </data>
+  <data name="CreatingPageMessage" xml:space="preserve">
+    <value>Vytvára sa stránká {0}</value>
+  </data>
+  <data name="CreatingRolesAndAdminUserMessage" xml:space="preserve">
+    <value>Vytvárajú sa role a účet administrátora...</value>
+  </data>
+  <data name="CreatingSiteMessage" xml:space="preserve">
+    <value>Vytvára sa stránka s prednastavenými hodnotami...</value>
+  </data>
+  <data name="DatabaseCanAlterSchemaMessage" xml:space="preserve">
+    <value>databázove právomoci dostatočné pre úpravu schémy.</value>
+  </data>
+  <data name="DatabaseCanCreateTempTablesMessage" xml:space="preserve">
+    <value>databázove právomoci dostatočné pre vytvorenie dočasných tabuliek.</value>
+  </data>
+  <data name="DatabaseCodeVersionLabel" xml:space="preserve">
+    <value>Verzia kódu databázy</value>
+  </data>
+  <data name="DatabaseConnectionOKMessage" xml:space="preserve">
+    <value>databázove pripojenie ok.</value>
+  </data>
+  <data name="DatabasePlatformLabel" xml:space="preserve">
+    <value>Databázova platforma</value>
+  </data>
+  <data name="DatabaseSchemaAlreadyExistsMessage" xml:space="preserve">
+    <value>database initial schema už existuje.</value>
+  </data>
+  <data name="DatabaseSchemaNeedsUpgradeMessage" xml:space="preserve">
+    <value>database core schema potrebuje aktualizáciu.</value>
+  </data>
+  <data name="DatabaseSchemaNotCreatedYetMessage" xml:space="preserve">
+    <value>database initial schema bude vytvorená.</value>
+  </data>
+  <data name="DatabaseSchemaUpToDateMessage" xml:space="preserve">
+    <value>database core schema je aktuálna.</value>
+  </data>
+  <data name="DataGalleryFolderNotWritableMessage" xml:space="preserve">
+    <value>Adresár Data/Sites/1/GalleryImages nemá povolený zápis</value>
+  </data>
+  <data name="DataRootNotWritableMessage" xml:space="preserve">
+    <value>Adresár Data nemá povolený zápis</value>
+  </data>
+  <data name="DataSharedFilesFolderNotWritableMessage" xml:space="preserve">
+    <value>Adresár Data/Sites/1/SharedFiles/ nemá povolený zápis</value>
+  </data>
+  <data name="DataSharedFilesHistoryFolderNotWritableMessage" xml:space="preserve">
+    <value>Adresár Data/Sites/1/SharedFiles/History/ nemá povolený zápis</value>
+  </data>
+  <data name="DataSiteFolderNotWritableMessage" xml:space="preserve">
+    <value>Adresár Data/Sites/1/ nemá povolený zápis</value>
+  </data>
+  <data name="DataSiteIndexFolderNotWritableMessage" xml:space="preserve">
+    <value>Adresár Data/Sites/1/index/ nemá povolený zápis</value>
+  </data>
+  <data name="DataSystemFilesFolderNotWritableMessage" xml:space="preserve">
+    <value>Adresár Data/Sites/1/systemfiles/ nemá povolený zápis</value>
+  </data>
+  <data name="EnsuringFeaturesInAdminSites" xml:space="preserve">
+    <value>Kontrola všetkých vlastnosti, či su správne nainštalované v admin stránkach...</value>
+  </data>
+  <data name="ErrorMessageLabel" xml:space="preserve">
+    <value>Chybové hlásenie</value>
+  </data>
+  <data name="ErrorOccurredLabel" xml:space="preserve">
+    <value>Nastal chyba</value>
+  </data>
+  <data name="ExistingSiteCountMessageMessage" xml:space="preserve">
+    <value>{0} stránka(y) nenájdená(é).</value>
+  </data>
+  <data name="FailedToConnectToDatabase" xml:space="preserve">
+    <value>Systém sa nemôže pripojiť k databáze {0}. Skontrolujte prosím connection string.</value>
+  </data>
+  <data name="FailedToConnectToDatabaseHelp" xml:space="preserve">
+    <value>Pre zobrazenie špecifickej chyby pripojenia zmeňte ShowConnectionErrorOnSetup na true vo Web.config</value>
+  </data>
+  <data name="FileSystemPermissionProblemsMessage" xml:space="preserve">
+    <value>Nájdené problémy pri prístupe k súborovému systému.</value>
+  </data>
+  <data name="FileSystemPermissionsOKMesage" xml:space="preserve">
+    <value>Právomoci pre prístup k súborovému systému ok.</value>
+  </data>
+  <data name="FolderDetailsLabel" xml:space="preserve">
+    <value>Detaily adresára</value>
+  </data>
+  <data name="HomeLink" xml:space="preserve">
+    <value>choď na Domov</value>
+  </data>
+  <data name="InstallationUpToDateMessage" xml:space="preserve">
+    <value>Vaša inštalácia je aktuálna.</value>
+  </data>
+  <data name="LastServerErrorLabel" xml:space="preserve">
+    <value>Posledná chyba generovaná serverom bola:</value>
+  </data>
+  <data name="MediumTrustGeneralMessage" xml:space="preserve">
+    <value>Táto stránka beží v zabezpečenom prostredí s nastavením bezpečnostnej politiky Medium Trust, alebo s právomocmi nižšími ako Full Trust.</value>
+  </data>
+  <data name="MediumTrustLuceneConfigPreambleMessage" xml:space="preserve">
+    <value>Pre správnu funkčnosť vyhľadávania v Mediu Trust pridajte toto do Web.config-u v AppSettings sekcii:</value>
+  </data>
+  <data name="NoScriptsFilesFoundMessage" xml:space="preserve">
+    <value>V adresári nenájdený žiaden script.</value>
+  </data>
+  <data name="NoSitesMessage" xml:space="preserve">
+    <value>Dosiaľ neboli vytvorené žiadne Stránky, kliknite na tlačidlo pre vytvorenie prvotných dát.</value>
+  </data>
+  <data name="NoUpgradeScriptsFound" xml:space="preserve">
+    <value>Žiadne aktualizačné scripty nenájdene pre {0}. Systém je pravdepodobne aktuálny.</value>
+  </data>
+  <data name="ProbingSystemMessage" xml:space="preserve">
+    <value>Sondovanie systému...</value>
+  </data>
+  <data name="RunningScriptMessage" xml:space="preserve">
+    <value>Vykonáva sa script {0} - {1}</value>
+  </data>
+  <data name="RunningSetupForAdminUser" xml:space="preserve">
+    <value>Inštalácia je zakázaná, napriek tomu bude inštalácia vykonaná, pretože aktuálny užívateľ je prihláseny ako Administrátor</value>
+  </data>
+  <data name="RunTimeLabel" xml:space="preserve">
+    <value>UTC Čas vykonania</value>
+  </data>
+  <data name="SchemaUpgradeFolderNotFound" xml:space="preserve">
+    <value>Nepokúšajte sa o aktualizáciu aplikácie {0} pretože adresár {1} neexistuje.</value>
+  </data>
+  <data name="ScriptFileLabel" xml:space="preserve">
+    <value>Script súbor</value>
+  </data>
+  <data name="ScriptFolderNotFoundAddendum" xml:space="preserve">
+    <value>nenájdený. Scripty nemôžu byť spustené.</value>
+  </data>
+  <data name="ScriptFolderNotFoundMessage" xml:space="preserve">
+    <value>nenájdený. Scripty nemôžu byť spustené.</value>
+  </data>
+  <data name="SetupDisabledMessage" xml:space="preserve">
+    <value>Inštalácia je zakázaná. Pre povolenie nastavte DisableSetup na false vo Web.config</value>
+  </data>
+  <data name="SetupEnabledMessage" xml:space="preserve">
+    <value>Poznámka: Táto stránka zobrazuje informácie, ktoré su užitočné pre inštaláciu a aktualizácie, ale z dôvodu bezpečnosti nezobrazuje žiadne informácie ak je verzia systému aktuálna. Odporúčame zamedziť prístup na túto stránku v nastaveniach Web.config pomocou DisableSetup=true. V prípade potreby aktualizácie potom je nastavením na hodnotu "false". Ak ste prihlásený ako Administrátor je prístup na túto stránku povolený aj v prípade ak je prístup na túto stránku vo Web.config zakázany, takže je pre aktualizáciu postačí ak sa prihlásite ako Administrátor.</value>
+  </data>
+  <data name="SetupSuccessMessage" xml:space="preserve">
+    <value>Inštalácia bola vykonaná úspešne, kliknite na linku nižšie pre presmerovanie na domácu stránku.</value>
+  </data>
+  <data name="SetupTitle" xml:space="preserve">
+    <value>mojoPortal Inštalácia</value>
+  </data>
+  <data name="SetupWelcomeMessage" xml:space="preserve">
+    <value>Vitajte v inštalácii projektu mojoPortal</value>
+  </data>
+  <data name="DatabaseStatusLabel" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="DataFolderNotWritableMessage" xml:space="preserve">
+    <value>The Data folder beneath the root of the web site is not writable by the ASP.NET worker process. 
+
+You need to make this folder and all its child folders and files writable before setup can proceed. mojoPortal needs this to be able to write search index files, error logs, image gallery uploads, and other important features. 
+
+Right Click the Data folder in Windows explorer, choose properties and go to the Security tab. (On XP if you don't see the security tab then google for XP Simple File sharing to learn how to make that tab appear.) On XP you typically need to give write permission to ASPNET user while on Windows 2003 you need to give it to IIS_WPG user. 
+
+Obviously, instructions are a little different on Linux/Mono but the same principle is true, the Data folder and all its child objects must be writable.
+</value>
+  </data>
+  <data name="FirebirdAutoDBCreationNotYetSupportedException" xml:space="preserve">
+    <value>Automatic schema creation is not yet working for Firebird Sql. You will need to maually run the script located at</value>
+  </data>
+  <data name="FirebirdAutoUpgradeNotYetSupportedException" xml:space="preserve">
+    <value>Automatic shema upgrading is not yet supported for Firebird. You will need to run the scripts located at {0) starting after {1}.config</value>
+  </data>
+  <data name="MediumTrustCommentOutNeatUploadInstructionLine1" xml:space="preserve">
+    <value>To comment out NeatUpload, look in Web.config file in the &lt;httpModules&gt; section and change this:</value>
+  </data>
+  <data name="MediumTrustCommentOutNeatUploadPreambleMessage" xml:space="preserve">
+    <value>You should comment out the NeatUpload module as it is not supported in Medium Trust, unless its installed in the Global Assembly Cache on the server.
+For more information see http://www.mojoportal.com/mediumtrust.aspx</value>
+  </data>
+  <data name="MediumTrustMySQLMessage" xml:space="preserve">
+    <value>In order to use MySQL under Medium Trust, The MySQL Connector for .NET must be installed in the Global Assembly Cache on the server. If you see a SecurityException in the error message then the Connector is not installed.
+You can download the MySql Connector for .NET from here: http://dev.mysql.com/downloads/connector/net/5.0.html</value>
+  </data>
+  <data name="MediumTrustNeatUploadCommentedOutExample" xml:space="preserve">
+    <value>&lt;!--
+&lt;add name="HttpUploadModule" type="Brettle.Web.NeatUpload.UploadHttpModule, Brettle.Web.NeatUpload" /&gt;
+--&gt;</value>
+  </data>
+  <data name="MediumTrustNeatUploadWrongConfigExample" xml:space="preserve">
+    <value>&lt;add name="HttpUploadModule" type="Brettle.Web.NeatUpload.UploadHttpModule, Brettle.Web.NeatUpload" /&gt;</value>
+  </data>
+  <data name="MediumTrustnpgsqlMessage" xml:space="preserve">
+    <value>In order to use PostgreSQL under Medium Trust, the npgsql Data Access library must be installedin the Global Assembly Cache on the server. If you see a SecurityException below then the npgsql component is not installed.
+You can get more information or download npgsql from here: http://npgsql.projects.postgresql.org/</value>
+  </data>
+  <data name="OverrideConnectionStringLabel" xml:space="preserve">
+    <value>Connection String:</value>
+  </data>
+  <data name="DatabaseCreationSucceeded" xml:space="preserve">
+    <value>Database Creation Succeeded</value>
+  </data>
+  <data name="TryingToCreateDatabase" xml:space="preserve">
+    <value>Trying To Create Database</value>
+  </data>
+</root>

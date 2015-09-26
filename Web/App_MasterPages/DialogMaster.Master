@@ -1,0 +1,24 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="DialogMaster.master.cs" Inherits="mojoPortal.Web.DialogMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <title></title>
+    <portal:StyleSheetCombiner id="StyleSheetCombiner"  runat="server" />
+    <portal:IEStyleIncludes id="IEStyleIncludes1"  runat="server" />
+    <portal:ScriptLoader id="ScriptInclude" runat="server"  />
+    <asp:ContentPlaceHolder ID="phHead" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="dialogpage">
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server" />
+        <asp:ContentPlaceHolder ID="phMain" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    <portal:mojoGoogleAnalyticsScript ID="mojoGoogleAnalyticsScript1" runat="server" />
+    <portal:Woopra ID="woopra11" runat="server" />
+    </form>
+</body>
+</html>

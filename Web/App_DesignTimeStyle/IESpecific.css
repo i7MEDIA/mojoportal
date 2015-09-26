@@ -1,0 +1,29 @@
+﻿/*
+This file should contain SUPPLEMENTAL rules that are recognized and used only by IE.
+Similar files can be produced, as needed, for other browsers.  Whatever selectors are
+listed here should be listed in at least one other CSS file used in the current ASP.NET
+theme (thus making these supplemental).  The implementation pattern is to add new props
+to some existing rule or to override (using important) some property.
+
+*/
+
+
+div.AspNet-Menu-Vertical ul.AspNet-Menu li.AspNet-Menu-WithChildren ul 
+{position:relative; left: -380px; top: 10px; }
+
+div.AspNet-Menu-Vertical ul.AspNet-Menu li.AspNet-Menu-WithChildren  a.AspNet-Menu
+{background-color: #f2f2f2 ; background-image: url('arrowRight.gif'); 
+	background-repeat:no-repeat; background-position:right; 
+	width: 160px; display: block; font-weight: bold;text-decoration:none;	
+	padding: 2px 5px 2px 10px;color: #333;border-left: 5px solid #CCC;	
+	min-height: 18px;	}
+	
+ul.userstats { list-style-type:none;  margin: 0px 0px 0px 0px; font-size:85%;  }
+ul.userstats ul { list-style-type:none; margin: -10px 0px 0px 0px;   }
+/*
+html>body .center-mypage { width: 700px; margin: 10px 0px 0px 10px;  }
+.userpagemenucontainer {  z-index: 300; width: 650px; margin: 0px 5px 0px 5px;}
+.userpagemenucontainer ul.userpagemenu {  width: 650px; }
+*/
+
+

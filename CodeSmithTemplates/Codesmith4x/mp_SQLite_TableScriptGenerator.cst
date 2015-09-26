@@ -1,0 +1,126 @@
+<%-- 
+Name:  						SQLite Table Generator
+Author: 					Joe Audette
+Created:					2006-06-03
+Last Modified:				2008-09-12
+Description: 				Creates table script for SQLite based on MS SQL Schema
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="T-SQL" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+<% if (SourceTable.PrimaryKey.MemberColumns.Count >= 1 && 
+(SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Guid 
+|| SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int16 
+|| SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int32 
+|| SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.Int64
+|| SourceTable.PrimaryKey.MemberColumns[0].DataType == DbType.String
+)) {
+    ColumnSchema primaryKey = SourceTable.PrimaryKey.MemberColumns[0];
+%>
+
+-- thie generation script doesn't create default values for non null columns so be sure and add those as appropriate
+CREATE TABLE `<%= SourceTable.Name %>` (
+<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+ `<%= SourceTable.Columns[i].Name %>` <%= GetColumnTypeWithDimensions(SourceTable.PrimaryKey.MemberColumns[i]) %> <%= GetNullStatement(SourceTable.PrimaryKey.MemberColumns[i]) %> PRIMARY KEY, <% }  %>
+<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+ `<%= SourceTable.NonPrimaryKeyColumns[i].Name %>` <%= GetColumnTypeWithDimensions(SourceTable.NonPrimaryKeyColumns[i]) %> <%= GetNullStatement(SourceTable.NonPrimaryKeyColumns[i]) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>,<% } %>
+  <% } %>
+);
+	
+<% } else { 
+%>
+
+-- there is a problem generating this table script
+-- this generator only works with tables having a single field primary key, either int or varchar(36) to represent a guid
+-- if the single column pk is an int it will create a sequence for the autogeneration of int primary keys
+
+
+
+<% } %>
+
+
+<script runat="template">
+
+public string GetColumnTypeWithDimensions(ColumnSchema column) {
+	return GetSQLiteDbType(column) + GetColumnDimensions(column);
+}
+
+
+
+
+public string GetNullStatement(ColumnSchema column)
+{
+	if(column.AllowDBNull)
+	{
+		return "NULL";
+	}
+	
+	return "NOT NULL";
+
+}
+
+public string GetSQLiteDbType(ColumnSchema column)
+{
+	switch(GetSqlDbType(column))
+	{
+		case "Bit" :
+		return "INTEGER";
+		
+		case "Text" :
+		return "text";
+		
+		case "NText" :
+		return "text";
+		
+		case "NVarChar" :
+		return "varchar";
+		
+		case "VarChar" :
+		return "varchar";
+		
+		case "Image" :
+		return "LongBlob";
+		
+		case "Int" :
+		return "INTEGER";
+		
+		case "DateTime" :
+		return "datetime";
+		
+		case "UniqueIdentifier" :
+		return "varchar(36)";
+		
+		
+	}
+	
+	return GetSqlDbType(column);
+
+}
+
+public string GetColumnDimensions(ColumnSchema column)
+{
+	switch(GetSqlDbType(column))
+	{
+		case "VarChar" :
+		case "NVarChar" :
+		
+		return "(" + column.Size.ToString() + ")";
+		
+	}
+	
+	return "";
+
+
+
+}
+
+</script>

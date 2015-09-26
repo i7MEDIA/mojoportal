@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8582D51E-126B-4D64-B080-07AD8245B38F}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>mojoPortal.Business</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>mojoPortal.Business</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;MONO</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;MONO</DefineConstants>
+    <DocumentationFile>..\Documents\xml\mojoPortal.Business.XML</DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="log4net">
+      <HintPath>..\_libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Novell.Directory.Ldap">
+      <HintPath>..\_libs\Novell.Directory.Ldap.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BannedIPAddress.cs" />
+    <Compile Include="Category\Category.cs" />
+    <Compile Include="Category\CategoryItem.cs" />
+    <Compile Include="Category\CategoryRepository.cs" />
+    <Compile Include="Comment\Comment.cs" />
+    <Compile Include="Comment\CommentRepository.cs" />
+    <Compile Include="CommerceCore\AuthorizeNetLog.cs" />
+    <Compile Include="CommerceCore\FulfillmentType.cs" />
+    <Compile Include="CommerceCore\GoogleCheckoutLog.cs" />
+    <Compile Include="CommerceCore\MerchantData.cs" />
+    <Compile Include="CommerceCore\OrderStatus.cs" />
+    <Compile Include="CommerceCore\PayPalLog.cs" />
+    <Compile Include="CommerceCore\PlugNPayLog.cs" />
+    <Compile Include="CommerceCore\TaxCalculator.cs" />
+    <Compile Include="CommerceCore\TaxClass.cs" />
+    <Compile Include="CommerceCore\TaxRate.cs" />
+    <Compile Include="CommerceReport.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommerceReportItem.cs" />
+    <Compile Include="ContentHistory.cs" />
+    <Compile Include="ContentMeta.cs" />
+    <Compile Include="ContentMetaLink.cs" />
+    <Compile Include="ContentMetaRepository.cs" />
+    <Compile Include="ContentPublishMode.cs" />
+    <Compile Include="ContentRating.cs" />
+    <Compile Include="ContentRatingStats.cs" />
+    <Compile Include="ContentStyle.cs" />
+    <Compile Include="ContentTemplate.cs" />
+    <Compile Include="ContentWorkflow.cs" />
+    <Compile Include="ContentWorkflowStatus.cs" />
+    <Compile Include="CRMCore\Customer.cs" />
+    <Compile Include="Currency.cs" />
+    <Compile Include="ELetter\Letter.cs" />
+    <Compile Include="ELetter\LetterHtmlTemplate.cs" />
+    <Compile Include="ELetter\LetterInfo.cs" />
+    <Compile Include="ELetter\LetterSendLog.cs" />
+    <Compile Include="ELetter\LetterSubscriber.cs" />
+    <Compile Include="ELetter\SubscriberRepository.cs" />
+    <Compile Include="EmailSendLog.cs" />
+    <Compile Include="EmailSendQueue.cs" />
+    <Compile Include="EmailTemplate.cs" />
+    <Compile Include="FileAttachment.cs" />
+    <Compile Include="GeoCountry.cs" />
+    <Compile Include="GeoZone.cs" />
+    <Compile Include="HtmlContent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlRepository.cs" />
+    <Compile Include="IndexingQueue.cs" />
+    <Compile Include="Interfaces\ContentChangedEventArgs.cs" />
+    <Compile Include="Interfaces\IIndexableContent.cs" />
+    <Compile Include="Interfaces\PageCreatedEventArgs.cs" />
+    <Compile Include="Interfaces\UserRegisteredEventArgs.cs" />
+    <Compile Include="IPAddressHelper.cs" />
+    <Compile Include="Language.cs" />
+    <Compile Include="CustomModuleSetting.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DatabaseHelper.cs" />
+    <Compile Include="FriendlyUrl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ImageHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LdapHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LdapSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LdapUser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Module.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ModuleDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ModuleSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PageChangeFrequency.cs" />
+    <Compile Include="PageModule.cs" />
+    <Compile Include="PageSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="RedirectList.cs" />
+    <Compile Include="RegexHelper.cs" />
+    <Compile Include="Role.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RuleViolation.cs" />
+    <Compile Include="SavedQuery.cs" />
+    <Compile Include="SavedQueryRepository.cs" />
+    <Compile Include="SiteFolder.cs" />
+    <Compile Include="SiteModuleDefinition.cs" />
+    <Compile Include="SitePersonalization.cs" />
+    <Compile Include="SiteSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SiteUser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Statistics\MembershipStatistics.cs" />
+    <Compile Include="SystemLog.cs" />
+    <Compile Include="TaskFramework\ITaskQueueTask.cs" />
+    <Compile Include="TaskFramework\SerializationHelper.cs" />
+    <Compile Include="TaskFramework\TaskMonitor.cs" />
+    <Compile Include="TaskFramework\TaskQueue.cs" />
+    <Compile Include="TaskFramework\ThreadSleepTask.cs" />
+    <Compile Include="UserLocation.cs" />
+    <Compile Include="UserPage.cs" />
+    <Compile Include="WebPartContent.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mojoPortal.Data.SQLite\mojoPortal.Data.SQLite.mono.csproj">
+      <Project>{C224A35B-AB21-4476-A411-CA5BA406598B}</Project>
+      <Name>mojoPortal.Data.SQLite.mono</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Net\mojoPortal.Net.csproj">
+      <Project>{30916752-1A97-49CA-95D6-81A5F784EEB5}</Project>
+      <Name>mojoPortal.Net</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

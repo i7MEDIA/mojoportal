@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.w3.org/1999/xhtml"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.w3.org/1999/xhtml">
+
+
+  <xs:annotation>
+    <xs:documentation>
+      Client-side Image Maps    
+      This is the XML Schema Client-side Image Maps module for XHTML
+
+        * area, map      
+
+      This module declares elements and attributes to support client-side
+      image maps. 
+      
+      $Id: xhtml-csismap-1.xsd,v 1.1 2003/12/17 03:09:17 ahby Exp $
+    </xs:documentation>
+    <xs:documentation source="xhtml-copyright-1.xsd"/>
+    <xs:documentation 
+       source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_imapmodule"/>
+  </xs:annotation>
+  
+  <xs:simpleType name="Shape.Datatype">
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:enumeration value="rect"/>
+      <xs:enumeration value="circle"/>
+      <xs:enumeration value="poly"/>
+      <xs:enumeration value="default"/>            
+    </xs:restriction>
+  </xs:simpleType>     
+  
+  <xs:simpleType name="Coords.Datatype">
+     <xs:restriction base="Text"/>
+  </xs:simpleType>
+  
+  <!-- modify anchor attribute definition list -->
+  <xs:attributeGroup name="a.csim.attlist">   
+    <xs:attribute name="shape" type="Shape.Datatype" default="rect"/>
+    <xs:attribute name="coords" type="Coords.Datatype"/>
+  </xs:attributeGroup>
+
+  <!-- modify img attribute definition list -->
+  <xs:attributeGroup name="img.csim.attlist">
+    <xs:attribute name="usemap" type="xs:IDREF"/>
+  </xs:attributeGroup>
+
+  <!-- modify form input attribute definition list -->
+  <xs:attributeGroup name="input.csim.attlist">
+    <xs:attribute name="usemap" type="xs:IDREF"/>
+  </xs:attributeGroup>
+
+  <!-- modify object attribute definition list -->
+  <xs:attributeGroup name="object.csim.attlist">
+    <xs:attribute name="usemap" type="xs:IDREF"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="area.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+    <xs:attribute name="href" type="URI"/>
+    <xs:attribute name="shape" type="Shape.Datatype" default="rect"/>
+    <xs:attribute name="coords" type="Coords.Datatype"/>
+    <xs:attribute name="nohref">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="nohref"/>
+          </xs:restriction>
+        </xs:simpleType>    
+    </xs:attribute>
+    <xs:attribute name="alt" type="Text" use="required"/>
+    <xs:attribute name="tabindex" type="Number"/>
+    <xs:attribute name="accesskey" type="Character"/>
+  </xs:attributeGroup>
+
+  <xs:group name="area.content">
+     <xs:sequence/>
+  </xs:group>    
+  
+  <xs:complexType name="area.type">
+    <xs:group ref="area.content"/>   
+    <xs:attributeGroup ref="area.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="area" type="area.type"/>
+
+  <!-- map -->
+  <xs:attributeGroup name="map.attlist">
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attributeGroup ref="class"/>
+    <xs:attributeGroup ref="title"/>
+    <xs:attributeGroup ref="Core.extra.attrib"/>
+    <xs:attributeGroup ref="I18n.attrib"/>
+  </xs:attributeGroup>
+
+  <xs:group name="map.content">
+    <xs:sequence>
+       <xs:choice maxOccurs="unbounded">
+          <xs:group ref="Block.mix"/>
+          <xs:element ref="area"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+
+  <xs:complexType name="map.type">
+    <xs:group ref="map.content"/>
+    <xs:attributeGroup ref="map.attlist"/>
+  </xs:complexType>
+  
+  <xs:element name="map" type="map.type"/>
+
+</xs:schema>

@@ -1,0 +1,62 @@
+body { font-size: large; font-family: Verdana, Helvetica, sans-serif;  }
+.pagebody { text-align:center;  }
+#wrapwebsite { text-align:left;  }
+#wrapfooter {text-align: center; }
+.siteheading {font-size: 130%; text-decoration: none;}
+h1.siteheading {text-align:center;}
+.topnav { text-align:right; font-weight: bold;}
+legend { font-size:larger; font-weight: bold; }
+legend a { text-decoration:none;}
+.settinglabel {font-weight: bold; font-size:smaller; }
+.modulebuttonrow {text-align:center;  }
+a.ModuleEditLink { font-size:smaller;}
+a.ModuleEditLink:link { font-size:smaller;}
+a.ModuleEditLink:visited { font-size:smaller;}
+a.ModuleEditLink:hover { font-size:smaller; }
+a.ModuleEditLink:active {  font-size:smaller; }
+a.siteheading:link { text-decoration: none;  }
+a.siteheading:visited { text-decoration: none; }
+a.siteheading:hover { text-decoration: underline; }
+a.siteheading:active { text-decoration: none; }
+.WelcomeMessage { font-weight: bold; font-size: 85%; }
+.sitelink {  font-weight: bold; font-size: 85%; }
+a.sitelink:link { text-decoration: none; }
+a.sitelink:visited { text-decoration: none; }
+a.sitelink:hover { text-decoration: underline; }
+a.sitelink:active { text-decoration: none; }
+.accent { font-weight: bold; }
+
+a.ModulePager:link { text-decoration: underline; }
+a.ModulePager:visited { text-decoration: underline;}
+a.ModulePager:hover { text-decoration: underline; }
+a.ModulePager:active { text-decoration: underline; }
+.selectedpage{ font-weight: bold;}
+a.SelectedPage:link { font-weight: bold; text-decoration: none; }
+a.SelectedPage:visited { font-weight: bold; text-decoration: none; }
+a.SelectedPage:hover { font-weight: bold; text-decoration: underline; }
+a.SelectedPage:active { font-weight: bold; text-decoration: none;}
+a:hover { text-decoration: underline; }
+legend a.ModuleEditLink { font-size:smaller; }
+legend a.ModuleEditLink:link { font-size:smaller;}
+legend a.ModuleEditLink:visited { font-size:smaller;}
+legend a.ModuleEditLink:hover { font-size:smaller;  }
+legend a.ModuleEditLink:active {  font-size:smaller;}
+h1 {font-size: 105%;  }
+h2 {font-size: 100%;  }
+h3 {font-size: 95% ; }
+h4 {font-size: 90%;  }
+.txtcopyright { font-size: 80%;font-weight: normal; }
+.txterror {font-size: 100%; font-weight: bold;  }
+.moduleedit { text-indent: 4px; }
+div.moduletitle, span.moduletitle, tr.moduletitle, h2.moduletitle 
+{ font-size:120%;  font-weight: bold; }
+.modulesubtitle { font-weight: bold; } 
+.modulecontent {text-align:left; font-size:110%; }
+.modulefooter { font-size:smaller; text-align:center;  }
+.filesfooter { text-align:left; white-space:nowrap;}
+.linkdescription {font-size: 100%;  font-weight: normal; font-style: italic; }
+ul { font-size:80%;}
+div.sitemap ul , div.sitemap ul li { font-size:100%; }
+.skiplink {display:none}
+ul.userstats {font-size:90%;  }
+ul.userstats li {font-size:100%;  }

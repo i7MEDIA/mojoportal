@@ -1,0 +1,1725 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TaxRateGridUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="TransactionIDLabel" xml:space="preserve">
+    <value>ID transakcie</value>
+  </data>
+  <data name="WebStoreName" xml:space="preserve">
+    <value>Internetový obchod</value>
+  </data>
+  <data name="TransactionDeclinedMessage" xml:space="preserve">
+    <value>Prepáčte, ale objednávka bola odmietnutá. Prosím, skontrolujte Vaše platobné údaje.</value>
+  </data>
+  <data name="TransactionNotInitiatedMessage" xml:space="preserve">
+    <value>Neprebieha žiadna transakcia.</value>
+  </data>
+  <data name="TransactionErrorMessage" xml:space="preserve">
+    <value>Prepáčte, ale transakcia nemôže byť úspešne ukončená. Prosim kontaktujte obsluhu obchodu.</value>
+  </data>
+  <data name="UserProfileLink" xml:space="preserve">
+    <value>Profil užívateľa</value>
+  </data>
+  <data name="UpdateCustomerButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="YearLabel" xml:space="preserve">
+    <value>Rok</value>
+  </data>
+  <data name="UpdateQuantityButton" xml:space="preserve">
+    <value>Upraviť množstvo</value>
+  </data>
+  <data name="UserAutoCreatedComment" xml:space="preserve">
+    <value>Užívateľ bol automatický vytvorený pre objednávku internetovom obchode.</value>
+  </data>
+  <data name="WebStoreSearchName" xml:space="preserve">
+    <value>Produkty</value>
+  </data>
+  <data name="TeaserFileUploadLabel" xml:space="preserve">
+    <value>Nahrať súbor s ukážkou</value>
+  </data>
+  <data name="TeaserFileInfo" xml:space="preserve">
+    <value>Ukážka - špeciálna linka, ktorá može byť použitá ukážka obsahu produktu. Napríklad ak ponúkate hudbu, tak ukážka môže obsahovať krátky výrez z pesničky. Alebo v prípade knihy, može linka obsahovať odkaz na ukážkovú kapitolu alebo obsah knihy.</value>
+  </data>
+  <data name="TeaserFileLinkTextLabel" xml:space="preserve">
+    <value>Text pre linku s ukážkou</value>
+  </data>
+  <data name="UserCreatedForOrder" xml:space="preserve">
+    <value>Užívateľ vytvorený pre objednávku internetovom obchode</value>
+  </data>
+  <data name="AuthCodeLabel" xml:space="preserve">
+    <value>Autorizačný kód</value>
+  </data>
+  <data name="BillingAddress1RequiredMessage" xml:space="preserve">
+    <value>Fakturačné údaje - adresa nie je zadaná.</value>
+  </data>
+  <data name="BillingCityRequiredMessage" xml:space="preserve">
+    <value>Fakturačné údaje - mesto nie je zadané.</value>
+  </data>
+  <data name="BillingFirstNameRequiredMessage" xml:space="preserve">
+    <value>Fakturačné údaje - meno nie je zadané.</value>
+  </data>
+  <data name="BillingPostalCodeRequiredMessage" xml:space="preserve">
+    <value>Fakturačné údaje - PSČ nie je zadané.</value>
+  </data>
+  <data name="CardExpiredWarning" xml:space="preserve">
+    <value>Kreditná karta už nie je platná.</value>
+  </data>
+  <data name="CartHeader" xml:space="preserve">
+    <value>Nákupný košík</value>
+  </data>
+  <data name="CartLink" xml:space="preserve">
+    <value>Košík</value>
+  </data>
+  <data name="CartOrderInfoBillingAddress1Label" xml:space="preserve">
+    <value>Adresa 1</value>
+  </data>
+  <data name="CartOrderInfoBillingAddress2Label" xml:space="preserve">
+    <value>Adresa 2</value>
+  </data>
+  <data name="CartOrderInfoBillingCityLabel" xml:space="preserve">
+    <value>Mesto</value>
+  </data>
+  <data name="CartOrderInfoBillingCompanyLabel" xml:space="preserve">
+    <value>Firma</value>
+  </data>
+  <data name="CartOrderInfoBillingCountryLabel" xml:space="preserve">
+    <value>Štát/Krajina</value>
+  </data>
+  <data name="CartOrderInfoBillingFirstNameLabel" xml:space="preserve">
+    <value>Meno</value>
+  </data>
+  <data name="CartOrderInfoBillingPostalCodeLabel" xml:space="preserve">
+    <value>PSČ</value>
+  </data>
+  <data name="CartOrderInfoBillingStateLabel" xml:space="preserve">
+    <value>Kraj</value>
+  </data>
+  <data name="CartOrderInfoBillingSuburbLabel" xml:space="preserve">
+    <value>Ulica</value>
+  </data>
+  <data name="CartOrderInfoCardExpiresLabel" xml:space="preserve">
+    <value>Dátum platnosti do</value>
+  </data>
+  <data name="CartOrderInfoCardNumberLabel" xml:space="preserve">
+    <value>Číslo karty</value>
+  </data>
+  <data name="CartOrderInfoCardOwnerFirstNameLabel" xml:space="preserve">
+    <value>Meno vlastníka karty</value>
+  </data>
+  <data name="CartOrderInfoCardSecurityCodeLabel" xml:space="preserve">
+    <value>Bezpečnostný kód</value>
+  </data>
+  <data name="CartOrderInfoCardTypeLabel" xml:space="preserve">
+    <value>Typ karty</value>
+  </data>
+  <data name="CartOrderInfoCustomerAddressLine1Label" xml:space="preserve">
+    <value>Adresa 1</value>
+  </data>
+  <data name="CartOrderInfoCustomerAddressLine2Label" xml:space="preserve">
+    <value>Adresa 2</value>
+  </data>
+  <data name="CartOrderInfoCustomerCityLabel" xml:space="preserve">
+    <value>Mesto</value>
+  </data>
+  <data name="CartOrderInfoCustomerCompanyLabel" xml:space="preserve">
+    <value>Firma</value>
+  </data>
+  <data name="CartOrderInfoCustomerCountryLabel" xml:space="preserve">
+    <value>Štát/Krajina</value>
+  </data>
+  <data name="CartOrderInfoCustomerEmailLabel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="CartOrderInfoCustomerFirstNameLabel" xml:space="preserve">
+    <value>Meno klienta</value>
+  </data>
+  <data name="CartOrderInfoCustomerPostalCodeLabel" xml:space="preserve">
+    <value>PSČ</value>
+  </data>
+  <data name="CartOrderInfoCustomerStateLabel" xml:space="preserve">
+    <value>Kraj</value>
+  </data>
+  <data name="CartOrderInfoCustomerSuburbLabel" xml:space="preserve">
+    <value>Ulica</value>
+  </data>
+  <data name="CartOrderInfoCustomerTelephoneDayLabel" xml:space="preserve">
+    <value>Telefón do práce</value>
+  </data>
+  <data name="CartOrderInfoCustomerTelephoneNightLabel" xml:space="preserve">
+    <value>Telefón domov</value>
+  </data>
+  <data name="CartOrderInfoDeliveryAddress1Label" xml:space="preserve">
+    <value>Adresa 1</value>
+  </data>
+  <data name="CartOrderInfoDeliveryAddress2Label" xml:space="preserve">
+    <value>Adresa 2</value>
+  </data>
+  <data name="CartOrderInfoDeliveryCityLabel" xml:space="preserve">
+    <value>Mesto</value>
+  </data>
+  <data name="CartOrderInfoDeliveryCompanyLabel" xml:space="preserve">
+    <value>Zaslať na sídlo firmy</value>
+  </data>
+  <data name="CartOrderInfoDeliveryCountryLabel" xml:space="preserve">
+    <value>Štát/Krajina</value>
+  </data>
+  <data name="CartOrderInfoDeliveryFirstNameLabel" xml:space="preserve">
+    <value>Meno odberateľa</value>
+  </data>
+  <data name="CartOrderInfoDeliveryPostalCodeLabel" xml:space="preserve">
+    <value>PSČ</value>
+  </data>
+  <data name="CartOrderInfoDeliveryStateLabel" xml:space="preserve">
+    <value>Kraj</value>
+  </data>
+  <data name="CartOrderInfoDeliverySuburbLabel" xml:space="preserve">
+    <value>Ulica</value>
+  </data>
+  <data name="CartOrderTotalLabel" xml:space="preserve">
+    <value>Celková suma</value>
+  </data>
+  <data name="CartShippingTotalLabel" xml:space="preserve">
+    <value>Poštovné</value>
+  </data>
+  <data name="CartSubTotalLabel" xml:space="preserve">
+    <value>Medzisúčet</value>
+  </data>
+  <data name="CartTaxTotalLabel" xml:space="preserve">
+    <value>Daň</value>
+  </data>
+  <data name="CategoryAdministrationLink" xml:space="preserve">
+    <value>Správa kategórii</value>
+  </data>
+  <data name="CategoryGridAddNewButton" xml:space="preserve">
+    <value>Nova kategória</value>
+  </data>
+  <data name="CategoryGridCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="CategoryGridDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="CategoryGridDeleteWarning" xml:space="preserve">
+    <value>Skutočne zmazať túto kategóriu?</value>
+  </data>
+  <data name="CategoryGridEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="CategoryGridNameHeader" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="CategoryGridNoParentListItem" xml:space="preserve">
+    <value>Žiadna nadradená položka</value>
+  </data>
+  <data name="CategoryGridParentHeader" xml:space="preserve">
+    <value>Nadradená položka</value>
+  </data>
+  <data name="CategoryGridSortHeader" xml:space="preserve">
+    <value>Zoradiť</value>
+  </data>
+  <data name="CategoryGridUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="ConfirmOrderBillingHeader" xml:space="preserve">
+    <value>Fakturačné údaje</value>
+  </data>
+  <data name="ConfirmOrderCustomerHeader" xml:space="preserve">
+    <value>Údaje o zákazníkovy</value>
+  </data>
+  <data name="ConfirmOrderShippingHeader" xml:space="preserve">
+    <value>Informácie o poštovnom</value>
+  </data>
+  <data name="CopyBillingToShippingLink" xml:space="preserve">
+    <value>Použiť fakturačné údaje</value>
+  </data>
+  <data name="CopyCustomerToBillingLink" xml:space="preserve">
+    <value>Použiť údaje klinta</value>
+  </data>
+  <data name="CopyCustomerToShippingLink" xml:space="preserve">
+    <value>Použiť údaje klinta</value>
+  </data>
+  <data name="CountryGridAddNewButton" xml:space="preserve">
+    <value>Nový štát</value>
+  </data>
+  <data name="CountryGridCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="CountryGridDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="CountryGridDeleteWarning" xml:space="preserve">
+    <value>Skutočne zmazať tento štát?</value>
+  </data>
+  <data name="CountryGridEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="CountryGridISOCode2Header" xml:space="preserve">
+    <value>ISO Code 2</value>
+  </data>
+  <data name="CountryGridISOCode3Header" xml:space="preserve">
+    <value>ISO Code 3</value>
+  </data>
+  <data name="CountryGridNameHeader" xml:space="preserve">
+    <value>Názov štátu</value>
+  </data>
+  <data name="CountryGridUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="CountryListAdminLink" xml:space="preserve">
+    <value>Správa zoznamu štátov</value>
+  </data>
+  <data name="CurrencyAdministrationLink" xml:space="preserve">
+    <value>Správa mien</value>
+  </data>
+  <data name="CurrencyGridAddNewButton" xml:space="preserve">
+    <value>Nová mena</value>
+  </data>
+  <data name="CurrencyGridCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="CurrencyGridCodeHeading" xml:space="preserve">
+    <value>Kód</value>
+  </data>
+  <data name="CurrencyGridDecimalPlacesHeading" xml:space="preserve">
+    <value>Desatinné miesta</value>
+  </data>
+  <data name="CurrencyGridDecimalPointCharHeading" xml:space="preserve">
+    <value>Oddeľovač desattiných miest</value>
+  </data>
+  <data name="CurrencyGridDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="CurrencyGridDeleteWarning" xml:space="preserve">
+    <value>Skutočne zmazať túto menu?</value>
+  </data>
+  <data name="CurrencyGridEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="CurrencyGridSymbolLeftHeading" xml:space="preserve">
+    <value>Kód meny vľavo</value>
+  </data>
+  <data name="CurrencyGridSymbolRightHeading" xml:space="preserve">
+    <value>Kód meny vpravo</value>
+  </data>
+  <data name="CurrencyGridThousandsPointCharHeading" xml:space="preserve">
+    <value>Oddeľovač tisícov</value>
+  </data>
+  <data name="CurrencyGridTitleHeading" xml:space="preserve">
+    <value>Nadpis</value>
+  </data>
+  <data name="CurrencyGridUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="CurrencyGridValueHeading" xml:space="preserve">
+    <value>Hodnota</value>
+  </data>
+  <data name="CustomerAddress1RequiredMessage" xml:space="preserve">
+    <value>Údaje klienta - adresa nie je zadaná</value>
+  </data>
+  <data name="CustomerCityRequiredMessage" xml:space="preserve">
+    <value>Údaje klienta - mesto nie je zadané</value>
+  </data>
+  <data name="CustomerDayPhoneRequiredMessage" xml:space="preserve">
+    <value>Údaje klienta - číslo telefónu nie je zadané</value>
+  </data>
+  <data name="CustomerEmailRegexFailureMessage" xml:space="preserve">
+    <value>Údaje klienta - email nie je v správnom tvare</value>
+  </data>
+  <data name="CustomerEmailRequiredMessage" xml:space="preserve">
+    <value>Údaje klienta - email nie je zadaný</value>
+  </data>
+  <data name="CustomerFirstNameRequiredMessage" xml:space="preserve">
+    <value>Údaje klienta - meno nie je zadané</value>
+  </data>
+  <data name="CustomerPostalCodeRequiredMessage" xml:space="preserve">
+    <value>Údaje klienta - PSČ nie je zadané</value>
+  </data>
+  <data name="DeliveryAddress1RequiredMessage" xml:space="preserve">
+    <value>Poštové údaje - adresa nie je zadaná</value>
+  </data>
+  <data name="DeliveryCityRequiredMessage" xml:space="preserve">
+    <value>Poštové údaje - mesto nie je zadané</value>
+  </data>
+  <data name="DeliveryFirstNameRequiredMessage" xml:space="preserve">
+    <value>Poštové údaje - meno nie je zadané</value>
+  </data>
+  <data name="DeliveryPostalCodeRequiredMessage" xml:space="preserve">
+    <value>Poštové údaje - PSČ nie je zadané</value>
+  </data>
+  <data name="TaxClassGridAddNewButton" xml:space="preserve">
+    <value>Nová daňová trieda</value>
+  </data>
+  <data name="TaxClassGridCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="TaxClassGridDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="TaxClassGridDeleteWarning" xml:space="preserve">
+    <value>Skutočne chcete zmazať túto daňovú triedu?</value>
+  </data>
+  <data name="TaxClassGridEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="TaxClassGridTitleLabel" xml:space="preserve">
+    <value>Nadpis</value>
+  </data>
+  <data name="TaxClassGridUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="TaxEditRolesLabel" xml:space="preserve">
+    <value>Role umožňujúce ediáticu triedy a sadzby dane</value>
+  </data>
+  <data name="TaxRateAdminLink" xml:space="preserve">
+    <value>Administrácia sadzieb dane</value>
+  </data>
+  <data name="TaxRateGridAddNewButton" xml:space="preserve">
+    <value>Nová sadzba dane</value>
+  </data>
+  <data name="TaxRateGridCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="TaxRateGridCountryHeader" xml:space="preserve">
+    <value>Štát/Krajina</value>
+  </data>
+  <data name="TaxRateGridDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="TaxRateGridDeleteWarning" xml:space="preserve">
+    <value>Skutočne chcete zmazať túto sadzbu dane?</value>
+  </data>
+  <data name="TaxRateGridDescriptionHeader" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="TaxRateGridEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="TaxRateGridGeoZoneHeader" xml:space="preserve">
+    <value>Zemepisná poloha</value>
+  </data>
+  <data name="TaxRateGridPriorityHeader" xml:space="preserve">
+    <value>Priorita</value>
+  </data>
+  <data name="TaxRateGridRateHeader" xml:space="preserve">
+    <value>Daň</value>
+  </data>
+  <data name="TaxRateGridTaxClassHeader" xml:space="preserve">
+    <value>Daňová trieda</value>
+  </data>
+  <data name="TaxClassNotTaxable" xml:space="preserve">
+    <value>Bez dane</value>
+  </data>
+  <data name="TaxClassTaxable" xml:space="preserve">
+    <value>S daňou</value>
+  </data>
+  <data name="CartOrderInfoCardOwnerLastNameLabel" xml:space="preserve">
+    <value>Priezvisko vlastníka karty</value>
+  </data>
+  <data name="AddToCartLink" xml:space="preserve">
+    <value>Do košíka</value>
+  </data>
+  <data name="CurrentSpecialsHeading" xml:space="preserve">
+    <value>Špeciálna ponuka</value>
+  </data>
+  <data name="BrowseCartsLink" xml:space="preserve">
+    <value>Prezerať košíky</value>
+  </data>
+  <data name="CartBrowserCreatedHeading" xml:space="preserve">
+    <value>Vytvorené</value>
+  </data>
+  <data name="CartBrowserHeadingFormatString" xml:space="preserve">
+    <value>Prezerať košíky pre {0}</value>
+  </data>
+  <data name="CartBrowserLastModifiedHeading" xml:space="preserve">
+    <value>Upravené</value>
+  </data>
+  <data name="CartBrowserOrderTotalHeading" xml:space="preserve">
+    <value>Celková suma objednávky</value>
+  </data>
+  <data name="CartBrowserUserHeading" xml:space="preserve">
+    <value>Užívateľ</value>
+  </data>
+  <data name="CartBrowserViewCartLink" xml:space="preserve">
+    <value>Zobraziť</value>
+  </data>
+  <data name="AdminDeleteCartButton" xml:space="preserve">
+    <value>Vyprázdniť košík</value>
+  </data>
+  <data name="AdminDeleteCartButtonWarning" xml:space="preserve">
+    <value>Skutočne chcete vyprázdniť košík?</value>
+  </data>
+  <data name="CartKeepShoppingLink" xml:space="preserve">
+    <value>Pokračovať v nákupe</value>
+  </data>
+  <data name="BillingLastNameRequiredMessage" xml:space="preserve">
+    <value>Fakturačné údaje - priezvisko nie je zadané.</value>
+  </data>
+  <data name="CartOrderInfoBillingLastNameLabel" xml:space="preserve">
+    <value>Priezvisko</value>
+  </data>
+  <data name="CartOrderInfoCustomerLastNameLabel" xml:space="preserve">
+    <value>Priezvisko klienta</value>
+  </data>
+  <data name="CartOrderInfoDeliveryLastNameLabel" xml:space="preserve">
+    <value>Priezvisko odberateľa</value>
+  </data>
+  <data name="CustomerLastNameRequiredMessage" xml:space="preserve">
+    <value>Údaje klienta - priezvisko nie je zadané</value>
+  </data>
+  <data name="DeliveryLastNameRequiredMessage" xml:space="preserve">
+    <value>Poštové údaje - priezvisko nie je zadané</value>
+  </data>
+  <data name="ConfirmOrderHeading" xml:space="preserve">
+    <value>Podvrdiť objednávku</value>
+  </data>
+  <data name="CartOrderInfoCustomerNameLabel" xml:space="preserve">
+    <value>Názov klienta</value>
+  </data>
+  <data name="DeleteOrderButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="DeleteOrderWarning" xml:space="preserve">
+    <value>Skutočne chcete zmazať túto objednávku? Po jej zmazaní neexistuje spôsob jej obnovy.</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Pokračovať</value>
+  </data>
+  <data name="CreditCard" xml:space="preserve">
+    <value>Kreditná karta</value>
+  </data>
+  <data name="DaysLabel" xml:space="preserve">
+    <value>Dní</value>
+  </data>
+  <data name="DeleteCartsButton" xml:space="preserve">
+    <value>Odstrániť staršie košíky ako </value>
+  </data>
+  <data name="DeleteCartsWarning" xml:space="preserve">
+    <value>Skutočne chce zmazať tieto košíky?</value>
+  </data>
+  <data name="AllTimeRevenueFormatString" xml:space="preserve">
+    <value>Celkové príjmy: {0}</value>
+  </data>
+  <data name="CartItemsHeading" xml:space="preserve">
+    <value>Položka</value>
+  </data>
+  <data name="CartPriceHeading" xml:space="preserve">
+    <value>Cena</value>
+  </data>
+  <data name="CartQuantityHeading" xml:space="preserve">
+    <value>Množstvo</value>
+  </data>
+  <data name="DeleteCartItemButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="DiscountAbsoluteDiscountLabel" xml:space="preserve">
+    <value>Celková výška zľavy</value>
+  </data>
+  <data name="DiscountAdministration" xml:space="preserve">
+    <value>Správa zliav</value>
+  </data>
+  <data name="DiscountCodeHeading" xml:space="preserve">
+    <value>Zľavový kód</value>
+  </data>
+  <data name="DiscountCodeLabel" xml:space="preserve">
+    <value>Zľavový kód:</value>
+  </data>
+  <data name="DiscountCodeRequiredWarning" xml:space="preserve">
+    <value>Zľavový kód musí byť zadaný.</value>
+  </data>
+  <data name="DiscountDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="DiscountDescriptionHeading" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="DiscountDescriptionLabel" xml:space="preserve">
+    <value>Popis:</value>
+  </data>
+  <data name="DiscountDescriptionRequiredWarning" xml:space="preserve">
+    <value>Popis nie je zadaný.</value>
+  </data>
+  <data name="DiscountEditLink" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="DiscountMaxCountLabel" xml:space="preserve">
+    <value>Maximálny počet povolených zliav</value>
+  </data>
+  <data name="DiscountMinOrderAmountLabel" xml:space="preserve">
+    <value>Mimimálne množstvo v objednávke:</value>
+  </data>
+  <data name="DiscountPercentageDiscountLabel" xml:space="preserve">
+    <value>Percentuálna zľava:</value>
+  </data>
+  <data name="DiscountSaveButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="DiscountUseCountLabel" xml:space="preserve">
+    <value>Počet použití</value>
+  </data>
+  <data name="DiscountValidityEndDateLabel" xml:space="preserve">
+    <value>Platí do</value>
+  </data>
+  <data name="DiscountValidityStartDateLabel" xml:space="preserve">
+    <value>Platí od</value>
+  </data>
+  <data name="AllowOtherDiscountsLabel" xml:space="preserve">
+    <value>Umožniť kombinovať zľavy?</value>
+  </data>
+  <data name="ApplyDiscountButton" xml:space="preserve">
+    <value>Použiť zľavu</value>
+  </data>
+  <data name="CartDiscountCodeLabel" xml:space="preserve">
+    <value>Kód zľavy:</value>
+  </data>
+  <data name="CartDiscountTotalLabel" xml:space="preserve">
+    <value>Zľava</value>
+  </data>
+  <data name="CartTotalLabel" xml:space="preserve">
+    <value>Celková suma</value>
+  </data>
+  <data name="DiscountAmountRequiredFieldWarning" xml:space="preserve">
+    <value>Výška zľavy nie je zadaná. Zadajte 0 ak chcete používať percentuálnu zľavu.</value>
+  </data>
+  <data name="DiscountBeginDateRequiredWarning" xml:space="preserve">
+    <value>Platí od nie je zadané.</value>
+  </data>
+  <data name="DiscountBlankEndDateHelp" xml:space="preserve">
+    <value>Nechajte prázdne pre neobmezenú platnosť.</value>
+  </data>
+  <data name="DiscountCodeExpiredError" xml:space="preserve">
+    <value>zľavový kód už nie je platný</value>
+  </data>
+  <data name="DiscountCodeNotActiveError" xml:space="preserve">
+    <value>zľavový kód ešte nie je aktívny</value>
+  </data>
+  <data name="DiscountCodeNotFoundError" xml:space="preserve">
+    <value>nesprávny zľavový kód</value>
+  </data>
+  <data name="DiscountCodeNotProvidedError" xml:space="preserve">
+    <value>nezadaný zľavový kód</value>
+  </data>
+  <data name="DiscountInvalidAmountWarning" xml:space="preserve">
+    <value>Zľavový kód nie je platný.</value>
+  </data>
+  <data name="DiscountInvalidCartError" xml:space="preserve">
+    <value>nesprávny košík</value>
+  </data>
+  <data name="DiscountMaxUseHelp" xml:space="preserve">
+    <value>0 = bez limitu</value>
+  </data>
+  <data name="DiscountMaxUsesRequiredWarning" xml:space="preserve">
+    <value>Maximálny počet povolených zliav nie je zadaný.</value>
+  </data>
+  <data name="DiscountMinOrderHelp" xml:space="preserve">
+    <value>0 = bez minimálneho množstva</value>
+  </data>
+  <data name="DiscountMinOrderRequiredFieldWarning" xml:space="preserve">
+    <value>Mimimálne množstvo nie je zadané.</value>
+  </data>
+  <data name="DiscountPercentageRequiredFieldWarning" xml:space="preserve">
+    <value>Percentuálna zľava nie je zadaná. Zadajte 0 ak používate Výšku zľavy.</value>
+  </data>
+  <data name="DiscountPercentInvalidWarning" xml:space="preserve">
+    <value>Percentuálna zľava nie je správne zadaná.</value>
+  </data>
+  <data name="AddProductToOfferGridButton" xml:space="preserve">
+    <value>Pridať</value>
+  </data>
+  <data name="CloseDialogButton" xml:space="preserve">
+    <value>Zavrieť</value>
+  </data>
+  <data name="DownloadHistoryHeading" xml:space="preserve">
+    <value>História sťahovania</value>
+  </data>
+  <data name="DownloadHistoryIPAddressHeader" xml:space="preserve">
+    <value>IP adresa</value>
+  </data>
+  <data name="DownloadHistoryUtcHeader" xml:space="preserve">
+    <value>Čas stiahnutia UTC</value>
+  </data>
+  <data name="DownloadHistoryViewLink" xml:space="preserve">
+    <value>Zobraziť</value>
+  </data>
+  <data name="ClearUserButton" xml:space="preserve">
+    <value>Vyčistiť užívateľa</value>
+  </data>
+  <data name="CreateOrderButton" xml:space="preserve">
+    <value>Vytvoriť objednávku</value>
+  </data>
+  <data name="DiscountAmountLabel" xml:space="preserve">
+    <value>Výška zľavy</value>
+  </data>
+  <data name="AddMetaButton" xml:space="preserve">
+    <value>Pridať Meta element</value>
+  </data>
+  <data name="AddMetaLinkButton" xml:space="preserve">
+    <value>Pridať Meta linku</value>
+  </data>
+  <data name="ContentMetaContentRequired" xml:space="preserve">
+    <value>Obsah nie je zadaný.</value>
+  </data>
+  <data name="ContentMetaDeleteWarning" xml:space="preserve">
+    <value>Skutočne chcete zmazať tento meta element?</value>
+  </data>
+  <data name="ContentMetaDirLabel" xml:space="preserve">
+    <value>Dir</value>
+  </data>
+  <data name="ContentMetaGridCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="ContentMetaGridDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="ContentMetaGridEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="ContentMetaGridMoveDownButton" xml:space="preserve">
+    <value>Posunúť nadol</value>
+  </data>
+  <data name="ContentMetaGridMoveUpButton" xml:space="preserve">
+    <value>Posunúť nahor</value>
+  </data>
+  <data name="ContentMetaGridUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="ContentMetaLangCodeLabel" xml:space="preserve">
+    <value>Lang</value>
+  </data>
+  <data name="ContentMetaLinkDeleteWarning" xml:space="preserve">
+    <value>Skutočne zmazať túto meta linku?</value>
+  </data>
+  <data name="ContentMetaLinkHrefRequired" xml:space="preserve">
+    <value>Href nie je zadaný.</value>
+  </data>
+  <data name="ContentMetaLinkRelRequired" xml:space="preserve">
+    <value>Rel nie je zadaný.</value>
+  </data>
+  <data name="ContentMetaMetaContentLabel" xml:space="preserve">
+    <value>Obsah</value>
+  </data>
+  <data name="ContentMetaMetaHrefLabel" xml:space="preserve">
+    <value>Href</value>
+  </data>
+  <data name="ContentMetaNameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ContentMetaNameRequired" xml:space="preserve">
+    <value>Name nie je zadaný.</value>
+  </data>
+  <data name="ContentMetaRelLabel" xml:space="preserve">
+    <value>Rel</value>
+  </data>
+  <data name="ContentMetaSchemeLabel" xml:space="preserve">
+    <value>Scheme</value>
+  </data>
+  <data name="ContentMetHrefLangLabel" xml:space="preserve">
+    <value>HrefLang</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="CheckoutBillingInfoHeader" xml:space="preserve">
+    <value>Informácie platby</value>
+  </data>
+  <data name="CheckoutHeader" xml:space="preserve">
+    <value>Prosím, skontrolujte a odošlite Vašu platbu.</value>
+  </data>
+  <data name="CheckoutLoginPrompt" xml:space="preserve">
+    <value>Som už zaregistrovaný?</value>
+  </data>
+  <data name="CheckoutOrderSummaryHeader" xml:space="preserve">
+    <value>Zhrnutie objednávky</value>
+  </data>
+  <data name="CheckoutRegisterPrompt" xml:space="preserve">
+    <value>Vytvoriť nový účet?</value>
+  </data>
+  <data name="CheckoutShippingInfoHeader" xml:space="preserve">
+    <value>Informácie o doručení</value>
+  </data>
+  <data name="DownloadTermsAdministrationLink" xml:space="preserve">
+    <value>Správa podmienok sťahovania</value>
+  </data>
+  <data name="DownloadTermsDeleteWarning" xml:space="preserve">
+    <value>Skutočne chcete zmazať túto položku?</value>
+  </data>
+  <data name="DownloadTermsGridAddNewButton" xml:space="preserve">
+    <value>Nové podmienky sťahovania</value>
+  </data>
+  <data name="DownloadTermsGridCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="DownloadTermsGridCountAfterDownloadHeader" xml:space="preserve">
+    <value>Počet dní od prvého stiahnutia</value>
+  </data>
+  <data name="DownloadTermsGridDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="DownloadTermsGridDescriptionHeader" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="DownloadTermsGridDownloadsAllowedHeader" xml:space="preserve">
+    <value>Povoliť sťahovanie (0 = bez limitu)</value>
+  </data>
+  <data name="DownloadTermsGridEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="DownloadTermsGridExpireAfterDaysHeader" xml:space="preserve">
+    <value>Počet dní do expirácie (0 = nikdy)</value>
+  </data>
+  <data name="DownloadTermsGridNameHeader" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="DownloadTermsGridUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="FileUploadButton" xml:space="preserve">
+    <value>Nahrať</value>
+  </data>
+  <data name="FileUploadLabel" xml:space="preserve">
+    <value>Nahrať súbor</value>
+  </data>
+  <data name="FullfillmentTypeEnumDownload" xml:space="preserve">
+    <value>Stiahnúť</value>
+  </data>
+  <data name="FullfillmentTypeEnumShipped" xml:space="preserve">
+    <value>Fyzické doručenie</value>
+  </data>
+  <data name="LoginLink" xml:space="preserve">
+    <value>Prihlásiť sa</value>
+  </data>
+  <data name="MyAccountLink" xml:space="preserve">
+    <value>História objednávok</value>
+  </data>
+  <data name="MyAccountOrderDateHeader" xml:space="preserve">
+    <value>Dátum</value>
+  </data>
+  <data name="MyAccountOrderIDHeader" xml:space="preserve">
+    <value>ID objednávky</value>
+  </data>
+  <data name="MyAccountOrderNumberHeader" xml:space="preserve">
+    <value>Číslo objednávky</value>
+  </data>
+  <data name="OfferAddNewButton" xml:space="preserve">
+    <value>Nová ponuka</value>
+  </data>
+  <data name="OfferAdministrationLink" xml:space="preserve">
+    <value>Správa ponúk</value>
+  </data>
+  <data name="OfferAvailabilityBeginDateHeader" xml:space="preserve">
+    <value>Platí od</value>
+  </data>
+  <data name="OfferAvailabilityEndDateHeader" xml:space="preserve">
+    <value>Platí do</value>
+  </data>
+  <data name="OfferAvailabilityGridAddNewButton" xml:space="preserve">
+    <value>Nové podmienky dostupnosti</value>
+  </data>
+  <data name="OfferAvailabilityGridCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="OfferAvailabilityGridDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="OfferAvailabilityGridDeleteWarning" xml:space="preserve">
+    <value>Skutočne chcete zmazať túto položku?</value>
+  </data>
+  <data name="OfferAvailabilityGridEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="OfferAvailabilityGridUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="OfferAvailabilityMaxAllowedPerCustomerHeader" xml:space="preserve">
+    <value>Maximálne na jedného klienta</value>
+  </data>
+  <data name="OfferAvailabilityOfferCodeHeader" xml:space="preserve">
+    <value>Kód ponuky</value>
+  </data>
+  <data name="OfferAvailabilityRequiresOfferCodeHeader" xml:space="preserve">
+    <value>Vyžaduje kód ponuky</value>
+  </data>
+  <data name="OfferAvailibilityLabel" xml:space="preserve">
+    <value>Dostupnosť</value>
+  </data>
+  <data name="OfferDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="OfferDeleteWarning" xml:space="preserve">
+    <value>Skutočne chcete zmazať túto ponuku?</value>
+  </data>
+  <data name="OfferDescriptionLabel" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="OfferEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="OfferEditGeneralSettingsLabel" xml:space="preserve">
+    <value>Nastavenia</value>
+  </data>
+  <data name="OfferEditHeading" xml:space="preserve">
+    <value>Upraviť ponuku</value>
+  </data>
+  <data name="OfferEditRolesLabel" xml:space="preserve">
+    <value>Role umožnujúce upravovať objednávky</value>
+  </data>
+  <data name="OfferIsSpecialLabel" xml:space="preserve">
+    <value>Špeciálna</value>
+  </data>
+  <data name="OfferIsVisibleLabel" xml:space="preserve">
+    <value>Zobrazená</value>
+  </data>
+  <data name="OfferNameLabel" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="OfferPriceGridAddNewButton" xml:space="preserve">
+    <value>Nová cena</value>
+  </data>
+  <data name="OfferPriceGridCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="OfferPriceGridCurrencyHeader" xml:space="preserve">
+    <value>Mena</value>
+  </data>
+  <data name="OfferPriceGridDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="OfferPriceGridDeleteWarning" xml:space="preserve">
+    <value>Skutočne chcete zmazať túto cenu?</value>
+  </data>
+  <data name="OfferPriceGridEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="OfferPriceGridPriceHeader" xml:space="preserve">
+    <value>Cena</value>
+  </data>
+  <data name="OfferPriceGridUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="OfferPriceLabel" xml:space="preserve">
+    <value>Cena</value>
+  </data>
+  <data name="OfferProductGridAddNewButton" xml:space="preserve">
+    <value>Pridať produkt</value>
+  </data>
+  <data name="OfferProductGridCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="OfferProductGridDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="OfferProductGridDeleteWarning" xml:space="preserve">
+    <value>Skutočne chcete zmazať produkt z ponuky?</value>
+  </data>
+  <data name="OfferProductGridEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="OfferProductGridFullfillmentTermsHeader" xml:space="preserve">
+    <value>Podmienky plnenia</value>
+  </data>
+  <data name="OfferProductGridFullfillTypeHeader" xml:space="preserve">
+    <value>Plnenie</value>
+  </data>
+  <data name="OfferProductGridNameHeader" xml:space="preserve">
+    <value>Produkt</value>
+  </data>
+  <data name="OfferProductGridQuantityHeader" xml:space="preserve">
+    <value>Množstvo</value>
+  </data>
+  <data name="OfferProductGridSortHeader" xml:space="preserve">
+    <value>Poradie</value>
+  </data>
+  <data name="OfferProductGridUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="OfferProductsLabel" xml:space="preserve">
+    <value>Produkty</value>
+  </data>
+  <data name="OfferTaxClassLabel" xml:space="preserve">
+    <value>Daňová trieda</value>
+  </data>
+  <data name="OfferUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="OrderDetailDownloadItemsHeader" xml:space="preserve">
+    <value>Súbory na prevzatie</value>
+  </data>
+  <data name="OrderDetailHeader" xml:space="preserve">
+    <value>Sumár objednávky</value>
+  </data>
+  <data name="OrderDetailItemsHeader" xml:space="preserve">
+    <value>Položky</value>
+  </data>
+  <data name="OrderDetailOrderDateLabel" xml:space="preserve">
+    <value>Dátum objednávky</value>
+  </data>
+  <data name="OrderDetailOrderTotalLabel" xml:space="preserve">
+    <value>Suma</value>
+  </data>
+  <data name="OrderDetailShippingTotalLabel" xml:space="preserve">
+    <value>Poštovné</value>
+  </data>
+  <data name="OrderDetailSubTotalLabel" xml:space="preserve">
+    <value>Medzisúčet</value>
+  </data>
+  <data name="OrderDetailTaxTotalLabel" xml:space="preserve">
+    <value>Daň</value>
+  </data>
+  <data name="OrderHistoryAdminLink" xml:space="preserve">
+    <value>História objednávky</value>
+  </data>
+  <data name="OrderHistoryHeader" xml:space="preserve">
+    <value>História objednávky</value>
+  </data>
+  <data name="OrderStatusAdminLink" xml:space="preserve">
+    <value>Správa stavov objednávok</value>
+  </data>
+  <data name="OrderStatusGridAddNewButton" xml:space="preserve">
+    <value>Nový stav</value>
+  </data>
+  <data name="OrderStatusGridCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="OrderStatusGridDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="OrderStatusGridDeleteWarning" xml:space="preserve">
+    <value>Skutočne chcete zmazať tento stav objednávky?</value>
+  </data>
+  <data name="OrderStatusGridDescriptionHeading" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="OrderStatusGridEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="OrderStatusGridSortHeading" xml:space="preserve">
+    <value>Zoradiť</value>
+  </data>
+  <data name="OrderStatusGridUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="PaymentButton" xml:space="preserve">
+    <value>Zaplatiť</value>
+  </data>
+  <data name="PaymentButtonDisabledText" xml:space="preserve">
+    <value>Prosím čakajte...</value>
+  </data>
+  <data name="ProductAdministrationLink" xml:space="preserve">
+    <value>Správa produktov</value>
+  </data>
+  <data name="ProductCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="ProductDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="ProductDeleteWarning" xml:space="preserve">
+    <value>Skutočne chcete zmazať tento produkt?</value>
+  </data>
+  <data name="ProductDescriptionLabel" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="ProductEditHeading" xml:space="preserve">
+    <value>Upraviť produkt</value>
+  </data>
+  <data name="ProductEditPropertiesLabel" xml:space="preserve">
+    <value>Vlastnosti</value>
+  </data>
+  <data name="ProductEditRolesLabel" xml:space="preserve">
+    <value>Role umožnujúce úpravu produktu</value>
+  </data>
+  <data name="ProductFullfillmentTypeLabel" xml:space="preserve">
+    <value>Spôsob platby</value>
+  </data>
+  <data name="ProductGridAddNewButton" xml:space="preserve">
+    <value>Nový produkt</value>
+  </data>
+  <data name="ProductGridEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="ProductIDLabel" xml:space="preserve">
+    <value>ID produktu</value>
+  </data>
+  <data name="ProductModelNumberLabel" xml:space="preserve">
+    <value>Číslo modelu</value>
+  </data>
+  <data name="ProductNameLabel" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="ProductPropertyDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="ProductPropertyEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="ProductPropertyEditCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="ProductPropertyGroupDeleteButton" xml:space="preserve">
+    <value>Zmazať</value>
+  </data>
+  <data name="ProductPropertyGroupDescriptionHeader" xml:space="preserve">
+    <value>Skupina (ak zadaná)</value>
+  </data>
+  <data name="ProductPropertyGroupEditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="ProductPropertyGroupEditCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="ProductPropertyGroupInsertButton" xml:space="preserve">
+    <value>Vložiť</value>
+  </data>
+  <data name="ProductPropertyGroupPropertiesHeader" xml:space="preserve">
+    <value>Vlastnosti</value>
+  </data>
+  <data name="ProductPropertyGroupSortHeader" xml:space="preserve">
+    <value>Zoradenie</value>
+  </data>
+  <data name="ProductPropertyGroupUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="ProductPropertyInsertButton" xml:space="preserve">
+    <value>Vložiť</value>
+  </data>
+  <data name="ProductPropertyNameHeader" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="ProductPropertySortHeader" xml:space="preserve">
+    <value>Zoradenie</value>
+  </data>
+  <data name="ProductPropertyUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="ProductPropertyValueHeader" xml:space="preserve">
+    <value>Hodnota</value>
+  </data>
+  <data name="ProductQuantityOnHandLabel" xml:space="preserve">
+    <value>Množstvo na sklade</value>
+  </data>
+  <data name="ProductSettingsTab" xml:space="preserve">
+    <value>Nastavenia</value>
+  </data>
+  <data name="ProductSkuLabel" xml:space="preserve">
+    <value>Sku</value>
+  </data>
+  <data name="ProductStatusEnumAvailable" xml:space="preserve">
+    <value>Dostupný</value>
+  </data>
+  <data name="ProductStatusEnumDiscontinued" xml:space="preserve">
+    <value>Ukončený</value>
+  </data>
+  <data name="ProductStatusEnumPlanned" xml:space="preserve">
+    <value>Plánovaný</value>
+  </data>
+  <data name="ProductStatusLabel" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="ProductTaxClassLabel" xml:space="preserve">
+    <value>Daňová trieda</value>
+  </data>
+  <data name="ProductUpdateButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="ProductWeightLabel" xml:space="preserve">
+    <value>Hmotnosť</value>
+  </data>
+  <data name="RegisterLink" xml:space="preserve">
+    <value>Registrácia</value>
+  </data>
+  <data name="RequiredFieldSymbol" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="ResponseReasonLabel" xml:space="preserve">
+    <value>Dôvod</value>
+  </data>
+  <data name="StoreAddressLabel" xml:space="preserve">
+    <value>Adresa</value>
+  </data>
+  <data name="StoreAllowOtherCurrenciesLabel" xml:space="preserve">
+    <value>Povoliť iné meny?</value>
+  </data>
+  <data name="StoreAllowOtherLanguagesLabel" xml:space="preserve">
+    <value>Povoliť iné jazyky?</value>
+  </data>
+  <data name="StoreCityLabel" xml:space="preserve">
+    <value>Mesto</value>
+  </data>
+  <data name="StoreClosedMessageLabel" xml:space="preserve">
+    <value>Správa pri zatvorenom obchode</value>
+  </data>
+  <data name="StoreConfigRolesLabel" xml:space="preserve">
+    <value>Role umožnujúce meniť nastavenia obchodu</value>
+  </data>
+  <data name="StoreCountryLabel" xml:space="preserve">
+    <value>Štát/Krajina</value>
+  </data>
+  <data name="StoreDefaultCountryLabel" xml:space="preserve">
+    <value>Preddefinovaný Štát/Krajina</value>
+  </data>
+  <data name="StoreDefaultCurrencyLabel" xml:space="preserve">
+    <value>Preddefinovaná mena</value>
+  </data>
+  <data name="StoreDefaultLanguageLabel" xml:space="preserve">
+    <value>Preddefinovaný jazyk</value>
+  </data>
+  <data name="StoreDescriptionLabel" xml:space="preserve">
+    <value>Popis internetového obchodu</value>
+  </data>
+  <data name="StoreEmailFromLabel" xml:space="preserve">
+    <value>Email "Od"</value>
+  </data>
+  <data name="StoreFaxLabel" xml:space="preserve">
+    <value>Fax:</value>
+  </data>
+  <data name="StoreIsClosedLabel" xml:space="preserve">
+    <value>Je zatvorený?</value>
+  </data>
+  <data name="StoreManagerHeading" xml:space="preserve">
+    <value>Správca internetového obchodu</value>
+  </data>
+  <data name="StoreManagerLink" xml:space="preserve">
+    <value>Správca internetového obchodu</value>
+  </data>
+  <data name="StoreNameLabel" xml:space="preserve">
+    <value>Názov internetového obchodu</value>
+  </data>
+  <data name="StoreOrderBCCEmailLabel" xml:space="preserve">
+    <value>Pošli skrytú kópiu na email</value>
+  </data>
+  <data name="StoreOwnerEmailLabel" xml:space="preserve">
+    <value>Email vlastníka</value>
+  </data>
+  <data name="StoreOwnerNameLabel" xml:space="preserve">
+    <value>Názov vlastníka</value>
+  </data>
+  <data name="StorePhoneLabel" xml:space="preserve">
+    <value>Telefón</value>
+  </data>
+  <data name="StorePostalCodeLabel" xml:space="preserve">
+    <value>PSČ</value>
+  </data>
+  <data name="StoreSalesEmailLabel" xml:space="preserve">
+    <value>Email predajcu</value>
+  </data>
+  <data name="StoreSettingsLink" xml:space="preserve">
+    <value>Nastavenia internetového obchodu</value>
+  </data>
+  <data name="StoreSettingsSaveButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="StoreShowCategoryCountsLabel" xml:space="preserve">
+    <value>Zobraziť počty po katefóriach</value>
+  </data>
+  <data name="StoreSupportEmailLabel" xml:space="preserve">
+    <value>Email podpory</value>
+  </data>
+  <data name="StoreZoneLabel" xml:space="preserve">
+    <value>Kraj</value>
+  </data>
+  <data name="TaxClassAdminLink" xml:space="preserve">
+    <value>Správa daňových tried</value>
+  </data>
+  <data name="DownloadUnlimited" xml:space="preserve">
+    <value>Neobmedzene</value>
+  </data>
+  <data name="StoreClosedDefaultMessage" xml:space="preserve">
+    <value>Prepáčte, ale internetový obchod je momentálne zatvorený. Skúste neskôr.</value>
+  </data>
+  <data name="StoreContactInfoTab" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="StoreDescriptionTab" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="StoreEditRolesTab" xml:space="preserve">
+    <value>Internetový obchod - role</value>
+  </data>
+  <data name="StoreLocalizationTab" xml:space="preserve">
+    <value>Lokalizácia</value>
+  </data>
+  <data name="StoreOfferEditRolesTab" xml:space="preserve">
+    <value>Úprava ponuky - role</value>
+  </data>
+  <data name="StoreOpenClosedTab" xml:space="preserve">
+    <value>Otvorený/Zatvorený</value>
+  </data>
+  <data name="StoreOtherSettingsTab" xml:space="preserve">
+    <value>Iné nastavenia</value>
+  </data>
+  <data name="StoreProductEditRolesTab" xml:space="preserve">
+    <value>Úprava produktu - role</value>
+  </data>
+  <data name="StoreSecurityTab" xml:space="preserve">
+    <value>Bezpečnosť</value>
+  </data>
+  <data name="StoreTaxEditRolesTab" xml:space="preserve">
+    <value>Úprava daňových sadzieb - role</value>
+  </data>
+  <data name="PaymentGatewayCouldNotConnectMessage" xml:space="preserve">
+    <value>Nie je možné sa pripojiť na poskytovateľa platby.</value>
+  </data>
+  <data name="PayPalCheckoutButtonAltText" xml:space="preserve">
+    <value>Platiť pomocou PayPal</value>
+  </data>
+  <data name="GCheckoutNotificationHandlerUrlLabel" xml:space="preserve">
+    <value>Google Checkout: url adresa upozornenia</value>
+  </data>
+  <data name="GCheckoutTesterPostButton" xml:space="preserve">
+    <value>Poslať</value>
+  </data>
+  <data name="GCheckoutXmlInputLabel" xml:space="preserve">
+    <value>Xml vstup:</value>
+  </data>
+  <data name="GCheckoutXmlResultsLabel" xml:space="preserve">
+    <value>Odpoveď servera:</value>
+  </data>
+  <data name="GCheckoutBuyerId" xml:space="preserve">
+    <value>Id kupujúceho</value>
+  </data>
+  <data name="GCheckoutCreatedUtc" xml:space="preserve">
+    <value>Vytvorené</value>
+  </data>
+  <data name="GCheckoutFinanceState" xml:space="preserve">
+    <value>Finančný stav</value>
+  </data>
+  <data name="GCheckoutFullfillState" xml:space="preserve">
+    <value>Realizácia</value>
+  </data>
+  <data name="GCheckoutNotificationHeading" xml:space="preserve">
+    <value>Google Checkout: log upozornenia</value>
+  </data>
+  <data name="GCheckoutNotificationType" xml:space="preserve">
+    <value>Druh notifikácie</value>
+  </data>
+  <data name="GCheckoutOrderNumber" xml:space="preserve">
+    <value>Číslo google objednávky</value>
+  </data>
+  <data name="GCheckoutSerialNumber" xml:space="preserve">
+    <value>Sériové čislo</value>
+  </data>
+  <data name="OrderHistoryCustomerHeading" xml:space="preserve">
+    <value>Zákazník</value>
+  </data>
+  <data name="OrderHistoryDateHeader" xml:space="preserve">
+    <value>Vytvorené</value>
+  </data>
+  <data name="OrderHistoryHeadingFormatString" xml:space="preserve">
+    <value>Prehľad objednávok od {0}</value>
+  </data>
+  <data name="OrderHistoryOrderTotalHeader" xml:space="preserve">
+    <value>Celková suma</value>
+  </data>
+  <data name="OrderHistoryViewDetailLink" xml:space="preserve">
+    <value>Zobraziť</value>
+  </data>
+  <data name="OrderStatusFulfillable" xml:space="preserve">
+    <value>Potvrdená</value>
+  </data>
+  <data name="OrderStatusFulfilled" xml:space="preserve">
+    <value>Zrealizovaná</value>
+  </data>
+  <data name="OrderStatusReceived" xml:space="preserve">
+    <value>Doručená</value>
+  </data>
+  <data name="OrderHeading" xml:space="preserve">
+    <value>Objednávka</value>
+  </data>
+  <data name="OrderIdLabel" xml:space="preserve">
+    <value>ID objednávky</value>
+  </data>
+  <data name="OrderStatusButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="OrderStatusLabel" xml:space="preserve">
+    <value>Stav objednávky</value>
+  </data>
+  <data name="PaymentPendingMessage" xml:space="preserve">
+    <value>Obdržali sme Vašu objednávku, ale platba stále prebieha. Akonáhle obdržíme potvrdenie platby od poskytovateľa platby, že bola platba zrealizovaná, budú zobrazené odkazy na stiahnutie objednaných produktov tu nižšie.</value>
+  </data>
+  <data name="LiteralOr" xml:space="preserve">
+    <value>Alebo</value>
+  </data>
+  <data name="CheckoutRequiresLoginOrRegisterMessage" xml:space="preserve">
+    <value>Pre dokončenie objednávky sa musíte prihlásiť alebo zaregistrovať. To Vám neskôr zabezpečí močnosť zobraziť históriu objednávok alebo pristúpiť k zaplatenému obsahu.</value>
+  </data>
+  <data name="PayPalReturnErrorMessage" xml:space="preserve">
+    <value>Prepáčte, ale počas potvrdenia platby s PayPal nastala chyba. Potvrdenie platby Vám bude zaslané našim personálom po osobnom preverení platby.</value>
+  </data>
+  <data name="FullfillmentTypeEnumNone" xml:space="preserve">
+    <value>Prázdne</value>
+  </data>
+  <data name="MoreInfoLink" xml:space="preserve">
+    <value>viac informácii..</value>
+  </data>
+  <data name="OfferListHeading" xml:space="preserve">
+    <value>Zoznam produktov</value>
+  </data>
+  <data name="OfferUrlSuffix" xml:space="preserve">
+    <value>-ponuka</value>
+  </data>
+  <data name="TaskCompleted" xml:space="preserve">
+    <value>Ukončené</value>
+  </data>
+  <data name="TaskQueued" xml:space="preserve">
+    <value>Vo fronte</value>
+  </data>
+  <data name="TaskRunning" xml:space="preserve">
+    <value>Prebieha</value>
+  </data>
+  <data name="TaskStarted" xml:space="preserve">
+    <value>Začaté</value>
+  </data>
+  <data name="OrderConfirmationTask" xml:space="preserve">
+    <value>Potvrdenie objednávky</value>
+  </data>
+  <data name="ManageUserLink" xml:space="preserve">
+    <value>Spravovať užívateľa</value>
+  </data>
+  <data name="SiteUserLabel" xml:space="preserve">
+    <value>Užívateľ portálu</value>
+  </data>
+  <data name="PaymentGatewayNotConfiguredForDirectCardProcessing" xml:space="preserve">
+    <value>Nie je zadefinovaný žiaden poskytovateľ platby.</value>
+  </data>
+  <data name="OrderDetail" xml:space="preserve">
+    <value>Detail objednávky</value>
+  </data>
+  <data name="GoogleCheckout" xml:space="preserve">
+    <value>Google Checkout</value>
+  </data>
+  <data name="PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="OrderDetailPaymentMethodLabel" xml:space="preserve">
+    <value>Spôsob platby</value>
+  </data>
+  <data name="OfferIsDonationLabel" xml:space="preserve">
+    <value>Dar</value>
+  </data>
+  <data name="GoogleCheckoutDisabledForDonationsMessage" xml:space="preserve">
+    <value>Google Checkout je neaktívny, pretože vo vašom košíku sa nachádza aspoň jedna položka "dar". Google nepovoľuje platby za dary. Ospravedlňujeme sa za vzniknuté problémy.</value>
+  </data>
+  <data name="IPAddressLabel" xml:space="preserve">
+    <value>IP adresa:</value>
+  </data>
+  <data name="IPUser" xml:space="preserve">
+    <value>Predpokladaný užívateľ zviazaný s IP adresou:</value>
+  </data>
+  <data name="CheckBoxAnonymousCarts" xml:space="preserve">
+    <value>Zmazať len anonymné košíky</value>
+  </data>
+  <data name="ProductUrlSuffix" xml:space="preserve">
+    <value>-produkt</value>
+  </data>
+  <data name="OfferDetailLink" xml:space="preserve">
+    <value>Detail ponuky...</value>
+  </data>
+  <data name="OfferNameOnProductListLabel" xml:space="preserve">
+    <value>Názov v zozname produktov</value>
+  </data>
+  <data name="OfferShowDetailLink" xml:space="preserve">
+    <value>Zobraziť detail ponuky</value>
+  </data>
+  <data name="ProductAbstractTab" xml:space="preserve">
+    <value>Zhrnutie</value>
+  </data>
+  <data name="ProductDescriptionTab" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="ProductShowInListLabel" xml:space="preserve">
+    <value>Zobraziť v zozname produktov?</value>
+  </data>
+  <data name="EnableContentRatingInProductListSetting" xml:space="preserve">
+    <value>Povoliť hodnotenie produktov?</value>
+  </data>
+  <data name="EnableRatingCommentsSetting" xml:space="preserve">
+    <value>Povoliť hodnotenie komentárov?</value>
+  </data>
+  <data name="ProductEnableRatingLabel" xml:space="preserve">
+    <value>Povoliť hodnotenie?</value>
+  </data>
+  <data name="RatingPrompt" xml:space="preserve">
+    <value>Ohodnoťte tento produkt</value>
+  </data>
+  <data name="ProductDetailsLink" xml:space="preserve">
+    <value>Detail produktu...</value>
+  </data>
+  <data name="MetaDataTab" xml:space="preserve">
+    <value>Meta Data stránky</value>
+  </data>
+  <data name="MetaDescriptionLabel" xml:space="preserve">
+    <value>Meta Description stránky</value>
+  </data>
+  <data name="MetaKeywordsLabel" xml:space="preserve">
+    <value>Meta Keywords stránky</value>
+  </data>
+  <data name="ReportsHeading" xml:space="preserve">
+    <value>Prehľady</value>
+  </data>
+  <data name="ReportsLink" xml:space="preserve">
+    <value>Prehľady</value>
+  </data>
+  <data name="SalesOverviewReportHeading" xml:space="preserve">
+    <value>Prehľad predajov</value>
+  </data>
+  <data name="MonthLabel" xml:space="preserve">
+    <value>Mesiac</value>
+  </data>
+  <data name="RevenueSummaryOffer" xml:space="preserve">
+    <value>Ponuka</value>
+  </data>
+  <data name="RevenueSummaryRevenue" xml:space="preserve">
+    <value>Výnos</value>
+  </data>
+  <data name="RevenueSummaryUnitsSold" xml:space="preserve">
+    <value>Predané jednotky</value>
+  </data>
+  <data name="SalesByMonthChartLabel" xml:space="preserve">
+    <value>Predaj za mesiac</value>
+  </data>
+  <data name="SalesByMonthChartMonthLabel" xml:space="preserve">
+    <value>Mesiac</value>
+  </data>
+  <data name="SalesByMonthChartSalesLabel" xml:space="preserve">
+    <value>Predaje</value>
+  </data>
+  <data name="SalesLabel" xml:space="preserve">
+    <value>Predaje</value>
+  </data>
+  <data name="OfferDescriptionTab" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="PrimarySortRankLabel" xml:space="preserve">
+    <value>Primárny spôsob zoradenia</value>
+  </data>
+  <data name="SecondarySortRankLabel" xml:space="preserve">
+    <value>Sekundárny spôsob zoradenia</value>
+  </data>
+  <data name="RebuildReportsButton" xml:space="preserve">
+    <value>Prepočítať prehľady</value>
+  </data>
+  <data name="NewDiscountLink" xml:space="preserve">
+    <value>Nová zľava</value>
+  </data>
+  <data name="Checkout" xml:space="preserve">
+    <value>Zaplatiť tovar</value>
+  </data>
+  <data name="OrderCustomData" xml:space="preserve">
+    <value>Vlastné dáta</value>
+  </data>
+  <data name="OrderDiscountCodesLabel" xml:space="preserve">
+    <value>Zľavové kódy</value>
+  </data>
+  <data name="DuplicateCodeException" xml:space="preserve">
+    <value>Duplicitné použitie zľavového kódu.</value>
+  </data>
+  <data name="OrderStatusCancelled" xml:space="preserve">
+    <value>Zrušená</value>
+  </data>
+  <data name="OrderStatusNone" xml:space="preserve">
+    <value>Prázdne</value>
+  </data>
+  <data name="OfferNameRequired" xml:space="preserve">
+    <value>Názov nie je zadaný.</value>
+  </data>
+  <data name="OfferPriceInvalidMessage" xml:space="preserve">
+    <value>Cena nie je správne zadaná.</value>
+  </data>
+  <data name="OfferPriceRequired" xml:space="preserve">
+    <value>Cena nie je.</value>
+  </data>
+  <data name="CheckoutSuggestLoginOrRegisterMessage" xml:space="preserve">
+    <value>Ak si želáte prísť neskôr na stránku a prezeať históriu objednávok, odporúčame prihlásiť sa alebo sa zaregistrovať pred ukončením objednávky. Tento úkon nie je povinný. Na Váš emailový účet bude odoslaný email s potvrdením objednávky.</value>
+  </data>
+  <data name="MustSignInToDownload" xml:space="preserve">
+    <value>Táto objednávka obsahuje produkty na stiahnutie. Pre ich stiahnutie je potrebne sa najskôr prihlásiť a až potom sú dostupné linky odkazov na stiahnutie.</value>
+  </data>
+  <data name="DownloadTicketAllowedHeading" xml:space="preserve">
+    <value>Počet povolených stiahnutí</value>
+  </data>
+  <data name="DownloadTicketDownloadsHeading" xml:space="preserve">
+    <value>Počet stiahnutí</value>
+  </data>
+  <data name="DownloadTicketsHeading" xml:space="preserve">
+    <value>Počet vyžiadaní sťahovania</value>
+  </data>
+  <data name="DownloadTicketsProductHeading" xml:space="preserve">
+    <value>Produkt</value>
+  </data>
+  <data name="InvalidOrExpiredDownloadWarning" xml:space="preserve">
+    <value>Požiadavka na stiahnutie je nesprávna alebo vypršala.</value>
+  </data>
+  <data name="GroupByOffer" xml:space="preserve">
+    <value>Zoskupiť podľa ponuky</value>
+  </data>
+  <data name="GroupByProduct" xml:space="preserve">
+    <value>Zoskupiť podľa produktu</value>
+  </data>
+  <data name="ProductListGroupingSetting" xml:space="preserve">
+    <value>Zoskupenie zoznamu produktov</value>
+  </data>
+  <data name="OrderEntry" xml:space="preserve">
+    <value>Získanie objednávky</value>
+  </data>
+  <data name="LookupUser" xml:space="preserve">
+    <value>Hľadať užívateľa</value>
+  </data>
+  <data name="OrderEntryCheckoutHeader" xml:space="preserve">
+    <value>Vybavenie objednávky</value>
+  </data>
+  <data name="OrderEntryAuthCodeLabel" xml:space="preserve">
+    <value>Autorizačný kód</value>
+  </data>
+  <data name="OrderEntryTransactionIdLabel" xml:space="preserve">
+    <value>ID transakcie</value>
+  </data>
+  <data name="SendConfirmationEmailLabel" xml:space="preserve">
+    <value>Odoslať potvrdzujúci email?</value>
+  </data>
+  <data name="MetaAdditionalLabel" xml:space="preserve">
+    <value>Ďalšie Meta Data</value>
+  </data>
+  <data name="ProductListPageSize" xml:space="preserve">
+    <value>Veľkosť zoznamu produktov</value>
+  </data>
+  <data name="ProductList" xml:space="preserve">
+    <value>Zoznam produktov</value>
+  </data>
+  <data name="ProceedToCheckout" xml:space="preserve">
+    <value>Pokračovať v platbe</value>
+  </data>
+  <data name="IndexOffersSetting" xml:space="preserve">
+    <value>Zahŕnuť ponuky do vyhľadávania?</value>
+  </data>
+  <data name="ProductDeleteTeaserWarning" xml:space="preserve">
+    <value>Skutočne chcete zmazať ukážkový súbor?</value>
+  </data>
+  <data name="CompleteOrderButton" xml:space="preserve">
+    <value>Complete Order</value>
+  </data>
+  <data name="MoveOrderToUser" xml:space="preserve">
+    <value>Move Order To User</value>
+  </data>
+  <data name="MoveOrderWarning" xml:space="preserve">
+    <value>Are you sure you want to move this order to the selected user?</value>
+  </data>
+</root>

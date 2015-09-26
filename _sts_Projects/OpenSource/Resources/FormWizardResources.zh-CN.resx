@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOptionButton" xml:space="preserve">
+    <value>增加选择</value>
+  </data>
+  <data name="AnalyticsTrackingUrlSetting" xml:space="preserve">
+    <value>表单提交跟踪分析Url</value>
+  </data>
+  <data name="AnswerRequiredLabel" xml:space="preserve">
+    <value>必须回答</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>请等待....</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="CheckBoxListQuestionType" xml:space="preserve">
+    <value>选择框</value>
+  </data>
+  <data name="CheckBoxQuestionType" xml:space="preserve">
+    <value>是Yes/否No选择框</value>
+  </data>
+  <data name="DateQuestionType" xml:space="preserve">
+    <value>日期选择器</value>
+  </data>
+  <data name="DeleteOptionWarning" xml:space="preserve">
+    <value>你确定你要删除该选项?</value>
+  </data>
+  <data name="DeleteOrphansButton" xml:space="preserve">
+    <value>删除孤儿回应</value>
+  </data>
+  <data name="DeleteOrphansWarning" xml:space="preserve">
+    <value>你确定你要删除孤儿回应吗?</value>
+  </data>
+  <data name="DeleteQuestionWarning" xml:space="preserve">
+    <value>你确定你要删除这个问题吗?</value>
+  </data>
+  <data name="DeleteResponsesButton" xml:space="preserve">
+    <value>删除所有的表单提交</value>
+  </data>
+  <data name="DeleteResponsesWarning" xml:space="preserve">
+    <value>你确定你要删除所有提交的表单?你不能取消这个操作。你应该首先导出结果为避免损失数据。</value>
+  </data>
+  <data name="DoneButton" xml:space="preserve">
+    <value>结束</value>
+  </data>
+  <data name="DropDownListQuestionType" xml:space="preserve">
+    <value>从列表中选择</value>
+  </data>
+  <data name="DropDownPleaseSelectText" xml:space="preserve">
+    <value>请选择...</value>
+  </data>
+  <data name="EditLink" xml:space="preserve">
+    <value>编辑表单</value>
+  </data>
+  <data name="EditQuestionButton" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="EnableAntiSpamSetting" xml:space="preserve">
+    <value>启用垃圾阻塞</value>
+  </data>
+  <data name="ExportFormDefinition" xml:space="preserve">
+    <value>导出表单定义</value>
+  </data>
+  <data name="ExportOrphansButton" xml:space="preserve">
+    <value>导出孤儿回应</value>
+  </data>
+  <data name="ExportQuestionButton" xml:space="preserve">
+    <value>导出问题</value>
+  </data>
+  <data name="ExportToCSVButton" xml:space="preserve">
+    <value>导出数据作为CSV(逗号分隔值/ Excel)</value>
+  </data>
+  <data name="FileRequiredWarning" xml:space="preserve">
+    <value>You must choose a file.</value>
+  </data>
+  <data name="FinishButton" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="FinishedButton" xml:space="preserve">
+    <value>结束</value>
+  </data>
+  <data name="FormDefinitionExtensionWarning" xml:space="preserve">
+    <value>表单定义文件应该有一个.Config extension扩展。</value>
+  </data>
+  <data name="FormEditPageTitle" xml:space="preserve">
+    <value>表单编辑器</value>
+  </data>
+  <data name="FormPageUrlFormat" xml:space="preserve">
+    <value>来自Url: {0}</value>
+  </data>
+  <data name="FormSubmissionsLink" xml:space="preserve">
+    <value>提交数据</value>
+  </data>
+  <data name="FormSubmitNotificationTask" xml:space="preserve">
+    <value>表单提交通知</value>
+  </data>
+  <data name="FormWizardFeatureName" xml:space="preserve">
+    <value>Source Tree Solutions提供Form Wizard Pro</value>
+  </data>
+  <data name="ImportFormButton" xml:space="preserve">
+    <value>导入表单定义</value>
+  </data>
+  <data name="ImportFormWarning" xml:space="preserve">
+    <value>你确定你想要导入一个表单定义并替换所有当前格式的内容? 任何现有的问题或指令将无法被替换。如果当前的格式有问题,  你首先应当导出Export现在的内容保持备份。你也应该导出Export任何现有的提交数据,然后删除它,否则会有孤儿回应并产生不再符合现有的格式的问题。</value>
+  </data>
+  <data name="ImportQuestionButton" xml:space="preserve">
+    <value>导入Import问题</value>
+  </data>
+  <data name="InstructionBlockLabel" xml:space="preserve">
+    <value>指令块</value>
+  </data>
+  <data name="InstructionBlockQuestionType" xml:space="preserve">
+    <value>指令块</value>
+  </data>
+  <data name="InstructionsTab" xml:space="preserve">
+    <value>指令</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>是必需的。</value>
+  </data>
+  <data name="MaxRangeLabel" xml:space="preserve">
+    <value>最大值</value>
+  </data>
+  <data name="MinRangeLabel" xml:space="preserve">
+    <value>最小值</value>
+  </data>
+  <data name="NewQuestionButton" xml:space="preserve">
+    <value>添加新问题</value>
+  </data>
+  <data name="NextButton" xml:space="preserve">
+    <value>下一个 &gt;&gt;</value>
+  </data>
+  <data name="NitificationSiteUserFormat" xml:space="preserve">
+    <value>收到网站用户:{ 0 }</value>
+  </data>
+  <data name="NoResultsMessage" xml:space="preserve">
+    <value>目前尚未有表单提交。</value>
+  </data>
+  <data name="NotificationAliasLabelSetting" xml:space="preserve">
+    <value>电子邮件列表-标签</value>
+  </data>
+  <data name="NotificationAliasSetting" xml:space="preserve">
+    <value>显示电子邮件Email地址的别名</value>
+  </data>
+  <data name="NotificationEmailBccSetting" xml:space="preserve">
+    <value>通知BCC电子邮件Email地址</value>
+  </data>
+  <data name="NotificationEmailSetting" xml:space="preserve">
+    <value>接收表单提交的电子邮件Email地址</value>
+  </data>
+  <data name="NotificationIPAddressFormat" xml:space="preserve">
+    <value>从IP地址: {0}</value>
+  </data>
+  <data name="NotificationSubjectFormat" xml:space="preserve">
+    <value>收到表单提交:{ 0 }</value>
+  </data>
+  <data name="OptionsHeading" xml:space="preserve">
+    <value>选项</value>
+  </data>
+  <data name="OrphanCountLabel" xml:space="preserve">
+    <value>孤儿回应计数</value>
+  </data>
+  <data name="Orphans" xml:space="preserve">
+    <value>孤儿</value>
+  </data>
+  <data name="PageNumberLabel" xml:space="preserve">
+    <value>页号</value>
+  </data>
+  <data name="PreValidateForm" xml:space="preserve">
+    <value>预先验证Pre-Validate表单?</value>
+  </data>
+  <data name="PreviousButton" xml:space="preserve">
+    <value>&lt;&lt; 后退</value>
+  </data>
+  <data name="QuestionEditOptionsDeleteAlternateText" xml:space="preserve">
+    <value>删除所选的选项</value>
+  </data>
+  <data name="QuestionEditOptionsDownAlternateText" xml:space="preserve">
+    <value>向下移动所选选项</value>
+  </data>
+  <data name="QuestionEditOptionsEditAlternateText" xml:space="preserve">
+    <value>编辑选择的选项</value>
+  </data>
+  <data name="QuestionEditOptionsUpAlternateText" xml:space="preserve">
+    <value>往上移动所选选项</value>
+  </data>
+  <data name="QuestionsTab" xml:space="preserve">
+    <value>问题</value>
+  </data>
+  <data name="QuestionTextLabel" xml:space="preserve">
+    <value>问题文本</value>
+  </data>
+  <data name="QuestionTypeLabel" xml:space="preserve">
+    <value>问题类型</value>
+  </data>
+  <data name="RadioButtonListQuestionType" xml:space="preserve">
+    <value>多项选择</value>
+  </data>
+  <data name="RequiredFieldIndicator" xml:space="preserve">
+    <value> *</value>
+  </data>
+  <data name="ResultsTitleFormat" xml:space="preserve">
+    <value>{0} Submissions</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SliderQuestionType" xml:space="preserve">
+    <value>滑动尺</value>
+  </data>
+  <data name="SliderTooltipFormat" xml:space="preserve">
+    <value>滑动尺:值{ 0 }。请滑动来改变值。</value>
+  </data>
+  <data name="SubmissionCountLabel" xml:space="preserve">
+    <value>总提交</value>
+  </data>
+  <data name="SubmitButton" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="TaskCompleted" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="TaskQueued" xml:space="preserve">
+    <value>排队</value>
+  </data>
+  <data name="TaskRunning" xml:space="preserve">
+    <value>运转</value>
+  </data>
+  <data name="TaskStarted" xml:space="preserve">
+    <value>已启动</value>
+  </data>
+  <data name="TextAreaQuestionType" xml:space="preserve">
+    <value>段落文本</value>
+  </data>
+  <data name="TextBoxQuestionType" xml:space="preserve">
+    <value>文本</value>
+  </data>
+  <data name="ThankYouMessageTab" xml:space="preserve">
+    <value>感谢你的留言 </value>
+  </data>
+  <data name="TotalPagesLabel" xml:space="preserve">
+    <value>总页数</value>
+  </data>
+  <data name="UpdateOptionButton" xml:space="preserve">
+    <value>更新选项</value>
+  </data>
+  <data name="BrowseResultsLink" xml:space="preserve">
+    <value>浏览提交</value>
+  </data>
+  <data name="EnableRegexValidation" xml:space="preserve">
+    <value>允许验证的文本问题的预定格式Regular Expression吗?</value>
+  </data>
+  <data name="InvalidRegexTextLabel" xml:space="preserve">
+    <value>不合格的信息</value>
+  </data>
+  <data name="RegexExpressionLabel" xml:space="preserve">
+    <value>验证预定格式Regular Expression</value>
+  </data>
+  <data name="ResultsGridPageSizeSetting" xml:space="preserve">
+    <value>结果网格页面尺寸</value>
+  </data>
+  <data name="ViewResultsGridLink" xml:space="preserve">
+    <value>浏览提交网格Grid</value>
+  </data>
+  <data name="ViewResultsGridTooltip" xml:space="preserve">
+    <value>表单提交</value>
+  </data>
+  <data name="DeleteQuestionButtonTooltip" xml:space="preserve">
+    <value>删除这个问题</value>
+  </data>
+  <data name="EditInstructionsLink" xml:space="preserve">
+    <value>编辑指令</value>
+  </data>
+  <data name="DeleteResponseButton" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeleteResponseWarning" xml:space="preserve">
+    <value>你确定你要删除这个表单提交?</value>
+  </data>
+  <data name="ResponseTimeIpFormat" xml:space="preserve">
+    <value>收到{0}从IP地址{1}</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>自定义CSS类Class</value>
+  </data>
+  <data name="ExportToWord" xml:space="preserve">
+    <value>导出到Word</value>
+  </data>
+  <data name="InvalidRegexWarning" xml:space="preserve">
+    <value>输入的预选格式regular expression无效。</value>
+  </data>
+  <data name="BrowseResultsTooltip" xml:space="preserve">
+    <value>浏览提交</value>
+  </data>
+  <data name="CssClassLabel" xml:space="preserve">
+    <value>CSS类Class</value>
+  </data>
+  <data name="InvalidCssClassWarning" xml:space="preserve">
+    <value>定义的CSS类Classes只允许字母和数字字符。</value>
+  </data>
+  <data name="AllowedUploadExtensions" xml:space="preserve">
+    <value>允许上传扩展Extensions</value>
+  </data>
+  <data name="AllowedUploadExtensionsWarning" xml:space="preserve">
+    <value>允许的上传扩展Extensions警告</value>
+  </data>
+  <data name="AllowedUploads" xml:space="preserve">
+    <value>允许的上传</value>
+  </data>
+  <data name="UploadInstructions" xml:space="preserve">
+    <value>上传指令</value>
+  </data>
+  <data name="FileUploadSettings" xml:space="preserve">
+    <value>文件上传设置</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>总体设置</value>
+  </data>
+  <data name="NotificationSettings" xml:space="preserve">
+    <value>通知设置</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>上传/完成</value>
+  </data>
+  <data name="DeleteAttachmentWarning" xml:space="preserve">
+    <value>你确定你要删除这个文件提交吗?</value>
+  </data>
+  <data name="DownloadLink" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="FileTooLargeWarning" xml:space="preserve">
+    <value>上传的文件被丢弃,因为它大于配置的限制。请上传一个文件不能超过{0}兆字节MB。</value>
+  </data>
+  <data name="FileTooLargeWarningFormat" xml:space="preserve">
+    <value>文件{0}被丢弃,因为它大于配置的限制。请上传一个文件不能超过{1}兆字节MB。</value>
+  </data>
+  <data name="FileUploadGlobalRegexWarning" xml:space="preserve">
+    <value>文件类型是不允许全球配置设置。</value>
+  </data>
+  <data name="NotificationIncludeDetails" xml:space="preserve">
+    <value>?在通知里包括细节吗?</value>
+  </data>
+  <data name="NotificationIntro" xml:space="preserve">
+    <value>A form has been submitted, click the link below to view the submission:已提交表单。点击下面的链接以查看提交内容:</value>
+  </data>
+  <data name="FormSubmittedEventHandlerSetting" xml:space="preserve">
+    <value>提交事件处理程序Event Handler</value>
+  </data>
+  <data name="NotificationFilesExcludedWarning" xml:space="preserve">
+    <value>由于文件太大，下载文件不包括文件附件。 点击链接以查看提交内容和下载提交的文件。</value>
+  </data>
+  <data name="NotificationIncludeFiles" xml:space="preserve">
+    <value>包括提交的文件作为附件吗?</value>
+  </data>
+  <data name="NotificationLeaveOutUnansweredQuestions" xml:space="preserve">
+    <value>在通知里不要未回答的问题吗?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="File1ErrorFormat" xml:space="preserve">
+    <value>文件1: {0}</value>
+  </data>
+  <data name="File2ErrorFormat" xml:space="preserve">
+    <value>文件2: {0}</value>
+  </data>
+  <data name="File3ErrorFormat" xml:space="preserve">
+    <value>文件3: {0}</value>
+  </data>
+  <data name="File4ErrorFormat" xml:space="preserve">
+    <value>文件4: {0}</value>
+  </data>
+  <data name="FinishWithNoUploadButton" xml:space="preserve">
+    <value>不带上传-结束</value>
+  </data>
+  <data name="UploadIsRequired" xml:space="preserve">
+    <value>上传是必需的吗?</value>
+  </data>
+  <data name="UseSslIfAvailable" xml:space="preserve">
+    <value>使用SSL(如果有的话)?</value>
+  </data>
+  <data name="EnableOptionAliases" xml:space="preserve">
+    <value>允许选项别名吗?</value>
+  </data>
+  <data name="EnableQuestionAliases" xml:space="preserve">
+    <value>允许问题别名吗？</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="QuestionAliasLabel" xml:space="preserve">
+    <value>问题别名</value>
+  </data>
+  <data name="ValueAlias" xml:space="preserve">
+    <value>值/别名</value>
+  </data>
+  <data name="EnablePerQuestionCssClasses" xml:space="preserve">
+    <value>允许每个问题有CSS类Classes吗（per question css classes)?</value>
+  </data>
+  <data name="FlattenPagesAsGroups" xml:space="preserve">
+    <value>平面化页面以分组（Flatten Pages As Groups）?</value>
+  </data>
+  <data name="OverrideSubmitButtonText" xml:space="preserve">
+    <value>取代提交（Submit）按钮的文本</value>
+  </data>
+  <data name="ForceScrollTopAfterSubmit" xml:space="preserve">
+    <value>Force Scroll To Top After Submit?</value>
+  </data>
+</root>

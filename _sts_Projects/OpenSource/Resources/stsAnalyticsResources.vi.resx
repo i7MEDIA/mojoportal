@@ -1,0 +1,1122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="gaadClicks" xml:space="preserve">
+    <value>Bấm vào quảng cáo</value>
+  </data>
+  <data name="gaadContent" xml:space="preserve">
+    <value>Nội dung quản cáo</value>
+  </data>
+  <data name="gaadCost" xml:space="preserve">
+    <value>Giá quảng cáo</value>
+  </data>
+  <data name="gaadGroup" xml:space="preserve">
+    <value>Nhóm quảng cáo</value>
+  </data>
+  <data name="AdminMenuLink" xml:space="preserve">
+    <value>Quản trị</value>
+  </data>
+  <data name="gaadSlot" xml:space="preserve">
+    <value>Xen quản cáo</value>
+  </data>
+  <data name="gaadSlotPosition" xml:space="preserve">
+    <value>Vị trí xen quảng cáo</value>
+  </data>
+  <data name="gaaffiliation" xml:space="preserve">
+    <value>Liên kết</value>
+  </data>
+  <data name="Analytics" xml:space="preserve">
+    <value>Phân tích</value>
+  </data>
+  <data name="AnalyticsAccountSettings" xml:space="preserve">
+    <value>Thiết lập tài khoản phân tích</value>
+  </data>
+  <data name="AnalyticsConfiguration" xml:space="preserve">
+    <value>Cấu hình phân tích</value>
+  </data>
+  <data name="AnalyticsEmailLabel" xml:space="preserve">
+    <value>Email/tên người dùng Google Analytics</value>
+  </data>
+  <data name="AnalyticsLockedMessage" xml:space="preserve">
+    <value>Thiết lập phân tích hiện đang được quy định trong Web.config và ghi đè lên bất kỳ cài đặt được thực hiện ở đây, do đó cài đặt để cập nhật bị vô hiệu hóa. Để kích hoạt các thiết lập trong trang này, bạn phải gỡ bỏ các thiết lập trong Web.config cho GoogleAnalyticsEmail, GoogleAnalyticsPassword, và GoogleAnalyticsProfileId.</value>
+  </data>
+  <data name="AnalyticsMenuLink" xml:space="preserve">
+    <value>Báo cáo lưu lượng trang</value>
+  </data>
+  <data name="AnalyticsPasswordLabel" xml:space="preserve">
+    <value>Mật khẩu Google Analytics</value>
+  </data>
+  <data name="BeginDate" xml:space="preserve">
+    <value>Ngày bắt đầu</value>
+  </data>
+  <data name="gabounces" xml:space="preserve">
+    <value>Trả lại</value>
+  </data>
+  <data name="gabrowser" xml:space="preserve">
+    <value>Trình duyệt</value>
+  </data>
+  <data name="gabrowserVersion" xml:space="preserve">
+    <value>Phiên bản trình duyệt</value>
+  </data>
+  <data name="gacampaign" xml:space="preserve">
+    <value>Chiến dịch</value>
+  </data>
+  <data name="ChooseProfile" xml:space="preserve">
+    <value>Chọn hồ sơ</value>
+  </data>
+  <data name="gacity" xml:space="preserve">
+    <value>Thành phố</value>
+  </data>
+  <data name="gaconnectionSpeed" xml:space="preserve">
+    <value>Tốc độ kết nối</value>
+  </data>
+  <data name="ContainsMatchForRegularExpression" xml:space="preserve">
+    <value>Chứa một so khớp với biểu diễn chính quy</value>
+  </data>
+  <data name="ContainsSubstring" xml:space="preserve">
+    <value>Chứa xâu con</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Nội dung</value>
+  </data>
+  <data name="gacontinent" xml:space="preserve">
+    <value>Lục địa</value>
+  </data>
+  <data name="gacountry" xml:space="preserve">
+    <value>Quốc gia</value>
+  </data>
+  <data name="gaCPC" xml:space="preserve">
+    <value>CPC</value>
+  </data>
+  <data name="gaCPM" xml:space="preserve">
+    <value>CPM</value>
+  </data>
+  <data name="gaCTR" xml:space="preserve">
+    <value>CTR</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Bảng điều khiển</value>
+  </data>
+  <data name="DashboardPageTitle" xml:space="preserve">
+    <value>Bảng điều khiển phân tích</value>
+  </data>
+  <data name="gadate" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="gaday" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="gadaysSinceLastVisit" xml:space="preserve">
+    <value>Số ngày từ lần ghé thăm trước</value>
+  </data>
+  <data name="gadaysToTransaction" xml:space="preserve">
+    <value>Số ngày từ giao dịch</value>
+  </data>
+  <data name="Dimensions" xml:space="preserve">
+    <value>Kích thước</value>
+  </data>
+  <data name="DoesNotContainSubstring" xml:space="preserve">
+    <value>Không chứa xâu con</value>
+  </data>
+  <data name="DoesNotEqual" xml:space="preserve">
+    <value>Không bằng nhau</value>
+  </data>
+  <data name="DoesNotMatch" xml:space="preserve">
+    <value>Không khớp nhau</value>
+  </data>
+  <data name="DoesNotMatchRegularExpression" xml:space="preserve">
+    <value>Không khớp biểu diễn chính quy</value>
+  </data>
+  <data name="Ecommerce" xml:space="preserve">
+    <value>Thương mại điện tử</value>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>Cần nhập email/tên người dùng.</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Ngày kết thúc</value>
+  </data>
+  <data name="gaentrances" xml:space="preserve">
+    <value>Lối vào</value>
+  </data>
+  <data name="gaeventAction" xml:space="preserve">
+    <value>Hành động sự kiện</value>
+  </data>
+  <data name="gaeventCategory" xml:space="preserve">
+    <value>Danh mục sự kiện</value>
+  </data>
+  <data name="gaeventLabel" xml:space="preserve">
+    <value>Nhãn sự kiện</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>Sự kiện</value>
+  </data>
+  <data name="gaeventValue" xml:space="preserve">
+    <value>Giá trị sự kiện</value>
+  </data>
+  <data name="ExactMatch" xml:space="preserve">
+    <value>Khớp chính xác</value>
+  </data>
+  <data name="gaexitPagePath" xml:space="preserve">
+    <value>Đường dẫn trang thoát</value>
+  </data>
+  <data name="gaexits" xml:space="preserve">
+    <value>Thoát</value>
+  </data>
+  <data name="FinishButton" xml:space="preserve">
+    <value>Kết thúc</value>
+  </data>
+  <data name="gaflashVersion" xml:space="preserve">
+    <value>Phiên bản Flash</value>
+  </data>
+  <data name="gagoal1Completions" xml:space="preserve">
+    <value>Hoàn thành mục tiêu 1</value>
+  </data>
+  <data name="gagoal1Starts" xml:space="preserve">
+    <value>Bắt đầu mục tiêu 1</value>
+  </data>
+  <data name="gagoal1Value" xml:space="preserve">
+    <value>Giá trị mục tiêu 1</value>
+  </data>
+  <data name="gagoal2Completions" xml:space="preserve">
+    <value>Hoàn thành mục tiêu 2</value>
+  </data>
+  <data name="gagoal2Starts" xml:space="preserve">
+    <value>Bắt đầu mục tiêu 2</value>
+  </data>
+  <data name="gagoal2Value" xml:space="preserve">
+    <value>Giá trị mục tiêu 2</value>
+  </data>
+  <data name="gagoal3Completions" xml:space="preserve">
+    <value>Hoàn thành mục tiêu 3</value>
+  </data>
+  <data name="gagoal3Starts" xml:space="preserve">
+    <value>Bắt đầu mục tiêu 3</value>
+  </data>
+  <data name="gagoal3Value" xml:space="preserve">
+    <value>Giá trị mục tiêu 3</value>
+  </data>
+  <data name="gagoal4Completions" xml:space="preserve">
+    <value>Hoàn thành mục tiêu 4</value>
+  </data>
+  <data name="gagoal4Starts" xml:space="preserve">
+    <value>Bắt đầu mục tiêu 4</value>
+  </data>
+  <data name="gagoal4Value" xml:space="preserve">
+    <value>Giá trị mục tiêu 4</value>
+  </data>
+  <data name="gagoalCompletionsAll" xml:space="preserve">
+    <value>Hoàn thành mục tiêu tổng thể</value>
+  </data>
+  <data name="Goals" xml:space="preserve">
+    <value>Mục tiêu</value>
+  </data>
+  <data name="gagoalStartsAll" xml:space="preserve">
+    <value>Bắt đầu mục tiêu tổng thể</value>
+  </data>
+  <data name="gagoalValueAll" xml:space="preserve">
+    <value>Giá trị mục tiêu tổng thể</value>
+  </data>
+  <data name="GreaterThan" xml:space="preserve">
+    <value>lớn hơn</value>
+  </data>
+  <data name="GreaterThanOrEqualTo" xml:space="preserve">
+    <value>lớn hơn hoặc bằng</value>
+  </data>
+  <data name="gahostname" xml:space="preserve">
+    <value>Hostname</value>
+  </data>
+  <data name="gahour" xml:space="preserve">
+    <value>Giờ</value>
+  </data>
+  <data name="gaimpressions" xml:space="preserve">
+    <value>Ấn tượng</value>
+  </data>
+  <data name="InternalSearch" xml:space="preserve">
+    <value>Tìm kiếm nội bộ</value>
+  </data>
+  <data name="gaitemQuantity" xml:space="preserve">
+    <value>Số lượng hàng</value>
+  </data>
+  <data name="gaitemRevenue" xml:space="preserve">
+    <value>Doanh thu</value>
+  </data>
+  <data name="gajavaEnabled" xml:space="preserve">
+    <value>Kích hoạt Java</value>
+  </data>
+  <data name="gakeyword" xml:space="preserve">
+    <value>Từ khóa</value>
+  </data>
+  <data name="galandingPagePath" xml:space="preserve">
+    <value>Đường dẫn trang đích</value>
+  </data>
+  <data name="galanguage" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="galatitude" xml:space="preserve">
+    <value>Vĩ độ</value>
+  </data>
+  <data name="LessThan" xml:space="preserve">
+    <value>nhỏ hơn</value>
+  </data>
+  <data name="LessThanOrEqualTo" xml:space="preserve">
+    <value>nhỏ hơn hoặc bằng</value>
+  </data>
+  <data name="galongitude" xml:space="preserve">
+    <value>Kinh độ</value>
+  </data>
+  <data name="gamedium" xml:space="preserve">
+    <value>Trung bình</value>
+  </data>
+  <data name="Metrics" xml:space="preserve">
+    <value>Ma trận</value>
+  </data>
+  <data name="gamonth" xml:space="preserve">
+    <value>Tháng</value>
+  </data>
+  <data name="ganetworkDomain" xml:space="preserve">
+    <value>Tên miền mạng</value>
+  </data>
+  <data name="ganetworkLocation" xml:space="preserve">
+    <value>Vị trí mạng</value>
+  </data>
+  <data name="ganewVisits" xml:space="preserve">
+    <value>Lượt thăm mới</value>
+  </data>
+  <data name="NextButton" xml:space="preserve">
+    <value>Tiếp</value>
+  </data>
+  <data name="ganextPagePath" xml:space="preserve">
+    <value>Đường dẫn trang tiếp theo</value>
+  </data>
+  <data name="NoResultsMessage" xml:space="preserve">
+    <value>Không có hồ sơ nào được tìm thấy, bạn có chắc bạn đã nhập đúng người dùng và mật khẩu?</value>
+  </data>
+  <data name="gaoperatingSystem" xml:space="preserve">
+    <value>Hệ điều hành</value>
+  </data>
+  <data name="gaoperatingSystemVersion" xml:space="preserve">
+    <value>Phiên bản hệ điều hành</value>
+  </data>
+  <data name="gapageDepth" xml:space="preserve">
+    <value>Độ sâu trang</value>
+  </data>
+  <data name="gapagePath" xml:space="preserve">
+    <value>Đường dẫn trang</value>
+  </data>
+  <data name="gapageTitle" xml:space="preserve">
+    <value>Tiêu đề trang</value>
+  </data>
+  <data name="gapageviews" xml:space="preserve">
+    <value>Lượt xem</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Bạn cần nhập mật khẩu.</value>
+  </data>
+  <data name="gapreviousPagePath" xml:space="preserve">
+    <value>Đường dẫn trang trước</value>
+  </data>
+  <data name="gaproductCategory" xml:space="preserve">
+    <value>Danh mục sản phẩm</value>
+  </data>
+  <data name="gaproductName" xml:space="preserve">
+    <value>Tên sản phẩm</value>
+  </data>
+  <data name="gaproductSku" xml:space="preserve">
+    <value>SKU sản phẩm</value>
+  </data>
+  <data name="ProfileIdLabel" xml:space="preserve">
+    <value>ID hồ sơ</value>
+  </data>
+  <data name="QueryTool" xml:space="preserve">
+    <value>Công cụ truy vấn</value>
+  </data>
+  <data name="gareferralPath" xml:space="preserve">
+    <value>Đường dẫn tham khảo</value>
+  </data>
+  <data name="garegion" xml:space="preserve">
+    <value>Vùng</value>
+  </data>
+  <data name="gascreenColors" xml:space="preserve">
+    <value>Số màu màn hình</value>
+  </data>
+  <data name="gascreenResolution" xml:space="preserve">
+    <value>Độ phân giải màn hình</value>
+  </data>
+  <data name="gasearchCategory" xml:space="preserve">
+    <value>Danh mục tìm kiếm</value>
+  </data>
+  <data name="gasearchDepth" xml:space="preserve">
+    <value>Độ sâu tìm kiếm</value>
+  </data>
+  <data name="gasearchDestinationPage" xml:space="preserve">
+    <value>Tranh đích tìm kiếm</value>
+  </data>
+  <data name="gasearchDuration" xml:space="preserve">
+    <value>Khoảng thời gian tìm kiếm</value>
+  </data>
+  <data name="gasearchExits" xml:space="preserve">
+    <value>Thoát tìm kiếm</value>
+  </data>
+  <data name="gasearchKeyword" xml:space="preserve">
+    <value>Từ khóa tìm kiếm</value>
+  </data>
+  <data name="gasearchKeywordRefinement" xml:space="preserve">
+    <value>Từ khóa tìm kiếm sàng lọc</value>
+  </data>
+  <data name="gasearchRefinements" xml:space="preserve">
+    <value>Sàng lọc tìm kiếm</value>
+  </data>
+  <data name="gasearchStartPage" xml:space="preserve">
+    <value>Trang bắt đầu tìm kiếm</value>
+  </data>
+  <data name="gasearchUniques" xml:space="preserve">
+    <value>Tìm kiếm độc đáo</value>
+  </data>
+  <data name="gasearchUsed" xml:space="preserve">
+    <value>Tìm kiếm được sử dụng</value>
+  </data>
+  <data name="gasearchVisits" xml:space="preserve">
+    <value>Ghé thăm tìm kiếm</value>
+  </data>
+  <data name="gasecondPagePath" xml:space="preserve">
+    <value>Đường dẫn trang thứ hai</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Sắp xếp</value>
+  </data>
+  <data name="gasource" xml:space="preserve">
+    <value>Nguồn</value>
+  </data>
+  <data name="gasubContinent" xml:space="preserve">
+    <value>Lục địa con</value>
+  </data>
+  <data name="gatimeOnPage" xml:space="preserve">
+    <value>Thời gian trên trang</value>
+  </data>
+  <data name="gatimeOnSite" xml:space="preserve">
+    <value>Thời gian trên trang</value>
+  </data>
+  <data name="TodaysTraffic" xml:space="preserve">
+    <value>Lưu lượng hôm nay</value>
+  </data>
+  <data name="gatotalEvents" xml:space="preserve">
+    <value>Tổng số sự kiện</value>
+  </data>
+  <data name="gatransactionId" xml:space="preserve">
+    <value>ID giao dịch</value>
+  </data>
+  <data name="gatransactionRevenue" xml:space="preserve">
+    <value>Doanh thu giao dịch</value>
+  </data>
+  <data name="gatransactions" xml:space="preserve">
+    <value>Giao dịch</value>
+  </data>
+  <data name="gatransactionShipping" xml:space="preserve">
+    <value>Giao dịch vận chuyển</value>
+  </data>
+  <data name="gatransactionTax" xml:space="preserve">
+    <value>Thuế giao dịch</value>
+  </data>
+  <data name="gauniqueEvents" xml:space="preserve">
+    <value>Sự kiện độc đáo</value>
+  </data>
+  <data name="gauniquePageviews" xml:space="preserve">
+    <value>Lượt xem độc đáo</value>
+  </data>
+  <data name="gauniquePurchases" xml:space="preserve">
+    <value>Mua bán độc đáo</value>
+  </data>
+  <data name="gauserDefinedValue" xml:space="preserve">
+    <value>Giá trị người dùng định nghĩa</value>
+  </data>
+  <data name="gavisitCount" xml:space="preserve">
+    <value>Lượng ghé thăm</value>
+  </data>
+  <data name="gavisitLength" xml:space="preserve">
+    <value>Thời lượng ghé thăm</value>
+  </data>
+  <data name="Visitor" xml:space="preserve">
+    <value>Khách thăm</value>
+  </data>
+  <data name="gavisitors" xml:space="preserve">
+    <value>Khách thăm</value>
+  </data>
+  <data name="gavisitorType" xml:space="preserve">
+    <value>Loại khách thăm</value>
+  </data>
+  <data name="gavisits" xml:space="preserve">
+    <value>Lượt thăm</value>
+  </data>
+  <data name="gavisitsToTransaction" xml:space="preserve">
+    <value>Ghé thăm giao dịch</value>
+  </data>
+  <data name="gaweek" xml:space="preserve">
+    <value>Tuần</value>
+  </data>
+  <data name="gayear" xml:space="preserve">
+    <value>Năm</value>
+  </data>
+  <data name="AllowedViewRoles" xml:space="preserve">
+    <value>Các quyền cho phép xem Báo cáo phân tích</value>
+  </data>
+  <data name="gacountOfVisits" xml:space="preserve">
+    <value>Số lượt ghé thăm</value>
+  </data>
+  <data name="DimensionBuilderLink" xml:space="preserve">
+    <value>Bộ tạo kích thước</value>
+  </data>
+  <data name="FilterBuilderLink" xml:space="preserve">
+    <value>Bộ tạo bộ lọc</value>
+  </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Lọc</value>
+  </data>
+  <data name="MetricBuilderLink" xml:space="preserve">
+    <value>Bộ tạo ma trận</value>
+  </data>
+  <data name="RunQueryButton" xml:space="preserve">
+    <value>Chạy truy vấn</value>
+  </data>
+  <data name="SortBuilderLink" xml:space="preserve">
+    <value>Bộ tạo sắp xếp</value>
+  </data>
+  <data name="Campaign" xml:space="preserve">
+    <value>Chiến dịch</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="DoneButton" xml:space="preserve">
+    <value>Xong</value>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>Nhóm bởi</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Tháng</value>
+  </data>
+  <data name="NoResultsWarning" xml:space="preserve">
+    <value>Không có kết quả nào được trả về cho truy vấn này, có thể gây ra bởi sự kết hợp không hợp lệ của ma trận và kích thước.</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Tuần</value>
+  </data>
+  <data name="MediumDirect" xml:space="preserve">
+    <value>Trực tiếp</value>
+  </data>
+  <data name="MediumPaid" xml:space="preserve">
+    <value>Đã trả</value>
+  </data>
+  <data name="MediumReferral" xml:space="preserve">
+    <value>Giới thiệu</value>
+  </data>
+  <data name="MediumSearch" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="AllTimeNewVisits" xml:space="preserve">
+    <value>Ghé thăm mới</value>
+  </data>
+  <data name="AllTimePageViews" xml:space="preserve">
+    <value>Lượt xem</value>
+  </data>
+  <data name="AllTimeVisits" xml:space="preserve">
+    <value>Lượt thăm</value>
+  </data>
+  <data name="InSiteTitle" xml:space="preserve">
+    <value>Phân tích trong trang</value>
+  </data>
+  <data name="InSiteTitleFormat" xml:space="preserve">
+    <value>Phân tích trong trang - {0}</value>
+  </data>
+  <data name="Last60DaysNewVisits" xml:space="preserve">
+    <value>Ghé thăm mới - 60 ngày qua</value>
+  </data>
+  <data name="Last60DaysPageViews" xml:space="preserve">
+    <value>Lượt xem - 60 ngày qua</value>
+  </data>
+  <data name="Last60DaysVisits" xml:space="preserve">
+    <value>Ghé thăm - 60 ngày qua</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
+  <data name="AllTimeBounces" xml:space="preserve">
+    <value>Trả lại</value>
+  </data>
+  <data name="AverageTimeOnSite" xml:space="preserve">
+    <value>Thời gian trung bình trên trang</value>
+  </data>
+  <data name="BounceRate" xml:space="preserve">
+    <value>Tỷ lệ trả lại</value>
+  </data>
+  <data name="Bounces" xml:space="preserve">
+    <value>Trả lại</value>
+  </data>
+  <data name="BouncesByDateFormat" xml:space="preserve">
+    <value>Trả lại - {0} - {1}</value>
+  </data>
+  <data name="BouncesFormat" xml:space="preserve">
+    <value>{0} trả lại</value>
+  </data>
+  <data name="FortyFiveDays" xml:space="preserve">
+    <value>45 ngày</value>
+  </data>
+  <data name="Last30DaysBounces" xml:space="preserve">
+    <value>Trở lại - 30 ngày qua</value>
+  </data>
+  <data name="Last30DaysNewVisits" xml:space="preserve">
+    <value>Ghé thăm mới - 30 ngày qua</value>
+  </data>
+  <data name="Last30DaysPageViews" xml:space="preserve">
+    <value>Lượt xem - 30 ngày qua</value>
+  </data>
+  <data name="Last30DaysVisits" xml:space="preserve">
+    <value>Ghé thăm - 30 ngày qua</value>
+  </data>
+  <data name="Last45DaysBounces" xml:space="preserve">
+    <value>Trở lại - 45 ngày qua</value>
+  </data>
+  <data name="Last45DaysNewVisits" xml:space="preserve">
+    <value>Ghé thăm mới - 45 ngày qua</value>
+  </data>
+  <data name="Last45DaysPageViews" xml:space="preserve">
+    <value>Lượt xem- 45 ngày qua</value>
+  </data>
+  <data name="Last45DaysVisits" xml:space="preserve">
+    <value>Ghé thăm - 45 ngày qua</value>
+  </data>
+  <data name="Last60DaysBounces" xml:space="preserve">
+    <value>Trở lại - 60 ngày qua</value>
+  </data>
+  <data name="Last90DaysBounces" xml:space="preserve">
+    <value>Trở lại - 90 ngày qua</value>
+  </data>
+  <data name="Last90DaysNewVisits" xml:space="preserve">
+    <value>Ghé thăm mới - 90 ngày qua</value>
+  </data>
+  <data name="Last90DaysPageViews" xml:space="preserve">
+    <value>Lượt xem - 90 ngày qua</value>
+  </data>
+  <data name="Last90DaysVisits" xml:space="preserve">
+    <value>Ghé thăm - 90 ngày qua</value>
+  </data>
+  <data name="MediumFeeds" xml:space="preserve">
+    <value>Nguồn cấp tin</value>
+  </data>
+  <data name="NewVisits" xml:space="preserve">
+    <value>Ghé thăm mới</value>
+  </data>
+  <data name="NewVisitsByDateFormat" xml:space="preserve">
+    <value>Ghé thăm mới - {0} - {1}</value>
+  </data>
+  <data name="NewVisitsFormat" xml:space="preserve">
+    <value>{0} ghé thăm mới </value>
+  </data>
+  <data name="NinetyDays" xml:space="preserve">
+    <value>90 ngày</value>
+  </data>
+  <data name="PagesPerVisit" xml:space="preserve">
+    <value>Trang/Ghé thăm</value>
+  </data>
+  <data name="PageViews" xml:space="preserve">
+    <value>Lượt xem</value>
+  </data>
+  <data name="PageViewsByDateFormat" xml:space="preserve">
+    <value>Lượt xem - {0} - {1}</value>
+  </data>
+  <data name="PageViewsFormat" xml:space="preserve">
+    <value>{0} lượt xem</value>
+  </data>
+  <data name="SixtyDays" xml:space="preserve">
+    <value>60 ngày</value>
+  </data>
+  <data name="ThirtyDays" xml:space="preserve">
+    <value>30 ngày</value>
+  </data>
+  <data name="Visits" xml:space="preserve">
+    <value>Khách thăm</value>
+  </data>
+  <data name="VisitsByDateFormat" xml:space="preserve">
+    <value>Khách thăm - {0} - {1}</value>
+  </data>
+  <data name="VisitsFormat" xml:space="preserve">
+    <value>{0} khách thăm</value>
+  </data>
+  <data name="BasicStatsHeading" xml:space="preserve">
+    <value>Sử dụng trang</value>
+  </data>
+  <data name="ChartHeight" xml:space="preserve">
+    <value>Chiểu cao biểu đồ</value>
+  </data>
+  <data name="ChartWidth" xml:space="preserve">
+    <value>Chiều rộng biểu đồ</value>
+  </data>
+  <data name="CountryLabel" xml:space="preserve">
+    <value>Quốc gia</value>
+  </data>
+  <data name="OverrideChartTitle" xml:space="preserve">
+    <value>Ghi đè tiêu để biểu đồ</value>
+  </data>
+  <data name="PagesPerVisitLabel" xml:space="preserve">
+    <value>Số trang trên mỗi ghé thăm</value>
+  </data>
+  <data name="SeeAll" xml:space="preserve">
+    <value>Xem tất cả</value>
+  </data>
+  <data name="TopCountries" xml:space="preserve">
+    <value>Các nước hàng đầu</value>
+  </data>
+  <data name="TrafficChartFeatureName" xml:space="preserve">
+    <value>Biểu đồ phân tích lưu lượng trong trang</value>
+  </data>
+  <data name="VisitorDashboard" xml:space="preserve">
+    <value>Phân tích khách thăm</value>
+  </data>
+  <data name="VisitorMap" xml:space="preserve">
+    <value>Bản đồ khách thăm</value>
+  </data>
+  <data name="MaxRows" xml:space="preserve">
+    <value>Số dòng tối đa lấy về</value>
+  </data>
+  <data name="QueryEditor" xml:space="preserve">
+    <value>Trình soạn thảo truy vấn</value>
+  </data>
+  <data name="QueryTitle" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="Segment" xml:space="preserve">
+    <value>Phân đoạn</value>
+  </data>
+  <data name="StartIndex" xml:space="preserve">
+    <value>Chỉ số bắt đầu</value>
+  </data>
+  <data name="ApiQueryList" xml:space="preserve">
+    <value>Truy vấn API</value>
+  </data>
+  <data name="BeginDateOffset" xml:space="preserve">
+    <value>Chênh lệch từ ngày bắt đầu</value>
+  </data>
+  <data name="DateMode" xml:space="preserve">
+    <value>Chế độ ngày tháng</value>
+  </data>
+  <data name="DateModeOffsetFromNow" xml:space="preserve">
+    <value>Chênh lệch ngày từ hiện tại</value>
+  </data>
+  <data name="DateModeSpecific" xml:space="preserve">
+    <value>Sử dụng ngày đặc trưng</value>
+  </data>
+  <data name="EndDateOffset" xml:space="preserve">
+    <value>Chênh lệch từ ngày kết thúc</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Sửa</value>
+  </data>
+  <data name="NewQuery" xml:space="preserve">
+    <value>Truy vấn mới</value>
+  </data>
+  <data name="RunQuery" xml:space="preserve">
+    <value>Chạy truy vấn</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Mới</value>
+  </data>
+  <data name="Query" xml:space="preserve">
+    <value>Truy vấn</value>
+  </data>
+  <data name="QueryResultTitleFormat" xml:space="preserve">
+    <value>{0} {1} - {2}</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="SiteGuid" xml:space="preserve">
+    <value>Guid của trang</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Không xác định</value>
+  </data>
+  <data name="ReferringSiteLabel" xml:space="preserve">
+    <value>Trang tham khảo</value>
+  </data>
+  <data name="TopReferringSites" xml:space="preserve">
+    <value>Các trang tham khảo hàng đầu</value>
+  </data>
+  <data name="ContentAnalysis" xml:space="preserve">
+    <value>Phân tích nội dung</value>
+  </data>
+  <data name="Entrances" xml:space="preserve">
+    <value>Lối vào</value>
+  </data>
+  <data name="PagePath" xml:space="preserve">
+    <value>Đường dẫn trang</value>
+  </data>
+  <data name="SearchTerm" xml:space="preserve">
+    <value>Thuật ngữ tìm kiếm</value>
+  </data>
+  <data name="TopContent" xml:space="preserve">
+    <value>Nội dung hàng đầu</value>
+  </data>
+  <data name="TopExternalSearches" xml:space="preserve">
+    <value>Các tìm kiếm hàng đầu từ các máy tìm kiếm công cộng</value>
+  </data>
+  <data name="Exits" xml:space="preserve">
+    <value>Thoát</value>
+  </data>
+  <data name="Refinements" xml:space="preserve">
+    <value>Bộ lọc</value>
+  </data>
+  <data name="SearchDepth" xml:space="preserve">
+    <value>Độ sâu tìm kiếm</value>
+  </data>
+  <data name="TopSiteSearchTerms" xml:space="preserve">
+    <value>Các thuật ngữ tìm kiếm hàng đầu</value>
+  </data>
+  <data name="UniqueSearches" xml:space="preserve">
+    <value>Các tìm kiếm</value>
+  </data>
+  <data name="CountryAnalysis" xml:space="preserve">
+    <value>Phân tích quốc gia</value>
+  </data>
+  <data name="PageReport" xml:space="preserve">
+    <value>Báo cáo trang</value>
+  </data>
+  <data name="ReferringSites" xml:space="preserve">
+    <value>Các trang tham khảo</value>
+  </data>
+  <data name="SearchAnalysis" xml:space="preserve">
+    <value>Phân tích tìm kiếm</value>
+  </data>
+  <data name="SiteSearchAnalysis" xml:space="preserve">
+    <value>Phân tích tìm kiếm trang</value>
+  </data>
+  <data name="AllowedQueryEditRoles" xml:space="preserve">
+    <value>Các quyền cho phép sửa truy vấn API</value>
+  </data>
+  <data name="DataManager" xml:space="preserve">
+    <value>Quản lý dữ liệu</value>
+  </data>
+  <data name="DataSourceApi" xml:space="preserve">
+    <value>Dữ liệu API</value>
+  </data>
+  <data name="DataSourceDatabase" xml:space="preserve">
+    <value>Dữ liệu Cơ sở dữ liệu</value>
+  </data>
+  <data name="AllowResizingMap" xml:space="preserve">
+    <value>Cho phép thay đổi kích thước bản đồ?</value>
+  </data>
+  <data name="MapHeight" xml:space="preserve">
+    <value>Chiều cao bản đồ</value>
+  </data>
+  <data name="MapWidth" xml:space="preserve">
+    <value>Chiều rộng bản đồ</value>
+  </data>
+  <data name="QueryToolIntro" xml:space="preserve">
+    <value>Đây là một công cụ tiên tiến đòi hỏi phải có một số hiểu biết về API dữ liệu của Google Analytics.</value>
+  </data>
+  <data name="VisitorMapFeatureName" xml:space="preserve">
+    <value>Bản đồ khách thăm trong trang phân tích</value>
+  </data>
+  <data name="Caption" xml:space="preserve">
+    <value>Đầu đề</value>
+  </data>
+  <data name="CityStateCountryFormat" xml:space="preserve">
+    <value>{0}, {1} {2}</value>
+  </data>
+  <data name="CountryCityFormat" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="DataSource" xml:space="preserve">
+    <value>Nguồn dữ liệu</value>
+  </data>
+  <data name="DateOffset" xml:space="preserve">
+    <value>Khoảng ngày tháng</value>
+  </data>
+  <data name="LastOneYearBounces" xml:space="preserve">
+    <value>Trở lại - Năm ngoái</value>
+  </data>
+  <data name="LastOneYearNewVisits" xml:space="preserve">
+    <value>Ghé thăm mới - Năm ngoái</value>
+  </data>
+  <data name="LastOneYearPageViews" xml:space="preserve">
+    <value>Lượt xem - Năm ngoái</value>
+  </data>
+  <data name="LastOneYearVisits" xml:space="preserve">
+    <value>Ghé thăm - Năm ngoái</value>
+  </data>
+  <data name="LastSixMonthsBounces" xml:space="preserve">
+    <value>Trở lại - 6 tháng trước</value>
+  </data>
+  <data name="LastSixMonthsNewVisits" xml:space="preserve">
+    <value>Ghé thăm mới - 6 tháng trước</value>
+  </data>
+  <data name="LastSixMonthsPageViews" xml:space="preserve">
+    <value>Lượt xem - 6 tháng trước</value>
+  </data>
+  <data name="LastSixMonthsVisits" xml:space="preserve">
+    <value>Ghé thăm - 6 tháng trước</value>
+  </data>
+  <data name="LastTwoYearsBounces" xml:space="preserve">
+    <value>Trở lại - 2 năm trước</value>
+  </data>
+  <data name="LastTwoYearsNewVisits" xml:space="preserve">
+    <value>Ghé thăm mới - 2 năm trước</value>
+  </data>
+  <data name="LastTwoYearsPageViews" xml:space="preserve">
+    <value>Lượt xem - 2 năm trước</value>
+  </data>
+  <data name="LastTwoYearsVisits" xml:space="preserve">
+    <value>Ghé thăm - 6 năm trước</value>
+  </data>
+  <data name="OneYear" xml:space="preserve">
+    <value>1 năm</value>
+  </data>
+  <data name="SixMonths" xml:space="preserve">
+    <value>6 tháng</value>
+  </data>
+  <data name="TwoYears" xml:space="preserve">
+    <value>2 năm</value>
+  </data>
+  <data name="ShowCurrentMonth" xml:space="preserve">
+    <value>Hiện tháng hiện tại?</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hôm nay</value>
+  </data>
+  <data name="DataSyncButton" xml:space="preserve">
+    <value>Đồng bộ hóa dữ liệu từ API vào Cơ sở dữ liệu</value>
+  </data>
+  <data name="SyncBrowserDataFinished" xml:space="preserve">
+    <value>Hoàn thành xử lý dữ liệu trình duyệt/hệ điều hành</value>
+  </data>
+  <data name="SyncBrowserDataProcessingFormat" xml:space="preserve">
+    <value>Vòng lặp {0} - Xử lý dữ liệu trình duyệt/hệ điều hành {1} dòng đã được lấy về</value>
+  </data>
+  <data name="SyncBrowserDataSkippedRowsFormat" xml:space="preserve">
+    <value>Vòng lặp {0} - Xử lý dữ liệu trình duyệt/hệ điều hành {1} dòng đã bị bỏ qua</value>
+  </data>
+  <data name="SyncBrowserNoData" xml:space="preserve">
+    <value>Không nhận được dữ liệu nào về trình duyệt/hệ điều hành</value>
+  </data>
+  <data name="SyncExternalSearchFinished" xml:space="preserve">
+    <value>Hoàn thành xử lý dữ liệu tìm kiếm máy tìm kiếm</value>
+  </data>
+  <data name="SyncExternalSearchNoData" xml:space="preserve">
+    <value>Không nhận được dữ liệu nào về các tìm kiếm máy tìm kiếm</value>
+  </data>
+  <data name="SyncExternalSearchProcessingFormat" xml:space="preserve">
+    <value>Vòng lặp {0} - Đang xử lý dữ liệu tìm kiếm máy tìm kiếm {1} dòng đã được lấy về</value>
+  </data>
+  <data name="SyncExternalSearchSkippedRowsFormat" xml:space="preserve">
+    <value>Vòng lặp {0} - Đang xử lý dữ liệu tìm kiếm máy tìm kiếm {1} dòng đã bị bỏ qua</value>
+  </data>
+  <data name="SyncFinishedSegments" xml:space="preserve">
+    <value>Hoàn thành xử lý phân đoạn.</value>
+  </data>
+  <data name="SyncGeoDataFinished" xml:space="preserve">
+    <value>Hoàn thành xử lý dữ liệu địa lý</value>
+  </data>
+  <data name="SyncGeoDataNoData" xml:space="preserve">
+    <value>Không nhận được dữ liệu địa lý nào</value>
+  </data>
+  <data name="SyncGeoDataProcessingFormat" xml:space="preserve">
+    <value>Vòng lặp {0} - Đang xử lý dữ liệu địa lý {1} dòng đã được lấy về</value>
+  </data>
+  <data name="SyncGeoDataSkippedRowsFormat" xml:space="preserve">
+    <value>Vòng lặp {0} - Đang xử lý dữ liệu địa lý {1} dòng đã bị bỏ qua</value>
+  </data>
+  <data name="SyncGoalDataFinished" xml:space="preserve">
+    <value>Hoàn thành xử lý dữ liệu mục tiêu</value>
+  </data>
+  <data name="SyncGoalDataProcessing" xml:space="preserve">
+    <value>Đang xử lý dữ liệu mục tiêu</value>
+  </data>
+  <data name="SyncGoalDataStarted" xml:space="preserve">
+    <value>Bắt đầu xử lý dữ liệu mục tiêu</value>
+  </data>
+  <data name="SyncMediumFinished" xml:space="preserve">
+    <value>Hoàn thành xử lý dữ liệu nguồn/trung bình</value>
+  </data>
+  <data name="SyncMediumProcessingFormat" xml:space="preserve">
+    <value>Vòng lặp {0} - Đang xử lý dữ liệu nguồn/trung bình {1} dòng đã được lấy về</value>
+  </data>
+  <data name="SyncMediumSkippedRowsFormat" xml:space="preserve">
+    <value>Vòng lặp {0} - Đang xử lý dữ liệu nguồn/trung bình {1} dòng đã bị bỏ qua</value>
+  </data>
+  <data name="SyncNoDataForMedium" xml:space="preserve">
+    <value>Không nhận được dữ liệu trung bình nào</value>
+  </data>
+  <data name="SyncNoDataForReferringSites" xml:space="preserve">
+    <value>Không nhận được dữ liệu về các trang tham khảo</value>
+  </data>
+  <data name="SyncNoDatqaForSegmentFormat" xml:space="preserve">
+    <value>Không có dữ liệu trả về cho phân đoạn {0}</value>
+  </data>
+  <data name="SyncNullQuery" xml:space="preserve">
+    <value>Cố gắng để lấy dữ liệu phân tích nhưng không có kết quả truy vấn</value>
+  </data>
+  <data name="SyncPageDataFinished" xml:space="preserve">
+    <value>Hoàn thành xử lý dữ liệu trang</value>
+  </data>
+  <data name="SyncPageDataProcessingFormat" xml:space="preserve">
+    <value>Vòng lặp {0} - Đang xử lý dữ liệu trang {1} dòng đã được lấy về</value>
+  </data>
+  <data name="SyncPageDataSkippedRowsFormat" xml:space="preserve">
+    <value>Vòng lặp {0} - Đang xử lý dữ liệu trang {1} dòng đã bị bỏ qua</value>
+  </data>
+  <data name="SyncReferringSitesFinished" xml:space="preserve">
+    <value>Hoàn thành xử lý dữ liệu về các trang tham khảo</value>
+  </data>
+  <data name="SyncReferringSiteSkippedRowsFormat" xml:space="preserve">
+    <value>Vòng lặp {0} - Đang xử lý dữ liệu về các trang tham khảo {1} dòng đã bị bỏ qua</value>
+  </data>
+  <data name="SyncReferringSitesProcessingFormat" xml:space="preserve">
+    <value>Vòng lặp {0} - Đang xử lý dữ liệu về các trang tham khảo {1} dòng đã được lấy về</value>
+  </data>
+  <data name="SyncSegmentFinishedSegmentFormat" xml:space="preserve">
+    <value>Hoàn thành xử lý phân đoạn {0} sau {1} vòng lặp.</value>
+  </data>
+  <data name="SyncSegmentProcessingFormat" xml:space="preserve">
+    <value>Vòng lặp {0} - Đang xử lý {1} dòng nhận được cho phần đoạn có id là {2}</value>
+  </data>
+  <data name="SyncSegmentSkippedRowsFormat" xml:space="preserve">
+    <value>Bỏ qua {0} dòng dữ liệu đã tồn tại trong phân đoạn có ID là {1}</value>
+  </data>
+  <data name="SyncSiteSearchFinished" xml:space="preserve">
+    <value>Hoàn thành xử lý dữ liệu tìm kiếm trong trang</value>
+  </data>
+  <data name="SyncSiteSearchProcessing" xml:space="preserve">
+    <value>Đang xử lý dữ liệu tìm kiếm trong trang</value>
+  </data>
+  <data name="SyncSiteSearchStarted" xml:space="preserve">
+    <value>Bắt đầu xử lý dữ liệu tìm kiếm trong trang</value>
+  </data>
+  <data name="AnalyticsIsNotConfigured" xml:space="preserve">
+    <value>Tính năng này không được kích hoạt bởi vì các thiết lập phân tích chưa được cấu hình.</value>
+  </data>
+  <data name="InitialZoomSetting" xml:space="preserve">
+    <value>Kích cỡ gốc</value>
+  </data>
+  <data name="NoAccess" xml:space="preserve">
+    <value>Xin lỗi nhưng bạn không có quyền xem báo cáo lưu lượng truy cập.</value>
+  </data>
+</root>

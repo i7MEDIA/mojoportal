@@ -1,0 +1,82 @@
+/* ----------------------------------
+MojoPortal Admin Menu CSS
+For more information about Crystal Clear icons, http://commons.wikimedia.org/wiki/Category:Crystal_Clear_icons
+This css and few custom modified verasions of crystal icons were contributed by Steve Railsback of Colorado State U 2010-09-29
+To use this, add this to your style.config file:
+<file cssvpath="/Data/style/adminmenu/style.css" imagebasevpath="/Data/style/adminmenu/">none</file>
+------------------------------------- */
+
+/* Admin menu */
+div.adminmenu {  }
+div.adminmenu ul.simplelist { margin: 0 0 1em -20px; }
+div.adminmenu ul.simplelist li { float: left; display: block; background-image:none; }
+div.adminmenu ul.simplelist li  a {
+	line-height: 1rem;
+	display: block;
+	width: 7.5rem;
+	height: 7.5rem;
+	float: left;
+	padding: 4rem .5rem .5rem;
+	margin: .3rem;
+	text-decoration: none;
+	/* color: #666; */
+	/* border: 1px solid #ddd; */
+	text-align: center;
+}
+
+html[dir='rtl'] div.adminmenu ul li { float: right;}
+html[dir='rtl'] div.adminmenu ul li a { float: right; }
+
+
+div.adminmenu ul.simplelist li a:hover { color: #000; border: 1px solid #333; background-color: #eee; }
+
+a.lnkSiteSettings { background: url('Crystal_Clear_action_run.png') no-repeat center 10px; }
+
+
+a.lnkSecurityAdvisor, a.lnkSecurityAdvisorWarning {background: url('Crystal_Clear_app_agent.png') no-repeat center 10px; }
+
+
+a.lnkSecurityAdvisorWarning { color:Red !important; border-color:Red !important; }
+a.lnkSecurityAdvisorWarning:after { content: " Needs Attention! "; }
+span.secwarning { display: none; }
+
+
+a.lnkCommerceReports { background: url('Crystal_Clear_app_kchart.png') no-repeat center 10px;}
+a.lnkContentManager { background: url('Crystal_Clear_mimetype_document.png') no-repeat center 10px;}
+a.lnkContentWorkFlow { background: url('Crystal-Clear-content_workflow.png') no-repeat center 10px; }
+a.lnkContentTemplates { background: url('Crystal_Clear_app_kivio.png') no-repeat center 10px;}
+a.lnkStyleTemplates { background: url('Crystal-Clear-app-stylesheet.png') no-repeat center 10px;}
+a.lnkSiteList { background: url('folder_html.png') no-repeat center 10px;}
+a.lnkPageTree { background: url('Crystal-Clear-action-view-tree.png') no-repeat  center 10px;}
+a.lnkRoleAdmin { background: url('Crystal_Clear_users.png') no-repeat  center 10px;}
+a.lnkFileManager { background: url('Cystal_Clear_file_manager.png') no-repeat  center 10px;}
+a.lnkAddUser { background: url('Crystal_Clear_add_user.png') no-repeat  center 10px;}
+a.lnkCoreData { background: url('Crystal_Clear_app_database.png') no-repeat  center 10px;}
+a.lnkAdvancedTools { background: url('Crystal-Clear-action-configure.png') no-repeat  center 10px;}
+a.lnkLogViewer { background: url('Crystal-Clear-mimetype-vcalendar.png') no-repeat  center 10px;}
+a.lnkServerInfo { background: url('Crystal-Clear-app-ksysguard.png') no-repeat  center 10px;}
+a.lnkNewsletter { background: url('Crystal-Clear-app-kontact.png') no-repeat  center 10px;}
+a.lnkMemberList { background: url('Crystal-Clear-kuser2.png') no-repeat  center 10px;}
+a.lnkCurrencyAdmin { background: url('Crystal-Clear-currency.png') no-repeat  center 10px;}
+a.lnkCountryAdmin { background: url('Crystal-Clear-app-locale.png') no-repeat  center 10px;}
+a.lnkGeoZone { background: url('Crystal-Clear-app-browser.png') no-repeat  center 10px;}
+a.lnkTaxClassAdmin { background: url('Crystal-Clear-app-kspread.png') no-repeat  center 10px;}
+a.lnkTaxRateAdmin { background: url('Crystal-Clear-tax.png') no-repeat  center 10px;}
+a.lnkUrlManager { background: url('Crystal-Clear-url.png') no-repeat  center 10px;}
+a.lnkRedirectManager { background: url('Crystal-Clear-redirect.png') no-repeat  center 10px;}
+a.lnkBannedIPs { background: url('Crystal-Clear_banned_ip.png') no-repeat  center 10px;}
+a.lnkFeatureAdmin { background: url('Crystal-Clear-app-kpackage.png') no-repeat  center 10px;}
+a.lnkTaskQueue { background: url('Crystal_Clear_action_editpaste.png') no-repeat  center 10px;}
+a.lnkWebPartAdmin { background: url('Crystal_Clear_Networksettings.png') no-repeat  center 10px;}
+a.lnkAwaitingApproval { background: url('Crystal_Clear_waiting_approval.png') no-repeat  center 10px;}
+a.lnkRejectedContent { background: url('Crystal_Clear_rejected_content.png') no-repeat  center 10px;}
+a.lnkPendingPages { background: url('FileCrystal-Clear-draft_pages.png') no-repeat  center 10px;}
+a.AnalyticsMenuLink { background: url('Crystal-Clear-app-browser.png') no-repeat  center 10px; }
+a.lnkDevTools  { background: url('devtools.png') no-repeat  center 10px; }
+a.lnkDesignTools  { background: url('designtools.png') no-repeat  center 10px; }
+a.lnkRegistrationAgreement, a.lnkLoginInfo  { background: url('RegAgreement.png') no-repeat  center 10px; }
+a.lnkPermissionAdmin { background: url('permissions.png') no-repeat  center 10px; }
+a.lnkSkinList { background: url('skin.png') no-repeat center 10px; }
+a.lnkCacheTool { background: url('cache.png') no-repeat center 10px; }
+
+

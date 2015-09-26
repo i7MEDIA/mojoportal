@@ -1,0 +1,52 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="~/App_MasterPages/layout.Master.cs"
+    Inherits="mojoPortal.Features.UI.layout" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>
+        <portal:PageTitle ID="PageTitle1" runat="server" />
+    </title>
+    <portal:StyleSheet ID="StyleSheet" runat="server" />
+    <portal:MetaContent ID="MetaContent" runat="server" />
+    <portal:Favicon ID="Favicon1" runat="server" />
+</head>
+<body>
+    <form id="frmMain" runat="server">
+    <asp:SiteMapDataSource ID="SiteMapData" runat="server" ShowStartingNode="false" EnableViewState="false" />
+    <div id="wrapwebsite">
+        <div id="wrapheader">
+            <div id="logodesc">
+                <span class="logobox">
+                    <portal:SiteLogo ID="SiteLogo" runat="server"></portal:SiteLogo>
+                </span>
+                <div class="sitetitle">
+                    <portal:SiteTitle ID="SiteTitle" runat="server"></portal:SiteTitle>
+                    <portal:SkipLink ID="SkipLink1" runat="server" />
+                </div>
+            </div>
+            <div class="topnav">
+                <asp:ContentPlaceHolder ID="pageEditContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div id="wrapcentre">
+            <asp:Panel ID="divLeft" runat="server" CssClass="leftside" Visible="True">
+                <br />
+                <a id="startcontent"></a>
+                <asp:ContentPlaceHolder ID="leftContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </asp:Panel>
+            <asp:Panel ID="divCenter" runat="server" Visible="True" CssClass="center">
+                <asp:ContentPlaceHolder ID="mainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </asp:Panel>
+            <asp:Panel ID="divRight" runat="server" Visible="True" CssClass="rightside">
+                <asp:ContentPlaceHolder ID="rightContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </asp:Panel>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

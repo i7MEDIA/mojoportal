@@ -1,0 +1,155 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6DDFE292-37AA-4A02-B2F0-BA7968A026EF}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>mojoPortal.Data</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>mojoPortal.Data</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>..\Documents\xml\mojoPortal.Data.XML</DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DBAuthorizeNetLog.cs" />
+    <Compile Include="dbBannedIP.cs" />
+    <Compile Include="DBCommerceReport.cs" />
+    <Compile Include="DBContentHistory.cs" />
+    <Compile Include="DBContentRating.cs" />
+    <Compile Include="DBContentStyle.cs" />
+    <Compile Include="DBContentTemplate.cs" />
+    <Compile Include="DBContentWorkflow.cs" />
+    <Compile Include="DBCurrency.cs" />
+    <Compile Include="DBEmailSendLog.cs" />
+    <Compile Include="DBEmailSendQueue.cs" />
+    <Compile Include="DBEmailTemplate.cs" />
+    <Compile Include="DBFileAttachment.cs" />
+    <Compile Include="dbFriendlyUrl.cs" />
+    <Compile Include="DBGeoCountry.cs" />
+    <Compile Include="DBGeoZone.cs" />
+    <Compile Include="DBGoogleCheckoutLog.cs" />
+    <Compile Include="dbHtmlContent.cs" />
+    <Compile Include="DBIndexingQueue.cs" />
+    <Compile Include="DBLanguage.cs" />
+    <Compile Include="DBLetter.cs" />
+    <Compile Include="DBLetterHtmlTemplate.cs" />
+    <Compile Include="DBLetterInfo.cs" />
+    <Compile Include="DBLetterSendLog.cs" />
+    <Compile Include="DBLetterSubscriber.cs" />
+    <Compile Include="dbModule.cs" />
+    <Compile Include="dbModuleDefinition.cs" />
+    <Compile Include="dbModuleSettings.cs" />
+    <Compile Include="dbPageSettings.cs" />
+    <Compile Include="DBPayPalLog.cs" />
+    <Compile Include="DBPlugNPayLog.cs" />
+    <Compile Include="dbPortal.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DBRedirectList.cs" />
+    <Compile Include="dbRoles.cs" />
+    <Compile Include="dbSiteFolder.cs" />
+    <Compile Include="dbSitePersonalization.cs" />
+    <Compile Include="dbSiteSettings.cs" />
+    <Compile Include="DBSiteSettingsEx.cs" />
+    <Compile Include="dbSiteUser.cs" />
+    <Compile Include="DBTaskQueue.cs" />
+    <Compile Include="DBTaxClass.cs" />
+    <Compile Include="DBTaxRate.cs" />
+    <Compile Include="DBUserLocation.cs" />
+    <Compile Include="dbUserPage.cs" />
+    <Compile Include="dbWebPartContent.cs" />
+    <Compile Include="SQLHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SQLParameterHelper.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

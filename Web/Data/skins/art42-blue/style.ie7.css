@@ -1,0 +1,141 @@
+/* Created by Artisteer v4.2.0.60623 */
+
+.art-header, #art-header-bg, .art-layout-cell, .art-layout-wrapper, .art-footer, .art-nav, #art-hmenu-bg, .art-sheet,
+.clearfix {
+   zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).className="cleared");
+}
+
+.art-textblock > div {
+   display: block;
+   line-height: normal;
+   zoom: 1;
+}
+
+.art-header
+{
+   z-index: 1;
+   background-image: [headerimage];
+   background-position: [headerposition];
+}
+
+#art-header-bg 
+{
+   display: none;
+}
+
+.art-hmenu>li, .art-hmenu>li>a
+{
+   display: inline !important;
+   zoom: 1;
+   float: none !important;
+   vertical-align: top;
+}
+ul.art-hmenu, ul.art-hmenu ul {
+   zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).className="cleared");
+}
+#art-hmenu-bg 
+{
+   display: none;
+}
+
+ul.art-hmenu>li:first-child {
+   padding-right:1px;
+}
+ul.art-hmenu>li{
+   zoom:expression(runtimeStyle.zoom=1,insertBefore(document.createElement('span'),firstChild).className='art-hmenu-separator');
+}
+ul.art-hmenu>li>span.art-hmenu-separator
+{
+   position:absolute;
+   display: block;
+   top:0;
+   left:  -1px;
+   width: 1px;
+   height: 48px;
+   background: url('images/menuseparator.png') center center no-repeat;
+}
+ul.art-hmenu>li:first-child>span.art-hmenu-separator
+{
+   display:none;
+}
+
+ul.art-hmenu ul, .desktop-nav ul.art-hmenu>li.ext:hover>a{
+   background-color: #B2D3E1 !important;
+}
+
+.art-content-layout, .art-content-layout-row, .art-layout-cell 
+{
+   display: block;
+   zoom: 1;
+}
+.art-layout-cell
+{
+   position:relative;
+   float: left;
+   clear: right;
+}
+
+ul.art-vmenu, ul.art-vmenu ul, ul.art-vmenu li{
+   zoom: 1;
+}
+
+ul.art-vmenu ul 
+{
+   background-color: transparent;
+}
+
+input[type="text"]
+{
+   margin:0 0 0 -3px;
+   zoom:expression(runtimeStyle.zoom = 1, parentNode.insertBefore(document.createElement('div'), this).appendChild(this));
+}
+
+* html input[type="text"]
+{
+   margin :0;
+}
+
+form.art-search>input[type="text"]
+{
+   margin:0 0 0 -3px;
+   zoom:expression(runtimeStyle.zoom = 1, parentNode.insertBefore(document.createElement('div'), this).appendChild(this));
+}
+
+form.art-search div>input[type="text"]
+{
+   width: 100%;
+}
+
+* html form.art-search>input[type="text"] 
+{
+   margin :0;
+}
+
+form.art-search
+{
+   zoom: 1;
+}
+.art-postmetadataheader{
+   zoom:1;
+}
+
+.art-postheadericons span{
+   zoom: 1;
+}
+.art-postcontent {
+   height: 1%;
+}
+
+.close-alt, .arrow-right-alt, .arrow-left-alt {
+   display: block !important;
+}
+.cw, .ccw {
+   display: none !important;
+}
+
+.art-sidebar2 
+{
+   width: auto;
+   float:none;
+}
+

@@ -1,0 +1,520 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewButton" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="Address1Required" xml:space="preserve">
+    <value>Adres 1 is verplicht.</value>
+  </data>
+  <data name="AddressLine1" xml:space="preserve">
+    <value>Adres 1</value>
+  </data>
+  <data name="AddressLine2" xml:space="preserve">
+    <value>Adres 2</value>
+  </data>
+  <data name="AdministrationHeading" xml:space="preserve">
+    <value>Facturen</value>
+  </data>
+  <data name="AdministrationLink" xml:space="preserve">
+    <value>Beheer menu</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>Alle facturen</value>
+  </data>
+  <data name="AmountHeading" xml:space="preserve">
+    <value>Bedrag</value>
+  </data>
+  <data name="AttachmentsTab" xml:space="preserve">
+    <value>Bijlage(n)</value>
+  </data>
+  <data name="BillingHeader" xml:space="preserve">
+    <value>Factuurgegevens</value>
+  </data>
+  <data name="BillingInfoHeader" xml:space="preserve">
+    <value>Factuur adres</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleer</value>
+  </data>
+  <data name="CardExpiresLabel" xml:space="preserve">
+    <value>Vervalt</value>
+  </data>
+  <data name="CardNumberLabel" xml:space="preserve">
+    <value>Kaart nummer</value>
+  </data>
+  <data name="CardOwnerFirstNameLabel" xml:space="preserve">
+    <value>Kaarthouder Voornaam</value>
+  </data>
+  <data name="CardOwnerLastNameLabel" xml:space="preserve">
+    <value>Kaarthouder Achternaam</value>
+  </data>
+  <data name="CardTypeLabel" xml:space="preserve">
+    <value>Kaart Type</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Stad</value>
+  </data>
+  <data name="CityRequired" xml:space="preserve">
+    <value>Stad is verplicht.</value>
+  </data>
+  <data name="ClearUserButton" xml:space="preserve">
+    <value>Wis gebruiker</value>
+  </data>
+  <data name="CloseDialogButton" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Bedrijf</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Doorgaan</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="CustomerEmailLabel" xml:space="preserve">
+    <value>Klant Email</value>
+  </data>
+  <data name="CustomerEmailRequired" xml:space="preserve">
+    <value>Klant E-mail is verplicht</value>
+  </data>
+  <data name="CustomerHeading" xml:space="preserve">
+    <value>Klant</value>
+  </data>
+  <data name="DatePaid" xml:space="preserve">
+    <value>Datum Betaald</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="DeleteInvoiceWarning" xml:space="preserve">
+    <value>Weet u zeker dat u deze factuur wilt verwijderen? Het zal permanent worden verwijderd als u doorgaat.</value>
+  </data>
+  <data name="DeleteProductWarning" xml:space="preserve">
+    <value>Weet je zeker dat u dit product wilt verwijderen?</value>
+  </data>
+  <data name="DemoEmailMessage" xml:space="preserve">
+    <value>THIS INVOICE IS SENT FROM A DEMO SITE FOR WEB INVOICE PRO, THIS IS ONLY A TEST, IT IS NOT A REAL INVOICE AND NO PAYMENT IS EXPECTED</value>
+  </data>
+  <data name="DemoReceiptMessage" xml:space="preserve">
+    <value>THIS INVOICE RECEIPT IS SENT FROM A DEMO SITE FOR WEB INVOICE PRO, THIS IS ONLY A TEST.</value>
+  </data>
+  <data name="DownloadLink" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="DueDateHeading" xml:space="preserve">
+    <value>Vervaldatum</value>
+  </data>
+  <data name="DuplicateInvoiceNumberError" xml:space="preserve">
+    <value>Er bestaal al een factuur met dit nummer.</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Bewerk</value>
+  </data>
+  <data name="EditInvoicePage" xml:space="preserve">
+    <value>Bewerk Factuur</value>
+  </data>
+  <data name="EmailBodyRequired" xml:space="preserve">
+    <value>U moet een e-mailbericht invoeren.</value>
+  </data>
+  <data name="EmailFromSetting" xml:space="preserve">
+    <value>Email From Address</value>
+  </data>
+  <data name="EmailNotValidWarning" xml:space="preserve">
+    <value>U moet een geldig e-mailadres invoeren.</value>
+  </data>
+  <data name="EmailSubject" xml:space="preserve">
+    <value>Email onderwerp</value>
+  </data>
+  <data name="EmailSubjectRequired" xml:space="preserve">
+    <value>Email onderwerp is verplicht.</value>
+  </data>
+  <data name="EmailTab" xml:space="preserve">
+    <value>Email bericht</value>
+  </data>
+  <data name="FileHeader" xml:space="preserve">
+    <value>Bestand</value>
+  </data>
+  <data name="FileUploadLabel" xml:space="preserve">
+    <value>Bestand Upload</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Voornaam</value>
+  </data>
+  <data name="FirstNameRequired" xml:space="preserve">
+    <value>Voornaam is verplicht.</value>
+  </data>
+  <data name="InvalidCustomerEmailWarning" xml:space="preserve">
+    <value>Invalid Customer Email.</value>
+  </data>
+  <data name="InvalidInvoiceAmountWarning" xml:space="preserve">
+    <value>Invalid Invoice Amount.</value>
+  </data>
+  <data name="InvalidInvoiceDateWarning" xml:space="preserve">
+    <value>Invalid Invoice Date.</value>
+  </data>
+  <data name="InvalidInvoiceDueDateWarning" xml:space="preserve">
+    <value>Invalid Invoice Due Date.</value>
+  </data>
+  <data name="InvalidPreviewAddress" xml:space="preserve">
+    <value>Preview email address is not valid.</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Factuur</value>
+  </data>
+  <data name="InvoiceAmountLabel" xml:space="preserve">
+    <value>Factuur bedrag</value>
+  </data>
+  <data name="InvoiceAmountMustBeGreaterThanZero" xml:space="preserve">
+    <value>Factuur bedrag moet groter zijn dan 0.</value>
+  </data>
+  <data name="InvoiceAmountRequired" xml:space="preserve">
+    <value>Factuur bedrag is verplicht.</value>
+  </data>
+  <data name="InvoiceDateHeading" xml:space="preserve">
+    <value>Factuur datum</value>
+  </data>
+  <data name="InvoiceDateLabel" xml:space="preserve">
+    <value>Factuur datum</value>
+  </data>
+  <data name="InvoiceDateRequired" xml:space="preserve">
+    <value>Factuur datum is verplicht.</value>
+  </data>
+  <data name="InvoiceDueDateLabel" xml:space="preserve">
+    <value>Factuur vervaldatum</value>
+  </data>
+  <data name="InvoiceDueDateRequired" xml:space="preserve">
+    <value>Factuur vervaldatum is verplicht.</value>
+  </data>
+  <data name="InvoiceEmailSubjectFormat" xml:space="preserve">
+    <value>Factuur {0}</value>
+  </data>
+  <data name="InvoiceFoundFormat" xml:space="preserve">
+    <value>Factuur {0} - {1}</value>
+  </data>
+  <data name="InvoiceHeadingFormat" xml:space="preserve">
+    <value>Factuur {0}</value>
+  </data>
+  <data name="InvoiceLookup" xml:space="preserve">
+    <value>Factuur opzoeken</value>
+  </data>
+  <data name="InvoiceLookupButton" xml:space="preserve">
+    <value>Opzoeken factuur</value>
+  </data>
+  <data name="InvoiceNumberHeading" xml:space="preserve">
+    <value>Factuurnummer</value>
+  </data>
+  <data name="InvoiceNumberLabel" xml:space="preserve">
+    <value>Factuurnummer</value>
+  </data>
+  <data name="InvoiceNumberRequired" xml:space="preserve">
+    <value>Factuurnummer is verplicht.</value>
+  </data>
+  <data name="InvoiceNumberSeed" xml:space="preserve">
+    <value>Factuurnummer start</value>
+  </data>
+  <data name="InvoicePaidMessage" xml:space="preserve">
+    <value>Deze factuur is betaald.</value>
+  </data>
+  <data name="InvoicePrefixSetting" xml:space="preserve">
+    <value>Factuur Prefix</value>
+  </data>
+  <data name="InvoiceSendCount" xml:space="preserve">
+    <value>Aantal Verstuurd</value>
+  </data>
+  <data name="InvoiceTab" xml:space="preserve">
+    <value>Factuur</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Achternaam</value>
+  </data>
+  <data name="LastNameRequired" xml:space="preserve">
+    <value>Achternaam is verplicht.</value>
+  </data>
+  <data name="LiteralOr" xml:space="preserve">
+    <value>Of</value>
+  </data>
+  <data name="LookupUser" xml:space="preserve">
+    <value>Opzoeken gebruiker</value>
+  </data>
+  <data name="MakePaymentButton" xml:space="preserve">
+    <value>Betalen</value>
+  </data>
+  <data name="ManageProducts" xml:space="preserve">
+    <value>Beheer Producten</value>
+  </data>
+  <data name="NewInvoiceHeading" xml:space="preserve">
+    <value>Nieuwe Factuur</value>
+  </data>
+  <data name="NewInvoiceLink" xml:space="preserve">
+    <value>Nieuwe Factuur</value>
+  </data>
+  <data name="NotificationEmailSetting" xml:space="preserve">
+    <value>Notification Email</value>
+  </data>
+  <data name="OpenInvoices" xml:space="preserve">
+    <value>Openstaande facturen</value>
+  </data>
+  <data name="OptionalEmailTokens" xml:space="preserve">
+    <value>Optionele Email Tokens</value>
+  </data>
+  <data name="PaidInvoices" xml:space="preserve">
+    <value>Betaalde Facturen</value>
+  </data>
+  <data name="PastDueInvoices" xml:space="preserve">
+    <value>Past Due Invoices</value>
+  </data>
+  <data name="PayInvoiceHeader" xml:space="preserve">
+    <value>Pay Invoice</value>
+  </data>
+  <data name="PayInvoiceLink" xml:space="preserve">
+    <value>Pay Invoice</value>
+  </data>
+  <data name="PaymentGatewayCouldNotConnectMessage" xml:space="preserve">
+    <value>Kan geen verbinding maken met het betalingsportaal.</value>
+  </data>
+  <data name="PaymentGatewayNotConfiguredForDirectCardProcessing" xml:space="preserve">
+    <value>Er is geen betalingsportaal geconfigureerd voor het verwerken van creditcards.</value>
+  </data>
+  <data name="PaymentLog" xml:space="preserve">
+    <value>Betalingen Logboek</value>
+  </data>
+  <data name="PaymentMethod" xml:space="preserve">
+    <value>Betaalwijze</value>
+  </data>
+  <data name="PaymentUrlTokenMissingWarning" xml:space="preserve">
+    <value>Verplicht token voor de betaal url ontbreekt in de e-mail.</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Telefoon</value>
+  </data>
+  <data name="PhoneRequired" xml:space="preserve">
+    <value>Telefoon is verplicht</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>Postcode</value>
+  </data>
+  <data name="PostalCodeRequired" xml:space="preserve">
+    <value>Postcode is verplicht</value>
+  </data>
+  <data name="PreviewWarning" xml:space="preserve">
+    <value>DIT IS EEN VOORBEELD. ALLEEN VERSTUURD ALS TEST.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Productnaam</value>
+  </data>
+  <data name="ProductNameRequired" xml:space="preserve">
+    <value>Productnaam is verplicht.</value>
+  </data>
+  <data name="RebuildReports" xml:space="preserve">
+    <value>Herbouwen Rapporten</value>
+  </data>
+  <data name="ReportsLink" xml:space="preserve">
+    <value>Rapporten</value>
+  </data>
+  <data name="RequiredEmailTokens" xml:space="preserve">
+    <value>Verplichte Email Tokens</value>
+  </data>
+  <data name="ReviewInvoice" xml:space="preserve">
+    <value>Controleer Factuur</value>
+  </data>
+  <data name="SaveInvoiceButton" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Zoek</value>
+  </data>
+  <data name="SecurityCodeLabel" xml:space="preserve">
+    <value>Beveiligscode</value>
+  </data>
+  <data name="SendInvoiceButton" xml:space="preserve">
+    <value>Verstuur</value>
+  </data>
+  <data name="SendInvoiceConfirmPrompt" xml:space="preserve">
+    <value>Weet u zeker dat u deze factuur wilt verzenden?</value>
+  </data>
+  <data name="SendPreview" xml:space="preserve">
+    <value>Voorbeeld versturen</value>
+  </data>
+  <data name="SiteUser" xml:space="preserve">
+    <value>Gebruiker</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Staat</value>
+  </data>
+  <data name="Suburb" xml:space="preserve">
+    <value>Buitenwijk</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Bedankt</value>
+  </data>
+  <data name="TransactionDeclinedMessage" xml:space="preserve">
+    <value>Sorry, order is niet geaccepteerd. Zorg ervoor dat u juiste informatie heeft ingevoerd bij de betalingsgegevens.</value>
+  </data>
+  <data name="TransactionErrorMessage" xml:space="preserve">
+    <value>Sorry, de transactie kon niet worden voltooid. Er is een fout opgetreden en is geregistreerd.</value>
+  </data>
+  <data name="TransactionNotInitiatedMessage" xml:space="preserve">
+    <value>Geen transactie gestart.</value>
+  </data>
+  <data name="UdpaidInvoiceNotFoundMessage" xml:space="preserve">
+    <value>Geen bijbehorende onbetaalde factuur gevonden.</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Wijzig</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="WebInvoiceFeatureName" xml:space="preserve">
+    <value>Web Invoice Pro</value>
+  </data>
+  <data name="WebInvoiceNotSignedInWarning" xml:space="preserve">
+    <value>U kunt uw factuur betalen, zonder in te loggen. Factuur details zijn echter alleen te zien na inloggen.
+U heeft ook een gedetailleerde factuur per e-mail ontvangen. Na inloggen is tevens ook de factuur geschiedenis zichtbaar.</value>
+  </data>
+  <data name="WebInvoiceProPamentReceivedEmailSubjectFormat" xml:space="preserve">
+    <value>Betaling ontvangen voor factuur: {0}</value>
+  </data>
+  <data name="WebInvoiceProPaymentReceivedEmailTextBodyFormat" xml:space="preserve">
+    <value>Dank u,  wij hebben uw betaling van {0} voor Factuur {1} ontvangen.</value>
+  </data>
+  <data name="WebInvoiceProReviewLinkFormat" xml:space="preserve">
+    <value>U kunt deze factuur hier {0} bekijken</value>
+  </data>
+  <data name="YourOpenInvoices" xml:space="preserve">
+    <value>Uw openstaande facturen</value>
+  </data>
+  <data name="CancelInvoice" xml:space="preserve">
+    <value>Annuleer Factuur</value>
+  </data>
+  <data name="InvoiceCancelledMessage" xml:space="preserve">
+    <value>Deze factuur is geannuleerd.</value>
+  </data>
+  <data name="MarkAsPaidButton" xml:space="preserve">
+    <value>Markeren als Betaald</value>
+  </data>
+  <data name="SendConfirmationEmail" xml:space="preserve">
+    <value>Versturen bevestigingsmail?</value>
+  </data>
+  <data name="UnCancelInvoice" xml:space="preserve">
+    <value>Factuur heractiveren</value>
+  </data>
+</root>

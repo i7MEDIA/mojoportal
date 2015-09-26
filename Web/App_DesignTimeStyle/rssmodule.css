@@ -1,0 +1,16 @@
+.rsswrapper {   }
+.rssnavleft {float: left; width: 235px; padding: 5px 5px 30px 5px; margin: 0px 0px 0px 0px;   }
+.rssnavright {float: right; width: 235px;  padding: 5px 5px 30px 5px; margin: 0px 0px 0px 0px;  }
+.rsscenter-nonav {margin: 0px 0px 0px 0px; padding: 5px 0px 0px 5px; font-size: 105%;  }
+.rsscenter-leftnav {margin: 0px 0px 0px 245px; padding: 5px 0px 0px 5px; font-size: 105%;   }
+.rsscenter-rightnav {margin:0px 245px 0px 0px; padding: 5px 0px 0px 5px; font-size: 105%;   }
+.rsstitle { margin: 5px 0px 0px 0px;  font-weight: bold;   }
+div.rsstitle h2 { font-family: arial, sans-serif;font-size: 140%;font-weight: normal; }
+.rssdate {  padding: 0px 5px 0px 0px; text-align:right;    }
+.rsstext {   }
+.rssauthor {  padding: 0px 0px 5px 5px; font-family: Trebuchet MS;  border-bottom: solid 1px #ccc;   }
+.FeedHead {  border-bottom-color: #CAB693; border-bottom-style: solid;
+	border-bottom-width: 1px; padding: 0.5em; }
+.FeedBody {  border-color: #CAB693; border-style: solid; border-width: 1px;
+	border-top-width: 0px; padding-left: 0.5em; padding-right: 0.5em; }
+	

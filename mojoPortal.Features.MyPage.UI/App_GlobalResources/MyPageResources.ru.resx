@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdminMenuLink" xml:space="preserve">
+    <value>Меню Администрирования</value>
+  </data>
+  <data name="AdminMenuWebPartAdminLink" xml:space="preserve">
+    <value>Установка веб-частей</value>
+  </data>
+  <data name="AdvancedToolsLink" xml:space="preserve">
+    <value>Дополнительные инструменты</value>
+  </data>
+  <data name="MetaDescriptionMyPageFormat" xml:space="preserve">
+    <value>Изменяемая личная страница портала для участников {0}.</value>
+  </data>
+  <data name="ModuleSettingsNoIconLabel" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="mojoUserCatalogPartTitle" xml:space="preserve">
+    <value>Доступное Содержание</value>
+  </data>
+  <data name="MyPageAddContentLabel" xml:space="preserve">
+    <value>Добавить Содержание</value>
+  </data>
+  <data name="MyPageAnonymousMessage" xml:space="preserve">
+    <value>Если вы войдете в систему вы сможете настроить эту страницу.</value>
+  </data>
+  <data name="MyPageCancelNewPageButton" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="MyPageCancelRenamePageButton" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="MyPageCenterLabel" xml:space="preserve">
+    <value>Центр</value>
+  </data>
+  <data name="MyPageChangeNameText" xml:space="preserve">
+    <value>Изменить имя</value>
+  </data>
+  <data name="MyPageDefaultUserPageName" xml:space="preserve">
+    <value>Здравствуйте</value>
+  </data>
+  <data name="MyPageDeleteWarning" xml:space="preserve">
+    <value>Вы действительно хотите удалить этот контент?</value>
+  </data>
+  <data name="MyPageLeftSideLabel" xml:space="preserve">
+    <value>Левая сторона</value>
+  </data>
+  <data name="MyPageLink" xml:space="preserve">
+    <value>Моя страница</value>
+  </data>
+  <data name="MyPageMoveLeftText" xml:space="preserve">
+    <value>Переместить влево</value>
+  </data>
+  <data name="MyPageMoveRightText" xml:space="preserve">
+    <value>Переместить вправо</value>
+  </data>
+  <data name="MyPageNewPageButton" xml:space="preserve">
+    <value>Добавить стр.</value>
+  </data>
+  <data name="MyPageRemoveText" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="MyPageRenamePageButton" xml:space="preserve">
+    <value>Изменить имя</value>
+  </data>
+  <data name="MyPageRightSideLabel" xml:space="preserve">
+    <value>Правая Сторона</value>
+  </data>
+  <data name="MyPageSkinLabel" xml:space="preserve">
+    <value>Скин личной страницы</value>
+  </data>
+  <data name="MyPageToggleScopeLabel" xml:space="preserve">
+    <value>Переключить рамки</value>
+  </data>
+  <data name="WebPartAddVerbDescription" xml:space="preserve">
+    <value>Добавляет содержимое в выбранный столбец</value>
+  </data>
+  <data name="WebPartAddVerbText" xml:space="preserve">
+    <value>Новое</value>
+    <comment>Добавить is more correct but it is too long. Word which i used is understandable.</comment>
+  </data>
+  <data name="WebPartAdminAllWebParts" xml:space="preserve">
+    <value>Все веб-части</value>
+  </data>
+  <data name="WebPartAdminEditButton" xml:space="preserve">
+    <value>Установить</value>
+  </data>
+  <data name="WebPartAdminMediumTrustMessage" xml:space="preserve">
+    <value>К сожалению, этот сайт, как представляется, работает в среде среднего безопасности. Загрузка библиотек сторонних производителей не поддерживается на среднем уровне доверия. Вы все еще можете использовать все встроенные функции, как веб-части, но вы не можете загрузить веб-части непосредственно из сборок в этой среде. Дополнительные сведения см. в http://www.mojoportal.com/mediumtrust.aspx </value>
+  </data>
+  <data name="WebPartAdminSelectedWebParts" xml:space="preserve">
+    <value>Выбранные веб-части</value>
+  </data>
+  <data name="WebPartAdminUpdateButton" xml:space="preserve">
+    <value>Устанавливать</value>
+  </data>
+  <data name="WebPartAllInstalledMessage" xml:space="preserve">
+    <value>Все доступные веб-части установлены. Чтобы добавить новые веб-части, поместите длл в папку бин.</value>
+  </data>
+  <data name="WebPartAllowMultipleInstancesOnMyPageLabel" xml:space="preserve">
+    <value>Разрешить несколько экземпляров на моей странице?</value>
+  </data>
+  <data name="WebPartAppearanceEditorTitle" xml:space="preserve">
+    <value>Внешний вид</value>
+  </data>
+  <data name="WebPartAssemblyNameLabel" xml:space="preserve">
+    <value>Имя сборки</value>
+  </data>
+  <data name="WebPartAvailableForContentSystemLabel" xml:space="preserve">
+    <value>Доступно для системы содержания </value>
+  </data>
+  <data name="WebPartAvailableForMyPageLabel" xml:space="preserve">
+    <value>Доступен на личной странице?</value>
+  </data>
+  <data name="WebPartAvailableNameLabel" xml:space="preserve">
+    <value>Веб-части, доступные для установки</value>
+  </data>
+  <data name="WebPartBehaviorEditorTitle" xml:space="preserve">
+    <value>Поведение</value>
+  </data>
+  <data name="WebPartCatalogMoreLink" xml:space="preserve">
+    <value>ещё...</value>
+  </data>
+  <data name="WebPartClassNameLabel" xml:space="preserve">
+    <value>Имя класса</value>
+  </data>
+  <data name="WebPartCloseVerbDescription" xml:space="preserve">
+    <value>Закрыть этот контент</value>
+  </data>
+  <data name="WebPartCloseVerbText" xml:space="preserve">
+    <value>закрыть</value>
+  </data>
+  <data name="WebPartDeleteVerbDescription" xml:space="preserve">
+    <value>Удалить это содержание</value>
+  </data>
+  <data name="WebPartDeleteVerbText" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="WebPartDescriptionLabel" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="WebPartEditCancelButton" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="WebPartEditDeleteButton" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="WebPartEditDeleteWarning" xml:space="preserve">
+    <value>Вы действительно хотите удалить эту веб-часть?</value>
+  </data>
+  <data name="WebPartEditLabel" xml:space="preserve">
+    <value>Редактирование веб-части</value>
+  </data>
+  <data name="WebPartEditorApplyVerbDescription" xml:space="preserve">
+    <value>Применяет изменения</value>
+  </data>
+  <data name="WebPartEditorApplyVerbText" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="WebPartEditorCancelVerbDescription" xml:space="preserve">
+    <value>Отменяет изменения и закрывает редактор.</value>
+  </data>
+  <data name="WebPartEditorCancelVerbText" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="WebPartEditorHeaderCloseVerbDescription" xml:space="preserve">
+    <value>Закрывает редактор</value>
+  </data>
+  <data name="WebPartEditorHeaderCloseVerbText" xml:space="preserve">
+    <value>закрыть</value>
+  </data>
+  <data name="WebPartEditorHeaderText" xml:space="preserve">
+    <value>Редактор Веб-частей</value>
+  </data>
+  <data name="WebPartEditorInstructionsText" xml:space="preserve">
+    <value>Отредактируйте свойства веб-части, затем нажмите «ОК» или «Применить» для внесения изменений. У некоторых веб-частей нет доступных для редактирования свойств.</value>
+  </data>
+  <data name="WebPartEditorOKVerbDescription" xml:space="preserve">
+    <value>Применяет изменения и закрывает редактор.</value>
+  </data>
+  <data name="WebPartEditorOKVerbText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="WebPartEditUpdateButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="WebPartEditVerbDescription" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="WebPartEditVerbText" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="WebPartEmptyCatalogZoneText" xml:space="preserve">
+    <value>К сожалению нет никакого содержания доступного в настоящее время</value>
+  </data>
+  <data name="WebPartEmptyZoneText" xml:space="preserve">
+    <value>Вы можете перетащить содержимое сюда из других столбцов или нажмите на зеленый плюс для добавления содержимого.</value>
+  </data>
+  <data name="WebPartExportVerbDescription" xml:space="preserve">
+    <value>Экспорт</value>
+  </data>
+  <data name="WebPartExportVerbText" xml:space="preserve">
+    <value>Экспорт</value>
+  </data>
+  <data name="WebPartFeatureName" xml:space="preserve">
+    <value>Веб-часть</value>
+  </data>
+  <data name="WebPartHelpVerbDescription" xml:space="preserve">
+    <value>Помощь</value>
+  </data>
+  <data name="WebPartHelpVerbText" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="WebPartIconLabel" xml:space="preserve">
+    <value>Иконка</value>
+  </data>
+  <data name="WebPartInstalledWebPartsLabel" xml:space="preserve">
+    <value>Установленная WebParts</value>
+  </data>
+  <data name="WebPartLayoutEditorPartTitle" xml:space="preserve">
+    <value>Расположение</value>
+  </data>
+  <data name="WebPartManagerCatalogTooltip" xml:space="preserve">
+    <value>Щелкните здесь для просмотра доступного содержания.</value>
+  </data>
+  <data name="WebPartManagerCloseCatalogTooltip" xml:space="preserve">
+    <value>Нажмите здесь, чтобы закрыть каталог.</value>
+  </data>
+  <data name="WebPartManagerResetButton" xml:space="preserve">
+    <value>Сброс содержания</value>
+  </data>
+  <data name="WebPartManagerToggleFromUserModeTooltip" xml:space="preserve">
+    <value>Вы в настоящее время в общей области. Нажмите здесь, чтобы переключить на область пользователя.</value>
+  </data>
+  <data name="WebPartManagerToggleToUserModeTooltip" xml:space="preserve">
+    <value>Вы в настоящее время в общей области. Нажмите здесь, чтобы переключить на область пользователя.</value>
+  </data>
+  <data name="WebPartMinimizeVerbDescription" xml:space="preserve">
+    <value>Свернуть это содержание</value>
+  </data>
+  <data name="WebPartMinimizeVerbText" xml:space="preserve">
+    <value>Minimize</value>
+  </data>
+  <data name="WebPartModuleWebPartSetting" xml:space="preserve">
+    <value>Выберите веб-часть</value>
+  </data>
+  <data name="WebPartPageCatalogDescription" xml:space="preserve">
+    <value>Скрытое Содержание</value>
+  </data>
+  <data name="WebPartPageCatalogTitle" xml:space="preserve">
+    <value>Скрытое Содержание</value>
+  </data>
+  <data name="WebPartPropertyGridEditorTitle" xml:space="preserve">
+    <value>Свойства веб-части</value>
+  </data>
+  <data name="WebPartRestoreVerbDescription" xml:space="preserve">
+    <value>Restore this content</value>
+  </data>
+  <data name="WebPartRestoreVerbText" xml:space="preserve">
+    <value>Восстановление</value>
+  </data>
+  <data name="WebPartTitleLabel" xml:space="preserve">
+    <value>Название</value>
+  </data>
+</root>

@@ -1,0 +1,72 @@
+body { margin: 0px 0px 0px 0px; }
+#wrapwebsite { margin: 15px auto; width: 790px; }
+#wrapheader {position: relative; clear:left; width: 790px;height: 135px; 
+	margin: 0; padding: 0; }
+#wrapcenter { margin: 0px 5px 0px 5px; clear:left; min-height: 300px;  }
+#wrapfooter { }
+.leftside { float:left; width:28%; margin: 10px 5px 0px 0px;}
+.center-nomargins {float:left; width: 100%;}
+.center-rightandleftmargins {float:left; width: 40%; margin: 10px 5px 0px 5px; }
+.center-rightmargin {float:left; width: 70%; margin: 10px 0px 0px 5px;}
+.center-leftmargin { float:left; width: 70%; margin: 10px 0px 0px 5px; }
+.rightside { float:right; width:28%;  margin: 10px 0px 0px 0px;  }
+.clear { clear:both; }
+.sitelogo { float:left; margin: 0px 0px 0px 0px; }
+.siteheading { margin: 0px 0px 0px 0px; padding: 20px 0px 0px 0px; }
+h1.siteheading {float:left; margin: 0; padding: 56px 0px 0px 40px; }
+.topnav {position: absolute; top:30px; right:0px; margin: 4px 10px 3px 0px; }
+.topnav ul {float:left; margin: 0px 0px 0px 0px; display:inline; padding: 0px;}
+li.topnavitem {float: left;  list-style-type:none; padding: 0px 7px 0px 7px;}
+li.firstnav {float: left;  list-style-type:none; padding: 0px 7px 0px 5px; }
+.editpanel {position: absolute; top:88px; right:30px;}
+#breadcrumb { padding: 4px 4px 4px 4px;  }
+fieldset { margin: 0px 5px 7px 3px; padding: 1em; }
+.settinglabel {float:left; clear:left; width:20em; padding: 1px; }
+.settinglabelFixedHeight {float:left; clear:left; width:20em; padding: 1px; height:77px;}
+.settingrow { padding: 4px 0px 4px 0px; clear:left; }
+.modulebuttonrow {clear: left; }
+.div2columnleft { float: left; width: 350px;  padding: 1px;  }
+.div2columnright { margin: 0px 0px 0px 305px;  padding: 1px; }
+.modulepager {vertical-align:top; padding: 4px 4px 4px 4px; }
+h1, h2, h3, h4 p { padding: 0;margin: 10px 15px; }
+.TextLabel { width:15px; }
+.watermarktextbox {width:9em; }
+.moduleedit { height: 28px; margin: 0px; padding: 0px; }
+div.moduletitle, span.moduletitle, tr.moduletitle, h2.moduletitle 
+{ padding: 4px 0px 4px 5px; clear:both;}
+h2.moduletitle {padding: 0px 0 3px 25px; margin: 0px 0px 0px 0px;}
+.modulesubtitle { padding: 4px 5px 0px 5px; height: 23px;} 
+.modulecontent { vertical-align:top; padding: 4px 4px 4px 4px;  }
+.modulefooter { display:none; }
+.floatpanel { float:left; margin-right: 15px; }
+.clearpanel { clear:left; padding-top: 15px;  }
+.simplelist, .simplelist li { list-style: none; padding: 0px 0px 4px 10px;  }
+ul.linkitem { list-style: none; margin: 0px 0px 0px 0px; }
+div.sitemap ul , div.sitemap ul li {list-style: none; }
+.site-statistics { margin: 0px 0px 5px 0px; padding: 0px 0px 5px 0px; }
+ul.userstats { list-style-type:none;  margin: 0px 0px 0px -40px;}
+ul.userstats ul { margin: 0; padding: 0; display: block; }
+ul.userstats li { position: relative; list-style: none; }
+ul.linkitem 
+{position:relative; top: -6px; left: 0px; list-style:none;margin:10px ;padding:0px;}
+ul.linkitem li 
+{margin: 0px 0px 1px 0px;padding: 2px 0px 2px 0px;list-style: none;min-height:18px;}
+ul.linkitem a { padding: 2px 5px 2px 10px;}
+* html body ul.linkitem a { height: 18px; }
+ul.linkitem a:hover {padding:2px 5px 2px 10px;}
+code {margin: 5px 0;padding: 10px; text-align: left;display: block;overflow: auto;  
+  font: 500 1em/1.5em 'Lucida Console', 'courier new', monospace;
+  background: #FAFAFA; border: 1px solid #EAEAEA;  border-left: 5px solid #72A545;}
+acronym {cursor: help;border-bottom: 1px solid #777;}
+blockquote {margin: 15px; padding: 0 0 0 32px;  	
+  	background: #FAFAFA url(images/quote.gif) no-repeat 5px 10px !important; 
+	background-position: 8px 10px; border: 1px solid #EAEAEA; 
+	border-left: 5px solid #72A545;  font-weight: bold; }
+#wrapfooter { clear: both;height: 40px;margin: 0;}
+.logolist {display:none; }
+.breadcrumbs { padding: 4px 4px 10px 4px;  }
+div.panelwrapper ul.simplelist { margin-bottom:0px; }
+table.editgrid { margin: 10px;  }
+table.editgrid td {padding: 7px; }
+table.editgrid th {padding: 7px; }
+.minheightpanel { min-height:200px; }

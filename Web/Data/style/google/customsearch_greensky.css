@@ -1,0 +1,277 @@
+/**
+ * Greensky theme
+ * A light green colored theme with query match highlighting and dotted rules
+ * between each result. A slightly larger humanist sans, Trebuchet, is also used.
+ */
+/* Slight reset to make the preview have ample padding. */
+.cse .gsc-control-cse,
+.gsc-control-cse {
+  padding: 2%;
+  width: 96%;
+}
+.cse .gsc-branding,
+.gsc-branding {
+  display: none;
+}
+.cse .gsc-control-cse div,
+.gsc-control-cse div {
+  position: normal;
+}
+.cse .gsc-control-cse,
+.gsc-control-cse {
+  font-family: "Trebuchet MS", sans-serif;
+  background-color: #e1f3da;
+  border: 1px solid;
+  border-color: #e1f3da;
+}
+.cse .gsc-control-cse:after,
+.gsc-control-cse:after {
+  content:".";
+  display:block;
+  height:0;
+  clear:both;
+  visibility:hidden;
+}
+.cse .gsc-resultsHeader,
+.gsc-resultsHeader {
+  border: none;
+}
+/* TD element containing the search input field. */
+.cse td.gsc-input,
+td.gsc-input {
+  padding-right: 4px;
+}
+/* Search input field */
+.cse input.gsc-input,
+input.gsc-input {
+  font-family: inherit;
+  border: 1px solid;
+  border-color: #94cc7a;
+  padding: 4px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;	
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: 0 1px 2px #999999;
+  -moz-box-shadow: 0 1px 2px #999999;
+}
+/* Search button */
+.cse input.gsc-search-button,
+input.gsc-search-button {
+  font-family: inherit;
+  font-size: 13px;
+  color: #303e2a;
+  text-shadow: 0 1px 2px #ffffff;
+  padding: 3px 8px;
+  background-color: #a9da92;
+  border: 1px solid;
+  border-color: #94cc7a;
+  font-weight: bold;
+  border-radius: 4px;	
+  -moz-border-radius: 4px;	
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: 0 1px 2px #999999;
+  -moz-box-shadow: 0 1px 2px #999999;
+  }
+/* Base tab selector styles */
+.cse .gsc-tabHeader,
+.gsc-tabHeader {
+  text-shadow: 0 1px 2px #ffffff;
+  padding: 2px 8px 0 8px;
+  border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  -webkit-border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  -webkit-border-top-left-radius: 4px;
+}
+/* Inactive tab */
+.cse .gsc-tabHeader.gsc-tabhInactive,
+.gsc-tabHeader.gsc-tabhInactive {
+  border: 1px solid;
+  border-color: #a9da92;
+  border-bottom: none;
+  background-color: #ffffff;
+  color: #333333;
+}
+/* Active tab */
+.cse .gsc-tabHeader.gsc-tabhActive,
+.gsc-tabHeader.gsc-tabhActive {
+  font-weight: bold;
+  background-color: #a9da92;
+  border: 1px solid;
+  border-color: #a9da92;
+  border-bottom: none;
+  color: #333333;
+}
+/* This is the tab bar bottom border. */
+.cse .gsc-tabsArea,
+.gsc-tabsArea {
+  margin: 1em 0 0 0;
+  border-bottom: 1px solid;
+  border-color: #a9da92;
+  padding: 0;
+}
+/* Wrapper for all results */
+.cse .gsc-results,
+.gsc-results {
+  width: 100%;
+  margin-top: -5px;
+  background-color: #ffffff;
+}
+/* Wrapper for a result */
+.cse .gsc-webResult.gsc-result,
+.gsc-webResult.gsc-result {
+  margin: 0;
+  padding: .6em 0 1em 0;
+  border-bottom: 1px dotted;
+  border-color: #a9da92;
+}
+.cse div.gs-title,
+div.gs-title,
+.cse .gs-snippet,
+.gs-snippet,
+.cse .gs-visibleUrl,
+.gs-visibleUrl,
+.cse .gs-visibleUrl-short,
+.gs-visibleUrl-short {
+  padding: 0 8px;
+}
+/* Font size */
+.cse .gs-title,
+.gs-title,
+.cse div.gs-title,
+div.gs-title,
+.cse .gs-snippet,
+.gs-snippet {
+  font-size: 14px;
+  line-height: 17px;
+}
+/* Set link colors. */
+.cse .gs-webResult.gs-result a.gs-title:link,
+.gs-webResult.gs-result a.gs-title:link,
+.cse .gs-webResult.gs-result a.gs-title:link b,
+.gs-webResult.gs-result a.gs-title:link b,
+.cse .gs-webResult.gs-result a.gs-title:visited,
+.gs-webResult.gs-result a.gs-title:visited,
+.cse .gs-webResult.gs-result a.gs-title:visited b,
+.gs-webResult.gs-result a.gs-title:visited b,
+.cse .gs-webResult.gs-result a.gs-title:hover,
+.gs-webResult.gs-result a.gs-title:hover,
+.cse .gs-webResult.gs-result a.gs-title:hover b,
+.gs-webResult.gs-result a.gs-title:hover b,
+.cse .gs-webResult.gs-result a.gs-title:active,
+.gs-webResult.gs-result a.gs-title:active,
+.cse .gs-webResult.gs-result a.gs-title:active b,
+.gs-webResult.gs-result a.gs-title:active b,
+.cse .gsc-cursor-page,
+.gsc-cursor-page,
+.cse a.gsc-trailing-more-results:link,
+a.gsc-trailing-more-results:link {
+  color: #0066cc;
+}
+/* Override default.css selector to disable underlines. */
+.cse .gs-result .gs-title,
+.gs-result .gs-title,
+.cse .gs-result .gs-title *,
+.gs-result .gs-title *,
+.cse .gsc-cursor-page,
+.gsc-cursor-page,
+.cse .gsc-results .gsc-trailing-more-results,
+.gsc-results .gsc-trailing-more-results,
+.cse .gsc-results .gsc-trailing-more-results *,
+.gsc-results .gsc-trailing-more-results * {
+  text-decoration: none;
+}
+/* Snippet text */
+.cse .gs-webResult.gs-result .gs-snippet,
+.gs-webResult.gs-result .gs-snippet {
+ color: #454545;
+}
+/* URL styling */
+.cse .gs-webResult.gs-result .gs-visibleUrl,
+.gs-webResult.gs-result .gs-visibleUrl,
+.cse .gs-webResult.gs-result .gs-visibleUrl-short,
+.gs-webResult.gs-result .gs-visibleUrl-short {
+  color: #815FA7;
+}
+/* Pagination container centered */
+.cse .gsc-cursor-box,
+.gsc-cursor-box {
+  padding: 1em .8px;
+  text-align: center;
+}
+/* Pagination */
+.cse .gsc-cursor-page,
+.gsc-cursor-page {
+  padding: .2em .5em;
+  border: 1px solid;
+  border-color: #a9da92;
+}
+.cse .gsc-results .gsc-cursor-page.gsc-cursor-current-page,
+.gsc-results .gsc-cursor-page.gsc-cursor-current-page {
+  color: #333333;
+  text-shadow: 0 1px 2px #ffffff;
+  background-color: #a9da92;
+}
+/*Promotion Settings*/
+/* The entire promo */
+.cse .gs-promotion.gs-result,
+.gs-promotion.gs-result {
+  background-color: #CBE8B4;
+  border: 1px solid;
+  border-color: #94CC7A;
+}
+/* Promotion image */
+.cse .gs-promotion.gs-result .gs-promotion-image,
+.gs-promotion.gs-result .gs-promotion-image {}
+/* Promotion title */
+.cse .gs-promotion.gs-result a.gs-title:link,
+.gs-promotion.gs-result a.gs-title:link {
+  color: #0066CC;
+}
+.cse .gs-promotion.gs-result a.gs-title:visited,
+.gs-promotion.gs-result a.gs-title:visited {
+  color: #0066CC;
+}
+.cse .gs-promotion.gs-result a.gs-title:hover,
+.gs-promotion.gs-result a.gs-title:hover {
+  color: #0066CC;
+}
+.cse .gs-promotion.gs-result a.gs-title:active,
+.gs-promotion.gs-result a.gs-title:active {
+  color: #0066CC;
+}
+/* Promotion snippet */
+.cse .gs-promotion.gs-result .gs-snippet,
+.gs-promotion.gs-result .gs-snippet {
+  color: #454545;
+}
+/* Promotion url */
+.cse .gs-promotion.gs-result ..gs-visibleUrl,
+.gs-promotion.gs-result .gs-visibleUrl {
+  color: #815FA7;
+}
+/* Style for auto-completion table
+ * .gsc-completion-selected : styling for a suggested query which the user has moused-over
+ * .gsc-completion-container : styling for the table which contains the completions
+ */
+.gsc-completion-selected {
+  background: #E1F3DA;
+}
+.gsc-completion-container {
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 13px;
+  position: absolute;
+  background: white;
+  border: 1px solid #94CC7A;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 4px;
+  text-shadow: 0 1px 2px #ffffff;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: 0 1px 2px #999999;
+  -moz-box-shadow: 0 1px 2px #999999;
+  /* The top, left, and width are set in JavaScript. */
+}

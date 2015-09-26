@@ -1,0 +1,643 @@
+<%-- 
+Name:  					C# DataLayer Methods for Firebird
+Author: 				Joe Audette
+Created:				2007-07-20
+Last Modified:			2009-02-23
+Description: 			Generates C#  a Static/Shared Data Layer class for Firebird Sql
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author of stored procedure" %>
+<%@ Property Name="DataLayerNameSpace" Type="System.String" Default="mojoPortal.Data" Category="Style" Description="The Namespace of the Data Layer class" %>
+<%@ Property Name="UseSubSonic" Type="System.Boolean" Default="False" Category="Options" Description="If true methods will delegate the work to SubSonic methods in the designated Common namespace" %>
+<%@ Property Name="SubSonicDataLayerNameSpace" Type="System.String" Default="mojoPortal.Data.Common" Category="Style" Description="The Namespace of the Data Layer class" %>
+<%@ Property Name="TablePrefix" Type="System.String" Default="mp_" Category="Style" Description="Table Prfix" %>
+<%@ Property Name="IncludeDrop" Type="System.Boolean" Default="True" Category="Options" Description="If true drop statements will be generated to drop existing stored procedures." %>
+<%@ Property Name="IncludeInsert" Type="System.Boolean" Default="True" Category="Options" Description="If true insert statements will be generated." %>
+<%@ Property Name="IncludeUpdate" Type="System.Boolean" Default="True" Category="Options" Description="If true update statements will be generated." %>
+<%@ Property Name="IncludeDelete" Type="System.Boolean" Default="True" Category="Options" Description="If true delete statements will be generated." %>
+<%@ Property Name="IncludeSelect" Type="System.Boolean" Default="True" Category="Options" Description="If true Select One will be generated." %>
+<%@ Property Name="IncludeSelectAll" Type="System.Boolean" Default="True" Category="Options" Description="If true Select All statements will be generated." %>
+<%@ Property Name="UseProcsForAll" Type="System.Boolean" Default="False" Category="Options" Description="If true stored procs will be assumed and no sql string will be built. If false, stored procs will be assumed for inserts only when primary key is integer" %>
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+<% if (SourceTable.PrimaryKey == null) throw new ApplicationException("SourceTable does not contain a primary key."); %>
+<% ColumnSchema primaryKey = SourceTable.PrimaryKey.MemberColumns[0]; %>
+// Author:					<%= Author %>
+// Created:					<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+// Last Modified:			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+// 
+// The use and distribution terms for this software are covered by the 
+// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
+// which can be found in the file CPL.TXT at the root of this distribution.
+// By using this software in any fashion, you are agreeing to be bound by 
+// the terms of this license.
+//
+// You must not remove this notice, or any other, from this software.
+	
+using System;
+using System.Data;
+using System.Data.Common;
+using System.Configuration;
+using System.Globalization;
+using System.IO;
+using System.Text;
+using System.Web;
+using FirebirdSql.Data.FirebirdClient;
+using mojoPortal.Data;
+<% if (UseSubSonic) {  %>
+using Common = <%= SubSonicDataLayerNameSpace%>;
+<% } %>
+
+namespace <%= DataLayerNameSpace %>
+{
+	public static class DB<%= GetClassName() %>
+    {
+<% if (primaryKey.DataType == DbType.Guid) {  %>
+
+		<%="///" %> <summary>
+		<%="///" %> Inserts a row in the <%= SourceTable.Name %> table. Returns rows affected count.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.Columns[i].Name) %>"> <%= GetParamName(SourceTable.Columns[i].Name) %> </param>
+				<% } %>
+		/// <returns>int</returns>
+		public static int Create(
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.Columns[i]) %> <%= GetParamName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %>
+		{
+	<% if(UseSubSonic) { %>
+			return Common.DB<%= GetClassName() %>.Create(
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+				<%= GetParamName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>, <% }else{ %>); <% } %>
+		<% } %>
+		
+	<% } else { //don't use SubSonic %>
+	
+			#region Bit Conversion
+			
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			<%if( GetCSharpVariableType(SourceTable.Columns[i]) == "bool"){ %> 
+			int int<%= SourceTable.Columns[i].Name%> = 0;
+			if(<%= GetParamName(SourceTable.Columns[i].Name)%>) { int<%= SourceTable.Columns[i].Name%> = 1; }
+				<% } %>
+			<% } %>
+			
+			#endregion
+			
+			FbParameter[] arParams = new FbParameter[<%= SourceTable.Columns.Count%>];
+			
+		<% if(UseProcsForAll) { %>
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			arParams[<%= i%>] = new FbParameter(":<%= SourceTable.Columns[i].Name %>", FbDbType.<%= GetFbDbType(SourceTable.Columns[i]) %><%= GetParamSize(SourceTable.Columns[i]) %>);
+			arParams[<%= i%>].Direction = ParameterDirection.Input;
+				<%if( GetCSharpVariableType(SourceTable.Columns[i]) == "bool"){ %> 
+			arParams[<%= i%>].Value = int<%= SourceTable.Columns[i].Name %>;
+			
+				<%} else { %>
+			arParams[<%= i%>].Value = <%= GetParamValue(SourceTable.Columns[i]) %>;
+			
+				<% } %>
+			<% } %>
+			
+			int rowsAffected = FBSqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				CommandType.StoredProcedure,
+				"EXECUTE PROCEDURE <%= SourceTable.Name.ToUpper() %>_INSERT ("
+				+ FBSqlHelper.GetParamString(arParams.Length) + ")",
+				arParams);
+				
+	
+		<% } else { %>
+		
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			arParams[<%= i%>] = new FbParameter("@<%= SourceTable.Columns[i].Name %>", FbDbType.<%= GetFbDbType(SourceTable.Columns[i]) %><%= GetParamSize(SourceTable.Columns[i]) %>);
+			arParams[<%= i%>].Direction = ParameterDirection.Input;
+				<%if( GetCSharpVariableType(SourceTable.Columns[i]) == "bool"){ %> 
+			arParams[<%= i%>].Value = int<%= SourceTable.Columns[i].Name %>;
+			
+				<%} else { %>
+			arParams[<%= i%>].Value = <%= GetParamValue(SourceTable.Columns[i]) %>;
+			
+				<% } %>
+			<% } %>
+			
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("INSERT INTO <%= SourceTable.Name %> (");
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			sqlCommand.Append("<%= SourceTable.Columns[i].Name %><% if (i < SourceTable.Columns.Count - 1) { %>, ");<% }else{ %> )"); <% } %>
+			<% } %>
+		
+			
+			sqlCommand.Append(" VALUES (");
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			sqlCommand.Append("@<%= SourceTable.Columns[i].Name %><% if (i < SourceTable.Columns.Count - 1) { %>, ");<% }else{ %> )"); <% } %>
+			<% } %>
+			sqlCommand.Append(";");
+			
+			int rowsAffected = FBSqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(), 
+				sqlCommand.ToString(), 
+				arParams);
+			
+			
+		<% } %>
+		
+			return rowsAffected;
+	<% } %>
+			
+		}
+	
+	<% } else { %>
+	
+		<%="///" %> <summary>
+		<%="///" %> Inserts a row in the <%= SourceTable.Name %> table. Returns new integer id.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.NonPrimaryKeyColumns[i].Name) %>"> <%= GetParamName(SourceTable.NonPrimaryKeyColumns[i].Name) %> </param>
+				<% } %>
+		/// <returns>int</returns>
+		public static int Create(
+		<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.NonPrimaryKeyColumns[i]) %> <%= GetParamName(SourceTable.NonPrimaryKeyColumns[i].Name) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %>
+		{
+	<% if(UseSubSonic) { %>
+			return Common.DB<%= GetClassName() %>.Create(
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+				<%= GetParamName(SourceTable.NonPrimaryKeyColumns[i].Name) %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>, <% }else{ %>); <% } %>
+		<% } %>
+		
+	<% } else { //don't use SubSonic %>
+			#region Bit Conversion
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			<%if( GetCSharpVariableType(SourceTable.NonPrimaryKeyColumns[i]) == "bool"){ %> 
+			int int<%= SourceTable.NonPrimaryKeyColumns[i].Name%> = 0;
+			if(<%= GetParamName(SourceTable.NonPrimaryKeyColumns[i].Name)%>)
+			{
+				int<%= SourceTable.NonPrimaryKeyColumns[i].Name%> = 1;
+			}
+			
+				<% } %>
+			<% } %>
+			
+			#endregion
+			
+			FbParameter[] arParams = new FbParameter[<%= SourceTable.NonPrimaryKeyColumns.Count%>];
+			
+		<% if(UseProcsForAll) { %>	
+		<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			arParams[<%= i%>] = new FbParameter(":<%= SourceTable.NonPrimaryKeyColumns[i].Name %>", FbDbType.<%= GetFbDbType(SourceTable.NonPrimaryKeyColumns[i]) %><%= GetParamSize(SourceTable.NonPrimaryKeyColumns[i]) %>);
+			arParams[<%= i%>].Direction = ParameterDirection.Input;
+				<%if( GetCSharpVariableType(SourceTable.NonPrimaryKeyColumns[i]) == "bool"){ %> 
+			arParams[<%= i%>].Value = int<%= SourceTable.NonPrimaryKeyColumns[i].Name %>;
+			
+				<%} else { %>
+			arParams[<%= i%>].Value = <%= GetParamValue(SourceTable.NonPrimaryKeyColumns[i]) %>;
+			
+				<% } %>
+			<% } %>
+			int newID = Convert.ToInt32(FBSqlHelper.ExecuteScalar(
+				ConnectionString.GetWriteConnectionString(),
+				CommandType.StoredProcedure,
+				"EXECUTE PROCEDURE <%= SourceTable.Name.ToUpper() %>_INSERT ("
+				+ FBSqlHelper.GetParamString(arParams.Length) + ")",
+				arParams));
+	
+		<% }else { %>
+			
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			arParams[<%= i%>] = new FbParameter("@<%= SourceTable.NonPrimaryKeyColumns[i].Name %>", FbDbType.<%= GetFbDbType(SourceTable.NonPrimaryKeyColumns[i]) %><%= GetParamSize(SourceTable.NonPrimaryKeyColumns[i]) %>);
+			arParams[<%= i%>].Direction = ParameterDirection.Input;
+				<%if( GetCSharpVariableType(SourceTable.NonPrimaryKeyColumns[i]) == "bool"){ %> 
+			arParams[<%= i%>].Value = int<%= SourceTable.NonPrimaryKeyColumns[i].Name %>;
+			
+				<%} else { %>
+			arParams[<%= i%>].Value = <%= GetParamValue(SourceTable.NonPrimaryKeyColumns[i]) %>;
+			
+				<% } %>
+			<% } %>
+			
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("INSERT INTO <%= SourceTable.Name %> (");
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			sqlCommand.Append("<%= SourceTable.NonPrimaryKeyColumns[i].Name %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>, ");<% }else{ %> )"); <% } %>
+			<% } %>
+			
+			sqlCommand.Append(" VALUES (");
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			sqlCommand.Append("@<%= SourceTable.NonPrimaryKeyColumns[i].Name %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>, ");<% }else{ %> )"); <% } %>
+			<% } %>
+			sqlCommand.Append(";");
+			
+			int rowsAffected = FBSqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(), 
+				sqlCommand.ToString(), 
+				arParams);
+			
+		<% } %>
+			return newID;
+	<% } %>
+		}
+	
+	<% } %>
+	
+		<%="///" %> <summary>
+		<%="///" %> Updates a row in the <%= SourceTable.Name %> table. Returns true if row updated.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.Columns[i].Name) %>"> <%= GetParamName(SourceTable.Columns[i].Name) %> </param>
+				<% } %>
+		/// <returns>bool</returns>
+		public static bool Update(
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.Columns[i]) %> <%= GetParamName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %> 
+		{
+		<% if(UseSubSonic) { %>
+			return Common.DB<%= GetClassName() %>.Update(
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+				<%= GetParamName(SourceTable.Columns[i].Name) %><% if (i < SourceTable.Columns.Count - 1) { %>, <% }else{ %>); <% } %>
+		<% } %>
+		
+		<%}else{ //dont use SubSonic %>
+			#region Bit Conversion
+			
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			<%if( GetCSharpVariableType(SourceTable.NonPrimaryKeyColumns[i]) == "bool"){ %> 
+			int int<%= SourceTable.NonPrimaryKeyColumns[i].Name%> = 0;
+			if(<%= GetParamName(SourceTable.NonPrimaryKeyColumns[i].Name)%>) { int<%= SourceTable.NonPrimaryKeyColumns[i].Name%> = 1; }				
+				<% } %>
+			<% } %>
+			
+			#endregion
+			
+		<% if(!UseProcsForAll) { %>	
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("UPDATE <%= SourceTable.Name %> ");
+			sqlCommand.Append("SET  ");
+			<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+			sqlCommand.Append("<%= SourceTable.NonPrimaryKeyColumns[i].Name %> = @<%= SourceTable.NonPrimaryKeyColumns[i].Name %><% if (i < SourceTable.NonPrimaryKeyColumns.Count - 1) { %>, ");<% }else{ %> "); <% } %>
+			<% } %>
+			
+			sqlCommand.Append("WHERE  ");
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			sqlCommand.Append("<%= SourceTable.PrimaryKey.MemberColumns[i].Name %> = @<%= SourceTable.PrimaryKey.MemberColumns[i].Name %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %> AND ");<% }else{ %> "); <% } %>
+			<% } %>
+			sqlCommand.Append(";");
+		<% } %>
+			FbParameter[] arParams = new FbParameter[<%= SourceTable.Columns.Count %>];
+			
+			<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+			arParams[<%= i%>] = new FbParameter("@<%= SourceTable.Columns[i].Name %>", FbDbType.<%= GetFbDbType(SourceTable.Columns[i]) %><%= GetParamSize(SourceTable.Columns[i]) %>);
+			arParams[<%= i%>].Direction = ParameterDirection.Input;
+				<%if( GetCSharpVariableType(SourceTable.Columns[i]) == "bool"){ %> 
+			arParams[<%= i%>].Value = int<%= SourceTable.Columns[i].Name %>;
+			
+				<%} else { %>
+			arParams[<%= i%>].Value = <%= GetParamValue(SourceTable.Columns[i]) %>;
+			
+				<% } %>
+			<% } %> 
+			
+		<% if(UseProcsForAll) { %>		
+			int rowsAffected = FBSqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				CommandType.StoredProcedure,
+				"EXECUTE PROCEDURE <%= SourceTable.Name.ToUpper() %>_UPDATE ("
+				+ FBSqlHelper.GetParamString(arParams.Length) + ")",
+				arParams);
+				
+		<% }else { %> 
+			int rowsAffected = FBSqlHelper.ExecuteNonQuery(
+				GetWriteConnectionString(), 
+				sqlCommand.ToString(), 
+				arParams);
+				
+		<% } %> 
+			return (rowsAffected > -1);
+	<% } %>
+		}
+		
+		<%="///" %> <summary>
+		<%="///" %> Deletes a row from the <%= SourceTable.Name %> table. Returns true if row deleted.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %>"> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> </param>
+				<% } %>
+		/// <returns>bool</returns>
+		public static bool Delete(
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) %> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %> 
+		{
+	<% if(UseSubSonic) { %>
+			return Common.DB<%= GetClassName() %>.Delete(
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+				<%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% }else{ %>); <% } %>
+		<% } %>
+	
+	<%}else{ //dont use SubSonic %>
+		<% if(!UseProcsForAll) { %>	
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("DELETE FROM <%=SourceTable.Name %> ");
+			sqlCommand.Append("WHERE ");
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			sqlCommand.Append("<%= SourceTable.PrimaryKey.MemberColumns[i].Name %> = @<%= SourceTable.PrimaryKey.MemberColumns[i].Name %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %> AND ");<% }else{ %> "); <% } %>
+			<% } %>
+			sqlCommand.Append(";");
+		<% } %>
+			FbParameter[] arParams = new FbParameter[<%= SourceTable.PrimaryKey.MemberColumns.Count%>];
+			
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			arParams[<%= i%>] = new FbParameter("@<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>", FbDbType.<%= GetFbDbType(SourceTable.PrimaryKey.MemberColumns[i]) %><%= GetParamSize(SourceTable.PrimaryKey.MemberColumns[i]) %>);
+			arParams[<%= i%>].Direction = ParameterDirection.Input;
+				<%if( GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) == "bool"){ %> 
+			arParams[<%= i%>].Value = int<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>;
+			
+				<%} else { %>
+			arParams[<%= i%>].Value = <%= GetParamValue(SourceTable.PrimaryKey.MemberColumns[i]) %>;
+			
+				<% } %>
+			<% } %> 
+			
+			<% if(UseProcsForAll) { %>		
+			int rowsAffected = FBSqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				CommandType.StoredProcedure,
+				"EXECUTE PROCEDURE <%= SourceTable.Name.ToUpper() %>_DELETE ("
+				+ FBSqlHelper.GetParamString(arParams.Length) + ")",
+				arParams);
+				
+		<% }else { %> 
+			int rowsAffected = FBSqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(), 
+				sqlCommand.ToString(), 
+				arParams);
+				
+		<% } %> 
+			return (rowsAffected > -1);
+	<% } %> 
+		}
+		
+		<%="///" %> <summary>
+		<%="///" %> Gets an IDataReader with one row from the <%= SourceTable.Name %> table.
+		<%="///" %> </summary>
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+		<%="///" %> <param name="<%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %>"> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %> </param>
+				<% } %>
+		public static IDataReader GetOne(
+		<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			<%= GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) %> <%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% }else{ %>) <% } %>
+		<% } %> 
+		{
+	<% if(UseSubSonic) { %>
+			return Common.DB<%= GetClassName() %>.GetOne(
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+				<%= GetParamName(SourceTable.PrimaryKey.MemberColumns[i].Name) %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %>, <% }else{ %>); <% } %>
+		<% } %>
+	<%}else{ //dont use SubSonic %>
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT  * ");
+			sqlCommand.Append("FROM	<%= SourceTable.Name %> ");
+			sqlCommand.Append("WHERE ");
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			sqlCommand.Append("<%= SourceTable.PrimaryKey.MemberColumns[i].Name %> = @<%= SourceTable.PrimaryKey.MemberColumns[i].Name %><% if (i < SourceTable.PrimaryKey.MemberColumns.Count - 1) { %> AND ");<% }else{ %> "); <% } %>
+			<% } %>
+			sqlCommand.Append(";");
+	
+			FbParameter[] arParams = new FbParameter[<%= SourceTable.PrimaryKey.MemberColumns.Count%>];
+			
+			<% for (int i = 0; i < SourceTable.PrimaryKey.MemberColumns.Count; i++) { %>
+			arParams[<%= i%>] = new FbParameter("@<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>", FbDbType.<%= GetFbDbType(SourceTable.PrimaryKey.MemberColumns[i]) %><%= GetParamSize(SourceTable.PrimaryKey.MemberColumns[i]) %>);
+			arParams[<%= i%>].Direction = ParameterDirection.Input;
+				<%if( GetCSharpVariableType(SourceTable.PrimaryKey.MemberColumns[i]) == "bool"){ %> 
+			arParams[<%= i%>].Value = int<%= SourceTable.PrimaryKey.MemberColumns[i].Name %>;
+			
+				<%} else { %>
+			arParams[<%= i%>].Value = <%= GetParamValue(SourceTable.PrimaryKey.MemberColumns[i]) %>;
+			
+				<% } %>
+			<% } %> 
+			return FBSqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(), 
+				sqlCommand.ToString(), 
+				arParams);
+				
+	<% } %> 
+		}
+		
+		/// <summary>
+		/// Gets a count of rows in the <%= SourceTable.Name %> table.
+		/// </summary>
+		public static int GetCount()
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT  Count(*) ");
+			sqlCommand.Append("FROM	<%= SourceTable.Name %> ");
+			sqlCommand.Append(";");
+			
+			return Convert.ToInt32(FBSqlHelper.ExecuteScalar(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand.ToString(),
+				null));
+		
+		}
+		
+		/// <summary>
+		/// Gets an IDataReader with all rows in the <%= SourceTable.Name %> table.
+		/// </summary>
+		public static IDataReader GetAll()
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT  * ");
+			sqlCommand.Append("FROM	<%= SourceTable.Name %> ");
+			sqlCommand.Append(";");
+			
+			return FBSqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand.ToString(),
+				null);
+		
+		}
+	
+		
+		/// <summary>
+		/// Gets a page of data from the <%= SourceTable.Name %> table.
+		/// </summary>
+		/// <param name="pageNumber">The page number.</param>
+		/// <param name="pageSize">Size of the page.</param>
+		/// <param name="totalPages">total pages</param>
+		public static IDataReader GetPage(
+			int pageNumber, 
+			int pageSize,
+			out int totalPages)
+		{
+			int pageLowerBound = (pageSize * pageNumber) - pageSize;
+			totalPages = 1;
+			int totalRows = GetCount();
+			
+			if (pageSize > 0) totalPages = totalRows / pageSize;
+			
+			if (totalRows <= pageSize)
+			{
+				totalPages = 1;
+			}
+			else
+			{
+				int remainder;
+				Math.DivRem(totalRows, pageSize, out remainder);
+				if (remainder > 0)
+				{
+					totalPages += 1;
+				}
+			}
+			
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT FIRST " + pageSize.ToString(CultureInfo.InvariantCulture) + " ");
+			if (pageNumber > 1)
+            {
+                sqlCommand.Append("	SKIP " + pageLowerBound.ToString(CultureInfo.InvariantCulture) + " ");
+            }
+			sqlCommand.Append("	* ");
+			sqlCommand.Append("FROM	<%= SourceTable.Name %>  ");
+			//sqlCommand.Append("WHERE   ");
+			//sqlCommand.Append("ORDER BY  ");
+			sqlCommand.Append("	; ");
+			
+			//FbParameter[] arParams = new FbParameter[1];
+
+            //arParams[0] = new FbParameter("@CountryGuid", FbDbType.Char, 36);
+            //arParams[0].Direction = ParameterDirection.Input;
+            //arParams[0].Value = countryGuid.ToString();
+            
+			return FBSqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand.ToString(),
+				null);
+			
+		}
+	}
+}
+
+
+<script runat="template">
+
+
+public string GetClassName()
+{
+	//if (SourceTable.Name.EndsWith("s"))
+	//{
+	//	return RemovePrefix(SourceTable.Name.Substring(0,SourceTable.Name.Length -1));
+	//}
+	//else
+	//{
+		return RemovePrefix(SourceTable.Name);
+	//}
+}
+
+public string RemovePrefix(string TableName)
+{
+
+	return TableName.Replace(TablePrefix,"");
+}
+
+public string GetParamSize(ColumnSchema column)
+{
+	switch(GetSqlDbType(column))
+	{
+		case "VarChar" :
+		if(column.Size > 0)
+		{
+			return ", " + column.Size.ToString();
+		}
+		else
+		{
+			return string.Empty;
+		}
+		
+	}
+	
+	return "";
+
+}
+
+
+public string GetParamName(String columnName)
+{
+	if(columnName == "ID")
+			return "id";
+			
+	string firstLetter = columnName.Substring(0,1).ToLower();
+	string Result = firstLetter + columnName.Remove(0,1);
+	
+	return Result;
+}
+
+public string GetParamValue(ColumnSchema column)
+{
+	if(column.NativeType.Trim().ToLower() == "uniqueidentifier")
+	{
+		return GetParamName(column.Name) + ".ToString()";
+	}
+	
+	return GetParamName(column.Name);
+
+
+}
+
+public string GetFbDbType(ColumnSchema column)
+{
+	switch(GetSqlDbType(column))
+	{
+		case "Bit" :
+		return "SmallInt";
+		
+		case "Int" :
+		return "Integer";
+		
+		case "UniqueIdentifier" :
+		return "Char, 36";
+		
+		case "NVarChar" :
+		return "VarChar, " + column.Size;
+		
+		case "NChar" :
+		return "Char, " + column.Size;;
+		
+		case "Text" :
+		return "VarChar";
+		
+		case "NText" :
+		return "VarChar";
+		
+		case "Image" :
+		return "Binary";
+		
+		case "DateTime" :
+		return "TimeStamp";
+		
+		case "SmallDateTime" :
+		return "Time";
+		
+		
+	}
+	
+	return GetSqlDbType(column);
+
+
+
+}
+
+
+
+</script>

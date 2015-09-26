@@ -1,0 +1,38 @@
+body {}
+.parentpagedialog { background:white !important; }
+
+div.treecontainer {margin: 0;padding: 0; background:white !important;}
+div.treecontainer ul { list-style: none; margin: 0; padding: 0;}
+div.treecontainer ul li
+{white-space: nowrap;padding: 3px 0 2px 0;  font-size: small; font-family: Tahoma;}
+div.treecontainer ul ul { margin: 2px 0 2px 10px;}
+div.treecontainer ul li img
+{border: none; vertical-align: middle; margin: 0 2px 0 0; }
+div.treecontainer li a {text-decoration: none;}
+div.treecontainer li.root {}
+div.treecontainer li.parent {}
+div.treecontainer li.leaf { margin-left: 20px;}
+div.treecontainer .AspNet-TreeView-ClickableNonlink { cursor: pointer;}
+div.treecontainer .AspNet-TreeView-Collapse
+{background: url('collapse.gif') 0 0 no-repeat; width: 15px; margin-right: 5px;
+  float:left; cursor: pointer; font-family: Courier; font-size: large;
+   line-height: 15px;}
+div.treecontainer .AspNet-TreeView-Expand
+{background:  url('expand.gif') 0 0 no-repeat; width: 15px; margin-right: 5px;
+ float:left; cursor: pointer; font-family: Courier; font-size: large;
+    line-height: 15px;}
+.AspNet-TreeView-Show { }
+.AspNet-TreeView-Hide { display:none;}
+	
+a.rootlink ,
+a.rootlink:visited ,
+div.treecontainer a,
+div.treecontainer a:visited,
+div.treecontainer a:active,
+div.treecontainer a:hover,
+div.treecontainer a:link
+{color: #00008B; text-decoration:none;}
+div.treecontainer .selected a
+{font-weight: bold !important;color: #8A2BE2 !important;}
+div.treecontainer .selected ul a
+{ font-weight: normal !important; color: #00008B !important;}

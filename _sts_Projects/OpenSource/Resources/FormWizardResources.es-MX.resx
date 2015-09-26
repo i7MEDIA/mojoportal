@@ -1,0 +1,534 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOptionButton" xml:space="preserve">
+    <value>Agregar opción</value>
+  </data>
+  <data name="AnalyticsTrackingUrlSetting" xml:space="preserve">
+    <value>URL de Google Analytics para seguimiento de envios de formularios</value>
+  </data>
+  <data name="AnswerRequiredLabel" xml:space="preserve">
+    <value>Respuesta requerida</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Espere, por favor...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="CheckBoxListQuestionType" xml:space="preserve">
+    <value>Cajas de selección</value>
+  </data>
+  <data name="CheckBoxQuestionType" xml:space="preserve">
+    <value>Caja de selección Si/No</value>
+  </data>
+  <data name="DateQuestionType" xml:space="preserve">
+    <value>Selector de fecha</value>
+  </data>
+  <data name="DeleteOptionWarning" xml:space="preserve">
+    <value>¿Está seguro de eliminar esta opción?</value>
+  </data>
+  <data name="DeleteOrphansButton" xml:space="preserve">
+    <value>Eliminar las respuestas huérfanas</value>
+  </data>
+  <data name="DeleteOrphansWarning" xml:space="preserve">
+    <value>¿Está seguro de eliminar las respuestas huérfanas?</value>
+  </data>
+  <data name="DeleteQuestionWarning" xml:space="preserve">
+    <value>¿Está seguro de eliminar esta pregunta?</value>
+  </data>
+  <data name="DeleteResponsesButton" xml:space="preserve">
+    <value>Eliminar todos los envíos de formularios</value>
+  </data>
+  <data name="DeleteResponsesWarning" xml:space="preserve">
+    <value>¿Está seguro de eliminar todos los envíos de formularios? Esta acción no puede deshacerse. Debería exportar los resultados para no perder información.</value>
+  </data>
+  <data name="DoneButton" xml:space="preserve">
+    <value>Finalizado</value>
+  </data>
+  <data name="DropDownListQuestionType" xml:space="preserve">
+    <value>Elegir de una lista</value>
+  </data>
+  <data name="DropDownPleaseSelectText" xml:space="preserve">
+    <value>Por favor seleccione...</value>
+  </data>
+  <data name="EditLink" xml:space="preserve">
+    <value>Editar formulario</value>
+  </data>
+  <data name="EditQuestionButton" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EnableAntiSpamSetting" xml:space="preserve">
+    <value>Habilitar el bloqueo de SPAM</value>
+  </data>
+  <data name="ExportFormDefinition" xml:space="preserve">
+    <value>Exportar la definición del formulario</value>
+  </data>
+  <data name="ExportOrphansButton" xml:space="preserve">
+    <value>Exportar respuestas huérfanas </value>
+  </data>
+  <data name="ExportQuestionButton" xml:space="preserve">
+    <value>Exportar pregunta</value>
+  </data>
+  <data name="ExportToCSVButton" xml:space="preserve">
+    <value>Exportar datos como CSV (Valores delimitados por comas/Excel)</value>
+  </data>
+  <data name="FileRequiredWarning" xml:space="preserve">
+    <value>Debe seleccionar un archivo.</value>
+  </data>
+  <data name="FinishButton" xml:space="preserve">
+    <value>Finalizar</value>
+  </data>
+  <data name="FinishedButton" xml:space="preserve">
+    <value>Finalizado</value>
+  </data>
+  <data name="FormDefinitionExtensionWarning" xml:space="preserve">
+    <value>Los archivos de definición de formularios deben tener la extensión .config.</value>
+  </data>
+  <data name="FormEditPageTitle" xml:space="preserve">
+    <value>Editor de formularios</value>
+  </data>
+  <data name="FormPageUrlFormat" xml:space="preserve">
+    <value>Desde el URL: {0}</value>
+  </data>
+  <data name="FormSubmissionsLink" xml:space="preserve">
+    <value>Datos del envío</value>
+  </data>
+  <data name="FormSubmitNotificationTask" xml:space="preserve">
+    <value>FormSubmitNotificationTask</value>
+    <comment>No translation needed.</comment>
+  </data>
+  <data name="FormWizardFeatureName" xml:space="preserve">
+    <value>Form Wizard Pro de Source Tree Solutions</value>
+  </data>
+  <data name="ImportFormButton" xml:space="preserve">
+    <value>Importar definición de formulario</value>
+  </data>
+  <data name="ImportFormWarning" xml:space="preserve">
+    <value>¿Está seguro de importar esta definición de formulario y reemplazar todo el contenido del formulario actual? Las preguntas o instrucciones existentes serán reemplazadas.  Si el formulario actual tiene preguntas, sería prudente exportarlo primero para que tenga un respaldo. También debería exportar y borrar los envíos existentes, de otra manera habrá respuestas huérfanas que ya no corresponderían a las preguntas de formulario existentes.</value>
+  </data>
+  <data name="ImportQuestionButton" xml:space="preserve">
+    <value>Importar pregunta</value>
+  </data>
+  <data name="InstructionBlockLabel" xml:space="preserve">
+    <value>Bloque de instrucciones</value>
+  </data>
+  <data name="InstructionBlockQuestionType" xml:space="preserve">
+    <value>Bloque de instrucciones</value>
+  </data>
+  <data name="InstructionsTab" xml:space="preserve">
+    <value>Instrucciones</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>es obligatorio.</value>
+  </data>
+  <data name="MaxRangeLabel" xml:space="preserve">
+    <value>Valor máximo</value>
+  </data>
+  <data name="MinRangeLabel" xml:space="preserve">
+    <value>Valor mínimo</value>
+  </data>
+  <data name="NewQuestionButton" xml:space="preserve">
+    <value>Agregar una nueva pregunta</value>
+  </data>
+  <data name="NextButton" xml:space="preserve">
+    <value>Siguiente &gt;&gt;</value>
+  </data>
+  <data name="NitificationSiteUserFormat" xml:space="preserve">
+    <value>Recibido del usuario del site: {0}</value>
+  </data>
+  <data name="NoResultsMessage" xml:space="preserve">
+    <value>Todavía no se han recibido envíos de formularios.</value>
+  </data>
+  <data name="NotificationAliasLabelSetting" xml:space="preserve">
+    <value>Etiqueta de la lista de correo</value>
+  </data>
+  <data name="NotificationAliasSetting" xml:space="preserve">
+    <value>Mostrar alias en lugar de direcciones de correo</value>
+  </data>
+  <data name="NotificationEmailBccSetting" xml:space="preserve">
+    <value>Dirección(es) de correo para notificación de copia oculta BCC</value>
+  </data>
+  <data name="NotificationEmailSetting" xml:space="preserve">
+    <value>Dirección(es) de correo para recibir envíos de formularios</value>
+  </data>
+  <data name="NotificationIPAddressFormat" xml:space="preserve">
+    <value>Desde la dirección IP: {0}</value>
+  </data>
+  <data name="NotificationSubjectFormat" xml:space="preserve">
+    <value>Envíos de formularios recibidos: {0}</value>
+  </data>
+  <data name="OptionsHeading" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="OrphanCountLabel" xml:space="preserve">
+    <value>Contador de respuestas huérfanas</value>
+  </data>
+  <data name="Orphans" xml:space="preserve">
+    <value>huérfanas</value>
+  </data>
+  <data name="PageNumberLabel" xml:space="preserve">
+    <value>Número de página</value>
+  </data>
+  <data name="PreValidateForm" xml:space="preserve">
+    <value>¿Prevalidar el formulario?</value>
+  </data>
+  <data name="PreviousButton" xml:space="preserve">
+    <value>&lt;&lt; Previo</value>
+  </data>
+  <data name="QuestionEditOptionsDeleteAlternateText" xml:space="preserve">
+    <value>Eliminar la opción seleccionada</value>
+  </data>
+  <data name="QuestionEditOptionsDownAlternateText" xml:space="preserve">
+    <value>Mover hacia abajo la opción seleccionada</value>
+  </data>
+  <data name="QuestionEditOptionsEditAlternateText" xml:space="preserve">
+    <value>Editar la opción seleccionada</value>
+  </data>
+  <data name="QuestionEditOptionsUpAlternateText" xml:space="preserve">
+    <value>Mover hacia arriba la opción seleccionada</value>
+  </data>
+  <data name="QuestionsTab" xml:space="preserve">
+    <value>Preguntas</value>
+  </data>
+  <data name="QuestionTextLabel" xml:space="preserve">
+    <value>Texto de la pregunta</value>
+  </data>
+  <data name="QuestionTypeLabel" xml:space="preserve">
+    <value>Tipo de pregunta</value>
+  </data>
+  <data name="RadioButtonListQuestionType" xml:space="preserve">
+    <value>Opción múltiple</value>
+  </data>
+  <data name="RequiredFieldIndicator" xml:space="preserve">
+    <value>*</value>
+    <comment>No translation needed.</comment>
+  </data>
+  <data name="ResultsTitleFormat" xml:space="preserve">
+    <value>{0} envíos</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Grabar</value>
+  </data>
+  <data name="SliderQuestionType" xml:space="preserve">
+    <value>Escala móvil</value>
+  </data>
+  <data name="SliderTooltipFormat" xml:space="preserve">
+    <value>Escala: valor {0}. Deslice para modificar el valor, por favor.</value>
+  </data>
+  <data name="SubmissionCountLabel" xml:space="preserve">
+    <value>Envíos totales</value>
+  </data>
+  <data name="SubmitButton" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="TaskCompleted" xml:space="preserve">
+    <value>Terminada</value>
+  </data>
+  <data name="TaskQueued" xml:space="preserve">
+    <value>En fila</value>
+  </data>
+  <data name="TaskRunning" xml:space="preserve">
+    <value>Ejecutándose</value>
+  </data>
+  <data name="TaskStarted" xml:space="preserve">
+    <value>Iniciada</value>
+  </data>
+  <data name="TextAreaQuestionType" xml:space="preserve">
+    <value>Texto del párrafo</value>
+  </data>
+  <data name="TextBoxQuestionType" xml:space="preserve">
+    <value>Texto</value>
+  </data>
+  <data name="ThankYouMessageTab" xml:space="preserve">
+    <value>Mensaje de agradecimiento</value>
+  </data>
+  <data name="TotalPagesLabel" xml:space="preserve">
+    <value>Páginas totales
+</value>
+  </data>
+  <data name="UpdateOptionButton" xml:space="preserve">
+    <value>Opción de actualización</value>
+  </data>
+  <data name="BrowseResultsLink" xml:space="preserve">
+    <value>Revisar envíos</value>
+  </data>
+  <data name="EnableRegexValidation" xml:space="preserve">
+    <value>¿Activar la validación de expresiones regulares para las preguntas de texto?</value>
+  </data>
+  <data name="InvalidRegexTextLabel" xml:space="preserve">
+    <value>Mensaje inválido</value>
+  </data>
+  <data name="RegexExpressionLabel" xml:space="preserve">
+    <value>Expresión regular para la validación</value>
+  </data>
+  <data name="ResultsGridPageSizeSetting" xml:space="preserve">
+    <value>Tamaño de la cuadrícula de resultados</value>
+  </data>
+  <data name="ViewResultsGridLink" xml:space="preserve">
+    <value>Ver la cuadrícula de envíos</value>
+  </data>
+  <data name="ViewResultsGridTooltip" xml:space="preserve">
+    <value>Envíos de formularios</value>
+  </data>
+  <data name="DeleteQuestionButtonTooltip" xml:space="preserve">
+    <value>Eliminar esta pregunta</value>
+  </data>
+  <data name="EditInstructionsLink" xml:space="preserve">
+    <value>Instrucciones de edición</value>
+  </data>
+  <data name="DeleteResponseButton" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="DeleteResponseWarning" xml:space="preserve">
+    <value>¿Está seguro de eliminar este envío del formulario?</value>
+  </data>
+  <data name="ResponseTimeIpFormat" xml:space="preserve">
+    <value>Recibió {0} de la dirección IP {1}</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Clase CSS personalizada</value>
+  </data>
+  <data name="ExportToWord" xml:space="preserve">
+    <value>Exportar a Word</value>
+  </data>
+  <data name="InvalidRegexWarning" xml:space="preserve">
+    <value>La expresión regular capturada es inválida.</value>
+  </data>
+  <data name="BrowseResultsTooltip" xml:space="preserve">
+    <value>Revisar envíos </value>
+  </data>
+  <data name="CssClassLabel" xml:space="preserve">
+    <value>Clase CSS</value>
+  </data>
+  <data name="InvalidCssClassWarning" xml:space="preserve">
+    <value>Sólo se permiten caracteres alfanuméricos para las clases CSS.</value>
+  </data>
+  <data name="AllowedUploadExtensions" xml:space="preserve">
+    <value>Extensiones permitidas para cargas</value>
+  </data>
+  <data name="AllowedUploadExtensionsWarning" xml:space="preserve">
+    <value>Advertencia de extensiones permitidas para cargas</value>
+  </data>
+  <data name="AllowedUploads" xml:space="preserve">
+    <value>Cargas permitidas</value>
+  </data>
+  <data name="UploadInstructions" xml:space="preserve">
+    <value>Instrucciones para carga</value>
+  </data>
+  <data name="FileUploadSettings" xml:space="preserve">
+    <value>Ajustes de carga de archivos</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>Ajustes generales</value>
+  </data>
+  <data name="NotificationSettings" xml:space="preserve">
+    <value>Ajustes de notificación</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Cargar/Terminar</value>
+  </data>
+  <data name="DeleteAttachmentWarning" xml:space="preserve">
+    <value>¿Está seguro de borrar este envío de archivo?</value>
+  </data>
+  <data name="DownloadLink" xml:space="preserve">
+    <value>Descargar</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Archivos</value>
+  </data>
+  <data name="FileTooLargeWarning" xml:space="preserve">
+    <value>El archivo cargado fue ignorado porque excede el límite de tamaño configurado. Por favor cargue un archivo no mayor a {0} Megabytes.</value>
+  </data>
+  <data name="FileTooLargeWarningFormat" xml:space="preserve">
+    <value>El archivo {0} fue ignorado porque excede el límite de tamaño configurado. Por favor cargue un archivo no mayor a {1} Megabytes.</value>
+  </data>
+  <data name="FileUploadGlobalRegexWarning" xml:space="preserve">
+    <value>El tipo de archivo no está permitido por los ajustes globales.</value>
+  </data>
+  <data name="NotificationIncludeDetails" xml:space="preserve">
+    <value>¿Incluir los detalles en la notificación?</value>
+  </data>
+  <data name="NotificationIntro" xml:space="preserve">
+    <value>Se ha enviado un formulario, de click en el enlace siguiente para ver el envío:</value>
+  </data>
+  <data name="FormSubmittedEventHandlerSetting" xml:space="preserve">
+    <value>Manejador de eventos de envío</value>
+  </data>
+  <data name="NotificationFilesExcludedWarning" xml:space="preserve">
+    <value>Los archivo(s) adjunto(s) no se incluyeron por su tamaño, de click en el enlace para ver el envío y descargar estos archivos.</value>
+  </data>
+  <data name="NotificationIncludeFiles" xml:space="preserve">
+    <value>¿Incluir los archivos enviados como archivos adjuntos?</value>
+  </data>
+  <data name="NotificationLeaveOutUnansweredQuestions" xml:space="preserve">
+    <value>¿Omitir las preguntas no contestadas en la notificación?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="File1ErrorFormat" xml:space="preserve">
+    <value>Archivo 1: {0}</value>
+  </data>
+  <data name="File2ErrorFormat" xml:space="preserve">
+    <value>Archivo 2: {0}</value>
+  </data>
+  <data name="File3ErrorFormat" xml:space="preserve">
+    <value>Archivo 3: {0}</value>
+  </data>
+  <data name="File4ErrorFormat" xml:space="preserve">
+    <value>Archivo 4: {0}</value>
+  </data>
+  <data name="FinishWithNoUploadButton" xml:space="preserve">
+    <value>Terminar sin cargar</value>
+  </data>
+  <data name="UploadIsRequired" xml:space="preserve">
+    <value>¿La carga es obligatoria?</value>
+  </data>
+  <data name="UseSslIfAvailable" xml:space="preserve">
+    <value>¿Usar SSL si está disponible?</value>
+  </data>
+  <data name="EnableOptionAliases" xml:space="preserve">
+    <value>¿Habilitar alias de opciones?</value>
+  </data>
+  <data name="EnableQuestionAliases" xml:space="preserve">
+    <value>¿Habilitar alias de preguntas?</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Mostrar</value>
+  </data>
+  <data name="QuestionAliasLabel" xml:space="preserve">
+    <value>Alias de pregunta</value>
+  </data>
+  <data name="ValueAlias" xml:space="preserve">
+    <value>Valor/Alias</value>
+  </data>
+  <data name="EnablePerQuestionCssClasses" xml:space="preserve">
+    <value>¿Permitir clases CSS a nivel pregunta?</value>
+  </data>
+  <data name="FlattenPagesAsGroups" xml:space="preserve">
+    <value>¿Aplanar como grupos las páginas?</value>
+  </data>
+  <data name="OverrideSubmitButtonText" xml:space="preserve">
+    <value>Personalizar el texto del botón de envío</value>
+  </data>
+  <data name="ForceScrollTopAfterSubmit" xml:space="preserve">
+    <value>¿Forzar el desplazamiento al inicio después de enviar?</value>
+  </data>
+</root>

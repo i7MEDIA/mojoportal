@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CacheTool">
+    <value>أداة التخزين المؤقت</value>
+  </data>
+  <data name="Clear">
+    <value>واضحة</value>
+  </data>
+  <data name="DeleteSavedQuery">
+    <value>حذف استعلام محفوظ</value>
+  </data>
+  <data name="DesignTools">
+    <value>أدوات التصميم</value>
+  </data>
+  <data name="DevToolsHeading">
+    <value>أدوات المطور</value>
+  </data>
+  <data name="DisableCssCaching">
+    <value>تعطيل التخزين المؤقت لانماط الاستيل</value>
+  </data>
+  <data name="DownloadSkin">
+    <value>تحميل القالب</value>
+  </data>
+  <data name="EnableCssCaching">
+    <value>تمكين التخزين المؤقت لانماط الاستيل</value>
+  </data>
+  <data name="ExecuteNonQuery">
+    <value>تنفيذ الاستعلام العديم</value>
+  </data>
+  <data name="ExecuteQuery">
+    <value>تنفيذ الاستعلام</value>
+  </data>
+  <data name="LoadSavedQuery">
+    <value>تحميل الاستعلام المحفوظ</value>
+  </data>
+  <data name="NoQueryWarning">
+    <value>لم تقم بادخال الاستعلام</value>
+  </data>
+  <data name="QueryNameRequired">
+    <value>عليك إدخال اسم لحفظ الاستعلام به</value>
+  </data>
+  <data name="QueryToolHeadingFormat">
+    <value>{0} أداة استعلام</value>
+  </data>
+  <data name="QueryToolLink">
+    <value>أداة استعلام</value>
+  </data>
+  <data name="QueryToolWarning">
+    <value>مع القوة الكبيرة تأتي مسؤولية كبيرة. فمن الممكن حذف البيانات الخاصة بموقعك باستخدام هذه الأداة. لا يجب استخدام هذا إلا إذا كنت لديك الخبرة فى قواعد البيانات ومعرفة ما تقوم به.</value>
+  </data>
+  <data name="SaveQueryAs">
+    <value>حفظ الاستعلام باسم</value>
+  </data>
+  <data name="SavedQueries">
+    <value>الاستعلامات المحفوظة</value>
+  </data>
+  <data name="SelectButton">
+    <value>حدد</value>
+  </data>
+  <data name="ServerVariablesLink">
+    <value>متغيرات الملقم</value>
+  </data>
+  <data name="SkinManagement">
+    <value>إدارة القالب</value>
+  </data>
+  <data name="SqlQuery">
+    <value>استعلام SQL</value>
+  </data>
+  <data name="Tables">
+    <value>الجداول</value>
+  </data>
+</root>

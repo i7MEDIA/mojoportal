@@ -1,0 +1,23 @@
+
+.TreeviewMain
+{
+	font-family: Arial, Helvetica; font-size: medium;
+	margin-left: -15px;
+}
+.TreeviewItem
+{
+	margin-left: 0px; padding-left: 15px; margin-top: 3px;
+}
+.TreeviewItemTextClicked
+{
+	 background-color: buttonface; color: black; text-decoration: none; cursor: default; 
+	 padding: 1px; border: 1px dotted threedshadow;
+}
+.TreeviewItemTextOut
+{
+	 text-decoration: none; padding: 2px;
+}
+.TreeviewItemTextOver
+{
+	 color: Navy; text-decoration: underline; cursor: default;padding: 2px;
+}

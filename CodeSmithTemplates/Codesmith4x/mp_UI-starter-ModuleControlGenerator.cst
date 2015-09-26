@@ -1,0 +1,144 @@
+<%-- 
+Name:  			mojoPortal Module Control stubber
+Author: 		Joe Audette
+Description: 	Generates markup and code behind for a control inheriting from SiteModuleControl
+				this control serves as the entry point to a feature that plugs into the mojoportal 
+				content system
+Last Modified:	3/20/2007
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author" %>
+<%@ Property Name="BusinessLayerNameSpace" Type="System.String" Default="mojoPortal.Business" Category="Style" Description="The Namespace of the Business Layer class" %>
+<%@ Property Name="UINameSpace" Type="System.String" Default="MyWeb.UI" Category="Style" Description="" %>
+<%@ Property Name="FeatureName" Type="System.String" Default="MyFeature" Category="Style" Description="" %>
+<%@ Property Name="ControlName" Type="System.String" Default="MyFeatureModule.ascx" Category="Style" Description="" %>
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+
+
+<%%@ Control Language="C#" AutoEventWireup="false" CodeBehind="<%= ControlName%>.cs" Inherits="<%= UINameSpace%>.<%= FeatureName%>Module" %%>
+
+<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
+<mp:CornerRounderTop id="ctop1" runat="server" />
+<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper <%= FeatureName%>">
+<portal:ModuleTitleControl EditText="Edit" EditUrl="~/<%= FeatureName%>/<%= FeatureName%>Edit.aspx" runat="server" id="TitleControl" />
+<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
+<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
+
+<div class="settingrow">
+        This will soon be the entry point to the <%= FeatureName%>.<br />
+        
+</div>
+
+
+</portal:InnerBodyPanel>
+</portal:OuterBodyPanel>
+<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+</portal:InnerWrapperPanel>
+<mp:CornerRounderBottom id="cbottom1" runat="server" />
+</portal:OuterWrapperPanel>
+
+
+// Author:					<%= Author %>
+// Created:					<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+// Last Modified:			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+// 
+// The use and distribution terms for this software are covered by the 
+// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
+// which can be found in the file CPL.TXT at the root of this distribution.
+// By using this software in any fashion, you are agreeing to be bound by 
+// the terms of this license.
+//
+// You must not remove this notice, or any other, from this software.
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Configuration;
+using System.Globalization;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using mojoPortal.Web;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.UI;
+using log4net;
+using <%= BusinessLayerNameSpace%>;
+using Resources;
+
+namespace <%= UINameSpace%>
+{
+	
+    public partial class <%= FeatureName%>Module : SiteModuleControl
+    {
+		// FeatureGuid <%= Guid.NewGuid().ToString() %>
+		
+		#region OnInit
+
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+            this.Load += new EventHandler(Page_Load);
+
+        }
+
+        #endregion
+		
+        protected void Page_Load(object sender, EventArgs e)
+        {
+			
+            LoadSettings();
+            PopulateLabels();
+            PopulateControls();
+
+        }
+
+        private void PopulateControls()
+        {
+			TitleControl.EditUrl = SiteRoot + "/<%= FeatureName%>/<%= FeatureName%>Edit.aspx";
+            TitleControl.Visible = !this.RenderInWebPartMode;
+            if (this.ModuleConfiguration != null)
+            {
+                this.Title = this.ModuleConfiguration.ModuleTitle;
+                this.Description = this.ModuleConfiguration.FeatureName;
+            }
+
+
+        }
+
+
+        private void PopulateLabels()
+        {
+			TitleControl.EditText = "Edit";
+        }
+
+        private void LoadSettings()
+        {
+
+
+        }
+
+		
+    }
+}
+
+
+
+<script runat="template">
+
+
+
+	
+</script>

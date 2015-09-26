@@ -1,0 +1,134 @@
+<%@ CodeTemplate Language="C#" Debug="True" TargetLanguage="T-SQL" Description="Generates a script based on the data from a table." %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table to get the data from." %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Text" %>
+/*
+ * Purpose:
+ * Generates table insert script for MySql from existing data in MS SQL (or perhaps any supported)
+ *
+ * Change History:
+ * Modified 2008-02-24 Joe Audette - initial conversion for MySql
+ * 
+ * 
+ *
+ */
+
+
+
+INSERT INTO <%= SourceTable.Name %> (
+	<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+	<%= SourceTable.Columns[i].Name %><% if (i < SourceTable.Columns.Count - 1) { %>,<% } %>
+	<% } %>
+)
+	<% for (int i = 0; i < SourceTableData.Rows.Count; i++) { %>
+	SELECT <%= GetTableRowValues(SourceTableData.Rows[i]) %><% if (i < SourceTableData.Rows.Count - 1) { %> UNION<% } %>
+	<% } %>
+	;
+
+<script runat="template">
+private DataTable _sourceTableData;
+
+private DataTable SourceTableData
+{
+	get
+	{
+		if (_sourceTableData == null)
+		{
+			_sourceTableData = SourceTable.GetTableData();
+		}
+		
+		return _sourceTableData;
+	}
+}
+
+public string GetTableRowValues(DataRow row)
+{
+	StringBuilder rowBuilder = new StringBuilder();
+	
+	for (int i = 0; i < SourceTable.Columns.Count; i++)
+	{
+		ColumnSchema column = SourceTable.Columns[i];
+		
+		if (IsNumericType(column))
+		{
+			if (row[i] == DBNull.Value)
+			{
+				rowBuilder.Append("NULL, ");
+			}
+			else
+			{
+				rowBuilder.Append(row[i].ToString());
+				rowBuilder.Append(", ");
+			}
+		}
+		else
+		{
+			if (row[i] == DBNull.Value)
+			{
+				rowBuilder.Append("NULL, ");
+			}
+			else if (row[i] is DateTime)
+			{
+				rowBuilder.Append("'");
+				rowBuilder.Append(((DateTime)row[i]).ToString("MM-dd-yyyy HH:mm:ss.fff"));
+				rowBuilder.Append("'");
+				rowBuilder.Append(", ");
+			}
+			else
+			{
+				rowBuilder.Append("'");
+				rowBuilder.Append(PrepareValue(row[i].ToString()));
+				rowBuilder.Append("'");
+				rowBuilder.Append(", ");
+			}
+		}
+	}
+	
+	return rowBuilder.ToString().Substring(0, rowBuilder.ToString().Length - 2);
+}
+
+public string PrepareValue(string value)
+{
+	return value.Replace("'", "''").Replace("\r\n", "' + CHAR(13) + CHAR(10) + '").Replace("\n", "' + CHAR(10) + '");
+}
+
+public bool IsNumericType(ColumnSchema column)
+{
+	switch (column.NativeType.ToLower())
+	{
+		case "bigint":
+		case "bit":
+		case "decimal":
+		case "float":
+		case "int":
+		case "money":
+		case "numeric":
+		case "real":
+		case "smallint":
+		case "smallmoney":
+		case "tinyint": return true;
+		default: return false;
+	}
+}
+
+public string GetTableOwner()
+{
+    return GetTableOwner(true);
+}
+
+public string GetTableOwner(bool includeDot)
+{
+    if (SourceTable.Owner.Length > 0)
+    {
+        return "[" + SourceTable.Owner + "].";
+    }
+    else
+    {
+        return "";
+    }
+}
+</script>

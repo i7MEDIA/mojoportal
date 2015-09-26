@@ -1,0 +1,16 @@
+<Combine name="MySQLData" fileversion="2.0">
+  <Configurations>
+    <Configuration name="Debug" ctype="CombineConfiguration">
+      <Entry build="True" name="MySQLData" />
+    </Configuration>
+    <Configuration name="Release" ctype="CombineConfiguration">
+      <Entry build="True" name="MySQLData" />
+    </Configuration>
+  </Configurations>
+  <StartMode startupentry="MySQLData" single="True">
+    <Execute type="None" entry="MySQLData" />
+  </StartMode>
+  <Entries>
+    <Entry filename="./MySQLData.mdp" />
+  </Entries>
+</Combine>

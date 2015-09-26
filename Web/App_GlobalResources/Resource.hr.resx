@@ -1,0 +1,3903 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessDeniedLabel" xml:space="preserve">
+    <value>Pristup ovom sadržaju vam je zabranjen. Ako imate pitanja glede vlastitih dozvola, obratite se portalskom administratoru.</value>
+  </data>
+  <data name="AdminMenuBannedIPAddressesLabel" xml:space="preserve">
+    <value>Zabranjene IP adrese</value>
+  </data>
+  <data name="AdminMenuContentManagerLink" xml:space="preserve">
+    <value>Upravljanje sadržajem</value>
+  </data>
+  <data name="AdminMenuFeatureModulesLink" xml:space="preserve">
+    <value>Moduli</value>
+  </data>
+  <data name="AdminMenuFileManagerLink" xml:space="preserve">
+    <value>Datoteke i mape</value>
+  </data>
+  <data name="AdminMenuHeading" xml:space="preserve">
+    <value>Administracija</value>
+  </data>
+  <data name="AdminMenuLink" xml:space="preserve">
+    <value>Administracija</value>
+  </data>
+  <data name="AdminMenuNewsletterAdminLabel" xml:space="preserve">
+    <value>E-leci</value>
+  </data>
+  <data name="AdminMenuPageTreeLink" xml:space="preserve">
+    <value>Dodaj/uredi stranice</value>
+  </data>
+  <data name="AdminMenuRoleAdminLink" xml:space="preserve">
+    <value>Uloge</value>
+  </data>
+  <data name="AdminMenuServerCurrentGMTTimeLabel" xml:space="preserve">
+    <value>Trenutno greenwichko vrijeme (GMT ili UTC):</value>
+  </data>
+  <data name="AdminMenuServerInfoLabel" xml:space="preserve">
+    <value>Informacije o sustavu</value>
+  </data>
+  <data name="AdminMenuServerLocalTimeLabel" xml:space="preserve">
+    <value>Lokalno vrijeme servera:</value>
+  </data>
+  <data name="AdminMenuServerLogLabel" xml:space="preserve">
+    <value>Sistemski dnevnik</value>
+  </data>
+  <data name="AdminMenuServerPrefferedGMTOffsetLabel" xml:space="preserve">
+    <value>Web.config postavka vremenskog pomaka spram GMT-a:</value>
+  </data>
+  <data name="AdminMenuServerTimeZoneLabel" xml:space="preserve">
+    <value>Vremenska zona servera:</value>
+  </data>
+  <data name="AdminMenuServerUtcOffsetLabel" xml:space="preserve">
+    <value>Serverski GMT pomak:</value>
+  </data>
+  <data name="AdminMenuSiteSettingsLink" xml:space="preserve">
+    <value>Portalske postavke</value>
+  </data>
+  <data name="AdminMenuUrlManagerLink" xml:space="preserve">
+    <value>Upravljanje URL-om</value>
+  </data>
+  <data name="AdminMenuVersionLabel" xml:space="preserve">
+    <value>Verzija</value>
+  </data>
+  <data name="AdminMenuWebPartAdminLink" xml:space="preserve">
+    <value>Instalacija web partova</value>
+  </data>
+  <data name="AllowAnonymousPostsLabel" xml:space="preserve">
+    <value>Dozvoliti anonimne poruke?</value>
+  </data>
+  <data name="AlphaPagerChars" xml:space="preserve">
+    <value>ABCČĆDĐEFGHIJKLMNOPQRSŠTUVWXYZŽ</value>
+  </data>
+  <data name="ApplicationStartEventMessage" xml:space="preserve">
+    <value>Aplikacija je pokrenuta.</value>
+  </data>
+  <data name="BannedIPAddressDeleteConfirmMessage" xml:space="preserve">
+    <value>Želite li doista izbrisati ovu IP adresu? Ako to učinite, neće više biti zabranjena.</value>
+  </data>
+  <data name="BannedIPAddressesAddNewButton" xml:space="preserve">
+    <value>Dodaj zabranjenu IP adresu</value>
+  </data>
+  <data name="BannedIPAddressesGridCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="BannedIPAddressesGridDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="BannedIPAddressesGridEditButton" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="BannedIPAddressesGridUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="BannedIPAddressesHeading" xml:space="preserve">
+    <value>Zabranjene IP adrese</value>
+  </data>
+  <data name="BannedIPAddressLabel" xml:space="preserve">
+    <value>Zabranjeni IP-ovi</value>
+  </data>
+  <data name="BannedIPAddressReasonLabel" xml:space="preserve">
+    <value>Razlog</value>
+  </data>
+  <data name="BannedIPAddressUTCLabel" xml:space="preserve">
+    <value>Vremenski žig</value>
+  </data>
+  <data name="CancelUploadAltText" xml:space="preserve">
+    <value>Otkaži otpremu</value>
+  </data>
+  <data name="ChangePasswordButton" xml:space="preserve">
+    <value>Promijeni lozinku</value>
+  </data>
+  <data name="ChangePasswordCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="ChangePasswordConfirmNewPasswordLabel" xml:space="preserve">
+    <value>Potvrda nove lozinke</value>
+  </data>
+  <data name="ChangePasswordConfirmPasswordRequiredMessage" xml:space="preserve">
+    <value>Potvrda lozinke ne smije biti prazna.</value>
+  </data>
+  <data name="ChangePasswordCurrentPasswordIncorrectWarning" xml:space="preserve">
+    <value>Lozinka je neispravna.</value>
+  </data>
+  <data name="ChangePasswordCurrentPasswordLabel" xml:space="preserve">
+    <value>Trenutna lozinka</value>
+  </data>
+  <data name="ChangePasswordCurrentPasswordRequiredWarning" xml:space="preserve">
+    <value>Trenutna lozinka je obavezna.</value>
+  </data>
+  <data name="ChangePasswordFailureText" xml:space="preserve">
+    <value>Vaša lozinka NIJE promijenjena. </value>
+  </data>
+  <data name="ChangePasswordLabel" xml:space="preserve">
+    <value>Promjena lozinke</value>
+  </data>
+  <data name="ChangePasswordLink" xml:space="preserve">
+    <value>Promijeni lozinku</value>
+  </data>
+  <data name="ChangePasswordMinimumLengthWarning" xml:space="preserve">
+    <value>Minimalna duljina nove lozinke je </value>
+  </data>
+  <data name="ChangePasswordMinNonAlphanumericCharsWarning" xml:space="preserve">
+    <value>Minimalni broj nealfanumeričkih znakova nove lozinke je </value>
+  </data>
+  <data name="ChangePasswordMustMatchConfirmMessage" xml:space="preserve">
+    <value>Nova lozinka i njena potvrda nisu jednake.</value>
+  </data>
+  <data name="ChangePasswordNewMatchesOldWarning" xml:space="preserve">
+    <value>Nova lozinka ne može biti jednaka trenutnoj.</value>
+  </data>
+  <data name="ChangePasswordNewPasswordLabel" xml:space="preserve">
+    <value>Nova lozinka</value>
+  </data>
+  <data name="ChangePasswordNewPasswordRequired" xml:space="preserve">
+    <value>Nova lozinka ne smije biti prazna.</value>
+  </data>
+  <data name="ChangePasswordPasswordRegexFailureMessage" xml:space="preserve">
+    <value>Lozinka nije dovoljno jaka.</value>
+  </data>
+  <data name="ChangePasswordSuccessText" xml:space="preserve">
+    <value>Važa lozinka je promijenjena.</value>
+  </data>
+  <data name="CheckProgressText" xml:space="preserve">
+    <value>Provjera napretka otpreme</value>
+  </data>
+  <data name="ChooseContentAddToMyPageLink" xml:space="preserve">
+    <value>Dodaj na Moju Stranicu</value>
+  </data>
+  <data name="ContentListPageSize" xml:space="preserve">
+    <value>Veličina popisa sadržaja</value>
+  </data>
+  <data name="ContentManagerAuthorColumnHeader" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="ContentManagerBackToListLink" xml:space="preserve">
+    <value>Natrag na popis sadržaja</value>
+  </data>
+  <data name="ContentManagerCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="ContentManagerCenterColumnLabel" xml:space="preserve">
+    <value>Sredina</value>
+  </data>
+  <data name="ContentManagerColumnColumnHeader" xml:space="preserve">
+    <value>Smještaj</value>
+  </data>
+  <data name="ContentManagerContentTitleColumnHeader" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="ContentManagerCreateNewContentButton" xml:space="preserve">
+    <value>Dodaj modul</value>
+  </data>
+  <data name="ContentManagerDeleteContentWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovaj sadržaj?</value>
+  </data>
+  <data name="ContentManagerFeatureTypeColumnHeader" xml:space="preserve">
+    <value>Vrsta</value>
+  </data>
+  <data name="ContentManagerLeftColumnLabel" xml:space="preserve">
+    <value>Lijevo</value>
+  </data>
+  <data name="ContentManagerNotPublishedAltText" xml:space="preserve">
+    <value>Objavi sadržaj ove stranice</value>
+  </data>
+  <data name="ContentManagerOrderColumnHeader" xml:space="preserve">
+    <value>Redoslijed</value>
+  </data>
+  <data name="ContentManagerPageColumnHeader" xml:space="preserve">
+    <value>Stranica</value>
+  </data>
+  <data name="ContentManagerPreviewContentLabel" xml:space="preserve">
+    <value>Prikaz: </value>
+  </data>
+  <data name="ContentManagerPublishBeginDateColumnHeader" xml:space="preserve">
+    <value>Početak objave</value>
+  </data>
+  <data name="ContentManagerPublishContentLabel" xml:space="preserve">
+    <value>Objava za </value>
+  </data>
+  <data name="ContentManagerPublishContentLink" xml:space="preserve">
+    <value>Objavi</value>
+  </data>
+  <data name="ContentManagerPublishDeleteLabel" xml:space="preserve">
+    <value>Objavi/Izbriši</value>
+  </data>
+  <data name="ContentManagerPublishedAltText" xml:space="preserve">
+    <value>Uredi objavu ove stranice</value>
+  </data>
+  <data name="ContentManagerPublishedColumnHeader" xml:space="preserve">
+    <value>Objavljeno</value>
+  </data>
+  <data name="ContentManagerPublishEndDateColumnHeader" xml:space="preserve">
+    <value>Kraj objave</value>
+  </data>
+  <data name="ContentManagerPublishingContentLink" xml:space="preserve">
+    <value>Objavi</value>
+  </data>
+  <data name="ContentManagerRightColumnLabel" xml:space="preserve">
+    <value>Desno</value>
+  </data>
+  <data name="ContentManagerUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="ContentManagerViewEditContentLabel" xml:space="preserve">
+    <value>Prikaži/Uredi</value>
+  </data>
+  <data name="ContentManagerViewEditLabel" xml:space="preserve">
+    <value>Prikaži/Uredi</value>
+  </data>
+  <data name="CouldNotReadLogException" xml:space="preserve">
+    <value>Nije moguće čitati dnevnik stoga što ga je sustav možda zaključao. Pokušajte opet poslije.</value>
+  </data>
+  <data name="CutePagerBackToFirstClause" xml:space="preserve">
+    <value>Idi na prvu stranicu</value>
+  </data>
+  <data name="CutePagerBackToPageClause" xml:space="preserve">
+    <value>Natrag</value>
+  </data>
+  <data name="CutePagerGoToLastClause" xml:space="preserve">
+    <value>Idi na zadnju stranicu</value>
+  </data>
+  <data name="CutePagerNavigateToPageText" xml:space="preserve">
+    <value>Idi na stranicu</value>
+  </data>
+  <data name="CutePagerNextToPageClause" xml:space="preserve">
+    <value>Next to Page</value>
+  </data>
+  <data name="CutePagerOfClause" xml:space="preserve">
+    <value>od</value>
+  </data>
+  <data name="CutePagerPageClause" xml:space="preserve">
+    <value>Stranica</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="DeleteImageAltText" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="DuplicateEmailMessage" xml:space="preserve">
+    <value>Ova e-adresa je već u uporabi</value>
+  </data>
+  <data name="DuplicateUserNameMessage" xml:space="preserve">
+    <value>Ovo korisničko ime je već u uporabi.</value>
+  </data>
+  <data name="EditAccessDeniedLabel" xml:space="preserve">
+    <value>Uređivanje ovog sadržaja vam je zabranjeno. Ako imate pitanja glede vlastitih dozvola, obratite se portalskom administratoru.</value>
+  </data>
+  <data name="EditHtmlBodyLabel" xml:space="preserve">
+    <value>Content Body:</value>
+  </data>
+  <data name="EditHtmlCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="EditHtmlDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="EditHtmlSettingsLabel" xml:space="preserve">
+    <value>HTML sadržaj</value>
+  </data>
+  <data name="EditHtmlUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="EditImageAltText" xml:space="preserve">
+    <value>Uredi sadržaj</value>
+  </data>
+  <data name="EnterEmailLabel" xml:space="preserve">
+    <value>Upišite svoju e-adresu:</value>
+  </data>
+  <data name="EnterUserNameLabel" xml:space="preserve">
+    <value>Upišite svoje korisničko ime:</value>
+  </data>
+  <data name="FileManagerCreateDirectoryButton" xml:space="preserve">
+    <value>Stvori novu mapu:</value>
+  </data>
+  <data name="FileManagerDelete" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="FileManagerDeleteConfirm" xml:space="preserve">
+    <value>Želite li doista izbrisati odabrane datoteke i mape?</value>
+  </data>
+  <data name="FileManagerDisabledMessage" xml:space="preserve">
+    <value>Upravljanje datotekama je na ovom portalu onemogućeno.</value>
+  </data>
+  <data name="FileManagerFileNameLabel" xml:space="preserve">
+    <value>Naziv datoteke ili mape</value>
+  </data>
+  <data name="FileManagerFolderDeleteConfirm" xml:space="preserve">
+    <value>Želite li doista izbrisati odabranu mapu i datoteke?</value>
+  </data>
+  <data name="FileManagerGoUp" xml:space="preserve">
+    <value>Viša razina</value>
+  </data>
+  <data name="FileManagerModifiedLabel" xml:space="preserve">
+    <value>Modificirano</value>
+  </data>
+  <data name="FileManagerNewFolderButton" xml:space="preserve">
+    <value>Napravi mapu</value>
+  </data>
+  <data name="FileManagerObjectsLabel" xml:space="preserve">
+    <value>objekti</value>
+  </data>
+  <data name="FileManagerRename" xml:space="preserve">
+    <value>Preimenuj</value>
+  </data>
+  <data name="FileManagerRootDirectoryReached" xml:space="preserve">
+    <value>Dosegnuta je vršna mapa.</value>
+  </data>
+  <data name="FileManagerSizeLabel" xml:space="preserve">
+    <value>Veličina (KB)</value>
+  </data>
+  <data name="FileManagerUploadButton" xml:space="preserve">
+    <value>Otpremi</value>
+  </data>
+  <data name="FileManagerUploadLabel" xml:space="preserve">
+    <value>Otprema datoteka - do 4 istovremeno</value>
+  </data>
+  <data name="ForgotPasswordLabel" xml:space="preserve">
+    <value>Zaboravili ste lozinku?</value>
+  </data>
+  <data name="FriendlyUrlAddNewLabel" xml:space="preserve">
+    <value>Dodaj mapiranje URL-a</value>
+  </data>
+  <data name="FriendlyUrlCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="FriendlyUrlDeleteConfirmWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovo mapiranje?</value>
+  </data>
+  <data name="FriendlyUrlDeleteLabel" xml:space="preserve">
+    <value>Brisanje čitljivog URL-a</value>
+  </data>
+  <data name="FriendlyUrlDuplicateWarning" xml:space="preserve">
+    <value>Ovakvo mapiranje URL-a je već u uporabi.</value>
+  </data>
+  <data name="FriendlyUrlEditLabel" xml:space="preserve">
+    <value>Uređivanje čitljivog URL-a</value>
+  </data>
+  <data name="FriendlyUrlExpertEntryLabel" xml:space="preserve">
+    <value>...ili ju ručno upišite</value>
+  </data>
+  <data name="FriendlyUrlHelp" xml:space="preserve">
+    <value>Napomena: na Windows serverima, ako vaš prijateljski URL ne završava na .aspx, morate stvoriti mapu istoga imena poput vašeg prijateljskog URL-a te u njoj praznu tekstualnu datoteku naziva Default.aspx</value>
+  </data>
+  <data name="FriendlyUrlInvalidEntryMessage" xml:space="preserve">
+    <value>Morate upisati i prijateljski i stvarni URL.</value>
+  </data>
+  <data name="FriendlyUrlInvalidFriendlyUrlMessage" xml:space="preserve">
+    <value>Morate upisati prijateljski URL.</value>
+  </data>
+  <data name="FriendlyUrlLabel" xml:space="preserve">
+    <value>Prijateljski URL</value>
+  </data>
+  <data name="FriendlyUrlMapsToLabel" xml:space="preserve">
+    <value>mapira se na</value>
+  </data>
+  <data name="FriendlyUrlRealUrlLabel" xml:space="preserve">
+    <value>stvarni URL</value>
+  </data>
+  <data name="FriendlyUrlSaveLabel" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="FriendlyUrlSelectFromDropdownLabel" xml:space="preserve">
+    <value>Odaberite stranicu iz padajuće liste</value>
+  </data>
+  <data name="FriendlyUrlViewLink" xml:space="preserve">
+    <value>Prikaži prijateljski URL</value>
+  </data>
+  <data name="FriendlyUrlWouldMaskPhysicalPageWarning" xml:space="preserve">
+    <value>Ovaj URL ne može biti stvoren jer bi zaklonio fizičku stranicu.</value>
+  </data>
+  <data name="HelloLabel" xml:space="preserve">
+    <value>Bok</value>
+  </data>
+  <data name="HelpEditCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="HelpEditLink" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="HelpEditSaveButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="HelpNoHelpAvailable" xml:space="preserve">
+    <value>Za ovu stavku pomoć trenutno nije raspoloživa.</value>
+  </data>
+  <data name="HelpNoHelpAvailableAdminUser" xml:space="preserve">
+    <value>Za ovu stavku pomoć trenutno nije raspoloživa. Ako ju napišete, molimo da ju pošaljete na joe_audette pri yahoo točka com kako biste doprinijeli projektu. Stvorena datoteka stajat će u ~/Data/HelpFiles.</value>
+  </data>
+  <data name="HomePageLink" xml:space="preserve">
+    <value>Naslovnica</value>
+  </data>
+  <data name="HtmlAddItemLabel" xml:space="preserve">
+    <value>Upis stavke</value>
+  </data>
+  <data name="HtmlBeginDateLabel" xml:space="preserve">
+    <value>Početni datum:</value>
+  </data>
+  <data name="HtmlBeginDateRequiredHelp" xml:space="preserve">
+    <value>Morate upisati valjani početni datum</value>
+  </data>
+  <data name="HtmlContentFeatureName" xml:space="preserve">
+    <value>HTML sadržaj</value>
+  </data>
+  <data name="HtmlDeleteContentWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovaj sadržaj?</value>
+  </data>
+  <data name="HtmlEditorHeightSetting" xml:space="preserve">
+    <value>Visina uređivačke trake</value>
+  </data>
+  <data name="HtmlEndDateLabel" xml:space="preserve">
+    <value>Završni datum</value>
+  </data>
+  <data name="HtmlEndDateRequiredHelp" xml:space="preserve">
+    <value>Morate upisati valjani završni datum</value>
+  </data>
+  <data name="HtmlExcerptLabel" xml:space="preserve">
+    <value>Odlomak:</value>
+  </data>
+  <data name="HtmlMoreLinkLabel" xml:space="preserve">
+    <value>Link na još:</value>
+  </data>
+  <data name="HtmlMoreLinkNewWindowSetting" xml:space="preserve">
+    <value>Otvoriti novi prozor za link na još?</value>
+  </data>
+  <data name="HtmlMoreLinkText" xml:space="preserve">
+    <value>...pročitaj više</value>
+  </data>
+  <data name="HtmlMultipleItemsSetting" xml:space="preserve">
+    <value>Use Multiple Items?</value>
+  </data>
+  <data name="HtmlShowDateSetting" xml:space="preserve">
+    <value>Prikazati datum?</value>
+  </data>
+  <data name="HtmlTitleLabel" xml:space="preserve">
+    <value>Naslov:</value>
+  </data>
+  <data name="HtmlUseExcerptSetting" xml:space="preserve">
+    <value>Koristiti odlomke?</value>
+  </data>
+  <data name="HtmlUseMoreLinkSetting" xml:space="preserve">
+    <value>Koristiti link za još?</value>
+  </data>
+  <data name="iboxCloseWindow" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="iboxLoading" xml:space="preserve">
+    <value>Učitavanje...</value>
+  </data>
+  <data name="LargeTextLabel" xml:space="preserve">
+    <value>Veliki tekst</value>
+  </data>
+  <data name="LetterInfoAdminHeading" xml:space="preserve">
+    <value>E-leci</value>
+  </data>
+  <data name="LetterInfoAllowAnonFeedbackLabel" xml:space="preserve">
+    <value>Dozvoliti anonimni povratni info?</value>
+  </data>
+  <data name="LetterInfoAllowUserFeedbackLabel" xml:space="preserve">
+    <value>Dozvoliti povratni info korisnika?</value>
+  </data>
+  <data name="LetterInfoAvailableToRolesLabel" xml:space="preserve">
+    <value>Uloge s dozvolom pretplate:</value>
+  </data>
+  <data name="LetterInfoDescriptionLabel" xml:space="preserve">
+    <value>Opis:</value>
+  </data>
+  <data name="LetterInfoEditHeading" xml:space="preserve">
+    <value>Izrada e-letka</value>
+  </data>
+  <data name="LetterInfoEnabledLabel" xml:space="preserve">
+    <value>Omogućeno?</value>
+  </data>
+  <data name="LetterInfoEnableSendLogLabel" xml:space="preserve">
+    <value>Omogućiti pošiljateljski dnevnik?</value>
+  </data>
+  <data name="LetterInfoEnableViewAsWebPageLabel" xml:space="preserve">
+    <value>Omogućiti prikaz u obliku web stranice?</value>
+  </data>
+  <data name="LetterInfoFromAddressLabel" xml:space="preserve">
+    <value>E-adresa pošiljatelja:</value>
+  </data>
+  <data name="LetterInfoFromNameLabel" xml:space="preserve">
+    <value>Ime pošiljatelja:</value>
+  </data>
+  <data name="LetterInfoLastModifiedLabel" xml:space="preserve">
+    <value>Zadnja promjena:</value>
+  </data>
+  <data name="LetterInfoNewLink" xml:space="preserve">
+    <value>Novi e-leci</value>
+  </data>
+  <data name="LetterInfoReplyToAddressLabel" xml:space="preserve">
+    <value>E-adresa za odgovor:</value>
+  </data>
+  <data name="LetterInfoRolesThatCanApproveLabel" xml:space="preserve">
+    <value>Uloge koje mogu odobriti slanje:</value>
+  </data>
+  <data name="LetterInfoRolesThatCanEditLabel" xml:space="preserve">
+    <value>Uloge koje mogu uređivati ili potpisati e-letke:</value>
+  </data>
+  <data name="LetterInfoRolesThatCanSendLabel" xml:space="preserve">
+    <value>Uloge koje mogu slati:</value>
+  </data>
+  <data name="LetterInfoSaveButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="LetterInfoSendModeLabel" xml:space="preserve">
+    <value>Način slanja:</value>
+  </data>
+  <data name="LetterInfoTitleLabel" xml:space="preserve">
+    <value>Naslov:</value>
+  </data>
+  <data name="LoginAccountLockedMessage" xml:space="preserve">
+    <value>Ovaj korisnički račun je trenutno blokiran.</value>
+  </data>
+  <data name="LoginLink" xml:space="preserve">
+    <value>Prijava</value>
+  </data>
+  <data name="LoginUnconfirmedEmailMessage" xml:space="preserve">
+    <value>Ovaj račun još nije potvrđen. Ne možete se prijaviti bez prethodne potvrde vaše e-adrese. Trebali ste dobiti e-poruku s linkom za potvrdu računa. Ako niste dobili takvu poruku u roku od jednog sata, molimo kontaktirajte portalskog administratora za pomoć.</value>
+  </data>
+  <data name="LogoutLink" xml:space="preserve">
+    <value>Odjava</value>
+  </data>
+  <data name="MailboxLink" xml:space="preserve">
+    <value>Site Office</value>
+  </data>
+  <data name="ManageUsersActivityTab" xml:space="preserve">
+    <value>Aktivnosti</value>
+  </data>
+  <data name="ManageUsersAddToRoleButton" xml:space="preserve">
+    <value>Dodijeli ulogu</value>
+  </data>
+  <data name="ManageUsersAddUserLabel" xml:space="preserve">
+    <value>Upis korisnika</value>
+  </data>
+  <data name="ManageUsersApprovedForForumsLabel" xml:space="preserve">
+    <value>Odobren/a za forume:</value>
+  </data>
+  <data name="ManageUsersConfirmEmailButton" xml:space="preserve">
+    <value>Prihvati ovu e-adresu kao valjanu</value>
+  </data>
+  <data name="ManageUsersConfirmPasswordLabel" xml:space="preserve">
+    <value>Potvrda lozinke:</value>
+  </data>
+  <data name="ManageUsersCreateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="ManageUsersCreatedDateLabel" xml:space="preserve">
+    <value>Registriran:</value>
+  </data>
+  <data name="ManageUsersDefaultSecurityAnswer" xml:space="preserve">
+    <value>blue</value>
+  </data>
+  <data name="ManageUsersDefaultSecurityQuestion" xml:space="preserve">
+    <value>What color is blue?</value>
+  </data>
+  <data name="ManageUsersDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="ManageUsersDeleteUserWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovog korisnika?</value>
+  </data>
+  <data name="ManageUsersDisplayInMemberListLabel" xml:space="preserve">
+    <value>Prikaži na popisu članova:</value>
+  </data>
+  <data name="ManageUsersEmailLabel" xml:space="preserve">
+    <value>E-adresa:</value>
+  </data>
+  <data name="ManageUsersLoginNameLabel" xml:space="preserve">
+    <value>Korisničko ime:</value>
+  </data>
+  <data name="ManageUsersOpenIDURILabel" xml:space="preserve">
+    <value>Open ID URI:</value>
+  </data>
+  <data name="ManageUsersPageTitle" xml:space="preserve">
+    <value>Ažuriranje korisnika</value>
+  </data>
+  <data name="ManageUsersPasswordLabel" xml:space="preserve">
+    <value>Lozinka:</value>
+  </data>
+  <data name="ManageUsersProfileApprovedLabel" xml:space="preserve">
+    <value>Profil odobren:</value>
+  </data>
+  <data name="ManageUsersProfileTab" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="ManageUsersRemoveFromRoleButton" xml:space="preserve">
+    <value>Ukloni korisnika iz uloge</value>
+  </data>
+  <data name="ManageUsersRemoveRoleWarning" xml:space="preserve">
+    <value>Želite li doista ukloniti korisnika iz ove uloge?</value>
+  </data>
+  <data name="ManageUsersRolesTab" xml:space="preserve">
+    <value>Uloge</value>
+  </data>
+  <data name="ManageUsersSaveButton" xml:space="preserve">
+    <value>Save User Changes</value>
+  </data>
+  <data name="ManageUsersSecurityTab" xml:space="preserve">
+    <value>Identitet i sigurnost</value>
+  </data>
+  <data name="ManageUsersTitleLabel" xml:space="preserve">
+    <value>Upravljanje korisničkim računom:</value>
+  </data>
+  <data name="ManageUsersTotalPostsLabel" xml:space="preserve">
+    <value>Ukupno poruka:</value>
+  </data>
+  <data name="ManageUsersTrustedLabel" xml:space="preserve">
+    <value>Pouzdan?</value>
+  </data>
+  <data name="ManageUsersUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="ManageUsersUserGuidLabel" xml:space="preserve">
+    <value>Korisnikov GUID:</value>
+  </data>
+  <data name="ManageUsersUserIsInAllRolesMessage" xml:space="preserve">
+    <value>Ovaj korisnik spada u sve role</value>
+  </data>
+  <data name="ManageUsersUserNameLabel" xml:space="preserve">
+    <value>Ime i prezime:</value>
+  </data>
+  <data name="ManageUsersWindowsLiveIDLabel" xml:space="preserve">
+    <value>Windows Live ID:</value>
+  </data>
+  <data name="MediumTextLabel" xml:space="preserve">
+    <value>Medium Text</value>
+  </data>
+  <data name="MemberListAddUserLabel" xml:space="preserve">
+    <value>Upis korisnika</value>
+  </data>
+  <data name="MemberListAllUsersLink" xml:space="preserve">
+    <value>Svi</value>
+  </data>
+  <data name="MemberListDateCreatedLabel" xml:space="preserve">
+    <value>Pridužen/a</value>
+  </data>
+  <data name="MemberListLink" xml:space="preserve">
+    <value>Popis članova</value>
+  </data>
+  <data name="MemberListPagesLabel" xml:space="preserve">
+    <value>Stranice:</value>
+  </data>
+  <data name="MemberListSearchButton" xml:space="preserve">
+    <value>Traži</value>
+  </data>
+  <data name="MemberListShowAllLabel" xml:space="preserve">
+    <value>Prikaži sve</value>
+  </data>
+  <data name="MemberListTitleLabel" xml:space="preserve">
+    <value>Popis članova</value>
+  </data>
+  <data name="MemberListUserNameLabel" xml:space="preserve">
+    <value>Korisničko ime</value>
+  </data>
+  <data name="MemberListUserTotalPostsLabel" xml:space="preserve">
+    <value>Ukupno poruka</value>
+  </data>
+  <data name="MemberListUserWebSiteLabel" xml:space="preserve">
+    <value>Web stranica</value>
+  </data>
+  <data name="MemberListViewProfileLabel" xml:space="preserve">
+    <value>Prikaži profil</value>
+  </data>
+  <data name="ModuleAdminEditLink" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="ModuleAdminSettingsLink" xml:space="preserve">
+    <value>Postavke</value>
+  </data>
+  <data name="ModuleDefinitionDefaultCacheRegexWarning" xml:space="preserve">
+    <value>Default Cache must be an integer between 0 and 99999999</value>
+  </data>
+  <data name="ModuleDefinitionDefaultCacheRequiredMessage" xml:space="preserve">
+    <value>Default Cache is required. Use 0 for no cache.</value>
+  </data>
+  <data name="ModuleDefinitionDeleteSettingWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovu postavku?</value>
+  </data>
+  <data name="ModuleDefinitionsAddSettingButton" xml:space="preserve">
+    <value>Dodaj novu postavku</value>
+  </data>
+  <data name="ModuleDefinitionsAddSettingHeader" xml:space="preserve">
+    <value>Dodavanje nove postavke</value>
+  </data>
+  <data name="ModuleDefinitionsBackLink" xml:space="preserve">
+    <value>Natrag na popis modula</value>
+  </data>
+  <data name="ModuleDefinitionsCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="ModuleDefinitionsConfigureLink" xml:space="preserve">
+    <value>Konfiguriraj postavke</value>
+  </data>
+  <data name="ModuleDefinitionsControlSourceRequiredHelp" xml:space="preserve">
+    <value>Morate upisati relativnu putanju do modulske kontrole.</value>
+  </data>
+  <data name="ModuleDefinitionsDefaultCacheDurationLabel" xml:space="preserve">
+    <value>Default Cache Timeout (seconds):</value>
+  </data>
+  <data name="ModuleDefinitionsDefaultControlSource" xml:space="preserve">
+    <value>Modules/SomeModule.ascx</value>
+  </data>
+  <data name="ModuleDefinitionsDefaultModuleName" xml:space="preserve">
+    <value>Nova definicija</value>
+  </data>
+  <data name="ModuleDefinitionsDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="ModuleDefinitionsDeleteInstancesBeforeModuleDefinitionMessage" xml:space="preserve">
+    <value>Ovaj se modul koristi na portalu. Morate izbrisati njegove instance prije nego li izbrišete sam modul.</value>
+  </data>
+  <data name="ModuleDefinitionsDeleteWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovaj modul?</value>
+  </data>
+  <data name="ModuleDefinitionsDesktopSourceLabel" xml:space="preserve">
+    <value>Control Source:</value>
+  </data>
+  <data name="ModuleDefinitionsEditButton" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="ModuleDefinitionSettingsBackLink" xml:space="preserve">
+    <value>Natrag na definiciju modula</value>
+  </data>
+  <data name="ModuleDefinitionSettingsCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="ModuleDefinitionSettingsDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="ModuleDefinitionSettingsEditButton" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="ModuleDefinitionSettingsUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="ModuleDefinitionsFeatureGuidLabel" xml:space="preserve">
+    <value>Modulski GUID:</value>
+  </data>
+  <data name="ModuleDefinitionsFeatureNameRequiredHelp" xml:space="preserve">
+    <value>Morate upisati naziv modula.</value>
+  </data>
+  <data name="ModuleDefinitionsIsAdminLabel" xml:space="preserve">
+    <value>Isključiti s popisa modula:</value>
+  </data>
+  <data name="ModuleDefinitionsModuleDefinitionLabel" xml:space="preserve">
+    <value>Definicija modula</value>
+  </data>
+  <data name="ModuleDefinitionSortRegexWarning" xml:space="preserve">
+    <value>Redoslijed sortiranja mora biti cijeli broj između 0 i 999.</value>
+  </data>
+  <data name="ModuleDefinitionSortRequiredMessage" xml:space="preserve">
+    <value>Redoslijed sortiranja je obavezan i mora biti između 0 i 999.</value>
+  </data>
+  <data name="ModuleDefinitionsResourceFileLabel" xml:space="preserve">
+    <value>Resursna datoteka:</value>
+  </data>
+  <data name="ModuleDefinitionsResourceKeyLabel" xml:space="preserve">
+    <value>Feature Name Resource Key:</value>
+  </data>
+  <data name="ModuleDefinitionsSettingControlTypeLabel" xml:space="preserve">
+    <value>Control Type</value>
+  </data>
+  <data name="ModuleDefinitionsSettingNameLabel" xml:space="preserve">
+    <value>Setting Key (no spaces), use the same key for the label in your Resource file</value>
+  </data>
+  <data name="ModuleDefinitionsSettingRegexExpressionLabel" xml:space="preserve">
+    <value>Regex Validation Expression</value>
+  </data>
+  <data name="ModuleDefinitionsSettingsLabel" xml:space="preserve">
+    <value>Postavke modula</value>
+  </data>
+  <data name="ModuleDefinitionsSettingValueLabel" xml:space="preserve">
+    <value>Vrijednost postavke</value>
+  </data>
+  <data name="ModuleDefinitionsSortOrderLabel" xml:space="preserve">
+    <value>Redoslijed sortiranja:</value>
+  </data>
+  <data name="ModuleDefinitionsUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="ModuleDefsAddButton" xml:space="preserve">
+    <value>Dodaj novi modul</value>
+  </data>
+  <data name="ModuleEditSettings" xml:space="preserve">
+    <value>Uređivanje postavki modula.</value>
+  </data>
+  <data name="ModuleSettingsAllowMultipleInstancesOnMyPageLabel" xml:space="preserve">
+    <value>Dozvoliti višestruke instance na MyPage?</value>
+  </data>
+  <data name="ModuleSettingsApplyButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="ModuleSettingsAvailableForMyPageLabel" xml:space="preserve">
+    <value>Raspoloživo za MyPage?</value>
+  </data>
+  <data name="ModuleSettingsCacheRegexWarning" xml:space="preserve">
+    <value>Cache Time must be an integer between 0 and 99999999</value>
+  </data>
+  <data name="ModuleSettingsCacheRequiredMessage" xml:space="preserve">
+    <value>Cache Timeout is required, use 0 for no cache.</value>
+  </data>
+  <data name="ModuleSettingsCacheTimeLabel" xml:space="preserve">
+    <value>Cache Timeout (seconds):</value>
+  </data>
+  <data name="ModuleSettingsDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="ModuleSettingsDeleteConfirm" xml:space="preserve">
+    <value>Želite li doista izbrisati ovaj modul?</value>
+  </data>
+  <data name="ModuleSettingsEditRolesLabel" xml:space="preserve">
+    <value>Uloge s dozvolom ažuriranja sadržaja:</value>
+  </data>
+  <data name="ModuleSettingsEditUserIDLabel" xml:space="preserve">
+    <value>Korisnikov ID:</value>
+  </data>
+  <data name="ModuleSettingsEditUserLabel" xml:space="preserve">
+    <value>Korisnici s dozvolom ažuriranja sadržaja:</value>
+  </data>
+  <data name="ModuleSettingsFeatureNameLabel" xml:space="preserve">
+    <value>Modul:</value>
+  </data>
+  <data name="ModuleSettingsIconLabel" xml:space="preserve">
+    <value>Ikona:</value>
+  </data>
+  <data name="ModuleSettingsModuleNameLabel" xml:space="preserve">
+    <value>Naslov modula:</value>
+  </data>
+  <data name="ModuleSettingsNoIconLabel" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="ModuleSettingsPageTitle" xml:space="preserve">
+    <value>Content Settings</value>
+  </data>
+  <data name="ModuleSettingsSettingsLabel" xml:space="preserve">
+    <value>Postavke modula</value>
+  </data>
+  <data name="ModuleSettingsShowTitleLabel" xml:space="preserve">
+    <value>Prikazati naslov?</value>
+  </data>
+  <data name="mojoUserCatalogPartTitle" xml:space="preserve">
+    <value>Available Content</value>
+  </data>
+  <data name="MyPageAddContentLabel" xml:space="preserve">
+    <value>Dodaj sadržaj</value>
+  </data>
+  <data name="MyPageAnonymousMessage" xml:space="preserve">
+    <value>Ako se prijavite, možete prilagoditi ovu stranicu.</value>
+  </data>
+  <data name="MyPageCancelNewPageButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="MyPageCancelRenamePageButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="MyPageCenterLabel" xml:space="preserve">
+    <value>Sredina</value>
+  </data>
+  <data name="MyPageChangeNameText" xml:space="preserve">
+    <value>Promjena imena</value>
+  </data>
+  <data name="MyPageDefaultUserPageName" xml:space="preserve">
+    <value>Dobro došli!</value>
+  </data>
+  <data name="MyPageDeleteWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovaj sadržaj?</value>
+  </data>
+  <data name="MyPageLeftSideLabel" xml:space="preserve">
+    <value>Lijeva strana</value>
+  </data>
+  <data name="MyPageLink" xml:space="preserve">
+    <value>MyPage</value>
+  </data>
+  <data name="MyPageMoveLeftText" xml:space="preserve">
+    <value>Pomakni lijevo</value>
+  </data>
+  <data name="MyPageMoveRightText" xml:space="preserve">
+    <value>Pomakni desno</value>
+  </data>
+  <data name="MyPageNewPageButton" xml:space="preserve">
+    <value>Dodaj stranicu</value>
+  </data>
+  <data name="MyPageRemoveText" xml:space="preserve">
+    <value>Makni</value>
+  </data>
+  <data name="MyPageRenamePageButton" xml:space="preserve">
+    <value>Promijeni ime</value>
+  </data>
+  <data name="MyPageRightSideLabel" xml:space="preserve">
+    <value>Desna strana</value>
+  </data>
+  <data name="MyPageToggleScopeLabel" xml:space="preserve">
+    <value>Toggle Scope</value>
+  </data>
+  <data name="NewsLetterAddNewLink" xml:space="preserve">
+    <value>Izrada e-letka</value>
+  </data>
+  <data name="NewsLetterTitleLabel" xml:space="preserve">
+    <value>Naslov e-letka</value>
+  </data>
+  <data name="NormalTextLabel" xml:space="preserve">
+    <value>Obični tekst</value>
+  </data>
+  <data name="OnlineMemberListProfileLinkPrefix" xml:space="preserve">
+    <value>Prikaži profil za</value>
+  </data>
+  <data name="OnlineMembersLabel" xml:space="preserve">
+    <value>On-line korisnici</value>
+  </data>
+  <data name="OpenIDAdditionalInfoNeededMessage" xml:space="preserve">
+    <value>Vaš Open ID račun je supješno verificiran, ali potrebne su neke dodatne informacije za registraciju na ovaj portal.</value>
+  </data>
+  <data name="OpenIDExamplePrefix" xml:space="preserve">
+    <value>Primjer:</value>
+  </data>
+  <data name="OpenIDExampleUrl" xml:space="preserve">
+    <value>http://your.name.myopenid.com</value>
+  </data>
+  <data name="OpenIDLabel" xml:space="preserve">
+    <value>Open ID:</value>
+  </data>
+  <data name="OpenIDLoginButton" xml:space="preserve">
+    <value>Prijavite se vašim Open ID računom</value>
+  </data>
+  <data name="OpenIDLoginCanceledMessage" xml:space="preserve">
+    <value>Prijava je otkazana</value>
+  </data>
+  <data name="OpenIDLoginFailedMessage" xml:space="preserve">
+    <value>Prijava je neuspješna</value>
+  </data>
+  <data name="OpenIDMustRegisterBeforeLoginMesage" xml:space="preserve">
+    <value>Prije nego li se prijavite na ovaj portal, morate se registrirati. Kliknite &lt;a href='{0}' title='Open ID Registration Page'&gt;ovdje&lt;/a&gt; za registraciju vašim Open ID-jem.</value>
+  </data>
+  <data name="OpenIDRegisterButton" xml:space="preserve">
+    <value>Registrirajte se vašim Open ID računom.</value>
+  </data>
+  <data name="OpenIDRegisterUserEmailExistsMessage" xml:space="preserve">
+    <value>Već postoji portalski korisnik čija je e-adresa jednaka onoj u vašem Open ID profilu. Ako želite udružiti svoj Open ID sa svojim postojećim korisničkim računom, možete se prijaviti vašim tim računom i ažurirati svoj Open ID na stranici o Profilu.</value>
+  </data>
+  <data name="OpenIDRegistrationCanceledMessage" xml:space="preserve">
+    <value>Registracija je otkazana.</value>
+  </data>
+  <data name="OpenIDRegistrationFailedMessage" xml:space="preserve">
+    <value>Registracija nije uspjela.</value>
+  </data>
+  <data name="OpenIDRegistrationHeading" xml:space="preserve">
+    <value>Registrirajte se na ovaj portal vašim Open ID računom</value>
+  </data>
+  <data name="OpenIDRegistrationLink" xml:space="preserve">
+    <value>Kliknite ovdje za registraciju vašim Open ID računom.</value>
+  </data>
+  <data name="OpenIDUpdateButton" xml:space="preserve">
+    <value>Ažurirajte svoj Open ID</value>
+  </data>
+  <data name="OpenIDUpdateCancelledMessage" xml:space="preserve">
+    <value>Ažuriranje otkazano.</value>
+  </data>
+  <data name="OpenIDUpdateFailedMessage" xml:space="preserve">
+    <value>Ažuriranje nije uspjelo.</value>
+  </data>
+  <data name="PageChangeFrequencyAlways" xml:space="preserve">
+    <value>Stalno</value>
+  </data>
+  <data name="PageChangeFrequencyDaily" xml:space="preserve">
+    <value>Dnevno</value>
+  </data>
+  <data name="PageChangeFrequencyHourly" xml:space="preserve">
+    <value>Svaki sat</value>
+  </data>
+  <data name="PageChangeFrequencyMonthly" xml:space="preserve">
+    <value>Mjesečno</value>
+  </data>
+  <data name="PageChangeFrequencyNever" xml:space="preserve">
+    <value>Nikad</value>
+  </data>
+  <data name="PageChangeFrequencyWeekly" xml:space="preserve">
+    <value>Tjedno</value>
+  </data>
+  <data name="PageChangeFrequencyYearly" xml:space="preserve">
+    <value>Godišnje</value>
+  </data>
+  <data name="PageContentEditText" xml:space="preserve">
+    <value>Uređivanje sadržaja i modula na ovoj stranici</value>
+  </data>
+  <data name="PageDeleteConfirmMessage" xml:space="preserve">
+    <value>Želite li doista izbrisati ovu stranicu?</value>
+  </data>
+  <data name="PageLayoutAddModuleLabel" xml:space="preserve">
+    <value>Dodavanje modula</value>
+  </data>
+  <data name="PageLayoutAlt1DeleteButton" xml:space="preserve">
+    <value>Briši odabrani modul</value>
+  </data>
+  <data name="PageLayoutAlt1EditButton" xml:space="preserve">
+    <value>Uredi postavke odabranog modula</value>
+  </data>
+  <data name="PageLayoutAlt1MoveDownButton" xml:space="preserve">
+    <value>Pomakni odabrani modul prema dolje</value>
+  </data>
+  <data name="PageLayoutAlt1MoveUpButton" xml:space="preserve">
+    <value>Pomakni odabrani modul prema gore</value>
+  </data>
+  <data name="PageLayoutAlt2DeleteButton" xml:space="preserve">
+    <value>Briši odabrani modul</value>
+  </data>
+  <data name="PageLayoutAlt2EditButton" xml:space="preserve">
+    <value>Uredi postavke odabranog modula</value>
+  </data>
+  <data name="PageLayoutAlt2MoveDownButton" xml:space="preserve">
+    <value>Pomakni odabrani modul prema dolje</value>
+  </data>
+  <data name="PageLayoutAlt2MoveUpButton" xml:space="preserve">
+    <value>Pomakni odabrani modul prema gore</value>
+  </data>
+  <data name="PageLayoutAltPanel1Label" xml:space="preserve">
+    <value>Dodatni panel 1</value>
+  </data>
+  <data name="PageLayoutAltPanel2Label" xml:space="preserve">
+    <value>Dodatni panel 2</value>
+  </data>
+  <data name="PageLayoutAltPanelInfo" xml:space="preserve">
+    <value>Primijetite da trenutni skin podržava dodatne panele. Ako u njih stavite sadržaj pa promijenite skin koji spomenute panele nema, taj će sadržaj biti premješten na središnji panel.</value>
+  </data>
+  <data name="PageLayoutAuthorizedRolesLabel" xml:space="preserve">
+    <value>Uloge s dozvolom prikaza stranice:</value>
+  </data>
+  <data name="PageLayoutContentDeleteAlternateText" xml:space="preserve">
+    <value>Brisanje odabranog modula.</value>
+  </data>
+  <data name="PageLayoutContentDownAlternateText" xml:space="preserve">
+    <value>Pomak odabranog modula prema dolje.</value>
+  </data>
+  <data name="PageLayoutContentEditAlternateText" xml:space="preserve">
+    <value>Uređivanje odabranog modula.</value>
+  </data>
+  <data name="PageLayoutContentLabel" xml:space="preserve">
+    <value>Sadržaj stranice:</value>
+  </data>
+  <data name="PageLayoutContentLeftAlternateText" xml:space="preserve">
+    <value>Pomak odabranog modula na lijevi panel.</value>
+  </data>
+  <data name="PageLayoutContentPaneLabel" xml:space="preserve">
+    <value>Središnji panel</value>
+  </data>
+  <data name="PageLayoutContentRightAlternateText" xml:space="preserve">
+    <value>Pomak odabranog modula na desni panel.</value>
+  </data>
+  <data name="PageLayoutContentUpAlternateText" xml:space="preserve">
+    <value>Pomak odabranog modula prema gore.</value>
+  </data>
+  <data name="PageLayoutCreateChildPageRolesLabel" xml:space="preserve">
+    <value>Uloge s dozvolom stvaranja podređenih stranica:</value>
+  </data>
+  <data name="PageLayoutDefaultNewModuleName" xml:space="preserve">
+    <value>Naslov novog sadržaja</value>
+  </data>
+  <data name="PageLayoutDefaultSkinLabel" xml:space="preserve">
+    <value>Portalski</value>
+  </data>
+  <data name="PageLayoutEditRolesLabel" xml:space="preserve">
+    <value>Uloge s dozvolom ažuriranja stranice:</value>
+  </data>
+  <data name="PageLayoutEditSettingsLink" xml:space="preserve">
+    <value>Uređivanje postavki ove stranice</value>
+  </data>
+  <data name="PageLayoutHideMenuLabel" xml:space="preserve">
+    <value>Sakriti glavni izbornik?</value>
+  </data>
+  <data name="PageLayoutLeftDeleteAlternateText" xml:space="preserve">
+    <value>Brisanje odabranog modula.</value>
+  </data>
+  <data name="PageLayoutLeftDownAlternateText" xml:space="preserve">
+    <value>Pomak odabranog modula prema dolje.</value>
+  </data>
+  <data name="PageLayoutLeftEditAlternateText" xml:space="preserve">
+    <value>Uređivanje odabranog modula.</value>
+  </data>
+  <data name="PageLayoutLeftPaneLabel" xml:space="preserve">
+    <value>Lijevi panel</value>
+  </data>
+  <data name="PageLayoutLeftRightAlternateText" xml:space="preserve">
+    <value>Pomak odabranog modula na središnji panel.</value>
+  </data>
+  <data name="PageLayoutLeftUpAlternateText" xml:space="preserve">
+    <value>Pomak odabranog modula prema gore.</value>
+  </data>
+  <data name="PageLayoutLocationLabel" xml:space="preserve">
+    <value>Smještaj:</value>
+  </data>
+  <data name="PageLayoutMetaAdditionalLabel" xml:space="preserve">
+    <value>Dodatni meta tagovi stranice:</value>
+  </data>
+  <data name="PageLayoutMetaDescriptionLabel" xml:space="preserve">
+    <value>Opis stranice:</value>
+  </data>
+  <data name="PageLayoutMetaEncodingLabel" xml:space="preserve">
+    <value>Enkodiranje stranice:</value>
+  </data>
+  <data name="PageLayoutMetaKeyWordsLabel" xml:space="preserve">
+    <value>Ključne riječi stranice:</value>
+  </data>
+  <data name="PageLayoutModuleNameLabel" xml:space="preserve">
+    <value>Naslov:</value>
+  </data>
+  <data name="PageLayoutModuleTypeLabel" xml:space="preserve">
+    <value>Modul:</value>
+  </data>
+  <data name="PageLayoutMoveAlt1ToAlt2Button" xml:space="preserve">
+    <value>Pomakni odabrani modul na dodatni panel 2</value>
+  </data>
+  <data name="PageLayoutMoveAlt1ToCenterButton" xml:space="preserve">
+    <value>Pomakni odabrani modul na središnji panel</value>
+  </data>
+  <data name="PageLayoutMoveAlt2ToAlt1Button" xml:space="preserve">
+    <value>Pomakni odabrani modul prema gore u idući panel</value>
+  </data>
+  <data name="PageLayoutMoveCenterToAlt1Button" xml:space="preserve">
+    <value>Pomakni odabrani panel na dodatni panel 1</value>
+  </data>
+  <data name="PageLayoutNewPageLabel" xml:space="preserve">
+    <value>Nova stranica</value>
+  </data>
+  <data name="PageLayoutOpenInNewWindowLabel" xml:space="preserve">
+    <value>Otvoriti u novom prozoru?</value>
+  </data>
+  <data name="PageLayoutOrganizeModulesLabel" xml:space="preserve">
+    <value>Organize Content:</value>
+  </data>
+  <data name="PageLayoutPageLayoutLabel" xml:space="preserve">
+    <value>Page Content for Page:</value>
+  </data>
+  <data name="PageLayoutPageSettingsLabel" xml:space="preserve">
+    <value>Page Settings for Page:</value>
+  </data>
+  <data name="PageLayoutParentPageLabel" xml:space="preserve">
+    <value>Nadređena stranica:</value>
+  </data>
+  <data name="PageLayoutRemoveContentWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati odabrani modul sa stranice?</value>
+  </data>
+  <data name="PageLayoutRequireSSLLabel" xml:space="preserve">
+    <value>Zahtijevati SSL?</value>
+  </data>
+  <data name="PageLayoutRightDeleteAlternateText" xml:space="preserve">
+    <value>Brisanje odabranog modula.</value>
+  </data>
+  <data name="PageLayoutRightDownAlternateText" xml:space="preserve">
+    <value>Pomak odabranog modula prema dolje.</value>
+  </data>
+  <data name="PageLayoutRightEditAlternateText" xml:space="preserve">
+    <value>Uređivanje odabranog modula.</value>
+  </data>
+  <data name="PageLayoutRightLeftAlternateText" xml:space="preserve">
+    <value>Pomak odabranog modula na središnji panel.</value>
+  </data>
+  <data name="PageLayoutRightPaneLabel" xml:space="preserve">
+    <value>Desni panel</value>
+  </data>
+  <data name="PageLayoutRightUpAlternateText" xml:space="preserve">
+    <value>Pomak odabranog modula prema gore.</value>
+  </data>
+  <data name="PageLayoutShowBreadcrumbsLabel" xml:space="preserve">
+    <value>Prikazati hijerarhiju?</value>
+  </data>
+  <data name="PageLayoutShowChildBreadcrumbsLabel" xml:space="preserve">
+    <value>Prikazati hijerarhiju za podređenu stranicu?</value>
+  </data>
+  <data name="PageLayoutShowChildMenuLabel" xml:space="preserve">
+    <value>Prikazati mapu portala za podređene stranice?</value>
+  </data>
+  <data name="PageLayoutUrlLabel" xml:space="preserve">
+    <value>Prijateljski URL:</value>
+  </data>
+  <data name="PageLayoutUseUrlLabel" xml:space="preserve">
+    <value>Koristiti prijateljski URL?</value>
+  </data>
+  <data name="PagePropertiesEditText" xml:space="preserve">
+    <value>Uređivanje postavki ove stranice</value>
+  </data>
+  <data name="PagesAddButton" xml:space="preserve">
+    <value>Dodavanje stranice</value>
+  </data>
+  <data name="PagesDeleteAlternateText" xml:space="preserve">
+    <value>Brisanje stranice.</value>
+  </data>
+  <data name="PagesDownButtonAlternateText" xml:space="preserve">
+    <value>Pomak stranice prema dolje.</value>
+  </data>
+  <data name="PagesEditAlternateText" xml:space="preserve">
+    <value>Uređivanje sadržaja stranice.</value>
+  </data>
+  <data name="PagesEditSettingsAlternateText" xml:space="preserve">
+    <value>Uređivanje postavki stranice.</value>
+  </data>
+  <data name="PageSettingsAllowBrowserCacheLabel" xml:space="preserve">
+    <value>Dopustiti memoriranje na web pregledniku?</value>
+  </data>
+  <data name="PageSettingsChangeFrequencyLabel" xml:space="preserve">
+    <value>Učestalost ažuriranja:</value>
+  </data>
+  <data name="PageSettingsCreateNewPageButton" xml:space="preserve">
+    <value>Dodaj stranicu</value>
+  </data>
+  <data name="PageSettingsCreateNewPageLabel" xml:space="preserve">
+    <value>Dodavanje stranica</value>
+  </data>
+  <data name="PageSettingsDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="PageSettingsDeleteWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovu stranicu?</value>
+  </data>
+  <data name="PageSettingsEditContentLink" xml:space="preserve">
+    <value>Uredi sadržaj</value>
+  </data>
+  <data name="PageSettingsHideSearchEngineOptimization" xml:space="preserve">
+    <value>Hide Search Engine Settings</value>
+  </data>
+  <data name="PageSettingsIconLabel" xml:space="preserve">
+    <value>Ikona izbornika:</value>
+  </data>
+  <data name="PageSettingsIncludeInMenuLabel" xml:space="preserve">
+    <value>Uključiti u izbornik?</value>
+  </data>
+  <data name="PageSettingsLabel" xml:space="preserve">
+    <value>Postavke stranice:</value>
+  </data>
+  <data name="PageSettingsMainSettingsTab" xml:space="preserve">
+    <value>Postavke</value>
+  </data>
+  <data name="PageSettingsMenuImageAtlText" xml:space="preserve">
+    <value>Ikona stranice</value>
+  </data>
+  <data name="PageSettingsMetaDataTab" xml:space="preserve">
+    <value>Meta postavke</value>
+  </data>
+  <data name="PageSettingsMetaSettingsLabel" xml:space="preserve">
+    <value>Za uporabu portalskih postavki ove ostavite praznima.</value>
+  </data>
+  <data name="PageSettingsNewPageTitle" xml:space="preserve">
+    <value>Nova stranica</value>
+  </data>
+  <data name="PageSettingsPageNameLabel" xml:space="preserve">
+    <value>Naziv stranice:</value>
+  </data>
+  <data name="PageSettingsPageTitleOverrideLabel" xml:space="preserve">
+    <value>Nametnuti naslov stranice:</value>
+  </data>
+  <data name="PageSettingsPhysicalUrlWarning" xml:space="preserve">
+    <value>Pozor! Ovaj URL vodit će na postojeću fizičku stranicu. Ako to ne želite, upišite drukčiji URL.</value>
+  </data>
+  <data name="PageSettingsPriorityLabel" xml:space="preserve">
+    <value>Prioritet:</value>
+  </data>
+  <data name="PageSettingsRootLabel" xml:space="preserve">
+    <value>(nema)</value>
+  </data>
+  <data name="PageSettingsSaveButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="PageSettingsSearchEngineOptimizationSettingsLabel" xml:space="preserve">
+    <value>Optimizacija tražilice</value>
+  </data>
+  <data name="PageSettingsSecurityTab" xml:space="preserve">
+    <value>Sigurnost</value>
+  </data>
+  <data name="PageSettingsShowSearchEngineOptimization" xml:space="preserve">
+    <value>Show Search Engine Settings</value>
+  </data>
+  <data name="PageSettingsSSLTab" xml:space="preserve">
+    <value>SSL</value>
+  </data>
+  <data name="PagesLabel" xml:space="preserve">
+    <value>Pages:</value>
+  </data>
+  <data name="PagesNoSelectionWarning" xml:space="preserve">
+    <value>Morate odabrati stranicu.</value>
+  </data>
+  <data name="PagesUpButtonAlternateText" xml:space="preserve">
+    <value>Pomak odabrane stranice prema gore.</value>
+  </data>
+  <data name="PageViewPageLink" xml:space="preserve">
+    <value>Prikaži stranicu</value>
+  </data>
+  <data name="PasswordQuestionLabel" xml:space="preserve">
+    <value>Odgovorite na vaše sigurnosno pitanje:</value>
+  </data>
+  <data name="PasswordRecoveryAnswerRequired" xml:space="preserve">
+    <value>Morate upisati odgovor na sigurnosno pitanje.</value>
+  </data>
+  <data name="PasswordRecoveryGeneralFailureText" xml:space="preserve">
+    <value>We were unable to access your information. Please try again.</value>
+  </data>
+  <data name="PasswordRecoveryMailFailureMessage" xml:space="preserve">
+    <value>Sorry, your password could not be sent because the server was unable to send the message. Please try again in a few minutes. If the problem persists please notify the Site Administrator. The error has been logged.</value>
+  </data>
+  <data name="PasswordRecoveryNextButton" xml:space="preserve">
+    <value>Dalje</value>
+  </data>
+  <data name="PasswordRecoveryQuestionFailureText" xml:space="preserve">
+    <value>You did not enter the correct answer.</value>
+  </data>
+  <data name="PasswordRecoverySuccessMessage" xml:space="preserve">
+    <value>Your password has been sent to your email address.</value>
+  </data>
+  <data name="PasswordRecoveryUserNameFailureText" xml:space="preserve">
+    <value>Korisničko ime nije nađeno.</value>
+  </data>
+  <data name="PasswordRecoveryUserNameRequiredWarning" xml:space="preserve">
+    <value>Morate upisati svoje korisničko ime.</value>
+  </data>
+  <data name="PrinterFriendlyLink" xml:space="preserve">
+    <value>Ispisni prikaz</value>
+  </data>
+  <data name="ProfileLink" xml:space="preserve">
+    <value>Moj račun</value>
+  </data>
+  <data name="RefreshAltText" xml:space="preserve">
+    <value>Osvježi</value>
+  </data>
+  <data name="RefreshLogViewerLink" xml:space="preserve">
+    <value>Osvježi</value>
+  </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>Registriraj se</value>
+  </data>
+  <data name="RegisterCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="RegisterComparePasswordWarning" xml:space="preserve">
+    <value>Lozinka i njena potvrda moraju biti jednake.</value>
+  </data>
+  <data name="RegisterCompleteMessage" xml:space="preserve">
+    <value>Vaš račun je stvoren.</value>
+  </data>
+  <data name="RegisterConfirmMessage" xml:space="preserve">
+    <value>Vaša registracija je potvrđena te se možete prijaviti na portal klikom na link Prijava.</value>
+  </data>
+  <data name="RegisterConfirmPasswordLabel" xml:space="preserve">
+    <value>Potvrda lozinke:</value>
+  </data>
+  <data name="RegisterConfirmPasswordRequiredMessage" xml:space="preserve">
+    <value>Potvrda lozinke ne smije biti prazna.</value>
+  </data>
+  <data name="RegisterContinueButton" xml:space="preserve">
+    <value>Nastavi</value>
+  </data>
+  <data name="RegisterDuplicateEmailMessage" xml:space="preserve">
+    <value>Korisnik s tom e-adresom već postoji.</value>
+  </data>
+  <data name="RegisterDuplicateUserNameMessage" xml:space="preserve">
+    <value>Korisnik s tim korisničkim imenom već postoji.</value>
+  </data>
+  <data name="RegisterEmailLabel" xml:space="preserve">
+    <value>E-adresa:</value>
+  </data>
+  <data name="RegisterEmailRegexMessage" xml:space="preserve">
+    <value>E-adresa je neispravna.</value>
+  </data>
+  <data name="RegisterEmailRequiredMessage" xml:space="preserve">
+    <value>E-adresa ne smije biti prazna.</value>
+  </data>
+  <data name="RegisterInvalidAnswerErrorMessage" xml:space="preserve">
+    <value>Upišite drukčiji sigurnosni odgovor.</value>
+  </data>
+  <data name="RegisterInvalidQuestionErrorMessage" xml:space="preserve">
+    <value>Upišite drukčije sigurnosno pitanje.</value>
+  </data>
+  <data name="RegisterLabel" xml:space="preserve">
+    <value>Registracija novog korisničkog računa</value>
+  </data>
+  <data name="RegisterLink" xml:space="preserve">
+    <value>Registracija</value>
+  </data>
+  <data name="RegisterLoginNameLabel" xml:space="preserve">
+    <value>Korisničko ime:</value>
+  </data>
+  <data name="RegisterLoginNameRequiredMessage" xml:space="preserve">
+    <value>Korisničko ime ne smije biti prazno.</value>
+  </data>
+  <data name="RegisterNameLabel" xml:space="preserve">
+    <value>Ime:</value>
+  </data>
+  <data name="RegisterNameRequiredMessage" xml:space="preserve">
+    <value>Ime ne smije biti prazno.</value>
+  </data>
+  <data name="RegisterPasswordLabel" xml:space="preserve">
+    <value>Lozinka:</value>
+  </data>
+  <data name="RegisterPasswordMinLengthWarning" xml:space="preserve">
+    <value>Minimalna duljina lozinke je </value>
+  </data>
+  <data name="RegisterPasswordMinNonAlphaCharsWarning" xml:space="preserve">
+    <value>Minimalni broj nealfanumeričkih znakova lozinke je </value>
+  </data>
+  <data name="RegisterPasswordRegexWarning" xml:space="preserve">
+    <value>Učinite lozinku složenijom.</value>
+  </data>
+  <data name="RegisterPasswordRequiredMessage" xml:space="preserve">
+    <value>Lozinka ne smije biti prazna.</value>
+  </data>
+  <data name="RegisterSecurityAnswer" xml:space="preserve">
+    <value>Sigurnosni odgovor:</value>
+  </data>
+  <data name="RegisterSecurityAnswerRequiredMessage" xml:space="preserve">
+    <value>Morate upisati sigurnosni odgovor.</value>
+  </data>
+  <data name="RegisterSecurityQuestion" xml:space="preserve">
+    <value>Sigurnosno pitanje:</value>
+  </data>
+  <data name="RegisterSecurityQuestionRequiredMessage" xml:space="preserve">
+    <value>Morate upisati sigurnosno pitanje.</value>
+  </data>
+  <data name="RegistrationRequiresEmailConfirmationMessage" xml:space="preserve">
+    <value>Ovaj portal zahtijeva potvrdu registracije s važeće e-adrese te je poslao e-poruku na adresu koju ste upisali. Kliknite na link u toj poruci da biste potvrdili vaš račun. Nakon potvrde, moći ćete se prijaviti na portal.</value>
+  </data>
+  <data name="ReturnHomeLabel" xml:space="preserve">
+    <value>Povratak na Naslovnicu</value>
+  </data>
+  <data name="RoleExistsError" xml:space="preserve">
+    <value>Ovaj naziv uloge već postoji.</value>
+  </data>
+  <data name="RoleManagerAllUsersInRole" xml:space="preserve">
+    <value>Svi korisnici su u ovoj ulogi.</value>
+  </data>
+  <data name="RoleManagerCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="RolesAddButton" xml:space="preserve">
+    <value>Dodaj ulogu</value>
+  </data>
+  <data name="RolesAllUsersRole" xml:space="preserve">
+    <value>Svi korisnici</value>
+  </data>
+  <data name="RolesApplyLabel" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="RolesChangeMemberLabel" xml:space="preserve">
+    <value>Prikaži/Uredi korisnike</value>
+  </data>
+  <data name="RolesDeleteLabel" xml:space="preserve">
+    <value>Izbriši ulogu</value>
+  </data>
+  <data name="RolesDeleteWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovu ulogu?</value>
+  </data>
+  <data name="RolesEditLabel" xml:space="preserve">
+    <value>Uredi ulogu</value>
+  </data>
+  <data name="RolesRemoveUserWarning" xml:space="preserve">
+    <value>Želite li doista izuzeti korisnika iz ove uloge?</value>
+  </data>
+  <data name="SearchButtonText" xml:space="preserve">
+    <value>Pretraga</value>
+  </data>
+  <data name="SearchInputWatermark" xml:space="preserve">
+    <value>upišite parametre pretrage</value>
+  </data>
+  <data name="SearchPageTitle" xml:space="preserve">
+    <value>Tražilica</value>
+  </data>
+  <data name="SearchResultsBuildingIndexMessage" xml:space="preserve">
+    <value>Priprema portala za pretragu je u tijeku. Pričekajte nekoliko minuta te potom opet pokušajte pretraživati.</value>
+  </data>
+  <data name="SearchResultsForLabel" xml:space="preserve">
+    <value>za</value>
+  </data>
+  <data name="SearchResultsLabel" xml:space="preserve">
+    <value>Prikaz rezultata</value>
+  </data>
+  <data name="SearchResultsOfLabel" xml:space="preserve">
+    <value>od</value>
+  </data>
+  <data name="SearchResultsSecondsLabel" xml:space="preserve">
+    <value>sekundi</value>
+  </data>
+  <data name="SecurityAddExistingButton" xml:space="preserve">
+    <value>Dodijeli korisniku ulogu</value>
+  </data>
+  <data name="SecurityAddNewButton" xml:space="preserve">
+    <value>Upiši korisnika i dodijeli mu ulogu</value>
+  </data>
+  <data name="SecurityFinishedEditingButton" xml:space="preserve">
+    <value>Gotovo</value>
+  </data>
+  <data name="SecurityRolesTitle" xml:space="preserve">
+    <value>Članstvo:</value>
+  </data>
+  <data name="ServerLogClearLogButton" xml:space="preserve">
+    <value>Očisti dnevnik</value>
+  </data>
+  <data name="SignInEmailLabel" xml:space="preserve">
+    <value>E-adresa:</value>
+  </data>
+  <data name="SignInLabel" xml:space="preserve">
+    <value>Prijava</value>
+  </data>
+  <data name="SignInLinkText" xml:space="preserve">
+    <value>Prijavi se</value>
+  </data>
+  <data name="SignInPasswordLabel" xml:space="preserve">
+    <value>Lozinka:</value>
+  </data>
+  <data name="SignInRegisterLinkText" xml:space="preserve">
+    <value>register</value>
+  </data>
+  <data name="SignInSendPasswordButton" xml:space="preserve">
+    <value>Povrat lozinke</value>
+  </data>
+  <data name="SignInSendRememberMeLabel" xml:space="preserve">
+    <value>Zapamti prijavu</value>
+  </data>
+  <data name="SimpleMatchCaptchaControlInstructions" xml:space="preserve">
+    <value>Solve This To Prove You are a Real Person, not a SPAM script.</value>
+  </data>
+  <data name="SiteMapLink" xml:space="preserve">
+    <value>Mapa portala</value>
+  </data>
+  <data name="SiteOfficeNewEmailAccount" xml:space="preserve">
+    <value>Nova e-adresa</value>
+  </data>
+  <data name="SiteOfficeTitle" xml:space="preserve">
+    <value>Site Office</value>
+  </data>
+  <data name="SiteSearchHeading" xml:space="preserve">
+    <value>Pretraga portala</value>
+  </data>
+  <data name="SiteSettignsAddWebPartTooltip" xml:space="preserve">
+    <value>Dodaj odabrani Web part</value>
+  </data>
+  <data name="SiteSettingsAddFeatureTooltip" xml:space="preserve">
+    <value>Dodaj odabrani modul</value>
+  </data>
+  <data name="SiteSettingsAddFolderMappingButton" xml:space="preserve">
+    <value>Dodaj mapiranje mapa</value>
+  </data>
+  <data name="SiteSettingsAddHostButtonLabel" xml:space="preserve">
+    <value>Dodaj ime hosta</value>
+  </data>
+  <data name="SiteSettingsAllowHideMainMenuLabel" xml:space="preserve">
+    <value>Dozvoliti skrivanje glavnog izbornika?</value>
+  </data>
+  <data name="SiteSettingsAllowOpenIDAuthenticationLabel" xml:space="preserve">
+    <value>Dozvoliti Open ID autentikaciju?</value>
+  </data>
+  <data name="SiteSettingsAllowPageSkinsLabel" xml:space="preserve">
+    <value>Dozvoliti postavljanje skina po stranici?</value>
+  </data>
+  <data name="SiteSettingsAllowPasswordResetLabel" xml:space="preserve">
+    <value>Dozvoliti poništenje lozinke?</value>
+  </data>
+  <data name="SiteSettingsAllowPasswordRetrievalLabel" xml:space="preserve">
+    <value>Dozvoliti dohvat lozinke?</value>
+  </data>
+  <data name="SiteSettingsAllowRegistrationLabel" xml:space="preserve">
+    <value>Dozvoliti registraciju novim korisnicima?</value>
+  </data>
+  <data name="SiteSettingsAllowUserSkinsLabel" xml:space="preserve">
+    <value>Dozvoliti korisniku odabir skina?</value>
+  </data>
+  <data name="SiteSettingsAllowUsersToChangeNameLabel" xml:space="preserve">
+    <value>Dozvoliti korisnicima promjenu imena?</value>
+  </data>
+  <data name="SiteSettingsAllowWindowsLiveAuthLabel" xml:space="preserve">
+    <value>Dozvoliti Windows Live autentikaciju?</value>
+  </data>
+  <data name="SiteSettingsApplyChangesButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="SiteSettingsAutoCreateLdapUserOnFirstLoginLabel" xml:space="preserve">
+    <value>Automatski dodati LDAP korisnike pri prvoj prijavi?</value>
+  </data>
+  <data name="SiteSettingsCaptchaProviderLabel" xml:space="preserve">
+    <value>Antispam captcha:</value>
+  </data>
+  <data name="SiteSettingsClearTextPasswordLabel" xml:space="preserve">
+    <value>Obični tekst</value>
+  </data>
+  <data name="SiteSettingsDefaultFriendlyUrlPatternLabel" xml:space="preserve">
+    <value>Default Friendly Url Pattern:</value>
+  </data>
+  <data name="SiteSettingsDeleteFolderMappingWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this folder mapping?</value>
+  </data>
+  <data name="SiteSettingsDeleteHostLabel" xml:space="preserve">
+    <value>Delete Host</value>
+  </data>
+  <data name="SiteSettingsDeleteSiteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="SiteSettingsDeleteWarning" xml:space="preserve">
+    <value>Are you sure you want to permanently delete this site and all its content? You will not be able to undo this change.</value>
+  </data>
+  <data name="SiteSettingsDuplicateHostsWarning" xml:space="preserve">
+    <value>Nazivi hostova moraju biti jedinstveni. Nije dopušteno ponavljanje imena.</value>
+  </data>
+  <data name="SiteSettingsEditHostLabel" xml:space="preserve">
+    <value>Uredi host</value>
+  </data>
+  <data name="SiteSettingsEditorProviderLabel" xml:space="preserve">
+    <value>Tekstualni editor:</value>
+  </data>
+  <data name="SiteSettingsEditorSkinLabel" xml:space="preserve">
+    <value>Skin FCK editora:</value>
+  </data>
+  <data name="SiteSettingsEnableMyPageFeatureLabel" xml:space="preserve">
+    <value>Omogućiti MyPage?</value>
+  </data>
+  <data name="SiteSettingsEncryptedPasswordLabel" xml:space="preserve">
+    <value>Šifrirano</value>
+  </data>
+  <data name="SiteSettingsEncryptPasswordsLabel" xml:space="preserve">
+    <value>Šifrirati lozinke?</value>
+  </data>
+  <data name="SiteSettingsExistingFolderMappingsLabel" xml:space="preserve">
+    <value>Trenutne mape mapirane na ovaj portal</value>
+  </data>
+  <data name="SiteSettingsExistingHostsLabel" xml:space="preserve">
+    <value>Trenutni nazivi hostova</value>
+  </data>
+  <data name="SiteSettingsFeaturesAllowedLabel" xml:space="preserve">
+    <value>Moduli</value>
+  </data>
+  <data name="SiteSettingsFolderMappingLabel" xml:space="preserve">
+    <value>Mapiranje mapa na portal</value>
+  </data>
+  <data name="SiteSettingsFolderNameAlreadyInUseWarning" xml:space="preserve">
+    <value>Naziv mape već postoji.</value>
+  </data>
+  <data name="SiteSettingsFolderNameBlankWarning" xml:space="preserve">
+    <value>Morate upisati naziv mape.</value>
+  </data>
+  <data name="SiteSettingsFolderNameInvalidCharsWarning" xml:space="preserve">
+    <value>Za nazive mapa dozvoljeni su samo alfanumerički znakovi.</value>
+  </data>
+  <data name="SiteSettingsFolderNameNotAllowedWarning" xml:space="preserve">
+    <value>Ovaj naziv mape nije dozvoljen jer se kosi sa nazivima sistemskih mapa.</value>
+  </data>
+  <data name="SiteSettingsGeneralSettingsTab" xml:space="preserve">
+    <value>Općenito</value>
+  </data>
+  <data name="SiteSettingsHashedPasswordLabel" xml:space="preserve">
+    <value>'Hash' šifriranje - ne može biti pročitano</value>
+  </data>
+  <data name="SiteSettingsHideLdapsSettings" xml:space="preserve">
+    <value>Sakrij LDAP postavke</value>
+  </data>
+  <data name="SiteSettingsHideMetaSettings" xml:space="preserve">
+    <value>Sakrij meta postavke</value>
+  </data>
+  <data name="SiteSettingsHideUserSecurity" xml:space="preserve">
+    <value>Sakrij korisničke sigurnosne postavke</value>
+  </data>
+  <data name="SiteSettingsHostDeleteWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovo mapiranje hosta?</value>
+  </data>
+  <data name="SiteSettingsHostNameMappingLabel" xml:space="preserve">
+    <value>Mapiranje naziva hosta</value>
+  </data>
+  <data name="SiteSettingsHostNameRequiredMessage" xml:space="preserve">
+    <value>Morate upisati naziv hosta.</value>
+  </data>
+  <data name="SiteSettingsIndexNotUpdatedMessage" xml:space="preserve">
+    <value>Obnavljanje indeksa pretrage ne može biti započeto.</value>
+  </data>
+  <data name="SiteSettingsIndexUpdatedMessage" xml:space="preserve">
+    <value>Pokrenuto je obnavljanje indeksa pretrage. Ono može potrajati nekoliko minuta, ovisno o količini trenutnog sadržaja na portalu.</value>
+  </data>
+  <data name="SiteSettingsLdapAdminEmail" xml:space="preserve">
+    <value>Upišite e-adresu portalskog administratora:</value>
+  </data>
+  <data name="SiteSettingsLDAPAdminUserNotFound" xml:space="preserve">
+    <value>Temeljem upisanih postavki nije moguće povezati se s LDAP-om ili vašim vjerodajnicama u LDAP imeniku. Ako bi vam portal dopustio ovu promjenu, ostali biste blokirani nakon iduće odjave. Provjerite dostupnost LDAP servera i uredite svoj profil tako da se vaš UserID poklapa sa zapisom u LDAP-u te upišite svoju LDAP lozinku.</value>
+  </data>
+  <data name="SiteSettingsLdapBindDN" xml:space="preserve">
+    <value>Upišite DN vjerodajnica za povezivanje:</value>
+  </data>
+  <data name="SiteSettingsLDAPBindError" xml:space="preserve">
+    <value>Temeljem upisanih postavki nije moguće povezati se s LDAP-om. Provjerite postavke i LDAP lozinku. Podešavanje portala za korištenje LDAP-a neće biti dozvoljeno ako ga se ne može povezati s LDAP serverom jer biste u protivnom mogli biti blokirani nakon odjave.</value>
+  </data>
+  <data name="SiteSettingsLdapBindPWD" xml:space="preserve">
+    <value>Upišite lozinku vjerodajnica za povezivanje:</value>
+  </data>
+  <data name="SiteSettingsLdapDomain" xml:space="preserve">
+    <value>LDAP domena:</value>
+  </data>
+  <data name="SiteSettingsLdapPort" xml:space="preserve">
+    <value>Upišite port LDAP servera:</value>
+  </data>
+  <data name="SiteSettingsLdapRootDN" xml:space="preserve">
+    <value>Upišite vršni DN za autentikaciju korisnika:</value>
+  </data>
+  <data name="SiteSettingsLdapServer" xml:space="preserve">
+    <value>Upišite naziv LDAP servera:</value>
+  </data>
+  <data name="SiteSettingsLdapSettingsLabel" xml:space="preserve">
+    <value>LDAP postavke</value>
+  </data>
+  <data name="SiteSettingsLdapTestPassword" xml:space="preserve">
+    <value>Vaša LDAP lozinka (ne sprema se, nego koristi za provjeru konekcije):</value>
+  </data>
+  <data name="SiteSettingsLdapUserDNKey" xml:space="preserve">
+    <value>LDAP korisnički DN ključ:</value>
+  </data>
+  <data name="SiteSettingsLogoAltText" xml:space="preserve">
+    <value>Site Logo</value>
+  </data>
+  <data name="SiteSettingsMaxInvalidPasswordAttemptsLabel" xml:space="preserve">
+    <value>Dozvoljeni broj neuspješnih prijava:</value>
+  </data>
+  <data name="SiteSettingsMetaSettingsLabel" xml:space="preserve">
+    <value>Meta postavke</value>
+  </data>
+  <data name="SiteSettingsMinimumPasswordLengthLabel" xml:space="preserve">
+    <value>Minimalna duljina lozinke:</value>
+  </data>
+  <data name="SiteSettingsMinRequiredNonAlphaNumericCharactersLabel" xml:space="preserve">
+    <value>Minimalni broj nealfanumeričkih znakova lozinke:</value>
+  </data>
+  <data name="SiteSettingsNewSiteLabel" xml:space="preserve">
+    <value>Novi portal</value>
+  </data>
+  <data name="SiteSettingsNoFolderNames" xml:space="preserve">
+    <value>Niti jedna mapa nije trenutno mapirana na ovaj portal.</value>
+  </data>
+  <data name="SiteSettingsNoHostsFound" xml:space="preserve">
+    <value>Niti jedan naziv hosta nije trenutno mapiran na ovaj portal.</value>
+  </data>
+  <data name="SiteSettingsPasswordAttemptWindowMinutesLabel" xml:space="preserve">
+    <value>Period neuspješnih pokušaja prijave u minutama:</value>
+  </data>
+  <data name="SiteSettingsPasswordFormatLabel" xml:space="preserve">
+    <value>Format lozinke:</value>
+  </data>
+  <data name="SiteSettingsPasswordStrengthExpressionLabel" xml:space="preserve">
+    <value>Regularni izraz jačine lozinke:</value>
+  </data>
+  <data name="SiteSettingsReallyDeleteUsersExplainLabel" xml:space="preserve">
+    <value>Ako nije označeno, brisanjem se korisniku postavlja samo status, a ne uklanja ga se fizički iz baze podataka.</value>
+  </data>
+  <data name="SiteSettingsReallyDeleteUsersLabel" xml:space="preserve">
+    <value>Doista brisati korisnike?</value>
+  </data>
+  <data name="SiteSettingsRebuildIndexButton" xml:space="preserve">
+    <value>Obnovi indekse pretrage</value>
+  </data>
+  <data name="SiteSettingsRebuildIndexButtonPrompt" xml:space="preserve">
+    <value>Želite li doista obnoviti indekse pretrage za cjelokupni portalski sadržaj? Indeksi su napravljeni tako da se automatski održavaju ažurnima te je jedini dobar razlog za njihovu obnovu nadogradnja s prethodnih verzija mojoPortala koje nisu imale pretragu.</value>
+  </data>
+  <data name="SiteSettingsRemoveFeatureTooltip" xml:space="preserve">
+    <value>Ukloni odabrani modul</value>
+  </data>
+  <data name="SiteSettingsRemoveWebPartTooltip" xml:space="preserve">
+    <value>Ukloni odabrani web part</value>
+  </data>
+  <data name="SiteSettingsRequiresQuestionAndAnswerLabel" xml:space="preserve">
+    <value>Zahtijevati sigurnosno pitanje i odgovor?</value>
+  </data>
+  <data name="SiteSettingsRequireSSLLabel" xml:space="preserve">
+    <value>Zahtijevati SSL na svim stranicama?</value>
+  </data>
+  <data name="SiteSettingsSaveHostLabel" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="SiteSettingsSecureRegistrationLabel" xml:space="preserve">
+    <value>Zahtijevati potvrdu registracije e-poštom?</value>
+  </data>
+  <data name="SiteSettingsSecurityAntiSPAMTab" xml:space="preserve">
+    <value>Anti-SPAM</value>
+  </data>
+  <data name="SiteSettingsSecurityMainTab" xml:space="preserve">
+    <value>Glavno</value>
+  </data>
+  <data name="SiteSettingsSecurityOpenIDTab" xml:space="preserve">
+    <value>Open ID</value>
+  </data>
+  <data name="SiteSettingsSecurityTab" xml:space="preserve">
+    <value>Sigurnost</value>
+  </data>
+  <data name="SiteSettingsSecurityWindowsLiveTab" xml:space="preserve">
+    <value>Windows Live</value>
+  </data>
+  <data name="SiteSettingsSelectFeatureToAddWarning" xml:space="preserve">
+    <value>Modul za dodavanje trebate odabrati s popisa modula.</value>
+  </data>
+  <data name="SiteSettingsSelectFeatureToRemoveWarning" xml:space="preserve">
+    <value>Modul za uklanjanje trebate odabrati s popisa odabranih modula.</value>
+  </data>
+  <data name="SiteSettingsSelectWebPartToAddWarning" xml:space="preserve">
+    <value>Web part za dodavanje trebate odabrati s popisa web partova.</value>
+  </data>
+  <data name="SiteSettingsSelectWebPartToRemoveWarning" xml:space="preserve">
+    <value>Web part za uklanjanje trebate odabrati s popisa odabranih web partova.</value>
+  </data>
+  <data name="SiteSettingsShowLdapSettigs" xml:space="preserve">
+    <value>Prikaži LDAP postavke</value>
+  </data>
+  <data name="SiteSettingsShowMetaSettings" xml:space="preserve">
+    <value>Prikaži meta postavke</value>
+  </data>
+  <data name="SiteSettingsShowUserSecurity" xml:space="preserve">
+    <value>Prikaži korisničke sigurnosne postavke</value>
+  </data>
+  <data name="SiteSettingsSiteAliasLabel" xml:space="preserve">
+    <value>Portalski alias:</value>
+  </data>
+  <data name="SiteSettingsSiteAvailableFeaturesLabel" xml:space="preserve">
+    <value>Popis modula</value>
+  </data>
+  <data name="SiteSettingsSiteEmailFromAddressLabel" xml:space="preserve">
+    <value>Pošiljateljska e-adresa portala:</value>
+  </data>
+  <data name="SiteSettingsSiteIconLabel" xml:space="preserve">
+    <value>Ikona:</value>
+  </data>
+  <data name="SiteSettingsSiteLogoLabel" xml:space="preserve">
+    <value>Logo:</value>
+  </data>
+  <data name="SiteSettingsSiteMetaAdditionalLabel" xml:space="preserve">
+    <value>Dodatni početni meta tagovi stranice:</value>
+  </data>
+  <data name="SiteSettingsSiteMetaDescriptionLabel" xml:space="preserve">
+    <value>Opis portala:</value>
+  </data>
+  <data name="SiteSettingsSiteMetaEncodingLabel" xml:space="preserve">
+    <value>Portalsko enkodiranje:</value>
+  </data>
+  <data name="SiteSettingsSiteMetaKeyWordsLabel" xml:space="preserve">
+    <value>Portalske ključne riječi:</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaPrivateKeyLabel" xml:space="preserve">
+    <value>Recaptcha privatni ključ:</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaPublicKeyLabel" xml:space="preserve">
+    <value>Recaptcha javni ključ:</value>
+  </data>
+  <data name="SiteSettingsSiteSelectedFeaturesLabel" xml:space="preserve">
+    <value>Odabrani moduli</value>
+  </data>
+  <data name="SiteSettingsSiteSkinLabel" xml:space="preserve">
+    <value>Skin:</value>
+  </data>
+  <data name="SiteSettingsSiteTitleLabel" xml:space="preserve">
+    <value>Naslov portala:</value>
+  </data>
+  <data name="SiteSettingsUseEmailForLoginLabel" xml:space="preserve">
+    <value>Koristiti e-adresu za prijavu?</value>
+  </data>
+  <data name="SiteSettingsUseLdapAuth" xml:space="preserve">
+    <value>Koristiti LDAP za autentikaciju?</value>
+  </data>
+  <data name="SiteSettingsUserSecuritySettingsLabel" xml:space="preserve">
+    <value>Korisničke sigurnosne postavke</value>
+  </data>
+  <data name="SiteSettingsWebPartTab" xml:space="preserve">
+    <value>Web partovi</value>
+  </data>
+  <data name="SiteSettingsWindowsLiveAppIDLabel" xml:space="preserve">
+    <value>Windows Live aplikacijski ID:</value>
+  </data>
+  <data name="SiteSettingsWindowsLiveKeyLabel" xml:space="preserve">
+    <value>Windows Live ključ:</value>
+  </data>
+  <data name="SiteStatistics_ShowMemberStatisitics" xml:space="preserve">
+    <value>Prikazati statistiku korisnika?</value>
+  </data>
+  <data name="SiteStatistics_ShowOnlineMembers" xml:space="preserve">
+    <value>Prikazati popis on-line korisnika?</value>
+  </data>
+  <data name="SiteStatistics_ShowOnlineStatistics" xml:space="preserve">
+    <value>Prikazati on-line statistiku?</value>
+  </data>
+  <data name="SiteStatisticsFeatureName" xml:space="preserve">
+    <value>Portalska statistika</value>
+  </data>
+  <data name="SiteStatisticsMembershipLabel" xml:space="preserve">
+    <value>Članstvo:</value>
+  </data>
+  <data name="SiteStatisticsMembersLabel" xml:space="preserve">
+    <value>Članovi:</value>
+  </data>
+  <data name="SiteStatisticsNewestMemberLabel" xml:space="preserve">
+    <value>Najnoviji:</value>
+  </data>
+  <data name="SiteStatisticsNewTodayLabel" xml:space="preserve">
+    <value>Novih danas:</value>
+  </data>
+  <data name="SiteStatisticsNewYesterdayLabel" xml:space="preserve">
+    <value>Novih jučer:</value>
+  </data>
+  <data name="SiteStatisticsPeopleOnlineLabel" xml:space="preserve">
+    <value>Ljudi on-line:</value>
+  </data>
+  <data name="SiteStatisticsTotalOnlineLabel" xml:space="preserve">
+    <value>Ukupno:</value>
+  </data>
+  <data name="SiteStatisticsTotalUsersLabel" xml:space="preserve">
+    <value>Ukupno:</value>
+  </data>
+  <data name="SiteStatisticsVisitorsLabel" xml:space="preserve">
+    <value>Posjetitelji:</value>
+  </data>
+  <data name="SkipLink" xml:space="preserve">
+    <value>Skip over navigation</value>
+  </data>
+  <data name="StopRefreshAltText" xml:space="preserve">
+    <value>Zaustavi osvježavanje</value>
+  </data>
+  <data name="SubkismetCaptchaInstructions" xml:space="preserve">
+    <value>Upišite prikazane znakove: </value>
+  </data>
+  <data name="SubkismetCaptchFailureMessage" xml:space="preserve">
+    <value>netočno, pokušajte opet.</value>
+  </data>
+  <data name="TreeMenuCollapseTooltip" xml:space="preserve">
+    <value>Zatvori čvor.</value>
+  </data>
+  <data name="TreeMenuExpandTooltip" xml:space="preserve">
+    <value>Otvori čvor.</value>
+  </data>
+  <data name="UploadCancelledLabel" xml:space="preserve">
+    <value>Otprema je otkazana!</value>
+  </data>
+  <data name="UploadChunkedInProgressFormat" xml:space="preserve">
+    <value>{0} {2} at {4} - {6} elapsed</value>
+  </data>
+  <data name="UploadCompleteFormat" xml:space="preserve">
+    <value>Gotovo: {0} {2} pri {4}, trajanje {6}</value>
+  </data>
+  <data name="UploadCompleteLabel" xml:space="preserve">
+    <value>Otprema je završena</value>
+  </data>
+  <data name="UploadFailedLabel" xml:space="preserve">
+    <value>Greška:</value>
+  </data>
+  <data name="UploadNormalInProgressFormat" xml:space="preserve">
+    <value>{0}/{1} {2} ({3:0%}) at {4} - {5} left</value>
+  </data>
+  <data name="UploadProgressLabel" xml:space="preserve">
+    <value>Napredak otpreme...</value>
+  </data>
+  <data name="UploadRejectedLabel" xml:space="preserve">
+    <value>Otkazano:</value>
+  </data>
+  <data name="UploadRemainingTimeLabel" xml:space="preserve">
+    <value>Preostalo vrijeme:</value>
+  </data>
+  <data name="UserChangePasswordLabel" xml:space="preserve">
+    <value>Promijeni lozinku</value>
+  </data>
+  <data name="UserCommentsLabel" xml:space="preserve">
+    <value>Adminov komentar:</value>
+  </data>
+  <data name="UserEmailIsConfirmedLabel" xml:space="preserve">
+    <value>E-adresa je potvrđena?</value>
+  </data>
+  <data name="UserFailedPasswordAnswerAttemptCountLabel" xml:space="preserve">
+    <value>Broj dozvoljenih krivih sigurnosnih odgovora:</value>
+  </data>
+  <data name="UserFailedPasswordAttemptCountLabel" xml:space="preserve">
+    <value>Broj krivih upisa lozinke:</value>
+  </data>
+  <data name="UserIsLockedOutLabel" xml:space="preserve">
+    <value>Blokiran?</value>
+  </data>
+  <data name="UserLastActivityDateLabel" xml:space="preserve">
+    <value>Zadnja aktivnost:</value>
+  </data>
+  <data name="UserLastLockoutDateLabel" xml:space="preserve">
+    <value>Zadnje blokiranje:</value>
+  </data>
+  <data name="UserLastLoginDateLabel" xml:space="preserve">
+    <value>Zadnja prijava:</value>
+  </data>
+  <data name="UserLastPasswordChangeDateLabel" xml:space="preserve">
+    <value>Zadnja promjena lozinke:</value>
+  </data>
+  <data name="UserLockUserButton" xml:space="preserve">
+    <value>Blokiraj</value>
+  </data>
+  <data name="UserProfileAvatarLabel" xml:space="preserve">
+    <value>Avatar</value>
+  </data>
+  <data name="UserProfileConfirmPasswordRequired" xml:space="preserve">
+    <value>Potvrda lozinke ne smije biti prazna.</value>
+  </data>
+  <data name="UserProfileEmailRequired" xml:space="preserve">
+    <value>E-adresa ne smije biti prazna.</value>
+  </data>
+  <data name="UserProfileEmailValidation" xml:space="preserve">
+    <value>E-adresa je neispravna.</value>
+  </data>
+  <data name="UserProfileLoginNameExists" xml:space="preserve">
+    <value>Upisano korisničko ime je zauzeto, odaberite neko drugo.</value>
+  </data>
+  <data name="UserProfileLoginNameRequired" xml:space="preserve">
+    <value>Korisničko ime ne smije biti prazno.</value>
+  </data>
+  <data name="UserProfileMyProfileLabel" xml:space="preserve">
+    <value>Moj račun</value>
+  </data>
+  <data name="UserProfileNameRequired" xml:space="preserve">
+    <value>Ime ne smije biti prazno.</value>
+  </data>
+  <data name="UserProfileNoAvatarLabel" xml:space="preserve">
+    <value>none</value>
+  </data>
+  <data name="UserProfilePasswordCompare" xml:space="preserve">
+    <value>Lozinka i njena potvrda se ne poklapaju.</value>
+  </data>
+  <data name="UserProfilePasswordRequired" xml:space="preserve">
+    <value>Lozinka ne smije biti prazna.</value>
+  </data>
+  <data name="UserProfileUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="UserRolesLabel" xml:space="preserve">
+    <value>Korisničke uloge</value>
+  </data>
+  <data name="UsersRegisteredUsersLabel" xml:space="preserve">
+    <value>Registrirani korisnici:</value>
+  </data>
+  <data name="UsersSecurityAnswerLabel" xml:space="preserve">
+    <value>Sigurnosni odgovor:</value>
+  </data>
+  <data name="UsersSecurityQuestionLabel" xml:space="preserve">
+    <value>Sigurnosno pitanje:</value>
+  </data>
+  <data name="UserUnlockUserButton" xml:space="preserve">
+    <value>Odblokiraj</value>
+  </data>
+  <data name="WebPartAddVerbDescription" xml:space="preserve">
+    <value>Dodaj sadržaj u odabrani stupac</value>
+  </data>
+  <data name="WebPartAddVerbText" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="WebPartAdminAllWebParts" xml:space="preserve">
+    <value>Popis web partova</value>
+  </data>
+  <data name="WebPartAdminEditButton" xml:space="preserve">
+    <value>Instaliraj...</value>
+  </data>
+  <data name="WebPartAdminMediumTrustMessage" xml:space="preserve">
+    <value>Ovaj portal pokrenut je u 'Medium Trust' sigurnosnom okruženju. Učitavanje drugih DLL-ova nije podržano pod tim sigurnosnim postavkama. I dalje možete koristiti sve ugrađene module i web partove, ali ne možete učitati web partove izravno iz assemblyja. Za dodatne informacije pogledajte http://www.mojoportal.com/mediumtrust.aspx</value>
+  </data>
+  <data name="WebPartAdminSelectedWebParts" xml:space="preserve">
+    <value>Odabrani web partovi</value>
+  </data>
+  <data name="WebPartAdminUpdateButton" xml:space="preserve">
+    <value>Instaliraj</value>
+  </data>
+  <data name="WebPartAllInstalledMessage" xml:space="preserve">
+    <value>Svi raspoloživi web partovi su instalirani. Za dodavanje novih web partova, smjestite njihov assembly u bin mapu.</value>
+  </data>
+  <data name="WebPartAllowMultipleInstancesOnMyPageLabel" xml:space="preserve">
+    <value>Dozvoliti više instanci na MyPage?</value>
+  </data>
+  <data name="WebPartAppearanceEditorTitle" xml:space="preserve">
+    <value>Izgled</value>
+  </data>
+  <data name="WebPartAssemblyNameLabel" xml:space="preserve">
+    <value>Naziv assemblyja</value>
+  </data>
+  <data name="WebPartAvailableForContentSystemLabel" xml:space="preserve">
+    <value>Raspoloživo za portal</value>
+  </data>
+  <data name="WebPartAvailableForMyPageLabel" xml:space="preserve">
+    <value>Raspoloživo za MyPage?</value>
+  </data>
+  <data name="WebPartAvailableNameLabel" xml:space="preserve">
+    <value>Web partovi raspoloživi za instalaciju</value>
+  </data>
+  <data name="WebPartBehaviorEditorTitle" xml:space="preserve">
+    <value>Svojstva</value>
+  </data>
+  <data name="WebPartCatalogMoreLink" xml:space="preserve">
+    <value>više...</value>
+  </data>
+  <data name="WebPartClassNameLabel" xml:space="preserve">
+    <value>Naziv klase</value>
+  </data>
+  <data name="WebPartCloseVerbDescription" xml:space="preserve">
+    <value>Zatvaranje sadržaja</value>
+  </data>
+  <data name="WebPartCloseVerbText" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="WebPartDeleteVerbDescription" xml:space="preserve">
+    <value>Brisanje sadržaja</value>
+  </data>
+  <data name="WebPartDeleteVerbText" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="WebPartDescriptionLabel" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="WebPartEditCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="WebPartEditDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="WebPartEditDeleteWarning" xml:space="preserve">
+    <value>Želite li doista ukloniti ovaj web part?</value>
+  </data>
+  <data name="WebPartEditLabel" xml:space="preserve">
+    <value>Uredi web part</value>
+  </data>
+  <data name="WebPartEditorApplyVerbDescription" xml:space="preserve">
+    <value>Provođenje izmjena</value>
+  </data>
+  <data name="WebPartEditorApplyVerbText" xml:space="preserve">
+    <value>Provedi</value>
+  </data>
+  <data name="WebPartEditorCancelVerbDescription" xml:space="preserve">
+    <value>Otkazivanje izmjena i zatvaranej editor.</value>
+  </data>
+  <data name="WebPartEditorCancelVerbText" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="WebPartEditorHeaderCloseVerbDescription" xml:space="preserve">
+    <value>Zatvaranje editora</value>
+  </data>
+  <data name="WebPartEditorHeaderCloseVerbText" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="WebPartEditorHeaderText" xml:space="preserve">
+    <value>Editor web partova</value>
+  </data>
+  <data name="WebPartEditorInstructionsText" xml:space="preserve">
+    <value>Izmijenite svojstva web parta te potom kliknite OK ili Provedi za provedbu tih izmjena. Neki web partovi nemaju promjenjiva svojstva.</value>
+  </data>
+  <data name="WebPartEditorOKVerbDescription" xml:space="preserve">
+    <value>Provedba izmjena i zatvaranje editora.</value>
+  </data>
+  <data name="WebPartEditorOKVerbText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="WebPartEditUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="WebPartEditVerbDescription" xml:space="preserve">
+    <value>Uređivanje</value>
+  </data>
+  <data name="WebPartEditVerbText" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="WebPartEmptyCatalogZoneText" xml:space="preserve">
+    <value>Nikakav sadržaj trenutno nije raspoloživ.</value>
+  </data>
+  <data name="WebPartEmptyZoneText" xml:space="preserve">
+    <value>Sadržaj možete dovući ovamo iz drugih stupaca ili kliknuti na zeleni plus za dodavanje sadržaja.</value>
+  </data>
+  <data name="WebPartExportVerbDescription" xml:space="preserve">
+    <value>Izvoz</value>
+  </data>
+  <data name="WebPartExportVerbText" xml:space="preserve">
+    <value>Izvezi</value>
+  </data>
+  <data name="WebPartFeatureName" xml:space="preserve">
+    <value>Web part</value>
+  </data>
+  <data name="WebPartHelpVerbDescription" xml:space="preserve">
+    <value>Pomoć</value>
+  </data>
+  <data name="WebPartHelpVerbText" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="WebPartIconLabel" xml:space="preserve">
+    <value>Ikona</value>
+  </data>
+  <data name="WebPartInstalledWebPartsLabel" xml:space="preserve">
+    <value>Instalirani web partovi</value>
+  </data>
+  <data name="WebPartLayoutEditorPartTitle" xml:space="preserve">
+    <value>Izgled</value>
+  </data>
+  <data name="WebPartManagerCatalogTooltip" xml:space="preserve">
+    <value>Kliknite ovdje za pregled raspoloživog sadržaja.</value>
+  </data>
+  <data name="WebPartManagerCloseCatalogTooltip" xml:space="preserve">
+    <value>Kliknite ovdje za zatvaranje kataloga.</value>
+  </data>
+  <data name="WebPartManagerToggleFromUserModeTooltip" xml:space="preserve">
+    <value>You are currently in User Scope. Click here to toggle to Shared Scope.</value>
+  </data>
+  <data name="WebPartManagerToggleToUserModeTooltip" xml:space="preserve">
+    <value>You are currently in Shared Scope.  Click here to toggle to User Scope.</value>
+  </data>
+  <data name="WebPartMinimizeVerbDescription" xml:space="preserve">
+    <value>Skrivanje prikaza sadržaja</value>
+  </data>
+  <data name="WebPartMinimizeVerbText" xml:space="preserve">
+    <value>Sakrij</value>
+  </data>
+  <data name="WebPartModuleWebPartSetting" xml:space="preserve">
+    <value>Odabrani web part:</value>
+  </data>
+  <data name="WebPartPageCatalogDescription" xml:space="preserve">
+    <value>Skriveni sadržaj</value>
+  </data>
+  <data name="WebPartPageCatalogTitle" xml:space="preserve">
+    <value>Skriveni sadržaj</value>
+  </data>
+  <data name="WebPartPropertyGridEditorTitle" xml:space="preserve">
+    <value>Svojstva web parta</value>
+  </data>
+  <data name="WebPartRestoreVerbDescription" xml:space="preserve">
+    <value>Povrat sadržaja.</value>
+  </data>
+  <data name="WebPartRestoreVerbText" xml:space="preserve">
+    <value>Vrati</value>
+  </data>
+  <data name="WebPartTitleLabel" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="WebSiteUrlRegexWarning" xml:space="preserve">
+    <value>mora biti URL koji započinje sa http:// ili https://</value>
+  </data>
+  <data name="WelcomeLabel" xml:space="preserve">
+    <value>Prijavljeni ste kao:</value>
+  </data>
+  <data name="WindowsLiveIDRegistrationHeading" xml:space="preserve">
+    <value>Prijavite se na portal vašim Windows Live ID-em</value>
+  </data>
+  <data name="WindowsLiveIDRegistrationLink" xml:space="preserve">
+    <value>Kliknite ovdje za registraciju vašim Windows Live ID-em</value>
+  </data>
+  <data name="WindowsLiveRegistrationRequiresAdditionalInfo" xml:space="preserve">
+    <value>Validirali smo vaš Windows Live ID račun, ali trebamo neke dodatne podatke kako bismo vas registrirali na ovom portalu.</value>
+  </data>
+  <data name="WindowsLiveSignInAddendum" xml:space="preserve">
+    <value>vašim Windows Live ID-em</value>
+  </data>
+  <data name="WindowsLiveSignInBeforeRegisterMessage" xml:space="preserve">
+    <value>Prije registracije na ovaj portal, morate se prijaviti na vaš windows Live račun.</value>
+  </data>
+  <data name="GoogleMapHeightSetting" xml:space="preserve">
+    <value>Visina mape:</value>
+  </data>
+  <data name="GoogleMapLocationSetting" xml:space="preserve">
+    <value>Lokacija:</value>
+  </data>
+  <data name="GoogleMapWidthSetting" xml:space="preserve">
+    <value>Širina mape:</value>
+  </data>
+  <data name="ModuleSettingsGeneralTab" xml:space="preserve">
+    <value>Općenito</value>
+  </data>
+  <data name="ModuleSettingsSecurityTab" xml:space="preserve">
+    <value>Sigurnost</value>
+  </data>
+  <data name="ModuleSettingsSettingsTab" xml:space="preserve">
+    <value> - postavke</value>
+  </data>
+  <data name="GoogleMapApiKeySetting" xml:space="preserve">
+    <value>API ključ Google mape:</value>
+  </data>
+  <data name="GoogleMapCaptionSetting" xml:space="preserve">
+    <value>Naslov:</value>
+  </data>
+  <data name="GoogleMapEnableDirectionsSetting" xml:space="preserve">
+    <value>Omogućiti usmjeravanje vozača?</value>
+  </data>
+  <data name="GoogleMapEnableLocalSearchSetting" xml:space="preserve">
+    <value>Prikazati lokalnu pretragu?</value>
+  </data>
+  <data name="GoogleMapEnableMapTypeSetting" xml:space="preserve">
+    <value>Prikazati opcije satelitske i hibridne mape?</value>
+  </data>
+  <data name="GoogleMapEnableZoomSetting" xml:space="preserve">
+    <value>Prikazati zum?</value>
+  </data>
+  <data name="GoogleMapShowInfoWindowSetting" xml:space="preserve">
+    <value>Prikazati lokacijski info-oblačić?</value>
+  </data>
+  <data name="GoogleMapShowLocationCaptionSetting" xml:space="preserve">
+    <value>Koristiti lokaciju kao naslov?</value>
+  </data>
+  <data name="GoogleMapUseLocationForTitleSetting" xml:space="preserve">
+    <value>Koristiti lokaciju za naslov?</value>
+  </data>
+  <data name="NewsLetterAddNewLetterLink" xml:space="preserve">
+    <value>Novi e-letak</value>
+  </data>
+  <data name="NewsLetterAddNewLetterToolTip" xml:space="preserve">
+    <value>Izrada novog izdanja ovog e-letka.</value>
+  </data>
+  <data name="NewsLetterAdministrationHeading" xml:space="preserve">
+    <value>E-leci</value>
+  </data>
+  <data name="NewsLetterDeleteLetterButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="NewsLetterDeleteLetterButtonWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovaj e-letak?</value>
+  </data>
+  <data name="NewsLetterEditLetterHeading" xml:space="preserve">
+    <value>Napiši e-letak</value>
+  </data>
+  <data name="NewsLetterLoadHtmlTemplateButton" xml:space="preserve">
+    <value>Učitaj HTML predložak</value>
+  </data>
+  <data name="NewsLetterSaveCurrentAsTemplateButton" xml:space="preserve">
+    <value>Spremi pismo kao predložak zvan:</value>
+  </data>
+  <data name="NewsLetterSaveCurrentAsTemplateButtonToolTip" xml:space="preserve">
+    <value>Spremi trenutni HTML kao novi predložak.</value>
+  </data>
+  <data name="NewsLetterSaveLetterButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="NewsLetterSendPreviewButton" xml:space="preserve">
+    <value>Pošalji pregled</value>
+  </data>
+  <data name="NewsLetterSendToSubscribersButton" xml:space="preserve">
+    <value>Pošalji pretplatnicima</value>
+  </data>
+  <data name="NewsLetterSubjectLabel" xml:space="preserve">
+    <value>Tema:</value>
+  </data>
+  <data name="NewsLetterTemplatesLabel" xml:space="preserve">
+    <value>HTML predlošci:</value>
+  </data>
+  <data name="NewsLetterUnsentLettersHeadingFormatString" xml:space="preserve">
+    <value>{0} - neposlani e-leci</value>
+  </data>
+  <data name="PageSettingstHideAfterLoginLabel" xml:space="preserve">
+    <value>Sakriti stranicu od autenticiranih korisnika?</value>
+  </data>
+  <data name="UploadBrowseAccessDenied" xml:space="preserve">
+    <value>Nemate dozvolu pregledavanja servera niti otpreme datoteka.</value>
+  </data>
+  <data name="LetterEditManageTemplatesLink" xml:space="preserve">
+    <value>Predlošci</value>
+  </data>
+  <data name="LetterEditManageTemplatesToolTip" xml:space="preserve">
+    <value>Upravljanje predlošcima</value>
+  </data>
+  <data name="LetterHtmlTemplateAddNewLink" xml:space="preserve">
+    <value>Dodaj predložak</value>
+  </data>
+  <data name="LetterHtmlTemplateAddNewToolTip" xml:space="preserve">
+    <value>Dodavanje predloška</value>
+  </data>
+  <data name="LetterTemplateDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="LetterTemplateDeleteButtonWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovaj predložak?</value>
+  </data>
+  <data name="LetterTemplateSaveButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="LetterTemplateSendPreviewButton" xml:space="preserve">
+    <value>Pošalji pregled</value>
+  </data>
+  <data name="LetterTemplatesHeading" xml:space="preserve">
+    <value>HTML predlošci e-letaka</value>
+  </data>
+  <data name="LetterTemplateTitleLabel" xml:space="preserve">
+    <value>Naslov:</value>
+  </data>
+  <data name="TaskQueueMonitorHeading" xml:space="preserve">
+    <value>Naredane zadaće</value>
+  </data>
+  <data name="TaskQueueNoTasksRunningMessage" xml:space="preserve">
+    <value>Nema pokrenutih zadaća.</value>
+  </data>
+  <data name="TaskQueueRefreshLink" xml:space="preserve">
+    <value>Osvježi prikaz</value>
+  </data>
+  <data name="ManageUsersLocationGridCaptureCountHeading" xml:space="preserve">
+    <value>Broj zabilježbi</value>
+  </data>
+  <data name="ManageUsersLocationGridCityHeading" xml:space="preserve">
+    <value>Grad</value>
+  </data>
+  <data name="ManageUsersLocationGridContinentHeading" xml:space="preserve">
+    <value>Kontinent</value>
+  </data>
+  <data name="ManageUsersLocationGridCountryHeading" xml:space="preserve">
+    <value>Zemlja</value>
+  </data>
+  <data name="ManageUsersLocationGridFirstCaptureHeading" xml:space="preserve">
+    <value>Prva zabilježba</value>
+  </data>
+  <data name="ManageUsersLocationGridHostnameHeading" xml:space="preserve">
+    <value>Naziv domaćina</value>
+  </data>
+  <data name="ManageUsersLocationGridIPAddressHeading" xml:space="preserve">
+    <value>IP adresa</value>
+  </data>
+  <data name="ManageUsersLocationGridISPHeading" xml:space="preserve">
+    <value>ISP</value>
+  </data>
+  <data name="ManageUsersLocationGridLastCaptureHeading" xml:space="preserve">
+    <value>Zadnja zabilježba</value>
+  </data>
+  <data name="ManageUsersLocationGridRegionHeading" xml:space="preserve">
+    <value>Regija</value>
+  </data>
+  <data name="ManageUsersLocationGridTimeZoneHeading" xml:space="preserve">
+    <value>Vremenska zona</value>
+  </data>
+  <data name="ManageUsersLocationTab" xml:space="preserve">
+    <value>Lokacije</value>
+  </data>
+  <data name="NewsLetterSendToListButtonWarning" xml:space="preserve">
+    <value>Želite li doista poslati ovaj e-letak pretplatnicima?</value>
+  </data>
+  <data name="TaksQueueGridTaskTypeHeader" xml:space="preserve">
+    <value>Vrsta</value>
+  </data>
+  <data name="TaskQueueGridCompleteHeader" xml:space="preserve">
+    <value>Završena</value>
+  </data>
+  <data name="TaskQueueGridCompleteProgressHeader" xml:space="preserve">
+    <value>Napredak</value>
+  </data>
+  <data name="TaskQueueGridDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="TaskQueueGridLastUpdateHeader" xml:space="preserve">
+    <value>Zadnje ažuriranje</value>
+  </data>
+  <data name="TaskQueueGridQueuedHeader" xml:space="preserve">
+    <value>Stavljena u red</value>
+  </data>
+  <data name="TaskQueueGridStartedHeader" xml:space="preserve">
+    <value>Započeta</value>
+  </data>
+  <data name="TaskQueueGridStatusHeader" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TaskQueueGridTaksNameHeader" xml:space="preserve">
+    <value>Naziv</value>
+  </data>
+  <data name="TaskQueueHistoryHeading" xml:space="preserve">
+    <value>Povijest zadaća</value>
+  </data>
+  <data name="TaskQueueNoTasksMessage" xml:space="preserve">
+    <value>Nema podataka o zadaćama.</value>
+  </data>
+  <data name="ManageUsersNewslettersTab" xml:space="preserve">
+    <value>E-leci</value>
+  </data>
+  <data name="NewsletterHtmlFormatLabel" xml:space="preserve">
+    <value>HTML</value>
+  </data>
+  <data name="NewsletterPlainTextFormatLabel" xml:space="preserve">
+    <value>Običan tekst</value>
+  </data>
+  <data name="NewsletterPreferencesHeader" xml:space="preserve">
+    <value>Pretplate na e-letke</value>
+  </data>
+  <data name="NewsletterSavePreferencesButton" xml:space="preserve">
+    <value>Spremi odrednice</value>
+  </data>
+  <data name="NewsletterStatusCompleteMessage" xml:space="preserve">
+    <value>Gotovo</value>
+  </data>
+  <data name="NewsletterStatusQueuedMessage" xml:space="preserve">
+    <value>Stavljena u red</value>
+  </data>
+  <data name="NewsletterStatusRunningMessageFormatString" xml:space="preserve">
+    <value>Running. Sent {0} of {1}</value>
+  </data>
+  <data name="NewsletterTaskNameFormatString" xml:space="preserve">
+    <value>{0} Mailer</value>
+  </data>
+  <data name="NewsletterUnsubscribeLink" xml:space="preserve">
+    <value>Otkaži pretplatu</value>
+  </data>
+  <data name="NewsletterUnsubscribeTokenNotFoundMessage" xml:space="preserve">
+    <value>Required Unsubscribe token #unsubscribe# not found in HTML.</value>
+  </data>
+  <data name="TaskQueueAvailableThreadsLabel" xml:space="preserve">
+    <value>Raspoloživih dretvi:</value>
+  </data>
+  <data name="TaskQueueCompletedTaskNotificationFormatString" xml:space="preserve">
+    <value>Zadaća: {0} je završena.</value>
+  </data>
+  <data name="LetterInfoDescriptionTab" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="LetterInfoRolesThatCanApproveTab" xml:space="preserve">
+    <value>Uloge koje mogu odobriti</value>
+  </data>
+  <data name="LetterInfoRolesThatCanEditTab" xml:space="preserve">
+    <value>Uloge koje mogu uređivati</value>
+  </data>
+  <data name="LetterInfoRolesThatCanSendTab" xml:space="preserve">
+    <value>Uloge koje mogu slati</value>
+  </data>
+  <data name="LetterInfoRolesThatCanSubscribeTab" xml:space="preserve">
+    <value>Uloge s dozvolom pretplate</value>
+  </data>
+  <data name="LetterInfoSecurityTab" xml:space="preserve">
+    <value>Sigurnost</value>
+  </data>
+  <data name="LetterInfoSettingsTab" xml:space="preserve">
+    <value>Postavke</value>
+  </data>
+  <data name="NewsletterArchiveGridSendClickedHeader" xml:space="preserve">
+    <value>Pokretanje slanja</value>
+  </data>
+  <data name="NewsletterArchiveGridSendCompleteHeader" xml:space="preserve">
+    <value>Slanje završeno</value>
+  </data>
+  <data name="NewsletterArchiveGridSendCountHeader" xml:space="preserve">
+    <value>Broj poslanih</value>
+  </data>
+  <data name="NewsletterArchiveGridSubjectHeader" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="NewsLetterArchiveLettersHeading" xml:space="preserve">
+    <value>Prethodna izdanja</value>
+  </data>
+  <data name="NewsLetterArchiveLettersHeadingFormatString" xml:space="preserve">
+    <value>{0} - prethodna izdanja</value>
+  </data>
+  <data name="NewsletterGeneratePlainTextButton" xml:space="preserve">
+    <value>Generiraj običan tekst iz HTML verzije</value>
+  </data>
+  <data name="NewsletterGeneratePlainTextButtonWarning" xml:space="preserve">
+    <value>Želite li doista generirati običan tekst? Ako postoji druga verzija e-letka u obliku običnog teksta, bit će izgubljena.</value>
+  </data>
+  <data name="NewsletterSendLogHeadingFormatString" xml:space="preserve">
+    <value>{0} Send Log</value>
+  </data>
+  <data name="NewsletterSubscriberListBeginDateHeading" xml:space="preserve">
+    <value>Datum pretplate</value>
+  </data>
+  <data name="NewsletterSubscriberListEmailHeading" xml:space="preserve">
+    <value>E-adresa</value>
+  </data>
+  <data name="NewsletterSubscriberListHeadingFormatString" xml:space="preserve">
+    <value>{0} pretplatnika</value>
+  </data>
+  <data name="NewsletterSubscriberListHtmlFormatHeading" xml:space="preserve">
+    <value>HTML format</value>
+  </data>
+  <data name="NewsletterSubscriberListNameHeading" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="NewsletterTextVersionRequiredWarning" xml:space="preserve">
+    <value>Prije slanja pisma morate izraditi običnu tekstualnu verziju.</value>
+  </data>
+  <data name="NewsletterViewSendLogToolTip" xml:space="preserve">
+    <value>View Send Log</value>
+  </data>
+  <data name="TaskQueueClearHistoryLink" xml:space="preserve">
+    <value>Očisti</value>
+  </data>
+  <data name="NewsletterSendLogDateSentHeading" xml:space="preserve">
+    <value>Sent</value>
+  </data>
+  <data name="NewsletterSendLogEmailHeading" xml:space="preserve">
+    <value>E-adresa</value>
+  </data>
+  <data name="NewsletterPlainTextUnsubscribeTokenNotFoundMessage" xml:space="preserve">
+    <value>Odjavni token #unsubscribe# nije nađen u običnoj tekstualnoj verziji.</value>
+  </data>
+  <data name="NewsletterSendLogErrorHeading" xml:space="preserve">
+    <value>Greška</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Molim, pričekajte...</value>
+  </data>
+  <data name="NewsletterUnsubscribeInvalidParamsMessage" xml:space="preserve">
+    <value>Parametri za ukidanje pretplate su neispravni.</value>
+  </data>
+  <data name="NewsletterUnsubscribeSuccessFormatString" xml:space="preserve">
+    <value>Otkazali ste si pretplatu za {0}.</value>
+  </data>
+  <data name="NewsletterArchiveListLink" xml:space="preserve">
+    <value>Prikaz prethodnih izdanja</value>
+  </data>
+  <data name="NewsletterDraftListLink" xml:space="preserve">
+    <value>Prikaz/Uređivanje skica</value>
+  </data>
+  <data name="NewsletterEditLink" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="NewsLetterPreviousLettersHeadingFormatString" xml:space="preserve">
+    <value>{0} - Previous Editions</value>
+  </data>
+  <data name="NewsletterStatusStartedMessage" xml:space="preserve">
+    <value>Started</value>
+  </data>
+  <data name="NewsletterSubscribersLink" xml:space="preserve">
+    <value>Subscribers</value>
+  </data>
+  <data name="NewsletterSubscribersToolTip" xml:space="preserve">
+    <value>View Subscribers for</value>
+  </data>
+  <data name="NewsLetterUnsentLettersHeading" xml:space="preserve">
+    <value>Skice</value>
+  </data>
+  <data name="UserProfileNewslettersTab" xml:space="preserve">
+    <value>E-leci</value>
+  </data>
+  <data name="UserProfileProfileTab" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="UserProfileSecurityTab" xml:space="preserve">
+    <value>Sigurnost i identitet</value>
+  </data>
+  <data name="LoginFailedInvalidEmailFormatMessage" xml:space="preserve">
+    <value>Prijava nije uspjela jer niste upisali valjanu e-adresu.</value>
+  </data>
+  <data name="DefaultContentHtmlTitle" xml:space="preserve">
+    <value>Dobro došli!</value>
+  </data>
+  <data name="DefaultHomePageName" xml:space="preserve">
+    <value>Naslovnica</value>
+  </data>
+  <data name="SiteSettingsApiKeysTab" xml:space="preserve">
+    <value>API ključevi</value>
+  </data>
+  <data name="SiteSettingsGmapApiKeyLabel" xml:space="preserve">
+    <value>Google Maps API ključ:</value>
+  </data>
+  <data name="GoogleMapInitialZoomSetting" xml:space="preserve">
+    <value>Razina zumiranja mape:</value>
+  </data>
+  <data name="PodcastLink" xml:space="preserve">
+    <value>Podcast</value>
+  </data>
+  <data name="ForumUserPostsLink" xml:space="preserve">
+    <value>Prikaži poruke</value>
+  </data>
+  <data name="CommerceTestModeWarning" xml:space="preserve">
+    <value>Trgovina je u testnom načinu. Slobodno koristite brojeve kreditnih kartica jer se neće dogoditi nikakvo stvarno terećenje računa.</value>
+  </data>
+  <data name="AddThisButtonAltText" xml:space="preserve">
+    <value>Podijeli sadržaj korištenjem popularnih označavačkih servisa</value>
+  </data>
+  <data name="SiteSettingsAddThisAccountIdLabel" xml:space="preserve">
+    <value>AddThis.com korisničko ime:</value>
+  </data>
+  <data name="ForumMyPostsLink" xml:space="preserve">
+    <value>Moje poruke</value>
+  </data>
+  <data name="OpenIDServerConnectionErrorMessage" xml:space="preserve">
+    <value>Open ID server je privremeno nedostupan.</value>
+  </data>
+  <data name="PasswordRecoveryEmailSubjectFormatString" xml:space="preserve">
+    <value>Your {0} password.</value>
+  </data>
+  <data name="SiteSettingsPreferredHostNameLabel" xml:space="preserve">
+    <value>Preferirani naziv hosta:</value>
+  </data>
+  <data name="ModuleDefinitionsSettingControlSrcLabel" xml:space="preserve">
+    <value>Control Source:</value>
+  </data>
+  <data name="ModuleDefinitionsSettingHelpKeyLabel" xml:space="preserve">
+    <value>Help Key:</value>
+  </data>
+  <data name="ModuleDefinitionsSettingSortOrderLabel" xml:space="preserve">
+    <value>Redoslijed sortiranja:</value>
+  </data>
+  <data name="GoogleMapInitialMapTypeSetting" xml:space="preserve">
+    <value>Početna vrsta mape:</value>
+  </data>
+  <data name="GoogleHybridMap" xml:space="preserve">
+    <value>Hibridna</value>
+  </data>
+  <data name="GoogleNormalMap" xml:space="preserve">
+    <value>Obična</value>
+  </data>
+  <data name="GoogleSatelliteMap" xml:space="preserve">
+    <value>Satelitska</value>
+  </data>
+  <data name="GoogleTerrainMap" xml:space="preserve">
+    <value>Reljefna</value>
+  </data>
+  <data name="GoogleMapZoom0" xml:space="preserve">
+    <value>0 - Najmanje</value>
+  </data>
+  <data name="GoogleMapZoom1" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="GoogleMapZoom10" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="GoogleMapZoom11" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="GoogleMapZoom12" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="GoogleMapZoom13" xml:space="preserve">
+    <value>13 - Početno</value>
+  </data>
+  <data name="GoogleMapZoom14" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="GoogleMapZoom15" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="GoogleMapZoom16" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="GoogleMapZoom17" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="GoogleMapZoom18" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="GoogleMapZoom19" xml:space="preserve">
+    <value>19 - Najveće</value>
+  </data>
+  <data name="GoogleMapZoom2" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="GoogleMapZoom3" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="GoogleMapZoom4" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="GoogleMapZoom5" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="GoogleMapZoom6" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="GoogleMapZoom7" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="GoogleMapZoom8" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="GoogleMapZoom9" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="AdvancedToolsHeading" xml:space="preserve">
+    <value>Napredni alati</value>
+  </data>
+  <data name="AdvancedToolsLink" xml:space="preserve">
+    <value>Napredni alati</value>
+  </data>
+  <data name="IndexWriterTaskCompleteMessage" xml:space="preserve">
+    <value>Gotovo</value>
+  </data>
+  <data name="IndexWriterTaskQueuedMessage" xml:space="preserve">
+    <value>Stavljeno u red</value>
+  </data>
+  <data name="IndexWriterTaskRunningFormatString" xml:space="preserve">
+    <value>U tijeku. Indeksiranih stavki {0} od {1}</value>
+  </data>
+  <data name="IndexWriterTaskStartedMessage" xml:space="preserve">
+    <value>Pokrenuto</value>
+  </data>
+  <data name="IndexWriterTaskName" xml:space="preserve">
+    <value>IndexWriterTask</value>
+  </data>
+  <data name="CoreDataAdministrationHeading" xml:space="preserve">
+    <value>Temeljni podaci</value>
+  </data>
+  <data name="CoreDataAdministrationLink" xml:space="preserve">
+    <value>Temeljni podaci</value>
+  </data>
+  <data name="CountryAdministrationHeading" xml:space="preserve">
+    <value>Zemlje</value>
+  </data>
+  <data name="CountryAdministrationLink" xml:space="preserve">
+    <value>Zemlje</value>
+  </data>
+  <data name="CountryGridAddNewButton" xml:space="preserve">
+    <value>Upiši zemlju</value>
+  </data>
+  <data name="CountryGridCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="CountryGridDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="CountryGridDeleteWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovu zemlju?</value>
+  </data>
+  <data name="CountryGridEditButton" xml:space="preserve">
+    <value>Uređivanje zemlje.</value>
+  </data>
+  <data name="CountryGridISOCode2Header" xml:space="preserve">
+    <value>ISO kod kratki</value>
+  </data>
+  <data name="CountryGridISOCode3Header" xml:space="preserve">
+    <value>ISO kod dugi</value>
+  </data>
+  <data name="CountryGridNameHeader" xml:space="preserve">
+    <value>Naziv</value>
+  </data>
+  <data name="CountryGridUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="CurrencyAdministrationHeading" xml:space="preserve">
+    <value>Valute</value>
+  </data>
+  <data name="CurrencyAdministrationLink" xml:space="preserve">
+    <value>Valute</value>
+  </data>
+  <data name="CurrencyGridAddNewButton" xml:space="preserve">
+    <value>Upiši valutu</value>
+  </data>
+  <data name="CurrencyGridCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="CurrencyGridCodeHeading" xml:space="preserve">
+    <value>Oznaka:</value>
+  </data>
+  <data name="CurrencyGridDecimalPlacesHeading" xml:space="preserve">
+    <value>Broj decimalnih mjesta:</value>
+  </data>
+  <data name="CurrencyGridDecimalPointCharHeading" xml:space="preserve">
+    <value>Decimalna oznaka:</value>
+  </data>
+  <data name="CurrencyGridDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="CurrencyGridDeleteWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovu valutu?</value>
+  </data>
+  <data name="CurrencyGridEditButton" xml:space="preserve">
+    <value>Uređivanje valute.</value>
+  </data>
+  <data name="CurrencyGridSymbolLeftHeading" xml:space="preserve">
+    <value>Simbol slijeva:</value>
+  </data>
+  <data name="CurrencyGridSymbolRightHeading" xml:space="preserve">
+    <value>Simbol zdesna:</value>
+  </data>
+  <data name="CurrencyGridThousandsPointCharHeading" xml:space="preserve">
+    <value>Oznaka tisućica:</value>
+  </data>
+  <data name="CurrencyGridTitleHeading" xml:space="preserve">
+    <value>Naziv:</value>
+  </data>
+  <data name="CurrencyGridUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="CurrencyGridValueHeading" xml:space="preserve">
+    <value>Vrijednost:</value>
+  </data>
+  <data name="GeoZoneAdministrationHeading" xml:space="preserve">
+    <value>Zemljopisne zone</value>
+  </data>
+  <data name="GeoZoneAdministrationLink" xml:space="preserve">
+    <value>Zemljopisne zone</value>
+  </data>
+  <data name="GeoZoneGridAddNewButton" xml:space="preserve">
+    <value>Upiši zemljopisnu zonu</value>
+  </data>
+  <data name="GeoZoneGridCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="GeoZoneGridCodeHeader" xml:space="preserve">
+    <value>Oznaka</value>
+  </data>
+  <data name="GeoZoneGridDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="GeoZoneGridDeleteWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovu zemljopisnu zonu?</value>
+  </data>
+  <data name="GeoZoneGridEditButton" xml:space="preserve">
+    <value>Uređivanje zemljopisne zone.</value>
+  </data>
+  <data name="GeoZoneGridUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="GeoZoneGridZoneHeader" xml:space="preserve">
+    <value>Zona</value>
+  </data>
+  <data name="LanguageAdministrationHeading" xml:space="preserve">
+    <value>Jezici</value>
+  </data>
+  <data name="LanguageAdministrationLink" xml:space="preserve">
+    <value>Jezici</value>
+  </data>
+  <data name="LanguageGridAddNewButton" xml:space="preserve">
+    <value>Upiši jezik</value>
+  </data>
+  <data name="LanguageGridCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="LanguageGridCodeHeading" xml:space="preserve">
+    <value>Oznaka</value>
+  </data>
+  <data name="LanguageGridDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="LanguageGridDeleteWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovaj jezik?</value>
+  </data>
+  <data name="LanguageGridEditButton" xml:space="preserve">
+    <value>Uređivanje jezika.</value>
+  </data>
+  <data name="LanguageGridNameHeading" xml:space="preserve">
+    <value>Naziv</value>
+  </data>
+  <data name="LanguageGridSortHeading" xml:space="preserve">
+    <value>Sortiranje</value>
+  </data>
+  <data name="LanguageGridUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="GCheckoutBuyerId" xml:space="preserve">
+    <value>ID kupca</value>
+  </data>
+  <data name="GCheckoutCreatedUtc" xml:space="preserve">
+    <value>Vrijeme stvaranja (UTC)</value>
+  </data>
+  <data name="GCheckoutFinanceState" xml:space="preserve">
+    <value>Financijski status</value>
+  </data>
+  <data name="GCheckoutFullfillState" xml:space="preserve">
+    <value>Status obavljanja</value>
+  </data>
+  <data name="GCheckoutNotificationHandlerUrlLabel" xml:space="preserve">
+    <value>URL GCheckout dojavljivača</value>
+  </data>
+  <data name="GCheckoutNotificationHeading" xml:space="preserve">
+    <value>Google Checkout dojavni dnevnik</value>
+  </data>
+  <data name="GCheckoutNotificationType" xml:space="preserve">
+    <value>Vrsta dojave</value>
+  </data>
+  <data name="GCheckoutOrderNumber" xml:space="preserve">
+    <value>Broj narudžbe</value>
+  </data>
+  <data name="GCheckoutSerialNumber" xml:space="preserve">
+    <value>Serijski broj</value>
+  </data>
+  <data name="GCheckoutTesterPostButton" xml:space="preserve">
+    <value>Pošalji</value>
+  </data>
+  <data name="GCheckoutXmlInputLabel" xml:space="preserve">
+    <value>XML upis</value>
+  </data>
+  <data name="GCheckoutXmlResultsLabel" xml:space="preserve">
+    <value>XML rezultati</value>
+  </data>
+  <data name="TaxClassAdminHeading" xml:space="preserve">
+    <value>Porezne klase</value>
+  </data>
+  <data name="TaxClassAdminLink" xml:space="preserve">
+    <value>Porezne klase</value>
+  </data>
+  <data name="TaxClassGridAddNewButton" xml:space="preserve">
+    <value>Upiši poreznu klasu</value>
+  </data>
+  <data name="TaxClassGridCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="TaxClassGridDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="TaxClassGridDeleteWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovu poreznu klasu?</value>
+  </data>
+  <data name="TaxClassGridEditButton" xml:space="preserve">
+    <value>Uređivanje porezne klase.</value>
+  </data>
+  <data name="TaxClassGridTitleLabel" xml:space="preserve">
+    <value>Klasa</value>
+  </data>
+  <data name="TaxClassGridUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="TaxClassNotTaxable" xml:space="preserve">
+    <value>Neoporezivo</value>
+  </data>
+  <data name="TaxClassTaxable" xml:space="preserve">
+    <value>Oporezivo</value>
+  </data>
+  <data name="TaxRateAdminHeading" xml:space="preserve">
+    <value>Porezne stope</value>
+  </data>
+  <data name="TaxRateAdminLink" xml:space="preserve">
+    <value>Porezne stope</value>
+  </data>
+  <data name="TaxRateGridAddNewButton" xml:space="preserve">
+    <value>Upiši poreznu stopu</value>
+  </data>
+  <data name="TaxRateGridCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="TaxRateGridDeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="TaxRateGridDeleteWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovu poreznu stopu?</value>
+  </data>
+  <data name="TaxRateGridDescriptionHeader" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="TaxRateGridEditButton" xml:space="preserve">
+    <value>Uređivanje porezne stope.</value>
+  </data>
+  <data name="TaxRateGridPriorityHeader" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="TaxRateGridRateHeader" xml:space="preserve">
+    <value>Stopa</value>
+  </data>
+  <data name="TaxRateGridTaxClassHeader" xml:space="preserve">
+    <value>Porezna klasa</value>
+  </data>
+  <data name="TaxRateGridUpdateButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="PayPalCreatedUtc" xml:space="preserve">
+    <value>Created UTC</value>
+  </data>
+  <data name="PayPalLogHeading" xml:space="preserve">
+    <value>PayPal dnevnik</value>
+  </data>
+  <data name="PayPalLogRequestType" xml:space="preserve">
+    <value>Vrsta zahtjeva</value>
+  </data>
+  <data name="PayPalPaymentStatus" xml:space="preserve">
+    <value>Status plaćanja</value>
+  </data>
+  <data name="PayPalPaymentType" xml:space="preserve">
+    <value>Vrsta plaćanja</value>
+  </data>
+  <data name="PayPalPendingReason" xml:space="preserve">
+    <value>Pending Reason</value>
+  </data>
+  <data name="PayPalProviderName" xml:space="preserve">
+    <value>Provider Name</value>
+  </data>
+  <data name="PayPalToken" xml:space="preserve">
+    <value>PayPal token</value>
+  </data>
+  <data name="PayPalTransactionId" xml:space="preserve">
+    <value>Transakcijski ID</value>
+  </data>
+  <data name="AuthorizeNetLogAuthCode" xml:space="preserve">
+    <value>Šifra autentikacije</value>
+  </data>
+  <data name="AuthorizeNetLogCreatedUtc" xml:space="preserve">
+    <value>UTC vrijeme stvaranja</value>
+  </data>
+  <data name="AuthorizeNetLogHeading" xml:space="preserve">
+    <value>Authorize.NET dnevnik</value>
+  </data>
+  <data name="AuthorizeNetLogMethod" xml:space="preserve">
+    <value>Metoda</value>
+  </data>
+  <data name="AuthorizeNetLogProviderName" xml:space="preserve">
+    <value>Naziv poslužitelja</value>
+  </data>
+  <data name="AuthorizeNetLogReason" xml:space="preserve">
+    <value>Razlog</value>
+  </data>
+  <data name="AuthorizeNetLogResponseCode" xml:space="preserve">
+    <value>Šifra odgovora</value>
+  </data>
+  <data name="AuthorizeNetLogTransactionId" xml:space="preserve">
+    <value>Transakcijski ID</value>
+  </data>
+  <data name="AuthorizeNetLogTransactionType" xml:space="preserve">
+    <value>Vrsta transakcije</value>
+  </data>
+  <data name="ServerVariablesHeading" xml:space="preserve">
+    <value>Serverske varijable</value>
+  </data>
+  <data name="ServerVariablesLink" xml:space="preserve">
+    <value>Serverske varijable</value>
+  </data>
+  <data name="OrderStatusCancelled" xml:space="preserve">
+    <value>Otkazano</value>
+  </data>
+  <data name="OrderStatusFulfillable" xml:space="preserve">
+    <value>Ostvarivo</value>
+  </data>
+  <data name="OrderStatusFulfilled" xml:space="preserve">
+    <value>Ostvareno</value>
+  </data>
+  <data name="OrderStatusReceived" xml:space="preserve">
+    <value>Primljeno</value>
+  </data>
+  <data name="PayPalCartTotal" xml:space="preserve">
+    <value>Cart Total</value>
+  </data>
+  <data name="PayPalChargeTotal" xml:space="preserve">
+    <value>Ukupno</value>
+  </data>
+  <data name="PayPalFeeAmount" xml:space="preserve">
+    <value>Fee</value>
+  </data>
+  <data name="PayPalSettlementAmount" xml:space="preserve">
+    <value>Settlement</value>
+  </data>
+  <data name="PayPalTaxAmount" xml:space="preserve">
+    <value>Porez</value>
+  </data>
+  <data name="ModuleSettingsHideFromAuthenticatedLabel" xml:space="preserve">
+    <value>Sakriti od autenticiranih korisnika?</value>
+  </data>
+  <data name="ModuleSettingsHideFromUnauthenticatedLabel" xml:space="preserve">
+    <value>Sakriti od anonimnih korisnika?</value>
+  </data>
+  <data name="OrderStatusNone" xml:space="preserve">
+    <value>Ništa</value>
+  </data>
+  <data name="AlreadyRegistered" xml:space="preserve">
+    <value>Već registriran?</value>
+  </data>
+  <data name="DefaultSignInPrompt" xml:space="preserve">
+    <value>Za nastavak se morate prijaviti ili registrirati.</value>
+  </data>
+  <data name="NotYetRegistered" xml:space="preserve">
+    <value>Niste još registrirani?</value>
+  </data>
+  <data name="RegisterWithOpenIDInstructions" xml:space="preserve">
+    <value>Registracija vašim Open ID-em je lagana te ne trebate pamtiti novu lozinku.</value>
+  </data>
+  <data name="RegisterWithOpenIDLink" xml:space="preserve">
+    <value>Registrirajte se Open ID-em</value>
+  </data>
+  <data name="RegisterWithOpenIdOrWindowsLiveInstructions" xml:space="preserve">
+    <value>Registracija vašim Open ID-em ili Windows Live ID-em je lagana te ne trebate pamtiti novu lozinku.</value>
+  </data>
+  <data name="RegisterWithWindowsLiveInstructions" xml:space="preserve">
+    <value>Registracija vašim Windows Live ID-em je lagana te ne trebate pamtiti novu lozinku.</value>
+  </data>
+  <data name="RegisterWithWindowsLiveLink" xml:space="preserve">
+    <value>Registrirajte se Windows Live ID-em</value>
+  </data>
+  <data name="NoSSLWarning" xml:space="preserve">
+    <value>Ova stranica nije osigurana. Ne biste trebali upisati nikakve privatne podatke niti podatke o kreditnoj kartici.</value>
+  </data>
+  <data name="GoogleAnalyticsAccountCodeLabel" xml:space="preserve">
+    <value>Šifra Google Analytics računa:</value>
+  </data>
+  <data name="AnalyticsCustomer" xml:space="preserve">
+    <value>Korisnik</value>
+  </data>
+  <data name="AnalyticsMember" xml:space="preserve">
+    <value>Član</value>
+  </data>
+  <data name="SiteSettingsOpenIdSelectorLabel" xml:space="preserve">
+    <value>Šifra Open ID Selectora:</value>
+  </data>
+  <data name="AnalyticsSiteAdminUser" xml:space="preserve">
+    <value>Administratori</value>
+  </data>
+  <data name="NewUserAdminNotificationTask" xml:space="preserve">
+    <value>NewUserAdminNotificationTask</value>
+  </data>
+  <data name="TaskCompleted" xml:space="preserve">
+    <value>Završena</value>
+  </data>
+  <data name="TaskQueued" xml:space="preserve">
+    <value>Stavljena u red</value>
+  </data>
+  <data name="TaskRunning" xml:space="preserve">
+    <value>Pokrenuta</value>
+  </data>
+  <data name="TaskStarted" xml:space="preserve">
+    <value>Započeta</value>
+  </data>
+  <data name="PageNotFoundMessage" xml:space="preserve">
+    <value>Stranica koju ste tražili nije pronađena. Pokušajte ju locirati na mapi portala.</value>
+  </data>
+  <data name="PageNotFoundTitle" xml:space="preserve">
+    <value>Stranica nije pronađena.</value>
+  </data>
+  <data name="DownloadLogButton" xml:space="preserve">
+    <value>Preuzmi dnevnik</value>
+  </data>
+  <data name="MailSettingsTab" xml:space="preserve">
+    <value>Postavke e-pošte</value>
+  </data>
+  <data name="SMTPPassword" xml:space="preserve">
+    <value>SMTP lozinka:</value>
+  </data>
+  <data name="SMTPPort" xml:space="preserve">
+    <value>SMTP port:</value>
+  </data>
+  <data name="SmtpPreferredEncoding" xml:space="preserve">
+    <value>SMTP preferirano enkodiranje:</value>
+  </data>
+  <data name="SMTPRequiresAuthentication" xml:space="preserve">
+    <value>SMTP zahtijeva autentikaciju?</value>
+  </data>
+  <data name="SMTPServer" xml:space="preserve">
+    <value>SMTP server:</value>
+  </data>
+  <data name="SMTPTimeoutInMilliseconds" xml:space="preserve">
+    <value>SMTP zaustavno vrijeme u milisekundama:</value>
+  </data>
+  <data name="SMTPUser" xml:space="preserve">
+    <value>SMTP korisnik:</value>
+  </data>
+  <data name="SMTPUseSsl" xml:space="preserve">
+    <value>SMTP koristi SSL?</value>
+  </data>
+  <data name="ModuleSettingsCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="PageLastModifiedLabel" xml:space="preserve">
+    <value>Zadnje ažuriranje:</value>
+  </data>
+  <data name="LetterInfoDeleteWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ove e-letke?</value>
+  </data>
+  <data name="RatingCountFormat" xml:space="preserve">
+    <value>{0} glasova</value>
+  </data>
+  <data name="RatingPrompt" xml:space="preserve">
+    <value>Ocijeni sadržaj</value>
+  </data>
+  <data name="EnableContentRatingSetting" xml:space="preserve">
+    <value>Omogućiti klasifikaciju sadržaja?</value>
+  </data>
+  <data name="EnableRatingCommentsSetting" xml:space="preserve">
+    <value>Omogućiti klasifikacijske komentare?</value>
+  </data>
+  <data name="RatingCommentsLabel" xml:space="preserve">
+    <value>Očituj se o ovom sadržaju</value>
+  </data>
+  <data name="RatingEmailLabel" xml:space="preserve">
+    <value>E-adresa (opcionalna)</value>
+  </data>
+  <data name="RatingNoThanksButton" xml:space="preserve">
+    <value>Ne, hvala.</value>
+  </data>
+  <data name="RatingSubmitButton" xml:space="preserve">
+    <value>Pošalji</value>
+  </data>
+  <data name="RSSAddCommentsLink" xml:space="preserve">
+    <value>Dodati linkove na komentare u RSS sažetak?:</value>
+  </data>
+  <data name="RSSAddSignature" xml:space="preserve">
+    <value>Dodati potpis u RSS sažetak?</value>
+  </data>
+  <data name="MemberGraphHeightSetting" xml:space="preserve">
+    <value>Visina grafa članstva:</value>
+  </data>
+  <data name="MemberGraphTitle" xml:space="preserve">
+    <value>Novi članovi po mjesecima</value>
+  </data>
+  <data name="MemberGraphWidthSetting" xml:space="preserve">
+    <value>Širina grafa članstva:</value>
+  </data>
+  <data name="MemberGraphXAxisLabel" xml:space="preserve">
+    <value>Mjesec</value>
+  </data>
+  <data name="MemberGraphYAxisLabel" xml:space="preserve">
+    <value>Novi članovi portala</value>
+  </data>
+  <data name="ShowMemberGraphSetting" xml:space="preserve">
+    <value>Prikazati graf članstva?</value>
+  </data>
+  <data name="AddPageLink" xml:space="preserve">
+    <value>Dodaj stranicu</value>
+  </data>
+  <data name="AdminLink" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AllowLiveMessengerOnProfilesLabel" xml:space="preserve">
+    <value>Dozvoliti Live Messenger u korisničkom profilu?</value>
+  </data>
+  <data name="AllowWindowsLiveMessengerForMembers" xml:space="preserve">
+    <value>Dozvoliti Windows Live Messenger za članove portala?</value>
+  </data>
+  <data name="AllTimeRevenueFormatString" xml:space="preserve">
+    <value>Ukupni prihod {0}</value>
+  </data>
+  <data name="AlreadyRegisteredMessage" xml:space="preserve">
+    <value>Već ste prijavljeni. Ako želite otvoriti novi korisnički račun, prvo se morate odjaviti.</value>
+  </data>
+  <data name="AppLogoForWindowsLive" xml:space="preserve">
+    <value>Logo za prikaz na Windows Live Delegation stranici</value>
+  </data>
+  <data name="ArchiveDateGridHeader" xml:space="preserve">
+    <value>Arhivirano</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="ChatTitleFormat" xml:space="preserve">
+    <value>Razgovaraj sa {0}</value>
+  </data>
+  <data name="ColorPickerBlueIndicator" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="ColorPickerBrightnessIndicator" xml:space="preserve">
+    <value>V</value>
+  </data>
+  <data name="ColorPickerClosestWebSafeFormat" xml:space="preserve">
+    <value>Najbliža web-sigurna boja: {rgb}. Kliknite za odabir.</value>
+  </data>
+  <data name="ColorPickerCurrentColorFormat" xml:space="preserve">
+    <value>Trenutno odabrana boja: {rgb}</value>
+  </data>
+  <data name="ColorPickerDialogHeading" xml:space="preserve">
+    <value>Odaberi boju:</value>
+  </data>
+  <data name="ColorPickerGreenIndicator" xml:space="preserve">
+    <value>G</value>
+  </data>
+  <data name="ColorPickerHideDetails" xml:space="preserve">
+    <value>Sakrij detalje boje</value>
+  </data>
+  <data name="ColorPickerHueIndicator" xml:space="preserve">
+    <value>H</value>
+  </data>
+  <data name="ColorPickerIllegalHexMessage" xml:space="preserve">
+    <value>Upisana heksadecimalna vrijednost je neispravna.</value>
+  </data>
+  <data name="ColorPickerRedIndicator" xml:space="preserve">
+    <value>R</value>
+  </data>
+  <data name="ColorPickerSaturationIndicator" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="ColorPickerShowDetails" xml:space="preserve">
+    <value>Prikaži detalje boje</value>
+  </data>
+  <data name="CommerceOrderHistoryTab" xml:space="preserve">
+    <value>Pregled narudžbi</value>
+  </data>
+  <data name="CommercePurchaseHistory" xml:space="preserve">
+    <value>Pregled kupnje</value>
+  </data>
+  <data name="CommerceReportCustomerHeading" xml:space="preserve">
+    <value>Kupac</value>
+  </data>
+  <data name="CommerceReportCustomerReportHeading" xml:space="preserve">
+    <value>Prodaja kupcu</value>
+  </data>
+  <data name="CommerceReportItemHeading" xml:space="preserve">
+    <value>Roba</value>
+  </data>
+  <data name="CommerceReportItemSales" xml:space="preserve">
+    <value>Prodaja robe</value>
+  </data>
+  <data name="CommerceReportOrderDateHeading" xml:space="preserve">
+    <value>Datum narudžbe</value>
+  </data>
+  <data name="CommerceReportPriceHeading" xml:space="preserve">
+    <value>Cijena</value>
+  </data>
+  <data name="CommerceReportSeeAllCustomersLink" xml:space="preserve">
+    <value>Prikaži sve kupce</value>
+  </data>
+  <data name="CommerceReportSeeAllItemsLink" xml:space="preserve">
+    <value>Prikaži svu robu</value>
+  </data>
+  <data name="CommerceReportsLink" xml:space="preserve">
+    <value>Trgovačka izvješća</value>
+  </data>
+  <data name="CommerceReportSourceHeading" xml:space="preserve">
+    <value>Izvor</value>
+  </data>
+  <data name="CommerceReportTopCustomersHeading" xml:space="preserve">
+    <value>Glavni kupci</value>
+  </data>
+  <data name="CommerceReportTopItemsHeading" xml:space="preserve">
+    <value>Glavna roba</value>
+  </data>
+  <data name="CommerceTab" xml:space="preserve">
+    <value>Trgovina</value>
+  </data>
+  <data name="CopyRestoreSkinsButton" xml:space="preserve">
+    <value>Kopiraj/obnovi skinove iz kataloga</value>
+  </data>
+  <data name="CreatedDateGridHeader" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="CurrencyLabel" xml:space="preserve">
+    <value>Valuta:</value>
+  </data>
+  <data name="CurrentVersionHeadingFormat" xml:space="preserve">
+    <value>Trenutna verzija napravljena {0}</value>
+  </data>
+  <data name="DefaultCountryStateLabel" xml:space="preserve">
+    <value>Zadana zemlja</value>
+  </data>
+  <data name="DeleteAllHistoryButton" xml:space="preserve">
+    <value>Izbriši svu povijest</value>
+  </data>
+  <data name="DeleteAllHistoryWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati svu povijest ovoga sadržaja?</value>
+  </data>
+  <data name="DeleteHistoryButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="DeleteHistoryItemWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati povijest ovoga sadržaja?</value>
+  </data>
+  <data name="DeleteLink" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="DialogCloseLink" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="EditHtmlPageTitleFormat" xml:space="preserve">
+    <value>{0} - uređivanje sadržaja: {1}</value>
+  </data>
+  <data name="EditLink" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EnableLiveMessengerLabel" xml:space="preserve">
+    <value>Omogući Live Messenger na ovom portalu</value>
+  </data>
+  <data name="EnableLiveMessengerLink" xml:space="preserve">
+    <value>Dohvati/osvježi Live Messengerov token dozvola</value>
+  </data>
+  <data name="EnableWoopraLabel" xml:space="preserve">
+    <value>Omogućiti Woopra skriptu za praćenje?</value>
+  </data>
+  <data name="FileManagerCancelButton" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="FileManagerUpdateButton" xml:space="preserve">
+    <value>Ažuriraj</value>
+  </data>
+  <data name="ForceContentVersioning" xml:space="preserve">
+    <value>Obvezno verzioniranje sadržaja?</value>
+  </data>
+  <data name="FriendlyUrlRegexWarning" xml:space="preserve">
+    <value>URL mora započeti s ~/ ili http:// ili https:// i ne smije imati nutarnje razmake.</value>
+  </data>
+  <data name="HelpLink" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="HtmlCompareHistoryToCurrentLink" xml:space="preserve">
+    <value>Usporedi sa sadašnjim</value>
+  </data>
+  <data name="HtmlEnableVersioningSetting" xml:space="preserve">
+    <value>Čuvati povijest verzija?</value>
+  </data>
+  <data name="HtmlTab" xml:space="preserve">
+    <value>HTML</value>
+  </data>
+  <data name="HtmlVersionPageSizeSetting" xml:space="preserve">
+    <value>Version History Page Size</value>
+  </data>
+  <data name="LiteralOr" xml:space="preserve">
+    <value>ili</value>
+  </data>
+  <data name="LiveMessengerChat" xml:space="preserve">
+    <value>Windows Live Messenger razgovor</value>
+  </data>
+  <data name="LiveMessengerCIDLabel" xml:space="preserve">
+    <value>Live Messenger CID</value>
+  </data>
+  <data name="LiveMessengerDelegationTokenLabel" xml:space="preserve">
+    <value>Live Messenger delegacijski token</value>
+  </data>
+  <data name="LookupUserByIPAddressButton" xml:space="preserve">
+    <value>Pretraži po IP adresi</value>
+  </data>
+  <data name="ManageUsersUnsubscribeForumsLink" xml:space="preserve">
+    <value>Ukini pretplatu za sve forume.</value>
+  </data>
+  <data name="MaxInvalidPasswordAttemptsRegexWarning" xml:space="preserve">
+    <value>Maksimalni dozvoljeni broj pokušaja prijave mora biti cijeli broj.</value>
+  </data>
+  <data name="MetaDescriptionMemberListFormat" xml:space="preserve">
+    <value>{0} Member List</value>
+  </data>
+  <data name="MetaDescriptionMyPageFormat" xml:space="preserve">
+    <value>Prilagodljiva osobna portalska stranica za članove {0}.</value>
+  </data>
+  <data name="MetaDescriptionOpenIDRegistrationPageFormat" xml:space="preserve">
+    <value>{0} Account Registration Page for Open ID Users</value>
+  </data>
+  <data name="MetaDescriptionRegistrationPageFormat" xml:space="preserve">
+    <value>{0} Account Registration Page</value>
+  </data>
+  <data name="MetaDescriptionSearchFormat" xml:space="preserve">
+    <value>{0} Site Search</value>
+  </data>
+  <data name="MetaDescriptionSignInPageFormat" xml:space="preserve">
+    <value>{0} User Sign In Page</value>
+  </data>
+  <data name="MetaDescriptionSiteMapFormat" xml:space="preserve">
+    <value>{0} Site Map</value>
+  </data>
+  <data name="MetaDescriptionWidnowsLiveRegistrationPageFormat" xml:space="preserve">
+    <value>{0} Account Registration Page for Windows Live Users</value>
+  </data>
+  <data name="MinPasswordLengthRegexWarning" xml:space="preserve">
+    <value>Minimalna duljina lozinke mora biti cijeli broj.</value>
+  </data>
+  <data name="ModuleSettingsViewRolesLabel" xml:space="preserve">
+    <value>Uloge koje smiju gledati ovaj sadržaj</value>
+  </data>
+  <data name="MonthLabel" xml:space="preserve">
+    <value>Mjesec</value>
+  </data>
+  <data name="MyPageSkinLabel" xml:space="preserve">
+    <value>MyPage Skin</value>
+  </data>
+  <data name="NewsletterPreviewAddressRequired" xml:space="preserve">
+    <value>Za slanje pregleda morate upisati važeću e-adresu.</value>
+  </data>
+  <data name="NewsletterTemplateTitleRequired" xml:space="preserve">
+    <value>Naslov je obavezan.</value>
+  </data>
+  <data name="NewsletterUnsubscribeConfirmFormatString" xml:space="preserve">
+    <value>Ukinuti pretplatu na {0} ?</value>
+  </data>
+  <data name="NewUrlRequiredMessage" xml:space="preserve">
+    <value>Novi URL je obavezan.</value>
+  </data>
+  <data name="OldUrlRequiredMessage" xml:space="preserve">
+    <value>Stari URL je obavezan.</value>
+  </data>
+  <data name="PageConfigLink" xml:space="preserve">
+    <value>Konfiguriraj stranicu</value>
+  </data>
+  <data name="PageEditLink" xml:space="preserve">
+    <value>Uredi stranicu</value>
+  </data>
+  <data name="PageListLink" xml:space="preserve">
+    <value>Popis stranica</value>
+  </data>
+  <data name="PageNameRequiredWarning" xml:space="preserve">
+    <value>Page Name is required.</value>
+  </data>
+  <data name="PageSettingsIncludeInSiteMapLabel" xml:space="preserve">
+    <value>Uključiti u mapu portala?</value>
+  </data>
+  <data name="PageTitleFormatProfilePage" xml:space="preserve">
+    <value>korisnički profil za {0}</value>
+  </data>
+  <data name="PageTreeLink" xml:space="preserve">
+    <value>Hijerarhija stranica</value>
+  </data>
+  <data name="PageTreeTitle" xml:space="preserve">
+    <value>Uredi hijerarhiju stranica</value>
+  </data>
+  <data name="PageUrlInUseErrorMessage" xml:space="preserve">
+    <value>Ovaj URL se već koristi. Ne možete koristiti isti URL za različite stranice osim ako se ne radi o punom URL-u (s HTTP predmetkom), no tada će više linkova u izborniku pokazivati na istu fizičku stranicu.</value>
+  </data>
+  <data name="PasswordAttemptWindowRegexWarning" xml:space="preserve">
+    <value>Vremenski raspon pokušaja prijave u minutama mora biti cijeli broj.</value>
+  </data>
+  <data name="PasswordMinNonAlphaNumericRegexWarning" xml:space="preserve">
+    <value>Najmanja količina nealfanumeričkih znakova lozinke mora biti cijeli broj.</value>
+  </data>
+  <data name="PasswordRecoveryTitleFormat" xml:space="preserve">
+    <value>{0} stranica za dohvat lozinke</value>
+  </data>
+  <data name="PlainTextTab" xml:space="preserve">
+    <value>Obični tekst</value>
+  </data>
+  <data name="PleaseWaitButton" xml:space="preserve">
+    <value>Molim, pričekajte...</value>
+  </data>
+  <data name="PlugNPayLogAuthCode" xml:space="preserve">
+    <value>Autentikacijska šifra</value>
+  </data>
+  <data name="PlugNPayLogCreatedUtc" xml:space="preserve">
+    <value>UTC vrijeme stvaranja</value>
+  </data>
+  <data name="PlugNPayLogHeading" xml:space="preserve">
+    <value>Plug N Pay dnevnik</value>
+  </data>
+  <data name="PlugNPayLogMethod" xml:space="preserve">
+    <value>Metoda</value>
+  </data>
+  <data name="PlugNPayLogProviderName" xml:space="preserve">
+    <value>Naziv poslužitelja</value>
+  </data>
+  <data name="PlugNPayLogReason" xml:space="preserve">
+    <value>Razlog</value>
+  </data>
+  <data name="PlugNPayLogResponseCode" xml:space="preserve">
+    <value>Šifra odgovora</value>
+  </data>
+  <data name="PlugNPayLogTransactionId" xml:space="preserve">
+    <value>Transakcijski ID</value>
+  </data>
+  <data name="PlugNPayLogTransactionType" xml:space="preserve">
+    <value>Vrsta transakcije</value>
+  </data>
+  <data name="PublicProfileLink" xml:space="preserve">
+    <value>View my profile as others see it.</value>
+  </data>
+  <data name="RedirectDeleteWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati ovo '301' preusmjeravanje?</value>
+  </data>
+  <data name="RedirectHelp" xml:space="preserve">
+    <value>Preusmjeravanja 301 tipa su za trajno izmještene stranice. Stari URL će vratiti status 301 i potom obaviti preusmjeravanje na novi URL. Glavni razlog tome je optimizacija tražilice i dobro korisničko iskustvo. Ako je netko označio stari URL ili se taj URL pojavljuje u rezultatima tražilica, nova stranica će biti poslužena. Općenito, ne biste trebali ručno dodavati preusmjeravanja ovdje. Ako preimenujete stranicu i ona dobije novi URL, sustav će automatski napraviti preusmjeravanje sa staroga na novi URL. Međutim, ako potom URL stranice postavite natrag na stari, trebate ručno izbrisati preusmjeravanje. Ako pak ručno dodate preusmjeravanje, budite veoma oprezni da ne stvorite cirkularno preusmjeravanje u kojem dvije stranice vode jedna na drugu.</value>
+  </data>
+  <data name="RedirectManagerLink" xml:space="preserve">
+    <value>Upravljanje '301' preusmjeravanjima za stranice promijenjenog URL-a.</value>
+  </data>
+  <data name="RedirectManagerShortLink" xml:space="preserve">
+    <value>Upravljanje preusmjeravanjima</value>
+  </data>
+  <data name="RedirectsToLabel" xml:space="preserve">
+    <value>preusmjereno na</value>
+  </data>
+  <data name="RestoreToEditorButton" xml:space="preserve">
+    <value>Restore To Editor</value>
+  </data>
+  <data name="RevenueSourceHeading" xml:space="preserve">
+    <value>Izvor</value>
+  </data>
+  <data name="RevenueSummaryItem" xml:space="preserve">
+    <value>Roba</value>
+  </data>
+  <data name="RevenueSummaryRevenue" xml:space="preserve">
+    <value>Prihod</value>
+  </data>
+  <data name="RevenueSummaryUnitsSold" xml:space="preserve">
+    <value>Prodano</value>
+  </data>
+  <data name="RolesThatCanViewCommerceReportsLabel" xml:space="preserve">
+    <value>Uloge koje mogu pregledavati trgovačka izvješća:</value>
+  </data>
+  <data name="RpxAdminLink" xml:space="preserve">
+    <value>Upravljajte ovim računom na RpxNow.com</value>
+  </data>
+  <data name="RpxButtonConfirm" xml:space="preserve">
+    <value>Ako imate RPX račun za ovaj portal, trebate upisati API ključ prije nastavka. Ako nemate, trebate ostaviti polje tog API ključa praznim. Želite li nastaviti?</value>
+  </data>
+  <data name="RpxNowApiKeyLabel" xml:space="preserve">
+    <value>RpxNow.com API ključ</value>
+  </data>
+  <data name="RpxNowApplicationNameLabel" xml:space="preserve">
+    <value>RpxNow.com aplikacijski naziv/područje</value>
+  </data>
+  <data name="RpxRegistrationHeadingFormat" xml:space="preserve">
+    <value>Registrirajte se na ovom portalu vašim {0} računom.</value>
+  </data>
+  <data name="SalesByMonthChartLabel" xml:space="preserve">
+    <value>Prodaja po mjesecima</value>
+  </data>
+  <data name="SalesByMonthChartMonthLabel" xml:space="preserve">
+    <value>Mjesec</value>
+  </data>
+  <data name="SalesByMonthChartSalesLabel" xml:space="preserve">
+    <value>Prodaja</value>
+  </data>
+  <data name="SalesLabel" xml:space="preserve">
+    <value>Prodaja</value>
+  </data>
+  <data name="SalesOverviewReportHeading" xml:space="preserve">
+    <value>Pregled prodaje</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="SearchRebuildIndexButton" xml:space="preserve">
+    <value>Obnovi indekse pretrage</value>
+  </data>
+  <data name="SearchRebuildIndexWarning" xml:space="preserve">
+    <value>Želite li doista izbrisati pa obnoviti indekse pretrage? Za velike portale, to može potrajati.</value>
+  </data>
+  <data name="SettingsLink" xml:space="preserve">
+    <value>Postavke</value>
+  </data>
+  <data name="SetupRpxButton" xml:space="preserve">
+    <value>Postavi RPX</value>
+  </data>
+  <data name="ShowHomePageCrumb" xml:space="preserve">
+    <value>Prikazati putanju?</value>
+  </data>
+  <data name="SiteEditRolesLabel" xml:space="preserve">
+    <value>Uredničke uloge:</value>
+  </data>
+  <data name="SiteSettingsCompanyNameLabel" xml:space="preserve">
+    <value>Naziv tvrtke:</value>
+  </data>
+  <data name="SiteSettingsSiteIDLabel" xml:space="preserve">
+    <value>Portalski ID/portalski GUID</value>
+  </data>
+  <data name="TaxRateGridCountryHeader" xml:space="preserve">
+    <value>Zemlja</value>
+  </data>
+  <data name="TaxRateGridGeoZoneHeader" xml:space="preserve">
+    <value>Regija</value>
+  </data>
+  <data name="ThirdPartyRegistrationHeading" xml:space="preserve">
+    <value>Registrirajte se postojećim računom pa nećete morati pamtiti novu lozinku.</value>
+  </data>
+  <data name="VersionAsOfHeadingFormat" xml:space="preserve">
+    <value>Version as of {0}</value>
+  </data>
+  <data name="WebPartManagerResetButton" xml:space="preserve">
+    <value>Reset Content</value>
+  </data>
+  <data name="WindowsLiveAppLogoLabel" xml:space="preserve">
+    <value>URL Windows Live aplikacijskog loga</value>
+  </data>
+  <data name="YearLabel" xml:space="preserve">
+    <value>Godina</value>
+  </data>
+  <data name="YuiPanelClose" xml:space="preserve">
+    <value>Kliknite za zatvaranje panela.</value>
+  </data>
+  <data name="YuiPanelCollapse" xml:space="preserve">
+    <value>Kliknite za smanjenje panela..</value>
+  </data>
+  <data name="YuiPanelExpand" xml:space="preserve">
+    <value>Kliknite za proširenje panela.</value>
+  </data>
+  <data name="BannedIPSearchButton" xml:space="preserve">
+    <value>Traži</value>
+  </data>
+  <data name="SiteSettingsPrivacyUrlLabel" xml:space="preserve">
+    <value>URL politike privatnosti:</value>
+  </data>
+  <data name="AvatarSystemLabel" xml:space="preserve">
+    <value>Avatarski sustav:</value>
+  </data>
+  <data name="AvatarTypeGravatar" xml:space="preserve">
+    <value>Gravatar</value>
+  </data>
+  <data name="AvatarTypeInternal" xml:space="preserve">
+    <value>korisničko slanje</value>
+  </data>
+  <data name="AvatarTypeNone" xml:space="preserve">
+    <value>nema</value>
+  </data>
+  <data name="EnableContentWorkflow" xml:space="preserve">
+    <value>Enable Content Workflow:</value>
+  </data>
+  <data name="AddPageTooltip" xml:space="preserve">
+    <value>Dodavanje nove stranice.</value>
+  </data>
+  <data name="PageLayoutTooltip" xml:space="preserve">
+    <value>Uređivanje modula na ovoj stranici.</value>
+  </data>
+  <data name="PageSettingsTooltip" xml:space="preserve">
+    <value>Uređivanje postavki ove stranice.</value>
+  </data>
+  <data name="SkinPreviewLink" xml:space="preserve">
+    <value>Pregledaj/pretraži</value>
+  </data>
+</root>

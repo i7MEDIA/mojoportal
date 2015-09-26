@@ -1,0 +1,954 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddEventLink" xml:space="preserve">
+    <value>Agregar evento</value>
+  </data>
+  <data name="AllDayCheckbox" xml:space="preserve">
+    <value>Todo el día</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Espere, por favor...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="CancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="DayView" xml:space="preserve">
+    <value>Vista por día</value>
+  </data>
+  <data name="DayViewLink" xml:space="preserve">
+    <value>Vista por día</value>
+  </data>
+  <data name="DefaultViewSetting" xml:space="preserve">
+    <value>Vista predefinida:</value>
+  </data>
+  <data name="DeleteAllButton" xml:space="preserve">
+    <value>Borrar este evento y todas sus ocurrencias</value>
+  </data>
+  <data name="DeleteAllButtonAccessKey" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="DeleteAllWarning" xml:space="preserve">
+    <value>¿Esta seguro de borrar este evento y todas sus ocurrencias futuras?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="DeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="DeleteEventWarning" xml:space="preserve">
+    <value>¿Está seguro de eliminar este evento?</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="EditEventLink" xml:space="preserve">
+    <value>Editar este evento</value>
+  </data>
+  <data name="EditLegend" xml:space="preserve">
+    <value>Crear/editar evento</value>
+  </data>
+  <data name="EnableDayViewSetting" xml:space="preserve">
+    <value>¿Habilitar vista por día?</value>
+  </data>
+  <data name="EnableExternalFeedSetting" xml:space="preserve">
+    <value>¿Habilitar feed externo?</value>
+  </data>
+  <data name="EnableListViewSetting" xml:space="preserve">
+    <value>¿Habilitar vista en lista?</value>
+  </data>
+  <data name="EnableMonthViewSetting" xml:space="preserve">
+    <value>¿Habilitar vista por mes?</value>
+  </data>
+  <data name="EnableTimelineViewSetting" xml:space="preserve">
+    <value>¿Habilitar vista cronológica?</value>
+  </data>
+  <data name="EnableWeekViewSetting" xml:space="preserve">
+    <value>¿Habilitar vista por semana?</value>
+  </data>
+  <data name="EndTimeLabel" xml:space="preserve">
+    <value>Hora final:</value>
+  </data>
+  <data name="EventDateLabel" xml:space="preserve">
+    <value>Cuándo:</value>
+  </data>
+  <data name="EventEditLink" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="FeatureName" xml:space="preserve">
+    <value>Event Calendar Pro de Source Tree Solutions</value>
+  </data>
+  <data name="FeedburnerFeedUrl" xml:space="preserve">
+    <value>URL de Feedburner</value>
+  </data>
+  <data name="FeedToolTip" xml:space="preserve">
+    <value>Suscribirse a este feed</value>
+  </data>
+  <data name="GoogleMapApiKeySetting" xml:space="preserve">
+    <value>Llave de Google Map API</value>
+  </data>
+  <data name="GoogleMapEnableDirectionsSetting" xml:space="preserve">
+    <value>Habilitar instrucciones de manejo</value>
+  </data>
+  <data name="GoogleMapEnableLocalSearchSetting" xml:space="preserve">
+    <value>Mostrar búsqueda local</value>
+  </data>
+  <data name="GoogleMapEnableMapTypeSetting" xml:space="preserve">
+    <value>Mostrar opciones de mapa híbrido y de satélite</value>
+  </data>
+  <data name="GoogleMapEnableZoomSetting" xml:space="preserve">
+    <value>Mostrar herramienta de zoom</value>
+  </data>
+  <data name="GoogleMapHeightSetting" xml:space="preserve">
+    <value>Altura del mapa</value>
+  </data>
+  <data name="GoogleMapInitialMapTypeSetting" xml:space="preserve">
+    <value>Tipo de mapa inicial</value>
+  </data>
+  <data name="GoogleMapInitialZoomSetting" xml:space="preserve">
+    <value>Nivel de acercamiento</value>
+  </data>
+  <data name="GoogleMapShowInfoWindowSetting" xml:space="preserve">
+    <value>Mostrar globo de ubicación</value>
+  </data>
+  <data name="GoogleMapWidthSetting" xml:space="preserve">
+    <value>Ancho del mapa</value>
+  </data>
+  <data name="HoursLabel" xml:space="preserve">
+    <value>Horas:</value>
+  </data>
+  <data name="IncludeInFeedLabel" xml:space="preserve">
+    <value>¿Incluir en el feed?</value>
+  </data>
+  <data name="ListView" xml:space="preserve">
+    <value>Vista en lista</value>
+  </data>
+  <data name="ListViewLink" xml:space="preserve">
+    <value>Vista en lista</value>
+  </data>
+  <data name="LocationLabel" xml:space="preserve">
+    <value>Ubicación</value>
+  </data>
+  <data name="MonthView" xml:space="preserve">
+    <value>Vista por mes</value>
+  </data>
+  <data name="MonthViewLink" xml:space="preserve">
+    <value>Vista por mes</value>
+  </data>
+  <data name="NumberOfTicketsLabel" xml:space="preserve">
+    <value>Asientos/registros totales</value>
+  </data>
+  <data name="OdiogoFeedIDSetting" xml:space="preserve">
+    <value>ID del feed de Odiogo</value>
+  </data>
+  <data name="OdiogoPodcastUrlSetting" xml:space="preserve">
+    <value>URL del podcast de Odiogo</value>
+  </data>
+  <data name="PodcastLink" xml:space="preserve">
+    <value>Podcast</value>
+  </data>
+  <data name="RecurrenceLabel" xml:space="preserve">
+    <value>Se repite:</value>
+  </data>
+  <data name="RecurrenceTaskName" xml:space="preserve">
+    <value>Crear tarea recurrente en Events Pro</value>
+  </data>
+  <data name="RecurrenceTypeDaily" xml:space="preserve">
+    <value>Diario</value>
+  </data>
+  <data name="RecurrenceTypeDailyWeekDays" xml:space="preserve">
+    <value>Entre semana (Lun-Vie)</value>
+  </data>
+  <data name="RecurrenceTypeMondayWednesdayFriday" xml:space="preserve">
+    <value>Cada Lun., Mie., y Vie.</value>
+  </data>
+  <data name="RecurrenceTypeMonthly" xml:space="preserve">
+    <value>Mensual</value>
+  </data>
+  <data name="RecurrenceTypeNone" xml:space="preserve">
+    <value>No se repite</value>
+  </data>
+  <data name="RecurrenceTypeTuesdayThursday" xml:space="preserve">
+    <value>Cada Mar., y Jue.</value>
+  </data>
+  <data name="RecurrenceTypeWeekly" xml:space="preserve">
+    <value>Semanal</value>
+  </data>
+  <data name="RecurrenceTypeYearly" xml:space="preserve">
+    <value>Anual</value>
+  </data>
+  <data name="RequiresTicketLabel" xml:space="preserve">
+    <value>¿Requiere registro?:</value>
+  </data>
+  <data name="SaveEventButton" xml:space="preserve">
+    <value>Grabar</value>
+  </data>
+  <data name="SaveEventButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ShowMapCheckbox" xml:space="preserve">
+    <value>Mostrar mapa</value>
+  </data>
+  <data name="StartTimeLabel" xml:space="preserve">
+    <value>Hora inicial:</value>
+  </data>
+  <data name="TaskCompleteMessage" xml:space="preserve">
+    <value>Completa</value>
+  </data>
+  <data name="TaskProgressFormatString" xml:space="preserve">
+    <value>Ejecutando. Creando ocurrencia {0} de {1}</value>
+  </data>
+  <data name="TaskQueuedMessage" xml:space="preserve">
+    <value>En fila</value>
+  </data>
+  <data name="TaskStartedMessage" xml:space="preserve">
+    <value>Iniciada</value>
+  </data>
+  <data name="TicketPriceLabel" xml:space="preserve">
+    <value>Precio del boleto:</value>
+  </data>
+  <data name="TicketsOnSaleDateLabel" xml:space="preserve">
+    <value>Fecha(s) para el registro</value>
+  </data>
+  <data name="TimelineView" xml:space="preserve">
+    <value>Vista cronológica</value>
+  </data>
+  <data name="TimelineViewLink" xml:space="preserve">
+    <value>Vista cronológica</value>
+  </data>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Qué:</value>
+  </data>
+  <data name="UseFillerOnEmptyDays" xml:space="preserve">
+    <value>Agregar relleno a los días vacíos</value>
+  </data>
+  <data name="WeekView" xml:space="preserve">
+    <value>Vista por semana</value>
+  </data>
+  <data name="WeekViewLink" xml:space="preserve">
+    <value>Vista por semana</value>
+  </data>
+  <data name="WeekViewNextLink" xml:space="preserve">
+    <value>Avanzar 7 días</value>
+  </data>
+  <data name="WeekViewPreviousLink" xml:space="preserve">
+    <value>Retroceder 7 días</value>
+  </data>
+  <data name="CardExpiresLabel" xml:space="preserve">
+    <value>Expira</value>
+  </data>
+  <data name="CardNumberLabel" xml:space="preserve">
+    <value>Número de tarjeta</value>
+  </data>
+  <data name="CardOwnerFirstNameLabel" xml:space="preserve">
+    <value>Nombre del propietario de la tarjeta</value>
+  </data>
+  <data name="CardOwnerLastNameLabel" xml:space="preserve">
+    <value>Apellidos del propietario de la tarjeta</value>
+  </data>
+  <data name="CardSecurityCodeLabel" xml:space="preserve">
+    <value>Código de seguridad</value>
+  </data>
+  <data name="CardTypeLabel" xml:space="preserve">
+    <value>Tipo de tarjeta</value>
+  </data>
+  <data name="CustomerAddressLine1Label" xml:space="preserve">
+    <value>Dirección 1</value>
+  </data>
+  <data name="CustomerAddressLine2Label" xml:space="preserve">
+    <value>Dirección 2</value>
+  </data>
+  <data name="CustomerCityLabel" xml:space="preserve">
+    <value>Ciudad</value>
+  </data>
+  <data name="CustomerCompanyLabel" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="CustomerCountryLabel" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="CustomerEmailLabel" xml:space="preserve">
+    <value>Correo electrónico </value>
+  </data>
+  <data name="CustomerHeader" xml:space="preserve">
+    <value>Información del cliente</value>
+  </data>
+  <data name="CustomerNameLabel" xml:space="preserve">
+    <value>Nombre del cliente</value>
+  </data>
+  <data name="CustomerPostalCodeLabel" xml:space="preserve">
+    <value>Código postal</value>
+  </data>
+  <data name="CustomerStateLabel" xml:space="preserve">
+    <value>Estado/región</value>
+  </data>
+  <data name="CustomerSuburbLabel" xml:space="preserve">
+    <value>Colonia</value>
+  </data>
+  <data name="CustomerTelephoneDayLabel" xml:space="preserve">
+    <value>Teléfono diurno</value>
+  </data>
+  <data name="CustomerTelephoneNightLabel" xml:space="preserve">
+    <value>Teléfono vespertino</value>
+  </data>
+  <data name="MakePaymentButton" xml:space="preserve">
+    <value>Realizar pago</value>
+  </data>
+  <data name="PurchaseTicketLink" xml:space="preserve">
+    <value>Comprar boleto</value>
+  </data>
+  <data name="RegisterFreeLink" xml:space="preserve">
+    <value>Registrarse</value>
+  </data>
+  <data name="TicketPriceFree" xml:space="preserve">
+    <value>Gratis</value>
+  </data>
+  <data name="TicketQuantityLabel" xml:space="preserve">
+    <value>Cantidad</value>
+  </data>
+  <data name="MaxTicketsPerPurchase" xml:space="preserve">
+    <value>Máximo de boletos por pedido (0 = ilimitado)</value>
+  </data>
+  <data name="OrderTotalLabel" xml:space="preserve">
+    <value>Total del pedido</value>
+  </data>
+  <data name="SubTotalLabel" xml:space="preserve">
+    <value>Subtotal:</value>
+  </data>
+  <data name="TaxTotalLabel" xml:space="preserve">
+    <value>Impuestos:</value>
+  </data>
+  <data name="TicketForPastEventsNotAvailable" xml:space="preserve">
+    <value>Disculpe, este evento ya se realizó, no hay boletos disponibles.</value>
+  </data>
+  <data name="TicketSalesClosedMessage" xml:space="preserve">
+    <value>Disculpe, no hay boletos disponibles en este momento.</value>
+  </data>
+  <data name="TicketSalesNotOpenYet" xml:space="preserve">
+    <value>Disculpe, los boletos todavía no están a la venta.</value>
+  </data>
+  <data name="TicketsAreTaxable" xml:space="preserve">
+    <value>¿Los boletos causan impuestos?</value>
+  </data>
+  <data name="TicketsSoldOut" xml:space="preserve">
+    <value>Disculpe, todos los boletos están vendidos.</value>
+  </data>
+  <data name="LiteralOr" xml:space="preserve">
+    <value>O</value>
+  </data>
+  <data name="CheckoutRequiresLoginOrRegisterMessage" xml:space="preserve">
+    <value>Necesita ingresar o registrarse para completar su orden</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="CustomerAddress1RequiredMessage" xml:space="preserve">
+    <value>La dirección del cliente es obligatoria</value>
+  </data>
+  <data name="CustomerCityRequiredMessage" xml:space="preserve">
+    <value>La ciudad del cliente es obligatoria</value>
+  </data>
+  <data name="CustomerDayPhoneRequiredMessage" xml:space="preserve">
+    <value>El teléfono del cliente es obligatorio</value>
+  </data>
+  <data name="CustomerEmailRegexFailureMessage" xml:space="preserve">
+    <value>El correo electrónico del cliente es inválido</value>
+  </data>
+  <data name="CustomerEmailRequiredMessage" xml:space="preserve">
+    <value>El correo electrónico del cliente es obligatorio</value>
+  </data>
+  <data name="CustomerFirstNameLabel" xml:space="preserve">
+    <value>Nombre propio</value>
+  </data>
+  <data name="CustomerFirstNameRequiredMessage" xml:space="preserve">
+    <value>El nombre propio del cliente es obligatorio</value>
+  </data>
+  <data name="CustomerLastNameLabel" xml:space="preserve">
+    <value>Apellidos</value>
+  </data>
+  <data name="CustomerLastNameRequiredMessage" xml:space="preserve">
+    <value>Los apellidos del cliente son obligatorios</value>
+  </data>
+  <data name="CustomerPostalCodeRequiredMessage" xml:space="preserve">
+    <value>El código postal del cliente es obligatorio</value>
+  </data>
+  <data name="RequiredFieldSymbol" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="UpdateCustomerButton" xml:space="preserve">
+    <value>Actualizar la información del cliente</value>
+  </data>
+  <data name="CheckoutHeader" xml:space="preserve">
+    <value>Por favor revise y envíe su pedido</value>
+  </data>
+  <data name="CurrencySetting" xml:space="preserve">
+    <value>Divisa</value>
+  </data>
+  <data name="CustomerInfoHeader" xml:space="preserve">
+    <value>Información del cliente</value>
+  </data>
+  <data name="CustomerTelephoneLabel" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+  <data name="OrderSummaryHeader" xml:space="preserve">
+    <value>Resumen del pedido</value>
+  </data>
+  <data name="PaymentGatewayCouldNotConnectMessage" xml:space="preserve">
+    <value>No se puede establecer la conexión con el portal de pagos.</value>
+  </data>
+  <data name="PaymentGatewayNotConfiguredForDirectCardProcessing" xml:space="preserve">
+    <value>No se ha configurado el portal de pagos para procesar tarjetas de crédito.</value>
+  </data>
+  <data name="TransactionDeclinedMessage" xml:space="preserve">
+    <value>Disculpe, su pedido fue declinado. Por favor asegúrese de haber capturado correctamente su información de pago.</value>
+  </data>
+  <data name="TransactionErrorMessage" xml:space="preserve">
+    <value>Disculpe, la transacción no pudo ser completada. Ha ocurrido un error, ya ha sido registrado.</value>
+  </data>
+  <data name="TransactionNotInitiatedMessage" xml:space="preserve">
+    <value>Ninguna transacción iniciada.</value>
+  </data>
+  <data name="OrderHistoryLink" xml:space="preserve">
+    <value>Historial de pedidos</value>
+  </data>
+  <data name="OrderIdLabel" xml:space="preserve">
+    <value>ID pedido:</value>
+  </data>
+  <data name="PrintNotice" xml:space="preserve">
+    <value>Por favor imprima esta página y llévela como su boleto para el evento.</value>
+  </data>
+  <data name="BccOrderConfirmationEmailsSetting" xml:space="preserve">
+    <value>Dirección de correo para la copia oculta de confirmación</value>
+  </data>
+  <data name="EmailConfirmationFromAddressSetting" xml:space="preserve">
+    <value>Dirección de correo remitente de la confirmación</value>
+  </data>
+  <data name="InvalidPriceMessage" xml:space="preserve">
+    <value>El precio de boleto que capturó no se puede interpretar como moneda.</value>
+  </data>
+  <data name="OrderConfirmationTask" xml:space="preserve">
+    <value>OrderConfirmationTask</value>
+  </data>
+  <data name="TaskCompleted" xml:space="preserve">
+    <value>Terminada</value>
+  </data>
+  <data name="TaskQueued" xml:space="preserve">
+    <value>En fila</value>
+  </data>
+  <data name="TaskRunning" xml:space="preserve">
+    <value>Ejecutándose</value>
+  </data>
+  <data name="TaskStarted" xml:space="preserve">
+    <value>Iniciada</value>
+  </data>
+  <data name="OrderDateHeader" xml:space="preserve">
+    <value>Fecha de pedido</value>
+  </data>
+  <data name="OrderHistoryHeader" xml:space="preserve">
+    <value>Historial de pedidos</value>
+  </data>
+  <data name="OrderIDHeader" xml:space="preserve">
+    <value>ID pedido</value>
+  </data>
+  <data name="BrowseCartsLink" xml:space="preserve">
+    <value>Ver los carritos</value>
+  </data>
+  <data name="CartBrowserHeading" xml:space="preserve">
+    <value>Carritos</value>
+  </data>
+  <data name="CheckoutLink" xml:space="preserve">
+    <value>Pagar en caja</value>
+  </data>
+  <data name="EventLabel" xml:space="preserve">
+    <value>Evento:</value>
+  </data>
+  <data name="ManageUserLink" xml:space="preserve">
+    <value>Gestionar usuario</value>
+  </data>
+  <data name="OrderDetail" xml:space="preserve">
+    <value>Detalle del pedido</value>
+  </data>
+  <data name="OrderHistoryAdminLink" xml:space="preserve">
+    <value>Historial de pedidos</value>
+  </data>
+  <data name="OrderHistoryCustomerHeading" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="OrderHistoryDateHeader" xml:space="preserve">
+    <value>Última modificación</value>
+  </data>
+  <data name="OrderHistoryOrderTotalHeader" xml:space="preserve">
+    <value>Total del pedido</value>
+  </data>
+  <data name="OrderHistoryViewDetailLink" xml:space="preserve">
+    <value>Ver</value>
+  </data>
+  <data name="SalesManagementLink" xml:space="preserve">
+    <value>Administración de ventas</value>
+  </data>
+  <data name="SiteUserLabel" xml:space="preserve">
+    <value>Usuario del sitio</value>
+  </data>
+  <data name="TicketOrder" xml:space="preserve">
+    <value>Pedido de boleto</value>
+  </data>
+  <data name="UserProfileLink" xml:space="preserve">
+    <value>Perfil de usuario</value>
+  </data>
+  <data name="EventHeading" xml:space="preserve">
+    <value>Evento</value>
+  </data>
+  <data name="ViewOrdersLink" xml:space="preserve">
+    <value>Ver pedidos</value>
+  </data>
+  <data name="DeleteCartWarning" xml:space="preserve">
+    <value>¿Esta seguro de eliminar el carrito?</value>
+  </data>
+  <data name="DeleteOrderButton" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="DeleteOrderWarning" xml:space="preserve">
+    <value>¿Está seguro de eliminar este pedido?</value>
+  </data>
+  <data name="OrderStatusButton" xml:space="preserve">
+    <value>Grabar</value>
+  </data>
+  <data name="OrderStatusLabel" xml:space="preserve">
+    <value>Estado del pedido:</value>
+  </data>
+  <data name="CommerceNotConfigured" xml:space="preserve">
+    <value>El comercio no está configurado en este sitio. Así puede aceptar registros para eventos gratuitos.</value>
+  </data>
+  <data name="EndDateRequired" xml:space="preserve">
+    <value>La fecha final es obligatoria.</value>
+  </data>
+  <data name="EventDateRequired" xml:space="preserve">
+    <value>La fecha inicial es obligatoria.</value>
+  </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>Registrarse para este evento</value>
+  </data>
+  <data name="SoldOut" xml:space="preserve">
+    <value>Agotado</value>
+  </data>
+  <data name="TicketOrders" xml:space="preserve">
+    <value>Pedidos de boletos</value>
+  </data>
+  <data name="TimeZoneSetting" xml:space="preserve">
+    <value>Zona horaria</value>
+  </data>
+  <data name="TitleIsRequired" xml:space="preserve">
+    <value>Debe capturar un título para este evento.</value>
+  </data>
+  <data name="AdaptToUserTimeZoneSetting" xml:space="preserve">
+    <value>¿Adaptarse a la zona horaria del usuario?</value>
+  </data>
+  <data name="ShowTimeZoneLabelSetting" xml:space="preserve">
+    <value>¿Mostrar la etiqueta de zona horaria?</value>
+  </data>
+  <data name="EnableEventSpanRendering" xml:space="preserve">
+    <value>¿Habilitar la representación de duración del evento?</value>
+  </data>
+  <data name="InvalidDateFormatException" xml:space="preserve">
+    <value>Una fecha especificada tiene un formato inválido.</value>
+  </data>
+  <data name="AllowWillPayLabel" xml:space="preserve">
+    <value>¿Permitir reservaciones sin cobro?</value>
+  </data>
+  <data name="BackColorLabel" xml:space="preserve">
+    <value>Color de fondo</value>
+  </data>
+  <data name="BorderColorLabel" xml:space="preserve">
+    <value>Color del borde</value>
+  </data>
+  <data name="DescriptionTab" xml:space="preserve">
+    <value>Detalles</value>
+  </data>
+  <data name="DisplaySettingsTab" xml:space="preserve">
+    <value>Ajustes de la vista por mes</value>
+  </data>
+  <data name="ExcerptTab" xml:space="preserve">
+    <value>Resumen</value>
+  </data>
+  <data name="ForeColorLabel" xml:space="preserve">
+    <value>Color de primer plano:</value>
+  </data>
+  <data name="GetTicketTextLabel" xml:space="preserve">
+    <value>Obtener el texto del boleto:</value>
+  </data>
+  <data name="LocationAliasLabel" xml:space="preserve">
+    <value>Alias de ubicación</value>
+  </data>
+  <data name="MetaDataTab" xml:space="preserve">
+    <value>Metadatos de la página</value>
+  </data>
+  <data name="MetaDescriptionLabel" xml:space="preserve">
+    <value>Metadescripción</value>
+  </data>
+  <data name="MetaKeywordsLabel" xml:space="preserve">
+    <value>Metapalabras clave</value>
+  </data>
+  <data name="PromiseToPayLaterButton" xml:space="preserve">
+    <value>Prometo pagar después</value>
+  </data>
+  <data name="RecurrenceUntilLabel" xml:space="preserve">
+    <value>hasta</value>
+  </data>
+  <data name="SettingsTab" xml:space="preserve">
+    <value>Ajustes del evento</value>
+  </data>
+  <data name="MapHeightRegexWarning" xml:space="preserve">
+    <value>La altura del mapa no debe tener más de 4 dígitos</value>
+  </data>
+  <data name="MapHeightRequiredWarning" xml:space="preserve">
+    <value>La altura del mapa es obligatoria.</value>
+  </data>
+  <data name="MapSettingsTab" xml:space="preserve">
+    <value>Ajustes del mapa</value>
+  </data>
+  <data name="MapWidthRegexWarning" xml:space="preserve">
+    <value>El ancho del mapa no debe tener más de 4 dígitos</value>
+  </data>
+  <data name="MapWidthRequiredWarning" xml:space="preserve">
+    <value>El ancho del mapa es obligatorio.</value>
+  </data>
+  <data name="PaymentMethodFreeEvent" xml:space="preserve">
+    <value>Evento gratuito</value>
+  </data>
+  <data name="PaymentMethodLabel" xml:space="preserve">
+    <value>Método de pago:</value>
+  </data>
+  <data name="PaymentMethodWillPayLater" xml:space="preserve">
+    <value>Pagará después</value>
+  </data>
+  <data name="RegistrationClosedFormat" xml:space="preserve">
+    <value>El registro está cerrado desde {0}.</value>
+  </data>
+  <data name="RegistrationNotOpenYetFormat" xml:space="preserve">
+    <value>El registro inicia en {0}.</value>
+  </data>
+  <data name="WillPayAllowedRolesSetting" xml:space="preserve">
+    <value>Roles autorizados a registrarse con promesa de pago posterior</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Fecha:</value>
+  </data>
+  <data name="RecurrenceFormat" xml:space="preserve">
+    <value>{0} hasta {1}</value>
+  </data>
+  <data name="TicketIncludesRecurrenceLabel" xml:space="preserve">
+    <value>El boleto incluye la admisión a repeticiones</value>
+  </data>
+  <data name="RecurrenceNotSupportedForMultiDayEvents" xml:space="preserve">
+    <value>La recurrencia de eventos que duran más de un día no está soportada. Necesita igualar las fechas inicial y final, o ajustar la repetición a "No se repite".</value>
+  </data>
+  <data name="ConfirmCustomerInfoButton" xml:space="preserve">
+    <value>Confirmar la información del usuario</value>
+  </data>
+  <data name="ExportToCSVButton" xml:space="preserve">
+    <value>Exportar datos como CSV (Valores delimitados por comas/Excel)</value>
+  </data>
+  <data name="SummaryInfo" xml:space="preserve">
+    <value>El resumen se despliega en la página de registro del evento y en la vista en lista.</value>
+  </data>
+  <data name="DefaultCountryStateSetting" xml:space="preserve">
+    <value>País/Estado predefinido</value>
+  </data>
+  <data name="DrivingDirectionsButton" xml:space="preserve">
+    <value>Obtener instrucciones de manejo desde</value>
+  </data>
+  <data name="ListViewPageSize" xml:space="preserve">
+    <value>Tamaño de página de la vista en lista:</value>
+  </data>
+  <data name="ReportsLink" xml:space="preserve">
+    <value>Reportes</value>
+  </data>
+  <data name="RebuildReportsButton" xml:space="preserve">
+    <value>Reconstruir reportes</value>
+  </data>
+  <data name="ShowCompanyNameOnRegistration" xml:space="preserve">
+    <value>¿Mostrar el nombre de la empresa en el registro?</value>
+  </data>
+  <data name="ShowSuburbOnRegistration" xml:space="preserve">
+    <value>¿Mostrar la colonia en el registro?</value>
+  </data>
+  <data name="FeatureSearchName" xml:space="preserve">
+    <value>Eventos</value>
+  </data>
+  <data name="EditEventPageTitle" xml:space="preserve">
+    <value>Editor de eventos</value>
+  </data>
+  <data name="ClockType24H" xml:space="preserve">
+    <value>24 horas</value>
+  </data>
+  <data name="ClockTypeAMPM" xml:space="preserve">
+    <value>AM/PM</value>
+  </data>
+  <data name="ClockTypeSetting" xml:space="preserve">
+    <value>Tipo de reloj</value>
+  </data>
+  <data name="HideDetailsFromUnauthenticated" xml:space="preserve">
+    <value>Ocultar detalles de usuarios no autentificados</value>
+  </data>
+  <data name="MustBeAuthenticatedToViewDetails" xml:space="preserve">
+    <value>Disculpe, sólo los miembros del sitio que inicien sesión pueden ver los detalles del evento.</value>
+  </data>
+  <data name="UpdateRecurrencesButton" xml:space="preserve">
+    <value>Actualizar todas las ocurrencias</value>
+  </data>
+  <data name="ShowPageLeftContent" xml:space="preserve">
+    <value>¿Mostrar la columna izquierda de la página en todas las vistas?</value>
+  </data>
+  <data name="ShowPageRightContent" xml:space="preserve">
+    <value>¿Mostrar la columna derecha de la página en todas las vistas?</value>
+  </data>
+  <data name="TimeIncrementSetting" xml:space="preserve">
+    <value>Incremento en minutos del selector de tiempo</value>
+  </data>
+  <data name="TimeZoneIdSetting" xml:space="preserve">
+    <value>Zona horaria</value>
+  </data>
+  <data name="AllowTicketPurchaseWithoutAuthentication" xml:space="preserve">
+    <value>¿Permitir la compra de boletos sin autentificación?</value>
+  </data>
+  <data name="UserAutoCreatedForTicketPurchase" xml:space="preserve">
+    <value>Usuario autocreado para compra de boletos</value>
+  </data>
+  <data name="RecurrenceTypeBiWeekly" xml:space="preserve">
+    <value>Catorcenal (cada 14 días)</value>
+  </data>
+  <data name="UseSameSalesBeginForRecurrences" xml:space="preserve">
+    <value>¿Usar la misma fecha de inicio de ventas para las recurrencias?</value>
+  </data>
+  <data name="DateTimeSettings" xml:space="preserve">
+    <value>Ajustes de fecha/hora</value>
+  </data>
+  <data name="Distance" xml:space="preserve">
+    <value>Distancia</value>
+  </data>
+  <data name="FeedSettings" xml:space="preserve">
+    <value>Ajustes del feed</value>
+  </data>
+  <data name="GetDirectionsButton" xml:space="preserve">
+    <value>Obtener guía de manejo</value>
+  </data>
+  <data name="Kilometers" xml:space="preserve">
+    <value>Kilómetros</value>
+  </data>
+  <data name="Miles" xml:space="preserve">
+    <value>Millas</value>
+  </data>
+  <data name="RegistrationSettings" xml:space="preserve">
+    <value>Ajustes de boleto/registro</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reiniciar</value>
+  </data>
+  <data name="UseBingMaps" xml:space="preserve">
+    <value>¿Usar mapas de Bing?</value>
+  </data>
+  <data name="ViewLink" xml:space="preserve">
+    <value>Ver</value>
+  </data>
+  <data name="ViewSettings" xml:space="preserve">
+    <value>Ajustes de vista</value>
+  </data>
+  <data name="AddToGoogleCalendar" xml:space="preserve">
+    <value>Agregrar a calendario de Google</value>
+  </data>
+  <data name="AddToiCalendarOutlook" xml:space="preserve">
+    <value>Agregar a calendario iCal/Outlook</value>
+  </data>
+  <data name="AddToWindowsLiveCalendar" xml:space="preserve">
+    <value>Agregar a calendario de Windows Live</value>
+  </data>
+  <data name="AddToYahooCalendar" xml:space="preserve">
+    <value>Agregar a calendario de Yahoo!</value>
+  </data>
+  <data name="GoogleCalendar" xml:space="preserve">
+    <value>Calendario de Google</value>
+  </data>
+  <data name="iCalendarOutlook" xml:space="preserve">
+    <value>Calendario iCal/Outlook</value>
+  </data>
+  <data name="ShowAddToCalendarLinks" xml:space="preserve">
+    <value>¿Mostrar enlaces para agregar a calendarios por omisión?</value>
+  </data>
+  <data name="WindowsLiveCalendar" xml:space="preserve">
+    <value>Calendario de Windows Live</value>
+  </data>
+  <data name="YahooCalendar" xml:space="preserve">
+    <value>Calendario de Yahoo!</value>
+  </data>
+  <data name="AdditionalInfoProvided" xml:space="preserve">
+    <value>Información adicional proporcionada</value>
+  </data>
+  <data name="AdditionalInfoProvidedEmailNotes" xml:space="preserve">
+    <value>Información adicional proporcionada (esto no fue incluido en la copia del cliente de este correo electrónico)</value>
+  </data>
+  <data name="AdditionalInfoRequired" xml:space="preserve">
+    <value>Información adicional requerida:</value>
+  </data>
+  <data name="ShowAddToCalendarLinksOnEvent" xml:space="preserve">
+    <value>¿Mostrar enlaces para agregar a calendarios?</value>
+  </data>
+  <data name="TicketNoteInstructions" xml:space="preserve">
+    <value>Instrucciones de notas para el boleto</value>
+  </data>
+  <data name="TicketRequiresNotes" xml:space="preserve">
+    <value>¿El boleto requiere notas?</value>
+  </data>
+  <data name="TicketsSoldeFormat" xml:space="preserve">
+    <value>{0} vendidos/registrados hasta ahora.</value>
+  </data>
+  <data name="AllDay" xml:space="preserve">
+    <value>Todo el día</value>
+  </data>
+  <data name="AllDayFormat" xml:space="preserve">
+    <value>{0} Todo el día</value>
+  </data>
+  <data name="SaveNotes" xml:space="preserve">
+    <value>Grabar notas</value>
+  </data>
+  <data name="TicketNotesWarning" xml:space="preserve">
+    <value>Debe ingresar las notas requeridas.</value>
+  </data>
+  <data name="RequireAddressOnFreeEventRegistration" xml:space="preserve">
+    <value>¿Solicitar la dirección al registrarse en eventos gratuitos?</value>
+  </data>
+  <data name="RequirePhoneOnFreeEventRegistration" xml:space="preserve">
+    <value>¿Solicitar el teléfono al registrarse en eventos gratuitos?</value>
+  </data>
+  <data name="ShowAddressOnFreeEventRegistration" xml:space="preserve">
+    <value>¿Mostrar la dirección al registrarse en eventos gratuitos?</value>
+  </data>
+  <data name="ShowPhoneOnFreeEventRegistration" xml:space="preserve">
+    <value>¿Mostrar el teléfono al registrarse en eventos gratuitos?</value>
+  </data>
+  <data name="MaxFutureDaysForFeedItems" xml:space="preserve">
+    <value>Máximo de días futuros a incluir en el feed</value>
+  </data>
+  <data name="UseSummaryInsteadOfDetailInFeed" xml:space="preserve">
+    <value>¿Usar el resumen del evento en lugar del detalle en el feed?</value>
+  </data>
+</root>

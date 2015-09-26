@@ -1,0 +1,9 @@
+body { }
+img { border: 0px; }
+input.openid_login {background: url('openidlogin.gif') no-repeat;
+ background-color: #fff; background-position: 0 50%; color: #000;padding-left: 18px;
+}
+#wrapheader { background: #000 url(headerbg.jpg) no-repeat left bottom; }
+h2.moduletitle {background: url(square_arrow.gif) no-repeat 0% .7em;}
+h2.moduletitle {background: url(square_arrow.gif) no-repeat ;
+	background-position:left; }

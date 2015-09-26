@@ -1,0 +1,129 @@
+<%-- 
+Name:  			mojoPortal Page stubber
+Author: 		Joe Audette
+Description: 	Generates markup and code behind for pages inheriting from mojoBasePage
+Last Modified:	2/19/2007
+
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
+
+<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author" %>
+<%@ Property Name="BusinessLayerNameSpace" Type="System.String" Default="mojoPortal.Business" Category="Style" Description="The Namespace of the Business Layer class" %>
+<%@ Property Name="UINameSpace" Type="System.String" Default="MyWeb.UI" Category="Style" Description="" %>
+<%@ Property Name="ClassName" Type="System.String" Default="MyClass" Category="Style" Description="" %>
+<%@ Property Name="ControlName" Type="System.String" Default="MyCustomSiteModule.ascx" Category="Style" Description="" %>
+
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+
+<%%@ Control Language="C#" ClassName="<%= ControlName%>" Inherits="mojoPortal.Web.SiteModuleControl"   %%>
+
+<%%@ Import Namespace="mojoPortal.Business" %%>
+<%%@ Import Namespace="mojoPortal.Business.WebHelpers" %%>
+<%%@ Import Namespace="mojoPortal.Web.Framework" %%>
+<%%@ Import Namespace="mojoPortal.Web.Controls" %%>
+<%%@ Import Namespace="mojoPortal.Web.UI" %%>
+<%%@ Import Namespace="mojoPortal.Web.Editor" %%>
+<%%@ Import Namespace="mojoPortal.Net" %%>
+
+<script runat="server">
+
+	// Author:					<%= Author %>
+	// Created:					<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+	// Last Modified:			<%= DateTime.Now.Year.ToString() %>-<%= DateTime.Now.Month.ToString() %>-<%= DateTime.Now.Day.ToString() %>
+	// 
+	// The use and distribution terms for this software are covered by the 
+	// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
+	// which can be found in the file CPL.TXT at the root of this distribution.
+	// By using this software in any fashion, you are agreeing to be bound by 
+	// the terms of this license.
+	//
+	// You must not remove this notice, or any other, from this software.
+	
+    /// <summary>
+    /// 
+    /// </summary>
+	
+    
+
+    protected override void OnInit(EventArgs e)
+    {
+        base.OnInit(e);
+       
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        LoadSettings();
+        PopulateLabels();
+        PopulateControls();
+        
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        TextBox1.Text = "Hello Web";
+    }
+	
+	private void PopulateControls()
+    {
+		TextBox1.Text = "Click the button";
+
+    }
+
+
+    private void PopulateLabels()
+    {
+
+    }
+
+    private void LoadSettings()
+    {
+
+		// TODO: if your feature has an edit page link to it here
+		//Title1.EditUrl = SiteRoot + "/<%= ClassName%>Edit.aspx";
+        //Title1.EditText = 
+        
+        Title1.Visible = !this.RenderInWebPartMode;
+        if (this.ModuleConfiguration != null)
+        {
+            this.Title = this.ModuleConfiguration.ModuleTitle;
+            this.Description = this.ModuleConfiguration.FeatureName;
+        }
+
+    }
+
+</script>
+
+<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
+<mp:CornerRounderTop id="ctop1" runat="server" />
+<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper yourcustomclass">
+<portal:ModuleTitleControl id="Title1" runat="server" />
+<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
+<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
+
+Your custom form goes here.
+<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+<portal:mojoButton ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+
+</portal:InnerBodyPanel>
+<portal:EmptyPanel id="divFooter" runat="server" CssClass="modulefooter" SkinID="modulefooter"></portal:EmptyPanel>
+</portal:OuterBodyPanel>
+<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+</portal:InnerWrapperPanel>
+<mp:CornerRounderBottom id="cbottom1" runat="server" />
+</portal:OuterWrapperPanel>
+
+
+
+
+<script runat="template">
+
+
+
+	
+</script>

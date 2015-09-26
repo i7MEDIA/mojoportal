@@ -1,0 +1,954 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddEventLink" xml:space="preserve">
+    <value>Thêm sự kiện</value>
+  </data>
+  <data name="AllDayCheckbox" xml:space="preserve">
+    <value>Cả ngày</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Xin hãy đợi...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Bỏ qua</value>
+  </data>
+  <data name="CancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="DayView" xml:space="preserve">
+    <value>Xem theo ngày</value>
+  </data>
+  <data name="DayViewLink" xml:space="preserve">
+    <value>Xem theo ngày</value>
+  </data>
+  <data name="DefaultViewSetting" xml:space="preserve">
+    <value>Chế độ xem mặc định:</value>
+  </data>
+  <data name="DeleteAllButton" xml:space="preserve">
+    <value>Xóa sự kiện này và tất cả các lặp lại</value>
+  </data>
+  <data name="DeleteAllButtonAccessKey" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="DeleteAllWarning" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa sự kiện này và tất cả các lặp lại trong tương lai?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="DeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="DeleteEventWarning" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xoá sự kiện này?</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="EditEventLink" xml:space="preserve">
+    <value>Sửa sự kiện này</value>
+  </data>
+  <data name="EditLegend" xml:space="preserve">
+    <value>Tạo/Sửa sự kiện</value>
+  </data>
+  <data name="EnableDayViewSetting" xml:space="preserve">
+    <value>Kích hoạt xem theo ngày?</value>
+  </data>
+  <data name="EnableExternalFeedSetting" xml:space="preserve">
+    <value>Cho phép nguồn cấp dữ liệu ngoài?</value>
+  </data>
+  <data name="EnableListViewSetting" xml:space="preserve">
+    <value>Kích hoạt xem theo danh sách?</value>
+  </data>
+  <data name="EnableMonthViewSetting" xml:space="preserve">
+    <value>Kích hoạt xem theo tháng?</value>
+  </data>
+  <data name="EnableTimelineViewSetting" xml:space="preserve">
+    <value>Kích hoạt xem theo đường thời gian?</value>
+  </data>
+  <data name="EnableWeekViewSetting" xml:space="preserve">
+    <value>Kích hoạt xem theo tuần?</value>
+  </data>
+  <data name="EndTimeLabel" xml:space="preserve">
+    <value>Giờ kết thúc:</value>
+  </data>
+  <data name="EventDateLabel" xml:space="preserve">
+    <value>Khi nào:</value>
+  </data>
+  <data name="EventEditLink" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="FeatureName" xml:space="preserve">
+    <value>Lịch sự kiện</value>
+  </data>
+  <data name="FeedburnerFeedUrl" xml:space="preserve">
+    <value>Đường dẫn Feedburner</value>
+  </data>
+  <data name="FeedToolTip" xml:space="preserve">
+    <value>Theo dõi nguồn cấp tin này</value>
+  </data>
+  <data name="GoogleMapApiKeySetting" xml:space="preserve">
+    <value>Khóa API bản đồ Google</value>
+  </data>
+  <data name="GoogleMapEnableDirectionsSetting" xml:space="preserve">
+    <value>Kích hoạt chỉ dẫn tìm đường</value>
+  </data>
+  <data name="GoogleMapEnableLocalSearchSetting" xml:space="preserve">
+    <value>Hiện tìm kiếm nội bộ</value>
+  </data>
+  <data name="GoogleMapEnableMapTypeSetting" xml:space="preserve">
+    <value>Hiện tùy chọn bản đồ vệ tinh và hỗn hợp</value>
+  </data>
+  <data name="GoogleMapEnableZoomSetting" xml:space="preserve">
+    <value>Hiện công cụ phóng đại</value>
+  </data>
+  <data name="GoogleMapHeightSetting" xml:space="preserve">
+    <value>Chiều cao bản đồ</value>
+  </data>
+  <data name="GoogleMapInitialMapTypeSetting" xml:space="preserve">
+    <value>Loại bản đồ ban đầu</value>
+  </data>
+  <data name="GoogleMapInitialZoomSetting" xml:space="preserve">
+    <value>Mức phóng đại bản đồ</value>
+  </data>
+  <data name="GoogleMapShowInfoWindowSetting" xml:space="preserve">
+    <value>Hiện khí cầu thông tin địa điểm</value>
+  </data>
+  <data name="GoogleMapWidthSetting" xml:space="preserve">
+    <value>Chiều rộng bản đồ</value>
+  </data>
+  <data name="HoursLabel" xml:space="preserve">
+    <value>Giờ:</value>
+  </data>
+  <data name="IncludeInFeedLabel" xml:space="preserve">
+    <value>Thêm vào nguồn cấp tin (Feed)?</value>
+  </data>
+  <data name="ListView" xml:space="preserve">
+    <value>Danh sách</value>
+  </data>
+  <data name="ListViewLink" xml:space="preserve">
+    <value>Danh sách</value>
+  </data>
+  <data name="LocationLabel" xml:space="preserve">
+    <value>Địa điểm</value>
+  </data>
+  <data name="MonthView" xml:space="preserve">
+    <value>Xem theo tháng</value>
+  </data>
+  <data name="MonthViewLink" xml:space="preserve">
+    <value>Xem theo tháng</value>
+  </data>
+  <data name="NumberOfTicketsLabel" xml:space="preserve">
+    <value>Tổng số chỗ/Lượt đăng ký</value>
+  </data>
+  <data name="OdiogoFeedIDSetting" xml:space="preserve">
+    <value>ID nguồn cấp tin Odiogo</value>
+  </data>
+  <data name="OdiogoPodcastUrlSetting" xml:space="preserve">
+    <value>Đường dẫn Odiogo Podcast</value>
+  </data>
+  <data name="PodcastLink" xml:space="preserve">
+    <value>Podcast</value>
+  </data>
+  <data name="RecurrenceLabel" xml:space="preserve">
+    <value>Lắp lại:</value>
+  </data>
+  <data name="RecurrenceTaskName" xml:space="preserve">
+    <value>Nhiệm vụ lặp lại</value>
+  </data>
+  <data name="RecurrenceTypeDaily" xml:space="preserve">
+    <value>Hàng ngày</value>
+  </data>
+  <data name="RecurrenceTypeDailyWeekDays" xml:space="preserve">
+    <value>Ngày trong tuần (T2-T6)</value>
+  </data>
+  <data name="RecurrenceTypeMondayWednesdayFriday" xml:space="preserve">
+    <value>Tất cả thứ 2, thứ 4 và thứ 6.</value>
+  </data>
+  <data name="RecurrenceTypeMonthly" xml:space="preserve">
+    <value>Hàng tháng</value>
+  </data>
+  <data name="RecurrenceTypeNone" xml:space="preserve">
+    <value>Không lặp lại</value>
+  </data>
+  <data name="RecurrenceTypeTuesdayThursday" xml:space="preserve">
+    <value>Tất cả thứ 3 và thứ 5.</value>
+  </data>
+  <data name="RecurrenceTypeWeekly" xml:space="preserve">
+    <value>Hàng tuần</value>
+  </data>
+  <data name="RecurrenceTypeYearly" xml:space="preserve">
+    <value>Hàng năm</value>
+  </data>
+  <data name="RequiresTicketLabel" xml:space="preserve">
+    <value>Yêu cầu đăng ký?:</value>
+  </data>
+  <data name="SaveEventButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="SaveEventButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ShowMapCheckbox" xml:space="preserve">
+    <value>Hiện bản đồ</value>
+  </data>
+  <data name="StartTimeLabel" xml:space="preserve">
+    <value>Giờ bắt đầu:</value>
+  </data>
+  <data name="TaskCompleteMessage" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="TaskProgressFormatString" xml:space="preserve">
+    <value>Đang chạy. Đã tạo lặp lại thứ {0} / {1}</value>
+  </data>
+  <data name="TaskQueuedMessage" xml:space="preserve">
+    <value>Đang đợi</value>
+  </data>
+  <data name="TaskStartedMessage" xml:space="preserve">
+    <value>Bắt đầu</value>
+  </data>
+  <data name="TicketPriceLabel" xml:space="preserve">
+    <value>Giá vé:</value>
+  </data>
+  <data name="TicketsOnSaleDateLabel" xml:space="preserve">
+    <value>Những ngày cho phép đăng ký</value>
+  </data>
+  <data name="TimelineView" xml:space="preserve">
+    <value>Xem theo đường thời gian</value>
+  </data>
+  <data name="TimelineViewLink" xml:space="preserve">
+    <value>Xem theo đường thời gian</value>
+  </data>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Cái gì:</value>
+  </data>
+  <data name="UseFillerOnEmptyDays" xml:space="preserve">
+    <value>Thêm khoảng đệm vào các ngày rỗng</value>
+  </data>
+  <data name="WeekView" xml:space="preserve">
+    <value>Xem theo tuần</value>
+  </data>
+  <data name="WeekViewLink" xml:space="preserve">
+    <value>Xem theo tuần</value>
+  </data>
+  <data name="WeekViewNextLink" xml:space="preserve">
+    <value>Tiến tới 7 ngày</value>
+  </data>
+  <data name="WeekViewPreviousLink" xml:space="preserve">
+    <value>Về trước 7 ngày</value>
+  </data>
+  <data name="CardExpiresLabel" xml:space="preserve">
+    <value>Ngày hết hạn</value>
+  </data>
+  <data name="CardNumberLabel" xml:space="preserve">
+    <value>Mã số thẻ</value>
+  </data>
+  <data name="CardOwnerFirstNameLabel" xml:space="preserve">
+    <value>Tên chủ thẻ</value>
+  </data>
+  <data name="CardOwnerLastNameLabel" xml:space="preserve">
+    <value>Họ của chủ thẻ</value>
+  </data>
+  <data name="CardSecurityCodeLabel" xml:space="preserve">
+    <value>Mã bảo mật</value>
+  </data>
+  <data name="CardTypeLabel" xml:space="preserve">
+    <value>Loại thẻ</value>
+  </data>
+  <data name="CustomerAddressLine1Label" xml:space="preserve">
+    <value>Địa chỉ 1</value>
+  </data>
+  <data name="CustomerAddressLine2Label" xml:space="preserve">
+    <value>Địa chỉ 2</value>
+  </data>
+  <data name="CustomerCityLabel" xml:space="preserve">
+    <value>Thành phố</value>
+  </data>
+  <data name="CustomerCompanyLabel" xml:space="preserve">
+    <value>Công ty</value>
+  </data>
+  <data name="CustomerCountryLabel" xml:space="preserve">
+    <value>Quốc gia</value>
+  </data>
+  <data name="CustomerEmailLabel" xml:space="preserve">
+    <value>Địa chỉ email</value>
+  </data>
+  <data name="CustomerHeader" xml:space="preserve">
+    <value>Thông tin khách hàng</value>
+  </data>
+  <data name="CustomerNameLabel" xml:space="preserve">
+    <value>Tên khách hàng</value>
+  </data>
+  <data name="CustomerPostalCodeLabel" xml:space="preserve">
+    <value>Mã bưu điện</value>
+  </data>
+  <data name="CustomerStateLabel" xml:space="preserve">
+    <value>Bang/Vùng</value>
+  </data>
+  <data name="CustomerSuburbLabel" xml:space="preserve">
+    <value>Ngoại thành</value>
+  </data>
+  <data name="CustomerTelephoneDayLabel" xml:space="preserve">
+    <value>Điện thoại ban ngày</value>
+  </data>
+  <data name="CustomerTelephoneNightLabel" xml:space="preserve">
+    <value>Điện thoại buổi tối</value>
+  </data>
+  <data name="MakePaymentButton" xml:space="preserve">
+    <value>Thanh toán</value>
+  </data>
+  <data name="PurchaseTicketLink" xml:space="preserve">
+    <value>Mua vé</value>
+  </data>
+  <data name="RegisterFreeLink" xml:space="preserve">
+    <value>Đăng ký</value>
+  </data>
+  <data name="TicketPriceFree" xml:space="preserve">
+    <value>Miến phí</value>
+  </data>
+  <data name="TicketQuantityLabel" xml:space="preserve">
+    <value>Số lượng:</value>
+  </data>
+  <data name="MaxTicketsPerPurchase" xml:space="preserve">
+    <value>Số vé tối đa trên một đơn đặt hàng (0 = không giới hạn)</value>
+  </data>
+  <data name="OrderTotalLabel" xml:space="preserve">
+    <value>Tổng tiền đặt hàng:</value>
+  </data>
+  <data name="SubTotalLabel" xml:space="preserve">
+    <value>Tổng số tiền:</value>
+  </data>
+  <data name="TaxTotalLabel" xml:space="preserve">
+    <value>Thuế bán hàng:</value>
+  </data>
+  <data name="TicketForPastEventsNotAvailable" xml:space="preserve">
+    <value>Xin lỗi, sự kiện này là trong quá khứ, vé không còn nữa.</value>
+  </data>
+  <data name="TicketSalesClosedMessage" xml:space="preserve">
+    <value>Xin lỗi, vé không có sẵn tại thời điểm này.</value>
+  </data>
+  <data name="TicketSalesNotOpenYet" xml:space="preserve">
+    <value>Xin lỗi, vé chưa bán.</value>
+  </data>
+  <data name="TicketsAreTaxable" xml:space="preserve">
+    <value>Vé có phải chịu thuế?</value>
+  </data>
+  <data name="TicketsSoldOut" xml:space="preserve">
+    <value>Xin lỗi, vé đã được bán hết.</value>
+  </data>
+  <data name="LiteralOr" xml:space="preserve">
+    <value>Hoặc</value>
+  </data>
+  <data name="CheckoutRequiresLoginOrRegisterMessage" xml:space="preserve">
+    <value>Hoàn tất đơn hàng của bạn, bạn cần Đăng nhập hoặc Đăng ký</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Tiếp tục</value>
+  </data>
+  <data name="CustomerAddress1RequiredMessage" xml:space="preserve">
+    <value>Bạn phải nhập địa chỉ khách hàng</value>
+  </data>
+  <data name="CustomerCityRequiredMessage" xml:space="preserve">
+    <value>Bạn phải nhập thành phố khách hàng</value>
+  </data>
+  <data name="CustomerDayPhoneRequiredMessage" xml:space="preserve">
+    <value>Bạn phải nhập điện thoại khách hàng</value>
+  </data>
+  <data name="CustomerEmailRegexFailureMessage" xml:space="preserve">
+    <value>Địa chỉ email khách hàng phải là email hợp lệ</value>
+  </data>
+  <data name="CustomerEmailRequiredMessage" xml:space="preserve">
+    <value>Bạn phải nhập email khách hàng.</value>
+  </data>
+  <data name="CustomerFirstNameLabel" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="CustomerFirstNameRequiredMessage" xml:space="preserve">
+    <value>Bạn phải nhập tên khách hàng</value>
+  </data>
+  <data name="CustomerLastNameLabel" xml:space="preserve">
+    <value>Họ</value>
+  </data>
+  <data name="CustomerLastNameRequiredMessage" xml:space="preserve">
+    <value>Bạn phải nhập họ khách hàng</value>
+  </data>
+  <data name="CustomerPostalCodeRequiredMessage" xml:space="preserve">
+    <value>Bạn phải nhập mã bưu điện</value>
+  </data>
+  <data name="RequiredFieldSymbol" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="UpdateCustomerButton" xml:space="preserve">
+    <value>Cập nhật thông tin khách hàng</value>
+  </data>
+  <data name="CheckoutHeader" xml:space="preserve">
+    <value>Vui lòng xem lại và gửi đơn đặt hàng của bạn</value>
+  </data>
+  <data name="CurrencySetting" xml:space="preserve">
+    <value>Tiền tệ</value>
+  </data>
+  <data name="CustomerInfoHeader" xml:space="preserve">
+    <value>Thông tin khách hàng</value>
+  </data>
+  <data name="CustomerTelephoneLabel" xml:space="preserve">
+    <value>Điện thoại</value>
+  </data>
+  <data name="OrderSummaryHeader" xml:space="preserve">
+    <value>Tóm tắt đơn hàng</value>
+  </data>
+  <data name="PaymentGatewayCouldNotConnectMessage" xml:space="preserve">
+    <value>Không thể kết nối với cổng thanh toán.</value>
+  </data>
+  <data name="PaymentGatewayNotConfiguredForDirectCardProcessing" xml:space="preserve">
+    <value>Không có cổng thanh toán được cấu hình để xử lý thẻ tín dụng.</value>
+  </data>
+  <data name="TransactionDeclinedMessage" xml:space="preserve">
+    <value>Xin lỗi đơn hàng bị từ chối. Hãy chắc chắn rằng bạn đã nhập thông tin thanh toán của bạn một cách chính xác.</value>
+  </data>
+  <data name="TransactionErrorMessage" xml:space="preserve">
+    <value>Xin lỗi, giao dịch không thể được hoàn thành. Một lỗi xảy ra và đã được ghi lại.</value>
+  </data>
+  <data name="TransactionNotInitiatedMessage" xml:space="preserve">
+    <value>Không giao dịch nào được khởi tạo.</value>
+  </data>
+  <data name="OrderHistoryLink" xml:space="preserve">
+    <value>Lịch sử đặt hàng</value>
+  </data>
+  <data name="OrderIdLabel" xml:space="preserve">
+    <value>ID đơn hàng:</value>
+  </data>
+  <data name="PrintNotice" xml:space="preserve">
+    <value>Xin vui lòng in trang này và mang theo như là vé của bạn để tham gia sự kiện.</value>
+  </data>
+  <data name="BccOrderConfirmationEmailsSetting" xml:space="preserve">
+    <value>BCC Oder Confirmation Email Address</value>
+  </data>
+  <data name="EmailConfirmationFromAddressSetting" xml:space="preserve">
+    <value>Địa chỉ email gửi để xác nhận</value>
+  </data>
+  <data name="InvalidPriceMessage" xml:space="preserve">
+    <value>Giá vé bạn đã nhập không phải dạng tiền tệ.</value>
+  </data>
+  <data name="OrderConfirmationTask" xml:space="preserve">
+    <value>Xác nhận đơn đặt hàng</value>
+  </data>
+  <data name="TaskCompleted" xml:space="preserve">
+    <value>Đã hoàn thành</value>
+  </data>
+  <data name="TaskQueued" xml:space="preserve">
+    <value>Đang đợi</value>
+  </data>
+  <data name="TaskRunning" xml:space="preserve">
+    <value>Đang chạy</value>
+  </data>
+  <data name="TaskStarted" xml:space="preserve">
+    <value>Bắt đầu</value>
+  </data>
+  <data name="OrderDateHeader" xml:space="preserve">
+    <value>Ngày đặt hàng</value>
+  </data>
+  <data name="OrderHistoryHeader" xml:space="preserve">
+    <value>Lịch sử đặt hàng</value>
+  </data>
+  <data name="OrderIDHeader" xml:space="preserve">
+    <value>ID đơn hàng</value>
+  </data>
+  <data name="BrowseCartsLink" xml:space="preserve">
+    <value>Duyệt giỏ hàng</value>
+  </data>
+  <data name="CartBrowserHeading" xml:space="preserve">
+    <value>Giỏ hàng</value>
+  </data>
+  <data name="CheckoutLink" xml:space="preserve">
+    <value>Thanh toán</value>
+  </data>
+  <data name="EventLabel" xml:space="preserve">
+    <value>Sự kiện:</value>
+  </data>
+  <data name="ManageUserLink" xml:space="preserve">
+    <value>Quản lý người dùng</value>
+  </data>
+  <data name="OrderDetail" xml:space="preserve">
+    <value>Chi tiết đặt hàng</value>
+  </data>
+  <data name="OrderHistoryAdminLink" xml:space="preserve">
+    <value>Lịch sử đặt hàng</value>
+  </data>
+  <data name="OrderHistoryCustomerHeading" xml:space="preserve">
+    <value>Khách hàng</value>
+  </data>
+  <data name="OrderHistoryDateHeader" xml:space="preserve">
+    <value>Lần thay đổi cuối</value>
+  </data>
+  <data name="OrderHistoryOrderTotalHeader" xml:space="preserve">
+    <value>Tổng tiền đặt hàng</value>
+  </data>
+  <data name="OrderHistoryViewDetailLink" xml:space="preserve">
+    <value>Xem</value>
+  </data>
+  <data name="SalesManagementLink" xml:space="preserve">
+    <value>Quản lý bán hàng</value>
+  </data>
+  <data name="SiteUserLabel" xml:space="preserve">
+    <value>Người dùng trang web</value>
+  </data>
+  <data name="TicketOrder" xml:space="preserve">
+    <value>Đặt vé</value>
+  </data>
+  <data name="UserProfileLink" xml:space="preserve">
+    <value>Hồ sơ người dùng</value>
+  </data>
+  <data name="EventHeading" xml:space="preserve">
+    <value>Sự kiện</value>
+  </data>
+  <data name="ViewOrdersLink" xml:space="preserve">
+    <value>Xem đơn hàng</value>
+  </data>
+  <data name="DeleteCartWarning" xml:space="preserve">
+    <value>Bạn có chắc muốn xóa giỏ hàng này?</value>
+  </data>
+  <data name="DeleteOrderButton" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="DeleteOrderWarning" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xoá đơn hàng này?</value>
+  </data>
+  <data name="OrderStatusButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="OrderStatusLabel" xml:space="preserve">
+    <value>Tình trạng đơn hàng:</value>
+  </data>
+  <data name="CommerceNotConfigured" xml:space="preserve">
+    <value>Thương mại không được cấu hình trên trang web này. Bạn vẫn có thể chấp nhận đăng ký miễn phí cho các sự kiện.</value>
+  </data>
+  <data name="EndDateRequired" xml:space="preserve">
+    <value>Bạn phải nhập ngày kết thúc.</value>
+  </data>
+  <data name="EventDateRequired" xml:space="preserve">
+    <value>Bạn phải nhập ngày bắt đầu</value>
+  </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>Đăng ký sự kiện này</value>
+  </data>
+  <data name="SoldOut" xml:space="preserve">
+    <value>Hết hàng</value>
+  </data>
+  <data name="TicketOrders" xml:space="preserve">
+    <value>Đơn đặt vé</value>
+  </data>
+  <data name="TimeZoneSetting" xml:space="preserve">
+    <value>Múi giờ</value>
+  </data>
+  <data name="TitleIsRequired" xml:space="preserve">
+    <value>Bạn phải nhập tiêu đề cho sự kiện.</value>
+  </data>
+  <data name="AdaptToUserTimeZoneSetting" xml:space="preserve">
+    <value>Thích ứng với múi giờ người dùng?</value>
+  </data>
+  <data name="ShowTimeZoneLabelSetting" xml:space="preserve">
+    <value>Hiển thị nhãn múi giờ?</value>
+  </data>
+  <data name="EnableEventSpanRendering" xml:space="preserve">
+    <value>Kích hoạt tính năng vẽ khoảng sự kiện?</value>
+  </data>
+  <data name="InvalidDateFormatException" xml:space="preserve">
+    <value>Nhập ngày không đúng định dạng</value>
+  </data>
+  <data name="AllowWillPayLabel" xml:space="preserve">
+    <value>Cho phép đăng ký trả sau?</value>
+  </data>
+  <data name="BackColorLabel" xml:space="preserve">
+    <value>Màu nền</value>
+  </data>
+  <data name="BorderColorLabel" xml:space="preserve">
+    <value>Màu viền</value>
+  </data>
+  <data name="DescriptionTab" xml:space="preserve">
+    <value>Chi tiết</value>
+  </data>
+  <data name="DisplaySettingsTab" xml:space="preserve">
+    <value>Thiết lập hiển thị xem theo tháng</value>
+  </data>
+  <data name="ExcerptTab" xml:space="preserve">
+    <value>Tóm tắt</value>
+  </data>
+  <data name="ForeColorLabel" xml:space="preserve">
+    <value>Màu chữ:</value>
+  </data>
+  <data name="GetTicketTextLabel" xml:space="preserve">
+    <value>Lấy mã vé:</value>
+  </data>
+  <data name="LocationAliasLabel" xml:space="preserve">
+    <value>Bí danh địa điểm</value>
+  </data>
+  <data name="MetaDataTab" xml:space="preserve">
+    <value>Dữ liệu Meta của trang</value>
+  </data>
+  <data name="MetaDescriptionLabel" xml:space="preserve">
+    <value>Mô tả Meta</value>
+  </data>
+  <data name="MetaKeywordsLabel" xml:space="preserve">
+    <value>Từ khóa Meta</value>
+  </data>
+  <data name="PromiseToPayLaterButton" xml:space="preserve">
+    <value>Tôi cam kết thanh toán sau</value>
+  </data>
+  <data name="RecurrenceUntilLabel" xml:space="preserve">
+    <value>đến khi</value>
+  </data>
+  <data name="SettingsTab" xml:space="preserve">
+    <value>Thiết lập sự kiện</value>
+  </data>
+  <data name="MapHeightRegexWarning" xml:space="preserve">
+    <value>Chiều cao bản đồ phải là số có dưới 4 chữ số.</value>
+  </data>
+  <data name="MapHeightRequiredWarning" xml:space="preserve">
+    <value>Bạn phải nhập chiều cao bản đồ.</value>
+  </data>
+  <data name="MapSettingsTab" xml:space="preserve">
+    <value>Thiết lập bản đồ</value>
+  </data>
+  <data name="MapWidthRegexWarning" xml:space="preserve">
+    <value>Chiều rộng bản đồ phải là số có dưới 4 chữ số.</value>
+  </data>
+  <data name="MapWidthRequiredWarning" xml:space="preserve">
+    <value>Bạn phải nhập chiều rộng bản đồ.</value>
+  </data>
+  <data name="PaymentMethodFreeEvent" xml:space="preserve">
+    <value>Sư kiện miễn phí</value>
+  </data>
+  <data name="PaymentMethodLabel" xml:space="preserve">
+    <value>Phương thức thanh toán:</value>
+  </data>
+  <data name="PaymentMethodWillPayLater" xml:space="preserve">
+    <value>Sẽ thanh toán sau</value>
+  </data>
+  <data name="RegistrationClosedFormat" xml:space="preserve">
+    <value>Đăng ký dừng lại vào {0}.</value>
+  </data>
+  <data name="RegistrationNotOpenYetFormat" xml:space="preserve">
+    <value>Đăng ký bắt đầu {0}.</value>
+  </data>
+  <data name="WillPayAllowedRolesSetting" xml:space="preserve">
+    <value>Quyền được phép đăng ký với cam kết trả tiền sau</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Ngày:</value>
+  </data>
+  <data name="RecurrenceFormat" xml:space="preserve">
+    <value>{0} tới khi {1}</value>
+  </data>
+  <data name="TicketIncludesRecurrenceLabel" xml:space="preserve">
+    <value>Vé bao gồm cả các lần lặp lại</value>
+  </data>
+  <data name="RecurrenceNotSupportedForMultiDayEvents" xml:space="preserve">
+    <value>Lặp lại không được hỗ trợ cho các sự kiện kéo dài hơn 1 ngày. Bạn phải đặt ngày bắt đầu bằng ngày kết thúc hoặc thiết lập là "không lặp lại".</value>
+  </data>
+  <data name="ConfirmCustomerInfoButton" xml:space="preserve">
+    <value>Xác nhận thông tin khách hàng</value>
+  </data>
+  <data name="ExportToCSVButton" xml:space="preserve">
+    <value>Xuất dữ liệu ra CSV/Excel</value>
+  </data>
+  <data name="SummaryInfo" xml:space="preserve">
+    <value>Tóm tắt thông tin được hiển thị trên xem theo danh sách và trên trang đăng ký sự kiện.</value>
+  </data>
+  <data name="DefaultCountryStateSetting" xml:space="preserve">
+    <value>Quốc gia/Bang mặc định</value>
+  </data>
+  <data name="DrivingDirectionsButton" xml:space="preserve">
+    <value>Lấy chỉ dẫn từ</value>
+  </data>
+  <data name="ListViewPageSize" xml:space="preserve">
+    <value>Kích cỡ trang danh sách:</value>
+  </data>
+  <data name="ReportsLink" xml:space="preserve">
+    <value>Báo cáo</value>
+  </data>
+  <data name="RebuildReportsButton" xml:space="preserve">
+    <value>Tạo lại báo cáo.</value>
+  </data>
+  <data name="ShowCompanyNameOnRegistration" xml:space="preserve">
+    <value>Hiện tên công ty khi đăng ký?</value>
+  </data>
+  <data name="ShowSuburbOnRegistration" xml:space="preserve">
+    <value>Hiển thị ngoại ô trong đăng ký?</value>
+  </data>
+  <data name="FeatureSearchName" xml:space="preserve">
+    <value>Các sự kiện</value>
+  </data>
+  <data name="EditEventPageTitle" xml:space="preserve">
+    <value>Trình biên tập sự kiện</value>
+  </data>
+  <data name="ClockType24H" xml:space="preserve">
+    <value>24 giờ</value>
+  </data>
+  <data name="ClockTypeAMPM" xml:space="preserve">
+    <value>SA/CH</value>
+  </data>
+  <data name="ClockTypeSetting" xml:space="preserve">
+    <value>Loại đồng hồ</value>
+  </data>
+  <data name="HideDetailsFromUnauthenticated" xml:space="preserve">
+    <value>Ẩn chi tiết với người dùng chưa được xác thực</value>
+  </data>
+  <data name="MustBeAuthenticatedToViewDetails" xml:space="preserve">
+    <value>Xin lỗi, chỉ có thành viên đăng nhập vào trang web mới có thể xem chi tiết sự kiện.</value>
+  </data>
+  <data name="UpdateRecurrencesButton" xml:space="preserve">
+    <value>Cập nhật tất cả các lặp lại</value>
+  </data>
+  <data name="ShowPageLeftContent" xml:space="preserve">
+    <value>Hiển thị nội dung bên trái trang trong tất cả chế độ xem?</value>
+  </data>
+  <data name="ShowPageRightContent" xml:space="preserve">
+    <value>Hiển thị nội dung bên phải trang trong tất cả chế độ xem?</value>
+  </data>
+  <data name="TimeIncrementSetting" xml:space="preserve">
+    <value>Mức tăng số phút trong chọn thời gian</value>
+  </data>
+  <data name="TimeZoneIdSetting" xml:space="preserve">
+    <value>Múi giờ</value>
+  </data>
+  <data name="AllowTicketPurchaseWithoutAuthentication" xml:space="preserve">
+    <value>Cho phép mua vé mà không cần xác thực?</value>
+  </data>
+  <data name="UserAutoCreatedForTicketPurchase" xml:space="preserve">
+    <value>Người dùng tự động được tạo để mua vé</value>
+  </data>
+  <data name="RecurrenceTypeBiWeekly" xml:space="preserve">
+    <value>2 tuần (14 ngày)</value>
+  </data>
+  <data name="UseSameSalesBeginForRecurrences" xml:space="preserve">
+    <value>Sử dụng cùng ngày bắt đầu bán cho các lặp lại?</value>
+  </data>
+  <data name="ViewLink" xml:space="preserve">
+    <value>Xem</value>
+  </data>
+  <data name="DateTimeSettings" xml:space="preserve">
+    <value>Thiết lập Ngày/Giờ</value>
+  </data>
+  <data name="Distance" xml:space="preserve">
+    <value>Khoảng cách</value>
+  </data>
+  <data name="FeedSettings" xml:space="preserve">
+    <value>Các thiết lập nguồn cấp dữ liệu (Feed)</value>
+  </data>
+  <data name="GetDirectionsButton" xml:space="preserve">
+    <value>Lấy chỉ dẫn</value>
+  </data>
+  <data name="Kilometers" xml:space="preserve">
+    <value>Kilômét</value>
+  </data>
+  <data name="Miles" xml:space="preserve">
+    <value>Dặm</value>
+  </data>
+  <data name="RegistrationSettings" xml:space="preserve">
+    <value>Thiết lập Vé/Đăng ký</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Thiết lập lại</value>
+  </data>
+  <data name="UseBingMaps" xml:space="preserve">
+    <value>Sử dụng bản đồ Bing?</value>
+  </data>
+  <data name="ViewSettings" xml:space="preserve">
+    <value>Xem thiết lập</value>
+  </data>
+  <data name="AddToGoogleCalendar" xml:space="preserve">
+    <value>Thêm vào Lịch Google</value>
+  </data>
+  <data name="AddToiCalendarOutlook" xml:space="preserve">
+    <value>Thêm vào iCal/Outlook</value>
+  </data>
+  <data name="AddToWindowsLiveCalendar" xml:space="preserve">
+    <value>Thêm vào Lịch Windows Live</value>
+  </data>
+  <data name="AddToYahooCalendar" xml:space="preserve">
+    <value>Thêm vào Lịch Yahoo!</value>
+  </data>
+  <data name="GoogleCalendar" xml:space="preserve">
+    <value>Lịch Google</value>
+  </data>
+  <data name="iCalendarOutlook" xml:space="preserve">
+    <value>iCal/Outlook</value>
+  </data>
+  <data name="ShowAddToCalendarLinks" xml:space="preserve">
+    <value>Hiện liên kết Thêm vào lịch theo mặc định?</value>
+  </data>
+  <data name="WindowsLiveCalendar" xml:space="preserve">
+    <value>Lịch Windows Live</value>
+  </data>
+  <data name="YahooCalendar" xml:space="preserve">
+    <value>Lịch Yahoo!</value>
+  </data>
+  <data name="AdditionalInfoProvided" xml:space="preserve">
+    <value>Thông tin bổ sung đã được cung cấp</value>
+  </data>
+  <data name="AdditionalInfoProvidedEmailNotes" xml:space="preserve">
+    <value>Thông tin bổ sung đã được cung cấp (không bao gồm trong bản sao gửi khách hàng của email này)</value>
+  </data>
+  <data name="AdditionalInfoRequired" xml:space="preserve">
+    <value>Thông tin yêu cầu bổ sung:</value>
+  </data>
+  <data name="ShowAddToCalendarLinksOnEvent" xml:space="preserve">
+    <value>Hiện liên kết Thêm vào lịch?</value>
+  </data>
+  <data name="TicketNoteInstructions" xml:space="preserve">
+    <value>Chỉ dẫn ghi chú vé</value>
+  </data>
+  <data name="TicketRequiresNotes" xml:space="preserve">
+    <value>Vé yêu cầu có ghi chú?</value>
+  </data>
+  <data name="TicketsSoldeFormat" xml:space="preserve">
+    <value>{0} đã bán hoặc được đăng ký đến nay.</value>
+  </data>
+  <data name="AllDay" xml:space="preserve">
+    <value>Cả ngày</value>
+  </data>
+  <data name="AllDayFormat" xml:space="preserve">
+    <value>{0} Cả ngày</value>
+  </data>
+  <data name="SaveNotes" xml:space="preserve">
+    <value>Lưu ghi chú</value>
+  </data>
+  <data name="TicketNotesWarning" xml:space="preserve">
+    <value>Bạn phải cung cấp các ghi chú cần thiết.</value>
+  </data>
+  <data name="RequireAddressOnFreeEventRegistration" xml:space="preserve">
+    <value>Bắt buộc nhập địa chỉ khi đăng ký sự kiện miễn phí?</value>
+  </data>
+  <data name="RequirePhoneOnFreeEventRegistration" xml:space="preserve">
+    <value>Bắt buộc nhập số điện thoại khi đăng ký sự kiện miễn phí?</value>
+  </data>
+  <data name="ShowAddressOnFreeEventRegistration" xml:space="preserve">
+    <value>Hiện địa chỉ khi đăng ký sự kiện miễn phí?</value>
+  </data>
+  <data name="ShowPhoneOnFreeEventRegistration" xml:space="preserve">
+    <value>Hiện điện thoại khi đăng ký sự kiện miễn phí?</value>
+  </data>
+  <data name="MaxFutureDaysForFeedItems" xml:space="preserve">
+    <value>Số ngày tương lai tối đa được thêm vào nguồn cấp tin</value>
+  </data>
+  <data name="UseSummaryInsteadOfDetailInFeed" xml:space="preserve">
+    <value>Sử dụng tóm tắt sự kiện thay cho thông tin chi tiết trong nguồn cấp tin?</value>
+  </data>
+</root>

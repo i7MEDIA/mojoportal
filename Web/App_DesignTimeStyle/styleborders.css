@@ -1,0 +1,11 @@
+body { }
+fieldset { border: 1px solid #ffc796;}
+.collapsiblepanel { border-style:dashed; border-width:thin; }
+.TextLabel { border:0px solid #ECECEC;  }
+.moduleedit { border: 0px; }
+hr { height: 1px; border-width: 0px; background-color: #D1D7DC; color: #D1D7DC; }
+.site-statistics { border-bottom: solid thin #cccccc; }
+li.topnavitem { border-left: solid thin #FFF; }
+h2.moduletitle {border-bottom: 2px solid #f2f2f2; }
+ul.linkitem li {border-left: 5px solid #CCC;}
+li.linkitem:hover, li.linkaltitem:hover {border-left:5px solid #72A545; }

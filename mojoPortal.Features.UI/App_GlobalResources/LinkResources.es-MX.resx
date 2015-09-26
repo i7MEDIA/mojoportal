@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditLinksAddLinkLabel" xml:space="preserve">
+    <value>Añadir</value>
+  </data>
+  <data name="EditLinksCancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="EditLinksCreatedByLabel" xml:space="preserve">
+    <value>Creado por</value>
+  </data>
+  <data name="EditLinksDeleteButton" xml:space="preserve">
+    <value>Eliminar este elemento</value>
+  </data>
+  <data name="EditLinksDescriptionLabel" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="EditLinksDetailsLabel" xml:space="preserve">
+    <value>Detalles del enlace</value>
+  </data>
+  <data name="EditLinksNewWindowSetting" xml:space="preserve">
+    <value>Nueva ventana</value>
+  </data>
+  <data name="EditLinksSameWindowSetting" xml:space="preserve">
+    <value>Misma ventana</value>
+  </data>
+  <data name="EditLinksTitleLabel" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="EditLinksUpdateButton" xml:space="preserve">
+    <value>Grabar</value>
+  </data>
+  <data name="LinksShowDeleteIconSetting" xml:space="preserve">
+    <value>¿Mostrar el icono para eliminar?</value>
+  </data>
+  <data name="LinksShowDescriptionSetting" xml:space="preserve">
+    <value>¿Mostrar la descripción?</value>
+  </data>
+  <data name="LinksTitleRequiredHelp" xml:space="preserve">
+    <value>Debe especificar un título válido</value>
+  </data>
+  <data name="LinksUrlRequiredHelp" xml:space="preserve">
+    <value>Debe especificar un URL válido</value>
+  </data>
+  <data name="LinksViewOrderRequiredHelp" xml:space="preserve">
+    <value>Debe especificar un orden válido</value>
+  </data>
+  <data name="EditIntro" xml:space="preserve">
+    <value>Editar introducción</value>
+  </data>
+  <data name="EditLinkPageTitle" xml:space="preserve">
+    <value>Editor de enlaces</value>
+  </data>
+  <data name="EditLinksCancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+    <comment>No translation needed.</comment>
+  </data>
+  <data name="EditLinksDeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+    <comment>No translation needed.</comment>
+  </data>
+  <data name="EditLinksUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+    <comment>No translation needed.</comment>
+  </data>
+  <data name="EditLinksUrlLabel" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="EditLinksViewOrderLabel" xml:space="preserve">
+    <value>Ranking de orden</value>
+  </data>
+  <data name="EditLinkToolTip" xml:space="preserve">
+    <value>Editar este contenido</value>
+  </data>
+  <data name="FeatureName" xml:space="preserve">
+    <value>Lista/Enlaces</value>
+  </data>
+  <data name="LinksAddWebSnaprCss" xml:space="preserve">
+    <value>¿Habilitar la vista previa usando WebSnapr.com?</value>
+  </data>
+  <data name="LinksDeleteLink" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="LinksDeleteLinkWarning" xml:space="preserve">
+    <value>¿Está seguro de borrar este enlace?</value>
+  </data>
+  <data name="LinksEditLink" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="LinksEditRelativeLinkLabel" xml:space="preserve">
+    <value>Relativo a la raíz del sitio ~/</value>
+  </data>
+  <data name="LinksEnablePagingSetting" xml:space="preserve">
+    <value>¿Habilitar la paginación?</value>
+  </data>
+  <data name="LinksExtraCssClassSetting" xml:space="preserve">
+    <value>Clase CSS personalizada</value>
+  </data>
+  <data name="LinksExtraCssClassSettingRegexWarning" xml:space="preserve">
+    <value>Clase CSS personalizada invalida</value>
+  </data>
+  <data name="LinksFeatureName" xml:space="preserve">
+    <value>Enlaces</value>
+  </data>
+  <data name="LinksPageSizeSetting" xml:space="preserve">
+    <value>Tamaño de página</value>
+  </data>
+  <data name="LinksSearchName" xml:space="preserve">
+    <value>Enlaces</value>
+  </data>
+  <data name="LinksShowOnlyDescriptionSetting" xml:space="preserve">
+    <value>¿Mostrar únicamente la descripción?</value>
+  </data>
+  <data name="LinksUseNewWindowLabel" xml:space="preserve">
+    <value>¿Abrir en una nueva ventana?</value>
+  </data>
+  <data name="LinksWebSnaprKeySetting" xml:space="preserve">
+    <value>Llave de WebSnapr.com</value>
+  </data>
+  <data name="ShowPageLeftContentSetting" xml:space="preserve">
+    <value>¿Mostrar la columna izquierda de la página en la vista por listado?</value>
+  </data>
+  <data name="ShowPageRightContentSetting" xml:space="preserve">
+    <value>¿Mostrar la columna derecha de la página en la vista por listado?</value>
+  </data>
+  <data name="UseAjaxPaging" xml:space="preserve">
+    <value>¿Usar paginación AJAX?</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Navegar</value>
+  </data>
+</root>

@@ -1,0 +1,606 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SurveyHasNoPagesWarning" xml:space="preserve">
+    <value>Questa indagine non ha pagine</value>
+  </data>
+  <data name="SurveyModuleEditText" xml:space="preserve">
+    <value>Scegli l'indagine</value>
+  </data>
+  <data name="SurveyChooseAddNewSurveyButton" xml:space="preserve">
+    <value>Aggiungi nuova indagine</value>
+  </data>
+  <data name="SurveyChooseAddNewSurveyToolTip" xml:space="preserve">
+    <value>Aggiungi una nuova indagine.</value>
+  </data>
+  <data name="SurveyChooseCancelLabel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="SurveyChooseCancelToolTip" xml:space="preserve">
+    <value>Annulla e ritorna alla pagina di provenienza.</value>
+  </data>
+  <data name="SurveyChooseChooseAlternateText" xml:space="preserve">
+    <value>Scegli indagine</value>
+  </data>
+  <data name="SurveyChooseLabel" xml:space="preserve">
+    <value>Scegli indagine</value>
+  </data>
+  <data name="SurveyChooseRemoveCurrentSurveyButton" xml:space="preserve">
+    <value>Rimuovi la presente indagine</value>
+  </data>
+  <data name="SurveyChooseRemoveCurrentSurveyToolTip" xml:space="preserve">
+    <value>Rimuovi la presente indagine dal modulo.</value>
+  </data>
+  <data name="SurveyChooseViewSurveysButton" xml:space="preserve">
+    <value>Guarda/Modifica indagini</value>
+  </data>
+  <data name="SurveyChooseViewSurveysToolTip" xml:space="preserve">
+    <value>Guarda o modifica indagini esistenti.</value>
+  </data>
+  <data name="PagesGridDeleteButton" xml:space="preserve">
+    <value>Cancella</value>
+  </data>
+  <data name="PagesGridDeleteButtonAlternateText" xml:space="preserve">
+    <value>Cancella una pagina</value>
+  </data>
+  <data name="PagesGridDeleteButtonToolTip" xml:space="preserve">
+    <value>Cancella una pagina</value>
+  </data>
+  <data name="PagesGridEditButton" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="PagesGridEditButtonToolTip" xml:space="preserve">
+    <value>Modifica i dettagli della pagina</value>
+  </data>
+  <data name="PagesGridUpdateButton" xml:space="preserve">
+    <value>Aggiorna</value>
+  </data>
+  <data name="PagesGridEditDeleteHeader" xml:space="preserve">
+    <value>Modifica/Cancella</value>
+  </data>
+  <data name="PagesGridPageEnabledHeader" xml:space="preserve">
+    <value>Attiva</value>
+  </data>
+  <data name="PagesGridPageTitleHeader" xml:space="preserve">
+    <value>Titolo</value>
+  </data>
+  <data name="PagesGridQuestionCountHeader" xml:space="preserve">
+    <value>Conteggio domande</value>
+  </data>
+  <data name="PagesGridMoveUpAlternateText" xml:space="preserve">
+    <value>Pagina su</value>
+  </data>
+  <data name="PagesGridMoveUpToolTip" xml:space="preserve">
+    <value>Muovi la pagina su</value>
+  </data>
+  <data name="PagesGridMoveDownAlternateText" xml:space="preserve">
+    <value>Pagina giu'</value>
+  </data>
+  <data name="PagesGridMoveDownToolTip" xml:space="preserve">
+    <value>Muovi la pagina giu'</value>
+  </data>
+  <data name="PagesGridMoveUpOrDownHeader" xml:space="preserve">
+    <value>Muovi su/giu'</value>
+  </data>
+  <data name="PagesTableSummary" xml:space="preserve">
+    <value>Questa tabella contiene una lista di pagine di indagini.</value>
+  </data>
+  <data name="PageHasNoQuestionsWarning" xml:space="preserve">
+    <value>Questa pagina non ha domande.</value>
+  </data>
+  <data name="PageDeleteDeletesAllQuestionsWarning" xml:space="preserve">
+    <value>Cancellando una pagina cancellerai tutte le domande in essa contenute.</value>
+  </data>
+  <data name="PageEditSaveButton" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="PageEditSaveButtonToolTip" xml:space="preserve">
+    <value>Salva i dettagli della pagina</value>
+  </data>
+  <data name="PageTitleLabel" xml:space="preserve">
+    <value>Titolo della pagina</value>
+  </data>
+  <data name="PageEnabledLabel" xml:space="preserve">
+    <value>Pagina attiva</value>
+  </data>
+  <data name="PageAddButton" xml:space="preserve">
+    <value>Aggiungi nuova pagina</value>
+  </data>
+  <data name="PageAddButtonToolTip" xml:space="preserve">
+    <value>Aggiungi una nuova pagina all'indagine</value>
+  </data>
+  <data name="QuestionsGridDeleteButton" xml:space="preserve">
+    <value>Cancella</value>
+  </data>
+  <data name="QuestionsGridDeleteButtonAlternateText" xml:space="preserve">
+    <value>Cancella una domanda</value>
+  </data>
+  <data name="QuestionsGridDeleteButtonToolTip" xml:space="preserve">
+    <value>Cancella una domanda</value>
+  </data>
+  <data name="QuestionsGridEditButton" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="QuestionsGridEditButtonToolTip" xml:space="preserve">
+    <value>Modifica i dettagli della domanda</value>
+  </data>
+  <data name="QuestionsGridUpdateButton" xml:space="preserve">
+    <value>Aggiorna</value>
+  </data>
+  <data name="QuestionsGridEditDeleteHeader" xml:space="preserve">
+    <value>Modifica/Cancella</value>
+  </data>
+  <data name="QuestionsGridRequiredHeader" xml:space="preserve">
+    <value>Richiesto</value>
+  </data>
+  <data name="QuestionsGridTextHeader" xml:space="preserve">
+    <value>Testo della domanda</value>
+  </data>
+  <data name="QuestionsGridTypeHeader" xml:space="preserve">
+    <value>Tipo di domanda</value>
+  </data>
+  <data name="QuestionsGridMoveUpAlternateText" xml:space="preserve">
+    <value>Domanda su</value>
+  </data>
+  <data name="QuestionsGridMoveUpToolTip" xml:space="preserve">
+    <value>Muovi la domanda su</value>
+  </data>
+  <data name="QuestionsGridMoveDownAlternateText" xml:space="preserve">
+    <value>Domanda giu'</value>
+  </data>
+  <data name="QuestionsGridMoveDownToolTip" xml:space="preserve">
+    <value>Muovi la domanda giu'</value>
+  </data>
+  <data name="QuestionsGridMoveUpOrDownHeader" xml:space="preserve">
+    <value>Muovi su/giu'</value>
+  </data>
+  <data name="QuestionTableSummary" xml:space="preserve">
+    <value>Questa tabella contiene una lista di indagini per pagina.</value>
+  </data>
+  <data name="QuestionSurveyNoPages" xml:space="preserve">
+    <value>Devi creare almeno una pagina prima di poter creare domande.</value>
+  </data>
+  <data name="QuestionsAnswerIsRequiredLabel" xml:space="preserve">
+    <value>Risposta richiesta</value>
+  </data>
+  <data name="QuestionsQuestionTextLabel" xml:space="preserve">
+    <value>Testo domanda</value>
+  </data>
+  <data name="QuestionsQuestionTypeIdLabel" xml:space="preserve">
+    <value>Tipo domanda</value>
+  </data>
+  <data name="QuestionEditOptionsAddButton" xml:space="preserve">
+    <value>Aggiunta opzioni</value>
+  </data>
+  <data name="QuestionEditOptionsAddToolTip" xml:space="preserve">
+    <value>Salva l'opzione inserita.</value>
+  </data>
+  <data name="QuestionEditOptionsDeleteAlternateText" xml:space="preserve">
+    <value>Cancella l'opzione selezionata.</value>
+  </data>
+  <data name="QuestionEditOptionsDownAlternateText" xml:space="preserve">
+    <value>Muovi l'opzione selezionata giu' di una posizione.</value>
+  </data>
+  <data name="QuestionEditOptionsEditAlternateText" xml:space="preserve">
+    <value>Modifica l'opzione selezionata.</value>
+  </data>
+  <data name="QuestionEditOptionsLabel" xml:space="preserve">
+    <value>Opzioni:</value>
+  </data>
+  <data name="QuestionEditOptionsSaveButton" xml:space="preserve">
+    <value>Salva la domanda</value>
+  </data>
+  <data name="QuestionEditOptionsUpAlternateText" xml:space="preserve">
+    <value>Muovi l'opzione selezionata su di una posizione.</value>
+  </data>
+  <data name="QuestionEditOptionsSaveButtonToolTip" xml:space="preserve">
+    <value>Salva la domanda corrente.</value>
+  </data>
+  <data name="QuestionAddNewButtonText" xml:space="preserve">
+    <value>Aggiungi nuova domanda</value>
+  </data>
+  <data name="QuestionRequiredLabel" xml:space="preserve">
+    <value>Risposta richiesta</value>
+  </data>
+  <data name="QuestionsPageLabel" xml:space="preserve">
+    <value>Pagina</value>
+  </data>
+  <data name="QuestionTypeLabel" xml:space="preserve">
+    <value>Tipo domanda</value>
+  </data>
+  <data name="SurveyEditDeleteButton" xml:space="preserve">
+    <value>Cancella</value>
+  </data>
+  <data name="SurveyEditDeleteConfirmMessage" xml:space="preserve">
+    <value>Sei sicuro di volere cancellare definitivamente questa indagine?</value>
+  </data>
+  <data name="SurveyEditDeleteToolTip" xml:space="preserve">
+    <value>Cancella questa indagine</value>
+  </data>
+  <data name="SurveyEditLabel" xml:space="preserve">
+    <value>Aggiungi/Modifca Indagine</value>
+  </data>
+  <data name="SurveyEditSaveButton" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="SurveyEditSaveToolTip" xml:space="preserve">
+    <value>Salva l'indagine</value>
+  </data>
+  <data name="SurveyEditSurveyNameLabel" xml:space="preserve">
+    <value>Nome indagine</value>
+  </data>
+  <data name="SurveyEditSurveyActive" xml:space="preserve">
+    <value>Attiva</value>
+  </data>
+  <data name="SurveyNoSurveysWarning" xml:space="preserve">
+    <value>Nessuna indagine e' stata creata</value>
+  </data>
+  <data name="SurveysGridCreationDateHeader" xml:space="preserve">
+    <value>Creata</value>
+  </data>
+  <data name="SurveysGridDeleteButton" xml:space="preserve">
+    <value>Cancella</value>
+  </data>
+  <data name="SurveysGridDeleteButtonToolTip" xml:space="preserve">
+    <value>Cancella questa indagine</value>
+  </data>
+  <data name="SurveysGridEditButton" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="SurveysGridEditButtonToolTip" xml:space="preserve">
+    <value>Modifica questa indagine</value>
+  </data>
+  <data name="SurveysGridEditDeleteHeader" xml:space="preserve">
+    <value>Modifica/Cancella</value>
+  </data>
+  <data name="SurveysGridSurveyActiveHeader" xml:space="preserve">
+    <value>Attiva</value>
+  </data>
+  <data name="SurveysGridSurveyNameHeader" xml:space="preserve">
+    <value>Nome indagine</value>
+  </data>
+  <data name="SurveyBreadCrumbText" xml:space="preserve">
+    <value>Indagini</value>
+  </data>
+  <data name="SurveyDeleteDeletesAllPagesQuestionsWarning" xml:space="preserve">
+    <value>Cancellando un'indagine cancellerai tutte le relative pagine e domande</value>
+  </data>
+  <data name="SurveyEditCancelButton" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="SurveyEditCancelButtonToolTip" xml:space="preserve">
+    <value>Annula la modifica di questa indagine</value>
+  </data>
+  <data name="SurveyPagesBreadCrumbText" xml:space="preserve">
+    <value>Pagine</value>
+  </data>
+  <data name="SurveysGridPageCountHeader" xml:space="preserve">
+    <value>Pagine</value>
+  </data>
+  <data name="SurveysGridPageCountToolTip" xml:space="preserve">
+    <value>Numero di pagine in questa indagine</value>
+  </data>
+  <data name="QuestionEditCancelButton" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="QuestionEditCancelButtonToolTip" xml:space="preserve">
+    <value>Annulla la madifica di questa domanda</value>
+  </data>
+  <data name="SurveyPagesLabel" xml:space="preserve">
+    <value>Pagine</value>
+  </data>
+  <data name="SurveysLabel" xml:space="preserve">
+    <value>Indagini</value>
+  </data>
+  <data name="PageEditCancelButton" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="PageEditCancelButtonToolTip" xml:space="preserve">
+    <value>Annulla la modifica di questa pagina</value>
+  </data>
+  <data name="PageEditLabel" xml:space="preserve">
+    <value>Aggiungi/Modifica pagina</value>
+  </data>
+  <data name="SurveyQuestionsLabel" xml:space="preserve">
+    <value>Domande</value>
+  </data>
+  <data name="QuestionEditLabel" xml:space="preserve">
+    <value>Aggiungi/Modifica domanda</value>
+  </data>
+  <data name="SurveyEditBreadCrumbText" xml:space="preserve">
+    <value>Aggiungi/Modifica indagine</value>
+  </data>
+  <data name="SurveyPageEditBreadCrumbText" xml:space="preserve">
+    <value>Modifica pagina</value>
+  </data>
+  <data name="SurveyQuestionEditBreadCrumbText" xml:space="preserve">
+    <value>Aggiungi/Modifica domanda</value>
+  </data>
+  <data name="SurveyQuestionsBreadCrumbText" xml:space="preserve">
+    <value>Domande</value>
+  </data>
+  <data name="SurveyAddButton" xml:space="preserve">
+    <value>Aggiundi nuova indagine</value>
+  </data>
+  <data name="SurveyAddButtonToolTip" xml:space="preserve">
+    <value>Aggiundi una nuova indagine</value>
+  </data>
+  <data name="SurveyQuestionAddButton" xml:space="preserve">
+    <value>Aggiungi nuova domanda</value>
+  </data>
+  <data name="SurveyQuestionAddButtonToolTip" xml:space="preserve">
+    <value>Aggiungi una nuova domanda</value>
+  </data>
+  <data name="SurveysGridSetDefaultHeader" xml:space="preserve">
+    <value>Attivazione</value>
+  </data>
+  <data name="SurveysGridSelectedSurvey" xml:space="preserve">
+    <value>Questa e' l'indagine attiva per questa istanza di contenuto.</value>
+  </data>
+  <data name="SurveysGridSelectedSurveyHeader" xml:space="preserve">
+    <value>Attivazione</value>
+  </data>
+  <data name="SurveysGridSelectedSurveyToolTip" xml:space="preserve">
+    <value>Questa e' l'indagine attiva per questa istanza di contenuto.</value>
+  </data>
+  <data name="SurveysGridNotSelectedSurveyLink" xml:space="preserve">
+    <value>Rendi Attiva</value>
+  </data>
+  <data name="SurveysGridSelectedSurveyLink" xml:space="preserve">
+    <value>Attiva</value>
+  </data>
+  <data name="SurveyButtonBack" xml:space="preserve">
+    <value>&lt;&lt; Precedente</value>
+  </data>
+  <data name="SurveyButtonBackToolTip" xml:space="preserve">
+    <value>Vai alla pagina precedente dell'indagine</value>
+  </data>
+  <data name="SurveyButtonForward" xml:space="preserve">
+    <value>Successiva &gt;&gt;</value>
+  </data>
+  <data name="SurveyButtonForwardToolTip" xml:space="preserve">
+    <value>Vai alla pagina successiva dell'indagine</value>
+  </data>
+  <data name="SurveyButtonSubmit" xml:space="preserve">
+    <value>Finito</value>
+  </data>
+  <data name="SurveyButtonSubmitToolTip" xml:space="preserve">
+    <value>Invia le tue risposte finali a questa indagine</value>
+  </data>
+  <data name="SurveyNoneSelected" xml:space="preserve">
+    <value>Nessuna indagine selezionata</value>
+  </data>
+  <data name="SurveyStartText" xml:space="preserve">
+    <value>Avvia indagine</value>
+  </data>
+  <data name="SurveyThankyouMessageLabel" xml:space="preserve">
+    <value>Testo di indagine competata</value>
+  </data>
+  <data name="SurveyWelcomeMessageLabel" xml:space="preserve">
+    <value>Testo di benvenuto</value>
+  </data>
+  <data name="DropDownPleaseSelectText" xml:space="preserve">
+    <value>Prego selezionare</value>
+  </data>
+  <data name="QuestionValidationMessageLabel" xml:space="preserve">
+    <value>Messaggio di risposta richiesta</value>
+  </data>
+  <data name="SurveyPartialAnswersExist" xml:space="preserve">
+    <value>Risulta che tu abbia completato parzialmente l'indagine. Per recuperare le tue risposte parziali seleziona qui</value>
+  </data>
+  <data name="SurveysGridResponsesHeader" xml:space="preserve">
+    <value>Risposte</value>
+  </data>
+  <data name="ResultsGridAnswerHeader" xml:space="preserve">
+    <value>Risposta</value>
+  </data>
+  <data name="ResultsGridQuestionHeader" xml:space="preserve">
+    <value>Domanda</value>
+  </data>
+  <data name="SurveyGridResponseCountLinkToolTip" xml:space="preserve">
+    <value>Numero di risposte all'indagine</value>
+  </data>
+  <data name="SurveyResultsBreadCrumbText" xml:space="preserve">
+    <value>Risultati</value>
+  </data>
+  <data name="ResultsGridPageTitleHeader" xml:space="preserve">
+    <value>Pagina</value>
+  </data>
+  <data name="ResponseCompletionDateLabel" xml:space="preserve">
+    <value>Inviata</value>
+  </data>
+  <data name="ResponseRespondentLabel" xml:space="preserve">
+    <value>Partecipante</value>
+  </data>
+  <data name="ResponseGetNext" xml:space="preserve">
+    <value>Prossima</value>
+  </data>
+  <data name="ResponseGetNextToolTip" xml:space="preserve">
+    <value>Vai alla prossima risposta per questa indagine</value>
+  </data>
+  <data name="ResponseGetPrevious" xml:space="preserve">
+    <value>Precedente</value>
+  </data>
+  <data name="ResponseGetPreviousToolTip" xml:space="preserve">
+    <value>Vai alla precedente risposta per questa indagine</value>
+  </data>
+  <data name="ResultsGridDeleteResponseButton" xml:space="preserve">
+    <value>Cancella risposta</value>
+  </data>
+  <data name="ResultsGridDeleteResponseToolTip" xml:space="preserve">
+    <value>Cancella questa risposta</value>
+  </data>
+  <data name="SurveyFeatureName" xml:space="preserve">
+    <value>Indagine</value>
+  </data>
+  <data name="SurveyGridExportResponsesAlternateText" xml:space="preserve">
+    <value>Esporta in CSV</value>
+  </data>
+  <data name="SurveyGridExportResponsesToolTip" xml:space="preserve">
+    <value>Esporta tutte le risposte in CSV</value>
+  </data>
+  <data name="SurveyRespondentAnonymousText" xml:space="preserve">
+    <value>Anonimo</value>
+  </data>
+  <data name="AddEditGridLink" xml:space="preserve">
+    <value>Aggiungi/Modifica</value>
+  </data>
+  <data name="ChooseActiveSurveyFormatString" xml:space="preserve">
+    <value>Scegli indagine attiva per {0}</value>
+  </data>
+  <data name="ChooseActiveSurveyLink" xml:space="preserve">
+    <value>Scegli indagine attiva</value>
+  </data>
+  <data name="CompleteSurveyHeaderFormatString" xml:space="preserve">
+    <value>{0} - {1}</value>
+  </data>
+  <data name="NewQuestionTypeLabel" xml:space="preserve">
+    <value>Tipo nuova domanda:</value>
+  </data>
+  <data name="PageEditFormatString" xml:space="preserve">
+    <value>Modifica pagina per {0}</value>
+  </data>
+  <data name="PageEditNewPageFormatString" xml:space="preserve">
+    <value>Nuova pagina per{0}</value>
+  </data>
+  <data name="QuestionAddHeader" xml:space="preserve">
+    <value>Nuova domanda</value>
+  </data>
+  <data name="QuestionEditFormatString" xml:space="preserve">
+    <value>Modifica domanda per {0}</value>
+  </data>
+  <data name="QuestionEditHeader" xml:space="preserve">
+    <value>Modifica domanda</value>
+  </data>
+  <data name="QuestionsPageFormatString" xml:space="preserve">
+    <value>Domanda per {0}</value>
+  </data>
+  <data name="SurveyPagesLabelFormatString" xml:space="preserve">
+    <value>Modifica pagine per {0}</value>
+  </data>
+  <data name="SurveyResultsFormatString" xml:space="preserve">
+    <value>Risultati per {0}</value>
+  </data>
+  <data name="ViewResponsesLink" xml:space="preserve">
+    <value>Guarda</value>
+  </data>
+  <data name="SurveyPageTitle" xml:space="preserve">
+    <value>Indagine</value>
+  </data>
+</root>

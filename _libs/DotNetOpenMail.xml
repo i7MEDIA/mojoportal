@@ -1,0 +1,2346 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotNetOpenMail</name>
+    </assembly>
+    <members>
+        <member name="T:DotNetOpenMail.ISendableMessage">
+            <summary>
+            A message which can be sent.
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.IEmailStringable">
+            <summary>
+            Objects of a class which implements this interface 
+            can be converted to a string which can be used in 
+            an email.
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.MailException">
+            <summary>
+            General Mail Exception, including network errors,
+            connection errors, and configuration errors.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.MailException.#ctor">
+            <summary>
+            Create an instance of a MailException
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.MailException.#ctor(System.String)">
+            <summary>
+            Create an instance of a MailException
+            </summary>
+            <param name="message">The message describing the exception</param>
+        </member>
+        <member name="M:DotNetOpenMail.MailException.#ctor(System.String,System.Exception)">
+            <summary>
+            Create an instance of a MailException
+            </summary>
+            <param name="message">The message describing the exception</param>
+            <param name="inner">The inner exception</param>
+        </member>
+        <member name="T:DotNetOpenMail.Logging.LogMessage">
+            <summary>
+            Summary description for LogMessage.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Logging.LogMessage.#ctor(System.Object,System.String)">
+            <summary>
+            Log a message
+            </summary>
+            <param name="sender">The object logging the message</param>
+            <param name="message">The message to be logged</param>
+        </member>
+        <member name="P:DotNetOpenMail.Logging.LogMessage.Message">
+            <summary>
+            The log message
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.Logging.LogMessage.Sender">
+            <summary>
+            The sender object
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.FileAttachment">
+            <summary>
+            A mime representation of a file which can be transferred
+            via email.
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.AbstractEmailAttachment">
+            <summary>
+            This is an abstract version of the email attachment.  It may or
+            may not contain content, a character encoding method, a 
+            mime-encoding method, a content-type designation, a content-id 
+            designation, among other things
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.AbstractEmailAttachment._encodingtype">
+            <summary>
+            The mail encoding type (e.g. quoted-printable, etc)
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.AbstractEmailAttachment._contenttype">
+            <summary>
+            The "content type" of the attachment
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.AbstractEmailAttachment._contenttransferencoding">
+            <summary>
+            The content-transfer encoding of the attachment
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.AbstractEmailAttachment._contentdisposition">
+            <summary>
+            The content disposition of the attachment
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.AbstractEmailAttachment._contentdescription">
+            <summary>
+            The content description of the attachment
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.AbstractEmailAttachment._charset">
+            <summary>
+            The character set of the encoded text
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.AbstractEmailAttachment._contents">
+            <summary>
+            The unencoded contents, as a string (optional)
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.AbstractEmailAttachment._contentid">
+            <summary>
+            An optional content id
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.AbstractEmailAttachment._filename">
+            <summary>
+            The file name to identify the content.
+            (This can be different from the actual file name,
+            if there was one.)
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.AbstractEmailAttachment._fileinfo">
+            <summary>
+            The file source to read from
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.AbstractEmailAttachment._contentbytes">
+            <summary>
+            The binary source of the file
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.AbstractEmailAttachment.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.AbstractEmailAttachment.GetEncodedContents(DotNetOpenMail.Encoding.IEncoder)">
+            <summary>
+            Get the contents, encoded for shipping via SMTP
+            </summary>
+            <param name="encoder">The encoder to encode the contents</param>
+            <returns>returns the encoded string, ready for SMTP transfer</returns>
+        </member>
+        <member name="M:DotNetOpenMail.AbstractEmailAttachment.ToDataString">
+            <summary>
+            Return the encoded contents, including mime
+            header.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.AbstractEmailAttachment.GetInternalMimeHeader(DotNetOpenMail.Encoding.IEncoder)">
+            <summary>
+            Create the internal mime header, as found on the
+            mime-attachment itself.
+            </summary>
+            <param name="encoder"></param>
+            <returns></returns>
+        </member>
+        <member name="P:DotNetOpenMail.AbstractEmailAttachment.Encoding">
+            <summary>
+            The encoding type for this attachment.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.AbstractEmailAttachment.ContentType">
+            <summary>
+            The "content type" of the attachment
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.AbstractEmailAttachment.CharSet">
+            <summary>
+            The character set of the encoded text
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.AbstractEmailAttachment.ContentId">
+            <summary>
+            An optional content id that is used to refer to
+            the attachment from elsewhere within a multipart/related
+            email.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.AbstractEmailAttachment.FileName">
+            <summary>
+            The file name to attach to the attachment.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.AbstractEmailAttachment.Contents">
+            <summary>
+            The unencoded contents, as a string (optional)
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.AbstractEmailAttachment.ContentBytes">
+            <summary>
+            The raw bytes of the content (if this is the way
+            it was set.)
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.FileAttachment.#ctor(System.IO.FileInfo)">
+            <summary>
+            Create a new File attachment from a FileInfo object
+            </summary>
+            <param name="fileinfo">A fileinfo object which points to a local file.</param>
+        </member>
+        <member name="M:DotNetOpenMail.FileAttachment.#ctor(System.IO.StreamReader)">
+            <summary>
+            Create a new text file attachment from a StreamReader.
+            </summary>
+            <param name="streamreader">An open streamreader</param>
+        </member>
+        <member name="M:DotNetOpenMail.FileAttachment.#ctor(System.IO.BinaryReader)">
+            <summary>
+            Create a new binary file attachment from a BinaryReader.
+            </summary>
+            <param name="binaryreader">An open binaryreader</param>
+        </member>
+        <member name="M:DotNetOpenMail.FileAttachment.#ctor(System.Byte[])">
+            <summary>
+            Create a new binary file attachment from an array of bytes.
+            </summary>
+            <param name="bytes">An array of bytes</param>
+        </member>
+        <member name="M:DotNetOpenMail.FileAttachment.#ctor(System.String)">
+            <summary>
+            Create a new file attachment from a String.
+            </summary>
+            <param name="content">The contents of the file</param>
+        </member>
+        <member name="M:DotNetOpenMail.FileAttachment.#ctor(System.IO.FileInfo,System.String)">
+            <summary>
+            Create a new File attachment with a contentid from a FileInfo object.
+            The contentid will be used to refer to this attachment in 
+            another mime part of the email.
+            </summary>
+            <param name="fileinfo">A fileinfo object which points to a local file.</param>
+            <param name="contentid">the content id value</param>
+        </member>
+        <member name="M:DotNetOpenMail.FileAttachment.#ctor(System.IO.StreamReader,System.String)">
+            <summary>
+            Create a new file attachment from a StreamReader.
+            The contentid will be used to refer to this attachment in 
+            another mime part of the email. 
+            </summary>
+            <param name="streamreader">An open streamreader</param>
+            <param name="contentid">the content id value</param>
+        </member>
+        <member name="M:DotNetOpenMail.FileAttachment.#ctor(System.IO.BinaryReader,System.String)">
+            <summary>
+            Create a new file attachment from a BinaryReader.
+            The contentid will be used to refer to this attachment in 
+            another mime part of the email. 
+            </summary>
+            <param name="binaryreader">An open binary readerr</param>
+            <param name="contentid">the content id value</param>
+        </member>
+        <member name="M:DotNetOpenMail.FileAttachment.#ctor(System.Byte[],System.String)">
+            <summary>
+            Create a new file attachment from a byte array.
+            The contentid will be used to refer to this attachment in 
+            another mime part of the email. 
+            </summary>
+            <param name="bytes">An array of bytes</param>
+            <param name="contentid">the content id value</param>
+        </member>
+        <member name="M:DotNetOpenMail.FileAttachment.#ctor(System.String,System.String)">
+            <summary>
+            Create a new text file attachment from a String.
+            The contentid will be used to refer to this attachment in 
+            another mime part of the email.
+            </summary>
+            <param name="content">The contents of the file</param>
+            <param name="contentid">the content id value</param>
+        </member>
+        <member name="T:DotNetOpenMail.EmailAddress">
+            <summary>
+            An email address.
+            The two parts of the email address object
+            are the email address itself and the
+            name.  The name may be encoded if desired.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.EmailAddress.#ctor(System.String,System.String)">
+            <summary>
+            Create an instance of an email address object.
+            </summary>
+            <param name="email">The address portion of the email</param>
+            <param name="name">The name portion of the email.</param>
+        </member>
+        <member name="M:DotNetOpenMail.EmailAddress.#ctor(System.String)">
+            <summary>
+            Create an instance of an email address object.
+            </summary>
+            <param name="email">The address portion of the email</param>
+        </member>
+        <member name="M:DotNetOpenMail.EmailAddress.#ctor(System.String,System.String,DotNetOpenMail.Encoding.EncodingType,System.Text.Encoding)">
+            <summary>
+            Create an character-encoded instance of an email address object.
+            </summary>
+            <param name="email">The address portion of the email</param>
+            <param name="name">The name portion of the email.</param>
+            <param name="charset">The character set to encode the name portion of the email address.</param>
+            <param name="encodingtype">The encoding type to use to encode the name portion of the mail address.</param>
+        </member>
+        <member name="M:DotNetOpenMail.EmailAddress.ToDataString">
+            <summary>
+            Create the string representation of this email address
+            (encoded or otherwise) as it will appear in the email
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.EmailAddress.ToString">
+            <summary>
+            Calls ToDataString.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DotNetOpenMail.EmailAddress.Email">
+            <summary>
+            The email address portion of the email address object
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailAddress.Name">
+            <summary>
+            The name portion of the email address object
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.TextAttachment">
+            <summary>
+            A mime representation of plain-text content.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.TextAttachment.#ctor(System.String)">
+            <summary>
+            Create a new plain-text Attachment.  It flags the content/type
+            as "text/plain", uses Quoted Printable encoding by
+            default, and uses the default character set, which is
+            ISO-8859-1 unless otherwise specified in the .config file.
+            </summary>
+            <param name="contents"></param>
+        </member>
+        <member name="T:DotNetOpenMail.ISmtpProxy">
+            <summary>
+            Interact directly with the SMTP server.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.ISmtpProxy.Open">
+            <summary>
+            Open the connection
+            </summary>
+            <returns>The SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.ISmtpProxy.Helo(System.String)">
+            <summary>
+            Send the HELO command
+            </summary>
+            <param name="localHostName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.ISmtpProxy.Ehlo(System.String)">
+            <summary>
+            Send the EHLO command
+            </summary>
+            <param name="localHostName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.ISmtpProxy.MailFrom(DotNetOpenMail.EmailAddress)">
+            <summary>
+            Send the MAIL FROM command
+            </summary>
+            <param name="mailfrom"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.ISmtpProxy.RcptTo(DotNetOpenMail.EmailAddress)">
+            <summary>
+            Send one RCPT TO command
+            </summary>
+            <param name="rcptto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.ISmtpProxy.Data">
+            <summary>
+            Send the DATA command
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.ISmtpProxy.WriteData(System.String)">
+            <summary>
+            Write the message content
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.ISmtpProxy.Quit">
+            <summary>
+            Send the QUIT message to the server
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.ISmtpProxy.Close">
+            <summary>
+            Close the connection
+            </summary>
+            <returns>The SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.ISmtpProxy.Auth(System.String)">
+            <summary>
+            Send the AUTH command
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.ISmtpProxy.SendString(System.String)">
+            <summary>
+            Send any old string to the proxy
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="P:DotNetOpenMail.ISmtpProxy.CaptureSmtpConversation">
+            <summary>
+            Turn the SMTP Conversation Capture off/on.
+            If on, GetSmtpConversation will contain the
+            most recent conversation.
+            </summary>
+            <returns>the on/off value</returns>
+        </member>
+        <member name="T:DotNetOpenMail.Encoding.EightBitEncoder">
+            <summary>
+            Denotes 8bit encoding.  Note that this doesn't really
+            encode anything; it just specifies that this email is already
+            in 8-bit encoding.
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.Encoding.DoNothingEncoder">
+            <summary>
+            An encoder that does nothing.  (This is essentially
+            what the 7bit and 8bit encodings are; they are just
+            markers, not actual encodings)
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.Encoding.IEncoder">
+            <summary>
+            An interface for a string encoder
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.IEncoder.Encode(System.IO.StringReader,System.IO.StringWriter,System.Text.Encoding)">
+            <summary>
+            Encode from the stringreader to the stringwriter.
+            </summary>
+            <param name="source">an open stringreader to the source string</param>
+            <param name="destination">where the output is written</param>
+            <param name="charset">the outgoing charset</param>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.IEncoder.Encode(System.IO.FileStream,System.IO.StringWriter,System.Text.Encoding)">
+            <summary>
+            Encode the file stream into the stringwriter.
+            </summary>
+            <param name="filestream">an open stream to file to be read</param>
+            <param name="destination">where the output is written</param>
+            <param name="charset">the outgoing charset</param>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.IEncoder.Encode(System.IO.BinaryReader,System.IO.StringWriter)">
+            <summary>
+            Encode the binary reader into the stringwriter.
+            </summary>
+            <param name="binaryreader">an open binary reader for the data to be encoded.</param>
+            <param name="destination">where the output is written</param>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.IEncoder.EncodeHeaderString(System.String,System.String,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Encode the string according to rfc-2047 if some of it
+            falls outside the 7bit ASCII charset.
+            </summary>
+            <param name="name">The header key</param>
+            <param name="val">The header value string</param>
+            <param name="charset">Charset for the encoded string</param>
+            <param name="forceencoding">Force encoding, even if in ascii-only.</param>
+            <returns>The encoded string</returns>
+        </member>
+        <member name="P:DotNetOpenMail.Encoding.IEncoder.ContentTransferEncodingString">
+            <summary>
+            The String that goes in the content transfer encoding header
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.DoNothingEncoder.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.DoNothingEncoder.Encode(System.IO.StringReader,System.IO.StringWriter,System.Text.Encoding)">
+            <summary>
+            Echo the text back unchanged.
+            </summary>
+            <param name="stringreader">Reader for the incoming string</param>
+            <param name="stringwriter">Writer for the outgoing string</param>
+            <param name="encoding">The encodigng for the outgoing string (ignored)</param>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.DoNothingEncoder.Encode(System.IO.FileStream,System.IO.StringWriter,System.Text.Encoding)">
+            <summary>
+            Echo the text back unchanged
+            </summary>
+            <param name="filestream">The incoming filestream</param>
+            <param name="stringwriter">The outgoing filestream</param>
+            <param name="charset">Charset (ignored)</param>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.DoNothingEncoder.Encode(System.IO.BinaryReader,System.IO.StringWriter)">
+            <summary>
+            Echo the text back unchanged (good for 7bit text only).
+            </summary>
+            <param name="binaryreader">The incoming binaryreader</param>
+            <param name="stringwriter">The outgoing stream</param>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.DoNothingEncoder.EncodeHeaderString(System.String,System.String,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Do nothing to the header string
+            </summary>
+            <param name="name">The header key</param>
+            <param name="val">The header value</param>
+            <param name="charset">The charset to encode in (ignored)</param>
+            <param name="forceencoding">(ignored)</param>
+            <returns></returns>
+        </member>
+        <member name="P:DotNetOpenMail.Encoding.DoNothingEncoder.ContentTransferEncodingString">
+            <summary>
+            The String that goes in the content transfer encoding header
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.EightBitEncoder.#ctor">
+            <summary>
+            Empty Constructor
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.EightBitEncoder.GetInstance">
+            <summary>
+            Create the EightBitEncoder object.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.Encoding.EightBitEncoder.ContentTransferEncodingString">
+            <summary>
+            The String that goes in the content transfer encoding header
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.EmailMessage">
+            <summary>
+            An Email Message
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.#ctor">
+            <summary>
+            Create a new instance of an EmailMessage.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.AddToAddress(DotNetOpenMail.EmailAddress)">
+            <summary>
+            Add a To address to the Headers.  This will also
+            be used during the "RCPT TO" SMTP negotiation
+            </summary>
+            <param name="emailaddress">Email Address object of the recipient</param>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.AddToAddress(System.String)">
+            <summary>
+            Add a To address to the Headers.  This will also
+            be used during the "RCPT TO" SMTP negotiation
+            </summary>
+            <param name="email">The plain email address (don't include the name)</param>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.AddCcAddress(DotNetOpenMail.EmailAddress)">
+            <summary>
+            Add a Cc address to the Headers.  This will also
+            be used during the "RCPT TO" SMTP negotiation
+            </summary>
+            <param name="emailaddress">Email Address object of the recipient</param>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.AddCcAddress(System.String)">
+            <summary>
+            Add a Cc address to the Headers.  This will also
+            be used during the "RCPT TO" SMTP negotiation
+            </summary>
+            <param name="email">The plain email address (don't include the name)</param>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.AddBccAddress(DotNetOpenMail.EmailAddress)">
+            <summary>
+            Add a recipient who will be "Blind Carbon Copied"
+            as a recipient of the email.  BCC addresses are
+            not added to the email headers, but only appear
+            during the "RCPT TO" SMTP negotiation.
+            </summary>
+            <param name="emailaddress">The EmailAddress object</param>		
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.AddBccAddress(System.String)">
+            <summary>
+            Add a recipient who will be "Blind Carbon Copied"
+            as a recipient of the email.  BCC addresses are
+            not added to the email headers, but only appear
+            during the "RCPT TO" SMTP negotiation.
+            </summary>
+            <param name="email">The plain email address (don't include the name)</param>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.AddCustomHeader(System.String,System.String)">
+            <summary>
+            Add a custom mail header, e.g. "X-MyHeader".
+            </summary>
+            <param name="header">The header name (without a colon)</param>
+            <param name="val">The value of the header.  This value will not
+            be encoded.</param>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.GetStandardHeaders(System.Text.Encoding,DotNetOpenMail.Encoding.IEncoder)">
+            <summary>
+            Get the minimal header set in the specified character,
+            and using the mime encoder provided.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.EncodeHeaderValue(System.String,System.String)">
+            <summary>
+            Encode a header value using the current header encoder and charset.
+            </summary>
+            <param name="name">The header name</param>
+            <param name="val">The header value</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.HasMixedContent">
+            <summary>
+            Returns true if there is content that should be "multipart/mixed"
+            </summary>
+            <returns>true if the content is multipart/mixed.</returns>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.HasRelatedContent">
+            <summary>
+            Returns true if there is content that should be "multipart/related"
+            </summary>
+            <returns>true if the content is multipart/related.</returns>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.ToDataStringHeaders(System.Text.Encoding,DotNetOpenMail.Encoding.IEncoder)">
+            <summary>
+            Encode the headers as they will appear in the email
+            </summary>
+            <param name="charset">the charset encoding for the string</param>
+            <param name="encoder">the mime encoding</param>
+            <returns>the encoded string</returns>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.ToDataStringBody">
+            <summary>
+            Encode the email body as it will appear in the email
+            </summary>
+            <returns>the encoded body</returns>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.FormatBodyText(System.String)">
+            <summary>
+            format the body text---not implemented yet.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.ToDataString">
+            <summary>
+            Render the encoded message for smtp "DATA" transmission.
+            This is the final version that will get sent to the 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.Send(DotNetOpenMail.SmtpServer)">
+            <summary>
+            Send out the email via the smtp server given.  If 
+            the SMTP server throws an error, an SmtpException will
+            be thrown.  All other exceptions will be MailExceptions
+            </summary>
+            <param name="smtpserver">The outgoing SMTP server.</param>
+            <returns>true if sent successfully.  (note that this
+            will not currently return false, but in the future
+            a false value may be used)</returns>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.AddMixedAttachment(DotNetOpenMail.FileAttachment)">
+            <summary>
+            Add an attachment which will appear to the user as
+            a separate file.  (It is not referred to in the email itself.)
+            </summary>
+            <param name="fileattachment">The file attachment</param>
+        </member>
+        <member name="M:DotNetOpenMail.EmailMessage.AddRelatedAttachment(DotNetOpenMail.FileAttachment)">
+            <summary>
+            Add an image which is referred to from another part of
+            the email (probably the HTML attachment).  You should
+            set the ContentID of the file attachment before passing
+            it in.
+            </summary>
+            <param name="fileattachment">The file attachment</param>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.Subject">
+            <summary>
+            The subject line or subject header of the
+            email.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.FromAddress">
+            <summary>
+            The address that appears in the From header.  It will
+            also be used as the Envelope From address in the SMTP 
+            negotiation, unless it is overridden by the EnvelopeFromAddress
+            setting.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.EnvelopeFromAddress">
+            <summary>
+            Normally the FromAddress is used as the
+            envelope-from address, but it can be
+            overridden here, if it is not null.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.ToAddresses">
+            <summary>
+            Retrieve the collection of recipients
+            that will appear in the "To" header of the
+            email.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.CcAddresses">
+            <summary>
+            Retrieve the collection of recipients
+            that will appear in the "Cc" header of the
+            email.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.BccAddresses">
+            <summary>
+            Get the current EmailAddressCollection of BCC addresses
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.Organization">
+            <summary>
+            Get/set the organization (as it will appear in the organization
+            header
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.XMailer">
+            <summary>
+            Get the current XMailer setting for the X-Mailer header.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.HeaderCharSet">
+            <summary>
+            The charset that is used for encoding the headers
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.HeaderEncoding">
+            <summary>
+            The mime encoding that is used for encoding the headers
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.BodyText">
+            <summary>
+            The text that occurs within the body.  By default,
+            it is a MIME notice, but it can be overridden here.
+            NOTE: This is only useful for 7 bit us-ascii currently.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.ContentType">
+            <summary>
+            Set the content type string in the mime header
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.TextPart">
+            <summary>
+            Set the plain text part of the email.  This is optional
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EmailMessage.HtmlPart">
+            <summary>
+            Set the html part of the email.  This is optional
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.SmtpException">
+            <summary>
+            An SmtpException represents an SMTP response
+            code and an error message.  Network and connection
+            errors are represented by a MailException instead.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpException.#ctor(System.Int32)">
+            <summary>
+            Create a new instance of the SmtpException
+            </summary>
+            <param name="errorcode">The SMTP error code</param>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpException.#ctor(System.Int32,System.String)">
+            <summary>
+            Create a new instance of the SmtpException
+            </summary>
+            <param name="errorcode">The SMTP error code</param>
+            <param name="message">The SMTP error message</param>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpException.#ctor(System.Int32,System.String,System.Exception)">
+            <summary>
+            Create a new instance of the SmtpException
+            </summary>
+            <param name="errorcode">The SMTP error code</param>
+            <param name="message">The SMTP error message</param>
+            <param name="inner">The inner exception</param>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpException.ToString">
+            <summary>
+            Convert to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpException.ErrorCode">
+            <summary>
+            The SMTP error code.
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.RawEmailMessage">
+            <summary>
+            A full, preformatted email message, including headers
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.RawEmailMessage.#ctor">
+            <summary>
+            Create an instance of the RawEmailMessage
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.RawEmailMessage.AddRcptToAddress(DotNetOpenMail.EmailAddress)">
+            <summary>
+            Add a recipient to the EmailAddressCollection
+            of recipients
+            </summary>
+            <param name="emailaddress"></param>
+        </member>
+        <member name="M:DotNetOpenMail.RawEmailMessage.Send(DotNetOpenMail.SmtpServer)">
+            <summary>
+            Send the email via the specified SMTP server
+            </summary>
+            <param name="smtpserver">The SMTP server to use</param>
+            <returns>true if the email was sent</returns>
+        </member>
+        <member name="M:DotNetOpenMail.RawEmailMessage.ToDataString">
+            <summary>
+            Render the message for smtp "DATA" transmission.
+            </summary>
+            <returns>The rendered String, which in this 
+            case is the content itself, untouched.</returns>
+        </member>
+        <member name="P:DotNetOpenMail.RawEmailMessage.Content">
+            <summary>
+            The raw content of the email
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.RawEmailMessage.MailFrom">
+            <summary>
+            The address to use in the envelope-from
+            SMTP negotiation
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.RawEmailMessage.RcptToAddresses">
+            <summary>
+            The recipient addresses
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.MessageHeaderCollection">
+            <summary>
+            A collection of MessageHeader objects
+            Implements the CollectionBase interface.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.MessageHeaderCollection.#ctor">
+            <summary>
+            Initializes a new instance of the ArrayList class.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.MessageHeaderCollection.Add(DotNetOpenMail.MessageHeader)">
+            <summary>
+            Adds an object to the end of the MessageHeaderCollection
+            </summary>
+            <param name="MessageHeader">The Object to be added to the end of the MessageHeaderCollection. 
+            The value can be a null reference (Nothing in Visual Basic). </param>
+            <returns>The MessageHeaderCollection index at which the value has been added.</returns>
+        </member>
+        <member name="M:DotNetOpenMail.MessageHeaderCollection.IndexOf(DotNetOpenMail.MessageHeader)">
+            <summary>
+            Returns the zero-based index of the first occurrence of a
+            value in the MessageHeaderCollection or in a portion of it.
+            </summary>
+            <param name="value">The Object to locate in the MessageHeaderCollection. The value 
+            can be a null reference (Nothing in Visual Basic). </param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.MessageHeaderCollection.Insert(System.Int32,DotNetOpenMail.MessageHeader)">
+            <summary>
+            Inserts an element into the MessageHeaderCollection at 
+            the specified index.
+            </summary>
+            <param name="index">The zero-based index at which value should be inserted</param>
+            <param name="MessageHeader">The MessageHeader to insert. 
+            The value can be a null reference (Nothing in Visual Basic). </param>
+        </member>
+        <member name="M:DotNetOpenMail.MessageHeaderCollection.Remove(DotNetOpenMail.MessageHeader)">
+            <summary>
+            Removes the first occurrence of a 
+            specific MessageHeader from the MessageHeaderCollection.
+            </summary>
+            <param name="MessageHeader">The object to remove from the MessageHeaderCollection</param>
+        </member>
+        <member name="M:DotNetOpenMail.MessageHeaderCollection.ToDataString">
+            <summary>
+            Write the MessageHeaderCollection to a string that can be 
+            included in an email.
+            </summary>
+            <returns>The String as it will appear in the resulting email.</returns>
+        </member>
+        <member name="T:DotNetOpenMail.SmtpProxy">
+            <summary>
+            A proxy to access an SMTP server.  This drives 
+            the protocol interaction.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.GetInstance(DotNetOpenMail.SmtpServer)">
+            <summary>
+            Get an instance of the SMTP Proxy
+            </summary>
+            <param name="smtpserver"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.Open">
+            <summary>
+            Connect to the server and return the initial 
+            welcome string. Throw a MailException if we 
+            can't connect.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.Helo(System.String)">
+            <summary>
+            Send the HELO string.
+            Throw a MailException if we can't connect.
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.Ehlo(System.String)">
+            <summary>
+            Send the EHLO string.
+            Throw a MailException if we can't connect.
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.MailFrom(DotNetOpenMail.EmailAddress)">
+            <summary>
+            Send the MAIL FROM command
+            Throw a MailException if we can't connect.
+            </summary>
+            <param name="mailfrom">The Envelope-From address</param>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.RcptTo(DotNetOpenMail.EmailAddress)">
+            <summary>
+            Send the MAIL FROM command
+            Throw a MailException if we can't connect.
+            </summary>
+            <param name="rcpttoaddress">A recipient's address</param>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.Data">
+            <summary>
+            Send the DATA string (without the data)
+            Throw a MailException if we can't connect.
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.WriteData(System.String)">
+            <summary>
+            Send the message content string
+            Throw a MailException if we can't 
+            connect.
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.ReadEhloSmtpResponse">
+            <summary>
+            Parse the response from the EHLO into an 
+            EhloSmtpResponse.  Returns 250 "OK" if successful.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.Auth(System.String)">
+            <summary>
+            Send the AUTH command
+            Throw a MailException if we can't connect.
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.SendString(System.String)">
+            <summary>
+            Send any old string to the proxy
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.Write(System.String)">
+            <summary>
+            Write a string to the current connection.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.Quit">
+            <summary>
+            Send the QUIT command
+            Throw a MailException if we can't connect.
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpProxy.DotNetOpenMail#ISmtpProxy#Close">
+            <summary>
+            A proxy to access an SMTP server.  This drives 
+            the protocol interaction.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpProxy.CaptureSmtpConversation">
+            <summary>
+            Set this to "true" if you want to capture the SMTP negotiation.
+            Once the conversation has finished, use "GetConversation" to
+            view it.
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.Utils.VersionInfo">
+            <summary>
+            The DotNetOpenMail Version.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Utils.VersionInfo.#ctor">
+            <summary>
+            Empty Constructor
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Utils.VersionInfo.GetInstance">
+            <summary>
+            Get the singleton of this class
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.Utils.VersionInfo.ToString">
+            <summary>
+            Get the current version info as a printable string.
+            This will be of the form A.B.CD, where A is the
+            majorid, B is the minor id, C is the incidental revision, 
+            and D is either "a", "b", "rcX" for "alpha", "beta" and
+            "release candidate X", respectively.  If it is the
+            release version, D is blank.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DotNetOpenMail.Utils.EmailAddressParser">
+            <summary>
+            Parse a email address string into an EmailAddress.
+            * This isn't very mature yet! *
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Utils.EmailAddressParser.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Utils.EmailAddressParser.ParseRawEmailAddress(System.String)">
+            <summary>
+            Parse a raw email address into an EmailAddress object.
+            If it can't be parsed, return null and set LastError
+            to the error message.
+            </summary>
+            <param name="rawemailaddress"></param>
+            <returns></returns>
+        </member>
+        <member name="P:DotNetOpenMail.Utils.EmailAddressParser.LastError">
+            <summary>
+            If the last conversion was unsuccessful, this
+            contains the error message.  If it was successful,
+            it will be null.
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.SmtpSslProxy">
+            <summary>
+            Created:        2007-12-20
+            Last Modified:  2007-12-20
+            
+            Based on the original SmtpProxy class but modified by Joe Audette
+            to use Org.Mentalis.Security for SSL
+            
+            A proxy to access an SMTP server.  This drives 
+            the protocol interaction.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.GetInstance(DotNetOpenMail.SmtpServer)">
+            <summary>
+            Get an instance of the SMTP Proxy
+            </summary>
+            <param name="smtpserver"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.Open">
+            <summary>
+            Connect to the server and return the initial 
+            welcome string. Throw a MailException if we 
+            can't connect.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.Helo(System.String)">
+            <summary>
+            Send the HELO string.
+            Throw a MailException if we can't connect.
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.Ehlo(System.String)">
+            <summary>
+            Send the EHLO string.
+            Throw a MailException if we can't connect.
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.MailFrom(DotNetOpenMail.EmailAddress)">
+            <summary>
+            Send the MAIL FROM command
+            Throw a MailException if we can't connect.
+            </summary>
+            <param name="mailfrom">The Envelope-From address</param>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.RcptTo(DotNetOpenMail.EmailAddress)">
+            <summary>
+            Send the MAIL FROM command
+            Throw a MailException if we can't connect.
+            </summary>
+            <param name="rcpttoaddress">A recipient's address</param>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.Data">
+            <summary>
+            Send the DATA string (without the data)
+            Throw a MailException if we can't connect.
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.WriteData(System.String)">
+            <summary>
+            Send the message content string
+            Throw a MailException if we can't 
+            connect.
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.ReadEhloSmtpResponse">
+            <summary>
+            Parse the response from the EHLO into an 
+            EhloSmtpResponse.  Returns 250 "OK" if successful.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.Auth(System.String)">
+            <summary>
+            Send the AUTH command
+            Throw a MailException if we can't connect.
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.SendString(System.String)">
+            <summary>
+            Send any old string to the proxy
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.Write(System.String)">
+            <summary>
+            Write a string to the current connection.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.Quit">
+            <summary>
+            Send the QUIT command
+            Throw a MailException if we can't connect.
+            </summary>
+            <returns>the SMTP response</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpSslProxy.DotNetOpenMail#ISmtpProxy#Close">
+            <summary>
+            Created:        2007-12-20
+            Last Modified:  2007-12-20
+            
+            Based on the original SmtpProxy class but modified by Joe Audette
+            to use Org.Mentalis.Security for SSL
+            
+            A proxy to access an SMTP server.  This drives 
+            the protocol interaction.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpSslProxy.CaptureSmtpConversation">
+            <summary>
+            Set this to "true" if you want to capture the SMTP negotiation.
+            Once the conversation has finished, use "GetConversation" to
+            view it.
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.RFC2822Date">
+            <summary>
+            Create a RFC 2822-compliant date.
+            
+            See section 3.3 in
+            http://ftp.rfc-editor.org/in-notes/rfc2822.txt
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.RFC2822Date.#ctor(System.DateTime,System.TimeZone)">
+            <summary>
+            Create an instance of the RFC 2822 date object.
+            </summary>
+            <param name="datetime">The date to convert</param>
+            <param name="timezone">The timezone to use in the conversion</param>
+        </member>
+        <member name="M:DotNetOpenMail.RFC2822Date.ToString">
+            <summary>
+            Generate the date string
+            </summary>
+            <returns>A RFC-2822 error code</returns>
+        </member>
+        <member name="T:DotNetOpenMail.Encoding.QPEncoder">
+            <summary>
+            See: http://www.freesoft.org/CIE/RFC/1521/6.htm
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.Encoding.QPEncoder.MAX_CHARS_PER_LINE">
+            <summary>
+            Maximum characters per line, before the end-of-line character
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.Encoding.QPEncoder.END_OF_LINE">
+            <summary>
+            The end-of-line character(s).
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.QPEncoder.#ctor">
+            <summary>
+            Empty Constructor
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.QPEncoder.GetInstance">
+            <summary>
+            Create an instance of the encoder
+            </summary>
+            <returns>The instantiated Quoted-printable encoder</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.QPEncoder.Encode(System.IO.BinaryReader,System.IO.StringWriter)">
+            <summary>
+            Encode the incoming stream in quoted-printable encoding.
+            </summary>
+            <param name="binaryreader">The incoming binary reader</param>
+            <param name="stringwriter">The outgoing string writer</param>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.QPEncoder.Encode(System.IO.FileStream,System.IO.StringWriter,System.Text.Encoding)">
+            <summary>
+            Encode the incoming stream in quoted-printable encoding.
+            </summary>
+            <param name="filestream">The incoming file stream</param>
+            <param name="stringwriter">The outgoing string writer</param>
+            <param name="charset">The charset to write the outgoing string in</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:DotNetOpenMail.Encoding.QPEncoder.Encode(System.IO.StringReader,System.IO.StringWriter,System.Text.Encoding)" -->
+        <member name="M:DotNetOpenMail.Encoding.QPEncoder.EncodeString(System.String,System.Text.Encoding)">
+            <summary>
+            Encode the string in quoted printable format
+            </summary>
+            <param name="str">The source string</param>
+            <param name="charset">The outgoing charset</param>
+            <returns>the encoded string</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.QPEncoder.EncodeString(System.String,System.Text.Encoding,System.Boolean,System.Int32)">
+            <summary>
+            Encode the string in quoted printable format
+            </summary>
+            <param name="sourceString">The source string</param>
+            <param name="charset">The outgoing charset</param>
+            <param name="forceRFC2047">Force encoding, even if not required by qp RFC</param>
+            <param name="offset">The total characters outside the encoding.  This is used to figure
+            out how long the line will be after encoding.</param>
+            <returns>the encoded string</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.QPEncoder.EncodeHeaderString(System.String,System.String,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Encode header as per RFC 2047:
+            http://www.faqs.org/rfcs/rfc2047.html
+            
+            </summary>
+            <remarks>This doesn't split long lines yet</remarks>
+            <param name="name">the header name</param>
+            <param name="val">the string to encode</param>
+            <param name="charset">The charset to encode to</param>
+            <param name="forceencoding">Force encoding, even if not required by qp RFC</param>
+            <returns>the encoded string, suitable for use in a header</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.QPEncoder.EncodeChar(System.Char)">
+            <summary>
+            Encode a char according to quoted-printable
+            standard
+            </summary>
+            <param name="ch">the char to encode</param>
+            <returns>the encoded char representation</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.QPEncoder.EncodeByte(System.Byte)">
+            <summary>
+            Encode a byte according to quoted-printable
+            standard
+            </summary>
+            <param name="ch">the byte to encode</param>
+            <returns>the encoded byte representation</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.QPEncoder.NeedsEncoding(System.Char,System.Boolean)">
+            <summary>
+            Return true if the char needs to be encoded.
+            </summary>
+            <param name="ch"></param>
+            <param name="forceRFC2047"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.QPEncoder.NeedsEncoding(System.Byte,System.Boolean)">
+            <summary>
+            Return true if the byte needs to be encoded.
+            </summary>
+            <param name="ch"></param>
+            <param name="forceRFC2047"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.QPEncoder.IsNonAscii(System.String)">
+            <summary>
+            Return true if the string needs to be encoded.
+            </summary>
+            <param name="str">The string to check</param>
+            <returns>true if outside 127-bit, or one of the
+            quoted-printable special characters.</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.QPEncoder.IsNonAscii(System.Char)">
+            <summary>
+            Check if the character is one of the non-qp 
+            characters
+            </summary>
+            <param name="ch">the character to check</param>
+            <returns>true if outside the acceptable qp range</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:DotNetOpenMail.Encoding.QPEncoder.Encode(System.IO.StringReader,System.IO.StringWriter,System.Text.Encoding,System.Boolean,System.Int32)" -->
+        <member name="P:DotNetOpenMail.Encoding.QPEncoder.ContentTransferEncodingString">
+            <summary>
+            The String that goes in the content transfer encoding header
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.Encoding.EncodingType">
+            <summary>
+            Enumeration of encoding types.
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.Encoding.EncodingType.QuotedPrintable">
+            <summary>
+            The Quoted-Printable encoding
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.Encoding.EncodingType.Base64">
+            <summary>
+            The Base-65 encoding
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.Encoding.EncodingType.SevenBit">
+            <summary>
+            The 7Bit encoding marker
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.Encoding.EncodingType.EightBit">
+            <summary>
+            The 8Bit encoding marker
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.SmtpAuth.SmtpAuthToken">
+            <summary>
+            Token which will negotiate an authentication type
+            with the server.
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.SmtpAuth.ISmtpAuthToken">
+            <summary>
+            Summary description for ISmtpAuthenticationToken.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpAuth.ISmtpAuthToken.Negotiate(DotNetOpenMail.ISmtpProxy,System.String[])">
+            <summary>
+            Negotiate AUTH with the SmtpProxy.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpAuth.ISmtpAuthToken.UserName">
+            <summary>
+            The user's login 
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpAuth.ISmtpAuthToken.Password">
+            <summary>
+            The user's password
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpAuth.SmtpAuthToken.#ctor(System.String,System.String)">
+            <summary>
+            Create a new instance of the LOCAL SMTP
+            AUTH token
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpAuth.SmtpAuthToken.Negotiate(DotNetOpenMail.ISmtpProxy,System.String[])">
+            <summary>
+            Return the 235 response code if valid, otherwise
+            return the error.
+            </summary>
+            <param name="smtpProxy">The SmtpProxy being used</param>
+            <param name="supportedAuthTypes">String array of EHLO-specified auth types</param>
+            <returns></returns>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpAuth.SmtpAuthToken.Password">
+            <summary>
+            The User's password
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpAuth.SmtpAuthToken.UserName">
+            <summary>
+            The User's login
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.SmtpAuth.LoginAuthToken">
+            <summary>
+            A LOCAL SMTP AUTH token
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpAuth.LoginAuthToken.#ctor(System.String,System.String)">
+            <summary>
+            Create a new instance of the LOCAL SMTP
+            AUTH token
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpAuth.LoginAuthToken.Negotiate(DotNetOpenMail.ISmtpProxy,System.String[])">
+            <summary>
+            Return the 235 response code if valid, otherwise
+            return the error.
+            </summary>
+            <param name="smtpProxy"></param>
+            <param name="supportedAuthTypes">the supported auth types</param>
+            <returns></returns>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpAuth.LoginAuthToken.Password">
+            <summary>
+            The User's password
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpAuth.LoginAuthToken.UserName">
+            <summary>
+            The User's login
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.MimeContainer">
+            <summary>
+            A MIME container for content or other mime containers.
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.MimeBoundary">
+            <summary>
+            A boundary which delimits a MIME object.
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.Utils.Configuration">
+            <summary>
+            An interface to the configuration settings for the library.
+            This includes an interface to the .config file.
+            This is a singleton.
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.Utils.Configuration._theinstance">
+            <summary>
+            The singleton
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Utils.Configuration.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Utils.Configuration.GetInstance">
+            <summary>
+            Instantiate the instance of the object (if not created)
+            and return it.
+            </summary>
+            <returns>the Configuration singleton object</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Utils.Configuration.GetXSender">
+            <summary>
+            Get the X-Sender header, if any is specified in the .config
+            file with the key dnom.headers.xsender.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.Utils.Configuration.GetDefaultEncoding(System.String)">
+            <summary>
+            Get the default encoding, if any is specified in the .config
+            file with the key dnom.encoding.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Utils.Configuration.GetDefaultCharset">
+            <summary>
+            Get the default charset, if any is specified in the .config
+            file with the key dnom.charset.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Utils.Configuration.GetAppSetting(System.String,System.String)">
+            <summary>
+            Get an app setting from the .config file.  If none is found
+            or it is empty or only whitespace, use the defaultvalue.
+            </summary>
+            <param name="key">The key to search for in the .config file</param>
+            <param name="defaultvalue">The default value if the value
+            is null or only whitespace.</param>
+        </member>
+        <member name="T:DotNetOpenMail.SmtpResponseCode">
+            <summary>
+            SMTP server response codes and their meanings.
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.SystemStatus">
+            <remarks>
+            System status, or system help reply.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.Help">
+            <remarks>
+            Help message. 
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.HeloReply">
+            <remarks>
+            Domain service ready. Ready to start TLS.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.Quit">
+            <remarks>
+            Domain service closing transmission channel.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.AuthSuccessful">
+            <remarks>
+            Authentication successfully completed.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.Ok">
+            <remarks>
+            OK, queuing for node node started. Requested mail action completed.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.OkWillForward">
+            <remarks>
+            OK, no messages waiting for node node. User not local, will forward to forwardpath.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.OkWithoutVerify">
+            <remarks>
+            OK, pending messages for node node started. Cannot VRFY user (e.g., info is not local), but will take message for this user and attempt delivery.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.OkMsgStarted">
+            <remarks>
+            OK, messages pending messages for node node started.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.StartMailInput">
+            <remarks>
+            Start mail input, end with CRLF.CRLF
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.TransactionOffset">
+            <remarks>
+            Octet-offset is the transaction offset.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.ServiceNotAvailable">
+            <remarks>
+            Domain service not available, closing transmission channel.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.PasswordNeeded">
+            <remarks>
+            A password transition is needed.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.MailboxBusy">
+            <remarks>
+            Requested mail action not taken: mailbox unavailable.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.ErrorProcessing">
+            <remarks>
+            Requested action aborted: local error in processing. Unable to process ATRN request now.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.InsufficientStorage">
+            <remarks>
+            Requested action not taken: insufficient system storage.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.NoMail">
+            <remarks>
+            You have no mail.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.TlsNotAvailable">
+            <remarks>
+            TLS not available. Encryption required for requested authentication mechanism.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.NoMsgQueue">
+            <remarks>
+            Unable to queue messages for node node.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.NodeNotAllowed">
+            <remarks>
+            Node node not allowed: reason.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.UnknownCmd">
+            <remarks>
+            Command not recognized: command. Syntax error.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.SyntaxError">
+            <remarks>
+            Syntax error, no parameters allowed.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.CmdNotImplemented">
+            <remarks>
+            Command not implemented.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.BadSequence">
+            <remarks>
+            Bad sequence of commands.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.ParamNotImplemented">
+            <remarks>
+            Command parameter not implemented.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.SecurityError">
+            <remarks>
+            Security error.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.MailNotAccepted">
+            <remarks>
+            Machine does not accept mail.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.StartTLSneeded">
+            <remarks>
+            Must issue a STARTTLS command first. Encryption required for requested authentication mechanism.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.AuthTooWeak">
+            <remarks>
+            Authentication mechanism is too weak.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.EncryptionRequired">
+            <remarks>
+            Encryption required for requested authentication mechanism.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.ActionNotTaken">
+            <remarks>
+            Requested action not taken: mailbox unavailable.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.NotLocalPleaseForward">
+            <remarks>
+            User not local, please try forward path.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.ExceedStorageAllowance">
+            <remarks>
+            Requested mail action aborted: exceeded storage allocation.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.MailboxNameNotAllowed">
+            <remarks>
+            Requested action not taken: mailbox name not allowed.
+            </remarks>
+        </member>
+        <member name="F:DotNetOpenMail.SmtpResponseCode.TransactionFailed">
+            <remarks>
+            Transaction failed.
+            </remarks>
+        </member>
+        <member name="T:DotNetOpenMail.Encoding.EncoderFactory">
+            <summary>
+            Factory for instantiating the right encoder class,
+            given an encoding
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.EncoderFactory.#ctor">
+            <summary>
+            Empty Constructor.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.EncoderFactory.GetEncoder(DotNetOpenMail.Encoding.EncodingType)">
+            <summary>
+            Method for determining the correct encoder for this
+            encoding type.
+            </summary>
+            <param name="encodingtype">Enumerated encoding type</param>
+            <returns>Returns the proper IEncoder implementation</returns>
+            <exception cref="T:System.ApplicationException">Throws an ApplicationException if the specified encoding is unknown.</exception>
+        </member>
+        <member name="T:DotNetOpenMail.EhloSmtpResponse">
+            <summary>
+            The server response from EHLO
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.EhloSmtpResponse.#ctor">
+            <summary>
+            Create an instance of the EhloSmtpResponse class
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.EhloSmtpResponse.GetAvailableAuthTypes">
+            <summary>
+            Get the available Auth Types strings
+            as reported by the server.
+            (e.g. "login", etc.)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.EhloSmtpResponse.AddAvailableAuthType(System.String)">
+            <summary>
+            Add an Auth type (by string as contained in the
+            EHLO authentication.  These are converted to lower
+            case.
+            </summary>
+            <param name="authType">The auth type from EHLO</param>
+        </member>
+        <member name="P:DotNetOpenMail.EhloSmtpResponse.ResponseCode">
+            <summary>
+            The SMTP Reponse code
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.EhloSmtpResponse.Message">
+            <summary>
+            The SMTP Message.  This will be "OK" if successful,
+            otherwise it will be the part that failed.
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.Utils.BinaryReaderUtil">
+            <summary>
+            Something take a binary reader's data into a byte array.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Utils.BinaryReaderUtil.#ctor">
+            <summary>
+            Constructor for BinaryReaderUtil
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Utils.BinaryReaderUtil.ReadIntoByteArray(System.IO.BinaryReader)">
+            <summary>
+            Read a binary stream into a byte array
+            (Cribbed from posting by Jon Skeet:
+            http://www.developerfusion.co.uk/show/4696/)
+            </summary>
+            <param name="binaryreader">An open Binary Reader</param>
+            <returns>A byte array with the bytes from the disk</returns>
+        </member>
+        <member name="T:DotNetOpenMail.SmtpAuth.SmtpAuthFactory">
+            <summary>
+            Summary description for SmtpAuthHelper.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpAuth.SmtpAuthFactory.GetAuthTokenFromString(System.String,System.String,System.String)">
+            <summary>
+            Get the Auth type from the SMTP EHLO response.
+            If it is unrecognized or unimplemented, 
+            return null.  Case doesn't matter.
+            </summary>
+            <param name="authType">The string as returned in EHLO negotiation.</param>
+            <param name="username">The user's login</param>
+            <param name="password">The User's password</param>
+        </member>
+        <member name="T:DotNetOpenMail.SmtpServer">
+            <summary>
+            2007-12-20 Joe Audette added useSsl property and code to support smtp over SSL
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpServer.#ctor(System.String,System.Int32)">
+            <summary>
+            Create a new SMTP server at this hostname and
+            port.
+            </summary>
+            <param name="hostname">The address or hostname of the smtp server</param>
+            <param name="port">The port of the smtp server.</param>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpServer.#ctor(System.String,System.Int32,System.Boolean)">
+            <summary>
+            Create a new SMTP server at this hostname and
+            port.
+            </summary>
+            <param name="hostname">The address or hostname of the smtp server</param>
+            <param name="port">The port of the smtp server.</param>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpServer.#ctor(System.String)">
+            <summary>
+            Create a new SMTP server at this hostname and
+            port.
+            </summary>
+            <param name="hostname">The address or hostname of the smtp server</param>			
+        </member>
+        <member name="M:DotNetOpenMail.SmtpServer.#ctor(System.Net.IPAddress,System.Int32)">
+            <summary>
+            Create a new SMTP server at this hostname and
+            port.
+            </summary>
+            <param name="ipaddress">The ip address of the SMTP server</param>
+            <param name="port">The port number of SMTP server</param>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpServer.GetIPEndPoint">
+            <summary>
+            Get the end point for the SMTP server.  The IPEndpoint will
+            be saved for later to prevent multiple hostname lookups.
+            </summary>
+            <exception>SmtpException is thrown if the host doesn't resolve.</exception>
+            <returns>returns an IPEndPoint for the SMTPServer.</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpServer.GetSmtpProxy">
+            <summary>
+            Get an instance of an SmtpProxy
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpServer.UseEhlo">
+            <summary>
+            Figure out whether we need EHLO or not.
+            Currently, this is only for SMTP AUTH
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpServer.Send(DotNetOpenMail.ISendableMessage,DotNetOpenMail.EmailAddressCollection,DotNetOpenMail.EmailAddress)">
+            <summary>
+            Send the email.
+            </summary>
+            <param name="emailMessage">The completed message</param>
+            <param name="rcpttocollection">A list of email addresses which
+            are to be used in the RCPT TO SMTP communication</param>
+            <param name="mailfrom">An email address for the MAIL FROM 
+            part of the SMTP protocol.</param>
+            <exception cref="T:DotNetOpenMail.SmtpException">throws an SmtpException if there
+            is an unexpected SMTP error number sent from the server.</exception>
+            <exception cref="T:DotNetOpenMail.MailException">throws a MailException if there
+            is a network problem, connection problem, or other issue.</exception>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpServer.OverrideSmtpProxy(DotNetOpenMail.ISmtpProxy)">
+            <summary>
+            Override the SmtpProxy.  This is only
+            for testing smtp negotiation without an 
+            smtp server.
+            </summary>
+            <param name="smtpProxy"></param>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpServer.AppendConversation(System.String)">
+            <summary>
+            Append this string to the conversation log.
+            </summary>
+            <param name="str">the string from the SMTP conversation</param>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpServer.GetSmtpConversation">
+            <summary>
+            If CaptureSmtpConversation is true, a Send() will
+            be captured, and will be accessible here.
+            </summary>
+            <returns>The SMTP Conversation or null.</returns>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpServer.ToString">
+            <summary>
+            Return the host name, a colon, and a port number.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="E:DotNetOpenMail.SmtpServer.LogSmtpWrite">
+            <summary>
+            Handle a message about to be sent
+            </summary>
+        </member>
+        <member name="E:DotNetOpenMail.SmtpServer.LogSmtpReceive">
+            <summary>
+            Handle a message received
+            </summary>
+        </member>
+        <member name="E:DotNetOpenMail.SmtpServer.LogSmtpCompleted">
+            <summary>
+            Log that the conversation has completed
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpServer.ServerTimeout">
+            <summary>
+            The timeout waiting for an SMTP command, in
+            milliseconds
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpServer.SmtpAuthToken">
+            <summary>
+            Get or set the SMTP AUTH token for the server.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpServer.CaptureSmtpConversation">
+            <summary>
+            If true, the following call to "Send" will capture the 
+            most recent SMTP conversation to the SmtpServer object.
+            This is intended for debugging only.
+            This is deprecated in favour of the log message events.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpServer.Hostname">
+            <summary>
+            The server hostname
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpServer.Port">
+            <summary>
+            The server port
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpServer.HeloHost">
+            <summary>
+            Set the hostname used by the HELO 
+            command.
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.SmtpServer.LogHandler">
+            <summary>
+            Logging delegate
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.Encoding.SevenBitEncoder">
+            <summary>
+            Denotes 7bit encoding.  Note that this doesn't really
+            encode anything; it just specifies that this email is already
+            in 7-bit ascii encoding.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.SevenBitEncoder.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.SevenBitEncoder.GetInstance">
+            <summary>
+            Create an instance of this class.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DotNetOpenMail.Encoding.SevenBitEncoder.ContentTransferEncodingString">
+            <summary>
+            The String that goes in the content transfer encoding header
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.Encoding.Base64Encoder">
+            <summary>
+            Encode a file in Base64 Encoding.
+            
+            See: http://www.freesoft.org/CIE/RFC/1521/7.htm
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.Encoding.Base64Encoder.MAX_CHARS_PER_LINE">
+            <summary>
+            The maximum chars per line before end of line char(s)
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.Encoding.Base64Encoder.END_OF_LINE">
+            <summary>
+            The end-of-line character(s) to use
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.Base64Encoder.#ctor">
+            <summary>
+            Empty Constructor
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.Base64Encoder.GetInstance">
+            <summary>
+            Create an instance of this class
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.Base64Encoder.Encode(System.IO.StringReader,System.IO.StringWriter,System.Text.Encoding)">
+            <summary>
+            Encode the Stringreader's data in base64.
+            
+            Note: This is not particularly efficient on memory.
+            This method should probably be improved to 
+            take advantage of the Reader, rather than 
+            taking the whole string into memory.
+            </summary>
+            <param name="stringreader">Reader for incoming string</param>
+            <param name="stringwriter">Writer for outgoing encoded string</param>
+            <param name="encoding">The character encoding for the encoded string.</param>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.Base64Encoder.Encode(System.IO.FileStream,System.IO.StringWriter,System.Text.Encoding)">
+            <summary>
+            Encode the File's data in base64.
+            </summary>
+            <param name="filestream">Reader for incoming string</param>
+            <param name="stringwriter">Writer for outgoing encoded string</param>
+            <param name="charset">The character set for the encoded string</param>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.Base64Encoder.Encode(System.IO.BinaryReader,System.IO.StringWriter)">
+            <summary>
+            Encode the File's data in base64.
+            </summary>
+            <param name="binaryreader">Reader for incoming string</param>
+            <param name="stringwriter">Writer for outgoing encoded string</param>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.Base64Encoder.EncodeString(System.String,System.Text.Encoding)">
+            <summary>
+            Encode a string in Base64 in a particular characters set
+            </summary>
+            <param name="sourceString">The source text</param>
+            <param name="charset">the charset for the encoded text</param>
+            <returns>Returns an encoded string</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.Base64Encoder.EncodeHeaderString(System.String,System.String,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Encode header as per RFC 2047:
+            http://www.faqs.org/rfcs/rfc2047.html
+            </summary>
+            <param name="name">The header name</param>
+            <param name="val">The header text to be encoded (data only)</param>
+            <param name="charset">The charset for the encoded string</param>
+            <param name="forceencoding">ignored for this class</param>
+            <returns>Returns the encoded string</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Encoding.Base64Encoder.MakeLines(System.String)">
+            <summary>
+            Chop the text into lines that are smaller
+            than MAX_CHARS_PER_LINE
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="P:DotNetOpenMail.Encoding.Base64Encoder.ContentTransferEncodingString">
+            <summary>
+            The String that goes in the content transfer encoding header
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.Logging.Logger">
+            <summary>
+            Summary description for Logger.
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.Logging.Logger._logger">
+            <summary>
+            Log event
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Logging.Logger.GetInstance">
+            <summary>
+            Return the singleton object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.Logging.Logger.LogInfo(System.String)">
+            <summary>
+            Log a message with level "Info"
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:DotNetOpenMail.Logging.Logger.LogDebug(System.String)">
+            <summary>
+            Log a message with level "Debug"
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Logging.Logger.LogError(System.String)">
+            <summary>
+            Log a message with level "Error"
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Logging.Logger.LogWriteSMTP(System.String)">
+            <summary>
+            Log the output of sending smtp
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Logging.Logger.LogReceiveSMTP(System.String)">
+            <summary>
+            Log the reply via smtp
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:DotNetOpenMail.Logging.Logger.LogHandler">
+            <summary>
+            Log handler delegate
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.HtmlAttachment">
+            <summary>
+            An HTML email attachment
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.HtmlAttachment.#ctor(System.String)">
+            <summary>
+            Create a new HTML Attachment.  It flags the content/type
+            as "text/html", uses Quoted Printable encoding by
+            default, and uses the default character set, which is
+            ISO-8859-1 unless otherwise specified in the .config file.
+            </summary>
+            <param name="contents">The HTML content of the attachment</param>
+        </member>
+        <member name="T:DotNetOpenMail.SmtpResponse">
+            <summary>
+            The response from the SMTP server
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpResponse.#ctor(System.Int32,System.String)">
+            <summary>
+            Create an instance of the SmtpResponse
+            </summary>
+            <param name="responseCode"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:DotNetOpenMail.SmtpResponse.GetException">
+            <summary>
+            Convert this response to an exception
+            </summary>
+            <returns>The SmtpException corresponding to this response</returns>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpResponse.ResponseCode">
+            <summary>
+            The SMTP Reponse code
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpResponse.Message">
+            <summary>
+            The SMTP Response String
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpResponse.IsFatalError">
+            <summary>
+            Was the response a fatal error?
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.SmtpResponse.IsOk">
+            <summary>
+            Was the response an OK message?
+            </summary>
+        </member>
+        <member name="T:DotNetOpenMail.EmailAddressCollection">
+            <summary>
+            A collection of EmailAddress objects.  Implements
+            CollectionBase
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.EmailAddressCollection.#ctor">
+            <summary>
+            Create a new instance of the EmailAddressCollection
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.EmailAddressCollection.Add(DotNetOpenMail.EmailAddress)">
+            <summary>
+            Add an object to the collection
+            </summary>
+            <param name="emailaddress">The EmailAddress object to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.EmailAddressCollection.AddCollection(DotNetOpenMail.EmailAddressCollection)">
+            <summary>
+            Append a collection of objects to the existing collection
+            </summary>
+            <param name="emailaddresses">The EmailAddressCollection to append to the existing collection.</param>
+        </member>
+        <member name="M:DotNetOpenMail.EmailAddressCollection.IndexOf(DotNetOpenMail.EmailAddress)">
+            <summary>
+            Find the index of the EmailAddress in the collection
+            </summary>
+            <param name="value">The object to find.</param>
+            <returns>The index, from 0, or -1 if not found.</returns>
+        </member>
+        <member name="M:DotNetOpenMail.EmailAddressCollection.Insert(System.Int32,DotNetOpenMail.EmailAddress)">
+            <summary>
+            Insert an EmailAddress into the collection at the
+            specified index.
+            </summary>
+            <param name="index">The index, starting at zero.</param>
+            <param name="emailaddress">The email address to add to the collection</param>
+        </member>
+        <member name="M:DotNetOpenMail.EmailAddressCollection.Remove(DotNetOpenMail.EmailAddress)">
+            <summary>
+            Remove an address, if found, from the collection.
+            </summary>
+            <param name="emailaddress">The EmailAddress to remove</param>
+        </member>
+        <member name="M:DotNetOpenMail.EmailAddressCollection.ToDataString">
+            <summary>
+            Render the email addresses in a comma-separated list,
+            suitable for being rendered in an email.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetOpenMail.EmailAddressCollection.ToString">
+            <summary>
+            Calls ToDataString().
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DotNetOpenMail.Resources.ARM">
+            <summary>
+            ARM= Assembly Resource Manager.  Manage the strings for the
+            various CultureInfo types.
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.Resources.ARM._theinstance">
+            <summary>
+            The singleton object
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.Resources.ARM._pathname">
+            <summary>
+            The namespace of the resource files
+            </summary>
+        </member>
+        <member name="F:DotNetOpenMail.Resources.ARM._resources">
+            <summary>
+            The singleton System.Resources.ResourceManager.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Resources.ARM.#ctor">
+            <summary>
+            Create the singleton
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.Resources.ARM.GetInstance">
+            <summary>
+            Get the instance of the class
+            </summary>
+            <returns>the ARM instance</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Resources.ARM.GetObject(System.String)">
+            <summary>
+            Get an object from the file
+            </summary>
+            <param name="name">The key</param>
+            <returns>The key lookup for the default culture</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Resources.ARM.GetObject(System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Get an object for the specified CultureInfo
+            </summary>
+            <param name="culture">The specified culture for the resource</param>
+            <param name="name">The key for the resource</param>
+            <returns>returns an object, if one is found, else null</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Resources.ARM.GetString(System.String)">
+            <summary>
+            Get a string for the specified CultureInfo for the
+            default culture
+            </summary>
+            <param name="name">The key for the resource</param>
+            <returns>returns a string, if one is found, else null</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Resources.ARM.GetString(System.String,System.String)">
+            <summary>
+            Get a string for the specified CultureInfo for the
+            default culture.  If not found, return defaultvalue
+            </summary>
+            <param name="name">The key for the resource</param>
+            <param name="defaultvalue">The value to return if there 
+            is no value found.</param>
+            <returns>returns a string, if one is found, else defaultvalue</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Resources.ARM.GetString(System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Get a string for the specified CultureInfo for the
+            current culture.  If not found, return null
+            </summary>
+            <param name="culture">The culture of the resulting string</param>
+            <param name="name">The key for the resource</param>
+            <returns>returns a string, if one is found, else 
+            null</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Resources.ARM.GetString(System.Globalization.CultureInfo,System.String,System.String)">
+            <summary>
+            Get a string for the specified CultureInfo for the
+            default culture.  If not found, return defaultvalue
+            </summary>
+            <param name="culture">The culture of the resulting string</param>
+            <param name="name">The key for the resource</param>
+            <param name="defaultvalue">The value to return if there 
+            is no value found.</param>
+            <returns>returns a string, if one is found, else defaultvalue</returns>
+        </member>
+        <member name="M:DotNetOpenMail.Resources.ARM.GetResourceSet(System.Globalization.CultureInfo)">
+            <summary>
+            Retrieve the entire resource set for this culture.
+            </summary>
+            <param name="culture">The culture to examine</param>
+            <returns>The resource set, if any.</returns>
+        </member>
+        <member name="T:DotNetOpenMail.MessageHeader">
+            <summary>
+            This represents one of the message headers as it
+            appears in the email.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenMail.MessageHeader.#ctor(System.String,System.String)">
+            <summary>
+            Create a new instance of a MessageHeader
+            </summary>
+            <param name="name">The header name (without a colon)</param>
+            <param name="value">The unencoded value</param>
+        </member>
+        <member name="M:DotNetOpenMail.MessageHeader.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Create a new instance of a MessageHeader, with a mime-encoded
+            value.
+            </summary>
+            <param name="name">The header name (without a colon)</param>
+            <param name="value">The non-encoded header value</param>
+            <param name="encodedvalue">The mime-encoded value</param>
+        </member>
+        <member name="M:DotNetOpenMail.MessageHeader.ToDataString">
+            <summary>
+            The string representation of the header, as it will
+            appear in the email.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DotNetOpenMail.MessageHeader.Name">
+            <summary>
+            The name of the header.
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.MessageHeader.Value">
+            <summary>
+            The unencoded value of the header
+            </summary>
+        </member>
+        <member name="P:DotNetOpenMail.MessageHeader.EncodedValue">
+            <summary>
+            The mime-encoded value of the header
+            </summary>
+        </member>
+    </members>
+</doc>

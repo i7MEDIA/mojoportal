@@ -1,0 +1,4017 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessDeniedLabel" xml:space="preserve">
+    <value>このコンテンツへのアクセスは拒否されています。アクセス許可について質問がある場合はサイト管理者に連絡してください。</value>
+  </data>
+  <data name="AddPageLink" xml:space="preserve">
+    <value>ページの追加</value>
+  </data>
+  <data name="AddThisButtonAltText" xml:space="preserve">
+    <value>ソーシャルブックマークサービスで共有</value>
+  </data>
+  <data name="AdminLink" xml:space="preserve">
+    <value>管理者</value>
+  </data>
+  <data name="AdminMenuBannedIPAddressesLabel" xml:space="preserve">
+    <value>アクセス拒否IPアドレス</value>
+  </data>
+  <data name="AdminMenuContentManagerLink" xml:space="preserve">
+    <value>コンテンツマネジャー</value>
+  </data>
+  <data name="AdminMenuFeatureModulesLink" xml:space="preserve">
+    <value>機能のインストール／設定</value>
+  </data>
+  <data name="AdminMenuFileManagerLink" xml:space="preserve">
+    <value>ファイルマネジャー</value>
+  </data>
+  <data name="AdminMenuHeading" xml:space="preserve">
+    <value>管理メニュー</value>
+  </data>
+  <data name="AdminMenuLink" xml:space="preserve">
+    <value>管理メニュー</value>
+  </data>
+  <data name="AdminMenuNewsletterAdminLabel" xml:space="preserve">
+    <value>ニュースレター管理</value>
+  </data>
+  <data name="AdminMenuPageTreeLink" xml:space="preserve">
+    <value>ページの追加/編集</value>
+  </data>
+  <data name="AdminMenuRoleAdminLink" xml:space="preserve">
+    <value>ロール管理</value>
+  </data>
+  <data name="AdminMenuServerCurrentGMTTimeLabel" xml:space="preserve">
+    <value>世界協定時(UTC):</value>
+  </data>
+  <data name="AdminMenuServerInfoLabel" xml:space="preserve">
+    <value>システム情報</value>
+  </data>
+  <data name="AdminMenuServerLocalTimeLabel" xml:space="preserve">
+    <value>サーバの現地時間:</value>
+  </data>
+  <data name="AdminMenuServerLogLabel" xml:space="preserve">
+    <value>システムログ</value>
+  </data>
+  <data name="AdminMenuServerPrefferedGMTOffsetLabel" xml:space="preserve">
+    <value>Web.configでのUTCとの時差の設定 :</value>
+  </data>
+  <data name="AdminMenuServerTimeZoneLabel" xml:space="preserve">
+    <value>サーバーのタイムゾーン:</value>
+  </data>
+  <data name="AdminMenuServerUtcOffsetLabel" xml:space="preserve">
+    <value>サーバのUTCとの時差:</value>
+  </data>
+  <data name="AdminMenuSiteSettingsLink" xml:space="preserve">
+    <value>サイトの設定</value>
+  </data>
+  <data name="AdminMenuUrlManagerLink" xml:space="preserve">
+    <value>Urlマネジャー</value>
+  </data>
+  <data name="AdminMenuVersionLabel" xml:space="preserve">
+    <value>バージョン</value>
+  </data>
+  <data name="AdminMenuWebPartAdminLink" xml:space="preserve">
+    <value>Webパーツのインストール</value>
+  </data>
+  <data name="AdvancedToolsHeading" xml:space="preserve">
+    <value>高度なツール</value>
+  </data>
+  <data name="AdvancedToolsLink" xml:space="preserve">
+    <value>高度なツール</value>
+  </data>
+  <data name="AllowAnonymousPostsLabel" xml:space="preserve">
+    <value>匿名での投稿の許可?</value>
+  </data>
+  <data name="AllowLiveMessengerOnProfilesLabel" xml:space="preserve">
+    <value>ユーザープロ―フィールにLive Messenger を許可</value>
+  </data>
+  <data name="AllowWindowsLiveMessengerForMembers" xml:space="preserve">
+    <value>メンバーにWindows Live Messenger を許可?</value>
+  </data>
+  <data name="AllTimeRevenueFormatString" xml:space="preserve">
+    <value>売上合計 {0}</value>
+  </data>
+  <data name="AlphaPagerChars" xml:space="preserve">
+    <value>ABCDEFGHIJKLMNOPQRSTUVWXYZ</value>
+  </data>
+  <data name="AlreadyRegistered" xml:space="preserve">
+    <value>登録済ですか?</value>
+  </data>
+  <data name="AlreadyRegisteredMessage" xml:space="preserve">
+    <value>すでに登録済みです。新しいアカウントを作成したいときはログアウトしてからにしてください。</value>
+  </data>
+  <data name="AnalyticsCustomer" xml:space="preserve">
+    <value>顧客</value>
+  </data>
+  <data name="AnalyticsMember" xml:space="preserve">
+    <value>メンバー</value>
+  </data>
+  <data name="AnalyticsSiteAdminUser" xml:space="preserve">
+    <value>管理者</value>
+  </data>
+  <data name="ApplicationStartEventMessage" xml:space="preserve">
+    <value>アプリケーションは動作中です。</value>
+  </data>
+  <data name="AppLogoForWindowsLive" xml:space="preserve">
+    <value>Windows Live 認証ページを示すロゴ</value>
+  </data>
+  <data name="ArchiveDateGridHeader" xml:space="preserve">
+    <value>アーカイブ</value>
+  </data>
+  <data name="AuthorizeNetLogAuthCode" xml:space="preserve">
+    <value>認証コード</value>
+  </data>
+  <data name="AuthorizeNetLogCreatedUtc" xml:space="preserve">
+    <value>Created UTC</value>
+  </data>
+  <data name="AuthorizeNetLogHeading" xml:space="preserve">
+    <value>Authorize.NET ログ</value>
+  </data>
+  <data name="AuthorizeNetLogMethod" xml:space="preserve">
+    <value>メソッド</value>
+  </data>
+  <data name="AuthorizeNetLogProviderName" xml:space="preserve">
+    <value>プロバイダー名</value>
+  </data>
+  <data name="AuthorizeNetLogReason" xml:space="preserve">
+    <value>理由</value>
+  </data>
+  <data name="AuthorizeNetLogResponseCode" xml:space="preserve">
+    <value>ステータスコード</value>
+  </data>
+  <data name="AuthorizeNetLogTransactionId" xml:space="preserve">
+    <value>TransactionId</value>
+  </data>
+  <data name="AuthorizeNetLogTransactionType" xml:space="preserve">
+    <value>Transaction Type</value>
+  </data>
+  <data name="BannedIPAddressDeleteConfirmMessage" xml:space="preserve">
+    <value>このIPアドレスを削除してもいいですか? そうするとこのアドレスは拒否されなくなります。</value>
+  </data>
+  <data name="BannedIPAddressesAddNewButton" xml:space="preserve">
+    <value>アクセス拒否IPアドレスの新規追加</value>
+  </data>
+  <data name="BannedIPAddressesGridCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="BannedIPAddressesGridDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="BannedIPAddressesGridEditButton" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="BannedIPAddressesGridUpdateButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="BannedIPAddressesHeading" xml:space="preserve">
+    <value>アクセス拒否 IP アドレス</value>
+  </data>
+  <data name="BannedIPAddressLabel" xml:space="preserve">
+    <value>アクセス拒否 IP</value>
+  </data>
+  <data name="BannedIPAddressReasonLabel" xml:space="preserve">
+    <value>理由</value>
+  </data>
+  <data name="BannedIPAddressUTCLabel" xml:space="preserve">
+    <value>タイムスタンプ(UTC)</value>
+  </data>
+  <data name="BannedIPSearchButton" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>しばらくお待ちください。</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="CancelUploadAltText" xml:space="preserve">
+    <value>アップロードのキャンセル</value>
+  </data>
+  <data name="ChangePasswordButton" xml:space="preserve">
+    <value>パスワードの変更</value>
+  </data>
+  <data name="ChangePasswordCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ChangePasswordConfirmNewPasswordLabel" xml:space="preserve">
+    <value>パスワードの確認入力</value>
+  </data>
+  <data name="ChangePasswordConfirmPasswordRequiredMessage" xml:space="preserve">
+    <value>パスワードの確認入力に入力をしてください。</value>
+  </data>
+  <data name="ChangePasswordCurrentPasswordIncorrectWarning" xml:space="preserve">
+    <value>パスワードが正しくありません。</value>
+  </data>
+  <data name="ChangePasswordCurrentPasswordLabel" xml:space="preserve">
+    <value>古いパスワード</value>
+  </data>
+  <data name="ChangePasswordCurrentPasswordRequiredWarning" xml:space="preserve">
+    <value>古いパスワードを入力してください。</value>
+  </data>
+  <data name="ChangePasswordFailureText" xml:space="preserve">
+    <value>パスワードの変更はできませんでした。</value>
+  </data>
+  <data name="ChangePasswordLabel" xml:space="preserve">
+    <value>パスワードの変更</value>
+  </data>
+  <data name="ChangePasswordLink" xml:space="preserve">
+    <value>パスワードの変更</value>
+  </data>
+  <data name="ChangePasswordMinimumLengthWarning" xml:space="preserve">
+    <value>新しいパスワードの最低文字数</value>
+  </data>
+  <data name="ChangePasswordMinNonAlphanumericCharsWarning" xml:space="preserve">
+    <value>新しいパスワードの英数字以外の文字数</value>
+  </data>
+  <data name="ChangePasswordMustMatchConfirmMessage" xml:space="preserve">
+    <value>パスワードの入力が一致していません。</value>
+  </data>
+  <data name="ChangePasswordNewMatchesOldWarning" xml:space="preserve">
+    <value>新しいパスワードは現在のパスワードと同じにすることはできません。</value>
+  </data>
+  <data name="ChangePasswordNewPasswordLabel" xml:space="preserve">
+    <value>新しいパスワード</value>
+  </data>
+  <data name="ChangePasswordNewPasswordRequired" xml:space="preserve">
+    <value>新しいパスワードを入力してください。</value>
+  </data>
+  <data name="ChangePasswordPasswordRegexFailureMessage" xml:space="preserve">
+    <value>パスワードの強度が不足しています。</value>
+  </data>
+  <data name="ChangePasswordSuccessText" xml:space="preserve">
+    <value>パスワードが変更されました。</value>
+  </data>
+  <data name="ChatTitleFormat" xml:space="preserve">
+    <value>{0}とチャット</value>
+  </data>
+  <data name="CheckProgressText" xml:space="preserve">
+    <value>アップロードの進行のチェック</value>
+  </data>
+  <data name="ChooseContentAddToMyPageLink" xml:space="preserve">
+    <value>マイページに追加</value>
+  </data>
+  <data name="ColorPickerBlueIndicator" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="ColorPickerBrightnessIndicator" xml:space="preserve">
+    <value>V</value>
+  </data>
+  <data name="ColorPickerClosestWebSafeFormat" xml:space="preserve">
+    <value>Web環境に適した色: {rgb}</value>
+  </data>
+  <data name="ColorPickerCurrentColorFormat" xml:space="preserve">
+    <value>選択された色: {rgb}</value>
+  </data>
+  <data name="ColorPickerDialogHeading" xml:space="preserve">
+    <value>色の選択:</value>
+  </data>
+  <data name="ColorPickerGreenIndicator" xml:space="preserve">
+    <value>G</value>
+  </data>
+  <data name="ColorPickerHideDetails" xml:space="preserve">
+    <value>カラーパレットを隠す</value>
+  </data>
+  <data name="ColorPickerHueIndicator" xml:space="preserve">
+    <value>H</value>
+  </data>
+  <data name="ColorPickerIllegalHexMessage" xml:space="preserve">
+    <value>誤った16進の数値を入力</value>
+  </data>
+  <data name="ColorPickerRedIndicator" xml:space="preserve">
+    <value>R</value>
+  </data>
+  <data name="ColorPickerSaturationIndicator" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="ColorPickerShowDetails" xml:space="preserve">
+    <value>カラーパレットを表示</value>
+  </data>
+  <data name="CommerceOrderHistoryTab" xml:space="preserve">
+    <value>注文履歴</value>
+  </data>
+  <data name="CommercePurchaseHistory" xml:space="preserve">
+    <value>購入履歴</value>
+  </data>
+  <data name="CommerceReportCustomerHeading" xml:space="preserve">
+    <value>顧客</value>
+  </data>
+  <data name="CommerceReportCustomerReportHeading" xml:space="preserve">
+    <value>顧客販売</value>
+  </data>
+  <data name="CommerceReportItemHeading" xml:space="preserve">
+    <value>商品</value>
+  </data>
+  <data name="CommerceReportItemSales" xml:space="preserve">
+    <value>商品販売</value>
+  </data>
+  <data name="CommerceReportOrderDateHeading" xml:space="preserve">
+    <value>注文日</value>
+  </data>
+  <data name="CommerceReportPriceHeading" xml:space="preserve">
+    <value>価格</value>
+  </data>
+  <data name="CommerceReportSeeAllCustomersLink" xml:space="preserve">
+    <value>すべての顧客を見る</value>
+  </data>
+  <data name="CommerceReportSeeAllItemsLink" xml:space="preserve">
+    <value>すべての商品を見る</value>
+  </data>
+  <data name="CommerceReportsLink" xml:space="preserve">
+    <value>コマース・リポート</value>
+  </data>
+  <data name="CommerceReportSourceHeading" xml:space="preserve">
+    <value>仕入れ</value>
+  </data>
+  <data name="CommerceReportTopCustomersHeading" xml:space="preserve">
+    <value>最大の顧客</value>
+  </data>
+  <data name="CommerceReportTopItemsHeading" xml:space="preserve">
+    <value>売れている商品</value>
+  </data>
+  <data name="CommerceTab" xml:space="preserve">
+    <value>コマース</value>
+  </data>
+  <data name="CommerceTestModeWarning" xml:space="preserve">
+    <value>コマースサイトは、テストモードです。テスト用のクレジットカード番号を使用してください。実際に課金はされません。</value>
+  </data>
+  <data name="ContentListPageSize" xml:space="preserve">
+    <value>コンテンツ一覧のページサイズ</value>
+  </data>
+  <data name="ContentManagerAuthorColumnHeader" xml:space="preserve">
+    <value>管理人</value>
+  </data>
+  <data name="ContentManagerBackToListLink" xml:space="preserve">
+    <value>コンテンツの一覧に戻る</value>
+  </data>
+  <data name="ContentManagerCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ContentManagerCenterColumnLabel" xml:space="preserve">
+    <value>中央</value>
+  </data>
+  <data name="ContentManagerColumnColumnHeader" xml:space="preserve">
+    <value>列</value>
+  </data>
+  <data name="ContentManagerContentTitleColumnHeader" xml:space="preserve">
+    <value>件名:</value>
+  </data>
+  <data name="ContentManagerCreateNewContentButton" xml:space="preserve">
+    <value>新しいコンテンツの作成</value>
+  </data>
+  <data name="ContentManagerDeleteContentWarning" xml:space="preserve">
+    <value>この項目をコンテンツシステムから完全に消去してよろしいか?</value>
+  </data>
+  <data name="ContentManagerFeatureTypeColumnHeader" xml:space="preserve">
+    <value>機能タイプ</value>
+  </data>
+  <data name="ContentManagerFilterByFeature" xml:space="preserve">
+    <value>機能によるフィルター</value>
+  </data>
+  <data name="ContentManagerFindButton" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="ContentManagerLeftColumnLabel" xml:space="preserve">
+    <value>左</value>
+  </data>
+  <data name="ContentManagerNonMultiPageFeatureWarning" xml:space="preserve">
+    <value>この機能は、複数ページに発行できるようにデザインできていないので、コンテンツマネージャから編集するのではく、発行したページから編集してください。</value>
+  </data>
+  <data name="ContentManagerNoReuseWarning" xml:space="preserve">
+    <value>この機能は、単一のページでのみ使用できるようにデザインされているので、この機能のインスタンスは単一のページにのみ発行し、コンテンツに発行後は、別のページに移動しないでください。</value>
+  </data>
+  <data name="ContentManagerNotPublishedAltText" xml:space="preserve">
+    <value>このページにコンテンツを発行する</value>
+  </data>
+  <data name="ContentManagerOrderColumnHeader" xml:space="preserve">
+    <value>順</value>
+  </data>
+  <data name="ContentManagerPageColumnHeader" xml:space="preserve">
+    <value>ページ</value>
+  </data>
+  <data name="ContentManagerPreviewContentLabel" xml:space="preserve">
+    <value>プレビュー:</value>
+  </data>
+  <data name="ContentManagerPublishBeginDateColumnHeader" xml:space="preserve">
+    <value>発行開始</value>
+  </data>
+  <data name="ContentManagerPublishContentLabel" xml:space="preserve">
+    <value>発行：</value>
+  </data>
+  <data name="ContentManagerPublishContentLink" xml:space="preserve">
+    <value>発行</value>
+  </data>
+  <data name="ContentManagerPublishDeleteLabel" xml:space="preserve">
+    <value>発行/削除</value>
+  </data>
+  <data name="ContentManagerPublishedAltText" xml:space="preserve">
+    <value>このページの発行を編集</value>
+  </data>
+  <data name="ContentManagerPublishedColumnHeader" xml:space="preserve">
+    <value>発行</value>
+  </data>
+  <data name="ContentManagerPublishEndDateColumnHeader" xml:space="preserve">
+    <value>発行終了</value>
+  </data>
+  <data name="ContentManagerPublishingContentLink" xml:space="preserve">
+    <value>発行</value>
+  </data>
+  <data name="ContentManagerRightColumnLabel" xml:space="preserve">
+    <value>右</value>
+  </data>
+  <data name="ContentManagerTitleFilterLabel" xml:space="preserve">
+    <value>件名に含む文字:</value>
+  </data>
+  <data name="ContentManagerUpdateButton" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="ContentManagerViewEditContentLabel" xml:space="preserve">
+    <value>表示/編集</value>
+  </data>
+  <data name="ContentManagerViewEditLabel" xml:space="preserve">
+    <value>表示/編集...</value>
+  </data>
+  <data name="ContentStyleAddNew" xml:space="preserve">
+    <value>新規スタイルの追加</value>
+  </data>
+  <data name="ContentStyleCancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ContentStyleCssClass" xml:space="preserve">
+    <value>CSS クラス</value>
+  </data>
+  <data name="ContentStyleDelete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="ContentStyleDeleteWarning" xml:space="preserve">
+    <value>このスタイル・テンプレートをさくじょしてよろしいか？</value>
+  </data>
+  <data name="ContentStyleElement" xml:space="preserve">
+    <value>エレメント</value>
+  </data>
+  <data name="ContentStyleIsActive" xml:space="preserve">
+    <value>有効</value>
+  </data>
+  <data name="ContentStyleName" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="ContentStyleSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ContentStyleTemplates" xml:space="preserve">
+    <value>コンテンツ・スタイル・テンプレート</value>
+  </data>
+  <data name="ContentTemplateAddNewLink" xml:space="preserve">
+    <value>新規テンプレート</value>
+  </data>
+  <data name="ContentTemplateDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="ContentTemplateDescriptionTab" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="ContentTemplateEditLink" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="ContentTemplateImageLabel" xml:space="preserve">
+    <value>画像</value>
+  </data>
+  <data name="ContentTemplateRolesTab" xml:space="preserve">
+    <value>許可されたロール</value>
+  </data>
+  <data name="ContentTemplates" xml:space="preserve">
+    <value>コンテンツ・テンプレート</value>
+  </data>
+  <data name="ContentTemplateSaveButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ContentTemplatesEditorLink" xml:space="preserve">
+    <value>テンプレートの編集</value>
+  </data>
+  <data name="ContentTemplateTab" xml:space="preserve">
+    <value>テンプレート</value>
+  </data>
+  <data name="ContentTemplateTitleLabel" xml:space="preserve">
+    <value>件名</value>
+  </data>
+  <data name="CopyRestoreSkinsButton" xml:space="preserve">
+    <value>カタログからスキンをコピー／元に戻す</value>
+  </data>
+  <data name="CoreDataAdministrationHeading" xml:space="preserve">
+    <value>共通データの管理</value>
+  </data>
+  <data name="CoreDataAdministrationLink" xml:space="preserve">
+    <value>共通データの管理</value>
+  </data>
+  <data name="CouldNotReadLogException" xml:space="preserve">
+    <value>ログファイルを読むことができません。ファイルはロガーによってロックされています。後ほど再度お試しください。</value>
+  </data>
+  <data name="CountryAdministrationHeading" xml:space="preserve">
+    <value>国の一覧の管理</value>
+  </data>
+  <data name="CountryAdministrationLink" xml:space="preserve">
+    <value>国の一覧の管理</value>
+  </data>
+  <data name="CountryGridAddNewButton" xml:space="preserve">
+    <value>国の追加</value>
+  </data>
+  <data name="CountryGridCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="CountryGridDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="CountryGridDeleteWarning" xml:space="preserve">
+    <value>この国を削除してよろしいか?</value>
+  </data>
+  <data name="CountryGridEditButton" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="CountryGridISOCode2Header" xml:space="preserve">
+    <value>2文字国名コード</value>
+  </data>
+  <data name="CountryGridISOCode3Header" xml:space="preserve">
+    <value>3文字国名コード</value>
+  </data>
+  <data name="CountryGridNameHeader" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="CountryGridUpdateButton" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="CreatedDateGridHeader" xml:space="preserve">
+    <value>作成</value>
+  </data>
+  <data name="CurrencyAdministrationHeading" xml:space="preserve">
+    <value>通貨の管理</value>
+  </data>
+  <data name="CurrencyAdministrationLink" xml:space="preserve">
+    <value>通貨の管理</value>
+  </data>
+  <data name="CurrencyGridAddNewButton" xml:space="preserve">
+    <value>通貨の追加</value>
+  </data>
+  <data name="CurrencyGridCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="CurrencyGridCodeHeading" xml:space="preserve">
+    <value>コード</value>
+  </data>
+  <data name="CurrencyGridDecimalPlacesHeading" xml:space="preserve">
+    <value>少数桁数</value>
+  </data>
+  <data name="CurrencyGridDecimalPointCharHeading" xml:space="preserve">
+    <value>小数点記号</value>
+  </data>
+  <data name="CurrencyGridDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="CurrencyGridDeleteWarning" xml:space="preserve">
+    <value>この通貨を削除してよろしいか?</value>
+  </data>
+  <data name="CurrencyGridEditButton" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="CurrencyGridSymbolLeftHeading" xml:space="preserve">
+    <value>記号左側</value>
+  </data>
+  <data name="CurrencyGridSymbolRightHeading" xml:space="preserve">
+    <value>記号右側</value>
+  </data>
+  <data name="CurrencyGridThousandsPointCharHeading" xml:space="preserve">
+    <value>桁区切り記号</value>
+  </data>
+  <data name="CurrencyGridTitleHeading" xml:space="preserve">
+    <value>通貨名</value>
+  </data>
+  <data name="CurrencyGridUpdateButton" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="CurrencyGridValueHeading" xml:space="preserve">
+    <value>レート</value>
+  </data>
+  <data name="CurrencyLabel" xml:space="preserve">
+    <value>通貨:</value>
+  </data>
+  <data name="CurrentVersionHeadingFormat" xml:space="preserve">
+    <value>作成日時 {0} の最新版</value>
+  </data>
+  <data name="CutePagerBackToFirstClause" xml:space="preserve">
+    <value>最初のページへ移動</value>
+  </data>
+  <data name="CutePagerBackToPageClause" xml:space="preserve">
+    <value>前のページ</value>
+  </data>
+  <data name="CutePagerGoToLastClause" xml:space="preserve">
+    <value>最後のページへ移動</value>
+  </data>
+  <data name="CutePagerNavigateToPageText" xml:space="preserve">
+    <value>ページに移動</value>
+  </data>
+  <data name="CutePagerNextToPageClause" xml:space="preserve">
+    <value>次のページ</value>
+  </data>
+  <data name="CutePagerOfClause" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="CutePagerPageClause" xml:space="preserve">
+    <value>ページ</value>
+  </data>
+  <data name="DefaultContentHtmlTitle" xml:space="preserve">
+    <value>ようこそ</value>
+  </data>
+  <data name="DefaultCountryStateLabel" xml:space="preserve">
+    <value>デフォルトの国/州:</value>
+  </data>
+  <data name="DefaultHomePageName" xml:space="preserve">
+    <value>ホーム</value>
+  </data>
+  <data name="DefaultSignInPrompt" xml:space="preserve">
+    <value>続行するには、ログインするか登録してください。</value>
+  </data>
+  <data name="DeleteAllHistoryButton" xml:space="preserve">
+    <value>すべての履歴の削除</value>
+  </data>
+  <data name="DeleteAllHistoryWarning" xml:space="preserve">
+    <value>このコンテンツのすべての履歴を削除してよろしいか？</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DeleteHistoryButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DeleteHistoryItemWarning" xml:space="preserve">
+    <value>このコンテンツの履歴を削除ｓてよろしいか？</value>
+  </data>
+  <data name="DeleteImageAltText" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DeleteLink" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DialogCloseLink" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="DownloadLogButton" xml:space="preserve">
+    <value>ダウンロード・ログ</value>
+  </data>
+  <data name="DuplicateEmailMessage" xml:space="preserve">
+    <value>入力されたメールアドレスは既に使われています。</value>
+  </data>
+  <data name="DuplicateUserNameMessage" xml:space="preserve">
+    <value>入力されたユーザー名は既に使われています。</value>
+  </data>
+  <data name="EditAccessDeniedLabel" xml:space="preserve">
+    <value>あなたは、このコンテンツの編集はできません。このことについて不明な点があれば、管理者にお問い合わせください。</value>
+  </data>
+  <data name="EditHtmlBodyLabel" xml:space="preserve">
+    <value>コンテンツ本体:</value>
+  </data>
+  <data name="EditHtmlCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="EditHtmlDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="EditHtmlSettingsLabel" xml:space="preserve">
+    <value>Html コンテンツ</value>
+  </data>
+  <data name="EditHtmlTitleFormat" xml:space="preserve">
+    <value>コンテンツの編集 : {0}</value>
+  </data>
+  <data name="EditHtmlUpdateButton" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="EditImageAltText" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="EditLink" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="EnableContentRatingSetting" xml:space="preserve">
+    <value>コンテンツのレーティングを許可?:</value>
+  </data>
+  <data name="EnableLiveMessengerLabel" xml:space="preserve">
+    <value>このサイトで Live Messenger を許可</value>
+  </data>
+  <data name="EnableLiveMessengerLink" xml:space="preserve">
+    <value>Live Messenger 許可トークンの取得/更新</value>
+  </data>
+  <data name="EnableRatingCommentsSetting" xml:space="preserve">
+    <value>レーティングのコメントを許可?:</value>
+  </data>
+  <data name="EnableWoopraLabel" xml:space="preserve">
+    <value>Woopra トラッキングスクリプトを有効?</value>
+  </data>
+  <data name="EnterEmailLabel" xml:space="preserve">
+    <value>メールアドレスを入力してください:</value>
+  </data>
+  <data name="EnterUserNameLabel" xml:space="preserve">
+    <value>名前を入力してください:</value>
+  </data>
+  <data name="FileManagerCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="FileManagerCreateDirectoryButton" xml:space="preserve">
+    <value>ディレクトリの新規作成 :</value>
+  </data>
+  <data name="FileManagerDelete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="FileManagerDeleteConfirm" xml:space="preserve">
+    <value>選択したファイルを削除してよろしいか?</value>
+  </data>
+  <data name="FileManagerDisabledMessage" xml:space="preserve">
+    <value>この機能は無効にされています。</value>
+  </data>
+  <data name="FileManagerFileNameLabel" xml:space="preserve">
+    <value>ファイル名</value>
+  </data>
+  <data name="FileManagerFolderDeleteConfirm" xml:space="preserve">
+    <value>選択したフォルダーとファイルを削除してよろしいか?</value>
+  </data>
+  <data name="FileManagerGoUp" xml:space="preserve">
+    <value>一つ上のフォルダーへ移動</value>
+  </data>
+  <data name="FileManagerModifiedLabel" xml:space="preserve">
+    <value>更新日時</value>
+  </data>
+  <data name="FileManagerNewFolderButton" xml:space="preserve">
+    <value>新規フォルダーの作成</value>
+  </data>
+  <data name="FileManagerObjectsLabel" xml:space="preserve">
+    <value>個の項目</value>
+  </data>
+  <data name="FileManagerRename" xml:space="preserve">
+    <value>名前の変更</value>
+  </data>
+  <data name="FileManagerRootDirectoryReached" xml:space="preserve">
+    <value>ルートディレクトリです。</value>
+  </data>
+  <data name="FileManagerSizeLabel" xml:space="preserve">
+    <value>サイズ(KB)</value>
+  </data>
+  <data name="FileManagerUpdateButton" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="FileManagerUploadButton" xml:space="preserve">
+    <value>アップロード</value>
+  </data>
+  <data name="FileManagerUploadLabel" xml:space="preserve">
+    <value>ファイルのアップロード (4ファイルまで同時にアップロードできます)</value>
+  </data>
+  <data name="ForceContentVersioning" xml:space="preserve">
+    <value>コンテンツのバージョンを強制</value>
+  </data>
+  <data name="ForgotPasswordLabel" xml:space="preserve">
+    <value>パスワードを忘れましたか?</value>
+  </data>
+  <data name="ForumMyPostsLink" xml:space="preserve">
+    <value>自分の投稿記録</value>
+  </data>
+  <data name="ForumUserPostsLink" xml:space="preserve">
+    <value>投稿を閲覧</value>
+  </data>
+  <data name="FriendlyUrlAddNewLabel" xml:space="preserve">
+    <value>新規URLマッピングの追加</value>
+  </data>
+  <data name="FriendlyUrlCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="FriendlyUrlDeleteConfirmWarning" xml:space="preserve">
+    <value>このURLを削除してよろしいか?</value>
+  </data>
+  <data name="FriendlyUrlDeleteLabel" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="FriendlyUrlDuplicateWarning" xml:space="preserve">
+    <value>そのＵＲＬマッピングは既に使用しています。</value>
+  </data>
+  <data name="FriendlyUrlEditLabel" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="FriendlyUrlExpertEntryLabel" xml:space="preserve">
+    <value>又はエキスパートマニュアル入力</value>
+  </data>
+  <data name="FriendlyUrlHelp" xml:space="preserve">
+    <value>注意: Windowsサーバでは，フレンドリーURLが.aspxで終了していないときは，フレンドリーURLと同じ名前のフォルダーを作成し，そのフォルダーにファイル名Default.aspxの空のテキストファイルを追加してください。</value>
+  </data>
+  <data name="FriendlyUrlInvalidEntryMessage" xml:space="preserve">
+    <value>フレンドリーURLと実URLの両方を入力してください。</value>
+  </data>
+  <data name="FriendlyUrlInvalidFriendlyUrlMessage" xml:space="preserve">
+    <value>フレンドリーURLを入力してください。.</value>
+  </data>
+  <data name="FriendlyUrlLabel" xml:space="preserve">
+    <value>フレンドリーURL</value>
+  </data>
+  <data name="FriendlyUrlMapsToLabel" xml:space="preserve">
+    <value>マップ先:</value>
+  </data>
+  <data name="FriendlyUrlRealUrlLabel" xml:space="preserve">
+    <value>実URL</value>
+  </data>
+  <data name="FriendlyUrlRegexWarning" xml:space="preserve">
+    <value>Url は ~/ 、 http:// 、 https:// で始まり、スペースを含んではいけません。</value>
+  </data>
+  <data name="FriendlyUrlSaveLabel" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="FriendlyUrlSelectFromDropdownLabel" xml:space="preserve">
+    <value>ドロップダウンリストからページを選択してください</value>
+  </data>
+  <data name="FriendlyUrlViewLink" xml:space="preserve">
+    <value>フレンドリーURLを表示</value>
+  </data>
+  <data name="FriendlyUrlWouldMaskPhysicalPageWarning" xml:space="preserve">
+    <value>物理的ページがマスクされているためこのURLは作成できません。</value>
+  </data>
+  <data name="GCheckoutBuyerId" xml:space="preserve">
+    <value>BuyerId</value>
+  </data>
+  <data name="GCheckoutCreatedUtc" xml:space="preserve">
+    <value>Created UTC</value>
+  </data>
+  <data name="GCheckoutFinanceState" xml:space="preserve">
+    <value>Financial Status</value>
+  </data>
+  <data name="GCheckoutFullfillState" xml:space="preserve">
+    <value>Fullfillment Status</value>
+  </data>
+  <data name="GCheckoutNotificationHandlerUrlLabel" xml:space="preserve">
+    <value>GCheckout Notification Handler Url</value>
+  </data>
+  <data name="GCheckoutNotificationHeading" xml:space="preserve">
+    <value>Google Checkout Notification Log</value>
+  </data>
+  <data name="GCheckoutNotificationType" xml:space="preserve">
+    <value>Notification Type</value>
+  </data>
+  <data name="GCheckoutOrderNumber" xml:space="preserve">
+    <value>Order Number</value>
+  </data>
+  <data name="GCheckoutSerialNumber" xml:space="preserve">
+    <value>Serial Number</value>
+  </data>
+  <data name="GCheckoutTesterPostButton" xml:space="preserve">
+    <value>Post</value>
+  </data>
+  <data name="GCheckoutXmlInputLabel" xml:space="preserve">
+    <value>Xml Input</value>
+  </data>
+  <data name="GCheckoutXmlResultsLabel" xml:space="preserve">
+    <value>Xml Results</value>
+  </data>
+  <data name="GeoZoneAdministrationHeading" xml:space="preserve">
+    <value>地域の管理</value>
+  </data>
+  <data name="GeoZoneAdministrationLink" xml:space="preserve">
+    <value>地域の管理</value>
+  </data>
+  <data name="GeoZoneGridAddNewButton" xml:space="preserve">
+    <value>地域の追加</value>
+  </data>
+  <data name="GeoZoneGridCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="GeoZoneGridCodeHeader" xml:space="preserve">
+    <value>コード</value>
+  </data>
+  <data name="GeoZoneGridDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="GeoZoneGridDeleteWarning" xml:space="preserve">
+    <value>この地域を削除してよろしいか?</value>
+  </data>
+  <data name="GeoZoneGridEditButton" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="GeoZoneGridUpdateButton" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="GeoZoneGridZoneHeader" xml:space="preserve">
+    <value>地域</value>
+  </data>
+  <data name="GoogleAnalyticsAccountCodeLabel" xml:space="preserve">
+    <value>Google Analytics アカウント ID:</value>
+  </data>
+  <data name="GoogleHybridMap" xml:space="preserve">
+    <value>地図+写真</value>
+  </data>
+  <data name="GoogleMapApiKeySetting" xml:space="preserve">
+    <value>Google Map API キー:</value>
+  </data>
+  <data name="GoogleMapCaptionSetting" xml:space="preserve">
+    <value>見出し:</value>
+  </data>
+  <data name="GoogleMapEnableDirectionsSetting" xml:space="preserve">
+    <value>ルート案内を表示:</value>
+  </data>
+  <data name="GoogleMapEnableLocalSearchSetting" xml:space="preserve">
+    <value>地図の検索を表示:</value>
+  </data>
+  <data name="GoogleMapEnableMapTypeSetting" xml:space="preserve">
+    <value>航空写真、地図+写真を表示:</value>
+  </data>
+  <data name="GoogleMapEnableZoomSetting" xml:space="preserve">
+    <value>ズームツールの表示:</value>
+  </data>
+  <data name="GoogleMapHeightSetting" xml:space="preserve">
+    <value>地図の高さ:</value>
+  </data>
+  <data name="GoogleMapInitialMapTypeSetting" xml:space="preserve">
+    <value>初期の地図の種類:</value>
+  </data>
+  <data name="GoogleMapInitialZoomSetting" xml:space="preserve">
+    <value>ズームレベル:</value>
+  </data>
+  <data name="GoogleMapLocationSetting" xml:space="preserve">
+    <value>住所:</value>
+  </data>
+  <data name="GoogleMapShowInfoWindowSetting" xml:space="preserve">
+    <value>バルーンに住所を表示:</value>
+  </data>
+  <data name="GoogleMapShowLocationCaptionSetting" xml:space="preserve">
+    <value>見出しに住所を使用:</value>
+  </data>
+  <data name="GoogleMapUseLocationForTitleSetting" xml:space="preserve">
+    <value>表題に住所を使用:</value>
+  </data>
+  <data name="GoogleMapWidthSetting" xml:space="preserve">
+    <value>地図の幅:</value>
+  </data>
+  <data name="GoogleMapZoom0" xml:space="preserve">
+    <value>0 - 最小</value>
+  </data>
+  <data name="GoogleMapZoom1" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="GoogleMapZoom10" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="GoogleMapZoom11" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="GoogleMapZoom12" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="GoogleMapZoom13" xml:space="preserve">
+    <value>13 - 標準</value>
+  </data>
+  <data name="GoogleMapZoom14" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="GoogleMapZoom15" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="GoogleMapZoom16" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="GoogleMapZoom17" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="GoogleMapZoom18" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="GoogleMapZoom19" xml:space="preserve">
+    <value>19 - 最大</value>
+  </data>
+  <data name="GoogleMapZoom2" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="GoogleMapZoom3" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="GoogleMapZoom4" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="GoogleMapZoom5" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="GoogleMapZoom6" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="GoogleMapZoom7" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="GoogleMapZoom8" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="GoogleMapZoom9" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="GoogleNormalMap" xml:space="preserve">
+    <value>地図</value>
+  </data>
+  <data name="GoogleSatelliteMap" xml:space="preserve">
+    <value>航空写真</value>
+  </data>
+  <data name="GoogleTerrainMap" xml:space="preserve">
+    <value>地形</value>
+  </data>
+  <data name="HelloLabel" xml:space="preserve">
+    <value>こんにちは</value>
+  </data>
+  <data name="HelpEditCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="HelpEditLink" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="HelpEditSaveButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="HelpLink" xml:space="preserve">
+    <value>ヘルプ</value>
+  </data>
+  <data name="HelpNoHelpAvailable" xml:space="preserve">
+    <value>すみませんが，現在この項目についてはヘルプがありません。</value>
+  </data>
+  <data name="HelpNoHelpAvailableAdminUser" xml:space="preserve">
+    <value>この項目については現在ヘルプがありません。このヘルプを作成したときは，プロジェクトに提供してください。作成したファイルは~/Data/HelpFilesにあります。それを joe_audette at yahoo dotcomまでメールしてください。</value>
+  </data>
+  <data name="HomePageLink" xml:space="preserve">
+    <value>ホーム</value>
+  </data>
+  <data name="HtmlAddItemLabel" xml:space="preserve">
+    <value>項目の追加</value>
+  </data>
+  <data name="HtmlBeginDateLabel" xml:space="preserve">
+    <value>開始日:</value>
+  </data>
+  <data name="HtmlBeginDateRequiredHelp" xml:space="preserve">
+    <value>正しい開始日を入力してください。</value>
+  </data>
+  <data name="HtmlCompareHistoryToCurrentLink" xml:space="preserve">
+    <value>最新版との比較</value>
+  </data>
+  <data name="HtmlContentFeatureName" xml:space="preserve">
+    <value>Html コンテンツ</value>
+  </data>
+  <data name="HtmlContentSearchName" xml:space="preserve">
+    <value>記事</value>
+  </data>
+  <data name="HtmlDeleteContentWarning" xml:space="preserve">
+    <value>このコンテンツを削除してよろしいか?</value>
+  </data>
+  <data name="HtmlEditorHeightSetting" xml:space="preserve">
+    <value>エディターの高さ</value>
+  </data>
+  <data name="HtmlEnableVersioningSetting" xml:space="preserve">
+    <value>履歴を保存</value>
+  </data>
+  <data name="HtmlEndDateLabel" xml:space="preserve">
+    <value>終了日:</value>
+  </data>
+  <data name="HtmlEndDateRequiredHelp" xml:space="preserve">
+    <value>正しい終了日を入力してください。</value>
+  </data>
+  <data name="HtmlExcerptLabel" xml:space="preserve">
+    <value>要約:</value>
+  </data>
+  <data name="HtmlMoreLinkLabel" xml:space="preserve">
+    <value>続きのリンク:</value>
+  </data>
+  <data name="HtmlMoreLinkNewWindowSetting" xml:space="preserve">
+    <value>続きのリンクを新規ウィンドウで開く?</value>
+  </data>
+  <data name="HtmlMoreLinkText" xml:space="preserve">
+    <value>…続きを読む</value>
+  </data>
+  <data name="HtmlMultipleItemsSetting" xml:space="preserve">
+    <value>複数項目の使用?</value>
+  </data>
+  <data name="HtmlShowDateSetting" xml:space="preserve">
+    <value>日付の表示?</value>
+  </data>
+  <data name="HtmlTab" xml:space="preserve">
+    <value>HTML</value>
+  </data>
+  <data name="HtmlTitleLabel" xml:space="preserve">
+    <value>タイトル:</value>
+  </data>
+  <data name="HtmlUseExcerptSetting" xml:space="preserve">
+    <value>要約の使用?</value>
+  </data>
+  <data name="HtmlUseMoreLinkSetting" xml:space="preserve">
+    <value>続きのリンクを使用?</value>
+  </data>
+  <data name="HtmlVersionPageSizeSetting" xml:space="preserve">
+    <value>履歴のページサイズ</value>
+  </data>
+  <data name="iboxCloseWindow" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="iboxLoading" xml:space="preserve">
+    <value>ロード中...</value>
+  </data>
+  <data name="IndexWriterTaskCompleteMessage" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="IndexWriterTaskName" xml:space="preserve">
+    <value>IndexWriterタスク</value>
+  </data>
+  <data name="IndexWriterTaskQueuedMessage" xml:space="preserve">
+    <value>キューされました</value>
+  </data>
+  <data name="IndexWriterTaskRunningFormatString" xml:space="preserve">
+    <value>実行中 Indexed item {0} of {1}</value>
+  </data>
+  <data name="IndexWriterTaskStartedMessage" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="LanguageAdministrationHeading" xml:space="preserve">
+    <value>言語の管理</value>
+  </data>
+  <data name="LanguageAdministrationLink" xml:space="preserve">
+    <value>言語の管理</value>
+  </data>
+  <data name="LanguageGridAddNewButton" xml:space="preserve">
+    <value>言語の追加</value>
+  </data>
+  <data name="LanguageGridCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="LanguageGridCodeHeading" xml:space="preserve">
+    <value>コード</value>
+  </data>
+  <data name="LanguageGridDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="LanguageGridDeleteWarning" xml:space="preserve">
+    <value>この言語を削除してよろしいか?</value>
+  </data>
+  <data name="LanguageGridEditButton" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="LanguageGridNameHeading" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="LanguageGridSortHeading" xml:space="preserve">
+    <value>並べ替え</value>
+  </data>
+  <data name="LanguageGridUpdateButton" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="LargeTextLabel" xml:space="preserve">
+    <value>大きな文字</value>
+  </data>
+  <data name="LetterEditManageTemplatesLink" xml:space="preserve">
+    <value>テンプレートの管理</value>
+  </data>
+  <data name="LetterEditManageTemplatesToolTip" xml:space="preserve">
+    <value>テンプレートの管理</value>
+  </data>
+  <data name="LetterHtmlTemplateAddNewLink" xml:space="preserve">
+    <value>テンプレートの追加</value>
+  </data>
+  <data name="LetterHtmlTemplateAddNewToolTip" xml:space="preserve">
+    <value>テンプレートの追加</value>
+  </data>
+  <data name="LetterInfoAdminHeading" xml:space="preserve">
+    <value>ニュースレターの管理者</value>
+  </data>
+  <data name="LetterInfoAllowAnonFeedbackLabel" xml:space="preserve">
+    <value>匿名のフィードバックを許可?:</value>
+  </data>
+  <data name="LetterInfoAllowUserFeedbackLabel" xml:space="preserve">
+    <value>ユーザーのフィードバックを許可?:</value>
+  </data>
+  <data name="LetterInfoAvailableToRolesLabel" xml:space="preserve">
+    <value>購読ができるロール:</value>
+  </data>
+  <data name="LetterInfoDeleteWarning" xml:space="preserve">
+    <value>このニュースレターを削除してよろしいか?</value>
+  </data>
+  <data name="LetterInfoDescriptionLabel" xml:space="preserve">
+    <value>説明:</value>
+  </data>
+  <data name="LetterInfoDescriptionTab" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="LetterInfoEditHeading" xml:space="preserve">
+    <value>ニュースレターの情報の編集</value>
+  </data>
+  <data name="LetterInfoEnabledLabel" xml:space="preserve">
+    <value>有効?:</value>
+  </data>
+  <data name="LetterInfoEnableSendLogLabel" xml:space="preserve">
+    <value>ログの送信を有効?:</value>
+  </data>
+  <data name="LetterInfoEnableViewAsWebPageLabel" xml:space="preserve">
+    <value>Webページで表示を有効?:</value>
+  </data>
+  <data name="LetterInfoFromAddressLabel" xml:space="preserve">
+    <value>発信アドレス:</value>
+  </data>
+  <data name="LetterInfoFromNameLabel" xml:space="preserve">
+    <value>発信者:</value>
+  </data>
+  <data name="LetterInfoLastModifiedLabel" xml:space="preserve">
+    <value>最終更新:</value>
+  </data>
+  <data name="LetterInfoNewLink" xml:space="preserve">
+    <value>新規ニュースレター</value>
+  </data>
+  <data name="LetterInfoReplyToAddressLabel" xml:space="preserve">
+    <value>メールの返信アドレス:</value>
+  </data>
+  <data name="LetterInfoRolesThatCanApproveLabel" xml:space="preserve">
+    <value>送信を承認できるロール:</value>
+  </data>
+  <data name="LetterInfoRolesThatCanApproveTab" xml:space="preserve">
+    <value>承認ができるロール</value>
+  </data>
+  <data name="LetterInfoRolesThatCanEditLabel" xml:space="preserve">
+    <value>レターを編集／著作できるロール:</value>
+  </data>
+  <data name="LetterInfoRolesThatCanEditTab" xml:space="preserve">
+    <value>編集ができるロール</value>
+  </data>
+  <data name="LetterInfoRolesThatCanSendLabel" xml:space="preserve">
+    <value>送信できるロール:</value>
+  </data>
+  <data name="LetterInfoRolesThatCanSendTab" xml:space="preserve">
+    <value>送信ができるロール</value>
+  </data>
+  <data name="LetterInfoRolesThatCanSubscribeTab" xml:space="preserve">
+    <value>購読ができるロール</value>
+  </data>
+  <data name="LetterInfoSaveButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="LetterInfoSecurityTab" xml:space="preserve">
+    <value>セキュリティ</value>
+  </data>
+  <data name="LetterInfoSendModeLabel" xml:space="preserve">
+    <value>送信モード:</value>
+  </data>
+  <data name="LetterInfoSettingsTab" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="LetterInfoTitleLabel" xml:space="preserve">
+    <value>タイトル:</value>
+  </data>
+  <data name="LetterTemplateDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="LetterTemplateDeleteButtonWarning" xml:space="preserve">
+    <value>このテンプレートを削除してよろしいか？</value>
+  </data>
+  <data name="LetterTemplateSaveButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="LetterTemplateSendPreviewButton" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="LetterTemplatesHeading" xml:space="preserve">
+    <value>Html テンプレート</value>
+  </data>
+  <data name="LetterTemplateTitleLabel" xml:space="preserve">
+    <value>件名:</value>
+  </data>
+  <data name="LiteralOr" xml:space="preserve">
+    <value>又は</value>
+  </data>
+  <data name="LiveMessengerChat" xml:space="preserve">
+    <value>Windows Live Messenger チャット</value>
+  </data>
+  <data name="LiveMessengerCIDLabel" xml:space="preserve">
+    <value>Live Messenger CID</value>
+  </data>
+  <data name="LiveMessengerDelegationTokenLabel" xml:space="preserve">
+    <value>Live Messenger 委任トークン</value>
+  </data>
+  <data name="LoginAccountLockedMessage" xml:space="preserve">
+    <value>すみません，このアカウントは現在ロックされています。</value>
+  </data>
+  <data name="LoginFailedInvalidEmailFormatMessage" xml:space="preserve">
+    <value>入力したメールアドレスが有効でありません。</value>
+  </data>
+  <data name="LoginLink" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="LoginUnconfirmedEmailMessage" xml:space="preserve">
+    <value>このアカウントは認証されていません。最初にメールアドレスの認証をしてからログインをしてください。このアカウントを認証するリンクがあるメールメッセージを受け取っているはずです。１時間しても認証のリンクのあるメールメッセージを受け取らなかった場合は，サイトの管理者に連絡して助言をもらってください。</value>
+  </data>
+  <data name="LogoutLink" xml:space="preserve">
+    <value>ログアウト</value>
+  </data>
+  <data name="LookupUserByIPAddressButton" xml:space="preserve">
+    <value>IPアドレスによる検索</value>
+  </data>
+  <data name="MailboxLink" xml:space="preserve">
+    <value>サイトオフィス</value>
+  </data>
+  <data name="MailSettingsTab" xml:space="preserve">
+    <value>メールの設定</value>
+  </data>
+  <data name="ManageUsersActivityTab" xml:space="preserve">
+    <value>ユーザー活動</value>
+  </data>
+  <data name="ManageUsersAddToRoleButton" xml:space="preserve">
+    <value>ユーザーをこのロールに属させる</value>
+  </data>
+  <data name="ManageUsersAddUserLabel" xml:space="preserve">
+    <value>ユーザーの追加</value>
+  </data>
+  <data name="ManageUsersApprovedForForumsLabel" xml:space="preserve">
+    <value>フォーラムについて承認:</value>
+  </data>
+  <data name="ManageUsersConfirmEmailButton" xml:space="preserve">
+    <value>このメールアドレスを正当と承認</value>
+  </data>
+  <data name="ManageUsersConfirmPasswordLabel" xml:space="preserve">
+    <value>パスワードの確認:</value>
+  </data>
+  <data name="ManageUsersCreateButton" xml:space="preserve">
+    <value>ユーザーの作成</value>
+  </data>
+  <data name="ManageUsersCreatedDateLabel" xml:space="preserve">
+    <value>登録日:</value>
+  </data>
+  <data name="ManageUsersDefaultSecurityAnswer" xml:space="preserve">
+    <value>青色</value>
+  </data>
+  <data name="ManageUsersDefaultSecurityQuestion" xml:space="preserve">
+    <value>どの色が好きですか?</value>
+  </data>
+  <data name="ManageUsersDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="ManageUsersDeleteUserWarning" xml:space="preserve">
+    <value>このユーザーを削除してよろしいか?</value>
+  </data>
+  <data name="ManageUsersDisplayInMemberListLabel" xml:space="preserve">
+    <value>メンバー一覧に表示:</value>
+  </data>
+  <data name="ManageUsersEmailLabel" xml:space="preserve">
+    <value>メールアドレス:</value>
+  </data>
+  <data name="ManageUsersLocationGridCaptureCountHeading" xml:space="preserve">
+    <value>記録回数</value>
+  </data>
+  <data name="ManageUsersLocationGridCityHeading" xml:space="preserve">
+    <value>市町村</value>
+  </data>
+  <data name="ManageUsersLocationGridContinentHeading" xml:space="preserve">
+    <value>大陸</value>
+  </data>
+  <data name="ManageUsersLocationGridCountryHeading" xml:space="preserve">
+    <value>国</value>
+  </data>
+  <data name="ManageUsersLocationGridFirstCaptureHeading" xml:space="preserve">
+    <value>最初の記録</value>
+  </data>
+  <data name="ManageUsersLocationGridHostnameHeading" xml:space="preserve">
+    <value>ホスト名</value>
+  </data>
+  <data name="ManageUsersLocationGridIPAddressHeading" xml:space="preserve">
+    <value>IPアドレス</value>
+  </data>
+  <data name="ManageUsersLocationGridISPHeading" xml:space="preserve">
+    <value>ISP</value>
+  </data>
+  <data name="ManageUsersLocationGridLastCaptureHeading" xml:space="preserve">
+    <value>最終の記録</value>
+  </data>
+  <data name="ManageUsersLocationGridRegionHeading" xml:space="preserve">
+    <value>地域</value>
+  </data>
+  <data name="ManageUsersLocationGridTimeZoneHeading" xml:space="preserve">
+    <value>タイムゾーン</value>
+  </data>
+  <data name="ManageUsersLocationTab" xml:space="preserve">
+    <value>場所</value>
+  </data>
+  <data name="ManageUsersLoginNameLabel" xml:space="preserve">
+    <value>ユーザーID:</value>
+  </data>
+  <data name="ManageUsersNewslettersTab" xml:space="preserve">
+    <value>ニュースレター</value>
+  </data>
+  <data name="ManageUsersOpenIDURILabel" xml:space="preserve">
+    <value>Open ID URI:</value>
+  </data>
+  <data name="ManageUsersPageTitle" xml:space="preserve">
+    <value>ユーザー管理</value>
+  </data>
+  <data name="ManageUsersPasswordLabel" xml:space="preserve">
+    <value>パスワード:</value>
+  </data>
+  <data name="ManageUsersProfileApprovedLabel" xml:space="preserve">
+    <value>プロフィルの承認:</value>
+  </data>
+  <data name="ManageUsersProfileTab" xml:space="preserve">
+    <value>プロフィル</value>
+  </data>
+  <data name="ManageUsersRemoveFromRoleButton" xml:space="preserve">
+    <value>ユーザーをこのロールから消去</value>
+  </data>
+  <data name="ManageUsersRemoveRoleWarning" xml:space="preserve">
+    <value>ユーザーからこのロールを削除してよろしいか?</value>
+  </data>
+  <data name="ManageUsersRolesTab" xml:space="preserve">
+    <value>ユーザーロール</value>
+  </data>
+  <data name="ManageUsersSaveButton" xml:space="preserve">
+    <value>ユーザー情報の変更の保存</value>
+  </data>
+  <data name="ManageUsersSecurityTab" xml:space="preserve">
+    <value>ID・セキュリティ</value>
+  </data>
+  <data name="ManageUsersTitleLabel" xml:space="preserve">
+    <value>ユーザー管理:</value>
+  </data>
+  <data name="ManageUsersTotalPostsLabel" xml:space="preserve">
+    <value>投稿数:</value>
+  </data>
+  <data name="ManageUsersTrustedLabel" xml:space="preserve">
+    <value>信頼:</value>
+  </data>
+  <data name="ManageUsersUnsubscribeForumsLink" xml:space="preserve">
+    <value>すべてのフォーラムの購読を中止</value>
+  </data>
+  <data name="ManageUsersUpdateButton" xml:space="preserve">
+    <value>ユーザー情報の更新</value>
+  </data>
+  <data name="ManageUsersUserGuidLabel" xml:space="preserve">
+    <value>ユーザーGuid:</value>
+  </data>
+  <data name="ManageUsersUserIsInAllRolesMessage" xml:space="preserve">
+    <value>ユーザーはすべてのロールに属しています</value>
+  </data>
+  <data name="ManageUsersUserNameLabel" xml:space="preserve">
+    <value>氏名:</value>
+  </data>
+  <data name="ManageUsersWindowsLiveIDLabel" xml:space="preserve">
+    <value>Windows Live ID:</value>
+  </data>
+  <data name="MaxInvalidPasswordAttemptsRegexWarning" xml:space="preserve">
+    <value>パスワードの試行回数は整数を入力してください。</value>
+  </data>
+  <data name="MediumTextLabel" xml:space="preserve">
+    <value>標準の文字</value>
+  </data>
+  <data name="MemberGraphHeightSetting" xml:space="preserve">
+    <value>メンバー数のグラフの高さ</value>
+  </data>
+  <data name="MemberGraphTitle" xml:space="preserve">
+    <value>月間の新規メンバー数</value>
+  </data>
+  <data name="MemberGraphWidthSetting" xml:space="preserve">
+    <value>メンバー数のグラフの幅</value>
+  </data>
+  <data name="MemberGraphXAxisLabel" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="MemberGraphYAxisLabel" xml:space="preserve">
+    <value>新規メンバー</value>
+  </data>
+  <data name="MemberListAddUserLabel" xml:space="preserve">
+    <value>新規ユーザーの追加</value>
+  </data>
+  <data name="MemberListAllUsersLink" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="MemberListDateCreatedLabel" xml:space="preserve">
+    <value>登録日</value>
+  </data>
+  <data name="MemberListLink" xml:space="preserve">
+    <value>メンバー一覧</value>
+  </data>
+  <data name="MemberListPagesLabel" xml:space="preserve">
+    <value>ページ:</value>
+  </data>
+  <data name="MemberListSearchButton" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="MemberListShowAllLabel" xml:space="preserve">
+    <value>すべてを表示</value>
+  </data>
+  <data name="MemberListTitleLabel" xml:space="preserve">
+    <value>メンバー一覧</value>
+  </data>
+  <data name="MemberListUserNameLabel" xml:space="preserve">
+    <value>ユーザー名</value>
+  </data>
+  <data name="MemberListUserTotalPostsLabel" xml:space="preserve">
+    <value>投稿数</value>
+  </data>
+  <data name="MemberListUserWebSiteLabel" xml:space="preserve">
+    <value>ウエブサイト</value>
+  </data>
+  <data name="MemberListViewProfileLabel" xml:space="preserve">
+    <value>プロフィルの表示</value>
+  </data>
+  <data name="MetaDescriptionMemberListFormat" xml:space="preserve">
+    <value>{0} メンバーリスト</value>
+  </data>
+  <data name="MetaDescriptionMyPageFormat" xml:space="preserve">
+    <value>A customizable personal portal page for members of {0}.</value>
+  </data>
+  <data name="MetaDescriptionOpenIDRegistrationPageFormat" xml:space="preserve">
+    <value>{0} Open ID ユーザーの登録ページ</value>
+  </data>
+  <data name="MetaDescriptionRegistrationPageFormat" xml:space="preserve">
+    <value>{0} 登録ページ</value>
+  </data>
+  <data name="MetaDescriptionSearchFormat" xml:space="preserve">
+    <value>{0} サイト検索</value>
+  </data>
+  <data name="MetaDescriptionSignInPageFormat" xml:space="preserve">
+    <value>{0} ログイン・ユーザー</value>
+  </data>
+  <data name="MetaDescriptionSiteMapFormat" xml:space="preserve">
+    <value>{0} サイトマップ</value>
+  </data>
+  <data name="MetaDescriptionWidnowsLiveRegistrationPageFormat" xml:space="preserve">
+    <value>{0} Windows Live ユーザーの登録ページ</value>
+  </data>
+  <data name="MinPasswordLengthRegexWarning" xml:space="preserve">
+    <value>パスワードの最低文字数は整数を入力してください。</value>
+  </data>
+  <data name="ModuleAdminEditLink" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="ModuleAdminSettingsLink" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="ModuleDefinitionDefaultCacheRegexWarning" xml:space="preserve">
+    <value>キャッシュの初期値は0から99999999までの整数です。</value>
+  </data>
+  <data name="ModuleDefinitionDefaultCacheRequiredMessage" xml:space="preserve">
+    <value>キャッシュの初期値を設定してください。キャッシュを使用しない時は0にしてください。</value>
+  </data>
+  <data name="ModuleDefinitionDeleteSettingWarning" xml:space="preserve">
+    <value>設定を削除してよろしいか?</value>
+  </data>
+  <data name="ModuleDefinitionsAddSettingButton" xml:space="preserve">
+    <value>新規設定の追加</value>
+  </data>
+  <data name="ModuleDefinitionsAddSettingHeader" xml:space="preserve">
+    <value>新規設定の追加</value>
+  </data>
+  <data name="ModuleDefinitionsBackLink" xml:space="preserve">
+    <value>機能一覧に戻る</value>
+  </data>
+  <data name="ModuleDefinitionsCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ModuleDefinitionsConfigureLink" xml:space="preserve">
+    <value>設定をする</value>
+  </data>
+  <data name="ModuleDefinitionsControlSourceRequiredHelp" xml:space="preserve">
+    <value>機能のコントロールの相対パスを入力してください。</value>
+  </data>
+  <data name="ModuleDefinitionsDefaultCacheDurationLabel" xml:space="preserve">
+    <value>キャッシュのタイムアウトの初期値 (秒):</value>
+  </data>
+  <data name="ModuleDefinitionsDefaultControlSource" xml:space="preserve">
+    <value>Modules/SomeModule.ascx</value>
+  </data>
+  <data name="ModuleDefinitionsDefaultModuleName" xml:space="preserve">
+    <value>新規定義</value>
+  </data>
+  <data name="ModuleDefinitionsDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="ModuleDefinitionsDeleteInstancesBeforeModuleDefinitionMessage" xml:space="preserve">
+    <value>この機能はこのコンテンツシステムで使用されています。この機能を削除する前にこの機能のインスタンスを削除してください。</value>
+  </data>
+  <data name="ModuleDefinitionsDeleteWarning" xml:space="preserve">
+    <value>この機能を削除してよろしいか?</value>
+  </data>
+  <data name="ModuleDefinitionsDesktopSourceLabel" xml:space="preserve">
+    <value>コントロールソース:</value>
+  </data>
+  <data name="ModuleDefinitionsEditButton" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="ModuleDefinitionSettingsBackLink" xml:space="preserve">
+    <value>機能の定義に戻る</value>
+  </data>
+  <data name="ModuleDefinitionSettingsCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ModuleDefinitionSettingsDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="ModuleDefinitionSettingsEditButton" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="ModuleDefinitionSettingsUpdateButton" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="ModuleDefinitionsFeatureGuidLabel" xml:space="preserve">
+    <value>機能のGuid:</value>
+  </data>
+  <data name="ModuleDefinitionsFeatureNameRequiredHelp" xml:space="preserve">
+    <value>機能の名前を入力してください</value>
+  </data>
+  <data name="ModuleDefinitionsIsAdminLabel" xml:space="preserve">
+    <value>機能一覧から除く:</value>
+  </data>
+  <data name="ModuleDefinitionsIsCacheableLabel" xml:space="preserve">
+    <value>キャッシュ可？</value>
+  </data>
+  <data name="ModuleDefinitionsIsSearchableLabel" xml:space="preserve">
+    <value>検索可？</value>
+  </data>
+  <data name="ModuleDefinitionsModuleDefinitionLabel" xml:space="preserve">
+    <value>機能の定義</value>
+  </data>
+  <data name="ModuleDefinitionSortRegexWarning" xml:space="preserve">
+    <value>ソート順は0から999までの整数</value>
+  </data>
+  <data name="ModuleDefinitionSortRequiredMessage" xml:space="preserve">
+    <value>ソート順は0 - 999</value>
+  </data>
+  <data name="ModuleDefinitionsResourceFileLabel" xml:space="preserve">
+    <value>リソースファイル:</value>
+  </data>
+  <data name="ModuleDefinitionsResourceKeyLabel" xml:space="preserve">
+    <value>機能名リソースキー:</value>
+  </data>
+  <data name="ModuleDefinitionsSearchListNameLabel" xml:space="preserve">
+    <value>検索リスト・リソース名</value>
+  </data>
+  <data name="ModuleDefinitionsSettingControlSrcLabel" xml:space="preserve">
+    <value>コントロールソース:</value>
+  </data>
+  <data name="ModuleDefinitionsSettingControlTypeLabel" xml:space="preserve">
+    <value>コントロールタイプ</value>
+  </data>
+  <data name="ModuleDefinitionsSettingHelpKeyLabel" xml:space="preserve">
+    <value>ヘルプキー:</value>
+  </data>
+  <data name="ModuleDefinitionsSettingNameLabel" xml:space="preserve">
+    <value>キー(空白でないこと)の設定, リソースファイルのラベルのキーと同じ物を使用</value>
+  </data>
+  <data name="ModuleDefinitionsSettingRegexExpressionLabel" xml:space="preserve">
+    <value>正規表現による検証式</value>
+  </data>
+  <data name="ModuleDefinitionsSettingsLabel" xml:space="preserve">
+    <value>機能の設定</value>
+  </data>
+  <data name="ModuleDefinitionsSettingSortOrderLabel" xml:space="preserve">
+    <value>ソート順:</value>
+  </data>
+  <data name="ModuleDefinitionsSettingValueLabel" xml:space="preserve">
+    <value>設定値</value>
+  </data>
+  <data name="ModuleDefinitionsSortOrderLabel" xml:space="preserve">
+    <value>ソート順:</value>
+  </data>
+  <data name="ModuleDefinitionsUpdateButton" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="ModuleDefsAddButton" xml:space="preserve">
+    <value>新規機能の追加</value>
+  </data>
+  <data name="ModuleEditSettings" xml:space="preserve">
+    <value>設定の編集</value>
+  </data>
+  <data name="ModuleSettingsAllowMultipleInstancesOnMyPageLabel" xml:space="preserve">
+    <value>マイページの多重インスタンスの許可?:</value>
+  </data>
+  <data name="ModuleSettingsApplyButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ModuleSettingsAvailableForMyPageLabel" xml:space="preserve">
+    <value>マイページで使用?:</value>
+  </data>
+  <data name="ModuleSettingsCacheRegexWarning" xml:space="preserve">
+    <value>キャッシュの時間はは0から99999999までの整数です。</value>
+  </data>
+  <data name="ModuleSettingsCacheRequiredMessage" xml:space="preserve">
+    <value>キャッシュのタイムアウトを入力してください。キャッシュを使用しない時は0にしてください。</value>
+  </data>
+  <data name="ModuleSettingsCacheTimeLabel" xml:space="preserve">
+    <value>キャッシュのタイムアウト (秒):</value>
+  </data>
+  <data name="ModuleSettingsCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ModuleSettingsDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="ModuleSettingsDeleteConfirm" xml:space="preserve">
+    <value>このコンテンツをすべてのページから完全に削除してよろしいか?</value>
+  </data>
+  <data name="ModuleSettingsEditRolesLabel" xml:space="preserve">
+    <value>コンテンツを編集できるロール:</value>
+  </data>
+  <data name="ModuleSettingsEditUserIDLabel" xml:space="preserve">
+    <value>ユーザーID:</value>
+  </data>
+  <data name="ModuleSettingsEditUserLabel" xml:space="preserve">
+    <value>コンテンツを編集できるユーザー:</value>
+  </data>
+  <data name="ModuleSettingsFeatureNameLabel" xml:space="preserve">
+    <value>機能:</value>
+  </data>
+  <data name="ModuleSettingsGeneralTab" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="ModuleSettingsHideFromAuthenticatedLabel" xml:space="preserve">
+    <value>認証ユーザーから隠す?:</value>
+  </data>
+  <data name="ModuleSettingsHideFromUnauthenticatedLabel" xml:space="preserve">
+    <value>匿名ユーザーから隠す?:</value>
+  </data>
+  <data name="ModuleSettingsIconLabel" xml:space="preserve">
+    <value>アイコン:</value>
+  </data>
+  <data name="ModuleSettingsModuleNameLabel" xml:space="preserve">
+    <value>機能のインスタンスのタイトル:</value>
+  </data>
+  <data name="ModuleSettingsNoIconLabel" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="ModuleSettingsPageTitle" xml:space="preserve">
+    <value>コンテンツの設定</value>
+  </data>
+  <data name="ModuleSettingsSecurityTab" xml:space="preserve">
+    <value>セキュリティ</value>
+  </data>
+  <data name="ModuleSettingsSettingsLabel" xml:space="preserve">
+    <value>機能のインスタンスの設定</value>
+  </data>
+  <data name="ModuleSettingsSettingsTab" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="ModuleSettingsShowTitleLabel" xml:space="preserve">
+    <value>タイトルの表示?:</value>
+  </data>
+  <data name="ModuleSettingsViewRolesLabel" xml:space="preserve">
+    <value>このコンテンツを閲覧できるロール</value>
+  </data>
+  <data name="mojoUserCatalogPartTitle" xml:space="preserve">
+    <value>利用できるコンテンツ</value>
+  </data>
+  <data name="MonthLabel" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="MyPageAddContentLabel" xml:space="preserve">
+    <value>コンテンツの追加</value>
+  </data>
+  <data name="MyPageAnonymousMessage" xml:space="preserve">
+    <value>ログインするとこのページをカスタマイズできます。</value>
+  </data>
+  <data name="MyPageCancelNewPageButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="MyPageCancelRenamePageButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="MyPageCenterLabel" xml:space="preserve">
+    <value>中央</value>
+  </data>
+  <data name="MyPageChangeNameText" xml:space="preserve">
+    <value>名前の変更</value>
+  </data>
+  <data name="MyPageDefaultUserPageName" xml:space="preserve">
+    <value>ようこそ</value>
+  </data>
+  <data name="MyPageDeleteWarning" xml:space="preserve">
+    <value>このコンテンツを削除してよろしいか?</value>
+  </data>
+  <data name="MyPageLeftSideLabel" xml:space="preserve">
+    <value>左サイド</value>
+  </data>
+  <data name="MyPageLink" xml:space="preserve">
+    <value>マイページ</value>
+  </data>
+  <data name="MyPageMoveLeftText" xml:space="preserve">
+    <value>左に移動</value>
+  </data>
+  <data name="MyPageMoveRightText" xml:space="preserve">
+    <value>右に移動</value>
+  </data>
+  <data name="MyPageNewPageButton" xml:space="preserve">
+    <value>ページを追加</value>
+  </data>
+  <data name="MyPageRemoveText" xml:space="preserve">
+    <value>消去</value>
+  </data>
+  <data name="MyPageRenamePageButton" xml:space="preserve">
+    <value>名前の変更</value>
+  </data>
+  <data name="MyPageRightSideLabel" xml:space="preserve">
+    <value>右サイド</value>
+  </data>
+  <data name="MyPageSkinLabel" xml:space="preserve">
+    <value>マイページのスキン:</value>
+  </data>
+  <data name="MyPageToggleScopeLabel" xml:space="preserve">
+    <value>スコープの切替</value>
+  </data>
+  <data name="NewsLetterAddNewLetterLink" xml:space="preserve">
+    <value>新規ニュースレター</value>
+  </data>
+  <data name="NewsLetterAddNewLetterToolTip" xml:space="preserve">
+    <value>このニュースレターの新号を作成</value>
+  </data>
+  <data name="NewsLetterAddNewLink" xml:space="preserve">
+    <value>新規ニュースレターの追加</value>
+  </data>
+  <data name="NewsLetterAdministrationHeading" xml:space="preserve">
+    <value>ニュースレターの管理者</value>
+  </data>
+  <data name="NewsletterArchiveGridSendClickedHeader" xml:space="preserve">
+    <value>Send Clicked</value>
+  </data>
+  <data name="NewsletterArchiveGridSendCompleteHeader" xml:space="preserve">
+    <value>送信完了</value>
+  </data>
+  <data name="NewsletterArchiveGridSendCountHeader" xml:space="preserve">
+    <value># Sent</value>
+  </data>
+  <data name="NewsletterArchiveGridSubjectHeader" xml:space="preserve">
+    <value>題名</value>
+  </data>
+  <data name="NewsLetterArchiveLettersHeading" xml:space="preserve">
+    <value>前号</value>
+  </data>
+  <data name="NewsLetterArchiveLettersHeadingFormatString" xml:space="preserve">
+    <value>{0} - 前号</value>
+  </data>
+  <data name="NewsletterArchiveListLink" xml:space="preserve">
+    <value>前号を見る</value>
+  </data>
+  <data name="NewsLetterDeleteLetterButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="NewsLetterDeleteLetterButtonWarning" xml:space="preserve">
+    <value>このニュースレターを削除してよろしいか?</value>
+  </data>
+  <data name="NewsletterDraftListLink" xml:space="preserve">
+    <value>原稿の閲覧/編集</value>
+  </data>
+  <data name="NewsLetterEditLetterHeading" xml:space="preserve">
+    <value>ニュースレターの編集</value>
+  </data>
+  <data name="NewsletterEditLink" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="NewsletterGeneratePlainTextButton" xml:space="preserve">
+    <value>Html バージョンからテキスト形式を作成</value>
+  </data>
+  <data name="NewsletterGeneratePlainTextButtonWarning" xml:space="preserve">
+    <value>テキスト形式版を作成してよろしいか？既存のテキスト形式版は削除されます。</value>
+  </data>
+  <data name="NewsletterHtmlFormatLabel" xml:space="preserve">
+    <value> Html</value>
+  </data>
+  <data name="NewsLetterLoadHtmlTemplateButton" xml:space="preserve">
+    <value>Html テンプレートを読み込む</value>
+  </data>
+  <data name="NewsletterPlainTextFormatLabel" xml:space="preserve">
+    <value> テキスト形式</value>
+  </data>
+  <data name="NewsletterPlainTextUnsubscribeTokenNotFoundMessage" xml:space="preserve">
+    <value>Unsubscribe token #unsubscribe# not found in plain text.</value>
+  </data>
+  <data name="NewsletterPreferencesHeader" xml:space="preserve">
+    <value>ニュースレターの購読</value>
+  </data>
+  <data name="NewsletterPreviewAddressRequired" xml:space="preserve">
+    <value>プレビューを送信するために正しいメールアドレスを入力してください。</value>
+  </data>
+  <data name="NewsLetterPreviousLettersHeadingFormatString" xml:space="preserve">
+    <value>{0} -前号</value>
+  </data>
+  <data name="NewsLetterSaveCurrentAsTemplateButton" xml:space="preserve">
+    <value>テンプレートとして名前をつけて保存:</value>
+  </data>
+  <data name="NewsLetterSaveCurrentAsTemplateButtonToolTip" xml:space="preserve">
+    <value>現在の Html を新規テンプレートとして保存。</value>
+  </data>
+  <data name="NewsLetterSaveLetterButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="NewsletterSavePreferencesButton" xml:space="preserve">
+    <value>プレファレンスの保存</value>
+  </data>
+  <data name="NewsletterSendLogDateSentHeading" xml:space="preserve">
+    <value>送信</value>
+  </data>
+  <data name="NewsletterSendLogEmailHeading" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="NewsletterSendLogErrorHeading" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="NewsletterSendLogHeadingFormatString" xml:space="preserve">
+    <value>{0} 送信ログ</value>
+  </data>
+  <data name="NewsLetterSendPreviewButton" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="NewsLetterSendToListButtonWarning" xml:space="preserve">
+    <value>ニュースレターを読者に送信してよろしいか？</value>
+  </data>
+  <data name="NewsLetterSendToSubscribersButton" xml:space="preserve">
+    <value>読者に送信</value>
+  </data>
+  <data name="NewsletterStatusCompleteMessage" xml:space="preserve">
+    <value>終了日:</value>
+  </data>
+  <data name="NewsletterStatusQueuedMessage" xml:space="preserve">
+    <value>キュー</value>
+  </data>
+  <data name="NewsletterStatusRunningMessageFormatString" xml:space="preserve">
+    <value>処理中. 送信済 {0} /全件数 {1}</value>
+  </data>
+  <data name="NewsletterStatusStartedMessage" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="NewsLetterSubjectLabel" xml:space="preserve">
+    <value>題名:</value>
+  </data>
+  <data name="NewsletterSubscriberListBeginDateHeading" xml:space="preserve">
+    <value>開始時刻</value>
+  </data>
+  <data name="NewsletterSubscriberListEmailHeading" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="NewsletterSubscriberListHeadingFormatString" xml:space="preserve">
+    <value>{0} 読者</value>
+  </data>
+  <data name="NewsletterSubscriberListHtmlFormatHeading" xml:space="preserve">
+    <value>Html フォーマット</value>
+  </data>
+  <data name="NewsletterSubscriberListNameHeading" xml:space="preserve">
+    <value>名前の変更</value>
+  </data>
+  <data name="NewsletterSubscribersLink" xml:space="preserve">
+    <value>読者</value>
+  </data>
+  <data name="NewsletterSubscribersToolTip" xml:space="preserve">
+    <value>購読者を閲覧</value>
+  </data>
+  <data name="NewsletterTaskNameFormatString" xml:space="preserve">
+    <value>{0} メーラー</value>
+  </data>
+  <data name="NewsLetterTemplatesLabel" xml:space="preserve">
+    <value>Html テンプレート:</value>
+  </data>
+  <data name="NewsletterTemplateTitleRequired" xml:space="preserve">
+    <value>表題が必要です。</value>
+  </data>
+  <data name="NewsletterTextVersionRequiredWarning" xml:space="preserve">
+    <value>テキスト形式版を作成してからニュースレターを送信してください。</value>
+  </data>
+  <data name="NewsLetterTitleLabel" xml:space="preserve">
+    <value>ニュースレターのタイトル</value>
+  </data>
+  <data name="NewsLetterUnsentLettersHeading" xml:space="preserve">
+    <value>原稿</value>
+  </data>
+  <data name="NewsLetterUnsentLettersHeadingFormatString" xml:space="preserve">
+    <value>{0} - 未送信</value>
+  </data>
+  <data name="NewsletterUnsubscribeConfirmFormatString" xml:space="preserve">
+    <value>{0} の購読の中止 ?</value>
+  </data>
+  <data name="NewsletterUnsubscribeInvalidParamsMessage" xml:space="preserve">
+    <value>正当な購読中止のパラメータでありません。</value>
+  </data>
+  <data name="NewsletterUnsubscribeLink" xml:space="preserve">
+    <value>購読中止</value>
+  </data>
+  <data name="NewsletterUnsubscribeSuccessFormatString" xml:space="preserve">
+    <value>{0} からのニュースレターを購読中止にしています。</value>
+  </data>
+  <data name="NewsletterUnsubscribeTokenNotFoundMessage" xml:space="preserve">
+    <value>Required Unsubscribe token #unsubscribe# not found in HTML.</value>
+  </data>
+  <data name="NewsletterViewSendLogToolTip" xml:space="preserve">
+    <value>送信ログを閲覧</value>
+  </data>
+  <data name="NewUrlRequiredMessage" xml:space="preserve">
+    <value>新しい Url が必要です。</value>
+  </data>
+  <data name="NewUserAdminNotificationTask" xml:space="preserve">
+    <value>NewUserAdminNotificationTask</value>
+  </data>
+  <data name="NormalTextLabel" xml:space="preserve">
+    <value>通常のテキスト</value>
+  </data>
+  <data name="NoSSLWarning" xml:space="preserve">
+    <value>このページは暗号化されていません。クレジットカードの番号やその他の個人情報を入力するのは危険です。</value>
+  </data>
+  <data name="NotYetRegistered" xml:space="preserve">
+    <value>ユーザー登録をしていますか?</value>
+  </data>
+  <data name="OldUrlRequiredMessage" xml:space="preserve">
+    <value>旧の Url が必要です。</value>
+  </data>
+  <data name="OnlineMemberListProfileLinkPrefix" xml:space="preserve">
+    <value>プロフィルの表示:</value>
+  </data>
+  <data name="OnlineMembersLabel" xml:space="preserve">
+    <value>オンラインメンバー</value>
+  </data>
+  <data name="OpenIDAdditionalInfoNeededMessage" xml:space="preserve">
+    <value>Open ID アカウントの認証ができましたがこのサイトに登録するためには追加の情報が必要です。</value>
+  </data>
+  <data name="OpenIDExamplePrefix" xml:space="preserve">
+    <value>例:</value>
+  </data>
+  <data name="OpenIDExampleUrl" xml:space="preserve">
+    <value>http://your.name.myopenid.com</value>
+  </data>
+  <data name="OpenIDLabel" xml:space="preserve">
+    <value>Open ID:</value>
+  </data>
+  <data name="OpenIDLoginButton" xml:space="preserve">
+    <value>Open ID アカウントでログインしてください</value>
+  </data>
+  <data name="OpenIDLoginCanceledMessage" xml:space="preserve">
+    <value>ログインがキャンセルされました</value>
+  </data>
+  <data name="OpenIDLoginFailedMessage" xml:space="preserve">
+    <value>ログインに失敗しました</value>
+  </data>
+  <data name="OpenIDMustRegisterBeforeLoginMesage" xml:space="preserve">
+    <value>このサイトにログインする前に登録をしてください。 &lt;a href='{0}' title='Open ID Registration Page'&gt;ここ&lt;/a&gt; をクリックして Open ID を登録してください。</value>
+  </data>
+  <data name="OpenIDRegisterButton" xml:space="preserve">
+    <value>Open ID アカウントで登録</value>
+  </data>
+  <data name="OpenIDRegisterUserEmailExistsMessage" xml:space="preserve">
+    <value>あなたのOpen ID プロフィルのメールアドレスと同じメールアドレスのユーザーが既に存在します。あなたの既存のアカウントにOpen ID を関連付けたい時は，既存のアカウントでログインしてプロフィルのページで Open ID を更新してください。</value>
+  </data>
+  <data name="OpenIDRegistrationCanceledMessage" xml:space="preserve">
+    <value>登録がキャンセルされました</value>
+  </data>
+  <data name="OpenIDRegistrationFailedMessage" xml:space="preserve">
+    <value>登録に失敗しました</value>
+  </data>
+  <data name="OpenIDRegistrationHeading" xml:space="preserve">
+    <value>Open ID アカウントでサイトに登録</value>
+  </data>
+  <data name="OpenIDRegistrationLink" xml:space="preserve">
+    <value>ここをクリックしてOpen ID アカウントで登録</value>
+  </data>
+  <data name="OpenIDServerConnectionErrorMessage" xml:space="preserve">
+    <value>OpenID サーバーに接続できませんでした。</value>
+  </data>
+  <data name="OpenIDUpdateButton" xml:space="preserve">
+    <value>OpenIDの更新</value>
+  </data>
+  <data name="OpenIDUpdateCancelledMessage" xml:space="preserve">
+    <value>更新がキャンセルされました。</value>
+  </data>
+  <data name="OpenIDUpdateFailedMessage" xml:space="preserve">
+    <value>更新に失敗しました。</value>
+  </data>
+  <data name="OrderStatusCancelled" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="OrderStatusFulfillable" xml:space="preserve">
+    <value>履行可能</value>
+  </data>
+  <data name="OrderStatusFulfilled" xml:space="preserve">
+    <value>履行済</value>
+  </data>
+  <data name="OrderStatusNone" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="OrderStatusReceived" xml:space="preserve">
+    <value>受付済</value>
+  </data>
+  <data name="PageChangeFrequencyAlways" xml:space="preserve">
+    <value>常に</value>
+  </data>
+  <data name="PageChangeFrequencyDaily" xml:space="preserve">
+    <value>毎日</value>
+  </data>
+  <data name="PageChangeFrequencyHourly" xml:space="preserve">
+    <value>毎時</value>
+  </data>
+  <data name="PageChangeFrequencyMonthly" xml:space="preserve">
+    <value>毎月</value>
+  </data>
+  <data name="PageChangeFrequencyNever" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="PageChangeFrequencyWeekly" xml:space="preserve">
+    <value>毎週</value>
+  </data>
+  <data name="PageChangeFrequencyYearly" xml:space="preserve">
+    <value>毎年</value>
+  </data>
+  <data name="PageConfigLink" xml:space="preserve">
+    <value>ページの設定を編集</value>
+  </data>
+  <data name="PageContentEditText" xml:space="preserve">
+    <value>ページのコンテンツの追加/消去/配置</value>
+  </data>
+  <data name="PageDeleteConfirmMessage" xml:space="preserve">
+    <value>このページを削除してよろしいか?</value>
+  </data>
+  <data name="PageEditLink" xml:space="preserve">
+    <value>ページの編集</value>
+  </data>
+  <data name="PageLastModifiedLabel" xml:space="preserve">
+    <value>ページの最終更新:</value>
+  </data>
+  <data name="PageLayoutAddModuleLabel" xml:space="preserve">
+    <value>コンテンツの追加:</value>
+  </data>
+  <data name="PageLayoutAlt1DeleteButton" xml:space="preserve">
+    <value>選択したコンテンツをページから削除</value>
+  </data>
+  <data name="PageLayoutAlt1EditButton" xml:space="preserve">
+    <value>選択したコンテンツの設定の編集</value>
+  </data>
+  <data name="PageLayoutAlt1MoveDownButton" xml:space="preserve">
+    <value>選択したコンテンツをリストの下に移動</value>
+  </data>
+  <data name="PageLayoutAlt1MoveUpButton" xml:space="preserve">
+    <value>選択したコンテンツをリストの上に移動</value>
+  </data>
+  <data name="PageLayoutAlt2DeleteButton" xml:space="preserve">
+    <value>選択したコンテンツをページから削除</value>
+  </data>
+  <data name="PageLayoutAlt2EditButton" xml:space="preserve">
+    <value>選択したコンテンツの設定の編集</value>
+  </data>
+  <data name="PageLayoutAlt2MoveDownButton" xml:space="preserve">
+    <value>選択したコンテンツをリストの下に移動</value>
+  </data>
+  <data name="PageLayoutAlt2MoveUpButton" xml:space="preserve">
+    <value>選択したコンテンツをリストの上に移動</value>
+  </data>
+  <data name="PageLayoutAltPanel1Label" xml:space="preserve">
+    <value>追加ペイン 1</value>
+  </data>
+  <data name="PageLayoutAltPanel2Label" xml:space="preserve">
+    <value>追加ペイン 2</value>
+  </data>
+  <data name="PageLayoutAltPanelInfo" xml:space="preserve">
+    <value>現在選択しているスキンは、以下のようにオプションでコンテンツの場所を追加することができます。もし追加のセクションにコンテンツを配置した場合に追加のセクションを持たないスキンに変更した時には、それらのコンテンツは中央のペイン配置されます。</value>
+  </data>
+  <data name="PageLayoutAuthorizedRolesLabel" xml:space="preserve">
+    <value>このページを閲覧できるロール:</value>
+  </data>
+  <data name="PageLayoutContentDeleteAlternateText" xml:space="preserve">
+    <value>この項目の削除</value>
+  </data>
+  <data name="PageLayoutContentDownAlternateText" xml:space="preserve">
+    <value>選択したモジュールを一覧の下方に移動</value>
+  </data>
+  <data name="PageLayoutContentEditAlternateText" xml:space="preserve">
+    <value>この項目の編集</value>
+  </data>
+  <data name="PageLayoutContentLabel" xml:space="preserve">
+    <value>ページのコンテンツ:</value>
+  </data>
+  <data name="PageLayoutContentLeftAlternateText" xml:space="preserve">
+    <value>選択したモジュールを左ペインに移動</value>
+  </data>
+  <data name="PageLayoutContentPaneLabel" xml:space="preserve">
+    <value>中央ペイン</value>
+  </data>
+  <data name="PageLayoutContentRightAlternateText" xml:space="preserve">
+    <value>選択したモジュールを右ペインに移動</value>
+  </data>
+  <data name="PageLayoutContentUpAlternateText" xml:space="preserve">
+    <value>選択したモジュールを一覧の上方に移動</value>
+  </data>
+  <data name="PageLayoutCreateChildPageRolesLabel" xml:space="preserve">
+    <value>このページの下に子ページを作成できるロール:</value>
+  </data>
+  <data name="PageLayoutDefaultNewModuleName" xml:space="preserve">
+    <value>新規コンテンツのタイトル</value>
+  </data>
+  <data name="PageLayoutDefaultSkinLabel" xml:space="preserve">
+    <value>サイトのデフォルト</value>
+  </data>
+  <data name="PageLayoutEditRolesLabel" xml:space="preserve">
+    <value>このページを編集できるロール:</value>
+  </data>
+  <data name="PageLayoutEditSettingsLink" xml:space="preserve">
+    <value>ページ設定の編集</value>
+  </data>
+  <data name="PageLayoutHideMenuLabel" xml:space="preserve">
+    <value>メインメニューを隠す?:</value>
+  </data>
+  <data name="PageLayoutLeftDeleteAlternateText" xml:space="preserve">
+    <value>この項目を削除</value>
+  </data>
+  <data name="PageLayoutLeftDownAlternateText" xml:space="preserve">
+    <value>選択したモジュールを一覧の下方に移動</value>
+  </data>
+  <data name="PageLayoutLeftEditAlternateText" xml:space="preserve">
+    <value>この項目の編集</value>
+  </data>
+  <data name="PageLayoutLeftPaneLabel" xml:space="preserve">
+    <value>左ペイン</value>
+  </data>
+  <data name="PageLayoutLeftRightAlternateText" xml:space="preserve">
+    <value>選択したモジュールを中央ペインに移動</value>
+  </data>
+  <data name="PageLayoutLeftUpAlternateText" xml:space="preserve">
+    <value>選択したモジュールを一覧の上方に移動</value>
+  </data>
+  <data name="PageLayoutLocationLabel" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="PageLayoutMetaAdditionalLabel" xml:space="preserve">
+    <value>ページの追加メタ・タグ</value>
+  </data>
+  <data name="PageLayoutMetaDescriptionLabel" xml:space="preserve">
+    <value>ページの内容要約</value>
+  </data>
+  <data name="PageLayoutMetaEncodingLabel" xml:space="preserve">
+    <value>ページのエンコーディング</value>
+  </data>
+  <data name="PageLayoutMetaKeyWordsLabel" xml:space="preserve">
+    <value>ページのメタ・キーワード</value>
+  </data>
+  <data name="PageLayoutModuleNameLabel" xml:space="preserve">
+    <value>タイトル:</value>
+  </data>
+  <data name="PageLayoutModuleTypeLabel" xml:space="preserve">
+    <value>機能</value>
+  </data>
+  <data name="PageLayoutMoveAlt1ToAlt2Button" xml:space="preserve">
+    <value>選択したコンテンツを追加ペイン2に移動</value>
+  </data>
+  <data name="PageLayoutMoveAlt1ToCenterButton" xml:space="preserve">
+    <value>選択したコンテンツを中央ペインに移動</value>
+  </data>
+  <data name="PageLayoutMoveAlt2ToAlt1Button" xml:space="preserve">
+    <value>選択したコンテンツを次のコンテンツ・ペインに移動</value>
+  </data>
+  <data name="PageLayoutMoveCenterToAlt1Button" xml:space="preserve">
+    <value>選択したコンテンツを追加ペイン1に移動</value>
+  </data>
+  <data name="PageLayoutNewPageLabel" xml:space="preserve">
+    <value>新規ページ</value>
+  </data>
+  <data name="PageLayoutOpenInNewWindowLabel" xml:space="preserve">
+    <value>新規ウィンドウで開く?</value>
+  </data>
+  <data name="PageLayoutOrganizeModulesLabel" xml:space="preserve">
+    <value>コンテンツの整理</value>
+  </data>
+  <data name="PageLayoutPageLayoutLabel" xml:space="preserve">
+    <value>ページレイアウト</value>
+  </data>
+  <data name="PageLayoutPageSettingsLabel" xml:space="preserve">
+    <value>ページ設定</value>
+  </data>
+  <data name="PageLayoutPageTitle" xml:space="preserve">
+    <value>ページ・コンテンツ・レイアウト</value>
+  </data>
+  <data name="PageLayoutParentPageLabel" xml:space="preserve">
+    <value>親ページ</value>
+  </data>
+  <data name="PageLayoutRemoveContentWarning" xml:space="preserve">
+    <value>このコンテンツをページから削除してよろしいか？</value>
+  </data>
+  <data name="PageLayoutRequireSSLLabel" xml:space="preserve">
+    <value>SSLが必要?</value>
+  </data>
+  <data name="PageLayoutRightDeleteAlternateText" xml:space="preserve">
+    <value>この項目を削除</value>
+  </data>
+  <data name="PageLayoutRightDownAlternateText" xml:space="preserve">
+    <value>選択したモジュールを一覧の下方に移動</value>
+  </data>
+  <data name="PageLayoutRightEditAlternateText" xml:space="preserve">
+    <value>この項目を編集</value>
+  </data>
+  <data name="PageLayoutRightLeftAlternateText" xml:space="preserve">
+    <value>選択したモジュールを中央ペインに移動</value>
+  </data>
+  <data name="PageLayoutRightPaneLabel" xml:space="preserve">
+    <value>右ペイン</value>
+  </data>
+  <data name="PageLayoutRightUpAlternateText" xml:space="preserve">
+    <value>選択したモジュールを一覧の上方に移動</value>
+  </data>
+  <data name="PageLayoutShowBreadcrumbsLabel" xml:space="preserve">
+    <value>トピックパスの表示?</value>
+  </data>
+  <data name="PageLayoutShowChildBreadcrumbsLabel" xml:space="preserve">
+    <value>子ページのトピックパスの表示?</value>
+  </data>
+  <data name="PageLayoutShowChildMenuLabel" xml:space="preserve">
+    <value>子ページのサイトマップを表示?</value>
+  </data>
+  <data name="PageLayoutUrlLabel" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="PageLayoutUseUrlLabel" xml:space="preserve">
+    <value>Urlの使用?</value>
+  </data>
+  <data name="PageListLink" xml:space="preserve">
+    <value>ページ一覧</value>
+  </data>
+  <data name="PageNameRequiredWarning" xml:space="preserve">
+    <value>ページ名が必要です。</value>
+  </data>
+  <data name="PageNotFoundMessage" xml:space="preserve">
+    <value>検索したページは見つかりませんでした。サイトマップをご覧ください。</value>
+  </data>
+  <data name="PageNotFoundTitle" xml:space="preserve">
+    <value>ページがみつかりません</value>
+  </data>
+  <data name="PagePropertiesEditText" xml:space="preserve">
+    <value>ページの設定を編集</value>
+  </data>
+  <data name="PagesAddButton" xml:space="preserve">
+    <value>新規ページの追加</value>
+  </data>
+  <data name="PagesDeleteAlternateText" xml:space="preserve">
+    <value>選択したページを削除</value>
+  </data>
+  <data name="PagesDownButtonAlternateText" xml:space="preserve">
+    <value>選択したページを下方に移動</value>
+  </data>
+  <data name="PagesEditAlternateText" xml:space="preserve">
+    <value>ページのコンテンツの編集。</value>
+  </data>
+  <data name="PagesEditSettingsAlternateText" xml:space="preserve">
+    <value>ページ設定の編集</value>
+  </data>
+  <data name="PageSettingsAllowBrowserCacheLabel" xml:space="preserve">
+    <value>ブラウザーのキャッシュを許可?:</value>
+  </data>
+  <data name="PageSettingsChangeFrequencyLabel" xml:space="preserve">
+    <value>更新の頻度:</value>
+  </data>
+  <data name="PageSettingsCreateNewPageButton" xml:space="preserve">
+    <value>新規ページ作成</value>
+  </data>
+  <data name="PageSettingsCreateNewPageLabel" xml:space="preserve">
+    <value>新規ページ作成</value>
+  </data>
+  <data name="PageSettingsDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="PageSettingsDeleteWarning" xml:space="preserve">
+    <value>このページを削除してよろしいか?</value>
+  </data>
+  <data name="PageSettingsEditContentLink" xml:space="preserve">
+    <value>ページのコンテンツの編集</value>
+  </data>
+  <data name="PageSettingsHideSearchEngineOptimization" xml:space="preserve">
+    <value>検索エンジンの設定を隠す</value>
+  </data>
+  <data name="PageSettingsIconLabel" xml:space="preserve">
+    <value>メニューアイコン:</value>
+  </data>
+  <data name="PageSettingsIncludeInMenuLabel" xml:space="preserve">
+    <value>メニューに表示?:</value>
+  </data>
+  <data name="PageSettingsIncludeInSiteMapLabel" xml:space="preserve">
+    <value>サイトマップに表示？</value>
+  </data>
+  <data name="PageSettingsLabel" xml:space="preserve">
+    <value>ページ設定:</value>
+  </data>
+  <data name="PageSettingsMainSettingsTab" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="PageSettingsMenuImageAtlText" xml:space="preserve">
+    <value>ページアイコン</value>
+  </data>
+  <data name="PageSettingsMetaDataTab" xml:space="preserve">
+    <value>メタ設定</value>
+  </data>
+  <data name="PageSettingsMetaSettingsLabel" xml:space="preserve">
+    <value>メタ設定 - 空白の時はサイトのデフォルト</value>
+  </data>
+  <data name="PageSettingsNewPageTitle" xml:space="preserve">
+    <value>新規ページ</value>
+  </data>
+  <data name="PageSettingsPageNameLabel" xml:space="preserve">
+    <value>ページ名:</value>
+  </data>
+  <data name="PageSettingsPageTitle" xml:space="preserve">
+    <value>ページ設定</value>
+  </data>
+  <data name="PageSettingsPageTitleOverrideLabel" xml:space="preserve">
+    <value>ページタイトル(オーバーライド):</value>
+  </data>
+  <data name="PageSettingsPhysicalUrlWarning" xml:space="preserve">
+    <value>注意：この Url は既存のページへのリンクになります。もし、そういうつもりでなければ異なる Url を入力してください。</value>
+  </data>
+  <data name="PageSettingsPriorityLabel" xml:space="preserve">
+    <value>優先度:</value>
+  </data>
+  <data name="PageSettingsRootLabel" xml:space="preserve">
+    <value>ルート</value>
+  </data>
+  <data name="PageSettingsSaveButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="PageSettingsSearchEngineOptimizationSettingsLabel" xml:space="preserve">
+    <value>検索エンジンの最適化</value>
+  </data>
+  <data name="PageSettingsSecurityTab" xml:space="preserve">
+    <value>セキュリティ</value>
+  </data>
+  <data name="PageSettingsShowSearchEngineOptimization" xml:space="preserve">
+    <value>検索エンジンの設定を表示</value>
+  </data>
+  <data name="PageSettingsSSLTab" xml:space="preserve">
+    <value>SSL</value>
+  </data>
+  <data name="PageSettingstHideAfterLoginLabel" xml:space="preserve">
+    <value>認証ユーザーから隠す?:</value>
+  </data>
+  <data name="PagesLabel" xml:space="preserve">
+    <value>ページ:</value>
+  </data>
+  <data name="PagesNoSelectionWarning" xml:space="preserve">
+    <value>ページが選択されていません。選択するページをクリックしてください。</value>
+  </data>
+  <data name="PagesUpButtonAlternateText" xml:space="preserve">
+    <value>選択したページを上方に移動する。</value>
+  </data>
+  <data name="PageTitleFormatProfilePage" xml:space="preserve">
+    <value> ユーザープロフィル： {0}</value>
+  </data>
+  <data name="PageTreeLink" xml:space="preserve">
+    <value>ページ階層</value>
+  </data>
+  <data name="PageTreeTitle" xml:space="preserve">
+    <value>ページ階層の編集</value>
+  </data>
+  <data name="PageUrlInUseErrorMessage" xml:space="preserve">
+    <value>この Ur はすでに使用されています。異なるページに同じ Url を使用することはできません。</value>
+  </data>
+  <data name="PageViewPageLink" xml:space="preserve">
+    <value>ページの表示</value>
+  </data>
+  <data name="PasswordAttemptWindowRegexWarning" xml:space="preserve">
+    <value>失敗した試行の追跡時間は整数を入力してください。</value>
+  </data>
+  <data name="PasswordMinNonAlphaNumericRegexWarning" xml:space="preserve">
+    <value>パスワードの英数字以外の最低文字数は整数を入力してください。</value>
+  </data>
+  <data name="PasswordQuestionLabel" xml:space="preserve">
+    <value>セキュリティのための質問に答えてください:</value>
+  </data>
+  <data name="PasswordRecoveryAnswerRequired" xml:space="preserve">
+    <value>セキュリティのための質問の答えを入力してください。</value>
+  </data>
+  <data name="PasswordRecoveryEmailSubjectFormatString" xml:space="preserve">
+    <value>あなたの {0} パスワード</value>
+  </data>
+  <data name="PasswordRecoveryGeneralFailureText" xml:space="preserve">
+    <value>情報にアクセスすることができませんでした。もう一度やり直してください。</value>
+  </data>
+  <data name="PasswordRecoveryMailFailureMessage" xml:space="preserve">
+    <value>サーバーがメッセージを送信できないため，パスワードを送信することができませんでした。しばらくしてから，やり直してください。問題が継続する時はサイト管理者に連絡してください。このエラーは記録されています。</value>
+  </data>
+  <data name="PasswordRecoveryNextButton" xml:space="preserve">
+    <value>次へ</value>
+  </data>
+  <data name="PasswordRecoveryQuestionFailureText" xml:space="preserve">
+    <value>答えが正しくありません。</value>
+  </data>
+  <data name="PasswordRecoverySuccessMessage" xml:space="preserve">
+    <value>パスワードは，登録されたメールアドレスに送信されました。</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>パスワードの再設定のページ</value>
+  </data>
+  <data name="PasswordRecoveryUserNameFailureText" xml:space="preserve">
+    <value>ユーザー名がありません。</value>
+  </data>
+  <data name="PasswordRecoveryUserNameRequiredWarning" xml:space="preserve">
+    <value>ユーザー名を入力してください。</value>
+  </data>
+  <data name="PayPalCartTotal" xml:space="preserve">
+    <value>Cart Total</value>
+  </data>
+  <data name="PayPalChargeTotal" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="PayPalCreatedUtc" xml:space="preserve">
+    <value>Created UTC</value>
+  </data>
+  <data name="PayPalFeeAmount" xml:space="preserve">
+    <value>Fee</value>
+  </data>
+  <data name="PayPalLogHeading" xml:space="preserve">
+    <value>PayPal Log</value>
+  </data>
+  <data name="PayPalLogRequestType" xml:space="preserve">
+    <value>Request Type</value>
+  </data>
+  <data name="PayPalPaymentStatus" xml:space="preserve">
+    <value>Payment Status</value>
+  </data>
+  <data name="PayPalPaymentType" xml:space="preserve">
+    <value>Payment Type</value>
+  </data>
+  <data name="PayPalPendingReason" xml:space="preserve">
+    <value>Pending Reason</value>
+  </data>
+  <data name="PayPalProviderName" xml:space="preserve">
+    <value>Provider Name</value>
+  </data>
+  <data name="PayPalSettlementAmount" xml:space="preserve">
+    <value>Settlement</value>
+  </data>
+  <data name="PayPalTaxAmount" xml:space="preserve">
+    <value>Tax</value>
+  </data>
+  <data name="PayPalToken" xml:space="preserve">
+    <value>PayPal Token</value>
+  </data>
+  <data name="PayPalTransactionId" xml:space="preserve">
+    <value>TransactionId</value>
+  </data>
+  <data name="PlainTextTab" xml:space="preserve">
+    <value>平文</value>
+  </data>
+  <data name="PleaseWaitButton" xml:space="preserve">
+    <value>しばらくお待ちください。</value>
+  </data>
+  <data name="PlugNPayLogAuthCode" xml:space="preserve">
+    <value>Auth. Code</value>
+  </data>
+  <data name="PlugNPayLogCreatedUtc" xml:space="preserve">
+    <value>Created UTC</value>
+  </data>
+  <data name="PlugNPayLogHeading" xml:space="preserve">
+    <value>Plug N Pay Log</value>
+  </data>
+  <data name="PlugNPayLogMethod" xml:space="preserve">
+    <value>Method</value>
+  </data>
+  <data name="PlugNPayLogProviderName" xml:space="preserve">
+    <value>Provider Name</value>
+  </data>
+  <data name="PlugNPayLogReason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="PlugNPayLogResponseCode" xml:space="preserve">
+    <value>Response Code</value>
+  </data>
+  <data name="PlugNPayLogTransactionId" xml:space="preserve">
+    <value>TransactionId</value>
+  </data>
+  <data name="PlugNPayLogTransactionType" xml:space="preserve">
+    <value>Transaction Type</value>
+  </data>
+  <data name="PodcastLink" xml:space="preserve">
+    <value>ポッドキャスト</value>
+  </data>
+  <data name="PrinterFriendlyLink" xml:space="preserve">
+    <value>印刷用画面</value>
+  </data>
+  <data name="ProfileLink" xml:space="preserve">
+    <value>マイアカウント</value>
+  </data>
+  <data name="ProfileViewMetaFormat" xml:space="preserve">
+    <value>メンバー {0} に公開されるユーザー・プロ―フィール</value>
+  </data>
+  <data name="PublicProfileLink" xml:space="preserve">
+    <value>自分の公開プロフィールを見る。</value>
+  </data>
+  <data name="RatingCommentsLabel" xml:space="preserve">
+    <value>このコンテンツにフィードバックする</value>
+  </data>
+  <data name="RatingCountFormat" xml:space="preserve">
+    <value>{0} 票</value>
+  </data>
+  <data name="RatingEmailLabel" xml:space="preserve">
+    <value>メールドレス (オプション)</value>
+  </data>
+  <data name="RatingNoThanksButton" xml:space="preserve">
+    <value>いいえ</value>
+  </data>
+  <data name="RatingPrompt" xml:space="preserve">
+    <value>このコンテンツの評価</value>
+  </data>
+  <data name="RatingSubmitButton" xml:space="preserve">
+    <value>投票</value>
+  </data>
+  <data name="RecoverPasswordMetaDescriptionFormat" xml:space="preserve">
+    <value>パスワードを忘れたメンバー {0} のパスワードの再設定のページです。</value>
+  </data>
+  <data name="RedirectDeleteWarning" xml:space="preserve">
+    <value>この301リダイレクトを削除してよろしいか?</value>
+  </data>
+  <data name="RedirectHelp" xml:space="preserve">
+    <value>301ダイレクトは、永久に移動したページのためのものです。元の url は301ステータスコードを返して、新しい url にリダイレクトします。この機能の主な目的は検索エンジンの最適化とユーザーによい印象を与えるためです。元のurl でブックマークをしていた場合や検索エンジンで検索した場合にでも、新しいページが表示されます。通常の場合、手動でリダイレクトを追加する必要はありません。ページが新しいurlに変更したときには、システムにより自動的に元のurl から新しい url にリダイレクトするように設定されます。しかし、元のurlに戻したい場合は、手動でリダイレクトを削除する必要があります。また、手動でリダイレクトを追加する場合は、例えば２つのページをお互いにリダイレクトするようなリダイレクトの循環が生じないように十分に気をつける必要があります。</value>
+  </data>
+  <data name="RedirectManagerLink" xml:space="preserve">
+    <value>301 リダイレクトマネージャ - Url を変更したページのために</value>
+  </data>
+  <data name="RedirectManagerShortLink" xml:space="preserve">
+    <value>リダイレクトマネージャ -</value>
+  </data>
+  <data name="RedirectsToLabel" xml:space="preserve">
+    <value>リダイレクト先</value>
+  </data>
+  <data name="RefreshAltText" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="RefreshLogViewerLink" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>アカウント作成</value>
+  </data>
+  <data name="RegisterCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="RegisterComparePasswordWarning" xml:space="preserve">
+    <value>パスワードの確認とパスワードには同じものを入力してください。</value>
+  </data>
+  <data name="RegisterCompleteMessage" xml:space="preserve">
+    <value>アカウントが作成されました。</value>
+  </data>
+  <data name="RegisterConfirmMessage" xml:space="preserve">
+    <value>登録が確認されました。上のログインのリンクをクリックしてログインしてください。</value>
+  </data>
+  <data name="RegisterConfirmPasswordLabel" xml:space="preserve">
+    <value>パスワードの確認:</value>
+  </data>
+  <data name="RegisterConfirmPasswordRequiredMessage" xml:space="preserve">
+    <value>パスワードの確認を入力してください。</value>
+  </data>
+  <data name="RegisterContinueButton" xml:space="preserve">
+    <value>次へ</value>
+  </data>
+  <data name="RegisterDuplicateEmailMessage" xml:space="preserve">
+    <value>同じメールアドレスのユーザーが既に登録されています。</value>
+  </data>
+  <data name="RegisterDuplicateUserNameMessage" xml:space="preserve">
+    <value>同じユーザーIDのユーザーが既に登録されています。</value>
+  </data>
+  <data name="RegisterEmailLabel" xml:space="preserve">
+    <value>メール:</value>
+  </data>
+  <data name="RegisterEmailRegexMessage" xml:space="preserve">
+    <value>正しいメールアドレスを入力してください。</value>
+  </data>
+  <data name="RegisterEmailRequiredMessage" xml:space="preserve">
+    <value>メールアドレスを入力してください。</value>
+  </data>
+  <data name="RegisterInvalidAnswerErrorMessage" xml:space="preserve">
+    <value>別のセキュリティのための答えを入力してください。</value>
+  </data>
+  <data name="RegisterInvalidQuestionErrorMessage" xml:space="preserve">
+    <value>別のセキュリティのための質問を入力してください。</value>
+  </data>
+  <data name="RegisterLabel" xml:space="preserve">
+    <value>新規アカウントの作成</value>
+  </data>
+  <data name="RegisterLink" xml:space="preserve">
+    <value>新規登録</value>
+  </data>
+  <data name="RegisterLoginNameLabel" xml:space="preserve">
+    <value>ユーザーID:</value>
+  </data>
+  <data name="RegisterLoginNameRequiredMessage" xml:space="preserve">
+    <value>ユーザーIDを入力してください。</value>
+  </data>
+  <data name="RegisterNameLabel" xml:space="preserve">
+    <value>名前:</value>
+  </data>
+  <data name="RegisterNameRequiredMessage" xml:space="preserve">
+    <value>名前を入力してください。</value>
+  </data>
+  <data name="RegisterPasswordLabel" xml:space="preserve">
+    <value>パスワード:</value>
+  </data>
+  <data name="RegisterPasswordMinLengthWarning" xml:space="preserve">
+    <value>パスワードの最低文字数</value>
+  </data>
+  <data name="RegisterPasswordMinNonAlphaCharsWarning" xml:space="preserve">
+    <value>パスワードの英数字以外の最低文字数</value>
+  </data>
+  <data name="RegisterPasswordRegexWarning" xml:space="preserve">
+    <value>パスワードを複雑にしてください。</value>
+  </data>
+  <data name="RegisterPasswordRequiredMessage" xml:space="preserve">
+    <value>パスワードを入力してください</value>
+  </data>
+  <data name="RegisterSecurityAnswer" xml:space="preserve">
+    <value>セキュリティのための答え:</value>
+  </data>
+  <data name="RegisterSecurityAnswerRequiredMessage" xml:space="preserve">
+    <value>セキュリティのための質問の答えを入力してください。</value>
+  </data>
+  <data name="RegisterSecurityQuestion" xml:space="preserve">
+    <value>セキュリティのための質問:</value>
+  </data>
+  <data name="RegisterSecurityQuestionRequiredMessage" xml:space="preserve">
+    <value>セキュリティのための質問を入力してください。</value>
+  </data>
+  <data name="RegisterWithOpenIDInstructions" xml:space="preserve">
+    <value>OpenID で登録をすることは簡単で、新しいパスワードを記憶する必要もありません。</value>
+  </data>
+  <data name="RegisterWithOpenIDLink" xml:space="preserve">
+    <value>OpenID で登録</value>
+  </data>
+  <data name="RegisterWithOpenIdOrWindowsLiveInstructions" xml:space="preserve">
+    <value>OpenID か Windows Live ID で登録をすることは簡単で、新しいパスワードを記憶する必要もありません。</value>
+  </data>
+  <data name="RegisterWithWindowsLiveInstructions" xml:space="preserve">
+    <value>Windows Live ID で登録をすることは簡単で、新しいパスワードを記憶する必要もありません。</value>
+  </data>
+  <data name="RegisterWithWindowsLiveLink" xml:space="preserve">
+    <value>Windows Live ID で登録</value>
+  </data>
+  <data name="RegistrationRequiresEmailConfirmationMessage" xml:space="preserve">
+    <value>このサイトでは登録後のログイン時にメールアドレスが正しいかどうかの確認がなされます。電子メールが登録されたアドレスに送信されので，電子メールのメッセージのリンクをクリックしてアカウントを認証してください。認証後このサイトにログインできるようになります。</value>
+  </data>
+  <data name="RestoreToEditorButton" xml:space="preserve">
+    <value>エディターを旧版に戻す</value>
+  </data>
+  <data name="ReturnHomeLabel" xml:space="preserve">
+    <value>ホームに戻る</value>
+  </data>
+  <data name="RevenueSourceHeading" xml:space="preserve">
+    <value>仕入れ</value>
+  </data>
+  <data name="RevenueSummaryItem" xml:space="preserve">
+    <value>商品</value>
+  </data>
+  <data name="RevenueSummaryRevenue" xml:space="preserve">
+    <value>売上額</value>
+  </data>
+  <data name="RevenueSummaryUnitsSold" xml:space="preserve">
+    <value>売上数量</value>
+  </data>
+  <data name="RoleExistsError" xml:space="preserve">
+    <value>そのロール名は既に使用されています。</value>
+  </data>
+  <data name="RoleManagerAllUsersInRole" xml:space="preserve">
+    <value>すべてのユーザーが含まれます</value>
+  </data>
+  <data name="RoleManagerCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="RolesAddButton" xml:space="preserve">
+    <value>新規ロールの追加</value>
+  </data>
+  <data name="RolesAllUsersRole" xml:space="preserve">
+    <value>すべてのユーザー</value>
+  </data>
+  <data name="RolesApplyLabel" xml:space="preserve">
+    <value>適用</value>
+  </data>
+  <data name="RolesChangeMemberLabel" xml:space="preserve">
+    <value>メンバー一覧/編集</value>
+  </data>
+  <data name="RolesDeleteLabel" xml:space="preserve">
+    <value>項目の削除</value>
+  </data>
+  <data name="RolesDeleteWarning" xml:space="preserve">
+    <value>このロールを削除してよろしいか？</value>
+  </data>
+  <data name="RolesEditLabel" xml:space="preserve">
+    <value>項目の編集</value>
+  </data>
+  <data name="RolesRemoveUserWarning" xml:space="preserve">
+    <value>このユーザーをロールから削除してよろしいか?</value>
+  </data>
+  <data name="RolesThatCanViewCommerceReportsLabel" xml:space="preserve">
+    <value>コマースリポートを閲覧できるロール:</value>
+  </data>
+  <data name="RpxAdminLink" xml:space="preserve">
+    <value>RpxNow.com でのアカウントの管理</value>
+  </data>
+  <data name="RpxButtonConfirm" xml:space="preserve">
+    <value>このサイトのRPX アカウントを持っているときは、APIキーを入力してください。そうでなければ、API キーの項目を空白のままにしてください。続行しますか？</value>
+  </data>
+  <data name="RpxNowApiKeyLabel" xml:space="preserve">
+    <value>RpxNow.com API キー</value>
+  </data>
+  <data name="RpxNowApplicationNameLabel" xml:space="preserve">
+    <value>RpxNow.com アプリケーションName/Realm</value>
+  </data>
+  <data name="RpxRegistrationHeadingFormat" xml:space="preserve">
+    <value>このサイトに、{0} アカウントで登録しました。</value>
+  </data>
+  <data name="RSSAddCommentsLink" xml:space="preserve">
+    <value>RSS フィードにコメントのリンクを追加しますか</value>
+  </data>
+  <data name="RSSAddSignature" xml:space="preserve">
+    <value>RSS フィードに署名を追加しますか</value>
+  </data>
+  <data name="SalesByMonthChartLabel" xml:space="preserve">
+    <value>月の売上</value>
+  </data>
+  <data name="SalesByMonthChartMonthLabel" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="SalesByMonthChartSalesLabel" xml:space="preserve">
+    <value>売り上げ</value>
+  </data>
+  <data name="SalesLabel" xml:space="preserve">
+    <value>売り上げ</value>
+  </data>
+  <data name="SalesOverviewReportHeading" xml:space="preserve">
+    <value>売上の概要</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SearchAllContentItem" xml:space="preserve">
+    <value>すべてのコンテンツ</value>
+  </data>
+  <data name="SearchButtonText" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="SearchDiscoveryTitleFormat" xml:space="preserve">
+    <value>{0} サイト検索</value>
+  </data>
+  <data name="SearchInputWatermark" xml:space="preserve">
+    <value>検索する語を入力</value>
+  </data>
+  <data name="SearchPageTitle" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="SearchRebuildIndexButton" xml:space="preserve">
+    <value>検索用インデックスの再構築</value>
+  </data>
+  <data name="SearchRebuildIndexWarning" xml:space="preserve">
+    <value>検索用インデックスの再構築をしますか？大規模なサイトでは、時間がかかります。</value>
+  </data>
+  <data name="SearchResultsBuildingIndexMessage" xml:space="preserve">
+    <value>このサイトの検索インデックスを作成しています。</value>
+  </data>
+  <data name="SearchResultsForLabel" xml:space="preserve">
+    <value>キーワード：</value>
+  </data>
+  <data name="SearchResultsLabel" xml:space="preserve">
+    <value>検索結果</value>
+  </data>
+  <data name="SearchResultsNotFound" xml:space="preserve">
+    <value>見つかりませんでした。</value>
+  </data>
+  <data name="SearchResultsOfLabel" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="SearchResultsSecondsLabel" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="SearchTitleFormat" xml:space="preserve">
+    <value>{0} 検索: {1}</value>
+  </data>
+  <data name="SecurityAddExistingButton" xml:space="preserve">
+    <value>既存ユーザーにロールを追加</value>
+  </data>
+  <data name="SecurityAddNewButton" xml:space="preserve">
+    <value>新規ユーザーの作成とロールの追加</value>
+  </data>
+  <data name="SecurityFinishedEditingButton" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="SecurityRolesTitle" xml:space="preserve">
+    <value>Role Membership:</value>
+  </data>
+  <data name="ServerLogClearLogButton" xml:space="preserve">
+    <value>ログの消去</value>
+  </data>
+  <data name="ServerVariablesHeading" xml:space="preserve">
+    <value>サーバー環境変数</value>
+  </data>
+  <data name="ServerVariablesLink" xml:space="preserve">
+    <value>サーバー環境変数</value>
+  </data>
+  <data name="SettingsLink" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="SetupRpxButton" xml:space="preserve">
+    <value>RPXの設定</value>
+  </data>
+  <data name="ShowHomePageCrumb" xml:space="preserve">
+    <value>パンくずリストの表示?</value>
+  </data>
+  <data name="ShowMemberGraphSetting" xml:space="preserve">
+    <value>メンバーをグラフで表示?</value>
+  </data>
+  <data name="SignInEmailLabel" xml:space="preserve">
+    <value>メール:</value>
+  </data>
+  <data name="SignInLabel" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="SignInLinkText" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="SignInPasswordLabel" xml:space="preserve">
+    <value>パスワード:</value>
+  </data>
+  <data name="SignInRegisterLinkText" xml:space="preserve">
+    <value>登録ユーザー:</value>
+  </data>
+  <data name="SignInSendPasswordButton" xml:space="preserve">
+    <value>パスワードの再設定</value>
+  </data>
+  <data name="SignInSendRememberMeLabel" xml:space="preserve">
+    <value>ログイン情報の保存</value>
+  </data>
+  <data name="SimpleMatchCaptchaControlInstructions" xml:space="preserve">
+    <value>スパムでないことを確認するためこの問題を解答してください。</value>
+  </data>
+  <data name="SiteEditRolesLabel" xml:space="preserve">
+    <value>サイト編集者ロール:</value>
+  </data>
+  <data name="SiteMapLink" xml:space="preserve">
+    <value>サイトマップ</value>
+  </data>
+  <data name="SiteOfficeNewEmailAccount" xml:space="preserve">
+    <value>新しいメールアカウント</value>
+  </data>
+  <data name="SiteOfficeTitle" xml:space="preserve">
+    <value>サイト・オフィス</value>
+  </data>
+  <data name="SiteSearchHeading" xml:space="preserve">
+    <value>サイト検索</value>
+  </data>
+  <data name="SiteSettignsAddWebPartTooltip" xml:space="preserve">
+    <value>選択したウエブパーツの追加</value>
+  </data>
+  <data name="SiteSettingsAddFeatureTooltip" xml:space="preserve">
+    <value>選択した機能の追加</value>
+  </data>
+  <data name="SiteSettingsAddFolderMappingButton" xml:space="preserve">
+    <value>フォルダーマッピングの追加</value>
+  </data>
+  <data name="SiteSettingsAddHostButtonLabel" xml:space="preserve">
+    <value>ホスト名の追加</value>
+  </data>
+  <data name="SiteSettingsAddThisAccountIdLabel" xml:space="preserve">
+    <value>AddThis.comユーザー名:</value>
+  </data>
+  <data name="SiteSettingsAllowHideMainMenuLabel" xml:space="preserve">
+    <value>ページ毎にメインメニューを隠すことを許可?:</value>
+  </data>
+  <data name="SiteSettingsAllowOpenIDAuthenticationLabel" xml:space="preserve">
+    <value>Open ID 認証を許可?:</value>
+  </data>
+  <data name="SiteSettingsAllowPageSkinsLabel" xml:space="preserve">
+    <value>ページ毎でスキンの設定を許可?:</value>
+  </data>
+  <data name="SiteSettingsAllowPasswordResetLabel" xml:space="preserve">
+    <value>パスワードリセットの許可?:</value>
+  </data>
+  <data name="SiteSettingsAllowPasswordRetrievalLabel" xml:space="preserve">
+    <value>パスワードの回復の許可?:</value>
+  </data>
+  <data name="SiteSettingsAllowRegistrationLabel" xml:space="preserve">
+    <value>新規ユーザーの登録の許可?:</value>
+  </data>
+  <data name="SiteSettingsAllowUserSkinsLabel" xml:space="preserve">
+    <value>ユーザーにスキンの選択を許可?:</value>
+  </data>
+  <data name="SiteSettingsAllowUsersToChangeNameLabel" xml:space="preserve">
+    <value>ユーザー名の変更の許可?:</value>
+  </data>
+  <data name="SiteSettingsAllowWindowsLiveAuthLabel" xml:space="preserve">
+    <value>Windows Live 認証の許可?:</value>
+  </data>
+  <data name="SiteSettingsApiKeysTab" xml:space="preserve">
+    <value>API キー</value>
+  </data>
+  <data name="SiteSettingsApplyChangesButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SiteSettingsAutoCreateLdapUserOnFirstLoginLabel" xml:space="preserve">
+    <value>LDAPユーザーを最初のログオン時に自動で追加しますか?:</value>
+  </data>
+  <data name="SiteSettingsCaptchaProviderLabel" xml:space="preserve">
+    <value>アンチスパム Captcha:</value>
+  </data>
+  <data name="SiteSettingsClearTextPasswordLabel" xml:space="preserve">
+    <value>平文</value>
+  </data>
+  <data name="SiteSettingsCompanyNameLabel" xml:space="preserve">
+    <value>会社名</value>
+  </data>
+  <data name="SiteSettingsDefaultFriendlyUrlPatternLabel" xml:space="preserve">
+    <value>既定のフレンドリーURLパターン</value>
+  </data>
+  <data name="SiteSettingsDeleteFolderMappingWarning" xml:space="preserve">
+    <value>このフォルダーマッピングを削除してよろしいか?</value>
+  </data>
+  <data name="SiteSettingsDeleteHostLabel" xml:space="preserve">
+    <value>ホストの削除</value>
+  </data>
+  <data name="SiteSettingsDeleteSiteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="SiteSettingsDeleteWarning" xml:space="preserve">
+    <value>このサイトとこのサイトのすべてのコンテンツを削除してよろしいか？削除後に取り消しはできません。</value>
+  </data>
+  <data name="SiteSettingsDuplicateHostsWarning" xml:space="preserve">
+    <value>ホスト名が重複しているので、別の名前にしてください。</value>
+  </data>
+  <data name="SiteSettingsEditHostLabel" xml:space="preserve">
+    <value>ホストの編集</value>
+  </data>
+  <data name="SiteSettingsEditorProviderLabel" xml:space="preserve">
+    <value>デフォルトのコンテンツエディター</value>
+  </data>
+  <data name="SiteSettingsEditorSkinLabel" xml:space="preserve">
+    <value>FCKeditor のスキン:</value>
+  </data>
+  <data name="SiteSettingsEnableMyPageFeatureLabel" xml:space="preserve">
+    <value>マイページ機能を有効?:</value>
+  </data>
+  <data name="SiteSettingsEncryptedPasswordLabel" xml:space="preserve">
+    <value>暗号化</value>
+  </data>
+  <data name="SiteSettingsEncryptPasswordsLabel" xml:space="preserve">
+    <value>パスワードの暗号化?:</value>
+  </data>
+  <data name="SiteSettingsExistingFolderMappingsLabel" xml:space="preserve">
+    <value>このサイトにマッピングされている現行フォルダー</value>
+  </data>
+  <data name="SiteSettingsExistingHostsLabel" xml:space="preserve">
+    <value>有効ホスト名</value>
+  </data>
+  <data name="SiteSettingsFeaturesAllowedLabel" xml:space="preserve">
+    <value>機能</value>
+  </data>
+  <data name="SiteSettingsFolderMappingLabel" xml:space="preserve">
+    <value>サイトをマッピングするフォルダー</value>
+  </data>
+  <data name="SiteSettingsFolderNameAlreadyInUseWarning" xml:space="preserve">
+    <value>フォルダー名は既に使用されています。</value>
+  </data>
+  <data name="SiteSettingsFolderNameBlankWarning" xml:space="preserve">
+    <value>フォルダー名を入力してください。</value>
+  </data>
+  <data name="SiteSettingsFolderNameInvalidCharsWarning" xml:space="preserve">
+    <value>フォルダー名には英数字のみが使用できます。</value>
+  </data>
+  <data name="SiteSettingsFolderNameNotAllowedWarning" xml:space="preserve">
+    <value>そのフォルダー名はシステムフォルダーで使われているため使用できません。</value>
+  </data>
+  <data name="SiteSettingsGeneralSettingsTab" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="SiteSettingsGmapApiKeyLabel" xml:space="preserve">
+    <value>Google Maps API キー:</value>
+  </data>
+  <data name="SiteSettingsHashedPasswordLabel" xml:space="preserve">
+    <value>ハッシュ値/回復不可能</value>
+  </data>
+  <data name="SiteSettingsHideLdapsSettings" xml:space="preserve">
+    <value>LDAPの設定を隠す</value>
+  </data>
+  <data name="SiteSettingsHideMetaSettings" xml:space="preserve">
+    <value>メタ設定を隠す</value>
+  </data>
+  <data name="SiteSettingsHideUserSecurity" xml:space="preserve">
+    <value>ユーザーセキュリティの設定を隠す</value>
+  </data>
+  <data name="SiteSettingsHostDeleteWarning" xml:space="preserve">
+    <value>このホストマッピングを削除しますか?</value>
+  </data>
+  <data name="SiteSettingsHostNameMappingLabel" xml:space="preserve">
+    <value>ホスト名のマッピング</value>
+  </data>
+  <data name="SiteSettingsHostNameRequiredMessage" xml:space="preserve">
+    <value>ホスト名を入力してください。</value>
+  </data>
+  <data name="SiteSettingsIndexNotUpdatedMessage" xml:space="preserve">
+    <value>検索用インデックスの更新プロセスが開始できませんでした。</value>
+  </data>
+  <data name="SiteSettingsIndexUpdatedMessage" xml:space="preserve">
+    <value>検索用インデックスの更新プロセスが開始しました。サイトのコンテンツの量によりますが完了するまでには数分かかります。</value>
+  </data>
+  <data name="SiteSettingsLdapAdminEmail" xml:space="preserve">
+    <value>サイト管理者のメール:</value>
+  </data>
+  <data name="SiteSettingsLDAPAdminUserNotFound" xml:space="preserve">
+    <value>Could not bind to the LDAP settings as entered or could not bind your credentials in the LDAP directory. If the site allowed you to make this change you would be locked out after the next time you log out of the site. Please make sure the LDAP server is accessible and edit your user profile so that your UserID matches a record in LDAP and enter your LDAP user password.</value>
+  </data>
+  <data name="SiteSettingsLdapBindDN" xml:space="preserve">
+    <value>Enter the DN of the Credentials to bind with:</value>
+  </data>
+  <data name="SiteSettingsLDAPBindError" xml:space="preserve">
+    <value>Could not bind to the LDAP settings as entered. Please check the settings and make sure your LDAP user password is entered correctly. Changing the site to Use LDAP will not be allowed unless the site can bind to the LDAP server. Otherwise you could get locked out after you log out.</value>
+  </data>
+  <data name="SiteSettingsLdapBindPWD" xml:space="preserve">
+    <value>Enter the Password of the Credentials to bind with:</value>
+  </data>
+  <data name="SiteSettingsLdapDomain" xml:space="preserve">
+    <value>LDAPのドメイン:</value>
+  </data>
+  <data name="SiteSettingsLdapPort" xml:space="preserve">
+    <value>LDAPサーバーのポート番号:</value>
+  </data>
+  <data name="SiteSettingsLdapRootDN" xml:space="preserve">
+    <value>ユーザー認証のルートDN:</value>
+  </data>
+  <data name="SiteSettingsLdapServer" xml:space="preserve">
+    <value>LDAPサーバーのホスト名:</value>
+  </data>
+  <data name="SiteSettingsLdapSettingsLabel" xml:space="preserve">
+    <value>LDAPの設定</value>
+  </data>
+  <data name="SiteSettingsLdapTestPassword" xml:space="preserve">
+    <value>LDAPのパスワード(保存の時の接続テストにのみ使用され保管されません）</value>
+  </data>
+  <data name="SiteSettingsLdapUserDNKey" xml:space="preserve">
+    <value>LDAPユーザーDN キー:</value>
+  </data>
+  <data name="SiteSettingsLogoAltText" xml:space="preserve">
+    <value>サイトロゴ</value>
+  </data>
+  <data name="SiteSettingsMaxInvalidPasswordAttemptsLabel" xml:space="preserve">
+    <value>パスワードの試行回数:</value>
+  </data>
+  <data name="SiteSettingsMetaSettingsLabel" xml:space="preserve">
+    <value>メタ設定の表示</value>
+  </data>
+  <data name="SiteSettingsMinimumPasswordLengthLabel" xml:space="preserve">
+    <value>パスワードの最低文字数:</value>
+  </data>
+  <data name="SiteSettingsMinRequiredNonAlphaNumericCharactersLabel" xml:space="preserve">
+    <value>パスワードの英数字以外の最低文字数:</value>
+  </data>
+  <data name="SiteSettingsNewSiteLabel" xml:space="preserve">
+    <value>新規サイト</value>
+  </data>
+  <data name="SiteSettingsNoFolderNames" xml:space="preserve">
+    <value>現在このサイトにフォルダー名がマッピングされていません。</value>
+  </data>
+  <data name="SiteSettingsNoHostsFound" xml:space="preserve">
+    <value>現在このサイトにホスト名がマッピングされていません。</value>
+  </data>
+  <data name="SiteSettingsOpenIdSelectorLabel" xml:space="preserve">
+    <value>OpenID Selector Code:</value>
+  </data>
+  <data name="SiteSettingsOpenSearchNameLabel" xml:space="preserve">
+    <value>Search Name</value>
+  </data>
+  <data name="SiteSettingsPasswordAttemptWindowMinutesLabel" xml:space="preserve">
+    <value>失敗した試行の追跡時間（分）:</value>
+  </data>
+  <data name="SiteSettingsPasswordFormatLabel" xml:space="preserve">
+    <value>パスワード形式</value>
+  </data>
+  <data name="SiteSettingsPasswordStrengthExpressionLabel" xml:space="preserve">
+    <value>パスワード強化用正規表現:</value>
+  </data>
+  <data name="SiteSettingsPreferredHostNameLabel" xml:space="preserve">
+    <value>Preferred Host Name:</value>
+  </data>
+  <data name="SiteSettingsPrivacyUrlLabel" xml:space="preserve">
+    <value>プライバシーポリシー Url</value>
+  </data>
+  <data name="SiteSettingsReallyDeleteUsersExplainLabel" xml:space="preserve">
+    <value>チェックを外すとユーザーデータを削除せずに削除フラグを立てます。</value>
+  </data>
+  <data name="SiteSettingsReallyDeleteUsersLabel" xml:space="preserve">
+    <value>ユーザーデータの削除?:</value>
+  </data>
+  <data name="SiteSettingsRebuildIndexButton" xml:space="preserve">
+    <value>サイトの検索のためのインデックスの再構築</value>
+  </data>
+  <data name="SiteSettingsRebuildIndexButtonPrompt" xml:space="preserve">
+    <value>サイト内の検索のためのインデックスを再構築しますか？インデックスは、自動的に更新されるようになっており、検索機能を持っていなかった以前のバージョンのmojoPortalをアップグレードする時を以外では再構築の必要はありません。</value>
+  </data>
+  <data name="SiteSettingsRemoveFeatureTooltip" xml:space="preserve">
+    <value>選択した機能の削除</value>
+  </data>
+  <data name="SiteSettingsRemoveWebPartTooltip" xml:space="preserve">
+    <value>選択したウエブパーツの削除</value>
+  </data>
+  <data name="SiteSettingsRequiresQuestionAndAnswerLabel" xml:space="preserve">
+    <value>質問と答えが必要?:</value>
+  </data>
+  <data name="SiteSettingsRequireSSLLabel" xml:space="preserve">
+    <value>すべてのページに SSL が必要?:</value>
+  </data>
+  <data name="SiteSettingsSaveHostLabel" xml:space="preserve">
+    <value>Save Host</value>
+  </data>
+  <data name="SiteSettingsSecureRegistrationLabel" xml:space="preserve">
+    <value>登録にメールの確認が必要?:</value>
+  </data>
+  <data name="SiteSettingsSecurityAntiSPAMTab" xml:space="preserve">
+    <value>スパム対策</value>
+  </data>
+  <data name="SiteSettingsSecurityMainTab" xml:space="preserve">
+    <value>メイン</value>
+  </data>
+  <data name="SiteSettingsSecurityOpenIDTab" xml:space="preserve">
+    <value>Open ID</value>
+  </data>
+  <data name="SiteSettingsSecurityTab" xml:space="preserve">
+    <value>セキュリティ</value>
+  </data>
+  <data name="SiteSettingsSecurityWindowsLiveTab" xml:space="preserve">
+    <value>Windows Live</value>
+  </data>
+  <data name="SiteSettingsSelectFeatureToAddWarning" xml:space="preserve">
+    <value>機能のリストから追加する機能を選択してください。</value>
+  </data>
+  <data name="SiteSettingsSelectFeatureToRemoveWarning" xml:space="preserve">
+    <value>選択した機能のリストから削除する機能を選択してください。</value>
+  </data>
+  <data name="SiteSettingsSelectWebPartToAddWarning" xml:space="preserve">
+    <value>ウェブパーツリストから加えるパーツを選択してください。</value>
+  </data>
+  <data name="SiteSettingsSelectWebPartToRemoveWarning" xml:space="preserve">
+    <value>選択したウェブパーツリストから除外するパーツを選択してください。</value>
+  </data>
+  <data name="SiteSettingsShowLdapSettigs" xml:space="preserve">
+    <value>LDAPの設定の表示</value>
+  </data>
+  <data name="SiteSettingsShowMetaSettings" xml:space="preserve">
+    <value>メタ設定の表示</value>
+  </data>
+  <data name="SiteSettingsShowUserSecurity" xml:space="preserve">
+    <value>ユーザーセキュリティの設定の表示</value>
+  </data>
+  <data name="SiteSettingsSiteAliasLabel" xml:space="preserve">
+    <value>サイトの別名</value>
+  </data>
+  <data name="SiteSettingsSiteAvailableFeaturesLabel" xml:space="preserve">
+    <value>すべての機能</value>
+  </data>
+  <data name="SiteSettingsSiteEmailFromAddressLabel" xml:space="preserve">
+    <value>メールの発信アドレス</value>
+  </data>
+  <data name="SiteSettingsSiteIconLabel" xml:space="preserve">
+    <value>アイコン</value>
+  </data>
+  <data name="SiteSettingsSiteIDLabel" xml:space="preserve">
+    <value>SiteId/SiteGuid</value>
+  </data>
+  <data name="SiteSettingsSiteLogoLabel" xml:space="preserve">
+    <value>ロゴ</value>
+  </data>
+  <data name="SiteSettingsSiteMetaAdditionalLabel" xml:space="preserve">
+    <value>デフォルトの追加のメタタグ</value>
+  </data>
+  <data name="SiteSettingsSiteMetaDescriptionLabel" xml:space="preserve">
+    <value>デフォルトのメタ・ディスクリプション</value>
+  </data>
+  <data name="SiteSettingsSiteMetaEncodingLabel" xml:space="preserve">
+    <value>デフォルトのエンコーディング</value>
+  </data>
+  <data name="SiteSettingsSiteMetaKeyWordsLabel" xml:space="preserve">
+    <value>デフォルトのメタキーワード</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaPrivateKeyLabel" xml:space="preserve">
+    <value>reCAPTCHAの公開キー:</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaPublicKeyLabel" xml:space="preserve">
+    <value>reCAPTCHAの秘密キー:</value>
+  </data>
+  <data name="SiteSettingsSiteSelectedFeaturesLabel" xml:space="preserve">
+    <value>選択された機能</value>
+  </data>
+  <data name="SiteSettingsSiteSkinLabel" xml:space="preserve">
+    <value>スキン</value>
+  </data>
+  <data name="SiteSettingsSiteTitleLabel" xml:space="preserve">
+    <value>サイトのタイトル</value>
+  </data>
+  <data name="SiteSettingsUseEmailForLoginLabel" xml:space="preserve">
+    <value>ログインにメールアドレスを使用?</value>
+  </data>
+  <data name="SiteSettingsUseLdapAuth" xml:space="preserve">
+    <value>LDAP認証を使用?</value>
+  </data>
+  <data name="SiteSettingsUserSecuritySettingsLabel" xml:space="preserve">
+    <value>ユーザーのセキュリティ設定</value>
+  </data>
+  <data name="SiteSettingsWebPartTab" xml:space="preserve">
+    <value>ウエブパーツ</value>
+  </data>
+  <data name="SiteSettingsWindowsLiveAppIDLabel" xml:space="preserve">
+    <value>Windows Live Application ID:</value>
+  </data>
+  <data name="SiteSettingsWindowsLiveKeyLabel" xml:space="preserve">
+    <value>Windows Live キー:</value>
+  </data>
+  <data name="SiteStatisticsFeatureName" xml:space="preserve">
+    <value>サイト統計</value>
+  </data>
+  <data name="SiteStatisticsMembershipLabel" xml:space="preserve">
+    <value>登録ユーザー</value>
+  </data>
+  <data name="SiteStatisticsMembersLabel" xml:space="preserve">
+    <value>登録ユーザー</value>
+  </data>
+  <data name="SiteStatisticsNewestMemberLabel" xml:space="preserve">
+    <value>最新メンバー</value>
+  </data>
+  <data name="SiteStatisticsNewTodayLabel" xml:space="preserve">
+    <value>本日の新規ユーザー</value>
+  </data>
+  <data name="SiteStatisticsNewYesterdayLabel" xml:space="preserve">
+    <value>昨日の新規ユーザー</value>
+  </data>
+  <data name="SiteStatisticsPeopleOnlineLabel" xml:space="preserve">
+    <value>オンライン利用者</value>
+  </data>
+  <data name="SiteStatisticsTotalOnlineLabel" xml:space="preserve">
+    <value>合計</value>
+  </data>
+  <data name="SiteStatisticsTotalUsersLabel" xml:space="preserve">
+    <value>合計</value>
+  </data>
+  <data name="SiteStatisticsVisitorsLabel" xml:space="preserve">
+    <value>ゲストユーザー</value>
+  </data>
+  <data name="SiteStatistics_ShowMemberStatisitics" xml:space="preserve">
+    <value>登録ユーザーの統計の表示</value>
+  </data>
+  <data name="SiteStatistics_ShowOnlineMembers" xml:space="preserve">
+    <value>オンライン登録ユーザーの一覧</value>
+  </data>
+  <data name="SiteStatistics_ShowOnlineStatistics" xml:space="preserve">
+    <value>オンラインの統計の表示</value>
+  </data>
+  <data name="SkinPreviewLink" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="SkipLink" xml:space="preserve">
+    <value>Skip over navigation</value>
+  </data>
+  <data name="SMTPPassword" xml:space="preserve">
+    <value>SMTP パスワード:</value>
+  </data>
+  <data name="SMTPPort" xml:space="preserve">
+    <value>SMTP ポート:</value>
+  </data>
+  <data name="SmtpPreferredEncoding" xml:space="preserve">
+    <value>SMTP エンコーディング:</value>
+  </data>
+  <data name="SMTPRequiresAuthentication" xml:space="preserve">
+    <value>SMTP 認証が必要?:</value>
+  </data>
+  <data name="SMTPServer" xml:space="preserve">
+    <value>SMTP サーバー:</value>
+  </data>
+  <data name="SMTPTimeoutInMilliseconds" xml:space="preserve">
+    <value>SMTP タイムアウト（ミリ秒）:</value>
+  </data>
+  <data name="SMTPUser" xml:space="preserve">
+    <value>SMTP ユーザー名:</value>
+  </data>
+  <data name="SMTPUseSsl" xml:space="preserve">
+    <value>SMTP SSLを使用?:</value>
+  </data>
+  <data name="StopRefreshAltText" xml:space="preserve">
+    <value>更新の停止</value>
+  </data>
+  <data name="StyleCssClassRequiredMessage" xml:space="preserve">
+    <value>CSS クラスが必要です。</value>
+  </data>
+  <data name="StyleElementRequiredMessage" xml:space="preserve">
+    <value>エレメントが必要です。</value>
+  </data>
+  <data name="StyleNameRequiredMessage" xml:space="preserve">
+    <value>名前が必要です。</value>
+  </data>
+  <data name="SubkismetCaptchaInstructions" xml:space="preserve">
+    <value>表示されている文字を入力:</value>
+  </data>
+  <data name="SubkismetCaptchFailureMessage" xml:space="preserve">
+    <value>画像に表示された文字を再入力</value>
+  </data>
+  <data name="TaksQueueGridTaskTypeHeader" xml:space="preserve">
+    <value>種別</value>
+  </data>
+  <data name="TaskCompleted" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="TaskQueueAvailableThreadsLabel" xml:space="preserve">
+    <value>利用可能なスレッド:</value>
+  </data>
+  <data name="TaskQueueClearHistoryLink" xml:space="preserve">
+    <value>すべて削除</value>
+  </data>
+  <data name="TaskQueueCompletedTaskNotificationFormatString" xml:space="preserve">
+    <value>タスク: {0} 完了</value>
+  </data>
+  <data name="TaskQueued" xml:space="preserve">
+    <value>キューに入る</value>
+  </data>
+  <data name="TaskQueueGridCompleteHeader" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="TaskQueueGridCompleteProgressHeader" xml:space="preserve">
+    <value>進行</value>
+  </data>
+  <data name="TaskQueueGridDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="TaskQueueGridLastUpdateHeader" xml:space="preserve">
+    <value>最新の更新</value>
+  </data>
+  <data name="TaskQueueGridQueuedHeader" xml:space="preserve">
+    <value>キューに入る</value>
+  </data>
+  <data name="TaskQueueGridStartedHeader" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="TaskQueueGridStatusHeader" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="TaskQueueGridTaksNameHeader" xml:space="preserve">
+    <value>タスク名</value>
+  </data>
+  <data name="TaskQueueHistoryHeading" xml:space="preserve">
+    <value>タスク・キューの経過</value>
+  </data>
+  <data name="TaskQueueMonitorHeading" xml:space="preserve">
+    <value>タスク・キュー</value>
+  </data>
+  <data name="TaskQueueNoTasksMessage" xml:space="preserve">
+    <value>タスクはありません</value>
+  </data>
+  <data name="TaskQueueNoTasksRunningMessage" xml:space="preserve">
+    <value>タスクは実行していません。</value>
+  </data>
+  <data name="TaskQueueRefreshLink" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="TaskRunning" xml:space="preserve">
+    <value>実行中</value>
+  </data>
+  <data name="TaskStarted" xml:space="preserve">
+    <value>タスクが開始</value>
+  </data>
+  <data name="TaxClassAdminHeading" xml:space="preserve">
+    <value>課税区分の管理</value>
+  </data>
+  <data name="TaxClassAdminLink" xml:space="preserve">
+    <value>課税区分の管理</value>
+  </data>
+  <data name="TaxClassGridAddNewButton" xml:space="preserve">
+    <value>課税区分の新規追加</value>
+  </data>
+  <data name="TaxClassGridCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="TaxClassGridDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="TaxClassGridDeleteWarning" xml:space="preserve">
+    <value>この課税区分を削除してよろしいか？</value>
+  </data>
+  <data name="TaxClassGridEditButton" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="TaxClassGridTitleLabel" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="TaxClassGridUpdateButton" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="TaxClassNotTaxable" xml:space="preserve">
+    <value>非課税</value>
+  </data>
+  <data name="TaxClassTaxable" xml:space="preserve">
+    <value>課税</value>
+  </data>
+  <data name="TaxRateAdminHeading" xml:space="preserve">
+    <value>税率の管理</value>
+  </data>
+  <data name="TaxRateAdminLink" xml:space="preserve">
+    <value>税率の管理</value>
+  </data>
+  <data name="TaxRateGridAddNewButton" xml:space="preserve">
+    <value>税率の新規追加</value>
+  </data>
+  <data name="TaxRateGridCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="TaxRateGridCountryHeader" xml:space="preserve">
+    <value>国名</value>
+  </data>
+  <data name="TaxRateGridDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="TaxRateGridDeleteWarning" xml:space="preserve">
+    <value>この税率を削除してよろしいか？</value>
+  </data>
+  <data name="TaxRateGridDescriptionHeader" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="TaxRateGridEditButton" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="TaxRateGridGeoZoneHeader" xml:space="preserve">
+    <value>地域</value>
+  </data>
+  <data name="TaxRateGridPriorityHeader" xml:space="preserve">
+    <value>優先度</value>
+  </data>
+  <data name="TaxRateGridRateHeader" xml:space="preserve">
+    <value>率</value>
+  </data>
+  <data name="TaxRateGridTaxClassHeader" xml:space="preserve">
+    <value>課税区分</value>
+  </data>
+  <data name="TaxRateGridUpdateButton" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="TemplatejQueryAccordionNoAutoHeightTitle" xml:space="preserve">
+    <value>Accordion No Auto Height - jQuery</value>
+  </data>
+  <data name="TemplatejQueryAccordionTitle" xml:space="preserve">
+    <value>Accordion - jQuery</value>
+  </data>
+  <data name="TemplatejQueryTabsTitle" xml:space="preserve">
+    <value>Tabs - jQueryUI</value>
+  </data>
+  <data name="TemplateYUITabsTitle" xml:space="preserve">
+    <value>Tabs - YUI</value>
+  </data>
+  <data name="ThirdPartyRegistrationHeading" xml:space="preserve">
+    <value>外部アカウントで登録すると新しいパスワードを記憶する必要がありません。</value>
+  </data>
+  <data name="TreeMenuCollapseTooltip" xml:space="preserve">
+    <value>ノードを折りたたむ。</value>
+  </data>
+  <data name="TreeMenuExpandTooltip" xml:space="preserve">
+    <value>ノードを開く。</value>
+  </data>
+  <data name="UploadBrowseAccessDenied" xml:space="preserve">
+    <value>サーバーのファイルを閲覧する権限がありません。</value>
+  </data>
+  <data name="UploadCancelledLabel" xml:space="preserve">
+    <value>アップロードがキャンセルされました!</value>
+  </data>
+  <data name="UploadChunkedInProgressFormat" xml:space="preserve">
+    <value>{0} {2} at {4} - {6} 経過</value>
+  </data>
+  <data name="UploadCompleteFormat" xml:space="preserve">
+    <value>完了: {0} {2} at {4} 所要時間 {6}</value>
+  </data>
+  <data name="UploadCompleteLabel" xml:space="preserve">
+    <value>アップロードが完了しました</value>
+  </data>
+  <data name="UploadFailedLabel" xml:space="preserve">
+    <value>エラー:</value>
+  </data>
+  <data name="UploadNormalInProgressFormat" xml:space="preserve">
+    <value>{0}/{1} {2} ({3:0%}) at {4} - {5} 残り</value>
+  </data>
+  <data name="UploadProgressLabel" xml:space="preserve">
+    <value>アップロード中...</value>
+  </data>
+  <data name="UploadRejectedLabel" xml:space="preserve">
+    <value>拒否:</value>
+  </data>
+  <data name="UploadRemainingTimeLabel" xml:space="preserve">
+    <value>残り時間:</value>
+  </data>
+  <data name="UserChangePasswordLabel" xml:space="preserve">
+    <value>パスワードの変更</value>
+  </data>
+  <data name="UserCommentsLabel" xml:space="preserve">
+    <value>管理者のコメント:</value>
+  </data>
+  <data name="UserEmailIsConfirmedLabel" xml:space="preserve">
+    <value>メールの確認?:</value>
+  </data>
+  <data name="UserFailedPasswordAnswerAttemptCountLabel" xml:space="preserve">
+    <value>セキュリティの回答の試行回数:</value>
+  </data>
+  <data name="UserFailedPasswordAttemptCountLabel" xml:space="preserve">
+    <value>パスワードの試行回数:</value>
+  </data>
+  <data name="UserIsLockedOutLabel" xml:space="preserve">
+    <value>ロックアウトされている?:</value>
+  </data>
+  <data name="UserLastActivityDateLabel" xml:space="preserve">
+    <value>最終ログオフ:</value>
+  </data>
+  <data name="UserLastLockoutDateLabel" xml:space="preserve">
+    <value>最終ロックアウト:</value>
+  </data>
+  <data name="UserLastLoginDateLabel" xml:space="preserve">
+    <value>最終ログイン:</value>
+  </data>
+  <data name="UserLastPasswordChangeDateLabel" xml:space="preserve">
+    <value>最終パスワード更新:</value>
+  </data>
+  <data name="UserLockUserButton" xml:space="preserve">
+    <value>ユーザーのロック</value>
+  </data>
+  <data name="UserProfileAvatarLabel" xml:space="preserve">
+    <value>アバター</value>
+  </data>
+  <data name="UserProfileConfirmPasswordRequired" xml:space="preserve">
+    <value>パスワードの確認を入力してください。</value>
+  </data>
+  <data name="UserProfileEmailRequired" xml:space="preserve">
+    <value>メールアドレスを入力してください。</value>
+  </data>
+  <data name="UserProfileEmailValidation" xml:space="preserve">
+    <value>正しいメールアドレスを入力してください。</value>
+  </data>
+  <data name="UserProfileLoginNameExists" xml:space="preserve">
+    <value>ユーザーIDは既に使われています。別の名前を入力してください。</value>
+  </data>
+  <data name="UserProfileLoginNameRequired" xml:space="preserve">
+    <value>ユーザーIDを入力してください。</value>
+  </data>
+  <data name="UserProfileMyProfileLabel" xml:space="preserve">
+    <value>マイアカウント</value>
+  </data>
+  <data name="UserProfileNameRequired" xml:space="preserve">
+    <value>名前を入力してください。</value>
+  </data>
+  <data name="UserProfileNewslettersTab" xml:space="preserve">
+    <value>ニュースレター</value>
+  </data>
+  <data name="UserProfileNoAvatarLabel" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="UserProfilePasswordCompare" xml:space="preserve">
+    <value>パスワードが一致していません。</value>
+  </data>
+  <data name="UserProfilePasswordRequired" xml:space="preserve">
+    <value>パスワードを入力してください。</value>
+  </data>
+  <data name="UserProfileProfileTab" xml:space="preserve">
+    <value>プロフィル</value>
+  </data>
+  <data name="UserProfileSecurityTab" xml:space="preserve">
+    <value>ユーザーID</value>
+  </data>
+  <data name="UserProfileUpdateButton" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="UserRolesLabel" xml:space="preserve">
+    <value>ユーザーのロール</value>
+  </data>
+  <data name="UsersRegisteredUsersLabel" xml:space="preserve">
+    <value>登録ユーザー:</value>
+  </data>
+  <data name="UsersSecurityAnswerLabel" xml:space="preserve">
+    <value>セキュリティのための答え:</value>
+  </data>
+  <data name="UsersSecurityQuestionLabel" xml:space="preserve">
+    <value>セキュリティのための質問:</value>
+  </data>
+  <data name="UserUnlockUserButton" xml:space="preserve">
+    <value>ユーザーの解除</value>
+  </data>
+  <data name="VersionAsOfHeadingFormat" xml:space="preserve">
+    <value>作成日時 {0} の版</value>
+  </data>
+  <data name="WebPartAddVerbDescription" xml:space="preserve">
+    <value>コンテンツを選択した列に追加する</value>
+  </data>
+  <data name="WebPartAddVerbText" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="WebPartAdminAllWebParts" xml:space="preserve">
+    <value>すべてのWebパーツ</value>
+  </data>
+  <data name="WebPartAdminEditButton" xml:space="preserve">
+    <value>インストール...</value>
+  </data>
+  <data name="WebPartAdminMediumTrustMessage" xml:space="preserve">
+    <value>このサイトはMedium信頼レベルのセキュリティ環境で稼働しています。Medium信頼レベルではサードパーティのdllのロードはサポートされていません。Webとして機能に組み込んだものは利用できますが，アセンブリから直接Webパーツをロードすることはできません。詳しい情報は，以下を見てください。http://www.mojoportal.com/mediumtrust.aspx</value>
+  </data>
+  <data name="WebPartAdminSelectedWebParts" xml:space="preserve">
+    <value>選択したWebパーツ</value>
+  </data>
+  <data name="WebPartAdminUpdateButton" xml:space="preserve">
+    <value>インストール</value>
+  </data>
+  <data name="WebPartAllInstalledMessage" xml:space="preserve">
+    <value>現在すべての利用可能なWebパーツはインストールされています。新しいWebパーツを追加するためにはアセンブリをbinフォルダーに入れてください。</value>
+  </data>
+  <data name="WebPartAllowMultipleInstancesOnMyPageLabel" xml:space="preserve">
+    <value>マイページでマルチインスタンスを許可?</value>
+  </data>
+  <data name="WebPartAppearanceEditorTitle" xml:space="preserve">
+    <value>外観</value>
+  </data>
+  <data name="WebPartAssemblyNameLabel" xml:space="preserve">
+    <value>アセンブリ名</value>
+  </data>
+  <data name="WebPartAvailableForContentSystemLabel" xml:space="preserve">
+    <value>コンテンツシステムで使用可能</value>
+  </data>
+  <data name="WebPartAvailableForMyPageLabel" xml:space="preserve">
+    <value>マイページで使用可能?</value>
+  </data>
+  <data name="WebPartAvailableNameLabel" xml:space="preserve">
+    <value>インストール可能なWebパーツ</value>
+  </data>
+  <data name="WebPartBehaviorEditorTitle" xml:space="preserve">
+    <value>動作</value>
+  </data>
+  <data name="WebPartCatalogMoreLink" xml:space="preserve">
+    <value>続き...</value>
+  </data>
+  <data name="WebPartClassNameLabel" xml:space="preserve">
+    <value>クラス名</value>
+  </data>
+  <data name="WebPartCloseVerbDescription" xml:space="preserve">
+    <value>コンテンツを閉じる</value>
+  </data>
+  <data name="WebPartCloseVerbText" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="WebPartDeleteVerbDescription" xml:space="preserve">
+    <value>コンテンツの削除</value>
+  </data>
+  <data name="WebPartDeleteVerbText" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="WebPartDescriptionLabel" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="WebPartEditCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="WebPartEditDeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="WebPartEditDeleteWarning" xml:space="preserve">
+    <value>このWebパーツを消去してよろしいか?</value>
+  </data>
+  <data name="WebPartEditLabel" xml:space="preserve">
+    <value>Webパーツの編集</value>
+  </data>
+  <data name="WebPartEditorApplyVerbDescription" xml:space="preserve">
+    <value>変更を適用</value>
+  </data>
+  <data name="WebPartEditorApplyVerbText" xml:space="preserve">
+    <value>適用</value>
+  </data>
+  <data name="WebPartEditorCancelVerbDescription" xml:space="preserve">
+    <value>変更をキャンセルしてエディターを閉じる。</value>
+  </data>
+  <data name="WebPartEditorCancelVerbText" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="WebPartEditorHeaderCloseVerbDescription" xml:space="preserve">
+    <value>エディタを閉じる</value>
+  </data>
+  <data name="WebPartEditorHeaderCloseVerbText" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="WebPartEditorHeaderText" xml:space="preserve">
+    <value>Webパーツエディター</value>
+  </data>
+  <data name="WebPartEditorInstructionsText" xml:space="preserve">
+    <value>Webパーツのプロパティを修正して，OK又は適用をクリックして変更を適用してください。Webパーツによっては編集できるプロパティがない場合もあります。</value>
+  </data>
+  <data name="WebPartEditorOKVerbDescription" xml:space="preserve">
+    <value>変更を適用してエディターを閉じる。</value>
+  </data>
+  <data name="WebPartEditorOKVerbText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="WebPartEditUpdateButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="WebPartEditVerbDescription" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="WebPartEditVerbText" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="WebPartEmptyCatalogZoneText" xml:space="preserve">
+    <value>現在利用できるコンテンツがありません。</value>
+  </data>
+  <data name="WebPartEmptyZoneText" xml:space="preserve">
+    <value>コンテンツを他の列からドラグしたり緑色の＋をクリックしてコンテンツを追加できる。</value>
+  </data>
+  <data name="WebPartExportVerbDescription" xml:space="preserve">
+    <value>エクスポート</value>
+  </data>
+  <data name="WebPartExportVerbText" xml:space="preserve">
+    <value>エクスポート</value>
+  </data>
+  <data name="WebPartFeatureName" xml:space="preserve">
+    <value>Web パーツ</value>
+  </data>
+  <data name="WebPartHelpVerbDescription" xml:space="preserve">
+    <value>ヘルプ</value>
+  </data>
+  <data name="WebPartHelpVerbText" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="WebPartIconLabel" xml:space="preserve">
+    <value>アイコン</value>
+  </data>
+  <data name="WebPartInstalledWebPartsLabel" xml:space="preserve">
+    <value>インストール済のWebパーツ</value>
+  </data>
+  <data name="WebPartLayoutEditorPartTitle" xml:space="preserve">
+    <value>レイアウト</value>
+  </data>
+  <data name="WebPartManagerCatalogTooltip" xml:space="preserve">
+    <value>ここをクリックして利用可能なコンテンツを表示する</value>
+  </data>
+  <data name="WebPartManagerCloseCatalogTooltip" xml:space="preserve">
+    <value>ここをクリックしてカタログを閉じる。</value>
+  </data>
+  <data name="WebPartManagerResetButton" xml:space="preserve">
+    <value>コンテンツをリセット</value>
+  </data>
+  <data name="WebPartManagerToggleFromUserModeTooltip" xml:space="preserve">
+    <value>現在は，ユーザー領域です。ここをクリックすると共有領域に切り替わります。</value>
+  </data>
+  <data name="WebPartManagerToggleToUserModeTooltip" xml:space="preserve">
+    <value>現在は，共有領域です。ここをクリックするとユーザー領域に切り替わります。</value>
+  </data>
+  <data name="WebPartMinimizeVerbDescription" xml:space="preserve">
+    <value>このコンテンツの最小化</value>
+  </data>
+  <data name="WebPartMinimizeVerbText" xml:space="preserve">
+    <value>最小化</value>
+  </data>
+  <data name="WebPartModuleWebPartSetting" xml:space="preserve">
+    <value>Webパーツの選択:</value>
+  </data>
+  <data name="WebPartPageCatalogDescription" xml:space="preserve">
+    <value>コンテンツを隠す</value>
+  </data>
+  <data name="WebPartPageCatalogTitle" xml:space="preserve">
+    <value>コンテンツを隠す</value>
+  </data>
+  <data name="WebPartPropertyGridEditorTitle" xml:space="preserve">
+    <value>Webパーツのプロパティ</value>
+  </data>
+  <data name="WebPartRestoreVerbDescription" xml:space="preserve">
+    <value>コンテンツを元に戻す</value>
+  </data>
+  <data name="WebPartRestoreVerbText" xml:space="preserve">
+    <value>元に戻す</value>
+  </data>
+  <data name="WebPartTitleLabel" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="WebSiteUrlRegexWarning" xml:space="preserve">
+    <value>urlは，http:// 又は https:// で始まります。</value>
+  </data>
+  <data name="WelcomeLabel" xml:space="preserve">
+    <value>ログイン:</value>
+  </data>
+  <data name="WindowsLiveAppLogoLabel" xml:space="preserve">
+    <value>Windows Live Application Logo Url</value>
+  </data>
+  <data name="WindowsLiveIDRegistrationHeading" xml:space="preserve">
+    <value>Windows Live ID アカウントでこのサイトに登録</value>
+  </data>
+  <data name="WindowsLiveIDRegistrationLink" xml:space="preserve">
+    <value>ここをクリックしてWindows Live ID で登録</value>
+  </data>
+  <data name="WindowsLiveRegistrationRequiresAdditionalInfo" xml:space="preserve">
+    <value>あなたのWindows Live ID アカウントが有効であることを確認しました。このサイトに登録するためには追加の情報が必要になります。</value>
+  </data>
+  <data name="WindowsLiveSignInAddendum" xml:space="preserve">
+    <value>Windows Live IDでログイン</value>
+  </data>
+  <data name="WindowsLiveSignInBeforeRegisterMessage" xml:space="preserve">
+    <value>このサイトを登録する前にWindows Live Accountでロングインしてください。</value>
+  </data>
+  <data name="YearLabel" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="YuiPanelClose" xml:space="preserve">
+    <value>クリックしてこのパネルを閉じる</value>
+  </data>
+  <data name="YuiPanelCollapse" xml:space="preserve">
+    <value>クリックしてこのパネルを折り畳む</value>
+  </data>
+  <data name="YuiPanelExpand" xml:space="preserve">
+    <value>クリックしてこのパネルを開く</value>
+  </data>
+</root>

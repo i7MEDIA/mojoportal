@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.w3.org/1999/xhtml" 
+           xmlns:xml="http://www.w3.org/XML/1998/namespace"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns="http://www.w3.org/1999/xhtml">
+    <xs:annotation>
+        <xs:documentation>
+      This is the XML Schema Scripting module for XHTML
+      $Id: xhtml-script-1.xsd,v 1.1 2003/12/17 03:09:17 ahby Exp $
+    </xs:documentation>
+        <xs:documentation source="xhtml-copyright-1.xsd"/>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation>
+      Scripting
+      
+        * script, noscript
+      
+      This module declares element types and attributes used to provide
+      support for executable scripts as well as an alternate content
+      container where scripts are not supported.
+    </xs:documentation>
+    <xs:documentation 
+        source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_scriptmodule"/>
+    </xs:annotation>
+    
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"> 
+      <xs:annotation>
+        <xs:documentation>
+          This import brings in the XML namespace attributes 
+          The module itself does not provide the schemaLocation
+          and expects the driver schema to provide the 
+          actual SchemaLocation.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:import>
+        
+    <xs:attributeGroup name="script.attlist">
+        <xs:attribute name="charset" type="Charset"/>
+        <xs:attribute name="type" type="ContentType" use="required"/>
+        <xs:attribute name="src" type="URI"/>
+        <xs:attribute name="defer">
+            <xs:simpleType>
+                <xs:restriction base="xs:NMTOKEN">
+                    <xs:enumeration value="defer"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute ref="xml:space"/>
+    </xs:attributeGroup>
+    
+    <xs:group name="script.content">
+       <xs:sequence/>
+    </xs:group>
+      
+    <xs:complexType name="script.type" mixed="true">
+        <xs:group ref="script.content"/> 
+        <xs:attributeGroup ref="script.attlist"/>
+    </xs:complexType>
+    
+    <xs:element name="script" type="script.type"/>
+    
+    <xs:attributeGroup name="noscript.attlist">
+        <xs:attributeGroup ref="Common.attrib"/>
+    </xs:attributeGroup>
+    
+    <xs:group name="noscript.content">
+       <xs:sequence>
+          <xs:group ref="Block.mix" maxOccurs="unbounded"/>       
+       </xs:sequence>
+    </xs:group>    
+    
+    <xs:complexType name="noscript.type">
+        <xs:group ref="noscript.content"/>
+        <xs:attributeGroup ref="noscript.attlist"/>
+    </xs:complexType>
+    
+    <xs:element name="noscript" type="noscript.type"/>
+</xs:schema>

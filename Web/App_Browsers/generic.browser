@@ -1,0 +1,7 @@
+﻿<browsers>
+  <browser refID="GenericDownlevel">
+    <capabilities>
+      <capability name="cookies" value="true" />
+    </capabilities>
+  </browser>
+</browsers>

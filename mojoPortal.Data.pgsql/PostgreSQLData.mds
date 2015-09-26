@@ -1,0 +1,16 @@
+<Combine name="PostgreSQLData" fileversion="2.0">
+  <Configurations>
+    <Configuration name="Debug" ctype="CombineConfiguration">
+      <Entry build="True" name="PostgreSQLData" />
+    </Configuration>
+    <Configuration name="Release" ctype="CombineConfiguration">
+      <Entry build="True" name="PostgreSQLData" />
+    </Configuration>
+  </Configurations>
+  <StartMode startupentry="PostgreSQLData" single="True">
+    <Execute type="None" entry="PostgreSQLData" />
+  </StartMode>
+  <Entries>
+    <Entry filename="./PostgreSQLData.mdp" />
+  </Entries>
+</Combine>

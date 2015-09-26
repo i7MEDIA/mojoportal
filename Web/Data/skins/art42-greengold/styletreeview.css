@@ -1,0 +1,35 @@
+body {}
+div.AspNet-TreeView {margin: 0;padding: 0;}
+div.AspNet-TreeView ul { list-style: none; margin: 0; padding: 0;}
+.AspNet-TreeView-Show { }
+.AspNet-TreeView-Hide { display:none;}
+div.AspNet-TreeView ul li
+{white-space: nowrap;padding: 3px 0 2px 0;  font-size: small; font-family: Tahoma;}
+div.AspNet-TreeView ul ul { margin: 2px 0 2px 10px;}
+div.AspNet-TreeView ul li img
+{border: none; vertical-align: middle; margin: 0 2px 0 0; }
+div.AspNet-TreeView li a {text-decoration: none;}
+div.AspNet-TreeView li.AspNet-TreeView-Root {}
+div.AspNet-TreeView li.AspNet-TreeView-Parent {}
+div.AspNet-TreeView li.AspNet-TreeView-Leaf { margin-left: 20px;}
+div.AspNet-TreeView .AspNet-TreeView-ClickableNonlink { cursor: pointer;}
+div.AspNet-TreeView .AspNet-TreeView-Collapse
+{background: url('collapse.gif') 0 0 no-repeat; width: 15px; margin-right: 5px;
+  float:left; cursor: pointer; font-family: Courier; font-size: large;
+   line-height: 15px;}
+div.AspNet-TreeView .AspNet-TreeView-Expand
+{background:  url('expand.gif') 0 0 no-repeat; width: 15px; margin-right: 5px;
+ float:left; cursor: pointer;  font-size: large;
+    line-height: 15px;}
+	/*
+div.AspNet-TreeView a,
+div.AspNet-TreeView a:visited,
+div.AspNet-TreeView a:active,
+div.AspNet-TreeView a:hover,
+div.AspNet-TreeView a:link
+{color: #00008B;}
+*/
+div.AspNet-TreeView .AspNet-TreeView-Selected a
+{font-weight: bold !important;}
+div.AspNet-TreeView .AspNet-TreeView-Selected ul a
+{ font-weight: normal !important; }

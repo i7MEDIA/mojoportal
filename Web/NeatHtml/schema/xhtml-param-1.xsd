@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.w3.org/1999/xhtml"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.w3.org/1999/xhtml">
+
+  <xs:annotation>
+    <xs:documentation>
+      This is the XML Schema Param Element module for XHTML
+      $Id: xhtml-param-1.xsd,v 1.2 2004/01/21 04:37:45 speruvem Exp $
+      </xs:documentation>
+      <xs:documentation source="xhtml-copyright-1.xsd"/>
+  </xs:annotation>
+
+  <xs:annotation>
+    <xs:documentation>
+      Parameters for Java Applets and Embedded Objects
+
+        * param
+
+      This module provides declarations for the param element,
+      used to provide named property values for the applet
+      and object elements.
+    </xs:documentation>
+    <xs:documentation
+        source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_objectmodule"/>
+    <xs:documentation
+        source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_appletmodule"/>
+  </xs:annotation>
+
+  <xs:attributeGroup name="param.attlist">
+    <xs:attributeGroup ref="id"/>
+    <xs:attribute name="name" type="CDATA" use="required"/>
+    <xs:attribute name="value" type="CDATA"/>
+    <xs:attribute name="valuetype" default="data">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="data"/>
+          <xs:enumeration value="ref"/>
+          <xs:enumeration value="object"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="type" type="ContentType"/>
+  </xs:attributeGroup>
+
+  <xs:group name="param.content">
+     <xs:sequence/>
+  </xs:group>
+
+  <xs:complexType name="param.type">
+     <xs:group ref="param.content"/>
+     <xs:attributeGroup ref="param.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="param" type="param.type"/>
+
+</xs:schema>

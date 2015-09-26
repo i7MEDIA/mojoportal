@@ -1,0 +1,2703 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{103F2B02-3224-48BC-B173-1F7E1C85178A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mojoPortal.Features.UI</RootNamespace>
+    <AssemblyName>mojoPortal.Features.UI</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET35;MONO</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="mdpostbuild.sh" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;NET35;MONO</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="mdpostbuild.sh" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Brettle.Web.NeatHtml, Version=1.0.3373.23565, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\_libs\Brettle.Web.NeatHtml.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions.Design">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Argotic.Common">
+      <HintPath>..\_libs\argotic\Argotic.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Argotic.Core">
+      <HintPath>..\_libs\argotic\Argotic.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Argotic.Extensions">
+      <HintPath>..\_libs\argotic\Argotic.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Brettle.Web.NeatUpload">
+      <HintPath>..\_libs\NeatUpload\Brettle.Web.NeatUpload.dll</HintPath>
+    </Reference>
+    <Reference Include="CookComputing.XmlRpcV2">
+      <HintPath>..\_libs\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\_libs\log4net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BingMap\BingMapModule.ascx" />
+    <Content Include="Blog\Controls\BlogNav.ascx" />
+    <Content Include="Blog\Controls\PostList.ascx" />
+    <Content Include="Blog\ViewList.aspx" />
+    <Content Include="ContactForm\MessageListDialog.aspx" />
+    <Content Include="Flickr\FlickrGallery.ascx" />
+    <Content Include="Flickr\FlickrSlideShowModule.ascx" />
+    <Content Include="Flickr\FlickrThemeSetting.ascx" />
+    <Content Include="Forums\Controls\ForumList.ascx" />
+    <Content Include="Forums\Controls\ForumListAlt.ascx" />
+    <Content Include="Forums\Controls\ForumSearchBox.ascx" />
+    <Content Include="Forums\Controls\PostList.ascx" />
+    <Content Include="Forums\Controls\PostListAlt.ascx" />
+    <Content Include="Forums\Controls\ThreadList.ascx" />
+    <Content Include="Forums\Controls\ThreadListAlt.ascx" />
+    <Content Include="Forums\Controls\UserThreadList.ascx" />
+    <Content Include="Forums\Controls\UserThreadListAlt.ascx" />
+    <Content Include="Forums\SubscriberDialog.aspx" />
+    <Content Include="GoogleTranslate\GoogleTranslateModule.ascx" />
+    <Content Include="IFrame\IframeModule.ascx" />
+    <Content Include="ImageGallery\BulkUpload.aspx" />
+    <Content Include="List\Controls\ItemList.ascx" />
+    <Content Include="List\Edit.aspx" />
+    <Content Include="List\EditIntro.aspx" />
+    <Content Include="List\ListModule.ascx" />
+    <Content Include="List\ViewList.aspx" />
+    <Content Include="Twitter\TwitterProfileModule.ascx" />
+    <Content Include="Twitter\TwitterSearchModule.ascx" />
+    <Content Include="Web.config" />
+    <Content Include="App_MasterPages\layout.Master" />
+    <Content Include="Poll\MyPollHistory.aspx" />
+    <Content Include="Poll\PollChoose.aspx" />
+    <Content Include="Poll\PollEdit.aspx" />
+    <Content Include="Poll\PollModule.ascx" />
+    <Content Include="Poll\readme.txt" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\FeatureDefinitions\0000_PollFeature.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\surveyfeature\FeatureDefinitions\0000_Survey.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\mssql\0.0.1.1.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\mysql\0.0.1.0.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.3.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.4.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.5.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.6.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.7.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.8.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.9.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.1.0.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.1.1.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.1.2.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mysql\0.0.1.1.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mysql\0.0.1.2.config" />
+    <Content Include="Survey\CompleteSurvey.aspx" />
+    <Content Include="Survey\Results.aspx" />
+    <Content Include="Survey\SurveyEdit.aspx" />
+    <Content Include="Survey\SurveyModule.ascx" />
+    <Content Include="Survey\SurveyPageEdit.aspx" />
+    <Content Include="Survey\SurveyPages.aspx" />
+    <Content Include="Survey\SurveyQuestionEdit.aspx" />
+    <Content Include="Survey\SurveyQuestions.aspx" />
+    <Content Include="Survey\Surveys.aspx" />
+    <Content Include="App_GlobalResources\PollResources.fa.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\PollResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\PollResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\PollResources.sv.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SurveyResources.fa.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SurveyResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SurveyResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\sqlite\0.0.0.2.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\firebirdsql\0.0.1.1.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\firebirdsql\0.0.1.1\00002tables.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\firebirdsql\0.0.1.2.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\firebirdsql\0.0.1.2\0.0.1.2.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\pgsql\0.0.1.2.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\sqlite\0.0.1.2.config" />
+    <Content Include="FeedManager\FeedAggregate.aspx" />
+    <Content Include="FeedManager\FeedEdit.aspx" />
+    <Content Include="FeedManager\FeedManager.aspx" />
+    <Content Include="FeedManager\FeedManagerModule.ascx" />
+    <Content Include="Setup\applications\feed-manager\FeatureDefinitions\80000_FeedManagerModule.config" />
+    <Content Include="App_GlobalResources\FeedResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.cs.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.es-MX.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.sv.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.tr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.zh-CN.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="FeedManager\Controls\FeedTypeSetting.ascx" />
+    <Content Include="App_GlobalResources\PollResources.nl.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Blog\ViewArchive.aspx" />
+    <Content Include="Blog\EditCategory.aspx" />
+    <Content Include="Blog\ViewCategory.aspx" />
+    <Content Include="Blog\Drafts.aspx" />
+    <Content Include="Blog\EditPost.aspx" />
+    <Content Include="Blog\BlogModule.ascx" />
+    <Content Include="Blog\ViewPost.aspx" />
+    <Content Include="Blog\BlogSiteMap.ashx" />
+    <Content Include="App_GlobalResources\BlogResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Blog\RSS.aspx" />
+    <Content Include="Setup\applications\blog\FeatureDefinitions\20000_BlogModule.config" />
+    <Content Include="Blog\BlogUrlSuggestService.ashx" />
+    <Content Include="Blog\Controls\BlogViewControl.ascx" />
+    <Content Include="Blog\Controls\ArchiveViewControl.ascx" />
+    <Content Include="Setup\ProviderConfig\indexbuilders\blogindexbuilder.config" />
+    <Content Include="App_GlobalResources\BlogResources.cs.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.es-MX.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.fa.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.hr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.it.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.nl.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.pt-BR.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.sv.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.tr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.zh-CN.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Forums\EditForum.aspx" />
+    <Content Include="Forums\ForumModule.ascx" />
+    <Content Include="Forums\EditSubscriptions.aspx" />
+    <Content Include="Forums\EditPost.aspx" />
+    <Content Include="Forums\EditThread.aspx" />
+    <Content Include="Forums\Thread.aspx" />
+    <Content Include="Forums\UserThreads.aspx" />
+    <Content Include="Forums\ForumView.aspx" />
+    <Content Include="Forums\RSS.aspx" />
+    <Content Include="App_GlobalResources\ForumResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Forums\UnsubscribeForum.aspx" />
+    <Content Include="Forums\UnsubscribeThread.aspx" />
+    <Content Include="Setup\applications\forums\FeatureDefinitions\50000_ForumsModule.config" />
+    <Content Include="Setup\ProviderConfig\indexbuilders\forumthreadindexbuilder.config" />
+    <Content Include="App_GlobalResources\ForumResources.cs.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.es-MX.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.fa.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.hr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.it.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.nl.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.pt-BR.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.sv.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.tr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.zh-CN.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="EventCalendar\EventCalendarModule.ascx" />
+    <Content Include="EventCalendar\DayView.aspx" />
+    <Content Include="EventCalendar\EditEvent.aspx" />
+    <Content Include="EventCalendar\EventDetails.aspx" />
+    <Content Include="App_GlobalResources\EventCalResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Setup\ProviderConfig\indexbuilders\eventcalendarindexbuilder.config" />
+    <Content Include="Setup\applications\eventcalendar\FeatureDefinitions\40000_EventCalendarModule.config" />
+    <Content Include="App_GlobalResources\EventCalResources.cs.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.es-MX.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.fa.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.hr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.it.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.nl.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.pt-BR.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.sv.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.tr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.zh-CN.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="ContactForm\ContactForm.ascx" />
+    <Content Include="App_GlobalResources\ContactFormResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Setup\applications\contactform\FeatureDefinitions\30000_ContactFormModule.config" />
+    <Content Include="App_GlobalResources\ContactFormResources.cs.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.es-MX.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.fa.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.hr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.it.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.nl.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.pt-BR.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.sv.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.tr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.zh-CN.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="ImageGallery\Gallery.ascx" />
+    <Content Include="ImageGallery\GalleryBrowse.aspx" />
+    <Content Include="ImageGallery\EditImage.aspx" />
+    <Content Include="ImageGallery\GalleryMetaData.xsl" />
+    <Content Include="App_GlobalResources\GalleryResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Setup\ProviderConfig\indexbuilders\galleryindexbuilder.config" />
+    <Content Include="Setup\applications\imagegallery\FeatureDefinitions\60000_ImageGalleryModule.config" />
+    <Content Include="App_GlobalResources\GalleryResources.cs.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.es-MX.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.fa.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.hr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.it.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.nl.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.pt-BR.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.sv.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.tr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.zh-CN.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Setup\applications\linksmodule\FeatureDefinitions\70000_LinksModule.config" />
+    <Content Include="Setup\ProviderConfig\indexbuilders\linksindexbuilder.config" />
+    <Content Include="App_GlobalResources\LinkResources.cs.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.es-MX.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.fa.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.hr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.it.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.nl.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.pt-BR.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.sv.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.tr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.zh-CN.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="SharedFiles\SharedFilesModule.ascx" />
+    <Content Include="SharedFiles\Download.aspx" />
+    <Content Include="SharedFiles\Edit.aspx" />
+    <Content Include="App_GlobalResources\SharedFileResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Setup\applications\sharedfiles\FeatureDefinitions\90000_SharedFilesModule.config" />
+    <Content Include="Setup\ProviderConfig\indexbuilders\sharedfilesindexbuilder.config" />
+    <Content Include="App_GlobalResources\SharedFileResources.cs.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.es-MX.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.fa.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.hr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.it.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.nl.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.pt-BR.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.sv.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.tr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.zh-CN.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="FolderGallery\Edit.aspx" />
+    <Content Include="FolderGallery\FolderGalleryModule.ascx" />
+    <Content Include="App_GlobalResources\FolderGalleryResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Setup\applications\foldergallery\FeatureDefinitions\50040_FolderGalleryModule.config" />
+    <Content Include="App_GlobalResources\FolderGalleryResources.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FolderGalleryResources.fa.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FolderGalleryResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GMapResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GMapResources.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GMapResources.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GMapResources.fa.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GMapResources.hr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GMapResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.cs.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.es-MX.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.fa.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.hr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.it.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.nl.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.pt-BR.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.sv.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.tr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.zh-CN.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.es-MX.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.fa.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.hr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.it.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.nl.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.sv.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.tr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.zh-CN.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FolderGalleryResources.hr.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Setup\applications\googlemap\FeatureDefinitions\50020_GoogleMapModule.config" />
+    <Content Include="GoogleMap\GoogleMapModule.ascx" />
+    <Content Include="Setup\applications\htmlinclude\FeatureDefinitions\90200_HtmlFragmentInlcudeModule.config" />
+    <Content Include="XmlXsl\XmlEdit.aspx" />
+    <Content Include="XmlXsl\XmlModule.ascx" />
+    <Content Include="FlashModule\FlashMovieModule.ascx" />
+    <Content Include="HtmlInclude\HtmlFragmentInclude.ascx" />
+    <Content Include="HtmlInclude\Edit.aspx" />
+    <Content Include="Setup\applications\xmlmodule\FeatureDefinitions\90300_XmlXslModule.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00003ttriggers.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00003ttriggers.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\forums\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\forums\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\forums\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\forums\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\forums\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\pgsql\0.0.0.1.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\firebirdsql\0.0.0.3\00002tables.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\firebirdsql\0.0.0.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.0.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.0.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.0.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.0.3.config" />
+    <Content Include="App_GlobalResources\BlogResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FolderGalleryResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GMapResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\PollResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SurveyResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.da.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.fr.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.fr.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.fr.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.fr.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FolderGalleryResources.fr.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.fr.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.fr.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.fr.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\PollResources.fr.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Blog\BlogCompare.aspx" />
+    <Content Include="LiveMessenger\LiveMessengerModule.ascx" />
+    <Content Include="Setup\applications\livemessenger\FeatureDefinitions\50000_LiveMessengerModule.config" />
+    <Content Include="App_GlobalResources\LiveResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="LiveMessenger\MessengerThemeSetting.ascx" />
+    <Content Include="App_GlobalResources\SharedFileResources.fr.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Blog\Controls\ArchiveListControl.ascx" />
+    <Content Include="Blog\Controls\CategoryListControl.ascx" />
+    <Content Include="Blog\Controls\StatsControl.ascx" />
+    <Content Include="App_GlobalResources\BlogResources.zh-CHT.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.zh-CHT.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.zh-CHT.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.zh-CHT.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.zh-CHT.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.zh-CHT.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.zh-CHT.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.zh-CHT.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.zh-CHT.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.zh-CHT.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Blog\Controls\FeedLinksControl.ascx" />
+    <Content Include="Data\HelpFiles\en-US-messengercidsetting-help.config" />
+    <Content Include="App_GlobalResources\SurveyResources.it.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\PollResources.it.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LiveResources.it.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GMapResources.it.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FolderGalleryResources.it.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.it.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.fa.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="Blog\Controls\CommentDaysSetting.ascx" />
+    <Content Include="App_GlobalResources\BlogResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FolderGalleryResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GMapResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GMapResources.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LiveResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\PollResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\PollResources.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SurveyResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.he.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\BlogResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ContactFormResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\EventCalResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FeedResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\FolderGalleryResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\ForumResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GalleryResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\GMapResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\HtmlIncludeResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LinkResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\LiveResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\PollResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SharedFileResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\SurveyResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+    <Content Include="App_GlobalResources\XmlResources.pl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_GlobalResources\BlogResources.cs.designer.cs">
+      <DependentUpon>BlogResources.cs.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.da.designer.cs">
+      <DependentUpon>BlogResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.de.designer.cs">
+      <DependentUpon>BlogResources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.Designer.cs">
+      <DependentUpon>BlogResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.es-MX.designer.cs">
+      <DependentUpon>BlogResources.es-MX.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.es.designer.cs">
+      <DependentUpon>BlogResources.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.fa.designer.cs">
+      <DependentUpon>BlogResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.fr.designer.cs">
+      <DependentUpon>BlogResources.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.he.designer.cs">
+      <DependentUpon>BlogResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.hr.designer.cs">
+      <DependentUpon>BlogResources.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.it.designer.cs">
+      <DependentUpon>BlogResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.ja.designer.cs">
+      <DependentUpon>BlogResources.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.nl.designer.cs">
+      <DependentUpon>BlogResources.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.pl.designer.cs">
+      <DependentUpon>BlogResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.pt-BR.designer.cs">
+      <DependentUpon>BlogResources.pt-BR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.ru.designer.cs">
+      <DependentUpon>BlogResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.sv.designer.cs">
+      <DependentUpon>BlogResources.sv.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.tr.designer.cs">
+      <DependentUpon>BlogResources.tr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.zh-CHT.designer.cs">
+      <DependentUpon>BlogResources.zh-CHT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\BlogResources.zh-CN.designer.cs">
+      <DependentUpon>BlogResources.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.cs.designer.cs">
+      <DependentUpon>ContactFormResources.cs.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.da.designer.cs">
+      <DependentUpon>ContactFormResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.de.designer.cs">
+      <DependentUpon>ContactFormResources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.Designer.cs">
+      <DependentUpon>ContactFormResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.es-MX.designer.cs">
+      <DependentUpon>ContactFormResources.es-MX.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.es.designer.cs">
+      <DependentUpon>ContactFormResources.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.fa.designer.cs">
+      <DependentUpon>ContactFormResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.fr.designer.cs">
+      <DependentUpon>ContactFormResources.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.he.designer.cs">
+      <DependentUpon>ContactFormResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.hr.designer.cs">
+      <DependentUpon>ContactFormResources.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.it.designer.cs">
+      <DependentUpon>ContactFormResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.ja.designer.cs">
+      <DependentUpon>ContactFormResources.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.nl.designer.cs">
+      <DependentUpon>ContactFormResources.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.pl.designer.cs">
+      <DependentUpon>ContactFormResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.pt-BR.designer.cs">
+      <DependentUpon>ContactFormResources.pt-BR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.ru.designer.cs">
+      <DependentUpon>ContactFormResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.sv.designer.cs">
+      <DependentUpon>ContactFormResources.sv.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.tr.designer.cs">
+      <DependentUpon>ContactFormResources.tr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.zh-CHT.designer.cs">
+      <DependentUpon>ContactFormResources.zh-CHT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ContactFormResources.zh-CN.designer.cs">
+      <DependentUpon>ContactFormResources.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.cs.designer.cs">
+      <DependentUpon>EventCalResources.cs.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.da.designer.cs">
+      <DependentUpon>EventCalResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.de.designer.cs">
+      <DependentUpon>EventCalResources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.Designer.cs">
+      <DependentUpon>EventCalResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.es-MX.designer.cs">
+      <DependentUpon>EventCalResources.es-MX.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.es.designer.cs">
+      <DependentUpon>EventCalResources.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.fa.designer.cs">
+      <DependentUpon>EventCalResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.fr.designer.cs">
+      <DependentUpon>EventCalResources.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.he.designer.cs">
+      <DependentUpon>EventCalResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.hr.designer.cs">
+      <DependentUpon>EventCalResources.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.it.designer.cs">
+      <DependentUpon>EventCalResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.ja.designer.cs">
+      <DependentUpon>EventCalResources.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.nl.designer.cs">
+      <DependentUpon>EventCalResources.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.pl.designer.cs">
+      <DependentUpon>EventCalResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.pt-BR.designer.cs">
+      <DependentUpon>EventCalResources.pt-BR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.ru.designer.cs">
+      <DependentUpon>EventCalResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.sv.designer.cs">
+      <DependentUpon>EventCalResources.sv.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.tr.designer.cs">
+      <DependentUpon>EventCalResources.tr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.zh-CHT.designer.cs">
+      <DependentUpon>EventCalResources.zh-CHT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventCalResources.zh-CN.designer.cs">
+      <DependentUpon>EventCalResources.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.cs.designer.cs">
+      <DependentUpon>FeedResources.cs.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.da.designer.cs">
+      <DependentUpon>FeedResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.de.designer.cs">
+      <DependentUpon>FeedResources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.Designer.cs">
+      <DependentUpon>FeedResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.es-MX.designer.cs">
+      <DependentUpon>FeedResources.es-MX.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.es.designer.cs">
+      <DependentUpon>FeedResources.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.fa.designer.cs">
+      <DependentUpon>FeedResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.fr.designer.cs">
+      <DependentUpon>FeedResources.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.he.designer.cs">
+      <DependentUpon>FeedResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.it.designer.cs">
+      <DependentUpon>FeedResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.ja.designer.cs">
+      <DependentUpon>FeedResources.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.pl.designer.cs">
+      <DependentUpon>FeedResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.ru.designer.cs">
+      <DependentUpon>FeedResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.sv.designer.cs">
+      <DependentUpon>FeedResources.sv.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.tr.designer.cs">
+      <DependentUpon>FeedResources.tr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.zh-CHT.designer.cs">
+      <DependentUpon>FeedResources.zh-CHT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FeedResources.zh-CN.designer.cs">
+      <DependentUpon>FeedResources.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FlickrResources.Designer.cs" />
+    <Compile Include="App_GlobalResources\FolderGalleryResources.da.designer.cs">
+      <DependentUpon>FolderGalleryResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FolderGalleryResources.Designer.cs">
+      <DependentUpon>FolderGalleryResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FolderGalleryResources.es.designer.cs">
+      <DependentUpon>FolderGalleryResources.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FolderGalleryResources.fa.designer.cs">
+      <DependentUpon>FolderGalleryResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FolderGalleryResources.fr.designer.cs">
+      <DependentUpon>FolderGalleryResources.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FolderGalleryResources.he.designer.cs">
+      <DependentUpon>FolderGalleryResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FolderGalleryResources.hr.designer.cs">
+      <DependentUpon>FolderGalleryResources.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FolderGalleryResources.it.designer.cs">
+      <DependentUpon>FolderGalleryResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FolderGalleryResources.pl.designer.cs">
+      <DependentUpon>FolderGalleryResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\FolderGalleryResources.ru.designer.cs">
+      <DependentUpon>FolderGalleryResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.cs.designer.cs">
+      <DependentUpon>ForumResources.cs.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.da.designer.cs">
+      <DependentUpon>ForumResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.de.designer.cs">
+      <DependentUpon>ForumResources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.Designer.cs">
+      <DependentUpon>ForumResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.es-MX.designer.cs">
+      <DependentUpon>ForumResources.es-MX.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.es.designer.cs">
+      <DependentUpon>ForumResources.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.fa.designer.cs">
+      <DependentUpon>ForumResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.fr.designer.cs">
+      <DependentUpon>ForumResources.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.he.designer.cs">
+      <DependentUpon>ForumResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.hr.designer.cs">
+      <DependentUpon>ForumResources.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.it.designer.cs">
+      <DependentUpon>ForumResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.ja.designer.cs">
+      <DependentUpon>ForumResources.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.nl.designer.cs">
+      <DependentUpon>ForumResources.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.pl.designer.cs">
+      <DependentUpon>ForumResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.pt-BR.designer.cs">
+      <DependentUpon>ForumResources.pt-BR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.ru.designer.cs">
+      <DependentUpon>ForumResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.sv.designer.cs">
+      <DependentUpon>ForumResources.sv.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.tr.designer.cs">
+      <DependentUpon>ForumResources.tr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.zh-CHT.designer.cs">
+      <DependentUpon>ForumResources.zh-CHT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ForumResources.zh-CN.designer.cs">
+      <DependentUpon>ForumResources.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.cs.designer.cs">
+      <DependentUpon>GalleryResources.cs.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.da.designer.cs">
+      <DependentUpon>GalleryResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.de.designer.cs">
+      <DependentUpon>GalleryResources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.Designer.cs">
+      <DependentUpon>GalleryResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.es-MX.designer.cs">
+      <DependentUpon>GalleryResources.es-MX.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.es.designer.cs">
+      <DependentUpon>GalleryResources.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.fa.designer.cs">
+      <DependentUpon>GalleryResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.fr.designer.cs">
+      <DependentUpon>GalleryResources.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.he.designer.cs">
+      <DependentUpon>GalleryResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.hr.designer.cs">
+      <DependentUpon>GalleryResources.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.it.designer.cs">
+      <DependentUpon>GalleryResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.ja.designer.cs">
+      <DependentUpon>GalleryResources.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.nl.designer.cs">
+      <DependentUpon>GalleryResources.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.pl.designer.cs">
+      <DependentUpon>GalleryResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.pt-BR.designer.cs">
+      <DependentUpon>GalleryResources.pt-BR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.ru.designer.cs">
+      <DependentUpon>GalleryResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.sv.designer.cs">
+      <DependentUpon>GalleryResources.sv.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.tr.designer.cs">
+      <DependentUpon>GalleryResources.tr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.zh-CHT.designer.cs">
+      <DependentUpon>GalleryResources.zh-CHT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GalleryResources.zh-CN.designer.cs">
+      <DependentUpon>GalleryResources.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GMapResources.da.designer.cs">
+      <DependentUpon>GMapResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GMapResources.de.designer.cs">
+      <DependentUpon>GMapResources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GMapResources.Designer.cs">
+      <DependentUpon>GMapResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GMapResources.es.designer.cs">
+      <DependentUpon>GMapResources.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GMapResources.fa.designer.cs">
+      <DependentUpon>GMapResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GMapResources.he.designer.cs">
+      <DependentUpon>GMapResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GMapResources.hr.designer.cs">
+      <DependentUpon>GMapResources.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GMapResources.it.designer.cs">
+      <DependentUpon>GMapResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GMapResources.ja.designer.cs">
+      <DependentUpon>GMapResources.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GMapResources.pl.designer.cs">
+      <DependentUpon>GMapResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GMapResources.ru.designer.cs">
+      <DependentUpon>GMapResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\GTranslateResources.Designer.cs" />
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.da.designer.cs">
+      <DependentUpon>HtmlIncludeResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.de.designer.cs">
+      <DependentUpon>HtmlIncludeResources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.Designer.cs">
+      <DependentUpon>HtmlIncludeResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.es-MX.designer.cs">
+      <DependentUpon>HtmlIncludeResources.es-MX.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.es.designer.cs">
+      <DependentUpon>HtmlIncludeResources.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.fa.designer.cs">
+      <DependentUpon>HtmlIncludeResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.he.designer.cs">
+      <DependentUpon>HtmlIncludeResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.hr.designer.cs">
+      <DependentUpon>HtmlIncludeResources.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.it.designer.cs">
+      <DependentUpon>HtmlIncludeResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.ja.designer.cs">
+      <DependentUpon>HtmlIncludeResources.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.nl.designer.cs">
+      <DependentUpon>HtmlIncludeResources.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.pl.designer.cs">
+      <DependentUpon>HtmlIncludeResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.ru.designer.cs">
+      <DependentUpon>HtmlIncludeResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.sv.designer.cs">
+      <DependentUpon>HtmlIncludeResources.sv.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.tr.designer.cs">
+      <DependentUpon>HtmlIncludeResources.tr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.zh-CHT.designer.cs">
+      <DependentUpon>HtmlIncludeResources.zh-CHT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\HtmlIncludeResources.zh-CN.designer.cs">
+      <DependentUpon>HtmlIncludeResources.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\IframeResources.Designer.cs" />
+    <Compile Include="App_GlobalResources\LinkResources.cs.designer.cs">
+      <DependentUpon>LinkResources.cs.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.da.designer.cs">
+      <DependentUpon>LinkResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.de.designer.cs">
+      <DependentUpon>LinkResources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.Designer.cs">
+      <DependentUpon>LinkResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.es-MX.designer.cs">
+      <DependentUpon>LinkResources.es-MX.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.es.designer.cs">
+      <DependentUpon>LinkResources.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.fa.designer.cs">
+      <DependentUpon>LinkResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.fr.designer.cs">
+      <DependentUpon>LinkResources.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.he.designer.cs">
+      <DependentUpon>LinkResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.hr.designer.cs">
+      <DependentUpon>LinkResources.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.it.designer.cs">
+      <DependentUpon>LinkResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.ja.designer.cs">
+      <DependentUpon>LinkResources.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.nl.designer.cs">
+      <DependentUpon>LinkResources.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.pl.designer.cs">
+      <DependentUpon>LinkResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.pt-BR.designer.cs">
+      <DependentUpon>LinkResources.pt-BR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.ru.designer.cs">
+      <DependentUpon>LinkResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.sv.designer.cs">
+      <DependentUpon>LinkResources.sv.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.tr.designer.cs">
+      <DependentUpon>LinkResources.tr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.zh-CHT.designer.cs">
+      <DependentUpon>LinkResources.zh-CHT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LinkResources.zh-CN.designer.cs">
+      <DependentUpon>LinkResources.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LiveResources.Designer.cs">
+      <DependentUpon>LiveResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LiveResources.he.designer.cs">
+      <DependentUpon>LiveResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LiveResources.it.designer.cs">
+      <DependentUpon>LiveResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\LiveResources.pl.designer.cs">
+      <DependentUpon>LiveResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PollResources.da.designer.cs">
+      <DependentUpon>PollResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PollResources.Designer.cs">
+      <DependentUpon>PollResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PollResources.fa.designer.cs">
+      <DependentUpon>PollResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PollResources.fr.designer.cs">
+      <DependentUpon>PollResources.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PollResources.he.designer.cs">
+      <DependentUpon>PollResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PollResources.it.designer.cs">
+      <DependentUpon>PollResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PollResources.ja.designer.cs">
+      <DependentUpon>PollResources.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PollResources.nl.designer.cs">
+      <DependentUpon>PollResources.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PollResources.pl.designer.cs">
+      <DependentUpon>PollResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PollResources.ru.designer.cs">
+      <DependentUpon>PollResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PollResources.sv.designer.cs">
+      <DependentUpon>PollResources.sv.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.cs.designer.cs">
+      <DependentUpon>SharedFileResources.cs.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.da.designer.cs">
+      <DependentUpon>SharedFileResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.de.designer.cs">
+      <DependentUpon>SharedFileResources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.Designer.cs">
+      <DependentUpon>SharedFileResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.es-MX.designer.cs">
+      <DependentUpon>SharedFileResources.es-MX.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.es.designer.cs">
+      <DependentUpon>SharedFileResources.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.fa.designer.cs">
+      <DependentUpon>SharedFileResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.fr.designer.cs">
+      <DependentUpon>SharedFileResources.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.he.designer.cs">
+      <DependentUpon>SharedFileResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.hr.designer.cs">
+      <DependentUpon>SharedFileResources.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.it.designer.cs">
+      <DependentUpon>SharedFileResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.ja.designer.cs">
+      <DependentUpon>SharedFileResources.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.nl.designer.cs">
+      <DependentUpon>SharedFileResources.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.pl.designer.cs">
+      <DependentUpon>SharedFileResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.pt-BR.designer.cs">
+      <DependentUpon>SharedFileResources.pt-BR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.ru.designer.cs">
+      <DependentUpon>SharedFileResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.sv.designer.cs">
+      <DependentUpon>SharedFileResources.sv.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.tr.designer.cs">
+      <DependentUpon>SharedFileResources.tr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.zh-CHT.designer.cs">
+      <DependentUpon>SharedFileResources.zh-CHT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SharedFileResources.zh-CN.designer.cs">
+      <DependentUpon>SharedFileResources.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SurveyResources.da.designer.cs">
+      <DependentUpon>SurveyResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SurveyResources.Designer.cs">
+      <DependentUpon>SurveyResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SurveyResources.fa.designer.cs">
+      <DependentUpon>SurveyResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SurveyResources.he.designer.cs">
+      <DependentUpon>SurveyResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SurveyResources.it.designer.cs">
+      <DependentUpon>SurveyResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SurveyResources.pl.designer.cs">
+      <DependentUpon>SurveyResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SurveyResources.ru.designer.cs">
+      <DependentUpon>SurveyResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\TwitterResources.Designer.cs" />
+    <Compile Include="App_GlobalResources\XmlResources.cs.designer.cs">
+      <DependentUpon>XmlResources.cs.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.da.designer.cs">
+      <DependentUpon>XmlResources.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.de.designer.cs">
+      <DependentUpon>XmlResources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.Designer.cs">
+      <DependentUpon>XmlResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.es-MX.designer.cs">
+      <DependentUpon>XmlResources.es-MX.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.es.designer.cs">
+      <DependentUpon>XmlResources.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.fa.designer.cs">
+      <DependentUpon>XmlResources.fa.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.he.designer.cs">
+      <DependentUpon>XmlResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.hr.designer.cs">
+      <DependentUpon>XmlResources.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.it.designer.cs">
+      <DependentUpon>XmlResources.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.ja.designer.cs">
+      <DependentUpon>XmlResources.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.nl.designer.cs">
+      <DependentUpon>XmlResources.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.pl.designer.cs">
+      <DependentUpon>XmlResources.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.pt-BR.designer.cs">
+      <DependentUpon>XmlResources.pt-BR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.ru.designer.cs">
+      <DependentUpon>XmlResources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.sv.designer.cs">
+      <DependentUpon>XmlResources.sv.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.tr.designer.cs">
+      <DependentUpon>XmlResources.tr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.zh-CHT.designer.cs">
+      <DependentUpon>XmlResources.zh-CHT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\XmlResources.zh-CN.designer.cs">
+      <DependentUpon>XmlResources.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_MasterPages\layout.Master.cs">
+      <DependentUpon>layout.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_MasterPages\layout.Master.designer.cs">
+      <DependentUpon>layout.Master</DependentUpon>
+    </Compile>
+    <Compile Include="BingMap\BingMapModule.ascx.cs">
+      <DependentUpon>BingMapModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="BingMap\BingMapModule.ascx.designer.cs">
+      <DependentUpon>BingMapModule.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BingMap\Components\BingMapConfiguration.cs" />
+    <Compile Include="Blog\BlogCompare.aspx.cs">
+      <DependentUpon>BlogCompare.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\BlogCompare.aspx.designer.cs">
+      <DependentUpon>BlogCompare.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\BlogUrlSuggestService.ashx.cs">
+      <DependentUpon>BlogUrlSuggestService.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Components\BlogContentDeleteHandler.cs" />
+    <Compile Include="Blog\Components\BlogContentInstaller.cs" />
+    <Compile Include="Blog\Components\BlogIndexBuilderProvider.cs" />
+    <Compile Include="Blog\Components\SitePreDeleteBlogHandler.cs" />
+    <Compile Include="Blog\Controls\ArchiveViewControl.ascx.cs">
+      <DependentUpon>ArchiveViewControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\ArchiveViewControl.ascx.designer.cs">
+      <DependentUpon>ArchiveViewControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\ArchiveListControl.ascx.cs">
+      <DependentUpon>ArchiveListControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\ArchiveListControl.ascx.designer.cs">
+      <DependentUpon>ArchiveListControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogDisplaySettings.cs" />
+    <Compile Include="Blog\Controls\BlogNav.ascx.cs">
+      <DependentUpon>BlogNav.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogNav.ascx.designer.cs">
+      <DependentUpon>BlogNav.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\CategoryListControl.ascx.cs">
+      <DependentUpon>CategoryListControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\CategoryListControl.ascx.designer.cs">
+      <DependentUpon>CategoryListControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogViewControl.ascx.cs">
+      <DependentUpon>BlogViewControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogViewControl.ascx.designer.cs">
+      <DependentUpon>BlogViewControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\CommentDaysSetting.ascx.cs">
+      <DependentUpon>CommentDaysSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\CommentDaysSetting.ascx.designer.cs">
+      <DependentUpon>CommentDaysSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\FeedLinksControl.ascx.cs">
+      <DependentUpon>FeedLinksControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\FeedLinksControl.ascx.designer.cs">
+      <DependentUpon>FeedLinksControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\Panels\BlogArchiveListPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogBottomSideBarPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogCatListPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogCommentPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogDatePanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogNavPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogPagerPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogStatsPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogTopSideBarPanel.cs" />
+    <Compile Include="Blog\Controls\Panels\BlogWrapperPanel.cs" />
+    <Compile Include="Blog\Controls\PostList.ascx.cs">
+      <DependentUpon>PostList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\PostList.ascx.designer.cs">
+      <DependentUpon>PostList.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\StatsControl.ascx.cs">
+      <DependentUpon>StatsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\StatsControl.ascx.designer.cs">
+      <DependentUpon>StatsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\RSS.aspx.cs">
+      <DependentUpon>RSS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\RSS.aspx.designer.cs">
+      <DependentUpon>RSS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewArchive.aspx.cs">
+      <DependentUpon>ViewArchive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewArchive.aspx.designer.cs">
+      <DependentUpon>ViewArchive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\EditCategory.aspx.cs">
+      <DependentUpon>EditCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\EditCategory.aspx.designer.cs">
+      <DependentUpon>EditCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewCategory.aspx.cs">
+      <DependentUpon>ViewCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewCategory.aspx.designer.cs">
+      <DependentUpon>ViewCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Drafts.aspx.cs">
+      <DependentUpon>Drafts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Drafts.aspx.designer.cs">
+      <DependentUpon>Drafts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\EditPost.aspx.cs">
+      <DependentUpon>EditPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\EditPost.aspx.designer.cs">
+      <DependentUpon>EditPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\BlogModule.ascx.cs">
+      <DependentUpon>BlogModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\BlogModule.ascx.designer.cs">
+      <DependentUpon>BlogModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\BlogSiteMap.ashx.cs">
+      <DependentUpon>BlogSiteMap.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewList.aspx.cs">
+      <DependentUpon>ViewList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewList.aspx.designer.cs">
+      <DependentUpon>ViewList.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewPost.aspx.cs">
+      <DependentUpon>ViewPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewPost.aspx.designer.cs">
+      <DependentUpon>ViewPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ContactForm\Components\ContactFormContentDeleteHandler.cs" />
+    <Compile Include="ContactForm\Components\SitePreDeleteContactFormHandler.cs" />
+    <Compile Include="ContactForm\ContactForm.ascx.cs">
+      <DependentUpon>ContactForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ContactForm\ContactForm.ascx.designer.cs">
+      <DependentUpon>ContactForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ContactForm\MessageListDialog.aspx.cs">
+      <DependentUpon>MessageListDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ContactForm\MessageListDialog.aspx.designer.cs">
+      <DependentUpon>MessageListDialog.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EventCalendar\Components\CalendarContentDeleteHandler.cs" />
+    <Compile Include="EventCalendar\Components\CalendarEventIndexBuilderProvider.cs" />
+    <Compile Include="EventCalendar\Components\SitePreDeleteEventCalendarHandler.cs" />
+    <Compile Include="EventCalendar\EventCalendarModule.ascx.cs">
+      <DependentUpon>EventCalendarModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="EventCalendar\EventCalendarModule.ascx.designer.cs">
+      <DependentUpon>EventCalendarModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="EventCalendar\DayView.aspx.cs">
+      <DependentUpon>DayView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventCalendar\DayView.aspx.designer.cs">
+      <DependentUpon>DayView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventCalendar\EditEvent.aspx.cs">
+      <DependentUpon>EditEvent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventCalendar\EditEvent.aspx.designer.cs">
+      <DependentUpon>EditEvent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventCalendar\EventDetails.aspx.cs">
+      <DependentUpon>EventDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventCalendar\EventDetails.aspx.designer.cs">
+      <DependentUpon>EventDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedManager\Components\FeedContentDeleteHandler.cs" />
+    <Compile Include="FeedManager\Components\FeedManagerContentInstaller.cs" />
+    <Compile Include="FeedManager\Components\SitePreDeleteFeedsHandler.cs" />
+    <Compile Include="FeedManager\Controls\FeedManagerDisplaySettings.cs" />
+    <Compile Include="FeedManager\Controls\FeedTypeSetting.ascx.cs">
+      <DependentUpon>FeedTypeSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FeedManager\Controls\FeedTypeSetting.ascx.designer.cs">
+      <DependentUpon>FeedTypeSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedManager\FeedAggregate.aspx.cs">
+      <DependentUpon>FeedAggregate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FeedManager\FeedAggregate.aspx.designer.cs">
+      <DependentUpon>FeedAggregate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedManager\FeedCache.cs" />
+    <Compile Include="FeedManager\FeedEdit.aspx.cs">
+      <DependentUpon>FeedEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedManager\FeedEdit.aspx.designer.cs">
+      <DependentUpon>FeedEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedManager\FeedManager.aspx.cs">
+      <DependentUpon>FeedManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedManager\FeedManager.aspx.designer.cs">
+      <DependentUpon>FeedManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedManager\FeedManagerModule.ascx.cs">
+      <DependentUpon>FeedManagerModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedManager\FeedManagerModule.ascx.designer.cs">
+      <DependentUpon>FeedManagerModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FlashModule\FlashMovieModule.ascx.cs">
+      <DependentUpon>FlashMovieModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FlashModule\FlashMovieModule.ascx.designer.cs">
+      <DependentUpon>FlashMovieModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Flickr\Components\FlickrGalleryConfiguration.cs" />
+    <Compile Include="Flickr\Components\FlickrGalleryContentInstaller.cs" />
+    <Compile Include="Flickr\FlickrGallery.ascx.cs">
+      <DependentUpon>FlickrGallery.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Flickr\FlickrGallery.ascx.designer.cs">
+      <DependentUpon>FlickrGallery.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Flickr\FlickrSlideShowModule.ascx.cs">
+      <DependentUpon>FlickrSlideShowModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Flickr\FlickrSlideShowModule.ascx.designer.cs">
+      <DependentUpon>FlickrSlideShowModule.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Flickr\FlickrThemeSetting.ascx.cs">
+      <DependentUpon>FlickrThemeSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Flickr\FlickrThemeSetting.ascx.designer.cs">
+      <DependentUpon>FlickrThemeSetting.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FolderGallery\Components\FolderGalleryContentInstaller.cs" />
+    <Compile Include="FolderGallery\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FolderGallery\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FolderGallery\FolderGalleryModule.ascx.cs">
+      <DependentUpon>FolderGalleryModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FolderGallery\FolderGalleryModule.ascx.designer.cs">
+      <DependentUpon>FolderGalleryModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Components\ForumContentDeleteHandler.cs" />
+    <Compile Include="Forums\Components\ForumContentInstaller.cs" />
+    <Compile Include="Forums\Components\ForumThreadIndexBuilderProvider.cs" />
+    <Compile Include="Forums\Components\SitePreDeleteForumsHandler.cs" />
+    <Compile Include="Forums\Controls\ForumDisplaySettings.cs" />
+    <Compile Include="Forums\Controls\ForumList.ascx.cs">
+      <DependentUpon>ForumList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumList.ascx.designer.cs">
+      <DependentUpon>ForumList.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumListAlt.ascx.cs">
+      <DependentUpon>ForumListAlt.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumListAlt.ascx.designer.cs">
+      <DependentUpon>ForumListAlt.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumSearchBox.ascx.cs">
+      <DependentUpon>ForumSearchBox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumSearchBox.ascx.designer.cs">
+      <DependentUpon>ForumSearchBox.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\PostList.ascx.cs">
+      <DependentUpon>PostList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\PostList.ascx.designer.cs">
+      <DependentUpon>PostList.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\PostListAlt.ascx.cs">
+      <DependentUpon>PostListAlt.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\PostListAlt.ascx.designer.cs">
+      <DependentUpon>PostListAlt.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ThreadList.ascx.cs">
+      <DependentUpon>ThreadList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\ThreadList.ascx.designer.cs">
+      <DependentUpon>ThreadList.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ThreadListAlt.ascx.cs">
+      <DependentUpon>ThreadListAlt.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\ThreadListAlt.ascx.designer.cs">
+      <DependentUpon>ThreadListAlt.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\UserThreadList.ascx.cs">
+      <DependentUpon>UserThreadList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\UserThreadList.ascx.designer.cs">
+      <DependentUpon>UserThreadList.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\UserThreadListAlt.ascx.cs">
+      <DependentUpon>UserThreadListAlt.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Controls\UserThreadListAlt.ascx.designer.cs">
+      <DependentUpon>UserThreadListAlt.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditForum.aspx.cs">
+      <DependentUpon>EditForum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditForum.aspx.designer.cs">
+      <DependentUpon>EditForum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\ForumModule.ascx.cs">
+      <DependentUpon>ForumModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\ForumModule.ascx.designer.cs">
+      <DependentUpon>ForumModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditSubscriptions.aspx.cs">
+      <DependentUpon>EditSubscriptions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditSubscriptions.aspx.designer.cs">
+      <DependentUpon>EditSubscriptions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditPost.aspx.cs">
+      <DependentUpon>EditPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditPost.aspx.designer.cs">
+      <DependentUpon>EditPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditThread.aspx.cs">
+      <DependentUpon>EditThread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditThread.aspx.designer.cs">
+      <DependentUpon>EditThread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\SubscriberDialog.aspx.cs">
+      <DependentUpon>SubscriberDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\SubscriberDialog.aspx.designer.cs">
+      <DependentUpon>SubscriberDialog.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Thread.aspx.cs">
+      <DependentUpon>Thread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Thread.aspx.designer.cs">
+      <DependentUpon>Thread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UnsubscribeForum.aspx.cs">
+      <DependentUpon>UnsubscribeForum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UnsubscribeForum.aspx.designer.cs">
+      <DependentUpon>UnsubscribeForum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UnsubscribeThread.aspx.cs">
+      <DependentUpon>UnsubscribeThread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UnsubscribeThread.aspx.designer.cs">
+      <DependentUpon>UnsubscribeThread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UserThreads.aspx.cs">
+      <DependentUpon>UserThreads.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UserThreads.aspx.designer.cs">
+      <DependentUpon>UserThreads.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\ForumView.aspx.cs">
+      <DependentUpon>ForumView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\ForumView.aspx.designer.cs">
+      <DependentUpon>ForumView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\RSS.aspx.cs">
+      <DependentUpon>RSS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\RSS.aspx.designer.cs">
+      <DependentUpon>RSS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GoogleMap\Components\GoogleMapConfiguration.cs" />
+    <Compile Include="GoogleMap\GoogleMapModule.ascx.cs">
+      <DependentUpon>GoogleMapModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="GoogleMap\GoogleMapModule.ascx.designer.cs">
+      <DependentUpon>GoogleMapModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="GoogleTranslate\GoogleTranslateModule.ascx.cs">
+      <DependentUpon>GoogleTranslateModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="GoogleTranslate\GoogleTranslateModule.ascx.designer.cs">
+      <DependentUpon>GoogleTranslateModule.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlInclude\HtmlFragmentInclude.ascx.cs">
+      <DependentUpon>HtmlFragmentInclude.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlInclude\HtmlFragmentInclude.ascx.designer.cs">
+      <DependentUpon>HtmlFragmentInclude.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlInclude\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlInclude\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="IFrame\IframeModule.ascx.cs">
+      <DependentUpon>IframeModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="IFrame\IframeModule.ascx.designer.cs">
+      <DependentUpon>IframeModule.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImageGallery\BulkUpload.aspx.cs">
+      <DependentUpon>BulkUpload.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageGallery\BulkUpload.aspx.designer.cs">
+      <DependentUpon>BulkUpload.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImageGallery\Components\GalleryContentDeleteHandler.cs" />
+    <Compile Include="ImageGallery\Components\GalleryHelper.cs" />
+    <Compile Include="ImageGallery\Components\GalleryImageIndexBuilderProvider.cs" />
+    <Compile Include="ImageGallery\Components\ImageGalleryContentInstaller.cs" />
+    <Compile Include="ImageGallery\Components\SitePreDeleteGalleryHandler.cs" />
+    <Compile Include="ImageGallery\Controls\GalleryDisplaySettings.cs" />
+    <Compile Include="ImageGallery\Gallery.ascx.cs">
+      <DependentUpon>Gallery.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageGallery\Gallery.ascx.designer.cs">
+      <DependentUpon>Gallery.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageGallery\GalleryBrowse.aspx.cs">
+      <DependentUpon>GalleryBrowse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageGallery\GalleryBrowse.aspx.designer.cs">
+      <DependentUpon>GalleryBrowse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageGallery\EditImage.aspx.cs">
+      <DependentUpon>EditImage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageGallery\EditImage.aspx.designer.cs">
+      <DependentUpon>EditImage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="List\Components\LinksContentDeleteHandler.cs" />
+    <Compile Include="List\Components\LinksIndexBuilderProvider.cs" />
+    <Compile Include="List\Components\ListConfiguration.cs" />
+    <Compile Include="List\Components\ListContentInstaller.cs" />
+    <Compile Include="List\Components\SitePreDeleteLinksHandler.cs" />
+    <Compile Include="List\Controls\ItemList.ascx.cs">
+      <DependentUpon>ItemList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="List\Controls\ItemList.ascx.designer.cs">
+      <DependentUpon>ItemList.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="List\Controls\ListDisplaySettings.cs" />
+    <Compile Include="List\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="List\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="List\EditIntro.aspx.cs">
+      <DependentUpon>EditIntro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="List\EditIntro.aspx.designer.cs">
+      <DependentUpon>EditIntro.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="List\ListModule.ascx.cs">
+      <DependentUpon>ListModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="List\ListModule.ascx.designer.cs">
+      <DependentUpon>ListModule.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="List\ViewList.aspx.cs">
+      <DependentUpon>ViewList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="List\ViewList.aspx.designer.cs">
+      <DependentUpon>ViewList.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LiveMessenger\LiveMessengerModule.ascx.cs">
+      <DependentUpon>LiveMessengerModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="LiveMessenger\LiveMessengerModule.ascx.designer.cs">
+      <DependentUpon>LiveMessengerModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="LiveMessenger\MessengerThemeSetting.ascx.cs">
+      <DependentUpon>MessengerThemeSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LiveMessenger\MessengerThemeSetting.ascx.designer.cs">
+      <DependentUpon>MessengerThemeSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Poll\Helpers\PollContentDeleteHandler.cs" />
+    <Compile Include="Poll\Helpers\PollUIHelper.cs" />
+    <Compile Include="Poll\Helpers\SitePreDeletePollsHandler.cs" />
+    <Compile Include="Poll\MyPollHistory.aspx.cs">
+      <DependentUpon>MyPollHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Poll\MyPollHistory.aspx.designer.cs">
+      <DependentUpon>MyPollHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Poll\PollChoose.aspx.cs">
+      <DependentUpon>PollChoose.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Poll\PollChoose.aspx.designer.cs">
+      <DependentUpon>PollChoose.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Poll\PollEdit.aspx.cs">
+      <DependentUpon>PollEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Poll\PollEdit.aspx.designer.cs">
+      <DependentUpon>PollEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Poll\PollModule.ascx.cs">
+      <DependentUpon>PollModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Poll\PollModule.ascx.designer.cs">
+      <DependentUpon>PollModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\GalleryDataService.ashx.cs">
+      <DependentUpon>GalleryDataService.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\Components\SharedFilesConfiguration.cs" />
+    <Compile Include="SharedFiles\Components\SharedFilesContentDeleteHandler.cs" />
+    <Compile Include="SharedFiles\Components\SharedFilesContentInstaller.cs" />
+    <Compile Include="SharedFiles\Components\SharedFilesIndexBuilderProvider.cs" />
+    <Compile Include="SharedFiles\Components\SitePreDeleteSharedFilesHandler.cs" />
+    <Compile Include="SharedFiles\Controls\SharedFilesDisplaySettings.cs" />
+    <Compile Include="SharedFiles\SharedFilesModule.ascx.cs">
+      <DependentUpon>SharedFilesModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\SharedFilesModule.ascx.designer.cs">
+      <DependentUpon>SharedFilesModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\Download.aspx.cs">
+      <DependentUpon>Download.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\Download.aspx.designer.cs">
+      <DependentUpon>Download.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\CompleteSurvey.aspx.cs">
+      <DependentUpon>CompleteSurvey.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\CompleteSurvey.aspx.designer.cs">
+      <DependentUpon>CompleteSurvey.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\Components\SitePreDeleteSurveyHandler.cs" />
+    <Compile Include="Survey\Components\SurveyContentDeleteHandler.cs" />
+    <Compile Include="Survey\Controls\CheckBoxListQuestion.cs" />
+    <Compile Include="Survey\Controls\CheckBoxListValidator.cs" />
+    <Compile Include="Survey\Controls\DateQuestion.cs" />
+    <Compile Include="Survey\Controls\DropDownListQuestion.cs" />
+    <Compile Include="Survey\Controls\IQuestion.cs" />
+    <Compile Include="Survey\Controls\RadioButtonListQuestion.cs" />
+    <Compile Include="Survey\Controls\TextBoxQuestion.cs" />
+    <Compile Include="Survey\Results.aspx.cs">
+      <DependentUpon>Results.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\Results.aspx.designer.cs">
+      <DependentUpon>Results.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyEdit.aspx.cs">
+      <DependentUpon>SurveyEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyEdit.aspx.designer.cs">
+      <DependentUpon>SurveyEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyModule.ascx.cs">
+      <DependentUpon>SurveyModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyModule.ascx.designer.cs">
+      <DependentUpon>SurveyModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyPageEdit.aspx.cs">
+      <DependentUpon>SurveyPageEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyPageEdit.aspx.designer.cs">
+      <DependentUpon>SurveyPageEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyPages.aspx.cs">
+      <DependentUpon>SurveyPages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyPages.aspx.designer.cs">
+      <DependentUpon>SurveyPages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyQuestionEdit.aspx.cs">
+      <DependentUpon>SurveyQuestionEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyQuestionEdit.aspx.designer.cs">
+      <DependentUpon>SurveyQuestionEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyQuestions.aspx.cs">
+      <DependentUpon>SurveyQuestions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\SurveyQuestions.aspx.designer.cs">
+      <DependentUpon>SurveyQuestions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\Surveys.aspx.cs">
+      <DependentUpon>Surveys.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Survey\Surveys.aspx.designer.cs">
+      <DependentUpon>Surveys.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Twitter\Components\TwitterSearchContentInstaller.cs" />
+    <Compile Include="Twitter\TwitterProfileModule.ascx.cs">
+      <DependentUpon>TwitterProfileModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Twitter\TwitterProfileModule.ascx.designer.cs">
+      <DependentUpon>TwitterProfileModule.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Twitter\TwitterSearchModule.ascx.cs">
+      <DependentUpon>TwitterSearchModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Twitter\TwitterSearchModule.ascx.designer.cs">
+      <DependentUpon>TwitterSearchModule.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XmlXsl\Components\XmlConfiguration.cs" />
+    <Compile Include="XmlXsl\XmlEdit.aspx.cs">
+      <DependentUpon>XmlEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="XmlXsl\XmlEdit.aspx.designer.cs">
+      <DependentUpon>XmlEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="XmlXsl\XmlModule.ascx.cs">
+      <DependentUpon>XmlModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="XmlXsl\XmlModule.ascx.designer.cs">
+      <DependentUpon>XmlModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Components\BlogConfiguration.cs" />
+    <Compile Include="ContactForm\Components\ContactFormConfiguration.cs" />
+    <Compile Include="EventCalendar\Components\CalendarConfiguration.cs" />
+    <Compile Include="FeedManager\Components\FeedManagerConfiguration.cs" />
+    <Compile Include="Forums\Components\ForumConfiguration.cs" />
+    <Compile Include="ImageGallery\Components\GalleryConfiguration.cs" />
+    <Compile Include="App_GlobalResources\BingResources.Designer.cs" />
+    <Compile Include="KDMediaPlayer\Components\AudioPlayerConfiguration.cs" />
+    <Compile Include="KDMediaPlayer\Components\MediaContentInstaller.cs" />
+    <Compile Include="KDMediaPlayer\Components\MediaPlayerContentDeleteHandler.cs" />
+    <Compile Include="KDMediaPlayer\Components\SitePreDeleteMediaPlayerHandler.cs" />
+    <Compile Include="KDMediaPlayer\Components\VideoPlayerConfiguration.cs" />
+    <Compile Include="KDMediaPlayer\AudioPlayer.ascx.cs" />
+    <Compile Include="KDMediaPlayer\AudioPlayer.ascx.designer.cs" />
+    <Compile Include="KDMediaPlayer\Edit.aspx.cs" />
+    <Compile Include="KDMediaPlayer\Edit.aspx.designer.cs" />
+    <Compile Include="KDMediaPlayer\EditTrack.aspx.cs" />
+    <Compile Include="KDMediaPlayer\EditTrack.aspx.designer.cs" />
+    <Compile Include="KDMediaPlayer\VideoPlayer.ascx.cs" />
+    <Compile Include="KDMediaPlayer\VideoPlayer.ascx.designer.cs" />
+    <Compile Include="Blog\metaweblogapi.ashx.cs" />
+    <Compile Include="SharedFiles\Components\SharedFilesHelper.cs" />
+    <Compile Include="App_GlobalResources\MediaPlayerResources.Designer.cs" />
+    <Compile Include="App_GlobalResources\MetaweblogResources.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.mono.csproj">
+      <Project>{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}</Project>
+      <Name>mojoPortal.Business.WebHelpers.mono</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Business\mojoPortal.Business.mono.csproj">
+      <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
+      <Name>mojoPortal.Business.mono</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Features.Business\mojoPortal.Features.Business.mono.csproj">
+      <Project>{65849992-8F44-4480-9494-1CA0D6325795}</Project>
+      <Name>mojoPortal.Features.Business.mono</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Net\mojoPortal.Net.csproj">
+      <Project>{30916752-1A97-49CA-95D6-81A5F784EEB5}</Project>
+      <Name>mojoPortal.Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
+      <Project>{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}</Project>
+      <Name>mojoPortal.Web.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
+      <Project>{4F6DDA2C-C9B8-45B2-AADA-3FF922317661}</Project>
+      <Name>mojoPortal.Web.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
+      <Project>{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}</Project>
+      <Name>mojoPortal.Web.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web\mojoPortal.Web.mono.csproj">
+      <Project>{8E511D65-4779-4689-82D4-811D3FE6866E}</Project>
+      <Name>mojoPortal.Web.mono</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App_GlobalResources\FlickrResources.resx" />
+    <EmbeddedResource Include="App_GlobalResources\GTranslateResources.resx" />
+    <EmbeddedResource Include="App_GlobalResources\IframeResources.resx" />
+    <EmbeddedResource Include="App_GlobalResources\TwitterResources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Setup\applications\blog\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
+    <Folder Include="Setup\applications\contactform\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
+    <Folder Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\firebirdsql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\mssql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\mysql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\pgsql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\sqlite\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\firebirdsql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\mssql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\mysql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\pgsql\" />
+    <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\sqlite\" />
+    <Folder Include="Setup\applications\forums\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
+    <Folder Include="Setup\applications\pollfeature-byChristianFredh\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
+    <Folder Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
+    <Folder Include="WebPartModule\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App_GlobalResources\BingResources.resx" />
+    <None Include="Services\GalleryDataService.ashx" />
+    <None Include="KDMediaPlayer\AudioPlayer.ascx" />
+    <None Include="KDMediaPlayer\Edit.aspx" />
+    <None Include="KDMediaPlayer\EditTrack.aspx" />
+    <None Include="KDMediaPlayer\VideoPlayer.ascx" />
+    <None Include="Blog\metaweblogapi.ashx" />
+    <None Include="App_GlobalResources\MediaPlayerResources.resx" />
+    <None Include="App_GlobalResources\MetaweblogResources.resx" />
+  </ItemGroup>
+</Project>

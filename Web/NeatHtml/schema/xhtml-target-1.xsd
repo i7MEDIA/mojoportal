@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.w3.org/1999/xhtml"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.w3.org/1999/xhtml">
+
+  <xs:annotation>
+    <xs:documentation>
+      This is the XML Schema Target module for XHTML
+      $Id: xhtml-target-1.xsd,v 1.1 2003/12/17 03:09:17 ahby Exp $
+    </xs:documentation>
+    <xs:documentation source="xhtml-copyright-1.xsd"/>
+  </xs:annotation>
+
+  <xs:annotation>
+    <xs:documentation>
+      Target 
+      
+        * target
+      
+      This module declares the 'target' attribute used for opening windows
+    </xs:documentation>
+    <xs:documentation 
+         source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_targetmodule"/>
+  </xs:annotation>
+  
+  <xs:simpleType name="FrameTarget">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>  
+
+  <xs:attributeGroup name="base.target.attlist">
+    <xs:attribute name="target" type="FrameTarget"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="form.target.attlist">
+    <xs:attribute name="target" type="FrameTarget"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="link.target.attlist">
+    <xs:attribute name="target" type="FrameTarget"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="area.target.attlist">
+    <xs:attribute name="target" type="FrameTarget"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="a.target.attlist">
+    <xs:attribute name="target" type="FrameTarget"/>
+  </xs:attributeGroup>
+
+</xs:schema>

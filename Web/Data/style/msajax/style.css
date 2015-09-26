@@ -1,0 +1,14 @@
+.draghandle {width:50px;height:25px;margin-right:5px;background-image:url('draghandle.gif');background-repeat:repeat; cursor:move;float:left;}
+.callbackstyle, .callbackStyle ul li {border:thin #6297BC inset; list-style: none;}
+.draghandle  li {list-style: none; }
+.reordercue { border:dashed thin black; width:100%; height:25px;  }
+.questioncontainer { padding: 5px; border: dashed 1px black; }
+.editcontainer { float:left; }
+.draghandle .buttoncontainer {float:left;margin:0px;padding:0px; }
+.draghandle .buttoncontainer .upbutton { float:left;margin:0px;padding:0px;}
+.draghandle .buttoncontainer .downbutton { float:left;clear:left;margin:0px;padding:0px; }
+.qcb label {padding-left: 3px;}
+.ajax__slider_h_rail {position:relative;background:url('slider_h_rail.gif') repeat-x;height:22px;width:150px;}
+.ajax__slider_h_handle {position:absolute;height:22px;width:10px;}
+.ajax__slider_v_rail {position:relative;background:url('slider_v_rail.gif') repeat-y;width:22px;height:150px;}
+.ajax__slider_v_handle {position:absolute;height:10px;width:22px;}

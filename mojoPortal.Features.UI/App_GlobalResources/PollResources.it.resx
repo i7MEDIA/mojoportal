@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PollAddNewLabel" xml:space="preserve">
+    <value>Aggiungi un nuovo sondaggio</value>
+  </data>
+  <data name="PollBackToVoteButton" xml:space="preserve">
+    <value>Indietro</value>
+  </data>
+  <data name="PollBackToVoteToolTip" xml:space="preserve">
+    <value>Clicca qui per tornare indietro e votare.</value>
+  </data>
+  <data name="PollChooseAddNewPollButton" xml:space="preserve">
+    <value>Aggiungi un nuovo sondaggio</value>
+  </data>
+  <data name="PollChooseAddNewPollToolTip" xml:space="preserve">
+    <value>Clicca qui per aggiungere un nuovo sondaggio.</value>
+  </data>
+  <data name="PollChooseCancelLabel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="PollChooseCancelToolTip" xml:space="preserve">
+    <value>Clicca qui per annullare e ritornare alla pagina di provenienza.</value>
+  </data>
+  <data name="PollChooseChooseAlternateText" xml:space="preserve">
+    <value>Scegli il sondaggio</value>
+  </data>
+  <data name="PollChooseLabel" xml:space="preserve">
+    <value>Scegli il sondaggio</value>
+  </data>
+  <data name="PollChooseRemoveCurrentPollButton" xml:space="preserve">
+    <value>Rimuovi il sondaggio attuale</value>
+  </data>
+  <data name="PollChooseRemoveCurrentPollToolTip" xml:space="preserve">
+    <value>Clicca qui per rimuovere il sondaggio attuale dal modulo.</value>
+  </data>
+  <data name="PollChooseViewPollsButton" xml:space="preserve">
+    <value>Guarda/Modifica i Sondaggi</value>
+  </data>
+  <data name="PollChooseViewPollsToolTip" xml:space="preserve">
+    <value>Clicca qui per guardare o modificare i sondaggi esistenti.</value>
+  </data>
+  <data name="PollDeactivatedLabel" xml:space="preserve">
+    <value>Questo sondaggio non e' al momento attivo.</value>
+  </data>
+  <data name="PollDeactivatedText" xml:space="preserve">
+    <value>inattivo</value>
+  </data>
+  <data name="PollEditActivateButton" xml:space="preserve">
+    <value>Attiva</value>
+  </data>
+  <data name="PollEditActivateToolTip" xml:space="preserve">
+    <value>Clicca qui per attivare il sondaggio.</value>
+  </data>
+  <data name="PollEditActiveFromToLabel" xml:space="preserve">
+    <value>Periodo di attivita':</value>
+  </data>
+  <data name="PollEditAddNewPollLabel" xml:space="preserve">
+    <value>Aggiungi Nuovo Sondaggio</value>
+  </data>
+  <data name="PollEditAddNewPollToolTip" xml:space="preserve">
+    <value>Clicca qui per aggiungere un nuovo sondaggio.</value>
+  </data>
+  <data name="PollEditAllowViewingResultsBeforeVotingLabel" xml:space="preserve">
+    <value>Permetti di vedere i risultati prima del voto?</value>
+  </data>
+  <data name="PollEditAllowViewingResultsBeforeVotingToolTip" xml:space="preserve">
+    <value>Se selezionato, gli utenti possono vedere i risultati prima di inviare il loro voto.</value>
+  </data>
+  <data name="PollEditAnonymousVotingLabel" xml:space="preserve">
+    <value>Votazione anonima?</value>
+  </data>
+  <data name="PollEditAnonymousVotingToolTip" xml:space="preserve">
+    <value>Se selezionato tutti i visitatori possono inviare il l.oro voto.</value>
+  </data>
+  <data name="PollEditDeactivateButton" xml:space="preserve">
+    <value>Disattiva</value>
+  </data>
+  <data name="PollEditDeactivateToolTip" xml:space="preserve">
+    <value>Clicca qui per disattivare il sondaggio.</value>
+  </data>
+  <data name="PollEditDeleteButton" xml:space="preserve">
+    <value>Cancella il sondaggio</value>
+  </data>
+  <data name="PollEditDeleteConfirmMessage" xml:space="preserve">
+    <value>Sei sicuro di volere cancellare questo sondaggio?</value>
+  </data>
+  <data name="PollEditDeleteToolTip" xml:space="preserve">
+    <value>Clicca qui per cancellare questo sondaggio.</value>
+  </data>
+  <data name="PollEditLabel" xml:space="preserve">
+    <value>Modifica il sondaggio</value>
+  </data>
+  <data name="PollEditLessThanTwoOptionsErrorMesssage" xml:space="preserve">
+    <value>Devi aggiungere almeno due opzioni per un sondaggio.</value>
+  </data>
+  <data name="PollEditOptionsAddButton" xml:space="preserve">
+    <value>Aggiungi opzioni</value>
+  </data>
+  <data name="PollEditOptionsAddToolTip" xml:space="preserve">
+    <value>Clicca qui per salvare le opzioni immesse.</value>
+  </data>
+  <data name="PollEditOptionsDeleteAlternateText" xml:space="preserve">
+    <value>Clicca qui per cancellare l'opzione selezionata.</value>
+  </data>
+  <data name="PollEditOptionsDeleteConfirmMessage" xml:space="preserve">
+    <value>Sei sicuro di volere cancellare questa opzione? Sara' definitivamente rimossa.</value>
+  </data>
+  <data name="PollEditOptionsDownAlternateText" xml:space="preserve">
+    <value>Clicca qui per muove l'opzione giu' di una posizione.</value>
+  </data>
+  <data name="PollEditOptionsEditAlternateText" xml:space="preserve">
+    <value>Clicca qui per modificare l'opzione selezionata.</value>
+  </data>
+  <data name="PollEditOptionsLabel" xml:space="preserve">
+    <value>Opzioni:</value>
+  </data>
+  <data name="PollEditOptionsSaveButton" xml:space="preserve">
+    <value>Salva opzione</value>
+  </data>
+  <data name="PollEditOptionsUpAlternateText" xml:space="preserve">
+    <value>Clicca qui per muove l'opzione su di una posizione.</value>
+  </data>
+  <data name="PollEditQuestionEmptyErrorMessage" xml:space="preserve">
+    <value>Devi immettere una domanda.</value>
+  </data>
+  <data name="PollEditQuestionLabel" xml:space="preserve">
+    <value>Domanda:</value>
+  </data>
+  <data name="PollEditSaveButton" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="PollEditSaveToolTip" xml:space="preserve">
+    <value>Clicca qui per salvare il sondaggio.</value>
+  </data>
+  <data name="PollEditShowOrderNumbersLabel" xml:space="preserve">
+    <value>Mostra numeri di ordinamento?</value>
+  </data>
+  <data name="PollEditShowOrderNumbersToolTip" xml:space="preserve">
+    <value>Se selezionato, il numero d'ordine di una opzione sara' mostrato.</value>
+  </data>
+  <data name="PollEditShowResultsWhenDeactivatedLabel" xml:space="preserve">
+    <value>Mostra i risultati se inattivo?</value>
+  </data>
+  <data name="PollEditShowResultsWhenDeactivatedToolTip" xml:space="preserve">
+    <value>Se selezionato ed il sondaggio e' inattivo, i risultati saranno visibili, altrimenti un messaggio indichera' Nessun sondaggio attivo al momento.</value>
+  </data>
+  <data name="PollEditStartDeactivatedLabel" xml:space="preserve">
+    <value>Inizio inattivo?</value>
+  </data>
+  <data name="PollEditStartDeactivatedToolTip" xml:space="preserve">
+    <value> non e' attivo quando e' salvato.</value>
+  </data>
+  <data name="PollEditToLabel" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="PollEditViewPollsLabel" xml:space="preserve">
+    <value>Guarda/Modifica i sondaggi</value>
+  </data>
+  <data name="PollEditViewPollsToolTip" xml:space="preserve">
+    <value>Clicca qui per guardare i sondaggi esistenti.</value>
+  </data>
+  <data name="PollFeatureName" xml:space="preserve">
+    <value>Sondaggi</value>
+  </data>
+  <data name="PollFromText" xml:space="preserve">
+    <value>da</value>
+  </data>
+  <data name="PollHistoryBackLabel" xml:space="preserve">
+    <value>Indietro</value>
+  </data>
+  <data name="PollHistoryBackToolTip" xml:space="preserve">
+    <value>Clicca qui per tornare indietro.</value>
+  </data>
+  <data name="PollHistoryLabel" xml:space="preserve">
+    <value>Il Mio Archivio Storico Sondaggi</value>
+  </data>
+  <data name="PollHistoryYouVotedLabel" xml:space="preserve">
+    <value>Hai votato:</value>
+  </data>
+  <data name="PollModuleEditText" xml:space="preserve">
+    <value>Scegli il sondaggio</value>
+  </data>
+  <data name="PollMustLoginToVoteLabel" xml:space="preserve">
+    <value>Devi collegarti per votare.</value>
+  </data>
+  <data name="PollMyPollHistoryButton" xml:space="preserve">
+    <value>Il Mio Archivio Storico Sondaggi</value>
+  </data>
+  <data name="PollMyPollHistoryToolTip" xml:space="preserve">
+    <value>Clicca qui per vedere l'archivio storico dei tuoi voti ai sondaggi.</value>
+  </data>
+  <data name="PollNoActivePollLabel" xml:space="preserve">
+    <value>Nessun sondaggio attivo al momento.</value>
+  </data>
+  <data name="PollPollRunsText" xml:space="preserve">
+    <value>Sondaggio in corso</value>
+  </data>
+  <data name="PollShowMyPollHistoryButtonSetting" xml:space="preserve">
+    <value>Mostra il pulsante 'Il Mio Archivio Storico Sondaggi'?</value>
+  </data>
+  <data name="PollShowResultsButton" xml:space="preserve">
+    <value>Mostra i risultati</value>
+  </data>
+  <data name="PollShowResultsToolTip" xml:space="preserve">
+    <value>clicca qui per vedere i risultati.</value>
+  </data>
+  <data name="PollTotalVotesLabel" xml:space="preserve">
+    <value>Voti totali: </value>
+  </data>
+  <data name="PollToText" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="PollViewAddNewPollButton" xml:space="preserve">
+    <value>Aggiungi un nuovo sondaggio</value>
+  </data>
+  <data name="PollViewAddNewPollToolTip" xml:space="preserve">
+    <value>Clicca qui per aggiungere un nuovo sondaggio.</value>
+  </data>
+  <data name="PollViewCopyToNewPollButton" xml:space="preserve">
+    <value>Copia in nuovo sondaggio</value>
+  </data>
+  <data name="PollViewCopyToNewPollToolTip" xml:space="preserve">
+    <value>clicca qui per creare un nuovo sondaggio con le proprieta' del presente.</value>
+  </data>
+  <data name="PollViewEditAlternateText" xml:space="preserve">
+    <value>Modifica sondaggio</value>
+  </data>
+  <data name="PollViewLabel" xml:space="preserve">
+    <value>Guarda/Modifica sondaggi</value>
+  </data>
+  <data name="PollVotesText" xml:space="preserve">
+    <value>voti</value>
+  </data>
+  <data name="PollVoteText" xml:space="preserve">
+    <value>voto</value>
+  </data>
+  <data name="ActiveLink" xml:space="preserve">
+    <value>Attivo</value>
+  </data>
+  <data name="ChooseActivePollFormatString" xml:space="preserve">
+    <value>Scegli sondaggio attivo per {0}</value>
+  </data>
+  <data name="MakeActive" xml:space="preserve">
+    <value>Attiva</value>
+  </data>
+  <data name="PollDateRangeFormatString" xml:space="preserve">
+    <value>Sondaggio in corso da {0} a {1}</value>
+  </data>
+  <data name="PollRunsFormatString" xml:space="preserve">
+    <value>Sondaggio in corso al {0}</value>
+  </data>
+  <data name="AlreadyVotedMessage" xml:space="preserve">
+    <value>Il tuo voto e' stato conteggiato.</value>
+  </data>
+  <data name="ResultBarColor" xml:space="preserve">
+    <value>Colore Grafico a Barre dei Risultati</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Classe CSS Personalizzata</value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>Classe CSS Personalizzata non valida</value>
+  </data>
+</root>

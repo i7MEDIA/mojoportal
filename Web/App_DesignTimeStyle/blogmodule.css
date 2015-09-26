@@ -1,0 +1,22 @@
+.blogwrapper {   }
+.blognavleft {float: left; width: 175px; padding: 5px 5px 30px 5px; 
+	margin: 0px 0px 0px 0px;  }
+.blognavright {float: right; width: 175px;  padding: 5px 5px 30px 5px; 
+	margin: 0px 0px 0px 0px;  }
+.blogcenter-nonav {margin: 0px 0px 0px 0px; padding: 5px 0px 0px 5px;    }
+.blogcenter-leftnav {margin: 0px 0px 0px 185px; padding: 5px 0px 0px 5px;   }
+.blogcenter-rightnav {margin:0px 185px 0px 0px; padding: 5px 0px 0px 5px;    }
+.bloginfo {   }
+.bloginfotitle {   font-weight: bold; }
+.blogtitle { margin: 5px 0px 0px 0px;   font-weight: bold;  }
+.blogdate { padding: 0px 5px 0px 0px; text-align:right; font-size:11px;  }
+.blogcommentlink 
+{ font-size:11px; text-align:right; padding: 0px 5px 3px 0px; font-family: Trebuchet MS;    }
+div.blogcommentlink{ border-bottom: 1px solid #EAEAEA; }
+div.blogcommenttext { border-bottom: 1px solid #EAEAEA;   }
+.blogcommenttitle { font-family: Trebuchet MS;    }
+
+.blogcommentposter { font-size:11px;   }
+.blognav ul { list-style-type:none;  }
+.blognav li { list-style: none; margin: 0px 0px 3px -30px;  }
+div.blognavright div h3 { margin: 0px 0px -10px 8px; }

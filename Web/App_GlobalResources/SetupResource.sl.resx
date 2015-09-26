@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CantAlterSchemaWarning" xml:space="preserve">
+    <value>mojoSetup je zaznal, da uporabnik baze podatkov nima dovoljenja za spreminjanje sheme baze podatkov. To morate popraviti ali zagotoviti povezovalni niz z zadostnim dovoljenjem.</value>
+  </data>
+  <data name="CantCreateTempTablesMessage" xml:space="preserve">
+    <value>mojoSetup je zaznal, da uporabnik baze podatkov nima dovoljenja za izdelavo začasnih tabel. To morate popraviti ali pa nekatere pomembne funkcije ne bodo delovale.</value>
+  </data>
+  <data name="CantProceedMessage" xml:space="preserve">
+    <value>Nameščanje ne more nadaljevati, dokler zgoraj vidne težave ne bodo odpravljene.</value>
+  </data>
+  <data name="CodeUpgradeNeededMessage" xml:space="preserve">
+    <value>Nadgraditi morate spletno mesto in kodo baze podatkov na isto različico kot je shema baze podatkov.</value>
+  </data>
+  <data name="ConfigureFeatureMessage" xml:space="preserve">
+    <value>Konfiguriranje funkcije {0}</value>
+  </data>
+  <data name="ConfigureFeaturesMessage" xml:space="preserve">
+    <value>Konfiguriranje {0}...</value>
+  </data>
+  <data name="ConnectionStringFailedMessage" xml:space="preserve">
+    <value>Povezovalni niz, ki ste ga vnesli, ni pravilen, ali nima zadostnega dovoljenja za spreminjanje baze podatkov</value>
+  </data>
+  <data name="ConnectionStringRequiredError" xml:space="preserve">
+    <value>Povezovalni niz je obvezen</value>
+  </data>
+  <data name="CouldNotInstallFeatureSchemaMessage" xml:space="preserve">
+    <value>Ni mogoče namestiti aplikacije {0}, ker mapa {1} ne obstaja.</value>
+  </data>
+  <data name="CreateInitialDataButton" xml:space="preserve">
+    <value>Izdelava začetnih podatkov</value>
+  </data>
+  <data name="CreatingDefaultContent" xml:space="preserve">
+    <value>Ni mogoče najti strani, zato se izdeluje privzeta vsebina...</value>
+  </data>
+  <data name="CreatingPageMessage" xml:space="preserve">
+    <value>Izdelava strani {0}</value>
+  </data>
+  <data name="CreatingRolesAndAdminUserMessage" xml:space="preserve">
+    <value>Izdelava vlog in skrbniškega uporabnika...</value>
+  </data>
+  <data name="CreatingSiteMessage" xml:space="preserve">
+    <value>Izdelava spletnega mesta s privzetimi nastavitvami...</value>
+  </data>
+  <data name="DatabaseCanAlterSchemaMessage" xml:space="preserve">
+    <value>dovoljenja baze podatkov zadoščajo za spreminjanje sheme.</value>
+  </data>
+  <data name="DatabaseCanCreateTempTablesMessage" xml:space="preserve">
+    <value>dovoljenja baze podatkov zadoščajo za izdelavo začasnih tabel.</value>
+  </data>
+  <data name="DatabaseCodeVersionLabel" xml:space="preserve">
+    <value>Različica kode baze podatkov</value>
+  </data>
+  <data name="DatabaseConnectionOKMessage" xml:space="preserve">
+    <value>povezava z bazo podatkov je v redu.</value>
+  </data>
+  <data name="DatabasePlatformLabel" xml:space="preserve">
+    <value>Platforma baze podatkov</value>
+  </data>
+  <data name="DatabaseSchemaAlreadyExistsMessage" xml:space="preserve">
+    <value>začetna shema baze podatkov že obstaja.</value>
+  </data>
+  <data name="DatabaseSchemaNeedsUpgradeMessage" xml:space="preserve">
+    <value>jedrna shema baze podatkov zahteva nadgraditev.</value>
+  </data>
+  <data name="DatabaseSchemaNotCreatedYetMessage" xml:space="preserve">
+    <value>začetno shemo baze podatkov je treba izdelati.</value>
+  </data>
+  <data name="DatabaseSchemaUpToDateMessage" xml:space="preserve">
+    <value>jedrna shema baze podatkov je ažurna.</value>
+  </data>
+  <data name="DatabaseStatusLabel" xml:space="preserve">
+    <value>status</value>
+  </data>
+  <data name="DataFolderNotWritableMessage" xml:space="preserve">
+    <value>Mapa Data pod korenom spletnega mesta ne omogoča pisanja s strani procesa delavca ASP:NET ASP.NET. 
+
+To mapo in vse podrejene mape morate omogočiti za pisanje, preden namestitev lahko nadaljuje. mojoPortal to potrebuje, da bi lahko zapisal datoteke iskalnih indeksov, dnevnike napak, nalaganja galerije slik in druge pomembne funkcije. 
+
+Desno kliknite na mapo Data v Raziskovalcu Windows, izberite lastnosti in pojdite na zavihek Varnost. (Če v XP ne vidite zavihka Varnost, potem pogooglajte za XP Simple File sharing, da izveste, kaj narediti, da se ta zavihek pojavi.) Na XP navadno morate dati dovoljenje za pisanje uporabniku ASPNET, medtem ko ga na Windows 2003 morate dati uporabniku IIS_WPG. 
+
+Seveda so navodila nekoliko drugačna na Linux/Mono, toda velja isti princip, da mora biti mapa Data in vsi njeni podrejeni objekti omogočeni za pisanje.
+</value>
+  </data>
+  <data name="DataGalleryFolderNotWritableMessage" xml:space="preserve">
+    <value>Mapa Data/Sites/1/GalleryImages folder ni omogočena za pisanje</value>
+  </data>
+  <data name="DataRootNotWritableMessage" xml:space="preserve">
+    <value>Mapa Data ni omogočena za pisanje.</value>
+  </data>
+  <data name="DataSharedFilesFolderNotWritableMessage" xml:space="preserve">
+    <value>Mapa Data/Sites/1/SharedFiles/ ni omogočena za pisanje</value>
+  </data>
+  <data name="DataSharedFilesHistoryFolderNotWritableMessage" xml:space="preserve">
+    <value>Mapa Data/Sites/1/SharedFiles/History/ ni omogočena za pisanje</value>
+  </data>
+  <data name="DataSiteFolderNotWritableMessage" xml:space="preserve">
+    <value>Mapa Data/Sites/1/ ni omogočena za pisanje</value>
+  </data>
+  <data name="DataSiteIndexFolderNotWritableMessage" xml:space="preserve">
+    <value>Mapa Data/Sites/1/index/ ni omogočena za pisanje</value>
+  </data>
+  <data name="DataSystemFilesFolderNotWritableMessage" xml:space="preserve">
+    <value>Mapa Data/Sites/1/systemfiles/ ni omogočena za pisanje</value>
+  </data>
+  <data name="EnsuringFeaturesInAdminSites" xml:space="preserve">
+    <value>Zagotavljanje, da so vse funkcije nameščene na spletna mesta strežniškega skrbnika...</value>
+  </data>
+  <data name="ErrorMessageLabel" xml:space="preserve">
+    <value>Sporočilo o napaki</value>
+  </data>
+  <data name="ErrorOccurredLabel" xml:space="preserve">
+    <value>Prišlo je do napake</value>
+  </data>
+  <data name="ExistingSiteCountMessageMessage" xml:space="preserve">
+    <value>Najdenih {0} spletnih mest.</value>
+  </data>
+  <data name="FailedToConnectToDatabase" xml:space="preserve">
+    <value>Sistem se ne more povezati z bazo podatkov {0}. Prosimo, preverite vaš povezovalni niz.</value>
+  </data>
+  <data name="FailedToConnectToDatabaseHelp" xml:space="preserve">
+    <value>Da si lahko ogledate specifično sporočilo o napaki pri povezovanju, nastavite ShowConnectionErrorOnSetup na true v Web.config</value>
+  </data>
+  <data name="FileSystemPermissionProblemsMessage" xml:space="preserve">
+    <value>Najdeni so problemi dovoljenj za datotečni sistem.</value>
+  </data>
+  <data name="FileSystemPermissionsOKMesage" xml:space="preserve">
+    <value>Dovoljenja za datotečni sistem so v redu.</value>
+  </data>
+  <data name="FirebirdAutoDBCreationNotYetSupportedException" xml:space="preserve">
+    <value>Samodejna izdelava sheme še ne deluje za Firebird Sql. Morali boste ročno izvajati skript, ki se nahaja na</value>
+  </data>
+  <data name="FirebirdAutoUpgradeNotYetSupportedException" xml:space="preserve">
+    <value>Samodejno nadgrajevanje sheme še ni podprto za Firebird. Morali boste izvajati skripte, ki se nahajajo na {0) in se začnejo po {1}.config</value>
+  </data>
+  <data name="FolderDetailsLabel" xml:space="preserve">
+    <value>Podrobnosti mape</value>
+  </data>
+  <data name="HomeLink" xml:space="preserve">
+    <value>Domača stran spletnega mesta</value>
+  </data>
+  <data name="InstallationUpToDateMessage" xml:space="preserve">
+    <value>Vaša namestitev je ažurna.</value>
+  </data>
+  <data name="LastServerErrorLabel" xml:space="preserve">
+    <value>Zadnja strežniška napaka je bila:</value>
+  </data>
+  <data name="MediumTrustCommentOutNeatUploadInstructionLine1" xml:space="preserve">
+    <value>Da zakomentirate NeatUpload, poglejte v datoteko Web.config v razdelek &lt;httpModules&gt; in spremenite naslednje:</value>
+  </data>
+  <data name="MediumTrustCommentOutNeatUploadPreambleMessage" xml:space="preserve">
+    <value>Zakomentirati morate modul NeatUpload ker ni podprt na ravni srednjega (Medium) zaupanja, razen če je nameščen v Global Assembly Cache na strežniku.
+Za več informacij si oglejte http://www.mojoportal.com/mediumtrust.aspx</value>
+  </data>
+  <data name="MediumTrustGeneralMessage" xml:space="preserve">
+    <value>Zdi se, da to spletno mesto teče v zavarovanem okolju z uporabo načela srednjega zaupanja (Medium Trust) ali vsaj na nižji ravni od popolnega zaupanja (Full Trust).</value>
+  </data>
+  <data name="MediumTrustLuceneConfigPreambleMessage" xml:space="preserve">
+    <value>Da bi motor za iskanje deloval na srednji (Medium) ravni zaupanja, morate v Web.config v razdelek AppSettings dodati naslednje:</value>
+  </data>
+  <data name="MediumTrustMySQLMessage" xml:space="preserve">
+    <value>Da bi uporabljali MySQL pod srednjim zaupanjem (Medium Trust), mora biti spojnik MySQL Connector for .NET nameščen v Global Assembly Cache na strežniku. Če vidite SecurityException v sporočilu o napaki, potem spojnik ni nameščen.
+Spojnik MySql Connector for .NET lahko prenesete od tukaj: http://dev.mysql.com/downloads/connector/net/5.0.html</value>
+  </data>
+  <data name="MediumTrustNeatUploadCommentedOutExample" xml:space="preserve">
+    <value>&lt;!--
+&lt;add name="HttpUploadModule" type="Brettle.Web.NeatUpload.UploadHttpModule, Brettle.Web.NeatUpload" /&gt;
+--&gt;</value>
+  </data>
+  <data name="MediumTrustNeatUploadWrongConfigExample" xml:space="preserve">
+    <value>&lt;add name="HttpUploadModule" type="Brettle.Web.NeatUpload.UploadHttpModule, Brettle.Web.NeatUpload" /&gt;</value>
+  </data>
+  <data name="MediumTrustnpgsqlMessage" xml:space="preserve">
+    <value>Da bi uporabljali PostgreSQL pod srednjim zaupanjem (Medium Trust), mora biti knjižnica za dostop do podatkov npgsqlnameščena v Global Assembly Cache na strežniku. Če vidite spodaj SecurityException, potem komponenta npgsql ni nameščena.
+Več informacij o prenosu npgsql najdete tukaj: http://npgsql.projects.postgresql.org/</value>
+  </data>
+  <data name="NoScriptsFilesFoundMessage" xml:space="preserve">
+    <value>V mapi ni mogoče najti nobenih skriptov</value>
+  </data>
+  <data name="NoSitesMessage" xml:space="preserve">
+    <value>Nobeno spletno mesto še ni bilo izdelano, kliknite gumb, da izdelate začetne podatke o spletnem mestu.</value>
+  </data>
+  <data name="NoUpgradeScriptsFound" xml:space="preserve">
+    <value>Za {0} ni mogoče najti skriptov za nadgradnjo. Verjetno je ažurno.</value>
+  </data>
+  <data name="OverrideConnectionStringLabel" xml:space="preserve">
+    <value>Povezovalni niz:</value>
+  </data>
+  <data name="ProbingSystemMessage" xml:space="preserve">
+    <value>Preizkušanje sistema...</value>
+  </data>
+  <data name="RunningScriptMessage" xml:space="preserve">
+    <value>Izvajanje skripta {0} - {1}</value>
+  </data>
+  <data name="RunningSetupForAdminUser" xml:space="preserve">
+    <value>Nastavitev je onemogočena, toda nastavitev se izvaja kljub temu, ker je trenutni uporabnik skrbnik.</value>
+  </data>
+  <data name="RunTimeLabel" xml:space="preserve">
+    <value>UTC čas izvajanja</value>
+  </data>
+  <data name="SchemaUpgradeFolderNotFound" xml:space="preserve">
+    <value>Brez poskusa nadgradnje aplikacije {0}, ker mapa {1} ne obstaja.</value>
+  </data>
+  <data name="SchemaUpgradeNeededMessage" xml:space="preserve">
+    <value>Morate nadgraditi shemo baze podatkov, da bo v isti različici kot koda.</value>
+  </data>
+  <data name="ScriptFileLabel" xml:space="preserve">
+    <value>Skriptna datoteka</value>
+  </data>
+  <data name="ScriptFolderNotFoundAddendum" xml:space="preserve">
+    <value>ni najdena. Ni mogoče izvajati skriptov.</value>
+  </data>
+  <data name="ScriptFolderNotFoundMessage" xml:space="preserve">
+    <value>ni najdena. Ni mogoče izvajati skriptov.</value>
+  </data>
+  <data name="SetupDisabledMessage" xml:space="preserve">
+    <value>Nastavitev je onemogočena. Za nadaljevanje, prosimo, nastavite DisableSetup na false v Web.config</value>
+  </data>
+  <data name="SetupEnabledMessage" xml:space="preserve">
+    <value>Opomba: Ta stran kaže nekatere informacije, ki so v pomoč med nastavljanjem in nadgrajevanjem, toda zaradi varnosti bi bilo najbolje, da ne kažemo nobenih informacij, ko je sistem ažuren. Lahko onemogočite nastavljanje in preprečite vse informacije na tej strani z nastavitvijo DisableSetup=true v Web.config. Ko morate nadgraditi, to spet lahko nastavite na false. Če ste prijavljeni kot Administrator, se bo nastavitev izvajala in vi boste lahko videli to stran, čeprav je onemogočena v Web.config, tako da jo lahko pustite onemogočeno in se samo prijavite pred nadgrajevanjem. Toda če niste prijavljeni, boste morali omogočiti nastavljanje v Web.config.</value>
+  </data>
+  <data name="SetupSuccessMessage" xml:space="preserve">
+    <value>Nastavitev je zaključena, kliknite povezavo spodaj, da pridete na domačo stran.</value>
+  </data>
+  <data name="SetupTitle" xml:space="preserve">
+    <value>Nastavitev portala mojoPortal</value>
+  </data>
+  <data name="SetupWelcomeMessage" xml:space="preserve">
+    <value>Dobrodošli v nastavitev portala mojoPortal</value>
+  </data>
+  <data name="ToThisLabel" xml:space="preserve">
+    <value>na naslednje:</value>
+  </data>
+  <data name="UpgradeOverrideInstructions" xml:space="preserve">
+    <value>Sistem ne more opraviti potrebnih sprememb sheme s pomočjo trenutnega povezovalnega niza. Prosimo, tukaj vnesite povezovalni niz z zadostnim dovoljenjem za spremembo sheme.</value>
+  </data>
+  <data name="UpgradeSchemaButton" xml:space="preserve">
+    <value>Nadgradi shemo</value>
+  </data>
+  <data name="UpgradeTitle" xml:space="preserve">
+    <value>Nadgrajevanje portala mojoPortal</value>
+  </data>
+  <data name="VersionLabel" xml:space="preserve">
+    <value>Različica</value>
+  </data>
+</root>

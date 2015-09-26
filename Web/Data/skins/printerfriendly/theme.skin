@@ -1,0 +1,75 @@
+<%@ Register Namespace="mojoPortal.Web.UI" Assembly="mojoPortal.Web" TagPrefix="portal" %>
+<%@ Register Namespace="mojoPortal.Web.Controls" Assembly="mojoPortal.Web.Controls" TagPrefix="mp" %>
+
+<%--
+@@@IMPORTANT@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+it is better to only set css classes and configuration properties, but not to set style properties such as colors fonts, borders etc here.
+Doing that causes rendering of inline styles on th elements and this bulks up the markup making the page heavier.
+It is far better to only set styles from CSS
+
+http://www.mojoportal.com/understanding-the-theme-skin-file.aspx
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+--%>
+
+
+
+<asp:calendar  runat="server" 
+			         TitleFormat="Month" 
+			         CssClass="navCalendar" 
+			         CellPadding="3"
+				     DayNameFormat="FirstLetter">
+         
+    <TodayDayStyle CssClass="navTodayStyle"></TodayDayStyle>
+    <SelectorStyle CssClass="navSelectorStyle"></SelectorStyle>
+    <DayStyle CssClass="navDayStyle"></DayStyle>
+    <NextPrevStyle CssClass="navNextPrevStyle"></NextPrevStyle>
+    <DayHeaderStyle CssClass="navDayHeader"></DayHeaderStyle>
+    <SelectedDayStyle CssClass="navSelectedDayStyle"></SelectedDayStyle>
+    <TitleStyle CssClass="navTitleStyle"></TitleStyle>
+    <WeekendDayStyle CssClass="navWeekendDayStyle"></WeekendDayStyle>
+    <OtherMonthDayStyle CssClass="navOtherMonthDayStyle"></OtherMonthDayStyle>
+				
+</asp:calendar>
+
+<portal:mojoTreeView runat="server" SkinID="SiteMapPage"
+			ContainerCssClass="sitemap"
+			RootUlCssClass=""
+			RenderLiCssClasses="false"
+			RenderAnchorCss="true"
+			LiCssClass=""
+			LiRootExpandableCssClass=""
+			LiRootNonExpandableCssClass=""
+			LiNonRootExpnadableCssClass=""
+			LiSelectedCssClass=""
+			LiChildSelectedCssClass=""
+			LiParentSelectedCssClass=""
+			AnchorCssClass=""
+			AnchorSelectedCssClass=""
+			ExpandDepth="-1"
+			ShowExpandCollapse="false"
+			PopulateNodesFromClient="false"
+		
+		/>
+		
+	<portal:mojoTreeView runat="server" SkinID="ChildSiteMap"
+			ContainerCssClass="sitemap"
+			RootUlCssClass=""
+			RenderLiCssClasses="false"
+			RenderAnchorCss="true"
+			LiCssClass=""
+			LiRootExpandableCssClass=""
+			LiRootNonExpandableCssClass=""
+			LiNonRootExpnadableCssClass=""
+			LiSelectedCssClass=""
+			LiChildSelectedCssClass=""
+			LiParentSelectedCssClass=""
+			AnchorCssClass=""
+			AnchorSelectedCssClass=""
+			ExpandDepth="-1"
+			ShowExpandCollapse="false"
+			PopulateNodesFromClient="false"
+		
+		/>
+		

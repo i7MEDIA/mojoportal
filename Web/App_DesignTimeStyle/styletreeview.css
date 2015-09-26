@@ -1,0 +1,56 @@
+body { }
+div.AspNet-TreeView {margin: 0px 0px 7px 0px;padding: 0;}
+div.AspNet-TreeView ul { list-style: none; margin: 0px 0px 0px -20px; padding: 0;}
+.AspNet-TreeView-Show { }
+.AspNet-TreeView-Hide { display:none;}
+div.AspNet-TreeView ul li
+{padding: 3px 0 2px 0; }
+div.AspNet-TreeView ul ul { margin: 2px 0 2px 10px;}
+div.AspNet-TreeView ul li img
+{border: none; vertical-align: middle; margin: 0 2px 0 0; }
+div.AspNet-TreeView li a {text-decoration: none;}
+div.AspNet-TreeView li.AspNet-TreeView-Root {}
+div.AspNet-TreeView li.AspNet-TreeView-Parent {}
+div.AspNet-TreeView li.AspNet-TreeView-Leaf { margin-left: 20px;}
+div.AspNet-TreeView .AspNet-TreeView-ClickableNonlink { cursor: pointer;}
+div.AspNet-TreeView .AspNet-TreeView-Collapse
+{background: url(collapse.gif) 0 0 no-repeat; width: 15px; margin-right: 5px;
+  float:left; cursor: pointer; }
+div.AspNet-TreeView .AspNet-TreeView-Expand
+{background:  url(expand.gif) 0 0 no-repeat; width: 15px; margin-right: 5px;
+ float:left; cursor: pointer; }
+div.AspNet-TreeView a,
+div.AspNet-TreeView a:visited,
+div.AspNet-TreeView a:active,
+div.AspNet-TreeView a:link {color: #333;}
+div.AspNet-TreeView a:hover { color:#72A545;}
+div.AspNet-TreeView .AspNet-TreeView-Selected a
+{font-weight: bold !important;color: #339900 !important;}
+div.AspNet-TreeView .AspNet-TreeView-Selected ul a
+{ font-weight: bold !important; color: #333 !important;}
+li.AspNet-TreeView-Leaf,
+li.AspNet-TreeView-Root ,
+li.AspNet-TreeView-Selected ,
+li.AspNet-TreeView-Parent
+{display: block;list-style:none;font-weight: bold;color: #333;
+	text-decoration:none;	padding: 2px 5px 2px 10px;
+	background: #f2f2f2;border-left: 5px solid #CCC;	
+	 border-bottom: solid 1px white;border-top: solid 1px white;
+	min-height: 18px;	}
+li.AspNet-TreeView-Selected ,
+li.AspNet-TreeView-Leaf:hover,
+li.AspNet-TreeView-Root:hover ,
+li.AspNet-TreeView-Selected:hover ,
+li.AspNet-TreeView-Parent:hover{border-left: 5px solid #72A545;}
+li.AspNet-TreeView-Root { margin: 0px 0px 0px 20px; }
+li.AspNet-TreeView-ParentSelected ,
+li.AspNet-TreeView-Selected ul li.AspNet-TreeView-ParentSelected
+{ margin: 0px 0px 0px 0px; }
+li.AspNet-TreeView-Leaf img,
+li.AspNet-TreeView-Root img {display:none;}
+li.AspNet-TreeView-Leaf a,
+li.AspNet-TreeView-Root a ,
+li.AspNet-TreeView-Selected a ,
+li.AspNet-TreeView-Parent a
+{padding: 0px 0px 0px 10px;color: #333;}
+

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<appSettings>
+  
+  <!-- 
+  IMPORTANT:
+  Note that changes made to this file are not automatically detected by the ASP.NET runtime
+  It does detect changes to Web.config, so when you make a change in this file you need to touch Web.config (ie type a space in it andf save it)
+  to make it reload settings
+  -->
+
+  <add key="MSSQLConnectionString" value="server=localhost;UID=mojouser;PWD=mojo123;database=mojo" />
+
+  <add key="MySqlConnectionString" value="Server=localhost;Database=mojoprod;Uid=root;Pwd=Charset=utf8;" />
+
+  <add key="PostgreSQLConnectionString" value="Server=localhost;Port=5432;User Id=postgres;Password=;Database=mojo;Encoding=UNICODE;" />
+  
+  <add key="FirebirdConnectionString" value="Data Source=localhost;Server Type=0;Port Number=3050;Database=C:\mojoportal\mojoportal.fdb;Dialect=3;Charset=UTF8;Pooling=True;Min Pool Size=0;Max Pool Size=200;Connection Timeout=10;Connection Lifetime=60;Fetch Size=200;User Id=SYSDBA;Password=masterkey" />
+
+  <!--
+			you can use a fully qualified file path as shown below
+			or if you are using the default db at /Data/sqlitedb/mojoportal.db
+			just leave this set to "defaultdblocation"
+		<add key="SqliteConnectionString" value="version=3,URI=file:C:\Projects\mojoportal\Web\Data\sqlitedb\mojoportal.db" />
+		-->
+
+  <add key="SqliteConnectionString" value="defaultdblocation" />
+
+
+  <!-- if running in medium trust uncomment this
+	<add key="RunningInMediumTrust" value="true" />
+	-->
+
+  <add key="ImageGalleryUseMediaFolder" value="true" />
+  <add key="GreyBoxCssIsLoadedFromSkin" value="true" />
+  
+  
+  <add key="DisableSearchFeatureFilters" value="false" />
+  <add key="EnableSearchResultsHighlighting" value="true" />
+  <add key="Forum:AggregateSearchIndexPerThread" value="true" />
+
+  <add key="UseLegacyCryptoHelper" value="false" />
+
+  <!-- this is true by default so that upgraded sites can change automatically from the older md5 hashing to the newer sha512 with salt
+  it is false here because it is not needed to do this extra check for new installations after we changed the hashing
+  since user.config.sample is only used when creating new sites and it is then renamed to user.config
+  -->
+  <add key="CheckMD5PasswordHashAsFallback" value="false" />
+
+  <!-- this setting enables the setup page to try to change the default known machinekey in Web.config to a new custom one for best security
+  once you have a custom machine key you could safely remove this setting
+  -->
+  <add key="TryEnsureCustomMachineKeyOnSetup" value="true" />
+
+  <add key="SiteLogoUseMediaFolder" value="true" />
+  <add key="HtmlFragmentUseMediaFolder" value="true" />
+  <add key="XMLUseMediaFolder" value="true" />
+
+  
+
+
+
+</appSettings>

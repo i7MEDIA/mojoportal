@@ -1,0 +1,263 @@
+/**
+ * Minimalist theme
+ *
+ */
+/* Slight reset to make the preview have ample padding. */
+.cse .gsc-control-cse,
+.gsc-control-cse {
+  padding: 2%;
+  width: 96%;
+}
+.cse .gsc-branding,
+.gsc-branding {
+  display: none;
+}
+.cse.gsc-control-cse div,
+.gsc-control-cse div {
+  position: normal;
+}
+/* Selector for entire element. */
+.cse .gsc-control-cse,
+.gsc-control-cse {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #ffffff;
+}
+.cse .gsc-control-cse:after,
+.gsc-control-cse:after {
+  content:".";
+  display:block;
+  height:0;
+  clear:both;
+  visibility:hidden;
+}
+/* Search form */
+.cse form.gsc-search-box,
+form.gsc-search-box {
+  padding: 8px 4px 2px 6px;
+  margin-bottom: 6px;
+}
+.cse .gsc-branding-text,
+.gsc-branding-text {
+  color: #000000;
+}
+.cse td.gsc-input,
+td.gsc-input {
+  padding-right: 0;
+}
+.cse .gsc-search-box,
+.gsc-search-box {
+  border-collapse: collapse;
+}
+/* Search input */
+.cse input.gsc-input,
+input.gsc-input {
+  font-family: inherit;
+  border: 1px solid;
+  border-color: #777777;
+  padding: 3px;
+  width: 99%;
+  font-size: 16px;
+}
+/* Search button */
+.cse input.gsc-search-button,
+input.gsc-search-button {
+  font-family: inherit;
+  font-size: 15px;
+  color: #ffffff;
+  font-weight: bold;
+  text-shadow: 0 1px 2px #000000;
+  padding: 3px 8px 4px 8px;
+  background-color: #333333;
+  border: 1px solid;
+  border-color: #333333;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+/* Base tab selector styles */
+.cse .gsc-tabHeader,
+.gsc-tabHeader {
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px #000000;
+  padding: 2px 8px 0 8px;
+}
+/* Inactive tab */
+.cse .gsc-tabHeader.gsc-tabhInactive,
+.gsc-tabHeader.gsc-tabhInactive {
+  background-color: #777777;
+  border: 1px solid;
+  border-color: #777777;
+  border-bottom: none;
+  color: #ffffff;
+}
+/* Active tab */
+.cse .gsc-tabHeader.gsc-tabhActive,
+.gsc-tabHeader.gsc-tabhActive {
+  background-color: #333333;
+  border: 1px solid;
+  border-color: #333333;
+  border-bottom: none;
+  color: #ffffff;
+}
+/* This is the tab bar bottom border. */
+.cse .gsc-tabsArea,
+.gsc-tabsArea {
+  margin-top: 1em;
+  border-bottom: 1px solid #333333;
+  padding: 0;
+}
+.cse .gsc-resultsHeader,
+.gsc-resultsHeader {
+  margin: 0;
+  border: none;
+}
+/* Wrapper for all results */
+.cse .gsc-results,
+.gsc-results {
+  width: 100%;
+  margin-top: 1em;
+}
+/* Uber-wrapper for a result. Add padding to elements within a result block */
+.cse .gs-result .gs-title,
+.gs-result .gs-title,
+.cse .gs-result .gs-snippet,
+.gs-result .gs-snippet,
+.cse .gs-result .gs-visibleUrl,
+.gs-result .gs-visibleUrl,
+  padding: 0;
+}
+/* Font size */
+.cse .gs-result .gs-title,
+.gs-result .gs-title,
+.cse .gs-result .gs-snippet,
+.gs-result .gs-snippet {
+  font-size: 14px;
+  line-height: 18px;
+}
+/* Inner wrapper for a result */
+.cse .gsc-webResult.gsc-result,
+.gsc-webResult.gsc-result {
+  padding: 0 0 0 .5em;
+  border-left: 1px solid;
+  border-color: #ffffff;
+  margin-bottom: 1em;
+}
+/* Result hover event styling */
+.cse .gsc-webResult.gsc-result:hover,
+.gsc-webResult.gsc-result:hover {
+  border-left: 1px solid;
+  border-color: #000000;
+}
+/* Set link colors. */
+.cse .gs-webResult.gs-result a.gs-title:link,
+.gs-webResult.gs-result a.gs-title:link,
+.cse .gs-webResult.gs-result a.gs-title:link b,
+.gs-webResult.gs-result a.gs-title:link b,
+.cse .gs-webResult.gs-result a.gs-title:visited,
+.gs-webResult.gs-result a.gs-title:visited,
+.cse .gs-webResult.gs-result a.gs-title:visited b,
+.gs-webResult.gs-result a.gs-title:visited b,
+.cse .gs-webResult.gs-result a.gs-title:hover,
+.gs-webResult.gs-result a.gs-title:hover,
+.cse .gs-webResult.gs-result a.gs-title:hover b,
+.gs-webResult.gs-result a.gs-title:hover b,
+.cse .gsc-cursor-page,
+.gsc-cursor-page,
+.cse .gsc-trailing-more-results:link,
+.gsc-trailing-more-results:link {
+  color: #444444;
+}
+.cse .gs-webResult.gs-result a.gs-title:active,
+.gs-webResult.gs-result a.gs-title:active,
+.cse .gs-webResult.gs-result a.gs-title:active b,
+.gs-webResult.gs-result a.gs-title:active b {
+  color: #777777;
+}
+/* Snippet text color */
+.cse .gs-webResult.gs-result .gs-snippet,
+.gs-webResult.gs-result .gs-snippet {
+  color: #333333;
+}
+/* URL text color */
+.cse .gs-webResult.gs-result .gs-visibleUrl,
+.gs-webResult.gs-result .gs-visibleUrl,
+.cse .gs-webResult.gs-result .gs-visibleUrl-short,
+.gs-webResult.gs-result .gs-visibleUrl-short {
+  color: #000000;
+  font-weight: bold;
+}
+/* Pagination container centered */
+.cse .gsc-cursor-box,
+.gsc-cursor-box {
+  border-top: 1px dotted;
+  border-color: #333333;
+  padding: .5em 0 0 .5em;
+  text-align: left;
+}
+/* Selected pagination */
+.cse .gsc-results .gsc-cursor-page.gsc-cursor-current-page,
+.gsc-results .gsc-cursor-page.gsc-cursor-current-page {
+  color: #fff;
+  background-color: #333333;
+  text-shadow: 0 1px 1px #000;
+  padding: 0 5px;
+}
+/*Promotion Settings*/
+/* The entire promo */
+.cse .gs-promotion.gs-result,
+.gs-promotion.gs-result {
+  background-color: #E6E6E6;
+  border: 1px solid;
+  border-color: #CCCCCC;
+}
+/* Promotion image */
+.cse .gs-promotion.gs-result .gs-promotion-image,
+.gs-promotion.gs-result .gs-promotion-image {}
+/* Promotion title */
+.cse .gs-promotion.gs-result a.gs-title:link,
+.gs-promotion.gs-result a.gs-title:link {
+  color: #0000CC;
+}
+.cse .gs-promotion.gs-result a.gs-title:visited,
+.gs-promotion.gs-result a.gs-title:visited {
+  color: #0000CC;
+}
+.cse .gs-promotion.gs-result a.gs-title:hover,
+.gs-promotion.gs-result a.gs-title:hover {
+  color: #444444;
+}
+.cse .gs-promotion.gs-result a.gs-title:active,
+.gs-promotion.gs-result a.gs-title:active {
+  color: #00CC00;
+}
+/* Promotion snippet */
+.cse .gs-promotion.gs-result .gs-snippet,
+.gs-promotion.gs-result .gs-snippet {
+  color: #333333;
+}
+/* Promotion url */
+.cse .gs-promotion.gs-result ..gs-visibleUrl,
+.gs-promotion.gs-result .gs-visibleUrl {
+  color: #00CC00;
+}
+/* Style for auto-completion table
+ * .gsc-completion-selected : styling for a suggested query which the user has moused-over
+ * .gsc-completion-container : styling for the table which contains the completions
+ */
+.gsc-completion-selected {
+  background: #CCCCCC;
+}
+.gsc-completion-container {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  position: absolute;
+  background: white;
+  border: 1px solid #777777;
+  padding: 3px;
+  margin-left: 0;
+  margin-right: 0;
+  /* The top, left, and width are set in JavaScript. */
+}

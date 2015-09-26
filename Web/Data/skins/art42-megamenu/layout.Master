@@ -1,0 +1,164 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="~/App_MasterPages/layout.Master.cs" Inherits="mojoPortal.Web.layout" %>
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head id="Head1" runat="server">
+    <meta charset="utf-8">
+    <title></title>
+    <portal:MetaContent ID="MetaContent" runat="server" DisableContentType="true" />
+	<meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width">
+    <%-- JQueryUIThemeName valid options are: 
+	base, black-tie, blitzer, cupertino, dark-hive, dot-luv, eggplant, excite-bike, flick, hot-sneaks,
+	humanity, le-frog, mint-choc, overcast, pepper-grinder,
+	redmond, smoothness, south-street, start, sunny, swanky-purse, trontastic, ui-darkness, ui-lightness, vader
+    --%>
+    
+    <portal:StyleSheetCombiner ID="StyleSheetCombiner" runat="server" 
+        JQueryUIThemeName="sunny" UseIconsForAdminLinks="false" UseTextLinksForFeatureSettings="true" />
+    <portal:IEStyleIncludes ID="IEStyleIncludes1" runat="server" IncludeHtml5Script="true" IncludeIETransitionMeta="true"
+        IE6CssFile="style.ie6.css" IE7CssFile="style.ie7.css" />
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans|Ubuntu&amp;subset=latin"><portal:Favicon ID="Favicon1" runat="server" />
+<portal:ScriptLoader ID="ScriptLoader1" runat="server"  />
+<portal:SkinFolderScript ID="sfs1" runat="server" ScriptFileName="script.js" AddToCombinedScript="false" />
+<portal:SkinFolderScript ID="sfs2" runat="server" ScriptFileName="script.responsive.js" AddToCombinedScript="false" />
+</head>
+<body class="pagebody" id="Body" runat="server">
+    <portal:AnalyticsAsyncTopScript ID="analyticsTop" runat="server" />
+	<portal:FacebookSdk ID="fbsdk" runat="server" />
+	<portal:LayoutDisplaySettings ID="LayoutDisplaySettings1" runat="server" />
+    <form id="frmMain" runat="server">
+    <asp:SiteMapDataSource ID="SiteMapData" runat="server" ShowStartingNode="false" />
+    <asp:SiteMapDataSource ID="PageMapDataSource" runat="server" ShowStartingNode="false" />
+    <asp:SiteMapDataSource ID="ChildPageSiteMapData" runat="server" ShowStartingNode="false" />
+    <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server" EnableScriptGlobalization="true" EnableScriptLocalization="true" />
+	<div id="art-main">
+<nav class="art-nav clearfix">
+<div class="art-nav-inner">
+<portal:skiplink id="SkipLink1" runat="server"></portal:skiplink>
+<portal:sitemenu id="SiteMenu1" runat="server" useflexmenu="true" hidemenuonsitemap="false"></portal:sitemenu>
+</div>
+</nav>
+<header class="art-header">
+
+    <div class="art-shapes">
+        
+            </div>
+
+<h1 class="art-headline"><portal:sitetitle id="SiteTitle" runat="server" includestandardclasses="false" cssclass="art-headline"></portal:sitetitle>
+</h1>
+<h2 class="art-slogan"><portal:siteslogan id="ss1" runat="server"></portal:siteslogan>
+</h2>
+                 
+</header>
+<div class="art-sheet clearfix">
+            <div class="art-layout-wrapper">
+                <div class="art-content-layout">
+	<div class="art-content-layout-row">
+		<portal:layoutpanel id="divLeft" runat="server" cssclass="art-layout-cell art-sidebar1 leftside" visible="True" skinid="pnlPlain">
+			<portal:pagemenu id="PageMenu1" runat="server" useflexmenu="true"></portal:pagemenu>
+			<asp:contentplaceholder id="leftContent" runat="server">
+			</asp:contentplaceholder>
+		</portal:layoutpanel>
+		<portal:layoutpanel id="divCenter" runat="server" visible="True" cssclass="center-rightandleftmargins" skinid="pnlPlain">
+			<portal:breadcrumbs id="Breadcrumbs" runat="server"></portal:breadcrumbs>
+			<portal:childpagemenu id="ChildPageMenu" runat="server" cssclass="txtnormal"></portal:childpagemenu>
+			<a id="startcontent"></a>
+			<asp:contentplaceholder id="mainContent" runat="server">
+			</asp:contentplaceholder>
+		</portal:layoutpanel>
+		<portal:layoutpanel id="divRight" runat="server" visible="True" cssclass="art-layout-cell art-sidebar2 rightside" skinid="pnlPlain">
+			<asp:contentplaceholder id="rightContent" runat="server">
+			</asp:contentplaceholder>
+		</portal:layoutpanel>
+	</div>
+</div>
+            </div><footer class="art-footer clearfix">
+	<div class="art-footer-body">
+	<div class="art-footer-center">
+	<div>
+<a href="http://www.arvixe.com/1636-52-1-440.html" ><img alt="mojoPortal Hosting Made Easy" border="0" height="77" src="//affiliates.arvixe.com/banners/mojoPortal.600.77.Affiliate-2.gif" width="600" /></a>
+</div><div>
+<a href="http://click.linksynergy.com/fs-bin/click?id=r7gi5IMNhJ4&amp;offerid=173675.10000033&amp;type=4&amp;subid=0" class="mojoart1">
+<portal:SkinFolderImage ID="imgartad" runat="server" ImageFileName="ArtisteerWebDesign_468x60.gif" AlternateText="Artisteer - Web Design Generator" /></a></div>
+	<div class="art-footer-wrapper">
+		<a href="#" class="art-rss-tag-icon" style="float: left; line-height: 0px;" title="RSS"></a>
+		<div class="art-footer-text">
+			<p>
+				<portal:sitemaplink id="SiteMapLink1" runat="server" cssclass="sitemaplink"></portal:sitemaplink>
+				|
+				<portal:skinpreview id="SkinPreview1" runat="server"></portal:skinpreview>
+				|
+				<portal:copyrightlabel id="cl1" runat="server" showyear="true" beginyear="2008"></portal:copyrightlabel>
+				|
+				<portal:mojoportallink id="lnkmojoportal" useimage="false" runat="server"></portal:mojoportallink>
+				| <a title="Learn about Artisteer" href="http://www.mojoportal.com/creating-skins-from-artisteer-html-templates.aspx">
+					Design generated by Artisteer</a></p>
+		</div>
+	</div>
+	</div>
+	<div class="cleared"></div>
+   </div>
+</footer>
+
+    </div>
+    <p class="art-page-footer">
+        <span id="art-footnote-links"><a href="http://www.artisteer.com/" target="_blank">Web Template</a> created with Artisteer.</span>
+    </p>
+</div>	
+	
+	<div class="topnavwrap">
+		<div class="topnav">
+			<ul>
+				<portal:WelcomeMessage ID="WelcomeMessage" runat="server" RenderAsListItem="true" ListItemCss="firstnav" />
+				<portal:HomeLink ID="HomeLink" runat="server" RenderAsListItem="true" />
+				<portal:MobileSkinLink ID="mobileskin" runat="server" RenderAsListItem="true" />
+				<portal:SiteMapLink ID="SiteMapLink2" runat="server" CssClass="sitelink" RenderAsListItem="true" />
+				<portal:SearchInput ID="SearchInput2" LinkOnly="True" RenderAsListItem="true" runat="server" />
+				<portal:MemberListLink ID="MemberListLink" runat="server" RenderAsListItem="true" />
+				<portal:MyPageLink ID="MyPageLink1" runat="server" RenderAsListItem="true" />
+				<portal:UserProfileLink ID="UserProfileLink" runat="server" RenderAsListItem="true" />
+				<portal:MailboxLink ID="MailboxLink1" runat="server" RenderAsListItem="true" />
+				<portal:RegisterLink ID="RegisterLink" runat="server" RenderAsListItem="true" />
+				<portal:LoginLink ID="LoginLink" runat="server" RenderAsListItem="true" />
+				<portal:LogoutLink ID="LogoutLink" runat="server" RenderAsListItem="true" />
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function HideMenuToolbar() { $("#toolbar").fadeOut(); $("#toolbarbut").fadeIn("slow"); }
+		function ShowMenuToolbar() { $("#toolbar").fadeIn(); $("#toolbarbut").fadeOut("slow"); }
+		$(document).ready(function () {
+			$("span.downarr a").click(function () { HideMenuToolbar(); Set_Cookie('openstate', 'closed') });
+			$("span.showbar a").click(function () { ShowMenuToolbar(); Set_Cookie('openstate', 'open') });
+			$("span.downarr a, span.showbar a").click(function () { return false; });
+			var openState = Get_Cookie('openstate');
+			if (openState != null) { if (openState == 'closed') { HideMenuToolbar(); } if (openState == 'open') { ShowMenuToolbar(); } }
+		});	
+	</script>
+	<portal:AutoHidePanel ID="ah1" runat="server">
+		<div id="toolbarbut">
+			<span class="showbar"><a href="#">show bar</a></span>
+		</div>
+		<div id="toolbar">
+			<div class="toolbarleft">
+				&nbsp;
+			</div>
+			<div class="toolbarright">
+				<span class="downarr"><a href="#"></a></span>
+				<portal:AdminMenuLink ID="lnkAdminMenu" runat="server" />
+				<portal:FileManagerLink ID="lnkFileManager" runat="server" />
+				<portal:NewPageLink ID="lnkNewPage" runat="server" />
+				<portal:PageEditFeaturesLink ID="lnkPageContent" runat="server" />
+				<portal:PageEditSettingsLink ID="lnkPageSettings" runat="server" />
+				<asp:ContentPlaceHolder ID="pageEditContent" runat="server">
+				</asp:ContentPlaceHolder>
+			</div>
+		</div>
+	</portal:AutoHidePanel>
+	<div class="cleared">
+	</div>
+
+<portal:Woopra ID="woopra11" runat="server" />
+</form>
+<portal:AnalyticsAsyncBottomScript ID="analyticsBottom" runat="server" />
+</body>
+</html>

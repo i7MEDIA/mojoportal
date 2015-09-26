@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Service="System.Web.ApplicationServices.RoleService" Factory="mojoPortal.Web.mojoServiceHostFactory" %>

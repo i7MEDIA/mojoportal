@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CantAlterSchemaWarning" xml:space="preserve">
+    <value>اكتشف معالج الاعداد أن مستخدم قاعدة البيانات المحدد ليس لديه الصلاحيات الكافية للتعديل على جداول قواعد البيانات . تحتاج إلى تصحيح هذا أو توفير جملة اتصال توفر صلاحيات كافية.</value>
+  </data>
+  <data name="CantCreateTempTablesMessage" xml:space="preserve">
+    <value>اكتشف معالج الاعداد أن مستخدم قاعدة البيانات ليس لديه الصلاحيات لإنشاء الجداول المؤقتة. أنت بحاجة إلى تصحيح هذا أو لن تعمل بعض الميزات الهامة.</value>
+  </data>
+  <data name="CantProceedMessage" xml:space="preserve">
+    <value>لا يمكن متابعة الإعداد حتى يتم تصحيح المسائل المبينة أعلاه.</value>
+  </data>
+  <data name="CodeUpgradeNeededMessage" xml:space="preserve">
+    <value>تحتاج إلى ترقية الموقع والتعليمات البرمجية في قاعدة البيانات إلى الإصدار المحدد فى البيانات المسجلة باكواد قاعدة البيانات</value>
+  </data>
+  <data name="ConfigureFeatureMessage" xml:space="preserve">
+    <value>تكوين ميزة  {0}</value>
+  </data>
+  <data name="ConfigureFeaturesMessage" xml:space="preserve">
+    <value>تكوين {0}...</value>
+  </data>
+  <data name="ConnectionStringFailedMessage" xml:space="preserve">
+    <value>جملة الاتصال التي قمت بإدخالها غير صحيحة أو ليس لديك أذونات كافية لتغيير قاعدة البيانات</value>
+  </data>
+  <data name="ConnectionStringRequiredError" xml:space="preserve">
+    <value>جملة الاتصال مطلوبة</value>
+  </data>
+  <data name="CouldNotInstallFeatureSchemaMessage" xml:space="preserve">
+    <value>لايمكن تثبيت التطبيق {0} لأن المجلد {1} غير موجود.</value>
+  </data>
+  <data name="CreateInitialDataButton" xml:space="preserve">
+    <value>إنشاء البيانات الأولية</value>
+  </data>
+  <data name="CreatingDefaultContent" xml:space="preserve">
+    <value>لم نتمكن من العثور على صفحات لذلك سيتم انشاء المحتوي الافتراضي ...</value>
+  </data>
+  <data name="CreatingPageMessage" xml:space="preserve">
+    <value>إنشاء الصفحة {0}</value>
+  </data>
+  <data name="CreatingRolesAndAdminUserMessage" xml:space="preserve">
+    <value>إنشاء الادوار وحساب المشرف العام ...</value>
+  </data>
+  <data name="CreatingSiteMessage" xml:space="preserve">
+    <value>إنشاء موقع باستخدام الإعدادات الافتراضية...</value>
+  </data>
+  <data name="DataFolderNotWritableMessage" xml:space="preserve">
+    <value>مجلد البيانات الموجود داخل مجلد الموقع الرئيسي لا يمكن الكتابة عليه 
+
+يجب ان يكون هذا المجلد وجميع المجلدات والملفات الموجودة بداخله قابله للكتابة من قبل السيرفر حتى نتمكن من استكمال خطوات الاعداد . النظام يحتاج ذلك حتى يتمكن من كتابة ملفات خالصة بعمليه البحث وكذلك عميات تسجيل ومتابعة النظام وصور والملفات التى يتم تحميلها من قبل المستخدمين والمشرفين .
+
+حدد مجلد البيانات وانقر على زر الماوس الايمن في مستكشف Windows، اختر خصائص وانتقل إلى علامة التبويب الأمان (على XP إذا لم تر علامة التبويب أمان ابحث فى جوجل عن مشاركة "الملفات البسيطة إكس بي" لمعرفة كيفية جعل هذا التبويب تظهر.) على نظام التشغيل XP تحتاج عادة إلى إعطاء إذن الكتابة إلى المستخدم ASPNET بينما على Windows 2003 يجب أن تمنح للمستخدم IIS_WPG.
+
+ومن الواضح أن تعليمات تختلف قليلاً عن لينكس/مونو لكن المبدأ نفسه صحيح، يجب أن يكون مجلد البيانات وكافة الكائنات التابعة لها قابله للكتابة.
+</value>
+  </data>
+  <data name="DataGalleryFolderNotWritableMessage" xml:space="preserve">
+    <value>مجلد   Data/Sites/1/GalleryImages  غير قابل للكتابة</value>
+  </data>
+  <data name="DataRootNotWritableMessage" xml:space="preserve">
+    <value>مجلد Data  غير قابل للكتابة.</value>
+  </data>
+  <data name="DataSharedFilesFolderNotWritableMessage" xml:space="preserve">
+    <value> المجلد  Data/Sites/1/SharedFiles/    غير قابل للكتابة</value>
+  </data>
+  <data name="DataSharedFilesHistoryFolderNotWritableMessage" xml:space="preserve">
+    <value> المجلد   Data/Sites/1/SharedFiles/History/   غير قابل للكتابة</value>
+  </data>
+  <data name="DataSiteFolderNotWritableMessage" xml:space="preserve">
+    <value>المجلد    اData/Sites/1/  غير قابل للكتابة</value>
+  </data>
+  <data name="DataSiteIndexFolderNotWritableMessage" xml:space="preserve">
+    <value>المجلد  Data/Sites/1/index/  غير قابل للكتابة</value>
+  </data>
+  <data name="DataSystemFilesFolderNotWritableMessage" xml:space="preserve">
+    <value>المجلد  Data/Sites/1/systemfiles/  غير قابل للكتابة</value>
+  </data>
+  <data name="DatabaseCanAlterSchemaMessage" xml:space="preserve">
+    <value>أذونات قاعدة البيانات تكفي لتغيير المخطط.</value>
+  </data>
+  <data name="DatabaseCanCreateTempTablesMessage" xml:space="preserve">
+    <value>أذونات قاعدة البيانات تكفي لإنشاء الجداول المؤقتة.</value>
+  </data>
+  <data name="DatabaseCodeVersionLabel" xml:space="preserve">
+    <value>إصدار التعليمات البرمجية في قاعدة البيانات</value>
+  </data>
+  <data name="DatabaseConnectionOKMessage" xml:space="preserve">
+    <value>تم الاتصال بقاعدة البيانات بنجاح.</value>
+  </data>
+  <data name="DatabasePlatformLabel" xml:space="preserve">
+    <value>برنامج قاعدة البيانات</value>
+  </data>
+  <data name="DatabaseSchemaAlreadyExistsMessage" xml:space="preserve">
+    <value>مخطط قاعدة البيانات الأولية موجود بالفعل.</value>
+  </data>
+  <data name="DatabaseSchemaNeedsUpgradeMessage" xml:space="preserve">
+    <value>مخطط قاعدة البيانات الأساسية تحتاج لعملية ترقية.</value>
+  </data>
+  <data name="DatabaseSchemaNotCreatedYetMessage" xml:space="preserve">
+    <value>يحتاج مخطط قاعدة البيانات الأولية للانشاء.</value>
+  </data>
+  <data name="DatabaseSchemaUpToDateMessage" xml:space="preserve">
+    <value>مخطط قاعدة البيانات الأساسية تم تحديثه.</value>
+  </data>
+  <data name="DatabaseStatusLabel" xml:space="preserve">
+    <value>مركز</value>
+  </data>
+  <data name="EnsuringFeaturesInAdminSites" xml:space="preserve">
+    <value>التأكد من ان جميع المميزات تم اعدادها على الخادم بنجاح. </value>
+  </data>
+  <data name="ErrorMessageLabel" xml:space="preserve">
+    <value>رسالة خطاء</value>
+  </data>
+  <data name="ErrorOccurredLabel" xml:space="preserve">
+    <value>حدث خطأ</value>
+  </data>
+  <data name="ExistingSiteCountMessageMessage" xml:space="preserve">
+    <value>{0} موقع او مواقع تم العثور عليها .</value>
+  </data>
+  <data name="FailedToConnectToDatabase" xml:space="preserve">
+    <value>النظام لا يمكنه الاتصال بقاعدة البيانات {0}. الرجاء التحقق من جملة الاتصال الخاصة بك.</value>
+  </data>
+  <data name="FailedToConnectToDatabaseHelp" xml:space="preserve">
+    <value>لمشاهدة رسالة الخطأ الخاصة بالاتصال بقاعدة البيانات المحددة، قم بتعيين ShowConnectionErrorOnSetup  إلى true في الملف Web.config</value>
+  </data>
+  <data name="FileSystemPermissionProblemsMessage" xml:space="preserve">
+    <value>هناك مشكلة فى صلاحيات الوصول للمفات والمجلدات.</value>
+  </data>
+  <data name="FileSystemPermissionsOKMesage" xml:space="preserve">
+    <value>تم التحقق من الصلاحيات الخاصة بالمجلدات والملفات بنجاح.</value>
+  </data>
+  <data name="FirebirdAutoDBCreationNotYetSupportedException" xml:space="preserve">
+    <value>إنشاء مخطط التلقائي لا يعمل بعد ل Firebird Sql. وسوف تحتاج إلى موالي تشغيل البرنامج النصي الموجود في</value>
+  </data>
+  <data name="FirebirdAutoUpgradeNotYetSupportedException" xml:space="preserve">
+    <value>غير معتمدة ترقية جعلاه التلقائي حتى الآن ل Firebird. سوف تحتاج إلى تشغيل البرامج النصية الموجودة في {0) تبدأ بعد.config {1}</value>
+  </data>
+  <data name="FolderDetailsLabel" xml:space="preserve">
+    <value>تفاصيل المجلد</value>
+  </data>
+  <data name="HomeLink" xml:space="preserve">
+    <value>صفحة الموقع الرئيسية</value>
+  </data>
+  <data name="InstallationUpToDateMessage" xml:space="preserve">
+    <value>يتم التثبيت بنجاح</value>
+  </data>
+  <data name="LastServerErrorLabel" xml:space="preserve">
+    <value>اخر خطاء حدث من الخادم هو : </value>
+  </data>
+  <data name="MediumTrustCommentOutNeatUploadInstructionLine1" xml:space="preserve">
+    <value>لتشغيل NeatUpload ، ابحث في الملف Web.config   عن   &lt;httpModules&gt;  وقم بتغير ذلك : </value>
+  </data>
+  <data name="MediumTrustCommentOutNeatUploadPreambleMessage" xml:space="preserve">
+    <value>يمكنك أن التعليق خارج الوحدة النمطية NeatUpload  كما أنه غير معتمد في "ثقة متوسطة"، ما لم المثبتة في "ذاكرة التخزين المؤقت في الجمعية العمومية" على الملقم.
+للحصول على مزيد من المعلومات راجع http://www.mojoportal.com/mediumtrust.aspx</value>
+  </data>
+  <data name="MediumTrustGeneralMessage" xml:space="preserve">
+    <value>يظهر هذا الموقع تكون قيد التشغيل في بيئة مضمون استخدام نهج "ثقة متوسطة"، أو على الأقل أقل من كامل الثقة.</value>
+  </data>
+  <data name="MediumTrustLuceneConfigPreambleMessage" xml:space="preserve">
+    <value>من أجل "محرك البحث" العمل بثقة متوسطة، تحتاج إلى إضافة بعذ السطور فى ملف  Web.config في المقطع AppSettings:</value>
+  </data>
+  <data name="MediumTrustMySQLMessage" xml:space="preserve">
+    <value>باستخدام MySQL تحت "المتوسطة على ثقة"، MySQL موصل ل.يجب تثبيت NET في "ذاكرة التخزين المؤقت في الجمعية العمومية" على الملقم. إذا كنت ترى SecurityException  في رسالة الإعلام بالخطأ ثم يتم تثبيت الرابط.
+يمكنك تحميل رابط MySql ل.شبكة من هنا: http://dev.mysql.com/downloads/connector/net/5.0.html</value>
+  </data>
+  <data name="MediumTrustNeatUploadCommentedOutExample" xml:space="preserve">
+    <value>&lt;!--
+&lt;add name="HttpUploadModule" type="Brettle.Web.NeatUpload.UploadHttpModule, Brettle.Web.NeatUpload" /&gt;
+--&gt;</value>
+  </data>
+  <data name="MediumTrustNeatUploadWrongConfigExample" xml:space="preserve">
+    <value>&lt;add name="HttpUploadModule" type="Brettle.Web.NeatUpload.UploadHttpModule, Brettle.Web.NeatUpload" /&gt;</value>
+  </data>
+  <data name="MediumTrustnpgsqlMessage" xml:space="preserve">
+    <value>لكي تتمكن من استخدام شبكة الإنترنت تحت "المتوسطة على ثقة"، يجب أن تكون المكتبة "الوصول إلى البيانات" نبجسقل إينستالالدين "ذاكرة التخزين المؤقت في الجمعية العمومية" على الملقم. إذا كنت ترى SecurityException  أدناه ثم يتم تثبيت المكون نبجسقل.
+يمكنك الحصول على مزيد من المعلومات أو تحميل نبجسقل من هنا: http://npgsql.projects.postgresql.org/</value>
+  </data>
+  <data name="NoScriptsFilesFoundMessage" xml:space="preserve">
+    <value>لا يوجد اوامر برمجية فى المجلد</value>
+  </data>
+  <data name="NoSitesMessage" xml:space="preserve">
+    <value>لا توجد مواقع تم إنشاؤها بعد، انقر فوق الزر لإنشاء البيانات الأولى للموقع.</value>
+  </data>
+  <data name="NoUpgradeScriptsFound" xml:space="preserve">
+    <value>لم يتم العثور على اكواد برمجية خاصة بالتحديث  بخصوص  {0}.  ربما يكون تم تحديثه من قبل.</value>
+  </data>
+  <data name="OverrideConnectionStringLabel" xml:space="preserve">
+    <value>جملة الاتصال:</value>
+  </data>
+  <data name="ProbingSystemMessage" xml:space="preserve">
+    <value>التدقيق في النظام...</value>
+  </data>
+  <data name="RunTimeLabel" xml:space="preserve">
+    <value>وقت التشغيل UTC</value>
+  </data>
+  <data name="RunningScriptMessage" xml:space="preserve">
+    <value>تشغيل الشفرات البرمجية  {0}-{1}</value>
+  </data>
+  <data name="RunningSetupForAdminUser" xml:space="preserve">
+    <value>برنامج الاعداد معل ولكن تم تشغيله على اي حال لان المستخدم الحالي هو المشرف العام (administrator).</value>
+  </data>
+  <data name="SchemaUpgradeFolderNotFound" xml:space="preserve">
+    <value>لا تحاول ترقية التطبيق {0} بسبب عدم وجود المجلد {1}.</value>
+  </data>
+  <data name="SchemaUpgradeNeededMessage" xml:space="preserve">
+    <value>تحتاج إلى ترقية "مخطط قاعدة البيانات" لجعلها نفس إصدار التعليمات البرمجية.</value>
+  </data>
+  <data name="ScriptFileLabel" xml:space="preserve">
+    <value>ملف الكود البرمجي</value>
+  </data>
+  <data name="ScriptFolderNotFoundAddendum" xml:space="preserve">
+    <value>لم يتم العثور عليه . لا يمكن تشغيل الكود البرمجي.</value>
+  </data>
+  <data name="ScriptFolderNotFoundMessage" xml:space="preserve">
+    <value>لم يتم العثور عليه . لا يمكن تشغيل الكود البرمجي.</value>
+  </data>
+  <data name="SetupDisabledMessage" xml:space="preserve">
+    <value>تم تعطيل الإعداد. للمتابعة، الرجاء تعيين DisableSetup  إلى  false  في الملف Web.config</value>
+  </data>
+  <data name="SetupEnabledMessage" xml:space="preserve">
+    <value>ملاحظة: تعرض هذه الصفحة بعض المعلومات المفيدة أثناء الإعداد والترقيات ولكن للأمن أنه سيكون من الأفضل عدم إظهار أي معلومات عندما يكون النظام محدث بالفعل. يمكنك تعطيل الإعداد وقمع جميع المعلومات المتعلقة بهذه الصفحة عن طريق تحديد DisableSetup = true  في الملف Web.config. عندما تحتاج إلى الترقية، يمكنك تعيين هذا يعود إلى false. إذا قمت بتسجيل كما سيتم تشغيل برنامج الإعداد المسؤول وسوف تتمكن من مشاهدة هذه الصفحة حتى إذا تم تعطيل في الملف Web.config حتى يمكنك بسهولة في ترك الأمر دخول المعوقين وعادل قبل الترقية. لكن إذا لم يتم تسجيل في كنت ستحتاج إلى تمكين الإعداد في الملف Web.config.</value>
+  </data>
+  <data name="SetupSuccessMessage" xml:space="preserve">
+    <value>تم الانتهاء من اعداد النظام بنجاح ، انقر فوق الرابط الموجود أدناه للانتقال إلى الصفحة الرئيسية.</value>
+  </data>
+  <data name="SetupTitle" xml:space="preserve">
+    <value>معالج اعداد النظام</value>
+  </data>
+  <data name="SetupWelcomeMessage" xml:space="preserve">
+    <value>مرحبا بكم في برنامج الإعداد</value>
+  </data>
+  <data name="ToThisLabel" xml:space="preserve">
+    <value>إلى ذلك:</value>
+  </data>
+  <data name="UpgradeOverrideInstructions" xml:space="preserve">
+    <value>أن النظام غير قادر على إجراء تغييرات قاعدة البيانات المطلوبة باستخدام جملة الاتصال الحالية. الرجاء إدخال جملة اتصال مع أذونات كافية لتغيير إعدادات الجداول فى قاعدة البيانات.</value>
+  </data>
+  <data name="UpgradeSchemaButton" xml:space="preserve">
+    <value>تحدث جداول قاعدة البيانات</value>
+  </data>
+  <data name="UpgradeTitle" xml:space="preserve">
+    <value>تحديث النظام</value>
+  </data>
+  <data name="VersionLabel" xml:space="preserve">
+    <value>الإصدار</value>
+  </data>
+</root>

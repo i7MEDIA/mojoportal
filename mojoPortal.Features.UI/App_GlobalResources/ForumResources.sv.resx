@@ -1,0 +1,477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ForumDeletePostWarning" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort detta inlägg?</value>
+  </data>
+  <data name="ForumDeleteThreadWarning" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort denna tråd?</value>
+  </data>
+  <data name="ForumEditCancelButton" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="ForumEditCreateButton" xml:space="preserve">
+    <value>Skapa nytt forum</value>
+  </data>
+  <data name="ForumEditCreatedByLabel" xml:space="preserve">
+    <value>Skapad av:</value>
+  </data>
+  <data name="ForumEditCreatedDateLabel" xml:space="preserve">
+    <value>Skapad:</value>
+  </data>
+  <data name="ForumEditDeleteButton" xml:space="preserve">
+    <value>Ta bort detta föremål</value>
+  </data>
+  <data name="ForumEditDescriptionLabel" xml:space="preserve">
+    <value>Beskrivning:</value>
+  </data>
+  <data name="ForumEditForumLabel" xml:space="preserve">
+    <value>Redigera forum</value>
+  </data>
+  <data name="ForumEditIsActiveLabel" xml:space="preserve">
+    <value>Är aktiv?</value>
+  </data>
+  <data name="ForumEditIsModeratedLabel" xml:space="preserve">
+    <value>Är modererad?</value>
+  </data>
+  <data name="ForumEditLabel" xml:space="preserve">
+    <value>Lägg till forum</value>
+  </data>
+  <data name="ForumEditNewForumButton" xml:space="preserve">
+    <value>Nytt forum</value>
+  </data>
+  <data name="ForumEditPostLink" xml:space="preserve">
+    <value>Redigera post</value>
+  </data>
+  <data name="ForumEditPostsPerPageLabel" xml:space="preserve">
+    <value>Poster per sida:</value>
+  </data>
+  <data name="ForumEditSortOrderLabel" xml:space="preserve">
+    <value>Sorteringsordning:</value>
+  </data>
+  <data name="ForumEditSubjectRequiredHelp" xml:space="preserve">
+    <value>Du måste ange ett ämne</value>
+  </data>
+  <data name="ForumEditThreadsPerPageLabel" xml:space="preserve">
+    <value>Ämnen per sida:</value>
+  </data>
+  <data name="ForumEditTitleLabel" xml:space="preserve">
+    <value>Titel:</value>
+  </data>
+  <data name="ForumEditUpdateButton" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="ForumEnableRSSAtForumLevel" xml:space="preserve">
+    <value>Använd RSS på forumsnivå?</value>
+  </data>
+  <data name="ForumEnableRSSAtModuleLevel" xml:space="preserve">
+    <value>Använd RSS på modulnivå?</value>
+  </data>
+  <data name="ForumEnableRSSAtThreadLevel" xml:space="preserve">
+    <value>Använd RSS på trådnivå?</value>
+  </data>
+  <data name="ForumModuleEditSubscriptionsLabel" xml:space="preserve">
+    <value>Redigera meddelanden</value>
+  </data>
+  <data name="ForumModuleForumLabel" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ForumModulePostCountLabel" xml:space="preserve">
+    <value>Totalt antal poster</value>
+  </data>
+  <data name="ForumModulePostLastPostLabel" xml:space="preserve">
+    <value>Senaste posten</value>
+  </data>
+  <data name="ForumModuleSubscribedLabel" xml:space="preserve">
+    <value>Meddela?</value>
+  </data>
+  <data name="ForumModuleThreadCountLabel" xml:space="preserve">
+    <value>Totalt antal trådar</value>
+  </data>
+  <data name="ForumPostEditCancelButton" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="ForumPostEditDeleteButton" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="ForumPostEditMessageLabel" xml:space="preserve">
+    <value>Meddelande:</value>
+  </data>
+  <data name="ForumPostEditNotifyLabel" xml:space="preserve">
+    <value>Meddela vid repliker:</value>
+  </data>
+  <data name="ForumPostEditSubjectLabel" xml:space="preserve">
+    <value>Ämne:</value>
+  </data>
+  <data name="ForumPostEditUpdateButton" xml:space="preserve">
+    <value>Post</value>
+  </data>
+  <data name="ForumsFeatureName" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ForumsTableSummary" xml:space="preserve">
+    <value>Denna tabell innehåller en lista av forum.</value>
+  </data>
+  <data name="ForumThreadCancelButton" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="ForumThreadDeleteButton" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="ForumThreadEditForumLabel" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ForumThreadEditLabel" xml:space="preserve">
+    <value>Redigera tråd</value>
+  </data>
+  <data name="ForumThreadEditSortOrderLabel" xml:space="preserve">
+    <value>Sorteringsordning</value>
+  </data>
+  <data name="ForumThreadEditSubjectLabel" xml:space="preserve">
+    <value>Ämne</value>
+  </data>
+  <data name="ForumThreadUnsubscribeCompleted" xml:space="preserve">
+    <value>Avprenumerationen lyckades! Du ska du inte få några fler meddelanden för nya meddelanden i tråden.</value>
+  </data>
+  <data name="ForumThreadUnsubscribeFailed" xml:space="preserve">
+    <value>Avprenumerationen MISSLYCKADES! En fel inträffade i försöket att stoppa meddelanden för tråden. Var god kontakta siteadministratören.</value>
+  </data>
+  <data name="ForumThreadUpdateButton" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="ForumThreadViewAuthorLabel" xml:space="preserve">
+    <value>Författare</value>
+  </data>
+  <data name="ForumThreadViewPagesLabel" xml:space="preserve">
+    <value>Sidor:</value>
+  </data>
+  <data name="ForumThreadViewReplyLabel" xml:space="preserve">
+    <value>replikera</value>
+  </data>
+  <data name="ForumUnsubscribeCompleted" xml:space="preserve">
+    <value>Avprenumerationen lyckades! Du ska nu inte få några fler meddelanden för nya trådar på forumet.</value>
+  </data>
+  <data name="ForumUnsubscribeFailed" xml:space="preserve">
+    <value>Avprenumerationen MISSLYCKADES! En fel inträffade i försöket att stoppa meddelanden från trådar i forumet.  Vad god kontakta siteadministratören.</value>
+  </data>
+  <data name="ForumViewNewThreadLabel" xml:space="preserve">
+    <value>nytt ämne</value>
+  </data>
+  <data name="ForumViewPostLastPostLabel" xml:space="preserve">
+    <value>Senaste post</value>
+  </data>
+  <data name="ForumViewReplyCountLabel" xml:space="preserve">
+    <value>Totalt antal repliker</value>
+  </data>
+  <data name="ForumViewStartedByLabel" xml:space="preserve">
+    <value>Startad av</value>
+  </data>
+  <data name="ForumViewSubjectLabel" xml:space="preserve">
+    <value>Ämne</value>
+  </data>
+  <data name="ForumViewTableSummary" xml:space="preserve">
+    <value>Denna tabell innehåller en lista av forumtrådar.</value>
+  </data>
+  <data name="ForumViewThreadCountLabel" xml:space="preserve">
+    <value>Totalt antal ämnen</value>
+  </data>
+  <data name="ForumViewViewCountLabel" xml:space="preserve">
+    <value>Totalt antal visningar</value>
+  </data>
+  <data name="AllowAnonymousPostsLabel" xml:space="preserve">
+    <value>Tillåta anonyma inlägg?</value>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Vänligen vänta ...</value>
+  </data>
+  <data name="CutePagerBackToFirstClause" xml:space="preserve">
+    <value>Navigera till första sidan</value>
+  </data>
+  <data name="CutePagerBackToPageClause" xml:space="preserve">
+    <value>Tillbaka till sida</value>
+  </data>
+  <data name="CutePagerGoToLastClause" xml:space="preserve">
+    <value>Gå till sista sidan</value>
+  </data>
+  <data name="CutePagerNavigateToPageText" xml:space="preserve">
+    <value>Navigera till sidan</value>
+  </data>
+  <data name="CutePagerNextToPageClause" xml:space="preserve">
+    <value>Bredvid sida</value>
+  </data>
+  <data name="CutePagerOfClause" xml:space="preserve">
+    <value>av</value>
+  </data>
+  <data name="CutePagerPageClause" xml:space="preserve">
+    <value>Sida</value>
+  </data>
+  <data name="EditImageAltText" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="ForumEditCancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ForumEditDeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="ForumEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ForumEnableAntiSpamSetting" xml:space="preserve">
+    <value>Aktivera blockering av skräppost?</value>
+  </data>
+  <data name="ForumLabel" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ForumMyPostsLink" xml:space="preserve">
+    <value>Mina inlägg</value>
+  </data>
+  <data name="ForumPostEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ForumsLoginRequiredLink" xml:space="preserve">
+    <value>Du måste logga in för att skriva i forumen.</value>
+  </data>
+  <data name="ForumUserPostsLink" xml:space="preserve">
+    <value>Visa Inlägg</value>
+  </data>
+  <data name="ForumUserThreadHeading" xml:space="preserve">
+    <value>{0} deltog i dessa diskussioner.</value>
+  </data>
+  <data name="IncludePostBodyInNotificationEmail" xml:space="preserve">
+    <value>Inkludera inlägget i e-postmeddelande?</value>
+  </data>
+  <data name="NewTopicLabel" xml:space="preserve">
+    <value>Nytt ämne</value>
+  </data>
+  <data name="UserSalesLabel" xml:space="preserve">
+    <value>Försäljning</value>
+  </data>
+  <data name="AdminUnsubscribeUserComplete" xml:space="preserve">
+    <value>Användarens uppsägning av prenumerationen av medelande från forumet, är nu avslutad.</value>
+  </data>
+  <data name="ForumsSearchName" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ForumThreadMetaDescriptionFormat" xml:space="preserve">
+    <value>Tråd - {0}</value>
+  </data>
+  <data name="ForumMetaDescriptionFormat" xml:space="preserve">
+    <value>Ett diskussionsforum för {0}</value>
+  </data>
+  <data name="UserThreadMetaFormat" xml:space="preserve">
+    <value>Medlem {0} deltagit i dessa forum samtal.</value>
+  </data>
+  <data name="UserThreadTitleFormat" xml:space="preserve">
+    <value>Forum Trådar för {0}</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="LoginNameLabel" xml:space="preserve">
+    <value>Inloggningsnamn</value>
+  </data>
+  <data name="RSSFeedMaxDaysOldSetting" xml:space="preserve">
+    <value>Inkludera objekt upp till så här många dagar gamla i utgående kanal.</value>
+  </data>
+  <data name="RSSFeedMaxPostsSetting" xml:space="preserve">
+    <value>Maximalt antal objekt som ska ingå i utgående kanal.</value>
+  </data>
+  <data name="ShowSubscriberCount" xml:space="preserve">
+    <value>Visa antal prenumeranter?</value>
+  </data>
+  <data name="SubscribeLink" xml:space="preserve">
+    <value>Prenumerera</value>
+  </data>
+  <data name="SubscriberCountFormat" xml:space="preserve">
+    <value>{0} Prenumeranter</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Säga upp prenumeration</value>
+  </data>
+  <data name="UnSubscribeLink" xml:space="preserve">
+    <value>Säga upp prenumeration</value>
+  </data>
+  <data name="UserNameLabel" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="ForumSubscriptions" xml:space="preserve">
+    <value>Forum Prenumerationer</value>
+  </data>
+  <data name="SubscribeLongLink" xml:space="preserve">
+    <value>Prenumerera på meddelande om detta forum</value>
+  </data>
+  <data name="SubscribeToAllOfThisForum" xml:space="preserve">
+    <value>Prenumerera på alla inlägg i detta forum?</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Anpassad CSS Klass</value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>Felaktig anpassad CSS klass</value>
+  </data>
+  <data name="GravatarLinkTitle" xml:space="preserve">
+    <value>Hämta din Avatar</value>
+  </data>
+  <data name="LinkGravatarToUserProfile" xml:space="preserve">
+    <value>Länka Gravatar till Användarprofilen?</value>
+  </data>
+  <data name="Locked" xml:space="preserve">
+    <value>Låst</value>
+  </data>
+  <data name="PostedByFormat" xml:space="preserve">
+    <value>Inlägg av {0}</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Sök</value>
+  </data>
+  <data name="SearchTermRequiredWarning" xml:space="preserve">
+    <value>Angen någon text att söka efter.</value>
+  </data>
+  <data name="ShowForumSearchBox" xml:space="preserve">
+    <value>Visa Sök i Forum?</value>
+  </data>
+  <data name="StickySort" xml:space="preserve">
+    <value>Sticky Sort</value>
+  </data>
+  <data name="UserProfileLinkTooltipFormat" xml:space="preserve">
+    <value>Visa Användarprofilen för {0}</value>
+  </data>
+  <data name="PostedLinks" xml:space="preserve">
+    <value>Inskickade Länkar:</value>
+  </data>
+  <data name="DeleteForumWarning" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort detta forum?</value>
+  </data>
+  <data name="ModuleFeedLinkTooltip" xml:space="preserve">
+    <value>Prenumerera på kanalen till dessa Forum</value>
+  </data>
+  <data name="LastPostBy" xml:space="preserve">
+    <value>Sista inlägga av</value>
+  </data>
+  <data name="AllowEditingPostsLessThanMinutesOld" xml:space="preserve">
+    <value>Tillåt Användare att Editera sina Inlägga i upp till detta antal Minuter</value>
+  </data>
+  <data name="IncludeCurrentUserInNotifications" xml:space="preserve">
+    <value>Inkludera användaren som gjort inlägg i Notiferingslistan?</value>
+  </data>
+  <data name="SuppressNotificationOfPostEdits" xml:space="preserve">
+    <value>Undvik skicka notifiering vid editering av inlägg.</value>
+  </data>
+</root>

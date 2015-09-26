@@ -1,0 +1,939 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisButtonAltText" xml:space="preserve">
+    <value>Udostępnij w Sieci www</value>
+    <comment>Share This Using Popular Bookmarking Services</comment>
+  </data>
+  <data name="AllowWebSiteUrlForComments" xml:space="preserve">
+    <value>Pokaż Url w komentarzach?</value>
+    <comment>Show Web Site Url in Comments?</comment>
+  </data>
+  <data name="ArchiveDateGridHeader" xml:space="preserve">
+    <value>Zarchiwizowane</value>
+    <comment>Archived</comment>
+  </data>
+  <data name="ArchiveMetaDescriptionFormat" xml:space="preserve">
+    <value>{0} archiwa z {1}</value>
+    <comment>{0} Archives From {1}</comment>
+  </data>
+  <data name="BlogAddCategoriesLabel" xml:space="preserve">
+    <value>Dodaj kategorię</value>
+    <comment>Add Category</comment>
+  </data>
+  <data name="BlogAddCategoryButton" xml:space="preserve">
+    <value>Dodaj kategorię</value>
+    <comment>Add Category</comment>
+  </data>
+  <data name="BlogAddCategoryButtonAccessKey" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="BlogAddPostLabel" xml:space="preserve">
+    <value>Dodaj post</value>
+    <comment>Add Post</comment>
+  </data>
+  <data name="BlogAddThisButtonImageUrlSetting" xml:space="preserve">
+    <value>AddThis.com adres url obrazu</value>
+    <comment>AddThis.com Button Image Url</comment>
+  </data>
+  <data name="BlogAddThisCustomBrandSetting" xml:space="preserve">
+    <value>AddThis.com nazwa niestandardowa</value>
+    <comment>AddThis.com Custom Brand</comment>
+  </data>
+  <data name="BlogAddThisCustomLogoBackColorSetting" xml:space="preserve">
+    <value>AddThis.com niestandardowy kolor tła</value>
+    <comment>AddThis.com Custom Back Color</comment>
+  </data>
+  <data name="BlogAddThisCustomLogoForeColorSetting" xml:space="preserve">
+    <value>AddThis.com niestandardowy kolor tekstu</value>
+    <comment>AddThis.com Custom Fore Color</comment>
+  </data>
+  <data name="BlogAddThisCustomLogoUrlSetting" xml:space="preserve">
+    <value>AddThis.com adres url logo</value>
+    <comment>AddThis.com Custom Logo Url</comment>
+  </data>
+  <data name="BlogAddThisCustomOptionsSetting" xml:space="preserve">
+    <value>AddThis.com opcje niestandardowe</value>
+    <comment>AddThis.com Custom Options</comment>
+  </data>
+  <data name="BlogAddThisDotComUseMouseOverWidgetSetting" xml:space="preserve">
+    <value>AddThis.com użyj widget'a myszy</value>
+    <comment>AddThis.com Use Mouseover Widget</comment>
+  </data>
+  <data name="BlogAddThisDotComUsernameSetting" xml:space="preserve">
+    <value>AddThis.com Nazwa użytkownika</value>
+    <comment>AddThis.com Username</comment>
+  </data>
+  <data name="BlogAddThisRssButtonImageUrlSetting" xml:space="preserve">
+    <value>AddThis.com url kanału RSS</value>
+    <comment>AddThis.com RSS Feed Button Url</comment>
+  </data>
+  <data name="BlogAddThisSubscribeAltText" xml:space="preserve">
+    <value>Subskrybuj</value>
+    <comment>Subscribe</comment>
+  </data>
+  <data name="BlogAllowComments" xml:space="preserve">
+    <value>Zezwalaj na komentarze?</value>
+    <comment>Allow Comments?</comment>
+  </data>
+  <data name="BlogArchivesLabel" xml:space="preserve">
+    <value>Archiwa</value>
+    <comment>Archives</comment>
+  </data>
+  <data name="BlogArchivesPrefixLabel" xml:space="preserve">
+    <value>Posty od</value>
+    <comment>Posts From </comment>
+  </data>
+  <data name="BlogAuthorEmailSetting" xml:space="preserve">
+    <value>Email autora</value>
+    <comment>Author Email</comment>
+  </data>
+  <data name="BlogAuthorEmailSettingRegexWarning" xml:space="preserve">
+    <value>Należy podać poprawny adres email.</value>
+    <comment>You must enter a valid e-mail address.</comment>
+  </data>
+  <data name="BlogAuthorSetting" xml:space="preserve">
+    <value>Zamiennik nazwy autora</value>
+    <comment>Author Override</comment>
+  </data>
+  <data name="BlogBeginDateRequiredHelp" xml:space="preserve">
+    <value>Musisz wprowadzić poprawną datę rozpoczęcia</value>
+    <comment>You Must Enter a Valid Begin Date</comment>
+  </data>
+  <data name="BlogCategoriesLabel" xml:space="preserve">
+    <value>Kategorie</value>
+    <comment>Categories</comment>
+  </data>
+  <data name="BlogCategoriesPrefixLabel" xml:space="preserve">
+    <value>Posty w kategorii:</value>
+    <comment>Posts in Category: </comment>
+  </data>
+  <data name="BlogCommentCommentLabel" xml:space="preserve">
+    <value>Komentarze</value>
+    <comment>Comments</comment>
+  </data>
+  <data name="BlogCommentCountLabel" xml:space="preserve">
+    <value>Komentarze</value>
+    <comment>Comments</comment>
+  </data>
+  <data name="BlogCommentForDaysDefault" xml:space="preserve">
+    <value>Domyślnie pozwalaj na komentarze przez dni</value>
+    <comment>Default Comment Allowed Days</comment>
+  </data>
+  <data name="BlogCommentPostCommentButton" xml:space="preserve">
+    <value>Wyślij</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="BlogCommentPostCommentButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+    <comment>1</comment>
+  </data>
+  <data name="BlogCommentRemeberMeLabel" xml:space="preserve">
+    <value>Pamiętaj o mnie?</value>
+    <comment>Remember Me?</comment>
+  </data>
+  <data name="BlogCommentsClosedMessage" xml:space="preserve">
+    <value>Komentarze są zablokowanie dla tego wpisu.</value>
+    <comment>Comments are closed on this post.</comment>
+  </data>
+  <data name="BlogCommentsNotAllowed" xml:space="preserve">
+    <value>Niedozwolone</value>
+    <comment>Not Allowed</comment>
+  </data>
+  <data name="BlogCommentSolveQuestionMessage" xml:space="preserve">
+    <value>Rozwiąż to aby udowodnić że jesteś żywym człowiekiem, a nie szkodliwymi skryptem.</value>
+    <comment>Solve This To Prove You are a Real Person, not a SPAM script.</comment>
+  </data>
+  <data name="BlogCommentsUnlimited" xml:space="preserve">
+    <value>Nieograniczone</value>
+    <comment>Unlimited</comment>
+  </data>
+  <data name="BlogCommentTitleLabel" xml:space="preserve">
+    <value>Tytuł</value>
+    <comment>Title</comment>
+  </data>
+  <data name="BlogCommentUrlLabel" xml:space="preserve">
+    <value>URL</value>
+    <comment>URL</comment>
+  </data>
+  <data name="BlogCommentUserNameLabel" xml:space="preserve">
+    <value>Nazwa</value>
+    <comment>Name</comment>
+  </data>
+  <data name="BlogCopyrightSetting" xml:space="preserve">
+    <value>Copyright</value>
+    <comment>Copyright</comment>
+  </data>
+  <data name="BlogDeleteCategoryWarning" xml:space="preserve">
+    <value>Czy na pewno usunąć tę kategorię?</value>
+    <comment>Are you sure you want to delete this category?</comment>
+  </data>
+  <data name="BlogDeleteCommentWarning" xml:space="preserve">
+    <value>Czy na pewno usunąć ten komentarz?</value>
+    <comment>Are you sure you want to delete this comment?</comment>
+  </data>
+  <data name="BlogDeletePostWarning" xml:space="preserve">
+    <value>Czy na pewno usunąć ten wpis blogu?</value>
+    <comment>Are you sure you want to delete this blog entry?</comment>
+  </data>
+  <data name="BlogDescriptionSetting" xml:space="preserve">
+    <value>Opis</value>
+    <comment>Description</comment>
+  </data>
+  <data name="BlogDisableFeedSetting" xml:space="preserve">
+    <value>Wyłączyć kanał RSS wychodzący?</value>
+    <comment>Disable Outbound Feed?</comment>
+  </data>
+  <data name="BlogDraftInstructions" xml:space="preserve">
+    <value>Ustaw datę rozpoczęcia na dzień w przyszłości, aby stworzyć (nieopublikowany jeszcze) szkic.</value>
+    <comment>Set a Future Start Date to Create an Unpublished Draft.</comment>
+  </data>
+  <data name="BlogDraftsHeading" xml:space="preserve">
+    <value>Nieopublikowane posty</value>
+    <comment>Unpublished Blog Posts</comment>
+  </data>
+  <data name="BlogDraftsLink" xml:space="preserve">
+    <value>Edytuj szkice</value>
+    <comment>Edit Drafts</comment>
+  </data>
+  <data name="BlogEditAllowedCommentsForDaysPrefix" xml:space="preserve">
+    <value>Zezwalaj na komentarze dla </value>
+    <comment>Allow Comments for</comment>
+  </data>
+  <data name="BlogEditCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="BlogEditCancelButtonAccessKey" xml:space="preserve">
+    <value>2</value>
+    <comment>2</comment>
+  </data>
+  <data name="BlogEditCategoriesLabel" xml:space="preserve">
+    <value>Edytuj kategorie</value>
+    <comment>Edit Categories</comment>
+  </data>
+  <data name="BlogEditCategoryLabel" xml:space="preserve">
+    <value>Kategorie</value>
+    <comment>Categories</comment>
+  </data>
+  <data name="BlogEditCommentsDaysLabel" xml:space="preserve">
+    <value>dni</value>
+    <comment>days</comment>
+  </data>
+  <data name="BlogEditDeleteButton" xml:space="preserve">
+    <value>Usuń ten obiekt</value>
+    <comment>Delete this item</comment>
+  </data>
+  <data name="BlogEditDeleteButtonAccessKey" xml:space="preserve">
+    <value>3</value>
+    <comment>3</comment>
+  </data>
+  <data name="BlogEditDescriptionLabel" xml:space="preserve">
+    <value>Opis</value>
+    <comment>Description</comment>
+  </data>
+  <data name="BlogEditEntryLabel" xml:space="preserve">
+    <value>Wpis blogu</value>
+    <comment>Blog Entry</comment>
+  </data>
+  <data name="BlogEditEntryLink" xml:space="preserve">
+    <value>Edycja</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="BlogEditIncludeInFeedLabel" xml:space="preserve">
+    <value>Umieścić w kanale RSS?</value>
+    <comment>Include In Feed?</comment>
+  </data>
+  <data name="BlogEditItemUrlLabel" xml:space="preserve">
+    <value>Url:</value>
+    <comment>Url:</comment>
+  </data>
+  <data name="BlogEditLocationLabel" xml:space="preserve">
+    <value>Wprowadź lokalizację aby pokazać Mapę Google:</value>
+    <comment>Enter a Location to Show a Google Map:</comment>
+  </data>
+  <data name="BlogEditorHeightSetting" xml:space="preserve">
+    <value>Wysokość edytora</value>
+    <comment>Editor Height</comment>
+  </data>
+  <data name="BlogEditSelectedCategoriesLabel" xml:space="preserve">
+    <value>Wybrane kategorie</value>
+    <comment>Selected Categories</comment>
+  </data>
+  <data name="BlogEditStartDateLabel" xml:space="preserve">
+    <value>Początek</value>
+    <comment>Start Date</comment>
+  </data>
+  <data name="BlogEditTitleLabel" xml:space="preserve">
+    <value>Tytuł:</value>
+    <comment>Title:</comment>
+  </data>
+  <data name="BlogEditUpdateButton" xml:space="preserve">
+    <value>Aktualizuj</value>
+    <comment>Update</comment>
+  </data>
+  <data name="BlogEditUpdateButtonAccessKey" xml:space="preserve">
+    <value>1</value>
+    <comment>1</comment>
+  </data>
+  <data name="BlogEnableVersioningSetting" xml:space="preserve">
+    <value>Przechowuj historię wersji?</value>
+    <comment>Keep Version History?</comment>
+  </data>
+  <data name="BlogEntriesToShowSetting" xml:space="preserve">
+    <value>Wpisy do pokazania</value>
+    <comment>Entries To Show</comment>
+  </data>
+  <data name="BlogEntriesToShowSettingRegexWarning" xml:space="preserve">
+    <value>Musisz wprowadzić wartość całkowitą. Domyślnie 10.</value>
+    <comment>You must enter an integer for Entries. The Default setting is 10</comment>
+  </data>
+  <data name="BlogEntryCountLabel" xml:space="preserve">
+    <value>Wpisy</value>
+    <comment>Entries</comment>
+  </data>
+  <data name="BlogExcerptLengthSetting" xml:space="preserve">
+    <value>Długość wycinka</value>
+    <comment>Excerpt Length</comment>
+  </data>
+  <data name="BlogExcerptSuffixSetting" xml:space="preserve">
+    <value>Sufix wycinka</value>
+    <comment>Excerpt Suffix</comment>
+  </data>
+  <data name="BlogFeatureName" xml:space="preserve">
+    <value>Blog</value>
+    <comment>Blog</comment>
+  </data>
+  <data name="BlogFeedbackLabel" xml:space="preserve">
+    <value>Opinie</value>
+    <comment>Feedback</comment>
+  </data>
+  <data name="BlogFeedburnerFeedUrl" xml:space="preserve">
+    <value>Url kanału Feedburner</value>
+    <comment>Feedburner Feed Url</comment>
+  </data>
+  <data name="BlogHideAddThisButtonSetting" xml:space="preserve">
+    <value>Ukryj przycisk AddThis?</value>
+    <comment>Hide AddThis Button?</comment>
+  </data>
+  <data name="BlogModuleAddToGoogleLink" xml:space="preserve">
+    <value>Dodaj do Google</value>
+    <comment>Add To Google</comment>
+  </data>
+  <data name="BlogModuleAddToMyMSNLink" xml:space="preserve">
+    <value>Dodaj do Moje MSN</value>
+    <comment>Add To My MSN</comment>
+  </data>
+  <data name="BlogModuleAddToMyYahooLink" xml:space="preserve">
+    <value>Dodaj do Moje Yahoo</value>
+    <comment>Add To My Yahoo</comment>
+  </data>
+  <data name="BlogModuleAddToWindowsLiveLink" xml:space="preserve">
+    <value>Dodaj do Windows Live</value>
+    <comment>Add to Windows Live</comment>
+  </data>
+  <data name="BlogMoreLinkText" xml:space="preserve">
+    <value>Tekst w stylu 'czytaj więcej'</value>
+    <comment>Read More Link Text</comment>
+  </data>
+  <data name="BlogNavigationOnRightSetting" xml:space="preserve">
+    <value>Nawigacja po prawej?</value>
+    <comment>Navigation on Right?</comment>
+  </data>
+  <data name="BlogNextPostLink" xml:space="preserve">
+    <value>&gt;&gt; Następny post</value>
+    <comment>&gt;&gt; Next Post</comment>
+  </data>
+  <data name="BlogPreviousPostLink" xml:space="preserve">
+    <value>Poprzedni post &lt;&lt;</value>
+    <comment>Previous Post &lt;&lt;</comment>
+  </data>
+  <data name="BlogRSSCacheTimeSetting" xml:space="preserve">
+    <value>Bufor kanału RSS w minutach</value>
+    <comment>RSS Feed Cache Time In Minutes</comment>
+  </data>
+  <data name="BlogRSSCacheTimeSettingRegexWarning" xml:space="preserve">
+    <value>Musisz wprowadzić liczbę całkowitą. Domyślnie 120</value>
+    <comment>You must enter an integer for Cache Time. The Default setting is 120</comment>
+  </data>
+  <data name="BlogRSSLinkTitle" xml:space="preserve">
+    <value>Kanał RSS</value>
+    <comment>RSS Feed</comment>
+  </data>
+  <data name="BlogSearchName" xml:space="preserve">
+    <value>Blogi</value>
+    <comment>Blogs</comment>
+  </data>
+  <data name="BlogShowAddFeedLinksSetting" xml:space="preserve">
+    <value>Pokazuj linki dodawania kanału?</value>
+    <comment>Show Add Feed Links?</comment>
+  </data>
+  <data name="BlogShowArchiveSetting" xml:space="preserve">
+    <value>Pokazuj archiwa?</value>
+    <comment>Show Archives?</comment>
+  </data>
+  <data name="BlogShowCalendarSetting" xml:space="preserve">
+    <value>Pokazuj kalendarz?</value>
+    <comment>Show Calendar?</comment>
+  </data>
+  <data name="BlogShowCategoriesSetting" xml:space="preserve">
+    <value>Pokazuj kategorie?</value>
+    <comment>Show Categories?</comment>
+  </data>
+  <data name="BlogShowFeedLinksSetting" xml:space="preserve">
+    <value>Pokazuj linki kanałów RSS?</value>
+    <comment>Show Feed Links?</comment>
+  </data>
+  <data name="BlogShowStatisticsSetting" xml:space="preserve">
+    <value>Pokazuj statystyki?</value>
+    <comment>Show Statistics?</comment>
+  </data>
+  <data name="BlogStatisticsLabel" xml:space="preserve">
+    <value>Statystyki</value>
+    <comment>Statistics</comment>
+  </data>
+  <data name="BlogToBePublishedLabel" xml:space="preserve">
+    <value>Czeka na publikację</value>
+    <comment>To Be Published</comment>
+  </data>
+  <data name="BlogUrlConflictWithPhysicalPageError" xml:space="preserve">
+    <value>Proszę wprowadzić inny Url. Ten koliduje z istniejącą już stroną.</value>
+    <comment>Please enter a different Url. The entered Url conflicts with an existing page.</comment>
+  </data>
+  <data name="BlogUseCommentSpamBlocker" xml:space="preserve">
+    <value>Włącz blokowanie SPAM w komentarzach:</value>
+    <comment>Enable Comment SPAM Blocking:</comment>
+  </data>
+  <data name="BlogUseExcerptSetting" xml:space="preserve">
+    <value>Użyj wycinka?</value>
+    <comment>Use Excerpt?</comment>
+  </data>
+  <data name="BlogUseLinkForHeading" xml:space="preserve">
+    <value>Pokazuj tytuł jako link?</value>
+    <comment>Render Title As Link</comment>
+  </data>
+  <data name="BlogUseTagCloudForCategoriesSetting" xml:space="preserve">
+    <value>Używaj Pojemnika Tagów dla kategorii?</value>
+    <comment>Use Tag Cloud For Categories?</comment>
+  </data>
+  <data name="BlogVersionPageSizeSetting" xml:space="preserve">
+    <value>Rozmiar strony historii wersji</value>
+    <comment>Version History Page Size</comment>
+  </data>
+  <data name="ButtonDisabledPleaseWait" xml:space="preserve">
+    <value>Proszę czekać…</value>
+    <comment>Please Wait...</comment>
+  </data>
+  <data name="CategoryMetaDescriptionFormat" xml:space="preserve">
+    <value>Obiekty oznaczone tagiem {1} ze {0}</value>
+    <comment>Items tagged under {1} from {0}</comment>
+  </data>
+  <data name="CommentsRequireAuthenticationMessage" xml:space="preserve">
+    <value>Musisz się zalogować aby dodawać komentarze.</value>
+    <comment>You must sign in to this site to post comments.</comment>
+  </data>
+  <data name="CompareHistoryToCurrentLink" xml:space="preserve">
+    <value>Porównaj z bieżącym</value>
+    <comment>Compare To Current</comment>
+  </data>
+  <data name="ContentNotifyOnComment" xml:space="preserve">
+    <value>Powiadom o nowych komentarzach</value>
+    <comment>Notify me when someone posts a comment</comment>
+  </data>
+  <data name="ContentTab" xml:space="preserve">
+    <value>Zawartość</value>
+    <comment>Content</comment>
+  </data>
+  <data name="CreatedDateGridHeader" xml:space="preserve">
+    <value>Utworzono</value>
+    <comment>Created</comment>
+  </data>
+  <data name="CurrentVersionHeadingFormat" xml:space="preserve">
+    <value>Aktualna wersja utworzona {0}</value>
+    <comment>Current Version Created {0}</comment>
+  </data>
+  <data name="DeleteAllHistoryButton" xml:space="preserve">
+    <value>Usuń całą historię</value>
+    <comment>Delete All History</comment>
+  </data>
+  <data name="DeleteAllHistoryWarning" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć całą historię tej zawartości?</value>
+    <comment>Are you sure you want to delete all history for this content?</comment>
+  </data>
+  <data name="DeleteHistoryButton" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="DeleteHistoryItemWarning" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć tę pozycję historii?</value>
+    <comment>Are you sure you want to delete this history item?</comment>
+  </data>
+  <data name="DeleteImageAltText" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="DialogCloseLink" xml:space="preserve">
+    <value>Zamknij</value>
+    <comment>Close</comment>
+  </data>
+  <data name="EditImageAltText" xml:space="preserve">
+    <value>Edytuj ten post</value>
+    <comment>Edit This Post</comment>
+  </data>
+  <data name="EditPostPageTitle" xml:space="preserve">
+    <value>Edytor bloga</value>
+    <comment>Blog Editor</comment>
+  </data>
+  <data name="EnableContentRatingSetting" xml:space="preserve">
+    <value>Włącz ocenę zawartości?</value>
+    <comment>Enable Content Rating?</comment>
+  </data>
+  <data name="EnableRatingCommentsSetting" xml:space="preserve">
+    <value>Włącz ocenę komentarzy?</value>
+    <comment>Enable Rating Comments?</comment>
+  </data>
+  <data name="ExcerptTab" xml:space="preserve">
+    <value>Wycinek</value>
+    <comment>Excerpt</comment>
+  </data>
+  <data name="FriendlyUrlRegexWarning" xml:space="preserve">
+    <value>Url musi zaczynać się od ~/ i nie może zawierać spacji.</value>
+    <comment>Url must start with ~/ and must contain no white spaces.</comment>
+  </data>
+  <data name="GoogleMapEnableDirectionsSetting" xml:space="preserve">
+    <value>Włącz wskazówki dojazdu</value>
+    <comment>Enable Driving Directions</comment>
+  </data>
+  <data name="GoogleMapEnableLocalSearchSetting" xml:space="preserve">
+    <value>Pokaż lokalne wyszukiwanie</value>
+    <comment>Show Local Search</comment>
+  </data>
+  <data name="GoogleMapEnableMapTypeSetting" xml:space="preserve">
+    <value>Pokaż opcje widoku Satelita oraz Hybryda</value>
+    <comment>Show Satellite and Hybrid Map Options</comment>
+  </data>
+  <data name="GoogleMapEnableZoomSetting" xml:space="preserve">
+    <value>Pokaż narzędzie powiększania</value>
+    <comment>Show Zoom Tool</comment>
+  </data>
+  <data name="GoogleMapHeightSetting" xml:space="preserve">
+    <value>Wysokość mapy</value>
+    <comment>Map Height</comment>
+  </data>
+  <data name="GoogleMapIncludeWithExcerptSetting" xml:space="preserve">
+    <value>Pokaż mapę z wycinkiem?</value>
+    <comment>Show Map With Excerpt?</comment>
+  </data>
+  <data name="GoogleMapInitialMapTypeSetting" xml:space="preserve">
+    <value>Początkowy typ mapy</value>
+    <comment>Initial Map Type</comment>
+  </data>
+  <data name="GoogleMapInitialZoomSetting" xml:space="preserve">
+    <value>Poziom powięszenia mapy</value>
+    <comment>Map Zoom Level</comment>
+  </data>
+  <data name="GoogleMapShowInfoWindowSetting" xml:space="preserve">
+    <value>Pokaż info o lokalizacji w balonie</value>
+    <comment>Show Location Info Ballon</comment>
+  </data>
+  <data name="GoogleMapWidthSetting" xml:space="preserve">
+    <value>Szerokość mapy</value>
+    <comment>Map Width</comment>
+  </data>
+  <data name="MetaDescriptionLabel" xml:space="preserve">
+    <value>Opis Meta</value>
+    <comment>Meta Description</comment>
+  </data>
+  <data name="MetaKeywordsLabel" xml:space="preserve">
+    <value>Słowa kluczowe Meta</value>
+    <comment>Meta Keywords</comment>
+  </data>
+  <data name="MetaTab" xml:space="preserve">
+    <value>Dane Meta strony</value>
+    <comment>Page Meta Data</comment>
+  </data>
+  <data name="OdiogoFeedIDSetting" xml:space="preserve">
+    <value>ID kanału Odiogo</value>
+    <comment>Odiogo Feed ID</comment>
+  </data>
+  <data name="OdiogoPodcastUrlSetting" xml:space="preserve">
+    <value>Url podcast'u Odiogo</value>
+    <comment>Odiogo Podcast Url</comment>
+  </data>
+  <data name="PageUrlInUseBlogErrorMessage" xml:space="preserve">
+    <value>Url jest w już w użyciu. Nie można użyć tego samego Url dla różnych stron.</value>
+    <comment>The Url is already in use. You cannot use the same Url for different pages.</comment>
+  </data>
+  <data name="PodcastLink" xml:space="preserve">
+    <value>Podcast</value>
+    <comment>Podcast</comment>
+  </data>
+  <data name="PostAuthorFormat" xml:space="preserve">
+    <value>Dodany przez {0}</value>
+    <comment>Posted by {0}</comment>
+  </data>
+  <data name="RequireAuthenticationForComments" xml:space="preserve">
+    <value>Wymagaj zalogowania dla komentarzy?</value>
+    <comment>Require Authentication For Comments?</comment>
+  </data>
+  <data name="RestoreToEditorButton" xml:space="preserve">
+    <value>Pokaż w edytorze</value>
+    <comment>Restore To Editor</comment>
+  </data>
+  <data name="RSSAddCommentsLink" xml:space="preserve">
+    <value>Dodaj link komentarzy do kanału RSS?</value>
+    <comment>Add Comments Link To RSS Feed?</comment>
+  </data>
+  <data name="RSSAddSignature" xml:space="preserve">
+    <value>Dodaj podpis do kanału RSS?</value>
+    <comment>Add Signature To RSS Feed?</comment>
+  </data>
+  <data name="ShowPageLeftContentSetting" xml:space="preserve">
+    <value>Pokaż zawartość z lewej strony w blogu?</value>
+    <comment>Show Page Left Content in Blog?</comment>
+  </data>
+  <data name="ShowPageRightContentSetting" xml:space="preserve">
+    <value>Pokaż zawartość z prawej strony w blogu?</value>
+    <comment>Show Page Right Content in Blog?</comment>
+  </data>
+  <data name="ShowPostAuthorSetting" xml:space="preserve">
+    <value>Pokaż autora postu?:</value>
+    <comment>Show Post Author Name?:</comment>
+  </data>
+  <data name="TitleRequiredWarning" xml:space="preserve">
+    <value>Tytuł jest wymagany.</value>
+    <comment>Title is required.</comment>
+  </data>
+  <data name="UseExcerptInFeedSetting" xml:space="preserve">
+    <value>Użyj wycinka w kanale RSS?</value>
+    <comment>Use Excerpt In Feed?</comment>
+  </data>
+  <data name="VersionAsOfHeadingFormat" xml:space="preserve">
+    <value>Wersja {0}</value>
+    <comment>Version as of {0}</comment>
+  </data>
+  <data name="WebSiteUrlRegexWarning" xml:space="preserve">
+    <value>musi być Url zaczynający się od http:// or https://</value>
+    <comment>must be an url starting with http:// or https://</comment>
+  </data>
+  <data name="AddFacebookLikeToFeed" xml:space="preserve">
+    <value>Add Facebook Like To Feed?</value>
+  </data>
+  <data name="AddFeedDiscoveryLink" xml:space="preserve">
+    <value>Add Feed Discovery Link in Head?</value>
+  </data>
+  <data name="AddMetaButton" xml:space="preserve">
+    <value>Add Meta Element</value>
+  </data>
+  <data name="AddMetaLinkButton" xml:space="preserve">
+    <value>Add Meta Link</value>
+  </data>
+  <data name="AddTweetThisToFeed" xml:space="preserve">
+    <value>Add Tweet This To Feed?</value>
+  </data>
+  <data name="BlogDateTimeFormat" xml:space="preserve">
+    <value>Date/Time Format String</value>
+  </data>
+  <data name="BlogShowPagerInListSetting" xml:space="preserve">
+    <value>Show Pager In List?</value>
+  </data>
+  <data name="BlogShowTitleOnlySetting" xml:space="preserve">
+    <value>Show Title Only In List</value>
+  </data>
+  <data name="CommentSystemSetting" xml:space="preserve">
+    <value>Comment System</value>
+  </data>
+  <data name="CommentSystemSettings" xml:space="preserve">
+    <value>Comment System</value>
+  </data>
+  <data name="ContentMetaContentRequired" xml:space="preserve">
+    <value>Content is required.</value>
+  </data>
+  <data name="ContentMetaDeleteWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this meta element?</value>
+  </data>
+  <data name="ContentMetaDirLabel" xml:space="preserve">
+    <value>Dir</value>
+  </data>
+  <data name="ContentMetaGridCancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ContentMetaGridDeleteButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ContentMetaGridEditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ContentMetaGridMoveDownButton" xml:space="preserve">
+    <value>Move Down</value>
+  </data>
+  <data name="ContentMetaGridMoveUpButton" xml:space="preserve">
+    <value>Move Up</value>
+  </data>
+  <data name="ContentMetaGridUpdateButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ContentMetaLangCodeLabel" xml:space="preserve">
+    <value>Lang</value>
+  </data>
+  <data name="ContentMetaLinkDeleteWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this meta link?</value>
+  </data>
+  <data name="ContentMetaLinkHrefRequired" xml:space="preserve">
+    <value>Href is required.</value>
+  </data>
+  <data name="ContentMetaLinkRelRequired" xml:space="preserve">
+    <value>Rel is required.</value>
+  </data>
+  <data name="ContentMetaMetaContentLabel" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="ContentMetaMetaHrefLabel" xml:space="preserve">
+    <value>Href</value>
+  </data>
+  <data name="ContentMetaNameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ContentMetaNameRequired" xml:space="preserve">
+    <value>Name is required.</value>
+  </data>
+  <data name="ContentMetaRelLabel" xml:space="preserve">
+    <value>Rel</value>
+  </data>
+  <data name="ContentMetaSchemeLabel" xml:space="preserve">
+    <value>Scheme</value>
+  </data>
+  <data name="ContentMetHrefLangLabel" xml:space="preserve">
+    <value>HrefLang</value>
+  </data>
+  <data name="CustomCssClassSetting" xml:space="preserve">
+    <value>Custom CSS Class</value>
+  </data>
+  <data name="CustomCssClassSettingRegexWarning" xml:space="preserve">
+    <value>Invalid Custom CSS Class</value>
+  </data>
+  <data name="DisqusSiteShortName" xml:space="preserve">
+    <value>Disqus Site Short Name</value>
+  </data>
+  <data name="ExcerptModeSettings" xml:space="preserve">
+    <value>Excerpt Mode Settings</value>
+  </data>
+  <data name="FacebookLikeButtonHeight" xml:space="preserve">
+    <value>Facebook Like Button Height</value>
+  </data>
+  <data name="FacebookLikeButtonShowFaces" xml:space="preserve">
+    <value>Facebook Like Button Show Faces?</value>
+  </data>
+  <data name="FacebookLikeButtonTheme" xml:space="preserve">
+    <value>Facebook Like Button Theme</value>
+  </data>
+  <data name="FacebookLikeButtonWidth" xml:space="preserve">
+    <value>Facebook Like Button Width</value>
+  </data>
+  <data name="FeedSettings" xml:space="preserve">
+    <value>Feed Settings</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="HideDetailsFromUnauthencticated" xml:space="preserve">
+    <value>Hide full post from unauthenticated users?</value>
+  </data>
+  <data name="IntenseDebateAccountId" xml:space="preserve">
+    <value>IntenseDebate Account Id</value>
+  </data>
+  <data name="IsPublishedLabel" xml:space="preserve">
+    <value>Is Published?</value>
+  </data>
+  <data name="ListViewSettings" xml:space="preserve">
+    <value>List View Settings</value>
+  </data>
+  <data name="LowerSidebar" xml:space="preserve">
+    <value>Sidebar Lower Content</value>
+  </data>
+  <data name="MapGetDirectionsButton" xml:space="preserve">
+    <value>Get Directions From</value>
+  </data>
+  <data name="MapSettings" xml:space="preserve">
+    <value>Map Settings</value>
+  </data>
+  <data name="MetaAdditionalLabel" xml:space="preserve">
+    <value>Additional Meta Tags</value>
+  </data>
+  <data name="MiscellaneousSettings" xml:space="preserve">
+    <value>Miscellaneous</value>
+  </data>
+  <data name="MustSignInToViewFullPost" xml:space="preserve">
+    <value>You must sign in to see the full article.</value>
+  </data>
+  <data name="NavigationSettings" xml:space="preserve">
+    <value>Navigation Settings</value>
+  </data>
+  <data name="ParseDateFailureMessage" xml:space="preserve">
+    <value>Could not parse the begin date.</value>
+  </data>
+  <data name="PostList" xml:space="preserve">
+    <value>Post List</value>
+  </data>
+  <data name="SaveAndPreviewButton" xml:space="preserve">
+    <value>Save and Preview</value>
+  </data>
+  <data name="ShowNextPreviousLinks" xml:space="preserve">
+    <value>Show Next/Previous Links in Blog Detail?</value>
+  </data>
+  <data name="ShowTweetThisLink" xml:space="preserve">
+    <value>Show Tweet This Link?</value>
+  </data>
+  <data name="SidebarSettings" xml:space="preserve">
+    <value>Extra Sidebar Content</value>
+  </data>
+  <data name="SocialSettings" xml:space="preserve">
+    <value>Social Settings</value>
+  </data>
+  <data name="UpperSidebar" xml:space="preserve">
+    <value>Sidebar Upper Content</value>
+  </data>
+  <data name="UseBingMap" xml:space="preserve">
+    <value>Use Bing Maps?</value>
+  </data>
+  <data name="UseFacebookLikeButton" xml:space="preserve">
+    <value>Show Facebook Like Button</value>
+  </data>
+  <data name="VersionHistory" xml:space="preserve">
+    <value>Version History</value>
+  </data>
+  <data name="ShowPlusOneButton" xml:space="preserve">
+    <value>Show Plus One Button?</value>
+  </data>
+  <data name="MaxMetaweblogRecentItems" xml:space="preserve">
+    <value>Max Items To Show In Recent Posts for MetaWeblog API</value>
+  </data>
+  <data name="PostCategories" xml:space="preserve">
+    <value>Categories:</value>
+  </data>
+  <data name="MaxFeedItems" xml:space="preserve">
+    <value>Maximum Number Of Items To Include In Feed</value>
+  </data>
+  <data name="RelatedPosts" xml:space="preserve">
+    <value>Related Posts</value>
+  </data>
+  <data name="RelatedItemsToShow" xml:space="preserve">
+    <value>Related Items To Show</value>
+  </data>
+</root>

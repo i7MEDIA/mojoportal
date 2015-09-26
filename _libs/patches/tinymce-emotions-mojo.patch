@@ -1,0 +1,17 @@
+Index: emotions/js/emotions.js
+===================================================================
+--- emotions/js/emotions.js	(revision 6339)
++++ emotions/js/emotions.js	(working copy)
+@@ -7,9 +7,11 @@
+ 
+ 	insert : function(file, title) {
+ 		var ed = tinyMCEPopup.editor, dom = ed.dom;
++		
++		//src : tinyMCEPopup.getWindowArg('plugin_url') + '/img/' + file,
+ 
+ 		tinyMCEPopup.execCommand('mceInsertContent', false, dom.createHTML('img', {
+-			src : tinyMCEPopup.getWindowArg('plugin_url') + '/img/' + file,
++			src : ed.getParam( 'emotions_images_url', tinyMCEPopup.getWindowArg('plugin_url') + '/img/' ) + file,
+ 			alt : ed.getLang(title),
+ 			title : ed.getLang(title),
+ 			border : 0

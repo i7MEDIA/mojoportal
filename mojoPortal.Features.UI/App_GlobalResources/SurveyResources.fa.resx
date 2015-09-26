@@ -1,0 +1,606 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SurveyHasNoPagesWarning" xml:space="preserve">
+    <value>این امکان سنجی صفحه ای ندارد</value>
+  </data>
+  <data name="SurveyModuleEditText" xml:space="preserve">
+    <value>انتخاب امکان سنجی</value>
+  </data>
+  <data name="SurveyChooseAddNewSurveyButton" xml:space="preserve">
+    <value>اضافه کردن امکان سنجی جدید</value>
+  </data>
+  <data name="SurveyChooseAddNewSurveyToolTip" xml:space="preserve">
+    <value>اضافه کردن یک امکان سنجی جدید.</value>
+  </data>
+  <data name="SurveyChooseCancelLabel" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="SurveyChooseCancelToolTip" xml:space="preserve">
+    <value>انصراف و رفتن به صفحه ای که از آن آمده بودید</value>
+  </data>
+  <data name="SurveyChooseChooseAlternateText" xml:space="preserve">
+    <value>انتخاب امکان سنجی</value>
+  </data>
+  <data name="SurveyChooseLabel" xml:space="preserve">
+    <value>انتخاب امکان سنجی</value>
+  </data>
+  <data name="SurveyChooseRemoveCurrentSurveyButton" xml:space="preserve">
+    <value>امکان سنجی جاری برداشته شود</value>
+  </data>
+  <data name="SurveyChooseRemoveCurrentSurveyToolTip" xml:space="preserve">
+    <value>امکان سنجی جاری از ماژول بداشته شود</value>
+  </data>
+  <data name="SurveyChooseViewSurveysButton" xml:space="preserve">
+    <value>مشاهده/ویرایش امکان سنجی</value>
+  </data>
+  <data name="SurveyChooseViewSurveysToolTip" xml:space="preserve">
+    <value>مشاهده یا ویرایش امکان سنجی های موجود</value>
+  </data>
+  <data name="PagesGridDeleteButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="PagesGridDeleteButtonAlternateText" xml:space="preserve">
+    <value>حذف یک صفحه</value>
+  </data>
+  <data name="PagesGridDeleteButtonToolTip" xml:space="preserve">
+    <value>حذف یک صفحه</value>
+  </data>
+  <data name="PagesGridEditButton" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="PagesGridEditButtonToolTip" xml:space="preserve">
+    <value>ویریش جزئیات صفحه</value>
+  </data>
+  <data name="PagesGridUpdateButton" xml:space="preserve">
+    <value>اصلاح شد</value>
+  </data>
+  <data name="PagesGridEditDeleteHeader" xml:space="preserve">
+    <value>ویرایش/حذف</value>
+  </data>
+  <data name="PagesGridPageEnabledHeader" xml:space="preserve">
+    <value>فعال شد</value>
+  </data>
+  <data name="PagesGridPageTitleHeader" xml:space="preserve">
+    <value>عنوان صفحه</value>
+  </data>
+  <data name="PagesGridQuestionCountHeader" xml:space="preserve">
+    <value>تعداد سوالات</value>
+  </data>
+  <data name="PagesGridMoveUpAlternateText" xml:space="preserve">
+    <value>صفحه را به بالا منتقل کن</value>
+  </data>
+  <data name="PagesGridMoveUpToolTip" xml:space="preserve">
+    <value>صفحه را به بالا منتقل کن</value>
+  </data>
+  <data name="PagesGridMoveDownAlternateText" xml:space="preserve">
+    <value>صفحه را به پایین منتقل کن</value>
+  </data>
+  <data name="PagesGridMoveDownToolTip" xml:space="preserve">
+    <value>صفحه را به پایین منتقل کن</value>
+  </data>
+  <data name="PagesGridMoveUpOrDownHeader" xml:space="preserve">
+    <value>صفحه را به بالا منتقل کن</value>
+  </data>
+  <data name="PagesTableSummary" xml:space="preserve">
+    <value>این جدول شامل لیستی از صفحات امان سنی می باشد</value>
+  </data>
+  <data name="PageHasNoQuestionsWarning" xml:space="preserve">
+    <value>این صفحه سوالی ندارد</value>
+  </data>
+  <data name="PageDeleteDeletesAllQuestionsWarning" xml:space="preserve">
+    <value>با حذف صفحه همه سوالات روی آن نیز حذف می شود</value>
+  </data>
+  <data name="PageEditSaveButton" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="PageEditSaveButtonToolTip" xml:space="preserve">
+    <value>جزئیات صفحه ذخیره شود</value>
+  </data>
+  <data name="PageTitleLabel" xml:space="preserve">
+    <value>عنوان صفحه</value>
+  </data>
+  <data name="PageEnabledLabel" xml:space="preserve">
+    <value>صفحه فعال شد</value>
+  </data>
+  <data name="PageAddButton" xml:space="preserve">
+    <value>اضافه کردن صفحه جدید</value>
+  </data>
+  <data name="PageAddButtonToolTip" xml:space="preserve">
+    <value>اضافه کردن صفحه جدید</value>
+  </data>
+  <data name="QuestionsGridDeleteButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="QuestionsGridDeleteButtonAlternateText" xml:space="preserve">
+    <value>حذف یک سوال</value>
+  </data>
+  <data name="QuestionsGridDeleteButtonToolTip" xml:space="preserve">
+    <value>حذف یک سوال</value>
+  </data>
+  <data name="QuestionsGridEditButton" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="QuestionsGridEditButtonToolTip" xml:space="preserve">
+    <value>ویرایش جزئیات سوال</value>
+  </data>
+  <data name="QuestionsGridUpdateButton" xml:space="preserve">
+    <value>اصلاح</value>
+  </data>
+  <data name="QuestionsGridEditDeleteHeader" xml:space="preserve">
+    <value>ویرایش/حذف</value>
+  </data>
+  <data name="QuestionsGridRequiredHeader" xml:space="preserve">
+    <value>الزامی</value>
+  </data>
+  <data name="QuestionsGridTextHeader" xml:space="preserve">
+    <value>متن سوال </value>
+  </data>
+  <data name="QuestionsGridTypeHeader" xml:space="preserve">
+    <value>نوع سوال</value>
+  </data>
+  <data name="QuestionsGridMoveUpAlternateText" xml:space="preserve">
+    <value>اتقال سوال به بالا</value>
+  </data>
+  <data name="QuestionsGridMoveUpToolTip" xml:space="preserve">
+    <value>اتقال سوال به بالا</value>
+  </data>
+  <data name="QuestionsGridMoveDownAlternateText" xml:space="preserve">
+    <value>انتقال سوال به پایین</value>
+  </data>
+  <data name="QuestionsGridMoveDownToolTip" xml:space="preserve">
+    <value>انتقال سوال به پایین</value>
+  </data>
+  <data name="QuestionsGridMoveUpOrDownHeader" xml:space="preserve">
+    <value>اتقال به بالا/پایین</value>
+  </data>
+  <data name="QuestionTableSummary" xml:space="preserve">
+    <value>این جدول شامل سوالات امکان سنجی برحسب صفحه می باشد/</value>
+  </data>
+  <data name="QuestionSurveyNoPages" xml:space="preserve">
+    <value>قیل از ایجاد سوال شما باید حداقل یک صفحه ایجاد کنید.</value>
+  </data>
+  <data name="QuestionsAnswerIsRequiredLabel" xml:space="preserve">
+    <value>جواب الزامی است</value>
+  </data>
+  <data name="QuestionsQuestionTextLabel" xml:space="preserve">
+    <value>متن سوال</value>
+  </data>
+  <data name="QuestionsQuestionTypeIdLabel" xml:space="preserve">
+    <value>نوع سوال</value>
+  </data>
+  <data name="QuestionEditOptionsAddButton" xml:space="preserve">
+    <value>به انتخاب ها اضافه شود</value>
+  </data>
+  <data name="QuestionEditOptionsAddToolTip" xml:space="preserve">
+    <value>انتخاب وارد شده ذخیره شود</value>
+  </data>
+  <data name="QuestionEditOptionsDeleteAlternateText" xml:space="preserve">
+    <value>مورد انتخاب شده حذف شود</value>
+  </data>
+  <data name="QuestionEditOptionsDownAlternateText" xml:space="preserve">
+    <value>مورد انتخاب شده یک قدم به پایین آورده شود</value>
+  </data>
+  <data name="QuestionEditOptionsEditAlternateText" xml:space="preserve">
+    <value>مورد انتخاب شده ویرایش شود</value>
+  </data>
+  <data name="QuestionEditOptionsLabel" xml:space="preserve">
+    <value>انتخاب ها</value>
+  </data>
+  <data name="QuestionEditOptionsSaveButton" xml:space="preserve">
+    <value>سوال ذخیره شود</value>
+  </data>
+  <data name="QuestionEditOptionsUpAlternateText" xml:space="preserve">
+    <value>سوال انتخاب شده را یک قدم به بالا منتقل کن</value>
+  </data>
+  <data name="QuestionEditOptionsSaveButtonToolTip" xml:space="preserve">
+    <value>سوال جاری ذخیره شود</value>
+  </data>
+  <data name="QuestionAddNewButtonText" xml:space="preserve">
+    <value>اضافه کردن سوال جدید</value>
+  </data>
+  <data name="QuestionRequiredLabel" xml:space="preserve">
+    <value>جواب الزامی است</value>
+  </data>
+  <data name="QuestionsPageLabel" xml:space="preserve">
+    <value>صفحه</value>
+  </data>
+  <data name="QuestionTypeLabel" xml:space="preserve">
+    <value>نوع سوال</value>
+  </data>
+  <data name="SurveyEditDeleteButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="SurveyEditDeleteConfirmMessage" xml:space="preserve">
+    <value>آیا مطمئن هستید که این نظر سنجی برای همیشه خذف شود؟</value>
+  </data>
+  <data name="SurveyEditDeleteToolTip" xml:space="preserve">
+    <value>این امکان سنجی حذف شود</value>
+  </data>
+  <data name="SurveyEditLabel" xml:space="preserve">
+    <value>اضافه/ ویرایش امکان سنجی</value>
+  </data>
+  <data name="SurveyEditSaveButton" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="SurveyEditSaveToolTip" xml:space="preserve">
+    <value>امکان سنجی ذخیره شود</value>
+  </data>
+  <data name="SurveyEditSurveyNameLabel" xml:space="preserve">
+    <value>نام امکان سنجی</value>
+  </data>
+  <data name="SurveyEditSurveyActive" xml:space="preserve">
+    <value>فعال شد</value>
+  </data>
+  <data name="SurveyNoSurveysWarning" xml:space="preserve">
+    <value>امکان سنجی ایجاد نشده است</value>
+  </data>
+  <data name="SurveysGridCreationDateHeader" xml:space="preserve">
+    <value>ایجاد شد</value>
+  </data>
+  <data name="SurveysGridDeleteButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="SurveysGridDeleteButtonToolTip" xml:space="preserve">
+    <value>حذف این امکان سنجی</value>
+  </data>
+  <data name="SurveysGridEditButton" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="SurveysGridEditButtonToolTip" xml:space="preserve">
+    <value>ویرایش این امکان سنجی</value>
+  </data>
+  <data name="SurveysGridEditDeleteHeader" xml:space="preserve">
+    <value>ویرایش/حذف</value>
+  </data>
+  <data name="SurveysGridSurveyActiveHeader" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="SurveysGridSurveyNameHeader" xml:space="preserve">
+    <value>نام امکان سنجی</value>
+  </data>
+  <data name="SurveyBreadCrumbText" xml:space="preserve">
+    <value>امکان سنجی ها</value>
+  </data>
+  <data name="SurveyDeleteDeletesAllPagesQuestionsWarning" xml:space="preserve">
+    <value> باحذف یک امکان سنجی کل صفحات و سوالات مربوط به آن نیز حذف می شود</value>
+  </data>
+  <data name="SurveyEditCancelButton" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="SurveyEditCancelButtonToolTip" xml:space="preserve">
+    <value>انصراف از ویرایش این امکان سنجی</value>
+  </data>
+  <data name="SurveyPagesBreadCrumbText" xml:space="preserve">
+    <value>صفحات</value>
+  </data>
+  <data name="SurveysGridPageCountHeader" xml:space="preserve">
+    <value>صفحات</value>
+  </data>
+  <data name="SurveysGridPageCountToolTip" xml:space="preserve">
+    <value>تعداد صفحات در این امکان سنجی</value>
+  </data>
+  <data name="QuestionEditCancelButton" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="QuestionEditCancelButtonToolTip" xml:space="preserve">
+    <value>انصراف از ویرایش این سوال</value>
+  </data>
+  <data name="SurveyPagesLabel" xml:space="preserve">
+    <value>صفحات</value>
+  </data>
+  <data name="SurveysLabel" xml:space="preserve">
+    <value>امکان سنجی ها</value>
+  </data>
+  <data name="PageEditCancelButton" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="PageEditCancelButtonToolTip" xml:space="preserve">
+    <value>انصراف ویرایش این صفحه</value>
+  </data>
+  <data name="PageEditLabel" xml:space="preserve">
+    <value>اضافه/ ویرایش صفحه</value>
+  </data>
+  <data name="SurveyQuestionsLabel" xml:space="preserve">
+    <value>سوالات</value>
+  </data>
+  <data name="QuestionEditLabel" xml:space="preserve">
+    <value>اضافه/ویرایش سوال</value>
+  </data>
+  <data name="SurveyEditBreadCrumbText" xml:space="preserve">
+    <value>اضافه/ ویرایش امکان سنجی</value>
+  </data>
+  <data name="SurveyPageEditBreadCrumbText" xml:space="preserve">
+    <value>ویرایش صفحه</value>
+  </data>
+  <data name="SurveyQuestionEditBreadCrumbText" xml:space="preserve">
+    <value>اضافه/ویرایش سوال</value>
+  </data>
+  <data name="SurveyQuestionsBreadCrumbText" xml:space="preserve">
+    <value>سوالات</value>
+  </data>
+  <data name="SurveyAddButton" xml:space="preserve">
+    <value>اضافه کردن امکان سنجی جدید</value>
+  </data>
+  <data name="SurveyAddButtonToolTip" xml:space="preserve">
+    <value>اضافه کردن یک امکان سنجی جدید</value>
+  </data>
+  <data name="SurveyQuestionAddButton" xml:space="preserve">
+    <value>اضافه کردن یک سوال جدید</value>
+  </data>
+  <data name="SurveyQuestionAddButtonToolTip" xml:space="preserve">
+    <value>اضافه کردن یک سوال جدید</value>
+  </data>
+  <data name="SurveysGridSetDefaultHeader" xml:space="preserve">
+    <value>فعال سازی</value>
+  </data>
+  <data name="SurveysGridSelectedSurvey" xml:space="preserve">
+    <value>این امکان سنجی فعال برای این محتوا می باشد.</value>
+  </data>
+  <data name="SurveysGridSelectedSurveyHeader" xml:space="preserve">
+    <value>فعال سازی</value>
+  </data>
+  <data name="SurveysGridSelectedSurveyToolTip" xml:space="preserve">
+    <value>این امکان سنجی فعال برای این محتوا می باشد.</value>
+  </data>
+  <data name="SurveysGridNotSelectedSurveyLink" xml:space="preserve">
+    <value>فعال شود</value>
+  </data>
+  <data name="SurveysGridSelectedSurveyLink" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="SurveyButtonBack" xml:space="preserve">
+    <value>&lt;&lt; قبلی</value>
+  </data>
+  <data name="SurveyButtonBackToolTip" xml:space="preserve">
+    <value>به صفحه قبلی امکان سنجی منتقل کن</value>
+  </data>
+  <data name="SurveyButtonForward" xml:space="preserve">
+    <value>بعدی&gt;&gt;</value>
+  </data>
+  <data name="SurveyButtonForwardToolTip" xml:space="preserve">
+    <value>به صفحه بعدی امکان سنجی منتقل کن</value>
+  </data>
+  <data name="SurveyButtonSubmit" xml:space="preserve">
+    <value>پایان</value>
+  </data>
+  <data name="SurveyButtonSubmitToolTip" xml:space="preserve">
+    <value>آخرین پاسخ های خود را به این امکان سنجی ارسال کنید</value>
+  </data>
+  <data name="SurveyNoneSelected" xml:space="preserve">
+    <value>امکان سنجی انتخاب نشده است</value>
+  </data>
+  <data name="SurveyStartText" xml:space="preserve">
+    <value>شروع امکان سنجی</value>
+  </data>
+  <data name="SurveyThankyouMessageLabel" xml:space="preserve">
+    <value>متن پایان امکان سنجی</value>
+  </data>
+  <data name="SurveyWelcomeMessageLabel" xml:space="preserve">
+    <value>متن خوش آمد گویی</value>
+  </data>
+  <data name="DropDownPleaseSelectText" xml:space="preserve">
+    <value>لطفا انتخاب کنید</value>
+  </data>
+  <data name="QuestionValidationMessageLabel" xml:space="preserve">
+    <value>پیغام برای مواردی که جواب الزامی است</value>
+  </data>
+  <data name="SurveyPartialAnswersExist" xml:space="preserve">
+    <value>به نظر می رسد شما این امکان سنجی را بصورت تکه پاره تکمیل کرده اید.برای ترمیم جواب های کامل شده اینجا را کلیک کنید.</value>
+  </data>
+  <data name="SurveysGridResponsesHeader" xml:space="preserve">
+    <value>پاسخ ها</value>
+  </data>
+  <data name="ResultsGridAnswerHeader" xml:space="preserve">
+    <value>جواب</value>
+  </data>
+  <data name="ResultsGridQuestionHeader" xml:space="preserve">
+    <value>سوال</value>
+  </data>
+  <data name="SurveyGridResponseCountLinkToolTip" xml:space="preserve">
+    <value>تعداد پاسخ به این امکان سنجی</value>
+  </data>
+  <data name="SurveyResultsBreadCrumbText" xml:space="preserve">
+    <value>نتایج</value>
+  </data>
+  <data name="ResultsGridPageTitleHeader" xml:space="preserve">
+    <value>صفحه</value>
+  </data>
+  <data name="ResponseCompletionDateLabel" xml:space="preserve">
+    <value>ارسال شد</value>
+  </data>
+  <data name="ResponseRespondentLabel" xml:space="preserve">
+    <value>مطابق</value>
+  </data>
+  <data name="ResponseGetNext" xml:space="preserve">
+    <value>بعدی</value>
+  </data>
+  <data name="ResponseGetNextToolTip" xml:space="preserve">
+    <value>پاسخ بعدی ارسال شده را بده</value>
+  </data>
+  <data name="ResponseGetPrevious" xml:space="preserve">
+    <value>قبلی</value>
+  </data>
+  <data name="ResponseGetPreviousToolTip" xml:space="preserve">
+    <value>جواب قبلی این امکان سنجی را بده</value>
+  </data>
+  <data name="ResultsGridDeleteResponseButton" xml:space="preserve">
+    <value>حذف جواب</value>
+  </data>
+  <data name="ResultsGridDeleteResponseToolTip" xml:space="preserve">
+    <value>حذف این جواب</value>
+  </data>
+  <data name="SurveyFeatureName" xml:space="preserve">
+    <value>امکان سنجی</value>
+  </data>
+  <data name="SurveyGridExportResponsesAlternateText" xml:space="preserve">
+    <value>صدور بصورت CSV</value>
+  </data>
+  <data name="SurveyGridExportResponsesToolTip" xml:space="preserve">
+    <value>تمام جواب های امکان سنجی رابصورت   CSV صادر کن</value>
+  </data>
+  <data name="SurveyRespondentAnonymousText" xml:space="preserve">
+    <value>بی نام</value>
+  </data>
+  <data name="AddEditGridLink" xml:space="preserve">
+    <value>اضافه/ ویرایش</value>
+  </data>
+  <data name="ChooseActiveSurveyFormatString" xml:space="preserve">
+    <value>انتخاب امکان سنجی فعال برای {0}</value>
+  </data>
+  <data name="ChooseActiveSurveyLink" xml:space="preserve">
+    <value>امکان سنجی فعال را انتخاب کنید</value>
+  </data>
+  <data name="CompleteSurveyHeaderFormatString" xml:space="preserve">
+    <value>{0} - {1}</value>
+  </data>
+  <data name="NewQuestionTypeLabel" xml:space="preserve">
+    <value>نوع سوال جدید:</value>
+  </data>
+  <data name="PageEditFormatString" xml:space="preserve">
+    <value>ویرایش صفحه برای {0}</value>
+  </data>
+  <data name="PageEditNewPageFormatString" xml:space="preserve">
+    <value>صفحه جدید برای {0}</value>
+  </data>
+  <data name="QuestionAddHeader" xml:space="preserve">
+    <value>سوال جدید</value>
+  </data>
+  <data name="QuestionEditFormatString" xml:space="preserve">
+    <value>ویرایش سوال برای {0}</value>
+  </data>
+  <data name="QuestionEditHeader" xml:space="preserve">
+    <value>ویرایش سوال</value>
+  </data>
+  <data name="QuestionsPageFormatString" xml:space="preserve">
+    <value>سوالات برای {0}</value>
+  </data>
+  <data name="SurveyPagesLabelFormatString" xml:space="preserve">
+    <value>ویرایش صفحات برای {0}</value>
+  </data>
+  <data name="SurveyResultsFormatString" xml:space="preserve">
+    <value>نتایج برای {0}</value>
+  </data>
+  <data name="ViewResponsesLink" xml:space="preserve">
+    <value>مشاهده</value>
+  </data>
+  <data name="SurveyPageTitle" xml:space="preserve">
+    <value>امکان سنجی</value>
+  </data>
+</root>
