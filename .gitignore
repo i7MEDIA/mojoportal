@@ -394,3 +394,4 @@ Web/Setup/ProviderConfig/sitepredeletehandlers/sts-webinvoice-deleter.config
 Web/Setup/ProviderConfig/worldpayresponsehandlers/event-calendar-pro-worldpayresponsehandler.config
 Web/Setup/ProviderConfig/worldpayresponsehandlers/sitemembership-worldpayresponsehandler.config
 Web/Setup/ProviderConfig/worldpayresponsehandlers/web-invoice-pro-worldpayresponsehandler.config
+packages/stspackages.txt
