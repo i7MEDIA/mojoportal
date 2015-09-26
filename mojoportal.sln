@@ -52,6 +52,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mojoPortal.Data.SqlCe", "mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mojoPortal.Features.Data.SqlCe", "mojoPortal.Features.Data.SqlCe\mojoPortal.Features.Data.SqlCe.csproj", "{F4FC356B-9E4A-481F-A566-963302E82455}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{96987E32-4458-4C8F-A2A1-7B9BD6D7A054}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug - Firebird|.NET = Debug - Firebird|.NET

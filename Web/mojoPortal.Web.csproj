@@ -32,6 +32,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <UseIISExpress>false</UseIISExpress>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -261,15 +263,13 @@
       <HintPath>..\_libs\ajaxtoolkit-v15-1\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="AjaxControlToolkit.HtmlEditor.Sanitizer">
-      <HintPath>..\packages\AjaxControlToolkit.HtmlEditor.Sanitizer.15.1.1.100\lib\net40\AjaxControlToolkit.HtmlEditor.Sanitizer.dll</HintPath>
+      <HintPath>..\_libs\ajaxtoolkit-v15-1\AjaxControlToolkit.HtmlEditor.Sanitizer.dll</HintPath>
     </Reference>
-    <Reference Include="AjaxControlToolkit.StaticResources, Version=15.1.1.100, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AjaxControlToolkit.StaticResources.15.1.1.100\lib\net40\AjaxControlToolkit.StaticResources.dll</HintPath>
+    <Reference Include="AjaxControlToolkit.StaticResources">
+      <HintPath>..\_libs\ajaxtoolkit-v15-1\AjaxControlToolkit.StaticResources.dll</HintPath>
     </Reference>
-    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\_libs\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Argotic.Common, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -313,9 +313,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\gdata-1-9\Google.GData.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\_libs\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="HtmlDiff">
       <HintPath>..\_libs\HtmlDiff.dll</HintPath>
@@ -327,15 +326,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Lucene.Net, Version=2.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_libs\Apache-Lucene.Net-3.0.3\NET40\bin\Lucene.Net.dll</HintPath>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\_libs\Apache-Lucene.Net-3.0.3\Lucene.Net.dll</HintPath>
     </Reference>
     <Reference Include="Lucene.Net.Contrib.Analyzers">
-      <HintPath>..\_libs\Apache-Lucene.Net-3.0.3\NET40\bin\Contrib\Lucene.Net.Contrib.Analyzers.dll</HintPath>
+      <HintPath>..\_libs\Apache-Lucene.Net-3.0.3\Lucene.Net.Contrib.Analyzers.dll</HintPath>
     </Reference>
     <Reference Include="Lucene.Net.Contrib.Highlighter">
-      <HintPath>..\_libs\Apache-Lucene.Net-3.0.3\NET40\bin\Contrib\Lucene.Net.Contrib.Highlighter.dll</HintPath>
+      <HintPath>..\_libs\Apache-Lucene.Net-3.0.3\Lucene.Net.Contrib.Highlighter.dll</HintPath>
     </Reference>
     <Reference Include="MetaDataExtractor, Version=2.3.0.38010, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -3320,4 +3318,11 @@
   </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
 </Project>
