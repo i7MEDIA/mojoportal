@@ -195,6 +195,11 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 
+mojoportal-sts.sln
+
+Web/Admin/PageManager.aspx
+Web/Services/SiteMapJson.ashx
+
 Web/App_GlobalResources/BingResources*
 Web/App_GlobalResources/BlogResources*
 Web/App_GlobalResources/CommentResources*
@@ -226,11 +231,16 @@ Web/App_GlobalResources/STSEventCal*
 Web/App_GlobalResources/SiteMembershipResources*
 Web/App_GlobalResources/stsAnalyticsResources*
 Web/App_GlobalResources/FundRaiserResources*
+Web/App_GlobalResources/PageManagerResources*
+Web/App_GlobalResources/WebInvoiceResources*
+
+Web/Data/*log*
 
 Web/Data/Helpfiles/*-bing*
 Web/Data/Helpfiles/*-Blog*
 Web/Data/Helpfiles/*-Comment*
 Web/Data/Helpfiles/*-ContactForm*
+Web/Data/Helpfiles/*-sts-eventcal*
 Web/Data/Helpfiles/*-FeedManager*
 Web/Data/Helpfiles/*-flickr*
 Web/Data/Helpfiles/*-foldergallery*
@@ -243,8 +253,16 @@ Web/Data/Helpfiles/*-Links*
 Web/Data/Helpfiles/*-MediaPlayer*
 Web/Data/Helpfiles/*-messenger*
 Web/Data/Helpfiles/*-SharedFiles*
+Web/Data/Helpfiles/*FormWizard*
+Web/Data/Helpfiles/*-SiteMembership*
+Web/Data/Helpfiles/*-WebInvoice*
+
+Web/Data/MessageTemplates/*-WebInvoice*
+Web/Data/MessageTemplates/*-EventCalendarPro*
+Web/Data/MessageTemplates/*Membership*
 
 Web/Data/Sites/*
+Web/Data/systemfiles/*
 
 Web/Setup/applications/bingmap/*
 Web/Setup/applications/blog/*
@@ -269,6 +287,11 @@ Web/Setup/applications/surveyfeature/*
 Web/Setup/applications/twitter/*
 Web/Setup/applications/xmlmodule/*
 Web/Setup/applications/webstore/*
+Web/Setup/applications/sts-FormWizard/*
+Web/Setup/applications/sts-FundRaiser/*
+Web/Setup/applications/sts-SiteMembership/*
+Web/Setup/applications/STS_EventCalendar/*
+Web/Setup/applications/STS_WebInvoicePro/*
 
 Web/Setup/ProviderConfig/contentdeletehandlers/blog*
 Web/Setup/ProviderConfig/contentdeletehandlers/calendar*
@@ -336,6 +359,7 @@ Web/Twitter/*
 Web/WebStore/*
 
 Web/FormWizard/*
+Web/FundRaiser/*
 Web/Events/*
 Web/smp/*
 Web/WebInvoice/*
@@ -345,3 +369,28 @@ Web/user.config
 
 
 user.config
+Web/Setup/ProviderConfig/contentdeletehandlers/sts-eventsdeletehandler.config
+Web/Setup/ProviderConfig/contentdeletehandlers/sts-fundraiser-deletehandler.config
+Web/Setup/ProviderConfig/gcheckoutnotificationhandlers/sts-eventcalpro-gcheckout.config
+Web/Setup/ProviderConfig/gcheckoutnotificationhandlers/sts-webinvoice-gcheckout.config
+Web/Setup/ProviderConfig/gcheckoutnotificationhandlers/sts-memberpro-gcheckout.config
+Web/Setup/ProviderConfig/indexbuilders/sts-eventcalendarindexbuilder.config
+Web/Setup/ProviderConfig/paypalipnhandlers/sts-eventcalpro-paypalipnhander.config
+Web/Setup/ProviderConfig/paypalipnhandlers/sts-fundraiser-paypalipnhander.config
+Web/Setup/ProviderConfig/paypalipnhandlers/sts-memberpro-paypalipnhander.config
+Web/Setup/ProviderConfig/paypalipnhandlers/sts-webinvoice-paypalipnhander.config
+Web/Setup/ProviderConfig/paypalpdthandlers/sts-eventcalpro-paypalpdthandler.config
+Web/Setup/ProviderConfig/paypalpdthandlers/sts-fundraiser-paypalpdthandler.config
+Web/Setup/ProviderConfig/paypalpdthandlers/sts-memberpro-paypalpdthandler.config
+Web/Setup/ProviderConfig/paypalpdthandlers/sts-webinvoice-paypalpdthandler.config
+Web/Setup/ProviderConfig/paypalreturnhandlers/sts-eventcalpro-paypalhandler.config
+Web/Setup/ProviderConfig/paypalreturnhandlers/sts-fundraiser-paypalreturnhandler.config
+Web/Setup/ProviderConfig/paypalreturnhandlers/sts-memberpro-paypalhandler.config
+Web/Setup/ProviderConfig/paypalreturnhandlers/sts-webinvoice-paypalreturnhandler.config
+Web/Setup/ProviderConfig/sitepredeletehandlers/011_sts-fundraiser-deleter.config
+Web/Setup/ProviderConfig/sitepredeletehandlers/012_sts-formwizarddeleter.config
+Web/Setup/ProviderConfig/sitepredeletehandlers/sts-sitemebershipprodeleter.config
+Web/Setup/ProviderConfig/sitepredeletehandlers/sts-webinvoice-deleter.config
+Web/Setup/ProviderConfig/worldpayresponsehandlers/event-calendar-pro-worldpayresponsehandler.config
+Web/Setup/ProviderConfig/worldpayresponsehandlers/sitemembership-worldpayresponsehandler.config
+Web/Setup/ProviderConfig/worldpayresponsehandlers/web-invoice-pro-worldpayresponsehandler.config
