@@ -7,4 +7,6 @@ I put in many years of time effort and money trying to build a business selling 
 
 Pull requests are welcome for bug fixes.
 
-Feel free to fork it and modify it for your needs or to continue active development yourself on your own fork.
+Feel free to fork it and modify mojoPortal code for your needs or to continue active development yourself on your own fork.
+
+If you were a fan of my work on mojoPortal you may also be interested in my latest project [cloudscribe](https://github.com/joeaudette/cloudscribe) 
