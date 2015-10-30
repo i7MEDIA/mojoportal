@@ -1,5 +1,5 @@
 # mojoportal
-mojoPortal is a web content management system built on the older ASP.NET WebForms framework for .NET 4.5
+mojoPortal is a website framework built on the older ASP.NET WebForms framework for .NET 4.5
 
 mojoPortal was under active development from August 2004 until late 2014 but it is no longer under active development. I am continuing to maintain it with security fixes if such issues come up, and occasionally bug fixes. 
 
