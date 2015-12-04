@@ -395,3 +395,5 @@ Web/Setup/ProviderConfig/worldpayresponsehandlers/event-calendar-pro-worldpayres
 Web/Setup/ProviderConfig/worldpayresponsehandlers/sitemembership-worldpayresponsehandler.config
 Web/Setup/ProviderConfig/worldpayresponsehandlers/web-invoice-pro-worldpayresponsehandler.config
 packages/stspackages.txt
+packages/repositories.config
+packages/repositories.config
