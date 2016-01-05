@@ -704,7 +704,7 @@
                                             CommandName="delete" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "HostID") %>'
                                             AlternateText="<%# Resources.Resource.SiteSettingsDeleteHostLabel %>" runat="server"
                                             ID="btnDeleteHost" />&nbsp;
-                                        <%# DataBinder.Eval(Container.DataItem, "HostName") %>
+                                        <a href='http://<%# DataBinder.Eval(Container.DataItem, "HostName") %>' class="hostlink"><%# DataBinder.Eval(Container.DataItem, "HostName") %></a>
                                     </li>
                                 </ItemTemplate>
                                 <AlternatingItemTemplate>
@@ -713,7 +713,7 @@
                                             CommandName="delete" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "HostID") %>'
                                             AlternateText="<%# Resources.Resource.SiteSettingsDeleteHostLabel %>" runat="server"
                                             ID="btnDeleteHost" />&nbsp;
-                                        <%# DataBinder.Eval(Container.DataItem, "HostName") %>
+                                        <a href='http://<%# DataBinder.Eval(Container.DataItem, "HostName") %>' class="hostlink"><%# DataBinder.Eval(Container.DataItem, "HostName") %></a>
                                     </li>
                                     </ItemTemplate>
                                 </AlternatingItemTemplate>
@@ -747,7 +747,7 @@
                                             CommandName="delete" ToolTip="<%# Resources.Resource.SiteSettingsDeleteFolderMapping %>"
                                             CommandArgument='<%# DataBinder.Eval(Container.DataItem, "Guid") %>' AlternateText="<%# Resources.Resource.SiteSettingsDeleteHostLabel %>"
                                             runat="server" ID="btnDeleteFolder" />&nbsp;
-                                        <%# DataBinder.Eval(Container.DataItem, "FolderName") %>
+                                        <a href='<%# WebUtils.GetSiteRoot() + "/" + DataBinder.Eval(Container.DataItem, "FolderName")%>' class="hostlink"><%# DataBinder.Eval(Container.DataItem, "FolderName") %></a>
                                     </li>
                                 </ItemTemplate>
                                 <AlternatingItemTemplate>
@@ -756,7 +756,7 @@
                                             CommandName="delete" ToolTip="<%# Resources.Resource.SiteSettingsDeleteFolderMapping %>"
                                             CommandArgument='<%# DataBinder.Eval(Container.DataItem, "Guid") %>' AlternateText="<%# Resources.Resource.SiteSettingsDeleteHostLabel %>"
                                             runat="server" ID="btnDeleteFolder" />&nbsp;
-                                        <%# DataBinder.Eval(Container.DataItem, "FolderName") %>
+                                        <a href='<%# WebUtils.GetSiteRoot() + "/" + DataBinder.Eval(Container.DataItem, "FolderName")%>' class="hostlink"><%# DataBinder.Eval(Container.DataItem, "FolderName") %></a>
                                     </li>
                                     </ItemTemplate>
                                 </AlternatingItemTemplate>

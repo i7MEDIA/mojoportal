@@ -20,14 +20,20 @@ namespace mojoPortal.Web.Controls
     /// Typical watermark text can be " enter your text here " or " search terms "
     /// Copyright 2006, Wouter Steenbergen - We See Consultancy (www.wesee.nl)
     /// </summary>
+    /// 
+    [System.Obsolete("use placeholder attribute instead")]
     public class WatermarkTextBox : TextBox
     {
+
+        
 
         //private bool _rendering = false;
         private string _watermark = "enter search terms";
         private string scriptDirectory = "~/ClientScript";
 
         private const string FUNCTIONBLOCKKEY = "WatermarkTextBoxFunctions";
+
+
 
         /// <summary>
         /// Public default constructor
@@ -56,6 +62,17 @@ namespace mojoPortal.Web.Controls
             set { scriptDirectory = value; }
         }
 
+
+        private bool usePlaceholder = true;
+        /// <summary>
+        /// Use the HTML5 placeholder attribute?
+        /// </summary>
+        public bool UsePlaceholder
+        {
+            get { return usePlaceholder; }
+            set { usePlaceholder = value; }
+        }
+
         private bool useWatermark = true;
 
         public bool UseWatermark
@@ -66,49 +83,34 @@ namespace mojoPortal.Web.Controls
 
         
 
-        //protected override void OnInit(System.EventArgs e)
-        //{
-        //    //if (!Page.ClientScript.IsClientScriptBlockRegistered(FUNCTIONBLOCKKEY))
-        //    //{
-
-        //        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), FUNCTIONBLOCKKEY, "<script src=\""
-        //        //+ ResolveUrl(this.ScriptDirectory + "/watermarktextbox.js") + "\" type=\"text/javascript\" ></script>");
-
-        //        Page.ClientScript.RegisterClientScriptInclude(typeof(Page), "mojocombined", Page.ResolveUrl(this.ScriptDirectory + "/mojocombined.js"));
-
-
-
-               
-        //    //}
-
-            
-
-        //    base.OnInit(e);
-
-        //}
-
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
             if (HttpContext.Current == null) { return; }
 
-            if (!useWatermark) { return; }
+            if (!useWatermark && !usePlaceholder) { return; }
 
-            StringBuilder dbScript = new StringBuilder();
-            dbScript.Append("<script type='text/javascript'>\n<!--\n");
+            if (!usePlaceholder)
+            {
+                StringBuilder dbScript = new StringBuilder();
+                dbScript.Append("<script type='text/javascript'>\n<!--\n");
 
-            dbScript.Append("\n  var wm" + this.ClientID + " = document.getElementById('" + this.ClientID + "'); ");
-            dbScript.Append("if(wm" + this.ClientID + "){");
+                dbScript.Append("\n  var wm" + this.ClientID + " = document.getElementById('" + this.ClientID + "'); ");
+                dbScript.Append("if(wm" + this.ClientID + "){");
 
-            dbScript.Append("wm" + this.ClientID + ".value = '" + _watermark + "';");
+                dbScript.Append("wm" + this.ClientID + ".value = '" + _watermark + "';");
 
-            dbScript.Append("}");
-
-
-            dbScript.Append("\n//-->\n</script>");
+                dbScript.Append("}");
 
 
-            this.Page.ClientScript.RegisterStartupScript(this.GetType(), this.UniqueID, dbScript.ToString());
+                dbScript.Append("\n//-->\n</script>");
+
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), this.UniqueID, dbScript.ToString());
+            }
+
+
+
+            
         }
 
         /// <summary> 
@@ -124,10 +126,14 @@ namespace mojoPortal.Web.Controls
             }
 
             //_rendering = true;
-            if (useWatermark)
+            if (useWatermark && !usePlaceholder)
             {
                 output.AddAttribute("onfocus", "javascript:watermarkEnter(this, '" + _watermark + "');");
                 output.AddAttribute("onblur", "javascript:watermarkLeave(this, '" + _watermark + "');");
+            }
+            else if (usePlaceholder)
+            {
+                output.AddAttribute("placeholder", _watermark);
             }
 
             base.Render(output);

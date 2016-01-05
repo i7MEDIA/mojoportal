@@ -1,5 +1,5 @@
 ﻿//	Created:			    2008-08-18
-//	Last Modified:		    2015-06-15
+//	Last Modified:		    2016-01-05
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -79,7 +79,7 @@ namespace mojoPortal.Web.UI
 
         private string visibleUrls = string.Empty;
         /// <summary>
-        /// a comma separated list of relative urls where the extra css file shold be used
+        /// a comma separated list of relative urls where the script file should be used
         /// if specified then the link will only be rendered if the current Request.RawUrl contains on of the specified values
         /// /Admin,/HtmlEdit.aspx would add the css only on pages in the Admin folder and on the HtmlEdit.aspx page in the root
         /// </summary>
@@ -112,29 +112,8 @@ namespace mojoPortal.Web.UI
 
             if (scriptFileName.Length == 0) { return; }
 
-            if (visibleRoles.Length > 0)
-            {
-                if (!WebUser.IsInRoles(visibleRoles))
-                {
-                    return;
-                }
-            }
-
-            if (visibleUrls.Length > 0)
-            {
-                bool match = false;
-                List<string> allowedUrls = visibleRoles.SplitOnChar(',');
-                foreach (string u in allowedUrls)
-                {
-                    if (Page.Request.RawUrl.ContainsCaseInsensitive(u)) { match = true; }
-                }
-
-                if (!match) { return; }
-
-            }
-
-            if (!renderInPlace)
-            {
+            if (ShouldRender() && !renderInPlace)
+            { 
                 SetupScript();
             }
             
@@ -206,7 +185,7 @@ namespace mojoPortal.Web.UI
 
         protected override void Render(HtmlTextWriter writer)
         {
-            if (!renderInPlace) { return; }
+            if (!renderInPlace || !ShouldRender()) { return; }
             
             
             if (scriptFullUrl.Length > 0)
@@ -219,6 +198,33 @@ namespace mojoPortal.Web.UI
                 writer.Write(string.Format(CultureInfo.InvariantCulture, scriptRefFormat, scriptUrl));
             }
            
+        }
+
+        protected bool ShouldRender()
+        {
+            if (visibleRoles.Length > 0)
+            {
+                if (!WebUser.IsInRoles(visibleRoles))
+                {
+                    return false;
+                }
+            }
+
+            if (visibleUrls.Length > 0)
+            {
+                bool match = false;
+                List<string> allowedUrls = visibleUrls.SplitOnChar(',');
+                foreach (string u in allowedUrls)
+                {
+                    if (Page.Request.RawUrl.ContainsCaseInsensitive(u)) { match = true; }
+                }
+
+                if (!match) { return false; }
+
+            }
+
+            return true;
+            
         }
 
         private string GetSkinVersionGuidQueryParam(string url)

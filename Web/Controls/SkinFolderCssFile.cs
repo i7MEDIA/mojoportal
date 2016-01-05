@@ -1,6 +1,6 @@
 ﻿//  Author:                 Joe Audette
 //	Created:			    2013-11-23
-//	Last Modified:		    2013-11-23
+//	Last Modified:		    2016-01-05
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -92,7 +92,7 @@ namespace mojoPortal.Web.UI
 
             if (cssFileName.Length == 0) { Visible = false; }
 
-            if(visibleRoles.Length > 0)
+            if (visibleRoles.Length > 0)
             {
                 if(!WebUser.IsInRoles(visibleRoles))
                 {
@@ -100,10 +100,10 @@ namespace mojoPortal.Web.UI
                 }
             }
 
-            if(visibleUrls.Length > 0)
+            if (visibleUrls.Length > 0)
             {
                 bool match = false;
-                List<string> allowedUrls = visibleRoles.SplitOnChar(',');
+                List<string> allowedUrls = visibleUrls.SplitOnChar(',');
                 foreach(string u in allowedUrls)
                 {
                     if(Page.Request.RawUrl.ContainsCaseInsensitive(u)) { match = true;}

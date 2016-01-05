@@ -202,6 +202,15 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Label lblModuleId;
         
         /// <summary>
+        /// lblModuleGuid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblModuleGuid;
+        
+        /// <summary>
         /// divParentPage control.
         /// </summary>
         /// <remarks>

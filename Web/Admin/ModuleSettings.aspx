@@ -41,6 +41,7 @@
                 <mp:SiteLabel ID="SiteLabel9" runat="server" CssClass="settinglabel" ConfigKey="InstanceId"
                     UseLabelTag="false"></mp:SiteLabel>
                 <asp:Label ID="lblModuleId" runat="server" EnableViewState="false" CssClass="forminput" />
+                <asp:Label ID="lblModuleGuid" runat="server" EnableViewState="false" CssClass="forminput instanceguid" />
             </div>
             <div class="settingrow" id="divParentPage" runat="server" visible="false">
                 <mp:SiteLabel ID="lblParentPage" runat="server" ForControl="ddPages" CssClass="settinglabel"

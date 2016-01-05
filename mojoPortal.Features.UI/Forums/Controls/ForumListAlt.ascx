@@ -48,9 +48,9 @@
                     ToolTip='<%# FormatSubscriberCount(Convert.ToInt32(Eval("SubscriberCount")))%>' />
                 </div>
                 <div class="forumnotify">
-				<asp:HyperLink ID="lnkNotify" runat="server" EnableViewState="false" CssClass="fsubcribe1" Visible='<%# !ShowSubscribeCheckboxes %>' ImageUrl='<%# ImageSiteRoot + "/Data/SiteImages/FeatureIcons/email.png"  %>' NavigateUrl='<%# notificationUrl + "#forum" + Eval("ItemID") %>' 
+				<asp:HyperLink ID="lnkNotify" runat="server" EnableViewState="false" CssClass="fsubcribe1 fsubscribe1" Visible='<%# !ShowSubscribeCheckboxes %>' ImageUrl='<%# ImageSiteRoot + "/Data/SiteImages/FeatureIcons/email.png"  %>' NavigateUrl='<%# notificationUrl + "#forum" + Eval("ItemID") %>' 
 				 Text='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "Subscribed")) ? Resources.ForumResources.UnSubscribeLink : Resources.ForumResources.SubscribeLink %>' />
-                 <asp:HyperLink ID="lnkNotify2" runat="server" CssClass="fsubcribe2" Visible='<%# !ShowSubscribeCheckboxes %>' NavigateUrl='<%# notificationUrl + "#forum" + Eval("ItemID") %>' 
+                 <asp:HyperLink ID="lnkNotify2" runat="server" CssClass="fsubcribe2 fsubscribe2" Visible='<%# !ShowSubscribeCheckboxes %>' NavigateUrl='<%# notificationUrl + "#forum" + Eval("ItemID") %>' 
 				 Text='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "Subscribed")) ? Resources.ForumResources.UnSubscribeLink : Resources.ForumResources.SubscribeLink %>'
                  ToolTip='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "Subscribed")) ? Resources.ForumResources.UnSubscribeLink : Resources.ForumResources.SubscribeLink %>' />
 

@@ -12,6 +12,7 @@
 // 2007/04/13   Alexander Yushchenko: code refactoring, made it WebControl instead of UserControl.
 // 2012/03/16   Joe Davis: added cssClass properties to h1, link and image
 // 2014-05-07 JA
+// 2015/11/09   Joe Davis: added UseUrl option, default false
 
 using System;
 using System.Web;
@@ -72,6 +73,13 @@ namespace mojoPortal.Web.UI
         {
             get { return h1CssClass; }
             set { h1CssClass = value; }
+        }
+
+        private bool useUrl = true;
+        public bool UseUrl
+        {
+            get { return useUrl; }
+            set { useUrl = value; }
         }
 
         protected override void Render(HtmlTextWriter writer)
@@ -135,13 +143,22 @@ namespace mojoPortal.Web.UI
 
                 if (overrideTitle.Length > 0) titleToUse = overrideTitle;
                 //if (cssClass == string.Empty) cssClass = "sitelogo";
-
-                writer.Write("<a href='{0}' title='{1}' class='{4}'><img class='{3}' alt='{1}' src='{2}' /></a>",
-                    Page.ResolveUrl(urlToUse),
-                    titleToUse,
-                    imageUrlToUse,
-                    imageCssClass,
-                    linkCssClass);
+                if (useUrl)
+                {
+                    writer.Write("<a href='{0}' title='{1}' class='{4}'><img class='{3}' alt='{1}' src='{2}' /></a>",
+                        Page.ResolveUrl(urlToUse),
+                        titleToUse,
+                        imageUrlToUse,
+                        imageCssClass,
+                        linkCssClass);
+                }
+                else
+                {
+                    writer.Write("<img class='{0}' alt='{1}' src='{2}' />",
+                        imageCssClass,
+                        titleToUse,
+                        imageUrlToUse);
+                }
 
                 if (useH1)
                 {

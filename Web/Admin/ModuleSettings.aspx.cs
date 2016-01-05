@@ -166,7 +166,8 @@ namespace mojoPortal.Web.AdminUI
                 
                 PopulatePageList();
                 lblModuleId.Text = module.ModuleId.ToInvariantString();
-				moduleTitle.Text = module.ModuleTitle;
+                lblModuleGuid.Text = module.ModuleGuid.ToString();
+                moduleTitle.Text = module.ModuleTitle;
 				cacheTime.Text = module.CacheTime.ToString();
 				chkShowTitle.Checked = module.ShowTitle;
                 txtTitleElement.Text = module.HeadElement;
