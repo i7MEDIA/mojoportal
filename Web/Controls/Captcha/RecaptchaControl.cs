@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 // 2014-05-22 Joe Audette changed to inherit from BaseValidator in order to support ValidationGroup
 // so that multiple instances on a apge with diofferent vsalidation groups can work
+// 2016-01-06 i7MEDIA changed to reCaptcha v2
 
 using System;
 using System.Collections.Generic;
@@ -43,16 +44,16 @@ namespace mojoPortal.Web.UI
         #region Private Fields
 
         private const string RECAPTCHA_CHALLENGE_FIELD = "recaptcha_challenge_field";
-        private const string RECAPTCHA_RESPONSE_FIELD = "recaptcha_response_field";
+        private const string RECAPTCHA_RESPONSE_FIELD = "g-recaptcha-response";
 
-        private const string RECAPTCHA_SECURE_HOST = "https://www.google.com/recaptcha/api";
-        private const string RECAPTCHA_HOST = "http://www.google.com/recaptcha/api";
+        private const string RECAPTCHA_SECURE_HOST = "https://www.google.com/recaptcha/api.js";
+        private const string RECAPTCHA_HOST = "http://www.google.com/recaptcha/api.js";
 
         private RecaptchaResponse recaptchaResponse;
 
         private string publicKey;
         private string privateKey;
-        private string theme;
+        private string theme = "light";
         private string language;
         private Dictionary<string, string> customTranslations;
         private string customThemeWidget;
@@ -84,8 +85,8 @@ namespace mojoPortal.Web.UI
         }
 
         [Category("Appearance")]
-        [DefaultValue("red")]
-        [Description("The theme for the reCAPTCHA control. Currently supported values are 'red', 'white', 'blackglass', 'clean', and 'custom'.")]
+        [DefaultValue("light")]
+        [Description("The theme for the reCAPTCHA control. Currently supported values are 'dark', 'light'.")]
         public string Theme
         {
             get { return this.theme; }
@@ -245,61 +246,61 @@ namespace mojoPortal.Web.UI
                 this,
                 typeof(Page),
                 "recaptchaajax",
-                "\n<script type='text/javascript' src='https://www.google.com/recaptcha/api/js/recaptcha_ajax.js'></script>",
+                "\n<script type='text/javascript' src='https://www.google.com/recaptcha/api.js' async defer></script>",
                 false);
 
-            StringBuilder script = new StringBuilder();
+            //StringBuilder script = new StringBuilder();
 
-            script.Append("<script type='text/javascript'>\n");
+            //script.Append("<script type='text/javascript'>\n");
 
-            script.Append("Recaptcha.create(");
-            script.Append("'" + publicKey + "',");
-            script.Append("'" + "recaptcha_" + this.ClientID + "',"); //element id
+            //script.Append("Recaptcha.create(");
+            //script.Append("'" + publicKey + "',");
+            //script.Append("'" + "recaptcha_" + this.ClientID + "',"); //element id
 
-            // from here down is the config object
-            script.Append(" {");
-            script.AppendFormat("theme : '{0}',", this.theme ?? string.Empty);
+            //// from here down is the config object
+            //script.Append(" {");
+            //script.AppendFormat("theme : '{0}',", this.theme ?? string.Empty);
 
-            if (!string.IsNullOrEmpty(this.language))
-            {
-                script.AppendFormat("lang : '{0}',", this.language);
-            }
+            //if (!string.IsNullOrEmpty(this.language))
+            //{
+            //    script.AppendFormat("lang : '{0}',", this.language);
+            //}
 
-            if (this.customTranslations != null && this.customTranslations.Count > 0)
-            {
-                var i = 0;
-                script.Append("custom_translations : {");
-                foreach (var customTranslation in this.customTranslations)
-                {
-                    i++;
-                    script.AppendFormat(
-                        i != this.customTranslations.Count ?
-                            "{0} : '{1}'," :
-                            "{0} : '{1}'",
-                        customTranslation.Key,
-                        customTranslation.Value);
-                }
-                script.Append("},");
-            }
-            if (!string.IsNullOrEmpty(this.customThemeWidget))
-            {
-                script.AppendFormat("custom_theme_widget : '{0}',", this.customThemeWidget);
-            }
+            //if (this.customTranslations != null && this.customTranslations.Count > 0)
+            //{
+            //    var i = 0;
+            //    script.Append("custom_translations : {");
+            //    foreach (var customTranslation in this.customTranslations)
+            //    {
+            //        i++;
+            //        script.AppendFormat(
+            //            i != this.customTranslations.Count ?
+            //                "{0} : '{1}'," :
+            //                "{0} : '{1}'",
+            //            customTranslation.Key,
+            //            customTranslation.Value);
+            //    }
+            //    script.Append("},");
+            //}
+            //if (!string.IsNullOrEmpty(this.customThemeWidget))
+            //{
+            //    script.AppendFormat("custom_theme_widget : '{0}',", this.customThemeWidget);
+            //}
 
-            script.AppendFormat("tabindex : {0}", base.TabIndex);
+            //script.AppendFormat("tabindex : {0}", base.TabIndex);
 
-            script.Append("}");
+            //script.Append("}");
 
-            script.Append(");");
+            //script.Append(");");
 
-            script.Append("</script>");
+            //script.Append("</script>");
 
-            ScriptManager.RegisterStartupScript(
-                this,
-                typeof(Page),
-                "recaptcha" + ClientID,
-                script.ToString(),
-                false);
+            //ScriptManager.RegisterStartupScript(
+            //    this,
+            //    typeof(Page),
+            //    "recaptcha" + ClientID,
+            //    script.ToString(),
+            //    false);
 
         }
 
@@ -321,55 +322,59 @@ namespace mojoPortal.Web.UI
             // <script> setting
 
             // added 2011-10-22 by Joe Audette to support use inside UpdatePanel
-            if (registerWithScriptManager)
-            {
+            //if (registerWithScriptManager)
+            //{
                 // write a div where we will attach the recaptcha
 
                 output.AddAttribute("id", "recaptcha_" + this.ClientID);
+                output.AddAttribute("class", "g-recaptcha");
+                output.AddAttribute("data-sitekey", this.publicKey);
+                output.AddAttribute("data-theme", this.theme);
+                output.AddAttribute("data-tabindex", base.TabIndex.ToString());
                 output.RenderBeginTag(HtmlTextWriterTag.Div);
                 output.RenderEndTag();
-            }
-            else
-            {
-                output.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
-                output.RenderBeginTag(HtmlTextWriterTag.Script);
-                output.Indent++;
-                output.WriteLine("var RecaptchaOptions = {");
-                output.Indent++;
-                output.WriteLine("theme : '{0}',", this.theme ?? string.Empty);
-                if (!string.IsNullOrEmpty(this.language))
-                    output.WriteLine("lang : '{0}',", this.language);
-                if (this.customTranslations != null && this.customTranslations.Count > 0)
-                {
-                    var i = 0;
-                    output.WriteLine("custom_translations : {");
-                    foreach (var customTranslation in this.customTranslations)
-                    {
-                        i++;
-                        output.WriteLine(
-                            i != this.customTranslations.Count ?
-                                "{0} : '{1}'," :
-                                "{0} : '{1}'",
-                            customTranslation.Key,
-                            customTranslation.Value);
-                    }
-                    output.WriteLine("},");
-                }
-                if (!string.IsNullOrEmpty(this.customThemeWidget))
-                    output.WriteLine("custom_theme_widget : '{0}',", this.customThemeWidget);
-                output.WriteLine("tabindex : {0}", base.TabIndex);
-                output.Indent--;
-                output.WriteLine("};");
-                output.Indent--;
-                output.RenderEndTag();
+            //}
+            //else
+            //{
+            //    output.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
+            //    output.RenderBeginTag(HtmlTextWriterTag.Script);
+            //    output.Indent++;
+            //    output.WriteLine("var RecaptchaOptions = {");
+            //    output.Indent++;
+            //    output.WriteLine("theme : '{0}',", this.theme ?? string.Empty);
+            //    if (!string.IsNullOrEmpty(this.language))
+            //        output.WriteLine("lang : '{0}',", this.language);
+            //    if (this.customTranslations != null && this.customTranslations.Count > 0)
+            //    {
+            //        var i = 0;
+            //        output.WriteLine("custom_translations : {");
+            //        foreach (var customTranslation in this.customTranslations)
+            //        {
+            //            i++;
+            //            output.WriteLine(
+            //                i != this.customTranslations.Count ?
+            //                    "{0} : '{1}'," :
+            //                    "{0} : '{1}'",
+            //                customTranslation.Key,
+            //                customTranslation.Value);
+            //        }
+            //        output.WriteLine("},");
+            //    }
+            //    if (!string.IsNullOrEmpty(this.customThemeWidget))
+            //        output.WriteLine("custom_theme_widget : '{0}',", this.customThemeWidget);
+            //    output.WriteLine("tabindex : {0}", base.TabIndex);
+            //    output.Indent--;
+            //    output.WriteLine("};");
+            //    output.Indent--;
+            //    output.RenderEndTag();
 
-                // <script> display
-                output.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
-                output.AddAttribute(HtmlTextWriterAttribute.Src, this.GenerateChallengeUrl(false), false);
-                output.RenderBeginTag(HtmlTextWriterTag.Script);
-                output.RenderEndTag();
+            //    // <script> display
+            //    output.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
+            //    output.AddAttribute(HtmlTextWriterAttribute.Src, this.GenerateChallengeUrl(false), false);
+            //    output.RenderBeginTag(HtmlTextWriterTag.Script);
+            //    output.RenderEndTag();
 
-            }
+            //}
 
             // <noscript> display
             output.RenderBeginTag(HtmlTextWriterTag.Noscript);
@@ -381,12 +386,12 @@ namespace mojoPortal.Web.UI
             output.RenderBeginTag(HtmlTextWriterTag.Iframe);
             output.RenderEndTag();
             output.WriteBreak(); // modified to make XHTML-compliant. Patch by xitch13@gmail.com.
-            output.AddAttribute(HtmlTextWriterAttribute.Name, "recaptcha_challenge_field");
+            output.AddAttribute(HtmlTextWriterAttribute.Name, RECAPTCHA_CHALLENGE_FIELD);
             output.AddAttribute(HtmlTextWriterAttribute.Rows, "3");
             output.AddAttribute(HtmlTextWriterAttribute.Cols, "40");
             output.RenderBeginTag(HtmlTextWriterTag.Textarea);
             output.RenderEndTag();
-            output.AddAttribute(HtmlTextWriterAttribute.Name, "recaptcha_response_field");
+            output.AddAttribute(HtmlTextWriterAttribute.Name, RECAPTCHA_RESPONSE_FIELD);
             output.AddAttribute(HtmlTextWriterAttribute.Value, "manual_challenge");
             output.AddAttribute(HtmlTextWriterAttribute.Type, "hidden");
             output.RenderBeginTag(HtmlTextWriterTag.Input);
@@ -396,47 +401,6 @@ namespace mojoPortal.Web.UI
         }
 
         #endregion
-
-        //protected override bool EvaluateIsValid()
-        //{
-        //    if (!Page.IsPostBack) { return true; }
-        //    if (!Visible) { return true; }
-        //    if (!Enabled) { return true; }
-        //    if (skipRecaptcha) { return true; }
-
-            
-        //    if (this.recaptchaResponse == null)
-        //    {
-                    
-        //        RecaptchaValidator validator = new RecaptchaValidator();
-        //        validator.PrivateKey = this.PrivateKey;
-        //        validator.RemoteIP = Page.Request.UserHostAddress;
-        //        validator.Challenge = Context.Request.Form[RECAPTCHA_CHALLENGE_FIELD];
-        //        validator.Response = Context.Request.Form[RECAPTCHA_RESPONSE_FIELD];
-        //        validator.Proxy = this.proxy;
-
-        //        if (validator.Challenge == null)
-        //        {
-        //            this.recaptchaResponse = RecaptchaResponse.InvalidChallenge;
-        //            return false;
-        //        }
-        //        else if (validator.Response == null)
-        //        {
-        //            this.recaptchaResponse = RecaptchaResponse.InvalidResponse;
-        //            return false;
-        //        }
-        //        else
-        //        {
-        //            this.recaptchaResponse = validator.Validate();
-        //            if (recaptchaResponse == RecaptchaResponse.Valid) { return true; }
-        //        }
-                    
-        //    }
-
-        //    return false;
-            
-
-        //}
 
         #region IValidator Members
 
@@ -495,15 +459,11 @@ namespace mojoPortal.Web.UI
                         RecaptchaValidator validator = new RecaptchaValidator();
                         validator.PrivateKey = this.PrivateKey;
                         validator.RemoteIP = Page.Request.UserHostAddress;
-                        validator.Challenge = Context.Request.Form[RECAPTCHA_CHALLENGE_FIELD];
+                        //validator.Challenge = Context.Request.Form[RECAPTCHA_CHALLENGE_FIELD];
                         validator.Response = Context.Request.Form[RECAPTCHA_RESPONSE_FIELD];
                         validator.Proxy = this.proxy;
 
-                        if (validator.Challenge == null)
-                        {
-                            this.recaptchaResponse = RecaptchaResponse.InvalidChallenge;
-                        }
-                        else if (validator.Response == null)
+                        if (validator.Response == null)
                         {
                             this.recaptchaResponse = RecaptchaResponse.InvalidResponse;
                         }

@@ -556,8 +556,15 @@ namespace mojoPortal.Web.UI
             //SiteRoot = basePage.SiteRoot;
             //ImageSiteRoot = basePage.ImageSiteRoot;
 
-            SiteUtils.SetupEditor(this.edComment, true, Page);
-
+            if (!String.IsNullOrWhiteSpace(displaySettings.PreferredEditor))
+            {
+                SiteUtils.SetupEditor(this.edComment, WebConfigSettings.UseSkinCssInEditor, displaySettings.PreferredEditor, true, false, Page);
+            }
+            else
+            {
+                SiteUtils.SetupEditor(this.edComment, true, Page);
+            }
+            
         }
     }
 }

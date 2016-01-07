@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:				    2012-08-16
-// Last Modified:			2013-06-03
+// Last Modified:			2016-01-06
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -55,7 +55,12 @@ namespace mojoPortal.Web.UI
             set { showUrlInputWhenAuthenticated = value; }
         }
 
-        
+        private string preferredEditor = "";
+        public string PreferredEditor
+        {
+            get { return preferredEditor; }
+            set { preferredEditor = value; }
+        }
 
         protected override void Render(HtmlTextWriter writer)
         {

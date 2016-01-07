@@ -27,6 +27,9 @@ namespace mojoPortal.Web.UI.Pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+
+            Response.StatusCode = 401;
+
             Title = SiteUtils.FormatPageTitle(siteSettings, Resource.AccessDenied);
             lnkHome.Text = Resource.ReturnHomeLabel;
             lnkHome.ToolTip = Resource.ReturnHomeLabel;

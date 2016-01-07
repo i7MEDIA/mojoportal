@@ -1987,10 +1987,10 @@
     <value>Default Page Keywords</value>
   </data>
   <data name="SiteSettingsSiteRecaptchaPrivateKeyLabel" xml:space="preserve">
-    <value>Recaptcha Private Key</value>
+    <value>Recaptcha Secret Key</value>
   </data>
   <data name="SiteSettingsSiteRecaptchaPublicKeyLabel" xml:space="preserve">
-    <value>Recaptcha Public Key</value>
+    <value>Recaptcha Site Key</value>
   </data>
   <data name="SiteSettingsSiteSelectedFeaturesLabel" xml:space="preserve">
     <value>Selected Features</value>
