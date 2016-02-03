@@ -1,15 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ThreadList.ascx.cs" Inherits="mojoPortal.Web.ForumUI.ThreadList" %>
+<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Features.UI" TagPrefix="forum" %>
 
+<forum:ForumDisplaySettings ID="displaySettings" runat="server" />
 <asp:Panel ID="pnlNotify" runat="server" Visible="false" CssClass="forumnotify">
-        <asp:HyperLink ID="lnkNotify" runat="server" CssClass="fsubcribe1"  />&nbsp;
-        <asp:HyperLink ID="lnkNotify2" runat="server" CssClass="fsubcribe2"  />
+        <asp:HyperLink ID="lnkNotify" runat="server" CssClass="fsubcribe1 fsubscribe1"  />&nbsp;
+        <asp:HyperLink ID="lnkNotify2" runat="server" CssClass="fsubcribe2 fsubscribe2"  />
     </asp:Panel>
     <div class="modulepager">
         <portal:mojoCutePager ID="pgrTop" runat="server" />
         <a href="" class="ModulePager newthread" id="lnkNewThread" runat="server"></a>
         <asp:HyperLink ID="lnkLogin" runat="server" CssClass="ModulePager" />
     </div>
-	<table summary='<%# Resources.ForumResources.ForumViewTableSummary %>' border="0" cellspacing="1" width="100%" cellpadding="3">
+	<table summary='<%# Resources.ForumResources.ForumViewTableSummary %>' class='<%= displaySettings.ThreadListCssClass %>' <% if (displaySettings.UseOldTableAttributes) {%> cellpadding="3" cellspacing="1" border="0" width="100%" <% } %>>
 		<thead><tr class="moduletitle">
 		    <th id='t1' class="ftitle">
 				<mp:SiteLabel id="SiteLabel1" runat="server" ConfigKey="ForumViewSubjectLabel" ResourceFile="ForumResources" UseLabelTag="false" />

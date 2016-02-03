@@ -1,7 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ForumList.ascx.cs" Inherits="mojoPortal.Web.ForumUI.ForumList" %>
+<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Features.UI" TagPrefix="forum" %>
 
+<forum:ForumDisplaySettings ID="displaySettings" runat="server" />
 <asp:Panel ID="pnlForumList" runat="server">
-<table summary='<%# Resources.ForumResources.ForumsTableSummary %>'  cellpadding="0" cellspacing="1" border="0" width="100%">
+<table summary='<%# Resources.ForumResources.ForumsTableSummary %>' class='<%= displaySettings.ForumListCssClass %>' <% if (displaySettings.UseOldTableAttributes) {%> cellpadding="0" cellspacing="1" border="0" width="100%" <% } %>>
 	<thead><tr class="moduletitle">
 		<th id="tdSubscribedHead" runat="server" enableviewstate="false" class="fsubscribe">
 			<mp:SiteLabel id="lblSubscribed" runat="server" ConfigKey="ForumModuleSubscribedLabel" ResourceFile="ForumResources" UseLabelTag="false" />

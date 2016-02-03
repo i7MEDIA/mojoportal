@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:				    2011-06-09
-// Last Modified:			2011-06-09
+// Last Modified:			2016-02-03
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -22,6 +22,40 @@ namespace mojoPortal.Web.ForumUI
     /// </summary>
     public class ForumDisplaySettings : WebControl
     {
+        private bool useOldTableAttributes = true;
+        public bool UseOldTableAttributes
+        {
+            get { return useOldTableAttributes; }
+            set { useOldTableAttributes = value; }
+        }
+
+        private string forumListCssClass = "forumlist";
+        public string ForumListCssClass
+        {
+            get { return forumListCssClass; }
+            set { forumListCssClass = value; }
+        }
+
+        private string postListCssClass = "postlist";
+        public string PostListCssClass
+        {
+            get { return postListCssClass; }
+            set { postListCssClass = value; }
+        }
+
+        private string threadListCssClass = "threadlist";
+        public string ThreadListCssClass
+        {
+            get { return threadListCssClass; }
+            set { threadListCssClass = value; }
+        }
+
+        private string userThreadListCssClass = "threadlist userthreadlist";
+        public string UserThreadListCssClass
+        {
+            get { return userThreadListCssClass; }
+            set { userThreadListCssClass = value; }
+        }
 
         private bool useAltForumList = false;
 

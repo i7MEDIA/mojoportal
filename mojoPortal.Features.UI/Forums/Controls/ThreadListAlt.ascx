@@ -99,6 +99,6 @@
     </div>
     <a href="" class="newthread" id="lnkNewThreadBottom" runat="server" EnableViewState="false"></a>
     <asp:Panel ID="pnlNotify" runat="server" Visible="false" CssClass="forumnotify">
-        <asp:HyperLink ID="lnkNotify" runat="server" CssClass="fsubcribe1"  />
-        <asp:HyperLink ID="lnkNotify2" runat="server" CssClass="fsubcribe2"  />
+        <asp:HyperLink ID="lnkNotify" runat="server" CssClass="fsubcribe1 fsubscribe1"  />
+        <asp:HyperLink ID="lnkNotify2" runat="server" CssClass="fsubcribe2 fsubscribe2"  />
     </asp:Panel>

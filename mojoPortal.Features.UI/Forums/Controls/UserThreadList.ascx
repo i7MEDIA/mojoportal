@@ -1,9 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="UserThreadList.ascx.cs" Inherits="mojoPortal.Web.ForumUI.UserThreadList" %>
+<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Features.UI" TagPrefix="forum" %>
 
-<div class="modulepager">
-		<portal:mojoCutePager ID="pgrTop" runat="server" />
-	</div>
-	<table summary='<%# Resources.ForumResources.ForumViewTableSummary %>' border="0" cellspacing="1" width="100%" cellpadding="3">
+<forum:ForumDisplaySettings ID="displaySettings" runat="server" />
+
+<div class="modulepager"><portal:mojoCutePager ID="pgrTop" runat="server" /></div>
+	<table summary='<%# Resources.ForumResources.ForumViewTableSummary %>' class='<%= displaySettings.ThreadListCssClass %>' <% if (displaySettings.UseOldTableAttributes) {%> cellpadding="3" cellspacing="1" border="0" width="100%" <% } %>>
 		<thead><tr class="moduletitle">
 			<th id='<%# Resources.ForumResources.ForumViewSubjectLabel %>' class="ftitle">
 				<mp:SiteLabel id="SiteLabel1" runat="server" ConfigKey="ForumViewSubjectLabel" ResourceFile="ForumResources" UseLabelTag="false" />
@@ -81,6 +82,4 @@
 	<FooterTemplate></tbody></FooterTemplate>
 </asp:Repeater>
 	</table>
-	<div class="modulepager">
-		<portal:mojoCutePager ID="pgrBottom" runat="server" />
-	</div>
+<div class="modulepager"><portal:mojoCutePager ID="pgrBottom" runat="server" /></div>

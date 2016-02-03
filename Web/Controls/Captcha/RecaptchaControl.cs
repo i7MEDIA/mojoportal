@@ -231,7 +231,6 @@ namespace mojoPortal.Web.UI
             return false;
         }
 
-        // added 2011-10-22 by Joe Audette to support use inside UpdatePanel
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
@@ -239,69 +238,16 @@ namespace mojoPortal.Web.UI
             if (registerWithScriptManager) { SetupAjaxScripts(); }
         }
 
-        // added 2011-10-22 by Joe Audette to support use inside UpdatePanel
         private void SetupAjaxScripts()
         {
+            //need to include async and defer on the script element. ScriptManager isn't allowing that so we'll try this.
             ScriptManager.RegisterClientScriptBlock(
                 this,
                 typeof(Page),
                 "recaptchaajax",
-                "\n<script type='text/javascript' src='https://www.google.com/recaptcha/api.js' async defer></script>",
-                false);
-
-            //StringBuilder script = new StringBuilder();
-
-            //script.Append("<script type='text/javascript'>\n");
-
-            //script.Append("Recaptcha.create(");
-            //script.Append("'" + publicKey + "',");
-            //script.Append("'" + "recaptcha_" + this.ClientID + "',"); //element id
-
-            //// from here down is the config object
-            //script.Append(" {");
-            //script.AppendFormat("theme : '{0}',", this.theme ?? string.Empty);
-
-            //if (!string.IsNullOrEmpty(this.language))
-            //{
-            //    script.AppendFormat("lang : '{0}',", this.language);
-            //}
-
-            //if (this.customTranslations != null && this.customTranslations.Count > 0)
-            //{
-            //    var i = 0;
-            //    script.Append("custom_translations : {");
-            //    foreach (var customTranslation in this.customTranslations)
-            //    {
-            //        i++;
-            //        script.AppendFormat(
-            //            i != this.customTranslations.Count ?
-            //                "{0} : '{1}'," :
-            //                "{0} : '{1}'",
-            //            customTranslation.Key,
-            //            customTranslation.Value);
-            //    }
-            //    script.Append("},");
-            //}
-            //if (!string.IsNullOrEmpty(this.customThemeWidget))
-            //{
-            //    script.AppendFormat("custom_theme_widget : '{0}',", this.customThemeWidget);
-            //}
-
-            //script.AppendFormat("tabindex : {0}", base.TabIndex);
-
-            //script.Append("}");
-
-            //script.Append(");");
-
-            //script.Append("</script>");
-
-            //ScriptManager.RegisterStartupScript(
-            //    this,
-            //    typeof(Page),
-            //    "recaptcha" + ClientID,
-            //    script.ToString(),
-            //    false);
-
+                "var script = document.createElement('script'); script.type='text/javascript'; script.src='https://www.google.com/recaptcha/api.js\';" 
+                + " script.setAttribute('async',''); script.setAttribute('defer',''); document.head.appendChild(script);",
+                true);
         }
 
 

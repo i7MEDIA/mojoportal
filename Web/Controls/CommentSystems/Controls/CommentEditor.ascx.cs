@@ -1,6 +1,6 @@
 ﻿// Author:				        Joe Audette
 // Created:			            2012-08-23
-//	Last Modified:              2014-03-18
+//	Last Modified:              2016-01-07
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
