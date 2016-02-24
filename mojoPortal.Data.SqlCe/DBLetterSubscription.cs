@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:					2010-04-05
-// Last Modified:			2013-08-23
+// Last Modified:			2016-02-24 //i7MEDIA
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -979,12 +979,12 @@ namespace mojoPortal.Data
             sqlCommand.Append("ls.BeginUtc DESC  ");
 
             sqlCommand.Append(") AS t1 ");
-            //sqlCommand.Append("ORDER BY  ");
+            sqlCommand.Append("ORDER BY BeginUtc");
 
             sqlCommand.Append(") AS t2 ");
 
             //sqlCommand.Append("WHERE   ");
-            //sqlCommand.Append("ORDER BY  ");
+            sqlCommand.Append("ORDER BY BeginUtc Desc");
             sqlCommand.Append(";");
 
 

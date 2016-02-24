@@ -6024,4 +6024,7 @@
   <data name="RegisterCompareEmailRequired" xml:space="preserve">
     <value>Confirm Email is required.</value>
   </data>
+  <data name="InstanceIDWithGuid" xml:space="preserve">
+    <value>Instance ID {GUID}</value>
+  </data>
 </root>

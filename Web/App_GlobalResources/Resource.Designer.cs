@@ -6064,6 +6064,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Instance ID {GUID}.
+        /// </summary>
+        internal static string InstanceIDWithGuid {
+            get {
+                return ResourceManager.GetString("InstanceIDWithGuid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IntenseDebate Account Id.
         /// </summary>
         internal static string IntenseDebateAccountId {

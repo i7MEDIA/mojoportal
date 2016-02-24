@@ -1,5 +1,5 @@
 /// Author:                     Joe Audette
-///	Last Modified:              2013-10-011
+///	Last Modified:              2016-02-24 //i7MEDIA
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -166,7 +166,7 @@ namespace mojoPortal.Web.AdminUI
                 
                 PopulatePageList();
                 lblModuleId.Text = module.ModuleId.ToInvariantString();
-                lblModuleGuid.Text = module.ModuleGuid.ToString();
+                lblModuleGuid.Text = " {" + module.ModuleGuid.ToString() +"}";
                 moduleTitle.Text = module.ModuleTitle;
 				cacheTime.Text = module.CacheTime.ToString();
 				chkShowTitle.Checked = module.ShowTitle;

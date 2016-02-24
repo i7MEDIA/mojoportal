@@ -38,7 +38,7 @@
                 <asp:Label ID="lblFeatureName" runat="server" EnableViewState="false" CssClass="forminput" />
             </div>
             <div class="settingrow">
-                <mp:SiteLabel ID="SiteLabel9" runat="server" CssClass="settinglabel" ConfigKey="InstanceId"
+                <mp:SiteLabel ID="SiteLabel9" runat="server" CssClass="settinglabel" ConfigKey="InstanceIdWithGuid"
                     UseLabelTag="false"></mp:SiteLabel>
                 <asp:Label ID="lblModuleId" runat="server" EnableViewState="false" CssClass="forminput" />
                 <asp:Label ID="lblModuleGuid" runat="server" EnableViewState="false" CssClass="forminput instanceguid" />
