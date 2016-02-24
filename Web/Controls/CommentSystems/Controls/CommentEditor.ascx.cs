@@ -1,6 +1,6 @@
 ﻿// Author:				        Joe Audette
 // Created:			            2012-08-23
-//	Last Modified:              2014-03-18
+//	Last Modified:              2016-01-07
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -556,8 +556,15 @@ namespace mojoPortal.Web.UI
             //SiteRoot = basePage.SiteRoot;
             //ImageSiteRoot = basePage.ImageSiteRoot;
 
-            SiteUtils.SetupEditor(this.edComment, true, Page);
-
+            if (!String.IsNullOrWhiteSpace(displaySettings.PreferredEditor))
+            {
+                SiteUtils.SetupEditor(this.edComment, WebConfigSettings.UseSkinCssInEditor, displaySettings.PreferredEditor, true, false, Page);
+            }
+            else
+            {
+                SiteUtils.SetupEditor(this.edComment, true, Page);
+            }
+            
         }
     }
 }

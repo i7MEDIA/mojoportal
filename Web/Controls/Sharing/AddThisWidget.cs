@@ -1,5 +1,5 @@
 ﻿//	Created:			    2011-09-21
-//	Last Modified:		    2012-09-13
+//	Last Modified:		    2016-01-05
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -77,8 +77,11 @@ namespace mojoPortal.Web.UI
 
         //private string toolbarMarkup = "<div class='addthis_toolbox addthis_default_style '>\n<a class='addthis_button_facebook_like' fb:like:layout='button_count'></a>\n<a class='addthis_button_tweet'></a>\n<a class='addthis_button_google_plusone' g:plusone:size='medium'></a>\n<a class='addthis_counter addthis_pill_style'></a>\n</div>";
 
-        private string toolbarMarkup = "<div class='addthis_toolbox addthis_default_style addthis_32x32_style'><a class='addthis_button_preferred_1'></a><a class='addthis_button_preferred_2'></a><a class='addthis_button_preferred_4'></a><a class='addthis_button_compact'></a><a class='addthis_counter addthis_bubble_style'></a></div>";
+        // updated on 1/5/2016 to use "newest" addthis tools available on that date.
+        private string toolbarMarkup = "<div class='addthis_sharing_toolbox' data-url='{0}' data-title='{1}'></div>";
 
+        // this is the equivalent of the old and uses addthis_toolbox
+        //<div addthis:url='{0}' addthis:title='{1}' class='addthis_toolbox addthis_default_style addthis_32x32_style'><a class='addthis_button_preferred_1'></a><a class='addthis_button_preferred_2'></a><a class='addthis_button_preferred_4'></a><a class='addthis_button_compact'></a><a class='addthis_counter addthis_bubble_style'></a></div>
 
         public string ToolbarMarkup
         {
@@ -88,14 +91,14 @@ namespace mojoPortal.Web.UI
 
         //private string toolbarMarkupWithId = "<div id='{0}' class='addthis_toolbox addthis_default_style '>\n<a class='addthis_button_facebook_like' fb:like:layout='button_count'></a>\n<a class='addthis_button_tweet'></a>\n<a class='addthis_button_google_plusone' g:plusone:size='medium'></a>\n<a class='addthis_counter addthis_pill_style'></a>\n</div>";
 
-        private string toolbarMarkupWithId = "<div id='{0}' class='addthis_toolbox addthis_default_style addthis_32x32_style'><a class='addthis_button_preferred_1'></a><a class='addthis_button_preferred_2'></a><a class='addthis_button_preferred_4'></a><a class='addthis_button_compact'></a><a class='addthis_counter addthis_bubble_style'></a></div>";
+        //private string toolbarMarkupWithId = "<div id='{0}' data-url='{1}' data-title='{2}' class='addthis_toolbox addthis_default_style addthis_32x32_style'><a class='addthis_button_preferred_1'></a><a class='addthis_button_preferred_2'></a><a class='addthis_button_preferred_4'></a><a class='addthis_button_compact'></a><a class='addthis_counter addthis_bubble_style'></a></div>";
 
         
-        public string ToolbarMarkupWithId
-        {
-            get { return toolbarMarkupWithId; }
-            set { toolbarMarkupWithId = value; }
-        }
+        //public string ToolbarMarkupWithId
+        //{
+        //    get { return toolbarMarkupWithId; }
+        //    set { toolbarMarkupWithId = value; }
+        //}
 
         private string langCode = string.Empty;
 
@@ -180,10 +183,10 @@ namespace mojoPortal.Web.UI
 
             SetupGlobalConfigScript();
 
-            if (urlToShare.Length > 0)
-            {
-                SetupInstanceScript();
-            }
+            //if (urlToShare.Length > 0)
+            //{
+            //    SetupInstanceScript();
+            //}
         }
 
         protected override void Render(HtmlTextWriter writer)
@@ -198,41 +201,41 @@ namespace mojoPortal.Web.UI
 
             if(!Visible) { return; }
 
-            if (urlToShare.Length > 0)
-            {
-                writer.Write(string.Format(toolbarMarkupWithId, ClientID));
-            }
-            else
-            {
-                writer.Write(toolbarMarkup);
-            }
+            //if (urlToShare.Length > 0)
+            //{
+                writer.Write(string.Format(toolbarMarkup, UrlToShare, TitleOfUrlToShare));
+            //}
+            //else
+            //{
+            //    writer.Write(toolbarMarkup);
+            //}
 
         }
 
-        private void SetupInstanceScript()
-        {
-            StringBuilder script = new StringBuilder();
-            script.Append("<script type=\"text/javascript\">\n");
+        //private void SetupInstanceScript()
+        //{
+        //    StringBuilder script = new StringBuilder();
+        //    script.Append("<script type=\"text/javascript\">\n");
 
-            //script.Append("addthis.toolbox('#" + ClientID + "',{},");
-            //script.Append("{url:'" + urlToShare + "',title:'" + titleOfUrlToShare + "'}");
+        //    //script.Append("addthis.toolbox('#" + ClientID + "',{},");
+        //    //script.Append("{url:'" + urlToShare + "',title:'" + titleOfUrlToShare + "'}");
 
-            //script.Append(");");
+        //    //script.Append(");");
 
-            script.Append("$('#" + ClientID + "').attr('addthis:url','" + urlToShare + "');");
-            script.Append("$('#" + ClientID + "').attr('addthis:title','" + titleOfUrlToShare + "');");
+        //    script.Append("$('#" + ClientID + "').attr('addthis:url','" + urlToShare + "');");
+        //    script.Append("$('#" + ClientID + "').attr('addthis:title','" + titleOfUrlToShare + "');");
 
-            script.Append("\n");
-            script.Append(" </script>");
+        //    script.Append("\n");
+        //    script.Append(" </script>");
 
 
-            ScriptManager.RegisterStartupScript(
-                this,
-                typeof(AddThisWidget),
-                UniqueID,
-                script.ToString(),
-                false);
-        }
+        //    /*ScriptManager.RegisterStartupScript(
+        //        this,
+        //        typeof(AddThisWidget),
+        //        UniqueID,
+        //        script.ToString(),
+        //        false);*/
+        //}
 
         private void SetupGlobalConfigScript()
         {
@@ -281,7 +284,7 @@ namespace mojoPortal.Web.UI
                     typeof(AddThisWidget),
                     "addthiswidget", "\n<script type=\"text/javascript\" src=\""
                     + addThisBaseUrl + "#pubid=" + accountId
-                    + "\" ></script>", false);
+                    + "\" async></script>", false);
         }
     }
 }

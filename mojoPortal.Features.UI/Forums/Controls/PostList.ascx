@@ -3,16 +3,16 @@
 
 <forum:ForumDisplaySettings ID="displaySettings" runat="server" />
 <asp:Panel ID="pnlNotify" runat="server" Visible="false" CssClass="forumnotify">
-    <asp:HyperLink ID="lnkNotify" runat="server" CssClass="fsubcribe1"  />
-        &nbsp;<asp:HyperLink ID="lnkNotify2" runat="server" CssClass="fsubcribe2" />
-    </asp:Panel>
+    <asp:HyperLink ID="lnkNotify" runat="server" CssClass="fsubcribe1 fsubscribe1"  />
+    &nbsp;<asp:HyperLink ID="lnkNotify2" runat="server" CssClass="fsubcribe2 fsubscribe2" />
+</asp:Panel>
     <div class="modulepager">
         <portal:mojoCutePager ID="pgrTop" runat="server" />
         <a href="" class="ModulePager newpost" id="lnkNewPost" runat="server" visible="false"></a>
         <portal:mojoLabel ID="lblClosedTop" runat="server" CssClass="closedthreadmessage" Visible="false" EnableViewState="false" />
         <asp:HyperLink ID="lnkLogin" runat="server" CssClass="ModulePager" />
     </div>
-    <div class="postlistwrap">
+    <div class='postlistwrap <%= displaySettings.PostListCssClass %>'>
     <asp:Repeater ID="rptMessages" runat="server" EnableViewState="False">
         <ItemTemplate>
             <div class="postcontainer">

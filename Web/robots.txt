@@ -9,6 +9,7 @@ Disallow: /App_Themes/
 Disallow: /bin/
 Disallow: /Blog/ViewCategory.aspx$
 Disallow: /Blog/ViewArchive.aspx$
+Disallow: /Data/SiteImages/emoticons
 Disallow: /MyPage.aspx
 Disallow: /MyPage.aspx$
 Disallow: /MyPage.aspx*

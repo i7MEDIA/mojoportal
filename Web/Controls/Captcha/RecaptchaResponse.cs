@@ -18,6 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+// 2016-01-06 i7MEDIA updated to reCaptcha v2.0
 using System;
 //namespace Recaptcha
 namespace mojoPortal.Web.UI
@@ -28,9 +29,8 @@ namespace mojoPortal.Web.UI
     public class RecaptchaResponse
     {
         public static readonly RecaptchaResponse Valid = new RecaptchaResponse(true, string.Empty);
-        public static readonly RecaptchaResponse InvalidChallenge = new RecaptchaResponse(false, "Invalid reCAPTCHA request. Missing challenge value.");
         public static readonly RecaptchaResponse InvalidResponse = new RecaptchaResponse(false, "Invalid reCAPTCHA request. Missing response value.");
-        public static readonly RecaptchaResponse InvalidSolution = new RecaptchaResponse(false, "The verification words are incorrect.");
+        public static readonly RecaptchaResponse InvalidSolution = new RecaptchaResponse(false, "Invalid reCaptcha Solution.");
         public static readonly RecaptchaResponse RecaptchaNotReachable = new RecaptchaResponse(false, "The reCAPTCHA server is unavailable.");
 
         private bool isValid;
@@ -53,8 +53,11 @@ namespace mojoPortal.Web.UI
             {
                 switch (errorMessage)
                 {
-                    case "incorrect-captcha-sol":
+                    case "invalid-input-response":
                         templateResponse = RecaptchaResponse.InvalidSolution;
+                        break;
+                    case "missing-input-response":
+                        templateResponse = RecaptchaResponse.InvalidResponse;
                         break;
                     case null:
                         throw new ArgumentNullException("errorMessage");

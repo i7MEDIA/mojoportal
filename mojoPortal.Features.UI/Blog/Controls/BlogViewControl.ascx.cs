@@ -1,6 +1,6 @@
 ﻿// Author:				        Joe Audette
 // Created:			            2004-08-15
-//	Last Modified:              2014-11-05
+//	Last Modified:              2015-12-14
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -166,12 +166,17 @@ namespace mojoPortal.Web.BlogUI
             if (blog.EndDate < DateTime.UtcNow)
             {
                 expired.Visible = true;
-                //http://support.google.com/webmasters/bin/answer.py?hl=en&answer=40132
-                // 410 means the resource is gone but once existed
-                // google treats it as more permanent than a 404
-                // and it should result in de-indexing the content
-                Response.StatusCode = 410;
-                Response.StatusDescription = "Content Expired";
+
+                if (ConfigHelper.GetBoolProperty("Blog:Use410StatusOnExpiredPosts", true))
+                {
+                    //http://support.google.com/webmasters/bin/answer.py?hl=en&answer=40132
+                    // 410 means the resource is gone but once existed
+                    // google treats it as more permanent than a 404
+                    // and it should result in de-indexing the content
+                    Response.StatusCode = 410;
+                    Response.StatusDescription = "Content Expired";
+                }
+
                 if (!basePage.UserCanEditModule(ModuleId, Blog.FeatureGuid))
                 {
                     pnlInnerWrap.Visible = false;

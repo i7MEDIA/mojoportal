@@ -18,14 +18,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+// 2016-01-06 i7MEDIA upgraded to v2 using concepts from http://www.codeproject.com/Tips/884193/Google-ReCaptcha-ASP-net-Control
+
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Web;
-
+using System.Web.Script.Serialization;
 //namespace Recaptcha
 namespace mojoPortal.Web.UI
 {
@@ -35,7 +35,7 @@ namespace mojoPortal.Web.UI
     /// </summary>
     public class RecaptchaValidator
     {
-        private const string VerifyUrl = "http://www.google.com/recaptcha/api/verify";
+        private const string VerifyUrl = "https://www.google.com/recaptcha/api/siteverify";
 
         private string privateKey;
         private string remoteIp;
@@ -73,6 +73,7 @@ namespace mojoPortal.Web.UI
             }
         }
 
+        [Obsolete("No longer needed for recaptcha 2.0")]
         public string Challenge
         {
             get { return this.challenge; }
@@ -103,51 +104,26 @@ namespace mojoPortal.Web.UI
         {
             this.CheckNotNull(this.PrivateKey, "PrivateKey");
             this.CheckNotNull(this.RemoteIP, "RemoteIp");
-            this.CheckNotNull(this.Challenge, "Challenge");
             this.CheckNotNull(this.Response, "Response");
 
-            if (this.challenge == string.Empty || this.response == string.Empty)
+            if (this.response == string.Empty)
             {
                 return RecaptchaResponse.InvalidSolution;
             }
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(VerifyUrl);
-            request.ProtocolVersion = HttpVersion.Version10;
-            request.Timeout = 30 * 1000 /* 30 seconds */;
-            request.Method = "POST";
-            request.UserAgent = "reCAPTCHA/ASP.NET";
-            if (this.proxy != null)
-            {
-                request.Proxy = this.proxy;
-            }
-
-            request.ContentType = "application/x-www-form-urlencoded";
-
-            string formdata = String.Format(
-                "privatekey={0}&remoteip={1}&challenge={2}&response={3}",
-                                    HttpUtility.UrlEncode(this.PrivateKey),
-                                    HttpUtility.UrlEncode(this.RemoteIP),
-                                    HttpUtility.UrlEncode(this.Challenge),
-                                    HttpUtility.UrlEncode(this.Response));
-
-            byte[] formbytes = Encoding.ASCII.GetBytes(formdata);
-
-            using (Stream requestStream = request.GetRequestStream())
-            {
-                requestStream.Write(formbytes, 0, formbytes.Length);
-            }
-
-            string[] results;
+            GoogleVerificationResponseOutput gOutput;
 
             try
             {
-                using (WebResponse httpResponse = request.GetResponse())
-                {
-                    using (TextReader readStream = new StreamReader(httpResponse.GetResponseStream(), Encoding.UTF8))
-                    {
-                        results = readStream.ReadToEnd().Split(new string[] { "\n", "\\n" }, StringSplitOptions.RemoveEmptyEntries);
-                    }
-                }
+                WebClient client = new WebClient();
+
+                string googleReply = client.DownloadString(string.Format(VerifyUrl +
+                    "?secret={0}&remoteip={1}&response={2}",
+                                    HttpUtility.UrlEncode(this.PrivateKey),
+                                    HttpUtility.UrlEncode(this.RemoteIP),
+                                    HttpUtility.UrlEncode(this.Response)));
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                gOutput = serializer.Deserialize<GoogleVerificationResponseOutput>(googleReply);
             }
             catch (WebException ex)
             {
@@ -155,15 +131,21 @@ namespace mojoPortal.Web.UI
                 return RecaptchaResponse.RecaptchaNotReachable;
             }
 
-            switch (results[0])
+            switch (gOutput.Success)
             {
-                case "true":
+                case true:
                     return RecaptchaResponse.Valid;
-                case "false":
-                    return new RecaptchaResponse(false, results[1].Trim(new char[] { '\'' }));
+                case false:
+                    return new RecaptchaResponse(false, gOutput.ErrorCodes);
                 default:
                     throw new InvalidProgramException("Unknown status response.");
             }
         }
+    }
+
+    public class GoogleVerificationResponseOutput
+    {
+        public bool Success { get; set; }
+        public string ErrorCodes { get; set; }
     }
 }

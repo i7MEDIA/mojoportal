@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:					2009-04-02
-// Last Modified:			2013-05-28
+// Last Modified:			2016-02-09
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -410,7 +410,8 @@ namespace mojoPortal.Web.Editor
                 script.ToString(),
                 false);
 
-
+            //this will help the editor work in updatepanel
+            ScriptManager.RegisterOnSubmitStatement(this, this.GetType(), "updateditor" + this.ClientID, "CKEDITOR.instances['" + this.ClientID + "'].updateElement();");
         }
 
         private void SetupToolBar(StringBuilder script)

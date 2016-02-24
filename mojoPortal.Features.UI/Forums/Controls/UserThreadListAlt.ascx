@@ -1,10 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="UserThreadListAlt.ascx.cs" Inherits="mojoPortal.Web.ForumUI.UserThreadListAlt" %>
-<div class="modulepager">
-		<portal:mojoCutePager ID="pgrTop" runat="server" />
-	</div>
+<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Features.UI" TagPrefix="forum" %>
+
+<forum:ForumDisplaySettings ID="displaySettings" runat="server" />
+
+<div class="modulepager"><portal:mojoCutePager ID="pgrTop" runat="server" /></div>
 	
 <asp:Repeater id="rptForums" runat="server" >
-	<HeaderTemplate><ul class="simplelist threadlist"></HeaderTemplate>
+	<HeaderTemplate><ul class='simplelist  <%= displaySettings.UserThreadListCssClass %>'></HeaderTemplate>
 	<ItemTemplate>
 		<li class='forumwrap threadwrap'>
 			<div class="threadtitle"> 

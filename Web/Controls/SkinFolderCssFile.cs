@@ -1,6 +1,6 @@
 ﻿//  Author:                 Joe Audette
 //	Created:			    2013-11-23
-//	Last Modified:		    2013-11-23
+//	Last Modified:		    2016-01-05
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -92,7 +92,7 @@ namespace mojoPortal.Web.UI
 
             if (cssFileName.Length == 0) { Visible = false; }
 
-            if(visibleRoles.Length > 0)
+            if (visibleRoles.Length > 0)
             {
                 if(!WebUser.IsInRoles(visibleRoles))
                 {
@@ -100,13 +100,19 @@ namespace mojoPortal.Web.UI
                 }
             }
 
-            if(visibleUrls.Length > 0)
+            if (visibleUrls.Length > 0)
             {
                 bool match = false;
-                List<string> allowedUrls = visibleRoles.SplitOnChar(',');
+                List<string> allowedUrls = visibleUrls.SplitOnChar(',');
                 foreach(string u in allowedUrls)
                 {
-                    if(Page.Request.RawUrl.ContainsCaseInsensitive(u)) { match = true;}
+                    //Page.AppRelativeVirtualPath will match for things like blog posts where the friendly url is something like /my-cool-post which
+                    //is then mapped to the /Blog/ViewPost.aspx page. So, one could use /Blog/ViewPost.aspx in the AllowedUrls property to render
+                    //a css file on blog post pages.
+                    if (Page.AppRelativeVirtualPath.ContainsCaseInsensitive(u)) { match = true; }
+
+                    //Page.Request.RawUrl is the url used for the request, as in the example above '/my-cool-post'
+                    if (Page.Request.RawUrl.ContainsCaseInsensitive(u)) { match = true;}
                 }
                 Visible = match;
 

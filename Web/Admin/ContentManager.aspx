@@ -30,7 +30,7 @@
      <Columns>
         <asp:TemplateField HeaderText="" ItemStyle-HorizontalAlign="left">
             <ItemTemplate>
-                <%# Eval("DepthIndicator")%><%# Eval("PageName")%>
+                <%# Eval("DepthIndicator")%><a href=<%# WebUtils.ResolveUrl(CacheHelper.GetPage(Convert.ToInt32(Eval("PageId"))).Url) %> class="pagelink"><%# Eval("PageName")%></a>
             </ItemTemplate>
         </asp:TemplateField>
         <asp:TemplateField HeaderText="" ItemStyle-HorizontalAlign="center">

@@ -2649,7 +2649,6 @@
     </Compile>
     <Compile Include="Secure\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Secure\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>

@@ -5,12 +5,10 @@
 
     <asp:HyperLink ID="lnkLogin" runat="server" CssClass="flogin" />
     <portal:mojoLabel ID="lblClosedTop" runat="server" CssClass="closedthreadmessage" Visible="false" EnableViewState="false" />
-    <div class="modulepager" id="divPagerTop" runat="server">
-        <portal:mojoCutePager ID="pgrTop" runat="server" />
-    </div>
+    <div class="modulepager" id="divPagerTop" runat="server"><portal:mojoCutePager ID="pgrTop" runat="server" /></div>
     <a href="" class="newthread newpost" id="lnkNewPost" runat="server" visible="false"></a>
     <asp:Repeater ID="rptMessages" runat="server" EnableViewState="False">
-        <HeaderTemplate><ul class="simplelist postlist"></HeaderTemplate>
+        <HeaderTemplate><ul class='simplelist  <%= displaySettings.PostListCssClass %>'></HeaderTemplate>
         <ItemTemplate>  
             <li class="forumwrap postwrap">    
                 <div class="postright">
@@ -89,7 +87,6 @@
                             </td>
                         </tr>
                     </table>
-                   
                     <div class="forumpostuserattribute forumsig" id="divUntrustedSignature" runat="server" visible='<%# !Convert.ToBoolean(Eval("Trusted")) %>'>
                         <NeatHtml:UntrustedContent ID="UntrustedContent2" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'
                             ClientScriptUrl="~/ClientScript/NeatHtml.js">
@@ -102,15 +99,12 @@
                             <%# Eval("PostAuthorSignature").ToString()%>
                         </NeatHtml:UntrustedContent>
                     </div>
-                            
                 </div>
             </li>
         </ItemTemplate>
         <FooterTemplate></ul></FooterTemplate>
     </asp:Repeater>
-    <div class="modulepager" id="divPagerBottom" runat="server">
-        <portal:mojoCutePager ID="pgrBottom" runat="server" />
-    </div>
+    <div class="modulepager" id="divPagerBottom" runat="server"><portal:mojoCutePager ID="pgrBottom" runat="server" /></div>
     <a href="" class="newthread newpost" id="lnkNewPostBottom" runat="server" visible="false"></a>  
     <asp:HyperLink ID="lnkLoginBottom" runat="server" CssClass="flogin" />
     <portal:mojoLabel ID="lblClosedBottom" runat="server" CssClass="closedthreadmessage" Visible="false" EnableViewState="false" />
