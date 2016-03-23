@@ -1093,8 +1093,8 @@ namespace mojoPortal.Web.UI
 
             if (scriptManager == null) { return; }
 
-            ScriptReference scriptReference = new ScriptReference("MsAjaxBundle","");
-            AddBundleScriptReference(scriptManager, scriptReference);
+            //ScriptReference scriptReference = new ScriptReference("MsAjaxBundle","");
+            //AddBundleScriptReference(scriptManager, scriptReference);
 
             //ScriptReference scriptReference = new ScriptReference("MicrosoftAjax.js", "System.Web.Extensions");
             //AddNamedScriptReference(scriptManager, scriptReference);
@@ -1110,8 +1110,8 @@ namespace mojoPortal.Web.UI
             
             if (scriptManager == null) { return; }
 
-            ScriptReference scriptReference = new ScriptReference("~/Scripts/AjaxControlToolkit/Bundle");
-            AddBundleScriptReference(scriptManager, scriptReference);
+            //ScriptReference scriptReference = new ScriptReference("~/Scripts/AjaxControlToolkit/Bundle");
+            //AddBundleScriptReference(scriptManager, scriptReference);
 
             
 

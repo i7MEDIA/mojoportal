@@ -194,6 +194,8 @@ namespace mojoPortal.Web
 
             }
 
+            
+
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 #endif
