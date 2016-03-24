@@ -182,9 +182,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\argotic\Argotic.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Brettle.Web.NeatHtml, Version=1.0.3373.23565, Culture=neutral">
-      <HintPath>..\_libs\Brettle.Web.NeatHtml.dll</HintPath>
-    </Reference>
     <Reference Include="HtmlDiff, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\HtmlDiff.dll</HintPath>
@@ -1264,6 +1261,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Brettle.Web.NeatHtml\Brettle.Web.NeatHtml.csproj">
+      <Project>{d8a4d1e0-3827-4af6-85b3-564d433495bf}</Project>
+      <Name>Brettle.Web.NeatHtml</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
       <Project>{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}</Project>
       <Name>mojoPortal.Business.WebHelpers</Name>

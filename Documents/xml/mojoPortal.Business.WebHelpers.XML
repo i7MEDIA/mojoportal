@@ -1,0 +1,483 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>mojoPortal.Business.WebHelpers</name>
+    </assembly>
+    <members>
+        <member name="T:mojoPortal.Business.WebHelpers.ContentDeleteHandlerProvider">
+            <summary>
+            when content instances aka modules are deleted from the content catalog
+            we need a feature specific way to delete content for the feature that is associated with the deleted module
+            this a a base class for features to implement.
+            The FeatureDefinition.DeleteProvider must correspond to the name of the feature specific implementation,
+            so that the system can invoke the correct ContentDeleteHandlerProvider
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PageEventHandlers.DoNothingPageCreatedEventHandler">
+            <summary>
+            The only purpose of this class is because there must be at least one
+            provider in a provider collection
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PageEventHandlers.PageCreatedEventHandlerPovider">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PageEventHandlers.PageCreatedEventHandlerPoviderCollection">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PageEventHandlers.PageCreatedEventHandlerPoviderConfig">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PageEventHandlers.PageCreatedEventHandlerPoviderManager">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.AuthorizeNETPaymentGateway">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.GCheckoutNotificationConfiguration">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.GCheckoutNotificationHandlerProvider">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.GCheckoutNotificationHandlerProviderCollection">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.GCheckoutNotificationManager">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.NotImplementedGCheckoutNotificationHandlerProvider">
+            <summary>
+            This provider does nothing. It exists only because there must always be at least one 
+            provider in the collection or an error occurs.
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.IPaymentGateway">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.NotImplementedPaymentGateway">
+            <summary>
+            This is just a stub that you can copy for a starting point in implementing new gateways
+            
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.DoNothingPayPalIPNHandlerProvider">
+            <summary>
+            This only exists because a provider collection can never be empty
+             
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Business.WebHelpers.PaymentGateway.DoNothingPayPalIPNHandlerProvider.HandleRequest(System.String,System.Collections.Specialized.NameValueCollection,mojoPortal.Business.PayPalLog)">
+            <summary>
+            return true if the transaction was processed with no problems
+            </summary> 
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.DoNothingPayPalPDTHandlerProvider">
+            <summary>
+            This only exists because a provider collection can never be empty
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.NotImplementedPayPalReturnHandler">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway">
+            <summary>
+            PayPal Express Checkout
+            
+            Flow: Call SetExpressCheckout to get a token then redirect to paypal with the token.
+            When PayPal redirects back to your landing page you make a server side request with
+            GetExpressCheckoutDetails passing the token and PalPal respond swith the payment status and details.
+            On success you can either give the user a final chance to review the order
+            or just make the DoExpressCheckoutPayment request to PayPal and process the order
+            In either case you make the same call but if you want the user to review the order 
+            again then do it from a user button click
+            
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.PayPalExpressUrl">
+            <summary>
+            If this is populated by SetExpressCheckout you redirect to it
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.PayPalPaymentType">
+            <summary>
+            none, echeck, instant
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.PayPalTransactionType">
+            <summary>
+            cart, express-checkout
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.PayPalToken">
+            <summary>
+            If this is populated then we are ready to redirect
+            The PayPalExpressUrl will include this param but you can read
+            it form here to store it
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.BuyerEmail">
+            <summary>
+            PayPal can pre-populate the login form at their site with this
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.ReturnUrl">
+            <summary>
+            Required url for PayPal to redirect 
+            URL to which the customer’s browser is returned after choosing to pay with PayPal
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.CancelUrl">
+            <summary>
+            URL to which the customer is returned if he does not approve the use of
+            PayPal to pay you.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.NotificationUrl">
+            <summary>
+            for PayPal to post instant payment notification IPN
+            
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.OrderDescription">
+            <summary>
+            Description of items the customer is purchasing
+            
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.MerchantCartId">
+            <summary>
+            Assing the cart id string here
+            it will be passed back to use by PayPal
+            so we can use it to lookup our cart
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.RequireConfirmedShippingAddress">
+            <summary>
+            
+            indicates that you require that the customer’s shipping
+            address on file with PayPal be a confirmed address.
+            NOTE: Setting this field overrides the setting you have specified in your
+            Merchant Account Profile.
+            
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.NoShipping">
+            <summary>
+            
+            true indicates that on the PayPal pages, no shipping address fields
+            should be displayed whatsoever.
+            
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.OverrideShippingAddress">
+            <summary>
+            
+            true indicates that on the PayPal pages, no shipping address fields
+            should be displayed whatsoever.
+            
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.CallSetExpressCheckout">
+            <summary>
+            Pass order info to paypal and recieve back a token
+            then redirect to PayPal passing the token.
+            When PayPal redirects back to your site call
+            GetExpressCheckoutDetails passing the token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.CallGetExpressCheckoutDetails">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalExpressGateway.CallDoExpressCheckoutPayment">
+            <summary>
+            DoExpressCheckoutPayment Request
+            Request to obtain payment with PayPal Express Checkout.
+            IMPORTANT: PayPal requires that a merchant using Express Checkout display to the
+            customer the same amount that the merchant sends to PayPal in the AMT
+            parameter with the DoExpressCheckoutPayment request API.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalIPNHandlerProvider">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalIPNHandlerProvider.HandleRequest(System.String,System.Collections.Specialized.NameValueCollection,mojoPortal.Business.PayPalLog)">
+            <summary>
+            return true if the transaction was processed with no problems
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalIPNHandlerProviderCollection">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalIPNHandlerProviderConfig">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalIPNHandlerProviderManager">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalOrderItem">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalPDTHandlerProvider">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalPDTHandlerProviderCollection">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalPDTHandlerProviderConfig">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalPDTHandlerProviderManager">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalReturnHandlerConfig">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalReturnHandlerManager">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalReturnHandlerProvider">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalReturnHandlerProviderCollection">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalStandardPaymentGateway">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalStandardPaymentGateway.GetBuyNowButtonUrl">
+            <summary>
+            This builds an url for buy now button links.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalStandardPaymentGateway.GetCartUploadFormFields">
+            <summary>
+            This builds a string of the html form fields for posting to PayPal for Standard Checkout Cart Upload
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalStandardPaymentGateway.ValidatePDT">
+            <summary>
+            Synchronizes the specified args.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalStandardPaymentGateway.ValidateIPN">
+            <summary>
+            Synchronizes the specified args.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Business.WebHelpers.PaymentGateway.PayPalStandardPaymentGateway.GetPDTValues(System.String)">
+            <summary>
+            parses the form key value pairs into a StringDictionary
+            </summary>
+            <param name="pdt"></param>
+            <returns></returns>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.PaymentGateway.PlugNPayPaymentGateway">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Business.WebHelpers.PaymentGateway.PlugNPayPaymentGateway.dictionaryResponseDecode(System.String)">
+            <summary>
+            Split, decode and store query string into a hashtable
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.ResourceFile">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers.DoNothingSiteCreatedEventHandler">
+            <summary>
+            The only purpose of this class is because there must be at least one
+            provider in a provider collection
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers.SiteCreatedEventHandlerProvider">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers.SiteCreatedEventHandlerProviderCollection">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers.SiteCreatedEventHandlerProviderConfig">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers.SiteCreatedEventHandlerProviderManager">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.DoNothingSitePreDeleteHandler">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.SitePreDeleteHandlerProvider">
+            <summary>
+            Features may be installed separately from the core of mojoPortal and may have foriegn key
+            relationships that can cause errors if a site is deleted. Feature implementors should either implement
+            cascading deletes for their feature content or implement a SitePreDeleteHandlerProvider
+            that deletes all data for the feature related to the the passed in siteId.
+            These providers will be called just prior to actual site deletion.
+            
+            It should be noted that by default site deletion is disabled in Web.config to prevent accidental
+            deletion of a site by users. It should be enabled only temporarily to delete a site on purpose then set back to diabled.
+            
+            The provider implementations can assume that the deletion is intentional.
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.ProfileUpdatedHandlers.DoNothingProfileUpdatedHandler">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.ProfileUpdatedHandlers.ProfileUpdatedHandlerProvider">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.ProfileUpdatedHandlers.ProfileUpdatedHandlerProviderCollection">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.ProfileUpdatedHandlers.ProfileUpdatedHandlerProviderConfig">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.ProfileUpdatedHandlers.ProfileUpdatedHandlerProviderManager">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.UserRegisteredHandlers.DoNothingUserRegisteredHandler">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.UserRegisteredHandlers.UserRegisteredHandlerProvider">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.UserRegisteredHandlers.UserRegisteredHandlerProviderCollection">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.UserRegisteredHandlers.UserRegisteredHandlerProviderConfig">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.UserRegisteredHandlers.UserRegisteredHandlerProviderManager">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.UserSignInHandlers.UserSignInEventArgs">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.UserSignInHandlers.DoNothingUserSignInHandlerProvider">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.UserSignInHandlers.UserSignInHandlerProvider">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.UserSignInHandlers.UserSignInHandlerProviderCollection">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.UserSignInHandlers.UserSignInHandlerProviderConfig">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Business.WebHelpers.UserSignInHandlers.UserSignInHandlerProviderManager">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Business.WebHelpers.VirtualFolderEvaluator.VirtualFolderName">
+            <summary>
+            find first level folder name after site root
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

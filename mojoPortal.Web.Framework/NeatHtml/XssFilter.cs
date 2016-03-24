@@ -28,7 +28,8 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Diagnostics;
 
-namespace Brettle.Web.NeatHtml
+//namespace Brettle.Web.NeatHtml
+namespace mojoPortal.Web.Framework
 {
     public class XssFilter
     {

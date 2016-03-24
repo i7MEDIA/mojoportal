@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>mojoPortal.Web.Editor</name>
+    </assembly>
+    <members>
+        <member name="T:mojoPortal.Web.Editor.EditorConfiguration">
+             <summary>
+             Author:		        Joe Audette
+             Created:            2007/05/28
+             Last Modified:      2007/05/28
+             
+             Licensed under the terms of the GNU Lesser General Public License:
+            	http://www.opensource.org/licenses/lgpl-license.php
+            
+             You must not remove this notice, or any other, from this software.
+             
+             </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Editor.EditorControl.ProviderName">
+            <summary>
+            This should be set in Page PreInit event
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Editor.EditorManager">
+             <summary>
+             Author:		        Joe Audette
+             Created:            2007/05/18
+             Last Modified:      2007/05/30
+            
+             Licensed under the terms of the GNU Lesser General Public License:
+            	http://www.opensource.org/licenses/lgpl-license.php
+            
+             You must not remove this notice, or any other, from this software.
+             
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Editor.EditorProvider">
+             <summary>
+             Author:		        Joe Audette
+             Created:            2007/05/18
+             Last Modified:      2007/05/30
+             
+             Licensed under the terms of the GNU Lesser General Public License:
+            	http://www.opensource.org/licenses/lgpl-license.php
+            
+             You must not remove this notice, or any other, from this software.
+             
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Editor.EditorProviderCollection">
+             <summary>
+             Author:		        Joe Audette
+             Created:            2007/05/18
+             Last Modified:      2007/05/25
+             
+             Licensed under the terms of the GNU Lesser General Public License:
+            	http://www.opensource.org/licenses/lgpl-license.php
+            
+             You must not remove this notice, or any other, from this software.
+             
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Editor.XStandardAdapter">
+             <summary>
+             Author:					Joe Audette
+             Created:				2007-08-26
+             Last Modified:		    2008-01-14
+             
+             The use and distribution terms for this software are covered by the 
+             Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+             which can be found in the file CPL.TXT at the root of this distribution.
+             By using this software in any fashion, you are agreeing to be bound by 
+             the terms of this license.
+            
+             You must not remove this notice, or any other, from this software.
+             
+             
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Editor.XStandardControl">
+            <summary>
+            XStandard Editor wrapper control
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Editor.XStandardControl.AutoFocus">
+            <summary>
+            This option enables you to auto focus an editor instance. The 
+            value of this option should be an editor instance id. Editor 
+            instance ids are specified as "mce_editor_index", where 
+            index is a value starting from 0. So if there are 3 editor 
+            instances on a page, they would have the following 
+            ids - mce_editor_0, mce_editor_1 and mce_editor_2.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Editor.XStandardControl.TextDirection">
+            <summary>
+            This option specifies the default writing direction, some languages 
+            (Like Hebrew, Arabic, Urdu...) write from right to left instead 
+            of left to right. The default value of this option is "ltr" but 
+            if you want to use from right to left mode specify "rtl" instead.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Editor.XStandardControl.EditorAreaCSS">
+            <summary>
+            This option enables you to specify a custom CSS file that extends 
+            the theme content CSS. This CSS file is the one used within the 
+            editor (the editable area). The default location of this CSS file 
+            is within the current theme. This option can also be a comma 
+            separated list of URLs.
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Editor.XStandardProvider">
+             <summary>
+             Author:					Joe Audette
+             Created:				2007-08-26
+             Last Modified:		    2007-08-26
+             
+             The use and distribution terms for this software are covered by the 
+             Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+             which can be found in the file CPL.TXT at the root of this distribution.
+             By using this software in any fashion, you are agreeing to be bound by 
+             the terms of this license.
+            
+             You must not remove this notice, or any other, from this software.
+             
+             
+             </summary>
+        </member>
+    </members>
+</doc>

@@ -35,7 +35,8 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.XPath;
 
-namespace Brettle.Web.NeatHtml
+//namespace Brettle.Web.NeatHtml
+namespace mojoPortal.Web.Framework
 {
 
     internal class XPathNavigatorReader : XmlTextReader, IXPathNavigable

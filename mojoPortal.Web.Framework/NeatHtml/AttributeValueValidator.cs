@@ -27,7 +27,8 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 
-namespace Brettle.Web.NeatHtml
+//namespace Brettle.Web.NeatHtml
+namespace mojoPortal.Web.Framework
 {
     internal class AttributeValueValidator
     {
