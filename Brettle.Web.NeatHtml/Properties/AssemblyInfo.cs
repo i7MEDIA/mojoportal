@@ -1,16 +1,19 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Web.UI;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Brettle.Web.NeatHtml")]
-[assembly: AssemblyDescription("")]
+[assembly: CLSCompliant(true)]
+[assembly: AssemblyTitle("NeatHtml")]
+[assembly: AssemblyDescription("NeatHtml helps prevent XSS attacks by validating HTML against a subset of XHTML.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Brettle.Web.NeatHtml")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCompany("Dean Brettle")]
+[assembly: AssemblyProduct("NeatHtml")]
+[assembly: AssemblyCopyright("Copyright 2006 Dean Brettle.  Licensed under the Lesser General Public License.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

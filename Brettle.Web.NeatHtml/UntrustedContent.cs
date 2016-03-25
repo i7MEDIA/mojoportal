@@ -31,16 +31,17 @@ using System.Drawing.Design;
 using System.Text.RegularExpressions;
 
 namespace Brettle.Web.NeatHtml
-{	
-	/// <summary>
-	/// Renders it's content using NeatHtml.js to fight XSS and other attacks.
-	/// </summary>
-	/// <remarks>
-	/// Tables that are not at the top-level of the content may cause the content to not display properly
-	/// for users without javascript.
-	/// </remarks>
-	[AspNetHostingPermissionAttribute (SecurityAction.LinkDemand, Level = AspNetHostingPermissionLevel.Minimal)]
-	[AspNetHostingPermissionAttribute (SecurityAction.InheritanceDemand, Level = AspNetHostingPermissionLevel.Minimal)]
+{
+    /// <summary>
+    /// Renders it's content using NeatHtml.js to fight XSS and other attacks.
+    /// </summary>
+    /// <remarks>
+    /// Tables that are not at the top-level of the content may cause the content to not display properly
+    /// for users without javascript.
+    /// </remarks>
+    //[AspNetHostingPermissionAttribute (SecurityAction.LinkDemand, Level = AspNetHostingPermissionLevel.Minimal)]
+    [AspNetHostingPermissionAttribute(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.Minimal)]
+    [AspNetHostingPermissionAttribute (SecurityAction.InheritanceDemand, Level = AspNetHostingPermissionLevel.Minimal)]
 	[ParseChildren(false)]
 	[PersistChildren(true)]
 //#if NET_2_0

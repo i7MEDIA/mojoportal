@@ -1088,10 +1088,71 @@ namespace mojoPortal.Web.UI
             }
         }
 
+        private void SetupWebFormsScripts(ScriptManager scriptManager)
+        {
+            if (scriptManager == null) { return; }
+
+            var script = new ScriptReference("WebForms.js", "System.Web");
+            script.Path = "~/Scripts/WebForms/WebForms.js";
+            //scriptManager.CompositeScript.Scripts.Add(script);
+            scriptManager.Scripts.Add(script);
+
+
+            script = new ScriptReference("WebUIValidation.js", "System.Web");
+            script.Path = "~/Scripts/WebForms/WebUIValidation.js";
+            scriptManager.Scripts.Add(script);
+
+            script = new ScriptReference("MenuStandards.js", "System.Web");
+            script.Path = "~/Scripts/WebForms/MenuStandards.js";
+            scriptManager.Scripts.Add(script);
+
+            script = new ScriptReference("GridView.js", "System.Web");
+            script.Path = "~/Scripts/WebForms/GridView.js";
+            scriptManager.Scripts.Add(script);
+
+            script = new ScriptReference("DetailsView.js", "System.Web");
+            script.Path = "~/Scripts/WebForms/DetailsView.js";
+            scriptManager.Scripts.Add(script);
+
+            script = new ScriptReference("TreeView.js", "System.Web");
+            script.Path = "~/Scripts/WebForms/TreeView.js";
+            scriptManager.Scripts.Add(script);
+
+            script = new ScriptReference("WebParts.js", "System.Web");
+            script.Path = "~/Scripts/WebForms/WebParts.js";
+            scriptManager.Scripts.Add(script);
+
+            script = new ScriptReference("Focus.js", "System.Web");
+            script.Path = "~/Scripts/WebForms/Focus.js";
+            scriptManager.Scripts.Add(script);
+
+        }
+
         private void SetupMSAjaxScripts(ScriptManager scriptManager)
         {
 
             if (scriptManager == null) { return; }
+
+            SetupWebFormsScripts(scriptManager);
+
+           
+
+            ScriptReference scriptReference = new ScriptReference("~/bundles/WebFormsJs");
+            scriptReference.Name = "WebFormsBundle";
+            scriptManager.Scripts.Add(scriptReference);
+
+            scriptReference = new ScriptReference("~/bundles/MsAjaxJs");
+            scriptReference.Name = "MsAjaxBundle";
+            scriptManager.Scripts.Add(scriptReference);
+
+            if (WebConfigSettings.BundlesUseCdn)
+            {
+                scriptManager.EnableCdn = true;
+                // for some reason with true it was using the cdn url as the fallback url
+                // which is redundant
+                scriptManager.EnableCdnFallback = false;
+                
+            }
 
             //ScriptReference scriptReference = new ScriptReference("MsAjaxBundle","");
             //AddBundleScriptReference(scriptManager, scriptReference);
@@ -1110,10 +1171,10 @@ namespace mojoPortal.Web.UI
             
             if (scriptManager == null) { return; }
 
-            //ScriptReference scriptReference = new ScriptReference("~/Scripts/AjaxControlToolkit/Bundle");
-            //AddBundleScriptReference(scriptManager, scriptReference);
+            ScriptReference scriptReference = new ScriptReference("~/Scripts/AjaxControlToolkit/Bundle");
+            scriptManager.Scripts.Add(scriptReference);
 
-            
+
 
             // below is not working/needed with the latest toolkit
 
@@ -1156,7 +1217,7 @@ namespace mojoPortal.Web.UI
             //scriptReference = new ScriptReference("ReorderList.DropWatcherBehavior.js", "AjaxControlToolkit");
             //AddNamedScriptReference(scriptManager, scriptReference);
 
-            
+
 
 
         }
