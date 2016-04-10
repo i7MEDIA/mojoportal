@@ -167,10 +167,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Brettle.Web.NeatHtmlTools, Version=1.0.2979.14781, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_libs\Brettle.Web.NeatHtmlTools.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
@@ -205,6 +201,10 @@
     <Compile Include="EnumHelper.cs" />
     <Compile Include="ExportHelper.cs" />
     <Compile Include="IOHelper.cs" />
+    <Compile Include="NeatHtml\AttributeValueValidator.cs" />
+    <Compile Include="NeatHtml\XPathNavigatorReader.cs" />
+    <Compile Include="NeatHtml\XssFilter.cs" />
+    <Compile Include="NeatHtml\XssFilterInfo.cs" />
     <Compile Include="ResourceHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScriptDeferFilter.cs" />

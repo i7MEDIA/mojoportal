@@ -1,0 +1,503 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>mojoPortal.Web.Framework</name>
+    </assembly>
+    <members>
+        <member name="M:mojoPortal.Web.Framework.CombineScripts.CombineScriptBlocks(System.String)">
+            <summary>
+            Combine script references using file sets defined in a configuration file.
+            It will replace multiple script references using one 
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Framework.Compressor">
+            <summary>
+            http://www.codeproject.com/KB/viewstate/ViewStateCompression.aspx
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.CryptoHelper.Encrypt(System.String)">
+            <summary>
+            this does not work in medium trust hosting
+            </summary>
+            <param name="clearText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.CryptoHelper.Decrypt(System.String)">
+            <summary>
+            this does not work in medium trust
+            </summary>
+            <param name="encryptedText"></param>
+            <returns></returns>
+        </member>
+        <member name="T:mojoPortal.Web.Framework.CssMinify">
+            <summary>
+            by Michael Ash
+            BSD License http://developer.yahoo.net/yui/license.txt
+            
+            http://regexadvice.com/blogs/mash/archive/2008/04/18/Follow-up-to-Additional-CSS-minifying-regex-patterns.aspx
+            http://regexadvice.com/blogs/mash/archive/2008/04/27/Update-to-CSS-Minification.aspx
+            
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Framework.PersianDateHelper">
+            <summary>
+            A helper class for Persian language
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Framework.CultureHelper">
+            <summary>
+            A helper class for various cultures that are not as well supported in ASP.nET
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.CultureHelper.ToLocalString(System.Int32)">
+            <summary>
+            Example extension method for int, allows us to do digit substitution where needed.
+            Current example is only for Arabic but the same technique can be used for other languages
+            if we can add more conversion methods
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.CultureHelper.SubstituteArabicDigits(System.String)">
+            <summary>
+            based on http://weblogs.asp.net/abdullaabdelhaq/archive/2009/06/27/displaying-arabic-number.aspx
+            seems like a fairly expensive method to call so not sure if its suitable to use this everywhere
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:mojoPortal.Web.Framework.CurrencyHelper">
+            <summary>
+            Created by Michael Morozov
+            michael.morozov@neudesic.com
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.CurrencyHelper.CultureInfoFromCurrencyISO(System.String)">
+            <summary>
+            Lookup CultureInfo by currency ISO code
+            </summary>
+            <param name="isoCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.CurrencyHelper.FormatCurrency(System.Decimal,System.String)">
+            <summary>
+            Convert currency to a string using the specified currency format
+            </summary>
+            <param name="amount"></param>
+            <param name="currencyISO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.DateTimeHelper.GetTimeZoneList">
+            <summary>
+            The plan is to use this for setting the site default time zone and user time zones.
+            As of 2009-04-06 its throwing NotImplementedException on Mono if you invoke this method.
+            So we are holding off on using it for now to keep from breaking compatibility with Mono.
+            TimeZoneInfo is a new class in 3.5 .NET
+            https://bugzilla.novell.com/show_bug.cgi?id=492924
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.IOHelper.IsMediaFile(System.IO.FileInfo)">
+            <summary>
+            Determines if file is video or image file based upon its extension.
+            </summary>
+            <param name="fileInfo">File to inspect</param>
+            <returns>Results of the inspection.</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.IOHelper.IsWebImageFile(System.IO.FileInfo)">
+            <summary>
+            Determines if file is video or image file based upon its extension.
+            </summary>
+            <param name="fileInfo">File to inspect</param>
+            <returns>Results of the inspection.</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.ResourceHelper.GetDefaultUICulture">
+            <summary>
+            when posssible you should use SiteUtils.GetDefaultUICulture() in preference to this method
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.ResourceHelper.GetDefaultCulture">
+            <summary>
+            when posssible you should use SiteUtils.GetDefaultCulture() in preference to this method
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.ResourceHelper.GetCurrencyCulture(System.String)">
+            <summary>
+            Gets a CultureInfo object suitable for parsing or formatting a specific currency
+            </summary>
+            <param name="currencyISOCode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:mojoPortal.Web.Framework.ScriptDeferFilter">
+            <summary>
+            Summary description for ScriptDeferFilter
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Framework.ScriptDeferFilter.captureScripts">
+            <summary>
+            When this is true, script blocks are suppressed and captured for 
+            later rendering
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Framework.ScriptDeferFilter.scriptBlocks">
+            <summary>
+            Holds all script blocks that are injected by the controls
+            The script blocks will be moved after the form tag renders
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Framework.ScriptDeferFilter.pendingBuffer">
+            <summary>
+            Holds characters from last Write(...) call where the start tag did not
+            end and thus the remaining characters need to be preserved in a buffer so 
+            that a complete tag can be parsed
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Framework.ScriptDeferFilter.lastScriptTagIsPinned">
+            <summary>
+            When this is true, it means the last script tag tag started from a Write(...) call
+            was marked as pinned, which means it must not be moved and must be rendered
+            exactly where it is.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Framework.ScriptDeferFilter.scriptTagStarted">
+            <summary>
+            If this is true, then it means a script tag started, but did not end
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Framework.ScriptDeferFilter.useHackyScriptExceptions">
+            <summary>
+            Added 2008-11-04 by Joe Audette
+            Omar implemented a method to mark some scripts so they don't get moved to the bottom by adding a "pin" attribute
+            to the script element like this script pin src="...
+            however this is not xhtml compliant and is therefore not a good solution even though its more efficient than my hacky solution.
+            this bool determines whether to use my hacky solution, it will come from Web.config UseMojoScriptFilterExceptionsWhenCombiningJavaScript
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.ScriptDeferFilter.RenderAllScriptBlocks">
+            <summary>
+            Render collected scripts blocks all together
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.ScriptDeferFilter.isScriptTag(System.Char[],System.Int32)">
+            <summary>
+            TODO: we need this to only return true for external script tags, ie with src= ?
+            </summary>
+            <param name="content"></param>
+            <param name="pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.ScriptDeferFilter.ShouldNotMoveScript(System.Char[],System.Int32,System.Int32@)">
+            <summary>
+            added by Joe Audette 2008-11-04
+            this function should only be called right after isScript returns true
+            its a very crappy hack to solve a few problems caused by moving the javascript to the bottom
+            neathtml.js must be at the top, its a very important script for preventing xss
+            it also wraps a lof things inside script tags inside the content and we don't want to move those script blocks to the bottom either 
+            
+            strategy: detect scripts we don't want to move to bottom and when found determine # of chars to move ahead in order to move past the
+            script in processing the output stream
+            
+            sub strategy if the script is an inline block with no src=, don't move it to the bottom (assume its neathtml)
+            problem is some inline script blocks do need to be moved to the bottom so we hard code some exceptions to ignore
+            
+            if anyone has ideas about refactoring this to make it more maintainable and/or more efficient
+            please give it a try and submit the change to joe.audette@gmail.com
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.ScriptDeferFilter.GetOffsetOfNextClosingScript(System.Char[],System.Int32)">
+            <summary>
+            returns the number of characters from pos to the beginning of the next closing script element
+            </summary>
+            <param name="content"></param>
+            <param name="pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.ScriptDeferFilter.GetOffsetNextIndexOfSrc(System.Char[],System.Int32,System.Int32)">
+            <summary>
+            returns the number of characters from pos to the beginning of the next src= in the char array
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.ScriptDeferFilter.GetOffsetNextIndexOfSysDot(System.Char[],System.Int32,System.Int32)">
+            <summary>
+            returns the number of characters from pos to the beginning of the next Sys. in the char array
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.ScriptDeferFilter.GetOffsetNextIndexOfWebFormInitCallback(System.Char[],System.Int32,System.Int32)">
+            <summary>
+            returns the number of characters from pos to the beginning of the next WebForm_InitCallback in the char array
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Framework.SecurityHelper.RegexEmailValidationPattern">
+            <summary>
+            a regular expression for validating email addresses, efficient but not completely RFC 822 compliant
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.SecurityHelper.GetEmailRegexExpression">
+            <summary>
+            it is better to use this method than to directly use the constant above becuase this allows you to override the experession if needed
+            to solve a problem
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.SecurityHelper.GetCurrentTrustLevel">
+            <summary>
+            Gets the current Trust Level
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:mojoPortal.Web.Framework.ServicePinger">
+             <summary>
+             Author:					Joe Audette
+             Created:				2008-03-16
+             Last Modified:			2008-03-16
+            		
+             The use and distribution terms for this software are covered by the 
+             Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+             which can be found in the file CPL.TXT at the root of this distribution.
+             By using this software in any fashion, you are agreeing to be bound by 
+             the terms of this license.
+            
+             You must not remove this notice, or any other, from this software.	
+             
+             This is just a base class for other panel based controls, it is not meant to be used directly.
+             </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.ServicePinger.Ping">
+            <summary>
+            Does the actual pinging of the service
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Framework.SpamPreventionQuestion">
+            <summary>
+            Author:             Joe Audette
+            Created:            3/10/2006
+            Last Modified:      3/10/2007
+            
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.StringHelper.JsonEscape(System.String)">
+            <summary>
+            Encodes a string to be represented as a string literal. The format
+            is essentially a JSON string.
+            
+            The string returned includes outer quotes 
+            Example Output: "Hello \"Rick\"!\r\nRock on"
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.StringHelper.ToAscii(System.String)">
+            <summary>
+            Converts a unicode string into its closest ascii equivalent
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.StringHelper.ToAsciiIfPossible(System.String)">
+            <summary>
+            Converts a unicode string into its closest ascii equivalent.
+            If the ascii encode string length is less than or equal to 1 returns the original string
+            as this means the string is probably in a language with no ascii equivalents
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.StringHelper.RemapInternationalCharToAscii(System.Char)">
+            <summary>
+            Remap International Chars To Ascii
+            http://meta.stackoverflow.com/questions/7435/non-us-ascii-characters-dropped-from-full-profile-url/7696#7696
+            </summary>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.UIHelper.EnumToDictionary``1">
+            <summary>
+            for easily converting an Enum to an IDictionary for data binding ie for a dropdown list
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.UIHelper.HexStringToColor(System.String)">
+            <summary>
+            Convert a hex string to a .NET Color object. Returns Color.Blue on error
+            </summary>
+            <param name="hexColor">a hex string: "FFFFFF", "#000000"</param>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.UIHelper.ExtractHexDigits(System.String)">
+            <summary>
+            Extract only the hex digits from a string.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.UIHelper.ValidateNotNullOrEmpty(System.String,System.String)">
+            <summary>
+            Throws exception if the given string is null or empty.
+            </summary>
+            <param name="value">
+            The value to check.
+            </param>
+            <param name="name">
+            The argument name.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If the given value is null.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If the given value is empty.
+            </exception>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.UIHelper.ValidateNotNull(System.Object,System.String)">
+            <summary>
+            Throws exception if the given value is null.
+            </summary>
+            <param name="value">
+            The value to check.
+            </param>
+            <param name="name">
+            The argument name.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If the given value is null.
+            </exception>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.UIHelper.CreatePagerLinks(System.String,System.Int32,System.Int32,System.String,System.String,System.String,System.String)">
+            <summary>
+            This pager added by Juliano Barbosa
+            </summary>
+            <param name="pageUrl"></param>
+            <param name="currentPage"></param>
+            <param name="totalPages"></param>
+            <param name="prevPageAlt"></param>
+            <param name="nextPageAlt"></param>
+            <param name="firstPageAlt"></param>
+            <param name="lastPageAlt"></param>
+            <returns>page links</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.UIHelper.DisableButtonAfterClick(System.Web.UI.WebControls.WebControl,System.String,System.String)">
+            <summary>
+            Sets up a button so that once clicked, it can't be clicked again until complete.
+            It displays the passed in text while disabled. After finishing the work you are
+            required to set the button text back to its original text.
+            Example usage:
+            UIHelper.DisableButtonAfterClick(
+                   btnSavePreferences,
+                   Resource.ButtonDisabledPleaseWait,
+                   Page.ClientScript.GetPostBackEventReference(this.btnSavePreferences, string.Empty)
+                   );
+             You should not disable the button if you are using client side validation as this can result in the button remaining disabled
+             after client side valdiation prevents postback
+            </summary>
+            <param name="button"></param>
+            <param name="disabledText"></param>
+            <param name="postbackEventReference"></param>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.UIHelper.CreateExcerpt(System.String,System.Int32)">
+            <summary>
+            creates a plain text excerpt of the passed in html content without any markup and with a length less than or equal to the passed in length.
+            </summary>
+            <param name="content"></param>
+            <param name="excerptLength"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.UIHelper.CreateExcerpt(System.String,System.Int32,System.String)">
+            <summary>
+            creates a plain text excerpt of the passed in html content without any markup and with a length less than or equal to the passed in length.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.UIHelper.CompressCss(System.String)">
+            <summary>
+            removes white space from css to reduce network bandwidth usage and therefore improve performance
+            2008-11-01 found this method breaks some presentation.
+            use CssMinify.cs instead.
+            </summary>
+            <param name="css"></param>
+            <returns></returns>
+        </member>
+        <member name="T:mojoPortal.Web.Framework.WebUtils">
+            <summary>
+            Utility functions
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.WebUtils.LoadOptionalRequestParam``1(System.String,``0)">
+            <summary>
+            Loads parameter of a given type from query string.
+            Returns the given value if operation failed.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.WebUtils.TryLoadRequestParam(System.String,System.Int32@)">
+            <summary>
+            Loads Int32 parameter from query string.
+            A return value indicates whether the operation succeeded.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.WebUtils.TryLoadRequestParam(System.String,System.String@)">
+            <summary>
+            Loads String parameter from query string.
+            A return value indicates whether the operation succeeded.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.WebUtils.TryLoadRequestParam(System.String,System.DateTime@)">
+            <summary>
+            Loads DateTime parameter from query string.
+            A return value indicates whether the operation succeeded.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.WebUtils.TryLoadRequestParam(System.String,System.Guid@)">
+            <summary>
+            Loads Guid parameter from query string.
+            A return value indicates whether the operation succeeded.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.WebUtils.TryLoadRequestParam``1(System.String,``0@)">
+            <summary>
+            Loads parameter of a given type from query string.
+            A return value indicates whether the operation succeeded.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.WebUtils.ResolveUrl(System.String)">
+            <summary>
+            Returns a site relative HTTP path from a partial path starting out with a ~.
+            Same syntax that ASP.Net internally supports but this method can be used
+            outside of the Page framework.
+            
+            Works like Control.ResolveUrl including support for ~ syntax
+            but returns an absolute URL.
+            </summary>
+            <param name="originalUrl">Any Url including those starting with ~</param>
+            <returns>relative url</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.WebUtils.ResolveServerUrl(System.String,System.Boolean)">
+            <summary>
+            This method returns a fully qualified absolute server Url which includes
+            the protocol, server, port in addition to the server relative Url.
+            
+            Works like Control.ResolveUrl including support for ~ syntax
+            but returns an absolute URL.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.WebUtils.ResolveServerUrl(System.String)">
+            <summary>
+            This method returns a fully qualified absolute server Url which includes
+            the protocol, server, port in addition to the server relative Url.
+            
+            It work like Page.ResolveUrl, but adds these to the beginning.
+            This method is useful for generating Urls for AJAX methods
+            </summary>
+            <param name="serverUrl">Any Url, either App relative or fully qualified</param>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.WebUtils.ForceUriToHttps(System.Uri)">
+            <summary>
+            Forces the Uri to use https
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Framework.XmlHelper.TransformXML(System.String,System.String)">
+            <summary>
+            transforms xml from a given url using xsl from a given url
+            returns an empty string and logs an error if an error occurs
+            </summary>
+            <param name="xmlUrl"></param>
+            <param name="xslUrl"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

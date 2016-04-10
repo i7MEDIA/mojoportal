@@ -1,0 +1,265 @@
+﻿#RadialGradient1 {
+    stop-color: #ffffff;
+    stop-opacity: 0.10;
+}
+
+#RadialGradient2 {
+    stop-color: #ffffff;
+    stop-opacity: 0.3;
+}
+
+#RadialGradient3 {
+    stop-color: #ffffff;
+    stop-opacity: 0;
+}
+
+#ChartTitle {
+    fill: #711737;
+    fill-opacity: 1;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 16px;
+}
+
+#VerticalLine {
+    fill-opacity: 1;
+    stroke: #dfdfdf;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 1;
+    stroke-width: 1;
+}
+
+#HorizontalLine {
+    fill: none;
+    fill-opacity: 1;
+    stroke: #dfdfdf;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 1;
+    stroke-width: 1;
+}
+
+#BaseLine {
+    fill: none;
+    fill-opacity: 1;
+    stroke: #8e8e8e;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 1;
+    stroke-width: 1;
+}
+
+#LegendArea {
+    fill: none;
+    fill-opacity: 1;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 1;
+    stroke-width: 0;
+}
+
+#Legend1 {
+    fill: #6C1E83;
+    fill-opacity: 1;
+    stroke: #6C1E83;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+}
+
+#Legend2 {
+    fill: #D08AD9;
+    fill-opacity: 1;
+    stroke: #D08AD9;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+}
+
+#Legend3 {
+    fill: #6586A7;
+    fill-opacity: 1;
+    stroke: #6586A7;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+}
+
+#Legend4 {
+    fill: #0E426C;
+    fill-opacity: 1;
+    stroke: #0E426C;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+}
+
+#Legend5 {
+    fill: #A156AB;
+    fill-opacity: 1;
+    stroke: #A156AB;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+}
+
+#Legend6 {
+    fill: #990033;
+    fill-opacity: 1;
+    stroke: #990033;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+}
+
+#Legend7 {
+    fill: #669900;
+    fill-opacity: 1;
+    stroke: #669900;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+}
+
+#Legend8 {
+    fill: #B85B3E;
+    fill-opacity: 1;
+    stroke: #B85B3E;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+}
+
+#Legend9 {
+    fill: #FFC652;
+    fill-opacity: 1;
+    stroke: #FFC652;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+}
+
+#Legend10 {
+    fill: #4508A2;
+    fill-opacity: 1;
+    stroke: #4508A2;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+}
+
+#Segment1 {
+    fill: #6C1E83;
+    fill-opacity: 1;
+    stroke: #6C1E83;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+    stroke-width: 0;
+}
+
+#Segment2 {
+    fill: #D08AD9;
+    fill-opacity: 1;
+    stroke: #D08AD9;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+    stroke-width: 0;
+}
+
+#Segment3 {
+    fill: #6586A7;
+    fill-opacity: 1;
+    stroke: #6586A7;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+    stroke-width: 0;
+}
+
+#Segment4 {
+    fill: #0E426C;
+    fill-opacity: 1;
+    stroke: #0E426C;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+    stroke-width: 0.5;
+}
+
+#Segment5 {
+    fill: #A156AB;
+    fill-opacity: 1;
+    stroke: #A156AB;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+    stroke-width: 0.5;
+}
+
+#Segment6 {
+    fill: #990033;
+    fill-opacity: 1;
+    stroke: #990033;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+    stroke-width: 0.5;
+}
+
+#Segment7 {
+    fill: #669900;
+    fill-opacity: 1;
+    stroke: #669900;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+    stroke-width: 0.5;
+}
+
+#Segment8 {
+    fill: #B85B3E;
+    fill-opacity: 1;
+    stroke: #B85B3E;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+    stroke-width: 0.5;
+}
+
+#Segment9 {
+    fill: #FFC652;
+    fill-opacity: 1;
+    stroke: #FFC652;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+    stroke-width: 0.5;
+}
+
+#Segment10 {
+    fill: #4508A2;
+    fill-opacity: 1;
+    stroke: #4508A2;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 0.5;
+    stroke-width: 0.5;
+}
+
+#LegendText {
+    fill: #232323;
+    fill-opacity: 1;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 11px;
+}
+
+#ChartBackGround {
+    fill: #ffffff;
+    fill-opacity: 1;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    stroke-opacity: 1;
+    stroke-width: 0;
+}
