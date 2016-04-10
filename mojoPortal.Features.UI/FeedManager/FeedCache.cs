@@ -45,6 +45,13 @@ namespace mojoPortal.Web.FeedUI
                     {
                         return feedUrl + "?g=" + internalSecurtyByPassKey.ToString();
                     }
+                    // the above does not add the required key to a mojoPortal blog feed with URL like 
+                    // https://mysite.com/Blog/RSS.aspx?p=200~180~-1
+                    else
+                    {
+                        // assume we already have qrystr param
+                        return feedUrl + "&g=" + internalSecurtyByPassKey.ToString();
+                    }
                 }
 
             }
