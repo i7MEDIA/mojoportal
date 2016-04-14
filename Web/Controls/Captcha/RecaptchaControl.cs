@@ -241,12 +241,31 @@ namespace mojoPortal.Web.UI
         private void SetupAjaxScripts()
         {
             //need to include async and defer on the script element. ScriptManager isn't allowing that so we'll try this.
+            //using onload=recaptchaGo and render=explicit allows us to have more than one recaptcha on a page
             ScriptManager.RegisterClientScriptBlock(
                 this,
                 typeof(Page),
                 "recaptchaajax",
-                "var script = document.createElement('script'); script.type='text/javascript'; script.src='https://www.google.com/recaptcha/api.js\';" 
-                + " script.setAttribute('async',''); script.setAttribute('defer',''); document.head.appendChild(script);",
+                "var script = document.createElement('script'); script.type='text/javascript'; script.src='//www.google.com/recaptcha/api.js?onload=recaptchaGo&render=explicit\';"
+                + "script.setAttribute('async',''); script.setAttribute('defer',''); document.head.appendChild(script);"
+                + "var recaptchas = [];"
+                + "var recaptchaGo = function() {"
+                + "for(var i in recaptchas) {"
+                + "grecaptcha.render(recaptchas[i],{'sitekey': '" + this.publicKey + "', 'theme': '" + this.theme + "', 'callback': recaptchaDataCallback});"
+                + "}};"
+                + "var recaptchaDataCallback = function(gresponse) {"
+                //+ "alert(gresponse);"
+                + "var fields = document.getElementsByName('g-recaptcha-response');"
+                + "for(var i in fields) {"
+                + "fields[i].value = gresponse;"
+                + "}};",
+                true);
+            
+            ScriptManager.RegisterClientScriptBlock(
+                this,
+                typeof(Page),
+                "recaptchaajax_" + this.ClientID,
+                "recaptchas.push('recaptcha_" + this.ClientID + "');",
                 true);
         }
 
@@ -265,62 +284,23 @@ namespace mojoPortal.Web.UI
 
         protected override void RenderContents(HtmlTextWriter output)
         {
-            // <script> setting
 
-            // added 2011-10-22 by Joe Audette to support use inside UpdatePanel
-            //if (registerWithScriptManager)
-            //{
                 // write a div where we will attach the recaptcha
 
-                output.AddAttribute("id", "recaptcha_" + this.ClientID);
-                output.AddAttribute("class", "g-recaptcha");
-                output.AddAttribute("data-sitekey", this.publicKey);
-                output.AddAttribute("data-theme", this.theme);
-                output.AddAttribute("data-tabindex", base.TabIndex.ToString());
-                output.RenderBeginTag(HtmlTextWriterTag.Div);
-                output.RenderEndTag();
-            //}
-            //else
-            //{
-            //    output.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
-            //    output.RenderBeginTag(HtmlTextWriterTag.Script);
-            //    output.Indent++;
-            //    output.WriteLine("var RecaptchaOptions = {");
-            //    output.Indent++;
-            //    output.WriteLine("theme : '{0}',", this.theme ?? string.Empty);
-            //    if (!string.IsNullOrEmpty(this.language))
-            //        output.WriteLine("lang : '{0}',", this.language);
-            //    if (this.customTranslations != null && this.customTranslations.Count > 0)
-            //    {
-            //        var i = 0;
-            //        output.WriteLine("custom_translations : {");
-            //        foreach (var customTranslation in this.customTranslations)
-            //        {
-            //            i++;
-            //            output.WriteLine(
-            //                i != this.customTranslations.Count ?
-            //                    "{0} : '{1}'," :
-            //                    "{0} : '{1}'",
-            //                customTranslation.Key,
-            //                customTranslation.Value);
-            //        }
-            //        output.WriteLine("},");
-            //    }
-            //    if (!string.IsNullOrEmpty(this.customThemeWidget))
-            //        output.WriteLine("custom_theme_widget : '{0}',", this.customThemeWidget);
-            //    output.WriteLine("tabindex : {0}", base.TabIndex);
-            //    output.Indent--;
-            //    output.WriteLine("};");
-            //    output.Indent--;
-            //    output.RenderEndTag();
+            output.AddAttribute("id", "recaptcha_" + this.ClientID);
+            //output.AddAttribute("class", "g-recaptcha");
+            output.AddAttribute("class", "recaptcha");
+            //output.AddAttribute("data-sitekey", this.publicKey);
+            //output.AddAttribute("data-theme", this.theme);
+            output.AddAttribute("data-tabindex", base.TabIndex.ToString());
+            output.RenderBeginTag(HtmlTextWriterTag.Div);
+            output.RenderEndTag();
+            //output.AddAttribute("id", "g-response");
+            //output.RenderBeginTag(HtmlTextWriterTag.Textarea);
+            //output.RenderEndTag();
 
-            //    // <script> display
-            //    output.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
-            //    output.AddAttribute(HtmlTextWriterAttribute.Src, this.GenerateChallengeUrl(false), false);
-            //    output.RenderBeginTag(HtmlTextWriterTag.Script);
-            //    output.RenderEndTag();
 
-            //}
+
 
             // <noscript> display
             output.RenderBeginTag(HtmlTextWriterTag.Noscript);
@@ -406,7 +386,25 @@ namespace mojoPortal.Web.UI
                         validator.PrivateKey = this.PrivateKey;
                         validator.RemoteIP = Page.Request.UserHostAddress;
                         //validator.Challenge = Context.Request.Form[RECAPTCHA_CHALLENGE_FIELD];
-                        validator.Response = Context.Request.Form[RECAPTCHA_RESPONSE_FIELD];
+
+                        //recaptcha will add a textarea element with id='g-recaptcha-response' for every recaptcha instance
+                        //this means if we have more than one on a page, the validation doesn't always work
+                        // so, by looping through all form keys with the id 'g-recaptcha-response' and only using the ones 
+                        // with a value, we're sure to validate properly. 
+                        // we will then pass the final value to recaptcha to make sure it's valid
+                        string response = string.Empty;
+                        foreach (string key in Context.Request.Form.AllKeys)
+                        {
+                            if (key.StartsWith(RECAPTCHA_RESPONSE_FIELD))
+                            {
+                                if (!String.IsNullOrWhiteSpace(Context.Request.Form[key]))
+                                {
+                                    response = Context.Request.Form[key];
+                                }
+                            }
+                        }
+                        
+                        validator.Response = response;
                         validator.Proxy = this.proxy;
 
                         if (validator.Response == null)
