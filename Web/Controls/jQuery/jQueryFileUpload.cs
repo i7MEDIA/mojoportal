@@ -411,10 +411,13 @@ namespace mojoPortal.Web.UI
             //show files in UI list
             script.Append("var d = $(\"<span class='" + deleteSpanCssClass + "' title='Remove'></span>\")");
             script.Append(".click(function(){ ");
-            script.Append(" data.files.splice(index,1); ");
+            // see https://github.com/joeaudette/mojoportal/issues/4       
+            script.Append("var indexAtRuntime = $('#filelist" + ClientID + " ul:not(.file-errors) li').index($(this).parent());");
+            script.Append(" data.files.splice(indexAtRuntime,1); ");
             // sync the copy of file array
             script.Append(" fileList = data.files; ");
-            script.Append("$('#filelist" + ClientID + " li').eq(index).remove(); ");
+            // see https://github.com/joeaudette/mojoportal/issues/4
+            script.Append("$('#filelist" + ClientID + " li').eq(indexAtRuntime).remove(); ");
             script.Append("if(fileList.length === 0) {");
             script.Append("$('#filelist" + ClientID + "').html('');");
             script.Append("} ");
