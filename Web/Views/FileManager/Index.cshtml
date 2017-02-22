@@ -1,0 +1,119 @@
+﻿@{
+	ViewBag.Title = "Media Management";
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en" ng-app="FileManagerApp">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		<title>@ViewBag.Title</title>
+		<link rel="stylesheet" href="~/Content/FileManager/bower_components/bootswatch/paper/bootstrap.min.css" />
+		<link rel="stylesheet" href="~/Content/FileManager/dist/angular-filemanager.min.css">
+	</head>
+	<body class="ng-cloak @(ViewBag.view == "fullpage" ? "fullpage" : string.Empty)">
+		@if (ViewBag.view == "fullpage")
+		{
+			<div class="alert alert-info alert-control">
+				<a class="alert-link" href="javascript:void(0)" onclick="history.back();"><i class="glyphicon glyphicon-menu-left" aria-hidden="true"></i> Back to Website</a>
+			</div>
+		}
+		<angular-filemanager></angular-filemanager>
+
+		<script src="~/Content/FileManager/bower_components/angular/angular.min.js"></script>
+		<script src="~/Content/FileManager/bower_components/angular-translate/angular-translate.min.js"></script>
+		<script src="~/Content/FileManager/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+		<script src="~/Content/FileManager/bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="~/Content/FileManager/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="~/Content/FileManager/dist/angular-filemanager.min.js"></script>
+		<script>
+			var picker = getQueryString('editor');
+
+			angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (config) {
+				var defaults = config.$get();
+				config.set({
+					appName: '@ViewBag.RootName',
+					pickCallback: function (item) {
+						var url = '@VirtualPathUtility.RemoveTrailingSlash(ViewBag.virtualPath.Replace("~", String.Empty))' + item.fullPath();
+
+						if (picker != null) {
+							switch (picker) {
+								case 'ckeditor':
+									ckSubmit(url);
+									break;
+
+								case 'tinymce':
+									tmceSubmit(url);
+									break;
+
+								case 'filepicker':
+									fpSubmit(url);
+									break;
+							}
+						};
+					},
+					allowedActions: angular.extend(defaults.allowedActions, {
+						pickFiles: picker != null ? true : false,
+						pickFolders: false,
+						changePermissions: false
+					}),
+					listUrl: '/fileservice',
+					uploadUrl: '/fileservice/fileupload',
+					renameUrl: '/fileservice',
+					copyUrl: '/fileservice',
+					moveUrl: '/fileservice',
+					removeUrl: '/fileservice',
+					editUrl: '/fileservice',
+					getContentUrl: '/fileservice',
+					createFolderUrl: '/fileservice',
+					downloadFileUrl: '/fileservice',
+					downloadMultipleUrl: '/fileservice',
+					compressUrl: '/fileservice',
+					extractUrl: '/fileservice',
+					permissionsUrl: '/fileservice',
+					basePath: '/',
+					fileSystemToken: '@ViewBag.fileSystemToken',
+					hidePermissions: true,
+					multipleDownloadFileName: 'angular-filemanager.zip'
+				});
+			}]);
+
+			function ckSubmit(url) {
+				if (window.opener.CKEDITOR != null) {
+					var CKEditorFuncNum = getQueryString('CKEditorFuncNum') || console.error('Error: lost CKEditorFuncNum param from url' + window.location.href) || 1;
+					window.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, url);
+					window.close();
+				} else {
+					console.log('CKEDITOR instance does not exist.');
+				}
+			}
+
+			function tmceSubmit(url) {
+				if (top.tinymce != null) {
+					top.tinymce.activeEditor.windowManager.getParams().oninsert(url);
+					top.tinymce.activeEditor.windowManager.close();
+				} else {
+					console.log('tinymce instance does not exist.');
+				}
+			}
+
+			function fpSubmit(url) {
+				if (top.window.filePicker != null) {
+					top.window.filePicker.set(url, getQueryString('inputId'));
+					top.window.filePicker.close();
+				} else {
+					console.log('FileManagerSet instance does not exist.');
+				}
+			}
+
+			function getQueryString(field, url) {
+				var href, reg, string;
+
+				href = url ? url : window.location.href;
+				reg = new RegExp('[?&]' + field + '=([^&#]*)', 'i');
+				string = reg.exec(href);
+				return string ? string[1] : null;
+			};
+		</script>
+	</body>
+</html>
