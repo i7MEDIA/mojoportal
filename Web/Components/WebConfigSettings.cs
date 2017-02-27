@@ -3967,7 +3967,7 @@ namespace mojoPortal.Web
 
 		public static string PageTreeRelativeUrl
 		{
-			get { return ConfigHelper.GetStringProperty("PageTreeRelativeUrl", "/Admin/PageTree.aspx"); }
+			get { return ConfigHelper.GetStringProperty("PageTreeRelativeUrl", "/Admin/PageManager.aspx"); }
 		}
 
 		public static string ContentPublishPageRelativeUrl

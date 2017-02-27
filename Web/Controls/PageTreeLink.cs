@@ -23,7 +23,7 @@ namespace mojoPortal.Web.UI
 	/// </summary>
 	public class PageTreeLink : HyperLink
 	{
-		private string relativeUrl = "/Admin/PageTree.aspx";
+		private string relativeUrl = "/Admin/PageManager.aspx";
 		private mojoBasePage basePage = null;
 
 		private bool renderAsListItem = false;
