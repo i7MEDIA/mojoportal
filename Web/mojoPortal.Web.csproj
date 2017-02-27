@@ -556,6 +556,7 @@
     <Content Include="Admin\PageLayout.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="Admin\PageManager.aspx" />
     <Content Include="Admin\PagePermission.aspx" />
     <Content Include="Admin\PagePermissionsMenu.aspx" />
     <Content Include="Admin\PageSettings.aspx">
@@ -1732,6 +1733,13 @@
     <Compile Include="Admin\Monitor.aspx.designer.cs">
       <DependentUpon>Monitor.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\PageManager.aspx.cs">
+      <DependentUpon>PageManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PageManager.aspx.designer.cs">
+      <DependentUpon>PageManager.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\PagePermission.aspx.cs">
       <DependentUpon>PagePermission.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1783,6 +1791,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CountryISOCode2Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PageManagerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PageManagerResources.resx</DependentUpon>
     </Compile>
     <Compile Include="App_MasterPages\LayoutDisplaySettings.cs" />
     <Compile Include="App_Start\MappingProfile.cs" />
@@ -3610,6 +3623,9 @@
     <Compile Include="Services\SessionKeepAlive.aspx.designer.cs">
       <DependentUpon>SessionKeepAlive.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Services\SiteMapJson.ashx.cs">
+      <DependentUpon>SiteMapJson.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Services\TaskProgress.ashx.cs">
       <DependentUpon>TaskProgress.ashx</DependentUpon>
     </Compile>
@@ -3810,6 +3826,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\FileManager\Index.cshtml" />
     <Content Include="Views\Shared\_CleanLayout.cshtml" />
+    <Content Include="Services\SiteMapJson.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />
@@ -4116,6 +4133,10 @@
     <Content Include="App_GlobalResources\CountryISOCode2Resources.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>CountryISOCode2Resources.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\PageManagerResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PageManagerResources.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Controls\Rating\AjaxRatingBehavior.debug.js" />
     <EmbeddedResource Include="Controls\Rating\AjaxRatingBehavior.js" />

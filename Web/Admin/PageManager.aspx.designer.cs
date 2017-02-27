@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace sts.UI.Admin {
+namespace mojoPortal.Web.AdminUI {
     
     
     public partial class PageManager {
