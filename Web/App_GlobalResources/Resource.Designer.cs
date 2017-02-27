@@ -4327,6 +4327,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File editing is not allowed..
+        /// </summary>
+        internal static string FileEditInFileManagerNotAllowed {
+            get {
+                return ResourceManager.GetString("FileEditInFileManagerNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alternate File Manager.
         /// </summary>
         internal static string FileManagerAlternateLink {
@@ -4516,6 +4525,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File already exists..
+        /// </summary>
+        internal static string FileSystemFileExists {
+            get {
+                return ResourceManager.GetString("FileSystemFileExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your permissions don&apos;t allow you to create any more files..
+        /// </summary>
+        internal static string FileSystemFileLimitReached {
+            get {
+                return ResourceManager.GetString("FileSystemFileLimitReached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File doesn&apos;t exist!.
+        /// </summary>
+        internal static string FileSystemFileNotFound {
+            get {
+                return ResourceManager.GetString("FileSystemFileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File is too large..
+        /// </summary>
+        internal static string FileSystemFileSizeLimitReached {
+            get {
+                return ResourceManager.GetString("FileSystemFileSizeLimitReached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry, the file you are trying to upload is larger than allowed by configuration..
         /// </summary>
         internal static string FileSystemFileTooLargeError {
@@ -4530,6 +4575,24 @@ namespace Resources {
         internal static string FileSystemFolderLimitReached {
             get {
                 return ResourceManager.GetString("FileSystemFolderLimitReached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder doesn&apos;t exist!.
+        /// </summary>
+        internal static string FileSystemFolderNotFound {
+            get {
+                return ResourceManager.GetString("FileSystemFolderNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quota exceeded..
+        /// </summary>
+        internal static string FileSystemQuotaExceeded {
+            get {
+                return ResourceManager.GetString("FileSystemQuotaExceeded", resourceCulture);
             }
         }
         
@@ -5034,6 +5097,15 @@ namespace Resources {
         internal static string GenerateMachineKey {
             get {
                 return ResourceManager.GetString("GenerateMachineKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured..
+        /// </summary>
+        internal static string GenericError {
+            get {
+                return ResourceManager.GetString("GenericError", resourceCulture);
             }
         }
         

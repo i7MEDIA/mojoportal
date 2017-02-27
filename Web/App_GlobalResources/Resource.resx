@@ -6027,4 +6027,28 @@
   <data name="InstanceIDWithGuid" xml:space="preserve">
     <value>Instance ID {GUID}</value>
   </data>
+  <data name="FileSystemFileExists" xml:space="preserve">
+    <value>File already exists.</value>
+  </data>
+  <data name="FileSystemFileLimitReached" xml:space="preserve">
+    <value>Your permissions don't allow you to create any more files.</value>
+  </data>
+  <data name="FileSystemFileNotFound" xml:space="preserve">
+    <value>File doesn't exist!</value>
+  </data>
+  <data name="FileSystemFileSizeLimitReached" xml:space="preserve">
+    <value>File is too large.</value>
+  </data>
+  <data name="FileSystemFolderNotFound" xml:space="preserve">
+    <value>Folder doesn't exist!</value>
+  </data>
+  <data name="FileSystemQuotaExceeded" xml:space="preserve">
+    <value>Quota exceeded.</value>
+  </data>
+  <data name="GenericError" xml:space="preserve">
+    <value>An error occured.</value>
+  </data>
+  <data name="FileEditInFileManagerNotAllowed" xml:space="preserve">
+    <value>File editing is not allowed.</value>
+  </data>
 </root>

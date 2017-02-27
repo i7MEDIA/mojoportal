@@ -1,5 +1,5 @@
 ﻿//	Created:			    2011-02-25
-//	Last Modified:		    2014-02-06
+//	Last Modified:		    2017-02-20  @Elijah Fowler
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -20,155 +20,150 @@ using Resources;
 
 namespace mojoPortal.Web.UI
 {
-    public class FileBrowserTextBoxExtender : HyperLink
-    {
-        private SiteSettings siteSettings = null;
-        private bool canBrowse = false;
-        private string browserType = "file"; //allows browsing files and pages if the user is in a role that can browse and upload, soy uo could link to a page, pdf, zip, etc
+	public class FileBrowserTextBoxExtender : HyperLink
+	{
+		private SiteSettings siteSettings = null;
+		private bool canBrowse = false;
+		private string browserType = "file"; // Allows browsing files and pages if the user is in a role that can browse and upload, so you could link to a page, pdf, zip, etc
 
-        /// <summary>
-        /// valid options are folder, file, image, and media
-        /// </summary>
-        public string BrowserType
-        {
-            get { return browserType; }
-            set { browserType = value; }
+		/// <summary>
+		/// valid options are folder, file, image, and media
+		/// </summary>
+		public string BrowserType
+		{
+			get { return browserType; }
+			set { browserType = value; }
 
-        }
-        //private string editorType = string.Empty;
-        private string textBoxClientId = string.Empty;
+		}
 
-        public string TextBoxClientId
-        {
-            get { return textBoxClientId; }
-            set { textBoxClientId = value; }
-        }
+		private string textBoxClientId = string.Empty;
+		public string TextBoxClientId
+		{
+			get { return textBoxClientId; }
+			set { textBoxClientId = value; }
+		}
 
-        private string previewImageClientId = string.Empty;
+		private string previewImageClientId = string.Empty;
+		public string PreviewImageClientId
+		{
+			get { return previewImageClientId; }
+			set { previewImageClientId = value; }
+		}
 
-        public string PreviewImageClientId
-        {
-            get { return previewImageClientId; }
-            set { previewImageClientId = value; }
-        }
+		private bool previewImageOnBlur = true;
+		public bool PreviewImageOnBlur
+		{
+			get { return previewImageOnBlur; }
+			set { previewImageOnBlur = value; }
+		}
 
-        private bool previewImageOnBlur = true;
+		private string emptyImageUrl = "~/Data/SiteImages/1x1.gif";
+		public string EmptyImageUrl
+		{
+			get { return emptyImageUrl; }
+			set { emptyImageUrl = value; }
+		}
 
-        public bool PreviewImageOnBlur
-        {
-            get { return previewImageOnBlur; }
-            set { previewImageOnBlur = value; }
-        }
+		protected override void OnLoad(EventArgs e)
+		{
+			base.OnLoad(e);
 
-        private string emptyImageUrl = "~/Data/SiteImages/1x1.gif";
+			CssClass += " cblink"; // We need to create a theme.skin setting to override this and add custom attributes
 
-        public string EmptyImageUrl
-        {
-            get { return emptyImageUrl; }
-            set { emptyImageUrl = value; }
-        }
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
+			if (siteSettings == null) {
+				Visible = false;
+				return;
+			}
 
-            CssClass += " cblink";
+			if ((WebUser.IsAdminOrContentAdmin) || (WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles)) || (WebUser.IsInRoles(siteSettings.UserFilesBrowseAndUploadRoles)))
+			{
+				canBrowse = true;
+				mojoBasePage basePage = Page as mojoBasePage;
 
-            siteSettings = CacheHelper.GetCurrentSiteSettings();
-            if (siteSettings == null) { this.Visible = false; return; }
+				if (basePage != null) {
+					basePage.ScriptConfig.IncludeColorBox = true;
+				}
 
-            if ((WebUser.IsAdminOrContentAdmin) || (WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles)) || (WebUser.IsInRoles(siteSettings.UserFilesBrowseAndUploadRoles)))
-            {
-                canBrowse = true;
-                mojoBasePage basePage = Page as mojoBasePage;
-                if (basePage != null) { basePage.ScriptConfig.IncludeColorBox = true; }
-                
-            }
+			}
 
-            if (!canBrowse) 
-            { 
-                this.Visible = false; 
-                return; 
-            }
+			if (!canBrowse)
+			{
+				Visible = false;
+				return;
+			}
 
-           // this.ClientClick = "return GB_showCenter(this.title, this.href, 670,670)";
+			SetupLink();
+		}
 
-            SetupLink();
+		private void SetupLink()
+		{
+			NavigateUrl = 
+				SiteUtils.GetNavigationSiteRoot() +
+				WebConfigSettings.FileDialogRelativeUrl +
+				"?editor=filepicker&type=" +
+				browserType +
+				"&inputId=" +
+				textBoxClientId;
 
-        }
+			string filePickerBase =
+				@"<script>
+					var filePicker = {{
+						set: function(url, clientId) {{
+							var _inputImg = document.getElementById(clientId); _inputImg.value = url;
+							{0}
+						}},
 
-        
+						close: function() {{
+							$.colorbox.close();
+						}}
+					}};
+				</script>";
 
-        private void SetupLink()
-        {
-            NavigateUrl = SiteUtils.GetNavigationSiteRoot() + WebConfigSettings.FileDialogRelativeUrl + "?type=" + browserType + "&tbi=" + textBoxClientId;
+			string imagePrevBase = @"var _inputPrev = document.getElementById('{0}'); _inputPrev.src = url;";
+			string imagePrev = ((browserType == "image") && (previewImageClientId.Length > 0)) ?
+				string.Format(imagePrevBase, (previewImageClientId.Length > 0) ? previewImageClientId : string.Empty) :
+				string.Empty;
 
-            StringBuilder script = new StringBuilder();
-            script.Append("\n<script type=\"text/javascript\">");
+			string filePicker = string.Format(filePickerBase, imagePrev);
 
-            script.Append("function SetUrl (URL, clientId) {");
+			ScriptManager.RegisterClientScriptBlock(
+				this,
+				typeof(Page),
+				"SetUrl",
+				filePicker,
+				false
+			);
 
-            //script.Append("GB_hide();");
-            //script.Append("var txtUrl = document.getElementById('" + textBoxClientId + "'); ");
-            script.Append("var txtUrl = document.getElementById(clientId); ");
-            script.Append("txtUrl.value = URL;");
-            //script.Append("alert(URL);");
-            if((browserType == "image")&&(previewImageClientId.Length > 0))
-            {
-                script.Append("var imgPrev = document.getElementById('" + previewImageClientId + "'); ");
-                script.Append("imgPrev.src = URL;");
+			if ((previewImageOnBlur) && (textBoxClientId.Length > 0) && (browserType == "image") && (previewImageClientId.Length > 0))
+			{
+				string filePickerPreviewBase = 
+					@"<script>
+						(function() {{
+							var prevInput = document.getElementById('{0}');
+							var prevImage = document.getElementById('{1}');
 
-            }
+							prevInput.addEventListener('blur', function() {{
+								if (prevInput.value.length > 0) {{
+									prevImage.src = prevInput.value;
+								}} else {{
+									prevImage.src = '{2}';
+								}}
+							}});
+						}})();
+					</script>";
 
-            script.Append("$.colorbox.close(); ");
+				string filePickerPreview = string.Format(filePickerPreviewBase, textBoxClientId, previewImageClientId, Page.ResolveUrl(emptyImageUrl));
 
-            script.Append("}");
-
-            
-
-            script.Append("\n</script>");
-
-            ScriptManager.RegisterClientScriptBlock(this,
-                typeof(Page),
-                "SetUrl",
-                script.ToString(),false);
-
-            if ((previewImageOnBlur) && (textBoxClientId.Length > 0) && (browserType == "image") && (previewImageClientId.Length > 0))
-            {
-                script = new StringBuilder();
-                script.Append("\n<script type=\"text/javascript\">");
-
-                script.Append("$(document).ready(function () {");
-
-                script.Append("$('#" + textBoxClientId + "').blur(function () { ");
-
-                script.Append("var imgPrev = document.getElementById('" + previewImageClientId + "'); ");
-
-                script.Append("if($('#" + textBoxClientId + "').val().length) {");
-
-                //script.Append("alert('not empty');");
-
-                script.Append("imgPrev.src = $('#" + textBoxClientId + "').val(); ");
-
-                script.Append("} else { ");
-
-                //script.Append("alert('empty');");
-                script.Append("imgPrev.src = '" + Page.ResolveUrl(emptyImageUrl) + "';");
-
-                script.Append("} });");
-
-                script.Append("});	");
-
-                script.Append("\n</script>");
-
-                ScriptManager.RegisterStartupScript(this,
-                    typeof(Page),
-                    "imgprevblur",
-                    script.ToString(), false);
-
-            }
-
-        }
-
-    }
+				ScriptManager.RegisterStartupScript(
+					this,
+					typeof(Page),
+					"FilePickerPreview",
+					filePickerPreview,
+					false
+				);
+			}
+		}
+	}
 }

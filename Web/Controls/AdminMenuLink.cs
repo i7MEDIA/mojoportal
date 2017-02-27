@@ -18,145 +18,177 @@ using Resources;
 
 namespace mojoPortal.Web.UI
 {
-    /// <summary>
-    /// a convenience link for the Administration menu. The link renders only for those in roles that can use the admin menu
-    /// </summary>
-    public class AdminMenuLink : HyperLink
-    {
-        
-        private string relativeUrl = "/Admin/AdminMenu.aspx";
-        private mojoBasePage basePage = null;
+	/// <summary>
+	/// a convenience link for the Administration menu. The link renders only for those in roles that can use the admin menu
+	/// </summary>
+	public class AdminMenuLink : HyperLink
+	{
+		private string relativeUrl = "/Admin/AdminMenu.aspx";
+		private mojoBasePage basePage = null;
 
-        private bool renderAsListItem = false;
-        public bool RenderAsListItem
-        {
-            get { return renderAsListItem; }
-            set { renderAsListItem = value; }
-        }
+		private bool renderAsListItem = false;
+		public bool RenderAsListItem
+		{
+			get { return renderAsListItem; }
+			set { renderAsListItem = value; }
+		}
 
-        private string listItemCSS = string.Empty;
-        public string ListItemCss
-        {
-            get { return listItemCSS; }
-            set { listItemCSS = value; }
-        }
+		private string listItemCSS = string.Empty;
+		public string ListItemCss
+		{
+			get { return listItemCSS; }
+			set { listItemCSS = value; }
+		}
 
-        private bool ShouldRender()
-        {
-            if (basePage == null) { return false; }
-            if (!Page.Request.IsAuthenticated) { return false; }
+		private string literalExtraTopContent = string.Empty;
+		public string LiteralExtraTopContent
+		{
+			get { return literalExtraTopContent; }
+			set { literalExtraTopContent = value; }
+		}
 
-            // initialize to default values
-            ToolTip = Resource.AdminMenuLink;
-            if (basePage.UseIconsForAdminLinks)
-            {
-                ImageUrl = Page.ResolveUrl("~/Data/SiteImages/" + WebConfigSettings.AdminImage);
-                Text = Resource.AdminMenuLink;
-            }
-            else
-            {
-                Text = Resource.AdminLink;
-            }
+		private string literalExtraBottomContent = string.Empty;
+		public string LiteralExtraBottomContent
+		{
+			get { return literalExtraBottomContent; }
+			set { literalExtraBottomContent = value; }
+		}
 
-            if (WebUser.IsAdminOrContentAdminOrRoleAdmin) { return true; }
+		private string linkImageUrl = string.Empty;
+		public string LinkImageUrl
+		{
+			get { return linkImageUrl; }
+			set { linkImageUrl = value; }
+		}
 
-            if (basePage.CurrentPage == null) { return false; }
-            if (WebUser.IsInRoles(basePage.CurrentPage.CreateChildPageRoles))
-            {
-                //overide for non admins
-                relativeUrl = WebConfigSettings.PageTreeRelativeUrl;
-                ToolTip = Resource.PageTreeTitle;
-                if (basePage.UseIconsForAdminLinks)
-                {
-                    ImageUrl = Page.ResolveUrl("~/Data/SiteImages/" + WebConfigSettings.PageTreeImage);
-                    Text = Resource.PageTreeLink;
-                }
-                else
-                {
-                    Text = Resource.PageListLink;
-                }
+		private bool ShouldRender()
+		{
+			if (basePage == null) {
+				return false;
+			}
 
-                return true;
-            }
+			if (!Page.Request.IsAuthenticated) {
+				return false;
+			}
 
-            if (!WebConfigSettings.UseRelatedSiteMode) { return false; }
+			Literal literalTop = new Literal();
+			literalTop.Text = literalExtraTopContent;
+			Controls.Add(literalTop);
 
-            if (basePage.SiteInfo == null) { return false; }
-            // in related sites mode usersin site eidotrs role can use admin menu
-            if (WebUser.IsInRoles(basePage.SiteInfo.SiteRootEditRoles)) { return true; }
+			Literal literalText = new Literal();
+			literalText.Text = Resource.AdminLink;
+			Controls.Add(literalText);
 
-            return false;
+			Literal literalBottom = new Literal();
+			literalBottom.Text = literalExtraBottomContent;
+			Controls.Add(literalBottom);
 
-            
-        }
+			ToolTip = Resource.AdminMenuLink;
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            if (HttpContext.Current == null) { return; }
-            EnableViewState = false;
-            basePage = Page as mojoBasePage;
+			if (!string.IsNullOrWhiteSpace(linkImageUrl))
+			{
+				if (linkImageUrl.StartsWith("~/"))
+				{
+					ImageUrl = Page.ResolveUrl(linkImageUrl);
+				}
+				else
+				{
+					string skinPath = SiteUtils.GetSkinBaseUrl(Page);
 
-            Visible = ShouldRender();
-            if (!Visible) { return; }
+					ImageUrl = Page.ResolveUrl(skinPath + linkImageUrl.TrimStart('/'));
+				}
+			}
 
-            if (basePage == null) { return; }
+			if (WebUser.IsAdminOrContentAdminOrRoleAdmin) {
+				return true;
+			}
 
-            if (CssClass.Length > 0)
-            {
-                CssClass = "adminlink adminmenulink " + CssClass;
-            }
-            else
-            {
-                CssClass = "adminlink adminmenulink";
-            }
-            //ToolTip = Resource.AdminMenuLink;
-            if (SiteUtils.SslIsAvailable())
-            {
-                NavigateUrl = Page.ResolveUrl(basePage.SiteRoot + relativeUrl);
-            }
-            else
-            {
-                NavigateUrl = Page.ResolveUrl(basePage.RelativeSiteRoot + relativeUrl);
-            }
-            //if (basePage.UseIconsForAdminLinks)
-            //{
-            //    ImageUrl = Page.ResolveUrl("~/Data/SiteImages/admin.png");
-            //    Text = Resource.AdminMenuLink;
-            //}
-            //else
-            //{
-            //    Text = Resource.AdminLink;
-            //}
-        }
+			if (basePage.CurrentPage == null) {
+				return false;
+			}
 
-        protected override void Render(HtmlTextWriter writer)
-        {
-            if (HttpContext.Current == null)
-            {
-                writer.Write("[" + this.ID + "]");
-                return;
-            }
+			if (!WebConfigSettings.UseRelatedSiteMode) {
+				return false;
+			}
 
-            if (renderAsListItem)
-            {
-                if (listItemCSS.Length > 0)
-                {
-                    writer.Write("<li class='" + listItemCSS + "'>");
-                }
-                else
-                {
-                    writer.Write("<li>");
-                }
-            }
+			if (basePage.SiteInfo == null) {
+				return false;
+			}
 
-            base.Render(writer);
+			// in related sites mode users in site editors role can use admin menu
+			if (WebUser.IsInRoles(basePage.SiteInfo.SiteRootEditRoles)) {
+				return true;
+			}
 
-            if (renderAsListItem)
-            {
-                writer.Write("</li>");
-            }
-        }
+			return false;
+		}
 
-    }
+		protected override void OnLoad(EventArgs e)
+		{
+			base.OnLoad(e);
+			if (HttpContext.Current == null) { return; }
+			EnableViewState = false;
+			basePage = Page as mojoBasePage;
+
+			Visible = ShouldRender();
+			if (!Visible) { return; }
+
+			if (basePage == null) { return; }
+
+			if (CssClass.Length > 0)
+			{
+				CssClass = "adminlink adminmenulink " + CssClass;
+			}
+			else
+			{
+				CssClass = "adminlink adminmenulink";
+			}
+			//ToolTip = Resource.AdminMenuLink;
+			if (SiteUtils.SslIsAvailable())
+			{
+				NavigateUrl = Page.ResolveUrl(basePage.SiteRoot + relativeUrl);
+			}
+			else
+			{
+				NavigateUrl = Page.ResolveUrl(basePage.RelativeSiteRoot + relativeUrl);
+			}
+			//if (basePage.UseIconsForAdminLinks)
+			//{
+			//    ImageUrl = Page.ResolveUrl("~/Data/SiteImages/admin.png");
+			//    Text = Resource.AdminMenuLink;
+			//}
+			//else
+			//{
+			//    Text = Resource.AdminLink;
+			//}
+		}
+
+		protected override void Render(HtmlTextWriter writer)
+		{
+			if (HttpContext.Current == null)
+			{
+				writer.Write("[" + ID + "]");
+				return;
+			}
+
+			if (renderAsListItem)
+			{
+				if (listItemCSS.Length > 0)
+				{
+					writer.Write("<li class='" + listItemCSS + "'>");
+				}
+				else
+				{
+					writer.Write("<li>");
+				}
+			}
+
+			base.Render(writer);
+
+			if (renderAsListItem)
+			{
+				writer.Write("</li>");
+			}
+		}
+	}
 }
