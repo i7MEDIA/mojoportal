@@ -17,17 +17,10 @@ namespace mojoPortal.Web.Routing
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute(
-				name: "Test",
-				url: "test/{controller}/{action}/{id}",
-				defaults: new { controller = "Test", action = "Index", id = UrlParameter.Optional }
-			);
-
-			routes.MapRoute(
 				name: "FileManager",
 				url: "FileManager/{action}/{id}",
 				defaults: new { controller = "FileManager", action = "Index", id = UrlParameter.Optional }
 			);
-
 
 			try
 			{
