@@ -5,7 +5,9 @@ using mojoPortal.FileSystem;
 using mojoPortal.Web.Models;
 using Resources;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -63,9 +65,9 @@ namespace mojoPortal.Web.Controllers.FileManager
 			}
 
 			string uploadPath = virtualPath;
-			if (context.Request.Params["destination"] != null)
+			if (context.Request.Form.Get("destination") != null)
 			{
-				uploadPath = FilePath(context.Request.Params["destination"]);
+				uploadPath = FilePath(VirtualPathUtility.AppendTrailingSlash(context.Request.Form.Get("destination")));
 			}
 
 			if (files != null)

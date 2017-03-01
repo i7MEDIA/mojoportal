@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Ionic.Zip;
 using log4net;
+using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.FileSystem;
 using mojoPortal.Web.Dtos;
@@ -24,8 +25,11 @@ namespace mojoPortal.Web.Controllers
 	{
 		IFileSystem fileSystem = null;
 		private bool allowEditing = false;
+		private SiteUser currentUser = null;
+		private SiteSettings siteSettings = null;
 		private string virtualPath = string.Empty;
 		protected bool overwriteExistingFiles = false;
+		private string allowedExtensions = string.Empty;
 		private static readonly ILog log = LogManager.GetLogger(typeof(FileServiceController));
 
 
@@ -122,7 +126,14 @@ namespace mojoPortal.Web.Controllers
 
 		private dynamic LoadSettings()
 		{
-			allowEditing = WebConfigSettings.AllowEditingSkins && CacheHelper.GetCurrentSiteSettings().IsServerAdminSite;
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
+
+			if (siteSettings == null)
+			{
+				return new FileService.ReturnMessage { Success = false, Error = "Site Setting not loaded" };
+			}
+
+			allowEditing = WebConfigSettings.AllowFileEditInFileManager;
 			//logAllFileSystemActivity = WebConfigSettings.LogAllFileManagerActivity;
 
 			overwriteExistingFiles = WebConfigSettings.FileManagerOverwriteFiles;
@@ -159,17 +170,36 @@ namespace mojoPortal.Web.Controllers
 			//	log.Info("virtualPath = " + virtualPath + " virtualSourcePath = " + virtualSourcePath + " virtualTargetPath = " + virtualTargetPath);
 			//}
 
-			return new
+			if ((WebUser.IsAdminOrContentAdmin) || (SiteUtils.UserIsSiteEditor()))
 			{
-				Result = true
-			};
+				allowedExtensions = WebConfigSettings.AllowedUploadFileExtensions;
+			}
+			else if (WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles))
+			{
+				allowedExtensions = WebConfigSettings.AllowedUploadFileExtensions;
+			}
+			else if (WebUser.IsInRoles(siteSettings.UserFilesBrowseAndUploadRoles))
+			{
+				currentUser = SiteUtils.GetCurrentSiteUser();
+
+				if (currentUser == null)
+				{
+					return new FileService.ReturnMessage { Success = false, Error = "User is unauthorized." };
+				}
+
+				allowedExtensions = WebConfigSettings.AllowedLessPriveledgedUserUploadFileExtensions;
+			}
+
+			return new { Result = true };
 		}
 
 
 		private dynamic ListAllFilesFolders(string requestPath)
 		{
 			var files = fileSystem.GetFileList(FilePath(requestPath)).Select(Mapper.Map<WebFile, FileServiceDto>).ToList();
+			var allowedFiles = new List<FileServiceDto>();
 			var folders = fileSystem.GetFolderList(FilePath(requestPath)).Select(Mapper.Map<WebFolder, FileServiceDto>).ToList();
+			var type = WebUtils.ParseStringFromQueryString("type", "file");
 
 			foreach (var folder in folders)
 			{
@@ -178,10 +208,17 @@ namespace mojoPortal.Web.Controllers
 
 			foreach (var file in files)
 			{
+				if ((type == "image") && !file.IsWebImageFile()) { continue; }
+				if ((type == "media" || type == "audio" || type == "video") && !file.IsAllowedMediaFile()) { continue; }
+				if ((type == "audio") && !file.IsAllowedFileType(WebConfigSettings.AudioFileExtensions)) { continue; }
+				if ((type == "video") && !file.IsAllowedFileType(WebConfigSettings.VideoFileExtensions)) { continue; }
+				if ((type == "file") && !file.IsAllowedFileType(allowedExtensions)) { continue; }
+
 				file.ContentType = "file";
+				allowedFiles.Add(file);
 			}
 
-			return new { result = folders.Concat(files) };
+			return new { result = folders.Concat(allowedFiles) };
 		}
 
 

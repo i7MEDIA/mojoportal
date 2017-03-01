@@ -1,5 +1,6 @@
 ﻿using mojoPortal.FileSystem;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace mojoPortal.Web.Controllers
@@ -9,7 +10,7 @@ namespace mojoPortal.Web.Controllers
 		IFileSystem fileSystem = null;
 
 		// GET: FileManager
-		public ActionResult Index(string view)
+		public ActionResult Index()
 		{
 			LoadSettings();
 			var rootName = fileSystem.VirtualRoot.Split('/');
@@ -17,9 +18,19 @@ namespace mojoPortal.Web.Controllers
 			ViewBag.OverwriteFiles = WebConfigSettings.FileManagerOverwriteFiles;
 			ViewBag.RootName = rootName[rootName.Count() - 2];
 			ViewBag.fileSystemToken = Global.FileSystemToken.ToString();
-			ViewBag.virtualPath = fileSystem.VirtualRoot;
-			ViewBag.view = view;
+			ViewBag.virtualPath = VirtualPathUtility.RemoveTrailingSlash(fileSystem.VirtualRoot.Replace("~", string.Empty));
+			ViewBag.view = Request.QueryString["view"];
+			ViewBag.type = Request.QueryString["type"];
+			ViewBag.editor = Request.QueryString["editor"];
 
+			return View();
+		}
+
+		// GET: Pages
+		public ActionResult Pages()
+		{
+			ViewBag.type = Request.QueryString["type"];
+			ViewBag.editor = Request.QueryString["editor"];
 			return View();
 		}
 
