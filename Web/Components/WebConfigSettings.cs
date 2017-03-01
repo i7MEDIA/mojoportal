@@ -3688,7 +3688,7 @@ namespace mojoPortal.Web
 			{
 				if (ConfigurationManager.AppSettings["ImageFileExtensions"] != null)
 				{
-					return ConfigurationManager.AppSettings["ImageFileExtensions"];
+					return ConfigurationManager.AppSettings["ImageFileExtensions"].ToLower();
 				}
 
 				return ".gif|.jpg|.jpeg|.png|.svg";
@@ -3701,10 +3701,10 @@ namespace mojoPortal.Web
 			{
 				if (ConfigurationManager.AppSettings["AllowedMediaFileExtensions"] != null)
 				{
-					return ConfigurationManager.AppSettings["AllowedMediaFileExtensions"];
+					return ConfigurationManager.AppSettings["AllowedMediaFileExtensions"].ToLower();
 				}
 				// default value
-				return ".flv|.swf|.wmv|.mp3|.mp4|.asf|.asx|.avi|.mov|.mpeg|.mpg";
+				return ImageFileExtensions + "|" + AudioFileExtensions + "|" + VideoFileExtensions;
 			}
 		}
 
@@ -3714,7 +3714,7 @@ namespace mojoPortal.Web
 			{
 				if (ConfigurationManager.AppSettings["AudioFileExtensions"] != null)
 				{
-					return ConfigurationManager.AppSettings["AudioFileExtensions"];
+					return ConfigurationManager.AppSettings["AudioFileExtensions"].ToLower();
 				}
 				// default value
 				return ".wmv|.mp3|.m4a|.m4v|.oga|.webma|.webm|.wav|.asf|.asx";
@@ -3727,7 +3727,7 @@ namespace mojoPortal.Web
 			{
 				if (ConfigurationManager.AppSettings["VideoFileExtensions"] != null)
 				{
-					return ConfigurationManager.AppSettings["VideoFileExtensions"];
+					return ConfigurationManager.AppSettings["VideoFileExtensions"].ToLower();
 				}
 				// default value
 				return ".flv|.swf|.wmv|.mp4|.m4v|.ogv|.webmv|.webm|.avi|.mov|.mpeg|.mpg";
@@ -3740,7 +3740,7 @@ namespace mojoPortal.Web
 			{
 				if (ConfigurationManager.AppSettings["JPlayerAudioFileExtensions"] != null)
 				{
-					return ConfigurationManager.AppSettings["JPlayerAudioFileExtensions"];
+					return ConfigurationManager.AppSettings["JPlayerAudioFileExtensions"].ToLower();
 				}
 				// default value
 				return ".mp3|.m4a|.mp4|.oga|.webma|.webm|.wav|.fla";
@@ -3753,7 +3753,7 @@ namespace mojoPortal.Web
 			{
 				if (ConfigurationManager.AppSettings["JPlayerVideoFileExtensions"] != null)
 				{
-					return ConfigurationManager.AppSettings["JPlayerVideoFileExtensions"];
+					return ConfigurationManager.AppSettings["JPlayerVideoFileExtensions"].ToLower();
 				}
 				// default value
 				return ".flv|.m4v|.mp4|.ogv|.webmv|.webm|.ogg";

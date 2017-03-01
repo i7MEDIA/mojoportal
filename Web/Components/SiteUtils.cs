@@ -550,79 +550,127 @@ namespace mojoPortal.Web
 
 		public static bool IsWebImageFile(this WebFile file)
 		{
-			string extension = System.IO.Path.GetExtension(file.Name);
-			if (string.Equals(extension, ".gif", StringComparison.InvariantCultureIgnoreCase)) { return true; }
-			if (string.Equals(extension, ".jpeg", StringComparison.InvariantCultureIgnoreCase)) { return true; }
-			if (string.Equals(extension, ".jpg", StringComparison.InvariantCultureIgnoreCase)) { return true; }
-			if (string.Equals(extension, ".png", StringComparison.InvariantCultureIgnoreCase)) { return true; }
+			//string extension = System.IO.Path.GetExtension(file.Name);
+			//if (string.Equals(extension, ".gif", StringComparison.InvariantCultureIgnoreCase)) { return true; }
+			//if (string.Equals(extension, ".jpeg", StringComparison.InvariantCultureIgnoreCase)) { return true; }
+			//if (string.Equals(extension, ".jpg", StringComparison.InvariantCultureIgnoreCase)) { return true; }
+			//if (string.Equals(extension, ".png", StringComparison.InvariantCultureIgnoreCase)) { return true; }
+			//return false;
 
-			return false;
+			return isExtensionAllowed(file, WebConfigSettings.ImageFileExtensions);
+		}
+
+		public static bool IsWebImageFile(this Dtos.FileServiceDto file)
+		{
+			return isExtensionAllowed(file, WebConfigSettings.ImageFileExtensions);
 		}
 
 		public static bool IsAllowedMediaFile(this WebFile file)
 		{
-			string extension = System.IO.Path.GetExtension(file.Name);
-			List<string> allowedExtensions = StringHelper.SplitOnPipes(WebConfigSettings.AllowedMediaFileExtensions);
-			foreach (string ext in allowedExtensions)
-			{
-				if (string.Equals(extension, ext, StringComparison.InvariantCultureIgnoreCase)) { return true; }
-			}
+			//string extension = System.IO.Path.GetExtension(file.Name);
+			//List<string> allowedExtensions = StringHelper.SplitOnPipes(WebConfigSettings.AllowedMediaFileExtensions);
+			////foreach (string ext in allowedExtensions)
+			////{
+			////	if (string.Equals(extension, ext, StringComparison.InvariantCultureIgnoreCase)) { return true; }
+			////}
+			//return allowedExtensions.Contains(extension.ToLower());
 
-			return false;
-
+			return isExtensionAllowed(file, WebConfigSettings.AllowedMediaFileExtensions);
 		}
 
+		public static bool IsAllowedMediaFile(this Dtos.FileServiceDto file)
+		{
+			//string extension = System.IO.Path.GetExtension(file.Name);
+			//List<string> allowedExtensions = StringHelper.SplitOnPipes(WebConfigSettings.AllowedMediaFileExtensions);
+			//return allowedExtensions.Contains(extension);
+
+			return isExtensionAllowed(file, WebConfigSettings.AllowedMediaFileExtensions);
+		}
+
+		[Obsolete("Use IsAllowedFile() instead.")]
 		public static bool IsAudioFile(this WebFile file)
 		{
+			//string extension = System.IO.Path.GetExtension(file.Name);
+			//List<string> allowedExtensions = StringHelper.SplitOnPipes(WebConfigSettings.AudioFileExtensions);
+			//foreach (string ext in allowedExtensions)
+			//{
+			//	if (string.Equals(extension, ext, StringComparison.InvariantCultureIgnoreCase)) { return true; }
+			//}
+			//return false;
+
+			return isExtensionAllowed(file, WebConfigSettings.AudioFileExtensions);
+		}
+
+
+		public static bool IsAllowedFileType(this WebFile file, string allowedExtensionsString)
+		{
 			string extension = System.IO.Path.GetExtension(file.Name);
-			List<string> allowedExtensions = StringHelper.SplitOnPipes(WebConfigSettings.AudioFileExtensions);
-			foreach (string ext in allowedExtensions)
-			{
-				if (string.Equals(extension, ext, StringComparison.InvariantCultureIgnoreCase)) { return true; }
-			}
+			List<string> allowedExtensions = StringHelper.SplitOnPipes(allowedExtensionsString);
+			return allowedExtensions.Contains(extension.ToLower());
+		}
 
-			return false;
-
+		public static bool IsAllowedFileType(this Dtos.FileServiceDto file, string allowedExtensionsString)
+		{
+			string extension = System.IO.Path.GetExtension(file.Name);
+			List<string> allowedExtensions = StringHelper.SplitOnPipes(allowedExtensionsString);
+			return allowedExtensions.Contains(extension.ToLower());
 		}
 
 		public static bool IsVideoFile(this WebFile file)
 		{
-			string extension = System.IO.Path.GetExtension(file.Name);
-			List<string> allowedExtensions = StringHelper.SplitOnPipes(WebConfigSettings.VideoFileExtensions);
-			foreach (string ext in allowedExtensions)
-			{
-				if (string.Equals(extension, ext, StringComparison.InvariantCultureIgnoreCase)) { return true; }
-			}
+			//string extension = System.IO.Path.GetExtension(file.Name);
+			//List<string> allowedExtensions = StringHelper.SplitOnPipes(WebConfigSettings.VideoFileExtensions);
+			//foreach (string ext in allowedExtensions)
+			//{
+			//	if (string.Equals(extension, ext, StringComparison.InvariantCultureIgnoreCase)) { return true; }
+			//}
+			//return false;
 
-			return false;
+			return isExtensionAllowed(file, WebConfigSettings.VideoFileExtensions);
 
 		}
 
 		public static bool IsAllowedUploadBrowseFile(this WebFile file, string allowedExtensions)
 		{
-			string extension = System.IO.Path.GetExtension(file.Name);
-			List<string> allowed = StringHelper.SplitOnPipes(allowedExtensions);
-			foreach (string ext in allowed)
-			{
-				if (string.Equals(extension, ext, StringComparison.InvariantCultureIgnoreCase)) { return true; }
-			}
+			//string extension = System.IO.Path.GetExtension(file.Name);
+			//List<string> allowed = StringHelper.SplitOnPipes(allowedExtensions);
+			//foreach (string ext in allowed)
+			//{
+			//	if (string.Equals(extension, ext, StringComparison.InvariantCultureIgnoreCase)) { return true; }
+			//}
+			//return false;
 
-			return false;
+			return isExtensionAllowed(file, allowedExtensions);
 		}
 
 		public static bool IsImageFileExtension(string fileExtension)
 		{
-			List<string> allowedExtensions = ImageFileExtensions().ToLowerInvariant().SplitOnCharAndTrim('|');
+			//List<string> allowedExtensions = ImageFileExtensions().ToLowerInvariant().SplitOnCharAndTrim('|');
+			//if (allowedExtensions.Contains(fileExtension.ToLowerInvariant()))
+			//{
+			//	return true;
+			//}
+			//return false;
 
-			if (allowedExtensions.Contains(fileExtension.ToLowerInvariant()))
-			{
-				return true;
-			}
-
-			return false;
-
+			List<string> allowedExtensions = StringHelper.SplitOnPipes(WebConfigSettings.ImageFileExtensions);
+			return allowedExtensions.Contains(fileExtension.ToLower());
 		}
 
+		private static bool isExtensionAllowed(WebFile file, string configSetting)
+		{
+			string extension = System.IO.Path.GetExtension(file.Name);
+			List<string> allowedExtensions = StringHelper.SplitOnPipes(configSetting);
+			return allowedExtensions.Contains(extension.ToLower());
+		}
+
+		private static bool isExtensionAllowed(Dtos.FileServiceDto file, string configSetting)
+		{
+			string extension = System.IO.Path.GetExtension(file.Name);
+			List<string> allowedExtensions = StringHelper.SplitOnPipes(configSetting);
+			return allowedExtensions.Contains(extension.ToLower());
+		}
+
+		[Obsolete("Use IsAllowedFileType")]
 		public static string ImageFileExtensions()
 		{
 			return WebConfigSettings.ImageFileExtensions;

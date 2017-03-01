@@ -3354,6 +3354,7 @@
       <DependentUpon>MemberList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\FileService.cs" />
+    <Compile Include="Models\PageListItem.cs" />
     <Compile Include="Modules\ChildPageSiteMapModule.ascx.cs">
       <DependentUpon>ChildPageSiteMapModule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3827,6 +3828,8 @@
     <Content Include="Views\FileManager\Index.cshtml" />
     <Content Include="Views\Shared\_CleanLayout.cshtml" />
     <Content Include="Services\SiteMapJson.ashx" />
+    <Content Include="Views\FileManager\Pages.cshtml" />
+    <Content Include="Views\FileManager\_FileManagerLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />
