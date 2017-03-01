@@ -42,6 +42,7 @@ namespace mojoPortal.Web.Services
 		private StringBuilder script = null;
 		private int pageId = -1;
 		private bool logAllActions = true;
+		bool renderChildren = false;
 		private string currentUserName = string.Empty;
 
 		public void ProcessRequest(HttpContext c)
@@ -889,10 +890,16 @@ namespace mojoPortal.Web.Services
 					script.Append("\"id\":" + mapNode.PageId.ToInvariantString());
 					script.Append(",\"label\":\"" + Encode(mapNode.Title) + "\"");
 					script.Append(",\"Url\":\"" + FormatUrl(mapNode) + "\"");
+					script.Append(",\"RelativeUrl\":\"" + mapNode.Url.Replace("~/", "/") + "\"");
 					script.Append(",\"IsRoot\":false");
 					script.Append(",\"ParentId\":" + mapNode.ParentId.ToInvariantString());
 					script.Append(",\"childcount\":" + mapNode.ChildNodes.Count.ToInvariantString());
 					script.Append(",\"children\":[");
+					if (renderChildren && mapNode.ChildNodes.Count > 0)
+					{
+						BuildChildPages(script, mapNode);
+					}
+
 					script.Append("]");
 					if (mapNode.ChildNodes.Count > 0)
 					{
@@ -1127,7 +1134,7 @@ namespace mojoPortal.Web.Services
 				currentNode = SiteUtils.GetSiteMapNodeForPage(rootNode, pageId);
 			}
 			//if (currentNode == null) { currentNode = rootNode; }
-
+			renderChildren = WebUtils.ParseBoolFromQueryString("renderchildren", renderChildren);
 			if (rootLabel.Length == 0) { rootLabel = ResourceHelper.GetResourceString("Resource", "PageSettingsRootLabel"); }
 		}
 
