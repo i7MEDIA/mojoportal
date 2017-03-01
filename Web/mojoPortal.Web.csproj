@@ -3354,7 +3354,6 @@
       <DependentUpon>MemberList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\FileService.cs" />
-    <Compile Include="Models\PageListItem.cs" />
     <Compile Include="Modules\ChildPageSiteMapModule.ascx.cs">
       <DependentUpon>ChildPageSiteMapModule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
