@@ -198,7 +198,6 @@ FakesAssemblies/
 mojoportal-sts.sln
 
 Web/Admin/PageManager.aspx
-Web/Services/SiteMapJson.ashx
 
 Web/App_GlobalResources/BingResources*
 Web/App_GlobalResources/BlogResources*
