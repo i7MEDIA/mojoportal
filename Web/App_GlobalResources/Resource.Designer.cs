@@ -4543,6 +4543,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are only allowed {0} more files..
+        /// </summary>
+        internal static string FileSystemFileLimitRemainder {
+            get {
+                return ResourceManager.GetString("FileSystemFileLimitRemainder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File doesn&apos;t exist!.
         /// </summary>
         internal static string FileSystemFileNotFound {

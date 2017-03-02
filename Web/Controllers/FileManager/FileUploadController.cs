@@ -31,6 +31,14 @@ namespace mojoPortal.Web.Controllers.FileManager
 			HttpFileCollection files = context.Request.Files.Count > 0 ? context.Request.Files : null;
 			OpResult results = OpResult.Error;
 			StringBuilder errors = new StringBuilder();
+			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+			string uploadPath = virtualPath;
+			bool canUpload = (
+				WebUser.IsAdminOrContentAdmin || 
+				SiteUtils.UserIsSiteEditor() || 
+				WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles) || 
+				WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor)
+			);
 
 			if (files.Count == 0)
 			{
@@ -50,21 +58,16 @@ namespace mojoPortal.Web.Controllers.FileManager
 				return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = "FileSystem is null so returning 404" });
 			}
 
-
-			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 			if (siteSettings == null)
 			{
 				return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = "No site settings" });
 			}
 
-			bool canAccess = (WebUser.IsAdminOrContentAdmin || WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor) || SiteUtils.UserIsSiteEditor());
-
-			if (!canAccess)
+			if (!canUpload)
 			{
 				return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = Resource.AccessDenied });
 			}
 
-			string uploadPath = virtualPath;
 			if (context.Request.Form.Get("destination") != null)
 			{
 				uploadPath = FilePath(VirtualPathUtility.AppendTrailingSlash(context.Request.Form.Get("destination")));
@@ -72,6 +75,15 @@ namespace mojoPortal.Web.Controllers.FileManager
 
 			if (files != null)
 			{
+				var fileOpenings = fileSystem.Permission.MaxFiles - fileSystem.CountAllFiles();
+
+				if (files.Count <= fileOpenings == false)
+				{
+					log.Info("upload rejected due to fileSystem.Permission.MaxFiles");
+					string errorMessage = string.Format(Resource.FileSystemFileLimitRemainder, fileOpenings);
+					return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = errorMessage });
+				}
+
 				for (int f = 0; f < files.Count; f++)
 				{
 					HttpPostedFile file = files[f];
@@ -80,22 +92,20 @@ namespace mojoPortal.Web.Controllers.FileManager
 					if (file.ContentLength > fileSystem.Permission.MaxSizePerFile)
 					{
 						log.Info("upload rejected due to fileSystem.Permission.MaxSizePerFile");
-						doUpload = false;
-					}
-					else if (fileSystem.CountAllFiles() >= fileSystem.Permission.MaxFiles)
-					{
-						log.Info("upload rejected due to fileSystem.Permission.MaxFiles");
+						errors.AppendLine(OpResult.FileSizeLimitExceed.ToString());
 						doUpload = false;
 					}
 					else if (fileSystem.GetTotalSize() + file.ContentLength >= fileSystem.Permission.Quota)
 					{
 						log.Info("upload rejected due to fileSystem.Permission.Quota");
+						errors.AppendLine(OpResult.QuotaExceed.ToString());
 						doUpload = false;
 					}
 
 					if (!fileSystem.Permission.IsExtAllowed(VirtualPathUtility.GetExtension(file.FileName)))
 					{
 						log.Info("upload rejected due to not allowed file extension");
+						errors.AppendLine(OpResult.FileTypeNotAllowed.ToString());
 						doUpload = false;
 					}
 
@@ -116,6 +126,11 @@ namespace mojoPortal.Web.Controllers.FileManager
 							errors.AppendLine(results.ToString());
 						}
 					}
+				}
+
+				if (errors.Length > 0)
+				{
+					return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = errors.ToString() });
 				}
 
 				return new FileService.ReturnObject(new FileService.ReturnMessage { Success = true });

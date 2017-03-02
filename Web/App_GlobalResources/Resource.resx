@@ -6051,4 +6051,7 @@
   <data name="FileEditInFileManagerNotAllowed" xml:space="preserve">
     <value>File editing is not allowed.</value>
   </data>
+  <data name="FileSystemFileLimitRemainder" xml:space="preserve">
+    <value>You are only allowed {0} more files.</value>
+  </data>
 </root>
