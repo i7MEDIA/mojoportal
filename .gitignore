@@ -197,8 +197,6 @@ FakesAssemblies/
 
 mojoportal-sts.sln
 
-Web/Admin/PageManager.aspx
-
 Web/App_GlobalResources/BingResources*
 Web/App_GlobalResources/BlogResources*
 Web/App_GlobalResources/CommentResources*
