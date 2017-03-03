@@ -228,7 +228,6 @@ Web/App_GlobalResources/STSEventCal*
 Web/App_GlobalResources/SiteMembershipResources*
 Web/App_GlobalResources/stsAnalyticsResources*
 Web/App_GlobalResources/FundRaiserResources*
-Web/App_GlobalResources/PageManagerResources*
 Web/App_GlobalResources/WebInvoiceResources*
 
 Web/Data/*log*
