@@ -370,7 +370,7 @@ namespace mojoPortal.Web.Controllers
 		{
 			OpResult result = OpResult.FolderLimitExceed;
 
-			if (fileSystem.CountFolders() <= fileSystem.Permission.MaxFolders)
+			if (fileSystem.CountFolders() < fileSystem.Permission.MaxFolders)
 			{
 				string dir = VirtualPathUtility.GetDirectory(path);
 				string newFolder = dir + CleanFileName(path);

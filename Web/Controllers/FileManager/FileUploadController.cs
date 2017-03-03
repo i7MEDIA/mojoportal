@@ -34,9 +34,10 @@ namespace mojoPortal.Web.Controllers.FileManager
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 			string uploadPath = virtualPath;
 			bool canUpload = (
-				WebUser.IsAdminOrContentAdmin || 
-				SiteUtils.UserIsSiteEditor() || 
-				WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles) || 
+				WebUser.IsAdminOrContentAdmin ||
+				SiteUtils.UserIsSiteEditor() ||
+				WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles) ||
+				WebUser.IsInRoles(siteSettings.UserFilesBrowseAndUploadRoles) ||
 				WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor)
 			);
 
@@ -75,12 +76,22 @@ namespace mojoPortal.Web.Controllers.FileManager
 
 			if (files != null)
 			{
-				var fileOpenings = fileSystem.Permission.MaxFiles - fileSystem.CountAllFiles();
+				var fileUploadsRemaining = fileSystem.Permission.MaxFiles - fileSystem.CountAllFiles();
 
-				if (files.Count <= fileOpenings == false)
+				if (fileUploadsRemaining < files.Count)
 				{
+					string errorMessage = string.Empty;
 					log.Info("upload rejected due to fileSystem.Permission.MaxFiles");
-					string errorMessage = string.Format(Resource.FileSystemFileLimitRemainder, fileOpenings);
+
+					if (fileUploadsRemaining == 0)
+					{
+						errorMessage = Resource.FileSystemFileLimitReached;
+					}
+					else
+					{
+						errorMessage = string.Format(Resource.FileSystemFileLimitRemainder, fileUploadsRemaining);
+					}
+
 					return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = errorMessage });
 				}
 
@@ -92,20 +103,20 @@ namespace mojoPortal.Web.Controllers.FileManager
 					if (file.ContentLength > fileSystem.Permission.MaxSizePerFile)
 					{
 						log.Info("upload rejected due to fileSystem.Permission.MaxSizePerFile");
-						errors.AppendLine(OpResult.FileSizeLimitExceed.ToString());
+						errors.AppendLine(Resource.FileSystemFileTooLargeError);
 						doUpload = false;
 					}
 					else if (fileSystem.GetTotalSize() + file.ContentLength >= fileSystem.Permission.Quota)
 					{
 						log.Info("upload rejected due to fileSystem.Permission.Quota");
-						errors.AppendLine(OpResult.QuotaExceed.ToString());
+						errors.AppendLine(Resource.FileSystemStorageQuotaError);
 						doUpload = false;
 					}
 
 					if (!fileSystem.Permission.IsExtAllowed(VirtualPathUtility.GetExtension(file.FileName)))
 					{
 						log.Info("upload rejected due to not allowed file extension");
-						errors.AppendLine(OpResult.FileTypeNotAllowed.ToString());
+						errors.AppendLine(Resource.FileTypeNotAllowed);
 						doUpload = false;
 					}
 
