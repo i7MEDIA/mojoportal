@@ -14,6 +14,7 @@ namespace mojoPortal.Web.Models
 			public List<string> Items { get; set; }
 			public string NewItemPath { get; set; }
 			public string NewPath { get; set; }
+			public string FolderName { get; set; }
 			public string Path { get; set; }
 			public string Perms { get; set; }
 			public string PermsCode { get; set; }

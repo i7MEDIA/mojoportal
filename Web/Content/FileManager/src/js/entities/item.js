@@ -1,68 +1,69 @@
 (function(angular) {
-    'use strict';
-    angular.module('FileManagerApp').factory('item', ['fileManagerConfig', 'chmod', function(fileManagerConfig, Chmod) {
+	'use strict';
 
-        var Item = function(model, path) {
-            var rawModel = {
-                name: model && model.name || '',
-                path: path || [],
-                type: model && model.type || 'file',
-                size: model && parseInt(model.size || 0),
-                date: parseMySQLDate(model && model.date),
-                perms: new Chmod(model && model.rights),
-                content: model && model.content || '',
-                recursive: false,
-                fullPath: function() {
-                    var path = this.path.filter(Boolean);
-                    return ('/' + path.join('/') + '/' + this.name).replace(/\/\//, '/');
-                }
-            };
+	angular.module('FileManagerApp').factory('item', ['fileManagerConfig', 'chmod', function(fileManagerConfig, Chmod) {
 
-            this.error = '';
-            this.processing = false;
+		var Item = function(model, path) {
+			var rawModel = {
+				name: model && model.name || '',
+				path: path || [],
+				type: model && model.type || 'file',
+				size: model && parseInt(model.size || 0),
+				date: parseMySQLDate(model && model.date),
+				perms: new Chmod(model && model.rights),
+				content: model && model.content || '',
+				recursive: false,
+				fullPath: function() {
+					var path = this.path.filter(Boolean);
+					return ('/' + path.join('/') + '/' + this.name).replace(/\/\//, '/');
+				}
+			};
 
-            this.model = angular.copy(rawModel);
-            this.tempModel = angular.copy(rawModel);
+			this.error = '';
+			this.processing = false;
 
-            function parseMySQLDate(mysqlDate) {
-                var d = (mysqlDate || '').toString().split(/[- :]/);
-                return new Date(d[0], d[1] - 1, d[2], d[3], d[4], d[5]);
-            }
-        };
+			this.model = angular.copy(rawModel);
+			this.tempModel = angular.copy(rawModel);
 
-        Item.prototype.update = function() {
-            angular.extend(this.model, angular.copy(this.tempModel));
-        };
+			function parseMySQLDate(mysqlDate) {
+				var d = (mysqlDate || '').toString().split(/[- :]/);
+				return new Date(d[0], d[1] - 1, d[2], d[3], d[4], d[5]);
+			}
+		};
 
-        Item.prototype.revert = function() {
-            angular.extend(this.tempModel, angular.copy(this.model));
-            this.error = '';
-        };
+		Item.prototype.update = function() {
+			angular.extend(this.model, angular.copy(this.tempModel));
+		};
 
-        Item.prototype.isFolder = function() {
-            return this.model.type === 'dir';
-        };
+		Item.prototype.revert = function() {
+			angular.extend(this.tempModel, angular.copy(this.model));
+			this.error = '';
+		};
 
-        Item.prototype.isEditable = function() {
-            return !this.isFolder() && fileManagerConfig.isEditableFilePattern.test(this.model.name);
-        };
+		Item.prototype.isFolder = function() {
+			return this.model.type === 'dir';
+		};
 
-        Item.prototype.isImage = function() {
-            return fileManagerConfig.isImageFilePattern.test(this.model.name);
-        };
+		Item.prototype.isEditable = function() {
+			return !this.isFolder() && fileManagerConfig.isEditableFilePattern.test(this.model.name);
+		};
 
-        Item.prototype.isCompressible = function() {
-            return this.isFolder();
-        };
+		Item.prototype.isImage = function() {
+			return fileManagerConfig.isImageFilePattern.test(this.model.name);
+		};
 
-        Item.prototype.isExtractable = function() {
-            return !this.isFolder() && fileManagerConfig.isExtractableFilePattern.test(this.model.name);
-        };
+		Item.prototype.isCompressible = function() {
+			return this.isFolder();
+		};
 
-        Item.prototype.isSelectable = function() {
-            return (this.isFolder() && fileManagerConfig.allowedActions.pickFolders) || (!this.isFolder() && fileManagerConfig.allowedActions.pickFiles);
-        };
+		Item.prototype.isExtractable = function() {
+			return !this.isFolder() && fileManagerConfig.isExtractableFilePattern.test(this.model.name);
+		};
 
-        return Item;
-    }]);
+		Item.prototype.isSelectable = function() {
+			return (this.isFolder() && fileManagerConfig.allowedActions.pickFolders) || (!this.isFolder() && fileManagerConfig.allowedActions.pickFiles);
+		};
+
+		return Item;
+	}]);
 })(angular);

@@ -86,7 +86,7 @@ namespace mojoPortal.Web.Controllers
 					return CompressItems(request.Items, request.Destination, request.CompressedFilename);
 
 				case "extract":
-					return ExtractItem(request.Item, request.Destination);
+					return ExtractItem(request.Item, request.Destination, request.FolderName);
 
 				default:
 					return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = "Whoops!  Something went bad!" });
@@ -253,7 +253,7 @@ namespace mojoPortal.Web.Controllers
 
 				if (AllowedExtension(file))
 				{
-					string newFile = FilePath(newPath + "/" + CleanFileName(singleFileName));
+					string newFile = FilePath(newPath + "/" + CleanFileName(singleFileName, "file"));
 
 					result = fileSystem.CopyFile(file, newFile, overwriteExistingFiles);
 
@@ -373,7 +373,7 @@ namespace mojoPortal.Web.Controllers
 			if (fileSystem.CountFolders() < fileSystem.Permission.MaxFolders)
 			{
 				string dir = VirtualPathUtility.GetDirectory(path);
-				string newFolder = dir + CleanFileName(path);
+				string newFolder = dir + CleanFileName(path, "folder");
 
 				result = fileSystem.CreateFolder(FilePath(newFolder, false, true));
 
@@ -400,7 +400,7 @@ namespace mojoPortal.Web.Controllers
 						switch (FolderOrFile(item))
 						{
 							case "folder":
-								zip.AddDirectory(path, CleanFileName(item));
+								zip.AddDirectory(path, CleanFileName(item, "folder"));
 								break;
 							case "file":
 								zip.AddFile(path, "");
@@ -413,7 +413,7 @@ namespace mojoPortal.Web.Controllers
 
 					if (!streamFile)
 					{
-						zip.Save(FilePath(destination + "/" + CleanFileName(compressedFilename), true));
+						zip.Save(FilePath(destination + "/" + CleanFileName(compressedFilename, "file"), true));
 						zip.Dispose();
 					}
 					else
@@ -436,17 +436,55 @@ namespace mojoPortal.Web.Controllers
 		}
 
 
-		private dynamic ExtractItem(string item, string destination)
+		private dynamic ExtractItem(string item, string destination, string folderName)
 		{
 			try
 			{
+				//ZipFile zip2 = new ZipFile();
 				using (ZipFile zip = ZipFile.Read(FilePath(item, true)))
 				{
-					foreach (ZipEntry e in zip)
+
+					foreach (ZipEntry e in zip.EntriesSorted)
 					{
-						e.Extract(FilePath(destination, true), ExtractExistingFileAction.OverwriteSilently);
+						//ZipEntry e2 = new ZipEntry();
+						//e2 = e;
+						//string fileName = e.FileName.ToString();
+						if (e.IsDirectory)
+						{
+							List<string> dirs = e.FileName.SplitOnCharAndTrim('/');
+							List<string> cleanDirs = new List<string>();
+							foreach (string d in dirs)
+							{
+								cleanDirs.Add(d.ToCleanFolderName(WebConfigSettings.ForceLowerCaseForFolderCreation));
+							}
+
+							e.FileName = String.Join("/", cleanDirs);
+						}
+						else
+						{
+							string file = e.FileName.Contains("/") ? e.FileName.Substring(e.FileName.LastIndexOf('/')) : e.FileName;
+							string dir = e.FileName.Substring(0, e.FileName.Contains("/") ? e.FileName.LastIndexOf('/') : 0);
+							List<string> dirs = dir.SplitOnCharAndTrim('/');
+							List<string> cleanDirs = new List<string>();
+							foreach (string d in dirs)
+							{
+								cleanDirs.Add(d.ToCleanFolderName(WebConfigSettings.ForceLowerCaseForFolderCreation));
+							}
+							file = file.ToCleanFileName(WebConfigSettings.ForceLowerCaseForUploadedFiles);
+
+							e.FileName = String.Join("/", cleanDirs) + "/" + file;
+						}
+						//zip2.Entries.Add(e2);
+
+						e.Extract(FilePath(destination + folderName, true), overwriteExistingFiles ? ExtractExistingFileAction.OverwriteSilently : ExtractExistingFileAction.DoNotOverwrite);
+						
 					}
 				}
+
+				//foreach (ZipEntry e in zip2)
+				//{
+				//	e.Extract(FilePath(destination + folderName, true), overwriteExistingFiles ? ExtractExistingFileAction.OverwriteSilently : ExtractExistingFileAction.DoNotOverwrite);
+				//}
 
 				return new FileService.ReturnObject(ReturnResult(OpResult.Succeed));
 			}
@@ -471,7 +509,7 @@ namespace mojoPortal.Web.Controllers
 				response.ClearContent();
 				response.Clear();
 				response.ContentType = "text/plain";
-				response.AddHeader("Content-Disposition", "attachment; filename=" + CleanFileName(path) + ";");
+				response.AddHeader("Content-Disposition", "attachment; filename=" + CleanFileName(path, "file") + ";");
 
 				response.Buffer = false;
 				response.BufferOutput = false;
@@ -540,13 +578,14 @@ namespace mojoPortal.Web.Controllers
 					switch(FolderOrFile(origin))
 					{
 						case "folder":
-							result = fileSystem.MoveFolder(FilePath(origin, false, true), FilePath(destination, false, true));
+							result = fileSystem.MoveFolder(FilePath(origin, false, true), FilePath(CleanFileName(destination, "folder"), false, true));
 
 							break;
+
 						case "file":
 							if (AllowedExtension(origin) && AllowedExtension(dest))
 							{
-								result = fileSystem.MoveFile(FilePath(origin), FilePath(destination), overwriteExistingFiles);
+								result = fileSystem.MoveFile(FilePath(origin), FilePath(CleanFileName(destination, "file")), overwriteExistingFiles);
 							}
 							else
 							{
@@ -562,18 +601,21 @@ namespace mojoPortal.Web.Controllers
 					{
 						case "folder":
 							string org = FilePath(origin, false, true);
-							string des = FilePath(destination + "/" + CleanFileName(origin), false, true);
+							string des = FilePath(destination + "/" + CleanFileName(origin, "folder"), false, true);
 							result = fileSystem.MoveFolder(org, des);
+
 							break;
+
 						case "file":
 							if (AllowedExtension(origin) && FolderOrFile(dest) == "folder")
 							{
-								result = fileSystem.MoveFile(FilePath(origin), FilePath(destination + "/" + CleanFileName(origin)), false);
+								result = fileSystem.MoveFile(FilePath(origin), FilePath(destination + "/" + CleanFileName(origin, "file")), false);
 							}
 							else
 							{
 								result = OpResult.FileTypeNotAllowed;
 							}
+
 							break;
 					}
 				}
@@ -676,7 +718,7 @@ namespace mojoPortal.Web.Controllers
 
 		private string FilePath(string itemPath, bool returnDiskPath = false, bool appendTrailingSlash = false)
 		{
-			Regex removeDoubleSlash = new Regex("(/)(?<=\\1\\1)");
+			Regex onlyOneSlashRegEx = new Regex("(/)(?<=\\1\\1)");
 
 			if (string.IsNullOrEmpty(itemPath))
 			{
@@ -685,16 +727,16 @@ namespace mojoPortal.Web.Controllers
 
 			// Remove "../" or "\" to prevent hacks 
 			itemPath = itemPath.Replace("..", string.Empty).Replace("\\", string.Empty).Trim();
-			string concatedPath = virtualPath + itemPath;
+			string fullPath = virtualPath + itemPath;
 			// Clean virtual path
-			string cleanPath = removeDoubleSlash.Replace(concatedPath, String.Empty);
+			string cleanPath = onlyOneSlashRegEx.Replace(fullPath, string.Empty);
 			if (appendTrailingSlash)
 				cleanPath = VirtualPathUtility.AppendTrailingSlash(cleanPath);
 			// Clean disk path
-			string discPath = HttpContext.Current.Server.MapPath(cleanPath);
+			string diskPath = HttpContext.Current.Server.MapPath(cleanPath);
 
 			if (returnDiskPath)
-				return discPath;
+				return diskPath;
 			else 
 				return cleanPath;
 		}
@@ -704,9 +746,16 @@ namespace mojoPortal.Web.Controllers
 			return fileSystem.Permission.IsExtAllowed(VirtualPathUtility.GetExtension(item));
 		}
 
-		private string CleanFileName(string item)
+		private string CleanFileName(string item, string type)
 		{
-			return Path.GetFileName(item).ToCleanFileName(WebConfigSettings.ForceLowerCaseForUploadedFiles);
+			switch (type)
+			{
+				case "folder":
+					return Path.GetFileName(item).ToCleanFileName(WebConfigSettings.ForceLowerCaseForFolderCreation);
+				case "file":
+				default:
+					return Path.GetFileName(item).ToCleanFileName(WebConfigSettings.ForceLowerCaseForUploadedFiles);
+			}
 		}
 	}
 }

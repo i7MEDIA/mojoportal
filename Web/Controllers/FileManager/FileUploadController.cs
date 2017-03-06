@@ -2,6 +2,7 @@
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.FileSystem;
+using mojoPortal.Web.Framework;
 using mojoPortal.Web.Models;
 using Resources;
 using System;
@@ -120,7 +121,7 @@ namespace mojoPortal.Web.Controllers.FileManager
 						doUpload = false;
 					}
 
-					string destPath = VirtualPathUtility.Combine(uploadPath, Path.GetFileName(file.FileName));
+					string destPath = VirtualPathUtility.Combine(uploadPath, Path.GetFileName(file.FileName).ToCleanFileName(WebConfigSettings.ForceLowerCaseForUploadedFiles));
 
 					string ext = Path.GetExtension(file.FileName);
 					string mimeType = file.ContentType;
