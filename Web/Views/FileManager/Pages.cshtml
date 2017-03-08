@@ -1,8 +1,9 @@
-﻿@model mojoPortal.Web.Models.FileManager
+﻿@using Resources;
+@model mojoPortal.Web.Models.FileManager
 
 @{
+	ViewBag.Title = Resource.FileManagerPagesHeaderTitle;
 	Layout = "~/Views/FileManager/_FileManagerLayout.cshtml";
-	ViewBag.Title = "Page Picker";
 	ViewBag.AngularApp = "PagePicker";
 	var editor = Model.Editor != "" ? new { editor = Model.Editor, type = Model.Type } : null;
 }

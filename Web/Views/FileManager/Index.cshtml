@@ -1,7 +1,8 @@
-﻿@model mojoPortal.Web.Models.FileManager
+﻿@using Resources;
+@model mojoPortal.Web.Models.FileManager
 
 @{
-	ViewBag.Title = "Media Management";
+	ViewBag.Title = Resource.FileManagerIndexHeaderTitle;
 	ViewBag.AngularApp = "FileManagerApp";
 	ViewBag.BodyClass = "ng-cloak" + (ViewBag.view == "fullpage" ? " fullpage" : string.Empty);
 	Layout = "~/Views/FileManager/_FileManagerLayout.cshtml";
