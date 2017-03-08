@@ -1,10 +1,10 @@
-﻿@using Newtonsoft.Json;
+﻿@model mojoPortal.Web.Models.FileManager
 
 @{
 	Layout = "~/Views/FileManager/_FileManagerLayout.cshtml";
 	ViewBag.Title = "Page Picker";
 	ViewBag.AngularApp = "PagePicker";
-	var editor = ViewBag.Editor != "" ? new { editor = ViewBag.Editor, type = ViewBag.type } : null;
+	var editor = Model.Editor != "" ? new { editor = Model.Editor, type = Model.Type } : null;
 }
 
 @section Styles {
@@ -140,7 +140,7 @@
 <div class="app-ctrl-wrapper ng-cloak" ng-controller="PagesCtrl">
 	<div class="alert alert-info alert-control">
 		<i class="glyphicon glyphicon-chevron-left"></i>
-		@Html.ActionLink("Back to File Manager", "Index", editor, new { @class = "alert-link" })
+		@Html.ActionLink(Model.BackToFileManagerLinkText, "Index", editor, new { @class = "alert-link" })
 	</div>
 	<nav class="navbar navbar-inverse navbar-static-top">
 		<div class="container-fluid">

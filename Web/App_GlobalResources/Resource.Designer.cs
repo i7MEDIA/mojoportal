@@ -4345,6 +4345,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back to File Manager.
+        /// </summary>
+        internal static string FileManagerBackToManagerLink {
+            get {
+                return ResourceManager.GetString("FileManagerBackToManagerLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back to the Website.
+        /// </summary>
+        internal static string FileManagerBackToWebsite {
+            get {
+                return ResourceManager.GetString("FileManagerBackToWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string FileManagerCancelButton {
@@ -4440,6 +4458,15 @@ namespace Resources {
         internal static string FileManagerObjectsLabel {
             get {
                 return ResourceManager.GetString("FileManagerObjectsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick a Page.
+        /// </summary>
+        internal static string FileManagerPagePickerLink {
+            get {
+                return ResourceManager.GetString("FileManagerPagePickerLink", resourceCulture);
             }
         }
         
@@ -4597,6 +4624,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid token received by FileService so blocking access.
+        /// </summary>
+        internal static string FileSystemInvalidToken {
+            get {
+                return ResourceManager.GetString("FileSystemInvalidToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not load file system from provider {0}.
+        /// </summary>
+        internal static string FileSystemNotLoadedFromProvider {
+            get {
+                return ResourceManager.GetString("FileSystemNotLoadedFromProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not load file system provider {0}.
+        /// </summary>
+        internal static string FileSystemProviderNotLoaded {
+            get {
+                return ResourceManager.GetString("FileSystemProviderNotLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quota exceeded..
         /// </summary>
         internal static string FileSystemQuotaExceeded {
@@ -4606,11 +4660,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Site Setting not loaded.
+        /// </summary>
+        internal static string FileSystemSiteSettingsNotLoaded {
+            get {
+                return ResourceManager.GetString("FileSystemSiteSettingsNotLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry you&apos;ve reached the quota of upload storage allowed by configuraiton..
         /// </summary>
         internal static string FileSystemStorageQuotaError {
             get {
                 return ResourceManager.GetString("FileSystemStorageQuotaError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User is unauthorized.
+        /// </summary>
+        internal static string FileSystemUserNotAuthorized {
+            get {
+                return ResourceManager.GetString("FileSystemUserNotAuthorized", resourceCulture);
             }
         }
         
@@ -4674,6 +4746,15 @@ namespace Resources {
         internal static string FirstNameLastNameFormat {
             get {
                 return ResourceManager.GetString("FirstNameLastNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fishy post detected with referrer {0}.
+        /// </summary>
+        internal static string FishyPostFoundFromReferrer {
+            get {
+                return ResourceManager.GetString("FishyPostFoundFromReferrer", resourceCulture);
             }
         }
         

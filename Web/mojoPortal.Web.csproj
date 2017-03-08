@@ -3353,6 +3353,7 @@
     <Compile Include="MemberList.aspx.designer.cs">
       <DependentUpon>MemberList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\FileManager.cs" />
     <Compile Include="Models\FileService.cs" />
     <Compile Include="Modules\ChildPageSiteMapModule.ascx.cs">
       <DependentUpon>ChildPageSiteMapModule.ascx</DependentUpon>

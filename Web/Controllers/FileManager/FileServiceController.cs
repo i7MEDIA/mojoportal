@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -35,13 +36,21 @@ namespace mojoPortal.Web.Controllers
 
 		// POST: /fileservice
 		[HttpPost]
-		public dynamic FileManagerPost(FileService.RequestObject request)
+		public dynamic FileManagerPost([FromBody]FileService.RequestObject request, [FromUri]string t)
 		{
-			var loadSettings = LoadSettings();
+			var loadSettings = LoadSettings(request, t);
 
-			if (!loadSettings.Result)
+			if (!loadSettings.Success)
 			{
-				return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = loadSettings.Error });
+				return new FileService.ReturnObject(loadSettings);
+			}
+
+			if (WebConfigSettings.FileServiceRejectFishyPosts)
+			{
+				if (SiteUtils.IsFishyPost(Request))
+				{
+					return new FileService.ReturnObject(ReturnResult(OpResult.Denied));
+				}
 			}
 
 			if ((fileSystem == null) || (!fileSystem.UserHasUploadPermission))
@@ -49,13 +58,13 @@ namespace mojoPortal.Web.Controllers
 				return new FileService.ReturnObject(ReturnResult(OpResult.Denied));
 			}
 
-			virtualPath = fileSystem.VirtualRoot;
 			StringBuilder returnErrors = new StringBuilder();
 			Dictionary<string, FileService.ReturnMessage> returnMessages = new Dictionary<string, FileService.ReturnMessage>();
 
 			switch (request.Action)
 			{
 				case "list":
+				default:
 					return ListAllFilesFolders(request.Path);
 
 				case "rename":
@@ -86,22 +95,19 @@ namespace mojoPortal.Web.Controllers
 					return CompressItems(request.Items, request.Destination, request.CompressedFilename);
 
 				case "extract":
-					return ExtractItem(request.Item, request.Destination, request.FolderName);
-
-				default:
-					return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = "Whoops!  Something went bad!" });
+					return ExtractItems(request.Item, request.Destination, request.FolderName);
 			};
 		}
 
 		// GET: /fileservice
 		[HttpGet]
-		public HttpResponse Get([FromUri] FileService.RequestObject request)
+		public HttpResponseMessage Get([FromUri] FileService.RequestObject request, string t)
 		{
-			LoadSettings();
-			var loadSettings = LoadSettings();
+			var loadSettings = LoadSettings(request, t);
 
-			if (!loadSettings.Result)
+			if (!loadSettings.Success)
 			{
+				log.Info(loadSettings.Error);
 				throw new HttpResponseException(HttpStatusCode.InternalServerError);
 			}
 
@@ -109,8 +115,6 @@ namespace mojoPortal.Web.Controllers
 			{
 				throw new HttpResponseException(HttpStatusCode.Unauthorized);
 			}
-
-			virtualPath = fileSystem.VirtualRoot;
 
 			switch (request.Action)
 			{
@@ -124,51 +128,38 @@ namespace mojoPortal.Web.Controllers
 		}
 
 
-		private dynamic LoadSettings()
+		private FileService.ReturnMessage LoadSettings(FileService.RequestObject request, string t)
 		{
-			siteSettings = CacheHelper.GetCurrentSiteSettings();
-
-			if (siteSettings == null)
-			{
-				return new FileService.ReturnMessage { Success = false, Error = "Site Setting not loaded" };
-			}
-
 			allowEditing = WebConfigSettings.AllowFileEditInFileManager;
-			//logAllFileSystemActivity = WebConfigSettings.LogAllFileManagerActivity;
-
 			overwriteExistingFiles = WebConfigSettings.FileManagerOverwriteFiles;
 
-			if (WebConfigSettings.RequireFileSystemServiceToken)
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
+			if (siteSettings == null)
 			{
-				//Guid fileSystemToken = WebUtils.ParseGuidFromQueryString("t", Guid.Empty);
-				string fileSystemToken = Request.GetQueryNameValuePairs().Where(nv => nv.Key == "t").Select(nv => nv.Value).FirstOrDefault();
+				return new FileService.ReturnMessage { Success = false, Error = Resource.FileSystemSiteSettingsNotLoaded };
+			}
 
-				if (fileSystemToken != Global.FileSystemToken.ToString())
-				{
-					log.Info("Invalid token received by FileService so blocking access");
-					return new FileService.ReturnMessage { Success = false, Error = "Invalid token received by FileService so blocking access" };
-				}
+			if (WebConfigSettings.RequireFileSystemServiceToken && (t != Global.FileSystemToken.ToString()))
+			{
+				log.Info(Resource.FileSystemInvalidToken);
+				return new FileService.ReturnMessage { Success = false, Error = Resource.FileSystemInvalidToken };
 			}
 
 			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
 			if (p == null)
 			{
-				log.Error("Could not load file system provider " + WebConfigSettings.FileSystemProvider);
-				return new FileService.ReturnMessage { Success = false, Error = "Could not load file system provider " + WebConfigSettings.FileSystemProvider };
+				log.Error(string.Format(Resource.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider));
+				return new FileService.ReturnMessage { Success = false, Error = string.Format(Resource.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider) };
 			}
 
 			fileSystem = p.GetFileSystem();
 			if (fileSystem == null)
 			{
-				log.Error("Could not load file system from provider " + WebConfigSettings.FileSystemProvider);
-				return new FileService.ReturnMessage { Success = false, Error = "Could not load file system from provider " + WebConfigSettings.FileSystemProvider };
+				log.Error(string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider));
+				return new FileService.ReturnMessage { Success = false, Error = string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider) };
 			}
 
-			////log.Info(context.Request.RawUrl);
-			//if (WebConfigSettings.LogAllFileServiceRequests)
-			//{
-			//	log.Info("virtualPath = " + virtualPath + " virtualSourcePath = " + virtualSourcePath + " virtualTargetPath = " + virtualTargetPath);
-			//}
+			virtualPath = fileSystem.VirtualRoot;
 
 			if ((WebUser.IsAdminOrContentAdmin) || (SiteUtils.UserIsSiteEditor()))
 			{
@@ -184,13 +175,51 @@ namespace mojoPortal.Web.Controllers
 
 				if (currentUser == null)
 				{
-					return new FileService.ReturnMessage { Success = false, Error = "User is unauthorized." };
+					return new FileService.ReturnMessage { Success = false, Error = Resource.FileSystemUserNotAuthorized };
 				}
 
 				allowedExtensions = WebConfigSettings.AllowedLessPriveledgedUserUploadFileExtensions;
 			}
 
-			return new { Result = true };
+			if (WebConfigSettings.LogAllFileServiceRequests)
+			{
+				StringBuilder message = new StringBuilder();
+
+				message.AppendLine("\nFile Manager Activity:");
+				message.AppendFormat("Request Action: {0}\n", request.Action);
+				if (request.CompressedFilename != null)
+					message.AppendFormat("CompressedFilename: {0}\n", request.CompressedFilename);
+				if (request.Content != null)
+					message.AppendFormat("Content: {0}\n", request.Content);
+				if (request.Destination != null)
+					message.AppendFormat("Destination: {0}\n", request.Destination);
+				if (request.Item != null)
+					message.AppendFormat("Item: {0}\n", request.Item);
+				if (request.Items != null)
+					message.AppendFormat("Items: {0}\n", request.Items);
+				if (request.NewItemPath != null)
+					message.AppendFormat("NewItemPath: {0}\n", request.NewItemPath);
+				if (request.NewPath != null)
+					message.AppendFormat("NewPath: {0}\n", request.NewPath);
+				if (request.FolderName != null)
+					message.AppendFormat("FolderName: {0}\n", request.FolderName);
+				if (request.Path != null)
+					message.AppendFormat("Path: {0}\n", request.Path);
+				if (request.Perms != null)
+					message.AppendFormat("Perms: {0}\n", request.Perms);
+				if (request.PermsCode != null)
+					message.AppendFormat("PermsCode: {0}\n", request.PermsCode);
+				if (request.Recursive != null)
+					message.AppendFormat("Recursive: {0}\n", request.Recursive);
+				if (request.SingleFileName != null)
+					message.AppendFormat("SingleFileName: {0}\n", request.SingleFileName);
+				if (request.ToFilename != null)
+					message.AppendFormat("ToFilename: {0}\n", request.ToFilename);
+
+				log.Info(message);
+			}
+
+			return new FileService.ReturnMessage { Success = true };
 		}
 
 
@@ -315,7 +344,7 @@ namespace mojoPortal.Web.Controllers
 				{
 					try
 					{
-						using (StreamWriter writer = File.CreateText(FilePath(item, true)))
+						using (StreamWriter writer = File.CreateText(FilePath(item, true, false, true)))
 						{
 							writer.Write(content);
 						}
@@ -328,10 +357,8 @@ namespace mojoPortal.Web.Controllers
 						return new FileService.ReturnObject(ReturnResult(OpResult.Error));
 					}
 				}
-				else
-				{
-					return new FileService.ReturnObject(ReturnResult(OpResult.FileTypeNotAllowed)); ;
-				}
+
+				return new FileService.ReturnObject(ReturnResult(OpResult.FileTypeNotAllowed)); ;
 			}
 
 			return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = Resource.FileEditInFileManagerNotAllowed });
@@ -349,17 +376,14 @@ namespace mojoPortal.Web.Controllers
 					if (File.Exists(filePath))
 					{
 						string fileBody = File.ReadAllText(filePath, Encoding.UTF8);
+
 						return new { Result = fileBody };
 					}
-					else
-					{
-						return new { Result = Resource.FileSystemFileNotFound };
-					}
+
+					return new { Result = Resource.FileSystemFileNotFound };
 				}
-				else
-				{
-					return new { Result = Resource.FileTypeNotAllowed };
-				}
+
+				return new { Result = Resource.FileTypeNotAllowed };
 			}
 
 			return new { Result = Resource.FileEditInFileManagerNotAllowed };
@@ -387,7 +411,7 @@ namespace mojoPortal.Web.Controllers
 		}
 
 
-		private dynamic CompressItems(List<string> items, string destination, string compressedFilename, bool streamFile = false)
+		private FileService.ReturnObject CompressItems(List<string> items, string destination, string compressedFilename)
 		{
 			try
 			{
@@ -408,22 +432,8 @@ namespace mojoPortal.Web.Controllers
 						}
 					}
 
-					zip.TempFileFolder = Path.GetTempPath();
-
-
-					if (!streamFile)
-					{
-						zip.Save(FilePath(destination + "/" + CleanFileName(compressedFilename, "file"), true));
-						zip.Dispose();
-					}
-					else
-					{
-						HttpResponse response = HttpContext.Current.Response;
-						response.Clear();
-						response.ContentType = "application/zip";
-						response.AddHeader("content-disposition", "filename=" + "file-manager.zip");
-						zip.Save(response.OutputStream);
-					}
+					zip.Save(FilePath(destination + "/" + CleanFileName(compressedFilename, "file"), true));
+					zip.Dispose();
 				}
 
 				return new FileService.ReturnObject(ReturnResult(OpResult.Succeed));
@@ -436,29 +446,26 @@ namespace mojoPortal.Web.Controllers
 		}
 
 
-		private dynamic ExtractItem(string item, string destination, string folderName)
+		private dynamic ExtractItems(string item, string destination, string folderName)
 		{
 			try
 			{
-				//ZipFile zip2 = new ZipFile();
 				using (ZipFile zip = ZipFile.Read(FilePath(item, true)))
 				{
 
 					foreach (ZipEntry e in zip.EntriesSorted)
 					{
-						//ZipEntry e2 = new ZipEntry();
-						//e2 = e;
-						//string fileName = e.FileName.ToString();
 						if (e.IsDirectory)
 						{
 							List<string> dirs = e.FileName.SplitOnCharAndTrim('/');
 							List<string> cleanDirs = new List<string>();
+
 							foreach (string d in dirs)
 							{
 								cleanDirs.Add(d.ToCleanFolderName(WebConfigSettings.ForceLowerCaseForFolderCreation));
 							}
 
-							e.FileName = String.Join("/", cleanDirs);
+							e.FileName = string.Join("/", cleanDirs);
 						}
 						else
 						{
@@ -466,25 +473,21 @@ namespace mojoPortal.Web.Controllers
 							string dir = e.FileName.Substring(0, e.FileName.Contains("/") ? e.FileName.LastIndexOf('/') : 0);
 							List<string> dirs = dir.SplitOnCharAndTrim('/');
 							List<string> cleanDirs = new List<string>();
+
 							foreach (string d in dirs)
 							{
 								cleanDirs.Add(d.ToCleanFolderName(WebConfigSettings.ForceLowerCaseForFolderCreation));
 							}
+
 							file = file.ToCleanFileName(WebConfigSettings.ForceLowerCaseForUploadedFiles);
 
-							e.FileName = String.Join("/", cleanDirs) + "/" + file;
+							e.FileName = string.Join("/", cleanDirs) + "/" + file;
 						}
-						//zip2.Entries.Add(e2);
 
 						e.Extract(FilePath(destination + folderName, true), overwriteExistingFiles ? ExtractExistingFileAction.OverwriteSilently : ExtractExistingFileAction.DoNotOverwrite);
 						
 					}
 				}
-
-				//foreach (ZipEntry e in zip2)
-				//{
-				//	e.Extract(FilePath(destination + folderName, true), overwriteExistingFiles ? ExtractExistingFileAction.OverwriteSilently : ExtractExistingFileAction.DoNotOverwrite);
-				//}
 
 				return new FileService.ReturnObject(ReturnResult(OpResult.Succeed));
 			}
@@ -496,35 +499,21 @@ namespace mojoPortal.Web.Controllers
 		}
 
 
-		private HttpResponse DownloadItem(string path)
+		private HttpResponseMessage DownloadItem(string path)
 		{
 			try
 			{
-				if (WebConfigSettings.DownloadScriptTimeout > -1)
+				var result = new HttpResponseMessage(HttpStatusCode.OK);
+				var stream = new FileStream(FilePath(path, true), FileMode.Open);
+
+				result.Content = new StreamContent(stream);
+				result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+				result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
 				{
-					HttpContext.Current.Server.ScriptTimeout = WebConfigSettings.DownloadScriptTimeout;
-				}
+					FileName = VirtualPathUtility.GetFileName(path)
+				};
 
-				HttpResponse response = HttpContext.Current.Response;
-				response.ClearContent();
-				response.Clear();
-				response.ContentType = "text/plain";
-				response.AddHeader("Content-Disposition", "attachment; filename=" + CleanFileName(path, "file") + ";");
-
-				response.Buffer = false;
-				response.BufferOutput = false;
-
-				using (Stream stream = fileSystem.GetAsStream(FilePath(path)))
-				{
-					stream.CopyTo(response.OutputStream);
-				}
-
-				response.End();
-
-				return response;
-			}
-			catch (System.Threading.ThreadAbortException) {
-				throw new HttpResponseException(HttpStatusCode.OK);
+				return result;
 			}
 			catch (Exception ex)
 			{
@@ -534,37 +523,42 @@ namespace mojoPortal.Web.Controllers
 		}
 
 
-		private HttpResponse DownloadMultiple(List<string> items, string toFilename)
+		public HttpResponseMessage DownloadMultiple(List<string> items, string toFilename)
 		{
-			HttpResponse response = HttpContext.Current.Response;
-
-			response.ClearContent();
-			response.Clear();
-			response.ContentType = "application/zip";
-			response.AddHeader("Content-Disposition", "attachment; filename=" + toFilename);
-
-			response.Buffer = false;
-			response.BufferOutput = false;
-
-			using (ZipFile zip = new ZipFile())
+			using (var zipFile = new ZipFile())
 			{
 				foreach (var item in items)
 				{
-					zip.AddFile(FilePath(item, true), "");
+					zipFile.AddFile(FilePath(item, true), "");
 				}
 
-				zip.TempFileFolder = Path.GetTempPath();
-
-				zip.Save(response.OutputStream);
+				return ZipContentResult(zipFile, toFilename);
 			}
-
-			response.End();
-
-			return response;
 		}
 
 
-		// First Tool
+		// Utilities
+		private HttpResponseMessage ZipContentResult(ZipFile zipFile, string fileName)
+		{
+			var pushStreamContent = new PushStreamContent((stream, content, context) =>
+			{
+				zipFile.Save(stream);
+				stream.Close(); // After save we close the stream to signal that we are done writing.
+			}, "application/zip");
+
+			var result = new HttpResponseMessage(HttpStatusCode.OK)
+			{
+				Content = pushStreamContent,
+			};
+
+			result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+			{
+				FileName = fileName
+			};
+
+			return result;
+		}
+
 		private FileService.ReturnMessage MoveOrRename(string origin, string dest, bool move = false)
 		{
 			try
@@ -716,7 +710,7 @@ namespace mojoPortal.Web.Controllers
 		}
 
 
-		private string FilePath(string itemPath, bool returnDiskPath = false, bool appendTrailingSlash = false)
+		private string FilePath(string itemPath, bool returnDiskPath = false, bool appendTrailingSlash = false, bool isFullPath = false)
 		{
 			Regex onlyOneSlashRegEx = new Regex("(/)(?<=\\1\\1)");
 
@@ -727,7 +721,7 @@ namespace mojoPortal.Web.Controllers
 
 			// Remove "../" or "\" to prevent hacks 
 			itemPath = itemPath.Replace("..", string.Empty).Replace("\\", string.Empty).Trim();
-			string fullPath = virtualPath + itemPath;
+			string fullPath = !isFullPath ? virtualPath + itemPath : itemPath;
 			// Clean virtual path
 			string cleanPath = onlyOneSlashRegEx.Replace(fullPath, string.Empty);
 			if (appendTrailingSlash)

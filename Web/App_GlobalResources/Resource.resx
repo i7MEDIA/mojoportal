@@ -6054,4 +6054,32 @@
   <data name="FileSystemFileLimitRemainder" xml:space="preserve">
     <value>You are only allowed {0} more files.</value>
   </data>
+  <data name="FileManagerBackToManagerLink" xml:space="preserve">
+    <value>Back to File Manager</value>
+  </data>
+  <data name="FileManagerBackToWebsite" xml:space="preserve">
+    <value>Back to the Website</value>
+  </data>
+  <data name="FileManagerPagePickerLink" xml:space="preserve">
+    <value>Pick a Page</value>
+  </data>
+  <data name="FileSystemInvalidToken" xml:space="preserve">
+    <value>Invalid token received by FileService so blocking access</value>
+  </data>
+  <data name="FileSystemNotLoadedFromProvider" xml:space="preserve">
+    <value>Could not load file system from provider {0}</value>
+    <comment> </comment>
+  </data>
+  <data name="FileSystemProviderNotLoaded" xml:space="preserve">
+    <value>Could not load file system provider {0}</value>
+  </data>
+  <data name="FileSystemSiteSettingsNotLoaded" xml:space="preserve">
+    <value>Site Setting not loaded</value>
+  </data>
+  <data name="FileSystemUserNotAuthorized" xml:space="preserve">
+    <value>User is unauthorized</value>
+  </data>
+  <data name="FishyPostFoundFromReferrer" xml:space="preserve">
+    <value>Fishy post detected with referrer {0}</value>
+  </data>
 </root>

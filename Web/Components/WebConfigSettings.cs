@@ -3645,6 +3645,16 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("AllowEditingSkinsInChildSites", true); }
 		}
 
+		public static bool CheckFishyReferrer
+		{
+			get { return ConfigHelper.GetBoolProperty("CheckFishyReferer", true); }
+		}
+
+		public static bool LogFishyReferrer
+		{
+			get { return ConfigHelper.GetBoolProperty("LogFishyReferer", true); }
+		}
+
 		/// <summary>
 		/// this is mainly needed so I can prevent people from changing the mobile skin on the demo site
 		/// </summary>
@@ -3849,8 +3859,6 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("EnableInlineEditing", true); }
 		}
 
-		
-
 		public static string CKEditorBasePath
 		{
 			get { return ConfigHelper.GetStringProperty("CKEditor:BasePath", "~/ClientScript/ckeditor4011/"); }
@@ -3865,7 +3873,6 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetStringProperty("CKEditor:FullWithTemplatesToolbarDefinition", "[['SelectAll', 'RemoveFormat', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Print', 'SpellChecker', 'Scayt'],['Undo','Redo','-','Find','Replace','Bold','Italic','Underline','Strike'],'/',['Blockquote','Styles'],['NumberedList','BulletedList'],['Link','Unlink','Anchor'],['Templates','Image','Flash','oembed','Table','HorizontalRule','Smiley','SpecialChar'],];"); }
 		}
-		
 
 		public static bool ResizeEditorUploadedImages
 		{

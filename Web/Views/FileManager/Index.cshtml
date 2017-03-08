@@ -1,4 +1,6 @@
-﻿@{
+﻿@model mojoPortal.Web.Models.FileManager
+
+@{
 	ViewBag.Title = "Media Management";
 	ViewBag.AngularApp = "FileManagerApp";
 	ViewBag.BodyClass = "ng-cloak" + (ViewBag.view == "fullpage" ? " fullpage" : string.Empty);
@@ -9,7 +11,7 @@
 @if (ViewBag.view == "fullpage")
 {
 	<div class="alert alert-info alert-control">
-		<a class="alert-link" href="javascript:void(0)" onclick="history.back();"><i class="glyphicon glyphicon-menu-left" aria-hidden="true"></i> Back to Website</a>
+		<a class="alert-link" href="javascript:void(0)" onclick="history.back();"><i class="glyphicon glyphicon-menu-left" aria-hidden="true"></i> @Model.BackToWebsiteLinkText</a>
 	</div>
 }
 
@@ -17,7 +19,7 @@
 {
 	<div class="alert alert-info alert-control">
 		<i class="glyphicon glyphicon-file"></i>
-		@Html.ActionLink("Pick a Page", "Pages", editor, new { @class = "alert-link" })
+		@Html.ActionLink(Model.PagePickerLinkText, "Pages", editor, new { @class = "alert-link" })
 	</div>
 }
 
@@ -38,9 +40,9 @@
 		angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (config) {
 			var defaults = config.$get();
 			config.set({
-				appName: '@ViewBag.RootName',
+				appName: '@Model.RootName',
 				pickCallback: function (item) {
-					var url = '@ViewBag.virtualPath' + item.fullPath();
+					var url = '@Model.VirtualPath' + item.fullPath();
 
 					if (picker != null) {
 						switch (picker) {
@@ -61,7 +63,20 @@
 				allowedActions: angular.extend(defaults.allowedActions, {
 					pickFiles: picker != null ? true : false,
 					pickFolders: false,
-					changePermissions: false
+					changePermissions: false,
+					upload: @Model.Upload,
+					rename: @Model.Rename,
+					move: @Model.Move,
+					copy: @Model.Copy,
+					edit: @Model.Edit,
+					compress: @Model.Compress,
+					compressChooseName: @Model.CompressChooseName,
+					extract: @Model.Extract,
+					download: @Model.Download,
+					downloadMultiple: @Model.DownloadMultiple,
+					preview: @Model.Preview,
+					remove: @Model.Remove,
+					createFolder: @Model.CreateFolder,
 				}),
 				listUrl: '/fileservice',
 				uploadUrl: '/fileservice/fileupload',
@@ -78,8 +93,8 @@
 				extractUrl: '/fileservice',
 				permissionsUrl: '/fileservice',
 				basePath: '/',
-				fileSystemToken: '@ViewBag.fileSystemToken',
-				typeQueryString: '@ViewBag.type',
+				fileSystemToken: '@Model.FileSystemToken',
+				typeQueryString: '@Model.Type',
 				hidePermissions: true,
 				multipleDownloadFileName: 'angular-filemanager.zip'
 			});

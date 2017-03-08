@@ -19,33 +19,30 @@
 // 2011-11-02 make it possible to use wysiwyg editors in IOs 5 devices since it is now supported
 
 
+using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.FileSystem;
+using mojoPortal.Net;
+using mojoPortal.SearchIndex;
+using mojoPortal.Web.Editor;
+using mojoPortal.Web.Framework;
+using Resources;
 using System;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Security;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.Security;
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Net;
-using mojoPortal.Web.UI;
-using mojoPortal.Web.Controls;
-using mojoPortal.FileSystem;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.Editor;
-using mojoPortal.SearchIndex;
-using Resources;
 
 namespace mojoPortal.Web
 {
@@ -164,18 +161,18 @@ namespace mojoPortal.Web
 
 		public static bool IsFishyPost(HttpRequest request)
 		{
-			bool checkFishyReferrer = ConfigHelper.GetBoolProperty("CheckFishyReferer", true);
-			if (!checkFishyReferrer) { return false; } // a way to disable this if it causes problems
+			if (!WebConfigSettings.CheckFishyReferrer)
+			{
+				return false; // a way to disable this if it causes problems
+			}
 
 			if (request.RequestType == "GET") { return false; } //not a postback
 
-			bool logFishyReferrer = ConfigHelper.GetBoolProperty("LogFishyReferer", true);
-
 			if (!request.UrlReferrer.IsWellFormedOriginalString()) 
 			{
-				if (logFishyReferrer)
+				if (WebConfigSettings.LogFishyReferrer)
 				{
-					log.Info("fishy post detected with referer " + request.UrlReferrer.ToString());
+					log.Info(string.Format(Resource.FishyPostFoundFromReferrer, request.UrlReferrer.ToString()));
 				}
 
 				return true; //bogus referer
@@ -183,20 +180,19 @@ namespace mojoPortal.Web
 
 			if (!request.UrlReferrer.Host.Equals(request.Url.Host)) 
 			{ 
-				if (logFishyReferrer)
+				if (WebConfigSettings.LogFishyReferrer)
 				{
-					log.Info("fishy post detected with referer " + request.UrlReferrer.ToString());
+					log.Info(string.Format(Resource.FishyPostFoundFromReferrer, request.UrlReferrer.ToString()));
 				}
+
 				return true; //referer is different host
 			} 
 
-			if (Regex.IsMatch(request.UrlReferrer.ToString(),
-				   "%3C",
-				   RegexOptions.IgnoreCase)) 
+			if (Regex.IsMatch(request.UrlReferrer.ToString(), "%3C", RegexOptions.IgnoreCase)) 
 			{ 
-				if (logFishyReferrer)
+				if (WebConfigSettings.LogFishyReferrer)
 				{
-					log.Info("fishy post detected with referer " + request.UrlReferrer.ToString());
+					log.Info(string.Format(Resource.FishyPostFoundFromReferrer, request.UrlReferrer.ToString()));
 				}
 
 				return true; //referrer has angle brakcets
@@ -204,6 +200,45 @@ namespace mojoPortal.Web
 
 			//ok
 			return false;
+		}
+
+		public static bool IsFishyPost(HttpRequestMessage request)
+		{
+			if (!WebConfigSettings.CheckFishyReferrer)
+			{
+				return false; // a way to disable this if it causes problems
+			}
+
+			if (!request.RequestUri.IsWellFormedOriginalString())
+			{
+				if (WebConfigSettings.LogFishyReferrer)
+				{
+					log.Info(string.Format(Resource.FishyPostFoundFromReferrer, request.RequestUri.ToString()));
+				}
+
+				return true; //bogus referer
+			}
+
+			if (!request.RequestUri.Host.Equals(request.RequestUri.Host))
+			{
+				if (WebConfigSettings.LogFishyReferrer)
+				{
+					log.Info(string.Format(Resource.FishyPostFoundFromReferrer, request.RequestUri.ToString()));
+				}
+				return true; //referer is different host
+			}
+
+			if (Regex.IsMatch(request.RequestUri.ToString(), "%3C", RegexOptions.IgnoreCase))
+			{
+				if (WebConfigSettings.LogFishyReferrer)
+				{
+					log.Info(string.Format(Resource.FishyPostFoundFromReferrer, request.RequestUri.ToString()));
+				}
+
+				return true; //referrer has angle brakcets
+			}
+
+			return false; // OK
 		}
 
 		public static string RemoveInvalidUrlChars(string input)
@@ -214,28 +249,23 @@ namespace mojoPortal.Web
 		public static string RemoveQuotes(string input)
 		{
 			string outputString = input.Replace("\"", string.Empty).Replace("'", string.Empty);
-
-			
 			return outputString;
-
 		}
 
-		public static String CleanStringForUrl(String input)
+		public static string CleanStringForUrl(string input)
 		{
-			String outputString = RemovePunctuation(input.Replace("&", "-")).Replace(" - ", "-").Replace("--", "-").Replace(" ", "-").Replace("/", String.Empty).Replace("\"", String.Empty).Replace("'", String.Empty).Replace("#", String.Empty).Replace("~", String.Empty).Replace("`", String.Empty).Replace("@", String.Empty).Replace("$", String.Empty).Replace("*", String.Empty).Replace("^", String.Empty).Replace("(", String.Empty).Replace(")", String.Empty).Replace("+", String.Empty).Replace("=", String.Empty).Replace("%", String.Empty).Replace(">", String.Empty).Replace("<", String.Empty);
-
+			string outputString = RemovePunctuation(input.Replace("&", "-")).Replace(" - ", "-").Replace("--", "-").Replace(" ", "-").Replace("/", string.Empty).Replace("\"", string.Empty).Replace("'", string.Empty).Replace("#", string.Empty).Replace("~", string.Empty).Replace("`", string.Empty).Replace("@", string.Empty).Replace("$", string.Empty).Replace("*", string.Empty).Replace("^", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace("+", string.Empty).Replace("=", string.Empty).Replace("%", string.Empty).Replace(">", string.Empty).Replace("<", string.Empty);
 			if (WebConfigSettings.UseClosestAsciiCharsForUrls) { return outputString.ToAsciiIfPossible(); }
 
 			return outputString;
-
 		}
 
-		private static String RemovePunctuation(String input)
+		private static string RemovePunctuation(string input)
 		{
-			String outputString = String.Empty;
+			string outputString = string.Empty;
 			if (input != null)
 			{
-				outputString = input.Replace(".", String.Empty).Replace(",", String.Empty).Replace(":", String.Empty).Replace("?", String.Empty).Replace("!", String.Empty).Replace(";", String.Empty).Replace("&", String.Empty).Replace("{", String.Empty).Replace("}", String.Empty).Replace("[", String.Empty).Replace("]", String.Empty);
+				outputString = input.Replace(".", string.Empty).Replace(",", string.Empty).Replace(":", string.Empty).Replace("?", string.Empty).Replace("!", string.Empty).Replace(";", string.Empty).Replace("&", string.Empty).Replace("{", string.Empty).Replace("}", string.Empty).Replace("[", string.Empty).Replace("]", string.Empty);
 			}
 			return outputString;
 		}
@@ -268,7 +298,7 @@ namespace mojoPortal.Web
 				{
 					returnUrlParam = returnUrlParam.Substring(0, returnUrlParam.IndexOf(","));
 				}
-				if (!String.IsNullOrEmpty(returnUrlParam))
+				if (!string.IsNullOrEmpty(returnUrlParam))
 				{
 					returnUrlParam = SecurityHelper.RemoveMarkup(returnUrlParam);
 					string returnUrl = page.ResolveUrl(SecurityHelper.RemoveMarkup(page.Server.UrlDecode(returnUrlParam)));
@@ -277,21 +307,14 @@ namespace mojoPortal.Web
 							return returnUrl; 
 					}
 
-					if (
-						(returnUrl.StartsWith(siteRoot))
-						|| (returnUrl.StartsWith(siteRoot.Replace("https://", "http://")))
-						)
+					if (returnUrl.StartsWith(siteRoot) || returnUrl.StartsWith(siteRoot.Replace("https://", "http://")))
 					{
 						return returnUrl;
 					}
 				}
-
-
 			}
 
 			return string.Empty;
-
-
 		}
 
 		//public static string GetReturnUrlParam(HttpRequest request, string siteRoot)
@@ -306,7 +329,7 @@ namespace mojoPortal.Web
 		//        {
 		//            returnUrlParam = returnUrlParam.Substring(0, returnUrlParam.IndexOf(","));
 		//        }
-		//        if (!String.IsNullOrEmpty(returnUrlParam))
+		//        if (!string.IsNullOrEmpty(returnUrlParam))
 		//        {
 		//            returnUrlParam = SecurityHelper.RemoveMarkup(returnUrlParam);
 		//            string returnUrl = WebUtils.ResolveUrl(SecurityHelper.RemoveMarkup(HttpUtility.UrlDecode(returnUrlParam)));
@@ -383,7 +406,7 @@ namespace mojoPortal.Web
 			editor.ProviderName = providerName;
 			editor.WebEditor.SiteRoot = siteRoot;
 			
-			CultureInfo defaultCulture = SiteUtils.GetDefaultCulture();
+			CultureInfo defaultCulture = GetDefaultCulture();
 			if (defaultCulture.TextInfo.IsRightToLeft)
 			{
 				editor.WebEditor.TextDirection = Direction.RightToLeft;
@@ -770,7 +793,7 @@ namespace mojoPortal.Web
 
 		public static string GetButtonAccessKeyPostfix(string accessKey)
 		{
-			if (HttpContext.Current == null) return String.Empty;
+			if (HttpContext.Current == null) return string.Empty;
 
 			string browser = HttpContext.Current.Request.Browser.Browser;
 			string browserAccessKey = browser.ToLower().Contains("opera")
@@ -1360,7 +1383,7 @@ namespace mojoPortal.Web
 
 		public static void SetDisplayNameCookie(string displayName)
 		{
-			if (String.IsNullOrEmpty(displayName)) return;
+			if (string.IsNullOrEmpty(displayName)) return;
 
 			HttpCookie cookie = HttpContext.Current.Request.Cookies["DisplayName"];
 			bool setCookie = (cookie == null) || (cookie.Value != displayName);
@@ -1781,7 +1804,7 @@ namespace mojoPortal.Web
 
 		private static string GetSkinBaseUrlNoOverride(Page page)
 		{
-			if (HttpContext.Current == null) return String.Empty;
+			if (HttpContext.Current == null) return string.Empty;
 
 			string baseUrl = HttpContext.Current.Items["skinBaseUrlfalse"] as string;
 			if (baseUrl == null)
@@ -1797,7 +1820,7 @@ namespace mojoPortal.Web
 
 		private static string GetSkinBaseUrlWithOverride(Page page)
 		{
-			if (HttpContext.Current == null) return String.Empty;
+			if (HttpContext.Current == null) return string.Empty;
 
 			string baseUrl = HttpContext.Current.Items["skinBaseUrltrue"] as string;
 			if (baseUrl == null)
@@ -3434,7 +3457,7 @@ namespace mojoPortal.Web
 
 		public static String GetActivePageValuePath(SiteMapNode rootNode, int offSet)
 		{
-			String valuePath = String.Empty;
+			String valuePath = string.Empty;
 
 			PageSettings pageSettings = CacheHelper.GetCurrentPage();
 
@@ -3531,7 +3554,7 @@ namespace mojoPortal.Web
 
 		//public static String GetTopParentUrlForPageMenu(SiteMapNode rootNode)
 		//{
-		//    //String pageUrl = String.Empty;
+		//    //String pageUrl = string.Empty;
 
 		//    PageSettings pageSettings = CacheHelper.GetCurrentPage();
 
@@ -3917,7 +3940,7 @@ namespace mojoPortal.Web
 		//    {
 		//        if (HttpContext.Current.Request.ServerVariables["HTTPS"] == "on")
 		//        {
-		//            markup = String.Empty;
+		//            markup = string.Empty;
 		//        }
 		//    }
 
@@ -3977,7 +4000,7 @@ namespace mojoPortal.Web
 				int userId = Convert.ToInt32(objUserId);
 
 			   
-					if ((avatar == null) || (avatar == String.Empty))
+					if ((avatar == null) || (avatar == string.Empty))
 					{
 						avatar = "blank.gif";
 					}
