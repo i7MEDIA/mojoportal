@@ -1,0 +1,162 @@
+.event-cal,
+.event-cal-pro {
+	[colspan="7"] {
+		padding: 0;
+	}
+}
+
+.ec-title,
+.eventcalheader {
+	width: 100%;
+
+	td {
+		padding: 6px;
+	}
+
+	td:nth-child(2):extend(.h2) {
+		text-align: center;
+	}
+
+	td:nth-child(3) {
+		text-align: right;
+	}
+}
+
+.eventcalheader {
+	td {
+		text-align: left;
+	}
+
+	td:nth-child(2) {
+		h3:extend(.h2) {
+			margin: 0;
+		}
+	}
+}
+
+.ec-next-prev {
+	a {
+		font: normal normal normal 14px/1 FontAwesome;
+		font-size: inherit;
+		text-rendering: auto;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		padding: 8px 20px 5px;
+	}
+}
+
+.eventNextPrevious {
+	padding: 6px;
+}
+
+.ec-head {
+	font-weight: bold;
+	text-align: center;
+	width: percentage(1 / 7);
+}
+
+.ec-day {
+	height: 100px;
+	text-align: right;
+
+	.event-cal-pro & {
+		height: auto;
+	}
+}
+
+.eventcontainer {
+	text-align: left;
+	margin-bottom: 10px;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	.eventlink,
+	#lnkItemUrl {
+		display: inline-block;
+		font-size: 10px;
+		line-height: 1.2;
+	}
+}
+
+.ec-other-month {
+	background-color: lighten(@table-bg-accent, 1%);
+
+	a {
+		color: #777;
+	}
+}
+
+.ec-today {
+	background-color: lighten(@brand-primary, 50%);
+}
+
+.calexportlinks {
+	a {
+		.fontawesome('\f073', before);
+		display: inline-block;
+		margin-right: 10px;
+
+		&::before {
+			margin-right: 6px;
+		}
+	}
+}
+
+.eventdetailview {
+	.daterow,
+	.localrow {
+		.settinglabel {
+			font-size: @font-size-base;
+			margin-top: 0;
+			min-height: 0;
+			width: 5em;
+		}
+	}
+
+	.localrow .settinglabel::after {
+		content: ':';
+	}
+}
+
+.eventlistview {
+	.summary.url {
+		&:extend(h3);
+		color: @link-color;
+		display: inline-block;
+
+		&:hover {
+			color: @link-hover-color;
+		}
+	}
+
+	.location {
+		display: block;
+	}
+	.location,
+	.eventdate,
+	.eventtime {
+		margin-bottom: 10px;
+	}
+}
+
+.eventmenu {
+	.rsslink {
+		background: none no-repeat scroll 0 0 transparent;
+		display: inline-block;
+		width: auto;
+		height: auto;
+		margin: 0;
+
+		.fontawesome('\f09e', before);
+
+		&::after {
+			content: ' Subscribe to Feed';
+		}
+
+		img {
+			display: none;
+		}
+	}
+}

@@ -6068,7 +6068,6 @@
   </data>
   <data name="FileSystemNotLoadedFromProvider" xml:space="preserve">
     <value>Could not load file system from provider {0}</value>
-    <comment> </comment>
   </data>
   <data name="FileSystemProviderNotLoaded" xml:space="preserve">
     <value>Could not load file system provider {0}</value>
@@ -6081,5 +6080,11 @@
   </data>
   <data name="FishyPostFoundFromReferrer" xml:space="preserve">
     <value>Fishy post detected with referrer {0}</value>
+  </data>
+  <data name="FileManagerIndexHeaderTitle" xml:space="preserve">
+    <value>File Management</value>
+  </data>
+  <data name="FileManagerPagesHeaderTitle" xml:space="preserve">
+    <value>Page Picker</value>
   </data>
 </root>

@@ -1,0 +1,57 @@
+.gallerylist {
+	.galleryitem {
+		position: relative;
+
+		> a {
+			margin-bottom: 10px;
+		}
+
+		.galleryedit {
+			background-color: #FFF;
+			border-radius: 3px;
+			line-height: 1;
+			left: 13px;
+			padding: 0 0 0 3px;
+			position: absolute;
+			top: 8px;
+		}
+	}
+}
+
+// Folder Gallery
+.foldergallery {
+	.album {
+		> div {
+			.clearfix();
+			margin: 0 -2px (@line-height-computed / 2);
+		}
+	}
+
+	.albumFloat {
+		float: left;
+		margin: 0 2px;
+	}
+
+	table {
+		td {
+			padding: 2px;
+
+			&:first-child {
+				a {
+					display: inline-block;
+					margin-bottom: 4px;
+				}
+			}
+		}
+	}
+}
+
+// Flickr
+.fthumbs {
+	margin: 0 -5px (@line-height-computed / 2);
+
+	img {
+		display: inline-block;
+		margin: 0 5px (@line-height-computed / 2);
+	}
+}

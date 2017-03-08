@@ -4435,6 +4435,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Management.
+        /// </summary>
+        internal static string FileManagerIndexHeaderTitle {
+            get {
+                return ResourceManager.GetString("FileManagerIndexHeaderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Modified.
         /// </summary>
         internal static string FileManagerModifiedLabel {
@@ -4467,6 +4476,15 @@ namespace Resources {
         internal static string FileManagerPagePickerLink {
             get {
                 return ResourceManager.GetString("FileManagerPagePickerLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page Picker.
+        /// </summary>
+        internal static string FileManagerPagesHeaderTitle {
+            get {
+                return ResourceManager.GetString("FileManagerPagesHeaderTitle", resourceCulture);
             }
         }
         
