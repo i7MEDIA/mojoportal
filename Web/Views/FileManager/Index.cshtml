@@ -5,17 +5,17 @@
 	ViewBag.AngularApp = "FileManagerApp";
 	ViewBag.BodyClass = "ng-cloak" + (ViewBag.view == "fullpage" ? " fullpage" : string.Empty);
 	Layout = "~/Views/FileManager/_FileManagerLayout.cshtml";
-	var editor = ViewBag.Editor != "" ? new { editor = ViewBag.Editor, type = ViewBag.type } : null;
+	var editor = Model.Editor != "" ? new { editor = Model.Editor, type = Model.Type } : null;
 }
 
-@if (ViewBag.view == "fullpage")
+@if (Model.View == "fullpage")
 {
 	<div class="alert alert-info alert-control">
 		<a class="alert-link" href="javascript:void(0)" onclick="history.back();"><i class="glyphicon glyphicon-menu-left" aria-hidden="true"></i> @Model.BackToWebsiteLinkText</a>
 	</div>
 }
 
-@if (ViewBag.type == "file" || ViewBag.type == "folder")
+@if (Model.Type == "file" || Model.Type == "folder")
 {
 	<div class="alert alert-info alert-control">
 		<i class="glyphicon glyphicon-file"></i>
