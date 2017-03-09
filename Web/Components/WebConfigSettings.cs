@@ -3666,7 +3666,7 @@ namespace mojoPortal.Web
 
 		public static string DefaultInitialSkin
 		{
-			get { return ConfigHelper.GetStringProperty("DefaultInitialSkin", "framework-3.3.7"); }
+			get { return ConfigHelper.GetStringProperty("DefaultInitialSkin", "framework"); }
 		}
 		
 
