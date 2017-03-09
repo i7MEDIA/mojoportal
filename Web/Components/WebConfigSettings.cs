@@ -851,7 +851,7 @@ namespace mojoPortal.Web
 				{
 					return ConfigurationManager.AppSettings["CKEditor:Skin"];
 				}
-				return "kama";
+				return "moono-lisa";
 			}
 		}
 
@@ -3862,7 +3862,7 @@ namespace mojoPortal.Web
 
 		public static string CKEditorBasePath
 		{
-			get { return ConfigHelper.GetStringProperty("CKEditor:BasePath", "~/ClientScript/ckeditor4011/"); }
+			get { return ConfigHelper.GetStringProperty("CKEditor:BasePath", "~/ClientScript/ckeditor460/"); }
 		}
 
 		public static string CKEditorConfigPath
@@ -3872,7 +3872,7 @@ namespace mojoPortal.Web
 
 		public static string CKEditorFullWithTemplatesToolbarDefinition
 		{
-			get { return ConfigHelper.GetStringProperty("CKEditor:FullWithTemplatesToolbarDefinition", "[['SelectAll', 'RemoveFormat', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Print', 'SpellChecker', 'Scayt'],['Undo','Redo','-','Find','Replace','Bold','Italic','Underline','Strike'],'/',['Blockquote','Styles'],['NumberedList','BulletedList'],['Link','Unlink','Anchor'],['Templates','Image','Flash','oembed','Table','HorizontalRule','Smiley','SpecialChar'],];"); }
+			get { return ConfigHelper.GetStringProperty("CKEditor:FullWithTemplatesToolbarDefinition", "[['SelectAll', 'RemoveFormat', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Print'],['Undo','Redo','-','Find','Replace','Bold','Italic','Underline','Strike'],'/',['Blockquote','Styles'],['NumberedList','BulletedList'],['Link','Unlink','Anchor'],['Templates','Image','oembed','Table','HorizontalRule','Smiley','SpecialChar'],];"); }
 		}
 
 		public static bool ResizeEditorUploadedImages
