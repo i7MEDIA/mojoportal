@@ -55,7 +55,7 @@ namespace mojoPortal.Web.UI.Pages
             if (helpText == String.Empty)
             {
                 helpText = WebUser.IsAdminOrContentAdmin
-                               ? Resource.HelpNoHelpAvailableAdminUser
+                               ? String.Format(Resource.HelpNoHelpAvailableAdminUser, helpKey)
                                : Resource.HelpNoHelpAvailable;
             }
             litHelp.Text = helpText;

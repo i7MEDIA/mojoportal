@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:				    2009-05-01
-// Last Modified:			2011-09-16
+// Last Modified:			2017-03-09
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -55,7 +55,7 @@ namespace mojoPortal.Web.UI
             this.ToolTip = Resource.HelpLink;
             this.Text = Resource.HelpLink;
             
-            this.CssClass = "mhelp cblink";
+            this.CssClass += " mhelp cblink";
 
             mojoBasePage basePage = Page as mojoBasePage;
             if (basePage != null) { basePage.ScriptConfig.IncludeColorBox = true; }

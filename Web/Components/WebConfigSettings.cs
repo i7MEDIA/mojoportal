@@ -790,6 +790,7 @@ namespace mojoPortal.Web
 		/// this is false by default since most skins don't use LESS
 		/// If set to true the menu item will appear under Administration > Advanced Tools > Design Tools
 		/// </summary>
+        [Obsolete("The dotless tool is out of date. Please do not use it. It will be removed soon.")]
 		public static bool EnableLessUtility
 		{
 			get { return ConfigHelper.GetBoolProperty("EnableLessUtility", false); }
@@ -3665,7 +3666,7 @@ namespace mojoPortal.Web
 
 		public static string DefaultInitialSkin
 		{
-			get { return ConfigHelper.GetStringProperty("DefaultInitialSkin", "artisteer-greenlagoon"); }
+			get { return ConfigHelper.GetStringProperty("DefaultInitialSkin", "framework-3.3.7"); }
 		}
 		
 

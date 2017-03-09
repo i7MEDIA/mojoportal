@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:				    2008-06-19
-// Last Modified:			2013-02-15
+// Last Modified:			2017-03-09
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -696,10 +696,10 @@ namespace mojoPortal.SearchIndex
         private string notificationFromEmail = String.Empty;
         private string notificationSubject = String.Empty;
         private string taskCompleteMessage = string.Empty;
-        private string statusQueuedMessage = "Queued";
-        private string statusStartedMessage = "Started";
-        private string statusRunningMessage = "Running. Indexed item {0} of {1}";
-        private string statusCompleteMessage = "Complete";
+        private string statusQueuedMessage = Resources.Resource.IndexWriterTaskQueuedMessage;
+        private string statusStartedMessage = Resources.Resource.IndexWriterTaskStartedMessage;
+        private string statusRunningMessage = Resources.Resource.IndexWriterTaskRunningFormatString;
+        private string statusCompleteMessage = Resources.Resource.IndexWriterTaskCompleteMessage;
         private bool canStop = false;
         private bool canResume = true;
         // report status every 300 seconds by default
