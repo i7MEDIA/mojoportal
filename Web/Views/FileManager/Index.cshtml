@@ -4,7 +4,7 @@
 @{
 	ViewBag.Title = Resource.FileManagerIndexHeaderTitle;
 	ViewBag.AngularApp = "FileManagerApp";
-	ViewBag.BodyClass = "ng-cloak" + (ViewBag.view == "fullpage" ? " fullpage" : string.Empty);
+	ViewBag.BodyClass = "ng-cloak" + ((Model.View == "fullpage" || (Model.Type == "file" || Model.Type == "folder")) ? " fullpage" : string.Empty);
 	Layout = "~/Views/FileManager/_FileManagerLayout.cshtml";
 }
 
