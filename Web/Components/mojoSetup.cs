@@ -1,6 +1,6 @@
 // Author:					Joe Audette
 // Created:				    2006-02-03
-// Last Modified:		    2014-05-13
+// Last Modified:		    2017-02-09
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
 // which can be found in the file CPL.TXT at the root of this distribution.
@@ -11,25 +11,24 @@
 // 2011-03-03 implemented better support for page hierarchy in initial content
 // 2013-06-24 / Thomas Nicolaïdès : moduleSettings / moduleGuidxxxx handling (tni-20130624)
 
-using System;
-using System.Data;
-using System.Globalization;
-using System.Threading;
-using System.Web;
-using System.Web.Security;
-using System.Configuration;
-using System.IO;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Globalization;
+using System.IO;
+using System.Threading;
+using System.Web;
+using System.Web.Security;
 
 namespace mojoPortal.Web
 {
-   
-    public sealed class mojoSetup
+
+	public sealed class mojoSetup
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(mojoSetup));
 
@@ -1273,99 +1272,107 @@ namespace mojoPortal.Web
             string siteFolderPath = HttpContext.Current.Server.MapPath(GetApplicationRoot() + "/Data/Sites/") + siteId.ToString(CultureInfo.InvariantCulture) + Path.DirectorySeparatorChar;
             string sourceFilesPath = HttpContext.Current.Server.MapPath(GetApplicationRoot() + "/Data/");
             DirectoryInfo dir;
-            FileInfo[] theFiles;
-            DirectoryInfo[] theDirectories;
+            DirectoryInfo dirDest;
 
             if (!Directory.Exists(siteFolderPath + "skins"))
             {
                 Directory.CreateDirectory(siteFolderPath + "skins");
             }
 
-            if (Directory.Exists(sourceFilesPath
-                + Path.DirectorySeparatorChar + "skins"))
+            if (Directory.Exists(sourceFilesPath + Path.DirectorySeparatorChar + "skins"))
             {
+                dirDest = new DirectoryInfo(siteFolderPath + Path.DirectorySeparatorChar + "skins");
+                dir = new DirectoryInfo(sourceFilesPath + Path.DirectorySeparatorChar + "skins");
 
-                string destinationFolder = siteFolderPath
-                    + Path.DirectorySeparatorChar + "skins"
-                    + Path.DirectorySeparatorChar;
+				CopySkinFilesRecursively(dir, dirDest);
 
-                DirectoryInfo dirDestination;
-                dirDestination = new DirectoryInfo(
-                    siteFolderPath
-                    + Path.DirectorySeparatorChar + "skins");
+				//theDirectories = dir.GetDirectories();
+				//DirectoryInfo[] theSubDirectories;
+				//foreach (DirectoryInfo d in theDirectories)
+				//{
+				//    // don't want .svn files
+				//    if (!d.Name.StartsWith("."))
+				//    {
+				//        try
+				//        {
+				//            dirDestination.CreateSubdirectory(d.Name);
+				//            theFiles = d.GetFiles();
+				//            foreach (FileInfo f in theFiles)
+				//            {
+				//                try
+				//                {
+				//                    File.Copy(
+				//                        f.FullName,
+				//                        dirDestination.FullName + Path.DirectorySeparatorChar
+				//                        + d.Name + Path.DirectorySeparatorChar + f.Name, true);
+				//                }
+				//                catch (UnauthorizedAccessException) { }
+				//                catch (System.IO.IOException) { }
+				//                //catch (System.IO.DirectoryNotFoundException) { }
 
-                dir = new DirectoryInfo(sourceFilesPath
-                    + Path.DirectorySeparatorChar + "skins");
+				//            }
 
-                theDirectories = dir.GetDirectories();
-                DirectoryInfo[] theSubDirectories;
-                foreach (DirectoryInfo d in theDirectories)
-                {
-                    // don't want .svn files
-                    if (!d.Name.StartsWith("."))
-                    {
-                        try
-                        {
-                            dirDestination.CreateSubdirectory(d.Name);
-                            theFiles = d.GetFiles();
-                            foreach (FileInfo f in theFiles)
-                            {
-                                try
-                                {
-                                    File.Copy(
-                                        f.FullName,
-                                        dirDestination.FullName + Path.DirectorySeparatorChar
-                                        + d.Name + Path.DirectorySeparatorChar + f.Name, true);
-                                }
-                                catch (UnauthorizedAccessException) { }
-                                catch (System.IO.IOException) { }
-                                //catch (System.IO.DirectoryNotFoundException) { }
+				//            //added 2010-02-20 to get the Images folder beneath Artisteer skins
+				//            theSubDirectories = d.GetDirectories();
+				//            foreach (DirectoryInfo sub in theSubDirectories)
+				//            {
+				//                if (sub.Name.StartsWith(".")) { continue; } //.svn files
+				//                dirDestination.CreateSubdirectory(d.Name + Path.DirectorySeparatorChar + sub.Name);
+				//                theFiles = sub.GetFiles();
+				//                foreach (FileInfo f in theFiles)
+				//                {
+				//                    try
+				//                    {
+				//                        File.Copy(
+				//                            f.FullName,
+				//                            dirDestination.FullName + Path.DirectorySeparatorChar
+				//                            + d.Name + Path.DirectorySeparatorChar + sub.Name + Path.DirectorySeparatorChar + f.Name, true);
+				//                    }
+				//                    catch (UnauthorizedAccessException) { }
+				//                    catch (System.IO.IOException) { }
+				//                    //catch (System.IO.DirectoryNotFoundException) { }
 
-                            }
+				//                }
+				//            }
 
-                            //added 2010-02-20 to get the Images folder beneath Artisteer skins
-                            theSubDirectories = d.GetDirectories();
-                            foreach (DirectoryInfo sub in theSubDirectories)
-                            {
-                                if (sub.Name.StartsWith(".")) { continue; } //.svn files
-                                dirDestination.CreateSubdirectory(d.Name + Path.DirectorySeparatorChar + sub.Name);
-                                theFiles = sub.GetFiles();
-                                foreach (FileInfo f in theFiles)
-                                {
-                                    try
-                                    {
-                                        File.Copy(
-                                            f.FullName,
-                                            dirDestination.FullName + Path.DirectorySeparatorChar
-                                            + d.Name + Path.DirectorySeparatorChar + sub.Name + Path.DirectorySeparatorChar + f.Name, true);
-                                    }
-                                    catch (UnauthorizedAccessException) { }
-                                    catch (System.IO.IOException) { }
-                                    //catch (System.IO.DirectoryNotFoundException) { }
+				//        }
+				//        catch (System.Security.SecurityException ex)
+				//        {
+				//            log.Error("error trying to copy skins into site skins folder ", ex);
+				//        }
 
-                                }
-                            }
 
-                        }
-                        catch (System.Security.SecurityException ex)
-                        {
-                            log.Error("error trying to copy skins into site skins folder ", ex);
-                        }
-
-                        
-                    }
-                }
-
-            }
+				//    }
+				//}
+			}
 
             return true;
         }
 
-        #endregion
+		public static void CopySkinFilesRecursively(DirectoryInfo source, DirectoryInfo target)
+		{
+			if (!source.Name.StartsWith(".")) // Make sure to not copy .git, .svn, .vs, etc, folders from the Data/Sites/skins folder
+			{
+				foreach (DirectoryInfo dir in source.GetDirectories())
+				{
+					if (!dir.Name.StartsWith(".")) // Make sure to not copy .git, .svn, .vs, etc, folders from the current skin folder
+					{
+						CopySkinFilesRecursively(dir, target.CreateSubdirectory(dir.Name));
+					}
+				}
 
-        #region Newsletter Setup
+				foreach (FileInfo file in source.GetFiles())
+				{
+					file.CopyTo(Path.Combine(target.FullName, file.Name));
+				}
+			}
+		}
 
-        public static void CreateDefaultLetterTemplates(Guid siteGuid)
+		#endregion
+
+		#region Newsletter Setup
+
+		public static void CreateDefaultLetterTemplates(Guid siteGuid)
         {
             if (HttpContext.Current == null) return;
 
@@ -1560,15 +1567,5 @@ namespace mojoPortal.Web
 
 
         #endregion
-
-
-
-
-
-
-
-
-
     }
-
 }
