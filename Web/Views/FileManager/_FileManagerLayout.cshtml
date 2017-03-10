@@ -1,4 +1,6 @@
-﻿@{
+﻿@model mojoPortal.Web.Models.FileManager
+
+@{
 	Layout = null;
 }
 
@@ -18,42 +20,47 @@
 		<script src="~/Content/FileManager/bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="~/Content/FileManager/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script>
-				function ckSubmit(url) {
-					if (window.opener.CKEDITOR != null) {
-						var CKEditorFuncNum = getQueryString('CKEditorFuncNum') || console.error('Error: lost CKEditorFuncNum param from url' + window.location.href) || 1;
-						window.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, url);
-						window.close();
-					} else {
-						console.log('CKEDITOR instance does not exist.\nReturned Value:', url);
-					}
-				}
+			@switch (Model.Editor) {
+				case "ckeditor":
+					<text>
+						function ckSubmit(url) {
+							if (window.opener.CKEDITOR != null) {
+								var CKEditorFuncNum = '@Model.CKEditorFuncNumber' || console.error('Error: lost CKEditorFuncNum param from url' + window.location.href) || 1;
+								window.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, url);
+								window.close();
+							} else {
+								console.log('CKEDITOR instance does not exist.\nReturned Value:', url);
+							}
+						}
+					</text>
+					break;
 
-				function tmceSubmit(url) {
-					if (top.tinymce != null) {
-						top.tinymce.activeEditor.windowManager.getParams().oninsert(url);
-						top.tinymce.activeEditor.windowManager.close();
-					} else {
-						console.log('TinyMCE instance does not exist.\nReturned Value:', url);
-					}
-				}
+				case "tinymce":
+					<text>
+						function tmceSubmit(url) {
+							if (top.tinymce != null) {
+								top.tinymce.activeEditor.windowManager.getParams().oninsert(url);
+								top.tinymce.activeEditor.windowManager.close();
+							} else {
+								console.log('TinyMCE instance does not exist.\nReturned Value:', url);
+							}
+						}
+					</text>
+					break;
 
-				function fpSubmit(url) {
-					if (top.window.filePicker != null) {
-						top.window.filePicker.set(url, getQueryString('inputId'));
-						top.window.filePicker.close();
-					} else {
-						console.log('FilePickerSet instance does not exist.\nReturned Value:', url);
-					}
-				}
-
-				function getQueryString(field, url) {
-					var href, reg, string;
-
-					href = url ? url : window.location.href;
-					reg = new RegExp('[?&]' + field + '=([^&#]*)', 'i');
-					string = reg.exec(href);
-					return string ? string[1] : null;
-				};
+				case "filepicker":
+					<text>
+						function fpSubmit(url) {
+							if (top.window.filePicker != null) {
+								top.window.filePicker.set(url, '@Model.InputId';
+								top.window.filePicker.close();
+							} else {
+								console.log('FilePickerSet instance does not exist.\nReturned Value:', url);
+							}
+						}
+					</text>
+					break;
+			}
 		</script>
 
 		@RenderSection("Scripts", required: false)

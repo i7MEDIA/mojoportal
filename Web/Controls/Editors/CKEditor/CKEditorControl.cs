@@ -322,8 +322,8 @@ namespace mojoPortal.Web.Editor
 				//script.Append(",filebrowserImageBrowseLinkUrl:'" + fileManagerUrl + "?ed=ck&type=file' ");
 				//script.Append(",filebrowserWindowFeatures:'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes'");
 
-				script.Append(",filebrowserWindowWidth : '100%'");
-				script.Append(",filebrowserWindowHeight : '100%'");
+				script.Append(",filebrowserWindowWidth : ~~((80 / 100) * screen.width)"); // 80% of window width
+				script.Append(",filebrowserWindowHeight : ~~((80 / 100) * screen.height)"); // 80% of window height
 				script.Append(",filebrowserBrowseUrl:'" + fileManagerUrl + "?editor=ckeditor&type=file'");
 				script.Append(",filebrowserImageBrowseUrl:'" + fileManagerUrl + "?editor=ckeditor&type=image'");
 				script.Append(",filebrowserFlashBrowseUrl:'" + fileManagerUrl + "?editor=ckeditorck&type=media'");

@@ -1,4 +1,6 @@
-﻿namespace mojoPortal.Web.Models
+﻿using System.Web.Routing;
+
+namespace mojoPortal.Web.Models
 {
 	public class FileManager
 	{
@@ -9,6 +11,10 @@
 		public string View { get; set; }
 		public string Type { get; set; }
 		public string Editor { get; set; }
+		public string InputId { get; set; }
+		public string CKEditorFuncNumber { get; set; }
+		public object QueryString { get; set; }
+
 		public string Upload { get; set; }
 		public string Rename { get; set; }
 		public string Move { get; set; }

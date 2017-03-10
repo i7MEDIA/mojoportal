@@ -2,57 +2,20 @@
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.FileSystem;
-using mojoPortal.Web.Models;
 using Resources;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace mojoPortal.Web.Controllers
 {
 	public class FileManagerController : Controller
 	{
-		IFileSystem fileSystem = null;
-		private SiteSettings siteSettings = null;
-		private static readonly ILog log = LogManager.GetLogger(typeof(FileServiceController));
-
 		// GET: FileManager
-		public ActionResult Index(string view, string type, string editor)
+		public ActionResult Index()
 		{
-			LoadSettings();
-
-			var rootName = fileSystem.VirtualRoot.Split('/');
-
-			var model = new Models.FileManager
-			{
-				OverwriteFiles = WebConfigSettings.FileManagerOverwriteFiles,
-				RootName = rootName[rootName.Count() - 2],
-				FileSystemToken = Global.FileSystemToken.ToString(),
-				VirtualPath = VirtualPathUtility.RemoveTrailingSlash(fileSystem.VirtualRoot.Replace("~", string.Empty)),
-				View = view,
-				Type = type,
-				Editor = editor,
-				Upload = "true",
-				Rename = "true",
-				Move = "true",
-				Copy = "true",
-				Edit = "true",
-				Compress = "true",
-				CompressChooseName = "true",
-				Extract = "true",
-				Download = "true",
-				DownloadMultiple = "true",
-				Preview = "true",
-				Remove = "true",
-				CreateFolder = "true",
-				PagePickerLinkText = Resource.FileManagerPagePickerLink,
-				BackToWebsiteLinkText = Resource.FileManagerBackToWebsite
-			};
-
-			if (!WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor))
-			{
-				model.Remove = "false";
-			}
+			var model = LoadSettings();
 
 			return View(model);
 		}
@@ -60,18 +23,17 @@ namespace mojoPortal.Web.Controllers
 		// GET: Pages
 		public ActionResult Pages(string type, string editor)
 		{
-			var model = new Models.FileManager
-			{
-				Type = type,
-				Editor = editor,
-				BackToFileManagerLinkText = Resource.FileManagerBackToManagerLink
-			};
+			var model = LoadSettings();
 
 			return View(model);
 		}
 
-		private void LoadSettings()
+		private dynamic LoadSettings()
 		{
+			IFileSystem fileSystem = null;
+			SiteSettings siteSettings = null;
+			ILog log = LogManager.GetLogger(typeof(FileServiceController));
+
 			siteSettings = CacheHelper.GetCurrentSiteSettings();
 			if (siteSettings == null)
 			{
@@ -89,6 +51,55 @@ namespace mojoPortal.Web.Controllers
 			{
 				log.Info(string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider));
 			}
+
+			var rootName = fileSystem.VirtualRoot.Split('/');
+			var queryString = new
+			{
+				type = Request.QueryString.Get("type"),
+				editor = Request.QueryString.Get("editor"),
+				inputId = Request.QueryString.Get("inputId"),
+				CKEditor = Request.QueryString.Get("CKEditor"),
+				CKEditorFuncNum = Request.QueryString.Get("CKEditorFuncNum")
+			};
+
+			var model = new Models.FileManager
+			{
+				OverwriteFiles = WebConfigSettings.FileManagerOverwriteFiles,
+				RootName = rootName[rootName.Count() - 2],
+				FileSystemToken = Global.FileSystemToken.ToString(),
+				VirtualPath = VirtualPathUtility.RemoveTrailingSlash(fileSystem.VirtualRoot.Replace("~", string.Empty)),
+				View = Request.QueryString.Get("view"),
+				Type = queryString.type,
+				Editor = queryString.editor,
+				InputId = queryString.inputId,
+				CKEditorFuncNumber = queryString.CKEditorFuncNum,
+				QueryString = queryString,
+
+				Upload = "true",
+				Rename = "true",
+				Move = "true",
+				Copy = "true",
+				Edit = "true",
+				Compress = "true",
+				CompressChooseName = "true",
+				Extract = "true",
+				Download = "true",
+				DownloadMultiple = "true",
+				Preview = "true",
+				Remove = "true",
+				CreateFolder = "true",
+
+				PagePickerLinkText = Resource.FileManagerPagePickerLink,
+				BackToWebsiteLinkText = Resource.FileManagerBackToWebsite,
+				BackToFileManagerLinkText = Resource.FileManagerBackToManagerLink
+			};
+
+			if (!WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor))
+			{
+				model.Remove = "false";
+			}
+
+			return model;
 		}
 	}
 }

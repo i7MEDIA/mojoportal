@@ -5,7 +5,6 @@
 	ViewBag.Title = Resource.FileManagerPagesHeaderTitle;
 	Layout = "~/Views/FileManager/_FileManagerLayout.cshtml";
 	ViewBag.AngularApp = "PagePicker";
-	var editor = Model.Editor != "" ? new { editor = Model.Editor, type = Model.Type } : null;
 }
 
 @section Styles {
@@ -141,7 +140,7 @@
 <div class="app-ctrl-wrapper ng-cloak" ng-controller="PagesCtrl">
 	<div class="alert alert-info alert-control">
 		<i class="glyphicon glyphicon-chevron-left"></i>
-		@Html.ActionLink(Model.BackToFileManagerLinkText, "Index", editor, new { @class = "alert-link" })
+		@Html.ActionLink(Model.BackToFileManagerLinkText, "Index", Model.QueryString, new { @class = "alert-link" })
 	</div>
 	<nav class="navbar navbar-inverse navbar-static-top">
 		<div class="container-fluid">
@@ -195,8 +194,6 @@
 		})
 
 		.controller('PagesCtrl', function($scope, dataService) {
-			var picker = getQueryString('editor');
-
 			$scope.children = null;
 			$scope.url = null;
 
@@ -215,18 +212,18 @@
 				}
 			};
 
-			$scope.submit = function() {
-				switch (picker) {
-					case 'ckeditor':
-						ckSubmit($scope.url);
+			$scope.submit = function () {
+				@switch (Model.Editor) {
+					case "ckeditor":
+						<text>ckSubmit($scope.url);</text>
 						break;
 
-					case 'tinymce':
-						tmceSubmit($scope.url);
+					case "tinymce":
+						<text>tmceSubmit($scope.url);</text>
 						break;
 
-					case 'filepicker':
-						fpSubmit($scope.url);
+					case "filepicker":
+						<text>fpSubmit($scope.url);</text>
 						break;
 				}
 				return false;
