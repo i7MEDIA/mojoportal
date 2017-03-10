@@ -713,8 +713,8 @@ namespace mojoPortal.Web.Editor
 				script.Append("tinyMCE.activeEditor.windowManager.open({");
 				script.Append("url:'" + config.FileManagerUrl + "' + '?editor=tinymce&type=' + type, ");
 				script.Append("title:'" + Resource.FileBrowser.HtmlEscapeQuotes() + "',");
-				script.Append("width:" + config.FileDialogWidth.ToInvariantString() + ",");
-				script.Append("height:" + config.FileDialogHeight.ToInvariantString());
+				script.Append("width: ~~((80 / 100) * window.innerWidth),");
+				script.Append("height: ~~((80 / 100) * window.innerHeight)");
 				//script.Append(",resizable: true"); // doesn't seem to work
 				//script.Append("inline : 'yes',"); // not needed in 4.x I guess
 				//script.Append(" close_previous : 'no'"); // not needed in 4.x I guess
