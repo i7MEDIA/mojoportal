@@ -3763,7 +3763,6 @@
     <Content Include="Admin\AdminTaxRate.aspx" />
     <Content Include="Admin\AdvancedTools.aspx" />
     <Content Include="Admin\CoreData.aspx" />
-    <Content Include="apple-touch-icon.png" />
     <Content Include="App_GlobalResources\DevTools.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>DevTools.Designer.cs</LastGenOutput>
