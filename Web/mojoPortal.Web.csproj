@@ -1241,7 +1241,6 @@
     <Content Include="Scripts\AjaxControlToolkit\Release\ValidatorCallout.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Properties\PublishProfiles\local-fs.pubxml" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
@@ -3901,6 +3900,7 @@
     <Folder Include="ClientScript\" />
     <Folder Include="Components\api\" />
     <Folder Include="Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Setup\applications\" />
   </ItemGroup>
   <ItemGroup>
