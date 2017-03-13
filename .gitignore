@@ -393,3 +393,5 @@ Web/Setup/ProviderConfig/worldpayresponsehandlers/web-invoice-pro-worldpayrespon
 packages/stspackages.txt
 packages/repositories.config
 packages/repositories.config
+
+*.ini
