@@ -136,6 +136,10 @@ namespace mojoPortal.Web.UI
                 case true:
                     return RecaptchaResponse.Valid;
                 case false:
+                    if (gOutput.ErrorCodes == null)
+                    {
+                        return new RecaptchaResponse(false, "invalid for some reason");
+                    }
                     return new RecaptchaResponse(false, gOutput.ErrorCodes);
                 default:
                     throw new InvalidProgramException("Unknown status response.");

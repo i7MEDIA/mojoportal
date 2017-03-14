@@ -249,7 +249,8 @@ namespace mojoPortal.Web.ContactUI
                 mojoBasePage basePage = Page as mojoBasePage;
                 if (basePage != null)
                 {
-                    basePage.ScriptConfig.IncludeGreyBox = true;
+                    //we use colorbox now
+                    //basePage.ScriptConfig.IncludeGreyBox = true;
                     if (config.KeepMessages)
                     {
                         Title1.LiteralExtraMarkup =
