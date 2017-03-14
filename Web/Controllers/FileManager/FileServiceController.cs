@@ -572,14 +572,14 @@ namespace mojoPortal.Web.Controllers
 					switch(FolderOrFile(origin))
 					{
 						case "folder":
-							result = fileSystem.MoveFolder(FilePath(origin, false, true), FilePath(CleanFileName(destination, "folder"), false, true));
+							result = fileSystem.MoveFolder(FilePath(origin, false, true), FilePath(dir + "/" + CleanFileName(destination, "folder"), false, true));
 
 							break;
 
 						case "file":
 							if (AllowedExtension(origin) && AllowedExtension(dest))
 							{
-								result = fileSystem.MoveFile(FilePath(origin), FilePath(CleanFileName(destination, "file")), overwriteExistingFiles);
+								result = fileSystem.MoveFile(FilePath(origin), FilePath(dir + "/" + CleanFileName(dest, "file")), overwriteExistingFiles);
 							}
 							else
 							{
