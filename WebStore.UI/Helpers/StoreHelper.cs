@@ -664,7 +664,18 @@ namespace WebStore.Helpers
             CommerceReport.MoveOrder(orderGuid, newUserGuid);
 
         }
-
+        public static Cart GetCartIfExists(int moduleId, bool isAuthenticated)
+        {
+            Store store = new Store(CacheHelper.GetCurrentSiteSettings().SiteGuid, moduleId);
+            if (store != null)
+            {
+                return GetCartIfExists(store.Guid, isAuthenticated);
+            }
+            else
+            {
+                return null;
+            }
+        }
         public static Cart GetCartIfExists(Guid storeGuid, bool isAuthenticated)
         {
 
