@@ -1,6 +1,6 @@
 ﻿// Author:				        Joe Audette
 // Created:			            2009-05-04
-//	Last Modified:              2012-10-27
+//	Last Modified:              2017-03-15
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -11,6 +11,7 @@
 // You must not remove this notice, or any other, from this software.
 
 using System;
+using System.Data;
 using System.Globalization;
 using System.Web.UI;
 using mojoPortal.Business;
@@ -30,8 +31,9 @@ namespace mojoPortal.Web.BlogUI
         private SiteSettings siteSettings = null;
         protected string addThisAccountId = string.Empty;
         protected string RssImageFile = WebConfigSettings.RSSImageFileName;
+        protected string rssLinkTitle = BlogResources.BlogRSSLinkTitle;
         private int categoryId = -1;
-
+        private Module module = null;
         
         public int PageId
         {
@@ -92,12 +94,24 @@ namespace mojoPortal.Web.BlogUI
         {
             if (siteSettings == null) { return; }
 
-            lnkRSS.HRef = GetRssUrl();
-            imgRSS.Src =  Page.ResolveUrl("~/Data/SiteImages/" + RssImageFile);
+            //lnkRSS.HRef = GetRssUrl();
+            //imgRSS.Src = Page.ResolveUrl("~/Data/SiteImages/" + RssImageFile);
             if (displaySettings.OverrideRssFeedImageUrl.Length > 0)
             {
-                imgRSS.Src = Page.ResolveUrl(displaySettings.OverrideRssFeedImageUrl);
+                RssImageFile = Page.ResolveUrl(displaySettings.OverrideRssFeedImageUrl);
             }
+            string rssFeedLinkFormat = "<a href='{0}' class='rsslink' rel='nofollow' title='{1}'><img src='{2}' alt='{3}'></a>";
+
+            string rssLinkTitle = string.Empty; 
+
+            if ()
+
+            litRssLink.Text = string.Format(displaySettings.RssFeedLinkFormat, 
+                GetRssUrl(),
+                module == null ? BlogResources.BlogRSSLinkTitle : string.Format(BlogResources.BlogRSSTitleFormat, module.ModuleTitle),
+                Page.ResolveUrl("~/Data/SiteImages/" + RssImageFile),
+                "RSS"
+                );
 
             lnkAddThisRss.HRef = "http://www.addthis.com/feed.php?pub="
                 + addThisAccountId + "&amp;h1=" + Server.UrlEncode(GetRssUrl())
@@ -168,7 +182,7 @@ namespace mojoPortal.Web.BlogUI
 
         private void PopulateLabels()
         {
-            lnkRSS.Title = BlogResources.BlogRSSLinkTitle;
+            //lnkRSS.Title = BlogResources.BlogRSSLinkTitle;
             lnkAddThisRss.Title = BlogResources.BlogAddThisSubscribeAltText;
             lnkAddMSN.Title = BlogResources.BlogModuleAddToMyMSNLink;
             lnkAddYahoo.Title = BlogResources.BlogModuleAddToMyYahooLink;
@@ -176,7 +190,6 @@ namespace mojoPortal.Web.BlogUI
             lnkAddToLive.Title = BlogResources.BlogModuleAddToWindowsLiveLink;
             lnkOdiogoPodcast.Title = BlogResources.PodcastLink;
             lnkOdiogoPodcastTextLink.Text = BlogResources.PodcastLink;
-
         }
 
         private void LoadSettings()
@@ -189,9 +202,34 @@ namespace mojoPortal.Web.BlogUI
                 categoryId = WebUtils.ParseInt32FromQueryString("cat", categoryId);
             }
 
-            //siteRoot = siteSettings.SiteRoot;
+            module = new Module(moduleId);
+
+            if (module != null)
+            {
+                rssLinkTitle = String.Format(BlogResources.BlogRSSLinkTitleFormat, module.ModuleTitle);
+            }
+
+            if (categoryId > -1)
+            {
+                string category = string.Empty;
+                using (IDataReader reader = Blog.GetCategory(categoryId))
+                {
+                    if (reader.Read())
+                    {
+                        category = reader["Category"].ToString();
+                    }
+                }
+                rssLinkTitle = String.Format(BlogResources.BlogRSSLinkTitleForCategoryFormat, category);
+            }
+
+            
+
+            siteRoot = SiteUtils.GetNavigationSiteRoot();
             // we don't want ssl on the feed urls since it resultsin browser warnings
-            siteRoot = SiteUtils.GetNavigationSiteRoot().Replace("https:","http:");
+            if (!WebConfigSettings.UseSSLForFeedLinks)
+            {
+                siteRoot = SiteUtils.GetNavigationSiteRoot().Replace("https:","http:");
+            }
 
             if (config.AddThisAccountId.Length > 0)
             {

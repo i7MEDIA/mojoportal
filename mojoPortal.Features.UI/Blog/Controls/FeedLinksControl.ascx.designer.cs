@@ -31,22 +31,13 @@ namespace mojoPortal.Web.BlogUI {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liRSS;
         
         /// <summary>
-        /// lnkRSS control.
+        /// litRssLink control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkRSS;
-        
-        /// <summary>
-        /// imgRSS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgRSS;
+        protected global::System.Web.UI.WebControls.Literal litRssLink;
         
         /// <summary>
         /// liAddThisRss control.

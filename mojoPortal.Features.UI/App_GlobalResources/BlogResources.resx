@@ -960,4 +960,10 @@
   <data name="ShowGoogleNewsTabInEditPage" xml:space="preserve">
     <value>Show Google News Settings In Edit Page?</value>
   </data>
+  <data name="BlogRSSLinkTitleForCategoryFormat" xml:space="preserve">
+    <value>RSS Feed for {0}\{1}</value>
+  </data>
+  <data name="BlogRSSLinkTitleFormat" xml:space="preserve">
+    <value>RSS Feed for {0}</value>
+  </data>
 </root>

@@ -405,7 +405,6 @@ namespace mojoPortal.Web.BlogUI
             get { return postListExtraCss; }
             set { postListExtraCss = value; }
         }
-
         private string overrideRssFeedImageUrl = string.Empty;
 
         public string OverrideRssFeedImageUrl
@@ -413,6 +412,9 @@ namespace mojoPortal.Web.BlogUI
             get { return overrideRssFeedImageUrl; }
             set { overrideRssFeedImageUrl = value; }
         }
+
+        private string rssFeedLinkFormat = "<a href='{0}' class='rsslink' rel='nofollow' title='{1}'><img src='{2}' alt='{3}'></a>";
+        public string RssFeedLinkFormat { get { return rssFeedLinkFormat; } set { rssFeedLinkFormat = value; } }
 
         private string msnSubscribeIconUrl = "~/Data/SiteImages/rss_mymsn.gif";
 

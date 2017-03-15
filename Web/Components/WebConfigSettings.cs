@@ -2892,11 +2892,15 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetBoolProperty("DisableBlogRssMetaLink", false); }
 		}
+        public static bool UseSSLForFeedLinks
+        {
+            get { return ConfigHelper.GetBoolProperty("UseSSLForFeedLinks", true); }
+        }
 
-		/// <summary>
-		/// if true disables /Services/RecentContentRss.aspx
-		/// </summary>
-		public static bool DisableRecentContentFeed
+        /// <summary>
+        /// if true disables /Services/RecentContentRss.aspx
+        /// </summary>
+        public static bool DisableRecentContentFeed
 		{
 			get { return ConfigHelper.GetBoolProperty("DisableRecentContentFeed", true); }
 		}

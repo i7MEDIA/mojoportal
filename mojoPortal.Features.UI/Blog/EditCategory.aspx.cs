@@ -1,6 +1,6 @@
 /// Author:						Joe Audette
 /// Created:					2005-09-11
-/// Last Modified:				2012-05-08
+/// Last Modified:				2017-03-15
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -51,6 +51,14 @@ namespace mojoPortal.Web.BlogUI
 
         private void Page_Load(object sender, EventArgs e)
 		{
+            if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl))
+            {
+                SiteUtils.ForceSsl();
+            }
+            else
+            {
+                SiteUtils.ClearSsl();
+            }
             if (!Request.IsAuthenticated)
             {
                 SiteUtils.RedirectToLoginPage(this);

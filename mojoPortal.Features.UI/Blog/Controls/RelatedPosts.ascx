@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RelatedPosts.ascx.cs" Inherits="mojoPortal.Web.BlogUI.RelatedPosts" %>
-<div class="bsidelist brelatedosts">
+<div class="bsidelist brelatedposts">
 <asp:Literal ID="litHeadingOpenTag" runat="server" EnableViewState="false" />
 <asp:Literal ID="litHeading" runat="server" EnableViewState="false" />
 <asp:Literal ID="litHeadingCloseTag" runat="server" EnableViewState="false" />

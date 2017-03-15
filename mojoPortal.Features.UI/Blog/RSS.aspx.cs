@@ -1,6 +1,6 @@
 ///		Author:					Joe Audette
 ///		Created:				2005-03-15
-///		Last Modified:			2013-09-25
+///		Last Modified:			2017-03-15
 
 using System;
 using System.Collections;
@@ -50,7 +50,14 @@ namespace mojoPortal.Web.BlogUI
         {
             // nothing should post here
             if (Page.IsPostBack) return;
-
+            if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl))
+            {
+                SiteUtils.ForceSsl();
+            }
+            else
+            {
+                SiteUtils.ClearSsl();
+            }
             LoadSettings();
 
 
