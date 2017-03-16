@@ -50,7 +50,10 @@ namespace mojoPortal.Web.BlogUI
         {
             // nothing should post here
             if (Page.IsPostBack) return;
-            if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl))
+
+			LoadSettings();
+
+			if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || pageSettings.RequireSsl))
             {
                 SiteUtils.ForceSsl();
             }
@@ -58,7 +61,6 @@ namespace mojoPortal.Web.BlogUI
             {
                 SiteUtils.ClearSsl();
             }
-            LoadSettings();
 
 
             if (canView)

@@ -100,15 +100,10 @@ namespace mojoPortal.Web.BlogUI
             {
                 RssImageFile = Page.ResolveUrl(displaySettings.OverrideRssFeedImageUrl);
             }
-            string rssFeedLinkFormat = "<a href='{0}' class='rsslink' rel='nofollow' title='{1}'><img src='{2}' alt='{3}'></a>";
-
-            string rssLinkTitle = string.Empty; 
-
-            if ()
 
             litRssLink.Text = string.Format(displaySettings.RssFeedLinkFormat, 
                 GetRssUrl(),
-                module == null ? BlogResources.BlogRSSLinkTitle : string.Format(BlogResources.BlogRSSTitleFormat, module.ModuleTitle),
+                rssLinkTitle,
                 Page.ResolveUrl("~/Data/SiteImages/" + RssImageFile),
                 "RSS"
                 );
