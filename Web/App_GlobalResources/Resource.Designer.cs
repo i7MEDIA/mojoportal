@@ -11077,7 +11077,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Page List.
+        ///   Looks up a localized string similar to Page Manager.
         /// </summary>
         internal static string PageListLink {
             get {

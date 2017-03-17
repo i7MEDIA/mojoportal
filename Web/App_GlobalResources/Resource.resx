@@ -3727,7 +3727,7 @@
     <value>Edit This Page</value>
   </data>
   <data name="PageListLink" xml:space="preserve">
-    <value>Page List</value>
+    <value>Page Manager</value>
   </data>
   <data name="ArchiveDateGridHeader" xml:space="preserve">
     <value>Archived</value>
