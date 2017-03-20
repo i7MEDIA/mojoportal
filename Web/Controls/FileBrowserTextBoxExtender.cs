@@ -136,21 +136,23 @@ namespace mojoPortal.Web.UI
 				false
 			);
 
-			if ((previewImageOnBlur) && (textBoxClientId.Length > 0) && (browserType == "image") && (previewImageClientId.Length > 0))
+			if (previewImageOnBlur && (textBoxClientId.Length > 0) && (browserType == "image") && (previewImageClientId.Length > 0))
 			{
-				string filePickerPreviewBase = 
+				string filePickerPreviewBase =
 					@"<script>
 						(function() {{
 							var prevInput = document.getElementById('{0}');
 							var prevImage = document.getElementById('{1}');
 
-							prevInput.addEventListener('blur', function() {{
-								if (prevInput.value.length > 0) {{
-									prevImage.src = prevInput.value;
-								}} else {{
-									prevImage.src = '{2}';
-								}}
-							}});
+							if (prevInput !== null) {{
+								prevInput.addEventListener('blur', function() {{
+									if (prevInput.value.length > 0) {{
+										prevImage.src = prevInput.value;
+									}} else {{
+										prevImage.src = '{2}';
+									}}
+								}});
+							}}
 						}})();
 					</script>";
 
