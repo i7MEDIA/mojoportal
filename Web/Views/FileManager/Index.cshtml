@@ -1,0 +1,101 @@
+﻿@using Resources;
+@model mojoPortal.Web.Models.FileManager
+
+@{
+	ViewBag.Title = Resource.FileManagerIndexHeaderTitle;
+	ViewBag.AngularApp = "FileManagerApp";
+	ViewBag.BodyClass = "ng-cloak" + ((Model.View == "fullpage" || (Model.Type == "file" || Model.Type == "folder")) ? " fullpage" : string.Empty);
+	Layout = "~/Views/FileManager/_FileManagerLayout.cshtml";
+}
+
+@if (Model.View == "fullpage")
+{
+	<div class="alert alert-info alert-control">
+		<a class="alert-link" href="javascript:void(0)" onclick="history.back();"><i class="glyphicon glyphicon-menu-left" aria-hidden="true"></i> @Model.BackToWebsiteLinkText</a>
+	</div>
+}
+
+@if (Model.Type == "file" || Model.Type == "folder")
+{
+	<div class="alert alert-info alert-control">
+		<i class="glyphicon glyphicon-file"></i>
+		@Html.ActionLink(Model.PagePickerLinkText, "Pages", Model.QueryString, new { @class = "alert-link" })
+	</div>
+}
+
+<angular-filemanager></angular-filemanager>
+
+@section Styles {
+	<link rel="stylesheet" href="~/Content/FileManager/dist/angular-filemanager.min.css">
+}
+
+@section Scripts {
+	<script src="~/Content/FileManager/bower_components/angular/angular.min.js"></script>
+	<script src="~/Content/FileManager/bower_components/angular-translate/angular-translate.min.js"></script>
+	<script src="~/Content/FileManager/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+	<script src="~/Content/FileManager/dist/angular-filemanager.min.js"></script>
+	<script>
+		angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (config) {
+			var defaults = config.$get();
+			config.set({
+				appName: '@Model.RootName',
+				pickCallback: function (item) {
+					var url = '@Model.VirtualPath' + item.fullPath();
+
+					@if (Model.Editor != null) {
+						switch (Model.Editor) {
+							case "ckeditor":
+								<text>ckSubmit(url);</text>
+								break;
+
+							case "tinymce":
+								<text>tmceSubmit(url);</text>
+								break;
+
+							case "filepicker":
+								<text>fpSubmit(url);</text>
+								break;
+						}
+					}
+				},
+				allowedActions: angular.extend(defaults.allowedActions, {
+					pickFiles: @(Model.Editor != null ? "true" : "false"),
+					pickFolders: false,
+					changePermissions: false,
+					upload: @Model.Upload,
+					rename: @Model.Rename,
+					move: @Model.Move,
+					copy: @Model.Copy,
+					edit: @Model.Edit,
+					compress: @Model.Compress,
+					compressChooseName: @Model.CompressChooseName,
+					extract: @Model.Extract,
+					download: @Model.Download,
+					downloadMultiple: @Model.DownloadMultiple,
+					preview: @Model.Preview,
+					remove: @Model.Remove,
+					createFolder: @Model.CreateFolder,
+				}),
+				listUrl: '/fileservice',
+				uploadUrl: '/fileservice/fileupload',
+				renameUrl: '/fileservice',
+				copyUrl: '/fileservice',
+				moveUrl: '/fileservice',
+				removeUrl: '/fileservice',
+				editUrl: '/fileservice',
+				getContentUrl: '/fileservice',
+				createFolderUrl: '/fileservice',
+				downloadFileUrl: '/fileservice',
+				downloadMultipleUrl: '/fileservice',
+				compressUrl: '/fileservice',
+				extractUrl: '/fileservice',
+				permissionsUrl: '/fileservice',
+				basePath: '/',
+				fileSystemToken: '@Model.FileSystemToken',
+				typeQueryString: '@Model.Type',
+				hidePermissions: true,
+				multipleDownloadFileName: 'angular-filemanager.zip'
+			});
+		}]);
+	</script>
+}

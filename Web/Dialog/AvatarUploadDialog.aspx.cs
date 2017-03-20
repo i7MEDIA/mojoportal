@@ -137,7 +137,7 @@ namespace mojoPortal.Web.Dialog
 
                 if (!fileSystem.FolderExists(avatarBasePath)) { fileSystem.CreateFolder(avatarBasePath); }
 
-                if (SiteUtils.IsAllowedUploadBrowseFile(ext, SiteUtils.ImageFileExtensions()))
+                if (SiteUtils.IsAllowedUploadBrowseFile(ext, WebConfigSettings.ImageFileExtensions))
                 {
                     fileSystem.DeleteFile(destPath);
                     fileSystem.SaveFile(destPath, uploader.FileContent, mimeType, true);
@@ -190,7 +190,7 @@ namespace mojoPortal.Web.Dialog
         {
             btnUploadAvatar.Text = Resource.UploadAvatarButton;
             regexAvatarFile.ErrorMessage = Resource.FileTypeNotAllowed;
-            regexAvatarFile.ValidationExpression = SecurityHelper.GetRegexValidationForAllowedExtensions(SiteUtils.ImageFileExtensions());
+            regexAvatarFile.ValidationExpression = SecurityHelper.GetRegexValidationForAllowedExtensions(WebConfigSettings.ImageFileExtensions);
         }
 
         private void LoadSettings()

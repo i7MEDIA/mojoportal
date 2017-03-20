@@ -1748,9 +1748,6 @@
     <Content Include="Blog\Controls\FeedLinksControl.ascx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\HelpFiles\en-US-messengercidsetting-help.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Blog\Controls\CommentDaysSetting.ascx" />
   </ItemGroup>
   <ItemGroup>
@@ -1814,6 +1811,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Data\" />
     <Folder Include="Setup\applications\blog\SchemaInstallScripts\mssql\" />
     <Folder Include="Setup\applications\blog\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
     <Folder Include="Setup\applications\contactform\SchemaInstallScripts\mssql\" />

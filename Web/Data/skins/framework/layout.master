@@ -1,0 +1,121 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="~/App_MasterPages/layout.Master.cs" Inherits="mojoPortal.Web.layout" %>
+<!DOCTYPE html>
+<html class="htmlclass">
+	<head id="Head1" runat="server">
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+		<!--#include file="includes/favicons.html"-->
+		<portal:MetaContent id="MetaContent" runat="server" DisableContentType="true" PreZoomForIPhone="false" />
+
+		<!-- Style -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<portal:SkinFolderCssFile runat="server" CssFileName="js/smartmenus/jquery.smartmenus.bootstrap.css" />
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+		<portal:StyleSheetCombiner id="StyleSheetCombiner" runat="server" IncludeJQueryUI="false" UseIconsForAdminLinks="false" EnableNonClickablePageLinks="true" QtFileCssIsInMainCss="false" IncludeColorBox="true" />
+
+		<!-- Scripts -->
+		<portal:ScriptLoader id="ScriptLoader1" runat="server" AssumejQueryIsLoaded="true" AssumejQueryUiIsLoaded="true" IncludeColorBox="false" IncludeSimpleFaq="true" IncludejQueryAccordion="true" />
+		<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+		<!-- Change JQueryUI plugin names to fix name collision with Bootstrap. -->
+		<script>$.widget.bridge('uiTooltip', $.ui.tooltip);$.widget.bridge('uiButton', $.ui.button);</script>
+	</head>
+	<body class="pagebody" id="Body" runat="server">
+		<portal:FacebookSdk id="fbsdk" runat="server" />
+		<portal:AnalyticsAsyncTopScript id="analyticsTop" runat="server" />
+		<portal:LayoutDisplaySettings id="LayoutDisplaySettings1" runat="server" />
+		<form id="frmMain" runat="server" class="main-form">
+			<asp:SiteMapDataSource id="SiteMapData" runat="server" ShowStartingNode="false" />
+			<asp:SiteMapDataSource id="PageMapDataSource" runat="server" ShowStartingNode="false" />
+			<asp:SiteMapDataSource id="ChildPageSiteMapData" runat="server" ShowStartingNode="false" />
+			<asp:ScriptManager id="ScriptManager1" EnablePageMethods="true" runat="server" EnableScriptGlobalization="true" EnableScriptLocalization="true" />
+
+			<!--#include file="includes/browsehappy.html"-->
+			<!--#include file="includes/administration-drawer.html"-->
+
+			<div class="sitewrap">
+				<header class="head" role="banner">
+					<nav class="navbar navbar-default navbar-static-top navbar-site">
+						<div class="container">
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#site-menu" aria-expanded="false">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+
+								<asp:HyperLink runat="server" NavigateUrl="~/" CssClass="navbar-brand">
+									<portal:SiteTitle runat="server" SkinId="navbar-brand" />
+								</asp:HyperLink>
+							</div>
+
+							<div class="collapse navbar-collapse" id="site-menu">
+								<portal:SiteMenu id="SiteMenu1" runat="server" MenuSkinId="MainMenu" UseFlexMenu="true" />
+							</div>
+						</div>
+					</nav>
+				</header>
+
+
+				<main class="main-content">
+					<portal:LayoutPanel id="divAlt1" runat="server" SkinID="TopPane">
+						<asp:ContentPlaceHolder id="altContent1" runat="server"></asp:ContentPlaceHolder>
+					</portal:LayoutPanel>
+
+					<div class="container">
+						<portal:Breadcrumbs id="Breadcrumbs" runat="server" Separator="" ItemWrapperTop="<li>" ItemWrapperBottom="</li>" CssClass="" CurrentPageCssClass="active" />
+
+						<div class="row" id="start-content">
+							<portal:LayoutPanel id="divLeft" runat="server" SkinID="LeftPane">
+								<asp:contentplaceholder id="leftContent" runat="server"></asp:contentplaceholder>
+							</portal:LayoutPanel>
+
+							<portal:LayoutPanel id="divCenter" runat="server" SkinID="CenterPane">
+								<asp:ContentPlaceHolder id="mainContent" runat="server"></asp:ContentPlaceHolder>
+							</portal:LayoutPanel>
+
+							<portal:LayoutPanel id="divRight" runat="server" SkinID="RightPane">
+								<asp:contentplaceholder id="rightContent" runat="server"></asp:contentplaceholder>
+							</portal:LayoutPanel>
+						</div>
+					</div>
+
+					<portal:LayoutPanel id="divAltContent2" runat="server" SkinID="BottomPane">
+						<asp:ContentPlaceHolder id="altContent2" runat="server"></asp:ContentPlaceHolder>
+					</portal:LayoutPanel>
+				</main>
+			</div>
+
+
+			<footer class="foot">
+				<div class="container">
+					<hr>
+					<div class="row">
+						<div class="col-sm-6 text-xs-center text-sm-left">
+							<small>&copy; <%= DateTime.Now.Year.ToString() %> <portal:CompanyNameLiteral id="CompanyName1" runat="server" /></small>
+						</div>
+						<div class="col-sm-6 text-xs-center text-sm-right">
+							<portal:LoginLink id="LoginLink" runat="server" RenderAsListItem="false" />
+						</div>
+					</div>
+					<br>
+				</div>
+			</footer>
+		</form>
+
+		<portal:AnalyticsAsyncBottomScript id="analyticsBottom" runat="server" />
+
+		<!-- Main Script -->
+		<portal:SkinFolderScript runat="server" ScriptFileName="js/bootstrap.min.js" RenderInPlace="true" />
+		<!-- Change Bootstrap plugin names to fix name collision with jQueryUI -->
+		<script>var bstt = $.fn.tooltip.noConflict(); $.fn.bsTooltip = bstt;</script>
+		<portal:SkinFolderScript runat="server" ScriptFileName="js/smartmenus/jquery.smartmenus.min.js" RenderInPlace="true" />
+		<portal:SkinFolderScript runat="server" ScriptFileName="js/smartmenus/jquery.smartmenus.bootstrap.min.js" RenderInPlace="true" />
+		<portal:SkinFolderScript runat="server" ScriptFileName="js/main.min.js" RenderInPlace="true" />
+		<portal:SkinFolderScript runat="server" ScriptFileName="js/administration.min.js" RenderInPlace="true" VisibleRoles="Authenticated Users" />
+	</body>
+</html>

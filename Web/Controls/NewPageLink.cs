@@ -20,138 +20,212 @@ using Resources;
 
 namespace mojoPortal.Web.UI
 {
-    /// <summary>
-    /// a convenience link for the new page. The link renders only for those in roles that can add pages below the current page
-    /// </summary>
-    public class NewPageLink : HyperLink
-    {
-        private mojoBasePage basePage = null;
+	/// <summary>
+	/// a convenience link for the new page. The link renders only for those in roles that can add pages below the current page
+	/// </summary>
+	public class NewPageLink : HyperLink
+	{
+		private mojoBasePage basePage = null;
 
-        private bool renderAsListItem = false;
-        public bool RenderAsListItem
-        {
-            get { return renderAsListItem; }
-            set { renderAsListItem = value; }
-        }
+		private bool renderAsListItem = false;
+		public bool RenderAsListItem
+		{
+			get { return renderAsListItem; }
+			set { renderAsListItem = value; }
+		}
 
-        private string listItemCSS = string.Empty;
-        public string ListItemCss
-        {
-            get { return listItemCSS; }
-            set { listItemCSS = value; }
-        }
+		private string listItemCSS = string.Empty;
+		public string ListItemCss
+		{
+			get { return listItemCSS; }
+			set { listItemCSS = value; }
+		}
 
-        private bool ShouldRender()
-        {
-            if (basePage == null) { return false; }
-            if (!Page.Request.IsAuthenticated) { return false; }
+		private string literalExtraTopContent = string.Empty;
+		public string LiteralExtraTopContent
+		{
+			get { return literalExtraTopContent; }
+			set { literalExtraTopContent = value; }
+		}
 
-            if (WebUser.IsAdminOrContentAdmin) { return true; }
+		private string literalExtraBottomContent = string.Empty;
+		public string LiteralExtraBottomContent
+		{
+			get { return literalExtraBottomContent; }
+			set { literalExtraBottomContent = value; }
+		}
 
-            if (WebConfigSettings.UseRelatedSiteMode)
-            {
-                if (basePage.SiteInfo == null) { return false; }
-                // in related sites mode usersin site eidotrs role can use admin menu
-                if (WebUser.IsInRoles(basePage.SiteInfo.SiteRootEditRoles)) { return true; }
-            }
+		private string linkImageUrl = string.Empty;
+		public string LinkImageUrl
+		{
+			get { return linkImageUrl; }
+			set { linkImageUrl = value; }
+		}
 
-            if (basePage.CurrentPage == null) { return false; }
-            if (WebUser.IsInRoles(basePage.CurrentPage.CreateChildPageRoles)) { return true; }
+		private bool ShouldRender()
+		{
+			if (basePage == null)
+			{
+				return false;
+			}
 
-            if (basePage.SiteInfo != null)
-            {
-                if (WebUser.IsInRoles(basePage.SiteInfo.RolesThatCanCreateRootPages)) { return true; }
-            }
+			if (!Page.Request.IsAuthenticated)
+			{
+				return false;
+			}
 
-            return false;
-        }
+			if (WebUser.IsAdminOrContentAdmin)
+			{
+				return true;
+			}
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            if (HttpContext.Current == null) { return; }
-            EnableViewState = false;
-            basePage = Page as mojoBasePage;
-            
-            Visible = ShouldRender();
-            if (!Visible) { return; }
+			if (WebConfigSettings.UseRelatedSiteMode)
+			{
+				if (basePage.SiteInfo == null)
+				{
+					return false;
+				}
 
-            if (basePage == null) { return; }
+				// in related sites mode usersin site eidotrs role can use admin menu
+				if (WebUser.IsInRoles(basePage.SiteInfo.SiteRootEditRoles))
+				{
+					return true;
+				}
+			}
 
-            if (CssClass.Length > 0)
-            {
-                CssClass = "adminlink newpagelink " + CssClass;
-            }
-            else
-            {
-                CssClass = "adminlink newpagelink";
-            }
+			if (basePage.CurrentPage == null) {
+				return false;
+			}
 
-            ToolTip = Resource.AddPageTooltip;
-            if (SiteUtils.SslIsAvailable())
-            {
-                if (
-                    basePage.CurrentPage != null)
-                {
-                    NavigateUrl = basePage.SiteRoot + "/Admin/PageSettings.aspx?start=" + basePage.CurrentPage.PageId.ToInvariantString();
-                }
-                else
-                {
-                    NavigateUrl = basePage.SiteRoot + "/Admin/PageSettings.aspx";
-                }
-            }
-            else
-            {
-                if (
-                    basePage.CurrentPage != null)
-                {
-                    NavigateUrl = basePage.RelativeSiteRoot + "/Admin/PageSettings.aspx?start=" + basePage.CurrentPage.PageId.ToInvariantString();
-                }
-                else
-                {
-                    NavigateUrl = basePage.RelativeSiteRoot + "/Admin/PageSettings.aspx";
-                }
+			if (WebUser.IsInRoles(basePage.CurrentPage.CreateChildPageRoles))
+			{
+				return true;
+			}
 
-            }
+			if (basePage.SiteInfo != null)
+			{
+				if (WebUser.IsInRoles(basePage.SiteInfo.RolesThatCanCreateRootPages))
+				{
+					return true;
+				}
+			}
 
-            if (basePage.UseIconsForAdminLinks)
-            {
-                ImageUrl = Page.ResolveUrl("~/Data/SiteImages/" + ConfigurationManager.AppSettings["NewPageImage"]);
-                Text = Resource.PagesAddButton;
-            }
-            else
-            {
-                Text = Resource.AddPageLink;
-            }
-        }
+			return false;
+		}
 
-        protected override void Render(HtmlTextWriter writer)
-        {
-            if (HttpContext.Current == null)
-            {
-                writer.Write("[" + this.ID + "]");
-                return;
-            }
+		protected override void OnLoad(EventArgs e)
+		{
+			base.OnLoad(e);
 
-            if (renderAsListItem)
-            {
-                if (listItemCSS.Length > 0)
-                {
-                    writer.Write("<li class='" + listItemCSS + "'>");
-                }
-                else
-                {
-                    writer.Write("<li>");
-                }
-            }
+			if (HttpContext.Current == null)
+			{
+				return;
+			}
 
-            base.Render(writer);
+			EnableViewState = false;
+			basePage = Page as mojoBasePage;
 
-            if (renderAsListItem)
-            {
-                writer.Write("</li>");
-            }
-        }
+			Visible = ShouldRender();
 
-    }
+			if (!Visible)
+			{
+				return;
+			}
+
+			if (basePage == null)
+			{
+				return;
+			}
+
+			if (CssClass.Length > 0)
+			{
+				CssClass = "adminlink newpagelink " + CssClass;
+			}
+			else
+			{
+				CssClass = "adminlink newpagelink";
+			}
+
+			ToolTip = Resource.AddPageTooltip;
+
+			if (SiteUtils.SslIsAvailable())
+			{
+				if (basePage.CurrentPage != null)
+				{
+					NavigateUrl = basePage.SiteRoot + "/Admin/PageSettings.aspx?start=" + basePage.CurrentPage.PageId.ToInvariantString();
+				}
+				else
+				{
+					NavigateUrl = basePage.SiteRoot + "/Admin/PageSettings.aspx";
+				}
+			}
+			else
+			{
+				if (
+					basePage.CurrentPage != null)
+				{
+					NavigateUrl = basePage.RelativeSiteRoot + "/Admin/PageSettings.aspx?start=" + basePage.CurrentPage.PageId.ToInvariantString();
+				}
+				else
+				{
+					NavigateUrl = basePage.RelativeSiteRoot + "/Admin/PageSettings.aspx";
+				}
+
+			}
+
+			Literal literalTop = new Literal();
+			literalTop.Text = literalExtraTopContent;
+			Controls.Add(literalTop);
+
+			Literal literalText = new Literal();
+			literalText.Text = Resource.AddPageLink;
+			Controls.Add(literalText);
+
+			Literal literalBottom = new Literal();
+			literalBottom.Text = literalExtraBottomContent;
+			Controls.Add(literalBottom);
+
+			if (!string.IsNullOrWhiteSpace(linkImageUrl))
+			{
+				if (linkImageUrl.StartsWith("~/"))
+				{
+					ImageUrl = Page.ResolveUrl(linkImageUrl);
+				}
+				else
+				{
+					string skinPath = SiteUtils.GetSkinBaseUrl(Page);
+
+					ImageUrl = Page.ResolveUrl(skinPath + linkImageUrl.TrimStart('/'));
+				}
+			}
+		}
+
+		protected override void Render(HtmlTextWriter writer)
+		{
+			if (HttpContext.Current == null)
+			{
+				writer.Write("[" + ID + "]");
+				return;
+			}
+
+			if (renderAsListItem)
+			{
+				if (listItemCSS.Length > 0)
+				{
+					writer.Write("<li class='" + listItemCSS + "'>");
+				}
+				else
+				{
+					writer.Write("<li>");
+				}
+			}
+
+			base.Render(writer);
+
+			if (renderAsListItem)
+			{
+				writer.Write("</li>");
+			}
+		}
+	}
 }

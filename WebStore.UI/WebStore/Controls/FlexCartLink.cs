@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:					2013-06-01
-// Last Modified:			2013-10-02
+// Last Modified:			2017-03-15
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -28,7 +28,7 @@ namespace WebStore.UI.Controls
 {
     /// <summary>
     /// a control that can be used in layout.master to make a cart link that is visible on every page
-    /// However it must be configured with the PageID, ModuleID and ModuleGuid corresponding to the store
+    /// However it must be configured with the PageID and ModuleID corresponding to the store
     /// </summary>
     public class FlexCartLink : HyperLink
     {
@@ -40,9 +40,6 @@ namespace WebStore.UI.Controls
 
             if (pageId == -1) { Visible = false; }
             if (moduleId == -1) { Visible = false; }
-
-            // actually may only need this if we want to show cart info such as number of items and subtotal
-            if (moduleGuid == Guid.Empty) { Visible = false; }
 
             if (!Visible) { return; }
 
@@ -60,15 +57,14 @@ namespace WebStore.UI.Controls
         private void FormatText()
         {
             if (
-                ((!includeItemCount) && (!includeCartTotal)) 
-                ||(currencyCulture == null)
+                (!includeItemCount && !includeCartTotal) || (currencyCulture == null)
                 )
             {
                 Text = cartText;
                 return; 
             }
 
-            if ((includeItemCount) && (includeCartTotal))
+            if (includeItemCount && includeCartTotal && (cartTotal > 0 || includeCartTotalWhenZero))
             {
                 Text = string.Format(currencyCulture,
                     cartTextWithItemCountAndTotalFormat,
@@ -136,7 +132,7 @@ namespace WebStore.UI.Controls
 
             currencyCulture = ResourceHelper.GetCurrencyCulture(siteSettings.GetCurrency().Code);
 
-            cart = StoreHelper.GetCartIfExists(moduleGuid, Page.Request.IsAuthenticated);
+            cart = StoreHelper.GetCartIfExists(moduleId, Page.Request.IsAuthenticated);
             if (cart == null) { return; }
 
             itemCount = cart.CartOffers.Count();

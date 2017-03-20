@@ -539,7 +539,7 @@ namespace mojoPortal.Web.GalleryUI
 
             GalleryHelper.VerifyGalleryFolders(fileSystem, imageFolderPath);
 
-            uploader.AcceptFileTypes = SecurityHelper.GetRegexValidationForAllowedExtensionsJqueryFileUploader(SiteUtils.ImageFileExtensions());
+            uploader.AcceptFileTypes = SecurityHelper.GetRegexValidationForAllowedExtensionsJqueryFileUploader(WebConfigSettings.ImageFileExtensions);
             
             uploader.ServiceUrl = SiteRoot + "/ImageGallery/upload.ashx?pageid=" + pageId.ToInvariantString()
                 + "&mid=" + moduleId.ToInvariantString()

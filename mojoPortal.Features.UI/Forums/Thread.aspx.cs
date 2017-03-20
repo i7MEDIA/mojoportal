@@ -517,11 +517,11 @@ namespace mojoPortal.Web.ForumUI
             script.Append(",success: function(data) {");
             
             script.Append("$(\"div[data-tb='\" + d.postId + \"']\").progressbar(\"destroy\");");
-            script.Append("if(data.Msg == 'success') {");
+            script.Append("if(data.msg == 'success') {");
             //script.Append("$(\"a[data-post='\" + d.postId + \"'\").hide();");
             script.Append("$(\"div[data-tb='\" + d.postId + \"']\").hide();");
             script.Append("} else {");
-            script.Append("alert(data.Msg);");
+            script.Append("alert(data.msg);");
             script.Append("$(\"a[data-post='\" + d.postId + \"']\").show();");
             script.Append("}"); //end if
             

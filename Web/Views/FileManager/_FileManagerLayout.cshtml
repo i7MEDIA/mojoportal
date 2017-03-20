@@ -1,0 +1,69 @@
+﻿@model mojoPortal.Web.Models.FileManager
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" @(ViewBag.AngularApp != null ? "ng-app=" + ViewBag.AngularApp : string.Empty)>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		<title>@ViewBag.Title</title>
+		<link rel="stylesheet" href="~/Content/FileManager/bower_components/bootswatch/paper/bootstrap.min.css" />
+		@RenderSection("Styles", required: false)
+	</head>
+	<body class="@ViewBag.BodyClass">
+
+		@RenderBody()
+
+		<script src="~/Content/FileManager/bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="~/Content/FileManager/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script>
+			@switch (Model.Editor) {
+				case "ckeditor":
+					<text>
+						function ckSubmit(url) {
+							if (window.opener.CKEDITOR != null) {
+								var CKEditorFuncNum = '@Model.CKEditorFuncNumber' || console.error('Error: lost CKEditorFuncNum param from url' + window.location.href) || 1;
+								window.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, url);
+								window.close();
+							} else {
+								console.log('CKEDITOR instance does not exist.\nReturned Value:', url);
+							}
+						}
+					</text>
+					break;
+
+				case "tinymce":
+					<text>
+						function tmceSubmit(url) {
+							if (top.tinymce != null) {
+								top.tinymce.activeEditor.windowManager.getParams().oninsert(url);
+								top.tinymce.activeEditor.windowManager.close();
+							} else {
+								console.log('TinyMCE instance does not exist.\nReturned Value:', url);
+							}
+						}
+					</text>
+					break;
+
+				case "filepicker":
+					<text>
+						function fpSubmit(url) {
+							if (top.window.filePicker != null) {
+								top.window.filePicker.set(url, '@Model.InputId');
+								top.window.filePicker.close();
+							} else {
+								console.log('FilePickerSet instance does not exist.\nReturned Value:', url);
+							}
+						}
+					</text>
+					break;
+			}
+		</script>
+
+		@RenderSection("Scripts", required: false)
+	</body>
+</html>
+

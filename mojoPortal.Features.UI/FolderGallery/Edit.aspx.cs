@@ -351,7 +351,7 @@ namespace mojoPortal.Web.GalleryUI
             }
 
             uploader.MaxFilesAllowed = FolderGalleryConfiguration.MaxFilesToUploadAtOnce;
-            uploader.AcceptFileTypes = SecurityHelper.GetRegexValidationForAllowedExtensionsJqueryFileUploader(SiteUtils.ImageFileExtensions());
+            uploader.AcceptFileTypes = SecurityHelper.GetRegexValidationForAllowedExtensionsJqueryFileUploader(WebConfigSettings.ImageFileExtensions);
             uploader.UploadButtonClientId = btnUpload.ClientID;
             uploader.ServiceUrl = SiteRoot + "/FolderGallery/upload.ashx?pageid=" + pageId.ToInvariantString()
                 + "&mid=" + moduleId.ToInvariantString();

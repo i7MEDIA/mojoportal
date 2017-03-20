@@ -259,7 +259,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add/Edit Pages.
+        ///   Looks up a localized string similar to Page Manager.
         /// </summary>
         internal static string AdminMenuPageTreeLink {
             get {
@@ -511,7 +511,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are already signed in. If you wish to create a new account you must sign out first.
+        ///   Looks up a localized string similar to You are already signed in. If you wish to create a new account you must sign out first..
         /// </summary>
         internal static string AlreadyRegisteredMessage {
             get {
@@ -700,7 +700,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Approve This User To Sign In?.
+        ///   Looks up a localized string similar to Approve This User to Sign In?.
         /// </summary>
         internal static string ApprovedForLogin {
             get {
@@ -1681,7 +1681,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comments Are Closed.
+        ///   Looks up a localized string similar to Comments are Closed.
         /// </summary>
         internal static string CommentsAreClosed {
             get {
@@ -2293,7 +2293,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View/Edit....
+        ///   Looks up a localized string similar to View/Edit.
         /// </summary>
         internal static string ContentManagerViewEditLabel {
             get {
@@ -2734,7 +2734,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This page doesn&apos;t have any content features on it yet. To add content, choose a content feature from the dropdown list, give it a title, and click the button. Note that you can always add more features and arrange them on the page by clicking the &quot;Edit This Page&quot; link..
+        ///   Looks up a localized string similar to This page doesn&apos;t have any content features on it yet. To add content, choose a feature from the dropdown list, give it a title, and click the button. Note that you can always add more features and arrange them on the page by clicking the &quot;Edit This Page&quot; link in the admin drawer..
         /// </summary>
         internal static string ContentWizardInstructions {
             get {
@@ -3040,7 +3040,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When designing it is helpful if you are editing the CSS files of a skin to be able to disable caching so that you see your changes immediately after refreshing the page. This button toggles a cookie that enables or disables the CSS caching. It does not affect caching of CSS for other users..
+        ///   Looks up a localized string similar to When designing it is helpful if you are editing the CSS files of a skin to be able to disable caching so you see your changes immediately after refreshing the page. This button toggles a cookie that enables or disables the CSS caching. It does not affect caching of CSS for other users..
         /// </summary>
         internal static string CssCacheInfo {
             get {
@@ -3121,7 +3121,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete this Currency?.
+        ///   Looks up a localized string similar to Are you sure you want to delete this currency?.
         /// </summary>
         internal static string CurrencyGridDeleteWarning {
             get {
@@ -3436,7 +3436,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To Continue, you need to Sign In or Register.
+        ///   Looks up a localized string similar to To continue, you need to Sign In or Register.
         /// </summary>
         internal static string DefaultSignInPrompt {
             get {
@@ -4237,7 +4237,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to First select the folder in the tree below where you would like the new FOLDER to be created. Then give the folder a name and press the &quot;Create Folder&quot; button..
+        ///   Looks up a localized string similar to First select the folder in the tree below where you would like the new folder to be created. Then give the folder a name and press the &quot;Create Folder&quot; button..
         /// </summary>
         internal static string FileBrowserCreateFolderInstructions {
             get {
@@ -4291,7 +4291,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to First select the folder in the tree below where you would like the new FILE to be placed. Then browse to the file on your computer and press &quot;Upload&quot;..
+        ///   Looks up a localized string similar to First select the folder in the tree below where you would like the new file to be placed. Then browse to the file on your computer and press the &quot;Upload&quot; button..
         /// </summary>
         internal static string FileBrowserUploadInstructions {
             get {
@@ -4327,11 +4327,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File editing is not allowed..
+        /// </summary>
+        internal static string FileEditInFileManagerNotAllowed {
+            get {
+                return ResourceManager.GetString("FileEditInFileManagerNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alternate File Manager.
         /// </summary>
         internal static string FileManagerAlternateLink {
             get {
                 return ResourceManager.GetString("FileManagerAlternateLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back to File Manager.
+        /// </summary>
+        internal static string FileManagerBackToManagerLink {
+            get {
+                return ResourceManager.GetString("FileManagerBackToManagerLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back to the Website.
+        /// </summary>
+        internal static string FileManagerBackToWebsite {
+            get {
+                return ResourceManager.GetString("FileManagerBackToWebsite", resourceCulture);
             }
         }
         
@@ -4363,7 +4390,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure want to delete the selected Files?.
+        ///   Looks up a localized string similar to Are you sure want to delete the selected files?.
         /// </summary>
         internal static string FileManagerDeleteConfirm {
             get {
@@ -4390,7 +4417,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure want to delete the selected Folder and Files?.
+        ///   Looks up a localized string similar to Are you sure want to delete the selected folder and everything in it?.
         /// </summary>
         internal static string FileManagerFolderDeleteConfirm {
             get {
@@ -4404,6 +4431,15 @@ namespace Resources {
         internal static string FileManagerGoUp {
             get {
                 return ResourceManager.GetString("FileManagerGoUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Management.
+        /// </summary>
+        internal static string FileManagerIndexHeaderTitle {
+            get {
+                return ResourceManager.GetString("FileManagerIndexHeaderTitle", resourceCulture);
             }
         }
         
@@ -4431,6 +4467,24 @@ namespace Resources {
         internal static string FileManagerObjectsLabel {
             get {
                 return ResourceManager.GetString("FileManagerObjectsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick a Page.
+        /// </summary>
+        internal static string FileManagerPagePickerLink {
+            get {
+                return ResourceManager.GetString("FileManagerPagePickerLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page Picker.
+        /// </summary>
+        internal static string FileManagerPagesHeaderTitle {
+            get {
+                return ResourceManager.GetString("FileManagerPagesHeaderTitle", resourceCulture);
             }
         }
         
@@ -4516,6 +4570,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File already exists..
+        /// </summary>
+        internal static string FileSystemFileExists {
+            get {
+                return ResourceManager.GetString("FileSystemFileExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your permissions don&apos;t allow you to create any more files..
+        /// </summary>
+        internal static string FileSystemFileLimitReached {
+            get {
+                return ResourceManager.GetString("FileSystemFileLimitReached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are only allowed {0} more files..
+        /// </summary>
+        internal static string FileSystemFileLimitRemainder {
+            get {
+                return ResourceManager.GetString("FileSystemFileLimitRemainder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File does not exist..
+        /// </summary>
+        internal static string FileSystemFileNotFound {
+            get {
+                return ResourceManager.GetString("FileSystemFileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File is too large..
+        /// </summary>
+        internal static string FileSystemFileSizeLimitReached {
+            get {
+                return ResourceManager.GetString("FileSystemFileSizeLimitReached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry, the file you are trying to upload is larger than allowed by configuration..
         /// </summary>
         internal static string FileSystemFileTooLargeError {
@@ -4534,11 +4633,74 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Folder does not exist..
+        /// </summary>
+        internal static string FileSystemFolderNotFound {
+            get {
+                return ResourceManager.GetString("FileSystemFolderNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid token received by FileService so blocking access.
+        /// </summary>
+        internal static string FileSystemInvalidToken {
+            get {
+                return ResourceManager.GetString("FileSystemInvalidToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not load file system from provider {0}.
+        /// </summary>
+        internal static string FileSystemNotLoadedFromProvider {
+            get {
+                return ResourceManager.GetString("FileSystemNotLoadedFromProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not load file system provider {0}.
+        /// </summary>
+        internal static string FileSystemProviderNotLoaded {
+            get {
+                return ResourceManager.GetString("FileSystemProviderNotLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quota exceeded..
+        /// </summary>
+        internal static string FileSystemQuotaExceeded {
+            get {
+                return ResourceManager.GetString("FileSystemQuotaExceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Site Setting not loaded.
+        /// </summary>
+        internal static string FileSystemSiteSettingsNotLoaded {
+            get {
+                return ResourceManager.GetString("FileSystemSiteSettingsNotLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry you&apos;ve reached the quota of upload storage allowed by configuraiton..
         /// </summary>
         internal static string FileSystemStorageQuotaError {
             get {
                 return ResourceManager.GetString("FileSystemStorageQuotaError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User is unauthorized.
+        /// </summary>
+        internal static string FileSystemUserNotAuthorized {
+            get {
+                return ResourceManager.GetString("FileSystemUserNotAuthorized", resourceCulture);
             }
         }
         
@@ -4602,6 +4764,15 @@ namespace Resources {
         internal static string FirstNameLastNameFormat {
             get {
                 return ResourceManager.GetString("FirstNameLastNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fishy post detected with referrer {0}.
+        /// </summary>
+        internal static string FishyPostFoundFromReferrer {
+            get {
+                return ResourceManager.GetString("FishyPostFoundFromReferrer", resourceCulture);
             }
         }
         
@@ -5034,6 +5205,15 @@ namespace Resources {
         internal static string GenerateMachineKey {
             get {
                 return ResourceManager.GetString("GenerateMachineKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured..
+        /// </summary>
+        internal static string GenericError {
+            get {
+                return ResourceManager.GetString("GenericError", resourceCulture);
             }
         }
         
@@ -5587,7 +5767,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry. No Help is currently available for this item..
+        ///   Looks up a localized string similar to Sorry. No help is currently available for this item..
         /// </summary>
         internal static string HelpNoHelpAvailable {
             get {
@@ -5596,7 +5776,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No help is currently available for this item. If you create help for this, please contribute it to the project. The created file will be under ~/Data/HelpFiles. Please email it to me at joe_audette at yahoo dotcom..
+        ///   Looks up a localized string similar to No help is currently available for this item. If you create help for this, please contribute it to the project. The created file will be under ~/Data/HelpFiles as {0}.config. Please email it to us at info@mojoportal.com..
         /// </summary>
         internal static string HelpNoHelpAvailableAdminUser {
             get {
@@ -6505,7 +6685,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles That Can Edit/Author Letters.
+        ///   Looks up a localized string similar to Roles That Can Create and Edit Letters.
         /// </summary>
         internal static string LetterInfoRolesThatCanEditLabel {
             get {
@@ -7990,7 +8170,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sort Order is required and should be 0 - 999.
+        ///   Looks up a localized string similar to Sort Order is required and should be between 0 and 999.
         /// </summary>
         internal static string ModuleDefinitionSortRequiredMessage {
             get {
@@ -8449,7 +8629,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move To Bottom.
+        ///   Looks up a localized string similar to Move to Bottom.
         /// </summary>
         internal static string MoveToBottom {
             get {
@@ -8458,7 +8638,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move To Top.
+        ///   Looks up a localized string similar to Move to Top.
         /// </summary>
         internal static string MoveToTop {
             get {
@@ -9160,7 +9340,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save Current As Template Named:.
+        ///   Looks up a localized string similar to Save Current as Template Named:.
         /// </summary>
         internal static string NewsLetterSaveCurrentAsTemplateButton {
             get {
@@ -10897,7 +11077,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Page List.
+        ///   Looks up a localized string similar to Page Manager.
         /// </summary>
         internal static string PageListLink {
             get {
@@ -11302,7 +11482,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Administrators and Content Administrators can view or edit any content. Therefore Content Administrators role is not shown, and there is no need to ever check the Administrators role except for the special case where you would like to lock out Content Administrators so that only Administrators can view or edit the content. In that case you can check only the Administrators role and no other roles and Content Administrators will not be allowed. However to protect content instance(s) on the page you should se [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Administrators and Content Administrators can view or edit any content. Therefore, Content Administrators role is not shown, and there is no need to ever check the Administrators role except for the special case where you would like to lock out Content Administrators so that only Administrators can view or edit the content. In that case you can check only the Administrators role and no other roles and Content Administrators will not be allowed. However, to protect content instance(s) on the page you should  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PageSettingsRoleHelp {
             get {

@@ -142,7 +142,7 @@
     <value>Newsletter Administration</value>
   </data>
   <data name="AdminMenuPageTreeLink" xml:space="preserve">
-    <value>Add/Edit Pages</value>
+    <value>Page Manager</value>
   </data>
   <data name="AdminMenuRoleAdminLink" xml:space="preserve">
     <value>Role Administration</value>
@@ -361,7 +361,7 @@
     <value>View/Edit</value>
   </data>
   <data name="ContentManagerViewEditLabel" xml:space="preserve">
-    <value>View/Edit...</value>
+    <value>View/Edit</value>
   </data>
   <data name="CouldNotReadLogException" xml:space="preserve">
     <value>Could not read log file. The file could be locked by the logger. Try again later.</value>
@@ -433,7 +433,7 @@
     <value>Delete</value>
   </data>
   <data name="FileManagerDeleteConfirm" xml:space="preserve">
-    <value>Are you sure want to delete the selected Files?</value>
+    <value>Are you sure want to delete the selected files?</value>
   </data>
   <data name="FileManagerDisabledMessage" xml:space="preserve">
     <value>Sorry, this feature has been disabled in this site.</value>
@@ -442,7 +442,7 @@
     <value>Name</value>
   </data>
   <data name="FileManagerFolderDeleteConfirm" xml:space="preserve">
-    <value>Are you sure want to delete the selected Folder and Files?</value>
+    <value>Are you sure want to delete the selected folder and everything in it?</value>
   </data>
   <data name="FileManagerGoUp" xml:space="preserve">
     <value>Up One Level</value>
@@ -538,10 +538,10 @@
     <value>Save</value>
   </data>
   <data name="HelpNoHelpAvailable" xml:space="preserve">
-    <value>Sorry. No Help is currently available for this item.</value>
+    <value>Sorry. No help is currently available for this item.</value>
   </data>
   <data name="HelpNoHelpAvailableAdminUser" xml:space="preserve">
-    <value>No help is currently available for this item. If you create help for this, please contribute it to the project. The created file will be under ~/Data/HelpFiles. Please email it to me at joe_audette at yahoo dotcom.</value>
+    <value>No help is currently available for this item. If you create help for this, please contribute it to the project. The created file will be under ~/Data/HelpFiles as {0}.config. Please email it to us at info@mojoportal.com.</value>
   </data>
   <data name="HomePageLink" xml:space="preserve">
     <value>Home</value>
@@ -652,7 +652,7 @@
     <value>Roles That Can Approve For Sending</value>
   </data>
   <data name="LetterInfoRolesThatCanEditLabel" xml:space="preserve">
-    <value>Roles That Can Edit/Author Letters</value>
+    <value>Roles That Can Create and Edit Letters</value>
   </data>
   <data name="LetterInfoRolesThatCanSendLabel" xml:space="preserve">
     <value>Roles That Can Send</value>
@@ -904,7 +904,7 @@
     <value>Sort Order must be an integer from 0 to 999</value>
   </data>
   <data name="ModuleDefinitionSortRequiredMessage" xml:space="preserve">
-    <value>Sort Order is required and should be 0 - 999</value>
+    <value>Sort Order is required and should be between 0 and 999</value>
   </data>
   <data name="ModuleDefinitionsResourceFileLabel" xml:space="preserve">
     <value>Resource File:</value>
@@ -2461,7 +2461,7 @@
     <value>Load Html Template</value>
   </data>
   <data name="NewsLetterSaveCurrentAsTemplateButton" xml:space="preserve">
-    <value>Save Current As Template Named:</value>
+    <value>Save Current as Template Named:</value>
   </data>
   <data name="NewsLetterSaveCurrentAsTemplateButtonToolTip" xml:space="preserve">
     <value>Save the current Html as a new template.</value>
@@ -2974,7 +2974,7 @@
     <value>Delete</value>
   </data>
   <data name="CurrencyGridDeleteWarning" xml:space="preserve">
-    <value>Are you sure you want to delete this Currency?</value>
+    <value>Are you sure you want to delete this currency?</value>
   </data>
   <data name="CurrencyGridEditButton" xml:space="preserve">
     <value>Edit</value>
@@ -3265,7 +3265,7 @@
     <value>Already Registered?</value>
   </data>
   <data name="DefaultSignInPrompt" xml:space="preserve">
-    <value>To Continue, you need to Sign In or Register</value>
+    <value>To continue, you need to Sign In or Register</value>
   </data>
   <data name="NotYetRegistered" xml:space="preserve">
     <value>Not Yet Registered?</value>
@@ -3727,7 +3727,7 @@
     <value>Edit This Page</value>
   </data>
   <data name="PageListLink" xml:space="preserve">
-    <value>Page List</value>
+    <value>Page Manager</value>
   </data>
   <data name="ArchiveDateGridHeader" xml:space="preserve">
     <value>Archived</value>
@@ -3859,7 +3859,7 @@
     <value>Register on this site with your {0} account.</value>
   </data>
   <data name="AlreadyRegisteredMessage" xml:space="preserve">
-    <value>You are already signed in. If you wish to create a new account you must sign out first</value>
+    <value>You are already signed in. If you wish to create a new account you must sign out first.</value>
   </data>
   <data name="SearchAllContentItem" xml:space="preserve">
     <value>All Content</value>
@@ -4243,13 +4243,13 @@
     <value>Create Folder</value>
   </data>
   <data name="FileBrowserCreateFolderInstructions" xml:space="preserve">
-    <value>First select the folder in the tree below where you would like the new FOLDER to be created. Then give the folder a name and press the "Create Folder" button.</value>
+    <value>First select the folder in the tree below where you would like the new folder to be created. Then give the folder a name and press the "Create Folder" button.</value>
   </data>
   <data name="FileBrowserSelectFileInstructions" xml:space="preserve">
     <value>First select a file from the tree menu to the left, then press the "Select" button.</value>
   </data>
   <data name="FileBrowserUploadInstructions" xml:space="preserve">
-    <value>First select the folder in the tree below where you would like the new FILE to be placed. Then browse to the file on your computer and press "Upload".</value>
+    <value>First select the folder in the tree below where you would like the new file to be placed. Then browse to the file on your computer and press the "Upload" button.</value>
   </data>
   <data name="FileBrowserCreateFolderHeading" xml:space="preserve">
     <value>Create folder</value>
@@ -5173,10 +5173,10 @@
     <value>Sign In Module</value>
   </data>
   <data name="CssCacheInfo" xml:space="preserve">
-    <value>When designing it is helpful if you are editing the CSS files of a skin to be able to disable caching so that you see your changes immediately after refreshing the page. This button toggles a cookie that enables or disables the CSS caching. It does not affect caching of CSS for other users.</value>
+    <value>When designing it is helpful if you are editing the CSS files of a skin to be able to disable caching so you see your changes immediately after refreshing the page. This button toggles a cookie that enables or disables the CSS caching. It does not affect caching of CSS for other users.</value>
   </data>
   <data name="ApprovedForLogin" xml:space="preserve">
-    <value>Approve This User To Sign In?</value>
+    <value>Approve This User to Sign In?</value>
   </data>
   <data name="IncludeInSearchSetting" xml:space="preserve">
     <value>Include In Search Index?</value>
@@ -5212,10 +5212,10 @@
     <value>Require Password Change After Recovery/Reset?</value>
   </data>
   <data name="MoveToBottom" xml:space="preserve">
-    <value>Move To Bottom</value>
+    <value>Move to Bottom</value>
   </data>
   <data name="MoveToTop" xml:space="preserve">
-    <value>Move To Top</value>
+    <value>Move to Top</value>
   </data>
   <data name="LoginNotApprovedMessage" xml:space="preserve">
     <value>Sorry but a site administrator must approve your account before you can login.</value>
@@ -5482,7 +5482,7 @@
     <value>Administrators and Content Administrators can view or edit any content. Therefore Content Administrators role is not shown, and there is no need to ever check the Administrators role except for the special case where you would like to lock out Content Administrators so that only Administrators can view or edit the content. In that case you can check only the Administrators role and no other roles and Content Administrators will not be allowed.</value>
   </data>
   <data name="PageSettingsRoleHelp" xml:space="preserve">
-    <value>Administrators and Content Administrators can view or edit any content. Therefore Content Administrators role is not shown, and there is no need to ever check the Administrators role except for the special case where you would like to lock out Content Administrators so that only Administrators can view or edit the content. In that case you can check only the Administrators role and no other roles and Content Administrators will not be allowed. However to protect content instance(s) on the page you should set Administrators as the only role in the Feature Instance Settings as well, otherwise Content Administrators can still get to it from the Content Manager page.</value>
+    <value>Administrators and Content Administrators can view or edit any content. Therefore, Content Administrators role is not shown, and there is no need to ever check the Administrators role except for the special case where you would like to lock out Content Administrators so that only Administrators can view or edit the content. In that case you can check only the Administrators role and no other roles and Content Administrators will not be allowed. However, to protect content instance(s) on the page you should set Administrators as the only role in the Feature Instance Settings as well, otherwise Content Administrators can still get to it from the Content Manager page.</value>
   </data>
   <data name="SitePermissionFormat" xml:space="preserve">
     <value>{0} - {1}</value>
@@ -5677,7 +5677,7 @@
     <value>New Comment</value>
   </data>
   <data name="CommentsAreClosed" xml:space="preserve">
-    <value>Comments Are Closed</value>
+    <value>Comments are Closed</value>
   </data>
   <data name="CommentsRequireAuthenticationMessage" xml:space="preserve">
     <value>You must sign in to this site to post comments.</value>
@@ -5734,7 +5734,7 @@
     <value>Last Modified From IP Address</value>
   </data>
   <data name="ContentWizardInstructions" xml:space="preserve">
-    <value>This page doesn't have any content features on it yet. To add content, choose a content feature from the dropdown list, give it a title, and click the button. Note that you can always add more features and arrange them on the page by clicking the "Edit This Page" link.</value>
+    <value>This page doesn't have any content features on it yet. To add content, choose a feature from the dropdown list, give it a title, and click the button. Note that you can always add more features and arrange them on the page by clicking the "Edit This Page" link in the admin drawer.</value>
   </data>
   <data name="ShowAuthorAvatar" xml:space="preserve">
     <value>Show Author Profile Image?</value>
@@ -6026,5 +6026,65 @@
   </data>
   <data name="InstanceIDWithGuid" xml:space="preserve">
     <value>Instance ID {GUID}</value>
+  </data>
+  <data name="FileSystemFileExists" xml:space="preserve">
+    <value>File already exists.</value>
+  </data>
+  <data name="FileSystemFileLimitReached" xml:space="preserve">
+    <value>Your permissions don't allow you to create any more files.</value>
+  </data>
+  <data name="FileSystemFileNotFound" xml:space="preserve">
+    <value>File does not exist.</value>
+  </data>
+  <data name="FileSystemFileSizeLimitReached" xml:space="preserve">
+    <value>File is too large.</value>
+  </data>
+  <data name="FileSystemFolderNotFound" xml:space="preserve">
+    <value>Folder does not exist.</value>
+  </data>
+  <data name="FileSystemQuotaExceeded" xml:space="preserve">
+    <value>Quota exceeded.</value>
+  </data>
+  <data name="GenericError" xml:space="preserve">
+    <value>An error occured.</value>
+  </data>
+  <data name="FileEditInFileManagerNotAllowed" xml:space="preserve">
+    <value>File editing is not allowed.</value>
+  </data>
+  <data name="FileSystemFileLimitRemainder" xml:space="preserve">
+    <value>You are only allowed {0} more files.</value>
+  </data>
+  <data name="FileManagerBackToManagerLink" xml:space="preserve">
+    <value>Back to File Manager</value>
+  </data>
+  <data name="FileManagerBackToWebsite" xml:space="preserve">
+    <value>Back to the Website</value>
+  </data>
+  <data name="FileManagerPagePickerLink" xml:space="preserve">
+    <value>Pick a Page</value>
+  </data>
+  <data name="FileSystemInvalidToken" xml:space="preserve">
+    <value>Invalid token received by FileService so blocking access</value>
+  </data>
+  <data name="FileSystemNotLoadedFromProvider" xml:space="preserve">
+    <value>Could not load file system from provider {0}</value>
+  </data>
+  <data name="FileSystemProviderNotLoaded" xml:space="preserve">
+    <value>Could not load file system provider {0}</value>
+  </data>
+  <data name="FileSystemSiteSettingsNotLoaded" xml:space="preserve">
+    <value>Site Setting not loaded</value>
+  </data>
+  <data name="FileSystemUserNotAuthorized" xml:space="preserve">
+    <value>User is unauthorized</value>
+  </data>
+  <data name="FishyPostFoundFromReferrer" xml:space="preserve">
+    <value>Fishy post detected with referrer {0}</value>
+  </data>
+  <data name="FileManagerIndexHeaderTitle" xml:space="preserve">
+    <value>File Management</value>
+  </data>
+  <data name="FileManagerPagesHeaderTitle" xml:space="preserve">
+    <value>Page Picker</value>
   </data>
 </root>

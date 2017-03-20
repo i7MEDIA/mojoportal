@@ -57,7 +57,6 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
-    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
     <ExcludeApp_Data>false</ExcludeApp_Data>
     <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
@@ -92,7 +91,7 @@
     <PublishDatabases>true</PublishDatabases>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
     <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Data\systemfiles\FolderGalleryCache;Setup\applications\mojoportal-core\SchemaUpgradeScripts\mysql;Setup\applications\mojoportal-core\SchemaUpgradeScripts\pgsql;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Setup\applications\mojoportal-core\SchemaUpgradeScripts\sqlite</ExcludeFoldersFromDeployment>
-    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;bin\FirebirdSql.Data.FirebirdClient.dll;bin\MySql.Data.dll;bin\Mono.Data.Sqlite.dll;bin\Npgsql.dll;Web.Debug.config;Web.Release.config;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;bin\amd64\*;bin\FirebirdSql.Data.FirebirdClient.dll;bin\Mono.Data.Sqlite.dll;bin\MySql.Data.dll;bin\Npgsql.dll;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <PackageAsSingleFile>true</PackageAsSingleFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -122,7 +121,7 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
     <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
-    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;bin\*.xml;bin\amd64\*;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - Firebird|AnyCPU'">
@@ -155,7 +154,7 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
     <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
-    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;Web.Debug.config;Web.Release.config;bin\MySql.Data.dll;bin\Npgsql.dll;bin\Mono.Data.Sqlite.dll;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;bin\*.config;bin\*.pdb;bin\*.xml;bin\amd64\*;bin\Mono.Data.Sqlite.dll;bin\MySql.Data.dll;bin\Npgsql.dll;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - pgsql|AnyCPU'">
@@ -188,7 +187,7 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
     <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
-    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;Web.Debug.config;Web.Release.config;bin\FirebirdSql.Data.FirebirdClient.dll;bin\MySql.Data.dll;bin\Mono.Data.Sqlite.dll;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;bin\amd64\*;bin\FirebirdSql.Data.FirebirdClient.dll;bin\Mono.Data.Sqlite.dll;bin\MySql.Data.dll;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - SqlCe|AnyCPU'">
@@ -221,7 +220,7 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
     <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
-    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;DesignTools\*.cs;Web.Debug.config;Web.Release.config;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - SQLite|AnyCPU'">
@@ -254,7 +253,7 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
     <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
-    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
+    <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;bin\amd64\*;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -288,6 +287,10 @@
     </Reference>
     <Reference Include="AspNet.ScriptManager.jQuery.UI.Combined, Version=1.11.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AspNet.ScriptManager.jQuery.UI.Combined.1.11.4\lib\net45\AspNet.ScriptManager.jQuery.UI.Combined.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="CSSFriendly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -398,6 +401,7 @@
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
@@ -551,6 +555,7 @@
     <Content Include="Admin\PageLayout.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="Admin\PageManager.aspx" />
     <Content Include="Admin\PagePermission.aspx" />
     <Content Include="Admin\PagePermissionsMenu.aspx" />
     <Content Include="Admin\PageSettings.aspx">
@@ -795,40 +800,41 @@
     <Content Include="Content\AjaxControlToolkit\Styles\Twitter.min.css" />
     <Content Include="Content\AjaxControlToolkit\Styles\ValidatorCallout.css" />
     <Content Include="Content\AjaxControlToolkit\Styles\ValidatorCallout.min.css" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Content\themes\base\accordion.css" />
-    <Content Include="Content\themes\base\all.css" />
-    <Content Include="Content\themes\base\autocomplete.css" />
-    <Content Include="Content\themes\base\base.css" />
-    <Content Include="Content\themes\base\button.css" />
-    <Content Include="Content\themes\base\core.css" />
-    <Content Include="Content\themes\base\datepicker.css" />
-    <Content Include="Content\themes\base\dialog.css" />
-    <Content Include="Content\themes\base\draggable.css" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\menu.css" />
-    <Content Include="Content\themes\base\progressbar.css" />
-    <Content Include="Content\themes\base\resizable.css" />
-    <Content Include="Content\themes\base\selectable.css" />
-    <Content Include="Content\themes\base\selectmenu.css" />
-    <Content Include="Content\themes\base\slider.css" />
-    <Content Include="Content\themes\base\sortable.css" />
-    <Content Include="Content\themes\base\spinner.css" />
-    <Content Include="Content\themes\base\tabs.css" />
-    <Content Include="Content\themes\base\theme.css" />
-    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\FileManager\dist\angular-filemanager.min.css" />
+    <Content Include="Content\FileManager\dist\angular-filemanager.min.js" />
+    <Content Include="Content\FileManager\bower_components\angular-translate\angular-translate.min.js" />
+    <Content Include="Content\FileManager\bower_components\angular\angular.min.js" />
+    <Content Include="Content\FileManager\bower_components\bootstrap\dist\css\bootstrap.min.css" />
+    <Content Include="Content\FileManager\bower_components\bootstrap\dist\js\bootstrap.min.js" />
+    <Content Include="Content\FileManager\bower_components\bootswatch\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\FileManager\bower_components\bootswatch\paper\bootstrap.min.css" />
+    <Content Include="Content\FileManager\bower_components\jquery\dist\jquery.min.js" />
+    <Content Include="Content\FileManager\bower_components\ng-file-upload\ng-file-upload.min.js" />
+    <Content Include="Content\FileManager\src\css\animations.css" />
+    <Content Include="Content\FileManager\src\css\dialogs.css" />
+    <Content Include="Content\FileManager\src\css\main.css" />
+    <Content Include="Content\FileManager\src\js\app.js" />
+    <Content Include="Content\FileManager\src\js\controllers\main.js" />
+    <Content Include="Content\FileManager\src\js\controllers\selector-controller.js" />
+    <Content Include="Content\FileManager\src\js\directives\directives.js" />
+    <Content Include="Content\FileManager\src\js\entities\chmod.js" />
+    <Content Include="Content\FileManager\src\js\entities\item.js" />
+    <Content Include="Content\FileManager\src\js\filters\filters.js" />
+    <Content Include="Content\FileManager\src\js\providers\config.js" />
+    <Content Include="Content\FileManager\src\js\providers\translations.js" />
+    <Content Include="Content\FileManager\src\js\services\apihandler.js" />
+    <Content Include="Content\FileManager\src\js\services\apimiddleware.js" />
+    <Content Include="Content\FileManager\src\js\services\filenavigator.js" />
+    <Content Include="Content\FileManager\src\templates\current-folder-breadcrumb.html" />
+    <Content Include="Content\FileManager\src\templates\item-context-menu.html" />
+    <Content Include="Content\FileManager\src\templates\main-icons.html" />
+    <Content Include="Content\FileManager\src\templates\main-table-modal.html" />
+    <Content Include="Content\FileManager\src\templates\main-table.html" />
+    <Content Include="Content\FileManager\src\templates\main.html" />
+    <Content Include="Content\FileManager\src\templates\modals.html" />
+    <Content Include="Content\FileManager\src\templates\navbar.html" />
+    <Content Include="Content\FileManager\src\templates\sidebar.html" />
+    <Content Include="Content\FileManager\src\templates\spinner.html" />
     <Content Include="Controls\BreadcrumbsControl.ascx">
     </Content>
     <Content Include="Controls\ChildPageBreadcrumbs.ascx">
@@ -918,6 +924,7 @@
     <Content Include="ProfileView.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="Properties\PublishProfiles\placeholder.txt" />
     <Content Include="Redirect.aspx" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\AjaxControlToolkit\Debug\Accordion.debug.js" />
@@ -1234,7 +1241,6 @@
     <Content Include="Scripts\AjaxControlToolkit\Release\ValidatorCallout.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Properties\PublishProfiles\local-fs.pubxml" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
@@ -1473,6 +1479,13 @@
     <Compile Include="Admin\Monitor.aspx.designer.cs">
       <DependentUpon>Monitor.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\PageManager.aspx.cs">
+      <DependentUpon>PageManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PageManager.aspx.designer.cs">
+      <DependentUpon>PageManager.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\PagePermission.aspx.cs">
       <DependentUpon>PagePermission.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1525,7 +1538,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CountryISOCode2Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\PageManagerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PageManagerResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_MasterPages\LayoutDisplaySettings.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="BingSearch.aspx.cs">
       <DependentUpon>BingSearch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1677,7 +1696,9 @@
     <Compile Include="Components\SiteMapHelper.cs" />
     <Compile Include="Components\SkinHelper.cs" />
     <Compile Include="Components\SystemLogAppender.cs" />
-    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\FileManager\FileManagerController.cs" />
+    <Compile Include="Controllers\FileManager\FileServiceController.cs" />
+    <Compile Include="Controllers\FileManager\FileUploadController.cs" />
     <Compile Include="Controls\Adapters\SiteMapTreeViewAdapter.cs" />
     <Compile Include="Controls\Analytics\AnalyticsAsyncBottomScript.cs" />
     <Compile Include="Controls\Analytics\AnalyticsAsyncTopScript.cs" />
@@ -2876,6 +2897,8 @@
     <Compile Include="Dialog\UserSelectorDialog.aspx.designer.cs">
       <DependentUpon>UserSelectorDialog.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Dtos\FileServiceDto.cs" />
+    <Compile Include="Dtos\WebFolderDto.cs" />
     <Compile Include="EditAccessDenied.aspx.cs">
       <DependentUpon>EditAccessDenied.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3076,6 +3099,8 @@
     <Compile Include="MemberList.aspx.designer.cs">
       <DependentUpon>MemberList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\FileManager.cs" />
+    <Compile Include="Models\FileService.cs" />
     <Compile Include="Modules\ChildPageSiteMapModule.ascx.cs">
       <DependentUpon>ChildPageSiteMapModule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3345,6 +3370,9 @@
     <Compile Include="Services\SessionKeepAlive.aspx.designer.cs">
       <DependentUpon>SessionKeepAlive.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Services\SiteMapJson.ashx.cs">
+      <DependentUpon>SiteMapJson.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Services\TaskProgress.ashx.cs">
       <DependentUpon>TaskProgress.ashx</DependentUpon>
     </Compile>
@@ -3543,7 +3571,11 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\FileManager\Index.cshtml" />
+    <Content Include="Views\Shared\_CleanLayout.cshtml" />
+    <Content Include="Services\SiteMapJson.ashx" />
+    <Content Include="Views\FileManager\Pages.cshtml" />
+    <Content Include="Views\FileManager\_FileManagerLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />
@@ -3731,7 +3763,6 @@
     <Content Include="Admin\AdminTaxRate.aspx" />
     <Content Include="Admin\AdvancedTools.aspx" />
     <Content Include="Admin\CoreData.aspx" />
-    <Content Include="apple-touch-icon.png" />
     <Content Include="App_GlobalResources\DevTools.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>DevTools.Designer.cs</LastGenOutput>
@@ -3850,6 +3881,10 @@
     <Content Include="App_GlobalResources\CountryISOCode2Resources.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>CountryISOCode2Resources.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\PageManagerResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PageManagerResources.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Controls\Rating\AjaxRatingBehavior.debug.js" />
     <EmbeddedResource Include="Controls\Rating\AjaxRatingBehavior.js" />

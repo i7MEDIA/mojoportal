@@ -1,51 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
+﻿using AutoMapper;
 using log4net;
+using mojoPortal.Web.App_Start;
+using Newtonsoft.Json.Serialization;
+using System;
+using System.Net.Http.Headers;
+using System.Web.Http;
 
 namespace mojoPortal.Web.Routing
 {
-    public class WebApiConfig
-    {
-        private static readonly ILog log = LogManager.GetLogger(typeof(WebApiConfig));
+	public class WebApiConfig
+	{
+		private static readonly ILog log = LogManager.GetLogger(typeof(WebApiConfig));
 
-        public static void Register(HttpConfiguration config)
-        {
-            
-            // enable attribute routing
-            config.MapHttpAttributeRoutes();
+		public static void Register(HttpConfiguration config)
+		{
 
-            try
-            {
-                RoutesConfig registrarConfig = RoutesConfig.GetConfig();
+			// enable attribute routing
+			config.MapHttpAttributeRoutes();
 
-                foreach (IRegisterRoutes registrar in registrarConfig.RouteRegistrars)
-                {
-                    try
-                    {
-                        registrar.Register(config);
-                    }
-                    catch (Exception ex)
-                    {
-                        log.Error(ex);
-                    }
-                    
-                }
+			try
+			{
+				RoutesConfig registrarConfig = RoutesConfig.GetConfig();
 
-            }
-            catch(Exception ex)
-            {
-                log.Error(ex);
-            }
-            
+				foreach (IRegisterRoutes registrar in registrarConfig.RouteRegistrars)
+				{
+					try
+					{
+						registrar.Register(config);
+					}
+					catch (Exception ex)
+					{
+						log.Error(ex);
+					}
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-        }
-    }
+				}
+
+			}
+			catch (Exception ex)
+			{
+				log.Error(ex);
+			}
+
+			Mapper.Initialize(c => c.AddProfile<MappingProfile>());
+
+			var settings = config.Formatters.JsonFormatter.SerializerSettings;
+			settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+			// Comment out line below for production
+			settings.Formatting = Newtonsoft.Json.Formatting.Indented;
+			// The setting below is to make the Angular File Manager work
+			settings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+
+			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+
+			config.Routes.MapHttpRoute(
+				name: "DefaultApi",
+				routeTemplate: "api/{controller}/{id}",
+				defaults: new { id = RouteParameter.Optional }
+			);
+
+			config.Routes.MapHttpRoute(
+				name: "FileService",
+				routeTemplate: "FileService/{controller}/{id}",
+				defaults: new { controller = "FileService", id = RouteParameter.Optional, action = RouteParameter.Optional }
+			);
+		}
+	}
 }

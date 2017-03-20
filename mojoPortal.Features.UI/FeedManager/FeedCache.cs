@@ -1,6 +1,6 @@
 ﻿/// Author:					Joe Audette and Walter Ferrari
 /// Created:				2008-09-27
-/// Last Modified:			2011-02-07
+/// Last Modified:			2017-03-15
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -41,17 +41,21 @@ namespace mojoPortal.Web.FeedUI
             {
                 if((feedUrl.StartsWith(siteRoot))||(feedUrl.StartsWith(secureSiteRoot)))
                 {
-                    if (feedUrl.EndsWith(".aspx"))
-                    {
-                        return feedUrl + "?g=" + internalSecurtyByPassKey.ToString();
-                    }
-                    // the above does not add the required key to a mojoPortal blog feed with URL like 
-                    // https://mysite.com/Blog/RSS.aspx?p=200~180~-1
-                    else
-                    {
-                        // assume we already have qrystr param
-                        return feedUrl + "&g=" + internalSecurtyByPassKey.ToString();
-                    }
+                    //if (feedUrl.EndsWith(".aspx"))
+                    //{
+                    //    return feedUrl + "?g=" + internalSecurtyByPassKey.ToString();
+                    //}
+                    //// the above does not add the required key to a mojoPortal blog feed with URL like 
+                    //// https://mysite.com/Blog/RSS.aspx?p=200~180~-1
+                    //else
+                    //{
+                    //    // assume we already have qrystr param
+                    //    return feedUrl + "&g=" + internalSecurtyByPassKey.ToString();
+                    //}
+
+                    string qryAppendage = feedUrl.Contains("?") ? "&g=" : "?g=";
+
+                    return feedUrl + qryAppendage + internalSecurtyByPassKey.ToString();
                 }
 
             }

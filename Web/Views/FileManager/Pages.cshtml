@@ -1,0 +1,233 @@
+﻿@using Resources;
+@model mojoPortal.Web.Models.FileManager
+
+@{
+	ViewBag.Title = Resource.FileManagerPagesHeaderTitle;
+	Layout = "~/Views/FileManager/_FileManagerLayout.cshtml";
+	ViewBag.AngularApp = "PagePicker";
+}
+
+@section Styles {
+	@* Double at (@@) needed to escape the @ character *@
+	<style>
+		@@media (min-width: 768px) {
+			html {
+				height: 100%;
+			}
+
+			body {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				-webkit-flex-flow: column;
+				-ms-flex-flow: column;
+				flex-flow: column;
+				height: 100%;
+			}
+
+			.app-ctrl-wrapper {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-flex: 1;
+				-webkit-flex: 1 0 auto;
+				-ms-flex: 1 0 auto;
+				flex: 1 0 auto;
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				-webkit-flex-flow: column;
+				-ms-flex-flow: column;
+				flex-flow: column;
+				height: 100%;
+			}
+
+			.alert-control {
+				-webkit-box-flex: 0;
+				-webkit-flex: none;
+				-ms-flex: none;
+				flex: none;
+			}
+
+			.navbar-nav {
+				-webkit-box-flex: 0;
+				-webkit-flex: none;
+				-ms-flex: none;
+				flex: none;
+			}
+
+			.app-ctrl-wrapper > .container-fluid {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1 0 auto;
+				-ms-flex: 1 0 auto;
+				flex: 1 0 auto;
+				height: calc(100% - (53px + 64px + 23px));
+				overflow: auto;
+				width: 100%;
+			}
+		}
+
+		.icon-bar {
+			background-color: white !important;
+		}
+
+		.alert-control {
+			border-radius: 0;
+			margin-bottom: 0;
+		}
+
+		.page-picker__list {
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-orient: horizontal;
+			-webkit-box-direction: normal;
+			-webkit-flex-flow: row wrap;
+			-ms-flex-flow: row wrap;
+			flex-flow: row wrap;
+			margin: 0 -15px;
+		}
+
+		.page-picker__list-item--root {
+			margin: 0 15px 30px;
+			min-width: 260px;
+		}
+
+		.page-picker__list .well {
+			border: 1px solid #e3e3e3;
+		}
+
+		.page-picker__list-item--root .well:last-child {
+			margin-bottom: 0;
+		}
+
+		.page-picker__list-item--child {
+			margin-bottom: 5px;
+		}
+
+			.page-picker__list-item--child:last-child {
+				margin-bottom: 0;
+			}
+
+		.page-picker__list-item-link {
+			display: block;
+			border-radius: 3px;
+			margin-bottom: 5px;
+			padding: 0 4px;
+		}
+
+			.page-picker__list-item-link:last-child {
+				margin-bottom: 0;
+			}
+
+			.page-picker__list-item-link:hover,
+			.page-picker__list-item-link:focus {
+				background-color: rgba(0, 0, 0, 0.1);
+				text-decoration: none;
+			}
+
+			.page-picker__list-item-link.active {
+				background-color: rgba(0, 0, 0, 0.2);
+				color: white;
+			}
+	</style>
+}
+
+<div class="app-ctrl-wrapper ng-cloak" ng-controller="PagesCtrl">
+	<div class="alert alert-info alert-control">
+		<i class="glyphicon glyphicon-chevron-left"></i>
+		@Html.ActionLink(Model.BackToFileManagerLinkText, "Index", Model.QueryString, new { @class = "alert-link" })
+	</div>
+	<nav class="navbar navbar-inverse navbar-static-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#pages-collapse" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<span class="navbar-brand">Pages</span>
+
+				<button type="button" class="btn btn-default navbar-btn" ng-click="submit()" ng-disabled="url == null">Select Page</button>
+			</div>
+			<div class="collapse navbar-collapse" id="pages-collapse">
+				<form class="navbar-form navbar-left">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search Pages" ng-model="query">
+					</div>
+				</form>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container-fluid">
+		<ul class="page-picker__list list-unstyled">
+			<li class="page-picker__list-item page-picker__list-item--root well well-sm" ng-repeat="child in children | filter:query" ng-include="'pageTree'"></li>
+		</ul> 
+	</div>
+</div>
+
+@section Scripts {
+	<script src="~/Content/FileManager/bower_components/angular/angular.min.js"></script>
+	<script type="text/ng-template" id="pageTree">
+		<a class="page-picker__list-item-link" href="#" ng-click="selectPage(child.RelativeUrl, $event)" ng-hide="child.hide" ng-class="{active: (url == child.RelativeUrl)}">{{ child.label }}</a>
+
+		<ul class="page-picker__child-list well well-sm list-unstyled" ng-if="child.children.length > 0" ng-show="(child.children | filter:query).length">
+			<li class="page-picker__list-item page-picker__list-item--child" ng-repeat="child in child.children | filter:query" ng-include="'pageTree'"></li>
+		</ul>
+	</script>
+	<script>
+		angular.module('PagePicker', [])
+
+		.service('dataService', function($http) {
+			this.getData = function() {
+				return $http({
+					method: 'GET',
+					url: '/Services/SiteMapJson.ashx?renderchildren=true'
+				});
+			};
+		})
+
+		.controller('PagesCtrl', function($scope, dataService) {
+			$scope.children = null;
+			$scope.url = null;
+
+			dataService.getData().then(function(data) {
+				var jsonData = angular.fromJson(data);
+				$scope.children = jsonData.data;
+			});
+
+			$scope.selectPage = function(url, e) {
+				e.preventDefault();
+
+				if ($scope.url !== null && $scope.url === url) {
+					$scope.url = null;
+				} else {
+					$scope.url = url;
+				}
+			};
+
+			$scope.submit = function () {
+				@switch (Model.Editor) {
+					case "ckeditor":
+						<text>ckSubmit($scope.url);</text>
+						break;
+
+					case "tinymce":
+						<text>tmceSubmit($scope.url);</text>
+						break;
+
+					case "filepicker":
+						<text>fpSubmit($scope.url);</text>
+						break;
+				}
+				return false;
+			};
+		});
+	</script>
+}
