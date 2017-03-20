@@ -484,7 +484,7 @@ namespace mojoPortal.Web.Controllers
 							e.FileName = string.Join("/", cleanDirs) + "/" + file;
 						}
 
-						e.Extract(FilePath(destination + folderName, true), overwriteExistingFiles ? ExtractExistingFileAction.OverwriteSilently : ExtractExistingFileAction.DoNotOverwrite);
+						e.Extract(FilePath(destination + "/" + folderName, true), overwriteExistingFiles ? ExtractExistingFileAction.OverwriteSilently : ExtractExistingFileAction.DoNotOverwrite);
 						
 					}
 				}

@@ -924,6 +924,7 @@
     <Content Include="ProfileView.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="Properties\PublishProfiles\placeholder.txt" />
     <Content Include="Redirect.aspx" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\AjaxControlToolkit\Debug\Accordion.debug.js" />
