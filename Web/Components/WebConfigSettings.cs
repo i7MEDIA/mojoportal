@@ -3866,7 +3866,7 @@ namespace mojoPortal.Web
 
 		public static string CKEditorBasePath
 		{
-			get { return ConfigHelper.GetStringProperty("CKEditor:BasePath", "~/ClientScript/ckeditor460/"); }
+			get { return ConfigHelper.GetStringProperty("CKEditor:BasePath", "~/ClientScript/ckeditor462/"); }
 		}
 
 		public static string CKEditorConfigPath
