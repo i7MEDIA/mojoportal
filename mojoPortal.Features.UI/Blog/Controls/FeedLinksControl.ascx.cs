@@ -214,7 +214,7 @@ namespace mojoPortal.Web.BlogUI
                         category = reader["Category"].ToString();
                     }
                 }
-                rssLinkTitle = String.Format(BlogResources.BlogRSSLinkTitleForCategoryFormat, category);
+                rssLinkTitle = String.Format(BlogResources.BlogRSSLinkTitleForCategoryFormat, module.ModuleTitle, category);
             }
 
             
