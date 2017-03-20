@@ -142,7 +142,7 @@
     <value>Newsletter Administration</value>
   </data>
   <data name="AdminMenuPageTreeLink" xml:space="preserve">
-    <value>Add/Edit Pages</value>
+    <value>Page Manager</value>
   </data>
   <data name="AdminMenuRoleAdminLink" xml:space="preserve">
     <value>Role Administration</value>
