@@ -1807,6 +1807,9 @@
     <Compile Include="Controls\PageTreeLink.cs" />
     <Compile Include="Controls\Panels\AdminCrumbContainer.cs" />
     <Compile Include="Controls\Panels\BreadcrumbContainer.cs" />
+    <Compile Include="Controls\Panels\FormGroupPanel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controls\Panels\LayoutPanel.cs" />
     <Compile Include="Controls\Panels\MobileViewPanel.cs" />
     <Compile Include="Controls\Panels\SearchPanel.cs" />
