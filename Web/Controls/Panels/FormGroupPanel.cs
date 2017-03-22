@@ -29,18 +29,18 @@ namespace mojoPortal.Web.UI
 			set { renderGroupElement = value; }
 		}
 
-		private string literalTopMarkup = string.Empty;
-		public string LiteralTopMarkup
+		private string insideTopMarkup = string.Empty;
+		public string InsideTopMarkup
 		{
-			get { return literalTopMarkup; }
-			set { literalTopMarkup = value; }
+			get { return insideTopMarkup; }
+			set { insideTopMarkup = value; }
 		}
 
-		private string literalBottomMarkup = string.Empty;
-		public string LiteralBottomMarkup
+		private string insideBottomMarkup = string.Empty;
+		public string InsideBottomMarkup
 		{
-			get { return literalBottomMarkup; }
-			set { literalBottomMarkup = value; }
+			get { return insideBottomMarkup; }
+			set { insideBottomMarkup = value; }
 		}
 
 		private bool renderId = false;
@@ -69,7 +69,6 @@ namespace mojoPortal.Web.UI
 					CssClass = groupClass;
 				}
 			}
-
 		}
 
 
@@ -77,7 +76,7 @@ namespace mojoPortal.Web.UI
 		{
 			if (HttpContext.Current == null)
 			{
-				writer.Write("[" + this.ID + "]");
+				writer.Write("[" + ID + "]");
 				return;
 			}
 
@@ -87,7 +86,7 @@ namespace mojoPortal.Web.UI
 				{
 					writer.Write("<");
 					writer.Write(groupElement);
-					writer.Write(" id='" + this.ClientID + "' class='" + CssClass + "'>");
+					writer.Write(" id='" + ClientID + "' class='" + CssClass + "'>");
 				}
 				else
 				{
@@ -97,16 +96,16 @@ namespace mojoPortal.Web.UI
 				}
 			}
 
-			if (literalTopMarkup.Length > 0)
+			if (insideTopMarkup.Length > 0)
 			{
-				writer.Write(literalTopMarkup);
+				writer.Write(insideTopMarkup);
 			}
 
 			base.RenderContents(writer);
 
-			if (literalBottomMarkup.Length > 0)
+			if (insideBottomMarkup.Length > 0)
 			{
-				writer.Write(literalBottomMarkup);
+				writer.Write(insideBottomMarkup);
 			}
 
 			if (renderGroupElement)
