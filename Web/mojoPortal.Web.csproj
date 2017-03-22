@@ -1778,6 +1778,7 @@
     <Compile Include="Controls\Google\LocationMap.cs" />
     <Compile Include="Controls\Google\QRCodeImage.cs" />
     <Compile Include="Controls\Gravatar\Avatar.cs" />
+    <Compile Include="Controls\Link.cs" />
     <Compile Include="Controls\jPlayerPanel.cs" />
     <Compile Include="Controls\jQuery\bxSlider.cs" />
     <Compile Include="Controls\jQuery\CalendarDatePickerAdapter.cs" />
