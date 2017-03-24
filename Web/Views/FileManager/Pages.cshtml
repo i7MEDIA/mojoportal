@@ -188,7 +188,7 @@
 			this.getData = function() {
 				return $http({
 					method: 'GET',
-					url: '/Services/SiteMapJson.ashx?renderchildren=true'
+					url: '@Url.Content("~")Services/SiteMapJson.ashx?renderchildren=true'
 				});
 			};
 		})
