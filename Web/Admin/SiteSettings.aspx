@@ -21,47 +21,47 @@
 							<asp:TextBox ID="txtSiteName" TabIndex="10" runat="server" CssClass="forminput widetextbox" />
 							<portal:Link runat="server" ID="linkNewSite" CssClass="newsitelink" SkinId="NewSiteLink" />
 						</portal:FormGroupPanel>
-						<div id="divtabs" class="mojo-tabs">
-							<ul class="nav nav-tabs">
-								<li class="nav-item" id="liGeneral" runat="server">
-									<a class="nav-link" href="#tabSettings">
+						<portal:TabsWrapper runat="server">
+							<portal:TabsList runat="server">
+								<portal:TabsListItem runat="server" ID="tliGeneral" CustomClass="active">
+									<portal:TabsLink runat="server" NavigateUrl="#tabSettings">
 										<asp:Literal ID="litSettingsTab" runat="server" EnableViewState="false" />
-									</a>
-								</li>
-								<li class="nav-item" id="liSecurity" runat="server" EnableViewState="false">
-									<asp:HyperLink ID="securityTabLink" runat="server" EnableViewState="false" CssClass="nav-item" />
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="#tabCompanyInfo">
+									</portal:TabsLink>
+								</portal:TabsListItem>
+								<portal:TabsListItem runat="server" ID="tliSecurity" EnableViewState="false">
+									<asp:HyperLink ID="securityTabLink" runat="server" EnableViewState="false" />
+								</portal:TabsListItem>
+								<portal:TabsListItem runat="server">
+									<a href="#tabCompanyInfo">
 										<asp:Literal ID="litCompanyInfoTab" runat="server" EnableViewState="false" />
 									</a>
-								</li>
-								<li class="nav-item" id="liCommerce" runat="server" EnableViewState="false">
+								</portal:TabsListItem>
+								<portal:TabsListItem runat="server" ID="tliCommerce" EnableViewState="false">
 									<asp:Literal ID="litCommerceTabLink" runat="server" EnableViewState="false" />
-								</li>
-								<li class="nav-item" id="liHosts" runat="server" visible="false" EnableViewState="false">
+								</portal:TabsListItem>
+								<portal:TabsListItem runat="server" ID="tliHosts" Visible="false">
 									<asp:Literal ID="litHostsTabLink" runat="server" EnableViewState="false" />
-								</li>
-								<li class="nav-item" id="liFolderNames" runat="server" visible="false" EnableViewState="false">
+								</portal:TabsListItem>
+								<portal:TabsListItem runat="server" ID="tliFolderNames" Visible="false">
 									<asp:Literal ID="litFolderNamesTabLink" runat="server" EnableViewState="false" />
-								</li>
-								<li class="nav-item" id="liFeatures" runat="server" visible="false" EnableViewState="false">
+								</portal:TabsListItem>
+								<portal:TabsListItem runat="server" ID="tliFeatures" EnableViewState="false">
 									<asp:Literal ID="litFeaturesTabLink" runat="server" EnableViewState="false" />
-								</li>
-<%--								<li class="nav-item" id="liWebParts" runat="server" visible="false" EnableViewState="false">
+								</portal:TabsListItem>
+								<%--<li id="liWebParts" runat="server" visible="false" EnableViewState="false">
 									<asp:Literal ID="litWebPartsTabLink" runat="server" EnableViewState="false" />
 								</li>--%>
-								<li class="nav-item">
-									<a class="nav-link" href="#tabApiKeys">
+								<portal:TabsListItem runat="server">
+									<a href="#tabApiKeys">
 										<asp:Literal ID="litAPIKeysTab" runat="server" EnableViewState="false" />
 									</a>
-								</li>
-								<li class="nav-item" id="liMailSettings" runat="server" EnableViewState="false">
+								</portal:TabsListItem>
+								<portal:TabsListItem runat="server" ID="tliMailSettings" EnableViewState="false">
 									<asp:Literal ID="litMailSettingsTabLink" runat="server" EnableViewState="false" />
-								</li>
-							</ul>
+								</portal:TabsListItem>
+							</portal:TabsList>
 
-							<div id="tabSettings">
+							<portal:TabsPane runat="server" ID="tabSettings" ClientIDMode="Static">
 								<portal:FormGroupPanel runat="server" ID="fgpSiteId" Visible="false">
 									<mp:SiteLabel ID="SiteLabel52" ForControl="ddSkins" runat="server" CssClass="settinglabel"
 										ConfigKey="SiteSettingsSiteIDLabel" EnableViewState="false"></mp:SiteLabel>
@@ -250,9 +250,9 @@
 										runat="server" />
 									<portal:mojoHelpLink ID="MojoHelpLink50" runat="server" HelpKey="meta-profile-help" />
 								</portal:FormGroupPanel>
-							</div>
+							</portal:TabsPane>
 
-							<div id="tabSecurity" runat="server">
+							<portal:TabsPane runat="server" ID="tabSecurity" ClientIDMode="Static">
 								<div id="divSecurityTabs" class="mojo-tabs">
 									<ul>
 										<li class="selected" id="liGeneralSecurity" runat="server" EnableViewState="false">
@@ -593,7 +593,8 @@
 										</portal:FormGroupPanel>
 									</div>
 								</div>
-							</div>
+							</portal:TabsPane>
+
 
 							<div id="tabCompanyInfo">
 								<portal:FormGroupPanel runat="server">
@@ -992,7 +993,8 @@
 									<portal:mojoHelpLink ID="MojoHelpLink61" runat="server" HelpKey="smtphelp" />
 								</portal:FormGroupPanel>
 							</div>
-						</div>
+						</portal:TabsWrapper>
+
 
 						<portal:FormGroupPanel runat="server">
 							<asp:ValidationSummary ID="vSummary" runat="server" ValidationGroup="sitesettings" />

@@ -477,13 +477,13 @@ namespace mojoPortal.Web.AdminUI
 			{
 				//ddSiteList.Visible = false;
 				tabHosts.Visible = false;
-				liHosts.Visible = false;
+				tliHosts.Visible = false;
 				tabFolderNames.Visible = false;
-				liFolderNames.Visible = false;
+				tliFolderNames.Visible = false;
 				tabSiteFeatures.Visible = false;
-				liSecurity.Visible = false;
+				tliSecurity.Visible = false;
 				tabSecurity.Visible = false;
-				liCommerce.Visible = false;
+				tliCommerce.Visible = false;
 				tabCommerce.Visible = false;
 				//divCommerceRoles.Visible = false;
 				chkForceContentVersioning.Visible = false;
@@ -602,19 +602,19 @@ namespace mojoPortal.Web.AdminUI
 				case "oid":
 					if (tabSecurity.Visible)
 					{
-						liSecurity.Attributes.Add("class", "selected");
+						tliSecurity.Attributes.Add("class", "selected");
 						liOpenID.Attributes.Add("class", "selected");
 					}
 					else
 					{
-						liGeneral.Attributes.Add("class", "selected");
+						tliGeneral.Attributes.Add("class", "selected");
 					}
 
 					break;
 
 				default:
 
-					liGeneral.Attributes.Add("class", "selected");
+					tliGeneral.Attributes.Add("class", "selected");
 
 					//if (
 					//    (WebConfigSettings.UseRelatedSiteMode) 
@@ -709,7 +709,7 @@ namespace mojoPortal.Web.AdminUI
 
 		private void PopulateFeatures()
 		{
-			liFeatures.Visible = true;
+			tliFeatures.Visible = true;
 			tabSiteFeatures.Visible = true;
 			lstAllFeatures.Items.Clear();
 			lstSelectedFeatures.Items.Clear();
@@ -793,7 +793,7 @@ namespace mojoPortal.Web.AdminUI
 		private void PopulateHostList()
 		{
 			if (selectedSiteID == -1)  { return; } // site must be created first
-			liHosts.Visible = true;
+			tliHosts.Visible = true;
 			tabHosts.Visible = true;
 			using (IDataReader reader = SiteSettings.GetHostList(selectedSite.SiteId))
 			{
@@ -818,7 +818,7 @@ namespace mojoPortal.Web.AdminUI
 			// no folders can map to root site
 			if (!selectedSite.IsServerAdminSite)
 			{
-				liFolderNames.Visible = true;
+				tliFolderNames.Visible = true;
 				tabFolderNames.Visible = true;
 				//fldFolderNames.Visible = true;
 				List<SiteFolder> siteFolders = SiteFolder.GetBySite(selectedSite.SiteGuid);
@@ -842,7 +842,7 @@ namespace mojoPortal.Web.AdminUI
 			if (selectedSite.SiteId == -1)
 			{
 				//new site
-				liMailSettings.Visible = false;
+				tliMailSettings.Visible = false;
 				tabMailSettings.Visible = false;
 				return;
 			}
@@ -1825,12 +1825,12 @@ namespace mojoPortal.Web.AdminUI
 
 			if (enableSiteSettingsSmtpSettings)
 			{
-				liMailSettings.Visible = true;
+				tliMailSettings.Visible = true;
 				tabMailSettings.Visible = true;
 			}
 			else
 			{
-				liMailSettings.Visible = false;
+				tliMailSettings.Visible = false;
 				tabMailSettings.Visible = false;
 			}
 

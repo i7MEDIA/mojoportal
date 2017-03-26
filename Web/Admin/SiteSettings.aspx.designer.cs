@@ -148,13 +148,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.Link linkNewSite;
         
         /// <summary>
-        /// liGeneral control.
+        /// tliGeneral control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liGeneral;
+        protected global::mojoPortal.Web.UI.TabsListItem tliGeneral;
         
         /// <summary>
         /// litSettingsTab control.
@@ -166,13 +166,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Literal litSettingsTab;
         
         /// <summary>
-        /// liSecurity control.
+        /// tliSecurity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSecurity;
+        protected global::mojoPortal.Web.UI.TabsListItem tliSecurity;
         
         /// <summary>
         /// securityTabLink control.
@@ -193,13 +193,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Literal litCompanyInfoTab;
         
         /// <summary>
-        /// liCommerce control.
+        /// tliCommerce control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liCommerce;
+        protected global::mojoPortal.Web.UI.TabsListItem tliCommerce;
         
         /// <summary>
         /// litCommerceTabLink control.
@@ -211,13 +211,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Literal litCommerceTabLink;
         
         /// <summary>
-        /// liHosts control.
+        /// tliHosts control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liHosts;
+        protected global::mojoPortal.Web.UI.TabsListItem tliHosts;
         
         /// <summary>
         /// litHostsTabLink control.
@@ -229,13 +229,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Literal litHostsTabLink;
         
         /// <summary>
-        /// liFolderNames control.
+        /// tliFolderNames control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liFolderNames;
+        protected global::mojoPortal.Web.UI.TabsListItem tliFolderNames;
         
         /// <summary>
         /// litFolderNamesTabLink control.
@@ -247,13 +247,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Literal litFolderNamesTabLink;
         
         /// <summary>
-        /// liFeatures control.
+        /// tliFeatures control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liFeatures;
+        protected global::mojoPortal.Web.UI.TabsListItem tliFeatures;
         
         /// <summary>
         /// litFeaturesTabLink control.
@@ -274,13 +274,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Literal litAPIKeysTab;
         
         /// <summary>
-        /// liMailSettings control.
+        /// tliMailSettings control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liMailSettings;
+        protected global::mojoPortal.Web.UI.TabsListItem tliMailSettings;
         
         /// <summary>
         /// litMailSettingsTabLink control.
@@ -290,6 +290,15 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litMailSettingsTabLink;
+        
+        /// <summary>
+        /// tabSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.TabsPane tabSettings;
         
         /// <summary>
         /// fgpSiteId control.
@@ -1207,7 +1216,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabSecurity;
+        protected global::mojoPortal.Web.UI.TabsPane tabSecurity;
         
         /// <summary>
         /// liGeneralSecurity control.
