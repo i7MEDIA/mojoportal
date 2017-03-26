@@ -86,13 +86,16 @@ namespace mojoPortal.Web.UI
 				{
 					writer.Write("<");
 					writer.Write(groupElement);
-					writer.Write(" id='" + ClientID + "' class='" + CssClass + "'>");
+					writer.Write(" id='" + ClientID + "' class='" + CssClass + "'");
+					writer.Write(">");
 				}
 				else
 				{
 					writer.Write("<");
 					writer.Write(groupElement);
-					writer.Write(" class='" + CssClass + "'>");
+					if (CssClass.Length > 0)
+						writer.Write(" class='" + CssClass + "'");
+					writer.Write(">");
 				}
 			}
 
