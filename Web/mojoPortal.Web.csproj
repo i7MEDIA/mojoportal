@@ -1952,13 +1952,6 @@
     <Compile Include="Controls\SortSetting.ascx.designer.cs">
       <DependentUpon>SortSetting.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Tabs\TabsLink.cs" />
-    <Compile Include="Controls\Tabs\TabsList.cs" />
-    <Compile Include="Controls\Tabs\TabsListItem.cs" />
-    <Compile Include="Controls\Tabs\TabsPane.cs" />
-    <Compile Include="Controls\Tabs\TabsWrapper.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Controls\TimeZoneIdSetting.ascx.cs">
       <DependentUpon>TimeZoneIdSetting.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
