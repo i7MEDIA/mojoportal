@@ -14,7 +14,6 @@ namespace mojoPortal.Web.Models
 		public string InputId { get; set; }
 		public string CKEditorFuncNumber { get; set; }
 		public object QueryString { get; set; }
-		public object FileBaseUrl { get; set; }
 
 		public string Upload { get; set; }
 		public string Rename { get; set; }

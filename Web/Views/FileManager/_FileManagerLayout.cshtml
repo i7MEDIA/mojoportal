@@ -26,10 +26,10 @@
 						function ckSubmit(url) {
 							if (window.opener.CKEDITOR != null) {
 								var CKEditorFuncNum = '@Model.CKEditorFuncNumber' || console.error('Error: lost CKEditorFuncNum param from url' + window.location.href) || 1;
-								window.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, '@Model.FileBaseUrl' + url);
+								window.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, url);
 								window.close();
 							} else {
-								console.log('CKEDITOR instance does not exist.\nReturned Value:', '@Model.FileBaseUrl' + url);
+								console.log('CKEDITOR instance does not exist.\nReturned Value:', url);
 							}
 						}
 					</text>
@@ -39,10 +39,10 @@
 					<text>
 						function tmceSubmit(url) {
 							if (top.tinymce != null) {
-								top.tinymce.activeEditor.windowManager.getParams().oninsert('@Model.FileBaseUrl' + url);
+								top.tinymce.activeEditor.windowManager.getParams().oninsert(url);
 								top.tinymce.activeEditor.windowManager.close();
 							} else {
-								console.log('TinyMCE instance does not exist.\nReturned Value:', '@Model.FileBaseUrl' + url);
+								console.log('TinyMCE instance does not exist.\nReturned Value:', url);
 							}
 						}
 					</text>
@@ -52,10 +52,10 @@
 					<text>
 						function fpSubmit(url) {
 							if (top.window.filePicker != null) {
-								top.window.filePicker.set('@Model.FileBaseUrl' + url, '@Model.InputId');
+								top.window.filePicker.set(url, '@Model.InputId');
 								top.window.filePicker.close();
 							} else {
-								console.log('FilePickerSet instance does not exist.\nReturned Value:', '@Model.FileBaseUrl' + url);
+								console.log('FilePickerSet instance does not exist.\nReturned Value:', url);
 							}
 						}
 					</text>
