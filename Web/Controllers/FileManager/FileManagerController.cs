@@ -74,6 +74,7 @@ namespace mojoPortal.Web.Controllers
 				InputId = queryString.inputId,
 				CKEditorFuncNumber = queryString.CKEditorFuncNum,
 				QueryString = queryString,
+				FileBaseUrl = fileSystem.FileBaseUrl,
 
 				Upload = "true",
 				Rename = "true",
