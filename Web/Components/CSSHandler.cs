@@ -116,11 +116,7 @@ namespace mojoPortal.Web.UI
                     }
 
                     this.WriteBytes(responseBytes, context, isCompressed);
-
                 }
-
-                
-
             }
         }
 
@@ -244,8 +240,7 @@ namespace mojoPortal.Web.UI
                 finalCss = cssContent.ToString();
             }
 
-
-            if ((ShouldCacheOnServer()) && (WebConfigSettings.MinifyCSS))
+			if ((ShouldCacheOnServer()) && (WebConfigSettings.MinifyCSS))
             {
                 // this method is expensive (7.87 seconds as measured by ANTS Profiler
                 // we do cache so its not called very often
@@ -255,9 +250,7 @@ namespace mojoPortal.Web.UI
             return encoding.GetBytes(finalCss);
         }
 
-
-
-        private void ProcessCssFileList(StringBuilder cssContent, string basePath, string siteRoot, string skinImageBasePath, out bool hasLessFiles)
+		private void ProcessCssFileList(StringBuilder cssContent, string basePath, string siteRoot, string skinImageBasePath, out bool hasLessFiles)
         {
             hasLessFiles = false;
 
@@ -315,7 +308,7 @@ namespace mojoPortal.Web.UI
                                             {
                                                 string imgPath = m.Groups["path"].Value.TrimStart('\'').TrimEnd('\'').TrimStart('"').TrimEnd('"');
 
-                                                if ((!imgPath.StartsWith("http://")) && (!imgPath.Contains("data:")))
+                                                if (!imgPath.StartsWith("http://") && !imgPath.StartsWith("https://") && !imgPath.Contains("data:"))
                                                 {
                                                     return "url('" + siteRoot + imageBasePath // First put the prefix for the images
                                                         + imgPath // the relative URL as it is in the CSS
@@ -337,15 +330,9 @@ namespace mojoPortal.Web.UI
                                             cssContent.Append(css);
                                         }
                                         //}
-
                                     }
-
                                 }
-
-
                             }
-
-
                         }
                         else if ((!string.IsNullOrEmpty(cssVPath)) && (!string.IsNullOrEmpty(imageBaseVPath)))
                         {
@@ -379,8 +366,8 @@ namespace mojoPortal.Web.UI
                                             string imgPath = m.Groups["path"].Value.TrimStart('\'').TrimEnd('\'').TrimStart('"').TrimEnd('"');
 
 
-                                            if ((!imgPath.StartsWith("http://")) && (!imgPath.Contains("data:")))
-                                            {
+											if (!imgPath.StartsWith("http://") && !imgPath.StartsWith("https://") && !imgPath.Contains("data:"))
+											{
                                                 return "url('" + siteRoot + imageBaseVPath // First put the prefix for the images
                                                     + imgPath // the relative URL as it is in the CSS
                                                     + "')";
@@ -400,15 +387,11 @@ namespace mojoPortal.Web.UI
                                         cssContent.Append(css);
                                     }
                                     //}
-
                                 }
-
                             }
-
                         }
                         else
                         {
-
                             string cssFile = reader.ReadElementContentAsString();
 
                             if (File.Exists(basePath + cssFile))
@@ -443,12 +426,12 @@ namespace mojoPortal.Web.UI
 
 
 
-                                            //example problem url from artisteer 4 
-                                            // imgPath is images/object217709083.png'), url('images/header.png
-                                            // the second url is not getting the skinImageBasePath
+											//example problem url from artisteer 4 
+											// imgPath is images/object217709083.png'), url('images/header.png
+											// the second url is not getting the skinImageBasePath
 
-                                            if ((!imgPath.StartsWith("http://")) && (!imgPath.Contains("data:")))
-                                            {
+											if (!imgPath.StartsWith("http://") && !imgPath.StartsWith("https://") && !imgPath.Contains("data:"))
+											{
                                                 // background-image: url('/Data/Sites/1/skins/art4-try3/images/object217709083.png'), url('images/header.png');
 
                                                 string result = "url('" + skinImageBasePath // First put the prefix for the images
@@ -490,20 +473,13 @@ namespace mojoPortal.Web.UI
                                     }
                                     //}
                                     //cssContent.Append(fileContent);
-
                                 }
-
                             }
-
                         }
-
                     }
                 }
             }
-
-
         }
-
 
         private void EnsureLessBuilder()
         {
@@ -529,18 +505,15 @@ namespace mojoPortal.Web.UI
             config.HandleWebCompression = false;
             config.Debug = WebConfigSettings.DebugDotLess;
 
-            
-
             //string css = Less.Parse(finalCss, config);
             string css = LessWeb.Parse(finalCss, config);
-            
 
-            if (string.IsNullOrEmpty(css)) 
+			if (string.IsNullOrEmpty(css)) 
             { 
                 return "/* less parsing failed - probably a syntax error */\n" + finalCss; 
             }
-            return css;
 
+			return css;
         }
 
         private bool WriteFromCache(HttpContext context, int siteId, string skinName, bool isCompressed)
@@ -554,18 +527,18 @@ namespace mojoPortal.Web.UI
 
             this.WriteBytes(responseBytes, context, isCompressed);
             return true;
-
-            
         }
 
-        
-
-        private bool CanGZip(HttpRequest request)
+		private bool CanGZip(HttpRequest request)
         {
             string acceptEncoding = request.Headers["Accept-Encoding"];
-            if (!string.IsNullOrEmpty(acceptEncoding) &&
-                 (acceptEncoding.Contains("gzip") || acceptEncoding.Contains("deflate")))
+            if (
+				!string.IsNullOrEmpty(acceptEncoding) &&
+				(acceptEncoding.Contains("gzip") || acceptEncoding.Contains("deflate"))
+			)
+			{
                 return true;
+			}
             return false;
         }
 
@@ -581,6 +554,5 @@ namespace mojoPortal.Web.UI
                 return false;
             }
         }
-
     }
 }
