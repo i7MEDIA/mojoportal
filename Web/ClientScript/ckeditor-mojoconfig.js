@@ -8,6 +8,8 @@ CKEDITOR.editorConfig = function(config) {
 	config.oembed_maxWidth = '560';
 	config.oembed_maxHeight = '315';
 	config.allowedContent = true;
+	config.image2_alignClasses = [ 'image-left', 'image-center', 'image-right' ];
+	config.image2_captionedClass = 'image-captioned';
 
 	config.fontSize_sizes = 'X-Small/font-xsmall;Small/font-small;Normal/font-normal;Large/font-large;X-Large/font-xlarge';
 	config.fontSize_style = {
