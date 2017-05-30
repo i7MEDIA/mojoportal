@@ -1363,7 +1363,7 @@ namespace mojoPortal.Web
 
 				foreach (FileInfo file in source.GetFiles())
 				{
-					file.CopyTo(Path.Combine(target.FullName, file.Name));
+					file.CopyTo(Path.Combine(target.FullName, file.Name), true);
 				}
 			}
 		}
