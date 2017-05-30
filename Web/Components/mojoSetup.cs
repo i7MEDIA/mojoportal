@@ -88,13 +88,15 @@ namespace mojoPortal.Web
 
 		public static void TouchTestFile()
 		{
-			if (!WebConfigSettings.FileSystemIsWritable) { return; }
+			if (!WebConfigSettings.FileSystemIsWritable)
+			{
+				return;
+			}
 
 			if (HttpContext.Current != null)
 			{
 				String pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/test.config");
 				TouchTestFile(pathToTestFile);
-
 
 				if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/Data/Sites/1/")))
 				{
