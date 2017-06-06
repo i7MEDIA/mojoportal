@@ -1699,6 +1699,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Featured Image.
+        /// </summary>
+        internal static string FeaturedImageTab {
+            get {
+                return ResourceManager.GetString("FeaturedImageTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feed Logo Url.
         /// </summary>
         internal static string FeedLogoUrl {
@@ -1866,15 +1875,6 @@ namespace Resources {
         internal static string HasExplicitContent {
             get {
                 return ResourceManager.GetString("HasExplicitContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Headline Image.
-        /// </summary>
-        internal static string HeadlineImage {
-            get {
-                return ResourceManager.GetString("HeadlineImage", resourceCulture);
             }
         }
         

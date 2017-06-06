@@ -94,6 +94,15 @@ namespace mojoPortal.Web.BlogUI {
         protected global::System.Web.UI.WebControls.Literal litExcerptTab;
         
         /// <summary>
+        /// litFeaturedImageTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litFeaturedImageTab;
+        
+        /// <summary>
         /// litMetaTab control.
         /// </summary>
         /// <remarks>
@@ -535,150 +544,6 @@ namespace mojoPortal.Web.BlogUI {
         protected global::System.Web.UI.WebControls.Literal litDays;
         
         /// <summary>
-        /// SiteLabel41 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel41;
-        
-        /// <summary>
-        /// txtHeadlineImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHeadlineImage;
-        
-        /// <summary>
-        /// fbHeadlineImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.FileBrowserTextBoxExtender fbHeadlineImage;
-        
-        /// <summary>
-        /// MojoHelpLink9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink9;
-        
-        /// <summary>
-        /// imgPreview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgPreview;
-        
-        /// <summary>
-        /// SiteLabel42 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel42;
-        
-        /// <summary>
-        /// chkIncludeImageInExcerpt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkIncludeImageInExcerpt;
-        
-        /// <summary>
-        /// MojoHelpLink20 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink20;
-        
-        /// <summary>
-        /// SiteLabel35 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel35;
-        
-        /// <summary>
-        /// btnUpdate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton btnUpdate;
-        
-        /// <summary>
-        /// btnSaveAndPreview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton btnSaveAndPreview;
-        
-        /// <summary>
-        /// btnDelete control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton btnDelete;
-        
-        /// <summary>
-        /// lnkCancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkCancel;
-        
-        /// <summary>
-        /// lblError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoLabel lblError;
-        
-        /// <summary>
-        /// hdnHxToRestore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnHxToRestore;
-        
-        /// <summary>
-        /// btnRestoreFromGreyBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnRestoreFromGreyBox;
-        
-        /// <summary>
         /// updHx control.
         /// </summary>
         /// <remarks>
@@ -760,42 +625,6 @@ namespace mojoPortal.Web.BlogUI {
         protected global::mojoPortal.Web.Editor.EditorControl edExcerpt;
         
         /// <summary>
-        /// SiteLabel11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel11;
-        
-        /// <summary>
-        /// btnUpdate2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton btnUpdate2;
-        
-        /// <summary>
-        /// btnDelete2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton btnDelete2;
-        
-        /// <summary>
-        /// lnkCancel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkCancel2;
-        
-        /// <summary>
         /// lblErrorMessage control.
         /// </summary>
         /// <remarks>
@@ -803,6 +632,78 @@ namespace mojoPortal.Web.BlogUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoLabel lblErrorMessage;
+        
+        /// <summary>
+        /// SiteLabel41 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel41;
+        
+        /// <summary>
+        /// txtHeadlineImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHeadlineImage;
+        
+        /// <summary>
+        /// fbHeadlineImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FileBrowserTextBoxExtender fbHeadlineImage;
+        
+        /// <summary>
+        /// MojoHelpLink9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink9;
+        
+        /// <summary>
+        /// imgPreview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgPreview;
+        
+        /// <summary>
+        /// SiteLabel42 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel42;
+        
+        /// <summary>
+        /// chkIncludeImageInExcerpt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkIncludeImageInExcerpt;
+        
+        /// <summary>
+        /// MojoHelpLink20 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink20;
         
         /// <summary>
         /// SiteLabel6 control.
@@ -839,42 +740,6 @@ namespace mojoPortal.Web.BlogUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMetaKeywords;
-        
-        /// <summary>
-        /// SiteLabel12 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel12;
-        
-        /// <summary>
-        /// btnUpdate3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton btnUpdate3;
-        
-        /// <summary>
-        /// btnDelete3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton btnDelete3;
-        
-        /// <summary>
-        /// lnkCancel3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkCancel3;
         
         /// <summary>
         /// lblAdditionalMetaTags control.
@@ -1174,42 +1039,6 @@ namespace mojoPortal.Web.BlogUI {
         protected global::System.Web.UI.WebControls.CheckBox chkShowMapDirections;
         
         /// <summary>
-        /// SiteLabel32 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel32;
-        
-        /// <summary>
-        /// btnUpdate4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton btnUpdate4;
-        
-        /// <summary>
-        /// btnDelete4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton btnDelete4;
-        
-        /// <summary>
-        /// HyperLink1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
-        
-        /// <summary>
         /// tabAttachments control.
         /// </summary>
         /// <remarks>
@@ -1489,40 +1318,76 @@ namespace mojoPortal.Web.BlogUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink7;
         
         /// <summary>
-        /// SiteLabel43 control.
+        /// SiteLabel35 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel43;
+        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel35;
         
         /// <summary>
-        /// btnUpdate5 control.
+        /// btnUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton btnUpdate5;
+        protected global::mojoPortal.Web.UI.mojoButton btnUpdate;
         
         /// <summary>
-        /// btnDelete5 control.
+        /// btnSaveAndPreview control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton btnDelete5;
+        protected global::mojoPortal.Web.UI.mojoButton btnSaveAndPreview;
         
         /// <summary>
-        /// lnkCancel5 control.
+        /// btnDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkCancel5;
+        protected global::mojoPortal.Web.UI.mojoButton btnDelete;
+        
+        /// <summary>
+        /// lnkCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkCancel;
+        
+        /// <summary>
+        /// lblError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoLabel lblError;
+        
+        /// <summary>
+        /// hdnHxToRestore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnHxToRestore;
+        
+        /// <summary>
+        /// btnRestoreFromGreyBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnRestoreFromGreyBox;
         
         /// <summary>
         /// reqTitle control.

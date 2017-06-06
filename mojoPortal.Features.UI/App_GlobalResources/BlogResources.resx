@@ -918,9 +918,6 @@
   <data name="GoogleNewsSettings" xml:space="preserve">
     <value>Google News Settings</value>
   </data>
-  <data name="HeadlineImage" xml:space="preserve">
-    <value>Headline Image</value>
-  </data>
   <data name="IncludeImageInExcerpt" xml:space="preserve">
     <value>Include Featured Image In Excerpt?</value>
   </data>
@@ -967,6 +964,9 @@
     <value>RSS Feed for {0}</value>
   </data>
   <data name="FeaturedImage" xml:space="preserve">
+    <value>Featured Image</value>
+  </data>
+  <data name="FeaturedImageTab" xml:space="preserve">
     <value>Featured Image</value>
   </data>
 </root>

@@ -129,8 +129,8 @@ namespace mojoPortal.Web.BlogUI
 				{
 					hdnReturnUrl.Value = Request.UrlReferrer.ToString();
 					lnkCancel.NavigateUrl = Request.UrlReferrer.ToString();
-					lnkCancel2.NavigateUrl = lnkCancel.NavigateUrl;
-					lnkCancel3.NavigateUrl = lnkCancel.NavigateUrl;
+					//lnkCancel2.NavigateUrl = lnkCancel.NavigateUrl;
+					//lnkCancel3.NavigateUrl = lnkCancel.NavigateUrl;
 				}
 
 				PopulateControls();
@@ -1455,6 +1455,9 @@ namespace mojoPortal.Web.BlogUI
 			liExcerpt.Visible = config.UseExcerpt || config.UseExcerptInFeed;
 			tabExcerpt.Visible = config.UseExcerpt || config.UseExcerptInFeed;
 
+			// Featured Image Tab
+			litFeaturedImageTab.Text = BlogResources.FeaturedImageTab;
+
 			litAttachmentsTab.Text = "<a href='#" + tabAttachments.ClientID + "'>" + BlogResources.Attachments + "</a>";
 			tabAttachments.Visible = BlogConfiguration.AllowAttachments;
 			liAttachment.Visible = BlogConfiguration.AllowAttachments;
@@ -1494,10 +1497,10 @@ namespace mojoPortal.Web.BlogUI
 
 			btnUpdate.Text = BlogResources.BlogEditUpdateButton;
 			SiteUtils.SetButtonAccessKey(btnUpdate, BlogResources.BlogEditUpdateButtonAccessKey);
-			btnUpdate2.Text = BlogResources.BlogEditUpdateButton;
-			btnUpdate3.Text = BlogResources.BlogEditUpdateButton;
-			btnUpdate4.Text = BlogResources.BlogEditUpdateButton;
-			btnUpdate5.Text = BlogResources.BlogEditUpdateButton;
+			//btnUpdate2.Text = BlogResources.BlogEditUpdateButton;
+			//btnUpdate3.Text = BlogResources.BlogEditUpdateButton;
+			//btnUpdate4.Text = BlogResources.BlogEditUpdateButton;
+			//btnUpdate5.Text = BlogResources.BlogEditUpdateButton;
 			btnSaveAndPreview.Text = BlogResources.SaveAndPreviewButton;
 
 			//this resets the exit page prompt after an ajax update for categories
@@ -1510,29 +1513,29 @@ namespace mojoPortal.Web.BlogUI
 				Page.ClientScript.GetPostBackEventReference(this.btnUpdate, string.Empty)
 				);
 
-			UIHelper.DisableButtonAfterClickAndClearExitCode(
-				btnUpdate2,
-				BlogResources.ButtonDisabledPleaseWait,
-				Page.ClientScript.GetPostBackEventReference(this.btnUpdate2, string.Empty)
-				);
+			//UIHelper.DisableButtonAfterClickAndClearExitCode(
+			//	btnUpdate2,
+			//	BlogResources.ButtonDisabledPleaseWait,
+			//	Page.ClientScript.GetPostBackEventReference(this.btnUpdate2, string.Empty)
+			//	);
 
-			UIHelper.DisableButtonAfterClickAndClearExitCode(
-				btnUpdate3,
-				BlogResources.ButtonDisabledPleaseWait,
-				Page.ClientScript.GetPostBackEventReference(this.btnUpdate3, string.Empty)
-				);
+			//UIHelper.DisableButtonAfterClickAndClearExitCode(
+			//	btnUpdate3,
+			//	BlogResources.ButtonDisabledPleaseWait,
+			//	Page.ClientScript.GetPostBackEventReference(this.btnUpdate3, string.Empty)
+			//	);
 
-			UIHelper.DisableButtonAfterClickAndClearExitCode(
-				btnUpdate4,
-				BlogResources.ButtonDisabledPleaseWait,
-				Page.ClientScript.GetPostBackEventReference(this.btnUpdate4, string.Empty)
-				);
+			//UIHelper.DisableButtonAfterClickAndClearExitCode(
+			//	btnUpdate4,
+			//	BlogResources.ButtonDisabledPleaseWait,
+			//	Page.ClientScript.GetPostBackEventReference(this.btnUpdate4, string.Empty)
+			//	);
 
-			UIHelper.DisableButtonAfterClickAndClearExitCode(
-				btnUpdate5,
-				BlogResources.ButtonDisabledPleaseWait,
-				Page.ClientScript.GetPostBackEventReference(this.btnUpdate4, string.Empty)
-				);
+			//UIHelper.DisableButtonAfterClickAndClearExitCode(
+			//	btnUpdate5,
+			//	BlogResources.ButtonDisabledPleaseWait,
+			//	Page.ClientScript.GetPostBackEventReference(this.btnUpdate4, string.Empty)
+			//	);
 
 			UIHelper.DisableButtonAfterClickAndClearExitCode(
 				btnSaveAndPreview,
@@ -1541,19 +1544,19 @@ namespace mojoPortal.Web.BlogUI
 				);
 
 			lnkCancel.Text = BlogResources.BlogEditCancelButton;
-			lnkCancel2.Text = BlogResources.BlogEditCancelButton;
-			lnkCancel3.Text = BlogResources.BlogEditCancelButton;
-			lnkCancel5.Text = BlogResources.BlogEditCancelButton;
-			btnDelete.Text = BlogResources.BlogEditDeleteButton;
-			btnDelete2.Text = BlogResources.BlogEditDeleteButton;
-			btnDelete3.Text = BlogResources.BlogEditDeleteButton;
-			btnDelete4.Text = BlogResources.BlogEditDeleteButton;
-			btnDelete5.Text = BlogResources.BlogEditDeleteButton;
+			//lnkCancel2.Text = BlogResources.BlogEditCancelButton;
+			//lnkCancel3.Text = BlogResources.BlogEditCancelButton;
+			//lnkCancel5.Text = BlogResources.BlogEditCancelButton;
+			//btnDelete.Text = BlogResources.BlogEditDeleteButton;
+			//btnDelete2.Text = BlogResources.BlogEditDeleteButton;
+			//btnDelete3.Text = BlogResources.BlogEditDeleteButton;
+			//btnDelete4.Text = BlogResources.BlogEditDeleteButton;
+			//btnDelete5.Text = BlogResources.BlogEditDeleteButton;
 			SiteUtils.SetButtonAccessKey(btnDelete, BlogResources.BlogEditDeleteButtonAccessKey);
 			UIHelper.AddConfirmationDialogWithClearExitCode(btnDelete, BlogResources.BlogDeletePostWarning);
-			UIHelper.AddConfirmationDialogWithClearExitCode(btnDelete2, BlogResources.BlogDeletePostWarning);
-			UIHelper.AddConfirmationDialogWithClearExitCode(btnDelete3, BlogResources.BlogDeletePostWarning);
-			UIHelper.AddConfirmationDialogWithClearExitCode(btnDelete4, BlogResources.BlogDeletePostWarning);
+			//UIHelper.AddConfirmationDialogWithClearExitCode(btnDelete2, BlogResources.BlogDeletePostWarning);
+			//UIHelper.AddConfirmationDialogWithClearExitCode(btnDelete3, BlogResources.BlogDeletePostWarning);
+			//UIHelper.AddConfirmationDialogWithClearExitCode(btnDelete4, BlogResources.BlogDeletePostWarning);
 
 			btnAddCategory.Text = BlogResources.BlogAddCategoryButton;
 			SiteUtils.SetButtonAccessKey(btnAddCategory, BlogResources.BlogAddCategoryButtonAccessKey);
@@ -1656,9 +1659,9 @@ namespace mojoPortal.Web.BlogUI
 				divUrl.Attributes.Add("style", "display:none;");
 			}
 			lnkCancel.NavigateUrl = SiteUtils.GetCurrentPageUrl();
-			lnkCancel2.NavigateUrl = lnkCancel.NavigateUrl;
-			lnkCancel3.NavigateUrl = lnkCancel.NavigateUrl;
-			lnkCancel5.NavigateUrl = lnkCancel.NavigateUrl;
+			//lnkCancel2.NavigateUrl = lnkCancel.NavigateUrl;
+			//lnkCancel3.NavigateUrl = lnkCancel.NavigateUrl;
+			//lnkCancel5.NavigateUrl = lnkCancel.NavigateUrl;
 
 			enableContentVersioning = config.EnableContentVersioning;
 
@@ -1791,12 +1794,16 @@ namespace mojoPortal.Web.BlogUI
 			
 			if (!Page.ClientScript.IsClientScriptBlockRegistered("friendlyurlsuggest"))
 			{
-				this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "friendlyurlsuggest", "<script src=\""
+				Page.ClientScript.RegisterClientScriptBlock(GetType(), "friendlyurlsuggest", "<script src=\""
 					+ ResolveUrl(WebConfigSettings.FriendlyUrlSuggestScript) + "\" type=\"text/javascript\"></script>");
 			}
 
 			string focusScript = string.Empty;
-			if (itemId == -1) { focusScript = "document.getElementById('" + this.txtTitle.ClientID + "').focus();"; }
+
+			if (itemId == -1)
+			{
+				focusScript = "document.getElementById('" + txtTitle.ClientID + "').focus();";
+			}
 
 			string hookupInputScript = "<script type=\"text/javascript\">"
 				+ "new UrlHelper( "
@@ -1807,14 +1814,12 @@ namespace mojoPortal.Web.BlogUI
 				+ "\"" + SiteRoot + "/Blog/BlogUrlSuggestService.ashx" + "\""
 				+ "); " + focusScript + "</script>";
 
-			if (!Page.ClientScript.IsStartupScriptRegistered(this.UniqueID + "urlscript"))
+			if (!Page.ClientScript.IsStartupScriptRegistered(UniqueID + "urlscript"))
 			{
 				Page.ClientScript.RegisterStartupScript(
-					this.GetType(),
-					this.UniqueID + "urlscript", hookupInputScript);
+					GetType(),
+					UniqueID + "urlscript", hookupInputScript);
 			}
-			
-
 		}
 
 		#region OnInit
@@ -1832,7 +1837,7 @@ namespace mojoPortal.Web.BlogUI
 		override protected void OnInit(EventArgs e)
 		{
 			base.OnInit(e);
-			this.Load += new EventHandler(this.Page_Load);
+			Load += new EventHandler(Page_Load);
 
 			ScriptConfig.IncludeJQTable = true;
 		   
@@ -1844,26 +1849,26 @@ namespace mojoPortal.Web.BlogUI
 				btnAddCategory = (mojoButton)UpdatePanel1.FindControl("btnAddCategory");
 			}
 
-			btnAddCategory.Click += new EventHandler(this.btnAddCategory_Click);
+			btnAddCategory.Click += new EventHandler(btnAddCategory_Click);
 
 
-			btnUpdate.Click += new EventHandler(this.btnUpdate_Click);
-			btnUpdate2.Click += new EventHandler(this.btnUpdate_Click);
-			btnUpdate3.Click += new EventHandler(this.btnUpdate_Click);
-			btnDelete.Click += new EventHandler(this.btnDelete_Click);
-			btnDelete2.Click += new EventHandler(this.btnDelete_Click);
-			btnDelete3.Click += new EventHandler(this.btnDelete_Click);
-			btnUpdate4.Click += new EventHandler(this.btnUpdate_Click);
-			btnUpdate5.Click += new EventHandler(this.btnUpdate_Click);
-			btnDelete4.Click += new EventHandler(this.btnDelete_Click);
-			btnDelete5.Click += new EventHandler(this.btnDelete_Click);
+			btnUpdate.Click += new EventHandler(btnUpdate_Click);
+			//btnUpdate2.Click += new EventHandler(this.btnUpdate_Click);
+			//btnUpdate3.Click += new EventHandler(this.btnUpdate_Click);
+			btnDelete.Click += new EventHandler(btnDelete_Click);
+			//btnDelete2.Click += new EventHandler(this.btnDelete_Click);
+			//btnDelete3.Click += new EventHandler(this.btnDelete_Click);
+			//btnUpdate4.Click += new EventHandler(this.btnUpdate_Click);
+			//btnUpdate5.Click += new EventHandler(this.btnUpdate_Click);
+			//btnDelete4.Click += new EventHandler(this.btnDelete_Click);
+			//btnDelete5.Click += new EventHandler(this.btnDelete_Click);
 
 			btnSaveAndPreview.Click += new EventHandler(btnSaveAndPreview_Click);
 
 			grdHistory.RowCommand += new GridViewCommandEventHandler(grdHistory_RowCommand);
 			grdHistory.RowDataBound += new GridViewRowEventHandler(grdHistory_RowDataBound);
 			pgrHistory.Command += new CommandEventHandler(pgrHistory_Command);
-			btnRestoreFromGreyBox.Click += new System.Web.UI.ImageClickEventHandler(btnRestoreFromGreyBox_Click);
+			btnRestoreFromGreyBox.Click += new ImageClickEventHandler(btnRestoreFromGreyBox_Click);
 			btnDeleteHistory.Click += new EventHandler(btnDeleteHistory_Click);
 
 			grdContentMeta.RowCommand += new GridViewCommandEventHandler(grdContentMeta_RowCommand);
@@ -1883,17 +1888,10 @@ namespace mojoPortal.Web.BlogUI
 			btnAddMetaLink.Click += new EventHandler(btnAddMetaLink_Click);
 
 			btnUpload.Click += new EventHandler(btnUpload_Click);
-			grdAttachments.RowCommand += new System.Web.UI.WebControls.GridViewCommandEventHandler(grdAttachments_RowCommand);
-			grdAttachments.RowDeleting += new System.Web.UI.WebControls.GridViewDeleteEventHandler(grdAttachments_RowDeleting);
-
+			grdAttachments.RowCommand += new GridViewCommandEventHandler(grdAttachments_RowCommand);
+			grdAttachments.RowDeleting += new GridViewDeleteEventHandler(grdAttachments_RowDeleting);
 		}
 
-		
-
-
-
 		#endregion
-
-		
 	}
 }

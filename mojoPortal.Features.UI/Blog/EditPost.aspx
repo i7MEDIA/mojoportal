@@ -18,11 +18,20 @@
 								<li id="liExcerpt" runat="server">
 									<asp:Literal ID="litExcerptTab" runat="server" />
 								</li>
-								<li><a href="#tabMeta">
-									<asp:Literal ID="litMetaTab" runat="server" /></a>
+								<li>
+									<a href="#tabFeaturedImage">
+										<asp:Literal runat="server" ID="litFeaturedImageTab" />
+									</a>
 								</li>
-								<li><a href="#tabMapSettings">
-									<asp:Literal ID="litMapSettingsTab" runat="server" /></a>
+								<li>
+									<a href="#tabMeta">
+										<asp:Literal ID="litMetaTab" runat="server" />
+									</a>
+								</li>
+								<li>
+									<a href="#tabMapSettings">
+										<asp:Literal ID="litMapSettingsTab" runat="server" />
+								    </a>
 								</li>
 								<li id="liAttachment" runat="server">
 									<asp:Literal ID="litAttachmentsTab" runat="server" />
@@ -226,52 +235,6 @@
 									<asp:Literal ID="litDays" runat="server" />
 								</div>
 
-								<div class="settingrow blog-edit__featured-image">
-									<mp:SiteLabel runat="server"
-										ConfigKey="FeaturedImage"
-										CssClass="settinglabel"
-										ForControl="txtHeadlineImage"
-										ID="SiteLabel41"
-										ResourceFile="BlogResources"
-									/>
-									<asp:TextBox ID="txtHeadlineImage" runat="server" MaxLength="255" CssClass="forminput verywidetextbox" />
-									<portal:FileBrowserTextBoxExtender ID="fbHeadlineImage" runat="server" BrowserType="image" />
-									<portal:mojoHelpLink ID="MojoHelpLink9" runat="server" HelpKey="Blog-HeadlineImage-help" />
-								</div>
-
-								<div class="settingrow">
-									<asp:Image ID="imgPreview" runat="server" ImageUrl="~/Data/SiteImages/1x1.gif" />
-								</div>
-
-								<div class="settingrow">
-									<mp:SiteLabel runat="server"
-										ConfigKey="IncludeImageInExcerpt"
-										CssClass="settinglabel"
-										ForControl="chkIncludeImageInExcerpt"
-										ID="SiteLabel42"
-										ResourceFile="BlogResources"
-									/>
-									<asp:CheckBox ID="chkIncludeImageInExcerpt" runat="server" Checked="true" CssClass="forminput" />
-									<portal:mojoHelpLink ID="MojoHelpLink20" runat="server" HelpKey="Blog-IncludeImageInExcerpt-help" />
-								</div>
-
-								<div class="settingrow">
-									<mp:SiteLabel runat="server"
-										ConfigKey="spacer"
-										CssClass="settinglabel"
-										ID="SiteLabel35"
-									/>
-									<div class="forminput">
-										<portal:mojoButton ID="btnUpdate" runat="server" ValidationGroup="blog" SkinID="SaveButton" />
-										<portal:mojoButton ID="btnSaveAndPreview" runat="server" ValidationGroup="blog" Visible="false" SkinID="InfoButton" />
-										<portal:mojoButton ID="btnDelete" runat="server" Text="Delete this item" CausesValidation="false" SkinID="DeleteButton" />
-										<asp:HyperLink ID="lnkCancel" runat="server" CssClass="cancellink" SkinID="TextButton" />
-									</div>
-									<portal:mojoLabel ID="lblError" runat="server" CssClass="txterror" />
-									<asp:HiddenField ID="hdnHxToRestore" runat="server" />
-									<asp:ImageButton ID="btnRestoreFromGreyBox" runat="server" />
-								</div>
-
 								<div class="bloghistory">
 									<asp:UpdatePanel ID="updHx" UpdateMode="Conditional" runat="server">
 										<Triggers>
@@ -351,22 +314,41 @@
 								</div>
 
 								<div class="settingrow">
-									<mp:SiteLabel runat="server"
-										ConfigKey="spacer"
-										CssClass="settinglabel"
-										ID="SiteLabel11"
-									/>
-									<div class="forminput">
-										<portal:mojoButton ID="btnUpdate2" runat="server" ValidationGroup="blog" SkinID="SaveButton" />
-										<portal:mojoButton ID="btnDelete2" runat="server" CausesValidation="false" SkinID="DeleteButton" />
-										<asp:HyperLink ID="lnkCancel2" runat="server" CssClass="cancellink" SkinID="TextButton" />
-									</div>
-								</div>
-
-								<div class="settingrow">
 									<portal:mojoLabel ID="lblErrorMessage" runat="server" CssClass="txterror" />
 								</div>
 							</div>
+
+							<div id="tabFeaturedImage">
+								<div class="settingrow blog-edit__featured-image">
+									<mp:SiteLabel runat="server"
+										ConfigKey="FeaturedImage"
+										CssClass="settinglabel"
+										ForControl="txtHeadlineImage"
+										ID="SiteLabel41"
+										ResourceFile="BlogResources"
+									/>
+									<asp:TextBox ID="txtHeadlineImage" runat="server" MaxLength="255" CssClass="forminput verywidetextbox" />
+									<portal:FileBrowserTextBoxExtender ID="fbHeadlineImage" runat="server" BrowserType="image" />
+									<portal:mojoHelpLink ID="MojoHelpLink9" runat="server" HelpKey="Blog-HeadlineImage-help" />
+								</div>
+
+								<div class="settingrow">
+									<asp:Image ID="imgPreview" runat="server" ImageUrl="~/Data/SiteImages/1x1.gif" />
+								</div>
+
+								<div class="settingrow">
+									<mp:SiteLabel runat="server"
+										ConfigKey="IncludeImageInExcerpt"
+										CssClass="settinglabel"
+										ForControl="chkIncludeImageInExcerpt"
+										ID="SiteLabel42"
+										ResourceFile="BlogResources"
+									/>
+									<asp:CheckBox ID="chkIncludeImageInExcerpt" runat="server" Checked="true" CssClass="forminput" />
+									<portal:mojoHelpLink ID="MojoHelpLink20" runat="server" HelpKey="Blog-IncludeImageInExcerpt-help" />
+								</div>
+							</div>
+
 							<div id="tabMeta">
 								<div class="settingrow">
 									<mp:SiteLabel runat="server"
@@ -388,19 +370,6 @@
 										ResourceFile="BlogResources"
 									/>
 									<asp:TextBox ID="txtMetaKeywords" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
-								</div>
-
-								<div class="settingrow">
-									<mp:SiteLabel runat="server"
-										ConfigKey="spacer"
-										CssClass="settinglabel"
-										ID="SiteLabel12"
-									/>
-									<div class="forminput">
-										<portal:mojoButton ID="btnUpdate3" runat="server" ValidationGroup="blog" SkinID="SaveButton" />
-										<portal:mojoButton ID="btnDelete3" runat="server" CausesValidation="False" SkinID="DeleteButton" />
-										<asp:HyperLink ID="lnkCancel3" runat="server" CssClass="cancellink" SkinID="TextButton" />
-									</div>
 								</div>
 
 								<div class="settingrow">
@@ -832,19 +801,6 @@
 									/>
 									<asp:CheckBox ID="chkShowMapDirections" runat="server" Checked="true" CssClass="forminput" />
 								</div>
-
-								<div class="settingrow">
-									<mp:SiteLabel runat="server"
-										ConfigKey="spacer"
-										CssClass="settinglabel"
-										ID="SiteLabel32"
-									/>
-									<div class="forminput">
-										<portal:mojoButton ID="btnUpdate4" runat="server" ValidationGroup="blog" SkinID="SaveButton" />
-										<portal:mojoButton ID="btnDelete4" runat="server" CausesValidation="false" SkinID="DeleteButton" />
-										<asp:HyperLink ID="HyperLink1" runat="server" CssClass="cancellink" SkinID="TextButton" />
-									</div>
-								</div>
 							</div>
 
 							<div id="tabAttachments" runat="server">
@@ -978,20 +934,24 @@
 									<asp:TextBox ID="txtPubStockTickers" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink7" runat="server" HelpKey="Blog-PublicationStockTickers-help" />
 								</div>
-
-								<div class="settingrow">
-									<mp:SiteLabel runat="server"
-										ConfigKey="spacer"
-										CssClass="settinglabel"
-										ID="SiteLabel43"
-									/>
-									<div class="forminput">
-										<portal:mojoButton ID="btnUpdate5" runat="server" ValidationGroup="blog" SkinID="SaveButton" />
-										<portal:mojoButton ID="btnDelete5" runat="server" CausesValidation="false" SkinID="DeleteButton" />
-										<asp:HyperLink ID="lnkCancel5" runat="server" CssClass="cancellink" SkinID="TextButton" />
-									</div>
-								</div>
 							</div>
+						</div>
+
+						<div class="settingrow">
+							<mp:SiteLabel runat="server"
+								ConfigKey="spacer"
+								CssClass="settinglabel"
+								ID="SiteLabel35"
+							/>
+							<div class="forminput">
+								<portal:mojoButton ID="btnUpdate" runat="server" ValidationGroup="blog" SkinID="SaveButton" />
+								<portal:mojoButton ID="btnSaveAndPreview" runat="server" ValidationGroup="blog" Visible="false" SkinID="InfoButton" />
+								<portal:mojoButton ID="btnDelete" runat="server" Text="Delete this item" CausesValidation="false" SkinID="DeleteButton" />
+								<asp:HyperLink ID="lnkCancel" runat="server" CssClass="cancellink" SkinID="TextButton" />
+							</div>
+							<portal:mojoLabel ID="lblError" runat="server" CssClass="txterror" />
+							<asp:HiddenField ID="hdnHxToRestore" runat="server" />
+							<asp:ImageButton ID="btnRestoreFromGreyBox" runat="server" />
 						</div>
 
 						<div class="blogeditor">
