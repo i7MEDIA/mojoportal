@@ -100,7 +100,8 @@
 							Eval("ItemUrl").ToString(), 
 							Convert.ToInt32(Eval("ItemID")),
 							Eval("HeadlineImageUrl").ToString(),
-							Convert.ToBoolean(Eval("IncludeImageInExcerpt"))
+							Convert.ToBoolean(Eval("IncludeImageInExcerpt")),
+							Eval("Heading").ToString()
 						) %>
 					</div>
 

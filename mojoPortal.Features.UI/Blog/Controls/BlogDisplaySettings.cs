@@ -681,7 +681,7 @@ namespace mojoPortal.Web.BlogUI
 		}
 		
 
-		private string featuredImageFormat = "<img class='floatpanel bheadlineimg' alt=' ' src='{0}' />";
+		private string featuredImageFormat = "<figure class='blog-post__featured-image-figure'><img class='blog-post__featured-image' alt='{1}' src='{0}' /></figure>";
 
 		public string FeaturedImageFormat
 		{

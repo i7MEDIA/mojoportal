@@ -405,7 +405,7 @@ namespace mojoPortal.Web.BlogUI
 		}
 
 
-		protected string FormatBlogEntry(string blogHtml, string excerpt, string url, int itemId, string imageUrl, bool useImage)
+		protected string FormatBlogEntry(string blogHtml, string excerpt, string url, int itemId, string imageUrl, bool useImage, string title)
 		{
 			if (useExcerpt)
 			{
@@ -425,7 +425,7 @@ namespace mojoPortal.Web.BlogUI
 
 					if (useImage && imageUrl.Length > 0)
 					{
-						string imageMarkup = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(imageUrl));
+						string imageMarkup = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(imageUrl), title);
 
 						if (displaySettings.FeaturedImageAboveExcerpt)
 						{
@@ -443,7 +443,7 @@ namespace mojoPortal.Web.BlogUI
 				{ // full post is shorter than excerpt length
 					if (useImage && imageUrl.Length > 0)
 					{
-						string imageMarkup = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(imageUrl));
+						string imageMarkup = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(imageUrl), title);
 
 						if (displaySettings.FeaturedImageAboveExcerpt)
 						{
@@ -460,7 +460,7 @@ namespace mojoPortal.Web.BlogUI
 			{
 				if (useImage && imageUrl.Length > 0)
 				{
-					string imageMarkup = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(imageUrl));
+					string imageMarkup = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(imageUrl), title);
 
 					if (displaySettings.FeaturedImageAboveExcerpt)
 					{
