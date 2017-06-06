@@ -1,6 +1,6 @@
 ﻿// Author:				    Joe Audette
 // Created:			        2010-05-11
-// Last Modified:		    2014-02-05
+// Last Modified:		    2017-06-06
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -10,19 +10,18 @@
 //
 // You must not remove this notice, or any other, from this software.
 
+using mojoPortal.Web.Framework;
 using System;
 using System.Collections;
 using System.Globalization;
 using System.Web.UI.WebControls;
-using mojoPortal.Web.Controls.google;
-using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.BlogUI
 {
-    /// <summary>
-    /// encapsulates the feature instance configuration loaded from module settings into a more friendly object
-    /// </summary>
-    public class BlogConfiguration
+	/// <summary>
+	/// encapsulates the feature instance configuration loaded from module settings into a more friendly object
+	/// </summary>
+	public class BlogConfiguration
     {
         public BlogConfiguration()
         { }
@@ -370,18 +369,26 @@ namespace mojoPortal.Web.BlogUI
             }
 
             defaultIncludeInNewsChecked = WebUtils.ParseBoolFromHashtable(settings, "DefaultIncludeInNewsChecked", defaultIncludeInNewsChecked);
-            defaultIncludeImageInExcerptChecked = WebUtils.ParseBoolFromHashtable(settings, "DefaultIncludeImageInExcerptChecked", defaultIncludeImageInExcerptChecked);
+			defaultIncludeImageInExcerptChecked = WebUtils.ParseBoolFromHashtable(settings, "DefaultIncludeImageInExcerptChecked", defaultIncludeImageInExcerptChecked);
+			defaultIncludeImageInPostChecked = WebUtils.ParseBoolFromHashtable(settings, "DefaultIncludeImageInPostChecked", defaultIncludeImageInPostChecked);
+		}
 
-        }
+		private bool defaultIncludeImageInExcerptChecked = false;
 
-        private bool defaultIncludeImageInExcerptChecked = false;
+		public bool DefaultIncludeImageInExcerptChecked
+		{
+			get { return defaultIncludeImageInExcerptChecked; }
+		}
 
-        public bool DefaultIncludeImageInExcerptChecked
-        {
-            get { return defaultIncludeImageInExcerptChecked; }
-        }
+		private bool defaultIncludeImageInPostChecked = false;
 
-        private bool defaultIncludeInNewsChecked = false;
+		public bool DefaultIncludeImageInPostChecked
+		{
+			get { return defaultIncludeImageInPostChecked; }
+		}
+
+
+		private bool defaultIncludeInNewsChecked = false;
 
         public bool DefaultIncludeInNewsChecked
         {

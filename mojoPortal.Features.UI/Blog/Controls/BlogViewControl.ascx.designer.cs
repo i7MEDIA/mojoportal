@@ -193,6 +193,15 @@ namespace mojoPortal.Web.BlogUI {
         protected global::mojoPortal.Web.Controls.OdiogoItem odiogoPlayer;
         
         /// <summary>
+        /// featuredImagePostTop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal featuredImagePostTop;
+        
+        /// <summary>
         /// litDescription control.
         /// </summary>
         /// <remarks>
@@ -200,6 +209,15 @@ namespace mojoPortal.Web.BlogUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litDescription;
+        
+        /// <summary>
+        /// featuredImagePostBottom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal featuredImagePostBottom;
         
         /// <summary>
         /// rptAttachments control.
@@ -274,6 +292,15 @@ namespace mojoPortal.Web.BlogUI {
         protected global::System.Web.UI.WebControls.Panel pnlExcerpt;
         
         /// <summary>
+        /// featuredImageExcerptTop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal featuredImageExcerptTop;
+        
+        /// <summary>
         /// litExcerpt control.
         /// </summary>
         /// <remarks>
@@ -281,6 +308,15 @@ namespace mojoPortal.Web.BlogUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litExcerpt;
+        
+        /// <summary>
+        /// featuredImageExcerptBottom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal featuredImageExcerptBottom;
         
         /// <summary>
         /// srPrompt control.
@@ -704,14 +740,5 @@ namespace mojoPortal.Web.BlogUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.BlogUI.BlogNav navBottom;
-        
-        /// <summary>
-        /// divCleared control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.EmptyPanel divCleared;
     }
 }

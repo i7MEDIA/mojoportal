@@ -706,6 +706,33 @@ namespace mojoPortal.Web.BlogUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink20;
         
         /// <summary>
+        /// SiteLabel8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel8;
+        
+        /// <summary>
+        /// chkIncludeImageInPost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkIncludeImageInPost;
+        
+        /// <summary>
+        /// MojoHelpLink10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink10;
+        
+        /// <summary>
         /// SiteLabel6 control.
         /// </summary>
         /// <remarks>

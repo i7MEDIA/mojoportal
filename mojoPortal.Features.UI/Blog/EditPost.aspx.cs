@@ -1,6 +1,6 @@
 /// Author:                     Joe Audette
 /// Created:                    2004-08-14
-///	Last Modified:              2017-03-15
+///	Last Modified:              2017-06-06
 /// 
 /// You must not remove this notice, or any other, from this software.
 
@@ -208,6 +208,7 @@ namespace mojoPortal.Web.BlogUI
 				}
 
 				chkIncludeImageInExcerpt.Checked = blog.IncludeImageInExcerpt;
+				chkIncludeImageInPost.Checked = blog.IncludeImageInPost;
 
 
 				ListItem item 
@@ -669,6 +670,7 @@ namespace mojoPortal.Web.BlogUI
 			}
 
 			blog.IncludeImageInExcerpt = chkIncludeImageInExcerpt.Checked;
+			blog.IncludeImageInPost = chkIncludeImageInPost.Checked;
 
 			if (txtItemUrl.Text.Length == 0)
 			{
@@ -1478,6 +1480,7 @@ namespace mojoPortal.Web.BlogUI
 				txtPubGenres.Text = config.DefaultGenres;
 				chkIncludeInNews.Checked = config.DefaultIncludeInNewsChecked;
 				chkIncludeImageInExcerpt.Checked = config.DefaultIncludeImageInExcerptChecked;
+				chkIncludeImageInPost.Checked = config.DefaultIncludeImageInPostChecked;
 
 				PopulateCommentDaysDropdown();
 			}

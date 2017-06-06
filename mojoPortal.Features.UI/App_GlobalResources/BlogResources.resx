@@ -969,4 +969,10 @@
   <data name="FeaturedImageTab" xml:space="preserve">
     <value>Featured Image</value>
   </data>
+  <data name="DefaultIncludeImageInPostChecked" xml:space="preserve">
+    <value>Include Image In Post Checked By Default?</value>
+  </data>
+  <data name="IncludeImageInPost" xml:space="preserve">
+    <value>Include image in Post List?</value>
+  </data>
 </root>

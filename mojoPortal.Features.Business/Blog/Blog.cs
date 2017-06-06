@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:				    2004-08-14
-// Last Modified:			2014-02-04
+// Last Modified:			2017-06-06
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -10,18 +10,18 @@
 //
 // You must not remove this notice, or any other, from this software.
 
+using log4net;
+using mojoPortal.Data;
 using System;
 using System.Data;
 using System.Globalization;
-using log4net;
-using mojoPortal.Data;
 
 namespace mojoPortal.Business
 {
-    /// <summary>
-    /// Represents a blog post
-    /// </summary>
-    public class Blog : IIndexableContent
+	/// <summary>
+	/// Represents a blog post
+	/// </summary>
+	public class Blog : IIndexableContent
     {
         private const string featureGuid = "026cbead-2b80-4491-906d-b83e37179ccf";
 
@@ -587,22 +587,31 @@ namespace mojoPortal.Business
             set { headlineImageUrl = value; }
         }
 
-        private bool includeImageInExcerpt = true;
+		private bool includeImageInExcerpt = true;
 
-        public bool IncludeImageInExcerpt
-        {
-            get { return includeImageInExcerpt; }
-            set { includeImageInExcerpt = value; }
-        }
+		public bool IncludeImageInExcerpt
+		{
+			get { return includeImageInExcerpt; }
+			set { includeImageInExcerpt = value; }
+		}
+
+		private bool includeImageInPost = true;
+
+		public bool IncludeImageInPost
+		{
+			get { return includeImageInPost; }
+			set { includeImageInPost = value; }
+		}
 
 
 
-        /// <summary>
-        /// This is not persisted to the db. It is only set and used when indexing forum threads in the search index.
-        /// Its a convenience because when we queue the task to index on a new thread we can only pass one object.
-        /// So we store extra properties here so we don't need any other objects.
-        /// </summary>
-        public int SiteId
+
+		/// <summary>
+		/// This is not persisted to the db. It is only set and used when indexing forum threads in the search index.
+		/// Its a convenience because when we queue the task to index on a new thread we can only pass one object.
+		/// So we store extra properties here so we don't need any other objects.
+		/// </summary>
+		public int SiteId
         {
             get { return siteId; }
             set { siteId = value; }
@@ -817,27 +826,26 @@ namespace mojoPortal.Business
                         this.includeInNews = Convert.ToBoolean(reader["IncludeInNews"]);
                     }
 
-                    this.pubName = reader["PubName"].ToString();
-                    this.pubLanguage = reader["PubLanguage"].ToString();
-                    this.pubAccess = reader["PubAccess"].ToString();
-                    this.pubGenres = reader["PubGenres"].ToString();
-                    this.pubKeyWords = reader["PubKeyWords"].ToString();
-                    this.pubGeoLocations = reader["PubGeoLocations"].ToString();
-                    this.pubStockTickers = reader["PubStockTickers"].ToString();
-                    this.headlineImageUrl = reader["HeadlineImageUrl"].ToString();
+                    pubName = reader["PubName"].ToString();
+                    pubLanguage = reader["PubLanguage"].ToString();
+                    pubAccess = reader["PubAccess"].ToString();
+                    pubGenres = reader["PubGenres"].ToString();
+                    pubKeyWords = reader["PubKeyWords"].ToString();
+                    pubGeoLocations = reader["PubGeoLocations"].ToString();
+                    pubStockTickers = reader["PubStockTickers"].ToString();
+                    headlineImageUrl = reader["HeadlineImageUrl"].ToString();
 
-                    if (reader["IncludeImageInExcerpt"] != DBNull.Value)
-                    {
-                        this.includeImageInExcerpt = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
-                    }
+					if (reader["IncludeImageInExcerpt"] != DBNull.Value)
+					{
+						includeImageInExcerpt = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
+					}
 
-
-
-                   
-                }
-
-            }
-
+					if (reader["IncludeImageInPost"] != DBNull.Value)
+					{
+						includeImageInPost = Convert.ToBoolean(reader["IncludeImageInPost"]);
+					}
+				}
+			}
         }
 
         /// <summary>
@@ -850,62 +858,66 @@ namespace mojoPortal.Business
             blogGuid = Guid.NewGuid();
             createdUtc = DateTime.UtcNow;
 
-            if (approved) { approvedDate = DateTime.UtcNow; }
+            if (approved)
+			{
+				approvedDate = DateTime.UtcNow;
+			}
 
             newID = DBBlog.AddBlog(
-                this.blogGuid,
-                this.moduleGuid,
-                this.moduleID,
-                this.userName,
-                this.title,
-                this.excerpt,
-                this.description,
-                this.startDate,
-                this.isInNewsletter,
-                this.includeInFeed,
-                this.allowCommentsForDays,
-                this.location,
-                this.userGuid,
-                this.createdUtc,
-                this.itemUrl,
-                this.metaKeywords,
-                this.metaDescription,
-                this.compiledMeta,
-                this.isPublished,
-                this.subTitle,
-                this.endDate,
-                this.approved,
-                this.approvedBy,
-                this.approvedDate,
-                this.showAuthorName,
-                this.showAuthorAvatar,
-                this.showAuthorBio,
-                this.includeInSearch,
-                this.useBingMap,
-                this.mapHeight,
-                this.MapWidth,
-                this.showMapOptions,
-                this.showZoomTool,
-                this.showLocationInfo,
-                this.useDrivingDirections,
-                this.mapType,
-                this.mapZoom,
-                this.showDownloadLink,
-                this.includeInSiteMap,
-                this.excludeFromRecentContent,
-                this.includeInNews,
-                this.pubName,
-                this.pubLanguage,
-                this.pubAccess,
-                this.pubGenres,
-                this.pubKeyWords,
-                this.pubGeoLocations,
-                this.pubStockTickers,
-                this.headlineImageUrl,
-                this.includeImageInExcerpt
-                );
+                blogGuid,
+                moduleGuid,
+                moduleID,
+                userName,
+                title,
+                excerpt,
+                description,
+                startDate,
+                isInNewsletter,
+                includeInFeed,
+                allowCommentsForDays,
+                location,
+                userGuid,
+                createdUtc,
+                itemUrl,
+                metaKeywords,
+                metaDescription,
+                compiledMeta,
+                isPublished,
+                subTitle,
+                endDate,
+                approved,
+                approvedBy,
+                approvedDate,
+                showAuthorName,
+                showAuthorAvatar,
+                showAuthorBio,
+                includeInSearch,
+                useBingMap,
+                mapHeight,
+                MapWidth,
+                showMapOptions,
+                showZoomTool,
+                showLocationInfo,
+                useDrivingDirections,
+                mapType,
+                mapZoom,
+                showDownloadLink,
+                includeInSiteMap,
+                excludeFromRecentContent,
+                includeInNews,
+                pubName,
+                pubLanguage,
+                pubAccess,
+                pubGenres,
+                pubKeyWords,
+                pubGeoLocations,
+                pubStockTickers,
+                headlineImageUrl,
+				includeImageInExcerpt,
+				includeImageInPost
+			);
 
-            this.itemID = newID;
+            itemID = newID;
 
             bool result = (newID > 0);
 
@@ -917,7 +929,6 @@ namespace mojoPortal.Business
             }
 
             return result;
-
         }
 
         /// <summary>
@@ -926,59 +937,61 @@ namespace mojoPortal.Business
         /// <returns></returns>
         private bool Update()
         {
-            this.lastModUtc = DateTime.UtcNow;
+            lastModUtc = DateTime.UtcNow;
             if ((approved)&&(approvedDate == DateTime.MaxValue)) { approvedDate = DateTime.UtcNow; }
 
             bool result = DBBlog.UpdateBlog(
-                this.moduleID,
-                this.itemID,
-                this.userName,
-                this.title,
-                this.excerpt,
-                this.description,
-                this.startDate,
-                this.isInNewsletter,
-                this.includeInFeed,
-                this.allowCommentsForDays,
-                this.location,
-                this.lastModUserGuid,
-                this.lastModUtc,
-                this.itemUrl,
-                this.metaKeywords,
-                this.metaDescription,
-                this.compiledMeta,
-                this.isPublished,
-                this.subTitle,
-                this.endDate,
-                this.approved,
-                this.approvedBy,
-                this.approvedDate,
-                this.showAuthorName,
-                this.showAuthorAvatar,
-                this.showAuthorBio,
-                this.includeInSearch,
-                this.useBingMap,
-                this.mapHeight,
-                this.MapWidth,
-                this.showMapOptions,
-                this.showZoomTool,
-                this.showLocationInfo,
-                this.useDrivingDirections,
-                this.mapType,
-                this.mapZoom,
-                this.showDownloadLink,
-                this.includeInSiteMap,
-                this.excludeFromRecentContent,
-                this.includeInNews,
-                this.pubName,
-                this.pubLanguage,
-                this.pubAccess,
-                this.pubGenres,
-                this.pubKeyWords,
-                this.pubGeoLocations,
-                this.pubStockTickers,
-                this.headlineImageUrl,
-                this.includeImageInExcerpt);
+                moduleID,
+                itemID,
+                userName,
+                title,
+                excerpt,
+                description,
+                startDate,
+                isInNewsletter,
+                includeInFeed,
+                allowCommentsForDays,
+                location,
+                lastModUserGuid,
+                lastModUtc,
+                itemUrl,
+                metaKeywords,
+                metaDescription,
+                compiledMeta,
+                isPublished,
+                subTitle,
+                endDate,
+                approved,
+                approvedBy,
+                approvedDate,
+                showAuthorName,
+                showAuthorAvatar,
+                showAuthorBio,
+                includeInSearch,
+                useBingMap,
+                mapHeight,
+                MapWidth,
+                showMapOptions,
+                showZoomTool,
+                showLocationInfo,
+                useDrivingDirections,
+                mapType,
+                mapZoom,
+                showDownloadLink,
+                includeInSiteMap,
+                excludeFromRecentContent,
+                includeInNews,
+                pubName,
+                pubLanguage,
+                pubAccess,
+                pubGenres,
+                pubKeyWords,
+                pubGeoLocations,
+                pubStockTickers,
+                headlineImageUrl,
+				includeImageInExcerpt,
+				includeImageInPost
+			);
 
             //IndexHelper.IndexItem(this);
             ContentChangedEventArgs e = new ContentChangedEventArgs();
@@ -987,17 +1000,24 @@ namespace mojoPortal.Business
             return result;
         }
 
-
         #endregion
+
 
         #region Public Methods
 
         public void CreateHistory(Guid siteGuid)
         {
-            if (this.blogGuid == Guid.Empty) { return; }
+            if (blogGuid == Guid.Empty)
+			{
+				return;
+			}
 
-            Blog currentVersion = new Blog(this.itemID);
-            if (currentVersion.Description == this.Description) { return; }
+			Blog currentVersion = new Blog(itemID);
+
+			if (currentVersion.Description == Description)
+			{
+				return;
+			}
 
             ContentHistory history = new ContentHistory();
             history.ContentGuid = currentVersion.BlogGuid;
@@ -1007,7 +1027,6 @@ namespace mojoPortal.Business
             history.UserGuid = currentVersion.LastModUserGuid;
             history.CreatedUtc = currentVersion.LastModUtc;
             history.Save();
-
         }
 
 
@@ -1017,7 +1036,7 @@ namespace mojoPortal.Business
         /// <returns></returns>
         public bool Save()
         {
-            if (this.itemID > 0)
+            if (itemID > 0)
             {
                 return Update();
             }
@@ -1033,9 +1052,9 @@ namespace mojoPortal.Business
         {
             DBBlog.DeleteItemCategories(itemID);
             DBBlog.DeleteAllCommentsForBlog(itemID);
-            DBBlog.UpdateCommentStats(this.moduleID);
-            bool result = DBBlog.DeleteBlog(this.itemID);
-            DBBlog.UpdateEntryStats(this.moduleID);
+            DBBlog.UpdateCommentStats(moduleID);
+            bool result = DBBlog.DeleteBlog(itemID);
+            DBBlog.UpdateEntryStats(moduleID);
 
             ContentChangedEventArgs e = new ContentChangedEventArgs();
             e.IsDeleted = true;
@@ -1043,9 +1062,6 @@ namespace mojoPortal.Business
 
             return result;
         }
-
-
-
 
         #endregion
 
@@ -1238,9 +1254,10 @@ namespace mojoPortal.Business
             dataTable.Columns.Add("ShowDownloadLink", typeof(bool));
             // added 2014-02-04
             dataTable.Columns.Add("HeadlineImageUrl", typeof(string));
-            dataTable.Columns.Add("IncludeImageInExcerpt", typeof(bool));
+			dataTable.Columns.Add("IncludeImageInExcerpt", typeof(bool));
+			dataTable.Columns.Add("IncludeImageInPost", typeof(bool));
 
-            return dataTable;
+			return dataTable;
 
         }
 
@@ -1387,16 +1404,26 @@ namespace mojoPortal.Business
 
                     row["HeadlineImageUrl"] = reader["HeadlineImageUrl"];
 
-                    if (reader["IncludeImageInExcerpt"] != DBNull.Value)
-                    {
-                        row["IncludeImageInExcerpt"] = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
-                    }
-                    else
-                    {
-                        row["IncludeImageInExcerpt"] = true;
-                    }
+					if (reader["IncludeImageInExcerpt"] != DBNull.Value)
+					{
+						row["IncludeImageInExcerpt"] = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
+					}
+					else
+					{
+						row["IncludeImageInExcerpt"] = true;
+					}
 
-                    posts.Rows.Add(row);
+
+					if (reader["IncludeImageInPost"] != DBNull.Value)
+					{
+						row["IncludeImageInPost"] = Convert.ToBoolean(reader["IncludeImageInPost"]);
+					}
+					else
+					{
+						row["IncludeImageInPost"] = true;
+					}
+
+					posts.Rows.Add(row);
                 }
             }
 
@@ -1625,17 +1652,27 @@ namespace mojoPortal.Business
 
                     row["HeadlineImageUrl"] = reader["HeadlineImageUrl"];
 
-                    if (reader["IncludeImageInExcerpt"] != DBNull.Value)
-                    {
-                        row["IncludeImageInExcerpt"] = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
-                    }
-                    else
-                    {
-                        row["IncludeImageInExcerpt"] = true;
-                    }
+					if (reader["IncludeImageInExcerpt"] != DBNull.Value)
+					{
+						row["IncludeImageInExcerpt"] = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
+					}
+					else
+					{
+						row["IncludeImageInExcerpt"] = true;
+					}
 
 
-                    posts.Rows.Add(row);
+					if (reader["IncludeImageInPost"] != DBNull.Value)
+					{
+						row["IncludeImageInPost"] = Convert.ToBoolean(reader["IncludeImageInPost"]);
+					}
+					else
+					{
+						row["IncludeImageInPost"] = true;
+					}
+
+
+					posts.Rows.Add(row);
                 }
             }
 
@@ -1864,16 +1901,27 @@ namespace mojoPortal.Business
 
                     row["HeadlineImageUrl"] = reader["HeadlineImageUrl"];
 
-                    if (reader["IncludeImageInExcerpt"] != DBNull.Value)
-                    {
-                        row["IncludeImageInExcerpt"] = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
-                    }
-                    else
-                    {
-                        row["IncludeImageInExcerpt"] = true;
-                    }
+					if (reader["IncludeImageInExcerpt"] != DBNull.Value)
+					{
+						row["IncludeImageInExcerpt"] = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
+					}
+					else
+					{
+						row["IncludeImageInExcerpt"] = true;
+					}
 
-                    posts.Rows.Add(row);
+
+					if (reader["IncludeImageInPost"] != DBNull.Value)
+					{
+						row["IncludeImageInPost"] = Convert.ToBoolean(reader["IncludeImageInPost"]);
+					}
+					else
+					{
+						row["IncludeImageInPost"] = true;
+					}
+
+
+					posts.Rows.Add(row);
                 }
             }
 
@@ -2101,17 +2149,27 @@ namespace mojoPortal.Business
 
                     row["HeadlineImageUrl"] = reader["HeadlineImageUrl"];
 
-                    if (reader["IncludeImageInExcerpt"] != DBNull.Value)
-                    {
-                        row["IncludeImageInExcerpt"] = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
-                    }
-                    else
-                    {
-                        row["IncludeImageInExcerpt"] = true;
-                    }
+					if (reader["IncludeImageInExcerpt"] != DBNull.Value)
+					{
+						row["IncludeImageInExcerpt"] = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
+					}
+					else
+					{
+						row["IncludeImageInExcerpt"] = true;
+					}
 
 
-                    posts.Rows.Add(row);
+					if (reader["IncludeImageInPost"] != DBNull.Value)
+					{
+						row["IncludeImageInPost"] = Convert.ToBoolean(reader["IncludeImageInPost"]);
+					}
+					else
+					{
+						row["IncludeImageInPost"] = true;
+					}
+
+
+					posts.Rows.Add(row);
                 }
             }
 

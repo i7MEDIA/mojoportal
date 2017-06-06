@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:				    2011-06-09
-// Last Modified:			2012-12-11
+// Last Modified:			2017-06-06
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -202,12 +202,12 @@ namespace mojoPortal.Web.BlogUI
 			set { archiveListForceTitleOnly = value; }
 		}
 
-		private bool featuredImageAboveExcerpt = true;
+		private bool featuredImageAbovePost = true;
 
-		public bool FeaturedImageAboveExcerpt
+		public bool FeaturedImageAbovePost
 		{
-			get { return featuredImageAboveExcerpt; }
-			set { featuredImageAboveExcerpt = value; }
+			get { return featuredImageAbovePost; }
+			set { featuredImageAbovePost = value; }
 		}
 
 		private bool detailViewDisableContentRating = false;

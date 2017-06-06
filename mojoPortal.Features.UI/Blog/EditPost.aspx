@@ -347,6 +347,18 @@
 									<asp:CheckBox ID="chkIncludeImageInExcerpt" runat="server" Checked="true" CssClass="forminput" />
 									<portal:mojoHelpLink ID="MojoHelpLink20" runat="server" HelpKey="Blog-IncludeImageInExcerpt-help" />
 								</div>
+
+								<div class="settingrow">
+									<mp:SiteLabel runat="server"
+										ConfigKey="IncludeImageInPost"
+										CssClass="settinglabel"
+										ForControl="chkIncludeImageInPost"
+										ID="SiteLabel8"
+										ResourceFile="BlogResources"
+									/>
+									<asp:CheckBox ID="chkIncludeImageInPost" runat="server" Checked="true" CssClass="forminput" />
+									<portal:mojoHelpLink ID="MojoHelpLink10" runat="server" HelpKey="Blog-IncludeImageInPost-help" />
+								</div>
 							</div>
 
 							<div id="tabMeta">

@@ -1,6 +1,6 @@
 ﻿//	Author:				Joe Audette
 //	Created:			2004-08-15
-//	Last Modified:		2017-06-01
+//	Last Modified:		2017-06-06
 //		
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -10,16 +10,16 @@
 //
 // You must not remove this notice, or any other, from this software.
 
-using System;
-using System.Data;
-using System.Globalization;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using Resources;
+using System;
+using System.Data;
+using System.Globalization;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.BlogUI
 {
@@ -405,7 +405,7 @@ namespace mojoPortal.Web.BlogUI
 		}
 
 
-		protected string FormatBlogEntry(string blogHtml, string excerpt, string url, int itemId, string imageUrl, bool useImage, string title)
+		protected string FormatBlogEntry(string blogHtml, string excerpt, string url, int itemId, string imageUrl, bool useImageExcerpt, bool useImagePost, string title)
 		{
 			if (useExcerpt)
 			{
@@ -423,11 +423,11 @@ namespace mojoPortal.Web.BlogUI
 					result = UIHelper.CreateExcerpt(blogHtml, config.ExcerptLength, config.ExcerptSuffix);
 					result += " <a href='" + FormatBlogTitleUrl(url, itemId) + "' class='morelink'>" + config.MoreLinkText + "</a><div class='paddiv'>&nbsp;</div>";
 
-					if (useImage && imageUrl.Length > 0)
+					if (useImageExcerpt && imageUrl.Length > 0)
 					{
 						string imageMarkup = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(imageUrl), title);
 
-						if (displaySettings.FeaturedImageAboveExcerpt)
+						if (displaySettings.FeaturedImageAbovePost)
 						{
 							return imageMarkup + result;
 						}
@@ -441,11 +441,11 @@ namespace mojoPortal.Web.BlogUI
 				}
 				else
 				{ // full post is shorter than excerpt length
-					if (useImage && imageUrl.Length > 0)
+					if (useImageExcerpt && imageUrl.Length > 0)
 					{
 						string imageMarkup = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(imageUrl), title);
 
-						if (displaySettings.FeaturedImageAboveExcerpt)
+						if (displaySettings.FeaturedImageAbovePost)
 						{
 							return imageMarkup + blogHtml;
 						}
@@ -458,11 +458,11 @@ namespace mojoPortal.Web.BlogUI
 			}
 			else
 			{
-				if (useImage && imageUrl.Length > 0)
+				if (useImagePost && imageUrl.Length > 0)
 				{
 					string imageMarkup = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(imageUrl), title);
 
-					if (displaySettings.FeaturedImageAboveExcerpt)
+					if (displaySettings.FeaturedImageAbovePost)
 					{
 						return imageMarkup + blogHtml;
 					}

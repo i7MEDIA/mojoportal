@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:				    2007-11-03
-// Last Modified:			2014-06-29
+// Last Modified:			2017-06-06
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -11,23 +11,14 @@
 // You must not remove this notice, or any other, from this software.
 
 using System;
-using System.Globalization;
-using System.IO;
-using System.Text;
 using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Configuration;
-
-
+using System.Globalization;
 
 namespace mojoPortal.Data
 {
-    
-    public static class DBBlog
-    {
-        
 
+	public static class DBBlog
+    {
         /// <summary>
         /// gets top 20 related posts ordered by created date desc
         /// based on categories of current post itemid
@@ -42,9 +33,7 @@ namespace mojoPortal.Data
             return sph.ExecuteReader();
         }
 
-
-
-        public static IDataReader GetBlogs(
+		public static IDataReader GetBlogs(
             int moduleId,
             DateTime beginDate,
             DateTime currentTime)
@@ -217,8 +206,7 @@ namespace mojoPortal.Data
 
         }
 
-
-        public static int GetCount(
+		public static int GetCount(
             int moduleId,
             DateTime beginDate,
             DateTime currentTime)
@@ -782,9 +770,11 @@ namespace mojoPortal.Data
             string pubGeoLocations,
             string pubStockTickers,
             string headlineImageUrl,
-            bool includeImageInExcerpt)
+            bool includeImageInExcerpt,
+			bool includeImageInPost
+			)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Blog_Insert", 51);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Blog_Insert", 52);
 
             sph.DefineSqlParameter("@BlogGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, blogGuid);
             sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
@@ -853,16 +843,12 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@PubGeoLocations", SqlDbType.NVarChar, 255, ParameterDirection.Input, pubGeoLocations);
             sph.DefineSqlParameter("@PubStockTickers", SqlDbType.NVarChar, 255, ParameterDirection.Input, pubStockTickers);
             sph.DefineSqlParameter("@HeadlineImageUrl", SqlDbType.NVarChar, 255, ParameterDirection.Input, headlineImageUrl);
-            sph.DefineSqlParameter("@IncludeImageInExcerpt", SqlDbType.Bit, ParameterDirection.Input, includeImageInExcerpt);
+			sph.DefineSqlParameter("@IncludeImageInExcerpt", SqlDbType.Bit, ParameterDirection.Input, includeImageInExcerpt);
+			sph.DefineSqlParameter("@IncludeImageInPost", SqlDbType.Bit, ParameterDirection.Input, includeImageInPost);
 
+			sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.InputOutput, null);
 
-
-
-
-            sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.InputOutput, null);
-
-
-            sph.ExecuteNonQuery();
+			sph.ExecuteNonQuery();
             int newID = Convert.ToInt32(sph.Parameters[50].Value);
             return newID;
         }
@@ -917,9 +903,11 @@ namespace mojoPortal.Data
             string pubGeoLocations,
             string pubStockTickers,
             string headlineImageUrl,
-            bool includeImageInExcerpt)
+            bool includeImageInExcerpt,
+			bool includeImageInPost
+		)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Blog_Update", 49);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Blog_Update", 50);
             sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemId);
             sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
             sph.DefineSqlParameter("@UserName", SqlDbType.NVarChar, 100, ParameterDirection.Input, userName);
@@ -985,7 +973,8 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@PubGeoLocations", SqlDbType.NVarChar, 255, ParameterDirection.Input, pubGeoLocations);
             sph.DefineSqlParameter("@PubStockTickers", SqlDbType.NVarChar, 255, ParameterDirection.Input, pubStockTickers);
             sph.DefineSqlParameter("@HeadlineImageUrl", SqlDbType.NVarChar, 255, ParameterDirection.Input, headlineImageUrl);
-            sph.DefineSqlParameter("@IncludeImageInExcerpt", SqlDbType.Bit, ParameterDirection.Input, includeImageInExcerpt);
+			sph.DefineSqlParameter("@IncludeImageInExcerpt", SqlDbType.Bit, ParameterDirection.Input, includeImageInExcerpt);
+			sph.DefineSqlParameter("@IncludeImageInPost", SqlDbType.Bit, ParameterDirection.Input, includeImageInPost);
 
             int rowsAffected = sph.ExecuteNonQuery();
             return (rowsAffected > -1);

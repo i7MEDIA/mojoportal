@@ -1447,6 +1447,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include Image In Post Checked By Default?.
+        /// </summary>
+        internal static string DefaultIncludeImageInPostChecked {
+            get {
+                return ResourceManager.GetString("DefaultIncludeImageInPostChecked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Include In News Checked By Default?.
         /// </summary>
         internal static string DefaultIncludeInNewsChecked {
@@ -1902,6 +1911,15 @@ namespace Resources {
         internal static string IncludeImageInExcerpt {
             get {
                 return ResourceManager.GetString("IncludeImageInExcerpt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include image in Post List?.
+        /// </summary>
+        internal static string IncludeImageInPost {
+            get {
+                return ResourceManager.GetString("IncludeImageInPost", resourceCulture);
             }
         }
         
