@@ -922,7 +922,7 @@
     <value>Headline Image</value>
   </data>
   <data name="IncludeImageInExcerpt" xml:space="preserve">
-    <value>Include Headline Image In Generated Excerpt?</value>
+    <value>Include Featured Image In Excerpt?</value>
   </data>
   <data name="IncludeInGoogleNews" xml:space="preserve">
     <value>Include In News Site Map?</value>
@@ -965,5 +965,8 @@
   </data>
   <data name="BlogRSSLinkTitleFormat" xml:space="preserve">
     <value>RSS Feed for {0}</value>
+  </data>
+  <data name="FeaturedImage" xml:space="preserve">
+    <value>Featured Image</value>
   </data>
 </root>
