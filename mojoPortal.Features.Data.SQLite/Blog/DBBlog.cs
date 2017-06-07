@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:				    2007-11-03
-// Last Modified:			2014-02-10
+// Last Modified:			2017-06-07
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -13,23 +13,19 @@
 // Note moved into separate class file from dbPortal 2007-11-03
 
 
-using System;
-using System.Text;
-using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
-using System.Web;
 using Mono.Data.Sqlite;
-//using log4net;
+using System;
+using System.Configuration;
+using System.Data;
+using System.Globalization;
+using System.Text;
 
 namespace mojoPortal.Data
 {
-    // <summary>
-    /// 
-    /// </summary>
-    public static class DBBlog
+	// <summary>
+	/// 
+	/// </summary>
+	public static class DBBlog
     {
         //private static readonly ILog log = LogManager.GetLogger(typeof(DBBlog));
         
@@ -2403,7 +2399,9 @@ namespace mojoPortal.Data
             string pubGeoLocations,
             string pubStockTickers,
             string headlineImageUrl,
-            bool includeImageInExcerpt)
+            bool includeImageInExcerpt,
+			bool includeImageInPost
+		)
         {
 
             #region Bit Conversion
@@ -2473,13 +2471,17 @@ namespace mojoPortal.Data
             int intincludeInNews = 0;
             if (includeInNews) { intincludeInNews = 1; }
 
-            int intincludeImageInExcerpt = 0;
-            if (includeImageInExcerpt) { intincludeImageInExcerpt = 1; }
+			int intincludeImageInExcerpt = 0;
+			if (includeImageInExcerpt) { intincludeImageInExcerpt = 1; }
 
-            #endregion
+			int intincludeImageInPost = 0;
+			if (includeImageInPost) { intincludeImageInPost = 1; }
 
 
-            StringBuilder sqlCommand = new StringBuilder();
+			#endregion
+
+
+			StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("INSERT INTO mp_Blogs (");
             sqlCommand.Append("ModuleID, ");
             sqlCommand.Append("CreatedDate, ");
@@ -2534,6 +2536,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("PubStockTickers, ");
             sqlCommand.Append("HeadlineImageUrl, ");
             sqlCommand.Append("IncludeImageInExcerpt, ");
+			sqlCommand.Append("IncludeImageInPost, ");
 
             sqlCommand.Append("ItemUrl, ");
             sqlCommand.Append("UserGuid, ");
@@ -2594,8 +2597,9 @@ namespace mojoPortal.Data
             sqlCommand.Append(":PubStockTickers, ");
             sqlCommand.Append(":HeadlineImageUrl, ");
             sqlCommand.Append(":IncludeImageInExcerpt, ");
+            sqlCommand.Append(":IncludeImageInPost, ");
 
-            sqlCommand.Append(":ItemUrl, ");
+			sqlCommand.Append(":ItemUrl, ");
             sqlCommand.Append(":UserGuid, ");
             sqlCommand.Append(":UserGuid, ");
             sqlCommand.Append(":CreatedDate )");
@@ -2604,7 +2608,7 @@ namespace mojoPortal.Data
 
             sqlCommand.Append("SELECT LAST_INSERT_ROWID();");
 
-            SqliteParameter[] arParams = new SqliteParameter[49];
+            SqliteParameter[] arParams = new SqliteParameter[50];
 
             arParams[0] = new SqliteParameter(":ModuleID", DbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -2812,13 +2816,18 @@ namespace mojoPortal.Data
             arParams[47].Direction = ParameterDirection.Input;
             arParams[47].Value = headlineImageUrl;
 
-            arParams[48] = new SqliteParameter(":IncludeImageInExcerpt", DbType.Int32);
-            arParams[48].Direction = ParameterDirection.Input;
-            arParams[48].Value = intincludeImageInExcerpt;
+			arParams[48] = new SqliteParameter(":IncludeImageInExcerpt", DbType.Int32);
+			arParams[48].Direction = ParameterDirection.Input;
+			arParams[48].Value = intincludeImageInExcerpt;
 
-            
+			arParams[49] = new SqliteParameter(":IncludeImageInPost", DbType.Int32);
+			arParams[49].Direction = ParameterDirection.Input;
+			arParams[49].Value = intincludeImageInPost;
 
-            int newID = 0;
+
+
+
+			int newID = 0;
 
             newID = Convert.ToInt32(SqliteHelper.ExecuteScalar(
                 GetConnectionString(),
@@ -2940,7 +2949,9 @@ namespace mojoPortal.Data
             string pubGeoLocations,
             string pubStockTickers,
             string headlineImageUrl,
-            bool includeImageInExcerpt)
+            bool includeImageInExcerpt,
+            bool includeImageInPost
+		)
         {
 
             #region bit conversion
@@ -3017,12 +3028,16 @@ namespace mojoPortal.Data
             int intincludeInNews = 0;
             if (includeInNews) { intincludeInNews = 1; }
 
-            int intincludeImageInExcerpt = 0;
-            if (includeImageInExcerpt) { intincludeImageInExcerpt = 1; }
+			int intincludeImageInExcerpt = 0;
+			if (includeImageInExcerpt) { intincludeImageInExcerpt = 1; }
 
-            #endregion
+			int intincludeImageInPost = 0;
+			if (includeImageInPost) { intincludeImageInPost = 1; }
 
-            StringBuilder sqlCommand = new StringBuilder();
+
+			#endregion
+
+			StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("UPDATE mp_Blogs ");
             sqlCommand.Append("SET CreatedByUser = :UserName  , ");
             sqlCommand.Append("CreatedDate = datetime('now','localtime') , ");
@@ -3074,13 +3089,14 @@ namespace mojoPortal.Data
             sqlCommand.Append("PubStockTickers = :PubStockTickers, ");
             sqlCommand.Append("HeadlineImageUrl = :HeadlineImageUrl, ");
             sqlCommand.Append("IncludeImageInExcerpt = :IncludeImageInExcerpt, ");
+            sqlCommand.Append("IncludeImageInPost = :IncludeImageInPost, ");
 
-            sqlCommand.Append("LastModUserGuid = :LastModUserGuid, ");
+			sqlCommand.Append("LastModUserGuid = :LastModUserGuid, ");
             sqlCommand.Append("LastModUtc = :LastModUtc ");
 
             sqlCommand.Append("WHERE ItemID = :ItemID ;");
 
-            SqliteParameter[] arParams = new SqliteParameter[45];
+            SqliteParameter[] arParams = new SqliteParameter[46];
 
             arParams[0] = new SqliteParameter(":ItemID", DbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -3272,11 +3288,16 @@ namespace mojoPortal.Data
             arParams[43].Direction = ParameterDirection.Input;
             arParams[43].Value = headlineImageUrl;
 
-            arParams[44] = new SqliteParameter(":IncludeImageInExcerpt", DbType.Int32);
-            arParams[44].Direction = ParameterDirection.Input;
-            arParams[44].Value = intincludeImageInExcerpt;
+			arParams[44] = new SqliteParameter(":IncludeImageInExcerpt", DbType.Int32);
+			arParams[44].Direction = ParameterDirection.Input;
+			arParams[44].Value = intincludeImageInExcerpt;
 
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
+			arParams[45] = new SqliteParameter(":IncludeImageInPost", DbType.Int32);
+			arParams[45].Direction = ParameterDirection.Input;
+			arParams[45].Value = intincludeImageInPost;
+
+
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
                 GetConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

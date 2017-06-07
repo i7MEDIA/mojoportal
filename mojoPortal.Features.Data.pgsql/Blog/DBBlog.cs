@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:				    2007-11-03
-// Last Modified:			2014-03-21
+// Last Modified:			2017-06-07
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -12,16 +12,16 @@
 // 
 // Note moved into separate class file from dbPortal 2007-11-03
 
+using Npgsql;
 using System;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
 using System.Text;
-using Npgsql;
 
 namespace mojoPortal.Data
 {
-    public static class DBBlog
+	public static class DBBlog
     {
 
         public static IDataReader GetBlogs(
@@ -2298,7 +2298,9 @@ namespace mojoPortal.Data
             string pubGeoLocations,
             string pubStockTickers,
             string headlineImageUrl,
-            bool includeImageInExcerpt)
+            bool includeImageInExcerpt,
+			bool includeImageInPost
+		)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("INSERT INTO mp_blogs (");
@@ -2349,8 +2351,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("pubstocktickers, ");
             sqlCommand.Append("headlineimageurl, ");
             sqlCommand.Append("includeimageinexcerpt, ");
+            sqlCommand.Append("includeimageinpost, ");
 
-            sqlCommand.Append("includeinsitemap, ");
+			sqlCommand.Append("includeinsitemap, ");
             sqlCommand.Append("usebingmap, ");
             sqlCommand.Append("mapheight, ");
             sqlCommand.Append("mapwidth, ");
@@ -2412,8 +2415,9 @@ namespace mojoPortal.Data
             sqlCommand.Append(":pubstocktickers, ");
             sqlCommand.Append(":headlineimageurl, ");
             sqlCommand.Append(":includeimageinexcerpt, ");
+            sqlCommand.Append(":includeimageinpost, ");
 
-            sqlCommand.Append(":includeinsitemap, ");
+			sqlCommand.Append(":includeinsitemap, ");
             sqlCommand.Append(":usebingmap, ");
             sqlCommand.Append(":mapheight, ");
             sqlCommand.Append(":mapwidth, ");
@@ -2429,7 +2433,7 @@ namespace mojoPortal.Data
             sqlCommand.Append(";");
             sqlCommand.Append(" SELECT CURRVAL('mp_blogs_itemid_seq');");
 
-            NpgsqlParameter[] arParams = new NpgsqlParameter[55];
+            NpgsqlParameter[] arParams = new NpgsqlParameter[56];
 
             arParams[0] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
@@ -2661,12 +2665,17 @@ namespace mojoPortal.Data
             arParams[53].Direction = ParameterDirection.Input;
             arParams[53].Value = headlineImageUrl;
 
-            arParams[54] = new NpgsqlParameter("includeimageinexcerpt", NpgsqlTypes.NpgsqlDbType.Boolean);
-            arParams[54].Direction = ParameterDirection.Input;
-            arParams[54].Value = includeImageInExcerpt;
+			arParams[54] = new NpgsqlParameter("includeimageinexcerpt", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[54].Direction = ParameterDirection.Input;
+			arParams[54].Value = includeImageInExcerpt;
 
-           
-            int newID = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(ConnectionString.GetWriteConnectionString(),
+			arParams[55] = new NpgsqlParameter("includeimageinpost", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[55].Direction = ParameterDirection.Input;
+			arParams[55].Value = includeImageInPost;
+
+
+
+			int newID = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
                 sqlCommand.ToString(),
                 arParams));
@@ -2727,7 +2736,9 @@ namespace mojoPortal.Data
             string pubGeoLocations,
             string pubStockTickers,
             string headlineImageUrl,
-            bool includeImageInExcerpt)
+			bool includeImageInExcerpt,
+			bool includeImageInPost
+		)
         {
 
             StringBuilder sqlCommand = new StringBuilder();
@@ -2782,6 +2793,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("pubstocktickers = :pubstocktickers, ");
             sqlCommand.Append("headlineimageurl = :headlineimageurl, ");
             sqlCommand.Append("includeimageinexcerpt = :includeimageinexcerpt, ");
+            sqlCommand.Append("includeimageinpost = :includeimageinpost, ");
 
 			sqlCommand.Append("abstract = :abstract "); 
 			
@@ -2789,7 +2801,7 @@ namespace mojoPortal.Data
 			sqlCommand.Append("itemid = :itemid "); 
 			sqlCommand.Append(";");
 			
-			NpgsqlParameter[] arParams = new NpgsqlParameter[47];
+			NpgsqlParameter[] arParams = new NpgsqlParameter[48];
 			
 			arParams[0] = new NpgsqlParameter("itemid", NpgsqlTypes.NpgsqlDbType.Integer); 
 			arParams[0].Direction = ParameterDirection.Input;
@@ -2990,11 +3002,16 @@ namespace mojoPortal.Data
             arParams[45].Direction = ParameterDirection.Input;
             arParams[45].Value = headlineImageUrl;
 
-            arParams[46] = new NpgsqlParameter("includeimageinexcerpt", NpgsqlTypes.NpgsqlDbType.Boolean);
-            arParams[46].Direction = ParameterDirection.Input;
-            arParams[46].Value = includeImageInExcerpt;
+			arParams[46] = new NpgsqlParameter("includeimageinexcerpt", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[46].Direction = ParameterDirection.Input;
+			arParams[46].Value = includeImageInExcerpt;
 
-            int rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+			arParams[47] = new NpgsqlParameter("includeimageinpost", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[47].Direction = ParameterDirection.Input;
+			arParams[47].Value = includeImageInPost;
+
+
+			int rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
 				CommandType.Text, 
 				sqlCommand.ToString(), 
 				arParams);

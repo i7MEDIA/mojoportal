@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:				    2007-11-03
-// Last Modified:			2014-02-10
+// Last Modified:			2017-06-07
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -11,19 +11,16 @@
 // You must not remove this notice, or any other, from this software.
 // 
 
-using System;
-using System.Text;
-using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
 using MySql.Data.MySqlClient;
+using System;
+using System.Configuration;
+using System.Data;
+using System.Text;
 
 
 namespace mojoPortal.Data
 {
-    public static class DBBlog
+	public static class DBBlog
     {
         
         public static IDataReader GetBlogs(
@@ -2353,7 +2350,9 @@ namespace mojoPortal.Data
             string pubGeoLocations,
             string pubStockTickers,
             string headlineImageUrl,
-            bool includeImageInExcerpt)
+            bool includeImageInExcerpt,
+			bool includeImageInPost
+		)
         {
 
             #region bit conversion
@@ -2430,12 +2429,16 @@ namespace mojoPortal.Data
             int intincludeInNews = 0;
             if (includeInNews) { intincludeInNews = 1; }
 
-            int intincludeImageInExcerpt = 0;
-            if (includeImageInExcerpt) { intincludeImageInExcerpt = 1; }
+			int intincludeImageInExcerpt = 0;
+			if (includeImageInExcerpt) { intincludeImageInExcerpt = 1; }
 
-            #endregion
+			int intincludeImageInPost = 0;
+			if (includeImageInPost) { intincludeImageInPost = 1; }
 
-            StringBuilder sqlCommand = new StringBuilder();
+
+			#endregion
+
+			StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("INSERT INTO mp_Blogs (  ");
             sqlCommand.Append("ModuleID, ");
             sqlCommand.Append("CreatedByUser, ");
@@ -2490,8 +2493,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("PubStockTickers, ");
             sqlCommand.Append("HeadlineImageUrl, ");
             sqlCommand.Append("IncludeImageInExcerpt, ");
+            sqlCommand.Append("IncludeImageInPost, ");
 
-            sqlCommand.Append("IsInNewsletter, ");
+			sqlCommand.Append("IsInNewsletter, ");
             sqlCommand.Append("IsPublished, ");
             sqlCommand.Append("IncludeInFeed ");
             sqlCommand.Append(" )");
@@ -2551,15 +2555,16 @@ namespace mojoPortal.Data
             sqlCommand.Append("?PubStockTickers, ");
             sqlCommand.Append("?HeadlineImageUrl, ");
             sqlCommand.Append("?IncludeImageInExcerpt, ");
+            sqlCommand.Append("?IncludeImageInPost, ");
 
-            sqlCommand.Append(" " + inNews + ",  ");
+			sqlCommand.Append(" " + inNews + ",  ");
             sqlCommand.Append(" " + isPub + ",  ");
             sqlCommand.Append(" " + inFeed + "  ");
 
             sqlCommand.Append(");");
             sqlCommand.Append("SELECT LAST_INSERT_ID();");
 
-            MySqlParameter[] arParams = new MySqlParameter[47];
+            MySqlParameter[] arParams = new MySqlParameter[48];
 
             arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -2759,12 +2764,16 @@ namespace mojoPortal.Data
             arParams[45].Direction = ParameterDirection.Input;
             arParams[45].Value = headlineImageUrl;
 
-            arParams[46] = new MySqlParameter("?IncludeImageInExcerpt", MySqlDbType.UInt16);
-            arParams[46].Direction = ParameterDirection.Input;
-            arParams[46].Value = intincludeImageInExcerpt;
+			arParams[46] = new MySqlParameter("?IncludeImageInExcerpt", MySqlDbType.UInt16);
+			arParams[46].Direction = ParameterDirection.Input;
+			arParams[46].Value = intincludeImageInExcerpt;
+
+			arParams[47] = new MySqlParameter("?IncludeImageInPost", MySqlDbType.UInt16);
+			arParams[47].Direction = ParameterDirection.Input;
+			arParams[47].Value = intincludeImageInPost;
 
 
-            int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams).ToString());
@@ -2884,7 +2893,9 @@ namespace mojoPortal.Data
             string pubGeoLocations,
             string pubStockTickers,
             string headlineImageUrl,
-            bool includeImageInExcerpt)
+            bool includeImageInExcerpt,
+			bool includeImageInPost
+		)
         {
 
             #region bit conversion
@@ -2961,12 +2972,15 @@ namespace mojoPortal.Data
             int intincludeInNews = 0;
             if (includeInNews) { intincludeInNews = 1; }
 
-            int intincludeImageInExcerpt = 0;
-            if (includeImageInExcerpt) { intincludeImageInExcerpt = 1; }
+			int intincludeImageInExcerpt = 0;
+			if (includeImageInExcerpt) { intincludeImageInExcerpt = 1; }
 
-            #endregion
+			int intincludeImageInPost = 0;
+			if (includeImageInPost) { intincludeImageInPost = 1; }
 
-            StringBuilder sqlCommand = new StringBuilder();
+			#endregion
+
+			StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("UPDATE mp_Blogs ");
             sqlCommand.Append("SET  ");
 
@@ -3015,7 +3029,8 @@ namespace mojoPortal.Data
             sqlCommand.Append("PubGeoLocations = ?PubGeoLocations, ");
             sqlCommand.Append("PubStockTickers = ?PubStockTickers, ");
             sqlCommand.Append("HeadlineImageUrl = ?HeadlineImageUrl, ");
-            sqlCommand.Append("IncludeImageInExcerpt = ?IncludeImageInExcerpt, ");
+			sqlCommand.Append("IncludeImageInExcerpt = ?IncludeImageInExcerpt, ");
+			sqlCommand.Append("IncludeImageInPost = ?IncludeImageInPost, ");
 
 
             sqlCommand.Append("ItemUrl = ?ItemUrl, ");
@@ -3027,7 +3042,7 @@ namespace mojoPortal.Data
 
             sqlCommand.Append("WHERE ItemID = " + itemId.ToString() + " ;");
 
-            MySqlParameter[] arParams = new MySqlParameter[45];
+            MySqlParameter[] arParams = new MySqlParameter[46];
 
             arParams[0] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -3219,11 +3234,15 @@ namespace mojoPortal.Data
             arParams[43].Direction = ParameterDirection.Input;
             arParams[43].Value = headlineImageUrl;
 
-            arParams[44] = new MySqlParameter("?IncludeImageInExcerpt", MySqlDbType.UInt16);
-            arParams[44].Direction = ParameterDirection.Input;
-            arParams[44].Value = intincludeImageInExcerpt;
+			arParams[44] = new MySqlParameter("?IncludeImageInExcerpt", MySqlDbType.UInt16);
+			arParams[44].Direction = ParameterDirection.Input;
+			arParams[44].Value = intincludeImageInExcerpt;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			arParams[45] = new MySqlParameter("?IncludeImageInPost", MySqlDbType.UInt16);
+			arParams[45].Direction = ParameterDirection.Input;
+			arParams[45].Value = intincludeImageInPost;
+
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
