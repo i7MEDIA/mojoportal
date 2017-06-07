@@ -22,41 +22,41 @@
 							<portal:Link runat="server" ID="linkNewSite" CssClass="newsitelink" SkinId="NewSiteLink" />
 						</portal:FormGroupPanel>
 						<div id="divtabs" class="mojo-tabs">
-							<ul class="nav nav-tabs">
-								<li class="nav-item" id="liGeneral" runat="server">
-									<a class="nav-link" href="#tabSettings">
+							<ul>
+								<li id="liGeneral" runat="server">
+									<a href="#tabSettings">
 										<asp:Literal ID="litSettingsTab" runat="server" EnableViewState="false" />
 									</a>
 								</li>
-								<li class="nav-item" id="liSecurity" runat="server" EnableViewState="false">
-									<asp:HyperLink ID="securityTabLink" runat="server" EnableViewState="false" CssClass="nav-item" />
+								<li id="liSecurity" runat="server" EnableViewState="false">
+									<asp:HyperLink ID="securityTabLink" runat="server" EnableViewState="false" />
 								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="#tabCompanyInfo">
+								<li>
+									<a href="#tabCompanyInfo">
 										<asp:Literal ID="litCompanyInfoTab" runat="server" EnableViewState="false" />
 									</a>
 								</li>
-								<li class="nav-item" id="liCommerce" runat="server" EnableViewState="false">
+								<li id="liCommerce" runat="server" EnableViewState="false">
 									<asp:Literal ID="litCommerceTabLink" runat="server" EnableViewState="false" />
 								</li>
-								<li class="nav-item" id="liHosts" runat="server" visible="false" EnableViewState="false">
+								<li id="liHosts" runat="server" visible="false" EnableViewState="false">
 									<asp:Literal ID="litHostsTabLink" runat="server" EnableViewState="false" />
 								</li>
-								<li class="nav-item" id="liFolderNames" runat="server" visible="false" EnableViewState="false">
+								<li id="liFolderNames" runat="server" visible="false" EnableViewState="false">
 									<asp:Literal ID="litFolderNamesTabLink" runat="server" EnableViewState="false" />
 								</li>
-								<li class="nav-item" id="liFeatures" runat="server" visible="false" EnableViewState="false">
+								<li id="liFeatures" runat="server" visible="false" EnableViewState="false">
 									<asp:Literal ID="litFeaturesTabLink" runat="server" EnableViewState="false" />
 								</li>
-<%--								<li class="nav-item" id="liWebParts" runat="server" visible="false" EnableViewState="false">
+								<%--<li id="liWebParts" runat="server" visible="false" EnableViewState="false">
 									<asp:Literal ID="litWebPartsTabLink" runat="server" EnableViewState="false" />
 								</li>--%>
-								<li class="nav-item">
-									<a class="nav-link" href="#tabApiKeys">
+								<li>
+									<a href="#tabApiKeys">
 										<asp:Literal ID="litAPIKeysTab" runat="server" EnableViewState="false" />
 									</a>
 								</li>
-								<li class="nav-item" id="liMailSettings" runat="server" EnableViewState="false">
+								<li id="liMailSettings" runat="server" EnableViewState="false">
 									<asp:Literal ID="litMailSettingsTabLink" runat="server" EnableViewState="false" />
 								</li>
 							</ul>

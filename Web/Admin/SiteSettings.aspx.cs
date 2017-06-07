@@ -1,6 +1,6 @@
 // Author:					Joe Audette
 // Created:				    2004-08-28
-// Last Modified:			2014-01-10
+// Last Modified:			2017-06-07
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -12,26 +12,25 @@
 // 2010-12-18 modifications by Jamie Eubanks to better support ldap fallback
 // 2011-03-01 improvements for multi site management accessibility, got rid of the autopostback dropdown now uses the SiteList.aspx page to select sites
 
+using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers;
+using mojoPortal.Web.Controls.Captcha;
+using mojoPortal.Web.Editor;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.UI;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Globalization;
 using System.IO;
-using System.Text;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers;
-using mojoPortal.Web.Editor;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.Controls.Captcha;
-using mojoPortal.Web.UI;
-using Resources;
 
 namespace mojoPortal.Web.AdminUI
 {
