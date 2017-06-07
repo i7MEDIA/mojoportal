@@ -76,15 +76,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.OuterWrapperPanel pnlOuterWrap;
         
         /// <summary>
-        /// ctop1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderTop ctop1;
-        
-        /// <summary>
         /// pnlInnerWrap control.
         /// </summary>
         /// <remarks>
@@ -148,13 +139,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.TextBox txtSiteName;
         
         /// <summary>
-        /// lnkNewSite control.
+        /// linkNewSite control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkNewSite;
+        protected global::mojoPortal.Web.UI.Link linkNewSite;
         
         /// <summary>
         /// liGeneral control.
@@ -274,24 +265,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Literal litFeaturesTabLink;
         
         /// <summary>
-        /// liWebParts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liWebParts;
-        
-        /// <summary>
-        /// litWebPartsTabLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litWebPartsTabLink;
-        
-        /// <summary>
         /// litAPIKeysTab control.
         /// </summary>
         /// <remarks>
@@ -319,13 +292,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Literal litMailSettingsTabLink;
         
         /// <summary>
-        /// divSiteId control.
+        /// fgpSiteId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSiteId;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpSiteId;
         
         /// <summary>
         /// SiteLabel52 control.
@@ -355,13 +328,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Label lblSiteGuid;
         
         /// <summary>
-        /// divSiteIsClosed control.
+        /// fgpSiteIsClosed control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSiteIsClosed;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpSiteIsClosed;
         
         /// <summary>
         /// Sitelabel102 control.
@@ -400,13 +373,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.HyperLink lnkEditClosedMessage;
         
         /// <summary>
-        /// divTimeZone control.
+        /// fgpTimeZone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTimeZone;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpTimeZone;
         
         /// <summary>
         /// SiteLabel84 control.
@@ -461,15 +434,6 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoButton btnRestoreSkins;
-        
-        /// <summary>
-        /// divMobileSkin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMobileSkin;
         
         /// <summary>
         /// SiteLabel101 control.
@@ -535,13 +499,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink3;
         
         /// <summary>
-        /// divFriendlyUrlPattern control.
+        /// fgpFriendlyUrlPattern control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divFriendlyUrlPattern;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpFriendlyUrlPattern;
         
         /// <summary>
         /// lblDefaultFriendlyUrlPatten control.
@@ -760,13 +724,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink80;
         
         /// <summary>
-        /// divAllowUserSkins control.
+        /// fgpAllowUserSkins control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAllowUserSkins;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpAllowUserSkins;
         
         /// <summary>
         /// Sitelabel2 control.
@@ -796,13 +760,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink9;
         
         /// <summary>
-        /// divAllowPageSkins control.
+        /// fgpAllowPageSkins control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAllowPageSkins;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpAllowPageSkins;
         
         /// <summary>
         /// Sitelabel2x control.
@@ -832,13 +796,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink10;
         
         /// <summary>
-        /// divAllowHideMenu control.
+        /// fgpAllowHideMenu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAllowHideMenu;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpAllowHideMenu;
         
         /// <summary>
         /// Sitelabel2y control.
@@ -868,13 +832,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink11;
         
         /// <summary>
-        /// divMyPage control.
+        /// fgpMyPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMyPage;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpMyPage;
         
         /// <summary>
         /// Sitelabel20 control.
@@ -904,13 +868,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink12;
         
         /// <summary>
-        /// divMyPageSkin control.
+        /// fgpMyPageSkin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMyPageSkin;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpMyPageSkin;
         
         /// <summary>
         /// SiteLabel45 control.
@@ -940,13 +904,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink13;
         
         /// <summary>
-        /// divSSL control.
+        /// fgpSSL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSSL;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpSSL;
         
         /// <summary>
         /// Sitelabel3 control.
@@ -976,13 +940,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink14;
         
         /// <summary>
-        /// divReallyDeleteUsers control.
+        /// fgpReallyDeleteUsers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divReallyDeleteUsers;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpReallyDeleteUsers;
         
         /// <summary>
         /// SitelabelReallyDeleteUsers control.
@@ -1021,13 +985,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink15;
         
         /// <summary>
-        /// divContentVersioning control.
+        /// fgpContentVersioning control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divContentVersioning;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpContentVersioning;
         
         /// <summary>
         /// Sitelabel48 control.
@@ -1066,13 +1030,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink16;
         
         /// <summary>
-        /// divApprovalsWorkflow control.
+        /// fgpApprovalsWorkflow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divApprovalsWorkflow;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpApprovalsWorkflow;
         
         /// <summary>
         /// Sitelabel59 control.
@@ -1111,13 +1075,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink67;
         
         /// <summary>
-        /// divPreferredHostName control.
+        /// fgpPreferredHostName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPreferredHostName;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpPreferredHostName;
         
         /// <summary>
         /// SiteLabel24 control.
@@ -1237,15 +1201,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink50;
         
         /// <summary>
-        /// div2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div2;
-        
-        /// <summary>
         /// tabSecurity control.
         /// </summary>
         /// <remarks>
@@ -1363,13 +1318,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Panel pnlUserSecurity;
         
         /// <summary>
-        /// divAllowRegistration control.
+        /// fgpAllowRegistration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAllowRegistration;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpAllowRegistration;
         
         /// <summary>
         /// Sitelabel1 control.
@@ -1399,13 +1354,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink18;
         
         /// <summary>
-        /// divUseEmailForLogin control.
+        /// fgpUseEmailForLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divUseEmailForLogin;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpUseEmailForLogin;
         
         /// <summary>
         /// Sitelabelemailforlogin control.
@@ -1435,13 +1390,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink19;
         
         /// <summary>
-        /// divAllowPersistentLogin control.
+        /// fgpAllowPersistantLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAllowPersistentLogin;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpAllowPersistantLogin;
         
         /// <summary>
         /// Sitelabel103 control.
@@ -1471,15 +1426,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink98;
         
         /// <summary>
-        /// div3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div3;
-        
-        /// <summary>
         /// Sitelabel92 control.
         /// </summary>
         /// <remarks>
@@ -1507,13 +1453,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink87;
         
         /// <summary>
-        /// divSecureRegistration control.
+        /// fgpSecureRegistration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSecureRegistration;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpSecureRegistration;
         
         /// <summary>
         /// lblSecureRegistration control.
@@ -1597,13 +1543,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink92;
         
         /// <summary>
-        /// divAllowUserToChangeName control.
+        /// fgpAllowUserToChangeName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAllowUserToChangeName;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpAllowUserToChangeName;
         
         /// <summary>
         /// SitelabelAllowUserToChangeName control.
@@ -1633,13 +1579,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink21;
         
         /// <summary>
-        /// divDisableDbAuthentication control.
+        /// fgpDisableDbAuthentication control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDisableDbAuthentication;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpDisableDbAuthentication;
         
         /// <summary>
         /// Sitelabel76 control.
@@ -1696,13 +1642,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink22;
         
         /// <summary>
-        /// divPasswordRecovery control.
+        /// fgpPasswordRecovery control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPasswordRecovery;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpPasswordRecovery;
         
         /// <summary>
         /// lbl1 control.
@@ -1732,13 +1678,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink23;
         
         /// <summary>
-        /// divAllowPasswordReset control.
+        /// fgpAllowPasswordReset control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAllowPasswordReset;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpAllowPasswordReset;
         
         /// <summary>
         /// SiteLabel12 control.
@@ -1768,13 +1714,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink25;
         
         /// <summary>
-        /// divForcePasswordChangeOnRecovery control.
+        /// fgpForcePasswordChangeOnRecovery control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divForcePasswordChangeOnRecovery;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpForcePasswordChangeOnRecovery;
         
         /// <summary>
         /// SiteLabel95 control.
@@ -1802,15 +1748,6 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink90;
-        
-        /// <summary>
-        /// div1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div1;
         
         /// <summary>
         /// Sitelabel16 control.
@@ -1948,13 +1885,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink29;
         
         /// <summary>
-        /// divShowPasswordStrength control.
+        /// fgpShowPasswordStrength control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divShowPasswordStrength;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpShowPasswordStrength;
         
         /// <summary>
         /// SiteLabel90 control.
@@ -2092,15 +2029,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink88;
         
         /// <summary>
-        /// SiteLabel63 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel63;
-        
-        /// <summary>
         /// tabLDAP control.
         /// </summary>
         /// <remarks>
@@ -2119,13 +2047,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Panel pnlLdapSettings;
         
         /// <summary>
-        /// divUseLdap control.
+        /// fgpUseLdap control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divUseLdap;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpUseLdap;
         
         /// <summary>
         /// lblUseLdapAuth control.
@@ -2155,13 +2083,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink31;
         
         /// <summary>
-        /// divLdapTestPassword control.
+        /// fgpLdapTestPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLdapTestPassword;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpLdapTestPassword;
         
         /// <summary>
         /// Sitelabel9 control.
@@ -2191,13 +2119,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink32;
         
         /// <summary>
-        /// divAutoCreateLdapUsers control.
+        /// fgpAutoCreateLdapUsers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAutoCreateLdapUsers;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpAutoCreateLdapUsers;
         
         /// <summary>
         /// lblAutoCreateLdapUser control.
@@ -2227,13 +2155,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink33;
         
         /// <summary>
-        /// divLdapServer control.
+        /// fgpLdapServer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLdapServer;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpLdapServer;
         
         /// <summary>
         /// lblLdapServer control.
@@ -2263,13 +2191,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink34;
         
         /// <summary>
-        /// divLdapPort control.
+        /// fgpLdapPort control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLdapPort;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpLdapPort;
         
         /// <summary>
         /// lblLdapPort control.
@@ -2299,13 +2227,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink35;
         
         /// <summary>
-        /// divLdapDomain control.
+        /// fgpLdapDomain control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLdapDomain;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpLdapDomain;
         
         /// <summary>
         /// Sitelabel26 control.
@@ -2335,13 +2263,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink36;
         
         /// <summary>
-        /// divLdapRootDn control.
+        /// fgpLdapRootDn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLdapRootDn;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpLdapRootDn;
         
         /// <summary>
         /// lblLdapRootDN control.
@@ -2371,13 +2299,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink37;
         
         /// <summary>
-        /// divLdapUserDNKey control.
+        /// fgpLdapUserDNKey control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLdapUserDNKey;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpLdapUserDNKey;
         
         /// <summary>
         /// Sitelabel8 control.
@@ -2461,15 +2389,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink66;
         
         /// <summary>
-        /// SiteLabel62 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel62;
-        
-        /// <summary>
         /// tabOpenID control.
         /// </summary>
         /// <remarks>
@@ -2479,13 +2398,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabOpenID;
         
         /// <summary>
-        /// divOpenID control.
+        /// fgpOpenID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divOpenID;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpOpenID;
         
         /// <summary>
         /// Sitelabel31 control.
@@ -2515,13 +2434,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink39;
         
         /// <summary>
-        /// divOpenIDSelector control.
+        /// fgpOpenIDSelector control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divOpenIDSelector;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpOpenIDSelector;
         
         /// <summary>
         /// SiteLabel27 control.
@@ -2605,15 +2524,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink64;
         
         /// <summary>
-        /// SiteLabel61 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel61;
-        
-        /// <summary>
         /// lnkRpxAdmin control.
         /// </summary>
         /// <remarks>
@@ -2668,13 +2578,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink41;
         
         /// <summary>
-        /// divLiveMessenger control.
+        /// fgpLiveMessenger control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLiveMessenger;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpLiveMessenger;
         
         /// <summary>
         /// Sitelabel50 control.
@@ -2785,6 +2695,15 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.TextBox txtAppLogoForWindowsLive;
         
         /// <summary>
+        /// pickAppLogoForWindowsLive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FileBrowserTextBoxExtender pickAppLogoForWindowsLive;
+        
+        /// <summary>
         /// MojoHelpLink45 control.
         /// </summary>
         /// <remarks>
@@ -2792,15 +2711,6 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink45;
-        
-        /// <summary>
-        /// SiteLabel60 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel60;
         
         /// <summary>
         /// SiteLabel6 control.
@@ -2882,15 +2792,6 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink48;
-        
-        /// <summary>
-        /// SiteLabel58 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel58;
         
         /// <summary>
         /// SiteLabel47 control.
@@ -3325,15 +3226,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.UpdatePanel upFeatures;
         
         /// <summary>
-        /// MojoHelpLink55 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink55;
-        
-        /// <summary>
         /// Sitelabel4 control.
         /// </summary>
         /// <remarks>
@@ -3341,6 +3233,15 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.Controls.SiteLabel Sitelabel4;
+        
+        /// <summary>
+        /// MojoHelpLink55 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink55;
         
         /// <summary>
         /// lstAllFeatures control.
@@ -3395,96 +3296,6 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoLabel lblFeatureMessage;
-        
-        /// <summary>
-        /// tabWebParts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabWebParts;
-        
-        /// <summary>
-        /// upWebParts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upWebParts;
-        
-        /// <summary>
-        /// MojoHelpLink56 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink56;
-        
-        /// <summary>
-        /// Sitelabel21 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel Sitelabel21;
-        
-        /// <summary>
-        /// lstAllWebParts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lstAllWebParts;
-        
-        /// <summary>
-        /// btnRemoveWebPart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRemoveWebPart;
-        
-        /// <summary>
-        /// btnAddWebPart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddWebPart;
-        
-        /// <summary>
-        /// Sitelabel22 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel Sitelabel22;
-        
-        /// <summary>
-        /// lstSelectedWebParts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lstSelectedWebParts;
-        
-        /// <summary>
-        /// lblWebPartMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoLabel lblWebPartMessage;
         
         /// <summary>
         /// SiteLabel86 control.
@@ -3595,13 +3406,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink84;
         
         /// <summary>
-        /// divGAnalytics control.
+        /// fgpGAnalytics control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGAnalytics;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpGAnalytics;
         
         /// <summary>
         /// SiteLabel25 control.
@@ -3631,13 +3442,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink57;
         
         /// <summary>
-        /// divWoopra control.
+        /// fgpWoopra control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divWoopra;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpWoopra;
         
         /// <summary>
         /// SiteLabel46 control.
@@ -3829,15 +3640,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink60;
         
         /// <summary>
-        /// SiteLabel64 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel64;
-        
-        /// <summary>
         /// tabMailSettings control.
         /// </summary>
         /// <remarks>
@@ -3955,13 +3757,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.CheckBox chkSMTPUseSsl;
         
         /// <summary>
-        /// divSMTPEncoding control.
+        /// fgpSMTPEncoding control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSMTPEncoding;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpSMTPEncoding;
         
         /// <summary>
         /// SiteLabel39 control.
@@ -3989,15 +3791,6 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink61;
-        
-        /// <summary>
-        /// SiteLabel65 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel65;
         
         /// <summary>
         /// vSummary control.
@@ -4072,15 +3865,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.HiddenField hdnCurrentSkin;
         
         /// <summary>
-        /// SiteLabel35 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel35;
-        
-        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>
@@ -4097,23 +3881,5 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoButton btnDelete;
-        
-        /// <summary>
-        /// divCleared control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.EmptyPanel divCleared;
-        
-        /// <summary>
-        /// cbottom1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderBottom cbottom1;
     }
 }
