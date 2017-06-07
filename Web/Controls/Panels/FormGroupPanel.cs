@@ -1,5 +1,4 @@
-﻿using mojoPortal.Web.Framework;
-using System;
+﻿using System;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -15,7 +14,7 @@ namespace mojoPortal.Web.UI
 			set { groupElement = value; }
 		}
 
-		private string groupClass = string.Empty;
+		private string groupClass = "settingrow";
 		public string GroupClass
 		{
 			get { return groupClass; }
