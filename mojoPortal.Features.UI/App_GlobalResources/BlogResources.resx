@@ -975,4 +975,7 @@
   <data name="IncludeImageInPost" xml:space="preserve">
     <value>Include image in Post List?</value>
   </data>
+  <data name="IsFeaturedPost" xml:space="preserve">
+    <value>Is Featured Post?</value>
+  </data>
 </root>

@@ -1969,6 +1969,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is Featured Post?.
+        /// </summary>
+        internal static string IsFeaturedPost {
+            get {
+                return ResourceManager.GetString("IsFeaturedPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is Published?.
         /// </summary>
         internal static string IsPublishedLabel {
