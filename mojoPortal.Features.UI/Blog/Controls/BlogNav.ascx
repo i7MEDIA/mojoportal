@@ -6,35 +6,34 @@
 <%@ Register TagPrefix="blog" TagName="RelatedPostsList" Src="~/Blog/Controls/RelatedPosts.ascx" %>
 <%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Features.UI" TagPrefix="blog" %>
 <%@ Register TagPrefix="blog" TagName="SearchBox" Src="~/Blog/Controls/SearchBox.ascx" %>
+
 <blog:BlogDisplaySettings ID="displaySettings" runat="server" />
 <blog:BlogNavPanel ID="divNav" runat="server" CssClass="blognavright">
-    <blog:SearchBox id="searchBox" runat="server" />
-    <asp:Calendar ID="calBlogNav" runat="server" SkinID="Blog" CaptionAlign="Top"
-        CssClass="aspcalendarmain" DayHeaderStyle-CssClass="aspcalendardayheader" DayNameFormat="FirstLetter"
-        DayStyle-CssClass="aspcalendarday" FirstDayOfWeek="sunday" NextMonthText="+"
-        NextPrevFormat="CustomText" NextPrevStyle-CssClass="aspcalendarnextprevious"
-        OtherMonthDayStyle-CssClass="aspcalendarothermonth" PrevMonthText="-" SelectedDayStyle-CssClass="aspcalendarselectedday"
-        SelectorStyle-CssClass="aspcalendarselector" ShowDayHeader="true" ShowGridLines="false"
-        ShowNextPrevMonth="true" ShowTitle="true" TitleFormat="MonthYear" TitleStyle-CssClass="aspcalendartitle"
-        TodayDayStyle-CssClass="aspcalendartoday" WeekendDayStyle-CssClass="aspcalendarweekendday">
-    </asp:Calendar>
-    <asp:Panel ID="pnlDatePicker" runat="server" EnableViewState="false" CssClass="blogcal" />
-    <blog:FeedLinks ID="Feeds" runat="server" />
-    <blog:BlogTopSideBarPanel id="pnlSideTop" runat="server" CssClass="bsidecontent bsidetop">
-        <asp:Literal ID="litUpperSidebar" runat="server" />
-    </blog:BlogTopSideBarPanel>
-    <blog:BlogStatsPanel ID="pnlStatistics" runat="server" CssClass="bsidelist bstatslist">
-        <blog:StatsControl ID="stats" runat="server" />
-    </blog:BlogStatsPanel>
-    <blog:BlogCatListPanel ID="pnlCategories" runat="server" CssClass="bsidelist bcatlist">
-        <blog:TagList ID="tags" runat="server" />
-    </blog:BlogCatListPanel>
-    <blog:RelatedPostsList ID="relatedPosts" runat="server" />
-    <blog:BlogArchiveListPanel ID="pnlArchives" runat="server" CssClass="bsidelist barchivelist">
-        <blog:Archives ID="archive" runat="server" />
-    </blog:BlogArchiveListPanel>
-    <blog:BlogBottomSideBarPanel id="pnlSideBottom" runat="server" CssClass="bsidecontent bsidebottom">
-        <asp:Literal ID="litLowerSidebar" runat="server" />
-    </blog:BlogBottomSideBarPanel>
-    
+	<blog:SearchBox ID="searchBox" runat="server" />
+	<asp:Calendar ID="calBlogNav" runat="server" SkinID="Blog" CaptionAlign="Top"
+		CssClass="aspcalendarmain" DayHeaderStyle-CssClass="aspcalendardayheader" DayNameFormat="FirstLetter"
+		DayStyle-CssClass="aspcalendarday" FirstDayOfWeek="sunday" NextMonthText="+"
+		NextPrevFormat="CustomText" NextPrevStyle-CssClass="aspcalendarnextprevious"
+		OtherMonthDayStyle-CssClass="aspcalendarothermonth" PrevMonthText="-" SelectedDayStyle-CssClass="aspcalendarselectedday"
+		SelectorStyle-CssClass="aspcalendarselector" ShowDayHeader="true" ShowGridLines="false"
+		ShowNextPrevMonth="true" ShowTitle="true" TitleFormat="MonthYear" TitleStyle-CssClass="aspcalendartitle"
+		TodayDayStyle-CssClass="aspcalendartoday" WeekendDayStyle-CssClass="aspcalendarweekendday"></asp:Calendar>
+	<asp:Panel ID="pnlDatePicker" runat="server" EnableViewState="false" CssClass="blogcal" />
+	<blog:FeedLinks ID="Feeds" runat="server" />
+	<blog:BlogTopSideBarPanel ID="pnlSideTop" runat="server" CssClass="bsidecontent bsidetop">
+		<asp:Literal ID="litUpperSidebar" runat="server" />
+	</blog:BlogTopSideBarPanel>
+	<blog:BlogStatsPanel ID="pnlStatistics" runat="server" CssClass="bsidelist bstatslist">
+		<blog:StatsControl ID="stats" runat="server" />
+	</blog:BlogStatsPanel>
+	<blog:BlogCatListPanel ID="pnlCategories" runat="server" CssClass="bsidelist bcatlist">
+		<blog:TagList ID="tags" runat="server" />
+	</blog:BlogCatListPanel>
+	<blog:RelatedPostsList ID="relatedPosts" runat="server" />
+	<blog:BlogArchiveListPanel ID="pnlArchives" runat="server" CssClass="bsidelist barchivelist">
+		<blog:Archives ID="archive" runat="server" />
+	</blog:BlogArchiveListPanel>
+	<blog:BlogBottomSideBarPanel ID="pnlSideBottom" runat="server" CssClass="bsidecontent bsidebottom">
+		<asp:Literal ID="litLowerSidebar" runat="server" />
+	</blog:BlogBottomSideBarPanel>
 </blog:BlogNavPanel>
