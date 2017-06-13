@@ -14,6 +14,7 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
+using mojoPortal.Web.UI;
 using Resources;
 using System;
 using System.Data;
@@ -162,7 +163,6 @@ namespace mojoPortal.Web.BlogUI
 			if (!Page.IsPostBack)
 			{
 				PopulateControls();
-
 			}
 		}
 
@@ -224,7 +224,6 @@ namespace mojoPortal.Web.BlogUI
 
 				case "DescendingByDate":
 				default:
-
 					dsBlogPosts = Blog.GetPageDataSet(
 						ModuleId,
 						CalendarDate.Date.AddDays(1),
@@ -240,8 +239,175 @@ namespace mojoPortal.Web.BlogUI
 						"&amp;mid=" + moduleId.ToInvariantString() +
 						"&amp;pagenumber={0}"
 					;
-
 					break;
+
+			}
+
+			DataRow featuredRow = dsBlogPosts.Tables["Posts"].NewRow();
+
+			if (config.FeaturedPostId != 0 && pageNumber == 1)
+			{
+				using (IDataReader reader = Blog.GetSingleBlog(config.FeaturedPostId))
+				{
+					while (reader.Read())
+					{
+						featuredRow["ItemID"] = Convert.ToInt32(reader["ItemID"]);
+						featuredRow["ModuleID"] = Convert.ToInt32(reader["ModuleID"]);
+						featuredRow["BlogGuid"] = reader["BlogGuid"].ToString();
+						featuredRow["CreatedDate"] = Convert.ToDateTime(reader["CreatedDate"]);
+						featuredRow["Heading"] = reader["Heading"];
+						featuredRow["SubTitle"] = reader["SubTitle"];
+						featuredRow["StartDate"] = Convert.ToDateTime(reader["StartDate"]);
+						featuredRow["Description"] = reader["Description"];
+						featuredRow["Abstract"] = reader["Abstract"];
+						featuredRow["ItemUrl"] = reader["ItemUrl"];
+						featuredRow["Location"] = reader["Location"];
+						featuredRow["MetaKeywords"] = reader["MetaKeywords"];
+						featuredRow["MetaDescription"] = reader["MetaDescription"];
+						featuredRow["LastModUtc"] = Convert.ToDateTime(reader["LastModUtc"]);
+						featuredRow["IsPublished"] = true;
+						featuredRow["IncludeInFeed"] = Convert.ToBoolean(reader["IncludeInFeed"]);
+						featuredRow["CommentCount"] = Convert.ToInt32(reader["CommentCount"]);
+						featuredRow["UserID"] = Convert.ToInt32(reader["UserID"]);
+						featuredRow["Name"] = reader["Name"];
+						featuredRow["FirstName"] = reader["FirstName"];
+						featuredRow["LastName"] = reader["LastName"];
+						featuredRow["LoginName"] = reader["LoginName"];
+						featuredRow["Email"] = reader["Email"];
+						featuredRow["AvatarUrl"] = reader["AvatarUrl"];
+						featuredRow["AuthorBio"] = reader["AuthorBio"];
+
+						if (reader["ShowAuthorName"] != DBNull.Value)
+						{
+							featuredRow["ShowAuthorName"] = Convert.ToBoolean(reader["ShowAuthorName"]);
+						}
+						else
+						{
+							featuredRow["ShowAuthorName"] = true;
+						}
+
+						if (reader["ShowAuthorAvatar"] != DBNull.Value)
+						{
+							featuredRow["ShowAuthorAvatar"] = Convert.ToBoolean(reader["ShowAuthorAvatar"]);
+						}
+						else
+						{
+							featuredRow["ShowAuthorAvatar"] = true;
+						}
+
+						if (reader["ShowAuthorBio"] != DBNull.Value)
+						{
+							featuredRow["ShowAuthorBio"] = Convert.ToBoolean(reader["ShowAuthorBio"]);
+						}
+						else
+						{
+							featuredRow["ShowAuthorBio"] = true;
+						}
+
+						if (reader["UseBingMap"] != DBNull.Value)
+						{
+							featuredRow["UseBingMap"] = Convert.ToBoolean(reader["UseBingMap"]);
+						}
+						else
+						{
+							featuredRow["UseBingMap"] = false;
+						}
+
+						featuredRow["MapHeight"] = reader["MapHeight"];
+						featuredRow["MapWidth"] = reader["MapWidth"];
+						featuredRow["MapType"] = reader["MapType"];
+
+						if (reader["MapZoom"] != DBNull.Value)
+						{
+							featuredRow["MapZoom"] = Convert.ToInt32(reader["MapZoom"]);
+						}
+						else
+						{
+							featuredRow["MapZoom"] = 13;
+						}
+
+						if (reader["ShowMapOptions"] != DBNull.Value)
+						{
+							featuredRow["ShowMapOptions"] = Convert.ToBoolean(reader["ShowMapOptions"]);
+						}
+						else
+						{
+							featuredRow["ShowMapOptions"] = false;
+						}
+
+						if (reader["ShowZoomTool"] != DBNull.Value)
+						{
+							featuredRow["ShowZoomTool"] = Convert.ToBoolean(reader["ShowZoomTool"]);
+						}
+						else
+						{
+							featuredRow["ShowZoomTool"] = false;
+						}
+
+						if (reader["ShowLocationInfo"] != DBNull.Value)
+						{
+							featuredRow["ShowLocationInfo"] = Convert.ToBoolean(reader["ShowLocationInfo"]);
+						}
+						else
+						{
+							featuredRow["ShowLocationInfo"] = false;
+						}
+
+						if (reader["UseDrivingDirections"] != DBNull.Value)
+						{
+							featuredRow["UseDrivingDirections"] = Convert.ToBoolean(reader["UseDrivingDirections"]);
+						}
+						else
+						{
+							featuredRow["UseDrivingDirections"] = false;
+						}
+
+						if (reader["ShowDownloadLink"] != DBNull.Value)
+						{
+							featuredRow["ShowDownloadLink"] = Convert.ToBoolean(reader["ShowDownloadLink"]);
+						}
+						else
+						{
+							featuredRow["ShowDownloadLink"] = false;
+						}
+
+						featuredRow["HeadlineImageUrl"] = reader["HeadlineImageUrl"];
+
+						if (reader["IncludeImageInExcerpt"] != DBNull.Value)
+						{
+							featuredRow["IncludeImageInExcerpt"] = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
+						}
+						else
+						{
+							featuredRow["IncludeImageInExcerpt"] = true;
+						}
+
+						if (reader["IncludeImageInPost"] != DBNull.Value)
+						{
+							featuredRow["IncludeImageInPost"] = Convert.ToBoolean(reader["IncludeImageInPost"]);
+						}
+						else
+						{
+							featuredRow["IncludeImageInPost"] = true;
+						}
+					}
+				}
+			}
+
+			//look for featured post in datable
+			DataRow found = dsBlogPosts.Tables["Posts"].Rows.Find(config.FeaturedPostId);
+
+			if (found != null)
+			{
+				//remove featured post from datatable so we can insert it at the top if we're on "page" number 1
+				dsBlogPosts.Tables["Posts"].Rows.Remove(found);
+			}
+
+			if (config.FeaturedPostId != 0 && pageNumber == 1)
+			{
+				//insert the featured post into the datatable at the top
+				//we only want to do this if the current "page" is number 1, don't want the featured post on other pages.
+				dsBlogPosts.Tables["Posts"].Rows.InsertAt(featuredRow, 0);
 			}
 
 			rptBlogs.DataSource = dsBlogPosts.Tables["Posts"];
@@ -261,6 +427,73 @@ namespace mojoPortal.Web.BlogUI
 			if (dsBlogPosts == null)
 			{
 				return;
+			}
+
+			bool showAuthorName = Convert.ToBoolean(((DataRowView)e.Item.DataItem).Row["ShowAuthorName"]);
+
+			BlogPostListItemPanel postItem = (BlogPostListItemPanel)e.Item.FindControl("bi1");
+			postItem.CssClass = displaySettings.ListViewPostClass;
+
+			if (config.FeaturedPostId == Convert.ToInt32(((DataRowView)e.Item.DataItem).Row.ItemArray[2]))
+			{
+				postItem.CssClass = displaySettings.ListViewPostClass + " " + displaySettings.FeaturedPostClass;
+			}
+
+			HyperLink postLink = (HyperLink)e.Item.FindControl("lnkTitle");
+			postLink.CssClass = displaySettings.ListViewPostLinkClass;
+
+			BasePanel postBody = (BasePanel)e.Item.FindControl("pnlBlogText");
+			postBody.CssClass = displaySettings.ListViewPostBodyClass;
+			postBody.RenderId = false;
+
+			BasePanel postPanel = (BasePanel)e.Item.FindControl("pnlPost");
+			postPanel.RenderContentsOnly = !displaySettings.ListViewRenderPostPanel;
+			postPanel.RenderId = false;
+
+			BasePanel topDate = (BasePanel)e.Item.FindControl("pnlTopDate");
+			topDate.RenderId = false;
+			topDate.Visible = false;
+			topDate.CssClass = displaySettings.DatePanelClass;
+
+			if (displaySettings.DateBottomPanelClass != "")
+			{
+				topDate.CssClass += " " + displaySettings.DateTopPanelClass;
+			}
+
+			if (!displaySettings.PostListUseBottomDate && !TitleOnly)
+			{
+				if (!displaySettings.PostListHideDate || displaySettings.ShowTagsOnPostList || showAuthorName)
+				{
+					topDate.Visible = true;
+				}
+			}
+
+			BasePanel bottomDate = (BasePanel)e.Item.FindControl("pnlBottomDate");
+			bottomDate.RenderId = false;
+			bottomDate.Visible = false;
+			bottomDate.CssClass = displaySettings.DatePanelClass;
+
+			if (displaySettings.DateBottomPanelClass != "")
+			{
+				bottomDate.CssClass += " " + displaySettings.DateBottomPanelClass;
+			}
+
+			if (displaySettings.PostListUseBottomDate)
+			{
+				if (!displaySettings.PostListHideDate || displaySettings.ShowTagsOnPostList || showAuthorName)
+				{
+					bottomDate.Visible = true;
+				}
+			}
+
+			BasePanel socialPanel = (BasePanel)e.Item.FindControl("pnlBlogSocial");
+			socialPanel.RenderId = false;
+			socialPanel.Visible = false;
+			socialPanel.CssClass = displaySettings.SocialPanelClass;
+
+			if (!config.HideAddThisButton || ShowTweetThisLink || UseFacebookLikeButton || ShowPlusOneButton)
+			{
+				socialPanel.Visible = true;
 			}
 
 			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -789,8 +1022,11 @@ namespace mojoPortal.Web.BlogUI
 
 			if (config.Copyright.Length > 0)
 			{
-				lblCopyright.Text = config.Copyright;
+				litCopyright.Text = config.Copyright;
+				pnlCopyright.Visible = true;
 			}
+
+			pnlCopyright.CssClass = displaySettings.CopyrightPanelClass;
 
 			navTop.Visible = false;
 
@@ -838,6 +1074,8 @@ namespace mojoPortal.Web.BlogUI
 			{
 				useFriendlyUrls = false;
 			}
+
+			pnlPager.CssClass = displaySettings.PagerPanelClass;
 		}
 
 

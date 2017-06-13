@@ -3,12 +3,14 @@
 <%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Features.UI" TagPrefix="blog" %>
 
 <blog:BlogDisplaySettings ID="displaySettings" runat="server" />
+
 <blog:NavControl ID="navTop" runat="server" />
+
 <blog:BlogPostListWrapperPanel ID="divblog" runat="server" CssClass="blogcenter-rightnav">
 	<asp:Repeater ID="rptBlogs" runat="server" SkinID="Blog" EnableViewState="False">
 		<ItemTemplate>
-			<blog:BlogPostListItemPanel ID="bi1" runat="server" CssClass="blogitem">
-				<<%# itemHeadingElement %> class="blogtitle">
+			<blog:BlogPostListItemPanel ID="bi1" runat="server">
+				<<%# itemHeadingElement %> class='<%# displaySettings.ItemHeadingClass %>'>
 					<asp:HyperLink runat="server"
 						SkinID="BlogTitle"
 						ID="lnkTitle"
@@ -31,7 +33,7 @@
 							"/Blog/EditPost.aspx?pageid=" +
 							PageId.ToString() +
 							"&amp;ItemID=" +
-							DataBinder.Eval(Container.DataItem,"ItemID") +
+							DataBinder.Eval(Container.DataItem,"ItemID") + 
 							"&amp;mid=" +
 							ModuleId.ToString()
 						%>'
@@ -42,9 +44,7 @@
 
 				<asp:Literal ID="litSubtitle" runat="server" EnableViewState="false" Text='<%# FormatSubtitle(Eval("SubTitle").ToString()) %>' />
 
-				<% if (!displaySettings.PostListUseBottomDate && !TitleOnly) { %>
-
-				<div class="blogdate">
+				<portal:BasePanel runat="server" ID="pnlTopDate">
 					<span class="blogauthor">
 						<%# FormatPostAuthor(Convert.ToBoolean(Eval("ShowAuthorName")), Eval("Name").ToString(),Eval("FirstName").ToString(),Eval("LastName").ToString())%>
 					</span>
@@ -77,11 +77,9 @@
 							</span>
 						</FooterTemplate>
 					</asp:Repeater>
-				</div>
+				</portal:BasePanel>
 
-				<% } %>
-
-				<asp:Panel ID="pnlPost" runat="server" Visible='<%# !TitleOnly %>'>
+				<portal:BasePanel ID="pnlPost" runat="server" Visible='<%# !TitleOnly %>' RenderId="false">
 					<portal:mojoRating runat="server"
 						ID="Rating"
 						Enabled='<%# EnableContentRating && !displaySettings.UseBottomContentRating %>'
@@ -94,7 +92,7 @@
 						ItemId='<%# DataBinder.Eval(Container.DataItem,"ItemID") %>'
 						ItemTitle='<%# Eval("Heading") %>' />
 
-					<div class="blogtext">
+					<portal:BasePanel runat="server" ID="pnlBlogText">
 						<%# FormatBlogEntry(Eval("Description").ToString(), 
 							Eval("Abstract").ToString(), 
 							Eval("ItemUrl").ToString(), 
@@ -104,7 +102,7 @@
 							Convert.ToBoolean(Eval("IncludeImageInPost")),
 							Eval("Heading").ToString()
 						) %>
-					</div>
+					</portal:BasePanel>
 
 					<asp:Repeater ID="rptAttachments" runat="server" Visible='<%# !useExcerpt && !TitleOnly %>'>
 						<ItemTemplate>
@@ -144,11 +142,14 @@
 						ShowMapControls='<%# Convert.ToBoolean(Eval("ShowMapOptions")) %>'
 						ShowLocationPin='<%# Convert.ToBoolean(Eval("ShowLocationInfo")) %>' />
 
-					<asp:Panel runat="server"
+					<portal:BasePanel runat="server"
 						ID="pnlAvatar"
 						EnableViewState="false"
 						Visible='<%# !disableAvatars && !displaySettings.HideAvatarInPostList && ( (Convert.ToBoolean(Eval("ShowAuthorAvatar"))) || ((Convert.ToBoolean(Eval("ShowAuthorBio")))) ) %>'
-						CssClass="avatarwrap authorinfo">
+						CssClass="avatarwrap authorinfo"
+						RenderId="false"
+					>
+
 						<portal:Avatar runat="server"
 							ID="av1"
 							UseLink='<%# UseProfileLink() %>'
@@ -167,15 +168,12 @@
 							class="authorbio"
 							enableviewstate="false"
 							id="spnAuthorBio"
-							visible='<%# displaySettings.ShowAuthorBioInPostList && Convert.ToBoolean(Eval("ShowAuthorBio")) %>'>
+							visible='<%# displaySettings.ShowAuthorBioInPostList && Convert.ToBoolean(Eval("ShowAuthorBio")) && !string.IsNullOrWhiteSpace(Eval("AuthorBio").ToString()) %>'>
 							<%# Eval("AuthorBio") %>
 						</span>
-					</asp:Panel>
+					</portal:BasePanel>
 
-					<% if (displaySettings.PostListUseBottomDate)
-						{ %>
-
-					<div class="blogdate">
+					<portal:BasePanel runat="server" ID="pnlBottomDate">
 						<span class="blogauthor" id="spnAuthor" runat="server" enableviewstate="false" visible='<%# Convert.ToBoolean(Eval("ShowAuthorName"))  %>'>
 							<%# FormatPostAuthor(Convert.ToBoolean(Eval("ShowAuthorName")),Eval("Name").ToString(),Eval("FirstName").ToString(),Eval("LastName").ToString())%>
 						</span>
@@ -216,9 +214,7 @@
 								</span>
 							</FooterTemplate>
 						</asp:Repeater>
-					</div>
-
-					<% } %>
+					</portal:BasePanel>
 
 					<portal:mojoRating runat="server"
 						ID="Rating2"
@@ -226,7 +222,7 @@
 						ContentGuid='<%# new Guid(Eval("BlogGuid").ToString()) %>'
 						AllowFeedback='false' />
 
-					<div class="bsocial">
+					<portal:BasePanel runat="server" ID="pnlBlogSocial">
 						<portal:AddThisWidget runat="server"
 							ID="addThisWidget"
 							AccountId='<%# addThisAccountId %>'
@@ -256,7 +252,7 @@
 							TargetUrl='<%# FormatBlogTitleUrl(DataBinder.Eval(Container.DataItem,"ItemUrl").ToString(), Convert.ToInt32(DataBinder.Eval(Container.DataItem,"ItemID"))) %>'
 							Visible='<%# ShowPlusOneButton %>'
 							SkinID="BlogPostList" />
-					</div>
+					</portal:BasePanel>
 
 					<div id="blogCommentLink" runat="server" visible='<%# AllowComments %>' class="blogcommentlink">
 						<asp:HyperLink runat="server"
@@ -275,20 +271,20 @@
 							NavigateUrl='<%# FormatBlogUrl(DataBinder.Eval(Container.DataItem,"ItemUrl").ToString(), Convert.ToInt32(DataBinder.Eval(Container.DataItem,"ItemID")))  %>'
 							CssClass="blogcommentlink"></asp:HyperLink>
 					</div>
-				</asp:Panel>
+				</portal:BasePanel>
 			</blog:BlogPostListItemPanel>
 		</ItemTemplate>
 	</asp:Repeater>
 
-	<div class="blogpager">
+	<portal:BasePanel runat="server" ID="pnlPager" Autohide="true" RenderId="false">
 		<portal:mojoCutePager ID="pgr" runat="server" />
-	</div>
+	</portal:BasePanel>
 </blog:BlogPostListWrapperPanel>
 
 <blog:NavControl ID="navBottom" runat="server" />
 
-<div class="blogcopyright">
-	<asp:Label ID="lblCopyright" runat="server" />
-</div>
+<portal:BasePanel runat="server" ID="pnlCopyright" RenderId="false">
+	<asp:Literal runat="server" ID="litCopyright" />
+</portal:BasePanel>
 
 <portal:DisqusWidget ID="disqus" runat="server" />

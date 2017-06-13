@@ -49,6 +49,15 @@ namespace mojoPortal.Web.BlogUI {
         protected global::System.Web.UI.WebControls.Repeater rptBlogs;
         
         /// <summary>
+        /// pnlPager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlPager;
+        
+        /// <summary>
         /// pgr control.
         /// </summary>
         /// <remarks>
@@ -67,13 +76,22 @@ namespace mojoPortal.Web.BlogUI {
         protected global::mojoPortal.Web.BlogUI.BlogNav navBottom;
         
         /// <summary>
-        /// lblCopyright control.
+        /// pnlCopyright control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCopyright;
+        protected global::mojoPortal.Web.UI.BasePanel pnlCopyright;
+        
+        /// <summary>
+        /// litCopyright control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litCopyright;
         
         /// <summary>
         /// disqus control.
