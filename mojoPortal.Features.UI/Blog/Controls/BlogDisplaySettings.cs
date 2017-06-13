@@ -210,6 +210,110 @@ namespace mojoPortal.Web.BlogUI
 			set { featuredImageAbovePost = value; }
 		}
 
+		private string featuredPostClass = "blog-list-view__post--featured";
+
+		public string FeaturedPostClass
+		{
+			get { return featuredPostClass; }
+			set { featuredPostClass = value; }
+		}
+
+		private string listViewPostClass = "blogitem";
+
+		public string ListViewPostClass
+		{
+			get { return listViewPostClass; }
+			set { listViewPostClass = value; }
+		}
+
+		private string listViewPostTitleClass = "blogtitle";
+
+		public string ListViewPostTitleClass
+		{
+			get { return listViewPostTitleClass; }
+			set { listViewPostTitleClass = value; }
+		}
+
+		private string listViewPostLinkClass = "blogitemtitle";
+
+		public string ListViewPostLinkClass
+		{
+			get => listViewPostLinkClass;
+			set => listViewPostLinkClass = value;
+		}
+
+		private string listViewPostBodyClass = "blogtext";
+
+		public string ListViewPostBodyClass
+		{
+			get => listViewPostBodyClass;
+			set => listViewPostBodyClass = value;
+		}
+
+		private bool listViewRenderPostPanel = true;
+
+		public bool ListViewRenderPostPanel
+		{
+			get => listViewRenderPostPanel;
+			set => listViewRenderPostPanel = value;
+		}
+
+		private string avatarPanelClass = "avatarwrap authorinfo";
+
+		public string AvatarPanelClass
+		{
+			get => avatarPanelClass;
+			set => avatarPanelClass = value;
+		}
+
+		private string datePanelClass = "blogdate";
+
+		public string DatePanelClass
+		{
+			get => datePanelClass;
+			set => datePanelClass = value;
+		}
+
+		private string dateTopPanelClass = "blog-list-view__post-date--top";
+
+		public string DateTopPanelClass
+		{
+			get => dateTopPanelClass;
+			set => dateTopPanelClass = value;
+		}
+
+		private string dateBottomPanelClass = "blog-list-view__post-date--bottom";
+
+		public string DateBottomPanelClass
+		{
+			get => dateBottomPanelClass;
+			set => dateBottomPanelClass = value;
+		}
+
+		private string socialPanelClass = "bsocial";
+
+		public string SocialPanelClass
+		{
+			get => socialPanelClass;
+			set => socialPanelClass = value;
+		}
+
+		private string pagerPanelClass = "blogpager";
+
+		public string PagerPanelClass
+		{
+			get => pagerPanelClass;
+			set => pagerPanelClass = value;
+		}
+
+		private string copyrightPanelClass = "blogcopyright";
+
+		public string CopyrightPanelClass
+		{
+			get => copyrightPanelClass;
+			set => copyrightPanelClass = value;
+		}
+
 		private bool detailViewDisableContentRating = false;
 
 		public bool DetailViewDisableContentRating
@@ -322,6 +426,14 @@ namespace mojoPortal.Web.BlogUI
 		{
 			get { return overrideArchiveListItemHeadingElement; }
 			set { overrideArchiveListItemHeadingElement = value; }
+		}
+
+		private string itemHeadingClass = "blogtitle";
+
+		public string ItemHeadingClass
+		{
+			get => itemHeadingClass;
+			set => itemHeadingClass = value;
 		}
 
 		private string overrideCategoryLabel = string.Empty;
