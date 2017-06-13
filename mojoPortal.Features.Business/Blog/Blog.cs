@@ -1213,7 +1213,8 @@ namespace mojoPortal.Business
             dataTable.Columns.Add("ModuleID", typeof(int));
             dataTable.Columns.Add("BlogGuid", typeof(string));
             dataTable.Columns.Add("ItemID", typeof(int));
-            dataTable.Columns.Add("CreatedDate", typeof(DateTime));
+			dataTable.PrimaryKey = new DataColumn[] { dataTable.Columns["ItemID"] };
+			dataTable.Columns.Add("CreatedDate", typeof(DateTime));
             dataTable.Columns.Add("Heading", typeof(string));
             dataTable.Columns.Add("SubTitle", typeof(string));
             dataTable.Columns.Add("StartDate", typeof(DateTime));
