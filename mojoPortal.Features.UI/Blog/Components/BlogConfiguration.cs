@@ -22,355 +22,357 @@ namespace mojoPortal.Web.BlogUI
 	/// encapsulates the feature instance configuration loaded from module settings into a more friendly object
 	/// </summary>
 	public class BlogConfiguration
-    {
-        public BlogConfiguration()
-        { }
+	{
+		public BlogConfiguration()
+		{ }
 
-        public BlogConfiguration(Hashtable settings)
-        {
-            LoadSettings(settings);
+		public BlogConfiguration(Hashtable settings)
+		{
+			LoadSettings(settings);
 
-        }
+		}
 
-        private void LoadSettings(Hashtable settings)
-        {
-            if (settings == null) { throw new ArgumentException("must pass in a hashtable of settings"); }
+		private void LoadSettings(Hashtable settings)
+		{
+			if (settings == null) { throw new ArgumentException("must pass in a hashtable of settings"); }
 
-            useExcerpt = WebUtils.ParseBoolFromHashtable(settings, "BlogUseExcerptSetting", useExcerpt);
-            useExcerptInFeed = WebUtils.ParseBoolFromHashtable(settings, "UseExcerptInFeedSetting", useExcerptInFeed);
+			useExcerpt = WebUtils.ParseBoolFromHashtable(settings, "BlogUseExcerptSetting", useExcerpt);
+			useExcerptInFeed = WebUtils.ParseBoolFromHashtable(settings, "UseExcerptInFeedSetting", useExcerptInFeed);
 
-           
+		   
 
-            titleOnly = WebUtils.ParseBoolFromHashtable(settings, "BlogShowTitleOnlySetting", titleOnly);
+			titleOnly = WebUtils.ParseBoolFromHashtable(settings, "BlogShowTitleOnlySetting", titleOnly);
 
-            showPager = WebUtils.ParseBoolFromHashtable(settings, "BlogShowPagerInListSetting", showPager);
+			showPager = WebUtils.ParseBoolFromHashtable(settings, "BlogShowPagerInListSetting", showPager);
 
-            googleMapIncludeWithExcerpt = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapIncludeWithExcerptSetting", googleMapIncludeWithExcerpt);
+			googleMapIncludeWithExcerpt = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapIncludeWithExcerptSetting", googleMapIncludeWithExcerpt);
 
-            enableContentRating = WebUtils.ParseBoolFromHashtable(settings, "EnableContentRatingSetting", enableContentRating);
+			enableContentRating = WebUtils.ParseBoolFromHashtable(settings, "EnableContentRatingSetting", enableContentRating);
 
-            enableRatingComments = WebUtils.ParseBoolFromHashtable(settings, "EnableRatingCommentsSetting", enableRatingComments);
+			enableRatingComments = WebUtils.ParseBoolFromHashtable(settings, "EnableRatingCommentsSetting", enableRatingComments);
 
-            excerptLength = WebUtils.ParseInt32FromHashtable(settings, "BlogExcerptLengthSetting", excerptLength);
+			excerptLength = WebUtils.ParseInt32FromHashtable(settings, "BlogExcerptLengthSetting", excerptLength);
 
-            if (settings.Contains("BlogExcerptSuffixSetting"))
-            {
-                excerptSuffix = settings["BlogExcerptSuffixSetting"].ToString();
-            }
+			if (settings.Contains("BlogExcerptSuffixSetting"))
+			{
+				excerptSuffix = settings["BlogExcerptSuffixSetting"].ToString();
+			}
 
-            if (settings.Contains("BlogMoreLinkText"))
-            {
-                moreLinkText = settings["BlogMoreLinkText"].ToString();
-            }
+			if (settings.Contains("BlogMoreLinkText"))
+			{
+				moreLinkText = settings["BlogMoreLinkText"].ToString();
+			}
 
-            if (settings.Contains("BlogAuthorSetting"))
-            {
-                blogAuthor = settings["BlogAuthorSetting"].ToString();
-            }
+			if (settings.Contains("BlogAuthorSetting"))
+			{
+				blogAuthor = settings["BlogAuthorSetting"].ToString();
+			}
 
-            if (settings.Contains("CustomCssClassSetting"))
-            {
-                instanceCssClass = settings["CustomCssClassSetting"].ToString();
-            }
+			if (settings.Contains("CustomCssClassSetting"))
+			{
+				instanceCssClass = settings["CustomCssClassSetting"].ToString();
+			}
 
-            if (settings.Contains("BlogDateTimeFormat"))
-            {
-                string format = settings["BlogDateTimeFormat"].ToString().Trim();
-                if (format.Length > 0)
-                {
-                    try
-                    {
-                        string d = DateTime.Now.ToString(format, CultureInfo.CurrentCulture);
-                        dateTimeFormat = format;
-                    }
-                    catch (FormatException) { }
-                }
+			if (settings.Contains("BlogDateTimeFormat"))
+			{
+				string format = settings["BlogDateTimeFormat"].ToString().Trim();
+				if (format.Length > 0)
+				{
+					try
+					{
+						string d = DateTime.Now.ToString(format, CultureInfo.CurrentCulture);
+						dateTimeFormat = format;
+					}
+					catch (FormatException) { }
+				}
 
-            }
+			}
 
-            useTagCloudForCategories = WebUtils.ParseBoolFromHashtable(settings, "BlogUseTagCloudForCategoriesSetting", useTagCloudForCategories);
+			useTagCloudForCategories = WebUtils.ParseBoolFromHashtable(settings, "BlogUseTagCloudForCategoriesSetting", useTagCloudForCategories);
 
-            showCalendar = WebUtils.ParseBoolFromHashtable(settings, "BlogShowCalendarSetting", showCalendar);
+			showCalendar = WebUtils.ParseBoolFromHashtable(settings, "BlogShowCalendarSetting", showCalendar);
 
-            showCategories = WebUtils.ParseBoolFromHashtable(settings, "BlogShowCategoriesSetting", showCategories);
+			showCategories = WebUtils.ParseBoolFromHashtable(settings, "BlogShowCategoriesSetting", showCategories);
 
-            showArchives = WebUtils.ParseBoolFromHashtable(settings, "BlogShowArchiveSetting", showArchives);
+			showArchives = WebUtils.ParseBoolFromHashtable(settings, "BlogShowArchiveSetting", showArchives);
 
-            showStatistics = WebUtils.ParseBoolFromHashtable(settings, "BlogShowStatisticsSetting", showStatistics);
+			showStatistics = WebUtils.ParseBoolFromHashtable(settings, "BlogShowStatisticsSetting", showStatistics);
 
-            showFeedLinks = WebUtils.ParseBoolFromHashtable(settings, "BlogShowFeedLinksSetting", showFeedLinks);
+			showFeedLinks = WebUtils.ParseBoolFromHashtable(settings, "BlogShowFeedLinksSetting", showFeedLinks);
 
-            showAddFeedLinks = WebUtils.ParseBoolFromHashtable(settings, "BlogShowAddFeedLinksSetting", showAddFeedLinks);
+			showAddFeedLinks = WebUtils.ParseBoolFromHashtable(settings, "BlogShowAddFeedLinksSetting", showAddFeedLinks);
 
-            navigationOnRight = WebUtils.ParseBoolFromHashtable(settings, "BlogNavigationOnRightSetting", navigationOnRight);
+			navigationOnRight = WebUtils.ParseBoolFromHashtable(settings, "BlogNavigationOnRightSetting", navigationOnRight);
 
-            allowComments = WebUtils.ParseBoolFromHashtable(settings, "BlogAllowComments", allowComments);
+			allowComments = WebUtils.ParseBoolFromHashtable(settings, "BlogAllowComments", allowComments);
 
-            useLinkForHeading = WebUtils.ParseBoolFromHashtable(settings, "BlogUseLinkForHeading", useLinkForHeading);
+			useLinkForHeading = WebUtils.ParseBoolFromHashtable(settings, "BlogUseLinkForHeading", useLinkForHeading);
 
-            //showPostAuthor = WebUtils.ParseBoolFromHashtable(settings, "ShowPostAuthorSetting", showPostAuthor);
+			//showPostAuthor = WebUtils.ParseBoolFromHashtable(settings, "ShowPostAuthorSetting", showPostAuthor);
 
-            //if (settings.Contains("GoogleMapInitialMapTypeSetting"))
-            //{
-            //    string gmType = settings["GoogleMapInitialMapTypeSetting"].ToString();
-            //    try
-            //    {
-            //        mapType = (MapType)Enum.Parse(typeof(MapType), gmType);
-            //    }
-            //    catch (ArgumentException) { }
-            //}
+			//if (settings.Contains("GoogleMapInitialMapTypeSetting"))
+			//{
+			//    string gmType = settings["GoogleMapInitialMapTypeSetting"].ToString();
+			//    try
+			//    {
+			//        mapType = (MapType)Enum.Parse(typeof(MapType), gmType);
+			//    }
+			//    catch (ArgumentException) { }
+			//}
 
-            //googleMapHeight = WebUtils.ParseInt32FromHashtable(settings, "GoogleMapHeightSetting", googleMapHeight);
+			//googleMapHeight = WebUtils.ParseInt32FromHashtable(settings, "GoogleMapHeightSetting", googleMapHeight);
 
-            ////googleMapWidth = WebUtils.ParseInt32FromHashtable(settings, "GoogleMapWidthSetting", googleMapWidth);
-            //if (settings.Contains("GoogleMapWidthSetting"))
-            //{
-            //    googleMapWidth = settings["GoogleMapWidthSetting"].ToString();
-            //}
+			////googleMapWidth = WebUtils.ParseInt32FromHashtable(settings, "GoogleMapWidthSetting", googleMapWidth);
+			//if (settings.Contains("GoogleMapWidthSetting"))
+			//{
+			//    googleMapWidth = settings["GoogleMapWidthSetting"].ToString();
+			//}
 
 
-            //googleMapEnableMapType = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapEnableMapTypeSetting", googleMapEnableMapType);
+			//googleMapEnableMapType = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapEnableMapTypeSetting", googleMapEnableMapType);
 
-            //googleMapEnableZoom = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapEnableZoomSetting", googleMapEnableZoom);
+			//googleMapEnableZoom = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapEnableZoomSetting", googleMapEnableZoom);
 
-            //googleMapShowInfoWindow = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapShowInfoWindowSetting", googleMapShowInfoWindow);
+			//googleMapShowInfoWindow = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapShowInfoWindowSetting", googleMapShowInfoWindow);
 
-            //googleMapEnableLocalSearch = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapEnableLocalSearchSetting", googleMapEnableLocalSearch);
+			//googleMapEnableLocalSearch = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapEnableLocalSearchSetting", googleMapEnableLocalSearch);
 
-            //googleMapEnableDirections = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapEnableDirectionsSetting", googleMapEnableDirections);
+			//googleMapEnableDirections = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapEnableDirectionsSetting", googleMapEnableDirections);
 
-            //googleMapInitialZoom = WebUtils.ParseInt32FromHashtable(settings, "GoogleMapInitialZoomSetting", googleMapInitialZoom);
+			//googleMapInitialZoom = WebUtils.ParseInt32FromHashtable(settings, "GoogleMapInitialZoomSetting", googleMapInitialZoom);
 
-            pageSize = WebUtils.ParseInt32FromHashtable(settings, "BlogEntriesToShowSetting", pageSize);
+			pageSize = WebUtils.ParseInt32FromHashtable(settings, "BlogEntriesToShowSetting", pageSize);
 
-            if (settings.Contains("OdiogoFeedIDSetting"))
-            {
-                odiogoFeedId = settings["OdiogoFeedIDSetting"].ToString();
-            }
+			if (settings.Contains("OdiogoFeedIDSetting"))
+			{
+				odiogoFeedId = settings["OdiogoFeedIDSetting"].ToString();
+			}
 
-            if (settings.Contains("OdiogoPodcastUrlSetting"))
-                odiogoPodcastUrl = settings["OdiogoPodcastUrlSetting"].ToString();
+			if (settings.Contains("OdiogoPodcastUrlSetting"))
+				odiogoPodcastUrl = settings["OdiogoPodcastUrlSetting"].ToString();
 
-            hideAddThisButton = WebUtils.ParseBoolFromHashtable(settings, "BlogHideAddThisButtonSetting", hideAddThisButton);
+			hideAddThisButton = WebUtils.ParseBoolFromHashtable(settings, "BlogHideAddThisButtonSetting", hideAddThisButton);
 
-            if (settings.Contains("BlogAddThisDotComUsernameSetting"))
-            {
-                addThisAccountId = settings["BlogAddThisDotComUsernameSetting"].ToString().Trim();
-            }
+			if (settings.Contains("BlogAddThisDotComUsernameSetting"))
+			{
+				addThisAccountId = settings["BlogAddThisDotComUsernameSetting"].ToString().Trim();
+			}
 
-            //useAddThisMouseOverWidget = WebUtils.ParseBoolFromHashtable(settings, "BlogAddThisDotComUseMouseOverWidgetSetting", useAddThisMouseOverWidget);
+			//useAddThisMouseOverWidget = WebUtils.ParseBoolFromHashtable(settings, "BlogAddThisDotComUseMouseOverWidgetSetting", useAddThisMouseOverWidget);
 
 
-            //if (settings.Contains("BlogAddThisButtonImageUrlSetting"))
-            //{
-            //    string buttonImage = settings["BlogAddThisButtonImageUrlSetting"].ToString().Trim();
-            //    if (buttonImage.Length > 0)
-            //    {
-            //        addThisButtonImageUrl = buttonImage;
-            //    }
-            //}
+			//if (settings.Contains("BlogAddThisButtonImageUrlSetting"))
+			//{
+			//    string buttonImage = settings["BlogAddThisButtonImageUrlSetting"].ToString().Trim();
+			//    if (buttonImage.Length > 0)
+			//    {
+			//        addThisButtonImageUrl = buttonImage;
+			//    }
+			//}
 
-            if (settings.Contains("BlogAddThisRssButtonImageUrlSetting"))
-                addThisRssButtonImageUrl = settings["BlogAddThisRssButtonImageUrlSetting"].ToString().Trim();
+			if (settings.Contains("BlogAddThisRssButtonImageUrlSetting"))
+				addThisRssButtonImageUrl = settings["BlogAddThisRssButtonImageUrlSetting"].ToString().Trim();
 
-            //if (settings.Contains("BlogAddThisCustomBrandSetting"))
-            //{
-            //    addThisCustomBrand = settings["BlogAddThisCustomBrandSetting"].ToString().Trim();
-            //}
+			//if (settings.Contains("BlogAddThisCustomBrandSetting"))
+			//{
+			//    addThisCustomBrand = settings["BlogAddThisCustomBrandSetting"].ToString().Trim();
+			//}
 
-            //if (settings.Contains("BlogAddThisCustomOptionsSetting"))
-            //{
-            //    addThisCustomOptions = settings["BlogAddThisCustomOptionsSetting"].ToString().Trim();
-            //}
+			//if (settings.Contains("BlogAddThisCustomOptionsSetting"))
+			//{
+			//    addThisCustomOptions = settings["BlogAddThisCustomOptionsSetting"].ToString().Trim();
+			//}
 
-            //if (settings.Contains("BlogAddThisCustomLogoUrlSetting"))
-            //{
-            //    addThisCustomLogoUrl = settings["BlogAddThisCustomLogoUrlSetting"].ToString().Trim();
-            //}
+			//if (settings.Contains("BlogAddThisCustomLogoUrlSetting"))
+			//{
+			//    addThisCustomLogoUrl = settings["BlogAddThisCustomLogoUrlSetting"].ToString().Trim();
+			//}
 
-            //if (settings.Contains("BlogAddThisCustomLogoBackColorSetting"))
-            //{
-            //    addThisCustomLogoBackColor = settings["BlogAddThisCustomLogoBackColorSetting"].ToString().Trim();
-            //}
+			//if (settings.Contains("BlogAddThisCustomLogoBackColorSetting"))
+			//{
+			//    addThisCustomLogoBackColor = settings["BlogAddThisCustomLogoBackColorSetting"].ToString().Trim();
+			//}
 
-            //if (settings.Contains("BlogAddThisCustomLogoForeColorSetting"))
-            //{
-            //    addThisCustomLogoForeColor = settings["BlogAddThisCustomLogoForeColorSetting"].ToString().Trim();
-            //}
+			//if (settings.Contains("BlogAddThisCustomLogoForeColorSetting"))
+			//{
+			//    addThisCustomLogoForeColor = settings["BlogAddThisCustomLogoForeColorSetting"].ToString().Trim();
+			//}
 
-            if (settings.Contains("BlogFeedburnerFeedUrl"))
-            {
-                feedburnerFeedUrl = settings["BlogFeedburnerFeedUrl"].ToString().Trim();
-            }
+			if (settings.Contains("BlogFeedburnerFeedUrl"))
+			{
+				feedburnerFeedUrl = settings["BlogFeedburnerFeedUrl"].ToString().Trim();
+			}
 
-            if (settings.Contains("DisqusSiteShortName"))
-            {
-                disqusSiteShortName = settings["DisqusSiteShortName"].ToString();
-            }
+			if (settings.Contains("DisqusSiteShortName"))
+			{
+				disqusSiteShortName = settings["DisqusSiteShortName"].ToString();
+			}
 
-            if (settings.Contains("CommentSystemSetting"))
-            {
-                commentSystem = settings["CommentSystemSetting"].ToString();
-            }
+			if (settings.Contains("CommentSystemSetting"))
+			{
+				commentSystem = settings["CommentSystemSetting"].ToString();
+			}
 
-            if (settings.Contains("IntenseDebateAccountId"))
-            {
-                intenseDebateAccountId = settings["IntenseDebateAccountId"].ToString();
-            }
+			if (settings.Contains("IntenseDebateAccountId"))
+			{
+				intenseDebateAccountId = settings["IntenseDebateAccountId"].ToString();
+			}
 
-            allowWebSiteUrlForComments = WebUtils.ParseBoolFromHashtable(settings, "AllowWebSiteUrlForComments", allowWebSiteUrlForComments);
+			allowWebSiteUrlForComments = WebUtils.ParseBoolFromHashtable(settings, "AllowWebSiteUrlForComments", allowWebSiteUrlForComments);
 
-            hideDetailsFromUnauthencticated = WebUtils.ParseBoolFromHashtable(settings, "HideDetailsFromUnauthencticated", hideDetailsFromUnauthencticated);
+			hideDetailsFromUnauthencticated = WebUtils.ParseBoolFromHashtable(settings, "HideDetailsFromUnauthencticated", hideDetailsFromUnauthencticated);
 
-            if (settings.Contains("BlogCopyrightSetting"))
-            {
-                copyright = settings["BlogCopyrightSetting"].ToString();
-            }
+			if (settings.Contains("BlogCopyrightSetting"))
+			{
+				copyright = settings["BlogCopyrightSetting"].ToString();
+			}
 
-            showLeftContent = WebUtils.ParseBoolFromHashtable(settings, "ShowPageLeftContentSetting", showLeftContent);
+			showLeftContent = WebUtils.ParseBoolFromHashtable(settings, "ShowPageLeftContentSetting", showLeftContent);
 
-            showRightContent = WebUtils.ParseBoolFromHashtable(settings, "ShowPageRightContentSetting", showRightContent);
+			showRightContent = WebUtils.ParseBoolFromHashtable(settings, "ShowPageRightContentSetting", showRightContent);
 
-            enableContentVersioning = WebUtils.ParseBoolFromHashtable(settings, "BlogEnableVersioningSetting", enableContentVersioning);
+			enableContentVersioning = WebUtils.ParseBoolFromHashtable(settings, "BlogEnableVersioningSetting", enableContentVersioning);
 
-            defaultCommentDaysAllowed = WebUtils.ParseInt32FromHashtable(settings, "BlogCommentForDaysDefault", defaultCommentDaysAllowed);
+			defaultCommentDaysAllowed = WebUtils.ParseInt32FromHashtable(settings, "BlogCommentForDaysDefault", defaultCommentDaysAllowed);
 
-            if (settings.Contains("BlogEditorHeightSetting"))
-            {
-                editorHeight = Unit.Parse(settings["BlogEditorHeightSetting"].ToString());
+			if (settings.Contains("BlogEditorHeightSetting"))
+			{
+				editorHeight = Unit.Parse(settings["BlogEditorHeightSetting"].ToString());
 
-            }
+			}
 
-            useCaptcha = WebUtils.ParseBoolFromHashtable(settings, "BlogUseCommentSpamBlocker", useCaptcha);
+			useCaptcha = WebUtils.ParseBoolFromHashtable(settings, "BlogUseCommentSpamBlocker", useCaptcha);
 
-            requireAuthenticationForComments = WebUtils.ParseBoolFromHashtable(settings, "RequireAuthenticationForComments", requireAuthenticationForComments);
+			requireAuthenticationForComments = WebUtils.ParseBoolFromHashtable(settings, "RequireAuthenticationForComments", requireAuthenticationForComments);
 
-            notifyOnComment = WebUtils.ParseBoolFromHashtable(settings, "ContentNotifyOnComment", notifyOnComment);
+			notifyOnComment = WebUtils.ParseBoolFromHashtable(settings, "ContentNotifyOnComment", notifyOnComment);
 
-            if (settings.Contains("BlogAuthorEmailSetting"))
-            {
-                notifyEmail = settings["BlogAuthorEmailSetting"].ToString();
-            }
+			if (settings.Contains("BlogAuthorEmailSetting"))
+			{
+				notifyEmail = settings["BlogAuthorEmailSetting"].ToString();
+			}
 
-            useFacebookLikeButton = WebUtils.ParseBoolFromHashtable(settings, "UseFacebookLikeButton", useFacebookLikeButton);
+			useFacebookLikeButton = WebUtils.ParseBoolFromHashtable(settings, "UseFacebookLikeButton", useFacebookLikeButton);
 
-            if (settings.Contains("FacebookLikeButtonTheme"))
-            {
-                facebookLikeButtonTheme = settings["FacebookLikeButtonTheme"].ToString().Trim();
-            }
+			if (settings.Contains("FacebookLikeButtonTheme"))
+			{
+				facebookLikeButtonTheme = settings["FacebookLikeButtonTheme"].ToString().Trim();
+			}
 
-            facebookLikeButtonShowFaces = WebUtils.ParseBoolFromHashtable(settings, "FacebookLikeButtonShowFaces", facebookLikeButtonShowFaces);
+			facebookLikeButtonShowFaces = WebUtils.ParseBoolFromHashtable(settings, "FacebookLikeButtonShowFaces", facebookLikeButtonShowFaces);
 
-            facebookLikeButtonWidth = WebUtils.ParseInt32FromHashtable(settings, "FacebookLikeButtonWidth", facebookLikeButtonWidth);
+			facebookLikeButtonWidth = WebUtils.ParseInt32FromHashtable(settings, "FacebookLikeButtonWidth", facebookLikeButtonWidth);
 
-            facebookLikeButtonHeight = WebUtils.ParseInt32FromHashtable(settings, "FacebookLikeButtonHeight", facebookLikeButtonHeight);
+			facebookLikeButtonHeight = WebUtils.ParseInt32FromHashtable(settings, "FacebookLikeButtonHeight", facebookLikeButtonHeight);
 
-            showTweetThisLink = WebUtils.ParseBoolFromHashtable(settings, "ShowTweetThisLink", showTweetThisLink);
+			showTweetThisLink = WebUtils.ParseBoolFromHashtable(settings, "ShowTweetThisLink", showTweetThisLink);
 
-            if (settings.Contains("UpperSidebar"))
-            {
-                upperSidebar = settings["UpperSidebar"].ToString();
-            }
+			if (settings.Contains("UpperSidebar"))
+			{
+				upperSidebar = settings["UpperSidebar"].ToString();
+			}
 
-            if (settings.Contains("LowerSidebar"))
-            {
-                lowerSidebar = settings["LowerSidebar"].ToString();
-            }
+			if (settings.Contains("LowerSidebar"))
+			{
+				lowerSidebar = settings["LowerSidebar"].ToString();
+			}
 
-            //useBingMap = WebUtils.ParseBoolFromHashtable(settings, "UseBingMap", useBingMap);
+			//useBingMap = WebUtils.ParseBoolFromHashtable(settings, "UseBingMap", useBingMap);
 
-            showNextPreviousLinks = WebUtils.ParseBoolFromHashtable(settings, "ShowNextPreviousLinks", showNextPreviousLinks);
+			showNextPreviousLinks = WebUtils.ParseBoolFromHashtable(settings, "ShowNextPreviousLinks", showNextPreviousLinks);
 
-            feedIsDisabled = WebUtils.ParseBoolFromHashtable(settings, "BlogDisableFeedSetting", feedIsDisabled);
-            feedTimeToLive = WebUtils.ParseInt32FromHashtable(settings, "BlogRSSCacheTimeSetting", feedTimeToLive);
-            addSignature = WebUtils.ParseBoolFromHashtable(settings, "RSSAddSignature", addSignature);
-            addTweetThisToFeed = WebUtils.ParseBoolFromHashtable(settings, "AddTweetThisToFeed", addTweetThisToFeed);
-            addFacebookLikeToFeed = WebUtils.ParseBoolFromHashtable(settings, "AddFacebookLikeToFeed", addFacebookLikeToFeed);
-            addCommentsLinkToFeed = WebUtils.ParseBoolFromHashtable(settings, "RSSAddCommentsLink", addCommentsLinkToFeed);
-            if (settings.Contains("BlogDescriptionSetting"))
-            {
-                channelDescription = settings["BlogDescriptionSetting"].ToString();
-            }
+			feedIsDisabled = WebUtils.ParseBoolFromHashtable(settings, "BlogDisableFeedSetting", feedIsDisabled);
+			feedTimeToLive = WebUtils.ParseInt32FromHashtable(settings, "BlogRSSCacheTimeSetting", feedTimeToLive);
+			addSignature = WebUtils.ParseBoolFromHashtable(settings, "RSSAddSignature", addSignature);
+			addTweetThisToFeed = WebUtils.ParseBoolFromHashtable(settings, "AddTweetThisToFeed", addTweetThisToFeed);
+			addFacebookLikeToFeed = WebUtils.ParseBoolFromHashtable(settings, "AddFacebookLikeToFeed", addFacebookLikeToFeed);
+			addCommentsLinkToFeed = WebUtils.ParseBoolFromHashtable(settings, "RSSAddCommentsLink", addCommentsLinkToFeed);
+			if (settings.Contains("BlogDescriptionSetting"))
+			{
+				channelDescription = settings["BlogDescriptionSetting"].ToString();
+			}
 
-            addFeedDiscoveryLink = WebUtils.ParseBoolFromHashtable(settings, "AddFeedDiscoveryLink", addFeedDiscoveryLink);
+			addFeedDiscoveryLink = WebUtils.ParseBoolFromHashtable(settings, "AddFeedDiscoveryLink", addFeedDiscoveryLink);
 
-            showPlusOneButton = WebUtils.ParseBoolFromHashtable(settings, "ShowPlusOneButton", showPlusOneButton);
+			showPlusOneButton = WebUtils.ParseBoolFromHashtable(settings, "ShowPlusOneButton", showPlusOneButton);
 
-            maxFeedItems = WebUtils.ParseInt32FromHashtable(settings, "MaxFeedItems", maxFeedItems);
-            relatedItemsToShow = WebUtils.ParseInt32FromHashtable(settings, "RelatedItemsToShow", relatedItemsToShow);
+			maxFeedItems = WebUtils.ParseInt32FromHashtable(settings, "MaxFeedItems", maxFeedItems);
+			relatedItemsToShow = WebUtils.ParseInt32FromHashtable(settings, "RelatedItemsToShow", relatedItemsToShow);
 
-            requireApprovalForComments = WebUtils.ParseBoolFromHashtable(settings, "RequireApprovalForComments", requireApprovalForComments);
-            allowCommentTitle = WebUtils.ParseBoolFromHashtable(settings, "AllowCommentTitle", allowCommentTitle);
-            sortCommentsDescending = WebUtils.ParseBoolFromHashtable(settings, "SortCommentsDescending", sortCommentsDescending);
+			requireApprovalForComments = WebUtils.ParseBoolFromHashtable(settings, "RequireApprovalForComments", requireApprovalForComments);
+			allowCommentTitle = WebUtils.ParseBoolFromHashtable(settings, "AllowCommentTitle", allowCommentTitle);
+			sortCommentsDescending = WebUtils.ParseBoolFromHashtable(settings, "SortCommentsDescending", sortCommentsDescending);
 
-            allowedEditMinutesForUnModeratedPosts = WebUtils.ParseInt32FromHashtable(settings, "AllowedEditMinutesForUnModeratedPosts", allowedEditMinutesForUnModeratedPosts);
+			allowedEditMinutesForUnModeratedPosts = WebUtils.ParseInt32FromHashtable(settings, "AllowedEditMinutesForUnModeratedPosts", allowedEditMinutesForUnModeratedPosts);
 
-            //includeDownloadLinkForMediaAttachments = WebUtils.ParseBoolFromHashtable(settings, "IncludeDownloadLinkForMediaAttachments", includeDownloadLinkForMediaAttachments);
+			//includeDownloadLinkForMediaAttachments = WebUtils.ParseBoolFromHashtable(settings, "IncludeDownloadLinkForMediaAttachments", includeDownloadLinkForMediaAttachments);
 
-            //showAuthorAvatar = WebUtils.ParseBoolFromHashtable(settings, "ShowAuthorAvatar", showAuthorAvatar);
+			//showAuthorAvatar = WebUtils.ParseBoolFromHashtable(settings, "ShowAuthorAvatar", showAuthorAvatar);
 
-            showBlogSearchBox = WebUtils.ParseBoolFromHashtable(settings, "ShowBlogSearchBox", showBlogSearchBox);
+			showBlogSearchBox = WebUtils.ParseBoolFromHashtable(settings, "ShowBlogSearchBox", showBlogSearchBox);
 
-            if (settings.Contains("ManagingEditorName"))
-            {
-                managingEditorName = settings["ManagingEditorName"].ToString();
-            }
+			if (settings.Contains("ManagingEditorName"))
+			{
+				managingEditorName = settings["ManagingEditorName"].ToString();
+			}
 
-            if (settings.Contains("ManagingEditorEmail"))
-            {
-                managingEditorEmail = settings["ManagingEditorEmail"].ToString();
-            }
+			if (settings.Contains("ManagingEditorEmail"))
+			{
+				managingEditorEmail = settings["ManagingEditorEmail"].ToString();
+			}
 
-            if (settings.Contains("LanguageCode"))
-            {
-                feedLanguageCode = settings["LanguageCode"].ToString();
-            }
+			if (settings.Contains("LanguageCode"))
+			{
+				feedLanguageCode = settings["LanguageCode"].ToString();
+			}
 
-            if (settings.Contains("FeedLogoUrl"))
-            {
-                feedLogoUrl = settings["FeedLogoUrl"].ToString();
-            }
+			if (settings.Contains("FeedLogoUrl"))
+			{
+				feedLogoUrl = settings["FeedLogoUrl"].ToString();
+			}
 
-            hasExplicitContent = WebUtils.ParseBoolFromHashtable(settings, "HasExplicitContent", hasExplicitContent);
+			hasExplicitContent = WebUtils.ParseBoolFromHashtable(settings, "HasExplicitContent", hasExplicitContent);
 
-            
-            if (settings.Contains("iTunesMainCategory"))
-            {
-                feedMainCategory = settings["iTunesMainCategory"].ToString();
-            }
+			
+			if (settings.Contains("iTunesMainCategory"))
+			{
+				feedMainCategory = settings["iTunesMainCategory"].ToString();
+			}
 
-            if (settings.Contains("iTunesSubCategory"))
-            {
-                feedSubCategory = settings["iTunesSubCategory"].ToString();
-            }
+			if (settings.Contains("iTunesSubCategory"))
+			{
+				feedSubCategory = settings["iTunesSubCategory"].ToString();
+			}
 
-            showCalendarOnPostDetail = WebUtils.ParseBoolFromHashtable(settings, "ShowCalendarOnPostDetail", showCalendarOnPostDetail);
+			showCalendarOnPostDetail = WebUtils.ParseBoolFromHashtable(settings, "ShowCalendarOnPostDetail", showCalendarOnPostDetail);
 
-            showGoogleNewsTabInEditPage = WebUtils.ParseBoolFromHashtable(settings, "ShowGoogleNewsTabInEditPage", showGoogleNewsTabInEditPage);
+			showGoogleNewsTabInEditPage = WebUtils.ParseBoolFromHashtable(settings, "ShowGoogleNewsTabInEditPage", showGoogleNewsTabInEditPage);
 
-            if (settings.Contains("DefaultPublicationName"))
-            {
-                defaultPublicationName = settings["DefaultPublicationName"].ToString();
-            }
+			if (settings.Contains("DefaultPublicationName"))
+			{
+				defaultPublicationName = settings["DefaultPublicationName"].ToString();
+			}
 
-            if (settings.Contains("DefaultPublicationLanguage"))
-            {
-                defaultPublicationLanguage = settings["DefaultPublicationLanguage"].ToString();
-            }
+			if (settings.Contains("DefaultPublicationLanguage"))
+			{
+				defaultPublicationLanguage = settings["DefaultPublicationLanguage"].ToString();
+			}
 
-            if (settings.Contains("PublicationAccess"))
-            {
-                publicationAccess = settings["PublicationAccess"].ToString();
-            }
+			if (settings.Contains("PublicationAccess"))
+			{
+				publicationAccess = settings["PublicationAccess"].ToString();
+			}
 
-            if (settings.Contains("DefaultGenres"))
-            {
-                defaultGenres = settings["DefaultGenres"].ToString();
-            }
+			if (settings.Contains("DefaultGenres"))
+			{
+				defaultGenres = settings["DefaultGenres"].ToString();
+			}
 
-            defaultIncludeInNewsChecked = WebUtils.ParseBoolFromHashtable(settings, "DefaultIncludeInNewsChecked", defaultIncludeInNewsChecked);
+			defaultIncludeInNewsChecked = WebUtils.ParseBoolFromHashtable(settings, "DefaultIncludeInNewsChecked", defaultIncludeInNewsChecked);
 			defaultIncludeImageInExcerptChecked = WebUtils.ParseBoolFromHashtable(settings, "DefaultIncludeImageInExcerptChecked", defaultIncludeImageInExcerptChecked);
 			defaultIncludeImageInPostChecked = WebUtils.ParseBoolFromHashtable(settings, "DefaultIncludeImageInPostChecked", defaultIncludeImageInPostChecked);
+
+			featuredPostId = WebUtils.ParseInt32FromHashtable(settings, "FeaturedPostId", featuredPostId);
 		}
 
 		private bool defaultIncludeImageInExcerptChecked = false;
@@ -387,1003 +389,1009 @@ namespace mojoPortal.Web.BlogUI
 			get { return defaultIncludeImageInPostChecked; }
 		}
 
-
 		private bool defaultIncludeInNewsChecked = false;
 
-        public bool DefaultIncludeInNewsChecked
-        {
-            get { return defaultIncludeInNewsChecked; }
-        }
+		public bool DefaultIncludeInNewsChecked
+		{
+			get { return defaultIncludeInNewsChecked; }
+		}
 
-        private string defaultGenres = string.Empty;
+		private int featuredPostId = 0;
 
-        public string DefaultGenres
-        {
-            get { return defaultGenres; }
-        }
+		public int FeaturedPostId
+		{
+			get { return featuredPostId; }
+		}
 
-        private string publicationAccess = string.Empty;
+		private string defaultGenres = string.Empty;
 
-        public string PublicationAccess
-        {
-            get { return publicationAccess; }
-        }
+		public string DefaultGenres
+		{
+			get { return defaultGenres; }
+		}
 
-        private string defaultPublicationLanguage = "en";
+		private string publicationAccess = string.Empty;
 
-        public string DefaultPublicationLanguage
-        {
-            get { return defaultPublicationLanguage; }
-        }
+		public string PublicationAccess
+		{
+			get { return publicationAccess; }
+		}
 
-        private string defaultPublicationName = string.Empty;
+		private string defaultPublicationLanguage = "en";
 
-        public string DefaultPublicationName
-        {
-            get { return defaultPublicationName; }
-        }
+		public string DefaultPublicationLanguage
+		{
+			get { return defaultPublicationLanguage; }
+		}
 
-        private bool showGoogleNewsTabInEditPage = false;
+		private string defaultPublicationName = string.Empty;
 
-        public bool ShowGoogleNewsTabInEditPage
-        {
-            get { return showGoogleNewsTabInEditPage; }
-        }
+		public string DefaultPublicationName
+		{
+			get { return defaultPublicationName; }
+		}
 
-        private bool showCalendarOnPostDetail = true;
+		private bool showGoogleNewsTabInEditPage = false;
 
-        public bool ShowCalendarOnPostDetail
-        {
-            get { return showCalendarOnPostDetail; }
-        }
+		public bool ShowGoogleNewsTabInEditPage
+		{
+			get { return showGoogleNewsTabInEditPage; }
+		}
 
-        private string feedMainCategory = string.Empty;
+		private bool showCalendarOnPostDetail = true;
 
-        public string FeedMainCategory
-        {
-            get { return feedMainCategory; }   
-        }
+		public bool ShowCalendarOnPostDetail
+		{
+			get { return showCalendarOnPostDetail; }
+		}
 
-        private string feedSubCategory = string.Empty;
+		private string feedMainCategory = string.Empty;
 
-        public string FeedSubCategory
-        {
-            get { return feedSubCategory; }
-        }
+		public string FeedMainCategory
+		{
+			get { return feedMainCategory; }   
+		}
 
-        private bool hasExplicitContent = false;
+		private string feedSubCategory = string.Empty;
 
-        public bool HasExplicitContent
-        {
-            get { return hasExplicitContent; }
-        }
+		public string FeedSubCategory
+		{
+			get { return feedSubCategory; }
+		}
 
-        private string feedLogoUrl = string.Empty;
+		private bool hasExplicitContent = false;
 
-        public string FeedLogoUrl
-        {
-            get { return feedLogoUrl; }
-        }
+		public bool HasExplicitContent
+		{
+			get { return hasExplicitContent; }
+		}
 
-        private string feedLanguageCode = "en-US";
+		private string feedLogoUrl = string.Empty;
 
-        public string FeedLanguageCode
-        {
-            get { return feedLanguageCode; }
-        }
+		public string FeedLogoUrl
+		{
+			get { return feedLogoUrl; }
+		}
 
-        private string managingEditorName = string.Empty;
+		private string feedLanguageCode = "en-US";
 
-        public string ManagingEditorName
-        {
-            get { return managingEditorName; }
-        }
+		public string FeedLanguageCode
+		{
+			get { return feedLanguageCode; }
+		}
 
-        private string managingEditorEmail = string.Empty;
+		private string managingEditorName = string.Empty;
 
-        public string ManagingEditorEmail
-        {
-            get { return managingEditorEmail; }
-        }
+		public string ManagingEditorName
+		{
+			get { return managingEditorName; }
+		}
 
+		private string managingEditorEmail = string.Empty;
 
-        private bool showBlogSearchBox = false;
+		public string ManagingEditorEmail
+		{
+			get { return managingEditorEmail; }
+		}
 
-        public bool ShowBlogSearchBox
-        {
-            get { return showBlogSearchBox; }
-        }
 
-        // for now this is hard coded maybe we will promote it to a configurable setting later
-        // users can only edit their own posts unless in one of these roles
-        // we don't currently have an approval process for blog posts
-        // we are only now adding support for multiple users who can only edit their own posts
-        private string approverRoles = "Admins;Content Administrators;";
+		private bool showBlogSearchBox = false;
 
-        public string ApproverRoles
-        {
-            get { return approverRoles; }
-        }
+		public bool ShowBlogSearchBox
+		{
+			get { return showBlogSearchBox; }
+		}
 
-        //private bool showAuthorAvatar = false;
+		// for now this is hard coded maybe we will promote it to a configurable setting later
+		// users can only edit their own posts unless in one of these roles
+		// we don't currently have an approval process for blog posts
+		// we are only now adding support for multiple users who can only edit their own posts
+		private string approverRoles = "Admins;Content Administrators;";
 
-        //public bool ShowAuthorAvatar
-        //{
-        //    get { return showAuthorAvatar; }
-        //}
+		public string ApproverRoles
+		{
+			get { return approverRoles; }
+		}
 
+		//private bool showAuthorAvatar = false;
 
-        //private bool includeDownloadLinkForMediaAttachments = false;
-        //public bool IncludeDownloadLinkForMediaAttachments
-        //{
-        //    get { return includeDownloadLinkForMediaAttachments; }
-        //}
-        
+		//public bool ShowAuthorAvatar
+		//{
+		//    get { return showAuthorAvatar; }
+		//}
 
-        private int allowedEditMinutesForUnModeratedPosts = 10;
 
-        public int AllowedEditMinutesForUnModeratedPosts
-        {
-            get { return allowedEditMinutesForUnModeratedPosts; }
-        }
+		//private bool includeDownloadLinkForMediaAttachments = false;
+		//public bool IncludeDownloadLinkForMediaAttachments
+		//{
+		//    get { return includeDownloadLinkForMediaAttachments; }
+		//}
+		
 
-        private bool sortCommentsDescending = false;
-        public bool SortCommentsDescending
-        {
-            get { return sortCommentsDescending; }
-        }
+		private int allowedEditMinutesForUnModeratedPosts = 10;
 
-        private bool requireApprovalForComments = false;
+		public int AllowedEditMinutesForUnModeratedPosts
+		{
+			get { return allowedEditMinutesForUnModeratedPosts; }
+		}
 
-        public bool RequireApprovalForComments
-        {
-            get { return requireApprovalForComments; }
-        }
+		private bool sortCommentsDescending = false;
+		public bool SortCommentsDescending
+		{
+			get { return sortCommentsDescending; }
+		}
 
-        private bool allowCommentTitle = true;
-        public bool AllowCommentTitle
-        {
-            get { return allowCommentTitle; }
-        }
+		private bool requireApprovalForComments = false;
 
-        
-        private int maxFeedItems = 20;
+		public bool RequireApprovalForComments
+		{
+			get { return requireApprovalForComments; }
+		}
 
-        public int MaxFeedItems
-        {
-            get { return maxFeedItems; }
-        }
+		private bool allowCommentTitle = true;
+		public bool AllowCommentTitle
+		{
+			get { return allowCommentTitle; }
+		}
 
-        private int relatedItemsToShow = 0;
+		
+		private int maxFeedItems = 20;
 
-        public int RelatedItemsToShow
-        {
-            get { return relatedItemsToShow; }
-        }
+		public int MaxFeedItems
+		{
+			get { return maxFeedItems; }
+		}
 
-        
-        private bool feedIsDisabled = false;
+		private int relatedItemsToShow = 0;
 
-        public bool FeedIsDisabled
-        {
-            get { return feedIsDisabled; }
-        }
+		public int RelatedItemsToShow
+		{
+			get { return relatedItemsToShow; }
+		}
 
-        private bool addFeedDiscoveryLink = true;
+		
+		private bool feedIsDisabled = false;
 
-        public bool AddFeedDiscoveryLink
-        {
-            get { return addFeedDiscoveryLink; }
-        }
+		public bool FeedIsDisabled
+		{
+			get { return feedIsDisabled; }
+		}
 
-        private string channelDescription = string.Empty;
+		private bool addFeedDiscoveryLink = true;
 
-        public string ChannelDescription
-        {
-            get { return channelDescription; }
-        }
+		public bool AddFeedDiscoveryLink
+		{
+			get { return addFeedDiscoveryLink; }
+		}
 
-        private bool addTweetThisToFeed = false;
+		private string channelDescription = string.Empty;
 
-        public bool AddTweetThisToFeed
-        {
-            get { return addTweetThisToFeed; }
-        }
+		public string ChannelDescription
+		{
+			get { return channelDescription; }
+		}
 
-        private bool addCommentsLinkToFeed = false;
+		private bool addTweetThisToFeed = false;
 
-        public bool AddCommentsLinkToFeed
-        {
-            get { return addCommentsLinkToFeed; }
-        }
+		public bool AddTweetThisToFeed
+		{
+			get { return addTweetThisToFeed; }
+		}
 
-        private bool addFacebookLikeToFeed = false;
+		private bool addCommentsLinkToFeed = false;
 
-        public bool AddFacebookLikeToFeed
-        {
-            get { return addFacebookLikeToFeed; }
-        }
+		public bool AddCommentsLinkToFeed
+		{
+			get { return addCommentsLinkToFeed; }
+		}
 
-        private bool addSignature = false;
+		private bool addFacebookLikeToFeed = false;
 
-        public bool AddSignature
-        {
-            get { return addSignature; }
-        }
+		public bool AddFacebookLikeToFeed
+		{
+			get { return addFacebookLikeToFeed; }
+		}
 
-        private bool showNextPreviousLinks = true;
+		private bool addSignature = false;
 
-        public bool ShowNextPreviousLinks
-        {
-            get { return showNextPreviousLinks; }
-        }
+		public bool AddSignature
+		{
+			get { return addSignature; }
+		}
 
-        private string upperSidebar = string.Empty;
+		private bool showNextPreviousLinks = true;
 
-        public string UpperSidebar
-        {
-            get { return upperSidebar; }
-        }
+		public bool ShowNextPreviousLinks
+		{
+			get { return showNextPreviousLinks; }
+		}
 
-        private string lowerSidebar = string.Empty;
+		private string upperSidebar = string.Empty;
 
-        public string LowerSidebar
-        {
-            get { return lowerSidebar; }
-        }
+		public string UpperSidebar
+		{
+			get { return upperSidebar; }
+		}
 
-        private bool showPlusOneButton = false;
+		private string lowerSidebar = string.Empty;
 
-        public bool ShowPlusOneButton
-        {
-            get { return showPlusOneButton; }
-        }
+		public string LowerSidebar
+		{
+			get { return lowerSidebar; }
+		}
 
-        private bool showTweetThisLink = false;
+		private bool showPlusOneButton = false;
 
-        public bool ShowTweetThisLink
-        {
-            get { return showTweetThisLink; }
-        }
+		public bool ShowPlusOneButton
+		{
+			get { return showPlusOneButton; }
+		}
 
-        private bool useFacebookLikeButton = false;
+		private bool showTweetThisLink = false;
 
-        public bool UseFacebookLikeButton
-        {
-            get { return useFacebookLikeButton; }
-        }
+		public bool ShowTweetThisLink
+		{
+			get { return showTweetThisLink; }
+		}
 
-        private int facebookLikeButtonHeight = 35;
+		private bool useFacebookLikeButton = false;
 
-        public int FacebookLikeButtonHeight
-        {
-            get { return facebookLikeButtonHeight; }
-        }
+		public bool UseFacebookLikeButton
+		{
+			get { return useFacebookLikeButton; }
+		}
 
-        private int facebookLikeButtonWidth = 450;
+		private int facebookLikeButtonHeight = 35;
 
-        public int FacebookLikeButtonWidth
-        {
-            get { return facebookLikeButtonWidth; }
-        }
+		public int FacebookLikeButtonHeight
+		{
+			get { return facebookLikeButtonHeight; }
+		}
 
-        private bool facebookLikeButtonShowFaces = false;
+		private int facebookLikeButtonWidth = 450;
 
-        public bool FacebookLikeButtonShowFaces
-        {
-            get { return facebookLikeButtonShowFaces; }
-        }
+		public int FacebookLikeButtonWidth
+		{
+			get { return facebookLikeButtonWidth; }
+		}
 
-        private string facebookLikeButtonTheme = "light";
+		private bool facebookLikeButtonShowFaces = false;
 
-        public string FacebookLikeButtonTheme
-        {
-            get { return facebookLikeButtonTheme; }
-        }
+		public bool FacebookLikeButtonShowFaces
+		{
+			get { return facebookLikeButtonShowFaces; }
+		}
 
+		private string facebookLikeButtonTheme = "light";
 
-        private string notifyEmail = string.Empty;
+		public string FacebookLikeButtonTheme
+		{
+			get { return facebookLikeButtonTheme; }
+		}
 
-        public string NotifyEmail
-        {
-            get { return notifyEmail; }
-        }
 
-        private bool notifyOnComment = false;
+		private string notifyEmail = string.Empty;
 
-        public bool NotifyOnComment
-        {
-            get { return notifyOnComment; }
-        }
+		public string NotifyEmail
+		{
+			get { return notifyEmail; }
+		}
 
-        private bool requireAuthenticationForComments = false;
+		private bool notifyOnComment = false;
 
-        public bool RequireAuthenticationForComments
-        {
-            get { return requireAuthenticationForComments; }
-        }
+		public bool NotifyOnComment
+		{
+			get { return notifyOnComment; }
+		}
 
-        private bool useCaptcha = true;
+		private bool requireAuthenticationForComments = false;
 
-        public bool UseCaptcha
-        {
-            get { return useCaptcha; }
-        }
+		public bool RequireAuthenticationForComments
+		{
+			get { return requireAuthenticationForComments; }
+		}
 
-        private Unit editorHeight = Unit.Parse("350");
+		private bool useCaptcha = true;
 
-        public Unit EditorHeight
-        {
-            get { return editorHeight; }
-        }
+		public bool UseCaptcha
+		{
+			get { return useCaptcha; }
+		}
 
-        private bool enableContentVersioning = false;
+		private Unit editorHeight = Unit.Parse("350");
 
-        public bool EnableContentVersioning
-        {
-            get { return enableContentVersioning; }
-        }
+		public Unit EditorHeight
+		{
+			get { return editorHeight; }
+		}
 
-        private int defaultCommentDaysAllowed = 90;
+		private bool enableContentVersioning = false;
 
-        public int DefaultCommentDaysAllowed
-        {
-            get { return defaultCommentDaysAllowed; }
-        }
+		public bool EnableContentVersioning
+		{
+			get { return enableContentVersioning; }
+		}
 
-        private bool showLeftContent = false;
+		private int defaultCommentDaysAllowed = 90;
 
-        public bool ShowLeftContent
-        {
-            get { return showLeftContent; }
-        }
+		public int DefaultCommentDaysAllowed
+		{
+			get { return defaultCommentDaysAllowed; }
+		}
 
+		private bool showLeftContent = false;
 
-        private bool showRightContent = false;
+		public bool ShowLeftContent
+		{
+			get { return showLeftContent; }
+		}
 
-        public bool ShowRightContent
-        {
-            get { return showRightContent; }
-        }
 
+		private bool showRightContent = false;
 
-        private string copyright = string.Empty;
+		public bool ShowRightContent
+		{
+			get { return showRightContent; }
+		}
 
-        public string Copyright
-        {
-            get { return copyright; }
-        }
 
-        private bool hideDetailsFromUnauthencticated = false;
+		private string copyright = string.Empty;
 
-        public bool HideDetailsFromUnauthencticated
-        {
-            get { return hideDetailsFromUnauthencticated; }
-        }
+		public string Copyright
+		{
+			get { return copyright; }
+		}
 
-        private bool allowWebSiteUrlForComments = true;
+		private bool hideDetailsFromUnauthencticated = false;
 
-        public bool AllowWebSiteUrlForComments
-        {
-            get { return allowWebSiteUrlForComments; }
-        }
+		public bool HideDetailsFromUnauthencticated
+		{
+			get { return hideDetailsFromUnauthencticated; }
+		}
 
-        private string commentSystem = "internal";
+		private bool allowWebSiteUrlForComments = true;
 
-        public string CommentSystem
-        {
-            get { return commentSystem; }
-        }
+		public bool AllowWebSiteUrlForComments
+		{
+			get { return allowWebSiteUrlForComments; }
+		}
 
-        private string intenseDebateAccountId = string.Empty;
+		private string commentSystem = "internal";
 
-        public string IntenseDebateAccountId
-        {
-            get { return intenseDebateAccountId; }
-        }
+		public string CommentSystem
+		{
+			get { return commentSystem; }
+		}
 
-        private string disqusSiteShortName = string.Empty;
+		private string intenseDebateAccountId = string.Empty;
 
-        public string DisqusSiteShortName
-        {
-            get { return disqusSiteShortName; }
-        }
+		public string IntenseDebateAccountId
+		{
+			get { return intenseDebateAccountId; }
+		}
 
-        private string feedburnerFeedUrl = string.Empty;
+		private string disqusSiteShortName = string.Empty;
 
-        public string FeedburnerFeedUrl
-        {
-            get { return feedburnerFeedUrl; }
-        }
+		public string DisqusSiteShortName
+		{
+			get { return disqusSiteShortName; }
+		}
 
-        //private string addThisCustomLogoForeColor = string.Empty;
+		private string feedburnerFeedUrl = string.Empty;
 
-        //public string AddThisCustomLogoForeColor
-        //{
-        //    get { return addThisCustomLogoForeColor; }
-        //}
+		public string FeedburnerFeedUrl
+		{
+			get { return feedburnerFeedUrl; }
+		}
 
-        //private string addThisCustomLogoBackColor = string.Empty;
+		//private string addThisCustomLogoForeColor = string.Empty;
 
-        //public string AddThisCustomLogoBackColor
-        //{
-        //    get { return addThisCustomLogoBackColor; }
-        //}
+		//public string AddThisCustomLogoForeColor
+		//{
+		//    get { return addThisCustomLogoForeColor; }
+		//}
 
-        //private string addThisCustomLogoUrl = string.Empty;
+		//private string addThisCustomLogoBackColor = string.Empty;
 
-        //public string AddThisCustomLogoUrl
-        //{
-        //    get { return addThisCustomLogoUrl; }
-        //}
+		//public string AddThisCustomLogoBackColor
+		//{
+		//    get { return addThisCustomLogoBackColor; }
+		//}
 
-        //private string addThisCustomOptions = string.Empty;
+		//private string addThisCustomLogoUrl = string.Empty;
 
-        //public string AddThisCustomOptions
-        //{
-        //    get { return addThisCustomOptions; }
-        //}
+		//public string AddThisCustomLogoUrl
+		//{
+		//    get { return addThisCustomLogoUrl; }
+		//}
 
-        //private string addThisCustomBrand = string.Empty;
+		//private string addThisCustomOptions = string.Empty;
 
-        //public string AddThisCustomBrand
-        //{
-        //    get { return addThisCustomBrand; }
-        //}
+		//public string AddThisCustomOptions
+		//{
+		//    get { return addThisCustomOptions; }
+		//}
 
-        //private string addThisButtonImageUrl = "~/Data/SiteImages/addthissharebutton.gif";
+		//private string addThisCustomBrand = string.Empty;
 
-        //public string AddThisButtonImageUrl
-        //{
-        //    get { return addThisButtonImageUrl; }
-        //}
+		//public string AddThisCustomBrand
+		//{
+		//    get { return addThisCustomBrand; }
+		//}
 
-        private string addThisRssButtonImageUrl = "~/Data/SiteImages/addthisrss.gif";
+		//private string addThisButtonImageUrl = "~/Data/SiteImages/addthissharebutton.gif";
 
-        public string AddThisRssButtonImageUrl
-        {
-            get { return addThisRssButtonImageUrl; }
-        }
+		//public string AddThisButtonImageUrl
+		//{
+		//    get { return addThisButtonImageUrl; }
+		//}
 
-        //private bool useAddThisMouseOverWidget = true;
+		private string addThisRssButtonImageUrl = "~/Data/SiteImages/addthisrss.gif";
 
-        //public bool UseAddThisMouseOverWidget
-        //{
-        //    get { return useAddThisMouseOverWidget; }
-        //}
+		public string AddThisRssButtonImageUrl
+		{
+			get { return addThisRssButtonImageUrl; }
+		}
 
-        private string addThisAccountId = string.Empty;
+		//private bool useAddThisMouseOverWidget = true;
 
-        public string AddThisAccountId
-        {
-            get { return addThisAccountId; }
-        }
+		//public bool UseAddThisMouseOverWidget
+		//{
+		//    get { return useAddThisMouseOverWidget; }
+		//}
 
-        private string odiogoFeedId = string.Empty;
+		private string addThisAccountId = string.Empty;
 
-        public string OdiogoFeedId
-        {
-            get { return odiogoFeedId; }
-        }
+		public string AddThisAccountId
+		{
+			get { return addThisAccountId; }
+		}
 
-        private string odiogoPodcastUrl = string.Empty;
+		private string odiogoFeedId = string.Empty;
 
-        public string OdiogoPodcastUrl
-        {
-            get { return odiogoPodcastUrl; }
-        }
+		public string OdiogoFeedId
+		{
+			get { return odiogoFeedId; }
+		}
 
-        private int pageSize = 10;
+		private string odiogoPodcastUrl = string.Empty;
 
-        public int PageSize
-        {
-            get { return pageSize; }
-        }
+		public string OdiogoPodcastUrl
+		{
+			get { return odiogoPodcastUrl; }
+		}
 
-        //private bool useBingMap = false;
+		private int pageSize = 10;
 
-        //public bool UseBingMap
-        //{
-        //    get { return useBingMap; }
-        //}
+		public int PageSize
+		{
+			get { return pageSize; }
+		}
 
-        //public string BingMapStyle
-        //{
-        //    get
-        //    {
-        //        switch (mapType)
-        //        {
-        //            case MapType.G_NORMAL_MAP:
-        //                return "VEMapStyle.Road";
+		//private bool useBingMap = false;
 
-        //            case MapType.G_HYBRID_MAP:
-        //                return "VEMapStyle.Hybrid";
+		//public bool UseBingMap
+		//{
+		//    get { return useBingMap; }
+		//}
 
-        //            case MapType.G_PHYSICAL_MAP:
-        //                return "VEMapStyle.Birdseye";
+		//public string BingMapStyle
+		//{
+		//    get
+		//    {
+		//        switch (mapType)
+		//        {
+		//            case MapType.G_NORMAL_MAP:
+		//                return "VEMapStyle.Road";
 
-        //            case MapType.G_SATELLITE_MAP:
-        //            default:
-        //                return "VEMapStyle.Aerial";
-        //        }
-        //    }
-        //}
+		//            case MapType.G_HYBRID_MAP:
+		//                return "VEMapStyle.Hybrid";
 
-        //private int googleMapInitialZoom = 13;
+		//            case MapType.G_PHYSICAL_MAP:
+		//                return "VEMapStyle.Birdseye";
 
-        //public int GoogleMapInitialZoom
-        //{
-        //    get { return googleMapInitialZoom; }
-        //}
+		//            case MapType.G_SATELLITE_MAP:
+		//            default:
+		//                return "VEMapStyle.Aerial";
+		//        }
+		//    }
+		//}
 
-        //private bool googleMapEnableDirections = false;
+		//private int googleMapInitialZoom = 13;
 
-        //public bool GoogleMapEnableDirections
-        //{
-        //    get { return googleMapEnableDirections; }
-        //}
+		//public int GoogleMapInitialZoom
+		//{
+		//    get { return googleMapInitialZoom; }
+		//}
 
-        //private bool googleMapEnableLocalSearch = false;
+		//private bool googleMapEnableDirections = false;
 
-        //public bool GoogleMapEnableLocalSearch
-        //{
-        //    get { return googleMapEnableLocalSearch; }
-        //}
+		//public bool GoogleMapEnableDirections
+		//{
+		//    get { return googleMapEnableDirections; }
+		//}
 
-        //private bool googleMapShowInfoWindow = false;
+		//private bool googleMapEnableLocalSearch = false;
 
-        //public bool GoogleMapShowInfoWindow
-        //{
-        //    get { return googleMapShowInfoWindow; }
-        //}
+		//public bool GoogleMapEnableLocalSearch
+		//{
+		//    get { return googleMapEnableLocalSearch; }
+		//}
 
-        //private bool googleMapEnableZoom = false;
+		//private bool googleMapShowInfoWindow = false;
 
-        //public bool GoogleMapEnableZoom
-        //{
-        //    get { return googleMapEnableZoom; }
-        //}
+		//public bool GoogleMapShowInfoWindow
+		//{
+		//    get { return googleMapShowInfoWindow; }
+		//}
 
-        //private bool googleMapEnableMapType = false;
+		//private bool googleMapEnableZoom = false;
 
-        //public bool GoogleMapEnableMapType
-        //{
-        //    get { return googleMapEnableMapType; }
-        //}
+		//public bool GoogleMapEnableZoom
+		//{
+		//    get { return googleMapEnableZoom; }
+		//}
 
-        //private string googleMapWidth = "500px";
+		//private bool googleMapEnableMapType = false;
 
-        //public string GoogleMapWidth
-        //{
-        //    get { return googleMapWidth; }
-        //}
+		//public bool GoogleMapEnableMapType
+		//{
+		//    get { return googleMapEnableMapType; }
+		//}
 
-        //private int googleMapHeight = 300;
+		//private string googleMapWidth = "500px";
 
-        //public int GoogleMapHeight
-        //{
-        //    get { return googleMapHeight; }
-        //}
+		//public string GoogleMapWidth
+		//{
+		//    get { return googleMapWidth; }
+		//}
 
-        
+		//private int googleMapHeight = 300;
 
-        //private MapType mapType = MapType.G_SATELLITE_MAP;
+		//public int GoogleMapHeight
+		//{
+		//    get { return googleMapHeight; }
+		//}
 
-        //public MapType GoogleMapType
-        //{
-        //    get { return mapType; }
-        //}
+		
 
-        //private bool showPostAuthor = false;
+		//private MapType mapType = MapType.G_SATELLITE_MAP;
 
-        //public bool ShowPostAuthor
-        //{
-        //    get { return showPostAuthor; }
-        //}
+		//public MapType GoogleMapType
+		//{
+		//    get { return mapType; }
+		//}
 
-        private bool useLinkForHeading = true;
+		//private bool showPostAuthor = false;
 
-        public bool UseLinkForHeading
-        {
-            get { return useLinkForHeading; }
-        }
+		//public bool ShowPostAuthor
+		//{
+		//    get { return showPostAuthor; }
+		//}
 
-        private bool allowComments = true;
+		private bool useLinkForHeading = true;
 
-        public bool AllowComments
-        {
-            get { return allowComments; }
-        }
+		public bool UseLinkForHeading
+		{
+			get { return useLinkForHeading; }
+		}
 
-        private bool navigationOnRight = false;
+		private bool allowComments = true;
 
-        public bool NavigationOnRight
-        {
-            get { return navigationOnRight; }
-        }
+		public bool AllowComments
+		{
+			get { return allowComments; }
+		}
 
-        private bool showAddFeedLinks = true;
+		private bool navigationOnRight = false;
 
-        public bool ShowAddFeedLinks
-        {
-            get { return showAddFeedLinks; }
-        }
+		public bool NavigationOnRight
+		{
+			get { return navigationOnRight; }
+		}
 
-        private bool showFeedLinks = true;
+		private bool showAddFeedLinks = true;
 
-        public bool ShowFeedLinks
-        {
-            get { return showFeedLinks; }
-        }
+		public bool ShowAddFeedLinks
+		{
+			get { return showAddFeedLinks; }
+		}
 
-        private bool showStatistics = true;
+		private bool showFeedLinks = true;
 
-        public bool ShowStatistics
-        {
-            get { return showStatistics; }
-        }
+		public bool ShowFeedLinks
+		{
+			get { return showFeedLinks; }
+		}
 
-        private bool showArchives = false;
+		private bool showStatistics = true;
 
-        public bool ShowArchives
-        {
-            get { return showArchives; }
-        }
+		public bool ShowStatistics
+		{
+			get { return showStatistics; }
+		}
 
-        private bool showCategories = false;
+		private bool showArchives = false;
 
-        public bool ShowCategories
-        {
-            get { return showCategories; }
-        }
+		public bool ShowArchives
+		{
+			get { return showArchives; }
+		}
 
-        private bool showCalendar = false;
+		private bool showCategories = false;
 
-        public bool ShowCalendar
-        {
-            get { return showCalendar; }
-        }
+		public bool ShowCategories
+		{
+			get { return showCategories; }
+		}
 
-        private bool useTagCloudForCategories = false;
+		private bool showCalendar = false;
 
-        public bool UseTagCloudForCategories
-        {
-            get { return useTagCloudForCategories; }
-        }
+		public bool ShowCalendar
+		{
+			get { return showCalendar; }
+		}
 
-        private string dateTimeFormat = CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
+		private bool useTagCloudForCategories = false;
 
-        public string DateTimeFormat
-        {
-            get { return dateTimeFormat; }
-        }
+		public bool UseTagCloudForCategories
+		{
+			get { return useTagCloudForCategories; }
+		}
 
-        private bool useExcerpt = false;
+		private string dateTimeFormat = CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
 
-        public bool UseExcerpt
-        {
-            get { return useExcerpt; }
-        }
+		public string DateTimeFormat
+		{
+			get { return dateTimeFormat; }
+		}
 
-        private bool useExcerptInFeed = false;
+		private bool useExcerpt = false;
 
-        public bool UseExcerptInFeed
-        {
-            get { return useExcerptInFeed; }
-        }
+		public bool UseExcerpt
+		{
+			get { return useExcerpt; }
+		}
 
-        private bool titleOnly = false;
+		private bool useExcerptInFeed = false;
 
-        public bool TitleOnly
-        {
-            get { return titleOnly; }
-        }
+		public bool UseExcerptInFeed
+		{
+			get { return useExcerptInFeed; }
+		}
 
-        private bool showPager = true;
+		private bool titleOnly = false;
 
-        public bool ShowPager
-        {
-            get { return showPager; }
-        }
+		public bool TitleOnly
+		{
+			get { return titleOnly; }
+		}
 
-        private bool googleMapIncludeWithExcerpt = false;
+		private bool showPager = true;
 
-        public bool GoogleMapIncludeWithExcerpt
-        {
-            get { return googleMapIncludeWithExcerpt; }
-        }
+		public bool ShowPager
+		{
+			get { return showPager; }
+		}
 
-        private bool enableContentRating = false;
+		private bool googleMapIncludeWithExcerpt = false;
 
-        public bool EnableContentRating
-        {
-            get { return enableContentRating; }
-        }
+		public bool GoogleMapIncludeWithExcerpt
+		{
+			get { return googleMapIncludeWithExcerpt; }
+		}
 
-        private bool enableRatingComments = false;
+		private bool enableContentRating = false;
 
-        public bool EnableRatingComments
-        {
-            get { return enableRatingComments; }
-        }
+		public bool EnableContentRating
+		{
+			get { return enableContentRating; }
+		}
 
-        private bool hideAddThisButton = false;
+		private bool enableRatingComments = false;
 
-        public bool HideAddThisButton
-        {
-            get { return hideAddThisButton; }
-        }
+		public bool EnableRatingComments
+		{
+			get { return enableRatingComments; }
+		}
 
-        private int excerptLength = 250;
+		private bool hideAddThisButton = false;
 
-        public int ExcerptLength
-        {
-            get { return excerptLength; }
-        }
+		public bool HideAddThisButton
+		{
+			get { return hideAddThisButton; }
+		}
 
-        private string excerptSuffix = "...";
+		private int excerptLength = 250;
 
-        public string ExcerptSuffix
-        {
-            get { return excerptSuffix; }
-        }
+		public int ExcerptLength
+		{
+			get { return excerptLength; }
+		}
 
-        private string moreLinkText = "read more";
+		private string excerptSuffix = "...";
 
-        public string MoreLinkText
-        {
-            get { return moreLinkText; }
-        }
+		public string ExcerptSuffix
+		{
+			get { return excerptSuffix; }
+		}
 
-        private string blogAuthor = string.Empty;
+		private string moreLinkText = "read more";
 
-        public string BlogAuthor
-        {
-            get { return blogAuthor; }
-        }
+		public string MoreLinkText
+		{
+			get { return moreLinkText; }
+		}
 
-        private string instanceCssClass = string.Empty;
+		private string blogAuthor = string.Empty;
 
-        public string InstanceCssClass
-        {
-            get { return instanceCssClass; }
-        }
+		public string BlogAuthor
+		{
+			get { return blogAuthor; }
+		}
 
-        private int feedTimeToLive = -1;
+		private string instanceCssClass = string.Empty;
 
-        public int FeedTimeToLive
-        {
-            get { return feedTimeToLive; }
-        }
+		public string InstanceCssClass
+		{
+			get { return instanceCssClass; }
+		}
 
-        public static bool Create301OnPostRename
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:Create301OnPostRename", true); }
-        }
+		private int feedTimeToLive = -1;
 
-        public static string BingMapDistanceUnit
-        {
-            get { return ConfigHelper.GetStringProperty("Blog:BingMapDistanceUnit", "VERouteDistanceUnit.Mile"); }
-        }
+		public int FeedTimeToLive
+		{
+			get { return feedTimeToLive; }
+		}
 
-        /// <summary>
-        /// if true and the skin is using altcontent1 it will load the page content for that in the blog detail view
-        /// </summary>
-        public static bool ShowTopContent
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:ShowTopContent", false); }
-        }
+		public static bool Create301OnPostRename
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:Create301OnPostRename", true); }
+		}
 
-        /// <summary>
-        /// if true and the skin is using altcontent2 it will load the page content for that in the blog detail view
-        /// </summary>
-        public static bool ShowBottomContent
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:ShowBottomContent", false); }
-        }
+		public static string BingMapDistanceUnit
+		{
+			get { return ConfigHelper.GetStringProperty("Blog:BingMapDistanceUnit", "VERouteDistanceUnit.Mile"); }
+		}
 
-        public static bool UseExcerptFromMetawblogAsMetaDescription
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:UseExcerptFromMetawblogAsMetaDescription", true); }
-        }
+		/// <summary>
+		/// if true and the skin is using altcontent1 it will load the page content for that in the blog detail view
+		/// </summary>
+		public static bool ShowTopContent
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:ShowTopContent", false); }
+		}
 
-        /// <summary>
-        /// 165 is the max recommended by google
-        /// </summary>
-        public static int MetaDescriptionMaxLengthToGenerate
-        {
-            get { return ConfigHelper.GetIntProperty("Blog:MetaDescriptionMaxLengthToGenerate", 165); }
-        }
+		/// <summary>
+		/// if true and the skin is using altcontent2 it will load the page content for that in the blog detail view
+		/// </summary>
+		public static bool ShowBottomContent
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:ShowBottomContent", false); }
+		}
 
-        /// <summary>
-        /// the database field holds up to 255 chars, so you can override this to shorter values but not longer values
-        /// </summary>
-        public static int PostTitleMaxLength
-        {
-            get { return ConfigHelper.GetIntProperty("Blog:PostTitleMaxLength", 255); }
-        }
+		public static bool UseExcerptFromMetawblogAsMetaDescription
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:UseExcerptFromMetawblogAsMetaDescription", true); }
+		}
 
-        /// <summary>
-        /// google requires that only items published in the last 2 days (48 hours) are included in the news site map
-        /// </summary>
-        public static int NewsMapMaxHoursOld
-        {
-            get { return ConfigHelper.GetIntProperty("Blog:NewsMapMaxHoursOld", 48); }
-        }
+		/// <summary>
+		/// 165 is the max recommended by google
+		/// </summary>
+		public static int MetaDescriptionMaxLengthToGenerate
+		{
+			get { return ConfigHelper.GetIntProperty("Blog:MetaDescriptionMaxLengthToGenerate", 165); }
+		}
 
-        public static bool UseRedirectForFeedburner
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:UseRedirectForFeedburner", true); }
-        }
+		/// <summary>
+		/// the database field holds up to 255 chars, so you can override this to shorter values but not longer values
+		/// </summary>
+		public static int PostTitleMaxLength
+		{
+			get { return ConfigHelper.GetIntProperty("Blog:PostTitleMaxLength", 255); }
+		}
 
-        public static bool IncludeAuthorEmailInFeed
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:IncludeAuthorEmailInFeed", true); }
-        }
+		/// <summary>
+		/// google requires that only items published in the last 2 days (48 hours) are included in the news site map
+		/// </summary>
+		public static int NewsMapMaxHoursOld
+		{
+			get { return ConfigHelper.GetIntProperty("Blog:NewsMapMaxHoursOld", 48); }
+		}
 
-        public static bool AllowAttachments
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:AllowAttachments", true); }
-        }
+		public static bool UseRedirectForFeedburner
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:UseRedirectForFeedburner", true); }
+		}
 
-        public static bool ShowJanrainWidgetForLoginPrompt
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:ShowJanrainWidgetForLoginPrompt", true); }
-        }
+		public static bool IncludeAuthorEmailInFeed
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:IncludeAuthorEmailInFeed", true); }
+		}
 
-        public static bool UseCategoryFeedurlOnCategoryPage
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:UseCategoryFeedurlOnCategoryPage", true); }
-        }
+		public static bool AllowAttachments
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:AllowAttachments", true); }
+		}
 
-        public static int MaxAttachmentsToUploadAtOnce
-        {
-            get { return ConfigHelper.GetIntProperty("Blog:MaxAttachmentsToUploadAtOnce", 15); }
-        }
+		public static bool ShowJanrainWidgetForLoginPrompt
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:ShowJanrainWidgetForLoginPrompt", true); }
+		}
 
-        public static bool UseFriendlyUrls(int moduleId)
-        {
+		public static bool UseCategoryFeedurlOnCategoryPage
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:UseCategoryFeedurlOnCategoryPage", true); }
+		}
 
-            bool globalRule =  ConfigHelper.GetBoolProperty("Blog:UseFriendlyUrls", true);
-            if (!globalRule) { return false; }
+		public static int MaxAttachmentsToUploadAtOnce
+		{
+			get { return ConfigHelper.GetIntProperty("Blog:MaxAttachmentsToUploadAtOnce", 15); }
+		}
 
-            bool moduleRule = ConfigHelper.GetBoolProperty("Blog:UseFriendlyUrls-" + moduleId.ToInvariantString(), true);
-            return moduleRule;
+		public static bool UseFriendlyUrls(int moduleId)
+		{
 
-        }
+			bool globalRule =  ConfigHelper.GetBoolProperty("Blog:UseFriendlyUrls", true);
+			if (!globalRule) { return false; }
 
-        public static bool BlogViewSuppressPageMenu
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:BlogViewSuppressPageMenu", true); }
-        }
+			bool moduleRule = ConfigHelper.GetBoolProperty("Blog:UseFriendlyUrls-" + moduleId.ToInvariantString(), true);
+			return moduleRule;
 
-        public static bool EditPostSuppressPageMenu
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:EditPostSuppressPageMenu", true); }
-        }
+		}
 
-        public static bool UseNoIndexFollowMetaOnLists
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:UseNoIndexFollowMetaOnLists", true); }
-        }
+		public static bool BlogViewSuppressPageMenu
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:BlogViewSuppressPageMenu", true); }
+		}
 
-        public static bool UseHtmlDiff
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:UseHtmlDiff", true); }
-        }
+		public static bool EditPostSuppressPageMenu
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:EditPostSuppressPageMenu", true); }
+		}
 
-        public static bool UseLegacyCommentSystem
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:UseLegacyCommentSystem", false); }
-        }
+		public static bool UseNoIndexFollowMetaOnLists
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:UseNoIndexFollowMetaOnLists", true); }
+		}
 
-        public static bool SecurePostsByUser
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:SecurePostsByUser", true); }
-        }
+		public static bool UseHtmlDiff
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:UseHtmlDiff", true); }
+		}
 
+		public static bool UseLegacyCommentSystem
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:UseLegacyCommentSystem", false); }
+		}
 
-        public static bool IncludeInFeedCheckedByDefault
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:IncludeInFeedCheckedByDefault", true); }
-        }
+		public static bool SecurePostsByUser
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:SecurePostsByUser", true); }
+		}
 
-        public static bool IncludeInSearchIndexCheckedByDefault
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:IncludeInSearchIndexCheckedByDefault", true); }
-        }
 
-        public static bool ExcludeFromRecentContentCheckedByDefault
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:ExcludeFromRecentContentCheckedByDefault", false); }
-        }
+		public static bool IncludeInFeedCheckedByDefault
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:IncludeInFeedCheckedByDefault", true); }
+		}
 
-        public static bool IncludeInSiteMapCheckedByDefault
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:IncludeInSiteMapCheckedByDefault", true); }
-        }
+		public static bool IncludeInSearchIndexCheckedByDefault
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:IncludeInSearchIndexCheckedByDefault", true); }
+		}
 
-        public static bool IsPublishedCheckedByDefault
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:IsPublishedCheckedByDefault", true); }
-        }
+		public static bool ExcludeFromRecentContentCheckedByDefault
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:ExcludeFromRecentContentCheckedByDefault", false); }
+		}
 
-        public static bool ShowAuthorNameCheckedByDefault
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:ShowAuthorNameCheckedByDefault", true); }
-        }
+		public static bool IncludeInSiteMapCheckedByDefault
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:IncludeInSiteMapCheckedByDefault", true); }
+		}
 
+		public static bool IsPublishedCheckedByDefault
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:IsPublishedCheckedByDefault", true); }
+		}
 
-        public static bool ShowAuthorAvatarCheckedByDefault
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:ShowAuthorAvatarCheckedByDefault", false); }
-        }
+		public static bool ShowAuthorNameCheckedByDefault
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:ShowAuthorNameCheckedByDefault", true); }
+		}
 
-        public static bool ShowAuthorBioCheckedByDefault
-        {
-            get { return ConfigHelper.GetBoolProperty("Blog:ShowAuthorBioCheckedByDefault", false); }
-        }
 
+		public static bool ShowAuthorAvatarCheckedByDefault
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:ShowAuthorAvatarCheckedByDefault", false); }
+		}
 
-        public static string GetBingMapType(string googleMapType)
-        {
-            switch (googleMapType)
-            {
-                case "G_NORMAL_MAP":
-                    return "VEMapStyle.Road";
+		public static bool ShowAuthorBioCheckedByDefault
+		{
+			get { return ConfigHelper.GetBoolProperty("Blog:ShowAuthorBioCheckedByDefault", false); }
+		}
 
-                case "G_HYBRID_MAP":
-                    return "VEMapStyle.Hybrid";
 
-                case "G_PHYSICAL_MAP":
-                    return "VEMapStyle.Birdseye";
+		public static string GetBingMapType(string googleMapType)
+		{
+			switch (googleMapType)
+			{
+				case "G_NORMAL_MAP":
+					return "VEMapStyle.Road";
 
-                case "G_SATELLITE_MAP":
-                default:
-                    return "VEMapStyle.Aerial";
-            }
-           
-        }
+				case "G_HYBRID_MAP":
+					return "VEMapStyle.Hybrid";
 
-        public static string GetGoogleStaticMapType(string googleMapType)
-        {
-            switch (googleMapType)
-            {
-                case "G_NORMAL_MAP":
-                    return "roadmap";
+				case "G_PHYSICAL_MAP":
+					return "VEMapStyle.Birdseye";
 
-                case "G_HYBRID_MAP":
-                    return "hybrid";
+				case "G_SATELLITE_MAP":
+				default:
+					return "VEMapStyle.Aerial";
+			}
+		   
+		}
 
-                case "G_PHYSICAL_MAP":
-                    return "terrain";
+		public static string GetGoogleStaticMapType(string googleMapType)
+		{
+			switch (googleMapType)
+			{
+				case "G_NORMAL_MAP":
+					return "roadmap";
 
-                case "G_SATELLITE_MAP":
-                default:
-                    return "satellite";
-            }
+				case "G_HYBRID_MAP":
+					return "hybrid";
 
-        }
+				case "G_PHYSICAL_MAP":
+					return "terrain";
 
-        public static string GetBingStaticMapType(string googleMapType)
-        {
-            switch (googleMapType)
-            {
-                case "G_NORMAL_MAP":
-                    return "Road";
+				case "G_SATELLITE_MAP":
+				default:
+					return "satellite";
+			}
 
-                case "G_HYBRID_MAP":
-                    return "AerialWithLabels";
+		}
 
-                case "G_PHYSICAL_MAP":
-                    return "Aerial";
+		public static string GetBingStaticMapType(string googleMapType)
+		{
+			switch (googleMapType)
+			{
+				case "G_NORMAL_MAP":
+					return "Road";
 
-                case "G_SATELLITE_MAP":
-                default:
-                    return "Aerial";
-            }
+				case "G_HYBRID_MAP":
+					return "AerialWithLabels";
 
-        }
+				case "G_PHYSICAL_MAP":
+					return "Aerial";
 
-    }
+				case "G_SATELLITE_MAP":
+				default:
+					return "Aerial";
+			}
+
+		}
+
+	}
 }
