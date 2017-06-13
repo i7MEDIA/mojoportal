@@ -10,7 +10,7 @@
 	<asp:Repeater ID="rptBlogs" runat="server" SkinID="Blog" EnableViewState="False">
 		<ItemTemplate>
 			<blog:BlogPostListItemPanel ID="bi1" runat="server">
-				<<%# itemHeadingElement %> class='<%# displaySettings.ItemHeadingClass %>'>
+				<<%# itemHeadingElement %> class='<%# displaySettings.ListViewPostTitleClass %>'>
 					<asp:HyperLink runat="server"
 						SkinID="BlogTitle"
 						ID="lnkTitle"
@@ -143,7 +143,7 @@
 						ShowLocationPin='<%# Convert.ToBoolean(Eval("ShowLocationInfo")) %>' />
 
 					<portal:BasePanel runat="server"
-						ID="pnlAvatar"
+						ID="pnlAuthor"
 						EnableViewState="false"
 						Visible='<%# !disableAvatars && !displaySettings.HideAvatarInPostList && ( (Convert.ToBoolean(Eval("ShowAuthorAvatar"))) || ((Convert.ToBoolean(Eval("ShowAuthorBio")))) ) %>'
 						CssClass="avatarwrap authorinfo"
@@ -254,7 +254,7 @@
 							SkinID="BlogPostList" />
 					</portal:BasePanel>
 
-					<div id="blogCommentLink" runat="server" visible='<%# AllowComments %>' class="blogcommentlink">
+					<portal:BasePanel runat="server" ID="pnlCommentLink" Visible="<%# AllowComments %>" RenderId="false">
 						<asp:HyperLink runat="server"
 							ID="Hyperlink2"
 							EnableViewState="false"
@@ -270,7 +270,7 @@
 							Visible='<%# Config.AllowComments && !ShowCommentCounts %>'
 							NavigateUrl='<%# FormatBlogUrl(DataBinder.Eval(Container.DataItem,"ItemUrl").ToString(), Convert.ToInt32(DataBinder.Eval(Container.DataItem,"ItemID")))  %>'
 							CssClass="blogcommentlink"></asp:HyperLink>
-					</div>
+					</portal:BasePanel>
 				</portal:BasePanel>
 			</blog:BlogPostListItemPanel>
 		</ItemTemplate>

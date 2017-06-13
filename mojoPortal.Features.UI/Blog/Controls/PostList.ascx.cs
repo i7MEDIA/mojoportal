@@ -450,6 +450,12 @@ namespace mojoPortal.Web.BlogUI
 			postPanel.RenderContentsOnly = !displaySettings.ListViewRenderPostPanel;
 			postPanel.RenderId = false;
 
+			BasePanel authorPanel = (BasePanel)e.Item.FindControl("pnlAuthor");
+			authorPanel.CssClass = displaySettings.AuthorInfoPanelClass;
+
+			BasePanel commentLink = (BasePanel)e.Item.FindControl("pnlCommentLink");
+			commentLink.CssClass = displaySettings.CommentLinkClass;
+
 			BasePanel topDate = (BasePanel)e.Item.FindControl("pnlTopDate");
 			topDate.RenderId = false;
 			topDate.Visible = false;

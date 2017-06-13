@@ -258,12 +258,12 @@ namespace mojoPortal.Web.BlogUI
 			set => listViewRenderPostPanel = value;
 		}
 
-		private string avatarPanelClass = "avatarwrap authorinfo";
+		private string authorInfoPanelClass = "avatarwrap authorinfo";
 
-		public string AvatarPanelClass
+		public string AuthorInfoPanelClass
 		{
-			get => avatarPanelClass;
-			set => avatarPanelClass = value;
+			get => authorInfoPanelClass;
+			set => authorInfoPanelClass = value;
 		}
 
 		private string datePanelClass = "blogdate";
@@ -298,6 +298,14 @@ namespace mojoPortal.Web.BlogUI
 			set => socialPanelClass = value;
 		}
 
+		private string commentLinkClass = "blogcommentlink";
+
+		public string CommentLinkClass
+		{
+			get => commentLinkClass;
+			set => commentLinkClass = value;
+		}
+
 		private string pagerPanelClass = "blogpager";
 
 		public string PagerPanelClass
@@ -312,6 +320,54 @@ namespace mojoPortal.Web.BlogUI
 		{
 			get => copyrightPanelClass;
 			set => copyrightPanelClass = value;
+		}
+
+		private string listViewCenterClass = "blog-center";
+
+		public string ListViewCenterClass
+		{
+			get => listViewCenterClass;
+			set => listViewCenterClass = value;
+		}
+
+		private string listViewCenterRightNavClass = "blogcenter-rightnav";
+
+		public string ListViewCenterRightNavClass
+		{
+			get => listViewCenterRightNavClass;
+			set => listViewCenterRightNavClass = value;
+		}
+
+		private string listViewCenterLeftNavClass = "blogcenter-leftnav";
+
+		public string ListViewCenterLeftNavClass
+		{
+			get => listViewCenterLeftNavClass;
+			set => listViewCenterLeftNavClass = value;
+		}
+
+		private string listViewNavClass = "blog-nav";
+
+		public string ListViewNavClass
+		{
+			get => listViewNavClass;
+			set => listViewNavClass = value;
+		}
+
+		private string listViewNavRightClass = "blognavright";
+
+		public string ListViewNavRightClass
+		{
+			get => listViewNavRightClass;
+			set => listViewNavRightClass = value;
+		}
+
+		private string listViewNavLeftClass = "blognavleft";
+
+		public string ListViewNavLeftClass
+		{
+			get => listViewNavLeftClass;
+			set => listViewNavLeftClass = value;
 		}
 
 		private bool detailViewDisableContentRating = false;
@@ -426,14 +482,6 @@ namespace mojoPortal.Web.BlogUI
 		{
 			get { return overrideArchiveListItemHeadingElement; }
 			set { overrideArchiveListItemHeadingElement = value; }
-		}
-
-		private string itemHeadingClass = "blogtitle";
-
-		public string ItemHeadingClass
-		{
-			get => itemHeadingClass;
-			set => itemHeadingClass = value;
 		}
 
 		private string overrideCategoryLabel = string.Empty;
