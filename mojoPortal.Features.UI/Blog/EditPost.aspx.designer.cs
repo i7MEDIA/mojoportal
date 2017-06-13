@@ -544,6 +544,24 @@ namespace mojoPortal.Web.BlogUI {
         protected global::System.Web.UI.WebControls.Literal litDays;
         
         /// <summary>
+        /// Sitelabel44 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel Sitelabel44;
+        
+        /// <summary>
+        /// chkFeaturedPost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkFeaturedPost;
+        
+        /// <summary>
         /// updHx control.
         /// </summary>
         /// <remarks>

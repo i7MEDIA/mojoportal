@@ -202,6 +202,8 @@ namespace mojoPortal.Web.BlogUI
 				txtPubStockTickers.Text = blog.PubStockTickers;
 				txtHeadlineImage.Text = blog.HeadlineImageUrl;
 
+				chkFeaturedPost.Checked = config.FeaturedPostId == blog.ItemId ? true : false;
+
 				if (blog.HeadlineImageUrl.Length > 0)
 				{
 					imgPreview.ImageUrl = blog.HeadlineImageUrl;
@@ -664,6 +666,7 @@ namespace mojoPortal.Web.BlogUI
 			blog.PubKeyWords = txtPubKeyWords.Text;
 			blog.PubStockTickers = txtPubStockTickers.Text;
 			blog.HeadlineImageUrl = txtHeadlineImage.Text;
+
 			if (blog.HeadlineImageUrl.Length > 0)
 			{
 				imgPreview.ImageUrl = blog.HeadlineImageUrl;
@@ -671,6 +674,19 @@ namespace mojoPortal.Web.BlogUI
 
 			blog.IncludeImageInExcerpt = chkIncludeImageInExcerpt.Checked;
 			blog.IncludeImageInPost = chkIncludeImageInPost.Checked;
+
+			if (chkFeaturedPost.Checked == true)
+			{
+				ModuleSettings.UpdateModuleSetting(module.ModuleGuid, moduleId, "FeaturedPostId", blog.ItemId.ToString());
+			}
+
+			if (config.FeaturedPostId == blog.ItemId)
+			{
+				if (chkFeaturedPost.Checked == false)
+				{
+					ModuleSettings.UpdateModuleSetting(module.ModuleGuid, moduleId, "FeaturedPostId", "0");
+				}
+			}
 
 			if (txtItemUrl.Text.Length == 0)
 			{

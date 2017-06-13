@@ -235,6 +235,17 @@
 									<asp:Literal ID="litDays" runat="server" />
 								</div>
 
+								<div class="settingrow">
+									<mp:SiteLabel ID="Sitelabel44"
+										runat="server"
+										ForControl="chkFeaturedPost"
+										ConfigKey="IsFeaturedPost"
+										ResourceFile="BlogResources"
+										CssClass="settinglabel"
+									/>
+									<asp:CheckBox ID="chkFeaturedPost" runat="server" CssClass="forminput" Checked="false"></asp:CheckBox>
+								</div>
+
 								<div class="bloghistory">
 									<asp:UpdatePanel ID="updHx" UpdateMode="Conditional" runat="server">
 										<Triggers>
