@@ -78,7 +78,7 @@ namespace mojoPortal.Web.BlogUI
 
 		protected bool allowGravatars = false;
 		protected bool disableAvatars = true;
-		protected UI.Avatar.RatingType MaxAllowedGravatarRating = UI.Avatar.RatingType.PG;
+		protected Avatar.RatingType MaxAllowedGravatarRating = Avatar.RatingType.PG;
 		protected string UserNameTooltipFormat = "View User Profile for {0}";
 
 		private SiteUser currentUser = null;
@@ -907,21 +907,35 @@ namespace mojoPortal.Web.BlogUI
 				IntenseDebateAccountId = siteSettings.IntenseDebateAccountId;
 			}
 
-			navTop.ModuleId = ModuleId;
-			navTop.ModuleGuid = module.ModuleGuid;
-			navTop.PageId = PageId;
-			navTop.IsEditable = IsEditable;
-			navTop.Config = config;
-			navTop.SiteRoot = SiteRoot;
-			navTop.ImageSiteRoot = ImageSiteRoot;
+			//BlogNav nav = new BlogNav();
 
-			navBottom.ModuleId = ModuleId;
-			navBottom.ModuleGuid = module.ModuleGuid;
-			navBottom.PageId = PageId;
-			navBottom.IsEditable = IsEditable;
-			navBottom.Config = config;
-			navBottom.SiteRoot = SiteRoot;
-			navBottom.ImageSiteRoot = ImageSiteRoot;
+			Control cNav = Page.LoadControl("~/Blog/Controls/BlogNav.ascx");
+			
+			BlogNav nav = (BlogNav)cNav;
+			
+			nav.ModuleId = ModuleId;
+			nav.ModuleGuid = module.ModuleGuid;
+			nav.PageId = PageId;
+			nav.IsEditable = IsEditable;
+			nav.Config = config;
+			nav.SiteRoot = SiteRoot;
+			nav.ImageSiteRoot = ImageSiteRoot;
+
+			//navTop.ModuleId = ModuleId;
+			//navTop.ModuleGuid = module.ModuleGuid;
+			//navTop.PageId = PageId;
+			//navTop.IsEditable = IsEditable;
+			//navTop.Config = config;
+			//navTop.SiteRoot = SiteRoot;
+			//navTop.ImageSiteRoot = ImageSiteRoot;
+
+			//navBottom.ModuleId = ModuleId;
+			//navBottom.ModuleGuid = module.ModuleGuid;
+			//navBottom.PageId = PageId;
+			//navBottom.IsEditable = IsEditable;
+			//navBottom.Config = config;
+			//navBottom.SiteRoot = SiteRoot;
+			//navBottom.ImageSiteRoot = ImageSiteRoot;
 
 			TitleOnly = config.TitleOnly || displaySettings.PostListForceTitleOnly;
 			ShowTweetThisLink = config.ShowTweetThisLink && !config.UseExcerpt;
@@ -995,46 +1009,36 @@ namespace mojoPortal.Web.BlogUI
 					disqusFlag = "#disqus_thread";
 					disqus.SiteShortName = DisqusSiteShortName;
 					disqus.RenderCommentCountScript = true;
-					navTop.ShowCommentCount = false;
-					navBottom.ShowCommentCount = false;
+					nav.ShowCommentCount = false;
+					//navTop.ShowCommentCount = false;
+					//navBottom.ShowCommentCount = false;
 				}
 
 				if ((IntenseDebateAccountId.Length > 0) && (config.CommentSystem == "intensedebate"))
 				{
 					ShowCommentCounts = false;
-					navTop.ShowCommentCount = false;
-					navBottom.ShowCommentCount = false;
+					nav.ShowCommentCount = false;
+					//navTop.ShowCommentCount = false;
+					//navBottom.ShowCommentCount = false;
 				}
 
 				if (config.CommentSystem == "facebook")
 				{
 					ShowCommentCounts = false;
-					navTop.ShowCommentCount = false;
-					navBottom.ShowCommentCount = false;
+					nav.ShowCommentCount = false;
+					//navTop.ShowCommentCount = false;
+					//navBottom.ShowCommentCount = false;
 				}
 
 			}
 			else
 			{
-				navTop.ShowCommentCount = false;
-				navBottom.ShowCommentCount = false;
+				nav.ShowCommentCount = false;
+				//navTop.ShowCommentCount = false;
+				//navBottom.ShowCommentCount = false;
 			}
 
-			if (!config.NavigationOnRight)
-			{
-				divblog.CssClass = "blogcenter-leftnav";
-			}
-
-
-			if (config.Copyright.Length > 0)
-			{
-				litCopyright.Text = config.Copyright;
-				pnlCopyright.Visible = true;
-			}
-
-			pnlCopyright.CssClass = displaySettings.CopyrightPanelClass;
-
-			navTop.Visible = false;
+			bool showNav = false;
 
 			if (
 				config.ShowCalendar ||
@@ -1043,31 +1047,75 @@ namespace mojoPortal.Web.BlogUI
 				config.ShowCategories ||
 				config.ShowFeedLinks ||
 				config.ShowStatistics ||
-				(config.UpperSidebar.Length > 0) ||
-				(config.LowerSidebar.Length > 0)
+				!string.IsNullOrWhiteSpace(config.UpperSidebar) ||
+				!string.IsNullOrWhiteSpace(config.LowerSidebar)
 			)
 			{
-
-				navTop.Visible = true;
+				showNav = true;
 			}
 
-			if (!navTop.Visible)
+			if (!showNav)
 			{
-				divblog.CssClass = "blogcenter-nonav";
+				divBlog.CssClass = displaySettings.ListViewCenterNoNavClass;
 			}
+
+			if (config.NavigationOnRight)
+			{
+				//navTop.Visible = true;
+				//navBottom.Visible = false;
+
+				phNavRight.Controls.Add(nav);
+
+				divBlog.CssClass = displaySettings.ListViewCenterRightNavClass;
+			}
+			else
+			{
+				//navTop.Visible = false;
+				//navBottom.Visible = true;
+				phNavLeft.Controls.Add(nav);
+
+				divBlog.CssClass = displaySettings.ListViewCenterLeftNavClass;
+			}
+
+			//if (!config.NavigationOnRight)
+			//{
+			//	divblog.CssClass = "blogcenter-leftnav";
+			//}
+
+			//navTop.Visible = false;
+
+			//if (
+			//	config.ShowCalendar ||
+			//	config.ShowArchives ||
+			//	config.ShowAddFeedLinks ||
+			//	config.ShowCategories ||
+			//	config.ShowFeedLinks ||
+			//	config.ShowStatistics ||
+			//	(config.UpperSidebar.Length > 0) ||
+			//	(config.LowerSidebar.Length > 0)
+			//)
+			//{
+
+			//	navTop.Visible = true;
+			//}
+
+			//if (!navTop.Visible)
+			//{
+			//	divblog.CssClass = "blogcenter-nonav";
+			//}
 
 			if (displaySettings.PostListExtraCss.Length > 0)
 			{
-				divblog.ExtraCssClasses = " " + displaySettings.PostListExtraCss;
+				divBlog.ExtraCssClasses = " " + displaySettings.PostListExtraCss;
 			}
 
-			navBottom.Visible = false;
+			//navBottom.Visible = false;
 
-			if ((navTop.Visible) && (displaySettings.UseBottomNavigation))
-			{
-				navTop.Visible = false;
-				navBottom.Visible = true;
-			}
+			//if ((navTop.Visible) && (displaySettings.UseBottomNavigation))
+			//{
+			//	navTop.Visible = false;
+			//	navBottom.Visible = true;
+			//}
 
 			//if (IsEditable)
 			//{
@@ -1080,6 +1128,14 @@ namespace mojoPortal.Web.BlogUI
 			{
 				useFriendlyUrls = false;
 			}
+
+			if (config.Copyright.Length > 0)
+			{
+				litCopyright.Text = config.Copyright;
+				pnlCopyright.Visible = true;
+			}
+
+			pnlCopyright.CssClass = displaySettings.CopyrightPanelClass;
 
 			pnlPager.CssClass = displaySettings.PagerPanelClass;
 		}

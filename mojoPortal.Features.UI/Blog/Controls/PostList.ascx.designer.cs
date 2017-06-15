@@ -22,22 +22,22 @@ namespace mojoPortal.Web.BlogUI {
         protected global::mojoPortal.Web.BlogUI.BlogDisplaySettings displaySettings;
         
         /// <summary>
-        /// navTop control.
+        /// phNavLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.BlogUI.BlogNav navTop;
+        protected global::System.Web.UI.WebControls.PlaceHolder phNavLeft;
         
         /// <summary>
-        /// divblog control.
+        /// divBlog control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.BlogUI.BlogPostListWrapperPanel divblog;
+        protected global::mojoPortal.Web.BlogUI.BlogPostListWrapperPanel divBlog;
         
         /// <summary>
         /// rptBlogs control.
@@ -67,13 +67,13 @@ namespace mojoPortal.Web.BlogUI {
         protected global::mojoPortal.Web.UI.mojoCutePager pgr;
         
         /// <summary>
-        /// navBottom control.
+        /// phNavRight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.BlogUI.BlogNav navBottom;
+        protected global::System.Web.UI.WebControls.PlaceHolder phNavRight;
         
         /// <summary>
         /// pnlCopyright control.

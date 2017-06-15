@@ -4,9 +4,10 @@
 
 <blog:BlogDisplaySettings ID="displaySettings" runat="server" />
 
-<blog:NavControl ID="navTop" runat="server" />
+<%--<blog:NavControl ID="navTop" runat="server" />--%>
+<asp:PlaceHolder runat="server" ID="phNavLeft"></asp:PlaceHolder>
 
-<blog:BlogPostListWrapperPanel ID="divblog" runat="server" CssClass="blogcenter-rightnav">
+<blog:BlogPostListWrapperPanel ID="divBlog" runat="server" CssClass="blogcenter-rightnav">
 	<asp:Repeater ID="rptBlogs" runat="server" SkinID="Blog" EnableViewState="False">
 		<ItemTemplate>
 			<blog:BlogPostListItemPanel ID="bi1" runat="server">
@@ -281,7 +282,8 @@
 	</portal:BasePanel>
 </blog:BlogPostListWrapperPanel>
 
-<blog:NavControl ID="navBottom" runat="server" />
+<%--<blog:NavControl ID="navBottom" runat="server" />--%>
+<asp:PlaceHolder runat="server" ID="phNavRight"></asp:PlaceHolder>
 
 <portal:BasePanel runat="server" ID="pnlCopyright" RenderId="false">
 	<asp:Literal runat="server" ID="litCopyright" />
