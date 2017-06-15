@@ -330,6 +330,14 @@ namespace mojoPortal.Web.BlogUI
 			set => listViewCenterClass = value;
 		}
 
+		private string listViewCenterNoNavClass = "blogcenter-nonav";
+
+		public string ListViewCenterNoNavClass
+		{
+			get => listViewCenterNoNavClass;
+			set => listViewCenterNoNavClass = value;
+		}
+
 		private string listViewCenterRightNavClass = "blogcenter-rightnav";
 
 		public string ListViewCenterRightNavClass
