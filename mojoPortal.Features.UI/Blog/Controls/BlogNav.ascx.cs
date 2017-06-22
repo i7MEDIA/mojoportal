@@ -1,6 +1,6 @@
 ﻿//	Author:				Joe Audette
 //	Created:			2011-06-09
-//	Last Modified:		2013-06-13
+//	Last Modified:		2017-06-20
 //		
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -10,18 +10,13 @@
 //
 // You must not remove this notice, or any other, from this software.
 
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.UI;
 using System;
-using System.Data;
 using System.Globalization;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.UI;
-using Resources;
 
 namespace mojoPortal.Web.BlogUI
 {
@@ -131,15 +126,18 @@ namespace mojoPortal.Web.BlogUI
 		{
 			bool isDetailPage = (Page is BlogView);
 
+			pnlSideTop.Visible = false;
+			pnlSideBottom.Visible = false;
+
 			if (!String.IsNullOrWhiteSpace(config.UpperSidebar))
 			{
-				litUpperSidebar.Visible = false;
+				pnlSideTop.Visible = true;
 				litUpperSidebar.Text = config.UpperSidebar;
 			}
 
 			if (!String.IsNullOrWhiteSpace(config.LowerSidebar))
 			{
-				litLowerSidebar.Visible = false;
+				pnlSideBottom.Visible = true;
 				litLowerSidebar.Text = config.LowerSidebar;
 			}
 
@@ -199,7 +197,7 @@ namespace mojoPortal.Web.BlogUI
 			stats.HeadingElement = displaySettings.StatsHeadingElement;
 			stats.OverrideHeadingText = displaySettings.StatsOverrideHeadingText;
 
-			//pnlStatistics.Visible = showStats;
+			pnlStatistics.Visible = showStats;
 
 			if ((config.RelatedItemsToShow > 0) && (displaySettings.RelatedPostsPosition == "Side") && (Page is BlogView))
 			{
@@ -316,10 +314,16 @@ namespace mojoPortal.Web.BlogUI
 			navDate = CalendarDate;
 
 			stats.ShowCommentCount = showCommentCount;
-			
-			if (!config.NavigationOnRight)
+
+			divNav.CssClass = displaySettings.NavClass;
+
+			if (config.NavigationOnRight)
 			{
-				this.divNav.CssClass = "blognavleft";
+				divNav.CssClass += " " + displaySettings.NavRightClass;
+			}
+			else
+			{
+				divNav.CssClass += " " + displaySettings.NavLeftClass;
 			}
 
 			if (
@@ -382,8 +386,8 @@ namespace mojoPortal.Web.BlogUI
 				divNav.Visible = true;
 			}
 
-			//pnlSideTop.Visible = !displaySettings.HideTopSideBar;
-			//pnlSideBottom.Visible = !displaySettings.HideBottomSideBar;
+			pnlSideTop.Visible = !displaySettings.HideTopSideBar;
+			pnlSideBottom.Visible = !displaySettings.HideBottomSideBar;
 
 			searchBox.Visible = config.ShowBlogSearchBox && displaySettings.ShowSearchInNav;
 		}
