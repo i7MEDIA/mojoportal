@@ -1,6 +1,6 @@
 ﻿// Author:					Joe Audette
 // Created:				    2011-06-09
-// Last Modified:			2017-06-06
+// Last Modified:			2017-06-20
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -48,7 +48,7 @@ namespace mojoPortal.Web.BlogUI
 			set { hideFeedLinks = value; }
 		}
 
-		
+
 		private bool hideTopSideBar = false;
 
 		public bool HideTopSideBar
@@ -177,7 +177,7 @@ namespace mojoPortal.Web.BlogUI
 			get { return postListHideDate; }
 			set { postListHideDate = value; }
 		}
-	   
+
 		private bool postListDisableContentRating = false;
 
 		public bool PostListDisableContentRating
@@ -322,6 +322,22 @@ namespace mojoPortal.Web.BlogUI
 			set => copyrightPanelClass = value;
 		}
 
+		private string layoutRowClass = string.Empty;
+
+		public string LayoutRowClass
+		{
+			get => layoutRowClass;
+			set => layoutRowClass = value;
+		}
+
+		private bool layoutRowRender = false;
+
+		public bool LayoutRowRender
+		{
+			get => layoutRowRender;
+			set => layoutRowRender = value;
+		}
+
 		private string listViewCenterClass = "blog-center";
 
 		public string ListViewCenterClass
@@ -354,28 +370,60 @@ namespace mojoPortal.Web.BlogUI
 			set => listViewCenterLeftNavClass = value;
 		}
 
-		private string listViewNavClass = "blog-nav";
+		private string postViewCenterClass = "blog-center";
 
-		public string ListViewNavClass
+		public string PostViewCenterClass
 		{
-			get => listViewNavClass;
-			set => listViewNavClass = value;
+			get => postViewCenterClass;
+			set => postViewCenterClass = value;
 		}
 
-		private string listViewNavRightClass = "blognavright";
+		private string postViewCenterNoNavClass = "blogcenter-nonav";
 
-		public string ListViewNavRightClass
+		public string PostViewCenterNoNavClass
 		{
-			get => listViewNavRightClass;
-			set => listViewNavRightClass = value;
+			get => postViewCenterNoNavClass;
+			set => postViewCenterNoNavClass = value;
 		}
 
-		private string listViewNavLeftClass = "blognavleft";
+		private string postViewCenterRightNavClass = "blogcenter-rightnav";
 
-		public string ListViewNavLeftClass
+		public string PostViewCenterRightNavClass
 		{
-			get => listViewNavLeftClass;
-			set => listViewNavLeftClass = value;
+			get => postViewCenterRightNavClass;
+			set => postViewCenterRightNavClass = value;
+		}
+
+		private string postViewCenterLeftNavClass = "blogcenter-leftnav";
+
+		public string PostViewCenterLeftNavClass
+		{
+			get => postViewCenterLeftNavClass;
+			set => postViewCenterLeftNavClass = value;
+		}
+
+		private string navClass = "blog-nav";
+
+		public string NavClass
+		{
+			get => navClass;
+			set => navClass = value;
+		}
+
+		private string navRightClass = "blognavright";
+
+		public string NavRightClass
+		{
+			get => navRightClass;
+			set => navRightClass = value;
+		}
+
+		private string navLeftClass = "blognavleft";
+
+		public string NavLeftClass
+		{
+			get => navLeftClass;
+			set => navLeftClass = value;
 		}
 
 		private bool detailViewDisableContentRating = false;
@@ -475,7 +523,22 @@ namespace mojoPortal.Web.BlogUI
 			set { categoryListHeadingElement = value; }
 		}
 
-		
+		private string categoryListHeadingClass = string.Empty;
+
+		public string CategoryListHeadingClass
+		{
+			get => categoryListHeadingClass;
+			set => categoryListHeadingClass = value;
+		}
+
+		private string categoryListClass = "blognav";
+
+		public string CategoryListClass
+		{
+			get => categoryListClass;
+			set => categoryListClass = value;
+		}
+
 		private string overrideCategoryListItemHeadingElement = string.Empty;
 
 		public string OverrideCategoryListItemHeadingElement
@@ -523,14 +586,15 @@ namespace mojoPortal.Web.BlogUI
 		public string OverrideDateFormat
 		{
 			get { return overrideDateFormat; }
-			set {
+			set
+			{
 				try
 				{
 					string d = DateTime.Now.ToString(value, CultureInfo.CurrentCulture);
 					overrideDateFormat = value;
 				}
 				catch (FormatException) { }
-				 
+
 			}
 		}
 
@@ -582,37 +646,11 @@ namespace mojoPortal.Web.BlogUI
 		}
 
 		private string rssFeedLinkFormat = "<a href='{0}' class='rsslink' rel='nofollow' title='{1}'><img src='{2}' alt='{3}'></a>";
-		public string RssFeedLinkFormat { get { return rssFeedLinkFormat; } set { rssFeedLinkFormat = value; } }
 
-		private string msnSubscribeIconUrl = "~/Data/SiteImages/rss_mymsn.gif";
-
-		public string MsnSubscribeIconUrl
+		public string RssFeedLinkFormat
 		{
-			get { return msnSubscribeIconUrl; }
-			set { msnSubscribeIconUrl = value; }
-		}
-
-		private string liveSubscribeIcon = "~/Data/SiteImages/addtolive.gif";
-
-		public string LiveSubscribeIcon
-		{
-			get { return liveSubscribeIcon; }
-			set { liveSubscribeIcon = value; }
-		}
-
-		private string myYahooSubscribeIcon = "~/Data/SiteImages/addtomyyahoo2.gif";
-		public string MyYahooSubscribeIcon
-		{
-			get { return myYahooSubscribeIcon; }
-			set { myYahooSubscribeIcon = value; }
-		}
-
-		private string googleSubscribeIcon = "~/Data/SiteImages/googleaddrss.gif";
-
-		public string GoogleSubscribeIcon
-		{
-			get { return googleSubscribeIcon; }
-			set { googleSubscribeIcon = value; }
+			get { return rssFeedLinkFormat; }
+			set { rssFeedLinkFormat = value; }
 		}
 
 		private string relatedPostsHeadingElement = "h3";
@@ -847,7 +885,7 @@ namespace mojoPortal.Web.BlogUI
 			get { return showSearchInNav; }
 			set { showSearchInNav = value; }
 		}
-		
+
 
 		private string featuredImageFormat = "<figure class='blog-post__featured-image-figure'><img class='blog-post__featured-image' alt='{1}' src='{0}' /></figure>";
 
