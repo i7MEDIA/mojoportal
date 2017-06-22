@@ -1,6 +1,6 @@
-﻿//	Author:				Joe Audette
-//	Created:			2004-08-15
-//	Last Modified:		2017-06-06
+﻿// Author:        Joe Audette
+// Created:       2004-08-15
+// Last Modified: 2017-06-20
 //		
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -907,8 +907,6 @@ namespace mojoPortal.Web.BlogUI
 				IntenseDebateAccountId = siteSettings.IntenseDebateAccountId;
 			}
 
-			//BlogNav nav = new BlogNav();
-
 			Control cNav = Page.LoadControl("~/Blog/Controls/BlogNav.ascx");
 			
 			BlogNav nav = (BlogNav)cNav;
@@ -920,22 +918,6 @@ namespace mojoPortal.Web.BlogUI
 			nav.Config = config;
 			nav.SiteRoot = SiteRoot;
 			nav.ImageSiteRoot = ImageSiteRoot;
-
-			//navTop.ModuleId = ModuleId;
-			//navTop.ModuleGuid = module.ModuleGuid;
-			//navTop.PageId = PageId;
-			//navTop.IsEditable = IsEditable;
-			//navTop.Config = config;
-			//navTop.SiteRoot = SiteRoot;
-			//navTop.ImageSiteRoot = ImageSiteRoot;
-
-			//navBottom.ModuleId = ModuleId;
-			//navBottom.ModuleGuid = module.ModuleGuid;
-			//navBottom.PageId = PageId;
-			//navBottom.IsEditable = IsEditable;
-			//navBottom.Config = config;
-			//navBottom.SiteRoot = SiteRoot;
-			//navBottom.ImageSiteRoot = ImageSiteRoot;
 
 			TitleOnly = config.TitleOnly || displaySettings.PostListForceTitleOnly;
 			ShowTweetThisLink = config.ShowTweetThisLink && !config.UseExcerpt;
@@ -1010,32 +992,23 @@ namespace mojoPortal.Web.BlogUI
 					disqus.SiteShortName = DisqusSiteShortName;
 					disqus.RenderCommentCountScript = true;
 					nav.ShowCommentCount = false;
-					//navTop.ShowCommentCount = false;
-					//navBottom.ShowCommentCount = false;
 				}
 
 				if ((IntenseDebateAccountId.Length > 0) && (config.CommentSystem == "intensedebate"))
 				{
 					ShowCommentCounts = false;
 					nav.ShowCommentCount = false;
-					//navTop.ShowCommentCount = false;
-					//navBottom.ShowCommentCount = false;
 				}
 
 				if (config.CommentSystem == "facebook")
 				{
 					ShowCommentCounts = false;
 					nav.ShowCommentCount = false;
-					//navTop.ShowCommentCount = false;
-					//navBottom.ShowCommentCount = false;
 				}
-
 			}
 			else
 			{
 				nav.ShowCommentCount = false;
-				//navTop.ShowCommentCount = false;
-				//navBottom.ShowCommentCount = false;
 			}
 
 			bool showNav = false;
@@ -1043,9 +1016,8 @@ namespace mojoPortal.Web.BlogUI
 			if (
 				config.ShowCalendar ||
 				config.ShowArchives ||
-				config.ShowAddFeedLinks ||
-				config.ShowCategories ||
 				config.ShowFeedLinks ||
+				config.ShowCategories ||
 				config.ShowStatistics ||
 				!string.IsNullOrWhiteSpace(config.UpperSidebar) ||
 				!string.IsNullOrWhiteSpace(config.LowerSidebar)
@@ -1054,73 +1026,39 @@ namespace mojoPortal.Web.BlogUI
 				showNav = true;
 			}
 
-			if (!showNav)
+			divBlog.CssClass = displaySettings.ListViewCenterClass;
+
+			if (showNav)
 			{
-				divBlog.CssClass = displaySettings.ListViewCenterNoNavClass;
-			}
-
-			if (config.NavigationOnRight)
-			{
-				//navTop.Visible = true;
-				//navBottom.Visible = false;
-
-				phNavRight.Controls.Add(nav);
-
-				divBlog.CssClass = displaySettings.ListViewCenterRightNavClass;
+				if (config.NavigationOnRight)
+				{
+					phNavRight.Controls.Add(nav);
+					divBlog.CssClass += " " + displaySettings.ListViewCenterRightNavClass;
+				}
+				else
+				{
+					phNavLeft.Controls.Add(nav);
+					divBlog.CssClass += " " + displaySettings.ListViewCenterLeftNavClass;
+				}
 			}
 			else
 			{
-				//navTop.Visible = false;
-				//navBottom.Visible = true;
-				phNavLeft.Controls.Add(nav);
-
-				divBlog.CssClass = displaySettings.ListViewCenterLeftNavClass;
+				divBlog.CssClass += " " + displaySettings.ListViewCenterNoNavClass;
 			}
-
-			//if (!config.NavigationOnRight)
-			//{
-			//	divblog.CssClass = "blogcenter-leftnav";
-			//}
-
-			//navTop.Visible = false;
-
-			//if (
-			//	config.ShowCalendar ||
-			//	config.ShowArchives ||
-			//	config.ShowAddFeedLinks ||
-			//	config.ShowCategories ||
-			//	config.ShowFeedLinks ||
-			//	config.ShowStatistics ||
-			//	(config.UpperSidebar.Length > 0) ||
-			//	(config.LowerSidebar.Length > 0)
-			//)
-			//{
-
-			//	navTop.Visible = true;
-			//}
-
-			//if (!navTop.Visible)
-			//{
-			//	divblog.CssClass = "blogcenter-nonav";
-			//}
 
 			if (displaySettings.PostListExtraCss.Length > 0)
 			{
-				divBlog.ExtraCssClasses = " " + displaySettings.PostListExtraCss;
+				divBlog.CssClass += " " + displaySettings.PostListExtraCss;
 			}
 
-			//navBottom.Visible = false;
+			pnlLayoutRow.RenderId = false;
+			pnlLayoutRow.RenderContentsOnly = true;
+			pnlLayoutRow.CssClass = displaySettings.LayoutRowClass;
 
-			//if ((navTop.Visible) && (displaySettings.UseBottomNavigation))
-			//{
-			//	navTop.Visible = false;
-			//	navBottom.Visible = true;
-			//}
-
-			//if (IsEditable)
-			//{
-			//    countOfDrafts = Blog.CountOfDrafts(ModuleId);
-			//}
+			if (showNav && displaySettings.LayoutRowRender)
+			{
+				pnlLayoutRow.RenderContentsOnly = false;
+			}
 
 			useFriendlyUrls = BlogConfiguration.UseFriendlyUrls(moduleId);
 
