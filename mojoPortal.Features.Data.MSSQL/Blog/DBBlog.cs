@@ -846,10 +846,13 @@ namespace mojoPortal.Data
 			sph.DefineSqlParameter("@IncludeImageInExcerpt", SqlDbType.Bit, ParameterDirection.Input, includeImageInExcerpt);
 			sph.DefineSqlParameter("@IncludeImageInPost", SqlDbType.Bit, ParameterDirection.Input, includeImageInPost);
 
+			//if you added/removed parameters, be sure to change the newID line below to match the index of the ItemID parameter
 			sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.InputOutput, null);
 
 			sph.ExecuteNonQuery();
-            int newID = Convert.ToInt32(sph.Parameters[50].Value);
+
+			//if you added/removed parameters, be sure this is using the correct index for the ItemID parameter.
+            int newID = Convert.ToInt32(sph.Parameters[51].Value);
             return newID;
         }
 
