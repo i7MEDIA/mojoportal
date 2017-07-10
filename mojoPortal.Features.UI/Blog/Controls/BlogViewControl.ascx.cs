@@ -305,21 +305,24 @@ namespace mojoPortal.Web.BlogUI
 			spnAuthorBio.InnerHtml = blog.AuthorBio;
 			spnAuthorBio.Visible = blog.ShowAuthorBio && displaySettings.ShowAuthorBioInPostDetail && (blog.AuthorBio.Length > 0);
 
-			if (displaySettings.FeaturedImageAbovePost)
+			if (blog.HeadlineImageUrl != "")
 			{
-				featuredImagePostTop.Visible = true;
-				featuredImagePostTop.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blog.Title);
+				if (displaySettings.FeaturedImageAbovePost)
+				{
+					featuredImagePostTop.Visible = true;
+					featuredImagePostTop.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blog.Title);
 
-				featuredImageExcerptTop.Visible = true;
-				featuredImageExcerptTop.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blog.Title);
-			}
-			else
-			{
-				featuredImagePostBottom.Visible = true;
-				featuredImagePostBottom.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blog.Title);
+					featuredImageExcerptTop.Visible = true;
+					featuredImageExcerptTop.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blog.Title);
+				}
+				else
+				{
+					featuredImagePostBottom.Visible = true;
+					featuredImagePostBottom.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blog.Title);
 
-				featuredImageExcerptBottom.Visible = true;
-				featuredImageExcerptBottom.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blog.Title);
+					featuredImageExcerptBottom.Visible = true;
+					featuredImageExcerptBottom.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blog.Title);
+				}
 			}
 
 			if ((blog.PreviousItemId > -1) || (useFriendlyUrls && blog.PreviousPostUrl.Length > 0))
