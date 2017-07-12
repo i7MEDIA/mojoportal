@@ -37,8 +37,8 @@ namespace mojoPortal.Web
         private int rightModuleCount = 0;
         private int alt1ModuleCount = 0;
         private int alt2ModuleCount = 0;
-        private SiteSettings siteSettings;
-        private PageSettings currentPage = null;
+        protected SiteSettings siteSettings;
+        protected PageSettings currentPage = null;
         private SiteMapDataSource siteMapDataSource = null;
         private SiteMapNode rootNode = null;
         protected string SkinBaseUrl = string.Empty;

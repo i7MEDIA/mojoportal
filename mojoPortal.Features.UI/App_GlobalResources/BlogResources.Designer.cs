@@ -1447,6 +1447,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include Image In Post Checked By Default?.
+        /// </summary>
+        internal static string DefaultIncludeImageInPostChecked {
+            get {
+                return ResourceManager.GetString("DefaultIncludeImageInPostChecked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Include In News Checked By Default?.
         /// </summary>
         internal static string DefaultIncludeInNewsChecked {
@@ -1690,6 +1699,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Featured Image.
+        /// </summary>
+        internal static string FeaturedImage {
+            get {
+                return ResourceManager.GetString("FeaturedImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Featured Image.
+        /// </summary>
+        internal static string FeaturedImageTab {
+            get {
+                return ResourceManager.GetString("FeaturedImageTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feed Logo Url.
         /// </summary>
         internal static string FeedLogoUrl {
@@ -1861,15 +1888,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Headline Image.
-        /// </summary>
-        internal static string HeadlineImage {
-            get {
-                return ResourceManager.GetString("HeadlineImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hide full post from unauthenticated users?.
         /// </summary>
         internal static string HideDetailsFromUnauthencticated {
@@ -1888,11 +1906,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include Headline Image In Generated Excerpt?.
+        ///   Looks up a localized string similar to Include Featured Image In Excerpt?.
         /// </summary>
         internal static string IncludeImageInExcerpt {
             get {
                 return ResourceManager.GetString("IncludeImageInExcerpt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include image in Post List?.
+        /// </summary>
+        internal static string IncludeImageInPost {
+            get {
+                return ResourceManager.GetString("IncludeImageInPost", resourceCulture);
             }
         }
         
@@ -1938,6 +1965,15 @@ namespace Resources {
         internal static string IntenseDebateAccountId {
             get {
                 return ResourceManager.GetString("IntenseDebateAccountId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is Featured Post?.
+        /// </summary>
+        internal static string IsFeaturedPost {
+            get {
+                return ResourceManager.GetString("IsFeaturedPost", resourceCulture);
             }
         }
         

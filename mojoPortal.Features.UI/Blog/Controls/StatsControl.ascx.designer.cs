@@ -13,6 +13,15 @@ namespace mojoPortal.Web.BlogUI {
     public partial class StatsControl {
         
         /// <summary>
+        /// displaySettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.BlogUI.BlogDisplaySettings displaySettings;
+        
+        /// <summary>
         /// litHeadingOpenTag control.
         /// </summary>
         /// <remarks>
@@ -40,30 +49,12 @@ namespace mojoPortal.Web.BlogUI {
         protected global::System.Web.UI.WebControls.Literal litHeadingCloseTag;
         
         /// <summary>
-        /// litEntryCount control.
+        /// listStats control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litEntryCount;
-        
-        /// <summary>
-        /// liComments control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liComments;
-        
-        /// <summary>
-        /// litCommentCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litCommentCount;
+        protected global::System.Web.UI.WebControls.BulletedList listStats;
     }
 }

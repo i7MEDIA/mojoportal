@@ -1,6 +1,6 @@
-﻿// Author:				    
+// Author:
 // Created:			        2010-05-11
-// Last Modified:		    2017-06-07
+// Last Modified:		    2017-06-06
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -370,7 +370,9 @@ namespace mojoPortal.Web.BlogUI
 
 			defaultIncludeInNewsChecked = WebUtils.ParseBoolFromHashtable(settings, "DefaultIncludeInNewsChecked", defaultIncludeInNewsChecked);
 			defaultIncludeImageInExcerptChecked = WebUtils.ParseBoolFromHashtable(settings, "DefaultIncludeImageInExcerptChecked", defaultIncludeImageInExcerptChecked);
+			defaultIncludeImageInPostChecked = WebUtils.ParseBoolFromHashtable(settings, "DefaultIncludeImageInPostChecked", defaultIncludeImageInPostChecked);
 
+			featuredPostId = WebUtils.ParseInt32FromHashtable(settings, "FeaturedPostId", featuredPostId);
 		}
 
 		private bool defaultIncludeImageInExcerptChecked = false;
@@ -380,11 +382,25 @@ namespace mojoPortal.Web.BlogUI
 			get { return defaultIncludeImageInExcerptChecked; }
 		}
 
+		private bool defaultIncludeImageInPostChecked = false;
+
+		public bool DefaultIncludeImageInPostChecked
+		{
+			get { return defaultIncludeImageInPostChecked; }
+		}
+
 		private bool defaultIncludeInNewsChecked = false;
 
 		public bool DefaultIncludeInNewsChecked
 		{
 			get { return defaultIncludeInNewsChecked; }
+		}
+
+		private int featuredPostId = 0;
+
+		public int FeaturedPostId
+		{
+			get { return featuredPostId; }
 		}
 
 		private string defaultGenres = string.Empty;
@@ -1316,6 +1332,7 @@ namespace mojoPortal.Web.BlogUI
 			get { return ConfigHelper.GetBoolProperty("Blog:ShowAuthorBioCheckedByDefault", false); }
 		}
 
+
 		public static string GetBingMapType(string googleMapType)
 		{
 			switch (googleMapType)
@@ -1375,6 +1392,5 @@ namespace mojoPortal.Web.BlogUI
 			}
 
 		}
-
 	}
 }

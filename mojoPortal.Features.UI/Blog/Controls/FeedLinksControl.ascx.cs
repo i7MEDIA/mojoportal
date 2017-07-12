@@ -1,6 +1,6 @@
-﻿// Author:				        
-// Created:			            2009-05-04
-//	Last Modified:              2017-03-15
+// Author:
+// Created:       2009-05-04
+// Last Modified: 2017-06-20
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -10,252 +10,199 @@
 //
 // You must not remove this notice, or any other, from this software.
 
-using System;
-using System.Data;
-using System.Globalization;
-using System.Web.UI;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using Resources;
+using System;
+using System.Data;
+using System.Web.UI;
 
 namespace mojoPortal.Web.BlogUI
 {
-    public partial class FeedLinksControl : UserControl
-    {
-        private int pageId = -1;
-        private int moduleId = -1;
-        private string siteRoot = string.Empty;
-        private BlogConfiguration config = new BlogConfiguration();
-        private string imageSiteRoot = string.Empty;
-        private SiteSettings siteSettings = null;
-        protected string addThisAccountId = string.Empty;
-        protected string RssImageFile = WebConfigSettings.RSSImageFileName;
-        protected string rssLinkTitle = BlogResources.BlogRSSLinkTitle;
-        private int categoryId = -1;
-        private Module module = null;
-        
-        public int PageId
-        {
-            get { return pageId; }
-            set { pageId = value; }
-        }
+	public partial class FeedLinksControl : UserControl
+	{
+		private int pageId = -1;
+		private int moduleId = -1;
+		private string siteRoot = string.Empty;
+		private BlogConfiguration config = new BlogConfiguration();
+		private string imageSiteRoot = string.Empty;
+		private SiteSettings siteSettings = null;
+		protected string addThisAccountId = string.Empty;
+		protected string RssImageFile = WebConfigSettings.RSSImageFileName;
+		protected string rssLinkTitle = BlogResources.BlogRSSLinkTitle;
+		private int categoryId = -1;
+		private Module module = null;
 
-        public int ModuleId
-        {
-            get { return moduleId; }
-            set { moduleId = value; }
-        }
+		public int PageId
+		{
+			get { return pageId; }
+			set { pageId = value; }
+		}
 
-        public string SiteRoot
-        {
-            get { return siteRoot; }
-            set { siteRoot = value; }
-        }
+		public int ModuleId
+		{
+			get { return moduleId; }
+			set { moduleId = value; }
+		}
 
-        //public string ImageSiteRoot
-        //{
-        //    get { return imageSiteRoot; }
-        //    set { imageSiteRoot = value; }
-        //}
+		public string SiteRoot
+		{
+			get { return siteRoot; }
+			set { siteRoot = value; }
+		}
 
-        public BlogConfiguration Config
-        {
-            get { return config; }
-            set { config = value; }
-        }
+		public BlogConfiguration Config
+		{
+			get { return config; }
+			set { config = value; }
+		}
 
-        
+		protected void Page_Load(object sender, EventArgs e)
+		{}
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            
-            
-        }
+		protected override void OnPreRender(EventArgs e)
+		{
+			if (this.Visible)
+			{
+				if (pageId == -1) { return; }
+				if (moduleId == -1) { return; }
 
-        protected override void OnPreRender(EventArgs e)
-        {
-            if (this.Visible)
-            {
-                if (pageId == -1) { return; }
-                if (moduleId == -1) { return; }
-               
-                LoadSettings();
-                PopulateLabels();
-                SetupLinks();
-            }
+				LoadSettings();
+				PopulateLabels();
+				SetupLinks();
+			}
 
+			base.OnPreRender(e);
+		}
 
-            base.OnPreRender(e);
+		private void SetupLinks()
+		{
+			if (siteSettings == null)
+			{
+				return;
+			}
 
-        }
+			if (displaySettings.OverrideRssFeedImageUrl.Length > 0)
+			{
+				RssImageFile = Page.ResolveUrl(displaySettings.OverrideRssFeedImageUrl);
+			}
 
-        private void SetupLinks()
-        {
-            if (siteSettings == null) { return; }
+			litRssLink.Text = string.Format(displaySettings.RssFeedLinkFormat,
+				GetRssUrl(),
+				rssLinkTitle,
+				Page.ResolveUrl("~/Data/SiteImages/" + RssImageFile),
+				"RSS"
+			);
 
-            //lnkRSS.HRef = GetRssUrl();
-            //imgRSS.Src = Page.ResolveUrl("~/Data/SiteImages/" + RssImageFile);
-            if (displaySettings.OverrideRssFeedImageUrl.Length > 0)
-            {
-                RssImageFile = Page.ResolveUrl(displaySettings.OverrideRssFeedImageUrl);
-            }
+			lnkAddThisRss.HRef = 
+				"http://www.addthis.com/feed.php?pub=" +
+				addThisAccountId +
+				"&amp;h1=" +
+				Server.UrlEncode(GetRssUrl()) +
+				"&amp;t1="
+			;
 
-            litRssLink.Text = string.Format(displaySettings.RssFeedLinkFormat, 
-                GetRssUrl(),
-                rssLinkTitle,
-                Page.ResolveUrl("~/Data/SiteImages/" + RssImageFile),
-                "RSS"
-                );
+			imgAddThisRss.Src = Page.ResolveUrl(config.AddThisRssButtonImageUrl);
+		}
 
-            lnkAddThisRss.HRef = "http://www.addthis.com/feed.php?pub="
-                + addThisAccountId + "&amp;h1=" + Server.UrlEncode(GetRssUrl())
-                + "&amp;t1=";
-
-            imgAddThisRss.Src = Page.ResolveUrl(config.AddThisRssButtonImageUrl);
-
-            lnkAddMSN.HRef = "http://my.msn.com/addtomymsn.armx?id=rss&amp;ut=" + GetRssUrl();
-
-            imgMSNRSS.Src = Page.ResolveUrl(displaySettings.MsnSubscribeIconUrl);
-
-            lnkAddToLive.HRef = "http://www.live.com/?add=" + Server.UrlEncode(GetRssUrl());
-
-            imgAddToLive.Src = Page.ResolveUrl(displaySettings.LiveSubscribeIcon);
-
-            lnkAddYahoo.HRef = "http://e.my.yahoo.com/config/promo_content?.module=ycontent&amp;.url="
-                + GetRssUrl();
-
-            imgYahooRSS.Src = Page.ResolveUrl(displaySettings.MyYahooSubscribeIcon);
-
-            lnkAddGoogle.HRef = "http://fusion.google.com/add?feedurl="
-                + GetRssUrl();
-
-            imgGoogleRSS.Src = Page.ResolveUrl(displaySettings.GoogleSubscribeIcon);
-
-            liOdiogoPodcast.Visible = (config.OdiogoPodcastUrl.Length > 0);
-            lnkOdiogoPodcast.HRef = config.OdiogoPodcastUrl;
-            lnkOdiogoPodcastTextLink.NavigateUrl = config.OdiogoPodcastUrl;
-            imgOdiogoPodcast.Src = Page.ResolveUrl("~/Data/SiteImages/podcast.png");
-
-            
+		private string GetRssUrl()
+		{
+			if (
+				(categoryId == -1) &&
+				(config.FeedburnerFeedUrl.Length > 0) &&
+				!BlogConfiguration.UseRedirectForFeedburner
+			)
+			{
+				return config.FeedburnerFeedUrl;
+			}
 
 
-        }
+			if (config.FeedburnerFeedUrl.Length > 0)
+			{
+				return
+					SiteRoot +
+					"/Blog/RSS.aspx?p=" +
+					pageId.ToInvariantString() +
+					"~" +
+					ModuleId.ToInvariantString() +
+					"~" +
+					categoryId.ToInvariantString() +
+					"&amp;r=" +
+					Global.FeedRedirectBypassToken.ToString()
+				;
+			}
 
-        private string GetRssUrl()
-        {
-            if (
-                (categoryId == -1)
-               && (config.FeedburnerFeedUrl.Length > 0) 
-                && (!BlogConfiguration.UseRedirectForFeedburner)
-                ) 
-            { return config.FeedburnerFeedUrl; }
-            
-            
-            //if (WebConfigSettings.UseUrlReWriting)
-            //{
-            //    return SiteRoot + "/blog" + ModuleId.ToInvariantString() + "rss.aspx";
-            //}
-            //else
-            //{
-            //    return SiteRoot + "/Blog/RSS.aspx?pageid=" + pageId.ToInvariantString()
-            //        + "&mid=" + ModuleId.ToInvariantString();
-            //}
+			return 
+				SiteRoot +
+				"/Blog/RSS.aspx?p=" +
+				pageId.ToInvariantString() +
+				"~" +
+				ModuleId.ToInvariantString() +
+				"~" + categoryId.ToInvariantString()
+			;
+		}
 
-            if (config.FeedburnerFeedUrl.Length > 0)
-            {
-                return SiteRoot + "/Blog/RSS.aspx?p=" + pageId.ToInvariantString()
-                    + "~" + ModuleId.ToInvariantString() + "~" + categoryId.ToInvariantString()
-                    + "&amp;r=" + Global.FeedRedirectBypassToken.ToString();
-            }
+		private void PopulateLabels()
+		{
+			lnkAddThisRss.Title = BlogResources.BlogAddThisSubscribeAltText;
+		}
 
-            return SiteRoot + "/Blog/RSS.aspx?p=" + pageId.ToInvariantString()
-                    + "~" + ModuleId.ToInvariantString() + "~" + categoryId.ToInvariantString()
-                    ;
+		private void LoadSettings()
+		{
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
 
-        }
+			if (siteSettings == null)
+			{
+				return;
+			}
 
-        private void PopulateLabels()
-        {
-            //lnkRSS.Title = BlogResources.BlogRSSLinkTitle;
-            lnkAddThisRss.Title = BlogResources.BlogAddThisSubscribeAltText;
-            lnkAddMSN.Title = BlogResources.BlogModuleAddToMyMSNLink;
-            lnkAddYahoo.Title = BlogResources.BlogModuleAddToMyYahooLink;
-            lnkAddGoogle.Title = BlogResources.BlogModuleAddToGoogleLink;
-            lnkAddToLive.Title = BlogResources.BlogModuleAddToWindowsLiveLink;
-            lnkOdiogoPodcast.Title = BlogResources.PodcastLink;
-            lnkOdiogoPodcastTextLink.Text = BlogResources.PodcastLink;
-        }
+			if (BlogConfiguration.UseCategoryFeedurlOnCategoryPage)
+			{
+				categoryId = WebUtils.ParseInt32FromQueryString("cat", categoryId);
+			}
 
-        private void LoadSettings()
-        {
-            siteSettings = CacheHelper.GetCurrentSiteSettings();
-            if (siteSettings == null) { return; }
+			module = new Module(moduleId);
 
-            if (BlogConfiguration.UseCategoryFeedurlOnCategoryPage)
-            {
-                categoryId = WebUtils.ParseInt32FromQueryString("cat", categoryId);
-            }
+			if (module != null)
+			{
+				rssLinkTitle = String.Format(BlogResources.BlogRSSLinkTitleFormat, module.ModuleTitle);
+			}
 
-            module = new Module(moduleId);
+			if (categoryId > -1)
+			{
+				string category = string.Empty;
 
-            if (module != null)
-            {
-                rssLinkTitle = String.Format(BlogResources.BlogRSSLinkTitleFormat, module.ModuleTitle);
-            }
+				using (IDataReader reader = Blog.GetCategory(categoryId))
+				{
+					if (reader.Read())
+					{
+						category = reader["Category"].ToString();
+					}
+				}
 
-            if (categoryId > -1)
-            {
-                string category = string.Empty;
-                using (IDataReader reader = Blog.GetCategory(categoryId))
-                {
-                    if (reader.Read())
-                    {
-                        category = reader["Category"].ToString();
-                    }
-                }
-                rssLinkTitle = String.Format(BlogResources.BlogRSSLinkTitleForCategoryFormat, module.ModuleTitle, category);
-            }
+				rssLinkTitle = String.Format(BlogResources.BlogRSSLinkTitleForCategoryFormat, module.ModuleTitle, category);
+			}
 
-            
+			siteRoot = SiteUtils.GetNavigationSiteRoot();
 
-            siteRoot = SiteUtils.GetNavigationSiteRoot();
-            // we don't want ssl on the feed urls since it resultsin browser warnings
-            if (!WebConfigSettings.UseSSLForFeedLinks)
-            {
-                siteRoot = SiteUtils.GetNavigationSiteRoot().Replace("https:","http:");
-            }
+			// we don't want ssl on the feed urls since it results in browser warnings
+			if (!WebConfigSettings.UseSSLForFeedLinks)
+			{
+				siteRoot = SiteUtils.GetNavigationSiteRoot().Replace("https:", "http:");
+			}
 
-            if (config.AddThisAccountId.Length > 0)
-            {
-                addThisAccountId = config.AddThisAccountId;
-            }
-            else
-            {
-                addThisAccountId = siteSettings.AddThisDotComUsername;
-            }
+			if (config.AddThisAccountId.Length > 0)
+			{
+				addThisAccountId = config.AddThisAccountId;
+			}
+			else
+			{
+				addThisAccountId = siteSettings.AddThisDotComUsername;
+			}
 
-            liAddThisRss.Visible = (addThisAccountId.Length > 0);
-
-            liAddThisRss.Visible = (config.ShowAddFeedLinks && (addThisAccountId.Length > 0));
-            liAddGoogle.Visible = config.ShowAddFeedLinks;
-            liAddMSN.Visible = config.ShowAddFeedLinks;
-            liAddYahoo.Visible = config.ShowAddFeedLinks;
-            liAddToLive.Visible = config.ShowAddFeedLinks;
-
-            if (liAddThisRss.Visible)
-            {
-                liAddGoogle.Visible = false;
-                liAddMSN.Visible = false;
-                liAddYahoo.Visible = false;
-                liAddToLive.Visible = false;
-
-            }
-
-           //if (imageSiteRoot.Length == 0) { imageSiteRoot = WebUtils.GetSiteRoot(); }
-
-        }
-
-
-    }
+			liAddThisRss.Visible = (addThisAccountId.Length > 0);
+			liAddThisRss.Visible = (config.ShowAddFeedLinks && (addThisAccountId.Length > 0));
+		}
+	}
 }

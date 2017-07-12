@@ -22,22 +22,31 @@ namespace mojoPortal.Web.BlogUI {
         protected global::mojoPortal.Web.BlogUI.BlogDisplaySettings displaySettings;
         
         /// <summary>
-        /// navTop control.
+        /// pnlLayoutRow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.BlogUI.BlogNav navTop;
+        protected global::mojoPortal.Web.UI.BasePanel pnlLayoutRow;
         
         /// <summary>
-        /// divblog control.
+        /// phNavLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.BlogUI.BlogPostListWrapperPanel divblog;
+        protected global::System.Web.UI.WebControls.PlaceHolder phNavLeft;
+        
+        /// <summary>
+        /// divBlog control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.BlogUI.BlogPostListWrapperPanel divBlog;
         
         /// <summary>
         /// rptBlogs control.
@@ -49,6 +58,15 @@ namespace mojoPortal.Web.BlogUI {
         protected global::System.Web.UI.WebControls.Repeater rptBlogs;
         
         /// <summary>
+        /// pnlPager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlPager;
+        
+        /// <summary>
         /// pgr control.
         /// </summary>
         /// <remarks>
@@ -58,22 +76,31 @@ namespace mojoPortal.Web.BlogUI {
         protected global::mojoPortal.Web.UI.mojoCutePager pgr;
         
         /// <summary>
-        /// navBottom control.
+        /// phNavRight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.BlogUI.BlogNav navBottom;
+        protected global::System.Web.UI.WebControls.PlaceHolder phNavRight;
         
         /// <summary>
-        /// lblCopyright control.
+        /// pnlCopyright control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCopyright;
+        protected global::mojoPortal.Web.UI.BasePanel pnlCopyright;
+        
+        /// <summary>
+        /// litCopyright control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litCopyright;
         
         /// <summary>
         /// disqus control.

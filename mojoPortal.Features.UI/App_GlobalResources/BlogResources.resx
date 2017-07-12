@@ -918,11 +918,8 @@
   <data name="GoogleNewsSettings" xml:space="preserve">
     <value>Google News Settings</value>
   </data>
-  <data name="HeadlineImage" xml:space="preserve">
-    <value>Headline Image</value>
-  </data>
   <data name="IncludeImageInExcerpt" xml:space="preserve">
-    <value>Include Headline Image In Generated Excerpt?</value>
+    <value>Include Featured Image In Excerpt?</value>
   </data>
   <data name="IncludeInGoogleNews" xml:space="preserve">
     <value>Include In News Site Map?</value>
@@ -965,5 +962,20 @@
   </data>
   <data name="BlogRSSLinkTitleFormat" xml:space="preserve">
     <value>RSS Feed for {0}</value>
+  </data>
+  <data name="FeaturedImage" xml:space="preserve">
+    <value>Featured Image</value>
+  </data>
+  <data name="FeaturedImageTab" xml:space="preserve">
+    <value>Featured Image</value>
+  </data>
+  <data name="DefaultIncludeImageInPostChecked" xml:space="preserve">
+    <value>Include Image In Post Checked By Default?</value>
+  </data>
+  <data name="IncludeImageInPost" xml:space="preserve">
+    <value>Include image in Post List?</value>
+  </data>
+  <data name="IsFeaturedPost" xml:space="preserve">
+    <value>Is Featured Post?</value>
   </data>
 </root>
