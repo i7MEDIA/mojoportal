@@ -5,11 +5,11 @@
 //								bidel.akbari@gmail.com							          //
 ////////////////////////////////////////////////////////////////////////////////////////////
 // from: http://www.codeproject.com/aspnet/ASPNETPagerControl.asp
-// with Modifications by Joe Audette
+// with Modifications by 
 // 2007-09-01 added support for paging with links instead of postback
 // added option to render without html tables and made it default
 // added ability to set CssClasses
-// 2012-04-27 Joe Audette added support for RenderAsList
+// 2012-04-27  added support for RenderAsList
 //2013-01-30 added container element
 // 2014-01-08 added support for view all url
 
@@ -65,7 +65,7 @@ namespace mojoPortal.Web.Controls
         private int _pageCount; // Total No of Pages
         private bool _showFirstLast = false; // to determine wheter show first and last link or not
 
-        // added by Joe Audette
+        // added by 
         private string _PageURLFormat = string.Empty;
         private bool _RenderAsTable = false;
         private string _PageInfoCssClass = "PageInfo";

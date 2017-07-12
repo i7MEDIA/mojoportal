@@ -28,7 +28,7 @@
 // Copyright (C) 2005 Novell, Inc (http://www.novell.com)
 //
 
-// borrowed from the Mono project 2009-05-11 and modified to work in mojoportal by Joe Audette
+// borrowed from the Mono project 2009-05-11 and modified to work in mojoportal by 
 // Last Modified 2009-05-11
 
 
@@ -339,7 +339,7 @@ namespace mojoPortal.Web.UI
 			DataBind ();
 		}
 
-        //added by Joe Audette to enable showing breadcrumbs on pages that don't match the current url but still have a page context by pageid param
+        //added by  to enable showing breadcrumbs on pages that don't match the current url but still have a page context by pageid param
         private SiteMapNode overrideCurrentNode = null;
 
         /// <summary>

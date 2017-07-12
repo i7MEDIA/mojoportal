@@ -23,7 +23,7 @@ using Resources;
 namespace mojoPortal.Web.FlashUI
 {
     /// <summary>
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2007-05-01
     /// Last Modified:			2007-05-01
     /// 

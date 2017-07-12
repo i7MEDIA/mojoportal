@@ -17,7 +17,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-// 2014-05-22 Joe Audette changed to inherit from BaseValidator in order to support ValidationGroup
+// 2014-05-22  changed to inherit from BaseValidator in order to support ValidationGroup
 // so that multiple instances on a apge with diofferent vsalidation groups can work
 // 2016-01-06 i7MEDIA changed to reCaptcha v2
 
@@ -169,7 +169,7 @@ namespace mojoPortal.Web.UI
         /// </summary>
         public RecaptchaControl()
         {
-            //2011-10-20 Joe Audette added these checks because otherwise we are setting it to empty here even if it is declared on the control markup
+            //2011-10-20  added these checks because otherwise we are setting it to empty here even if it is declared on the control markup
             if (ConfigurationManager.AppSettings["RecaptchaPublicKey"] != null)
             {
                 this.publicKey = ConfigurationManager.AppSettings["RecaptchaPublicKey"];
@@ -267,7 +267,7 @@ namespace mojoPortal.Web.UI
         {
             // <script> setting
 
-            // added 2011-10-22 by Joe Audette to support use inside UpdatePanel
+            // added 2011-10-22 by  to support use inside UpdatePanel
             //if (registerWithScriptManager)
             //{
                 // write a div where we will attach the recaptcha

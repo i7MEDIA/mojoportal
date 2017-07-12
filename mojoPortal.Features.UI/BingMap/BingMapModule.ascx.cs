@@ -1,4 +1,4 @@
-﻿// Author:					Joe Audette
+﻿// Author:					
 // Created:				    2010-06-10
 // Last Modified:			2010-06-22
 // FeatureGuid:		        59ec610a-afab-4c26-8859-fbb2659ab2cb

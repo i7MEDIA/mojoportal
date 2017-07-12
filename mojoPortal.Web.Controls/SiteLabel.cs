@@ -6,7 +6,7 @@ using System.Web.UI.WebControls;
 namespace mojoPortal.Web.Controls
 {
     /// <summary>
-    ///	Author:				    Joe Audette
+    ///	Author:				    
     ///	Created:			    2006-12-13
     ///	Last Modified:		    2008-08-15
     /// 
@@ -19,8 +19,8 @@ namespace mojoPortal.Web.Controls
     /// This control is really just designed for use in mojoPortal
     /// and external projects that plug into mojoPortal.
     /// 
-    /// 2007-11-26 Joe Audette - change to render directly to output without unneccesary string creation
-    /// 2008-08-15 Joe Audette removed use of viewstate
+    /// 2007-11-26  - change to render directly to output without unneccesary string creation
+    /// 2008-08-15  removed use of viewstate
     /// </summary>
     public class SiteLabel : WebControl, INamingContainer
     {

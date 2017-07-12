@@ -7,15 +7,15 @@
 // You must not remove this notice, or any other, from this software.
 // 
 // 
-// 3/13/2005 Joe Audette added handler in Application_BeginRequest 
+// 3/13/2005  added handler in Application_BeginRequest 
 // for db404 error which is raised if pageid doesn't exist for siteid	
 // 
-// 6/22/2005 Joe Audette added log4net error logging	
+// 6/22/2005  added log4net error logging	
 // 11/30/2005
 // 1/16/2006 JA added VirtualPathProvider
 // 1/29/2006 added Windows Auth support from Haluk Eryuksel
-// 2/4/2006 Joe Audette added mojoSetup 
-// 11/8/2006 Joe Audette added tracking user activity time in Application_EndRequest
+// 2/4/2006  added mojoSetup 
+// 11/8/2006  added tracking user activity time in Application_EndRequest
 // 12/3/2006 added tracking of session count
 // 1/29/2007 added upgrade check to error handling
 // 2/9/2007 added rethrow unhandled error
@@ -26,7 +26,7 @@
 // 2009-06-24 some cleanup
 // 2009-11-20 use config settings for keepalivetask settings
 // 2011-03-14 added logic for .NET 4 to enable memory and excepton monitoring
-// 2011-08-05 Joe Audette refactored end request user activity tracking
+// 2011-08-05  refactored end request user activity tracking
 // 2014-07-11 added updated routing for web api and mvc
 
 using System;

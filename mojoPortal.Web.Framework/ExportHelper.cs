@@ -1,4 +1,4 @@
-// Author:        Joe Audette
+// Author:        
 // Created:       2007-07-12
 // Last Modified: 2017-07-11
 // 

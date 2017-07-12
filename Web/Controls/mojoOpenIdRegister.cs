@@ -6,9 +6,9 @@
  ********************************************************/
 
 // based on work as noted above with modifications 
-// to meet the need of mojoPortal by Joe Audette
+// to meet the need of mojoPortal by 
 //  Last Modified:  2007-08-23
-// 2008-08-13 Joe Audette added support for ID Selector https://www.idselector.com/
+// 2008-08-13  added support for ID Selector https://www.idselector.com/
 // 2008-05-14 upgrade to dotnetopenauth
 
 using System;

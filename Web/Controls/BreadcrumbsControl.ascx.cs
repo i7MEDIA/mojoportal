@@ -1,4 +1,4 @@
-/// Author:				    Joe Audette
+/// Author:				    
 /// Created:			    2005-01-01
 /// Last Modified:		    2012-10-09
 /// 2009-02-27 applied patch from Damien White to support a Home crumb

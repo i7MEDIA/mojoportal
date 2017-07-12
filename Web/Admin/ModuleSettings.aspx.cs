@@ -1,4 +1,4 @@
-/// Author:                     Joe Audette
+/// Author:                     
 ///	Last Modified:              2016-02-24 //i7MEDIA
 /// 
 /// The use and distribution terms for this software are covered by the 

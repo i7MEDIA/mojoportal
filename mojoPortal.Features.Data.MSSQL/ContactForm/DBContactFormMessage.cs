@@ -1,5 +1,5 @@
 ﻿///							DBContactFormMessage.cs
-/// Author:					Joe Audette
+/// Author:					
 /// Created:				2008-03-28
 /// Last Modified:			2010-07-01
 /// 

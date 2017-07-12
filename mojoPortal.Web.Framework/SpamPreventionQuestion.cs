@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 namespace mojoPortal.Web.Framework
 {
     /// <summary>
-    /// Author:             Joe Audette
+    /// Author:             
     /// Created:            3/10/2006
     /// Last Modified:      3/10/2007
     /// 

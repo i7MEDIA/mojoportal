@@ -12,7 +12,7 @@ using FirebirdSql.Data.FirebirdClient;
 namespace mojoPortal.Data
 {
     /// <summary>
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2007-11-03
     /// Last Modified:			2008-02-02
     /// 

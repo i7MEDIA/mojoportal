@@ -11,7 +11,7 @@ namespace mojoPortal.Data
 {
     /// <summary>
     ///							DBContentRating.cs
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2008-11-19
     /// Last Modified:			2008-11-19
     /// 

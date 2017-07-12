@@ -9,7 +9,7 @@
 /// 
 /// 
 /// 
-/// with modifications by Joe Audette
+/// with modifications by 
 /// Last Modified:      2010-08-24
 /// added logic to use a different class for selected items
 

@@ -73,7 +73,7 @@ namespace mojoPortal.Web.BlogUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.BlogUI.PostListAdvanced postList;
+        protected global::mojoPortal.Web.BlogUI.PostListRazor postList;
         
         /// <summary>
         /// divFooter control.

@@ -1,4 +1,4 @@
-﻿// Author:		        Joe Audette/Joe Davis
+﻿// Author:		        /Joe Davis
 // Created:             2012-09-23
 // Last Modified:       2014-04-23
 // 

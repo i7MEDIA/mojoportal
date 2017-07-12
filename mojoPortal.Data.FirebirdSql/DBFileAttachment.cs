@@ -1,5 +1,5 @@
 ﻿
-// Author:					Joe Audette
+// Author:					
 // Created:					2009-03-08
 // Last Modified:			2012-09-19
 // 

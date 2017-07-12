@@ -1,6 +1,6 @@
 <%-- 
 Name:  					C# DataLayer Methods for MS SQL using SqlHelper
-Author: 				Joe Audette
+Author: 				Joe Developer
 Created:				2004-10-05
 Last Modified:			2009-02-23
 Description: 			Generates C# a Static Data Layer class for MS SQL
@@ -8,7 +8,7 @@ Description: 			Generates C# a Static Data Layer class for MS SQL
 --%>
 <%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
-<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author" %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Developer" Category="Style" Description="Author" %>
 
 
 <%@ Property Name="DataLayerNameSpace" Type="System.String" Default="mojoPortal.Data" Category="Style" Description="The Namespace of the Data Layer class" %>

@@ -1,6 +1,6 @@
 /// Last Modified:		        2007-01-19 by aleyush
 /// 2007-08-25
-/// 2008-11-17 by Joe Audette
+/// 2008-11-17 by 
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)

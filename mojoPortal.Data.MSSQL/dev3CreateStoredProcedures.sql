@@ -9,7 +9,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_PrivateMessagePriority_SelectAll]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/2/2006
 Last Modified: 		8/2/2006
 */
@@ -35,7 +35,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_PrivateMessagePriority_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/2/2006
 Last Modified: 		8/2/2006
 */
@@ -65,7 +65,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_PrivateMessagePriority_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/2/2006
 Last Modified: 		8/2/2006
 */
@@ -101,7 +101,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_PrivateMessagePriority_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/2/2006
 Last Modified: 		8/2/2006
 */
@@ -130,7 +130,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_PrivateMessagePriority_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/2/2006
 Last Modified: 		8/2/2006
 */
@@ -155,7 +155,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_PrivateMessages_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/2/2006
 Last Modified: 		8/2/2006
 */
@@ -225,7 +225,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_PrivateMessages_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/2/2006
 Last Modified: 		8/2/2006
 */
@@ -276,7 +276,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_PrivateMessages_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/2/2006
 Last Modified: 		8/2/2006
 */
@@ -318,7 +318,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_PrivateMessages_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/2/2006
 Last Modified: 		8/2/2006
 */
@@ -343,7 +343,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_PrivateMessageAttachments_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/2/2006
 Last Modified: 		8/2/2006
 */
@@ -366,7 +366,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_PrivateMessageAttachments_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/2/2006
 Last Modified: 		8/2/2006
 */
@@ -412,7 +412,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_PrivateMessageAttachments_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/2/2006
 Last Modified: 		8/2/2006
 */
@@ -445,7 +445,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_PrivateMessageAttachments_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/2/2006
 Last Modified: 		8/2/2006
 */
@@ -485,7 +485,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_UserEmailAccounts_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/20/2006
 Last Modified: 		8/20/2006
 */
@@ -529,7 +529,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_UserEmailAccounts_SelectByUser]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/20/2006
 Last Modified: 		8/20/2006
 */
@@ -568,7 +568,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_UserEmailAccounts_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/20/2006
 Last Modified: 		8/20/2006
 */
@@ -627,7 +627,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_UserEmailAccounts_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/20/2006
 Last Modified: 		8/20/2006
 */
@@ -665,7 +665,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_UserEmailAccounts_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/20/2006
 Last Modified: 		8/20/2006
 */

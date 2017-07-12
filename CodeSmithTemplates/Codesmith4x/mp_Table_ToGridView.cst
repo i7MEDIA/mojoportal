@@ -1,13 +1,13 @@
 <%--
 Name:  			ASP.NET Gridview stubber
-Author: 		Joe Audette
+Author: 		Joe Developer
 Description: 	Generates a stub for Gridview with paging and sorting
 Last Modified:	2/20/2007
 
 --%>
 <%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
-<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author" %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Developer" Category="Style" Description="Author" %>
 <%@ Property Name="BusinessLayerNameSpace" Type="System.String" Default="mojoPortal.Business" Category="Style" Description="The Namespace of the Business Layer class" %>
 
 <%@ Property Name="ResourceFileNameSpace" Type="System.String" Default="Resources" Category="Style" Description="" %>

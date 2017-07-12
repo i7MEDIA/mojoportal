@@ -9,7 +9,7 @@
 /// 
 /// 
 /// 
-/// with modifications by Joe Audette
+/// with modifications by 
 /// Last Modified:      10/1/2006 
 /// added removed style and javascript for just ul li sitemap
 

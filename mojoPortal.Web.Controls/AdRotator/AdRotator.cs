@@ -25,8 +25,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-// 2008-10-13 - from the Mono Project, Joe Audette added to mojoPortal.Web.Controls with changed namespace an other edits
-//2008-10-13 Joe Audette added support for OnClientClick
+// 2008-10-13 - from the Mono Project,  added to mojoPortal.Web.Controls with changed namespace an other edits
+//2008-10-13  added support for OnClientClick
 
 using System;
 using System.Xml;

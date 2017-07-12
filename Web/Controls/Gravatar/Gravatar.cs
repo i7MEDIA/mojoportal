@@ -12,8 +12,8 @@ namespace mojoPortal.Web.UI
     /// 
     /// 
     /// Source: http://www.freshclickmedia.com/blog/2008/02/gravatar-aspnet-control/
-    /// 2008-08-13 Joe Audette added to this project and changed namespace to be more convenient
-    /// 2008-08-13 Joe Audette added support for SSL by returning the secure url if request is secure
+    /// 2008-08-13  added to this project and changed namespace to be more convenient
+    /// 2008-08-13  added support for SSL by returning the secure url if request is secure
     /// 
     /// </summary>
     [
@@ -115,7 +115,7 @@ namespace mojoPortal.Web.UI
 
         /// <summary>
         /// Gets the base Url based on whether the request is secure or not.
-        /// Added by Joe Audette 2008-08-13
+        /// Added by  2008-08-13
         /// </summary>
         public string GravatarBaseUrl
         {
@@ -153,7 +153,7 @@ namespace mojoPortal.Web.UI
 
             // default the image url:
             //string imageUrl = "http://www.gravatar.com/avatar.php?";
-            // changes by Joe Audette 2008-08-13
+            // changes by  2008-08-13
             string imageUrl = GravatarBaseUrl;
             
             if( !string.IsNullOrEmpty( Email))
@@ -177,7 +177,7 @@ namespace mojoPortal.Web.UI
                 //imageUrl += "&rating=" + MaxAllowedRating.ToString();
                 //imageUrl += "&size=" + Size.ToString();
 
-                // changes by Joe Audette 2008-08-13
+                // changes by  2008-08-13
                 imageUrl += sb.ToString().ToLower();
                 imageUrl += ".jpg?r=" + MaxAllowedRating.ToString();
                 imageUrl += "&s=" + Size.ToString();

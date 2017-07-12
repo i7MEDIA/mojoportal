@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -17,7 +17,7 @@
     <OldToolsVersion>4.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
@@ -259,7 +259,6 @@
     <Content Include="Blog\ClosedPosts.aspx" />
     <Content Include="Blog\CommentDialog.aspx" />
     <Content Include="Blog\Controls\BlogNav.ascx" />
-    <Content Include="Blog\Controls\PostListAdvanced.ascx" />
     <Content Include="Blog\Controls\PublicationAccessSetting.ascx" />
     <Content Include="Blog\Controls\SearchBox.ascx" />
     <Content Include="Blog\Controls\PostList.ascx" />
@@ -435,6 +434,7 @@
     <Compile Include="Blog\Controls\BlogInstanceSetting.ascx.designer.cs">
       <DependentUpon>BlogInstanceSetting.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Blog\Controls\PostListRazor.cs" />
     <Compile Include="Blog\PostListModule.ascx.cs">
       <DependentUpon>PostListModule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -489,13 +489,6 @@
       <DependentUpon>BlogNav.ascx</DependentUpon>
     </Compile>
     <Compile Include="Blog\Controls\BlogPostListDisplaySettings.cs" />
-    <Compile Include="Blog\Controls\PostListAdvanced.ascx.cs">
-      <DependentUpon>PostListAdvanced.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Blog\Controls\PostListAdvanced.ascx.designer.cs">
-      <DependentUpon>PostListAdvanced.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Blog\Controls\PublicationAccessSetting.ascx.cs">
       <DependentUpon>PublicationAccessSetting.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1921,6 +1914,9 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\Views\_BlogPostList.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -1973,6 +1969,7 @@ xcopy /s /y /d "$(ProjectDir)Blog\upload.ashx" "$(SolutionDir)Web\Blog\"
 xcopy /s /y /d "$(ProjectDir)Blog\news-map.ashx" "$(SolutionDir)Web\Blog\"
 xcopy /s /y /d "$(ProjectDir)Blog\metaweblogapi.ashx" "$(SolutionDir)Web\"
 xcopy /s /y /d "$(ProjectDir)Blog\wlwmanifest.xml" "$(SolutionDir)Web\"
+xcopy /s /y /d "$(ProjectDir)Blog\Views\*" "$(SolutionDir)Web\Views\Blog\"
 xcopy /s /y /d "$(ProjectDir)ContactForm\*.aspx" "$(SolutionDir)Web\ContactForm\"
 xcopy /s /y /d "$(ProjectDir)ContactForm\*.ascx" "$(SolutionDir)Web\ContactForm\"
 xcopy /s /y /d "$(ProjectDir)EventCalendar\*.aspx" "$(SolutionDir)Web\EventCalendar\"

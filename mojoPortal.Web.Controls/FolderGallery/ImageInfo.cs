@@ -33,7 +33,7 @@ using Tag = com.drew.metadata.Tag;
 // The library can be downloaded from
 // http://renaud91.free.fr/MetaDataExtractor/
 //
-// further modifications and integration with mojoPortal by Joe Audette
+// further modifications and integration with mojoPortal by 
 //  Last Modified: 2008-02-08
 
 namespace mojoPortal.Web.Controls.FolderGallery

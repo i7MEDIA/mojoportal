@@ -812,7 +812,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Modules_SelectPage]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		5/16/2006
 Last Modified:	5/20/2006
 
@@ -935,7 +935,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Pages_SelectTreeForModule]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		5/18/2006
 Last Modified:	5/18/2006
 
@@ -1246,7 +1246,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_GalleryImages_SelectThumbsByPage]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		12/5/2004
 Last Modified:		12/5/2004
 
@@ -1328,7 +1328,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_SelectPage]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		10/3/2004
 Last Modified:		12/20/2006
 
@@ -1428,7 +1428,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Pages_SelectTree]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		11/6/2004
 Last Modified:		9/10/2005
 
@@ -1575,7 +1575,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_WebParts_SelectPage]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		6/7/2006
 Last Modified:	6/7/2006
 
@@ -1685,7 +1685,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_GalleryImages_SelectWebImageByPage]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		12/5/2004
 Last Modified:		12/5/2004
 
@@ -1778,7 +1778,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_FriendlyUrls_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/1/2005
 Last Modified: 			6/1/2005
 
@@ -1817,7 +1817,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_FriendlyUrls_SelectBySiteUrl]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			9/10/2006
 Last Modified: 		9/10/2006
 */
@@ -1851,7 +1851,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_FriendlyUrls_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/1/2005
 Last Modified: 			6/1/2005
 
@@ -1896,7 +1896,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_FriendlyUrls_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/1/2005
 Last Modified: 			6/1/2005
 
@@ -1947,7 +1947,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_FriendlyUrls_SelectOneByUrl]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/16/2005
 Last Modified: 			6/16/2005
 */
@@ -1997,7 +1997,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_FriendlyUrls_SelectByHost]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/1/2005
 Last Modified: 			6/1/2005
 */
@@ -2040,7 +2040,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_FriendlyUrls_DeleteByPageID]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/1/2005
 Last Modified: 			6/1/2005
 
@@ -2069,7 +2069,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_FriendlyUrls_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/1/2005
 Last Modified: 			6/1/2005
 
@@ -2101,7 +2101,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Blog_SelectByCategory]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		6/12/2005
 Last Modified:		6/12/2005
 
@@ -2145,7 +2145,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Blog_SelectByEndDate]
 
 /*
-Author:		Joe Audette
+Author:		
 Created:	6/5/2005
 Last Modified:	6/12/2005
 
@@ -2200,7 +2200,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Blog_Insert]
 
 /*
-Author:			Joe Audette
+Author:			
 Last Modified:		8/7/2005
 
 */
@@ -2434,7 +2434,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Blog_Update]
 
 /*
-Author:			Joe Audette
+Author:			
 Last Modified:		6/30/2005
 
 */
@@ -2675,7 +2675,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Blog_SelectOne]
 
 /*
-Author:			Joe Audette
+Author:			
 Last Modified:		7/1/2005
 
 */
@@ -2708,7 +2708,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Blog_Select]
 
 /*
-Author:		Joe Audette
+Author:		
 Last Modified:	6/12/2005
 
 */
@@ -2766,7 +2766,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFileFolders_SelectAllByModule]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/5/2005
 Last Modified: 			1/9/2005
 */
@@ -2821,7 +2821,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFileFolders_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/5/2005
 Last Modified: 			1/5/2005
 
@@ -2883,7 +2883,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFileFolders_SelectByModule]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/5/2005
 Last Modified: 			1/5/2005
 */
@@ -2938,7 +2938,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFileFolders_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/5/2005
 Last Modified: 			1/5/2005
 */
@@ -2993,7 +2993,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFileFolders_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/5/2005
 Last Modified: 			1/5/2005
 
@@ -3040,7 +3040,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFileFolders_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/5/2005
 Last Modified: 			1/8/2005
 
@@ -3085,7 +3085,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Forums_Delete]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			6/27/2006
 Last Modified:		8/14/2006
 
@@ -3122,7 +3122,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreads_Delete]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		11/28/2004
 Last Modified:	8/14/2006
 
@@ -3164,7 +3164,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumPosts_SelectOne]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			10/17/2004
 Last Modified:			10/17/2004
 
@@ -3208,7 +3208,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumPosts_SelectAllByThread]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			2/19/2005
 Last Modified:			9/11/2005
 
@@ -3281,7 +3281,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumPosts_SelectByThread]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			9/14/2004
 Last Modified:			9/11/2005
 
@@ -3386,7 +3386,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumPosts_Delete]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		11/6/2004
 Last Modified:		11/6/2004
 
@@ -3434,7 +3434,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumPosts_Update]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/19/2004
 Last Modified:		9/19/2004
 
@@ -3491,7 +3491,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreads_DecrementReplyCount]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		2/19/2005
 Last Modified:		2/19/2005
 
@@ -3544,7 +3544,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumPosts_Insert]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/19/2004
 Last Modified:		1/14/2007
 
@@ -3613,7 +3613,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumPosts_CountByThread]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			11/28/2004
 Last Modified:			11/28/2004
 
@@ -3789,7 +3789,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_BlogCategories_SelectByModule]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/7/2005
 Last Modified: 			9/11/2005
 */
@@ -3836,7 +3836,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_BlogCategories_SelectListByModule]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			9/11/2005
 Last Modified: 			9/11/2005
 */
@@ -3883,7 +3883,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_BlogItemCategories_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/7/2005
 Last Modified: 			6/7/2005
 
@@ -3928,7 +3928,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_BlogItemCategories_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/7/2005
 Last Modified: 			6/7/2005
 
@@ -3960,7 +3960,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_BlogItemCategories_SelectByItem]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/7/2005
 Last Modified: 			6/7/2005
 */
@@ -4004,7 +4004,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_BlogCategories_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/7/2005
 Last Modified: 			6/12/2005
 
@@ -4149,7 +4149,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreads_Insert]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/19/2004
 Last Modified:		1/14/2007
 
@@ -4358,7 +4358,7 @@ CREATE PROCEDURE [dbo].[mp_Forums_Select]
 
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/12/2004
 Last Modified:		9/12/2004
 
@@ -4461,7 +4461,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SchemaVersion_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/29/2007
 Last Modified: 		1/29/2007
 */
@@ -4502,7 +4502,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SchemaVersion_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/29/2007
 Last Modified: 		1/29/2007
 */
@@ -4527,7 +4527,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SchemaVersion_SelectAll]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/29/2007
 Last Modified: 		1/29/2007
 */
@@ -4560,7 +4560,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SchemaVersion_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/29/2007
 Last Modified: 		1/29/2007
 */
@@ -4598,7 +4598,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SchemaVersion_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/29/2007
 Last Modified: 		1/29/2007
 */
@@ -4735,7 +4735,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_HtmlContent_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/23/2004
 Last Modified: 			12/23/2004
 
@@ -4817,7 +4817,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_HtmlContent_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/23/2004
 Last Modified: 			12/23/2004
 
@@ -4888,7 +4888,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_HtmlContent_SelectAll]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/23/2004
 Last Modified: 			12/23/2004
 
@@ -4935,7 +4935,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_HtmlContent_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/23/2004
 Last Modified: 			12/23/2004
 
@@ -5031,7 +5031,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreadSubscriptions_UnsubscribeThread]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			10/14/2004
 Last Modified:			10/14/2004
 
@@ -5083,7 +5083,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreadSubscriptions_UnsubscribeAllThreads]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			10/14/2004
 Last Modified:			10/14/2004
 
@@ -5124,7 +5124,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreadSubscriptions_Insert]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		10/14/2004
 Last Modified:		1/21/2006
 
@@ -5189,7 +5189,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreadSubscribers_SelectByThread]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			10/13/2004
 Last Modified:			10/13/2004
 
@@ -5237,7 +5237,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_WebParts_GetMostPopularWebPartsForMyPage]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			6/11/2006
 Last Modified:		6/11/2006
 
@@ -5324,7 +5324,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_WebParts_GetCount]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			6/11/2006
 Last Modified:		6/11/2006
 
@@ -5384,7 +5384,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_WebParts_UpdateCountOfUseOnMyPage]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/15/2006
 Last Modified: 		6/15/2006
 */
@@ -5413,7 +5413,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_WebParts_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/3/2006
 Last Modified: 		6/3/2006
 */
@@ -5461,7 +5461,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_WebParts_GetWebPartsForMyPage]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			6/11/2006
 Last Modified:		6/11/2006
 
@@ -5537,7 +5537,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_WebParts_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/3/2006
 Last Modified: 		6/3/2006
 */
@@ -5600,7 +5600,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_WebParts_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/3/2006
 Last Modified: 		6/3/2006
 */
@@ -5639,7 +5639,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_WebParts_SelectBySite]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/11/2006
 Last Modified: 		6/11/2006
 */
@@ -5677,7 +5677,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_WebParts_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/3/2006
 Last Modified: 		6/3/2006
 */
@@ -5702,7 +5702,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_WebParts_WebPartExists]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		6/7/2006
 Last Modified:	6/7/2006
 
@@ -5791,7 +5791,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Links_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/24/2004
 Last Modified: 			8/7/2005
 
@@ -5948,7 +5948,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Links_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/24/2004
 Last Modified: 			8/7/2005
 
@@ -6126,7 +6126,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ModuleSettings_Delete]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		1/1/2005
 Last Modified:		1/1/2005
 
@@ -6165,7 +6165,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ModuleSettings_Insert]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		6/9/2005
 Last Modified:		6/9/2005
 
@@ -6227,7 +6227,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ModuleSettings_CreateDefaultSettings]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		1/1/2005
 Last Modified:		1/1/2005
 
@@ -6354,7 +6354,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_PageModule_Exists]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		5/18/2006
 Last Modified:	5/18/2006
 
@@ -6384,7 +6384,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Modules_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/26/2004
 Last Modified: 		6/4/2006
 
@@ -6478,7 +6478,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Modules_SelectOneByPage]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/26/2004
 Last Modified: 		6/4/2006
 
@@ -6628,7 +6628,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Modules_SelectByPage]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			12/26/2004
 Last Modified:		8/27/2006
 
@@ -6692,7 +6692,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Modules_DeleteInstance]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			5/18/2006
 Last Modified: 		5/18/2006
 
@@ -6718,7 +6718,7 @@ EXEC dbo.sp_executesql @statement = N'
 Create PROCEDURE [dbo].[mp_PageModules_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			5/18/2006
 Last Modified: 		5/18/2006
 
@@ -6769,7 +6769,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Modules_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/26/2004
 Last Modified: 		6/28/2006
 
@@ -6880,7 +6880,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_PageModules_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			5/18/2006
 Last Modified: 		5/18/2006
 
@@ -6950,7 +6950,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SchemaScriptHistory_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/30/2007
 Last Modified: 		1/30/2007
 */
@@ -7001,7 +7001,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SchemaScriptHistory_SelectErrorsByApp]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/30/2007
 Last Modified: 		1/30/2007
 */
@@ -7042,7 +7042,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SchemaScriptHistory_Exists]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		1/30/2007
 Last Modified:	1/30/2007
 
@@ -7073,7 +7073,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SchemaScriptHistory_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/30/2007
 Last Modified: 		1/30/2007
 */
@@ -7099,7 +7099,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SchemaScriptHistory_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/30/2007
 Last Modified: 		1/30/2007
 */
@@ -7137,7 +7137,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SchemaScriptHistory_SelectByApp]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/30/2007
 Last Modified: 		1/30/2007
 */
@@ -7178,7 +7178,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Modules_UpdateCountOfUseOnMyPage]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/15/2006
 Last Modified: 		6/15/2006
 
@@ -7220,7 +7220,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Modules_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/26/2004
 Last Modified: 			12/26/2004
 
@@ -7261,7 +7261,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Modules_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/26/2004
 Last Modified: 			6/19/2005
 
@@ -7310,7 +7310,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Modules_SelectForMyPage]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			5/21/2006
 Last Modified:		6/4/2006
 
@@ -7371,7 +7371,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_GalleryImages_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/4/2004
 Last Modified: 		12/4/2004
 */
@@ -7416,7 +7416,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_GalleryImages_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/4/2004
 Last Modified: 		12/4/2004
 */
@@ -7477,7 +7477,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_GalleryImages_Select]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/4/2004
 Last Modified: 			12/4/2004
 
@@ -7538,7 +7538,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_GalleryImages_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/4/2004
 Last Modified: 			12/4/2004
 
@@ -7621,7 +7621,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_GalleryImages_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/4/2004
 Last Modified: 			12/4/2004
 
@@ -7975,7 +7975,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ModuleDefinitions_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/26/2004
 Last Modified: 		1/21/2007
 
@@ -8129,7 +8129,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Forums_DecrementPostCount]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			11/6/2004
 Last Modified:			11/6/2004
 
@@ -8179,7 +8179,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreads_SelectOne]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/19/2004
 Last Modified:		2/16/2005
 
@@ -8231,7 +8231,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Forums_IncrementPostCount]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			11/6/2004
 Last Modified:			1/14/2007
 
@@ -8273,7 +8273,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Forums_Update]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/12/2004
 Last Modified:		10/20/2004
 
@@ -8343,7 +8343,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreads_SelectByForumDesc_v2]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/14/2004
 Last Modified:		9/25/2004
 
@@ -8443,7 +8443,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Forums_Insert]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			9/12/2004
 Last Modified:			10/20/2004
 
@@ -8530,7 +8530,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreads_SelectByForum]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/14/2004
 Last Modified:		2/16/2005
 
@@ -8620,7 +8620,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreads_SelectByForumDesc]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/14/2004
 Last Modified:		9/25/2004
 
@@ -8698,7 +8698,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Forums_IncrementThreadCount]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		11/28/2004
 Last Modified:		11/28/2004
 
@@ -8747,7 +8747,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Forums_SelectOne]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			9/12/2004
 Last Modified:			9/12/2004
 
@@ -8805,7 +8805,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Forums_UpdateThreadStats]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/19/2004
 Last Modified:		9/19/2004
 
@@ -8854,7 +8854,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Forums_DecrementThreadCount]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		11/28/2004
 Last Modified:		11/28/2004
 
@@ -8903,7 +8903,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Forums_UpdatePostStats]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/19/2004
 Last Modified:		9/19/2004
 
@@ -8955,7 +8955,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Forums_IncrementPostCountOnly]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			9/10/2005
 Last Modified:			9/10/2005
 
@@ -8992,7 +8992,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Forums_RecalculatePostStats]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/11/2005
 Last Modified:		9/11/2005
 
@@ -9060,7 +9060,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Roles_RoleExists]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		5/19/2005
 Last Modified:		5/19/2005
 
@@ -9105,7 +9105,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Roles_Insert]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		7/19/2004
 Last Modified:		5/19/2005
 
@@ -9151,7 +9151,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Roles_Select]
 
 /*
-Last Modified:		5/19/2005 Joe Audette
+Last Modified:		5/19/2005 
 
 */
     
@@ -9232,7 +9232,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Roles_SelectOneByName]
 
 /*
-Auhor:			Joe Audette
+Auhor:			
 Created:		5/21/2005
 Last Modified:		5/21/2005
 
@@ -9273,7 +9273,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Roles_Update]
 
 /*
-Last Modified:		5/19/2005 Joe Audette
+Last Modified:		5/19/2005 
 
 */
 
@@ -9378,7 +9378,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Pages_SelectOne]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			11/7/2004
 Last Modified:		8/27/2006
 
@@ -9409,7 +9409,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SiteSettings_SelectDefaultPage]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			7/27/2004
 Last Modified:			1/8/2006
 
@@ -9500,7 +9500,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Pages_Insert]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		11/7/2004
 Last Modified:		1/8/2007
 
@@ -9602,7 +9602,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SiteSettings_SelectDefaultPageByID]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			3/7/2005
 Last Modified:			1/8/2006
 
@@ -9686,7 +9686,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SiteSettings_SelectPage]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			7/27/2004
 Last Modified:			1/8/2006
 
@@ -9789,7 +9789,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Pages_SelectList]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			7/27/2004
 Last Modified:			7/27/2004
 
@@ -9880,7 +9880,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SiteSettings_GetPageList]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			7/27/2004
 Last Modified:			3/19/2005
 
@@ -9925,7 +9925,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Pages_GetNextPageOrder]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		11/7/2004
 Last Modified:		11/7/2004
 
@@ -9973,7 +9973,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Pages_GetBreadcrumbs]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		1/1/2005
 Last Modified:		1/1/2005
 
@@ -10079,7 +10079,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Pages_Update]
 
 /*
-Author:			Joe Audette
+Author:			
 Last Modified:		1/8/2007
 
 */
@@ -10276,7 +10276,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Pages_SelectChildPages]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			2/20/2005
 Last Modified:			2/27/2005
 
@@ -10324,7 +10324,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_RssFeeds_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/27/2005
 Last Modified: 			3/27/2005
 
@@ -10362,7 +10362,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_RssFeeds_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/27/2005
 Last Modified: 			3/27/2005
 
@@ -10413,7 +10413,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_RssFeeds_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/27/2005
 Last Modified: 			3/27/2005
 
@@ -10475,7 +10475,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_RssFeeds_Select]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/27/2005
 Last Modified: 			3/27/2005
 
@@ -10527,7 +10527,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_RssFeeds_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/27/2005
 Last Modified: 		  	3/27/2005
 
@@ -10583,7 +10583,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFiles_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/5/2005
 Last Modified: 			1/5/2005
 
@@ -10630,7 +10630,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFiles_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/5/2005
 Last Modified: 			1/10/2005
 
@@ -10680,7 +10680,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFiles_SelectByModule]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/5/2005
 Last Modified: 		1/12/2007
 
@@ -10734,7 +10734,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFiles_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/5/2005
 Last Modified: 			1/10/2005
 
@@ -10800,7 +10800,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFiles_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/5/2005
 Last Modified: 			1/10/2005
 
@@ -10879,7 +10879,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFilesHistory_Select]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/9/2005
 Last Modified: 			1/10/2005
 
@@ -10947,7 +10947,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFilesHistory_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/9/2005
 Last Modified: 			1/10/2005
 
@@ -11026,7 +11026,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFilesHistory_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/9/2005
 Last Modified: 			1/9/2005
 
@@ -11072,7 +11072,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SharedFilesHistory_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			1/9/2005
 Last Modified: 			1/10/2005
 
@@ -11122,7 +11122,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_UserProperties_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/31/2006
 Last Modified: 		12/31/2006
 */
@@ -11174,7 +11174,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_UserProperties_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/31/2006
 Last Modified: 		12/31/2006
 */
@@ -11214,7 +11214,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_UserProperties_PropertyExists]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		12/31/2006
 Last Modified:	12/31/2006
 
@@ -11241,7 +11241,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_UserProperties_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/31/2006
 Last Modified: 		12/31/2006
 */
@@ -11266,7 +11266,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_UserProperties_SelectByUser]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/31/2006
 Last Modified: 		12/31/2006
 */
@@ -11303,7 +11303,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_UserProperties_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/31/2006
 Last Modified: 		12/31/2006
 */
@@ -11350,7 +11350,7 @@ CREATE PROCEDURE [dbo].[mp_SiteModuleDefinitions_Delete]
 
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		3/12/2005
 Last Modified:		3/12/2005
 
@@ -11395,7 +11395,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SiteModuleDefinitions_Insert]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		3/12/2005
 Last Modified:		3/12/2005
 
@@ -11568,7 +11568,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_DecrementTotalPosts]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			10/3/2004
 Last Modified:			10/3/2004
 
@@ -11772,7 +11772,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE Procedure [dbo].[mp_Users_Insert]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/30/2004
 Last Modified:		1/14/2007
 
@@ -11829,7 +11829,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_SmartDropDown]
 
 /*
-Author:		Joe Audette
+Author:		
 Created:	6/19/2005
 Last Modified:	6/19/2005
 
@@ -11944,7 +11944,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_SelectByGuid]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		4/15/2006
 Last Modified:		4/15/2006
 
@@ -12058,7 +12058,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_Users_CountOnlineSinceTime]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		4/15/2006
 Last Modified:		4/15/2006
 
@@ -12088,7 +12088,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_Update]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/30/2004
 Last Modified:		11/8/2006
 
@@ -12170,7 +12170,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_SetFailedPasswordAttemptStartWindow]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			1/18/2007
 Last Modified:		1/18/2007
 
@@ -12205,7 +12205,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_Count]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		11/29/2004
 Last Modified:		5/12/2005
 
@@ -12236,7 +12236,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_GetNewestUserID]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		12/3/2006
 Last Modified:	12/3/2006
 
@@ -12274,7 +12274,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_IncrementTotalPosts]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			10/3/2004
 Last Modified:			10/3/2004
 
@@ -12345,7 +12345,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_SelectOne]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		10/3/2004
 Last Modified:		10/3/2004
 
@@ -12405,7 +12405,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_CountByFirstLetter]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		12/7/2006
 Last Modified:	12/7/2006
 
@@ -12438,7 +12438,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_SetFailedPasswordAnswerAttemptCount]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			1/18/2007
 Last Modified:		1/18/2007
 
@@ -12469,7 +12469,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_SelectUsersOnlineSinceTime]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		11/7/2006
 Last Modified:	11/7/2006
 
@@ -12498,7 +12498,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_SelectTop50UsersOnlineSinceTime]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		11/7/2006
 Last Modified:	11/7/2006
 
@@ -12530,7 +12530,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_SetFailedPasswordAttemptCount]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			1/18/2007
 Last Modified:		1/18/2007
 
@@ -12562,7 +12562,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_CountByRegistrationDateRange]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			12/3/2006
 Last Modified:		12/3/2006
 
@@ -12594,7 +12594,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Users_SetFailedPasswordAnswerAttemptStartWindow]
 
 /*
-Author:				Joe Audette
+Author:				
 Created:			1/18/2007
 Last Modified:		1/18/2007
 
@@ -12627,7 +12627,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_UserRoles_DeleteUserRoles]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		11/30/2005
 Last Modified:		11/30/2005
 
@@ -12770,7 +12770,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_UserPages_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/12/2006
 Last Modified: 		6/14/2006
 */
@@ -12816,7 +12816,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_UserPages_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/12/2006
 Last Modified: 		6/12/2006
 */
@@ -12840,7 +12840,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_UserPages_SelectByUser]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/12/2006
 Last Modified: 		6/12/2006
 */
@@ -12896,7 +12896,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_UserPages_GetNextPageOrder]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		11/7/2004
 Last Modified:		11/7/2004
 
@@ -12922,7 +12922,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[mp_UserPages_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/12/2006
 Last Modified: 		6/12/2006
 */
@@ -12954,7 +12954,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_UserPages_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/12/2006
 Last Modified: 		6/12/2006
 */
@@ -12988,7 +12988,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_CalendarEvents_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			4/10/2005
 Last Modified: 			4/10/2005
 
@@ -13024,7 +13024,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_CalendarEvents_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			4/10/2005
 Last Modified: 			4/10/2005
 
@@ -13076,7 +13076,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_CalendarEvents_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			4/10/2005
 Last Modified: 			4/10/2005
 
@@ -13144,7 +13144,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_CalendarEvents_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			4/10/2005
 Last Modified: 			4/10/2005
 
@@ -13195,7 +13195,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_CalendarEvents_SelectByDate]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			4/10/2005
 Last Modified: 			4/14/2005
 
@@ -13250,7 +13250,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreads_Update]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/19/2004
 Last Modified:		9/19/2004
 
@@ -13300,7 +13300,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreads_IncrementReplyCount]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/19/2004
 Last Modified:		1/14/2006
 
@@ -13345,7 +13345,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ForumThreads_UpdateViewStats]
 
 /*
-Author:			Joe Audette
+Author:			
 Created:		9/19/2004
 Last Modified:		9/19/2004
 
@@ -13397,7 +13397,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Sites_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/7/2005
 Last Modified: 			5/29/2005
 
@@ -13430,7 +13430,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Sites_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/7/2005
 Last Modified: 			5/21/2006
 
@@ -13551,7 +13551,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Sites_Update]
 
 /*
-Author:		Joe Audette
+Author:		
 Last Modified:	5/21/2006
 
 */
@@ -13637,7 +13637,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Sites_SelectOneByHost]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			8/27/2006
 Last Modified: 		8/27/2006
 
@@ -13682,7 +13682,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Sites_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/7/2005
 Last Modified: 			3/7/2005
 
@@ -13774,7 +13774,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Sites_Count]
 
 /*
-Author:		Joe Audette
+Author:		
 Created:	3/13/2005
 Last Modified:	3/13/2005
 
@@ -13804,7 +13804,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_Sites_SelectAll]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/7/2005
 Last Modified: 			3/7/2005
 
@@ -13832,7 +13832,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_BlogCategories_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/7/2005
 Last Modified: 			6/12/2005
 
@@ -13880,7 +13880,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_BlogCategories_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/7/2005
 Last Modified: 			9/11/2005
 
@@ -13918,7 +13918,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_BlogCategories_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			6/7/2005
 Last Modified: 			6/7/2005
 
@@ -13963,7 +13963,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SiteHosts_SelectOne]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/6/2005
 Last Modified: 			3/6/2005
 
@@ -14013,7 +14013,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SiteHosts_Select]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/6/2005
 Last Modified: 			3/13/2005
 
@@ -14063,7 +14063,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SiteHosts_Update]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/6/2005
 Last Modified: 			3/6/2005
 
@@ -14114,7 +14114,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SiteHosts_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/6/2005
 Last Modified: 			3/6/2005
 
@@ -14168,7 +14168,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_SiteHosts_Delete]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			3/6/2005
 Last Modified: 			3/6/2005
 
@@ -14260,7 +14260,7 @@ EXEC dbo.sp_executesql @statement = N'
 CREATE PROCEDURE [dbo].[mp_ModuleDefinitions_Insert]
 
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			12/26/2004
 Last Modified: 		1/21/2007
 

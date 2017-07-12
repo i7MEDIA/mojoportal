@@ -7,7 +7,7 @@ using System.Xml;
 namespace mojoPortal.Web.Framework
 {
     /// <summary>
-    /// Author:              Joe Audette
+    /// Author:              
     /// Created:            2/6/2006
     /// Last Modified:    2/6/2006
     /// </summary>

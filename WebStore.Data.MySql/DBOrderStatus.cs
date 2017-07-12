@@ -11,7 +11,7 @@ using Common = mojoPortal.Data.Common.WebStore;
 namespace WebStore.Data
 {
     /// <summary>
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2008-02-25
     /// Last Modified:		    2008-02-25
     /// 

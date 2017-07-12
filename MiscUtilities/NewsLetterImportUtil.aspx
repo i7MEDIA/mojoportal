@@ -12,7 +12,7 @@
 <%@ Import Namespace="log4net" %>
 
 <script runat="server">
-	// Author:					Steve Railsback with modifications by Joe Audette
+	// Author:					Steve Railsback with modifications by 
 	// Created:					2012-06-24
 	// Last Modified:			2012-06-24
 	// 

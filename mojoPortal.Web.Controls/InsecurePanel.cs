@@ -1,4 +1,4 @@
-// Author:					Joe Audette
+// Author:					
 // Created:				2006-03-24
 // Last Modified:			2011-02-27
 // 2011-02-27 copied from mojoPortal.Web.Controls project so we could use SiteUtils.IsSecureRequest instead of Page.Request.IsSecureConnection

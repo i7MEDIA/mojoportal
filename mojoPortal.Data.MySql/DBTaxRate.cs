@@ -1,5 +1,5 @@
 ﻿///							DBTaxRate.cs
-/// Author:					Joe Audette
+/// Author:					
 /// Created:				2008-06-25
 /// Last Modified:			2012-07-20
 /// 

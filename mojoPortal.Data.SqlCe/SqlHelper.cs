@@ -12,8 +12,8 @@
 // Forked From Enterprise Library licensed under Ms-Pl http://www.codeplex.com/entlib
 // but implementing a sub set of the API from the 2.0 Application Blocks SqlHelper
 // using implementation from the newer Ms-Pl version
-// Modifications by Joe Audette
-// Adapted for SqlCe 2010-08-09 by Joe Audette
+// Modifications by 
+// Adapted for SqlCe 2010-08-09 by 
 // Last Modified 2010-08-09
 // 2010-07-07
 

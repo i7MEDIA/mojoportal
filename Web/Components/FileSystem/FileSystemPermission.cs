@@ -5,7 +5,7 @@
  * Licensed under the MS-PL license.
  * http://qtfile.codeplex.com/license
  * 
- * Last Modified 2009-12-30 Joe Audette
+ * Last Modified 2009-12-30 
  */
 
 using System;

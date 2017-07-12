@@ -6,7 +6,7 @@
     <members>
         <member name="T:mojoPortal.Web.Editor.EditorConfiguration">
              <summary>
-             Author:		        Joe Audette
+             Author:		        
              Created:            2007/05/28
              Last Modified:      2007/05/28
              
@@ -24,7 +24,7 @@
         </member>
         <member name="T:mojoPortal.Web.Editor.EditorManager">
              <summary>
-             Author:		        Joe Audette
+             Author:		        
              Created:            2007/05/18
              Last Modified:      2007/05/30
             
@@ -37,7 +37,7 @@
         </member>
         <member name="T:mojoPortal.Web.Editor.EditorProvider">
              <summary>
-             Author:		        Joe Audette
+             Author:		        
              Created:            2007/05/18
              Last Modified:      2007/05/30
              
@@ -50,7 +50,7 @@
         </member>
         <member name="T:mojoPortal.Web.Editor.EditorProviderCollection">
              <summary>
-             Author:		        Joe Audette
+             Author:		        
              Created:            2007/05/18
              Last Modified:      2007/05/25
              
@@ -63,7 +63,7 @@
         </member>
         <member name="T:mojoPortal.Web.Editor.XStandardAdapter">
              <summary>
-             Author:					Joe Audette
+             Author:					
              Created:				2007-08-26
              Last Modified:		    2008-01-14
              
@@ -112,7 +112,7 @@
         </member>
         <member name="T:mojoPortal.Web.Editor.XStandardProvider">
              <summary>
-             Author:					Joe Audette
+             Author:					
              Created:				2007-08-26
              Last Modified:		    2007-08-26
              

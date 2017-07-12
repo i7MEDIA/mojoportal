@@ -23,7 +23,7 @@
 // This plugin is dual-licensed under the GNU General Public License and the MIT License and
 // is copyright 2008 A Beautiful Site, LLC. 
 //
-// 2009-08-16 modified by Joe Audette to include a callback function for folder clicks
+// 2009-08-16 modified by  to include a callback function for folder clicks
 // 2009-08-18 modified to support pre selecting/expanding to the current folder
 if(jQuery) (function($){
 	

@@ -1,11 +1,11 @@
 ﻿// Forked from http://weblogs.asp.net/pglavich/archive/2011/07/04/cacheadapter-v2-now-with-memcached-support.aspx
 // https://bitbucket.org/glav/cacheadapter
 // License: Ms-Pl http://www.opensource.org/licenses/MS-PL
-// Forked on 2011-08-03 by Joe Audette
+// Forked on 2011-08-03 by 
 // Changed namespaces and modified for easier use in mojoPortal
 //
 // Change history for this file since original fork:
-// 2011-08-03 Joe Audette modified to support .NET 3.5
+// 2011-08-03  modified to support .NET 3.5
 // 2012-03-22 added support for use of Cache Dependency files (.net 3.5) and HostFileChangeMonitor (.net 4)
 // 
 

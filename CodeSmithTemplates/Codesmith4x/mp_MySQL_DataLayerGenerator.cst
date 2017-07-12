@@ -1,6 +1,6 @@
 <%-- 
 Name:  					C# DataLayer Methods for MySQL
-Author: 				Joe Audette
+Author: 				Joe Developer
 Created:				2004-12-03
 Last Modified:			2012-08-11
 Description: 			Generates C# methods for a Static/Shared Data Layer class
@@ -9,7 +9,7 @@ Description: 			Generates C# methods for a Static/Shared Data Layer class
 <%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
 
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
-<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author of stored procedure" %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Developer" Category="Style" Description="Author of stored procedure" %>
 <%@ Property Name="DataLayerNameSpace" Type="System.String" Default="mojoPortal.Data" Category="Style" Description="The Namespace of the Data Layer class" %>
 
 <%@ Property Name="UseSubSonic" Type="System.Boolean" Default="True" Category="Options" Description="If true methods will delegate the work to SubSonic methods in the designated Common namespace" %>

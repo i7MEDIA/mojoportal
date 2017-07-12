@@ -13,7 +13,7 @@
 <%@ Import Namespace="log4net" %>
 
 <script runat="server">
-	// Author:					Joe Audette
+	// Author:					
 	// Created:					2012-08-27
 	// Last Modified:			2012-08-27
 	// 
@@ -172,7 +172,7 @@
 <div>
 <div>
 
-Author:					Joe Audette
+Author:					
 <br />Created:					2012-08-27
 <br />Last Modified:			2012-08-27
 <br />

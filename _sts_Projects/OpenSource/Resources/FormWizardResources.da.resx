@@ -215,7 +215,7 @@ Du bør eksportere resultatet først, for at undgå data tab.</value>
     <value>FormSubmitNotificationTask</value>
   </data>
   <data name="FormWizardFeatureName" xml:space="preserve">
-    <value>Form Wizard Pro by Source Tree Solutions</value>
+    <value>Form Wizard Pro</value>
   </data>
   <data name="ImportFormButton" xml:space="preserve">
     <value>Import Form Definition</value>

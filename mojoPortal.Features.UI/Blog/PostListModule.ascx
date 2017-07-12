@@ -1,5 +1,4 @@
 <%@ Control Language="c#" AutoEventWireup="false" CodeBehind="PostListModule.ascx.cs" Inherits="mojoPortal.Web.BlogUI.PostListModule" %>
-<%@ Register TagPrefix="blog" TagName="PostList" Src="~/Blog/Controls/PostListAdvanced.ascx" %>
 <%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Features.UI" TagPrefix="blog" %>
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
     <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper blog-postlist">
@@ -10,7 +9,7 @@
                 <blog:BlogDisplaySettings ID="displaySettings" runat="server" />
                 <%--<blog:SearchBox id="searchBoxTop" runat="server" />--%>
                 <%--<blog:PostList ID="postList" runat="server" />--%>
-                <blog:PostListAdvanced ID="postList" runat="server" />
+                <blog:PostListRazor ID="postList" runat="server" />
             <%--</blog:BlogWrapperPanel>--%>
             <portal:EmptyPanel id="divFooter" runat="server" CssClass="modulefooter" SkinID="modulefooter"></portal:EmptyPanel>
             </portal:InnerBodyPanel>

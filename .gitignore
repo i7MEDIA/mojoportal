@@ -256,6 +256,8 @@ Web/Data/Helpfiles/*-WebInvoice*
 Web/Data/MessageTemplates/*-WebInvoice*
 Web/Data/MessageTemplates/*-EventCalendarPro*
 Web/Data/MessageTemplates/*Membership*
+Web/Data/MessageTemplates/*Forum*
+Web/Data/MessageTemplates/*Blog*
 
 Web/Data/Sites/*
 Web/Data/systemfiles/*

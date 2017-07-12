@@ -5,5 +5,5 @@
 	TEMPLATE CODE: 	S-0003
     VERSION:         1.1          	
  *******************************************/
-Joe Audette found it opendesigns.com and implemented a mojoportal skin using the design.
+ found it opendesigns.com and implemented a mojoportal skin using the design.
 http://www.openwebdesign.org/design/3719/Techmania/

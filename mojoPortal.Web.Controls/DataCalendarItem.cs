@@ -13,7 +13,7 @@ namespace mojoPortal.Web.Controls
     ///	to be used in the .aspx page:
     ///     
     ///	
-    /// Last Modified:		4/10/2005 Joe Audette
+    /// Last Modified:		4/10/2005 
     /// 
     /// </summary>
     public class DataCalendarItem : Control, INamingContainer

@@ -1,4 +1,4 @@
-///	Author:				    Joe Audette
+///	Author:				    
 ///	Created:				2005-01-05
 /// Last Modified:			2014-06-10
 /// 2013-04-01 replaced file upload implementation

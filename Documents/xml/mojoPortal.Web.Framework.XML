@@ -168,7 +168,7 @@
         </member>
         <member name="F:mojoPortal.Web.Framework.ScriptDeferFilter.useHackyScriptExceptions">
             <summary>
-            Added 2008-11-04 by Joe Audette
+            Added 2008-11-04 by 
             Omar implemented a method to mark some scripts so they don't get moved to the bottom by adding a "pin" attribute
             to the script element like this script pin src="...
             however this is not xhtml compliant and is therefore not a good solution even though its more efficient than my hacky solution.
@@ -190,7 +190,7 @@
         </member>
         <member name="M:mojoPortal.Web.Framework.ScriptDeferFilter.ShouldNotMoveScript(System.Char[],System.Int32,System.Int32@)">
             <summary>
-            added by Joe Audette 2008-11-04
+            added by  2008-11-04
             this function should only be called right after isScript returns true
             its a very crappy hack to solve a few problems caused by moving the javascript to the bottom
             neathtml.js must be at the top, its a very important script for preventing xss
@@ -249,7 +249,7 @@
         </member>
         <member name="T:mojoPortal.Web.Framework.ServicePinger">
              <summary>
-             Author:					Joe Audette
+             Author:					
              Created:				2008-03-16
              Last Modified:			2008-03-16
             		
@@ -271,7 +271,7 @@
         </member>
         <member name="T:mojoPortal.Web.Framework.SpamPreventionQuestion">
             <summary>
-            Author:             Joe Audette
+            Author:             
             Created:            3/10/2006
             Last Modified:      3/10/2007
             

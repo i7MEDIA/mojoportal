@@ -1,6 +1,6 @@
 <%-- 
 Name:  						Firebird Table Generator
-Author: 					Joe Audette
+Author: 					Joe Developer
 Created:					2007-07-18
 Last Modified:				2008-09-12
 Description: 				Creates table script for Firebird based on MS SQL Schema

@@ -10,7 +10,7 @@ using System.Web.Configuration;
 namespace mojoPortal.Web
 {
 	/// <summary>
-	/// Author:				Joe Audette
+	/// Author:				
 	/// Created:			2007-12-13
 	/// Last Modified:		2007-12-15
 	/// 

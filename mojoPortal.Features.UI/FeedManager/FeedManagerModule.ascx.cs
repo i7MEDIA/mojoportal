@@ -1,4 +1,4 @@
-﻿/// Author:				Joe Audette
+﻿/// Author:				
 /// Created:			2005-03-27
 ///	Last Modified:		2014-06-10
 ///	
@@ -13,7 +13,7 @@
 /// You must not remove this notice, or any other, from this software.
 /// 
 /// 2008-09-08 Walter Ferrari added support for excerpt, paging, show author
-/// 2008-09-30 Joe Audette moved this feature from main projects into mojoPortal.Features projects
+/// 2008-09-30  moved this feature from main projects into mojoPortal.Features projects
 /// 2008-10-01 integrated selective publishing option from Walter Ferrari
 /// 2010-01-09 implemented alternate calendar view to allow showing a minio calendar consuming feeds from Event Calendar Pro for example
 /// 2010-11-26 added support for a jquery scroller widget to make the feed posts scroll like a newsticker

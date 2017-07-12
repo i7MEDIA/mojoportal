@@ -1,7 +1,7 @@
 ﻿// Author:						Kevin Needham
 // Created:					    2009-06-23
 // Last Modified:     
-// 2009-07-23 Joe Audette renamed to IWorkflow and added methods   
+// 2009-07-23  renamed to IWorkflow and added methods   
 // 2009-07-24       
 // 
 // The use and distribution terms for this software are covered by the 

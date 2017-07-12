@@ -26,8 +26,8 @@
 // Author:
 //	Jackson Harper (jackson@ximian.com)
 //
-// 2008-10-13 Joe Audette added to this project from the Mono project, changed namespace
-//2008-10-13 Joe Audette added support for OnClientClick
+// 2008-10-13  added to this project from the Mono project, changed namespace
+//2008-10-13  added support for OnClientClick
 
 using System;
 using System.Collections;

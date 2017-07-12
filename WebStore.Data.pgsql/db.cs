@@ -10,7 +10,7 @@ using NpgsqlTypes;
 namespace WebStore.Data
 {
     /// <summary>
-    /// Author:				Joe Audette
+    /// Author:				
     /// Created:			2/9/2007
     /// Last Modified:		2/9/2007
     /// 

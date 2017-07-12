@@ -1,6 +1,6 @@
 <%-- 
 Name:  			mojoPortal Module Control stubber
-Author: 		Joe Audette
+Author: 		Joe Developer
 Description: 	Generates markup and code behind for a control inheriting from SiteModuleControl
 				this control serves as the entry point to a feature that plugs into the mojoportal 
 				content system
@@ -9,7 +9,7 @@ Last Modified:	3/20/2007
 --%>
 <%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
 
-<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author" %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Developer" Category="Style" Description="Author" %>
 <%@ Property Name="BusinessLayerNameSpace" Type="System.String" Default="mojoPortal.Business" Category="Style" Description="The Namespace of the Business Layer class" %>
 <%@ Property Name="UINameSpace" Type="System.String" Default="MyWeb.UI" Category="Style" Description="" %>
 <%@ Property Name="FeatureName" Type="System.String" Default="MyFeature" Category="Style" Description="" %>

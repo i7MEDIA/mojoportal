@@ -14,7 +14,7 @@ using mojoPortal.Web.UI;
 namespace mojoPortal.Features.UI
 {
     /// <summary>
-    /// Author:             Joe Audette
+    /// Author:             
     /// Created:            2/9/2007
     /// Last Modified:      2/9/2007
     /// </summary>

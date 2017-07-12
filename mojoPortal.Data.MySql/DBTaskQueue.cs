@@ -1,5 +1,5 @@
 ﻿///							DBTaskQueue.cs
-/// Author:					Joe Audette
+/// Author:					
 /// Created:				2007-12-30
 /// Last Modified:			2012-07-20
 /// 

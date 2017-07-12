@@ -1,6 +1,6 @@
 // ** I18N
 
-// Modified by Joe Audette 8/21/2005 replaced special chars with numeric entity references
+// Modified by  8/21/2005 replaced special chars with numeric entity references
 // this fixed errors I was getting during testing of localization
 
 

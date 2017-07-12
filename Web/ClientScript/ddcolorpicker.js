@@ -6,7 +6,7 @@
 //Requires:
 //** YUI Color Picker: http://developer.yahoo.com/yui/colorpicker/ AND
 //** DHTML Window Widget: http://www.dynamicdrive.com/dynamicindex8/dhtmlwindow/
-// 2009-01-11 Joe Audette made change to set YUI color picker properties from config, so we canpass in localized labels
+// 2009-01-11  made change to set YUI color picker properties from config, so we canpass in localized labels
 
 var ddcolorpicker = {
 

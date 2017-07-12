@@ -10,7 +10,7 @@ using OpenPOP.POP3;
 namespace mojoPortal.Net
 {
     /// <summary>
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2006-08-02
     /// Last Modified:			2007-06-17
     /// 

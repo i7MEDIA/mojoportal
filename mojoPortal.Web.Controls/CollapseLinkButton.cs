@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 namespace mojoPortal.Web.Controls
 {
     /// <summary>
-    ///	Author:				Joe Audette
+    ///	Author:				
     ///	Created:			2006-07-30
     ///	Last Modified:		2007-08-30
     /// 

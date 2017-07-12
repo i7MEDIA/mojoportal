@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 namespace mojoPortal.Web.Controls.google
 {
     /// <summary>
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2008-03-23
     /// Last Modified:			2008-03-23
     ///		

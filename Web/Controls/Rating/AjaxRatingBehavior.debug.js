@@ -915,7 +915,7 @@ mojoAjaxControlToolkit.AjaxRatingBehavior.prototype = {
         }
     },
 
-    // property added by Joe Audette
+    // property added by 
     get_JsonUrl: function() {
         /// <value type="String">
         ///json service url
@@ -929,7 +929,7 @@ mojoAjaxControlToolkit.AjaxRatingBehavior.prototype = {
         }
     },
 
-    // property added by Joe Audette
+    // property added by 
     get_ContentId: function() {
         /// <value type="String">
         ///content id
@@ -944,7 +944,7 @@ mojoAjaxControlToolkit.AjaxRatingBehavior.prototype = {
     },
 
     //_totalVotesElementId
-    // property added by Joe Audette
+    // property added by 
     get_TotalVotesElementId: function() {
         /// <value type="String">
         ///content id
@@ -1058,7 +1058,7 @@ mojoAjaxControlToolkit.AjaxRatingBehavior.prototype = {
             var result = null;
             var votes = null;
 
-            // Joe Audette : here is where I added a 3rd option to post to a json service url
+            //  : here is where I added a 3rd option to post to a json service url
             if ((this._jsonUrl.length > 0) && (this._contentId.length == 36)) {
                 var ratingData = "cid=" + this._contentId + "&r=" + this._ratingValue;
 
@@ -1126,7 +1126,7 @@ mojoAjaxControlToolkit.AjaxRatingBehavior.prototype = {
         }
     },
 
-    // property added by Joe Audette
+    // property added by 
     get_CommentsEnabled: function() {
         /// <value type="Boolean">
         /// Whether or not the rating can be changed

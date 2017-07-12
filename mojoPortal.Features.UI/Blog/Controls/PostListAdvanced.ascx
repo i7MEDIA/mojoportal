@@ -1,2 +1,0 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="PostListAdvanced.ascx.cs" Inherits="mojoPortal.Web.BlogUI.PostListAdvanced" %>
-<asp:PlaceHolder ID="holder" runat="server"></asp:PlaceHolder>

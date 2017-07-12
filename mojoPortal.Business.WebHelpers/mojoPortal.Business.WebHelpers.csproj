@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -15,7 +15,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -254,21 +254,21 @@
     <Compile Include="WebUser.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\mojoPortal.Business\mojoPortal.Business.csproj">
-      <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
+      <Project>{8582d51e-126b-4d64-b080-07ad8245b38f}</Project>
       <Name>mojoPortal.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Net\mojoPortal.Net.csproj">
-      <Project>{30916752-1A97-49CA-95D6-81A5F784EEB5}</Project>
+      <Project>{30916752-1a97-49ca-95d6-81a5f784eeb5}</Project>
       <Name>mojoPortal.Net</Name>
     </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
-      <Project>{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}</Project>
+      <Project>{e0d12031-bfdd-4069-9024-8b00a2aa6dbc}</Project>
       <Name>mojoPortal.Web.Framework</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

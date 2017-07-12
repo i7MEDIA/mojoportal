@@ -8,7 +8,7 @@
 // the terms of this license.
 //
 // You must not remove this notice, or any other, from this software.
-// Modified 2011-12-04 by Joe Audette, initial integration
+// Modified 2011-12-04 by , initial integration
 // Last Modified 2012-01-13
 
 using System;

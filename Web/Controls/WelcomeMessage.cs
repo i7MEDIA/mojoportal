@@ -6,7 +6,7 @@
 ///
 /// You must not remove this notice, or any other, from this software.	
 ///
-///		Author:				Joe Audette
+///		Author:				
 ///		Created:			2005-03-24
 ///		Last Modified:		2010-07-30
 /// 

@@ -1,4 +1,4 @@
-﻿//  Author:                     Joe Audette/Huw Reddick
+﻿//  Author:                     /Huw Reddick
 //  Created:                    2012-07-09
 //	Last Modified:              2012-07-09
 // 

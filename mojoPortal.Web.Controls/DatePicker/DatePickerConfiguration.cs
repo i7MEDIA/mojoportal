@@ -7,7 +7,7 @@ using System.Xml;
 namespace mojoPortal.Web.Controls.DatePicker
 {
     /// <summary>
-    /// Author:		        Joe Audette
+    /// Author:		        
     /// Created:            2007-11-07
     /// Last Modified:      2007-11-07
     /// 

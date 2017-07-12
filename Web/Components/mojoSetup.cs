@@ -1,4 +1,4 @@
-// Author:                  Joe Audette
+// Author:                  
 // Created:                 2006-02-03
 // Last Modified:           2017-05-30
 // The use and distribution terms for this software are covered by the 

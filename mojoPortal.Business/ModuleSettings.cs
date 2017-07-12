@@ -5,7 +5,7 @@
 // the terms of this license.
 //
 // You must not remove this notice, or any other, from this software.
-// Last Modified:	2009-02-01 Joe Audette
+// Last Modified:	2009-02-01 
 
 using System;
 using System.Collections;

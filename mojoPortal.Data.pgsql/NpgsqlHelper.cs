@@ -14,7 +14,7 @@
 // but implementing a sub set of the API from the 2.0 Application Blocks SqlHelper
 // using implementation from the newer Ms-Pl version
 // Modified and adaptated for NpgSql 
-// Last Modified 2010-01-28 by Joe Audette
+// Last Modified 2010-01-28 by 
 
 
 using System;

@@ -30,8 +30,8 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 
-// 2007-09-23 Joe Audette added logging with log4net
-// 2007-09-24 Joe Audette changed so that banned ips are stored in the db
+// 2007-09-23  added logging with log4net
+// 2007-09-24  changed so that banned ips are stored in the db
 // instead of text file
 // 2008-01-05 added try catch to prevent error before upgrade creates the table
 // 2008-08-15 added ViewStateIsHacked funtion and additional true criteria

@@ -72,7 +72,7 @@ end;'
 
 
 
---  4/17/2005 add Calendar Events Joe Audette
+--  4/17/2005 add Calendar Events 
 
 CREATE SEQUENCE mp_calendarevents_itemid_seq
     START WITH 1
@@ -118,7 +118,7 @@ create or replace function mp_calendarevents_delete
 ) returns int4 
 as '
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			4/17/2005
 Last Modified: 			4/17/2005
 */	
@@ -169,7 +169,7 @@ create or replace function mp_calendarevents_select_one (
 ) returns setof mp_calendarevents_select_one_type
 as '
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			4/17/2005
 Last Modified: 			4/17/2005
 */
@@ -204,7 +204,7 @@ create or replace function mp_calendarevents_select_bydate(
 ) returns setof mp_calendarevents_select_bydate_type
 as '
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			4/17/2005
 Last Modified: 			4/17/2005
 */
@@ -250,7 +250,7 @@ create or replace function mp_calendarevents_insert(
 ) returns int4
 as '
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			4/17/2005
 Last Modified: 			4/17/2005
 
@@ -307,7 +307,7 @@ create or replace function mp_calendarevents_update(
 ) returns int
 as '
 /*
-Author:   			Joe Audette
+Author:   			
 Created: 			4/17/2005
 Last Modified: 			4/17/2005
 */

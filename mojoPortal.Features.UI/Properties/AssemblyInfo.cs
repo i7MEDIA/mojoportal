@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("mojoPortal.Features")]
 [assembly: AssemblyDescription("Additional features for mojoPortal CMS")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Source Tree Solutions, LLC")]
+[assembly: AssemblyCompany("i7MEDIA, LLC")]
 [assembly: AssemblyProduct("mojoPortal.Features.UI")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
