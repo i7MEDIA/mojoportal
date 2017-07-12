@@ -13,21 +13,12 @@ namespace mojoPortal.Web.BlogUI {
     public partial class PostListAdvanced {
         
         /// <summary>
-        /// displaySettings control.
+        /// holder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.BlogUI.BlogPostListDisplaySettings displaySettings;
-        
-        /// <summary>
-        /// theLiteral control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal theLiteral;
+        protected global::System.Web.UI.WebControls.PlaceHolder holder;
     }
 }

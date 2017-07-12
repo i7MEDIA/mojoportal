@@ -7,18 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mojoPortal.Features.UI.Blog {
+namespace mojoPortal.Web.BlogUI {
     
     
-    public partial class PostListThemeSelector {
+    public partial class PostListLayoutSelector {
         
         /// <summary>
-        /// ddlThemes control.
+        /// ddlLayouts control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlThemes;
+        protected global::System.Web.UI.WebControls.DropDownList ddlLayouts;
     }
 }

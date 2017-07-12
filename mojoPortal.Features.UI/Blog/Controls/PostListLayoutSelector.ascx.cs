@@ -1,6 +1,6 @@
 ﻿///	Author:				i7MEDIA
 ///	Created:			2017-05-11
-///	Last Modified:		2017-05-11
+///	Last Modified:		2017-05-12
 ///		
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -13,6 +13,7 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Newtonsoft.Json.Linq;
@@ -22,12 +23,12 @@ using System.IO;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
-namespace mojoPortal.Features.UI.Blog
+using System.Linq;
+namespace mojoPortal.Web.BlogUI
 {
-    public partial class PostListThemeSelector : UserControl, ISettingControl
+    public partial class PostListLayoutSelector : UserControl, ISettingControl
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(PostListThemeSelector));
+        private static readonly ILog log = LogManager.GetLogger(typeof(PostListLayoutSelector));
         private static SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
         //private int roleID = -1;
         //private SiteUser siteUser;
@@ -49,21 +50,19 @@ namespace mojoPortal.Features.UI.Blog
 
         private void EnsureItems()
         {
-            if (ddlThemes == null)
+            if (ddlLayouts == null)
             {
 
-                ddlThemes = new DropDownList();
-                if (this.Controls.Count == 0) { this.Controls.Add(ddlThemes); }
+                ddlLayouts = new DropDownList();
+                if (this.Controls.Count == 0) { this.Controls.Add(ddlLayouts); }
             }
-            if (ddlThemes.Items.Count > 0) { return; }
+            if (ddlLayouts.Items.Count > 0) { return; }
 
-            SiteUtils.GetSkinBaseUrl(this.Page);
+            themesPath = SiteUtils.DetermineSkinBaseUrl(true, false, this.Page) + "/Views/Blog/";
+            //globalThemesPath = WebUtils.GetApplicationRoot() + "/Views/Blog/";
 
-            themesPath = SiteUtils.GetSkinBaseUrl(this.Page) + "/Themes/PostListAdvanced/";
-            globalThemesPath = WebUtils.GetApplicationRoot() + "/Blog/Themes/PostListAdvanced/";
-
-            FileInfo[] themeFiles = GetThemes(themesPath);
-            FileInfo[] globalThemeFiles = GetThemes(globalThemesPath);
+            List<FileInfo> themeFiles = GetLayouts(themesPath);
+            //List<FileInfo> globalThemeFiles = GetLayouts(globalThemesPath);
 
             List<ListItem> items = new List<ListItem>();
 
@@ -71,57 +70,59 @@ namespace mojoPortal.Features.UI.Blog
 
             if (themeFiles != null)
             {
-                PopulateDefinitionList(themeFiles, themesPath, false);
+                PopulateDefinitionList(themeFiles, themesPath);
             }
-            if (globalThemeFiles != null)
-            {
-                PopulateDefinitionList(globalThemeFiles, globalThemesPath, true);
-            }
+            //if (globalThemeFiles != null)
+            //{
+            //    PopulateDefinitionList(globalThemeFiles, globalThemesPath, true);
+            //}
 
 
 
             //items.Sort()
-            //ddlThemes.DataSource = items;
-            //ddlThemes.DataBind();
-            ddlThemes.Items.Insert(0, new ListItem("Please Select", string.Empty));
+            //ddlLayouts.DataSource = items;
+            //ddlLayouts.DataBind();
+            ddlLayouts.Items.Insert(0, new ListItem("Please Select", string.Empty));
         }
 
-        private void PopulateDefinitionList(FileInfo[] files, string path, bool isGlobal)
+        private void PopulateDefinitionList(List<FileInfo> files, string path)
         {
-            string nameAppendage = isGlobal ? " (g)" : "";
+            //string nameAppendage = isGlobal ? " (g)" : "";
 
             foreach (FileInfo file in files)
             {
                 //log.Info("superflexi markup definition found: " + file.FullName);
                 if (File.Exists(file.FullName))
                 {
-
-                    var jsonFile = file.OpenText();
-                    JObject jo = JObject.Parse(jsonFile.ReadToEnd());
-                    file.
-                    if (jo != null)
+                    if (file.Name == "_BlogPostList.cshtml")
                     {
-                        if ((string)jo["Name"] != null && (string)jo["Template"] != null)
-                        {
-                            ddlThemes.Items.Add(new ListItem((string)jo["Name"] + nameAppendage, path + file.Name));
-                        }
-                        else if ((string)jo["Template"] != null)
-                        {
-                            ddlThemes.Items.Add(new ListItem(file.Name.ToString().Replace(".json", "") + nameAppendage, path + file.Name));
-                        }
+                        ddlLayouts.Items.Add(new ListItem("Default", "_BlogPostList"));
+
+                    }
+                    else
+                    {
+                        ddlLayouts.Items.Add(new ListItem(file.Name.Replace(".cshtml", "").Replace("_BlogPostList--", ""), file.Name.Replace(".cshtml", "")));
                     }
                 }
             }
         }
-        private FileInfo[] GetThemes(string path)
+        private List<FileInfo> GetLayouts(string path)
         {
             DirectoryInfo dir = new DirectoryInfo(HttpContext.Current.Server.MapPath(path));
-            return dir.Exists ? dir.GetFiles("*.json") : null;
+            List<FileInfo> files = new List<FileInfo>();
+            if (dir.Exists)
+            {
+                files.AddRange(dir.GetFiles("_BlogPostList.cshtml"));
+                files.AddRange(dir.GetFiles("_BlogPostList--*.cshtml"));
+            }
+            return files;
         }
 
         public string GetValue()
         {
-            return ddlThemes.SelectedValue;
+            RazorBridge.FindPartialView("_BlogPostList", new { }, "Blog");
+
+            return ddlLayouts.SelectedValue;
         }
 
         public void SetValue(string val)
@@ -130,10 +131,10 @@ namespace mojoPortal.Features.UI.Blog
 
             if (val != null)
             {
-                ListItem item = ddlThemes.Items.FindByValue(val);
+                ListItem item = ddlLayouts.Items.FindByValue(val);
                 if (item != null)
                 {
-                    ddlThemes.ClearSelection();
+                    ddlLayouts.ClearSelection();
                     item.Selected = true;
                 }
             }

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mojoPortal.Features.UI.Blog {
+namespace mojoPortal.Web.BlogUI {
     
     
     public partial class BlogInstanceSetting {

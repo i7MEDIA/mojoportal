@@ -1,6 +1,6 @@
 ﻿///	Author:				i7MEDIA
 ///	Created:			2017-05-11
-///	Last Modified:		2017-05-11
+///	Last Modified:		2017-05-12
 ///		
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -19,7 +19,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace mojoPortal.Features.UI.Blog
+namespace mojoPortal.Web.BlogUI
 {
     public partial class BlogInstanceSetting : UserControl, ISettingControl
     {

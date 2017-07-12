@@ -11,6 +11,7 @@
 // You must not remove this notice, or any other, from this software.
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Web.UI;
@@ -29,6 +30,8 @@ using mojoPortal.BlogUI;
 using mojoPortal.Features.Business;
 using System.Linq;
 using System.Text;
+using mojoPortal.Web.Controllers;
+using mojoPortal.Web.Components;
 
 namespace mojoPortal.Web.BlogUI
 {
@@ -92,6 +95,9 @@ namespace mojoPortal.Web.BlogUI
         private string template = string.Empty;
         private string repeatingTemplate = string.Empty;
         private SiteUser currentUser = null;
+
+        private const string token_RepeaterStart = "$startrepeater$";
+        private const string token_RepeaterEnd = "$endrepeater$";
 
         private int siteId = -1;
         public int SiteId
@@ -300,7 +306,7 @@ namespace mojoPortal.Web.BlogUI
             UseFacebookLikeButton = blogConfig.UseFacebookLikeButton && !blogConfig.UseExcerpt;
             //useExcerpt = blogConfig.UseExcerpt || displaySettings.PostListForceExcerptMode;
             pageSize = blogConfig.PageSize;
-            AllowComments = Config.AllowComments && ShowCommentCounts;
+            //AllowComments = Config.AllowComments && ShowCommentCounts;
 
             //TODO: implement displaymode
             //switch (displayMode)
@@ -431,47 +437,59 @@ namespace mojoPortal.Web.BlogUI
         }
         private void PopulateControls()
         {
-            FileInfo file = new FileInfo(config.Theme);
+            var dsBlogs = Blog.GetPageDataSet(config.BlogModuleId, DateTime.UtcNow, pageNumber, pageSize, out totalPages);
 
-            if (File.Exists(file.FullName))
-            {
-                var jsonFile = file.OpenText();
-                JObject jo = JObject.Parse(jsonFile.ReadToEnd());
+            StringBuilder posts = new StringBuilder();
 
-                template = (string)jo["Template"];
-                var repeaterStartIndex = template.ToLower().IndexOf("$startrepeater$") + "$startrepeater$".Length;
-                var repeaterEndIndex = template.ToLower().LastIndexOf("$endrepeater$");
-                repeatingTemplate = template.Substring(repeaterStartIndex, repeaterEndIndex - repeaterStartIndex);
-                template = template.Substring(0, repeaterStartIndex) + "$ITEMS$" + template.Substring(repeaterEndIndex);
-            }
+            //List<Blog> blogs = new List<Blog>();
+            List<BlogPostModel> models = new List<BlogPostModel>();
 
-            var dsBlogs = Blog.GetPageDataSet(module.ModuleId, DateTime.UtcNow, pageNumber, pageSize, out totalPages);
-
-            StringBuilder postsString = new StringBuilder();
             foreach (DataRow postRow in dsBlogs.Tables["posts"].Rows)
             {
+                BlogPostModel model = new BlogPostModel();
+
                 if (useFriendlyUrls && (postRow["ItemUrl"].ToString().Length > 0))
                 {
-                    repeatingTemplate.Replace("$url$", SiteRoot + postRow["ItemUrl"].ToString().Replace("~", string.Empty));
+                    model.ItemUrl = postRow["ItemUrl"].ToString().Replace("~", string.Empty);
                 }
                 else
                 {
-                    repeatingTemplate.Replace("$url$", "/Blog/ViewPost.aspx?pageid=" + PageId.ToInvariantString() + "&itemid=" + postRow["ItemID"].ToString() + "&mid=" + postRow["ModuleID"].ToString());
+                    model.ItemUrl = postRow["ItemID"].ToString() + "&mid=" + postRow["ModuleID"].ToString();
                 }
 
-                repeatingTemplate.Replace("$title$", postRow["Heading"].ToString());
-                repeatingTemplate.Replace("$subtitle$", postRow["SubTitle"].ToString());
-                repeatingTemplate.Replace("$blogtext$", postRow["Description"].ToString());
-                repeatingTemplate.Replace("$authoravatar$", postRow["AvatarUrl"].ToString());
-                repeatingTemplate.Replace("$authorname$", postRow["Name"].ToString());
-                repeatingTemplate.Replace("$authorbio$", postRow["AuthorBio"].ToString());
-                repeatingTemplate.Replace("$date$", postRow["StartDate"].ToString());
-                repeatingTemplate.Replace("$commentswithcount$", BlogResources.BlogFeedbackLabel + " (" + postRow["CommentCount"].ToString() + ")");
+                model.Title = postRow["Heading"].ToString();
+                model.SubTitle = postRow["SubTitle"].ToString();
+                model.Body = postRow["Description"].ToString();
+                model.AuthorAvatar = postRow["AvatarUrl"].ToString();
+                model.AuthorDisplayName = postRow["Name"].ToString();
+                model.AuthorFirstName = postRow["FirstName"].ToString();
+                model.AuthorLastName = postRow["LastName"].ToString();
+                model.AuthorBio = postRow["AuthorBio"].ToString();
+                model.Excerpt = postRow["Abstract"].ToString();
+                model.PostDate = Convert.ToDateTime(postRow["StartDate"].ToString());
+                model.HeadlineImageUrl = postRow["HeadlineImageUrl"].ToString();
+                model.CommentCount = Convert.ToInt32(postRow["CommentCount"]);
+                model.AllowCommentsForDays = Convert.ToInt32(postRow["AllowCommentsForDays"]);
+                model.ShowAuthorName = Convert.ToBoolean(postRow["ShowAuthorName"]);
+                model.ShowAuthorAvatar = Convert.ToBoolean(postRow["ShowAuthorAvatar"]);
+                model.ShowAuthorBio = Convert.ToBoolean(postRow["ShowAuthorBio"]);
+                models.Add(model);
             }
 
-            template.Replace("$copyright$", blogConfig.Copyright);
+            Literal theLit = new Literal();
 
-            
+            try
+            {
+                theLit.Text = RazorBridge.RenderPartialToString(config.Layout, models, "Blog");
+            }
+            catch (System.Web.HttpException ex)
+            {
+                log.ErrorFormat("chosen layout ({0}) for _BlogPostList was not found in skin {1}. perhaps it is in a different skin. Error was: {2}", config.Layout, SiteUtils.GetSkinBaseUrl(true, this.Page), ex);
+                theLit.Text = RazorBridge.RenderPartialToString("_BlogPostList", models, "Blog");
+            }
+
+
+            holder.Controls.Add(theLit);
         }
 
 

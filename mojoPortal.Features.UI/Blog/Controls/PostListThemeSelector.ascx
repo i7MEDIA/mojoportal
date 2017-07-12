@@ -1,2 +1,0 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PostListThemeSelector.ascx.cs" Inherits="mojoPortal.Features.UI.Blog.PostListThemeSelector" %>
-<asp:DropDownList ID="ddlThemes" runat="server" />
