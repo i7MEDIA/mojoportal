@@ -429,7 +429,7 @@ namespace mojoPortal.Web.UI
         {
             // TODO: clean up this hairy mess without breaking anything
 
-            mojoMenuItem menuItem = null;
+            MenuItem menuItem = null;
             bool didSelect = false;
             string valuePath;
 
@@ -509,7 +509,7 @@ namespace mojoPortal.Web.UI
                         )
                     {
 
-                        foreach (mojoMenuItem m in menu.Items)
+                        foreach (MenuItem m in menu.Items)
                         {
                             if (valuePath.Contains(m.ValuePath))
                             {
@@ -571,7 +571,7 @@ namespace mojoPortal.Web.UI
                         )
                     {
 
-                        foreach (mojoMenuItem m in menu.Items)
+                        foreach (MenuItem m in menu.Items)
                         {
                             if (valuePath.Contains(m.ValuePath))
                             {
@@ -755,7 +755,7 @@ namespace mojoPortal.Web.UI
                 }
                 else
                 {
-                    mojoMenuItem parent = e.Item.Parent;
+                    MenuItem parent = e.Item.Parent;
                     if (parent != null)
                     {
                         parent.ChildItems.Remove(e.Item);

@@ -49,22 +49,22 @@
     <Compile Include="SearchDef.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Business\mojoPortal.Business.csproj">
+    <ProjectReference Include="..\mojoPortal.Business\mojoPortal.Business.csproj">
       <Project>{8582d51e-126b-4d64-b080-07ad8245b38f}</Project>
       <Name>mojoPortal.Business</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
+    <ProjectReference Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
       <Project>{6ddfe292-37aa-4a02-b2f0-ba7968a026ef}</Project>
       <Name>mojoPortal.Data.MSSQL</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Features.Business\mojoPortal.Features.Business.csproj">
+    <ProjectReference Include="..\mojoPortal.Features.Business\mojoPortal.Features.Business.csproj">
       <Project>{65849992-8f44-4480-9494-1ca0d6325795}</Project>
       <Name>mojoPortal.Features.Business</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj">
+    <ProjectReference Include="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj">
       <Project>{2fb266b5-97f0-42eb-9f42-b6a7de749d29}</Project>
       <Name>mojoPortal.Features.Data.MSSQL</Name>
       <Private>False</Private>

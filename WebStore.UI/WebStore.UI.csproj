@@ -526,7 +526,7 @@
       <Name>WebStore.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\Web\mojoPortal.Web.csproj">
-      <Project>{8E511D65-4779-4689-82D4-811D3FE6866E}</Project>
+      <Project>{8e511d65-4779-4689-82d4-811d3fe6866e}</Project>
       <Name>mojoPortal.Web</Name>
     </ProjectReference>
   </ItemGroup>

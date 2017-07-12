@@ -33,7 +33,6 @@
     <TargetFrameworkProfile />
     <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -919,7 +918,6 @@
     </Content>
     <Content Include="Modules\LoginModule.ascx" />
     <Content Include="Modules\RecentContentModule.ascx" />
-    <Content Include="Modules\SavedQueryWIthParamsSample.ascx" />
     <Content Include="Modules\SiteSearchModule.ascx" />
     <Content Include="Modules\WebPartModule.ascx" />
     <Content Include="ProfileView.aspx">
@@ -1781,6 +1779,7 @@
     <Compile Include="Controls\FeedDiscoveryLink.cs" />
     <Compile Include="Controls\FileBrowserTextBoxExtender.cs" />
     <Compile Include="Controls\FileManagerLink.cs" />
+    <Compile Include="Controls\Link.cs" />
     <Compile Include="Controls\MenuList.cs" />
     <Compile Include="Controls\FlexMenu.cs" />
     <Compile Include="Controls\FlexSearch.cs" />
@@ -1819,6 +1818,7 @@
     <Compile Include="Controls\PageTreeLink.cs" />
     <Compile Include="Controls\Panels\AdminCrumbContainer.cs" />
     <Compile Include="Controls\Panels\BreadcrumbContainer.cs" />
+    <Compile Include="Controls\Panels\FormGroupPanel.cs" />
     <Compile Include="Controls\Panels\LayoutPanel.cs" />
     <Compile Include="Controls\Panels\MobileViewPanel.cs" />
     <Compile Include="Controls\Panels\SearchPanel.cs" />
@@ -3162,13 +3162,6 @@
     <Compile Include="Modules\RecentContentModule.ascx.designer.cs">
       <DependentUpon>RecentContentModule.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\SavedQueryWIthParamsSample.ascx.cs">
-      <DependentUpon>SavedQueryWIthParamsSample.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\SavedQueryWIthParamsSample.ascx.designer.cs">
-      <DependentUpon>SavedQueryWIthParamsSample.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Modules\SiteSearchModule.ascx.cs">
       <DependentUpon>SiteSearchModule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3956,11 +3949,4 @@
   </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
 </Project>

@@ -397,3 +397,8 @@ packages/repositories.config
 *.ini
 
 packages/
+Web/Setup/applications/superflexi/
+Web/SuperFlexi/
+Web/Setup/ProviderConfig/contentdeletehandlers/superflexideletehandler.config
+Web/Setup/ProviderConfig/indexbuilders/SuperFlexiIndexBuilderProvider.config
+Web/App_GlobalResources/SuperFlexiResources.resx

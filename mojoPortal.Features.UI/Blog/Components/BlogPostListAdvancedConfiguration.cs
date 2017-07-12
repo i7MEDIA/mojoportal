@@ -58,9 +58,23 @@ namespace mojoPortal.Web.BlogUI
         {
             if (settings == null) { throw new ArgumentException("must pass in a hashtable of settings"); }
 
-            if (settings.Contains("PostListTheme"))
+            if (settings.Contains("PostListLayout"))
             {
-                theme = settings["PostListTheme"].ToString();
+                string layoutString = settings["PostListLayout"].ToString();
+                if (!String.IsNullOrWhiteSpace(layoutString))
+                {
+                    layout = settings["PostListLayout"].ToString();
+                }
+            }
+
+            if (settings.Contains("PostListBlogInstance"))
+            {
+                string bid = settings["PostListBlogInstance"].ToString();
+
+                if (!string.IsNullOrWhiteSpace(bid))
+                {
+                    blogModuleId = Convert.ToInt32(settings["PostListBlogInstance"]);
+                }
             }
 
             if (settings.Contains("ExtraCssClassSetting"))
@@ -77,11 +91,11 @@ namespace mojoPortal.Web.BlogUI
             get { return featureGuid; }
         }
 
-        private string theme = "~/Blog/Themes/PostListAdvanced/Default.json";
-        public string Theme
+        private string layout = "_BlogPostList";
+        public string Layout
         {
-            get { return theme; }
-            set { theme = value; }
+            get { return layout; }
+            set { layout = value; }
         }
 
         private int blogModuleId = -1;

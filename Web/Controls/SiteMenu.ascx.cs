@@ -396,7 +396,7 @@ namespace mojoPortal.Web.UI
 
             if (valuePath.Length > 0)
             {
-                mojoMenuItem menuItem;
+                MenuItem menuItem;
                 menuItem = menu.FindItem(valuePath);
 
                 if (
@@ -430,7 +430,7 @@ namespace mojoPortal.Web.UI
 
                 if (valuePath.Length > 0)
                 {
-                    mojoMenuItem menuItem;
+                    MenuItem menuItem;
                     menuItem = menu.FindItem(valuePath);
 
                     if (
@@ -638,7 +638,7 @@ namespace mojoPortal.Web.UI
                 }
                 else
                 {
-                    mojoMenuItem parent = e.Item.Parent;
+                    MenuItem parent = e.Item.Parent;
                     if (parent != null)
                     {
                         parent.ChildItems.Remove(e.Item);

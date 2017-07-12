@@ -59,14 +59,14 @@ namespace mojoPortal.Web.UI
             currentNode = SiteUtils.GetCurrentPageSiteMapNode(rootNode);
             startingNode = rootNode;
 
-            if (startingNodePageId > -1)
-            {
-                startingNode = SiteUtils.GetSiteMapNodeForPage(rootNode, startingNodePageId);
-            }
-            else if (startingNodeOffset > -1)
-            {
-                startingNode = SiteUtils.GetOffsetNode(currentNode, startingNodeOffset);
-            }
+            //if (startingNodePageId > -1)
+            //{
+            //    startingNode = SiteUtils.GetSiteMapNodeForPage(rootNode, startingNodePageId);
+            //}
+            //else if (startingNodeOffset > -1)
+            //{
+            //    startingNode = SiteUtils.GetOffsetNode(currentNode, startingNodeOffset);
+            //}
             //else if (isSubMenu)
             //{
             //    startingNode = SiteUtils.GetTopLevelParentNode(currentNode);

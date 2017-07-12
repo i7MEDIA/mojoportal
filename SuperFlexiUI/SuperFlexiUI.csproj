@@ -253,32 +253,32 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
+    <ProjectReference Include="..\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
       <Project>{4ead30ec-4f97-4f38-8530-1b7eddb8fc8e}</Project>
       <Name>mojoPortal.Business.WebHelpers</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Business\mojoPortal.Business.csproj">
+    <ProjectReference Include="..\mojoPortal.Business\mojoPortal.Business.csproj">
       <Project>{8582d51e-126b-4d64-b080-07ad8245b38f}</Project>
       <Name>mojoPortal.Business</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
+    <ProjectReference Include="..\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
       <Project>{a2dcd1e2-a5c3-4e37-a5f2-093659bc1c38}</Project>
       <Name>mojoPortal.Web.Controls</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
+    <ProjectReference Include="..\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
       <Project>{4f6dda2c-c9b8-45b2-aada-3ff922317661}</Project>
       <Name>mojoPortal.Web.Editor</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
+    <ProjectReference Include="..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
       <Project>{e0d12031-bfdd-4069-9024-8b00a2aa6dbc}</Project>
       <Name>mojoPortal.Web.Framework</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\mojo\repo-tests\mojoportal-master\Web\mojoPortal.Web.csproj">
+    <ProjectReference Include="..\Web\mojoPortal.Web.csproj">
       <Project>{8e511d65-4779-4689-82d4-811d3fe6866e}</Project>
       <Name>mojoPortal.Web</Name>
     </ProjectReference>

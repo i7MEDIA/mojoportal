@@ -260,7 +260,6 @@
     <Content Include="Blog\CommentDialog.aspx" />
     <Content Include="Blog\Controls\BlogNav.ascx" />
     <Content Include="Blog\Controls\PostListAdvanced.ascx" />
-    <Content Include="Blog\Controls\PostListThemeSelector.ascx" />
     <Content Include="Blog\Controls\PublicationAccessSetting.ascx" />
     <Content Include="Blog\Controls\SearchBox.ascx" />
     <Content Include="Blog\Controls\PostList.ascx" />
@@ -496,13 +495,6 @@
     </Compile>
     <Compile Include="Blog\Controls\PostListAdvanced.ascx.designer.cs">
       <DependentUpon>PostListAdvanced.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Blog\Controls\PostListThemeSelector.ascx.cs">
-      <DependentUpon>PostListThemeSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Blog\Controls\PostListThemeSelector.ascx.designer.cs">
-      <DependentUpon>PostListThemeSelector.ascx</DependentUpon>
     </Compile>
     <Compile Include="Blog\Controls\PublicationAccessSetting.ascx.cs">
       <DependentUpon>PublicationAccessSetting.ascx</DependentUpon>
