@@ -67,7 +67,7 @@ namespace mojoPortal.Web.Controllers
 				OverwriteFiles = WebConfigSettings.FileManagerOverwriteFiles,
 				RootName = rootName[rootName.Count() - 2],
 				FileSystemToken = Global.FileSystemToken.ToString(),
-				VirtualPath = VirtualPathUtility.RemoveTrailingSlash(fileSystem.VirtualRoot.Replace("~", string.Empty)),
+				VirtualPath = VirtualPathUtility.RemoveTrailingSlash(fileSystem.FileBaseUrl + fileSystem.VirtualRoot.Replace("~", string.Empty)),
 				View = Request.QueryString.Get("view"),
 				Type = queryString.type,
 				Editor = queryString.editor,
