@@ -25,13 +25,14 @@ namespace mojoPortal.Web.AdminUI
         protected void Page_Load(object sender, EventArgs e)
         {
             // this is just a catch all redirect for /Admin/
-
-            string siteRoot = SiteUtils.GetNavigationSiteRoot();
+            //using GetRelativeNavigationSiteRoot so this will work in folder child sites
+            //GetNavigationSiteRoot will use CacheHelper.GetCurrentSiteSettings but if user has already been to the main site, they can sometimes get the wrong site settings AHHHH!!!!
+            string siteRoot = SiteUtils.GetRelativeNavigationSiteRoot();
             string redirectUrl = string.Empty;
 
             if (Request.IsAuthenticated)
             {
-                redirectUrl = "/Admin/AdminMenu.aspx";
+                redirectUrl = siteRoot + "/Admin/AdminMenu.aspx";
             }
             else
             {

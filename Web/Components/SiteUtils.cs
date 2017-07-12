@@ -135,7 +135,8 @@ namespace mojoPortal.Web
 
 			string tempFriendlyUrl = friendlyUrl;
 			int i = 1;
-			while (FriendlyUrl.Exists(siteSettings.SiteId, tempFriendlyUrl + urlTail))
+            
+			while (FriendlyUrl.Exists(siteSettings.SiteId, tempFriendlyUrl + urlTail) || SiteFolder.Exists(tempFriendlyUrl))
 			{
 				tempFriendlyUrl = friendlyUrl + "-" + i.ToString();
 				i++;
@@ -2380,8 +2381,9 @@ namespace mojoPortal.Web
 
 			if (useFolderForSiteDetection)
 			{
-				SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-				return GetNavigationSiteRoot(siteSettings);
+                //SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+                //return GetNavigationSiteRoot(siteSettings);
+                return GetRelativeNavigationSiteRoot();
 
 				//if ((siteSettings != null)
 				//    && (siteSettings.SiteFolderName.Length > 0))

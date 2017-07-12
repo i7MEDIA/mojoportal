@@ -34,6 +34,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 #if!NET35
 using System.Runtime.ExceptionServices;
 #endif
@@ -186,18 +187,34 @@ namespace mojoPortal.Web
 			}
 
 
-#if !NET35 && !NET40
-			if (WebConfigSettings.EnableRouting)
-			{
 				AreaRegistration.RegisterAllAreas();
 				GlobalConfiguration.Configure(WebApiConfig.Register);
 				FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-				RouteRegistrar.RegisterRoutes(RouteTable.Routes);
-			}
 
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
-#endif
 
+            ViewEngines.Engines.Clear();
+
+            mojoViewEngine engine = new mojoViewEngine();
+            //engine.AddViewLocationFormat("~/Data/Sites/{2}/skins/Views/{1}/{0}.cshtml");
+            //engine.AddViewLocationFormat("~/Data/Sites/{2}/skins/Views/{1}/{0}.vbhtml");
+
+            // Add a shared location too, as the lines above are controller specific
+            //engine.AddPartialViewLocationFormat("~/Data/Sites/{1}/skins/Views/{0}.cshtml");
+            //engine.AddPartialViewLocationFormat("~/Data/Sites/{1}/skins/Views/{0}.vbhtml");
+
+            ViewEngines.Engines.Add(engine);
+
+            //var razorEngine = ViewEngines.Engines.OfType<RazorViewEngine>().FirstOrDefault();
+            //razorEngine.ViewLocationFormats =
+            //    razorEngine.ViewLocationFormats.Concat(new string[] {
+            //        "~/MyVeryOwn/{1}/{0}.cshtml",
+            //        "~/MyVeryOwn/{0}.cshtml"
+            //        // add other folders here (if any)
+            //    }).ToArray();
+
+            AreaRegistration.RegisterAllAreas();
+            RouteRegistrar.RegisterRoutes(RouteTable.Routes);
 
 
 			StartOrResumeTasks();

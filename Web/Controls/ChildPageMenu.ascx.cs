@@ -346,7 +346,7 @@ namespace mojoPortal.Web.UI
                 }
                 else
                 {
-                    MenuItem parent = e.Item.Parent;
+                    mojoMenuItem parent = e.Item.Parent;
                     if (parent != null)
                     {
                         parent.ChildItems.Remove(e.Item);

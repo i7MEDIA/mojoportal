@@ -33,6 +33,7 @@
     <TargetFrameworkProfile />
     <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -89,7 +90,7 @@
     <ErrorReport>prompt</ErrorReport>
     <PublishDatabases>true</PublishDatabases>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
-    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\sqlitedb;Data\systemfiles\FolderGalleryCache;Setup\applications\mojoportal-core\SchemaUpgradeScripts\mysql;Setup\applications\mojoportal-core\SchemaUpgradeScripts\pgsql;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Setup\applications\mojoportal-core\SchemaUpgradeScripts\sqlite</ExcludeFoldersFromDeployment>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Data\systemfiles\FolderGalleryCache;Setup\applications\mojoportal-core\SchemaUpgradeScripts\mysql;Setup\applications\mojoportal-core\SchemaUpgradeScripts\pgsql;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Setup\applications\mojoportal-core\SchemaUpgradeScripts\sqlite</ExcludeFoldersFromDeployment>
     <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;bin\amd64\*;bin\FirebirdSql.Data.FirebirdClient.dll;bin\Mono.Data.Sqlite.dll;bin\MySql.Data.dll;bin\Npgsql.dll;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <PackageAsSingleFile>true</PackageAsSingleFile>
     <Prefer32Bit>false</Prefer32Bit>
@@ -119,7 +120,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
-    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
     <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;bin\*.xml;bin\amd64\*;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -152,7 +153,7 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
-    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
     <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;bin\*.config;bin\*.pdb;bin\*.xml;bin\amd64\*;bin\Mono.Data.Sqlite.dll;bin\MySql.Data.dll;bin\Npgsql.dll;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -185,7 +186,7 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
-    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
     <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;bin\amd64\*;bin\FirebirdSql.Data.FirebirdClient.dll;bin\Mono.Data.Sqlite.dll;bin\MySql.Data.dll;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -218,7 +219,7 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
-    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
     <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -251,7 +252,7 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
-    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
+    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
     <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;bin\amd64\*;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -918,6 +919,7 @@
     </Content>
     <Content Include="Modules\LoginModule.ascx" />
     <Content Include="Modules\RecentContentModule.ascx" />
+    <Content Include="Modules\SavedQueryWIthParamsSample.ascx" />
     <Content Include="Modules\SiteSearchModule.ascx" />
     <Content Include="Modules\WebPartModule.ascx" />
     <Content Include="ProfileView.aspx">
@@ -1250,6 +1252,11 @@
     <Content Include="Scripts\jquery-2.2.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
@@ -1562,6 +1569,9 @@
       <DependentUpon>closed.aspx</DependentUpon>
     </Compile>
     <Compile Include="Components\BundleConfig.cs" />
+    <Compile Include="Components\ICustomField.cs" />
+    <Compile Include="Components\MenuItem.cs" />
+    <Compile Include="Components\mojoViewEngine.cs" />
     <Compile Include="Components\Routing\RoutesConfig.cs" />
     <Compile Include="Components\Routing\IRegisterRoutes.cs" />
     <Compile Include="Components\BaseContentUploadHandler.cs" />
@@ -1695,9 +1705,11 @@
     <Compile Include="Components\SiteMapHelper.cs" />
     <Compile Include="Components\SkinHelper.cs" />
     <Compile Include="Components\SystemLogAppender.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FileManager\FileManagerController.cs" />
     <Compile Include="Controllers\FileManager\FileServiceController.cs" />
     <Compile Include="Controllers\FileManager\FileUploadController.cs" />
+    <Compile Include="Controllers\RazorBridge.cs" />
     <Compile Include="Controls\Adapters\SiteMapTreeViewAdapter.cs" />
     <Compile Include="Controls\Analytics\AnalyticsAsyncBottomScript.cs" />
     <Compile Include="Controls\Analytics\AnalyticsAsyncTopScript.cs" />
@@ -1769,6 +1781,7 @@
     <Compile Include="Controls\FeedDiscoveryLink.cs" />
     <Compile Include="Controls\FileBrowserTextBoxExtender.cs" />
     <Compile Include="Controls\FileManagerLink.cs" />
+    <Compile Include="Controls\MenuList.cs" />
     <Compile Include="Controls\FlexMenu.cs" />
     <Compile Include="Controls\FlexSearch.cs" />
     <Compile Include="Controls\FriendlyTreeView.cs" />
@@ -1777,7 +1790,6 @@
     <Compile Include="Controls\Google\LocationMap.cs" />
     <Compile Include="Controls\Google\QRCodeImage.cs" />
     <Compile Include="Controls\Gravatar\Avatar.cs" />
-    <Compile Include="Controls\Link.cs" />
     <Compile Include="Controls\jPlayerPanel.cs" />
     <Compile Include="Controls\jQuery\bxSlider.cs" />
     <Compile Include="Controls\jQuery\CalendarDatePickerAdapter.cs" />
@@ -1807,9 +1819,6 @@
     <Compile Include="Controls\PageTreeLink.cs" />
     <Compile Include="Controls\Panels\AdminCrumbContainer.cs" />
     <Compile Include="Controls\Panels\BreadcrumbContainer.cs" />
-    <Compile Include="Controls\Panels\FormGroupPanel.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Controls\Panels\LayoutPanel.cs" />
     <Compile Include="Controls\Panels\MobileViewPanel.cs" />
     <Compile Include="Controls\Panels\SearchPanel.cs" />
@@ -3153,6 +3162,13 @@
     <Compile Include="Modules\RecentContentModule.ascx.designer.cs">
       <DependentUpon>RecentContentModule.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\SavedQueryWIthParamsSample.ascx.cs">
+      <DependentUpon>SavedQueryWIthParamsSample.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\SavedQueryWIthParamsSample.ascx.designer.cs">
+      <DependentUpon>SavedQueryWIthParamsSample.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\SiteSearchModule.ascx.cs">
       <DependentUpon>SiteSearchModule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3579,6 +3595,8 @@
     <Content Include="Services\SiteMapJson.ashx" />
     <Content Include="Views\FileManager\Pages.cshtml" />
     <Content Include="Views\FileManager\_FileManagerLayout.cshtml" />
+    <Content Include="Views\SuperFlexi\_SuperFlexiRazor.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />
@@ -3901,8 +3919,9 @@
     <Folder Include="ClientBin\" />
     <Folder Include="ClientScript\" />
     <Folder Include="Components\api\" />
-    <Folder Include="Data\" />
     <Folder Include="Setup\applications\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\RazorPartialBridge\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Browsers\generic.browser" />
@@ -3937,4 +3956,11 @@
   </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
 </Project>

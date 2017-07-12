@@ -1,6 +1,5 @@
-// Author:					Joe Audette
 // Created:				    2007-08-05
-// Last Modified:			2010-08-06
+// Last Modified:			2017-06-16
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -32,6 +31,7 @@ namespace mojoPortal.Web
         private string controlSrc = string.Empty;
         private string helpKey = string.Empty;
         private string groupNameKey = string.Empty;
+        private string attributes = string.Empty;
         private int sortOrder = 100;
 
 
@@ -80,6 +80,11 @@ namespace mojoPortal.Web
             get { return regexValidationExpression; }
         }
 
+        public string Attributes
+        {
+            get { return attributes; }
+        }
+
         public static void LoadFeatureSetting(
             ContentFeature feature,
             XmlNode featureSettingNode)
@@ -91,8 +96,7 @@ namespace mojoPortal.Web
             {
                 ContentFeatureSetting featureSetting = new ContentFeatureSetting();
 
-                XmlAttributeCollection attributeCollection
-                        = featureSettingNode.Attributes;
+                XmlAttributeCollection attributeCollection = featureSettingNode.Attributes;
 
                 if (attributeCollection["resourceFile"] != null)
                 {
@@ -147,6 +151,11 @@ namespace mojoPortal.Web
                 if (attributeCollection["regexValidationExpression"] != null)
                 {
                     featureSetting.regexValidationExpression = attributeCollection["regexValidationExpression"].Value;
+                }
+
+                if (attributeCollection["attributes"] != null)
+                {
+                    featureSetting.attributes = attributeCollection["attributes"].Value;
                 }
 
                 feature.Settings.Add(featureSetting);
