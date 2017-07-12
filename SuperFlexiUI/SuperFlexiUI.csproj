@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CF097537-8F40-4FE4-AF50-9D2F90BC7796}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SuperFlexiUI</RootNamespace>
+    <AssemblyName>SuperFlexiUI</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <WebGreaseLibPath>..\..\..\mojoPortal\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=16.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\mojoPortal\module-dev\mojoportal\packages\AjaxControlToolkit.16.1.0.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\mojoPortal\mojoportal\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\mojo\repo-tests\mojoportal-master\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\mojo\repo-tests\mojoportal-master\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\mojo\repo-tests\mojoportal-master\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\mojo\repo-tests\mojoportal-master\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\mojo\repo-tests\mojoportal-master\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\mojo\repo-tests\mojoportal-master\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\mojo\repo-tests\mojoportal-master\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\mojo\repo-tests\mojoportal-master\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SuperFlexi\Controls\UrlSelector.ascx" />
+    <Content Include="SuperFlexi\Controls\FeaturedImageSetting.ascx" />
+    <Content Include="SuperFlexi\Controls\WidgetRazor.ascx" />
+    <Content Include="SuperFlexi\Controls\Wysiwyg.ascx" />
+    <Content Include="SuperFlexi\Controls\MarkupDefinitionSetting.ascx" />
+    <Content Include="SuperFlexi\Controls\Widget.ascx" />
+    <Content Include="SuperFlexi\css\urlbrowserinput.css" />
+    <Content Include="SuperFlexi\Edit2.aspx" />
+    <Content Include="SuperFlexi\Edit.aspx" />
+    <Content Include="SuperFlexi\EditHeader.aspx" />
+    <Content Include="SuperFlexi\html\urlbrowsermodal.html" />
+    <Content Include="SuperFlexi\js\urlbrowserinput.js" />
+    <Content Include="SuperFlexi\Module.ascx" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaInstallScripts\mssql\0.0.0.1.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.0.3.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.0.4.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.0.5.config" />
+    <Content Include="SuperFlexi\SuperWrapper.ascx" />
+    <Content Include="Data\HelpFiles\en-US-sflexi-CustomizableSettings-help.config" />
+    <Content Include="Data\HelpFiles\en-US-sflexi-DescendingSortOrder-help.config" />
+    <Content Include="Data\HelpFiles\en-US-sflexi-ExtraCssClassSetting-help.config" />
+    <Content Include="Data\HelpFiles\en-US-sflexi-InstanceFeaturedImageSetting-help.config" />
+    <Content Include="Data\HelpFiles\en-US-sflexi-IsGlobalView-help.config" />
+    <Content Include="Data\HelpFiles\en-US-sflexi-MarkupDefinitionSetting-help.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.0.6.config" />
+    <Content Include="Data\HelpFiles\en-US-sflexi-ModuleFriendlyName-help.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.0.7.config" />
+    <Content Include="Setup\ProviderConfig\contentdeletehandlers\superflexideletehandler.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.0.8.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.0.9.config" />
+    <Content Include="Setup\applications\SuperFlexi\FeatureDefinitions\70001_ResourceLibrary.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Setup\applications\SuperFlexi\FeatureDefinitions\70001_ResourceLibrary-SingleCategory.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.1.0.config" />
+    <Content Include="packages.config" />
+    <None Include="Web.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Setup\applications\SuperFlexi\FeatureDefinitions\70000_SuperFlexi.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Properties\PublishProfiles\SuperFlexi.pubxml" />
+    <Content Include="Setup\ProviderConfig\indexbuilders\SuperFlexiIndexBuilderProvider.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\SampleSuperFlexi.cs" />
+    <Compile Include="App_GlobalResources\SuperFlexiResources.designer.cs">
+      <DependentUpon>SuperFlexiResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Components\ContentDeleteHandler.cs" />
+    <Compile Include="Components\SuperFlexiBase.cs" />
+    <Compile Include="Components\SuperFlexiHelpers.cs" />
+    <Compile Include="Components\SuperFlexiIndexBuilderProvider.cs" />
+    <Compile Include="Components\Configuration.cs" />
+    <Compile Include="Components\FieldUtils.cs" />
+    <Compile Include="Components\MarkupDefinition.cs" />
+    <Compile Include="Components\SitePreDeleteHandler.cs" />
+    <Compile Include="Components\XmlUtils.cs" />
+    <Compile Include="SuperFlexi\Controls\FieldControls\TextBox.cs" />
+    <Compile Include="SuperFlexi\Controls\FileBrowserTextBoxExtender.cs" />
+    <Compile Include="SuperFlexi\Controls\InterfaceControl.cs" />
+    <Compile Include="SuperFlexi\Controls\UrlSelector.ascx.cs">
+      <DependentUpon>UrlSelector.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperFlexi\Controls\UrlSelector.ascx.designer.cs">
+      <DependentUpon>UrlSelector.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperFlexi\Controls\FeaturedImageSetting.ascx.cs">
+      <DependentUpon>FeaturedImageSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperFlexi\Controls\FeaturedImageSetting.ascx.designer.cs">
+      <DependentUpon>FeaturedImageSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperFlexi\Controls\WidgetRazor.ascx.cs">
+      <DependentUpon>WidgetRazor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperFlexi\Controls\WidgetRazor.ascx.designer.cs">
+      <DependentUpon>WidgetRazor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperFlexi\Controls\Wysiwyg.ascx.cs">
+      <DependentUpon>Wysiwyg.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperFlexi\Controls\Wysiwyg.ascx.designer.cs">
+      <DependentUpon>Wysiwyg.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperFlexi\Controls\SuperFlexiDisplaySettings.cs" />
+    <Compile Include="SuperFlexi\Controls\MarkupDefinitionSetting.ascx.cs">
+      <DependentUpon>MarkupDefinitionSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperFlexi\Controls\MarkupDefinitionSetting.ascx.designer.cs">
+      <DependentUpon>MarkupDefinitionSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperFlexi\Controls\Widget.ascx.cs">
+      <DependentUpon>Widget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperFlexi\Controls\Widget.ascx.designer.cs">
+      <DependentUpon>Widget.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperFlexi\Edit2.aspx.cs">
+      <DependentUpon>Edit2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperFlexi\Edit2.aspx.designer.cs">
+      <DependentUpon>Edit2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperFlexi\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperFlexi\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperFlexi\EditHeader.aspx.cs">
+      <DependentUpon>EditHeader.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperFlexi\EditHeader.aspx.designer.cs">
+      <DependentUpon>EditHeader.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperFlexi\Module.ascx.cs">
+      <DependentUpon>Module.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperFlexi\Module.ascx.designer.cs">
+      <DependentUpon>Module.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SuperFlexi\SuperWrapper.ascx.cs">
+      <DependentUpon>SuperWrapper.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperFlexi\SuperWrapper.ascx.designer.cs">
+      <DependentUpon>SuperWrapper.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\SuperFlexiResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SuperFlexiResources.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
+      <Project>{4ead30ec-4f97-4f38-8530-1b7eddb8fc8e}</Project>
+      <Name>mojoPortal.Business.WebHelpers</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Business\mojoPortal.Business.csproj">
+      <Project>{8582d51e-126b-4d64-b080-07ad8245b38f}</Project>
+      <Name>mojoPortal.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
+      <Project>{a2dcd1e2-a5c3-4e37-a5f2-093659bc1c38}</Project>
+      <Name>mojoPortal.Web.Controls</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
+      <Project>{4f6dda2c-c9b8-45b2-aada-3ff922317661}</Project>
+      <Name>mojoPortal.Web.Editor</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
+      <Project>{e0d12031-bfdd-4069-9024-8b00a2aa6dbc}</Project>
+      <Name>mojoPortal.Web.Framework</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojo\repo-tests\mojoportal-master\Web\mojoPortal.Web.csproj">
+      <Project>{8e511d65-4779-4689-82d4-811d3fe6866e}</Project>
+      <Name>mojoPortal.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperFlexiBusiness\SuperFlexiBusiness.csproj">
+      <Project>{ffbe2ed5-a3ae-46ba-815c-6c2e643b0aaa}</Project>
+      <Name>SuperFlexiBusiness</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>59282</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:59282/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /s /y "$(ProjectDir)bin\SuperFlexi*.dll" "$(SolutionDir)Web\bin\"
+xcopy /s /y "$(ProjectDir)SuperFlexi\*.as?x" "$(SolutionDir)Web\SuperFlexi\"
+xcopy /s /y "$(ProjectDir)SuperFlexi\css\*" "$(SolutionDir)Web\SuperFlexi\css\"
+xcopy /s /y "$(ProjectDir)SuperFlexi\js\*" "$(SolutionDir)Web\SuperFlexi\js\"
+xcopy /s /y "$(ProjectDir)SuperFlexi\html\*" "$(SolutionDir)Web\SuperFlexi\html\"
+xcopy /s /y "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\App_GlobalResources\"
+xcopy /s /y "$(ProjectDir)Setup\*" "$(SolutionDir)Web\Setup\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
