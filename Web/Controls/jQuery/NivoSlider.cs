@@ -1,5 +1,5 @@
 ﻿// NivoSlider server control contributed by Matt Wilkinson 2012-02-22
-// Last Modified 2013-02-18 by Joe Audette
+// Last Modified 2013-02-18 by 
 
 
 using System;

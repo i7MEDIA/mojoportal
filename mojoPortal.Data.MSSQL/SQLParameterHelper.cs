@@ -9,8 +9,8 @@
 // the terms of this license.
 // You must not remove this notice, or any other, from this software.
 //
-// 2007-11-23 modified by Joe Audette
-// 2010-01-27 Joe Audette added parameter cache logic from Enterpise Data Block licensed under Ms-Pl http://www.codeplex.com/entlib
+// 2007-11-23 modified by 
+// 2010-01-27  added parameter cache logic from Enterpise Data Block licensed under Ms-Pl http://www.codeplex.com/entlib
 // Last Modified 2010-01-28
 
 using System;
@@ -244,7 +244,7 @@ namespace mojoPortal.Data
         // Forked From Enterprise Library licensed under Ms-Pl http://www.codeplex.com/entlib
         // but implementing a sub set of the API from the 2.0 Application Blocks SqlHelper
         // using implementation from the newer Ms-Pl version
-        // Modifications by Joe Audette
+        // Modifications by 
         // Last Modified 2010-01-28
         
         public SqlParameter[] GetParameters(string connectionString, string procName)

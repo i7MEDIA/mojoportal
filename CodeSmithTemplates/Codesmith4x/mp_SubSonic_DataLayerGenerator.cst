@@ -1,6 +1,6 @@
 <%-- 
 Name:  					C# DataLayer Methods for use against SubSonic generated classes
-Author: 				Joe Audette
+Author: 				Joe Developer
 Created:				2008-03-10
 Last Modified:			2008-03-10
 Description: 			Generates C# methods for a Static/Shared Data Layer class
@@ -9,7 +9,7 @@ Description: 			Generates C# methods for a Static/Shared Data Layer class
 <%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
 
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
-<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author of stored procedure" %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Developer" Category="Style" Description="Author of stored procedure" %>
 <%@ Property Name="DataLayerNameSpace" Type="System.String" Default="mojoPortal.Data.Common" Category="Style" Description="The Namespace of the Data Layer class" %>
 <%@ Property Name="TablePrefix" Type="System.String" Default="mp_" Category="Style" Description="Table Prfix" %>
 

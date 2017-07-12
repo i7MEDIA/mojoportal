@@ -5,7 +5,7 @@ using WebStore.Data;
 namespace WebStore.Business
 {
     /// <summary>
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2007-03-03
     /// Last Modified:			2008-02-25
     /// 

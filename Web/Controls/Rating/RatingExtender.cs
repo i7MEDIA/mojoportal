@@ -20,7 +20,7 @@ using AjaxControlToolkit;
 namespace mojoPortal.Web.UI
 {
     /// <summary>
-    /// Forked from the original AjaxControlToolkit by Joe Audette to add support for using a service url and to fix issues in the original logic
+    /// Forked from the original AjaxControlToolkit by  to add support for using a service url and to fix issues in the original logic
     /// </summary>
     [ToolboxItem(false)]
     [TargetControlType(typeof(AjaxRating))]
@@ -84,7 +84,7 @@ namespace mojoPortal.Web.UI
             set { SetPropertyValue("Tag", value); }
         }
 
-        // property added by Joe Audette
+        // property added by 
         [DefaultValue("")]
         [ExtenderControlProperty]
         public string JsonUrl
@@ -93,7 +93,7 @@ namespace mojoPortal.Web.UI
             set { SetPropertyValue("JsonUrl", value); }
         }
 
-        // property added by Joe Audette
+        // property added by 
         [DefaultValue("")]
         [ExtenderControlProperty]
         public string ContentId
@@ -102,7 +102,7 @@ namespace mojoPortal.Web.UI
             set { SetPropertyValue("ContentId", value); }
         }
 
-        // property added by Joe Audette
+        // property added by 
         [DefaultValue("")]
         [ExtenderControlProperty]
         public string TotalVotesElementId
@@ -111,7 +111,7 @@ namespace mojoPortal.Web.UI
             set { SetPropertyValue("TotalVotesElementId", value); }
         }
 
-        // property added by Joe Audette
+        // property added by 
         [DefaultValue(false)]
         [ExtenderControlProperty]
         public bool CommentsEnabled
@@ -138,7 +138,7 @@ namespace mojoPortal.Web.UI
             set { SetPropertyValue("MaxRating", value); }
         }
 
-        //// property added by Joe Audette 2010-02-16
+        //// property added by  2010-02-16
         //[DefaultValue(0)]
         //[ExtenderControlProperty]
         //public int AvgRating

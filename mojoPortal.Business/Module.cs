@@ -1,4 +1,4 @@
-// Author:					Joe Audette
+// Author:					
 // Created:				    2004-12-26
 // Last Modified:			2013-04-23
 // 
@@ -14,6 +14,7 @@ using System;
 using System.Collections;
 using System.Data;
 using mojoPortal.Data;
+using System.Collections.Generic;
 
 namespace mojoPortal.Business
 {
@@ -638,10 +639,23 @@ namespace mojoPortal.Business
             return DBModule.GetCountByFeature(moduleDefId);
         }
 
-
+        public static List<Module> GetModuleListForSite(int siteId, Guid featureGuid)
+        {
+            List<Module> modules = new List<Module>();
+            using (IDataReader reader = Module.GetModulesForSite(siteId, featureGuid))
+            {
+                while (reader.Read())
+                {
+                    Module module = new Module(Convert.ToInt32(reader["ModuleId"]));
+                    if (module != null)
+                    {
+                        modules.Add(module);
+                    }
+                }
+            }
+            return modules;
+        }
 		#endregion
-
-
 	}
 	
 }

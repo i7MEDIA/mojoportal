@@ -8,7 +8,7 @@
 // </summary>
 //-----------------------------------------------------------------------
 
-// Modified by Joe Audette 2009-04-15
+// Modified by  2009-04-15
 
 //namespace WindowsLive
 namespace mojoPortal.Web
@@ -45,7 +45,7 @@ namespace mojoPortal.Web
             this.windowsLiveLogin = new WindowsLiveLogin(true);
         }
 
-        //added by Joe Audette
+        //added by 
         public WindowsLiveMessenger(WindowsLiveLogin liveLogin)
         {
             this.windowsLiveLogin = liveLogin;

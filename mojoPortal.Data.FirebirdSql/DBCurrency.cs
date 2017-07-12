@@ -13,7 +13,7 @@ namespace mojoPortal.Data
 
     /// <summary>
     ///							DBCurrency.cs
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2008-06-22
     /// Last Modified:			2008-06-22
     /// 

@@ -118,7 +118,7 @@
         if (this.options.position=="left"){
           extruder.find('.content').css({width:this.options.width, height:"100%"});
           //extruder.find('.flap').css({marginRight:-40,top:0+document.extruderLeft});
-		  //modified by Joe Audette 2010-01-04
+		  //modified by  2010-01-04
 		  extruder.find('.flap').css({marginRight:-40,top:0+options.flapLeftTop});
           document.extruderLeft+= labelH+this.options.flapMargin;
           var clicDiv=$("<div/>").css({position:"absolute",top:0,left:0,width:"100%",height:"100%",background:"transparent"});

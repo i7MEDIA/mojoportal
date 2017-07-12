@@ -1,4 +1,4 @@
-// Author:		       Joe Audette
+// Author:		       
 // Created:            2007-11-07
 // Last Modified:      2011-08-15
 // 
@@ -112,7 +112,7 @@ namespace mojoPortal.Web.Controls.DatePicker
         }
 
         // *** added by ghalib ghniem Aug-14-2011 ChangeMonth: bool ,ChangeYear: bool, YearRange: string
-        // notes by Joe Audette
+        // notes by 
         // these are added only becuase we must support all properties of IDataPicker
         // but these properties are not used in this datepicker, they are used in the jQueryUI datepicker
         private bool showMonthList = false;

@@ -1,7 +1,7 @@
 //	Author:				        Dean Brettle
 //	Created:			        2005-09-07
 //
-//	Modified:                   2011-06-13 by Joe Audette
+//	Modified:                   2011-06-13 by 
 //	
 
 using System;

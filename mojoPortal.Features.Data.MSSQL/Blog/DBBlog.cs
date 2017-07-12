@@ -1,4 +1,4 @@
-﻿// Author:					Joe Audette
+// Author:
 // Created:				    2007-11-03
 // Last Modified:			2017-06-06
 // 
@@ -1136,11 +1136,5 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemId);
             return sph.ExecuteReader();
         }
-
-
-
-
-
-
     }
 }

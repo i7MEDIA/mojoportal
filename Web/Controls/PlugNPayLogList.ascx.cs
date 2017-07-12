@@ -1,4 +1,4 @@
-﻿/// Author:					Voir Hillaire/Joe Audette
+﻿/// Author:					Voir Hillaire/
 /// Created:				2009-03-24
 /// Last Modified:			2009-12-16
 /// 

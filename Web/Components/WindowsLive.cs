@@ -11,7 +11,7 @@
  * Copyright (c) 2008 Microsoft Corporation.  All Rights Reserved.
  */
 
-// Modified by Joe Audette 2009-04-15
+// Modified by  2009-04-15
 
 using System;
 using System.Collections.Generic;
@@ -497,7 +497,7 @@ namespace mojoPortal.Web
             }
         }
 
-        // added by Joe Audette
+        // added by 
         private string appName = string.Empty;
         private string appLogoUrl = string.Empty;
 

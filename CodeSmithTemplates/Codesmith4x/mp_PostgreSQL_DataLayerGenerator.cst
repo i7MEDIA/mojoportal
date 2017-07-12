@@ -1,6 +1,6 @@
 <%-- 
 Name:  					C# DataLayer Methods for MS SQL using SqlHelper
-Author: 				Joe Audette
+Author: 				Joe Developer
 Created:				2005-04-15
 Last Modified:			2012-08-11
 Description: 			Generates C#  Static Data Layer class for PostgreSQL
@@ -10,7 +10,7 @@ Description: 			Generates C#  Static Data Layer class for PostgreSQL
 <%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
 
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
-<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author of stored procedure" %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Developer" Category="Style" Description="Author of stored procedure" %>
 <%@ Property Name="DataLayerNameSpace" Type="System.String" Default="mojoPortal.Data" Category="Style" Description="The Namespace of the Data Layer class" %>
 <%@ Property Name="UseSubSonic" Type="System.Boolean" Default="False" Category="Options" Description="If true methods will delegate the work to SubSonic methods in the designated Common namespace" %>
 <%@ Property Name="SubSonicDataLayerNameSpace" Type="System.String" Default="mojoPortal.Data.Common" Category="Style" Description="The Namespace of the Data Layer class" %>

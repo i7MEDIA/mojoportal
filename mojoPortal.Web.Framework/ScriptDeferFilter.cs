@@ -60,7 +60,7 @@ namespace mojoPortal.Web.Framework
         bool scriptTagStarted = false;
 
         /// <summary>
-        /// Added 2008-11-04 by Joe Audette
+        /// Added 2008-11-04 by 
         /// Omar implemented a method to mark some scripts so they don't get moved to the bottom by adding a "pin" attribute
         /// to the script element like this script pin src="...
         /// however this is not xhtml compliant and is therefore not a good solution even though its more efficient than my hacky solution.
@@ -290,7 +290,7 @@ namespace mojoPortal.Web.Framework
 
                             if (useHackyScriptExceptions)
                             {
-                                // 2008-11-04 Joe Audette
+                                // 2008-11-04 
                                 // some scripts must be at the top (example neathtml.js)
                                 // some scripts must be allowed to render inline (example neathtml)
 
@@ -424,7 +424,7 @@ namespace mojoPortal.Web.Framework
         }
 
         /// <summary>
-        /// added by Joe Audette 2008-11-04
+        /// added by  2008-11-04
         /// this function should only be called right after isScript returns true
         /// its a very crappy hack to solve a few problems caused by moving the javascript to the bottom
         /// neathtml.js must be at the top, its a very important script for preventing xss

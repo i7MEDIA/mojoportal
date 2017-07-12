@@ -1,4 +1,4 @@
-///	Last Modified:              2013-04-05  Joe Audette
+///	Last Modified:              2013-04-05  
 /// 
 /// 
 

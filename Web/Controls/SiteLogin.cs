@@ -10,7 +10,7 @@
 //	Last Modified:              2010-10-24
 // 
 // 2007/06/06  Alexander Yushchenko: created this control from part of /Secure/Login.aspx.cs refactoring
-// 2007-08-24  Joe Audette fixed bug where message was not displayed if
+// 2007-08-24   fixed bug where message was not displayed if
 // email confirmation needed or account locked. Also added logic to
 // send another confirmation email if user tries to login and
 // confirmation is needed.

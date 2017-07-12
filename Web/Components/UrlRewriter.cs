@@ -1,6 +1,6 @@
-// Author:				Joe Audette
+// Author:				
 // Created:			    2005-06-01
-// Last Modified:		2012-06-08
+// Last Modified:		2017-06-16
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -18,7 +18,7 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
-
+using System.Linq;
 namespace mojoPortal.Web
 {
 	
@@ -108,17 +108,24 @@ namespace mojoPortal.Web
             bool setClientFilePath = true;
             
 
-            if (
-                (useFolderForSiteDetection)
-                && (virtualFolderName.Length > 0)
-                )
+            if (useFolderForSiteDetection && (virtualFolderName.Length > 0))
             {
                 setClientFilePath = false;
 
-                // requesting root of folderbased site like /folder1/
-                // don't re-write it
-                if (requestPath.EndsWith(virtualFolderName + "/"))
+                if (requestPath.StartsWith("/" + virtualFolderName) && requestPath.Length > virtualFolderName.Length)
                 {
+                    var v = requestPath.Split('/');
+                    var w = v.Distinct().ToArray();
+                    if (v.Count() > w.Count())
+                    {
+                        WebUtils.SetupRedirect(new System.Web.UI.Control(), String.Join("/", w));
+                        return;
+                    }
+                }
+
+                if (requestPath.EndsWith(virtualFolderName) || requestPath.EndsWith(virtualFolderName + "/"))
+                {
+                    DoRewrite(app, realPageName: "default.aspx", setClientFilePath: setClientFilePath);
                     return;
                 }
             }
@@ -144,9 +151,7 @@ namespace mojoPortal.Web
             //if (targetUrl.Length == 0) return;
             if(StringHelper.IsCaseInsensitiveMatch(targetUrl, "default.aspx"))return;
 
-            if (useFolderForSiteDetection)
-            {
-                if (targetUrl.StartsWith(virtualFolderName + "/"))
+            if (useFolderForSiteDetection && targetUrl.StartsWith(virtualFolderName + "/"))
                 {
                     // 2009-03-01 Kris reported a bug where folder site using /er for the folder
                     // was making an incorrect targetUrl 
@@ -156,8 +161,6 @@ namespace mojoPortal.Web
                     //targetUrl = targetUrl.Replace(virtualFolderName + "/", string.Empty);
                     //fixed by changing to this
                     targetUrl = targetUrl.Remove(0, virtualFolderName.Length + 1);
-
-                }
             }
 
 
@@ -195,13 +198,8 @@ namespace mojoPortal.Web
             //this will happen on a new installation
             if (siteSettings == null) { return; }
             
-            if (
-            (useFolderForSiteDetection)
-            && (virtualFolderName.Length > 0)
-            )
+            if (useFolderForSiteDetection && (virtualFolderName.Length > 0))
             {
-                
-                //int siteID = SiteSettings.GetSiteIDFromFolderName(virtualFolderName);
                 friendlyUrl = new FriendlyUrl(siteSettings.SiteId, targetUrl);
             }
             else
@@ -238,10 +236,7 @@ namespace mojoPortal.Web
                 }
             }
 
-            if (
-                (friendlyUrl == null)
-                ||(!friendlyUrl.FoundFriendlyUrl)
-                )
+            if (friendlyUrl == null || !friendlyUrl.FoundFriendlyUrl)
             {
                 if (
                 (useFolderForSiteDetection)
@@ -359,6 +354,23 @@ namespace mojoPortal.Web
                     }
                 }
 
+                DoRewrite(app, queryStringToUse, realPageName, setClientFilePath);
+            }
+
+            
+        }
+
+        private static string SanitizeChildSiteFolderPath(string path, string siteFolder)
+        {
+            //string[] siteFolders = path.Split(new string[] { "/" + path + "/" }, StringSplitOptions.None);
+
+            return String.Join("/", path.SplitOnCharAndTrim('/').Distinct());
+
+
+        }
+
+        private static void DoRewrite(HttpApplication app, string queryStringToUse = "", string realPageName = "", bool setClientFilePath = true)
+        {
                 SiteUtils.TrackUrlRewrite();
                 //log.Info("re-writing to " + realPageName);
 
@@ -384,9 +396,6 @@ namespace mojoPortal.Web
                     app.Context.RewritePath(realPageName, string.Empty, queryStringToUse, setClientFilePath);
                 }
             }
-
-            
-        }
 
         /// <summary>
         /// note the expected targetUrl and returned url are not fully qualified, but relative without a /

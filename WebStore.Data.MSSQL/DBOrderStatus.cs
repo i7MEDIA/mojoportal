@@ -10,7 +10,7 @@ using log4net;
 namespace WebStore.Data
 {
     /// <summary>
-    /// Author:				Joe Audette
+    /// Author:				
     /// Created:			2007-11-14
     /// Last Modified:		2007-11-14
     /// 

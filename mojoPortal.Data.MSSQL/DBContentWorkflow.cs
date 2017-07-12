@@ -1,6 +1,6 @@
 ﻿// Author:					Kevin Needham
 // Created:					2009-06-19
-// Last Modified:			2013-04-23 Joe Audette
+// Last Modified:			2013-04-23 
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  

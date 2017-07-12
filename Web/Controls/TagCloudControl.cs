@@ -1,6 +1,6 @@
 ﻿// a modified version from this article on Codeplex http://www.codeproject.com/KB/custom-controls/cloud.aspx
 // licensed under the Code Project Open License http://www.codeproject.com/info/cpol10.aspx
-// last modified by Joe Audette 2009-05-05
+// last modified by  2009-05-05
 
 // changed to render as an unordered list and use only css classes
 // changed from scale 1-7 to scale 1-10 for normalized weights

@@ -28,7 +28,7 @@ namespace mojoPortal.Web.Framework
             // BSD License http://developer.yahoo.net/yui/license.txt
             // New css tests and regexes by Michael Ash
 
-            // Joe Audette added this check to fix error on subsequent calls
+            //  added this check to fix error on subsequent calls
             if ((shortColorNames.Count == 0) && (shortHexColors.Count == 0))
             {
                 try

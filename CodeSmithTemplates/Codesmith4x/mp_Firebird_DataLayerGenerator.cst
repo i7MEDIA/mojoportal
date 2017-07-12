@@ -1,6 +1,6 @@
 <%-- 
 Name:  					C# DataLayer Methods for Firebird
-Author: 				Joe Audette
+Author: 				Joe Developer
 Created:				2007-07-20
 Last Modified:			2009-02-23
 Description: 			Generates C#  a Static/Shared Data Layer class for Firebird Sql
@@ -9,7 +9,7 @@ Description: 			Generates C#  a Static/Shared Data Layer class for Firebird Sql
 <%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
 
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
-<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author of stored procedure" %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Developer" Category="Style" Description="Author of stored procedure" %>
 <%@ Property Name="DataLayerNameSpace" Type="System.String" Default="mojoPortal.Data" Category="Style" Description="The Namespace of the Data Layer class" %>
 <%@ Property Name="UseSubSonic" Type="System.Boolean" Default="False" Category="Options" Description="If true methods will delegate the work to SubSonic methods in the designated Common namespace" %>
 <%@ Property Name="SubSonicDataLayerNameSpace" Type="System.String" Default="mojoPortal.Data.Common" Category="Style" Description="The Namespace of the Data Layer class" %>

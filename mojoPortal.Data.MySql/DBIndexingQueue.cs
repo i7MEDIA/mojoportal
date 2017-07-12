@@ -1,5 +1,5 @@
 ﻿///							DBIndexingQueue.cs
-/// Author:					Joe Audette
+/// Author:					
 /// Created:				2008-06-18
 /// Last Modified:			2013-01-11
 /// 

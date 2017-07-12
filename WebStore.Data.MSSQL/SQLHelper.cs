@@ -576,7 +576,7 @@ namespace WebStore.Data
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// This overload added by Joe Audette 12/3/2003 to accomodate long running queries when needed
+        /// This overload added by  12/3/2003 to accomodate long running queries when needed
         /// e.g.:  
         ///  DataSet ds = ExecuteDataset(conn, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
         /// </remarks>

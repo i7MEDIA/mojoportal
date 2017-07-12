@@ -1,4 +1,4 @@
-// Author:        Joe Audette
+// Author:        
 // Created:       2007-07-12
 // Last Modified: 2017-07-11
 // 
@@ -14,6 +14,7 @@
 using System;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web;
 
@@ -202,6 +203,32 @@ namespace mojoPortal.Web.Framework
 			sw.Close();
 
 			context.Response.End();
+		}
+
+		public static string AutoEscapeStringForCsv(string data)
+		{
+			bool wrap = false;
+
+			// If the data has quote, escape the quote in the data
+			if (data.Contains("\""))
+			{
+				data = data.Replace("\"", "\"\"");
+				wrap = true;
+			}
+
+			// If the data contains any non-letter/digit, newline, or tab, set to wrap in quotes
+			if (data.Any(c => !char.IsLetterOrDigit(c)))
+			{
+				wrap = true;
+			}
+
+			// Wrap in double-quotes
+			if (wrap)
+			{
+				data = String.Format("\"{0}\"", data);
+			}
+
+			return data;
 		}
 	}
 }

@@ -5,7 +5,7 @@
 // the terms of this license.
 //
 // You must not remove this notice, or any other, from this software.
-// Author:					Joe Audette
+// Author:					
 // Created:				    2004-07-04
 // Last Modified:			2012-03-16
 // 
@@ -15,7 +15,7 @@
 // 01/18/2007   Alexander Yushchenko introduced SetButtonAccessKey() function
 // 
 // 04/05/2007   Alexander Yushchenko introduced Redirect* and AllowOnly* functions
-// 2011-02-27 Joe Audette added method IsSecureRequest()
+// 2011-02-27  added method IsSecureRequest()
 // 2011-11-02 make it possible to use wysiwyg editors in IOs 5 devices since it is now supported
 
 
@@ -135,7 +135,8 @@ namespace mojoPortal.Web
 
 			string tempFriendlyUrl = friendlyUrl;
 			int i = 1;
-			while (FriendlyUrl.Exists(siteSettings.SiteId, tempFriendlyUrl + urlTail))
+            
+			while (FriendlyUrl.Exists(siteSettings.SiteId, tempFriendlyUrl + urlTail) || SiteFolder.Exists(tempFriendlyUrl))
 			{
 				tempFriendlyUrl = friendlyUrl + "-" + i.ToString();
 				i++;
@@ -2380,8 +2381,9 @@ namespace mojoPortal.Web
 
 			if (useFolderForSiteDetection)
 			{
-				SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-				return GetNavigationSiteRoot(siteSettings);
+                //SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+                //return GetNavigationSiteRoot(siteSettings);
+                return GetRelativeNavigationSiteRoot();
 
 				//if ((siteSettings != null)
 				//    && (siteSettings.SiteFolderName.Length > 0))

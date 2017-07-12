@@ -1,16 +1,16 @@
 <%-- 
 Name:  					C# DataLayer Methods for Sqlite
-Author: 				Joe Audette
+Author: 				Joe Developer
 Description: 			Generates C# Static/Shared Data Layer class for SQLite
 						Modified from MySQL Data Layer Generator
-							by Joe Audette
-Last Modified:			2012-08-11 Joe Audette
+							by Joe Developer
+Last Modified:			2012-08-11 Joe Developer
 
 --%>
 <%@ CodeTemplate Language="C#" TargetLanguage="C#" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
 
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
-<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author of stored procedure" %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Developer" Category="Style" Description="Author of stored procedure" %>
 <%@ Property Name="DataLayerNameSpace" Type="System.String" Default="mojoPortal.Data" Category="Style" Description="The Namespace of the Data Layer class" %>
 <%@ Property Name="UseSubSonic" Type="System.Boolean" Default="False" Category="Options" Description="If true methods will delegate the work to SubSonic methods in the designated Common namespace" %>
 <%@ Property Name="SubSonicDataLayerNameSpace" Type="System.String" Default="mojoPortal.Data.Common" Category="Style" Description="The Namespace of the Data Layer class" %>

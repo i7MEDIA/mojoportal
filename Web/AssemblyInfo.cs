@@ -22,7 +22,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle("mojoPortal Core")]
 [assembly: AssemblyDescription("mojoPortal is a Content Management System for ASP.NET")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Source Tree Solutions, LLC")]
+[assembly: AssemblyCompany("i7MEDIA, LLC")]
 [assembly: AssemblyProduct("mojoPortal CMS")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]

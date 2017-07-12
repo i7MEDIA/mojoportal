@@ -10,7 +10,7 @@ using System.Globalization;
 namespace mojoPortal.Web.Controls
 {
     /// <summary>
-    /// Based on article from CodeProject, with modifications by Joe Audette
+    /// Based on article from CodeProject, with modifications by 
     /// 7/3/2006
     /// 
     /// Source: http://www.codeproject.com/useritems/WatermarkTextBoxControl.asp?df=100

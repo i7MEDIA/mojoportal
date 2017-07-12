@@ -1,6 +1,6 @@
-﻿// Author:					Joe Audette
+﻿// Author:					
 // Created:				    2011-05-01
-// Last Modified:			2014-07-13
+// Last Modified:			2017-06-07
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -138,7 +138,7 @@ namespace mojoPortal.Web.ForumUI
             get { return useSpamBlockingForAnonymous; }
         }
 
-        private bool linkGravatarToUserProfile = false;
+        private bool linkGravatarToUserProfile = true;
 
         public bool LinkGravatarToUserProfile
         {

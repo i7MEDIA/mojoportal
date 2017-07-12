@@ -1,4 +1,4 @@
-﻿// Author:					Joe Audette
+﻿// Author:					
 // Created:					2009-06-01
 // Last Modified:			2012-11-29 //Joe Davis
 // 2013-04-05 JA integrated new file uploader, removed NeatUpload

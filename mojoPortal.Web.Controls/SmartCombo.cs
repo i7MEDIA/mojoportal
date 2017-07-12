@@ -8,7 +8,7 @@ namespace mojoPortal.Web.Controls
 {
 
 	/// <summary>
-	/// Author:				Joe Audette
+	/// Author:				
 	/// Created:			2005-08-20
 	/// Last Modified:		2008-09-03
 	/// 

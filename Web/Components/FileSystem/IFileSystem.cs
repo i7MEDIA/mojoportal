@@ -5,9 +5,9 @@
  * Licensed under the MS-PL license.
  * http://qtfile.codeplex.com/license
  */
-//  Based on QtFile, Forked/Refactored by Joe Audette
+//  Based on QtFile, Forked/Refactored by 
 //
-// Author:					Joe Audette
+// Author:					
 // Created:				    2009-12-30
 // Last Modified:			2011-09-05
 // 

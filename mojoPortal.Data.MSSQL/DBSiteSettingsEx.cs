@@ -1,6 +1,6 @@
 /// Author:					An Ngo
 /// Created:				2009-09-10
-/// Last Modified:			2010-07-01 Joe Audette
+/// Last Modified:			2010-07-01 
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  

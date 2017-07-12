@@ -9,7 +9,7 @@ using log4net;
 namespace mojoPortal.Web.Framework
 {
     /// <summary>
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2008-03-16
     /// Last Modified:			2008-03-16
     ///		

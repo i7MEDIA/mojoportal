@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("WebStore")]
-[assembly: AssemblyDescription("An ecommerce feature fr mojoPortal CMS")]
+[assembly: AssemblyDescription("An ecommerce feature for mojoPortal CMS")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Source Tree Solutions, LLC")]
+[assembly: AssemblyCompany("i7MEDIA, LLC")]
 [assembly: AssemblyProduct("WebStore")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]

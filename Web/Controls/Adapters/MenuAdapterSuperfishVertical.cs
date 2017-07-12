@@ -9,7 +9,7 @@
 /// 
 /// 
 /// 
-/// with modifications by Joe Audette
+/// with modifications by 
 /// Last Modified:      2009-06-15
 /// modified to use css clsses for superfish jquery menu
 /// http://users.tpg.com.au/j_birch/plugins/superfish/
@@ -339,7 +339,7 @@ namespace mojoPortal.Web
 
         //    //else if (IsChildItemSelected(item))
         //    //{
-        //    //    // top if logic added by Joe Audette
+        //    //    // top if logic added by 
         //    //    // so the topmost item is highlighted if
         //    //    // a child or grandchild is the current page
         //    //    if (item.Parent == null)

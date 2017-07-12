@@ -34,7 +34,7 @@ namespace mojoPortal.Web
             if (app.Request.Path.ContainsCaseInsensitive("GCheckoutNotificationHandler.ashx")) { return; }
 
             
-            // 2006-12-29 Joe Audette
+            // 2006-12-29 
             // CultureInfo for the executing thread is automatically set to the 
             // preferred culture of the user's browser by this web.config setting:
             // <globalization 

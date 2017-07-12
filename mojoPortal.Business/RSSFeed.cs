@@ -7,7 +7,7 @@ using mojoPortal.Data;
 namespace mojoPortal.Business
 {
     /// <summary>
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2005-03-27
     /// Last Modified:			2008-01-28
     /// 

@@ -6,7 +6,7 @@
 //
 // You must not remove this notice, or any other, from this software.
 //
-// Author:					Joe Audette
+// Author:					
 // Created:				    2009-05-23
 // Last Modified:			2011-02-27
 // 2011-02-27 changed from using the AddThisButton base class to local implementation in order to use SiteUtils.IsSecureRequest()

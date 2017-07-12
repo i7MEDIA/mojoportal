@@ -10,7 +10,7 @@
 //===============================================================================
 // renamed from internal class CachingMechanism
 // License Ms-Pl http://www.codeplex.com/entlib
-// with modifications by Joe Audette
+// with modifications by 
 // Last Modified: 2010-01-27
 
 using System;

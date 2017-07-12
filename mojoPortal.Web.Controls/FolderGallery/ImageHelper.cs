@@ -36,7 +36,7 @@ using Tag = com.drew.metadata.Tag;
 // The library can be downloaded from
 // http://renaud91.free.fr/MetaDataExtractor/
 //
-// further modifications and integration with mojoPortal by Joe Audette
+// further modifications and integration with mojoPortal by 
 //  Last Modified: 2008-02-08
 //  2008-05-19 changes to support Medium Trust
 
@@ -221,7 +221,7 @@ img
                     _imageCacheDir = Path.Combine(HttpRuntime.CodegenDir, "Album");
                 }
 
-                // Joe Audette added this check 2009-04-05
+                //  added this check 2009-04-05
                 if (!Directory.Exists(_imageCacheDir))
                 {
                     Directory.CreateDirectory(_imageCacheDir);

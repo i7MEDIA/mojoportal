@@ -1,4 +1,4 @@
-/// Author:				    Joe Audette
+/// Author:				    
 /// Created:			    2006-09-01
 ///	Last Modified:		    2011-04-11 by Joe Davis of i7MEDIA
 ///	                        2013-12-17

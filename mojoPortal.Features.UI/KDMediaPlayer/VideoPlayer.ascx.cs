@@ -8,8 +8,8 @@
 // the terms of this license.
 //
 // You must not remove this notice, or any other, from this software.
-// Modified 2011-12-04 by Joe Audette, initial integration
-// Modified 2011-12-05 by Joe Audette
+// Modified 2011-12-04 by , initial integration
+// Modified 2011-12-05 by 
 // separated Audio and Video Player into 2 features eleiminated the Setup.aspx page that set the player type
 // 2012-07-05
 // 2012-10-17 change throw from Exception to ArgumentException and handle the error so it doesn't crash the page

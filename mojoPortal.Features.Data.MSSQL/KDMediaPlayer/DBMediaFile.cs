@@ -8,7 +8,7 @@
 // the terms of this license.
 //
 // You must not remove this notice, or any other, from this software.
-// Modified: 2011-12-02 by Joe Audette initial integration
+// Modified: 2011-12-02 by  initial integration
 // Modified 2011-12-06 JA added SelectByPlayer
 
 using System;

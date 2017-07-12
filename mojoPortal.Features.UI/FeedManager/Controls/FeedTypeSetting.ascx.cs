@@ -12,7 +12,7 @@ using mojoPortal.Web.UI;
 namespace mojoPortal.FeedUI
 {
     /// <summary>
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2008-10-02
     /// Last Modified:			2008-10-02
     /// 

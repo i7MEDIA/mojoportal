@@ -25,7 +25,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-// 2008-10-13 Joe Audette added to this project from the Mono project, changed namespace
+// 2008-10-13  added to this project from the Mono project, changed namespace
 namespace mojoPortal.Web.Controls
 {
 	public delegate void AdCreatedEventHandler (object sender, AdCreatedEventArgs e);

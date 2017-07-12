@@ -24,7 +24,7 @@ using Resources;
 namespace mojoPortal.Web.ContentUI
 {
     /// <summary>
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				4/1/2007
     /// Last Modified:			4/1/2007
     /// 

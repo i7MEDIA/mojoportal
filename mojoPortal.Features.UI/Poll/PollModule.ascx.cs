@@ -1,6 +1,6 @@
 /// Author:       			Christian Fredh
 /// Created:      			2007-04-25
-/// Last Modified:			2010-03-30 Joe Audette
+/// Last Modified:			2010-03-30 
 
 using System;
 using System.Collections.Generic;

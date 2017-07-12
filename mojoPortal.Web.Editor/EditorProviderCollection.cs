@@ -4,7 +4,7 @@ using System.Configuration.Provider;
 namespace mojoPortal.Web.Editor
 {
     /// <summary>
-    /// Author:		        Joe Audette
+    /// Author:		        
     /// Created:            2007/05/18
     /// Last Modified:      2007/05/25
     /// 

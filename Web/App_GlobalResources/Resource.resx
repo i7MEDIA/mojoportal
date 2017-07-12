@@ -6087,4 +6087,7 @@
   <data name="FileManagerPagesHeaderTitle" xml:space="preserve">
     <value>Page Picker</value>
   </data>
+  <data name="PageUrlIsSiteFolderErrorMessage" xml:space="preserve">
+    <value>Page URL is in use as a Site Folder.</value>
+  </data>
 </root>

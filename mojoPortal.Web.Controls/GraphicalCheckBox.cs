@@ -228,7 +228,7 @@ namespace mojoPortal.Web.Controls
 			base.RenderBeginTag(new HtmlTextWriter(new System.IO.StringWriter(sb)));
 			string tmp=Regex.Match(sb.ToString(),@"style=\""[^\""]*\"""
 				).Value; 
-            // 2007-09-29 Joe Audette added length check here to fix error
+            // 2007-09-29  added length check here to fix error
             if(tmp.Length >=8)st+=tmp.Substring(7,tmp.Length-8);
 
 			if (Enabled)

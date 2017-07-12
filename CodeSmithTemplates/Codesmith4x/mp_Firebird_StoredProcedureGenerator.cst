@@ -1,12 +1,12 @@
 <%-- 
 Name:  						Firebird Stored Procedure Generator
-Author: 					Joe Audette
+Author: 					Joe Developer
 Created:					2007-07-18
 Description: 				Creates basic CRUD procedures for a table
 							
 --%>
 <%@ CodeTemplate Language="C#" TargetLanguage="T-SQL" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
-<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author of stored procedure" %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Developer" Category="Style" Description="Author of stored procedure" %>
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
 <%@ Property Name="IncludeDrop" Type="System.Boolean" Default="False" Category="Options" Description="If true drop statements will be generated to drop existing stored procedures." %>
 <%@ Property Name="IncludeInsert" Type="System.Boolean" Default="True" Category="Options" Description="If true insert statements will be generated." %>

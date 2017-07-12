@@ -2,7 +2,7 @@
 /// Created:							2005/02/16 
 /// 
 /// Additions and fixes have been added by
-///											Joe Audette, Dean Brettle, TJ Fontaine
+///											, Dean Brettle, TJ Fontaine
 ///											
 /// 
 /// 

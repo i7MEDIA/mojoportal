@@ -4,16 +4,16 @@ Author: 					Joseph Hill
 Created:					2/19/2005
 Description: 				Creates basic CRUD procedures for a table
 							Modified from MS SQL Stored Procedure Generator
-							by Joe Audette
+							by Joe Developer
 							v2 created 4/17/2005 removed use of ProcedurePrefix as table name already has prefix
-							6/4/2006 Joe Audette, added support for guids, treating MS SQL uniqueidentifier as varchar(36)
-							8/23/2006 Joe Audette converted to Codesmith 3.x
+							6/4/2006 Joe Developer, added support for guids, treating MS SQL uniqueidentifier as varchar(36)
+							8/23/2006 Joe Developer converted to Codesmith 3.x
 							2007/05/06 added count
 							2007-09-22
 
 --%>
 <%@ CodeTemplate Language="C#" TargetLanguage="T-SQL" Src="" Inherits="CodeSmith.BaseTemplates.SqlCodeTemplate" Debug="False" Description="Template description here." %>
-<%@ Property Name="Author" Type="System.String" Default="Joe Audette" Category="Style" Description="Author of stored procedure" %>
+<%@ Property Name="Author" Type="System.String" Default="Joe Developer" Category="Style" Description="Author of stored procedure" %>
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
 <%@ Property Name="IncludeDrop" Type="System.Boolean" Default="False" Category="Options" Description="If true drop statements will be generated to drop existing stored procedures." %>
 <%@ Property Name="IncludeInsert" Type="System.Boolean" Default="True" Category="Options" Description="If true insert statements will be generated." %>

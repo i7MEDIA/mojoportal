@@ -13,7 +13,7 @@
  *  ui.datepicker.js
  *  ui.slider.js
 
- Extensive modifications by Joe Audette
+ Extensive modifications by 
  Last Modified : 2010-06-27
  */
 (function ($) {

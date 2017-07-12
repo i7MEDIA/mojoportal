@@ -121,7 +121,7 @@ namespace mojoPortal.Web.UI
         private int flapLeftTop = 0;
         /// <summary>
         /// when using position = left, this determines the position of the flap vs the top of the page. 
-        /// This setting si not part of the original extruder but was added by Joe Audette
+        /// This setting si not part of the original extruder but was added by 
         /// </summary>
         public int FlapLeftTop
         {

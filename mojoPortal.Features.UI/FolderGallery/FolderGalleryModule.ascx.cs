@@ -1,4 +1,4 @@
-﻿// Author:					Joe Audette
+﻿// Author:					
 // Created:				    2008-02-07
 // Last Modified:			2013-04-04
 // ApplicationGuid:		    9e58fcda-90de-4ed7-abc7-12f096f5c58f

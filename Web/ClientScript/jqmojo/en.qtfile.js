@@ -6,7 +6,7 @@
  * Licensed under the MS-PL license.
  * http://qtfile.codeplex.com/license
  
- Adopted/Forked For mojoPortal by Joe Audette 2009-12-25
+ Adopted/Forked For mojoPortal by  2009-12-25
  Last Modified: 2009-12-28
  
  

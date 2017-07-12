@@ -13,7 +13,7 @@ namespace mojoPortal.Data
 
     /// <summary>
     ///							DBLetterHtmlTemplate.cs
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2007-12-27
     /// Last Modified:			2008-01-08
     /// 

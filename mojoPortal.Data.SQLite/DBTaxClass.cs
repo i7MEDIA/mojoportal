@@ -12,7 +12,7 @@
 
     /// <summary>
     ///							DBTaxClass.cs
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2008-06-25
     /// Last Modified:			2008-06-25
     /// 

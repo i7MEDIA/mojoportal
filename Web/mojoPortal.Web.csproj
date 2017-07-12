@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -29,11 +29,10 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -1251,6 +1250,11 @@
     <Content Include="Scripts\jquery-2.2.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
@@ -1563,6 +1567,9 @@
       <DependentUpon>closed.aspx</DependentUpon>
     </Compile>
     <Compile Include="Components\BundleConfig.cs" />
+    <Compile Include="Components\ICustomField.cs" />
+    <Compile Include="Components\MenuItem.cs" />
+    <Compile Include="Components\mojoViewEngine.cs" />
     <Compile Include="Components\Routing\RoutesConfig.cs" />
     <Compile Include="Components\Routing\IRegisterRoutes.cs" />
     <Compile Include="Components\BaseContentUploadHandler.cs" />
@@ -1696,9 +1703,11 @@
     <Compile Include="Components\SiteMapHelper.cs" />
     <Compile Include="Components\SkinHelper.cs" />
     <Compile Include="Components\SystemLogAppender.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FileManager\FileManagerController.cs" />
     <Compile Include="Controllers\FileManager\FileServiceController.cs" />
     <Compile Include="Controllers\FileManager\FileUploadController.cs" />
+    <Compile Include="Controllers\RazorBridge.cs" />
     <Compile Include="Controls\Adapters\SiteMapTreeViewAdapter.cs" />
     <Compile Include="Controls\Analytics\AnalyticsAsyncBottomScript.cs" />
     <Compile Include="Controls\Analytics\AnalyticsAsyncTopScript.cs" />
@@ -1770,6 +1779,8 @@
     <Compile Include="Controls\FeedDiscoveryLink.cs" />
     <Compile Include="Controls\FileBrowserTextBoxExtender.cs" />
     <Compile Include="Controls\FileManagerLink.cs" />
+    <Compile Include="Controls\Link.cs" />
+    <Compile Include="Controls\MenuList.cs" />
     <Compile Include="Controls\FlexMenu.cs" />
     <Compile Include="Controls\FlexSearch.cs" />
     <Compile Include="Controls\FriendlyTreeView.cs" />
@@ -1807,6 +1818,7 @@
     <Compile Include="Controls\PageTreeLink.cs" />
     <Compile Include="Controls\Panels\AdminCrumbContainer.cs" />
     <Compile Include="Controls\Panels\BreadcrumbContainer.cs" />
+    <Compile Include="Controls\Panels\FormGroupPanel.cs" />
     <Compile Include="Controls\Panels\LayoutPanel.cs" />
     <Compile Include="Controls\Panels\MobileViewPanel.cs" />
     <Compile Include="Controls\Panels\SearchPanel.cs" />
@@ -3576,6 +3588,8 @@
     <Content Include="Services\SiteMapJson.ashx" />
     <Content Include="Views\FileManager\Pages.cshtml" />
     <Content Include="Views\FileManager\_FileManagerLayout.cshtml" />
+    <Content Include="Views\SuperFlexi\_SuperFlexiRazor.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />
@@ -3898,8 +3912,9 @@
     <Folder Include="ClientBin\" />
     <Folder Include="ClientScript\" />
     <Folder Include="Components\api\" />
-    <Folder Include="Data\" />
     <Folder Include="Setup\applications\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\RazorPartialBridge\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Browsers\generic.browser" />
@@ -3934,11 +3949,4 @@
   </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
 </Project>

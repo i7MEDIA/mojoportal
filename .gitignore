@@ -256,6 +256,8 @@ Web/Data/Helpfiles/*-WebInvoice*
 Web/Data/MessageTemplates/*-WebInvoice*
 Web/Data/MessageTemplates/*-EventCalendarPro*
 Web/Data/MessageTemplates/*Membership*
+Web/Data/MessageTemplates/*Forum*
+Web/Data/MessageTemplates/*Blog*
 
 Web/Data/Sites/*
 Web/Data/systemfiles/*
@@ -395,3 +397,10 @@ packages/repositories.config
 packages/repositories.config
 
 *.ini
+
+packages/
+Web/Setup/applications/superflexi/
+Web/SuperFlexi/
+Web/Setup/ProviderConfig/contentdeletehandlers/superflexideletehandler.config
+Web/Setup/ProviderConfig/indexbuilders/SuperFlexiIndexBuilderProvider.config
+Web/App_GlobalResources/SuperFlexiResources.resx

@@ -113,7 +113,7 @@ namespace mojoPortal.Web.UI
             }
         }
 
-        //// property added by Joe Audette 2010-02-16
+        //// property added by  2010-02-16
         //[Browsable(true)]
         //[Category("Behavior")]
         //[Description("AvgRating")]
@@ -198,7 +198,7 @@ namespace mojoPortal.Web.UI
             }
         }
 
-        // property added by Joe Audette
+        // property added by 
         [Browsable(true)]
         [Category("Behavior")]
         [Description("JsonUrl")]
@@ -218,7 +218,7 @@ namespace mojoPortal.Web.UI
             }
         }
 
-        // property added by Joe Audette
+        // property added by 
         [Browsable(true)]
         [Category("Behavior")]
         [Description("ContentId")]
@@ -238,7 +238,7 @@ namespace mojoPortal.Web.UI
             }
         }
 
-        // property added by Joe Audette
+        // property added by 
         [Browsable(true)]
         [Category("Behavior")]
         [Description("TotalVotesElementId")]
@@ -258,7 +258,7 @@ namespace mojoPortal.Web.UI
             }
         }
 
-        // property added by Joe Audette
+        // property added by 
         [Browsable(true)]
         [Category("Behavior")]
         [Description("CommentsEnabled")]

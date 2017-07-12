@@ -1,5 +1,5 @@
 // based on Sys.UI._UpdateProgress
-// modified by Joe Audette to work with soan instead of div
+// modified by  to work with soan instead of div
 // used in /Controls/UpdateProgressSpan.cs which is a modified version of UpdateProgress from the Mono project
 // last modified 2009-10-30
 

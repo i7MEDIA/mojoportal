@@ -15,7 +15,7 @@
     using mojoPortal.Net;
 
     /// <summary>
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2007-12-30
     /// Last Modified:			2008-01-11
     /// 

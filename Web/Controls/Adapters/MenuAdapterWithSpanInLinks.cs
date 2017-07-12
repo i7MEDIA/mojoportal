@@ -9,7 +9,7 @@
 /// 
 /// 
 /// 
-/// with modifications by Joe Audette
+/// with modifications by 
 /// Last Modified:      11/27/2006 
 /// added logic to use a different class for selected items
 /// 2011-03-02
@@ -318,7 +318,7 @@ namespace mojoPortal.Web
             }
             else if (IsChildItemSelected(item))
             {
-                // top if logic added by Joe Audette
+                // top if logic added by 
                 // so the topmost item is highlighted if
                 // a child or grandchild is the current page
                 if (item.Parent == null)

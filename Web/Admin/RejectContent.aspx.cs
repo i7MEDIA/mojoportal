@@ -1,7 +1,7 @@
 ﻿// Author:						Kevin Needham
 // Created:					    2009-06-23
 // Modified:               
-// 2011-02-26 Joe Audette
+// 2011-02-26 
 // 2013-04-24 Joe Davis
 // 
 // The use and distribution terms for this software are covered by the 

@@ -1,4 +1,4 @@
-//	Author:					Joe Audette
+//	Author:					
 // Last Modified:			2011-01-24
 
 using System;

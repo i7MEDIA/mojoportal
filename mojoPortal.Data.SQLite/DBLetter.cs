@@ -11,7 +11,7 @@ using Mono.Data.Sqlite;
 namespace mojoPortal.Data
 {
     // <summary>
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2007-12-27
     /// Last Modified:			2008-10-07
     /// 

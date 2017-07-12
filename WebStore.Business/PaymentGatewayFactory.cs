@@ -7,7 +7,7 @@ using PaymentGateway.Common;
 namespace WebStore.Business
 {
     /// <summary>
-    /// Author:					Joe Audette
+    /// Author:					
     /// Created:				2/13/2007
     /// Last Modified:		    2/14/2007
     /// 

@@ -385,7 +385,7 @@ namespace mojoPortal.Web
 
         private void WriteNodeExpander(TreeView treeView, TreeNode item, HtmlTextWriter writer)
         {
-            // 2007/05/03 Joe Audette re-implemented this and commented out the 
+            // 2007/05/03  re-implemented this and commented out the 
             // original implementation above.
             // this provides tooltip for expand/collapse icons
             // and provides reasonable functionality if

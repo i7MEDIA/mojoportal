@@ -1,4 +1,4 @@
-/// Author:				Joe Audette
+/// Author:				
 /// Created:			2004-08-22
 /// Last Modified:	    2013-04-07
 /// 
@@ -469,12 +469,12 @@ namespace mojoPortal.Web.UI
             //}
 
             //we need it enabled always in .NET 4 in order for viewstatemode to work
-#if NET35
-            if (WebConfigSettings.DisablePageViewStateByDefault)
-            {
-                this.EnableViewState = false;
-            }
-#endif
+            //#if NET35
+            //            if (WebConfigSettings.DisablePageViewStateByDefault)
+            //            {
+            //                this.EnableViewState = false;
+            //            }
+            //#endif
         }
 
 

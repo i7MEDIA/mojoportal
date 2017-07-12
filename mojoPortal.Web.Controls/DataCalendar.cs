@@ -18,7 +18,7 @@ namespace mojoPortal.Web.Controls
     ///	Mike has given permission to use this as we will with no conditions
     ///	though he does appreciate any reference to him in the credits or code
     ///	
-    /// Last Modified:		2008-01-28 Joe Audette
+    /// Last Modified:		2008-01-28 
     /// 
     /// </summary>
     public class DataCalendar : System.Web.UI.WebControls.Calendar, INamingContainer

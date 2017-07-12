@@ -78,10 +78,10 @@ namespace mojoPortal.Web
 
                     writer.WriteLine();
                     writer.WriteBeginTag("table");
-                    // added by Joe Audette 2007-11-04
+                    // added by  2007-11-04
                     writer.WriteAttribute("id", "tbl" + gridView.ClientID);
 
-                    // commented out by Joe Audette 2007-11-04
+                    // commented out by  2007-11-04
                     //writer.WriteAttribute("cellpadding", "0");
 
                     writer.WriteAttribute("cellspacing", "0");

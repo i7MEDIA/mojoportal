@@ -6,7 +6,7 @@ using System.Text;
 namespace mojoPortal.Web.Controls.google
 {
     /// <summary>
-    ///	Author:				Joe Audette
+    ///	Author:				
     ///	Created:			2008-08-12
     ///	Last Modified:		2008-08-12
     /// 

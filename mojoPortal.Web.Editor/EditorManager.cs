@@ -7,7 +7,7 @@ using System.Web.UI;
 namespace mojoPortal.Web.Editor
 {
     /// <summary>
-    /// Author:		        Joe Audette
+    /// Author:		        
     /// Created:            2007/05/18
     /// Last Modified:      2007/05/30
     ///

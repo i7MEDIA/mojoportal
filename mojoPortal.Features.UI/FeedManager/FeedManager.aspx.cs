@@ -1,4 +1,4 @@
-﻿/// Author:					Joe Audette and Walter Ferrari
+﻿/// Author:					 and Walter Ferrari
 /// Created:				2008-09-27
 /// Last Modified:			2013-02-03
 /// 
