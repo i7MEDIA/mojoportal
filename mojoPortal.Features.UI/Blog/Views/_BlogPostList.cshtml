@@ -1,0 +1,47 @@
+﻿@model IEnumerable<mojoPortal.Business.BlogPostModel>
+
+<div class="blog-postlist">
+    @foreach (var item in Model)
+    {
+        <article class="blogitem">
+            <header>
+                <h1 class="blogtitle"><a class="blogitemtitle" href="@item.ItemUrl">@item.Title</a></h1>
+                <h2 class="subtitle">@item.SubTitle</h2>
+            </header>
+            @if (!string.IsNullOrWhiteSpace(item.HeadlineImageUrl))
+            {
+                <div class="blog-postlist-itemimage">
+                    <img src="@item.HeadlineImageUrl" alt="@item.Title" />
+                </div>}
+
+            <div class="blog-postlist-itembody">
+                @Html.Raw(item.Body)
+            </div>
+            <footer>
+                @if (item.ShowAuthorName || item.ShowAuthorAvatar || item.ShowAuthorBio)
+                {
+                    <div class="blog-postlist-author">
+                        @if (item.ShowAuthorAvatar)
+                        {
+                            <span class="blog-postlist-author-avatar"><img src="@item.AuthorAvatar" alt="@item.AuthorDisplayName" /></span>
+                        }
+                        @if (item.ShowAuthorName)
+                        {
+                            <span class="blog-postlist-author-name">Posted by: @item.AuthorDisplayName</span>
+                        }
+                        @if (item.ShowAuthorBio && !string.IsNullOrWhiteSpace(item.AuthorBio))
+                        {
+                            <span class="blog-postlist-author-bio">@item.AuthorBio</span>
+                        }
+                    </div>
+                }
+                <div class="blog-postlist-date">@item.PostDate</div>
+                <div class="blog-postlist-social"></div>
+                @if (item.AllowCommentsForDays > -1)
+                {
+                    <a class="blog-postlist-commentlink" href="@(item.ItemUrl)#comments">@Resources.BlogResources.BlogFeedbackLabel (@item.CommentCount)</a>
+                }
+            </footer>
+        </article>
+    }
+</div>
