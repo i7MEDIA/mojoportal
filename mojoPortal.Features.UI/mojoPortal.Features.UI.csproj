@@ -255,9 +255,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BingMap\BingMapModule.ascx" />
+    <Content Include="Blog\Controls\BlogInstanceSetting.ascx" />
+    <Content Include="Blog\PostListModule.ascx" />
     <Content Include="Blog\ClosedPosts.aspx" />
     <Content Include="Blog\CommentDialog.aspx" />
     <Content Include="Blog\Controls\BlogNav.ascx" />
+    <Content Include="Blog\Controls\PostListAdvanced.ascx" />
+    <Content Include="Blog\Controls\PostListThemeSelector.ascx" />
     <Content Include="Blog\Controls\PublicationAccessSetting.ascx" />
     <Content Include="Blog\Controls\SearchBox.ascx" />
     <Content Include="Blog\Controls\PostList.ascx" />
@@ -426,6 +430,20 @@
     <Compile Include="Blog\BlogCompare.aspx.designer.cs">
       <DependentUpon>BlogCompare.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Blog\Controls\BlogInstanceSetting.ascx.cs">
+      <DependentUpon>BlogInstanceSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogInstanceSetting.ascx.designer.cs">
+      <DependentUpon>BlogInstanceSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\PostListModule.ascx.cs">
+      <DependentUpon>PostListModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\PostListModule.ascx.designer.cs">
+      <DependentUpon>PostListModule.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Blog\BlogUrlSuggestService.ashx.cs">
       <DependentUpon>BlogUrlSuggestService.ashx</DependentUpon>
     </Compile>
@@ -448,6 +466,7 @@
     <Compile Include="Blog\Components\BlogContentInstaller.cs" />
     <Compile Include="Blog\Components\BlogIndexBuilderProvider.cs" />
     <Compile Include="Blog\Components\BlogNotification.cs" />
+    <Compile Include="Blog\Components\BlogPostListAdvancedConfiguration.cs" />
     <Compile Include="Blog\Components\SitePreDeleteBlogHandler.cs" />
     <Compile Include="Blog\Controls\ArchiveViewControl.ascx.cs">
       <DependentUpon>ArchiveViewControl.ascx</DependentUpon>
@@ -470,6 +489,21 @@
     </Compile>
     <Compile Include="Blog\Controls\BlogNav.ascx.designer.cs">
       <DependentUpon>BlogNav.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogPostListDisplaySettings.cs" />
+    <Compile Include="Blog\Controls\PostListAdvanced.ascx.cs">
+      <DependentUpon>PostListAdvanced.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\PostListAdvanced.ascx.designer.cs">
+      <DependentUpon>PostListAdvanced.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\PostListThemeSelector.ascx.cs">
+      <DependentUpon>PostListThemeSelector.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\PostListThemeSelector.ascx.designer.cs">
+      <DependentUpon>PostListThemeSelector.ascx</DependentUpon>
     </Compile>
     <Compile Include="Blog\Controls\PublicationAccessSetting.ascx.cs">
       <DependentUpon>PublicationAccessSetting.ascx</DependentUpon>
@@ -1890,6 +1924,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Forums\Mod.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\FeatureDefinitions\20001_BlogPostListModule.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
