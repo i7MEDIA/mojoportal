@@ -1,14 +1,5 @@
-// Author:
 // Created:				    2004-08-14
-// Last Modified:			2017-06-06
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
+// Last Modified:			2017-07-13
 
 using log4net;
 using mojoPortal.Data;
@@ -1229,7 +1220,7 @@ namespace mojoPortal.Business
 			dataTable.Columns.Add("IsPublished", typeof(bool));
 			dataTable.Columns.Add("IncludeInFeed", typeof(bool));
 			dataTable.Columns.Add("CommentCount", typeof(int));
-
+            dataTable.Columns.Add("AllowCommentsForDays", typeof(int));
 			dataTable.Columns.Add("UserID", typeof(int));
 			dataTable.Columns.Add("Name", typeof(string));
 			dataTable.Columns.Add("FirstName", typeof(string));
@@ -1298,6 +1289,12 @@ namespace mojoPortal.Business
 					row["IsPublished"] = true;
 					row["IncludeInFeed"] = Convert.ToBoolean(reader["IncludeInFeed"]);
 					row["CommentCount"] = Convert.ToInt32(reader["CommentCount"]);
+
+                    if (reader["AllowCommentsForDays"] != DBNull.Value)
+                    {
+                        row["AllowCommentsForDays"] = reader["AllowCommentsForDays"];
+                    }
+
 					row["UserID"] = Convert.ToInt32(reader["UserID"]);
 					row["Name"] = reader["Name"];
 					row["FirstName"] = reader["FirstName"];

@@ -1,6 +1,6 @@
 // Author:
 // Created:				    2007-11-03
-// Last Modified:			2017-06-06
+// Last Modified:			2017-07-13
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -910,7 +910,7 @@ namespace mojoPortal.Data
 			bool includeImageInPost
 		)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Blog_Update", 50);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Blog_Update", 52);
             sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemId);
             sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
             sph.DefineSqlParameter("@UserName", SqlDbType.NVarChar, 100, ParameterDirection.Input, userName);
@@ -930,6 +930,7 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@CompiledMeta", SqlDbType.NVarChar, -1, ParameterDirection.Input, compiledMeta);
             sph.DefineSqlParameter("@IsPublished", SqlDbType.Bit, ParameterDirection.Input, isPublished);
             sph.DefineSqlParameter("@SubTitle", SqlDbType.NVarChar, 500, ParameterDirection.Input, subTitle);
+
             if (endDate < DateTime.MaxValue)
             {
                 sph.DefineSqlParameter("@EndDate", SqlDbType.DateTime, ParameterDirection.Input, endDate);
@@ -966,7 +967,6 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@ShowDownloadLink", SqlDbType.Bit, ParameterDirection.Input, showDownloadLink);
             sph.DefineSqlParameter("@IncludeInSiteMap", SqlDbType.Bit, ParameterDirection.Input, includeInSiteMap);
             sph.DefineSqlParameter("@ExcludeFromRecentContent", SqlDbType.Bit, ParameterDirection.Input, excludeFromRecentContent);
-
             sph.DefineSqlParameter("@IncludeInNews", SqlDbType.Bit, ParameterDirection.Input, includeInNews);
             sph.DefineSqlParameter("@PubName", SqlDbType.NVarChar, 255, ParameterDirection.Input, pubName);
             sph.DefineSqlParameter("@PubLanguage", SqlDbType.NVarChar, 7, ParameterDirection.Input, pubLanguage);
@@ -990,7 +990,6 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@CommentCount", SqlDbType.Int, ParameterDirection.Input, commentCount);
             int rowsAffected = sph.ExecuteNonQuery();
             return (rowsAffected > -1);
-
         }
 
         public static bool AddBlogComment(
