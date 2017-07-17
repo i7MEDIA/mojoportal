@@ -64,9 +64,9 @@ namespace mojoPortal.Web.AdminUI
             lnkCacheTool.Text = DevTools.CacheTool;
             lnkCacheTool.NavigateUrl = SiteRoot + "/DesignTools/CacheTool.aspx";
 
-            liLessUtility.Visible = WebConfigSettings.EnableLessUtility;
-            lnkLessUtility.Text = DevTools.LessUtility;
-            lnkLessUtility.NavigateUrl = SiteRoot + "/DesignTools/LessUtility.aspx";
+            //liLessUtility.Visible = WebConfigSettings.EnableLessUtility;
+            //lnkLessUtility.Text = DevTools.LessUtility;
+            //lnkLessUtility.NavigateUrl = SiteRoot + "/DesignTools/LessUtility.aspx";
 
             AddClassToBody("administration");
             AddClassToBody("designtools");

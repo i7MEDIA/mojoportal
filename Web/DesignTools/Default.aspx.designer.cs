@@ -139,24 +139,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.HyperLink lnkCacheTool;
         
         /// <summary>
-        /// liLessUtility control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLessUtility;
-        
-        /// <summary>
-        /// lnkLessUtility control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkLessUtility;
-        
-        /// <summary>
         /// litSupplementalLinks control.
         /// </summary>
         /// <remarks>

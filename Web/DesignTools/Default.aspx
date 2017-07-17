@@ -21,9 +21,9 @@
                         <li>
                             <asp:hyperlink id="lnkCacheTool" runat="server" cssclass="lnkCacheTool" />
                         </li>
-                        <li id="liLessUtility" runat="server">
+<%--                        <li id="liLessUtility" runat="server">
                             <asp:hyperlink id="lnkLessUtility" runat="server" cssclass="lnkLessUtility" />
-                        </li>
+                        </li>--%>
                         <asp:literal id="litSupplementalLinks" runat="server" />
                     </ul>
                 </portal:InnerBodyPanel>
@@ -33,5 +33,8 @@
         <mp:CornerRounderBottom ID="cbottom1" runat="server" EnableViewState="false" />
     </portal:OuterWrapperPanel>
 </asp:content>
-<asp:content contentplaceholderid="rightContent" id="MPRightPane" runat="server" />
-<asp:content contentplaceholderid="pageEditContent" id="MPPageEdit" runat="server" />
+<asp:content contentplaceholderid="rightContent" id="MPRightPane" runat="server" >
+</asp:Content>
+<asp:content contentplaceholderid="pageEditContent" id="MPPageEdit" runat="server" >
+</asp:Content>
+
