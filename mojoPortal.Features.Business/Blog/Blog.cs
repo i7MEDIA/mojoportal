@@ -1,5 +1,5 @@
 // Created:				    2004-08-14
-// Last Modified:			2017-07-13
+// Last Modified:			2017-07-17
 
 using log4net;
 using mojoPortal.Data;
@@ -85,8 +85,8 @@ namespace mojoPortal.Business
 		private string searchIndexPath = string.Empty;
 
 
-		
-		
+
+
 
 		#endregion
 
@@ -409,7 +409,7 @@ namespace mojoPortal.Business
 			set { excludeFromRecentContent = value; }
 		}
 
-	   
+
 
 
 
@@ -929,7 +929,7 @@ namespace mojoPortal.Business
 		private bool Update()
 		{
 			lastModUtc = DateTime.UtcNow;
-			if ((approved)&&(approvedDate == DateTime.MaxValue)) { approvedDate = DateTime.UtcNow; }
+			if ((approved) && (approvedDate == DateTime.MaxValue)) { approvedDate = DateTime.UtcNow; }
 
 			bool result = DBBlog.UpdateBlog(
 				moduleID,
@@ -1169,7 +1169,7 @@ namespace mojoPortal.Business
 		private static DataTable GetCategoryTableStructure()
 		{
 			DataTable dataTable = new DataTable();
-			
+
 			dataTable.Columns.Add("ID", typeof(int));
 			dataTable.Columns.Add("ItemID", typeof(int));
 			dataTable.Columns.Add("CategoryID", typeof(int));
@@ -1199,8 +1199,8 @@ namespace mojoPortal.Business
 		{
 			DataTable dataTable = new DataTable();
 
-		   
-			
+
+
 			dataTable.Columns.Add("ModuleID", typeof(int));
 			dataTable.Columns.Add("BlogGuid", typeof(string));
 			dataTable.Columns.Add("ItemID", typeof(int));
@@ -1220,7 +1220,7 @@ namespace mojoPortal.Business
 			dataTable.Columns.Add("IsPublished", typeof(bool));
 			dataTable.Columns.Add("IncludeInFeed", typeof(bool));
 			dataTable.Columns.Add("CommentCount", typeof(int));
-            dataTable.Columns.Add("AllowCommentsForDays", typeof(int));
+			dataTable.Columns.Add("AllowCommentsForDays", typeof(int));
 			dataTable.Columns.Add("UserID", typeof(int));
 			dataTable.Columns.Add("Name", typeof(string));
 			dataTable.Columns.Add("FirstName", typeof(string));
@@ -1264,7 +1264,7 @@ namespace mojoPortal.Business
 
 			DataTable posts = GetPostsTableStructure();
 
-			using(IDataReader reader = GetPage(moduleId,beginDate,pageNumber, pageSize, out totalPages))
+			using (IDataReader reader = GetPage(moduleId, beginDate, pageNumber, pageSize, out totalPages))
 			{
 				while (reader.Read())
 				{
@@ -1290,10 +1290,10 @@ namespace mojoPortal.Business
 					row["IncludeInFeed"] = Convert.ToBoolean(reader["IncludeInFeed"]);
 					row["CommentCount"] = Convert.ToInt32(reader["CommentCount"]);
 
-                    if (reader["AllowCommentsForDays"] != DBNull.Value)
-                    {
-                        row["AllowCommentsForDays"] = reader["AllowCommentsForDays"];
-                    }
+					if (reader["AllowCommentsForDays"] != DBNull.Value)
+					{
+						row["AllowCommentsForDays"] = reader["AllowCommentsForDays"];
+					}
 
 					row["UserID"] = Convert.ToInt32(reader["UserID"]);
 					row["Name"] = reader["Name"];
@@ -1490,7 +1490,7 @@ namespace mojoPortal.Business
 					dataSet.Tables["Posts"].Columns["ItemID"],
 					dataSet.Tables["Categories"].Columns["ItemID"]);
 			}
-			catch (System.Data.ConstraintException){ }
+			catch (System.Data.ConstraintException) { }
 			catch (ArgumentException) { }
 
 			try
@@ -1715,7 +1715,7 @@ namespace mojoPortal.Business
 			{
 				while (reader.Read())
 				{
-			   
+
 					DataRow row = attachments.NewRow();
 
 					row["RowGuid"] = reader["RowGuid"];
@@ -2358,7 +2358,7 @@ namespace mojoPortal.Business
 			dataTable.Columns.Add("ItemID", typeof(int));
 			dataTable.Columns.Add("Heading", typeof(string));
 			dataTable.Columns.Add("ItemUrl", typeof(string));
-			
+
 
 			int counter = 1;
 
@@ -2645,7 +2645,7 @@ namespace mojoPortal.Business
 						row["ExcludeFromRecentContent"] = false;
 					}
 
-					
+
 
 					dataTable.Rows.Add(row);
 				}
