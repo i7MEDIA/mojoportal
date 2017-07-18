@@ -181,7 +181,7 @@ namespace mojoPortal.Web.BlogUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlDetails;
+        protected global::mojoPortal.Web.UI.BasePanel pnlDetails;
         
         /// <summary>
         /// Rating control.
@@ -209,6 +209,15 @@ namespace mojoPortal.Web.BlogUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal featuredImagePostTop;
+        
+        /// <summary>
+        /// pnlBlogText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlBlogText;
         
         /// <summary>
         /// litDescription control.
@@ -298,7 +307,7 @@ namespace mojoPortal.Web.BlogUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlExcerpt;
+        protected global::mojoPortal.Web.UI.BasePanel pnlExcerpt;
         
         /// <summary>
         /// featuredImageExcerptTop control.
@@ -308,6 +317,15 @@ namespace mojoPortal.Web.BlogUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal featuredImageExcerptTop;
+        
+        /// <summary>
+        /// pnlBlogTextExpt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlBlogTextExpt;
         
         /// <summary>
         /// litExcerpt control.
@@ -337,31 +355,31 @@ namespace mojoPortal.Web.BlogUI {
         protected global::System.Web.UI.UserControl srPrompt;
         
         /// <summary>
-        /// pnlAuthorInfo control.
+        /// pnlAuthor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlAuthorInfo;
+        protected global::mojoPortal.Web.UI.BasePanel pnlAuthor;
         
         /// <summary>
-        /// userAvatar control.
+        /// av1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.UI.Avatar userAvatar;
+        protected global::mojoPortal.Web.UI.Avatar av1;
         
         /// <summary>
-        /// spnAuthorBio control.
+        /// lblAuthorBio control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spnAuthorBio;
+        protected global::System.Web.UI.WebControls.Label lblAuthorBio;
         
         /// <summary>
         /// pnlBottomDate control.

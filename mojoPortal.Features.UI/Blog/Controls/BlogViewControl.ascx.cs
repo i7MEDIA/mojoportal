@@ -302,8 +302,6 @@ namespace mojoPortal.Web.BlogUI
 			litAuthorBottom.Visible = blog.ShowAuthorName;
 			litDescription.Text = blog.Description;
 			litExcerpt.Text = GetExcerpt(blog);
-			spnAuthorBio.InnerHtml = blog.AuthorBio;
-			spnAuthorBio.Visible = blog.ShowAuthorBio && displaySettings.ShowAuthorBioInPostDetail && (blog.AuthorBio.Length > 0);
 
 			if (blog.HeadlineImageUrl != "")
 			{
@@ -873,22 +871,56 @@ namespace mojoPortal.Web.BlogUI
 
 			}
 
+
+			if (!pnlExcerpt.Visible) {
+				pnlDetails.RenderContentsOnly = !displaySettings.PostViewRenderPostPanel;
+			}
+			else
+			{
+				pnlExcerpt.RenderContentsOnly = !displaySettings.PostViewRenderPostPanel;
+			}
+
+			pnlDetails.RenderId = false;
+			pnlExcerpt.RenderId = false;
+
+			pnlBlogText.CssClass = displaySettings.PostViewPostBodyClass;
+			pnlBlogText.RenderId = false;
+
+			pnlBlogTextExpt.CssClass = displaySettings.PostViewPostBodyClass;
+			pnlBlogTextExpt.RenderId = false;
+
 			if (!blog.ShowAuthorAvatar) { disableAvatars = true; }
 			if (displaySettings.HideAvatarInPostDetail) { disableAvatars = true; }
 
-			pnlAuthorInfo.Visible = (!disableAvatars) || (blog.ShowAuthorBio && displaySettings.ShowAuthorBioInPostDetail && (!pnlExcerpt.Visible));
+			pnlAuthor.Visible = !disableAvatars || (blog.ShowAuthorBio && displaySettings.ShowAuthorBioInPostDetail && !pnlExcerpt.Visible);
+			pnlAuthor.CssClass = displaySettings.AuthorInfoPanelClass;
 
-			userAvatar.Email = blog.UserEmail;
-			userAvatar.UserName = blog.UserName;
-			userAvatar.UserId = blog.UserId;
-			userAvatar.AvatarFile = blog.UserAvatar;
-			userAvatar.MaxAllowedRating = MaxAllowedGravatarRating;
-			userAvatar.Disable = disableAvatars;
-			userAvatar.UseGravatar = allowGravatars;
-			userAvatar.SiteId = basePage.SiteInfo.SiteId;
-			userAvatar.UserNameTooltipFormat = displaySettings.AvatarUserNameTooltipFormat;
-			userAvatar.UseLink = UseProfileLinkForAvatar();
-			userAvatar.SiteRoot = SiteRoot;
+			lblAuthorBio.Visible = blog.ShowAuthorBio && displaySettings.ShowAuthorBioInPostDetail && !string.IsNullOrWhiteSpace(blog.AuthorBio);
+			lblAuthorBio.Text = blog.AuthorBio;
+			lblAuthorBio.CssClass = displaySettings.AuthorBioClass;
+
+			av1.Email = blog.UserEmail;
+			av1.UserName = blog.UserName;
+			av1.UserId = blog.UserId;
+			av1.AvatarFile = blog.UserAvatar;
+			av1.MaxAllowedRating = MaxAllowedGravatarRating;
+			av1.Disable = disableAvatars;
+			av1.UseGravatar = allowGravatars;
+			av1.SiteId = basePage.SiteInfo.SiteId;
+			av1.UserNameTooltipFormat = displaySettings.AvatarUserNameTooltipFormat;
+			av1.UseLink = UseProfileLinkForAvatar();
+			av1.SiteRoot = SiteRoot;
+			av1.CssClass = displaySettings.AvatarCssClass;
+			av1.ExtraCssClass = displaySettings.AvatarExtraCssClass;
+
+			if (
+				disableAvatars ||
+				displaySettings.HideAvatarInPostList ||
+				!Convert.ToBoolean(blog.ShowAuthorAvatar)
+			)
+			{
+				av1.Disable = true;
+			}
 
 			// if (pnlExcerpt.Visible) { userAvatar.Visible = false; }
 

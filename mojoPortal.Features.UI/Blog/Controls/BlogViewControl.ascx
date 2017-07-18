@@ -66,16 +66,16 @@
 
 					<asp:Literal ID="litSubtitle" runat="server" EnableViewState="false" />
 
-					<asp:Panel ID="pnlDetails" runat="server">
+					<portal:BasePanel runat="server" ID="pnlDetails">
 						<portal:mojoRating runat="server" ID="Rating" Enabled="false" />
 
 						<mp:OdiogoItem ID="odiogoPlayer" runat="server" EnableViewState="false" />
 
 						<asp:Literal runat="server" ID="featuredImagePostTop" Visible="false" />
 
-						<div class="blogtext">
+						<portal:BasePanel runat="server" ID="pnlBlogText">
 							<asp:Literal ID="litDescription" runat="server" EnableViewState="false" />
-						</div>
+						</portal:BasePanel>
 
 						<asp:Literal runat="server" ID="featuredImagePostBottom" Visible="false" />
 
@@ -95,24 +95,24 @@
 						</asp:Panel>
 
 						<asp:Panel ID="pnlBingDirections" runat="server" Visible="false" CssClass="drivingdirections"></asp:Panel>
-					</asp:Panel>
+					</portal:BasePanel>
 
-					<asp:Panel ID="pnlExcerpt" runat="server" Visible="false">
+					<portal:BasePanel runat="server" ID="pnlExcerpt" Visible="false">
 						<asp:Literal runat="server" ID="featuredImageExcerptTop" Visible="false" />
 
-						<div class="blogtext">
+						<portal:BasePanel runat="server" ID="pnlBlogTextExpt">
 							<asp:Literal ID="litExcerpt" runat="server" EnableViewState="false" />
-						</div>
+						</portal:BasePanel>
 
 						<asp:Literal runat="server" ID="featuredImageExcerptBottom" Visible="false" />
 
 						<portal:SignInOrRegisterPrompt ID="srPrompt" runat="server" />
-					</asp:Panel>
+					</portal:BasePanel>
 
-					<asp:Panel ID="pnlAuthorInfo" runat="server" EnableViewState="false" CssClass="authorinfo">
-						<portal:Avatar ID="userAvatar" runat="server" />
-						<span id="spnAuthorBio" runat="server" visible="false" enableviewstate="false" class="authorbio"></span>
-					</asp:Panel>
+					<portal:BasePanel runat="server" ID="pnlAuthor" EnableViewState="false" RenderId="false">
+						<portal:Avatar runat="server" ID="av1" />
+						<asp:Label runat="server" ID="lblAuthorBio" />
+					</portal:BasePanel>
 
 					<blog:BlogDatePanel ID="pnlBottomDate" runat="server" Visible="false" CssClass="clear blogdate">
 						<span class="blogauthor">

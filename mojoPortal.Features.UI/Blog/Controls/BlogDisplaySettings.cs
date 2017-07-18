@@ -250,6 +250,14 @@ namespace mojoPortal.Web.BlogUI
 			set => listViewPostBodyClass = value;
 		}
 
+		private string postViewPostBodyClass = "blogtext";
+
+		public string PostViewPostBodyClass
+		{
+			get => postViewPostBodyClass;
+			set => postViewPostBodyClass = value;
+		}
+
 		private bool listViewRenderPostPanel = true;
 
 		public bool ListViewRenderPostPanel
@@ -258,12 +266,28 @@ namespace mojoPortal.Web.BlogUI
 			set => listViewRenderPostPanel = value;
 		}
 
+		private bool postViewRenderPostPanel = true;
+
+		public bool PostViewRenderPostPanel
+		{
+			get => postViewRenderPostPanel;
+			set => postViewRenderPostPanel = value;
+		}
+
 		private string authorInfoPanelClass = "avatarwrap authorinfo";
 
 		public string AuthorInfoPanelClass
 		{
 			get => authorInfoPanelClass;
 			set => authorInfoPanelClass = value;
+		}
+
+		private string authorBioClass = "authorbio";
+
+		public string AuthorBioClass
+		{
+			get => authorBioClass;
+			set => authorBioClass = value;
 		}
 
 		private string datePanelClass = "blogdate";
@@ -797,6 +821,22 @@ namespace mojoPortal.Web.BlogUI
 		{
 			get { return showAuthorBioInPostDetail; }
 			set { showAuthorBioInPostDetail = value; }
+		}
+
+		private string avatarCssClass = string.Empty;
+
+		public string AvatarCssClass
+		{
+			get => avatarCssClass;
+			set => avatarCssClass = value;
+		}
+
+		private string avatarExtraCssClass = string.Empty;
+
+		public string AvatarExtraCssClass
+		{
+			get => avatarExtraCssClass;
+			set => avatarExtraCssClass = value;
 		}
 
 		private bool showArchivesInPostDetail = false;
