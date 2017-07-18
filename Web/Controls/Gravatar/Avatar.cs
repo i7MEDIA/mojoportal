@@ -280,7 +280,14 @@ namespace mojoPortal.Web.UI
             set { gravatarFallbackEmailAddress = value; }
         }
 
-        private void DoAutoConfiguration()
+		private string extraCssClass = string.Empty;
+		public string ExtraCssClass
+		{
+			get => extraCssClass;
+			set => extraCssClass = value;
+		}
+
+		private void DoAutoConfiguration()
         {
             if (disable) { return; }
             SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
@@ -330,11 +337,19 @@ namespace mojoPortal.Web.UI
             }
 
             if (disable) { return; }
-            //if (siteId == -1) { return; }
+			//if (siteId == -1) { return; }
 
-            
+			if (CssClass.Length == 0)
+			{
+				CssClass = "avatar";
+			}
 
-            if (useGravatar)
+			if (!string.IsNullOrWhiteSpace(ExtraCssClass))
+			{
+				CssClass = CssClass + " " + ExtraCssClass;
+			}
+
+			if (useGravatar)
             {
                 if (string.IsNullOrEmpty(Email)) 
                 {
@@ -348,15 +363,12 @@ namespace mojoPortal.Web.UI
                     }
                 }
 
-                if (CssClass.Length == 0) { CssClass = "avatar"; }
-                RenderGravater(output);
+				RenderGravater(output);
             }
             else
             {
                 RenderInternalAvatar(output);
             }
-
-            
         }
 
         protected void RenderInternalAvatar(HtmlTextWriter output)
@@ -380,12 +392,12 @@ namespace mojoPortal.Web.UI
                 // if we know the user is signed in and not in a role allowed then return username without a profile link
                 if ((!useLink)||(_linkUrl.Length == 0))
                 {
-                    return "<img  alt='" + LinkTitle + "' src='" + GetInternalAvatarUrl() + "' class='avatar' />";
+                    return "<img  alt='" + LinkTitle + "' src='" + GetInternalAvatarUrl() + "' class='" + CssClass + "' />";
                 }
             //}
 
 
-                return "<a rel='nofollow' href='" + GetProfileUrl() + "' class='avatar'><img  alt='" + GetAltText() + "' src='" + GetInternalAvatarUrl() + "' /></a>";
+                return "<a rel='nofollow' href='" + GetProfileUrl() + "' class='" + CssClass + "'><img  alt='" + GetAltText() + "' src='" + GetInternalAvatarUrl() + "' /></a>";
 
 
         }
