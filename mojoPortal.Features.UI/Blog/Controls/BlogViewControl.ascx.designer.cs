@@ -382,13 +382,13 @@ namespace mojoPortal.Web.BlogUI {
         protected global::System.Web.UI.WebControls.Label lblAuthorBio;
         
         /// <summary>
-        /// pnlBottomDate control.
+        /// pnlDateBottom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.BlogUI.BlogDatePanel pnlBottomDate;
+        protected global::mojoPortal.Web.BlogUI.BlogDatePanel pnlDateBottom;
         
         /// <summary>
         /// litAuthorBottom control.

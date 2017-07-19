@@ -114,7 +114,7 @@
 						<asp:Label runat="server" ID="lblAuthorBio" />
 					</portal:BasePanel>
 
-					<blog:BlogDatePanel ID="pnlBottomDate" runat="server" Visible="false" CssClass="clear blogdate">
+					<blog:BlogDatePanel ID="pnlDateBottom" runat="server" CssClass="clear blogdate">
 						<span class="blogauthor">
 							<asp:Literal ID="litAuthorBottom" runat="server" EnableViewState="false" Visible="false" />
 						</span>

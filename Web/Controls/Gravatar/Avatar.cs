@@ -350,7 +350,7 @@ namespace mojoPortal.Web.UI
 
 			if (!string.IsNullOrWhiteSpace(ExtraCssClass))
 			{
-				CssClass = CssClass + " " + ExtraCssClass;
+				CssClass += " " + ExtraCssClass;
 			}
 
 			if (useGravatar)

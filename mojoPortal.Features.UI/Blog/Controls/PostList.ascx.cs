@@ -502,6 +502,21 @@ namespace mojoPortal.Web.BlogUI
 				socialPanel.Visible = true;
 			}
 
+			Avatar av1 = (Avatar)e.Item.FindControl("av1");
+			av1.Email = Convert.ToString(((DataRowView)e.Item.DataItem).Row["Email"]);
+			av1.UserName = Convert.ToString(((DataRowView)e.Item.DataItem).Row["Name"]);
+			av1.UserId = Convert.ToInt32(((DataRowView)e.Item.DataItem).Row["UserID"]);
+			av1.AvatarFile = Convert.ToString(((DataRowView)e.Item.DataItem).Row["AvatarUrl"]);
+			av1.MaxAllowedRating = MaxAllowedGravatarRating;
+			av1.Disable = disableAvatars;
+			av1.UseGravatar = allowGravatars;
+			av1.SiteId = basePage.SiteInfo.SiteId;
+			av1.UserNameTooltipFormat = displaySettings.AvatarUserNameTooltipFormat;
+			av1.UseLink = UseProfileLinkForAvatar();
+			av1.SiteRoot = SiteRoot;
+			av1.CssClass = displaySettings.AvatarCssClass;
+			av1.ExtraCssClass = displaySettings.AvatarExtraCssClass;
+
 			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
 			{
 				string ItemId = Convert.ToInt32(((DataRowView)e.Item.DataItem).Row.ItemArray[2]).ToInvariantString();
@@ -551,6 +566,22 @@ namespace mojoPortal.Web.BlogUI
 			}
 		}
 
+		protected bool UseProfileLinkForAvatar()
+		{
+			if (!displaySettings.LinkAuthorAvatarToProfile) { return false; }
+
+			if (Request.IsAuthenticated)
+			{
+				// if we know the user is signed in and not in a role allowed then return username without a profile link
+				if (!WebUser.IsInRoles(basePage.SiteInfo.RolesThatCanViewMemberList))
+				{
+					return false;
+				}
+			}
+
+			// if user is not authenticated we don't know if he will be allowed but he will be prompted to login first so its ok to show the link
+			return true;
+		}
 
 		protected virtual void PopulateLabels()
 		{
@@ -613,11 +644,13 @@ namespace mojoPortal.Web.BlogUI
 
 			return
 				"<" +
-				displaySettings.ListItemSubtitleElement +
-				" class='subtitle'>" +
+				displaySettings.ListViewPostSubtitleElement +
+				" class='" +
+				displaySettings.ListViewPostSubtitleClass +
+				"'>" +
 				subTitle +
 				"</" +
-				displaySettings.ListItemSubtitleElement +
+				displaySettings.ListViewPostSubtitleElement +
 				">"
 			;
 		}
@@ -952,6 +985,7 @@ namespace mojoPortal.Web.BlogUI
 					}
 
 					break;
+
 				case "ByMonth":
 					if (displaySettings.ArchiveListForceTitleOnly)
 					{
@@ -967,6 +1001,7 @@ namespace mojoPortal.Web.BlogUI
 					{
 						itemHeadingElement = displaySettings.OverrideArchiveListItemHeadingElement;
 					}
+
 					break;
 
 				case "DescendingByDate":
@@ -1016,7 +1051,7 @@ namespace mojoPortal.Web.BlogUI
 			if (
 				config.ShowCalendar ||
 				config.ShowArchives ||
-				config.ShowFeedLinks ||
+				((config.ShowFeedLinks == true && displaySettings.HideFeedLinks == false) ? true : false) ||
 				config.ShowCategories ||
 				config.ShowStatistics ||
 				!string.IsNullOrWhiteSpace(config.UpperSidebar) ||

@@ -901,22 +901,49 @@ namespace mojoPortal.Web.BlogUI
 			set { showSubTitleOnList = value; }
 		}
 
-		private string postDetailSubTitleElement = "h3";
-
 		public string PostDetailSubTitleElement
 		{
-			get { return postDetailSubTitleElement; }
-			set { postDetailSubTitleElement = value; }
+			get { return postViewSubtitleElement; }
+			set { postViewSubtitleElement = value; }
 		}
 
-		private string listItemSubtitleElement = "span";
+		private string postViewSubtitleElement = "h3";
+
+		public string PostViewSubtitleElement
+		{
+			get { return postViewSubtitleElement; }
+			set { postViewSubtitleElement = value; }
+		}
+
+		private string postViewSubtitleClass = "subtitle";
+
+		public string PostViewSubtitleClass
+		{
+			get { return postViewSubtitleClass; }
+			set { postViewSubtitleClass = value; }
+		}
 
 		public string ListItemSubtitleElement
 		{
-			get { return listItemSubtitleElement; }
-			set { listItemSubtitleElement = value; }
+			get { return listViewPostSubtitleElement; }
+			set { listViewPostSubtitleElement = value; }
 		}
 
+		private string listViewPostSubtitleElement = "span";
+
+		public string ListViewPostSubtitleElement
+		{
+			get { return listViewPostSubtitleElement; }
+			set { listViewPostSubtitleElement = value; }
+		}
+
+		private string listViewPostSubtitleClass = "subtitle";
+
+		public string ListViewPostSubtitleClass
+		{
+			get { return listViewPostSubtitleClass; }
+			set { listViewPostSubtitleClass = value; }
+		}
 
 		private bool showSearchInNav = false;
 

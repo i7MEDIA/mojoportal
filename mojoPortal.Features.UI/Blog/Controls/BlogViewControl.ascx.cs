@@ -202,12 +202,18 @@ namespace mojoPortal.Web.BlogUI
 
 			heading.Text = blog.Title;
 
-			if ((displaySettings.ShowSubTitleOnDetailPage) && (blog.SubTitle.Length > 0))
+			if (displaySettings.ShowSubTitleOnDetailPage && (blog.SubTitle.Length > 0))
 			{
-				litSubtitle.Text = "<" + displaySettings.PostDetailSubTitleElement
-					+ " class='subtitle'>"
-					+ blog.SubTitle
-					+ "</" + displaySettings.PostDetailSubTitleElement + ">";
+				litSubtitle.Text = 
+					"<" +
+					displaySettings.PostViewSubtitleElement +
+					" class='" +
+					displaySettings.PostViewSubtitleClass +
+					"'>" +
+					blog.SubTitle +
+					"</" +
+					displaySettings.PostViewSubtitleElement +
+					">";
 			}
 
 			if (CanEditPost(blog))
@@ -796,10 +802,31 @@ namespace mojoPortal.Web.BlogUI
 				}
 			}
 
-			if (displaySettings.BlogViewUseBottomDate)
+			pnlDateTop.RenderId = false;
+			pnlDateTop.CssClass = displaySettings.DatePanelClass;
+
+			if (displaySettings.DateBottomPanelClass != "")
+			{
+				pnlDateTop.CssClass += " " + displaySettings.DateTopPanelClass;
+			}
+
+			pnlDateBottom.RenderId = false;
+			pnlDateBottom.CssClass = displaySettings.DatePanelClass;
+
+			if (displaySettings.DateBottomPanelClass != "")
+			{
+				pnlDateBottom.CssClass += " " + displaySettings.DateBottomPanelClass;
+			}
+
+			if (!displaySettings.BlogViewUseBottomDate)
+			{
+				pnlDateTop.Visible = true;
+				pnlDateBottom.Visible = false;
+			}
+			else
 			{
 				pnlDateTop.Visible = false;
-				pnlBottomDate.Visible = true;
+				pnlDateBottom.Visible = true;
 			}
 
 			if (displaySettings.BlogViewHideTopPager)
