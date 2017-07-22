@@ -1,10 +1,11 @@
 General Notes for developers working with the Visual Studio Solutions
 
-Hopefully you got the source code using TortoiseHG as described here:
+Hopefully you got the source code using GitHub as described here:
 http://www.mojoportal.com/getting-the-code-with-tortoisehg.aspx
-While the codeplex site generates download links with .zip files of the source code, I do not recommend getting the source code that way. I'm not sure what voodoo they use to produce those .zip files and people often report weird problems using the source code when they obtained it that way. If I could remove those links from the codeplex page I would, the only correct way to get the ource code is using TortoiseHG. Using TortoiseHG also makes it easier to get bug fixes and improvements as soon as they are in the repository. There is no need to wait for official new releases, our goal is for the default branch of the repository to always be stable.
 
-Using the mojoPortal Source Code requires Visual Studio 2013 update 4 and .NET 4.5, look under Help > About in VS to find the version
+While GitHub generates download links with .zip files of the source code, I do not recommend getting the source code that way.
+
+Using the mojoPortal Source Code requires Visual Studio 2017 and .NET 4.6.2 (although Visual Studio 2015 Update 3 can work if you follow the instructions here: https://stackoverflow.com/questions/39461407/how-to-use-c7-with-visual-studio-2015#43048660, but this is not our recommended method), look under Help > About in VS to find the version.
 
 Although we recommmend for developers to use the source code, we do not recommend for anyone to modify the mojoPortal source code. All of your custom code should be in your own custom projects. As soon as you modify the mojoPortal code, you will be cutting  yourself off from future improvements and bug fixes and it will be diffiuclt or impossible to upgrade without losing your modifications.
 http://www.mojoportal.com/avoid-forking-the-code.aspx
@@ -12,11 +13,11 @@ http://www.mojoportal.com/avoid-forking-the-code.aspx
 
 About the .sln files:
 
-mojoportal.sln has all the features and is targeting .NET 4.5
+mojoportal.sln has all the features and is targeting .NET 4.6.2
 
 mojoportal-core.sln is just the core web content management system with minumal features and targets .NET 4.5
 
-open the .sln file in VS 2013 and choose Rebuild Solution from the Build menu.
+open the .sln file in VS 2017 and choose Rebuild Solution from the Build menu.
 
 
 Note that we have data layer projects in the solutions for the supported databases, but you can safely remove the data layer projects that you are not interested in using from the solution to reduce the build time.
@@ -48,13 +49,11 @@ There is a separate connection string in Web.config/user.config for each support
 
 6 Enjoy :)
 
-7 Spread the word and support the project by purchasing add on features or buying me a beer!
-http://www.mojoportal.com/store
-
+7 Spread the word and support the project by purchasing add on features! http://www.mojoportal.com/store
 
 Steps for IIS setup
 
-You must right click the Visual Studio icon anc hoose run as Administrator in order to be able to debug using IIS
+You must right click the Visual Studio icon and choose run as Administrator in order to be able to debug using IIS
 
 complete steps 1 through 5 as above 
 Right click the Web project in VS and choose properties, then click the Web tab and select "Use IIS Web Server" and enter the url for the project so that 
