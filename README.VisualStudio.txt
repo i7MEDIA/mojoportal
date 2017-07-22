@@ -6,6 +6,8 @@ While the codeplex site generates download links with .zip files of the source c
 
 Using the mojoPortal Source Code requires Visual Studio 2013 update 4 and .NET 4.5, look under Help > About in VS to find the version
 
+Using the mojoPortal Source Code requires Visual Studio 2017 and .NET 4.6.2 (although Visual Studio 2015 can work if you follow the instructions here: https://stackoverflow.com/questions/39461407/how-to-use-c7-with-visual-studio-2015#43048660, but this is not our recommended method), look under Help > About in VS to find the version.
+
 Although we recommmend for developers to use the source code, we do not recommend for anyone to modify the mojoPortal source code. All of your custom code should be in your own custom projects. As soon as you modify the mojoPortal code, you will be cutting  yourself off from future improvements and bug fixes and it will be diffiuclt or impossible to upgrade without losing your modifications.
 http://www.mojoportal.com/avoid-forking-the-code.aspx
 
