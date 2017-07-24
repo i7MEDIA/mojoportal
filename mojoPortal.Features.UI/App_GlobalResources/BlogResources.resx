@@ -978,4 +978,7 @@
   <data name="IsFeaturedPost" xml:space="preserve">
     <value>Is Featured Post?</value>
   </data>
+  <data name="BlogPostListFeatureName" xml:space="preserve">
+    <value>Blog Post List</value>
+  </data>
 </root>
