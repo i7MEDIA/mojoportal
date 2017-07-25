@@ -255,6 +255,7 @@
   <ItemGroup>
     <Content Include="BingMap\BingMapModule.ascx" />
     <Content Include="Blog\Controls\BlogInstanceSetting.ascx" />
+    <Content Include="Blog\Controls\PostListLayoutSelector.ascx" />
     <Content Include="Blog\PostListModule.ascx" />
     <Content Include="Blog\ClosedPosts.aspx" />
     <Content Include="Blog\CommentDialog.aspx" />
@@ -433,6 +434,13 @@
     </Compile>
     <Compile Include="Blog\Controls\BlogInstanceSetting.ascx.designer.cs">
       <DependentUpon>BlogInstanceSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\PostListLayoutSelector.ascx.cs">
+      <DependentUpon>PostListLayoutSelector.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\PostListLayoutSelector.ascx.designer.cs">
+      <DependentUpon>PostListLayoutSelector.ascx</DependentUpon>
     </Compile>
     <Compile Include="Blog\Controls\PostListRazor.cs" />
     <Compile Include="Blog\PostListModule.ascx.cs">
