@@ -1205,10 +1205,15 @@ namespace mojoPortal.Web.AdminUI
 
 			if (module.ModuleId == -1)
 			{
-				module = null; return; // module doesn't exist
+				module = null;
+				return; // module doesn't exist
 			}
 
-			if (module.SiteId != siteSettings.SiteId) { module = null; return; }
+			if (module.SiteId != siteSettings.SiteId)
+			{
+				module = null;
+				return;
+			}
 
 			if (!canEdit)
 			{
