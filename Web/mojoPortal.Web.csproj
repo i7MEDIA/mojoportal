@@ -3076,6 +3076,7 @@
     <Compile Include="HelpEdit.aspx.designer.cs">
       <DependentUpon>HelpEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AvatarExtensions.cs" />
     <Compile Include="HtmlCompare.aspx.cs">
       <DependentUpon>HtmlCompare.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
