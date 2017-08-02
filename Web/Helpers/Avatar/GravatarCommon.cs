@@ -65,12 +65,7 @@ namespace mojoPortal.Web.Helpers
 		/// <summary>
 		/// Gravatar HTTP url.
 		/// </summary>
-		private const string GravatarUrl = "http://www.gravatar.com";
-
-		/// <summary>
-		/// Gravatar HTTPS url.
-		/// </summary>
-		private const string GravatarSecureUrl = "https://secure.gravatar.com";
+		private const string GravatarUrl = "//www.gravatar.com";
 
 		/// <summary>
 		/// Gravatar image path.
@@ -92,9 +87,8 @@ namespace mojoPortal.Web.Helpers
 		/// <param name="rating">The content rating of the images to display.</param>
 		/// <param name="addExtension">Whether to add the .jpg extension to the provided Gravatar.</param>
 		/// <param name="forceDefault">Forces Gravatar to always serve the default image.</param>
-		/// <param name="useSecureUrl">Whether to request the Gravatar over https.</param>
 		/// <returns>The Gravatar URL for the provided parameters.</returns>
-		public static string CreateGravatarUrl(string email, int imageSize, string defaultImage, GravatarRating? rating, bool? addExtension, bool? forceDefault, bool useSecureUrl)
+		public static string CreateGravatarUrl(string email, int imageSize, string defaultImage, GravatarRating? rating, bool? addExtension, bool? forceDefault)
 		{
 			// Limit our Gravatar size to be between the minimum and maximum sizes supported by Gravatar.
 			imageSize = Math.Max(imageSize, MinImageSize);
@@ -105,7 +99,7 @@ namespace mojoPortal.Web.Helpers
 				defaultImage = string.Concat("&d=", UrlEncode(defaultImage));
 			}
 
-			return $"{CreateGravatarBaseUrl(email, GravatarImagePath, addExtension.GetValueOrDefault(false) ? "jpg" : string.Empty, useSecureUrl)}?s={imageSize}{defaultImage}{(rating.HasValue ? string.Concat("&r=", rating) : string.Empty)}{(forceDefault.GetValueOrDefault(false) ? "&f=y" : string.Empty)}";
+			return $"{CreateGravatarBaseUrl(email, GravatarImagePath, addExtension.GetValueOrDefault(false) ? "jpg" : string.Empty)}?s={imageSize}{defaultImage}{(rating.HasValue ? string.Concat("&r=", rating) : string.Empty)}{(forceDefault.GetValueOrDefault(false) ? "&f=y" : string.Empty)}";
 		}
 
 		/// <summary>
@@ -114,9 +108,8 @@ namespace mojoPortal.Web.Helpers
 		/// <param name="email">Email address to generate the Gravatar for.</param>
 		/// <param name="extension">Extension to add to the url.</param>
 		/// <param name="optionalParameters">Optional parameters to add to the url.</param>
-		/// <param name="useSecureUrl">Whether to request the Gravatar over https.</param>
 		/// <returns>The Gravatar profile URL for the provided parameters.</returns>
-		public static string CreateGravatarProfileUrl(string email, string extension, IDictionary<string, string> optionalParameters, bool useSecureUrl)
+		public static string CreateGravatarProfileUrl(string email, string extension, IDictionary<string, string> optionalParameters)
 		{
 			var queryStringParameters = optionalParameters != null ?
 					"?" + string.Join(
@@ -124,7 +117,7 @@ namespace mojoPortal.Web.Helpers
 						optionalParameters.Select(parameter => string.Concat(parameter.Key, "=", UrlEncode(parameter.Value.ToString()))))
 					: string.Empty;
 
-			return string.Concat(CreateGravatarBaseUrl(email, GravatarProfilePath, extension, useSecureUrl), queryStringParameters);
+			return string.Concat(CreateGravatarBaseUrl(email, GravatarProfilePath, extension), queryStringParameters);
 		}
 
 		/// <summary>
@@ -164,11 +157,10 @@ namespace mojoPortal.Web.Helpers
 		/// <param name="email">Email address to generate the Gravatar for.</param>
 		/// <param name="basePath">The base path to use.</param>
 		/// <param name="extension">Extension to add to the url.</param>
-		/// <param name="useSecureUrl">Whether to request the Gravatar over https.</param>
 		/// <returns>The Gravatar base URL for the provided parameters.</returns>
-		private static string CreateGravatarBaseUrl(string email, string basePath, string extension, bool useSecureUrl)
+		private static string CreateGravatarBaseUrl(string email, string basePath, string extension)
 		{
-			return string.Concat(useSecureUrl ? GravatarSecureUrl : GravatarUrl, basePath, CreateGravatarHash(email), !string.IsNullOrWhiteSpace(extension) ? string.Concat(".", extension) : string.Empty);
+			return string.Concat(GravatarUrl, basePath, CreateGravatarHash(email), !string.IsNullOrWhiteSpace(extension) ? string.Concat(".", extension) : string.Empty);
 		}
 
 
