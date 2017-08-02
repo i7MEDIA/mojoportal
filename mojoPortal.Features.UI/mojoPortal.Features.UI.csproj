@@ -1925,6 +1925,9 @@
   <ItemGroup>
     <Content Include="Blog\Views\_BlogPostList.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\Views\Web.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
