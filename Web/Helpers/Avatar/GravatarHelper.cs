@@ -190,6 +190,7 @@ namespace mojoPortal.Web.Helpers
 			this HtmlHelper helper,
 			string avatarUrl,
 			string email,
+			int userID = -1,
 			object htmlAttributes = null,
 			object linkAttributes = null,
 			bool useLink = false,
@@ -211,7 +212,7 @@ namespace mojoPortal.Web.Helpers
 			disable = avatarUrl == "disable" ? true : false;
 			rating = (GravatarRating)SiteUtils.GetMaxAllowedGravatarRating();
 
-			if (disable || user == null || siteSettings == null || siteSettings.AvatarSystem == "none")
+			if (disable || siteSettings == null || siteSettings.AvatarSystem == "none")
 			{
 				return MvcHtmlString.Create(string.Empty);
 			}
@@ -246,9 +247,25 @@ namespace mojoPortal.Web.Helpers
 				}
 			}
 
-			if (user.UserId > -1)
+			if (userID == -2 && user != null)
 			{
-				linkUrl = VirtualPathUtility.ToAbsolute("/ProfileView.aspx?userid=" + user.UserId.ToInvariantString());
+				userID = user.UserId;
+			}
+
+			if (userID > -1 && useLink)
+			{
+				linkUrl = VirtualPathUtility.ToAbsolute("/ProfileView.aspx?userid=" + userID.ToInvariantString());
+			}
+			else
+			{
+				if (useGravatar)
+				{
+					linkGravatarToUserProfile = false;
+				}
+				else
+				{
+					useLink = false;
+				}
 			}
 
 			#region Use Gravatar
@@ -257,11 +274,7 @@ namespace mojoPortal.Web.Helpers
 			{
 				defaultImage = WebUtils.ResolveServerUrl(defaultImage);
 
-				if (!defaultImage.Contains("localhost") && forceDefault)
-				{
-					defaultImage = HttpUtility.UrlEncode(defaultImage);
-				}
-				else
+				if (defaultImage.Contains("localhost"))
 				{
 					defaultImage = string.Empty;
 					forceDefault = false;
