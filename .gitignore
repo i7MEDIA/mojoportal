@@ -405,3 +405,5 @@ Web/Setup/ProviderConfig/contentdeletehandlers/superflexideletehandler.config
 Web/Setup/ProviderConfig/indexbuilders/SuperFlexiIndexBuilderProvider.config
 Web/App_GlobalResources/SuperFlexiResources.resx
 Web/Views/Blog/
+
+Web/Views/SuperFlexi/
