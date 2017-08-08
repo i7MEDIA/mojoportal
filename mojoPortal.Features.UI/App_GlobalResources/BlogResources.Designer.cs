@@ -934,6 +934,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Blog Post List.
+        /// </summary>
+        internal static string BlogPostListFeatureName {
+            get {
+                return ResourceManager.GetString("BlogPostListFeatureName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Previous Post &lt;&lt;.
         /// </summary>
         internal static string BlogPreviousPostLink {

@@ -150,8 +150,8 @@
 							CssClass="avatarwrap authorinfo"
 							RenderId="false"
 						>
-
-							<portal:Avatar runat="server"
+							<portal:Avatar runat="server" ID="av1" />
+							<%--<portal:Avatar runat="server"
 								ID="av1"
 								UseLink='<%# UseProfileLink() %>'
 								MaxAllowedRating='<%# MaxAllowedGravatarRating %>'
@@ -163,7 +163,7 @@
 								Email='<%# Eval("Email") %>'
 								UserNameTooltipFormat='<%# UserNameTooltipFormat %>'
 								Disable='<%# disableAvatars || displaySettings.HideAvatarInPostList || !Convert.ToBoolean(Eval("ShowAuthorAvatar")) %>'
-								UseGravatar='<%# allowGravatars %>' />
+								UseGravatar='<%# allowGravatars %>' />--%>
 
 							<span runat="server"
 								class="authorbio"

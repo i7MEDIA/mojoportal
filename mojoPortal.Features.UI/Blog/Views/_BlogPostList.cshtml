@@ -1,47 +1,61 @@
-﻿@model IEnumerable<mojoPortal.Business.BlogPostModel>
+﻿@using mojoPortal.Web.Helpers;
+@model IEnumerable<mojoPortal.Business.BlogPostModel>
 
 <div class="blog-postlist">
-    @foreach (var item in Model)
-    {
-        <article class="blogitem">
-            <header>
-                <h1 class="blogtitle"><a class="blogitemtitle" href="@item.ItemUrl">@item.Title</a></h1>
-                <h2 class="subtitle">@item.SubTitle</h2>
-            </header>
-            @if (!string.IsNullOrWhiteSpace(item.HeadlineImageUrl))
-            {
-                <div class="blog-postlist-itemimage">
-                    <img src="@item.HeadlineImageUrl" alt="@item.Title" />
-                </div>}
+	@foreach (var item in Model)
+	{
+		<article class="blog-postlist__item">
+			<header>
+				<h3 class="blog-postlist__title">
+					<a class="blog-postlist__item-link" href="@item.ItemUrl">@item.Title</a>
+				</h3>
+				@if (@item.SubTitle != "")
+				{
+					<h2 class="blog-postlist__sub-title">@item.SubTitle</h2>
+				}
+			</header>
 
-            <div class="blog-postlist-itembody">
-                @Html.Raw(item.Body)
-            </div>
-            <footer>
-                @if (item.ShowAuthorName || item.ShowAuthorAvatar || item.ShowAuthorBio)
-                {
-                    <div class="blog-postlist-author">
-                        @if (item.ShowAuthorAvatar)
-                        {
-                            <span class="blog-postlist-author-avatar"><img src="@item.AuthorAvatar" alt="@item.AuthorDisplayName" /></span>
-                        }
-                        @if (item.ShowAuthorName)
-                        {
-                            <span class="blog-postlist-author-name">Posted by: @item.AuthorDisplayName</span>
-                        }
-                        @if (item.ShowAuthorBio && !string.IsNullOrWhiteSpace(item.AuthorBio))
-                        {
-                            <span class="blog-postlist-author-bio">@item.AuthorBio</span>
-                        }
-                    </div>
-                }
-                <div class="blog-postlist-date">@item.PostDate</div>
-                <div class="blog-postlist-social"></div>
-                @if (item.AllowCommentsForDays > -1)
-                {
-                    <a class="blog-postlist-commentlink" href="@(item.ItemUrl)#comments">@Resources.BlogResources.BlogFeedbackLabel (@item.CommentCount)</a>
-                }
-            </footer>
-        </article>
-    }
+			@if (!string.IsNullOrWhiteSpace(item.HeadlineImageUrl))
+			{
+				<figure class="blog-postlist__item-featured-image">
+					<img src="@item.HeadlineImageUrl" alt="@item.Title" />
+				</figure>
+			}
+
+			<div class="blog-postlist__item-body">
+				@Html.Raw(item.Body)
+			</div>
+
+			<footer>
+				@if (item.ShowAuthorAvatar || item.ShowAuthorBio)
+				{
+					<div class="author__group author__group--blog-postlist media">
+						@if (item.ShowAuthorAvatar)
+						{
+							@Html.Avatar(item.AuthorAvatar, item.AuthorEmail, item.AuthorUserId, new { Class = "author__avatar media-object" }, new { Class = "author__avatar-link media-left" }, true, true)
+						}
+
+						@if (item.ShowAuthorBio && !string.IsNullOrWhiteSpace(item.AuthorBio))
+						{
+							<p class="author__bio media-body">@item.AuthorBio</p>
+						}
+					</div>
+				}
+
+				<div class="blog-postlist__metadata">
+					@if (item.ShowAuthorName)
+					{
+						<span class="blog-postlist__author-name">Posted by: @item.AuthorDisplayName</span>
+					}
+
+					<div class="blog-postlist__date"><span class="fa fa-clock-o"></span> @item.PostDate.ToString("MMMM dd, yyyy")</div>
+
+					@if (item.AllowCommentsForDays > -1)
+					{
+						<a class="blog-postlist__commentlink" href="@(item.ItemUrl)#comments">@Resources.BlogResources.BlogFeedbackLabel (@item.CommentCount)</a>
+					}
+				</div>
+			</footer>
+		</article>
+	}
 </div>

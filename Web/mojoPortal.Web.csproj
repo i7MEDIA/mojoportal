@@ -1250,11 +1250,6 @@
     <Content Include="Scripts\jquery-2.2.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
@@ -3076,6 +3071,9 @@
     <Compile Include="HelpEdit.aspx.designer.cs">
       <DependentUpon>HelpEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Avatar\GravatarCommon.cs" />
+    <Compile Include="Helpers\Avatar\GravatarHelper.cs" />
+    <Compile Include="Helpers\Avatar\GravatarRating.cs" />
     <Compile Include="HtmlCompare.aspx.cs">
       <DependentUpon>HtmlCompare.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3581,6 +3579,7 @@
     <Content Include="NeatHtml\schema\xml.xsd">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Blog\_BlogPostList.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\FileManager\Index.cshtml" />
@@ -3588,8 +3587,7 @@
     <Content Include="Services\SiteMapJson.ashx" />
     <Content Include="Views\FileManager\Pages.cshtml" />
     <Content Include="Views\FileManager\_FileManagerLayout.cshtml" />
-    <Content Include="Views\SuperFlexi\_SuperFlexiRazor.cshtml" />
-    <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />

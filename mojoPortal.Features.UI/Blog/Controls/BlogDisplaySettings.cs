@@ -250,6 +250,14 @@ namespace mojoPortal.Web.BlogUI
 			set => listViewPostBodyClass = value;
 		}
 
+		private string postViewPostBodyClass = "blogtext";
+
+		public string PostViewPostBodyClass
+		{
+			get => postViewPostBodyClass;
+			set => postViewPostBodyClass = value;
+		}
+
 		private bool listViewRenderPostPanel = true;
 
 		public bool ListViewRenderPostPanel
@@ -258,12 +266,28 @@ namespace mojoPortal.Web.BlogUI
 			set => listViewRenderPostPanel = value;
 		}
 
+		private bool postViewRenderPostPanel = true;
+
+		public bool PostViewRenderPostPanel
+		{
+			get => postViewRenderPostPanel;
+			set => postViewRenderPostPanel = value;
+		}
+
 		private string authorInfoPanelClass = "avatarwrap authorinfo";
 
 		public string AuthorInfoPanelClass
 		{
 			get => authorInfoPanelClass;
 			set => authorInfoPanelClass = value;
+		}
+
+		private string authorBioClass = "authorbio";
+
+		public string AuthorBioClass
+		{
+			get => authorBioClass;
+			set => authorBioClass = value;
 		}
 
 		private string datePanelClass = "blogdate";
@@ -799,6 +823,22 @@ namespace mojoPortal.Web.BlogUI
 			set { showAuthorBioInPostDetail = value; }
 		}
 
+		private string avatarCssClass = string.Empty;
+
+		public string AvatarCssClass
+		{
+			get => avatarCssClass;
+			set => avatarCssClass = value;
+		}
+
+		private string avatarExtraCssClass = string.Empty;
+
+		public string AvatarExtraCssClass
+		{
+			get => avatarExtraCssClass;
+			set => avatarExtraCssClass = value;
+		}
+
 		private bool showArchivesInPostDetail = false;
 
 		public bool ShowArchivesInPostDetail
@@ -861,22 +901,49 @@ namespace mojoPortal.Web.BlogUI
 			set { showSubTitleOnList = value; }
 		}
 
-		private string postDetailSubTitleElement = "h3";
-
 		public string PostDetailSubTitleElement
 		{
-			get { return postDetailSubTitleElement; }
-			set { postDetailSubTitleElement = value; }
+			get { return postViewSubtitleElement; }
+			set { postViewSubtitleElement = value; }
 		}
 
-		private string listItemSubtitleElement = "span";
+		private string postViewSubtitleElement = "h3";
+
+		public string PostViewSubtitleElement
+		{
+			get { return postViewSubtitleElement; }
+			set { postViewSubtitleElement = value; }
+		}
+
+		private string postViewSubtitleClass = "subtitle";
+
+		public string PostViewSubtitleClass
+		{
+			get { return postViewSubtitleClass; }
+			set { postViewSubtitleClass = value; }
+		}
 
 		public string ListItemSubtitleElement
 		{
-			get { return listItemSubtitleElement; }
-			set { listItemSubtitleElement = value; }
+			get { return listViewPostSubtitleElement; }
+			set { listViewPostSubtitleElement = value; }
 		}
 
+		private string listViewPostSubtitleElement = "span";
+
+		public string ListViewPostSubtitleElement
+		{
+			get { return listViewPostSubtitleElement; }
+			set { listViewPostSubtitleElement = value; }
+		}
+
+		private string listViewPostSubtitleClass = "subtitle";
+
+		public string ListViewPostSubtitleClass
+		{
+			get { return listViewPostSubtitleClass; }
+			set { listViewPostSubtitleClass = value; }
+		}
 
 		private bool showSearchInNav = false;
 

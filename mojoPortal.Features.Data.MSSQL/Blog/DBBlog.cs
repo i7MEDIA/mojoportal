@@ -1,6 +1,6 @@
 // Author:
-// Created:				    2007-11-03
-// Last Modified:			2017-07-13
+// Created:       2007-11-03
+// Last Modified: 2017-07-18
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -910,7 +910,7 @@ namespace mojoPortal.Data
 			bool includeImageInPost
 		)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Blog_Update", 52);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Blog_Update", 50);
             sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemId);
             sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
             sph.DefineSqlParameter("@UserName", SqlDbType.NVarChar, 100, ParameterDirection.Input, userName);

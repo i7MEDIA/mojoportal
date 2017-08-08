@@ -276,7 +276,9 @@ namespace mojoPortal.Web.BlogUI
                 model.ShowAuthorName = Convert.ToBoolean(postRow["ShowAuthorName"]);
                 model.ShowAuthorAvatar = Convert.ToBoolean(postRow["ShowAuthorAvatar"]);
                 model.ShowAuthorBio = Convert.ToBoolean(postRow["ShowAuthorBio"]);
-                models.Add(model);
+				model.AuthorUserId = Convert.ToInt32(postRow["UserID"]);
+
+				models.Add(model);
             }
             string text = string.Empty;
             try

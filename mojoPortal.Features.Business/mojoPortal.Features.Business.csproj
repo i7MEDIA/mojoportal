@@ -203,9 +203,6 @@
       <Name>mojoPortal.Business</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Choose>
     <When Condition="'$(Configuration)'=='Debug'">
       <ItemGroup>
