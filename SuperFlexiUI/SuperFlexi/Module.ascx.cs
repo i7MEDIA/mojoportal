@@ -64,15 +64,15 @@ namespace SuperFlexiUI
             theWidget.SiteRoot = SiteRoot;
             theWidget.ImageSiteRoot = ImageSiteRoot;
 
-            theWidgetRazor.Config = config;
-            theWidgetRazor.PageId = PageId;
-            theWidgetRazor.ModuleId = ModuleId;
-            theWidgetRazor.IsEditable = IsEditable;
-            theWidgetRazor.SiteRoot = SiteRoot;
-            theWidgetRazor.ImageSiteRoot = ImageSiteRoot;
+            //theWidgetRazor.Config = config;
+            //theWidgetRazor.PageId = PageId;
+            //theWidgetRazor.ModuleId = ModuleId;
+            //theWidgetRazor.IsEditable = IsEditable;
+            //theWidgetRazor.SiteRoot = SiteRoot;
+            //theWidgetRazor.ImageSiteRoot = ImageSiteRoot;
 
             theWidget.Visible = !config.UseRazor;
-            theWidgetRazor.Visible = config.UseRazor;
+            //theWidgetRazor.Visible = config.UseRazor;
 
             if (config.UseHeader && config.HeaderLocation != "InnerBodyPanel" && !String.IsNullOrWhiteSpace(config.HeaderContent) && !String.Equals(config.HeaderContent, "<p>&nbsp;</p>"))
             {
