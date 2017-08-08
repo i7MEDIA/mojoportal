@@ -623,7 +623,7 @@ namespace SuperFlexiUI
         private string itemDeleteRoles = string.Empty;
         public string ItemDeleteRoles { get { return itemDeleteRoles; } }
 
-        private bool useRazor = true;
+        private bool useRazor = false;
         public bool UseRazor { get { return useRazor; } }
         #endregion
     }

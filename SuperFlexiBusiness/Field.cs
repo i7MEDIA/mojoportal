@@ -50,7 +50,7 @@ namespace SuperFlexiBusiness
 		private string token = "$_NONE_$";
 		private string preTokenString = string.Empty;
 		private string postTokenString = string.Empty;
-		private bool searchable = false;
+		private bool searchable = true;
 		private string editPageControlWrapperCssClass = "settingrow";
 		private string editPageLabelCssClass = "settinglabel";
 		private string editPageControlCssClass = "forminput"; //only used on controlType=text or checkbox
