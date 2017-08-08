@@ -1,156 +1,153 @@
 /// Author:             Joe Davis (i7MEDIA)
 /// Created:			2014-12-20
-///	Last Modified:		2016-02-03
-
+///	Last Modified:		2017-08-08
 ///
 /// You must not remove this notice, or any other, from this software.
 
-using System;
-using System.Text;
-using System.Web.UI;
 using mojoPortal.Business;
 using mojoPortal.Web;
 using mojoPortal.Web.Framework;
-using Resources;
+using System;
+using System.Text;
+using System.Web.UI;
 
 namespace SuperFlexiUI
 {
 	public partial class SuperFlexiModule : SiteModuleControl
-    {
-        protected ModuleConfiguration config = new ModuleConfiguration();
+	{
+		protected ModuleConfiguration config = new ModuleConfiguration();
 
-        
-        protected void Page_Load(object sender, EventArgs e)
+
+		protected void Page_Load(object sender, EventArgs e)
 		{
-            LoadSettings();
-           
+			LoadSettings();
+
 		}
 
-        private void LoadSettings()
-        {
-            Module module = new Module(ModuleGuid);
-            config = new ModuleConfiguration(module);
-            
-            if (config.MarkupDefinition != null)
-            {
-                displaySettings = config.MarkupDefinition;
-            }
-            
-            if (this.ModuleConfiguration != null)
-            {
-                this.Title = this.ModuleConfiguration.ModuleTitle;
-                this.Description = this.ModuleConfiguration.FeatureName;
-            }
-            StringBuilder moduleTitle = new StringBuilder();
+		private void LoadSettings()
+		{
+			Module module = new Module(ModuleGuid);
+			config = new ModuleConfiguration(module);
 
-            moduleTitle.Append(displaySettings.ModuleTitleMarkup);
-            SuperFlexiHelpers.ReplaceStaticTokens(moduleTitle, config, IsEditable, displaySettings, ModuleId, PageId, out moduleTitle);
-            litModuleTitle.Text = moduleTitle.ToString();
+			if (config.MarkupDefinition != null)
+			{
+				displaySettings = config.MarkupDefinition;
+			}
 
-            if (config.InstanceCssClass.Length > 0 && !config.HideOuterWrapperPanel) 
-            { 
-                pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass.Replace("$_ModuleID_$", ModuleId.ToString())); 
-            }
-            
-            if (SiteUtils.IsMobileDevice() && config.MobileInstanceCssClass.Length > 0 && !config.HideOuterWrapperPanel)
-            {
-                pnlOuterWrap.SetOrAppendCss(config.MobileInstanceCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
-            }
+			if (ModuleConfiguration != null)
+			{
+				Title = ModuleConfiguration.ModuleTitle;
+				Description = ModuleConfiguration.FeatureName;
+			}
+			StringBuilder moduleTitle = new StringBuilder();
 
-            theWidget.Config = config;
-            theWidget.PageId = PageId;
-            theWidget.ModuleId = ModuleId;
-            theWidget.IsEditable = IsEditable;
-            theWidget.SiteRoot = SiteRoot;
-            theWidget.ImageSiteRoot = ImageSiteRoot;
+			moduleTitle.Append(displaySettings.ModuleTitleMarkup);
+			SuperFlexiHelpers.ReplaceStaticTokens(moduleTitle, config, IsEditable, displaySettings, ModuleId, PageId, out moduleTitle);
+			litModuleTitle.Text = moduleTitle.ToString();
 
-            //theWidgetRazor.Config = config;
-            //theWidgetRazor.PageId = PageId;
-            //theWidgetRazor.ModuleId = ModuleId;
-            //theWidgetRazor.IsEditable = IsEditable;
-            //theWidgetRazor.SiteRoot = SiteRoot;
-            //theWidgetRazor.ImageSiteRoot = ImageSiteRoot;
+			if (config.InstanceCssClass.Length > 0 && !config.HideOuterWrapperPanel)
+			{
+				pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
+			}
 
-            theWidget.Visible = !config.UseRazor;
-            //theWidgetRazor.Visible = config.UseRazor;
+			if (SiteUtils.IsMobileDevice() && config.MobileInstanceCssClass.Length > 0 && !config.HideOuterWrapperPanel)
+			{
+				pnlOuterWrap.SetOrAppendCss(config.MobileInstanceCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
+			}
 
-            if (config.UseHeader && config.HeaderLocation != "InnerBodyPanel" && !String.IsNullOrWhiteSpace(config.HeaderContent) && !String.Equals(config.HeaderContent, "<p>&nbsp;</p>"))
-            {
-                StringBuilder headerContent = new StringBuilder();
-                headerContent.AppendFormat(displaySettings.HeaderContentFormat, config.HeaderContent);
-                SuperFlexiHelpers.ReplaceStaticTokens(headerContent, config, IsEditable, displaySettings, ModuleId, PageId, out headerContent);
-                LiteralControl litHeaderContent = new LiteralControl(headerContent.ToString());
-                //if HeaderLocation is set to a hidden panel the header will be added to the Outside.
-                switch (config.HeaderLocation)
-                {
-                    default:
-                        break;
-                    case "OuterBodyPanel":
-                        if (config.HideOuterBodyPanel) goto case "Outside";
-                        pnlOuterBody.Controls.AddAt(0, litHeaderContent);
-                        break;
+			theWidget.Config = config;
+			theWidget.PageId = PageId;
+			theWidget.ModuleId = ModuleId;
+			theWidget.IsEditable = IsEditable;
+			theWidget.SiteRoot = SiteRoot;
+			theWidget.ImageSiteRoot = ImageSiteRoot;
 
-                    case "InnerWrapperPanel":
-                        if (config.HideInnerWrapperPanel) goto case "Outside"; 
-                        pnlInnerWrap.Controls.AddAt(0, litHeaderContent);
-                        break;
+			//theWidgetRazor.Config = config;
+			//theWidgetRazor.PageId = PageId;
+			//theWidgetRazor.ModuleId = ModuleId;
+			//theWidgetRazor.IsEditable = IsEditable;
+			//theWidgetRazor.SiteRoot = SiteRoot;
+			//theWidgetRazor.ImageSiteRoot = ImageSiteRoot;
 
-                    case "OuterWrapperPanel":
-                        if (config.HideOuterWrapperPanel) goto case "Outside"; 
-                        pnlOuterWrap.Controls.AddAt(0, litHeaderContent);
-                        break;
+			theWidget.Visible = true;
+			//theWidgetRazor.Visible = config.UseRazor;
 
-                    case "Outside":
-                        litHead.Text = headerContent.ToString();
-                        break;
-                }
-            }
+			if (config.UseHeader && config.HeaderLocation != "InnerBodyPanel" && !String.IsNullOrWhiteSpace(config.HeaderContent) && !String.Equals(config.HeaderContent, "<p>&nbsp;</p>"))
+			{
+				StringBuilder headerContent = new StringBuilder();
+				headerContent.AppendFormat(displaySettings.HeaderContentFormat, config.HeaderContent);
+				SuperFlexiHelpers.ReplaceStaticTokens(headerContent, config, IsEditable, displaySettings, ModuleId, PageId, out headerContent);
+				LiteralControl litHeaderContent = new LiteralControl(headerContent.ToString());
+				//if HeaderLocation is set to a hidden panel the header will be added to the Outside.
+				switch (config.HeaderLocation)
+				{
+					default:
+						break;
+					case "OuterBodyPanel":
+						if (config.HideOuterBodyPanel) goto case "Outside";
+						pnlOuterBody.Controls.AddAt(0, litHeaderContent);
+						break;
 
-            if (config.UseFooter && config.FooterLocation != "InnerBodyPanel" && !String.IsNullOrWhiteSpace(config.FooterContent) && !String.Equals(config.FooterContent, "<p>&nbsp;</p>"))
-            {
-                StringBuilder footerContent = new StringBuilder();
-                footerContent.AppendFormat(displaySettings.FooterContentFormat, config.FooterContent);
-                SuperFlexiHelpers.ReplaceStaticTokens(footerContent, config, IsEditable, displaySettings, ModuleId, PageId, out footerContent);
-                LiteralControl litFooterContent = new LiteralControl(footerContent.ToString());
-                //if FooterLocation is set to a hidden panel the footer will be added to the Outside.
-                switch (config.FooterLocation)
-                {
-                    default:
-                        break;
-                    case "OuterBodyPanel":
-                        if (config.HideOuterBodyPanel) goto case "Outside";
-                        pnlOuterBody.Controls.Add(litFooterContent);
-                        break;
-                    case "InnerWrapperPanel":
-                        if (config.HideInnerWrapperPanel) goto case "Outside";
-                        pnlInnerWrap.Controls.Add(litFooterContent);
-                        break;
-                    case "OuterWrapperPanel":
-                        if (config.HideOuterWrapperPanel) goto case "Outside";
-                        pnlOuterWrap.Controls.Add(litFooterContent);
-                        break;
-                    case "Outside":
-                        litFoot.Text = footerContent.ToString();
-                        break;
-                }
-            }
+					case "InnerWrapperPanel":
+						if (config.HideInnerWrapperPanel) goto case "Outside";
+						pnlInnerWrap.Controls.AddAt(0, litHeaderContent);
+						break;
 
-            pnlOuterWrap.RenderContentsOnly = config.HideOuterWrapperPanel;
-            pnlInnerWrap.RenderContentsOnly = config.HideInnerWrapperPanel;
-            pnlOuterBody.RenderContentsOnly = config.HideOuterBodyPanel;
-            pnlInnerBody.RenderContentsOnly = config.HideInnerBodyPanel;
-        }
+					case "OuterWrapperPanel":
+						if (config.HideOuterWrapperPanel) goto case "Outside";
+						pnlOuterWrap.Controls.AddAt(0, litHeaderContent);
+						break;
 
-        #region OnInit
+					case "Outside":
+						litHead.Text = headerContent.ToString();
+						break;
+				}
+			}
 
-        protected override void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-            this.Load += new EventHandler(Page_Load);
+			if (config.UseFooter && config.FooterLocation != "InnerBodyPanel" && !String.IsNullOrWhiteSpace(config.FooterContent) && !String.Equals(config.FooterContent, "<p>&nbsp;</p>"))
+			{
+				StringBuilder footerContent = new StringBuilder();
+				footerContent.AppendFormat(displaySettings.FooterContentFormat, config.FooterContent);
+				SuperFlexiHelpers.ReplaceStaticTokens(footerContent, config, IsEditable, displaySettings, ModuleId, PageId, out footerContent);
+				LiteralControl litFooterContent = new LiteralControl(footerContent.ToString());
+				//if FooterLocation is set to a hidden panel the footer will be added to the Outside.
+				switch (config.FooterLocation)
+				{
+					default:
+						break;
+					case "OuterBodyPanel":
+						if (config.HideOuterBodyPanel) goto case "Outside";
+						pnlOuterBody.Controls.Add(litFooterContent);
+						break;
+					case "InnerWrapperPanel":
+						if (config.HideInnerWrapperPanel) goto case "Outside";
+						pnlInnerWrap.Controls.Add(litFooterContent);
+						break;
+					case "OuterWrapperPanel":
+						if (config.HideOuterWrapperPanel) goto case "Outside";
+						pnlOuterWrap.Controls.Add(litFooterContent);
+						break;
+					case "Outside":
+						litFoot.Text = footerContent.ToString();
+						break;
+				}
+			}
 
-        }
+			pnlOuterWrap.RenderContentsOnly = config.HideOuterWrapperPanel;
+			pnlInnerWrap.RenderContentsOnly = config.HideInnerWrapperPanel;
+			pnlOuterBody.RenderContentsOnly = config.HideOuterBodyPanel;
+			pnlInnerBody.RenderContentsOnly = config.HideInnerBodyPanel;
+		}
 
-        #endregion
+		#region OnInit
 
-    }
+		protected override void OnInit(EventArgs e)
+		{
+			base.OnInit(e);
+			Load += new EventHandler(Page_Load);
+		}
+
+		#endregion
+
+	}
 }
