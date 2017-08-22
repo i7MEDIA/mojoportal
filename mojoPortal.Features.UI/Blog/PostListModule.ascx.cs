@@ -16,49 +16,51 @@ using System;
 
 namespace mojoPortal.Web.BlogUI
 {
-    public partial class PostListModule : SiteModuleControl
-    {
+	public partial class PostListModule : SiteModuleControl
+	{
+		protected BlogConfiguration blogConfig = new BlogConfiguration();
+		protected BlogPostListAdvancedConfiguration config = new BlogPostListAdvancedConfiguration();
 
-        protected BlogConfiguration blogConfig = new BlogConfiguration();
-        protected BlogPostListAdvancedConfiguration config = new BlogPostListAdvancedConfiguration();
-
-        protected override void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-            this.Load += new EventHandler(Page_Load);
-            this.EnableViewState = false;
-        }
+		protected override void OnInit(EventArgs e)
+		{
+			base.OnInit(e);
+			this.Load += new EventHandler(Page_Load);
+			this.EnableViewState = false;
+		}
 
 		protected virtual void Page_Load(object sender, EventArgs e)
 		{
-            LoadSettings();
-            PopulateControls();
+			LoadSettings();
+			PopulateControls();
 		}
 
-        private void PopulateControls()
-        {
-            postList.ModuleId = ModuleId;
-            postList.PageId = PageId;
-            postList.IsEditable = IsEditable;
-            postList.BlogConfig = blogConfig;
-            postList.Config = config;
-            postList.SiteRoot = SiteRoot;
-            postList.ImageSiteRoot = ImageSiteRoot;
-        }
-      
-        protected virtual void LoadSettings()
-        {
-            config = new BlogPostListAdvancedConfiguration(Settings);
+		private void PopulateControls()
+		{
+			postList.ModuleId = ModuleId;
+			postList.PageId = PageId;
+			postList.IsEditable = IsEditable;
+			postList.BlogConfig = blogConfig;
+			postList.Config = config;
+			postList.SiteRoot = SiteRoot;
+			postList.ImageSiteRoot = ImageSiteRoot;
+		}
 
-            blogConfig = new BlogConfiguration(ModuleSettings.GetModuleSettings(config.BlogModuleId));
+		protected virtual void LoadSettings()
+		{
+			config = new BlogPostListAdvancedConfiguration(Settings);
 
-            if (config.InstanceCssClass.Length > 0) { pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass); }
+			blogConfig = new BlogConfiguration(ModuleSettings.GetModuleSettings(config.BlogModuleId));
 
-            if (this.ModuleConfiguration != null)
-            {
-                this.Title = ModuleConfiguration.ModuleTitle;
-                this.Description = ModuleConfiguration.FeatureName;
-            }
-        }
+			if (config.InstanceCssClass.Length > 0)
+			{
+				pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass);
+			}
+
+			if (this.ModuleConfiguration != null)
+			{
+				this.Title = ModuleConfiguration.ModuleTitle;
+				this.Description = ModuleConfiguration.FeatureName;
+			}
+		}
 	}
 }
