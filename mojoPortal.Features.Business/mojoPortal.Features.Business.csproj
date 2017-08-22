@@ -167,6 +167,7 @@
   <ItemGroup>
     <Compile Include="Blog\Blog.cs" />
     <Compile Include="Blog\BlogPostModel.cs" />
+    <Compile Include="Blog\PostListModel.cs" />
     <Compile Include="ContactForm\ContactFormMessage.cs" />
     <Compile Include="EventCalendar\CalendarEvent.cs" />
     <Compile Include="FeedManager\RssFeed.cs" />
