@@ -1,8 +1,13 @@
 ﻿@using mojoPortal.Web.Helpers;
-@model IEnumerable<mojoPortal.Business.BlogPostModel>
+@using mojoPortal.Business;
+
+@model PostListModel
+
+<p><a href="@Model.ModulePageUrl">View all posts</a> &#187;</p>
+
 
 <div class="blog-postlist">
-	@foreach (var item in Model)
+	@foreach (var item in Model.Posts)
 	{
 		<article class="blog-postlist__item">
 			<header>
