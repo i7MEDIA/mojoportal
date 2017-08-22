@@ -3,7 +3,6 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
-using mojoPortal.Web.UI;
 using Resources;
 using System;
 using System.Collections.Generic;
@@ -64,12 +63,14 @@ namespace mojoPortal.Web.BlogUI
 		protected bool useExcerpt = false;
 		protected string attachmentBaseUrl = string.Empty;
 
-		protected bool allowGravatars = false;
-		protected bool disableAvatars = true;
-		protected Avatar.RatingType MaxAllowedGravatarRating = Avatar.RatingType.PG;
-		protected string UserNameTooltipFormat = "View User Profile for {0}";
-		private string template = string.Empty;
-		private string repeatingTemplate = string.Empty;
+		//protected bool allowGravatars = false;
+		//protected bool disableAvatars = true;
+		//protected Avatar.RatingType MaxAllowedGravatarRating = Avatar.RatingType.PG;
+		//protected string UserNameTooltipFormat = "View User Profile for {0}";
+
+		//private string template = string.Empty;
+		//private string repeatingTemplate = string.Empty;
+
 		private SiteUser currentUser = null;
 
 		private int siteId = -1;
@@ -148,6 +149,7 @@ namespace mojoPortal.Web.BlogUI
 				return;
 			}
 		}
+
 		protected virtual void LoadSettings()
 		{
 			siteSettings = CacheHelper.GetCurrentSiteSettings();
@@ -173,6 +175,7 @@ namespace mojoPortal.Web.BlogUI
 			{
 				basePage = Page as mojoBasePage;
 				module = basePage.GetModule(moduleId, config.FeatureGuid);
+
 			}
 
 			if (module == null)
@@ -180,26 +183,26 @@ namespace mojoPortal.Web.BlogUI
 				return;
 			}
 
-			MaxAllowedGravatarRating = SiteUtils.GetMaxAllowedGravatarRating();
+			//MaxAllowedGravatarRating = SiteUtils.GetMaxAllowedGravatarRating();
 
-			switch (siteSettings.AvatarSystem)
-			{
-				case "gravatar":
-					allowGravatars = true;
-					disableAvatars = false;
-					break;
+			//switch (siteSettings.AvatarSystem)
+			//{
+			//	case "gravatar":
+			//		allowGravatars = true;
+			//		disableAvatars = false;
+			//		break;
 
-				case "internal":
-					allowGravatars = false;
-					disableAvatars = false;
-					break;
+			//	case "internal":
+			//		allowGravatars = false;
+			//		disableAvatars = false;
+			//		break;
 
-				case "none":
-				default:
-					allowGravatars = false;
-					disableAvatars = true;
-					break;
-			}
+			//	case "none":
+			//	default:
+			//		allowGravatars = false;
+			//		disableAvatars = true;
+			//		break;
+			//}
 
 			CalendarDate = WebUtils.ParseDateFromQueryString("blogdate", DateTime.UtcNow).Date;
 
@@ -251,9 +254,15 @@ namespace mojoPortal.Web.BlogUI
 
 		protected override void RenderContents(HtmlTextWriter output)
 		{
-			var dsBlogs = Blog.GetPageDataSet(config.BlogModuleId, DateTime.UtcNow, pageNumber, pageSize, out totalPages);
+			DataSet dsBlogs = Blog.GetPageDataSet(config.BlogModuleId, DateTime.UtcNow, pageNumber, pageSize, out totalPages);
+			List<PageModule> pageModules = PageModule.GetPageModulesByModule(config.BlogModuleId);
 
-			StringBuilder posts = new StringBuilder();
+			string blogPageUrl = string.Empty;
+
+			if (pageModules.Count > 0)
+			{
+				blogPageUrl = pageModules[0].PageUrl;
+			}
 
 			List<BlogPostModel> models = new List<BlogPostModel>();
 
@@ -291,11 +300,17 @@ namespace mojoPortal.Web.BlogUI
 				models.Add(model);
 			}
 
+			PostListModel postListObject = new PostListModel();
+
+			postListObject.ModuleTitle = module.ModuleTitle;
+			postListObject.ModulePageUrl = Page.ResolveUrl(blogPageUrl);
+			postListObject.Posts = models;
+
 			string text = string.Empty;
 
 			try
 			{
-				text = RazorBridge.RenderPartialToString(config.Layout, models, "Blog");
+				text = RazorBridge.RenderPartialToString(config.Layout, postListObject, "Blog");
 			}
 			catch (System.Web.HttpException ex)
 			{
@@ -305,7 +320,8 @@ namespace mojoPortal.Web.BlogUI
 					SiteUtils.GetSkinBaseUrl(true, Page),
 					ex
 				);
-				text = RazorBridge.RenderPartialToString("_BlogPostList", models, "Blog");
+
+				text = RazorBridge.RenderPartialToString("_BlogPostList", postListObject, "Blog");
 			}
 
 			output.Write(text);
