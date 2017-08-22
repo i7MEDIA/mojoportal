@@ -1,6 +1,6 @@
 ﻿///	Author:				i7MEDIA
 ///	Created:			2017-05-11
-///	Last Modified:		2017-05-12
+///	Last Modified:		2017-08-22
 ///		
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -12,21 +12,19 @@
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
-using Newtonsoft.Json.Linq;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Linq;
 namespace mojoPortal.Web.BlogUI
 {
-    public partial class PostListLayoutSelector : UserControl, ISettingControl
+	public partial class PostListLayoutSelector : UserControl, ISettingControl
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PostListLayoutSelector));
         private static SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
@@ -82,7 +80,16 @@ namespace mojoPortal.Web.BlogUI
             //items.Sort()
             //ddlLayouts.DataSource = items;
             //ddlLayouts.DataBind();
-            ddlLayouts.Items.Insert(0, new ListItem("Please Select", string.Empty));
+			if (ddlLayouts.Items.Count == 0)
+			{
+				ddlLayouts.Enabled = false;
+				ddlLayouts.Visible = false;
+				litNoLayouts.Text = BlogResources.NoPostListLayoutsInSkin;
+			}
+			else
+			{
+				ddlLayouts.Items.Insert(0, new ListItem("Please Select", string.Empty));
+			}
         }
 
         private void PopulateDefinitionList(List<FileInfo> files, string path)

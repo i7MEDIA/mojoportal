@@ -981,4 +981,13 @@
   <data name="BlogPostListFeatureName" xml:space="preserve">
     <value>Blog Post List</value>
   </data>
+  <data name="NoPostListLayoutsInSkin" xml:space="preserve">
+    <value>Default view will be used because the skin doesn't include any Post List views.</value>
+  </data>
+  <data name="PostListBlogInstance" xml:space="preserve">
+    <value>Blog Instance</value>
+  </data>
+  <data name="PostListLayout" xml:space="preserve">
+    <value>View</value>
+  </data>
 </root>

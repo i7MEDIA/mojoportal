@@ -2203,6 +2203,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default view will be used because the skin doesn&apos;t include any Post List views..
+        /// </summary>
+        internal static string NoPostListLayoutsInSkin {
+            get {
+                return ResourceManager.GetString("NoPostListLayoutsInSkin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Odiogo Feed ID.
         /// </summary>
         internal static string OdiogoFeedIDSetting {
@@ -2289,6 +2298,24 @@ namespace Resources {
         internal static string PostList {
             get {
                 return ResourceManager.GetString("PostList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blog Instance.
+        /// </summary>
+        internal static string PostListBlogInstance {
+            get {
+                return ResourceManager.GetString("PostListBlogInstance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View.
+        /// </summary>
+        internal static string PostListLayout {
+            get {
+                return ResourceManager.GetString("PostListLayout", resourceCulture);
             }
         }
         
