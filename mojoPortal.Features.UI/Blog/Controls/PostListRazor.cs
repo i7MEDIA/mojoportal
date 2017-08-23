@@ -21,6 +21,7 @@ namespace mojoPortal.Web.BlogUI
 		private static readonly ILog log = LogManager.GetLogger(typeof(PostListRazor));
 		private int pageNumber = 1;
 		private int totalPages = 1;
+		private int pageSize = 4;
 		protected string EditContentImage = WebConfigSettings.EditContentImage;
 		protected string EditBlogAltText = "Edit";
 		protected Double TimeOffset = 0;
@@ -51,7 +52,6 @@ namespace mojoPortal.Web.BlogUI
 		private string siteRoot = string.Empty;
 		private string imageSiteRoot = string.Empty;
 		private SiteSettings siteSettings = null;
-		private int pageSize = 10;
 		protected string CategoriesResourceKey = "PostCategories";
 		protected int Month = DateTime.UtcNow.Month;
 		protected int Year = DateTime.UtcNow.Year;
@@ -242,7 +242,8 @@ namespace mojoPortal.Web.BlogUI
 			ShowTweetThisLink = blogConfig.ShowTweetThisLink && !blogConfig.UseExcerpt;
 			ShowPlusOneButton = blogConfig.ShowPlusOneButton && !blogConfig.UseExcerpt;
 			UseFacebookLikeButton = blogConfig.UseFacebookLikeButton && !blogConfig.UseExcerpt;
-			pageSize = blogConfig.PageSize;
+			//pageSize = blogConfig.PageSize;
+			pageSize = config.ItemsPerPage;
 
 			useFriendlyUrls = BlogConfiguration.UseFriendlyUrls(moduleId);
 
