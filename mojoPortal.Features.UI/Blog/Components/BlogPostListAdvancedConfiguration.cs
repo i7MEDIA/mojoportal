@@ -1,6 +1,6 @@
 ﻿///	Author:				i7MEDIA
 ///	Created:			2017-05-11
-///	Last Modified:		2017-05-11
+///	Last Modified:		2017-08-23
 ///		
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -15,103 +15,120 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace mojoPortal.Web.BlogUI
 {
-    public class BlogPostListAdvancedConfiguration
-    {
-        private static readonly ILog log = LogManager.GetLogger(typeof(BlogPostListAdvancedConfiguration));
-        private Module module;
-        private Hashtable settings;
-        private int siteId = -1;
+	public class BlogPostListAdvancedConfiguration
+	{
+		private static readonly ILog log = LogManager.GetLogger(typeof(BlogPostListAdvancedConfiguration));
+		private Module module;
+		private Hashtable settings;
+		private int siteId = -1;
 
-        #region contstructors
-        public BlogPostListAdvancedConfiguration()
-        { }
+		#region contstructors
 
-        public BlogPostListAdvancedConfiguration(Hashtable settingsHash)
-        {
-            LoadSettings(settingsHash);
-        }
+		public BlogPostListAdvancedConfiguration()
+		{ }
 
-        public BlogPostListAdvancedConfiguration(Module module)
-        {
-            if (module != null)
-            {
-                this.module = module;
-                this.siteId = module.SiteId;
-                featureGuid = module.FeatureGuid;
-                settings = ModuleSettings.GetModuleSettings(module.ModuleId);
+		public BlogPostListAdvancedConfiguration(Hashtable settingsHash)
+		{
+			LoadSettings(settingsHash);
+		}
 
-                if (siteId < 1)
-                {
-                    siteId = CacheHelper.GetCurrentSiteSettings().SiteId;
-                }
-                LoadSettings(settings);
-            }
-        }
+		public BlogPostListAdvancedConfiguration(Module module)
+		{
+			if (module != null)
+			{
+				this.module = module;
+				siteId = module.SiteId;
+				featureGuid = module.FeatureGuid;
+				settings = ModuleSettings.GetModuleSettings(module.ModuleId);
 
-        private void LoadSettings(Hashtable settings)
-        {
-            if (settings == null) { throw new ArgumentException("must pass in a hashtable of settings"); }
+				if (siteId < 1)
+				{
+					siteId = CacheHelper.GetCurrentSiteSettings().SiteId;
+				}
 
-            if (settings.Contains("PostListLayout"))
-            {
-                string layoutString = settings["PostListLayout"].ToString();
-                if (!String.IsNullOrWhiteSpace(layoutString))
-                {
-                    layout = settings["PostListLayout"].ToString();
-                }
-            }
+				LoadSettings(settings);
+			}
+		}
 
-            if (settings.Contains("PostListBlogInstance"))
-            {
-                string bid = settings["PostListBlogInstance"].ToString();
+		private void LoadSettings(Hashtable settings)
+		{
+			if (settings == null)
+			{
+				throw new ArgumentException("must pass in a hashtable of settings");
+			}
 
-                if (!string.IsNullOrWhiteSpace(bid))
-                {
-                    blogModuleId = Convert.ToInt32(settings["PostListBlogInstance"]);
-                }
-            }
+			if (settings.Contains("PostListLayout"))
+			{
+				string layoutString = settings["PostListLayout"].ToString();
 
-            if (settings.Contains("ExtraCssClassSetting"))
-            {
-                instanceCssClass = settings["ExtraCssClassSetting"].ToString();
-            }
-        }
-        #endregion
+				if (!String.IsNullOrWhiteSpace(layoutString))
+				{
+					layout = settings["PostListLayout"].ToString();
+				}
+			}
 
-        #region Properties
-        private Guid featureGuid = Guid.Parse("031eb6a0-acf5-4559-8356-af6049d57ac1");
-        public Guid FeatureGuid
-        {
-            get { return featureGuid; }
-        }
+			if (settings.Contains("PostListItemsPerPage"))
+			{
+				itemsPerPage = Convert.ToInt32(settings["PostListItemsPerPage"]);
+			}
 
-        private string layout = "_BlogPostList";
-        public string Layout
-        {
-            get { return layout; }
-            set { layout = value; }
-        }
+			if (settings.Contains("PostListBlogInstance"))
+			{
+				string bid = settings["PostListBlogInstance"].ToString();
 
-        private int blogModuleId = -1;
-        public int BlogModuleId
-        {
-            get { return blogModuleId; }
-            set { blogModuleId = value; }
-        }
+				if (!string.IsNullOrWhiteSpace(bid))
+				{
+					blogModuleId = Convert.ToInt32(settings["PostListBlogInstance"]);
+				}
+			}
 
-        private string instanceCssClass = string.Empty;
-        public string InstanceCssClass
-        {
-            get { return instanceCssClass; }
-            set { instanceCssClass = value; }
-        }
-        #endregion
+			if (settings.Contains("ExtraCssClassSetting"))
+			{
+				instanceCssClass = settings["ExtraCssClassSetting"].ToString();
+			}
+		}
 
-    }
+		#endregion
+
+		#region Properties
+
+		private Guid featureGuid = Guid.Parse("031eb6a0-acf5-4559-8356-af6049d57ac1");
+		public Guid FeatureGuid
+		{
+			get { return featureGuid; }
+		}
+
+		private string layout = "_BlogPostList";
+		public string Layout
+		{
+			get { return layout; }
+			set { layout = value; }
+		}
+
+		private int itemsPerPage = 4;
+		public int ItemsPerPage
+		{
+			get => itemsPerPage;
+			set => itemsPerPage = value;
+		}
+
+		private int blogModuleId = -1;
+		public int BlogModuleId
+		{
+			get { return blogModuleId; }
+			set { blogModuleId = value; }
+		}
+
+		private string instanceCssClass = string.Empty;
+		public string InstanceCssClass
+		{
+			get { return instanceCssClass; }
+			set { instanceCssClass = value; }
+		}
+
+		#endregion
+	}
 }
