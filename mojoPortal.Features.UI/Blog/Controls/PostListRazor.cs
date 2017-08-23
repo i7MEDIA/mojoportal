@@ -63,14 +63,6 @@ namespace mojoPortal.Web.BlogUI
 		protected bool useExcerpt = false;
 		protected string attachmentBaseUrl = string.Empty;
 
-		//protected bool allowGravatars = false;
-		//protected bool disableAvatars = true;
-		//protected Avatar.RatingType MaxAllowedGravatarRating = Avatar.RatingType.PG;
-		//protected string UserNameTooltipFormat = "View User Profile for {0}";
-
-		//private string template = string.Empty;
-		//private string repeatingTemplate = string.Empty;
-
 		private SiteUser currentUser = null;
 
 		private int siteId = -1;
@@ -132,7 +124,7 @@ namespace mojoPortal.Web.BlogUI
 		#endregion
 
 
-		protected override void OnLoad(System.EventArgs e)
+		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
 
@@ -183,27 +175,6 @@ namespace mojoPortal.Web.BlogUI
 				return;
 			}
 
-			//MaxAllowedGravatarRating = SiteUtils.GetMaxAllowedGravatarRating();
-
-			//switch (siteSettings.AvatarSystem)
-			//{
-			//	case "gravatar":
-			//		allowGravatars = true;
-			//		disableAvatars = false;
-			//		break;
-
-			//	case "internal":
-			//		allowGravatars = false;
-			//		disableAvatars = false;
-			//		break;
-
-			//	case "none":
-			//	default:
-			//		allowGravatars = false;
-			//		disableAvatars = true;
-			//		break;
-			//}
-
 			CalendarDate = WebUtils.ParseDateFromQueryString("blogdate", DateTime.UtcNow).Date;
 
 			if (CalendarDate > DateTime.UtcNow.Date)
@@ -242,7 +213,7 @@ namespace mojoPortal.Web.BlogUI
 			ShowTweetThisLink = blogConfig.ShowTweetThisLink && !blogConfig.UseExcerpt;
 			ShowPlusOneButton = blogConfig.ShowPlusOneButton && !blogConfig.UseExcerpt;
 			UseFacebookLikeButton = blogConfig.UseFacebookLikeButton && !blogConfig.UseExcerpt;
-			//pageSize = blogConfig.PageSize;
+
 			pageSize = config.ItemsPerPage;
 
 			useFriendlyUrls = BlogConfiguration.UseFriendlyUrls(moduleId);
@@ -256,6 +227,174 @@ namespace mojoPortal.Web.BlogUI
 		protected override void RenderContents(HtmlTextWriter output)
 		{
 			DataSet dsBlogs = Blog.GetPageDataSet(config.BlogModuleId, DateTime.UtcNow, pageNumber, pageSize, out totalPages);
+
+			//DataRow featuredRow = dsBlogs.Tables["Posts"].NewRow();
+
+			//if (blogConfig.FeaturedPostId != 0 && pageNumber == 1)
+			//{
+			//	using (IDataReader reader = Blog.GetSingleBlog(blogConfig.FeaturedPostId))
+			//	{
+			//		while (reader.Read())
+			//		{
+			//			featuredRow["ItemID"] = Convert.ToInt32(reader["ItemID"]);
+			//			featuredRow["ModuleID"] = Convert.ToInt32(reader["ModuleID"]);
+			//			featuredRow["BlogGuid"] = reader["BlogGuid"].ToString();
+			//			featuredRow["CreatedDate"] = Convert.ToDateTime(reader["CreatedDate"]);
+			//			featuredRow["Heading"] = reader["Heading"].ToString();
+			//			featuredRow["SubTitle"] = reader["SubTitle"].ToString();
+			//			featuredRow["StartDate"] = Convert.ToDateTime(reader["StartDate"]);
+			//			featuredRow["Description"] = reader["Description"].ToString();
+			//			featuredRow["Abstract"] = reader["Abstract"].ToString();
+			//			featuredRow["ItemUrl"] = reader["ItemUrl"].ToString();
+			//			featuredRow["Location"] = reader["Location"].ToString();
+			//			featuredRow["MetaKeywords"] = reader["MetaKeywords"].ToString();
+			//			featuredRow["MetaDescription"] = reader["MetaDescription"].ToString();
+			//			featuredRow["LastModUtc"] = Convert.ToDateTime(reader["LastModUtc"]);
+			//			featuredRow["IsPublished"] = true;
+			//			featuredRow["IncludeInFeed"] = Convert.ToBoolean(reader["IncludeInFeed"]);
+			//			featuredRow["CommentCount"] = Convert.ToInt32(reader["CommentCount"]);
+			//			featuredRow["UserID"] = Convert.ToInt32(reader["UserID"]);
+			//			featuredRow["Name"] = reader["Name"].ToString();
+			//			featuredRow["FirstName"] = reader["FirstName"].ToString();
+			//			featuredRow["LastName"] = reader["LastName"].ToString();
+			//			featuredRow["LoginName"] = reader["LoginName"].ToString();
+			//			featuredRow["Email"] = reader["Email"].ToString();
+			//			featuredRow["AvatarUrl"] = reader["AvatarUrl"].ToString();
+			//			featuredRow["AuthorBio"] = reader["AuthorBio"].ToString();
+
+			//			if (reader["ShowAuthorName"] != DBNull.Value)
+			//			{
+			//				featuredRow["ShowAuthorName"] = Convert.ToBoolean(reader["ShowAuthorName"]);
+			//			}
+			//			else
+			//			{
+			//				featuredRow["ShowAuthorName"] = true;
+			//			}
+
+			//			if (reader["ShowAuthorAvatar"] != DBNull.Value)
+			//			{
+			//				featuredRow["ShowAuthorAvatar"] = Convert.ToBoolean(reader["ShowAuthorAvatar"]);
+			//			}
+			//			else
+			//			{
+			//				featuredRow["ShowAuthorAvatar"] = true;
+			//			}
+
+			//			if (reader["ShowAuthorBio"] != DBNull.Value)
+			//			{
+			//				featuredRow["ShowAuthorBio"] = Convert.ToBoolean(reader["ShowAuthorBio"]);
+			//			}
+			//			else
+			//			{
+			//				featuredRow["ShowAuthorBio"] = true;
+			//			}
+
+			//			if (reader["UseBingMap"] != DBNull.Value)
+			//			{
+			//				featuredRow["UseBingMap"] = Convert.ToBoolean(reader["UseBingMap"]);
+			//			}
+			//			else
+			//			{
+			//				featuredRow["UseBingMap"] = false;
+			//			}
+
+			//			featuredRow["MapHeight"] = reader["MapHeight"].ToString();
+			//			featuredRow["MapWidth"] = reader["MapWidth"].ToString();
+			//			featuredRow["MapType"] = reader["MapType"].ToString();
+
+			//			if (reader["MapZoom"] != DBNull.Value)
+			//			{
+			//				featuredRow["MapZoom"] = Convert.ToInt32(reader["MapZoom"]);
+			//			}
+			//			else
+			//			{
+			//				featuredRow["MapZoom"] = 13;
+			//			}
+
+			//			if (reader["ShowMapOptions"] != DBNull.Value)
+			//			{
+			//				featuredRow["ShowMapOptions"] = Convert.ToBoolean(reader["ShowMapOptions"]);
+			//			}
+			//			else
+			//			{
+			//				featuredRow["ShowMapOptions"] = false;
+			//			}
+
+			//			if (reader["ShowZoomTool"] != DBNull.Value)
+			//			{
+			//				featuredRow["ShowZoomTool"] = Convert.ToBoolean(reader["ShowZoomTool"]);
+			//			}
+			//			else
+			//			{
+			//				featuredRow["ShowZoomTool"] = false;
+			//			}
+
+			//			if (reader["ShowLocationInfo"] != DBNull.Value)
+			//			{
+			//				featuredRow["ShowLocationInfo"] = Convert.ToBoolean(reader["ShowLocationInfo"]);
+			//			}
+			//			else
+			//			{
+			//				featuredRow["ShowLocationInfo"] = false;
+			//			}
+
+			//			if (reader["UseDrivingDirections"] != DBNull.Value)
+			//			{
+			//				featuredRow["UseDrivingDirections"] = Convert.ToBoolean(reader["UseDrivingDirections"]);
+			//			}
+			//			else
+			//			{
+			//				featuredRow["UseDrivingDirections"] = false;
+			//			}
+
+			//			if (reader["ShowDownloadLink"] != DBNull.Value)
+			//			{
+			//				featuredRow["ShowDownloadLink"] = Convert.ToBoolean(reader["ShowDownloadLink"]);
+			//			}
+			//			else
+			//			{
+			//				featuredRow["ShowDownloadLink"] = false;
+			//			}
+
+			//			featuredRow["HeadlineImageUrl"] = reader["HeadlineImageUrl"];
+
+			//			if (reader["IncludeImageInExcerpt"] != DBNull.Value)
+			//			{
+			//				featuredRow["IncludeImageInExcerpt"] = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
+			//			}
+			//			else
+			//			{
+			//				featuredRow["IncludeImageInExcerpt"] = true;
+			//			}
+
+			//			if (reader["IncludeImageInPost"] != DBNull.Value)
+			//			{
+			//				featuredRow["IncludeImageInPost"] = Convert.ToBoolean(reader["IncludeImageInPost"]);
+			//			}
+			//			else
+			//			{
+			//				featuredRow["IncludeImageInPost"] = true;
+			//			}
+			//		}
+			//	}
+			//}
+
+			////look for featured post in datable
+			//DataRow found = dsBlogs.Tables["Posts"].Rows.Find(blogConfig.FeaturedPostId);
+
+			//if (found != null)
+			//{
+			//	//remove featured post from datatable so we can insert it at the top if we're on "page" number 1
+			//	dsBlogs.Tables["Posts"].Rows.Remove(found);
+			//}
+
+			//if (blogConfig.FeaturedPostId != 0 && pageNumber == 1)
+			//{
+			//	//insert the featured post into the datatable at the top
+			//	//we only want to do this if the current "page" is number 1, don't want the featured post on other pages.
+			//	dsBlogs.Tables["Posts"].Rows.InsertAt(featuredRow, 0);
+			//}
+
 			List<PageModule> pageModules = PageModule.GetPageModulesByModule(config.BlogModuleId);
 
 			string blogPageUrl = string.Empty;
