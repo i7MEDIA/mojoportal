@@ -1,6 +1,6 @@
-﻿//  Author:                     
-//  Created:                    2009-06-21
-//	Last Modified:              2009-06-23
+﻿// Author:
+// Created:       2009-06-21
+// Last Modified: 2009-06-23
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -10,25 +10,20 @@
 //
 // You must not remove this notice, or any other, from this software.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using PollFeature.Business;
+using System;
 
 namespace mojoPortal.Features
 {
-    public class PollContentDeleteHandler : ContentDeleteHandlerProvider
-    {
-        public PollContentDeleteHandler()
-        { }
+	public class PollContentDeleteHandler : ContentDeleteHandlerProvider
+	{
+		public PollContentDeleteHandler()
+		{ }
 
-        public override void DeleteContent(int moduleId, Guid moduleGuid)
-        {
-
-            Poll.RemoveFromModule(moduleId);
-            
-        }
-    }
+		public override void DeleteContent(int moduleId, Guid moduleGuid)
+		{
+			Poll.RemoveFromModule(moduleId);
+		}
+	}
 }
