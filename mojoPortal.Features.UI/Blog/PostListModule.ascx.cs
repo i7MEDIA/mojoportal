@@ -11,11 +11,13 @@
 /// You must not remove this notice, or any other, from this software.
 
 using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using System;
 
 namespace mojoPortal.Web.BlogUI
 {
+
 	public partial class PostListModule : SiteModuleControl
 	{
 		protected BlogConfiguration blogConfig = new BlogConfiguration();
@@ -24,8 +26,8 @@ namespace mojoPortal.Web.BlogUI
 		protected override void OnInit(EventArgs e)
 		{
 			base.OnInit(e);
-			this.Load += new EventHandler(Page_Load);
-			this.EnableViewState = false;
+			Load += new EventHandler(Page_Load);
+			EnableViewState = false;
 		}
 
 		protected virtual void Page_Load(object sender, EventArgs e)
@@ -56,10 +58,10 @@ namespace mojoPortal.Web.BlogUI
 				pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass);
 			}
 
-			if (this.ModuleConfiguration != null)
+			if (ModuleConfiguration != null)
 			{
-				this.Title = ModuleConfiguration.ModuleTitle;
-				this.Description = ModuleConfiguration.FeatureName;
+				Title = ModuleConfiguration.ModuleTitle;
+				Description = ModuleConfiguration.FeatureName;
 			}
 		}
 	}
