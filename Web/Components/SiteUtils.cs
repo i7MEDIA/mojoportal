@@ -1906,6 +1906,7 @@ namespace mojoPortal.Web
 						&& (
 						(page is mojoPortal.Web.AdminUI.PageLayout)
 						|| (page is mojoPortal.Web.AdminUI.PageProperties)
+						|| (page is mojoPortal.Web.AdminUI.ModuleSettingsPage)
 						||(!(page is NonCmsBasePage))
 						)
 					   )

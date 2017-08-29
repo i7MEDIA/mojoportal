@@ -687,10 +687,19 @@ namespace mojoPortal.Web.BlogUI
 
 		private string commentItemHeaderElement = "h4";
 
+		[Obsolete("Use CommentItemHeaderFormat", true)]
 		public string CommentItemHeaderElement
 		{
 			get { return commentItemHeaderElement; }
 			set { commentItemHeaderElement = value; }
+		}
+
+		private string commentItemHeaderFormat = "<h4>{0}</h4>";
+		
+		public string CommentItemHeaderFormat
+		{
+			get => commentItemHeaderFormat;
+			set => commentItemHeaderFormat = value;
 		}
 
 		private bool alwaysShowSignInPromptForCommentsIfNotAuthenticated = false;

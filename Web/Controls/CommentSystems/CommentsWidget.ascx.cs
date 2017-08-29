@@ -1,6 +1,6 @@
 ﻿// Author:				        
 // Created:			            2012-08-15
-//	Last Modified:              2014-05-14
+//	Last Modified:              2017-08-29
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -24,6 +24,7 @@ using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.UI
 {
+	[Themeable(true)]
     public partial class CommentsWidget : UserControl, IRefreshAfterPostback, IUpdateCommentStats
     {
         CommentRepository repository = null;
@@ -46,7 +47,7 @@ namespace mojoPortal.Web.UI
 
 
         private string commentSystem = "internal";
-
+		[Themeable(false)]
         public string CommentSystem
         {
             get { return commentSystem; }
@@ -56,14 +57,16 @@ namespace mojoPortal.Web.UI
 
         private Guid siteGuid = Guid.Empty;
         
-        public Guid SiteGuid
+		[Themeable(false)]
+		public Guid SiteGuid
         {
             get { return siteGuid; }
             set { siteGuid = value; }
         }
 
         private int siteId = -1;
-        public int SiteId
+		[Themeable(false)]
+		public int SiteId
         {
             get { return siteId; }
             set { siteId = value; }
@@ -71,7 +74,8 @@ namespace mojoPortal.Web.UI
 
         private Guid featureGuid = Guid.Empty;
 
-        public Guid FeatureGuid
+		[Themeable(false)]
+		public Guid FeatureGuid
         {
             get { return featureGuid; }
             set { featureGuid = value; }
@@ -79,7 +83,8 @@ namespace mojoPortal.Web.UI
 
         private Guid moduleGuid = Guid.Empty;
 
-        public Guid ModuleGuid
+		[Themeable(false)]
+		public Guid ModuleGuid
         {
             get { return moduleGuid; }
             set { moduleGuid = value; }
@@ -87,7 +92,8 @@ namespace mojoPortal.Web.UI
 
         private Guid contentGuid = Guid.Empty;
 
-        public Guid ContentGuid
+		[Themeable(false)]
+		public Guid ContentGuid
         {
             get { return contentGuid; }
             set { contentGuid = value; }
@@ -95,7 +101,8 @@ namespace mojoPortal.Web.UI
 
         private bool userCanModerate = false;
 
-        public bool UserCanModerate
+		[Themeable(false)]
+		public bool UserCanModerate
         {
             get { return userCanModerate; }
             set { userCanModerate = value; }
@@ -103,7 +110,8 @@ namespace mojoPortal.Web.UI
 
         private string headingText = string.Empty;
 
-        public string HeadingText
+		[Themeable(true)]
+		public string HeadingText
         {
             get { return headingText; }
             set { headingText = value; }
@@ -111,24 +119,35 @@ namespace mojoPortal.Web.UI
         
 
         private string commentDateTimeFormat = CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
-
-        public string CommentDateTimeFormat
+		[Themeable(true)]
+		public string CommentDateTimeFormat
         {
             get { return commentDateTimeFormat; }
             set { commentDateTimeFormat = value; }
         }
 
-        private string commentItemHeaderElement = "h4";
+		private string commentItemHeaderElement = "h4";
 
+		[Themeable(true)]
+		[Obsolete("Use CommentItemHeaderFormat", true)]
         public string CommentItemHeaderElement
         {
             get { return commentItemHeaderElement; }
             set { commentItemHeaderElement = value; }
         }
 
+		private string commentItemHeaderFormat = "<h4>{0}</h4>";
+		[Themeable(true)]
+		public string CommentItemHeaderFormat
+		{
+			get => commentItemHeaderFormat;
+			set => commentItemHeaderFormat = value;
+		}
+
         private bool allowExternalImages = false;
 
-        public bool AllowExternalImages
+		[Themeable(false)]
+		public bool AllowExternalImages
         {
             get { return allowExternalImages; }
             set { allowExternalImages = value; }
@@ -136,7 +155,8 @@ namespace mojoPortal.Web.UI
 
         private bool commentsClosed = false;
 
-        public bool CommentsClosed
+		[Themeable(false)]
+		public bool CommentsClosed
         {
             get { return commentsClosed; }
             set { commentsClosed = value; }
@@ -144,7 +164,8 @@ namespace mojoPortal.Web.UI
 
         private bool requireCaptcha = true;
 
-        public bool RequireCaptcha
+		[Themeable(false)]
+		public bool RequireCaptcha
         {
             get { return requireCaptcha; }
             set { requireCaptcha = value; }
@@ -152,7 +173,8 @@ namespace mojoPortal.Web.UI
 
         private bool requireModeration = false;
 
-        public bool RequireModeration
+		[Themeable(false)]
+		public bool RequireModeration
         {
             get { return requireModeration; }
             set { requireModeration = value; }
@@ -160,7 +182,8 @@ namespace mojoPortal.Web.UI
 
         private bool sortDescending = false;
 
-        public bool SortDescending
+		[Themeable(true)]
+		public bool SortDescending
         {
             get { return sortDescending; }
             set { sortDescending = value; }
@@ -168,14 +191,22 @@ namespace mojoPortal.Web.UI
 
         private List<string> notificationAddresses = new List<string>();
 
-        public List<string> NotificationAddresses
+		[Themeable(false)]
+		public List<string> NotificationAddresses
         {
             get { return notificationAddresses; }
         }
+		private bool includeCommentBodyInNotification = false;
+		[Themeable(false)]
+		public bool IncludeCommentBodyInNotification
+		{
+			get { return includeCommentBodyInNotification; }
+			set { includeCommentBodyInNotification = value; }
+		}
+		private string commentUrl = string.Empty;
 
-        private string commentUrl = string.Empty;
-
-        public string CommentUrl
+		[Themeable(false)]
+		public string CommentUrl
         {
             get { return commentUrl; }
             set { commentUrl = value; }
@@ -183,7 +214,8 @@ namespace mojoPortal.Web.UI
 
         private string editBaseUrl = string.Empty;
 
-        public string EditBaseUrl
+		[Themeable(false)]
+		public string EditBaseUrl
         {
             get { return editBaseUrl; }
             set { editBaseUrl = value; }
@@ -191,7 +223,8 @@ namespace mojoPortal.Web.UI
 
         private string siteRoot = string.Empty;
 
-        public string SiteRoot
+		[Themeable(false)]
+		public string SiteRoot
         {
             get { return siteRoot; }
             set { siteRoot = value; }
@@ -199,7 +232,8 @@ namespace mojoPortal.Web.UI
 
         private bool includeIpAddressInNotification = true;
 
-        public bool IncludeIpAddressInNotification
+		[Themeable(false)]
+		public bool IncludeIpAddressInNotification
         {
             get { return includeIpAddressInNotification; }
             set { includeIpAddressInNotification = value; }
@@ -207,7 +241,8 @@ namespace mojoPortal.Web.UI
 
         private string notificationTemplateName = "BlogCommentNotificationEmail.config";
 
-        public string NotificationTemplateName
+		[Themeable(false)]
+		public string NotificationTemplateName
         {
             get { return notificationTemplateName; }
             set { notificationTemplateName = value; }
@@ -215,49 +250,56 @@ namespace mojoPortal.Web.UI
 
         private string defaultCommentTitle = string.Empty;
 
-        public string DefaultCommentTitle
+		[Themeable(true)]
+		public string DefaultCommentTitle
         {
             get { return defaultCommentTitle; }
             set { defaultCommentTitle = value; }
         }
 
         private IRefreshAfterPostback containerControl = null;
-        public IRefreshAfterPostback ContainerControl
+		[Themeable(false)]
+		public IRefreshAfterPostback ContainerControl
         {
             get { return containerControl; }
             set { containerControl = value; }
         }
 
         private IUpdateCommentStats updateContainerControl = null;
-        public IUpdateCommentStats UpdateContainerControl
+		[Themeable(false)]
+		public IUpdateCommentStats UpdateContainerControl
         {
             get { return updateContainerControl; }
             set { updateContainerControl = value; }
         }
 
         private string userEditIcon = "~/Data/SiteImages/user_edit.png";
-        public string UserEditIcon
+		[Themeable(false)]
+		public string UserEditIcon
         {
             get { return userEditIcon; }
             set { userEditIcon = value; }
         }
 
         private bool useCommentTitle = true;
-        public bool UseCommentTitle
+		[Themeable(false)]
+		public bool UseCommentTitle
         {
             get { return useCommentTitle; }
             set { useCommentTitle = value; }
         }
 
         private bool showUserUrl = true;
-        public bool ShowUserUrl
+		[Themeable(false)]
+		public bool ShowUserUrl
         {
             get { return showUserUrl; }
             set { showUserUrl = value; }
         }
 
         private string commentsClosedMessage = string.Empty;
-        public string CommentsClosedMessage
+		[Themeable(true)]
+		public string CommentsClosedMessage
         {
             get { return commentsClosedMessage; }
             set { commentsClosedMessage = value; }
@@ -265,7 +307,8 @@ namespace mojoPortal.Web.UI
 
         private bool requireAuthenticationToPost = false;
 
-        public bool RequireAuthenticationToPost
+		[Themeable(false)]
+		public bool RequireAuthenticationToPost
         {
             get { return requireAuthenticationToPost; }
             set { requireAuthenticationToPost = value; }
@@ -273,7 +316,8 @@ namespace mojoPortal.Web.UI
 
         private bool alwaysShowSignInPromptIfNotAuthenticated = false;
 
-        public bool AlwaysShowSignInPromptIfNotAuthenticated
+		[Themeable(false)]
+		public bool AlwaysShowSignInPromptIfNotAuthenticated
         {
             get { return alwaysShowSignInPromptIfNotAuthenticated; }
             set { alwaysShowSignInPromptIfNotAuthenticated = value; }
@@ -281,14 +325,16 @@ namespace mojoPortal.Web.UI
 
         private bool showJanrainWidetOnSignInPrompt = false;
 
-        public bool ShowJanrainWidetOnSignInPrompt
+		[Themeable(false)]
+		public bool ShowJanrainWidetOnSignInPrompt
         {
             get { return showJanrainWidetOnSignInPrompt; }
             set { showJanrainWidetOnSignInPrompt = value; }
         }
 
         private string authenticationRequiredMessage = string.Empty;
-        public string AuthenticationRequiredMessage
+		[Themeable(false)]
+		public string AuthenticationRequiredMessage
         {
             get { return authenticationRequiredMessage; }
             set { authenticationRequiredMessage = value; }
@@ -296,14 +342,16 @@ namespace mojoPortal.Web.UI
 
         private int allowedEditMinutesForUnModeratedPosts = 10;
 
-        public int AllowedEditMinutesForUnModeratedPosts
+		[Themeable(false)]
+		public int AllowedEditMinutesForUnModeratedPosts
         {
             get { return allowedEditMinutesForUnModeratedPosts; }
             set { allowedEditMinutesForUnModeratedPosts = value; }
         }
 
         private string disqusShortName = string.Empty;
-        public string DisqusShortName
+		[Themeable(false)]
+		public string DisqusShortName
         {
             get { return disqusShortName; }
             set { disqusShortName = value; }
@@ -311,7 +359,8 @@ namespace mojoPortal.Web.UI
 
         private string intenseDebateAccountId = string.Empty;
 
-        public string IntenseDebateAccountId
+		[Themeable(false)]
+		public string IntenseDebateAccountId
         {
             get { return intenseDebateAccountId; }
             set { intenseDebateAccountId = value; }
@@ -319,26 +368,138 @@ namespace mojoPortal.Web.UI
 
         private bool forceDisableAvatar = false;
 
-        public bool ForceDisableAvatar
+		[Themeable(false)]
+		public bool ForceDisableAvatar
         {
             get { return forceDisableAvatar; }
             set { forceDisableAvatar = value; }
         }
 
-        #endregion
+		private string outerPanelCssClass = "commentpanel";
+		[Themeable(true)]
+		public string OuterPanelCssClass
+		{
+			get => outerPanelCssClass;
+			set => outerPanelCssClass = value;
+		}
+
+		private string innerPanelCssClass = "commentlist";
+		[Themeable(true)]
+		public string InnerPanelCssClass
+		{
+			get => innerPanelCssClass;
+			set => innerPanelCssClass = value;
+		}
+
+		private string itemWrapperCssClass = "commentitem";
+		[Themeable(true)]
+		public string ItemWrapperCssClass
+		{
+			get => itemWrapperCssClass;
+			set => itemWrapperCssClass = value;
+		}
+
+		private string itemTitleCssClass = "commenttitle";
+		[Themeable(true)]
+		public string ItemTitleCssClass
+		{
+			get => itemTitleCssClass;
+			set => itemTitleCssClass = value;
+		}
+
+		private string itemBodyCssClass = "commentbody";
+		[Themeable(true)]
+		public string ItemBodyCssClass
+		{
+			get => itemBodyCssClass;
+			set => itemBodyCssClass = value;
+		}
+
+		private string itemHeaderCssClass = "commentheading";
+		[Themeable(true)]
+		public string ItemHeaderCssClass
+		{
+			get => itemHeaderCssClass;
+			set => itemHeaderCssClass = value;
+		}
+
+		private string dateWrapperCssClass = "commentdate";
+		[Themeable(true)]
+		public string DateWrapperCssClass
+		{
+			get => dateWrapperCssClass;
+			set => dateWrapperCssClass = value;
+		}
+
+		private string leftPanelCssClass = "commentuserinfo";
+		[Themeable(true)]
+		public string LeftPanelCssClass
+		{
+			get => leftPanelCssClass;
+			set => leftPanelCssClass = value;
+		}
+
+		private string rightPanelCssClass = "theactualdarncomment";
+		[Themeable(true)]
+		public string RightPanelCssClass
+		{
+			get => rightPanelCssClass;
+			set => rightPanelCssClass = value;
+		}
+
+		private string usernameWrapperCssClass = "commentusername";
+		[Themeable(true)]
+		public string UsernameWrapperCssClass
+		{
+			get => usernameWrapperCssClass;
+			set => usernameWrapperCssClass = value;
+		}
+
+		private string avatarWrapperCssClass = "commentuseravatar";
+		[Themeable(true)]
+		public string AvatarWrapperCssClass
+		{
+			get => avatarWrapperCssClass;
+			set => avatarWrapperCssClass = value;
+		}
+
+		private string revenueWrapperCssClass = "commentuserrevenue";
+		[Themeable(true)]
+		public string RevenueWrapperCssClass
+		{
+			get => revenueWrapperCssClass;
+			set => revenueWrapperCssClass = value;
+		}
+
+		private string manageUserLinkFormat = "<a href='{0}'><i class='fa fa-user-circle-o' aria-hidden='true'></i><span class='sr-only'>{1}</span></a>";
+		[Themeable(true)]
+		public string ManageUserLinkFormat
+		{
+			get => manageUserLinkFormat;
+			set => manageUserLinkFormat = value;
+		}
 
 
-        protected void Page_Load(object sender, EventArgs e)
+		#endregion
+
+
+		protected void Page_Load(object sender, EventArgs e)
         {
             
             LoadSettings();
             PopulateLabels();
-            
+			ApplyThemeSettings();
         }
 
-        
+		private void ApplyThemeSettings()
+		{
+			pnlOuterPanel.CssClass = outerPanelCssClass;
+			pnlInnerPanel.CssClass = innerPanelCssClass;
 
-        private void SetupCommentSystem()
+
+		}
+
+		private void SetupCommentSystem()
         {
             switch (commentSystem)
             {
@@ -424,6 +585,7 @@ namespace mojoPortal.Web.UI
             commentEditor.UpdateContainerControl = this;
             commentEditor.UseCommentTitle = useCommentTitle;
             commentEditor.ShowUserUrl = showUserUrl;
+			commentEditor.IncludeCommentBodyInNotification = includeCommentBodyInNotification;
 
             pnlCommentsClosed.Visible = commentsClosed;
             if (!commentsClosed && requireAuthenticationToPost && !Request.IsAuthenticated)
@@ -464,7 +626,7 @@ namespace mojoPortal.Web.UI
 
         private void SetupDisqus()
         {
-            pnlFeedback.Visible = false;
+            pnlOuterPanel.Visible = false;
             divCommentService.Visible = true;
             intenseDebate.Visible = false;
             fbComments.Visible = false;
@@ -488,7 +650,7 @@ namespace mojoPortal.Web.UI
 
         private void SetupIntenseDebate()
         {
-            pnlFeedback.Visible = false;
+            pnlOuterPanel.Visible = false;
             divCommentService.Visible = true;
             intenseDebate.Visible = true;
             disqus.Disable = true;
@@ -505,7 +667,7 @@ namespace mojoPortal.Web.UI
 
         private void SetupFacebook()
         {
-            pnlFeedback.Visible = false;
+            pnlOuterPanel.Visible = false;
             divCommentService.Visible = true;
             fbComments.Visible = true;
             disqus.Disable = true;
@@ -740,6 +902,17 @@ namespace mojoPortal.Web.UI
             return "<a rel='nofollow' href='" + SiteRoot + "/ProfileView.aspx?userid=" + userId.ToInvariantString() + "'>" + userName + "</a>";
 
         }
+
+		protected string GetProfileManageIcon(int userId)
+		{
+			if (!(CanManageUsers && (Convert.ToInt32(Eval("UserId")) > -1)))
+			{
+				return string.Empty;
+			}
+
+			return String.Format(ManageUserLinkFormat, SiteRoot + "/Admin/ManageUsers.aspx?userid=" + userId.ToString(), Resource.ManageUsersTitleLabel);
+		}
+
 
         protected bool UseProfileLink()
         {

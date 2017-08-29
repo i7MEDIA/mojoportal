@@ -1,6 +1,6 @@
 // Author:
 // Created:			        2010-05-11
-// Last Modified:		    2017-06-06
+// Last Modified:		    2017-08-25
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -105,6 +105,8 @@ namespace mojoPortal.Web.BlogUI
 			navigationOnRight = WebUtils.ParseBoolFromHashtable(settings, "BlogNavigationOnRightSetting", navigationOnRight);
 
 			allowComments = WebUtils.ParseBoolFromHashtable(settings, "BlogAllowComments", allowComments);
+
+			includeCommentBodyInNotification = WebUtils.ParseBoolFromHashtable(settings, "BlogIncludeCommentBodyInNotification", includeCommentBodyInNotification);
 
 			useLinkForHeading = WebUtils.ParseBoolFromHashtable(settings, "BlogUseLinkForHeading", useLinkForHeading);
 
@@ -1001,6 +1003,12 @@ namespace mojoPortal.Web.BlogUI
 		public bool AllowComments
 		{
 			get { return allowComments; }
+		}
+
+		private bool includeCommentBodyInNotification = false;
+		public bool IncludeCommentBodyInNotification
+		{
+			get { return includeCommentBodyInNotification; }
 		}
 
 		private bool navigationOnRight = false;

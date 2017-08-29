@@ -1,6 +1,6 @@
 // Author:
 // Created:			            2004-08-15
-//	Last Modified:              2015-12-14
+//	Last Modified:              2017-08-25
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -1199,7 +1199,7 @@ namespace mojoPortal.Web.BlogUI
 			comments.FeatureGuid = Blog.FeatureGuid;
 			comments.ModuleGuid = module.ModuleGuid;
 			comments.ContentGuid = blog.BlogGuid;
-			comments.CommentItemHeaderElement = displaySettings.CommentItemHeaderElement;
+			comments.CommentItemHeaderFormat = displaySettings.CommentItemHeaderFormat;
 			comments.CommentDateTimeFormat = config.DateTimeFormat;
 			comments.CommentsClosed = !CommentsAreOpen();
 			comments.CommentsClosedMessage = BlogResources.BlogCommentsClosedMessage;
@@ -1216,6 +1216,7 @@ namespace mojoPortal.Web.BlogUI
 
 			if (config.NotifyOnComment)
 			{
+
 				if ((config.NotifyEmail.Length > 0) && (Email.IsValidEmailAddressSyntax(config.NotifyEmail)))
 				{
 					comments.NotificationAddresses.Add(config.NotifyEmail);
@@ -1266,7 +1267,7 @@ namespace mojoPortal.Web.BlogUI
 
 			divCommentUrl.Visible = config.AllowWebSiteUrlForComments;
 
-			CommentItemHeaderElement = displaySettings.CommentItemHeaderElement;
+			//CommentItemHeaderElement = displaySettings.CommentItemHeaderElement;
 
 			if ((config.RequireAuthenticationForComments) && (!Request.IsAuthenticated))
 			{

@@ -21,7 +21,6 @@ namespace mojoPortal.Web.Framework
     ///
     /// You must not remove this notice, or any other, from this software.	
     /// 
-    /// This is just a base class for other panel based controls, it is not meant to be used directly.
     /// </summary>
     public class ServicePinger
     {

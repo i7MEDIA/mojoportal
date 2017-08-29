@@ -179,7 +179,7 @@
 						<asp:HyperLink ID="lnkNextPost" runat="server" Visible="false" CssClass="postlink nextpost" EnableViewState="false"></asp:HyperLink>
 					</blog:BlogPagerPanel>
 
-					<portal:CommentsWidget ID="InternalCommentSystem" runat="server" Visible="false" />
+					<portal:CommentsWidget ID="InternalCommentSystem" runat="server" Visible="false" SkinID="Blog" />
 
 					<blog:BlogCommentPanel ID="pnlFeedback" runat="server" CssClass="bcommentpanel">
 						<portal:HeadingControl ID="commentListHeading" runat="server" SkinID="BlogComments" HeadingTag="h3" />

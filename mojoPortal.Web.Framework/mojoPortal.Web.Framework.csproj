@@ -167,6 +167,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper, Version=3.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.3.0.0-beta7\lib\net451\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -199,6 +202,7 @@
     <Compile Include="DateTimeHelper.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="ExportHelper.cs" />
+    <Compile Include="ImportHelper.cs" />
     <Compile Include="IOHelper.cs" />
     <Compile Include="NeatHtml\AttributeValueValidator.cs" />
     <Compile Include="NeatHtml\XPathNavigatorReader.cs" />

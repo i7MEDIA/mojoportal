@@ -1,27 +1,22 @@
-// Author:        
 // Created:       2007-07-12
-// Last Modified: 2017-07-11
-// 
-//				
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
+// Last Modified: 2017-08-16
 
+using CsvHelper;
+using CsvHelper.Configuration;
 using System;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Collections.Generic;
+using System.Dynamic;
 
 namespace mojoPortal.Web.Framework
 {
 	public static class ExportHelper
 	{
+        //todo: replace this with CsvHelper?
 		public static void ExportDataTableToCsv(
 			HttpContext context,
 			DataTable table,
@@ -205,7 +200,27 @@ namespace mojoPortal.Web.Framework
 			context.Response.End();
 		}
 
-		public static string AutoEscapeStringForCsv(string data)
+        public static void ExportDynamicListToCSV(HttpContext context, List<dynamic> objects, string filename)
+        {
+            if (context == null) { return; }
+            context.Response.ClearHeaders(); // this fixed an issue downloading in IE over ssl
+            context.Response.Clear();
+            context.Response.ClearContent();
+            context.Response.Buffer = true;
+            context.Response.ContentType = "text/csv";
+
+            context.Response.AppendHeader("Content-Disposition", "attachment;filename=\"" + filename + "\"");
+            context.Response.ContentEncoding = new UTF8Encoding();
+            
+            using (var csv = new CsvWriter(new StreamWriter(context.Response.OutputStream)))
+            {
+                csv.WriteRecords(objects);
+            }
+
+            context.Response.End();
+        }
+
+        public static string AutoEscapeStringForCsv(string data)
 		{
 			bool wrap = false;
 

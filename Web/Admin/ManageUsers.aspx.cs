@@ -220,7 +220,8 @@ namespace mojoPortal.Web.AdminUI
 
                 txtName.Text = SecurityHelper.RemoveMarkup(siteUser.Name);
                 txtLoginName.Text = SecurityHelper.RemoveMarkup(siteUser.LoginName);
-
+                txtFirstName.Text = SecurityHelper.RemoveMarkup(siteUser.FirstName);
+                txtLastName.Text = SecurityHelper.RemoveMarkup(siteUser.LastName);
                // lnkAvatarUpload.ClientClick = "return GB_showPage('" + Page.Server.HtmlEncode(string.Format(CultureInfo.InvariantCulture, Resource.UploadAvatarForUserFormat, siteUser.Name)) + "', this.href, GBCallback)";
                 txtEmail.Text = siteUser.Email;
                 txtOpenIDURI.Text = siteUser.OpenIdUri;
@@ -478,6 +479,10 @@ namespace mojoPortal.Web.AdminUI
                     // but we don't need to load it here because we have a dedicated control for the property already
                     if (propertyDefinition.Name == mojoProfilePropertyDefinition.TimeZoneIdKey) { continue; }
 
+                    // we allow this to be configured as a profile property so it can be required for registration
+                    // but we don't need to load it here because we have a dedicated control for the property already
+                    if (propertyDefinition.Name == "FirstName" || propertyDefinition.Name == "LastName") { continue; }
+
                     if (
                         (propertyDefinition.OnlyAvailableForRoles.Length == 0)
                         ||(siteUser.IsInRoles(propertyDefinition.OnlyAvailableForRoles))
@@ -603,6 +608,8 @@ namespace mojoPortal.Web.AdminUI
             siteUser.Name = txtName.Text;
             siteUser.LoginName = txtLoginName.Text;
             siteUser.Email = txtEmail.Text;
+            siteUser.FirstName = txtFirstName.Text;
+            siteUser.LastName = txtLastName.Text;
 
             if (WebConfigSettings.LogIpAddressForEmailChanges)
             {
@@ -723,10 +730,11 @@ namespace mojoPortal.Web.AdminUI
 			user.LoginName = txtLoginName.Text;
 			user.Email = txtEmail.Text;
             user.TimeZoneId = siteSettings.TimeZoneId;
-
             mojoMembershipProvider mojoMembership = (mojoMembershipProvider)Membership.Provider;
 		    user.Password = mojoMembership.EncodePassword(siteSettings, user, txtPassword.Text);
             user.MustChangePwd = chkRequirePasswordChange.Checked;
+			user.FirstName = txtFirstName.Text;
+			user.LastName = txtLastName.Text;
 
 			if(user.Save())
 			{

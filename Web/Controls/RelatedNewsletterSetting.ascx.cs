@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:				    2013-09-02
-// Last Modified:			2013-09-03
+// Last Modified:			2017-08-23
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -15,15 +15,12 @@ using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Resources;
 
 namespace mojoPortal.Web.UI
 {
-    public partial class RelatedNewsletterSetting : UserControl, ISettingControl
+	public partial class RelatedNewsletterSetting : UserControl, ISettingControl
     {
 
         protected override void OnInit(EventArgs e)
@@ -39,7 +36,6 @@ namespace mojoPortal.Web.UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            PopulateLabels();
 
         }
 
@@ -112,15 +108,6 @@ namespace mojoPortal.Web.UI
                 up.Update();
             }
            
-        }
-
-        private void PopulateLabels()
-        {
-            //btnAdd.ToolTip = Resource.Sele;
-
-            //btnRemove.ToolTip = Resource.SiteSettingsRemoveFeatureTooltip;
-
-            lblMessage.Text = string.Empty;
         }
 
         private void EnsureItems()

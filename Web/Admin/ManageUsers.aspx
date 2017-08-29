@@ -54,6 +54,20 @@
                                 <portal:mojoHelpLink ID="MojoHelpLink1" runat="server" HelpKey="userfullnamehelp" />
                             </div>
                             <div class="settingrow">
+                                <mp:SiteLabel ID="lblFirstName" runat="server" ForControl="txtFirstName" CssClass="settinglabel"
+                                    ResourceFile="ProfileResource" ConfigKey="FirstName" />
+                                <asp:TextBox ID="txtFirstName" runat="server" TabIndex="10" Columns="45" MaxLength="100"
+                                    CssClass="forminput widetextbox" />
+                                <%--<portal:mojoHelpLink ID="MojoHelpLink18" runat="server" HelpKey="userfirstnamehelp" />--%>
+                            </div>
+                            <div class="settingrow">
+                                <mp:SiteLabel ID="lblLastName" runat="server" ForControl="txtLastName" CssClass="settinglabel"
+                                    ResourceFile="ProfileResource" ConfigKey="LastName" />
+                                <asp:TextBox ID="txtLastName" runat="server" TabIndex="10" Columns="45" MaxLength="100"
+                                    CssClass="forminput widetextbox" />
+                                <%--<portal:mojoHelpLink ID="MojoHelpLink18" runat="server" HelpKey="userfirstnamehelp" />--%>
+                            </div>
+                            <div class="settingrow">
                                 <mp:SiteLabel ID="SitelabelLoginName" runat="server" ForControl="txtLoginName" CssClass="settinglabel"
                                     ConfigKey="ManageUsersLoginNameLabel"></mp:SiteLabel>
                                 <asp:TextBox ID="txtLoginName" runat="server" TabIndex="10" Columns="45" MaxLength="50"

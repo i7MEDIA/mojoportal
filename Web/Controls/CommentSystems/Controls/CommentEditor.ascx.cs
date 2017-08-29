@@ -1,6 +1,6 @@
 ﻿// Author:				        
 // Created:			            2012-08-23
-//	Last Modified:              2016-01-07
+//	Last Modified:              2017-08-25
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -113,6 +113,13 @@ namespace mojoPortal.Web.UI
             get { return notificationAddresses; }
             set { notificationAddresses = value; }
         }
+
+		private bool includeCommentBodyInNotification = false;
+		public bool IncludeCommentBodyInNotification
+		{
+			get { return includeCommentBodyInNotification; }
+			set { includeCommentBodyInNotification = value; }
+		}
 
         private string commentUrl = string.Empty;
 
@@ -325,8 +332,9 @@ namespace mojoPortal.Web.UI
             comment.UserUrl = txtURL.Text;
             comment.UserEmail = txtEmail.Text;
 
-            if (currentUser != null)
+            if (userComment == null && currentUser != null)
             {
+				//we check for userComment == null to be sure we aren't changing the user of a comment that is being changed by a moderator
                 comment.UserGuid = currentUser.UserGuid;
                 comment.UserName = currentUser.Name;
                 comment.UserEmail = currentUser.Email;
@@ -394,7 +402,14 @@ namespace mojoPortal.Web.UI
             }
             message.Replace("{MessageLink}", commentLink);
 
-
+			if (includeCommentBodyInNotification)
+			{
+				message.Replace("{CommentBody}", HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(edComment.Text)));
+			}
+			else
+			{
+				message.Replace("{CommentBody}", string.Empty);
+			}
 
             if (includeIpAddressInNotification)
             {

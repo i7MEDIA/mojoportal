@@ -22,13 +22,13 @@ namespace mojoPortal.Web.UI {
         protected global::mojoPortal.Web.UI.CommentSystemDisplaySettings displaySettings;
         
         /// <summary>
-        /// pnlFeedback control.
+        /// pnlOuterPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.UI.CommentsOuterPanel pnlFeedback;
+        protected global::mojoPortal.Web.UI.CommentsOuterPanel pnlOuterPanel;
         
         /// <summary>
         /// commentListHeading control.
@@ -40,13 +40,13 @@ namespace mojoPortal.Web.UI {
         protected global::mojoPortal.Web.UI.HeadingControl commentListHeading;
         
         /// <summary>
-        /// pnlListWrapper control.
+        /// pnlInnerPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.UI.CommentsInnerPanel pnlListWrapper;
+        protected global::mojoPortal.Web.UI.CommentsInnerPanel pnlInnerPanel;
         
         /// <summary>
         /// rptComments control.
