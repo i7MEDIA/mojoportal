@@ -1,6 +1,6 @@
-﻿// Author:					
-// Created:				    2010-01-14
-// Last Modified:			2011-07-19
+﻿// Author:
+// Created:       2010-01-14
+// Last Modified: 2017-08-30
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
