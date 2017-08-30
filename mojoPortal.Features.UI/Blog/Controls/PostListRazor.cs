@@ -226,174 +226,187 @@ namespace mojoPortal.Web.BlogUI
 
 		protected override void RenderContents(HtmlTextWriter output)
 		{
-			DataSet dsBlogs = Blog.GetPageDataSet(config.BlogModuleId, DateTime.UtcNow, pageNumber, pageSize, out totalPages);
+			DataSet dsBlogs = null;
 
-			//DataRow featuredRow = dsBlogs.Tables["Posts"].NewRow();
+			// Check for Featured Post, if it exists grab one less post to keep the count correct
+			if (blogConfig.FeaturedPostId == 0)
+			{
+				dsBlogs = Blog.GetPageDataSet(config.BlogModuleId, DateTime.UtcNow, pageNumber, pageSize, out totalPages);
+			}
+			else
+			{
+				dsBlogs = Blog.GetPageDataSet(config.BlogModuleId, DateTime.UtcNow, pageNumber, (pageSize - 1), out totalPages);
+			}
 
-			//if (blogConfig.FeaturedPostId != 0 && pageNumber == 1)
-			//{
-			//	using (IDataReader reader = Blog.GetSingleBlog(blogConfig.FeaturedPostId))
-			//	{
-			//		while (reader.Read())
-			//		{
-			//			featuredRow["ItemID"] = Convert.ToInt32(reader["ItemID"]);
-			//			featuredRow["ModuleID"] = Convert.ToInt32(reader["ModuleID"]);
-			//			featuredRow["BlogGuid"] = reader["BlogGuid"].ToString();
-			//			featuredRow["CreatedDate"] = Convert.ToDateTime(reader["CreatedDate"]);
-			//			featuredRow["Heading"] = reader["Heading"].ToString();
-			//			featuredRow["SubTitle"] = reader["SubTitle"].ToString();
-			//			featuredRow["StartDate"] = Convert.ToDateTime(reader["StartDate"]);
-			//			featuredRow["Description"] = reader["Description"].ToString();
-			//			featuredRow["Abstract"] = reader["Abstract"].ToString();
-			//			featuredRow["ItemUrl"] = reader["ItemUrl"].ToString();
-			//			featuredRow["Location"] = reader["Location"].ToString();
-			//			featuredRow["MetaKeywords"] = reader["MetaKeywords"].ToString();
-			//			featuredRow["MetaDescription"] = reader["MetaDescription"].ToString();
-			//			featuredRow["LastModUtc"] = Convert.ToDateTime(reader["LastModUtc"]);
-			//			featuredRow["IsPublished"] = true;
-			//			featuredRow["IncludeInFeed"] = Convert.ToBoolean(reader["IncludeInFeed"]);
-			//			featuredRow["CommentCount"] = Convert.ToInt32(reader["CommentCount"]);
-			//			featuredRow["UserID"] = Convert.ToInt32(reader["UserID"]);
-			//			featuredRow["Name"] = reader["Name"].ToString();
-			//			featuredRow["FirstName"] = reader["FirstName"].ToString();
-			//			featuredRow["LastName"] = reader["LastName"].ToString();
-			//			featuredRow["LoginName"] = reader["LoginName"].ToString();
-			//			featuredRow["Email"] = reader["Email"].ToString();
-			//			featuredRow["AvatarUrl"] = reader["AvatarUrl"].ToString();
-			//			featuredRow["AuthorBio"] = reader["AuthorBio"].ToString();
+			DataRow featuredRow = dsBlogs.Tables["Posts"].NewRow();
 
-			//			if (reader["ShowAuthorName"] != DBNull.Value)
-			//			{
-			//				featuredRow["ShowAuthorName"] = Convert.ToBoolean(reader["ShowAuthorName"]);
-			//			}
-			//			else
-			//			{
-			//				featuredRow["ShowAuthorName"] = true;
-			//			}
+			if (blogConfig.FeaturedPostId != 0 && pageNumber == 1)
+			{
+				using (IDataReader reader = Blog.GetSingleBlog(blogConfig.FeaturedPostId))
+				{
+					while (reader.Read())
+					{
+						featuredRow["ItemID"] = Convert.ToInt32(reader["ItemID"]);
+						featuredRow["ModuleID"] = Convert.ToInt32(reader["ModuleID"]);
+						featuredRow["BlogGuid"] = reader["BlogGuid"].ToString();
+						featuredRow["CreatedDate"] = Convert.ToDateTime(reader["CreatedDate"]);
+						featuredRow["Heading"] = reader["Heading"].ToString();
+						featuredRow["SubTitle"] = reader["SubTitle"].ToString();
+						featuredRow["StartDate"] = Convert.ToDateTime(reader["StartDate"]);
+						featuredRow["Description"] = reader["Description"].ToString();
+						featuredRow["Abstract"] = reader["Abstract"].ToString();
+						featuredRow["ItemUrl"] = reader["ItemUrl"].ToString();
+						featuredRow["Location"] = reader["Location"].ToString();
+						featuredRow["MetaKeywords"] = reader["MetaKeywords"].ToString();
+						featuredRow["MetaDescription"] = reader["MetaDescription"].ToString();
+						featuredRow["LastModUtc"] = Convert.ToDateTime(reader["LastModUtc"]);
+						featuredRow["IsPublished"] = true;
+						featuredRow["IncludeInFeed"] = Convert.ToBoolean(reader["IncludeInFeed"]);
+						featuredRow["CommentCount"] = Convert.ToInt32(reader["CommentCount"]);
+						featuredRow["CommentCount"] = 0;
+						featuredRow["UserID"] = Convert.ToInt32(reader["UserID"]);
+						featuredRow["UserID"] = -1;
+						featuredRow["Name"] = reader["Name"].ToString();
+						featuredRow["FirstName"] = reader["FirstName"].ToString();
+						featuredRow["LastName"] = reader["LastName"].ToString();
+						featuredRow["LoginName"] = reader["LoginName"].ToString();
+						featuredRow["Email"] = reader["Email"].ToString();
+						featuredRow["AvatarUrl"] = reader["AvatarUrl"].ToString();
+						featuredRow["AuthorBio"] = reader["AuthorBio"].ToString();
+						featuredRow["AllowCommentsForDays"] = Convert.ToInt32(reader["AllowCommentsForDays"]);
 
-			//			if (reader["ShowAuthorAvatar"] != DBNull.Value)
-			//			{
-			//				featuredRow["ShowAuthorAvatar"] = Convert.ToBoolean(reader["ShowAuthorAvatar"]);
-			//			}
-			//			else
-			//			{
-			//				featuredRow["ShowAuthorAvatar"] = true;
-			//			}
+						if (reader["ShowAuthorName"] != DBNull.Value)
+						{
+							featuredRow["ShowAuthorName"] = Convert.ToBoolean(reader["ShowAuthorName"]);
+						}
+						else
+						{
+							featuredRow["ShowAuthorName"] = true;
+						}
 
-			//			if (reader["ShowAuthorBio"] != DBNull.Value)
-			//			{
-			//				featuredRow["ShowAuthorBio"] = Convert.ToBoolean(reader["ShowAuthorBio"]);
-			//			}
-			//			else
-			//			{
-			//				featuredRow["ShowAuthorBio"] = true;
-			//			}
+						if (reader["ShowAuthorAvatar"] != DBNull.Value)
+						{
+							featuredRow["ShowAuthorAvatar"] = Convert.ToBoolean(reader["ShowAuthorAvatar"]);
+						}
+						else
+						{
+							featuredRow["ShowAuthorAvatar"] = true;
+						}
 
-			//			if (reader["UseBingMap"] != DBNull.Value)
-			//			{
-			//				featuredRow["UseBingMap"] = Convert.ToBoolean(reader["UseBingMap"]);
-			//			}
-			//			else
-			//			{
-			//				featuredRow["UseBingMap"] = false;
-			//			}
+						if (reader["ShowAuthorBio"] != DBNull.Value)
+						{
+							featuredRow["ShowAuthorBio"] = Convert.ToBoolean(reader["ShowAuthorBio"]);
+						}
+						else
+						{
+							featuredRow["ShowAuthorBio"] = true;
+						}
 
-			//			featuredRow["MapHeight"] = reader["MapHeight"].ToString();
-			//			featuredRow["MapWidth"] = reader["MapWidth"].ToString();
-			//			featuredRow["MapType"] = reader["MapType"].ToString();
+						if (reader["UseBingMap"] != DBNull.Value)
+						{
+							featuredRow["UseBingMap"] = Convert.ToBoolean(reader["UseBingMap"]);
+						}
+						else
+						{
+							featuredRow["UseBingMap"] = false;
+						}
 
-			//			if (reader["MapZoom"] != DBNull.Value)
-			//			{
-			//				featuredRow["MapZoom"] = Convert.ToInt32(reader["MapZoom"]);
-			//			}
-			//			else
-			//			{
-			//				featuredRow["MapZoom"] = 13;
-			//			}
+						featuredRow["MapHeight"] = reader["MapHeight"].ToString();
+						featuredRow["MapWidth"] = reader["MapWidth"].ToString();
+						featuredRow["MapType"] = reader["MapType"].ToString();
 
-			//			if (reader["ShowMapOptions"] != DBNull.Value)
-			//			{
-			//				featuredRow["ShowMapOptions"] = Convert.ToBoolean(reader["ShowMapOptions"]);
-			//			}
-			//			else
-			//			{
-			//				featuredRow["ShowMapOptions"] = false;
-			//			}
+						if (reader["MapZoom"] != DBNull.Value)
+						{
+							featuredRow["MapZoom"] = Convert.ToInt32(reader["MapZoom"]);
+						}
+						else
+						{
+							featuredRow["MapZoom"] = 13;
+						}
 
-			//			if (reader["ShowZoomTool"] != DBNull.Value)
-			//			{
-			//				featuredRow["ShowZoomTool"] = Convert.ToBoolean(reader["ShowZoomTool"]);
-			//			}
-			//			else
-			//			{
-			//				featuredRow["ShowZoomTool"] = false;
-			//			}
+						if (reader["ShowMapOptions"] != DBNull.Value)
+						{
+							featuredRow["ShowMapOptions"] = Convert.ToBoolean(reader["ShowMapOptions"]);
+						}
+						else
+						{
+							featuredRow["ShowMapOptions"] = false;
+						}
 
-			//			if (reader["ShowLocationInfo"] != DBNull.Value)
-			//			{
-			//				featuredRow["ShowLocationInfo"] = Convert.ToBoolean(reader["ShowLocationInfo"]);
-			//			}
-			//			else
-			//			{
-			//				featuredRow["ShowLocationInfo"] = false;
-			//			}
+						if (reader["ShowZoomTool"] != DBNull.Value)
+						{
+							featuredRow["ShowZoomTool"] = Convert.ToBoolean(reader["ShowZoomTool"]);
+						}
+						else
+						{
+							featuredRow["ShowZoomTool"] = false;
+						}
 
-			//			if (reader["UseDrivingDirections"] != DBNull.Value)
-			//			{
-			//				featuredRow["UseDrivingDirections"] = Convert.ToBoolean(reader["UseDrivingDirections"]);
-			//			}
-			//			else
-			//			{
-			//				featuredRow["UseDrivingDirections"] = false;
-			//			}
+						if (reader["ShowLocationInfo"] != DBNull.Value)
+						{
+							featuredRow["ShowLocationInfo"] = Convert.ToBoolean(reader["ShowLocationInfo"]);
+						}
+						else
+						{
+							featuredRow["ShowLocationInfo"] = false;
+						}
 
-			//			if (reader["ShowDownloadLink"] != DBNull.Value)
-			//			{
-			//				featuredRow["ShowDownloadLink"] = Convert.ToBoolean(reader["ShowDownloadLink"]);
-			//			}
-			//			else
-			//			{
-			//				featuredRow["ShowDownloadLink"] = false;
-			//			}
+						if (reader["UseDrivingDirections"] != DBNull.Value)
+						{
+							featuredRow["UseDrivingDirections"] = Convert.ToBoolean(reader["UseDrivingDirections"]);
+						}
+						else
+						{
+							featuredRow["UseDrivingDirections"] = false;
+						}
 
-			//			featuredRow["HeadlineImageUrl"] = reader["HeadlineImageUrl"];
+						if (reader["ShowDownloadLink"] != DBNull.Value)
+						{
+							featuredRow["ShowDownloadLink"] = Convert.ToBoolean(reader["ShowDownloadLink"]);
+						}
+						else
+						{
+							featuredRow["ShowDownloadLink"] = false;
+						}
 
-			//			if (reader["IncludeImageInExcerpt"] != DBNull.Value)
-			//			{
-			//				featuredRow["IncludeImageInExcerpt"] = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
-			//			}
-			//			else
-			//			{
-			//				featuredRow["IncludeImageInExcerpt"] = true;
-			//			}
+						featuredRow["HeadlineImageUrl"] = reader["HeadlineImageUrl"].ToString();
 
-			//			if (reader["IncludeImageInPost"] != DBNull.Value)
-			//			{
-			//				featuredRow["IncludeImageInPost"] = Convert.ToBoolean(reader["IncludeImageInPost"]);
-			//			}
-			//			else
-			//			{
-			//				featuredRow["IncludeImageInPost"] = true;
-			//			}
-			//		}
-			//	}
-			//}
+						if (reader["IncludeImageInExcerpt"] != DBNull.Value)
+						{
+							featuredRow["IncludeImageInExcerpt"] = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
+						}
+						else
+						{
+							featuredRow["IncludeImageInExcerpt"] = true;
+						}
 
-			////look for featured post in datable
-			//DataRow found = dsBlogs.Tables["Posts"].Rows.Find(blogConfig.FeaturedPostId);
+						if (reader["IncludeImageInPost"] != DBNull.Value)
+						{
+							featuredRow["IncludeImageInPost"] = Convert.ToBoolean(reader["IncludeImageInPost"]);
+						}
+						else
+						{
+							featuredRow["IncludeImageInPost"] = true;
+						}
+					}
+				}
+			}
 
-			//if (found != null)
-			//{
-			//	//remove featured post from datatable so we can insert it at the top if we're on "page" number 1
-			//	dsBlogs.Tables["Posts"].Rows.Remove(found);
-			//}
+			//look for featured post in datable
+			DataRow found = dsBlogs.Tables["Posts"].Rows.Find(blogConfig.FeaturedPostId);
 
-			//if (blogConfig.FeaturedPostId != 0 && pageNumber == 1)
-			//{
-			//	//insert the featured post into the datatable at the top
-			//	//we only want to do this if the current "page" is number 1, don't want the featured post on other pages.
-			//	dsBlogs.Tables["Posts"].Rows.InsertAt(featuredRow, 0);
-			//}
+			if (found != null)
+			{
+				//remove featured post from datatable so we can insert it at the top if we're on "page" number 1
+				dsBlogs.Tables["Posts"].Rows.Remove(found);
+			}
+
+			if (blogConfig.FeaturedPostId != 0 && pageNumber == 1)
+			{
+				//insert the featured post into the datatable at the top
+				//we only want to do this if the current "page" is number 1, don't want the featured post on other pages.
+				dsBlogs.Tables["Posts"].Rows.InsertAt(featuredRow, 0);
+			}
 
 			List<PageModule> pageModules = PageModule.GetPageModulesByModule(config.BlogModuleId);
 
@@ -419,6 +432,15 @@ namespace mojoPortal.Web.BlogUI
 					model.ItemUrl = postRow["ItemID"].ToString() + "&mid=" + postRow["ModuleID"].ToString();
 				}
 
+				if (blogConfig.FeaturedPostId == Convert.ToInt32(postRow["ItemID"]) && pageNumber == 1)
+				{
+					model.FeaturedPost = true;
+				}
+				else
+				{
+					model.FeaturedPost = false;
+				}
+				
 				model.Title = postRow["Heading"].ToString();
 				model.SubTitle = postRow["SubTitle"].ToString();
 				model.Body = postRow["Description"].ToString();
@@ -431,6 +453,7 @@ namespace mojoPortal.Web.BlogUI
 				model.PostDate = Convert.ToDateTime(postRow["StartDate"].ToString());
 				model.HeadlineImageUrl = postRow["HeadlineImageUrl"].ToString();
 				model.CommentCount = Convert.ToInt32(postRow["CommentCount"]);
+
 				model.AllowCommentsForDays = Convert.ToInt32(postRow["AllowCommentsForDays"]);
 				model.ShowAuthorName = Convert.ToBoolean(postRow["ShowAuthorName"]);
 				model.ShowAuthorAvatar = Convert.ToBoolean(postRow["ShowAuthorAvatar"]);
