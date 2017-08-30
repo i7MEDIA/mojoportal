@@ -578,18 +578,18 @@
 											<portal:mojoHelpLink ID="MojoHelpLink46" runat="server" HelpKey="sitesettingscaptchaproviderhelp" />
 										</portal:FormGroupPanel>
 										<portal:FormGroupPanel runat="server">
-											<mp:SiteLabel ID="SiteLabel7" runat="server" ForControl="txtRecaptchPrivateKey" CssClass="settinglabel"
-												ConfigKey="SiteSettingsSiteRecaptchaPrivateKeyLabel" />
-											<asp:TextBox ID="txtRecaptchaPrivateKey" TabIndex="10" MaxLength="100" Columns="45"
-												CssClass="forminput verywidetextbox" runat="server" />
-											<portal:mojoHelpLink ID="MojoHelpLink47" runat="server" HelpKey="sitesettingsrecaptchahelp" />
-										</portal:FormGroupPanel>
-										<portal:FormGroupPanel runat="server">
 											<mp:SiteLabel ID="SiteLabel30" runat="server" ForControl="txtRecaptchaPublicKey"
 												CssClass="settinglabel" ConfigKey="SiteSettingsSiteRecaptchaPublicKeyLabel" />
 											<asp:TextBox ID="txtRecaptchaPublicKey" TabIndex="10" MaxLength="100" Columns="45"
 												CssClass="forminput verywidetextbox" runat="server" />
 											<portal:mojoHelpLink ID="MojoHelpLink48" runat="server" HelpKey="sitesettingsrecaptchahelp" />
+										</portal:FormGroupPanel>
+										<portal:FormGroupPanel runat="server">
+											<mp:SiteLabel ID="SiteLabel7" runat="server" ForControl="txtRecaptchPrivateKey" CssClass="settinglabel"
+												ConfigKey="SiteSettingsSiteRecaptchaPrivateKeyLabel" />
+											<asp:TextBox ID="txtRecaptchaPrivateKey" TabIndex="10" MaxLength="100" Columns="45"
+												CssClass="forminput verywidetextbox" runat="server" />
+											<portal:mojoHelpLink ID="MojoHelpLink47" runat="server" HelpKey="sitesettingsrecaptchahelp" />
 										</portal:FormGroupPanel>
 									</div>
 								</div>
