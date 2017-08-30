@@ -289,29 +289,29 @@ namespace mojoPortal.Web.UI
             }
         }
 
-        private bool includejQueryFileTree = false;
+        //private bool includejQueryFileTree = false;
 
-        public bool IncludejQueryFileTree
-        {
-            get { return includejQueryFileTree; }
-            set
-            {
-                includejQueryFileTree = value;
-                if (includejQueryFileTree) { includeJQuery = true; }
-            }
-        }
+        //public bool IncludejQueryFileTree
+        //{
+        //    get { return includejQueryFileTree; }
+        //    set
+        //    {
+        //        includejQueryFileTree = value;
+        //        if (includejQueryFileTree) { includeJQuery = true; }
+        //    }
+        //}
 
-        private bool includejQueryLayout = false;
+        //private bool includejQueryLayout = false;
 
-        public bool IncludejQueryLayout
-        {
-            get { return includejQueryLayout; }
-            set
-            {
-                includejQueryLayout = value;
-                if (includejQueryLayout) { includeJQuery = true; includejQueryUICore = true; }
-            }
-        }
+        //public bool IncludejQueryLayout
+        //{
+        //    get { return includejQueryLayout; }
+        //    set
+        //    {
+        //        includejQueryLayout = value;
+        //        if (includejQueryLayout) { includeJQuery = true; includejQueryUICore = true; }
+        //    }
+        //}
 
         private string jQueryTabConfig = "{}";
 
@@ -946,8 +946,8 @@ namespace mojoPortal.Web.UI
                 SetupInitScript();
                 if (includeImpromtu) { SetupImpromtu(); }
                 if (includeQtFile) { SetupQtFile(); }
-                if (includejQueryLayout) { SetupJqueryLayout(); }
-                if (includejQueryFileTree) { SetupJQueryFileTree(); }
+				//if (includejQueryLayout) { SetupJqueryLayout(); }
+				//if (includejQueryFileTree) { SetupJQueryFileTree(); }
                 if (includejQueryValidator) { SetupJQueryValidate(); }
                 if (includeFlickrGallery) { SetupFlickrGallery(); }
                 if (includeColorBox) { SetupColorBox(); }
@@ -1629,12 +1629,12 @@ namespace mojoPortal.Web.UI
 
         }
 
-        private void SetupJqueryLayout()
-        {
-            Page.ClientScript.RegisterClientScriptBlock(typeof(Page),
-                         "jqlayout", "\n<script src=\""
-                         + Page.ResolveUrl("~/ClientScript/jqmojo/jquery.layout.min.js") + "\" type=\"text/javascript\"></script>");
-        }
+        //private void SetupJqueryLayout()
+        //{
+        //    Page.ClientScript.RegisterClientScriptBlock(typeof(Page),
+        //                 "jqlayout", "\n<script src=\""
+        //                 + Page.ResolveUrl("~/ClientScript/jqmojo/jquery.layout.min.js") + "\" type=\"text/javascript\"></script>");
+        //}
 
         private void SetupSizzle()
         {
@@ -1752,15 +1752,15 @@ namespace mojoPortal.Web.UI
 
        
 
-        private void SetupJQueryFileTree()
-        {
+        //private void SetupJQueryFileTree()
+        //{
 
-            Page.ClientScript.RegisterClientScriptBlock(typeof(Page),
-                     "jqfiletree", "\n<script src=\""
-                     + Page.ResolveUrl("~/ClientScript/jqueryFileTree/jqueryFileTree.js") + "\" type=\"text/javascript\"></script>");
+        //    Page.ClientScript.RegisterClientScriptBlock(typeof(Page),
+        //             "jqfiletree", "\n<script src=\""
+        //             + Page.ResolveUrl("~/ClientScript/jqueryFileTree/jqueryFileTree.js") + "\" type=\"text/javascript\"></script>");
 
 
-        }
+        //}
 
 
 
