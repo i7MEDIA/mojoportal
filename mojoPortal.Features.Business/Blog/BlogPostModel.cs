@@ -74,5 +74,6 @@ namespace mojoPortal.Business
 		public string HeadlineImageUrl { get; set; }
 		public bool IncludeImageInExcerpt { get; set; }
 		public bool IncludeImageInPost { get; set; }
+		public bool FeaturedPost { get; set; }
 	}
 }
