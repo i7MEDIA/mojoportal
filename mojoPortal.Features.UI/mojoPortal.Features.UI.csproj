@@ -686,6 +686,7 @@
     <Compile Include="ContactForm\ContactForm.ascx.designer.cs">
       <DependentUpon>ContactForm.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ContactForm\ContactFormDisplaySettings.cs" />
     <Compile Include="ContactForm\MessageListDialog.aspx.cs">
       <DependentUpon>MessageListDialog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

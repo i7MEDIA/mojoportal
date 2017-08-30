@@ -13,13 +13,31 @@ namespace mojoPortal.Web.ContactUI {
     public partial class MessageListDialog {
         
         /// <summary>
+        /// displaySettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.ContactUI.ContactFormDisplaySettings displaySettings;
+        
+        /// <summary>
         /// pnlContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlContainer;
+        protected global::mojoPortal.Web.UI.BasePanel pnlContainer;
+        
+        /// <summary>
+        /// rowPnl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel rowPnl;
         
         /// <summary>
         /// pnlLeft control.
@@ -28,7 +46,7 @@ namespace mojoPortal.Web.ContactUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlLeft;
+        protected global::mojoPortal.Web.UI.BasePanel pnlLeft;
         
         /// <summary>
         /// grdContactFormMessage control.
@@ -64,7 +82,7 @@ namespace mojoPortal.Web.ContactUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlCenter;
+        protected global::mojoPortal.Web.UI.BasePanel pnlCenter;
         
         /// <summary>
         /// litMessage control.
@@ -82,6 +100,6 @@ namespace mojoPortal.Web.ContactUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlMessage;
+        protected global::mojoPortal.Web.UI.BasePanel pnlMessage;
     }
 }
