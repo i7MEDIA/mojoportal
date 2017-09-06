@@ -1,8 +1,9 @@
-using System;
-using System.Web.UI;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using Resources;
+using System;
+using System.Web;
+using System.Web.UI;
 
 namespace mojoPortal.Web.UI.Pages
 {
@@ -61,7 +62,7 @@ namespace mojoPortal.Web.UI.Pages
 					Resource.HelpNoHelpAvailable;
 			}
 
-			litHelp.Text = helpText;
+			litHelp.Text = HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(helpText));
 		}
 	}
 }
