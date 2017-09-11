@@ -122,13 +122,15 @@ namespace SuperFlexiUI
             get { return itemsPerGroup; }
             set { itemsPerGroup = value; }
         }
+        private string moduleLinksFormat = "<span class=\"modulelinks flexi-module-links\">{0}{1}{2}{3}{4}{5}</span>";
         /// <summary>
-        /// 0 = ModuleSettingsLink
-        /// 1 = AddItemLink
-        /// 2 = EditHeaderLink
-        /// 3 = EditFooterLink
+        /// {0} = ModuleSettingsLink,
+        /// {1} = AddItemLink,
+        /// {2} = EditHeaderLink,
+        /// {3} = EditFooterLink,
+        /// {4} = ImportLink,
+        /// {5} = ExportLink
         /// </summary>
-        private string moduleLinksFormat = "<span class=\"modulelinks flexi-module-links\">{0}{1}{2}{3}</span>";
         public string ModuleLinksFormat
         {
             get { return moduleLinksFormat; }
@@ -165,6 +167,20 @@ namespace SuperFlexiUI
         {
             get { return editFooterLinkFormat; }
             set { editFooterLinkFormat = value; }
+        }
+
+        private string importLinkFormat = "&nbsp;<a class='ModuleEditLink flexi-import-link' href='{0}'><span class='fa fa-upload'></span>&nbsp;{1}</a>";
+        public string ImportLinkFormat
+        {
+            get { return importLinkFormat; }
+            set { importLinkFormat = value; }
+        }
+
+        private string exportLinkFormat = "&nbsp;<a class='ModuleEditLink flexi-export-link' href='{0}'><span class='fa fa-download'></span>&nbsp;{1}</a>";
+        public string ExportLinkFormat
+        {
+            get { return importLinkFormat; }
+            set { importLinkFormat = value; }
         }
 
         private string itemEditLinkFormat = "<a class='flexi-item-edit' href='{0}'><span class='fa fa-pencil'></span>&nbsp;Edit</a>";

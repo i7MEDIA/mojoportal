@@ -249,4 +249,19 @@
   <data name="PermissionSettings" xml:space="preserve">
     <value>Permissions</value>
   </data>
+  <data name="ImportTitle" xml:space="preserve">
+    <value>Import Records</value>
+  </data>
+  <data name="ExportTitle" xml:space="preserve">
+    <value>Export Records</value>
+  </data>
+  <data name="ImportInstructions" xml:space="preserve">
+    <value>You can import from a CSV file. The first row of the file must contain the names of each column. Order of the columns is not important.</value>
+  </data>
+  <data name="ExportInstructions" xml:space="preserve">
+    <value>This tool will export all of your records to a CSV file. The CSV file can be used to move the data to another module instance or to another system entirely.</value>
+  </data>
+  <data name="ImportUpdateExistingRecordsLabel" xml:space="preserve">
+    <value>Update Existing Records?</value>
+  </data>
 </root>

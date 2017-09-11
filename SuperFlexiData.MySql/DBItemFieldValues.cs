@@ -1,16 +1,12 @@
-﻿// Author:					i7MEDIA
-// Created:					2015-3-6
-// Last Modified:			2015-3-25
-// You must not remove this notice, or any other, from this software.
+﻿// Created:					2017-07-13
+// Last Modified:			2017-07-13
 
-using System;
-using System.IO;
-using System.Text;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Configuration;
 using mojoPortal.Data;
+using MySql.Data.MySqlClient;
+using System;
+using System.Data;
+using System.Text;
+using System.Collections.Generic;
 
 namespace SuperFlexiData
 {
@@ -39,17 +35,39 @@ namespace SuperFlexiData
             Guid fieldGuid,
             string fieldValue)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_values_Insert", 7);
-            sph.DefineSqlParameter("@ValueGuid", MyMySqlDbType.Guid, ParameterDirection.Input, valueGuid);
-            sph.DefineSqlParameter("@SiteGuid", MyMySqlDbType.Guid, ParameterDirection.Input, siteGuid);
-            sph.DefineSqlParameter("@FeatureGuid", MyMySqlDbType.Guid, ParameterDirection.Input, featureGuid);
-            sph.DefineSqlParameter("@ModuleGuid", MyMySqlDbType.Guid, ParameterDirection.Input, moduleGuid);
-            sph.DefineSqlParameter("@ItemGuid", MyMySqlDbType.Guid, ParameterDirection.Input, itemGuid);
-            sph.DefineSqlParameter("@FieldGuid", MyMySqlDbType.Guid, ParameterDirection.Input, fieldGuid);
-            sph.DefineSqlParameter("@FieldValue", MySqlDbType.Text, ParameterDirection.Input, fieldValue);
-            int rowsAffected = sph.ExecuteNonQuery();
-            return rowsAffected;
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.AppendFormat("INSERT INTO {0} ({1}) VALUES ({2});"
+                , "i7_sflexi_values"
+                , "ValueGuid, "
+                + "SiteGuid, "
+                + "FeatureGuid, "
+                + "ModuleGuid, "
+                + "ItemGuid, "
+                + "FieldGuid, "
+                + "FieldValue"
+                , "?ValueGuid, "
+                + "?SiteGuid, "
+                + "?FeatureGuid, "
+                + "?ModuleGuid, "
+                + "?ItemGuid, "
+                + "?FieldGuid, "
+                + "?FieldValue");
 
+            var sqlParams = new List<MySqlParameter>
+            {
+                new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid },
+                new MySqlParameter("?FeatureGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = featureGuid },
+                new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid },
+                new MySqlParameter("?ItemGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = itemGuid },
+                new MySqlParameter("?FieldGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = fieldGuid },
+                new MySqlParameter("?ValueGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = valueGuid },
+                new MySqlParameter("?FieldValue", MySqlDbType.LongText) { Direction = ParameterDirection.Input, Value = fieldValue }
+            };
+            
+            return Convert.ToInt32(MySqlHelper.ExecuteNonQuery(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParams.ToArray()).ToString());
         }
 
 
@@ -73,17 +91,33 @@ namespace SuperFlexiData
             Guid fieldGuid,
             string fieldValue)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_values_Update", 7);
-            sph.DefineSqlParameter("@ValueGuid", MyMySqlDbType.Guid, ParameterDirection.Input, valueGuid);
-            sph.DefineSqlParameter("@SiteGuid", MyMySqlDbType.Guid, ParameterDirection.Input, siteGuid);
-            sph.DefineSqlParameter("@FeatureGuid", MyMySqlDbType.Guid, ParameterDirection.Input, featureGuid);
-            sph.DefineSqlParameter("@ModuleGuid", MyMySqlDbType.Guid, ParameterDirection.Input, moduleGuid);
-            sph.DefineSqlParameter("@ItemGuid", MyMySqlDbType.Guid, ParameterDirection.Input, itemGuid);
-            sph.DefineSqlParameter("@FieldGuid", MyMySqlDbType.Guid, ParameterDirection.Input, fieldGuid);
-            sph.DefineSqlParameter("@FieldValue", MySqlDbType.Text, ParameterDirection.Input, fieldValue);
-            int rowsAffected = sph.ExecuteNonQuery();
-            return (rowsAffected > 0);
+            StringBuilder sqlCommand = new StringBuilder();
 
+            sqlCommand.AppendFormat("UPDATE i7_sflexi_values SET {0} WHERE ValueGuid = ?ValueGuid;"
+                , "SiteGuid = ?SiteGuid, "
+                + "FeatureGuid = ?FeatureGuid, "
+                + "ModuleGuid = ?ModuleGuid, "
+                + "ItemGuid = ?ItemGuid, "
+                + "FieldGuid = ?FieldGuid, "
+                + "FieldValue = ?FieldValue");
+
+            var sqlParams = new List<MySqlParameter>
+            {
+                new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid },
+                new MySqlParameter("?FeatureGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = featureGuid },
+                new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid },
+                new MySqlParameter("?ItemGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = itemGuid },
+                new MySqlParameter("?FieldGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = fieldGuid },
+                new MySqlParameter("?ValueGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = valueGuid },
+                new MySqlParameter("?FieldValue", MySqlDbType.LongText) { Direction = ParameterDirection.Input, Value = fieldValue }
+            };
+
+            int rowsAffected = Convert.ToInt32(MySqlHelper.ExecuteNonQuery(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParams.ToArray()).ToString());
+
+            return (rowsAffected > 0);
         }
 
         /// <summary>
@@ -94,11 +128,17 @@ namespace SuperFlexiData
         public static bool Delete(
             Guid valueGuid)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_values_Delete", 1);
-            sph.DefineSqlParameter("@ValueGuid", MyMySqlDbType.Guid, ParameterDirection.Input, valueGuid);
-            int rowsAffected = sph.ExecuteNonQuery();
-            return (rowsAffected > 0);
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM i7_sflexi_values WHERE ValueGuid = ?ValueGuid;");
 
+            var sqlParam = new MySqlParameter("?ValueGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = valueGuid };
+
+            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParam);
+
+            return (rowsAffected > 0);
         }
 
         /// <summary>
@@ -108,30 +148,76 @@ namespace SuperFlexiData
         /// <returns>bool</returns>
         public static bool DeleteBySite(Guid siteGuid)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_values_DeleteBySite", 1);
-            sph.DefineSqlParameter("@SiteGuid", MyMySqlDbType.Guid, ParameterDirection.Input, siteGuid);
-            int rowsAffected = sph.ExecuteNonQuery();
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM i7_sflexi_values WHERE SiteGuid = ?SiteGuid;");
+
+            var sqlParam = new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid };
+
+
+            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParam);
+
             return (rowsAffected > 0);
         }
 
         /// <summary>
         /// Deletes rows from the i7_sflexi_values table. Returns true if rows deleted.
         /// </summary>
-        /// <param name="guid"> guid </param>
+        /// <param name="moduleGuid"> moduleGuid </param>
         /// <returns>bool</returns>
         public static bool DeleteByModule(Guid moduleGuid)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_values_DeleteByModule", 1);
-            sph.DefineSqlParameter("@ModuleGuid", MyMySqlDbType.Guid, ParameterDirection.Input, moduleGuid);
-            int rowsAffected = sph.ExecuteNonQuery();
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM i7_sflexi_values WHERE ModuleGuid = ?ModuleGuid;");
+
+            var sqlParam = new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid };
+
+
+            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParam);
+
             return (rowsAffected > 0);
         }
-
+        /// <summary>
+        /// Deletes rows from the i7_sflexi_values table. Returns true if rows deleted.
+        /// </summary>
+        /// <param name="fieldGuid"> fieldGuid </param>
+        /// <returns>bool</returns>
         public static bool DeleteByField(Guid fieldGuid)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_values_DeleteByField", 1);
-            sph.DefineSqlParameter("@FieldGuid", MyMySqlDbType.Guid, ParameterDirection.Input, fieldGuid);
-            int rowsAffected = sph.ExecuteNonQuery();
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM i7_sflexi_values WHERE FieldGuid = ?FieldGuid;");
+
+            var sqlParam = new MySqlParameter("?FieldGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = fieldGuid };
+            
+            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParam);
+
+            return (rowsAffected > 0);
+        }
+        /// <summary>
+        /// Deletes rows from the i7_sflexi_values table. Returns true if rows deleted.
+        /// </summary>
+        /// <param name="itemGuid"> itemGuid </param>
+        /// <returns>bool</returns>
+        public static bool DeleteByItem(Guid itemGuid)
+        {
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM i7_sflexi_values WHERE ItemGuid = ?ItemGuid;");
+
+            var sqlParam = new MySqlParameter("?ItemGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = itemGuid };
+
+            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParam);
+
             return (rowsAffected > 0);
         }
 
@@ -141,10 +227,15 @@ namespace SuperFlexiData
         /// <param name="valueGuid"> valueGuid </param>
         public static IDataReader GetOne(Guid valueGuid)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_values_SelectOne", 1);
-            sph.DefineSqlParameter("@ValueGuid", MyMySqlDbType.Guid, ParameterDirection.Input, valueGuid);
-            return sph.ExecuteReader();
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT * FROM i7_sflexi_values WHERE ValueGuid = ?ValueGuid;");
 
+            var sqlParam = new MySqlParameter("?ValueGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = valueGuid };
+
+            return MySqlHelper.ExecuteReader(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParam);
         }
 
         /// <summary>
@@ -152,13 +243,12 @@ namespace SuperFlexiData
         /// </summary>
         public static int GetCount()
         {
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT Count(*) FROM i7_sflexi_values;");
 
-            return Convert.ToInt32(SqlHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "i7_sflexi_values_GetCount",
-                null));
-
+            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+                 ConnectionString.GetReadConnectionString(),
+                 sqlCommand.ToString()));
         }
 
         /// <summary>
@@ -166,13 +256,12 @@ namespace SuperFlexiData
         /// </summary>
         public static IDataReader GetAll()
         {
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT * FROM i7_sflexi_values;");
 
-            return SqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "i7_sflexi_values_SelectAll",
-                null);
-
+            return MySqlHelper.ExecuteReader(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString());
         }
 
 
@@ -184,18 +273,83 @@ namespace SuperFlexiData
         /// <returns></returns>
         public static IDataReader GetByItemField(Guid itemGuid, Guid fieldGuid)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_values_SelectOneByItemField", 2);
-            sph.DefineSqlParameter("@ItemGuid", MyMySqlDbType.Guid, ParameterDirection.Input, itemGuid);
-            sph.DefineSqlParameter("@FieldGuid", MyMySqlDbType.Guid, ParameterDirection.Input, fieldGuid);
-            return sph.ExecuteReader();
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT * FROM i7_sflexi_values WHERE ItemGuid = ?ItemGuid AND FieldGuid = ?FieldGuid;");
+
+            var sqlParams = new List<MySqlParameter>
+            {
+                new MySqlParameter("?ItemGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = itemGuid },
+                new MySqlParameter("?FieldGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = fieldGuid }
+            };
+            
+            return MySqlHelper.ExecuteReader(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParams.ToArray());
         }
 
 
         public static IDataReader GetByItemGuid(Guid itemGuid)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_values_SelectAllByItemGuid", 1);
-            sph.DefineSqlParameter("@ItemGuid", MyMySqlDbType.Guid, ParameterDirection.Input, itemGuid);
-            return sph.ExecuteReader();
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT * FROM i7_sflexi_values WHERE ItemGuid = ?ItemGuid;");
+
+            var sqlParam = new MySqlParameter("?ItemGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = itemGuid };
+
+            return MySqlHelper.ExecuteReader(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParam);
+        }
+
+        public static IDataReader GetByGuid(Guid fieldGuid)
+        {
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT * FROM i7_sflexi_values WHERE FieldGuid = ?FieldGuid;");
+
+            var sqlParam = new MySqlParameter("?FieldGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = fieldGuid };
+            
+            return MySqlHelper.ExecuteReader(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParam);
+        }
+
+        public static IDataReader GetByGuidForModule(Guid fieldGuid, Guid moduleGuid)
+        {
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT * FROM i7_sflexi_values WHERE ModuleGuid = ?ModuleGuid AND FieldGuid = ?FieldGuid;");
+
+            var sqlParams = new List<MySqlParameter>
+            {
+                new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid },
+                new MySqlParameter("?FieldGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = fieldGuid }
+            };
+
+            return MySqlHelper.ExecuteReader(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParams.ToArray());
+        }
+
+        public static IDataReader GetByGuidForModule(Guid fieldGuid, int moduleId)
+        {
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT * FROM i7_sflexi_values "
+                +"JOIN mp_Modules ON mp_Modules.Guid = i7_sflexi_values.ModuleGuid "
+                +"WHERE FieldGuid = ?FieldGuid " 
+                +"AND mp_Modules.ModuleID = ?ModuleID;");
+
+            var sqlParams = new List<MySqlParameter>
+            {
+                new MySqlParameter("?ModuleID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = moduleId },
+                new MySqlParameter("?FieldGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = fieldGuid }
+            };
+
+            return MySqlHelper.ExecuteReader(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParams.ToArray());
         }
 
         /// <summary>
@@ -209,9 +363,9 @@ namespace SuperFlexiData
             int pageSize,
             out int totalPages)
         {
+            int pageLowerBound = (pageSize * pageNumber) - pageSize;
             totalPages = 1;
-            int totalRows
-                = GetCount();
+            int totalRows = GetCount();
 
             if (pageSize > 0) totalPages = totalRows / pageSize;
 
@@ -228,11 +382,20 @@ namespace SuperFlexiData
                     totalPages += 1;
                 }
             }
+            StringBuilder sqlCommand = new StringBuilder();
 
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_values_SelectPage", 2);
-            sph.DefineSqlParameter("@PageNumber", MySqlDbType.Int, ParameterDirection.Input, pageNumber);
-            sph.DefineSqlParameter("@PageSize", MySqlDbType.Int, ParameterDirection.Input, pageSize);
-            return sph.ExecuteReader();
+            sqlCommand.Append("SELECT * FROM i7_sflexi_values LIMIT ?PageSize" + (pageNumber > 1 ? "OFFSET ?OffsetRows;" : ";"));
+
+            var sqlParams = new List<MySqlParameter>
+            {
+                new MySqlParameter("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
+                new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageLowerBound }
+            };
+
+            return MySqlHelper.ExecuteReader(
+                ConnectionString.GetReadConnectionString(),
+                sqlCommand.ToString(),
+                sqlParams.ToArray());
 
         }
 
@@ -240,5 +403,3 @@ namespace SuperFlexiData
     }
 
 }
-
-

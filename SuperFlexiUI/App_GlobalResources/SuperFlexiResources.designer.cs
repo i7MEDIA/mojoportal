@@ -214,6 +214,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This tool will export all of your records to a CSV file. The CSV file can be used to move the data to another module instance or to another system entirely..
+        /// </summary>
+        internal static string ExportInstructions {
+            get {
+                return ResourceManager.GetString("ExportInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Records.
+        /// </summary>
+        internal static string ExportTitle {
+            get {
+                return ResourceManager.GetString("ExportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom CSS Class.
         /// </summary>
         internal static string ExtraCssClassSetting {
@@ -255,6 +273,33 @@ namespace Resources {
         internal static string GlobalViewSortOrder {
             get {
                 return ResourceManager.GetString("GlobalViewSortOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can import from a CSV file. The first row of the file must contain the names of each column. Order of the columns is not important..
+        /// </summary>
+        internal static string ImportInstructions {
+            get {
+                return ResourceManager.GetString("ImportInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import Records.
+        /// </summary>
+        internal static string ImportTitle {
+            get {
+                return ResourceManager.GetString("ImportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Existing Records?.
+        /// </summary>
+        internal static string ImportUpdateExistingRecordsLabel {
+            get {
+                return ResourceManager.GetString("ImportUpdateExistingRecordsLabel", resourceCulture);
             }
         }
         

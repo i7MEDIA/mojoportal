@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using AjaxControlToolkit;
@@ -22,6 +23,8 @@ using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
 using SuperFlexiBusiness;
+using System.Dynamic;
+
 namespace SuperFlexiUI
 {
 	public partial class EditItems : NonCmsBasePage
@@ -55,7 +58,8 @@ namespace SuperFlexiUI
 			this.updateButton.Click += new EventHandler(this.UpdateBtn_Click);
 			this.deleteButton.Click += new EventHandler(this.DeleteBtn_Click);
             this.saveAsNewButton.Click += new EventHandler(this.SaveAsNewBtn_Click);
-			SuppressPageMenu();
+            this.exportButton.Click += new EventHandler(this.ExportBtn_Click);
+            SuppressPageMenu();
 		}
 
         //protected override void OnLoad(EventArgs e)
@@ -132,6 +136,8 @@ namespace SuperFlexiUI
 				}
                 saveAsNewButton.Visible = true;
 				txtViewOrder.Text = item.SortOrder.ToString();
+                
+                exportButton.Visible = config.AllowExport;
 			}
 			else
 			{
@@ -145,6 +151,7 @@ namespace SuperFlexiUI
 				}
 
 				deleteButton.Visible = false;
+                exportButton.Visible = false;
 			}
 		}
 
@@ -1246,6 +1253,20 @@ namespace SuperFlexiUI
 
 			return dateString;
 		}
+
+
+        private void ExportBtn_Click(Object sender, EventArgs e)
+        {
+            dynamic expando = SuperFlexiHelpers.GetExpandoForItem(item);
+
+            //we need a list for the ExportDynamicListToCSV. 
+            //No need for another method, just create a list with a single item in it.
+
+            var expandoList = new List<dynamic>();
+            expandoList.Add(expando);
+
+            ExportHelper.ExportDynamicListToCSV(HttpContext.Current, expandoList, String.Format("export-{0}.csv",config.MarkupDefinitionName));
+        }
 
         private void SaveAsNewBtn_Click(Object sender, EventArgs e)
         {

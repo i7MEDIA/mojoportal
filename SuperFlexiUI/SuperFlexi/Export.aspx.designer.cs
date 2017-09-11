@@ -10,7 +10,7 @@
 namespace SuperFlexiUI {
     
     
-    public partial class Import {
+    public partial class Export {
         
         /// <summary>
         /// pnlOuterWrap control.
@@ -76,49 +76,13 @@ namespace SuperFlexiUI {
         protected global::System.Web.UI.WebControls.Literal litInstructions;
         
         /// <summary>
-        /// lblUpdate control.
+        /// exportButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel lblUpdate;
-        
-        /// <summary>
-        /// chkUpdate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkUpdate;
-        
-        /// <summary>
-        /// hlpUpdate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.HelpLinkButton hlpUpdate;
-        
-        /// <summary>
-        /// uploader control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.jQueryFileUpload uploader;
-        
-        /// <summary>
-        /// importButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton importButton;
+        protected global::mojoPortal.Web.UI.mojoButton exportButton;
         
         /// <summary>
         /// lnkCancel control.
@@ -128,15 +92,6 @@ namespace SuperFlexiUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink lnkCancel;
-        
-        /// <summary>
-        /// litResults control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litResults;
         
         /// <summary>
         /// hdnReturnUrl control.

@@ -165,6 +165,18 @@ namespace SuperFlexiData
 
         }
 
+        /// <summary>
+        /// Gets an IDataReader with one row from the i7_sflexi_items table.
+        /// </summary>
+        /// <param name="itemGuid"> itemGuid </param>
+        public static IDataReader GetOne(
+            Guid itemGuid)
+        {
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectOneByGuid", 1);
+            sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
+            return sph.ExecuteReader();
+
+        }
 
         /// <summary>
         /// Gets a count of rows in the i7_sflexi_items table.

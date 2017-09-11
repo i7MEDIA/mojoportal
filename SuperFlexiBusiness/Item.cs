@@ -22,10 +22,14 @@ namespace SuperFlexiBusiness
         public Item()
         { }
 
-
         public Item(int itemID)
         {
-            Getitem(itemID);
+            GetItem(itemID);
+        }
+
+        public Item(Guid itemGuid)
+        {
+            GetItem(itemGuid);
         }
 
         #endregion
@@ -134,9 +138,22 @@ namespace SuperFlexiBusiness
         /// Gets an instance of item.
         /// </summary>
         /// <param name="itemID"> itemID </param>
-        private void Getitem(int itemID)
+        private void GetItem(int itemID)
         {
             using (IDataReader reader = DBItems.GetOne(itemID))
+            {
+                PopulateFromReader(reader);
+            }
+
+        }
+
+        /// <summary>
+        /// Gets an instance of item.
+        /// </summary>
+        /// <param name="itemGuid"> itemGuid </param>
+        private void GetItem(Guid itemGuid)
+        {
+            using (IDataReader reader = DBItems.GetOne(itemGuid))
             {
                 PopulateFromReader(reader);
             }
@@ -148,16 +165,19 @@ namespace SuperFlexiBusiness
         {
             if (reader.Read())
             {
-                this.siteGuid = new Guid(reader["SiteGuid"].ToString());
-                this.featureGuid = new Guid(reader["FeatureGuid"].ToString());
-                this.moduleGuid = new Guid(reader["ModuleGuid"].ToString());
-                this.moduleID = Convert.ToInt32(reader["ModuleID"]);
-                this.definitionGuid = new Guid(reader["DefinitionGuid"].ToString());
-                this.itemGuid = new Guid(reader["ItemGuid"].ToString());
-                this.itemID = Convert.ToInt32(reader["ItemID"]);
-                this.sortOrder = Convert.ToInt32(reader["SortOrder"]);
-                this.createdUtc = Convert.ToDateTime(reader["CreatedUtc"]);
-                this.lastModUtc = Convert.ToDateTime(reader["LastModUtc"]);
+				if (Guid.TryParse(reader["ItemGuid"].ToString(), out this.itemGuid))
+				{
+					this.siteGuid = new Guid(reader["SiteGuid"].ToString());
+					this.featureGuid = new Guid(reader["FeatureGuid"].ToString());
+					this.moduleGuid = new Guid(reader["ModuleGuid"].ToString());
+					this.moduleID = Convert.ToInt32(reader["ModuleID"]);
+					this.definitionGuid = new Guid(reader["DefinitionGuid"].ToString());
+					//this.itemGuid = new Guid(reader["ItemGuid"].ToString());
+					this.itemID = Convert.ToInt32(reader["ItemID"]);
+					this.sortOrder = Convert.ToInt32(reader["SortOrder"]);
+					this.createdUtc = Convert.ToDateTime(reader["CreatedUtc"]);
+					this.lastModUtc = Convert.ToDateTime(reader["LastModUtc"]);
+				}
 
             }
 

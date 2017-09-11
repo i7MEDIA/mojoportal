@@ -1,17 +1,9 @@
 ﻿// Author:					i7MEDIA (joe davis)
 // Created:				    2015-03-31
-// Last Modified:			2016-06-01
+// Last Modified:			2017-08-11
 //
 // You must not remove this notice, or any other, from this software.
 //
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Text;
-using System.Web;
-using System.Web.UI;
-using System.Xml;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -20,6 +12,15 @@ using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
 using SuperFlexiBusiness;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Dynamic;
+using System.IO;
+using System.Text;
+using System.Web;
+using System.Web.UI;
+using System.Xml;
 
 namespace SuperFlexiUI
 {
@@ -34,7 +35,8 @@ namespace SuperFlexiUI
             string add = string.Empty;
             string header = string.Empty;
             string footer = string.Empty;
-
+            string import = string.Empty;
+            string export = string.Empty;
             try
             {
                 settings = String.Format(
@@ -67,9 +69,25 @@ namespace SuperFlexiUI
                             WebUtils.GetSiteRoot() + "/SuperFlexi/EditHeader.aspx?f=true&pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
                             SuperFlexiResources.EditFooter);
                     }
+
+                    if (config.AllowImport)
+                    {
+                        import = String.Format(
+                            displaySettings.ImportLinkFormat,
+                            WebUtils.GetSiteRoot() + "/SuperFlexi/Import.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+                            SuperFlexiResources.ImportTitle);
+                    }
+
+                    if (config.AllowExport)
+                    {
+                        export = String.Format(
+                            displaySettings.ExportLinkFormat,
+                            WebUtils.GetSiteRoot() + "/SuperFlexi/Export.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+                            SuperFlexiResources.ExportTitle);
+                    }
                 }
 
-                litExtraMarkup.AppendFormat(displaySettings.ModuleLinksFormat, settings, add, header, footer);
+                litExtraMarkup.AppendFormat(displaySettings.ModuleLinksFormat, settings, add, header, footer, import, export);
             }
             catch (System.FormatException ex)
             {
@@ -591,6 +609,71 @@ namespace SuperFlexiUI
                 }
                 //if (!emptySearchDef) searchDef.Save();
             }
+        }
+
+        //public static ExpandoObject GetExpandoForItem(Item item, ModuleConfiguration config)
+        //{
+
+        //}
+        public static ExpandoObject GetExpandoForItem(Item item)
+        {
+            var fields = Field.GetAllForDefinition(item.DefinitionGuid);
+
+            if (fields == null || item == null)
+            {
+                return null;
+            }
+
+            dynamic itemExpando = new ExpandoObject();
+            itemExpando.Guid = item.ItemGuid;
+            itemExpando.SortOrder = item.SortOrder;
+
+            List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
+
+            foreach (Field field in fields)
+            {
+                foreach (ItemFieldValue fieldValue in fieldValues)
+                {
+                    if (field.FieldGuid == fieldValue.FieldGuid)
+                    {
+                        ((IDictionary<String, Object>)itemExpando)[field.Name] = fieldValue.FieldValue;
+                    }
+                }
+            }
+
+            return itemExpando;
+        }
+        public static ExpandoObject GetExpandoForModuleItems(Module module, ModuleConfiguration config, bool allForDefinition = false)
+        {
+            var fields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
+            var items = new List<Item>();
+
+            if (allForDefinition)
+            {
+                items = Item.GetAllForDefinition(config.FieldDefinitionGuid, config.DescendingSort);
+            }
+            else
+            {
+                items = Item.GetModuleItems(module.ModuleId, config.DescendingSort);
+            }
+
+            if (fields == null || items == null)
+            {
+                return null;
+            }
+
+            dynamic expando = new ExpandoObject();
+
+            expando.Definition = config.MarkupDefinitionName;
+            expando.ModuleName = module.ModuleTitle;
+            expando.Items = new List<dynamic>();
+
+            foreach (Item item in items)
+            {
+                expando.Items.Add(GetExpandoForItem(item));
+            }
+
+            return expando;
         }
     }
 }

@@ -1,25 +1,18 @@
-﻿// Author:					i7MEDIA
-// Created:					2015-3-6
-// Last Modified:			2015-5-1
-// You must not remove this notice, or any other, from this software.
+﻿// Created:					2017-07-13
+// Last Modified:			2017-07-18
 
-using System;
-using System.IO;
-using System.Text;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Configuration;
 using mojoPortal.Data;
 using MySql.Data.MySqlClient;
+using System;
+using System.Data;
+using System.Text;
+using System.Collections.Generic;
 
 namespace SuperFlexiData
 {
 
     public static class DBFields
     {
-
-        private static string insertFormat = "INSERT INTO {0} ({1}) VALUES ({2});";
 
         /// <summary>
         /// Inserts a row in the i7_sflexi_fields table. Returns rows affected count.
@@ -43,6 +36,8 @@ namespace SuperFlexiData
             string regex,
             string regexMessageFormat,
             string token,
+            string preTokenString,
+            string postTokenString,
             bool searchable,
             string editPageControlWrapperCssClass,
             string editPageLabelCssClass,
@@ -58,11 +53,12 @@ namespace SuperFlexiData
             string checkBoxReturnValueWhenFalse,
             string dateFormat,
             string textBoxMode,
-            string attributes)
+            string attributes,
+            bool isGlobal)
         {
 
             StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.AppendFormat(insertFormat,
+            sqlCommand.AppendFormat("INSERT INTO {0} ({1}) VALUES ({2});",
                 "i7_sflexi_fields",
                 "SiteGuid,"
                 + "FeatureGuid,"
@@ -96,8 +92,11 @@ namespace SuperFlexiData
                 + "CheckBoxReturnValueWhenFalse,"
                 + "DateFormat,"
                 + "TextBoxMode,"
-                + "Attributes",
-                "?SiteGuid,"
+                + "Attributes,"
+                + "PreTokenString,"
+                + "PostTokenString,"
+                + "IsGlobal"
+                ,"?SiteGuid,"
                 + "?FeatureGuid,"
                 + "?DefinitionGuid,"
                 + "?FieldGuid,"
@@ -129,147 +128,54 @@ namespace SuperFlexiData
                 + "?CheckBoxReturnValueWhenFalse,"
                 + "?DateFormat,"
                 + "?TextBoxMode,"
-                + "?Attributes");
-            MySqlParameter[] arParams = new MySqlParameter[33];
+                + "?Attributes,"
+                + "?PreTokenString,"
+                + "?PostTokenString,"
+                + "?IsGlobal");
 
-            arParams[0] = new MySqlParameter("?SiteGuid", MySqlDbType.Guid);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteGuid;
-
-            arParams[1] = new MySqlParameter("?FeatureGuid", MySqlDbType.Guid);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = featureGuid;
-
-            arParams[2] = new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = definitionGuid;
-
-            arParams[3] = new MySqlParameter("?FieldGuid", MySqlDbType.Guid);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = fieldGuid;
-            
-            arParams[4] = new MySqlParameter("?DefinitionName", MySqlDbType.VarChar, 50);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = definitionName;
-
-            arParams[5] = new MySqlParameter("?Name", MySqlDbType.VarChar, 50);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = name;
-
-            arParams[6] = new MySqlParameter("?Label", MySqlDbType.VarChar, 255);
-            arParams[6].Direction = ParameterDirection.Input;
-            arParams[6].Value = label;
-            
-            arParams[7] = new MySqlParameter("?DefaultValue", MySqlDbType.Text); 
-            arParams[7].Direction = ParameterDirection.Input;
-            arParams[7].Value = defaultValue;
-
-            arParams[8] = new MySqlParameter("?ControlType", MySqlDbType.VarChar, 16); 
-            arParams[8].Direction = ParameterDirection.Input;
-            arParams[8].Value = controlType;
-
-            arParams[9] = new MySqlParameter("?ControlSrc", MySqlDbType.Text); 
-            arParams[9].Direction = ParameterDirection.Input;
-            arParams[9].Value = controlSrc;
-
-            arParams[10] = new MySqlParameter("?SortOrder", MySqlDbType.Int32); 
-            arParams[10].Direction = ParameterDirection.Input;
-            arParams[10].Value = sortOrder;
-
-            arParams[11] = new MySqlParameter("?HelpKey", MySqlDbType.VarChar, 255); 
-            arParams[11].Direction = ParameterDirection.Input;
-            arParams[11].Value = helpKey;
-
-            arParams[12] = new MySqlParameter("?Required", MySqlDbType.Bit); 
-            arParams[12].Direction = ParameterDirection.Input;
-            arParams[12].Value = required;
-
-            arParams[13] = new MySqlParameter("?RequiredMessageFormat", MySqlDbType.Text); 
-            arParams[13].Direction = ParameterDirection.Input;
-            arParams[13].Value = requiredMessageFormat;
-
-            arParams[14] = new MySqlParameter("?Regex", MySqlDbType.Text); 
-            arParams[14].Direction = ParameterDirection.Input;
-            arParams[14].Value = regex;
-
-            arParams[15] = new MySqlParameter("?RegexMessageFormat", MySqlDbType.Text); 
-            arParams[15].Direction = ParameterDirection.Input;
-            arParams[15].Value = regexMessageFormat;
-
-            arParams[16] = new MySqlParameter("?Token", MySqlDbType.VarChar, 50); 
-            arParams[16].Direction = ParameterDirection.Input;
-            arParams[16].Value = token;
-
-            arParams[17] = new MySqlParameter("?Searchable", MySqlDbType.Bit); 
-            arParams[17].Direction = ParameterDirection.Input;
-            arParams[17].Value = searchable;
-
-            arParams[18] = new MySqlParameter("?EditPageControlWrapperCssClass", MySqlDbType.VarChar, 50); 
-            arParams[18].Direction = ParameterDirection.Input;
-            arParams[18].Value = editPageControlWrapperCssClass;
-
-            arParams[19] = new MySqlParameter("?EditPageLabelCssClass", MySqlDbType.VarChar, 50); 
-            arParams[19].Direction = ParameterDirection.Input;
-            arParams[19].Value = editPageLabelCssClass;
-
-            arParams[20] = new MySqlParameter("?EditPageControlCssClass", MySqlDbType.VarChar, 50); 
-            arParams[20].Direction = ParameterDirection.Input;
-            arParams[20].Value = editPageControlCssClass;
-
-            arParams[21] = new MySqlParameter("?DatePickerIncludeTimeForDate", MySqlDbType.Bit); 
-            arParams[21].Direction = ParameterDirection.Input;
-            arParams[21].Value = datePickerIncludeTimeForDate;
-
-            arParams[22] = new MySqlParameter("?DatePickerShowMonthList", MySqlDbType.Bit); 
-            arParams[22].Direction = ParameterDirection.Input;
-            arParams[22].Value = datePickerShowMonthList;
-
-            arParams[23] = new MySqlParameter("?DatePickerShowYearList", MySqlDbType.Bit); 
-            arParams[23].Direction = ParameterDirection.Input;
-            arParams[23].Value = datePickerShowYearList;
-
-            arParams[24] = new MySqlParameter("?DatePickerYearRange", MySqlDbType.VarChar, 10); 
-            arParams[24].Direction = ParameterDirection.Input;
-            arParams[24].Value = datePickerYearRange;
-
-            arParams[25] = new MySqlParameter("?ImageBrowserEmptyUrl", MySqlDbType.Text); 
-            arParams[25].Direction = ParameterDirection.Input;
-            arParams[25].Value = imageBrowserEmptyUrl;
-
-            arParams[26] = new MySqlParameter("?Options", MySqlDbType.Text); 
-            arParams[26].Direction = ParameterDirection.Input;
-            arParams[26].Value = options;
-
-            arParams[27] = new MySqlParameter("?CheckBoxReturnBool", MySqlDbType.Bit); 
-            arParams[27].Direction = ParameterDirection.Input;
-            arParams[27].Value = checkBoxReturnBool;
-
-
-            arParams[28] = new MySqlParameter("?CheckBoxReturnValueWhenTrue", MySqlDbType.Text); 
-            arParams[28].Direction = ParameterDirection.Input;
-            arParams[28].Value = checkBoxReturnValueWhenTrue;
-
-            arParams[29] = new MySqlParameter("?CheckBoxReturnValueWhenFalse", MySqlDbType.Text); 
-            arParams[29].Direction = ParameterDirection.Input;
-            arParams[29].Value = checkBoxReturnValueWhenFalse;
-
-            arParams[30] = new MySqlParameter("?DateFormat", MySqlDbType.Text); 
-            arParams[30].Direction = ParameterDirection.Input;
-            arParams[30].Value = dateFormat;
-
-            arParams[31] = new MySqlParameter("?TextBoxMode", MySqlDbType.VarChar, 25); 
-            arParams[31].Direction = ParameterDirection.Input;
-            arParams[31].Value = textBoxMode;
-
-            arParams[32] = new MySqlParameter("?Attributes", MySqlDbType.VarChar, 100); 
-            arParams[32].Direction = ParameterDirection.Input;
-            arParams[32].Value = attributes;
-
-
-            int rowsAffected = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            var sqlParams = new List<MySqlParameter>
+            {
+                new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid },
+                new MySqlParameter("?FeatureGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = featureGuid },
+                new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = definitionGuid },
+                new MySqlParameter("?FieldGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = fieldGuid },
+                new MySqlParameter("?DefinitionName", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = definitionName },
+                new MySqlParameter("?Name", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = name },
+                new MySqlParameter("?Label", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = label },
+                new MySqlParameter("?DefaultValue", MySqlDbType.LongText) { Direction = ParameterDirection.Input, Value = defaultValue },
+                new MySqlParameter("?ControlType", MySqlDbType.VarChar, 16) { Direction = ParameterDirection.Input, Value = controlType },
+                new MySqlParameter("?ControlSrc", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = controlSrc },
+                new MySqlParameter("?SortOrder", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = sortOrder },
+                new MySqlParameter("?HelpKey", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = helpKey },
+                new MySqlParameter("?Required", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = required },
+                new MySqlParameter("?RequiredMessageFormat", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = requiredMessageFormat },
+                new MySqlParameter("?Regex", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = regex },
+                new MySqlParameter("?RegexMessageFormat", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = regexMessageFormat },
+                new MySqlParameter("?Token", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = token },
+                new MySqlParameter("?PreTokenString", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = preTokenString },
+                new MySqlParameter("?PostTokenString", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = postTokenString },
+                new MySqlParameter("?Searchable", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = searchable },
+                new MySqlParameter("?EditPageControlWrapperCssClass", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = editPageControlWrapperCssClass },
+                new MySqlParameter("?EditPageLabelCssClass", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = editPageLabelCssClass },
+                new MySqlParameter("?EditPageControlCssClass", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = editPageControlCssClass },
+                new MySqlParameter("?DatePickerIncludeTimeForDate", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = datePickerIncludeTimeForDate },
+                new MySqlParameter("?DatePickerShowMonthList", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = datePickerShowMonthList },
+                new MySqlParameter("?DatePickerShowYearList", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = datePickerShowYearList },
+                new MySqlParameter("?DatePickerYearRange", MySqlDbType.VarChar, 10) { Direction = ParameterDirection.Input, Value = datePickerYearRange },
+                new MySqlParameter("?ImageBrowserEmptyUrl", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = imageBrowserEmptyUrl },
+                new MySqlParameter("?Options", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = options },
+                new MySqlParameter("?CheckBoxReturnBool", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = checkBoxReturnBool },
+                new MySqlParameter("?CheckBoxReturnValueWhenTrue", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = checkBoxReturnValueWhenTrue },
+                new MySqlParameter("?CheckBoxReturnValueWhenFalse", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = checkBoxReturnValueWhenFalse },
+                new MySqlParameter("?DateFormat", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = dateFormat },
+                new MySqlParameter("?TextBoxMode", MySqlDbType.VarChar, 25) { Direction = ParameterDirection.Input, Value = textBoxMode },
+                new MySqlParameter("?Attributes", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = attributes },
+                new MySqlParameter("?IsGlobal", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = isGlobal }
+            };
+            int rowsAffected = Convert.ToInt32(MySqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
-                arParams).ToString());
+                sqlParams.ToArray()).ToString());
 
             return rowsAffected;
 
@@ -297,6 +203,8 @@ namespace SuperFlexiData
             string regex,
             string regexMessageFormat,
             string token,
+            string preTokenString,
+            string postTokenString,
             bool searchable,
             string editPageControlWrapperCssClass,
             string editPageLabelCssClass,
@@ -306,6 +214,7 @@ namespace SuperFlexiData
             bool datePickerShowYearList,
             string datePickerYearRange,
             string imageBrowserEmptyUrl,
+            //string iSettingControlSettings,
             string options,
             bool checkBoxReturnBool,
             string checkBoxReturnValueWhenTrue,
@@ -313,44 +222,92 @@ namespace SuperFlexiData
             string dateFormat,
             string textBoxMode,
             string attributes,
-            bool isDeleted)
+            bool isDeleted,
+            bool isGlobal)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Update", 34);
-            sph.DefineSqlParameter("@FieldGuid", MySqlDbType.Guid, ParameterDirection.Input, fieldGuid);
-            sph.DefineSqlParameter("@SiteGuid", MySqlDbType.Guid, ParameterDirection.Input, siteGuid);
-            sph.DefineSqlParameter("@FeatureGuid", MySqlDbType.Guid, ParameterDirection.Input, featureGuid);
-            sph.DefineSqlParameter("@DefinitionGuid", MySqlDbType.Guid, ParameterDirection.Input, definitionGuid);
-            sph.DefineSqlParameter("@DefinitionName", MySqlDbType.VarChar, 50, ParameterDirection.Input, definitionName);
-            sph.DefineSqlParameter("@Name", MySqlDbType.VarChar, 50, ParameterDirection.Input, name);
-            sph.DefineSqlParameter("@Label", MySqlDbType.VarChar, 255, ParameterDirection.Input, label);
-            sph.DefineSqlParameter("@DefaultValue", MySqlDbType.Text, ParameterDirection.Input, defaultValue);
-            sph.DefineSqlParameter("@ControlType", MySqlDbType.VarChar, 16, ParameterDirection.Input, controlType);
-            sph.DefineSqlParameter("@ControlSrc", MySqlDbType.Text, ParameterDirection.Input, controlSrc);
-            sph.DefineSqlParameter("@SortOrder", MySqlDbType.Int, ParameterDirection.Input, sortOrder);
-            sph.DefineSqlParameter("@HelpKey", MySqlDbType.VarChar, 255, ParameterDirection.Input, helpKey);
-            sph.DefineSqlParameter("@Required", MySqlDbType.Bit, ParameterDirection.Input, required);
-            sph.DefineSqlParameter("@RequiredMessageFormat", MySqlDbType.Text, ParameterDirection.Input, requiredMessageFormat);
-            sph.DefineSqlParameter("@Regex", MySqlDbType.Text, ParameterDirection.Input, regex);
-            sph.DefineSqlParameter("@RegexMessageFormat", MySqlDbType.Text, ParameterDirection.Input, regexMessageFormat);
-            sph.DefineSqlParameter("@Token", MySqlDbType.VarChar, 50, ParameterDirection.Input, token);
-            sph.DefineSqlParameter("@Searchable", MySqlDbType.Bit, ParameterDirection.Input, searchable);
-            sph.DefineSqlParameter("@EditPageControlWrapperCssClass", MySqlDbType.VarChar, 50, ParameterDirection.Input, editPageControlWrapperCssClass);
-            sph.DefineSqlParameter("@EditPageLabelCssClass", MySqlDbType.VarChar, 50, ParameterDirection.Input, editPageLabelCssClass);
-            sph.DefineSqlParameter("@EditPageControlCssClass", MySqlDbType.VarChar, 50, ParameterDirection.Input, editPageControlCssClass);
-            sph.DefineSqlParameter("@DatePickerIncludeTimeForDate", MySqlDbType.Bit, ParameterDirection.Input, datePickerIncludeTimeForDate);
-            sph.DefineSqlParameter("@DatePickerShowMonthList", MySqlDbType.Bit, ParameterDirection.Input, datePickerShowMonthList);
-            sph.DefineSqlParameter("@DatePickerShowYearList", MySqlDbType.Bit, ParameterDirection.Input, datePickerShowYearList);
-            sph.DefineSqlParameter("@DatePickerYearRange", MySqlDbType.VarChar, 10, ParameterDirection.Input, datePickerYearRange);
-            sph.DefineSqlParameter("@ImageBrowserEmptyUrl", MySqlDbType.Text, ParameterDirection.Input, imageBrowserEmptyUrl);
-            sph.DefineSqlParameter("@Options", MySqlDbType.Text, ParameterDirection.Input, options);
-            sph.DefineSqlParameter("@CheckBoxReturnBool", MySqlDbType.Bit, ParameterDirection.Input, checkBoxReturnBool);
-            sph.DefineSqlParameter("@CheckBoxReturnValueWhenTrue", MySqlDbType.Text, ParameterDirection.Input, checkBoxReturnValueWhenTrue);
-            sph.DefineSqlParameter("@CheckBoxReturnValueWhenFalse", MySqlDbType.Text, ParameterDirection.Input, checkBoxReturnValueWhenFalse);
-            sph.DefineSqlParameter("@DateFormat", MySqlDbType.Text, ParameterDirection.Input, dateFormat);
-            sph.DefineSqlParameter("@TextBoxMode", MySqlDbType.VarChar, 25, ParameterDirection.Input, textBoxMode);
-            sph.DefineSqlParameter("@Attributes", MySqlDbType.VarChar, 100, ParameterDirection.Input, attributes);
-            sph.DefineSqlParameter("@IsDeleted", MySqlDbType.Bit, ParameterDirection.Input, isDeleted);
-            int rowsAffected = sph.ExecuteNonQuery();
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.AppendFormat("UPDATE i7_sflexi_fields SET {0} WHERE FieldGuid = ?FieldGuid;"
+                , "SiteGuid = ?SiteGuid,"
+                + "FeatureGuid = ?FeatureGuid,"
+                + "DefinitionGuid = ?DefinitionGuid,"
+                + "DefinitionName = ?DefinitionName,"
+                + "Name = ?Name,"
+                + "Label = ?Label,"
+                + "DefaultValue = ?DefaultValue,"
+                + "ControlType = ?ControlType,"
+                + "ControlSrc = ?ControlSrc,"
+                + "SortOrder = ?SortOrder,"
+                + "HelpKey = ?HelpKey,"
+                + "Required = ?Required,"
+                + "RequiredMessageFormat = ?RequiredMessageFormat,"
+                + "Regex = ?Regex,"
+                + "RegexMessageFormat = ?RegexMessageFormat,"
+                + "Token = ?Token,"
+                + "PreTokenString = ?PreTokenString,"
+                + "PostTokenString = ?PostTokenString,"
+                + "Searchable = ?Searchable,"
+                + "EditPageControlWrapperCssClass = ?EditPageControlWrapperCssClass,"
+                + "EditPageLabelCssClass = ?EditPageLabelCssClass,"
+                + "EditPageControlCssClass = ?EditPageControlCssClass,"
+                + "DatePickerIncludeTimeForDate = ?DatePickerIncludeTimeForDate,"
+                + "DatePickerShowMonthList = ?DatePickerShowMonthList,"
+                + "DatePickerShowYearList = ?DatePickerShowYearList,"
+                + "DatePickerYearRange = ?DatePickerYearRange,"
+                + "ImageBrowserEmptyUrl = ?ImageBrowserEmptyUrl,"
+                + "Options = ?Options,"
+                + "CheckBoxReturnBool = ?CheckBoxReturnBool,"
+                + "CheckBoxReturnValueWhenTrue = ?CheckBoxReturnValueWhenTrue,"
+                + "CheckBoxReturnValueWhenFalse = ?CheckBoxReturnValueWhenFalse,"
+                + "DateFormat = ?DateFormat,"
+                + "TextBoxMode = ?TextBoxMode,"
+                + "Attributes = ?Attributes,"
+                + "IsDeleted = ?IsDeleted,"
+                + "IsGlobal = ?IsGlobal");
+
+            var sqlParams = new List<MySqlParameter>
+            {
+                new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid },
+                new MySqlParameter("?FeatureGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = featureGuid },
+                new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = definitionGuid },
+                new MySqlParameter("?FieldGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = fieldGuid },
+                new MySqlParameter("?DefinitionName", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = definitionName },
+                new MySqlParameter("?Name", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = name },
+                new MySqlParameter("?Label", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = label },
+                new MySqlParameter("?DefaultValue", MySqlDbType.LongText) { Direction = ParameterDirection.Input, Value = defaultValue },
+                new MySqlParameter("?ControlType", MySqlDbType.VarChar, 16) { Direction = ParameterDirection.Input, Value = controlType },
+                new MySqlParameter("?ControlSrc", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = controlSrc },
+                new MySqlParameter("?SortOrder", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = sortOrder },
+                new MySqlParameter("?HelpKey", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = helpKey },
+                new MySqlParameter("?Required", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = required },
+                new MySqlParameter("?RequiredMessageFormat", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = requiredMessageFormat },
+                new MySqlParameter("?Regex", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = regex },
+                new MySqlParameter("?RegexMessageFormat", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = regexMessageFormat },
+                new MySqlParameter("?Token", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = token },
+                new MySqlParameter("?PreTokenString", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = preTokenString },
+                new MySqlParameter("?PostTokenString", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = postTokenString },
+                new MySqlParameter("?Searchable", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = searchable },
+                new MySqlParameter("?EditPageControlWrapperCssClass", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = editPageControlWrapperCssClass },
+                new MySqlParameter("?EditPageLabelCssClass", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = editPageLabelCssClass },
+                new MySqlParameter("?EditPageControlCssClass", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = editPageControlCssClass },
+                new MySqlParameter("?DatePickerIncludeTimeForDate", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = datePickerIncludeTimeForDate },
+                new MySqlParameter("?DatePickerShowMonthList", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = datePickerShowMonthList },
+                new MySqlParameter("?DatePickerShowYearList", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = datePickerShowYearList },
+                new MySqlParameter("?DatePickerYearRange", MySqlDbType.VarChar, 10) { Direction = ParameterDirection.Input, Value = datePickerYearRange },
+                new MySqlParameter("?ImageBrowserEmptyUrl", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = imageBrowserEmptyUrl },
+                new MySqlParameter("?Options", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = options },
+                new MySqlParameter("?CheckBoxReturnBool", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = checkBoxReturnBool },
+                new MySqlParameter("?CheckBoxReturnValueWhenTrue", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = checkBoxReturnValueWhenTrue },
+                new MySqlParameter("?CheckBoxReturnValueWhenFalse", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = checkBoxReturnValueWhenFalse },
+                new MySqlParameter("?DateFormat", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = dateFormat },
+                new MySqlParameter("?TextBoxMode", MySqlDbType.VarChar, 25) { Direction = ParameterDirection.Input, Value = textBoxMode },
+                new MySqlParameter("?Attributes", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = attributes },
+                new MySqlParameter("?IsGlobal", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = isGlobal }
+            };
+            int rowsAffected = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParams.ToArray()).ToString());
+
             return (rowsAffected > 0);
 
         }
@@ -363,11 +320,21 @@ namespace SuperFlexiData
         public static bool Delete(
             Guid fieldGuid)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Delete", 1);
-            sph.DefineSqlParameter("@FieldGuid", MySqlDbType.Guid, ParameterDirection.Input, fieldGuid);
-            int rowsAffected = sph.ExecuteNonQuery();
-            return (rowsAffected > 0);
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM i7_sflexi_fields WHERE FieldGuid = ?FieldGuid;");
 
+            var sqlParam = new MySqlParameter("?FieldGuid", MySqlDbType.Guid)
+            {
+                Direction = ParameterDirection.Input,
+                Value = fieldGuid
+            };
+
+            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParam);
+
+            return (rowsAffected > 0);
         }
 
         /// <summary>
@@ -377,9 +344,20 @@ namespace SuperFlexiData
         /// <returns>bool</returns>
         public static bool DeleteBySite(Guid siteGuid)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_DeleteBySite", 1);
-            sph.DefineSqlParameter("@SiteGuid", MySqlDbType.Guid, ParameterDirection.Input, siteGuid);
-            int rowsAffected = sph.ExecuteNonQuery();
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM i7_sflexi_fields WHERE SiteGuid = ?SiteGuid;");
+
+            var sqlParam = new MySqlParameter("?SiteGuid", MySqlDbType.Guid)
+            {
+                Direction = ParameterDirection.Input,
+                Value = siteGuid
+            };
+
+            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParam);
+
             return (rowsAffected > 0);
         }
 
@@ -390,9 +368,20 @@ namespace SuperFlexiData
         /// <returns>bool</returns>
         public static bool DeleteByDefinition(Guid definitionGuid)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_DeleteByDefinition", 1);
-            sph.DefineSqlParameter("@DefinitionGuid", MySqlDbType.Guid, ParameterDirection.Input, definitionGuid);
-            int rowsAffected = sph.ExecuteNonQuery();
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM i7_sflexi_fields WHERE DefinitionGuid = ?DefinitionGuid;");
+
+            var sqlParam = new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid)
+            {
+                Direction = ParameterDirection.Input,
+                Value = definitionGuid
+            };
+
+            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParam);
+
             return (rowsAffected > 0);
         }
 
@@ -403,10 +392,19 @@ namespace SuperFlexiData
         public static IDataReader GetOne(
             Guid fieldGuid)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_fields_SelectOne", 1);
-            sph.DefineSqlParameter("@FieldGuid", MySqlDbType.Guid, ParameterDirection.Input, fieldGuid);
-            return sph.ExecuteReader();
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT * FROM i7_sflexi_fields WHERE FieldGuid = ?FieldGuid;");
 
+            var sqlParam = new MySqlParameter("?FieldGuid", MySqlDbType.Guid)
+            {
+                Direction = ParameterDirection.Input,
+                Value = fieldGuid
+            };
+
+            return MySqlHelper.ExecuteReader(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParam);
         }
 
         /// <summary>
@@ -414,13 +412,12 @@ namespace SuperFlexiData
         /// </summary>
         public static int GetCount()
         {
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT Count(*) FROM i7_sflexi_fields;");
 
-            return Convert.ToInt32(SqlHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "i7_sflexi_fields_GetCount",
-                null));
-
+            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+                 ConnectionString.GetReadConnectionString(),
+                 sqlCommand.ToString()));
         }
 
         /// <summary>
@@ -428,22 +425,32 @@ namespace SuperFlexiData
         /// </summary>
         public static IDataReader GetAll()
         {
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT * FROM i7_sflexi_fields WHERE IsDeleted = 0;");
 
-            return SqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "i7_sflexi_fields_SelectAll",
-                null);
-
+            return MySqlHelper.ExecuteReader(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString());
         }
 
         public static IDataReader GetAllForDefinition(Guid definitionGuid, bool includeDeleted = false)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_fields_SelectAllForDefinition", 2);
-            sph.DefineSqlParameter("@DefinitionGuid", MySqlDbType.Guid, ParameterDirection.Input, definitionGuid);
-            sph.DefineSqlParameter("@IncludeDeleted", MySqlDbType.Guid, ParameterDirection.Input, includeDeleted);
-            return sph.ExecuteReader();
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT * FROM i7_sflexi_fields "
+                +"WHERE DefinitionGuid = ?DefinitionGuid "
+                +"AND ((?IncludeDeleted = 1) OR (IsDeleted = 0)) "
+                +"ORDER BY SortOrder, Name;");
 
+            var sqlParams = new List<MySqlParameter>
+            {
+                new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = definitionGuid },
+                new MySqlParameter("?IncludeDeleted", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = includeDeleted }
+            };
+            
+            return MySqlHelper.ExecuteReader(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParams.ToArray());
         }
 
         /// <summary>
@@ -457,9 +464,9 @@ namespace SuperFlexiData
             int pageSize,
             out int totalPages)
         {
+            int pageLowerBound = (pageSize * pageNumber) - pageSize;
             totalPages = 1;
-            int totalRows
-                = GetCount();
+            int totalRows = GetCount();
 
             if (pageSize > 0) totalPages = totalRows / pageSize;
 
@@ -469,19 +476,26 @@ namespace SuperFlexiData
             }
             else
             {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
+                Math.DivRem(totalRows, pageSize, out int remainder);
                 if (remainder > 0)
                 {
                     totalPages += 1;
                 }
             }
+            StringBuilder sqlCommand = new StringBuilder();
 
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_fields_SelectPage", 2);
-            sph.DefineSqlParameter("@PageNumber", MySqlDbType.Int, ParameterDirection.Input, pageNumber);
-            sph.DefineSqlParameter("@PageSize", MySqlDbType.Int, ParameterDirection.Input, pageSize);
-            return sph.ExecuteReader();
+            sqlCommand.Append("SELECT * FROM i7_sflexi_fields LIMIT ?PageSize" + (pageNumber > 1 ? "OFFSET ?OffsetRows;" : ";"));
 
+            var sqlParams = new List<MySqlParameter>
+            {
+                new MySqlParameter("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
+                new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageLowerBound }
+            };
+
+            return MySqlHelper.ExecuteReader(
+                ConnectionString.GetReadConnectionString(),
+                sqlCommand.ToString(),
+                sqlParams.ToArray());
         }
 
         /// <summary>
@@ -491,9 +505,20 @@ namespace SuperFlexiData
         /// <returns></returns>
         public static bool MarkAsDeleted(Guid fieldGuid)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_MarkAsDeleted", 1);
-            sph.DefineSqlParameter("@FieldGuid", MySqlDbType.Guid, ParameterDirection.Input, fieldGuid);
-            int rowsAffected = sph.ExecuteNonQuery();
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("UPDATE i7_sflexi_fields SET IsDeleted = 1 WHERE FieldGuid = ?FieldGuid;");
+
+            var sqlParam = new MySqlParameter("?FieldGuid", MySqlDbType.Guid)
+            {
+                Direction = ParameterDirection.Input,
+                Value = fieldGuid
+            };
+
+            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+                ConnectionString.GetWriteConnectionString(),
+                sqlCommand.ToString(),
+                sqlParam);
+
             return (rowsAffected > 0);
         }
     }

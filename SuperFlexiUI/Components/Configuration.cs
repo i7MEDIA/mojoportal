@@ -281,6 +281,8 @@ namespace SuperFlexiUI
                 useStandardMarkupOnDesktopOnly = XmlUtils.ParseBoolFromAttribute(attrCollection, "desktopOnly", useStandardMarkupOnDesktopOnly);
                 useHeader = XmlUtils.ParseBoolFromAttribute(attrCollection, "useHeader", useHeader);
                 useFooter = XmlUtils.ParseBoolFromAttribute(attrCollection, "useFooter", useFooter);
+                allowImport = XmlUtils.ParseBoolFromAttribute(attrCollection, "allowImport", allowImport);
+                allowExport = XmlUtils.ParseBoolFromAttribute(attrCollection, "allowExport", allowExport);
                 //renderModuleLinksWithModuleTitle = XmlUtils.ParseBoolFromAttribute(attrCollection, "renderModuleLinksWithModuleTitle", renderModuleLinksWithModuleTitle);
 
                 if (attrCollection["editPageClass"] != null) editPageCssClass += " " + attrCollection["editPageClass"].Value;
@@ -290,6 +292,9 @@ namespace SuperFlexiUI
                 if (attrCollection["editPageDeleteButtonText"] != null) editPageDeleteButtonText = attrCollection["editPageDeleteButtonText"].Value;
                 if (attrCollection["editPageCancelLinkText"] != null) editPageCancelLinkText = attrCollection["editPageCancelLinkText"].Value;
                 if (attrCollection["editPageDeleteWarning"] != null) editPageDeleteWarning = attrCollection["editPageDeleteWarning"].Value;
+                if (attrCollection["importPageTitle"] != null) importPageTitle = attrCollection["importPageTitle"].Value;
+                if (attrCollection["exportPageTitle"] != null) exportPageTitle = attrCollection["exportPageTitle"].Value;
+                if (attrCollection["importPageCancelLinkText"] != null) importPageCancelLinkText = attrCollection["importPageCancelLinkText"].Value;
                 if (attrCollection["fieldDefinitionSrc"] != null) fieldDefinitionSrc = attrCollection["fieldDefinitionSrc"].Value.Replace("$_SitePath_$", "/Data/Sites/" + siteId.ToInvariantString());
                 if (attrCollection["fieldDefinitionGuid"] != null) fieldDefinitionGuid = Guid.Parse(attrCollection["fieldDefinitionGuid"].Value);
                 if (attrCollection["jsonRenderLocation"] != null) jsonRenderLocation = attrCollection["jsonRenderLocation"].Value;
@@ -366,6 +371,18 @@ namespace SuperFlexiUI
                                 break;
                             case "ItemEditLinkFormat":
                                 workingMarkupDefinition.ItemEditLinkFormat = childNode.InnerText.Trim();
+                                break;
+                            case "ImportInstructions":
+                                importInstructions = childNode.InnerText.Trim();
+                                break;
+                            case "ExportInstructions":
+                                exportInstructions = childNode.InnerText.Trim();
+                                break;
+                            case "ImportLinkFormat":
+                                workingMarkupDefinition.ImportLinkFormat = childNode.InnerText.Trim();
+                                break;
+                            case "ExportLinkFormat":
+                                workingMarkupDefinition.ExportLinkFormat = childNode.InnerText.Trim();
                                 break;
                             case "GlobalViewMarkup":
                                 workingMarkupDefinition.GlobalViewMarkup = childNode.InnerText.Trim();
@@ -595,6 +612,27 @@ namespace SuperFlexiUI
 
         private string editPageDeleteWarning = SuperFlexiResources.ItemDeleteWarning;
         public string EditPageDeleteWarning { get { return editPageDeleteWarning; } }
+
+        private string importPageTitle = SuperFlexiResources.ImportTitle;
+        public string ImportPageTitle { get { return importPageTitle; } }
+
+        private string importPageCancelLinkText = SuperFlexiResources.CancelButton;
+        public string ImportPageCancelLinkText { get { return importPageCancelLinkText; } }
+
+        private string importInstructions = SuperFlexiResources.ImportInstructions;
+        public string ImportInstructions { get { return importInstructions; } }
+
+        private string exportInstructions = SuperFlexiResources.ExportInstructions;
+        public string ExportInstructions { get { return exportInstructions; } }
+
+		private string exportPageTitle = SuperFlexiResources.ExportTitle;
+		public string ExportPageTitle { get { return exportPageTitle; } }
+
+		private bool allowImport = false;
+        public bool AllowImport { get { return allowImport; } }
+
+        private bool allowExport = false;
+        public bool AllowExport { get { return allowExport; } }
 
         private string customizableSettings = string.Empty;
         public string CustomizableSettings { get { return customizableSettings; } }

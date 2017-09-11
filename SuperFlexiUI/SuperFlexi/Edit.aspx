@@ -24,6 +24,8 @@
 							&nbsp;
 							<portal:mojoButton ID="deleteButton" runat="server" Text="Delete this item" CausesValidation="false" SkinID="DeleteButton" />
 							&nbsp;
+                            <portal:mojoButton ID="exportButton" runat="server" Text="Export" SkinID="ExportButton" UseSubmitBehavior="false"/>
+                            &nbsp;
 							<asp:HyperLink ID="lnkCancel" runat="server" CssClass="cancellink" SkinID="TextButton" />
 						</div>
 					</asp:Panel>

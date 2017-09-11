@@ -23,16 +23,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - MySql|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug - MySql\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
-      <HintPath>..\..\..\mojoPortal\mojoportal\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -57,16 +66,10 @@
     <ProjectReference Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
       <Project>{6ddfe292-37aa-4a02-b2f0-ba7968a026ef}</Project>
       <Name>mojoPortal.Data.MSSQL</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Features.Business\mojoPortal.Features.Business.csproj">
       <Project>{65849992-8f44-4480-9494-1ca0d6325795}</Project>
       <Name>mojoPortal.Features.Business</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj">
-      <Project>{2fb266b5-97f0-42eb-9f42-b6a7de749d29}</Project>
-      <Name>mojoPortal.Features.Data.MSSQL</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj">
@@ -74,6 +77,46 @@
       <Name>SuperFlexiData.MSSQL</Name>
     </ProjectReference>
   </ItemGroup>
+  <Choose>
+    <When Condition="'$(Configuration)'=='Debug'" />
+    <When Condition="'$(Configuration)'=='Release'">
+      <ItemGroup>
+        <ProjectReference Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
+          <Project>{6ddfe292-37aa-4a02-b2f0-ba7968a026ef}</Project>
+          <Name>mojoPortal.Data.MSSQL</Name>
+          <Private>False</Private>
+        </ProjectReference>
+        <ProjectReference Include="..\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj">
+          <Project>{b77ed3c5-5720-4a13-925f-c580ecfa4b7b}</Project>
+          <Name>SuperFlexiData.MSSQL</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </When>
+    <When Condition="'$(Configuration)'=='Debug - MySql'">
+      <ItemGroup>
+        <ProjectReference Include="..\mojoPortal.Data.MySql\mojoPortal.Data.MySql.csproj">
+          <Project>{E2EF8E92-91A8-49CA-8500-DF558C795976}</Project>
+          <Name>mojoPortal.Data.MySql</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\SuperFlexiData.MySQL\SuperFlexiData.MySQL.csproj">
+          <Project>{B7B278B1-E566-41DA-BC1B-D846078B87DB}</Project>
+          <Name>SuperFlexiData.MySQL</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </When>
+    <When Condition="'$(Configuration)'=='Release - MySql'">
+      <ItemGroup>
+        <ProjectReference Include="..\mojoPortal.Data.MySql\mojoPortal.Data.MySql.csproj">
+          <Project>{E2EF8E92-91A8-49CA-8500-DF558C795976}</Project>
+          <Name>mojoPortal.Data.MySql</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\SuperFlexiData.MySQL\SuperFlexiData.MySQL.csproj">
+          <Project>{B7B278B1-E566-41DA-BC1B-D846078B87DB}</Project>
+          <Name>SuperFlexiData.MySQL</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </When>
+  </Choose>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

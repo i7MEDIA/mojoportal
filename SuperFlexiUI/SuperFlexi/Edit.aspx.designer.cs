@@ -130,6 +130,15 @@ namespace SuperFlexiUI {
         protected global::mojoPortal.Web.UI.mojoButton deleteButton;
         
         /// <summary>
+        /// exportButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoButton exportButton;
+        
+        /// <summary>
         /// lnkCancel control.
         /// </summary>
         /// <remarks>
