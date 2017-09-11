@@ -407,3 +407,9 @@ Web/App_GlobalResources/SuperFlexiResources.resx
 Web/Views/Blog/
 
 Web/Views/SuperFlexi/
+
+Web/Data/HelpFiles/en-US-webstore-IndexOffersSetting-help\.config
+
+Web/Setup/ProviderConfig/contentdeletehandlers/webstoredeletehandler\.config
+
+Web/Setup/ProviderConfig/worldpayresponsehandlers/webstoreworldpayresponsehandler\.config
