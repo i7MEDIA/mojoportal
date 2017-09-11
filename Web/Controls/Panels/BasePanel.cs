@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:				    2011-05-20
-// Last Modified:			2011-05-20
+// Last Modified:			2017-09-07
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -10,13 +10,11 @@
 //
 // You must not remove this notice, or any other, from this software.	
 
+using mojoPortal.Web.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.UI
 {
@@ -53,20 +51,49 @@ namespace mojoPortal.Web.UI
 			set { renderContentsOnly = value; }
 		}
 
-		private string literalExtraTopContent = string.Empty;
+		private string insideTopMarkup = string.Empty;
 
-		public string LiteralExtraTopContent
+		public string InsideTopMarkup
 		{
-			get { return literalExtraTopContent; }
-			set { literalExtraTopContent = value; }
+			get { return insideTopMarkup; }
+			set { insideTopMarkup = value; }
 		}
 
-		private string literalExtraBottomContent = string.Empty;
+		[Obsolete("Use InsideTopMarkup instead.")]
+		public string LiteralExtraTopContent
+		{
+			get { return insideTopMarkup; }
+			set { insideTopMarkup = value; }
+		}
 
+		private string insideBottomMarkup = string.Empty;
+
+		public string InsideBottomMarkup
+		{
+			get { return insideBottomMarkup; }
+			set { insideBottomMarkup = value; }
+		}
+
+		[Obsolete("Use InsideBottomMarkup instead.")]
 		public string LiteralExtraBottomContent
 		{
-			get { return literalExtraBottomContent; }
-			set { literalExtraBottomContent = value; }
+			get { return insideBottomMarkup; }
+			set { insideBottomMarkup = value; }
+		}
+
+
+		private string outsideTopMarkup = string.Empty;
+		public string OutsideTopMarkup
+		{
+			get => outsideTopMarkup;
+			set => outsideTopMarkup = value;
+		}
+
+		private string outsideBottomMarkup = string.Empty;
+		public string OutsideBottomMarkup
+		{
+			get => outsideBottomMarkup;
+			set => outsideBottomMarkup = value;
 		}
 
 		private bool detectSideColumn = false;
@@ -105,7 +132,7 @@ namespace mojoPortal.Web.UI
 
 		private bool renderId = true;
 
-		public bool RenderId
+		public virtual bool RenderId
 		{
 			get { return renderId; }
 			set { renderId = value; }
@@ -149,8 +176,8 @@ namespace mojoPortal.Web.UI
 					case UIHelper.LeftColumnId:
 					case UIHelper.RightColumnId:
 						extraCssClasses = sideColumnxtraCssClasses;
-						literalExtraTopContent = sideColumnLiteralExtraTopContent;
-						literalExtraBottomContent = sideColumnLiteralExtraBottomContent;
+						insideTopMarkup = sideColumnLiteralExtraTopContent;
+						insideBottomMarkup = sideColumnLiteralExtraBottomContent;
 
 						break;
 
@@ -189,7 +216,7 @@ namespace mojoPortal.Web.UI
 				return;
 			}
 
-			if (dontRender)
+			if (DontRender)
 			{
 				return;
 			}
@@ -201,13 +228,16 @@ namespace mojoPortal.Web.UI
 				return;
 			}
 
-			if (!renderContentsOnly)
+			if (OutsideTopMarkup.Length > 0)
 			{
-				if (renderId)
+				writer.Write(OutsideTopMarkup);
+			}
+
+			if (!RenderContentsOnly)
+			{
+				if (RenderId)
 				{
-					writer.Write("<");
-					writer.Write(element);
-					writer.Write(" id='" + ClientID + "'");
+					writer.Write("<" + Element + " id='" + ClientID + "'");
 
 					if (!string.IsNullOrWhiteSpace(CssClass))
 					{
@@ -218,8 +248,7 @@ namespace mojoPortal.Web.UI
 				}
 				else
 				{
-					writer.Write("<");
-					writer.Write(element);
+					writer.Write("<" + Element);
 
 					if (!string.IsNullOrWhiteSpace(CssClass))
 					{
@@ -230,22 +259,28 @@ namespace mojoPortal.Web.UI
 				}
 			}
 
-			if (literalExtraTopContent.Length > 0)
+			if (InsideTopMarkup.Length > 0)
 			{
-				writer.Write(literalExtraTopContent);
+				writer.Write(InsideTopMarkup);
 			}
 
 			base.RenderContents(writer);
 
-			if (literalExtraBottomContent.Length > 0)
+			if (InsideBottomMarkup.Length > 0)
 			{
-				writer.Write(literalExtraBottomContent);
+				writer.Write(InsideBottomMarkup);
 			}
 
-			if (!renderContentsOnly)
+			if (!RenderContentsOnly)
 			{
 				writer.Write("\n</" + element + ">");
 			}
+
+			if (OutsideBottomMarkup.Length > 0)
+			{
+				writer.Write(OutsideBottomMarkup);
+			}
+
 		}
 
 		private int GetCountVisibleChildWebControls()

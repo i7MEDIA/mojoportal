@@ -29,24 +29,34 @@
 									<mp:SiteLabel ID="SiteLabel1" runat="server" ConfigKey="UserSalesLabel" ResourceFile="ForumResources" UseLabelTag="false" />
 									<%# string.Format(currencyCulture, "{0:c}", Convert.ToDecimal(Eval("UserRevenue"))) %>
 							</portal:CommentItemInnerPanel>
-							<asp:HyperLink CssClass="commentEdit ceditlink ModuleSettingsLink" Text="<%$ Resources:Resource, EditLink %>"
+							<span class="comment-manage-edit">
+								<asp:HyperLink CssClass="commentEdit ceditlink ModuleSettingsLink" Text="<%$ Resources:Resource, EditLink %>"
 								ID="editLink" 
 								NavigateUrl='<%# EditBaseUrl + "&c=" + Eval("Guid")  %>'
 								Visible='<%# UserCanEdit(new Guid(Eval("UserGuid").ToString()), Eval("UserEmail").ToString(), Convert.ToInt32(Eval("ModerationStatus")), Convert.ToDateTime(Eval("CreatedUtc"))) %>' runat="server" />
+							</span>
+							<span class="comment-manage-approve">
 							<portal:mojoButton ID="btnApprove" runat="server" Text='<%$ Resources:Resource, ContentManagerPublishContentLink %>' CommandName="ApproveComment" CommandArgument='<%# Eval("Guid")%>'
 								Visible='<%# UserCanModerate && (Convert.ToInt32(Eval("ModerationStatus")) != Comment.ModerationApproved) %>' SkinID="SaveButton" />
+							</span>
+							<span class="comment-manage-delete">
 							<portal:mojoButton ID="btnDelete" runat="server" Text='<%$ Resources:Resource, DeleteButton %>' CommandName="DeleteComment" CommandArgument='<%# Eval("Guid")%>'
-								Visible='<%# UserCanModerate %>' SkinID="DeleteButtonSmall" />							
+								Visible='<%# UserCanModerate %>' SkinID="DeleteButtonSmall" />
+							</span>
 						</portal:CommentItemLeftPanel>
 						<portal:CommentItemRightPanel ID="pnlRight" runat="server" CssClass='<%# RightPanelCssClass %>' RenderId="false">
 							<div id='post<%# Eval("Guid") %>'>
+								<portal:CommentItemInnerPanel ID="itemheaderpanel" runat="server" CssClass='<%# ItemHeaderCssClass %>' RenderId="false">
+									<NeatHtml:UntrustedContent ID="UntrustedContent0" runat="server" TrustedImageUrlPattern='<%# AllowedImageUrlRegexPatern %>' ClientScriptUrl="~/ClientScript/NeatHtml.js">
+											<portal:CommentItemTitlePanel ID="pnlTitle" runat="server" RenderId="false"
+												CssClass='<%# ItemTitleCssClass %>'
+												Visible='<%# UseCommentTitle %>'>
+												<%# String.Format(CommentItemHeaderFormat, Server.HtmlEncode(Eval("Title").ToString()))%>
+											</portal:CommentItemTitlePanel>
+									</NeatHtml:UntrustedContent>
+									<portal:CommentDateWrapper ID="dw1" runat="server" RenderId="false" CssClass='<%# DateWrapperCssClass %>'><%# FormatCommentDate(Convert.ToDateTime(Eval("CreatedUtc"))) %></portal:CommentDateWrapper>
+								</portal:CommentItemInnerPanel>
 								<NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" TrustedImageUrlPattern='<%# AllowedImageUrlRegexPatern %>' ClientScriptUrl="~/ClientScript/NeatHtml.js">
-									<portal:CommentItemInnerPanel ID="itemheaderpanel" runat="server" CssClass='<%# ItemHeaderCssClass %>' RenderId="false">
-										<portal:CommentItemTitlePanel ID="pnlTitle" runat="server" RenderId="false"
-										CssClass='<%# ItemTitleCssClass %>'
-										Visible='<%# UseCommentTitle %>'><%# String.Format(CommentItemHeaderFormat, Server.HtmlEncode(Eval("Title").ToString()))%></portal:CommentItemTitlePanel>
-										<portal:CommentDateWrapper ID="dw1" runat="server" RenderId="false" CssClass='<%# DateWrapperCssClass %>' ><%# FormatCommentDate(Convert.ToDateTime(Eval("CreatedUtc"))) %></portal:CommentDateWrapper>
-									</portal:CommentItemInnerPanel>
 									<portal:CommentItemBodyPanel ID="pnlBody" runat="server" CssClass='<%# ItemBodyCssClass %>' RenderId="false"><%# Eval("UserComment").ToString()%></portal:CommentItemBodyPanel>
 								</NeatHtml:UntrustedContent>
 							</div>

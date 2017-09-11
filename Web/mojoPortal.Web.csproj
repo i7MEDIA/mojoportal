@@ -1401,6 +1401,7 @@
     <Compile Include="Admin\ContentPublishDialog.aspx.designer.cs">
       <DependentUpon>ContentPublishDialog.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Controls\AdminDisplaySettings.cs" />
     <Compile Include="Admin\Controls\AdvFileManager.ascx.cs">
       <DependentUpon>AdvFileManager.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

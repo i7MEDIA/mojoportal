@@ -1130,7 +1130,7 @@ namespace mojoPortal.Web
 
 		public static bool ShowSiteIdInSiteList
 		{
-			get { return ConfigHelper.GetBoolProperty("ShowSiteIdInSiteList", false); }
+			get { return ConfigHelper.GetBoolProperty("ShowSiteIdInSiteList", true); }
 		}
 
 		public static int SiteListPageSize
@@ -1145,7 +1145,7 @@ namespace mojoPortal.Web
 
 		public static bool EnableSiteSettingsSmtpSettings
 		{
-			get { return ConfigHelper.GetBoolProperty("EnableSiteSettingsSmtpSettings", false); }
+			get { return ConfigHelper.GetBoolProperty("EnableSiteSettingsSmtpSettings", true); }
 		}
 
 		public static bool EnforceContentVersioningGlobally

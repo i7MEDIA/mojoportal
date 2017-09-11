@@ -670,13 +670,13 @@
     <value>Sorry, this account is currently locked.</value>
   </data>
   <data name="LoginLink" xml:space="preserve">
-    <value>Sign In</value>
+    <value>Login</value>
   </data>
   <data name="LoginUnconfirmedEmailMessage" xml:space="preserve">
-    <value>This account has not been confirmed. You cannot sign in without first confirming your email address. You should have received an email message with a link to confirm this account. If you did not receive the email message with the confirmation link after 1 hour, please contact the site Administrator for assistance.</value>
+    <value>This account has not been confirmed. You cannot login without first confirming your email address. You should have received an email message with a link to confirm this account. If you did not receive the email message with the confirmation link after 1 hour, please contact the site Administrator for assistance.</value>
   </data>
   <data name="LogoutLink" xml:space="preserve">
-    <value>Sign Out</value>
+    <value>Logout</value>
   </data>
   <data name="MailboxLink" xml:space="preserve">
     <value>Site Office</value>
@@ -1000,7 +1000,7 @@
     <value>Add Content</value>
   </data>
   <data name="MyPageAnonymousMessage" xml:space="preserve">
-    <value>If you sign in you can customize this page.</value>
+    <value>If you login you can customize this page.</value>
   </data>
   <data name="MyPageCancelNewPageButton" xml:space="preserve">
     <value>Cancel</value>
@@ -1075,16 +1075,16 @@
     <value>Open ID</value>
   </data>
   <data name="OpenIDLoginButton" xml:space="preserve">
-    <value>Sign In with Your Open ID Account</value>
+    <value>Login with Your Open ID Account</value>
   </data>
   <data name="OpenIDLoginCanceledMessage" xml:space="preserve">
-    <value>Sign In Canceled</value>
+    <value>Login Canceled</value>
   </data>
   <data name="OpenIDLoginFailedMessage" xml:space="preserve">
-    <value>Sign In Failed</value>
+    <value>Login Failed</value>
   </data>
   <data name="OpenIDMustRegisterBeforeLoginMesage" xml:space="preserve">
-    <value>You must Register before you can sign in to this site. Click &lt;a href='{0}' title='Open ID Registration Page'&gt;here&lt;/a&gt; to register with your Open ID.</value>
+    <value>You must Register before you can login to this site. Click &lt;a href='{0}' title='Open ID Registration Page'&gt;here&lt;/a&gt; to register with your Open ID.</value>
   </data>
   <data name="OpenIDRegisterButton" xml:space="preserve">
     <value>Register with Your Open ID Account</value>
@@ -1492,7 +1492,7 @@
     <value>Your account has been created.</value>
   </data>
   <data name="RegisterConfirmMessage" xml:space="preserve">
-    <value>Your Registration is now confirmed, please click the Sign In link above to sign in.</value>
+    <value>Your Registration is now confirmed, please click the Login link above.</value>
   </data>
   <data name="RegisterConfirmPasswordLabel" xml:space="preserve">
     <value>Confirm Password</value>
@@ -1570,7 +1570,7 @@
     <value>You must provide a Security Question.</value>
   </data>
   <data name="RegistrationRequiresEmailConfirmationMessage" xml:space="preserve">
-    <value>This site requires confirmation of a valid email address to sign in after registering. An email message has been sent to the email address you provided. Click the link in that email message to confirm your account. After confirmation, you will be allowed to sign in to the site.</value>
+    <value>This site requires confirmation of a valid email address to login after registering. An email message has been sent to the email address you provided. Click the link in that email message to confirm your account. After confirmation, you will be allowed to login to the site.</value>
   </data>
   <data name="ReturnHomeLabel" xml:space="preserve">
     <value>Return to Site Home</value>
@@ -1651,10 +1651,10 @@
     <value>Email</value>
   </data>
   <data name="SignInLabel" xml:space="preserve">
-    <value>Sign In</value>
+    <value>Login</value>
   </data>
   <data name="SignInLinkText" xml:space="preserve">
-    <value>Sign In</value>
+    <value>Login</value>
   </data>
   <data name="SignInPasswordLabel" xml:space="preserve">
     <value>Password</value>
@@ -1708,16 +1708,16 @@
     <value>Allow Password Reset?</value>
   </data>
   <data name="SiteSettingsAllowPasswordRetrievalLabel" xml:space="preserve">
-    <value>Allow Password Retrieval?</value>
+    <value>Allow Password Recovery?</value>
   </data>
   <data name="SiteSettingsAllowRegistrationLabel" xml:space="preserve">
-    <value>Allow New Users to Register?</value>
+    <value>Allow User Registrations?</value>
   </data>
   <data name="SiteSettingsAllowUserSkinsLabel" xml:space="preserve">
     <value>Allow Users to Choose Skins?</value>
   </data>
   <data name="SiteSettingsAllowUsersToChangeNameLabel" xml:space="preserve">
-    <value>Allow Users to Change their Display Name?</value>
+    <value>Allow Changing Display Name?</value>
   </data>
   <data name="SiteSettingsAllowWindowsLiveAuthLabel" xml:space="preserve">
     <value>Allow Windows Live Authentication?</value>
@@ -1771,10 +1771,10 @@
     <value>Encrypt Passwords?</value>
   </data>
   <data name="SiteSettingsExistingFolderMappingsLabel" xml:space="preserve">
-    <value>Current Folders Mapped to this Site</value>
+    <value>Folder Names</value>
   </data>
   <data name="SiteSettingsExistingHostsLabel" xml:space="preserve">
-    <value>Current Host Names</value>
+    <value>Host Names</value>
   </data>
   <data name="SiteSettingsFeaturesAllowedLabel" xml:space="preserve">
     <value>Features</value>
@@ -1855,7 +1855,7 @@
     <value>LDAP Settings</value>
   </data>
   <data name="SiteSettingsLdapTestPassword" xml:space="preserve">
-    <value>Your LDAP user password.(Not stored just used to test connection on save)</value>
+    <value>LDAP User Password</value>
   </data>
   <data name="SiteSettingsLdapUserDNKey" xml:space="preserve">
     <value>LDAP User DN Key:</value>
@@ -1879,10 +1879,10 @@
     <value>New Site</value>
   </data>
   <data name="SiteSettingsNoFolderNames" xml:space="preserve">
-    <value>No Folder Names Currently Map To This Site</value>
+    <value>No Folder Names Currently Map to This Site</value>
   </data>
   <data name="SiteSettingsNoHostsFound" xml:space="preserve">
-    <value>No Host Names Currently Map To This Site</value>
+    <value>No Host Names Currently Map to This Site</value>
   </data>
   <data name="SiteSettingsPasswordAttemptWindowMinutesLabel" xml:space="preserve">
     <value>Password Attempt Window in Minutes</value>
@@ -1897,7 +1897,7 @@
     <value>If unchecked deleting users flags them as deleted instead of really deleting them.</value>
   </data>
   <data name="SiteSettingsReallyDeleteUsersLabel" xml:space="preserve">
-    <value>Really delete users?</value>
+    <value>Really Delete Users?</value>
   </data>
   <data name="SiteSettingsRebuildIndexButton" xml:space="preserve">
     <value>Rebuild Index for Site Search</value>
@@ -1921,7 +1921,7 @@
     <value>Save Host</value>
   </data>
   <data name="SiteSettingsSecureRegistrationLabel" xml:space="preserve">
-    <value>Require E-mail Confirmation for Registration?</value>
+    <value>Verify Email?</value>
   </data>
   <data name="SiteSettingsSecurityAntiSPAMTab" xml:space="preserve">
     <value>Anti-SPAM</value>
@@ -1966,7 +1966,7 @@
     <value>All Features</value>
   </data>
   <data name="SiteSettingsSiteEmailFromAddressLabel" xml:space="preserve">
-    <value>Site Email From Address</value>
+    <value>Default Email From Address</value>
   </data>
   <data name="SiteSettingsSiteIconLabel" xml:space="preserve">
     <value>Icon</value>
@@ -2002,7 +2002,7 @@
     <value>Site Title</value>
   </data>
   <data name="SiteSettingsUseEmailForLoginLabel" xml:space="preserve">
-    <value>Use Email for Sign In?</value>
+    <value>Use Email for Login?</value>
   </data>
   <data name="SiteSettingsUseLdapAuth" xml:space="preserve">
     <value>Use LDAP for Authentication?</value>
@@ -2128,7 +2128,7 @@
     <value>Last Lockout</value>
   </data>
   <data name="UserLastLoginDateLabel" xml:space="preserve">
-    <value>Last Sign In</value>
+    <value>Last Login</value>
   </data>
   <data name="UserLastPasswordChangeDateLabel" xml:space="preserve">
     <value>Last Password Change</value>
@@ -2377,7 +2377,7 @@
     <value>Must be an url starting with http:// or https://</value>
   </data>
   <data name="WelcomeMessageFormat" xml:space="preserve">
-    <value>Signed in as: {0}</value>
+    <value>Logged in as: {0}</value>
   </data>
   <data name="WindowsLiveIDRegistrationHeading" xml:space="preserve">
     <value>Register on this Site with Your Windows Live ID Account</value>
@@ -2392,7 +2392,7 @@
     <value>with your Windows Live ID</value>
   </data>
   <data name="WindowsLiveSignInBeforeRegisterMessage" xml:space="preserve">
-    <value>Before you can Register on this site you must Sign in to your Windows Live Account.</value>
+    <value>Before you can Register on this site you must Login to your Windows Live Account.</value>
   </data>
   <data name="GoogleMapHeightSetting" xml:space="preserve">
     <value>Map Height</value>
@@ -2767,7 +2767,7 @@
     <value>Security/Identity</value>
   </data>
   <data name="LoginFailedInvalidEmailFormatMessage" xml:space="preserve">
-    <value>Sign In Failed. You did not provide a valid email address.</value>
+    <value>Login Failed. You did not provide a valid email address.</value>
   </data>
   <data name="DefaultContentHtmlTitle" xml:space="preserve">
     <value>Welcome</value>
@@ -2803,7 +2803,7 @@
     <value>Your {0} password.</value>
   </data>
   <data name="SiteSettingsPreferredHostNameLabel" xml:space="preserve">
-    <value>Preferred Host Name</value>
+    <value>Preferred Domain</value>
   </data>
   <data name="ModuleDefinitionsSettingControlSrcLabel" xml:space="preserve">
     <value>Control Source:</value>
@@ -3265,7 +3265,7 @@
     <value>Already Registered?</value>
   </data>
   <data name="DefaultSignInPrompt" xml:space="preserve">
-    <value>To continue, you need to Sign In or Register</value>
+    <value>To continue, you need to Login or Register</value>
   </data>
   <data name="NotYetRegistered" xml:space="preserve">
     <value>Not Yet Registered?</value>
@@ -3331,28 +3331,28 @@
     <value>Mail Settings</value>
   </data>
   <data name="SMTPPassword" xml:space="preserve">
-    <value>SMTP Password</value>
+    <value>Password</value>
   </data>
   <data name="SMTPPort" xml:space="preserve">
-    <value>SMTP Port</value>
+    <value>Port</value>
   </data>
   <data name="SmtpPreferredEncoding" xml:space="preserve">
-    <value>SMTP Preferred Encoding</value>
+    <value>Preferred Encoding</value>
   </data>
   <data name="SMTPRequiresAuthentication" xml:space="preserve">
-    <value>SMTP Requires Authentication?</value>
+    <value>Requires Authentication?</value>
   </data>
   <data name="SMTPServer" xml:space="preserve">
-    <value>SMTP Server</value>
+    <value>Server</value>
   </data>
   <data name="SMTPTimeoutInMilliseconds" xml:space="preserve">
-    <value>SMTP Timeout In Milliseconds</value>
+    <value>Timeout In Milliseconds</value>
   </data>
   <data name="SMTPUser" xml:space="preserve">
-    <value>SMTP User:</value>
+    <value>User</value>
   </data>
   <data name="SMTPUseSsl" xml:space="preserve">
-    <value>SMTP Use SSL?</value>
+    <value>Use SSL/TLS?</value>
   </data>
   <data name="ModuleSettingsCancelButton" xml:space="preserve">
     <value>Cancel</value>
@@ -3481,7 +3481,7 @@
     <value>{0} Site Search</value>
   </data>
   <data name="MetaDescriptionSignInPageFormat" xml:space="preserve">
-    <value>{0} User Sign In Page</value>
+    <value>{0} User Login Page</value>
   </data>
   <data name="MetaDescriptionSiteMapFormat" xml:space="preserve">
     <value>{0} Site Map</value>
@@ -3859,7 +3859,7 @@
     <value>Register on this site with your {0} account.</value>
   </data>
   <data name="AlreadyRegisteredMessage" xml:space="preserve">
-    <value>You are already signed in. If you wish to create a new account you must sign out first.</value>
+    <value>You are already logged in. If you wish to create a new account you must logout first.</value>
   </data>
   <data name="SearchAllContentItem" xml:space="preserve">
     <value>All Content</value>
@@ -4459,7 +4459,7 @@
     <value>Sorry, past editions are not available for this newsletter.</value>
   </data>
   <data name="NewsletterMayRequireSignIn" xml:space="preserve">
-    <value>Some newsletters may require you to sign in before you can view them.</value>
+    <value>Some newsletters may require you to login before you can view them.</value>
   </data>
   <data name="NewsletterOptInNewUsers" xml:space="preserve">
     <value>Opt In new users by default?</value>
@@ -4810,7 +4810,7 @@
     <value>Invalid Custom CSS Class</value>
   </data>
   <data name="AllowUserEditorLabel" xml:space="preserve">
-    <value>Allow Users to Choose Editor Preference?</value>
+    <value>Allow Users to Choose Editor?</value>
   </data>
   <data name="SiteDefaultEditor" xml:space="preserve">
     <value>Site Default Editor</value>
@@ -5011,7 +5011,7 @@
     <value>Minute</value>
   </data>
   <data name="ResendConfirmationEmailButton" xml:space="preserve">
-    <value>Re-Send Confirmation Email</value>
+    <value>Re-Send Verification Email</value>
   </data>
   <data name="PageSettingsIsClickableLabel" xml:space="preserve">
     <value>Is Clickable?</value>
@@ -5127,9 +5127,6 @@
   <data name="PasswordStrengthPrefix" xml:space="preserve">
     <value>Strength:</value>
   </data>
-  <data name="ShowPasswordStrengthOnRegistrationPage" xml:space="preserve">
-    <value>Show Password Strength On Registration Page?</value>
-  </data>
   <data name="EmailConfirmedHint" xml:space="preserve">
     <value>Cool! Your emails match.</value>
   </data>
@@ -5143,10 +5140,10 @@
     <value>Confirm Email</value>
   </data>
   <data name="RequireCaptchaOnRegistrationPage" xml:space="preserve">
-    <value>Require Captcha On Registration Page?</value>
+    <value>Require Captcha?</value>
   </data>
   <data name="RequireEmailTwiceOnRegistration" xml:space="preserve">
-    <value>Require the User to Enter Email Twice On Registration?</value>
+    <value>Use Email Confirmation Field?</value>
   </data>
   <data name="CustomMachineKeyInstructions" xml:space="preserve">
     <value>You should replace the machine key in the Web.config file in the root of this web site with a randomly generated one. You can copy the generated one from above. Note that if you have configured the site to use encrypted passwords, you should change back to clear text passwords, then change the machine key then change back to encrypted passwords because the machine key is used for encrypting passwords. Note also that when you change the machine key it will log out all users and they will need to login again.</value>
@@ -5155,7 +5152,7 @@
     <value>Generate a new Key</value>
   </data>
   <data name="RequireCaptchaOnLoginPage" xml:space="preserve">
-    <value>Require Captcha On Login Page?</value>
+    <value>Require Captcha On Login?</value>
   </data>
   <data name="NewsletterViewAsWebPageLink" xml:space="preserve">
     <value>View as Web Page</value>
@@ -5167,16 +5164,16 @@
     <value>Custom CSS Class</value>
   </data>
   <data name="UseSslWarning" xml:space="preserve">
-    <value>SSL is available but this page is not using SSL. When using the Sign In module on a page you should configure the page to use SSL.</value>
+    <value>SSL is available but this page is not using SSL. When using the Login module on a page you should configure the page to use SSL.</value>
   </data>
   <data name="SignInModuleFeatureName" xml:space="preserve">
-    <value>Sign In Module</value>
+    <value>Login Form Module</value>
   </data>
   <data name="CssCacheInfo" xml:space="preserve">
     <value>When designing it is helpful if you are editing the CSS files of a skin to be able to disable caching so you see your changes immediately after refreshing the page. This button toggles a cookie that enables or disables the CSS caching. It does not affect caching of CSS for other users.</value>
   </data>
   <data name="ApprovedForLogin" xml:space="preserve">
-    <value>Approve This User to Sign In?</value>
+    <value>Approve This User to Login?</value>
   </data>
   <data name="IncludeInSearchSetting" xml:space="preserve">
     <value>Include In Search Index?</value>
@@ -5224,7 +5221,7 @@
     <value>Show Users Waiting For Approval</value>
   </data>
   <data name="SiteSettingsRequireApprovalForLogin" xml:space="preserve">
-    <value>Require Approval Before New Users Can Sign In?</value>
+    <value>Require Admin Approval?</value>
   </data>
   <data name="AccountApprovedSubjectformat" xml:space="preserve">
     <value>Your {0} Account Has Been Approved</value>
@@ -5251,7 +5248,7 @@
     <value>Add Existing Content</value>
   </data>
   <data name="RegistrationRequiresApprovalMessage" xml:space="preserve">
-    <value>Your account has been created but must be approved by an administrator before you can sign in. You should recieve an email when your account is approved</value>
+    <value>Your account has been created but must be approved by an administrator before you can login. You should recieve an email when your account is approved</value>
   </data>
   <data name="ChildPageSiteMapFeatureName" xml:space="preserve">
     <value>Child Page Site Map</value>
@@ -5344,7 +5341,7 @@
     <value>Registration Preamble</value>
   </data>
   <data name="SiteSettingsSiteEmailFromAliasLabel" xml:space="preserve">
-    <value>Site Email From Alias</value>
+    <value>Default Email From Alias</value>
   </data>
   <data name="CopySkinAs" xml:space="preserve">
     <value>Copy As</value>
@@ -5455,7 +5452,7 @@
     <value>Sorry you've reached the quota of upload storage allowed by configuraiton.</value>
   </data>
   <data name="AllowPersistentLogin" xml:space="preserve">
-    <value>Allow Persistent Authentication Cookie?</value>
+    <value>Enable Keep Me Logged In?</value>
   </data>
   <data name="ResetSkinVersionGuid" xml:space="preserve">
     <value>Reset Skin Version Guid</value>
@@ -5680,7 +5677,7 @@
     <value>Comments are Closed</value>
   </data>
   <data name="CommentsRequireAuthenticationMessage" xml:space="preserve">
-    <value>You must sign in to this site to post comments.</value>
+    <value>You must login to this site to post comments.</value>
   </data>
   <data name="EmailRequired" xml:space="preserve">
     <value>Email is required.</value>
@@ -5710,7 +5707,7 @@
     <value>Title is required.</value>
   </data>
   <data name="FirstLastFormat" xml:space="preserve">
-    <value>Signed in as: {0} {1}</value>
+    <value>Logged in as: {0} {1}</value>
   </data>
   <data name="Download" xml:space="preserve">
     <value>Download</value>
@@ -6089,5 +6086,134 @@
   </data>
   <data name="PageUrlIsSiteFolderErrorMessage" xml:space="preserve">
     <value>Page URL is in use as a Site Folder.</value>
+  </data>
+  <data name="SiteSettingsSecurityThirdPartyAuthTab" xml:space="preserve">
+    <value>3rd Party Auth</value>
+  </data>
+  <data name="AllowPersistentLoginDescription" xml:space="preserve">
+    <value>Allow users to choose to stay logged in.</value>
+  </data>
+  <data name="EmailAddressForUserApprovalNotificationQuickHelp" xml:space="preserve">
+    <value>Separate addresses with a comma.</value>
+  </data>
+  <data name="RequireEmailTwiceOnRegistrationDescription" xml:space="preserve">
+    <value>User will be required to enter email address twice.</value>
+  </data>
+  <data name="ShowPasswordStrengthOnRegistrationPage" xml:space="preserve">
+    <value>Show Password Strength Meter?</value>
+  </data>
+  <data name="SiteSettingsExistingFolderMappingsDescription" xml:space="preserve">
+    <value>Folder Bindings for This Site</value>
+  </data>
+  <data name="SiteSettingsExistingHostsDescription" xml:space="preserve">
+    <value>Domain Bindings for This Site</value>
+  </data>
+  <data name="SiteSettingsFolderNamesAfterSiteCreated" xml:space="preserve">
+    <value>You can add your Folder Names after creating the site.</value>
+  </data>
+  <data name="SiteSettingsFolderNamesNotAllowedOnAdminSite" xml:space="preserve">
+    <value>Folder Mappings are not allowed on the main site.</value>
+  </data>
+  <data name="SiteSettingsFolderNamesTurnedOff" xml:space="preserve">
+    <value>Folder Mappings are not enabled. To learn how to use to Folder Mappings instead of Host Mappings, see the &lt;a href="https://www.mojoportal.com/multi-tenancy-with-folder-names" class="alert-link"&gt;mojoPortal Documentation&lt;/a&gt;.</value>
+  </data>
+  <data name="SiteSettingsHostNamesAfterSiteCreated" xml:space="preserve">
+    <value>You can add your Host Names after creating the site.</value>
+  </data>
+  <data name="SiteSettingsHostNamesTurnedOff" xml:space="preserve">
+    <value>Host Mappings are not enabled. To learn how to use to Host Mappings instead of Folder Mappings, see the &lt;a href="https://www.mojoportal.com/multi-tenancy-with-host-names" class="alert-link"&gt;mojoPortal Documentation&lt;/a&gt;.</value>
+  </data>
+  <data name="SiteSettingsLdapTestPasswordQuickHelp" xml:space="preserve">
+    <value>Not stored just used to test connection on save</value>
+  </data>
+  <data name="SiteSettingsMultiTenancyNoOtherSites" xml:space="preserve">
+    <value>There are no other sites configured. To add another site, &lt;a href="{0}" class="alert-link"&gt;click here&lt;/a&gt;.</value>
+  </data>
+  <data name="SiteSettingsMultiTenancyNoOtherSitesLabel" xml:space="preserve">
+    <value>Site Mappings</value>
+  </data>
+  <data name="SiteSettingsMultiTenancyTurnedOff" xml:space="preserve">
+    <value>Multi-Tenancy is not enabled. To learn learn how to turn it on, see the &lt;a href="https://www.mojoportal.com/multi-tenant" class="alert-link"&gt;mojoPortal Documentation&lt;/a&gt;.</value>
+  </data>
+  <data name="SiteSettingsMultiTenancyTurnedOffLabel" xml:space="preserve">
+    <value>Site Mappings</value>
+  </data>
+  <data name="SiteSettingsRequireApprovalForLoginDescription" xml:space="preserve">
+    <value>An Administrator must approve registration before they can login.</value>
+  </data>
+  <data name="SiteSettingsSecureRegistrationDescription" xml:space="preserve">
+    <value>User will be sent a verification email to be completed before they can login.</value>
+  </data>
+  <data name="SiteSettingsSecurityContentEditorSettingsDescription" xml:space="preserve">
+    <value>WYSIWYG options.</value>
+  </data>
+  <data name="SiteSettingsSecurityContentEditorSettingsLabel" xml:space="preserve">
+    <value>Content Editor</value>
+  </data>
+  <data name="SiteSettingsSecurityMainSettingsDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SiteSettingsSecurityMainSettingsLabel" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="SiteSettingsSecurityOpenIDSettingsDescription" xml:space="preserve">
+    <value>Allow Users to Login with 3rd Party Systems</value>
+  </data>
+  <data name="SiteSettingsSecurityOpenIDSettingsLabel" xml:space="preserve">
+    <value>OpenID</value>
+  </data>
+  <data name="SiteSettingsSecurityPasswordRecoverySettingsDescription" xml:space="preserve">
+    <value>Options for recovery of passwords by users.</value>
+  </data>
+  <data name="SiteSettingsSecurityPasswordRecoverySettingsLabel" xml:space="preserve">
+    <value>Password Recovery</value>
+  </data>
+  <data name="SiteSettingsSecurityPasswordSettingsDescription" xml:space="preserve">
+    <value>Options for Password Storage and Security</value>
+  </data>
+  <data name="SiteSettingsSecurityPasswordSettingsLabel" xml:space="preserve">
+    <value>Passwords</value>
+  </data>
+  <data name="SiteSettingsSecurityRegistrationSettingsDescription" xml:space="preserve">
+    <value>Options for User Registrations</value>
+  </data>
+  <data name="SiteSettingsSecurityRegistrationSettingsLabel" xml:space="preserve">
+    <value>Registration</value>
+  </data>
+  <data name="SiteSettingsSecuritySkinSettingsDescription" xml:space="preserve">
+    <value>Options for the visual design of the site.</value>
+  </data>
+  <data name="SiteSettingsSecuritySkinSettingsLabel" xml:space="preserve">
+    <value>Skinning/Theming</value>
+  </data>
+  <data name="SiteSettingsSecurityUserAccountSettingsDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SiteSettingsSecurityUserAccountSettingsLabel" xml:space="preserve">
+    <value>User Accounts</value>
+  </data>
+  <data name="SiteSettingsSecurityWindowsLiveIDSettingsDescription" xml:space="preserve">
+    <value>Allow Users to Login with Their Microsoft Credentials</value>
+  </data>
+  <data name="SiteSettingsSecurityWindowsLiveIDSettingsLabel" xml:space="preserve">
+    <value>Windows Live</value>
+  </data>
+  <data name="SiteSettingsSiteMappingsLabel" xml:space="preserve">
+    <value>Site Mappings</value>
+  </data>
+  <data name="SiteSettingsSMTPSettingsAfterSiteCreated" xml:space="preserve">
+    <value>You can add your SMTP Settings after creating the site.</value>
+  </data>
+  <data name="SiteSettingsSMTPSettingsDescription" xml:space="preserve">
+    <value>Settings for Sending Email</value>
+  </data>
+  <data name="SiteSettingsSMTPSettingsDisabled" xml:space="preserve">
+    <value>mojoPortal has been configured to use the user.config for SMTP Settings. For information on how to change this, see the &lt;a href="https://www.mojoportal.com/email-configuration" class="alert-link"&gt;mojoPortal Documentation&lt;/a&gt;.</value>
+  </data>
+  <data name="SiteSettingsSMTPSettingsLabel" xml:space="preserve">
+    <value>SMTP</value>
+  </data>
+  <data name="SloganLabelDescription" xml:space="preserve">
+    <value>Will not show if it's not used by the skin.</value>
   </data>
 </root>

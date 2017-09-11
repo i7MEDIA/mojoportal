@@ -4,59 +4,82 @@
   <!-- 
   IMPORTANT:
   Note that changes made to this file are not automatically detected by the ASP.NET runtime
-  It does detect changes to Web.config, so when you make a change in this file you need to touch Web.config (ie type a space in it andf save it)
+  It does detect changes to Web.config, so when you make a change in this file you need to touch Web.config (ie type a space in it and save it)
   to make it reload settings
   -->
-
-  <add key="MSSQLConnectionString" value="server=localhost;UID=mojouser;PWD=mojo123;database=mojo" />
-
-  <add key="MySqlConnectionString" value="Server=localhost;Database=mojoprod;Uid=root;Pwd=Charset=utf8;" />
-
-  <add key="PostgreSQLConnectionString" value="Server=localhost;Port=5432;User Id=postgres;Password=;Database=mojo;Encoding=UNICODE;" />
-  
-  <add key="FirebirdConnectionString" value="Data Source=localhost;Server Type=0;Port Number=3050;Database=C:\mojoportal\mojoportal.fdb;Dialect=3;Charset=UTF8;Pooling=True;Min Pool Size=0;Max Pool Size=200;Connection Timeout=10;Connection Lifetime=60;Fetch Size=200;User Id=SYSDBA;Password=masterkey" />
-
-  <!--
-			you can use a fully qualified file path as shown below
-			or if you are using the default db at /Data/sqlitedb/mojoportal.db
-			just leave this set to "defaultdblocation"
-		<add key="SqliteConnectionString" value="version=3,URI=file:C:\Projects\mojoportal\Web\Data\sqlitedb\mojoportal.db" />
-		-->
-
-  <add key="SqliteConnectionString" value="defaultdblocation" />
-
-
-  <!-- if running in medium trust uncomment this
-	<add key="RunningInMediumTrust" value="true" />
+	
+	<!-- Database Settings
+		 Set the values for the database platform you are using. You can delete the others.
 	-->
 
-  <add key="ImageGalleryUseMediaFolder" value="true" />
-  <add key="GreyBoxCssIsLoadedFromSkin" value="true" />
+		<add key="MSSQLConnectionString" value="server=localhost;UID=mojouser;PWD=mojo123;database=mojo" />
+
+		<add key="MySqlConnectionString" value="Server=localhost;Database=mojoprod;Uid=root;Pwd=Charset=utf8;" />
+
+		<add key="PostgreSQLConnectionString" value="Server=localhost;Port=5432;User Id=postgres;Password=;Database=mojo;Encoding=UNICODE;" />
   
-  
-  <add key="DisableSearchFeatureFilters" value="false" />
-  <add key="EnableSearchResultsHighlighting" value="true" />
-  <add key="Forum:AggregateSearchIndexPerThread" value="true" />
+		<!-- SQLite
+				you can use a fully qualified file path as shown below
+				or if you are using the default db at /Data/sqlitedb/mojoportal.db
+				just leave this set to "defaultdblocation"
+			<add key="SqliteConnectionString" value="version=3,URI=file:C:\Projects\mojoportal\Web\Data\sqlitedb\mojoportal.db" />
+			-->
 
-  <add key="UseLegacyCryptoHelper" value="false" />
+		<add key="SqliteConnectionString" value="defaultdblocation" />
 
-  <!-- this is true by default so that upgraded sites can change automatically from the older md5 hashing to the newer sha512 with salt
-  it is false here because it is not needed to do this extra check for new installations after we changed the hashing
-  since user.config.sample is only used when creating new sites and it is then renamed to user.config
-  -->
-  <add key="CheckMD5PasswordHashAsFallback" value="false" />
+	<!-- Setup Settings -->
+		<!-- this setting enables the setup page to try to change the default known machinekey in Web.config to a new custom one for best security
+			once you have a custom machine key you could safely remove this setting -->
+		<add key="TryEnsureCustomMachineKeyOnSetup" value="true" />
 
-  <!-- this setting enables the setup page to try to change the default known machinekey in Web.config to a new custom one for best security
-  once you have a custom machine key you could safely remove this setting
-  -->
-  <add key="TryEnsureCustomMachineKeyOnSetup" value="true" />
-
-  <add key="SiteLogoUseMediaFolder" value="true" />
-  <add key="HtmlFragmentUseMediaFolder" value="true" />
-  <add key="XMLUseMediaFolder" value="true" />
-
-  
+		<!-- DisableSetup, change this to true after installation -->
+		<add key="DisableSetup" value="false"/>
 
 
+	<!-- Security Settings -->
+		<!-- CheckMD5PasswordHashAsFallback, this is true by default so that upgraded sites can change automatically from the older md5 hashing to the newer sha512 with salt
+			it is false here because it is not needed to do this extra check for new installations after we changed the hashing
+			since user.config.sample is only used when creating new sites and it is then renamed to user.config
+		-->
+		<add key="CheckMD5PasswordHashAsFallback" value="false" />
+		<add key="UseLegacyCryptoHelper" value="false" />
+		
+	<!-- Administration Settings -->
+		<add key="ImageGalleryUseMediaFolder" value="true" />
+		<add key="SiteLogoUseMediaFolder" value="true" />
+		<add key="HtmlFragmentUseMediaFolder" value="true" />
+		<add key="XMLUseMediaFolder" value="true" />
 
+	
+	<!-- Site Search Settings -->  
+		<add key="DisableSearchFeatureFilters" value="false" />
+		<add key="EnableSearchResultsHighlighting" value="true" />
+		<add key="Forum:AggregateSearchIndexPerThread" value="true" />
+	
+	<!-- Email Settings -->
+		<!-- Setting this to false will hide SMTP settings under Site Settings in the admin menu.
+			When this is enabled, you can configure different SMTP settings for each of your sites. If
+			all sites share one SMTP server, set this to false and override the SMTP settings below
+			in your user.config file. 
+			As of version 2.6, this setting is true by default in code and in the sample user.config file.
+		-->
+		<add key="EnableSiteSettingsSmtpSettings" value="true" />
+		<add key="SMTPServer" value=""/>
+		<add key="SMTPRequiresAuthentication" value="true"/>
+		<add key="SMTPUseSsl" value="true" />
+		<add key="SMTPUser" value=""/>
+		<add key="SMTPPassword" value=""/>
+
+	<!-- Skin Settings-->
+		<add key="GreyBoxCssIsLoadedFromSkin" value="true" />
+		<!--(these should be set to true unless working on site skin)-->
+		<!--<add key="CacheCssOnServer" value="true"/>
+		<add key="CacheCssInBrowser" value="true"/>	
+		<add key="CombineCSS" value="true"/>
+		<add key="MinifyCSS" value="true"/>-->
+
+	<!-- Cache Settings -->
+		<!--<add key="DisableCacheFor301Redirects" value="false" />
+		<add key="SetExplicitCacheFor301Redirects" value="true" />
+		<add key="CacheDurationInDaysFor301Redirects" value="5" />-->
 </appSettings>

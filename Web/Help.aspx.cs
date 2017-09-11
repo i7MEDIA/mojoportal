@@ -58,11 +58,11 @@ namespace mojoPortal.Web.UI.Pages
 			if (helpText == String.Empty)
 			{
 				helpText = WebUser.IsAdminOrContentAdmin ?
-					String.Format(Resource.HelpNoHelpAvailableAdminUser, helpKey) :
+					String.Format(Resource.HelpNoHelpAvailableAdminUser, HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(helpKey))) :
 					Resource.HelpNoHelpAvailable;
 			}
 
-			litHelp.Text = HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(helpText));
+			litHelp.Text = helpText;
 		}
 	}
 }

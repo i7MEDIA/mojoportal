@@ -457,7 +457,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow Persistent Authentication Cookie?.
+        ///   Looks up a localized string similar to Enable Keep Me Logged In?.
         /// </summary>
         internal static string AllowPersistentLogin {
             get {
@@ -466,7 +466,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow Users to Choose Editor Preference?.
+        ///   Looks up a localized string similar to Allow users to choose to stay logged in..
+        /// </summary>
+        internal static string AllowPersistentLoginDescription {
+            get {
+                return ResourceManager.GetString("AllowPersistentLoginDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow Users to Choose Editor?.
         /// </summary>
         internal static string AllowUserEditorLabel {
             get {
@@ -511,7 +520,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are already signed in. If you wish to create a new account you must sign out first..
+        ///   Looks up a localized string similar to You are already logged in. If you wish to create a new account you must logout first..
         /// </summary>
         internal static string AlreadyRegisteredMessage {
             get {
@@ -700,7 +709,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Approve This User to Sign In?.
+        ///   Looks up a localized string similar to Approve This User to Login?.
         /// </summary>
         internal static string ApprovedForLogin {
             get {
@@ -1690,7 +1699,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must sign in to this site to post comments..
+        ///   Looks up a localized string similar to You must login to this site to post comments..
         /// </summary>
         internal static string CommentsRequireAuthenticationMessage {
             get {
@@ -3436,7 +3445,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To continue, you need to Sign In or Register.
+        ///   Looks up a localized string similar to To continue, you need to Login or Register.
         /// </summary>
         internal static string DefaultSignInPrompt {
             get {
@@ -3801,6 +3810,15 @@ namespace Resources {
         internal static string EmailAddressesForUserApprovalNotification {
             get {
                 return ResourceManager.GetString("EmailAddressesForUserApprovalNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Separate addresses with a comma..
+        /// </summary>
+        internal static string EmailAddressForUserApprovalNotificationQuickHelp {
+            get {
+                return ResourceManager.GetString("EmailAddressForUserApprovalNotificationQuickHelp", resourceCulture);
             }
         }
         
@@ -4741,7 +4759,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Signed in as: {0} {1}.
+        ///   Looks up a localized string similar to Logged in as: {0} {1}.
         /// </summary>
         internal static string FirstLastFormat {
             get {
@@ -6901,7 +6919,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign In Failed. You did not provide a valid email address..
+        ///   Looks up a localized string similar to Login Failed. You did not provide a valid email address..
         /// </summary>
         internal static string LoginFailedInvalidEmailFormatMessage {
             get {
@@ -6910,7 +6928,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign In.
+        ///   Looks up a localized string similar to Login.
         /// </summary>
         internal static string LoginLink {
             get {
@@ -6955,7 +6973,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This account has not been confirmed. You cannot sign in without first confirming your email address. You should have received an email message with a link to confirm this account. If you did not receive the email message with the confirmation link after 1 hour, please contact the site Administrator for assistance..
+        ///   Looks up a localized string similar to This account has not been confirmed. You cannot login without first confirming your email address. You should have received an email message with a link to confirm this account. If you did not receive the email message with the confirmation link after 1 hour, please contact the site Administrator for assistance..
         /// </summary>
         internal static string LoginUnconfirmedEmailMessage {
             get {
@@ -6964,7 +6982,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign Out.
+        ///   Looks up a localized string similar to Logout.
         /// </summary>
         internal static string LogoutLink {
             get {
@@ -7756,7 +7774,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} User Sign In Page.
+        ///   Looks up a localized string similar to {0} User Login Page.
         /// </summary>
         internal static string MetaDescriptionSignInPageFormat {
             get {
@@ -8656,7 +8674,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you sign in you can customize this page..
+        ///   Looks up a localized string similar to If you login you can customize this page..
         /// </summary>
         internal static string MyPageAnonymousMessage {
             get {
@@ -9178,7 +9196,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Some newsletters may require you to sign in before you can view them..
+        ///   Looks up a localized string similar to Some newsletters may require you to login before you can view them..
         /// </summary>
         internal static string NewsletterMayRequireSignIn {
             get {
@@ -10105,7 +10123,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign In with Your Open ID Account.
+        ///   Looks up a localized string similar to Login with Your Open ID Account.
         /// </summary>
         internal static string OpenIDLoginButton {
             get {
@@ -10114,7 +10132,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign In Canceled.
+        ///   Looks up a localized string similar to Login Canceled.
         /// </summary>
         internal static string OpenIDLoginCanceledMessage {
             get {
@@ -10123,7 +10141,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign In Failed.
+        ///   Looks up a localized string similar to Login Failed.
         /// </summary>
         internal static string OpenIDLoginFailedMessage {
             get {
@@ -10132,7 +10150,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must Register before you can sign in to this site. Click &lt;a href=&apos;{0}&apos; title=&apos;Open ID Registration Page&apos;&gt;here&lt;/a&gt; to register with your Open ID..
+        ///   Looks up a localized string similar to You must Register before you can login to this site. Click &lt;a href=&apos;{0}&apos; title=&apos;Open ID Registration Page&apos;&gt;here&lt;/a&gt; to register with your Open ID..
         /// </summary>
         internal static string OpenIDMustRegisterBeforeLoginMesage {
             get {
@@ -12553,7 +12571,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Registration is now confirmed, please click the Sign In link above to sign in..
+        ///   Looks up a localized string similar to Your Registration is now confirmed, please click the Login link above..
         /// </summary>
         internal static string RegisterConfirmMessage {
             get {
@@ -12913,7 +12931,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your account has been created but must be approved by an administrator before you can sign in. You should recieve an email when your account is approved.
+        ///   Looks up a localized string similar to Your account has been created but must be approved by an administrator before you can login. You should recieve an email when your account is approved.
         /// </summary>
         internal static string RegistrationRequiresApprovalMessage {
             get {
@@ -12922,7 +12940,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This site requires confirmation of a valid email address to sign in after registering. An email message has been sent to the email address you provided. Click the link in that email message to confirm your account. After confirmation, you will be allowed to sign in to the site..
+        ///   Looks up a localized string similar to This site requires confirmation of a valid email address to login after registering. An email message has been sent to the email address you provided. Click the link in that email message to confirm your account. After confirmation, you will be allowed to login to the site..
         /// </summary>
         internal static string RegistrationRequiresEmailConfirmationMessage {
             get {
@@ -13057,7 +13075,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Require Captcha On Login Page?.
+        ///   Looks up a localized string similar to Require Captcha On Login?.
         /// </summary>
         internal static string RequireCaptchaOnLoginPage {
             get {
@@ -13066,7 +13084,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Require Captcha On Registration Page?.
+        ///   Looks up a localized string similar to Require Captcha?.
         /// </summary>
         internal static string RequireCaptchaOnRegistrationPage {
             get {
@@ -13075,7 +13093,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Require the User to Enter Email Twice On Registration?.
+        ///   Looks up a localized string similar to Use Email Confirmation Field?.
         /// </summary>
         internal static string RequireEmailTwiceOnRegistration {
             get {
@@ -13084,7 +13102,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Re-Send Confirmation Email.
+        ///   Looks up a localized string similar to User will be required to enter email address twice..
+        /// </summary>
+        internal static string RequireEmailTwiceOnRegistrationDescription {
+            get {
+                return ResourceManager.GetString("RequireEmailTwiceOnRegistrationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Re-Send Verification Email.
         /// </summary>
         internal static string ResendConfirmationEmailButton {
             get {
@@ -14128,7 +14155,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Password Strength On Registration Page?.
+        ///   Looks up a localized string similar to Show Password Strength Meter?.
         /// </summary>
         internal static string ShowPasswordStrengthOnRegistrationPage {
             get {
@@ -14155,7 +14182,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign In.
+        ///   Looks up a localized string similar to Login.
         /// </summary>
         internal static string SignInLabel {
             get {
@@ -14164,7 +14191,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign In.
+        ///   Looks up a localized string similar to Login.
         /// </summary>
         internal static string SignInLinkText {
             get {
@@ -14173,7 +14200,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign In Module.
+        ///   Looks up a localized string similar to Login Form Module.
         /// </summary>
         internal static string SignInModuleFeatureName {
             get {
@@ -14434,7 +14461,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow Password Retrieval?.
+        ///   Looks up a localized string similar to Allow Password Recovery?.
         /// </summary>
         internal static string SiteSettingsAllowPasswordRetrievalLabel {
             get {
@@ -14443,7 +14470,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow New Users to Register?.
+        ///   Looks up a localized string similar to Allow User Registrations?.
         /// </summary>
         internal static string SiteSettingsAllowRegistrationLabel {
             get {
@@ -14461,7 +14488,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow Users to Change their Display Name?.
+        ///   Looks up a localized string similar to Allow Changing Display Name?.
         /// </summary>
         internal static string SiteSettingsAllowUsersToChangeNameLabel {
             get {
@@ -14659,7 +14686,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current Folders Mapped to this Site.
+        ///   Looks up a localized string similar to Folder Bindings for This Site.
+        /// </summary>
+        internal static string SiteSettingsExistingFolderMappingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsExistingFolderMappingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder Names.
         /// </summary>
         internal static string SiteSettingsExistingFolderMappingsLabel {
             get {
@@ -14668,7 +14704,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current Host Names.
+        ///   Looks up a localized string similar to Domain Bindings for This Site.
+        /// </summary>
+        internal static string SiteSettingsExistingHostsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsExistingHostsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host Names.
         /// </summary>
         internal static string SiteSettingsExistingHostsLabel {
             get {
@@ -14727,6 +14772,33 @@ namespace Resources {
         internal static string SiteSettingsFolderNameNotAllowedWarning {
             get {
                 return ResourceManager.GetString("SiteSettingsFolderNameNotAllowedWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can add your Folder Names after creating the site..
+        /// </summary>
+        internal static string SiteSettingsFolderNamesAfterSiteCreated {
+            get {
+                return ResourceManager.GetString("SiteSettingsFolderNamesAfterSiteCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder Mappings are not allowed on the main site..
+        /// </summary>
+        internal static string SiteSettingsFolderNamesNotAllowedOnAdminSite {
+            get {
+                return ResourceManager.GetString("SiteSettingsFolderNamesNotAllowedOnAdminSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder Mappings are not enabled. To learn how to use to Folder Mappings instead of Host Mappings, see the &lt;a href=&quot;https://www.mojoportal.com/multi-tenancy-with-folder-names&quot; class=&quot;alert-link&quot;&gt;mojoPortal Documentation&lt;/a&gt;..
+        /// </summary>
+        internal static string SiteSettingsFolderNamesTurnedOff {
+            get {
+                return ResourceManager.GetString("SiteSettingsFolderNamesTurnedOff", resourceCulture);
             }
         }
         
@@ -14817,6 +14889,24 @@ namespace Resources {
         internal static string SiteSettingsHostNameRequiredMessage {
             get {
                 return ResourceManager.GetString("SiteSettingsHostNameRequiredMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can add your Host Names after creating the site..
+        /// </summary>
+        internal static string SiteSettingsHostNamesAfterSiteCreated {
+            get {
+                return ResourceManager.GetString("SiteSettingsHostNamesAfterSiteCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host Mappings are not enabled. To learn how to use to Host Mappings instead of Folder Mappings, see the &lt;a href=&quot;https://www.mojoportal.com/multi-tenancy-with-host-names&quot; class=&quot;alert-link&quot;&gt;mojoPortal Documentation&lt;/a&gt;..
+        /// </summary>
+        internal static string SiteSettingsHostNamesTurnedOff {
+            get {
+                return ResourceManager.GetString("SiteSettingsHostNamesTurnedOff", resourceCulture);
             }
         }
         
@@ -14929,11 +15019,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your LDAP user password.(Not stored just used to test connection on save).
+        ///   Looks up a localized string similar to LDAP User Password.
         /// </summary>
         internal static string SiteSettingsLdapTestPassword {
             get {
                 return ResourceManager.GetString("SiteSettingsLdapTestPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not stored just used to test connection on save.
+        /// </summary>
+        internal static string SiteSettingsLdapTestPasswordQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsLdapTestPasswordQuickHelp", resourceCulture);
             }
         }
         
@@ -14992,6 +15091,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no other sites configured. To add another site, &lt;a href=&quot;{0}&quot; class=&quot;alert-link&quot;&gt;click here&lt;/a&gt;..
+        /// </summary>
+        internal static string SiteSettingsMultiTenancyNoOtherSites {
+            get {
+                return ResourceManager.GetString("SiteSettingsMultiTenancyNoOtherSites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Site Mappings.
+        /// </summary>
+        internal static string SiteSettingsMultiTenancyNoOtherSitesLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsMultiTenancyNoOtherSitesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multi-Tenancy is not enabled. To learn learn how to turn it on, see the &lt;a href=&quot;https://www.mojoportal.com/multi-tenant&quot; class=&quot;alert-link&quot;&gt;mojoPortal Documentation&lt;/a&gt;..
+        /// </summary>
+        internal static string SiteSettingsMultiTenancyTurnedOff {
+            get {
+                return ResourceManager.GetString("SiteSettingsMultiTenancyTurnedOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Site Mappings.
+        /// </summary>
+        internal static string SiteSettingsMultiTenancyTurnedOffLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsMultiTenancyTurnedOffLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Site.
         /// </summary>
         internal static string SiteSettingsNewSiteLabel {
@@ -15001,7 +15136,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Folder Names Currently Map To This Site.
+        ///   Looks up a localized string similar to No Folder Names Currently Map to This Site.
         /// </summary>
         internal static string SiteSettingsNoFolderNames {
             get {
@@ -15010,7 +15145,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Host Names Currently Map To This Site.
+        ///   Looks up a localized string similar to No Host Names Currently Map to This Site.
         /// </summary>
         internal static string SiteSettingsNoHostsFound {
             get {
@@ -15082,7 +15217,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preferred Host Name.
+        ///   Looks up a localized string similar to Preferred Domain.
         /// </summary>
         internal static string SiteSettingsPreferredHostNameLabel {
             get {
@@ -15109,7 +15244,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Really delete users?.
+        ///   Looks up a localized string similar to Really Delete Users?.
         /// </summary>
         internal static string SiteSettingsReallyDeleteUsersLabel {
             get {
@@ -15154,11 +15289,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Require Approval Before New Users Can Sign In?.
+        ///   Looks up a localized string similar to Require Admin Approval?.
         /// </summary>
         internal static string SiteSettingsRequireApprovalForLogin {
             get {
                 return ResourceManager.GetString("SiteSettingsRequireApprovalForLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An Administrator must approve registration before they can login..
+        /// </summary>
+        internal static string SiteSettingsRequireApprovalForLoginDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsRequireApprovalForLoginDescription", resourceCulture);
             }
         }
         
@@ -15199,7 +15343,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Require E-mail Confirmation for Registration?.
+        ///   Looks up a localized string similar to User will be sent a verification email to be completed before they can login..
+        /// </summary>
+        internal static string SiteSettingsSecureRegistrationDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecureRegistrationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify Email?.
         /// </summary>
         internal static string SiteSettingsSecureRegistrationLabel {
             get {
@@ -15217,11 +15370,65 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WYSIWYG options..
+        /// </summary>
+        internal static string SiteSettingsSecurityContentEditorSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityContentEditorSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content Editor.
+        /// </summary>
+        internal static string SiteSettingsSecurityContentEditorSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityContentEditorSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SiteSettingsSecurityMainSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityMainSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main.
+        /// </summary>
+        internal static string SiteSettingsSecurityMainSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityMainSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main.
         /// </summary>
         internal static string SiteSettingsSecurityMainTab {
             get {
                 return ResourceManager.GetString("SiteSettingsSecurityMainTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow Users to Login with 3rd Party Systems.
+        /// </summary>
+        internal static string SiteSettingsSecurityOpenIDSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityOpenIDSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OpenID.
+        /// </summary>
+        internal static string SiteSettingsSecurityOpenIDSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityOpenIDSettingsLabel", resourceCulture);
             }
         }
         
@@ -15235,11 +15442,128 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Options for recovery of passwords by users..
+        /// </summary>
+        internal static string SiteSettingsSecurityPasswordRecoverySettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityPasswordRecoverySettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password Recovery.
+        /// </summary>
+        internal static string SiteSettingsSecurityPasswordRecoverySettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityPasswordRecoverySettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options for Password Storage and Security.
+        /// </summary>
+        internal static string SiteSettingsSecurityPasswordSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityPasswordSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords.
+        /// </summary>
+        internal static string SiteSettingsSecurityPasswordSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityPasswordSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options for User Registrations.
+        /// </summary>
+        internal static string SiteSettingsSecurityRegistrationSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityRegistrationSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration.
+        /// </summary>
+        internal static string SiteSettingsSecurityRegistrationSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityRegistrationSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options for the visual design of the site..
+        /// </summary>
+        internal static string SiteSettingsSecuritySkinSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecuritySkinSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skinning/Theming.
+        /// </summary>
+        internal static string SiteSettingsSecuritySkinSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecuritySkinSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Security.
         /// </summary>
         internal static string SiteSettingsSecurityTab {
             get {
                 return ResourceManager.GetString("SiteSettingsSecurityTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3rd Party Auth.
+        /// </summary>
+        internal static string SiteSettingsSecurityThirdPartyAuthTab {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityThirdPartyAuthTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SiteSettingsSecurityUserAccountSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityUserAccountSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Accounts.
+        /// </summary>
+        internal static string SiteSettingsSecurityUserAccountSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityUserAccountSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow Users to Login with Their Microsoft Credentials.
+        /// </summary>
+        internal static string SiteSettingsSecurityWindowsLiveIDSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityWindowsLiveIDSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows Live.
+        /// </summary>
+        internal static string SiteSettingsSecurityWindowsLiveIDSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSecurityWindowsLiveIDSettingsLabel", resourceCulture);
             }
         }
         
@@ -15334,7 +15658,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Site Email From Address.
+        ///   Looks up a localized string similar to Default Email From Address.
         /// </summary>
         internal static string SiteSettingsSiteEmailFromAddressLabel {
             get {
@@ -15343,7 +15667,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Site Email From Alias.
+        ///   Looks up a localized string similar to Default Email From Alias.
         /// </summary>
         internal static string SiteSettingsSiteEmailFromAliasLabel {
             get {
@@ -15375,6 +15699,15 @@ namespace Resources {
         internal static string SiteSettingsSiteLogoLabel {
             get {
                 return ResourceManager.GetString("SiteSettingsSiteLogoLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Site Mappings.
+        /// </summary>
+        internal static string SiteSettingsSiteMappingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteMappingsLabel", resourceCulture);
             }
         }
         
@@ -15460,7 +15793,43 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Email for Sign In?.
+        ///   Looks up a localized string similar to You can add your SMTP Settings after creating the site..
+        /// </summary>
+        internal static string SiteSettingsSMTPSettingsAfterSiteCreated {
+            get {
+                return ResourceManager.GetString("SiteSettingsSMTPSettingsAfterSiteCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings for Sending Email.
+        /// </summary>
+        internal static string SiteSettingsSMTPSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSMTPSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mojoPortal has been configured to use the user.config for SMTP Settings. For information on how to change this, see the &lt;a href=&quot;https://www.mojoportal.com/email-configuration&quot; class=&quot;alert-link&quot;&gt;mojoPortal Documentation&lt;/a&gt;..
+        /// </summary>
+        internal static string SiteSettingsSMTPSettingsDisabled {
+            get {
+                return ResourceManager.GetString("SiteSettingsSMTPSettingsDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMTP.
+        /// </summary>
+        internal static string SiteSettingsSMTPSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSMTPSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Email for Login?.
         /// </summary>
         internal static string SiteSettingsUseEmailForLoginLabel {
             get {
@@ -15685,7 +16054,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SMTP Password.
+        ///   Looks up a localized string similar to Will not show if it&apos;s not used by the skin..
+        /// </summary>
+        internal static string SloganLabelDescription {
+            get {
+                return ResourceManager.GetString("SloganLabelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string SMTPPassword {
             get {
@@ -15694,7 +16072,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SMTP Port.
+        ///   Looks up a localized string similar to Port.
         /// </summary>
         internal static string SMTPPort {
             get {
@@ -15703,7 +16081,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SMTP Preferred Encoding.
+        ///   Looks up a localized string similar to Preferred Encoding.
         /// </summary>
         internal static string SmtpPreferredEncoding {
             get {
@@ -15712,7 +16090,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SMTP Requires Authentication?.
+        ///   Looks up a localized string similar to Requires Authentication?.
         /// </summary>
         internal static string SMTPRequiresAuthentication {
             get {
@@ -15721,7 +16099,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SMTP Server.
+        ///   Looks up a localized string similar to Server.
         /// </summary>
         internal static string SMTPServer {
             get {
@@ -15730,7 +16108,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SMTP Timeout In Milliseconds.
+        ///   Looks up a localized string similar to Timeout In Milliseconds.
         /// </summary>
         internal static string SMTPTimeoutInMilliseconds {
             get {
@@ -15739,7 +16117,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SMTP User:.
+        ///   Looks up a localized string similar to User.
         /// </summary>
         internal static string SMTPUser {
             get {
@@ -15748,7 +16126,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SMTP Use SSL?.
+        ///   Looks up a localized string similar to Use SSL/TLS?.
         /// </summary>
         internal static string SMTPUseSsl {
             get {
@@ -16909,7 +17287,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Last Sign In.
+        ///   Looks up a localized string similar to Last Login.
         /// </summary>
         internal static string UserLastLoginDateLabel {
             get {
@@ -17143,7 +17521,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SSL is available but this page is not using SSL. When using the Sign In module on a page you should configure the page to use SSL..
+        ///   Looks up a localized string similar to SSL is available but this page is not using SSL. When using the Login module on a page you should configure the page to use SSL..
         /// </summary>
         internal static string UseSslWarning {
             get {
@@ -17818,7 +18196,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Signed in as: {0}.
+        ///   Looks up a localized string similar to Logged in as: {0}.
         /// </summary>
         internal static string WelcomeMessageFormat {
             get {
@@ -17881,7 +18259,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Before you can Register on this site you must Sign in to your Windows Live Account..
+        ///   Looks up a localized string similar to Before you can Register on this site you must Login to your Windows Live Account..
         /// </summary>
         internal static string WindowsLiveSignInBeforeRegisterMessage {
             get {
