@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2011-08-24
+/// Last Modified:			2017-09-11
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -2102,6 +2102,28 @@ namespace mojoPortal.Data
             return siteId;
         }
 
+		public static bool HostNameExists(string hostName)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT Count(*) ");
+			sqlCommand.Append("FROM	mp_SiteHosts ");
+			sqlCommand.Append("WHERE HostName = :HostName ; ");
 
-    }
+			SqliteParameter[] arParams = new SqliteParameter[1];
+
+			arParams[0] = new SqliteParameter(":HostName", DbType.String, 255);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = hostName;
+
+			int count = Convert.ToInt32(SqliteHelper.ExecuteScalar(
+				GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams));
+
+			return (count > 0);
+
+		}
+
+
+	}
 }

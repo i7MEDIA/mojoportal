@@ -2684,6 +2684,11 @@ namespace mojoPortal.Business
             return DBSiteSettings.GetSiteIdByFolder(folderName);
         }
 
+		public static bool HostNameExists(string hostName)
+		{
+			return DBSiteSettings.HostNameExists(hostName);
+		}
+
 		#endregion
 
         public event SiteCreatedEventHandler SiteCreated;

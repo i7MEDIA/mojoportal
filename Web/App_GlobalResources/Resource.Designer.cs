@@ -14623,7 +14623,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Host names must be unique, no duplicates are allowed..
+        ///   Looks up a localized string similar to Host names must be unique, no duplicates are allowed. If you do not see the host name you entered in the list below, it&apos;s in use on another site..
         /// </summary>
         internal static string SiteSettingsDuplicateHostsWarning {
             get {

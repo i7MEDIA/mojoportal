@@ -1,6 +1,6 @@
 // Author:					
 // Created:				    2006-01-14
-// Last Modified:			2014-07-16
+// Last Modified:			2017-09-11
 
 using System;
 using System.Collections;
@@ -38,7 +38,7 @@ namespace mojoPortal.Business
         {
             // this must be maintained/updated in code to make it run the new version upgrade script
             int major = 2;
-            int minor = 5;
+            int minor = 6;
             int build = 0;
             int revision = 0;
             return new Version(major, minor, build, revision);

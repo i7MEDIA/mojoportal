@@ -6,7 +6,8 @@
 	<portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs">
 		<asp:HyperLink ID="lnkAdminMenu" runat="server" NavigateUrl="~/Admin/AdminMenu.aspx" CssClass="unselectedcrumb" />
 		<portal:AdminCrumbSeparator ID="litLinkSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
-		<asp:HyperLink ID="lnkSiteList" runat="server" NavigateUrl="~/Admin/AdminMenu.aspx" 			CssClass="unselectedcrumb" /><portal:AdminCrumbSeparator ID="litLinkSeparator2" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
+		<asp:HyperLink ID="lnkSiteList" runat="server" NavigateUrl="~/Admin/AdminMenu.aspx" 
+			CssClass="unselectedcrumb" /><portal:AdminCrumbSeparator ID="litLinkSeparator2" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
 		<asp:HyperLink ID="lnkSiteSettings" runat="server" CssClass="selectedcrumb" />
 	</portal:AdminCrumbContainer>
 	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">

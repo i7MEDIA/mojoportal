@@ -1750,7 +1750,7 @@
     <value>Are you sure you want to permanently delete this site and all its content? You will not be able to undo this change.</value>
   </data>
   <data name="SiteSettingsDuplicateHostsWarning" xml:space="preserve">
-    <value>Host names must be unique, no duplicates are allowed.</value>
+    <value>Host names must be unique, no duplicates are allowed. If you do not see the host name you entered in the list below, it's in use on another site.</value>
   </data>
   <data name="SiteSettingsEditHostLabel" xml:space="preserve">
     <value>Edit Host</value>

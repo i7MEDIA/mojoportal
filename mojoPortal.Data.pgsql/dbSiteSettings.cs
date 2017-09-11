@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2012-08-12
+/// Last Modified:			2017-09-11
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -1456,7 +1456,23 @@ namespace mojoPortal.Data
 
             return siteId;
         }
-        
+		public static bool HostNameExists(string hostName)
+		{
+			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-    }
+			arParams[0] = new NpgsqlParameter("hostname", NpgsqlTypes.NpgsqlDbType.Text, 50);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = hostName;
+
+			int count = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.StoredProcedure,
+				"mp_sitehosts_exists(:hostname)",
+				arParams));
+
+			return (count > 0);
+
+		}
+
+	}
 }

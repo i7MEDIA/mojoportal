@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2011-08-24
+/// Last Modified:			2017-09-11
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -487,6 +487,14 @@ namespace mojoPortal.Data
             return Convert.ToInt32(sph.ExecuteScalar());
 
         }
+
+		public static bool HostNameExists(string hostName)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_SiteHost_Exists", 1);
+			sph.DefineSqlParameter("@HostName", SqlDbType.NVarChar, 255, ParameterDirection.Input, hostName);
+			int count = Convert.ToInt32(sph.ExecuteScalar());
+			return (count > 0);
+		}
 
     }
 }

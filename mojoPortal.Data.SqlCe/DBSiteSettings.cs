@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2010-03-10
-// Last Modified:			2011-08-24
+// Last Modified:			2017-09-11
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -1667,5 +1667,31 @@ namespace mojoPortal.Data
             return siteId;
         }
 
-    }
+		public static bool HostNameExists(string hostName)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT  Count(*) ");
+			sqlCommand.Append("FROM	mp_SiteFolders ");
+			sqlCommand.Append("WHERE ");
+			sqlCommand.Append("HostName = @HostName ");
+			sqlCommand.Append(";");
+
+			SqlCeParameter[] arParams = new SqlCeParameter[1];
+
+			arParams[0] = new SqlCeParameter("@HostName", SqlDbType.NVarChar, 255);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = hostName;
+
+			int count = Convert.ToInt32(SqlHelper.ExecuteScalar(
+				GetConnectionString(),
+				CommandType.Text,
+				sqlCommand.ToString(),
+				arParams));
+
+			return (count > 0);
+
+		}
+
+
+	}
 }

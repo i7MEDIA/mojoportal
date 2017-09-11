@@ -1,6 +1,6 @@
 // Author:					
 // Created:				    2004-08-28
-// Last Modified:			2017-09-07
+// Last Modified:			2017-09-11
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -1641,7 +1641,7 @@ namespace mojoPortal.Web.AdminUI
 				return;
 			}
 
-			if (SiteSettings.GetSiteIdByHostName(txtHostName.Text) < 1)
+			if (SiteSettings.HostNameExists(txtHostName.Text))
 			{
 				litHostMessage.Text = String.Format(displaySettings.SiteSettingsNoticeMarkup, Resource.SiteSettingsDuplicateHostsWarning);
 				return;
