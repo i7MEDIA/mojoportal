@@ -127,12 +127,6 @@
     <Content Include="Setup\ProviderConfig\contentdeletehandlers\superflexideletehandler.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.0.8.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.0.9.config" />
-    <Content Include="Setup\applications\SuperFlexi\FeatureDefinitions\70001_ResourceLibrary.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Setup\applications\SuperFlexi\FeatureDefinitions\70001_ResourceLibrary-SingleCategory.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.1.0.config" />
     <Content Include="packages.config" />
     <Content Include="Views\SuperFlexi\_SuperFlexiRazor.cshtml" />
@@ -316,6 +310,15 @@
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - MySql|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
