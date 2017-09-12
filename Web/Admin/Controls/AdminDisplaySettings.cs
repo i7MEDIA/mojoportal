@@ -24,6 +24,10 @@ namespace mojoPortal.Web.AdminUI
 		private string siteSettingsSubPanelHeadingMarkup = "<h4>{0} <small>{1}</small></h4>";
 		public string SiteSettingsSubPanelHeadingMarkup { get => siteSettingsSubPanelHeadingMarkup; set => siteSettingsSubPanelHeadingMarkup = value; }
 
+		private string securityProtocolCheckResponseMarkup = "<div>{0}</div>";
+		public string SecurityProtocolCheckResponseMarkup { get => securityProtocolCheckResponseMarkup; set => securityProtocolCheckResponseMarkup = value; }
+
+
 		protected override void Render(HtmlTextWriter writer)
 		{
 			if (HttpContext.Current == null)

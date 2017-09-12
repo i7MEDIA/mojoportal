@@ -6216,4 +6216,10 @@
   <data name="SloganLabelDescription" xml:space="preserve">
     <value>Will not show if it's not used by the skin.</value>
   </data>
+  <data name="SecurityAdvisorSecurityProtocolHeading" xml:space="preserve">
+    <value>SSL/TLS Protocol</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolDescription" xml:space="preserve">
+    <value>Information on the Security Protocol used to connect to external sites by your site.</value>
+  </data>
 </root>

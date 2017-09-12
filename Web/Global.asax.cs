@@ -61,6 +61,7 @@ using System.Web.Http;
 using System.Web.Optimization;
 using mojoPortal.Web.Routing;
 using mojoPortal.Web.Optimization;
+using System.Net;
 #endif
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
@@ -159,6 +160,15 @@ namespace mojoPortal.Web
 
 		protected void Application_Start(Object sender, EventArgs e)
 		{
+			try
+			{
+				ServicePointManager.SecurityProtocol |= ServicePointManager.SecurityProtocol | SecurityProtocolType.Tls12;
+			}
+			catch (System.NotSupportedException)
+			{
+				log.Error("Application_Start could not set the chosen security protocol.");
+			}
+
 			if (WebConfigSettings.EnableVirtualPathProviders)
 			{
 				try

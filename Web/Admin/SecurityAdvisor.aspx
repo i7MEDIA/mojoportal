@@ -3,7 +3,9 @@
 
 <asp:content contentplaceholderid="leftContent" id="MPLeftPane" runat="server" />
 <asp:content contentplaceholderid="mainContent" id="MPContent" runat="server">
-        <portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs">
+	<portalAdmin:AdminDisplaySettings ID="displaySettings" runat="server" />
+
+	<portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs">
             <asp:hyperlink id="lnkAdminMenu" runat="server" navigateurl="~/Admin/AdminMenu.aspx"
                 cssclass="unselectedcrumb" /><portal:AdminCrumbSeparator id="litLinkSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
             <asp:hyperlink id="lnkThisPage" runat="server" cssclass="selectedcrumb" />
@@ -40,10 +42,10 @@
                             <asp:Literal id="litWritableFolderList" runat="server" />
                             </li>
                     </ul>
-                    <div class="settingrow">
-                        
-                    </div>
-
+					<portal:FormGroupPanel ID="fgpSecurityProtocol" runat="server" SkinID="SecurityProtocol">
+						<asp:Literal ID="litSecurityProtocolHeading" runat="server" EnableViewState="false" />
+						<asp:Literal ID="litSecurityProtocolDescription" runat="server" EnableViewState="false" />
+					</portal:FormGroupPanel>
                     <div class="settingrow">
                         <mp:SiteLabel ID="SiteLabel1" runat="server" CssClass="settinglabel" ConfigKey="spacer"  UseLabelTag="false"></mp:SiteLabel>
                     </div>

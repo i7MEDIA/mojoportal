@@ -13876,6 +13876,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Information on the Security Protocol used to connect to external sites by your site..
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolDescription {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSL/TLS Protocol.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolHeading {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Danger - Not Secure.
         /// </summary>
         internal static string SecurityDangerLabel {

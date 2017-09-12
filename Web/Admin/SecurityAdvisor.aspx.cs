@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2010-09-19
-// Last Modified:			2011-11-20
+// Last Modified:			2017-09-12
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -16,7 +16,14 @@ using System.Text;
 using mojoPortal.Web.Framework;
 using mojoPortal.Business.WebHelpers;
 using Resources;
-
+using System.Threading.Tasks;
+using System.Net;
+using System.Web.Script.Serialization;
+using System.Security.Cryptography.X509Certificates;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Linq;
 namespace mojoPortal.Web.AdminUI
 {
 
@@ -106,10 +113,13 @@ namespace mojoPortal.Web.AdminUI
                 }
             }
 
-        }
+			SslTest_HowsMySsl();
 
 
-        private void PopulateLabels()
+		}
+
+
+		private void PopulateLabels()
         {
             Title = SiteUtils.FormatPageTitle(siteSettings, Resource.SecurityAdvisor);
 
@@ -144,11 +154,63 @@ namespace mojoPortal.Web.AdminUI
             lnkFileSystemHelp.Text = Resource.InformationToSolveProblem;
             lnkFileSystemHelp.NavigateUrl = "http://www.mojoportal.com/securing-the-file-system.aspx";
 
-            
+			litSecurityProtocolHeading.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SecurityAdvisorSecurityProtocolHeading, Resource.SecurityAdvisorSecurityProtocolDescription);
 
         }
 
-        private void LoadSettings()
+		public void SslTest_HowsMySsl()
+		{
+			//SecurityProtocolType actual = ServicePointManager.SecurityProtocol;
+
+			try
+			{
+				//ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+				var request = WebRequest.CreateHttp(new Uri("https://howsmyssl.com:443/a/check"));
+
+				ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+				//X509Certificate2 clientCertificate = new X509Certificate2("cert.pem");
+				//request.ClientCertificates.Add(clientCertificate);
+				WebResponse response = request.GetResponse();
+
+				Stream dataStream = response.GetResponseStream();
+				StreamReader reader = new StreamReader(dataStream);
+				string responseFromServer = reader.ReadToEnd();
+
+				reader.Close();
+				response.Close();
+
+				JObject jObject = JObject.Parse(responseFromServer);
+				IList<string> ciphers = ((JArray)jObject["given_cipher_suites"]).Select(c => (string)c).ToList();
+				string tlsver = (string)jObject["tls_version"];
+				string rating = (string)jObject["rating"];
+
+				StringBuilder sb = new StringBuilder();
+				sb.AppendFormat("<strong>TLS version:</strong> {0}<br/>", tlsver);
+				sb.AppendFormat("<strong>Rating:</strong> {0}<br/>", rating);
+
+				sb.Append("<h5>Ciphers</h5><ul>");
+				foreach (string cipher in ciphers)
+				{
+					sb.AppendFormat("<li>{0}</li>", cipher);
+				}
+				sb.Append("</ul>");
+
+				sb.AppendFormat("<h5>Full Response</h5><div style='overflow: scroll;position:relative;'>{0}</div>", responseFromServer);
+
+				litSecurityProtocolDescription.Text = string.Format(displaySettings.SecurityProtocolCheckResponseMarkup, sb.ToString());
+			}
+			catch (WebException ex)
+			{
+				//Console.WriteLine(ex.Message);
+			}
+			//finally
+			//{
+			//	ServicePointManager.SecurityProtocol = actual;
+			//}
+		}
+
+		private void LoadSettings()
         {
             AddClassToBody("administration");
             AddClassToBody("securityadvisor");
