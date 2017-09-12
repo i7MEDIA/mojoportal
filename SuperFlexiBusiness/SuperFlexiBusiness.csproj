@@ -71,23 +71,14 @@
       <Name>mojoPortal.Business</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
-      <Project>{6ddfe292-37aa-4a02-b2f0-ba7968a026ef}</Project>
-      <Name>mojoPortal.Data.MSSQL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Features.Business\mojoPortal.Features.Business.csproj">
       <Project>{65849992-8f44-4480-9494-1ca0d6325795}</Project>
       <Name>mojoPortal.Features.Business</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj">
-      <Project>{b77ed3c5-5720-4a13-925f-c580ecfa4b7b}</Project>
-      <Name>SuperFlexiData.MSSQL</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
-    <When Condition="'$(Configuration)'=='Debug'" />
-    <When Condition="'$(Configuration)'=='Release'">
+    <When Condition="'$(Configuration)'=='Debug'">
       <ItemGroup>
         <ProjectReference Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
           <Project>{6ddfe292-37aa-4a02-b2f0-ba7968a026ef}</Project>
@@ -100,6 +91,19 @@
         </ProjectReference>
       </ItemGroup>
     </When>
+    <When Condition="'$(Configuration)'=='Release'">
+      <ItemGroup>
+        <ProjectReference Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
+          <Project>{6ddfe292-37aa-4a02-b2f0-ba7968a026ef}</Project>
+          <Name>mojoPortal.Data.MSSQL</Name>
+          <Private>False</Private>
+        </ProjectReference>
+        <ProjectReference Include="..\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj">
+          <Project>{b77ed3c5-5720-4a13-925f-c580ecfa4b7b}</Project>
+          <Name>SuperFlexiData.MSSQL</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </When>    
     <When Condition="'$(Configuration)'=='Debug - MySql'">
       <ItemGroup>
         <ProjectReference Include="..\mojoPortal.Data.MySql\mojoPortal.Data.MySql.csproj">
