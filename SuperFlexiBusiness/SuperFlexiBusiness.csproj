@@ -103,7 +103,7 @@
           <Name>SuperFlexiData.MSSQL</Name>
         </ProjectReference>
       </ItemGroup>
-    </When>    
+    </When>
     <When Condition="'$(Configuration)'=='Debug - MySql'">
       <ItemGroup>
         <ProjectReference Include="..\mojoPortal.Data.MySql\mojoPortal.Data.MySql.csproj">
