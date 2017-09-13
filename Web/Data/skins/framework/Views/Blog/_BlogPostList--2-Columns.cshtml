@@ -1,0 +1,89 @@
+﻿@using mojoPortal.Web.Helpers;
+@using mojoPortal.Business;
+
+@model PostListModel
+
+@* This is going to create a 2 column list of blog posts with no row-breaks. To enforce rows, you'll need to create your own loop and add your ".row" div around every 2 items.
+   Alternatively you could enable the flexbox grid used below, which will give the same visual effect as rows without actually creating them - but it only applies at screen-sm and above.
+   To do this you'll need to uncomment line 5 in the main.less file in your skin and recompile the CSS.
+*@
+<div class="blog-postlist row fb-parent fb-row fb-ai-stretch fb-ac-stretch fb-wrap">
+	@foreach (var item in Model.Posts)
+	{
+		<div class="col-sm-6 fb-child fb-grow fb-shrink fb-parent fb-row fb-wrap fb-ai-stretch fb-ac-stretch">
+			<article class="blog-postlist__item fb-child fb-grow fb-shrink m-b-gutter-half">
+				<header>
+					@if (!string.IsNullOrWhiteSpace(item.HeadlineImageUrl))
+					{
+						<figure class="blog-postlist__item-featured-image">
+							<img src="@item.HeadlineImageUrl" alt="@item.Title" />
+						</figure>
+					}
+					<h3 class="blog-postlist__title">
+						<a class="blog-postlist__item-link" href="@item.ItemUrl">@item.Title</a>
+					</h3>
+					@if (@item.SubTitle != "")
+					{
+						<h2 class="blog-postlist__sub-title">@item.SubTitle</h2>
+					}
+				</header>
+				<div class="blog-postlist__item-body">
+					@if (String.IsNullOrWhiteSpace(item.Excerpt))
+					{
+						@Html.Raw(item.Body)
+					} else {
+						@Html.Raw(item.Excerpt)
+					}
+				</div>
+				<footer>
+					<div class="blog-postlist__metadata">
+						@if (item.ShowAuthorName)
+						{
+							<span class="blog-postlist__author">
+								@if (item.ShowAuthorAvatar && !item.ShowAuthorBio)
+								{
+									<span class="blog-postlist__author-avatar">
+										@Html.Avatar(item.AuthorAvatar, item.AuthorEmail, item.AuthorUserId, new { Class = "author__avatar" }, new { Class = "author__avatar-link" }, true, true)
+									</span>
+								}
+								<span class="blog-postlist__author-name">
+									@if (!item.ShowAuthorAvatar || item.ShowAuthorBio)
+									{
+										<i class="fa fa-user-circle"></i>
+									}
+									@item.AuthorDisplayName
+								</span>
+							</span>
+						}
+
+						<span class="blog-postlist__date"><i class="fa fa-clock-o"></i> @item.PostDate.ToString("MMMM dd, yyyy")</span>
+
+						@if (item.AllowCommentsForDays > -1)
+						{
+							<span class="blog-postlist__comments"><a class="blog-postlist__commentslink" href="@(item.ItemUrl)#comments"><i class="fa fa-comments"></i> @Resources.BlogResources.BlogFeedbackLabel (@item.CommentCount)</a></span>
+						}
+					</div>
+
+					@if (item.ShowAuthorBio)
+					{
+						<div class="author__group author__group--blog-postlist media well">
+							@if (item.ShowAuthorAvatar)
+							{
+								@Html.Avatar(item.AuthorAvatar, item.AuthorEmail, item.AuthorUserId, new { Class = "author__avatar media-object" }, new { Class = "author__avatar-link media-left" }, true, true)
+							}
+
+							@if (item.ShowAuthorBio && !string.IsNullOrWhiteSpace(item.AuthorBio))
+							{
+								<p class="author__bio media-body">@item.AuthorBio</p>
+							}
+						</div>
+					}
+
+				</footer>
+			</article>
+		</div>
+	}
+	<div class="col-sm-12 blog-postlist__foot">
+		<p><a href="@Model.ModulePageUrl">View all posts</a> &#187;</p>
+	</div>
+</div>

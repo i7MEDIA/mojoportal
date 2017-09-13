@@ -200,8 +200,122 @@
 	ExtraCssClasses="bottom-pane clearfix"
 />
 
+<%-- Site Settings Display Settings --%>
+<portalAdmin:AdminDisplaySettings runat="server"
+	SiteSettingsPanelHeadingMarkup = "<h3 class='setting-section-title'>{0} <small>{1}</small></h3><div class='setting-section-body'>"
+	SiteSettingsSubPanelHeadingMarkup = "<div class='panel-heading'><h3 class='panel-title'>{0} <small>{1}</small></h3></div><div class='panel-body'>"
+/>
 
+<%-- Form Group Panels --%>
+<portal:FormGroupPanel runat="server" SkinID="MainSettings"
+	Element="div"
+	CssClass="settingrow"
+	OutsideBottomMarkup="</div>"
+/>
 
+<portal:FormGroupPanel runat="server" SkinID="SkinSettings"
+	Element="div"
+	CssClass="settingrow"
+	OutsideBottomMarkup="</div>"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="EditorSettings"
+	Element="div"
+	CssClass="settingrow"
+	OutsideBottomMarkup="</div>"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="RegistrationSettings"
+	Element="div"
+	CssClass="settingrow"
+	OutsideBottomMarkup="</div>"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="UserAccountSettings"
+	Element="div"
+	CssClass="settingrow"
+	OutsideBottomMarkup="</div>"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="PasswordSettings"
+	Element="div"
+	CssClass="settingrow"
+	OutsideBottomMarkup="</div>"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="PasswordRecoverySettings"
+	Element="div"
+	CssClass="panel panel-warning"
+	OutsideBottomMarkup="</div>"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="OpenIDSettings"
+	Element="div"
+	CssClass="settingrow"
+	OutsideBottomMarkup="</div>"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="WindowsLiveIDSettings"
+	Element="div"
+	CssClass="settingrow"
+	OutsideBottomMarkup="</div>"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="SMTPSettings"
+	Element="div"
+	CssClass="settingrow"
+	OutsideBottomMarkup="</div>"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="HostNames"
+	Element="div"
+	CssClass="settingrow"
+	OutsideBottomMarkup="</div>"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="FolderNames"
+	Element="div"
+	CssClass="settingrow"
+	OutsideBottomMarkup="</div>"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="ButtonPanel"
+	CssClass="settingrow button-row"
+	InsideTopMarkup="<label class='settinglabel'></label>"
+/>
+
+<%-- For the site features add/remove panels --%>
+<portal:FormGroupPanel runat="server" SkinID="SiteFeatures"
+	Element="div"
+	CssClass="manage-site-features"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="SiteFeaturesLeft"
+	Element="div"
+	OutsideTopMarkup="<div class='row flex-children flex-center'>"
+	CssClass="manage-site-features__left col-sm-4 text-center"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="SiteFeaturesCenter"
+	Element="div"
+	CssClass="manage-site-features__right col-sm-4 text-center"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="SiteFeaturesRight"
+	Element="div"
+	OutsideBottomMarkup="</div>"
+	CssClass="manage-site-features__right col-sm-4 text-center"
+/>
+
+<asp:Button runat="server" SkinID="SiteFeaturesRemove" 
+	CssClass="btn btn-success btn-sm"
+/>
+
+<asp:Button runat="server" SkinID="SiteFeaturesAdd" 
+	CssClass="btn btn-success btn-sm"
+/>
+
+<%-- Blog Display Settings --%>
 <html:HtmlDisplaySettings runat="server"
 	DisableContentRating="false"
 	UseBottomContentRating="true"
@@ -320,7 +434,6 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 	UseModuleHeadingOnSideColumns="false"
 	DetectSideColumn="true"
 	Element="h2"
-	SideColumnElement="h3"
 	LiteralExtraTopContent=""
 	LiteralExtraBottomContent=""
 	ExtraCssClasses="page-header"
