@@ -322,7 +322,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show all items using this definition..
+        ///   Looks up a localized string similar to Show all items using this solution..
         /// </summary>
         internal static string IsGlobalView {
             get {
@@ -453,6 +453,15 @@ namespace Resources {
         internal static string SettingsLinkLabel {
             get {
                 return ResourceManager.GetString("SettingsLinkLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please Select.
+        /// </summary>
+        internal static string SolutionDropDownPleaseSelect {
+            get {
+                return ResourceManager.GetString("SolutionDropDownPleaseSelect", resourceCulture);
             }
         }
         

@@ -1,6 +1,6 @@
 ﻿// Author:				    i7MEDIA (joe davis)
 // Created:			        2014-12-22
-// Last Modified:		    2016-12-01
+// Last Modified:		    2017-09-14
 // 
 // You must not remove this notice, or any other, from this software.
 
@@ -142,10 +142,16 @@ namespace SuperFlexiUI
             {
                 itemDeleteRoles = settings["ItemDeleteRoles"].ToString();
             }
-            useRazor = WebUtils.ParseBoolFromHashtable(settings, "UseRazor", useRazor);
 
-            #region MarkupDefinition
-            if (settings.Contains("MarkupDefinitionContent"))
+			if (settings.Contains("MarkupDefinitionFile"))
+			{
+				markupDefinitionFile = settings["MarkupDefinitionFile"].ToString();
+				if (markupDefinitionFile.IndexOf("~", 0) < 0) markupDefinitionFile = "~" + markupDefinitionFile;
+			}
+
+			useRazor = WebUtils.ParseBoolFromHashtable(settings, "UseRazor", useRazor);
+			#region MarkupDefinition
+			if (settings.Contains("MarkupDefinitionContent"))
             {
                 markupDefinitionContent = settings["MarkupDefinitionContent"].ToString();
                 if (string.IsNullOrWhiteSpace(markupDefinitionContent) || AlwaysLoadMarkupDefinitionFromDisk)
@@ -175,32 +181,30 @@ namespace SuperFlexiUI
                 //this is for legacy purposes. Superflexi instances created before 12/1/2016 did not have the markupDefinitionContent setting
                 //once the settings link is clicked on one of those instances, the instance will get the markupDefinitionContent setting and then
                 //this code will not be used anymore.
-                if (settings.Contains("MarkupDefinitionFile"))
-                {
-                    markupDefinitionFile = settings["MarkupDefinitionFile"].ToString();
-                    if (markupDefinitionFile.IndexOf("~", 0) < 0) markupDefinitionFile = "~" + markupDefinitionFile;
 
-                    // can't use HttpContext because we use this method in SuperFlexiIndexBuilderProvider.RebuildIndex which doesn't have HttpContext
-                    //string fullPath = HttpContext.Current.Server.MapPath(markupDefinitionFile); 
-                    string fullPath = System.Web.Hosting.HostingEnvironment.MapPath(markupDefinitionFile);
-                    if (File.Exists(fullPath))
-                    {
-                        FileInfo fileInfo = new FileInfo(fullPath);
 
-                        XmlDocument doc = new XmlDocument();
-                        doc.Load(fileInfo.FullName);
+				
 
-                        XmlNode node = doc.DocumentElement.SelectSingleNode("/Definitions/MarkupDefinition");
-                        if (node != null) MapDefinedMarkup(node);
+				// can't use HttpContext because we use this method in SuperFlexiIndexBuilderProvider.RebuildIndex which doesn't have HttpContext
+				//string fullPath = HttpContext.Current.Server.MapPath(markupDefinitionFile); 
+				string fullPath = System.Web.Hosting.HostingEnvironment.MapPath(markupDefinitionFile);
+				if (File.Exists(fullPath))
+				{
+					FileInfo fileInfo = new FileInfo(fullPath);
 
-                        XmlNode mobileNode = doc.DocumentElement.SelectSingleNode("/Definitions/MobileMarkupDefinition");
-                        if (mobileNode != null) MapDefinedMarkup(mobileNode, true);
+					XmlDocument doc = new XmlDocument();
+					doc.Load(fileInfo.FullName);
 
-                        XmlNode searchNode = doc.DocumentElement.SelectSingleNode("/Definitions/SearchDefinition");
-                        if (searchNode != null) SetupSearchDefinition(searchNode);
-                    }
-                }
-            }
+					XmlNode node = doc.DocumentElement.SelectSingleNode("/Definitions/MarkupDefinition");
+					if (node != null) MapDefinedMarkup(node);
+
+					XmlNode mobileNode = doc.DocumentElement.SelectSingleNode("/Definitions/MobileMarkupDefinition");
+					if (mobileNode != null) MapDefinedMarkup(mobileNode, true);
+
+					XmlNode searchNode = doc.DocumentElement.SelectSingleNode("/Definitions/SearchDefinition");
+					if (searchNode != null) SetupSearchDefinition(searchNode);
+				}
+			}
             #endregion
         }
 
@@ -553,6 +557,9 @@ namespace SuperFlexiUI
         public string FeaturedImageEmptyUrl { get { return WebUtils.GetRelativeSiteRoot() + featuredImageEmptyUrl; } }
 
         private string markupDefinitionFile = string.Empty;
+
+		public string MarkupDefinitionFile { get { return markupDefinitionFile; } }
+
         private MarkupDefinition markupDefinition = null;
         public MarkupDefinition MarkupDefinition { get { return markupDefinition; } }
 

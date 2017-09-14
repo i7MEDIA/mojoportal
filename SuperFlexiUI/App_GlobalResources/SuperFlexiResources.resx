@@ -214,7 +214,7 @@
     <value>Advanced Settings String</value>
   </data>
   <data name="IsGlobalView" xml:space="preserve">
-    <value>Show all items using this definition.</value>
+    <value>Show all items using this solution.</value>
   </data>
   <data name="ModuleFriendlyName" xml:space="preserve">
     <value>Module Friendly Name</value>
@@ -263,5 +263,8 @@
   </data>
   <data name="ImportUpdateExistingRecordsLabel" xml:space="preserve">
     <value>Update Existing Records?</value>
+  </data>
+  <data name="SolutionDropDownPleaseSelect" xml:space="preserve">
+    <value>Please Select</value>
   </data>
 </root>

@@ -1,6 +1,6 @@
 ﻿/// Author:					i7MEDIA
 /// Created:				2015-03-06
-/// Last Modified:			2016-12-01
+/// Last Modified:			2017-09-14
 /// You must not remove this notice, or any other, from this software.
 
 using System;
@@ -100,9 +100,26 @@ namespace SuperFlexiUI
 
         public static bool DefinitionExists(string path, out XmlDocument doc)
         {
-            if (path.IndexOf("~", 0) < 0) path = "~" + path;
-            string fullPath = HttpContext.Current.Server.MapPath(path);
-            doc = new XmlDocument();
+			//if (path.IndexOf("~", 0) < 0) path = "~" + path;
+			string fullPath = string.Empty;
+
+			try
+			{
+				fullPath = HttpContext.Current.Server.MapPath(path);
+			}
+			catch(System.Web.HttpException ex)
+			{
+				fullPath = path;
+			}
+
+			doc = new XmlDocument();
+
+			//if (!File.Exists(fullPath))
+			//{
+			//	path = "~" + path;
+			//	fullPath = HttpContext.Current.Server.MapPath(path);
+			//}
+
             if (File.Exists(fullPath))
             {
                 FileInfo fileInfo = new FileInfo(fullPath);
@@ -159,7 +176,36 @@ namespace SuperFlexiUI
             List<Field> fields = new List<Field>();
             string fullPath = string.Empty;
             XmlDocument doc = new XmlDocument();
-            if (DefinitionExists(config.FieldDefinitionSrc, out doc))
+
+
+			//implemented "solutions" on 9/13/2017 (mojoPortal 2.6.0.0) which allows for markup definitions and field definitions to be wrapped up in a single folder
+			//b/c of this, we added the ability to pull the field definition file from the location of the markup definition (.sfmarkup) file w/o needing to use the full path in the fieldDefinitionSrc property
+
+			string solutionFieldDefSrc = string.Empty;
+
+			if (config.FieldDefinitionSrc.StartsWith("~/") || 
+				config.FieldDefinitionSrc.StartsWith("$") ||
+				config.FieldDefinitionSrc.StartsWith("/"))
+			{
+				if (config.FieldDefinitionSrc.IndexOf("~", 0) < 0)
+				{
+					solutionFieldDefSrc = "~" + config.FieldDefinitionSrc;
+				}
+				else
+				{
+					solutionFieldDefSrc = config.FieldDefinitionSrc;
+				}
+			}
+			else if (File.Exists(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile)))
+			{
+				FileInfo fileInfo = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile));
+
+				solutionFieldDefSrc = fileInfo.DirectoryName + "/" + config.FieldDefinitionSrc;
+			}
+
+
+
+            if (DefinitionExists(solutionFieldDefSrc, out doc))
             {
                 XmlNode node = doc.DocumentElement.SelectSingleNode("/Fields");
                 if (node != null)
@@ -170,6 +216,18 @@ namespace SuperFlexiUI
                     Guid definitionGuid = Guid.NewGuid();
                     if (attribs["definitionName"] != null) definitionName = attribs["definitionName"].Value;
                     if (attribs["definitionGuid"] != null) definitionGuid = Guid.Parse(attribs["definitionGuid"].Value);
+
+					if (definitionGuid != config.FieldDefinitionGuid)
+					{
+						log.ErrorFormat(@"
+							SuperFlexi Solution [{0}] located at [{1}] uses fieldDefinitionGuid = [{2}]
+							but the field definition at [{3}] uses definitionGuid = [{4}]. Items will not display properly and may end up corrupted.
+							",
+							config.MarkupDefinitionName, config.MarkupDefinitionFile, config.FieldDefinitionGuid.ToString(),
+							solutionFieldDefSrc, definitionGuid);
+
+						return null;
+					}
 
                     foreach (XmlNode childNode in node)
                     {
