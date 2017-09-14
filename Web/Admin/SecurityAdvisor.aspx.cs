@@ -196,7 +196,9 @@ namespace mojoPortal.Web.AdminUI
 				}
 				sb.Append("</ul>");
 
-				sb.AppendFormat("<h5>Full Response</h5><div style='overflow: scroll;position:relative;'>{0}</div>", responseFromServer);
+				
+
+				sb.AppendFormat("<h5>Full Response</h5><pre class='language language-js'><code>{0}</code></pre>", JsonConvert.SerializeObject(jObject, Formatting.Indented));
 
 				litSecurityProtocolDescription.Text = string.Format(displaySettings.SecurityProtocolCheckResponseMarkup, sb.ToString());
 			}
