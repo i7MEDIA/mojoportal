@@ -1,6 +1,6 @@
 ﻿// Author:				    i7MEDIA (joe davis)
 // Created:			        2014-12-22
-// Last Modified:		    2017-09-14
+// Last Modified:		    2017-09-15
 // 
 // You must not remove this notice, or any other, from this software.
 
@@ -66,7 +66,7 @@ namespace SuperFlexiUI
                 string fullPath = System.Web.Hosting.HostingEnvironment.MapPath(markupDefinitionFile);
                 if (File.Exists(fullPath))
                 {
-                    mdContent = File.ReadAllText(fullPath);
+					mdContent = File.ReadAllText(fullPath);
 
                     if (mdContent != markupDefinitionContent)
                     {
@@ -147,6 +147,12 @@ namespace SuperFlexiUI
 			{
 				markupDefinitionFile = settings["MarkupDefinitionFile"].ToString();
 				if (markupDefinitionFile.IndexOf("~", 0) < 0) markupDefinitionFile = "~" + markupDefinitionFile;
+			}
+
+			if (File.Exists(System.Web.Hosting.HostingEnvironment.MapPath(markupDefinitionFile)))
+			{
+				FileInfo sfMarkupFile = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath(markupDefinitionFile));
+				solutionLocation = sfMarkupFile.DirectoryName;
 			}
 
 			useRazor = WebUtils.ParseBoolFromHashtable(settings, "UseRazor", useRazor);
@@ -556,8 +562,26 @@ namespace SuperFlexiUI
         private string featuredImageEmptyUrl = "/Data/SiteImages/blank.gif";
         public string FeaturedImageEmptyUrl { get { return WebUtils.GetRelativeSiteRoot() + featuredImageEmptyUrl; } }
 
-        private string markupDefinitionFile = string.Empty;
+		private string solutionLocation = string.Empty;
+		public string SolutionLocation { get { return solutionLocation; } }
 
+		public Uri SolutionLocationUrl
+		{
+			get
+			{
+				return new Uri(WebUtils.ResolveServerUrl(solutionLocation.Replace(System.Web.Hosting.HostingEnvironment.MapPath("~"), "~/")));
+			}
+		}
+
+		public string RelativeSolutionLocation
+		{
+			get
+			{
+				return solutionLocation.Replace(System.Web.Hosting.HostingEnvironment.MapPath("~"), "~/");
+			}
+		}
+
+        private string markupDefinitionFile = string.Empty;
 		public string MarkupDefinitionFile { get { return markupDefinitionFile; } }
 
         private MarkupDefinition markupDefinition = null;

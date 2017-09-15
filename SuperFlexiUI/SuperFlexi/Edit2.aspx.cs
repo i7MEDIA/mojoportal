@@ -239,7 +239,7 @@ namespace SuperFlexiUI
 		private void AddInstructionBlock(Field field)
 		{
 			Literal litInstructions = new Literal();
-			litInstructions.Text = SuperFlexiHelpers.GetHelpText(field.HelpKey);
+			litInstructions.Text = SuperFlexiHelpers.GetHelpText(field.HelpKey, config);
 			if (!String.IsNullOrWhiteSpace(litInstructions.Text))
 			{
 				customControls.Controls.Add(litInstructions);
@@ -1034,7 +1034,7 @@ namespace SuperFlexiUI
 				if (field.HelpKey.IndexOf("$_FlexiHelp_$") >= 0 || field.HelpKey.IndexOf("$_SitePath_$") >= 0)
 				{
 					Literal litHelpText = new Literal();
-					litHelpText.Text = SuperFlexiHelpers.GetHelpText(field.HelpKey);
+					litHelpText.Text = SuperFlexiHelpers.GetHelpText(field.HelpKey, config);
 					panel.Controls.Add(litHelpText);
 				}
 				else
@@ -1081,7 +1081,7 @@ namespace SuperFlexiUI
             if (!urlBrowserHtmlAdded)
             {
                 Literal linkPickerModal = new Literal();
-                linkPickerModal.Text = SuperFlexiHelpers.GetHelpText("~/SuperFlexi/html/urlbrowsermodal.html");
+                linkPickerModal.Text = SuperFlexiHelpers.GetHelpText("~/SuperFlexi/html/urlbrowsermodal.html", config);
                 pnlEdit.Controls.Add(linkPickerModal);
                 urlBrowserHtmlAdded = true;
             }

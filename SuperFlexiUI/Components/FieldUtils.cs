@@ -1,6 +1,6 @@
 ﻿/// Author:					i7MEDIA
 /// Created:				2015-03-06
-/// Last Modified:			2017-09-14
+/// Last Modified:			2017-09-15
 /// You must not remove this notice, or any other, from this software.
 
 using System;

@@ -1,6 +1,6 @@
 /// Author:                     i7MEDIA
 /// Created:				    2015-03-06
-///	Last Modified:              2016-12-01
+///	Last Modified:              2017-09-15
 /// 
 /// You must not remove this notice, or any other, from this software.
 using System;
@@ -226,7 +226,7 @@ namespace SuperFlexiUI
 		private void AddInstructionBlock(Field field)
 		{
 			Literal litInstructions = new Literal();
-			litInstructions.Text = SuperFlexiHelpers.GetHelpText(field.HelpKey);
+			litInstructions.Text = SuperFlexiHelpers.GetHelpText(field.HelpKey, config);
 			if (!String.IsNullOrWhiteSpace(litInstructions.Text))
 			{
 				customControls.Controls.Add(litInstructions);
@@ -1018,10 +1018,13 @@ namespace SuperFlexiUI
 
 			if (field.HelpKey.Length > 0)
 			{
-				if (field.HelpKey.IndexOf("$_FlexiHelp_$") >= 0 || field.HelpKey.IndexOf("$_SitePath_$") >= 0)
+				if (field.HelpKey.ToLower().IndexOf(".sfhelp") >= 0 ||
+					field.HelpKey.ToLower().IndexOf(".config") >= 0 ||
+					field.HelpKey.IndexOf("$_FlexiHelp_$") >= 0 || 
+					field.HelpKey.IndexOf("$_SitePath_$") >= 0)
 				{
 					Literal litHelpText = new Literal();
-					litHelpText.Text = SuperFlexiHelpers.GetHelpText(field.HelpKey);
+					litHelpText.Text = SuperFlexiHelpers.GetHelpText(field.HelpKey, config);
 					panel.Controls.Add(litHelpText);
 				}
 				else
@@ -1040,12 +1043,12 @@ namespace SuperFlexiUI
         {
             //create script reference
             MarkupScript urlBrowserScript = new MarkupScript();
-            urlBrowserScript.Url = "js/urlbrowserinput.js";
+            urlBrowserScript.Url = "~/SuperFlexi/js/urlbrowserinput.js";
             urlBrowserScript.ScriptName = "urlbrowserscript";
             urlBrowserScript.Position = "bottomStartup";
             //create css reference
             MarkupCss urlBrowserCss = new MarkupCss();
-            urlBrowserCss.Url = "css/urlbrowserinput.css";
+            urlBrowserCss.Url = "~/SuperFlexi/css/urlbrowserinput.css";
             urlBrowserCss.RenderAboveSSC = true;
             urlBrowserCss.Name = "urlbrowsercss";
             //add script and css references to page scripts/css
@@ -1068,7 +1071,7 @@ namespace SuperFlexiUI
             if (!urlBrowserHtmlAdded)
             {
                 Literal linkPickerModal = new Literal();
-                linkPickerModal.Text = SuperFlexiHelpers.GetHelpText("~/SuperFlexi/html/urlbrowsermodal.html");
+                linkPickerModal.Text = SuperFlexiHelpers.GetHelpText("~/SuperFlexi/html/urlbrowsermodal.html", config);
                 pnlEdit.Controls.Add(linkPickerModal);
                 urlBrowserHtmlAdded = true;
             }
