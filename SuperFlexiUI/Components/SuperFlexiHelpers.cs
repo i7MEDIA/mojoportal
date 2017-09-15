@@ -341,10 +341,31 @@ namespace SuperFlexiUI
                 string scriptName = sbScriptName.ToString();
                 if (!String.IsNullOrWhiteSpace(script.Url))
                 {
-                    sbScriptText.Append(string.Format(scriptRefFormat,
-                        script.Url.Replace("$_SitePath_$", "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToString() + "/"),
-                        scriptName));
-                }
+					if (script.Url.StartsWith("/") ||
+						script.Url.StartsWith("http://") ||
+						script.Url.StartsWith("https://") ||
+						script.Url.StartsWith("//") ||
+						script.Url.StartsWith("$_SitePath_$"))
+					{
+						sbScriptText.Append(string.Format(scriptRefFormat,
+							script.Url.Replace("$_SitePath_$", "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToString() + "/"),
+							scriptName));
+					}
+					else if (File.Exists(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile)))
+					{
+						FileInfo fileInfo = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile));
+
+						//log.Info("DirectoryName is: " + fileInfo.DirectoryName.ToString());
+						//log.Info("Directory is: " + fileInfo.Directory.ToString());
+						//log.Info("Physical App Path is: " + System.Web.Hosting.HostingEnvironment.MapPath("~"));
+						//log.Info("Correct path to script is: " + fileInfo.DirectoryName.Replace(System.Web.Hosting.HostingEnvironment.MapPath("~"), ""));
+
+						sbScriptText.Append(string.Format(scriptRefFormat,
+							WebUtils.ResolveServerUrl(Path.Combine(fileInfo.DirectoryName.Replace(System.Web.Hosting.HostingEnvironment.MapPath("~"), "~/"), script.Url)),
+							scriptName));
+					}
+
+				}
                 else if (!String.IsNullOrWhiteSpace(script.RawScript))
                 {
                     sbScriptText.Append(string.Format(rawScriptFormat, script.RawScript, scriptName));
@@ -468,16 +489,36 @@ namespace SuperFlexiUI
 
                 sbStyleName.Append(String.IsNullOrWhiteSpace(style.Name) ? clientID + "flexiStyle_" + markupCss.IndexOf(style) : "flexiStyle_" + style.Name);
                 SuperFlexiHelpers.ReplaceStaticTokens(sbStyleName, config, false, displaySettings, moduleID, pageID, out sbStyleName);
-                string scriptName = sbStyleName.ToString();
+                string styleName = sbStyleName.ToString();
                 if (!String.IsNullOrWhiteSpace(style.Url))
                 {
-                    sbStyleText.Append(string.Format(styleLinkFormat,
-                        style.Url.Replace("$_SitePath_$", "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToString() + "/"),
-                        scriptName, style.Media));
+					if (style.Url.StartsWith("/") ||
+						style.Url.StartsWith("http://") ||
+						style.Url.StartsWith("https://") ||
+						style.Url.StartsWith("//") ||
+						style.Url.StartsWith("$_SitePath_$"))
+					{
+						sbStyleText.Append(string.Format(styleLinkFormat,
+							style.Url.Replace("$_SitePath_$", "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToString() + "/"),
+							styleName, style.Media));
+					}
+					else if (File.Exists(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile)))
+					{
+						FileInfo fileInfo = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile));
+
+						//log.Info("DirectoryName is: " + fileInfo.DirectoryName.ToString());
+						//log.Info("Directory is: " + fileInfo.Directory.ToString());
+						//log.Info("Physical App Path is: " + System.Web.Hosting.HostingEnvironment.MapPath("~"));
+						//log.Info("Correct path to script is: " + fileInfo.DirectoryName.Replace(System.Web.Hosting.HostingEnvironment.MapPath("~"), ""));
+
+						sbStyleText.Append(string.Format(styleLinkFormat,
+							WebUtils.ResolveServerUrl(Path.Combine(fileInfo.DirectoryName.Replace(System.Web.Hosting.HostingEnvironment.MapPath("~"), "~/"), style.Url)),
+							styleName, style.Media));
+					}
                 }
                 else if (!String.IsNullOrWhiteSpace(style.CSS))
                 {
-                    sbStyleText.Append(string.Format(rawCSSFormat, style.CSS, scriptName, style.Media));
+                    sbStyleText.Append(string.Format(rawCSSFormat, style.CSS, styleName, style.Media));
                 }
 
                 SuperFlexiHelpers.ReplaceStaticTokens(sbStyleText, config, false, displaySettings, moduleID, pageID, out sbStyleText);
