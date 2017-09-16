@@ -1,6 +1,6 @@
 ﻿// Author:				    i7MEDIA (joe davis)
 // Created:			        2014-12-22
-// Last Modified:		    2017-09-15
+// Last Modified:		    2017-09-16
 // 
 // You must not remove this notice, or any other, from this software.
 
@@ -15,6 +15,8 @@ using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using Resources;
 using SuperFlexiBusiness;
+using mojoPortal.FileSystem;
+using mojoPortal.Web;
 
 namespace SuperFlexiUI
 {
@@ -26,13 +28,31 @@ namespace SuperFlexiUI
         private Hashtable settings;
         private int siteId = -1;
 
-        #region contstructors
-        public ModuleConfiguration()
+		FileSystemProvider fsProvider;
+		IFileSystem fileSystem;
+
+
+
+#region contstructors
+public ModuleConfiguration()
         { }
 
         public ModuleConfiguration(Module module)
         {
-            if (module != null)
+			fsProvider = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+			if (fsProvider == null)
+			{
+				log.Error("File System Provider Could Not Be Loaded.");
+				return;
+			}
+			fileSystem = fsProvider.GetFileSystem();
+			if (fileSystem == null)
+			{
+				log.Error("File System Could Not Be Loaded.");
+				return;
+			}
+
+			if (module != null)
             {
                 this.module = module;
                 this.siteId = module.SiteId;
@@ -54,31 +74,42 @@ namespace SuperFlexiUI
         /// <returns>bool</returns>
         public void CopyMarkupDefinitionToDatabase()
         {
-            string mdContent = string.Empty;
+
+			string virtualPath = fileSystem.VirtualRoot;
+
+			string mdContent = string.Empty;
             bool changed = false;
-            if (settings.Contains("MarkupDefinitionFile"))
-            {
-                markupDefinitionFile = settings["MarkupDefinitionFile"].ToString();
-                if (markupDefinitionFile.IndexOf("~", 0) < 0) markupDefinitionFile = "~" + markupDefinitionFile;
+            //if (settings.Contains("MarkupDefinitionFile"))
+            //{
+            //    markupDefinitionFile = settings["MarkupDefinitionFile"].ToString();
+            //    if (markupDefinitionFile.IndexOf("~", 0) < 0) markupDefinitionFile = "~" + markupDefinitionFile;
 
-                // can't use HttpContext because we use this method in SuperFlexiIndexBuilderProvider.RebuildIndex which doesn't have HttpContext
-                //string fullPath = HttpContext.Current.Server.MapPath(markupDefinitionFile); 
-                string fullPath = System.Web.Hosting.HostingEnvironment.MapPath(markupDefinitionFile);
-                if (File.Exists(fullPath))
+				// can't use HttpContext because we use this method in SuperFlexiIndexBuilderProvider.RebuildIndex which doesn't have HttpContext
+				//string fullPath = HttpContext.Current.Server.MapPath(markupDefinitionFile); 
+				//string fullPath = System.Web.Hosting.HostingEnvironment.MapPath(markupDefinitionFile);
+				var sfMarkup = fileSystem.RetrieveFile(markupDefinitionFile);
+
+				if (sfMarkup != null)
                 {
-					mdContent = File.ReadAllText(fullPath);
-
+					StreamReader sr = new StreamReader(fileSystem.GetAsStream(sfMarkup.VirtualPath));
+					mdContent = sr.ReadToEnd();
+					sr.Close();
                     if (mdContent != markupDefinitionContent)
                     {
                         changed = true;
                         markupDefinitionContent = mdContent;
                     }
                 }
-            }
+            //}
 
             if (changed && !ModuleSettings.UpdateModuleSetting(module.ModuleGuid, module.ModuleId, "MarkupDefinitionContent", markupDefinitionContent))
             {
-                log.ErrorFormat("\r\n\r\nCould not save MarkupDefinitionContent to module settings\r\n\tsiteId={0}\r\n\tmoduleId={1}\r\n\tmoduleTitle={2}\r\n\r\n",
+                log.ErrorFormat(@"
+					Could not save MarkupDefinitionContent to module settings
+					siteId={0}
+					moduleId={1}
+					moduleTitle={2}
+					",
                     module.SiteId, module.ModuleId, module.ModuleTitle);
             }
         }
@@ -149,10 +180,12 @@ namespace SuperFlexiUI
 				if (markupDefinitionFile.IndexOf("~", 0) < 0) markupDefinitionFile = "~" + markupDefinitionFile;
 			}
 
-			if (File.Exists(System.Web.Hosting.HostingEnvironment.MapPath(markupDefinitionFile)))
+			if (fileSystem.FileExists(markupDefinitionFile))
 			{
-				FileInfo sfMarkupFile = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath(markupDefinitionFile));
-				solutionLocation = sfMarkupFile.DirectoryName;
+				WebFile sfMarkupFile = fileSystem.RetrieveFile(markupDefinitionFile);
+				//FileInfo sfMarkupFile = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath(markupDefinitionFile));
+				
+				solutionLocation = sfMarkupFile.FolderVirtualPath;
 			}
 
 			useRazor = WebUtils.ParseBoolFromHashtable(settings, "UseRazor", useRazor);
@@ -193,13 +226,17 @@ namespace SuperFlexiUI
 
 				// can't use HttpContext because we use this method in SuperFlexiIndexBuilderProvider.RebuildIndex which doesn't have HttpContext
 				//string fullPath = HttpContext.Current.Server.MapPath(markupDefinitionFile); 
-				string fullPath = System.Web.Hosting.HostingEnvironment.MapPath(markupDefinitionFile);
-				if (File.Exists(fullPath))
+
+				//string fullPath = System.Web.Hosting.HostingEnvironment.MapPath(markupDefinitionFile);
+				if (fileSystem.FileExists(markupDefinitionFile))
 				{
-					FileInfo fileInfo = new FileInfo(fullPath);
+					//FileInfo fileInfo = new FileInfo(fullPath);
+
+					WebFile webFile = fileSystem.RetrieveFile(markupDefinitionFile);
 
 					XmlDocument doc = new XmlDocument();
-					doc.Load(fileInfo.FullName);
+					//doc.Load(fileInfo.FullName);
+					doc.Load(webFile.Path);
 
 					XmlNode node = doc.DocumentElement.SelectSingleNode("/Definitions/MarkupDefinition");
 					if (node != null) MapDefinedMarkup(node);
@@ -722,7 +759,17 @@ namespace SuperFlexiUI
 
 
         private string position = "inBody";
-        public string Position
+
+		/// <summary>
+		///		Position of rendered script.
+		///		<para>inHead</para>
+		///		<para>inBody (register script) (default)</para>
+		///		<para>aboveMarkupDefinition</para>
+		///		<para>belowMarkupDefinition</para>        
+		///		<para>bottomStartup(register startup script)</para>
+		///		<para>inHead</para>
+		/// </summary>
+		public string Position
         {
             get { return position; }
             set { position = value; }

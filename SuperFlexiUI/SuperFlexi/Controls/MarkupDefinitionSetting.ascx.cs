@@ -1,40 +1,43 @@
 ﻿// Author:					i7MEDIA (Joe Davis)
 // Created:					2015-01-06
-// Last Modified:			2017-09-14
+// Last Modified:			2017-09-16
 
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Web;
-using System.Web.UI.WebControls;
-using System.Xml;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.FileSystem;
 using mojoPortal.Web;
 using mojoPortal.Web.Framework;
 using Resources;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web;
+using System.Web.UI.WebControls;
+using System.Xml;
+
 namespace SuperFlexiUI
 {
-    public partial class MarkupDefinitionSetting : mojoUserControl, mojoPortal.Web.UI.ISettingControl
+	public partial class MarkupDefinitionSetting : mojoUserControl, mojoPortal.Web.UI.ISettingControl
     {
 
         private static readonly ILog log = LogManager.GetLogger(typeof(MarkupDefinitionSetting));
         private static SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-        //private int roleID = -1;
-        //private SiteUser siteUser;
 
-  //      private string markupDefinitionsPath = string.Empty;
-  //      private string solutionsPath = string.Empty;
+
+		//private int roleID = -1;
+		//private SiteUser siteUser;
+
+		//      private string markupDefinitionsPath = string.Empty;
+		//      private string solutionsPath = string.Empty;
 		//private string globalMarkupDefinitionsPath = string.Empty; //these are at a higher level than the current site, can be used by multiple sites
 		//private string globalSolutionsPath = string.Empty; //these are at a higher level than the current site, can be used by multiple sites
 
 		protected void Page_Load(object sender, EventArgs e)
         {
             SecurityHelper.DisableBrowserCache();
-        }
+
+		}
 
         protected override void OnInit(EventArgs e)
         {
@@ -45,6 +48,21 @@ namespace SuperFlexiUI
 
 		private void EnsureItems()
 		{
+			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+			if (p == null)
+			{
+				log.Error("File System Provider Could Not Be Loaded.");
+				return;
+			}
+			IFileSystem fileSystem = p.GetFileSystem();
+			if (fileSystem == null)
+			{
+				log.Error("File System Could Not Be Loaded.");
+				return;
+			}
+
+			//string virtualPath = fileSystem.VirtualRoot;
+
 			if (ddDefinitions == null)
 			{
 				ddDefinitions = new DropDownList();
@@ -53,47 +71,69 @@ namespace SuperFlexiUI
 
 			if (ddDefinitions.Items.Count > 0) { return; }
 
-			string siteSuperFlexiPath = "/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/SuperFlexi/";
-			string globalSuperFlexiPath = "/Data/SuperFlexi/";
+			string siteSuperFlexiPath = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/SuperFlexi/";
+			string globalSuperFlexiPath = "~/Data/SuperFlexi/";
 			Dictionary<string, string> solutions = new Dictionary<string, string>();
 			List<string> names = new List<string>();
 			List<SolutionFileLocation> solutionLocations = new List<SolutionFileLocation>()
 			{
 				new SolutionFileLocation {
-					Path = WebUtils.GetApplicationRoot() + siteSuperFlexiPath + "Solutions/",
-					Pattern = "*.sfmarkup",
-					SearchOption = SearchOption.AllDirectories,
+					Path = siteSuperFlexiPath + "Solutions/",
+					Extension = ".sfmarkup",
+					RecurseLevel = RecurseLevel.OneLevel,
 					Global = false
 				},
 				new SolutionFileLocation {
-					Path = WebUtils.GetApplicationRoot() + siteSuperFlexiPath + "MarkupDefinitions/",
-					Pattern = "*.config",
-					SearchOption = SearchOption.TopDirectoryOnly,
+					Path = siteSuperFlexiPath + "MarkupDefinitions/",
+					Extension = ".config",
+					RecurseLevel = RecurseLevel.TopDirectoryOnly,
 					Global = false
 				},
 				new SolutionFileLocation {
-					Path = WebUtils.GetApplicationRoot() + globalSuperFlexiPath + "Solutions/",
-					Pattern = "*.sfmarkup",
-					SearchOption = SearchOption.AllDirectories,
+					Path = globalSuperFlexiPath + "Solutions/",
+					Extension = ".sfmarkup",
+					RecurseLevel = RecurseLevel.OneLevel,
 					Global = true
 				},
 				new SolutionFileLocation {
-					Path = WebUtils.GetApplicationRoot() + globalSuperFlexiPath + "MarkupDefinitions/",
-					Pattern = "*.config",
-					SearchOption = SearchOption.TopDirectoryOnly,
+					Path = globalSuperFlexiPath + "MarkupDefinitions/",
+					Extension = ".config",
+					RecurseLevel = RecurseLevel.TopDirectoryOnly,
 					Global = true
 				}
 			};
 			
 			foreach (var location in solutionLocations)
 			{
-				DirectoryInfo dir = new DirectoryInfo(HttpContext.Current.Server.MapPath(location.Path));
-				if (dir.Exists)
+				//WebFolder folder = new WebFolder();
+				//DirectoryInfo dir = new DirectoryInfo(HttpContext.Current.Server.MapPath(location.Path));
+				//if (dir.Exists)
+				if (fileSystem.FolderExists(location.Path))
 				{
-					foreach (FileInfo file in dir.GetFiles(location.Pattern, location.SearchOption))
+					List<WebFile> files = new List<WebFile>();
+					
+					switch (location.RecurseLevel)
 					{
-						if (File.Exists(file.FullName))
-						{
+						case RecurseLevel.OneLevel:
+							var folders = fileSystem.GetFolderList(location.Path);
+
+							foreach (var folder in folders)
+							{
+								files.AddRange(fileSystem.GetFileList(folder.VirtualPath).Where(f => f.Extension == location.Extension));
+							}
+							break;
+
+						case RecurseLevel.TopDirectoryOnly:
+							files.AddRange(fileSystem.GetFileList(location.Path).Where(f => f.Extension == location.Extension));
+							break;
+					}
+
+
+					//foreach (FileInfo file in dir.GetFiles(location.Pattern, location.SearchOption))
+					foreach (var file in files)
+					{
+						//if (File.Exists(file.FullName))
+						//{
 							string nameAppendage = string.Empty;
 
 							if (location.Global)
@@ -102,7 +142,7 @@ namespace SuperFlexiUI
 							}
 
 							XmlDocument doc = new XmlDocument();
-							doc.Load(file.FullName);
+							doc.Load(file.Path);
 
 							XmlNode node = doc.DocumentElement.SelectSingleNode("/Definitions/MarkupDefinition");
 
@@ -116,7 +156,7 @@ namespace SuperFlexiUI
 								}
 								else
 								{
-									solutionName = file.Name.ToString().Replace(location.Pattern, "") + nameAppendage; ;
+									solutionName = file.Name.ToString().Replace(location.Extension, "") + nameAppendage; ;
 								}
 
 								names.Add(solutionName);
@@ -125,12 +165,13 @@ namespace SuperFlexiUI
 								{
 									solutionName += string.Format(" [{0}]", names.Where(n => n.Equals(solutionName)).Count());
 								}
-								//todo: add capability to nest folders in a solution folder?
-								solutions.Add(
-									solutionName, 
-									location.Path + (location.SearchOption == SearchOption.AllDirectories ? file.Directory.Name + "/" : "") + file.Name);
+							//todo: add capability to nest folders in a solution folder?
+							solutions.Add(
+								solutionName,
+								//location.Path + (location.RecurseLevel == RecurseLevel.ImmediateSubDirectory ? file.Directory.Name + "/" : "") + file.Name);
+								file.VirtualPath.Replace("\\", "/").TrimStart('~'));
 							}
-						}
+						//}
 					}
 				}
 			}
@@ -139,26 +180,6 @@ namespace SuperFlexiUI
 			ddDefinitions.DataTextField = "Key";
 			ddDefinitions.DataValueField = "Value";
 			ddDefinitions.DataBind();
-
-
-			//List<FileInfo> solutionFiles = new List<FileInfo>();
-
-			//GetListOfFilesFromPath(solutionsPath, "*.sfmarkup", SearchOption.AllDirectories, ref solutionFiles);
-			//GetListOfFilesFromPath(globalSolutionsPath, "*.sfmarkup", SearchOption.AllDirectories, ref solutionFiles);
-			//GetListOfFilesFromPath(markupDefinitionsPath, "*.config", SearchOption.TopDirectoryOnly, ref solutionFiles);
-			//GetListOfFilesFromPath(globalMarkupDefinitionsPath, "*.config", SearchOption.TopDirectoryOnly, ref solutionFiles);
-
-			//List<ListItem> items = new List<ListItem>();
-
-   //         if (solutionFiles.Count > 0)
-   //         {
-   //             PopulateList(solutionFiles);
-   //         }
-
-			//items.Sort()
-			//ddDefinitions.DataSource = items;
-			//ddDefinitions.DataBind();
-
 
             ddDefinitions.Items.Insert(0, new ListItem(SuperFlexiResources.SolutionDropDownPleaseSelect, string.Empty));
         }
@@ -187,12 +208,14 @@ namespace SuperFlexiUI
             }
         }
         #endregion
+		class SolutionFileLocation
+		{
+			public string Path { get; set; }
+			public string Extension { get; set; }
+			public RecurseLevel RecurseLevel { get; set; }
+			public bool Global{ get; set; }
+		}
+
+		enum RecurseLevel { OneLevel, TopDirectoryOnly};
     }
-	class SolutionFileLocation
-	{
-		public string Path { get; set; }
-		public string Pattern { get; set; }
-		public SearchOption SearchOption { get; set; }
-		public bool Global{ get; set; }
-	}
 }

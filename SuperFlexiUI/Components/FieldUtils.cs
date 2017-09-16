@@ -1,22 +1,23 @@
 ﻿/// Author:					i7MEDIA
 /// Created:				2015-03-06
-/// Last Modified:			2017-09-15
+/// Last Modified:			2017-09-17
 /// You must not remove this notice, or any other, from this software.
-
+/// 
+using log4net;
+using mojoPortal.FileSystem;
+using mojoPortal.Web;
+using mojoPortal.Web.Framework;
+using SuperFlexiBusiness;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.UI;
 using System.Xml;
-using log4net;
-using SuperFlexiBusiness;
-using mojoPortal.Web.Framework;
+
 namespace SuperFlexiUI
 {
-    public class FieldUtils
+	public class FieldUtils
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(FieldUtils));
 
@@ -100,33 +101,50 @@ namespace SuperFlexiUI
 
         public static bool DefinitionExists(string path, out XmlDocument doc)
         {
-			//if (path.IndexOf("~", 0) < 0) path = "~" + path;
-			string fullPath = string.Empty;
-
-			try
-			{
-				fullPath = HttpContext.Current.Server.MapPath(path);
-			}
-			catch(System.Web.HttpException ex)
-			{
-				fullPath = path;
-			}
-
 			doc = new XmlDocument();
+
+			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+			if (p == null)
+			{
+				log.Error("File System Provider Could Not Be Loaded.");
+				return false;
+			}
+			IFileSystem fileSystem = p.GetFileSystem();
+			if (fileSystem == null)
+			{
+				log.Error("File System Could Not Be Loaded.");
+				return false;
+			}
+
+			//if (path.IndexOf("~", 0) < 0) path = "~" + path;
+			//string fullPath = string.Empty;
+
+			//try
+			//{
+			//	fullPath = HttpContext.Current.Server.MapPath(path);
+			//}
+			//catch(System.Web.HttpException ex)
+			//{
+			//	fullPath = path;
+			//}
+
+			
 
 			//if (!File.Exists(fullPath))
 			//{
 			//	path = "~" + path;
 			//	fullPath = HttpContext.Current.Server.MapPath(path);
 			//}
-
-            if (File.Exists(fullPath))
+			if (fileSystem.FileExists(path))
+            //if (File.Exists(fullPath))
             {
-                FileInfo fileInfo = new FileInfo(fullPath);
+				WebFile webFile = fileSystem.RetrieveFile(path);
+                //FileInfo fileInfo = new FileInfo(fullPath);
 
                 try
                 {
-                    doc.Load(fileInfo.FullName);
+					//doc.Load(fileInfo.FullName);
+					doc.Load(webFile.Path);
                     return true;
                 }
                 catch (XmlException ex)
@@ -173,9 +191,23 @@ namespace SuperFlexiUI
         /// <returns>IList</returns>
         public static List<Field> ParseFieldDefinitionXml(ModuleConfiguration config, Guid siteGuid)
         {
-            List<Field> fields = new List<Field>();
+			List<Field> fields = new List<Field>();
             string fullPath = string.Empty;
             XmlDocument doc = new XmlDocument();
+
+			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+			if (p == null)
+			{
+				log.Error("File System Provider Could Not Be Loaded.");
+				return fields;
+			}
+			IFileSystem fileSystem = p.GetFileSystem();
+			if (fileSystem == null)
+			{
+				log.Error("File System Could Not Be Loaded.");
+				return fields;
+			}
+
 
 
 			//implemented "solutions" on 9/13/2017 (mojoPortal 2.6.0.0) which allows for markup definitions and field definitions to be wrapped up in a single folder
@@ -183,24 +215,26 @@ namespace SuperFlexiUI
 
 			string solutionFieldDefSrc = string.Empty;
 
-			if (config.FieldDefinitionSrc.StartsWith("~/") || 
-				config.FieldDefinitionSrc.StartsWith("$") ||
-				config.FieldDefinitionSrc.StartsWith("/"))
+			if (config.FieldDefinitionSrc.StartsWith("~/"))
 			{
-				if (config.FieldDefinitionSrc.IndexOf("~", 0) < 0)
-				{
-					solutionFieldDefSrc = "~" + config.FieldDefinitionSrc;
-				}
-				else
-				{
-					solutionFieldDefSrc = config.FieldDefinitionSrc;
-				}
+				solutionFieldDefSrc = config.FieldDefinitionSrc;
 			}
-			else if (File.Exists(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile)))
+			else if (config.FieldDefinitionSrc.StartsWith("/"))
 			{
-				FileInfo fileInfo = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile));
+				solutionFieldDefSrc = "~" + config.FieldDefinitionSrc;
+			}
+			//else if (File.Exists(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile)))
+			else
+			{
+				var sfMarkupFile = fileSystem.RetrieveFile(config.MarkupDefinitionFile);
+				string sfFieldPath = fileSystem.CombinePath(sfMarkupFile.FolderVirtualPath, config.FieldDefinitionSrc);
+				var sfFieldFile = fileSystem.RetrieveFile(sfFieldPath);
 
-				solutionFieldDefSrc = fileInfo.DirectoryName + "/" + config.FieldDefinitionSrc;
+				//FileInfo fileInfo = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile));
+
+				//solutionFieldDefSrc = fileInfo.DirectoryName + "/" + config.FieldDefinitionSrc;
+
+				solutionFieldDefSrc = sfFieldFile.VirtualPath;
 			}
 
 
