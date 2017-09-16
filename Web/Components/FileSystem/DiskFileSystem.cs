@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:				    2009-12-30
-// Last Modified:			2011-10-10
+// Last Modified:			2017-09-16
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -257,6 +257,7 @@ namespace mojoPortal.FileSystem
 				{
 					VirtualPath = virtualPath,
 					Path = info.FullName,
+					FolderVirtualPath = virtualPath.Substring(0, virtualPath.LastIndexOf('/')),
 					Name = info.Name,
 					Size = info.Length,
 					ContentType = GuessMime(info.Name),
@@ -336,7 +337,9 @@ namespace mojoPortal.FileSystem
 				FileInfo file = new FileInfo(filePath);
 				files.Add(new WebFile()
 				{
-					VirtualPath = virtualPath + file.Name,
+					VirtualPath = Path.Combine(virtualPath, file.Name),
+					Path = file.FullName,
+					FolderVirtualPath = virtualPath.Substring(0, virtualPath.LastIndexOf('/')),
 					Name = file.Name,
 					Size = file.Length,
 					ContentType = GuessMime(file.Name),
@@ -453,6 +456,16 @@ namespace mojoPortal.FileSystem
 			return folderCount;
 		}
 
+
+		//public string CombinePath(string path1, string path2)
+		//{
+		//	return Path.Combine(path1, path2);
+		//}
+
+		public string CombinePath(params string[] paths)
+		{
+			return Path.Combine(paths);
+		}
 		#endregion
 
 

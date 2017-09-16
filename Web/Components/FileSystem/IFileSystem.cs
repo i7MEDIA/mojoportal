@@ -9,7 +9,7 @@
 //
 // Author:					
 // Created:				    2009-12-30
-// Last Modified:			2011-09-05
+// Last Modified:			2017-09-16
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -44,7 +44,7 @@ namespace mojoPortal.FileSystem
 		/// <summary>
 		/// the base url for uploaded files such as images
 		/// for local file storage will return empty string so that relative urls are used
-		/// whereas other file system providers (such as Azure Blob Storage) may return and acttual base url
+		/// whereas other file system providers (such as Azure Blob Storage) may return an actual base url
 		/// </summary>
 		string FileBaseUrl { get; }
 
@@ -54,7 +54,7 @@ namespace mojoPortal.FileSystem
 		//string RootFolder { get; }
 
 		///// <summary>
-		///// If you don't want to display the actual file path but instead an alternaqte such as a virtual url style path you can populate this
+		///// If you don't want to display the actual file path but instead an alternate such as a virtual url style path you can populate this
 		///// </summary>
 		//string RootFolderDisplayAlias { get; }
 
@@ -187,6 +187,7 @@ namespace mojoPortal.FileSystem
 		IEnumerable<WebFolder> GetFolderList(string virtualPath);
 
 		int CountFolders();
-
+		
+		string CombinePath(params string[] paths);
 	}
 }

@@ -6,7 +6,6 @@
  * http://qtfile.codeplex.com/license
  */
 
-using System.IO;
 
 namespace mojoPortal.FileSystem
 {
@@ -28,6 +27,12 @@ namespace mojoPortal.FileSystem
 		/// The path of the file.
 		/// </value>
 		public string Path
+		{
+			get;
+			set;
+		}
+
+		public string FolderVirtualPath
 		{
 			get;
 			set;

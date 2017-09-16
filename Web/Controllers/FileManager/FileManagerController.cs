@@ -86,18 +86,13 @@ namespace mojoPortal.Web.Controllers
 				Download = "true",
 				DownloadMultiple = "true",
 				Preview = "true",
-				Remove = "true",
+				Remove = WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor) ? "true" : "false",
 				CreateFolder = "true",
 
 				PagePickerLinkText = Resource.FileManagerPagePickerLink,
 				BackToWebsiteLinkText = Resource.FileManagerBackToWebsite,
 				BackToFileManagerLinkText = Resource.FileManagerBackToManagerLink
 			};
-
-			if (!WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor))
-			{
-				model.Remove = "false";
-			}
 
 			return model;
 		}
