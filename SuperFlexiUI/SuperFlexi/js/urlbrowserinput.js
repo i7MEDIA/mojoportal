@@ -28,7 +28,7 @@ var filePicker = {
 				}
 			} else {
 				$.colorbox.close();
-			}
+			} 
 		}
 	}
 };
@@ -38,7 +38,7 @@ function openUrlBrowser(buttonObject) {
 		fileInput = urlBrowserGroup.find('input'),
 		fileType = fileInput.data("filetype"),
 		modal = $('.url-browser__modal'),
-		modalPath = '/FileManager?editor=filepicker&type=' + fileType + '&inputId=' + fileInput.attr('id');
+		modalPath = systemKeys.fileBrowserUrl + '?editor=filepicker&type=' + fileType + '&inputId=' + fileInput.attr('id');
 
 	modal.find('.url-browser__modal-iframe').attr('src', modalPath);
 

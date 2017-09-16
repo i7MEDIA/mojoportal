@@ -1,12 +1,13 @@
 ﻿// Author:					i7MEDIA (joe davis)
 // Created:				    2015-03-31
-// Last Modified:			2017-09-15
+// Last Modified:			2017-09-16
 //
 // You must not remove this notice, or any other, from this software.
 //
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.FileSystem;
 using mojoPortal.Web;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
@@ -24,7 +25,7 @@ using System.Xml;
 
 namespace SuperFlexiUI
 {
-    public class SuperFlexiHelpers
+	public class SuperFlexiHelpers
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(SuperFlexiHelpers));
 
@@ -101,55 +102,81 @@ namespace SuperFlexiUI
 
         public static string GetHelpText(string helpKey, ModuleConfiguration config)
         {
-            string helpText = string.Empty;
-            string helpFile = string.Empty;
+
+			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+			if (p == null)
+			{
+				log.Error("File System Provider Could Not Be Loaded.");
+				return string.Empty;
+			}
+			IFileSystem fileSystem = p.GetFileSystem();
+			if (fileSystem == null)
+			{
+				log.Error("File System Could Not Be Loaded.");
+				return string.Empty;
+			}
+
+			string helpText = string.Empty;
+			WebFile helpFile = new WebFile();
 			if (helpKey.ToLower().EndsWith(".sfhelp") ||
 				helpKey.ToLower().EndsWith(".config"))
 			{
-				if (HttpContext.Current != null)
-				{
-					helpFile = HttpContext.Current.Server.MapPath(Path.Combine(config.RelativeSolutionLocation, helpKey));
-				}
+				//if (HttpContext.Current != null)
+				//{
+				//	helpFilePath = HttpContext.Current.Server.MapPath(Path.Combine(config.RelativeSolutionLocation, helpKey));
+				//}
+				string path = fileSystem.CombinePath(config.RelativeSolutionLocation, helpKey);
+				helpFile = fileSystem.RetrieveFile(path);
 			}
 			else if (helpKey.IndexOf("$_FlexiHelp_$") >= 0)
 			{
-				if (HttpContext.Current != null)
-				{
-					helpFile = HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/Data/SuperFlexi/Help/" + helpKey.Replace("$_FlexiHelp_$", string.Empty));
-				}
+				//if (HttpContext.Current != null)
+				//{
+				//	helpFilePath = HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/Data/SuperFlexi/Help/" + helpKey.Replace("$_FlexiHelp_$", string.Empty));
+				//}
+				string path = fileSystem.CombinePath("~/Data/SuperFlexi/Help/" + helpKey.Replace("$_FlexiHelp_$", string.Empty));
+				helpFile = fileSystem.RetrieveFile(path);
+
 			}
 			else if (helpKey.IndexOf("$_SitePath_$") >= 0)
 			{
-				if (HttpContext.Current != null)
-				{
-					helpFile = HttpContext.Current.Server.MapPath(helpKey.Replace("$_SitePath_$", WebUtils.GetApplicationRoot() + "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToInvariantString()));
-				}
+				//if (HttpContext.Current != null)
+				//{
+				//	helpFilePath = HttpContext.Current.Server.MapPath(helpKey.Replace("$_SitePath_$", "~/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToInvariantString()));
+				//}
+				string path = fileSystem.CombinePath(helpKey.Replace("$_SitePath_$", "~/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToInvariantString()));
+				helpFile = fileSystem.RetrieveFile(path);
 			}
 			else if (helpKey.IndexOf("$_Data_$") >= 0)
 			{
-				if (HttpContext.Current != null)
-				{
-					helpFile = HttpContext.Current.Server.MapPath(helpKey.Replace("$_Data_$", WebUtils.GetApplicationRoot() + "/Data"));
-				}
+				//if (HttpContext.Current != null)
+				//{
+				//	helpFilePath = HttpContext.Current.Server.MapPath(helpKey.Replace("$_Data_$", "~/Data"));
+				//}
+				string path = helpKey.Replace("$_Data_$", "~/Data");
+				helpFile = fileSystem.RetrieveFile(path);
 			}
 			else if (helpKey.IndexOf("~/") >= 0)
 			{
-				if (HttpContext.Current != null)
-				{
-					helpFile = HttpContext.Current.Server.MapPath(helpKey);
-				}
+				//if (HttpContext.Current != null)
+				//{
+				//	helpFilePath = HttpContext.Current.Server.MapPath(helpKey);
+				//}
+				helpFile = fileSystem.RetrieveFile(helpKey);
 			}
 			else
 			{
 				helpText = ResourceHelper.GetHelpFileText(helpKey);
 			}
 
-            if (!String.IsNullOrWhiteSpace(helpFile) && File.Exists(helpFile))
+            if (helpFile != null)
             {
-                FileInfo file = new FileInfo(helpFile);
-                StreamReader sr = file.OpenText();
-                helpText = sr.ReadToEnd();
-                sr.Close();
+				//FileInfo file = new FileInfo(helpFilePath);
+				fileSystem.GetAsStream(helpFile.VirtualPath);
+				//StreamReader sr = file.OpenText();
+				StreamReader sr = new StreamReader(fileSystem.GetAsStream(helpFile.VirtualPath));
+				helpText = sr.ReadToEnd();
+				sr.Close();
             }
 
             return helpText;
@@ -238,7 +265,6 @@ namespace SuperFlexiUI
             sb.Replace("$_DropFileUploadUrl_$", siteRoot + "/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko=" + WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()
                     + "&t=" + Global.FileSystemToken.ToString());
             sb.Replace("$_FileBrowserUrl_$", siteRoot + WebConfigSettings.FileDialogRelativeUrl);
-
             sb.Replace("$_HeaderContent_$", config.HeaderContent);
             sb.Replace("$_FooterContent_$", config.FooterContent);
         }
@@ -265,10 +291,7 @@ namespace SuperFlexiUI
 
             // these extra checks allow for editing an instance from modulewrapper
             m = new Module(moduleId);
-            if (
-                //(m.FeatureGuid != featureGuid)
-                //|| 
-                (m.SiteId != CacheHelper.GetCurrentSiteSettings().SiteId)
+            if ((m.SiteId != CacheHelper.GetCurrentSiteSettings().SiteId)
                 || (m.ModuleId == -1)
                 || ((!WebUser.IsInRoles(m.AuthorizedEditRoles)) && (!WebUser.IsAdminOrContentAdmin) && (!isSiteEditor))
                 )
@@ -337,9 +360,8 @@ namespace SuperFlexiUI
         {
             string scriptRefFormat = "\n<script type=\"text/javascript\" src=\"{0}\" data-name=\"{1}\"></script>";
             string rawScriptFormat = "\n<script type=\"text/javascript\" data-name=\"{1}\">\n{0}\n</script>";
-            //string scriptText = string.Empty; // will be populated with either scriptRefFormat or rawScriptFormat
 
-            foreach (MarkupScript script in markupScripts)
+			foreach (MarkupScript script in markupScripts)
             {
                 StringBuilder sbScriptText = new StringBuilder();
                 StringBuilder sbScriptName = new StringBuilder();
@@ -416,8 +438,6 @@ namespace SuperFlexiUI
                                 LiteralControl aboveLit = new LiteralControl();
                                 aboveLit.ID = scriptName;
                                 aboveLit.Text = sbScriptText.ToString();
-                                //aboveLit.ClientIDMode = System.Web.UI.ClientIDMode.Static;
-                                //aboveLit.EnableViewState = false;
                                 aboveMarkupDefinitionScripts.Controls.Add(aboveLit);
                             }
                             else
@@ -425,8 +445,6 @@ namespace SuperFlexiUI
                                 goto case "bottomStartup";
                             }
                         }
-
-                        //strAboveMarkupScripts.AppendLine(scriptText);
                         break;
 
                     case "belowMarkupDefinition":
@@ -439,8 +457,6 @@ namespace SuperFlexiUI
                                 LiteralControl belowLit = new LiteralControl();
                                 belowLit.ID = scriptName;
                                 belowLit.Text = sbScriptText.ToString();
-                                //belowLit.ClientIDMode = System.Web.UI.ClientIDMode.Static;
-                                //belowLit.EnableViewState = false;
                                 belowMarkupDefinitionScripts.Controls.Add(belowLit);
                             }
                             else
