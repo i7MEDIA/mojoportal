@@ -606,7 +606,7 @@ public ModuleConfiguration()
 		{
 			get
 			{
-				return new Uri(WebUtils.ResolveServerUrl(solutionLocation.Replace(System.Web.Hosting.HostingEnvironment.MapPath("~"), "~/")));
+				return new Uri(WebUtils.ResolveServerUrl(solutionLocation.Replace(System.Web.Hosting.HostingEnvironment.MapPath("~"), "~/") + "/"));
 			}
 		}
 
