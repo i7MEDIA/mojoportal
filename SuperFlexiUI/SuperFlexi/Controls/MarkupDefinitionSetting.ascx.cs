@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA (Joe Davis)
 // Created:					2015-01-06
-// Last Modified:			2017-09-16
+// Last Modified:			2017-09-18
 
 using log4net;
 using mojoPortal.Business;
@@ -119,12 +119,12 @@ namespace SuperFlexiUI
 
 							foreach (var folder in folders)
 							{
-								files.AddRange(fileSystem.GetFileList(folder.VirtualPath).Where(f => f.Extension == location.Extension));
+								files.AddRange(fileSystem.GetFileList(folder.VirtualPath).Where(f => f.Extension.ToLower() == location.Extension));
 							}
 							break;
 
 						case RecurseLevel.TopDirectoryOnly:
-							files.AddRange(fileSystem.GetFileList(location.Path).Where(f => f.Extension == location.Extension));
+							files.AddRange(fileSystem.GetFileList(location.Path).Where(f => f.Extension.ToLower() == location.Extension));
 							break;
 					}
 
@@ -156,7 +156,7 @@ namespace SuperFlexiUI
 								}
 								else
 								{
-									solutionName = file.Name.ToString().Replace(location.Extension, "") + nameAppendage; ;
+									solutionName = file.Name.ToString().ToLower().Replace(location.Extension, "") + nameAppendage; ;
 								}
 
 								names.Add(solutionName);
