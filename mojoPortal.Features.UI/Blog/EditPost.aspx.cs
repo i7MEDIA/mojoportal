@@ -1,6 +1,6 @@
-/// Author:                     
-/// Created:                    2004-08-14
-///	Last Modified:              2017-06-06
+/// Author:
+/// Created:       2004-08-14
+/// Last Modified: 2017-09-19
 /// 
 /// You must not remove this notice, or any other, from this software.
 
@@ -54,7 +54,7 @@ namespace mojoPortal.Web.BlogUI
 		private SiteUser currentUser = null;
 		private bool cancelRedirect = false;
 
-		
+
 
 		private void Page_Load(object sender, EventArgs e)
 		{
@@ -213,7 +213,7 @@ namespace mojoPortal.Web.BlogUI
 				chkIncludeImageInPost.Checked = blog.IncludeImageInPost;
 
 
-				ListItem item 
+				ListItem item
 					= ddCommentAllowedForDays.Items.FindByValue(blog.AllowCommentsForDays.ToInvariantString());
 				if (item != null)
 				{
@@ -243,7 +243,7 @@ namespace mojoPortal.Web.BlogUI
 				pnlHistory.Visible = false;
 			}
 
-			if ((txtItemUrl.Text.Length == 0)&&(txtTitle.Text.Length > 0))
+			if ((txtItemUrl.Text.Length == 0) && (txtTitle.Text.Length > 0))
 			{
 				String friendlyUrl;
 
@@ -259,11 +259,11 @@ namespace mojoPortal.Web.BlogUI
 				txtItemUrl.Text = "~/" + friendlyUrl;
 			}
 
-			if (blog != null) 
+			if (blog != null)
 			{
-				hdnTitle.Value = txtTitle.Text; 
+				hdnTitle.Value = txtTitle.Text;
 			}
-		
+
 		}
 
 		private void PopulateCategories()
@@ -277,7 +277,7 @@ namespace mojoPortal.Web.BlogUI
 				chkCategories = (CheckBoxList)UpdatePanel1.FindControl("chkCategories");
 			}
 
-			
+
 			chkCategories.Items.Clear();
 			IDataReader reader;
 			using (reader = Blog.GetCategoriesList(moduleId))
@@ -306,16 +306,16 @@ namespace mojoPortal.Web.BlogUI
 				}
 			}
 
-		   
-			
+
+
 		}
 
 		private void BindAttachments()
 		{
-			if (blog == null) 
+			if (blog == null)
 			{
 				grdAttachments.Visible = false;
-				return; 
+				return;
 			}
 
 			using (IDataReader reader = FileAttachment.SelectByItem(blog.BlogGuid))
@@ -348,44 +348,44 @@ namespace mojoPortal.Web.BlogUI
 
 					break;
 
-				//case "download":
+					//case "download":
 
-				//    //these files are not protected extensions so a simple link to download is better
+					//    //these files are not protected extensions so a simple link to download is better
 
-				//    fileAttachment = new FileAttachment(attachmentGuid);
+					//    fileAttachment = new FileAttachment(attachmentGuid);
 
-				//    string downloadPath = upLoadPath + fileAttachment.ServerFileName;
+					//    string downloadPath = upLoadPath + fileAttachment.ServerFileName;
 
-				//    string fileType = System.IO.Path.GetExtension(fileAttachment.FileName).Replace(".", string.Empty);
+					//    string fileType = System.IO.Path.GetExtension(fileAttachment.FileName).Replace(".", string.Empty);
 
-				//    if (string.Equals(fileType, "pdf", StringComparison.InvariantCultureIgnoreCase))
-				//    {
-				//        //this will display the pdf right in the browser
-				//        Page.Response.AddHeader("Content-Disposition", "filename=" + fileAttachment.FileName);
-				//    }
-				//    else
-				//    {
-				//        // other files just use file save dialog
-				//        Page.Response.AddHeader("Content-Disposition", "attachment; filename=" + fileAttachment.FileName);
-				//    }
+					//    if (string.Equals(fileType, "pdf", StringComparison.InvariantCultureIgnoreCase))
+					//    {
+					//        //this will display the pdf right in the browser
+					//        Page.Response.AddHeader("Content-Disposition", "filename=" + fileAttachment.FileName);
+					//    }
+					//    else
+					//    {
+					//        // other files just use file save dialog
+					//        Page.Response.AddHeader("Content-Disposition", "attachment; filename=" + fileAttachment.FileName);
+					//    }
 
 
-				//    Page.Response.ContentType = "application/" + fileType;
-				//    Page.Response.Buffer = false;
-				//    Page.Response.BufferOutput = false;
-				//    //Page.Response.TransmitFile(downloadPath);
-				//    //Page.Response.End();
-				//    using (System.IO.Stream stream = fileSystem.GetAsStream(downloadPath))
-				//    {
-				//        stream.CopyTo(Page.Response.OutputStream);
-				//    }
-				//    try
-				//    {
-				//        Page.Response.End();
-				//    }
-				//    catch (System.Threading.ThreadAbortException) { }
+					//    Page.Response.ContentType = "application/" + fileType;
+					//    Page.Response.Buffer = false;
+					//    Page.Response.BufferOutput = false;
+					//    //Page.Response.TransmitFile(downloadPath);
+					//    //Page.Response.End();
+					//    using (System.IO.Stream stream = fileSystem.GetAsStream(downloadPath))
+					//    {
+					//        stream.CopyTo(Page.Response.OutputStream);
+					//    }
+					//    try
+					//    {
+					//        Page.Response.End();
+					//    }
+					//    catch (System.Threading.ThreadAbortException) { }
 
-				//    break;
+					//    break;
 
 			}
 		}
@@ -426,7 +426,7 @@ namespace mojoPortal.Web.BlogUI
 						fileSystem.SaveFile(destPath, uploader.FileContent, mimeType, true);
 					}
 
-					
+
 				}
 			}
 
@@ -472,11 +472,11 @@ namespace mojoPortal.Web.BlogUI
 		//    WebUtils.SetupRedirect(this, Request.RawUrl);
 		//}
 
-		
+
 
 		protected void btnAddCategory_Click(object sender, EventArgs e)
 		{
-			
+
 			if (txtCategory.Text.Length > 0)
 			{
 				int newCategoryId = Blog.AddBlogCategory(moduleId, txtCategory.Text);
@@ -487,7 +487,7 @@ namespace mojoPortal.Web.BlogUI
 
 				//preserve the current selections
 				List<string> selCats = new List<string>();
-				foreach(ListItem i in chkCategories.Items)
+				foreach (ListItem i in chkCategories.Items)
 				{
 					if (i.Selected) { selCats.Add(i.Value); }
 				}
@@ -500,7 +500,7 @@ namespace mojoPortal.Web.BlogUI
 				}
 
 				//restore the previous selections
-				foreach(string s in selCats)
+				foreach (string s in selCats)
 				{
 					item = chkCategories.Items.FindByValue(s);
 					if (item != null)
@@ -511,22 +511,22 @@ namespace mojoPortal.Web.BlogUI
 
 				txtCategory.Text = string.Empty;
 				UpdatePanel1.Update();
-				
+
 			}
-			
+
 		}
 
 		protected virtual void btnUpdate_Click(object sender, EventArgs e)
 		{
 			Page.Validate("blog");
-			if (Page.IsValid) 
+			if (Page.IsValid)
 			{
 				Save();
 
-				if (cancelRedirect) 
+				if (cancelRedirect)
 				{
 					pnlHistory.Visible = false;
-					return; 
+					return;
 				}
 
 				if (hdnReturnUrl.Value.Length > 0)
@@ -543,12 +543,12 @@ namespace mojoPortal.Web.BlogUI
 		void btnSaveAndPreview_Click(object sender, EventArgs e)
 		{
 			Page.Validate("blog");
-			if ((Page.IsValid)&&(ParamsAreValid()))
+			if ((Page.IsValid) && (ParamsAreValid()))
 			{
 				Save();
 
-		
-				WebUtils.SetupRedirect(this, SiteRoot + blog.ItemUrl.Replace("~/","/"));
+
+				WebUtils.SetupRedirect(this, SiteRoot + blog.ItemUrl.Replace("~/", "/"));
 			}
 
 		}
@@ -583,10 +583,10 @@ namespace mojoPortal.Web.BlogUI
 					return;
 				}
 			}
-			
+
 			Module module = GetModule(moduleId, Blog.FeatureGuid);
 			if (module == null) { return; }
-			
+
 			if (currentUser == null) { return; }
 			blog.UserGuid = currentUser.UserGuid;
 			blog.LastModUserGuid = currentUser.UserGuid;
@@ -597,7 +597,7 @@ namespace mojoPortal.Web.BlogUI
 			DateTime localTime = DateTime.Parse(dpBeginDate.Text);
 			if (timeZone != null)
 			{
-				
+
 				blog.StartDate = localTime.ToUtc(timeZone);
 			}
 			else
@@ -729,7 +729,7 @@ namespace mojoPortal.Web.BlogUI
 
 			if (!friendlyUrl.FoundFriendlyUrl)
 			{
-				if ((friendlyUrlString.Length > 0)&&(!WebPageInfo.IsPhysicalWebPage("~/" + friendlyUrlString)))
+				if ((friendlyUrlString.Length > 0) && (!WebPageInfo.IsPhysicalWebPage("~/" + friendlyUrlString)))
 				{
 					FriendlyUrl newFriendlyUrl = new FriendlyUrl();
 					newFriendlyUrl.SiteId = siteSettings.SiteId;
@@ -857,28 +857,52 @@ namespace mojoPortal.Web.BlogUI
 
 		private void BindMeta()
 		{
-			if (blog == null) { return; }
-			if (blog.BlogGuid == Guid.Empty) { return; }
+			if (blog == null)
+			{
+				return;
+			}
+
+			if (blog.BlogGuid == Guid.Empty)
+			{
+				return;
+			}
 
 			List<ContentMeta> meta = metaRepository.FetchByContent(blog.BlogGuid);
+
 			grdContentMeta.DataSource = meta;
 			grdContentMeta.DataBind();
 
 			btnAddMeta.Visible = true;
 		}
 
+
 		void grdContentMeta_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
-			if (blog == null) { return; }
-			if (blog.BlogGuid == Guid.Empty) { return; }
+			if (blog == null)
+			{
+				return;
+			}
+
+			if (blog.BlogGuid == Guid.Empty)
+			{
+				return;
+			}
 
 			GridView grid = (GridView)sender;
 			string sGuid = e.CommandArgument.ToString();
-			if (sGuid.Length != 36) { return; }
+
+			if (sGuid.Length != 36)
+			{
+				return;
+			}
 
 			Guid guid = new Guid(sGuid);
 			ContentMeta meta = metaRepository.Fetch(guid);
-			if (meta == null) { return; }
+
+			if (meta == null)
+			{
+				return;
+			}
 
 			switch (e.CommandName)
 			{
@@ -892,7 +916,9 @@ namespace mojoPortal.Web.BlogUI
 			}
 
 			metaRepository.Save(meta);
+
 			List<ContentMeta> metaList = metaRepository.FetchByContent(blog.BlogGuid);
+
 			metaRepository.ResortMeta(metaList);
 
 			blog.CompiledMeta = metaRepository.GetMetaString(blog.BlogGuid);
@@ -900,17 +926,24 @@ namespace mojoPortal.Web.BlogUI
 
 			BindMeta();
 			upMeta.Update();
-
-
 		}
+
 
 		void grdContentMeta_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
-			if (blog == null) { return; }
-			if (blog.BlogGuid == Guid.Empty) { return; }
+			if (blog == null)
+			{
+				return;
+			}
+
+			if (blog.BlogGuid == Guid.Empty)
+			{
+				return;
+			}
 
 			GridView grid = (GridView)sender;
 			Guid guid = new Guid(grid.DataKeys[e.RowIndex].Value.ToString());
+
 			metaRepository.Delete(guid);
 
 			blog.CompiledMeta = metaRepository.GetMetaString(blog.BlogGuid);
@@ -923,33 +956,38 @@ namespace mojoPortal.Web.BlogUI
 		void grdContentMeta_RowEditing(object sender, GridViewEditEventArgs e)
 		{
 			GridView grid = (GridView)sender;
+
 			grid.EditIndex = e.NewEditIndex;
 
 			BindMeta();
 
 			Button btnDeleteMeta = (Button)grid.Rows[e.NewEditIndex].Cells[1].FindControl("btnDeleteMeta");
+
 			if (btnDeleteMeta != null)
 			{
-				btnDelete.Attributes.Add("OnClick", "return confirm('"
-					+ BlogResources.ContentMetaDeleteWarning + "');");
+				btnDelete.Attributes.Add("OnClick", $"return confirm('{BlogResources.ContentMetaDeleteWarning}');");
 			}
 
 			upMeta.Update();
 		}
 
+
 		void grdContentMeta_RowDataBound(object sender, GridViewRowEventArgs e)
 		{
 			GridView grid = (GridView)sender;
+
 			if (grid.EditIndex > -1)
 			{
 				if (e.Row.RowType == DataControlRowType.DataRow)
 				{
 					DropDownList ddDirection = (DropDownList)e.Row.Cells[1].FindControl("ddDirection");
+
 					if (ddDirection != null)
 					{
 						if (e.Row.DataItem is ContentMeta)
 						{
 							ListItem item = ddDirection.Items.FindByValue(((ContentMeta)e.Row.DataItem).Dir);
+
 							if (item != null)
 							{
 								ddDirection.ClearSelection();
@@ -962,11 +1000,16 @@ namespace mojoPortal.Web.BlogUI
 					{
 						//the add button was clicked so hide the delete button
 						Button btnDeleteMeta = (Button)e.Row.Cells[1].FindControl("btnDeleteMeta");
-						if (btnDeleteMeta != null) { btnDeleteMeta.Visible = false; }
+
+						if (btnDeleteMeta != null)
+						{
+							btnDeleteMeta.Visible = false;
+						}
 					}
 				}
 			}
 		}
+
 
 		void grdContentMeta_RowUpdating(object sender, GridViewUpdateEventArgs e)
 		{
@@ -976,13 +1019,18 @@ namespace mojoPortal.Web.BlogUI
 			GridView grid = (GridView)sender;
 
 			Guid guid = new Guid(grid.DataKeys[e.RowIndex].Value.ToString());
+
 			TextBox txtName = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtName");
+			TextBox txtNameProperty = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtNameProperty");
+			TextBox txtMetaContent = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtMetaContent");
+			TextBox txtMetaContentProperty = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtMetaContentProperty");
 			TextBox txtScheme = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtScheme");
 			TextBox txtLangCode = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtLangCode");
 			DropDownList ddDirection = (DropDownList)grid.Rows[e.RowIndex].Cells[1].FindControl("ddDirection");
-			TextBox txtMetaContent = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtMetaContent");
 			SiteUser siteUser = SiteUtils.GetCurrentSiteUser();
+
 			ContentMeta meta = null;
+
 			if (guid != Guid.Empty)
 			{
 				meta = metaRepository.Fetch(guid);
@@ -991,8 +1039,14 @@ namespace mojoPortal.Web.BlogUI
 			{
 				meta = new ContentMeta();
 				Module module = new Module(moduleId);
+
 				meta.ModuleGuid = module.ModuleGuid;
-				if (siteUser != null) { meta.CreatedBy = siteUser.UserGuid; }
+
+				if (siteUser != null)
+				{
+					meta.CreatedBy = siteUser.UserGuid;
+				}
+
 				meta.SortRank = metaRepository.GetNextSortRank(blog.BlogGuid);
 			}
 
@@ -1000,25 +1054,40 @@ namespace mojoPortal.Web.BlogUI
 			{
 				meta.SiteGuid = siteSettings.SiteGuid;
 				meta.ContentGuid = blog.BlogGuid;
-				meta.Dir = ddDirection.SelectedValue;
-				meta.LangCode = txtLangCode.Text;
-				meta.MetaContent = txtMetaContent.Text;
+
 				meta.Name = txtName.Text;
+				meta.MetaContent = txtMetaContent.Text;
 				meta.Scheme = txtScheme.Text;
-				if (siteUser != null) { meta.LastModBy = siteUser.UserGuid; }
+				meta.LangCode = txtLangCode.Text;
+				meta.Dir = ddDirection.SelectedValue;
+
+				if (!string.IsNullOrWhiteSpace(txtNameProperty.Text))
+				{
+					meta.NameProperty = txtNameProperty.Text;
+				}
+
+				if (!string.IsNullOrWhiteSpace(txtMetaContentProperty.Text))
+				{
+					meta.ContentProperty = txtMetaContentProperty.Text;
+				}
+
+				if (siteUser != null)
+				{
+					meta.LastModBy = siteUser.UserGuid;
+				}
+
 				metaRepository.Save(meta);
 
 				blog.CompiledMeta = metaRepository.GetMetaString(blog.BlogGuid);
 				blog.Save();
-
 			}
 
 			grid.EditIndex = -1;
 			grdContentMeta.Columns[2].Visible = true;
 			BindMeta();
 			upMeta.Update();
-
 		}
+
 
 		void grdContentMeta_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
 		{
@@ -1028,30 +1097,37 @@ namespace mojoPortal.Web.BlogUI
 			upMeta.Update();
 		}
 
+
 		void btnAddMeta_Click(object sender, EventArgs e)
 		{
 			DataTable dataTable = new DataTable();
+
 			dataTable.Columns.Add("Guid", typeof(Guid));
 			dataTable.Columns.Add("SiteGuid", typeof(Guid));
 			dataTable.Columns.Add("ModuleGuid", typeof(Guid));
 			dataTable.Columns.Add("ContentGuid", typeof(Guid));
 			dataTable.Columns.Add("Name", typeof(string));
+			dataTable.Columns.Add("NameProperty", typeof(string));
+			dataTable.Columns.Add("MetaContent", typeof(string));
+			dataTable.Columns.Add("ContentProperty", typeof(string));
 			dataTable.Columns.Add("Scheme", typeof(string));
 			dataTable.Columns.Add("LangCode", typeof(string));
 			dataTable.Columns.Add("Dir", typeof(string));
-			dataTable.Columns.Add("MetaContent", typeof(string));
 			dataTable.Columns.Add("SortRank", typeof(int));
 
 			DataRow row = dataTable.NewRow();
+
 			row["Guid"] = Guid.Empty;
 			row["SiteGuid"] = siteSettings.SiteGuid;
 			row["ModuleGuid"] = Guid.Empty;
 			row["ContentGuid"] = Guid.Empty;
 			row["Name"] = string.Empty;
+			row["NameProperty"] = "name";
+			row["MetaContent"] = string.Empty;
+			row["ContentProperty"] = "content";
 			row["Scheme"] = string.Empty;
 			row["LangCode"] = string.Empty;
 			row["Dir"] = string.Empty;
-			row["MetaContent"] = string.Empty;
 			row["SortRank"] = 3;
 
 			dataTable.Rows.Add(row);
@@ -1063,8 +1139,8 @@ namespace mojoPortal.Web.BlogUI
 			btnAddMeta.Visible = false;
 
 			upMeta.Update();
-
 		}
+
 
 		private void BindMetaLinks()
 		{
@@ -1112,6 +1188,7 @@ namespace mojoPortal.Web.BlogUI
 			updMetaLinks.Update();
 		}
 
+
 		void grdMetaLinks_RowDataBound(object sender, GridViewRowEventArgs e)
 		{
 			GridView grid = (GridView)sender;
@@ -1123,14 +1200,16 @@ namespace mojoPortal.Web.BlogUI
 					{
 						//the add button was clicked so hide the delete button
 						Button btnDeleteMetaLink = (Button)e.Row.Cells[1].FindControl("btnDeleteMetaLink");
-						if (btnDeleteMetaLink != null) { btnDeleteMetaLink.Visible = false; }
 
+						if (btnDeleteMetaLink != null)
+						{
+							btnDeleteMetaLink.Visible = false;
+						}
 					}
-
 				}
-
 			}
 		}
+
 
 		void grdMetaLinks_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
@@ -1272,7 +1351,7 @@ namespace mojoPortal.Web.BlogUI
 		{
 			if (!enableContentVersioning) { return; }
 
-			if ((blog == null)||(blog.ItemId == -1))
+			if ((blog == null) || (blog.ItemId == -1))
 			{
 				pnlHistory.Visible = false;
 				return;
@@ -1284,7 +1363,7 @@ namespace mojoPortal.Web.BlogUI
 			pgrHistory.PageSize = pageSize;
 			pgrHistory.PageCount = totalPages;
 			pgrHistory.Visible = (this.totalPages > 1);
-		   
+
 			grdHistory.DataSource = history;
 			grdHistory.DataBind();
 
@@ -1396,7 +1475,7 @@ namespace mojoPortal.Web.BlogUI
 
 			List<ServicePinger> pingers = new List<ServicePinger>();
 			pingers.Add(pinger);
-			
+
 
 			if (!ThreadPool.QueueUserWorkItem(new WaitCallback(DoPings), pingers))
 			{
@@ -1424,7 +1503,7 @@ namespace mojoPortal.Web.BlogUI
 
 		protected void btnDelete_Click(object sender, EventArgs e)
 		{
-			if(blog != null)
+			if (blog != null)
 			{
 				blog.ContentChanged += new ContentChangedEventHandler(blog_ContentChanged);
 				blog.Delete();
@@ -1456,7 +1535,7 @@ namespace mojoPortal.Web.BlogUI
 			{
 				ddCommentAllowedForDays.ClearSelection();
 				item.Selected = true;
-			}  
+			}
 		}
 
 		private void PopulateLabels()
@@ -1481,7 +1560,7 @@ namespace mojoPortal.Web.BlogUI
 			tabAttachments.Visible = BlogConfiguration.AllowAttachments;
 			liAttachment.Visible = BlogConfiguration.AllowAttachments;
 
-			
+
 			litGoogleNewsSettingsTab.Text = "<a href='#" + divTabGoogleNews.ClientID + "'>" + BlogResources.GoogleNewsSettings + "</a>";
 			divTabGoogleNews.Visible = config.ShowGoogleNewsTabInEditPage;
 			liGoogleNewsSettigns.Visible = config.ShowGoogleNewsTabInEditPage;
@@ -1501,10 +1580,10 @@ namespace mojoPortal.Web.BlogUI
 
 				PopulateCommentDaysDropdown();
 			}
-			
+
 			edContent.WebEditor.ToolBar = ToolBar.FullWithTemplates;
 			edExcerpt.WebEditor.ToolBar = ToolBar.FullWithTemplates;
-		   
+
 			this.lnkEditCategories.NavigateUrl = SiteRoot + "/Blog/EditCategory.aspx?pageid=" + CurrentPage.PageId.ToInvariantString()
 				+ "&mid=" + this.moduleId.ToInvariantString();
 
@@ -1513,7 +1592,7 @@ namespace mojoPortal.Web.BlogUI
 
 			edContent.WebEditor.Height = config.EditorHeight;
 			edExcerpt.WebEditor.Height = config.EditorHeight;
-			
+
 
 			btnUpdate.Text = BlogResources.BlogEditUpdateButton;
 			SiteUtils.SetButtonAccessKey(btnUpdate, BlogResources.BlogEditUpdateButtonAccessKey);
@@ -1615,7 +1694,7 @@ namespace mojoPortal.Web.BlogUI
 			grdMetaLinks.Columns[1].HeaderText = BlogResources.ContentMetaRelLabel;
 			grdMetaLinks.Columns[2].HeaderText = BlogResources.ContentMetaMetaHrefLabel;
 
-			
+
 			btnUpload.Text = BlogResources.Upload;
 			litAttachmentWarning.Text = "<p>" + BlogResources.AttachmentRequiresSaveInfo + "</p>";
 
@@ -1657,7 +1736,7 @@ namespace mojoPortal.Web.BlogUI
 
 
 			}
-			
+
 		}
 
 		private void LoadSettings()
@@ -1696,7 +1775,7 @@ namespace mojoPortal.Web.BlogUI
 			if (itemId > -1)
 			{
 				blog = new Blog(itemId);
-				if (blog.ModuleId != moduleId) 
+				if (blog.ModuleId != moduleId)
 				{
 					SiteUtils.RedirectToAccessDeniedPage(this);
 					return;
@@ -1731,7 +1810,7 @@ namespace mojoPortal.Web.BlogUI
 			litAttachmentWarning.Visible = (blog == null);
 
 			pnlMetaData.Visible = (blog != null);
-			
+
 
 			divHistoryDelete.Visible = (enableContentVersioning && isAdmin);
 
@@ -1748,7 +1827,7 @@ namespace mojoPortal.Web.BlogUI
 				SiteUtils.SetFormAction(Page, Request.RawUrl);
 			}
 			catch (MissingMethodException)
-			{ 
+			{
 				//this method was introduced in .NET 3.5 SP1
 			}
 
@@ -1758,7 +1837,7 @@ namespace mojoPortal.Web.BlogUI
 			fileSystem = p.GetFileSystem();
 		}
 
-		
+
 
 		private void SetupHistoryRestoreScript()
 		{
@@ -1794,7 +1873,7 @@ namespace mojoPortal.Web.BlogUI
 
 			AddClassToBody("blogeditpost");
 
-		   
+
 		}
 
 		private void SetupScripts()
@@ -1811,7 +1890,7 @@ namespace mojoPortal.Web.BlogUI
 			//        + ResolveUrl("~/ClientScript/sarissa/sarissa_ieemu_xpath.js") + "\" type=\"text/javascript\"></script>");
 			//}
 
-			
+
 			if (!Page.ClientScript.IsClientScriptBlockRegistered("friendlyurlsuggest"))
 			{
 				Page.ClientScript.RegisterClientScriptBlock(GetType(), "friendlyurlsuggest", "<script src=\""
@@ -1860,7 +1939,7 @@ namespace mojoPortal.Web.BlogUI
 			Load += new EventHandler(Page_Load);
 
 			ScriptConfig.IncludeJQTable = true;
-		   
+
 
 			if (btnAddCategory == null)
 			{

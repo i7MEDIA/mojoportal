@@ -2131,6 +2131,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Content Property.
+        /// </summary>
+        internal static string MetaContentProperty {
+            get {
+                return ResourceManager.GetString("MetaContentProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field is required..
+        /// </summary>
+        internal static string MetaContentPropertyRequired {
+            get {
+                return ResourceManager.GetString("MetaContentPropertyRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meta Description.
         /// </summary>
         internal static string MetaDescriptionLabel {
@@ -2145,6 +2163,24 @@ namespace Resources {
         internal static string MetaKeywordsLabel {
             get {
                 return ResourceManager.GetString("MetaKeywordsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name Property.
+        /// </summary>
+        internal static string MetaNameProperty {
+            get {
+                return ResourceManager.GetString("MetaNameProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field is required..
+        /// </summary>
+        internal static string MetaNamePropertyRequired {
+            get {
+                return ResourceManager.GetString("MetaNamePropertyRequired", resourceCulture);
             }
         }
         
