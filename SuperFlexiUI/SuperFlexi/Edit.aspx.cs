@@ -24,6 +24,7 @@ using mojoPortal.Web.UI;
 using Resources;
 using SuperFlexiBusiness;
 using System.Dynamic;
+using Resources;
 
 namespace SuperFlexiUI
 {
@@ -800,6 +801,8 @@ namespace SuperFlexiUI
 					datePicker.ShowTime = field.DatePickerIncludeTimeForDate;
 					datePicker.ShowMonthList = field.DatePickerShowMonthList;
 					datePicker.ShowYearList = field.DatePickerShowYearList;
+					
+
 					if (datePicker.ShowYearList) datePicker.YearRange = field.DatePickerYearRange;
 
 
@@ -1055,16 +1058,27 @@ namespace SuperFlexiUI
             config.EditPageScripts.Add(urlBrowserScript);
             config.EditPageCSS.Add(urlBrowserCss);
 
-            //create link picker button
-            Literal linkPickerButton = new Literal();
-            linkPickerButton.Text = String.Format("<button id=\"{0}\" class=\"{1}\" onclick=\"openUrlBrowser(this)\" type=\"button\">{2}</button>",
-                field.Name + "button", "btn btn-link", "Choose File");
+			//create link picker button
+			string buttonText = isImage ? Resources.SuperFlexiResources.BrowseFeaturedImage : Resources.SuperFlexiResources.Browse;
+
+			Literal linkPickerButton = new Literal();
+			linkPickerButton.Text = $"<button id=\"{field.Name}button\" class=\"btn btn-link\" onclick=\"openUrlBrowser(this)\" type=\"button\">{buttonText}</button>";
             panel.Controls.Add(linkPickerButton);
 
-            if (isImage)
-            {
-                Literal imagePreview = new Literal();
-                imagePreview.Text = String.Format("<img src=\"\" class=\"{0}\"/>", "url-browser__image-preview");
+			if (isImage)
+			{
+				string imagePreviewUrl = string.Empty;
+				if (string.IsNullOrWhiteSpace(field.ImageBrowserEmptyUrl))
+				{
+					imagePreviewUrl = SuperFlexiHelpers.GetPathToFile(config, "~/Data/SiteImages/blank.gif");
+				}
+				else
+				{ 
+					imagePreviewUrl = SuperFlexiHelpers.GetPathToFile(config, field.ImageBrowserEmptyUrl);
+				}
+
+				Literal imagePreview = new Literal();
+				imagePreview.Text = $"<img src=\"{imagePreviewUrl}\" class=\"url-browser__image-preview\"/>";
                 panel.Controls.Add(imagePreview);
             }
 

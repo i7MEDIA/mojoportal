@@ -55,7 +55,8 @@ namespace SuperFlexiUI
                 {
                     hdnReturnUrl.Value = Request.UrlReferrer.ToString();
                     lnkCancel.NavigateUrl = Request.UrlReferrer.ToString();
-
+					List<Field> fields = new List<Field>();
+					FieldUtils.EnsureFields(siteSettings.SiteGuid, config, out fields, config.DeleteOrphanedFieldValues);
                 }
             }
 
@@ -126,9 +127,10 @@ namespace SuperFlexiUI
 
                         importedItem.SortOrder = sortOrder;
                         importedItem.LastModUtc = DateTime.UtcNow;
-                        importedItem.ContentChanged += new ContentChangedEventHandler(sflexiItem_ContentChanged);
+						//we don't want to do this on each item that has been imported because that's a lot of work during the import process
+						importedItem.ContentChanged += new ContentChangedEventHandler(sflexiItem_ContentChanged);
 
-                        if (importedItem.Save())
+						if (importedItem.Save())
                         {
                             bool fullyImported = true;
                             //partialCount++;
@@ -183,8 +185,7 @@ namespace SuperFlexiUI
                                 }
                             }
 
-                            CacheHelper.ClearModuleCache(importedItem.ModuleID);
-                            SiteUtils.QueueIndexing();
+
 
                             if (fullyImported)
                             {
@@ -234,7 +235,10 @@ namespace SuperFlexiUI
                 }
 
                 litResults.Text = results.ToString();
-            }
+
+				CacheHelper.ClearModuleCache(moduleId);
+				SiteUtils.QueueIndexing();
+			}
         }
 
         private void PopulateLabels()

@@ -302,7 +302,34 @@ namespace SuperFlexiData
                 sqlParam);
         }
 
-        public static IDataReader GetByGuid(Guid fieldGuid)
+		public static IDataReader GetByModuleGuid(Guid moduleGuid)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT * FROM i7_sflexi_values WHERE ModuleGuid = ?ModuleGuid;");
+
+			var sqlParam = new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid };
+
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand.ToString(),
+				sqlParam);
+		}
+
+		public static IDataReader GetByDefinitionGuid(Guid definitionGuid)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT v.* FROM i7_sflexi_values v JOIN i7_sflexi_fields f on f.FieldGuid = v.FieldGuid WHERE DefinitionGuid = ?DefinitionGuid;");
+
+			var sqlParam = new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = definitionGuid };
+
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand.ToString(),
+				sqlParam);
+		}
+
+
+			public static IDataReader GetByGuid(Guid fieldGuid)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT * FROM i7_sflexi_values WHERE FieldGuid = ?FieldGuid;");

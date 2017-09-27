@@ -35,6 +35,7 @@ namespace SuperFlexiUI
         StringBuilder strBelowMarkupScripts = new StringBuilder();
         List<Item> items = new List<Item>();
         List<ItemFieldValue> fieldValues = new List<ItemFieldValue>();
+		List<ModuleConfiguration> moduleConfigs = new List<ModuleConfiguration>();
         SiteSettings siteSettings;
         PageSettings pageSettings;
         Module module;
@@ -101,11 +102,15 @@ namespace SuperFlexiUI
             if (config.IsGlobalView)
             {
                 items = Item.GetAllForDefinition(config.FieldDefinitionGuid, config.DescendingSort);
+				fieldValues = ItemFieldValue.GetItemValuesByDefinition(config.FieldDefinitionGuid);
             }
             else
             {
                 items = Item.GetModuleItems(moduleId, config.DescendingSort);
+				fieldValues = ItemFieldValue.GetItemValuesByModule(module.ModuleGuid);
             }
+
+
             
 
             if (SiteUtils.IsMobileDevice() && config.MobileMarkupDefinition != null)
@@ -205,7 +210,19 @@ namespace SuperFlexiUI
                 //StringBuilder content = new StringBuilder();
                 IndexedStringBuilder content = new IndexedStringBuilder();
 
-                ModuleConfiguration itemModuleConfig = new ModuleConfiguration(module);
+				ModuleConfiguration itemModuleConfig = config;
+
+				if (config.IsGlobalView)
+				{
+					itemModuleConfig = new ModuleConfiguration(module);
+					content.SortOrder1 = itemModuleConfig.GlobalViewSortOrder;
+                    content.SortOrder2 = item.SortOrder;
+				}
+                else
+                {
+                    content.SortOrder1 = item.SortOrder;
+                }
+
                 item.ModuleFriendlyName = itemModuleConfig.ModuleFriendlyName;
                 if (String.IsNullOrWhiteSpace(itemModuleConfig.ModuleFriendlyName))
                 {
@@ -217,18 +234,7 @@ namespace SuperFlexiUI
 
                 }
 
-                if (config.IsGlobalView)
-                {
-                    content.SortOrder1 = itemModuleConfig.GlobalViewSortOrder;
-                    content.SortOrder2 = item.SortOrder;
-                }
-                else
-                {
-                    content.SortOrder1 = item.SortOrder;
-                }
-
-
-                List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
+                //List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
 
                 //using item.ModuleID here because if we are using a 'global view' we need to be sure the item edit link uses the correct module id.
                 string itemEditUrl = WebUtils.GetSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + pageId + "&mid=" + item.ModuleID + "&itemid=" + item.ItemID;
@@ -279,7 +285,7 @@ namespace SuperFlexiUI
 
                     bool fieldValueFound = false;
 
-                    foreach (ItemFieldValue fieldValue in fieldValues)
+                    foreach (ItemFieldValue fieldValue in fieldValues.Where( fv => fv.ItemGuid == item.ItemGuid))
                     {
                         if (field.FieldGuid == fieldValue.FieldGuid)
                         {

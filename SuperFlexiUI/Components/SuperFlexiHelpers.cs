@@ -346,6 +346,29 @@ namespace SuperFlexiUI
             return workingMarkupScripts;
         }
 
+		public static string GetPathToFile(ModuleConfiguration config, string path)
+		{
+			string goodPath = string.Empty;
+			if (path.StartsWith("/") ||
+				path.StartsWith("http://") ||
+				path.StartsWith("https://"))
+			{
+				return path;
+			}
+			else if (path.StartsWith("~/"))
+			{
+				return WebUtils.ResolveServerUrl(path);
+			}
+			else if (path.StartsWith("$_SitePath_$"))
+			{
+				return path.Replace("$_SitePath_$", "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToString() + "/");
+			}
+			else
+			{
+				return new Uri(config.SolutionLocationUrl, path).ToString();
+			}
+		}
+
         public static void SetupScripts(
             List<MarkupScript> markupScripts,
             ModuleConfiguration config,
@@ -371,31 +394,31 @@ namespace SuperFlexiUI
                 string scriptName = sbScriptName.ToString();
                 if (!String.IsNullOrWhiteSpace(script.Url))
                 {
-					string scriptUrl = string.Empty;
-					if (script.Url.StartsWith("/") ||
-						script.Url.StartsWith("http://") ||
-						script.Url.StartsWith("https://"))
-					{
-						scriptUrl = script.Url;
-					}
-					else if (script.Url.StartsWith("~/"))
-					{
-						scriptUrl = WebUtils.ResolveServerUrl(script.Url);
-					}
-					else if (script.Url.StartsWith("$_SitePath_$"))
-					{
-						scriptUrl = script.Url.Replace("$_SitePath_$", "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToString() + "/");
-					}
-					else
-					{
-						scriptUrl = new Uri(config.SolutionLocationUrl, script.Url).ToString();
-					}
+					//string scriptUrl = string.Empty;
+					//if (script.Url.StartsWith("/") ||
+					//	script.Url.StartsWith("http://") ||
+					//	script.Url.StartsWith("https://"))
+					//{
+					//	scriptUrl = script.Url;
+					//}
+					//else if (script.Url.StartsWith("~/"))
+					//{
+					//	scriptUrl = WebUtils.ResolveServerUrl(script.Url);
+					//}
+					//else if (script.Url.StartsWith("$_SitePath_$"))
+					//{
+					//	scriptUrl = script.Url.Replace("$_SitePath_$", "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToString() + "/");
+					//}
+					//else
+					//{
+					//	scriptUrl = new Uri(config.SolutionLocationUrl, script.Url).ToString();
+					//}
 					//else if (File.Exists(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile)))
 					//{
 					//	FileInfo fileInfo = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile));
 					//	scriptUrl = WebUtils.ResolveServerUrl(Path.Combine(fileInfo.DirectoryName.Replace(System.Web.Hosting.HostingEnvironment.MapPath("~"), "~/"), script.Url));
 					//}
-
+					string scriptUrl = GetPathToFile(config, script.Url);
 					sbScriptText.Append(string.Format(scriptRefFormat, scriptUrl, scriptName));
 				}
                 else if (!String.IsNullOrWhiteSpace(script.RawScript))
