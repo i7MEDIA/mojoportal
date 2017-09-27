@@ -105,7 +105,6 @@ namespace SuperFlexiUI
 
             if (itemId > -1) item = new Item(itemId);
 
-            PopulateCustomControls();
             SetupScripts();
             
 			PopulateLabels();
@@ -113,6 +112,7 @@ namespace SuperFlexiUI
 			if (!IsPostBack)
 			{
 
+				PopulateCustomControls();
 				PopulateControls();
 				if ((Request.UrlReferrer != null) && (hdnReturnUrl.Value.Length == 0))
 				{
@@ -125,9 +125,6 @@ namespace SuperFlexiUI
 
 		private void PopulateControls()
 		{
-
-			//PopulateCustomControls();
-
 			if (itemId > -1)
 			{
 				if (item.ModuleID != moduleId)

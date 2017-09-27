@@ -121,48 +121,31 @@ namespace SuperFlexiUI
 			if (helpKey.ToLower().EndsWith(".sfhelp") ||
 				helpKey.ToLower().EndsWith(".config"))
 			{
-				//if (HttpContext.Current != null)
-				//{
-				//	helpFilePath = HttpContext.Current.Server.MapPath(Path.Combine(config.RelativeSolutionLocation, helpKey));
-				//}
-				string path = fileSystem.CombinePath(config.RelativeSolutionLocation, helpKey);
-				helpFile = fileSystem.RetrieveFile(path);
-			}
-			else if (helpKey.IndexOf("$_FlexiHelp_$") >= 0)
-			{
-				//if (HttpContext.Current != null)
-				//{
-				//	helpFilePath = HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/Data/SuperFlexi/Help/" + helpKey.Replace("$_FlexiHelp_$", string.Empty));
-				//}
-				string path = fileSystem.CombinePath("~/Data/SuperFlexi/Help/" + helpKey.Replace("$_FlexiHelp_$", string.Empty));
-				helpFile = fileSystem.RetrieveFile(path);
+				if (helpKey.IndexOf("$_FlexiHelp_$") >= 0)
+				{
+					string path = fileSystem.CombinePath("~/Data/SuperFlexi/Help/", helpKey.Replace("$_FlexiHelp_$", string.Empty));
+					helpFile = fileSystem.RetrieveFile(path);
 
-			}
-			else if (helpKey.IndexOf("$_SitePath_$") >= 0)
-			{
-				//if (HttpContext.Current != null)
-				//{
-				//	helpFilePath = HttpContext.Current.Server.MapPath(helpKey.Replace("$_SitePath_$", "~/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToInvariantString()));
-				//}
-				string path = fileSystem.CombinePath(helpKey.Replace("$_SitePath_$", "~/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToInvariantString()));
-				helpFile = fileSystem.RetrieveFile(path);
-			}
-			else if (helpKey.IndexOf("$_Data_$") >= 0)
-			{
-				//if (HttpContext.Current != null)
-				//{
-				//	helpFilePath = HttpContext.Current.Server.MapPath(helpKey.Replace("$_Data_$", "~/Data"));
-				//}
-				string path = helpKey.Replace("$_Data_$", "~/Data");
-				helpFile = fileSystem.RetrieveFile(path);
-			}
-			else if (helpKey.IndexOf("~/") >= 0)
-			{
-				//if (HttpContext.Current != null)
-				//{
-				//	helpFilePath = HttpContext.Current.Server.MapPath(helpKey);
-				//}
-				helpFile = fileSystem.RetrieveFile(helpKey);
+				}
+				else if (helpKey.IndexOf("$_SitePath_$") >= 0)
+				{
+					string path = helpKey.Replace("$_SitePath_$", "~/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToInvariantString());
+					helpFile = fileSystem.RetrieveFile(path);
+				}
+				else if (helpKey.IndexOf("$_Data_$") >= 0)
+				{
+					string path = helpKey.Replace("$_Data_$", "~/Data");
+					helpFile = fileSystem.RetrieveFile(path);
+				}
+				else if (helpKey.IndexOf("~/") >= 0)
+				{
+					helpFile = fileSystem.RetrieveFile(helpKey);
+				}
+				else
+				{
+					string path = fileSystem.CombinePath(config.RelativeSolutionLocation, helpKey);
+					helpFile = fileSystem.RetrieveFile(path);
+				}
 			}
 			else
 			{
@@ -172,8 +155,10 @@ namespace SuperFlexiUI
             if (helpFile != null)
             {
 				//FileInfo file = new FileInfo(helpFilePath);
-				fileSystem.GetAsStream(helpFile.VirtualPath);
+				//fileSystem.GetAsStream(helpFile.VirtualPath);
 				//StreamReader sr = file.OpenText();
+				log.Info(helpFile.VirtualPath);
+				log.Info(helpFile.Path);
 				StreamReader sr = new StreamReader(fileSystem.GetAsStream(helpFile.VirtualPath));
 				helpText = sr.ReadToEnd();
 				sr.Close();

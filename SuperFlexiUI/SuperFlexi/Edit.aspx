@@ -13,9 +13,7 @@
 						<asp:Panel id="customControls" runat="server"></asp:Panel>
 						<div class="settingrow row_vieworder">
 							<mp:SiteLabel ID="lblViewOrder" runat="server" ForControl="txtViewOrder" ConfigKey="ViewOrderLabel"
-								ResourceFile="SuperFlexiResources" CssClass="settinglabel">
-							</mp:SiteLabel>
-							<asp:TextBox ID="txtViewOrder" runat="server" MaxLength="10" CssClass="forminput smalltextbox" TextMode="Number"></asp:TextBox>
+								ResourceFile="SuperFlexiResources" CssClass="settinglabel" /><asp:TextBox ID="txtViewOrder" runat="server" MaxLength="10" CssClass="forminput smalltextbox" TextMode="Number" />
 						</div>
 						<div class="settingrow buttonrow">
 							<portal:mojoButton ID="updateButton" runat="server" Text="Update" SkinID="SaveButton" />
