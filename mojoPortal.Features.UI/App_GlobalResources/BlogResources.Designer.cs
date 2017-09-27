@@ -2347,6 +2347,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of items to render.
+        /// </summary>
+        internal static string PostListItemsPerPage {
+            get {
+                return ResourceManager.GetString("PostListItemsPerPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View.
         /// </summary>
         internal static string PostListLayout {
