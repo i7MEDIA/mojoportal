@@ -19,10 +19,10 @@ using System.Xml;
 namespace SuperFlexiUI
 {
 	public partial class MarkupDefinitionSetting : mojoUserControl, mojoPortal.Web.UI.ISettingControl
-    {
+	{
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(MarkupDefinitionSetting));
-        private static SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+		private static readonly ILog log = LogManager.GetLogger(typeof(MarkupDefinitionSetting));
+		private static SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 
 
 		//private int roleID = -1;
@@ -34,17 +34,17 @@ namespace SuperFlexiUI
 		//private string globalSolutionsPath = string.Empty; //these are at a higher level than the current site, can be used by multiple sites
 
 		protected void Page_Load(object sender, EventArgs e)
-        {
-            SecurityHelper.DisableBrowserCache();
+		{
+			SecurityHelper.DisableBrowserCache();
 
 		}
 
-        protected override void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-            if (HttpContext.Current == null) { return; }
-            EnsureItems();
-        }
+		protected override void OnInit(EventArgs e)
+		{
+			base.OnInit(e);
+			if (HttpContext.Current == null) { return; }
+			EnsureItems();
+		}
 
 		private void EnsureItems()
 		{
@@ -102,7 +102,7 @@ namespace SuperFlexiUI
 					Global = true
 				}
 			};
-			
+
 			foreach (var location in solutionLocations)
 			{
 				//WebFolder folder = new WebFolder();
@@ -111,7 +111,7 @@ namespace SuperFlexiUI
 				if (fileSystem.FolderExists(location.Path))
 				{
 					List<WebFile> files = new List<WebFile>();
-					
+
 					switch (location.RecurseLevel)
 					{
 						case RecurseLevel.OneLevel:
@@ -134,43 +134,43 @@ namespace SuperFlexiUI
 					{
 						//if (File.Exists(file.FullName))
 						//{
-							string nameAppendage = string.Empty;
+						string nameAppendage = string.Empty;
 
-							if (location.Global)
+						if (location.Global)
+						{
+							nameAppendage = " (global)";
+						}
+
+						XmlDocument doc = new XmlDocument();
+						doc.Load(file.Path);
+
+						XmlNode node = doc.DocumentElement.SelectSingleNode("/Definitions/MarkupDefinition");
+
+						if (node != null)
+						{
+							XmlAttributeCollection attrCollection = node.Attributes;
+							string solutionName = string.Empty;
+							if (attrCollection["name"] != null)
 							{
-								nameAppendage = " (global)";
+								solutionName = attrCollection["name"].Value + nameAppendage; ;
+							}
+							else
+							{
+								solutionName = file.Name.ToString().ToLower().Replace(location.Extension, "") + nameAppendage; ;
 							}
 
-							XmlDocument doc = new XmlDocument();
-							doc.Load(file.Path);
+							names.Add(solutionName);
 
-							XmlNode node = doc.DocumentElement.SelectSingleNode("/Definitions/MarkupDefinition");
-
-							if (node != null)
+							if (solutions.ContainsKey(solutionName))
 							{
-								XmlAttributeCollection attrCollection = node.Attributes;
-								string solutionName = string.Empty;
-								if (attrCollection["name"] != null)
-								{
-									solutionName = attrCollection["name"].Value + nameAppendage; ;
-								}
-								else
-								{
-									solutionName = file.Name.ToString().ToLower().Replace(location.Extension, "") + nameAppendage; ;
-								}
-
-								names.Add(solutionName);
-
-								if (solutions.ContainsKey(solutionName))
-								{
-									solutionName += string.Format(" [{0}]", names.Where(n => n.Equals(solutionName)).Count());
-								}
+								solutionName += string.Format(" [{0}]", names.Where(n => n.Equals(solutionName)).Count());
+							}
 							//todo: add capability to nest folders in a solution folder?
 							solutions.Add(
 								solutionName,
 								//location.Path + (location.RecurseLevel == RecurseLevel.ImmediateSubDirectory ? file.Directory.Name + "/" : "") + file.Name);
 								file.VirtualPath.Replace("\\", "/").TrimStart('~'));
-							}
+						}
 						//}
 					}
 				}
@@ -181,41 +181,41 @@ namespace SuperFlexiUI
 			ddDefinitions.DataValueField = "Value";
 			ddDefinitions.DataBind();
 
-            ddDefinitions.Items.Insert(0, new ListItem(SuperFlexiResources.SolutionDropDownPleaseSelect, string.Empty));
-        }
+			ddDefinitions.Items.Insert(0, new ListItem(SuperFlexiResources.SolutionDropDownPleaseSelect, string.Empty));
+		}
 
 		#region ISettingControl
 
 		public string GetValue()
-        {
-            EnsureItems();
-            //log.Info("solution selected: " + ddDefinitions.SelectedValue);
-            return ddDefinitions.SelectedValue;
-        }
+		{
+			EnsureItems();
+			//log.Info("solution selected: " + ddDefinitions.SelectedValue);
+			return ddDefinitions.SelectedValue;
+		}
 
-        public void SetValue(string val)
-        {
-            EnsureItems();
+		public void SetValue(string val)
+		{
+			EnsureItems();
 
-            if (val != null)
-            {
-                ListItem item = ddDefinitions.Items.FindByValue(val);
-                if (item != null)
-                {
-                    ddDefinitions.ClearSelection();
-                    item.Selected = true;
-                }
-            }
-        }
-        #endregion
+			if (val != null)
+			{
+				ListItem item = ddDefinitions.Items.FindByValue(val);
+				if (item != null)
+				{
+					ddDefinitions.ClearSelection();
+					item.Selected = true;
+				}
+			}
+		}
+		#endregion
 		class SolutionFileLocation
 		{
 			public string Path { get; set; }
 			public string Extension { get; set; }
 			public RecurseLevel RecurseLevel { get; set; }
-			public bool Global{ get; set; }
+			public bool Global { get; set; }
 		}
 
-		enum RecurseLevel { OneLevel, TopDirectoryOnly};
-    }
+		enum RecurseLevel { OneLevel, TopDirectoryOnly };
+	}
 }

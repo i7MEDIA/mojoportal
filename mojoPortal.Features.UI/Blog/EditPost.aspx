@@ -288,13 +288,13 @@
 																		Text='<%# Resources.BlogResources.CompareHistoryToCurrentLink %>'
 																		ToolTip='<%# Resources.BlogResources.CompareHistoryToCurrentLink %>'
 																	/>
-																	<asp:Button runat="server"
+																	<portal:mojoButton runat="server"
 																		CommandName="RestoreToEditor" CommandArgument='<%# Eval("Guid") %>'
 																		ID="btnRestoreToEditor"
 																		SkinID="SaveButtonSmall"
 																		Text='<%# Resources.BlogResources.RestoreToEditorButton %>'
 																	/>
-																	<asp:Button runat="server"
+																	<portal:mojoButton runat="server"
 																		CommandArgument='<%# Eval("Guid") %>'
 																		CommandName="DeleteHistory"
 																		ID="btnDelete"
@@ -412,7 +412,7 @@
 												<Columns>
 													<asp:TemplateField>
 														<ItemTemplate>
-															<asp:Button runat="server"
+															<portal:mojoButton runat="server"
 																CommandName="Edit"
 																ID="btnEditMetaLink"
 																SkinID="InfoButtonSmall"
@@ -488,7 +488,7 @@
 															</div>
 
 															<div class="settingrow">
-																<asp:Button runat="server"
+																<portal:mojoButton runat="server"
 																	CausesValidation="true"
 																	CommandName="Update"
 																	ID="btnUpdateMetaLink"
@@ -496,14 +496,14 @@
 																	Text='<%# Resources.BlogResources.ContentMetaGridUpdateButton %>'
 																	ValidationGroup="metalink"
 																/>
-																<asp:Button runat="server"
+																<portal:mojoButton runat="server"
 																	CausesValidation="false"
 																	CommandName="Delete"
 																	ID="btnDeleteMetaLink"
 																	SkinID="DeleteButtonSmall"
 																	Text='<%# Resources.BlogResources.ContentMetaGridDeleteButton %>'
 																/>
-																<asp:Button runat="server"
+																<portal:mojoButton runat="server"
 																	CausesValidation="false"
 																	CommandName="Cancel"
 																	ID="btnCancelMetaLink"
@@ -546,7 +546,7 @@
 													<Columns>
 														<asp:TemplateField>
 															<ItemTemplate>
-																<asp:Button runat="server"
+																<portal:mojoButton runat="server"
 																	CommandName="Edit"
 																	ID="btnEditMeta"
 																	SkinID="InfoButtonSmall"
@@ -578,6 +578,23 @@
 															<EditItemTemplate>
 																<div class="settingrow">
 																	<mp:SiteLabel runat="server"
+																		ConfigKey="MetaNameProperty"
+																		CssClass="settinglabel"
+																		ForControl="txtNameProperty"
+																		ID="lblNameProperty"
+																		ResourceFile="BlogResources"
+																	/>
+																	<asp:TextBox ID="txtNameProperty" CssClass="widetextbox forminput" runat="server" Text='<%# Eval("NameProperty") %>' />
+																	<asp:RequiredFieldValidator runat="server"
+																		ControlToValidate="txtNameProperty"
+																		ErrorMessage='<%# Resources.BlogResources.MetaNamePropertyRequired %>'
+																		ID="valNameProperty"
+																		ValidationGroup="meta"
+																	/>
+																</div>
+
+																<div class="settingrow">
+																	<mp:SiteLabel runat="server"
 																		ConfigKey="ContentMetaNameLabel"
 																		CssClass="settinglabel"
 																		ForControl="txtName"
@@ -589,6 +606,23 @@
 																		ControlToValidate="txtName"
 																		ErrorMessage='<%# Resources.BlogResources.ContentMetaNameRequired %>'
 																		ID="reqMetaName"
+																		ValidationGroup="meta"
+																	/>
+																</div>
+
+																<div class="settingrow">
+																	<mp:SiteLabel runat="server"
+																		ConfigKey="MetaContentProperty"
+																		CssClass="settinglabel"
+																		ForControl="txtMetaContentProperty"
+																		ID="lblMetaContentProperty"
+																		ResourceFile="BlogResources"
+																	/>
+																	<asp:TextBox ID="txtMetaContentProperty" CssClass="verywidetextbox forminput" runat="server" Text='<%# Eval("ContentProperty") %>' />
+																	<asp:RequiredFieldValidator runat="server"
+																		ControlToValidate="txtMetaContentProperty"
+																		ErrorMessage='<%# Resources.BlogResources.MetaContentPropertyRequired %>'
+																		ID="valMetaContentProperty"
 																		ValidationGroup="meta"
 																	/>
 																</div>
@@ -648,7 +682,7 @@
 																</div>
 
 																<div class="settingrow">
-																	<asp:Button runat="server"
+																	<portal:mojoButton runat="server"
 																		CausesValidation="true"
 																		CommandName="Update"
 																		ID="btnUpdateMeta"
@@ -656,14 +690,14 @@
 																		Text='<%# Resources.BlogResources.ContentMetaGridUpdateButton %>'
 																		ValidationGroup="meta"
 																	/>
-																	<asp:Button runat="server"
+																	<portal:mojoButton runat="server"
 																		CausesValidation="false"
 																		CommandName="Delete"
 																		ID="btnDeleteMeta"
 																		SkinID="DeleteButtonSmall"
 																		Text='<%# Resources.BlogResources.ContentMetaGridDeleteButton %>'
 																	/>
-																	<asp:Button runat="server"
+																	<portal:mojoButton runat="server"
 																		CausesValidation="false"
 																		CommandName="Cancel"
 																		ID="btnCancelMeta"
@@ -841,7 +875,7 @@
 														SkinID="TextButtonSmall"
 														ToolTip='<%# Resources.BlogResources.Download %>'
 													/>
-													<asp:Button runat="server"
+													<portal:mojoButton runat="server"
 														CommandArgument='<%# Eval("RowGuid") %>'
 														CommandName="delete"
 														ID="btnDelete"

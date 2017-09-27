@@ -990,4 +990,16 @@
   <data name="PostListLayout" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="MetaContentProperty" xml:space="preserve">
+    <value>Content Property</value>
+  </data>
+  <data name="MetaNameProperty" xml:space="preserve">
+    <value>Name Property</value>
+  </data>
+  <data name="MetaContentPropertyRequired" xml:space="preserve">
+    <value>This field is required.</value>
+  </data>
+  <data name="MetaNamePropertyRequired" xml:space="preserve">
+    <value>This field is required.</value>
+  </data>
 </root>
