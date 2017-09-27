@@ -105,14 +105,14 @@ namespace SuperFlexiUI
 
             if (itemId > -1) item = new Item(itemId);
 
-            SetupScripts();
             
+			PopulateCustomControls();
+			SetupScripts();
 			PopulateLabels();
 
 			if (!IsPostBack)
 			{
 
-				PopulateCustomControls();
 				PopulateControls();
 				if ((Request.UrlReferrer != null) && (hdnReturnUrl.Value.Length == 0))
 				{

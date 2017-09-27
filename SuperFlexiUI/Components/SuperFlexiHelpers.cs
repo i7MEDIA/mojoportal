@@ -119,7 +119,8 @@ namespace SuperFlexiUI
 			string helpText = string.Empty;
 			WebFile helpFile = new WebFile();
 			if (helpKey.ToLower().EndsWith(".sfhelp") ||
-				helpKey.ToLower().EndsWith(".config"))
+				helpKey.ToLower().EndsWith(".config") ||
+				helpKey.ToLower().EndsWith(".html"))
 			{
 				if (helpKey.IndexOf("$_FlexiHelp_$") >= 0)
 				{
