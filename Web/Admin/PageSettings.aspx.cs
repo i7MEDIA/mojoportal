@@ -1962,8 +1962,13 @@ namespace mojoPortal.Web.AdminUI
             Control pageTitle = Master.FindControl("PageTitle1");
             if(pageTitle == null)
             {
-                divPageHeading.Visible = false;
-                divShowPageHeading.Visible = false;
+				pageTitle = Master.FindControl("PageHeading1");
+
+				if (pageTitle == null)
+				{
+					divPageHeading.Visible = false;
+					divShowPageHeading.Visible = false;
+				}
             }
 
             pageCount = PageSettings.GetCount(siteSettings.SiteId, true);

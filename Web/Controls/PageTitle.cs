@@ -22,8 +22,7 @@ using mojoPortal.Web.Framework;
 namespace mojoPortal.Web.UI
 {
     /// <summary>
-    /// This control was once used in the .NET 1.1 days inside the <title></title> of a page
-    /// currently it can be used in layout.master if you want to show the page name or override title in the page.
+    /// This control is used in layout.master to show the page name, title override or page heading in the page.
     /// </summary>
     public class PageTitle : WebControl
     {
@@ -36,6 +35,13 @@ namespace mojoPortal.Web.UI
             get { return text; }
             set { text = value; }
         }
+
+		private string literalExtraMarkup = string.Empty;
+		public string LiteralExtraMarkup
+		{
+			get => literalExtraMarkup;
+			set => literalExtraMarkup = value;
+		}
 
         protected override void OnInit(EventArgs e)
         {
@@ -80,7 +86,7 @@ namespace mojoPortal.Web.UI
             {
                 if (Title.Text.Length == 0) { Title.Text = text; }
                 if (Title.Text.Length == 0) { return; }
-
+				Title.Text += LiteralExtraMarkup;
                 Title.RenderControl(writer);
             }
         }

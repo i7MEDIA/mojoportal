@@ -1752,6 +1752,7 @@
     <Compile Include="Controls\CommentSystems\CommentSystemDisplaySettings.cs" />
     <Compile Include="Controls\CommentSystems\FacebookCommentWidget.cs" />
     <Compile Include="Controls\ContentExpiredLabel.cs" />
+    <Compile Include="Controls\ControlExtensions.cs" />
     <Compile Include="Controls\CountryISOCode2Setting.ascx.cs">
       <DependentUpon>CountryISOCode2Setting.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1811,6 +1812,7 @@
     <Compile Include="Controls\mojoRegisterButton.cs" />
     <Compile Include="Controls\mojoScriptManager.cs" />
     <Compile Include="Controls\NoFollowHyperlink.cs" />
+    <Compile Include="Controls\PageHeading.cs" />
     <Compile Include="Controls\PageTreeLink.cs" />
     <Compile Include="Controls\Panels\AdminCrumbContainer.cs" />
     <Compile Include="Controls\Panels\BreadcrumbContainer.cs" />

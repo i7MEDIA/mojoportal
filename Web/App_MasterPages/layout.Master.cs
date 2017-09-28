@@ -1,6 +1,6 @@
 /// Author:             
 /// Created:            2006-01-20
-/// Last Modified:      2014-11-19
+/// Last Modified:      2017-09-27
 
 using System;
 using System.Globalization;
@@ -64,6 +64,7 @@ namespace mojoPortal.Web
         private bool hideEmptyCenterIfOnlySidesHaveContent = false;
 
         protected bool isCmsPage = false;
+		protected bool isNonCmsBasePage = false;
         protected bool isMobileDevice = false;
         private int mobileOnly = (int)ContentPublishMode.MobileOnly;
         private int webOnly = (int)ContentPublishMode.WebOnly;
@@ -79,12 +80,18 @@ namespace mojoPortal.Web
 
             isMobileDevice = SiteUtils.IsMobileDevice();
 
+			isNonCmsBasePage = Page is NonCmsBasePage;
+
             if (Page is CmsPage) 
             {
                 isCmsPage = true;
                 currentPage = CacheHelper.GetCurrentPage(); 
             }
-
+			else if (!isNonCmsBasePage)
+			{
+				currentPage = CacheHelper.GetPage(WebUtils.ParseInt32FromQueryString("pageid", -1));
+			}
+			
             if (siteSettings == null) { return; }
 
             siteMapDataSource = (SiteMapDataSource)this.FindControl("SiteMapData");

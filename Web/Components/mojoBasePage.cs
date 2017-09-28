@@ -1,6 +1,6 @@
 // Author:             
 // Created:            2006-01-07
-// Last Modified:      2014-11-19
+// Last Modified:      2017-09-28
 
 
 using System;
@@ -33,6 +33,7 @@ namespace mojoPortal.Web
 		private ContentPlaceHolder editPane;
 		private ContentPlaceHolder altPane1;
 		private ContentPlaceHolder altPane2;
+
 
 
 		private ScriptManager scriptController;
@@ -310,25 +311,46 @@ namespace mojoPortal.Web
 		}
 
 		/// <summary>
-		/// this property is deprecated, you should set Title = SiteUtils.FormatPageTitle, siteSettings, string topicTitle);
+		/// this property is now used for the PageHeading. Title is set with "Title = SiteUtils.FormatPageTitle, siteSettings, string topicTitle);"
 		/// </summary>
 		public string PageTitle
+		{
+			get { return PageHeading.Title.Text; }
+			set { PageHeading.Title.Text = value; }
+		}
+
+		public PageTitle PageHeading
 		{
 			get
 			{
 				PageTitle pageTitleControl = Master.FindControl("PageTitle1") as PageTitle;
-				return Server.HtmlDecode(pageTitleControl == null ? this.Title : pageTitleControl.Title.Text);
+				if (pageTitleControl == null)
+				{
+					pageTitleControl = Master.FindControl("PageHeading1") as PageTitle;
+				}
+
+				if (pageTitleControl != null)
+				{
+					return pageTitleControl;
+				}
+				return new PageTitle();
 			}
 			set
 			{
 				PageTitle pageTitleControl = Master.FindControl("PageTitle1") as PageTitle;
 				if (pageTitleControl == null)
 				{
-					this.Title = value;
+					pageTitleControl = Master.FindControl("PageHeading1") as PageTitle;
+				}
+
+				if (pageTitleControl == null)
+				{
+					this.Title = value.Title.Text;
 				}
 				else
 				{
-					pageTitleControl.Title.Text = Server.HtmlEncode(value);
+					pageTitleControl.Title.Text = Server.HtmlEncode(value.Title.Text);
+					pageTitleControl.LiteralExtraMarkup = value.LiteralExtraMarkup;
 				}
 			}
 		}
@@ -1097,20 +1119,6 @@ namespace mojoPortal.Web
 				return;
 			}
 
-
-#if MONO || NET35
-
-			if (WebConfigSettings.UseSiteIdAppThemesInMediumTrust)
-			{
-				this.Theme = "default" + siteSettings.SiteId.ToInvariantString();
-			}
-			else
-			{
-				this.Theme = "default";
-			}
-			return;
-#else
-
 			bool registeredVirtualThemes = Global.RegisteredVirtualThemes; //should always be true under .NET 4
 			if ((!registeredVirtualThemes) && (!WebConfigSettings.UseSiteIdAppThemesInMediumTrust))
 			{
@@ -1166,9 +1174,6 @@ namespace mojoPortal.Web
 			{
 				this.Theme = "mobile" + siteSettings.SiteId.ToInvariantString() + siteSettings.MobileSkin + WebConfigSettings.MobilePhoneSkin;
 			}
-
-#endif
-
 		}
 
 		protected void SetupFailsafeMasterPage()
@@ -1182,16 +1187,12 @@ namespace mojoPortal.Web
 			MPLeftPane = (ContentPlaceHolder)Master.FindControl("leftContent");
 			MPContent = (ContentPlaceHolder)Master.FindControl("mainContent");
 			MPRightPane = (ContentPlaceHolder)Master.FindControl("rightContent");
-			MPPageEdit = (ContentPlaceHolder)Master.FindControl("pageEditContent");
-
-
 			AltPane1 = (ContentPlaceHolder)Master.FindControl("altContent1");
 			AltPane2 = (ContentPlaceHolder)Master.FindControl("altContent2");
 
+			MPPageEdit = (ContentPlaceHolder)Master.FindControl("pageEditContent");
+
 			StyleSheetControl = (StyleSheet)Master.FindControl("StyleSheet");
-
-
-
 		}
 
 		protected bool ShouldShowModule(Module m)
@@ -1272,9 +1273,6 @@ namespace mojoPortal.Web
 
 			forceShowLeft = (leftModulesAdded > 0);
 			forceShowRight = (rightModulesAdded > 0);
-
-
-
 		}
 
 		private void SetupColumnCss(bool showLeft, bool showRight)
@@ -1395,22 +1393,17 @@ namespace mojoPortal.Web
 							AltPane2.Controls.Add(c);
 
 						}
-
 					}
 				}
 			}
-
-
 		}
 
 		protected bool ModuleIsVisible(Module module)
 		{
 			if ((module.HideFromAuthenticated) && (Request.IsAuthenticated)) { return false; }
 			if ((module.HideFromUnauthenticated) && (!Request.IsAuthenticated)) { return false; }
-
-
+			
 			return true;
-
 		}
 
 
@@ -1451,9 +1444,6 @@ namespace mojoPortal.Web
 
 				Page.ClientScript.RegisterStartupScript(this.GetType(), "formactionset", formActionScript);
 			}
-
-
-
 		}
 
 		private void SetupAdminLinks()
@@ -1620,7 +1610,6 @@ namespace mojoPortal.Web
 		public PageViewMode ViewMode
 		{
 			get { return viewMode; }
-
 		}
 
 
@@ -1630,8 +1619,6 @@ namespace mojoPortal.Web
 			base.OnPreRender(e);
 
 			SetupColumnCss(forceShowLeft, forceShowRight);
-
-
 		}
 
 		private void EnsureFormAction()
@@ -1641,7 +1628,6 @@ namespace mojoPortal.Web
 
 		protected override void Render(HtmlTextWriter writer)
 		{
-
 			if (!SiteUtils.UrlWasReWritten())
 			{
 				try
@@ -1782,8 +1768,6 @@ namespace mojoPortal.Web
 			// 2013-01-02 commented this out since it should already be logging the same exception form global.asax
 			//if (lastError != null) log.Error(exceptionIpAddress + "-" + exceptionUrl, lastError);
 
-
-
 			int siteCount = DatabaseHelper.ExistingSiteCount();
 
 			if (siteCount == 0)
@@ -1815,7 +1799,6 @@ namespace mojoPortal.Web
 				}
 				catch (HttpException) { }
 			}
-
 		}
 
 		public void SuppressAllMenus()
@@ -1850,7 +1833,6 @@ namespace mojoPortal.Web
 
 			menu = (PageMenuControl)Master.FindControl("PageMenu3");
 			if ((menu != null) && (menu.Direction == "Vertical")) menu.Visible = false;
-
 		}
 
 		public void SuppressGoogleAds()
