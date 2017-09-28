@@ -2608,6 +2608,8 @@ namespace mojoPortal.Web
 				pageTitle = UIHelper.CreateExcerpt(pageTitle, 65);
 			}
 
+			//todo: allow tokens in pageTitle so the format can chang per page if necessary
+			//return pageTitle.Replace("$_SiteName_$", siteSettings.SiteName).Replace("$_PageTitle_$", topicTitle);
 			return pageTitle;
 
 		}

@@ -4332,7 +4332,7 @@ namespace mojoPortal.Web
 		/// </summary>
 		public static bool FormatOverridePageTitle
 		{
-			get { return ConfigHelper.GetBoolProperty("FormatOverridePageTitle", false); }
+			get { return ConfigHelper.GetBoolProperty("FormatOverridePageTitle", true); }
 		}
 
 		public static string VertigoSlideShowOverrideXmlConfigFile
