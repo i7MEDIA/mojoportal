@@ -271,11 +271,20 @@ namespace SuperFlexiData
                  ConnectionString.GetReadConnectionString(),
                  sqlCommand.ToString()));
         }
+		public static int GetCountForModule(int moduleId)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append($"SELECT Count(*) FROM i7_sflexi_items where ModuleID = {moduleId};");
 
-        /// <summary>
-        /// Gets an IDataReader with all rows in the i7_sflexi_items table.
-        /// </summary>
-        public static IDataReader GetAll()
+			return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+				 ConnectionString.GetReadConnectionString(),
+				 sqlCommand.ToString()));
+		}
+		
+		/// <summary>
+		/// Gets an IDataReader with all rows in the i7_sflexi_items table.
+		/// </summary>
+		public static IDataReader GetAll()
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT * FROM i7_sflexi_items;");
