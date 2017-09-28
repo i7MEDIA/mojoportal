@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Fields definitionName="Social Links" definitionGuid="8e2cd322-d42b-4cd8-8984-1926c0a74d66">
+    <!-- $_SitePath_$ is /Data/Sites/[site number] -->
+    <Field
+        name="title"
+        label="Title"
+        controlType="TextBox"
+        required="True"
+        requiredMessageFormat="Title is required."
+        token="$title$"
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="forminput"
+        sortOrder="100"
+    />
+
+    <Field
+        name="url"
+        label="Link URL"
+        controlType="LinkPicker"
+        required="True"
+        requiredMessageFormat="Link URL is required."
+        token="$url$"
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="110"
+    >
+        <Attributes>
+            <Attribute name="class" value="form-control form-control--lg" />
+        </Attributes>
+    </Field>
+
+   <Field name="mediatype" label="Social Media Platform" token="$icon$" controlType="Dropdown" sortOrder="200">
+        <Options>
+            <Option value="twitter" name="Twitter"></Option>
+            <Option value="facebook" name="Facebook"></Option>
+            <Option value="linkedin" name="Linked In"></Option>
+            <Option value="google-plus" name="Google+"></Option>
+            <Option value="youtube-play" name="YouTube"></Option>
+            <Option value="tumblr" name="Tumblr"></Option>
+            <Option value="vimeo" name="Vimeo"></Option>
+            <Option value="pinterest-p" name="Pinterest"></Option>
+            <Option value="flickr" name="Flickr"></Option>
+            <Option value="rss" name="RSS"></Option>
+        </Options>
+    </Field>
+
+    <!--
+        Global Parameters:
+            name
+            label
+            controlType (if blank, TextBox is assumed)
+            defaultValue
+            sortOrder
+            token
+            required
+            requiredMessageFormat
+            regex
+            regexMessageFormat
+            helpKey
+            searchable
+            editPageControlWrapperCssClass
+            editPageLabelCssClass
+            editPageControlCssClass
+
+        Parameters by Control Type:
+            TextBox
+                textBoxMode
+                    "SingleLine" (default)
+                    "MultiLine"
+                    "Password"
+                    "Email"
+                    "Number"
+                    "Range"
+                    "Phone"
+                    "Url"
+            Image
+                imageBrowserEmptyUrl
+            CheckBox
+                checkBoxReturnBool
+                checkBoxReturnValueWhenTrue (only used when checkBoxReturnBool is false)
+                checkBoxReturnValueWhenFalse (only used when checkBoxReturnBool is false)
+            DateTime
+                datePickerIncludeTimeForDate
+                datePickerShowMonthList
+                datePickerShowYearList
+                datePickerYearRange
+                dateFormat
+            CustomField
+                controlSrc
+                    RTE:   ~/SuperFlexi/Controls/Wysiwyg.ascx
+                    image: ~/SuperFlexi/Controls/FeaturedImageSetting.ascx
+                    url:   ~/SuperFlexi/Controls/UrlSelector.ascx
+    -->
+
+</Fields>

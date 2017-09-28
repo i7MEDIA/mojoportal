@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Fields definitionName="Personnel List" definitionGuid="a54fc476-8f84-4e89-9c70-82f4f163e564">
+    <!-- $_SitePath_$ is /Data/Sites/[site number] -->
+    <Field
+        name="name"
+        label="Name"
+        controlType="TextBox"
+        required="True"
+        requiredMessageFormat="Name is required."
+        token="$name$"
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="forminput"
+        sortOrder="100"
+    />
+
+    <Field
+        name="position"
+        label="Title / Position"
+        controlType="TextBox"
+        required="false"
+        requiredMessageFormat="Title is required."
+        token="$position$"
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="forminput"
+        sortOrder="110"
+    />
+
+    <Field
+        name="description"
+        label="Description"
+        controlType="CustomField"
+        controlSrc="~/SuperFlexi/Controls/Wysiwyg.ascx"
+        required="True"
+        requiredMessageFormat="Content is required."
+        token="$description$"
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="forminput"
+        sortOrder="120"
+    />
+
+    <Field
+        name="img"
+        label="Photograph"
+        controlType="ImagePicker"
+        required="false"
+        requiredMessageFormat="An image is required for each staff/board member."
+        token="$img$"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="140"
+    />
+
+    <!--
+        Global Parameters:
+            name
+            label
+            controlType (if blank, TextBox is assumed)
+            defaultValue
+            sortOrder
+            token
+            required
+            requiredMessageFormat
+            regex
+            regexMessageFormat
+            helpKey
+            searchable
+            editPageControlWrapperCssClass
+            editPageLabelCssClass
+            editPageControlCssClass
+
+        Parameters by Control Type:
+            TextBox
+                textBoxMode
+                    "SingleLine" (default)
+                    "MultiLine"
+                    "Password"
+                    "Email"
+                    "Number"
+                    "Range"
+                    "Phone"
+                    "Url"
+            Image
+                imageBrowserEmptyUrl
+            CheckBox
+                checkBoxReturnBool
+                checkBoxReturnValueWhenTrue (only used when checkBoxReturnBool is false)
+                checkBoxReturnValueWhenFalse (only used when checkBoxReturnBool is false)
+            DateTime
+                datePickerIncludeTimeForDate
+                datePickerShowMonthList
+                datePickerShowYearList
+                datePickerYearRange
+                dateFormat
+            CustomField
+                controlSrc
+                    RTE:   ~/SuperFlexi/Controls/Wysiwyg.ascx
+                    image: ~/SuperFlexi/Controls/FeaturedImageSetting.ascx
+                    url:   ~/SuperFlexi/Controls/UrlSelector.ascx
+    -->
+
+</Fields>

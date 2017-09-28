@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Fields definitionName="Content Slider" definitionGuid="3ef1d095-63a6-4973-8125-dc700cf856a9">
+    <!-- $_FlexiHelp_$ is /Data/SuperFlexi/Help/ -->
+
+    <Field
+        name="content"
+        label="Slide Content"
+        controlType="CustomField"
+        controlSrc="~/SuperFlexi/Controls/Wysiwyg.ascx"
+        required="false"
+        requiredMessageFormat="Slide Content is required for each box."
+        token="$content$"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="100"
+    />
+
+    <Field
+        name="image"
+        label="Slide Image"
+        controlType="ImagePicker"
+        required="false"
+        requiredMessageFormat="Slide Image is required for each box."
+        token="$image$"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="110"
+    />
+
+    <!--
+        Global Parameters:
+            name
+            label
+            controlType (if blank, TextBox is assumed)
+            defaultValue
+            sortOrder
+            token
+            required
+            requiredMessageFormat
+            regex
+            regexMessageFormat
+            helpKey
+            searchable
+            editPageControlWrapperCssClass
+            editPageLabelCssClass
+            editPageControlCssClass
+
+        Parameters by Control Type:
+            TextBox
+                textBoxMode
+                    "SingleLine" (default)
+                    "MultiLine"
+                    "Password"
+                    "Email"
+                    "Number"
+                    "Range"
+                    "Phone"
+                    "Url"
+            Image
+                imageBrowserEmptyUrl
+            CheckBox
+                checkBoxReturnBool
+                checkBoxReturnValueWhenTrue (only used when checkBoxReturnBool is false)
+                checkBoxReturnValueWhenFalse (only used when checkBoxReturnBool is false)
+            DateTime
+                datePickerIncludeTimeForDate
+                datePickerShowMonthList
+                datePickerShowYearList
+                datePickerYearRange
+                dateFormat
+            CustomField
+                controlSrc
+                    RTE:   ~/SuperFlexi/Controls/Wysiwyg.ascx
+                    image: ~/SuperFlexi/Controls/FeaturedImageSetting.ascx
+                    url:   ~/SuperFlexi/Controls/UrlSelector.ascx
+    -->
+    
+</Fields>

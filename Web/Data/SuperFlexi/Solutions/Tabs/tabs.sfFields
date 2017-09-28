@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Fields definitionName="Tabs" definitionGuid="de43c59f-b327-4382-b5d8-fe6dd9fff383">
+
+    <Field
+        name="title"
+        label="Tab Title"
+        controlType="DynamicCheckBoxList"
+        required="True"
+        requiredMessageFormat="A title is required."
+        token="$title$"
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="settingrow cats-wrap cats-radio distinct"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="forminput list-inline cats-list hide-list"
+        sortOrder="100"
+    />
+
+    <Field
+        name="content"
+        label="Tab Content"
+        controlType="CustomField"
+        controlSrc="~/SuperFlexi/Controls/Wysiwyg.ascx"
+        required="True"
+        requiredMessageFormat="Content is required."
+        token="$content$"
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="form-group"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="110"
+    />
+
+   <Scripts>
+        <Script position="bottomStartup" name="TabTitleControl" src="resources/controls.checkbox-title.js"></Script>
+    </Scripts>
+
+    <Styles>
+        <Style><![CDATA[
+            ul.hide-list {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                margin: -1px;
+                padding: 0;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                border: 0;
+            }
+        ]]></Style>
+    </Styles>
+
+    <!--
+        Global Parameters:
+            name
+            label
+            controlType (if blank, TextBox is assumed)
+            defaultValue
+            sortOrder
+            token
+            required
+            requiredMessageFormat
+            regex
+            regexMessageFormat
+            helpKey
+            searchable
+            editPageControlWrapperCssClass
+            editPageLabelCssClass
+            editPageControlCssClass
+
+        Parameters by Control Type:
+            TextBox
+                textBoxMode
+                    "SingleLine" (default)
+                    "MultiLine"
+                    "Password"
+                    "Email"
+                    "Number"
+                    "Range"
+                    "Phone"
+                    "Url"
+            Image
+                imageBrowserEmptyUrl
+            CheckBox
+                checkBoxReturnBool
+                checkBoxReturnValueWhenTrue (only used when checkBoxReturnBool is false)
+                checkBoxReturnValueWhenFalse (only used when checkBoxReturnBool is false)
+            DateTime
+                datePickerIncludeTimeForDate
+                datePickerShowMonthList
+                datePickerShowYearList
+                datePickerYearRange
+                dateFormat
+            CustomField
+                controlSrc
+                    RTE:   ~/SuperFlexi/Controls/Wysiwyg.ascx
+                    image: ~/SuperFlexi/Controls/FeaturedImageSetting.ascx
+                    url:   ~/SuperFlexi/Controls/UrlSelector.ascx
+    -->
+
+</Fields>

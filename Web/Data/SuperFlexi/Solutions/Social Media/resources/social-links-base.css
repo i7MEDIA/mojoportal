@@ -1,0 +1,124 @@
+.social-links {
+  padding: 0;
+  margin: 0 0 15px;
+}
+.social-links .flexi-module-links {
+  display: block;
+}
+.social-links .social-links__title + .social-links__item,
+.social-links .flexi-module-links + .social-links__item {
+  margin-left: 0;
+}
+.social-links__item {
+  display: inline-block;
+  margin: 10px;
+  vertical-align: middle;
+}
+.social-links__item:last-child {
+  margin-right: 0;
+}
+.social-links__item a {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 18px;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 40px;
+  -webkit-transition: background-color 150ms ease;
+  -o-transition: background-color 150ms ease;
+  transition: background-color 150ms ease;
+}
+.social-links__item a.flexi-item-edit {
+  font-size: 14px;
+  color: #337ab7;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+}
+.social-links__item a.flexi-item-edit:hover {
+  color: #337ab7;
+}
+.social-links__item a:hover,
+.social-links__item a:focus {
+  text-decoration: none;
+  color: #fff;
+  -webkit-transition: background-color 150ms ease;
+  -o-transition: background-color 150ms ease;
+  transition: background-color 150ms ease;
+}
+.social-links__item a.fa {
+  color: #fff;
+}
+.social-links__item a.fa-twitter {
+  background-color: #469be4;
+  font-size: 20px;
+}
+.social-links__item a.fa-twitter:hover {
+  background-color: #73b3ea;
+}
+.social-links__item a.fa-facebook {
+  background-color: #19568a;
+  font-size: 20px;
+}
+.social-links__item a.fa-facebook:hover {
+  background-color: #2171b5;
+}
+.social-links__item a.fa-linkedin {
+  background-color: #0077B5;
+  font-size: 20px;
+}
+.social-links__item a.fa-linkedin:hover {
+  background-color: #0099e8;
+}
+.social-links__item a.fa-google-plus {
+  background-color: #dd4b39;
+  font-size: 20px;
+}
+.social-links__item a.fa-google-plus:hover {
+  background-color: #e47365;
+}
+.social-links__item a.fa-youtube-play {
+  background-color: #b91b20;
+  font-size: 20px;
+}
+.social-links__item a.fa-youtube-play:hover {
+  background-color: #e0272d;
+}
+.social-links__item a.fa-tumblr {
+  background-color: #34465d;
+  font-size: 20px;
+}
+.social-links__item a.fa-tumblr:hover {
+  background-color: #465f7e;
+}
+.social-links__item a.fa-vimeo {
+  background-color: #1ab7ea;
+  font-size: 20px;
+}
+.social-links__item a.fa-vimeo:hover {
+  background-color: #49c6ee;
+}
+.social-links__item a.fa-pinterest-p {
+  background-color: #bd081c;
+  font-size: 20px;
+}
+.social-links__item a.fa-pinterest-p:hover {
+  background-color: #ee0a23;
+}
+.social-links__item a.fa-flickr {
+  background-color: #ff0084;
+  font-size: 20px;
+}
+.social-links__item a.fa-flickr:hover {
+  background-color: #ff339d;
+}
+.social-links__item a.fa-rss {
+  background-color: #e16b26;
+  font-size: 20px;
+}
+.social-links__item a.fa-rss:hover {
+  background-color: #e78a53;
+}

@@ -1,0 +1,95 @@
+.icon-block__item {
+  background-color: #eee;
+  border-radius: 4px;
+  color: #333;
+  margin: 0 auto 40px;
+  text-align: center;
+  -webkit-transition: all 150ms linear;
+  transition: all 150ms linear;
+  padding: 50px 40px;
+  position: relative;
+  display: block;
+}
+.icon-block__item h1,
+.icon-block__item h2,
+.icon-block__item h3,
+.icon-block__item h4,
+.icon-block__item h5,
+.icon-block__item h6,
+.icon-block__item .icon-block__title {
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.icon-block__item i {
+  font-size: 60px;
+  margin: 15px 0px 15px;
+}
+
+.icon-block__item:hover,
+.icon-block__item:focus,
+.icon-block__item:active {
+  background-color: #337ab7;
+  color: #fff;
+  cursor: pointer;
+  -webkit-transition: all 150ms linear;
+  transition: all 150ms linear;
+  text-decoration: none;
+}
+
+.icon-block__item:hover h1,
+.icon-block__item:focus h1,
+.icon-block__item:active h1,
+.icon-block__item:hover h2,
+.icon-block__item:focus h2,
+.icon-block__item:active h2,
+.icon-block__item:hover h3,
+.icon-block__item:focus h3,
+.icon-block__item:active h3,
+.icon-block__item:hover h4,
+.icon-block__item:focus h4,
+.icon-block__item:active h4,
+.icon-block__item:hover h5,
+.icon-block__item:focus h5,
+.icon-block__item:active h5,
+.icon-block__item:hover h6,
+.icon-block__item:focus h6,
+.icon-block__item:active h6 {
+	color: #fff;
+}
+
+.icon-block__item--green:hover,
+.icon-block__item--green:focus,
+.icon-block__item--green:active {
+  background-color: #5cb85c;
+  -webkit-transition: background-color 300ms ease;
+  transition: background-color 300ms ease;
+}
+.icon-block__item--red:hover,
+.icon-block__item--red:focus,
+.icon-block__item--red:active {
+  background-color: #d9534f;
+  -webkit-transition: background-color 300ms ease;
+  transition: background-color 300ms ease;
+}
+.icon-block__item--orange:hover,
+.icon-block__item--orange:focus,
+.icon-block__item--orange:active {
+  background-color: #f0ad4e;
+  -webkit-transition: background-color 300ms ease;
+  transition: background-color 300ms ease;
+}
+.icon-block__item--purple:hover,
+.icon-block__item--purple:focus,
+.icon-block__item--purple:active {
+  background-color: #965be8;
+  -webkit-transition: background-color 300ms ease;
+  transition: background-color 300ms ease;
+}
+.icon-block__item--light-blue:hover,
+.icon-block__item--light-blue:focus,
+.icon-block__item--light-blue:active {
+  background-color: #5bc0de;
+  -webkit-transition: background-color 300ms ease;
+  transition: background-color 300ms ease;
+}

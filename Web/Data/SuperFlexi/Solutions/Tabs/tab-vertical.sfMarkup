@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions>
+	<MarkupDefinition
+		name="Tabs - Vertical"
+		moduleClass="tabs-module clearfix"
+		editPageClass="tabs-edit"
+		fieldDefinitionSrc="tabs.sfFields"
+		fieldDefinitionGuid="de43c59f-b327-4382-b5d8-fe6dd9fff383"
+		editPageTitle="Tab Details"
+		editPageDeleteButtonText="Delete Tab"
+		useHeader="false"
+		useFooter="false"
+		hideOuterWrapperPanel="false"
+		hideInnerWrapperPanel="false"
+		hideOuterBodyPanel="false"
+		hideInnerBodyPanel="false"
+	>
+	<!--
+		## Unused MarkupDefinition settings
+		jsonRenderLocation="inHead"
+	-->
+
+		<!-- Note that we leave some things relatively unformatted on purpose, to prevent extra spaces being rendered out on the page -->
+		
+		<!-- Determines the markup around the module title, where {0} is the module title text -->
+		<ModuleTitleFormat><![CDATA[<$_ModuleTitleElement_$ class="tabs__title moduletitle" data-moduleid="module$_ModuleID_$">{0}</$_ModuleTitleElement_$>]]></ModuleTitleFormat>
+		<ModuleTitleMarkup><![CDATA[$_ModuleTitle_$$_ModuleLinks_$]]></ModuleTitleMarkup>
+		<!-- {0:Module Settings}{1:Add Item}{2:Edit Header}{3:Edit Footer} -->
+		<ModuleLinksFormat><![CDATA[<span class="modulelinks flexi-module-links">{0}{2}{3}{1}</span>]]></ModuleLinksFormat>
+
+		<!-- Determines the markup wrapped around the entire module, but inside the default mojoPortal wrapper panels, if they're enabled -->
+		<ModuleInstanceMarkupTop><![CDATA[<link rel="stylesheet" href="//cdn.datatables.net/responsive/2.1.0/css/responsive.dataTables.min.css"/><div id="module$_ModuleID_$" data-contentsection="$_FriendlyName_$" class="tabs" style="clear: both;">]]></ModuleInstanceMarkupTop>
+		<ModuleInstanceMarkupBottom><![CDATA[</div>]]></ModuleInstanceMarkupBottom>
+
+		<!-- Determines the markup wrapped around each kind of administration link -->
+		<ModuleSettingsLinkFormat><![CDATA[<a class="ModuleEditLink flexi-settings" href="{0}"><span class="fa fa-cog"></span> Settings</a> &nbsp;]]></ModuleSettingsLinkFormat>
+		<AddItemLinkFormat><![CDATA[<a class="ModuleEditLink flexi-item-add" href="{0}"><span class="fa fa-plus"></span> Add Tab</a> &nbsp;]]></AddItemLinkFormat>
+		<EditHeaderLinkFormat><![CDATA[<a class="ModuleEditLink flexi-header-edit" href="{0}"><span class="fa fa-edit"></span> Edit Header</a> &nbsp;]]></EditHeaderLinkFormat>
+		<EditFooterLinkFormat><![CDATA[<a class="ModuleEditLink flexi-footer-edit" href="{0}"><span class="fa fa-edit"></span> Edit Footer</a> &nbsp;]]></EditFooterLinkFormat>
+		<ItemEditLinkFormat><![CDATA[<a class="ModuleEditLink flexi-item-edit" href="{0}"><span class="fa fa-edit"></span> Edit Tab</a>]]></ItemEditLinkFormat>
+
+		<!-- Determines the markup wrapped around the "Header" and "Footer" content panes, separate from the Items -->
+		<HeaderContentFormat><![CDATA[<div class="tabs__header">{0}</div>]]></HeaderContentFormat>
+		<FooterContentFormat><![CDATA[<div class="tabs__footer">{0}</div>]]></FooterContentFormat>
+
+		<!-- Determines the markup wrapped directly around all the items. Only gets rendered once, no matter how many items exist -->
+		<ItemsWrapperFormat><![CDATA[<div class="tabs__items row"><div class="col-md-4"><ul class="tabs__nav nav nav-pills nav-stacked" role="tablist">$tabs$</ul></div><div class="col-md-8"><div class="tabs__tab-content tab-content">{0}</div></div></div>]]></ItemsWrapperFormat>
+
+
+		<!--
+			ItemReaperMarkup is an optional markup group used to wrap your items in rows every so often,
+			the markup defined around the $_Items_$ is rendered per x items, with x being the value of "itemsPerGroup" (accepts # only).
+			To show all items use itemsPerGroup="-1"
+			$_Items[#]_$ represents each particular item based on the index provided.
+			Indexes should always start at 0, and should include every int between
+			0 and the value of itemsPerGroup, but not the value of itemsPerGroup itself.
+
+			The actual markup of each item is determined below by <itemMarkup>
+		-->
+		<!-- This is disabled in this solution, uncomment this to use it
+		<ItemsRepeaterMarkup itemsPerGroup="3"><![CDATA[$_Items[0]_$$_Items[1]_$$_Items[2]_$]]></ItemsRepeaterMarkup>
+ 		-->
+
+		<!-- CheckBoxListMarkup is used only if you have a DynamicCheckboxList field in your field definition
+			 It allows you to create content based on the checkboxes that were checked when the user created the item
+			 The "field" attribute below must be the name of a DynamicCheckboxList field in your field definition
+			 The "token" property on the <CheckBoxListMarkup> element determines the token of the OUTPUT of this markup list, 
+			 which must be included in your <ItemMarkup> or elsewhere in your markup in order for it to render. 
+			 Tokens inside the <content> represent content to render for each checkbox checked,
+			 and are usually the same as the token of the DynamicCheckboxList field.
+			 As <Content> is rendered via a loop for each checkbox checked, the $_ValueItemID_$ is the value of the checkbox item ID
+			 of the checkbox at the current index, so it will change for each item rendered.
+			 This is useful for creating "category" labels, tabs, and lots of other stuff.
+		-->
+ 		<CheckBoxListMarkup field="title" token="$tabs$">
+			<Content><![CDATA[<li role="presentation" class="tabs__nav--item"><a href="#tabs__tab-$_ValueItemID_$" aria-controls="tab-$_ValueItemID_$" role="tab" data-toggle="tab">$title$</a>]]></Content>
+		</CheckBoxListMarkup>
+
+		<!--
+			Dynamic Tokens can be found by looking in the Field Definition that is referenced near the top of this file,
+			in the fieldDefinitionSrc.
+
+			Static Tokens:
+			Static Tokens are those which cannot be changed and are replaced with built-in functionality.
+				$_EditLink_$				: The Edit link of the item
+				$_ItemID_$ 					: The ID of the item
+				$_SitePath_$ 				: The path of the site, /data/sites/1/ or /data/sites/2/, etc.
+				$_SortOrder_$ 				: The sort order of the current item
+				$_ModuleID_$ 				: The ID of the SuperFlexi module instance (can be used in ModuleInstanceMarkupTop, ModuleInstanceMarkupBottom, ItemMarkup)
+				$_JSONNAME_$ 				: The name of the variable containing the JSON for this instance (can be used in ModuleInstanceMarkupTop, ModuleInstanceMarkupBottom, ItemMarkup)
+				$_FeaturedImageUrl_$ 		: The module-level featured image url (can be used anywhere)
+		-->
+		<!-- Everything in ItemMarkup will be rendered once for each item that the user creates -->
+		<ItemMarkup><![CDATA[<div role="tabpanel" class="tab-pane fade" id="tabs__tab-$_ItemID_$">$_EditLink_$$content$</div>]]></ItemMarkup>
+
+
+		<!-- Calls in CSS files unique to this SuperFlexi Solution
+			Attributes:
+			name (required)				: An arbitrary name for your CSS file, ensures that the file is not called twice if the solution is used twice on one page
+			href (required) 			: The path to your CSS file, relative to the solution folder
+			RenderAboveSSC (optional) 	: Determines whether the CSS file is added to the DOM above mojoPortal's Style Sheet Cominer, or below it
+		 -->
+		<!-- This is disabled in this solution, uncomment to use it
+		<Styles>
+			<Style name="myCSS" href="resources/mycss.css"></Style>
+		</Styles> -->
+
+		<!-- Calls in Script files unique to this SuperFlexi Solution
+			 Attributes:
+			 name (required)				: An arbitrary name for your script file, ensures that the file is not called twice if the solution is used twice on one page
+			 src (required)					: The path to your script file, relative to the solution folder
+			 position (optional)			: Determines where the file renders, based on the following options...
+				inHead
+				inBody (register script) (default)
+				aboveMarkupDefinition
+				belowMarkupDefinition
+				bottomStartup (register startup script)
+				
+			Note: Setting names to prevent multiple file loads only works for positions of inHead, inBody and bottomStartup.
+		-->
+		<Scripts>
+			<Script position="bottomStartup" name="TabsInit"><![CDATA[$(document).ready(function(){$('.tabs__nav').each(function(){$(this).find('a').eq(0).tab('show')})});]]></Script>
+		</Scripts>
+	</MarkupDefinition>
+
+	<SearchDefinition>
+        <Title>$title$</Title>
+        <Keywords></Keywords>
+        <Description>$content$</Description>
+        <Link>$_PageUrl_$</Link>
+    </SearchDefinition>
+
+</Definitions>

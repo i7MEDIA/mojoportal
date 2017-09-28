@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Fields definitionName="Quick Links" definitionGuid="46a9c5f2-4b5b-4258-8767-041f612ab97a">
+    <!-- $_SitePath_$ is /Data/Sites/[site number] -->
+    <Field
+        name="title"
+        label="Title"
+        controlType="TextBox"
+        required="True"
+        requiredMessageFormat="Title is required."
+        token="$title$"
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="forminput"
+        sortOrder="100"
+    />
+
+    <Field
+        name="url"
+        label="Link URL"
+        controlType="LinkPicker"
+        required="True"
+        requiredMessageFormat="Link URL is required."
+        token="$url$"
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="110"
+    >
+        <Attributes>
+            <Attribute name="class" value="form-control form-control--lg" />
+        </Attributes>
+    </Field>
+
+    <!--
+        Global Parameters:
+            name
+            label
+            controlType (if blank, TextBox is assumed)
+            defaultValue
+            sortOrder
+            token
+            required
+            requiredMessageFormat
+            regex
+            regexMessageFormat
+            helpKey
+            searchable
+            editPageControlWrapperCssClass
+            editPageLabelCssClass
+            editPageControlCssClass
+
+        Parameters by Control Type:
+            TextBox
+                textBoxMode
+                    "SingleLine" (default)
+                    "MultiLine"
+                    "Password"
+                    "Email"
+                    "Number"
+                    "Range"
+                    "Phone"
+                    "Url"
+            Image
+                imageBrowserEmptyUrl
+            CheckBox
+                checkBoxReturnBool
+                checkBoxReturnValueWhenTrue (only used when checkBoxReturnBool is false)
+                checkBoxReturnValueWhenFalse (only used when checkBoxReturnBool is false)
+            DateTime
+                datePickerIncludeTimeForDate
+                datePickerShowMonthList
+                datePickerShowYearList
+                datePickerYearRange
+                dateFormat
+            CustomField
+                controlSrc
+                    RTE:   ~/SuperFlexi/Controls/Wysiwyg.ascx
+                    image: ~/SuperFlexi/Controls/FeaturedImageSetting.ascx
+                    url:   ~/SuperFlexi/Controls/UrlSelector.ascx
+    -->
+
+</Fields>

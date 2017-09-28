@@ -1,0 +1,15 @@
+.personnel-list__image {
+	width: 100%;
+	padding-top: 56.25%;
+	position: relative;
+	overflow: hidden;
+}
+
+.personnel-list__image img {
+	position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    max-height: none !important;
+}

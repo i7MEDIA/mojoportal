@@ -1,0 +1,18 @@
+.image-blocks__card {
+	margin-bottom: 30px;
+}
+
+.image-blocks__image img {
+	width: 100%;
+}
+
+.image-blocks__content {
+	border: 1px solid #eee;
+	border-top: 0 none;
+	padding: 15px;
+	box-sizing: border-box;
+}
+
+.image-blocks__content h4 {
+	margin: 10px 0 15px;
+}

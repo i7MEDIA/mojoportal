@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions>
+	<MarkupDefinition
+		name="Image Blocks"
+		moduleClass="image-blocks-module"
+		editPageClass="image-blocks-edit"
+		fieldDefinitionSrc="image-blocks.sfFields"
+		fieldDefinitionGuid="a1024890-ea6a-48cf-8e2b-a14ce6ca614c"
+		editPageTitle="Block Details"
+		editPageDeleteButtonText="Delete Block"
+		useHeader="false"
+		useFooter="false"
+		hideOuterWrapperPanel="false"
+		hideInnerWrapperPanel="false"
+		hideOuterBodyPanel="false"
+		hideInnerBodyPanel="false"
+	>
+	<!--
+		## Unused MarkupDefinition settings
+		jsonRenderLocation="inHead"
+	-->
+	
+		<!-- Note that we leave some things relatively unformatted on purpose, to prevent extra spaces being rendered out on the page -->
+
+		<!-- Determines the markup around the module title, where {0} is the module title text -->
+		<ModuleTitleFormat><![CDATA[<$_ModuleTitleElement_$ class="image-blocks__title moduletitle" data-moduleid="module$_ModuleID_$">{0}</$_ModuleTitleElement_$>]]></ModuleTitleFormat>
+		<ModuleTitleMarkup><![CDATA[$_ModuleTitle_$ $_ModuleLinks_$]]></ModuleTitleMarkup>
+		<!-- {0:Module Settings}{1:Add Item}{2:Edit Header}{3:Edit Footer} -->
+		<ModuleLinksFormat><![CDATA[<span class="modulelinks flexi-module-links">{0} {1} {2} {3}</span>]]></ModuleLinksFormat>
+
+		<!-- Determines the markup wrapped around the entire module, but inside the default mojoPortal wrapper panels, if they're enabled -->
+		<ModuleInstanceMarkupTop><![CDATA[<div id="module$_ModuleID_$" data-contentsection="$_FriendlyName_$" class="image-blocks">]]></ModuleInstanceMarkupTop>
+		<ModuleInstanceMarkupBottom><![CDATA[</div>]]></ModuleInstanceMarkupBottom>
+
+		<!-- Determines the markup wrapped around each kind of administration link -->
+		<ModuleSettingsLinkFormat><![CDATA[<a class="ModuleEditLink flexi-settings" href="{0}"><span class="fa fa-cog"></span> Settings</a> ]]></ModuleSettingsLinkFormat>
+		<AddItemLinkFormat><![CDATA[<a class="ModuleEditLink flexi-item-add" href="{0}"><span class="fa fa-plus"></span> Add Block</a> ]]></AddItemLinkFormat>
+		<EditHeaderLinkFormat><![CDATA[<a class="ModuleEditLink flexi-header-edit" href="{0}">Edit Header</a> ]]></EditHeaderLinkFormat>
+		<EditFooterLinkFormat><![CDATA[<a class="ModuleEditLink flexi-footer-edit" href="{0}">Edit Footer</a> ]]></EditFooterLinkFormat>
+		<ItemEditLinkFormat><![CDATA[<a class="ModuleEditLink flexi-item-edit" href="{0}"><span class="fa fa-edit"></span> Edit Block</a>]]></ItemEditLinkFormat>
+
+		<!-- Determines the markup wrapped around the "Header" and "Footer" content panes, separate from the Items -->
+		<HeaderContentFormat><![CDATA[<div class="image-blocks__header">{0}</div>]]></HeaderContentFormat>
+		<FooterContentFormat><![CDATA[<div class="image-blocks__footer">{0}</div>]]></FooterContentFormat>
+
+		<!-- Determines the markup wrapped directly around all the items. Only gets rendered once, no matter how many items exist -->
+		<ItemsWrapperFormat><![CDATA[<div class="image-blocks__items">{0}</div>]]></ItemsWrapperFormat>
+
+		<!--
+			ItemReaperMarkup is an optional markup group used to wrap your items in rows every so often,
+			the markup defined around the $_Items_$ is rendered per x items, with x being the value of "itemsPerGroup" (accepts # only).
+			To show all items use itemsPerGroup="-1"
+			$_Items[#]_$ represents each particular item based on the index provided.
+			Indexes should always start at 0, and should include every int between
+			0 and the value of itemsPerGroup, but not the value of itemsPerGroup itself.
+
+			The actual markup of each item is determined below by <itemMarkup>
+		-->		
+		<ItemsRepeaterMarkup itemsPerGroup="4"><![CDATA[<div class="image-blocks__group row fb-parent fb-row fb-wrap">$_Items[0]_$$_Items[1]_$$_Items[2]_$$_Items[3]_$</div>]]></ItemsRepeaterMarkup>
+ 
+		<!-- CheckBoxListMarkup is used only if you have an item of type DynamicCheckboxList
+			 It allows you to create content based on the checkboxes that were checked when the user created the item
+			 The "field" attribute must be the name of a DynamicCheckboxList field in your field definition
+			 The "token" property on the <CheckBoxListMarkup> element determines the token of the OUTPUT of this markup list, 
+			 which must be included in your <ItemMarkup> or elsewhere in your markup in order for it to render. 
+			 The actual $exampletoken$ inside the <content> represents content to render for each checkbox checked,
+			 and is usually the same as the token of the DynamicCheckboxList field.
+			 As <Content> is rendered for each checkbox checked, the $_ValueItemID_$ is the value of the checkbox item ID
+			 of the checkbox at the current index, so it will change for each item rendered.
+			 This is useful for creating "category" labels, and lots of other stuff.
+		-->
+ 		<!-- This is disabled in this solution, uncomment this to use it
+ 		<CheckBoxListMarkup field="fieldname" token="$mytoken$">
+			<Content><![CDATA[<div id="$_ValueItemID_$">$exampletoken$</div>]]></Content>
+		</CheckBoxListMarkup> 
+		-->
+
+		<!--
+			Dynamic Tokens can be found by looking in the Field Definition that is referenced near the top of this file,
+			in the fieldDefinitionSrc.
+
+			Static Tokens:
+			Static Tokens are those which cannot be changed and are replaced with built-in functionality.
+				$_EditLink_$				: The Edit link of the item
+				$_ItemID_$ 					: The ID of the item
+				$_SitePath_$ 				: The path of the site, /data/sites/1/ or /data/sites/2/, etc.
+				$_SortOrder_$ 				: The sort order of the current item
+				$_ModuleID_$ 				: The ID of the SuperFlexi module instance (can be used in ModuleInstanceMarkupTop, ModuleInstanceMarkupBottom, ItemMarkup)
+				$_JSONNAME_$ 				: The name of the variable containing the JSON for this instance (can be used in ModuleInstanceMarkupTop, ModuleInstanceMarkupBottom, ItemMarkup)
+				$_FeaturedImageUrl_$ 		: The module-level featured image url
+		-->
+		<!-- Everything in ItemMarkup will be rendered once for each item that the user creates -->
+		<ItemMarkup><![CDATA[
+			<div class="image-blocks__item col-sm-6 fb-shrink fb-grow fb-j-between fb-sm-100 fb-lg-50">
+				$_EditLink_$
+				<div class="image-blocks__card fb-parent fb-row fb-j-between fb-wrap">
+					<div class="image-blocks__image fb-child fb-grow fb-sm-100">
+						<img src="$img$" alt="$title$" />
+					</div>
+					<div class="image-blocks__content fb-child fb-grow fb-sm-100">
+						<h4>$title$</h4>
+						$content$
+					</div>
+				</div>
+			</div>
+		]]></ItemMarkup>
+
+		<!-- Calls in CSS files unique to this SuperFlexi Solution
+			Attributes:
+			name (required)				: An arbitrary name for your CSS file, ensures that the file is not called twice if the solution is used twice on one page
+			href (required) 			: The path to your CSS file, relative to the solution folder
+			RenderAboveSSC (optional) 	: Determines whether the CSS file is added to the DOM above mojoPortal's Style Sheet Cominer, or below it
+		 -->
+		<Styles>
+			<Style name="imageBlockBaseCSS" href="resources/image-blocks-base.css"></Style>
+		</Styles>
+
+		<!-- Calls in Script files unique to this SuperFlexi Solution
+			 Attributes:
+			 name (required)				: An arbitrary name for your script file, ensures that the file is not called twice if the solution is used twice on one page
+			 src (required)					: The path to your script file, relative to the solution folder
+			 position (optional)			: Determines where the file renders, based on the following options...
+				inHead
+				inBody (register script) (default)
+				aboveMarkupDefinition
+				belowMarkupDefinition
+				bottomStartup (register startup script)
+				
+			Note: Setting names to prevent multiple file loads only works for positions of inHead, inBody and bottomStartup.
+		-->
+		<Scripts>
+			<!-- Example
+				<Script position="bottomStartup" name="myScript" src="resources/my-script.js"></Script>
+			-->
+		</Scripts>
+	</MarkupDefinition>
+
+    <SearchDefinition>
+        <Title>$title$</Title>
+        <Keywords></Keywords>
+        <Description>$content$</Description>
+        <Link>$_PageUrl_$</Link>
+    </SearchDefinition>
+</Definitions>
