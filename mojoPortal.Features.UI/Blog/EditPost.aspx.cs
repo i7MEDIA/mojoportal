@@ -19,12 +19,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Linq;
 
 namespace mojoPortal.Web.BlogUI
 {
@@ -56,6 +59,7 @@ namespace mojoPortal.Web.BlogUI
 		private IFileSystem fileSystem = null;
 		private SiteUser currentUser = null;
 		private bool cancelRedirect = false;
+		private string currentFeaturedImagePath = string.Empty;
 
 		private SiteUser siteUser = null;
 
@@ -96,6 +100,8 @@ namespace mojoPortal.Web.BlogUI
 
 			if (blog != null)
 			{
+				currentFeaturedImagePath = blog.HeadlineImageUrl;
+
 				//existing post check if user can edit it
 				if (BlogConfiguration.SecurePostsByUser)
 				{
@@ -639,6 +645,22 @@ namespace mojoPortal.Web.BlogUI
 			blog.PubStockTickers = txtPubStockTickers.Text;
 			blog.HeadlineImageUrl = txtHeadlineImage.Text;
 
+
+			if (blog.HeadlineImageUrl != currentFeaturedImagePath)
+			{
+				//update meta 
+
+				string fullPath = SiteRoot + Page.ResolveUrl(currentFeaturedImagePath);
+
+				List <ContentMeta> metas = metaRepository.FetchByContent(blog.BlogGuid).Where(m => m.MetaContent == fullPath).ToList();
+				foreach (ContentMeta meta in metas)
+				{
+					meta.MetaContent = SiteRoot + Page.ResolveUrl(blog.HeadlineImageUrl);
+					metaRepository.Save(meta);
+				}
+			}
+
+			//todo: is this needed?
 			if (blog.HeadlineImageUrl.Length > 0)
 			{
 				imgPreview.ImageUrl = blog.HeadlineImageUrl;
@@ -689,7 +711,13 @@ namespace mojoPortal.Web.BlogUI
 
 			blog.Save();
 
-			// This must be below blog.Save() in order to have blog.ItemID set
+			// Check to see if this post is being created or edited
+			if (itemId == -1)
+			{
+				CreateDefaultMetaTags();
+			}
+
+			// This must be below blog.Save() in order to have blog.ItemId set
 			if (chkFeaturedPost.Checked == true)
 			{
 				ModuleSettings.UpdateModuleSetting(module.ModuleGuid, moduleId, "FeaturedPostId", blog.ItemId.ToString());
@@ -702,9 +730,6 @@ namespace mojoPortal.Web.BlogUI
 					ModuleSettings.UpdateModuleSetting(module.ModuleGuid, moduleId, "FeaturedPostId", "0");
 				}
 			}
-
-			// Create default social meta tags
-			CreateDefaultMetaTags();
 
 			if (!friendlyUrl.FoundFriendlyUrl)
 			{
@@ -792,19 +817,29 @@ namespace mojoPortal.Web.BlogUI
 		void CreateDefaultMetaTags()
 		{
 			string blogMetaConfigFile = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/MetadataConfiguration/blog.json";
+			string blogMetaConfigDefault = "[{\"NameProperty\":\"itemprop\",\"Name\":\"\",\"ContentProperty\":\"itemtype\",\"MetaContent\":\"http://schema.org/Article\"},{\"NameProperty\":\"itemprop\",\"Name\":\"name\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"itemprop\",\"Name\":\"description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"itemprop\",\"Name\":\"image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:type\",\"ContentProperty\":\"content\",\"MetaContent\":\"article\"},{\"NameProperty\":\"property\",\"Name\":\"og:site_name\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{site-name}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:title\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:url\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{url}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:card\",\"ContentProperty\":\"content\",\"MetaContent\":\"summary_large_image\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:title\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"}]";
 
 			if (fileSystem.FileExists(blogMetaConfigFile))
 			{
-				List<ContentMeta> metaTags = getJsonFile();
-				List<ContentMeta> newMetaTags = new List<ContentMeta>();
+				List<ContentMeta> metaTags = GetJsonFile();
 
+				CreateItems(metaTags);
+			}
+			else
+			{
+				CreateItems(JsonConvert.DeserializeObject<List<ContentMeta>>(blogMetaConfigDefault));
+			}
+
+			void CreateItems(List<ContentMeta> metaTags)
+			{
 				foreach (ContentMeta tag in metaTags)
 				{
+					int truncateLength = 155;
+
 					switch (tag.MetaContent)
 					{
 						case "{{site-name}}":
-							// need to grab sitename
-							tag.MetaContent = "";
+							tag.MetaContent = siteSettings.SiteName;
 							break;
 
 						case "{{title}}":
@@ -812,23 +847,46 @@ namespace mojoPortal.Web.BlogUI
 							break;
 
 						case "{{description}}":
+							string uncleanMarkup = null;
+
 							if (!string.IsNullOrWhiteSpace(blog.Excerpt))
 							{
-								tag.MetaContent = blog.Excerpt;
+								uncleanMarkup = blog.Excerpt;
 							}
 							else
 							{
-								// Need to truncate
-								tag.MetaContent = HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(blog.Description));
+								uncleanMarkup = blog.Description;
 							}
+
+							// Remove markup and whitespace characters
+							string cleanedOfMarkup = Regex.Replace(
+								HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(uncleanMarkup)),
+								@"\s+",
+								" "
+							);
+
+							cleanedOfMarkup = 
+								(cleanedOfMarkup.Length <= truncateLength) ? 
+								cleanedOfMarkup.Trim() : 
+								cleanedOfMarkup.Substring(0, truncateLength).Trim()
+							;
+
+							tag.MetaContent = HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(cleanedOfMarkup));
 							break;
 
 						case "{{image}}":
-							tag.MetaContent = blog.HeadlineImageUrl;
+							if (!string.IsNullOrWhiteSpace(blog.HeadlineImageUrl))
+							{
+								tag.MetaContent = SiteRoot + Page.ResolveUrl(blog.HeadlineImageUrl);
+							}
+							else
+							{
+								tag.MetaContent = string.Empty;
+							}
 							break;
 
 						case "{{url}}":
-							tag.MetaContent = Page.ResolveUrl(blog.ItemUrl);
+							tag.MetaContent = SiteRoot + Page.ResolveUrl(blog.ItemUrl);
 							break;
 
 							// The is for Twitter, it expects the @organisation of the person who wrote the article.
@@ -845,27 +903,26 @@ namespace mojoPortal.Web.BlogUI
 							//	break;
 					}
 
-					newMetaTags.Add(tag);
-
-					//createMetaEntry(
-					//	new Guid(),
-					//	tag.NameProperty,
-					//	tag.Name,
-					//	tag.ContentProperty,
-					//	tag.MetaContent,
-					//	tag.Scheme,
-					//	tag.LangCode,
-					//	tag.Dir
-					//);
+					createMetaEntry(
+						new Guid(),
+						tag.NameProperty,
+						tag.Name,
+						tag.ContentProperty,
+						tag.MetaContent,
+						tag.Scheme,
+						tag.LangCode,
+						tag.Dir
+					);
 				}
+			}
 
-				List<ContentMeta> getJsonFile() {
-					using (StreamReader r = new StreamReader(HttpContext.Current.Server.MapPath(blogMetaConfigFile)))
-					{
-						string json = r.ReadToEnd();
+			List<ContentMeta> GetJsonFile()
+			{
+				using (StreamReader r = new StreamReader(HttpContext.Current.Server.MapPath(blogMetaConfigFile)))
+				{
+					string json = r.ReadToEnd();
 
-						return JsonConvert.DeserializeObject<List<ContentMeta>>(json);
-					}
+					return JsonConvert.DeserializeObject<List<ContentMeta>>(json);
 				}
 			}
 		}
