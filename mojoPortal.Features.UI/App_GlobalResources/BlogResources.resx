@@ -1004,6 +1004,7 @@
   </data>
   <data name="PostListItemsPerPage" xml:space="preserve">
     <value>Number of items to render</value>
+  </data>
   <data name="UsePostTitleAsPageHeadingSetting" xml:space="preserve">
     <value>Use Post Titles as Page Heading?</value>
   </data>
