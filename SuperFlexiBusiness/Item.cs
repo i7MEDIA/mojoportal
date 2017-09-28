@@ -119,7 +119,7 @@ namespace SuperFlexiBusiness
             set { editRoles = value; }
         }
 
-        public DateTime CreatedUtc
+		public DateTime CreatedUtc
         {
             get { return createdUtc; }
             set { createdUtc = value; }
@@ -333,15 +333,23 @@ namespace SuperFlexiBusiness
             return DBItems.DeleteByDefinition(definitionGuid);
         }
 
-        /// <summary>
-        /// Gets a count of item. 
-        /// </summary>
-        public static int GetCount()
-        {
-            return DBItems.GetCount();
-        }
+		/// <summary>
+		/// Gets a count of item. 
+		/// </summary>
+		//public static int GetCount()
+		//{
+		//    return DBItems.GetCount();
+		//}
+		
+		/// <summary>
+		/// Gets a count of all items for a module
+		/// </summary>
+		public static int GetCountForModule(int moduleId)
+		{
+			return DBItems.GetCountForModule(moduleId);
+		}
 
-        private static List<Item> LoadListFromReader(IDataReader reader)
+		private static List<Item> LoadListFromReader(IDataReader reader)
         {
             List<Item> itemList = new List<Item>();
             try

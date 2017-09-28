@@ -352,8 +352,10 @@ public ModuleConfiguration()
                 if (attrCollection["hideInnerWrapperPanel"] != null) hideInnerWrapperPanel = Convert.ToBoolean(attrCollection["hideInnerWrapperPanel"].Value);
                 if (attrCollection["hideOuterBodyPanel"] != null) hideOuterBodyPanel = Convert.ToBoolean(attrCollection["hideOuterBodyPanel"].Value);
                 if (attrCollection["hideInnerBodyPanel"] != null) hideInnerBodyPanel = Convert.ToBoolean(attrCollection["hideInnerBodyPanel"].Value);
+				if (attrCollection["showSaveAsNewButton"] != null) showSaveAsNew = Convert.ToBoolean(attrCollection["showSaveAsNewButton"].Value);
+				if (attrCollection["maxItems"] != null) maxItems = Convert.ToInt32(attrCollection["maxItems"].Value);
 
-                MarkupDefinition workingMarkupDefinition = new MarkupDefinition();
+				MarkupDefinition workingMarkupDefinition = new MarkupDefinition();
                 if (isMobile && !useStandardMarkupOnDesktopOnly)
                 {
                     // do this so mobile settings are added to desktop
@@ -701,6 +703,12 @@ public ModuleConfiguration()
 
         private bool allowExport = false;
         public bool AllowExport { get { return allowExport; } }
+
+		private bool showSaveAsNew = true;
+		public bool ShowSaveAsNew { get => showSaveAsNew; }
+
+		private int maxItems = -1;
+		public int MaxItems { get => maxItems; }
 
         private string customizableSettings = string.Empty;
         public string CustomizableSettings { get { return customizableSettings; } }

@@ -103,9 +103,19 @@ namespace SuperFlexiUI
 				return;
 			}
 
-            if (itemId > -1) item = new Item(itemId);
+			if (itemId > -1)
+			{
+				item = new Item(itemId);
+			}
+			else
+			{
+				if (config.MaxItems > -1 && config.MaxItems <= Item.GetCountForModule(moduleId))
+				{
+					SiteUtils.RedirectToEditAccessDeniedPage();
+					return;
+				}
+			}
 
-            
 			PopulateCustomControls();
 			SetupScripts();
 			PopulateLabels();
@@ -132,10 +142,10 @@ namespace SuperFlexiUI
 					SiteUtils.RedirectToAccessDeniedPage(this);
 					return;
 				}
-                saveAsNewButton.Visible = true;
+                saveAsNewButton.Visible = config.ShowSaveAsNew;
 				txtViewOrder.Text = item.SortOrder.ToString();
                 
-                exportButton.Visible = config.AllowExport;
+                //exportButton.Visible = config.AllowExport;
 			}
 			else
 			{
@@ -147,7 +157,7 @@ namespace SuperFlexiUI
 				{
 					txtViewOrder.Text = "500";
 				}
-
+				saveAsNewButton.Visible = false;
 				deleteButton.Visible = false;
                 exportButton.Visible = false;
 			}
@@ -1018,10 +1028,10 @@ namespace SuperFlexiUI
 
 			if (field.HelpKey.Length > 0)
 			{
-				if (field.HelpKey.ToLower().IndexOf(".sfhelp") >= 0 ||
-					field.HelpKey.ToLower().IndexOf(".config") >= 0 ||
-					field.HelpKey.IndexOf("$_FlexiHelp_$") >= 0 || 
-					field.HelpKey.IndexOf("$_SitePath_$") >= 0)
+				if (field.HelpKey.EndsWith(".sfhelp") ||
+					field.HelpKey.EndsWith(".config") ||
+					field.HelpKey.StartsWith("$_FlexiHelp_$") || 
+					field.HelpKey.StartsWith("$_SitePath_$"))
 				{
 					Literal litHelpText = new Literal();
 					litHelpText.Text = SuperFlexiHelpers.GetHelpText(field.HelpKey, config);

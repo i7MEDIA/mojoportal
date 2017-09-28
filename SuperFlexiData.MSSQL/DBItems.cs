@@ -192,10 +192,17 @@ namespace SuperFlexiData
 
         }
 
-        /// <summary>
-        /// Gets an IDataReader with all rows in the i7_sflexi_items table.
-        /// </summary>
-        public static IDataReader GetAll()
+		public static int GetCountForModule(int moduleId)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_GetCountForModule", 1);
+			sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
+			return Convert.ToInt32(sph.ExecuteScalar());
+		}
+
+		/// <summary>
+		/// Gets an IDataReader with all rows in the i7_sflexi_items table.
+		/// </summary>
+		public static IDataReader GetAll()
         {
 
             return SqlHelper.ExecuteReader(

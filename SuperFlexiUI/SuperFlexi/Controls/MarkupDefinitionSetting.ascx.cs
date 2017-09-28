@@ -181,7 +181,7 @@ namespace SuperFlexiUI
 			ddDefinitions.DataValueField = "Value";
 			ddDefinitions.DataBind();
 
-			ddDefinitions.Items.Insert(0, new ListItem(SuperFlexiResources.SolutionDropDownPleaseSelect, string.Empty));
+			ddDefinitions.Items.Insert(0, new ListItem(SuperFlexiResources.SolutionDropDownPleaseSelect, "0"));
 		}
 
 		#region ISettingControl

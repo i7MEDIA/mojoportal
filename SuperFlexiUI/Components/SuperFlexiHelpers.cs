@@ -45,9 +45,9 @@ namespace SuperFlexiUI
                     WebUtils.GetSiteRoot() + "/Admin/ModuleSettings.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
                     SuperFlexiResources.SettingsLinkLabel);
 
-                if (!String.IsNullOrWhiteSpace(config.MarkupDefinitionName) && config.MarkupDefinitionName != "Please Select")
+                if (!String.IsNullOrWhiteSpace(config.MarkupDefinitionName) && config.MarkupDefinitionName != "0")
                 {
-                    if (!config.IsGlobalView)
+                    if (!config.IsGlobalView && Item.GetCountForModule(moduleId) < config.MaxItems)
                     {
                         add = String.Format(
                       displaySettings.AddItemLinkFormat,
@@ -151,15 +151,15 @@ namespace SuperFlexiUI
 			else
 			{
 				helpText = ResourceHelper.GetHelpFileText(helpKey);
+				helpFile = null;
 			}
 
-            if (helpFile != null)
+            if (helpFile != null && fileSystem.FileExists(helpFile.VirtualPath))
             {
 				//FileInfo file = new FileInfo(helpFilePath);
 				//fileSystem.GetAsStream(helpFile.VirtualPath);
 				//StreamReader sr = file.OpenText();
-				log.Info(helpFile.VirtualPath);
-				log.Info(helpFile.Path);
+				
 				StreamReader sr = new StreamReader(fileSystem.GetAsStream(helpFile.VirtualPath));
 				helpText = sr.ReadToEnd();
 				sr.Close();
