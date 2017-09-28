@@ -22,7 +22,7 @@ using Resources;
 
 namespace mojoPortal.Web.BlogUI
 {
-    public partial class BlogDraftsPage : NonCmsBasePage
+    public partial class BlogDraftsPage : mojoBasePage
     {
         #region Properties
 

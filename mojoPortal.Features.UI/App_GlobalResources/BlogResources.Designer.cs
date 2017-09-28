@@ -2698,6 +2698,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Post Titles as Page Heading?.
+        /// </summary>
+        internal static string UsePostTitleAsPageHeadingSetting {
+            get {
+                return ResourceManager.GetString("UsePostTitleAsPageHeadingSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version as of {0}.
         /// </summary>
         internal static string VersionAsOfHeadingFormat {

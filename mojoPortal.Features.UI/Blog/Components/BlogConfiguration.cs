@@ -1,6 +1,6 @@
 // Author:
 // Created:			        2010-05-11
-// Last Modified:		    2017-08-25
+// Last Modified:		    2017-09-28
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -109,6 +109,8 @@ namespace mojoPortal.Web.BlogUI
 			includeCommentBodyInNotification = WebUtils.ParseBoolFromHashtable(settings, "BlogIncludeCommentBodyInNotification", includeCommentBodyInNotification);
 
 			useLinkForHeading = WebUtils.ParseBoolFromHashtable(settings, "BlogUseLinkForHeading", useLinkForHeading);
+
+			usePostTitleAsPageHeading = WebUtils.ParseBoolFromHashtable(settings, "UsePostTitleAsPageHeadingSetting", usePostTitleAsPageHeading);
 
 			//showPostAuthor = WebUtils.ParseBoolFromHashtable(settings, "ShowPostAuthorSetting", showPostAuthor);
 
@@ -1170,6 +1172,13 @@ namespace mojoPortal.Web.BlogUI
 		public int FeedTimeToLive
 		{
 			get { return feedTimeToLive; }
+		}
+
+		private bool usePostTitleAsPageHeading = true;
+
+		public bool UsePostTitleAsPageHeading
+		{
+			get => usePostTitleAsPageHeading;
 		}
 
 		public static bool Create301OnPostRename

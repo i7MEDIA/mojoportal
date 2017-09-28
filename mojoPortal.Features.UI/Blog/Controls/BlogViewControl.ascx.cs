@@ -151,7 +151,6 @@ namespace mojoPortal.Web.BlogUI
 
 			basePage.LoadSideContent(config.ShowLeftContent, config.ShowRightContent);
 			basePage.LoadAltContent(BlogConfiguration.ShowTopContent, BlogConfiguration.ShowBottomContent);
-
 		}
 
 
@@ -201,6 +200,11 @@ namespace mojoPortal.Web.BlogUI
 			}
 
 			heading.Text = blog.Title;
+			if (CacheHelper.GetCurrentPage().ShowPageHeading && config.UsePostTitleAsPageHeading)
+			{
+				basePage.PageHeading.Title.Text = blog.Title;
+				heading.Visible = false;
+			}
 
 			if (displaySettings.ShowSubTitleOnDetailPage && (blog.SubTitle.Length > 0))
 			{
@@ -218,13 +222,20 @@ namespace mojoPortal.Web.BlogUI
 
 			if (CanEditPost(blog))
 			{
-				heading.LiteralExtraMarkup =
-					"&nbsp;<a href='"
-					+ SiteRoot
-					+ "/Blog/EditPost.aspx?pageid=" + PageId.ToInvariantString()
-					+ "&amp;mid=" + ModuleId.ToInvariantString()
-					+ "&amp;ItemID=" + ItemId.ToInvariantString()
-					+ "' class='ModuleEditLink'>" + BlogResources.BlogEditEntryLink + "</a>";
+
+				string editLink = $"&nbsp;<a href='{SiteRoot}/Blog/EditPost.aspx?pageid={PageId.ToInvariantString()}" +
+					$"&amp;mid={ModuleId.ToInvariantString()}" +
+					$"&amp;ItemID={ItemId.ToInvariantString()}'" +
+					$"class='ModuleEditLink'>{BlogResources.BlogEditEntryLink}</a>";
+
+				if (CacheHelper.GetCurrentPage().ShowPageHeading && config.UsePostTitleAsPageHeading)
+				{
+					basePage.PageHeading.LiteralExtraMarkup = editLink;
+				}
+				else
+				{
+					heading.LiteralExtraMarkup = editLink;
+				}
 			}
 
 
@@ -1479,12 +1490,9 @@ namespace mojoPortal.Web.BlogUI
 								+ GetRssUrl() + "\" />";
 
 						head.Controls.Add(rssLink);
-
 					}
-
 				}
 			}
-
 		}
 
 		private string GetRssUrl()
