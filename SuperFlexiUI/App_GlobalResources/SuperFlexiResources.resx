@@ -160,7 +160,7 @@
     <value>Edit Header</value>
   </data>
   <data name="Browse" xml:space="preserve">
-    <value>Browse</value>
+    <value>Select File</value>
   </data>
   <data name="MarkupDefinitionFile" xml:space="preserve">
     <value>Solution</value>

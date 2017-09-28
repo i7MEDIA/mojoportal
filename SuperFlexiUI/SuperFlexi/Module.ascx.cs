@@ -5,6 +5,7 @@
 /// You must not remove this notice, or any other, from this software.
 
 using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
 using mojoPortal.Web.Framework;
 using System;
@@ -56,7 +57,11 @@ namespace SuperFlexiUI
 			}
 
 			theWidget.Config = config;
-			theWidget.PageId = PageId;
+			PageSettings currentPage = CacheHelper.GetCurrentPage();
+			if (currentPage != null)
+			{
+				theWidget.PageId = currentPage.PageId;
+			}
 			theWidget.ModuleId = ModuleId;
 			theWidget.IsEditable = IsEditable;
 			theWidget.SiteRoot = SiteRoot;

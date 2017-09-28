@@ -210,12 +210,32 @@ namespace SuperFlexiBusiness
             return LoadListFromReader(DBItemFieldValues.GetByItemGuid(itemGuid));
         }
 
-        /// <summary>
-        /// Deletes an instance of value. Returns true on success.
-        /// </summary>
-        /// <param name="valueGuid"> valueGuid </param>
-        /// <returns>bool</returns>
-        public static bool Delete(
+		/// <summary>
+		/// Gets all values for items with ModuleGuid. Returns List<ItemFieldValue>
+		/// </summary>
+		/// <param name="moduleGuid"></param>
+		/// <returns></returns>
+		public static List<ItemFieldValue> GetItemValuesByModule(Guid moduleGuid)
+		{
+			return LoadListFromReader(DBItemFieldValues.GetByModuleGuid(moduleGuid));
+		}
+
+		/// <summary>
+		/// Gets all values for items with ModuleGuid. Returns List<ItemFieldValue>
+		/// </summary>
+		/// <param name="moduleGuid"></param>
+		/// <returns></returns>
+		public static List<ItemFieldValue> GetItemValuesByDefinition(Guid definitionGuid)
+		{
+			return LoadListFromReader(DBItemFieldValues.GetByDefinitionGuid(definitionGuid));
+		}
+
+		/// <summary>
+		/// Deletes an instance of value. Returns true on success.
+		/// </summary>
+		/// <param name="valueGuid"> valueGuid </param>
+		/// <returns>bool</returns>
+		public static bool Delete(
             Guid valueGuid)
         {
             return DBItemFieldValues.Delete(

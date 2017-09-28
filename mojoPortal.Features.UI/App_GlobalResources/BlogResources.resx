@@ -1002,4 +1002,7 @@
   <data name="MetaNamePropertyRequired" xml:space="preserve">
     <value>This field is required.</value>
   </data>
+  <data name="PostListItemsPerPage" xml:space="preserve">
+    <value>Number of items to render</value>
+  </data>
 </root>

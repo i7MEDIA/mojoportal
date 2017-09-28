@@ -770,6 +770,11 @@
             Compares 2 instances of ContentMeta.
             </summary>
         </member>
+        <member name="M:mojoPortal.Business.ContentMeta.CompareByNameProperty(mojoPortal.Business.ContentMeta,mojoPortal.Business.ContentMeta)">
+            <summary>
+            Compares 2 instances of NameProperty.
+            </summary>
+        </member>
         <member name="M:mojoPortal.Business.ContentMeta.CompareByScheme(mojoPortal.Business.ContentMeta,mojoPortal.Business.ContentMeta)">
             <summary>
             Compares 2 instances of ContentMeta.
@@ -788,6 +793,11 @@
         <member name="M:mojoPortal.Business.ContentMeta.CompareByMetaContent(mojoPortal.Business.ContentMeta,mojoPortal.Business.ContentMeta)">
             <summary>
             Compares 2 instances of ContentMeta.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Business.ContentMeta.CompareByMetaContentProperty(mojoPortal.Business.ContentMeta,mojoPortal.Business.ContentMeta)">
+            <summary>
+            Compares 2 instances of ContentProperty.
             </summary>
         </member>
         <member name="M:mojoPortal.Business.ContentMeta.CompareBySortRank(mojoPortal.Business.ContentMeta,mojoPortal.Business.ContentMeta)">
@@ -866,7 +876,6 @@
             <summary>
             Deletes an instance of ContentMeta. Returns true on success.
             </summary>
-            <param name="guid"> guid </param>
             <returns>bool</returns>
         </member>
         <member name="M:mojoPortal.Business.ContentMetaRespository.DeleteLink(System.Guid)">

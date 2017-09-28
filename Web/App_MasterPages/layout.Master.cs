@@ -63,8 +63,8 @@ namespace mojoPortal.Web
         private string emptyCenterCss = string.Empty;
         private bool hideEmptyCenterIfOnlySidesHaveContent = false;
 
-        private bool isCmsPage = false;
-        private bool isMobileDevice = false;
+        protected bool isCmsPage = false;
+        protected bool isMobileDevice = false;
         private int mobileOnly = (int)ContentPublishMode.MobileOnly;
         private int webOnly = (int)ContentPublishMode.WebOnly;
         

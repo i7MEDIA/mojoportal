@@ -130,6 +130,7 @@
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.1.0.config" />
     <Content Include="packages.config" />
     <Content Include="Views\SuperFlexi\_SuperFlexiRazor.cshtml" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.1.1.config" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

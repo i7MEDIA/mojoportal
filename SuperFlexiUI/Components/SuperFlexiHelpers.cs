@@ -119,50 +119,34 @@ namespace SuperFlexiUI
 			string helpText = string.Empty;
 			WebFile helpFile = new WebFile();
 			if (helpKey.ToLower().EndsWith(".sfhelp") ||
-				helpKey.ToLower().EndsWith(".config"))
+				helpKey.ToLower().EndsWith(".config") ||
+				helpKey.ToLower().EndsWith(".html"))
 			{
-				//if (HttpContext.Current != null)
-				//{
-				//	helpFilePath = HttpContext.Current.Server.MapPath(Path.Combine(config.RelativeSolutionLocation, helpKey));
-				//}
-				string path = fileSystem.CombinePath(config.RelativeSolutionLocation, helpKey);
-				helpFile = fileSystem.RetrieveFile(path);
-			}
-			else if (helpKey.IndexOf("$_FlexiHelp_$") >= 0)
-			{
-				//if (HttpContext.Current != null)
-				//{
-				//	helpFilePath = HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/Data/SuperFlexi/Help/" + helpKey.Replace("$_FlexiHelp_$", string.Empty));
-				//}
-				string path = fileSystem.CombinePath("~/Data/SuperFlexi/Help/" + helpKey.Replace("$_FlexiHelp_$", string.Empty));
-				helpFile = fileSystem.RetrieveFile(path);
+				if (helpKey.IndexOf("$_FlexiHelp_$") >= 0)
+				{
+					string path = fileSystem.CombinePath("~/Data/SuperFlexi/Help/", helpKey.Replace("$_FlexiHelp_$", string.Empty));
+					helpFile = fileSystem.RetrieveFile(path);
 
-			}
-			else if (helpKey.IndexOf("$_SitePath_$") >= 0)
-			{
-				//if (HttpContext.Current != null)
-				//{
-				//	helpFilePath = HttpContext.Current.Server.MapPath(helpKey.Replace("$_SitePath_$", "~/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToInvariantString()));
-				//}
-				string path = fileSystem.CombinePath(helpKey.Replace("$_SitePath_$", "~/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToInvariantString()));
-				helpFile = fileSystem.RetrieveFile(path);
-			}
-			else if (helpKey.IndexOf("$_Data_$") >= 0)
-			{
-				//if (HttpContext.Current != null)
-				//{
-				//	helpFilePath = HttpContext.Current.Server.MapPath(helpKey.Replace("$_Data_$", "~/Data"));
-				//}
-				string path = helpKey.Replace("$_Data_$", "~/Data");
-				helpFile = fileSystem.RetrieveFile(path);
-			}
-			else if (helpKey.IndexOf("~/") >= 0)
-			{
-				//if (HttpContext.Current != null)
-				//{
-				//	helpFilePath = HttpContext.Current.Server.MapPath(helpKey);
-				//}
-				helpFile = fileSystem.RetrieveFile(helpKey);
+				}
+				else if (helpKey.IndexOf("$_SitePath_$") >= 0)
+				{
+					string path = helpKey.Replace("$_SitePath_$", "~/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToInvariantString());
+					helpFile = fileSystem.RetrieveFile(path);
+				}
+				else if (helpKey.IndexOf("$_Data_$") >= 0)
+				{
+					string path = helpKey.Replace("$_Data_$", "~/Data");
+					helpFile = fileSystem.RetrieveFile(path);
+				}
+				else if (helpKey.IndexOf("~/") >= 0)
+				{
+					helpFile = fileSystem.RetrieveFile(helpKey);
+				}
+				else
+				{
+					string path = fileSystem.CombinePath(config.RelativeSolutionLocation, helpKey);
+					helpFile = fileSystem.RetrieveFile(path);
+				}
 			}
 			else
 			{
@@ -172,8 +156,10 @@ namespace SuperFlexiUI
             if (helpFile != null)
             {
 				//FileInfo file = new FileInfo(helpFilePath);
-				fileSystem.GetAsStream(helpFile.VirtualPath);
+				//fileSystem.GetAsStream(helpFile.VirtualPath);
 				//StreamReader sr = file.OpenText();
+				log.Info(helpFile.VirtualPath);
+				log.Info(helpFile.Path);
 				StreamReader sr = new StreamReader(fileSystem.GetAsStream(helpFile.VirtualPath));
 				helpText = sr.ReadToEnd();
 				sr.Close();
@@ -346,6 +332,29 @@ namespace SuperFlexiUI
             return workingMarkupScripts;
         }
 
+		public static string GetPathToFile(ModuleConfiguration config, string path)
+		{
+			string goodPath = string.Empty;
+			if (path.StartsWith("/") ||
+				path.StartsWith("http://") ||
+				path.StartsWith("https://"))
+			{
+				return path;
+			}
+			else if (path.StartsWith("~/"))
+			{
+				return WebUtils.ResolveServerUrl(path);
+			}
+			else if (path.StartsWith("$_SitePath_$"))
+			{
+				return path.Replace("$_SitePath_$", "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToString() + "/");
+			}
+			else
+			{
+				return new Uri(config.SolutionLocationUrl, path).ToString();
+			}
+		}
+
         public static void SetupScripts(
             List<MarkupScript> markupScripts,
             ModuleConfiguration config,
@@ -371,31 +380,31 @@ namespace SuperFlexiUI
                 string scriptName = sbScriptName.ToString();
                 if (!String.IsNullOrWhiteSpace(script.Url))
                 {
-					string scriptUrl = string.Empty;
-					if (script.Url.StartsWith("/") ||
-						script.Url.StartsWith("http://") ||
-						script.Url.StartsWith("https://"))
-					{
-						scriptUrl = script.Url;
-					}
-					else if (script.Url.StartsWith("~/"))
-					{
-						scriptUrl = WebUtils.ResolveServerUrl(script.Url);
-					}
-					else if (script.Url.StartsWith("$_SitePath_$"))
-					{
-						scriptUrl = script.Url.Replace("$_SitePath_$", "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToString() + "/");
-					}
-					else
-					{
-						scriptUrl = new Uri(config.SolutionLocationUrl, script.Url).ToString();
-					}
+					//string scriptUrl = string.Empty;
+					//if (script.Url.StartsWith("/") ||
+					//	script.Url.StartsWith("http://") ||
+					//	script.Url.StartsWith("https://"))
+					//{
+					//	scriptUrl = script.Url;
+					//}
+					//else if (script.Url.StartsWith("~/"))
+					//{
+					//	scriptUrl = WebUtils.ResolveServerUrl(script.Url);
+					//}
+					//else if (script.Url.StartsWith("$_SitePath_$"))
+					//{
+					//	scriptUrl = script.Url.Replace("$_SitePath_$", "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToString() + "/");
+					//}
+					//else
+					//{
+					//	scriptUrl = new Uri(config.SolutionLocationUrl, script.Url).ToString();
+					//}
 					//else if (File.Exists(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile)))
 					//{
 					//	FileInfo fileInfo = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath(config.MarkupDefinitionFile));
 					//	scriptUrl = WebUtils.ResolveServerUrl(Path.Combine(fileInfo.DirectoryName.Replace(System.Web.Hosting.HostingEnvironment.MapPath("~"), "~/"), script.Url));
 					//}
-
+					string scriptUrl = GetPathToFile(config, script.Url);
 					sbScriptText.Append(string.Format(scriptRefFormat, scriptUrl, scriptName));
 				}
                 else if (!String.IsNullOrWhiteSpace(script.RawScript))
