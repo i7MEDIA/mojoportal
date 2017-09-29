@@ -144,8 +144,8 @@ namespace SuperFlexiUI
 				}
                 saveAsNewButton.Visible = config.ShowSaveAsNew;
 				txtViewOrder.Text = item.SortOrder.ToString();
-                
-                //exportButton.Visible = config.AllowExport;
+
+				exportButton.Visible = config.AllowExport;
 			}
 			else
 			{

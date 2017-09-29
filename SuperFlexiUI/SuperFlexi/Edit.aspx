@@ -17,13 +17,9 @@
 						</div>
 						<div class="settingrow buttonrow">
 							<portal:mojoButton ID="updateButton" runat="server" Text="Update" SkinID="SaveButton" />
-							&nbsp;
                             <portal:mojoButton ID="saveAsNewButton" runat="server" Text="Save as New" SkinID="SaveAsNewButton" Visible="false" />
-							&nbsp;
 							<portal:mojoButton ID="deleteButton" runat="server" Text="Delete this item" CausesValidation="false" SkinID="DeleteButton" />
-							&nbsp;
                             <portal:mojoButton ID="exportButton" runat="server" Text="Export" SkinID="ExportButton" UseSubmitBehavior="false"/>
-                            &nbsp;
 							<asp:HyperLink ID="lnkCancel" runat="server" CssClass="cancellink" SkinID="TextButton" />
 						</div>
 					</asp:Panel>
