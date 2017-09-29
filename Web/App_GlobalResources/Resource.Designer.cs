@@ -7729,6 +7729,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Content Property.
+        /// </summary>
+        internal static string MetaContentProperty {
+            get {
+                return ResourceManager.GetString("MetaContentProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content Property is Required.
+        /// </summary>
+        internal static string MetaContentPropertyRequired {
+            get {
+                return ResourceManager.GetString("MetaContentPropertyRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Member List.
         /// </summary>
         internal static string MetaDescriptionMemberListFormat {
@@ -7797,6 +7815,24 @@ namespace Resources {
         internal static string MetaDescriptionWidnowsLiveRegistrationPageFormat {
             get {
                 return ResourceManager.GetString("MetaDescriptionWidnowsLiveRegistrationPageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name Property.
+        /// </summary>
+        internal static string MetaNameProperty {
+            get {
+                return ResourceManager.GetString("MetaNameProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name Property is Required.
+        /// </summary>
+        internal static string MetaNamePropertyRequired {
+            get {
+                return ResourceManager.GetString("MetaNamePropertyRequired", resourceCulture);
             }
         }
         

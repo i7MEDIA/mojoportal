@@ -1,6 +1,6 @@
 ﻿// Author:
 // Created:       2009-12-02
-// Last Modified: 2017-09-29
+// Last Modified: 2017-09-19
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -158,11 +158,11 @@ namespace mojoPortal.Data
 
 			arParams[14] = new SqliteParameter(":NameProperty", DbType.String, 255);
 			arParams[14].Direction = ParameterDirection.Input;
-			arParams[14].Value = nameProperty;
+			arParams[14].Value = name;
 
 			arParams[15] = new SqliteParameter(":ContentProperty", DbType.String, 255);
 			arParams[15].Direction = ParameterDirection.Input;
-			arParams[15].Value = contentProperty;
+			arParams[15].Value = name;
 
 			int rowsAffected = SqliteHelper.ExecuteNonQuery(
 				GetConnectionString(),
@@ -186,7 +186,7 @@ namespace mojoPortal.Data
 			string langCode,
 			string dir,
 			string metaContent,
-			string contentProperty,
+			string contentProerty,
 			int sortRank,
 			DateTime lastModUtc,
 			Guid lastModBy)
@@ -252,11 +252,11 @@ namespace mojoPortal.Data
 
 			arParams[9] = new SqliteParameter(":NameProperty", DbType.String, 255);
 			arParams[9].Direction = ParameterDirection.Input;
-			arParams[9].Value = nameProperty;
+			arParams[9].Value = name;
 
 			arParams[10] = new SqliteParameter(":ContentProperty", DbType.String, 255);
 			arParams[10].Direction = ParameterDirection.Input;
-			arParams[10].Value = contentProperty;
+			arParams[10].Value = name;
 
 			int rowsAffected = SqliteHelper.ExecuteNonQuery(
 				GetConnectionString(),

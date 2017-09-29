@@ -6222,4 +6222,16 @@
   <data name="SecurityAdvisorSecurityProtocolDescription" xml:space="preserve">
     <value>Information on the Security Protocol used to connect to external sites by your site.</value>
   </data>
+  <data name="MetaContentProperty" xml:space="preserve">
+    <value>Content Property</value>
+  </data>
+  <data name="MetaContentPropertyRequired" xml:space="preserve">
+    <value>Content Property is Required</value>
+  </data>
+  <data name="MetaNameProperty" xml:space="preserve">
+    <value>Name Property</value>
+  </data>
+  <data name="MetaNamePropertyRequired" xml:space="preserve">
+    <value>Name Property is Required</value>
+  </data>
 </root>

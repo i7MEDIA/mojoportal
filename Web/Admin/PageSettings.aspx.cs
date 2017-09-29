@@ -1390,12 +1390,14 @@ namespace mojoPortal.Web.AdminUI
 
             Guid guid = new Guid(grid.DataKeys[e.RowIndex].Value.ToString());
             TextBox txtName = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtName");
-            TextBox txtScheme = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtScheme");
+            TextBox txtNameProperty = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtNameProperty");
+			TextBox txtScheme = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtScheme");
             TextBox txtLangCode = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtLangCode");
             DropDownList ddDirection = (DropDownList)grid.Rows[e.RowIndex].Cells[1].FindControl("ddDirection");
             TextBox txtMetaContent = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtMetaContent");
+            TextBox txtContentProperty = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtContentProperty");
 
-            ContentMeta meta = null;
+			ContentMeta meta = null;
             if (guid != Guid.Empty)
             {
                 meta = metaRepository.Fetch(guid);
@@ -1414,8 +1416,10 @@ namespace mojoPortal.Web.AdminUI
                 meta.Dir = ddDirection.SelectedValue;
                 meta.LangCode = txtLangCode.Text;
                 meta.MetaContent = txtMetaContent.Text;
-                meta.Name = txtName.Text;
-                meta.Scheme = txtScheme.Text;
+                meta.ContentProperty = txtContentProperty.Text;
+				meta.Name = txtName.Text;
+				meta.NameProperty = txtNameProperty.Text;
+				meta.Scheme = txtScheme.Text;
                 if (currentUser != null) { meta.LastModBy = currentUser.UserGuid; }
                 metaRepository.Save(meta);
 
@@ -1447,11 +1451,13 @@ namespace mojoPortal.Web.AdminUI
             dataTable.Columns.Add("ModuleGuid", typeof(Guid));
             dataTable.Columns.Add("ContentGuid", typeof(Guid));
             dataTable.Columns.Add("Name", typeof(string));
-            dataTable.Columns.Add("Scheme", typeof(string));
+            dataTable.Columns.Add("NameProperty", typeof(string));
+			dataTable.Columns.Add("Scheme", typeof(string));
             dataTable.Columns.Add("LangCode", typeof(string));
             dataTable.Columns.Add("Dir", typeof(string));
             dataTable.Columns.Add("MetaContent", typeof(string));
-            dataTable.Columns.Add("SortRank", typeof(int));
+            dataTable.Columns.Add("ContentProperty", typeof(string));
+			dataTable.Columns.Add("SortRank", typeof(int));
 
             DataRow row = dataTable.NewRow();
             row["Guid"] = Guid.Empty;
@@ -1459,11 +1465,13 @@ namespace mojoPortal.Web.AdminUI
             row["ModuleGuid"] = Guid.Empty;
             row["ContentGuid"] = Guid.Empty;
             row["Name"] = string.Empty;
-            row["Scheme"] = string.Empty;
+            row["NameProperty"] = string.Empty;
+			row["Scheme"] = string.Empty;
             row["LangCode"] = string.Empty;
             row["Dir"] = string.Empty;
             row["MetaContent"] = string.Empty;
-            row["SortRank"] = 3;
+            row["ContentProperty"] = string.Empty;
+			row["SortRank"] = 3;
 
             dataTable.Rows.Add(row);
 

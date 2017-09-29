@@ -493,6 +493,13 @@
 																</ItemTemplate>
 																<EditItemTemplate>
 																	<div class="settingrow">
+																		<mp:SiteLabel ID="lblNameProperty" runat="server" ForControl="txtNameProperty" CssClass="settinglabel"
+																			ConfigKey="MetaNameProperty" ResourceFile="Resource" />
+																		<asp:TextBox ID="txtNameProperty" CssClass="widetextbox forminput" runat="server" Text='<%# Eval("NameProperty") %>' />
+																		<asp:RequiredFieldValidator ID="reqMetaNameProperty" runat="server" ControlToValidate="txtNameProperty"
+																			ErrorMessage='<%# Resources.Resource.MetaNamePropertyRequired %>' ValidationGroup="meta" />
+																	</div>
+																	<div class="settingrow">
 																		<mp:SiteLabel ID="lblName" runat="server" ForControl="txtName" CssClass="settinglabel"
 																			ConfigKey="ContentMetaNameLabel" ResourceFile="Resource" />
 																		<asp:TextBox ID="txtName" CssClass="widetextbox forminput" runat="server" Text='<%# Eval("Name") %>' />
@@ -500,11 +507,19 @@
 																			ErrorMessage='<%# Resources.Resource.ContentMetaNameRequired %>' ValidationGroup="meta" />
 																	</div>
 																	<div class="settingrow">
+																		<mp:SiteLabel ID="lblContentProperty" runat="server" ForControl="txtContentProperty" CssClass="settinglabel"
+																			ConfigKey="MetaContentProperty" ResourceFile="Resource" />
+																		<asp:TextBox ID="txtContentProperty" CssClass="verywidetextbox forminput" runat="server"
+																			Text='<%# Eval("ContentProperty") %>' />
+																		<asp:RequiredFieldValidator ID="reqMetaContentProperty" runat="server" ControlToValidate="txtContentProperty"
+																			ErrorMessage='<%# Resources.Resource.MetaContentPropertyRequired %>' ValidationGroup="meta" />
+																	</div>
+																	<div class="settingrow">
 																		<mp:SiteLabel ID="lblMetaContent" runat="server" ForControl="txtMetaContent" CssClass="settinglabel"
 																			ConfigKey="ContentMetaMetaContentLabel" ResourceFile="Resource" />
 																		<asp:TextBox ID="txtMetaContent" CssClass="verywidetextbox forminput" runat="server"
 																			Text='<%# Eval("MetaContent") %>' />
-																		<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtName"
+																		<asp:RequiredFieldValidator ID="reqMetaContent" runat="server" ControlToValidate="txtMetaContent"
 																			ErrorMessage='<%# Resources.Resource.ContentMetaContentRequired %>' ValidationGroup="meta" />
 																	</div>
 																	<div class="settingrow">

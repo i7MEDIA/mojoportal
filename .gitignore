@@ -413,3 +413,5 @@ Web/Data/HelpFiles/en-US-webstore-IndexOffersSetting-help\.config
 Web/Setup/ProviderConfig/contentdeletehandlers/webstoredeletehandler\.config
 
 Web/Setup/ProviderConfig/worldpayresponsehandlers/webstoreworldpayresponsehandler\.config
+
+Web/Data/sqlitedb/mojo\.db\.config-journal
