@@ -1,6 +1,6 @@
 ﻿// Author:
 // Created:       2009-12-02
-// Last Modified: 2017-09-19
+// Last Modified: 2017-09-29
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -72,7 +72,7 @@ namespace mojoPortal.Data
 			sqlCommand.Append(":langcode, ");
 			sqlCommand.Append(":dir, ");
 			sqlCommand.Append(":metacontent, ");
-			sqlCommand.Append(":metacontentproperty, ");
+			sqlCommand.Append(":contentproperty, ");
 			sqlCommand.Append(":sortrank, ");
 			sqlCommand.Append(":createdutc, ");
 			sqlCommand.Append(":createdby, ");
@@ -141,11 +141,11 @@ namespace mojoPortal.Data
 
 			arParams[14] = new NpgsqlParameter("nameproperty", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[14].Direction = ParameterDirection.Input;
-			arParams[14].Value = name;
+			arParams[14].Value = nameProperty;
 
 			arParams[15] = new NpgsqlParameter("contentproperty", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[15].Direction = ParameterDirection.Input;
-			arParams[15].Value = name;
+			arParams[15].Value = contentProperty;
 
 			int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
@@ -235,11 +235,11 @@ namespace mojoPortal.Data
 
 			arParams[9] = new NpgsqlParameter("nameproperty", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[9].Direction = ParameterDirection.Input;
-			arParams[9].Value = name;
+			arParams[9].Value = nameProperty;
 
 			arParams[10] = new NpgsqlParameter("contentproperty", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[10].Direction = ParameterDirection.Input;
-			arParams[10].Value = name;
+			arParams[10].Value = contentProperty;
 
 			int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
