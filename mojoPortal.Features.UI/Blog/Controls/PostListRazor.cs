@@ -163,17 +163,19 @@ namespace mojoPortal.Web.BlogUI
 			Year = WebUtils.ParseInt32FromQueryString("year", Year);
 			attachmentBaseUrl = SiteUtils.GetFileAttachmentUploadPath();
 
-			if (Page is mojoBasePage)
-			{
-				basePage = Page as mojoBasePage;
-				module = basePage.GetModule(moduleId, config.FeatureGuid);
+			//if (Page is mojoBasePage)
+			//{
+			//	basePage = Page as mojoBasePage;
+			//	module = basePage.GetModule(moduleId, config.FeatureGuid);
 
-			}
+			//}
 
-			if (module == null)
-			{
-				return;
-			}
+			module = new Module(moduleId);
+
+			//if (module == null)
+			//{
+			//	return;
+			//}
 
 			CalendarDate = WebUtils.ParseDateFromQueryString("blogdate", DateTime.UtcNow).Date;
 
@@ -465,7 +467,7 @@ namespace mojoPortal.Web.BlogUI
 
 			PostListModel postListObject = new PostListModel();
 
-			postListObject.ModuleTitle = module.ModuleTitle;
+			postListObject.ModuleTitle = module == null ? "" : module.ModuleTitle;
 			postListObject.ModulePageUrl = Page.ResolveUrl(blogPageUrl);
 			postListObject.Posts = models;
 
