@@ -1,6 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="mojoRating.ascx.cs"
-    Inherits="mojoPortal.Web.UI.mojoRating" %>
-<div class="ratingcontainer">
+﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="mojoRating.ascx.cs" Inherits="mojoPortal.Web.UI.mojoRating" %>
     <asp:UpdatePanel ID="upRating" UpdateMode="Conditional" runat="server">
         <ContentTemplate>
             <span id="spnPrompt" runat="server" class="ratingprompt">
@@ -28,6 +26,5 @@
             </asp:Panel>
         </ContentTemplate>
     </asp:UpdatePanel>
-</div>
 
 

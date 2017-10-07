@@ -40,6 +40,13 @@ namespace mojoPortal.Web.UI
         private string promptText = string.Empty;
         protected string jQueryBasePath = WebConfigSettings.jQueryBasePath;
         private string jsonServiceUrl = string.Empty;
+		private string containerCssClass = "ratingcontainer";
+
+		public string ContainerCssClass
+		{
+			get => containerCssClass;
+			set => containerCssClass = value;
+		}
 
         [Themeable(false)]
         public Guid ContentGuid
@@ -146,31 +153,31 @@ namespace mojoPortal.Web.UI
 
 #endif
 
-            if (!enabled)
+            if (!enabled || hide || !Visible || WebConfigSettings.DisablejQuery || ContentGuid == Guid.Empty)
             {
                 Visible = false;
                 return;
             }
 
-            if (hide)
-            {
-                Visible = false;
-                return;
-            }
+            //if (hide)
+            //{
+            //    Visible = false;
+            //    return;
+            //}
 
-            if (WebConfigSettings.DisablejQuery)
-            {
-                Visible = false;
-                return;
-            }
+            //if (WebConfigSettings.DisablejQuery)
+            //{
+            //    Visible = false;
+            //    return;
+            //}
 
-            if (ContentGuid == Guid.Empty)
-            {
-                Visible = false;
-                return;
-            }
+            //if (ContentGuid == Guid.Empty)
+            //{
+            //    Visible = false;
+            //    return;
+            //}
 
-            if (!Visible) { return; }
+            //if (!Visible) { return; }
 
             try
             {
@@ -190,7 +197,7 @@ namespace mojoPortal.Web.UI
             UserRating.BehaviorID = UserRating.ClientID + "Behavior";
            
             pnlComments.Visible = allowFeedback;
-
+			upRating.Attributes.Add("class", containerCssClass);
             PopulateLabels();
             
             SetupCommentScript();
