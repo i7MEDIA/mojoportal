@@ -1377,8 +1377,8 @@ namespace mojoPortal.Business
             get
             {
                 string result = GetExpandoProperty("RolesThatCanDeleteFilesInEditor");
-                if (result != null) { return result; }
-                return string.Empty;
+                if (result != null) { return result + "Content Administrators;"; }
+                return "Content Administrators;";
             }
             set { SetExpandoProperty("RolesThatCanDeleteFilesInEditor", value); }
         }
