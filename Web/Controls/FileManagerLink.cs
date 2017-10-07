@@ -113,7 +113,7 @@ namespace mojoPortal.Web.UI
 				return false;
 			}
 
-			if (SiteUtils.UserIsSiteEditor()) {
+			if (SiteUtils.UserIsSiteEditor() || WebUser.IsAdminOrContentAdmin) {
 				return true;
 			}
 
@@ -197,7 +197,7 @@ namespace mojoPortal.Web.UI
 				NavigateUrl = basePage.RelativeSiteRoot + "/FileManager" + queryString;
 			}
 
-			if (!string.IsNullOrWhiteSpace(linkImageUrl))
+			if (!string.IsNullOrWhiteSpace(linkImageUrl) && !openInModal)
 			{
 				if (linkImageUrl.StartsWith("~/"))
 				{
