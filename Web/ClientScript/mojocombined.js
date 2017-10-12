@@ -448,6 +448,20 @@ function Set_Cookie( name, value, expires, path, domain, secure ) {
 		( ( secure ) ? ";secure" : "" );
 }
 
+
+/*
+	Calls Set_Cookie but will always use root of site for path
+*/
+function Set_Root_Cookie(name, value, expires, domain, secure) {
+	Set_Cookie(
+		name,
+		value,
+		(expires) ? expires : "",
+		"/",
+		(domain) ? domain : "",
+		(secure) ? secure : "");
+}
+
 // this deletes the cookie when called
 function Delete_Cookie( name, path, domain ) {
 	if ( Get_Cookie( name ) ) document.cookie = name + "=" +
