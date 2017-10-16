@@ -47,9 +47,9 @@ namespace SuperFlexiUI
 
                 if (!String.IsNullOrWhiteSpace(config.MarkupDefinitionName) && config.MarkupDefinitionName != "0")
                 {
-                    if (!config.IsGlobalView && config.MaxItems > -1 && Item.GetCountForModule(moduleId) < config.MaxItems)
-                    {
-                        add = String.Format(
+					if (!config.IsGlobalView && (config.MaxItems == -1 || Item.GetCountForModule(moduleId) < config.MaxItems))
+					{
+						add = String.Format(
                       displaySettings.AddItemLinkFormat,
                       WebUtils.GetSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
                       SuperFlexiResources.AddItem);
