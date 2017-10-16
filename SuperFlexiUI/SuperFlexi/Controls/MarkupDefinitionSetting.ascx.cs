@@ -190,6 +190,12 @@ namespace SuperFlexiUI
 		{
 			EnsureItems();
 			//log.Info("solution selected: " + ddDefinitions.SelectedValue);
+
+			if (ddDefinitions.SelectedValue == "0")
+			{
+				return string.Empty;
+			}
+
 			return ddDefinitions.SelectedValue;
 		}
 
@@ -199,7 +205,10 @@ namespace SuperFlexiUI
 
 			if (val != null)
 			{
+				if (val == "") val = "0";
+
 				ListItem item = ddDefinitions.Items.FindByValue(val);
+
 				if (item != null)
 				{
 					ddDefinitions.ClearSelection();
