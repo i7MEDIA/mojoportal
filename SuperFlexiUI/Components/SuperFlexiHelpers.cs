@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Dynamic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -204,14 +205,25 @@ namespace SuperFlexiUI
             string jsonObjName = "sflexi" + moduleId.ToString() + (config.IsGlobalView ? "Modules" : "Items");
             string currentSkin = string.Empty;
             string siteRoot = WebUtils.GetRelativeSiteRoot();
+			bool publishedOnCurrentPage = true;
 
-            if (HttpContext.Current != null && HttpContext.Current.Request.Params.Get("skin") != null)
+			if (HttpContext.Current != null && HttpContext.Current.Request.Params.Get("skin") != null)
             {
                 currentSkin = SiteUtils.SanitizeSkinParam(HttpContext.Current.Request.Params.Get("skin")) + "/";
             }
 
-            Module module = new Module(moduleId);
-            if (module != null)
+			if (isEditable)
+			{
+				var pageModules = PageModule.GetPageModulesByModule(moduleId);
+				if (pageModules.Where(pm => pm.PageId == pageSettings.PageId).ToList().Count() == 0)
+				{
+					publishedOnCurrentPage = false;
+				}
+			}
+
+			Module module = new Module(moduleId);
+
+			if (module != null)
             {
                 sb.Replace("$_ModuleTitle_$", module.ShowTitle ? String.Format(displaySettings.ModuleTitleFormat, module.ModuleTitle) : string.Empty);
                 sb.Replace("$_RawModuleTitle_$", module.ModuleTitle);
@@ -232,8 +244,9 @@ namespace SuperFlexiUI
             sb.Replace("$_PageID_$", pageSettings.PageId.ToString());
             sb.Replace("$_PageUrl_$", siteRoot + pageSettings.Url.Replace("~/", ""));
             sb.Replace("$_PageName_$", siteRoot + pageSettings.PageName);
-            sb.Replace("$_ModuleLinks_$", isEditable ? SuperFlexiHelpers.GetModuleLinks(config, displaySettings, moduleId, pageSettings.PageId) : string.Empty);
-            sb.Replace("$_JSONNAME_$", jsonObjName);
+			//sb.Replace("$_ModuleLinks_$", isEditable ? SuperFlexiHelpers.GetModuleLinks(config, displaySettings, moduleId, pageSettings.PageId) : string.Empty);
+			sb.Replace("$_ModuleLinks_$", isEditable ? SuperFlexiHelpers.GetModuleLinks(config, displaySettings, moduleId, publishedOnCurrentPage ? pageSettings.PageId : -1) : string.Empty);
+			sb.Replace("$_JSONNAME_$", jsonObjName);
             sb.Replace("$_ModuleClass_$", SiteUtils.IsMobileDevice() && !String.IsNullOrWhiteSpace(config.MobileInstanceCssClass) ? config.MobileInstanceCssClass : config.InstanceCssClass);
             sb.Replace("$_ModuleTitleElement_$", module.HeadElement);
             sb.Replace("$_SiteID_$", siteSettings.SiteId.ToString());
