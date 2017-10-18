@@ -198,7 +198,7 @@ namespace mojoPortal.Web.UI
 				{
 					if (!CssClass.Contains(extraCssClasses))
 					{
-						CssClass = extraCssClasses + " " + CssClass;
+						CssClass = CssClass + " " + extraCssClasses;
 					}
 				}
 				else
