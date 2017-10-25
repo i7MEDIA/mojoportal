@@ -35,7 +35,7 @@ using dotless.Core.configuration;
 namespace mojoPortal.Web.AdminUI
 {
 	
-    public partial class LessUtilityPage : mojoBasePage
+    public partial class LessUtilityPage : NonCmsBasePage
     {
 
         protected void Page_Load(object sender, EventArgs e)

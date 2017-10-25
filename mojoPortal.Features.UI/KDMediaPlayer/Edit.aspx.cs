@@ -21,7 +21,7 @@ using Resources;
 namespace mojoPortal.MediaPlayerUI
 {
 
-    public partial class EditMediaPlayerPage : mojoBasePage
+    public partial class EditMediaPlayerPage : NonCmsBasePage
     {
         
         private int pageId = -1;

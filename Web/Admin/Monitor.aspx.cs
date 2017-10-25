@@ -20,7 +20,7 @@ using mojoPortal.Business.WebHelpers;
 namespace mojoPortal.Web.AdminUI
 {
 
-    public partial class MonitorPage : mojoBasePage
+    public partial class MonitorPage : NonCmsBasePage
     {
         // this page is experimental at this point, it only works in .NET 4 full trust
         // and only if you have these set to true in user.config

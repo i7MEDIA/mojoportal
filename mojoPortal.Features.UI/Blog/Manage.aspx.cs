@@ -35,7 +35,7 @@ using Resources;
 namespace mojoPortal.Web.BlogUI
 {
 
-    public partial class ManagePage : mojoBasePage
+    public partial class ManagePage : NonCmsBasePage
     {
         private int pageId = -1;
         private int moduleId = -1;

@@ -18,8 +18,8 @@ using Resources;
 
 namespace mojoPortal.Web.AdminUI
 {
-    public partial class EditLoginInfo : mojoBasePage
-    {
+    public partial class EditLoginInfo : NonCmsBasePage
+	{
         protected void Page_Load(object sender, EventArgs e)
         {
 

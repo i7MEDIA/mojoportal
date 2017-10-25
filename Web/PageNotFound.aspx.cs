@@ -21,7 +21,7 @@ namespace mojoPortal.Web
 {
     
 
-    public partial class PageNotFoundPage : mojoBasePage
+    public partial class PageNotFoundPage : NonCmsBasePage
     {
         protected string SiteNavigationRoot = SiteUtils.GetNavigationSiteRoot();
         protected string CultureCode = "en";

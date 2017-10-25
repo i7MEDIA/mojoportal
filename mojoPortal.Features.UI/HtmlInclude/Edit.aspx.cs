@@ -14,7 +14,7 @@ using Resources;
 namespace mojoPortal.Web.ContentUI
 {
 	
-    public partial class HtmlIncludeEdit : mojoBasePage
+    public partial class HtmlIncludeEdit : NonCmsBasePage
 	{
         
 		int moduleID = -1;

@@ -18,8 +18,8 @@ using Resources;
 namespace mojoPortal.Web.UI
 {
 
-    public partial class BingSearchPage : mojoBasePage
-    {
+    public partial class BingSearchPage : NonCmsBasePage
+	{
         string bingApiId = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)

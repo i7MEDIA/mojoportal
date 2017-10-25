@@ -27,7 +27,7 @@ using log4net;
 namespace mojoPortal.Web.GalleryUI
 {
    
-    public partial class FolderGalleryEditPage : mojoBasePage
+    public partial class FolderGalleryEditPage : NonCmsBasePage
     {
         protected static readonly ILog log = LogManager.GetLogger(typeof(FolderGalleryEditPage));
 

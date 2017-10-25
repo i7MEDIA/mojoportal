@@ -21,8 +21,8 @@ using Resources;
 namespace mojoPortal.Web.AdminUI
 {
 
-    public partial class EditRegistrationAgreementPage : mojoBasePage
-    {
+    public partial class EditRegistrationAgreementPage : NonCmsBasePage
+	{
         
 
 

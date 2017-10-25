@@ -17,7 +17,7 @@ namespace mojoPortal.Web.UI.Pages
 {
 
 	
-    public partial class EditAccessDenied : mojoBasePage
+    public partial class EditAccessDenied : NonCmsBasePage
 	{
         
 

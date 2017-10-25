@@ -17,7 +17,7 @@ namespace mojoPortal.Web.UI.Pages
 {
 
 	
-    public partial class AccessDeniedPage : mojoBasePage
+    public partial class AccessDeniedPage : NonCmsBasePage
 	{
         override protected void OnInit(EventArgs e)
         {

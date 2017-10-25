@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2011-03-14
-// Last Modified:			2011-11-21
+// Last Modified:			2017-10-24
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -10,32 +10,18 @@
 //
 // You must not remove this notice, or any other, from this software.
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Globalization;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using mojoPortal.Web;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.UI;
-using log4net;
-using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Framework;
 using Resources;
+using System;
+using System.Web;
 
 
 
 namespace mojoPortal.Web.AdminUI
 {
 
-    public partial class CacheToolPage : mojoBasePage
+	public partial class CacheToolPage : NonCmsBasePage
     {
         private string cssCacheCookieName = string.Empty;
 

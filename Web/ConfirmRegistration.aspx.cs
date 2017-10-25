@@ -7,7 +7,7 @@ using Resources;
 
 namespace mojoPortal.Web.UI.Pages
 {
-    public partial class ConfirmRegistration : mojoBasePage
+    public partial class ConfirmRegistration : NonCmsBasePage
     {
         private string winliveCookieName;
         private WindowsLiveLogin windowsLive = null;

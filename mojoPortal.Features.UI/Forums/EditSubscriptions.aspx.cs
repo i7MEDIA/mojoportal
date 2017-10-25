@@ -18,7 +18,7 @@ using Resources;
 namespace mojoPortal.Web.ForumUI
 {
 	
-    public partial class ForumModuleEditSubscriptions : mojoBasePage
+    public partial class ForumModuleEditSubscriptions : NonCmsBasePage
 	{
         protected ForumConfiguration config = null;
         private Module module = null;

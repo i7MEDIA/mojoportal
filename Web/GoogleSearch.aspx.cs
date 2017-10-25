@@ -17,7 +17,7 @@ using Resources;
 namespace mojoPortal.Web.UI
 {
 
-    public partial class GoogleSearchPage : mojoBasePage
+    public partial class GoogleSearchPage : NonCmsBasePage
     {
         private string customSearchId = string.Empty;
 

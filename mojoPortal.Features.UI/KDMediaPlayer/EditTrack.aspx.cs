@@ -23,7 +23,7 @@ using Resources;
 namespace mojoPortal.MediaPlayerUI
 {
 
-    public partial class EditTrackPage : mojoBasePage
+    public partial class EditTrackPage : NonCmsBasePage
     {
         private int pageId = -1;
         private int moduleId = -1;
