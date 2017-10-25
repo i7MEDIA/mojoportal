@@ -1,6 +1,6 @@
 // Author:					
 // Created:				    2007-05-14
-// Last Modified:			2010-02-22
+// Last Modified:			2017-10-09
 // 
 // 07/05/2007  Alexander Yushchenko added confirmation dialog functions
 //				
@@ -119,7 +119,24 @@ namespace mojoPortal.Web.Framework
             return dictionary;
         }
 
-        public static string SelectedItemsToSemiColonSeparatedString(this ListItemCollection list)
+		/// <summary>
+		/// convert a Semi-Colon and Pipe delimited string to a string,string dictionary
+		/// example input string: key|value;key|value;key|value;
+		/// </summary>
+		/// <param name="str"></param>
+		/// <returns></returns>
+		public static IDictionary<string, string> GetDictionaryFromString(string str)
+		{
+			List<string> keyValuePairs = str.SplitOnChar(';');
+			Dictionary<string, string> dictionary = new Dictionary<string, string>();
+			foreach (string kvp in keyValuePairs)
+			{
+				List<string> kv = kvp.SplitOnCharAndTrim('|');
+				dictionary.Add(kv[0], kv[1]);
+			}
+			return dictionary;
+		}
+		public static string SelectedItemsToSemiColonSeparatedString(this ListItemCollection list)
         {
             StringBuilder result = new StringBuilder();
             foreach (ListItem item in list)
