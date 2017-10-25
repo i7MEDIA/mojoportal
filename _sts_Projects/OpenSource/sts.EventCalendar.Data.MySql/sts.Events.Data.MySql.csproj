@@ -145,9 +145,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="mysql.data, Version=6.0.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="mysql.data, Version=5.2.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_libs\mysql623\mysql.data.dll</HintPath>
+      <HintPath>..\..\..\..\mojoPortal\module-dev\mojoportal\_libs\mysql623\mysql.data.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -155,9 +156,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBCalendarCategory.cs" />
+    <Compile Include="DBCalendarCategoryColor.cs" />
+    <Compile Include="DBCalendarCategoryContact.cs" />
+    <Compile Include="DBCalendarEventCategory.cs" />
+    <Compile Include="DBCalendarEventContact.cs" />
     <Compile Include="DBEvents.cs" />
     <Compile Include="DBEventTicketOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\mojoPortal\module-dev\mojoportal\mojoPortal.Data.MySql\mojoPortal.Data.MySql.csproj">
+      <Project>{e2ef8e92-91a8-49ca-8500-df558c795976}</Project>
+      <Name>mojoPortal.Data.MySql</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

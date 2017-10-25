@@ -1,4 +1,4 @@
-﻿/// Author:					
+﻿/// Author:					Joe Audette
 /// Created:				2008-05-29
 /// Last Modified:			2013-04-29
 
@@ -940,6 +940,8 @@ namespace sts.Events.Data
 
         }
 
+
+
         public static bool UpdateSoldTicketCount(Guid itemGuid, Guid recurrenceGuid, bool ticketIncludesRecurrence)
         {
             StringBuilder sqlCommand = new StringBuilder();
@@ -1311,6 +1313,63 @@ namespace sts.Events.Data
 
         }
 
+        public static int GetOldestEvent(int moduleId)
+        {
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT ItemID ");
+            sqlCommand.Append("FROM	sts_CalendarEvents ");
+            sqlCommand.Append("WHERE ");
+            sqlCommand.Append("ModuleID = ?ModuleID ");
+            sqlCommand.Append("ORDER BY EventDate ASC LIMIT 1 ");
+            sqlCommand.Append(";");
+
+            MySqlParameter[] arParams = new MySqlParameter[1];
+
+            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
+            arParams[0].Direction = ParameterDirection.Input;
+            arParams[0].Value = moduleId;
+
+            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+                GetReadConnectionString(),
+                sqlCommand.ToString(),
+                arParams));
+
+            //return MySqlHelper.ExecuteReader(
+            //    GetReadConnectionString(),
+            //    sqlCommand.ToString(),
+            //    arParams);
+        }
+        public static IDataReader GetByDate(int moduleId, DateTime beginDateUtc, DateTime endDateUtc)
+        {
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT *");
+            sqlCommand.Append("FROM	sts_CalendarEvents ");
+            sqlCommand.Append("WHERE ");
+            sqlCommand.Append("ModuleID = ?ModuleID ");
+            sqlCommand.Append("AND EndDate >= ?BeginDate ");
+            sqlCommand.Append("AND EndDate <= ?EndDate ");
+            sqlCommand.Append("ORDER BY EventDate ASC");
+            sqlCommand.Append(";");
+
+            MySqlParameter[] arParams = new MySqlParameter[3];
+
+            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
+            arParams[0].Direction = ParameterDirection.Input;
+            arParams[0].Value = moduleId;
+
+            arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
+            arParams[1].Direction = ParameterDirection.Input;
+            arParams[1].Value = beginDateUtc;
+
+            arParams[2] = new MySqlParameter("?EndDate", MySqlDbType.DateTime);
+            arParams[2].Direction = ParameterDirection.Input;
+            arParams[2].Value = endDateUtc;
+
+            return MySqlHelper.ExecuteReader(
+                GetReadConnectionString(),
+                sqlCommand.ToString(),
+                arParams);
+        }
         public static IDataReader GetCalendarEvent(int itemId)
         {
             StringBuilder sqlCommand = new StringBuilder();
@@ -1358,10 +1417,11 @@ namespace sts.Events.Data
         public static IDataReader GetForFeed(int moduleId, DateTime beginDate, DateTime endDate)
         {
             StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
+            sqlCommand.Append("SELECT  IncludeInFeed, ItemID, ItemGuid, EventDate, EndDate, IsAllDay, Title, Description, Location, Url ");
             sqlCommand.Append("FROM	sts_CalendarEvents ");
             sqlCommand.Append("WHERE ");
             sqlCommand.Append("ModuleID = ?ModuleID ");
+            sqlCommand.Append("AND IncludeInFeed = 1 ");
             sqlCommand.Append("AND EndDate >= ?BeginDate ");
             sqlCommand.Append("AND EndDate <= ?EndDate ");
             sqlCommand.Append("ORDER BY EventDate ");
@@ -1385,6 +1445,82 @@ namespace sts.Events.Data
                 GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
+
+        }
+
+        public static IDataReader GetPublicEventsForFeed(int moduleId, DateTime beginDate, DateTime endDate)
+        {
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("select IncludeInFeed, sts_calendarevents.ItemID, sts_calendarevents.ItemGuid, AuthorizedRoles, EventDate, EndDate, IsAllDay, Title, sts_calendarevents.Description, Location, Url ");
+            sqlCommand.Append("FROM	sts_CalendarEvents ");
+            sqlCommand.Append("left join sts_calendareventcategory on sts_calendareventcategory.ItemID = sts_calendarevents.ItemID ");
+            sqlCommand.Append("left join sts_calendarcategory on sts_calendarcategory.CategoryID = sts_calendareventcategory.CategoryID ");
+            sqlCommand.Append("WHERE ");
+            sqlCommand.Append("ModuleID = ?ModuleID ");
+            sqlCommand.Append("AND IncludeInFeed = 1 ");
+            sqlCommand.Append("AND (AuthorizedRoles like '%All Users;%' OR AuthorizedRoles IS NULL) ");
+            sqlCommand.Append("AND EndDate >= ?BeginDate ");
+            sqlCommand.Append("AND EndDate <= ?EndDate ");
+            sqlCommand.Append("ORDER BY EventDate ");
+            sqlCommand.Append(";");
+
+            MySqlParameter[] arParams = new MySqlParameter[3];
+
+            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
+            arParams[0].Direction = ParameterDirection.Input;
+            arParams[0].Value = moduleId;
+
+            arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
+            arParams[1].Direction = ParameterDirection.Input;
+            arParams[1].Value = beginDate;
+
+            arParams[2] = new MySqlParameter("?EndDate", MySqlDbType.DateTime);
+            arParams[2].Direction = ParameterDirection.Input;
+            arParams[2].Value = endDate;
+
+            return MySqlHelper.ExecuteReader(
+                GetReadConnectionString(),
+                sqlCommand.ToString(),
+                arParams);
+        }
+
+        public static IDataReader GetForFeedByCategory(int moduleId, DateTime beginDate, DateTime endDate, int catId)
+        {
+           StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT  IncludeInFeed, sts_calendarevents.ItemID, sts_calendarevents.ItemGuid, EventDate, EndDate, IsAllDay, Title, Description, Location, Url ");
+            sqlCommand.Append("FROM	sts_CalendarEvents ");
+           sqlCommand.Append("JOIN sts_calendareventcategory on sts_calendareventcategory.ItemID = sts_calendarevents.ItemID ");
+           sqlCommand.Append("WHERE ");
+           sqlCommand.Append("ModuleID = ?ModuleID ");
+            sqlCommand.Append("AND IncludeInFeed = 1 ");
+            sqlCommand.Append("AND CategoryID = ?CategoryID ");
+           sqlCommand.Append("AND EndDate >= ?BeginDate ");
+           sqlCommand.Append("AND EndDate <= ?EndDate ");
+           sqlCommand.Append("ORDER BY EventDate ");
+           sqlCommand.Append(";");
+
+           MySqlParameter[] arParams = new MySqlParameter[4];
+
+           arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
+           arParams[0].Direction = ParameterDirection.Input;
+           arParams[0].Value = moduleId;
+
+           arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
+           arParams[1].Direction = ParameterDirection.Input;
+           arParams[1].Value = beginDate;
+
+           arParams[2] = new MySqlParameter("?EndDate", MySqlDbType.DateTime);
+           arParams[2].Direction = ParameterDirection.Input;
+           arParams[2].Value = endDate;
+
+           arParams[3] = new MySqlParameter("?CategoryID", MySqlDbType.Int32);
+           arParams[3].Direction = ParameterDirection.Input;
+           arParams[3].Value = catId;
+
+           return MySqlHelper.ExecuteReader(
+               GetReadConnectionString(),
+               sqlCommand.ToString(),
+               arParams);
 
         }
 
@@ -1586,6 +1722,90 @@ namespace sts.Events.Data
 
             }
             return dt;
+        }
+
+        public static DataTable GetEventsTableForLV(
+                int moduleId,
+                DateTime beginDate,
+                DateTime endDate)
+        {
+
+           StringBuilder sqlCommand = new StringBuilder();
+           sqlCommand.Append("SELECT  * ");
+           sqlCommand.Append("FROM	sts_CalendarEvents ");
+           sqlCommand.Append("WHERE ");
+
+           // event starts within range
+           sqlCommand.Append("(ModuleID = ?ModuleID ");
+           sqlCommand.Append("AND (EventDate >= ?BeginDate) ");
+           sqlCommand.Append("AND (EventDate <= ?EndDate)) ");
+
+           sqlCommand.Append("ORDER BY EventDate ");
+           sqlCommand.Append(";");
+
+           MySqlParameter[] arParams = new MySqlParameter[3];
+
+           arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
+           arParams[0].Direction = ParameterDirection.Input;
+           arParams[0].Value = moduleId;
+
+           arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
+           arParams[1].Direction = ParameterDirection.Input;
+           arParams[1].Value = beginDate;
+
+           arParams[2] = new MySqlParameter("?EndDate", MySqlDbType.DateTime);
+           arParams[2].Direction = ParameterDirection.Input;
+           arParams[2].Value = endDate;
+
+           DataTable dt = new DataTable();
+
+           dt.Columns.Add("ItemID", typeof(int));
+           dt.Columns.Add("Title", typeof(string));
+           dt.Columns.Add("EventDate", typeof(DateTime));
+           dt.Columns.Add("EndDate", typeof(DateTime));
+           dt.Columns.Add("Location", typeof(string));
+           dt.Columns.Add("Url", typeof(string));
+           dt.Columns.Add("RequiresTicket", typeof(bool));
+           dt.Columns.Add("TicketPrice", typeof(decimal));
+           dt.Columns.Add("SaleBeginUtc", typeof(DateTime));
+           dt.Columns.Add("SaleEndUtc", typeof(DateTime));
+           dt.Columns.Add("TotalSeats", typeof(int));
+           dt.Columns.Add("SoldSeats", typeof(int));
+           dt.Columns.Add("LocationAlias", typeof(string));
+           dt.Columns.Add("GetTicketText", typeof(string));
+           dt.Columns.Add("IsAllDay", typeof(Boolean));
+           dt.Columns.Add("Excerpt", typeof(string));
+
+           using (IDataReader reader = MySqlHelper.ExecuteReader(
+               GetReadConnectionString(),
+               sqlCommand.ToString(),
+               arParams))
+           {
+
+              while (reader.Read())
+              {
+                 DataRow row = dt.NewRow();
+                 row["ItemID"] = Convert.ToInt32(reader["ItemID"]);
+                 row["Title"] = reader["Title"];
+                 row["EventDate"] = reader["EventDate"];
+                 row["EndDate"] = reader["EndDate"];
+                 row["Location"] = reader["Location"];
+                 row["Url"] = reader["Url"];
+                 row["RequiresTicket"] = Convert.ToBoolean(reader["RequiresTicket"]);
+                 row["TicketPrice"] = Convert.ToDecimal(reader["TicketPrice"]);
+                 row["SaleBeginUtc"] = reader["SaleBeginUtc"];
+                 row["SaleEndUtc"] = reader["SaleEndUtc"];
+                 row["TotalSeats"] = Convert.ToInt32(reader["TotalSeats"]);
+                 row["SoldSeats"] = Convert.ToInt32(reader["SoldSeats"]);
+                 row["LocationAlias"] = reader["LocationAlias"];
+                 row["GetTicketText"] = reader["GetTicketText"];
+                 row["IsAllDay"] = Convert.ToBoolean(reader["IsAllDay"]);
+                 row["Excerpt"] = reader["Excerpt"];
+
+                 dt.Rows.Add(row);
+              }
+           }
+           return dt;
         }
 
         /// <summary>
