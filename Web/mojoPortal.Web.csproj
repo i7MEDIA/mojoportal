@@ -574,7 +574,6 @@
     </Content>
     <Content Include="BingSearch.aspx" />
     <Content Include="blank.html" />
-    <Content Include="ChooseContent.aspx" />
     <Content Include="closed.aspx" />
     <Content Include="ConfirmRegistration.aspx" />
     <Content Include="Content\AjaxControlToolkit\Images\AsyncFileUpload.Button.png" />
@@ -2340,13 +2339,6 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ChooseContent.aspx.cs">
-      <DependentUpon>ChooseContent.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ChooseContent.aspx.designer.cs">
-      <DependentUpon>ChooseContent.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Components\AppKeepAliveTask.cs" />
     <Compile Include="Components\AuthHandlerHttpModule.cs" />
     <Compile Include="Components\BannedIPBlockingHttpModule.cs" />
@@ -3597,7 +3589,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controls\PageMenu.ascx" />
-    <Content Include="delorie.htm" />
     <Content Include="Services\UserLookup.asmx" />
     <Content Include="Services\WorldPayPostbackHandler.aspx" />
     <Content Include="Setup\Default.aspx" />
