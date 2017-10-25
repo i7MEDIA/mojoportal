@@ -65,28 +65,63 @@
 <%--
 	Form Wizard Pro
 	===============
-	<stsfw:FormWizardDisplaySettings runat="server"
-		UseHtml5SliderControl="true"
-		SaveQuestionProgressHtml="<span class='fa fa-spinner fa-spin'></span>"
-		InstructionBlockFormat="<div class='settingrow fw-instructions'>{0}</div>"
-		OptionUpButtonCssClass="fw-option-up btn btn-xs btn-default"
-		OptionDownButtonCssClass="fw-option-down btn btn-xs btn-default"
-		OptionEditButtonCssClass="fw-option-edit btn btn-xs btn-default"
-		OptionDeleteButtonCssClass="fw-option-delete btn btn-xs btn-default"
-		OptionAZSortButtonCssClass="fw-option-sort-az btn btn-xs btn-default"
-		OptionZASortButtonCssClass="fw-option-sort-za btn btn-xs btn-default"
-		OptionResetSortButtonCssClass="fw-option-sort-reset btn btn-xs btn-default"
-		OptionUpButtonInnerHtml="<i class='fa fa-arrow-up'></i>"
-		OptionDownButtonInnerHtml="<i class='fa fa-arrow-down'></i>"
-		OptionEditButtonInnerHtml="<i class='fa fa-pencil-square-o'></i>"
-		OptionDeleteButtonInnerHtml="<i class='fa fa-trash-o'></i>"
-		OptionAZSortButtonInnerHtml="<i class='fa fa-sort-alpha-asc'></i>"
-		OptionZASortButtonInnerHtml="<i class='fa fa-sort-alpha-desc'></i>"
-		OptionResetSortButtonInnerHtml="<i class='fa fa-refresh'></i>"
-	/>
-	<portal:BasePanel runat="server" SkinID="FWPOptionControls"
-		CssClass="btn-group-vertical"
-	/>
+<stsfw:FormWizardDisplaySettings runat="server"
+	UseHtml5SliderControl="true"
+	SaveQuestionProgressHtml="<span class='fa fa-spinner fa-spin'></span>"
+	OptionUpButtonCssClass="fw-option-up btn btn-xs btn-default"
+	OptionDownButtonCssClass="fw-option-down btn btn-xs btn-default"
+	OptionEditButtonCssClass="fw-option-edit btn btn-xs btn-default"
+	OptionDeleteButtonCssClass="fw-option-delete btn btn-xs btn-default"
+	OptionAZSortButtonCssClass="fw-option-sort-az btn btn-xs btn-default"
+	OptionZASortButtonCssClass="fw-option-sort-za btn btn-xs btn-default"
+	OptionResetSortButtonCssClass="fw-option-sort-reset btn btn-xs btn-default"
+	OptionUpButtonInnerHtml="<i class='fa fa-arrow-up'></i>"
+	OptionDownButtonInnerHtml="<i class='fa fa-arrow-down'></i>"
+	OptionEditButtonInnerHtml="<i class='fa fa-pencil-square-o'></i>"
+	OptionDeleteButtonInnerHtml="<i class='fa fa-trash-o'></i>"
+	OptionAZSortButtonInnerHtml="<i class='fa fa-sort-alpha-asc'></i>"
+	OptionZASortButtonInnerHtml="<i class='fa fa-sort-alpha-desc'></i>"
+	OptionResetSortButtonInnerHtml="<i class='fa fa-refresh'></i>"
+	
+	RenderFieldset="false"
+	ReorderItemCssClass="fwp-reorder-list__item panel panel-default panel-body"
+	ReorderTemplateCssClass="fwp-reorder-list__template panel panel-default panel-body"
+	ReorderTemplateJavaScript="<script>;function pageLoad(e,t){var o=document.getElementById('reorderPlaceholder');o.parentNode.style.marginBottom=window.getComputedStyle(o).getPropertyValue('margin-bottom')}</script>"
+/>
+
+<portal:BasePanel runat="server" SkinID="FWPOptionControls"
+	CssClass="btn-group-vertical"
+/>
+
+<portal:BasePanel runat="server" SkinID="FWPForm"
+	CssClass="fwp__form"
+	RenderID="false"
+/>
+
+<portal:BasePanel runat="server" SkinID="FWPFormQuestions"
+	CssClass="fwp__form-questions"
+	RenderID="false"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="FWPFormQuestion"
+	CssClass="form-group"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="FWPFormInstructions"
+	CssClass="form-group"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="FWPFormToEmail"
+	CssClass="form-group"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="FWPFormCaptcha"
+	CssClass="form-group"
+/>
+
+<portal:FormGroupPanel runat="server" SkinID="FWPFormButtons"
+	CssClass="form-group"
+/>
 --%>
 
 
@@ -212,67 +247,56 @@
 	CssClass="settingrow"
 	OutsideBottomMarkup="</div>"
 />
-
 <portal:FormGroupPanel runat="server" SkinID="SkinSettings"
 	Element="div"
 	CssClass="settingrow"
 	OutsideBottomMarkup="</div>"
 />
-
 <portal:FormGroupPanel runat="server" SkinID="EditorSettings"
 	Element="div"
 	CssClass="settingrow"
 	OutsideBottomMarkup="</div>"
 />
-
 <portal:FormGroupPanel runat="server" SkinID="RegistrationSettings"
 	Element="div"
 	CssClass="settingrow"
 	OutsideBottomMarkup="</div>"
 />
-
 <portal:FormGroupPanel runat="server" SkinID="UserAccountSettings"
 	Element="div"
 	CssClass="settingrow"
 	OutsideBottomMarkup="</div>"
 />
-
 <portal:FormGroupPanel runat="server" SkinID="PasswordSettings"
 	Element="div"
 	CssClass="settingrow"
 	OutsideBottomMarkup="</div>"
 />
-
 <portal:FormGroupPanel runat="server" SkinID="PasswordRecoverySettings"
 	Element="div"
 	CssClass="panel panel-warning"
 	OutsideBottomMarkup="</div>"
 />
-
 <portal:FormGroupPanel runat="server" SkinID="OpenIDSettings"
 	Element="div"
 	CssClass="settingrow"
 	OutsideBottomMarkup="</div>"
 />
-
 <portal:FormGroupPanel runat="server" SkinID="WindowsLiveIDSettings"
 	Element="div"
 	CssClass="settingrow"
 	OutsideBottomMarkup="</div>"
 />
-
 <portal:FormGroupPanel runat="server" SkinID="SMTPSettings"
 	Element="div"
 	CssClass="settingrow"
 	OutsideBottomMarkup="</div>"
 />
-
 <portal:FormGroupPanel runat="server" SkinID="HostNames"
 	Element="div"
 	CssClass="settingrow"
 	OutsideBottomMarkup="</div>"
 />
-
 <portal:FormGroupPanel runat="server" SkinID="FolderNames"
 	Element="div"
 	CssClass="settingrow"
@@ -315,7 +339,7 @@
 	CssClass="btn btn-success btn-sm"
 />
 
-<%-- Blog Display Settings --%>
+<%-- HTML Module Display Settings --%>
 <html:HtmlDisplaySettings runat="server"
 	DisableContentRating="false"
 	UseBottomContentRating="true"
@@ -331,6 +355,7 @@
 />
 
 
+<%-- Blog Display Settings --%>
 <blog:BlogDisplaySettings runat="server"
 	ArchiveViewHideFeedbackLink="false"
 	BlogViewDivBlogExtraCss="col-md-9 col-lg-8 blog-center"
@@ -376,6 +401,26 @@
 	ExtraCssClasses="blogYears clearfix clear-fix clear"
 />
 
+
+<%-- Other Comment Widget settings --%>
+<portal:HeadingControl runat="server" SkinID="Comments"
+    HeadingTag="h3"
+/>
+
+<portal:CommentsWidget runat="server"
+    OuterPanelCssClass="commentpanel"
+    InnerPanelCssClass="commentlist"
+    ItemWrapperCssClass="commentitem flex-children"
+    DateWrapperCssClass="commentdate"
+    LeftPanelCssClass="userinfo fb-sm-33 fb-lg-25 text-center"
+    RightPanelCssClass="theactualdarncomment fb-sm-66 fb-lg-75"
+    UsernameWrapperCssClass="commentusername"
+    AvatarWrapperCssClass="commentuseravatar"
+    RevenueWrapperCssClass="commentuserattribute"
+    ItemBodyCssClass="commentbody"
+/>
+
+
 <%--
 below we are wrapping a nav element around the blog tag cloud and archive links, it is debateable whether that is a good idea we leave it up to you
 the documentation says it is only needed for major navigation blocks but it does not say it hurts to use it for lesser navigation
@@ -414,6 +459,7 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 <portal:mojoButton runat="server" SkinID="DeleteButtonSmall" CssClass="btn btn-xs btn-danger" />
 <portal:mojoButton runat="server" SkinID="InfoButton" CssClass="btn btn-info" />
 <portal:mojoButton runat="server" SkinID="InfoButtonSmall" CssClass="btn btn-xs btn-info" />
+<portal:mojoButton runat="server" SkinID="ExportButton" CssClass="btn btn-xs btn-default" />
 <asp:HyperLink runat="server" SkinID="TextButton" CssClass="btn btn-link"/>
 <asp:HyperLink runat="server" SkinID="TextButtonSmall" CssClass="btn btn-link btn-xs" />
 <asp:HyperLink runat="server" SkinID="CBTextButtonSmall" CssClass="cblink btn btn-link btn-xs" />
@@ -434,6 +480,7 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 	UseModuleHeadingOnSideColumns="false"
 	DetectSideColumn="true"
 	Element="h2"
+	SideColumnElement="h3"
 	LiteralExtraTopContent=""
 	LiteralExtraBottomContent=""
 	ExtraCssClasses="page-header"
