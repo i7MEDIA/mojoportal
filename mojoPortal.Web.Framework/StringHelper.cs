@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:				2007-11-20
-// Last Modified:			2010-01-26
+// Last Modified:			2017-10-26
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -13,6 +13,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -593,6 +594,21 @@ namespace mojoPortal.Web.Framework
 
             return list;
         }
+
+		/// <summary>
+		/// Determines if a string is in an array of strings.
+		/// </summary>
+		/// <returns>bool</returns>
+		/// <example>
+		/// string color = "blue";
+		/// string[] colors = {"blue", "green", "red"};
+		/// bool validColor = false;
+		/// validColor = color.IsIn(colors);
+		/// </example>
+		public static bool IsIn<T>(this T source, params T[] values)
+		{
+			return values.Contains(source);
+		}
 
         #endregion
 
