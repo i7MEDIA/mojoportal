@@ -1,6 +1,6 @@
 // Author:					
 // Created:				    2007-08-05
-// Last Modified:			2014-07-29
+// Last Modified:			2017-10-04
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -45,8 +45,9 @@ namespace mojoPortal.Web
         private bool supportsPageReuse = true;
         private string deleteProvider = string.Empty;
         private string partialView = string.Empty;
-        
-        private Collection<ContentFeatureSetting> featureSettings
+        private string skinFileName = string.Empty;
+
+		private Collection<ContentFeatureSetting> featureSettings
             = new Collection<ContentFeatureSetting>();
 
         public Guid FeatureGuid
@@ -126,6 +127,11 @@ namespace mojoPortal.Web
         {
             get { return excludeFromFeatureList; }
         }
+
+		public string SkinFileName
+		{
+			get => skinFileName;
+		}
 
         public Collection<ContentFeatureSetting> Settings
         {
@@ -221,10 +227,13 @@ namespace mojoPortal.Web
                         feature.partialView = attributeCollection["partialView"].Value;
                     }
 
-                    
+					if (attributeCollection["skinFileName"] != null)
+					{
+						feature.skinFileName = attributeCollection["skinFileName"].Value;
+					}
 
-                    
-                    if (attributeCollection["searchListNameResourceKey"] != null)
+
+					if (attributeCollection["searchListNameResourceKey"] != null)
                     {
                         feature.searchListNameResourceKey = attributeCollection["searchListNameResourceKey"].Value;
                     }

@@ -316,6 +316,14 @@
             for easily converting an Enum to an IDictionary for data binding ie for a dropdown list
             </summary>
         </member>
+        <member name="M:mojoPortal.Web.Framework.UIHelper.GetDictionaryFromString(System.String)">
+            <summary>
+            convert a Semi-Colon and Pipe delimited string to a string,string dictionary
+            example input string: key|value;key|value;key|value;
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
         <member name="M:mojoPortal.Web.Framework.UIHelper.HexStringToColor(System.String)">
             <summary>
             Convert a hex string to a .NET Color object. Returns Color.Blue on error

@@ -1,6 +1,6 @@
 // Author:					    
 // Created:				        2006-05-19
-// Last Modified:			    2012-05-07
+// Last Modified:			    2017-10-26
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -122,7 +122,9 @@ namespace mojoPortal.Web.AdminUI
                     this.txtNewRegexValidationExpression.Text,
                     this.txtNewControlSrc.Text,
                     this.txtNewHelpKey.Text,
-                    Convert.ToInt32(this.txtNewSortOrder.Text));
+                    Convert.ToInt32(this.txtNewSortOrder.Text),
+					this.txtAttributes.Text,
+					this.txtOptions.Text);
             }
 
             WebUtils.SetupRedirect(this, Request.RawUrl);
@@ -144,8 +146,10 @@ namespace mojoPortal.Web.AdminUI
             TextBox txtControlSrc = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtControlSrc");
             TextBox txtHelpKey = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtHelpKey");
             TextBox txtSortOrder = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtSortOrder");
+			TextBox txtAttributes = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtAttributes");
+			TextBox txtOptions = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtOptions");
 
-            if (this.moduleDefId > -1)
+			if (this.moduleDefId > -1)
             {
                 ModuleDefinition.UpdateModuleDefinitionSettingById(
                     settingId,
@@ -158,7 +162,9 @@ namespace mojoPortal.Web.AdminUI
                     txtRegex.Text,
                     txtControlSrc.Text,
                     txtHelpKey.Text,
-                    Convert.ToInt32(txtSortOrder.Text));
+                    Convert.ToInt32(txtSortOrder.Text),
+					txtAttributes.Text,
+					txtOptions.Text);
           
             }
 

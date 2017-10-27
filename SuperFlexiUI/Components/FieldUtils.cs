@@ -1,6 +1,6 @@
 ﻿/// Author:					i7MEDIA
 /// Created:				2015-03-06
-/// Last Modified:			2017-09-17
+/// Last Modified:			2017-10-09
 /// You must not remove this notice, or any other, from this software.
 /// 
 using log4net;
@@ -311,10 +311,12 @@ namespace SuperFlexiUI
                                     switch (subNode.Name)
                                     {
                                         case "Options":
-                                            GetKeyValuePairs(subNode.ChildNodes, out options);
+											options = XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
+											//GetKeyValuePairs(subNode.ChildNodes, out options);
                                             break;
                                         case "Attributes":
-                                            GetKeyValuePairs(subNode.ChildNodes, out attributes);
+											attributes = XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
+                                            //GetKeyValuePairs(subNode.ChildNodes, out attributes);
                                             break;
                                         case "PreTokenString":
                                             field.PreTokenString = subNode.InnerText.Trim();
@@ -383,30 +385,30 @@ namespace SuperFlexiUI
             return fields;
         }
 
-        private static void GetKeyValuePairs(XmlNodeList nodes, out StringBuilder sb)
-        {
+        //private static void GetKeyValuePairs(XmlNodeList nodes, out StringBuilder sb)
+        //{
             
-            sb = new StringBuilder();
-            foreach (XmlNode node in nodes)
-            {
-                XmlAttributeCollection attribs = node.Attributes;
-                if (attribs["name"] != null)
-                {
-                    if (!String.IsNullOrWhiteSpace(attribs["name"].Value))
-                    {
-                        string opValue = " ";
-                        if (attribs["value"] != null && !String.IsNullOrWhiteSpace(attribs["value"].Value))
-                        {
-                            opValue = attribs["value"].Value;
-                        }
-                        string option = attribs["name"].Value + "|" + opValue;
+        //    sb = new StringBuilder();
+        //    foreach (XmlNode node in nodes)
+        //    {
+        //        XmlAttributeCollection attribs = node.Attributes;
+        //        if (attribs["name"] != null)
+        //        {
+        //            if (!String.IsNullOrWhiteSpace(attribs["name"].Value))
+        //            {
+        //                string opValue = " ";
+        //                if (attribs["value"] != null && !String.IsNullOrWhiteSpace(attribs["value"].Value))
+        //                {
+        //                    opValue = attribs["value"].Value;
+        //                }
+        //                string option = attribs["name"].Value + "|" + opValue;
 
-                        sb.Append(option + ";");
-                    }
-                }
-            }
+        //                sb.Append(option + ";");
+        //            }
+        //        }
+        //    }
             
-        }
+        //}
 
         public static void GetFieldAttributes(string p, out AttributeCollection attribCollection)
         {

@@ -301,6 +301,42 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.TextBox txtNewRegexValidationExpression;
         
         /// <summary>
+        /// SiteLabel19 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel19;
+        
+        /// <summary>
+        /// txtAttributes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAttributes;
+        
+        /// <summary>
+        /// SiteLabel18 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel18;
+        
+        /// <summary>
+        /// txtOptions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOptions;
+        
+        /// <summary>
         /// SiteLabel35 control.
         /// </summary>
         /// <remarks>

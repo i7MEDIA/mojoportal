@@ -27,6 +27,20 @@ namespace mojoPortal.Web.AdminUI
 		private string securityProtocolCheckResponseMarkup = "<div>{0}</div>";
 		public string SecurityProtocolCheckResponseMarkup { get => securityProtocolCheckResponseMarkup; set => securityProtocolCheckResponseMarkup = value; }
 
+		private string moduleSettingsSettingPanelElement = "div";
+		public string ModuleSettingsSettingPanelElement { get => moduleSettingsSettingPanelElement; set => moduleSettingsSettingPanelElement = value; }
+
+		private string moduleSettingsSettingLabelMarkup = "<label class=\"{0}\" for=\"{1}\">{2}</label>";
+		public string ModuleSettingsSettingLabelMarkup { get => moduleSettingsSettingLabelMarkup; set => moduleSettingsSettingLabelMarkup = value; }
+
+		private string moduleSettingsSettingPanelClass = "settingrow";
+		public string ModuleSettingsSettingPanelClass { get => moduleSettingsSettingPanelClass; set => moduleSettingsSettingPanelClass = value; }
+		
+		private string moduleSettingsSettingLabelClass = "settinglabel";
+		public string ModuleSettingsSettingLabelClass { get => moduleSettingsSettingLabelClass; set => moduleSettingsSettingLabelClass = value; }
+		
+		private string moduleSettingsSettingControlClass = "forminput";
+		public string ModuleSettingsSettingControlClass { get => moduleSettingsSettingControlClass; set => moduleSettingsSettingControlClass = value; }
 
 		protected override void Render(HtmlTextWriter writer)
 		{

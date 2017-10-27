@@ -23,6 +23,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Xml;
+using System.Linq;
 
 namespace SuperFlexiUI
 {
@@ -268,16 +269,18 @@ namespace SuperFlexiUI
             sb.Replace("$_FooterContent_$", config.FooterContent);
         }
 
-        public static Dictionary<string, string> GetDictionaryFromString(string str)
+		[Obsolete("Use mojoPortal.Web.Framework.UIHelper.GetDictionaryFromString")]
+        public static IDictionary<string, string> GetDictionaryFromString(string str)
         {
-            List<string> keyValuePairs = str.SplitOnChar(';');
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
-            foreach (string kvp in keyValuePairs)
-            {
-                List<string> kv = kvp.SplitOnCharAndTrim('|');
-                dictionary.Add(kv[0], kv[1]);
-            }
-            return dictionary;
+			//List<string> keyValuePairs = str.SplitOnChar(';');
+			//Dictionary<string, string> dictionary = new Dictionary<string, string>();
+			//foreach (string kvp in keyValuePairs)
+			//{
+			//    List<string> kv = kvp.SplitOnCharAndTrim('|');
+			//    dictionary.Add(kv[0], kv[1]);
+			//}
+			//return dictionary;
+			return UIHelper.GetDictionaryFromString(str);
         }
 
         public static Module GetSuperFlexiModule(int moduleId)

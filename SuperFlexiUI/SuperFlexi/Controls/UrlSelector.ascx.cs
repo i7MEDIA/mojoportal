@@ -12,6 +12,7 @@ using mojoPortal.Web;
 using mojoPortal.Web.Framework;
 using Resources;
 using mojoPortal.Web.UI;
+using System.Collections.Generic;
 
 namespace SuperFlexiUI
 {
@@ -51,17 +52,21 @@ namespace SuperFlexiUI
             txtUrl.Text = val;
         }
 
-        public new void Attributes(string attribs)
+        public new void Attributes(IDictionary<string, string> attribs)
         {
-            AttributeCollection attribCol = txtUrl.Attributes;
+			//AttributeCollection attribCol = txtUrl.Attributes;
 
-            FieldUtils.GetFieldAttributes(attribs, out attribCol);
+			//FieldUtils.GetFieldAttributes(attribs, out attribCol);
 
-            foreach (string key in attribCol.Keys)
-            {
-                txtUrl.Attributes.Add(key, (string)attribCol[key]);                
-            }
-        }
+			//foreach (string key in attribCol.Keys)
+			//{
+			//    txtUrl.Attributes.Add(key, (string)attribCol[key]);                
+			//}
+			foreach (KeyValuePair<string, string> pair in attribs)
+			{
+				txtUrl.Attributes.Add(pair.Key, pair.Value);
+			}
+		}
         #endregion
     }
 }

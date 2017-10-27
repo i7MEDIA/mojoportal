@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2014-07-29
+/// Last Modified:			2017-10-26
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -42,7 +42,8 @@ namespace mojoPortal.Data
             string searchListName,
             bool supportsPageReuse,
             string deleteProvider,
-            string partialView)
+            string partialView,
+			string skinFileName)
         {
             int intIsAdmin = 0;
             if (isAdmin) { intIsAdmin = 1; }
@@ -72,8 +73,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("SupportsPageReuse, ");
             sqlCommand.Append("DeleteProvider, ");
             sqlCommand.Append("PartialView, ");
-            sqlCommand.Append("ResourceFile ");
-            sqlCommand.Append(" )");
+            sqlCommand.Append("ResourceFile, ");
+            sqlCommand.Append("SkinFileName ");
+			sqlCommand.Append(" )");
 
             sqlCommand.Append(" VALUES (");
             sqlCommand.Append("?FeatureGuid, ");
@@ -89,12 +91,13 @@ namespace mojoPortal.Data
             sqlCommand.Append("?SupportsPageReuse, ");
             sqlCommand.Append("?DeleteProvider, ");
             sqlCommand.Append("?PartialView, ");
-            sqlCommand.Append("?ResourceFile ");
-            sqlCommand.Append(" );");
+            sqlCommand.Append("?ResourceFile, ");
+            sqlCommand.Append("?SkinFileName ");
+			sqlCommand.Append(" );");
 
             sqlCommand.Append("SELECT LAST_INSERT_ID();");
 
-            MySqlParameter[] arParams = new MySqlParameter[15];
+            MySqlParameter[] arParams = new MySqlParameter[16];
 
             arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -156,7 +159,11 @@ namespace mojoPortal.Data
             arParams[14].Direction = ParameterDirection.Input;
             arParams[14].Value = partialView;
 
-            int newID = -1;
+			arParams[15] = new MySqlParameter("?SkinFileName", MySqlDbType.VarChar, 255);
+			arParams[15].Direction = ParameterDirection.Input;
+			arParams[15].Value = skinFileName;
+
+			int newID = -1;
 
             newID = Convert.ToInt32(
                 MySqlHelper.ExecuteScalar(
@@ -217,7 +224,8 @@ namespace mojoPortal.Data
             string searchListName,
             bool supportsPageReuse,
             string deleteProvider,
-            string partialView)
+            string partialView,
+			string skinFileName)
         {
             int intIsAdmin = 0;
             if (isAdmin) { intIsAdmin = 1; }
@@ -247,12 +255,13 @@ namespace mojoPortal.Data
             sqlCommand.Append("SupportsPageReuse = ?SupportsPageReuse, ");
             sqlCommand.Append("DeleteProvider = ?DeleteProvider, ");
             sqlCommand.Append("PartialView = ?PartialView, ");
-            sqlCommand.Append("ResourceFile = ?ResourceFile ");
+            sqlCommand.Append("ResourceFile = ?ResourceFile, ");
+            sqlCommand.Append("SkinFileName = ?SkinFileName ");
 
-            sqlCommand.Append("WHERE  ");
+			sqlCommand.Append("WHERE  ");
             sqlCommand.Append("ModuleDefID = ?ModuleDefID ;");
 
-            MySqlParameter[] arParams = new MySqlParameter[14];
+            MySqlParameter[] arParams = new MySqlParameter[15];
 
             arParams[0] = new MySqlParameter("?ModuleDefID", MySqlDbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -306,11 +315,15 @@ namespace mojoPortal.Data
             arParams[12].Direction = ParameterDirection.Input;
             arParams[12].Value = deleteProvider;
 
-            arParams[13] = new MySqlParameter("?PartialView", MySqlDbType.VarChar, 255);
-            arParams[13].Direction = ParameterDirection.Input;
-            arParams[13].Value = partialView;
+			arParams[13] = new MySqlParameter("?PartialView", MySqlDbType.VarChar, 255);
+			arParams[13].Direction = ParameterDirection.Input;
+			arParams[13].Value = partialView;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			arParams[14] = new MySqlParameter("?SkinFileName", MySqlDbType.VarChar, 255);
+			arParams[14].Direction = ParameterDirection.Input;
+			arParams[14].Value = skinFileName;
+
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(), 
                 sqlCommand.ToString(), 
                 arParams);
@@ -586,7 +599,33 @@ namespace mojoPortal.Data
 
         }
 
-        public static IDataReader GetUserModules(int siteId)
+		public static IDataReader GetModuleDefinitionBySkinFileName(string skinFileName)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT * FROM mp_ModuleDefiitions WHERE SkinFileName = ?SkinFileName LIMIT 1;");
+			MySqlParameter[] arParams = new MySqlParameter[1];
+
+			arParams[0] = new MySqlParameter("?SkinFileName", MySqlDbType.VarChar, 255);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = skinFileName;
+
+			return MySqlHelper.ExecuteReader(
+				 ConnectionString.GetReadConnectionString(),
+				 sqlCommand.ToString(),
+				 arParams);
+		}
+
+		public static IDataReader GetAllModuleSkinFileNames()
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT SkinFileName FROM mp_ModuleDefiitions;");
+
+			return MySqlHelper.ExecuteReader(
+				 ConnectionString.GetReadConnectionString(),
+				 sqlCommand.ToString());
+		}
+
+		public static IDataReader GetUserModules(int siteId)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT md.*, ");
@@ -732,7 +771,9 @@ namespace mojoPortal.Data
             string regexValidationExpression,
             string controlSrc,
             string helpKey,
-            int sortOrder)
+            int sortOrder,
+			string attributes,
+			string options)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT count(*) ");
@@ -775,12 +816,14 @@ namespace mojoPortal.Data
                 sqlCommand.Append("HelpKey = ?HelpKey,  ");
                 sqlCommand.Append("SortOrder = ?SortOrder,  ");
                 sqlCommand.Append("GroupName = ?GroupName,  ");
-                sqlCommand.Append("RegexValidationExpression = ?RegexValidationExpression  ");
+                sqlCommand.Append("RegexValidationExpression = ?RegexValidationExpression,  ");
+                sqlCommand.Append("Attributes = ?Attributes,  ");
+                sqlCommand.Append("Options = ?Options  ");
 
-                sqlCommand.Append("WHERE (ModuleDefID = ?ModuleDefID OR FeatureGuid = ?FeatureGuid)  ");
+				sqlCommand.Append("WHERE (ModuleDefID = ?ModuleDefID OR FeatureGuid = ?FeatureGuid)  ");
                 sqlCommand.Append("AND SettingName = ?SettingName  ; ");
 
-                arParams = new MySqlParameter[11];
+                arParams = new MySqlParameter[13];
 
                 arParams[0] = new MySqlParameter("?ModuleDefID", MySqlDbType.Int32);
                 arParams[0].Direction = ParameterDirection.Input;
@@ -826,7 +869,15 @@ namespace mojoPortal.Data
                 arParams[10].Direction = ParameterDirection.Input;
                 arParams[10].Value = groupName;
 
-                rowsAffected = MySqlHelper.ExecuteNonQuery(
+				arParams[11] = new MySqlParameter("?Attributes", MySqlDbType.Text);
+				arParams[11].Direction = ParameterDirection.Input;
+				arParams[11].Value = attributes;
+
+				arParams[12] = new MySqlParameter("?Options", MySqlDbType.Text);
+				arParams[12].Direction = ParameterDirection.Input;
+				arParams[12].Value = options;
+
+				rowsAffected = MySqlHelper.ExecuteNonQuery(
                     ConnectionString.GetWriteConnectionString(),
                     sqlCommand.ToString(),
                     arParams);
@@ -849,8 +900,10 @@ namespace mojoPortal.Data
                 sqlCommand.Append("HelpKey, ");
                 sqlCommand.Append("SortOrder, ");
                 sqlCommand.Append("GroupName, ");
-                sqlCommand.Append("RegexValidationExpression");
-                sqlCommand.Append(")");
+                sqlCommand.Append("RegexValidationExpression, ");
+                sqlCommand.Append("Attributes, ");
+                sqlCommand.Append("Options ");
+				sqlCommand.Append(")");
 
                 sqlCommand.Append("VALUES (  ");
                 sqlCommand.Append(" ?FeatureGuid , ");
@@ -863,10 +916,12 @@ namespace mojoPortal.Data
                 sqlCommand.Append(" ?HelpKey, ");
                 sqlCommand.Append(" ?SortOrder, ");
                 sqlCommand.Append(" ?GroupName, ");
-                sqlCommand.Append(" ?RegexValidationExpression  ");
-                sqlCommand.Append(");");
+                sqlCommand.Append(" ?RegexValidationExpression,  ");
+                sqlCommand.Append(" ?Attributes,  ");
+                sqlCommand.Append(" ?Options  ");
+				sqlCommand.Append(");");
 
-                arParams = new MySqlParameter[11];
+                arParams = new MySqlParameter[13];
 
                 arParams[0] = new MySqlParameter("?ModuleDefID", MySqlDbType.Int32);
                 arParams[0].Direction = ParameterDirection.Input;
@@ -912,7 +967,15 @@ namespace mojoPortal.Data
                 arParams[10].Direction = ParameterDirection.Input;
                 arParams[10].Value = groupName;
 
-                rowsAffected = MySqlHelper.ExecuteNonQuery(
+				arParams[11] = new MySqlParameter("?Attributes", MySqlDbType.Text);
+				arParams[11].Direction = ParameterDirection.Input;
+				arParams[11].Value = attributes;
+
+				arParams[12] = new MySqlParameter("?Options", MySqlDbType.Text);
+				arParams[12].Direction = ParameterDirection.Input;
+				arParams[12].Value = options;
+
+				rowsAffected = MySqlHelper.ExecuteNonQuery(
                     ConnectionString.GetWriteConnectionString(),
                     sqlCommand.ToString(),
                     arParams);
@@ -934,7 +997,9 @@ namespace mojoPortal.Data
             string regexValidationExpression,
             string controlSrc,
             string helpKey,
-            int sortOrder)
+            int sortOrder,
+			string attributes,
+			string options)
         {
             StringBuilder sqlCommand = new StringBuilder();
 
@@ -947,12 +1012,14 @@ namespace mojoPortal.Data
             sqlCommand.Append("HelpKey = ?HelpKey,  ");
             sqlCommand.Append("SortOrder = ?SortOrder,  ");
             sqlCommand.Append("GroupName = ?GroupName,  ");
-            sqlCommand.Append("RegexValidationExpression = ?RegexValidationExpression  ");
+            sqlCommand.Append("RegexValidationExpression = ?RegexValidationExpression,  ");
+			sqlCommand.Append("Attributes = ?Attributes,  ");
+			sqlCommand.Append("Options = ?Options  ");
 
-            sqlCommand.Append("WHERE ID = ?ID  ");
+			sqlCommand.Append("WHERE ID = ?ID  ");
             sqlCommand.Append("AND ModuleDefID = ?ModuleDefID  ; ");
 
-            MySqlParameter[] arParams = new MySqlParameter[11];
+            MySqlParameter[] arParams = new MySqlParameter[13];
 
             arParams[0] = new MySqlParameter("?ID", MySqlDbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -998,7 +1065,15 @@ namespace mojoPortal.Data
             arParams[10].Direction = ParameterDirection.Input;
             arParams[10].Value = groupName;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			arParams[11] = new MySqlParameter("?Attributes", MySqlDbType.Text);
+			arParams[11].Direction = ParameterDirection.Input;
+			arParams[11].Value = attributes;
+
+			arParams[12] = new MySqlParameter("?Options", MySqlDbType.Text);
+			arParams[12].Direction = ParameterDirection.Input;
+			arParams[12].Value = options;
+
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

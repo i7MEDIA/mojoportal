@@ -23,7 +23,7 @@ namespace SuperFlexiUI
         public ModuleConfiguration config = new ModuleConfiguration();
         private Field controlField = new Field();
         protected string removeImageText = SuperFlexiResources.RemoveImage;
-        private Dictionary<string, string> attributes = new Dictionary<string, string>();
+        private IDictionary<string, string> attributes = new Dictionary<string, string>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -81,7 +81,7 @@ namespace SuperFlexiUI
 
             if (!String.IsNullOrWhiteSpace(controlField.Attributes))
             {
-                attributes = SuperFlexiHelpers.GetDictionaryFromString(controlField.Attributes);
+				attributes = UIHelper.GetDictionaryFromString(controlField.Attributes);
             }
         }
 
@@ -107,17 +107,22 @@ namespace SuperFlexiUI
         {
             controlField = field;
         }
-        public new void Attributes(string attribs)
+        public new void Attributes(IDictionary<string, string> attribs)
         {
-            AttributeCollection attribCol = imageUrl.Attributes;
+            //AttributeCollection attribCol = imageUrl.Attributes;
 
-            FieldUtils.GetFieldAttributes(attribs, out attribCol);
+            //FieldUtils.GetFieldAttributes(attribs, out attribCol);
 
-            foreach (string key in attribCol.Keys)
-            {
-                imageUrl.Attributes.Add(key, (string)attribCol[key]);
-            }
-        }
+			//foreach (string key in attribCol.Keys)
+			//{
+			//    imageUrl.Attributes.Add(key, (string)attribCol[key]);
+			//}
+
+			foreach (KeyValuePair<string, string> pair in attribs)
+			{
+				imageUrl.Attributes.Add(pair.Key, pair.Value);
+			}
+		}
         #endregion
     }
 }

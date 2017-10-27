@@ -968,7 +968,8 @@ namespace SuperFlexiUI
 								uc.ID = field.Name;
 								label.ForControl = uc.ID;
 
-                                sc.Attributes(field.Attributes);
+								var dictAttribs = UIHelper.GetDictionaryFromString(field.Attributes);
+                                sc.Attributes(dictAttribs);
 
 								if (uc is InterfaceControl)
 								{
@@ -991,9 +992,10 @@ namespace SuperFlexiUI
 										ICustomField sc = c as ICustomField;
 										c.ID = field.Name;
 
-                                        sc.Attributes(field.Attributes);
+										var dictAttribs = UIHelper.GetDictionaryFromString(field.Attributes);
+										sc.Attributes(dictAttribs);
 
-                                        if (c is InterfaceControl)
+										if (c is InterfaceControl)
 										{
 											InterfaceControl ic = c as InterfaceControl;
 											ic.ControlField(field);

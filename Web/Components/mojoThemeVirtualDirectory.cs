@@ -1,12 +1,13 @@
 ﻿// Author:             
 // Created:            2010-08-19
-// Last Modified:      2010-08-19
+// Last Modified:      2017-10-04
 
 using System.Collections;
 using System.Security.Permissions;
 using System.Web;
 using System.Web.Hosting;
-
+using mojoPortal.Business;
+using System.Collections.Generic;
 namespace mojoPortal.Web
 {
     [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.Minimal)]
@@ -48,15 +49,16 @@ namespace mojoPortal.Web
             // fool it into thinking the theme.skin file exists in the requested path
             mojoThemeVirtualFile themeFile = new mojoThemeVirtualFile(_requestedDirectory.VirtualPath + "theme.skin");
 
+			List<string> moduleSkinFileNames = ModuleDefinition.GetAllModuleSkinFileNames();
+
             foreach (VirtualFile f in _requestedDirectory.Files)
             {
                 string fileName = VirtualPathUtility.GetFileName(f.VirtualPath);
-                if (fileName == "theme.skin.css")
+                if (fileName == "theme.skin.css" || moduleSkinFileNames.Contains(fileName))
                 {
                     _files.Add(f);
                     _children.Add(f);
                 }
-
             }
 
             _files.Add(themeFile);

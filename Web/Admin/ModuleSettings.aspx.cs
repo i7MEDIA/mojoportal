@@ -1,5 +1,5 @@
 /// Author:        
-///	Last Modified: 2017-07-25
+///	Last Modified: 2017-07-26
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -20,6 +20,7 @@ using System.Collections;
 using System.Data;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -435,126 +436,141 @@ namespace mojoPortal.Web.AdminUI
 
 		private void AddSettingControl(CustomModuleSetting s, Panel groupPanel)
 		{
-			if (s.SettingName == "WebPartModuleWebPartSetting")
+
+			if (s.SettingControlType == string.Empty)
 			{
-				// Special handling for this one
-				divWebParts.Visible = true;
-
-				using (IDataReader reader = WebPartContent.SelectBySite(siteSettings.SiteId))
-				{
-					ddWebParts.DataSource = reader;
-					ddWebParts.DataBind();
-				}
-
-				if (s.SettingValue.Length == 36)
-				{
-					ListItem listItem = ddWebParts.Items.FindByValue(s.SettingValue);
-
-					if (listItem != null)
-					{
-						ddWebParts.ClearSelection();
-						listItem.Selected = true;
-					}
-				}
+				return;
 			}
-			else
+
+			String resourceFile = "Resource";
+
+			if (s.ResourceFile.Length > 0)
 			{
-				if (s.SettingControlType == string.Empty)
-				{
-					return;
-				}
+				resourceFile = s.ResourceFile;
+			}
 
-				String settingLabel = s.SettingName;
-				String resourceFile = "Resource";
+			String settingLabel = GetResourceString(resourceFile, s.SettingName);
 
-				if (s.ResourceFile.Length > 0)
-				{
-					resourceFile = s.ResourceFile;
-				}
 
-				try
-				{
-					settingLabel = GetGlobalResourceObject(resourceFile, s.SettingName).ToString();
+			BasePanel panel = new BasePanel();
+			panel.Element = displaySettings.ModuleSettingsSettingPanelElement;
 
-					if (settingLabel == null)
+			var attributes = UIHelper.GetDictionaryFromString(s.Attributes);
+
+			string panelClass = string.Empty;
+			if (!attributes.TryGetValue("panelClass", out panelClass))
+			{
+				panelClass = $"$default$ {s.SettingName}";
+			}
+			panelClass = panelClass.Replace("$default$", displaySettings.ModuleSettingsSettingPanelClass);
+
+			string labelClass = string.Empty;
+			if (!attributes.TryGetValue("labelClass", out labelClass))
+			{
+				labelClass = "$default$";
+			}
+			labelClass = labelClass.Replace("$default$", displaySettings.ModuleSettingsSettingLabelClass);
+
+			string controlClass = string.Empty;
+			if (!attributes.TryGetValue("controlClass", out controlClass))
+			{
+				controlClass = "$default$";
+			}
+			controlClass = controlClass.Replace("$default$", displaySettings.ModuleSettingsSettingControlClass);
+
+			panel.CssClass = panelClass;
+
+			StringBuilder attribsMarkup = new StringBuilder();
+			foreach (var attrib in attributes.Where(a => !a.Key.IsIn("panelClass", "labelClass", "controlClass")))
+			{
+				string attribValue = attrib.Key.StartsWith("Resource:") ? GetResourceString(resourceFile, attrib.Key.Substring(9)).ToString() : attrib.Key;
+				
+				attribsMarkup.Append($" {attrib.Key}=\"{attribValue}\"");
+			}
+
+			string controlID = s.SettingName + moduleId.ToInvariantString();
+
+			Literal label = new Literal();
+			label.Text = $"<label class=\"{labelClass}\" for=\"{controlID}\">{settingLabel}</label>";
+			panel.Controls.Add(label);
+
+			//creating generic control here so we can cast it as whatever type we need to and still add it to the panel in a single location
+			Control control = new Control();
+
+			string controlMarkupFormat = "<input name=\"{0}\" id=\"{0}\" type=\"{1}\" class=\"{2}\" value=\"{3}\"{4} />";
+
+			switch (s.SettingControlType)
+			{
+				case "TextBox":
+					Literal textBox = control as Literal;
+					textBox.Text = string.Format(controlMarkupFormat, controlID, "text", controlClass, s.SettingValue.HtmlEscapeQuotes(), attribsMarkup);
+					break;
+				case "CheckBox":
+					Literal checkBox = control as Literal;
+					bool isChecked = string.Equals(s.SettingValue, "true", StringComparison.InvariantCultureIgnoreCase);
+					checkBox.Text = string.Format(controlMarkupFormat, controlID, "checkbox", controlClass, s.SettingValue.HtmlEscapeQuotes(), attribsMarkup + (isChecked ? " checked" : ""));
+					break;
+				case "DropDownList":
+					Literal ddl = control as Literal;
+					var options = UIHelper.GetDictionaryFromString(s.Options);
+
+					StringBuilder optionsMarkup = new StringBuilder();
+					foreach (var op in options)
 					{
-						settingLabel = s.SettingName;
+						string optionName = op.Key.StartsWith("Resource:") ? GetResourceString(resourceFile, op.Key.Substring(9)).ToString() : op.Key;
+						string selected = s.SettingValue == op.Value ? " selected" : string.Empty;
+						optionsMarkup.Append($"<option value=\"{op.Value}\"{selected}>{optionName}</option>");
 					}
-				}
-				catch (NullReferenceException ex)
-				{
-					log.Error("ModuleSettings.aspx.cs handled error getting resource for s.SettingName " + s.SettingName, ex);
-				}
-
-				Panel panel = new Panel();
-				panel.CssClass = "settingrow " + s.SettingName;
-				Literal label = new Literal();
-				label.Text = "<label class='settinglabel' >" + settingLabel + "</label>";
-				panel.Controls.Add(label);
-
-				if ((s.SettingControlType == "TextBox") || (s.SettingControlType == string.Empty))
-				{
-					Literal textBox = new Literal();
-					textBox.Text = "<input name=\""
-						+ s.SettingName + moduleId.ToInvariantString()
-						+ "\" type='text' class=\"forminput\" value=\"" + s.SettingValue.HtmlEscapeQuotes()
-						+ "\" size=\"45\" id=\"" + s.SettingName + moduleId.ToInvariantString() + "\" />";
-
-					panel.Controls.Add(textBox);
-				}
-
-				if (s.SettingControlType == "CheckBox")
-				{
-					Literal checkBox = new Literal();
-					String isChecked = String.Empty;
-
-					if (string.Equals(s.SettingValue, "true", StringComparison.InvariantCultureIgnoreCase))
-					{
-						isChecked = "checked";
-					}
-
-					checkBox.Text = "<input id='"
-						+ s.SettingName + this.moduleId.ToInvariantString()
-						+ "' type='checkbox' class='forminput' " + isChecked
-						+ " name='" + s.SettingName + moduleId.ToInvariantString() + "' />";
-
-					panel.Controls.Add(checkBox);
-				}
-
-				if (s.SettingControlType == "ISettingControl")
-				{
+					ddl.Text = $"<select name=\"{controlID}\" id=\"{controlID}\" class=\"{controlClass}\"{attribsMarkup.ToString()}>{optionsMarkup.ToString()}</select>";
+					break;
+				case "ISettingControl":
+				case "CustomField":
 					if (s.ControlSrc.Length > 0)
 					{
 						if (s.ControlSrc.EndsWith(".ascx"))
 						{
-							Control uc = Page.LoadControl(s.ControlSrc);
+							control = Page.LoadControl(s.ControlSrc);
 
-							if (uc is ISettingControl)
+							if (control is ISettingControl)
 							{
-								ISettingControl sc = uc as ISettingControl;
+								ISettingControl sc = control as ISettingControl;
 
 								if (!IsPostBack)
 								{
 									sc.SetValue(s.SettingValue);
 								}
 
-								uc.ID = "uc" + moduleId.ToInvariantString() + s.SettingName;
-								panel.Controls.Add(uc);
+								control.ID = "uc" + moduleId.ToInvariantString() + s.SettingName;
+							}
+							else if (control is ICustomField)
+							{
+								ICustomField sc = control as ICustomField;
+								if (!IsPostBack)
+								{
+									sc.SetValue(s.SettingValue);
+								}
+
+								var attribs = UIHelper.GetDictionaryFromString(s.Attributes);
+
+								sc.Attributes(attribs);
+
+								control.ID = "uc" + moduleId.ToInvariantString() + s.SettingName;
+								panel.Controls.Add(control);
 							}
 						}
 						else
 						{
 							try
 							{
-								Control c = Activator.CreateInstance(Type.GetType(s.ControlSrc)) as Control;
+								control = Activator.CreateInstance(Type.GetType(s.ControlSrc)) as Control;
 
-								if (c != null)
+								if (control != null)
 								{
-									if (c is ISettingControl)
+									if (control is ISettingControl)
 									{
-										ISettingControl sc = c as ISettingControl;
-										c.ID = "uc" + moduleId.ToInvariantString() + s.SettingName;
-										panel.Controls.Add(c);
+										ISettingControl sc = control as ISettingControl;
+										control.ID = "uc" + moduleId.ToInvariantString() + s.SettingName;
+										panel.Controls.Add(control);
 
 										if (!IsPostBack)
 										{
@@ -563,7 +579,7 @@ namespace mojoPortal.Web.AdminUI
 									}
 									else
 									{
-										log.Error("setting control " + s.ControlSrc + " does not implement ISettingControl");
+										log.Error($"setting control {s.ControlSrc} does not implement ISettingControl");
 									}
 								}
 							}
@@ -575,19 +591,36 @@ namespace mojoPortal.Web.AdminUI
 					}
 					else
 					{
-						log.Error("could not add setting control for ISettingControl, missing controlsrc for " + s.SettingName);
+						log.Error($"could not add setting control for {s.SettingControlType}, missing controlsrc for {s.SettingName}");
 					}
-				}
-
-				if (s.HelpKey.Length > 0)
-				{
-					mojoHelpLink.AddHelpLink(panel, s.HelpKey);
-				}
-
-				groupPanel.Controls.Add(panel);
+					break;
 			}
+			
+			panel.Controls.Add(control);
+			if (s.HelpKey.Length > 0)
+			{
+				panel.Controls.Add(mojoHelpLink.GetHelpLinkControl(s.HelpKey));
+			}
+			groupPanel.Controls.Add(panel);
 		}
 
+		private string GetResourceString (string resourceFile, string resourceKey)
+		{
+			string resourceString = resourceKey;
+			try
+			{
+				resourceString = GetGlobalResourceObject(resourceFile, resourceKey).ToString();
+				if (resourceString == null)
+				{
+					resourceString = resourceKey;
+				}
+			}
+			catch (NullReferenceException ex)
+			{
+				log.Error($"ModuleSettings.aspx.cs handled error getting resource for {resourceKey} from {resourceFile}", ex);
+			}
+			return resourceString;
+		}
 
 		private void PopulatePageList()
 		{
@@ -639,8 +672,7 @@ namespace mojoPortal.Web.AdminUI
 				PopulateListControl(listBox, childNode, pagePrefix);
 			}
 		}
-
-
+		
 		private void btnSave_Click(Object sender, EventArgs e)
 		{
 			if (debugLog)
@@ -1146,7 +1178,7 @@ namespace mojoPortal.Web.AdminUI
 				isSiteEditor = SiteUtils.UserIsSiteEditor();
 			}
 
-			if (isAdmin || isContentAdmin || (isSiteEditor))
+			if (isAdmin || isContentAdmin || isSiteEditor)
 			{
 				canEdit = true;
 

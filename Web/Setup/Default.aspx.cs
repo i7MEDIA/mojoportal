@@ -1,6 +1,6 @@
 // Author:					
 // Created:				    2006-09-30
-// Last Modified:		    2014-07-29
+// Last Modified:		    2017-10-26
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
 // which can be found in the file CPL.TXT at the root of this distribution.
@@ -720,7 +720,9 @@ namespace mojoPortal.Web.UI.Pages
                     featureSetting.RegexValidationExpression,
                     featureSetting.ControlSrc,
                     featureSetting.HelpKey,
-                    featureSetting.SortOrder);
+                    featureSetting.SortOrder,
+					featureSetting.Attributes,
+					featureSetting.Options);
 
             }
 

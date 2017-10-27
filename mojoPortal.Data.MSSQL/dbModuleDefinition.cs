@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2014-07-29
+/// Last Modified:			2017-10-26
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -41,9 +41,10 @@ namespace mojoPortal.Data
             string searchListName,
             bool supportsPageReuse,
             string deleteProvider,
-            string partialView)
+            string partialView,
+			string skinFileName)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_ModuleDefinitions_Insert", 15);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_ModuleDefinitions_Insert", 16);
             sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
             sph.DefineSqlParameter("@FeatureName", SqlDbType.NVarChar, 255, ParameterDirection.Input, featureName);
             sph.DefineSqlParameter("@ControlSrc", SqlDbType.NVarChar, 255, ParameterDirection.Input, controlSrc);
@@ -59,9 +60,10 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@SupportsPageReuse", SqlDbType.Bit, ParameterDirection.Input, supportsPageReuse);
             sph.DefineSqlParameter("@DeleteProvider", SqlDbType.NVarChar, 255, ParameterDirection.Input, deleteProvider);
             sph.DefineSqlParameter("@PartialView", SqlDbType.NVarChar, 255, ParameterDirection.Input, partialView);
+            sph.DefineSqlParameter("@SkinFileName", SqlDbType.NVarChar, 255, ParameterDirection.Input, skinFileName);
 
 
-            int newID = Convert.ToInt32(sph.ExecuteScalar());
+			int newID = Convert.ToInt32(sph.ExecuteScalar());
             return newID;
         }
 
@@ -79,9 +81,10 @@ namespace mojoPortal.Data
             string searchListName,
             bool supportsPageReuse,
             string deleteProvider,
-            string partialView)
+            string partialView,
+			string skinFileName)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_ModuleDefinitions_Update", 14);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_ModuleDefinitions_Update", 15);
             sph.DefineSqlParameter("@ModuleDefID", SqlDbType.Int, ParameterDirection.Input, moduleDefId);
             sph.DefineSqlParameter("@FeatureName", SqlDbType.NVarChar, 255, ParameterDirection.Input, featureName);
             sph.DefineSqlParameter("@ControlSrc", SqlDbType.NVarChar, 255, ParameterDirection.Input, controlSrc);
@@ -96,7 +99,8 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@SupportsPageReuse", SqlDbType.Bit, ParameterDirection.Input, supportsPageReuse);
             sph.DefineSqlParameter("@DeleteProvider", SqlDbType.NVarChar, 255, ParameterDirection.Input, deleteProvider);
             sph.DefineSqlParameter("@PartialView", SqlDbType.NVarChar, 255, ParameterDirection.Input, partialView);
-            int rowsAffected = sph.ExecuteNonQuery();
+            sph.DefineSqlParameter("@SkinFileName", SqlDbType.NVarChar, 255, ParameterDirection.Input, skinFileName);
+			int rowsAffected = sph.ExecuteNonQuery();
             return (rowsAffected > -1);
         }
 
@@ -195,12 +199,24 @@ namespace mojoPortal.Data
                     row["AuthorizedRoles"] = reader["AuthorizedRoles"];
                     dt.Rows.Add(row);
                 }
-
             }
             return dt;
         }
 
-        public static IDataReader GetUserModules(int siteId)
+		public static IDataReader GetModuleDefinitionBySkinFileName(string skinFileName)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_ModuleDefinitions_SelectOneBySkinFileName", 1);
+			sph.DefineSqlParameter("@SkinFileName", SqlDbType.NVarChar, ParameterDirection.Input, skinFileName);
+			return sph.ExecuteReader();
+		}
+
+		public static IDataReader GetAllModuleSkinFileNames()
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_ModuleDefinitions_GetSkinFileNames", 0);
+			return sph.ExecuteReader();
+		}
+
+		public static IDataReader GetUserModules(int siteId)
         {
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_ModuleDefinitions_SelectUserModules", 1);
             sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
@@ -234,9 +250,11 @@ namespace mojoPortal.Data
             string regexValidationExpression,
             string controlSrc,
             string helpKey,
-            int sortOrder)
+            int sortOrder,
+			string attributes,
+			string options)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_ModuleDefinitionSettings_Update", 11);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_ModuleDefinitionSettings_Update", 13);
             sph.DefineSqlParameter("@ModuleDefID", SqlDbType.Int, ParameterDirection.Input, moduleDefId);
             sph.DefineSqlParameter("@SettingName", SqlDbType.NVarChar, 50, ParameterDirection.Input, settingName);
             sph.DefineSqlParameter("@SettingValue", SqlDbType.NVarChar, -1, ParameterDirection.Input, settingValue);
@@ -248,8 +266,10 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@HelpKey", SqlDbType.NVarChar, 255, ParameterDirection.Input, helpKey);
             sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
             sph.DefineSqlParameter("@GroupName", SqlDbType.NVarChar, 255, ParameterDirection.Input, groupName);
-            
-            int rowsAffected = sph.ExecuteNonQuery();
+            sph.DefineSqlParameter("@Attributes", SqlDbType.NText, ParameterDirection.Input, attributes);
+            sph.DefineSqlParameter("@Options", SqlDbType.NText, ParameterDirection.Input, options);
+
+			int rowsAffected = sph.ExecuteNonQuery();
             return (rowsAffected > -1);
         }
 
@@ -264,9 +284,11 @@ namespace mojoPortal.Data
             string regexValidationExpression,
             string controlSrc,
             string helpKey,
-            int sortOrder)
+            int sortOrder,
+			string attributes,
+			string options)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_ModuleDefinitionSettings_UpdateByID", 11);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_ModuleDefinitionSettings_UpdateByID", 13);
             sph.DefineSqlParameter("@ID", SqlDbType.Int, ParameterDirection.Input, id);
             sph.DefineSqlParameter("@ModuleDefID", SqlDbType.Int, ParameterDirection.Input, moduleDefId);
             sph.DefineSqlParameter("@SettingName", SqlDbType.NVarChar, 50, ParameterDirection.Input, settingName);
@@ -278,7 +300,9 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@HelpKey", SqlDbType.NVarChar, 255, ParameterDirection.Input, helpKey);
             sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
             sph.DefineSqlParameter("@GroupName", SqlDbType.NVarChar, 255, ParameterDirection.Input, groupName);
-            int rowsAffected = sph.ExecuteNonQuery();
+            sph.DefineSqlParameter("@Attributes", SqlDbType.NText, ParameterDirection.Input, attributes);
+            sph.DefineSqlParameter("@Options", SqlDbType.NText, ParameterDirection.Input, options);
+			int rowsAffected = sph.ExecuteNonQuery();
             return (rowsAffected > -1);
         }
 

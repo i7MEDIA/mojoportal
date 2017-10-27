@@ -8260,6 +8260,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attributes String (ex: name|value;name2|value2).
+        /// </summary>
+        internal static string ModuleDefinitionsSettingAttributesLabel {
+            get {
+                return ResourceManager.GetString("ModuleDefinitionsSettingAttributesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Control Source:.
         /// </summary>
         internal static string ModuleDefinitionsSettingControlSrcLabel {
@@ -8292,6 +8301,15 @@ namespace Resources {
         internal static string ModuleDefinitionsSettingNameLabel {
             get {
                 return ResourceManager.GetString("ModuleDefinitionsSettingNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options String (ex: name|value;name2|value2).
+        /// </summary>
+        internal static string ModuleDefinitionsSettingOptionsLabel {
+            get {
+                return ResourceManager.GetString("ModuleDefinitionsSettingOptionsLabel", resourceCulture);
             }
         }
         

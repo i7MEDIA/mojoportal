@@ -6234,4 +6234,10 @@
   <data name="MetaNamePropertyRequired" xml:space="preserve">
     <value>Name Property is Required</value>
   </data>
+  <data name="ModuleDefinitionsSettingAttributesLabel" xml:space="preserve">
+    <value>Attributes String (ex: name|value;name2|value2)</value>
+  </data>
+  <data name="ModuleDefinitionsSettingOptionsLabel" xml:space="preserve">
+    <value>Options String (ex: name|value;name2|value2)</value>
+  </data>
 </root>

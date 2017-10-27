@@ -95,7 +95,7 @@ namespace SuperFlexiUI
             ed1.Text = val;
         }
 
-        public new void Attributes(string attribs)
+        public new void Attributes(IDictionary<string, string> attribs)
         {
             //AttributeCollection attribCol = ed1.Attributes;
 

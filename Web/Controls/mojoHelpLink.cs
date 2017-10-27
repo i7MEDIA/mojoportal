@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:				    2009-05-01
-// Last Modified:			2017-03-09
+// Last Modified:			2017-10-26
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -101,6 +101,14 @@ namespace mojoPortal.Web.UI
             parentControl.Controls.Add(litSpace);
 
         }
+
+		public static Control GetHelpLinkControl(string helpKey)
+		{
+			mojoHelpLink helpLinkButton = new mojoHelpLink();
+			helpLinkButton.HelpKey = helpKey;
+
+			return helpLinkButton;
+		}
 
     }
 }

@@ -1999,11 +1999,6 @@
             Represents a language
             </summary>
         </member>
-        <member name="T:mojoPortal.Business.CustomModuleSetting">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="T:mojoPortal.Business.FriendlyUrl">
              <summary>
             

@@ -80,11 +80,12 @@ namespace mojoPortal.Business
                         reader["RegexValidationExpression"].ToString(),
                         reader["ControlSrc"].ToString(),
                         reader["HelpKey"].ToString(),
-                        sortOrder
-                        );
+                        sortOrder,
+						reader["Attributes"].ToString(),
+						reader["Options"].ToString()
+						);
 
                     setting.GroupName = reader["GroupName"].ToString();
-
                     defaultCustomSettings.Add(setting);
                 }
             }
@@ -105,17 +106,19 @@ namespace mojoPortal.Business
 
                     CustomModuleSetting setting
                         = new CustomModuleSetting(
-                        new Guid(reader["FeatureGuid"].ToString()),
-                        -1,
-                        reader["ResourceFile"].ToString(),
-                        reader["SettingName"].ToString().Trim(),
-                        reader["SettingValue"].ToString(),
-                        reader["ControlType"].ToString(),
-                        reader["RegexValidationExpression"].ToString(),
-                        reader["ControlSrc"].ToString(),
-                        reader["HelpKey"].ToString(),
-                        sortOrder
-                        );
+							new Guid(reader["FeatureGuid"].ToString()),
+							-1,
+							reader["ResourceFile"].ToString(),
+							reader["SettingName"].ToString().Trim(),
+							reader["SettingValue"].ToString(),
+							reader["ControlType"].ToString(),
+							reader["RegexValidationExpression"].ToString(),
+							reader["ControlSrc"].ToString(),
+							reader["HelpKey"].ToString(),
+							sortOrder,
+							reader["Attributes"].ToString(),
+							reader["Options"].ToString()
+						);
                     customSettings.Add(setting);
                 }
             }

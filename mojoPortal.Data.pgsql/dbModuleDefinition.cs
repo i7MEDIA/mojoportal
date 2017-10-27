@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2014-07-29
+/// Last Modified:			2017-10-26
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -52,7 +52,8 @@ namespace mojoPortal.Data
             string searchListName,
             bool supportsPageReuse,
             string deleteProvider,
-            string partialView)
+            string partialView,
+			string skinFileName)
         {
 
             StringBuilder sqlCommand = new StringBuilder();
@@ -70,6 +71,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("iscacheable, ");
             sqlCommand.Append("issearchable, ");
             sqlCommand.Append("partialview, ");
+			sqlCommand.Append("skinfilename, ");
 
             sqlCommand.Append("searchlistname )");
 
@@ -87,12 +89,13 @@ namespace mojoPortal.Data
             sqlCommand.Append(":iscacheable, ");
             sqlCommand.Append(":issearchable, ");
             sqlCommand.Append(":partialview, ");
+            sqlCommand.Append(":skinfilename, ");
 
-            sqlCommand.Append(":searchlistname )");
+			sqlCommand.Append(":searchlistname )");
             sqlCommand.Append(";");
             sqlCommand.Append(" SELECT CURRVAL('mp_moduledefinitions_moduledefid_seq');");
 
-            NpgsqlParameter[] arParams = new NpgsqlParameter[14];
+            NpgsqlParameter[] arParams = new NpgsqlParameter[15];
 
             arParams[0] = new NpgsqlParameter("featurename", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[0].Direction = ParameterDirection.Input;
@@ -150,8 +153,11 @@ namespace mojoPortal.Data
             arParams[13].Direction = ParameterDirection.Input;
             arParams[13].Value = partialView;
 
+			arParams[14] = new NpgsqlParameter("skinfilename", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+			arParams[14].Direction = ParameterDirection.Input;
+			arParams[14].Value = skinFileName;
 
-            int newID = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
+			int newID = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
                 sqlCommand.ToString(),
@@ -234,7 +240,8 @@ namespace mojoPortal.Data
             string searchListName,
             bool supportsPageReuse,
             string deleteProvider,
-            string partialView)
+            string partialView,
+			string skinFileName)
         {
 
             StringBuilder sqlCommand = new StringBuilder();
@@ -251,8 +258,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("supportspagereuse = :supportspagereuse, ");
             sqlCommand.Append("deleteprovider = :deleteprovider, ");
             sqlCommand.Append("partialview = :partialview, ");
+            sqlCommand.Append("skinfilename = :skinfilename, ");
 
-            sqlCommand.Append("iscacheable = :iscacheable, ");
+			sqlCommand.Append("iscacheable = :iscacheable, ");
             sqlCommand.Append("issearchable = :issearchable, ");
             sqlCommand.Append("searchlistname = :searchlistname ");
 
@@ -260,7 +268,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("moduledefid = :moduledefid ");
             sqlCommand.Append(";");
 
-            NpgsqlParameter[] arParams = new NpgsqlParameter[14];
+            NpgsqlParameter[] arParams = new NpgsqlParameter[15];
 
             arParams[0] = new NpgsqlParameter("moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
@@ -318,8 +326,11 @@ namespace mojoPortal.Data
             arParams[13].Direction = ParameterDirection.Input;
             arParams[13].Value = partialView;
 
+			arParams[14] = new NpgsqlParameter("skinfilename", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+			arParams[14].Direction = ParameterDirection.Input;
+			arParams[14].Value = skinFileName;
 
-            int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
+			int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
                 sqlCommand.ToString(),
@@ -599,41 +610,68 @@ namespace mojoPortal.Data
             return dt;
         }
 
-        //public static DataTable GetModuleDefinitionsBySite(int siteId)
-        //{
-        //    NpgsqlParameter[] arParams = new NpgsqlParameter[1];
-            
-        //    arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = siteId;
-           
-        //    DataTable dt = new DataTable();
-        //    dt.Columns.Add("ModuleDefID", typeof(int));
-        //    dt.Columns.Add("FeatureName", typeof(String));
-        //    dt.Columns.Add("ControlSrc", typeof(String));
+		//public static DataTable GetModuleDefinitionsBySite(int siteId)
+		//{
+		//    NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-        //    using (IDataReader reader = NpgsqlHelper.ExecuteReader(
-        //        GetConnectionString(),
-        //        CommandType.StoredProcedure,
-        //        "mp_moduledefinitions_select(:siteid)",
-        //        arParams))
-        //    {
-        //        while (reader.Read())
-        //        {
-        //            DataRow row = dt.NewRow();
-        //            row["ModuleDefID"] = reader["ModuleDefID"];
-        //            row["FeatureName"] = reader["FeatureName"];
-        //            row["ControlSrc"] = reader["ControlSrc"];
-        //            dt.Rows.Add(row);
+		//    arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = siteId;
 
-        //        }
+		//    DataTable dt = new DataTable();
+		//    dt.Columns.Add("ModuleDefID", typeof(int));
+		//    dt.Columns.Add("FeatureName", typeof(String));
+		//    dt.Columns.Add("ControlSrc", typeof(String));
 
-        //    }
+		//    using (IDataReader reader = NpgsqlHelper.ExecuteReader(
+		//        GetConnectionString(),
+		//        CommandType.StoredProcedure,
+		//        "mp_moduledefinitions_select(:siteid)",
+		//        arParams))
+		//    {
+		//        while (reader.Read())
+		//        {
+		//            DataRow row = dt.NewRow();
+		//            row["ModuleDefID"] = reader["ModuleDefID"];
+		//            row["FeatureName"] = reader["FeatureName"];
+		//            row["ControlSrc"] = reader["ControlSrc"];
+		//            dt.Rows.Add(row);
 
-        //    return dt;
-        //}
+		//        }
 
-        public static IDataReader GetUserModules(int siteId)
+		//    }
+
+		//    return dt;
+		//}
+		public static IDataReader GetModuleDefinitionBySkinFileName(string skinFileName)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("select * from mp_moduledefinitions where skinfilename = :skinfilename limit 1;");
+			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
+
+			arParams[0] = new NpgsqlParameter("skinfilename", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = skinFileName;
+
+			return NpgsqlHelper.ExecuteReader(
+				 ConnectionString.GetReadConnectionString(),
+				 CommandType.Text,
+				 sqlCommand.ToString(),
+				 arParams);
+		}
+
+		public static IDataReader GetAllModuleSkinFileNames()
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT skinfilename FROM mp_moduledefinitions;");
+
+			return NpgsqlHelper.ExecuteReader(
+				 ConnectionString.GetReadConnectionString(),
+				 CommandType.Text,
+				 sqlCommand.ToString());
+		}
+
+		public static IDataReader GetUserModules(int siteId)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT md.*, ");
@@ -821,7 +859,9 @@ namespace mojoPortal.Data
             string regexValidationExpression,
             string controlSrc,
             string helpKey,
-            int sortOrder)
+            int sortOrder,
+			string attributes,
+			string options)
         {
             if (!SettingExists(featureGuid, moduleDefId, settingName))
             {
@@ -836,7 +876,9 @@ namespace mojoPortal.Data
                     resourceFile,
                     controlSrc,
                     sortOrder,
-                    helpKey);
+                    helpKey,
+					attributes,
+					options);
 
             }
             else
@@ -854,13 +896,15 @@ namespace mojoPortal.Data
                 sqlCommand.Append("controlsrc = :controlsrc, ");
                 sqlCommand.Append("sortorder = :sortorder, ");
                 sqlCommand.Append("groupname = :groupname, ");
-                sqlCommand.Append("helpkey = :helpkey ");
-                sqlCommand.Append("WHERE (moduledefid = :moduledefid OR featureguid = :featureguid)  ");
+                sqlCommand.Append("helpkey = :helpkey, ");
+				sqlCommand.Append("attributes = :attributes, ");
+				sqlCommand.Append("options = :options ");
+				sqlCommand.Append("WHERE (moduledefid = :moduledefid OR featureguid = :featureguid)  ");
                 sqlCommand.Append("AND settingname = :settingname  ; ");
 
                 sqlCommand.Append(";");
 
-                NpgsqlParameter[] arParams = new NpgsqlParameter[11];
+                NpgsqlParameter[] arParams = new NpgsqlParameter[12];
 
                 arParams[0] = new NpgsqlParameter("featureguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
                 arParams[0].Direction = ParameterDirection.Input;
@@ -906,8 +950,15 @@ namespace mojoPortal.Data
                 arParams[10].Direction = ParameterDirection.Input;
                 arParams[10].Value = groupName;
 
+				arParams[11] = new NpgsqlParameter("attributes", NpgsqlTypes.NpgsqlDbType.Text);
+				arParams[11].Direction = ParameterDirection.Input;
+				arParams[11].Value = attributes;
 
-                int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
+				arParams[12] = new NpgsqlParameter("options", NpgsqlTypes.NpgsqlDbType.Text);
+				arParams[12].Direction = ParameterDirection.Input;
+				arParams[12].Value = options;
+
+				int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
                     ConnectionString.GetWriteConnectionString(),
                     CommandType.Text,
                     sqlCommand.ToString(),
@@ -931,39 +982,45 @@ namespace mojoPortal.Data
             string resourceFile,
             string controlSrc,
             int sortOrder,
-            string helpKey)
+            string helpKey,
+			string attributes,
+			string options)
         {
 
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("INSERT INTO mp_moduledefinitionsettings (");
+            sqlCommand.Append("featureguid, ");
             sqlCommand.Append("moduledefid, ");
+            sqlCommand.Append("resourcefile, ");
             sqlCommand.Append("settingname, ");
             sqlCommand.Append("settingvalue, ");
             sqlCommand.Append("controltype, ");
-            sqlCommand.Append("regexvalidationexpression, ");
-            sqlCommand.Append("featureguid, ");
-            sqlCommand.Append("resourcefile, ");
             sqlCommand.Append("controlsrc, ");
+            sqlCommand.Append("helpkey, )");
             sqlCommand.Append("sortorder, ");
             sqlCommand.Append("groupname, ");
-            sqlCommand.Append("helpkey )");
+            sqlCommand.Append("regexvalidationexpression, ");
+            sqlCommand.Append("attributes, )");
+            sqlCommand.Append("options )");
 
-            sqlCommand.Append(" VALUES (");
+			sqlCommand.Append(" VALUES (");
+            sqlCommand.Append(":featureguid, ");
             sqlCommand.Append(":moduledefid, ");
+            sqlCommand.Append(":resourcefile, ");
             sqlCommand.Append(":settingname, ");
             sqlCommand.Append(":settingvalue, ");
             sqlCommand.Append(":controltype, ");
-            sqlCommand.Append(":regexvalidationexpression, ");
-            sqlCommand.Append(":featureguid, ");
-            sqlCommand.Append(":resourcefile, ");
             sqlCommand.Append(":controlsrc, ");
+            sqlCommand.Append(":helpkey, )");
             sqlCommand.Append(":sortorder, ");
             sqlCommand.Append(":groupname, ");
-            sqlCommand.Append(":helpkey )");
-            sqlCommand.Append(";");
+            sqlCommand.Append(":regexvalidationexpression, ");
+            sqlCommand.Append(":attributes, )");
+            sqlCommand.Append(":options )");
+			sqlCommand.Append(";");
             
 
-            NpgsqlParameter[] arParams = new NpgsqlParameter[11];
+            NpgsqlParameter[] arParams = new NpgsqlParameter[13];
             arParams[0] = new NpgsqlParameter("moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = moduleDefID;
@@ -1008,8 +1065,15 @@ namespace mojoPortal.Data
             arParams[10].Direction = ParameterDirection.Input;
             arParams[10].Value = groupName;
 
+			arParams[11] = new NpgsqlParameter("attributes", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[11].Direction = ParameterDirection.Input;
+			arParams[11].Value = attributes;
 
-            int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
+			arParams[12] = new NpgsqlParameter("options", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[12].Direction = ParameterDirection.Input;
+			arParams[12].Value = options;
+
+			int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
                 sqlCommand.ToString(),
@@ -1034,7 +1098,9 @@ namespace mojoPortal.Data
             string regexValidationExpression,
             string controlSrc,
             string helpKey,
-            int sortOrder)
+            int sortOrder,
+			string attributes,
+			string options)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("UPDATE mp_moduledefinitionsettings ");
@@ -1049,13 +1115,15 @@ namespace mojoPortal.Data
             sqlCommand.Append("controlsrc = :controlsrc, ");
             sqlCommand.Append("sortorder = :sortorder, ");
             sqlCommand.Append("groupname = :groupname, ");
-            sqlCommand.Append("helpkey = :helpkey ");
+            sqlCommand.Append("helpkey = :helpkey, ");
+			sqlCommand.Append("attributes = :attributes, )");
+			sqlCommand.Append("options = :options )");
 
-            sqlCommand.Append("WHERE  ");
+			sqlCommand.Append("WHERE  ");
             sqlCommand.Append("id = :id ");
             sqlCommand.Append(";");
 
-            NpgsqlParameter[] arParams = new NpgsqlParameter[11];
+            NpgsqlParameter[] arParams = new NpgsqlParameter[13];
 
             arParams[0] = new NpgsqlParameter("id", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
@@ -1101,8 +1169,15 @@ namespace mojoPortal.Data
             arParams[10].Direction = ParameterDirection.Input;
             arParams[10].Value = groupName;
 
+			arParams[11] = new NpgsqlParameter("attributes", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[11].Direction = ParameterDirection.Input;
+			arParams[11].Value = attributes;
 
-            int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
+			arParams[12] = new NpgsqlParameter("options", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[12].Direction = ParameterDirection.Input;
+			arParams[12].Value = options;
+
+			int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
                 sqlCommand.ToString(),

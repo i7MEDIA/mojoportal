@@ -1,6 +1,6 @@
 // Author:					
 // Created:				    2004-12-26
-// Last Modified:			2014-07-29
+// Last Modified:			2017-10-26
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -13,6 +13,7 @@
 using System;
 using System.Data;
 using mojoPortal.Data;
+using System.Collections.Generic;
 
 namespace mojoPortal.Business
 {
@@ -60,9 +61,10 @@ namespace mojoPortal.Business
         private bool supportsPageReuse = true;
         private string deleteProvider = string.Empty;
         private string partialView = string.Empty;
+        private string skinFileName = string.Empty;
 
-        
-	
+
+
 		#endregion
 
 		#region Public Properties
@@ -160,6 +162,12 @@ namespace mojoPortal.Business
             set { partialView = value; }
         }
 
+		public string SkinFileName
+		{
+			get => skinFileName;
+			set => skinFileName = value;
+		}
+
 		#endregion
 
 		#region Private Methods
@@ -217,6 +225,7 @@ namespace mojoPortal.Business
 
                 this.partialView = reader["PartialView"].ToString();
 
+				this.skinFileName = reader["SkinFileName"].ToString();
             }
 
             
@@ -254,7 +263,8 @@ namespace mojoPortal.Business
                 this.searchListName,
                 this.supportsPageReuse,
                 this.deleteProvider,
-                this.partialView); 
+                this.partialView,
+				this.skinFileName); 
 			
 			this.moduleDefID = newID;
 					
@@ -279,7 +289,8 @@ namespace mojoPortal.Business
                 this.searchListName,
                 this.supportsPageReuse,
                 this.deleteProvider,
-                this.partialView); 
+                this.partialView,
+				this.skinFileName); 
 				
 		}
 
@@ -348,6 +359,27 @@ namespace mojoPortal.Business
 
         }
 
+		public static ModuleDefinition GetModuleDefinitionBySkinFileName (string skinFileName)
+		{
+			ModuleDefinition md = new ModuleDefinition();
+			md.GetModuleDefinition(DBModuleDefinition.GetModuleDefinitionBySkinFileName(skinFileName));
+			return md;
+		}
+
+		public static List<String> GetAllModuleSkinFileNames()
+		{
+			List<string> list = new List<string>();
+			using (IDataReader reader = DBModuleDefinition.GetAllModuleSkinFileNames())
+			{
+				while (reader.Read())
+				{
+					list.Add(reader["SkinFileName"].ToString());
+				}
+			}
+
+			return list;
+		}
+
 		public static IDataReader GetUserModules(int siteId)
 		{
 			return DBModuleDefinition.GetUserModules(siteId);
@@ -369,7 +401,9 @@ namespace mojoPortal.Business
             string regexValidationExpression,
             string controlSrc,
             string helpKey,
-            int sortOrder)
+            int sortOrder,
+			string attributes,
+			string options)
         {
             return DBModuleDefinition.UpdateModuleDefinitionSetting(
                 featureGuid,
@@ -382,7 +416,9 @@ namespace mojoPortal.Business
                 regexValidationExpression,
                 controlSrc,
                 helpKey,
-                sortOrder);
+                sortOrder,
+				attributes,
+				options);
 
         }
 
@@ -397,7 +433,9 @@ namespace mojoPortal.Business
             string regexValidationExpression,
             string controlSrc,
             string helpKey,
-            int sortOrder)
+            int sortOrder,
+			string attributes,
+			string options)
         {
             return DBModuleDefinition.UpdateModuleDefinitionSettingById(
                 id,
@@ -410,7 +448,9 @@ namespace mojoPortal.Business
                 regexValidationExpression,
                 controlSrc,
                 helpKey,
-                sortOrder);
+                sortOrder,
+				attributes,
+				options);
 
         }
 

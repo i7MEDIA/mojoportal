@@ -1,5 +1,5 @@
 // Created:				    2007-08-05
-// Last Modified:			2017-06-16
+// Last Modified:			2017-10-26
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -11,7 +11,8 @@
 
 using System;
 using System.Xml;
-
+using System.Text;
+using mojoPortal.Web.Framework;
 namespace mojoPortal.Web
 {
     /// <summary>
@@ -32,10 +33,10 @@ namespace mojoPortal.Web
         private string helpKey = string.Empty;
         private string groupNameKey = string.Empty;
         private string attributes = string.Empty;
-        private int sortOrder = 100;
+        private string options = string.Empty;
+		private int sortOrder = 100;
 
-
-        public string GroupNameKey
+		public string GroupNameKey
         {
             get { return groupNameKey; }
         }
@@ -80,12 +81,17 @@ namespace mojoPortal.Web
             get { return regexValidationExpression; }
         }
 
-        public string Attributes
-        {
-            get { return attributes; }
-        }
+		public string Attributes
+		{
+			get { return attributes; }
+		}
 
-        public static void LoadFeatureSetting(
+		public string Options
+		{
+			get { return options; }
+		}
+
+		public static void LoadFeatureSetting(
             ContentFeature feature,
             XmlNode featureSettingNode)
         {
@@ -153,19 +159,30 @@ namespace mojoPortal.Web
                     featureSetting.regexValidationExpression = attributeCollection["regexValidationExpression"].Value;
                 }
 
-                if (attributeCollection["attributes"] != null)
-                {
-                    featureSetting.attributes = attributeCollection["attributes"].Value;
-                }
+				StringBuilder attributes = new StringBuilder();
+				StringBuilder options = new StringBuilder();
+				foreach (XmlNode subNode in featureSettingNode)
+				{
+					StringBuilder sb = XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
 
-                feature.Settings.Add(featureSetting);
-                
+					switch (subNode.Name)
+					{
+						case "Options":
+							featureSetting.options = sb.ToString();
+							break;
+						case "Attributes":
+							featureSetting.attributes = sb.ToString();
+							break;
+						//case "PreTokenString":
+						//	field.PreTokenString = subNode.InnerText.Trim();
+						//	break;
+						//case "PostTokenString":
+						//	field.PostTokenString = subNode.InnerText.Trim();
+						//	break;
+					}
+				}
+				feature.Settings.Add(featureSetting);
             }
-
-
         }
-
-
-
     }
 }

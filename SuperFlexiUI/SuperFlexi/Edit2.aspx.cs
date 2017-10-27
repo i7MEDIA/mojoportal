@@ -971,7 +971,7 @@ namespace SuperFlexiUI
 								uc.ID = field.Name;
 								label.ForControl = uc.ID;
 
-                                sc.Attributes(field.Attributes);
+                                //sc.Attributes(field.Attributes);
 
 								if (uc is InterfaceControl)
 								{
@@ -994,7 +994,7 @@ namespace SuperFlexiUI
 										ICustomField sc = c as ICustomField;
 										c.ID = field.Name;
 
-                                        sc.Attributes(field.Attributes);
+                                        //sc.Attributes(field.Attributes);
 
                                         if (c is InterfaceControl)
 										{

@@ -13,6 +13,8 @@
 // 2016-08-15 Renamed to ICustomField to prevent conflicts with ISettingControl in mojoPortal
 // 2017-06-16 Moved from SuperFlexi to mojoPortal.Web
 
+using System.Collections.Generic;
+
 namespace mojoPortal.Web.UI
 {
     /// <summary>
@@ -23,6 +25,7 @@ namespace mojoPortal.Web.UI
         void SetValue(string val);
         string GetValue();
 
-        void Attributes(string attribs);
+		//void Attributes(string attribs);
+		void Attributes(IDictionary<string, string> attribs);
     }
 }

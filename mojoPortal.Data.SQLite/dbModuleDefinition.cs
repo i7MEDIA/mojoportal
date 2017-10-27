@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2014-07-29
+/// Last Modified:			2017-10-26
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -62,7 +62,8 @@ namespace mojoPortal.Data
             string searchListName,
             bool supportsPageReuse,
             string deleteProvider,
-            string partialView)
+            string partialView,
+			string skinFileName)
         {
 
             int intIsAdmin = 0;
@@ -93,8 +94,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("SupportsPageReuse, ");
             sqlCommand.Append("DeleteProvider, ");
             sqlCommand.Append("PartialView, ");
-            sqlCommand.Append("ResourceFile ");
-            sqlCommand.Append(" )");
+            sqlCommand.Append("ResourceFile, ");
+            sqlCommand.Append("SkinFileName ");
+			sqlCommand.Append(" )");
 
             sqlCommand.Append(" VALUES (");
             sqlCommand.Append(":FeatureGuid, ");
@@ -110,12 +112,13 @@ namespace mojoPortal.Data
             sqlCommand.Append(":SupportsPageReuse, ");
             sqlCommand.Append(":DeleteProvider, ");
             sqlCommand.Append(":PartialView, ");
-            sqlCommand.Append(":ResourceFile ");
-            sqlCommand.Append(" );");
+            sqlCommand.Append(":ResourceFile, ");
+            sqlCommand.Append(":SkinFileName ");
+			sqlCommand.Append(" );");
 
             sqlCommand.Append("SELECT LAST_INSERT_ROWID();");
 
-            SqliteParameter[] arParams = new SqliteParameter[15];
+            SqliteParameter[] arParams = new SqliteParameter[16];
 
             arParams[0] = new SqliteParameter(":SiteID", DbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -177,8 +180,11 @@ namespace mojoPortal.Data
             arParams[14].Direction = ParameterDirection.Input;
             arParams[14].Value = partialView;
 
+			arParams[15] = new SqliteParameter(":SkinFileName", DbType.String, 255);
+			arParams[15].Direction = ParameterDirection.Input;
+			arParams[15].Value = skinFileName;
 
-            int newID = Convert.ToInt32(
+			int newID = Convert.ToInt32(
                 SqliteHelper.ExecuteScalar(
                 GetConnectionString(),
                 sqlCommand.ToString(),
@@ -238,7 +244,8 @@ namespace mojoPortal.Data
             string searchListName,
             bool supportsPageReuse,
             string deleteProvider,
-            string partialView)
+            string partialView,
+			string skinFileName)
         {
 
             int intIsAdmin = 0;
@@ -270,12 +277,13 @@ namespace mojoPortal.Data
             sqlCommand.Append("SupportsPageReuse = :SupportsPageReuse, ");
             sqlCommand.Append("DeleteProvider = :DeleteProvider, ");
             sqlCommand.Append("PartialView = :PartialView, ");
-            sqlCommand.Append("ResourceFile = :ResourceFile ");
+            sqlCommand.Append("ResourceFile = :ResourceFile, ");
+            sqlCommand.Append("SkinFileName = :SkinFileName ");
 
-            sqlCommand.Append("WHERE  ");
+			sqlCommand.Append("WHERE  ");
             sqlCommand.Append("ModuleDefID = :ModuleDefID ;");
 
-            SqliteParameter[] arParams = new SqliteParameter[14];
+            SqliteParameter[] arParams = new SqliteParameter[15];
 
             arParams[0] = new SqliteParameter(":ModuleDefID", DbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -333,8 +341,11 @@ namespace mojoPortal.Data
             arParams[13].Direction = ParameterDirection.Input;
             arParams[13].Value = partialView;
 
+			arParams[14] = new SqliteParameter(":SkinFileName", DbType.String, 255);
+			arParams[14].Direction = ParameterDirection.Input;
+			arParams[14].Value = skinFileName;
 
-            int rowsAffected = -1;
+			int rowsAffected = -1;
 
             rowsAffected = SqliteHelper.ExecuteNonQuery(
                 GetConnectionString(),
@@ -607,9 +618,33 @@ namespace mojoPortal.Data
 
         }
 
-       
+		public static IDataReader GetModuleDefinitionBySkinFileName(string skinFileName)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("select * from mp_ModuleDefinitions where SkinFileName = :SkinFileName limit 1;");
+			SqliteParameter[] arParams = new SqliteParameter[1];
 
-        public static IDataReader GetUserModules(int siteId)
+			arParams[0] = new SqliteParameter("SkinFileName", DbType.String, 255);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = skinFileName;
+
+			return SqliteHelper.ExecuteReader(
+				 ConnectionString.GetReadConnectionString(),
+				 sqlCommand.ToString(),
+				 arParams);
+		}
+
+		public static IDataReader GetAllModuleSkinFileNames()
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT SkinFileName FROM mp_ModuleDefinitions;");
+
+			return SqliteHelper.ExecuteReader(
+				 ConnectionString.GetReadConnectionString(),
+				 sqlCommand.ToString());
+		}
+
+		public static IDataReader GetUserModules(int siteId)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT md.*, ");
@@ -673,7 +708,9 @@ namespace mojoPortal.Data
             string regexValidationExpression,
             string controlSrc,
             string helpKey,
-            int sortOrder)
+            int sortOrder,
+			string attributes,
+			string options)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT count(*)");
@@ -717,12 +754,14 @@ namespace mojoPortal.Data
                 sqlCommand.Append("HelpKey = :HelpKey  ,");
                 sqlCommand.Append("SortOrder = :SortOrder  ,");
                 sqlCommand.Append("GroupName = :GroupName  ,");
-                sqlCommand.Append("RegexValidationExpression = :RegexValidationExpression  ");
+                sqlCommand.Append("RegexValidationExpression = :RegexValidationExpression,  ");
+                sqlCommand.Append("Attributes = :Attributes,  ");
+                sqlCommand.Append("Options = :Options  ");
 
-                sqlCommand.Append("WHERE ModuleDefID = :ModuleDefID  ");
+				sqlCommand.Append("WHERE ModuleDefID = :ModuleDefID  ");
                 sqlCommand.Append("AND SettingName = :SettingName  ; ");
 
-                arParams = new SqliteParameter[11];
+                arParams = new SqliteParameter[13];
 
                 arParams[0] = new SqliteParameter(":ModuleDefID", DbType.Int32);
                 arParams[0].Direction = ParameterDirection.Input;
@@ -768,7 +807,15 @@ namespace mojoPortal.Data
                 arParams[10].Direction = ParameterDirection.Input;
                 arParams[10].Value = groupName;
 
-                rowsAffected = SqliteHelper.ExecuteNonQuery(
+				arParams[11] = new SqliteParameter(":Attributes", DbType.Object);
+				arParams[11].Direction = ParameterDirection.Input;
+				arParams[11].Value = attributes;
+
+				arParams[12] = new SqliteParameter(":Options", DbType.Object);
+				arParams[12].Direction = ParameterDirection.Input;
+				arParams[12].Value = options;
+
+				rowsAffected = SqliteHelper.ExecuteNonQuery(
                     GetConnectionString(),
                     sqlCommand.ToString(),
                     arParams);
@@ -790,8 +837,10 @@ namespace mojoPortal.Data
                 sqlCommand.Append("HelpKey, ");
                 sqlCommand.Append("SortOrder, ");
                 sqlCommand.Append("GroupName, ");
-                sqlCommand.Append("RegexValidationExpression");
-                sqlCommand.Append(")");
+                sqlCommand.Append("RegexValidationExpression, ");
+                sqlCommand.Append("Attributes, ");
+                sqlCommand.Append("Options");
+				sqlCommand.Append(")");
 
                 sqlCommand.Append("VALUES (  ");
                 sqlCommand.Append(" :FeatureGuid  , ");
@@ -804,10 +853,12 @@ namespace mojoPortal.Data
                 sqlCommand.Append(" :HelpKey, ");
                 sqlCommand.Append(" :SortOrder, ");
                 sqlCommand.Append(" :GroupName, ");
-                sqlCommand.Append(" :RegexValidationExpression  ");
-                sqlCommand.Append(");");
+                sqlCommand.Append(" :RegexValidationExpression,  ");
+                sqlCommand.Append(" :Attributes,  ");
+                sqlCommand.Append(" :Options  ");
+				sqlCommand.Append(");");
 
-                arParams = new SqliteParameter[11];
+                arParams = new SqliteParameter[13];
 
                 arParams[0] = new SqliteParameter(":ModuleDefID", DbType.Int32);
                 arParams[0].Direction = ParameterDirection.Input;
@@ -853,7 +904,15 @@ namespace mojoPortal.Data
                 arParams[10].Direction = ParameterDirection.Input;
                 arParams[10].Value = groupName;
 
-                rowsAffected = SqliteHelper.ExecuteNonQuery(
+				arParams[11] = new SqliteParameter(":Attributes", DbType.Object);
+				arParams[11].Direction = ParameterDirection.Input;
+				arParams[11].Value = attributes;
+
+				arParams[12] = new SqliteParameter(":Options", DbType.Object);
+				arParams[12].Direction = ParameterDirection.Input;
+				arParams[12].Value = options;
+
+				rowsAffected = SqliteHelper.ExecuteNonQuery(
                     GetConnectionString(),
                     sqlCommand.ToString(),
                     arParams);
@@ -875,7 +934,9 @@ namespace mojoPortal.Data
             string regexValidationExpression,
             string controlSrc,
             string helpKey,
-            int sortOrder)
+            int sortOrder,
+			string attributes,
+			string options)
         {
             StringBuilder sqlCommand = new StringBuilder();
 
@@ -888,12 +949,14 @@ namespace mojoPortal.Data
             sqlCommand.Append("HelpKey = :HelpKey  ,");
             sqlCommand.Append("SortOrder = :SortOrder  ,");
             sqlCommand.Append("GroupName = :GroupName  ,");
-            sqlCommand.Append("RegexValidationExpression = :RegexValidationExpression  ");
+            sqlCommand.Append("RegexValidationExpression = :RegexValidationExpression.  ");
+            sqlCommand.Append("Attributes = :Attributes,  ");
+            sqlCommand.Append("Options = :Options  ");
 
-            sqlCommand.Append("WHERE ID = :ID  ");
+			sqlCommand.Append("WHERE ID = :ID  ");
             sqlCommand.Append("AND ModuleDefID = :ModuleDefID  ; ");
 
-            SqliteParameter[] arParams = new SqliteParameter[11];
+            SqliteParameter[] arParams = new SqliteParameter[13];
 
             arParams[0] = new SqliteParameter(":ID", DbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -939,7 +1002,15 @@ namespace mojoPortal.Data
             arParams[10].Direction = ParameterDirection.Input;
             arParams[10].Value = groupName;
 
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
+			arParams[11] = new SqliteParameter(":Attributes", DbType.Object);
+			arParams[11].Direction = ParameterDirection.Input;
+			arParams[11].Value = attributes;
+
+			arParams[12] = new SqliteParameter(":Options", DbType.Object);
+			arParams[12].Direction = ParameterDirection.Input;
+			arParams[12].Value = options;
+
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
                 GetConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

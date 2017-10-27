@@ -1,16 +1,14 @@
 // Author:				
 // Created:			    2004-12-26
-// Last Modified:		2010-08-06
+// Last Modified:		2017-10-26
 
 using System;
 
 namespace mojoPortal.Business
 {
-	/// <summary>
-	/// 
-	/// </summary>
 	public class CustomModuleSetting
 	{
+
         public CustomModuleSetting(
             Guid featureGuid,
             int defSettingId,
@@ -21,7 +19,9 @@ namespace mojoPortal.Business
             string settingValidationRegex,
             string controlSrc,
             string helpKey,
-            int sortOrder)
+            int sortOrder,
+			string attributes,
+			string options)
         {
             this.featureGuid = featureGuid;
             this.defSettingID = defSettingId;
@@ -33,7 +33,9 @@ namespace mojoPortal.Business
             this.controlSrc = controlSrc;
             this.helpKey = helpKey;
             this.sortOrder = sortOrder;
-        }
+			this.attributes = attributes;
+			this.options = options;
+		}
 
         private int defSettingID = -1;
         private Guid featureGuid = Guid.Empty;
@@ -46,11 +48,12 @@ namespace mojoPortal.Business
         private string helpKey = string.Empty;
         private int sortOrder = 100;
         private string groupName = string.Empty;
+		private string attributes = string.Empty;
+		private string options = string.Empty;
 
-        
-        
 
-        public int DefSettingId
+
+		public int DefSettingId
         {
             get { return defSettingID; }
             set { defSettingID = value; }
@@ -120,6 +123,17 @@ namespace mojoPortal.Business
             set { groupName = value; }
         }
 
+		public string Attributes
+		{
+			get => attributes;
+			set => attributes = value;
+		}
+
+		public string Options
+		{
+			get => options;
+			set => options = value;
+		}
 
 	}
 }

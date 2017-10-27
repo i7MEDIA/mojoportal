@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2010-07-01
+/// Last Modified:			2017-10-26
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -33,9 +33,7 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@ModuleDefID", SqlDbType.Int, ParameterDirection.Input, moduleDefId);
             return sph.ExecuteReader();
         }
-
-
-
+		
         public static bool CreateModuleSetting(
             Guid settingGuid,
             Guid moduleGuid,
@@ -61,7 +59,7 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@HelpKey", SqlDbType.NVarChar, 255, ParameterDirection.Input, helpKey);
             sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
 
-            int rowsAffected = sph.ExecuteNonQuery();
+			int rowsAffected = sph.ExecuteNonQuery();
             return (rowsAffected > -1);
         }
 
