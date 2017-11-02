@@ -1,21 +1,17 @@
 ﻿// Author:					i7MEDIA
-// Created:					2015-3-6
-// Last Modified:			2015-3-25
+// Created:					2015-03-06
+// Last Modified:			2017-11-02
 // You must not remove this notice, or any other, from this software.
 
-using System;
-using System.IO;
-using System.Text;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Configuration;
 using mojoPortal.Data;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace SuperFlexiData
 {
 
-    public static class DBItemFieldValues
+	public static class DBItemFieldValues
     {
 
 
@@ -206,8 +202,19 @@ namespace SuperFlexiData
             return sph.ExecuteReader();
         }
 
+		public static IDataReader GetByItemGuids(List<Guid> itemGuids)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_values_SelectByItemGuids", 1);
+			var guids = String.Join(",", itemGuids);
+			sph.DefineSqlParameter("@ItemGuids"
+				, SqlDbType.Structured
+				, "guid_list_tbltype"
+				, ParameterDirection.Input
+				, new CSV_splitter(guids, ',', SqlDbType.UniqueIdentifier));
+			return sph.ExecuteReader();
+		}
 
-        public static IDataReader GetByItemGuid(Guid itemGuid)
+		public static IDataReader GetByItemGuid(Guid itemGuid)
         {
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_values_SelectAllByItemGuid", 1);
             sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);

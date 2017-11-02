@@ -110,10 +110,7 @@ namespace SuperFlexiUI
 				fieldValues = ItemFieldValue.GetItemValuesByModule(module.ModuleGuid);
             }
 
-
-            
-
-            if (SiteUtils.IsMobileDevice() && config.MobileMarkupDefinition != null)
+			if (SiteUtils.IsMobileDevice() && config.MobileMarkupDefinition != null)
             {
                 displaySettings = config.MobileMarkupDefinition;
             }

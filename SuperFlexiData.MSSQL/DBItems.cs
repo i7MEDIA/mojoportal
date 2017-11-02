@@ -218,19 +218,59 @@ namespace SuperFlexiData
         /// Gets an IDataReader with all items for module.
         /// </summary>
         /// <param name="itemID"> itemID </param>
-        public static IDataReader GetModuleItems(int moduleID)
+        public static IDataReader GetModuleItems(int moduleId)
         {
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModule", 1);
-            sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleID);
+            sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
             return sph.ExecuteReader();
 
         }
 
-        /// <summary>
-        /// Gets an IDataReader with all items for a single definition.
-        /// </summary>
-        /// <param name="itemID"> itemID </param>
-        public static IDataReader GetAllForDefinition(Guid definitionGuid)
+		/// <summary>
+		/// Gets and IDataReader for a page of items for a module
+		/// </summary>
+		/// <param name="moduleId"></param>
+		/// <param name="pageNumber"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="totalPages"></param>
+		/// <param name="descending"></param>
+		/// <returns></returns>
+		public static IDataReader GetPageOfModuleItems(int moduleId, int pageNumber, int pageSize, out int totalPages, bool descending = false)
+		{
+
+			totalPages = 1;
+			int totalRows
+				= GetCount();
+
+			if (pageSize > 0) totalPages = totalRows / pageSize;
+
+			if (totalRows <= pageSize)
+			{
+				totalPages = 1;
+			}
+			else
+			{
+				int remainder;
+				Math.DivRem(totalRows, pageSize, out remainder);
+				if (remainder > 0)
+				{
+					totalPages += 1;
+				}
+			}
+
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForModule", 3);
+			sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
+			sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+			sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+			
+			return sph.ExecuteReader();
+		}
+
+		/// <summary>
+		/// Gets an IDataReader with all items for a single definition.
+		/// </summary>
+		/// <param name="itemID"> itemID </param>
+		public static IDataReader GetAllForDefinition(Guid definitionGuid)
         {
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinition", 1);
             sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
@@ -276,13 +316,13 @@ namespace SuperFlexiData
 
         }
 
-        /// <summary>
-        /// Gets
-        /// </summary>
-        /// <param name="siteGuid"></param>
-        /// <param name="pageId"></param>
-        /// <returns></returns>
-        public static IDataReader GetByCMSPage(Guid siteGuid, int pageId)
+		/// <summary>
+		/// Gets
+		/// </summary>
+		/// <param name="siteGuid"></param>
+		/// <param name="pageId"></param>
+		/// <returns></returns>
+		public static IDataReader GetByCMSPage(Guid siteGuid, int pageId)
         {
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectByCMSPage", 2);
             sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);

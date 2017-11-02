@@ -77,7 +77,8 @@ namespace SuperFlexiBusiness
             get { return itemGuid; }
             set { itemGuid = value; }
         }
-        public Guid FieldGuid
+
+		public Guid FieldGuid
         {
             get { return fieldGuid; }
             set { fieldGuid = value; }
@@ -316,10 +317,21 @@ namespace SuperFlexiBusiness
 
         }
 
-        /// <summary>
-        /// Gets an IList with all instances of value.
-        /// </summary>
-        public static List<ItemFieldValue> GetAll()
+		/// <summary>
+		/// Gets a List of ItemFieldValue using an array of ItemID
+		/// </summary>
+		/// <param name="itemIds"></param>
+		/// <returns></returns>
+		public static List<ItemFieldValue> GetByItemGuids(List<Guid> itemGuids)
+		{
+			IDataReader reader = DBItemFieldValues.GetByItemGuids(itemGuids);
+			return LoadListFromReader(reader);
+		}
+
+		/// <summary>
+		/// Gets an IList with all instances of value.
+		/// </summary>
+		public static List<ItemFieldValue> GetAll()
         {
             IDataReader reader = DBItemFieldValues.GetAll();
             return LoadListFromReader(reader);

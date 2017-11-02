@@ -7,6 +7,8 @@ using System.Web.Http;
 using log4net;
 using SuperFlexiBusiness;
 using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Framework;
 namespace SuperFlexiUI
 {
 
@@ -37,9 +39,40 @@ namespace SuperFlexiUI
 		private PageSettings currentPage = null;
 		private SiteUser postUser = null;
 		private ModuleConfiguration config = new ModuleConfiguration();
-		// GET api/<controller>
-		public IEnumerable<string> Get()
+		
+		[HttpPost]
+		public IEnumerable<string> GetModuleItems(int moduleId, int pageId, int pageIndex, int pageSize)
 		{
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
+			currentPage = new PageSettings(siteSettings.SiteId, pageId);
+			bool allowed = false;
+			if (currentPage != null)
+			{
+				allowed = WebUser.IsInRoles(currentPage.AuthorizedRoles);
+			}
+			module = new Module(moduleId);
+			if (module != null)
+			{
+				allowed = WebUser.IsInRoles(module.ViewRoles);
+			}
+			if (!allowed) return new string[] { "error"};
+
+			config = new ModuleConfiguration(module);
+
+			List<Item> items = Item.GetModuleItems(moduleId);
+			if (items != null && items.Count > 0)
+			{
+				List<Field> fields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
+				var itemGuids = items.Select(x => x.ItemGuid).ToList();
+				List<ItemFieldValue> values = ItemFieldValue.GetByItemGuids(itemGuids);
+
+				foreach (Item item in items)
+				{
+
+				}
+			}
+			
+
 			return new string[] { "value1", "value2" };
 		}
 

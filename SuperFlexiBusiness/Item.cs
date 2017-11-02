@@ -419,14 +419,27 @@ namespace SuperFlexiBusiness
             }
             return items;
         }
+		/// <summary>
+		/// Gets a list of Items within a "page"
+		/// </summary>
+		/// <param name="pageNumber"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="totalPages"></param>
+		/// <returns></returns>
+		public static List<Item> GetPageOfModuleItems(int moduleId, int pageNumber, int pageSize, out int totalPages, bool descending = false)
+		{
+			totalPages = 1;
+			IDataReader reader = DBItems.GetPageOfModuleItems(moduleId, pageNumber, pageSize, out totalPages, descending);
+			return LoadListFromReader(reader);
+		}
 
-        /// <summary>
-        /// Gets an IList with all items for a single definition
-        /// </summary>
-        /// <param name="fieldDefinitionGuid"></param>
-        /// <param name="descending"></param>
-        /// <returns></returns>
-        public static List<Item> GetAllForDefinition(Guid fieldDefinitionGuid, bool descending = false)
+		/// <summary>
+		/// Gets an IList with all items for a single definition
+		/// </summary>
+		/// <param name="fieldDefinitionGuid"></param>
+		/// <param name="descending"></param>
+		/// <returns></returns>
+		public static List<Item> GetAllForDefinition(Guid fieldDefinitionGuid, bool descending = false)
         {
             IDataReader reader = DBItems.GetAllForDefinition(fieldDefinitionGuid);
             List<Item> items = LoadListFromReader(reader);
