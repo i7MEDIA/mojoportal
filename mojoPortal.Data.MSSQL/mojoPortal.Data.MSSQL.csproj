@@ -267,7 +267,6 @@
     <Compile Include="dbWebPartContent.cs" />
     <Compile Include="SqlHelper.cs" />
     <Compile Include="SQLParameterHelper.cs" />
-    <Compile Include="CSVSplitter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

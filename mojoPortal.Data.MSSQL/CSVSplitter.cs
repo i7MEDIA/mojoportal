@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace mojoPortal.Data
+namespace mojoPortal.Data 
 {
 	// Class declaration. We implement IEnumerable and IEnumerator in the
 	// same class.
