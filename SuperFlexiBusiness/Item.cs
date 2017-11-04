@@ -51,6 +51,8 @@ namespace SuperFlexiBusiness
         private DateTime createdUtc = DateTime.UtcNow;
         private DateTime lastModUtc = DateTime.UtcNow;
 
+		//used to output total number of rows which match a query when using paging
+		private static int _totalRows;
         #endregion
 
         #region Public Properties
@@ -349,7 +351,7 @@ namespace SuperFlexiBusiness
 			return DBItems.GetCountForModule(moduleId);
 		}
 
-		private static List<Item> LoadListFromReader(IDataReader reader)
+		private static List<Item> LoadListFromReader(IDataReader reader, bool getTotalRows = false)
         {
             List<Item> itemList = new List<Item>();
             try
@@ -367,8 +369,26 @@ namespace SuperFlexiBusiness
                     item.sortOrder = Convert.ToInt32(reader["SortOrder"]);
                     item.createdUtc = Convert.ToDateTime(reader["CreatedUtc"]);
                     item.lastModUtc = Convert.ToDateTime(reader["LastModUtc"]);
-                    itemList.Add(item);
 
+					// Not all methods will use TotalRows but there is no sense in having an extra method to load the reader
+					// so, we'll catch the error and do nothing with it because we are expecting it
+					// the if statement should keep any problems at bay but we still use try/catch in case someone inadvertently 
+					// set getTotalRows = true
+					if (getTotalRows)
+					{
+						try
+						{
+							if (reader["TotalRows"] != DBNull.Value)
+							{
+								_totalRows = Convert.ToInt32(reader["TotalRows"]);
+							}
+						}
+						catch (System.IndexOutOfRangeException ex)
+						{
+
+						}
+					}
+					itemList.Add(item);
                 }
             }
             finally
@@ -422,15 +442,51 @@ namespace SuperFlexiBusiness
 		/// <summary>
 		/// Gets a list of Items within a "page"
 		/// </summary>
+		/// <param name="moduleId"></param>
 		/// <param name="pageNumber"></param>
 		/// <param name="pageSize"></param>
 		/// <param name="totalPages"></param>
+		/// <param name="searchTerm"></param>
+		/// <param name="searchField"></param>
+		/// <param name="descending"></param>
 		/// <returns></returns>
-		public static List<Item> GetPageOfModuleItems(int moduleId, int pageNumber, int pageSize, out int totalPages, bool descending = false)
+		public static List<Item> GetPageOfModuleItems(
+			Guid moduleGuid, 
+			int pageNumber, 
+			int pageSize, 
+			out int totalPages, 
+			out int totalRows,
+			string searchTerm = "", 
+			string searchField = "", 
+			bool descending = false)
 		{
 			totalPages = 1;
-			IDataReader reader = DBItems.GetPageOfModuleItems(moduleId, pageNumber, pageSize, out totalPages, descending);
-			return LoadListFromReader(reader);
+
+			IDataReader reader = DBItems.GetPageOfModuleItems(moduleGuid, pageNumber, pageSize, searchTerm, searchField, descending);
+
+			var items = LoadListFromReader(reader, true);
+
+			totalRows = _totalRows;
+
+			if (pageSize > 0)
+			{
+				totalPages = totalRows / pageSize;
+			}
+			if (totalRows <= pageSize)
+			{
+				totalPages = 1;
+			}
+			else
+			{
+				int remainder;
+				Math.DivRem(totalRows, pageSize, out remainder);
+				if (remainder > 0)
+				{
+					totalPages += 1;
+				}
+			}
+
+			return items;
 		}
 
 		/// <summary>

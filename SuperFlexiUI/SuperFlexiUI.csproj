@@ -144,6 +144,7 @@
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.1.2.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.1.3.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.1.4.config" />
+    <Content Include="Setup\RouteRegistrars\SuperFlexiRoutes.config" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -167,6 +168,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Components\ContentDeleteHandler.cs" />
+    <Compile Include="Components\PopulatedItem.cs" />
     <Compile Include="Components\RouteRegistrar.cs" />
     <Compile Include="Components\SuperFlexiBase.cs" />
     <Compile Include="Components\SuperFlexiHelpers.cs" />

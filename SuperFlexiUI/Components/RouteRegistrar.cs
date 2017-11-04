@@ -17,11 +17,10 @@ namespace SuperFlexiUI
            // api routes
 
             config.Routes.MapHttpRoute(
-                name: "GetSflexiData",
-                routeTemplate: "api/sflexi/get/{id}",
+                name: "SuperFlexi",
+                routeTemplate: "SuperFlexi/{action}/{id}",
                 defaults: new { controller = "SuperFlexi", id = RouteParameter.Optional }
             );
-
         }
 
         public void RegisterRoutes(RouteCollection routes)
