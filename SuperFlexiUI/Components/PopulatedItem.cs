@@ -15,11 +15,12 @@ namespace SuperFlexiUI
 		public int SortOrder { get; set; }
 		public DateTime CreatedUTC { get; set; }
 		public DateTime UpdatedUTC { get; set; }
-		public List<PopulatedValue> Values { get; set; }
+		//public List<PopulatedValue> Values { get; set; }
+		public Dictionary<string,object> Values { get; set; }
 
-		public PopulatedItem (Item item, List<Field> fields, List<ItemFieldValue> values)
+		public PopulatedItem (Item item, List<Field> fields, List<ItemFieldValue> values, bool canEdit = false)
 		{
-			List<PopulatedValue> popValues = new List<PopulatedValue>();
+			//List<PopulatedValue> popValues = new List<PopulatedValue>();
 
 			//Item = item;
 			Guid = item.ItemGuid;
@@ -27,7 +28,7 @@ namespace SuperFlexiUI
 			SortOrder = item.SortOrder;
 			CreatedUTC = item.CreatedUtc;
 			UpdatedUTC = item.LastModUtc;
-
+			Values = new Dictionary<string, object>();
 			foreach (Field field in fields)
 			{
 				if (String.IsNullOrWhiteSpace(field.Token)) field.Token = "$_NONE_$";
@@ -43,17 +44,26 @@ namespace SuperFlexiUI
 								!thisValue.FieldValue.StartsWith("<p>&deleted&</p>") &&
 								!thisValue.FieldValue.StartsWith("<p>&amp;deleted&amp;</p>")))
 				{
-					popValues.Add(new PopulatedValue
+					//popValues.Add(new PopulatedValue
+					//{
+					//	Name = field.Name,
+					//	Token = field.Token,
+					//	Value = thisValue.FieldValue,
+					//	ValueGuid = thisValue.ValueGuid,
+					//	FieldGuid = thisValue.FieldGuid
+					//});
+					if (field.ControlType == "DynamicCheckBoxList" || field.ControlType == "CheckBoxList")
 					{
-						Name = field.Name,
-						Token = field.Token,
-						Value = thisValue.FieldValue,
-						ValueGuid = thisValue.ValueGuid,
-						FieldGuid = thisValue.FieldGuid
-					});
+						Values.Add(field.Name, thisValue.FieldValue.SplitOnCharAndTrim(';'));
+					}
+					else
+					{
+						Values.Add(field.Name, thisValue.FieldValue);
+					}
+
 				}
 			}
-			Values = popValues;
+			//Values = popValues;
 		}
 		public PopulatedItem (Item item)
 		{

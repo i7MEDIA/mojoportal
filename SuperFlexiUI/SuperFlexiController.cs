@@ -9,6 +9,8 @@ using SuperFlexiBusiness;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
+using mojoPortal.Web;
+
 namespace SuperFlexiUI
 {
 
@@ -41,13 +43,20 @@ namespace SuperFlexiUI
 		private string searchTerm = string.Empty;
 		public string SearchTerm { get => searchTerm; set => searchTerm = value; }
 
+		private IDictionary<string,string> searchObject;
+		public IDictionary<string,string> SearchObject { get => searchObject; set => searchObject = value; }
 
+		private string field = string.Empty;
+		public string Field { get => field; set => field = value; }
 	}
 
 	public class ReturnObject
 	{
 		public string Status { get; set; }
 		public object Data { get; set; }
+		public int TotalPages { get; set; }
+		public int TotalRows { get; set; }
+		public bool AllowEdit { get; set; }
 		public IDictionary<string,string> ExtraData { get; set; }
 	}
 
@@ -75,6 +84,7 @@ namespace SuperFlexiUI
 			siteSettings = CacheHelper.GetCurrentSiteSettings();
 			currentPage = new PageSettings(siteSettings.SiteId, r.PageId);
 			bool allowed = false;
+			bool canEdit = false;
 			if (currentPage != null)
 			{
 				allowed = WebUser.IsInRoles(currentPage.AuthorizedRoles);
@@ -96,19 +106,61 @@ namespace SuperFlexiUI
 					}
 				};
 			}
+
 			config = new ModuleConfiguration(module);
 
 			int totalPages = 0;
 			int totalRows = 0;
-			List<Item> items = Item.GetPageOfModuleItems(
-				module.ModuleGuid, 
-				r.PageNumber, 
-				r.PageSize, 
-				out totalPages, 
+			List<Item> items = new List<Item>();
+			if (r.SearchObject != null && r.SearchObject.Count > 0)
+			{
+				foreach (var set in r.SearchObject)
+				{
+					if (set.Value.Contains(";"))
+					{
+						foreach (var setA in set.Value.SplitOnCharAndTrim(';'))
+						{
+							items.AddRange(Item.GetPageOfModuleItems(
+								module.ModuleGuid,
+								1,
+								99999,
+								out totalPages,
+								out totalRows,
+								setA,
+								set.Key
+							));
+						}
+					}
+					else
+					{
+						items.AddRange(Item.GetPageOfModuleItems(
+							module.ModuleGuid,
+							1,
+							99999,
+							out totalPages,
+							out totalRows,
+							set.Value,
+							set.Key
+						));
+					}
+					//we have to figure out paging with this
+
+				}
+				items = items.Distinct(new SimpleItemComparer()).ToList();
+			}
+			else
+			{
+				items = Item.GetPageOfModuleItems(
+				module.ModuleGuid,
+				r.PageNumber,
+				r.PageSize,
+				out totalPages,
 				out totalRows,
-				r.SearchTerm, 
-				r.SearchField, 
+				r.SearchTerm,
+				r.SearchField,
 				r.SortDescending);
+			}
+			
 			List<PopulatedItem> popItems = new List<PopulatedItem>();
 			SuperFlexiObject sfObject = new SuperFlexiObject()
 			{
@@ -126,40 +178,121 @@ namespace SuperFlexiUI
 
 				foreach (Item item in items)
 				{
-					var popItem = new PopulatedItem(item, fields, values);
+					var popItem = new PopulatedItem(item, fields, values.Where(v => v.ItemGuid == item.ItemGuid).ToList(), canEdit);
 					if (popItem != null)
 					{
-						popItems.Add(popItem);
+						if (r.SearchObject != null && r.SearchObject.Count > 0)
+						{
+							int matchCount = 0;
+							foreach (var set in r.SearchObject)
+							{
+								var value = popItem.Values[set.Key];
+								List<string> itemValArray = value as List<string>;
+								List<string> setValArray = set.Value.SplitOnCharAndTrim(';');
+								if (value.ToString().IndexOf(set.Value) >= 0 
+									|| (itemValArray != null && itemValArray.Contains(set.Value))
+									|| (setValArray != null && setValArray.Contains(value)))
+								{
+									matchCount++;
+								}
+							}
+
+							if (matchCount == r.SearchObject.Count)
+							{
+								popItems.Add(popItem);
+							}
+						}
+						else
+						{
+							popItems.Add(popItem);
+						}
 					}
 				}
-			}
-
-			if (sfObject.Items.Count > 0)
-			{
-				return new ReturnObject()
-				{
-					Status = "success",
-					Data = sfObject,
-					ExtraData = new Dictionary<string, string>
-					{
-						["TotalPages"] = totalPages.ToString(),
-						["TotalRows"] = totalRows.ToString()
-					}
-				};
 			}
 
 			return new ReturnObject()
 			{
-				Status = "error",
+				Status = "success",
 				Data = sfObject,
-				ExtraData = new Dictionary<string,string>
-				{
-					["ErrorCode"] = "200",
-					["ErrorMessage"] = "No Items Found"
-				}
+				TotalPages = totalPages,
+				TotalRows = totalRows == popItems.Count ? totalRows : popItems.Count,
+				AllowEdit = ShouldAllowEdit()
 			};
+
 		}
 
+		[HttpPost]
+		public ReturnObject GetFieldValues(RequestObject r)
+		{
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
+			currentPage = new PageSettings(siteSettings.SiteId, r.PageId);
+			bool allowed = false;
+			if (currentPage != null)
+			{
+				allowed = WebUser.IsInRoles(currentPage.AuthorizedRoles);
+			}
+			module = new Module(r.ModuleId);
+			if (module != null)
+			{
+				allowed = WebUser.IsInRoles(module.ViewRoles);
+			}
+			if (!allowed)
+			{
+				return new ReturnObject()
+				{
+					Status = "error",
+					ExtraData = new Dictionary<string, string>
+					{
+						["ErrorCode"] = "100",
+						["ErrorMessage"] = "Not Allowed"
+					}
+				};
+			}
+
+			config = new ModuleConfiguration(module);
+
+			int totalPages = 0;
+			int totalRows = 0;
+
+			var fieldValues = ItemFieldValue.GetPageOfValues(
+				module.ModuleGuid,
+				config.FieldDefinitionGuid,
+				r.Field,
+				r.PageNumber,
+				r.PageSize,
+				out totalPages,
+				out totalRows);
+
+			//much of the below is temporary, we needed to implement in a hurry
+			//to-do: implement distinct on sql side
+			List<string> values = new List<string>();
+
+			var dbField = new Field(fieldValues.Select(fv => fv.FieldGuid).FirstOrDefault());
+			switch (dbField.ControlType)
+			{
+				case "DynamicCheckBoxList":
+					foreach (var val in fieldValues)
+					{
+						values.AddRange(val.FieldValue.SplitOnCharAndTrim(';'));
+					}
+					break;
+				default:
+					values = fieldValues.Select(fv => fv.FieldValue).ToList();
+					break;
+					//we will add the other cases later
+			}
+
+			
+			totalRows = values.Distinct().Count();
+
+			return new ReturnObject()
+			{
+				Status = "success",
+				Data = values.Distinct().OrderBy(v => v),
+				TotalPages = totalPages,
+				TotalRows = totalRows
+			};
+		}
 		// GET api/<controller>/5
 		public string Get(int id)
 		{
@@ -181,6 +314,31 @@ namespace SuperFlexiUI
 		// DELETE api/<controller>/5
 		public void Delete(int id)
 		{
+		}
+
+		private bool ShouldAllowEdit()
+		{
+			if (WebUser.IsAdmin)
+			{
+				return true;
+			}
+
+			if (module != null)
+			{
+				if (module.AuthorizedEditRoles == "Admins;") { return false; }
+				if (currentPage.EditRoles == "Admins;") { return false; }
+
+				if (WebUser.IsContentAdmin) { return true; }
+
+				if (SiteUtils.UserIsSiteEditor()) { return true; }
+
+				if (WebUser.IsInRoles(module.AuthorizedEditRoles)) { return true; }
+
+				if ((!module.IsGlobal) && WebUser.IsInRoles(currentPage.EditRoles)) { return true; }
+
+			}
+
+			return false;
 		}
 	}
 }

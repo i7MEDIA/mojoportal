@@ -628,17 +628,17 @@ namespace SuperFlexiBusiness
 			return LoadListFromReader(reader);
 		}
 
-		#endregion
 
 		public static bool MarkAsDeleted(Guid fieldGuid)
 		{
 			return DBFields.MarkAsDeleted(fieldGuid);
 		}
 
-        public static Field GetByGuid(Guid fieldGuid)
-        {
-            throw new NotImplementedException();
-        }
+        //public static Field GetByGuid(Guid fieldGuid)
+        //{
+        //    throw new NotImplementedException();
+        //}
+		#endregion
     }
 
 	/// <summary>

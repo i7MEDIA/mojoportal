@@ -640,7 +640,40 @@ namespace SuperFlexiBusiness
         
         
     }
-    public class Item_SortForGlobalView : IComparer<Item>
+
+	public class SimpleItemComparer : IEqualityComparer<Item>
+	{
+		//Items are equal if their ItemIDs and ItemGuids are equal.
+		public bool Equals(Item x, Item y)
+		{
+			//check whether the compared objects reference the same data.
+			if (Object.ReferenceEquals(x, y)) return true;
+
+			//check for nulls
+			if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
+			{
+				return false;
+			}
+
+			//check if properties are equal
+			return x.ItemGuid == y.ItemGuid && x.ItemID == y.ItemID;
+		}
+
+		// If Equals() returns true for a pair of objects 
+		// then GetHashCode() must return the same value for these objects.
+		public int GetHashCode(Item item)
+		{
+			//Check whether the object is null
+			if (Object.ReferenceEquals(item, null)) return 0;
+
+			int hashItemID = item.ItemID.GetHashCode();
+			int hashItemGuid = item.ItemGuid.GetHashCode();
+
+			return hashItemID ^ hashItemGuid;
+		}
+	}
+
+	public class Item_SortForGlobalView : IComparer<Item>
     {
         public int Compare(Item x, Item y)
         {

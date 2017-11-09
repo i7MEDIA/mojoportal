@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-3-6
-// Last Modified:			2015-8-25
+// Last Modified:			2017-11-06
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -47,12 +47,13 @@ namespace SuperFlexiBusiness
         private Guid itemGuid = Guid.Empty;
         private Guid fieldGuid = Guid.Empty;
         private string fieldValue = string.Empty;
+		//used to output total number of rows which match a query when using paging
+		private static int _totalRows;
+		#endregion
 
-        #endregion
+		#region Public Properties
 
-        #region Public Properties
-
-        public Guid ValueGuid
+		public Guid ValueGuid
         {
             get { return valueGuid; }
             set { valueGuid = value; }
@@ -289,7 +290,7 @@ namespace SuperFlexiBusiness
             return DBItemFieldValues.GetCount();
         }
 
-        private static List<ItemFieldValue> LoadListFromReader(IDataReader reader)
+		private static List<ItemFieldValue> LoadListFromReader(IDataReader reader, bool getTotalRows = false)
         {
             List<ItemFieldValue> valueList = new List<ItemFieldValue>();
             try
@@ -304,7 +305,27 @@ namespace SuperFlexiBusiness
                     value.itemGuid = new Guid(reader["ItemGuid"].ToString());
                     value.fieldGuid = new Guid(reader["FieldGuid"].ToString());
                     value.fieldValue = reader["FieldValue"].ToString();
-                    valueList.Add(value);
+
+					// Not all methods will use TotalRows but there is no sense in having an extra method to load the reader
+					// so, we'll catch the error and do nothing with it because we are expecting it
+					// the if statement should keep any problems at bay but we still use try/catch in case someone inadvertently 
+					// set getTotalRows = true
+					if (getTotalRows)
+					{
+						try
+						{
+							if (reader["TotalRows"] != DBNull.Value)
+							{
+								_totalRows = Convert.ToInt32(reader["TotalRows"]);
+							}
+						}
+						catch (System.IndexOutOfRangeException ex)
+						{
+
+						}
+					}
+
+					valueList.Add(value);
 
                 }
             }
@@ -338,13 +359,55 @@ namespace SuperFlexiBusiness
 
         }
 
-        /// <summary>
-        /// Gets an IList with page of instances of value.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="totalPages">total pages</param>
-        public static List<ItemFieldValue> GetPage(int pageNumber, int pageSize, out int totalPages)
+
+		public static List<ItemFieldValue> GetPageOfValues(
+			Guid moduleGuid,
+			Guid definitionGuid,
+			string field,
+			int pageNumber,
+			int pageSize,
+			out int totalPages,
+			out int totalRows,
+			string searchTerm = "",
+			//string searchField = "",
+			bool descending = false)
+		{
+			totalPages = 1;
+
+			IDataReader reader = DBItemFieldValues.GetPageOfValuesForField(moduleGuid, definitionGuid, field, pageNumber, pageSize, searchTerm, descending);
+
+			var values = LoadListFromReader(reader, true);
+
+			totalRows = _totalRows;
+
+			if (pageSize > 0)
+			{
+				totalPages = totalRows / pageSize;
+			}
+			if (totalRows <= pageSize)
+			{
+				totalPages = 1;
+			}
+			else
+			{
+				int remainder;
+				Math.DivRem(totalRows, pageSize, out remainder);
+				if (remainder > 0)
+				{
+					totalPages += 1;
+				}
+			}
+
+			return values;
+		}
+
+		/// <summary>
+		/// Gets an IList with page of instances of value.
+		/// </summary>
+		/// <param name="pageNumber">The page number.</param>
+		/// <param name="pageSize">Size of the page.</param>
+		/// <param name="totalPages">total pages</param>
+		public static List<ItemFieldValue> GetPage(int pageNumber, int pageSize, out int totalPages)
         {
             totalPages = 1;
             IDataReader reader = DBItemFieldValues.GetPage(pageNumber, pageSize, out totalPages);
