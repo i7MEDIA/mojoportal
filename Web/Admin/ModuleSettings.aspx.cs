@@ -502,16 +502,19 @@ namespace mojoPortal.Web.AdminUI
 			switch (s.SettingControlType)
 			{
 				case "TextBox":
-					Literal textBox = control as Literal;
+					Literal textBox = new Literal();
+					control = textBox;
 					textBox.Text = string.Format(controlMarkupFormat, controlID, "text", controlClass, s.SettingValue.HtmlEscapeQuotes(), attribsMarkup);
 					break;
 				case "CheckBox":
-					Literal checkBox = control as Literal;
+					Literal checkBox = new Literal();
+					control = checkBox;
 					bool isChecked = string.Equals(s.SettingValue, "true", StringComparison.InvariantCultureIgnoreCase);
 					checkBox.Text = string.Format(controlMarkupFormat, controlID, "checkbox", controlClass, s.SettingValue.HtmlEscapeQuotes(), attribsMarkup + (isChecked ? " checked" : ""));
 					break;
 				case "DropDownList":
-					Literal ddl = control as Literal;
+					Literal ddl = new Literal();
+					control = ddl;
 					var options = UIHelper.GetDictionaryFromString(s.Options);
 
 					StringBuilder optionsMarkup = new StringBuilder();
