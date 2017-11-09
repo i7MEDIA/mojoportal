@@ -97,18 +97,21 @@ namespace SuperFlexiUI
                 displaySettings = config.MarkupDefinition;
             }
 
-            fields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
-
-            if (config.IsGlobalView)
-            {
-                items = Item.GetAllForDefinition(config.FieldDefinitionGuid, config.DescendingSort);
-				fieldValues = ItemFieldValue.GetItemValuesByDefinition(config.FieldDefinitionGuid);
-            }
-            else
-            {
-                items = Item.GetModuleItems(moduleId, config.DescendingSort);
-				fieldValues = ItemFieldValue.GetItemValuesByModule(module.ModuleGuid);
-            }
+			if (config.ProcessItems)
+			{
+				fields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
+			
+				if (config.IsGlobalView)
+				{
+					items = Item.GetAllForDefinition(config.FieldDefinitionGuid, config.DescendingSort);
+					fieldValues = ItemFieldValue.GetItemValuesByDefinition(config.FieldDefinitionGuid);
+				}
+				else
+				{
+					items = Item.GetModuleItems(moduleId, config.DescendingSort);
+					fieldValues = ItemFieldValue.GetItemValuesByModule(module.ModuleGuid);
+				}
+			}
 
 			if (SiteUtils.IsMobileDevice() && config.MobileMarkupDefinition != null)
             {

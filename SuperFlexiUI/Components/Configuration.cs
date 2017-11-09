@@ -354,6 +354,7 @@ public ModuleConfiguration()
                 if (attrCollection["hideInnerBodyPanel"] != null) hideInnerBodyPanel = Convert.ToBoolean(attrCollection["hideInnerBodyPanel"].Value);
 				if (attrCollection["showSaveAsNewButton"] != null) showSaveAsNew = Convert.ToBoolean(attrCollection["showSaveAsNewButton"].Value);
 				if (attrCollection["maxItems"] != null) maxItems = Convert.ToInt32(attrCollection["maxItems"].Value);
+				if (attrCollection["processItems"] != null) processItems = Convert.ToBoolean(attrCollection["processItems"].Value);
 
 				MarkupDefinition workingMarkupDefinition = new MarkupDefinition();
                 if (isMobile && !useStandardMarkupOnDesktopOnly)
@@ -739,6 +740,13 @@ public ModuleConfiguration()
 
         private bool useRazor = false;
         public bool UseRazor { get { return useRazor; } }
+
+		private bool processItems = true;
+		/// <summary>
+		/// set in the markup definition. 
+		/// used when populating data via api
+		/// </summary>
+		public bool ProcessItems { get { return processItems; } }
         #endregion
     }
 

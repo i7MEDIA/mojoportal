@@ -282,13 +282,14 @@ namespace SuperFlexiUI
 					//we will add the other cases later
 			}
 
-			
-			totalRows = values.Distinct().Count();
+			values = values.Distinct().OrderBy(v => v).ToList();
+
+			totalRows = values.Count();
 
 			return new ReturnObject()
 			{
 				Status = "success",
-				Data = values.Distinct().OrderBy(v => v),
+				Data = values,
 				TotalPages = totalPages,
 				TotalRows = totalRows
 			};
