@@ -15,9 +15,14 @@
                         <asp:CheckBox ID="chkUpdate" runat="server" />
                         <mp:HelpLinkButton ID="hlpUpdate" runat="server" HelpKey="flexi-ImportUpdateExistingRecords" />
                     </div>
+					<div class="form-group">
+						<mp:SiteLabel ID="lblDeleteAll" runat="server" ResourceFile="SuperFlexiResources" ConfigKey="ImportDeleteExistingRecordsLabel" />
+						<asp:CheckBox ID="chkDelete" runat="server" />
+						<mp:HelpLinkButton ID="hlpDelete" runat="server" HelpKey="flexi-ImportDeleteExistingRecords" />
+					</div>
                     <div class="form-group">
                         <portal:jQueryFileUpload ID="uploader" runat="server" />
-                        <portal:mojoButton ID="importButton" runat="server" Text="Import Records" />
+                        <portal:mojoButton ID="importButton" runat="server" Text="Import Records" SkinID="SaveButton" />
                         <asp:HyperLink ID="lnkCancel" runat="server" CssClass="cancellink" SkinID="TextButton" />
                     </div>
                     <div class="flexi-import-results"><asp:Literal ID="litResults" runat="server" /></div>

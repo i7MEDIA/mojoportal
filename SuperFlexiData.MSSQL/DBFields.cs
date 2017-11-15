@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-03-06
-// Last Modified:			2016-06-10
+// Last Modified:			2017-11-09
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -54,9 +54,11 @@ namespace SuperFlexiData
             string dateFormat,
             string textBoxMode,
             string attributes,
-            bool isGlobal)
+            bool isGlobal,
+			string viewRoles,
+			string editRoles)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Insert", 36);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Insert", 38);
             sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
             sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
             sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
@@ -92,8 +94,10 @@ namespace SuperFlexiData
             sph.DefineSqlParameter("@DateFormat", SqlDbType.NVarChar, -1, ParameterDirection.Input, dateFormat);
             sph.DefineSqlParameter("@TextBoxMode", SqlDbType.NVarChar, 25, ParameterDirection.Input, textBoxMode);
             sph.DefineSqlParameter("@Attributes", SqlDbType.NVarChar, 100, ParameterDirection.Input, attributes);
-            sph.DefineSqlParameter("@IsGlobal", SqlDbType.Bit, ParameterDirection.Input, isGlobal);
-            int rowsAffected = sph.ExecuteNonQuery();
+			sph.DefineSqlParameter("@IsGlobal", SqlDbType.Bit, ParameterDirection.Input, isGlobal);
+            sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, viewRoles);
+            sph.DefineSqlParameter("@EditRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, editRoles);
+			int rowsAffected = sph.ExecuteNonQuery();
             return rowsAffected;
 
         }
@@ -140,9 +144,11 @@ namespace SuperFlexiData
             string textBoxMode,
             string attributes,
             bool isDeleted,
-            bool isGlobal)
+            bool isGlobal,
+			string viewRoles,
+			string editRoles)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Update", 37);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Update", 39);
             sph.DefineSqlParameter("@FieldGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, fieldGuid);
             sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
             sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
@@ -181,7 +187,9 @@ namespace SuperFlexiData
             sph.DefineSqlParameter("@Attributes", SqlDbType.NVarChar, 100, ParameterDirection.Input, attributes);
             sph.DefineSqlParameter("@IsDeleted", SqlDbType.Bit, ParameterDirection.Input, isDeleted);
             sph.DefineSqlParameter("@IsGlobal", SqlDbType.Bit, ParameterDirection.Input, isGlobal);
-            int rowsAffected = sph.ExecuteNonQuery();
+			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, viewRoles);
+			sph.DefineSqlParameter("@EditRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, editRoles);
+			int rowsAffected = sph.ExecuteNonQuery();
             return (rowsAffected > 0);
 
         }

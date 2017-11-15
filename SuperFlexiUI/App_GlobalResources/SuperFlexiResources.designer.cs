@@ -277,6 +277,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Existing Records?.
+        /// </summary>
+        internal static string ImportDeleteExistingRecordsLabel {
+            get {
+                return ResourceManager.GetString("ImportDeleteExistingRecordsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can import from a CSV file. The first row of the file must contain the names of each column. Order of the columns is not important..
         /// </summary>
         internal static string ImportInstructions {

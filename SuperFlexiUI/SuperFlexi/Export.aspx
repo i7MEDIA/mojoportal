@@ -9,11 +9,11 @@
         <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper flexi flexi-export">
             <portal:HeadingControl ID="heading" runat="server" />
             <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
-                <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-                    <div class="flexi-export-instructions">
+                <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent row">
+                    <div class="flexi-export-instructions col-md-6">
                         <asp:Literal ID="litInstructions" runat="server" />
                     </div>
-                    <div class="form-group">
+                    <div class="col-md-6">
                         <portal:mojoButton ID="exportButton" runat="server" Text="Export" SkinID="ExportButton" UseSubmitBehavior="false" />
                         <asp:HyperLink ID="lnkCancel" runat="server" CssClass="cancellink" SkinID="TextButton" />
                     </div>

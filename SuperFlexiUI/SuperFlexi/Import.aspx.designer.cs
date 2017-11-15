@@ -103,6 +103,33 @@ namespace SuperFlexiUI {
         protected global::mojoPortal.Web.Controls.HelpLinkButton hlpUpdate;
         
         /// <summary>
+        /// lblDeleteAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel lblDeleteAll;
+        
+        /// <summary>
+        /// chkDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkDelete;
+        
+        /// <summary>
+        /// hlpDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.HelpLinkButton hlpDelete;
+        
+        /// <summary>
         /// uploader control.
         /// </summary>
         /// <remarks>

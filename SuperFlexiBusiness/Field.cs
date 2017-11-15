@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-03-06
-// Last Modified:			2016-06-10
+// Last Modified:			2017-11-09
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -68,6 +68,8 @@ namespace SuperFlexiBusiness
 		private string textBoxMode = "SingleLine";
 		private string attributes = string.Empty;
         private bool isGlobal = false;
+		private string viewRoles = "All Users;";
+		private string editRoles = string.Empty;
 		/// <summary>
 		/// Used to flag a field as deleted when SuperFlexi:DeleteOrphanedFieldValues is false.
 		/// </summary>
@@ -288,6 +290,8 @@ namespace SuperFlexiBusiness
 			set { linkedField = value; }
 		}
 
+		public string ViewRoles { get => viewRoles; set => viewRoles = value; }
+		public string EditRoles { get => editRoles; set => editRoles = value; }
 		#endregion
 
 		#region Private Methods
@@ -347,6 +351,8 @@ namespace SuperFlexiBusiness
 				this.attributes = reader["Attributes"].ToString();
                 this.IsDeleted = Convert.ToBoolean(reader["IsDeleted"]);
                 this.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
+				this.ViewRoles = reader["ViewRoles"].ToString();
+				this.EditRoles = reader["EditRoles"].ToString();
                 string format = reader["DateFormat"].ToString().Trim();
 				if (format.Length > 0)
 				{
@@ -407,7 +413,9 @@ namespace SuperFlexiBusiness
 				this.dateFormat,
 				this.textBoxMode,
 				this.attributes,
-                this.IsGlobal);
+                this.IsGlobal,
+				this.ViewRoles,
+				this.EditRoles);
 
 			return (rowsAffected > 0);
 
@@ -459,7 +467,9 @@ namespace SuperFlexiBusiness
 				this.textBoxMode,
 				this.attributes,
 				this.isDeleted,
-                this.isGlobal);
+                this.isGlobal,
+				this.ViewRoles,
+				this.EditRoles);
 
 		}
 
@@ -582,7 +592,10 @@ namespace SuperFlexiBusiness
 					field.attributes = reader["Attributes"].ToString();
 					field.isDeleted = Convert.ToBoolean(reader["IsDeleted"]);
 					field.isGlobal = Convert.ToBoolean(reader["IsGlobal"]);
-                    fieldList.Add(field);
+					field.viewRoles = reader["ViewRoles"].ToString();
+					field.editRoles = reader["EditRoles"].ToString();
+
+					fieldList.Add(field);
 
 				}
 			}
@@ -726,7 +739,9 @@ namespace SuperFlexiBusiness
 				&& x.TextBoxMode == y.TextBoxMode
 				&& x.Attributes == y.Attributes
 				&& x.IsDeleted == y.IsDeleted
-                && x.IsGlobal == y.IsGlobal;
+                && x.IsGlobal == y.IsGlobal
+				&& x.ViewRoles == y.ViewRoles
+				&& x.EditRoles == y.EditRoles;
 		}
 
 		// If Equals() returns true for a pair of objects 
@@ -770,6 +785,8 @@ namespace SuperFlexiBusiness
 			int hashAttributes = field.Attributes.GetHashCode();
 			int hashIsDeleted = field.IsDeleted.GetHashCode();
             int hashIsGlobal = field.IsGlobal.GetHashCode();
+			int hashViewRoles = field.ViewRoles.GetHashCode();
+			int hashEditRoles = field.EditRoles.GetHashCode();
 			//Calculate the hash code for the field.
 			return hashName 
 				 ^ hashDefinitionGuid 
@@ -804,7 +821,9 @@ namespace SuperFlexiBusiness
 				 ^ hashTextBoxMode
 				 ^ hashAttributes
 				 ^ hashIsDeleted
-                 ^ hashIsGlobal;
+                 ^ hashIsGlobal
+				 ^ hashViewRoles
+				 ^ hashEditRoles;
 		}
 	}
 }

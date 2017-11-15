@@ -267,4 +267,7 @@
   <data name="SolutionDropDownPleaseSelect" xml:space="preserve">
     <value>Please Select</value>
   </data>
+  <data name="ImportDeleteExistingRecordsLabel" xml:space="preserve">
+    <value>Delete Existing Records?</value>
+  </data>
 </root>

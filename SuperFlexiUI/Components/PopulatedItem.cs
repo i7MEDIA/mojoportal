@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SuperFlexiBusiness;
 using mojoPortal.Web.Framework;
+using mojoPortal.Business.WebHelpers;
 
 namespace SuperFlexiUI
 {
@@ -32,7 +33,11 @@ namespace SuperFlexiUI
 			foreach (Field field in fields)
 			{
 				if (String.IsNullOrWhiteSpace(field.Token)) field.Token = "$_NONE_$";
-
+				if (!WebUser.IsAdmin && !WebUser.IsInRoles(field.ViewRoles) && !WebUser.IsInRoles(field.EditRoles))
+				{
+					Values.Add(field.Name, null);
+					continue;
+				}
 
 				var thisValue = values.Where(v => v.FieldGuid == field.FieldGuid).FirstOrDefault();
 
@@ -61,6 +66,10 @@ namespace SuperFlexiUI
 						Values.Add(field.Name, thisValue.FieldValue);
 					}
 
+				}
+				else
+				{
+					Values.Add(field.Name, null);
 				}
 			}
 			//Values = popValues;

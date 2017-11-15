@@ -352,7 +352,10 @@ namespace SuperFlexiUI
 						}
 						
 					}
-
+					if (!String.IsNullOrWhiteSpace(field.EditRoles) && !WebUser.IsAdmin && !WebUser.IsInRoles(field.EditRoles))
+					{
+						textBox.Enabled = false;
+					}
                     panel.Controls.Add(textBox);
 
 					if (field.Required)

@@ -57,6 +57,8 @@ namespace SuperFlexiUI
 		public int TotalPages { get; set; }
 		public int TotalRows { get; set; }
 		public bool AllowEdit { get; set; }
+		public int CmsPageId { get; set; }
+		public int CmsModuleId { get; set; }
 		public IDictionary<string,string> ExtraData { get; set; }
 	}
 
@@ -216,7 +218,9 @@ namespace SuperFlexiUI
 				Data = sfObject,
 				TotalPages = totalPages,
 				TotalRows = totalRows == popItems.Count ? totalRows : popItems.Count,
-				AllowEdit = ShouldAllowEdit()
+				AllowEdit = ShouldAllowEdit(),
+				CmsModuleId = module.ModuleId,
+				CmsPageId = module.PageId
 			};
 
 		}

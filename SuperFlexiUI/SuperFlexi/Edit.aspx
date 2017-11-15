@@ -15,13 +15,7 @@
 							<mp:SiteLabel ID="lblViewOrder" runat="server" ForControl="txtViewOrder" ConfigKey="ViewOrderLabel"
 								ResourceFile="SuperFlexiResources" CssClass="settinglabel" /><asp:TextBox ID="txtViewOrder" runat="server" MaxLength="10" CssClass="forminput smalltextbox" TextMode="Number" />
 						</div>
-						<div class="settingrow buttonrow">
-							<portal:mojoButton ID="updateButton" runat="server" Text="Update" SkinID="SaveButton" />
-                            <portal:mojoButton ID="saveAsNewButton" runat="server" Text="Save as New" SkinID="SaveAsNewButton" Visible="false" />
-							<portal:mojoButton ID="deleteButton" runat="server" Text="Delete this item" CausesValidation="false" SkinID="DeleteButton" />
-                            <portal:mojoButton ID="exportButton" runat="server" Text="Export" SkinID="ExportButton" UseSubmitBehavior="false"/>
-							<asp:HyperLink ID="lnkCancel" runat="server" CssClass="cancellink" SkinID="TextButton" />
-						</div>
+						<div class="settingrow buttonrow row_buttons"><portal:mojoButton ID="updateButton" runat="server" Text="Update" SkinID="SaveButton" /> <portal:mojoButton ID="saveAsNewButton" runat="server" Text="Save as New" SkinID="SaveAsNewButton" Visible="false" /> <portal:mojoButton ID="deleteButton" runat="server" Text="Delete this item" CausesValidation="false" SkinID="DeleteButton" /> <portal:mojoButton ID="exportButton" runat="server" Text="Export" SkinID="ExportButton" UseSubmitBehavior="false"/> <asp:HyperLink ID="lnkCancel" runat="server" CssClass="cancellink" SkinID="TextButton" /></div>
 					</asp:Panel>
 					<asp:HiddenField ID="hdnReturnUrl" runat="server" />
 				</portal:InnerBodyPanel>

@@ -70,7 +70,7 @@ namespace SuperFlexiUI
         private void PopulateLabels()
         {
             Title = SiteUtils.FormatPageTitle(siteSettings, config.ExportPageTitle);
-            heading.Text = config.ImportPageTitle;
+            heading.Text = config.ExportPageTitle;
 
             lnkCancel.Text = config.ImportPageCancelLinkText;
 

@@ -98,6 +98,12 @@ namespace SuperFlexiUI
 
                 if (recordsToImport != null)
                 {
+					if (chkDelete.Checked)
+					{
+						ItemFieldValue.DeleteByModule(module.ModuleGuid);
+						Item.DeleteByModule(module.ModuleGuid);
+					}
+
                     foreach (IDictionary<string, object> record in recordsToImport)
                     {
                         var existingGuid = record.ContainsKey("Guid") ? Guid.Parse(record["Guid"].ToString()) : Guid.Empty;
@@ -128,7 +134,7 @@ namespace SuperFlexiUI
                         importedItem.SortOrder = sortOrder;
                         importedItem.LastModUtc = DateTime.UtcNow;
 						//we don't want to do this on each item that has been imported because that's a lot of work during the import process
-						importedItem.ContentChanged += new ContentChangedEventHandler(sflexiItem_ContentChanged);
+						//importedItem.ContentChanged += new ContentChangedEventHandler(sflexiItem_ContentChanged);
 
 						if (importedItem.Save())
                         {
@@ -237,6 +243,8 @@ namespace SuperFlexiUI
                 litResults.Text = results.ToString();
 
 				CacheHelper.ClearModuleCache(moduleId);
+				SuperFlexiIndexBuilderProvider indexBuilder = new SuperFlexiIndexBuilderProvider();
+				indexBuilder.RebuildIndex(CacheHelper.GetCurrentPage(), IndexHelper.GetSearchIndexPath(siteSettings.SiteId));
 				SiteUtils.QueueIndexing();
 			}
         }
