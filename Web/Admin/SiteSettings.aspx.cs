@@ -124,8 +124,8 @@ namespace mojoPortal.Web.AdminUI
 			}
 			else if (!WebConfigSettings.AllowMultipleSites)
 			{
-				litHostListHeader.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsMultiTenancyTurnedOffLabel);
-				litHostMessage.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsMultiTenancyTurnedOff);
+				litHostListHeader.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsMultiTenancyTurnedOffLabel, string.Empty);
+				litHostMessage.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsMultiTenancyTurnedOff, string.Empty);
 				pnlAddFolder.Visible = false;
 				pnlAddHostName.Visible = false;
 				rptFolderNames.Visible = false;
