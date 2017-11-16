@@ -288,8 +288,27 @@ namespace SuperFlexiData
                 sqlParams.ToArray());
         }
 
+		public static IDataReader GetByItemGuids(List<Guid> itemGuids)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT * FROM i7_sflexi_values WHERE ItemGuid IN (?ItemGuids);");
 
-        public static IDataReader GetByItemGuid(Guid itemGuid)
+			//select * from i7_sflexi_values where ItemGuid In ('GUID','GUID');
+			List<string> guids = new List<string>();
+			foreach (var guid in itemGuids)
+			{
+				guids.Add($"'{guid.ToString()}'");
+			}
+			
+			var sqlParam = new MySqlParameter("?ItemGuids", MySqlDbType.LongText) { Direction = ParameterDirection.Input, Value = String.Join(",", guids) };
+
+			return MySqlHelper.ExecuteReader(
+			   ConnectionString.GetWriteConnectionString(),
+			   sqlCommand.ToString(),
+			   sqlParam);
+		}
+
+		public static IDataReader GetByItemGuid(Guid itemGuid)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT * FROM i7_sflexi_values WHERE ItemGuid = ?ItemGuid;");

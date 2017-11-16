@@ -54,7 +54,9 @@ namespace SuperFlexiData
             string dateFormat,
             string textBoxMode,
             string attributes,
-            bool isGlobal)
+            bool isGlobal,
+			string viewRoles,
+			string editRoles)
         {
 
             StringBuilder sqlCommand = new StringBuilder();
@@ -95,7 +97,9 @@ namespace SuperFlexiData
                 + "Attributes,"
                 + "PreTokenString,"
                 + "PostTokenString,"
-                + "IsGlobal"
+                + "IsGlobal,"
+				+ "ViewRoles,"
+				+ "EditRoles"
                 ,"?SiteGuid,"
                 + "?FeatureGuid,"
                 + "?DefinitionGuid,"
@@ -131,7 +135,9 @@ namespace SuperFlexiData
                 + "?Attributes,"
                 + "?PreTokenString,"
                 + "?PostTokenString,"
-                + "?IsGlobal");
+                + "?IsGlobal,"
+				+ "?ViewRoles,"
+				+ "?EditRoles");
 
             var sqlParams = new List<MySqlParameter>
             {
@@ -170,7 +176,9 @@ namespace SuperFlexiData
                 new MySqlParameter("?DateFormat", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = dateFormat },
                 new MySqlParameter("?TextBoxMode", MySqlDbType.VarChar, 25) { Direction = ParameterDirection.Input, Value = textBoxMode },
                 new MySqlParameter("?Attributes", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = attributes },
-                new MySqlParameter("?IsGlobal", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = isGlobal }
+				new MySqlParameter("?IsGlobal", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = isGlobal },
+                new MySqlParameter("?ViewRoles", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = viewRoles },
+                new MySqlParameter("?EditRoles", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = editRoles }
             };
             int rowsAffected = Convert.ToInt32(MySqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
