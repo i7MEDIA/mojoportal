@@ -40,7 +40,7 @@ namespace mojoPortal.Web.BlogUI
 		protected string EditLinkText = BlogResources.BlogEditEntryLink;
 		protected string EditLinkTooltip = BlogResources.BlogEditEntryLink;
 		protected string EditLinkImageUrl = string.Empty;
-		private mojoBasePage basePage = null;
+		//private mojoBasePage basePage = null;
 		private Module module = null;
 		protected BlogConfiguration blogConfig = new BlogConfiguration();
 		protected BlogPostListAdvancedConfiguration config = new BlogPostListAdvancedConfiguration();
