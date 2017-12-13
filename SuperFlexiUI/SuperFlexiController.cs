@@ -191,9 +191,9 @@ namespace SuperFlexiUI
 								var value = popItem.Values[set.Key];
 								List<string> itemValArray = value as List<string>;
 								List<string> setValArray = set.Value.SplitOnCharAndTrim(';');
-								if (value.ToString().IndexOf(set.Value) >= 0 
-									|| (itemValArray != null && itemValArray.Contains(set.Value))
-									|| (setValArray != null && setValArray.Contains(value)))
+								if (value.ToString().ToLower().IndexOf(set.Value.ToLower()) >= 0 
+									|| (itemValArray != null && itemValArray.Any(s => s.Equals(set.Value, StringComparison.OrdinalIgnoreCase)))
+									|| (setValArray != null && setValArray.Any(s => s.Equals(value.ToString(), StringComparison.OrdinalIgnoreCase))))
 								{
 									matchCount++;
 								}
