@@ -24,7 +24,7 @@
 									</a>
 								</li>
 								<li id="liSecurity" runat="server" enableviewstate="false">
-									<asp:HyperLink ID="securityTabLink" runat="server" EnableViewState="false" />
+									<asp:Literal ID="litSecurityTabLink" runat="server" EnableViewState="false" />
 								</li>
 								<li>
 									<a href="#tabCompanyInfo">

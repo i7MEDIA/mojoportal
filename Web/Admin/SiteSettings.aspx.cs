@@ -1944,10 +1944,7 @@ namespace mojoPortal.Web.AdminUI
 
 			litSettingsTab.Text = Resource.SiteSettingsGeneralSettingsTab;
 
-			//litSecurityTabLink.Text = "<a href='#" + tabSecurity.ClientID + "'>" +  Resource.SiteSettingsSecurityTab + "</a>";
-			// Changed literal to hyperlink and are using the control properties rather than string manipulation
-			securityTabLink.NavigateUrl = "#" + tabSecurity.ClientID;
-			securityTabLink.Text = Resource.SiteSettingsSecurityTab;
+			litSecurityTabLink.Text = "<a href='#" + tabSecurity.ClientID + "'>" + Resource.SiteSettingsSecurityTab + "</a>";
 
 			litCompanyInfoTab.Text = Resource.CompanyInfo;
 
