@@ -497,20 +497,22 @@ namespace mojoPortal.Web.AdminUI
 			//creating generic control here so we can cast it as whatever type we need to and still add it to the panel in a single location
 			Control control = new Control();
 
-			string controlMarkupFormat = "<input name=\"{0}\" id=\"{0}\" type=\"{1}\" class=\"{2}\" value=\"{3}\"{4} />";
+			string txtBoxMarkupFormat = "<input name=\"{0}\" id=\"{0}\" type=\"text\" class=\"{1}\" value=\"{2}\"{3} />";
 
 			switch (s.SettingControlType)
 			{
 				case "TextBox":
 					Literal textBox = new Literal();
 					control = textBox;
-					textBox.Text = string.Format(controlMarkupFormat, controlID, "text", controlClass, s.SettingValue.HtmlEscapeQuotes(), attribsMarkup);
+					//textBox.Text = string.Format(txtBoxMarkupFormat, controlID, controlClass, s.SettingValue.HtmlEscapeQuotes(), attribsMarkup);
+					textBox.Text = $"<input name=\"{controlID}\" id=\"{controlID}\" type=\"text\" class=\"{controlClass}\" value=\"{s.SettingValue.HtmlEscapeQuotes()}\"{attribsMarkup} />";
 					break;
 				case "CheckBox":
 					Literal checkBox = new Literal();
 					control = checkBox;
-					bool isChecked = string.Equals(s.SettingValue, "true", StringComparison.InvariantCultureIgnoreCase);
-					checkBox.Text = string.Format(controlMarkupFormat, controlID, "checkbox", controlClass, s.SettingValue.HtmlEscapeQuotes(), attribsMarkup + (isChecked ? " checked" : ""));
+					string check = string.Equals(s.SettingValue, "true", StringComparison.InvariantCultureIgnoreCase) ? " checked" : string.Empty;
+					//checkBox.Text = string.Format(controlMarkupFormat, controlID, "checkbox", controlClass, s.SettingValue.HtmlEscapeQuotes(), attribsMarkup + (isChecked ? " checked" : ""));
+					checkBox.Text = $"<input name=\"{controlID}\" id=\"{controlID}\" type=\"checkbox\" class=\"{controlClass}\"{attribsMarkup.ToString()}{check}/>";
 					break;
 				case "DropDownList":
 					Literal ddl = new Literal();
