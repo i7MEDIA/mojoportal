@@ -40,36 +40,39 @@ namespace mojoPortal.Business.WebHelpers
 
             if (requestPath == "/") return folderName;
 
-            if (
-                (requestPath.IndexOf("/") > -1)
-                && (requestPath.LastIndexOf("/") > requestPath.IndexOf("/"))
-                )
-            {
-                requestPath = requestPath.Substring(requestPath.IndexOf("/") + 1, requestPath.Length - 1);
+    //        if (
+    //            (requestPath.IndexOf("/") > -1 && requestPath.LastIndexOf("/") > requestPath.IndexOf("/"))
+				//|| SiteFolder.Exists(requestPath.TrimStart('/'))
+				//)
+    //        {
+				//requestPath = requestPath.Substring(requestPath.IndexOf("/") + 1, requestPath.Length - 1);
+				requestPath = requestPath.TrimStart('/');
 
-                if (requestPath.IndexOf("/") > -1)
+				if (requestPath.IndexOf("/") > -1)
+				{
+					requestPath = requestPath.Substring(0, requestPath.IndexOf("/"));
+				}
+                    //folderName = 
+
+                try
                 {
-                    folderName = requestPath.Substring(0, requestPath.IndexOf("/"));
-
-                    try
+                    if (SiteFolder.Exists(requestPath))
                     {
-                        if (!SiteFolder.Exists(folderName))
-                        {
-                            folderName = string.Empty;
-                        }
-                    }
-                    catch (DbException)
-                    {
-                        folderName = string.Empty;
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        // occurs when db tables and procs haven't been created yet
-                        // in MS SQL
-                        folderName = string.Empty;
+                        folderName = requestPath;
                     }
                 }
-            }
+                catch (DbException)
+                {
+                    // folderName = string.Empty;
+                }
+                catch (InvalidOperationException)
+                {
+                    // occurs when db tables and procs haven't been created yet
+                    // in MS SQL
+                    // folderName = string.Empty;
+                }
+                
+            //}
 
             return folderName;
         }

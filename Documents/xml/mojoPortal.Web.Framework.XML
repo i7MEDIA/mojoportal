@@ -311,6 +311,18 @@
             <param name="c"></param>
             <returns></returns>
         </member>
+        <member name="M:mojoPortal.Web.Framework.StringHelper.IsIn``1(``0,``0[])">
+            <summary>
+            Determines if a string is in an array of strings.
+            </summary>
+            <returns>bool</returns>
+            <example>
+            string color = "blue";
+            string[] colors = {"blue", "green", "red"};
+            bool validColor = false;
+            validColor = color.IsIn(colors);
+            </example>
+        </member>
         <member name="M:mojoPortal.Web.Framework.UIHelper.EnumToDictionary``1">
             <summary>
             for easily converting an Enum to an IDictionary for data binding ie for a dropdown list
