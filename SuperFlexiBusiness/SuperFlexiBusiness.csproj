@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,17 +30,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - MySql|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug - MySql'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug - MySql\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - MySql|AnyCPU'">
-    <OutputPath>bin\Release - MySql\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release - MySql'">
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -76,59 +76,41 @@
       <Name>mojoPortal.Features.Business</Name>
       <Private>False</Private>
     </ProjectReference>
+	<ProjectReference Condition="'$(Configuration)'=='Debug'" Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
+	  <Project>{6ddfe292-37aa-4a02-b2f0-ba7968a026ef}</Project>
+	  <Name>mojoPortal.Data.MSSQL</Name>
+	  <Private>False</Private>
+	</ProjectReference>
+	<ProjectReference Condition="'$(Configuration)'=='Debug'" Include="..\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj">
+	  <Project>{b77ed3c5-5720-4a13-925f-c580ecfa4b7b}</Project>
+	  <Name>SuperFlexiData.MSSQL</Name>
+	</ProjectReference>	
+	<ProjectReference Condition="'$(Configuration)'=='Release'" Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
+	  <Project>{6ddfe292-37aa-4a02-b2f0-ba7968a026ef}</Project>
+	  <Name>mojoPortal.Data.MSSQL</Name>
+	  <Private>False</Private>
+	</ProjectReference>
+	<ProjectReference Condition="'$(Configuration)'=='Release'" Include="..\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj">
+	  <Project>{b77ed3c5-5720-4a13-925f-c580ecfa4b7b}</Project>
+	  <Name>SuperFlexiData.MSSQL</Name>
+	</ProjectReference>	
+	<ProjectReference Condition="'$(Configuration)'=='Debug - MySql'" Include="..\mojoPortal.Data.MySql\mojoPortal.Data.MySql.csproj">
+	  <Project>{E2EF8E92-91A8-49CA-8500-DF558C795976}</Project>
+	  <Name>mojoPortal.Data.MySql</Name>
+	</ProjectReference>
+	<ProjectReference Condition="'$(Configuration)'=='Debug - MySql'" Include="..\SuperFlexiData.MySQL\SuperFlexiData.MySQL.csproj">
+	  <Project>{B7B278B1-E566-41DA-BC1B-D846078B87DB}</Project>
+	  <Name>SuperFlexiData.MySQL</Name>
+	</ProjectReference>	
+	<ProjectReference Condition="'$(Configuration)'=='Release - MySql'" Include="..\mojoPortal.Data.MySql\mojoPortal.Data.MySql.csproj">
+	  <Project>{E2EF8E92-91A8-49CA-8500-DF558C795976}</Project>
+	  <Name>mojoPortal.Data.MySql</Name>
+	</ProjectReference>
+	<ProjectReference Condition="'$(Configuration)'=='Release - MySql'" Include="..\SuperFlexiData.MySQL\SuperFlexiData.MySQL.csproj">
+	  <Project>{B7B278B1-E566-41DA-BC1B-D846078B87DB}</Project>
+	  <Name>SuperFlexiData.MySQL</Name>
+	</ProjectReference>	
   </ItemGroup>
-  <Choose>
-    <When Condition="'$(Configuration)'=='Debug'">
-      <ItemGroup>
-        <ProjectReference Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
-          <Project>{6ddfe292-37aa-4a02-b2f0-ba7968a026ef}</Project>
-          <Name>mojoPortal.Data.MSSQL</Name>
-          <Private>False</Private>
-        </ProjectReference>
-        <ProjectReference Include="..\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj">
-          <Project>{b77ed3c5-5720-4a13-925f-c580ecfa4b7b}</Project>
-          <Name>SuperFlexiData.MSSQL</Name>
-        </ProjectReference>
-      </ItemGroup>
-    </When>
-    <When Condition="'$(Configuration)'=='Release'">
-      <ItemGroup>
-        <ProjectReference Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
-          <Project>{6ddfe292-37aa-4a02-b2f0-ba7968a026ef}</Project>
-          <Name>mojoPortal.Data.MSSQL</Name>
-          <Private>False</Private>
-        </ProjectReference>
-        <ProjectReference Include="..\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj">
-          <Project>{b77ed3c5-5720-4a13-925f-c580ecfa4b7b}</Project>
-          <Name>SuperFlexiData.MSSQL</Name>
-        </ProjectReference>
-      </ItemGroup>
-    </When>
-    <When Condition="'$(Configuration)'=='Debug - MySql'">
-      <ItemGroup>
-        <ProjectReference Include="..\mojoPortal.Data.MySql\mojoPortal.Data.MySql.csproj">
-          <Project>{E2EF8E92-91A8-49CA-8500-DF558C795976}</Project>
-          <Name>mojoPortal.Data.MySql</Name>
-        </ProjectReference>
-        <ProjectReference Include="..\SuperFlexiData.MySQL\SuperFlexiData.MySQL.csproj">
-          <Project>{B7B278B1-E566-41DA-BC1B-D846078B87DB}</Project>
-          <Name>SuperFlexiData.MySQL</Name>
-        </ProjectReference>
-      </ItemGroup>
-    </When>
-    <When Condition="'$(Configuration)'=='Release - MySql'">
-      <ItemGroup>
-        <ProjectReference Include="..\mojoPortal.Data.MySql\mojoPortal.Data.MySql.csproj">
-          <Project>{E2EF8E92-91A8-49CA-8500-DF558C795976}</Project>
-          <Name>mojoPortal.Data.MySql</Name>
-        </ProjectReference>
-        <ProjectReference Include="..\SuperFlexiData.MySQL\SuperFlexiData.MySQL.csproj">
-          <Project>{B7B278B1-E566-41DA-BC1B-D846078B87DB}</Project>
-          <Name>SuperFlexiData.MySQL</Name>
-        </ProjectReference>
-      </ItemGroup>
-    </When>
-  </Choose>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

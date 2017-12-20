@@ -8,11 +8,11 @@ using System.Runtime.CompilerServices;
 // associated with an assembly.
 //
 [assembly:CLSCompliant(true)]
-[assembly: AssemblyTitle("")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("mojoPortal.Data.MySql")]
+[assembly: AssemblyDescription("MySql Data Layer for mojoPortal Core")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("")]
+[assembly: AssemblyCompany("i7MEDIA")]
+[assembly: AssemblyProduct("mojoPortal")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]		

@@ -27,7 +27,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
@@ -46,7 +46,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - MySql|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug - MySql'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -58,7 +58,7 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - MySql|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Release - MySql'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -70,7 +70,7 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - Firebird|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug - pgsql'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -79,10 +79,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - Firebird|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Release - pgsql'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -94,30 +93,7 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - pgsql|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - pgsql|AnyCPU'">
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - SqlCe|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug - SQLite'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -129,31 +105,7 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - SqlCe|AnyCPU'">
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - SQLite|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - SQLite|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Release - SQLite'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -1378,25 +1330,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\pgsql\0.0.0.2.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\sqlite\0.0.0.2.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\firebirdsql\0.0.1.1.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\firebirdsql\0.0.1.1\00002tables.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\firebirdsql\0.0.1.2.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\firebirdsql\0.0.1.2\0.0.1.2.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\pgsql\0.0.1.2.config" />
@@ -1615,132 +1552,85 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
-    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
-    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00003ttriggers.config" />
-    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
-    <Content Include="Setup\applications\blog\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
     <Content Include="Setup\applications\blog\SchemaInstallScripts\mysql\0.0.0.1.config" />
     <Content Include="Setup\applications\blog\SchemaInstallScripts\pgsql\0.0.0.1.config" />
     <Content Include="Setup\applications\blog\SchemaInstallScripts\sqlite\0.0.0.1.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
-    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
-    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00003ttriggers.config" />
-    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
-    <Content Include="Setup\applications\forums\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
     <Content Include="Setup\applications\forums\SchemaInstallScripts\mssql\0.0.0.1.config" />
     <Content Include="Setup\applications\forums\SchemaInstallScripts\mysql\0.0.0.1.config" />
     <Content Include="Setup\applications\forums\SchemaInstallScripts\pgsql\0.0.0.1.config" />
     <Content Include="Setup\applications\forums\SchemaInstallScripts\sqlite\0.0.0.1.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\forums\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
     <Content Include="Setup\applications\forums\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
     <Content Include="Setup\applications\forums\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
     <Content Include="Setup\applications\forums\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
     <Content Include="Setup\applications\forums\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\contactform\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\contactform\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
     <Content Include="Setup\applications\contactform\SchemaInstallScripts\mysql\0.0.0.1.config" />
     <Content Include="Setup\applications\contactform\SchemaInstallScripts\pgsql\0.0.0.1.config" />
     <Content Include="Setup\applications\contactform\SchemaInstallScripts\sqlite\0.0.0.1.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
     <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
     <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
     <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
     <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
-    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
-    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
-    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
     <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\mysql\0.0.0.1.config" />
     <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\pgsql\0.0.0.1.config" />
     <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\sqlite\0.0.0.1.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
     <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
     <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
     <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
     <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
-    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
-    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
-    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
     <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\mssql\0.0.0.1.config" />
     <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\mysql\0.0.0.1.config" />
     <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\pgsql\0.0.0.1.config" />
     <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\sqlite\0.0.0.1.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
     <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
     <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
     <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
     <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
-    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
-    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
-    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
     <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\mssql\0.0.0.1.config" />
     <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\mysql\0.0.0.1.config" />
     <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\pgsql\0.0.0.1.config" />
     <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\sqlite\0.0.0.1.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
     <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
     <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
     <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
     <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
-    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
-    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
-    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
     <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\mssql\0.0.0.1.config" />
     <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\mysql\0.0.0.1.config" />
     <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\pgsql\0.0.0.1.config" />
     <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\sqlite\0.0.0.1.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
     <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
     <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
     <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
     <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\firebirdsql\0.0.0.3\00002tables.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\firebirdsql\0.0.0.3.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.0.3.config" />
@@ -1840,24 +1730,16 @@
     <Folder Include="App_Data\" />
     <Folder Include="Data\" />
     <Folder Include="Setup\applications\blog\SchemaInstallScripts\mssql\" />
-    <Folder Include="Setup\applications\blog\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
     <Folder Include="Setup\applications\contactform\SchemaInstallScripts\mssql\" />
-    <Folder Include="Setup\applications\contactform\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
     <Folder Include="Setup\applications\eventcalendar\SchemaInstallScripts\mssql\" />
-    <Folder Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
-    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\firebirdsql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\mssql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\mysql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\pgsql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\sqlite\" />
-    <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\firebirdsql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\mssql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\mysql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\pgsql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\sqlite\" />
-    <Folder Include="Setup\applications\forums\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
-    <Folder Include="Setup\applications\pollfeature-byChristianFredh\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
-    <Folder Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\firebirdsql\0.0.0.2\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\BingResources.resx">

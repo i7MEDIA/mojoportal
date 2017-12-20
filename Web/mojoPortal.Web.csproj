@@ -34,7 +34,7 @@
     <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
@@ -65,7 +65,7 @@
     <PackageAsSingleFile>false</PackageAsSingleFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>bin\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
@@ -94,7 +94,7 @@
     <PackageAsSingleFile>true</PackageAsSingleFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - MySql|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug - MySql'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
@@ -109,7 +109,7 @@
     <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - MySql|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Release - MySql'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
@@ -123,40 +123,7 @@
     <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;bin\*.xml;bin\amd64\*;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - Firebird|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <FileAlignment>4096</FileAlignment>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
-    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
-    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\msql\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - Firebird|AnyCPU'">
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <Optimize>true</Optimize>
-    <FileAlignment>4096</FileAlignment>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
-    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
-    <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;bin\*.config;bin\*.pdb;bin\*.xml;bin\amd64\*;bin\Mono.Data.Sqlite.dll;bin\MySql.Data.dll;bin\Npgsql.dll;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - pgsql|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug - pgsql'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
@@ -173,7 +140,7 @@
     <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - pgsql|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Release - pgsql'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
@@ -189,40 +156,7 @@
     <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;bin\amd64\*;bin\FirebirdSql.Data.FirebirdClient.dll;bin\Mono.Data.Sqlite.dll;bin\MySql.Data.dll;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - SqlCe|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <FileAlignment>4096</FileAlignment>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
-    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
-    <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - SqlCe|AnyCPU'">
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <Optimize>true</Optimize>
-    <FileAlignment>4096</FileAlignment>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
-    <ExcludeFoldersFromDeployment>Components;Controls\Adapters;Controls\Inputs;Controls\Analytics;Controls\Artisteer;Controls\Captcha;Controls\Editors;Controls\Google;Controls\jQuery;Controls\YUI;Data\Sites;Data\sqlitedb;Controls\Gravatar;Controls\Literals;Controls\Panels;Controls\SchemaOrg;Controls\Validators;Controls\WorldPay;Data\systemfiles\FolderGalleryCache</ExcludeFoldersFromDeployment>
-    <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - SQLite|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug - SQLite'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
@@ -239,7 +173,7 @@
     <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\pgsql\*;Setup\applications\*\SchemaUpgradeScripts\pgsql\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - SQLite|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Release - SQLite'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
@@ -3922,6 +3856,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
