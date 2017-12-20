@@ -303,7 +303,15 @@ namespace SuperFlexiUI
                                 if (itemDefAttribs["textBoxMode"] != null) field.TextBoxMode = itemDefAttribs["textBoxMode"].Value;
                                 field.IsDeleted = XmlUtils.ParseBoolFromAttribute(itemDefAttribs, "isDeleted", field.IsDeleted);
                                 field.IsGlobal = XmlUtils.ParseBoolFromAttribute(itemDefAttribs, "isGlobal", field.IsGlobal);
-								if (itemDefAttribs["viewRoles"] != null) field.ViewRoles = itemDefAttribs["viewRoles"].Value;
+								if (itemDefAttribs["viewRoles"] != null)
+								{
+									string viewRoles = itemDefAttribs["viewRoles"].Value;
+									if (String.IsNullOrWhiteSpace(viewRoles))
+									{
+										viewRoles = "All Users;";
+									}
+									field.ViewRoles = viewRoles;
+								}
 								if (itemDefAttribs["editRoles"] != null) field.EditRoles = itemDefAttribs["editRoles"].Value;
 
 								StringBuilder options = new StringBuilder();

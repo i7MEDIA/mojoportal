@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-03-06
-// Last Modified:			2017-12-19
+// Last Modified:			2017-12-20
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -383,6 +383,11 @@ namespace SuperFlexiBusiness
                 this.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
 				this.ViewRoles = reader["ViewRoles"].ToString();
 				this.EditRoles = reader["EditRoles"].ToString();
+				if (String.IsNullOrWhiteSpace(this.ViewRoles ))
+				{
+					//mysql doesn't allow default values for TEXT columns so we do this because the field should never be empty
+					this.ViewRoles = "AllUsers;";
+				}
                 string format = reader["DateFormat"].ToString().Trim();
 				if (format.Length > 0)
 				{
@@ -636,6 +641,12 @@ namespace SuperFlexiBusiness
 					field.isGlobal = Convert.ToBoolean(reader["IsGlobal"]);
 					field.viewRoles = reader["ViewRoles"].ToString();
 					field.editRoles = reader["EditRoles"].ToString();
+
+					if (String.IsNullOrWhiteSpace(field.viewRoles))
+					{
+						//mysql doesn't allow default values for TEXT columns so we do this because the field should never be empty
+						field.viewRoles = "All Users;";
+					}
 
 					fieldList.Add(field);
 
