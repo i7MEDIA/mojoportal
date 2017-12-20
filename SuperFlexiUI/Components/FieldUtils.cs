@@ -326,7 +326,19 @@ namespace SuperFlexiUI
                                         case "PostTokenString":
                                             field.PostTokenString = subNode.InnerText.Trim();
                                             break;
-                                    }
+										case "PreTokenStringWhenTrue":
+											field.PreTokenStringWhenTrue = subNode.InnerText.Trim();
+											break;
+										case "PostTokenStringWhenTrue":
+											field.PostTokenStringWhenTrue = subNode.InnerText.Trim();
+											break;
+										case "PreTokenStringWhenFalse":
+											field.PreTokenStringWhenFalse = subNode.InnerText.Trim();
+											break;
+										case "PostTokenStringWhenFalse":
+											field.PostTokenStringWhenFalse = subNode.InnerText.Trim();
+											break;
+									}
                                 }
 
                                 if (options.Length > 0)

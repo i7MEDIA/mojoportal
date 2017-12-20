@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA (joe davis)
 // Created:				    2014-12-22
-// Last Modified:			2017-09-15
+// Last Modified:			2017-12-19
 //
 // You must not remove this notice, or any other, from this software.
 //
@@ -344,6 +344,28 @@ namespace SuperFlexiUI
                                         }
                                     }                                    
                                 }
+
+								if (field.ControlType == "CheckBox")
+								{
+									string checkBoxContent = string.Empty;
+
+									if (fieldValue.FieldValue == field.CheckBoxReturnValueWhenTrue)
+									{
+										content.Replace("^" + field.Token + "^", fieldValue.FieldValue);
+										content.Replace("^" + field.Token, fieldValue.FieldValue + field.PostTokenString + field.PostTokenStringWhenTrue);
+										content.Replace(field.Token + "^", field.PreTokenString + field.PreTokenStringWhenTrue + fieldValue.FieldValue);
+										content.Replace(field.Token, field.PreTokenString + field.PreTokenStringWhenTrue + fieldValue.FieldValue + field.PostTokenString + field.PostTokenStringWhenTrue);
+									}
+
+									else if (fieldValue.FieldValue == field.CheckBoxReturnValueWhenFalse)
+									{
+										content.Replace("^" + field.Token + "^", fieldValue.FieldValue);
+										content.Replace("^" + field.Token, fieldValue.FieldValue + field.PostTokenString + field.PostTokenStringWhenFalse);
+										content.Replace(field.Token + "^", field.PreTokenString + field.PreTokenStringWhenFalse + fieldValue.FieldValue);
+										content.Replace(field.Token, field.PreTokenString + field.PreTokenStringWhenFalse + fieldValue.FieldValue + field.PostTokenString + field.PostTokenStringWhenFalse);
+									}
+								}
+
                                 //else
                                 //{
                                     /// ^field.Token is used when we don't want the preTokenString and postTokenString to be used

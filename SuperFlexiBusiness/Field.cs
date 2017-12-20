@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-03-06
-// Last Modified:			2017-11-09
+// Last Modified:			2017-12-19
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -50,6 +50,10 @@ namespace SuperFlexiBusiness
 		private string token = "$_NONE_$";
 		private string preTokenString = string.Empty;
 		private string postTokenString = string.Empty;
+		private string preTokenStringWhenTrue = string.Empty;
+		private string postTokenStringWhenTrue = string.Empty;
+		private string preTokenStringWhenFalse = string.Empty;
+		private string postTokenStringWhenFalse = string.Empty;
 		private bool searchable = true;
 		private string editPageControlWrapperCssClass = "settingrow";
 		private string editPageLabelCssClass = "settinglabel";
@@ -178,6 +182,28 @@ namespace SuperFlexiBusiness
 		{
 			get { return postTokenString; }
 			set { postTokenString = value; }
+		}
+		public string PreTokenStringWhenTrue
+		{
+			get { return preTokenStringWhenTrue; }
+			set { preTokenStringWhenTrue = value; }
+		}
+
+		public string PostTokenStringWhenTrue
+		{
+			get { return postTokenStringWhenTrue; }
+			set { postTokenStringWhenTrue = value; }
+		}
+		public string PreTokenStringWhenFalse
+		{
+			get { return preTokenStringWhenFalse; }
+			set { preTokenStringWhenFalse = value; }
+		}
+
+		public string PostTokenStringWhenFalse
+		{
+			get { return postTokenStringWhenFalse; }
+			set { postTokenStringWhenFalse = value; }
 		}
 		public bool Searchable
 		{
@@ -333,6 +359,10 @@ namespace SuperFlexiBusiness
 				this.token = reader["Token"].ToString();
 				this.preTokenString = reader["PreTokenString"].ToString();
 				this.postTokenString = reader["PostTokenString"].ToString();
+				this.preTokenStringWhenTrue = reader["PreTokenStringWhenTrue"].ToString();
+				this.postTokenStringWhenTrue = reader["PostTokenStringWhenTrue"].ToString();
+				this.preTokenStringWhenFalse = reader["PreTokenStringWhenFalse"].ToString();
+				this.postTokenStringWhenFalse = reader["PostTokenStringWhenFalse"].ToString();
 				this.searchable = Convert.ToBoolean(reader["Searchable"]);
 				this.editPageControlWrapperCssClass = reader["EditPageControlWrapperCssClass"].ToString();
 				this.editPageLabelCssClass = reader["EditPageLabelCssClass"].ToString();
@@ -396,6 +426,10 @@ namespace SuperFlexiBusiness
 				this.token,
 				this.preTokenString,
 				this.postTokenString,
+				this.preTokenStringWhenTrue,
+				this.postTokenStringWhenTrue,
+				this.preTokenStringWhenFalse,
+				this.postTokenStringWhenFalse,
 				this.searchable,
 				this.editPageControlWrapperCssClass,
 				this.editPageLabelCssClass,
@@ -449,6 +483,10 @@ namespace SuperFlexiBusiness
 				this.token,
 				this.preTokenString,
 				this.postTokenString,
+				this.preTokenStringWhenTrue,
+				this.postTokenStringWhenTrue,
+				this.preTokenStringWhenFalse,
+				this.postTokenStringWhenFalse,
 				this.searchable,
 				this.editPageControlWrapperCssClass,
 				this.editPageLabelCssClass,
@@ -573,6 +611,10 @@ namespace SuperFlexiBusiness
 					field.token = reader["Token"].ToString();
 					field.preTokenString = reader["PreTokenString"].ToString();
 					field.postTokenString = reader["PostTokenString"].ToString();
+					field.preTokenStringWhenTrue = reader["PreTokenStringWhenTrue"].ToString();
+					field.postTokenStringWhenTrue = reader["PostTokenStringWhenTrue"].ToString();
+					field.preTokenStringWhenFalse = reader["PreTokenStringWhenFalse"].ToString();
+					field.postTokenStringWhenFalse = reader["PostTokenStringWhenFalse"].ToString();
 					field.searchable = Convert.ToBoolean(reader["Searchable"]);
 					field.editPageControlWrapperCssClass = reader["EditPageControlWrapperCssClass"].ToString();
 					field.editPageLabelCssClass = reader["EditPageLabelCssClass"].ToString();
@@ -715,6 +757,10 @@ namespace SuperFlexiBusiness
 				&& x.Token == y.Token
 				&& x.PreTokenString == y.PreTokenString
 				&& x.PostTokenString == y.PostTokenString
+				&& x.PreTokenStringWhenTrue == y.PreTokenStringWhenTrue
+				&& x.PostTokenStringWhenTrue == y.PostTokenStringWhenTrue
+				&& x.PreTokenStringWhenFalse == y.PreTokenStringWhenFalse
+				&& x.PostTokenStringWhenFalse == y.PostTokenStringWhenFalse
 				&& x.Label == y.Label
 				&& x.HelpKey == y.HelpKey
 				&& x.Required == y.Required
@@ -760,6 +806,10 @@ namespace SuperFlexiBusiness
 			int hashToken = field.Token.GetHashCode();
 			int hashPreTokenString = field.PreTokenString.GetHashCode();
 			int hashPostTokenString = field.PostTokenString.GetHashCode();
+			int hashPreTokenStringWhenTrue = field.PreTokenStringWhenTrue.GetHashCode();
+			int hashPostTokenStringWhenTrue = field.PostTokenStringWhenTrue.GetHashCode();
+			int hashPreTokenStringWhenFalse = field.PreTokenStringWhenFalse.GetHashCode();
+			int hashPostTokenStringWhenFalse = field.PostTokenStringWhenFalse.GetHashCode();
 			int hashLabel = field.Label.GetHashCode();
 			int hashHelpKey = field.HelpKey.GetHashCode();
 			int hashRequired = field.Required.GetHashCode();
@@ -803,6 +853,10 @@ namespace SuperFlexiBusiness
 				 ^ hashToken 
 				 ^ hashPreTokenString
 				 ^ hashPostTokenString
+				 ^ hashPreTokenStringWhenTrue
+				 ^ hashPostTokenStringWhenTrue
+				 ^ hashPreTokenStringWhenFalse
+				 ^ hashPostTokenStringWhenFalse
 				 ^ hashSearchable 
 				 ^ hashEditPageControlWrapperCssClass 
 				 ^ hashEditPageLabelCssClass 

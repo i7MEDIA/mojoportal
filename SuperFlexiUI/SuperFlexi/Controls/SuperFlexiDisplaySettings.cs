@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA (joe davis)
 // Created:				    2014-12-22
-// Last Modified:			2016-06-10
+// Last Modified:			2017-12-19
 //
 // You must not remove this notice, or any other, from this software.
 //
@@ -179,8 +179,8 @@ namespace SuperFlexiUI
         private string exportLinkFormat = "&nbsp;<a class='ModuleEditLink flexi-export-link' href='{0}'><span class='fa fa-download'></span>&nbsp;{1}</a>";
         public string ExportLinkFormat
         {
-            get { return importLinkFormat; }
-            set { importLinkFormat = value; }
+            get { return exportLinkFormat; }
+            set { exportLinkFormat = value; }
         }
 
         private string itemEditLinkFormat = "<a class='flexi-item-edit' href='{0}'><span class='fa fa-pencil'></span>&nbsp;Edit</a>";

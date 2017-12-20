@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-03-06
-// Last Modified:			2017-11-09
+// Last Modified:			2017-12-19
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -38,7 +38,11 @@ namespace SuperFlexiData
             string token,
             string preTokenString,
             string postTokenString,
-            bool searchable,
+			string preTokenStringWhenTrue,
+			string postTokenStringWhenTrue,
+			string preTokenStringWhenFalse,
+			string postTokenStringWhenFalse,
+			bool searchable,
             string editPageControlWrapperCssClass,
             string editPageLabelCssClass,
             string editPageControlCssClass,
@@ -58,7 +62,7 @@ namespace SuperFlexiData
 			string viewRoles,
 			string editRoles)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Insert", 38);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Insert", 40);
             sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
             sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
             sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
@@ -78,7 +82,11 @@ namespace SuperFlexiData
             sph.DefineSqlParameter("@Token", SqlDbType.NVarChar, -1, ParameterDirection.Input, token);
             sph.DefineSqlParameter("@PreTokenString", SqlDbType.NVarChar, -1, ParameterDirection.Input, preTokenString);
             sph.DefineSqlParameter("@PostTokenString", SqlDbType.NVarChar, -1, ParameterDirection.Input, postTokenString);
-            sph.DefineSqlParameter("@Searchable", SqlDbType.Bit, ParameterDirection.Input, searchable);
+			sph.DefineSqlParameter("@PreTokenStringWhenTrue", SqlDbType.NVarChar, -1, ParameterDirection.Input, preTokenStringWhenTrue);
+			sph.DefineSqlParameter("@PostTokenStringWhenTrue", SqlDbType.NVarChar, -1, ParameterDirection.Input, postTokenStringWhenTrue);
+			sph.DefineSqlParameter("@PreTokenStringWhenFalse", SqlDbType.NVarChar, -1, ParameterDirection.Input, preTokenStringWhenFalse);
+			sph.DefineSqlParameter("@PostTokenStringWhenFalse", SqlDbType.NVarChar, -1, ParameterDirection.Input, postTokenStringWhenFalse);
+			sph.DefineSqlParameter("@Searchable", SqlDbType.Bit, ParameterDirection.Input, searchable);
             sph.DefineSqlParameter("@EditPageControlWrapperCssClass", SqlDbType.NVarChar, 50, ParameterDirection.Input, editPageControlWrapperCssClass);
             sph.DefineSqlParameter("@EditPageLabelCssClass", SqlDbType.NVarChar, 50, ParameterDirection.Input, editPageLabelCssClass);
             sph.DefineSqlParameter("@EditPageControlCssClass", SqlDbType.NVarChar, 50, ParameterDirection.Input, editPageControlCssClass);
@@ -126,7 +134,11 @@ namespace SuperFlexiData
             string token,
             string preTokenString,
             string postTokenString,
-            bool searchable,
+			string preTokenStringWhenTrue,
+			string postTokenStringWhenTrue,
+			string preTokenStringWhenFalse,
+			string postTokenStringWhenFalse,
+			bool searchable,
             string editPageControlWrapperCssClass,
             string editPageLabelCssClass,
             string editPageControlCssClass,
@@ -148,7 +160,7 @@ namespace SuperFlexiData
 			string viewRoles,
 			string editRoles)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Update", 39);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Update", 41);
             sph.DefineSqlParameter("@FieldGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, fieldGuid);
             sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
             sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
@@ -168,7 +180,11 @@ namespace SuperFlexiData
             sph.DefineSqlParameter("@Token", SqlDbType.NVarChar, 50, ParameterDirection.Input, token);
             sph.DefineSqlParameter("@PreTokenString", SqlDbType.NVarChar, -1, ParameterDirection.Input, preTokenString);
             sph.DefineSqlParameter("@PostTokenString", SqlDbType.NVarChar, -1, ParameterDirection.Input, postTokenString);
-            sph.DefineSqlParameter("@Searchable", SqlDbType.Bit, ParameterDirection.Input, searchable);
+			sph.DefineSqlParameter("@PreTokenStringWhenTrue", SqlDbType.NVarChar, -1, ParameterDirection.Input, preTokenStringWhenTrue);
+			sph.DefineSqlParameter("@PostTokenStringWhenTrue", SqlDbType.NVarChar, -1, ParameterDirection.Input, postTokenStringWhenTrue);
+			sph.DefineSqlParameter("@PreTokenStringWhenFalse", SqlDbType.NVarChar, -1, ParameterDirection.Input, preTokenStringWhenFalse);
+			sph.DefineSqlParameter("@PostTokenStringWhenFalse", SqlDbType.NVarChar, -1, ParameterDirection.Input, postTokenStringWhenFalse);
+			sph.DefineSqlParameter("@Searchable", SqlDbType.Bit, ParameterDirection.Input, searchable);
             sph.DefineSqlParameter("@EditPageControlWrapperCssClass", SqlDbType.NVarChar, 50, ParameterDirection.Input, editPageControlWrapperCssClass);
             sph.DefineSqlParameter("@EditPageLabelCssClass", SqlDbType.NVarChar, 50, ParameterDirection.Input, editPageLabelCssClass);
             sph.DefineSqlParameter("@EditPageControlCssClass", SqlDbType.NVarChar, 50, ParameterDirection.Input, editPageControlCssClass);
