@@ -147,6 +147,8 @@
     <Content Include="Setup\RouteRegistrars\SuperFlexiRoutes.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.1.5.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.1.6.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mysql\0.0.1.7.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.1.7.config" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
