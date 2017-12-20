@@ -1,5 +1,5 @@
 ﻿// Created:					2017-07-13
-// Last Modified:			2017-07-13
+// Last Modified:			2017-12-20
 
 using mojoPortal.Data;
 using MySql.Data.MySqlClient;
@@ -398,13 +398,72 @@ namespace SuperFlexiData
                 sqlParams.ToArray());
         }
 
-        /// <summary>
-        /// Gets a page of data from the i7_sflexi_values table.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="totalPages">total pages</param>
-        public static IDataReader GetPage(
+		public static IDataReader GetPageOfValuesForField(
+			Guid moduleGuid,
+			Guid definitionGuid,
+			string field,
+			int pageNumber,
+			int pageSize,
+			string searchTerm = "",
+			//string searchField = "",
+			bool descending = false)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			int offsetRows = (pageSize * pageNumber) - pageSize;
+
+			if (!String.IsNullOrWhiteSpace(searchTerm))
+			{
+				sqlCommand.Append(@"SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, v.*
+					FROM `i7_sflexi_values` v
+						JOIN(
+							SELECT DISTINCT `FieldGuid`
+							FROM `i7_sflexi_fields`
+							WHERE Name = '?Field'
+							AND `DefinitionGuid` = ?DefinitionGuid
+							) f ON f.FieldGuid = v.FieldGuid
+						WHERE `ModuleGuid` = ?ModuleGuid
+						AND v.FieldValue LIKE '%?SearchTerm%'
+						ORDER BY `Id` ?SortDirection
+						LIMIT ?PageSize " + (pageNumber > 1 ? "OFFSET ?OffsetRows;" : ";"));
+			}
+			else
+			{
+				sqlCommand.Append(@"SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, v.*
+					FROM `i7_sflexi_values` v
+						JOIN(
+							SELECT DISTINCT `FieldGuid`
+							FROM `i7_sflexi_fields`
+							WHERE Name = '?Field'
+							AND `DefinitionGuid` = ?DefinitionGuid
+							) f ON f.FieldGuid = v.FieldGuid
+						WHERE `ModuleGuid` = ?ModuleGuid
+						ORDER BY `Id` ?SortDirection
+						LIMIT ?PageSize " + (pageNumber > 1 ? "OFFSET ?OffsetRows;" : ";"));
+			}
+
+			var sqlParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
+				new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
+				new MySqlParameter("?SearchTerm", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = searchTerm },
+				new MySqlParameter("?Field", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = field },
+				new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid },
+				new MySqlParameter("?SortDirection", MySqlDbType.VarChar, 4) { Direction = ParameterDirection.Input, Value = descending ? "DESC" : "ASC" }
+			};
+
+			return MySqlHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			sqlParams.ToArray());
+		}
+
+			/// <summary>
+			/// Gets a page of data from the i7_sflexi_values table.
+			/// </summary>
+			/// <param name="pageNumber">The page number.</param>
+			/// <param name="pageSize">Size of the page.</param>
+			/// <param name="totalPages">total pages</param>
+			public static IDataReader GetPage(
             int pageNumber,
             int pageSize,
             out int totalPages)

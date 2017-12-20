@@ -1,5 +1,5 @@
 ﻿// Created:					2017-07-13
-// Last Modified:			2017-07-18
+// Last Modified:			2017-12-20
 
 using mojoPortal.Data;
 using MySql.Data.MySqlClient;
@@ -38,7 +38,11 @@ namespace SuperFlexiData
             string token,
             string preTokenString,
             string postTokenString,
-            bool searchable,
+			string preTokenStringWhenTrue,
+			string postTokenStringWhenTrue,
+			string preTokenStringWhenFalse,
+			string postTokenStringWhenFalse,
+			bool searchable,
             string editPageControlWrapperCssClass,
             string editPageLabelCssClass,
             string editPageControlCssClass,
@@ -95,9 +99,13 @@ namespace SuperFlexiData
                 + "DateFormat,"
                 + "TextBoxMode,"
                 + "Attributes,"
-                + "PreTokenString,"
-                + "PostTokenString,"
-                + "IsGlobal,"
+				+ "PreTokenString,"
+				+ "PostTokenString,"
+				+ "PreTokenStringWhenTrue,"
+				+ "PostTokenStringWhenTrue,"
+				+ "PreTokenStringWhenFalse,"
+				+ "PostTokenStringWhenFalse,"
+				+ "IsGlobal,"
 				+ "ViewRoles,"
 				+ "EditRoles"
                 ,"?SiteGuid,"
@@ -160,7 +168,11 @@ namespace SuperFlexiData
                 new MySqlParameter("?Token", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = token },
                 new MySqlParameter("?PreTokenString", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = preTokenString },
                 new MySqlParameter("?PostTokenString", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = postTokenString },
-                new MySqlParameter("?Searchable", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = searchable },
+				new MySqlParameter("?PreTokenStringWhenTrue", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = preTokenStringWhenTrue },
+				new MySqlParameter("?PostTokenStringWhenTrue", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = postTokenStringWhenTrue },
+				new MySqlParameter("?PreTokenStringWhenFalse", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = preTokenStringWhenFalse },
+				new MySqlParameter("?PostTokenStringWhenFalse", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = postTokenStringWhenFalse },
+				new MySqlParameter("?Searchable", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = searchable },
                 new MySqlParameter("?EditPageControlWrapperCssClass", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = editPageControlWrapperCssClass },
                 new MySqlParameter("?EditPageLabelCssClass", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = editPageLabelCssClass },
                 new MySqlParameter("?EditPageControlCssClass", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = editPageControlCssClass },
@@ -213,7 +225,11 @@ namespace SuperFlexiData
             string token,
             string preTokenString,
             string postTokenString,
-            bool searchable,
+			string preTokenStringWhenTrue,
+			string postTokenStringWhenTrue,
+			string preTokenStringWhenFalse,
+			string postTokenStringWhenFalse,
+			bool searchable,
             string editPageControlWrapperCssClass,
             string editPageLabelCssClass,
             string editPageControlCssClass,
@@ -231,7 +247,9 @@ namespace SuperFlexiData
             string textBoxMode,
             string attributes,
             bool isDeleted,
-            bool isGlobal)
+            bool isGlobal,
+			string viewRoles,
+			string editRoles)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.AppendFormat("UPDATE i7_sflexi_fields SET {0} WHERE FieldGuid = ?FieldGuid;"
@@ -253,7 +271,11 @@ namespace SuperFlexiData
                 + "Token = ?Token,"
                 + "PreTokenString = ?PreTokenString,"
                 + "PostTokenString = ?PostTokenString,"
-                + "Searchable = ?Searchable,"
+				+ "PreTokenStringWhenTrue = ?PreTokenStringWhenTrue,"
+				+ "PostTokenStringWhenTrue = ?PostTokenStringWhenTrue,"
+				+ "PreTokenStringWhenFalse = ?PreTokenStringWhenFalse,"
+				+ "PostTokenStringWhenFalse = ?PostTokenStringWhenFalse,"
+				+ "Searchable = ?Searchable,"
                 + "EditPageControlWrapperCssClass = ?EditPageControlWrapperCssClass,"
                 + "EditPageLabelCssClass = ?EditPageLabelCssClass,"
                 + "EditPageControlCssClass = ?EditPageControlCssClass,"
@@ -270,7 +292,9 @@ namespace SuperFlexiData
                 + "TextBoxMode = ?TextBoxMode,"
                 + "Attributes = ?Attributes,"
                 + "IsDeleted = ?IsDeleted,"
-                + "IsGlobal = ?IsGlobal");
+                + "IsGlobal = ?IsGlobal,"
+                + "ViewRoles = ?ViewRoles,"
+				+ "EditRoles = ?EditRoles");
 
             var sqlParams = new List<MySqlParameter>
             {
@@ -293,7 +317,11 @@ namespace SuperFlexiData
                 new MySqlParameter("?Token", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = token },
                 new MySqlParameter("?PreTokenString", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = preTokenString },
                 new MySqlParameter("?PostTokenString", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = postTokenString },
-                new MySqlParameter("?Searchable", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = searchable },
+				new MySqlParameter("?PreTokenStringWhenTrue", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = preTokenStringWhenTrue },
+				new MySqlParameter("?PostTokenStringWhenTrue", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = postTokenStringWhenTrue },
+				new MySqlParameter("?PreTokenStringWhenFalse", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = preTokenStringWhenFalse },
+				new MySqlParameter("?PostTokenStringWhenFalse", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = postTokenStringWhenFalse },
+				new MySqlParameter("?Searchable", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = searchable },
                 new MySqlParameter("?EditPageControlWrapperCssClass", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = editPageControlWrapperCssClass },
                 new MySqlParameter("?EditPageLabelCssClass", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = editPageLabelCssClass },
                 new MySqlParameter("?EditPageControlCssClass", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = editPageControlCssClass },
@@ -309,8 +337,10 @@ namespace SuperFlexiData
                 new MySqlParameter("?DateFormat", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = dateFormat },
                 new MySqlParameter("?TextBoxMode", MySqlDbType.VarChar, 25) { Direction = ParameterDirection.Input, Value = textBoxMode },
                 new MySqlParameter("?Attributes", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = attributes },
-                new MySqlParameter("?IsGlobal", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = isGlobal }
-            };
+                new MySqlParameter("?IsGlobal", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = isGlobal },
+				new MySqlParameter("?ViewRoles", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = viewRoles },
+				new MySqlParameter("?EditRoles", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = editRoles }
+			};
             int rowsAffected = Convert.ToInt32(MySqlHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),

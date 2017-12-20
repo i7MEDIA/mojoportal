@@ -312,11 +312,80 @@ namespace SuperFlexiData
                 sqlParam);
         }
 
-        /// <summary>
-        /// Gets an IDataReader with all items for a single definition.
-        /// </summary>
-        /// <param name="itemID"> itemID </param>
-        public static IDataReader GetAllForDefinition(Guid definitionGuid)
+		public static IDataReader GetPageOfModuleItems(
+			Guid moduleGuid,
+			int pageNumber,
+			int pageSize,
+			string searchTerm = "",
+			string searchField = "",
+			//string sortField = "",
+			bool descending = false)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+
+			if (String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+			{
+				sqlCommand.Append(@"SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*
+					FROM `i7_sflexi_items` i
+						JOIN(
+							SELECT DISTINCT ItemGuid
+							FROM `i7_sflexi_values`
+							WHERE FieldValue LIKE '%?SearchTerm%'
+							) v ON v.ItemGuid = i.ItemGuid
+						WHERE `ModuleGuid` = '?ModuleGuid' 
+						ORDER BY `SortOrder` ?SortDirection
+						LIMIT ?PageSize " + (pageNumber > 1 ? "OFFSET ?OffsetRows;" : ";"));
+			}
+			else if (!String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+			{
+				sqlCommand.Append(@"SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*
+					FROM `i7_sflexi_items` i
+						JOIN(
+							SELECT DISTINCT `ItemGuid`, `FieldGuid`
+							FROM `i7_sflexi_values`
+							WHERE FieldValue LIKE '%?SearchTerm%'
+							) v ON v.ItemGuid = i.ItemGuid
+						JOIN(
+							SELECT DISTINCT `FieldGuid`
+							FROM `i7_sflexi_fields`
+							WHERE `Name` = ?SearchField
+							) f on f.FieldGuid = v.FieldGuid
+						WHERE `ModuleGuid` = ?ModuleGuid
+						ORDER BY `SortOrder` ?SortDirection
+						LIMIT ?PageSize " + (pageNumber > 1 ? "OFFSET ?OffsetRows;" : ";"));
+			}
+			else
+			{
+				sqlCommand.Append(@"SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*
+					FROM `i7_sflexi_items` i
+					WHERE `ModuleGuid` = '?ModuleGuid' 
+					ORDER BY `SortOrder` ?SortDirection
+					LIMIT ?PageSize " + (pageNumber > 1 ? "OFFSET ?OffsetRows;" : ";"));
+			}
+
+			int offsetRows = (pageSize * pageNumber) - pageSize;
+
+			var sqlParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
+				new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
+				new MySqlParameter("?SearchTerm", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = searchTerm },
+				new MySqlParameter("?SearchField", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = searchField },
+				new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid },
+				new MySqlParameter("?SortDirection", MySqlDbType.VarChar, 4) { Direction = ParameterDirection.Input, Value = descending ? "DESC" : "ASC" }
+			};
+
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand.ToString(),
+				sqlParams.ToArray());
+		}
+
+			/// <summary>
+			/// Gets an IDataReader with all items for a single definition.
+			/// </summary>
+			/// <param name="itemID"> itemID </param>
+			public static IDataReader GetAllForDefinition(Guid definitionGuid)
         {
             string sqlCommand = @"SELECT 
                 SiteGuid, 
