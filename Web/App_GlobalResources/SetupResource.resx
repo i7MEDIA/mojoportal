@@ -270,7 +270,7 @@ Obviously, instructions are a little different on Linux/Mono but the same princi
 For more information see http://www.mojoportal.com/mediumtrust.aspx</value>
   </data>
   <data name="MediumTrustGeneralMessage" xml:space="preserve">
-    <value>This site appears to be running in a secured environment using Medium Trust policy or at least lower than Full Trust.</value>
+    <value>This site appears to be running in a secured environment using Medium Trust policy or at least lower than Full Trust. mojoPortal is not supported in less than Full Trust hosting.</value>
   </data>
   <data name="MediumTrustLuceneConfigPreambleMessage" xml:space="preserve">
     <value>In order for the Search Engine to work in Medium trust, you need to add this in Web.config in the AppSettings section:</value>

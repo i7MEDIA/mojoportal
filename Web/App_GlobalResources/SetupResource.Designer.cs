@@ -507,7 +507,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This site appears to be running in a secured environment using Medium Trust policy or at least lower than Full Trust..
+        ///   Looks up a localized string similar to This site appears to be running in a secured environment using Medium Trust policy or at least lower than Full Trust. mojoPortal is not supported in less than Full Trust hosting..
         /// </summary>
         internal static string MediumTrustGeneralMessage {
             get {

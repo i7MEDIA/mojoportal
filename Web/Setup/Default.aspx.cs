@@ -842,8 +842,29 @@ namespace mojoPortal.Web.UI.Pages
 
         private void WritePageFooter()
         {
-            Response.Write("</body>");
-            Response.Write("</html>");
+
+			string setupFooterTemplatePath = WebConfigSettings.SetupFooterConfigPath;
+			if (CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft)
+			{
+				setupFooterTemplatePath = WebConfigSettings.SetupFooterConfigPathRtl;
+			}
+
+
+			if (File.Exists(HttpContext.Current.Server.MapPath(setupFooterTemplatePath)))
+			{
+				string sHtml = string.Empty;
+				using (StreamReader oStreamReader = File.OpenText(System.Web.HttpContext.Current.Server.MapPath(setupFooterTemplatePath)))
+				{
+					sHtml = oStreamReader.ReadToEnd();
+				}
+				Response.Write(sHtml);
+			}
+			else
+			{
+				Response.Write("</body>");
+				Response.Write("</html>");
+			}
+
             Response.Flush();
         }
 
@@ -1000,8 +1021,8 @@ namespace mojoPortal.Web.UI.Pages
                 // inform of Medium trust configuration issues
                 WritePageContent(
                     "<b>" + SetupResource.MediumTrustGeneralMessage + "</b><br />"
-                    + GetDataAccessMediumTrustMessage() + "<br /><br />",
-                    false);
+                    //+ GetDataAccessMediumTrustMessage() + "<br /><br />",
+                    ,false);
 
             }
         }
@@ -1040,46 +1061,46 @@ namespace mojoPortal.Web.UI.Pages
             Application["UpgradeInProgress"] = false;
         }
 
-        private string GetDataAccessMediumTrustMessage()
-        {
-            string message = string.Empty;
-            string dbPlatform = DatabaseHelper.DBPlatform();
-            switch (dbPlatform)
-            {
-                case "MySQL":
-                    message = SetupResource.MediumTrustMySQLMessage;
-                    break;
+        //private string GetDataAccessMediumTrustMessage()
+        //{
+        //    string message = string.Empty;
+        //    string dbPlatform = DatabaseHelper.DBPlatform();
+        //    switch (dbPlatform)
+        //    {
+        //        case "MySQL":
+        //            message = SetupResource.MediumTrustMySQLMessage;
+        //            break;
 
-                case "pgsql":
-                    message = SetupResource.MediumTrustnpgsqlMessage;
-                    break;
+        //        case "pgsql":
+        //            message = SetupResource.MediumTrustnpgsqlMessage;
+        //            break;
 
 
-            }
+        //    }
 
-            return message;
+        //    return message;
 
-        }
+        //}
 
-        private string GetLuceneMediumTrustMessage()
-        {
-            string result = SetupResource.MediumTrustLuceneConfigPreambleMessage 
-                    + "<br /><br />"
-                    + Server.HtmlEncode(GetLuceneExampleMediumTrustConfig())
-                    + "<br /><br />";
+        //private string GetLuceneMediumTrustMessage()
+        //{
+        //    string result = SetupResource.MediumTrustLuceneConfigPreambleMessage 
+        //            + "<br /><br />"
+        //            + Server.HtmlEncode(GetLuceneExampleMediumTrustConfig())
+        //            + "<br /><br />";
 
-            return result;
+        //    return result;
 
-        }
+        //}
 
-        private string GetLuceneExampleMediumTrustConfig()
-        {
-            string example = "<add key=\"Lucene.Net.lockdir\" value=\"" 
-                + GetPathToIndexFolder() + "\" />";
+        //private string GetLuceneExampleMediumTrustConfig()
+        //{
+        //    string example = "<add key=\"Lucene.Net.lockdir\" value=\"" 
+        //        + GetPathToIndexFolder() + "\" />";
 
-            return example;
+        //    return example;
 
-        }
+        //}
 
         private string GetPathToIndexFolder()
         {

@@ -4249,7 +4249,32 @@ namespace mojoPortal.Web
 			}
 		}
 
-		
+		public static string SetupFooterConfigPath
+		{
+			get
+			{
+				if (ConfigurationManager.AppSettings["SetupFooterConfigPath"] != null)
+				{
+					return ConfigurationManager.AppSettings["SetupFooterConfigPath"];
+				}
+				// default value
+				return "~/Setup/SetupFooter.config";
+			}
+		}
+
+		public static string SetupFooterConfigPathRtl
+		{
+			get
+			{
+				if (ConfigurationManager.AppSettings["SetupFooterConfigPathRtl"] != null)
+				{
+					return ConfigurationManager.AppSettings["SetupFooterConfigPathRtl"];
+				}
+				// default value
+				return "~/Setup/SetupFooter-rtl.config";
+			}
+		}
+
 		public static string DefaultCountry
 		{
 			get
