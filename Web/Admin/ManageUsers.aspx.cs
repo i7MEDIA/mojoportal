@@ -738,7 +738,7 @@ namespace mojoPortal.Web.AdminUI
 
 			if(user.Save())
 			{
-                user.PasswordQuestion = this.txtPasswordQuestion.Text;
+				user.PasswordQuestion = this.txtPasswordQuestion.Text;
                 user.PasswordAnswer = this.txtPasswordAnswer.Text;
                 user.Save();
 
@@ -747,8 +747,8 @@ namespace mojoPortal.Web.AdminUI
                 foreach (mojoProfilePropertyDefinition propertyDefinition in profileConfig.PropertyDefinitions)
                 {
                     if (propertyDefinition.Name == mojoProfilePropertyDefinition.TimeZoneIdKey) { continue; }
-
-                    mojoProfilePropertyDefinition.SavePropertyDefault(user, propertyDefinition);
+					if (propertyDefinition.Name == "FirstName" || propertyDefinition.Name == "LastName") { continue; }
+					mojoProfilePropertyDefinition.SavePropertyDefault(user, propertyDefinition);
                 }
 
                 CacheHelper.ClearMembershipStatisticsCache();
