@@ -590,7 +590,7 @@ namespace mojoPortal.Web.UI
                 typeof(Page),
                 "gmap", "\n<script src=\""
                 + protocol
-                + "://maps.googleapis.com/maps/api/js?v=3.6&amp;sensor=false"
+                + "://maps.googleapis.com/maps/api/js?v=3&amp;key=" + gMapApiKey
                 + "\" type=\"text/javascript\"></script>");
 
                 Page.ClientScript.RegisterClientScriptBlock(
