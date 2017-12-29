@@ -1,4 +1,5 @@
 ﻿@using Resources;
+@using mojoPortal.Business.WebHelpers;
 @model mojoPortal.Web.Models.FileManager
 
 @{
@@ -6,6 +7,8 @@
 	ViewBag.AngularApp = "FileManagerApp";
 	ViewBag.BodyClass = "ng-cloak" + ((Model.View == "fullpage" || (Model.Type == "file" || Model.Type == "folder")) ? " fullpage" : string.Empty);
 	Layout = "~/Views/FileManager/_FileManagerLayout.cshtml";
+	var siteSettings = CacheHelper.GetCurrentSiteSettings();
+	var siteFolderName = String.IsNullOrWhiteSpace(siteSettings.SiteFolderName) ? "" : siteSettings.SiteFolderName + "/";
 }
 
 @if (Model.View == "fullpage")
@@ -76,20 +79,20 @@
 					remove: @Model.Remove,
 					createFolder: @Model.CreateFolder,
 				}),
-				listUrl: '@Url.Content("~")fileservice',
-				uploadUrl: '@Url.Content("~")fileservice/fileupload',
-				renameUrl: '@Url.Content("~")fileservice',
-				copyUrl: '@Url.Content("~")fileservice',
-				moveUrl: '@Url.Content("~")fileservice',
-				removeUrl: '@Url.Content("~")fileservice',
-				editUrl: '@Url.Content("~")fileservice',
-				getContentUrl: '@Url.Content("~")fileservice',
-				createFolderUrl: '@Url.Content("~")fileservice',
-				downloadFileUrl: '@Url.Content("~")fileservice',
-				downloadMultipleUrl: '@Url.Content("~")fileservice',
-				compressUrl: '@Url.Content("~")fileservice',
-				extractUrl: '@Url.Content("~")fileservice',
-				permissionsUrl: '@Url.Content("~")fileservice',
+				listUrl: '@Url.Content("~")@(siteFolderName)fileservice',
+				uploadUrl: '@Url.Content("~")@(siteFolderName)fileservice/fileupload',
+				renameUrl: '@Url.Content("~")@(siteFolderName)fileservice',
+				copyUrl: '@Url.Content("~")@(siteFolderName)fileservice',
+				moveUrl: '@Url.Content("~")@(siteFolderName)fileservice',
+				removeUrl: '@Url.Content("~")@(siteFolderName)fileservice',
+				editUrl: '@Url.Content("~")@(siteFolderName)fileservice',
+				getContentUrl: '@Url.Content("~")@(siteFolderName)fileservice',
+				createFolderUrl: '@Url.Content("~")@(siteFolderName)fileservice',
+				downloadFileUrl: '@Url.Content("~")@(siteFolderName)fileservice',
+				downloadMultipleUrl: '@Url.Content("~")@(siteFolderName)fileservice',
+				compressUrl: '@Url.Content("~")@(siteFolderName)fileservice',
+				extractUrl: '@Url.Content("~")@(siteFolderName)fileservice',
+				permissionsUrl: '@Url.Content("~")@(siteFolderName)fileservice',
 				basePath: '/',
 				fileSystemToken: '@Model.FileSystemToken',
 				typeQueryString: '@Model.Type',
