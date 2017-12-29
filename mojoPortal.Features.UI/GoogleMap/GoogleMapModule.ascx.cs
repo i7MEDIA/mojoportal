@@ -53,9 +53,9 @@ namespace mojoPortal.Web.MapUI
             gmap.GmapType = config.GoogleMapType;
             gmap.ZoomLevel = config.ZoomSetting;
             
-            if (config.Caption.Length > 0) { litCaption.Text = config.Caption + "<br />"; }
+            if (config.Caption.Length > 0) { litCaption.Text = config.Caption; }
   
-            if (config.UseLocationAsCaption) { litCaption.Text = Server.HtmlEncode(gmap.Location) + "<br />"; }
+            if (config.UseLocationAsCaption) { litCaption.Text = Server.HtmlEncode(gmap.Location); }
 
         }
 

@@ -69,6 +69,10 @@ namespace mojoPortal.Web
         private int mobileOnly = (int)ContentPublishMode.MobileOnly;
         private int webOnly = (int)ContentPublishMode.WebOnly;
         
+		protected virtual void OnPreInit(EventArgs e)
+		{
+			// this is here to allow adding logic before the Page_Load from the skin layout.master
+		}
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -136,6 +140,7 @@ namespace mojoPortal.Web
 
                 }
             }
+			
 
             SetupLayout();
         }
