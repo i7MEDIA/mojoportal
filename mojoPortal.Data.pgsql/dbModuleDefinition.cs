@@ -996,11 +996,11 @@ namespace mojoPortal.Data
             sqlCommand.Append("settingvalue, ");
             sqlCommand.Append("controltype, ");
             sqlCommand.Append("controlsrc, ");
-            sqlCommand.Append("helpkey, )");
+            sqlCommand.Append("helpkey, ");
             sqlCommand.Append("sortorder, ");
             sqlCommand.Append("groupname, ");
             sqlCommand.Append("regexvalidationexpression, ");
-            sqlCommand.Append("attributes, )");
+            sqlCommand.Append("attributes, ");
             sqlCommand.Append("options )");
 
 			sqlCommand.Append(" VALUES (");
@@ -1011,11 +1011,11 @@ namespace mojoPortal.Data
             sqlCommand.Append(":settingvalue, ");
             sqlCommand.Append(":controltype, ");
             sqlCommand.Append(":controlsrc, ");
-            sqlCommand.Append(":helpkey, )");
+            sqlCommand.Append(":helpkey, ");
             sqlCommand.Append(":sortorder, ");
             sqlCommand.Append(":groupname, ");
             sqlCommand.Append(":regexvalidationexpression, ");
-            sqlCommand.Append(":attributes, )");
+            sqlCommand.Append(":attributes, ");
             sqlCommand.Append(":options )");
 			sqlCommand.Append(";");
             
@@ -1116,7 +1116,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("sortorder = :sortorder, ");
             sqlCommand.Append("groupname = :groupname, ");
             sqlCommand.Append("helpkey = :helpkey, ");
-			sqlCommand.Append("attributes = :attributes, )");
+			sqlCommand.Append("attributes = :attributes, ");
 			sqlCommand.Append("options = :options )");
 
 			sqlCommand.Append("WHERE  ");

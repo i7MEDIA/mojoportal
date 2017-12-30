@@ -949,7 +949,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("HelpKey = :HelpKey  ,");
             sqlCommand.Append("SortOrder = :SortOrder  ,");
             sqlCommand.Append("GroupName = :GroupName  ,");
-            sqlCommand.Append("RegexValidationExpression = :RegexValidationExpression.  ");
+            sqlCommand.Append("RegexValidationExpression = :RegexValidationExpression,  ");
             sqlCommand.Append("Attributes = :Attributes,  ");
             sqlCommand.Append("Options = :Options  ");
 
