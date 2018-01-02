@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -26,6 +26,7 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,7 +71,7 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug - pgsql'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug - pgSQL'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -81,7 +82,7 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Release - pgsql'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Release - pgSQL'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -221,8 +222,6 @@
     <Content Include="Blog\ViewList.aspx" />
     <Content Include="Comments\CommentsDialog.aspx" />
     <Content Include="Comments\CommentsModule.ascx" />
-    <Content Include="Flickr\FlickrGallery.ascx" />
-    <Content Include="Flickr\FlickrThemeSetting.ascx" />
     <Content Include="Forums\Controls\ForumList.ascx" />
     <Content Include="Forums\Controls\ForumListAlt.ascx" />
     <Content Include="Forums\Controls\PostList.ascx" />
@@ -272,11 +271,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FeedResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\FlickrResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FlickrResources.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\FolderGalleryResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -347,11 +341,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SurveyResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\TwitterResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TwitterResources.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\XmlResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -725,29 +714,6 @@
     </Compile>
     <Compile Include="FlashModule\FlashMovieModule.ascx.designer.cs">
       <DependentUpon>FlashMovieModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Flickr\Components\FlickrGalleryConfiguration.cs" />
-    <Compile Include="Flickr\Components\FlickrGalleryContentInstaller.cs" />
-    <Compile Include="Flickr\FlickrGallery.ascx.cs">
-      <DependentUpon>FlickrGallery.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Flickr\FlickrGallery.ascx.designer.cs">
-      <DependentUpon>FlickrGallery.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Flickr\FlickrSlideShowModule.ascx.cs">
-      <DependentUpon>FlickrSlideShowModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Flickr\FlickrSlideShowModule.ascx.designer.cs">
-      <DependentUpon>FlickrSlideShowModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Flickr\FlickrThemeSetting.ascx.cs">
-      <DependentUpon>FlickrThemeSetting.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Flickr\FlickrThemeSetting.ascx.designer.cs">
-      <DependentUpon>FlickrThemeSetting.ascx</DependentUpon>
     </Compile>
     <Compile Include="FolderGallery\Components\FolderGalleryConfiguration.cs" />
     <Compile Include="FolderGallery\Components\FolderGalleryContentInstaller.cs" />
@@ -1671,27 +1637,7 @@
     <Content Include="Services\GalleryDataService.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\FlickrResources.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>FlickrResources.Designer.cs</LastGenOutput>
-    </Content>
-    <Content Include="Flickr\FlickrSlideShowModule.ascx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Setup\applications\flickrslideshow\FeatureDefinitions\70000_ImageFlickrSlideshowModule.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Setup\applications\twitter\FeatureDefinitions\90000_TwitterProfileModule.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_GlobalResources\TwitterResources.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>TwitterResources.Designer.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="ImageGallery\BulkUpload.aspx" />
-    <Content Include="Setup\applications\twitter\FeatureDefinitions\95000_TwitterSearchModule.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Forums\SubscriberDialog.aspx" />

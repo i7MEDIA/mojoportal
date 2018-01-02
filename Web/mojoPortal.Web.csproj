@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -123,7 +123,7 @@
     <ExcludeFilesFromDeployment>*.pubxml;*.pubxml.user;**\*.cs;*.csproj.user;*.csproj;App_Data\*.sdf;App_DesignTimeStyle\*;bin\*.config;bin\*.pdb;bin\*.xml;bin\*.xml;bin\amd64\*;bin\System.Data.SqlServerCe.dll;bin\x86\*;Data\*.config;Data\systemfiles\*.*;Setup\applications\*\SchemaInstallScripts\firebirdsql\**;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\**;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;Setup\applications\*\SchemaInstallScripts\sqlce\**;Setup\applications\*\SchemaUpgradeScripts\sqlce\**;Setup\applications\*\SchemaInstallScripts\sqlite\**;Setup\applications\*\SchemaUpgradeScripts\sqlite\**;user.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug - pgsql'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug - pgSQL'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
@@ -140,7 +140,7 @@
     <ExcludeFilesFromDeployment>user.config;*.cs;*.csproj*;Admin\*.cs;Admin\Controls\*.cs;Controls\*.cs;Controls\CommentSystems\*.cs;Controls\CommentSystems\Controls\*.cs;Controls\EmailTemplates\*.cs;Controls\Microsoft\*.cs;Controls\Rating\*.cs;Controls\Sharing\*.cs;Data\*.config;Data\systemfiles\*.*;Data\Sites\1\*.config;Data\Sites\1\systemfiles\*.*;DevAdmin\*.cs;DevAdmin\Controls\*.cs;Dialog\*.cs;eletter\*.cs;Modules\*.cs;Secure\*.cs;Services\*.cs;Setup\*.cs;bin\*.xml;Setup\applications\*\SchemaInstallScripts\firebirdsql\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*;Setup\applications\*\SchemaInstallScripts\firebirdsql\*\*;Setup\applications\*\SchemaUpgradeScripts\firebirdsql\*\*;Setup\applications\*\SchemaInstallScripts\mysql\*;Setup\applications\*\SchemaUpgradeScripts\mysql\*;Setup\applications\*\SchemaInstallScripts\mssql\*;Setup\applications\*\SchemaUpgradeScripts\mssql\*;Setup\applications\*\SchemaInstallScripts\sqlite\*;Setup\applications\*\SchemaUpgradeScripts\sqlite\*;Setup\applications\*\SchemaInstallScripts\sqlce\*;Setup\applications\*\SchemaUpgradeScripts\sqlce\*;App_Data\*.sdf;App_DesignTimeStyle\*;App_MasterPages\*.cs;bin\amd64\*;bin\x86\*;bin\System.Data.SqlServerCe.dll;DesignTools\*.cs;App_GlobalResources\*.cs;Data\Sites\1\index\*.*</ExcludeFilesFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Release - pgsql'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Release - pgSQL'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
@@ -1173,6 +1173,10 @@
     <Content Include="Scripts\AjaxControlToolkit\Release\ValidatorCallout.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\MSSQL.pubxml" />
+    <None Include="Properties\PublishProfiles\MySQL.pubxml" />
+    <None Include="Properties\PublishProfiles\pgSQL.pubxml" />
+    <None Include="Properties\PublishProfiles\SQLite.pubxml" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />

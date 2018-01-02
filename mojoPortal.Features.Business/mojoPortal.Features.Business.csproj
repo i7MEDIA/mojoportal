@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -22,7 +22,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,7 +31,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -39,7 +39,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug - MySql'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,7 +47,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release - MySql'">
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -58,9 +58,9 @@
     <CodeAnalysisFailOnMissingRules>true</CodeAnalysisFailOnMissingRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug - pgsql'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug - pgSQL'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -70,8 +70,8 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Release - pgsql'">
-    <OutputPath>bin\Release\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release - pgSQL'">
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -84,7 +84,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug - SQLite'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -94,7 +94,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release - SQLite'">
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -157,38 +157,38 @@
       <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
       <Name>mojoPortal.Business</Name>
     </ProjectReference>
-        <ProjectReference Condition="'$(Configuration)'=='Debug'" Include="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj">
-          <Project>{2FB266B5-97F0-42EB-9F42-B6A7DE749D29}</Project>
-          <Name>mojoPortal.Features.Data.MSSQL</Name>
-        </ProjectReference>	
-        <ProjectReference Condition="'$(Configuration)'=='Release'" Include="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj">
-          <Project>{2FB266B5-97F0-42EB-9F42-B6A7DE749D29}</Project>
-          <Name>mojoPortal.Features.Data.MSSQL</Name>
-        </ProjectReference>		
-        <ProjectReference Condition="'$(Configuration)'=='Debug - MySql'" Include="..\mojoPortal.Features.Data.MySql\mojoPortal.Features.Data.MySql.csproj">
-          <Project>{6DF34148-3B95-4B8A-9C63-823D4BE9F4DE}</Project>
-          <Name>mojoPortal.Features.Data.MySql</Name>
-        </ProjectReference>	
-		        <ProjectReference Condition="'$(Configuration)'=='Release - MySql'" Include="..\mojoPortal.Features.Data.MySql\mojoPortal.Features.Data.MySql.csproj">
-          <Project>{6DF34148-3B95-4B8A-9C63-823D4BE9F4DE}</Project>
-          <Name>mojoPortal.Features.Data.MySql</Name>
-        </ProjectReference>	
-<ProjectReference Condition="'$(Configuration)'=='Debug - pgsql'" Include="..\mojoPortal.Features.Data.pgsql\mojoPortal.Features.Data.pgsql.csproj">
-          <Project>{D156CD40-3AA9-48C2-8CDF-041386D2C067}</Project>
-          <Name>mojoPortal.Features.Data.pgsql</Name>
-        </ProjectReference>
-<ProjectReference Condition="'$(Configuration)'=='Release - pgsql'" Include="..\mojoPortal.Features.Data.pgsql\mojoPortal.Features.Data.pgsql.csproj">
-          <Project>{D156CD40-3AA9-48C2-8CDF-041386D2C067}</Project>
-          <Name>mojoPortal.Features.Data.pgsql</Name>
-        </ProjectReference>	
-		        <ProjectReference Condition="'$(Configuration)'=='Debug - SQLite'" Include="..\mojoPortal.Features.Data.SQLite\mojoPortal.Features.Data.SQLite.csproj">
-          <Project>{C9FC1EB2-96C9-4458-AAD4-0432E0D33C39}</Project>
-          <Name>mojoPortal.Features.Data.SQLite</Name>
-        </ProjectReference>
-        <ProjectReference Condition="'$(Configuration)'=='Release - SQLite'" Include="..\mojoPortal.Features.Data.SQLite\mojoPortal.Features.Data.SQLite.csproj">
-          <Project>{C9FC1EB2-96C9-4458-AAD4-0432E0D33C39}</Project>
-          <Name>mojoPortal.Features.Data.SQLite</Name>
-        </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Debug'" Include="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj">
+      <Project>{2FB266B5-97F0-42EB-9F42-B6A7DE749D29}</Project>
+      <Name>mojoPortal.Features.Data.MSSQL</Name>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Release'" Include="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj">
+      <Project>{2FB266B5-97F0-42EB-9F42-B6A7DE749D29}</Project>
+      <Name>mojoPortal.Features.Data.MSSQL</Name>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Debug - MySql'" Include="..\mojoPortal.Features.Data.MySql\mojoPortal.Features.Data.MySql.csproj">
+      <Project>{6DF34148-3B95-4B8A-9C63-823D4BE9F4DE}</Project>
+      <Name>mojoPortal.Features.Data.MySql</Name>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Release - MySql'" Include="..\mojoPortal.Features.Data.MySql\mojoPortal.Features.Data.MySql.csproj">
+      <Project>{6DF34148-3B95-4B8A-9C63-823D4BE9F4DE}</Project>
+      <Name>mojoPortal.Features.Data.MySql</Name>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Debug - pgSQL'" Include="..\mojoPortal.Features.Data.pgsql\mojoPortal.Features.Data.pgSQL.csproj">
+      <Project>{D156CD40-3AA9-48C2-8CDF-041386D2C067}</Project>
+      <Name>mojoPortal.Features.Data.pgSQL</Name>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Release - pgSQL'" Include="..\mojoPortal.Features.Data.pgsql\mojoPortal.Features.Data.pgsql.csproj">
+      <Project>{D156CD40-3AA9-48C2-8CDF-041386D2C067}</Project>
+      <Name>mojoPortal.Features.Data.pgsql</Name>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Debug - SQLite'" Include="..\mojoPortal.Features.Data.SQLite\mojoPortal.Features.Data.SQLite.csproj">
+      <Project>{C9FC1EB2-96C9-4458-AAD4-0432E0D33C39}</Project>
+      <Name>mojoPortal.Features.Data.SQLite</Name>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Release - SQLite'" Include="..\mojoPortal.Features.Data.SQLite\mojoPortal.Features.Data.SQLite.csproj">
+      <Project>{C9FC1EB2-96C9-4458-AAD4-0432E0D33C39}</Project>
+      <Name>mojoPortal.Features.Data.SQLite</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
