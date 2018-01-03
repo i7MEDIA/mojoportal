@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2012-08-11
+/// Last Modified:			2018-01-02
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -39,6 +39,8 @@ namespace mojoPortal.Data
             sqlCommand.Append("mds.controlsrc, ");
             sqlCommand.Append("mds.helpkey, ");
             sqlCommand.Append("mds.groupname, ");
+            sqlCommand.Append("mds.options, ");
+            sqlCommand.Append("mds.attributes, ");
             sqlCommand.Append("mds.resourcefile ");
 
             sqlCommand.Append("FROM	mp_modulesettings ms ");

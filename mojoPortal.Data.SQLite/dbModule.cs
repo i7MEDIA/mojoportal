@@ -1452,7 +1452,6 @@ namespace mojoPortal.Data
             sqlCommand.Append("JOIN mp_ModuleDefinitions md ");
             sqlCommand.Append("ON m.ModuleDefID = md.ModuleDefID ");
 
-            sqlCommand.Append("FROM	mp_Modules ");
             sqlCommand.Append("WHERE ");
             sqlCommand.Append("m.Guid = :ModuleGuid ;");
 

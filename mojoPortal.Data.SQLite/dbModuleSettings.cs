@@ -87,7 +87,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("mds.ControlSrc, ");
             sqlCommand.Append("mds.HelpKey, ");
             sqlCommand.Append("mds.GroupName, ");
-            sqlCommand.Append("mds.ResourceFile ");
+            sqlCommand.Append("mds.Attributes, ");
+            sqlCommand.Append("mds.Options, ");
+			sqlCommand.Append("mds.ResourceFile ");
 
             sqlCommand.Append("FROM	mp_ModuleSettings ms ");
 

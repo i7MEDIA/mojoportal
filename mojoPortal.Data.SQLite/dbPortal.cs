@@ -50,7 +50,12 @@ namespace mojoPortal.Data
 
         public static void EnsureDatabase()
         {
-            
+			FileInfo seedDb = new FileInfo("~/Data/sqlitedb/mojo-seed.db.config");
+
+			if (seedDb.Exists && !seedDb.IsReadOnly)
+			{
+				seedDb.CopyTo("~/Data/sqlitedb/mojo.db.config", true);
+			}
 
         }
 
@@ -1405,9 +1410,15 @@ namespace mojoPortal.Data
 
         }
 
-        public static bool DatabaseHelperSitesTableExists()
+        public static bool DatabaseHelperSitesTableExists(bool copySQLiteSeedDbIfEmpty = false)
         {
-            return DatabaseHelperTableExists("mp_Sites");
+			if (copySQLiteSeedDbIfEmpty)
+			{
+				if (DatabaseHelperTableExists("mp_Sites")) return true;
+				EnsureDatabase();
+			}
+			
+			return DatabaseHelperTableExists("mp_Sites");
         }
 
         public static bool DatabaseHelperTableExists(string tableName)
