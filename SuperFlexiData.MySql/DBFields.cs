@@ -1,5 +1,5 @@
 ﻿// Created:					2017-07-13
-// Last Modified:			2017-12-20
+// Last Modified:			2018-01-02
 
 using mojoPortal.Data;
 using MySql.Data.MySqlClient;
@@ -143,7 +143,11 @@ namespace SuperFlexiData
                 + "?Attributes,"
                 + "?PreTokenString,"
                 + "?PostTokenString,"
-                + "?IsGlobal,"
+				+ "?PreTokenStringWhenTrue,"
+				+ "?PostTokenStringWhenTrue,"
+				+ "?PreTokenStringWhenFalse,"
+				+ "?PostTokenStringWhenFalse,"
+				+ "?IsGlobal,"
 				+ "?ViewRoles,"
 				+ "?EditRoles");
 
