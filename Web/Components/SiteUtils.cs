@@ -1570,17 +1570,17 @@ namespace mojoPortal.Web
 		}
 
 
-		public static FileInfo[] GetFeatureIconList()
-		{
-			string p = WebUtils.GetApplicationRoot() + "/Data/SiteImages/FeatureIcons";
-			string filePath = HttpContext.Current.Server.MapPath(p);
+		//public static FileInfo[] GetFeatureIconList()
+		//{
+		//	string p = WebUtils.GetApplicationRoot() + "/Data/SiteImages/FeatureIcons";
+		//	string filePath = HttpContext.Current.Server.MapPath(p);
 
-			//HttpContext.Current.Request.PhysicalApplicationPath;
+		//	//HttpContext.Current.Request.PhysicalApplicationPath;
 				
 
-			DirectoryInfo dir = new DirectoryInfo(filePath);
-			return dir.Exists ? dir.GetFiles("*.*") : null;
-		}
+		//	DirectoryInfo dir = new DirectoryInfo(filePath);
+		//	return dir.Exists ? dir.GetFiles("*.*") : null;
+		//}
 
 		public static List<string> GetFileIconNames()
 		{

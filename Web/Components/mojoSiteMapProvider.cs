@@ -26,7 +26,7 @@ namespace mojoPortal.Web
         private readonly object objLock = new object();
         private SiteMapNode rootNode;
         private Dictionary<int, SiteMapNode> nodes = new Dictionary<int, SiteMapNode>(16);
-        private String iconBaseUrl = "~/Data/SiteImages/FeatureIcons/";
+        //private String iconBaseUrl = "~/Data/SiteImages/FeatureIcons/";
         private Collection<PageSettings> menuPages;
         private bool useUrlRewriter = true;
         private bool sslIsAvailable = false;
@@ -209,10 +209,10 @@ namespace mojoPortal.Web
                 null,
                 null);
 
-            if((page.MenuImage.Length > 0)&&(page.MenuImage.ToLower().IndexOf("blank") == -1))
-            {
-                node.MenuImage = this.iconBaseUrl + page.MenuImage;
-            }
+            //if((page.MenuImage.Length > 0)&&(page.MenuImage.ToLower().IndexOf("blank") == -1))
+            //{
+            //    node.MenuImage = this.iconBaseUrl + page.MenuImage;
+            //}
 
             node.PageGuid = page.PageGuid;
             node.PageId = page.PageId;

@@ -109,14 +109,14 @@
                 <asp:CheckBox ID="chkAllowMultipleInstancesOnMyPage" runat="server" EnableViewState="false"
                     CssClass="forminput"></asp:CheckBox>
             </div>
-            <div class="settingrow moduleIconsList">
+<%--            <div class="settingrow moduleIconsList">
                 <mp:SiteLabel ID="lblIcon" runat="server" ForControl="ddIcons" CssClass="settinglabel"
                     ConfigKey="ModuleSettingsIconLabel"></mp:SiteLabel>
                 <asp:DropDownList ID="ddIcons" runat="server" EnableTheming="false" DataValueField="Name"
                     DataTextField="Name" CssClass="forminput">
                 </asp:DropDownList>
                 <img id="imgIcon" alt="" src="" runat="server" />
-            </div>
+            </div>--%>
             <div class="settingrow">
                 <mp:SiteLabel ID="SiteLabel11" runat="server" CssClass="settinglabel" ConfigKey="spacer">
                 </mp:SiteLabel>

@@ -499,42 +499,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink38;
         
         /// <summary>
-        /// lblIcon control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel lblIcon;
-        
-        /// <summary>
-        /// ddIcons control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddIcons;
-        
-        /// <summary>
-        /// imgIcon control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgIcon;
-        
-        /// <summary>
-        /// MojoHelpLink6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink6;
-        
-        /// <summary>
         /// divSkin control.
         /// </summary>
         /// <remarks>

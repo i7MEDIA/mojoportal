@@ -1,6 +1,6 @@
 /// Author:				        
 /// Created:			        2004-08-24
-///	Last Modified:              2012-05-07
+///	Last Modified:              2018-01-02
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -26,7 +26,7 @@ namespace mojoPortal.Web.AdminUI
 	{
         private int moduleDefinitionId = -1;
         private int pageId = -1;
-        private string iconPath;
+        //private string iconPath;
 
         #region OnInit
         override protected void OnInit(EventArgs e)
@@ -69,7 +69,7 @@ namespace mojoPortal.Web.AdminUI
 
             LoadParams();
 			PopulateLabels();
-            SetupIconScript();
+            //SetupIconScript();
             
             if (!IsPostBack)
 			{
@@ -91,16 +91,16 @@ namespace mojoPortal.Web.AdminUI
                 this.txtSortOrder.Text = moduleDefinition.SortOrder.ToString(CultureInfo.InvariantCulture);
                 this.txtDefaultCacheDuration.Text = moduleDefinition.DefaultCacheTime.ToString(CultureInfo.InvariantCulture);
 				this.chkIsAdmin.Checked = moduleDefinition.IsAdmin;
-                if (moduleDefinition.Icon.Length > 0)
-                {
-                    ddIcons.SelectedValue = moduleDefinition.Icon;
-                    imgIcon.Src = Page.ResolveUrl("~/Data/SiteImages/FeatureIcons/" + moduleDefinition.Icon);
+                //if (moduleDefinition.Icon.Length > 0)
+                //{
+                //    ddIcons.SelectedValue = moduleDefinition.Icon;
+                //    imgIcon.Src = Page.ResolveUrl("~/Data/SiteImages/FeatureIcons/" + moduleDefinition.Icon);
 
-                }
-                else
-                {
-                    imgIcon.Src = Page.ResolveUrl("~/Data/SiteImages/FeatureIcons/blank.gif");
-                }
+                //}
+                //else
+                //{
+                //    imgIcon.Src = Page.ResolveUrl("~/Data/SiteImages/FeatureIcons/blank.gif");
+                //}
 
                 chkIsCacheable.Checked = moduleDefinition.IsCacheable;
                 chkIsSearchable.Checked = moduleDefinition.IsSearchable;
@@ -116,7 +116,7 @@ namespace mojoPortal.Web.AdminUI
                 txtSortOrder.Text = "500";
                 this.txtDefaultCacheDuration.Text = "0";
                 this.lnkConfigureSettings.Visible = false;
-                imgIcon.Src = Page.ResolveUrl("~/Data/SiteImages/FeatureIcons/blank.gif");
+                //imgIcon.Src = Page.ResolveUrl("~/Data/SiteImages/FeatureIcons/blank.gif");
                 this.deleteButton.Visible = false;
 				
 			}
@@ -140,7 +140,7 @@ namespace mojoPortal.Web.AdminUI
                 moduleDefinition.SortOrder = int.Parse(this.txtSortOrder.Text, CultureInfo.InvariantCulture);
                 moduleDefinition.DefaultCacheTime = int.Parse(this.txtDefaultCacheDuration.Text, CultureInfo.InvariantCulture);
 				moduleDefinition.IsAdmin = this.chkIsAdmin.Checked;
-                moduleDefinition.Icon = this.ddIcons.SelectedValue;
+                //moduleDefinition.Icon = this.ddIcons.SelectedValue;
                 moduleDefinition.IsCacheable = chkIsCacheable.Checked;
                 moduleDefinition.IsSearchable = chkIsSearchable.Checked;
                 moduleDefinition.SearchListName = txtSearchListName.Text;
@@ -209,17 +209,17 @@ namespace mojoPortal.Web.AdminUI
             WebUtils.SetupRedirect(this, redirectUrl);
         }
 
-        private void SetupIconScript()
-        {
-            string logoScript = "<script type=\"text/javascript\">"
-                + "function showIcon(listBox) { if(!document.images) return; "
-                + "var iconPath = '" + iconPath + "'; "
-                + "document.images." + imgIcon.ClientID + ".src = iconPath + listBox.value;"
-                + "}</script>";
+        //private void SetupIconScript()
+        //{
+        //    string logoScript = "<script type=\"text/javascript\">"
+        //        + "function showIcon(listBox) { if(!document.images) return; "
+        //        + "var iconPath = '" + iconPath + "'; "
+        //        + "document.images." + imgIcon.ClientID + ".src = iconPath + listBox.value;"
+        //        + "}</script>";
 
-            this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "showIcon", logoScript);
+        //    this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "showIcon", logoScript);
 
-        }
+        //}
 
         private void PopulateLabels()
         {
@@ -257,16 +257,16 @@ namespace mojoPortal.Web.AdminUI
                 + "/Admin/ModuleDefinitionSettings.aspx?defid="
                 + this.moduleDefinitionId.ToString(CultureInfo.InvariantCulture);
 
-            if (!Page.IsPostBack)
-            {
-                FileInfo[] fileInfo = SiteUtils.GetFeatureIconList();
-                this.ddIcons.DataSource = fileInfo;
-                this.ddIcons.DataBind();
+            //if (!Page.IsPostBack)
+            //{
+            //    FileInfo[] fileInfo = SiteUtils.GetFeatureIconList();
+            //    this.ddIcons.DataSource = fileInfo;
+            //    this.ddIcons.DataBind();
 
-                ddIcons.Items.Insert(0, new ListItem(Resource.ModuleSettingsNoIconLabel, "blank.gif"));
-                ddIcons.Attributes.Add("onChange", "javascript:showIcon(this);");
-                ddIcons.Attributes.Add("size", "6");
-            }
+            //    ddIcons.Items.Insert(0, new ListItem(Resource.ModuleSettingsNoIconLabel, "blank.gif"));
+            //    ddIcons.Attributes.Add("onChange", "javascript:showIcon(this);");
+            //    ddIcons.Attributes.Add("size", "6");
+            //}
 
             
            
@@ -277,7 +277,7 @@ namespace mojoPortal.Web.AdminUI
         {
             pageId = WebUtils.ParseInt32FromQueryString("pageid", -1);
             moduleDefinitionId = WebUtils.ParseInt32FromQueryString("defid", -1);
-            iconPath = Page.ResolveUrl("~/Data/SiteImages/FeatureIcons/");
+            //iconPath = Page.ResolveUrl("~/Data/SiteImages/FeatureIcons/");
 
             AddClassToBody("administration");
             AddClassToBody("featureadmin");

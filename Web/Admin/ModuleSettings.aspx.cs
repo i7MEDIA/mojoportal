@@ -128,7 +128,7 @@ namespace mojoPortal.Web.AdminUI
 			}
 
 			PopulateLabels();
-			SetupIconScript();
+			//SetupIconScript();
 
 			if (!Page.IsPostBack)
 			{
@@ -192,15 +192,15 @@ namespace mojoPortal.Web.AdminUI
 					}
 				}
 
-				if (module.Icon.Length > 0)
-				{
-					ddIcons.SelectedValue = module.Icon;
-					imgIcon.Src = ImageSiteRoot + "/Data/SiteImages/FeatureIcons/" + module.Icon;
-				}
-				else
-				{
-					imgIcon.Src = ImageSiteRoot + "/Data/SiteImages/FeatureIcons/blank.gif";
-				}
+				//if (module.Icon.Length > 0)
+				//{
+				//	ddIcons.SelectedValue = module.Icon;
+				//	imgIcon.Src = ImageSiteRoot + "/Data/SiteImages/FeatureIcons/" + module.Icon;
+				//}
+				//else
+				//{
+				//	imgIcon.Src = ImageSiteRoot + "/Data/SiteImages/FeatureIcons/blank.gif";
+				//}
 
 				if (!useSeparatePagesForRoles)
 				{
@@ -837,7 +837,7 @@ namespace mojoPortal.Web.AdminUI
 						module.PublishMode = Convert.ToInt32(publishType.GetValue(), CultureInfo.InvariantCulture);
 						module.AvailableForMyPage = chkAvailableForMyPage.Checked;
 						module.AllowMultipleInstancesOnMyPage = chkAllowMultipleInstancesOnMyPage.Checked;
-						module.Icon = ddIcons.SelectedValue;
+						//module.Icon = ddIcons.SelectedValue;
 						module.HideFromAuthenticated = chkHideFromAuth.Checked;
 						module.HideFromUnauthenticated = chkHideFromUnauth.Checked;
 						module.IncludeInSearch = chkIncludeInSearch.Checked;
@@ -1104,16 +1104,16 @@ namespace mojoPortal.Web.AdminUI
 
 			lnkCancel.Text = Resource.ModuleSettingsCancelButton;
 
-			if (!Page.IsPostBack)
-			{
-				FileInfo[] fileInfo = SiteUtils.GetFeatureIconList();
-				ddIcons.DataSource = fileInfo;
-				ddIcons.DataBind();
+			//if (!Page.IsPostBack)
+			//{
+			//	FileInfo[] fileInfo = SiteUtils.GetFeatureIconList();
+			//	ddIcons.DataSource = fileInfo;
+			//	ddIcons.DataBind();
 
-				ddIcons.Items.Insert(0, new ListItem(Resource.ModuleSettingsNoIconLabel, "blank.gif"));
-				ddIcons.Attributes.Add("onChange", "javascript:showIcon(this);");
-				ddIcons.Attributes.Add("size", "6");
-			}
+			//	ddIcons.Items.Insert(0, new ListItem(Resource.ModuleSettingsNoIconLabel, "blank.gif"));
+			//	ddIcons.Attributes.Add("onChange", "javascript:showIcon(this);");
+			//	ddIcons.Attributes.Add("size", "6");
+			//}
 
 			acUser.DataUrl = SiteRoot + "/Services/UserLookup.asmx/AutoComplete";
 
@@ -1153,17 +1153,17 @@ namespace mojoPortal.Web.AdminUI
 		}
 
 
-		private void SetupIconScript()
-		{
-			string logoScript = "<script type=\"text/javascript\">"
-				+ "function showIcon(listBox) { if(!document.images) return; "
-				+ "var iconPath = '" + iconPath + "'; "
-				+ "document.images." + imgIcon.ClientID + ".src = iconPath + listBox.value;"
-				+ "}</script>";
+		//private void SetupIconScript()
+		//{
+		//	string logoScript = "<script type=\"text/javascript\">"
+		//		+ "function showIcon(listBox) { if(!document.images) return; "
+		//		+ "var iconPath = '" + iconPath + "'; "
+		//		+ "document.images." + imgIcon.ClientID + ".src = iconPath + listBox.value;"
+		//		+ "}</script>";
 
-			Page.ClientScript.RegisterClientScriptBlock(GetType(), "showIcon", logoScript);
+		//	Page.ClientScript.RegisterClientScriptBlock(GetType(), "showIcon", logoScript);
 
-		}
+		//}
 
 
 		private void LoadSettings()

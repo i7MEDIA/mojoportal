@@ -92,7 +92,7 @@
 									<portal:PublishType ID="publishType" runat="server" />
 									<portal:mojoHelpLink ID="MojoHelpLink38" runat="server" HelpKey="page-settings-publish-mode-help" />
 								</div>
-								<div class="settingrow pageicons">
+<%--								<div class="settingrow pageicons">
 									<mp:SiteLabel ID="lblIcon" runat="server" ForControl="ddIcons" CssClass="settinglabel"
 										ConfigKey="PageSettingsIconLabel"></mp:SiteLabel>
 									<asp:DropDownList ID="ddIcons" runat="server" DataValueField="Name"
@@ -100,7 +100,7 @@
 									</asp:DropDownList>
 									<img id="imgIcon" alt="" src="" runat="server" />
 									<portal:mojoHelpLink ID="MojoHelpLink6" runat="server" HelpKey="pagesettingsiconhelp" />
-								</div>
+								</div>--%>
 								<div id="divSkin" runat="server" class="settingrow">
 									<mp:SiteLabel ID="lblSkin" runat="server" ForControl="ddSkins" CssClass="settinglabel"
 										ConfigKey="SiteSettingsSiteSkinLabel"></mp:SiteLabel>
@@ -459,7 +459,7 @@
 																<td>
 																	<asp:UpdateProgress ID="prgMetaLinks" runat="server" AssociatedUpdatePanelID="updMetaLinks">
 																		<ProgressTemplate>
-																			<img src='<%= Page.ResolveUrl("~/Data/SiteImages/indicators/indicator1.gif") %>' alt=' ' />
+																			<img src='<%= Page.ResolveUrl("~/Data/SiteImages/indicator1.gif") %>' alt=' ' />
 																		</ProgressTemplate>
 																	</asp:UpdateProgress>
 																</td>
@@ -572,7 +572,7 @@
 																<td>
 																	<asp:UpdateProgress ID="prgMeta" runat="server" AssociatedUpdatePanelID="upMeta">
 																		<ProgressTemplate>
-																			<img src='<%= Page.ResolveUrl("~/Data/SiteImages/indicators/indicator1.gif") %>' alt=' ' />
+																			<img src='<%= Page.ResolveUrl("~/Data/SiteImages/indicator1.gif") %>' alt=' ' />
 																		</ProgressTemplate>
 																	</asp:UpdateProgress>
 																</td>

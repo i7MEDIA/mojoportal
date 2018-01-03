@@ -52,11 +52,11 @@
         <mp:SiteLabel id="Sitelabel1" runat="server" ForControl="chkIsAdmin" CssClass="settinglabel" ConfigKey="ModuleDefinitionsIsAdminLabel"></mp:SiteLabel>
         <asp:CheckBox ID="chkIsAdmin" runat="server" CssClass="forminput"></asp:CheckBox>
     </div>
-    <div  class="settingrow">
+<%--    <div  class="settingrow">
 	    <mp:SiteLabel id="lblIcon" runat="server" ForControl="ddIcons" CssClass="settinglabel" ConfigKey="ModuleSettingsIconLabel" ></mp:SiteLabel>
 	    <asp:DropDownList id="ddIcons" runat="server" DataValueField="Name" DataTextField="Name" CssClass="forminput"></asp:DropDownList>
 	    <img id="imgIcon" alt="" src=""  runat="server" />
-	</div>
+	</div>--%>
     <div class="settingrow">
         <asp:ValidationSummary ID="vSummary" runat="server" ValidationGroup="DefinitionSettings"></asp:ValidationSummary>
         <asp:RequiredFieldValidator id="reqFeatureName" runat="server" Display="None" ValidationGroup="DefinitionSettings" 

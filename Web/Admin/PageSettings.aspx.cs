@@ -50,7 +50,7 @@ namespace mojoPortal.Web.AdminUI
             grdContentMeta.ViewStateMode = ViewStateMode.Enabled;
             grdMetaLinks.ViewStateMode = ViewStateMode.Enabled;
             ddChangeFrequency.ViewStateMode = ViewStateMode.Enabled;
-            ddIcons.ViewStateMode = ViewStateMode.Enabled;
+            //ddIcons.ViewStateMode = ViewStateMode.Enabled;
             ddPages.ViewStateMode = ViewStateMode.Enabled;
             ddSiteMapPriority.ViewStateMode = ViewStateMode.Enabled;
             //ddSkins.ViewStateMode = ViewStateMode.Enabled;
@@ -121,7 +121,7 @@ namespace mojoPortal.Web.AdminUI
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(PageProperties));
 
-        private string iconPath;
+        //private string iconPath;
         private bool sslIsAvailable = false;
         private bool isAdmin = false;
         private bool isAdminOrContentAdmin = false;
@@ -278,12 +278,12 @@ namespace mojoPortal.Web.AdminUI
 
 		private void PopulateControls() 
 		{
-            ddIcons.DataSource = SiteUtils.GetFeatureIconList();
-            ddIcons.DataBind();
-            ddIcons.Items.Insert(0, new ListItem(Resource.ModuleSettingsNoIconLabel, "blank.gif"));
-            ddIcons.Attributes.Add("onchange", "javascript:showIcon(this);");
-            ddIcons.Attributes.Add("size", "6");
-            SetupIconScript(this.imgIcon);
+            //ddIcons.DataSource = SiteUtils.GetFeatureIconList();
+            //ddIcons.DataBind();
+            //ddIcons.Items.Insert(0, new ListItem(Resource.ModuleSettingsNoIconLabel, "blank.gif"));
+            //ddIcons.Attributes.Add("onchange", "javascript:showIcon(this);");
+            //ddIcons.Attributes.Add("size", "6");
+            //SetupIconScript(this.imgIcon);
 
             PopulatePageList();
             PopulateChangeFrequencyDropdown();
@@ -427,13 +427,13 @@ namespace mojoPortal.Web.AdminUI
                 lblLastModifiedBy.Text = pageSettings.LastModByName;
                 lblLastModifiedFromIp.Text = pageSettings.LastModFromIp;
 
-                ListItem item = ddIcons.Items.FindByValue(pageSettings.MenuImage);
-                if (item != null)
-                {
-                    ddIcons.ClearSelection();
-                    ddIcons.Items.FindByValue(pageSettings.MenuImage).Selected = true;
-                    imgIcon.Src = iconPath + pageSettings.MenuImage;
-                }
+                //ListItem item = ddIcons.Items.FindByValue(pageSettings.MenuImage);
+                //if (item != null)
+                //{
+                //    ddIcons.ClearSelection();
+                //    ddIcons.Items.FindByValue(pageSettings.MenuImage).Selected = true;
+                //    imgIcon.Src = iconPath + pageSettings.MenuImage;
+                //}
 
                 
                     
@@ -1055,7 +1055,7 @@ namespace mojoPortal.Web.AdminUI
             pageSettings.IncludeInSiteMap = chkIncludeInSiteMap.Checked;
             pageSettings.ExpandOnSiteMap = chkExpandOnSiteMap.Checked;
             pageSettings.IncludeInChildSiteMap = chkIncludeInChildSiteMap.Checked;
-            pageSettings.MenuImage = ddIcons.SelectedValue;
+            //pageSettings.MenuImage = ddIcons.SelectedValue;
             pageSettings.HideAfterLogin = chkHideAfterLogin.Checked;
             pageSettings.IncludeInSearchMap = chkIncludeInSearchEngineSiteMap.Checked;
             pageSettings.CanonicalOverride = txtCannonicalOverride.Text;
@@ -1719,7 +1719,7 @@ namespace mojoPortal.Web.AdminUI
             lnkChildPageRoles.NavigateUrl = SiteRoot + "/Admin/PagePermission.aspx?pageid=" + pageId.ToInvariantString() + "&p=ce";
 
 
-            imgIcon.Alt = Resource.PageSettingsMenuImageAtlText;
+            //imgIcon.Alt = Resource.PageSettingsMenuImageAtlText;
 
             reqPageName.ErrorMessage = Resource.PageNameRequiredWarning;
             regexUrl.ErrorMessage = Resource.FriendlyUrlRegexWarning;
@@ -1903,17 +1903,17 @@ namespace mojoPortal.Web.AdminUI
 
         }
 
-        private void SetupIconScript(HtmlImage imgIcon)
-        {
-            string logoScript = "<script type=\"text/javascript\">"
-                + "function showIcon(listBox) { if(!document.images) return; "
-                + "var iconPath = '" + iconPath + "'; "
-                + "document.images." + imgIcon.ClientID + ".src = iconPath + listBox.value;"
-                + "}</script>";
+        //private void SetupIconScript(HtmlImage imgIcon)
+        //{
+        //    string logoScript = "<script type=\"text/javascript\">"
+        //        + "function showIcon(listBox) { if(!document.images) return; "
+        //        + "var iconPath = '" + iconPath + "'; "
+        //        + "document.images." + imgIcon.ClientID + ".src = iconPath + listBox.value;"
+        //        + "}</script>";
 
-            this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "showIcon", logoScript);
+        //    this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "showIcon", logoScript);
 
-        }
+        //}
 
         
 
@@ -1927,7 +1927,7 @@ namespace mojoPortal.Web.AdminUI
             pageId = WebUtils.ParseInt32FromQueryString("pageid", -1);
             startPageId = WebUtils.ParseInt32FromQueryString("start", -1);
             currentUser = SiteUtils.GetCurrentSiteUser();
-            iconPath = ImageSiteRoot + "/Data/SiteImages/FeatureIcons/";
+            //iconPath = ImageSiteRoot + "/Data/SiteImages/FeatureIcons/";
             divIsClickable.Visible = StyleCombiner.EnableNonClickablePageLinks;
             ScriptConfig.IncludeColorBox = true;
             timeZone = SiteUtils.GetUserTimeZone();
