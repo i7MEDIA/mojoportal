@@ -598,7 +598,7 @@ namespace mojoPortal.Web.ForumUI
             pgrBottom.OfClause = ForumResources.CutePagerOfClause;
 
             lnkNotify.Text = ForumResources.SubscribeLink;
-            lnkNotify.ImageUrl = ImageSiteRoot + "/Data/SiteImages/FeatureIcons/email.png";
+            lnkNotify.ImageUrl = ImageSiteRoot + "/Data/SiteImages/email.png";
             lnkNotify.NavigateUrl = notificationUrl;
 
             lnkNotify2.Text = ForumResources.SubscribeLongLink;

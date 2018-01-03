@@ -36,7 +36,7 @@
                     ToolTip='<%# FormatSubscriberCount(Convert.ToInt32(Eval("SubscriberCount")))%>' />
                 </div>
                 <div class="forumnotify">
-				<asp:HyperLink ID="lnkNotify" runat="server" EnableViewState="false" Visible='<%# !ShowSubscribeCheckboxes %>' ImageUrl='<%# ImageSiteRoot + "/Data/SiteImages/FeatureIcons/email.png"  %>' NavigateUrl='<%# notificationUrl + "#forum" + Eval("ItemID") %>' 
+				<asp:HyperLink ID="lnkNotify" runat="server" EnableViewState="false" Visible='<%# !ShowSubscribeCheckboxes %>' ImageUrl='<%# ImageSiteRoot + "/Data/SiteImages/email.png"  %>' NavigateUrl='<%# notificationUrl + "#forum" + Eval("ItemID") %>' 
 				 Text='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "Subscribed")) ? Resources.ForumResources.UnSubscribeLink : Resources.ForumResources.SubscribeLink %>' />
                  &nbsp;<asp:HyperLink ID="lnkNotify2" runat="server" EnableViewState="false" Visible='<%# !ShowSubscribeCheckboxes %>' NavigateUrl='<%# notificationUrl + "#forum" + Eval("ItemID") %>' 
 				 Text='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "Subscribed")) ? Resources.ForumResources.UnSubscribeLink : Resources.ForumResources.SubscribeLink %>'
@@ -88,7 +88,7 @@
                     ToolTip='<%# FormatSubscriberCount(Convert.ToInt32(Eval("SubscriberCount")))%>' />
                 </div>
                 <div class="forumnotify">
-                <asp:HyperLink ID="lnkNotify" runat="server" EnableViewState="false" Visible='<%# !ShowSubscribeCheckboxes %>' ImageUrl='<%# ImageSiteRoot + "/Data/SiteImages/FeatureIcons/email.png"  %>' NavigateUrl='<%# notificationUrl + "#forum" + Eval("ItemID") %>' 
+                <asp:HyperLink ID="lnkNotify" runat="server" EnableViewState="false" Visible='<%# !ShowSubscribeCheckboxes %>' ImageUrl='<%# ImageSiteRoot + "/Data/SiteImages/email.png"  %>' NavigateUrl='<%# notificationUrl + "#forum" + Eval("ItemID") %>' 
 				 Text='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "Subscribed")) ? Resources.ForumResources.UnSubscribeLink : Resources.ForumResources.SubscribeLink %>' />
                  &nbsp;<asp:HyperLink ID="lnkNotify2" runat="server" EnableViewState="false" Visible='<%# !ShowSubscribeCheckboxes %>' NavigateUrl='<%# notificationUrl + "#forum" + Eval("ItemID") %>' 
 				 Text='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "Subscribed")) ? Resources.ForumResources.UnSubscribeLink : Resources.ForumResources.SubscribeLink %>'

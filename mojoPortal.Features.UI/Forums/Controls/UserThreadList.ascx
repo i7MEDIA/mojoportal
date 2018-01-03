@@ -30,7 +30,7 @@
 	<ItemTemplate>
 		<tr class="modulerow">
 			<td headers='<%# Resources.ForumResources.ForumViewSubjectLabel %>' class="ftitle"> 
-				<img alt="" src='<%# ImageSiteRoot + "/Data/SiteImages/thread.gif"  %>'  />
+				<img alt="" src='<%# ImageSiteRoot + "/Data/SiteImages/folder.png"  %>'  />
 				<a href='<%# FormatThreadUrl(Convert.ToInt32(Eval("ThreadID")),Convert.ToInt32(Eval("ModuleID")),Convert.ToInt32(Eval("ForumID")),Convert.ToInt32(Eval("PageID"))) %>'>
 					<%# Server.HtmlEncode(DataBinder.Eval(Container.DataItem, "ThreadSubject").ToString())%></a>
 			</td>
@@ -56,7 +56,7 @@
 	<alternatingItemTemplate>
 		<tr class="modulealtrow">
 			<td  headers='<%# Resources.ForumResources.ForumViewSubjectLabel %>' class="ftitle"> 
-				<img alt="" src='<%# ImageSiteRoot + "/Data/SiteImages/thread.gif"  %>'  />
+				<img alt="" src='<%# ImageSiteRoot + "/Data/SiteImages/folder.png"  %>'  />
 				<a href='<%# FormatThreadUrl(Convert.ToInt32(Eval("ThreadID")),Convert.ToInt32(Eval("ModuleID")),Convert.ToInt32(Eval("ForumID")),Convert.ToInt32(Eval("PageID"))) %>'>
 					<%# Server.HtmlEncode(DataBinder.Eval(Container.DataItem, "ThreadSubject").ToString())%></a>
 			</td>

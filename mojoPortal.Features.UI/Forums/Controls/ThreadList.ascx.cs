@@ -279,7 +279,7 @@ namespace mojoPortal.Web.ForumUI
                 + ModuleId.ToInvariantString()
                 + "&pageid=" + PageId.ToInvariantString() +"#forum" + ItemId.ToInvariantString();
 
-            lnkNotify.ImageUrl = ImageSiteRoot + "/Data/SiteImages/FeatureIcons/email.png";
+            lnkNotify.ImageUrl = ImageSiteRoot + "/Data/SiteImages/email.png";
             lnkNotify.NavigateUrl = notificationUrl;
             lnkNotify2.NavigateUrl = notificationUrl;
 

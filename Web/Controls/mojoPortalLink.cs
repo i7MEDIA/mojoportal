@@ -46,12 +46,12 @@ namespace mojoPortal.Web.UI
             }
             else
             {
-                string urlToUse = "http://www.mojoportal.com?utm_source=usersite&amp;utm_medium=referral&amp;utm_campaign=poweredbymojo";
+                string urlToUse = "https://www.mojoportal.com?utm_source=usersite&amp;utm_medium=referral&amp;utm_campaign=poweredbymojo";
                 string innerMarkup = Resource.PoweredByLink;
                 if (useImage)
                 {
                     innerMarkup = "<img  src='"
-                        + Page.ResolveUrl("~/Data/SiteImages/poweredbymojoportal3.gif")
+                        + Page.ResolveUrl("~/Data/SiteImages/powered-by-mojo.png")
                         + "' alt='" + Resource.PoweredByAltText + "' />";
 
                 }

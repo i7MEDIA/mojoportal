@@ -14,9 +14,9 @@
                                 <tr>
                                     <td>
                                         <asp:ImageButton ID="btnGoUp" runat="server" EnableViewState="false" CssClass="folderup" OnClick="btnGoUp_Click" AlternateText=""
-                                            ImageUrl="~/Data/SiteImages/btnUp.jpg" />
+                                            ImageUrl="~/Data/SiteImages/arrow_up.png" />
                                         <asp:ImageButton ID="btnDelete" runat="server" EnableViewState="false" OnClick="btnDelete_Click" CssClass="deleteitem" AlternateText="Delete"
-                                            ImageUrl="~/Data/SiteImages/btnDelete.jpg" ToolTip="<%# Resources.SharedFileResources.SharedFilesDeleteButton %>" />
+                                            ImageUrl="~/Data/SiteImages/delete.png" ToolTip="<%# Resources.SharedFileResources.SharedFilesDeleteButton %>" />
                                         &nbsp;&nbsp;
                                         <asp:Label ID="lblCurrentDirectory" runat="server" EnableViewState="false" CssClass="foldername"></asp:Label>
                                         <asp:Repeater runat="server" ID="rptFoldersLinks" EnableViewState="true">

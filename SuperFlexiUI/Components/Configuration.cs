@@ -599,7 +599,7 @@ public ModuleConfiguration()
         private string instanceFeaturedImage = string.Empty;
         public string InstanceFeaturedImage { get { return instanceFeaturedImage; } }
 
-        private string featuredImageEmptyUrl = "/Data/SiteImages/blank.gif";
+        private string featuredImageEmptyUrl = "/Data/SiteImages/1x1.gif";
         public string FeaturedImageEmptyUrl { get { return WebUtils.GetRelativeSiteRoot() + featuredImageEmptyUrl; } }
 
 		private string solutionLocation = string.Empty;

@@ -1082,7 +1082,7 @@ namespace SuperFlexiUI
 				string imagePreviewUrl = string.Empty;
 				if (string.IsNullOrWhiteSpace(field.ImageBrowserEmptyUrl))
 				{
-					imagePreviewUrl = SuperFlexiHelpers.GetPathToFile(config, "~/Data/SiteImages/blank.gif");
+					imagePreviewUrl = SuperFlexiHelpers.GetPathToFile(config, "~/Data/SiteImages/1x1.gif");
 				}
 				else
 				{ 

@@ -230,7 +230,7 @@ namespace mojoPortal.Web.ForumUI
                + "' href='" + SiteRoot + "/Forums/EditSubscriptions.aspx?mid="
                + ModuleId.ToInvariantString()
                + "&amp;pageid=" + PageId.ToInvariantString()
-               + "'><img src='" + ImageSiteRoot + "/Data/SiteImages/FeatureIcons/email.png' /></a>";
+               + "'><img src='" + ImageSiteRoot + "/Data/SiteImages/email.png' /></a>";
 
             lnkModuleRSS.NavigateUrl = NonSslSiteRoot
                 + "/Forums/RSS.aspx?&pageid=" + PageId.ToInvariantString()

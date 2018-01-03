@@ -487,7 +487,7 @@ namespace mojoPortal.Web.BlogUI
 
         private string GenerateTweetThisLink(string titleToTweet, string urlToTweet)
         {
-            string format = "<a class='tweetthislink' title='Tweet This' href='{0}'><img src='" + imageSiteRoot + "/Data/SiteImages/tweetthis3.png' alt='Tweet This' /></a>";
+            string format = "<a class='tweetthislink' title='Tweet This' href='{0}'><img src='" + imageSiteRoot + "/Data/SiteImages/tweet-button-2015.png' alt='Tweet This' /></a>";
 
             string twitterUrl;
 

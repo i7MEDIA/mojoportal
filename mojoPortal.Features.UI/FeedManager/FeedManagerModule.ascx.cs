@@ -1,6 +1,6 @@
 ﻿/// Author:				
 /// Created:			2005-03-27
-///	Last Modified:		2014-06-10
+///	Last Modified:		2018-01-02
 ///	
 ///	Originally based on code example by Joseph Hill
 ///	
@@ -588,7 +588,7 @@ namespace mojoPortal.Web.FeedUI
             if (displaySettings.ForceExcerptMode) { useNeatHtml = false; }
             if (config.UseExcerpt) { useNeatHtml = false; }
 
-            ConfirmImage = this.ImageSiteRoot + "/Data/SiteImages/confirmed";
+            ConfirmImage = this.ImageSiteRoot + "/Data/SiteImages/Published";
 
             if (config.AllowExternalImages) allowedImageUrlRegexPattern = SecurityHelper.RegexAnyImageUrlPatern;
 

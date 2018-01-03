@@ -529,7 +529,7 @@
 														<td>
 															<asp:UpdateProgress ID="prgMetaLinks" runat="server" AssociatedUpdatePanelID="updMetaLinks">
 																<ProgressTemplate>
-																	<img src='<%= Page.ResolveUrl("~/Data/SiteImages/indicators/indicator1.gif") %>' alt="" />
+																	<img src='<%= Page.ResolveUrl("~/Data/SiteImages/indicator1.gif") %>' alt="" />
 																</ProgressTemplate>
 															</asp:UpdateProgress>
 														</td>
@@ -723,7 +723,7 @@
 															<td>
 																<asp:UpdateProgress ID="prgMeta" runat="server" AssociatedUpdatePanelID="upMeta">
 																	<ProgressTemplate>
-																		<img src='<%= Page.ResolveUrl("~/Data/SiteImages/indicators/indicator1.gif") %>' alt="" />
+																		<img src='<%= Page.ResolveUrl("~/Data/SiteImages/indicator1.gif") %>' alt="" />
 																	</ProgressTemplate>
 																</asp:UpdateProgress>
 															</td>
@@ -870,7 +870,7 @@
 													<asp:HyperLink runat="server"
 														EnableViewState="false"
 														ID="lnkDownload"
-														ImageUrl='<%# this.ImageSiteRoot + "/Data/SiteImages/Download.gif" %>'
+														ImageUrl='<%# this.ImageSiteRoot + "/Data/SiteImages/disk.png" %>'
 														NavigateUrl='<%# upLoadPath + Eval("ServerFileName") %>'
 														SkinID="TextButtonSmall"
 														ToolTip='<%# Resources.BlogResources.Download %>'

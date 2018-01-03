@@ -38,7 +38,7 @@
                         <td>
                             <asp:UpdateProgress ID="UpdateProgress2" runat="server" AssociatedUpdatePanelID="UpdatePanel1">
                                 <ProgressTemplate>
-                                    <img src='<%= Page.ResolveUrl("~/Data/SiteImages/indicators/indicator1.gif") %>'
+                                    <img src='<%= Page.ResolveUrl("~/Data/SiteImages/indicator1.gif") %>'
                                         alt=' ' />
                                 </ProgressTemplate>
                             </asp:UpdateProgress>

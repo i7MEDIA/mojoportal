@@ -350,7 +350,7 @@ namespace mojoPortal.Web.SharedFilesUI
             string innerMarkup = name;
             if (includeImage)
             {
-                innerMarkup = "<img src='" + ImageSiteRoot + "/Data/SiteImages/Download.gif' alt='" + SharedFileResources.SharedFilesDownloadLink + "' />";
+                innerMarkup = "<img src='" + ImageSiteRoot + "/Data/SiteImages/disk.png' alt='" + SharedFileResources.SharedFilesDownloadLink + "' />";
             }
 
             return "<a href='" + SiteRoot + "/SharedFiles/Download.aspx?pageid=" + PageId.ToInvariantString()

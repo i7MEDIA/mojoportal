@@ -62,7 +62,7 @@ namespace SuperFlexiBusiness
 		private bool datePickerShowMonthList = false;
 		private bool datePickerShowYearList = false;
 		private string datePickerYearRange = string.Empty;
-		private string imageBrowserEmptyUrl = "~/Data/SiteImages/blank.gif";
+		private string imageBrowserEmptyUrl = "~/Data/SiteImages/1x1.gif";
 		//private string iSettingControlSettings = string.Empty;
 		private string options = string.Empty;
 		private bool checkBoxReturnBool = true;
