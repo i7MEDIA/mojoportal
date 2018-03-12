@@ -63,7 +63,7 @@
 				},
 				allowedActions: angular.extend(defaults.allowedActions, {
 					pickFiles: @(Model.Editor != null ? "true" : "false"),
-					pickFolders: false,
+					pickFolders: @(Model.PickFolders.ToString().ToLower()),
 					changePermissions: false,
 					upload: @Model.Upload,
 					rename: @Model.Rename,

@@ -3,10 +3,10 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.FileSystem;
 using Resources;
+using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace mojoPortal.Web.Controllers
 {
@@ -58,6 +58,7 @@ namespace mojoPortal.Web.Controllers
 				type = Request.QueryString.Get("type"),
 				editor = Request.QueryString.Get("editor"),
 				inputId = Request.QueryString.Get("inputId"),
+				pickFolders = Convert.ToBoolean(Request.QueryString.Get("pickFolders")),
 				CKEditor = Request.QueryString.Get("CKEditor"),
 				CKEditorFuncNum = Request.QueryString.Get("CKEditorFuncNum")
 			};
@@ -72,6 +73,7 @@ namespace mojoPortal.Web.Controllers
 				Type = queryString.type,
 				Editor = queryString.editor,
 				InputId = queryString.inputId,
+				PickFolders = queryString.pickFolders,
 				CKEditorFuncNumber = queryString.CKEditorFuncNum,
 				QueryString = queryString,
 
