@@ -58,7 +58,6 @@ namespace mojoPortal.Web.Controllers
 				type = Request.QueryString.Get("type"),
 				editor = Request.QueryString.Get("editor"),
 				inputId = Request.QueryString.Get("inputId"),
-				pickFolders = Convert.ToBoolean(Request.QueryString.Get("pickFolders")),
 				CKEditor = Request.QueryString.Get("CKEditor"),
 				CKEditorFuncNum = Request.QueryString.Get("CKEditorFuncNum")
 			};
@@ -73,7 +72,6 @@ namespace mojoPortal.Web.Controllers
 				Type = queryString.type,
 				Editor = queryString.editor,
 				InputId = queryString.inputId,
-				PickFolders = queryString.pickFolders,
 				CKEditorFuncNumber = queryString.CKEditorFuncNum,
 				QueryString = queryString,
 
