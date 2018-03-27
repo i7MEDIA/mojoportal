@@ -180,33 +180,42 @@ namespace SuperFlexiUI
 
 				foreach (Item item in items)
 				{
-					var popItem = new PopulatedItem(item, fields, values.Where(v => v.ItemGuid == item.ItemGuid).ToList(), canEdit);
-					if (popItem != null)
+					var populatedItem = new PopulatedItem(item, fields, values.Where(v => v.ItemGuid == item.ItemGuid).ToList(), canEdit);
+					if (populatedItem != null)
 					{
 						if (r.SearchObject != null && r.SearchObject.Count > 0)
 						{
 							int matchCount = 0;
-							foreach (var set in r.SearchObject)
+							foreach (var searchItem in r.SearchObject)
 							{
-								var value = popItem.Values[set.Key];
+								var value = populatedItem.Values[searchItem.Key];
 								List<string> itemValArray = value as List<string>;
-								List<string> setValArray = set.Value.SplitOnCharAndTrim(';');
-								if (value.ToString().ToLower().IndexOf(set.Value.ToLower()) >= 0 
-									|| (itemValArray != null && itemValArray.Any(s => s.Equals(set.Value, StringComparison.OrdinalIgnoreCase)))
-									|| (setValArray != null && setValArray.Any(s => s.Equals(value.ToString(), StringComparison.OrdinalIgnoreCase))))
+								List<string> searchItemValArray = searchItem.Value.SplitOnCharAndTrim(';');
+								log.Info($"[{searchItem.Key}]={searchItem.Value}");
+
+								/*  Check if itemValArray == null because if it is, that means the value is just a plain value, not a List<string>.
+								 *  If we try to do a comparison on value.ToString() when value is a List<string>, .ToString() returns System.Collections.Generic...
+								 *  and then our comparison is actually looking for matches in "System.Collections.Generic...". We had that happen with the word
+								 *  "Collections". Oops.
+								 */
+
+								if ((itemValArray == null && value.ToString().ToLower().IndexOf(searchItem.Value.ToLower()) >= 0 )
+									|| (itemValArray != null && itemValArray.Any(s => s.Equals(searchItem.Value, StringComparison.OrdinalIgnoreCase)))
+									|| (searchItemValArray != null && searchItemValArray.Any(s => s.Equals(value.ToString(), StringComparison.OrdinalIgnoreCase))))
 								{
+
 									matchCount++;
 								}
 							}
 
 							if (matchCount == r.SearchObject.Count)
 							{
-								popItems.Add(popItem);
+								popItems.Add(populatedItem);
 							}
 						}
 						else
 						{
-							popItems.Add(popItem);
+							popItems.Add(populatedItem);
 						}
 					}
 				}
