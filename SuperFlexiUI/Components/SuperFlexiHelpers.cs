@@ -267,6 +267,7 @@ namespace SuperFlexiUI
             sb.Replace("$_FileBrowserUrl_$", siteRoot + WebConfigSettings.FileDialogRelativeUrl);
             sb.Replace("$_HeaderContent_$", config.HeaderContent);
             sb.Replace("$_FooterContent_$", config.FooterContent);
+			sb.Replace("$_SkinVersionGuid_$", siteSettings.SkinVersion.ToString());
         }
 
 		[Obsolete("Use mojoPortal.Web.Framework.UIHelper.GetDictionaryFromString")]

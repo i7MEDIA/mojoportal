@@ -105,11 +105,6 @@
       <Name>mojoPortal.Business</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Features.Business\mojoPortal.Features.Business.csproj">
-      <Project>{65849992-8f44-4480-9494-1ca0d6325795}</Project>
-      <Name>mojoPortal.Features.Business</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Condition="'$(Configuration)'=='Debug'" Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
       <Project>{6ddfe292-37aa-4a02-b2f0-ba7968a026ef}</Project>
       <Name>mojoPortal.Data.MSSQL</Name>
