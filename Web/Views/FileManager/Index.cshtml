@@ -56,14 +56,15 @@
 								break;
 
 							case "filepicker":
+							case "folderpicker":
 								<text>fpSubmit(url);</text>
 								break;
 						}
 					}
 				},
 				allowedActions: angular.extend(defaults.allowedActions, {
-					pickFiles: @(Model.Editor != null ? "true" : "false"),
-					pickFolders: false,
+					pickFiles: @((Model.Editor != null && Model.Editor != "folderpicker") ? "true" : "false"),
+					pickFolders: @((Model.Editor != null && Model.Editor == "folderpicker") ? "true" : "false"),
 					changePermissions: false,
 					upload: @Model.Upload,
 					rename: @Model.Rename,
