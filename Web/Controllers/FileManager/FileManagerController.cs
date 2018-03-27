@@ -13,6 +13,7 @@ namespace mojoPortal.Web.Controllers
 	public class FileManagerController : Controller
 	{
 		// GET: FileManager
+		[OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
 		public ActionResult Index()
 		{
 			var model = LoadSettings();
@@ -21,6 +22,7 @@ namespace mojoPortal.Web.Controllers
 		}
 
 		// GET: Pages
+		[OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
 		public ActionResult Pages(string type, string editor)
 		{
 			var model = LoadSettings();
