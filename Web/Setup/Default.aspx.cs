@@ -878,10 +878,10 @@ namespace mojoPortal.Web.UI.Pages
             dbPlatform = DatabaseHelper.DBPlatform();
             dataFolderIsWritable = mojoSetup.DataFolderIsWritable();
 
-            if (dbPlatform == "SqlCe")
-            {
-                DatabaseHelper.EnsureDatabase();
-            }
+            //if (dbPlatform == "SqlCe")
+            //{
+            //    DatabaseHelper.EnsureDatabase();
+            //}
 
             if (dataFolderIsWritable)
             {
@@ -902,24 +902,21 @@ namespace mojoPortal.Web.UI.Pages
 
             canAccessDatabase = DatabaseHelper.CanAccessDatabase();
 
-            /*LUIS SILVA ForceDatabaseCreation for MS SQL 2012-06-13*/
-
-            // add this to user.config <add key="TryToCreateMsSqlDatabase" value="true"/>
-            // and make sure the connection string is configured with a user that has permission to create the database
+			/*  LUIS SILVA ForceDatabaseCreation for MS SQL 2012-06-13
+				add this to user.config <add key="TryToCreateMsSqlDatabase" value="true"/> default is false
+				and make sure the connection string is configured with a user that has permission to create the database			
+            */
+			if (!canAccessDatabase && dbPlatform == "MSSQL" && WebConfigSettings.TryToCreateMsSqlDatabase)
+			{
+				WritePageContent(dbPlatform + " " + SetupResource.TryingToCreateDatabase, false);
+				DatabaseHelper.EnsureDatabase();
+				canAccessDatabase = DatabaseHelper.CanAccessDatabase();
+				if (canAccessDatabase)
+				{
+					WritePageContent(dbPlatform + " " + SetupResource.DatabaseCreationSucceeded, false);
+				}
+			}
             
-            if ((!canAccessDatabase) && (dbPlatform == "MSSQL") && WebConfigSettings.TryToCreateMsSqlDatabase)
-            {
-                WritePageContent(dbPlatform + " " + SetupResource.TryingToCreateDatabase, false);
-                DatabaseHelper.EnsureDatabase();
-                canAccessDatabase = DatabaseHelper.CanAccessDatabase();
-                if (canAccessDatabase)
-                {
-                    WritePageContent(dbPlatform + " " + SetupResource.DatabaseCreationSucceeded, false);
-                }
-                
-            }
-            
-
             if (canAccessDatabase)
             {
                 WritePageContent(
