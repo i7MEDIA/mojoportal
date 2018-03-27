@@ -91,7 +91,7 @@ namespace SuperFlexiUI
 			LoadParams();
             LoadSettings();
 
-            if (!UserCanEditModule(moduleId, config.FeatureGuid))
+            if (!UserCanEditModule(moduleId, config.FeatureGuid) && !WebUser.IsInRoles(module.AuthorizedEditRoles))
 			{
 				SiteUtils.RedirectToAccessDeniedPage(this);
 				return;
