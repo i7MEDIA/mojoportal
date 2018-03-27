@@ -602,7 +602,7 @@ namespace mojoPortal.Data
 		public static IDataReader GetModuleDefinitionBySkinFileName(string skinFileName)
 		{
 			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("SELECT * FROM mp_ModuleDefiitions WHERE SkinFileName = ?SkinFileName LIMIT 1;");
+			sqlCommand.Append("SELECT * FROM mp_ModuleDefinitions WHERE SkinFileName = ?SkinFileName LIMIT 1;");
 			MySqlParameter[] arParams = new MySqlParameter[1];
 
 			arParams[0] = new MySqlParameter("?SkinFileName", MySqlDbType.VarChar, 255);
@@ -618,7 +618,7 @@ namespace mojoPortal.Data
 		public static IDataReader GetAllModuleSkinFileNames()
 		{
 			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("SELECT SkinFileName FROM mp_ModuleDefiitions;");
+			sqlCommand.Append("SELECT SkinFileName FROM mp_ModuleDefinitions;");
 
 			return MySqlHelper.ExecuteReader(
 				 ConnectionString.GetReadConnectionString(),
