@@ -1,6 +1,5 @@
-// Author:
-// Created:			            2004-08-15
-//	Last Modified:              2017-08-25
+//  Created:			        2004-08-15
+//	Last Modified:              2018-02-24
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -79,6 +78,9 @@ namespace mojoPortal.Web.BlogUI
 		protected bool disableAvatars = true;
 		protected mojoPortal.Web.UI.Avatar.RatingType MaxAllowedGravatarRating = UI.Avatar.RatingType.PG;
 		protected string UserNameTooltipFormat = "View User Profile for {0}";
+
+		protected string blogTitle = string.Empty;
+		protected string blogSubTitle = string.Empty;
 
 		private CommentsWidget comments = null;
 
@@ -199,14 +201,16 @@ namespace mojoPortal.Web.BlogUI
 				return;
 			}
 
-			heading.Text = blog.Title;
+			blogTitle = SecurityHelper.RemoveMarkup(blog.Title);
+			blogSubTitle = SecurityHelper.RemoveMarkup(blog.SubTitle);
+			heading.Text = blogTitle;
 			if (CacheHelper.GetCurrentPage().ShowPageHeading && config.UsePostTitleAsPageHeading)
 			{
-				basePage.PageHeading.Title.Text = blog.Title;
+				basePage.PageHeading.Title.Text = blogTitle;
 				heading.Visible = false;
 			}
 
-			if (displaySettings.ShowSubTitleOnDetailPage && (blog.SubTitle.Length > 0))
+			if (displaySettings.ShowSubTitleOnDetailPage && (blogSubTitle.Length > 0))
 			{
 				litSubtitle.Text = 
 					"<" +
@@ -214,7 +218,7 @@ namespace mojoPortal.Web.BlogUI
 					" class='" +
 					displaySettings.PostViewSubtitleClass +
 					"'>" +
-					blog.SubTitle +
+					blogSubTitle +
 					"</" +
 					displaySettings.PostViewSubtitleElement +
 					">";
@@ -239,7 +243,7 @@ namespace mojoPortal.Web.BlogUI
 			}
 
 
-			basePage.Title = SiteUtils.FormatPageTitle(basePage.SiteInfo, blog.Title);
+			basePage.Title = SiteUtils.FormatPageTitle(basePage.SiteInfo, blogTitle);
 			basePage.MetaDescription = blog.MetaDescription;
 			basePage.MetaKeywordCsv = blog.MetaKeywords;
 			basePage.AdditionalMetaMarkup = blog.CompiledMeta;
@@ -263,7 +267,7 @@ namespace mojoPortal.Web.BlogUI
 			addThisWidget.Visible = !config.HideAddThisButton;
 
 			tweetThis1.Visible = config.ShowTweetThisLink;
-			tweetThis1.TitleToTweet = blog.Title;
+			tweetThis1.TitleToTweet = blogTitle;
 			tweetThis1.UrlToTweet = FormatBlogUrl(blog.ItemUrl, blog.ItemId);
 
 
@@ -295,7 +299,7 @@ namespace mojoPortal.Web.BlogUI
 
 			odiogoPlayer.OdiogoFeedId = config.OdiogoFeedId;
 			odiogoPlayer.ItemId = blog.ItemId.ToString(CultureInfo.InvariantCulture);
-			odiogoPlayer.ItemTitle = blog.Title;
+			odiogoPlayer.ItemTitle = blogTitle;
 
 			if (blogAuthor.Length == 0) { blogAuthor = blog.UserName; }
 
@@ -325,18 +329,18 @@ namespace mojoPortal.Web.BlogUI
 				if (displaySettings.FeaturedImageAbovePost)
 				{
 					featuredImagePostTop.Visible = true;
-					featuredImagePostTop.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blog.Title);
+					featuredImagePostTop.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blogTitle);
 
 					featuredImageExcerptTop.Visible = true;
-					featuredImageExcerptTop.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blog.Title);
+					featuredImageExcerptTop.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blogTitle);
 				}
 				else
 				{
 					featuredImagePostBottom.Visible = true;
-					featuredImagePostBottom.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blog.Title);
+					featuredImagePostBottom.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blogTitle);
 
 					featuredImageExcerptBottom.Visible = true;
-					featuredImageExcerptBottom.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blog.Title);
+					featuredImageExcerptBottom.Text = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(blog.HeadlineImageUrl), blogTitle);
 				}
 			}
 
@@ -1217,7 +1221,7 @@ namespace mojoPortal.Web.BlogUI
 			comments.AlwaysShowSignInPromptIfNotAuthenticated = displaySettings.AlwaysShowSignInPromptForCommentsIfNotAuthenticated;
 			comments.ShowJanrainWidetOnSignInPrompt = displaySettings.ShowJanrainWidetOnCommentSignInPrompt;
 
-			comments.DefaultCommentTitle = "re: " + blog.Title;
+			comments.DefaultCommentTitle = "re: " + blogTitle;
 			comments.IncludeIpAddressInNotification = true;
 			comments.RequireCaptcha = config.UseCaptcha && !Request.IsAuthenticated;
 			comments.ContainerControl = this;
@@ -1289,7 +1293,7 @@ namespace mojoPortal.Web.BlogUI
 
 			if (!IsPostBack)
 			{
-				txtCommentTitle.Text = "re: " + blog.Title;
+				txtCommentTitle.Text = "re: " + blogTitle;
 
 				if (Request.IsAuthenticated)
 				{

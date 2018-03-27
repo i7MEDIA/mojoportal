@@ -1,4 +1,5 @@
-﻿@using mojoPortal.Web.Helpers;
+﻿@using mojoPortal.Web.Framework;
+@using mojoPortal.Web.Helpers;
 @using mojoPortal.Business;
 
 @model PostListModel
@@ -17,11 +18,11 @@
 				}
 
 				<h3 class="blog-postlist__title">
-					<a class="blog-postlist__item-link" href="@item.ItemUrl">@item.Title</a>
+					<a class="blog-postlist__item-link" href="@item.ItemUrl">@SecurityHelper.RemoveMarkup(item.Title)</a>
 				</h3>
 				@if (@item.SubTitle != "")
 				{
-					<h4 class="blog-postlist__sub-title">@item.SubTitle</h4>
+					<h4 class="blog-postlist__sub-title">@SecurityHelper.RemoveMarkup(@item.SubTitle)</h4>
 				}
 			</header>
 
