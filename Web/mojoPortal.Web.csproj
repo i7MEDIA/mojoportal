@@ -1173,10 +1173,6 @@
     <Content Include="Scripts\AjaxControlToolkit\Release\ValidatorCallout.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Properties\PublishProfiles\MSSQL.pubxml" />
-    <None Include="Properties\PublishProfiles\MySQL.pubxml" />
-    <None Include="Properties\PublishProfiles\pgSQL.pubxml" />
-    <None Include="Properties\PublishProfiles\SQLite.pubxml" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
