@@ -355,13 +355,22 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.ListBox lbAltContent1;
         
         /// <summary>
+        /// pnlQuestionOptionControls control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlQuestionOptionControls;
+        
+        /// <summary>
         /// btnAlt1MoveUp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnAlt1MoveUp;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAlt1MoveUp;
         
         /// <summary>
         /// btnAlt1MoveDown control.

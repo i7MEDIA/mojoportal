@@ -91,7 +91,7 @@ namespace mojoPortal.Web.AdminUI
             this.RightUpBtn.Click += new ImageClickEventHandler(RightUpBtn_Click);
             this.RightDownBtn.Click += new ImageClickEventHandler(RightDownBtn_Click);
 
-            this.btnAlt1MoveUp.Click += new ImageClickEventHandler(btnAlt1MoveUp_Click);
+            this.btnAlt1MoveUp.ServerClick += new EventHandler(btnAlt1MoveUp_Click);
             this.btnAlt1MoveDown.Click += new ImageClickEventHandler(btnAlt1MoveDown_Click);
             this.btnAlt2MoveUp.Click += new ImageClickEventHandler(btnAlt2MoveUp_Click);
             this.btnAlt2MoveDown.Click += new ImageClickEventHandler(btnAlt2MoveDown_Click);
@@ -466,11 +466,9 @@ namespace mojoPortal.Web.AdminUI
 
         }
 
-        void btnAlt1MoveUp_Click(object sender, ImageClickEventArgs e)
+        void btnAlt1MoveUp_Click(object sender, EventArgs e)
         {
-            string direction = ((ImageButton)sender).CommandName;
-            string pane = ((ImageButton)sender).CommandArgument;
-            MoveUpDown(lbAltContent1, pane, direction);
+			MoveUpDown(lbAltContent1, "altcontent1", "up");
         }
 
         void btnAlt1MoveDown_Click(object sender, ImageClickEventArgs e)
@@ -881,8 +879,9 @@ namespace mojoPortal.Web.AdminUI
             btnAlt2MoveUp.AlternateText = Resource.PageLayoutAlt2MoveUpButton;
             btnAlt2MoveUp.ToolTip = Resource.PageLayoutAlt2MoveUpButton;
 
-            btnAlt1MoveUp.AlternateText = Resource.PageLayoutAlt1MoveUpButton;
-            btnAlt1MoveUp.ToolTip = Resource.PageLayoutAlt1MoveUpButton;
+			btnAlt1MoveUp.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutUpButtonInnerHtml, Resource.PageLayoutAlt1MoveUpButton)));
+			btnAlt1MoveUp.Attributes.Add("class", displaySettings.PageLayoutUpButtonCssClass);
+			btnAlt1MoveUp.Attributes.Add("title", Resource.PageLayoutAlt1MoveUpButton);
 
             btnAlt1MoveDown.AlternateText = Resource.PageLayoutAlt1MoveDownButton;
             btnAlt1MoveDown.ToolTip = Resource.PageLayoutAlt1MoveDownButton;
@@ -1130,9 +1129,70 @@ namespace mojoPortal.Web.UI
             set { showMenuDescription = value; }
         }
 
-       
+		private string pageLayoutUpButtonCssClass = "pagelayout-item-up btn btn-xs btn-default";
+		public string PageLayoutUpButtonCssClass
+		{
+			get { return pageLayoutUpButtonCssClass; }
+			set { pageLayoutUpButtonCssClass = value; }
+		}
 
-        protected override void Render(HtmlTextWriter writer)
+		private string pageLayoutDownButtonCssClass = "pagelayout-item-down btn btn-xs btn-default";
+		public string PageLayoutDownButtonCssClass
+		{
+			get { return pageLayoutDownButtonCssClass; }
+			set { pageLayoutDownButtonCssClass = value; }
+		}
+
+		private string pageLayoutEditButtonCssClass = "pagelayout-item-edit btn btn-xs btn-default";
+		public string PageLayoutEditButtonCssClass
+		{
+			get { return pageLayoutEditButtonCssClass; }
+			set { pageLayoutEditButtonCssClass = value; }
+		}
+
+		private string pageLayoutDeleteButtonCssClass = "pagelayout-item-delete btn btn-xs btn-default";
+		public string PageLayoutDeleteButtonCssClass
+		{
+			get { return pageLayoutDeleteButtonCssClass; }
+			set { pageLayoutDeleteButtonCssClass = value; }
+		}
+
+		private string pageLayoutResetSortButtonCssClass = "pagelayout-item-sort-reset btn btn-xs btn-default";
+		public string PageLayoutResetSortButtonCssClass
+		{
+			get { return pageLayoutResetSortButtonCssClass; }
+			set { pageLayoutResetSortButtonCssClass = value; }
+		}
+
+		private string pageLayoutUpButtonInnerHtml = "<i class='fa fa-arrow-up'></i>";
+		public string PageLayoutUpButtonInnerHtml
+		{
+			get { return pageLayoutUpButtonInnerHtml; }
+			set { pageLayoutUpButtonInnerHtml = value; }
+		}
+
+		private string pageLayoutDownButtonInnerHtml = "<i class='fa fa-arrow-down'></i>";
+		public string PageLayoutDownButtonInnerHtml
+		{
+			get { return pageLayoutDownButtonInnerHtml; }
+			set { pageLayoutDownButtonInnerHtml = value; }
+		}
+
+		private string pageLayoutEditButtonInnerHtml = "<i class='fa fa-pencil-square-o'></i>";
+		public string PageLayoutEditButtonInnerHtml
+		{
+			get { return pageLayoutEditButtonInnerHtml; }
+			set { pageLayoutEditButtonInnerHtml = value; }
+		}
+
+		private string pageLayoutDeleteButtonInnerHtml = "<i class='fa fa-trash-o'></i>";
+		public string PageLayoutDeleteButtonInnerHtml
+		{
+			get { return pageLayoutDeleteButtonInnerHtml; }
+			set { pageLayoutDeleteButtonInnerHtml = value; }
+		}
+
+		protected override void Render(HtmlTextWriter writer)
         {
             if (HttpContext.Current == null)
             {

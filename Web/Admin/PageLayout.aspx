@@ -71,9 +71,10 @@
                                         <h2><mp:SiteLabel ID="lblAltPanel1" runat="server" ConfigKey="PageLayoutAltPanel1Label" UseLabelTag="false" /></h2>
                                         <div class="panelistbox">
                                             <asp:ListBox ID="lbAltContent1" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle" Rows="7" />
-                                            <div class="layoutbuttons">
-                                                <asp:ImageButton ID="btnAlt1MoveUp" runat="server" ImageUrl="~/Data/SiteImages/up.png"
-                                                    CommandName="up" CommandArgument="altcontent1" SkinID="pageLayoutMoveUp" CssClass="btnup" />
+                                            <portal:BasePanel id="pnlQuestionOptionControls" runat="server" SkinID="PageLayoutArrangeButtons" CssClass="btn-group-vertical">
+<%--                                                <asp:ImageButton ID="btnAlt1MoveUp" runat="server" ImageUrl="~/Data/SiteImages/up.png"
+                                                    CommandName="up" CommandArgument="altcontent1" SkinID="pageLayoutMoveUp" CssClass="btnup" />--%>
+												<button id="btnAlt1MoveUp" runat="server"></button>
                                                 <asp:ImageButton ID="btnAlt1MoveDown" runat="server" ImageUrl="~/Data/SiteImages/down.png"
                                                     CommandName="down" CommandArgument="altcontent1" SkinID="pageLayoutMoveDown"
                                                     CssClass="btndown" />
@@ -83,7 +84,7 @@
                                                     CssClass="btnedit" SkinID="pageLayoutEditSettings" />
                                                 <asp:ImageButton ID="btnDeleteAlt1" runat="server" CommandName="delete" CommandArgument="lbAltContent1"
                                                     SkinID="pageLayoutDeleteItem" CssClass="btnremove" />
-                                            </div>
+                                            </portal:BasePanel>
                                         </div>
                                     </div>
                                     <div class="regularpanes">
