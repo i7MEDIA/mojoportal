@@ -39,10 +39,17 @@ namespace mojoPortal.Data
             string connectionString = ConfigurationManager.AppSettings["SqliteConnectionString"];
             if (connectionString == "defaultdblocation")
             {
-                connectionString = "version=3,URI=file:"
-                    + System.Web.Hosting.HostingEnvironment.MapPath("~/Data/sqlitedb/mojo.db.config");
+				FileInfo theDb = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath("~/Data/sqlitedb/mojo.db.config"));
+				FileInfo seedDb = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath("~/Data/sqlitedb/mojo-seed.db.config"));
 
-            }
+				if (!theDb.Exists && seedDb.Exists && Convert.ToBoolean(ConfigurationManager.AppSettings["TryToCopySQLiteSeedDatabase"].ToString()))
+				{
+					seedDb.CopyTo("~/Data/sqlitedb/mojo.db.config");
+				}
+				
+				connectionString = "version=3,URI=file:"
+					+ System.Web.Hosting.HostingEnvironment.MapPath("~/Data/sqlitedb/mojo.db.config");				
+			}
 
             return connectionString;
             
@@ -50,13 +57,6 @@ namespace mojoPortal.Data
 
         public static void EnsureDatabase()
         {
-			FileInfo seedDb = new FileInfo("~/Data/sqlitedb/mojo-seed.db.config");
-
-			if (seedDb.Exists && !seedDb.IsReadOnly)
-			{
-				seedDb.CopyTo("~/Data/sqlitedb/mojo.db.config", true);
-			}
-
         }
 
         
@@ -1410,15 +1410,9 @@ namespace mojoPortal.Data
 
         }
 
-        public static bool DatabaseHelperSitesTableExists(bool copySQLiteSeedDbIfEmpty = false)
+        public static bool DatabaseHelperSitesTableExists()
         {
-			if (copySQLiteSeedDbIfEmpty)
-			{
-				if (DatabaseHelperTableExists("mp_Sites")) return true;
-				EnsureDatabase();
-			}
-			
-			return DatabaseHelperTableExists("mp_Sites");
+            return DatabaseHelperTableExists("mp_Sites");
         }
 
         public static bool DatabaseHelperTableExists(string tableName)
