@@ -317,7 +317,7 @@ namespace mojoPortal.Web.SearchUI
             else
             {
                 Guid[] featureGuids = config.GetFeatureGuids();
-                if(featureGuids.Length > 0)
+                if(featureGuids.Length > 1)
                 {
                     Search.FeatureGuid = featureGuids[0];
                 }
