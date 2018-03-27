@@ -23,7 +23,7 @@ namespace mojoPortal.Web.UI
 {
     public class CommentSystemDisplaySettings : WebControl
     {
-        private string deleteLinkImage = "~/Data/SiteImages/trash.png";
+        private string deleteLinkImage = "~/Data/SiteImages/delete.png";
 
         public string DeleteLinkImage
         {

@@ -1,6 +1,5 @@
-﻿// Author:				        
-// Created:			            2012-08-15
-//	Last Modified:              2017-08-29
+﻿// Created:			            2012-08-15
+//	Last Modified:              2018-01-03
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -9,7 +8,6 @@
 // the terms of this license.
 //
 // You must not remove this notice, or any other, from this software.
-
 
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;

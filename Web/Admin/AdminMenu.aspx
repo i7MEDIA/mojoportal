@@ -17,10 +17,6 @@
 			</li>
 			<li id="liSecurityAdvisor" runat="server" visible="false" class="liSecurityAdvisor">
 				<asp:HyperLink ID="lnkSecurityAdvisor" runat="server" CssClass="lnkSecurityAdvisor" />
-				<span class="secwarning">
-				<asp:image id="imgMachineKeyDanger" runat="server" Visible="false" CssClass="securitywarning"  />
-				<mp:SiteLabel ID="lblNeedsAttantion" runat="server" CssClass="txterror needsattention" ConfigKey="NeedsAttention" UseLabelTag="false" Visible="false"></mp:SiteLabel>
-				</span>
 			</li>
 			<li id="liRoleAdmin" runat="server">
 				<asp:HyperLink ID="lnkRoleAdmin" runat="server" CssClass="lnkRoleAdmin" />

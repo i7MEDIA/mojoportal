@@ -1,5 +1,5 @@
 /// Author:        
-///	Last Modified: 2017-07-26
+///	Last Modified: 2018-01-08
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -483,7 +483,7 @@ namespace mojoPortal.Web.AdminUI
 			StringBuilder attribsMarkup = new StringBuilder();
 			foreach (var attrib in attributes.Where(a => !a.Key.IsIn("panelClass", "labelClass", "controlClass")))
 			{
-				string attribValue = attrib.Key.StartsWith("Resource:") ? GetResourceString(resourceFile, attrib.Key.Substring(9)).ToString() : attrib.Key;
+				string attribValue = attrib.Value.StartsWith("Resource:") ? GetResourceString(resourceFile, attrib.Value.Substring(9)).ToString() : attrib.Value;
 				
 				attribsMarkup.Append($" {attrib.Key}=\"{attribValue}\"");
 			}
@@ -497,7 +497,7 @@ namespace mojoPortal.Web.AdminUI
 			//creating generic control here so we can cast it as whatever type we need to and still add it to the panel in a single location
 			Control control = new Control();
 
-			string txtBoxMarkupFormat = "<input name=\"{0}\" id=\"{0}\" type=\"text\" class=\"{1}\" value=\"{2}\"{3} />";
+			//string txtBoxMarkupFormat = "<input name=\"{0}\" id=\"{0}\" type=\"text\" class=\"{1}\" value=\"{2}\"{3} />";
 
 			switch (s.SettingControlType)
 			{

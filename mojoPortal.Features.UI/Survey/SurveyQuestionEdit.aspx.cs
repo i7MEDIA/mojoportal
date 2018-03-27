@@ -185,11 +185,11 @@ namespace SurveyFeature.UI
 
             btnUp.AlternateText = SurveyResources.QuestionEditOptionsUpAlternateText;
             btnUp.ToolTip = SurveyResources.QuestionEditOptionsUpAlternateText;
-            btnUp.ImageUrl = ImageSiteRoot + "/Data/SiteImages/up.gif";
+            btnUp.ImageUrl = ImageSiteRoot + "/Data/SiteImages/up.png";
 
             btnDown.AlternateText = SurveyResources.QuestionEditOptionsDownAlternateText;
             btnDown.ToolTip = SurveyResources.QuestionEditOptionsDownAlternateText;
-            btnDown.ImageUrl = ImageSiteRoot + "/Data/SiteImages/dn.gif";
+            btnDown.ImageUrl = ImageSiteRoot + "/Data/SiteImages/down.png";
 
             btnEdit.AlternateText = SurveyResources.QuestionEditOptionsEditAlternateText;
             btnEdit.ToolTip = SurveyResources.QuestionEditOptionsEditAlternateText;

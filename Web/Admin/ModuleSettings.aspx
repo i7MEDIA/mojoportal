@@ -27,10 +27,10 @@
                 </asp:DropDownList>
             </div>
             <asp:Panel ID="pnlcustomSettings" runat="server"></asp:Panel>
-            <div class="settingrow">
+<%--            <div class="settingrow">
                 <mp:SiteLabel ID="SiteLabel10" runat="server" CssClass="settinglabel" ConfigKey="spacer"
                     UseLabelTag="false"></mp:SiteLabel>
-            </div>
+            </div>--%>
         </div>
         <div id="tabGeneralSettings" runat="server">
             <div class="settingrow">
@@ -117,10 +117,10 @@
                 </asp:DropDownList>
                 <img id="imgIcon" alt="" src="" runat="server" />
             </div>--%>
-            <div class="settingrow">
+<%--            <div class="settingrow">
                 <mp:SiteLabel ID="SiteLabel11" runat="server" CssClass="settinglabel" ConfigKey="spacer">
                 </mp:SiteLabel>
-            </div>
+            </div>--%>
         </div>
         <div id="tabSecurity" runat="server">
                 <div id="divIsGlobal" runat="server" visible="false" class="settingrow">
@@ -208,7 +208,7 @@
 	            </li>
             </ul>
             </div>
-            <div id="divEditUser" runat="server" class="settingrow" style="height: 220px;">
+            <div id="divEditUser" runat="server" class="settingrow specificeditor">
                 <mp:SiteLabel ID="Sitelabel1" runat="server" ForControl="scUser" CssClass="settinglabel"
                     ConfigKey="ModuleSettingsEditUserLabel"></mp:SiteLabel>
                 <portal:jQueryAutoCompleteTextBox id="acUser" runat="server" CssClass="forminput mediumtextbox" SkinID="modulesecurity" />

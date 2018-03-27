@@ -161,6 +161,7 @@ namespace mojoPortal.Web.SharedFilesUI
                     {
                         //type is folder
                         imgType.ImageUrl = imgroot + "folder.png";
+						imgType.AlternateText = SharedFileResources.SharedFilesFolderLabel;
                     }
                     else
                     {
@@ -171,10 +172,12 @@ namespace mojoPortal.Web.SharedFilesUI
                         if (IconExists(imgFile))
                         {
                             imgType.ImageUrl = imgroot + "Icons/" + imgFile;
+							imgType.AlternateText = SharedFileResources.ImageFileLabel;
                         }
                         else
                         {
                             imgType.ImageUrl = imgroot + "Icons/unknown.png";
+							imgType.AlternateText = SharedFileResources.FileLabel;
                         }
                     }
                 }
@@ -350,13 +353,13 @@ namespace mojoPortal.Web.SharedFilesUI
             string innerMarkup = name;
             if (includeImage)
             {
-                innerMarkup = "<img src='" + ImageSiteRoot + "/Data/SiteImages/disk.png' alt='" + SharedFileResources.SharedFilesDownloadLink + "' />";
+                innerMarkup = "<img src='" + ImageSiteRoot + "/Data/SiteImages/arrow_in_down.png' alt='" + SharedFileResources.SharedFilesDownloadLink + "' />";
             }
 
             return "<a href='" + SiteRoot + "/SharedFiles/Download.aspx?pageid=" + PageId.ToInvariantString()
                 + "&amp;mid=" + ModuleId.ToInvariantString()
                 + "&amp;fileid=" + id.Replace("~file", string.Empty) + "' "
-                + "title='" + name + "' "
+                + "title='" + (includeImage ? SharedFileResources.SharedFilesDownloadLink + " " : "") + name + "' "
                 + newWindowMarkup
                 + ">"
                 + innerMarkup
@@ -587,8 +590,8 @@ namespace mojoPortal.Web.SharedFilesUI
             //tblNewFolder.Visible = this.IsEditable;
             pnlNewFolder.Visible = this.IsEditable;
             imgroot = ImageSiteRoot + "/Data/SiteImages/";
-            btnDelete.ImageUrl = imgroot + "trash.png";
-            btnGoUp.ImageUrl = imgroot + "arrow_up.png";
+            btnDelete.ImageUrl = imgroot + "delete.png";
+            btnGoUp.ImageUrl = imgroot + "folder-up-icon.png";
 
             btnUpload2.Text = SharedFileResources.FileManagerUploadButton;
             btnGoUp.ToolTip = SharedFileResources.FileManagerGoUp;
@@ -596,12 +599,12 @@ namespace mojoPortal.Web.SharedFilesUI
             btnNewFolder.Text = SharedFileResources.FileManagerNewFolderButton;
             btnDelete.ToolTip = SharedFileResources.FileManagerDelete;
             btnDelete.AlternateText = SharedFileResources.FileManagerDelete;
-            btnDelete.Visible = this.IsEditable;
+			btnDelete.Visible = this.IsEditable;
             //btnAddFile.Text = SharedFileResources.AddFileButton;
 
             // this button is clicked by javascript callback from the jquery file uploader
             btnRefresh.ImageUrl = "~/Data/SiteImages/1x1.gif";
-            btnRefresh.AlternateText = " ";
+            btnRefresh.AlternateText = SharedFileResources.RefreshButtonText; //we really don't want any text here but without it accessibility checks fail... smh...
 
             RootLabel = SharedFileResources.Root;
             
@@ -751,64 +754,75 @@ namespace mojoPortal.Web.SharedFilesUI
             
         }
 
+		//protected void chkChecked_CheckedChanged(object sender, EventArgs e)
+		//{
+		//	if (this.IsEditable)
+		//	{
+		//		btnDelete.Visible = true;
 
-        // previous implementation with NeatUpload
+		//	}
+		//	//BindData();
+		//	upFiles.Update();
+		//}
 
-        //protected void btnUpload_Click(object sender, EventArgs e)
-        //{
 
-        //    if (!fileSystem.FolderExists(fileVirtualBasePath))
-        //    {
-        //        fileSystem.CreateFolder(fileVirtualBasePath);
-        //    }
+		// previous implementation with NeatUpload
 
-        //    SiteUser siteUser = SiteUtils.GetCurrentSiteUser();
+		//protected void btnUpload_Click(object sender, EventArgs e)
+		//{
 
-        //    if ((multiFile.Files.Length > 0)&&(siteUser != null))
-        //    {
+		//    if (!fileSystem.FolderExists(fileVirtualBasePath))
+		//    {
+		//        fileSystem.CreateFolder(fileVirtualBasePath);
+		//    }
 
-        //        foreach (UploadedFile file in multiFile.Files)
-        //        {
-        //            if (file != null && file.FileName != null && file.FileName.Trim().Length > 0)
-        //            {
-        //                SharedFile sharedFile = new SharedFile();
+		//    SiteUser siteUser = SiteUtils.GetCurrentSiteUser();
 
-        //                sharedFile.ModuleId = ModuleId;
-        //                sharedFile.ModuleGuid = ModuleConfiguration.ModuleGuid;
-        //                sharedFile.OriginalFileName = file.FileName;
-        //                sharedFile.FriendlyName = Path.GetFileName(file.FileName);
-        //                sharedFile.SizeInKB = (int)(file.ContentLength / 1024);
-        //                sharedFile.FolderId = CurrentFolderId;
-        //                if (CurrentFolderId > -1)
-        //                {
-        //                    SharedFileFolder folder = new SharedFileFolder(ModuleId, CurrentFolderId);
-        //                    sharedFile.FolderGuid = folder.FolderGuid;
-        //                }
-        //                sharedFile.UploadUserId = siteUser.UserId;
-        //                sharedFile.UserGuid = siteUser.UserGuid;
+		//    if ((multiFile.Files.Length > 0)&&(siteUser != null))
+		//    {
 
-        //                sharedFile.ContentChanged += new ContentChangedEventHandler(sharedFile_ContentChanged);
+		//        foreach (UploadedFile file in multiFile.Files)
+		//        {
+		//            if (file != null && file.FileName != null && file.FileName.Trim().Length > 0)
+		//            {
+		//                SharedFile sharedFile = new SharedFile();
 
-        //                if (sharedFile.Save())
-        //                {
-        //                    string destPath = VirtualPathUtility.Combine(fileVirtualBasePath, sharedFile.ServerFileName);
-        //                    using (file)
-        //                    {
-        //                        using (Stream s = file.OpenRead())
-        //                        {
-        //                            fileSystem.SaveFile(destPath, s, IOHelper.GetMimeType(Path.GetExtension(sharedFile.FriendlyName).ToLower()), true);
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
+		//                sharedFile.ModuleId = ModuleId;
+		//                sharedFile.ModuleGuid = ModuleConfiguration.ModuleGuid;
+		//                sharedFile.OriginalFileName = file.FileName;
+		//                sharedFile.FriendlyName = Path.GetFileName(file.FileName);
+		//                sharedFile.SizeInKB = (int)(file.ContentLength / 1024);
+		//                sharedFile.FolderId = CurrentFolderId;
+		//                if (CurrentFolderId > -1)
+		//                {
+		//                    SharedFileFolder folder = new SharedFileFolder(ModuleId, CurrentFolderId);
+		//                    sharedFile.FolderGuid = folder.FolderGuid;
+		//                }
+		//                sharedFile.UploadUserId = siteUser.UserId;
+		//                sharedFile.UserGuid = siteUser.UserGuid;
 
-        //    WebUtils.SetupRedirect(this, Request.RawUrl);
+		//                sharedFile.ContentChanged += new ContentChangedEventHandler(sharedFile_ContentChanged);
 
-        //}
+		//                if (sharedFile.Save())
+		//                {
+		//                    string destPath = VirtualPathUtility.Combine(fileVirtualBasePath, sharedFile.ServerFileName);
+		//                    using (file)
+		//                    {
+		//                        using (Stream s = file.OpenRead())
+		//                        {
+		//                            fileSystem.SaveFile(destPath, s, IOHelper.GetMimeType(Path.GetExtension(sharedFile.FriendlyName).ToLower()), true);
+		//                        }
+		//                    }
+		//                }
+		//            }
+		//        }
+		//    }
 
-        
+		//    WebUtils.SetupRedirect(this, Request.RawUrl);
 
-    }
+		//}
+
+
+
+	}
 }

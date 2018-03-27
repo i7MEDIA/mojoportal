@@ -689,6 +689,11 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("TryToCreateMsSqlDatabase", false); }
 		}
 
+		public static bool TryToCopySQLiteSeedDatabase
+		{
+			get { return ConfigHelper.GetBoolProperty("TryToCopySQLiteSeedDatabase", true); }
+		}
+
 		public static string QueryToolMsSqlTableSelectSql
 		{
 			get
@@ -868,30 +873,30 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("CKeditor:EncodeBrackets", false); }
 		}
 
-		public static string FCKeditorEmoticonsPath
-		{
-			get
-			{
-				if (ConfigurationManager.AppSettings["FCKeditor:EmoticonsPath"] != null)
-				{
-					return ConfigurationManager.AppSettings["FCKeditor:EmoticonsPath"];
-				}
-				return "~/Data/SiteImages/emoticons/";
-			}
-		}
+		//public static string FCKeditorEmoticonsPath
+		//{
+		//	get
+		//	{
+		//		if (ConfigurationManager.AppSettings["FCKeditor:EmoticonsPath"] != null)
+		//		{
+		//			return ConfigurationManager.AppSettings["FCKeditor:EmoticonsPath"];
+		//		}
+		//		return "~/Data/SiteImages/emoticons/";
+		//	}
+		//}
 
 
-		public static string FCKeditorSkin
-		{
-			get
-			{
-				if (ConfigurationManager.AppSettings["FCKeditor:Skin"] != null)
-				{
-					return ConfigurationManager.AppSettings["FCKeditor:Skin"];
-				}
-				return "normal";
-			}
-		}
+		//public static string FCKeditorSkin
+		//{
+		//	get
+		//	{
+		//		if (ConfigurationManager.AppSettings["FCKeditor:Skin"] != null)
+		//		{
+		//			return ConfigurationManager.AppSettings["FCKeditor:Skin"];
+		//		}
+		//		return "normal";
+		//	}
+		//}
 
 		public static bool UseSkinCssInEditor
 		{
@@ -2471,12 +2476,12 @@ namespace mojoPortal.Web
 
 		public static string AdminImage
 		{
-			get { return ConfigHelper.GetStringProperty("AdminImage", "admin.png"); }
+			get { return ConfigHelper.GetStringProperty("AdminImage", "key.png"); }
 		}
 
 		public static string PageTreeImage
 		{
-			get { return ConfigHelper.GetStringProperty("PageTreeImage", "sitemap.png"); }
+			get { return ConfigHelper.GetStringProperty("PageTreeImage", "shelf_double_down.png"); }
 		}
 
 		public static int ParentPageDialogExpansionDepth
@@ -2486,27 +2491,27 @@ namespace mojoPortal.Web
 
 		public static string EditContentImage
 		{
-			get { return ConfigHelper.GetStringProperty("EditContentImage", "pencil.png"); }
+			get { return ConfigHelper.GetStringProperty("EditContentImage", "edit.png"); }
 		}
 
 		public static string EditPageFeaturesImage
 		{
-			get { return ConfigHelper.GetStringProperty("EditPageFeaturesImage", "page_edit.png"); }
+			get { return ConfigHelper.GetStringProperty("EditPageFeaturesImage", "edit_cover.png"); }
 		}
 
 		public static string EditPageSettingsImage
 		{
-			get { return ConfigHelper.GetStringProperty("EditPageSettingsImage", "page_gear.png"); }
+			get { return ConfigHelper.GetStringProperty("EditPageSettingsImage", "page-settings-icon.png"); }
 		}
 
 		public static string EditPropertiesImage
 		{
-			get { return ConfigHelper.GetStringProperty("EditPropertiesImage", "wrench.png"); }
+			get { return ConfigHelper.GetStringProperty("EditPropertiesImage", "cog-icon.png"); }
 		}
 
 		public static string DeleteLinkImage
 		{
-			get { return ConfigHelper.GetStringProperty("DeleteLinkImage", "trash.png"); }
+			get { return ConfigHelper.GetStringProperty("DeleteLinkImage", "delete.png"); }
 		}
 
 		public static string RSSImageFileName
@@ -2519,12 +2524,12 @@ namespace mojoPortal.Web
 
 		public static string NewThreadImage
 		{
-			get { return ConfigHelper.GetStringProperty("NewThreadImage", "folder_edit.png"); }
+			get { return ConfigHelper.GetStringProperty("NewThreadImage", "messages_new.png"); }
 		}
 
 		public static string ForumThreadImage
 		{
-			get { return ConfigHelper.GetStringProperty("ForumThreadImage", "folder.png"); }
+			get { return ConfigHelper.GetStringProperty("ForumThreadImage", "messages_chat.png"); }
 		}
 
 		
@@ -4108,7 +4113,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["RequestApprovalImage"];
 				}
 				// default value
-				return "~/Data/SiteImages/RequestApproval.gif";
+				return "~/Data/SiteImages/glasses.png";
 			}
 		}
 
@@ -4121,7 +4126,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["ApproveContentImage"];
 				}
 				// default value
-				return "~/Data/SiteImages/ApproveChanges.gif";
+				return "~/Data/SiteImages/done_cover.png";
 			}
 		}
 
@@ -4134,7 +4139,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["PublishContentImage"];
 				}
 				// default value
-				return "~/Data/SiteImages/PublishChanges.png";
+				return "~/Data/SiteImages/plus.png";
 			}
 		}
 
@@ -4147,7 +4152,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["RejectContentImage"];
 				}
 				// default value
-				return "~/Data/SiteImages/RejectChanges.gif";
+				return "~/Data/SiteImages/minus_circle.png";
 			}
 		}
 
@@ -4160,7 +4165,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["CancelContentChangesImage"];
 				}
 				// default value
-				return "~/Data/SiteImages/CancelChanges.gif";
+				return "~/Data/SiteImages/x-circle.png";
 			}
 		}
 

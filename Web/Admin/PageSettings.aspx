@@ -395,10 +395,10 @@
 															<asp:TemplateField>
 																<ItemTemplate>
 																	<asp:Button ID="btnEditMetaLink" runat="server" CommandName="Edit" Text='<%# Resources.Resource.ContentMetaGridEditButton %>' />
-																	<asp:ImageButton ID="btnMoveUpMetaLink" runat="server" ImageUrl="~/Data/SiteImages/up.gif"
+																	<asp:ImageButton ID="btnMoveUpMetaLink" runat="server" ImageUrl="~/Data/SiteImages/up.png"
 																		CommandName="MoveUp" CommandArgument='<%# Eval("Guid") %>' AlternateText='<%# Resources.Resource.ContentMetaGridMoveUpButton %>'
 																		Visible='<%# (Convert.ToInt32(Eval("SortRank")) > 3) %>' />
-																	<asp:ImageButton ID="btnMoveDownMetaLink" runat="server" ImageUrl="~/Data/SiteImages/dn.gif"
+																	<asp:ImageButton ID="btnMoveDownMetaLink" runat="server" ImageUrl="~/Data/SiteImages/down.png"
 																		CommandName="MoveDown" CommandArgument='<%# Eval("Guid") %>' AlternateText='<%# Resources.Resource.ContentMetaGridMoveDownButton %>' />
 																</ItemTemplate>
 																<EditItemTemplate>
@@ -478,10 +478,10 @@
 															<asp:TemplateField>
 																<ItemTemplate>
 																	<asp:Button ID="btnEditMeta" runat="server" CommandName="Edit" Text='<%# Resources.Resource.ContentMetaGridEditButton %>' />
-																	<asp:ImageButton ID="btnMoveUpMeta" runat="server" ImageUrl="~/Data/SiteImages/up.gif"
+																	<asp:ImageButton ID="btnMoveUpMeta" runat="server" ImageUrl="~/Data/SiteImages/up.png"
 																		CommandName="MoveUp" CommandArgument='<%# Eval("Guid") %>' AlternateText='<%# Resources.Resource.ContentMetaGridMoveUpButton %>'
 																		Visible='<%# (Convert.ToInt32(Eval("SortRank")) > 3) %>' />
-																	<asp:ImageButton ID="btnMoveDownMeta" runat="server" ImageUrl="~/Data/SiteImages/dn.gif"
+																	<asp:ImageButton ID="btnMoveDownMeta" runat="server" ImageUrl="~/Data/SiteImages/down.png"
 																		CommandName="MoveDown" CommandArgument='<%# Eval("Guid") %>' AlternateText='<%# Resources.Resource.ContentMetaGridMoveDownButton %>' />
 																</ItemTemplate>
 																<EditItemTemplate>

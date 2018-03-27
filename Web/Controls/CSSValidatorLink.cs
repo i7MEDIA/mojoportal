@@ -33,38 +33,41 @@ namespace mojoPortal.Web.UI
 
         protected override void Render(HtmlTextWriter writer)
         {
-            if (this.Site != null && this.Site.DesignMode)
-            {
-                // TODO: show a bmp or some other design time thing?
-                writer.Write("[" + this.ID + "]");
-            }
-            else
-            {
-                if (WebConfigSettings.DisableCssValidatorLink) { return; }
+			// this is an unnecessary control 
+			// if you want a CSSValidator link on your site, place one there with an <a href=
+
+            //if (this.Site != null && this.Site.DesignMode)
+            //{
+            //    // TODO: show a bmp or some other design time thing?
+            //    writer.Write("[" + this.ID + "]");
+            //}
+            //else
+            //{
+            //    if (WebConfigSettings.DisableCssValidatorLink) { return; }
                 
-                string urlToUse = "http://jigsaw.w3.org/css-validator/validator?uri="
-                    + SiteUtils.GetStyleSheetUrl(Page);
+            //    string urlToUse = "http://jigsaw.w3.org/css-validator/validator?uri="
+            //        + SiteUtils.GetStyleSheetUrl(Page);
 
-                string innerMarkup = "CSS";
-                if (useImage)
-                {
-                    innerMarkup = "<img  src='"
-                        + Page.ResolveUrl("~/Data/SiteImages/vcss.png")
-                        + "' alt='Valid CSS' />";
+            //    string innerMarkup = "CSS";
+            //    if (useImage)
+            //    {
+            //        innerMarkup = "<img  src='"
+            //            + Page.ResolveUrl("~/Data/SiteImages/vcss.png")
+            //            + "' alt='Valid CSS' />";
 
-                }
+            //    }
 
-                string css = string.Empty;
-                if (CssClass.Length > 0) css = " class='" + CssClass + "' ";
+            //    string css = string.Empty;
+            //    if (CssClass.Length > 0) css = " class='" + CssClass + "' ";
 
-                writer.Write(string.Format(CultureInfo.InvariantCulture,
-                                 "<a rel='nofollow' href='{0}' "
-                                 + css
-                                 + " title='Valid CSS'>"
-                                 + innerMarkup
-                                 + "</a>",
-                                 urlToUse));
-            }
+            //    writer.Write(string.Format(CultureInfo.InvariantCulture,
+            //                     "<a rel='nofollow' href='{0}' "
+            //                     + css
+            //                     + " title='Valid CSS'>"
+            //                     + innerMarkup
+            //                     + "</a>",
+            //                     urlToUse));
+            //}
         }
 
     }

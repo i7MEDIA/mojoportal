@@ -736,6 +736,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attention!.
+        /// </summary>
+        internal static string Attention {
+            get {
+                return ResourceManager.GetString("Attention", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auth. Code.
         /// </summary>
         internal static string AuthorizeNetLogAuthCode {
@@ -1483,7 +1492,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to check if folders that don&apos;t need to be writable by the web process are writable. This might be slow..
+        ///   Looks up a localized string similar to Run File System Permissions Check.
         /// </summary>
         internal static string CheckIfTooManyWritableFolders {
             get {
@@ -1938,6 +1947,15 @@ namespace Resources {
         internal static string CompareDraftToLiveTooltip {
             get {
                 return ResourceManager.GetString("CompareDraftToLiveTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Congratulations!.
+        /// </summary>
+        internal static string Congratulations {
+            get {
+                return ResourceManager.GetString("Congratulations", resourceCulture);
             }
         }
         
@@ -5218,7 +5236,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate a new Key.
+        ///   Looks up a localized string similar to You can refresh this page to generate a different machine key..
         /// </summary>
         internal static string GenerateMachineKey {
             get {
@@ -13921,11 +13939,102 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The website should only be able to write to the data directory..
+        /// </summary>
+        internal static string SecurityAdvisorFileSystemDescription {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorFileSystemDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File System Permissions.
+        /// </summary>
+        internal static string SecurityAdvisorFileSystemHeading {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorFileSystemHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your File System Permissions are correct!.
+        /// </summary>
+        internal static string SecurityAdvisorFileSystemPermissionsCorrect {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorFileSystemPermissionsCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your file system permissions are incorrect! Only the Data directory should be writable. The website can write to the following directories which is not a good security practice. See &lt;a href=&apos;http://www.mojoportal.com/securing-the-file-system.aspx&apos;&gt;this document&lt;/a&gt; for more information..
+        /// </summary>
+        internal static string SecurityAdvisorFileSystemPermissionsWrong {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorFileSystemPermissionsWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This page helps find common configuration issues that affect the security of your site..
         /// </summary>
         internal static string SecurityAdvisorInfo {
             get {
                 return ResourceManager.GetString("SecurityAdvisorInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are using using a custom machine key!.
+        /// </summary>
+        internal static string SecurityAdvisorMachineKeyCorrect {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorMachineKeyCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The machineKey is used to encrypt authentication and authorization cookies, user passwords, and the SMTP user password..
+        /// </summary>
+        internal static string SecurityAdvisorMachineKeyDescription {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorMachineKeyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Machine Key.
+        /// </summary>
+        internal static string SecurityAdvisorMachineKeyHeading {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorMachineKeyHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not using a custom machine key! &lt;br/&gt;
+        ///Copy the machine key below to your site&apos;s configuration by following &lt;a href=&apos;https://www.mojoportal.com/use-a-custom-machine-key?utm_source=usersite&amp;utm_medium=referral&amp;utm_campaign=securityadvisor&apos;&gt;these instructions&lt;/a&gt;..
+        /// </summary>
+        internal static string SecurityAdvisorMachineKeyWrong {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorMachineKeyWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Security Advisor &lt;small&gt;Needs Attention&lt;/small&gt;.
+        /// </summary>
+        internal static string SecurityAdvisorNeedsAttention {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorNeedsAttention", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ciphers.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolCiphers {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolCiphers", resourceCulture);
             }
         }
         
@@ -13939,11 +14048,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Full Response.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolFullCheckResponse {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolFullCheckResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SSL/TLS Protocol.
         /// </summary>
         internal static string SecurityAdvisorSecurityProtocolHeading {
             get {
                 return ResourceManager.GetString("SecurityAdvisorSecurityProtocolHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rating.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolRating {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolRating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TLS Version.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolVersion {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolVersion", resourceCulture);
             }
         }
         

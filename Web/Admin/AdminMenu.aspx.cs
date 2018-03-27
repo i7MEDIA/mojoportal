@@ -113,18 +113,10 @@ namespace mojoPortal.Web.AdminUI
 				liSecurityAdvisor.Visible = true;
 				if (!securityAdvisor.UsingCustomMachineKey())
 				{
-					imgMachineKeyDanger.Visible = true;
-					lblNeedsAttantion.Visible = true;
-					lnkSecurityAdvisor.CssClass = "lnkSecurityAdvisorWarning";
+					liSecurityAdvisor.Attributes["class"] += " secwarning";
+					lnkSecurityAdvisor.Text = Resource.SecurityAdvisorNeedsAttention;
 				}
-
 			}
-
-
-
-			imgMachineKeyDanger.ImageUrl = "~/Data/SiteImages/warning.png";
-			imgMachineKeyDanger.AlternateText = Resource.SecurityDangerLabel;
-
 
 			liCommerceReports.Visible = (isCommerceReportViewer && (commerceConfig != null) && (commerceConfig.IsConfigured));
 			lnkCommerceReports.Text = Resource.CommerceReportsLink;
@@ -146,8 +138,6 @@ namespace mojoPortal.Web.AdminUI
 			liStyleTemplates.Visible = (IsAdminOrContentAdmin || isSiteEditor || (WebUser.IsInRoles(siteSettings.RolesThatCanEditContentTemplates)));
 			lnkStyleTemplates.Text = Resource.ContentStyleTemplates;
 			lnkStyleTemplates.NavigateUrl = SiteRoot + "/Admin/ContentStyles.aspx";
-
-
 
 			liPageTree.Visible = (IsAdminOrContentAdmin || isSiteEditor || (SiteMapHelper.UserHasAnyCreatePagePermissions(siteSettings)));
 			lnkPageTree.Text = Resource.AdminMenuPageTreeLink;

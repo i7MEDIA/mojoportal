@@ -1,13 +1,6 @@
-// Author:             
 // Created:            2006-12-02
-// Last Modified:      2007-11-12
+// Last Modified:      2018-01-03
 // 
-// 
-// 
-// images used in this module are from DotNetNuke
-// http://www.dotnetnuke.com/
-// licensed under a BSD style license
-// http://www.dotnetnuke.com/Default.aspx?tabid=776
 
 using System;
 using System.Web.UI;
@@ -26,21 +19,6 @@ namespace mojoPortal.Web
 
         private void PopulateControls()
         {
-            imgMembership.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/uoGroup1.gif");
-            imgMembership.AlternateText = Resources.Resource.SiteStatisticsMembershipLabel;
-
-            imgNewestMember.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/uoLatest.gif");
-            imgNewestMember.AlternateText = Resources.Resource.SiteStatisticsNewestMemberLabel;
-
-            imgNewToday.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/uoNewToday.gif");
-            imgNewToday.AlternateText = Resources.Resource.SiteStatisticsNewTodayLabel;
-
-            imgNewYesterday.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/uoNewYesterday.gif");
-            imgNewYesterday.AlternateText = Resources.Resource.SiteStatisticsNewYesterdayLabel;
-
-            imgTotalUsers.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/uoOverall.gif");
-            imgTotalUsers.AlternateText = Resources.Resource.SiteStatisticsTotalUsersLabel;
-
             MembershipStatistics membershipStatistics = CacheHelper.GetCurrentMembershipStatistics();
             if (membershipStatistics != null)
             {
@@ -49,12 +27,6 @@ namespace mojoPortal.Web
                 lblNewUsersYesterday.Text = membershipStatistics.NewUsersYesterday.ToString();
                 lblTotalUsers.Text = membershipStatistics.TotalUsers.ToString();
             }
-
-
-
-
-
         }
-
     }
 }

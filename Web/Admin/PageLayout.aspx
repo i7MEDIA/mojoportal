@@ -68,20 +68,16 @@
                                         <asp:Literal ID="litAltLayoutNotice" runat="server" />
                                     </asp:Panel>
                                     <div class="pane layoutalt1" id="divAltPanel1" runat="server">
-                                        <h2>
-                                            <mp:SiteLabel ID="lblAltPanel1" runat="server" ConfigKey="PageLayoutAltPanel1Label"
-                                                UseLabelTag="false" />
-                                        </h2>
+                                        <h2><mp:SiteLabel ID="lblAltPanel1" runat="server" ConfigKey="PageLayoutAltPanel1Label" UseLabelTag="false" /></h2>
                                         <div class="panelistbox">
-                                            <asp:ListBox ID="lbAltContent1" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle"
-                                                Rows="7" />
+                                            <asp:ListBox ID="lbAltContent1" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle" Rows="7" />
                                             <div class="layoutbuttons">
-                                                <asp:ImageButton ID="btnAlt1MoveUp" runat="server" ImageUrl="~/Data/SiteImages/up.gif"
+                                                <asp:ImageButton ID="btnAlt1MoveUp" runat="server" ImageUrl="~/Data/SiteImages/up.png"
                                                     CommandName="up" CommandArgument="altcontent1" SkinID="pageLayoutMoveUp" CssClass="btnup" />
-                                                <asp:ImageButton ID="btnAlt1MoveDown" runat="server" ImageUrl="~/Data/SiteImages/dn.gif"
+                                                <asp:ImageButton ID="btnAlt1MoveDown" runat="server" ImageUrl="~/Data/SiteImages/down.png"
                                                     CommandName="down" CommandArgument="altcontent1" SkinID="pageLayoutMoveDown"
                                                     CssClass="btndown" />
-                                                <asp:ImageButton ID="btnMoveAlt1ToCenter" runat="server" ImageUrl="~/Data/SiteImages/dn2.gif"
+                                                <asp:ImageButton ID="btnMoveAlt1ToCenter" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_down.png"
                                                     CssClass="btndownpanel" SkinID="pageLayoutItemMoveDown" />
                                                 <asp:ImageButton ID="btnEditAlt1" runat="server" CommandName="edit" CommandArgument="lbAltContent1"
                                                     CssClass="btnedit" SkinID="pageLayoutEditSettings" />
@@ -100,11 +96,11 @@
                                                 <asp:ListBox ID="leftPane" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle"
                                                     Rows="10" />
                                                 <div class="layoutbuttons">
-                                                    <asp:ImageButton ID="LeftUpBtn" runat="server" ImageUrl="~/Data/SiteImages/up.gif"
+                                                    <asp:ImageButton ID="LeftUpBtn" runat="server" ImageUrl="~/Data/SiteImages/up.png"
                                                         CommandName="up" CommandArgument="LeftPane" SkinID="pageLayoutMoveUp" CssClass="btnup" />
-                                                    <asp:ImageButton ID="LeftDownBtn" runat="server" ImageUrl="~/Data/SiteImages/dn.gif"
+                                                    <asp:ImageButton ID="LeftDownBtn" runat="server" ImageUrl="~/Data/SiteImages/down.png"
                                                         CommandName="down" CommandArgument="LeftPane" SkinID="pageLayoutMoveDown" CssClass="btndown" />
-                                                    <asp:ImageButton ID="LeftRightBtn" runat="server" ImageUrl="~/Data/SiteImages/rt2.gif"
+                                                    <asp:ImageButton ID="LeftRightBtn" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_right.png"
                                                         CommandName="right" SkinID="pageLayoutMoveItemRight" CssClass="btnright" />
                                                     <asp:ImageButton ID="LeftEditBtn" runat="server" CommandName="edit" CommandArgument="LeftPane"
                                                         SkinID="pageLayoutEditSettings" CssClass="btnedit" />
@@ -122,19 +118,19 @@
                                                 <asp:ListBox ID="contentPane" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle"
                                                     Rows="10" />
                                                 <div class="layoutbuttons">
-                                                    <asp:ImageButton ID="ContentUpBtn" runat="server" ImageUrl="~/Data/SiteImages/up.gif"
+                                                    <asp:ImageButton ID="ContentUpBtn" runat="server" ImageUrl="~/Data/SiteImages/up.png"
                                                         CommandName="up" CommandArgument="ContentPane" SkinID="pageLayoutMoveUp" CssClass="btnup" />
-                                                    <asp:ImageButton ID="ContentDownBtn" runat="server" ImageUrl="~/Data/SiteImages/dn.gif"
+                                                    <asp:ImageButton ID="ContentDownBtn" runat="server" ImageUrl="~/Data/SiteImages/down.png"
                                                         CommandName="down" CommandArgument="ContentPane" SkinID="pageLayoutMoveDown"
                                                         CssClass="btndown" />
-                                                    <asp:ImageButton ID="ContentLeftBtn" runat="server" ImageUrl="~/Data/SiteImages/lt2.gif"
+                                                    <asp:ImageButton ID="ContentLeftBtn" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_left.png"
                                                         SkinID="pageLayoutMoveItemLeft" CssClass="btnleft" />
-                                                    <asp:ImageButton ID="ContentRightBtn" runat="server" ImageUrl="~/Data/SiteImages/rt2.gif"
+                                                    <asp:ImageButton ID="ContentRightBtn" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_right.png"
                                                         SkinID="pageLayoutMoveItemRight" CssClass="btnright" />
-                                                    <asp:ImageButton ID="ContentUpToNextButton" runat="server" ImageUrl="~/Data/SiteImages/up2.gif"
+                                                    <asp:ImageButton ID="ContentUpToNextButton" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_up.png"
                                                         CommandName="uptoalt1" CommandArgument="ContentPane" SkinID="pageLayoutMoveItemUp"
                                                         CssClass="btnuppanel" />
-                                                    <asp:ImageButton ID="ContentDownToNextButton" runat="server" ImageUrl="~/Data/SiteImages/dn2.gif"
+                                                    <asp:ImageButton ID="ContentDownToNextButton" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_down.png"
                                                         CommandName="downtoalt2" CommandArgument="ContentPane" SkinID="pageLayoutItemMoveDown"
                                                         CssClass="btndownpanel" />
                                                     <asp:ImageButton ID="ContentEditBtn" runat="server" CommandName="edit" CommandArgument="ContentPane"
@@ -153,11 +149,11 @@
                                                 <asp:ListBox ID="rightPane" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle"
                                                     Rows="10" />
                                                 <div class="layoutbuttons">
-                                                    <asp:ImageButton ID="RightUpBtn" runat="server" ImageUrl="~/Data/SiteImages/up.gif"
+                                                    <asp:ImageButton ID="RightUpBtn" runat="server" ImageUrl="~/Data/SiteImages/up.png"
                                                         CommandName="up" CommandArgument="RightPane" SkinID="pageLayoutMoveUp" CssClass="btnup" />
-                                                    <asp:ImageButton ID="RightDownBtn" runat="server" ImageUrl="~/Data/SiteImages/dn.gif"
+                                                    <asp:ImageButton ID="RightDownBtn" runat="server" ImageUrl="~/Data/SiteImages/down.png"
                                                         CommandName="down" CommandArgument="RightPane" SkinID="pageLayoutMoveDown" CssClass="btndown" />
-                                                    <asp:ImageButton ID="RightLeftBtn" runat="server" ImageUrl="~/Data/SiteImages/lt2.gif"
+                                                    <asp:ImageButton ID="RightLeftBtn" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_left.png"
                                                         SkinID="pageLayoutMoveItemLeft" CssClass="btnleft" />
                                                     <asp:ImageButton ID="RightEditBtn" runat="server" CommandName="edit" CommandArgument="RightPane"
                                                         SkinID="pageLayoutEditSettings" CssClass="btnedit" />
@@ -176,13 +172,13 @@
                                             <asp:ListBox ID="lbAltContent2" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle"
                                                 Rows="7" />
                                             <div class="layoutbuttons">
-                                                <%-- <asp:ImageButton ID="btnMoveAlt2ToAlt1" runat="server" ImageUrl="~/Data/SiteImages/up.gif" />--%>
-                                                <asp:ImageButton ID="btnAlt2MoveUp" runat="server" ImageUrl="~/Data/SiteImages/up.gif"
+                                                <%-- <asp:ImageButton ID="btnMoveAlt2ToAlt1" runat="server" ImageUrl="~/Data/SiteImages/up.png" />--%>
+                                                <asp:ImageButton ID="btnAlt2MoveUp" runat="server" ImageUrl="~/Data/SiteImages/up.png"
                                                     CommandName="up" CommandArgument="AltContent2" SkinID="pageLayoutMoveUp" CssClass="btnup" />
-                                                <asp:ImageButton ID="btnAlt2MoveDown" runat="server" ImageUrl="~/Data/SiteImages/dn.gif"
+                                                <asp:ImageButton ID="btnAlt2MoveDown" runat="server" ImageUrl="~/Data/SiteImages/down.png"
                                                     CommandName="down" CommandArgument="AltContent2" SkinID="pageLayoutMoveDown"
                                                     CssClass="btndown" />
-                                                <asp:ImageButton ID="btnMoveAlt2ToCenter" runat="server" ImageUrl="~/Data/SiteImages/up2.gif"
+                                                <asp:ImageButton ID="btnMoveAlt2ToCenter" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_up.png"
                                                     SkinID="pageLayoutMoveItemUp" CssClass="btnuppanel" />
                                                 <asp:ImageButton ID="btnEditAlt2" runat="server" CommandName="edit" CommandArgument="lbAltContent2"
                                                     SkinID="pageLayoutEditSettings" CssClass="btnedit" />

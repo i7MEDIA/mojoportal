@@ -56,7 +56,7 @@ namespace mojoPortal.Web.UI
 
             siteRoot = SiteUtils.GetNavigationSiteRoot();
             
-            this.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/info.gif");
+            this.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/information.png");
             this.ToolTip = Resource.HelpLink;
             this.Text = Resource.HelpLink;
             

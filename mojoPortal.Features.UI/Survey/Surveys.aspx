@@ -87,7 +87,7 @@
                             CommandName="export" ToolTip='<%# Resources.SurveyResources.SurveyGridExportResponsesToolTip %>'
                             CommandArgument='<%# Eval("SurveyGuid") %>'
                             AlternateText='<%# Resources.SurveyResources.SurveyGridExportResponsesAlternateText %>'
-                            ImageUrl="~/Data/SiteImages/disk.png"/>	 
+                            ImageUrl="~/Data/SiteImages/arrow_in_down.png"/>	 
                         &nbsp;&nbsp;
             </ItemTemplate>
 		</asp:TemplateField>

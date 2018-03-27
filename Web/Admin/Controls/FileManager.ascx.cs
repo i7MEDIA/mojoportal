@@ -594,8 +594,8 @@ namespace mojoPortal.Web.AdminUI
             btnDelete.Visible = true;
 
             imgroot = WebUtils.GetSiteRoot() + "/Data/SiteImages/";
-            btnDelete.ImageUrl = imgroot + "trash.png";
-            btnGoUp.ImageUrl = imgroot + "arrow_up.png";
+            btnDelete.ImageUrl = imgroot + "delete.png";
+            btnGoUp.ImageUrl = imgroot + "folder-up-icon.png";
 
             //btnAddFile.Text = Resource.AddFileButton;
 

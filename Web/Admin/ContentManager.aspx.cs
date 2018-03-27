@@ -500,10 +500,10 @@ namespace mojoPortal.Web.AdminUI
         {
             if (WebUtils.NullToFalse(o))
             {
-                return ResolveUrl("~/Data/SiteImages/PublishedTrue.png");
+                return ResolveUrl("~/Data/SiteImages/plus_circle.png");
             }
             
-            return ResolveUrl("~/Data/SiteImages/PublishedFalse.png");
+            return ResolveUrl("~/Data/SiteImages/minus_circle.png");
            
         }
 

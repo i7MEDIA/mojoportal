@@ -121,139 +121,58 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Literal litInfo;
         
         /// <summary>
-        /// SiteLabel5 control.
+        /// fgpMachineKey control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel5;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpMachineKey;
         
         /// <summary>
-        /// imgMachineKeyOk control.
+        /// litMachineKeyHeading control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgMachineKeyOk;
+        protected global::System.Web.UI.WebControls.Literal litMachineKeyHeading;
         
         /// <summary>
-        /// lblMachineKeyGood control.
+        /// litMachineKeyResults control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel lblMachineKeyGood;
+        protected global::System.Web.UI.WebControls.Literal litMachineKeyResults;
         
         /// <summary>
-        /// imgMachineKeyDanger control.
+        /// fgpFileSystem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgMachineKeyDanger;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpFileSystem;
         
         /// <summary>
-        /// lblMachineKeyBad control.
+        /// litFileSystemHeading control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel lblMachineKeyBad;
+        protected global::System.Web.UI.WebControls.Literal litFileSystemHeading;
         
         /// <summary>
-        /// txtRandomMachineKey control.
+        /// litFileSystemResults control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRandomMachineKey;
-        
-        /// <summary>
-        /// lnkMachineKeyRefresh control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkMachineKeyRefresh;
-        
-        /// <summary>
-        /// lblMachineKeyInstructions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel lblMachineKeyInstructions;
-        
-        /// <summary>
-        /// lnkCheckFolders control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkCheckFolders;
-        
-        /// <summary>
-        /// imgFileSystemOk control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgFileSystemOk;
-        
-        /// <summary>
-        /// lblFileSystemOk control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel lblFileSystemOk;
-        
-        /// <summary>
-        /// imgFileSystemWarning control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgFileSystemWarning;
-        
-        /// <summary>
-        /// lblFileSystemWarning control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel lblFileSystemWarning;
-        
-        /// <summary>
-        /// lnkFileSystemHelp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkFileSystemHelp;
-        
-        /// <summary>
-        /// litWritableFolderList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litWritableFolderList;
+        protected global::System.Web.UI.WebControls.Literal litFileSystemResults;
         
         /// <summary>
         /// fgpSecurityProtocol control.

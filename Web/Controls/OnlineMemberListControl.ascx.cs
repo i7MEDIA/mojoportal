@@ -1,6 +1,5 @@
-/// Author:					
 /// Created:				2006-12-03
-/// Last Modified:		    2012-08-08
+/// Last Modified:		    2018-01-03
 /// 
 /// 
 /// The use and distribution terms for this software are covered by the 

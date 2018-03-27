@@ -534,13 +534,49 @@
   <data name="ConfirmSendNotification" xml:space="preserve">
     <value>Are you sure you want to send this post to forum subscribers?</value>
   </data>
-  <data name="ConfrimMarkAsSent" xml:space="preserve">
+  <data name="ConfirmMarkAsSent" xml:space="preserve">
     <value>Are you sure you want to cancel notification for this post by marking it as sent?</value>
   </data>
   <data name="ModeratorNotifyEmail" xml:space="preserve">
-    <value>Moderator Email Addresses {comma separated)</value>
+    <value>Moderator Email Addresses (comma separated)</value>
   </data>
   <data name="RolesThatCanModerate" xml:space="preserve">
     <value>Roles That Can Moderate</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>Moderators</value>
+  </data>
+  <data name="OriginalPosterAndModerators" xml:space="preserve">
+    <value>Original Poster &amp; Moderators</value>
+  </data>
+  <data name="SendPostNotificationsTo" xml:space="preserve">
+    <value>Send Post Notification To</value>
+  </data>
+  <data name="Subscribers" xml:space="preserve">
+    <value>Subscribers</value>
+  </data>
+  <data name="SubscribersAndModerators" xml:space="preserve">
+    <value>Subscribers &amp; Moderators</value>
+  </data>
+  <data name="ThreadSubscribers" xml:space="preserve">
+    <value>Thread Subscribers</value>
+  </data>
+  <data name="ThreadSubscribersAndModerators" xml:space="preserve">
+    <value>Thread Subscribers &amp; Moderators</value>
+  </data>
+  <data name="AllowModeratorChooseNotifyOptions" xml:space="preserve">
+    <value>Allow Moderators to Choose Notification Option (per post)</value>
+  </data>
+  <data name="SendToNoOne" xml:space="preserve">
+    <value>No One</value>
+  </data>
+  <data name="ForumIcon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="MarkAsAnswer" xml:space="preserve">
+    <value>Mark as Answer</value>
+  </data>
+  <data name="ConfirmMarkAsAnswer" xml:space="preserve">
+    <value>Are you sure you want to mark this post as the answer to this thread?</value>
   </data>
 </root>

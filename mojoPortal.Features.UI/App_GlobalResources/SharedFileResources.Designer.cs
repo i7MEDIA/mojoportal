@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        internal static string FileLabel {
+            get {
+                return ResourceManager.GetString("FileLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string FileManagerDelete {
@@ -237,6 +246,24 @@ namespace Resources {
         internal static string FileManagerUploadButton {
             get {
                 return ResourceManager.GetString("FileManagerUploadButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image.
+        /// </summary>
+        internal static string ImageFileLabel {
+            get {
+                return ResourceManager.GetString("ImageFileLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        internal static string RefreshButtonText {
+            get {
+                return ResourceManager.GetString("RefreshButtonText", resourceCulture);
             }
         }
         

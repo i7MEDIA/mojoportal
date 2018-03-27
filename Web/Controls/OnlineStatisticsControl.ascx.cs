@@ -1,13 +1,5 @@
-// Author:             
 // Created:            12/2/2006
-// Last Modified:      12/3/2006
-// 
-// 
-// 
-// images used in this module are from DotNetNuke
-// http://www.dotnetnuke.com/
-// licensed under a BSD style license
-// http://www.dotnetnuke.com/Default.aspx?tabid=776
+// Last Modified:      2018-01-03
 
 using System;
 using System.Web.UI;
@@ -27,18 +19,6 @@ namespace mojoPortal.Web.UI
 
         private void PopulateControls()
         {
-            imgPeopleOnline.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/uoGroup2.gif");
-            imgPeopleOnline.AlternateText = Resources.Resource.SiteStatisticsPeopleOnlineLabel;
-
-            imgVistitorsOnline.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/uoVisitors.gif");
-            imgVistitorsOnline.AlternateText = Resources.Resource.SiteStatisticsVisitorsLabel;
-
-            imgMembersOnline.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/uoMembers.gif");
-            imgMembersOnline.AlternateText = Resources.Resource.SiteStatisticsMembersLabel;
-
-            imgTotalOnline.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/uoTotal.gif");
-            imgTotalOnline.AlternateText = Resources.Resource.SiteStatisticsTotalOnlineLabel;
-
             String key = WebUtils.GetHostName() + "_onlineCount";
             int totalUsersOnline = 1;
             int membersOnline = 0;
@@ -68,8 +48,6 @@ namespace mojoPortal.Web.UI
             lblVisitorsOnline.Text = visitorsOnline.ToString();
             lblMembersOnline.Text = membersOnline.ToString();
             lblTotalOnline.Text = totalUsersOnline.ToString();
-
         }
-
     }
 }

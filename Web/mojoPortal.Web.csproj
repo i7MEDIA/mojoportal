@@ -3114,13 +3114,6 @@
     <Compile Include="Modules\WebPartModule.ascx.designer.cs">
       <DependentUpon>WebPartModule.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\PageTree.aspx.cs">
-      <DependentUpon>PageTree.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\PageTree.aspx.designer.cs">
-      <DependentUpon>PageTree.aspx</DependentUpon>
-    </Compile>
     <Compile Include="PageNotFound.aspx.cs">
       <DependentUpon>PageNotFound.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3573,7 +3566,6 @@
     <Content Include="Admin\RoleManager.aspx" />
     <Content Include="Admin\SiteSettings.aspx" />
     <Content Include="Admin\UrlManager.aspx" />
-    <Content Include="Admin\PageTree.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="mojoEditor.config">
@@ -3608,59 +3600,6 @@
     <Content Include="SiteMap.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_DesignTimeStyle\layout.Master" />
-    <Content Include="App_DesignTimeStyle\theme.skin" />
-    <Content Include="App_DesignTimeStyle\activeArrowRight.gif" />
-    <Content Include="App_DesignTimeStyle\admin.png" />
-    <Content Include="App_DesignTimeStyle\arrowRight.gif" />
-    <Content Include="App_DesignTimeStyle\aspcalendar.css" />
-    <Content Include="App_DesignTimeStyle\blank.gif" />
-    <Content Include="App_DesignTimeStyle\blogmodule.css" />
-    <Content Include="App_DesignTimeStyle\buttonbg.gif" />
-    <Content Include="App_DesignTimeStyle\close.png" />
-    <Content Include="App_DesignTimeStyle\collapse.gif" />
-    <Content Include="App_DesignTimeStyle\del.png" />
-    <Content Include="App_DesignTimeStyle\designinfo.txt" />
-    <Content Include="App_DesignTimeStyle\edit.png" />
-    <Content Include="App_DesignTimeStyle\editsettings.png" />
-    <Content Include="App_DesignTimeStyle\expand.gif" />
-    <Content Include="App_DesignTimeStyle\false.png" />
-    <Content Include="App_DesignTimeStyle\favicon.ico" />
-    <Content Include="App_DesignTimeStyle\firefox-gray.jpg" />
-    <Content Include="App_DesignTimeStyle\forummodule.css" />
-    <Content Include="App_DesignTimeStyle\headerbg.jpg" />
-    <Content Include="App_DesignTimeStyle\ibox.css" />
-    <Content Include="App_DesignTimeStyle\IE7Specific.css" />
-    <Content Include="App_DesignTimeStyle\IESpecific.css" />
-    <Content Include="App_DesignTimeStyle\input.png" />
-    <Content Include="App_DesignTimeStyle\max.png" />
-    <Content Include="App_DesignTimeStyle\min.png" />
-    <Content Include="App_DesignTimeStyle\mpdatacalendar.css" />
-    <Content Include="App_DesignTimeStyle\mypage.css" />
-    <Content Include="App_DesignTimeStyle\neatupload.css" />
-    <Content Include="App_DesignTimeStyle\newpage.png" />
-    <Content Include="App_DesignTimeStyle\openidlogin.gif" />
-    <Content Include="App_DesignTimeStyle\quote.gif" />
-    <Content Include="App_DesignTimeStyle\rss.gif" />
-    <Content Include="App_DesignTimeStyle\rssmodule.css" />
-    <Content Include="App_DesignTimeStyle\square_arrow.gif" />
-    <Content Include="App_DesignTimeStyle\style-editor.css" />
-    <Content Include="App_DesignTimeStyle\style-ext-override.css" />
-    <Content Include="App_DesignTimeStyle\style-gridview.css" />
-    <Content Include="App_DesignTimeStyle\style.css" />
-    <Content Include="App_DesignTimeStyle\styleborders.css" />
-    <Content Include="App_DesignTimeStyle\stylecolors.css" />
-    <Content Include="App_DesignTimeStyle\styleimages.css" />
-    <Content Include="App_DesignTimeStyle\stylelayout.css" />
-    <Content Include="App_DesignTimeStyle\stylemenu.css" />
-    <Content Include="App_DesignTimeStyle\styleprinter.css" />
-    <Content Include="App_DesignTimeStyle\styletext.css" />
-    <Content Include="App_DesignTimeStyle\styletextlarge.css" />
-    <Content Include="App_DesignTimeStyle\styletextmedium.css" />
-    <Content Include="App_DesignTimeStyle\styletreeview.css" />
-    <Content Include="App_DesignTimeStyle\tableft.gif" />
-    <Content Include="App_DesignTimeStyle\tabright.gif" />
-    <Content Include="App_DesignTimeStyle\true.png" />
     <Content Include="mojoDatePicker.config">
       <SubType>Designer</SubType>
     </Content>
@@ -3836,10 +3775,8 @@
     <Content Include="Controls\TimeZoneIdSetting.ascx" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\NeatUpload_Temp\" />
     <Folder Include="App_Themes\" />
     <Folder Include="bin\" />
-    <Folder Include="ClientBin\" />
     <Folder Include="ClientScript\" />
     <Folder Include="Components\api\" />
     <Folder Include="Setup\applications\" />

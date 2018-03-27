@@ -65,7 +65,7 @@
                <asp:ImageButton id="btnUp"
 						Tooltip='<%# Resources.SurveyResources.PagesGridMoveUpToolTip %>'
 						AlternateText='<%# Resources.SurveyResources.PagesGridMoveUpAlternateText %>'
-						ImageUrl="~/Data/SiteImages/up.gif"
+						ImageUrl="~/Data/SiteImages/up.png"
                         CommandName="up"
                         runat="server"
                         CausesValidation="False" 
@@ -73,7 +73,7 @@
 				    <asp:ImageButton id="btnDown"
 						Tooltip='<%# Resources.SurveyResources.PagesGridMoveDownToolTip %>'
 						AlternateText='<%# Resources.SurveyResources.PagesGridMoveDownAlternateText %>'
-						ImageUrl="~/Data/SiteImages/dn.gif"
+						ImageUrl="~/Data/SiteImages/down.png"
                         CommandName="down" 
                         runat="server"
                         CausesValidation="False" 

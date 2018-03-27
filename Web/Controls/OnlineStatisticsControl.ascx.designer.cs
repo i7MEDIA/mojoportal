@@ -13,15 +13,6 @@ namespace mojoPortal.Web.UI {
     public partial class OnlineStatisticsControl {
         
         /// <summary>
-        /// imgPeopleOnline control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgPeopleOnline;
-        
-        /// <summary>
         /// Sitelabel6 control.
         /// </summary>
         /// <remarks>
@@ -29,15 +20,6 @@ namespace mojoPortal.Web.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.Controls.SiteLabel Sitelabel6;
-        
-        /// <summary>
-        /// imgVistitorsOnline control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgVistitorsOnline;
         
         /// <summary>
         /// Sitelabel7 control.
@@ -58,15 +40,6 @@ namespace mojoPortal.Web.UI {
         protected global::System.Web.UI.WebControls.Label lblVisitorsOnline;
         
         /// <summary>
-        /// imgMembersOnline control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgMembersOnline;
-        
-        /// <summary>
         /// lbl2 control.
         /// </summary>
         /// <remarks>
@@ -83,15 +56,6 @@ namespace mojoPortal.Web.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMembersOnline;
-        
-        /// <summary>
-        /// imgTotalOnline control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgTotalOnline;
         
         /// <summary>
         /// lbl3 control.

@@ -13,7 +13,7 @@
                         <asp:Panel ID="divNav" runat="server" CssClass="rssnavright" SkinID="plain">
                             <asp:Label ID="lblFeedListName" Font-Bold="True" runat="server"></asp:Label>
                             <a id="lnkAggregateRSS" href="~/FeedManager/FeedAggregate.aspx" runat="server" class="feedlink feedag" enableviewstate="false">
-                                <img alt="RSS" id="imgAggregateRSS" src="/images/xml.gif" runat="server" enableviewstate="false" /></a>
+                                <img alt="RSS" id="imgAggregateRSS" runat="server" enableviewstate="false" /></a>
                             <portal:mojoDataList ID="dlstFeedList" runat="server" EnableViewState="false">
                                 <ItemTemplate>
                                     <asp:HyperLink ID="editLink" runat="server" CssClass="editlink" EnableViewState="false" Text="<%# Resources.FeedResources.EditImageAltText%>"
@@ -65,7 +65,7 @@
                                     <asp:Repeater ID="rptEntries" runat="server" EnableViewState="true">
                                         <ItemTemplate>
                                             <asp:ImageButton CommandName="Confirm" CommandArgument='<%#DataBinder.Eval(Container, "DataItem.EntryHash") + "_" + Convert.ToString(DataBinder.Eval(Container, "DataItem.Confirmed")) %>'
-                                                ID="ConfirmBtn" runat="server" ImageUrl='<%# ConfirmImage + DataBinder.Eval(Container, "DataItem.Confirmed") + ".png"%>'
+                                                ID="ConfirmBtn" runat="server" ImageUrl='<%# ConfirmImage + (DataBinder.Eval(Container, "DataItem.Confirmed").ToString() == "true" ? "done_cover.png" : "plus.png")%>'
                                                 Visible='<%# EnableInPlaceEditing %>' AlternateText='<%# Convert.ToBoolean(DataBinder.Eval(Container, "DataItem.Confirmed"))?Resources.FeedResources.EntryPublishTrueAlternateText:Resources.FeedResources.EntryPublishFalseAlternateText %>' />
                                             <div class='<%#"rssfeedentry" + DataBinder.Eval(Container, "DataItem.Confirmed") %>' id="divFeedEntry" runat="server" enableviewstate="false">
                                                 <div class="rsstitle">
@@ -117,7 +117,7 @@
                             <asp:Panel ID="divNavBottom" runat="server" CssClass="rssnavright" SkinID="plain">
                             <asp:Label ID="lblFeedListNameBottom" Font-Bold="True" runat="server"></asp:Label>
                             <a id="lnkAggregateRSSBottom" href="~/FeedManager/FeedAggregate.aspx" runat="server" class="feedlink feedag" enableviewstate="false">
-                                <img alt="RSS" id="imgAggregateRSSBottom" src="/images/xml.gif" runat="server" enableviewstate="false" /></a>
+                                <img alt="RSS" id="imgAggregateRSSBottom" runat="server" enableviewstate="false" /></a>
                             <portal:mojoDataList ID="dlFeedListBottom" runat="server" EnableViewState="false">
                                 <ItemTemplate>
                                     <asp:HyperLink ID="editLink" runat="server" CssClass="editlink" EnableViewState="false" Text="<%# Resources.FeedResources.EditImageAltText%>"

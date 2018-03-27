@@ -10,7 +10,7 @@ namespace mojoPortal.Web.UI
         {
             base.OnLoad(e);
 
-            ImageUrl = Page.ResolveUrl("~/Data/SiteImages/info.gif");
+            ImageUrl = Page.ResolveUrl("~/Data/SiteImages/information.png");
             
             if (WebConfigSettings.DisablejQueryUI) { return; }
         }

@@ -423,7 +423,7 @@
 																CommandArgument='<%# Eval("Guid") %>'
 																CommandName="MoveUp"
 																ID="btnMoveUpMetaLink"
-																ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/up.gif") %>'
+																ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/up.png") %>'
 																Visible='<%# (Convert.ToInt32(Eval("SortRank")) > 3) %>'
 															/>
 															<asp:ImageButton runat="server"
@@ -431,7 +431,7 @@
 																CommandArgument='<%# Eval("Guid") %>'
 																CommandName="MoveDown"
 																ID="btnMoveDownMetaLink"
-																ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/dn.gif") %>'
+																ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/down.png") %>'
 															/>
 														</ItemTemplate>
 
@@ -557,7 +557,7 @@
 																	CommandArgument='<%# Eval("Guid") %>'
 																	CommandName="MoveUp"
 																	ID="btnMoveUpMeta"
-																	ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/up.gif") %>'
+																	ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/up.png") %>'
 																	Visible='<%# (Convert.ToInt32(Eval("SortRank")) > 3) %>'
 																/>
 																<asp:ImageButton runat="server"
@@ -565,7 +565,7 @@
 																	CommandArgument='<%# Eval("Guid") %>'
 																	CommandName="MoveDown"
 																	ID="btnMoveDownMeta"
-																	ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/dn.gif") %>'
+																	ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/down.png") %>'
 																/>
 															</ItemTemplate>
 
@@ -870,7 +870,7 @@
 													<asp:HyperLink runat="server"
 														EnableViewState="false"
 														ID="lnkDownload"
-														ImageUrl='<%# this.ImageSiteRoot + "/Data/SiteImages/disk.png" %>'
+														ImageUrl='<%# this.ImageSiteRoot + "/Data/SiteImages/arrow_in_down.png" %>'
 														NavigateUrl='<%# upLoadPath + Eval("ServerFileName") %>'
 														SkinID="TextButtonSmall"
 														ToolTip='<%# Resources.BlogResources.Download %>'

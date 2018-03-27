@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2010-09-19
-// Last Modified:			2017-09-12
+// Last Modified:			2018-01-03
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -59,24 +59,14 @@ namespace mojoPortal.Web.AdminUI
             
             if (securityAdvisor.UsingCustomMachineKey())
             {
-                lblMachineKeyGood.Visible = true;
-                imgMachineKeyOk.Visible = true;
-                lblMachineKeyBad.Visible = false;
-                imgMachineKeyDanger.Visible = false;
-                lnkMachineKeyRefresh.Visible = false;
-                txtRandomMachineKey.Visible = false;
-                lblMachineKeyInstructions.Visible = false;
+				litMachineKeyResults.Text = $"<div class='alert alert-success'><strong>{Resource.Congratulations}</strong> {Resource.SecurityAdvisorMachineKeyCorrect}</div>";
             }
             else
             {
-                lblMachineKeyGood.Visible = false;
-                imgMachineKeyOk.Visible = false;
-                lblMachineKeyBad.Visible = true;
-                imgMachineKeyDanger.Visible = true;
-                lnkMachineKeyRefresh.Visible = true;
-                lblMachineKeyInstructions.Visible = true;
-
-                txtRandomMachineKey.Text = SiteUtils.GenerateRandomMachineKey();
+				litMachineKeyResults.Text = $@"<div class='alert alert-danger'><strong>{Resource.Attention}</strong> {Resource.SecurityAdvisorMachineKeyWrong}</div>
+					<pre class='language language-xml'><code>{SiteUtils.GenerateRandomMachineKey()}</code></pre>
+					<div class=''>{Resource.CustomMachineKeyInstructions}</div>
+					<div class='alert alert-info'>{Resource.GenerateMachineKey}.</div>";
             }
 
             if(WebUtils.ParseBoolFromQueryString("fc", false))
@@ -85,33 +75,27 @@ namespace mojoPortal.Web.AdminUI
 
                 if (writableFolders.Count > 0)
                 {
-                    imgFileSystemOk.Visible = false;
-                    lblFileSystemOk.Visible = false;
-                    imgFileSystemWarning.Visible = true;
-                    lblFileSystemWarning.Visible = true;
-                    lnkFileSystemHelp.Visible = true;
-
-                    StringBuilder list = new StringBuilder();
-                    list.Append("<ul class='simplelist writablefolders'>");
+					StringBuilder sb = new StringBuilder();
+					sb.Append($@"<div class='alert alert-danger'><strong>{Resource.Attention}</strong> {Resource.SecurityAdvisorFileSystemPermissionsWrong}</div>");
+                    sb.Append("<div><ul class='simplelist writablefolders'>");
 
                     foreach (string f in writableFolders)
                     {
-                        list.Append("<li>" + f + "</li>");
+                        sb.Append("<li>" + f + "</li>");
                     }
 
-                    list.Append("</ul>");
-                    litWritableFolderList.Text = list.ToString();
-
+                    sb.Append("</ul></div>");
+					litFileSystemResults.Text = sb.ToString();
                 }
                 else
                 {
-                    imgFileSystemOk.Visible = true;
-                    lblFileSystemOk.Visible = true;
-                    imgFileSystemWarning.Visible = false;
-                    lblFileSystemWarning.Visible = false;
-                    lnkFileSystemHelp.Visible = false;
+					litFileSystemResults.Text = $"<div class='alert alert-success'><strong>{Resource.Congratulations}</strong> {Resource.SecurityAdvisorFileSystemPermissionsCorrect}</div>";
                 }
             }
+			else
+			{
+				litFileSystemResults.Text = $"<a href='{SiteRoot}/Admin/SecurityAdvisor.aspx?fc=true' class='btn btn-warning'>{Resource.CheckIfTooManyWritableFolders}</a>";
+			}
 
 			SslTest_HowsMySsl();
 
@@ -134,28 +118,9 @@ namespace mojoPortal.Web.AdminUI
             lnkThisPage.ToolTip = Resource.SecurityAdvisor;
             lnkThisPage.NavigateUrl = SiteRoot + "/Admin/SecurityAdvisor.aspx";
 
-            imgMachineKeyOk.ImageUrl = "~/Data/SiteImages/accept.png";
-            imgMachineKeyOk.AlternateText = Resource.OKLabel;
-
-            imgMachineKeyDanger.ImageUrl = "~/Data/SiteImages/warning.png";
-            imgMachineKeyDanger.AlternateText = Resource.SecurityDangerLabel;
-            lnkMachineKeyRefresh.Text = Resource.GenerateMachineKey;
-            lnkMachineKeyRefresh.NavigateUrl = Request.RawUrl;
-
-            imgFileSystemOk.ImageUrl = "~/Data/SiteImages/accept.png";
-            imgFileSystemOk.AlternateText = Resource.OKLabel;
-
-            lnkCheckFolders.Text = Resource.CheckIfTooManyWritableFolders;
-            lnkCheckFolders.NavigateUrl = SiteRoot + "/Admin/SecurityAdvisor.aspx?fc=true";
-
-            imgFileSystemWarning.ImageUrl = "~/Data/SiteImages/warning-yellow.png";
-            imgFileSystemWarning.AlternateText = Resource.SecurityDangerLabel;
-
-            lnkFileSystemHelp.Text = Resource.InformationToSolveProblem;
-            lnkFileSystemHelp.NavigateUrl = "http://www.mojoportal.com/securing-the-file-system.aspx";
-
+			litMachineKeyHeading.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SecurityAdvisorMachineKeyHeading, Resource.SecurityAdvisorMachineKeyDescription);
+			litFileSystemHeading.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SecurityAdvisorFileSystemHeading, Resource.SecurityAdvisorFileSystemDescription);
 			litSecurityProtocolHeading.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SecurityAdvisorSecurityProtocolHeading, Resource.SecurityAdvisorSecurityProtocolDescription);
-
         }
 
 		public void SslTest_HowsMySsl()
@@ -186,10 +151,10 @@ namespace mojoPortal.Web.AdminUI
 				string rating = (string)jObject["rating"];
 
 				StringBuilder sb = new StringBuilder();
-				sb.AppendFormat("<strong>TLS version:</strong> {0}<br/>", tlsver);
-				sb.AppendFormat("<strong>Rating:</strong> {0}<br/>", rating);
+				sb.Append($"<strong>{Resource.SecurityAdvisorSecurityProtocolVersion}:</strong> {tlsver}<br/>");
+				sb.Append($"<strong>{Resource.SecurityAdvisorSecurityProtocolRating}:</strong> {rating}<br/>");
 
-				sb.Append("<h5>Ciphers</h5><ul>");
+				sb.Append($"<h5>{Resource.SecurityAdvisorSecurityProtocolCiphers}</h5><ul>");
 				foreach (string cipher in ciphers)
 				{
 					sb.AppendFormat("<li>{0}</li>", cipher);
@@ -198,7 +163,7 @@ namespace mojoPortal.Web.AdminUI
 
 				
 
-				sb.AppendFormat("<h5>Full Response</h5><pre class='language language-js'><code>{0}</code></pre>", JsonConvert.SerializeObject(jObject, Formatting.Indented));
+				sb.Append($"<h5>{Resource.SecurityAdvisorSecurityProtocolFullCheckResponse}</h5><pre class='language language-js'><code>{JsonConvert.SerializeObject(jObject, Formatting.Indented)}</code></pre>");
 
 				litSecurityProtocolDescription.Text = string.Format(displaySettings.SecurityProtocolCheckResponseMarkup, sb.ToString());
 			}

@@ -13,10 +13,10 @@
                             <table class="FileManager_table"  border="0">
                                 <tr>
                                     <td>
-                                        <asp:ImageButton ID="btnGoUp" runat="server" EnableViewState="false" CssClass="folderup" OnClick="btnGoUp_Click" AlternateText=""
-                                            ImageUrl="~/Data/SiteImages/arrow_up.png" />
                                         <asp:ImageButton ID="btnDelete" runat="server" EnableViewState="false" OnClick="btnDelete_Click" CssClass="deleteitem" AlternateText="Delete"
                                             ImageUrl="~/Data/SiteImages/delete.png" ToolTip="<%# Resources.SharedFileResources.SharedFilesDeleteButton %>" />
+                                        <asp:ImageButton ID="btnGoUp" runat="server" EnableViewState="false" CssClass="folderup" OnClick="btnGoUp_Click" AlternateText=""
+                                            ImageUrl="~/Data/SiteImages/folder-up-icon.png" Visible="false"/>
                                         &nbsp;&nbsp;
                                         <asp:Label ID="lblCurrentDirectory" runat="server" EnableViewState="false" CssClass="foldername"></asp:Label>
                                         <asp:Repeater runat="server" ID="rptFoldersLinks" EnableViewState="true">
@@ -124,7 +124,7 @@
                             <portal:mojoButton ID="btnNewFolder" runat="server" Text="" OnClick="btnNewFolder_Click" />
                         </asp:Panel>
                                
-                        <asp:ImageButton ID="btnRefresh" runat="server" OnClick="btnRefresh_Click" TabIndex="-1"  />
+                        <asp:ImageButton ID="btnRefresh" runat="server" OnClick="btnRefresh_Click" TabIndex="-1" />
                         <portal:jQueryFileUpload ID="uploader" runat="server" />
                         <portal:mojoButton ID="btnUpload2" runat="server" Text="Upload" OnClick="btnUpload_Click" EnableViewState="false" />
 

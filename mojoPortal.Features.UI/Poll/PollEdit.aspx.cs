@@ -398,11 +398,11 @@ namespace PollFeature.UI
 
             btnUp.AlternateText = PollResources.PollEditOptionsUpAlternateText;
             btnUp.ToolTip = PollResources.PollEditOptionsUpAlternateText;
-            btnUp.ImageUrl = ImageSiteRoot + "/Data/SiteImages/up.gif";
+            btnUp.ImageUrl = ImageSiteRoot + "/Data/SiteImages/up.png";
 
             btnDown.AlternateText = PollResources.PollEditOptionsDownAlternateText;
             btnDown.ToolTip = PollResources.PollEditOptionsDownAlternateText;
-            btnDown.ImageUrl = ImageSiteRoot + "/Data/SiteImages/dn.gif";
+            btnDown.ImageUrl = ImageSiteRoot + "/Data/SiteImages/down.png";
 
             btnEdit.AlternateText = PollResources.PollEditOptionsEditAlternateText;
             btnEdit.ToolTip = PollResources.PollEditOptionsEditAlternateText;

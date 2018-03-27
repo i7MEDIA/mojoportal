@@ -51,7 +51,7 @@ namespace mojoPortal.Web.UI
             //}
 
             this.NavigateUrl = SiteUtils.GetNavigationSiteRoot() + "/Help.aspx?helpkey=" + Page.Server.UrlEncode(helpKey);
-            this.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/help.png");
+            this.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/question.png");
             this.ToolTip = Resource.HelpLink;
             this.Text = Resource.HelpLink;
             

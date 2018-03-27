@@ -3980,7 +3980,7 @@ namespace mojoPortal.Web
 
 				if (userName.ToString().Length > 0)
 				{
-					result = "<a  href='"
+					result = "<a class='profileviewlink' href='"
 						+ GetNavigationSiteRoot() 
 						+ "/ProfileView.aspx?userid="
 						+ userId.ToInvariantString() + "'>"

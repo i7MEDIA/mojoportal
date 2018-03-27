@@ -154,7 +154,7 @@ namespace mojoPortal.Web.UI
 			}
 			//if (basePage.UseIconsForAdminLinks)
 			//{
-			//    ImageUrl = Page.ResolveUrl("~/Data/SiteImages/admin.png");
+			//    ImageUrl = Page.ResolveUrl("~/Data/SiteImages/key.png");
 			//    Text = Resource.AdminMenuLink;
 			//}
 			//else

@@ -47,7 +47,13 @@ namespace mojoPortal.Web.UI
 
         protected override void Render(HtmlTextWriter writer)
         {
-            if (this.Site != null && this.Site.DesignMode)
+
+			// this is an unnecessary control 
+			// if you want a HTML Validator link on your site, place one there with an <a href=
+
+			return;
+
+			if (this.Site != null && this.Site.DesignMode)
             {
                 // TODO: show a bmp or some other design time thing?
                 writer.Write("[" + this.ID + "]");

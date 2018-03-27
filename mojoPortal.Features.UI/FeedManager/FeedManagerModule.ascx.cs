@@ -588,7 +588,7 @@ namespace mojoPortal.Web.FeedUI
             if (displaySettings.ForceExcerptMode) { useNeatHtml = false; }
             if (config.UseExcerpt) { useNeatHtml = false; }
 
-            ConfirmImage = this.ImageSiteRoot + "/Data/SiteImages/Published";
+            ConfirmImage = this.ImageSiteRoot + "/Data/SiteImages/";
 
             if (config.AllowExternalImages) allowedImageUrlRegexPattern = SecurityHelper.RegexAnyImageUrlPatern;
 

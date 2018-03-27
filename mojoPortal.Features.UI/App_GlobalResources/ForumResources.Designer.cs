@@ -97,6 +97,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow Moderators to Choose Notification Option (per post).
+        /// </summary>
+        internal static string AllowModeratorChooseNotifyOptions {
+            get {
+                return ResourceManager.GetString("AllowModeratorChooseNotifyOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allow Un-Moderated Notification for Trusted Users?.
         /// </summary>
         internal static string AllowTrustedDirectNotify {
@@ -133,20 +142,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to send this post to forum subscribers?.
+        ///   Looks up a localized string similar to Are you sure you want to mark this post as the answer to this thread?.
         /// </summary>
-        internal static string ConfirmSendNotification {
+        internal static string ConfirmMarkAsAnswer {
             get {
-                return ResourceManager.GetString("ConfirmSendNotification", resourceCulture);
+                return ResourceManager.GetString("ConfirmMarkAsAnswer", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to cancel notification for this post by marking it as sent?.
         /// </summary>
-        internal static string ConfrimMarkAsSent {
+        internal static string ConfirmMarkAsSent {
             get {
-                return ResourceManager.GetString("ConfrimMarkAsSent", resourceCulture);
+                return ResourceManager.GetString("ConfirmMarkAsSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to send this post to forum subscribers?.
+        /// </summary>
+        internal static string ConfirmSendNotification {
+            get {
+                return ResourceManager.GetString("ConfirmSendNotification", resourceCulture);
             }
         }
         
@@ -507,6 +525,15 @@ namespace Resources {
         internal static string ForumEnableRSSAtThreadLevel {
             get {
                 return ResourceManager.GetString("ForumEnableRSSAtThreadLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Icon.
+        /// </summary>
+        internal static string ForumIcon {
+            get {
+                return ResourceManager.GetString("ForumIcon", resourceCulture);
             }
         }
         
@@ -1006,6 +1033,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mark as Answer.
+        /// </summary>
+        internal static string MarkAsAnswer {
+            get {
+                return ResourceManager.GetString("MarkAsAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mark as Sent.
         /// </summary>
         internal static string MarkAsSent {
@@ -1015,11 +1051,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Moderator Email Addresses {comma separated).
+        ///   Looks up a localized string similar to Moderator Email Addresses (comma separated).
         /// </summary>
         internal static string ModeratorNotifyEmail {
             get {
                 return ResourceManager.GetString("ModeratorNotifyEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moderators.
+        /// </summary>
+        internal static string Moderators {
+            get {
+                return ResourceManager.GetString("Moderators", resourceCulture);
             }
         }
         
@@ -1038,6 +1083,15 @@ namespace Resources {
         internal static string NewTopicLabel {
             get {
                 return ResourceManager.GetString("NewTopicLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original Poster &amp; Moderators.
+        /// </summary>
+        internal static string OriginalPosterAndModerators {
+            get {
+                return ResourceManager.GetString("OriginalPosterAndModerators", resourceCulture);
             }
         }
         
@@ -1159,6 +1213,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send Post Notification To.
+        /// </summary>
+        internal static string SendPostNotificationsTo {
+            get {
+                return ResourceManager.GetString("SendPostNotificationsTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No One.
+        /// </summary>
+        internal static string SendToNoOne {
+            get {
+                return ResourceManager.GetString("SendToNoOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Forum Search?.
         /// </summary>
         internal static string ShowForumSearchBox {
@@ -1231,6 +1303,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subscribers.
+        /// </summary>
+        internal static string Subscribers {
+            get {
+                return ResourceManager.GetString("Subscribers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscribers &amp; Moderators.
+        /// </summary>
+        internal static string SubscribersAndModerators {
+            get {
+                return ResourceManager.GetString("SubscribersAndModerators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subscribe to all posts in this forum?.
         /// </summary>
         internal static string SubscribeToAllOfThisForum {
@@ -1263,6 +1353,24 @@ namespace Resources {
         internal static string ThreadPageTitleFormat {
             get {
                 return ResourceManager.GetString("ThreadPageTitleFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thread Subscribers.
+        /// </summary>
+        internal static string ThreadSubscribers {
+            get {
+                return ResourceManager.GetString("ThreadSubscribers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thread Subscribers &amp; Moderators.
+        /// </summary>
+        internal static string ThreadSubscribersAndModerators {
+            get {
+                return ResourceManager.GetString("ThreadSubscribersAndModerators", resourceCulture);
             }
         }
         

@@ -5080,7 +5080,7 @@
     <value>Verify that a custom machine key is being used</value>
   </data>
   <data name="CheckIfTooManyWritableFolders" xml:space="preserve">
-    <value>Click here to check if folders that don't need to be writable by the web process are writable. This might be slow.</value>
+    <value>Run File System Permissions Check</value>
   </data>
   <data name="NeedsAttention" xml:space="preserve">
     <value>Needs Attention</value>
@@ -5149,7 +5149,7 @@
     <value>You should replace the machine key in the Web.config file in the root of this web site with a randomly generated one. You can copy the generated one from above. Note that if you have configured the site to use encrypted passwords, you should change back to clear text passwords, then change the machine key then change back to encrypted passwords because the machine key is used for encrypting passwords. Note also that when you change the machine key it will log out all users and they will need to login again.</value>
   </data>
   <data name="GenerateMachineKey" xml:space="preserve">
-    <value>Generate a new Key</value>
+    <value>You can refresh this page to generate a different machine key.</value>
   </data>
   <data name="RequireCaptchaOnLoginPage" xml:space="preserve">
     <value>Require Captcha On Login?</value>
@@ -6239,5 +6239,51 @@
   </data>
   <data name="ModuleDefinitionsSettingOptionsLabel" xml:space="preserve">
     <value>Options String (ex: name|value;name2|value2)</value>
+  </data>
+  <data name="Attention" xml:space="preserve">
+    <value>Attention!</value>
+  </data>
+  <data name="Congratulations" xml:space="preserve">
+    <value>Congratulations!</value>
+  </data>
+  <data name="SecurityAdvisorFileSystemDescription" xml:space="preserve">
+    <value>The website should only be able to write to the data directory.</value>
+  </data>
+  <data name="SecurityAdvisorFileSystemHeading" xml:space="preserve">
+    <value>File System Permissions</value>
+  </data>
+  <data name="SecurityAdvisorFileSystemPermissionsCorrect" xml:space="preserve">
+    <value>Your File System Permissions are correct!</value>
+  </data>
+  <data name="SecurityAdvisorFileSystemPermissionsWrong" xml:space="preserve">
+    <value>Your file system permissions are incorrect! Only the Data directory should be writable. The website can write to the following directories which is not a good security practice. See &lt;a href='http://www.mojoportal.com/securing-the-file-system.aspx'&gt;this document&lt;/a&gt; for more information.</value>
+  </data>
+  <data name="SecurityAdvisorMachineKeyCorrect" xml:space="preserve">
+    <value>You are using using a custom machine key!</value>
+  </data>
+  <data name="SecurityAdvisorMachineKeyDescription" xml:space="preserve">
+    <value>The machineKey is used to encrypt authentication and authorization cookies, user passwords, and the SMTP user password.</value>
+  </data>
+  <data name="SecurityAdvisorMachineKeyHeading" xml:space="preserve">
+    <value>Custom Machine Key</value>
+  </data>
+  <data name="SecurityAdvisorMachineKeyWrong" xml:space="preserve">
+    <value>You are not using a custom machine key! &lt;br/&gt;
+Copy the machine key below to your site's configuration by following &lt;a href='https://www.mojoportal.com/use-a-custom-machine-key?utm_source=usersite&amp;utm_medium=referral&amp;utm_campaign=securityadvisor'&gt;these instructions&lt;/a&gt;.</value>
+  </data>
+  <data name="SecurityAdvisorNeedsAttention" xml:space="preserve">
+    <value>Security Advisor &lt;small&gt;Needs Attention&lt;/small&gt;</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolCiphers" xml:space="preserve">
+    <value>Ciphers</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolFullCheckResponse" xml:space="preserve">
+    <value>Full Response</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolRating" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolVersion" xml:space="preserve">
+    <value>TLS Version</value>
   </data>
 </root>

@@ -1,9 +1,7 @@
 ﻿@model mojoPortal.Web.Models.FileManager
-
 @{
 	Layout = null;
 }
-
 <!DOCTYPE html>
 <html lang="en" @(ViewBag.AngularApp != null ? "ng-app=" + ViewBag.AngularApp : string.Empty)>
 	<head>
@@ -14,12 +12,12 @@
 		@RenderSection("Styles", required: false)
 	</head>
 	<body class="@ViewBag.BodyClass">
-
 		@RenderBody()
-
 		<script src="~/Content/FileManager/bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="~/Content/FileManager/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script>
+		@if (Model.Editor != null)
+		{
+			<script>
 			@switch (Model.Editor) {
 				case "ckeditor":
 					<text>
@@ -62,8 +60,8 @@
 					</text>
 					break;
 			}
-		</script>
-
+			</script>
+		}
 		@RenderSection("Scripts", required: false)
 	</body>
 </html>

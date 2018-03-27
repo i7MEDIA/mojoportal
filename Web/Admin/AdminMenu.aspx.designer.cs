@@ -121,24 +121,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.HyperLink lnkSecurityAdvisor;
         
         /// <summary>
-        /// imgMachineKeyDanger control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgMachineKeyDanger;
-        
-        /// <summary>
-        /// lblNeedsAttantion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel lblNeedsAttantion;
-        
-        /// <summary>
         /// liRoleAdmin control.
         /// </summary>
         /// <remarks>

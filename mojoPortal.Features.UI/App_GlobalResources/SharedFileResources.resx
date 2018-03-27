@@ -285,4 +285,13 @@
   <data name="Root" xml:space="preserve">
     <value>Root</value>
   </data>
+  <data name="FileLabel" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="ImageFileLabel" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="RefreshButtonText" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
 </root>

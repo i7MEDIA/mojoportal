@@ -94,15 +94,6 @@ namespace mojoPortal.Web.SharedFilesUI {
         protected global::System.Web.UI.WebControls.Panel pnlFile;
         
         /// <summary>
-        /// btnGoUp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnGoUp;
-        
-        /// <summary>
         /// btnDelete control.
         /// </summary>
         /// <remarks>
@@ -110,6 +101,15 @@ namespace mojoPortal.Web.SharedFilesUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnDelete;
+        
+        /// <summary>
+        /// btnGoUp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnGoUp;
         
         /// <summary>
         /// lblCurrentDirectory control.

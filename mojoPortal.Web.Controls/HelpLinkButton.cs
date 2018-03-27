@@ -291,7 +291,7 @@ namespace mojoPortal.Web.Controls
             parentControl.Controls.Add(litSpace);
 
             HelpLinkButton helpLinkButton = new HelpLinkButton();
-            helpLinkButton.ImageUrl = "~/Data/SiteImages/FeatureIcons/help.gif";
+            helpLinkButton.ImageUrl = "~/Data/SiteImages/question.png";
             helpLinkButton.HelpKey = helpkey;
             if ((siteNavigationRoot != null) && (siteNavigationRoot.Length > 0))
             {

@@ -19,29 +19,14 @@
                     <p class="sadvisorintro">
                         <asp:literal id="litInfo" runat="server" />
                     </p>
-                    <ul class="simplelist">
-                        <li>
-                            <mp:SiteLabel ID="SiteLabel5" runat="server" CssClass="" ConfigKey="UsingACustomMachineKey" UseLabelTag="false"></mp:SiteLabel>
-                        <asp:image id="imgMachineKeyOk" runat="server" visible="false" />
-                        <mp:SiteLabel ID="lblMachineKeyGood" runat="server" CssClass="goodsecurity" ConfigKey="OKLabel"  UseLabelTag="false" Visible="false"></mp:SiteLabel>
-                        <asp:image id="imgMachineKeyDanger" runat="server" visible="false" />
-                        <mp:SiteLabel ID="lblMachineKeyBad" runat="server" CssClass="txterror verybadsecurity" ConfigKey="SecurityDangerLabel" UseLabelTag="false" Visible="false"></mp:SiteLabel>
-                        
-                        <p><asp:TextBox id="txtRandomMachineKey" runat="server" TextMode="MultiLine" Rows="5" Columns="70" />
-                        <asp:hyperlink id="lnkMachineKeyRefresh" runat="server" visible="false" />
-                         </p>
-                         <p><mp:SiteLabel ID="lblMachineKeyInstructions" runat="server" CssClass="" ConfigKey="CustomMachineKeyInstructions" UseLabelTag="false" Visible="false"></mp:SiteLabel></p>
-                        </li>
-                        <li>
-                            <asp:Hyperlink id="lnkCheckFolders" runat="server" />
-                            <asp:image id="imgFileSystemOk" runat="server" visible="false" />
-                        <mp:SiteLabel ID="lblFileSystemOk" runat="server" CssClass="goodsecurity" ConfigKey="OKLabel"  UseLabelTag="false" Visible="false"></mp:SiteLabel>
-                        <asp:image id="imgFileSystemWarning" runat="server" visible="false" />
-                        <mp:SiteLabel ID="lblFileSystemWarning" runat="server" CssClass="txterror securitywarning" ConfigKey="WritePermissionsNotNeededOnFolders" UseLabelTag="false" Visible="false"></mp:SiteLabel>
-                        <asp:hyperlink id="lnkFileSystemHelp" runat="server" visible="false" />
-                            <asp:Literal id="litWritableFolderList" runat="server" />
-                            </li>
-                    </ul>
+					<portal:FormGroupPanel ID="fgpMachineKey" runat="server" SkinID="SecurityMachineKey">
+						<asp:Literal ID="litMachineKeyHeading" runat="server" EnableViewState="false" />
+						<asp:Literal ID="litMachineKeyResults" runat="server" EnableViewState="false" />
+					</portal:FormGroupPanel>
+                    <portal:FormGroupPanel ID="fgpFileSystem" runat="server" SkinID="SecurityFileSystem">
+						<asp:Literal ID="litFileSystemHeading" runat="server" EnableViewState="false" />
+						<asp:Literal ID="litFileSystemResults" runat="server" EnableViewState="false" />
+                    </portal:FormGroupPanel>
 					<portal:FormGroupPanel ID="fgpSecurityProtocol" runat="server" SkinID="SecurityProtocol">
 						<asp:Literal ID="litSecurityProtocolHeading" runat="server" EnableViewState="false" />
 						<asp:Literal ID="litSecurityProtocolDescription" runat="server" EnableViewState="false" />

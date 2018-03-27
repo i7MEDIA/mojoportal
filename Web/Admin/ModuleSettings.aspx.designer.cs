@@ -157,15 +157,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Panel pnlcustomSettings;
         
         /// <summary>
-        /// SiteLabel10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel10;
-        
-        /// <summary>
         /// tabGeneralSettings control.
         /// </summary>
         /// <remarks>
@@ -479,15 +470,6 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkAllowMultipleInstancesOnMyPage;
-        
-        /// <summary>
-        /// SiteLabel11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel11;
         
         /// <summary>
         /// tabSecurity control.

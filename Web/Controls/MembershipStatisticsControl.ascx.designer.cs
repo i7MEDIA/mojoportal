@@ -13,15 +13,6 @@ namespace mojoPortal.Web {
     public partial class MembershipStatisticsControl {
         
         /// <summary>
-        /// imgMembership control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgMembership;
-        
-        /// <summary>
         /// Sitelabel4 control.
         /// </summary>
         /// <remarks>
@@ -29,15 +20,6 @@ namespace mojoPortal.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.Controls.SiteLabel Sitelabel4;
-        
-        /// <summary>
-        /// imgNewToday control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgNewToday;
         
         /// <summary>
         /// Sitelabel2 control.
@@ -58,15 +40,6 @@ namespace mojoPortal.Web {
         protected global::System.Web.UI.WebControls.Label lblNewUsersToday;
         
         /// <summary>
-        /// imgNewYesterday control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgNewYesterday;
-        
-        /// <summary>
         /// Sitelabel3 control.
         /// </summary>
         /// <remarks>
@@ -85,15 +58,6 @@ namespace mojoPortal.Web {
         protected global::System.Web.UI.WebControls.Label lblNewUsersYesterday;
         
         /// <summary>
-        /// imgTotalUsers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgTotalUsers;
-        
-        /// <summary>
         /// Sitelabel5 control.
         /// </summary>
         /// <remarks>
@@ -110,15 +74,6 @@ namespace mojoPortal.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotalUsers;
-        
-        /// <summary>
-        /// imgNewestMember control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgNewestMember;
         
         /// <summary>
         /// Sitelabel1 control.

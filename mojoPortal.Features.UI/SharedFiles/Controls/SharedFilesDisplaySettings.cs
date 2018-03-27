@@ -104,9 +104,19 @@ namespace mojoPortal.Web.SharedFilesUI
             set { ieNewWindowLinkMarkup = value; }
         }
 
+		private string deleteButtonCssClass = "sharedfiles-delete deleteitem";
+		public string DeleteButtonCssClass { get => deleteButtonCssClass; set => deleteButtonCssClass = value; }
 
+		private string upFolderButtonCssClass = "sharedfiles-upfolder";
+		public string UpFolderButtonCssClass { get => upFolderButtonCssClass; set => upFolderButtonCssClass = value; }
 
-        protected override void Render(HtmlTextWriter writer)
+		private string downloadButtonCssClass = "sharedfiles-download";
+		public string DownloadButtonCssClass { get => downloadButtonCssClass; set => downloadButtonCssClass = value; }
+
+		private string propertiesButtonCssClass = "sharedfiles-properties";
+		public string PropertiesButtonCssClass { get => propertiesButtonCssClass; set => propertiesButtonCssClass = value; }
+
+		protected override void Render(HtmlTextWriter writer)
         {
             if (HttpContext.Current == null)
             {
