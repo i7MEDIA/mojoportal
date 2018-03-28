@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2011-02-28
-// Last Modified:			2011-11-20
+// Last Modified:			2018-03-28
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -10,32 +10,20 @@
 //
 // You must not remove this notice, or any other, from this software.
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Globalization;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using mojoPortal.Web;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.UI;
-using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Framework;
 using Resources;
+using System;
+using System.Data;
+using System.Globalization;
 
 
 
 namespace mojoPortal.Web.AdminUI
 {
 
-    public partial class SiteListPage : NonCmsBasePage
+	public partial class SiteListPage : NonCmsBasePage
     {
         protected string CurrentSiteName = string.Empty;
         private int totalPages = 1;
@@ -45,8 +33,13 @@ namespace mojoPortal.Web.AdminUI
 
         protected void Page_Load(object sender, EventArgs e)
         {
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
 
-            if ((!WebUser.IsAdmin) || (!siteSettings.IsServerAdminSite))
+			if ((!WebUser.IsAdmin) || (!siteSettings.IsServerAdminSite))
             {
                 WebUtils.SetupRedirect(this, SiteRoot + "/Admin/SiteSettings.aspx");
                 return;

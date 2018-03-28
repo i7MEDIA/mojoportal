@@ -45,7 +45,7 @@ namespace mojoPortal.Web.AdminUI
             
             if (!UserCanEditModule(moduleId) && !UserCanApproveDraftModule(moduleId, module.FeatureGuid)) //joe davis
             {
-                SiteUtils.RedirectToEditAccessDeniedPage();
+                SiteUtils.RedirectToAccessDeniedPage();
                 return;
             }
             

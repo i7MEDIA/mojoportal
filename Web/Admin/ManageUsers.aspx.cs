@@ -132,7 +132,7 @@ namespace mojoPortal.Web.AdminUI
             {
                 if ((!WebUser.IsInRoles(siteSettings.RolesThatCanCreateUsers))&&(!WebUser.IsInRoles(siteSettings.RolesThatCanManageUsers)))
                 {
-                    SiteUtils.RedirectToEditAccessDeniedPage();
+                    SiteUtils.RedirectToAccessDeniedPage();
                     return;
                 }
 
@@ -148,7 +148,7 @@ namespace mojoPortal.Web.AdminUI
                     // only admins can edit admins
                     if (siteUser.IsInRoles("Admins"))
                     {
-                        SiteUtils.RedirectToEditAccessDeniedPage();
+                        SiteUtils.RedirectToAccessDeniedPage();
                         return;
                     }
                     
@@ -161,7 +161,7 @@ namespace mojoPortal.Web.AdminUI
                     {
                         
 
-                        SiteUtils.RedirectToEditAccessDeniedPage();
+                        SiteUtils.RedirectToAccessDeniedPage();
                         return;
                     }
                 }

@@ -1,23 +1,12 @@
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using mojoPortal.Business;
-using mojoPortal.Web;
 using mojoPortal.Web.Framework;
-using mojoPortal.Web.UI;
 using Resources;
+using System;
 
-namespace mojoPortal.Web.UI.Pages 
+namespace mojoPortal.Web.UI.Pages
 {
 
-	
-    public partial class AccessDeniedPage : NonCmsBasePage
+
+	public partial class AccessDeniedPage : NonCmsBasePage
 	{
         override protected void OnInit(EventArgs e)
         {
@@ -35,6 +24,13 @@ namespace mojoPortal.Web.UI.Pages
             lnkHome.Text = Resource.ReturnHomeLabel;
             lnkHome.ToolTip = Resource.ReturnHomeLabel;
             lnkHome.NavigateUrl = SiteRoot + "/Default.aspx";
+
+			if (!Request.IsAuthenticated)
+			{
+				lnkLogin.Visible = true;
+				lnkLogin.Text = Resource.LoginLink;
+				lnkLogin.NavigateUrl = SiteUtils.GetLoginRelativeUrl();
+			}
 
             SiteUtils.AddNoIndexMeta(this);
             

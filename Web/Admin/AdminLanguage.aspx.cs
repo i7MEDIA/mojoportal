@@ -1,6 +1,6 @@
 ﻿/// Author:					
 /// Created:				2008-06-22
-/// Last Modified:			2013-05-15
+/// Last Modified:			2018-03-28
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -30,8 +30,13 @@ namespace mojoPortal.Web.AdminUI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            LoadSettings();
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+
+			LoadParams();
 
             if ((!WebUser.IsAdminOrContentAdmin) || (!siteSettings.IsServerAdminSite))
             {
@@ -52,7 +57,9 @@ namespace mojoPortal.Web.AdminUI
 
         private void PopulateControls()
         {
-            if (!Page.IsPostBack)
+			AddClassToBody("administration langadmin");
+
+			if (!Page.IsPostBack)
             {
                 BindGrid();
             }
@@ -212,12 +219,9 @@ namespace mojoPortal.Web.AdminUI
 
         }
 
-        private void LoadSettings()
+        private void LoadParams()
         {
             pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", 1);
-            AddClassToBody("administration");
-            AddClassToBody("langadmin");
-
         }
 
 

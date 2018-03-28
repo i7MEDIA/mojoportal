@@ -1,6 +1,6 @@
 ﻿//  Author:                     
 //  Created:                    2014-02-15
-//	Last Modified:              2017-02-27
+//	Last Modified:              2018-03-28
 
 
 
@@ -44,6 +44,12 @@ namespace mojoPortal.Web.AdminUI
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+
 			LoadSettings();
 
 			//PopulatePageArray();

@@ -11860,6 +11860,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password recovery is not allowed while authenticated..
+        /// </summary>
+        internal static string PasswordRecoveryNotAllowedWhenAuthenticated {
+            get {
+                return ResourceManager.GetString("PasswordRecoveryNotAllowedWhenAuthenticated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You did not enter the correct answer..
         /// </summary>
         internal static string PasswordRecoveryQuestionFailureText {

@@ -1,6 +1,6 @@
 // Author:				        
 // Created:			            2004-10-22
-// Last Modified:               2010-12-11
+// Last Modified:               2018-03-28
 // 
 // 2007/06/06  Alexander Yushchenko: moved login logic into new SiteLogin control, refactoring
 //  
@@ -144,9 +144,10 @@ namespace mojoPortal.Web.UI.Pages
             {
                 string returnUrlParam = Page.Request.Params.Get("returnurl");
 
-                if (!String.IsNullOrEmpty(returnUrlParam))
+                if (!String.IsNullOrEmpty(returnUrlParam) && !returnUrlParam.ToLower().Contains("/accessdenied.aspx"))
                 {
                     returnUrlParam = SecurityHelper.RemoveMarkup(Page.Server.UrlDecode(returnUrlParam));
+
 
                     string redirectUrl = Page.ResolveUrl(returnUrlParam);
                     if (

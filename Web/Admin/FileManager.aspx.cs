@@ -1,4 +1,4 @@
-/// Last Modifed: 2011-03-15
+/// Last Modifed: 2018-03-28
 
 using System;
 using mojoPortal.Business;
@@ -14,7 +14,13 @@ namespace mojoPortal.Web.AdminUI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadSettings();
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+
+			LoadSettings();
 
             // if the user has no upload permissions the file manager control will handle blocking access
             // but upload permissions doesn't guarantee delete permission

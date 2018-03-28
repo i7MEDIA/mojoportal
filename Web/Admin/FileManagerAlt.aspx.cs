@@ -1,6 +1,6 @@
 ﻿//  Author:                     
 //  Created:                    2009-12-30
-//	Last Modified:              2011-03-15
+//	Last Modified:              2018-03-28
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -24,8 +24,13 @@ namespace mojoPortal.Web.AdminUI
         private bool canAccess = false;
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-            LoadSettings();
+		{
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+			LoadSettings();
             // if the user has no upload permissions the file manager control will handle blocking access
             // but upload permissions doesn't guarantee delete permission
             // only users who are trusted to delete should be able to use the file manager

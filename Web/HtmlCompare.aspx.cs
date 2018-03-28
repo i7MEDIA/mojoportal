@@ -50,7 +50,7 @@ namespace mojoPortal.Web.ContentUI
 
             if ((!userCanEdit) && (!userCanEditAsDraft))
             {
-                SiteUtils.RedirectToEditAccessDeniedPage();
+                SiteUtils.RedirectToAccessDeniedPage();
                 return;
             }
 

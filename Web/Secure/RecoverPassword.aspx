@@ -2,9 +2,9 @@
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
-<mp:CornerRounderTop id="ctop1" runat="server" />
-<asp:Panel id="pnlLogin" runat="server" CssClass="panelwrapper login">
-<div  class="modulecontent">
+	<asp:PlaceHolder ID="phMessage" runat="server"></asp:PlaceHolder>
+<asp:Panel id="pnlRecoverPassword" runat="server" CssClass="panelwrapper login recoverpassword">
+<div class="modulecontent">
 <fieldset>
     <legend>
         <mp:SiteLabel id="SiteLabel1" runat="server" ConfigKey="SignInSendPasswordButton" UseLabelTag="false"></mp:SiteLabel>
@@ -57,7 +57,7 @@
 </fieldset>
 </div>
 </asp:Panel> 
-<mp:CornerRounderBottom id="cbottom1" runat="server" />	
+
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />
 <asp:Content ContentPlaceHolderID="pageEditContent" ID="MPPageEdit" runat="server" />

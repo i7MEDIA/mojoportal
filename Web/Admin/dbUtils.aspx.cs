@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				01/12/2006
-/// Last Modified:			04/05/2007
+/// Last Modified:			2018-03-28
 
 using System;
 using System.Data;
@@ -17,8 +17,13 @@ namespace mojoPortal.Web.AdminUI
 	
 		protected void Page_Load(object sender, EventArgs e)
 		{
-        
-            if (!WebUser.IsAdmin)
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+
+			if (!WebUser.IsAdmin)
             {
                 SiteUtils.RedirectToAccessDeniedPage(this);
                 return;

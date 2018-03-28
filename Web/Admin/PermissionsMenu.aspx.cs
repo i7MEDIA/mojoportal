@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2012-01-01
-// Last Modified:			2012-01-01
+// Last Modified:			2018-03-28
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -10,32 +10,19 @@
 //
 // You must not remove this notice, or any other, from this software.
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Globalization;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using mojoPortal.Web;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.UI;
-using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Framework;
 using Resources;
+using System;
+using System.Globalization;
 
 
 
 namespace mojoPortal.Web.AdminUI
 {
 
-    public partial class PermissionsMenuPage : NonCmsBasePage
+	public partial class PermissionsMenuPage : NonCmsBasePage
     {
         private SiteSettings selectedSite = null;
         private int siteId = -1;
@@ -44,8 +31,12 @@ namespace mojoPortal.Web.AdminUI
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadParams();
-
-            if (!WebUser.IsAdmin)
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+			if (!WebUser.IsAdmin)
             {
                 SiteUtils.RedirectToAccessDeniedPage(this);
                 return;

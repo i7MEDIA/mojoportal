@@ -119,10 +119,7 @@ namespace mojoPortal.Web.BlogUI
 		{
 			LoadParams();
 
-			if (
-				(basePage == null)
-				|| (!basePage.UserCanViewPage(ModuleId, Blog.FeatureGuid))
-			)
+			if (basePage == null || !basePage.UserCanViewPage(ModuleId, Blog.FeatureGuid))
 			{
 				if (!Request.IsAuthenticated)
 				{

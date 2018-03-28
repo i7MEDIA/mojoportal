@@ -6286,4 +6286,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="SecurityAdvisorSecurityProtocolVersion" xml:space="preserve">
     <value>TLS Version</value>
   </data>
+  <data name="PasswordRecoveryNotAllowedWhenAuthenticated" xml:space="preserve">
+    <value>Password recovery is not allowed while authenticated.</value>
+  </data>
 </root>
