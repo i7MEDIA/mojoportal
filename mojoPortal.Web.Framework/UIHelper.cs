@@ -488,7 +488,7 @@ namespace mojoPortal.Web.Framework
 		public static void AddConfirmationDialog(HtmlButton button, string confirmationText)
 		{
 			if (button == null) return;
-			button.Attributes.Add("onclick", string.Format("return confirm('{0}');", confirmationText));
+			button.Attributes.Add("onclick", string.Format("if(!confirm('{0}')) {{return}};", confirmationText));
 		}
 
 		public static void AddConfirmationDialogWithClearExitCode(WebControl button, string confirmationText)

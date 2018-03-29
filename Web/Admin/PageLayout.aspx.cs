@@ -820,7 +820,7 @@ namespace mojoPortal.Web.AdminUI
 			btnDeleteAlt1.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
 			btnDeleteAlt1.Attributes.Add("title", Resource.PageLayoutAlt1EditButton);
 
-			//UIHelper.AddConfirmationDialog(btnDeleteAlt1, Resource.PageLayoutRemoveContentWarning);
+			UIHelper.AddConfirmationDialog(btnDeleteAlt1, Resource.PageLayoutRemoveContentWarning);
 
 
 			//
@@ -852,7 +852,7 @@ namespace mojoPortal.Web.AdminUI
 			LeftDeleteBtn.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
 			LeftDeleteBtn.Attributes.Add("title", Resource.PageLayoutLeftDeleteAlternateText);
 
-			//UIHelper.AddConfirmationDialog(LeftDeleteBtn, Resource.PageLayoutRemoveContentWarning);
+			UIHelper.AddConfirmationDialog(LeftDeleteBtn, Resource.PageLayoutRemoveContentWarning);
 
 
 			//
@@ -901,7 +901,7 @@ namespace mojoPortal.Web.AdminUI
 			ContentDeleteBtn.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
 			ContentDeleteBtn.Attributes.Add("title", Resource.PageLayoutContentDeleteAlternateText);
 
-			//UIHelper.AddConfirmationDialog(ContentDeleteBtn, Resource.PageLayoutRemoveContentWarning);
+			UIHelper.AddConfirmationDialog(ContentDeleteBtn, Resource.PageLayoutRemoveContentWarning);
 
 
 			//
@@ -928,7 +928,7 @@ namespace mojoPortal.Web.AdminUI
 			RightDeleteBtn.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
 			RightDeleteBtn.Attributes.Add("title", Resource.PageLayoutRightDeleteAlternateText);
 
-			//UIHelper.AddConfirmationDialog(RightDeleteBtn, Resource.PageLayoutRemoveContentWarning);
+			UIHelper.AddConfirmationDialog(RightDeleteBtn, Resource.PageLayoutRemoveContentWarning);
 
 
 			//
@@ -960,7 +960,7 @@ namespace mojoPortal.Web.AdminUI
 			btnDeleteAlt2.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
 			btnDeleteAlt2.Attributes.Add("title", Resource.PageLayoutAlt2EditButton);
 
-			//UIHelper.AddConfirmationDialog(btnDeleteAlt2, Resource.PageLayoutRemoveContentWarning);
+			UIHelper.AddConfirmationDialog(btnDeleteAlt2, Resource.PageLayoutRemoveContentWarning);
 
 
 			// Button Groups
