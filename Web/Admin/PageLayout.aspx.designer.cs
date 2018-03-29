@@ -391,6 +391,15 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnMoveAlt1ToCenter;
         
         /// <summary>
+        /// litButtonSeparator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litButtonSeparator1;
+        
+        /// <summary>
         /// btnEditAlt1 control.
         /// </summary>
         /// <remarks>
@@ -488,6 +497,15 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton LeftRightBtn;
+        
+        /// <summary>
+        /// litButtonSeparator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litButtonSeparator2;
         
         /// <summary>
         /// LeftEditBtn control.
@@ -607,6 +625,15 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.HtmlControls.HtmlButton ContentDownToNextButton;
         
         /// <summary>
+        /// litButtonSeparator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litButtonSeparator3;
+        
+        /// <summary>
         /// ContentEditBtn control.
         /// </summary>
         /// <remarks>
@@ -697,6 +724,15 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.HtmlControls.HtmlButton RightLeftBtn;
         
         /// <summary>
+        /// litButtonSeparator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litButtonSeparator4;
+        
+        /// <summary>
         /// RightEditBtn control.
         /// </summary>
         /// <remarks>
@@ -785,6 +821,15 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton btnMoveAlt2ToCenter;
+        
+        /// <summary>
+        /// litButtonSeparator5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litButtonSeparator5;
         
         /// <summary>
         /// btnEditAlt2 control.

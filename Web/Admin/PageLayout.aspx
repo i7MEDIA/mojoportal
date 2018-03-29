@@ -70,10 +70,11 @@
 											<portal:BasePanel runat="server" id="pnlPaneListBox1" ClientIDMode="Static" RenderId="false">
 												<asp:ListBox ID="lbAltContent1" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle" Rows="7" />
 
-												<portal:BasePanel ID="pnlAlt1ItemButtons" runat="server" SkinID="PageLayoutItemButtons" CssClass="pagelayout-item-btns btn-group-vertical" RenderId="false">
+												<portal:BasePanel runat="server" ID="pnlAlt1ItemButtons" SkinID="PageLayoutItemButtons" RenderId="false">
 													<button type="button" runat="server" id="btnAlt1MoveUp" ClientIDMode="Static"></button>
 													<button type="button" runat="server" id="btnAlt1MoveDown" ClientIDMode="Static"></button>
 													<button type="button" runat="server" id="btnMoveAlt1ToCenter" ClientIDMode="Static"></button>
+													<asp:Literal runat="server" ID="litButtonSeparator1" />
 													<button type="button" runat="server" id="btnEditAlt1" ClientIDMode="Static" data-panel="lbAltContent1"></button>
 													<button type="button" runat="server" id="btnDeleteAlt1" ClientIDMode="Static" data-panel="lbAltContent1"></button>
 												</portal:BasePanel>
@@ -89,10 +90,11 @@
 												<portal:BasePanel runat="server" id="pnlPaneListBox2" ClientIDMode="Static" RenderId="false">
 													<asp:ListBox ID="leftPane" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle" Rows="10" />
 
-													<portal:BasePanel ID="pnlLeftItemButtons" runat="server" SkinID="PageLayoutItemButtons" CssClass="pagelayout-item-btns btn-group-vertical" RenderId="false">
+													<portal:BasePanel ID="pnlLeftItemButtons" runat="server" SkinID="PageLayoutItemButtons" RenderId="false">
 														<button type="button" runat="server" id="LeftUpBtn" ClientIDMode="Static"></button>
 														<button type="button" runat="server" id="LeftDownBtn" ClientIDMode="Static"></button>
 														<button type="button" runat="server" id="LeftRightBtn" ClientIDMode="Static"></button>
+														<asp:Literal runat="server" ID="litButtonSeparator2" />
 														<button type="button" runat="server" id="LeftEditBtn" ClientIDMode="Static" data-panel="LeftPane"></button>
 														<button type="button" runat="server" id="LeftDeleteBtn" ClientIDMode="Static" data-panel="LeftPane"></button>
 													</portal:BasePanel>
@@ -106,13 +108,14 @@
 												<portal:BasePanel runat="server" id="pnlPaneListBox3" ClientIDMode="Static" RenderId="false">
 													<asp:ListBox ID="contentPane" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle" Rows="10" />
 
-													<portal:BasePanel ID="pnlCenterItemButtons" runat="server" SkinID="PageLayoutItemButtons" CssClass="pagelayout-item-btns btn-group-vertical" RenderId="false">
+													<portal:BasePanel ID="pnlCenterItemButtons" runat="server" SkinID="PageLayoutItemButtons" RenderId="false">
 														<button type="button" runat="server" id="ContentUpBtn" ClientIDMode="Static"></button>
 														<button type="button" runat="server" id="ContentDownBtn" ClientIDMode="Static"></button>
 														<button type="button" runat="server" id="ContentLeftBtn" ClientIDMode="Static"></button>
 														<button type="button" runat="server" id="ContentRightBtn" ClientIDMode="Static"></button>
 														<button type="button" runat="server" id="ContentUpToNextButton" ClientIDMode="Static"></button>
 														<button type="button" runat="server" id="ContentDownToNextButton" ClientIDMode="Static"></button>
+														<asp:Literal runat="server" ID="litButtonSeparator3" />
 														<button type="button" runat="server" id="ContentEditBtn" ClientIDMode="Static" data-panel="ContentPane"></button>
 														<button type="button" runat="server" id="ContentDeleteBtn" ClientIDMode="Static" data-panel="ContentPane"></button>
 													</portal:BasePanel>
@@ -126,10 +129,11 @@
 												<portal:BasePanel runat="server" id="pnlPaneListBox4" ClientIDMode="Static" RenderId="false">
 													<asp:ListBox ID="rightPane" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle" Rows="10" />
 													
-													<portal:BasePanel ID="pnlRightItemButtons" runat="server" SkinID="PageLayoutItemButtons" CssClass="pagelayout-item-btns btn-group-vertical" RenderId="false">
+													<portal:BasePanel ID="pnlRightItemButtons" runat="server" SkinID="PageLayoutItemButtons" RenderId="false">
 														<button type="button" runat="server" id="RightUpBtn" ClientIDMode="Static"></button>
 														<button type="button" runat="server" id="RightDownBtn" ClientIDMode="Static"></button>
 														<button type="button" runat="server" id="RightLeftBtn" ClientIDMode="Static"></button>
+														<asp:Literal runat="server" ID="litButtonSeparator4" />
 														<button type="button" runat="server" id="RightEditBtn" ClientIDMode="Static" data-panel="RightPane"></button>
 														<button type="button" runat="server" id="RightDeleteBtn" ClientIDMode="Static" data-panel="RightPane"></button>
 													</portal:BasePanel>
@@ -145,10 +149,11 @@
 											<portal:BasePanel runat="server" id="pnlPaneListBox5" ClientIDMode="Static" RenderId="false">
 												<asp:ListBox ID="lbAltContent2" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle" Rows="7" />
 
-												<portal:BasePanel ID="pnlAlt2ItemButtons" runat="server" SkinID="PageLayoutItemButtons" CssClass="pagelayout-item-btns btn-group-vertical" RenderId="false">
+												<portal:BasePanel ID="pnlAlt2ItemButtons" runat="server" SkinID="PageLayoutItemButtons" RenderId="false">
 													<button type="button" runat="server" id="btnAlt2MoveUp" ClientIDMode="Static"></button>
 													<button type="button" runat="server" id="btnAlt2MoveDown" ClientIDMode="Static"></button>
 													<button type="button" runat="server" id="btnMoveAlt2ToCenter" ClientIDMode="Static"></button>
+													<asp:Literal runat="server" ID="litButtonSeparator5" />
 													<button type="button" runat="server" id="btnEditAlt2" ClientIDMode="Static" data-panel="lbAltContent2"></button>
 													<button type="button" runat="server" id="btnDeleteAlt2" ClientIDMode="Static" data-panel="lbAltContent2"></button>
 												</portal:BasePanel>

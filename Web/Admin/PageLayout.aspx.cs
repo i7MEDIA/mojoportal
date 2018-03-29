@@ -963,6 +963,22 @@ namespace mojoPortal.Web.AdminUI
 			//UIHelper.AddConfirmationDialog(btnDeleteAlt2, Resource.PageLayoutRemoveContentWarning);
 
 
+			// Button Groups
+			pnlAlt1ItemButtons.CssClass = displaySettings.PageLayoutButtonGroupCssClass;
+			pnlLeftItemButtons.CssClass = displaySettings.PageLayoutButtonGroupCssClass;
+			pnlCenterItemButtons.CssClass = displaySettings.PageLayoutButtonGroupCssClass;
+			pnlRightItemButtons.CssClass = displaySettings.PageLayoutButtonGroupCssClass;
+			pnlAlt2ItemButtons.CssClass = displaySettings.PageLayoutButtonGroupCssClass;
+
+			if (!string.IsNullOrEmpty(displaySettings.PageLayoutButtonGroupSeparatorMarkup)) {
+				litButtonSeparator1.Text = displaySettings.PageLayoutButtonGroupSeparatorMarkup;
+				litButtonSeparator2.Text = displaySettings.PageLayoutButtonGroupSeparatorMarkup;
+				litButtonSeparator3.Text = displaySettings.PageLayoutButtonGroupSeparatorMarkup;
+				litButtonSeparator4.Text = displaySettings.PageLayoutButtonGroupSeparatorMarkup;
+				litButtonSeparator5.Text = displaySettings.PageLayoutButtonGroupSeparatorMarkup;
+			}
+
+
 			if (!Page.IsPostBack)
 			{
 				if (WebConfigSettings.PrePopulateDefaultContentTitle)
@@ -1356,6 +1372,21 @@ namespace mojoPortal.Web.UI
 			set { paneListBoxCssClass = value; }
 		}
 
+		private string pageLayoutButtonGroupCssClass = "pagelayout-item-btns btn-group-vertical";
+
+		public string PageLayoutButtonGroupCssClass
+		{
+			get => pageLayoutButtonGroupCssClass;
+			set => pageLayoutButtonGroupCssClass = value;
+		}
+
+		private string pageLayoutButtonGroupSeparatorMarkup = "";
+
+		public string PageLayoutButtonGroupSeparatorMarkup
+		{
+			get => pageLayoutButtonGroupSeparatorMarkup;
+			set => pageLayoutButtonGroupSeparatorMarkup = value;
+		}
 
 		protected override void Render(HtmlTextWriter writer)
 		{
