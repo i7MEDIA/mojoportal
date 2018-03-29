@@ -22,9 +22,7 @@
 							<ContentTemplate>
 								<div class="settings">
 									<div class="addcontent">
-										<strong>
-											<mp:SiteLabel ID="lblAddModule" runat="server" ConfigKey="PageLayoutAddModuleLabel" UseLabelTag="false" />
-										</strong>
+										<strong><mp:SiteLabel ID="lblAddModule" runat="server" ConfigKey="PageLayoutAddModuleLabel" UseLabelTag="false" /></strong>
 
 										<div class="settingrow">
 											<mp:SiteLabel ID="lblModuleType" runat="server" ForControl="moduleType" CssClass="settinglabel" ConfigKey="PageLayoutModuleTypeLabel" />
@@ -60,136 +58,102 @@
 									</div>
 
 									<div class="panelayout">
+										<%-- Alt Content Notice --%>
 										<asp:Panel class="altlayoutnotice" ID="divAltLayoutNotice" runat="server" SkinID="notice">
 											<asp:Literal ID="litAltLayoutNotice" runat="server" />
 										</asp:Panel>
 
-										<div class="pane layoutalt1" id="divAltPanel1" runat="server">
-											<h2>
-												<mp:SiteLabel ID="lblAltPanel1" runat="server" ConfigKey="PageLayoutAltPanel1Label" UseLabelTag="false" />
-											</h2>
-											<div class="panelistbox">
+										<%-- Alt Content 1 Pane --%>
+										<portal:BasePanel runat="server" id="pnlAlt1LayoutPane" ClientIDMode="Static" RenderId="false">
+											<h2 class="pagelayout__panel-title pagelayout__panel-title--alt1"><mp:SiteLabel ID="lblAltPanel1" runat="server" ConfigKey="PageLayoutAltPanel1Label" UseLabelTag="false" /></h2>
+
+											<portal:BasePanel runat="server" id="pnlPaneListBox1" ClientIDMode="Static" RenderId="false">
 												<asp:ListBox ID="lbAltContent1" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle" Rows="7" />
-												<portal:BasePanel ID="pnlQuestionOptionControls" runat="server" SkinID="PageLayoutArrangeButtons" CssClass="btn-group-vertical">
-													<%-- <asp:ImageButton ID="btnAlt1MoveUp" runat="server" ImageUrl="~/Data/SiteImages/up.png"
-													CommandName="up" CommandArgument="altcontent1" SkinID="pageLayoutMoveUp" CssClass="btnup" />--%>
-													<button id="btnAlt1MoveUp" runat="server"></button>
-													<asp:ImageButton ID="btnAlt1MoveDown" runat="server" ImageUrl="~/Data/SiteImages/down.png"
-														CommandName="down" CommandArgument="altcontent1" SkinID="pageLayoutMoveDown"
-														CssClass="btndown" />
-													<asp:ImageButton ID="btnMoveAlt1ToCenter" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_down.png"
-														CssClass="btndownpanel" SkinID="pageLayoutItemMoveDown" />
-													<asp:ImageButton ID="btnEditAlt1" runat="server" CommandName="edit" CommandArgument="lbAltContent1"
-														CssClass="btnedit" SkinID="pageLayoutEditSettings" />
-													<asp:ImageButton ID="btnDeleteAlt1" runat="server" CommandName="delete" CommandArgument="lbAltContent1"
-														SkinID="pageLayoutDeleteItem" CssClass="btnremove" />
+
+												<portal:BasePanel ID="pnlAlt1ItemButtons" runat="server" SkinID="PageLayoutItemButtons" CssClass="pagelayout-item-btns btn-group-vertical" RenderId="false">
+													<button type="button" runat="server" id="btnAlt1MoveUp" ClientIDMode="Static"></button>
+													<button type="button" runat="server" id="btnAlt1MoveDown" ClientIDMode="Static"></button>
+													<button type="button" runat="server" id="btnMoveAlt1ToCenter" ClientIDMode="Static"></button>
+													<button type="button" runat="server" id="btnEditAlt1" ClientIDMode="Static" data-panel="lbAltContent1"></button>
+													<button type="button" runat="server" id="btnDeleteAlt1" ClientIDMode="Static" data-panel="lbAltContent1"></button>
 												</portal:BasePanel>
-											</div>
-										</div>
+											</portal:BasePanel>
+										</portal:BasePanel>
 
-										<div class="regularpanes">
-											<div class="pane layoutleft">
-												<h2>
-													<mp:SiteLabel ID="lblLeftPane" runat="server" ConfigKey="PageLayoutLeftPaneLabel" UseLabelTag="false" />
-												</h2>
+										<portal:BasePanel runat="server" ID="pnlRegularLayoutPanesWrap" ClientIDMode="Static" RenderId="false">
+											
+											<%-- Left Pane --%>
+											<portal:BasePanel runat="server" ID="pnlRegularLayoutPaneLeft" ClientIDMode="Static" RenderId="false">
+												<h2 class="pagelayout__panel-title pagelayout__panel-title--left"><mp:SiteLabel ID="lblLeftPane" runat="server" ConfigKey="PageLayoutLeftPaneLabel" UseLabelTag="false" /></h2>
 
-												<div class="panelistbox">
+												<portal:BasePanel runat="server" id="pnlPaneListBox2" ClientIDMode="Static" RenderId="false">
 													<asp:ListBox ID="leftPane" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle" Rows="10" />
 
-													<div class="layoutbuttons">
-														<asp:ImageButton ID="LeftUpBtn" runat="server" ImageUrl="~/Data/SiteImages/up.png"
-															CommandName="up" CommandArgument="LeftPane" SkinID="pageLayoutMoveUp" CssClass="btnup" />
-														<asp:ImageButton ID="LeftDownBtn" runat="server" ImageUrl="~/Data/SiteImages/down.png"
-															CommandName="down" CommandArgument="LeftPane" SkinID="pageLayoutMoveDown" CssClass="btndown" />
-														<asp:ImageButton ID="LeftRightBtn" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_right.png"
-															CommandName="right" SkinID="pageLayoutMoveItemRight" CssClass="btnright" />
-														<asp:ImageButton ID="LeftEditBtn" runat="server" CommandName="edit" CommandArgument="LeftPane"
-															SkinID="pageLayoutEditSettings" CssClass="btnedit" />
-														<asp:ImageButton ID="LeftDeleteBtn" runat="server" CommandName="delete" CommandArgument="LeftPane"
-															SkinID="pageLayoutDeleteItem" CssClass="btnremove" />
-													</div>
-												</div>
-											</div>
+													<portal:BasePanel ID="pnlLeftItemButtons" runat="server" SkinID="PageLayoutItemButtons" CssClass="pagelayout-item-btns btn-group-vertical" RenderId="false">
+														<button type="button" runat="server" id="LeftUpBtn" ClientIDMode="Static"></button>
+														<button type="button" runat="server" id="LeftDownBtn" ClientIDMode="Static"></button>
+														<button type="button" runat="server" id="LeftRightBtn" ClientIDMode="Static"></button>
+														<button type="button" runat="server" id="LeftEditBtn" ClientIDMode="Static" data-panel="LeftPane"></button>
+														<button type="button" runat="server" id="LeftDeleteBtn" ClientIDMode="Static" data-panel="LeftPane"></button>
+													</portal:BasePanel>
+												</portal:BasePanel>
+											</portal:BasePanel>
 
-											<div class="pane layoutcenter">
-												<h2>
-													<mp:SiteLabel ID="lblContentPane" runat="server" ConfigKey="PageLayoutContentPaneLabel" UseLabelTag="false" />
-												</h2>
+											<%-- Center Pane --%>
+											<portal:BasePanel runat="server" ID="pnlRegularLayoutPaneCenter" ClientIDMode="Static" RenderId="false">
+												<h2 class="pagelayout__panel-title pagelayout__panel-title--center"><mp:SiteLabel ID="lblContentPane" runat="server" ConfigKey="PageLayoutContentPaneLabel" UseLabelTag="false" /></h2>
 
-												<div class="panelistbox">
+												<portal:BasePanel runat="server" id="pnlPaneListBox3" ClientIDMode="Static" RenderId="false">
 													<asp:ListBox ID="contentPane" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle" Rows="10" />
 
-													<div class="layoutbuttons">
-														<asp:ImageButton ID="ContentUpBtn" runat="server" ImageUrl="~/Data/SiteImages/up.png"
-															CommandName="up" CommandArgument="ContentPane" SkinID="pageLayoutMoveUp" CssClass="btnup" />
-														<asp:ImageButton ID="ContentDownBtn" runat="server" ImageUrl="~/Data/SiteImages/down.png"
-															CommandName="down" CommandArgument="ContentPane" SkinID="pageLayoutMoveDown"
-															CssClass="btndown" />
-														<asp:ImageButton ID="ContentLeftBtn" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_left.png"
-															SkinID="pageLayoutMoveItemLeft" CssClass="btnleft" />
-														<asp:ImageButton ID="ContentRightBtn" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_right.png"
-															SkinID="pageLayoutMoveItemRight" CssClass="btnright" />
-														<asp:ImageButton ID="ContentUpToNextButton" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_up.png"
-															CommandName="uptoalt1" CommandArgument="ContentPane" SkinID="pageLayoutMoveItemUp"
-															CssClass="btnuppanel" />
-														<asp:ImageButton ID="ContentDownToNextButton" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_down.png"
-															CommandName="downtoalt2" CommandArgument="ContentPane" SkinID="pageLayoutItemMoveDown"
-															CssClass="btndownpanel" />
-														<asp:ImageButton ID="ContentEditBtn" runat="server" CommandName="edit" CommandArgument="ContentPane"
-															SkinID="pageLayoutEditSettings" CssClass="btnedit" />
-														<asp:ImageButton ID="ContentDeleteBtn" runat="server" CommandName="delete" CommandArgument="ContentPane"
-															SkinID="pageLayoutDeleteItem" CssClass="btnremove" />
-													</div>
-												</div>
-											</div>
+													<portal:BasePanel ID="pnlCenterItemButtons" runat="server" SkinID="PageLayoutItemButtons" CssClass="pagelayout-item-btns btn-group-vertical" RenderId="false">
+														<button type="button" runat="server" id="ContentUpBtn" ClientIDMode="Static"></button>
+														<button type="button" runat="server" id="ContentDownBtn" ClientIDMode="Static"></button>
+														<button type="button" runat="server" id="ContentLeftBtn" ClientIDMode="Static"></button>
+														<button type="button" runat="server" id="ContentRightBtn" ClientIDMode="Static"></button>
+														<button type="button" runat="server" id="ContentUpToNextButton" ClientIDMode="Static"></button>
+														<button type="button" runat="server" id="ContentDownToNextButton" ClientIDMode="Static"></button>
+														<button type="button" runat="server" id="ContentEditBtn" ClientIDMode="Static" data-panel="ContentPane"></button>
+														<button type="button" runat="server" id="ContentDeleteBtn" ClientIDMode="Static" data-panel="ContentPane"></button>
+													</portal:BasePanel>
+												</portal:BasePanel>
+											</portal:BasePanel>
 
-											<div class="pane layoutright">
-												<h2>
-													<mp:SiteLabel ID="lblRightPane" runat="server" ConfigKey="PageLayoutRightPaneLabel" UseLabelTag="false" />
-												</h2>
+											<%-- Right Pane --%>
+											<portal:BasePanel runat="server" ID="pnlRegularLayoutPaneRight" ClientIDMode="Static" RenderId="false">
+												<h2 class="pagelayout__panel-title pagelayout__panel-title--right"><mp:SiteLabel ID="lblRightPane" runat="server" ConfigKey="PageLayoutRightPaneLabel" UseLabelTag="false" /></h2>
 
-												<div class="panelistbox">
+												<portal:BasePanel runat="server" id="pnlPaneListBox4" ClientIDMode="Static" RenderId="false">
 													<asp:ListBox ID="rightPane" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle" Rows="10" />
-													<div class="layoutbuttons">
-														<asp:ImageButton ID="RightUpBtn" runat="server" ImageUrl="~/Data/SiteImages/up.png"
-															CommandName="up" CommandArgument="RightPane" SkinID="pageLayoutMoveUp" CssClass="btnup" />
-														<asp:ImageButton ID="RightDownBtn" runat="server" ImageUrl="~/Data/SiteImages/down.png"
-															CommandName="down" CommandArgument="RightPane" SkinID="pageLayoutMoveDown" CssClass="btndown" />
-														<asp:ImageButton ID="RightLeftBtn" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_left.png"
-															SkinID="pageLayoutMoveItemLeft" CssClass="btnleft" />
-														<asp:ImageButton ID="RightEditBtn" runat="server" CommandName="edit" CommandArgument="RightPane"
-															SkinID="pageLayoutEditSettings" CssClass="btnedit" />
-														<asp:ImageButton ID="RightDeleteBtn" runat="server" CommandName="delete" CommandArgument="RightPane"
-															SkinID="pageLayoutDeleteItem" CssClass="btnremove" />
-													</div>
-												</div>
-											</div>
-										</div>
+													
+													<portal:BasePanel ID="pnlRightItemButtons" runat="server" SkinID="PageLayoutItemButtons" CssClass="pagelayout-item-btns btn-group-vertical" RenderId="false">
+														<button type="button" runat="server" id="RightUpBtn" ClientIDMode="Static"></button>
+														<button type="button" runat="server" id="RightDownBtn" ClientIDMode="Static"></button>
+														<button type="button" runat="server" id="RightLeftBtn" ClientIDMode="Static"></button>
+														<button type="button" runat="server" id="RightEditBtn" ClientIDMode="Static" data-panel="RightPane"></button>
+														<button type="button" runat="server" id="RightDeleteBtn" ClientIDMode="Static" data-panel="RightPane"></button>
+													</portal:BasePanel>
+												</portal:BasePanel>
+											</portal:BasePanel>
 
-										<div class="pane layoutalt2" id="divAltPanel2" runat="server">
-											<h2>
-												<mp:SiteLabel ID="lblAltLayout2" runat="server" ConfigKey="PageLayoutAltPanel2Label" UseLabelTag="false" />
-											</h2>
+										</portal:BasePanel>
 
-											<div class="panelistbox">
+										<%-- Alt Content 2 Pane --%>
+										<portal:BasePanel runat="server" id="pnlAlt2LayoutPane" ClientIDMode="Static" RenderId="false">
+											<h2 class="pagelayout__panel-title pagelayout__panel-title--alt2"><mp:SiteLabel ID="lblAltLayout2" runat="server" ConfigKey="PageLayoutAltPanel2Label" UseLabelTag="false" /></h2>
+
+											<portal:BasePanel runat="server" id="pnlPaneListBox5" ClientIDMode="Static" RenderId="false">
 												<asp:ListBox ID="lbAltContent2" runat="server" DataValueField="ModuleID" DataTextField="ModuleTitle" Rows="7" />
 
-												<div class="layoutbuttons">
-													<%-- <asp:ImageButton ID="btnMoveAlt2ToAlt1" runat="server" ImageUrl="~/Data/SiteImages/up.png" />--%>
-													<asp:ImageButton ID="btnAlt2MoveUp" runat="server" ImageUrl="~/Data/SiteImages/up.png"
-														CommandName="up" CommandArgument="AltContent2" SkinID="pageLayoutMoveUp" CssClass="btnup" />
-													<asp:ImageButton ID="btnAlt2MoveDown" runat="server" ImageUrl="~/Data/SiteImages/down.png"
-														CommandName="down" CommandArgument="AltContent2" SkinID="pageLayoutMoveDown"
-														CssClass="btndown" />
-													<asp:ImageButton ID="btnMoveAlt2ToCenter" runat="server" ImageUrl="~/Data/SiteImages/arrow_in_up.png"
-														SkinID="pageLayoutMoveItemUp" CssClass="btnuppanel" />
-													<asp:ImageButton ID="btnEditAlt2" runat="server" CommandName="edit" CommandArgument="lbAltContent2"
-														SkinID="pageLayoutEditSettings" CssClass="btnedit" />
-													<asp:ImageButton ID="btnDeleteAlt2" runat="server" CommandName="delete" CommandArgument="lbAltContent2"
-														SkinID="pageLayoutDeleteItem" CssClass="btnremove" />
-												</div>
-											</div>
-										</div>
+												<portal:BasePanel ID="pnlAlt2ItemButtons" runat="server" SkinID="PageLayoutItemButtons" CssClass="pagelayout-item-btns btn-group-vertical" RenderId="false">
+													<button type="button" runat="server" id="btnAlt2MoveUp" ClientIDMode="Static"></button>
+													<button type="button" runat="server" id="btnAlt2MoveDown" ClientIDMode="Static"></button>
+													<button type="button" runat="server" id="btnMoveAlt2ToCenter" ClientIDMode="Static"></button>
+													<button type="button" runat="server" id="btnEditAlt2" ClientIDMode="Static" data-panel="lbAltContent2"></button>
+													<button type="button" runat="server" id="btnDeleteAlt2" ClientIDMode="Static" data-panel="lbAltContent2"></button>
+												</portal:BasePanel>
+											</portal:BasePanel>
+										</portal:BasePanel>
 									</div>
 								</div>
 							</ContentTemplate>

@@ -22,11 +22,11 @@ using System.Data;
 using System.Globalization;
 using System.Text;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.AdminUI
 {
-
 	public partial class PageLayout : NonCmsBasePage
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(PageLayout));
@@ -40,6 +40,7 @@ namespace mojoPortal.Web.AdminUI
 		protected string DeleteLinkImage = WebConfigSettings.DeleteLinkImage;
 		private int globalContentCount = 0;
 
+
 		#region OnInit
 
 		protected override void OnPreInit(EventArgs e)
@@ -50,20 +51,15 @@ namespace mojoPortal.Web.AdminUI
 
 			base.OnPreInit(e);
 
-			if (
-					(siteSettings.AllowPageSkins)
-					&& (CurrentPage != null)
-					&& (CurrentPage.Skin.Length > 0)
-					)
+			if (siteSettings.AllowPageSkins && (CurrentPage != null) && (CurrentPage.Skin.Length > 0))
 			{
-
 				if (Global.RegisteredVirtualThemes)
 				{
-					this.Theme = "pageskin-" + siteSettings.SiteId.ToInvariantString() + CurrentPage.Skin;
+					Theme = "pageskin-" + siteSettings.SiteId.ToInvariantString() + CurrentPage.Skin;
 				}
 				else
 				{
-					this.Theme = "pageskin";
+					Theme = "pageskin";
 				}
 			}
 
@@ -71,71 +67,67 @@ namespace mojoPortal.Web.AdminUI
 
 			//StyleSheetCombiner styleCombiner = (StyleSheetCombiner)Master.FindControl("StyleSheetCombiner");
 			//if (styleCombiner != null) { styleCombiner.AllowPageOverride = true; }
-
-
 		}
+
 
 		override protected void OnInit(EventArgs e)
 		{
 			base.OnInit(e);
-			this.Load += new EventHandler(this.Page_Load);
+			Load += new EventHandler(Page_Load);
 
-			this.btnCreateNewContent.Click += new EventHandler(this.btnCreateNewContent_Click);
-
-			this.LeftUpBtn.Click += new ImageClickEventHandler(LeftUpBtn_Click);
-			this.LeftDownBtn.Click += new ImageClickEventHandler(LeftDownBtn_Click);
-			this.ContentUpBtn.Click += new ImageClickEventHandler(ContentUpBtn_Click);
-			this.ContentDownBtn.Click += new ImageClickEventHandler(ContentDownBtn_Click);
-			this.RightUpBtn.Click += new ImageClickEventHandler(RightUpBtn_Click);
-			this.RightDownBtn.Click += new ImageClickEventHandler(RightDownBtn_Click);
-
-			this.btnAlt1MoveUp.ServerClick += new EventHandler(btnAlt1MoveUp_Click);
-			this.btnAlt1MoveDown.Click += new ImageClickEventHandler(btnAlt1MoveDown_Click);
-			this.btnAlt2MoveUp.Click += new ImageClickEventHandler(btnAlt2MoveUp_Click);
-			this.btnAlt2MoveDown.Click += new ImageClickEventHandler(btnAlt2MoveDown_Click);
+			btnCreateNewContent.Click += new EventHandler(btnCreateNewContent_Click);
 
 
-			this.LeftEditBtn.Click += new ImageClickEventHandler(this.EditBtn_Click);
-			this.ContentEditBtn.Click += new ImageClickEventHandler(this.EditBtn_Click);
-			this.RightEditBtn.Click += new ImageClickEventHandler(this.EditBtn_Click);
-			this.btnEditAlt1.Click += new ImageClickEventHandler(this.EditBtn_Click);
-			this.btnEditAlt2.Click += new ImageClickEventHandler(this.EditBtn_Click);
+			//
+			// Altcontent 1
+			// ==================================
+			btnAlt1MoveUp.ServerClick += new EventHandler(btnAlt1MoveUp_Click);
+			btnAlt1MoveDown.ServerClick += new EventHandler(btnAlt1MoveDown_Click);
+			btnMoveAlt1ToCenter.ServerClick += new EventHandler(btnMoveAlt1ToCenter_Click);
+			btnEditAlt1.ServerClick += new EventHandler(EditBtn_Click);
+			btnDeleteAlt1.ServerClick += new EventHandler(DeleteBtn_Click);
 
-			this.LeftDeleteBtn.Click += new ImageClickEventHandler(this.DeleteBtn_Click);
-			this.ContentDeleteBtn.Click += new ImageClickEventHandler(this.DeleteBtn_Click);
-			this.RightDeleteBtn.Click += new ImageClickEventHandler(this.DeleteBtn_Click);
-			this.btnDeleteAlt1.Click += new ImageClickEventHandler(this.DeleteBtn_Click);
-			this.btnDeleteAlt2.Click += new ImageClickEventHandler(this.DeleteBtn_Click);
+			//
+			// Left
+			// ==================================
+			LeftUpBtn.ServerClick += new EventHandler(LeftUpBtn_Click);
+			LeftDownBtn.ServerClick += new EventHandler(LeftDownBtn_Click);
+			LeftRightBtn.ServerClick += new EventHandler(LeftRightBtn_Click);
+			LeftEditBtn.ServerClick += new EventHandler(EditBtn_Click);
+			LeftDeleteBtn.ServerClick += new EventHandler(DeleteBtn_Click);
 
+			// Center
+			ContentUpBtn.ServerClick += new EventHandler(ContentUpBtn_Click);
+			ContentDownBtn.ServerClick += new EventHandler(ContentDownBtn_Click);
+			ContentLeftBtn.ServerClick += new EventHandler(ContentLeftBtn_Click);
+			ContentRightBtn.ServerClick += new EventHandler(ContentRightBtn_Click);
+			ContentDownToNextButton.ServerClick += new EventHandler(ContentDownToNextButton_Click);
+			ContentUpToNextButton.ServerClick += new EventHandler(ContentUpToNextButton_Click);
+			ContentEditBtn.ServerClick += new EventHandler(EditBtn_Click);
+			ContentDeleteBtn.ServerClick += new EventHandler(DeleteBtn_Click);
 
-			this.LeftRightBtn.Click += new ImageClickEventHandler(LeftRightBtn_Click);
-			this.ContentLeftBtn.Click += new ImageClickEventHandler(ContentLeftBtn_Click);
-			this.ContentRightBtn.Click += new ImageClickEventHandler(ContentRightBtn_Click);
-			this.RightLeftBtn.Click += new ImageClickEventHandler(RightLeftBtn_Click);
+			// Right
+			RightUpBtn.ServerClick += new EventHandler(RightUpBtn_Click);
+			RightDownBtn.ServerClick += new EventHandler(RightDownBtn_Click);
+			RightLeftBtn.ServerClick += new EventHandler(RightLeftBtn_Click);
+			RightEditBtn.ServerClick += new EventHandler(EditBtn_Click);
+			RightDeleteBtn.ServerClick += new EventHandler(DeleteBtn_Click);
 
-			this.btnMoveAlt1ToCenter.Click += new ImageClickEventHandler(btnMoveAlt1ToCenter_Click);
-			this.btnMoveAlt2ToCenter.Click += new ImageClickEventHandler(btnMoveAlt2ToCenter_Click);
-			//this.btnMoveAlt1ToAlt2.Click += new ImageClickEventHandler(btnMoveAlt1ToAlt2_Click);
-			//this.btnMoveAlt2ToAlt1.Click += new ImageClickEventHandler(btnMoveAlt2ToAlt1_Click);
+			// Altcontent 2
+			btnAlt2MoveUp.ServerClick += new EventHandler(btnAlt2MoveUp_Click);
+			btnAlt2MoveDown.ServerClick += new EventHandler(btnAlt2MoveDown_Click);
+			btnMoveAlt2ToCenter.ServerClick += new EventHandler(btnMoveAlt2ToCenter_Click);
+			btnEditAlt2.ServerClick += new EventHandler(EditBtn_Click);
+			btnDeleteAlt2.ServerClick += new EventHandler(DeleteBtn_Click);
 
-
-			this.ContentDownToNextButton.Click += new ImageClickEventHandler(ContentDownToNextButton_Click);
-			this.ContentUpToNextButton.Click += new ImageClickEventHandler(ContentUpToNextButton_Click);
 
 			btnAddExisting.Click += new ImageClickEventHandler(btnAddExisting_Click);
 
 			SuppressPageMenu();
-
-
-
 		}
 
-
-
-
-
-
 		#endregion
+
 
 		private void Page_Load(object sender, EventArgs e)
 		{
@@ -416,81 +408,80 @@ namespace mojoPortal.Web.AdminUI
 		#region Move Up or Down
 
 
-		void LeftUpBtn_Click(object sender, ImageClickEventArgs e)
-		{
-			string direction = ((ImageButton)sender).CommandName;
-			string pane = ((ImageButton)sender).CommandArgument;
-			MoveUpDown(leftPane, pane, direction);
-
-		}
-
-		void LeftDownBtn_Click(object sender, ImageClickEventArgs e)
-		{
-			string direction = ((ImageButton)sender).CommandName;
-			string pane = ((ImageButton)sender).CommandArgument;
-			MoveUpDown(leftPane, pane, direction);
-
-		}
-
-		void ContentUpBtn_Click(object sender, ImageClickEventArgs e)
-		{
-			string direction = ((ImageButton)sender).CommandName;
-			string pane = ((ImageButton)sender).CommandArgument;
-			MoveUpDown(contentPane, pane, direction);
-
-		}
-
-		void ContentDownBtn_Click(object sender, ImageClickEventArgs e)
-		{
-			string direction = ((ImageButton)sender).CommandName;
-			string pane = ((ImageButton)sender).CommandArgument;
-			MoveUpDown(contentPane, pane, direction);
-
-		}
-
-		void RightUpBtn_Click(object sender, ImageClickEventArgs e)
-		{
-			string direction = ((ImageButton)sender).CommandName;
-			string pane = ((ImageButton)sender).CommandArgument;
-			MoveUpDown(rightPane, pane, direction);
-
-		}
-
-		void RightDownBtn_Click(object sender, ImageClickEventArgs e)
-		{
-			string direction = ((ImageButton)sender).CommandName;
-			string pane = ((ImageButton)sender).CommandArgument;
-			MoveUpDown(rightPane, pane, direction);
-
-		}
+		//
+		// Alt Content 1
+		// =============================================================
 
 		void btnAlt1MoveUp_Click(object sender, EventArgs e)
 		{
 			MoveUpDown(lbAltContent1, "altcontent1", "up");
 		}
 
-		void btnAlt1MoveDown_Click(object sender, ImageClickEventArgs e)
+		void btnAlt1MoveDown_Click(object sender, EventArgs e)
 		{
-			string direction = ((ImageButton)sender).CommandName;
-			string pane = ((ImageButton)sender).CommandArgument;
-			MoveUpDown(lbAltContent1, pane, direction);
-
+			MoveUpDown(lbAltContent1, "altcontent1", "down");
 		}
 
-		void btnAlt2MoveUp_Click(object sender, ImageClickEventArgs e)
+
+		//
+		// Left Content
+		// =============================================================
+
+		void LeftUpBtn_Click(object sender, EventArgs e)
 		{
-			string direction = ((ImageButton)sender).CommandName;
-			string pane = ((ImageButton)sender).CommandArgument;
-			MoveUpDown(lbAltContent2, pane, direction);
+			MoveUpDown(leftPane, "leftPane", "up");
 		}
 
-		void btnAlt2MoveDown_Click(object sender, ImageClickEventArgs e)
+		void LeftDownBtn_Click(object sender, EventArgs e)
 		{
-			string direction = ((ImageButton)sender).CommandName;
-			string pane = ((ImageButton)sender).CommandArgument;
-			MoveUpDown(lbAltContent2, pane, direction);
-
+			MoveUpDown(leftPane, "leftPane", "down");
 		}
+
+
+		//
+		// Center Content
+		// =============================================================
+
+		void ContentUpBtn_Click(object sender, EventArgs e)
+		{
+			MoveUpDown(contentPane, "contentPane", "up");
+		}
+
+		void ContentDownBtn_Click(object sender, EventArgs e)
+		{
+			MoveUpDown(contentPane, "contentPane", "down");
+		}
+
+
+		//
+		// Right Content
+		// =============================================================
+
+		void RightUpBtn_Click(object sender, EventArgs e)
+		{
+			MoveUpDown(rightPane, "rightPane", "up");
+		}
+
+		void RightDownBtn_Click(object sender, EventArgs e)
+		{
+			MoveUpDown(rightPane, "rightPane", "down");
+		}
+
+
+		//
+		// Alt Content 2
+		// =============================================================
+
+		void btnAlt2MoveUp_Click(object sender, EventArgs e)
+		{
+			MoveUpDown(lbAltContent2, "altcontent2", "up");
+		}
+
+		void btnAlt2MoveDown_Click(object sender, EventArgs e)
+		{
+			MoveUpDown(lbAltContent2, "altcontent2", "down");
+		}
+
 
 		private void MoveUpDown(ListBox listbox, string pane, string direction)
 		{
@@ -542,86 +533,57 @@ namespace mojoPortal.Web.AdminUI
 
 		#endregion
 
+
 		#region Move To Pane
 
-
-		void LeftRightBtn_Click(object sender, ImageClickEventArgs e)
+		void LeftRightBtn_Click(object sender, EventArgs e)
 		{
-			string sourcePane = "leftPane";
-			string targetPane = "contentPane";
-			MoveContent(leftPane, sourcePane, targetPane);
-
+			MoveContent(leftPane, "leftPane", "contentPane");
 		}
 
-		void ContentLeftBtn_Click(object sender, ImageClickEventArgs e)
+		void ContentLeftBtn_Click(object sender, EventArgs e)
 		{
-			string sourcePane = "contentPane";
-			string targetPane = "leftPane";
-			MoveContent(contentPane, sourcePane, targetPane);
-
+			MoveContent(contentPane, "contentPane", "leftPane");
 		}
 
-		void ContentRightBtn_Click(object sender, ImageClickEventArgs e)
+		void ContentRightBtn_Click(object sender, EventArgs e)
 		{
-			string sourcePane = "contentPane";
-			string targetPane = "rightPane";
-			MoveContent(contentPane, sourcePane, targetPane);
-
+			MoveContent(contentPane, "contentPane", "rightPane");
 		}
 
-		void RightLeftBtn_Click(object sender, ImageClickEventArgs e)
+		void RightLeftBtn_Click(object sender, EventArgs e)
 		{
-			string sourcePane = "rightPane";
-			string targetPane = "contentPane";
-			MoveContent(rightPane, sourcePane, targetPane);
-
+			MoveContent(rightPane, "rightPane", "contentPane");
 		}
 
-		void ContentDownToNextButton_Click(object sender, ImageClickEventArgs e)
+		void ContentUpToNextButton_Click(object sender, EventArgs e)
 		{
-			string sourcePane = "contentPane";
-			string targetPane = "altcontent2";
-			MoveContent(contentPane, sourcePane, targetPane);
-
+			MoveContent(contentPane, "contentPane", "altcontent1");
 		}
 
-		void ContentUpToNextButton_Click(object sender, ImageClickEventArgs e)
+		void ContentDownToNextButton_Click(object sender, EventArgs e)
 		{
-			string sourcePane = "contentPane";
-			string targetPane = "altcontent1";
-			MoveContent(contentPane, sourcePane, targetPane);
-
+			MoveContent(contentPane, "contentPane", "altcontent2");
 		}
 
-		void btnMoveAlt1ToCenter_Click(object sender, ImageClickEventArgs e)
+		void btnMoveAlt1ToCenter_Click(object sender, EventArgs e)
 		{
-			string sourcePane = "altcontent1";
-			string targetPane = "contentPane";
-			MoveContent(lbAltContent1, sourcePane, targetPane);
-
+			MoveContent(lbAltContent1, "altcontent1", "contentPane");
 		}
 
-		void btnMoveAlt2ToCenter_Click(object sender, ImageClickEventArgs e)
+		void btnMoveAlt2ToCenter_Click(object sender, EventArgs e)
 		{
-			string sourcePane = "altcontent2";
-			string targetPane = "contentPane";
-			MoveContent(lbAltContent2, sourcePane, targetPane);
-
+			MoveContent(lbAltContent2, "altcontent2", "contentPane");
 		}
-
-
-
 
 		private void MoveContent(ListBox listBox, string sourcePane, string targetPane)
 		{
-
 			if (listBox.SelectedIndex != -1)
 			{
 				ArrayList sourceList = GetPaneModules(sourcePane);
 
 				Module m = (Module)sourceList[listBox.SelectedIndex];
 				Module.UpdateModuleOrder(pageID, m.ModuleId, 998, targetPane);
-
 
 				CurrentPage.RefreshModules();
 
@@ -647,8 +609,8 @@ namespace mojoPortal.Web.AdminUI
 			}
 		}
 
-
 		#endregion
+
 
 		private void SelectModule(Module m, string paneName)
 		{
@@ -691,10 +653,10 @@ namespace mojoPortal.Web.AdminUI
 		}
 
 
-		private void EditBtn_Click(Object sender, ImageClickEventArgs e)
+		private void EditBtn_Click(Object sender, EventArgs e)
 		{
-			string pane = ((ImageButton)sender).CommandArgument;
-			ListBox _listbox = (ListBox)this.MPContent.FindControl(pane);
+			string pane = ((HtmlButton)sender).Attributes["data-panel"];
+			ListBox _listbox = (ListBox)MPContent.FindControl(pane);
 
 			if (_listbox.SelectedIndex != -1)
 			{
@@ -705,11 +667,11 @@ namespace mojoPortal.Web.AdminUI
 		}
 
 
-		private void DeleteBtn_Click(Object sender, ImageClickEventArgs e)
+		private void DeleteBtn_Click(Object sender, EventArgs e)
 		{
 			if (sender == null) return;
 
-			string pane = ((ImageButton)sender).CommandArgument;
+			string pane = ((HtmlButton)sender).Attributes["data-panel"];
 			ListBox listbox = (ListBox)this.MPContent.FindControl(pane);
 
 			if (listbox.SelectedIndex != -1)
@@ -776,76 +738,230 @@ namespace mojoPortal.Web.AdminUI
 			btnCreateNewContent.Text = Resource.ContentManagerCreateNewContentButton;
 			btnCreateNewContent.ToolTip = Resource.ContentManagerCreateNewContentButton;
 
-			SiteUtils.SetButtonAccessKey
-				(btnCreateNewContent, AccessKeys.ContentManagerCreateNewContentButtonAccessKey);
+			SiteUtils.SetButtonAccessKey(btnCreateNewContent, AccessKeys.ContentManagerCreateNewContentButtonAccessKey);
 
 			lnkEditSettings.Text = Resource.PageLayoutEditSettingsLink;
 			lnkEditSettings.ToolTip = Resource.PageLayoutEditSettingsLink;
 			lnkViewPage.Text = Resource.PageViewPageLink;
 			lnkViewPage.ToolTip = Resource.PageViewPageLink;
 
-			LeftUpBtn.AlternateText = Resource.PageLayoutLeftUpAlternateText;
-			LeftUpBtn.ToolTip = Resource.PageLayoutLeftUpAlternateText;
 
-			LeftRightBtn.AlternateText = Resource.PageLayoutLeftRightAlternateText;
-			LeftRightBtn.ToolTip = Resource.PageLayoutLeftRightAlternateText;
+			//
+			// Layout Panes
+			//
 
-			LeftDownBtn.AlternateText = Resource.PageLayoutLeftDownAlternateText;
-			LeftDownBtn.ToolTip = Resource.PageLayoutLeftDownAlternateText;
+			// Altcontent Notice
+			divAltLayoutNotice.Visible = true;
 
-			LeftEditBtn.AlternateText = Resource.PageLayoutLeftEditAlternateText;
-			LeftEditBtn.ToolTip = Resource.PageLayoutLeftEditAlternateText;
-			LeftEditBtn.ImageUrl = ImageSiteRoot + "/Data/SiteImages/" + EditSettingsImage;
+			if (pageHasAltContent1 || pageHasAltContent2)
+			{
+				divAltLayoutNotice.Visible = true;
+			}
+			else
+			{
+				divAltLayoutNotice.Visible = false;
+			}
 
-			LeftDeleteBtn.AlternateText = Resource.PageLayoutLeftDeleteAlternateText;
-			LeftDeleteBtn.ToolTip = Resource.PageLayoutLeftDeleteAlternateText;
-			LeftDeleteBtn.ImageUrl = ImageSiteRoot + "/Data/SiteImages/" + DeleteLinkImage;
-			UIHelper.AddConfirmationDialog(LeftDeleteBtn, Resource.PageLayoutRemoveContentWarning);
-
-			ContentUpBtn.AlternateText = Resource.PageLayoutContentUpAlternateText;
-			ContentUpBtn.ToolTip = Resource.PageLayoutContentUpAlternateText;
-
-			ContentLeftBtn.AlternateText = Resource.PageLayoutContentLeftAlternateText;
-			ContentLeftBtn.ToolTip = Resource.PageLayoutContentLeftAlternateText;
-
-			ContentRightBtn.AlternateText = Resource.PageLayoutContentRightAlternateText;
-			ContentRightBtn.ToolTip = Resource.PageLayoutContentRightAlternateText;
-
-			ContentDownBtn.AlternateText = Resource.PageLayoutContentDownAlternateText;
-			ContentDownBtn.ToolTip = Resource.PageLayoutContentDownAlternateText;
-
-			ContentEditBtn.AlternateText = Resource.PageLayoutContentEditAlternateText;
-			ContentEditBtn.ToolTip = Resource.PageLayoutContentEditAlternateText;
-			ContentEditBtn.ImageUrl = ImageSiteRoot + "/Data/SiteImages/" + EditSettingsImage;
-
-			ContentDeleteBtn.AlternateText = Resource.PageLayoutContentDeleteAlternateText;
-			ContentDeleteBtn.ToolTip = Resource.PageLayoutContentDeleteAlternateText;
-			ContentDeleteBtn.ImageUrl = ImageSiteRoot + "/Data/SiteImages/" + DeleteLinkImage;
-			UIHelper.AddConfirmationDialog(ContentDeleteBtn, Resource.PageLayoutRemoveContentWarning);
-
-			RightUpBtn.AlternateText = Resource.PageLayoutRightUpAlternateText;
-			RightUpBtn.ToolTip = Resource.PageLayoutRightUpAlternateText;
-
-			RightLeftBtn.AlternateText = Resource.PageLayoutRightLeftAlternateText;
-			RightLeftBtn.ToolTip = Resource.PageLayoutRightLeftAlternateText;
-
-			RightDownBtn.AlternateText = Resource.PageLayoutRightDownAlternateText;
-			RightDownBtn.ToolTip = Resource.PageLayoutRightDownAlternateText;
-
-			RightEditBtn.AlternateText = Resource.PageLayoutRightEditAlternateText;
-			RightEditBtn.ToolTip = Resource.PageLayoutRightEditAlternateText;
-			RightEditBtn.ImageUrl = ImageSiteRoot + "/Data/SiteImages/" + EditSettingsImage;
-
-			RightDeleteBtn.AlternateText = Resource.PageLayoutRightDeleteAlternateText;
-			RightDeleteBtn.ToolTip = Resource.PageLayoutRightDeleteAlternateText;
-			RightDeleteBtn.ImageUrl = ImageSiteRoot + "/Data/SiteImages/" + DeleteLinkImage;
-			UIHelper.AddConfirmationDialog(RightDeleteBtn, Resource.PageLayoutRemoveContentWarning);
-
-			litEditNotes.Text = string.Format(CultureInfo.InvariantCulture,
-				Resource.LayoutEditNotesFormat, "<a href='" + SiteUtils.GetCurrentPageUrl() + "' title='" + Resource.LayoutViewThePageLink + "'>"
-				+ Resource.LayoutViewThePageLink + "</a>");
+			litEditNotes.Text = string.Format(
+				CultureInfo.InvariantCulture,
+				Resource.LayoutEditNotesFormat,
+				$"<a href=\"{SiteUtils.GetCurrentPageUrl()}\" title=\"{Resource.LayoutViewThePageLink}\">{Resource.LayoutViewThePageLink}</a>"
+			);
 
 			litAltLayoutNotice.Text = Resource.PageLayoutAltPanelInfo;
+
+			// Altcontent Panes
+			pnlAlt1LayoutPane.Visible = pageHasAltContent1;
+			pnlAlt1LayoutPane.CssClass = displaySettings.Alt1PaneCssClass;
+
+			pnlAlt2LayoutPane.Visible = pageHasAltContent2;
+			pnlAlt2LayoutPane.CssClass = displaySettings.Alt2PaneCssClass;
+
+			// Regular Panes
+			pnlRegularLayoutPanesWrap.CssClass = displaySettings.RegularLayoutPanesWrapCssClass;
+			pnlRegularLayoutPaneLeft.CssClass = displaySettings.RegularLayoutPaneLeftCssClass;
+			pnlRegularLayoutPaneCenter.CssClass = displaySettings.RegularLayoutPaneCenterCssClass;
+			pnlRegularLayoutPaneRight.CssClass = displaySettings.RegularLayoutPaneRightCssClass;
+
+			// Pane List Box
+			pnlPaneListBox1.CssClass = displaySettings.PaneListBoxCssClass;
+			pnlPaneListBox2.CssClass = displaySettings.PaneListBoxCssClass;
+			pnlPaneListBox3.CssClass = displaySettings.PaneListBoxCssClass;
+			pnlPaneListBox4.CssClass = displaySettings.PaneListBoxCssClass;
+			pnlPaneListBox5.CssClass = displaySettings.PaneListBoxCssClass;
+
+
+			//
+			// Altcontent 1
+			//
+
+			// Altcontent 1 | Item Up
+			btnAlt1MoveUp.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutUpButtonInnerHtml, Resource.PageLayoutAlt1MoveUpButton)));
+			btnAlt1MoveUp.Attributes.Add("class", displaySettings.PageLayoutUpButtonCssClass);
+			btnAlt1MoveUp.Attributes.Add("title", Resource.PageLayoutAlt1MoveUpButton);
+
+			// Altcontent 1 | Item Down
+			btnAlt1MoveDown.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutDownButtonInnerHtml, Resource.PageLayoutAlt1MoveDownButton)));
+			btnAlt1MoveDown.Attributes.Add("class", displaySettings.PageLayoutDownButtonCssClass);
+			btnAlt1MoveDown.Attributes.Add("title", Resource.PageLayoutAlt1MoveDownButton);
+
+			// Altcontent 1 | Top to Center
+			btnMoveAlt1ToCenter.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutAlt1ToCenterButtonInnerHtml, Resource.PageLayoutMoveAltToCenterButton)));
+			btnMoveAlt1ToCenter.Attributes.Add("class", displaySettings.PageLayoutAlt1ToCenterButtonCssClass);
+			btnMoveAlt1ToCenter.Attributes.Add("title", Resource.PageLayoutMoveAltToCenterButton);
+
+			// Altcontent 1 | Edit
+			btnEditAlt1.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutEditButtonInnerHtml, Resource.PageLayoutAlt1EditButton)));
+			btnEditAlt1.Attributes.Add("class", displaySettings.PageLayoutEditButtonCssClass);
+			btnEditAlt1.Attributes.Add("title", Resource.PageLayoutAlt1EditButton);
+
+			// Altcontent 1 | Delete
+			btnDeleteAlt1.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutDeleteButtonInnerHtml, Resource.PageLayoutAlt1DeleteButton)));
+			btnDeleteAlt1.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
+			btnDeleteAlt1.Attributes.Add("title", Resource.PageLayoutAlt1EditButton);
+
+			//UIHelper.AddConfirmationDialog(btnDeleteAlt1, Resource.PageLayoutRemoveContentWarning);
+
+
+			//
+			// Left
+			//
+
+			// Left | Item Up
+			LeftUpBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutUpButtonInnerHtml, Resource.PageLayoutLeftUpAlternateText)));
+			LeftUpBtn.Attributes.Add("class", displaySettings.PageLayoutUpButtonCssClass);
+			LeftUpBtn.Attributes.Add("title", Resource.PageLayoutLeftUpAlternateText);
+
+			// Left | Item Down
+			LeftDownBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutDownButtonInnerHtml, Resource.PageLayoutLeftDownAlternateText)));
+			LeftDownBtn.Attributes.Add("class", displaySettings.PageLayoutDownButtonCssClass);
+			LeftDownBtn.Attributes.Add("title", Resource.PageLayoutLeftDownAlternateText);
+
+			// Left | Item To Right
+			LeftRightBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutLeftToRightButtonInnerHtml, Resource.PageLayoutLeftRightAlternateText)));
+			LeftRightBtn.Attributes.Add("class", displaySettings.PageLayoutLeftToRightButtonCssClass);
+			LeftRightBtn.Attributes.Add("title", Resource.PageLayoutLeftRightAlternateText);
+
+			// Left | Edit
+			LeftEditBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutEditButtonInnerHtml, Resource.PageLayoutLeftEditAlternateText)));
+			LeftEditBtn.Attributes.Add("class", displaySettings.PageLayoutEditButtonCssClass);
+			LeftEditBtn.Attributes.Add("title", Resource.PageLayoutLeftEditAlternateText);
+
+			// Left | Delete
+			LeftDeleteBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutDeleteButtonInnerHtml, Resource.PageLayoutLeftDeleteAlternateText)));
+			LeftDeleteBtn.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
+			LeftDeleteBtn.Attributes.Add("title", Resource.PageLayoutLeftDeleteAlternateText);
+
+			//UIHelper.AddConfirmationDialog(LeftDeleteBtn, Resource.PageLayoutRemoveContentWarning);
+
+
+			//
+			// Center
+			//
+
+			// Center | Item Up
+			ContentUpBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutUpButtonInnerHtml, Resource.PageLayoutContentUpAlternateText)));
+			ContentUpBtn.Attributes.Add("class", displaySettings.PageLayoutUpButtonCssClass);
+			ContentUpBtn.Attributes.Add("title", Resource.PageLayoutContentUpAlternateText);
+
+			// Center | Item Down
+			ContentDownBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutDownButtonInnerHtml, Resource.PageLayoutContentDownAlternateText)));
+			ContentDownBtn.Attributes.Add("class", displaySettings.PageLayoutDownButtonCssClass);
+			ContentDownBtn.Attributes.Add("title", Resource.PageLayoutContentDownAlternateText);
+
+			// Center | Item Right to Left
+			ContentLeftBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutRightToLeftButtonInnerHtml, Resource.PageLayoutContentLeftAlternateText)));
+			ContentLeftBtn.Attributes.Add("class", displaySettings.PageLayoutRightToLeftButtonCssClass);
+			ContentLeftBtn.Attributes.Add("title", Resource.PageLayoutContentLeftAlternateText);
+
+			// Center | Item Left to Right
+			ContentRightBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutLeftToRightButtonInnerHtml, Resource.PageLayoutContentRightAlternateText)));
+			ContentRightBtn.Attributes.Add("class", displaySettings.PageLayoutLeftToRightButtonCssClass);
+			ContentRightBtn.Attributes.Add("title", Resource.PageLayoutContentRightAlternateText);
+
+			// Center | Item Center to Alt1
+			ContentUpToNextButton.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutCenterToAlt1ButtonInnerHtml, Resource.PageLayoutMoveCenterToAlt1Button)));
+			ContentUpToNextButton.Attributes.Add("class", displaySettings.PageLayoutCenterToAlt1ButtonCssClass);
+			ContentUpToNextButton.Attributes.Add("title", Resource.PageLayoutMoveCenterToAlt1Button);
+			ContentUpToNextButton.Visible = pageHasAltContent1;
+
+			// Center | Item Center to Alt2
+			ContentDownToNextButton.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutCenterToAlt2ButtonInnerHtml, Resource.PageLayoutMoveCenterToAlt2Button)));
+			ContentDownToNextButton.Attributes.Add("class", displaySettings.PageLayoutCenterToAlt2ButtonCssClass);
+			ContentDownToNextButton.Attributes.Add("title", Resource.PageLayoutMoveCenterToAlt2Button);
+			ContentDownToNextButton.Visible = pageHasAltContent2;
+
+			// Center | Edit
+			ContentEditBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutEditButtonInnerHtml, Resource.PageLayoutContentEditAlternateText)));
+			ContentEditBtn.Attributes.Add("class", displaySettings.PageLayoutEditButtonCssClass);
+			ContentEditBtn.Attributes.Add("title", Resource.PageLayoutContentEditAlternateText);
+
+			// Center | Delete
+			ContentDeleteBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutDeleteButtonInnerHtml, Resource.PageLayoutContentDeleteAlternateText)));
+			ContentDeleteBtn.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
+			ContentDeleteBtn.Attributes.Add("title", Resource.PageLayoutContentDeleteAlternateText);
+
+			//UIHelper.AddConfirmationDialog(ContentDeleteBtn, Resource.PageLayoutRemoveContentWarning);
+
+
+			//
+			// Right
+			//
+
+			RightUpBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutUpButtonInnerHtml, Resource.PageLayoutRightUpAlternateText)));
+			RightUpBtn.Attributes.Add("class", displaySettings.PageLayoutUpButtonCssClass);
+			RightUpBtn.Attributes.Add("title", Resource.PageLayoutRightUpAlternateText);
+
+			RightDownBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutDownButtonInnerHtml, Resource.PageLayoutRightDownAlternateText)));
+			RightDownBtn.Attributes.Add("class", displaySettings.PageLayoutDownButtonCssClass);
+			RightDownBtn.Attributes.Add("title", Resource.PageLayoutRightDownAlternateText);
+
+			RightLeftBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutRightToLeftButtonInnerHtml, Resource.PageLayoutRightLeftAlternateText)));
+			RightLeftBtn.Attributes.Add("class", displaySettings.PageLayoutRightToLeftButtonCssClass);
+			RightLeftBtn.Attributes.Add("title", Resource.PageLayoutRightLeftAlternateText);
+
+			RightEditBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutEditButtonInnerHtml, Resource.PageLayoutRightEditAlternateText)));
+			RightEditBtn.Attributes.Add("class", displaySettings.PageLayoutEditButtonCssClass);
+			RightEditBtn.Attributes.Add("title", Resource.PageLayoutRightEditAlternateText);
+
+			RightDeleteBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutDeleteButtonInnerHtml, Resource.PageLayoutRightDeleteAlternateText)));
+			RightDeleteBtn.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
+			RightDeleteBtn.Attributes.Add("title", Resource.PageLayoutRightDeleteAlternateText);
+
+			//UIHelper.AddConfirmationDialog(RightDeleteBtn, Resource.PageLayoutRemoveContentWarning);
+
+
+			//
+			// Altcontent 2
+			//
+
+			// Altcontent 2 | Item Up
+			btnAlt2MoveUp.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutUpButtonInnerHtml, Resource.PageLayoutAlt2MoveUpButton)));
+			btnAlt2MoveUp.Attributes.Add("class", displaySettings.PageLayoutUpButtonCssClass);
+			btnAlt2MoveUp.Attributes.Add("title", Resource.PageLayoutAlt2MoveUpButton);
+
+			// Altcontent 2 | Item Down
+			btnAlt2MoveDown.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutDownButtonInnerHtml, Resource.PageLayoutAlt2MoveDownButton)));
+			btnAlt2MoveDown.Attributes.Add("class", displaySettings.PageLayoutDownButtonCssClass);
+			btnAlt2MoveDown.Attributes.Add("title", Resource.PageLayoutAlt2MoveDownButton);
+
+			// Altcontent 2 | Top to Center
+			btnMoveAlt2ToCenter.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutAlt2ToCenterButtonInnerHtml, Resource.PageLayoutMoveAltToCenterButton)));
+			btnMoveAlt2ToCenter.Attributes.Add("class", displaySettings.PageLayoutAlt2ToCenterButtonCssClass);
+			btnMoveAlt2ToCenter.Attributes.Add("title", Resource.PageLayoutMoveAltToCenterButton);
+
+			// Altcontent 2 | Edit
+			btnEditAlt2.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutEditButtonInnerHtml, Resource.PageLayoutAlt2EditButton)));
+			btnEditAlt2.Attributes.Add("class", displaySettings.PageLayoutEditButtonCssClass);
+			btnEditAlt2.Attributes.Add("title", Resource.PageLayoutAlt2EditButton);
+
+			// Altcontent 2 | Delete
+			btnDeleteAlt2.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutDeleteButtonInnerHtml, Resource.PageLayoutAlt2DeleteButton)));
+			btnDeleteAlt2.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
+			btnDeleteAlt2.Attributes.Add("title", Resource.PageLayoutAlt2EditButton);
+
+			//UIHelper.AddConfirmationDialog(btnDeleteAlt2, Resource.PageLayoutRemoveContentWarning);
+
 
 			if (!Page.IsPostBack)
 			{
@@ -866,79 +982,6 @@ namespace mojoPortal.Web.AdminUI
 			lnkPageTree.ToolTip = Resource.AdminMenuPageTreeLink;
 			lnkPageTree.NavigateUrl = SiteRoot + WebConfigSettings.PageTreeRelativeUrl;
 
-			ContentDownToNextButton.AlternateText = Resource.PageLayoutMoveCenterToAlt2Button;
-			ContentDownToNextButton.ToolTip = Resource.PageLayoutMoveCenterToAlt2Button;
-			ContentUpToNextButton.AlternateText = Resource.PageLayoutMoveCenterToAlt1Button;
-			ContentUpToNextButton.ToolTip = Resource.PageLayoutMoveCenterToAlt1Button;
-
-			btnMoveAlt1ToCenter.AlternateText = Resource.PageLayoutMoveAltToCenterButton;
-			btnMoveAlt1ToCenter.ToolTip = Resource.PageLayoutMoveAltToCenterButton;
-
-			btnAlt2MoveUp.AlternateText = Resource.PageLayoutAlt2MoveUpButton;
-			btnAlt2MoveUp.ToolTip = Resource.PageLayoutAlt2MoveUpButton;
-
-			btnAlt1MoveUp.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutUpButtonInnerHtml, Resource.PageLayoutAlt1MoveUpButton)));
-			btnAlt1MoveUp.Attributes.Add("class", displaySettings.PageLayoutUpButtonCssClass);
-			btnAlt1MoveUp.Attributes.Add("title", Resource.PageLayoutAlt1MoveUpButton);
-
-			btnAlt1MoveDown.AlternateText = Resource.PageLayoutAlt1MoveDownButton;
-			btnAlt1MoveDown.ToolTip = Resource.PageLayoutAlt1MoveDownButton;
-
-			//btnMoveAlt1ToAlt2.AlternateText = Resource.PageLayoutMoveAlt1ToAlt2Button;
-			//btnMoveAlt1ToAlt2.ToolTip = Resource.PageLayoutMoveAlt1ToAlt2Button;
-
-			btnEditAlt1.AlternateText = Resource.PageLayoutAlt1EditButton;
-			btnEditAlt1.ToolTip = Resource.PageLayoutAlt1EditButton;
-			btnEditAlt1.ImageUrl = ImageSiteRoot + "/Data/SiteImages/" + EditSettingsImage;
-
-			btnDeleteAlt1.AlternateText = Resource.PageLayoutAlt1DeleteButton;
-			btnDeleteAlt1.ToolTip = Resource.PageLayoutAlt1DeleteButton;
-			btnDeleteAlt1.ImageUrl = ImageSiteRoot + "/Data/SiteImages/" + DeleteLinkImage;
-
-			//btnMoveAlt2ToAlt1.AlternateText = Resource.PageLayoutMoveAlt2ToAlt1Button;
-			//btnMoveAlt2ToAlt1.ToolTip = Resource.PageLayoutMoveAlt2ToAlt1Button;
-
-			btnMoveAlt2ToCenter.AlternateText = Resource.PageLayoutMoveAltToCenterButton;
-			btnMoveAlt2ToCenter.ToolTip = Resource.PageLayoutMoveAltToCenterButton;
-
-			btnAlt2MoveUp.AlternateText = Resource.PageLayoutAlt2MoveUpButton;
-			btnAlt2MoveUp.ToolTip = Resource.PageLayoutAlt2MoveUpButton;
-
-			btnAlt2MoveDown.AlternateText = Resource.PageLayoutAlt2MoveDownButton;
-			btnAlt2MoveDown.ToolTip = Resource.PageLayoutAlt2MoveDownButton;
-
-			btnEditAlt2.AlternateText = Resource.PageLayoutAlt2EditButton;
-			btnEditAlt2.ToolTip = Resource.PageLayoutAlt2EditButton;
-			btnEditAlt2.ImageUrl = ImageSiteRoot + "/Data/SiteImages/" + EditSettingsImage;
-
-			btnDeleteAlt2.AlternateText = Resource.PageLayoutAlt2DeleteButton;
-			btnDeleteAlt2.ToolTip = Resource.PageLayoutAlt2DeleteButton;
-			btnDeleteAlt2.ImageUrl = ImageSiteRoot + "/Data/SiteImages/" + DeleteLinkImage;
-
-
-
-			this.divAltLayoutNotice.Visible = true;
-			this.divAltPanel1.Visible = pageHasAltContent1;
-			this.divAltPanel2.Visible = pageHasAltContent2;
-			ContentUpToNextButton.Visible = pageHasAltContent1;
-			ContentDownToNextButton.Visible = pageHasAltContent2;
-
-			if (pageHasAltContent1 || pageHasAltContent2)
-			{
-				divAltLayoutNotice.Visible = true;
-			}
-			else
-			{
-				divAltLayoutNotice.Visible = false;
-			}
-
-
-
-			//lnkContentLookup.Visible = ((globalContentCount > 0) && !WebConfigSettings.DisableGlobalContent);
-			//lnkContentLookup.Text = Resource.AddExistingContent;
-			//lnkContentLookup.ToolTip = Resource.AddExistingContent;
-			//lnkContentLookup.DialogCloseText = Resource.CloseDialogButton;
-			//lnkContentLookup.NavigateUrl = SiteRoot + "/Dialog/GlobalContentDialog.aspx?pageid=" + pageID.ToInvariantString();
 			btnAddExisting.ImageUrl = "~/Data/SiteImages/1x1.gif";
 			btnAddExisting.Attributes.Add("tabIndex", "-1");
 
@@ -953,7 +996,6 @@ namespace mojoPortal.Web.AdminUI
 			cvModuleTitle.ValueToCompare = Resource.PageLayoutDefaultNewModuleName;
 			cvModuleTitle.ErrorMessage = Resource.DefaultContentTitleWarning;
 			cvModuleTitle.Enabled = WebConfigSettings.RequireChangeDefaultContentTitle;
-
 		}
 
 		private void SetupExistingContentScript()
@@ -1067,14 +1109,7 @@ namespace mojoPortal.Web.AdminUI
 				ScriptController.RegisterAsyncPostBackControl(btnMoveAlt2ToCenter);
 				//ScriptController.RegisterAsyncPostBackControl(btnMoveAlt2ToAlt1);
 			}
-
-
 		}
-
-
-
-
-
 	}
 }
 
@@ -1125,68 +1160,202 @@ namespace mojoPortal.Web.UI
 			set { showMenuDescription = value; }
 		}
 
-		private string pageLayoutUpButtonCssClass = "pagelayout-item-up btn btn-xs btn-default";
+		private string pageLayoutUpButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--up btn btn-sm btn-default";
 		public string PageLayoutUpButtonCssClass
 		{
 			get { return pageLayoutUpButtonCssClass; }
 			set { pageLayoutUpButtonCssClass = value; }
 		}
 
-		private string pageLayoutDownButtonCssClass = "pagelayout-item-down btn btn-xs btn-default";
+		private string pageLayoutDownButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--down btn btn-sm btn-default";
 		public string PageLayoutDownButtonCssClass
 		{
 			get { return pageLayoutDownButtonCssClass; }
 			set { pageLayoutDownButtonCssClass = value; }
 		}
 
-		private string pageLayoutEditButtonCssClass = "pagelayout-item-edit btn btn-xs btn-default";
+		private string pageLayoutAlt1ToCenterButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--alt1-center btn btn-sm btn-default";
+		public string PageLayoutAlt1ToCenterButtonCssClass
+		{
+			get { return pageLayoutAlt1ToCenterButtonCssClass; }
+			set { pageLayoutAlt1ToCenterButtonCssClass = value; }
+		}
+
+		private string pageLayoutAlt2ToCenterButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--alt2-center btn btn-sm btn-default";
+		public string PageLayoutAlt2ToCenterButtonCssClass
+		{
+			get { return pageLayoutAlt2ToCenterButtonCssClass; }
+			set { pageLayoutAlt2ToCenterButtonCssClass = value; }
+		}
+
+		private string pageLayoutCenterToAlt1ButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--center-alt1 btn btn-sm btn-default";
+		public string PageLayoutCenterToAlt1ButtonCssClass
+		{
+			get { return pageLayoutCenterToAlt1ButtonCssClass; }
+			set { pageLayoutCenterToAlt1ButtonCssClass = value; }
+		}
+
+		private string pageLayoutCenterToAlt2ButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--center-alt2 btn btn-sm btn-default";
+		public string PageLayoutCenterToAlt2ButtonCssClass
+		{
+			get { return pageLayoutCenterToAlt2ButtonCssClass; }
+			set { pageLayoutCenterToAlt2ButtonCssClass = value; }
+		}
+
+		private string pageLayoutLeftToRightButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--left-right btn btn-sm btn-default";
+		public string PageLayoutLeftToRightButtonCssClass
+		{
+			get { return pageLayoutLeftToRightButtonCssClass; }
+			set { pageLayoutLeftToRightButtonCssClass = value; }
+		}
+
+		private string pageLayoutRightToLeftButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--right-left btn btn-sm btn-default";
+		public string PageLayoutRightToLeftButtonCssClass
+		{
+			get { return pageLayoutRightToLeftButtonCssClass; }
+			set { pageLayoutRightToLeftButtonCssClass = value; }
+		}
+
+		private string pageLayoutEditButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--edit btn btn-sm btn-default";
 		public string PageLayoutEditButtonCssClass
 		{
 			get { return pageLayoutEditButtonCssClass; }
 			set { pageLayoutEditButtonCssClass = value; }
 		}
 
-		private string pageLayoutDeleteButtonCssClass = "pagelayout-item-delete btn btn-xs btn-default";
+		private string pageLayoutDeleteButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--delete btn btn-sm btn-default";
 		public string PageLayoutDeleteButtonCssClass
 		{
 			get { return pageLayoutDeleteButtonCssClass; }
 			set { pageLayoutDeleteButtonCssClass = value; }
 		}
 
-		private string pageLayoutResetSortButtonCssClass = "pagelayout-item-sort-reset btn btn-xs btn-default";
-		public string PageLayoutResetSortButtonCssClass
-		{
-			get { return pageLayoutResetSortButtonCssClass; }
-			set { pageLayoutResetSortButtonCssClass = value; }
-		}
-
-		private string pageLayoutUpButtonInnerHtml = "<i class='fa fa-arrow-up'></i>";
+		private string pageLayoutUpButtonInnerHtml = "<i class='fa fa-angle-up'></i>";
 		public string PageLayoutUpButtonInnerHtml
 		{
 			get { return pageLayoutUpButtonInnerHtml; }
 			set { pageLayoutUpButtonInnerHtml = value; }
 		}
 
-		private string pageLayoutDownButtonInnerHtml = "<i class='fa fa-arrow-down'></i>";
+		private string pageLayoutDownButtonInnerHtml = "<i class='fa fa-angle-down'></i>";
 		public string PageLayoutDownButtonInnerHtml
 		{
 			get { return pageLayoutDownButtonInnerHtml; }
 			set { pageLayoutDownButtonInnerHtml = value; }
 		}
 
-		private string pageLayoutEditButtonInnerHtml = "<i class='fa fa-pencil-square-o'></i>";
+		private string pageLayoutAlt1ToCenterButtonInnerHtml = "<i class='fa fa-angle-double-down'></i>";
+		public string PageLayoutAlt1ToCenterButtonInnerHtml
+		{
+			get { return pageLayoutAlt1ToCenterButtonInnerHtml; }
+			set { pageLayoutAlt1ToCenterButtonInnerHtml = value; }
+		}
+
+		private string pageLayoutAlt2ToCenterButtonInnerHtml = "<i class='fa fa-angle-double-up'></i>";
+		public string PageLayoutAlt2ToCenterButtonInnerHtml
+		{
+			get { return pageLayoutAlt2ToCenterButtonInnerHtml; }
+			set { pageLayoutAlt2ToCenterButtonInnerHtml = value; }
+		}
+
+		private string pageLayoutCenterToAlt1ButtonInnerHtml = "<i class='fa fa-angle-double-up'></i>";
+		public string PageLayoutCenterToAlt1ButtonInnerHtml
+		{
+			get { return pageLayoutCenterToAlt1ButtonInnerHtml; }
+			set { pageLayoutCenterToAlt1ButtonInnerHtml = value; }
+		}
+
+		private string pageLayoutCenterToAlt2ButtonInnerHtml = "<i class='fa fa-angle-double-down'></i>";
+		public string PageLayoutCenterToAlt2ButtonInnerHtml
+		{
+			get { return pageLayoutCenterToAlt2ButtonInnerHtml; }
+			set { pageLayoutCenterToAlt2ButtonInnerHtml = value; }
+		}
+
+		private string pageLayoutLeftToRightButtonInnerHtml = "<i class='fa fa-angle-double-right'></i>";
+		public string PageLayoutLeftToRightButtonInnerHtml
+		{
+			get { return pageLayoutLeftToRightButtonInnerHtml; }
+			set { pageLayoutLeftToRightButtonInnerHtml = value; }
+		}
+
+		private string pageLayoutRightToLeftButtonInnerHtml = "<i class='fa fa-angle-double-left'></i>";
+		public string PageLayoutRightToLeftButtonInnerHtml
+		{
+			get { return pageLayoutRightToLeftButtonInnerHtml; }
+			set { pageLayoutRightToLeftButtonInnerHtml = value; }
+		}
+
+		private string pageLayoutEditButtonInnerHtml = "<i class='fa fa-cog'></i>";
 		public string PageLayoutEditButtonInnerHtml
 		{
 			get { return pageLayoutEditButtonInnerHtml; }
 			set { pageLayoutEditButtonInnerHtml = value; }
 		}
 
-		private string pageLayoutDeleteButtonInnerHtml = "<i class='fa fa-trash-o'></i>";
+		private string pageLayoutDeleteButtonInnerHtml = "<i class='fa fa-trash'></i>";
 		public string PageLayoutDeleteButtonInnerHtml
 		{
 			get { return pageLayoutDeleteButtonInnerHtml; }
 			set { pageLayoutDeleteButtonInnerHtml = value; }
 		}
+
+		private string alt1PaneCssClass = "pane layoutalt1";
+
+		public string Alt1PaneCssClass
+		{
+			get { return alt1PaneCssClass; }
+			set { alt1PaneCssClass = value; }
+		}
+
+		private string regularLayoutPanesWrapCssClass = "regularpanes";
+
+		public string RegularLayoutPanesWrapCssClass
+		{
+			get { return regularLayoutPanesWrapCssClass; }
+			set { regularLayoutPanesWrapCssClass = value; }
+		}
+
+		private string regularLayoutPaneLeftCssClass = "pane layoutleft";
+
+		public string RegularLayoutPaneLeftCssClass
+		{
+			get { return regularLayoutPaneLeftCssClass; }
+			set { regularLayoutPaneLeftCssClass = value; }
+		}
+
+		private string regularLayoutPaneCenterCssClass = "pane layoutcenter";
+
+		public string RegularLayoutPaneCenterCssClass
+		{
+			get { return regularLayoutPaneCenterCssClass; }
+			set { regularLayoutPaneCenterCssClass = value; }
+		}
+
+		private string regularLayoutPaneRightCssClass = "pane layoutright";
+
+		public string RegularLayoutPaneRightCssClass
+		{
+			get { return regularLayoutPaneRightCssClass; }
+			set { regularLayoutPaneRightCssClass = value; }
+		}
+
+		private string alt2PaneCssClass = "pane layoutalt2";
+
+		public string Alt2PaneCssClass
+		{
+			get { return alt2PaneCssClass; }
+			set { alt2PaneCssClass = value; }
+		}
+
+		private string paneListBoxCssClass = "panelistbox";
+
+		public string PaneListBoxCssClass
+		{
+			get { return paneListBoxCssClass; }
+			set { paneListBoxCssClass = value; }
+		}
+
 
 		protected override void Render(HtmlTextWriter writer)
 		{
