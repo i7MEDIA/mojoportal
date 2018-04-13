@@ -131,7 +131,7 @@ CKEDITOR.editorConfig = function(config) {
 			['Blockquote', 'Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink', 'Smiley']
 		];
 
-	config.toolbar_CustomOne =
+	config.toolbar_Custom1 =
 		[
 			['Cut', 'Copy', 'PasteText'],
 			['Blockquote', 'Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink', 'Smiley']
