@@ -1111,7 +1111,9 @@ namespace mojoPortal.Web.AdminUI
 				ScriptController.RegisterAsyncPostBackControl(btnAlt2MoveDown);
 				ScriptController.RegisterAsyncPostBackControl(LeftEditBtn);
 
-
+				ScriptController.RegisterAsyncPostBackControl(ContentUpToNextButton);
+				ScriptController.RegisterAsyncPostBackControl(ContentDownToNextButton);
+				
 				ScriptController.RegisterAsyncPostBackControl(LeftDeleteBtn);
 				ScriptController.RegisterAsyncPostBackControl(ContentDeleteBtn);
 				ScriptController.RegisterAsyncPostBackControl(RightDeleteBtn);
