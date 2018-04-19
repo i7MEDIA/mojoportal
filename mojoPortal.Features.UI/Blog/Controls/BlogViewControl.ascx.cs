@@ -203,8 +203,23 @@ namespace mojoPortal.Web.BlogUI
 			heading.Text = blogTitle;
 			if (CacheHelper.GetCurrentPage().ShowPageHeading && config.UsePostTitleAsPageHeading)
 			{
-				basePage.PageHeading.Title.Text = blogTitle;
-				heading.Visible = false;
+				Control pageTitle = Page.Master.FindControl("PageTitle1");
+				if (pageTitle == null)
+				{
+					pageTitle = Page.Master.FindControl("PageHeading1");
+				}
+
+				if (pageTitle == null)
+				{
+					heading.Visible = true;
+				}
+				else
+				{
+					basePage.PageHeading.Title.Text = blogTitle;
+					heading.Visible = false;
+				}
+
+				
 			}
 
 			if (displaySettings.ShowSubTitleOnDetailPage && (blogSubTitle.Length > 0))

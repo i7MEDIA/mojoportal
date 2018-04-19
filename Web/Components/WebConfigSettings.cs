@@ -3871,12 +3871,24 @@ namespace mojoPortal.Web
 
 		public static string CKEditorBasePath
 		{
-			get { return ConfigHelper.GetStringProperty("CKEditor:BasePath", "~/ClientScript/ckeditor462/"); }
+			get
+			{
+				string defaultPath = "~/ClientScript/ckeditor462/";
+				string path = ConfigHelper.GetStringProperty("CKEditor:BasePath", defaultPath);
+
+				return String.IsNullOrWhiteSpace(path) ? defaultPath : path;
+			}
 		}
 
 		public static string CKEditorConfigPath
 		{
-			get { return ConfigHelper.GetStringProperty("CKEditor:ConfigPath", "~/ClientScript/ckeditor-mojoconfig.js"); }
+			get
+			{
+				string defaultPath = "~/ClientScript/ckeditor-mojoconfig.js";
+				string path = ConfigHelper.GetStringProperty("CKEditor:ConfigPath", defaultPath);
+
+				return String.IsNullOrWhiteSpace(path) ? defaultPath : path;
+			}
 		}
 
 		public static string CKEditorFullWithTemplatesToolbarDefinition

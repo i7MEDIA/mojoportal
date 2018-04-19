@@ -22,6 +22,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 
@@ -476,15 +477,21 @@ namespace mojoPortal.Web.Framework
             return stringBuilder.ToString();
         }
 
-        #region Confirmation Dialog functions
+		#region Confirmation Dialog functions
 
-        public static void AddConfirmationDialog(WebControl button, string confirmationText)
-        {
-            if (button == null) return;
-            button.Attributes.Add("onclick", string.Format("return confirm('{0}');", confirmationText));
-        }
+		public static void AddConfirmationDialog(WebControl button, string confirmationText)
+		{
+			if (button == null) return;
+			button.Attributes.Add("onclick", string.Format("return confirm('{0}');", confirmationText));
+		}
 
-        public static void AddConfirmationDialogWithClearExitCode(WebControl button, string confirmationText)
+		public static void AddConfirmationDialog(HtmlButton button, string confirmationText)
+		{
+			if (button == null) return;
+			button.Attributes.Add("onclick", string.Format("if(!confirm('{0}')) {{return}};", confirmationText));
+		}
+
+		public static void AddConfirmationDialogWithClearExitCode(WebControl button, string confirmationText)
         {
             if (button == null) return;
             button.Attributes.Add("onclick", string.Format("unHookGoodbyePrompt(); return confirm('{0}');", confirmationText));

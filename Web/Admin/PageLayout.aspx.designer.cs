@@ -22,15 +22,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.OuterWrapperPanel pnlOuterWrap;
         
         /// <summary>
-        /// ctop1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderTop ctop1;
-        
-        /// <summary>
         /// pnlInnerWrap control.
         /// </summary>
         /// <remarks>
@@ -328,13 +319,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Literal litAltLayoutNotice;
         
         /// <summary>
-        /// divAltPanel1 control.
+        /// pnlAlt1LayoutPane control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAltPanel1;
+        protected global::mojoPortal.Web.UI.BasePanel pnlAlt1LayoutPane;
         
         /// <summary>
         /// lblAltPanel1 control.
@@ -346,6 +337,15 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.Controls.SiteLabel lblAltPanel1;
         
         /// <summary>
+        /// pnlPaneListBox1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlPaneListBox1;
+        
+        /// <summary>
         /// lbAltContent1 control.
         /// </summary>
         /// <remarks>
@@ -355,13 +355,22 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.ListBox lbAltContent1;
         
         /// <summary>
+        /// pnlAlt1ItemButtons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlAlt1ItemButtons;
+        
+        /// <summary>
         /// btnAlt1MoveUp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnAlt1MoveUp;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAlt1MoveUp;
         
         /// <summary>
         /// btnAlt1MoveDown control.
@@ -370,7 +379,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnAlt1MoveDown;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAlt1MoveDown;
         
         /// <summary>
         /// btnMoveAlt1ToCenter control.
@@ -379,7 +388,16 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnMoveAlt1ToCenter;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnMoveAlt1ToCenter;
+        
+        /// <summary>
+        /// litButtonSeparator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litButtonSeparator1;
         
         /// <summary>
         /// btnEditAlt1 control.
@@ -388,7 +406,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnEditAlt1;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnEditAlt1;
         
         /// <summary>
         /// btnDeleteAlt1 control.
@@ -397,7 +415,25 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnDeleteAlt1;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnDeleteAlt1;
+        
+        /// <summary>
+        /// pnlRegularLayoutPanesWrap control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlRegularLayoutPanesWrap;
+        
+        /// <summary>
+        /// pnlRegularLayoutPaneLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlRegularLayoutPaneLeft;
         
         /// <summary>
         /// lblLeftPane control.
@@ -409,6 +445,15 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.Controls.SiteLabel lblLeftPane;
         
         /// <summary>
+        /// pnlPaneListBox2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlPaneListBox2;
+        
+        /// <summary>
         /// leftPane control.
         /// </summary>
         /// <remarks>
@@ -418,13 +463,22 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.ListBox leftPane;
         
         /// <summary>
+        /// pnlLeftItemButtons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlLeftItemButtons;
+        
+        /// <summary>
         /// LeftUpBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton LeftUpBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton LeftUpBtn;
         
         /// <summary>
         /// LeftDownBtn control.
@@ -433,7 +487,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton LeftDownBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton LeftDownBtn;
         
         /// <summary>
         /// LeftRightBtn control.
@@ -442,7 +496,16 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton LeftRightBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton LeftRightBtn;
+        
+        /// <summary>
+        /// litButtonSeparator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litButtonSeparator2;
         
         /// <summary>
         /// LeftEditBtn control.
@@ -451,7 +514,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton LeftEditBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton LeftEditBtn;
         
         /// <summary>
         /// LeftDeleteBtn control.
@@ -460,7 +523,16 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton LeftDeleteBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton LeftDeleteBtn;
+        
+        /// <summary>
+        /// pnlRegularLayoutPaneCenter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlRegularLayoutPaneCenter;
         
         /// <summary>
         /// lblContentPane control.
@@ -472,6 +544,15 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.Controls.SiteLabel lblContentPane;
         
         /// <summary>
+        /// pnlPaneListBox3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlPaneListBox3;
+        
+        /// <summary>
         /// contentPane control.
         /// </summary>
         /// <remarks>
@@ -481,13 +562,22 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.ListBox contentPane;
         
         /// <summary>
+        /// pnlCenterItemButtons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlCenterItemButtons;
+        
+        /// <summary>
         /// ContentUpBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ContentUpBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton ContentUpBtn;
         
         /// <summary>
         /// ContentDownBtn control.
@@ -496,7 +586,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ContentDownBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton ContentDownBtn;
         
         /// <summary>
         /// ContentLeftBtn control.
@@ -505,7 +595,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ContentLeftBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton ContentLeftBtn;
         
         /// <summary>
         /// ContentRightBtn control.
@@ -514,7 +604,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ContentRightBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton ContentRightBtn;
         
         /// <summary>
         /// ContentUpToNextButton control.
@@ -523,7 +613,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ContentUpToNextButton;
+        protected global::System.Web.UI.HtmlControls.HtmlButton ContentUpToNextButton;
         
         /// <summary>
         /// ContentDownToNextButton control.
@@ -532,7 +622,16 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ContentDownToNextButton;
+        protected global::System.Web.UI.HtmlControls.HtmlButton ContentDownToNextButton;
+        
+        /// <summary>
+        /// litButtonSeparator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litButtonSeparator3;
         
         /// <summary>
         /// ContentEditBtn control.
@@ -541,7 +640,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ContentEditBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton ContentEditBtn;
         
         /// <summary>
         /// ContentDeleteBtn control.
@@ -550,7 +649,16 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ContentDeleteBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton ContentDeleteBtn;
+        
+        /// <summary>
+        /// pnlRegularLayoutPaneRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlRegularLayoutPaneRight;
         
         /// <summary>
         /// lblRightPane control.
@@ -562,6 +670,15 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.Controls.SiteLabel lblRightPane;
         
         /// <summary>
+        /// pnlPaneListBox4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlPaneListBox4;
+        
+        /// <summary>
         /// rightPane control.
         /// </summary>
         /// <remarks>
@@ -571,13 +688,22 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.ListBox rightPane;
         
         /// <summary>
+        /// pnlRightItemButtons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlRightItemButtons;
+        
+        /// <summary>
         /// RightUpBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton RightUpBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton RightUpBtn;
         
         /// <summary>
         /// RightDownBtn control.
@@ -586,7 +712,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton RightDownBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton RightDownBtn;
         
         /// <summary>
         /// RightLeftBtn control.
@@ -595,7 +721,16 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton RightLeftBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton RightLeftBtn;
+        
+        /// <summary>
+        /// litButtonSeparator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litButtonSeparator4;
         
         /// <summary>
         /// RightEditBtn control.
@@ -604,7 +739,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton RightEditBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton RightEditBtn;
         
         /// <summary>
         /// RightDeleteBtn control.
@@ -613,16 +748,16 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton RightDeleteBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlButton RightDeleteBtn;
         
         /// <summary>
-        /// divAltPanel2 control.
+        /// pnlAlt2LayoutPane control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAltPanel2;
+        protected global::mojoPortal.Web.UI.BasePanel pnlAlt2LayoutPane;
         
         /// <summary>
         /// lblAltLayout2 control.
@@ -634,6 +769,15 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.Controls.SiteLabel lblAltLayout2;
         
         /// <summary>
+        /// pnlPaneListBox5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlPaneListBox5;
+        
+        /// <summary>
         /// lbAltContent2 control.
         /// </summary>
         /// <remarks>
@@ -643,13 +787,22 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.ListBox lbAltContent2;
         
         /// <summary>
+        /// pnlAlt2ItemButtons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlAlt2ItemButtons;
+        
+        /// <summary>
         /// btnAlt2MoveUp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnAlt2MoveUp;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAlt2MoveUp;
         
         /// <summary>
         /// btnAlt2MoveDown control.
@@ -658,7 +811,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnAlt2MoveDown;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAlt2MoveDown;
         
         /// <summary>
         /// btnMoveAlt2ToCenter control.
@@ -667,7 +820,16 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnMoveAlt2ToCenter;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnMoveAlt2ToCenter;
+        
+        /// <summary>
+        /// litButtonSeparator5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litButtonSeparator5;
         
         /// <summary>
         /// btnEditAlt2 control.
@@ -676,7 +838,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnEditAlt2;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnEditAlt2;
         
         /// <summary>
         /// btnDeleteAlt2 control.
@@ -685,7 +847,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnDeleteAlt2;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnDeleteAlt2;
         
         /// <summary>
         /// divCleared control.
@@ -695,14 +857,5 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.EmptyPanel divCleared;
-        
-        /// <summary>
-        /// cbottom1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderBottom cbottom1;
     }
 }
