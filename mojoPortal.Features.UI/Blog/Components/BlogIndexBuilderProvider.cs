@@ -36,9 +36,7 @@ namespace mojoPortal.Features
         private static readonly ILog log = LogManager.GetLogger(typeof(BlogIndexBuilderProvider));
         private static bool debugLog = log.IsDebugEnabled;
 
-        public override void RebuildIndex(
-            PageSettings pageSettings,
-            string indexPath)
+        public override void RebuildIndex(PageSettings pageSettings, string indexPath)
         {
             if (WebConfigSettings.DisableSearchIndex) { return; }
 
@@ -193,9 +191,7 @@ namespace mojoPortal.Features
         }
 
 
-        public override void ContentChangedHandler(
-            object sender,
-            ContentChangedEventArgs e)
+        public override void ContentChangedHandler(object sender, ContentChangedEventArgs e)
         {
             if (WebConfigSettings.DisableSearchIndex) { return; }
             if (sender == null) return;
@@ -207,19 +203,21 @@ namespace mojoPortal.Features
             blog.SearchIndexPath = mojoPortal.SearchIndex.IndexHelper.GetSearchIndexPath(siteSettings.SiteId);
 
 
-            if (e.IsDeleted)
+            if (e.IsDeleted || !blog.IncludeInSearch)
             {
-                // get list of pages where this module is published
-                List<PageModule> pageModules
-                    = PageModule.GetPageModulesByModule(blog.ModuleId);
+				// get list of pages where this module is published
+				//List<PageModule> pageModules
+				//    = PageModule.GetPageModulesByModule(blog.ModuleId);
 
-                foreach (PageModule pageModule in pageModules)
-                {
-                    mojoPortal.SearchIndex.IndexHelper.RemoveIndexItem(
-                        pageModule.PageId,
-                        blog.ModuleId,
-                        blog.ItemId);
-                }
+				//foreach (PageModule pageModule in pageModules)
+				//{
+				//    mojoPortal.SearchIndex.IndexHelper.RemoveIndexItem(
+				//        pageModule.PageId,
+				//        blog.ModuleId,
+				//        blog.ItemId);
+				//}
+
+				RemoveIndexedBlogPost(blog);
             }
             else
             {
@@ -237,6 +235,20 @@ namespace mojoPortal.Features
 
         }
 
+		private void RemoveIndexedBlogPost(Blog blog)
+		{
+			// get list of pages where this module is published
+			List<PageModule> pageModules
+				= PageModule.GetPageModulesByModule(blog.ModuleId);
+
+			foreach (PageModule pageModule in pageModules)
+			{
+				mojoPortal.SearchIndex.IndexHelper.RemoveIndexItem(
+					pageModule.PageId,
+					blog.ModuleId,
+					blog.ItemId);
+			}
+		}
 
         private static void IndexItem(object o)
         {
