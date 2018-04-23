@@ -1749,6 +1749,7 @@
     <Compile Include="Controls\PageHeading.cs" />
     <Compile Include="Controls\PageTreeLink.cs" />
     <Compile Include="Controls\Panels\AdminCrumbContainer.cs" />
+    <Compile Include="Controls\Panels\AlertPanel.cs" />
     <Compile Include="Controls\Panels\BreadcrumbContainer.cs" />
     <Compile Include="Controls\Panels\FormGroupPanel.cs" />
     <Compile Include="Controls\Panels\LayoutPanel.cs" />
