@@ -486,7 +486,7 @@ namespace mojoPortal.Web.ForumUI
 
             script.Append("var prompt =\"" + HttpUtility.HtmlAttributeEncode(ForumResources.ConfirmSendNotification) + "\";");
             script.Append("if(d.cmd == \"marksent\") {");
-            script.Append("prompt =\"" + HttpUtility.HtmlAttributeEncode(ForumResources.ConfrimMarkAsSent) + "\";");
+            script.Append("prompt =\"" + HttpUtility.HtmlAttributeEncode(ForumResources.ConfirmMarkAsSent) + "\";");
             script.Append("} ");
 
             script.Append("if (confirm(prompt)) {");

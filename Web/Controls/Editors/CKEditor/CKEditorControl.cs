@@ -28,8 +28,8 @@ namespace mojoPortal.Web.Editor
 
 
 		private string siteRoot = "~/";
-		private string basePath = "~/ClientScript/ckeditor/";
-		private string customConfigPath = "~/ClientScript/ckeditor-mojoconfig.js";
+		private string basePath = WebConfigSettings.CKEditorBasePath;
+		private string customConfigPath = WebConfigSettings.CKEditorConfigPath;
 
 		private Direction textDirection = Direction.LeftToRight;
 		private ToolBar toolBar = ToolBar.AnonymousUser;
@@ -202,8 +202,7 @@ namespace mojoPortal.Web.Editor
 			TextMode = TextBoxMode.MultiLine;
 			Rows = 10;
 			Columns = 70;
-			basePath = ConfigurationManager.AppSettings["CKEditor:BasePath"];
-			customConfigPath = ConfigurationManager.AppSettings["CKEditor:ConfigPath"];
+
 			htmlEncode = WebConfigSettings.CKeditorEncodeBrackets;
 
 			if (siteRoot.StartsWith("~/"))
@@ -441,6 +440,14 @@ namespace mojoPortal.Web.Editor
 				case ToolBar.AnonymousUser:
 				default:
 					script.Append(",toolbar:'AnonymousUser'");
+					break;
+
+				case ToolBar.Custom1:
+					script.Append(",toolbar:'Custom1'");
+					break;
+
+				case ToolBar.Custom2:
+					script.Append(",toolbar:'Custom2'");
 					break;
 			}
 		}
