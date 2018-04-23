@@ -1248,70 +1248,70 @@ namespace mojoPortal.Web.UI
 			set { pageLayoutDeleteButtonCssClass = value; }
 		}
 
-		private string pageLayoutUpButtonInnerHtml = "<i class='fa fa-angle-up'></i>";
+		private string pageLayoutUpButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-up'></use></svg>";
 		public string PageLayoutUpButtonInnerHtml
 		{
 			get { return pageLayoutUpButtonInnerHtml; }
 			set { pageLayoutUpButtonInnerHtml = value; }
 		}
 
-		private string pageLayoutDownButtonInnerHtml = "<i class='fa fa-angle-down'></i>";
+		private string pageLayoutDownButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-down'></use></svg>";
 		public string PageLayoutDownButtonInnerHtml
 		{
 			get { return pageLayoutDownButtonInnerHtml; }
 			set { pageLayoutDownButtonInnerHtml = value; }
 		}
 
-		private string pageLayoutAlt1ToCenterButtonInnerHtml = "<i class='fa fa-angle-double-down'></i>";
+		private string pageLayoutAlt1ToCenterButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-double-down'></use></svg>";
 		public string PageLayoutAlt1ToCenterButtonInnerHtml
 		{
 			get { return pageLayoutAlt1ToCenterButtonInnerHtml; }
 			set { pageLayoutAlt1ToCenterButtonInnerHtml = value; }
 		}
 
-		private string pageLayoutAlt2ToCenterButtonInnerHtml = "<i class='fa fa-angle-double-up'></i>";
+		private string pageLayoutAlt2ToCenterButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-double-up'></use></svg>";
 		public string PageLayoutAlt2ToCenterButtonInnerHtml
 		{
 			get { return pageLayoutAlt2ToCenterButtonInnerHtml; }
 			set { pageLayoutAlt2ToCenterButtonInnerHtml = value; }
 		}
 
-		private string pageLayoutCenterToAlt1ButtonInnerHtml = "<i class='fa fa-angle-double-up'></i>";
+		private string pageLayoutCenterToAlt1ButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-double-up'></use></svg>";
 		public string PageLayoutCenterToAlt1ButtonInnerHtml
 		{
 			get { return pageLayoutCenterToAlt1ButtonInnerHtml; }
 			set { pageLayoutCenterToAlt1ButtonInnerHtml = value; }
 		}
 
-		private string pageLayoutCenterToAlt2ButtonInnerHtml = "<i class='fa fa-angle-double-down'></i>";
+		private string pageLayoutCenterToAlt2ButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-double-down'></use></svg>";
 		public string PageLayoutCenterToAlt2ButtonInnerHtml
 		{
 			get { return pageLayoutCenterToAlt2ButtonInnerHtml; }
 			set { pageLayoutCenterToAlt2ButtonInnerHtml = value; }
 		}
 
-		private string pageLayoutLeftToRightButtonInnerHtml = "<i class='fa fa-angle-double-right'></i>";
+		private string pageLayoutLeftToRightButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-double-right'></use></svg>";
 		public string PageLayoutLeftToRightButtonInnerHtml
 		{
 			get { return pageLayoutLeftToRightButtonInnerHtml; }
 			set { pageLayoutLeftToRightButtonInnerHtml = value; }
 		}
 
-		private string pageLayoutRightToLeftButtonInnerHtml = "<i class='fa fa-angle-double-left'></i>";
+		private string pageLayoutRightToLeftButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-double-left'></use></svg>";
 		public string PageLayoutRightToLeftButtonInnerHtml
 		{
 			get { return pageLayoutRightToLeftButtonInnerHtml; }
 			set { pageLayoutRightToLeftButtonInnerHtml = value; }
 		}
 
-		private string pageLayoutEditButtonInnerHtml = "<i class='fa fa-cog'></i>";
+		private string pageLayoutEditButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-cog'></use></svg>";
 		public string PageLayoutEditButtonInnerHtml
 		{
 			get { return pageLayoutEditButtonInnerHtml; }
 			set { pageLayoutEditButtonInnerHtml = value; }
 		}
 
-		private string pageLayoutDeleteButtonInnerHtml = "<i class='fa fa-trash'></i>";
+		private string pageLayoutDeleteButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-trash-alt'></use></svg>";
 		public string PageLayoutDeleteButtonInnerHtml
 		{
 			get { return pageLayoutDeleteButtonInnerHtml; }

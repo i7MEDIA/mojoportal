@@ -10,6 +10,9 @@
 					<asp:Panel ID="pnlContent" runat="server" Visible="False" DefaultButton="btnCreateNewContent">
 						<portal:PageLayoutDisplaySettings ID="displaySettings" runat="server" />
 
+						<%-- Inport SVG Sprite --%>
+						<!--#include virtual="/Content/ui-icons/custom-fontawesome-sprite.svg"-->
+
 						<div id="divAdminLinks" runat="server">
 							<asp:HyperLink ID="lnkEditSettings" EnableViewState="false" runat="server" />
 							<asp:Literal ID="litLinkSpacer1" runat="server" EnableViewState="false" />

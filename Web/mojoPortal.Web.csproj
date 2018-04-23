@@ -767,6 +767,7 @@
     <Content Include="Content\FileManager\src\templates\navbar.html" />
     <Content Include="Content\FileManager\src\templates\sidebar.html" />
     <Content Include="Content\FileManager\src\templates\spinner.html" />
+    <Content Include="Content\ui-icons\custom-fontawesome-sprite.svg" />
     <Content Include="Controls\BreadcrumbsControl.ascx">
     </Content>
     <Content Include="Controls\ChildPageBreadcrumbs.ascx">
