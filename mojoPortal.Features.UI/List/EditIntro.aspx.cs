@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2010-12-08
-// Last Modified:			2012-05-08
+// Last Modified:			2018-03-28
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -32,7 +32,12 @@ namespace mojoPortal.Web.LinksUI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadParams();
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+			LoadParams();
 
 
             if (!UserCanEditModule(moduleId, Link.FeatureGuid))

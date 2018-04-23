@@ -1,6 +1,6 @@
 /// Author:                     Christian Fredh
 /// Created:                    2007-07-25
-///	Last Modified:              2013-04-09
+///	Last Modified:              2018-03-28
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -70,12 +70,16 @@ namespace PollFeature.UI
         {
             
             SecurityHelper.DisableBrowserCache();
-
-            LoadSettings();
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+			LoadSettings();
 
             if (!UserCanEditModule(moduleId, Poll.FeatureGuid))
             {
-                SiteUtils.RedirectToEditAccessDeniedPage();
+                SiteUtils.RedirectToAccessDeniedPage();
                 return;
             }
 

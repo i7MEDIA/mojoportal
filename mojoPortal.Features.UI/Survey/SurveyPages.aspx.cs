@@ -67,7 +67,7 @@ namespace SurveyFeature.UI
 
             if (!UserCanEditModule(moduleId, Survey.FeatureGuid))
             {
-                SiteUtils.RedirectToEditAccessDeniedPage();
+                SiteUtils.RedirectToAccessDeniedPage();
             }
 
             PopulateLabels();

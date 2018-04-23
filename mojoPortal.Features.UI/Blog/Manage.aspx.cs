@@ -54,8 +54,13 @@ namespace mojoPortal.Web.BlogUI
             else
             {
                 SiteUtils.ClearSsl();
-            }
-            LoadParams();
+			}
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+			LoadParams();
 
         
             if (!UserCanEditModule(moduleId, Blog.FeatureGuid))

@@ -62,7 +62,7 @@ namespace SurveyFeature.UI
 
             if (!UserCanEditModule(moduleId))
             {
-                SiteUtils.RedirectToEditAccessDeniedPage();
+                SiteUtils.RedirectToAccessDeniedPage();
                 return;
             }
 

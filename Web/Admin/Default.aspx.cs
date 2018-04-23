@@ -1,5 +1,5 @@
 ﻿///	Created:			    2009-04-16
-///	Last Modified:		    2009-04-16
+///	Last Modified:		    2018-03-28
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -24,7 +24,7 @@ namespace mojoPortal.Web.AdminUI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // this is just a catch all redirect for /Admin/
+            // this is just a redirect for /Admin/
             //using GetRelativeNavigationSiteRoot so this will work in folder child sites
             //GetNavigationSiteRoot will use CacheHelper.GetCurrentSiteSettings but if user has already been to the main site, they can sometimes get the wrong site settings AHHHH!!!!
             string siteRoot = SiteUtils.GetRelativeNavigationSiteRoot();
@@ -32,22 +32,14 @@ namespace mojoPortal.Web.AdminUI
 
             if (Request.IsAuthenticated)
             {
-                redirectUrl = siteRoot + "/Admin/AdminMenu.aspx";
+				WebUtils.SetupRedirect(this, siteRoot + "/Admin/AdminMenu.aspx");
+				return;
             }
             else
             {
-                if (WebConfigSettings.PageToRedirectToAfterSignIn.Length > 0)
-                {
-                    redirectUrl = SiteUtils.GetLoginRelativeUrl() + "?returnurl=" + Server.UrlEncode(WebConfigSettings.PageToRedirectToAfterSignIn);
-                }
-                else
-                {
-                    redirectUrl = SiteUtils.GetLoginRelativeUrl() + "?returnurl=" + Server.UrlEncode(siteRoot + "/Admin/AdminMenu.aspx");
-                }
+				SiteUtils.RedirectToLoginPage(this, siteRoot + "/Admin/AdminMenu.aspx");
+				return;
             }
-
-            WebUtils.SetupRedirect(this, redirectUrl);
-
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿// Author:					Kerry Doan
 // Created:					2011-09-06
-// 
+// Modified:				2018-03-28
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
 // which can be found in the file CPL.TXT at the root of this distribution.
@@ -8,7 +8,6 @@
 // the terms of this license.
 //
 // You must not remove this notice, or any other, from this software.
-// Modified 2011-12-04 by , initial integration
 
 using System;
 using System.IO;
@@ -29,8 +28,13 @@ namespace mojoPortal.MediaPlayerUI
         private MediaPlayer thePlayer = new MediaPlayer();
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-            LoadParams();
+		{
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+			LoadParams();
 
             // Make sure the user is allowed to edit the module
             // same edit page used for audio player and video player so need to check both

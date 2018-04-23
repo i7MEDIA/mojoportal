@@ -8,7 +8,8 @@
 		<asp:Literal id="lblAccessDenied" runat="server" />
 	</p>
 	<p>
-	    <asp:HyperLink ID="lnkHome" runat="server" />
+		<asp:HyperLink ID="lnkHome" runat="server" /><br />
+		<asp:HyperLink ID="lnkLogin" runat="server" />
 	</p>
 </div>
 </asp:Content>

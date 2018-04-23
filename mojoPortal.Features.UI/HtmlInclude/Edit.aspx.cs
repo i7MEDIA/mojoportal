@@ -52,7 +52,7 @@ namespace mojoPortal.Web.ContentUI
 			
             if (!UserCanEditModule(moduleID))
 			{
-                SiteUtils.RedirectToEditAccessDeniedPage();
+                SiteUtils.RedirectToAccessDeniedPage();
                 return;
             }
 

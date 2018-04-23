@@ -150,9 +150,10 @@ namespace mojoPortal.Web.UI
             {
                 if (
                     !(Page is mojoPortal.Web.UI.Pages.LoginPage)
-                    && !(Page is mojoPortal.Web.UI.Pages.ConfirmRegistration)
-					&& !(Page is mojoPortal.Web.UI.Pages.RecoverPassword) // https://github.com/joeaudette/mojoportal/issues/7
-                    )
+                    && !(Page is mojoPortal.Web.UI.Pages.ConfirmRegistration)// https://github.com/joeaudette/mojoportal/issues/7
+					&& !(Page is mojoPortal.Web.UI.Pages.RecoverPassword)
+					&& !(Page is mojoPortal.Web.UI.Pages.AccessDeniedPage)
+					)
                 {
                     if (WebConfigSettings.PageToRedirectToAfterSignIn.Length > 0)
                     {

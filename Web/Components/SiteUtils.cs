@@ -845,7 +845,7 @@ namespace mojoPortal.Web
 			if (HttpContext.Current == null) return;
 			AllowOnlyAuthenticated();
 			if (!HttpContext.Current.Request.IsAuthenticated) return;
-			if (!WebUser.IsAdmin) RedirectToEditAccessDeniedPage();
+			if (!WebUser.IsAdmin) RedirectToAccessDeniedPage();
 		}
 
 		[Obsolete("This method is obsolete. You should use if(!WebUser.IsAdminOrRoleAdmin) SiteUtils.RedirectToAccessDenied(PageorControl); return;")]
@@ -856,7 +856,7 @@ namespace mojoPortal.Web
 			if (!HttpContext.Current.Request.IsAuthenticated) return;
 			if ((!WebUser.IsAdmin) && (!WebUser.IsRoleAdmin))
 			{
-				RedirectToEditAccessDeniedPage();
+				RedirectToAccessDeniedPage();
 			}
 		}
 
@@ -877,7 +877,7 @@ namespace mojoPortal.Web
 			if (HttpContext.Current == null) return;
 			AllowOnlyAuthenticated();
 			if (!HttpContext.Current.Request.IsAuthenticated) return;
-			if (!WebUser.IsAdminOrContentAdmin) RedirectToEditAccessDeniedPage();
+			if (!WebUser.IsAdminOrContentAdmin) RedirectToAccessDeniedPage();
 		}
 
 		[Obsolete("This method is obsolete. You should use if(!WebUser.IsAdminOrContentAdminOrRoleAdmin) SiteUtils.RedirectToAccessDenied(PageorControl); return;")]
@@ -886,7 +886,7 @@ namespace mojoPortal.Web
 			if (HttpContext.Current == null) return;
 			AllowOnlyAuthenticated();
 			if (!HttpContext.Current.Request.IsAuthenticated) return;
-			if (!WebUser.IsAdminOrContentAdminOrRoleAdmin) RedirectToEditAccessDeniedPage();
+			if (!WebUser.IsAdminOrContentAdminOrRoleAdmin) RedirectToAccessDeniedPage();
 		}
 
 		[Obsolete("This method is obsolete. You should use RedirectToLoginPage(pageOrControl); return;")]
@@ -957,18 +957,28 @@ namespace mojoPortal.Web
 			HttpContext.Current.ApplicationInstance.CompleteRequest();
 
 		}
-
+		[Obsolete("Please use SiteUtils.RedirectToAccessDeniedPage()")]
 		public static void RedirectToEditAccessDeniedPage()
 		{
-			HttpContext.Current.Response.Redirect(GetNavigationSiteRoot() + "/EditAccessDenied.aspx", true);
+			//HttpContext.Current.Response.Redirect(GetNavigationSiteRoot() + "/EditAccessDenied.aspx", true);
 			//RedirectToUrl(GetNavigationSiteRoot() + "/EditAccessDenied.aspx");
+			RedirectToAccessDeniedPage();
 		}
 
 
-		public static void RedirectToAccessDeniedPage()
+		public static void RedirectToAccessDeniedPage(string returnUrl = "")
 		{
 			//HttpContext.Current.Response.Redirect(GetNavigationSiteRoot() + "/AccessDenied.aspx", false);
-			RedirectToUrl(GetNavigationSiteRoot() + "/AccessDenied.aspx");
+
+			if (HttpContext.Current == null) { return; }
+
+			string url = GetNavigationSiteRoot() + "/AccessDenied.aspx" + (String.IsNullOrWhiteSpace(returnUrl) ? "" : "?ReturnUrl=" + returnUrl);
+
+			HttpContext.Current.Response.RedirectLocation = url;
+			HttpContext.Current.Response.StatusCode = 403;
+			HttpContext.Current.Response.StatusDescription = "Redirecting to " + url;
+			HttpContext.Current.Response.Write("Redirecting to " + url);
+			HttpContext.Current.ApplicationInstance.CompleteRequest();
 		}
 
 		public static void RedirectToAccessDeniedPage(Control pageOrControl)

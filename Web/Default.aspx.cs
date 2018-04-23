@@ -577,13 +577,6 @@ namespace mojoPortal.Web.UI
 
         private bool RedirectIfNeeded()
         {
-
-            //if (
-            //    (!isAdmin)
-            //    && ((!isContentAdmin) || (isContentAdmin && (CurrentPage.AuthorizedRoles == "Admins;")))
-            //    && ((!isSiteEditor) || (isSiteEditor && (CurrentPage.AuthorizedRoles == "Admins;")))
-            //    && (!WebUser.IsInRoles(CurrentPage.AuthorizedRoles))
-            //    )
             if(!UserCanViewPage())
             {
                 if (!Request.IsAuthenticated)
@@ -607,7 +600,6 @@ namespace mojoPortal.Web.UI
             }
 
             return false;
-
         }
 
        

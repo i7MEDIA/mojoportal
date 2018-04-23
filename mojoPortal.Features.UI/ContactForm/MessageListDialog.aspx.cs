@@ -39,6 +39,11 @@ namespace mojoPortal.Web.ContactUI
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
 			LoadSettings();
 
 			if (!UserCanEditModule(moduleId, ContactFormMessage.FeatureGuid))

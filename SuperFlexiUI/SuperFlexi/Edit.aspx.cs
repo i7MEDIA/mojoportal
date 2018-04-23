@@ -1,6 +1,6 @@
 /// Author:                     i7MEDIA
 /// Created:				    2015-03-06
-///	Last Modified:              2017-09-15
+///	Last Modified:              2018-03-28
 /// 
 /// You must not remove this notice, or any other, from this software.
 using System;
@@ -91,10 +91,10 @@ namespace SuperFlexiUI
 			LoadParams();
             LoadSettings();
 
-            if (!UserCanEditModule(moduleId, config.FeatureGuid))
+            if (!UserCanEditModule(moduleId, config.FeatureGuid) && !WebUser.IsInRoles(module.AuthorizedEditRoles))
 			{
-				SiteUtils.RedirectToAccessDeniedPage(this);
-				return;
+					SiteUtils.RedirectToAccessDeniedPage(this);
+					return;
 			}
 
 			if (SiteUtils.IsFishyPost(this))
@@ -111,7 +111,7 @@ namespace SuperFlexiUI
 			{
 				if (config.MaxItems > -1 && config.MaxItems <= Item.GetCountForModule(moduleId))
 				{
-					SiteUtils.RedirectToEditAccessDeniedPage();
+					SiteUtils.RedirectToAccessDeniedPage();
 					return;
 				}
 			}

@@ -1,6 +1,6 @@
 /// Author:					    
 /// Created:				    2006-04-15
-///	Last Modified:              2011-03-21
+///	Last Modified:              2018-03-28
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -67,7 +67,7 @@ namespace mojoPortal.Web.UI.Pages
             bool allow = ((siteSettings.AllowPasswordRetrieval || siteSettings.AllowPasswordReset) && (!siteSettings.UseLdapAuth ||
                                                                            (siteSettings.UseLdapAuth && siteSettings.AllowDbFallbackWithLdap)));
 
-            if ((!allow)||(Request.IsAuthenticated))
+            if ((!allow))
             {
                 SiteUtils.RedirectToAccessDeniedPage(this);
                 return;
@@ -83,6 +83,19 @@ namespace mojoPortal.Web.UI.Pages
             MetaDescription = Server.HtmlEncode(string.Format(CultureInfo.InvariantCulture,
                 Resource.RecoverPasswordMetaDescriptionFormat,
                 siteSettings.SiteName));
+			if (Request.IsAuthenticated)
+			{
+				pnlRecoverPassword.Visible = false;
+
+				AlertPanel alertPanel = new AlertPanel
+				{
+					SkinID = "Error"
+				};
+				Literal litMessage = new Literal();
+				litMessage.Text = Resource.PasswordRecoveryNotAllowedWhenAuthenticated;
+				alertPanel.Controls.Add(litMessage);
+				phMessage.Controls.Add(alertPanel);
+			}
 
             EnterUserNameLabel = (Label)this.PasswordRecovery1.UserNameTemplateContainer.FindControl("lblEnterUserName");
             if (EnterUserNameLabel != null)

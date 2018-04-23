@@ -63,7 +63,7 @@ namespace mojoPortal.Web.XmlUI
 
             if (!UserCanEditModule(moduleId, XmlConfiguration.FeatureGuid))
 			{
-                SiteUtils.RedirectToEditAccessDeniedPage();
+                SiteUtils.RedirectToAccessDeniedPage();
                 return;
             }
 

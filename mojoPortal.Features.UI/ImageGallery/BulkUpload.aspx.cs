@@ -39,8 +39,13 @@ namespace mojoPortal.Web.GalleryUI
        
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-            LoadParams();
+		{
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+			LoadParams();
 
             if (!UserCanEditModule(moduleId, Gallery.FeatureGuid))
             {

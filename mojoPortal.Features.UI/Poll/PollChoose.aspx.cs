@@ -74,7 +74,7 @@ namespace PollFeature.UI
 
             if (!UserCanEditModule(moduleId, Poll.FeatureGuid))
             {
-                SiteUtils.RedirectToEditAccessDeniedPage();
+                SiteUtils.RedirectToAccessDeniedPage();
                 return;
             }
 

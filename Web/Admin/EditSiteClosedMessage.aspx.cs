@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2011-10-07
-// Last Modified:			2011-10-07
+// Last Modified:			2018-03-28
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -26,8 +26,12 @@ namespace mojoPortal.Web.AdminUI
         protected void Page_Load(object sender, EventArgs e)
         {
 
-
-            if (!WebUser.IsAdminOrContentAdmin)
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+			if (!WebUser.IsAdminOrContentAdmin)
             {
                 SiteUtils.RedirectToAccessDeniedPage(this);
                 return;

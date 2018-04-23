@@ -1,6 +1,6 @@
 // Author:						
 // Created:					    2004-11-14
-// Last Modified:               2014-05-28
+// Last Modified:               2018-03-28
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -145,8 +145,13 @@ namespace mojoPortal.Web.AdminUI
 
 		private void Page_Load(object sender, EventArgs e)
 		{
-           
-            SecurityHelper.DisableBrowserCache();
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+
+			SecurityHelper.DisableBrowserCache();
 
             LoadSettings();
             
@@ -308,7 +313,7 @@ namespace mojoPortal.Web.AdminUI
                     if ((ddPages.Items.Count == 0) && (pageId == -1))
                     {
                         //this user has no permission to edit child pages beneath any pages
-                        SiteUtils.RedirectToEditAccessDeniedPage();
+                        SiteUtils.RedirectToAccessDeniedPage();
                     }
 
                 }

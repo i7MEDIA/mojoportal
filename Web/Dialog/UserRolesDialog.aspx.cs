@@ -52,7 +52,7 @@ namespace mojoPortal.Web.UI
                 // only admins can edit admins
                 if (siteUser.IsInRoles("Admins"))
                 {
-                    SiteUtils.RedirectToEditAccessDeniedPage();
+                    SiteUtils.RedirectToAccessDeniedPage();
                     return;
                 }
 
@@ -69,7 +69,7 @@ namespace mojoPortal.Web.UI
                         return;
                     }
 
-                    SiteUtils.RedirectToEditAccessDeniedPage();
+                    SiteUtils.RedirectToAccessDeniedPage();
                     return;
                 }
             }
