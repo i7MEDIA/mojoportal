@@ -1,6 +1,6 @@
 ﻿// Author:					    
 // Created:				        2007-08-30
-// Last Modified:			    2015-05-13
+// Last Modified:			    2018-04-24
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -203,7 +203,7 @@ namespace mojoPortal.Features
             blog.SearchIndexPath = mojoPortal.SearchIndex.IndexHelper.GetSearchIndexPath(siteSettings.SiteId);
 
 
-            if (e.IsDeleted || !blog.IncludeInSearch)
+            if (e.IsDeleted || !blog.IncludeInSearch || blog.EndDate < DateTime.UtcNow)
             {
 				// get list of pages where this module is published
 				//List<PageModule> pageModules
