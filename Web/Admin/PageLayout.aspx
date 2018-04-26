@@ -11,7 +11,7 @@
 						<portal:PageLayoutDisplaySettings ID="displaySettings" runat="server" />
 
 						<%-- Inport SVG Sprite --%>
-						<!--#include virtual="/Content/ui-icons/custom-fontawesome-sprite.svg"-->
+						<portal:EmbedSVGSprite runat="server" FileName="custom-fontawesome-sprite.html" />
 
 						<div id="divAdminLinks" runat="server">
 							<asp:HyperLink ID="lnkEditSettings" EnableViewState="false" runat="server" />
