@@ -1,6 +1,6 @@
 ﻿/// Author:					
 /// Created:				2008-06-14
-/// Last Modified:			2018-03-28
+/// Last Modified:			2018-05-02
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -94,11 +94,6 @@ namespace mojoPortal.Web.AdminUI
             liDevTools.Visible = isAdmin && siteSettings.IsServerAdminSite && WebConfigSettings.EnableDeveloperMenuInAdminMenu;
             lnkDevTools.Text = DevTools.DevToolsHeading;
             lnkDevTools.NavigateUrl = "~/DevAdmin/Default.aspx";
-
-
-            liDesignTools.Visible = isAdmin || WebUser.IsContentAdmin;
-            lnkDesignTools.Text = DevTools.DesignTools;
-            lnkDesignTools.NavigateUrl = SiteRoot + "/DesignTools/Default.aspx";
 
         }
 

@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2011-03-21
-// Last Modified:			2011-03-21
+// Last Modified:			2018-05-02
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -31,8 +31,7 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using Resources;
-
-
+using System.Text;
 
 namespace mojoPortal.Web.AdminUI
 {
@@ -85,11 +84,23 @@ namespace mojoPortal.Web.AdminUI
 
             heading.Text = title;
             lnkThisPage.Text = skinName;
+			string skinFolderPath = Server.MapPath(skinBasePath + skinName);
+			var files = SkinHelper.GetCssFileList(skinFolderPath: skinFolderPath, recursive: true);
+			//List<object> fileObjs = new List<object>();
+			StringBuilder sb = new StringBuilder();
 
-            rptCss.DataSource = SkinHelper.GetCssFileList(Server.MapPath(skinBasePath + skinName));
-            rptCss.DataBind();
-           
-            
+			foreach (var file in files)
+			{
+				//we want to have just the name and the directory starting at the skin path
+				//fileObjs.Add(new { Name = file.Name, Directory = file.DirectoryName.Replace(skinFolderPath, "") });
+				string thisPath = file.FullName.Replace(skinFolderPath, "").TrimStart('/').TrimStart('\\').Replace('\\', '/');
+				sb.Append($"<li class='simplelist'><a href='{SiteRoot}/DesignTools/CssEditor.aspx?s={skinName}&f={thisPath}'>{thisPath}</a></li>");
+			}
+
+			litCssFiles.Text = $"<ul class='simplelist'>{sb.ToString()}</ul>";
+
+			//rptCss.DataSource = fileObjs;
+   //         rptCss.DataBind();
 
         }
 
@@ -119,9 +130,6 @@ namespace mojoPortal.Web.AdminUI
 
             lnkAdminMenu.Text = Resource.AdminMenuLink;
             lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
-
-            lnkAdvancedTools.Text = Resource.AdvancedToolsLink;
-            lnkAdvancedTools.NavigateUrl = SiteRoot + "/Admin/AdvancedTools.aspx";
 
             lnkDesignerTools.Text = DevTools.DesignTools;
             lnkDesignerTools.NavigateUrl = SiteRoot + "/DesignTools/Default.aspx";

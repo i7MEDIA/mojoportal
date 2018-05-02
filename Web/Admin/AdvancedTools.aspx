@@ -31,9 +31,6 @@
                 <li id="liTaskQueue" runat="server">
                     <asp:HyperLink ID="lnkTaskQueue" runat="server" CssClass="lnkTaskQueue" />
                 </li>
-                <li id="liDesignTools" runat="server">
-                    <asp:HyperLink ID="lnkDesignTools" runat="server" CssClass="lnkDesignTools" />
-                </li>
                 <li id="liDevTools" runat="server">
                     <asp:HyperLink ID="lnkDevTools" runat="server" CssClass="lnkDevTools" />
                 </li>

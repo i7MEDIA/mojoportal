@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2011-03-21
-// Last Modified:			2012-06-07
+// Last Modified:			2018-05-02
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -31,7 +31,7 @@ namespace mojoPortal.Web.AdminUI
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if ((!WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins)))
+			if ((!WebUser.IsSkinManager))
 			{
 				SiteUtils.RedirectToAccessDeniedPage(this);
 				return;
@@ -95,9 +95,6 @@ namespace mojoPortal.Web.AdminUI
 
 			lnkAdminMenu.Text = Resource.AdminMenuLink;
 			lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
-
-			lnkAdvancedTools.Text = Resource.AdvancedToolsLink;
-			lnkAdvancedTools.NavigateUrl = SiteRoot + "/Admin/AdvancedTools.aspx";
 
 			lnkDesignerTools.Text = DevTools.DesignTools;
 			lnkDesignerTools.NavigateUrl = SiteRoot + "/DesignTools/Default.aspx";

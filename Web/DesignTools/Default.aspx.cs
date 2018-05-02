@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2010-12-09
-// Last Modified:			2010-12-09
+// Last Modified:			2018-05-02
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -11,7 +11,6 @@
 // You must not remove this notice, or any other, from this software.
 
 using System;
-using System.Web.UI.WebControls;
 using mojoPortal.Business.WebHelpers;
 using Resources;
 
@@ -31,17 +30,9 @@ namespace mojoPortal.Web.AdminUI
                 return;
             }
 
-            //LoadSettings();
             PopulateLabels();
-            //PopulateControls();
-
-        }
-
-        //private void PopulateControls()
-        //{
             
-        //}
-
+        }
         
         private void PopulateLabels()
         {
@@ -52,9 +43,6 @@ namespace mojoPortal.Web.AdminUI
             lnkAdminMenu.Text = Resource.AdminMenuLink;
             lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
 
-            lnkAdvancedTools.Text = Resource.AdvancedToolsLink;
-            lnkAdvancedTools.NavigateUrl = SiteRoot + "/Admin/AdvancedTools.aspx";
-
             lnkThisPage.Text = DevTools.DesignTools;
             lnkThisPage.NavigateUrl = SiteRoot + "/DesignTools/Default.aspx";
 
@@ -64,22 +52,9 @@ namespace mojoPortal.Web.AdminUI
             lnkCacheTool.Text = DevTools.CacheTool;
             lnkCacheTool.NavigateUrl = SiteRoot + "/DesignTools/CacheTool.aspx";
 
-            //liLessUtility.Visible = WebConfigSettings.EnableLessUtility;
-            //lnkLessUtility.Text = DevTools.LessUtility;
-            //lnkLessUtility.NavigateUrl = SiteRoot + "/DesignTools/LessUtility.aspx";
-
             AddClassToBody("administration");
             AddClassToBody("designtools");
         }
-
-        //private void LoadSettings()
-        //{
-            
-
-        //}
-
-       
-
 
         #region OnInit
 

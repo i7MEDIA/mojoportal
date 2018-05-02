@@ -120,9 +120,6 @@ namespace mojoPortal.Web.AdminUI
             lnkAdminMenu.Text = Resource.AdminMenuLink;
             lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
 
-            lnkAdvancedTools.Text = Resource.AdvancedToolsLink;
-            lnkAdvancedTools.NavigateUrl = SiteRoot + "/Admin/AdvancedTools.aspx";
-
             lnkDesignerTools.Text = DevTools.DesignTools;
             lnkDesignerTools.NavigateUrl = SiteRoot + "/DesignTools/Default.aspx";
 

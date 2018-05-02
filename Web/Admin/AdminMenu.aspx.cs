@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-04-29
-/// Last Modified:			2018-03-28
+/// Last Modified:			2018-05-02
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -239,6 +239,10 @@ namespace mojoPortal.Web.AdminUI
 			liLogViewer.Visible = IsAdmin && siteSettings.IsServerAdminSite && WebConfigSettings.EnableLogViewer;
 			lnkLogViewer.Text = Resource.AdminMenuServerLogLabel;
 			lnkLogViewer.NavigateUrl = SiteRoot + "/Admin/ServerLog.aspx";
+
+			liDesignTools.Visible = IsAdmin || WebUser.IsContentAdmin || WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins);
+			lnkDesignTools.Text = DevTools.DesignTools;
+			lnkDesignTools.NavigateUrl = SiteRoot + "/DesignTools/Default.aspx";
 
 		}
 

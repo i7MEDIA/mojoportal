@@ -4,7 +4,6 @@
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server"> 
 <portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs">
             <asp:hyperlink id="lnkAdminMenu" runat="server" navigateurl="~/Admin/AdminMenu.aspx" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
-            <asp:hyperlink id="lnkAdvancedTools" runat="server" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator2" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
             <asp:hyperlink id="lnkDesignerTools" runat="server" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator3" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
             <asp:hyperlink id="lnkSkinList" runat="server" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator4" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
             <asp:hyperlink id="lnkSkin" runat="server" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator5" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />

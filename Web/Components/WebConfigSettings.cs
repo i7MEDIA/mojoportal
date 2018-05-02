@@ -3688,7 +3688,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["AllowedSkinFileExtensions"];
 				}
 				// default value
-				return ".master|.skin|.css|.less|.jpg|.jpeg|.png|.gif|.svg|.ico|.txt|.config|.js|.swf|.flv|.fla|.html|.xml";
+				return ".master|.skin|.css|.jpg|.jpeg|.png|.gif|.ico|.txt|.config|.js|.swf|.flv|.fla|.html|.xml|.less|.eot|.otf|.woff|.ttf|.svg|.cshtml";
 			}
 		}
 

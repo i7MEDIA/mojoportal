@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2011-03-14
-// Last Modified:			2017-10-24
+// Last Modified:			2018-05-02
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -90,9 +90,6 @@ namespace mojoPortal.Web.AdminUI
             lnkAdminMenu.Text = Resource.AdminMenuLink;
             lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
 
-            lnkAdvancedTools.Text = Resource.AdvancedToolsLink;
-            lnkAdvancedTools.NavigateUrl = SiteRoot + "/Admin/AdvancedTools.aspx";
-
             lnkDesignerTools.Text = DevTools.DesignTools;
             lnkDesignerTools.NavigateUrl = SiteRoot + "/DesignTools/Default.aspx";
 
@@ -111,9 +108,7 @@ namespace mojoPortal.Web.AdminUI
             AddClassToBody("designtools");
         }
 
-        
-
-
+       
         #region OnInit
 
         override protected void OnInit(EventArgs e)

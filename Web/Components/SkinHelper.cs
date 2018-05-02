@@ -365,11 +365,11 @@ namespace mojoPortal.Web.Components
 
         }
 
-        public static FileInfo[] GetCssFileList(string skinFolderPath)
+        public static FileInfo[] GetCssFileList(string skinFolderPath, bool recursive = false)
         {
 
             DirectoryInfo dir = new DirectoryInfo(skinFolderPath);
-            return dir.Exists ? dir.GetFiles("*.css") : null;
+            return dir.Exists ? dir.GetFiles("*.css", recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly) : null;
         }
 
         public static string GetStyleExportString(Guid siteGuid)

@@ -5,7 +5,6 @@
 <asp:content contentplaceholderid="mainContent" id="MPContent" runat="server">
         <portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs">
             <asp:hyperlink id="lnkAdminMenu" runat="server" navigateurl="~/Admin/AdminMenu.aspx" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
-            <asp:hyperlink id="lnkAdvancedTools" runat="server" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator2" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
             <asp:hyperlink id="lnkDesignerTools" runat="server" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator3" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
             <asp:hyperlink id="lnkSkinList" runat="server" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator4" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
             <asp:hyperlink id="lnkThisPage" runat="server" cssclass="selectedcrumb" />
@@ -21,8 +20,8 @@
                         <asp:textbox id="txtCopyAs" runat="server" cssclass="normaltextbox forminput" />
                         <portal:mojoHelpLink ID="MojoHelpLink2" runat="server" HelpKey="skinmanager-copyas-help" />
                     </div>
-
-                    <asp:repeater id="rptCss" runat="server">
+					<asp:Literal ID="litCssFiles" runat="server" />
+<%--                    <asp:repeater id="rptCss" runat="server">
                         <headertemplate>
                             <ul class="simplelist skinfilelist">
                             
@@ -35,7 +34,7 @@
                         <footertemplate>
                             </ul>
                         </footertemplate>
-                    </asp:repeater>
+                    </asp:repeater>--%>
                 </portal:InnerBodyPanel>
             </portal:OuterBodyPanel>
             <portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>

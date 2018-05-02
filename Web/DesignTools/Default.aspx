@@ -5,7 +5,6 @@
 <asp:content contentplaceholderid="mainContent" id="MPContent" runat="server">
     <portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs">
         <asp:hyperlink id="lnkAdminMenu" runat="server" navigateurl="~/Admin/AdminMenu.aspx" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
-        <asp:hyperlink id="lnkAdvancedTools" runat="server" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator2" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
         <asp:hyperlink id="lnkThisPage" runat="server" cssclass="selectedcrumb" />
     </portal:AdminCrumbContainer>
     <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
@@ -21,9 +20,6 @@
                         <li>
                             <asp:hyperlink id="lnkCacheTool" runat="server" cssclass="lnkCacheTool" />
                         </li>
-<%--                        <li id="liLessUtility" runat="server">
-                            <asp:hyperlink id="lnkLessUtility" runat="server" cssclass="lnkLessUtility" />
-                        </li>--%>
                         <asp:literal id="litSupplementalLinks" runat="server" />
                     </ul>
                 </portal:InnerBodyPanel>

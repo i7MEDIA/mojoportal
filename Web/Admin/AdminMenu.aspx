@@ -45,6 +45,9 @@
 			<li id="liStyleTemplates" runat="server">
 				<asp:HyperLink ID="lnkStyleTemplates" runat="server" CssClass="lnkStyleTemplates" />
 			</li>
+			<li id="liDesignTools" runat="server">
+				<asp:HyperLink ID="lnkDesignTools" runat="server" CssClass="lnkDesignTools" />
+			</li>
 			<portal:FileManagerLink runat="server" RenderAsListItem="true" CssClass="lnkFileManager" ListItemID="liFileManager" OpenInModal="false" QueryString="?view=fullpage" />
 			<%--<li id="liFileManager" runat="server">
 				<asp:HyperLink ID="lnkFileManager" runat="server" CssClass="lnkFileManager" />
