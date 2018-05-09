@@ -4,8 +4,8 @@
 <forum:ForumDisplaySettings ID="displaySettings" runat="server" />
 
 <asp:Panel ID="pnlNotify" runat="server" Visible="false" CssClass="forumnotify">
-	<asp:HyperLink ID="lnkNotify" runat="server" CssClass="fsubcribe1 fsubscribe1" />
-	<asp:HyperLink ID="lnkNotify2" runat="server" CssClass="fsubcribe2 fsubscribe2" />
+	<asp:HyperLink ID="lnkNotify" runat="server" CssClass="fsubcribe1 fsubscribe1" SkinID="ForumSubscribe1" />
+	<asp:HyperLink ID="lnkNotify2" runat="server" CssClass="fsubcribe2 fsubscribe2" SkinID="ForumSubscribe2" />
 </asp:Panel>
 
 <div class="modulepager">
