@@ -208,7 +208,7 @@
 	</table>
 
 	<div id="divEditSubscriptions" runat="server" enableviewstate="false" class="settingrow forumnotification">
-		<portal:NoFollowHyperlink ID="lnkModuleRSS" runat="server" EnableViewState="false" CssClass="forumfeed forummodulefeed" />
+		<portal:NoFollowHyperlink ID="lnkModuleRSS" runat="server" EnableViewState="false" CssClass="forumfeed forummodulefeed" SkinID="ForumNoFollow" />
 		<asp:HyperLink ID="editSubscriptionsLink" EnableViewState="false" runat="server" CssClass="editforumsubcriptions" SkinID="EditForumSubscriptionsLink" />
 	</div>
 </asp:Panel>
