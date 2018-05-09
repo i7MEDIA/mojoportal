@@ -817,7 +817,6 @@
     <Content Include="DesignTools\CssEditor.aspx" />
     <Content Include="DesignTools\Default.aspx" />
     <Content Include="DesignTools\DownloadSkin.aspx" />
-    <Content Include="DesignTools\LessUtility.aspx" />
     <Content Include="DesignTools\ManageSkin.aspx" />
     <Content Include="DesignTools\MasterPageEditor.aspx" />
     <Content Include="DesignTools\SkinFileEditor.aspx" />
@@ -1932,13 +1931,6 @@
     </Compile>
     <Compile Include="DesignTools\DownloadSkin.aspx.designer.cs">
       <DependentUpon>DownloadSkin.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DesignTools\LessUtility.aspx.cs">
-      <DependentUpon>LessUtility.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DesignTools\LessUtility.aspx.designer.cs">
-      <DependentUpon>LessUtility.aspx</DependentUpon>
     </Compile>
     <Compile Include="DesignTools\ManageSkin.aspx.cs">
       <DependentUpon>ManageSkin.aspx</DependentUpon>
