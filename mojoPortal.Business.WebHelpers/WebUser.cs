@@ -113,6 +113,16 @@ namespace mojoPortal.Business.WebHelpers
             }
         }
 
+		public static bool IsSkinManager
+		{
+			get
+			{
+				if (!HttpContext.Current.Request.IsAuthenticated) return false;
+				SiteSettings siteSettings = (SiteSettings)HttpContext.Current.Items["SiteSettings"];
+				if (siteSettings == null) return false;
+				return IsInRoles(siteSettings.RolesThatCanManageSkins);
+			}
+		}
 
         public static bool IsAdminOrContentAdmin
         {
