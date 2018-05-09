@@ -200,8 +200,8 @@
 
 		<tr id="trSubscribeButtons" runat="server">
 			<td id="tdSave" runat="server" class="settingrow forum" align="left" colspan="5">
-				<portal:mojoButton ID="btnSave" runat="server" Text="Save" />
-				<portal:mojoButton ID="btnCancel" runat="server" Text="Cancel" />
+				<portal:mojoButton ID="btnSave" runat="server" Text="Save" SkinID="SuccessButton" />
+				<portal:mojoButton ID="btnCancel" runat="server" Text="Cancel" SkinID="DefaultButton" />
 				<portal:mojoHelpLink ID="MojoHelpLink1" runat="server" HelpKey="forumeditsubscriptionshelp" />
 			</td>
 		</tr>
