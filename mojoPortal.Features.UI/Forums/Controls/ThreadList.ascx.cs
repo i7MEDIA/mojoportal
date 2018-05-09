@@ -164,12 +164,12 @@ namespace mojoPortal.Web.ForumUI
             pgrBottom.PageCount = forum.TotalPages;
             pgrBottom.Visible = (pgrBottom.PageCount > 1);
 
-            lnkNewThread.HRef = SiteRoot
+            lnkNewThread.NavigateUrl = SiteRoot
                     + "/Forums/EditPost.aspx?forumid=" + ItemId.ToInvariantString()
                     + "&amp;pageid=" + PageId.ToInvariantString()
                     + "&amp;mid=" + ModuleId.ToInvariantString();
 
-            lnkNewThreadBottom.HRef = lnkNewThread.HRef;
+            lnkNewThreadBottom.NavigateUrl = lnkNewThread.NavigateUrl;
 
             lnkNewThread.Visible = WebUser.IsInRoles(forum.RolesThatCanPost) && !forum.Closed;
             lnkNewThreadBottom.Visible = lnkNewThread.Visible;
@@ -242,10 +242,10 @@ namespace mojoPortal.Web.ForumUI
 
         private void PopulateLabels()
         {
-            lnkNewThread.InnerHtml = ForumResources.ForumViewNewThreadLabel;
-            lnkNewThread.Title = ForumResources.ForumViewNewThreadLabel;
-            lnkNewThreadBottom.InnerHtml = ForumResources.ForumViewNewThreadLabel;
-            lnkNewThreadBottom.Title = ForumResources.ForumViewNewThreadLabel;
+            lnkNewThread.Text = ForumResources.ForumViewNewThreadLabel;
+            lnkNewThread.ToolTip = ForumResources.ForumViewNewThreadLabel;
+            lnkNewThreadBottom.Text = ForumResources.ForumViewNewThreadLabel;
+            lnkNewThreadBottom.ToolTip = ForumResources.ForumViewNewThreadLabel;
             lnkLogin.Text = ForumResources.ForumsLoginRequiredLink;
             pgrTop.NavigateToPageText = ForumResources.CutePagerNavigateToPageText;
             pgrTop.BackToFirstClause = ForumResources.CutePagerBackToFirstClause;

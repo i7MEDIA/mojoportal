@@ -64,7 +64,7 @@ namespace mojoPortal.Web.ForumUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkNewThread;
+        protected global::System.Web.UI.WebControls.HyperLink lnkNewThread;
         
         /// <summary>
         /// lnkLogin control.
@@ -130,6 +130,15 @@ namespace mojoPortal.Web.ForumUI {
         protected global::System.Web.UI.WebControls.Repeater rptForums;
         
         /// <summary>
+        /// lnkNewThreadBottom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkNewThreadBottom;
+        
+        /// <summary>
         /// pgrBottom control.
         /// </summary>
         /// <remarks>
@@ -137,14 +146,5 @@ namespace mojoPortal.Web.ForumUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoCutePager pgrBottom;
-        
-        /// <summary>
-        /// lnkNewThreadBottom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkNewThreadBottom;
     }
 }

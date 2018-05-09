@@ -10,8 +10,8 @@
 
 <div class="modulepager">
 	<portal:mojoCutePager ID="pgrTop" runat="server" />
-	<a href="" class="ModulePager newthread" id="lnkNewThread" runat="server"></a>
-	<asp:HyperLink ID="lnkLogin" runat="server" CssClass="ModulePager" />
+	<asp:HyperLink runat="server" ID="lnkNewThread" CssClass="ModulePager newthread" EnableViewState="false" SkinID="ForumNewThreadButtonTop" />
+	<asp:HyperLink ID="lnkLogin" runat="server" CssClass="ModulePager" SkinID="ForumLoginLink" />
 </div>
 
 <table summary='<%# Resources.ForumResources.ForumViewTableSummary %>' class='<%= displaySettings.ThreadListCssClass %>' <% if (displaySettings.UseOldTableAttributes)
@@ -100,6 +100,6 @@
 </table>
 
 <div class="modulepager">
+	<asp:HyperLink runat="server" ID="lnkNewThreadBottom" CssClass="ModulePager newthread" EnableViewState="false" SkinID="ForumNewThreadButtonBottom" />
 	<portal:mojoCutePager ID="pgrBottom" runat="server" EnableViewState="false" />
-	<a href="" class="ModulePager newthread" id="lnkNewThreadBottom" runat="server" enableviewstate="false"></a>
 </div>
