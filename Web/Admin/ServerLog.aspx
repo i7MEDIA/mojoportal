@@ -42,7 +42,7 @@
 							<asp:TextBox ID="txtLog" runat="server" Width="100%" Height="300px" TextMode="MultiLine"></asp:TextBox>
 						</portal:FormGroupPanel>
 						<portal:FormGroupPanel runat="server">
-							<asp:HyperLink ID="lnkRefresh" runat="server" SkinID="TextButton" />
+							<asp:HyperLink ID="lnkRefresh" runat="server" SkinID="SuccessButton" />
 							<portal:mojoButton ID="btnClearLog" runat="server" SkinID="WarningButton" />
 							<portal:mojoButton ID="btnDownloadLog" runat="server" SkinID="InfoButton" />
 						</portal:FormGroupPanel>
