@@ -176,7 +176,7 @@ namespace mojoPortal.Web.ForumUI
 				this.btnDelete.Visible = false;
                 postList.Visible = false;
                 postListAlt.Visible = false;
-                Title = SiteUtils.FormatPageTitle(siteSettings, CurrentPage.PageName + " - " + ForumResources.NewTopicLabel);
+                Title = SiteUtils.FormatPageTitle(siteSettings, CurrentPage.PageName + " - " + ForumResources.NewThreadLabel);
                 
 			}
 			else
@@ -573,7 +573,7 @@ namespace mojoPortal.Web.ForumUI
         private void PopulateLabels()
         {
             reqSubject.ErrorMessage = ForumResources.ForumEditSubjectRequiredHelp;
-            lblThreadDescription.Text = ForumResources.NewTopicLabel;
+            lblThreadDescription.Text = ForumResources.NewThreadLabel;
 
             btnUpdate.Text = ForumResources.ForumPostEditUpdateButton;
             SiteUtils.SetButtonAccessKey(btnUpdate, ForumResources.ForumPostEditUpdateButtonAccessKey);

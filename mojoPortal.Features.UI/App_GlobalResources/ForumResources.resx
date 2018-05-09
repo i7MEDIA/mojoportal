@@ -205,7 +205,7 @@
     <value>You Must Enter a Subject</value>
   </data>
   <data name="ForumEditThreadsPerPageLabel" xml:space="preserve">
-    <value>Topics Per Page:</value>
+    <value>Thread Per Page:</value>
   </data>
   <data name="ForumEditTitleLabel" xml:space="preserve">
     <value>Title:</value>
@@ -316,7 +316,7 @@
     <value>Pages:</value>
   </data>
   <data name="ForumThreadViewReplyLabel" xml:space="preserve">
-    <value>reply</value>
+    <value>Reply</value>
   </data>
   <data name="ForumUnsubscribeCompleted" xml:space="preserve">
     <value>Unsubscribe completed!  You should not receive any more notifications for new threads in the requested forum.</value>
@@ -331,7 +331,7 @@
     <value>{0} participated in these discussions.</value>
   </data>
   <data name="ForumViewNewThreadLabel" xml:space="preserve">
-    <value>new topic</value>
+    <value>New Thread</value>
   </data>
   <data name="ForumViewPostLastPostLabel" xml:space="preserve">
     <value>Last Post</value>
@@ -349,7 +349,7 @@
     <value>This table contains a list of Forum Threads.</value>
   </data>
   <data name="ForumViewThreadCountLabel" xml:space="preserve">
-    <value>Total Topics</value>
+    <value>Total Threads</value>
   </data>
   <data name="ForumViewViewCountLabel" xml:space="preserve">
     <value>Total Views</value>
@@ -357,8 +357,8 @@
   <data name="IncludePostBodyInNotificationEmail" xml:space="preserve">
     <value>Include Post Body in Notification Email?</value>
   </data>
-  <data name="NewTopicLabel" xml:space="preserve">
-    <value>New Topic</value>
+  <data name="NewThreadLabel" xml:space="preserve">
+    <value>New Thread</value>
   </data>
   <data name="UserSalesLabel" xml:space="preserve">
     <value>Sales</value>

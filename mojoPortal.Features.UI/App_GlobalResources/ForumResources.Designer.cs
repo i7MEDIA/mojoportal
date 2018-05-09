@@ -457,7 +457,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Topics Per Page:.
+        ///   Looks up a localized string similar to Thread Per Page:.
         /// </summary>
         internal static string ForumEditThreadsPerPageLabel {
             get {
@@ -835,7 +835,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to reply.
+        ///   Looks up a localized string similar to Reply.
         /// </summary>
         internal static string ForumThreadViewReplyLabel {
             get {
@@ -880,7 +880,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to new topic.
+        ///   Looks up a localized string similar to New Thread.
         /// </summary>
         internal static string ForumViewNewThreadLabel {
             get {
@@ -934,7 +934,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total Topics.
+        ///   Looks up a localized string similar to Total Threads.
         /// </summary>
         internal static string ForumViewThreadCountLabel {
             get {
@@ -1078,11 +1078,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Topic.
+        ///   Looks up a localized string similar to New Thread.
         /// </summary>
-        internal static string NewTopicLabel {
+        internal static string NewThreadLabel {
             get {
-                return ResourceManager.GetString("NewTopicLabel", resourceCulture);
+                return ResourceManager.GetString("NewThreadLabel", resourceCulture);
             }
         }
         
