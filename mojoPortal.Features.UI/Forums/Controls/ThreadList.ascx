@@ -14,8 +14,7 @@
 	<asp:HyperLink ID="lnkLogin" runat="server" CssClass="ModulePager" SkinID="ForumLoginLink" />
 </div>
 
-<table summary='<%# Resources.ForumResources.ForumViewTableSummary %>' class='<%= displaySettings.ThreadListCssClass %>' <% if (displaySettings.UseOldTableAttributes)
-	{%> cellpadding="3" cellspacing="1" border="0" width="100%" <% } %>>
+<table summary='<%# Resources.ForumResources.ForumViewTableSummary %>' class='<%= displaySettings.ThreadListCssClass %>' <% if (displaySettings.UseOldTableAttributes) {%> style="width: 100%;" <% } %>>
 	<thead>
 		<tr class="moduletitle">
 			<th id='t1' class="ftitle"><mp:SiteLabel ID="SiteLabel1" runat="server" ConfigKey="ForumViewSubjectLabel" ResourceFile="ForumResources" UseLabelTag="false" /></th>
