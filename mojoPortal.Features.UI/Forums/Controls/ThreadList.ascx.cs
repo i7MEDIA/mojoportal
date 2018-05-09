@@ -166,8 +166,8 @@ namespace mojoPortal.Web.ForumUI
 
             lnkNewThread.NavigateUrl = SiteRoot
                     + "/Forums/EditPost.aspx?forumid=" + ItemId.ToInvariantString()
-                    + "&amp;pageid=" + PageId.ToInvariantString()
-                    + "&amp;mid=" + ModuleId.ToInvariantString();
+                    + "&pageid=" + PageId.ToInvariantString()
+                    + "&mid=" + ModuleId.ToInvariantString();
 
             lnkNewThreadBottom.NavigateUrl = lnkNewThread.NavigateUrl;
 

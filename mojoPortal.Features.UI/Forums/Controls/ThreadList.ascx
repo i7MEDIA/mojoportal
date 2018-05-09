@@ -34,13 +34,13 @@
 					<asp:HyperLink ID="editLink"
 						CssClass="threadEdit"
 						ToolTip="<%# Resources.ForumResources.ForumThreadEditLabel %>"
-						NavigateUrl='<%# $"{SiteRoot}/Forums/EditThread.aspx?thread={DataBinder.Eval(Container.DataItem,"ThreadID")}&mid={ModuleId}&pageid={PageId.ToString()}" %>'
+						NavigateUrl='<%= $"{SiteRoot}/Forums/EditThread.aspx?thread={DataBinder.Eval(Container.DataItem,"ThreadID")}&mid={ModuleId}&pageid={PageId.ToString()}" %>'
 						Visible='<%# GetPermission(DataBinder.Eval(Container.DataItem,"StartedByUserID"))%>' runat="server"
 					/>
 					<portal:NoFollowHyperlink runat="server"
 						ID="HyperLink3"
 						ToolTip="RSS" CssClass="forumfeed"
-						NavigateUrl='<%# $"{NonSslSiteRoot}/Forums/RSS.aspx?pageid={PageId.ToString()}&m={ModuleId.ToString()}~{ItemId.ToString()}~{Eval("ThreadID")}" %>'
+						NavigateUrl='<%= $"{NonSslSiteRoot}/Forums/RSS.aspx?pageid={PageId.ToString()}&m={ModuleId.ToString()}~{ItemId.ToString()}~{Eval("ThreadID")}" %>'
 						Visible="<%# Config.EnableRSSAtThreadLevel %>"
 					/>
 					<a href='<%# FormatUrl(Convert.ToInt32(Eval("ThreadID"))) %>'>
@@ -71,14 +71,14 @@
 						ID="editLink"
 						CssClass="threadEdit"
 						ToolTip="<%# Resources.ForumResources.ForumThreadEditLabel %>"
-						NavigateUrl='<%# $"{SiteRoot}/Forums/EditThread.aspx?thread={DataBinder.Eval(Container.DataItem,"ThreadID")}&mid={ModuleId}&pageid={PageId.ToString()}" %>'
+						NavigateUrl='<%= $"{SiteRoot}/Forums/EditThread.aspx?thread={DataBinder.Eval(Container.DataItem,"ThreadID")}&mid={ModuleId}&pageid={PageId.ToString()}" %>'
 						Visible='<%# GetPermission(DataBinder.Eval(Container.DataItem,"StartedByUserID"))%>'
 					/>
 					<portal:NoFollowHyperlink runat="server"
 						ID="HyperLink3"
 						ToolTip="RSS"
 						CssClass="forumfeed"
-						NavigateUrl='<%# $"{NonSslSiteRoot}/Forums/RSS.aspx?pageid={PageId.ToString()}&m={ModuleId.ToString()}~{ItemId.ToString()}~{Eval("ThreadID")}" %>'
+						NavigateUrl='<%= $"{NonSslSiteRoot}/Forums/RSS.aspx?pageid={PageId.ToString()}&m={ModuleId.ToString()}~{ItemId.ToString()}~{Eval("ThreadID")}" %>'
 						Visible="<%# Config.EnableRSSAtThreadLevel %>"
 					/>
 					<a href='<%# FormatUrl(Convert.ToInt32(Eval("ThreadID"))) %>'>
