@@ -37,12 +37,16 @@
 						<portal:mojoButton ID="btnClearDbLOg" runat="server" />
 					</asp:Panel>
 
-					<asp:Panel ID="pnlFileLog" runat="server">
-						<asp:TextBox ID="txtLog" runat="server" Width="100%" Height="300px" TextMode="MultiLine"></asp:TextBox>
-						<asp:HyperLink ID="lnkRefresh" runat="server" />
-						<portal:mojoButton ID="btnClearLog" runat="server" />
-						<portal:mojoButton ID="btnDownloadLog" runat="server" />
-					</asp:Panel>
+					<portal:BasePanel runat="server" ID="pnlFileLog">
+						<portal:FormGroupPanel runat="server">
+							<asp:TextBox ID="txtLog" runat="server" Width="100%" Height="300px" TextMode="MultiLine"></asp:TextBox>
+						</portal:FormGroupPanel>
+						<portal:FormGroupPanel runat="server">
+							<asp:HyperLink ID="lnkRefresh" runat="server" SkinID="TextButton" />
+							<portal:mojoButton ID="btnClearLog" runat="server" SkinID="WarningButton" />
+							<portal:mojoButton ID="btnDownloadLog" runat="server" SkinID="InfoButton" />
+						</portal:FormGroupPanel>
+					</portal:BasePanel>
 
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>
