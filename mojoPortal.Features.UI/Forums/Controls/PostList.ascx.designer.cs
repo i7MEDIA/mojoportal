@@ -64,7 +64,7 @@ namespace mojoPortal.Web.ForumUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkNewPost;
+        protected global::System.Web.UI.WebControls.HyperLink lnkNewPost;
         
         /// <summary>
         /// lblClosedTop control.
@@ -109,7 +109,7 @@ namespace mojoPortal.Web.ForumUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkNewPostBottom;
+        protected global::System.Web.UI.WebControls.HyperLink lnkNewPostBottom;
         
         /// <summary>
         /// lnkLoginBottom control.

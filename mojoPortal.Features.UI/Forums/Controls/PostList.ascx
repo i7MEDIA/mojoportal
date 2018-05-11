@@ -8,12 +8,12 @@
 	<asp:HyperLink ID="lnkNotify2" runat="server" CssClass="fsubcribe2 fsubscribe2" />
 </asp:Panel>
 
-<div class="modulepager">
+<portal:FormGroupPanel runat="server" CssClass="modulepager">
 	<portal:mojoCutePager ID="pgrTop" runat="server" />
-	<a href="" class="ModulePager newpost" id="lnkNewPost" runat="server" visible="false"></a>
-	<portal:mojoLabel ID="lblClosedTop" runat="server" CssClass="closedthreadmessage" Visible="false" EnableViewState="false" />
-	<asp:HyperLink ID="lnkLogin" runat="server" CssClass="ModulePager" />
-</div>
+	<asp:HyperLink runat="server" ID="lnkNewPost" Visible="false" SkinID="ForumNewPostTop" />
+	<portal:mojoLabel ID="lblClosedTop" runat="server" CssClass="closedthreadmessage" Visible="false" EnableViewState="false" SkinID="ForumClosedMessage" />
+	<asp:HyperLink ID="lnkLogin" runat="server" CssClass="ModulePager" SkinID="ForumLoginLink" />
+</portal:FormGroupPanel>
 
 <div class='postlistwrap <%= displaySettings.PostListCssClass %>'>
 	<asp:Repeater ID="rptMessages" runat="server" EnableViewState="False">
@@ -249,9 +249,9 @@
 	</asp:Repeater>
 </div>
 
-<div class="modulepager">
+<portal:FormGroupPanel runat="server" CssClass="modulepager">
 	<portal:mojoCutePager ID="pgrBottom" runat="server" />
-	<a href="" class="ModulePager newpost" id="lnkNewPostBottom" runat="server" visible="false"></a>
-	<asp:HyperLink ID="lnkLoginBottom" runat="server" CssClass="ModulePager" />
-	<portal:mojoLabel ID="lblClosedBottom" runat="server" CssClass="closedthreadmessage" Visible="false" EnableViewState="false" />
-</div>
+	<asp:HyperLink runat="server" ID="lnkNewPostBottom" Visible="false" SkinID="ForumNewPostBottom" />
+	<asp:HyperLink ID="lnkLoginBottom" runat="server" CssClass="ModulePager" SkinID="ForumLoginLink" />
+	<portal:mojoLabel ID="lblClosedBottom" runat="server" CssClass="closedthreadmessage" Visible="false" EnableViewState="false" SkinID="ForumClosedMessage" />
+</portal:FormGroupPanel>

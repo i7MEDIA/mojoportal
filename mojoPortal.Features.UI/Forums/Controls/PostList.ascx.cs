@@ -261,9 +261,9 @@ namespace mojoPortal.Web.ForumUI
             }
 
             
-            lnkNewPost.InnerHtml = ForumResources.ForumThreadViewReplyLabel;
+            lnkNewPost.Text = ForumResources.ForumThreadViewReplyLabel;
 
-            lnkNewPost.HRef = SiteRoot
+            lnkNewPost.NavigateUrl = SiteRoot
                 + "/Forums/EditPost.aspx?"
                 + "thread=" + threadId.ToString()
                 + "&amp;forumid=" + forum.ItemId.ToInvariantString()
@@ -273,8 +273,8 @@ namespace mojoPortal.Web.ForumUI
 
             lnkNewPost.Visible = WebUser.IsInRoles(forum.RolesThatCanPost) && !forum.Closed; 
             lnkNewPostBottom.Visible = lnkNewPost.Visible;
-            lnkNewPostBottom.InnerHtml = ForumResources.ForumThreadViewReplyLabel;
-            lnkNewPostBottom.HRef = lnkNewPost.HRef;
+            lnkNewPostBottom.Text = ForumResources.ForumThreadViewReplyLabel;
+            lnkNewPostBottom.NavigateUrl = lnkNewPost.NavigateUrl;
 
             lnkLogin.Visible = !lnkNewPost.Visible && !Request.IsAuthenticated;
             lnkLoginBottom.Visible = lnkLogin.Visible;
