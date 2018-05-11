@@ -130,7 +130,7 @@ namespace mojoPortal.Web.ForumUI
             }
 
             litForumDescription.Text = forum.Description;
-            divDescription.Visible = (forum.Description.Length > 0) && !displaySettings.HideForumDescriptionOnPostList;
+            fgpDescription.Visible = (forum.Description.Length > 0) && !displaySettings.HideForumDescriptionOnPostList;
 
             // google does not use meta description in page rankings
             //http://googlewebmastercentral.blogspot.com/2009/09/google-does-not-use-keywords-meta-tag.html
