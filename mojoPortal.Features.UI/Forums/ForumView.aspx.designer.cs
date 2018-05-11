@@ -85,13 +85,13 @@ namespace mojoPortal.Web.ForumUI {
         protected global::mojoPortal.Web.UI.InnerBodyPanel pnlInnerBody;
         
         /// <summary>
-        /// divDescription control.
+        /// fgpDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDescription;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpDescription;
         
         /// <summary>
         /// litForumDescription control.

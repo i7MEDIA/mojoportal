@@ -122,7 +122,7 @@ namespace mojoPortal.Web.ForumUI
 
             heading.Text = forum.Title;
 			litForumDescription.Text = forum.Description;
-            divDescription.Visible = (forum.Description.Length > 0) && !displaySettings.ForumViewHideForumDescription;
+            fgpDescription.Visible = (forum.Description.Length > 0) && !displaySettings.ForumViewHideForumDescription;
 
             MetaDescription = string.Format(CultureInfo.InvariantCulture, ForumResources.ForumMetaDescriptionFormat, FormatTitle(forum));
 
