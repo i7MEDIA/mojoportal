@@ -23,15 +23,16 @@
 							<asp:TextBox ID="txtFolderName" runat="server" Columns="45" MaxLength="255" CssClass="forminput" />
 						</div>
 
-						<div class="settingrow">
-							<mp:SiteLabel ID="SiteLabel35" runat="server" CssClass="settinglabel" ConfigKey="spacer" />
+						<portal:FormGroupPanel runat="server">
+							<mp:SiteLabel runat="server" ID="lblRolesThatCanView1" CssClass="settinglabel" ResourceFile="SharedFileResources" ConfigKey="RolesThatCanViewThisItem" />
+							<asp:CheckBoxList runat="server" ID="cblRolesThatCanViewFolder" />
+						</portal:FormGroupPanel>
 
-							<div class="forminput">
-								<portal:mojoButton ID="btnUpdateFolder" runat="server" SkinID="SaveButton" />
-								<portal:mojoButton ID="btnDeleteFolder" runat="server" CausesValidation="false" SkinID="DeleteButton" />
-								<asp:HyperLink ID="lnkCancelFolder" runat="server" CssClass="cancellink" SkinID="CancelButton" />
-							</div>
-						</div>
+						<portal:FormGroupPanel runat="server">
+							<portal:mojoButton ID="btnUpdateFolder" runat="server" SkinID="SaveButton" />
+							<portal:mojoButton ID="btnDeleteFolder" runat="server" CausesValidation="false" SkinID="DeleteButton" />
+							<asp:HyperLink ID="lnkCancelFolder" runat="server" CssClass="cancellink" SkinID="CancelButton" />
+						</portal:FormGroupPanel>
 					</asp:Panel>
 
 					<asp:Panel ID="pnlFile" runat="server" Visible="false" DefaultButton="btnUpdateFile">
@@ -74,11 +75,16 @@
 							<portal:mojoButton ID="btnUpload" runat="server" Text="Upload" />
 						</div>
 
-						<div class="settingrow">
+						<portal:FormGroupPanel runat="server">
+							<mp:SiteLabel runat="server" ID="lblRolesThatCanViewFile" CssClass="settinglabel" ResourceFile="SharedFileResources" ConfigKey="RolesThatCanViewThisItem" />
+							<asp:CheckBoxList runat="server" ID="cblRolesThatCanViewFile" />
+						</portal:FormGroupPanel>
+
+						<portal:FormGroupPanel runat="server">
 							<portal:mojoButton ID="btnUpdateFile" runat="server" SkinID="SaveButton" />
 							<portal:mojoButton ID="btnDeleteFile" runat="server" CausesValidation="false" SkinID="DeleteButton" />
 							<asp:HyperLink ID="lnkCancelFile" runat="server" CssClass="cancellink" SkinID="CancelButton" />
-						</div>
+						</portal:FormGroupPanel>
 
 						<div class="settingrow">
 							<portal:mojoLabel ID="lblError" runat="server" CssClass="txterror" />
@@ -93,7 +99,9 @@
 								<Columns>
 									<asp:TemplateField>
 										<ItemTemplate>
-											<asp:Button ID="lnkName" CssClass="FileManager buttonlink" runat="server"
+											<asp:Button runat="server"
+												ID="lnkName"
+												CssClass="FileManager buttonlink"
 												Text='<%# DataBinder.Eval(Container.DataItem,"FriendlyName") %>'
 												CommandName="download"
 												CommandArgument='<%# DataBinder.Eval(Container.DataItem,"ID") %>'
@@ -122,17 +130,23 @@
 
 									<asp:TemplateField>
 										<ItemTemplate>
-											<asp:Button ID="LinkButton1" runat="server" CssClass="buttonlink"
+											<asp:Button runat="server"
+												ID="LinkButton1"
+												CssClass="buttonlink"
 												CommandName="restore"
 												CommandArgument='<%# DataBinder.Eval(Container.DataItem,"ID") %>'
 												CausesValidation="false"
 												Text="<%# Resources.SharedFileResources.SharedFilesRestoreLabel %>"
+												SkinID="WarningButtonSmall"
 											/>
-											<asp:Button ID="Button1" runat="server" CssClass="buttonlink"
+											<asp:Button runat="server"
+												ID="Button1"
+												CssClass="buttonlink"
 												CommandName="deletehx"
 												CommandArgument='<%# DataBinder.Eval(Container.DataItem,"ID") %>'
 												CausesValidation="false"
 												Text="<%# Resources.SharedFileResources.SharedFilesDeleteButton %>"
+												SkinID="DeleteButtonSmall"
 											/>
 										</ItemTemplate>
 									</asp:TemplateField>

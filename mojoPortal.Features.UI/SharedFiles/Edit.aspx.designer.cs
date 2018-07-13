@@ -121,13 +121,22 @@ namespace mojoPortal.Web.SharedFilesUI {
         protected global::System.Web.UI.WebControls.TextBox txtFolderName;
         
         /// <summary>
-        /// SiteLabel35 control.
+        /// lblRolesThatCanView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel35;
+        protected global::mojoPortal.Web.Controls.SiteLabel lblRolesThatCanView1;
+        
+        /// <summary>
+        /// cblRolesThatCanViewFolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList cblRolesThatCanViewFolder;
         
         /// <summary>
         /// btnUpdateFolder control.
@@ -299,6 +308,24 @@ namespace mojoPortal.Web.SharedFilesUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoButton btnUpload;
+        
+        /// <summary>
+        /// lblRolesThatCanViewFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel lblRolesThatCanViewFile;
+        
+        /// <summary>
+        /// cblRolesThatCanViewFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList cblRolesThatCanViewFile;
         
         /// <summary>
         /// btnUpdateFile control.

@@ -294,4 +294,10 @@
   <data name="RefreshButtonText" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="RolesAllUsersRole" xml:space="preserve">
+    <value>All Users</value>
+  </data>
+  <data name="RolesThatCanViewThisItem" xml:space="preserve">
+    <value>Roles That Can View This Item</value>
+  </data>
 </root>

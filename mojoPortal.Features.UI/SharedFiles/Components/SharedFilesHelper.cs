@@ -102,7 +102,9 @@ namespace mojoPortal.Web.SharedFilesUI
                 file.ServerFileName,
                 file.SizeInKB,
                 file.UploadDate,
-                file.UploadUserId);
+                file.UploadUserId,
+				file.ViewRoles
+			);
 
             
             return historyCreated;

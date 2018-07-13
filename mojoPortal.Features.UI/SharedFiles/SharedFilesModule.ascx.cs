@@ -33,6 +33,7 @@ namespace mojoPortal.Web.SharedFilesUI
 		protected string EditContentImage = string.Empty;
 		private string newWindowMarkup = "onclick=\"window.open(this.href,'_blank');return false;\"";
 		private IFileSystem fileSystem = null;
+		SiteUser siteUser = null;
 
 		protected int CurrentFolderId
 		{
@@ -76,7 +77,7 @@ namespace mojoPortal.Web.SharedFilesUI
 		{
 			if (CurrentFolderId > -1)
 			{
-				SharedFileFolder folder = new SharedFileFolder(this.ModuleId, CurrentFolderId);
+				SharedFileFolder folder = new SharedFileFolder(ModuleId, CurrentFolderId);
 
 				btnGoUp.Visible = true;
 				rptFoldersLinks.Visible = true;
@@ -88,6 +89,7 @@ namespace mojoPortal.Web.SharedFilesUI
 					// by Thomas N
 					List<SharedFileFolder> allFolders = SharedFileFolder.GetSharedModuleFolderList(folder.ModuleId);
 					rptFoldersLinks.DataSource = SharedFilesHelper.GetAllParentsFolder(folder, allFolders);
+
 					IEnumerable<SharedFileFolder> fullPathList = SharedFilesHelper.GetAllParentsFolder(folder, allFolders).Concat(Enumerable.Repeat(folder, 1));
 					rptFoldersLinks.DataSource = fullPathList;
 					rptFoldersLinks.DataBind();
@@ -96,7 +98,6 @@ namespace mojoPortal.Web.SharedFilesUI
 				{
 					lblCurrentDirectory.Text = folder.FolderName;
 				}
-
 			}
 			else
 			{
@@ -107,19 +108,39 @@ namespace mojoPortal.Web.SharedFilesUI
 
 			DataView dv = new DataView(SharedFileFolder.GetFoldersAndFiles(ModuleId, CurrentFolderId));
 
-			dv.Sort = "type ASC, filename" + " " + config.DefaultSort;
-			dgFile.DataSource = dv;
-			dgFile.DataBind();
-			lblCounter.Text = dgFile.Rows.Count.ToString() + " "
-				+ SharedFileResources.FileManagerObjectsLabel;
+			EnumerableRowCollection<DataRow> query = 
+				from row in dv.Table.AsEnumerable()
+				where checkRoles(row.Field<string>("ViewRoles"))
+				select row;
 
+			DataView view = query.AsDataView();
+
+			view.Sort = $"type ASC, filename {config.DefaultSort}";
+			dgFile.DataSource = view;
+			dgFile.DataBind();
+
+			lblCounter.Text = $"{dgFile.Rows.Count.ToString()} {SharedFileResources.FileManagerObjectsLabel}";
 		}
+
+
+		protected bool checkRoles(string roles)
+		{
+			if (roles.Contains("All Users")) return true;
+
+			if (siteUser != null)
+			{
+				if (siteUser.IsInRoles("Admins")) return true;
+				if (siteUser.IsInRoles(roles)) return true;
+			}
+
+			return false;
+		}
+
 
 		protected void btnRefresh_Click(object sender, ImageClickEventArgs e)
 		{
 			BindData();
 			upFiles.Update();
-
 		}
 
 
@@ -130,8 +151,7 @@ namespace mojoPortal.Web.SharedFilesUI
 			upFiles.Update();
 		}
 
-
-		#region Grid Events 
+		#region Grid Events
 
 
 		protected void dgFile_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -255,7 +275,6 @@ namespace mojoPortal.Web.SharedFilesUI
 
 		protected void dgFile_RowUpdating(object sender, GridViewUpdateEventArgs e)
 		{
-			SiteUser siteUser = SiteUtils.GetCurrentSiteUser();
 			if (siteUser == null) return;
 
 			try
@@ -364,15 +383,16 @@ namespace mojoPortal.Web.SharedFilesUI
 				+ "</a>";
 		}
 
-
 		#endregion
+
 
 		protected void btnGoUp_Click(object sender, ImageClickEventArgs e)
 		{
 			MoveUp();
 			upFiles.Update();
-
 		}
+
+
 		private void MoveUp()
 		{
 			if (CurrentFolderId > 0)
@@ -387,10 +407,11 @@ namespace mojoPortal.Web.SharedFilesUI
 			}
 		}
 
+
 		protected void btnDelete_Click(object sender, ImageClickEventArgs e)
 		{
-
 			bool yes = false;
+
 			foreach (GridViewRow dgi in dgFile.Rows)
 			{
 				CheckBox chkChecked = (CheckBox)dgi.Cells[0].FindControl("chkChecked");
@@ -408,9 +429,9 @@ namespace mojoPortal.Web.SharedFilesUI
 				BindData();
 			}
 
-
 			upFiles.Update();
 		}
+
 
 		private void DeleteItem(GridViewRow e)
 		{
@@ -435,18 +456,17 @@ namespace mojoPortal.Web.SharedFilesUI
 			{
 				int fileID = int.Parse(args[0]);
 				SharedFile sharedFile = new SharedFile(this.ModuleId, fileID);
+
 				if (!config.EnableVersioning)
 				{
 					fileSystem.DeleteFile(VirtualPathUtility.Combine(fileVirtualBasePath, sharedFile.ServerFileName));
 				}
+
 				sharedFile.Delete();
 
 				sharedFile.ContentChanged += new ContentChangedEventHandler(sharedFile_ContentChanged);
-
 			}
-
 		}
-
 
 
 		protected void btnNewFolder_Click(object sender, EventArgs e)
@@ -458,9 +478,11 @@ namespace mojoPortal.Web.SharedFilesUI
 					SharedFileFolder folder = new SharedFileFolder();
 					folder.ParentId = CurrentFolderId;
 					folder.ModuleId = ModuleId;
+
 					Module m = new Module(ModuleId);
 					folder.ModuleGuid = m.ModuleGuid;
 					folder.FolderName = Path.GetFileName(txtNewDirectory.Text);
+
 					if (folder.Save())
 					{
 						BindData();
@@ -474,6 +496,7 @@ namespace mojoPortal.Web.SharedFilesUI
 
 			upFiles.Update();
 		}
+
 
 		protected void btnUpload_Click(object sender, EventArgs e)
 		{
@@ -502,14 +525,15 @@ namespace mojoPortal.Web.SharedFilesUI
 				sharedFile.ModuleGuid = ModuleConfiguration.ModuleGuid;
 				sharedFile.OriginalFileName = fileName;
 				sharedFile.FriendlyName = fileName;
-				//sharedFile.SizeInKB = (int)(file.ContentLength / 1024);
 				sharedFile.SizeInKB = (int)(uploader.FileContent.Length / 1024);
 				sharedFile.FolderId = CurrentFolderId;
+
 				if (CurrentFolderId > -1)
 				{
 					SharedFileFolder folder = new SharedFileFolder(ModuleId, CurrentFolderId);
 					sharedFile.FolderGuid = folder.FolderGuid;
 				}
+
 				sharedFile.UploadUserId = siteUser.UserId;
 				sharedFile.UserGuid = siteUser.UserGuid;
 
@@ -523,18 +547,11 @@ namespace mojoPortal.Web.SharedFilesUI
 					{
 						fileSystem.SaveFile(destPath, s, IOHelper.GetMimeType(Path.GetExtension(sharedFile.FriendlyName).ToLower()), true);
 					}
-
 				}
 			}
 
-
 			WebUtils.SetupRedirect(this, Request.RawUrl);
-
 		}
-
-
-
-
 
 
 		void sharedFile_ContentChanged(object sender, ContentChangedEventArgs e)
@@ -545,6 +562,7 @@ namespace mojoPortal.Web.SharedFilesUI
 				indexBuilder.ContentChangedHandler(sender, e);
 			}
 		}
+
 
 		private bool IconExists(String iconFileName)
 		{
@@ -561,8 +579,8 @@ namespace mojoPortal.Web.SharedFilesUI
 			}
 
 			return result;
-
 		}
+
 
 		private void PopulateLabels()
 		{
@@ -620,7 +638,6 @@ namespace mojoPortal.Web.SharedFilesUI
 				Title = this.ModuleConfiguration.ModuleTitle;
 				Description = this.ModuleConfiguration.FeatureName;
 			}
-
 		}
 
 
@@ -635,6 +652,8 @@ namespace mojoPortal.Web.SharedFilesUI
 
 			fileSystem = p.GetFileSystem();
 			if (fileSystem == null) { return; }
+
+			siteUser = SiteUtils.GetCurrentSiteUser();
 
 			newWindowMarkup = displaySettings.NewWindowLinkMarkup;
 			if (BrowserHelper.IsIE())
