@@ -121,7 +121,7 @@
     <value>This survey has no pages</value>
   </data>
   <data name="SurveyModuleEditText" xml:space="preserve">
-    <value>Choose Survey</value>
+    <value>Manage Survey</value>
   </data>
   <data name="SurveyChooseAddNewSurveyButton" xml:space="preserve">
     <value>Add new survey</value>
@@ -602,5 +602,17 @@
   </data>
   <data name="SurveyPageTitle" xml:space="preserve">
     <value>Survey</value>
+  </data>
+  <data name="SurveyEditLimitSubmissions" xml:space="preserve">
+    <value>Limit Number of Submissions?</value>
+  </data>
+  <data name="SurveyEditSubmissionLimit" xml:space="preserve">
+    <value>Number of Submissions Allowed</value>
+  </data>
+  <data name="SurveyLimitReached" xml:space="preserve">
+    <value>You've reached the limit on how many times you can take this survey.</value>
+  </data>
+  <data name="QuestionsGridNameHeader" xml:space="preserve">
+    <value>Question Name</value>
   </data>
 </root>

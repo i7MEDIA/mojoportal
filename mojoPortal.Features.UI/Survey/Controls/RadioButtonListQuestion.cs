@@ -1,82 +1,112 @@
+using SurveyFeature.Business;
 using System;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web;
-using System.Resources;
-using SurveyFeature.Business;
 
 namespace SurveyFeature.UI
 {
-    public class RadioButtonListQuestion : CompositeControl, IQuestion
-    {
-        private Question _question;
-        private Collection<QuestionOption> _options;
-        private RadioButtonList _rdoAnswer;
-        private string _answer;
+	public class RadioButtonListQuestion : CompositeControl, IQuestion
+	{
+		private Question _question;
+		private Collection<QuestionOption> _options;
+		private RadioButtonList _rdoAnswer;
+		private string _answer;
 
-        public RadioButtonListQuestion(Question question, Collection<QuestionOption> options)
-        {
-            _question = question;
-            _options = options;
-        }
 
-        protected override void CreateChildControls()
-        {
-            base.CreateChildControls();
-            Label lblQuestion = new Label();
-            _rdoAnswer = new RadioButtonList();
-            RequiredFieldValidator valQuestion = new RequiredFieldValidator();
+		public RadioButtonListQuestion(Question question, Collection<QuestionOption> options)
+		{
+			_question = question;
+			_options = options;
+		}
 
-            lblQuestion.ID = "lbl" + _question.QuestionGuid.ToString().Replace("-", String.Empty);
-            _rdoAnswer.ID = "rdo" + _question.QuestionGuid.ToString().Replace("-", String.Empty);
-            valQuestion.ID = "val" + _question.QuestionGuid.ToString().Replace("-", String.Empty);
 
-            lblQuestion.Text = _question.QuestionText;
-            lblQuestion.AssociatedControlID = _rdoAnswer.ID;
+		protected override void CreateChildControls()
+		{
+			base.CreateChildControls();
 
-            valQuestion.ControlToValidate = _rdoAnswer.ID;
-            valQuestion.Enabled = _question.AnswerIsRequired;
+			_rdoAnswer = new RadioButtonList
+			{
+				ID = "rdo" + _question.QuestionGuid.ToString().Replace("-", String.Empty)
+			};
 
-            foreach (QuestionOption option in _options)
-            {
-                ListItem li = new ListItem(option.Answer);
-                if (li.Value == _answer) li.Selected = true;
-                _rdoAnswer.Items.Add(li);
-            }
+			Label lblQuestion = new Label
+			{
+				ID = "lbl" + _question.QuestionGuid.ToString().Replace("-", String.Empty),
+				CssClass = "settinglabel",
+				Text = _question.QuestionName,
+				AssociatedControlID = _rdoAnswer.ID
+			};
 
-            valQuestion.Text = _question.ValidationMessage;
+			Literal litQuestionText = new Literal
+			{
+				Text = _question.QuestionText
+			};
 
-            Controls.Add(lblQuestion);
-            Controls.Add(_rdoAnswer);
-            Controls.Add(valQuestion);
-        }
+			RequiredFieldValidator valQuestion = new RequiredFieldValidator
+			{
+				ID = "val" + _question.QuestionGuid.ToString().Replace("-", String.Empty),
+				Text = _question.ValidationMessage,
+				ControlToValidate = _rdoAnswer.ID,
+				Enabled = _question.AnswerIsRequired
+			};
 
-        #region IQuestion Members
+			foreach (QuestionOption option in _options)
+			{
+				ListItem li = new ListItem(option.Answer);
 
-        public string Answer
-        {
-            get
-            {
-                EnsureChildControls();
-                if (_rdoAnswer.SelectedItem == null) return string.Empty;
-                return _rdoAnswer.SelectedValue;
-            }
-            set
-            {
-               _answer = value;
-            }
-        }
+				if (li.Value == _answer)
+				{
+					li.Selected = true;
+				}
 
-        public Guid QuestionGuid
-        {
-            get
-            {
-                return _question.QuestionGuid;
-            }
-        }
+				_rdoAnswer.Items.Add(li);
+			}
 
-        #endregion
-    }
+			Controls.Add(lblQuestion);
+			Controls.Add(litQuestionText);
+			Controls.Add(_rdoAnswer);
+			Controls.Add(valQuestion);
+		}
+
+
+		public override void RenderBeginTag(HtmlTextWriter writer)
+		{ }
+
+
+		public override void RenderEndTag(HtmlTextWriter writer)
+		{ }
+
+
+		#region IQuestion Members
+
+		public string Answer
+		{
+			get
+			{
+				EnsureChildControls();
+
+				if (_rdoAnswer.SelectedItem == null)
+				{
+					return string.Empty;
+				}
+
+				return _rdoAnswer.SelectedValue;
+			}
+			set
+			{
+				_answer = value;
+			}
+		}
+
+		public Guid QuestionGuid
+		{
+			get
+			{
+				return _question.QuestionGuid;
+			}
+		}
+
+		#endregion
+	}
 }

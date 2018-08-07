@@ -1,102 +1,126 @@
+using SurveyFeature.Business;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web;
-using System.Resources;
-using SurveyFeature.Business;
 
 namespace SurveyFeature.UI
 {
-    public class CheckBoxListQuestion : CompositeControl, IQuestion
-    {
-        private Question _question;
-        private Collection<QuestionOption> _options;
-        private CheckBoxList _chkAnswer;
-        private string _answer = String.Empty;
+	public class CheckBoxListQuestion : CompositeControl, IQuestion
+	{
+		private Question _question;
+		private Collection<QuestionOption> _options;
+		private CheckBoxList _chkAnswer;
+		private string _answer = String.Empty;
 
-        public CheckBoxListQuestion(Question question, Collection<QuestionOption> options)
-        {
-            _question = question;
-            _options = options;
-        }
 
-        protected override void CreateChildControls()
-        {
-            base.CreateChildControls();
-            Label lblQuestion = new Label();
-            CheckBoxListValidator valQuestion = new CheckBoxListValidator();
-            _chkAnswer = new CheckBoxList();
+		public CheckBoxListQuestion(Question question, Collection<QuestionOption> options)
+		{
+			_question = question;
+			_options = options;
+		}
 
-            lblQuestion.ID = "lbl" + _question.QuestionGuid.ToString().Replace("-", String.Empty);
-            _chkAnswer.ID = "chk" + _question.QuestionGuid.ToString().Replace("-", String.Empty);
-            valQuestion.ID = "val" + _question.QuestionGuid.ToString().Replace("-", String.Empty);
 
-            lblQuestion.Text = _question.QuestionText;
-            lblQuestion.AssociatedControlID = _chkAnswer.ID;
+		protected override void CreateChildControls()
+		{
+			base.CreateChildControls();
 
-            valQuestion.ControlToValidate = _chkAnswer.ID;
-            valQuestion.Enabled = _question.AnswerIsRequired;
+			_chkAnswer = new CheckBoxList
+			{
+				ID = "chk" + _question.QuestionGuid.ToString().Replace("-", String.Empty)
+			};
 
-            string[] answers;
-            answers = _answer.Split(',');
+			Label lblQuestion = new Label
+			{
+				ID = "lbl" + _question.QuestionGuid.ToString().Replace("-", String.Empty),
+				CssClass = "settinglabel",
+				Text = _question.QuestionName,
+				AssociatedControlID = _chkAnswer.ID
+			};
 
-            foreach (QuestionOption option in _options)
-            {
-                bool selected = false;
+			Literal litQuestionText = new Literal
+			{
+				Text = _question.QuestionText
+			};
 
-                foreach (string item in answers)
-                {
-                    if (option.Answer == item)
-                    {
-                        selected = true;
-                        break;
-                    }
-                }
+			CheckBoxListValidator valQuestion = new CheckBoxListValidator
+			{
+				ID = "val" + _question.QuestionGuid.ToString().Replace("-", String.Empty),
+				ControlToValidate = _chkAnswer.ID,
+				Enabled = _question.AnswerIsRequired
+			};
 
-                ListItem li = new ListItem(option.Answer);
-                li.Selected = selected;
+			string[] answers = _answer.Split(',');
 
-                _chkAnswer.Items.Add(li);
-            }
+			foreach (QuestionOption option in _options)
+			{
+				bool selected = false;
 
-            valQuestion.Text = _question.ValidationMessage;
+				foreach (string item in answers)
+				{
+					if (option.Answer == item)
+					{
+						selected = true;
+						break;
+					}
+				}
 
-            Controls.Add(lblQuestion);
-            Controls.Add(_chkAnswer);
-            Controls.Add(valQuestion);
-        }
+				ListItem li = new ListItem(option.Answer)
+				{
+					Selected = selected
+				};
 
-        #region IQuestion Members
+				_chkAnswer.Items.Add(li);
+			}
 
-        public string Answer
-        {
-            get
-            {
-                EnsureChildControls();
-                StringBuilder answer = new StringBuilder();
+			valQuestion.Text = _question.ValidationMessage;
 
-                foreach (ListItem li in _chkAnswer.Items)
-                {
-                    if (li.Selected) answer.Append(li.Value + ",");
-                }
-                return answer.ToString().TrimEnd(',');
-            }
-            set
-            {
-                _answer = value;
-            }
-        }
+			Controls.Add(lblQuestion);
+			Controls.Add(litQuestionText);
+			Controls.Add(_chkAnswer);
+			Controls.Add(valQuestion);
+		}
 
-        public Guid QuestionGuid
-        {
-            get
-            {
-                return _question.QuestionGuid;
-            }
-        }
 
-        #endregion
-    }
+		public override void RenderBeginTag(HtmlTextWriter writer)
+		{ }
+
+
+		public override void RenderEndTag(HtmlTextWriter writer)
+		{ }
+
+
+		#region IQuestion Members
+
+		public string Answer
+		{
+			get
+			{
+				EnsureChildControls();
+				StringBuilder answer = new StringBuilder();
+
+				foreach (ListItem li in _chkAnswer.Items)
+				{
+					if (li.Selected) answer.Append(li.Value + ",");
+				}
+
+				return answer.ToString().TrimEnd(',');
+			}
+			set
+			{
+				_answer = value;
+			}
+		}
+
+		public Guid QuestionGuid
+		{
+			get
+			{
+				return _question.QuestionGuid;
+			}
+		}
+
+		#endregion
+	}
 }

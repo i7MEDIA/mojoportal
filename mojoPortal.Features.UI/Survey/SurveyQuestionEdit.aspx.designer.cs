@@ -58,15 +58,6 @@ namespace SurveyFeature.UI {
         protected global::mojoPortal.Web.UI.OuterWrapperPanel pnlOuterWrap;
         
         /// <summary>
-        /// ctop1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderTop ctop1;
-        
-        /// <summary>
         /// pnlInnerWrap control.
         /// </summary>
         /// <remarks>
@@ -110,6 +101,33 @@ namespace SurveyFeature.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlQuestionEdit;
+        
+        /// <summary>
+        /// SiteLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel1;
+        
+        /// <summary>
+        /// txtQuestionName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtQuestionName;
+        
+        /// <summary>
+        /// rfvQuestionName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvQuestionName;
         
         /// <summary>
         /// edMessage control.
@@ -175,13 +193,13 @@ namespace SurveyFeature.UI {
         protected global::System.Web.UI.WebControls.TextBox txtValidationMessage;
         
         /// <summary>
-        /// itemsRow control.
+        /// fgpItemsRow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl itemsRow;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpItemsRow;
         
         /// <summary>
         /// lbOptions control.
@@ -238,13 +256,13 @@ namespace SurveyFeature.UI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink1;
         
         /// <summary>
-        /// addOptionRow control.
+        /// fgpAddOptionRow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addOptionRow;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpAddOptionRow;
         
         /// <summary>
         /// txtNewOption control.
@@ -290,15 +308,6 @@ namespace SurveyFeature.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.EmptyPanel divCleared;
-        
-        /// <summary>
-        /// cbottom1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderBottom cbottom1;
         
         /// <summary>
         /// ka1 control.

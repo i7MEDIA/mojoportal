@@ -2,51 +2,106 @@
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
-<div class="breadcrumbs">
-    <asp:HyperLink ID="lnkPageCrumb" runat="server" CssClass="unselectedcrumb"></asp:HyperLink> &gt;
-    <asp:HyperLink runat="server" ID="lnkSurveys" CssClass="unselectedcrumb"></asp:HyperLink> &gt;
-    <asp:HyperLink runat="server" ID="lnkSurveyEdit" CssClass="selectedcrumb"></asp:HyperLink>
-</div>
+	<div class="breadcrumbs">
+		<asp:HyperLink ID="lnkPageCrumb" runat="server" CssClass="unselectedcrumb" /> &gt;
+		<asp:HyperLink runat="server" ID="lnkSurveys" CssClass="unselectedcrumb" /> &gt;
+		<asp:HyperLink runat="server" ID="lnkSurveyEdit" CssClass="selectedcrumb" />
+	</div>
 
-<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-<mp:CornerRounderTop id="ctop1" runat="server" />
-<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper survey">
-<portal:HeadingControl ID="heading" runat="server" />
-<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
-<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-<asp:Panel ID="pnlSurvey" runat="server" DefaultButton="btnSave">    
-    <div class="settingrow">
-        <mp:SiteLabel ID="lblSurveyName" runat="server" ForControl="txtSurveyName" CssClass="settinglabel"
-            ConfigKey="SurveyEditSurveyNameLabel" ResourceFile="SurveyResources"></mp:SiteLabel>
-        <asp:TextBox ID="txtSurveyName" runat="server" Columns="50" MaxLength="100"></asp:TextBox>                
-    </div>
-    <div class="settingrow">
-        <mp:SiteLabel ID="lblWelcomeMessage" runat="server" ForControl="edWelcomeMessage"
-            CssClass="settinglabel" ConfigKey="SurveyWelcomeMessageLabel" ResourceFile="SurveyResources" />
-     </div>
-     <div class="settingrow">
-        <mpe:EditorControl id="edWelcomeMessage" runat="server"></mpe:EditorControl>
-    </div>
-    <div class="settingrow">
-        <mp:SiteLabel ID="lblThankyouMessage" runat="server" ForControl="edThankyouMessage"
-            CssClass="settinglabel" ConfigKey="SurveyThankyouMessageLabel" ResourceFile="SurveyResources" />
-     </div>
-     <div class="settingrow">
-        <mpe:EditorControl id="edThankyouMessage" runat="server"></mpe:EditorControl>
-    </div>
-    <div class="settingrow">
-        <mp:SiteLabel ID="SiteLabel1" runat="server" CssClass="settinglabel" ConfigKey="spacer" UseLabelTag="false" />
-        <portal:mojoButton ID="btnSave" runat="server" />&nbsp;
-        <portal:mojoButton ID="btnCancel" runat="server" CausesValidation="false" />&nbsp;
-    </div>
- </asp:Panel>
-</portal:InnerBodyPanel>	
-	</portal:OuterBodyPanel>
-	<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
-</portal:InnerWrapperPanel>
-<mp:CornerRounderBottom id="cbottom1" runat="server" />
-</portal:OuterWrapperPanel>
-<portal:SessionKeepAliveControl id="ka1" runat="server" />    
+	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
+		<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper survey">
+			<portal:HeadingControl ID="heading" runat="server" />
+			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
+				<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
+					<asp:Panel ID="pnlSurvey" runat="server" DefaultButton="btnSave">
+						<portal:FormGroupPanel runat="server">
+							<mp:SiteLabel runat="server"
+								ID="lblSurveyName"
+								ForControl="txtSurveyName"
+								CssClass="settinglabel"
+								ConfigKey="SurveyEditSurveyNameLabel"
+								ResourceFile="SurveyResources" />
+							<asp:TextBox ID="txtSurveyName" runat="server" Columns="50" MaxLength="100" />
+						</portal:FormGroupPanel>
+
+						<portal:FormGroupPanel runat="server">
+							<mp:SiteLabel runat="server"
+								ID="lblLimitSubmissions"
+								CssClass="settinglabel"
+								ForControl="cbLimitSubmissions"
+								ConfigKey="SurveyEditLimitSubmissions"
+								ResourceFile="SurveyResources" />
+							<asp:CheckBox runat="server" ID="cbLimitSubmissions" />
+						</portal:FormGroupPanel>
+
+						<portal:FormGroupPanel runat="server" ID="fgpSubmissionLimit" ExtraCssClasses="hide" RenderId="true">
+							<mp:SiteLabel runat="server"
+								ID="lblSubmissionLimit"
+								CssClass="settinglabel"
+								ForControl="cbLimitSubmissionLimit"
+								ConfigKey="SurveyEditSubmissionLimit"
+								ResourceFile="SurveyResources" />
+							<asp:TextBox runat="server" ID="txtSubmissionLimit" TextMode="Number" />
+						</portal:FormGroupPanel>
+
+						<script>
+							(function () {
+								var checkbox = document.getElementById('<%= cbLimitSubmissions.ClientID %>');
+								var limitGroup = document.getElementById('<%= fgpSubmissionLimit.ClientID %>');
+
+								function toggleVisibility() {
+									if (checkbox.checked) {
+										limitGroup.classList.remove('hide');
+									} else {
+										limitGroup.classList.add('hide');
+									}
+								}
+
+								toggleVisibility();
+
+								checkbox.addEventListener('click', function (e) {
+									toggleVisibility();
+								});
+							})();
+						</script>
+
+						<portal:FormGroupPanel runat="server">
+							<mp:SiteLabel runat="server"
+								ID="lblWelcomeMessage"
+								ForControl="edWelcomeMessage"
+								CssClass="settinglabel"
+								ConfigKey="SurveyWelcomeMessageLabel"
+								ResourceFile="SurveyResources" />
+						</portal:FormGroupPanel>
+
+						<portal:FormGroupPanel runat="server">
+							<mpe:EditorControl ID="edWelcomeMessage" runat="server" />
+						</portal:FormGroupPanel>
+
+						<portal:FormGroupPanel runat="server">
+							<mp:SiteLabel runat="server"
+								ID="lblThankyouMessage"
+								ForControl="edThankyouMessage"
+								CssClass="settinglabel"
+								ConfigKey="SurveyThankyouMessageLabel"
+								ResourceFile="SurveyResources" />
+						</portal:FormGroupPanel>
+
+						<portal:FormGroupPanel runat="server">
+							<mpe:EditorControl ID="edThankyouMessage" runat="server" />
+						</portal:FormGroupPanel>
+
+						<portal:FormGroupPanel runat="server" ExtraCssClasses="btn-row">
+							<portal:mojoButton runat="server" ID="btnSave" SkinID="SaveButton" />
+							<portal:mojoButton runat="server" ID="btnCancel" CausesValidation="false" SkinID="TextButton" />
+						</portal:FormGroupPanel>
+					</asp:Panel>
+				</portal:InnerBodyPanel>
+			</portal:OuterBodyPanel>
+			<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared" />
+		</portal:InnerWrapperPanel>
+	</portal:OuterWrapperPanel>
+	<portal:SessionKeepAliveControl ID="ka1" runat="server" />
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />
 <asp:Content ContentPlaceHolderID="pageEditContent" ID="MPPageEdit" runat="server" />

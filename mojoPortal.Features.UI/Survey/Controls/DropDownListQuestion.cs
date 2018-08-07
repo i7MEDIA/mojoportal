@@ -1,84 +1,106 @@
+using SurveyFeature.Business;
 using System;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web;
-using System.Resources;
-using SurveyFeature.Business;
 
 namespace SurveyFeature.UI
 {
-    public class DropDownListQuestion : CompositeControl, IQuestion
-    {
-        private Question _question;
-        private Collection<QuestionOption> _options;
-        private DropDownList _ddAnswer;
-        private string _answer;
+	public class DropDownListQuestion : CompositeControl, IQuestion
+	{
+		private Question _question;
+		private Collection<QuestionOption> _options;
+		private DropDownList _ddAnswer;
+		private string _answer;
 
-        public DropDownListQuestion(Question question, Collection<QuestionOption> options)
-        {
-            _question = question;
-            _options = options;
-        }
 
-        protected override void CreateChildControls()
-        {
-            base.CreateChildControls();
-            Label lblQuestion = new Label();
-            _ddAnswer = new DropDownList();
-            RequiredFieldValidator valQuestion = new RequiredFieldValidator();
+		public DropDownListQuestion(Question question, Collection<QuestionOption> options)
+		{
+			_question = question;
+			_options = options;
+		}
 
-            lblQuestion.ID = "lbl" + _question.QuestionGuid.ToString().Replace("-", String.Empty);
-            _ddAnswer.ID = "dd" + _question.QuestionGuid.ToString().Replace("-", String.Empty);
-            valQuestion.ID = "val" + _question.QuestionGuid.ToString().Replace("-", String.Empty);
 
-            lblQuestion.Text = _question.QuestionText;
-            lblQuestion.AssociatedControlID = _ddAnswer.ID;
+		protected override void CreateChildControls()
+		{
+			base.CreateChildControls();
 
-            valQuestion.ControlToValidate = _ddAnswer.ID;
-            valQuestion.Enabled = _question.AnswerIsRequired;
+			_ddAnswer = new DropDownList
+			{
+				ID = "dd" + _question.QuestionGuid.ToString().Replace("-", String.Empty)
+			};
 
-            _ddAnswer.Items.Add(new ListItem(Resources.SurveyResources.DropDownPleaseSelectText, String.Empty));
+			Label lblQuestion = new Label
+			{
+				ID = "lbl" + _question.QuestionGuid.ToString().Replace("-", String.Empty),
+				CssClass = "settinglabel",
+				Text = _question.QuestionName,
+				AssociatedControlID = _ddAnswer.ID
+			};
 
-            foreach (QuestionOption option in _options)
-            {
-                ListItem li = new ListItem(option.Answer);
-                if (li.Value == _answer) li.Selected = true;
-                _ddAnswer.Items.Add(li);
-            }
+			Literal litQuestionText = new Literal
+			{
+				Text = _question.QuestionText
+			};
 
-            valQuestion.Text = _question.ValidationMessage;
+			RequiredFieldValidator valQuestion = new RequiredFieldValidator
+			{
+				ID = "val" + _question.QuestionGuid.ToString().Replace("-", String.Empty),
+				Text = _question.ValidationMessage,
+				Enabled = _question.AnswerIsRequired,
+				ControlToValidate = _ddAnswer.ID
+			};
 
-            Controls.Add(lblQuestion);
-            Controls.Add(_ddAnswer);
-            Controls.Add(valQuestion);
-        }
+			_ddAnswer.Items.Add(new ListItem(Resources.SurveyResources.DropDownPleaseSelectText, String.Empty));
 
-        #region IQuestion Members
+			foreach (QuestionOption option in _options)
+			{
+				ListItem li = new ListItem(option.Answer);
 
-        public string Answer
-        {
-            get
-            {
-                EnsureChildControls();
-                return _ddAnswer.SelectedValue;
-            }
-            set
-            {
-                _answer = value;
-            }
-        }
+				if (li.Value == _answer) li.Selected = true;
 
-        public Guid QuestionGuid
-        {
-            get
-            {
-                return _question.QuestionGuid;
-            }
-        }
+				_ddAnswer.Items.Add(li);
+			}
 
-        #endregion
-    }
+			Controls.Add(lblQuestion);
+			Controls.Add(litQuestionText);
+			Controls.Add(_ddAnswer);
+			Controls.Add(valQuestion);
+		}
+
+
+		public override void RenderBeginTag(HtmlTextWriter writer)
+		{ }
+
+
+		public override void RenderEndTag(HtmlTextWriter writer)
+		{ }
+
+
+		#region IQuestion Members
+
+		public string Answer
+		{
+			get
+			{
+				EnsureChildControls();
+				return _ddAnswer.SelectedValue;
+			}
+			set
+			{
+				_answer = value;
+			}
+		}
+
+		public Guid QuestionGuid
+		{
+			get
+			{
+				return _question.QuestionGuid;
+			}
+		}
+
+		#endregion
+	}
 }
 

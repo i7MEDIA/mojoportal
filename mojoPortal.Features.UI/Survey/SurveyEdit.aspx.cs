@@ -1,174 +1,195 @@
-/// Author:					Rob Henry
-/// Created:				2007-02-10
-/// Last Modified:			2012-05-08
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
+// Created:       2007-02-10
+// Last Modified: 2018-07-31
+// 
+// The use and distribution terms for this software are covered by the 
+// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+// which can be found in the file CPL.TXT at the root of this distribution.
+// By using this software in any fashion, you are agreeing to be bound by 
+// the terms of this license.
+//
+// You must not remove this notice, or any other, from this software.
 
+using mojoPortal.Web;
+using mojoPortal.Web.Editor;
+using mojoPortal.Web.Framework;
+using Resources;
+using SurveyFeature.Business;
 using System;
-using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using mojoPortal.Web;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.Editor;
-using SurveyFeature.Business;
-using Resources;
 
 namespace SurveyFeature.UI
 {
-    public partial class SurveyEditPage : NonCmsBasePage
-    {
-        private Guid surveyGuid = Guid.Empty;
-        private int pageId;
-        private int moduleId;
+	public partial class SurveyEditPage : NonCmsBasePage
+	{
+		#region private properties
 
-        #region public properties
+		private Guid surveyGuid = Guid.Empty;
 
-        public int PageId
-        {
-            get
-            {
-                return pageId;
-            }
-        }
+		#endregion
 
-        public int ModuleId
-        {
-            get
-            {
-                return moduleId;
-            }
-        }
 
-        #endregion
+		#region public properties
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!Request.IsAuthenticated)
-            {
-                SiteUtils.RedirectToLoginPage(this);
-                return;
-            }
+		public int PageId { get; private set; }
+		public int ModuleId { get; private set; }
 
-            SecurityHelper.DisableBrowserCache();
+		#endregion
 
-            LoadParams();
 
-            if (!UserCanEditModule(moduleId))
-            {
-                SiteUtils.RedirectToAccessDeniedPage();
-                return;
-            }
+		protected void Page_Load(object sender, EventArgs e)
+		{
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
 
-            PopulateLabels();
+			SecurityHelper.DisableBrowserCache();
 
-            PopulateControls();
-                
-            
-        }
+			LoadParams();
 
-        private void PopulateControls()
-        {
+			if (!UserCanEditModule(ModuleId))
+			{
+				SiteUtils.RedirectToAccessDeniedPage();
+				return;
+			}
 
-            if (Page.IsPostBack) return;
+			PopulateLabels();
 
-            if (surveyGuid != Guid.Empty)
-            {
-                Survey survey = new Survey(surveyGuid);
-                txtSurveyName.Text = survey.SurveyName;
-                edWelcomeMessage.Text = survey.StartPageText;
-                edThankyouMessage.Text = survey.EndPageText;
-            }
-        }
+			PopulateControls();
+		}
 
-        private void PopulateLabels()
-        {
-            lnkPageCrumb.Text = CurrentPage.PageName;
-            lnkPageCrumb.NavigateUrl = SiteUtils.GetCurrentPageUrl();
 
-            lnkSurveys.Text = SurveyResources.SurveyBreadCrumbText;
-            lnkSurveyEdit.Text = SurveyResources.SurveyEditBreadCrumbText;
-            lnkSurveys.NavigateUrl = SiteRoot + "/Survey/Surveys.aspx?pageid=" 
-                + pageId.ToInvariantString() 
-                + "&mid=" + moduleId.ToInvariantString();
+		private void PopulateControls()
+		{
+			if (Page.IsPostBack) return;
 
-            btnSave.Text = SurveyResources.SurveyEditSaveButton;
-            btnSave.ToolTip = SurveyResources.SurveyEditSaveToolTip;
-            btnCancel.Text = SurveyResources.SurveyEditCancelButton;
-            btnCancel.ToolTip = SurveyResources.SurveyEditCancelButtonToolTip;
+			if (surveyGuid != Guid.Empty)
+			{
+				Survey survey = new Survey(surveyGuid);
 
-            edWelcomeMessage.WebEditor.ToolBar = ToolBar.Full;
-            edWelcomeMessage.WebEditor.Height = Unit.Pixel(200);
-            edThankyouMessage.WebEditor.ToolBar = ToolBar.Full;
-            edThankyouMessage.WebEditor.Height = Unit.Pixel(200);
-        }
+				txtSurveyName.Text = survey.SurveyName;
 
-        private void LoadParams()
-        {
-            surveyGuid = WebUtils.ParseGuidFromQueryString("SurveyGuid", Guid.Empty);
-            pageId = WebUtils.ParseInt32FromQueryString("pageid", -1);
-            moduleId = WebUtils.ParseInt32FromQueryString("mid", -1);
+				if (survey.SubmissionLimit <= 0)
+				{
+					cbLimitSubmissions.Checked = false;
+				}
+				else
+				{
+					cbLimitSubmissions.Checked = true;
+				}
 
-            AddClassToBody("surveyedit");
-        }
+				txtSubmissionLimit.Attributes.Add("data-initial-value", survey.SubmissionLimit.ToString());
 
-        
+				txtSubmissionLimit.Text = survey.SubmissionLimit.ToString();
+				edWelcomeMessage.Text = survey.StartPageText;
+				edThankyouMessage.Text = survey.EndPageText;
+			}
+		}
 
-        #region OnInit
 
-        protected override void OnPreInit(EventArgs e)
-        {
-            AllowSkinOverride = true;
-            base.OnPreInit(e);
-        }
+		private void PopulateLabels()
+		{
+			lnkPageCrumb.Text = CurrentPage.PageName;
+			lnkPageCrumb.NavigateUrl = SiteUtils.GetCurrentPageUrl();
 
-        override protected void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-            this.Load += new EventHandler(this.Page_Load);
-            this.btnSave.Click += new EventHandler(btnSave_Click);
-            this.btnCancel.Click += new EventHandler(btnCancel_Click);
-            SuppressPageMenu();
-            SiteUtils.SetupEditor(edWelcomeMessage, AllowSkinOverride, this);
-            SiteUtils.SetupEditor(edThankyouMessage, AllowSkinOverride, this);
-        }
+			lnkSurveys.Text = SurveyResources.SurveyBreadCrumbText;
+			lnkSurveyEdit.Text = SurveyResources.SurveyEditBreadCrumbText;
+			lnkSurveys.NavigateUrl = $"{SiteRoot}/Survey/Surveys.aspx?pageid={PageId.ToInvariantString()}&mid={ModuleId.ToInvariantString()}";
 
-        #endregion
+			btnSave.Text = SurveyResources.SurveyEditSaveButton;
+			btnSave.ToolTip = SurveyResources.SurveyEditSaveToolTip;
+			btnCancel.Text = SurveyResources.SurveyEditCancelButton;
+			btnCancel.ToolTip = SurveyResources.SurveyEditCancelButtonToolTip;
 
-        #region Events
+			edWelcomeMessage.WebEditor.ToolBar = ToolBar.Full;
+			edWelcomeMessage.WebEditor.Height = Unit.Pixel(200);
+			edThankyouMessage.WebEditor.ToolBar = ToolBar.Full;
+			edThankyouMessage.WebEditor.Height = Unit.Pixel(200);
+		}
 
-        void btnSave_Click(object sender, EventArgs e)
-        {
-            Page.Validate("survey");
 
-            if (Page.IsValid)
-            {
-                Survey survey = new Survey(surveyGuid);
-                survey.SurveyName = txtSurveyName.Text;
-                survey.SiteGuid = siteSettings.SiteGuid;
-                survey.StartPageText = edWelcomeMessage.Text;
-                survey.EndPageText = edThankyouMessage.Text;
-                survey.Save();
+		private void LoadParams()
+		{
+			surveyGuid = WebUtils.ParseGuidFromQueryString("SurveyGuid", Guid.Empty);
+			PageId = WebUtils.ParseInt32FromQueryString("pageid", -1);
+			ModuleId = WebUtils.ParseInt32FromQueryString("mid", -1);
 
-                WebUtils.SetupRedirect(this, SiteRoot + "/Survey/Surveys.aspx?pageid=" 
-                    + pageId.ToInvariantString()
-                    + "&mid=" + moduleId.ToInvariantString());
-            }
-        }
+			AddClassToBody("surveyedit");
+		}
 
-        void btnCancel_Click(object sender, EventArgs e)
-        {
-            WebUtils.SetupRedirect(this, SiteRoot + "/Survey/Surveys.aspx?pageid=" 
-                + pageId.ToInvariantString()
-                + "&mid=" + moduleId.ToInvariantString());
-        }
+		
+		#region OnInit
 
-        #endregion
-    }
+		protected override void OnPreInit(EventArgs e)
+		{
+			AllowSkinOverride = true;
+
+			base.OnPreInit(e);
+		}
+
+
+		override protected void OnInit(EventArgs e)
+		{
+			base.OnInit(e);
+
+			Load += new EventHandler(Page_Load);
+			btnSave.Click += new EventHandler(BtnSave_Click);
+			btnCancel.Click += new EventHandler(BtnCancel_Click);
+
+			SuppressPageMenu();
+			SiteUtils.SetupEditor(edWelcomeMessage, AllowSkinOverride, this);
+			SiteUtils.SetupEditor(edThankyouMessage, AllowSkinOverride, this);
+		}
+
+		#endregion
+
+
+		#region Events
+
+		private void BtnSave_Click(object sender, EventArgs e)
+		{
+			Page.Validate("survey");
+
+			if (Page.IsValid)
+			{
+				Survey survey = new Survey(surveyGuid)
+				{
+					SurveyName = txtSurveyName.Text
+				};
+
+				if (cbLimitSubmissions.Checked)
+				{
+					survey.SubmissionLimit = Convert.ToInt32(txtSubmissionLimit.Text);
+				}
+				else
+				{
+					survey.SubmissionLimit = 0;
+				}
+
+				survey.SiteGuid = siteSettings.SiteGuid;
+				survey.StartPageText = edWelcomeMessage.Text;
+				survey.EndPageText = edThankyouMessage.Text;
+
+				survey.Save();
+
+				WebUtils.SetupRedirect(
+					this,
+					$"{SiteRoot}/Survey/Surveys.aspx?pageid={PageId.ToInvariantString()}&mid={ModuleId.ToInvariantString()}"
+				);
+			}
+		}
+
+
+		private void BtnCancel_Click(object sender, EventArgs e)
+		{
+			WebUtils.SetupRedirect(
+				this,
+				$"{SiteRoot}/Survey/Surveys.aspx?pageid={PageId.ToInvariantString()}&mid={ModuleId.ToInvariantString()}"
+			);
+		}
+
+		#endregion
+	}
 }

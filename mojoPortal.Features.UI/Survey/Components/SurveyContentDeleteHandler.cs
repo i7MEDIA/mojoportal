@@ -1,6 +1,5 @@
-﻿//  Author:                     
-//  Created:                    2009-06-21
-//	Last Modified:              2009-06-23
+﻿// Created:       2009-06-21
+// Last Modified: 2018-07-31
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -10,25 +9,21 @@
 //
 // You must not remove this notice, or any other, from this software.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using SurveyFeature.Business;
+using System;
 
 namespace mojoPortal.Features
 {
-    public class SurveyContentDeleteHandler : ContentDeleteHandlerProvider
-    {
-        public SurveyContentDeleteHandler()
-        { }
+	public class SurveyContentDeleteHandler : ContentDeleteHandlerProvider
+	{
+		public SurveyContentDeleteHandler()
+		{ }
 
-        public override void DeleteContent(int moduleId, Guid moduleGuid)
-        {
 
-            Survey.DeleteFromModule(moduleId);
-            
-        }
-    }
+		public override void DeleteContent(int moduleId, Guid moduleGuid)
+		{
+			Survey.DeleteFromModule(moduleId);
+		}
+	}
 }

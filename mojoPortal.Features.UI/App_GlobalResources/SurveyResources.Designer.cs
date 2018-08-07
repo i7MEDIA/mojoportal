@@ -637,6 +637,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Question Name.
+        /// </summary>
+        internal static string QuestionsGridNameHeader {
+            get {
+                return ResourceManager.GetString("QuestionsGridNameHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Required.
         /// </summary>
         internal static string QuestionsGridRequiredHeader {
@@ -1087,6 +1096,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Limit Number of Submissions?.
+        /// </summary>
+        internal static string SurveyEditLimitSubmissions {
+            get {
+                return ResourceManager.GetString("SurveyEditLimitSubmissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string SurveyEditSaveButton {
@@ -1101,6 +1119,15 @@ namespace Resources {
         internal static string SurveyEditSaveToolTip {
             get {
                 return ResourceManager.GetString("SurveyEditSaveToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of Submissions Allowed.
+        /// </summary>
+        internal static string SurveyEditSubmissionLimit {
+            get {
+                return ResourceManager.GetString("SurveyEditSubmissionLimit", resourceCulture);
             }
         }
         
@@ -1168,7 +1195,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose Survey.
+        ///   Looks up a localized string similar to You&apos;ve reached the limit on how many times you can take this survey..
+        /// </summary>
+        internal static string SurveyLimitReached {
+            get {
+                return ResourceManager.GetString("SurveyLimitReached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Survey.
         /// </summary>
         internal static string SurveyModuleEditText {
             get {
