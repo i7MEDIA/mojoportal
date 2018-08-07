@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Npgsql">
-      <HintPath>..\..\..\public\mojoportal\_libs\Npgsql2011\Npgsql.dll</HintPath>
+      <HintPath>..\_libs\Npgsql2011\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
