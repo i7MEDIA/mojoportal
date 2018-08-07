@@ -1267,19 +1267,6 @@
     <Content Include="Setup\applications\surveyfeature\FeatureDefinitions\0000_Survey.config" />
     <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\mssql\0.0.1.1.config" />
     <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\mysql\0.0.1.0.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.3.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.4.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.5.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.6.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.7.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.8.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.0.9.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.1.0.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.1.1.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\0.0.1.2.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mysql\0.0.1.1.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mysql\0.0.1.2.config" />
     <Content Include="Survey\CompleteSurvey.aspx" />
     <Content Include="Survey\Results.aspx" />
     <Content Include="Survey\SurveyEdit.aspx" />
@@ -1693,6 +1680,10 @@
     <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\mysql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\pgsql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\sqlite\" />
+    <Folder Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mssql\" />
+    <Folder Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\mysql\" />
+    <Folder Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\pgsql\" />
+    <Folder Include="Setup\applications\surveyfeature\SchemaUpgradeScripts\sqlite\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\BingResources.resx">
