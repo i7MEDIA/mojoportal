@@ -300,4 +300,7 @@
   <data name="RolesThatCanViewThisItem" xml:space="preserve">
     <value>Roles That Can View This Item</value>
   </data>
+  <data name="SetChildrensRolesToParentFolder" xml:space="preserve">
+    <value>Set child items to these roles?</value>
+  </data>
 </root>

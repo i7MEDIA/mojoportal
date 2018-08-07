@@ -1,5 +1,5 @@
-// Created:			2005-01-05
-// Last Modified:	2018-06-03
+// Created:       2005-01-05
+// Last Modified: 2018-06-03
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -34,6 +34,7 @@ namespace mojoPortal.Business
 		public SharedFile()
 		{ }
 
+
 		public SharedFile(int moduleId, int itemId)
 		{
 			GetSharedFile(itemId);
@@ -61,7 +62,7 @@ namespace mojoPortal.Business
 		private int folderID = -1;
 		private string description = string.Empty;
 		private int downloadCount = 0;
-		private string viewRoles = string.Empty;
+		private string viewRoles = "All Users";
 
 		#endregion
 

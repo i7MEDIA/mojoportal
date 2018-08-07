@@ -1,5 +1,5 @@
-// Created:			2005-01-05
-// Last Modified:	2018-06-03
+// Created:       2005-01-05
+// Last Modified: 2018-06-03
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -14,6 +14,7 @@ using mojoPortal.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using mojoPortal.Features.Business.SharedFiles.Models;
 
 namespace mojoPortal.Business
 {
@@ -294,6 +295,61 @@ namespace mojoPortal.Business
 			dt.AcceptChanges();
 
 			return dt;
+		}
+
+		public static FoldersAndFiles GetFoldersAndFilesModel(int moduleId, int parentId)
+		{
+			FoldersAndFiles foldersAndFiles = new FoldersAndFiles();
+
+			using (IDataReader reader = GetSharedFolders(moduleId, parentId))
+			{
+				while (reader.Read())
+				{
+					Folder newFolder = new Folder
+					{
+						ID = Convert.ToInt32(reader["FolderID"]),
+						ModuleID = Convert.ToInt32(reader["ModuleID"]),
+						Name = reader["FolderName"].ToString(),
+						ParentID = Convert.ToInt32(reader["ParentID"]),
+						ModuleGuid = new Guid(reader["ModuleGuid"].ToString()),
+						FolderGuid = new Guid(reader["FolderGuid"].ToString()),
+						ParentGuid = new Guid(reader["ParentGuid"].ToString()),
+						ViewRoles = reader["ViewRoles"].ToString()
+					};
+
+					foldersAndFiles.Folders.Add(newFolder);
+				}
+			}
+
+			using (IDataReader reader = SharedFile.GetSharedFiles(moduleId, parentId))
+			{
+				while (reader.Read())
+				{
+					File newFile = new File
+					{
+						ID = Convert.ToInt32(reader["ItemID"]),
+						ModuleID = Convert.ToInt32(reader["ModuleID"]),
+						UploadUserID = Convert.ToInt32(reader["UploadUserID"]),
+						Name = reader["FriendlyName"].ToString(),
+						OriginalFileName = reader["OriginalFileName"].ToString(),
+						ServerFileName = reader["ServerFileName"].ToString(),
+						SizeInKB = Convert.ToInt32(reader["SizeInKB"]),
+						UploadDate = Convert.ToDateTime(reader["UploadDate"]),
+						FolderID = Convert.ToInt32(reader["FolderID"]),
+						ItemGuid = new Guid(reader["ItemGuid"].ToString()),
+						ModuleGuid = new Guid(reader["ModuleGuid"].ToString()),
+						UserGuid = new Guid(reader["UserGuid"].ToString()),
+						FolderGuid = new Guid(reader["FolderGuid"].ToString()),
+						Description = reader["Description"].ToString(),
+						DownloadCount = Convert.ToInt32(reader["DownloadCount"]),
+						ViewRoles = reader["ViewRoles"].ToString()
+					};
+
+					foldersAndFiles.Files.Add(newFile);
+				}
+			}
+
+			return foldersAndFiles;
 		}
 
 		#endregion

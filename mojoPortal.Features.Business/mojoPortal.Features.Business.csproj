@@ -139,6 +139,9 @@
     <Compile Include="Poll\Poll.cs" />
     <Compile Include="Poll\PollOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedFiles\Models\File.cs" />
+    <Compile Include="SharedFiles\Models\Folder.cs" />
+    <Compile Include="SharedFiles\Models\FoldersAndFiles.cs" />
     <Compile Include="SharedFiles\SharedFile.cs" />
     <Compile Include="SharedFiles\SharedFileFolder.cs" />
     <Compile Include="SharedFiles\SharedFileHistory.cs" />

@@ -1,5 +1,5 @@
 ﻿// Created:       2007-11-03
-// Last Modified: 2018-06-03
+// Last Modified: 2018-07-24
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -34,7 +34,7 @@ namespace mojoPortal.Data
 			sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
 			sph.DefineSqlParameter("@FolderName", SqlDbType.NVarChar, 255, ParameterDirection.Input, folderName);
 			sph.DefineSqlParameter("@ParentID", SqlDbType.Int, ParameterDirection.Input, parentId);
-			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, 255, ParameterDirection.Input, viewRoles);
+			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, viewRoles);
 
 			int newID = Convert.ToInt32(sph.ExecuteScalar());
 
@@ -58,7 +58,7 @@ namespace mojoPortal.Data
 			sph.DefineSqlParameter("@FolderName", SqlDbType.NVarChar, 255, ParameterDirection.Input, folderName);
 			sph.DefineSqlParameter("@ParentID", SqlDbType.Int, ParameterDirection.Input, parentId);
 			sph.DefineSqlParameter("@ParentGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, parentGuid);
-			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, 255, ParameterDirection.Input, viewRoles);
+			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, viewRoles);
 
 			int rowsAffected = sph.ExecuteNonQuery();
 
@@ -165,7 +165,7 @@ namespace mojoPortal.Data
 			sph.DefineSqlParameter("@UploadDate", SqlDbType.DateTime, ParameterDirection.Input, uploadDate);
 			sph.DefineSqlParameter("@FolderID", SqlDbType.Int, ParameterDirection.Input, folderId);
 			sph.DefineSqlParameter("@Description", SqlDbType.NVarChar, -1, ParameterDirection.Input, description);
-			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, 255, ParameterDirection.Input, viewRoles);
+			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, viewRoles);
 
 			int newID = Convert.ToInt32(sph.ExecuteScalar());
 
@@ -203,7 +203,7 @@ namespace mojoPortal.Data
 			sph.DefineSqlParameter("@FolderGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, folderGuid);
 			sph.DefineSqlParameter("@UserGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userGuid);
 			sph.DefineSqlParameter("@Description", SqlDbType.NVarChar, -1, ParameterDirection.Input, description);
-			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, 255, ParameterDirection.Input, viewRoles);
+			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, viewRoles);
 
 			int rowsAffected = sph.ExecuteNonQuery();
 
@@ -307,7 +307,7 @@ namespace mojoPortal.Data
 			sph.DefineSqlParameter("@UploadDate", SqlDbType.DateTime, ParameterDirection.Input, uploadDate);
 			sph.DefineSqlParameter("@UploadUserID", SqlDbType.Int, ParameterDirection.Input, uploadUserId);
 			sph.DefineSqlParameter("@ArchiveDate", SqlDbType.DateTime, ParameterDirection.Input, archiveDate);
-			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, 255, ParameterDirection.Input, viewRoles);
+			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, viewRoles);
 
 			int newID = Convert.ToInt32(sph.ExecuteScalar());
 

@@ -1,6 +1,6 @@
-﻿//  Author:                     
-//  Created:                    2013-04-01
-//	Last Modified:              2013-07-10
+﻿//  Author:
+//  Created:       2013-04-01
+//	Last Modified: 2018-07-20
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -40,12 +40,13 @@ namespace mojoPortal.Features.UI.SharedFiles
 
 		public void ProcessRequest(HttpContext context)
 		{
-			base.Initialize(context);
+			Initialize(context);
 
 			if (!UserCanEditModule(ModuleId, SharedFile.FeatureGuid))
 			{
 				log.Info("User has no edit permission so returning 404");
 				Response.StatusCode = 404;
+
 				return;
 			}
 
@@ -53,6 +54,7 @@ namespace mojoPortal.Features.UI.SharedFiles
 			{
 				log.Info("CurrentSite is null so returning 404");
 				Response.StatusCode = 404;
+
 				return;
 			}
 
@@ -60,6 +62,7 @@ namespace mojoPortal.Features.UI.SharedFiles
 			{
 				log.Info("CurrentUser is null so returning 404");
 				Response.StatusCode = 404;
+
 				return;
 			}
 
@@ -67,6 +70,7 @@ namespace mojoPortal.Features.UI.SharedFiles
 			{
 				log.Info("FileSystem is null so returning 404");
 				Response.StatusCode = 404;
+
 				return;
 			}
 
@@ -74,6 +78,7 @@ namespace mojoPortal.Features.UI.SharedFiles
 			{
 				log.Info("Posted File Count is zero so returning 404");
 				Response.StatusCode = 404;
+
 				return;
 			}
 
@@ -81,6 +86,7 @@ namespace mojoPortal.Features.UI.SharedFiles
 			{
 				log.Info("Posted File Count is greater than allowed amount so returning 404");
 				Response.StatusCode = 404;
+
 				return;
 			}
 
@@ -90,6 +96,7 @@ namespace mojoPortal.Features.UI.SharedFiles
 			{
 				log.Info("Module is null so returning 404");
 				Response.StatusCode = 404;
+
 				return;
 			}
 
@@ -101,7 +108,7 @@ namespace mojoPortal.Features.UI.SharedFiles
 
 			Hashtable moduleSettings = ModuleSettings.GetModuleSettings(ModuleId);
 			config = new SharedFilesConfiguration(moduleSettings);
-			
+
 			context.Response.ContentType = "text/plain";
 
 			List<UploadFilesResult> r = new List<UploadFilesResult>();
@@ -152,6 +159,7 @@ namespace mojoPortal.Features.UI.SharedFiles
 				{
 					SharedFileFolder folder = new SharedFileFolder(ModuleId, currentFolderId);
 					sharedFile.FolderGuid = folder.FolderGuid;
+					sharedFile.ViewRoles = folder.ViewRoles;
 				}
 
 				sharedFile.UploadUserId = CurrentUser.UserId;
@@ -200,6 +208,7 @@ namespace mojoPortal.Features.UI.SharedFiles
 				indexBuilder.ContentChangedHandler(sender, e);
 			}
 		}
+
 
 		public bool IsReusable
 		{

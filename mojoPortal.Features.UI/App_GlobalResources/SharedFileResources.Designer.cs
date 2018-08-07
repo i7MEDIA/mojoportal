@@ -322,6 +322,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set child items to these roles?.
+        /// </summary>
+        internal static string SetChildrensRolesToParentFolder {
+            get {
+                return ResourceManager.GetString("SetChildrensRolesToParentFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Archive Date.
         /// </summary>
         internal static string SharedFilesArchiveDateLabel {

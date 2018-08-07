@@ -29,6 +29,11 @@
 						</portal:FormGroupPanel>
 
 						<portal:FormGroupPanel runat="server">
+							<mp:SiteLabel runat="server" ForControl="cbPushRolesToChildren" CssClass="settinglabel" ConfigKey="SetChildrensRolesToParentFolder" ResourceFile="SharedFileResources" />
+							<asp:CheckBox runat="server" ID="cbPushRolesToChildren" />
+						</portal:FormGroupPanel>
+
+						<portal:FormGroupPanel runat="server">
 							<portal:mojoButton ID="btnUpdateFolder" runat="server" SkinID="SaveButton" />
 							<portal:mojoButton ID="btnDeleteFolder" runat="server" CausesValidation="false" SkinID="DeleteButton" />
 							<asp:HyperLink ID="lnkCancelFolder" runat="server" CssClass="cancellink" SkinID="CancelButton" />
@@ -105,8 +110,7 @@
 												Text='<%# DataBinder.Eval(Container.DataItem,"FriendlyName") %>'
 												CommandName="download"
 												CommandArgument='<%# DataBinder.Eval(Container.DataItem,"ID") %>'
-												CausesValidation="false"
-											/>
+												CausesValidation="false" />
 										</ItemTemplate>
 									</asp:TemplateField>
 
@@ -137,8 +141,7 @@
 												CommandArgument='<%# DataBinder.Eval(Container.DataItem,"ID") %>'
 												CausesValidation="false"
 												Text="<%# Resources.SharedFileResources.SharedFilesRestoreLabel %>"
-												SkinID="WarningButtonSmall"
-											/>
+												SkinID="WarningButtonSmall" />
 											<asp:Button runat="server"
 												ID="Button1"
 												CssClass="buttonlink"
@@ -146,8 +149,7 @@
 												CommandArgument='<%# DataBinder.Eval(Container.DataItem,"ID") %>'
 												CausesValidation="false"
 												Text="<%# Resources.SharedFileResources.SharedFilesDeleteButton %>"
-												SkinID="DeleteButtonSmall"
-											/>
+												SkinID="DeleteButtonSmall" />
 										</ItemTemplate>
 									</asp:TemplateField>
 								</Columns>

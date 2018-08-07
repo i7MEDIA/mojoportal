@@ -1,6 +1,5 @@
-// Author:				    
 // Created:       2005-01-05
-// Last Modified: 2018-06-09
+// Last Modified: 2018-07-20
 // 2013-04-01 replaced file upload implementation
 // removed NeatUpload and integrated new jqueryfileupload
 
@@ -41,6 +40,7 @@ namespace mojoPortal.Web.SharedFilesUI
 			{
 				int i = -1;
 				int.TryParse(hdnCurrentFolderId.Value, out i);
+
 				return i;
 			}
 			set
@@ -57,14 +57,8 @@ namespace mojoPortal.Web.SharedFilesUI
 			if (fileSystem == null) { return; }
 
 			PopulateLabels();
-			iconList = SiteUtils.GetFileIconList();
 
-			// was needed for NeatUpload
-			//if (ScriptController != null)
-			//{
-			//    // register the button to do a full postback
-			//    ScriptController.RegisterPostBackControl(btnUpload); 
-			//}
+			iconList = SiteUtils.GetFileIconList();
 
 			if ((!Page.IsPostBack) && (!Page.IsAsync))
 			{
@@ -108,9 +102,9 @@ namespace mojoPortal.Web.SharedFilesUI
 
 			DataView dv = new DataView(SharedFileFolder.GetFoldersAndFiles(ModuleId, CurrentFolderId));
 
-			EnumerableRowCollection<DataRow> query = 
+			EnumerableRowCollection<DataRow> query =
 				from row in dv.Table.AsEnumerable()
-				where checkRoles(row.Field<string>("ViewRoles"))
+				where CheckRoles(row.Field<string>("ViewRoles"))
 				select row;
 
 			DataView view = query.AsDataView();
@@ -123,7 +117,7 @@ namespace mojoPortal.Web.SharedFilesUI
 		}
 
 
-		protected bool checkRoles(string roles)
+		protected bool CheckRoles(string roles)
 		{
 			if (roles.Contains("All Users")) return true;
 
@@ -230,7 +224,7 @@ namespace mojoPortal.Web.SharedFilesUI
 					int fileID = int.Parse(args[0]);
 					SharedFile sharedFile = new SharedFile(this.ModuleId, fileID);
 
-					sharedFile.ContentChanged += new ContentChangedEventHandler(sharedFile_ContentChanged);
+					sharedFile.ContentChanged += new ContentChangedEventHandler(SharedFile_ContentChanged);
 
 					string virtualPath = "~/Data/Sites/" + this.SiteId.ToInvariantString()
 						+ "/SharedFiles/" + sharedFile.ServerFileName;
@@ -272,7 +266,6 @@ namespace mojoPortal.Web.SharedFilesUI
 		}
 
 
-
 		protected void dgFile_RowUpdating(object sender, GridViewUpdateEventArgs e)
 		{
 			if (siteUser == null) return;
@@ -303,7 +296,7 @@ namespace mojoPortal.Web.SharedFilesUI
 				{
 					int fileID = int.Parse(args[0]);
 					SharedFile sharedFile = new SharedFile(this.ModuleId, fileID);
-					sharedFile.ContentChanged += new ContentChangedEventHandler(sharedFile_ContentChanged);
+					sharedFile.ContentChanged += new ContentChangedEventHandler(SharedFile_ContentChanged);
 					sharedFile.FriendlyName = Path.GetFileName(txtEditName.Text);
 					sharedFile.UploadUserId = siteUser.UserId;
 					sharedFile.UploadDate = DateTime.UtcNow; //lastModDate
@@ -320,9 +313,8 @@ namespace mojoPortal.Web.SharedFilesUI
 				lblError.Text = ex.Message;
 			}
 			upFiles.Update();
-
-
 		}
+
 
 		protected void dgFile_RowEditing(object sender, GridViewEditEventArgs e)
 		{
@@ -464,7 +456,7 @@ namespace mojoPortal.Web.SharedFilesUI
 
 				sharedFile.Delete();
 
-				sharedFile.ContentChanged += new ContentChangedEventHandler(sharedFile_ContentChanged);
+				sharedFile.ContentChanged += new ContentChangedEventHandler(SharedFile_ContentChanged);
 			}
 		}
 
@@ -476,12 +468,28 @@ namespace mojoPortal.Web.SharedFilesUI
 				if (txtNewDirectory.Text.Length > 0)
 				{
 					SharedFileFolder folder = new SharedFileFolder();
+
 					folder.ParentId = CurrentFolderId;
 					folder.ModuleId = ModuleId;
 
 					Module m = new Module(ModuleId);
+
 					folder.ModuleGuid = m.ModuleGuid;
 					folder.FolderName = Path.GetFileName(txtNewDirectory.Text);
+
+					if (CurrentFolderId == -1)
+					{
+						folder.ViewRoles = "All Users";
+					}
+					else
+					{
+						SharedFileFolder parentFolder = new SharedFileFolder(ModuleId, CurrentFolderId);
+
+						if (parentFolder != null)
+						{
+							folder.ViewRoles = parentFolder.ViewRoles;
+						}
+					}
 
 					if (folder.Save())
 					{
@@ -537,7 +545,7 @@ namespace mojoPortal.Web.SharedFilesUI
 				sharedFile.UploadUserId = siteUser.UserId;
 				sharedFile.UserGuid = siteUser.UserGuid;
 
-				sharedFile.ContentChanged += new ContentChangedEventHandler(sharedFile_ContentChanged);
+				sharedFile.ContentChanged += new ContentChangedEventHandler(SharedFile_ContentChanged);
 
 				if (sharedFile.Save())
 				{
@@ -554,7 +562,7 @@ namespace mojoPortal.Web.SharedFilesUI
 		}
 
 
-		void sharedFile_ContentChanged(object sender, ContentChangedEventArgs e)
+		void SharedFile_ContentChanged(object sender, ContentChangedEventArgs e)
 		{
 			IndexBuilderProvider indexBuilder = IndexBuilderManager.Providers["SharedFilesIndexBuilderProvider"];
 			if (indexBuilder != null)
@@ -601,10 +609,7 @@ namespace mojoPortal.Web.SharedFilesUI
 			dgFile.Columns[6].Visible = config.ShowUploadedBy && !displaySettings.HideUploadedBy;
 			dgFile.Columns[7].Visible = IsEditable;
 
-			//pnlUploadContainer.Visible = IsEditable;
-			//pnlUpload.Visible = IsEditable;
-			//tblNewFolder.Visible = this.IsEditable;
-			pnlNewFolder.Visible = this.IsEditable;
+			fgpNewFolder.Visible = IsEditable;
 			imgroot = ImageSiteRoot + "/Data/SiteImages/";
 			btnDelete.ImageUrl = imgroot + "delete.png";
 			btnGoUp.ImageUrl = imgroot + "folder-up-icon.png";
@@ -615,8 +620,7 @@ namespace mojoPortal.Web.SharedFilesUI
 			btnNewFolder.Text = SharedFileResources.FileManagerNewFolderButton;
 			btnDelete.ToolTip = SharedFileResources.FileManagerDelete;
 			btnDelete.AlternateText = SharedFileResources.FileManagerDelete;
-			btnDelete.Visible = this.IsEditable;
-			//btnAddFile.Text = SharedFileResources.AddFileButton;
+			btnDelete.Visible = IsEditable;
 
 			// this button is clicked by javascript callback from the jquery file uploader
 			btnRefresh.ImageUrl = "~/Data/SiteImages/1x1.gif";
@@ -753,14 +757,11 @@ namespace mojoPortal.Web.SharedFilesUI
 			{
 				ScriptManager.GetCurrent(Page).RegisterPostBackControl(btnUpload2);
 			}
-
 		}
+
 
 		protected override void OnInit(EventArgs e)
 		{
-#if NET35
-			if (WebConfigSettings.DisablePageViewStateByDefault) {Page.EnableViewState = true; }
-#endif
 			base.OnInit(e);
 
 			if (Page is mojoBasePage)
@@ -768,78 +769,6 @@ namespace mojoPortal.Web.SharedFilesUI
 				mojoBasePage basePage = Page as mojoBasePage;
 				basePage.ScriptConfig.IncludeJQTable = true;
 			}
-
 		}
-
-		//protected void chkChecked_CheckedChanged(object sender, EventArgs e)
-		//{
-		//	if (this.IsEditable)
-		//	{
-		//		btnDelete.Visible = true;
-
-		//	}
-		//	//BindData();
-		//	upFiles.Update();
-		//}
-
-
-		// previous implementation with NeatUpload
-
-		//protected void btnUpload_Click(object sender, EventArgs e)
-		//{
-
-		//    if (!fileSystem.FolderExists(fileVirtualBasePath))
-		//    {
-		//        fileSystem.CreateFolder(fileVirtualBasePath);
-		//    }
-
-		//    SiteUser siteUser = SiteUtils.GetCurrentSiteUser();
-
-		//    if ((multiFile.Files.Length > 0)&&(siteUser != null))
-		//    {
-
-		//        foreach (UploadedFile file in multiFile.Files)
-		//        {
-		//            if (file != null && file.FileName != null && file.FileName.Trim().Length > 0)
-		//            {
-		//                SharedFile sharedFile = new SharedFile();
-
-		//                sharedFile.ModuleId = ModuleId;
-		//                sharedFile.ModuleGuid = ModuleConfiguration.ModuleGuid;
-		//                sharedFile.OriginalFileName = file.FileName;
-		//                sharedFile.FriendlyName = Path.GetFileName(file.FileName);
-		//                sharedFile.SizeInKB = (int)(file.ContentLength / 1024);
-		//                sharedFile.FolderId = CurrentFolderId;
-		//                if (CurrentFolderId > -1)
-		//                {
-		//                    SharedFileFolder folder = new SharedFileFolder(ModuleId, CurrentFolderId);
-		//                    sharedFile.FolderGuid = folder.FolderGuid;
-		//                }
-		//                sharedFile.UploadUserId = siteUser.UserId;
-		//                sharedFile.UserGuid = siteUser.UserGuid;
-
-		//                sharedFile.ContentChanged += new ContentChangedEventHandler(sharedFile_ContentChanged);
-
-		//                if (sharedFile.Save())
-		//                {
-		//                    string destPath = VirtualPathUtility.Combine(fileVirtualBasePath, sharedFile.ServerFileName);
-		//                    using (file)
-		//                    {
-		//                        using (Stream s = file.OpenRead())
-		//                        {
-		//                            fileSystem.SaveFile(destPath, s, IOHelper.GetMimeType(Path.GetExtension(sharedFile.FriendlyName).ToLower()), true);
-		//                        }
-		//                    }
-		//                }
-		//            }
-		//        }
-		//    }
-
-		//    WebUtils.SetupRedirect(this, Request.RawUrl);
-
-		//}
-
-
-
 	}
 }

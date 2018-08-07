@@ -1,17 +1,17 @@
-/// Author:					    
-/// Created:				    2005-01-09
-/// Last Modified:			    2018-07-02
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
+// Created:       2005-01-09
+// Last Modified: 2018-07-23
+// 
+// The use and distribution terms for this software are covered by the 
+// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
+// which can be found in the file CPL.TXT at the root of this distribution.
+// By using this software in any fashion, you are agreeing to be bound by 
+// the terms of this license.
+//
+// You must not remove this notice, or any other, from this software.
 
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Features.Business.SharedFiles.Models;
 using mojoPortal.FileSystem;
 using mojoPortal.SearchIndex;
 using mojoPortal.Web.Editor;
@@ -40,16 +40,10 @@ namespace mojoPortal.Web.SharedFilesUI
 		private string type = string.Empty;
 		private string virtualSourcePath;
 		private string virtualHistoryPath;
-		//private String cacheDependencyKey;
-		private Double timeOffset = 0;
 		protected TimeZoneInfo timeZone = null;
-		//private string newWindowMarkup = "onclick=\"window.open(this.href,'_blank');return false;\"";
 		private SharedFilesConfiguration config = new SharedFilesConfiguration();
 
-		protected Double TimeOffset
-		{
-			get { return timeOffset; }
-		}
+		protected Double TimeOffset { get; private set; } = 0;
 
 
 		#region OnInit
@@ -57,6 +51,7 @@ namespace mojoPortal.Web.SharedFilesUI
 		protected override void OnPreInit(EventArgs e)
 		{
 			AllowSkinOverride = true;
+
 			base.OnPreInit(e);
 		}
 
@@ -64,12 +59,12 @@ namespace mojoPortal.Web.SharedFilesUI
 		{
 			base.OnInit(e);
 
-			this.Load += new EventHandler(this.Page_Load);
-			this.btnUpload.Click += new EventHandler(btnUpload_Click);
-			this.btnUpdateFile.Click += new EventHandler(btnUpdateFile_Click);
-			this.btnDeleteFile.Click += new EventHandler(btnDeleteFile_Click);
-			this.btnUpdateFolder.Click += new EventHandler(btnUpdateFolder_Click);
-			this.btnDeleteFolder.Click += new EventHandler(btnDeleteFolder_Click);
+			Load += new EventHandler(Page_Load);
+			btnUpload.Click += new EventHandler(btnUpload_Click);
+			btnUpdateFile.Click += new EventHandler(btnUpdateFile_Click);
+			btnDeleteFile.Click += new EventHandler(btnDeleteFile_Click);
+			btnUpdateFolder.Click += new EventHandler(btnUpdateFolder_Click);
+			btnDeleteFolder.Click += new EventHandler(btnDeleteFolder_Click);
 
 			grdHistory.RowCommand += new GridViewCommandEventHandler(grdHistory_RowCommand);
 
@@ -77,8 +72,8 @@ namespace mojoPortal.Web.SharedFilesUI
 			ScriptConfig.IncludeJQTable = true;
 		}
 
-
 		#endregion
+
 
 		private void Page_Load(object sender, EventArgs e)
 		{
@@ -87,6 +82,7 @@ namespace mojoPortal.Web.SharedFilesUI
 			if (!Request.IsAuthenticated)
 			{
 				SiteUtils.RedirectToLoginPage(this);
+
 				return;
 			}
 
@@ -97,12 +93,14 @@ namespace mojoPortal.Web.SharedFilesUI
 			if (!UserCanEditModule(moduleId, SharedFile.FeatureGuid))
 			{
 				SiteUtils.RedirectToAccessDeniedPage(this);
+
 				return;
 			}
 
 			if (SiteUtils.IsFishyPost(this))
 			{
 				SiteUtils.RedirectToAccessDeniedPage(this);
+
 				return;
 			}
 
@@ -116,76 +114,75 @@ namespace mojoPortal.Web.SharedFilesUI
 					hdnReturnUrl.Value = Request.UrlReferrer.ToString();
 					lnkCancelFile.NavigateUrl = hdnReturnUrl.Value;
 					lnkCancelFolder.NavigateUrl = hdnReturnUrl.Value;
-
 				}
 
 				PopulateControls();
 			}
-
-
 		}
+
 
 		private void PopulateControls()
 		{
-			if ((this.moduleId > 0) && (this.itemId > 0) && ((this.type == "folder") || (this.type == "file")))
+			if ((moduleId > 0) && (itemId > 0) && ((type == "folder") || (type == "file")))
 			{
-				if (this.type == "folder")
+				if (type == "folder")
 				{
 					PopulateFolderControls();
 				}
 
-				if (this.type == "file")
+				if (type == "file")
 				{
 					PopulateFileControls();
 				}
 			}
 			else
 			{
-				this.pnlNotFound.Visible = true;
-				this.pnlFolder.Visible = false;
-				this.pnlFile.Visible = false;
-
+				pnlNotFound.Visible = true;
+				pnlFolder.Visible = false;
+				pnlFile.Visible = false;
 			}
 		}
+
 
 		private void PopulateFolderControls()
 		{
 			Title = SiteUtils.FormatPageTitle(siteSettings, SharedFileResources.SharedFilesEditFolderLabel);
 			heading.Text = SharedFileResources.SharedFilesEditFolderLabel;
-			SharedFileFolder folder = new SharedFileFolder(this.moduleId, this.itemId);
-			if ((folder.FolderId > 0) && (folder.ModuleId == this.moduleId))
-			{
-				this.pnlNotFound.Visible = false;
-				this.pnlFile.Visible = false;
-				this.pnlFolder.Visible = true;
+			SharedFileFolder folder = new SharedFileFolder(moduleId, itemId);
 
-				this.txtFolderName.Text = folder.FolderName;
+			if ((folder.FolderId > 0) && (folder.ModuleId == moduleId))
+			{
+				pnlNotFound.Visible = false;
+				pnlFile.Visible = false;
+				pnlFolder.Visible = true;
+
+				txtFolderName.Text = folder.FolderName;
 
 				List<SharedFileFolder> allFolders = SharedFileFolder.GetSharedModuleFolderList(folder.ModuleId);
 
-				this.ddFolderList.DataSource = allFolders;
-				this.ddFolderList.DataBind();
+				ddFolderList.DataSource = allFolders;
+				ddFolderList.DataBind();
 
-				this.ddFolderList.Items.Insert(0, new ListItem("Root", "-1"));
-				this.ddFolderList.SelectedValue = folder.ParentId.ToString();
+				ddFolderList.Items.Insert(0, new ListItem("Root", "-1"));
+				ddFolderList.SelectedValue = folder.ParentId.ToString();
 
 
 				PopulateAllowedRolesList(cblRolesThatCanViewFolder, folder.ViewRoles);
 
-
 				// prevent a folder from being its own parent
-				ListItem item = this.ddFolderList.Items.FindByText(folder.FolderName);
-				if (item != null)
-					this.ddFolderList.Items.Remove(item);
+				ListItem item = ddFolderList.Items.FindByText(folder.FolderName);
+
+				if (item != null) ddFolderList.Items.Remove(item);
 
 
 				//// prevent a child folder from being parent
 				//// build list
 				List<int> toRemove = new List<int>();
-				foreach (ListItem fldItem in this.ddFolderList.Items)
+
+				foreach (ListItem fldItem in ddFolderList.Items)
 				{
-					//SharedFileFolder currentFolder = new SharedFileFolder(this.moduleId, Convert.ToInt32(fldItem.Value));
 					SharedFileFolder currentFolder = SharedFilesHelper.GetFolderFromListById(Convert.ToInt32(fldItem.Value), allFolders);
+
 					if (currentFolder != null)
 					{
 						if (SharedFilesHelper.GetAllParentsFolderIds(currentFolder, allFolders).Contains(folder.FolderId))
@@ -194,58 +191,59 @@ namespace mojoPortal.Web.SharedFilesUI
 						}
 					}
 				}
+
 				// remove list
 				foreach (int itemToRemove in toRemove)
 				{
-					this.ddFolderList.Items.Remove(this.ddFolderList.Items.FindByValue(itemToRemove.ToInvariantString()));
+					ddFolderList.Items.Remove(ddFolderList.Items.FindByValue(itemToRemove.ToInvariantString()));
 				}
-
-				//cblRolesThatCanView.Items
-
 			}
 			else
 			{
-				this.pnlNotFound.Visible = true;
-				this.pnlFolder.Visible = false;
-				this.pnlFile.Visible = false;
+				pnlNotFound.Visible = true;
+				pnlFolder.Visible = false;
+				pnlFile.Visible = false;
 			}
 		}
+
 
 		private void PopulateFileControls()
 		{
 			Title = SiteUtils.FormatPageTitle(siteSettings, SharedFileResources.SharedFilesEditLabel);
 			heading.Text = SharedFileResources.SharedFilesEditLabel;
 
-			SharedFile file = new SharedFile(this.moduleId, this.itemId);
-			if ((file.ItemId > 0) && (file.ModuleId == this.moduleId))
+			SharedFile file = new SharedFile(moduleId, itemId);
+
+			if ((file.ItemId > 0) && (file.ModuleId == moduleId))
 			{
-				this.pnlNotFound.Visible = false;
-				this.pnlFolder.Visible = false;
-				this.pnlFile.Visible = true;
+				pnlNotFound.Visible = false;
+				pnlFolder.Visible = false;
+				pnlFile.Visible = true;
 
 				using (IDataReader reader = SharedFileFolder.GetSharedModuleFolders(file.ModuleId))
 				{
-					this.ddFolders.DataSource = reader;
-					this.ddFolders.DataBind();
+					ddFolders.DataSource = reader;
+					ddFolders.DataBind();
 				}
-				this.ddFolders.Items.Insert(0, new ListItem("Root", "-1"));
-				this.ddFolders.SelectedValue = file.FolderId.ToInvariantString();
+
+				ddFolders.Items.Insert(0, new ListItem("Root", "-1"));
+				ddFolders.SelectedValue = file.FolderId.ToInvariantString();
 
 				hdnCurrentFolderId.Value = file.FolderId.ToInvariantString();
 
 				if (timeZone != null)
 				{
-					this.lblUploadDate.Text = file.UploadDate.ToLocalTime(timeZone).ToString();
+					lblUploadDate.Text = file.UploadDate.ToLocalTime(timeZone).ToString();
 				}
 				else
 				{
-					this.lblUploadDate.Text = file.UploadDate.AddHours(timeOffset).ToString();
+					lblUploadDate.Text = file.UploadDate.AddHours(TimeOffset).ToString();
 				}
 
 				SiteUser uploadUser = new SiteUser(siteSettings, file.UploadUserId);
-				this.lblUploadBy.Text = uploadUser.Name;
-				this.lblFileSize.Text = file.SizeInKB.ToString();
-				this.txtFriendlyName.Text = file.FriendlyName;
+				lblUploadBy.Text = uploadUser.Name;
+				lblFileSize.Text = file.SizeInKB.ToString();
+				txtFriendlyName.Text = file.FriendlyName;
 				edDescription.Text = file.Description;
 
 				if (config.EnableVersioning)
@@ -273,11 +271,6 @@ namespace mojoPortal.Web.SharedFilesUI
 			if (chkAllowedRoles == null)
 			{
 				chkAllowedRoles = new CheckBoxList();
-
-				//if (Controls.Count == 0)
-				//{
-				//	Controls.Add(chkAllowedRoles);
-				//}
 			}
 
 			// Start with no checkboxes
@@ -329,15 +322,12 @@ namespace mojoPortal.Web.SharedFilesUI
 			}
 
 			return d.AddHours(TimeOffset).ToString();
-
 		}
 
 
 		private void PopulateLabels()
 		{
 			Title = SiteUtils.FormatPageTitle(siteSettings, SharedFileResources.EditPageTitle);
-
-			//progressBar.AddTrigger(this.btnUpload);
 
 			btnUpload.Text = SharedFileResources.FileManagerUploadButton;
 			btnUpdateFile.Text = SharedFileResources.SharedFilesUpdateButton;
@@ -367,28 +357,30 @@ namespace mojoPortal.Web.SharedFilesUI
 			uploader.UploadingText = SharedFileResources.Uploading;
 		}
 
+
 		private void btnUpload_Click(object sender, EventArgs e)
 		{
 			if (uploader.HasFile)
 			{
 				SiteUser siteUser = SiteUtils.GetCurrentSiteUser();
+
 				if (siteUser == null) return;
 
-				SharedFile sharedFile = new SharedFile(this.moduleId, this.itemId);
+				SharedFile sharedFile = new SharedFile(moduleId, itemId);
 				sharedFile.ContentChanged += new ContentChangedEventHandler(sharedFile_ContentChanged);
 
 				if (config.EnableVersioning)
 				{
 					bool historyCreated = SharedFilesHelper.CreateHistory(sharedFile, fileSystem, virtualSourcePath, virtualHistoryPath);
+
 					if (historyCreated)
 					{
-						sharedFile.ServerFileName = System.Guid.NewGuid().ToString() + ".config";
+						sharedFile.ServerFileName = $"{Guid.NewGuid().ToString()}.config";
 					}
-
 				}
 
+				sharedFile.ModuleId = moduleId;
 
-				sharedFile.ModuleId = this.moduleId;
 				if (sharedFile.ModuleGuid == Guid.Empty)
 				{
 					Module m = GetModule(moduleId, SharedFile.FeatureGuid);
@@ -410,13 +402,9 @@ namespace mojoPortal.Web.SharedFilesUI
 
 					using (Stream s = uploader.FileContent)
 					{
-						//fileSystem.SaveFile(destPath, file1.FileContent, file1.ContentType, true);
 						fileSystem.SaveFile(destPath, s, IOHelper.GetMimeType(Path.GetExtension(sharedFile.FriendlyName).ToLower()), true);
 					}
-
 				}
-
-
 
 				CurrentPage.UpdateLastModifiedTime();
 				CacheHelper.ClearModuleCache(moduleId);
@@ -424,110 +412,46 @@ namespace mojoPortal.Web.SharedFilesUI
 			}
 
 			WebUtils.SetupRedirect(this, Request.RawUrl);
-
-
-
-
 		}
 
-
-		//previous implementation with NeatUpload
-
-		//private void btnUpload_Click(object sender, EventArgs e)
-		//{
-		//    SiteUser siteUser = SiteUtils.GetCurrentSiteUser();
-		//    if (siteUser == null) return;
-
-		//    SharedFile sharedFile = new SharedFile(this.moduleId, this.itemId);
-		//    sharedFile.ContentChanged += new ContentChangedEventHandler(sharedFile_ContentChanged);
-		//    if((sharedFile.ItemId > 0)&&(sharedFile.ModuleId == this.moduleId))
-		//    {
-
-		//            if (file1.HasFile && file1.FileName != null && file1.FileName.Trim().Length > 0)
-		//            {
-		//                if (config.EnableVersioning)
-		//                {
-		//                    bool historyCreated = SharedFilesHelper.CreateHistory(sharedFile, fileSystem, virtualSourcePath, virtualHistoryPath);
-		//                    if (historyCreated)
-		//                    {
-		//                        sharedFile.ServerFileName = System.Guid.NewGuid().ToString() + ".config";
-		//                    }
-
-		//                }
-
-
-		//                sharedFile.ModuleId = this.moduleId;
-		//                if (sharedFile.ModuleGuid == Guid.Empty)
-		//                {
-		//                    Module m = GetModule(moduleId, SharedFile.FeatureGuid);
-		//                    sharedFile.ModuleGuid = m.ModuleGuid;
-
-		//                }
-
-		//                sharedFile.OriginalFileName = file1.FileName;
-		//                sharedFile.FriendlyName = Path.GetFileName(file1.FileName);
-		//                sharedFile.SizeInKB = (int)(file1.ContentLength/1024);
-		//                sharedFile.UploadUserId = siteUser.UserId;
-		//                sharedFile.UploadDate = DateTime.UtcNow;
-
-		//                if(sharedFile.Save())
-		//                {
-		//                    string destPath = virtualSourcePath + sharedFile.ServerFileName;
-		//                    using (file1)
-		//                    {
-		//                        using (file1.FileContent)
-		//                        {
-		//                            fileSystem.SaveFile(destPath, file1.FileContent, file1.ContentType, true);
-		//                        }
-		//                    }
-		//                }
-
-		//            }
-
-		//            CurrentPage.UpdateLastModifiedTime();
-		//            CacheHelper.ClearModuleCache(moduleId);
-		//            SiteUtils.QueueIndexing();
-		//            WebUtils.SetupRedirect(this, Request.RawUrl);
-
-
-
-		//    }
-		//}
 
 		void sharedFile_ContentChanged(object sender, ContentChangedEventArgs e)
 		{
 			IndexBuilderProvider indexBuilder = IndexBuilderManager.Providers["SharedFilesIndexBuilderProvider"];
+
 			if (indexBuilder != null)
 			{
 				indexBuilder.ContentChangedHandler(sender, e);
-
 				SiteUtils.QueueIndexing();
 			}
 		}
 
+
 		private void btnUpdateFile_Click(object sender, EventArgs e)
 		{
 			SiteUser siteUser = SiteUtils.GetCurrentSiteUser();
+
 			if (siteUser == null) return;
 
-			SharedFile file = new SharedFile(this.moduleId, this.itemId);
+			SharedFile file = new SharedFile(moduleId, itemId);
 			file.ContentChanged += new ContentChangedEventHandler(sharedFile_ContentChanged);
 
-			if ((file.ItemId > 0) && (file.ModuleId == this.moduleId))
+			if ((file.ItemId > 0) && (file.ModuleId == moduleId))
 			{
-				file.FriendlyName = this.txtFriendlyName.Text;
+				file.FriendlyName = txtFriendlyName.Text;
 				file.Description = edDescription.Text;
-				file.FolderId = int.Parse(this.ddFolders.SelectedValue);
+				file.FolderId = int.Parse(ddFolders.SelectedValue);
+
 				if (file.FolderId > -1)
 				{
-					SharedFileFolder folder = new SharedFileFolder(this.moduleId, file.FolderId);
+					SharedFileFolder folder = new SharedFileFolder(moduleId, file.FolderId);
 					file.FolderGuid = folder.FolderGuid;
 				}
+
 				if (file.ModuleGuid == Guid.Empty)
 				{
 					Module m = new Module(moduleId);
 					file.ModuleGuid = m.ModuleGuid;
-
 				}
 
 				file.UploadUserId = siteUser.UserId;
@@ -541,29 +465,32 @@ namespace mojoPortal.Web.SharedFilesUI
 				string viewRoles = String.Join(";", selectedRoles.Select(x => x.Value.ToString()).ToArray());
 
 				file.ViewRoles = viewRoles;
-
 				file.Save();
-
 			}
+
 			CurrentPage.UpdateLastModifiedTime();
 			CacheHelper.ClearModuleCache(moduleId);
 			SiteUtils.QueueIndexing();
+
 			if (hdnReturnUrl.Value.Length > 0)
 			{
 				WebUtils.SetupRedirect(this, hdnReturnUrl.Value);
+
 				return;
 			}
 
 			WebUtils.SetupRedirect(this, SiteUtils.GetCurrentPageUrl());
-
 		}
+
 
 		private void btnDeleteFile_Click(object sender, EventArgs e)
 		{
 			SharedFile sharedFile = new SharedFile(moduleId, itemId);
+
 			if (sharedFile.ModuleId != moduleId)
 			{
 				SiteUtils.RedirectToAccessDeniedPage(this);
+
 				return;
 			}
 
@@ -578,14 +505,15 @@ namespace mojoPortal.Web.SharedFilesUI
 			CurrentPage.UpdateLastModifiedTime();
 			CacheHelper.ClearModuleCache(moduleId);
 			SiteUtils.QueueIndexing();
+
 			if (hdnReturnUrl.Value.Length > 0)
 			{
 				WebUtils.SetupRedirect(this, hdnReturnUrl.Value);
+
 				return;
 			}
 
 			WebUtils.SetupRedirect(this, SiteUtils.GetCurrentPageUrl());
-
 		}
 
 
@@ -595,13 +523,103 @@ namespace mojoPortal.Web.SharedFilesUI
 
 			if ((folder.FolderId > 0) && (folder.ModuleId == moduleId))
 			{
-				List<ListItem> selectedRoles = cblRolesThatCanViewFolder.Items.Cast<ListItem>()
-					.Where(li => li.Selected)
-					.ToList();
+				List<ListItem> selectedRoles =
+					cblRolesThatCanViewFolder.Items.Cast<ListItem>()
+						.Where(li => li.Selected)
+						.ToList();
 
 				string viewRoles = String.Join(";", selectedRoles.Select(x => x.Value.ToString()).ToArray());
 
 				folder.ViewRoles = viewRoles;
+
+				if (cbPushRolesToChildren.Checked)
+				{
+					// Current Folder's (can be root) Folders and Files
+					FoldersAndFiles foldersAndFiles = SharedFileFolder.GetFoldersAndFilesModel(moduleId, folder.FolderId);
+
+					// Recursively loop through folders and get child items
+					void getChildItems(List<Folder> folders)
+					{
+						foreach (var childFolder in folders)
+						{
+							FoldersAndFiles childFoldersAndFiles = SharedFileFolder.GetFoldersAndFilesModel(moduleId, childFolder.ID);
+
+							if (childFoldersAndFiles.Folders != null && childFoldersAndFiles.Folders.Count() > 0)
+							{
+								// Add folders to folders list
+								childFoldersAndFiles.Folders.ForEach(f =>
+								{
+									foldersAndFiles.Folders.Add(f);
+								});
+
+								// Recursively call this function again
+								getChildItems(childFoldersAndFiles.Folders);
+							}
+
+							if (childFoldersAndFiles.Files != null && childFoldersAndFiles.Files.Count() > 0)
+							{
+								// Add files to files list
+								childFoldersAndFiles.Files.ForEach(f =>
+								{
+									foldersAndFiles.Files.Add(f);
+								});
+							}
+						}
+					}
+
+					getChildItems(foldersAndFiles.Folders);
+
+					// Loop through all Folders and set their ViewRoles to the parent folder's
+					foldersAndFiles.Folders.ForEach(f =>
+					{
+						var setFolder = new SharedFileFolder
+						{
+							FolderId = f.ID,
+							ModuleId = f.ModuleID,
+							FolderName = f.Name,
+							ParentId = f.ParentID,
+							ModuleGuid = f.ModuleGuid,
+							ParentGuid = f.ParentGuid,
+							ViewRoles = folder.ViewRoles
+						};
+
+						setFolder.Save();
+					});
+
+					// Loop through all Files and set their ViewRoles to the parent folder's
+					foldersAndFiles.Files.ForEach(f =>
+					{
+						var setFile = new SharedFile
+						{
+							ItemId = f.ID,
+							ModuleId = f.ModuleID,
+							UploadUserId = f.UploadUserID,
+							FriendlyName = f.Name,
+							OriginalFileName = f.OriginalFileName,
+							ServerFileName = f.ServerFileName,
+							SizeInKB = f.SizeInKB,
+							UploadDate = f.UploadDate,
+							FolderId = f.FolderID,
+							ModuleGuid = f.ModuleGuid,
+							UserGuid = f.UserGuid,
+							FolderGuid = f.FolderGuid,
+							Description = f.Description,
+							ViewRoles = folder.ViewRoles
+						};
+
+						setFile.Save();
+					});
+
+					// 1. Get all files for current folder
+					// 2. get all folders for current folder (sql should only get folders which contain files or folders)
+					// 3. set viewroles on each file/folder in current folder
+					// 4. step through all folders in current folder and repeat steps 1-3
+
+					// SQL Method?
+					// 1. update all files with parentid = current folder id and moduleid = moduleid
+					// 2. update all folders with parent id = current folder id and moduleid = moduleid
+					// 3. update all files/folders within each folder
+				}
 
 				folder.FolderName = txtFolderName.Text;
 				folder.ParentId = int.Parse(ddFolderList.SelectedValue);
@@ -613,6 +631,7 @@ namespace mojoPortal.Web.SharedFilesUI
 			if (hdnReturnUrl.Value.Length > 0)
 			{
 				WebUtils.SetupRedirect(this, hdnReturnUrl.Value);
+
 				return;
 			}
 
@@ -623,21 +642,24 @@ namespace mojoPortal.Web.SharedFilesUI
 		private void btnDeleteFolder_Click(object sender, EventArgs e)
 		{
 			SharedFileFolder folder = new SharedFileFolder(this.moduleId, this.itemId);
+
 			if ((folder.FolderId > 0) && (folder.ModuleId == this.moduleId))
 			{
 				SharedFilesHelper.DeleteAllFiles(folder, fileSystem, virtualSourcePath, config);
 				SharedFileFolder.DeleteSharedFileFolder(this.itemId);
-
 				CacheHelper.ClearModuleCache(moduleId);
+
 				if (hdnReturnUrl.Value.Length > 0)
 				{
 					WebUtils.SetupRedirect(this, hdnReturnUrl.Value);
+
 					return;
 				}
 			}
 
 			WebUtils.SetupRedirect(this, SiteUtils.GetCurrentPageUrl());
 		}
+
 
 		void grdHistory_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
@@ -646,58 +668,52 @@ namespace mojoPortal.Web.SharedFilesUI
 			switch (e.CommandName)
 			{
 				case "restore":
-					//SharedFile.RestoreHistoryFile(archiveID, this.upLoadPath, this.historyPath);
 					SharedFilesHelper.RestoreHistoryFile(archiveID, fileSystem, virtualSourcePath, virtualHistoryPath);
 					WebUtils.SetupRedirect(this, Request.RawUrl);
+
 					break;
 
 				case "deletehx":
 					SharedFilesHelper.DeleteHistoryFile(archiveID, fileSystem, virtualHistoryPath);
 					SharedFile.DeleteHistory(archiveID);
-
 					WebUtils.SetupRedirect(this, Request.RawUrl);
+
 					break;
 
 				case "download":
-
 					SharedFileHistory historyFile = SharedFile.GetHistoryFile(archiveID);
+
 					if (historyFile != null)
 					{
 						string fileType = Path.GetExtension(historyFile.FriendlyName).Replace(".", string.Empty);
+
 						if (string.Equals(fileType, "pdf", StringComparison.InvariantCultureIgnoreCase))
 						{
 							//this will display the pdf right in the browser
-							Page.Response.AddHeader("Content-Disposition", "filename=" + historyFile.FriendlyName);
+							Page.Response.AddHeader("Content-Disposition", $"filename={historyFile.FriendlyName}");
 						}
 						else
 						{
 							// other files just use file save dialog
-							Page.Response.AddHeader("Content-Disposition", "attachment; filename=" + historyFile.FriendlyName);
+							Page.Response.AddHeader("Content-Disposition", $"attachment; filename={historyFile.FriendlyName}");
 						}
 
-						//Page.Response.AddHeader("Content-Length", documentFile.DocumentImage.LongLength.ToString());
-
-						Page.Response.ContentType = "application/" + fileType;
+						Page.Response.ContentType = $"application/{fileType}";
 						Page.Response.Buffer = false;
 						Page.Response.BufferOutput = false;
-						//Response.TransmitFile(historyPath + historyFile.ServerFileName);
-						//Response.End();
 
-						using (System.IO.Stream stream = fileSystem.GetAsStream(virtualHistoryPath + historyFile.ServerFileName))
+						using (Stream stream = fileSystem.GetAsStream(virtualHistoryPath + historyFile.ServerFileName))
 						{
 							stream.CopyTo(Page.Response.OutputStream);
-
 						}
 						try
 						{
 							Page.Response.End();
 						}
 						catch (System.Threading.ThreadAbortException) { }
-
 					}
 
 					break;
-
 			}
 
 		}
@@ -713,25 +729,19 @@ namespace mojoPortal.Web.SharedFilesUI
 				strItem = HttpContext.Current.Request.Params["ItemID"];
 			}
 
-			timeOffset = SiteUtils.GetUserTimeOffset();
+			TimeOffset = SiteUtils.GetUserTimeOffset();
 		}
+
 
 		private void LoadSettings()
 		{
 			timeZone = SiteUtils.GetUserTimeZone();
-			virtualSourcePath = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/SharedFiles/";
-			virtualHistoryPath = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/SharedFiles/History/";
+			virtualSourcePath = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/SharedFiles/";
+			virtualHistoryPath = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/SharedFiles/History/";
 
 			lnkCancelFile.NavigateUrl = SiteUtils.GetCurrentPageUrl();
 			lnkCancelFolder.NavigateUrl = lnkCancelFile.NavigateUrl;
 
-			//if (BrowserHelper.IsIE())
-			//{
-			//    //this is a needed hack because IE 8 doesn't work correctly with window.open
-			//    // a "security feature" of IE 8
-			//    // unfortunately this is not valid xhtml to use target but it works in IE
-			//    newWindowMarkup = " target='_blank' ";
-			//}
 
 			//this page handles both folders and files
 			//expected strItem examples are 23~folder and 13~file
@@ -742,7 +752,7 @@ namespace mojoPortal.Web.SharedFilesUI
 				{
 					char[] separator = { '~' };
 					string[] args = strItem.Split(separator);
-					this.itemId = int.Parse(args[0]);
+					itemId = int.Parse(args[0]);
 					type = args[1];
 				}
 				catch { };
@@ -764,13 +774,15 @@ namespace mojoPortal.Web.SharedFilesUI
 			string refreshFunction = "function refresh" + moduleId.ToInvariantString()
 					+ " () { window.location.reload(true); } ";
 
-			uploader.UploadCompleteCallback = "refresh" + moduleId.ToInvariantString();
+			uploader.UploadCompleteCallback = $"refresh{moduleId.ToInvariantString()}";
 
 			ScriptManager.RegisterClientScriptBlock(
 				this,
-				this.GetType(), "refresh" + moduleId.ToInvariantString(),
+				GetType(),
+				$"refresh{moduleId.ToInvariantString()}",
 				refreshFunction,
-				true);
+				true
+			);
 
 			AddClassToBody("sharedfilesedit");
 
@@ -778,10 +790,6 @@ namespace mojoPortal.Web.SharedFilesUI
 			if (p == null) { return; }
 
 			fileSystem = p.GetFileSystem();
-
 		}
-
-
-
 	}
 }
