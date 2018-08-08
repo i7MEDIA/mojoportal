@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Data.Sqlite">
-      <HintPath>..\..\..\public\mojoportal\_libs\Mono.Data.Sqlite.dll</HintPath>
+      <HintPath>..\_libs\Mono.Data.Sqlite.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
