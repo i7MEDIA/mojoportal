@@ -141,7 +141,7 @@ namespace SurveyFeature.Data
 					SurveyName = ?SurveyName,
 					CreationDate = ?CreationDate,
 					StartPageText = ?StartPageText,
-					EndPageText = ?EndPageText
+					EndPageText = ?EndPageText,
 					SubmissionLimit = ?SubmissionLimit
 				WHERE
 					SurveyGuid = ?SurveyGuid;";
@@ -391,18 +391,14 @@ namespace SurveyFeature.Data
 			sqlCommand.Append("s.CreationDate, ");
 			sqlCommand.Append("s.StartPageText, ");
 			sqlCommand.Append("s.EndPageText, ");
+			sqlCommand.Append("s.SubmissionLimit, ");
 			sqlCommand.Append("(SELECT COUNT(*) FROM mp_SurveyPages sp WHERE sp.SurveyGuid = s.SurveyGuid) AS PageCount, ");
 			sqlCommand.Append("(SELECT COUNT(*) FROM mp_SurveyResponses sr WHERE sr.SurveyGuid = s.SurveyGuid) AS ResponseCount ");
-			sqlCommand.Append(" ");
-			sqlCommand.Append(" ");
-			sqlCommand.Append(" ");
-
 			sqlCommand.Append("FROM	mp_Surveys s ");
 			sqlCommand.Append("WHERE ");
 			sqlCommand.Append("s.SiteGuid = ?SiteGuid ");
 			sqlCommand.Append("ORDER BY ");
 			sqlCommand.Append("s.SurveyName ");
-			//sqlCommand.Append(" ");
 			sqlCommand.Append(";");
 
 			MySqlParameter[] arParams = new MySqlParameter[1];

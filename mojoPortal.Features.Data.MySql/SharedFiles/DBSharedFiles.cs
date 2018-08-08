@@ -33,20 +33,21 @@ namespace mojoPortal.Data
 			StringBuilder sqlCommand = new StringBuilder();
 
 			sqlCommand.Append("INSERT INTO mp_SharedFileFolders (");
-			sqlCommand.Append("ModuleID, ");
-			sqlCommand.Append("FolderName, ");
-			sqlCommand.Append("ParentID, ");
-			sqlCommand.Append("ModuleGuid, ");
-			sqlCommand.Append("FolderGuid, ");
-			sqlCommand.Append("ParentGuid )");
+			sqlCommand.Append("ModuleID,");
+			sqlCommand.Append("FolderName,");
+			sqlCommand.Append("ParentID,");
+			sqlCommand.Append("ModuleGuid,");
+			sqlCommand.Append("FolderGuid,");
+			sqlCommand.Append("ParentGuid,");
+			sqlCommand.Append("ViewRoles)");
 
 			sqlCommand.Append(" VALUES (");
-			sqlCommand.Append("?ModuleID, ");
-			sqlCommand.Append("?FolderName, ");
-			sqlCommand.Append("?ParentID, ");
-			sqlCommand.Append("?ModuleGuid, ");
-			sqlCommand.Append("?FolderGuid, ");
-			sqlCommand.Append("?ParentGuid, )");
+			sqlCommand.Append("?ModuleID,");
+			sqlCommand.Append("?FolderName,");
+			sqlCommand.Append("?ParentID,");
+			sqlCommand.Append("?ModuleGuid,");
+			sqlCommand.Append("?FolderGuid,");
+			sqlCommand.Append("?ParentGuid,");
 			sqlCommand.Append("?ViewRoles)");
 			sqlCommand.Append(";");
 
@@ -473,7 +474,7 @@ namespace mojoPortal.Data
 			sqlCommand.Append("FolderID = ?FolderID, ");
 			sqlCommand.Append("UserGuid = ?UserGuid, ");
 			sqlCommand.Append("Description = ?Description, ");
-			sqlCommand.Append("FolderGuid = ?FolderGuid ");
+			sqlCommand.Append("FolderGuid = ?FolderGuid, ");
 			sqlCommand.Append("ViewRoles = ?ViewRoles ");
 
 			sqlCommand.Append("WHERE  ");
@@ -691,7 +692,7 @@ namespace mojoPortal.Data
 			sqlCommand.Append("UserGuid, ");
 			sqlCommand.Append("Description, ");
 			sqlCommand.Append("DownloadCount, ");
-			sqlCommand.Append("ModuleGuid ");
+			sqlCommand.Append("ModuleGuid, ");
 			sqlCommand.Append("ViewRoles ");
 
 			sqlCommand.Append("FROM	mp_SharedFiles ");
@@ -788,7 +789,7 @@ namespace mojoPortal.Data
 			sqlCommand.Append("sf.UserGuid, ");
 			sqlCommand.Append("sf.ModuleGuid, ");
 			sqlCommand.Append("sf.Description, ");
-			sqlCommand.Append("sf.DownloadCount ");
+			sqlCommand.Append("sf.DownloadCount, ");
 			sqlCommand.Append("sf.ViewRoles ");
 
 			sqlCommand.Append("FROM	mp_SharedFiles sf ");
