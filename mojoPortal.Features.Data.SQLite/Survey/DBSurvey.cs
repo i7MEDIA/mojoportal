@@ -50,57 +50,81 @@ namespace SurveyFeature.Data
 			string surveyName,
 			DateTime creationDate,
 			string startPageText,
-			string endPageText)
+			string endPageText,
+			int submissionLimit
+		)
 		{
-			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("INSERT INTO mp_Surveys (");
-			sqlCommand.Append("SurveyGuid, ");
-			sqlCommand.Append("SiteGuid, ");
-			sqlCommand.Append("SurveyName, ");
-			sqlCommand.Append("CreationDate, ");
-			sqlCommand.Append("StartPageText, ");
-			sqlCommand.Append("EndPageText )");
+			string sqlCommand = @"
+				INSERT INTO
+					mp_Surveys (
+						SurveyGuid,
+						SiteGuid,
+						SurveyName,
+						CreationDate,
+						StartPageText,
+						EndPageText,
+						SubmissionLimit
+					)
+					VALUES (
+						:SurveyGuid,
+						:SiteGuid,
+						:SurveyName,
+						:CreationDate,
+						:StartPageText,
+						:EndPageText,
+						:SubmissionLimit
+					);";
 
-			sqlCommand.Append(" VALUES (");
-			sqlCommand.Append(":SurveyGuid, ");
-			sqlCommand.Append(":SiteGuid, ");
-			sqlCommand.Append(":SurveyName, ");
-			sqlCommand.Append(":CreationDate, ");
-			sqlCommand.Append(":StartPageText, ");
-			sqlCommand.Append(":EndPageText )");
-			sqlCommand.Append(";");
-
-			SqliteParameter[] arParams = new SqliteParameter[6];
-
-			arParams[0] = new SqliteParameter(":SurveyGuid", DbType.String, 36);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = surveyGuid.ToString();
-
-			arParams[1] = new SqliteParameter(":SiteGuid", DbType.String, 36);
-			arParams[1].Direction = ParameterDirection.Input;
-			arParams[1].Value = siteGuid.ToString();
-
-			arParams[2] = new SqliteParameter(":SurveyName", DbType.String, 255);
-			arParams[2].Direction = ParameterDirection.Input;
-			arParams[2].Value = surveyName;
-
-			arParams[3] = new SqliteParameter(":CreationDate", DbType.DateTime);
-			arParams[3].Direction = ParameterDirection.Input;
-			arParams[3].Value = creationDate;
-
-			arParams[4] = new SqliteParameter(":StartPageText", DbType.Object);
-			arParams[4].Direction = ParameterDirection.Input;
-			arParams[4].Value = startPageText;
-
-			arParams[5] = new SqliteParameter(":EndPageText", DbType.Object);
-			arParams[5].Direction = ParameterDirection.Input;
-			arParams[5].Value = endPageText;
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":SurveyGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = surveyGuid.ToString()
+				},
+				new SqliteParameter(":SiteGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteGuid.ToString()
+				},
+				new SqliteParameter(":SurveyName", DbType.String, 255)
+				{
+					Direction = ParameterDirection.Input,
+					Value = surveyName
+				},
+				new SqliteParameter(":CreationDate", DbType.DateTime)
+				{
+					Direction = ParameterDirection.Input,
+					Value = creationDate
+				},
+				new SqliteParameter(":StartPageText", DbType.Object)
+				{
+					Direction = ParameterDirection.Input,
+					Value = startPageText
+				},
+				new SqliteParameter(":EndPageText", DbType.Object)
+				{
+					Direction = ParameterDirection.Input,
+					Value = endPageText
+				},
+				new SqliteParameter(":SubmissionLimit", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = submissionLimit
+				}
+			};
 
 			int rowsAffected = 0;
-			rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-			return rowsAffected;
 
+			rowsAffected = SqliteHelper.ExecuteNonQuery(
+				GetConnectionString(),
+				sqlCommand,
+				arParams.ToArray()
+			);
+
+			return rowsAffected;
 		}
+
 
 		/// <summary>
 		/// Updates a row in the mp_Surveys table. Returns true if row updated.
@@ -118,52 +142,71 @@ namespace SurveyFeature.Data
 			string surveyName,
 			DateTime creationDate,
 			string startPageText,
-			string endPageText)
+			string endPageText,
+			int submissionLimit
+		)
 		{
-			StringBuilder sqlCommand = new StringBuilder();
+			string sqlCommand = @"
+				UPDATE
+					mp_Surveys
+				SET
+					SiteGuid = :SiteGuid,
+					SurveyName = :SurveyName,
+					CreationDate = :CreationDate,
+					StartPageText = :StartPageText,
+					EndPageText = :EndPageText,
+					SubmissionLimit = :SubmissionLimit
+				WHERE 
+					SurveyGuid = :SurveyGuid;";
 
-			sqlCommand.Append("UPDATE mp_Surveys ");
-			sqlCommand.Append("SET  ");
-			sqlCommand.Append("SiteGuid = :SiteGuid, ");
-			sqlCommand.Append("SurveyName = :SurveyName, ");
-			sqlCommand.Append("CreationDate = :CreationDate, ");
-			sqlCommand.Append("StartPageText = :StartPageText, ");
-			sqlCommand.Append("EndPageText = :EndPageText ");
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":SurveyGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = surveyGuid.ToString()
+				},
+				new SqliteParameter(":SiteGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteGuid.ToString()
+				},
+				new SqliteParameter(":SurveyName", DbType.String, 255)
+				{
+					Direction = ParameterDirection.Input,
+					Value = surveyName
+				},
+				new SqliteParameter(":CreationDate", DbType.DateTime)
+				{
+					Direction = ParameterDirection.Input,
+					Value = creationDate
+				},
+				new SqliteParameter(":StartPageText", DbType.Object)
+				{
+					Direction = ParameterDirection.Input,
+					Value = startPageText
+				},
+				new SqliteParameter(":EndPageText", DbType.Object)
+				{
+					Direction = ParameterDirection.Input,
+					Value = endPageText
+				},
+				new SqliteParameter(":SubmissionLimit", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = submissionLimit
+				}
+			};
 
-			sqlCommand.Append("WHERE  ");
-			sqlCommand.Append("SurveyGuid = :SurveyGuid ");
-			sqlCommand.Append(";");
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				GetConnectionString(),
+				sqlCommand,
+				arParams.ToArray()
+			);
 
-			SqliteParameter[] arParams = new SqliteParameter[6];
-
-			arParams[0] = new SqliteParameter(":SurveyGuid", DbType.String, 36);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = surveyGuid.ToString();
-
-			arParams[1] = new SqliteParameter(":SiteGuid", DbType.String, 36);
-			arParams[1].Direction = ParameterDirection.Input;
-			arParams[1].Value = siteGuid.ToString();
-
-			arParams[2] = new SqliteParameter(":SurveyName", DbType.String, 255);
-			arParams[2].Direction = ParameterDirection.Input;
-			arParams[2].Value = surveyName;
-
-			arParams[3] = new SqliteParameter(":CreationDate", DbType.DateTime);
-			arParams[3].Direction = ParameterDirection.Input;
-			arParams[3].Value = creationDate;
-
-			arParams[4] = new SqliteParameter(":StartPageText", DbType.Object);
-			arParams[4].Direction = ParameterDirection.Input;
-			arParams[4].Value = startPageText;
-
-			arParams[5] = new SqliteParameter(":EndPageText", DbType.Object);
-			arParams[5].Direction = ParameterDirection.Input;
-			arParams[5].Value = endPageText;
-
-			int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
 			return (rowsAffected > -1);
-
 		}
+
 
 		/// <summary>
 		/// Deletes a row from the mp_Surveys table. Returns true if row deleted.
@@ -359,6 +402,7 @@ namespace SurveyFeature.Data
 			sqlCommand.Append("s.CreationDate, ");
 			sqlCommand.Append("s.StartPageText, ");
 			sqlCommand.Append("s.EndPageText, ");
+			sqlCommand.Append("s.SubmissionLimit, ");
 			sqlCommand.Append("(SELECT COUNT(*) FROM mp_SurveyPages sp WHERE sp.SurveyGuid = s.SurveyGuid) AS PageCount, ");
 			sqlCommand.Append("(SELECT COUNT(*) FROM mp_SurveyResponses sr WHERE sr.SurveyGuid = s.SurveyGuid) AS ResponseCount ");
 			sqlCommand.Append(" ");
