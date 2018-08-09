@@ -410,6 +410,7 @@ xcopy /s /y "$(ProjectDir)SuperFlexi\js\*" "$(SolutionDir)Web\SuperFlexi\js\"
 xcopy /s /y "$(ProjectDir)SuperFlexi\html\*" "$(SolutionDir)Web\SuperFlexi\html\"
 xcopy /s /y "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\App_GlobalResources\"
 xcopy /s /y "$(ProjectDir)Setup\*" "$(SolutionDir)Web\Setup\"
+xcopy /s /y "$(ProjectDir)Data\HelpFiles\*.config" "$(SolutionDir)Web\Data\HelpFiles\"
 xcopy /s /y "$(ProjectDir)Views\*" "$(SolutionDir)Web\Views\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
