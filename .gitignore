@@ -252,6 +252,7 @@ Web/Data/Helpfiles/*-SharedFiles*
 Web/Data/Helpfiles/*FormWizard*
 Web/Data/Helpfiles/*-SiteMembership*
 Web/Data/Helpfiles/*-WebInvoice*
+Web/Data/Helpfiles/*-sflexi*
 
 Web/Data/MessageTemplates/*-WebInvoice*
 Web/Data/MessageTemplates/*-EventCalendarPro*
