@@ -2637,11 +2637,6 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("ShowServerPathInFileManager", true); }
 		}
 
-		public static bool GreyBoxCssIsLoadedFromSkin
-		{
-			get { return ConfigHelper.GetBoolProperty("GreyBoxCssIsLoadedFromSkin", false); }
-		}
-
 		public static bool UseGreyBoxProgressForNeatUpload
 		{
 			get { return ConfigHelper.GetBoolProperty("UseGreyBoxProgressForNeatUpload", false); }
