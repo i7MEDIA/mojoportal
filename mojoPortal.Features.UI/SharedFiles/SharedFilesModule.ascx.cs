@@ -652,14 +652,17 @@ namespace mojoPortal.Web.SharedFilesUI
 			lblError.Text = String.Empty;
 
 			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
-			if (p == null) { return; }
+
+			if (p == null) return;
 
 			fileSystem = p.GetFileSystem();
-			if (fileSystem == null) { return; }
+
+			if (fileSystem == null) return;
 
 			siteUser = SiteUtils.GetCurrentSiteUser();
 
 			newWindowMarkup = displaySettings.NewWindowLinkMarkup;
+
 			if (BrowserHelper.IsIE())
 			{
 				//this is a needed hack because IE 8 doesn't work correctly with window.open
@@ -675,7 +678,7 @@ namespace mojoPortal.Web.SharedFilesUI
 
 			TimeOffset = SiteUtils.GetUserTimeOffset();
 			timeZone = SiteUtils.GetUserTimeZone();
-			fileVirtualBasePath = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/SharedFiles/";
+			fileVirtualBasePath = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/SharedFiles/";
 
 			try
 			{
@@ -690,62 +693,62 @@ namespace mojoPortal.Web.SharedFilesUI
 			btnUpload2.Visible = IsEditable;
 			uploader.Visible = IsEditable;
 			uploader.MaxFilesAllowed = SharedFilesConfiguration.MaxFilesToUploadAtOnce;
-			uploader.ServiceUrl = SiteRoot + "/SharedFiles/upload.ashx?pageid=" + PageId.ToInvariantString()
-				+ "&mid=" + ModuleId.ToInvariantString();
+			uploader.ServiceUrl = $"{SiteRoot}/SharedFiles/upload.ashx?pageid={PageId.ToInvariantString()}&mid={ModuleId.ToInvariantString()}";
 			uploader.FormFieldClientId = hdnCurrentFolderId.ClientID;
 			uploader.UploadButtonClientId = btnUpload2.ClientID;
 
 			if (IsEditable)
 			{
-				string refreshFunction = "function refresh" + ModuleId.ToInvariantString()
-					+ " () { $('#" + btnRefresh.ClientID + "').click(); } ";
+				string refreshFunction = $"function refresh{ModuleId.ToInvariantString()}() {{ $('#{btnRefresh.ClientID}').click(); }};";
 
-				uploader.UploadCompleteCallback = "refresh" + ModuleId.ToInvariantString();
+				uploader.UploadCompleteCallback = $"refresh{ModuleId.ToInvariantString()}";
 
 				ScriptManager.RegisterClientScriptBlock(
 					this,
-					this.GetType(), "refresh" + ModuleId.ToInvariantString(),
+					GetType(),
+					$"refresh{ModuleId.ToInvariantString()}",
 					refreshFunction,
-					true);
-
-
+					true
+				);
 			}
 
 
-			if ((dgFile.TableCssClass.Contains("jqtable")) && (!WebConfigSettings.DisablejQuery))
+			if (dgFile.TableCssClass.Contains("jqtable") && !WebConfigSettings.DisablejQuery)
 			{
 
-				StringBuilder script = new StringBuilder();
+				string script = $@"
+function setupJTable{ModuleId.ToInvariantString()}() {{
+	$('#{dgFile.ClientID} th').each(function() {{
+		$(this).addClass('ui-state-default');
+	}});
 
-				script.Append("function setupJTable" + ModuleId.ToInvariantString() + "() {");
+	$('table.jqtable td').each(function() {{
+		$(this).addClass('ui-widget-content');
+	}});
 
-				script.Append("$('#" + dgFile.ClientID + " th').each(function(){ ");
+	$('table.jqtable tr').hover(
+		function() {{
+			$(this).children('td').addClass('ui-state-hover');
+		}},
+		function() {{
+			$(this).children('td').removeClass('ui-state-hover');
+		}}
+	);
 
-				script.Append("$(this).addClass('ui-state-default'); ");
-				script.Append("}); ");
-				script.Append("$('table.jqtable td').each(function(){ ");
-				script.Append("$(this).addClass('ui-widget-content'); ");
-				script.Append("}); ");
-				script.Append("$('table.jqtable tr').hover( ");
-				script.Append("function() {");
-				script.Append("$(this).children('td').addClass('ui-state-hover'); ");
-				script.Append("},function() {");
-				script.Append("$(this).children('td').removeClass('ui-state-hover'); ");
-				script.Append("} ");
-				script.Append("); ");
-				script.Append("$('table.jqtable tr').click(function() { ");
-				script.Append("$(this).children('td').toggleClass('ui-state-highlight'); ");
-				script.Append("}); ");
-				script.Append("} "); // end function
+	$('table.jqtable tr').on('click', function() {{
+		$(this).children('td').toggleClass('ui-state-highlight');
+	}});
+}};
 
-				script.Append("Sys.WebForms.PageRequestManager.getInstance().add_endRequest(setupJTable" + ModuleId.ToInvariantString() + "); ");
-
+Sys.WebForms.PageRequestManager.getInstance().add_endRequest(setupJTable{ModuleId.ToInvariantString()});";
 
 				ScriptManager.RegisterStartupScript(
-						this,
-						this.GetType(), "jTable" + ModuleId.ToInvariantString(),
-						script.ToString(),
-						true);
+					this,
+					GetType(),
+					$"jTable{ModuleId.ToInvariantString()}",
+					script,
+					true
+				);
 			}
 
 
