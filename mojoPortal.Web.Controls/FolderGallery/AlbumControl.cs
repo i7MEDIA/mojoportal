@@ -23,6 +23,7 @@ using MetadataDirectory = com.drew.metadata.AbstractDirectory;
 using Metadata = com.drew.metadata.Metadata;
 using Tag = com.drew.metadata.Tag;
 using mojoPortal.Web.Controls.FolderGallery;
+using System.Linq;
 
 // Photo Album handler
 // Originally created by Dmitry Robsman
@@ -1366,25 +1367,28 @@ function photoAlbumCallback(result, context) {
         /// Gets an array of file infos for the images in a folder, sorted by date.
         /// </summary>
         /// <param name="path">The folder's physical path.</param>
-        /// <param name="includesubFolders">True if subfolders should be included.</param>
+        /// <param name="includeSubfolders">True if subfolders should be included.</param>
         /// <returns>The list of file infos, sorted by date.</returns>
-        private static FileInfo[] GetImages(string path, bool includesubFolders)
+        private static FileInfo[] GetImages(string path, bool includeSubfolders)
         {
-            DirectoryInfo di = new DirectoryInfo(path);
-            FileInfo[] pics = di.GetFiles("*.jpg",
-                includesubFolders ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+	        var di = new DirectoryInfo(path);
+			//var pics = di.GetFiles("*.jpg",
+			//	includeSubfolders
+			//		? SearchOption.AllDirectories
+			//		: SearchOption.TopDirectoryOnly
+			//);
 
-            // commented out 2008-05-02 by 
-            //Array.Sort<FileInfo>(pics, delegate(FileInfo x, FileInfo y)
-            //{
-            //    return ImageInfo.GetImageDate(x).CompareTo(ImageInfo.GetImageDate(y));
-            //});
+	        // TODO: Get allowed image extensions from WebConfigSettings
+	        var imgExt = new[] { "*.gif", "*.jpg", "*.jpeg", "*.png", "*.tif", "*.svg" };
+			var pics = imgExt.SelectMany(ext => di.GetFiles(ext,
+		        includeSubfolders
+			        ? SearchOption.AllDirectories
+			        : SearchOption.TopDirectoryOnly
+	        )).ToArray();
 
-            // added 2008-05-02 by 
-            Array.Sort(pics, CompareFileNames);
+	        Array.Sort(pics, CompareFileNames);
 
-
-            return pics;
+	        return pics;
         }
 
         /// <summary>
