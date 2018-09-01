@@ -142,9 +142,6 @@
     <Compile Include="SqlHelper.cs" />
     <Compile Include="SQLParameterHelper.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
