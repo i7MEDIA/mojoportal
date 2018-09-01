@@ -1,45 +1,44 @@
 <%@ Page Language="c#" MaintainScrollPositionOnPostback="true" CodeBehind="PageSettings.aspx.cs"
 	MasterPageFile="~/App_MasterPages/layout.Master" AutoEventWireup="false" Inherits="mojoPortal.Web.AdminUI.PageProperties" %>
+
 <%@ Register TagPrefix="portal" TagName="PublishType" Src="~/Controls/PublishTypeSetting.ascx" %>
 
-<asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server">
-</asp:Content>
+<asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
-<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-	<mp:CornerRounderTop ID="ctop1" runat="server" />
-	<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper admin pagesettings">
-<portal:HeadingControl id="heading" runat="server" />
-<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
-<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-	<portal:PageLayoutDisplaySettings id="displaySettings" runat="server" />
-				<div id="divAdminLinks" runat="server">
-					<asp:HyperLink ID="lnkEditContent" EnableViewState="false" runat="server" /><asp:Literal ID="litLinkSpacer1" runat="server" EnableViewState="false" />
-					<asp:HyperLink ID="lnkViewPage" runat="server" EnableViewState="false"></asp:HyperLink><asp:Literal ID="litLinkSpacer2" runat="server" EnableViewState="false" />
-					<asp:HyperLink ID="lnkPageTree" runat="server" />
-				</div>
-				<div class="pagetabs">
-					<div id="divtabs" class="mojo-tabs">
-						<ul>
-							<li class="selected"><a href="#tabSettings">
-								<asp:Literal ID="litSettingsTab" runat="server" /></a></li>
-							<li id="liSecurity" runat="server" enableviewstate="false">
-								<asp:Literal ID="litSecurityTab" runat="server" /></li>
-							<li><a href="#tabMetaSettings">
-								<asp:Literal ID="litMetaSettingsTab" runat="server" /></a></li>
-							<li><a href="#tabSEO">
-								<asp:Literal ID="litSEOTab" runat="server" /></a></li>
-						</ul>
-					   
-							<div id="tabSettings">    
+	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
+		<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper admin pagesettings">
+			<portal:HeadingControl ID="heading" runat="server" />
+			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
+				<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
+					<portal:PageLayoutDisplaySettings ID="displaySettings" runat="server" />
+					<div id="divAdminLinks" runat="server">
+						<asp:HyperLink ID="lnkEditContent" EnableViewState="false" runat="server" /><asp:Literal ID="litLinkSpacer1" runat="server" EnableViewState="false" />
+						<asp:HyperLink ID="lnkViewPage" runat="server" EnableViewState="false"></asp:HyperLink><asp:Literal ID="litLinkSpacer2" runat="server" EnableViewState="false" />
+						<asp:HyperLink ID="lnkPageTree" runat="server" />
+					</div>
+					<div class="pagetabs">
+						<div id="divtabs" class="mojo-tabs">
+							<ul>
+								<li class="selected"><a href="#tabSettings">
+									<asp:Literal ID="litSettingsTab" runat="server" /></a></li>
+								<li id="liSecurity" runat="server" enableviewstate="false">
+									<asp:Literal ID="litSecurityTab" runat="server" /></li>
+								<li><a href="#tabMetaSettings">
+									<asp:Literal ID="litMetaSettingsTab" runat="server" /></a></li>
+								<li><a href="#tabSEO">
+									<asp:Literal ID="litSEOTab" runat="server" /></a></li>
+							</ul>
+
+							<div id="tabSettings">
 								<div class="settingrow">
 									<mp:SiteLabel ID="lblParentPage" runat="server" ForControl="ddPages" CssClass="settinglabel"
 										ConfigKey="PageLayoutParentPageLabel"></mp:SiteLabel>
-										<asp:Label id="lblParentPageName" runat="server" Visible="false" />
+									<asp:Label ID="lblParentPageName" runat="server" Visible="false" />
 									<asp:DropDownList ID="ddPages" runat="server" DataTextField="PageName"
 										DataValueField="PageID" CssClass="forminput">
 									</asp:DropDownList>
-									<asp:HiddenField id="hdnParentPageId" runat="server" />
-									<asp:HyperLink id="lnkParentPageEdit" runat="server" CssClass="cblink" Visible="false" />
+									<asp:HiddenField ID="hdnParentPageId" runat="server" />
+									<asp:HyperLink ID="lnkParentPageEdit" runat="server" CssClass="cblink" Visible="false" />
 									<portal:mojoHelpLink ID="MojoHelpLink1" runat="server" HelpKey="pagesettingsparentpagehelp" />
 								</div>
 								<div class="settingrow">
@@ -78,8 +77,7 @@
 										ConfigKey="PageLayoutUrlLabel"></mp:SiteLabel>
 									<asp:TextBox ID="txtUrl" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink5" runat="server" HelpKey="pagesettingsurlhelp" />
-									<span id="spnUrlWarning" runat="server" style="font-weight: normal; display:none;" class="txterror warning">
-									</span>
+									<span id="spnUrlWarning" runat="server" style="font-weight: normal; display: none;" class="txterror warning"></span>
 								</div>
 								<div id="tabSSL" runat="server" class="settingrow">
 									<mp:SiteLabel ID="lblRequireSSL" runat="server" ForControl="chkRequireSSL" CssClass="settinglabel"
@@ -92,19 +90,10 @@
 									<portal:PublishType ID="publishType" runat="server" />
 									<portal:mojoHelpLink ID="MojoHelpLink38" runat="server" HelpKey="page-settings-publish-mode-help" />
 								</div>
-<%--								<div class="settingrow pageicons">
-									<mp:SiteLabel ID="lblIcon" runat="server" ForControl="ddIcons" CssClass="settinglabel"
-										ConfigKey="PageSettingsIconLabel"></mp:SiteLabel>
-									<asp:DropDownList ID="ddIcons" runat="server" DataValueField="Name"
-										DataTextField="Name" CssClass="forminput">
-									</asp:DropDownList>
-									<img id="imgIcon" alt="" src="" runat="server" />
-									<portal:mojoHelpLink ID="MojoHelpLink6" runat="server" HelpKey="pagesettingsiconhelp" />
-								</div>--%>
 								<div id="divSkin" runat="server" class="settingrow">
 									<mp:SiteLabel ID="lblSkin" runat="server" ForControl="ddSkins" CssClass="settinglabel"
 										ConfigKey="SiteSettingsSiteSkinLabel"></mp:SiteLabel>
-									<portal:SkinList id="SkinSetting" runat="server" AddSiteDefaultOption="true" />
+									<portal:SkinList ID="SkinSetting" runat="server" AddSiteDefaultOption="true" />
 									<portal:mojoHelpLink ID="MojoHelpLink7" runat="server" HelpKey="pagesettingsskinhelp" />
 								</div>
 								<div id="divMenuDesc" runat="server" visible="false" class="settingrow menudesc">
@@ -116,8 +105,7 @@
 								<div id="divIsClickable" runat="server" class="settingrow" visible="false">
 									<mp:SiteLabel ID="Sitelabel25" runat="server" ForControl="chkIsClickable" CssClass="settinglabel"
 										ConfigKey="PageSettingsIsClickableLabel"></mp:SiteLabel>
-									<asp:CheckBox ID="chkIsClickable" runat="server" CssClass="forminput" Checked="true">
-									</asp:CheckBox>
+									<asp:CheckBox ID="chkIsClickable" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink33" runat="server" HelpKey="pagesettingsisclickablehelp" />
 								</div>
 								<div class="settingrow">
@@ -129,36 +117,31 @@
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel10" runat="server" ForControl="chkIncludeInMenu" CssClass="settinglabel"
 										ConfigKey="PageSettingsIncludeInMenuLabel"></mp:SiteLabel>
-									<asp:CheckBox ID="chkIncludeInMenu" runat="server" CssClass="forminput" Checked="true">
-									</asp:CheckBox>
+									<asp:CheckBox ID="chkIncludeInMenu" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink9" runat="server" HelpKey="pagesettingsincludeinmenuhelp" />
 								</div>
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel16" runat="server" ForControl="chkIncludeInSiteMap" CssClass="settinglabel"
 										ConfigKey="PageSettingsIncludeInSiteMapLabel"></mp:SiteLabel>
-									<asp:CheckBox ID="chkIncludeInSiteMap" runat="server" CssClass="forminput" Checked="true">
-									</asp:CheckBox>
+									<asp:CheckBox ID="chkIncludeInSiteMap" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink10" runat="server" HelpKey="pagesettingsincludeinsitemaphelp" />
 								</div>
 								<div class="settingrow expandonsitemap">
 									<mp:SiteLabel ID="Sitelabel29" runat="server" ForControl="chkExpandOnSiteMap" CssClass="settinglabel"
 										ConfigKey="PageSettingsExpandOnSiteMapLabel"></mp:SiteLabel>
-									<asp:CheckBox ID="chkExpandOnSiteMap" runat="server" CssClass="forminput" Checked="true">
-									</asp:CheckBox>
+									<asp:CheckBox ID="chkExpandOnSiteMap" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink37" runat="server" HelpKey="pagesettings-expandonsitemap-help" />
 								</div>
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel26" runat="server" ForControl="chkIncludeInChildSiteMap" CssClass="settinglabel"
 										ConfigKey="PageSettingsIncludeInChildSiteMap"></mp:SiteLabel>
-									<asp:CheckBox ID="chkIncludeInChildSiteMap" runat="server" CssClass="forminput" Checked="true">
-									</asp:CheckBox>
+									<asp:CheckBox ID="chkIncludeInChildSiteMap" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink34" runat="server" HelpKey="pagesettings-includeinchildsitemap-help" />
 								</div>
 								<div id="divIsPending" runat="server" class="settingrow">
 									<mp:SiteLabel ID="Sitelabel19" runat="server" ForControl="chkIsPending" CssClass="settinglabel"
 										ConfigKey="PageSettingsIsPendingLabel"></mp:SiteLabel>
-									<asp:CheckBox ID="chkIsPending" runat="server" CssClass="forminput" Checked="false">
-									</asp:CheckBox>
+									<asp:CheckBox ID="chkIsPending" runat="server" CssClass="forminput" Checked="false"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink29" runat="server" HelpKey="pagesettingsisdrafthelp" />
 								</div>
 								<div class="settingrow">
@@ -170,8 +153,7 @@
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel7" runat="server" ForControl="chkShowChildPageBreadcrumbs"
 										CssClass="settinglabel" ConfigKey="PageLayoutShowChildBreadcrumbsLabel"></mp:SiteLabel>
-									<asp:CheckBox ID="chkShowChildPageBreadcrumbs" runat="server" CssClass="forminput">
-									</asp:CheckBox>
+									<asp:CheckBox ID="chkShowChildPageBreadcrumbs" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink12" runat="server" HelpKey="pagesettingschildpagebreadcrumbshelp" />
 								</div>
 								<div class="settingrow">
@@ -209,9 +191,9 @@
 										ConfigKey="PageSettingsEnableComments"></mp:SiteLabel>
 									<asp:CheckBox ID="chkEnableComments" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink32" runat="server" HelpKey="pagesettings-enablecomments-help" />
-							   </asp:Panel>
-							   
-							   <div id="divBodyCss" runat="server" class="settingrow">
+								</asp:Panel>
+
+								<div id="divBodyCss" runat="server" class="settingrow">
 									<mp:SiteLabel ID="SiteLabel27" runat="server" ForControl="txtBodyCssClass" CssClass="settinglabel"
 										ConfigKey="PageSettingsBodyCssClass"></mp:SiteLabel>
 									<asp:TextBox ID="txtBodyCssClass" runat="server" MaxLength="50" CssClass="forminput normaltextbox"></asp:TextBox>
@@ -230,29 +212,30 @@
 									<portal:mojoHelpLink ID="MojoHelpLink28" runat="server" HelpKey="menu-link-relation-help" />
 								</div>
 								<asp:Panel ID="pnlModified" runat="server" EnableViewState="false" Visible="false">
-								<div class="settingrow pcreateddate">
-									<mp:SiteLabel ID="Sitelabel31" runat="server"  CssClass="settinglabel"
-										ConfigKey="Created"></mp:SiteLabel>
-									<asp:Label ID="lblCreatedDate" runat="server" CssClass="readonly" />
-								</div>
-								<div class="settingrow pmodifieddate">
-									<mp:SiteLabel ID="Sitelabel32" runat="server"  CssClass="settinglabel"
-										ConfigKey="LastModified"></mp:SiteLabel>
-									<asp:Label ID="lblLastModifiedDate" runat="server" CssClass="readonly" />
-								</div>
-								<div class="settingrow pmodby">
-									<mp:SiteLabel ID="Sitelabel33" runat="server"  CssClass="settinglabel"
-										ConfigKey="LastModifiedBy"></mp:SiteLabel>
-									<asp:Label ID="lblLastModifiedBy" runat="server" CssClass="readonly" />
-								</div>
-								<div class="settingrow pmodfromip">
-									<mp:SiteLabel ID="Sitelabel34" runat="server"  CssClass="settinglabel"
-										ConfigKey="LastModifiedFromIpAddress"></mp:SiteLabel>
-									<asp:Label ID="lblLastModifiedFromIp" runat="server" CssClass="readonly" />
-								</div>
+									<div class="settingrow pcreateddate">
+										<mp:SiteLabel ID="Sitelabel31" runat="server" CssClass="settinglabel"
+											ConfigKey="Created"></mp:SiteLabel>
+										<asp:Label ID="lblCreatedDate" runat="server" CssClass="readonly" />
+									</div>
+									<div class="settingrow pmodifieddate">
+										<mp:SiteLabel ID="Sitelabel32" runat="server" CssClass="settinglabel"
+											ConfigKey="LastModified"></mp:SiteLabel>
+										<asp:Label ID="lblLastModifiedDate" runat="server" CssClass="readonly" />
+									</div>
+									<div class="settingrow pmodby">
+										<mp:SiteLabel ID="Sitelabel33" runat="server" CssClass="settinglabel"
+											ConfigKey="LastModifiedBy"></mp:SiteLabel>
+										<asp:Label ID="lblLastModifiedBy" runat="server" CssClass="readonly" />
+									</div>
+									<div class="settingrow pmodfromip">
+										<mp:SiteLabel ID="Sitelabel34" runat="server" CssClass="settinglabel"
+											ConfigKey="LastModifiedFromIpAddress"></mp:SiteLabel>
+										<asp:Label ID="lblLastModifiedFromIp" runat="server" CssClass="readonly" />
+									</div>
 								</asp:Panel>
 								<div class="settingrow">
-									&nbsp;</div>
+									&nbsp;
+								</div>
 							</div>
 							<div id="tabSecurity" runat="server">
 								<div id="divRoles" runat="server" class="mojo-accordion">
@@ -264,12 +247,12 @@
 									</h3>
 									<div id="divViewRoles" runat="server">
 										<div class="settingrow">
-											<asp:RadioButton ID="rbViewAdminOnly" runat="server"  GroupName="rdoviewroles" CssClass="rbroles rbadminonly" />
+											<asp:RadioButton ID="rbViewAdminOnly" runat="server" GroupName="rdoviewroles" CssClass="rbroles rbadminonly" />
 										</div>
 										<div class="settingrow">
-											<asp:RadioButton ID="rbViewUseRoles" runat="server"  GroupName="rdoviewroles" CssClass="rbroles" />
+											<asp:RadioButton ID="rbViewUseRoles" runat="server" GroupName="rdoviewroles" CssClass="rbroles" />
 										</div>
-									   <p>
+										<p>
 											<asp:CheckBoxList ID="chkListAuthRoles" runat="server" CssClass="forminput" SkinID="Roles">
 											</asp:CheckBoxList>
 										</p>
@@ -282,10 +265,10 @@
 									</h3>
 									<div id="divEditRoles" runat="server">
 										<div class="settingrow">
-											<asp:RadioButton ID="rbEditAdminOnly" runat="server"  GroupName="rdoeditroles" CssClass="rbroles rbadminonly" />
+											<asp:RadioButton ID="rbEditAdminOnly" runat="server" GroupName="rdoeditroles" CssClass="rbroles rbadminonly" />
 										</div>
 										<div class="settingrow">
-											<asp:RadioButton ID="rbEditUseRoles" runat="server"  GroupName="rdoeditroles" CssClass="rbroles" />
+											<asp:RadioButton ID="rbEditUseRoles" runat="server" GroupName="rdoeditroles" CssClass="rbroles" />
 										</div>
 										<p>
 											<asp:CheckBoxList ID="chkListEditRoles" runat="server" CssClass="forminput" SkinID="Roles">
@@ -299,12 +282,12 @@
 										</a>
 									</h3>
 									<div id="divDraftRoles" runat="server">
-										<p> 
+										<p>
 											<asp:CheckBoxList ID="chkDraftEditRoles" runat="server" SkinID="Roles">
 											</asp:CheckBoxList>
 										</p>
 									</div>
-									
+
 									<h3 id="h3DraftApprovalRoles" runat="server">
 										<a href="#">
 											<mp:SiteLabel ID="SiteLabel37" runat="server" ConfigKey="PageLayoutDraftApprovalRolesLabel"
@@ -312,12 +295,12 @@
 										</a>
 									</h3>
 									<div id="divDraftApprovalRoles" runat="server">
-										<p> 
+										<p>
 											<asp:CheckBoxList ID="chkDraftApprovalRoles" runat="server" SkinID="Roles">
 											</asp:CheckBoxList>
 										</p>
 									</div>
-									
+
 									<h3 id="h3ChildEditRoles" runat="server">
 										<a href="#">
 											<mp:SiteLabel ID="SiteLabel18" runat="server" ConfigKey="PageLayoutCreateChildPageRolesLabel"
@@ -326,10 +309,10 @@
 									</h3>
 									<div id="divChildEditRoles" runat="server">
 										<div class="settingrow">
-											<asp:RadioButton ID="rbCreateChildAdminOnly" runat="server"  GroupName="rdochildpageroles" CssClass="rbroles rbadminonly" />
+											<asp:RadioButton ID="rbCreateChildAdminOnly" runat="server" GroupName="rdochildpageroles" CssClass="rbroles rbadminonly" />
 										</div>
 										<div class="settingrow">
-											<asp:RadioButton ID="rbCreateChildUseRoles" runat="server"  GroupName="rdochildpageroles" CssClass="rbroles" />
+											<asp:RadioButton ID="rbCreateChildUseRoles" runat="server" GroupName="rdochildpageroles" CssClass="rbroles" />
 										</div>
 										<p>
 											<asp:CheckBoxList ID="chkListCreateChildPageRoles" runat="server" SkinID="Roles"
@@ -337,7 +320,7 @@
 											</asp:CheckBoxList>
 										</p>
 									</div>
-									
+
 								</div>
 								<mp:SiteLabel ID="lblSavePageBeforeSettingPermissions" Visible="false" runat="server" ConfigKey="PageMustBeSavedBeforeSettingPermissions" UseLabelTag="false" CssClass="info" />
 								<div id="divRoleLinks" runat="server" visible="false" enableviewstate="false">
@@ -358,10 +341,10 @@
 											<asp:HyperLink ID="lnkChildPageRoles" runat="server" CssClass="lnkChildPageRoles" />
 										</li>
 									</ul>
-									</div>
+								</div>
 							</div>
 							<div id="tabMetaSettings">
-								
+
 								<asp:Panel ID="pnlMetaSettings" runat="server" SkinID="plain">
 									<div class="settingrow">
 										<mp:SiteLabel ID="lblKeywords" runat="server" ForControl="txtPageKeywords" CssClass="settinglabel"
@@ -389,7 +372,7 @@
 										<div class="settingrow">
 											<asp:UpdatePanel ID="updMetaLinks" runat="server" UpdateMode="Conditional">
 												<ContentTemplate>
-													<mp:mojoGridView ID="grdMetaLinks" runat="server" CssClass="editgrid" AutoGenerateColumns="false" 
+													<mp:mojoGridView ID="grdMetaLinks" runat="server" CssClass="editgrid" AutoGenerateColumns="false"
 														DataKeyNames="Guid">
 														<Columns>
 															<asp:TemplateField>
@@ -447,7 +430,8 @@
 															</asp:TemplateField>
 														</Columns>
 														<EmptyDataTemplate>
-																<p class="nodata"><asp:Literal id="litempty" runat="server" Text="<%$ Resources:Resource, GridViewNoData %>" /></p>
+															<p class="nodata">
+																<asp:Literal ID="litempty" runat="server" Text="<%$ Resources:Resource, GridViewNoData %>" /></p>
 														</EmptyDataTemplate>
 													</mp:mojoGridView>
 													<div class="settingrow">
@@ -560,7 +544,8 @@
 															</asp:TemplateField>
 														</Columns>
 														<EmptyDataTemplate>
-																<p class="nodata"><asp:Literal id="litempty" runat="server" Text="<%$ Resources:Resource, GridViewNoData %>" /></p>
+															<p class="nodata">
+																<asp:Literal ID="litempty" runat="server" Text="<%$ Resources:Resource, GridViewNoData %>" /></p>
 														</EmptyDataTemplate>
 													</mp:mojoGridView>
 													<div class="settingrow">
@@ -593,7 +578,7 @@
 									<div class="settingrow">
 										<mp:SiteLabel ID="SiteLabel14" runat="server" ForControl="ddChangeFrequency" CssClass="settinglabel"
 											ConfigKey="PageSettingsChangeFrequencyLabel"></mp:SiteLabel>
-										<asp:DropDownList ID="ddChangeFrequency"  runat="server" CssClass="forminput">
+										<asp:DropDownList ID="ddChangeFrequency" runat="server" CssClass="forminput">
 										</asp:DropDownList>
 										<portal:mojoHelpLink ID="MojoHelpLink26" runat="server" HelpKey="pagesettingsseochangefequencyhelp" />
 									</div>
@@ -634,33 +619,29 @@
 							</div>
 						</div>
 					</div>
-				
-				<div class="settingrow">
-					<asp:ValidationSummary ID="vSummary" runat="server" ValidationGroup="pagesettings" />
-					<asp:RequiredFieldValidator ID="reqPageName" runat="server" Display="None" ControlToValidate="txtPageName"
-						ValidationGroup="pagesettings" />
-					<asp:RegularExpressionValidator ID="regexUrl" runat="server" ControlToValidate="txtUrl"
-						ValidationExpression="((http\://|https\://|~/){1}(\S+){0,1})" Display="None" ValidationGroup="pagesettings" />
-					<asp:RegularExpressionValidator ID="regexBodyCss" runat="server" ControlToValidate="txtBodyCssClass"
-						ValidationExpression="^([\s]?[a-zA-Z]+[_\-a-zA-Z0-9]+)*\z+" Display="None" ValidationGroup="pagesettings" />
-					<asp:RegularExpressionValidator ID="regexMenuCss" runat="server" ControlToValidate="txtMenuCssClass"
-						ValidationExpression="^([\s]?[a-zA-Z]+[_\-a-zA-Z0-9]+)*\z+" Display="None" ValidationGroup="pagesettings" />
-					<portal:mojoLabel ID="lblError" runat="server" CssClass="txterror warning" />
-				</div>
-				<div class="settingrow">
-					<mp:SiteLabel ID="SiteLabel35" runat="server" CssClass="settinglabel" ConfigKey="spacer" />
-					<portal:mojoButton ID="applyBtn" runat="server" Text="Apply Changes" />
-					<portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" />
-				</div>
-		   
 
-	</portal:InnerBodyPanel>
-	</portal:OuterBodyPanel>
-	<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
-	</portal:InnerWrapperPanel>
-	<mp:CornerRounderBottom ID="cbottom1" runat="server" />
+					<div class="settingrow">
+						<asp:ValidationSummary ID="vSummary" runat="server" ValidationGroup="pagesettings" />
+						<asp:RequiredFieldValidator ID="reqPageName" runat="server" Display="None" ControlToValidate="txtPageName"
+							ValidationGroup="pagesettings" />
+						<asp:RegularExpressionValidator ID="regexUrl" runat="server" ControlToValidate="txtUrl"
+							ValidationExpression="((http\://|https\://|~/){1}(\S+){0,1})" Display="None" ValidationGroup="pagesettings" />
+						<asp:RegularExpressionValidator ID="regexBodyCss" runat="server" ControlToValidate="txtBodyCssClass"
+							ValidationExpression="^([\s]?[a-zA-Z]+[_\-a-zA-Z0-9]+)*\z+" Display="None" ValidationGroup="pagesettings" />
+						<asp:RegularExpressionValidator ID="regexMenuCss" runat="server" ControlToValidate="txtMenuCssClass"
+							ValidationExpression="^([\s]?[a-zA-Z]+[_\-a-zA-Z0-9]+)*\z+" Display="None" ValidationGroup="pagesettings" />
+						<portal:mojoLabel ID="lblError" runat="server" CssClass="txterror warning" />
+					</div>
+
+					<div class="settingrow btn-row">
+						<portal:mojoButton ID="applyBtn" runat="server" Text="Apply Changes" />
+						<portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" />
+					</div>
+				</portal:InnerBodyPanel>
+			</portal:OuterBodyPanel>
+			<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared" />
+		</portal:InnerWrapperPanel>
 	</portal:OuterWrapperPanel>
 </asp:Content>
-<asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server">
-</asp:Content>
+<asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />
 <asp:Content ContentPlaceHolderID="pageEditContent" ID="MPPageEdit" runat="server" />

@@ -10492,6 +10492,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this page?.
+        /// </summary>
+        internal static string PageDeleteWarning {
+            get {
+                return ResourceManager.GetString("PageDeleteWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Draft Approval Permissions for Page: {0}.
         /// </summary>
         internal static string PageDraftApprovalPermissionFormat {

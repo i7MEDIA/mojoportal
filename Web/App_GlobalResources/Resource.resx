@@ -6289,4 +6289,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="PasswordRecoveryNotAllowedWhenAuthenticated" xml:space="preserve">
     <value>Password recovery is not allowed while authenticated.</value>
   </data>
+  <data name="PageDeleteWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this page?</value>
+  </data>
 </root>

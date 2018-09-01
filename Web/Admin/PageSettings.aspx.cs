@@ -1734,7 +1734,9 @@ namespace mojoPortal.Web.AdminUI
                 applyBtn.Text = Resource.PageSettingsSaveButton;
                 SiteUtils.SetButtonAccessKey(applyBtn, AccessKeys.PageSettingsSaveButtonAccessKey);
 
-                btnDelete.Text = Resource.PageSettingsDeleteButton;
+	            UIHelper.AddConfirmationDialog(applyBtn, Resource.PageDeleteWarning);
+
+				btnDelete.Text = Resource.PageSettingsDeleteButton;
                 SiteUtils.SetButtonAccessKey(btnDelete, AccessKeys.PageSettingsDeleteButtonAccessKey);
                 if (childPageCount > 0)
                 {
