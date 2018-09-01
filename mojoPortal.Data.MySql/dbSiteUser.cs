@@ -13,6 +13,7 @@
 /// Note moved into separate class file from dbPortal 2007-11-03
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Data.Common;
@@ -2199,49 +2200,76 @@ namespace mojoPortal.Data
 
         }
 
-        public static IDataReader GetSingleUser(int userId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT * ");
 
-            sqlCommand.Append("FROM	mp_Users ");
+		public static IDataReader GetSingleUser(int userId, int siteId)
+		{
+			const string sqlCommand = @"
+				SELECT
+					*
+				FROM
+					mp_Users
+				WHERE
+					UserID = ?UserID
+				AND
+					SiteID = ?SiteID;";
 
-            sqlCommand.Append("WHERE UserID = ?UserID ;  ");
+			var arParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?UserID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = userId
+				},
+				new MySqlParameter("?SiteID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				}
+			};
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand,
+				arParams.ToArray()
+			);
+		}
 
-            arParams[0] = new MySqlParameter("?UserID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userId;
 
-            return MySqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		public static IDataReader GetSingleUser(Guid userGuid, int siteId)
+		{
+			const string sqlCommand = @"
+				SELECT
+					*
+				FROM
+					mp_Users
+				WHERE
+					UserGuid = ?UserGuid
+				AND
+					SiteID = ?SiteID;";
 
-        }
+			var arParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?UserGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = userGuid.ToString()
+				},
+				new MySqlParameter("?SiteID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				}
+			};
 
-        public static IDataReader GetSingleUser(Guid userGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT * ");
-            sqlCommand.Append("FROM	mp_Users ");
-            sqlCommand.Append("WHERE UserGuid = ?UserGuid ;  ");
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand,
+				arParams.ToArray()
+			);
+		}
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
 
-            arParams[0] = new MySqlParameter("?UserGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userGuid.ToString();
-
-            return MySqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static Guid GetUserGuidFromOpenId(
+		public static Guid GetUserGuidFromOpenId(
             int siteId,
             string openIdUri)
         {

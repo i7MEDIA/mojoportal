@@ -13,9 +13,11 @@
 /// Note moved into separate class file from dbPortal 2007-11-03
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Npgsql;
+using NpgsqlTypes;
 
 namespace mojoPortal.Data
 {
@@ -2076,39 +2078,68 @@ namespace mojoPortal.Data
 
         }
 
-        public static IDataReader GetSingleUser(int userId)
-        {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("userid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userId;
-            
-            return NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "mp_users_selectone(:userid)",
-                arParams);
+		/// <summary>
+		/// Get single user by userId and siteId
+		/// </summary>
+		/// <param name="userId">userId</param>
+		/// <param name="siteId">siteId</param>
+		public static IDataReader GetSingleUser(int userId, int siteId)
+		{
+			var arParams = new List<NpgsqlParameter>
+			{
+				new NpgsqlParameter("userid", NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = userId
+				},
+				new NpgsqlParameter("siteid", NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				}
+			};
 
-        }
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.StoredProcedure,
+				"mp_users_selectone(:userid, :siteid)",
+				arParams.ToArray()
+			);
+		}
 
-        public static IDataReader GetSingleUser(Guid userGuid)
-        {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("userguid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userGuid.ToString();
-            
-            return NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "mp_users_selectonebyguid(:userguid)",
-                arParams);
+	    /// <summary>
+		/// Get a single user by userGuid and siteId
+		/// </summary>
+		/// <param name="userGuid">userGuid</param>
+		/// <param name="siteId">siteId</param>
+		public static IDataReader GetSingleUser(Guid userGuid, int siteId)
+		{
+			var arParams = new List<NpgsqlParameter>
+			{
+				new NpgsqlParameter("userguid", NpgsqlDbType.Varchar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = userGuid.ToString()
+				},
+				new NpgsqlParameter("siteid", NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				}
+			};
 
-        }
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.StoredProcedure,
+				"mp_users_selectonebyguid(:userguid, :siteid)",
+				arParams.ToArray()
+			);
+		}
 
-        public static Guid GetUserGuidFromOpenId(
+
+		public static Guid GetUserGuidFromOpenId(
             int siteId,
             string openIdUri)
         {

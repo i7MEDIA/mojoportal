@@ -13,6 +13,7 @@
 /// Note moved into separate class file from dbPortal 2007-11-03
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Data.Common;
@@ -2233,51 +2234,76 @@ namespace mojoPortal.Data
 
         }
 
-        public static IDataReader GetSingleUser(int userId)
+
+		public static IDataReader GetSingleUser(int userId, int siteId)
+		{
+			const string sqlCommand = @"
+				SELECT
+					*
+				FROM
+					mp_Users
+				WHERE
+					UserID = :UserID
+				AND
+					SiteID = :SiteID;";
+
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":UserID", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = userId
+				},
+				new SqliteParameter(":SiteID", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				}
+			};
+
+			return SqliteHelper.ExecuteReader(
+				GetConnectionString(),
+				sqlCommand,
+				arParams.ToArray()
+			);
+		}
+
+
+		public static IDataReader GetSingleUser(Guid userGuid, int siteId)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT * ");
+			const string sqlCommand = @"
+				SELECT
+					*
+				FROM
+					mp_Users
+				WHERE
+					UserGuid = :UserGuid
+				AND
+					SiteID = :SiteID;";
 
-            sqlCommand.Append("FROM	mp_Users ");
+            var arParams = new List<SqliteParameter>
+            {
+	            new SqliteParameter(":UserGuid", DbType.String, 36)
+	            {
+		            Direction = ParameterDirection.Input,
+		            Value = userGuid.ToString()
+	            },
+				new SqliteParameter(":SiteID", DbType.Int32)
+	            {
+		            Direction = ParameterDirection.Input,
+		            Value = siteId
+	            }
+            };
 
-            sqlCommand.Append("WHERE UserID = :UserID;");
-
-            SqliteParameter[] arParams = new SqliteParameter[1];
-
-            arParams[0] = new SqliteParameter(":UserID", DbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userId;
-
-            return SqliteHelper.ExecuteReader(
+	        return SqliteHelper.ExecuteReader(
                 GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
+                sqlCommand,
+                arParams.ToArray()
+			);
         }
 
-        public static IDataReader GetSingleUser(Guid userGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT * ");
 
-            sqlCommand.Append("FROM	mp_Users ");
-
-            sqlCommand.Append("WHERE UserGuid = :UserGuid ;  ");
-
-            SqliteParameter[] arParams = new SqliteParameter[1];
-
-            arParams[0] = new SqliteParameter(":UserGuid", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userGuid.ToString();
-
-            return SqliteHelper.ExecuteReader(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static Guid GetUserGuidFromOpenId(
+	    public static Guid GetUserGuidFromOpenId(
             int siteId,
             string openIduri)
         {

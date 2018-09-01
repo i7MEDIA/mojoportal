@@ -770,7 +770,7 @@ namespace mojoPortal.Business
 
 		private void GetUser(int userId)
 		{
-            using (IDataReader reader = DBSiteUser.GetSingleUser(userId))
+            using (IDataReader reader = DBSiteUser.GetSingleUser(userId, siteID))
             {
                 GetUser(reader);
             }
@@ -779,7 +779,7 @@ namespace mojoPortal.Business
 
         private void GetUser(Guid userGuid)
         {
-            using (IDataReader reader = DBSiteUser.GetSingleUser(userGuid))
+            using (IDataReader reader = DBSiteUser.GetSingleUser(userGuid, siteID))
             {
                 GetUser(reader);
             }

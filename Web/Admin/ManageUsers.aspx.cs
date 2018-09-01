@@ -128,11 +128,19 @@ namespace mojoPortal.Web.AdminUI
                 }
             }
 
+			//someone is trying to edit a user from another site or a non-existent user
+			if (siteUser != null && siteUser.UserId == -1)
+			{
+				SiteUtils.RedirectToAccessDeniedPage(this);
+				return;
+			}
+
+
             if (userID == -1)
             {
                 if ((!WebUser.IsInRoles(siteSettings.RolesThatCanCreateUsers))&&(!WebUser.IsInRoles(siteSettings.RolesThatCanManageUsers)))
                 {
-                    SiteUtils.RedirectToAccessDeniedPage();
+                    SiteUtils.RedirectToAccessDeniedPage(this);
                     return;
                 }
 
@@ -140,15 +148,14 @@ namespace mojoPortal.Web.AdminUI
             else
             {
                 if (
-                    (
-                   ((WebUser.IsInRoles(siteSettings.RolesThatCanManageUsers))||(WebUser.IsInRoles(siteSettings.RolesThatCanCreateUsers)))
-                    && !isAdmin)
+                    (WebUser.IsInRoles(siteSettings.RolesThatCanManageUsers)||WebUser.IsInRoles(siteSettings.RolesThatCanCreateUsers))
+                    && !isAdmin
                     )
                 {
                     // only admins can edit admins
                     if (siteUser.IsInRoles("Admins"))
                     {
-                        SiteUtils.RedirectToAccessDeniedPage();
+                        SiteUtils.RedirectToAccessDeniedPage(this);
                         return;
                     }
                     
@@ -161,7 +168,7 @@ namespace mojoPortal.Web.AdminUI
                     {
                         
 
-                        SiteUtils.RedirectToAccessDeniedPage();
+                        SiteUtils.RedirectToAccessDeniedPage(this);
                         return;
                     }
                 }

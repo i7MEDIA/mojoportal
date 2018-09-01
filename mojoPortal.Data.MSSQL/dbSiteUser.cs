@@ -844,18 +844,20 @@ namespace mojoPortal.Data
             return sph.ExecuteReader();
         }
 
-        public static IDataReader GetSingleUser(int userId)
+        public static IDataReader GetSingleUser(int userId, int siteId)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_SelectOne", 1);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_SelectOne", 2);
             sph.DefineSqlParameter("@UserID", SqlDbType.Int, ParameterDirection.Input, userId);
-            return sph.ExecuteReader();
+            sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
+	        return sph.ExecuteReader();
         }
 
-        public static IDataReader GetSingleUser(Guid userGuid)
+        public static IDataReader GetSingleUser(Guid userGuid, int siteId)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_SelectByGuid", 1);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_SelectByGuid", 2);
             sph.DefineSqlParameter("@UserGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userGuid);
-            return sph.ExecuteReader();
+            sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
+	        return sph.ExecuteReader();
         }
 
         public static Guid GetUserGuidFromOpenId(
