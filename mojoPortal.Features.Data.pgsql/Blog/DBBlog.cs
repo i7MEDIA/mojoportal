@@ -666,7 +666,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("WHERE ");
             sqlCommand.Append("moduleid = :moduleid ");
             sqlCommand.Append("AND (:userguid = '00000000-0000-0000-0000-000000000000' OR userguid  = :userguid)  ");
-            sqlCommand.Append("AND ((startdate > :mojoportal-2-4-0-2-pgsql-net35-deploymentfilescurrenttime) OR (ispublished = false)) ");
+            sqlCommand.Append("AND ((startdate > :currenttime) OR (ispublished = false)) ");
             
             sqlCommand.Append(";");
 
