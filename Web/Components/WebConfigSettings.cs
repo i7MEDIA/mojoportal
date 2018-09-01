@@ -1765,10 +1765,14 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("UseTransferRequestForUrlReWriting", true); }
 		}
 
-		public static bool DetectPageNotFoundForExtensionlessUrls
-		{
-			get { return ConfigHelper.GetBoolProperty("DetectPageNotFoundForExtensionlessUrls", false); }
-		}
+
+		// Commented out for issue #70
+		// https://github.com/i7MEDIA/mojoportal/issues/70
+		//public static bool DetectPageNotFoundForExtensionlessUrls
+		//{
+		//	get { return ConfigHelper.GetBoolProperty("DetectPageNotFoundForExtensionlessUrls", false); }
+		//}
+
 
 		public static bool UseUrlReWritingForStaticFiles
 		{

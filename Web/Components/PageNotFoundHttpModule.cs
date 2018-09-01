@@ -47,26 +47,30 @@ namespace mojoPortal.Web
         void app_BeginRequest(object sender, EventArgs e)
         {
             HttpApplication app = sender as HttpApplication;
-            if (app == null) { return; }
 
-            if (WebConfigSettings.DetectPageNotFoundForExtensionlessUrls)
-            {
-                if ((app.Context.Items["UrlNotFound"] != null) && (Convert.ToBoolean(app.Context.Items["UrlNotFound"]) == true))
-                {
-                    log.Info("handled page not found for url " + app.Context.Request.Url.ToString());
-                    if (WebConfigSettings.Custom404Page.Length > 0)
-                    {
-                        app.Server.Transfer(WebConfigSettings.Custom404Page);
-                    }
-                    else
-                    {
-                        app.Server.Transfer("~/PageNotFound.aspx");
-                    }
-                }
-            }
-        }
+	        // ReSharper disable once RedundantJumpStatement
+	        if (app == null) return;
 
-        void app_Error(object sender, EventArgs e)
+			// Commented out for issue #70
+			// https://github.com/i7MEDIA/mojoportal/issues/70
+			//if (WebConfigSettings.DetectPageNotFoundForExtensionlessUrls)
+			//{
+			//    if ((app.Context.Items["UrlNotFound"] != null) && (Convert.ToBoolean(app.Context.Items["UrlNotFound"]) == true))
+			//    {
+			//        log.Info("handled page not found for url " + app.Context.Request.Url.ToString());
+			//        if (WebConfigSettings.Custom404Page.Length > 0)
+			//        {
+			//            app.Server.Transfer(WebConfigSettings.Custom404Page);
+			//        }
+			//        else
+			//        {
+			//            app.Server.Transfer("~/PageNotFound.aspx");
+			//        }
+			//    }
+			//}
+		}
+
+		void app_Error(object sender, EventArgs e)
         {
             HttpApplication app = sender as HttpApplication;
             if (app == null) { return; }
