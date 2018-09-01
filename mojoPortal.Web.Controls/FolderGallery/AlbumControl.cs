@@ -1378,8 +1378,7 @@ function photoAlbumCallback(result, context) {
 			//		: SearchOption.TopDirectoryOnly
 			//);
 
-	        // TODO: Get allowed image extensions from WebConfigSettings
-	        var imgExt = new[] { "*.gif", "*.jpg", "*.jpeg", "*.png", "*.tif", "*.svg" };
+	        var imgExt = ImageHelper.GetImageExtensions();
 			var pics = imgExt.SelectMany(ext => di.GetFiles(ext,
 		        includeSubfolders
 			        ? SearchOption.AllDirectories

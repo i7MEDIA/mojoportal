@@ -9,6 +9,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Caching;
@@ -509,7 +510,21 @@ img
             return newImage;
         }
 
-        /// <summary>
+		
+	    /// <summary>
+		/// Gets image file extensions from web.config and adds * to each.
+		/// </summary>
+		/// <returns></returns>
+	    public static string[] GetImageExtensions()
+	    {
+		    var imgExtensions = ConfigurationManager.AppSettings["ImageFileExtensions"] ?? ".gif|.jpg|.jpeg|.png|.svg|.webp";
+
+		    // Split on pipe and append asterisk on each file extension
+		    return imgExtensions.Split('|').Select(i => $"*{i.Trim()}").ToArray();
+		}
+
+
+	    /// <summary>
         /// Creates the thumbnail Bitmap for a folder.
         /// </summary>
         static Bitmap CreateFolderImage(
@@ -529,19 +544,28 @@ img
             List<string> imagesToDraw = new List<string>();
             int nbFound;
             string[] images = Directory.GetFiles(folder, "default.jpg", SearchOption.AllDirectories);
-            for (nbFound = 0; nbFound < Math.Min(UpFolderStackHeight, images.Length); nbFound++)
+
+	        for (nbFound = 0; nbFound < Math.Min(UpFolderStackHeight, images.Length); nbFound++)
             {
                 imagesToDraw.Insert(0, images[nbFound]);
             }
-            if (nbFound < UpFolderStackHeight)
+
+	        if (nbFound < UpFolderStackHeight)
             {
-                images = Directory.GetFiles(folder, "*.jpg", SearchOption.AllDirectories);
-                for (int i = 0; i < Math.Min(UpFolderStackHeight - nbFound, images.Length); i++)
+	            var imgExt = GetImageExtensions();
+                images = imgExt.SelectMany(ext => Directory.GetFiles(
+	                folder,
+	                ext,
+	                SearchOption.AllDirectories
+	            )).ToArray();
+
+	            for (int i = 0; i < Math.Min(UpFolderStackHeight - nbFound, images.Length); i++)
                 {
                     imagesToDraw.Insert(0, images[rnd.Next(images.Length)]);
                 }
             }
-            int drawXOffset = size / 2;
+
+	        int drawXOffset = size / 2;
             int drawYOffset = size / 2;
             double angleAmplitude = Math.PI / 10;
             int imageFolderSize = (int)(size / (Math.Cos(angleAmplitude) + Math.Sin(angleAmplitude)));
