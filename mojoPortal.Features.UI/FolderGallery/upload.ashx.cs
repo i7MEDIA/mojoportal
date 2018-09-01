@@ -114,7 +114,7 @@ namespace mojoPortal.Features.UI.FolderGallery
 
                     string ext = Path.GetExtension(file.FileName);
                     string newFileName = Path.GetFileName(file.FileName);
-                    if (SiteUtils.IsAllowedUploadBrowseFile(ext, ".jpg|.gif|.png|.jpeg"))
+                    if (SiteUtils.IsAllowedUploadBrowseFile(ext, WebConfigSettings.ImageFileExtensions))
                     {
                         string newImagePath = VirtualPathUtility.Combine(imageFolderPath, newFileName);
 

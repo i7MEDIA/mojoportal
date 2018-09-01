@@ -121,7 +121,7 @@ namespace mojoPortal.Features.UI.ImageGallery
                 HttpPostedFile file = Request.Files[f];
 
                 string ext = Path.GetExtension(file.FileName);
-                if (SiteUtils.IsAllowedUploadBrowseFile(ext, ".jpg|.gif|.png|.jpeg"))
+                if (SiteUtils.IsAllowedUploadBrowseFile(ext, WebConfigSettings.ImageFileExtensions))
                 {
                     GalleryImage galleryImage;
 

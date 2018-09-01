@@ -97,7 +97,7 @@ namespace mojoPortal.Web.GalleryUI
                 {
 
                     string ext = Path.GetExtension(uploader.FileName);
-                    if (SiteUtils.IsAllowedUploadBrowseFile(ext, ".jpg|.gif|.png|.jpeg"))
+                    if (SiteUtils.IsAllowedUploadBrowseFile(ext, WebConfigSettings.ImageFileExtensions))
                     {
                         GalleryImage galleryImage = new GalleryImage(this.moduleId);
                         galleryImage.ModuleGuid = module.ModuleGuid;

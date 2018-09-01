@@ -188,7 +188,7 @@ namespace mojoPortal.Web.GalleryUI
                 if (uploader.HasFile)
                 {
                     string ext = Path.GetExtension(uploader.FileName);
-                    if (!SiteUtils.IsAllowedUploadBrowseFile(ext, ".jpg|.gif|.png|.jpeg"))
+                    if (!SiteUtils.IsAllowedUploadBrowseFile(ext, WebConfigSettings.ImageFileExtensions))
                     {
                         lblMessage.Text = GalleryResources.InvalidFile;
                         
