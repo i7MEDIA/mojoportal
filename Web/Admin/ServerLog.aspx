@@ -16,20 +16,18 @@
 					<asp:Panel ID="pnlDbLog" runat="server">
 						<asp:Repeater ID="rptSystemLog" runat="server">
 							<HeaderTemplate>
-								<ul class="simplelist errorlog">
+								<dl class="errorlog">
 							</HeaderTemplate>
 							<ItemTemplate>
-								<li class="simplelist logitem">
-									<h2 class="logitem <%# Eval("LogLevel") %>">
-										<asp:ImageButton ImageUrl='<%# DeleteLinkImage %>' CommandName="deleteitem" CommandArgument='<%# Eval("ID") %>' AlternateText="<%# Resources.Resource.DeleteButton %>" ToolTip="<%# Resources.Resource.DeleteButton %>" runat="server" ID="btnDeleteItem" />
-										<%# FormatDate(Convert.ToDateTime(Eval("LogDate"))) %> <%# Eval("LogLevel") %> <%# Eval("Logger") %> <%# FormatIpAddress(Eval("IpAddress").ToString()) %> <%# Eval("Culture") %> <%# Server.HtmlEncode(Eval("ShortUrl").ToString()) %>  </h2>
-									<p class="logmessage">
-										<%# Server.HtmlEncode(Eval("Message").ToString()) %>
-									</p>
-								</li>
+								<dt class="logmessage <%# Eval("LogLevel").ToString() == "ERROR" ? "text-danger" : Eval("LogLevel").ToString() == "WARN" ? "text-warning" : "text-info" %>">
+									<asp:ImageButton ImageUrl='<%# DeleteLinkImage %>' CommandName="deleteitem" CommandArgument='<%# Eval("ID") %>' AlternateText="<%# Resources.Resource.DeleteButton %>" ToolTip="<%# Resources.Resource.DeleteButton %>" runat="server" ID="btnDeleteItem" />
+									<%# FormatDate(Convert.ToDateTime(Eval("LogDate"))) %> <%# Eval("LogLevel") %> <%# Eval("Logger") %> <%# FormatIpAddress(Eval("IpAddress").ToString()) %> <%# Eval("Culture") %> <%# Server.HtmlEncode(Eval("ShortUrl").ToString()) %>  </dt>
+								<dd class="logmessage <%# Eval("LogLevel").ToString() == "ERROR" ? "text-danger" : Eval("LogLevel").ToString() == "WARN" ? "text-warning" : "text-info" %>">
+									<%# Server.HtmlEncode(Eval("Message").ToString()) %>
+								</dd>
 							</ItemTemplate>
 							<FooterTemplate>
-								</ul>
+								</dl>
 							</FooterTemplate>
 						</asp:Repeater>
 						<portal:mojoCutePager ID="pgr" runat="server" />
