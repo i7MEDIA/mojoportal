@@ -27,7 +27,12 @@ namespace mojoPortal.Data
 				default:
 					return ConfigurationManager.AppSettings[StringName].AddSslMode();
 				case "write":
-					return ConfigurationManager.AppSettings[WriteStringName].AddSslMode();
+					if (ConfigurationManager.AppSettings[WriteStringName] != null)
+					{
+						return ConfigurationManager.AppSettings[WriteStringName].AddSslMode();
+					}
+
+					return null;
 			}
 		}
 

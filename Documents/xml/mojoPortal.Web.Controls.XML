@@ -575,7 +575,7 @@
             Gets an array of file infos for the images in a folder, sorted by date.
             </summary>
             <param name="path">The folder's physical path.</param>
-            <param name="includesubFolders">True if subfolders should be included.</param>
+            <param name="includeSubfolders">True if subfolders should be included.</param>
             <returns>The list of file infos, sorted by date.</returns>
         </member>
         <member name="M:mojoPortal.Web.Controls.Album.GetImages(System.Int32,System.Boolean)">
@@ -941,6 +941,12 @@
             <summary>
             Creates a reduced Bitmap from a full-size Bitmap.
             </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.GetImageExtensions">
+            <summary>
+            Gets image file extensions from web.config and adds * to each.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.CreateFolderImage(System.Drawing.Color,System.Drawing.Color,System.Boolean,System.String,System.Int32)">
             <summary>

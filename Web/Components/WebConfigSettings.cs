@@ -254,6 +254,11 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("DebugLoginRedirect", false); }
 		}
 
+		public static bool DebugOpenID
+		{
+			get { return ConfigHelper.GetBoolProperty("DebugOpenID", false); }
+		}
+
 		public static bool EnableTaskQueueTestLinks
 		{
 			get { return ConfigHelper.GetBoolProperty("EnableTaskQueueTestLinks", false); }
