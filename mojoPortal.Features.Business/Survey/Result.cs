@@ -1,6 +1,6 @@
 // Author:        Rob Henry
 // Created:       2007-09-18
-// Last Modified: 2018-08-02
+// Last Modified: 2018-09-06
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -42,6 +42,7 @@ namespace SurveyFeature.Business
 		public Guid QuestionGuid { get; set; } = Guid.Empty;
 		public Guid ResponseGuid { get; set; } = Guid.Empty;
 		public string QuestionName { get; set; }
+		public string QuestionText { get; set; }
 		public string Answer { get; set; }
 		public string PageTitle { get; set; }
 
