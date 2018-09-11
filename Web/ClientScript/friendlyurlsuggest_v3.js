@@ -1,11 +1,12 @@
 var keyCode;
 
-function UrlHelper(inputText, outputText, referenceText, warningSpan, serviceUrl)
+function UrlHelper(inputText, outputText, referenceText, warningSpan, serviceUrl, urlPrefix = '')
 {
     this.inputText = inputText;
 	this.referenceText = referenceText;
 	this.outputText = outputText;
-    this.warningSpan = warningSpan;
+	this.warningSpan = warningSpan;
+	this.urlPrefix = urlPrefix;
     this.query = '';
     this.urlcheckquery = '';
     this.xmlDoc;
@@ -32,7 +33,7 @@ UrlHelper.prototype.onKeyUp = function()
 
 UrlHelper.prototype.onchange = function()
 {
-    if (this.inputText.value == this.referenceText.value) { return; }
+    if (this.inputText.value === this.referenceText.value) { return; }
 	this.query = this.inputText.value;
 	//alert(this.query);
 	this.GetData(this.ShowData, this);
@@ -52,7 +53,7 @@ UrlHelper.prototype.onUrlBlur = function()
 
 UrlHelper.prototype.onurlchange = function()
 {
-    this.urlcheckquery = this.outputText.value;
+	this.urlcheckquery = this.outputText.value;
 	this.CheckUrl(this.showWarning, this);
 }
 
@@ -88,7 +89,7 @@ UrlHelper.prototype.GetData = function(callback,urlHelper)
 {
 	var separator = this.serviceUrl.indexOf('?') !== -1 ? "&" : "?";
 	$.ajax({
-    url: this.serviceUrl + separator + 'pn=' + encodeURIComponent(this.query),
+	url: this.serviceUrl + separator + 'pn=' + encodeURIComponent(this.query) + '&prefix=' + encodeURIComponent(this.urlPrefix),
     dataType: 'xml',
     success: function(data){
 		this.xmlDoc = data;
@@ -119,7 +120,7 @@ UrlHelper.prototype.CheckUrl = function(callback,urlHelper)
 
 function http_onreadystatechange(sender,callback,urlHelper)
 {
-    if (sender.readyState == /* complete */ 4)
+    if (sender.readyState === /* complete */ 4)
     { 
         callback(urlHelper, sender);
     }

@@ -56,10 +56,10 @@ namespace mojoPortal.Web.BlogUI
 
             if (context.Request.Params.Get("pn") != null)
             {
-                String pageName = context.Request.Params.Get("pn");
+				string pageName = context.Request.Params.Get("pn");
+				string prefix = context.Request.Params.Get("prefix") ?? string.Empty;
 
-                
-                if (WebConfigSettings.AppendDateToBlogUrls) 
+				if (WebConfigSettings.AppendDateToBlogUrls) 
                 {
                     if (timeZone != null)
                     {
@@ -76,9 +76,9 @@ namespace mojoPortal.Web.BlogUI
 
                 if (siteSettings != null)
                 {
-                    String friendlyUrl = SiteUtils.SuggestFriendlyUrl(pageName, siteSettings);
+					string friendlyUrl = SiteUtils.SuggestFriendlyUrl(pageName, siteSettings, prefix);
 
-                    if (WebPageInfo.IsPhysicalWebPage("~/" + friendlyUrl))
+                    if (WebPageInfo.IsPhysicalWebPage($"~/{friendlyUrl}"))
                     {
                         warning = BlogResources.BlogUrlConflictWithPhysicalPageError;
                     }

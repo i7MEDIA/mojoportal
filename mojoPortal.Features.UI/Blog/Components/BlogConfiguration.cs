@@ -377,6 +377,11 @@ namespace mojoPortal.Web.BlogUI
 			defaultIncludeImageInPostChecked = WebUtils.ParseBoolFromHashtable(settings, "DefaultIncludeImageInPostChecked", defaultIncludeImageInPostChecked);
 
 			featuredPostId = WebUtils.ParseInt32FromHashtable(settings, "FeaturedPostId", featuredPostId);
+
+			if (settings.Contains("DefaultUrlPrefix"))
+			{
+				defaultUrlPrefix = settings["DefaultUrlPrefix"].ToString();
+			}
 		}
 
 		private bool defaultIncludeImageInExcerptChecked = false;
@@ -1179,6 +1184,12 @@ namespace mojoPortal.Web.BlogUI
 		public bool UsePostTitleAsPageHeading
 		{
 			get => usePostTitleAsPageHeading;
+		}
+
+		private string defaultUrlPrefix = string.Empty;
+		public string DefaultUrlPrefix
+		{
+			get => defaultUrlPrefix;
 		}
 
 		public static bool Create301OnPostRename

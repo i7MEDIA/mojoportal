@@ -114,11 +114,12 @@ namespace mojoPortal.Web
 		//Updated 2011-10-04 based on suggestions by Warner
 		//http://www.mojoportal.com/Forums/Thread.aspx?thread=9176&mid=34&pageid=5&ItemID=9&pagenumber=1#post38114
 
-		public static String SuggestFriendlyUrl(
-			String pageName,
-			SiteSettings siteSettings)
+		public static string SuggestFriendlyUrl(
+			string pageName,
+			SiteSettings siteSettings,
+			string prefix = "")
 		{
-			String friendlyUrl = CleanStringForUrl(pageName);
+			string friendlyUrl = CleanStringForUrl(prefix, false) + CleanStringForUrl(pageName);
 			if (WebConfigSettings.AlwaysUrlEncode)
 			{
 				friendlyUrl = HttpUtility.UrlEncode(friendlyUrl);
@@ -253,9 +254,15 @@ namespace mojoPortal.Web
 			return outputString;
 		}
 
-		public static string CleanStringForUrl(string input)
+		public static string CleanStringForUrl(string input, bool removeForwardSlash = true)
 		{
-			string outputString = RemovePunctuation(input.Replace("&", "-")).Replace(" - ", "-").Replace("--", "-").Replace(" ", "-").Replace("/", string.Empty).Replace("\"", string.Empty).Replace("'", string.Empty).Replace("#", string.Empty).Replace("~", string.Empty).Replace("`", string.Empty).Replace("@", string.Empty).Replace("$", string.Empty).Replace("*", string.Empty).Replace("^", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace("+", string.Empty).Replace("=", string.Empty).Replace("%", string.Empty).Replace(">", string.Empty).Replace("<", string.Empty);
+			string outputString = RemovePunctuation(input.Replace("&", "-")).Replace("\\", "-").Replace(" - ", "-").Replace("--", "-").Replace(" ", "-").Replace("\"", string.Empty).Replace("'", string.Empty).Replace("#", string.Empty).Replace("~", string.Empty).Replace("`", string.Empty).Replace("@", string.Empty).Replace("$", string.Empty).Replace("*", string.Empty).Replace("^", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace("+", string.Empty).Replace("=", string.Empty).Replace("%", string.Empty).Replace(">", string.Empty).Replace("<", string.Empty);
+
+			if (removeForwardSlash)
+			{
+				outputString = outputString.Replace("/", string.Empty);
+			}
+
 			if (WebConfigSettings.UseClosestAsciiCharsForUrls) { return outputString.ToAsciiIfPossible(); }
 
 			return outputString;

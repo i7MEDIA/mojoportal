@@ -1492,6 +1492,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default Post URL Prefix.
+        /// </summary>
+        internal static string DefaultUrlPrefix {
+            get {
+                return ResourceManager.GetString("DefaultUrlPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete All History.
         /// </summary>
         internal static string DeleteAllHistoryButton {
