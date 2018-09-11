@@ -266,10 +266,10 @@ namespace mojoPortal.Web.ForumUI
             lnkNewPost.NavigateUrl = SiteRoot
                 + "/Forums/EditPost.aspx?"
                 + "thread=" + threadId.ToString()
-                + "&amp;forumid=" + forum.ItemId.ToInvariantString()
-                + "&amp;mid=" + moduleId.ToInvariantString()
-                + "&amp;pageid=" + PageId.ToString()
-                + "&amp;pagenumber=" + nextPageNumber.ToInvariantString();
+                + "&forumid=" + forum.ItemId.ToInvariantString()
+                + "&mid=" + moduleId.ToInvariantString()
+                + "&pageid=" + PageId.ToString()
+                + "&pagenumber=" + nextPageNumber.ToInvariantString();
 
             lnkNewPost.Visible = WebUser.IsInRoles(forum.RolesThatCanPost) && !forum.Closed; 
             lnkNewPostBottom.Visible = lnkNewPost.Visible;
