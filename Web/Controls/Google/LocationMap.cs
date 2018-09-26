@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:				    2007-12-04
-// Last Modified:			2018-09-25
+// Last Modified:			2018-09-26
 //		
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -219,24 +219,21 @@ namespace mojoPortal.Web.UI
 				iframe.Attributes.Add("marginheight", "0");
 				iframe.Attributes.Add("marginwidth", "0");
 				iframe.Attributes.Add("allowfullscreen", "allowfullscreen");
-				iframe.Attributes.Add("width", MapWidth.ToString());
-				iframe.Attributes.Add("height", MapHeight.ToString());
-				iframe.Attributes.Add("style", "border: 0;");
 				iframe.Attributes.Add("scrolling", "no");
 
 
 				var mapStyle = new HtmlGenericControl("style")
 				{
-					InnerHtml = $@"
-					.mp-responsive-maps {{
+					InnerHtml = @"
+					.mp-responsive-maps {
 						display: block;
 						height: 0;
 						overflow: hidden;
 						padding: 0;
 						position: relative;
-					}}
+					}
 
-					.mp-responsive-maps > iframe {{
+					.mp-responsive-maps > iframe {
 						border: 0;
 						bottom: 0;
 						height: 100%;
@@ -244,15 +241,15 @@ namespace mojoPortal.Web.UI
 						position: absolute;
 						top: 0;
 						width: 100%;
-					}}
+					}
 
-					.mp-responsive-maps-r16by9 {{
-						padding - bottom: 56.25%;
-					}}
+					.mp-responsive-maps-r16by9 {
+						padding-bottom: 56.25%;
+					}
 
-					.mp-responsive-maps-r4by3 {{
-						padding - bottom: 75%;
-					}}"
+					.mp-responsive-maps-r4by3 {
+						padding-bottom: 75%;
+					}".Replace(" ", string.Empty).Replace("\t", string.Empty).RemoveLineBreaks()
 				};
 				pnlMapCanvas.Controls.Add(iframe);
 				this.Controls.Add(mapStyle);
