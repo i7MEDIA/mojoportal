@@ -3796,8 +3796,8 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>if "$(Configuration)" == "Release - SQLite" xcopy /s /y /d "$(SolutionDir)Web\data\sqlitedb\sqlite3.dll" "$(SolutionDir)Web\bin\"
+if "$(Configuration)" == "Debug - SQLite" xcopy /s /y /d "$(SolutionDir)Web\data\sqlitedb\sqlite3.dll" "$(SolutionDir)Web\bin\"</PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
@@ -3810,4 +3810,9 @@
   </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="SpicNSpan" AfterTargets="Clean">
+    <RemoveDir Directories="$(TargetDir)" />
+    <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
+  </Target>
+
 </Project>
