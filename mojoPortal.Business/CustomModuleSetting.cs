@@ -1,6 +1,6 @@
 // Author:				
 // Created:			    2004-12-26
-// Last Modified:		2017-10-26
+// Last Modified:		2018-09-25
 
 using System;
 
@@ -23,117 +23,55 @@ namespace mojoPortal.Business
 			string attributes,
 			string options)
         {
-            this.featureGuid = featureGuid;
-            this.defSettingID = defSettingId;
-            this.resourceFile = resourceFile;
-            this.settingName = settingName;
-            this.settingValue = defaultValue;
-            this.settingControlType = controlType;
-            this.settingValidationRegex = settingValidationRegex;
-            this.controlSrc = controlSrc;
-            this.helpKey = helpKey;
-            this.sortOrder = sortOrder;
-			this.attributes = attributes;
-			this.options = options;
+            this.FeatureGuid = featureGuid;
+            this.DefSettingId = defSettingId;
+            this.ResourceFile = resourceFile;
+            this.SettingName = settingName;
+            this.SettingValue = defaultValue;
+            this.SettingControlType = controlType;
+            this.SettingValidationRegex = settingValidationRegex;
+            this.ControlSrc = controlSrc;
+            this.HelpKey = helpKey;
+            this.SortOrder = sortOrder;
+			this.Attributes = attributes;
+			this.Options = options;
 		}
 
-        private int defSettingID = -1;
-        private Guid featureGuid = Guid.Empty;
-        private string resourceFile = "Resource";
-		private string settingName = string.Empty;
-		private string settingValue = string.Empty;
-		private string settingControlType = string.Empty;
-		private string settingValidationRegex = string.Empty;
-        private string controlSrc = string.Empty;
-        private string helpKey = string.Empty;
-        private int sortOrder = 100;
-        private string groupName = string.Empty;
-		private string attributes = string.Empty;
-		private string options = string.Empty;
+		public int DefSettingId { get; set; } = -1;
 
+		public int SortOrder { get; set; } = 100;
 
+		public Guid FeatureGuid { get; set; } = Guid.Empty;
 
-		public int DefSettingId
+		public string ResourceFile { get; set; } = "Resource";
+
+		public string SettingName { get; } = string.Empty;
+
+		public string SettingValue { get; } = string.Empty;
+
+		public string SettingControlType { get; } = string.Empty;
+
+		public string SettingValidationRegex { get; } = string.Empty;
+
+		public string ControlType
         {
-            get { return defSettingID; }
-            set { defSettingID = value; }
-        }
-
-        public int SortOrder
-        {
-            get { return sortOrder; }
-            set { sortOrder = value; }
-        }
-
-        public Guid FeatureGuid
-        {
-            get { return featureGuid; }
-            set { featureGuid = value; }
-        }
-
-        public string ResourceFile
-        {
-            get { return resourceFile; }
-            set { resourceFile = value; }
-        }
-
-		public string SettingName
-		{	
-			get {return settingName;}
-		}
-
-		public string SettingValue
-		{	
-			get {return settingValue;}
-		}
-
-		public string SettingControlType
-		{	
-			get {return settingControlType;}
-		}
-
-		public string SettingValidationRegex
-		{	
-			get {return settingValidationRegex;}
-		}
-
-        public string ControlType
-        {
-            get { return settingControlType; }
+            get { return SettingControlType; }
         }
 
         public string RegexValidationExpression
         {
-            get { return settingValidationRegex; }
+            get { return SettingValidationRegex; }
         }
 
-        public string ControlSrc
-        {
-            get { return controlSrc; }
-        }
+		public string ControlSrc { get; } = string.Empty;
 
-        public string HelpKey
-        {
-            get { return helpKey; }
-        }
+		public string HelpKey { get; } = string.Empty;
 
-        public string GroupName
-        {
-            get { return groupName; }
-            set { groupName = value; }
-        }
+		public string GroupName { get; set; } = string.Empty;
 
-		public string Attributes
-		{
-			get => attributes;
-			set => attributes = value;
-		}
+		public string Attributes { get; set; } = string.Empty;
 
-		public string Options
-		{
-			get => options;
-			set => options = value;
-		}
+		public string Options { get; set; } = string.Empty;
 
 	}
 }

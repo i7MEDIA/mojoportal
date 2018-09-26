@@ -138,7 +138,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy /s /y /d "$(SolutionDir)Web\data\sqlitedb\sqlite3.dll" "$(SolutionDir)Web\bin\"</PostBuildEvent>
   </PropertyGroup>
 </Project>

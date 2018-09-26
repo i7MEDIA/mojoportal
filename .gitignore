@@ -418,3 +418,5 @@ Web/Setup/ProviderConfig/worldpayresponsehandlers/webstoreworldpayresponsehandle
 Web/Data/sqlitedb/mojo\.db\.config-journal
 
 Web/Setup/RouteRegistrars/SuperFlexiRoutes\.config
+
+*.bak
