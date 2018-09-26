@@ -15,6 +15,7 @@ using System.Collections;
 using System.Globalization;
 using System.Web.UI.WebControls;
 using mojoPortal.Web.Controls.google;
+using mojoPortal.Web.UI;
 using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.MapUI
@@ -51,6 +52,8 @@ namespace mojoPortal.Web.MapUI
 
             useLocationAsCaption = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapShowLocationCaptionSetting", useLocationAsCaption);
 
+			UseIframe = WebUtils.ParseBoolFromHashtable(settings, "GoogleMapUseIframeSetting", UseIframe);
+
             mapHeight = WebUtils.ParseInt32FromHashtable(settings, "GoogleMapHeightSetting", mapHeight);
 
             //mapWidth = WebUtils.ParseInt32FromHashtable(settings, "GoogleMapWidthSetting", mapWidth);
@@ -63,7 +66,7 @@ namespace mojoPortal.Web.MapUI
 
             if (settings.Contains("CustomCssClassSetting"))
             {
-                instanceCssClass = settings["CustomCssClassSetting"].ToString();
+                InstanceCssClass = settings["CustomCssClassSetting"].ToString();
             }
 
             if (settings.Contains("GoogleMapInitialMapTypeSetting"))
@@ -71,7 +74,7 @@ namespace mojoPortal.Web.MapUI
                 string gmType = settings["GoogleMapInitialMapTypeSetting"].ToString();
                 try
                 {
-                    mapType = (MapType)Enum.Parse(typeof(MapType), gmType);
+                    GoogleMapType = (MapType)Enum.Parse(typeof(MapType), gmType);
                 }
                 catch (ArgumentException) { }
 
@@ -178,26 +181,18 @@ namespace mojoPortal.Web.MapUI
             get { return enableDrivingDirections; }
         }
 
-        private MapType mapType = MapType.G_NORMAL_MAP;
+		public MapType GoogleMapType { get; private set; } = MapType.G_NORMAL_MAP;
 
-        public MapType GoogleMapType
-        {
-            get { return mapType; }
-        }
-
-        private int zoomSetting = 13;
+		private int zoomSetting = 13;
 
         public int ZoomSetting
         {
             get { return zoomSetting; }
         }
 
-        private string instanceCssClass = string.Empty;
+		public string InstanceCssClass { get; private set; } = string.Empty;
+		public bool UseIframe { get; private set; } = true;
 
-        public string InstanceCssClass
-        {
-            get { return instanceCssClass; }
-        }
-
-    }
+		public MapRatio MapRatio { get; private set; } = MapRatio.r16by9;
+	}
 }

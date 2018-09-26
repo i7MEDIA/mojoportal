@@ -232,6 +232,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use iframe Embed.
+        /// </summary>
+        internal static string GoogleMapUseIframeSetting {
+            get {
+                return ResourceManager.GetString("GoogleMapUseIframeSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use Location for Title.
         /// </summary>
         internal static string GoogleMapUseLocationForTitleSetting {

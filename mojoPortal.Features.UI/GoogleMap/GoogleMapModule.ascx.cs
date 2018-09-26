@@ -47,8 +47,8 @@ namespace mojoPortal.Web.MapUI
             gmap.EnableLocalSearch = config.EnableLocalSearch;
             gmap.MapHeight = config.MapHeight;
             gmap.MapWidth = config.MapWidth;
-            
-
+			gmap.UseIframe = config.UseIframe;
+			gmap.MapRatio = config.MapRatio;
             gmap.EnableDrivingDirections = config.EnableDrivingDirections;
             gmap.GmapType = config.GoogleMapType;
             gmap.ZoomLevel = config.ZoomSetting;
