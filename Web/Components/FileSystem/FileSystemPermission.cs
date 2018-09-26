@@ -8,17 +8,17 @@
  * Last Modified 2009-12-30 
  */
 
-using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace mojoPortal.FileSystem
 {
-    public class FileSystemPermission : IFileSystemPermission
+	public class FileSystemPermission : IFileSystemPermission
     {
         public bool UserHasUploadPermission
         { get; set; } 
-
+		public bool UserHasBrowsePermission
+		{ get; set; }
         public string VirtualRoot
         {
             get;

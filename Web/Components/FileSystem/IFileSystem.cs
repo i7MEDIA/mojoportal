@@ -35,7 +35,7 @@ namespace mojoPortal.FileSystem
 		IFileSystemPermission Permission { get; }
 
 		bool UserHasUploadPermission { get; } 
-
+		bool UserHasBrowsePermission { get; }
 		/// <summary>
 		/// The root folder 
 		/// </summary>

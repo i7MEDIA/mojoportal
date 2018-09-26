@@ -85,9 +85,10 @@ namespace mojoPortal.Web.AdminUI
             lnkRolesThatCanViewCommerceReports.Text = Resource.RolesThatCanViewCommerceReportsLabel;
             lnkRolesThatCanViewCommerceReports.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.ViewCommerceReports + siteParam;
 
-            
+			lnkRolesThatCanBrowseFileSystem.Text = Resource.GeneralBrowseRoles;
+			lnkRolesThatCanBrowseFileSystem.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.GeneralBrowse + siteParam;
 
-            lnkRolesThatCanUploadAndBrowse.Text = Resource.GeneralBrowseAndUploadRoles;
+			lnkRolesThatCanUploadAndBrowse.Text = Resource.GeneralBrowseAndUploadRoles;
             lnkRolesThatCanUploadAndBrowse.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.GeneralBrowseAndUpload + siteParam;
 
             lnkRolesThatCanUploadAndBrowseUserOnly.Text = Resource.UserFilesBrowseAndUploadRoles;

@@ -53,7 +53,7 @@ namespace mojoPortal.Web.Controllers
 				}
 			}
 
-			if ((fileSystem == null) || (!fileSystem.UserHasUploadPermission))
+			if ((fileSystem == null) || (!fileSystem.UserHasUploadPermission && !fileSystem.UserHasBrowsePermission))
 			{
 				return new FileService.ReturnObject(ReturnResult(OpResult.Denied));
 			}
@@ -161,11 +161,7 @@ namespace mojoPortal.Web.Controllers
 
 			virtualPath = fileSystem.VirtualRoot;
 
-			if ((WebUser.IsAdminOrContentAdmin) || (SiteUtils.UserIsSiteEditor()))
-			{
-				allowedExtensions = WebConfigSettings.AllowedUploadFileExtensions;
-			}
-			else if (WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles))
+			if (WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor() || WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles))
 			{
 				allowedExtensions = WebConfigSettings.AllowedUploadFileExtensions;
 			}

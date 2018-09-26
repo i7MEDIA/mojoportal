@@ -1361,7 +1361,18 @@ namespace mojoPortal.Business
             set { SetExpandoProperty("GeneralBrowseAndUploadRoles", value); }
         }
 
-        public string UserFilesBrowseAndUploadRoles
+		public string GeneralBrowseRoles
+		{
+			get
+			{
+				string result = GetExpandoProperty("GeneralBrowseRoles");
+				if (result != null) { return result; }
+				return string.Empty;
+			}
+			set { SetExpandoProperty("GeneralBrowseRoles", value); }
+		}
+
+		public string UserFilesBrowseAndUploadRoles
         {
             get
             {

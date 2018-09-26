@@ -3652,7 +3652,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can approve draft content on this page.
+        ///   Looks up a localized string similar to Draft Content Approval Roles.
         /// </summary>
         internal static string DraftApprovalRoles {
             get {
@@ -5227,11 +5227,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can browse and upload files.
+        ///   Looks up a localized string similar to Browse and Upload Files.
         /// </summary>
         internal static string GeneralBrowseAndUploadRoles {
             get {
                 return ResourceManager.GetString("GeneralBrowseAndUploadRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse Files.
+        /// </summary>
+        internal static string GeneralBrowseRoles {
+            get {
+                return ResourceManager.GetString("GeneralBrowseRoles", resourceCulture);
             }
         }
         
@@ -6586,7 +6595,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles That Can Subscribe.
+        ///   Looks up a localized string similar to Subscription Limited to Roles.
         /// </summary>
         internal static string LetterInfoAvailableToRolesLabel {
             get {
@@ -6712,7 +6721,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles That Can Approve.
+        ///   Looks up a localized string similar to Approval Roles.
         /// </summary>
         internal static string LetterInfoRolesThatCanApproveTab {
             get {
@@ -8512,7 +8521,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can only edit content as draft.
+        ///   Looks up a localized string similar to Draft Editors.
         /// </summary>
         internal static string ModuleSettingsDraftEditRolesLabel {
             get {
@@ -8521,7 +8530,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can edit content.
+        ///   Looks up a localized string similar to Editors.
         /// </summary>
         internal static string ModuleSettingsEditRolesLabel {
             get {
@@ -8683,7 +8692,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can view this content.
+        ///   Looks up a localized string similar to View Roles.
         /// </summary>
         internal static string ModuleSettingsViewRolesLabel {
             get {
@@ -10735,7 +10744,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can create pages below this page.
+        ///   Looks up a localized string similar to Roles allowed to create child pages.
         /// </summary>
         internal static string PageLayoutCreateChildPageRolesLabel {
             get {
@@ -10762,7 +10771,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can only edit this page as draft.
+        ///   Looks up a localized string similar to Draft Editors.
         /// </summary>
         internal static string PageLayoutDraftEditRolesLabel {
             get {
@@ -10771,7 +10780,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can edit this page.
+        ///   Looks up a localized string similar to Editors.
         /// </summary>
         internal static string PageLayoutEditRolesLabel {
             get {
@@ -10780,7 +10789,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit Settings For This Page.
+        ///   Looks up a localized string similar to Page Settings.
         /// </summary>
         internal static string PageLayoutEditSettingsLink {
             get {
@@ -11158,7 +11167,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can view this page.
+        ///   Looks up a localized string similar to View Roles.
         /// </summary>
         internal static string PageLayoutViewRolesLabel {
             get {
@@ -13390,7 +13399,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can assign skins to pages.
+        ///   Looks up a localized string similar to Assign Skins to Pages.
         /// </summary>
         internal static string RolesThatCanAssignSkinsToPages {
             get {
@@ -13399,7 +13408,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can create root level pages.
+        ///   Looks up a localized string similar to Create Root Level Pages.
         /// </summary>
         internal static string RolesThatCanCreateRootPages {
             get {
@@ -13408,7 +13417,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can create users..
+        ///   Looks up a localized string similar to Create Users.
         /// </summary>
         internal static string RolesThatCanCreateUsers {
             get {
@@ -13417,7 +13426,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can delete files using the file browser in the editor.
+        ///   Looks up a localized string similar to Delete Files.
         /// </summary>
         internal static string RolesThatCanDeleteFilesInEditor {
             get {
@@ -13426,7 +13435,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can edit content and style templates.
+        ///   Looks up a localized string similar to Edit Content and Style Templates.
         /// </summary>
         internal static string RolesThatCanEditContentTemplates {
             get {
@@ -13435,7 +13444,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can lookup users..
+        ///   Looks up a localized string similar to Lookup Users.
         /// </summary>
         internal static string RolesThatCanLookupUsers {
             get {
@@ -13444,7 +13453,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can manage skins.
+        ///   Looks up a localized string similar to Manage Skins.
         /// </summary>
         internal static string RolesThatCanManageSkins {
             get {
@@ -13453,7 +13462,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can manage users.
+        ///   Looks up a localized string similar to Manage Users.
         /// </summary>
         internal static string RolesThatCanManageUsers {
             get {
@@ -13462,7 +13471,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can view commerce reports.
+        ///   Looks up a localized string similar to View Commerce Reports.
         /// </summary>
         internal static string RolesThatCanViewCommerceReportsLabel {
             get {
@@ -13471,7 +13480,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can view the member list page.
+        ///   Looks up a localized string similar to View Member List.
         /// </summary>
         internal static string RolesThatCanViewMemberList {
             get {
@@ -13480,7 +13489,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles that can use the My Page feature.
+        ///   Looks up a localized string similar to Use My Page Feature.
         /// </summary>
         internal static string RolesThatCanViewMyPage {
             get {
@@ -17468,7 +17477,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles than can browse and upload but only in a user specific folder.
+        ///   Looks up a localized string similar to Browse and Upload in User Folder.
         /// </summary>
         internal static string UserFilesBrowseAndUploadRoles {
             get {

@@ -11,6 +11,8 @@ namespace mojoPortal.Web
 
         public const string GeneralBrowseAndUpload = "662a2e27-1a84-47b8-8cfc-95e9425245b5";
 
+		public const string GeneralBrowse = "9008e3b7-2262-49b5-ba85-99b4cf6ba129";
+
         public const string UserBrowseAndUpload = "72abcbba-0438-4807-a20f-dc6928599d4e";
 
         public const string DeleteFiles = "0e70e288-b5d7-4b5b-9294-c97ef655e00e";

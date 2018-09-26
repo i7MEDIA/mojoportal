@@ -616,7 +616,7 @@
     <value>Allow User Feedback?</value>
   </data>
   <data name="LetterInfoAvailableToRolesLabel" xml:space="preserve">
-    <value>Roles That Can Subscribe</value>
+    <value>Subscription Limited to Roles</value>
   </data>
   <data name="LetterInfoDescriptionLabel" xml:space="preserve">
     <value>Description</value>
@@ -964,7 +964,7 @@
     <value>Are you sure you want to competely delete this content from all pages?</value>
   </data>
   <data name="ModuleSettingsEditRolesLabel" xml:space="preserve">
-    <value>Roles that can edit content</value>
+    <value>Editors</value>
   </data>
   <data name="ModuleSettingsEditUserIDLabel" xml:space="preserve">
     <value>UserID</value>
@@ -1204,7 +1204,7 @@
     <value>Move selected content up in list</value>
   </data>
   <data name="PageLayoutCreateChildPageRolesLabel" xml:space="preserve">
-    <value>Roles that can create pages below this page</value>
+    <value>Roles allowed to create child pages</value>
   </data>
   <data name="PageLayoutDefaultNewModuleName" xml:space="preserve">
     <value>New Content Title</value>
@@ -1213,10 +1213,10 @@
     <value>Site Default</value>
   </data>
   <data name="PageLayoutEditRolesLabel" xml:space="preserve">
-    <value>Roles that can edit this page</value>
+    <value>Editors</value>
   </data>
   <data name="PageLayoutEditSettingsLink" xml:space="preserve">
-    <value>Edit Settings For This Page</value>
+    <value>Page Settings</value>
   </data>
   <data name="PageLayoutHideMenuLabel" xml:space="preserve">
     <value>Hide Main Menu?</value>
@@ -2644,7 +2644,7 @@
     <value>Description</value>
   </data>
   <data name="LetterInfoRolesThatCanApproveTab" xml:space="preserve">
-    <value>Roles That Can Approve</value>
+    <value>Approval Roles</value>
   </data>
   <data name="LetterInfoRolesThatCanEditTab" xml:space="preserve">
     <value>Roles That Can Edit</value>
@@ -3607,7 +3607,7 @@
     <value>Currency</value>
   </data>
   <data name="RolesThatCanViewCommerceReportsLabel" xml:space="preserve">
-    <value>Roles that can view commerce reports</value>
+    <value>View Commerce Reports</value>
   </data>
   <data name="DefaultCountryStateLabel" xml:space="preserve">
     <value>Default Country/State</value>
@@ -3661,7 +3661,7 @@
     <value>Top Customers</value>
   </data>
   <data name="ModuleSettingsViewRolesLabel" xml:space="preserve">
-    <value>Roles that can view this content</value>
+    <value>View Roles</value>
   </data>
   <data name="PageSettingsIncludeInSiteMapLabel" xml:space="preserve">
     <value>Include In Site Map?</value>
@@ -4057,10 +4057,10 @@
     <value>Enable Content Workflow</value>
   </data>
   <data name="ModuleSettingsDraftEditRolesLabel" xml:space="preserve">
-    <value>Roles that can only edit content as draft</value>
+    <value>Draft Editors</value>
   </data>
   <data name="PageLayoutDraftEditRolesLabel" xml:space="preserve">
-    <value>Roles that can only edit this page as draft</value>
+    <value>Draft Editors</value>
   </data>
   <data name="PendingPagesGridPageColumn" xml:space="preserve">
     <value>Page</value>
@@ -4195,31 +4195,31 @@
     <value>Selection</value>
   </data>
   <data name="GeneralBrowseAndUploadRoles" xml:space="preserve">
-    <value>Roles that can browse and upload files</value>
+    <value>Browse and Upload Files</value>
   </data>
   <data name="RolesNotAllowedToEditModuleSettings" xml:space="preserve">
     <value>Roles NOT allowed to edit feature instance settings</value>
   </data>
   <data name="RolesThatCanEditContentTemplates" xml:space="preserve">
-    <value>Roles that can edit content and style templates</value>
+    <value>Edit Content and Style Templates</value>
   </data>
   <data name="RolesThatCanLookupUsers" xml:space="preserve">
-    <value>Roles that can lookup users.</value>
+    <value>Lookup Users</value>
   </data>
   <data name="RolesThatCanManageUsers" xml:space="preserve">
-    <value>Roles that can manage users</value>
+    <value>Manage Users</value>
   </data>
   <data name="RolesThatCanViewMemberList" xml:space="preserve">
-    <value>Roles that can view the member list page</value>
+    <value>View Member List</value>
   </data>
   <data name="RolesThatCanViewMyPage" xml:space="preserve">
-    <value>Roles that can use the My Page feature</value>
+    <value>Use My Page Feature</value>
   </data>
   <data name="SiteSettingsPermissionsTab" xml:space="preserve">
     <value>Permissions</value>
   </data>
   <data name="UserFilesBrowseAndUploadRoles" xml:space="preserve">
-    <value>Roles than can browse and upload but only in a user specific folder</value>
+    <value>Browse and Upload in User Folder</value>
   </data>
   <data name="AddFileButton" xml:space="preserve">
     <value>Add File...</value>
@@ -4291,7 +4291,7 @@
     <value>None</value>
   </data>
   <data name="PageLayoutViewRolesLabel" xml:space="preserve">
-    <value>Roles that can view this page</value>
+    <value>View Roles</value>
   </data>
   <data name="DisqusViewDiscussion" xml:space="preserve">
     <value>View the discussion thread.</value>
@@ -4372,7 +4372,7 @@
     <value>Upload and Re-size your Photo</value>
   </data>
   <data name="RolesThatCanDeleteFilesInEditor" xml:space="preserve">
-    <value>Roles that can delete files using the file browser in the editor</value>
+    <value>Delete Files</value>
   </data>
   <data name="AddPageTooltip" xml:space="preserve">
     <value>Create a new page</value>
@@ -4399,7 +4399,7 @@
     <value>Disable Database Authentication?</value>
   </data>
   <data name="RolesThatCanCreateRootPages" xml:space="preserve">
-    <value>Roles that can create root level pages</value>
+    <value>Create Root Level Pages</value>
   </data>
   <data name="UrlFormatAspx" xml:space="preserve">
     <value>page-name.aspx</value>
@@ -5296,10 +5296,10 @@
     <value>{0} (this site)</value>
   </data>
   <data name="RolesThatCanCreateUsers" xml:space="preserve">
-    <value>Roles that can create users.</value>
+    <value>Create Users</value>
   </data>
   <data name="RolesThatCanManageSkins" xml:space="preserve">
-    <value>Roles that can manage skins</value>
+    <value>Manage Skins</value>
   </data>
   <data name="Browse" xml:space="preserve">
     <value>Browse</value>
@@ -5458,7 +5458,7 @@
     <value>Reset Skin Version Guid</value>
   </data>
   <data name="RolesThatCanAssignSkinsToPages" xml:space="preserve">
-    <value>Roles that can assign skins to pages</value>
+    <value>Assign Skins to Pages</value>
   </data>
   <data name="SkinVersionGuidInfo" xml:space="preserve">
     <value>The Skin Version Guid is appended as a query string parameter in the url for the CSS handler. Since browsers cache CSS based on the URL, changing this parameter is a way to force all visitors of your site to reload the latest CSS for your skin. You should reset the Guid whenever you have completed changes to your CSS, otherwise some visitors may still be seeing the CSS that was previously cached by their web browser.</value>
@@ -5914,7 +5914,7 @@
     <value>Requested Date</value>
   </data>
   <data name="DraftApprovalRoles" xml:space="preserve">
-    <value>Roles that can approve draft content on this page</value>
+    <value>Draft Content Approval Roles</value>
   </data>
   <data name="ModuleDraftApprovalPermissionsFormat" xml:space="preserve">
     <value>Draft Approval Permissions for Content: {0}</value>
@@ -6288,5 +6288,8 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="PasswordRecoveryNotAllowedWhenAuthenticated" xml:space="preserve">
     <value>Password recovery is not allowed while authenticated.</value>
+  </data>
+  <data name="GeneralBrowseRoles" xml:space="preserve">
+    <value>Browse Files</value>
   </data>
 </root>

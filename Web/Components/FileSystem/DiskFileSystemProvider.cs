@@ -55,6 +55,7 @@ namespace mojoPortal.FileSystem
             return new FileSystemPermission()
             {
                 UserHasUploadPermission = UserHasUploadPermission(),
+				UserHasBrowsePermission = UserHasBrowsePermission(),
                 VirtualRoot = GetVirtualPath(),
                 Quota = GetQuota(),
                 MaxSizePerFile = GetMaxSizePerFile(),
@@ -145,6 +146,16 @@ namespace mojoPortal.FileSystem
             return result;
 
         }
+
+		private bool UserHasBrowsePermission()
+		{
+			if (WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor() || WebUser.IsInRoles(siteSettings.GeneralBrowseRoles))
+			{
+				return true;
+			}
+
+			return false;
+		}
 
         private int GetMaxFiles()
         {

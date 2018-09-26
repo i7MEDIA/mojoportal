@@ -157,6 +157,24 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.HyperLink lnkRolesThatCanViewCommerceReports;
         
         /// <summary>
+        /// liRolesThatCanBrowseFileSystem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liRolesThatCanBrowseFileSystem;
+        
+        /// <summary>
+        /// lnkRolesThatCanBrowseFileSystem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkRolesThatCanBrowseFileSystem;
+        
+        /// <summary>
         /// liRolesThatCanUploadAndBrowse control.
         /// </summary>
         /// <remarks>

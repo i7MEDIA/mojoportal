@@ -23,6 +23,9 @@
             <li id="liRolesThatCanViewCommerceReports" runat="server">
 		        <asp:HyperLink ID="lnkRolesThatCanViewCommerceReports" runat="server" CssClass="lnkRolesThatCanViewCommerceReports" />
 		    </li>
+			<li id="liRolesThatCanBrowseFileSystem" runat="server">
+				<asp:HyperLink ID="lnkRolesThatCanBrowseFileSystem" runat="server" CssClass="lnkRolesThatCanBrowseFileSystem" />
+			</li>
             <li id="liRolesThatCanUploadAndBrowse" runat="server">
 		        <asp:HyperLink ID="lnkRolesThatCanUploadAndBrowse" runat="server" CssClass="lnkRolesThatCanUploadAndBrowse" />
 		    </li>
