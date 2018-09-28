@@ -10,30 +10,36 @@ using System.Web.Mvc;
 
 namespace mojoPortal.Features
 {
-    public class RouteRegistrar : IRegisterRoutes
-    {
-        public void Register(HttpConfiguration config)
-        {
-           // api routes
+	public class RouteRegistrar : IRegisterRoutes
+	{
+		public void Register(HttpConfiguration config)
+		{
+			// api routes
 
-            config.Routes.MapHttpRoute(
-                name: "ForumMod",
-                routeTemplate: "api/forummod/{id}",
-                defaults: new { controller = "ForumMod", id = RouteParameter.Optional }
-            );
+			config.Routes.MapHttpRoute(
+				name: "ForumMod",
+				routeTemplate: "api/forummod/{id}",
+				defaults: new { controller = "ForumMod", id = RouteParameter.Optional }
+			);
 
-        }
+			config.Routes.MapHttpRoute(
+				name: "BIG",
+				routeTemplate: "api/big/{id}",
+				defaults: new { controller = "BetterImageGallery", id = RouteParameter.Optional }
+			);
 
-        public void RegisterRoutes(RouteCollection routes)
-        {
-            //mvc routes
+		}
 
-        }
+		public void RegisterRoutes(RouteCollection routes)
+		{
+			//mvc routes
 
-        public void RegisterGlobalFilters(GlobalFilterCollection filters)
-        {
+		}
 
-        }
+		public void RegisterGlobalFilters(GlobalFilterCollection filters)
+		{
 
-    }
+		}
+
+	}
 }

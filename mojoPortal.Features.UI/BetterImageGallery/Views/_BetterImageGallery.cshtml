@@ -1,0 +1,54 @@
+﻿@using mojoPortal.Web.Framework;
+@using mojoPortal.Web.Helpers;
+@using mojoPortal.Business.WebHelpers;
+@using mojoPortal.Features.UI.BetterImageGallery;
+
+@model BIGModel
+
+@{
+	var siteSettings = CacheHelper.GetCurrentSiteSettings();
+	var siteFolderName = String.IsNullOrWhiteSpace(siteSettings.SiteFolderName) ? "" : siteSettings.SiteFolderName + "/";
+	var id = "big-" + Guid.NewGuid();
+}
+
+<div class="bgi__folders">
+@foreach (var folder in Model.Folders)
+{
+
+}
+</div>
+
+<div class="big__thumbnails" id="@id">
+@foreach (var image in Model.Images)
+{
+	<div class="big__thumbnail"><a href="@image.ImageUrl"><img src="@image.ImageThumbUrl" alt="@image.Title" /></a></div>
+}
+</div>
+
+
+<link rel="stylesheet" href="@Url.Content("~")@(siteFolderName)FolderGallery/blueimp-gallery/css/blueimp-gallery.min.css">
+
+<div id="blueimp-gallery" class="blueimp-gallery">
+	<div class="slides"></div>
+	<h3 class="title"></h3>
+	<a class="prev">‹</a>
+	<a class="next">›</a>
+	<a class="close">×</a>
+	<a class="play-pause"></a>
+	<ol class="indicator"></ol>
+</div>
+
+<script src="@Url.Content("~")@(siteFolderName)FolderGallery/blueimp-gallery/js/blueimp-gallery.min.js"></script>
+<script>
+	document.getElementById('@id').onclick = function (event) {
+		event = event || window.event;
+		var target = event.target || event.srcElement,
+			link = target.src ? target.parentNode : target,
+			options = {
+				index: link,
+				event: event
+			},
+			links = this.getElementsByTagName('a');
+		blueimp.Gallery(links, options);
+	};
+</script>
