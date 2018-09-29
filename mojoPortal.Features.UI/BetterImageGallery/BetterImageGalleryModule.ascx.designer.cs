@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mojoPortal.Features.UI {
+namespace mojoPortal.Features.UI.BetterImageGallery {
     
     
     public partial class BetterImageGalleryModule {
@@ -58,13 +58,13 @@ namespace mojoPortal.Features.UI {
         protected global::mojoPortal.Web.UI.InnerBodyPanel pnlInnerBody;
         
         /// <summary>
-        /// postList control.
+        /// gallery1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Features.UI.BetterImageGalleryRazor postList;
+        protected global::mojoPortal.Features.UI.BetterImageGallery.BetterImageGalleryRazor gallery1;
         
         /// <summary>
         /// divFooter control.

@@ -251,6 +251,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\BetterImageGalleryResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BetterImageGalleryResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\BingResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -363,7 +368,6 @@
     <Compile Include="App_MasterPages\layout.Master.designer.cs">
       <DependentUpon>layout.Master</DependentUpon>
     </Compile>
-    <Compile Include="BetterImageGallery\BetterImageGalleryRazor.cs" />
     <Compile Include="BetterImageGallery\BetterImageGalleryModule.ascx.cs">
       <DependentUpon>BetterImageGalleryModule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -371,6 +375,7 @@
     <Compile Include="BetterImageGallery\BetterImageGalleryModule.ascx.designer.cs">
       <DependentUpon>BetterImageGalleryModule.ascx</DependentUpon>
     </Compile>
+    <Compile Include="BetterImageGallery\BetterImageGalleryRazor.cs" />
     <Compile Include="BetterImageGallery\BIGConfig.cs" />
     <Compile Include="BetterImageGallery\BIGModel.cs" />
     <Compile Include="BetterImageGallery\LayoutSelector.ascx.cs">
@@ -1784,6 +1789,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BetterImageGallery\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\BetterImageGalleryResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>BetterImageGalleryResources.Designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

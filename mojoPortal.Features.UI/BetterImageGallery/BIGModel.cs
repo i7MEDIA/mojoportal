@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace mojoPortal.Features.UI.BetterImageGallery
 {
@@ -11,6 +8,8 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		public string ImageUrl { get; set; }
 		public string ImageThumbUrl { get; set; }
 	}
+
+
 	public class BIGFolderModel
 	{
 		public string Name { get; set; }
@@ -18,9 +17,11 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		public string ParentName { get; set; }
 		public string ParentFolderPath { get; set; }
 	}
+
+
 	public class BIGModel
 	{
-		public List<BIGImageModel> Images { get; set; } = new List<BIGImageModel>();
 		public List<BIGFolderModel> Folders { get; set; } = new List<BIGFolderModel>();
+		public List<BIGImageModel> Images { get; set; } = new List<BIGImageModel>();
 	}
 }

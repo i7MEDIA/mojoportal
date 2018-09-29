@@ -46,7 +46,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		}
 
 		public int PageSize { get; private set; } = 25;
-		public string Layout { get; private set; } = "_BlogPostList";
+		public string Layout { get; private set; } = "_BetterImageGallery";
 		public string FolderPath { get; private set; } = string.Empty;
 	}
 }

@@ -1,6 +1,4 @@
-﻿@using mojoPortal.Web.Framework;
-@using mojoPortal.Web.Helpers;
-@using mojoPortal.Business.WebHelpers;
+﻿@using mojoPortal.Business.WebHelpers;
 @using mojoPortal.Features.UI.BetterImageGallery;
 
 @model BIGModel
@@ -14,7 +12,7 @@
 <div class="bgi__folders">
 @foreach (var folder in Model.Folders)
 {
-
+	<div class="big__folder"><a href="@folder.Path">@folder.Name</a></div>
 }
 </div>
 
