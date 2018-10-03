@@ -120,6 +120,12 @@
   <data name="FeatureName" xml:space="preserve">
     <value>Better Image Gallery</value>
   </data>
+  <data name="FileSystemNotLoadedFromProvider" xml:space="preserve">
+    <value>Could not load file system from provider {0}</value>
+  </data>
+  <data name="FileSystemProviderNotLoaded" xml:space="preserve">
+    <value>Could not load file system provider {0}</value>
+  </data>
   <data name="FolderGalleryPath" xml:space="preserve">
     <value>Gallery Folder Path</value>
   </data>
@@ -127,6 +133,6 @@
     <value>Layout</value>
   </data>
   <data name="NoLayoutsInSkin" xml:space="preserve">
-    <value>Default view will be used because there is no custom views in the skin.</value>
+    <value>Default view will be used because there are no custom views in the skin.</value>
   </data>
 </root>

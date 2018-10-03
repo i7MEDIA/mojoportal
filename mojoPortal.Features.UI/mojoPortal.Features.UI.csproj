@@ -373,6 +373,7 @@
     <Compile Include="App_MasterPages\layout.Master.designer.cs">
       <DependentUpon>layout.Master</DependentUpon>
     </Compile>
+    <Compile Include="BetterImageGallery\BetterImageGalleryController.cs" />
     <Compile Include="BetterImageGallery\BetterImageGalleryModule.ascx.cs">
       <DependentUpon>BetterImageGalleryModule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -383,6 +384,7 @@
     <Compile Include="BetterImageGallery\BetterImageGalleryRazor.cs" />
     <Compile Include="BetterImageGallery\BIGConfig.cs" />
     <Compile Include="BetterImageGallery\BIGModel.cs" />
+    <Compile Include="BetterImageGallery\FileResult.cs" />
     <Compile Include="BetterImageGallery\GalleryCore.cs" />
     <Compile Include="BetterImageGallery\LayoutSelector.ascx.cs">
       <DependentUpon>LayoutSelector.ascx</DependentUpon>
@@ -1846,6 +1848,7 @@ xcopy /s /y /d "$(ProjectDir)Survey\*.ascx" "$(SolutionDir)Web\Survey\"
 xcopy /s /y /d "$(ProjectDir)FeedManager\*.aspx" "$(SolutionDir)Web\FeedManager\"
 xcopy /s /y /d "$(ProjectDir)FeedManager\*.ascx" "$(SolutionDir)Web\FeedManager\"
 xcopy /s /y /d "$(ProjectDir)bin\Argotic*.dll" "$(SolutionDir)Web\bin\"
+xcopy /s /y /d "$(ProjectDir)BetterImageGallery\blueimp-gallery\*" "$(SolutionDir)Web\BetterImageGallery\blueimp-gallery\"
 xcopy /s /y /d "$(ProjectDir)BetterImageGallery\*.ascx" "$(SolutionDir)Web\BetterImageGallery\"
 xcopy /s /y /d "$(ProjectDir)BetterImageGallery\Views\*" "$(SolutionDir)Web\Views\BetterImageGallery\"
 xcopy /s /y /d "$(ProjectDir)Blog\*.aspx" "$(SolutionDir)Web\Blog\"

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -13,6 +14,7 @@ using mojoPortal.Business.WebHelpers;
 using mojoPortal.FileSystem;
 using mojoPortal.Web;
 using Newtonsoft.Json;
+using Resources;
 
 namespace mojoPortal.Features.UI.BetterImageGallery
 {
@@ -20,23 +22,42 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(BetterImageGalleryRazor));
 		protected string EditContentImage = WebConfigSettings.EditContentImage;
-		protected BIGConfig bimConfig = new BIGConfig();
+		protected BIGConfig bigConfig = new BIGConfig();
+		private Hashtable moduleSettings;
 
 		private int siteID = -1;
 		private SiteSettings siteSettings = null;
 		private SiteUser currentUser = null;
 		private IFileSystem fileSystem = null;
 
+		private string siteRoot = string.Empty;
 		private string mediaRootPath = string.Empty;
 		private string galleryRootPath = string.Empty;
 		private string galleryPath = string.Empty;
-		private readonly string moduleThumbnailCachePath = "/Data/systemfiles/BetterImageGalleryCache";
+		private readonly string moduleThumbnailCachePath = "/Data/systemfiles/BetterImageGalleryCache/";
 		private readonly int thumbnailSize = 200;
 
 
 		public GalleryCore()
 		{
 			LoadSettings();
+		}
+
+
+		public GalleryCore(BIGConfig config)
+		{
+			bigConfig = config;
+			LoadSettings();
+		}
+
+		public GalleryCore(Hashtable settings)
+		{
+			moduleSettings = settings;
+			LoadSettings();
+		}
+
+		public void Setup()
+		{
 			SetupThumbnails();
 		}
 
@@ -59,7 +80,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 				model.Folders.Add(new BIGFolderModel
 				{
 					Name = folder.Name,
-					Path = folder.Path
+					Path = folder.Path.Replace("|", "/")
 				});
 			}
 
@@ -68,7 +89,8 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 				model.Images.Add(new BIGImageModel
 				{
 					Title = image.Name,
-					ImageUrl = image.Path
+					ImageUrl = Uri.EscapeUriString(siteRoot + image.VirtualPath.Replace("~", string.Empty).Replace("\\", "/")),
+					ImageThumbUrl = Uri.EscapeUriString(siteRoot + $"/api/BetterImageGallery/imagehandler?imagepath={bigConfig.FolderPath}/{image.Name}")
 				});
 			}
 
@@ -78,22 +100,28 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 		private void LoadSettings()
 		{
+			siteRoot = SiteUtils.GetNavigationSiteRoot();
 			siteSettings = CacheHelper.GetCurrentSiteSettings();
 			siteID = siteSettings.SiteId;
 			currentUser = SiteUtils.GetCurrentSiteUser();
+
+			if (moduleSettings != null)
+			{
+				bigConfig = new BIGConfig(moduleSettings);
+			}
 
 			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
 
 			if (p == null)
 			{
-				//log.Error(string.Format(Resource.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider));
+				log.Error(string.Format(BetterImageGalleryResources.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider));
 			}
 
 			fileSystem = p.GetFileSystem();
 
 			if (fileSystem == null)
 			{
-				//log.Error(string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider));
+				log.Error(string.Format(BetterImageGalleryResources.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider));
 			}
 
 			// Media Folder
@@ -101,7 +129,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			// Gallery Module Folder
 			galleryRootPath = mediaRootPath + "BetterImageGallery/";
 			// Gallery Folder
-			galleryPath = galleryRootPath + bimConfig.FolderPath;
+			galleryPath = galleryRootPath + bigConfig.FolderPath;
 
 			// Creates the Gallery Module Folder if it doesn't exist
 			if (!Directory.Exists(galleryRootPath) && FolderCountUnderLimit())
@@ -119,6 +147,8 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 		private void SetupThumbnails()
 		{
+			if (bigConfig.FolderPath == string.Empty) return;
+
 			var galleryDiskPath = HttpContext.Current.Server.MapPath(galleryPath);
 			var dirInfo = new DirectoryInfo(galleryDiskPath);
 			var images = Web.ImageHelper.GetImageExtensions()
@@ -126,7 +156,8 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 				.ToArray();
 			var thumbnailCachePath = moduleThumbnailCachePath + dirInfo.Name + "/";
 
-			// Creates thumbnail cache folder if it doesn't exist, only should happen the first time this gallery instance is hit
+			// Creates thumbnail cache folder if it doesn't exist, should only happen
+			// the first time this gallery instance is hit.
 			if (!Directory.Exists(thumbnailCachePath) && FolderCountUnderLimit())
 			{
 				fileSystem.CreateFolder(thumbnailCachePath);
@@ -136,7 +167,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			else
 			{
 				var thumbnails = GetThumbnailDataFile(thumbnailCachePath);
-				var imageNameList = images.Select(x => x.Name).ToList();
+				var imageNameList = images.Select(x => Path.GetFileNameWithoutExtension(x.Name) + ".jpg").ToList();
 
 				// Finds what images are in the thumbnails data file, but not in the gallery folder
 				//var missingThumbnailsList = thumbnails.Except(imageNameList).ToList();
@@ -148,6 +179,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 				{
 					var missingImages = images.Where(i => missingImageNamesList.Contains(i.Name)).ToArray();
 
+					CreateThumbnailDataFile(images, thumbnailCachePath);
 					CreateThumbnails(missingImages, thumbnailCachePath);
 				}
 			}
@@ -156,7 +188,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 		private void CreateThumbnailDataFile(FileInfo[] images, string thumbnailCachePath)
 		{
-			var mappedImages = images.Select(x => x.Name).ToList();
+			var mappedImages = images.Select(x => Path.GetFileNameWithoutExtension(x.Name) + ".jpg").ToList();
 			var thumbnailCacheDiscPath = HttpContext.Current.Server.MapPath(thumbnailCachePath);
 
 			File.WriteAllText(thumbnailCacheDiscPath + "data.config", JsonConvert.SerializeObject(mappedImages));
@@ -180,7 +212,10 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 				{
 					using (Bitmap newImage = CreateNewImage(originalImage, thumbnailSize))
 					{
-						newImage.Save(thumbnailCachePath + image.Name, ImageFormat.Jpeg);
+						var thumbnailDiscPath = HttpContext.Current.Server
+							.MapPath(thumbnailCachePath + Path.GetFileNameWithoutExtension(image.Name + ".jpg"));
+
+						newImage.Save(thumbnailDiscPath, ImageFormat.Jpeg);
 					}
 				}
 			}
@@ -199,43 +234,29 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			int originalHeight = originalImage.Height;
 			int height = size;
 			int width = size;
-			int drawXOffset, drawYOffset, drawWidth, drawHeight;
 
-			if (size > 0 && originalWidth >= originalHeight && originalWidth > size)
+			if (originalWidth >= originalHeight && originalWidth > size)
 			{
 				height = size;
 				width = Convert.ToInt32(size * (double)originalWidth / originalHeight);
 			}
-			else if (size > 0 && originalHeight >= originalWidth && originalHeight > size)
+			else if (originalHeight >= originalWidth && originalHeight > size)
 			{
 				height = Convert.ToInt32(size * (double)originalHeight / originalWidth);
 				width = size;
 			}
-			else
-			{
-				width = originalWidth;
-				height = originalHeight;
-			}
 
-			drawXOffset = 0;
-			drawYOffset = 0;
-			drawWidth = width;
-			drawHeight = height;
-
-			drawXOffset = (width - drawWidth) / 2;
-			drawYOffset = (height - drawHeight) / 2;
-
-			Bitmap newImage = new Bitmap(width, height);
+			Bitmap newImage = new Bitmap(size, size);
 			Graphics g = Graphics.FromImage(newImage);
 
 			g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 			g.SmoothingMode = SmoothingMode.AntiAlias;
 
 			g.DrawImage(originalImage,
-				drawXOffset,
-				drawYOffset,
-				drawWidth,
-				drawHeight
+				(size - width) / 2,
+				(size - height) / 2,
+				width,
+				height
 			);
 
 			g.Dispose();
@@ -254,6 +275,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			ms.Close();
 
 			encoderParams.Dispose();
+
 			return ms.ToArray();
 		}
 
@@ -268,6 +290,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 				if (e.MimeType == "image/jpeg")
 				{
 					codec = e;
+
 					break;
 				}
 			}

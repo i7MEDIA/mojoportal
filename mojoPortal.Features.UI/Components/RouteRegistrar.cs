@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using mojoPortal.Web.Routing;
 using System.Web.Http;
-using mojoPortal.Web.Routing;
-using System.Web.Routing;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 
 namespace mojoPortal.Features
 {
 	public class RouteRegistrar : IRegisterRoutes
 	{
+		// API Routes
 		public void Register(HttpConfiguration config)
 		{
-			// api routes
-
 			config.Routes.MapHttpRoute(
 				name: "ForumMod",
 				routeTemplate: "api/forummod/{id}",
@@ -24,22 +19,17 @@ namespace mojoPortal.Features
 
 			config.Routes.MapHttpRoute(
 				name: "BIG",
-				routeTemplate: "api/big/{id}",
-				defaults: new { controller = "BetterImageGallery", id = RouteParameter.Optional }
+				routeTemplate: "api/BetterImageGallery/",
+				defaults: new { controller = "BetterImageGallery" }
 			);
 
 		}
 
+		// MVC Routes
 		public void RegisterRoutes(RouteCollection routes)
-		{
-			//mvc routes
-
-		}
+		{ }
 
 		public void RegisterGlobalFilters(GlobalFilterCollection filters)
-		{
-
-		}
-
+		{ }
 	}
 }

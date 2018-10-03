@@ -1,32 +1,34 @@
-﻿@using mojoPortal.Business.WebHelpers;
+﻿@using mojoPortal.Web;
+@using mojoPortal.Business.WebHelpers;
 @using mojoPortal.Features.UI.BetterImageGallery;
 
 @model BIGModel
 
 @{
+	var siteRoot = SiteUtils.GetNavigationSiteRoot();
 	var siteSettings = CacheHelper.GetCurrentSiteSettings();
 	var siteFolderName = String.IsNullOrWhiteSpace(siteSettings.SiteFolderName) ? "" : siteSettings.SiteFolderName + "/";
 	var id = "big-" + Guid.NewGuid();
 }
 
-<div class="bgi__folders">
+<div class="big__folders">
 @foreach (var folder in Model.Folders)
 {
 	<div class="big__folder"><a href="@folder.Path">@folder.Name</a></div>
 }
 </div>
 
-<div class="big__thumbnails" id="@id">
+<div class="big__thumbnails row" id="@id">
 @foreach (var image in Model.Images)
 {
-	<div class="big__thumbnail"><a href="@image.ImageUrl"><img src="@image.ImageThumbUrl" alt="@image.Title" /></a></div>
+	<div class="big__thumbnail col-sm-3 col-md-2"><a class="thumbnail" href="@image.ImageUrl" title="@Path.GetFileNameWithoutExtension(image.Title)"><img src="@image.ImageThumbUrl" alt="@image.Title" /></a></div>
 }
 </div>
 
 
-<link rel="stylesheet" href="@Url.Content("~")@(siteFolderName)FolderGallery/blueimp-gallery/css/blueimp-gallery.min.css">
+<link rel="stylesheet" href="@Url.Content("~")@(siteFolderName)BetterImageGallery/blueimp-gallery/css/blueimp-gallery.min.css">
 
-<div id="blueimp-gallery" class="blueimp-gallery">
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
 	<div class="slides"></div>
 	<h3 class="title"></h3>
 	<a class="prev">‹</a>
@@ -36,7 +38,7 @@
 	<ol class="indicator"></ol>
 </div>
 
-<script src="@Url.Content("~")@(siteFolderName)FolderGallery/blueimp-gallery/js/blueimp-gallery.min.js"></script>
+<script src="@Url.Content("~")@(siteFolderName)BetterImageGallery/blueimp-gallery/js/blueimp-gallery.min.js"></script>
 <script>
 	document.getElementById('@id').onclick = function (event) {
 		event = event || window.event;

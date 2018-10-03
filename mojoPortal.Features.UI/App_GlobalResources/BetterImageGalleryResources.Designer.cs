@@ -70,6 +70,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not load file system from provider {0}.
+        /// </summary>
+        internal static string FileSystemNotLoadedFromProvider {
+            get {
+                return ResourceManager.GetString("FileSystemNotLoadedFromProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not load file system provider {0}.
+        /// </summary>
+        internal static string FileSystemProviderNotLoaded {
+            get {
+                return ResourceManager.GetString("FileSystemProviderNotLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gallery Folder Path.
         /// </summary>
         internal static string FolderGalleryPath {
@@ -88,7 +106,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default view will be used because there is no custom views in the skin..
+        ///   Looks up a localized string similar to Default view will be used because there are no custom views in the skin..
         /// </summary>
         internal static string NoLayoutsInSkin {
             get {
