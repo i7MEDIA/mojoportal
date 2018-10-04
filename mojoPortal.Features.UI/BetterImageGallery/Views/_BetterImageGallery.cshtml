@@ -5,28 +5,36 @@
 @model BIGModel
 
 @{
-	var siteRoot = SiteUtils.GetNavigationSiteRoot();
+	var siteRoot = SiteUtils.GetNavigationSiteRoot() + "/";
 	var siteSettings = CacheHelper.GetCurrentSiteSettings();
 	var siteFolderName = String.IsNullOrWhiteSpace(siteSettings.SiteFolderName) ? "" : siteSettings.SiteFolderName + "/";
 	var id = "big-" + Guid.NewGuid();
+	var folderID = id + "folder";
+	var thumbID = id + "thumb";
 }
 
-<div class="big__folders">
-@foreach (var folder in Model.Folders)
+@if (Model.Folders.Count > 0)
 {
-	<div class="big__folder"><a href="@folder.Path">@folder.Name</a></div>
+	<div class="big__folders" id="@folderID">
+		@foreach (var folder in Model.Folders)
+		{
+			<div class="big__folder"><a href="@folder.Path">@folder.Name</a></div>
+		}
+	</div>
 }
-</div>
 
-<div class="big__thumbnails row" id="@id">
-@foreach (var image in Model.Images)
+@if (Model.Thumbnails.Count > 0)
 {
-	<div class="big__thumbnail col-sm-3 col-md-2"><a class="thumbnail" href="@image.ImageUrl" title="@Path.GetFileNameWithoutExtension(image.Title)"><img src="@image.ImageThumbUrl" alt="@image.Title" /></a></div>
+	<div class="big__thumbnails row" id="@thumbID">
+		@foreach (var image in Model.Thumbnails)
+		{
+			<div class="big__thumbnail col-sm-3 col-md-2"><a class="thumbnail" href="@image.Full" title="image.Name"><img src="@image.Thumb" alt="@image.Name" /></a></div>
+		}
+	</div>
 }
-</div>
 
 
-<link rel="stylesheet" href="@Url.Content("~")@(siteFolderName)BetterImageGallery/blueimp-gallery/css/blueimp-gallery.min.css">
+<link rel="stylesheet" href="@(siteRoot + siteFolderName)BetterImageGallery/blueimp-gallery/css/blueimp-gallery.min.css">
 
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
 	<div class="slides"></div>
@@ -38,17 +46,113 @@
 	<ol class="indicator"></ol>
 </div>
 
-<script src="@Url.Content("~")@(siteFolderName)BetterImageGallery/blueimp-gallery/js/blueimp-gallery.min.js"></script>
+<script src="@(siteRoot + siteFolderName)BetterImageGallery/blueimp-gallery/js/blueimp-gallery.min.js"></script>
+<script type="text/x-template" id="folderTemplate">
+	<div class="big__folder"><a href="{{path}}">{{name}}</a></div>
+</script>
+<script type="text/x-template" id="imageTemplate">
+	<div class="big__thumbnail col-sm-3 col-md-2"><a class="thumbnail" href="{{full}}" title="{{name}}"><img src="{{thumb}}" alt="{{name}}" /></a></div>
+</script>
 <script>
-	document.getElementById('@id').onclick = function (event) {
-		event = event || window.event;
-		var target = event.target || event.srcElement,
-			link = target.src ? target.parentNode : target,
-			options = {
+	'use strict';
+	// DOMContentLoaded event with load event fallback for < IE9
+	(function(){function b(){g.removeEventListener('DOMContentLoaded',b),f.removeEventListener('load',b),g.dispatchEvent(h)}var f=window,g=document,h=g.createEvent('Event');h.initEvent('domLoaded',!0,!0),'complete'!==g.readyState&&('loading'===g.readyState||g.documentElement.doScroll)?(g.addEventListener('DOMContentLoaded',b),f.addEventListener('load',b)):f.setTimeout(g.dispatchEvent(h))})();
+
+	// JSON model
+	// {
+	//     "folders": [{
+	//         "name": "",
+	//         "path": "",
+	//         "parent": ""
+	//     }],
+	//     "thumbnails": [{
+	//         "name": "",
+	//         "full": "",
+	//         "thumb": "",
+	//     }]
+	// }
+
+	function getFolderData(path, callback) {
+		var request = new XMLHttpRequest();
+		request.onreadystatechange = function() {
+			if (this.readyState === 4 && this.status === 200) {
+				return callback(request.responseText);
+			}
+		};
+		request.open('GET', '@(siteRoot + siteFolderName)api/BetterImageGallery?path=' + path);
+		request.send();
+	}
+
+	function emptyElement(element) {
+		while (element.firstChild) {
+			element.removeChild(element.firstChild);
+		}
+	}
+
+	function populateItems(responseText) {
+		var items = JSON.parse(responseText);
+		var folders = document.getElementById('@folderID');
+		var thumbs = document.getElementById('@thumbID');
+
+		emptyElement(folders);
+		emptyElement(thumbs);
+
+		if (items.folders.length > 0) {
+			for (var i = 0; i < items.folders.length; i++) {
+				var folderTemplate = document.getElementById('folderTemplate');
+				var folder = items.folders[i];
+
+				var renderedFolder = folderTemplate
+					.innerHTML
+					.replace(/{{path}}/g, folder.path)
+					.replace(/{{name}}/g, folder.name);
+
+				folders.insertAdjacentHTML('beforeend', renderedFolder);
+			}
+		}
+
+		if (items.thumbnails.length > 0) {
+			for (var j = 0; j < items.thumbnails.length; j++) {
+				var imageTemplate = document.getElementById('imageTemplate');
+				var thumb = items.thumbnails[j];
+
+				var renderedThumb = imageTemplate
+					.innerHTML
+					.replace(/{{name}}/g, thumb.name)
+					.replace(/{{full}}/g, thumb.full)
+					.replace(/{{thumb}}/g, thumb.thumb);
+
+				thumbs.insertAdjacentHTML('beforeend', renderedThumb);
+			}
+		}
+	}
+
+	function setupScripts() {
+		document.getElementById('@thumbID').onclick = function(e) {
+			e = e || window.event;
+
+			var target = e.target || e.srcElement;
+			var link = target.src ? target.parentNode : target;
+			var links = this.getElementsByTagName('a');
+			var options = {
 				index: link,
-				event: event
-			},
-			links = this.getElementsByTagName('a');
-		blueimp.Gallery(links, options);
-	};
+				event: e
+			};
+
+			blueimp.Gallery(links, options);
+		};
+
+		document.getElementById('@folderID').onclick = function(e) {
+			e = e || window.event;
+			e.preventDefault();
+
+			var target = e.target || e.srcElement;
+
+			if (target.href != undefined) {
+				getFolderData(target.getAttribute('href'), populateItems);
+			}
+		}
+	}
+
+	document.addEventListener('domLoaded', setupScripts, false);
 </script>

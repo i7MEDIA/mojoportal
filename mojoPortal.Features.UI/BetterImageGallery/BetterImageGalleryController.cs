@@ -20,9 +20,9 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		// Get cached images from systemfiles/BetterImageGallery
 		[HttpGet]
 		[Route("api/BetterImageGallery/imagehandler")]
-		public IHttpActionResult ImageHandler([FromUri] string imagePath)
+		public IHttpActionResult ImageHandler([FromUri] string path)
 		{
-			var imgPath = HttpContext.Current.Server.MapPath("/Data/systemfiles/BetterImageGalleryCache/" + imagePath);
+			var imgPath = HttpContext.Current.Server.MapPath("/Data/systemfiles/BetterImageGalleryCache/" + path);
 			var fileInfo = new FileInfo(imgPath);
 
 			return !fileInfo.Exists

@@ -70,6 +70,9 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 		public BIGModel GetImages(string path)
 		{
+			if (!path.Contains(galleryRootPath.Replace("~", String.Empty)))
+				path = galleryRootPath + path;
+
 			var folderList = fileSystem.GetFolderList(path).ToList();
 			var imagesList = fileSystem.GetFileList(path).ToList();
 
@@ -80,25 +83,36 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 				model.Folders.Add(new BIGFolderModel
 				{
 					Name = folder.Name,
-					Path = folder.Path.Replace("|", "/")
+					Path = folderPath(folder.Path),
+					Parent = parentPath(folder.Name, folder.Path)
 				});
 			}
 
 			foreach (var image in imagesList)
 			{
-				model.Images.Add(new BIGImageModel
+				model.Thumbnails.Add(new BIGImageModel
 				{
-					Title = image.Name,
-					ImageUrl = Uri.EscapeUriString(siteRoot + image.VirtualPath.Replace("~", string.Empty).Replace("\\", "/")),
-					ImageThumbUrl = Uri.EscapeUriString(siteRoot + $"/api/BetterImageGallery/imagehandler?imagepath={bigConfig.FolderPath}/{image.Name}")
+					Name = @Path.GetFileNameWithoutExtension(image.Name),
+					Full = Uri.EscapeUriString(siteRoot + image.VirtualPath.Replace("~", string.Empty).Replace("\\", "/")),
+					Thumb = Uri.EscapeUriString(siteRoot + $"/api/BetterImageGallery/imagehandler?path={bigConfig.FolderPath}/{FileNameWithJpegExt(image.Name)}")
 				});
+			}
+
+			string folderPath(string str)
+			{
+				return Uri.EscapeUriString(str.Replace("|", "/").Replace("BetterImageGallery/", String.Empty));
+			}
+
+			string parentPath(string name, string str)
+			{
+				return folderPath(str).Replace("/" + name, String.Empty);
 			}
 
 			return model;
 		}
 
 
-		private void LoadSettings()
+		protected virtual void LoadSettings()
 		{
 			siteRoot = SiteUtils.GetNavigationSiteRoot();
 			siteSettings = CacheHelper.GetCurrentSiteSettings();
@@ -167,7 +181,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			else
 			{
 				var thumbnails = GetThumbnailDataFile(thumbnailCachePath);
-				var imageNameList = images.Select(x => Path.GetFileNameWithoutExtension(x.Name) + ".jpg").ToList();
+				var imageNameList = images.Select(x => FileNameWithJpegExt(x.Name)).ToList();
 
 				// Finds what images are in the thumbnails data file, but not in the gallery folder
 				//var missingThumbnailsList = thumbnails.Except(imageNameList).ToList();
@@ -188,7 +202,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 		private void CreateThumbnailDataFile(FileInfo[] images, string thumbnailCachePath)
 		{
-			var mappedImages = images.Select(x => Path.GetFileNameWithoutExtension(x.Name) + ".jpg").ToList();
+			var mappedImages = images.Select(x => FileNameWithJpegExt(x.Name)).ToList();
 			var thumbnailCacheDiscPath = HttpContext.Current.Server.MapPath(thumbnailCachePath);
 
 			File.WriteAllText(thumbnailCacheDiscPath + "data.config", JsonConvert.SerializeObject(mappedImages));
@@ -213,7 +227,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 					using (Bitmap newImage = CreateNewImage(originalImage, thumbnailSize))
 					{
 						var thumbnailDiscPath = HttpContext.Current.Server
-							.MapPath(thumbnailCachePath + Path.GetFileNameWithoutExtension(image.Name + ".jpg"));
+							.MapPath(thumbnailCachePath + FileNameWithJpegExt(image.Name));
 
 						newImage.Save(thumbnailDiscPath, ImageFormat.Jpeg);
 					}
@@ -311,6 +325,11 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		private bool FolderCountUnderLimit()
 		{
 			return fileSystem.CountFolders() < fileSystem.Permission.MaxFolders;
+		}
+
+		private string FileNameWithJpegExt(string str)
+		{
+			return Path.GetFileNameWithoutExtension(str) + ".jpg";
 		}
 	}
 }
