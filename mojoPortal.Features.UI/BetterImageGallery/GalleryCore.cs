@@ -24,7 +24,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		protected string EditContentImage = WebConfigSettings.EditContentImage;
 		protected BIGConfig bigConfig = new BIGConfig();
 		private Hashtable moduleSettings;
-
+		private int moduleID = -1;
 		private int siteID = -1;
 		private SiteSettings siteSettings = null;
 		private SiteUser currentUser = null;
@@ -38,23 +38,12 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		private readonly int thumbnailSize = 200;
 
 
-		public GalleryCore()
+		public GalleryCore(int moduleId)
 		{
+			moduleID = moduleId;
 			LoadSettings();
 		}
 
-
-		public GalleryCore(BIGConfig config)
-		{
-			bigConfig = config;
-			LoadSettings();
-		}
-
-		public GalleryCore(Hashtable settings)
-		{
-			moduleSettings = settings;
-			LoadSettings();
-		}
 
 		public void Setup()
 		{
@@ -77,6 +66,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			var imagesList = fileSystem.GetFileList(path).ToList();
 
 			var model = new BIGModel();
+			model.ModuleID = moduleID;
 
 			foreach (var folder in folderList)
 			{
@@ -118,6 +108,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			siteSettings = CacheHelper.GetCurrentSiteSettings();
 			siteID = siteSettings.SiteId;
 			currentUser = SiteUtils.GetCurrentSiteUser();
+			var moduleSettings = ModuleSettings.GetModuleSettings(moduleID);
 
 			if (moduleSettings != null)
 			{

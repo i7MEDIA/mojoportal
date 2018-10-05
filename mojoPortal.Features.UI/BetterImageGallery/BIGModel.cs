@@ -22,5 +22,6 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 	{
 		public List<BIGFolderModel> Folders { get; set; } = new List<BIGFolderModel>();
 		public List<BIGImageModel> Thumbnails { get; set; } = new List<BIGImageModel>();
+		public int ModuleID { get; set; } = -1;
 	}
 }

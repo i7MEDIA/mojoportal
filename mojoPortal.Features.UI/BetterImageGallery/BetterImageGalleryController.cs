@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using mojoPortal.Business;
+using System.IO;
 using System.Web;
 using System.Web.Http;
 
@@ -9,9 +10,9 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		// Get list Folders and Images
 		[HttpGet]
 		[Route("api/BetterImageGallery/")]
-		public IHttpActionResult GetItems([FromUri] string path)
+		public IHttpActionResult GetItems([FromUri] string path, int moduleId = -1)
 		{
-			var gallery = new GalleryCore();
+			var gallery = new GalleryCore(moduleId);
 			var items = gallery.GetImages(path);
 
 			return Ok(items);

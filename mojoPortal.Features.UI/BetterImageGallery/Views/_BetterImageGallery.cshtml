@@ -15,10 +15,15 @@
 
 @if (Model.Folders.Count > 0)
 {
-	<div class="big__folders" id="@folderID">
+	<div class="big__folders row" id="@folderID">
 		@foreach (var folder in Model.Folders)
 		{
-			<div class="big__folder"><a href="@folder.Path">@folder.Name</a></div>
+			<div class="big__folder col-sm-3 col-md-2">
+				<a href="@folder.Path">
+					<i class="fa fa-folder"></i>
+					@folder.Name
+				</a>
+			</div>
 		}
 	</div>
 }
@@ -28,13 +33,58 @@
 	<div class="big__thumbnails row" id="@thumbID">
 		@foreach (var image in Model.Thumbnails)
 		{
-			<div class="big__thumbnail col-sm-3 col-md-2"><a class="thumbnail" href="@image.Full" title="image.Name"><img src="@image.Thumb" alt="@image.Name" /></a></div>
+			<div class="big__thumbnail col-sm-3 col-md-2"><a class="thumbnail" href="@image.Full" title="@image.Name"><img src="@image.Thumb" alt="@image.Name" /></a></div>
 		}
 	</div>
 }
 
 
 <link rel="stylesheet" href="@(siteRoot + siteFolderName)BetterImageGallery/blueimp-gallery/css/blueimp-gallery.min.css">
+<style>
+	.big__folders {
+		margin-bottom: 30px;
+	}
+
+	.big__folder {
+		position: relative;
+		text-align: center;
+	}
+
+	.big__folder:after {
+		content: "";
+		display: block;
+		padding-top: 100%;
+		width: 100%;
+	}
+
+	.big__folder a {
+		border: 1px solid #ddd;
+		border-radius: 3px;
+		color: #222;
+		display: block;
+		height: 100%;
+		left: 15px;
+		line-height: 100%;
+		padding: 15px;
+		position: absolute;
+		right: 15px;
+	}
+
+	.big__folder a:hover {
+		background-color: #e5f3ff;
+		text-decoration: none;
+	}
+
+	.big__folder .fa {
+		color: #f8d775;
+		display: block;
+		font-size: 80px;
+		line-height: 1;
+		margin-bottom: 5px;
+		margin-top: 14%;
+	}
+</style>
+
 
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
 	<div class="slides"></div>
@@ -79,7 +129,7 @@
 				return callback(request.responseText);
 			}
 		};
-		request.open('GET', '@(siteRoot + siteFolderName)api/BetterImageGallery?path=' + path);
+		request.open('GET', '@(siteRoot + siteFolderName)api/BetterImageGallery?path=' + path + '&moduleId=@Model.ModuleID');
 		request.send();
 	}
 

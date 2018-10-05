@@ -37,7 +37,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 		protected override void RenderContents(HtmlTextWriter output)
 		{
-			var gallery = new GalleryCore(BigConfig);
+			var gallery = new GalleryCore(ModuleId);
 			gallery.Setup();
 			var items = gallery.GetImages();
 
