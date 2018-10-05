@@ -23,7 +23,6 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		private static readonly ILog log = LogManager.GetLogger(typeof(BetterImageGalleryRazor));
 		protected string EditContentImage = WebConfigSettings.EditContentImage;
 		protected BIGConfig bigConfig = new BIGConfig();
-		private Hashtable moduleSettings;
 		private int moduleID = -1;
 		private int siteID = -1;
 		private SiteSettings siteSettings = null;
@@ -59,22 +58,28 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 		public BIGModel GetImages(string path)
 		{
+			var model = new BIGModel();
+			model.ModuleID = moduleID;
+			model.GalleryFolder = bigConfig.FolderPath;
+
+			if (string.IsNullOrWhiteSpace(bigConfig.FolderPath)) return model;
+
 			if (!path.Contains(galleryRootPath.Replace("~", String.Empty)))
+			{
 				path = galleryRootPath + path;
+			}
 
 			var folderList = fileSystem.GetFolderList(path).ToList();
 			var imagesList = fileSystem.GetFileList(path).ToList();
-
-			var model = new BIGModel();
-			model.ModuleID = moduleID;
 
 			foreach (var folder in folderList)
 			{
 				model.Folders.Add(new BIGFolderModel
 				{
 					Name = folder.Name,
-					Path = folderPath(folder.Path),
-					Parent = parentPath(folder.Name, folder.Path)
+					Path = Uri.EscapeUriString(folderPath(folder.Path)),
+					ParentName = parentName(folder.Name, folder.Path),
+					ParentPath = Uri.EscapeUriString(parentPath(folder.Name, folder.Path))
 				});
 			}
 
@@ -90,7 +95,13 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 			string folderPath(string str)
 			{
-				return Uri.EscapeUriString(str.Replace("|", "/").Replace("BetterImageGallery/", String.Empty));
+				return str.Replace("|", "/").Replace("BetterImageGallery/", String.Empty);
+			}
+
+			string parentName(string name, string str)
+			{
+				str = parentPath(name, str);
+				return str.Substring(str.LastIndexOf('/') + 1);
 			}
 
 			string parentPath(string name, string str)

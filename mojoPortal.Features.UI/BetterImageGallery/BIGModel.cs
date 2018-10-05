@@ -14,7 +14,8 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 	{
 		public string Name { get; set; }
 		public string Path { get; set; }
-		public string Parent { get; set; }
+		public string ParentName { get; set; }
+		public string ParentPath { get; set; }
 	}
 
 
@@ -23,5 +24,6 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		public List<BIGFolderModel> Folders { get; set; } = new List<BIGFolderModel>();
 		public List<BIGImageModel> Thumbnails { get; set; } = new List<BIGImageModel>();
 		public int ModuleID { get; set; } = -1;
+		public string GalleryFolder { get; set; }
 	}
 }
