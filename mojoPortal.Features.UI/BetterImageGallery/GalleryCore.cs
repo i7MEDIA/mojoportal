@@ -87,7 +87,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			{
 				model.Thumbnails.Add(new BIGImageModel
 				{
-					Name = @Path.GetFileNameWithoutExtension(image.Name),
+					Name = Path.GetFileNameWithoutExtension(image.Name),
 					Full = Uri.EscapeUriString(siteRoot + image.VirtualPath.Replace("~", string.Empty).Replace("\\", "/")),
 					Thumb = Uri.EscapeUriString(siteRoot + $"/api/BetterImageGallery/imagehandler?path={bigConfig.FolderPath}/{FileNameWithJpegExt(image.Name)}")
 				});
@@ -174,7 +174,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 			// Creates thumbnail cache folder if it doesn't exist, should only happen
 			// the first time this gallery instance is hit.
-			if (!Directory.Exists(thumbnailCachePath) && FolderCountUnderLimit())
+			if (!Directory.Exists(HttpContext.Current.Server.MapPath(thumbnailCachePath)) && FolderCountUnderLimit())
 			{
 				fileSystem.CreateFolder(thumbnailCachePath);
 				CreateThumbnailDataFile(images, thumbnailCachePath);
@@ -193,7 +193,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 				// Creates missing thumbnail images
 				if (missingImageNamesList.Count() > 0)
 				{
-					var missingImages = images.Where(i => missingImageNamesList.Contains(i.Name)).ToArray();
+					var missingImages = images.Where(i => missingImageNamesList.Contains(Path.GetFileNameWithoutExtension(i.Name) + ".jpg")).ToArray();
 
 					CreateThumbnailDataFile(images, thumbnailCachePath);
 					CreateThumbnails(missingImages, thumbnailCachePath);
