@@ -782,6 +782,7 @@
     <Content Include="Controls\CountryISOCode2Setting.ascx" />
     <Content Include="Controls\CultureFlag.ascx" />
     <Content Include="Controls\EmailTemplates\EmailTemplateEditor.ascx" />
+    <Content Include="Controls\FilePathSetting.ascx" />
     <Content Include="Controls\Gravatar\Gravatar.bmp" />
     <Content Include="Controls\HtmlSetting.ascx" />
     <Content Include="Controls\LoginControl.ascx" />
@@ -1710,6 +1711,13 @@
     <Compile Include="Controls\FeedDiscoveryLink.cs" />
     <Compile Include="Controls\FileBrowserTextBoxExtender.cs" />
     <Compile Include="Controls\FileManagerLink.cs" />
+    <Compile Include="Controls\FilePathSetting.ascx.cs">
+      <DependentUpon>FilePathSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\FilePathSetting.ascx.designer.cs">
+      <DependentUpon>FilePathSetting.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Link.cs" />
     <Compile Include="Controls\MenuList.cs" />
     <Compile Include="Controls\FlexMenu.cs" />
@@ -3814,5 +3822,4 @@ if "$(Configuration)" == "Debug - SQLite" xcopy /s /y /d "$(SolutionDir)Web\data
     <RemoveDir Directories="$(TargetDir)" />
     <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
   </Target>
-
 </Project>
