@@ -115,7 +115,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			}
 			else
 			{
-				return themeName + ".cshtml";
+				return themeName;
 			}
 		}
 
