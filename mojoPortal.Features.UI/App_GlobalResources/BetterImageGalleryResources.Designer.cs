@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        internal static string DefaultLayout {
+            get {
+                return ResourceManager.GetString("DefaultLayout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Better Image Gallery.
         /// </summary>
         internal static string FeatureName {
@@ -111,6 +120,15 @@ namespace Resources {
         internal static string NoLayoutsInSkin {
             get {
                 return ResourceManager.GetString("NoLayoutsInSkin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please Select.
+        /// </summary>
+        internal static string SelectLayout {
+            get {
+                return ResourceManager.GetString("SelectLayout", resourceCulture);
             }
         }
     }

@@ -938,7 +938,7 @@ namespace mojoPortal.Web.AdminUI
 						}
 						else
 						{
-							if (s.SettingControlType == "ISettingControl")
+							if (s.SettingControlType == "ISettingControl" || s.SettingControlType == "CustomField")
 							{
 								string controlID = "uc" + moduleId.ToInvariantString() + s.SettingName;
 								//Control c = PlaceHolderAdvancedSettings.FindControl(controlID);
@@ -950,6 +950,11 @@ namespace mojoPortal.Web.AdminUI
 									{
 										ISettingControl isc = c as ISettingControl;
 										settingValue = isc.GetValue();
+									}
+									else if (c is ICustomField)
+									{
+										ICustomField icf = c as ICustomField;
+										settingValue = icf.GetValue();
 									}
 									else
 									{

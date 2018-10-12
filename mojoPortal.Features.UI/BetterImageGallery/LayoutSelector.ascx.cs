@@ -8,7 +8,6 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
-using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
@@ -19,8 +18,8 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(LayoutSelector));
 		private static SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-
-		private string themesPath = string.Empty;
+		private string themeName = "_BetterImageGallery";
+		private string themesPath = "/Views/BetterImageGallery/";
 		private string globalThemesPath = string.Empty; //these are at a higher level than the current site, can be used by multiple sites
 
 
@@ -49,15 +48,14 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			}
 
 			if (ddlLayouts.Items.Count > 0) return;
+			string skinThemesPath = SiteUtils.DetermineSkinBaseUrl(true, false, Page) + themesPath;
 
-			themesPath = SiteUtils.DetermineSkinBaseUrl(true, false, Page) + "/Views/BetterImageGallery/";
-
-			List<FileInfo> themeFiles = GetLayouts(themesPath);
+			List<FileInfo> themeFiles = GetLayouts(skinThemesPath);
 			List<ListItem> items = new List<ListItem>();
 
 			if (themeFiles != null)
 			{
-				PopulateDefinitionList(themeFiles, themesPath);
+				PopulateDefinitionList(themeFiles, skinThemesPath);
 			}
 
 			if (ddlLayouts.Items.Count == 0)
@@ -68,7 +66,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			}
 			else
 			{
-				ddlLayouts.Items.Insert(0, new ListItem("Please Select", string.Empty));
+				ddlLayouts.Items.Insert(0, new ListItem(BetterImageGalleryResources.SelectLayout, string.Empty));
 			}
 		}
 
@@ -79,13 +77,13 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			{
 				if (File.Exists(file.FullName))
 				{
-					if (file.Name == "_BetterImageGallery.cshtml")
+					if (file.Name == themeName + ".cshtml")
 					{
-						ddlLayouts.Items.Add(new ListItem("Default", "_BetterImageGallery"));
+						ddlLayouts.Items.Add(new ListItem(BetterImageGalleryResources.DefaultLayout, themeName));
 					}
 					else
 					{
-						ddlLayouts.Items.Add(new ListItem(file.Name.Replace(".cshtml", "").Replace("_BetterImageGallery--", ""), file.Name.Replace(".cshtml", "")));
+						ddlLayouts.Items.Add(new ListItem(file.Name.Replace(".cshtml", "").Replace(themeName + "--", ""), file.Name.Replace(".cshtml", "")));
 					}
 				}
 			}
@@ -99,8 +97,8 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 			if (dir.Exists)
 			{
-				files.AddRange(dir.GetFiles("_BetterImageGallery.cshtml"));
-				files.AddRange(dir.GetFiles("_BetterImageGallery--*.cshtml"));
+				files.AddRange(dir.GetFiles(themeName + ".cshtml"));
+				files.AddRange(dir.GetFiles(themeName + "--*.cshtml"));
 			}
 
 			return files;
@@ -109,9 +107,16 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 		public string GetValue()
 		{
-			RazorBridge.FindPartialView("_BetterImageGallery", new { }, "BetterImageGallery");
+			//RazorBridge.FindPartialView("_BetterImageGallery", new { }, "BetterImageGallery");
 
-			return ddlLayouts.SelectedValue;
+			if (!string.IsNullOrWhiteSpace(ddlLayouts.SelectedValue))
+			{
+				return ddlLayouts.SelectedValue;
+			}
+			else
+			{
+				return themeName + ".cshtml";
+			}
 		}
 
 
