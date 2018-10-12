@@ -54,9 +54,7 @@
 								<% if (siteSettings.Logo != "" && siteSettings.Logo != "blank.gif") { %>
 								<portal:SiteLogo runat="server" ImageCssClass="site-logo" LinkCssClass="navbar-brand navbar-logo" />
 								<% } else { %>
-								<asp:HyperLink runat="server" NavigateUrl="~/" CssClass="navbar-brand">
-									<portal:SiteTitle runat="server" SkinId="navbar-brand" />
-								</asp:HyperLink>
+									<portal:SiteTitle runat="server" SkinId="navbar-brand" UseLink="true" />
 								<% } %>
 							</div>
 

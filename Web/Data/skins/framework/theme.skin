@@ -86,7 +86,7 @@
 	RenderFieldset="false"
 	ReorderItemCssClass="fwp-reorder-list__item panel panel-default panel-body"
 	ReorderTemplateCssClass="fwp-reorder-list__template panel panel-default panel-body"
-	ReorderTemplateJavaScript="<script>;function pageLoad(e,t){var o=document.getElementById('reorderPlaceholder');o.parentNode.style.marginBottom=window.getComputedStyle(o).getPropertyValue('margin-bottom')}</script>"
+	ReorderTemplateJavaScript="<script>;function pageLoad(e,t){var o = document.getElementById('reorderPlaceholder');if(o!=undefined){o.parentNode.style.marginBottom=window.getComputedStyle(o).getPropertyValue('margin-bottom')}}</script>"
 />
 
 <portal:BasePanel runat="server" SkinID="FWPOptionControls"
@@ -121,6 +121,14 @@
 
 <portal:FormGroupPanel runat="server" SkinID="FWPFormButtons"
 	CssClass="form-group"
+/>
+
+<portal:mojoButton runat="server" SkinID="FWPPrevBtn"
+	CssClass="btn btn-primary"
+/>
+
+<portal:mojoButton runat="server" SkinID="FWPSubmitBtn"
+	CssClass="btn btn-success"
 />
 --%>
 
@@ -451,18 +459,65 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 />
 
 
+<%--
+	Buttons
+	=======================================================
+--%>
+<%-- Default --%>
+<asp:button runat="server" CssClass="btn btn-default" />
+<%-- <asp:HyperLink runat="server" CssClass="btn btn-default"/> --%>
 <portal:mojoButton runat="server" CssClass="btn btn-default" />
+
+<portal:mojoButton runat="server" SkinID="ExportButton" CssClass="btn btn-xs btn-default" />
+
+
+<%-- Primary --%>
+<asp:button runat="server" SkinID="PrimaryButton" CssClass="btn btn-primary" />
+<asp:HyperLink runat="server" SkinID="PrimaryButton" CssClass="btn btn-primary"/>
+<portal:mojoButton runat="server" SkinID="PrimaryButton" CssClass="btn btn-primary" />
+
+
+<%-- Success --%>
+<asp:button runat="server" SkinID="SuccessButton" CssClass="btn btn-success" />
+<asp:HyperLink runat="server" SkinID="SuccessButton" CssClass="btn btn-success"/>
+<portal:mojoButton runat="server" SkinID="SuccessButton" CssClass="btn btn-success" />
+
 <portal:mojoButton runat="server" SkinID="AddButton" CssClass="btn btn-success" />
 <portal:mojoButton runat="server" SkinID="SaveButton" CssClass="btn btn-success" />
+
+
+<%-- Info --%>
+<asp:button runat="server" SkinID="InfoButton" CssClass="btn btn-info" />
+<asp:HyperLink runat="server" SkinID="InfoButton" CssClass="btn btn-info"/>
+<portal:mojoButton runat="server" SkinID="InfoButton" CssClass="btn btn-info" />
+
+<portal:mojoButton runat="server" SkinID="InfoButtonSmall" CssClass="btn btn-xs btn-info" />
 <portal:mojoButton runat="server" SkinID="SaveAsNewButton" CssClass="btn btn-sm btn-info" />
+
+
+<%-- Warning --%>
+<asp:button runat="server" SkinID="WarningButton" CssClass="btn btn-warning" />
+<asp:HyperLink runat="server" SkinID="WarningButton" CssClass="btn btn-warning"/>
+<portal:mojoButton runat="server" SkinID="WarningButton" CssClass="btn btn-warning" />
+
+
+<%-- Danger --%>
+<asp:button runat="server" SkinID="DangerButton" CssClass="btn btn-danger" />
+<asp:HyperLink runat="server" SkinID="DangerButton" CssClass="btn btn-danger"/>
+<portal:mojoButton runat="server" SkinID="DangerButton" CssClass="btn btn-danger" />
+
 <portal:mojoButton runat="server" SkinID="DeleteButton" CssClass="btn btn-danger btn-sm" />
 <portal:mojoButton runat="server" SkinID="DeleteButtonSmall" CssClass="btn btn-xs btn-danger" />
-<portal:mojoButton runat="server" SkinID="InfoButton" CssClass="btn btn-info" />
-<portal:mojoButton runat="server" SkinID="InfoButtonSmall" CssClass="btn btn-xs btn-info" />
-<portal:mojoButton runat="server" SkinID="ExportButton" CssClass="btn btn-xs btn-default" />
+
+<%-- Link --%>
+<asp:button runat="server" SkinID="LinkButton" CssClass="btn btn-link" />
+<asp:HyperLink runat="server" SkinID="LinkButton" CssClass="btn btn-link"/>
+<portal:mojoButton runat="server" SkinID="LinkButton" CssClass="btn btn-link" />
+
 <asp:HyperLink runat="server" SkinID="TextButton" CssClass="btn btn-link"/>
 <asp:HyperLink runat="server" SkinID="TextButtonSmall" CssClass="btn btn-link btn-xs" />
 <asp:HyperLink runat="server" SkinID="CBTextButtonSmall" CssClass="cblink btn btn-link btn-xs" />
+
 
 <portal:SiteTitle runat="server" SkinId="navbar-brand"
 	UseLink="false"
@@ -785,6 +840,14 @@ http://foundation.zurb.com/docs/ui.php
 	HideModified="true"
 	HideUploadedBy="true"
 	HideFirstColumnIfNotEditable="true"
+/>
+
+<asp:TextBox runat="server" SkinID="SharedFilesNewFolderInput"
+	CssClass="form-control"
+/>
+
+<portal:mojoButton runat="server" SkinID="SharedFilesNewFolderButton"
+	CssClass="btn btn-primary"
 />
 
 
