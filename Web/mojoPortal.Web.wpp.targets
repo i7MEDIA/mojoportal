@@ -1,13 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <PipelineDependsOn>
-		BeforeBuild;
-      $(PipelineDependsOn);
-    </PipelineDependsOn>
-  </PropertyGroup>
-  <Target Name="BeforeBuild">
-    <RemoveDir Directories="$(TargetDir)" />
-    <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
+<!-- <Target Name="BeforeBuild"> -->
+	<!-- <Message Text="Cleaning up ..." Importance="high" /> -->
+	<!-- <CallTarget Targets="Clean" /> -->
+	<!-- <Message Text="Finished Clean up ..." Importance="high" /> -->
+<!-- </Target> -->
+  <Target Name="AfterBuild">
+	<Message Text="Current Configuration is $(Configuration)"/>
+
+
+	<!-- <MSBuild Condition="'$(Configuration)' == 'Release' " -->
+		<!-- Projects="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj; -->
+		<!-- ..\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj"  -->
+		<!-- Properties="Configuration=$(Configuration)" /> -->
+		
+	<Message Text="Building Data layer for Features and SuperFlexi" Importance="High"/>
+	
+	<MSBuild Condition="'$(Configuration)' == 'Release' "
+		Projects="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj;
+		..\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj" />
+		
+	<MSBuild Condition="'$(Configuration)' == 'Release - MySql' "
+		Projects="..\mojoPortal.Features.Data.MySql\mojoPortal.Features.Data.MySql.csproj;
+		..\SuperFlexiData.MySql\SuperFlexiData.MySql.csproj" />
+		
+	<MSBuild Condition="'$(Configuration)' == 'Release - pgSQL' "
+		Projects="..\mojoPortal.Features.Data.pgSQL\mojoPortal.Features.Data.pgSQL.csproj;
+		..\SuperFlexiData.pgSQL\SuperFlexiData.pgSQL.csproj" />	
+		
+	<MSBuild Condition="'$(Configuration)' == 'Release - SQLite' "
+		Projects="..\mojoPortal.Features.Data.SQLite\mojoPortal.Features.Data.SQLite.csproj;
+		..\SuperFlexiData.SQLite\SuperFlexiData.SQLite.csproj" />		
+		
+	<Message Text="Building Business layer for Features and SuperFlexi" Importance="High"/>	
+	<MSBuild 
+		Projects="..\mojoPortal.Features.Business\mojoPortal.Features.Business.csproj;
+		..\SuperFlexiBusiness\SuperFlexiBusiness.csproj" 
+		Properties="Configuration=$(Configuration)" />
+
+	<Message Text="Building UI layer for Features and SuperFlexi" Importance="High"/>
+	<MSBuild 
+		Projects="..\mojoPortal.Features.UI\mojoPortal.Features.UI.csproj;
+		..\SuperFlexiUI\SuperFlexiUI.csproj"
+		Properties="Configuration=$(Configuration)" />		
   </Target>
 </Project>

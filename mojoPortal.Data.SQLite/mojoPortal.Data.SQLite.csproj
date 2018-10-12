@@ -140,4 +140,8 @@
     </PreBuildEvent>
     <PostBuildEvent>xcopy /s /y /d "$(SolutionDir)Web\data\sqlitedb\sqlite3.dll" "$(SolutionDir)Web\bin\"</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="SpicNSpan" AfterTargets="Clean">
+    <RemoveDir Directories="$(TargetDir)" />
+    <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
+  </Target>
 </Project>

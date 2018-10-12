@@ -428,3 +428,5 @@ Web/Views/BetterImageGallery/
 Web/Setup/applications/BetterImageGallery/
 
 Web/App_GlobalResources/BetterImageGalleryResources\.resx
+
+Web/Data/sqlitedb/mojo\.db\.config

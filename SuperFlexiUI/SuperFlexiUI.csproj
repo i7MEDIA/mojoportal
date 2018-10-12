@@ -420,4 +420,8 @@ xcopy /s /y "$(ProjectDir)Views\*" "$(SolutionDir)Web\Views\"</PostBuildEvent>
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="SpicNSpan" AfterTargets="Clean">
+    <RemoveDir Directories="$(TargetDir)" />
+    <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
+  </Target>
 </Project>
