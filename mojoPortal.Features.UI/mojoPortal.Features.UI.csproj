@@ -382,10 +382,10 @@
       <DependentUpon>BetterImageGalleryModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="BetterImageGallery\BetterImageGalleryRazor.cs" />
+    <Compile Include="BetterImageGallery\BetterImageGalleryService.cs" />
     <Compile Include="BetterImageGallery\BIGConfig.cs" />
     <Compile Include="BetterImageGallery\BIGModel.cs" />
     <Compile Include="BetterImageGallery\FileResult.cs" />
-    <Compile Include="BetterImageGallery\GalleryCore.cs" />
     <Compile Include="BetterImageGallery\LayoutSelector.ascx.cs">
       <DependentUpon>LayoutSelector.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
