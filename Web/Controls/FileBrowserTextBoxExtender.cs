@@ -1,22 +1,12 @@
 ﻿//	Created:			    2011-02-25
-//	Last Modified:		    2017-02-20  @Elijah Fowler
+//	Last Modified:		    2018-10-08  @Elijah Fowler
 // 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
 
 using System;
-using System.Text;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using Resources;
 
 namespace mojoPortal.Web.UI
 {
@@ -24,45 +14,19 @@ namespace mojoPortal.Web.UI
 	{
 		private SiteSettings siteSettings = null;
 		private bool canBrowse = false;
-		private string browserType = "file"; // Allows browsing files and pages if the user is in a role that can browse and upload, so you could link to a page, pdf, zip, etc
 
 		/// <summary>
 		/// valid options are folder, file, image, and media
 		/// </summary>
-		public string BrowserType
-		{
-			get { return browserType; }
-			set { browserType = value; }
+		public string BrowserType { get; set; } = "file";
+		public string TextBoxClientId { get; set; } = string.Empty;
+		public string PreviewImageClientId { get; set; } = string.Empty;
+		public bool PreviewImageOnBlur { get; set; } = true;
+		public string EmptyImageUrl { get; set; } = "~/Data/SiteImages/1x1.gif";
+		public string Editor { get; set; } = "filepicker";
+		public string StartFolder { get; set; } = string.Empty;
+		public bool ReturnFullPath { get; set; } = true;
 
-		}
-
-		private string textBoxClientId = string.Empty;
-		public string TextBoxClientId
-		{
-			get { return textBoxClientId; }
-			set { textBoxClientId = value; }
-		}
-
-		private string previewImageClientId = string.Empty;
-		public string PreviewImageClientId
-		{
-			get { return previewImageClientId; }
-			set { previewImageClientId = value; }
-		}
-
-		private bool previewImageOnBlur = true;
-		public bool PreviewImageOnBlur
-		{
-			get { return previewImageOnBlur; }
-			set { previewImageOnBlur = value; }
-		}
-
-		private string emptyImageUrl = "~/Data/SiteImages/1x1.gif";
-		public string EmptyImageUrl
-		{
-			get { return emptyImageUrl; }
-			set { emptyImageUrl = value; }
-		}
 
 		protected override void OnLoad(EventArgs e)
 		{
@@ -102,10 +66,8 @@ namespace mojoPortal.Web.UI
 			NavigateUrl = 
 				SiteUtils.GetNavigationSiteRoot() +
 				WebConfigSettings.FileDialogRelativeUrl +
-				"?editor=filepicker&type=" +
-				browserType +
-				"&inputId=" +
-				textBoxClientId;
+				$"?editor={Editor}&type={BrowserType}&inputId={TextBoxClientId}&startFolder={StartFolder}" +
+				(!ReturnFullPath ? "&returnFullPath=false" : string.Empty);
 
 			string filePickerBase =
 				@"<script>
@@ -122,8 +84,8 @@ namespace mojoPortal.Web.UI
 				</script>";
 
 			string imagePrevBase = @"var _inputPrev = document.getElementById('{0}'); _inputPrev.src = url;";
-			string imagePrev = ((browserType == "image") && (previewImageClientId.Length > 0)) ?
-				string.Format(imagePrevBase, (previewImageClientId.Length > 0) ? previewImageClientId : string.Empty) :
+			string imagePrev = ((BrowserType == "image") && (PreviewImageClientId.Length > 0)) ?
+				string.Format(imagePrevBase, (PreviewImageClientId.Length > 0) ? PreviewImageClientId : string.Empty) :
 				string.Empty;
 
 			string filePicker = string.Format(filePickerBase, imagePrev);
@@ -136,7 +98,7 @@ namespace mojoPortal.Web.UI
 				false
 			);
 
-			if (previewImageOnBlur && (textBoxClientId.Length > 0) && (browserType == "image") && (previewImageClientId.Length > 0))
+			if (PreviewImageOnBlur && (TextBoxClientId.Length > 0) && (BrowserType == "image") && (PreviewImageClientId.Length > 0))
 			{
 				string filePickerPreviewBase =
 					@"<script>
@@ -156,7 +118,7 @@ namespace mojoPortal.Web.UI
 						}})();
 					</script>";
 
-				string filePickerPreview = string.Format(filePickerPreviewBase, textBoxClientId, previewImageClientId, Page.ResolveUrl(emptyImageUrl));
+				string filePickerPreview = string.Format(filePickerPreviewBase, TextBoxClientId, PreviewImageClientId, Page.ResolveUrl(EmptyImageUrl));
 
 				ScriptManager.RegisterStartupScript(
 					this,

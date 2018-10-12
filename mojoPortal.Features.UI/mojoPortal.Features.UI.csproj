@@ -149,6 +149,7 @@
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -166,6 +167,10 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -213,6 +218,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BetterImageGallery\BetterImageGalleryModule.ascx" />
+    <Content Include="BetterImageGallery\LayoutSelector.ascx" />
     <Content Include="BingMap\BingMapModule.ascx" />
     <Content Include="Blog\Controls\BlogInstanceSetting.ascx" />
     <Content Include="Blog\Controls\PostListLayoutSelector.ascx" />
@@ -249,6 +256,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\BetterImageGalleryResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BetterImageGalleryResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\BingResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -360,6 +372,26 @@
     </Compile>
     <Compile Include="App_MasterPages\layout.Master.designer.cs">
       <DependentUpon>layout.Master</DependentUpon>
+    </Compile>
+    <Compile Include="BetterImageGallery\BetterImageGalleryController.cs" />
+    <Compile Include="BetterImageGallery\BetterImageGalleryModule.ascx.cs">
+      <DependentUpon>BetterImageGalleryModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BetterImageGallery\BetterImageGalleryModule.ascx.designer.cs">
+      <DependentUpon>BetterImageGalleryModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="BetterImageGallery\BetterImageGalleryRazor.cs" />
+    <Compile Include="BetterImageGallery\BIGConfig.cs" />
+    <Compile Include="BetterImageGallery\BIGModel.cs" />
+    <Compile Include="BetterImageGallery\FileResult.cs" />
+    <Compile Include="BetterImageGallery\GalleryCore.cs" />
+    <Compile Include="BetterImageGallery\LayoutSelector.ascx.cs">
+      <DependentUpon>LayoutSelector.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BetterImageGallery\LayoutSelector.ascx.designer.cs">
+      <DependentUpon>LayoutSelector.ascx</DependentUpon>
     </Compile>
     <Compile Include="BingMap\BingMapModule.ascx.cs">
       <DependentUpon>BingMapModule.ascx</DependentUpon>
@@ -1755,6 +1787,23 @@
   <ItemGroup>
     <Content Include="Blog\Views\Web.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\BetterImageGallery\FeatureDefinitions\59999_BIGModule.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BetterImageGallery\Views\_BetterImageGallery.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BetterImageGallery\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\BetterImageGalleryResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>BetterImageGalleryResources.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -1799,6 +1848,9 @@ xcopy /s /y /d "$(ProjectDir)Survey\*.ascx" "$(SolutionDir)Web\Survey\"
 xcopy /s /y /d "$(ProjectDir)FeedManager\*.aspx" "$(SolutionDir)Web\FeedManager\"
 xcopy /s /y /d "$(ProjectDir)FeedManager\*.ascx" "$(SolutionDir)Web\FeedManager\"
 xcopy /s /y /d "$(ProjectDir)bin\Argotic*.dll" "$(SolutionDir)Web\bin\"
+xcopy /s /y /d "$(ProjectDir)BetterImageGallery\blueimp-gallery\*" "$(SolutionDir)Web\BetterImageGallery\blueimp-gallery\"
+xcopy /s /y /d "$(ProjectDir)BetterImageGallery\*.ascx" "$(SolutionDir)Web\BetterImageGallery\"
+xcopy /s /y /d "$(ProjectDir)BetterImageGallery\Views\*" "$(SolutionDir)Web\Views\BetterImageGallery\"
 xcopy /s /y /d "$(ProjectDir)Blog\*.aspx" "$(SolutionDir)Web\Blog\"
 xcopy /s /y /d "$(ProjectDir)Blog\*.ascx" "$(SolutionDir)Web\Blog\"
 xcopy /s /y /d "$(ProjectDir)Blog\BlogUrlSuggestService.ashx" "$(SolutionDir)Web\Blog\"

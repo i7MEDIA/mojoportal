@@ -18,7 +18,7 @@
 	</div>
 }
 
-@if (Model.Type == "file" || Model.Type == "folder")
+@if (Model.Type == "file")
 {
 	<div class="alert alert-info alert-control">
 		<i class="glyphicon glyphicon-file"></i>
@@ -44,7 +44,14 @@
 			config.set({
 				appName: '@Model.RootName',
 				pickCallback: function (item) {
-					var url = '@Model.VirtualPath' + item.fullPath();
+					@if (Model.ReturnFullPath)
+					{
+						<text>var url = '@Model.VirtualPath' + item.fullPath();</text>
+					} else
+					{
+						<text>var url = item.name;</text>
+					}
+
 
 					@if (Model.Editor != null) {
 						switch (Model.Editor) {
@@ -95,7 +102,7 @@
 				compressUrl: '@Url.Content("~")@(siteFolderName)fileservice',
 				extractUrl: '@Url.Content("~")@(siteFolderName)fileservice',
 				permissionsUrl: '@Url.Content("~")@(siteFolderName)fileservice',
-				basePath: '/',
+				basePath: '@("/" + Model.QueryString.startFolder)',
 				fileSystemToken: '@Model.FileSystemToken',
 				typeQueryString: '@Model.Type',
 				hidePermissions: true,

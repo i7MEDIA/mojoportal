@@ -3,10 +3,12 @@
 // Last Modified:		2011-10-27
 
 using System;
+using System.Configuration;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using log4net;
@@ -812,8 +814,19 @@ namespace mojoPortal.Web
         }
 
 
+		/// <summary>
+		/// Gets image file extensions from web.config and adds * to each.
+		/// </summary>
+		/// <returns></returns>
+		public static string[] GetImageExtensions()
+		{
+			//var imgExtensions = ConfigurationManager.AppSettings["ImageFileExtensions"] ?? ".gif|.jpg|.jpeg|.png|.svg|.webp";
+			var imgExtensions = WebConfigSettings.ImageFileExtensions;
 
-		
+			// Split on pipe and append asterisk on each file extension
+			return imgExtensions.Split('|').Select(i => $"*{i.Trim()}").ToArray();
+		}
+
 
 
 		public static void SetExifInformation(Bitmap bitmap, XmlDocument imageMetaData)
