@@ -122,7 +122,9 @@ namespace mojoPortal.Web.UI
 				return false;
 			}
 
-			if (WebUser.IsInRoles(basePage.SiteInfo.UserFilesBrowseAndUploadRoles) || WebUser.IsInRoles(basePage.SiteInfo.GeneralBrowseAndUploadRoles))
+			if (WebUser.IsInRoles(basePage.SiteInfo.UserFilesBrowseAndUploadRoles)
+				|| WebUser.IsInRoles(basePage.SiteInfo.GeneralBrowseAndUploadRoles)
+				|| WebUser.IsInRoles(basePage.SiteInfo.GeneralBrowseRoles))
 			{
 				return true;
 			}
