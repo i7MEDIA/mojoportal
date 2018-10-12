@@ -106,6 +106,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selected gallery folder was not found..
+        /// </summary>
+        internal static string FolderNotFound {
+            get {
+                return ResourceManager.GetString("FolderNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Layout.
         /// </summary>
         internal static string Layout {

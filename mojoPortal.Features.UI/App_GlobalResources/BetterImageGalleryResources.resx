@@ -132,6 +132,9 @@
   <data name="FolderGalleryPath" xml:space="preserve">
     <value>Gallery Folder Path</value>
   </data>
+  <data name="FolderNotFound" xml:space="preserve">
+    <value>Selected gallery folder was not found.</value>
+  </data>
   <data name="Layout" xml:space="preserve">
     <value>Layout</value>
   </data>

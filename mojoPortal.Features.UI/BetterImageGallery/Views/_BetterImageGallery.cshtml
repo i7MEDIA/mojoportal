@@ -89,11 +89,23 @@
 		}
 
 		.big__folder a {
+			-webkit-box-align: center;
+			   -ms-flex-align: center;
+			      align-items: center;
 			border: 1px solid #ddd;
 			border-radius: 3px;
 			color: #222;
-			display: block;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: normal;
+			    -ms-flex-flow: column;
+			        flex-flow: column;
 			height: 100%;
+			-webkit-box-pack: center;
+			   -ms-flex-pack: center;
+			 justify-content: center;
 			left: 15px;
 			line-height: 100%;
 			padding: 15px;
@@ -113,8 +125,6 @@
 			display: block;
 			font-size: 80px;
 			line-height: 1;
-			margin-bottom: 5px;
-			margin-top: 14%;
 		}
 </style>
 <div id="@galleryID" class="blueimp-gallery blueimp-gallery-controls">

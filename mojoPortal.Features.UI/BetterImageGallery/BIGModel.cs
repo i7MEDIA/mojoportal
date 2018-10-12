@@ -26,4 +26,10 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		public int ModuleID { get; set; } = -1;
 		public string GalleryFolder { get; set; }
 	}
+
+	public class BIGErrorResult
+	{
+		public string Type { get; set; }
+		public string Message { get; set; }
+	}
 }

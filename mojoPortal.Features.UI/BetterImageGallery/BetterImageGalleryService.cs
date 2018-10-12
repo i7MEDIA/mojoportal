@@ -35,6 +35,8 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		private readonly string moduleThumbnailCachePath = "/Data/systemfiles/BetterImageGalleryCache/";
 		private readonly int thumbnailSize = 200;
 
+		public BIGErrorResult Error { get; set; } = null;
+
 
 		public BetterImageGalleryService(int moduleId)
 		{
@@ -150,6 +152,13 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			if (!Directory.Exists(galleryRootPath) && FolderCountUnderLimit())
 			{
 				fileSystem.CreateFolder(galleryRootPath);
+			}
+
+			// Creates the Gallery Module Folder if it doesn't exist
+			if (!Directory.Exists(galleryPath))
+			{
+				Error.Type = "FolderNotFound";
+				Error.Message = BetterImageGalleryResources.FolderNotFound;
 			}
 
 			// Creates module thumbnail cache folder if it doesn't exist
