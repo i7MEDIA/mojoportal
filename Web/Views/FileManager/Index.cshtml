@@ -1,5 +1,6 @@
 ﻿@using Resources;
 @using mojoPortal.Business.WebHelpers;
+@using mojoPortal.Web.Framework;
 @model mojoPortal.Web.Models.FileManager
 
 @{
@@ -106,7 +107,7 @@
 				fileSystemToken: '@Model.FileSystemToken',
 				typeQueryString: '@Model.Type',
 				hidePermissions: true,
-				multipleDownloadFileName: 'angular-filemanager.zip'
+				multipleDownloadFileName: '@(siteSettings.SiteName.ToCleanFileName())-files.zip'
 			});
 		}]);
 	</script>

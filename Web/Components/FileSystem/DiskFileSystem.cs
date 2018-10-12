@@ -179,7 +179,7 @@ namespace mojoPortal.FileSystem
 
 		public bool UserHasBrowsePermission
 		{
-			get { return permission.UserHasBrowsePermission; }
+			get { return permission.UserHasBrowsePermission || permission.UserHasUploadPermission; }
 		}
 
 		public string VirtualRoot
