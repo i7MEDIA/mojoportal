@@ -47,7 +47,10 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 		public void Setup()
 		{
-			SetupThumbnails();
+			if (Error == null)
+			{
+				SetupThumbnails();
+			}
 		}
 
 
@@ -59,9 +62,11 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 		public BIGModel GetImages(string path)
 		{
-			var model = new BIGModel();
-			model.ModuleID = moduleID;
-			model.GalleryFolder = bigConfig.FolderPath;
+			var model = new BIGModel
+			{
+				ModuleID = moduleID,
+				GalleryFolder = bigConfig.FolderPath
+			};
 
 			if (string.IsNullOrWhiteSpace(bigConfig.FolderPath)) return model;
 
@@ -120,6 +125,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			siteSettings = CacheHelper.GetCurrentSiteSettings();
 			siteID = siteSettings.SiteId;
 			currentUser = SiteUtils.GetCurrentSiteUser();
+
 			var moduleSettings = ModuleSettings.GetModuleSettings(moduleID);
 
 			if (moduleSettings != null)
@@ -149,20 +155,23 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			galleryPath = galleryRootPath + bigConfig.FolderPath;
 
 			// Creates the Gallery Module Folder if it doesn't exist
-			if (!Directory.Exists(galleryRootPath) && FolderCountUnderLimit())
+			if (!fileSystem.FolderExists(galleryRootPath) && FolderCountUnderLimit())
 			{
 				fileSystem.CreateFolder(galleryRootPath);
 			}
 
 			// Creates the Gallery Module Folder if it doesn't exist
-			if (!Directory.Exists(galleryPath))
+			if (!fileSystem.FolderExists(galleryPath))
 			{
-				Error.Type = "FolderNotFound";
-				Error.Message = BetterImageGalleryResources.FolderNotFound;
+				Error = new BIGErrorResult
+				{
+					Type = "FolderNotFound",
+					Message = BetterImageGalleryResources.FolderNotFound
+				};
 			}
 
 			// Creates module thumbnail cache folder if it doesn't exist
-			if (!Directory.Exists(moduleThumbnailCachePath) && FolderCountUnderLimit())
+			if (!fileSystem.FolderExists(moduleThumbnailCachePath) && FolderCountUnderLimit())
 			{
 				fileSystem.CreateFolder(moduleThumbnailCachePath);
 			}
@@ -182,7 +191,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 			// Creates thumbnail cache folder if it doesn't exist, should only happen
 			// the first time this gallery instance is hit.
-			if (!Directory.Exists(HttpContext.Current.Server.MapPath(thumbnailCachePath)) && FolderCountUnderLimit())
+			if (!fileSystem.FolderExists(thumbnailCachePath) && FolderCountUnderLimit())
 			{
 				fileSystem.CreateFolder(thumbnailCachePath);
 				CreateThumbnailDataFile(images, thumbnailCachePath);
