@@ -12,7 +12,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		[Route("api/BetterImageGallery/")]
 		public IHttpActionResult GetItems([FromUri] string path, int moduleId = -1)
 		{
-			var gallery = new GalleryCore(moduleId);
+			var gallery = new BetterImageGalleryService(moduleId);
 			var items = gallery.GetImages(path);
 
 			return Ok(items);
