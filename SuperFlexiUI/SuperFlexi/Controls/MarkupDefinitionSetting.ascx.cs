@@ -23,7 +23,7 @@ namespace SuperFlexiUI
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(MarkupDefinitionSetting));
 		private static SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-
+		private static string originalValue = string.Empty;
 
 		//private int roleID = -1;
 		//private SiteUser siteUser;
@@ -195,8 +195,23 @@ namespace SuperFlexiUI
 			{
 				return string.Empty;
 			}
+			string selectedSolution = ddDefinitions.SelectedValue;
+			if (originalValue != selectedSolution)
+			{
+				int moduleId = WebUtils.ParseInt32FromQueryString("mid", -1);
 
-			return ddDefinitions.SelectedValue;
+				if (moduleId > -1)
+				{
+					Module module = new Module(moduleId);
+					if (module != null)
+					{
+						ModuleSettings.UpdateModuleSetting(module.ModuleGuid, moduleId, "MarkupDefinitionContent", string.Empty);
+					}
+				}
+			}
+
+			return selectedSolution;
+
 		}
 
 		public void SetValue(string val)
@@ -206,7 +221,7 @@ namespace SuperFlexiUI
 			if (val != null)
 			{
 				if (val == "") val = "0";
-
+				originalValue = val;
 				ListItem item = ddDefinitions.Items.FindByValue(val);
 
 				if (item != null)

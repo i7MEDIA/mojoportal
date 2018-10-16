@@ -1648,10 +1648,6 @@ namespace SuperFlexiUI
 			}
             config = new ModuleConfiguration(module);
 
-            //seems to be a good place to reload the MarkupDefinition. If this is the first time the edit page is being called, the definition will be loaded twice
-            //because the ModuleConfiguration (above) will load it b/c MarkupDefintionContent is blank and then we're calling ReloadMarkupDefinition below.
-            config.CopyMarkupDefinitionToDatabase();
-
 			lnkCancel.NavigateUrl = SiteUtils.GetCurrentPageUrl();
 
 			AddClassToBody("flexi-edit " + config.EditPageCssClass);
