@@ -37,7 +37,7 @@ namespace SuperFlexiUI
 public ModuleConfiguration()
         { }
 
-        public ModuleConfiguration(Module module)
+        public ModuleConfiguration(Module module, bool reloadDefinitionFromDisk = false)
         {
 			fsProvider = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
 			if (fsProvider == null)
@@ -63,7 +63,7 @@ public ModuleConfiguration()
                 {
                     siteId = CacheHelper.GetCurrentSiteSettings().SiteId;
                 }
-                LoadSettings(settings);
+                LoadSettings(settings, reloadDefinitionFromDisk);
             }
         }
         #endregion
@@ -115,7 +115,7 @@ public ModuleConfiguration()
         }
         #endregion
         #region private methods
-        private void LoadSettings(Hashtable settings)
+        private void LoadSettings(Hashtable settings, bool reloadDefinitionFromDisk = false)
         {
             if (settings == null) { throw new ArgumentException("must pass in a hashtable of settings"); }
 
@@ -193,7 +193,7 @@ public ModuleConfiguration()
 			if (settings.Contains("MarkupDefinitionContent"))
             {
                 markupDefinitionContent = settings["MarkupDefinitionContent"].ToString();
-                if (string.IsNullOrWhiteSpace(markupDefinitionContent) || AlwaysLoadMarkupDefinitionFromDisk)
+                if (string.IsNullOrWhiteSpace(markupDefinitionContent) || AlwaysLoadMarkupDefinitionFromDisk || reloadDefinitionFromDisk)
                 {
                     CopyMarkupDefinitionToDatabase();
                 }
