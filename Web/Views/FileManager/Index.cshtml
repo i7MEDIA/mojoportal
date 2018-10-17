@@ -50,7 +50,7 @@
 						<text>var url = '@Model.VirtualPath' + item.fullPath();</text>
 					} else
 					{
-						<text>var url = item.name;</text>
+						<text>var url = item.fullPath().replace('/@Model.QueryString.startFolder/', '');</text>
 					}
 
 

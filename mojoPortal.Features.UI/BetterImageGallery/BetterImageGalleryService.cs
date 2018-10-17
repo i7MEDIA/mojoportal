@@ -91,11 +91,13 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 			foreach (var image in imagesList)
 			{
+				var imageRelativePath = image.Path.Replace(HttpContext.Current.Server.MapPath(galleryPath), string.Empty).Replace("\\", "/");
+
 				model.Thumbnails.Add(new BIGImageModel
 				{
 					Name = Path.GetFileNameWithoutExtension(image.Name),
 					Full = Uri.EscapeUriString(siteRoot + image.VirtualPath.Replace("~", string.Empty).Replace("\\", "/")),
-					Thumb = Uri.EscapeUriString(siteRoot + $"/api/BetterImageGallery/imagehandler?path={bigConfig.FolderPath}/{FileNameWithJpegExt(image.Name)}")
+					Thumb = Uri.EscapeUriString(siteRoot + $"/api/BetterImageGallery/imagehandler?path={bigConfig.FolderPath}/{FileWithFolderAndJpegExt(image.Path)}")
 				});
 			}
 
@@ -194,47 +196,71 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			if (!fileSystem.FolderExists(thumbnailCachePath) && FolderCountUnderLimit())
 			{
 				fileSystem.CreateFolder(thumbnailCachePath);
-				CreateThumbnailDataFile(images, thumbnailCachePath);
+				//CreateThumbnailDataFile(images, thumbnailCachePath);
 				CreateThumbnails(images, thumbnailCachePath);
 			}
 			else
 			{
-				var thumbnails = GetThumbnailDataFile(thumbnailCachePath);
-				var imageNameList = images.Select(x => FileNameWithJpegExt(x.Name)).ToList();
+				//var thumbnails = GetThumbnailDataFile(thumbnailCachePath);
+				//var imageNameList = images.Select(x => FileNameWithJpegExt(x.Name)).ToList();
 
-				// Finds what images are in the thumbnails data file, but not in the gallery folder
-				//var missingThumbnailsList = thumbnails.Except(imageNameList).ToList();
-				// Finds what images are in the galler folder, but not in the data file
-				var missingImageNamesList = imageNameList.Except(thumbnails).ToList();
+				//// Finds what images are in the thumbnails data file, but not in the gallery folder
+				////var missingThumbnailsList = thumbnails.Except(imageNameList).ToList();
+				//// Finds what images are in the galler folder, but not in the data file
+				//var missingImageNamesList = imageNameList.Except(thumbnails).ToList();
+
+				//// Creates missing thumbnail images
+				//if (missingImageNamesList.Count() > 0)
+				//{
+				//	var missingImages = images.Where(i => missingImageNamesList.Contains(Path.GetFileNameWithoutExtension(i.Name) + ".jpg")).ToArray();
+
+				//	CreateThumbnailDataFile(images, thumbnailCachePath);
+				//	CreateThumbnails(missingImages, thumbnailCachePath);
+				//}
+
+				var thumbnailCacheDiscPath = HttpContext.Current.Server.MapPath(thumbnailCachePath);
+				var cacheDirInfo = new DirectoryInfo(thumbnailCacheDiscPath);
+				var cacheImages = Web.ImageHelper.GetImageExtensions()
+					.SelectMany(ext => cacheDirInfo.GetFiles(ext, SearchOption.AllDirectories))
+					.ToArray();
+
+				var imageNameList = images.Select(x => FileNameWithJpegExt(x.Name)).ToList();
+				var thumbnailNameList = cacheImages.Select(x => FileNameWithJpegExt(x.Name)).ToList();
+				var missingImageNamesList = imageNameList.Except(thumbnailNameList).ToList();
 
 				// Creates missing thumbnail images
 				if (missingImageNamesList.Count() > 0)
 				{
 					var missingImages = images.Where(i => missingImageNamesList.Contains(Path.GetFileNameWithoutExtension(i.Name) + ".jpg")).ToArray();
 
-					CreateThumbnailDataFile(images, thumbnailCachePath);
 					CreateThumbnails(missingImages, thumbnailCachePath);
 				}
 			}
 		}
 
 
-		private void CreateThumbnailDataFile(FileInfo[] images, string thumbnailCachePath)
+		private void CheckThumbnails(string imageCachePath)
 		{
-			var mappedImages = images.Select(x => FileNameWithJpegExt(x.Name)).ToList();
-			var thumbnailCacheDiscPath = HttpContext.Current.Server.MapPath(thumbnailCachePath);
 
-			File.WriteAllText(thumbnailCacheDiscPath + "data.config", JsonConvert.SerializeObject(mappedImages));
 		}
 
 
-		private List<string> GetThumbnailDataFile(string thumbnailCachePath)
-		{
-			var thumbnailCacheDiscPath = HttpContext.Current.Server.MapPath(thumbnailCachePath);
-			var dataFile = File.ReadAllText(thumbnailCacheDiscPath + "data.config", Encoding.UTF8);
+		//private void CreateThumbnailDataFile(FileInfo[] images, string thumbnailCachePath)
+		//{
+		//	var mappedImages = images.Select(x => FileNameWithJpegExt(x.Name)).ToList();
+		//	var thumbnailCacheDiscPath = HttpContext.Current.Server.MapPath(thumbnailCachePath);
 
-			return JsonConvert.DeserializeObject<List<string>>(dataFile);
-		}
+		//	File.WriteAllText(thumbnailCacheDiscPath + "data.config", JsonConvert.SerializeObject(mappedImages));
+		//}
+
+
+		//private List<string> GetThumbnailDataFile(string thumbnailCachePath)
+		//{
+		//	var thumbnailCacheDiscPath = HttpContext.Current.Server.MapPath(thumbnailCachePath);
+		//	var dataFile = File.ReadAllText(thumbnailCacheDiscPath + "data.config", Encoding.UTF8);
+
+		//	return JsonConvert.DeserializeObject<List<string>>(dataFile);
+		//}
 
 
 		private void CreateThumbnails(FileInfo[] images, string thumbnailCachePath)
@@ -245,8 +271,15 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 				{
 					using (Bitmap newImage = CreateNewImage(originalImage, thumbnailSize))
 					{
-						var thumbnailDiscPath = HttpContext.Current.Server
-							.MapPath(thumbnailCachePath + FileNameWithJpegExt(image.Name));
+						var imageRelativePath = image.FullName.Replace(HttpContext.Current.Server.MapPath(galleryPath), string.Empty).Replace("\\", "/");
+						var imageName = FileWithFolderAndJpegExt(image.FullName);
+						var imageFolder = imageRelativePath.Replace(Path.GetFileName(imageRelativePath), string.Empty);
+						var thumbnailDiscPath = HttpContext.Current.Server.MapPath(thumbnailCachePath + imageName);
+
+						if (imageFolder != "/")
+						{
+							fileSystem.CreateFolder(thumbnailCachePath + imageFolder);
+						}
 
 						newImage.Save(thumbnailDiscPath, ImageFormat.Jpeg);
 					}
@@ -349,6 +382,13 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		private string FileNameWithJpegExt(string str)
 		{
 			return Path.GetFileNameWithoutExtension(str) + ".jpg";
+		}
+
+		private string FileWithFolderAndJpegExt(string str)
+		{
+			var imageRelativePath = str.Replace(HttpContext.Current.Server.MapPath(galleryPath), string.Empty).Replace("\\", "/");
+			var imageName = Path.GetFileName(imageRelativePath);
+			return imageRelativePath.Replace(imageName, Path.GetFileNameWithoutExtension(imageName) + ".jpg");
 		}
 	}
 }
