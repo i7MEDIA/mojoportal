@@ -45,15 +45,15 @@
 		</span>
 	}
 
-	@if (Model.Thumbnails.Count > 0)
-	{
-		<span class="big__thumbnails" id="@thumbID">
-			@foreach (var image in Model.Thumbnails)
-			{
-				<div class="big__thumbnail col-xs-6 col-sm-3 col-md-2"><a class="thumbnail" href="@image.Full" title="@image.Name"><img src="@image.Thumb" alt="@image.Name" /></a></div>
-			}
-		</span>
-	}
+	@*@if (Model.Thumbnails.Count > 0)
+		{*@
+	<span class="big__thumbnails" id="@thumbID">
+		@foreach (var image in Model.Thumbnails)
+		{
+			<div class="big__thumbnail col-xs-6 col-sm-3 col-md-2"><a class="thumbnail" href="@image.Full" title="@image.Name"><img src="@image.Thumb" alt="@image.Name" /></a></div>
+		}
+	</span>
+	@*  }*@
 </div>
 
 
