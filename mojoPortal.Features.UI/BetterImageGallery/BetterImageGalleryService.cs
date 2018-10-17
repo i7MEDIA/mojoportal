@@ -91,13 +91,13 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 			foreach (var image in imagesList)
 			{
-				var imageRelativePath = image.Path.Replace(HttpContext.Current.Server.MapPath(galleryPath), string.Empty).Replace("\\", "/");
-
+				var galleryPathFolder = galleryPath.Substring(galleryPath.LastIndexOf('/') + 1);
+				
 				model.Thumbnails.Add(new BIGImageModel
 				{
 					Name = Path.GetFileNameWithoutExtension(image.Name),
 					Full = Uri.EscapeUriString(siteRoot + image.VirtualPath.Replace("~", string.Empty).Replace("\\", "/")),
-					Thumb = Uri.EscapeUriString(siteRoot + $"/api/BetterImageGallery/imagehandler?path={bigConfig.FolderPath}/{FileWithFolderAndJpegExt(image.Path)}")
+					Thumb = Uri.EscapeUriString(siteRoot + $"/api/BetterImageGallery/imagehandler?path={galleryPathFolder}/{FileWithFolderAndJpegExt(image.Path)}")
 				});
 			}
 
@@ -154,7 +154,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			// Gallery Module Folder
 			galleryRootPath = mediaRootPath + "BetterImageGallery/";
 			// Gallery Folder
-			galleryPath = galleryRootPath + bigConfig.FolderPath;
+			galleryPath = galleryRootPath + bigConfig.FolderPath.TrimEnd('/');
 
 			// Creates the Gallery Module Folder if it doesn't exist
 			if (!fileSystem.FolderExists(galleryRootPath) && FolderCountUnderLimit())
