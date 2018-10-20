@@ -486,7 +486,7 @@ namespace SuperFlexiData
 
             var sqlParams = new List<MySqlParameter>
             {
-                new MySqlParameter("?SiteGuid", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = siteGuid },
+                new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid },
                 new MySqlParameter("?PageID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageId }
             };
 
