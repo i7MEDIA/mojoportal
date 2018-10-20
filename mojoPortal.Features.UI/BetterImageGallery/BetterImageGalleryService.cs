@@ -157,7 +157,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			galleryPath = galleryRootPath + bigConfig.FolderPath.TrimEnd('/');
 
 			// Creates the Gallery Module Folder if it doesn't exist
-			if (!fileSystem.FolderExists(galleryRootPath) && FolderCountUnderLimit())
+			if (!fileSystem.FolderExists(galleryRootPath))
 			{
 				fileSystem.CreateFolder(galleryRootPath);
 			}
@@ -173,7 +173,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			}
 
 			// Creates module thumbnail cache folder if it doesn't exist
-			if (!fileSystem.FolderExists(moduleThumbnailCachePath) && FolderCountUnderLimit())
+			if (!fileSystem.FolderExists(moduleThumbnailCachePath))
 			{
 				fileSystem.CreateFolder(moduleThumbnailCachePath);
 			}
@@ -193,7 +193,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 
 			// Creates thumbnail cache folder if it doesn't exist, should only happen
 			// the first time this gallery instance is hit.
-			if (!fileSystem.FolderExists(thumbnailCachePath) && FolderCountUnderLimit())
+			if (!fileSystem.FolderExists(thumbnailCachePath))
 			{
 				fileSystem.CreateFolder(thumbnailCachePath);
 				//CreateThumbnailDataFile(images, thumbnailCachePath);
@@ -374,10 +374,10 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		}
 
 
-		private bool FolderCountUnderLimit()
-		{
-			return fileSystem.CountFolders() < fileSystem.Permission.MaxFolders;
-		}
+		//private bool FolderCountUnderLimit()
+		//{
+		//	return fileSystem.CountFolders() < fileSystem.Permission.MaxFolders;
+		//}
 
 		private string FileNameWithJpegExt(string str)
 		{
