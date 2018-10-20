@@ -1352,7 +1352,7 @@ Global
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|x86.ActiveCfg = Debug|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|x86.Build.0 = Debug|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - SQLite|.NET.ActiveCfg = Debug|Any CPU
-		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - SQLite|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - SQLite|Any CPU.ActiveCfg = Debug - SQLite|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - SQLite|Mixed Platforms.ActiveCfg = Debug - SQLite|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - SQLite|Mixed Platforms.Build.0 = Debug - SQLite|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - SQLite|x64.ActiveCfg = Debug|Any CPU
@@ -1424,7 +1424,7 @@ Global
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|x86.ActiveCfg = Debug|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|x86.Build.0 = Debug|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - SQLite|.NET.ActiveCfg = Debug|Any CPU
-		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - SQLite|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - SQLite|Any CPU.ActiveCfg = Debug - SQLite|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - SQLite|Mixed Platforms.ActiveCfg = Debug - SQLite|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - SQLite|Mixed Platforms.Build.0 = Debug - SQLite|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - SQLite|x64.ActiveCfg = Debug|Any CPU
@@ -1565,7 +1565,6 @@ Global
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - SQLite|.NET.ActiveCfg = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - SQLite|.NET.Build.0 = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - SQLite|Any CPU.ActiveCfg = Debug - pgSQL|Any CPU
-		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - SQLite|Any CPU.Build.0 = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - SQLite|Mixed Platforms.ActiveCfg = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - SQLite|x64.ActiveCfg = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - SQLite|x64.Build.0 = Debug - pgSQL|Any CPU
