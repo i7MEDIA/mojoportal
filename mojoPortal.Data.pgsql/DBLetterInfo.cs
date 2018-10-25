@@ -1,12 +1,6 @@
 ﻿/// Author:					
 /// Created:				2007-12-27
-/// Last Modified:			2012-11-05
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
+/// Last Modified:			2018-10-25
 ///
 /// You must not remove this notice, or any other, from this software.
 
@@ -595,16 +589,13 @@ namespace mojoPortal.Data
         /// </summary>
         public static IDataReader GetAll(Guid siteGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_letterinfo ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("siteguid = :siteguid ");
-            sqlCommand.Append("ORDER BY ");
-            sqlCommand.Append("sortrank, title ");
-            sqlCommand.Append(";");
+			string sqlCommand = @"SELECT li.*, l.sendclickedutc
+				FROM mp_letterinfo li
+				LEFT JOIN (SELECT letterinfoguid, MAX(sendclickedutc) AS sendclickedutc FROM mp_Letter GROUP BY letterinfoguid) AS l ON l.letterinfoguid = li.letterinfoguid
+				WHERE li.siteguid = :siteguid
+				ORDER BY sortrank, title;";
 
-            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
+			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
             arParams[0] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;

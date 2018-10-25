@@ -2734,13 +2734,13 @@
     <value>You have been unsubscribed from {0}.</value>
   </data>
   <data name="NewsletterArchiveListLink" xml:space="preserve">
-    <value>View Previous Editions</value>
+    <value>Archives</value>
   </data>
   <data name="NewsletterDraftListLink" xml:space="preserve">
-    <value>View/Edit Drafts</value>
+    <value>Manage Drafts</value>
   </data>
   <data name="NewsletterEditLink" xml:space="preserve">
-    <value>Edit</value>
+    <value>Settings</value>
   </data>
   <data name="NewsLetterPreviousLettersHeadingFormatString" xml:space="preserve">
     <value>{0} - Previous Editions</value>
@@ -4588,7 +4588,7 @@
     <value>Search</value>
   </data>
   <data name="NewsletterUnverifiedCountFormat" xml:space="preserve">
-    <value>({0} unverified)</value>
+    <value>{0} unverified</value>
   </data>
   <data name="NewsletterUnverifiedWarning" xml:space="preserve">
     <value>Your subscription is not verified. Please click the Save Preferences button to confirm your subscription.</value>
@@ -6291,5 +6291,20 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="GeneralBrowseRoles" xml:space="preserve">
     <value>Browse Files</value>
+  </data>
+  <data name="LastModifiedFormat" xml:space="preserve">
+    <value>Last Modified by {0} on {1}</value>
+  </data>
+  <data name="NewsletterLastSentFormat" xml:space="preserve">
+    <value>Last Sent: {0}</value>
+  </data>
+  <data name="NewsletterNeverSent" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="NewsletterNoLetters" xml:space="preserve">
+    <value>You have created any Newsletters yet.</value>
+  </data>
+  <data name="UnknownUser" xml:space="preserve">
+    <value>Unknown</value>
   </data>
 </root>

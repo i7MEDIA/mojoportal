@@ -13,6 +13,15 @@ namespace mojoPortal.Web.ELetterUI {
     public partial class AdminPage {
         
         /// <summary>
+        /// displaySettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.NewsletterDisplaySettings displaySettings;
+        
+        /// <summary>
         /// pnlAdminCrumbs control.
         /// </summary>
         /// <remarks>
@@ -58,15 +67,6 @@ namespace mojoPortal.Web.ELetterUI {
         protected global::mojoPortal.Web.UI.OuterWrapperPanel pnlOuterWrap;
         
         /// <summary>
-        /// ctop1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderTop ctop1;
-        
-        /// <summary>
         /// pnlInnerWrap control.
         /// </summary>
         /// <remarks>
@@ -103,66 +103,12 @@ namespace mojoPortal.Web.ELetterUI {
         protected global::mojoPortal.Web.UI.InnerBodyPanel pnlInnerBody;
         
         /// <summary>
-        /// grdLetterInfo control.
+        /// litLetters control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.mojoGridView grdLetterInfo;
-        
-        /// <summary>
-        /// pgrLetterInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoCutePager pgrLetterInfo;
-        
-        /// <summary>
-        /// lnkAddNew control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkAddNew;
-        
-        /// <summary>
-        /// lnkManageTemplates control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkManageTemplates;
-        
-        /// <summary>
-        /// divCleared1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.EmptyPanel divCleared1;
-        
-        /// <summary>
-        /// divCleared control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.EmptyPanel divCleared;
-        
-        /// <summary>
-        /// cbottom1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderBottom cbottom1;
+        protected global::System.Web.UI.WebControls.Literal litLetters;
     }
 }

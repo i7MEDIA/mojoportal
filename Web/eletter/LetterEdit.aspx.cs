@@ -44,9 +44,9 @@ namespace mojoPortal.Web.ELetterUI
                 return;
             }
             
+            LoadSettings();
             PopulateLabels();
 
-            LoadSettings();
 
             PopulateControls();
 

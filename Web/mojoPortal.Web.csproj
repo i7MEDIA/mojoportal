@@ -3513,6 +3513,9 @@
     <Content Include="Views\FileManager\Pages.cshtml" />
     <Content Include="Views\FileManager\_FileManagerLayout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\eletter\_Admin.cshtml" />
+    <Content Include="Views\Shared\_AdminCrumbs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />

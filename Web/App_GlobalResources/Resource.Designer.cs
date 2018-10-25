@@ -6496,6 +6496,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Modified by {0} on {1}.
+        /// </summary>
+        internal static string LastModifiedFormat {
+            get {
+                return ResourceManager.GetString("LastModifiedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Modified From IP Address.
         /// </summary>
         internal static string LastModifiedFromIpAddress {
@@ -9052,7 +9061,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View Previous Editions.
+        ///   Looks up a localized string similar to Archives.
         /// </summary>
         internal static string NewsletterArchiveListLink {
             get {
@@ -9142,7 +9151,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View/Edit Drafts.
+        ///   Looks up a localized string similar to Manage Drafts.
         /// </summary>
         internal static string NewsletterDraftListLink {
             get {
@@ -9160,7 +9169,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to Settings.
         /// </summary>
         internal static string NewsletterEditLink {
             get {
@@ -9268,6 +9277,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Sent: {0}.
+        /// </summary>
+        internal static string NewsletterLastSentFormat {
+            get {
+                return ResourceManager.GetString("NewsletterLastSentFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load Html Template.
         /// </summary>
         internal static string NewsLetterLoadHtmlTemplateButton {
@@ -9300,6 +9318,24 @@ namespace Resources {
         internal static string NewsletterMoreInfoTextSetting {
             get {
                 return ResourceManager.GetString("NewsletterMoreInfoTextSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Never.
+        /// </summary>
+        internal static string NewsletterNeverSent {
+            get {
+                return ResourceManager.GetString("NewsletterNeverSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have created any Newsletters yet..
+        /// </summary>
+        internal static string NewsletterNoLetters {
+            get {
+                return ResourceManager.GetString("NewsletterNoLetters", resourceCulture);
             }
         }
         
@@ -9961,7 +9997,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ({0} unverified).
+        ///   Looks up a localized string similar to {0} unverified.
         /// </summary>
         internal static string NewsletterUnverifiedCountFormat {
             get {
@@ -17194,6 +17230,15 @@ namespace Resources {
         internal static string UnitsSold {
             get {
                 return ResourceManager.GetString("UnitsSold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        internal static string UnknownUser {
+            get {
+                return ResourceManager.GetString("UnknownUser", resourceCulture);
             }
         }
         

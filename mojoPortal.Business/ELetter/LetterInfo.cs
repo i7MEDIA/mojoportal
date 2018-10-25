@@ -1,13 +1,7 @@
 // Author:					
 // Created:				    2007-09-22
-// Last Modified:			2009-02-01
+// Last Modified:			2018-10-25
 // 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -22,263 +16,95 @@ namespace mojoPortal.Business
     /// </summary>
     public class LetterInfo
     {
-
         #region Constructors
 
-        public LetterInfo()
-        { }
+        public LetterInfo() { }
 
-
-        public LetterInfo(
-            Guid letterInfoGuid)
+        public LetterInfo(Guid letterInfoGuid)
         {
-            GetLetterInfo(
-                letterInfoGuid);
+            GetLetterInfo(letterInfoGuid);
         }
 
-        #endregion
+		#endregion
 
-        #region Private Properties
+		#region Properties
 
-        private Guid letterInfoGuid = Guid.Empty;
-        private Guid siteGuid = Guid.Empty;
-        private string title = string.Empty;
-        private string description = string.Empty;
-        private string availableToRoles = string.Empty;
-        private bool enabled = false;
-        private bool allowUserFeedback = false;
-        private bool allowAnonFeedback = false;
-        private string fromAddress = string.Empty;
-        private string fromName = string.Empty;
-        private string replyToAddress = string.Empty;
-        private int sendMode = 0;
-        private bool enableViewAsWebPage = false;
-        private bool enableSendLog = false;
-        private string rolesThatCanEdit = string.Empty;
-        private string rolesThatCanApprove = string.Empty;
-        private string rolesThatCanSend = string.Empty;
-        private int subscriberCount = 0;
-        private DateTime createdUTC = DateTime.UtcNow;
-        private Guid createdBy = Guid.Empty;
-        private DateTime lastModUTC = DateTime.UtcNow;
-        private Guid lastModBy = Guid.Empty;
-        private bool allowArchiveView = true;
-        private bool profileOptIn = false;
-        private int sortRank = 500;
-        private int unVerifiedCount = 0;
+		public Guid LetterInfoGuid { get; set; } = Guid.Empty;
+		public Guid SiteGuid { get; set; } = Guid.Empty;
+		public string Title { get; set; } = string.Empty;
+		public string Description { get; set; } = string.Empty;
+		public string AvailableToRoles { get; set; } = string.Empty;
+		public bool Enabled { get; set; } = false;
+		public bool AllowUserFeedback { get; set; } = false;
+		public bool AllowAnonFeedback { get; set; } = false;
+		public string FromAddress { get; set; } = string.Empty;
+		public string FromName { get; set; } = string.Empty;
+		public string ReplyToAddress { get; set; } = string.Empty;
+		public int SendMode { get; set; } = 0;
+		public bool EnableViewAsWebPage { get; set; } = false;
+		public bool EnableSendLog { get; set; } = false;
+		public string RolesThatCanEdit { get; set; } = string.Empty;
+		public string RolesThatCanApprove { get; set; } = string.Empty;
+		public string RolesThatCanSend { get; set; } = string.Empty;
+		public DateTime CreatedUtc { get; set; } = DateTime.UtcNow;
+		public Guid CreatedBy { get; set; } = Guid.Empty;
+		public DateTime LastModUtc { get; set; } = DateTime.UtcNow;
+		public Guid LastModBy { get; set; } = Guid.Empty;
+		public DateTime LastSentUtc { get; set; } = DateTime.MaxValue;
+		public int SubscriberCount { get; private set; } = 0;
+		public int UnVerifiedCount { get; private set; } = 0;
+		public bool AllowArchiveView { get; set; } = true;
+		public bool ProfileOptIn { get; set; } = false;
+		public int SortRank { get; set; } = 500;
+		public string DisplayNameDefault { get; set; } = string.Empty;
+		public string FirstNameDefault { get; set; } = string.Empty;
+		public string LastNameDefault { get; set; } = string.Empty;
 
-        
-        
+		#endregion
 
-        #endregion
+		#region Private Methods
 
-        #region Public Properties
-
-        public Guid LetterInfoGuid
-        {
-            get { return letterInfoGuid; }
-            set { letterInfoGuid = value; }
-        }
-        public Guid SiteGuid
-        {
-            get { return siteGuid; }
-            set { siteGuid = value; }
-        }
-        public string Title
-        {
-            get { return title; }
-            set { title = value; }
-        }
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
-        public string AvailableToRoles
-        {
-            get { return availableToRoles; }
-            set { availableToRoles = value; }
-        }
-        public bool Enabled
-        {
-            get { return enabled; }
-            set { enabled = value; }
-        }
-        public bool AllowUserFeedback
-        {
-            get { return allowUserFeedback; }
-            set { allowUserFeedback = value; }
-        }
-        public bool AllowAnonFeedback
-        {
-            get { return allowAnonFeedback; }
-            set { allowAnonFeedback = value; }
-        }
-        public string FromAddress
-        {
-            get { return fromAddress; }
-            set { fromAddress = value; }
-        }
-        public string FromName
-        {
-            get { return fromName; }
-            set { fromName = value; }
-        }
-        public string ReplyToAddress
-        {
-            get { return replyToAddress; }
-            set { replyToAddress = value; }
-        }
-        public int SendMode
-        {
-            get { return sendMode; }
-            set { sendMode = value; }
-        }
-        public bool EnableViewAsWebPage
-        {
-            get { return enableViewAsWebPage; }
-            set { enableViewAsWebPage = value; }
-        }
-        public bool EnableSendLog
-        {
-            get { return enableSendLog; }
-            set { enableSendLog = value; }
-        }
-        public string RolesThatCanEdit
-        {
-            get { return rolesThatCanEdit; }
-            set { rolesThatCanEdit = value; }
-        }
-        public string RolesThatCanApprove
-        {
-            get { return rolesThatCanApprove; }
-            set { rolesThatCanApprove = value; }
-        }
-        public string RolesThatCanSend
-        {
-            get { return rolesThatCanSend; }
-            set { rolesThatCanSend = value; }
-        }
-        public DateTime CreatedUtc
-        {
-            get { return createdUTC; }
-            set { createdUTC = value; }
-        }
-        public Guid CreatedBy
-        {
-            get { return createdBy; }
-            set { createdBy = value; }
-        }
-        public DateTime LastModUtc
-        {
-            get { return lastModUTC; }
-            set { lastModUTC = value; }
-        }
-        public Guid LastModBy
-        {
-            get { return lastModBy; }
-            set { lastModBy = value; }
-        }
-
-        public int SubscriberCount
-        {
-            get { return subscriberCount; }
-
-        }
-
-        public int UnVerifiedCount
-        {
-            get { return unVerifiedCount; }
-
-        }
-
-        public bool AllowArchiveView
-        {
-            get { return allowArchiveView; }
-            set { allowArchiveView = value; }
-        }
-
-        public bool ProfileOptIn
-        {
-            get { return profileOptIn; }
-            set { profileOptIn = value; }
-        }
-
-        public int SortRank
-        {
-            get { return sortRank; }
-            set { sortRank = value; }
-        }
-
-        private string displayNameDefault = string.Empty;
-
-        public string DisplayNameDefault
-        {
-            get { return displayNameDefault; }
-            set { displayNameDefault = value; }
-        }
-
-        private string firstNameDefault = string.Empty;
-
-        public string FirstNameDefault
-        {
-            get { return firstNameDefault; }
-            set { firstNameDefault = value; }
-        }
-
-        private string lastNameDefault = string.Empty;
-
-        public string LastNameDefault
-        {
-            get { return lastNameDefault; }
-            set { lastNameDefault = value; }
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        /// <summary>
-        /// Gets an instance of LetterInfo.
-        /// </summary>
-        /// <param name="letterInfoGuid"> letterInfoGuid </param>
-        private void GetLetterInfo(Guid letterInfoGuid)
+		/// <summary>
+		/// Gets an instance of LetterInfo.
+		/// </summary>
+		/// <param name="letterInfoGuid"> letterInfoGuid </param>
+		private void GetLetterInfo(Guid letterInfoGuid)
         {
             using (IDataReader reader = DBLetterInfo.GetOne(letterInfoGuid))
             {
                 if (reader.Read())
                 {
-                    this.letterInfoGuid = new Guid(reader["LetterInfoGuid"].ToString());
-                    this.siteGuid = new Guid(reader["SiteGuid"].ToString());
-                    this.title = reader["Title"].ToString();
-                    this.description = reader["Description"].ToString();
-                    this.availableToRoles = reader["AvailableToRoles"].ToString();
-                    this.enabled = Convert.ToBoolean(reader["Enabled"]);
-                    this.allowUserFeedback = Convert.ToBoolean(reader["AllowUserFeedback"]);
-                    this.allowAnonFeedback = Convert.ToBoolean(reader["AllowAnonFeedback"]);
-                    this.fromAddress = reader["FromAddress"].ToString();
-                    this.fromName = reader["FromName"].ToString();
-                    this.replyToAddress = reader["ReplyToAddress"].ToString();
-                    this.sendMode = Convert.ToInt32(reader["SendMode"]);
-                    this.enableViewAsWebPage = Convert.ToBoolean(reader["EnableViewAsWebPage"]);
-                    this.enableSendLog = Convert.ToBoolean(reader["EnableSendLog"]);
-                    this.rolesThatCanEdit = reader["RolesThatCanEdit"].ToString();
-                    this.rolesThatCanApprove = reader["RolesThatCanApprove"].ToString();
-                    this.rolesThatCanSend = reader["RolesThatCanSend"].ToString();
-                    this.subscriberCount = Convert.ToInt32(reader["SubscriberCount"]);
-                    this.unVerifiedCount = Convert.ToInt32(reader["UnVerifiedCount"]);
-                    this.createdUTC = Convert.ToDateTime(reader["CreatedUTC"]);
-                    this.createdBy = new Guid(reader["CreatedBy"].ToString());
-                    this.lastModUTC = Convert.ToDateTime(reader["LastModUTC"]);
-                    this.lastModBy = new Guid(reader["LastModBy"].ToString());
+                    this.LetterInfoGuid = new Guid(reader["LetterInfoGuid"].ToString());
+                    this.SiteGuid = new Guid(reader["SiteGuid"].ToString());
+                    this.Title = reader["Title"].ToString();
+                    this.Description = reader["Description"].ToString();
+                    this.AvailableToRoles = reader["AvailableToRoles"].ToString();
+                    this.Enabled = Convert.ToBoolean(reader["Enabled"]);
+                    this.AllowUserFeedback = Convert.ToBoolean(reader["AllowUserFeedback"]);
+                    this.AllowAnonFeedback = Convert.ToBoolean(reader["AllowAnonFeedback"]);
+                    this.FromAddress = reader["FromAddress"].ToString();
+                    this.FromName = reader["FromName"].ToString();
+                    this.ReplyToAddress = reader["ReplyToAddress"].ToString();
+                    this.SendMode = Convert.ToInt32(reader["SendMode"]);
+                    this.EnableViewAsWebPage = Convert.ToBoolean(reader["EnableViewAsWebPage"]);
+                    this.EnableSendLog = Convert.ToBoolean(reader["EnableSendLog"]);
+                    this.RolesThatCanEdit = reader["RolesThatCanEdit"].ToString();
+                    this.RolesThatCanApprove = reader["RolesThatCanApprove"].ToString();
+                    this.RolesThatCanSend = reader["RolesThatCanSend"].ToString();
+                    this.SubscriberCount = Convert.ToInt32(reader["SubscriberCount"]);
+                    this.UnVerifiedCount = Convert.ToInt32(reader["UnVerifiedCount"]);
+                    this.CreatedUtc = Convert.ToDateTime(reader["CreatedUTC"]);
+                    this.CreatedBy = new Guid(reader["CreatedBy"].ToString());
+                    this.LastModUtc = Convert.ToDateTime(reader["LastModUTC"]);
+                    this.LastModBy = new Guid(reader["LastModBy"].ToString());
 
-                    this.allowArchiveView = Convert.ToBoolean(reader["AllowArchiveView"]);
-                    this.profileOptIn = Convert.ToBoolean(reader["ProfileOptIn"]);
-                    this.sortRank = Convert.ToInt32(reader["SortRank"]);
+                    this.AllowArchiveView = Convert.ToBoolean(reader["AllowArchiveView"]);
+                    this.ProfileOptIn = Convert.ToBoolean(reader["ProfileOptIn"]);
+                    this.SortRank = Convert.ToInt32(reader["SortRank"]);
 
-                    this.displayNameDefault = reader["DisplayNameDefault"].ToString();
-                    this.firstNameDefault = reader["FirstNameDefault"].ToString();
-                    this.lastNameDefault = reader["LastNameDefault"].ToString();
+                    this.DisplayNameDefault = reader["DisplayNameDefault"].ToString();
+                    this.FirstNameDefault = reader["FirstNameDefault"].ToString();
+                    this.LastNameDefault = reader["LastNameDefault"].ToString();
 
                 }
 
@@ -294,36 +120,36 @@ namespace mojoPortal.Business
         {
             Guid newID = Guid.NewGuid();
 
-            this.letterInfoGuid = newID;
+            this.LetterInfoGuid = newID;
 
             int rowsAffected = DBLetterInfo.Create(
-                this.letterInfoGuid,
-                this.siteGuid,
-                this.title,
-                this.description,
-                this.availableToRoles,
-                this.enabled,
-                this.allowUserFeedback,
-                this.allowAnonFeedback,
-                this.fromAddress,
-                this.fromName,
-                this.replyToAddress,
-                this.sendMode,
-                this.enableViewAsWebPage,
-                this.enableSendLog,
-                this.rolesThatCanEdit,
-                this.rolesThatCanApprove,
-                this.rolesThatCanSend,
-                this.createdUTC,
-                this.createdBy,
-                this.lastModUTC,
-                this.lastModBy,
-                this.allowArchiveView,
-                this.profileOptIn,
-                this.sortRank,
-                this.displayNameDefault,
-                this.firstNameDefault,
-                this.lastNameDefault);
+                this.LetterInfoGuid,
+                this.SiteGuid,
+                this.Title,
+                this.Description,
+                this.AvailableToRoles,
+                this.Enabled,
+                this.AllowUserFeedback,
+                this.AllowAnonFeedback,
+                this.FromAddress,
+                this.FromName,
+                this.ReplyToAddress,
+                this.SendMode,
+                this.EnableViewAsWebPage,
+                this.EnableSendLog,
+                this.RolesThatCanEdit,
+                this.RolesThatCanApprove,
+                this.RolesThatCanSend,
+                this.CreatedUtc,
+                this.CreatedBy,
+                this.LastModUtc,
+                this.LastModBy,
+                this.AllowArchiveView,
+                this.ProfileOptIn,
+                this.SortRank,
+                this.DisplayNameDefault,
+                this.FirstNameDefault,
+                this.LastNameDefault);
 
             return (rowsAffected > 0);
 
@@ -338,33 +164,33 @@ namespace mojoPortal.Business
         {
 
             return DBLetterInfo.Update(
-                this.letterInfoGuid,
-                this.siteGuid,
-                this.title,
-                this.description,
-                this.availableToRoles,
-                this.enabled,
-                this.allowUserFeedback,
-                this.allowAnonFeedback,
-                this.fromAddress,
-                this.fromName,
-                this.replyToAddress,
-                this.sendMode,
-                this.enableViewAsWebPage,
-                this.enableSendLog,
-                this.rolesThatCanEdit,
-                this.rolesThatCanApprove,
-                this.rolesThatCanSend,
-                this.createdUTC,
-                this.createdBy,
-                this.lastModUTC,
-                this.lastModBy,
-                this.allowArchiveView,
-                this.profileOptIn,
-                this.sortRank,
-                this.displayNameDefault,
-                this.firstNameDefault,
-                this.lastNameDefault);
+                this.LetterInfoGuid,
+                this.SiteGuid,
+                this.Title,
+                this.Description,
+                this.AvailableToRoles,
+                this.Enabled,
+                this.AllowUserFeedback,
+                this.AllowAnonFeedback,
+                this.FromAddress,
+                this.FromName,
+                this.ReplyToAddress,
+                this.SendMode,
+                this.EnableViewAsWebPage,
+                this.EnableSendLog,
+                this.RolesThatCanEdit,
+                this.RolesThatCanApprove,
+                this.RolesThatCanSend,
+                this.CreatedUtc,
+                this.CreatedBy,
+                this.LastModUtc,
+                this.LastModBy,
+                this.AllowArchiveView,
+                this.ProfileOptIn,
+                this.SortRank,
+                this.DisplayNameDefault,
+                this.FirstNameDefault,
+                this.LastNameDefault);
 
         }
 
@@ -379,7 +205,7 @@ namespace mojoPortal.Business
         /// <returns>bool</returns>
         public bool Save()
         {
-            if (this.letterInfoGuid != Guid.Empty)
+            if (this.LetterInfoGuid != Guid.Empty)
             {
                 return Update();
             }
@@ -442,37 +268,40 @@ namespace mojoPortal.Business
                 while (reader.Read())
                 {
                     LetterInfo letterInfo = new LetterInfo();
-                    letterInfo.letterInfoGuid = new Guid(reader["LetterInfoGuid"].ToString());
-                    letterInfo.siteGuid = new Guid(reader["SiteGuid"].ToString());
-                    letterInfo.title = reader["Title"].ToString();
-                    letterInfo.description = reader["Description"].ToString();
-                    letterInfo.availableToRoles = reader["AvailableToRoles"].ToString();
-                    letterInfo.enabled = Convert.ToBoolean(reader["Enabled"]);
-                    letterInfo.allowUserFeedback = Convert.ToBoolean(reader["AllowUserFeedback"]);
-                    letterInfo.allowAnonFeedback = Convert.ToBoolean(reader["AllowAnonFeedback"]);
-                    letterInfo.fromAddress = reader["FromAddress"].ToString();
-                    letterInfo.fromName = reader["FromName"].ToString();
-                    letterInfo.replyToAddress = reader["ReplyToAddress"].ToString();
-                    letterInfo.sendMode = Convert.ToInt32(reader["SendMode"]);
-                    letterInfo.enableViewAsWebPage = Convert.ToBoolean(reader["EnableViewAsWebPage"]);
-                    letterInfo.enableSendLog = Convert.ToBoolean(reader["EnableSendLog"]);
-                    letterInfo.rolesThatCanEdit = reader["RolesThatCanEdit"].ToString();
-                    letterInfo.rolesThatCanApprove = reader["RolesThatCanApprove"].ToString();
-                    letterInfo.rolesThatCanSend = reader["RolesThatCanSend"].ToString();
-                    letterInfo.createdUTC = Convert.ToDateTime(reader["CreatedUTC"]);
-                    letterInfo.createdBy = new Guid(reader["CreatedBy"].ToString());
-                    letterInfo.lastModUTC = Convert.ToDateTime(reader["LastModUTC"]);
-                    letterInfo.lastModBy = new Guid(reader["LastModBy"].ToString());
-                    letterInfo.subscriberCount = Convert.ToInt32(reader["SubscriberCount"]);
-                    letterInfo.unVerifiedCount = Convert.ToInt32(reader["UnVerifiedCount"]);
+                    letterInfo.LetterInfoGuid = new Guid(reader["LetterInfoGuid"].ToString());
+                    letterInfo.SiteGuid = new Guid(reader["SiteGuid"].ToString());
+                    letterInfo.Title = reader["Title"].ToString();
+                    letterInfo.Description = reader["Description"].ToString();
+                    letterInfo.AvailableToRoles = reader["AvailableToRoles"].ToString();
+                    letterInfo.Enabled = Convert.ToBoolean(reader["Enabled"]);
+                    letterInfo.AllowUserFeedback = Convert.ToBoolean(reader["AllowUserFeedback"]);
+                    letterInfo.AllowAnonFeedback = Convert.ToBoolean(reader["AllowAnonFeedback"]);
+                    letterInfo.FromAddress = reader["FromAddress"].ToString();
+                    letterInfo.FromName = reader["FromName"].ToString();
+                    letterInfo.ReplyToAddress = reader["ReplyToAddress"].ToString();
+                    letterInfo.SendMode = Convert.ToInt32(reader["SendMode"]);
+                    letterInfo.EnableViewAsWebPage = Convert.ToBoolean(reader["EnableViewAsWebPage"]);
+                    letterInfo.EnableSendLog = Convert.ToBoolean(reader["EnableSendLog"]);
+                    letterInfo.RolesThatCanEdit = reader["RolesThatCanEdit"].ToString();
+                    letterInfo.RolesThatCanApprove = reader["RolesThatCanApprove"].ToString();
+                    letterInfo.RolesThatCanSend = reader["RolesThatCanSend"].ToString();
+                    letterInfo.CreatedUtc = Convert.ToDateTime(reader["CreatedUTC"]);
+                    letterInfo.CreatedBy = new Guid(reader["CreatedBy"].ToString());
+                    letterInfo.LastModUtc = Convert.ToDateTime(reader["LastModUTC"]);
+                    letterInfo.LastModBy = new Guid(reader["LastModBy"].ToString());
+                    letterInfo.SubscriberCount = Convert.ToInt32(reader["SubscriberCount"]);
+                    letterInfo.UnVerifiedCount = Convert.ToInt32(reader["UnVerifiedCount"]);
                     letterInfo.AllowArchiveView = Convert.ToBoolean(reader["AllowArchiveView"]);
                     letterInfo.ProfileOptIn = Convert.ToBoolean(reader["ProfileOptIn"]);
                     letterInfo.SortRank = Convert.ToInt32(reader["SortRank"]);
 
-                    letterInfo.displayNameDefault = reader["DisplayNameDefault"].ToString();
-                    letterInfo.firstNameDefault = reader["FirstNameDefault"].ToString();
-                    letterInfo.lastNameDefault = reader["LastNameDefault"].ToString();
-
+                    letterInfo.DisplayNameDefault = reader["DisplayNameDefault"].ToString();
+                    letterInfo.FirstNameDefault = reader["FirstNameDefault"].ToString();
+                    letterInfo.LastNameDefault = reader["LastNameDefault"].ToString();
+					if (reader["SendClickedUTC"] != DBNull.Value)
+					{
+						letterInfo.LastSentUtc = Convert.ToDateTime(reader["SendClickedUTC"]);
+					}
                     letterInfoList.Add(letterInfo);
                 }
             }
