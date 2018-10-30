@@ -25,7 +25,14 @@ namespace mojoPortal.Web.ELetterUI
 
 		protected void Page_Load(object sender, EventArgs e)
         {
-            LoadSettings();
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+
+			LoadSettings();
+
             if ((!isSiteEditor) && (!WebUser.IsNewsletterAdmin))
             {
                 SiteUtils.RedirectToAccessDeniedPage(this);

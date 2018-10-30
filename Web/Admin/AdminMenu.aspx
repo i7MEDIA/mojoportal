@@ -3,12 +3,12 @@
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-<mp:CornerRounderTop id="ctop1" runat="server" />
 <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper adminmenu">
 <portal:HeadingControl ID="heading" runat="server" />
 <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-		<ul class="simplelist">
+	<asp:Literal ID="litMenu" runat="server" />
+<%--		<ul class="simplelist">
 			<li id="liSiteSettings" runat="server">
 				<asp:HyperLink ID="lnkSiteSettings" runat="server" CssClass="lnkSiteSettings" />
 			</li>
@@ -49,9 +49,6 @@
 				<asp:HyperLink ID="lnkDesignTools" runat="server" CssClass="lnkDesignTools" />
 			</li>
 			<portal:FileManagerLink runat="server" RenderAsListItem="true" CssClass="lnkFileManager" ListItemID="liFileManager" OpenInModal="false" QueryString="?view=fullpage" />
-			<%--<li id="liFileManager" runat="server">
-				<asp:HyperLink ID="lnkFileManager" runat="server" CssClass="lnkFileManager" />
-			</li>--%>
 			<li id="liNewsletter" runat="server">
 				<asp:HyperLink ID="lnkNewsletter" runat="server" CssClass="lnkNewsletter" />
 			</li>
@@ -77,12 +74,11 @@
 				<asp:HyperLink ID="lnkCommerceReports" runat="server" CssClass="lnkCommerceReports" />
 			</li>
 			<asp:Literal ID="litSupplementalLinks" runat="server" />
-		</ul>
+		</ul>--%>
 </portal:InnerBodyPanel>	
 </portal:OuterBodyPanel>
 <portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
 </portal:InnerWrapperPanel>
-<mp:CornerRounderBottom id="cbottom1" runat="server" />
 </portal:OuterWrapperPanel>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />

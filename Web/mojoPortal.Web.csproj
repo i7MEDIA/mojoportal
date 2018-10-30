@@ -3516,6 +3516,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\eletter\_Admin.cshtml" />
     <Content Include="Views\Shared\_AdminCrumbs.cshtml" />
+    <Content Include="Views\Admin\_AdminMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />
