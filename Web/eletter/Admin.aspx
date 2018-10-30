@@ -2,7 +2,6 @@
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
-	<portal:NewsletterDisplaySettings runat="server" ID="displaySettings" />
 <portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs">
 <asp:HyperLink ID="lnkAdminMenu" runat="server" NavigateUrl="~/Admin/AdminMenu.aspx" CssClass="unselectedcrumb" /><portal:AdminCrumbSeparator id="litLinkSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
 <asp:HyperLink ID="lnkThisPage" runat="server" CssClass="selectedcrumb" />
