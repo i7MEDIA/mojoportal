@@ -179,7 +179,7 @@ namespace mojoPortal.Web.EventCalendarUI
                     Literal cssLink = new Literal();
                     cssLink.ID = "mpdatacalendarcss";
                     cssLink.Text = "\n<link href='"
-                    + SiteUtils.GetSkinBaseUrl()
+                    + SiteUtils.GetSkinBaseUrl(this.Page)
                     + "mpdatacalendar.css' type='text/css' rel='stylesheet' media='screen' />";
 
                     stylesheet.Controls.Add(cssLink);

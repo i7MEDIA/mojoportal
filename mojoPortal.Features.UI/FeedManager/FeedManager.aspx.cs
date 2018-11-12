@@ -268,7 +268,7 @@ namespace mojoPortal.Web.FeedUI
                     Literal cssLink = new Literal();
                     cssLink.ID = "rsscss";
                     cssLink.Text = "\n<link href='"
-                    + SiteUtils.GetSkinBaseUrl()
+                    + SiteUtils.GetSkinBaseUrl(this.Page)
                     + "rssmodule.css' type='text/css' rel='stylesheet' media='screen' />";
 
                     stylesheet.Controls.Add(cssLink);
