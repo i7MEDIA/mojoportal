@@ -1,60 +1,37 @@
 // Author:					
 // Created:				    2007-08-10
-// Last Modified:			2007-08-10
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
+// Last Modified:			2018-10-30
 //
 // You must not remove this notice, or any other, from this software.
 
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Framework;
+using System;
 using System.Web;
 using System.Xml;
 
 namespace mojoPortal.Web
 {
-    /// <summary>
-    ///
-    /// </summary>
     public class ContentAdminLink
     {
-        private ContentAdminLink()
+        public ContentAdminLink()
         { }
 
-        private string resourceFile = string.Empty;
-        private string resourceKey = string.Empty;
-        private string url = string.Empty;
-        private string visibleToRoles = string.Empty;
-        private string cssClass = "customadminlink";
+		public string ResourceFile { get; set; } = string.Empty;
 
-        public string ResourceFile
-        {
-            get { return resourceFile; }
-        }
+		public string ResourceKey { get; set; } = string.Empty;
 
-        public string ResourceKey
-        {
-            get { return resourceKey; }
-        }
+		public string Url { get; set; } = string.Empty;
 
-        public string Url
-        {
-            get { return url; }
-        }
+		public string CssClass { get; set; } = "customadminlink";
 
-        public string CssClass
-        {
-            get { return cssClass; }
-        }
+		public string VisibleToRoles { get; set; } = string.Empty;
 
-        public string VisibleToRoles
-        {
-            get { return visibleToRoles; }
-        }
+		public int SortOrder { get; set; } = 500;
 
-        public static void LoadLinks(
+		public string IconCssClass { get; set; } = string.Empty;
+
+		public static void LoadLinksFromXml(
             ContentAdminLinksConfiguration config,
             XmlNode documentElement)
         {
@@ -72,30 +49,43 @@ namespace mojoPortal.Web
 
                     if (attributeCollection["resourceFile"] != null)
                     {
-                        item.resourceFile = attributeCollection["resourceFile"].Value;
+                        item.ResourceFile = attributeCollection["resourceFile"].Value;
                     }
 
                     if (attributeCollection["resourceKey"] != null)
                     {
-                        item.resourceKey = attributeCollection["resourceKey"].Value;
+                        item.ResourceKey = attributeCollection["resourceKey"].Value;
                     }
 
                     if (attributeCollection["cssClass"] != null)
                     {
-                        item.cssClass = attributeCollection["cssClass"].Value;
+                        item.CssClass = attributeCollection["cssClass"].Value;
                     }
 
-                    if (attributeCollection["url"] != null)
+					if (attributeCollection["cssClass"] != null)
+					{
+						item.IconCssClass = attributeCollection["iconCssClass"].Value;
+					}
+
+					if (attributeCollection["url"] != null)
                     {
-                        item.url = attributeCollection["url"].Value;
+                        item.Url = WebUtils.ResolveUrl(attributeCollection["url"].Value);
                     }
 
                     if (attributeCollection["visibleToRoles"] != null)
                     {
-                        item.visibleToRoles = attributeCollection["visibleToRoles"].Value;
+                        item.VisibleToRoles = attributeCollection["visibleToRoles"].Value;
                     }
 
-                    config.AdminLinks.Add(item);
+					if (attributeCollection["sortOrder"] != null)
+					{
+						item.SortOrder = Convert.ToInt32(attributeCollection["sortOrder"].Value);
+					}
+
+					if (WebUser.IsInRoles(item.VisibleToRoles))
+					{
+						config.AdminLinks.Add(item);
+					}
                     
 
 

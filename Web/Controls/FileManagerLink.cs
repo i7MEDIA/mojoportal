@@ -86,7 +86,7 @@ namespace mojoPortal.Web.UI
 			set { linkImageUrl = value; }
 		}
 
-		private bool ShouldRender()
+		public bool ShouldRender()
 		{
 			if (basePage == null) {
 				return false;

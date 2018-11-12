@@ -1,12 +1,6 @@
 // Author:					
 // Created:				    2007-08-10
-// Last Modified:			2007-08-10
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
+// Last Modified:			2018-10-31
 //
 // You must not remove this notice, or any other, from this software.
 
@@ -26,22 +20,11 @@ namespace mojoPortal.Web
     /// </summary>
     public class ContentAdminLinksConfiguration
     {
-        private static readonly ILog log
-            = LogManager.GetLogger(typeof(ContentAdminLinksConfiguration));
+        private static readonly ILog log = LogManager.GetLogger(typeof(ContentAdminLinksConfiguration));
 
+		public Collection<ContentAdminLink> AdminLinks { get; } = new Collection<ContentAdminLink>();
 
-        private Collection<ContentAdminLink> adminLinks
-            = new Collection<ContentAdminLink>();
-
-        public Collection<ContentAdminLink> AdminLinks
-        {
-            get
-            {
-                return adminLinks;
-            }
-        }
-
-        public static ContentAdminLinksConfiguration GetConfig(int siteId)
+		public static ContentAdminLinksConfiguration GetConfig(int siteId)
         {
             ContentAdminLinksConfiguration config = null;
             string cacheKey = "ContentAdminLinksConfiguration-" + siteId.ToString();
@@ -75,7 +58,7 @@ namespace mojoPortal.Web
                     
                     configFile.Load(fileInfo.FullName);
 
-                    ContentAdminLink.LoadLinks(
+                    ContentAdminLink.LoadLinksFromXml(
                         config,
                         configFile.DocumentElement);
                     
@@ -102,7 +85,7 @@ namespace mojoPortal.Web
                         
                         configFile.Load(fileInfo.FullName);
 
-                        ContentAdminLink.LoadLinks(
+                        ContentAdminLink.LoadLinksFromXml(
                             config,
                             configFile.DocumentElement);
                         

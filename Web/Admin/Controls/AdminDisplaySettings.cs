@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Web;
+﻿using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -11,36 +9,15 @@ namespace mojoPortal.Web.AdminUI
 	/// </summary>
 	public class AdminDisplaySettings : WebControl
 	{
-
-		//private string siteSettingsFolderNamesListNoNamesMarkup = "<div class='alert alert-info'>{0}</div>";
-		//public string SiteSettingsFolderNamesListNoNamesMarkup { get => siteSettingsFolderNamesListNoNamesMarkup; set => siteSettingsFolderNamesListNoNamesMarkup = value; }
-
-		private string siteSettingsNoticeMarkup = "<div class='alert alert-info'>{0}</div>";
-		public string SiteSettingsNoticeMarkup { get => siteSettingsNoticeMarkup; set => siteSettingsNoticeMarkup = value; }
-
-		private string siteSettingsPanelHeadingMarkup = "<h3>{0} <small>{1}</small></h3>";
-		public string SiteSettingsPanelHeadingMarkup { get => siteSettingsPanelHeadingMarkup; set => siteSettingsPanelHeadingMarkup = value; }
-
-		private string siteSettingsSubPanelHeadingMarkup = "<h4>{0} <small>{1}</small></h4>";
-		public string SiteSettingsSubPanelHeadingMarkup { get => siteSettingsSubPanelHeadingMarkup; set => siteSettingsSubPanelHeadingMarkup = value; }
-
-		private string securityProtocolCheckResponseMarkup = "<div>{0}</div>";
-		public string SecurityProtocolCheckResponseMarkup { get => securityProtocolCheckResponseMarkup; set => securityProtocolCheckResponseMarkup = value; }
-
-		private string moduleSettingsSettingPanelElement = "div";
-		public string ModuleSettingsSettingPanelElement { get => moduleSettingsSettingPanelElement; set => moduleSettingsSettingPanelElement = value; }
-
-		private string moduleSettingsSettingLabelMarkup = "<label class=\"{0}\" for=\"{1}\">{2}</label>";
-		public string ModuleSettingsSettingLabelMarkup { get => moduleSettingsSettingLabelMarkup; set => moduleSettingsSettingLabelMarkup = value; }
-
-		private string moduleSettingsSettingPanelClass = "settingrow";
-		public string ModuleSettingsSettingPanelClass { get => moduleSettingsSettingPanelClass; set => moduleSettingsSettingPanelClass = value; }
-		
-		private string moduleSettingsSettingLabelClass = "settinglabel";
-		public string ModuleSettingsSettingLabelClass { get => moduleSettingsSettingLabelClass; set => moduleSettingsSettingLabelClass = value; }
-		
-		private string moduleSettingsSettingControlClass = "forminput";
-		public string ModuleSettingsSettingControlClass { get => moduleSettingsSettingControlClass; set => moduleSettingsSettingControlClass = value; }
+		public string SiteSettingsNoticeMarkup { get; set; } = "<div class='alert alert-info'>{0}</div>";
+		public string SiteSettingsPanelHeadingMarkup { get; set; } = "<h3>{0} <small>{1}</small></h3>";
+		public string SiteSettingsSubPanelHeadingMarkup { get; set; } = "<h4>{0} <small>{1}</small></h4>";
+		public string SecurityProtocolCheckResponseMarkup { get; set; } = "<div>{0}</div>";
+		public string ModuleSettingsSettingPanelElement { get; set; } = "div";
+		public string ModuleSettingsSettingLabelMarkup { get; set; } = "<label class=\"{0}\" for=\"{1}\">{2}</label>";
+		public string ModuleSettingsSettingPanelClass { get; set; } = "settingrow";
+		public string ModuleSettingsSettingLabelClass { get; set; } = "settinglabel";
+		public string ModuleSettingsSettingControlClass { get; set; } = "forminput";
 
 		protected override void Render(HtmlTextWriter writer)
 		{
