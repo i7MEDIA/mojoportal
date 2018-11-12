@@ -1646,7 +1646,7 @@ namespace SuperFlexiUI
 				return;
 
 			}
-            config = new ModuleConfiguration(module);
+            config = new ModuleConfiguration(module, reloadDefinitionFromDisk: true);
 
 			lnkCancel.NavigateUrl = SiteUtils.GetCurrentPageUrl();
 
