@@ -718,8 +718,11 @@ namespace mojoPortal.Web.BlogUI
                             excerpt = SiteUtils.ChangeRelativeUrlsToFullyQualifiedUrls(navigationSiteRoot, imageSiteRoot, rdr["Abstract"].ToString()),
                             //commentPolicy = post.HasCommentsEnabled ? string.Empty : "0",
                             publish = Convert.ToBoolean(rdr["IsPublished"]),
-                            categories = GetCategories(blogPosts.Tables["Categories"], Convert.ToInt32(rdr["ItemID"]))
-                        };
+                            categories = GetCategories(blogPosts.Tables["Categories"], Convert.ToInt32(rdr["ItemID"])),
+							//includeImageInExcerpt = Convert.ToBoolean(rdr["IncludeImageInExcerpt"]),
+							//includeImageInPost = Convert.ToBoolean(rdr["IncludeImageInPost"]),
+							wp_post_thumbnail = rdr["headlineImageUrl"].ToString()
+						};
 
                         //var tempCats = post.Categories.Select(t => Category.GetCategory(t.Id).ToString()).ToList();
 

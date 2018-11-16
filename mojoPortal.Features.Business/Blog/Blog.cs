@@ -1118,6 +1118,9 @@ namespace mojoPortal.Business
 					row["LastModUtc"] = Convert.ToDateTime(reader["LastModUtc"]);
 					row["IsPublished"] = Convert.ToBoolean(reader["IsPublished"]);
 					row["IncludeInFeed"] = Convert.ToBoolean(reader["IncludeInFeed"]);
+					row["IncludeImageInPost"] = Convert.ToBoolean(reader["IncludeImageInPost"]);
+					row["IncludeImageInExcerpt"] = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
+					row["HeadlineImageUrl"] = reader["HeadlineImageUrl"];
 					row["CommentCount"] = Convert.ToInt32(reader["CommentCount"]);
 					row["Name"] = reader["Name"];
 					row["LoginName"] = reader["LoginName"];
