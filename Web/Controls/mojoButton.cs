@@ -1,5 +1,5 @@
 ﻿//	Created:			    2010-02-20
-//	Last Modified:		    2013-04-10
+//	Last Modified:		    2018-11-14
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -22,57 +22,22 @@ namespace mojoPortal.Web.UI
     /// </summary>
     public class mojoButton : Button
     {
-        private bool renderArtisteer = false;
-        public bool RenderArtisteer
-        {
-            get { return renderArtisteer; }
-            set { renderArtisteer = value; }
-        }
+		public bool RenderArtisteer { get; set; } = false;
+		public bool UsejQueryButton { get; set; } = false;
+		public string ArtButtonLeftClass { get; set; } = "l"; // changed to art-button-l in Artisteer 3
+		public string ArtButtonRightClass { get; set; } = "r"; // changed to art-button-r in Artisteer 3
 
-        private bool usejQueryButton = false;
-        public bool UsejQueryButton
-        {
-            get { return usejQueryButton; }
-            set { usejQueryButton = value; }
-        }
+		public string LiteralTopMarkup { get; set; } = string.Empty;
 
-        private string artButtonLeftClass = "l"; //changed to art-button-l in Artisteer 3
-        public string ArtButtonLeftClass
-        {
-            get { return artButtonLeftClass; }
-            set { artButtonLeftClass = value; }
-        }
-
-        private string artButtonRightClass = "r"; // changed to art-button-r in Artisteer 3
-        public string ArtButtonRightClass
-        {
-            get { return artButtonRightClass; }
-            set { artButtonRightClass = value; }
-        }
-
-        private string literalTopMarkup = string.Empty;
-
-        public string LiteralTopMarkup
-        {
-            get { return literalTopMarkup; }
-            set { literalTopMarkup = value; }
-        }
-
-        private string literalBottomMarkup = string.Empty;
-
-        public string LiteralBottomMarkup
-        {
-            get { return literalBottomMarkup; }
-            set { literalBottomMarkup = value; }
-        }
+		public string LiteralBottomMarkup { get; set; } = string.Empty;
 
 
-        protected override void OnPreRender(EventArgs e)
+		protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
             if (HttpContext.Current == null) { return; }
 
-            if ((!renderArtisteer) && (usejQueryButton))
+            if ((!RenderArtisteer) && (UsejQueryButton))
             {
                 CssClass += " jqbutton ui-button ui-widget ui-state-default ui-corner-all";
 
@@ -89,26 +54,26 @@ namespace mojoPortal.Web.UI
                 return;
             }
 
-            if (renderArtisteer)
+            if (RenderArtisteer)
             {
                 writer.Write("<span class=\"art-button-wrapper\">");
-                writer.Write("<span class=\"" + artButtonLeftClass + "\"> </span>\n");
-                writer.Write("<span class=\"" + artButtonRightClass + "\"> </span>\n");
+                writer.Write("<span class=\"" + ArtButtonLeftClass + "\"> </span>\n");
+                writer.Write("<span class=\"" + ArtButtonRightClass + "\"> </span>\n");
             }
-            else if (literalTopMarkup.Length > 0)
+            else if (LiteralTopMarkup.Length > 0)
             {
-                writer.Write(literalTopMarkup);
+                writer.Write(LiteralTopMarkup);
             }
 
             base.Render(writer);
 
-            if (renderArtisteer)
+            if (RenderArtisteer)
             {
                 writer.Write("\n</span>");
             }
-            else if (literalBottomMarkup.Length > 0)
+            else if (LiteralBottomMarkup.Length > 0)
             {
-                writer.Write(literalBottomMarkup);
+                writer.Write(LiteralBottomMarkup);
             }
         }
 

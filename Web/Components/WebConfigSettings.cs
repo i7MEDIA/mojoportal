@@ -3188,11 +3188,13 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("ContentTemplateShowBodyInAdminList", true); }
 		}
 
+		[Obsolete("Will be removed when we add skin-based templates. 10/31/2018")]
 		public static bool AddSystemContentTemplatesAboveSiteTemplates
 		{
-			get { return ConfigHelper.GetBoolProperty("AddSystemContentTemplatesAboveSiteTemplates", true); }
+			get { return ConfigHelper.GetBoolProperty("AddSystemContentTemplatesAboveSiteTemplates", false); }
 		}
 
+		[Obsolete("Will be removed when we add skin-based templates. 10/31/2018")]
 		public static bool AddSystemContentTemplatesBelowSiteTemplates
 		{
 			get { return ConfigHelper.GetBoolProperty("AddSystemContentTemplatesBelowSiteTemplates", false); }

@@ -1,6 +1,6 @@
 ﻿// Author:		        
 // Created:            2009-08-31
-// Last Modified:      2014-04-08
+// Last Modified:      2018-10-31
 //
 // Licensed under the terms of the GNU Lesser General Public License:
 //	http://www.opensource.org/licenses/lgpl-license.php
@@ -93,35 +93,10 @@ namespace mojoPortal.Web.Services
 
         private void RenderSystemStyles(HttpContext context)
         {
-
-            //2014-05-11 these are no longer needed in the block styles dropdown
-            // since they are in the format dropdwon and the config file
-            //context.Response.Write(comma);
-            //context.Response.Write("{\"name\":\"Heading 1\"");
-            //context.Response.Write(",\"element\":\"" + WebConfigSettings.CKEditorH1Mapping + "\""); //we start at h3 because site title is h1 and module title is h2
-            //context.Response.Write("}");
-
-            
-
-            //context.Response.Write(comma);
-            //context.Response.Write("{\"name\":\"Heading 2\"");
-            //context.Response.Write(",\"element\":\"" + WebConfigSettings.CKEditorH2Mapping + "\""); 
-            //context.Response.Write("}");
-
-            //context.Response.Write(comma);
-            //context.Response.Write("{\"name\":\"Heading 3\"");
-            //context.Response.Write(",\"element\":\"" + WebConfigSettings.CKEditorH3Mapping + "\"");
-            //context.Response.Write("}");
-
-            //context.Response.Write(comma);
-            //context.Response.Write("{\"name\":\"Paragraph\"");
-            //context.Response.Write(",\"element\":\"p\"");
-            //context.Response.Write("}");
-
             context.Response.Write(comma);
             context.Response.Write("{\"name\":\"Image on Right\"");
             context.Response.Write(",\"element\":\"img\"");
-            context.Response.Write(",\"attributes\":{\"class\":\"floatrightimage\"}");
+            context.Response.Write(",\"attributes\":{\"class\":\"image-right\"}");
             context.Response.Write("}");
 
             comma = ",";
@@ -129,7 +104,7 @@ namespace mojoPortal.Web.Services
             context.Response.Write(comma);
             context.Response.Write("{\"name\":\"Image on Left\"");
             context.Response.Write(",\"element\":\"img\"");
-            context.Response.Write(",\"attributes\":{\"class\":\"floatleftimage\"}");
+            context.Response.Write(",\"attributes\":{\"class\":\"image-left\"}");
             context.Response.Write("}");
 
             context.Response.Write(comma);

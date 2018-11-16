@@ -1,6 +1,6 @@
 ﻿// Author:		        
 // Created:            2009-08-14
-// Last Modified:      2014-04-08
+// Last Modified:      2018-10-31
 //
 // Licensed under the terms of the GNU Lesser General Public License:
 //	http://www.opensource.org/licenses/lgpl-license.php
@@ -102,9 +102,9 @@ namespace mojoPortal.Web.Services
             {
                 context.Response.Write("var tinyMCETemplateList = [");
             }
-            
 
-            if (WebConfigSettings.AddSystemContentTemplatesAboveSiteTemplates) //true by default
+			//2018/10/31 -- we don't really want to use these anymore. we're adding the ability to have templates in the skin but not system wide templates
+			if (WebConfigSettings.AddSystemContentTemplatesAboveSiteTemplates) //false by default
             {
                 RenderSystemTemplateItems(context);
             }
@@ -128,8 +128,9 @@ namespace mojoPortal.Web.Services
                 comma = ",";
 
             }
-            
-            if (WebConfigSettings.AddSystemContentTemplatesBelowSiteTemplates) //false by default
+
+			//2018/10/31 -- we don't really want to use these anymore. we're adding the ability to have templates in the skin but not system wide templates
+			if (WebConfigSettings.AddSystemContentTemplatesBelowSiteTemplates) //false by default
             {
                 RenderSystemTemplateItems(context);
             }
