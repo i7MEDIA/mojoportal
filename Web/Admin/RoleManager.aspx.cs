@@ -143,7 +143,8 @@ namespace mojoPortal.Web.AdminUI
                 Role role = new Role();
                 role.SiteId = siteSettings.SiteId;
                 role.SiteGuid = siteSettings.SiteGuid;
-                role.RoleName = this.txtNewRoleName.Text;
+                role.RoleName = txtNewRoleName.Text;
+				role.DisplayName = txtNewDisplayName.Text;
                 //role.EnforceRelatedSitesMode = WebConfigSettings.UseRelatedSiteMode;
                 role.Save();
             }
@@ -168,7 +169,7 @@ namespace mojoPortal.Web.AdminUI
                     break;
 
                 case "apply":
-                    role.RoleName = ((TextBox)e.Item.FindControl("roleName")).Text;
+                    role.DisplayName = ((TextBox)e.Item.FindControl("displayName")).Text;
                     role.Save();
                     rolesList.EditItemIndex = -1;
                     BindRoleList();
@@ -228,9 +229,12 @@ namespace mojoPortal.Web.AdminUI
             btnAddRole.ToolTip = Resource.RolesAddButton;
             SiteUtils.SetButtonAccessKey(btnAddRole, AccessKeys.RolesAddButtonAccessKey);
 
-            
+			txtNewRoleName.Attributes.Add("placeholder", Resource.RoleSystemName);
+			txtNewDisplayName.Attributes.Add("placeholder", Resource.RoleDisplayName);
 
-        }
+
+
+		}
 
         private void LoadSettings()
         {

@@ -1,16 +1,7 @@
-/// Author:					
+/// Author:					i7MEDIA
 /// Created:				2007-11-03
-/// Last Modified:			2012-07-20
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
+/// Last Modified:			2018-10-31
 /// You must not remove this notice, or any other, from this software.
-/// 
-/// Note moved into separate class file from dbPortal 2007-11-03
 
 using System;
 using System.Text;
@@ -31,7 +22,8 @@ namespace mojoPortal.Data
             Guid roleGuid,
             Guid siteGuid,
             int siteId,
-            string roleName)
+            string roleName,
+			string displayName)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("INSERT INTO mp_Roles (");
@@ -63,7 +55,7 @@ namespace mojoPortal.Data
 
             arParams[2] = new MySqlParameter("?DisplayName", MySqlDbType.VarChar, 50);
             arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = roleName;
+            arParams[2].Value = displayName;
 
             arParams[3] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36);
             arParams[3].Direction = ParameterDirection.Input;
@@ -79,36 +71,13 @@ namespace mojoPortal.Data
                 arParams).ToString());
 
             return newID;
-            
-            //sqlCommand.Append("INSERT INTO mp_Roles (SiteID, RoleName, DisplayName) ");
-            //sqlCommand.Append("VALUES (");
-
-            //sqlCommand.Append(" ?SiteID , ?RoleName, ?RoleName");
-
-            //sqlCommand.Append(");");
-            //sqlCommand.Append("SELECT LAST_INSERT_ID();");
-
-            //MySqlParameter[] arParams = new MySqlParameter[2];
-
-            //arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            //arParams[0].Direction = ParameterDirection.Input;
-            //arParams[0].Value = siteId;
-
-            //arParams[1] = new MySqlParameter("?RoleName", MySqlDbType.VarChar, 50);
-            //arParams[1].Direction = ParameterDirection.Input;
-            //arParams[1].Value = roleName;
-
-            //int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), arParams).ToString());
-
-            //return newID;
-
         }
 
-        public static bool Update(int roleId, string roleName)
+        public static bool Update(int roleId, string displayName)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("UPDATE mp_Roles ");
-            sqlCommand.Append("SET DisplayName = ?RoleName  ");
+            sqlCommand.Append("SET DisplayName = ?DisplayName  ");
             sqlCommand.Append("WHERE RoleID = ?RoleID  ;");
 
             MySqlParameter[] arParams = new MySqlParameter[2];
@@ -117,9 +86,9 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = roleId;
 
-            arParams[1] = new MySqlParameter("?RoleName", MySqlDbType.VarChar, 50);
+            arParams[1] = new MySqlParameter("?DisplayName", MySqlDbType.VarChar, 50);
             arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = roleName;
+            arParams[1].Value = displayName;
 
             int rowsAffected = MySqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),

@@ -1,4 +1,15 @@
-﻿using System;
+﻿/// Created:				2008-11-19
+/// Last Modified:			2018-11-16
+/// 
+/// The use and distribution terms for this software are covered by the 
+/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
+/// which can be found in the file CPL.TXT at the root of this distribution.
+/// By using this software in any fashion, you are agreeing to be bound by 
+/// the terms of this license.
+///
+/// You must not remove this notice, or any other, from this software.
+
+using System;
 using System.Text;
 using System.Data;
 using System.Data.Common;
@@ -7,23 +18,10 @@ using System.Globalization;
 using System.IO;
 using System.Web;
 using Mono.Data.Sqlite;
+using System.Collections.Generic;
 
 namespace mojoPortal.Data
 {
-    /// <summary>
-    ///							DBCurrency.cs
-    /// Author:					
-    /// Created:				2008-11-19
-    /// Last Modified:			2008-11-19
-    /// 
-    /// The use and distribution terms for this software are covered by the 
-    /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-    /// which can be found in the file CPL.TXT at the root of this distribution.
-    /// By using this software in any fashion, you are agreeing to be bound by 
-    /// the terms of this license.
-    ///
-    /// You must not remove this notice, or any other, from this software.
-    /// </summary>
     public static class DBRedirectList
     {
         private static string GetConnectionString()
@@ -60,11 +58,6 @@ namespace mojoPortal.Data
             DateTime createdUtc,
             DateTime expireUtc)
         {
-            #region Bit Conversion
-
-
-            #endregion
-
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("INSERT INTO mp_RedirectList (");
             sqlCommand.Append("RowGuid, ");
@@ -301,101 +294,121 @@ namespace mojoPortal.Data
         }
 
 
-        /// <summary>
-        /// Gets a count of rows in the mp_RedirectList table.
-        /// </summary>
-        public static int GetCount(int siteId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_RedirectList ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("SiteID = :SiteID ");
-            sqlCommand.Append(";");
+		/// <summary>
+		/// Gets a count of rows in the mp_RedirectList table.
+		/// </summary>
+		public static int GetCount(int siteId, string searchTerm = "")
+		{
+			var useSearch = !string.IsNullOrWhiteSpace(searchTerm);
+			var sqlCommand = $@"SELECT  Count(*)
+				FROM	mp_RedirectList
+				WHERE
+				SiteID = :SiteID
+				{(useSearch ? "AND NewUrl LIKE :SearchTerm OR OldUrl LIKE :SearchTerm;" : ";")}";
 
-            SqliteParameter[] arParams = new SqliteParameter[1];
+			var sqlParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":SiteID", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				}
+			};
 
-            arParams[0] = new SqliteParameter(":SiteID", DbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
+			if (useSearch)
+			{
+				sqlParams.Add(
+					new SqliteParameter(":SearchTerm", DbType.String, 255)
+					{
+						Direction = ParameterDirection.Input,
+						Value = searchTerm
+					}
+				);
+			}
 
-            return Convert.ToInt32(SqliteHelper.ExecuteScalar(
+			return Convert.ToInt32(SqliteHelper.ExecuteScalar(
                 GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams));
-
+                sqlCommand,
+                sqlParams.ToArray()));
         }
 
+		/// <summary>
+		/// Gets a page of data from the mp_RedirectList table with search term.
+		/// </summary>
+		/// <param name="searchTerm">search term</param>
+		/// <param name="pageNumber">The page number.</param>
+		/// <param name="pageSize">Size of the page.</param>
+		/// <param name="totalPages">total pages</param>
+		public static IDataReader GetPage(
+			int siteId,
+			int pageNumber,
+			int pageSize,
+			out int totalPages,
+			string searchTerm = "")
+		{
+			var useSearch = !string.IsNullOrWhiteSpace(searchTerm);
+			int pageLowerBound = (pageSize * pageNumber) - pageSize;
+			totalPages = 1;
+			int totalRows = GetCount(siteId, searchTerm);
 
-        /// <summary>
-        /// Gets a page of data from the mp_RedirectList table.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="totalPages">total pages</param>
-        public static IDataReader GetPage(
-            int siteId,
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-            totalPages = 1;
-            int totalRows = GetCount(siteId);
+			if (pageSize > 0) totalPages = totalRows / pageSize;
 
-            if (pageSize > 0) totalPages = totalRows / pageSize;
+			if (totalRows <= pageSize)
+			{
+				totalPages = 1;
+			}
+			else
+			{
+				Math.DivRem(totalRows, pageSize, out int remainder);
+				if (remainder > 0)
+				{
+					totalPages += 1;
+				}
+			}
 
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
+			var sqlCommand = $@"SELECT	* 
+				FROM	mp_RedirectList  
+				WHERE SiteID = :SiteID 
+				{(useSearch ? "AND NewUrl LIKE :SearchTerm OR OldUrl LIKE :SearchTerm" : "")}
+				ORDER BY OldUrl 
+				LIMIT :PageSize 
+				{(pageNumber > 1 ? "OFFSET :OffsetRows" : "")};";
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT	* ");
-            sqlCommand.Append("FROM	mp_RedirectList  ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("SiteID = :SiteID ");
-            sqlCommand.Append("ORDER BY OldUrl ");
-            //sqlCommand.Append("  ");
-            sqlCommand.Append("LIMIT :PageSize ");
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET :OffsetRows ");
-            }
-            sqlCommand.Append(";");
+			var sqlParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":SiteID", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+				new SqliteParameter(":PageSize", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageSize
+				},
+				new SqliteParameter(":OffsetRows", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageLowerBound
+				}
+			};
 
-            SqliteParameter[] arParams = new SqliteParameter[3];
+			if (useSearch)
+			{
+				sqlParams.Add(
+					new SqliteParameter(":SearchTerm", DbType.String, 255)
+					{
+						Direction = ParameterDirection.Input,
+						Value = "%" + searchTerm + "%"
+					}
+				);
+			}
 
-            arParams[0] = new SqliteParameter(":SiteID", DbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand,
+				sqlParams.ToArray());
+		}
 
-            arParams[1] = new SqliteParameter(":PageSize", DbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = pageSize;
-
-            arParams[2] = new SqliteParameter(":OffsetRows", DbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = pageLowerBound;
-
-            return SqliteHelper.ExecuteReader(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-
-        }
-
-
-
-    }
+	}
 }

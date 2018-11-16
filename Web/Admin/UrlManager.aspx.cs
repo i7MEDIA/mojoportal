@@ -489,8 +489,7 @@ namespace mojoPortal.Web.AdminUI
 
             if ((!IsPostBack) && (searchTerm.Length > 0)) { txtSearch.Text = SecurityHelper.SanitizeHtml(searchTerm); }
 
-            AddClassToBody("administration");
-            AddClassToBody("urlmanager");
+            AddClassToBody("administration urlmanager");
             
         }
 

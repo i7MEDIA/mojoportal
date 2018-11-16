@@ -58,15 +58,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.OuterWrapperPanel pnlOuterWrap;
         
         /// <summary>
-        /// ctop1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderTop ctop1;
-        
-        /// <summary>
         /// pnlInnerWrap control.
         /// </summary>
         /// <remarks>
@@ -130,13 +121,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Panel pnlAddRole;
         
         /// <summary>
-        /// btnAddRole control.
+        /// MojoHelpLink4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton btnAddRole;
+        protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink4;
         
         /// <summary>
         /// txtNewRoleName control.
@@ -148,13 +139,40 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.TextBox txtNewRoleName;
         
         /// <summary>
-        /// MojoHelpLink4 control.
+        /// rfvNewRoleName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink4;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNewRoleName;
+        
+        /// <summary>
+        /// txtNewDisplayName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNewDisplayName;
+        
+        /// <summary>
+        /// rfvNewDisplayName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNewDisplayName;
+        
+        /// <summary>
+        /// btnAddRole control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoButton btnAddRole;
         
         /// <summary>
         /// divCleared control.
@@ -164,14 +182,5 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.EmptyPanel divCleared;
-        
-        /// <summary>
-        /// cbottom1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderBottom cbottom1;
     }
 }

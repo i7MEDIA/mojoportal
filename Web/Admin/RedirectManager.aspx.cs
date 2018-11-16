@@ -18,6 +18,7 @@ using mojoPortal.Web.Framework;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using Resources;
+using System.Data;
 
 namespace mojoPortal.Web.AdminUI
 {
@@ -33,8 +34,9 @@ namespace mojoPortal.Web.AdminUI
         private bool isSiteEditor = false;
         protected string EditPropertiesImage = "~/Data/SiteImages/" + WebConfigSettings.EditPropertiesImage;
         protected string DeleteLinkImage = "~/Data/SiteImages/" + WebConfigSettings.DeleteLinkImage;
+		private string searchTerm = string.Empty;
 
-        protected void Page_Load(object sender, EventArgs e)
+		protected void Page_Load(object sender, EventArgs e)
         {
             LoadSettings();
 			if (!Request.IsAuthenticated)
@@ -63,37 +65,91 @@ namespace mojoPortal.Web.AdminUI
         {
             if (Page.IsPostBack) { return; }
 
+			txtSearch.Text = searchTerm;
+
             BindGrid();
 
         }
 
         private void BindGrid()
         {
-            IList redirectList = RedirectInfo.GetPage(
-                siteSettings.SiteId,
-                pageNumber,
-                pageSize,
-                out totalPages);
-
-            if (totalPages > 1)
-            {
-                string pageUrl = SiteRoot + "/Admin/RedirectManager.aspx?pagenumber={0}";
-                pgrFriendlyUrls.Visible = true;
-                pgrFriendlyUrls.PageURLFormat = pageUrl;
-                pgrFriendlyUrls.ShowFirstLast = true;
-                pgrFriendlyUrls.CurrentIndex = pageNumber;
-                pgrFriendlyUrls.PageSize = pageSize;
-                pgrFriendlyUrls.PageCount = totalPages;
-
-            }
-            
-            dlRedirects.DataSource = redirectList;
-            dlRedirects.DataBind();
-          
-
+			if (searchTerm.Length > 0)
+			{
+				BindForSearch();
+			}
+			else
+			{
+				BindNormal();
+			}
         }
 
-        void dlRedirects_ItemDataBound(object sender, DataListItemEventArgs e)
+		private void BindForSearch()
+		{
+			IList redirectList = RedirectInfo.GetPage(
+				siteSettings.SiteId,
+				pageNumber,
+				pageSize,
+				out totalPages,
+				searchTerm);
+
+			if (this.totalPages > 1)
+			{
+				string pageUrl = SiteRoot + "/Admin/RedirectManager.aspx?pagenumber={0}&amp;s=" + Server.UrlEncode(searchTerm);
+
+				pgrFriendlyUrls.PageURLFormat = pageUrl;
+				pgrFriendlyUrls.ShowFirstLast = true;
+				pgrFriendlyUrls.CurrentIndex = pageNumber;
+				pgrFriendlyUrls.PageSize = pageSize;
+				pgrFriendlyUrls.PageCount = totalPages;
+			}
+			else
+			{
+				pgrFriendlyUrls.Visible = false;
+			}
+
+			dlRedirects.DataSource = redirectList;
+			dlRedirects.DataBind();
+		}
+
+		void btnSearchUrls_Click(object sender, EventArgs e)
+		{
+			searchTerm = Server.UrlEncode(txtSearch.Text);
+			string pageUrl = SiteRoot + "/Admin/RedirectManager.aspx?s=" + searchTerm;
+			WebUtils.SetupRedirect(this, pageUrl);
+
+		}
+
+		void btnClearSearch_Click(object sender, EventArgs e)
+		{
+			string pageUrl = SiteRoot + "/Admin/RedirectManager.aspx";
+			WebUtils.SetupRedirect(this, pageUrl);
+		}
+
+		private void BindNormal()
+		{
+			IList redirectList = RedirectInfo.GetPage(
+				siteSettings.SiteId,
+				pageNumber,
+				pageSize,
+				out totalPages);
+
+			if (totalPages > 1)
+			{
+				string pageUrl = SiteRoot + "/Admin/RedirectManager.aspx?pagenumber={0}";
+				pgrFriendlyUrls.Visible = true;
+				pgrFriendlyUrls.PageURLFormat = pageUrl;
+				pgrFriendlyUrls.ShowFirstLast = true;
+				pgrFriendlyUrls.CurrentIndex = pageNumber;
+				pgrFriendlyUrls.PageSize = pageSize;
+				pgrFriendlyUrls.PageCount = totalPages;
+
+			}
+
+			dlRedirects.DataSource = redirectList;
+			dlRedirects.DataBind();
+		}
+
+		void dlRedirects_ItemDataBound(object sender, DataListItemEventArgs e)
         {
             ImageButton btnDelete = e.Item.FindControl("btnDelete") as ImageButton;
             UIHelper.AddConfirmationDialog(btnDelete, Resource.RedirectDeleteWarning);
@@ -190,9 +246,12 @@ namespace mojoPortal.Web.AdminUI
             lnkRedirectManager.NavigateUrl = SiteRoot + "/Admin/RedirectManager.aspx";
 
             btnAdd.Text = Resource.SaveButton;
-           
+			btnSearchUrls.Text = Resource.SearchButtonText;
+			btnClearSearch.Text = Resource.ClearSearch;
 
-        }
+			txtOldUrl.Attributes.Add("placeholder", Resource.OldUrl);
+			txtNewUrl.Attributes.Add("placeholder", Resource.NewUrl);                                                                                                                                                                                                                 
+		}
 
         private void LoadSettings()
         {
@@ -200,13 +259,15 @@ namespace mojoPortal.Web.AdminUI
             isSiteEditor = SiteUtils.UserIsSiteEditor();
             pageSize = WebConfigSettings.RedirectManagerPageSize;
             pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", pageNumber);
-
-            RootUrl = SiteRoot + "/";
+			if (Request.QueryString["s"] != null)
+			{
+				searchTerm = Request.QueryString["s"];
+			}
+			RootUrl = SiteRoot + "/";
             lblSiteRoot.Text = RootUrl;
             lblSiteRoot2.Text = RootUrl;
 
-            AddClassToBody("administration");
-            AddClassToBody("redirectmanager");
+            AddClassToBody("administration redirectmanager");
 
         }
 
@@ -218,7 +279,9 @@ namespace mojoPortal.Web.AdminUI
             base.OnInit(e);
             this.Load += new EventHandler(this.Page_Load);
             btnAdd.Click += new EventHandler(btnAdd_Click);
-            dlRedirects.ItemCommand += new DataListCommandEventHandler(dlRedirects_ItemCommand);
+            btnSearchUrls.Click += new EventHandler(btnSearchUrls_Click);
+            btnClearSearch.Click += new EventHandler(btnClearSearch_Click);
+			dlRedirects.ItemCommand += new DataListCommandEventHandler(dlRedirects_ItemCommand);
             dlRedirects.ItemDataBound += new DataListItemEventHandler(dlRedirects_ItemDataBound);
 
             SuppressMenuSelection();

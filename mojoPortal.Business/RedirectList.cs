@@ -245,22 +245,32 @@ namespace mojoPortal.Business
 
         }
 
-        
 
-        /// <summary>
-        /// Gets an IList with page of instances of RedirectList.
-        /// </summary>
-        public static List<RedirectInfo> GetPage(int siteId, int pageNumber, int pageSize, out int totalPages)
-        {
-            totalPages = 1;
-            IDataReader reader = DBRedirectList.GetPage(siteId, pageNumber, pageSize, out totalPages);
-            return LoadListFromReader(reader);
-        }
 
-        /// <summary>
-        /// Gets an IDataReader with one row from the mp_RedirectList table.
-        /// </summary>
-        public static IDataReader GetBySiteAndUrl(int siteId, string oldUrl)
+		/// <summary>
+		/// Gets an IList with page of instances of RedirectList.
+		/// </summary>
+		//public static List<RedirectInfo> GetPage(int siteId, int pageNumber, int pageSize, out int totalPages)
+		//{
+		//	totalPages = 1;
+		//	IDataReader reader = DBRedirectList.GetPage(siteId, pageNumber, pageSize, out totalPages);
+		//	return LoadListFromReader(reader);
+		//}
+
+		/// <summary>
+		/// Gets an IList with page of instances of RedirectList with search term.
+		/// </summary>
+		public static List<RedirectInfo> GetPage(int siteId, int pageNumber, int pageSize, out int totalPages, string searchTerm = "")
+		{
+			totalPages = 1;
+			IDataReader reader = DBRedirectList.GetPage(siteId, pageNumber, pageSize, out totalPages, searchTerm);
+			return LoadListFromReader(reader);
+		}
+
+		/// <summary>
+		/// Gets an IDataReader with one row from the mp_RedirectList table.
+		/// </summary>
+		public static IDataReader GetBySiteAndUrl(int siteId, string oldUrl)
         {
             return DBRedirectList.GetBySiteAndUrl(siteId, oldUrl);
         }

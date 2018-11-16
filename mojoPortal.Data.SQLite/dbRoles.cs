@@ -1,12 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2012-04-10
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
+/// Last Modified:			2018-10-31
 ///
 /// You must not remove this notice, or any other, from this software.
 
@@ -45,7 +39,8 @@ namespace mojoPortal.Data
             Guid roleGuid,
             Guid siteGuid,
             int siteId,
-            string roleName)
+            string roleName,
+			string displayName)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("INSERT INTO mp_Roles (");
@@ -58,14 +53,14 @@ namespace mojoPortal.Data
             sqlCommand.Append(" VALUES (");
             sqlCommand.Append(":SiteID, ");
             sqlCommand.Append(":RoleName, ");
-            sqlCommand.Append(":RoleName, ");
+            sqlCommand.Append(":DisplayName, ");
             sqlCommand.Append(":SiteGuid, ");
             sqlCommand.Append(":RoleGuid )");
             sqlCommand.Append(";");
 
             sqlCommand.Append("SELECT LAST_INSERT_ROWID();");
 
-            SqliteParameter[] arParams = new SqliteParameter[4];
+            SqliteParameter[] arParams = new SqliteParameter[5];
 
             arParams[0] = new SqliteParameter(":SiteID", DbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -83,7 +78,11 @@ namespace mojoPortal.Data
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = roleGuid.ToString();
 
-            int newID = Convert.ToInt32(SqliteHelper.ExecuteScalar(
+			arParams[4] = new SqliteParameter(":DisplayName", DbType.String, 50);
+			arParams[4].Direction = ParameterDirection.Input;
+			arParams[4].Value = displayName;
+
+			int newID = Convert.ToInt32(SqliteHelper.ExecuteScalar(
                     GetConnectionString(),
                     sqlCommand.ToString(),
                     arParams).ToString());
@@ -92,11 +91,11 @@ namespace mojoPortal.Data
 
         }
 
-        public static bool Update(int roleId, string roleName)
+        public static bool Update(int roleId, string displayName)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("UPDATE mp_Roles ");
-            sqlCommand.Append("SET DisplayName = :RoleName  ");
+            sqlCommand.Append("SET DisplayName = :DisplayName  ");
             sqlCommand.Append("WHERE RoleID = :RoleID  ;");
 
             SqliteParameter[] arParams = new SqliteParameter[2];
@@ -105,9 +104,9 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = roleId;
 
-            arParams[1] = new SqliteParameter(":RoleName", DbType.String, 50);
+            arParams[1] = new SqliteParameter(":DisplayName", DbType.String, 50);
             arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = roleName;
+            arParams[1].Value = displayName;
 
             int rowsAffected = 0;
 

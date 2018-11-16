@@ -18,6 +18,7 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 
 namespace mojoPortal.Data
 {
@@ -283,97 +284,120 @@ namespace mojoPortal.Data
         /// <summary>
         /// Gets a count of rows in the mp_RedirectList table.
         /// </summary>
-        public static int GetCount(int siteId)
+        public static int GetCount(int siteId, string searchTerm = "")
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_RedirectList ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("SiteID = ?SiteID ");
-            sqlCommand.Append(";");
+			var useSearch = !string.IsNullOrWhiteSpace(searchTerm);
+			var sqlCommand = $@"SELECT  Count(*) 
+				FROM	mp_RedirectList
+				WHERE
+				SiteID = ?SiteID
+				{(useSearch ? "AND NewUrl LIKE ?SearchTerm OR OldUrl LIKE ?SearchTerm;" : ";")}";
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+			var sqlParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?SiteID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				}
+			};
 
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
+			if (useSearch)
+			{
+				sqlParams.Add(
+					new MySqlParameter("?SearchTerm", MySqlDbType.VarChar, 255)
+					{
+						Direction = ParameterDirection.Input,
+						Value = "%" + searchTerm + "%"
+					}
+				);
+			}
 
             return Convert.ToInt32(MySqlHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams));
+                sqlCommand,
+                sqlParams.ToArray()));
         }
 
-        /// <summary>
-        /// Gets a page of data from the mp_RedirectList table.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="totalPages">total pages</param>
-        public static IDataReader GetPage(
-            int siteId,
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-            totalPages = 1;
-            int totalRows = GetCount(siteId);
+		/// <summary>
+		/// Gets a page of data from the mp_RedirectList table with search term.
+		/// </summary>
+		/// <param name="pageNumber">The page number.</param>
+		/// <param name="pageSize">Size of the page.</param>
+		/// <param name="totalPages">total pages</param>
+		/// <param name="searchTerm">search term</param>
+		public static IDataReader GetPage(
+			int siteId,
+			int pageNumber,
+			int pageSize,
+			out int totalPages,
+			string searchTerm = "")
+		{
+			var useSearch = !string.IsNullOrWhiteSpace(searchTerm);
+			int pageLowerBound = (pageSize * pageNumber) - pageSize;
+			totalPages = 1;
+			int totalRows = GetCount(siteId, searchTerm);
 
-            if (pageSize > 0) totalPages = totalRows / pageSize;
+			if (pageSize > 0) totalPages = totalRows / pageSize;
 
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
+			if (totalRows <= pageSize)
+			{
+				totalPages = 1;
+			}
+			else
+			{
+				Math.DivRem(totalRows, pageSize, out int remainder);
+				if (remainder > 0)
+				{
+					totalPages += 1;
+				}
+			}
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT	* ");
-            sqlCommand.Append("FROM	mp_RedirectList  ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("SiteID = ?SiteID ");
-            sqlCommand.Append("ORDER BY OldUrl  ");
-            //sqlCommand.Append("  ");
-            sqlCommand.Append("LIMIT ?PageSize ");
+			var sqlCommand = $@"SELECT	* 
+				FROM	mp_RedirectList  
+				WHERE SiteID = ?SiteID 
+				{(useSearch ? "AND NewUrl LIKE ?SearchTerm OR OldUrl LIKE ?SearchTerm" : "")}
+				ORDER BY OldUrl 
+				LIMIT ?PageSize 
+				{(pageNumber > 1 ? "OFFSET ?OffsetRows;" : ";")}";
 
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
+			var sqlParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?SiteID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+				new MySqlParameter("?PageSize", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageSize
+				},
+				new MySqlParameter("?OffsetRows", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageLowerBound
+				}
+			};
 
-            sqlCommand.Append(";");
+			if (useSearch)
+			{
+				sqlParams.Add(
+					new MySqlParameter("?SearchTerm", MySqlDbType.VarChar, 255)
+					{
+						Direction = ParameterDirection.Input,
+						Value = "%" + searchTerm + "%"
+					}
+				);
+			}
 
-            MySqlParameter[] arParams = new MySqlParameter[3];
-
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            arParams[1] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = pageSize;
-
-            arParams[2] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = pageLowerBound;
-
-            return MySqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand,
+				sqlParams.ToArray());
 
 
-        }
+		}
 
-
-    }
+	}
 }

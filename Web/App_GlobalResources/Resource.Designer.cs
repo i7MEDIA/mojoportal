@@ -1537,6 +1537,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        internal static string ClearSearch {
+            get {
+                return ResourceManager.GetString("ClearSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string CloseDialogButton {
@@ -7027,15 +7036,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search By IP Address.
-        /// </summary>
-        internal static string LookupUserByIPAddressButton {
-            get {
-                return ResourceManager.GetString("LookupUserByIPAddressButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Site Office.
         /// </summary>
         internal static string MailboxLink {
@@ -7612,11 +7612,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Add New User.
+        ///   Looks up a localized string similar to Add New User.
         /// </summary>
         internal static string MemberListAddUserLabel {
             get {
                 return ResourceManager.GetString("MemberListAddUserLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new user..
+        /// </summary>
+        internal static string MemberListAddUserTooltip {
+            get {
+                return ResourceManager.GetString("MemberListAddUserTooltip", resourceCulture);
             }
         }
         
@@ -7648,6 +7657,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IP Address.
+        /// </summary>
+        internal static string MemberListIPSearchPlaceholder {
+            get {
+                return ResourceManager.GetString("MemberListIPSearchPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Member List.
         /// </summary>
         internal static string MemberListLink {
@@ -7675,6 +7693,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Other Actions.
+        /// </summary>
+        internal static string MemberListOtherActionsHeading {
+            get {
+                return ResourceManager.GetString("MemberListOtherActionsHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pages:.
         /// </summary>
         internal static string MemberListPagesLabel {
@@ -7693,11 +7720,74 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show All.
+        ///   Looks up a localized string similar to User IPs are logged when they use the site. This search will find users who have used the site from a connection with the specified IP Address..
+        /// </summary>
+        internal static string MemberListSearchByIPDescription {
+            get {
+                return ResourceManager.GetString("MemberListSearchByIPDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by IP Address.
+        /// </summary>
+        internal static string MemberListSearchByIPHeading {
+            get {
+                return ResourceManager.GetString("MemberListSearchByIPHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        internal static string MemberListSearchByIPLabel {
+            get {
+                return ResourceManager.GetString("MemberListSearchByIPLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fields searched are username, display name and email address..
+        /// </summary>
+        internal static string MemberListSearchDescription {
+            get {
+                return ResourceManager.GetString("MemberListSearchDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for User.
+        /// </summary>
+        internal static string MemberListSearchHeading {
+            get {
+                return ResourceManager.GetString("MemberListSearchHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Search.
+        /// </summary>
+        internal static string MemberListSearchPlaceholder {
+            get {
+                return ResourceManager.GetString("MemberListSearchPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show All Users.
         /// </summary>
         internal static string MemberListShowAllLabel {
             get {
                 return ResourceManager.GetString("MemberListShowAllLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all sorting and filtering..
+        /// </summary>
+        internal static string MemberListShowAllTooltip {
+            get {
+                return ResourceManager.GetString("MemberListShowAllTooltip", resourceCulture);
             }
         }
         
@@ -10069,6 +10159,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Url.
+        /// </summary>
+        internal static string NewUrl {
+            get {
+                return ResourceManager.GetString("NewUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Url is Required..
         /// </summary>
         internal static string NewUrlRequiredMessage {
@@ -10164,6 +10263,15 @@ namespace Resources {
         internal static string OKLabel {
             get {
                 return ResourceManager.GetString("OKLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Url.
+        /// </summary>
+        internal static string OldUrl {
+            get {
+                return ResourceManager.GetString("OldUrl", resourceCulture);
             }
         }
         
@@ -11280,6 +11388,15 @@ namespace Resources {
         internal static string PagePropertiesEditText {
             get {
                 return ResourceManager.GetString("PagePropertiesEditText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page {0} of {1}.
+        /// </summary>
+        internal static string PagerPageOfFormat {
+            get {
+                return ResourceManager.GetString("PagerPageOfFormat", resourceCulture);
             }
         }
         
@@ -12571,11 +12688,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add New Redirect.
+        /// </summary>
+        internal static string RedirectAddNew {
+            get {
+                return ResourceManager.GetString("RedirectAddNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this 301 redirect?.
         /// </summary>
         internal static string RedirectDeleteWarning {
             get {
                 return ResourceManager.GetString("RedirectDeleteWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Redirect.
+        /// </summary>
+        internal static string RedirectEdit {
+            get {
+                return ResourceManager.GetString("RedirectEdit", resourceCulture);
             }
         }
         
@@ -12607,7 +12742,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to redirects to.
+        ///   Looks up a localized string similar to Find Redirect.
+        /// </summary>
+        internal static string RedirectSearch {
+            get {
+                return ResourceManager.GetString("RedirectSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to →.
         /// </summary>
         internal static string RedirectsToLabel {
             get {
@@ -13318,6 +13462,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add New Role.
+        /// </summary>
+        internal static string RoleAddRoleHeader {
+            get {
+                return ResourceManager.GetString("RoleAddRoleHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Name.
+        /// </summary>
+        internal static string RoleDisplayName {
+            get {
+                return ResourceManager.GetString("RoleDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a Display Name..
+        /// </summary>
+        internal static string RoleDisplayNameRequired {
+            get {
+                return ResourceManager.GetString("RoleDisplayNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry, that role name has already been used..
         /// </summary>
         internal static string RoleExistsError {
@@ -13530,6 +13701,33 @@ namespace Resources {
         internal static string RolesThatCanViewMyPage {
             get {
                 return ResourceManager.GetString("RolesThatCanViewMyPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Name.
+        /// </summary>
+        internal static string RoleSystemName {
+            get {
+                return ResourceManager.GetString("RoleSystemName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Name cannot be changed..
+        /// </summary>
+        internal static string RoleSystemNameCantChange {
+            get {
+                return ResourceManager.GetString("RoleSystemNameCantChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a System Name..
+        /// </summary>
+        internal static string RoleSystemNameRequired {
+            get {
+                return ResourceManager.GetString("RoleSystemNameRequired", resourceCulture);
             }
         }
         
@@ -14372,6 +14570,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show users who have been locked out..
+        /// </summary>
+        internal static string ShowLockedOutUsersTooltip {
+            get {
+                return ResourceManager.GetString("ShowLockedOutUsersTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Membership Graph?.
         /// </summary>
         internal static string ShowMemberGraphSetting {
@@ -14404,6 +14611,15 @@ namespace Resources {
         internal static string ShowNotApprovedUsers {
             get {
                 return ResourceManager.GetString("ShowNotApprovedUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show users who have not been approved for login..
+        /// </summary>
+        internal static string ShowNotApprovedUsersTooltip {
+            get {
+                return ResourceManager.GetString("ShowNotApprovedUsersTooltip", resourceCulture);
             }
         }
         

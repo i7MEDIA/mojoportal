@@ -10,10 +10,9 @@ using mojoPortal.Data;
 namespace mojoPortal.Data
 {
     /// <summary>
-    ///							DBContentRating.cs
     /// Author:					
     /// Created:				2008-11-19
-    /// Last Modified:			2008-11-19
+    /// Last Modified:			2018-11-12
     /// 
     /// The use and distribution terms for this software are covered by the 
     /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -143,55 +142,77 @@ namespace mojoPortal.Data
         /// <summary>
         /// Gets an IDataReader with one row from the mp_RedirectList table.
         /// </summary>
-        /// <param name="rowGuid"> rowGuid </param>
-        public static int GetCount(int siteId)
+        public static int GetCount(int siteId, string searchTerm = "")
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_RedirectList_GetCount", 1);
-            sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
-            return Convert.ToInt32(sph.ExecuteScalar());
+			var useSearch = !string.IsNullOrWhiteSpace(searchTerm);
+
+			if (useSearch)
+			{
+				SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_RedirectList_GetSearchCount", 1);
+				sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
+				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, 255, ParameterDirection.Input, searchTerm);
+				return Convert.ToInt32(sph.ExecuteScalar());
+			}
+			else
+			{
+				SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_RedirectList_GetCount", 1);
+				sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
+				return Convert.ToInt32(sph.ExecuteScalar());
+			}
 
         }
 
-        /// <summary>
-        /// Gets a page of data from the mp_RedirectList table.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="totalPages">total pages</param>
-        public static IDataReader GetPage(
-            int siteId,
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            totalPages = 1;
-            int totalRows = GetCount(siteId);
+		/// <summary>
+		/// Gets a page of data from the mp_RedirectList table.
+		/// </summary>
+		/// <param name="pageNumber">The page number.</param>
+		/// <param name="pageSize">Size of the page.</param>
+		/// <param name="totalPages">total pages</param>
+		public static IDataReader GetPage(
+			int siteId,
+			int pageNumber,
+			int pageSize,
+			out int totalPages,
+			string searchTerm = "")
+		{
+			var useSearch = !string.IsNullOrWhiteSpace(searchTerm);
+			totalPages = 1;
+			int totalRows = GetCount(siteId, searchTerm);
 
-            if (pageSize > 0) totalPages = totalRows / pageSize;
+			if (pageSize > 0) totalPages = totalRows / pageSize;
 
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
+			if (totalRows <= pageSize)
+			{
+				totalPages = 1;
+			}
+			else
+			{
+				int remainder;
+				Math.DivRem(totalRows, pageSize, out remainder);
+				if (remainder > 0)
+				{
+					totalPages += 1;
+				}
+			}
 
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_RedirectList_SelectPage", 3);
-            sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
-            sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
-            sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
-            return sph.ExecuteReader();
+			if (useSearch)
+			{
+				SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_RedirectList_SelectSearchPage", 4);
+				sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
+				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, 255, ParameterDirection.Input, searchTerm);
+				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+				return sph.ExecuteReader();
+			}
+			else
+			{
+				SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_RedirectList_SelectPage", 3);
+				sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
+				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+				return sph.ExecuteReader();
+			}
+		}
 
-        }
-
-
-
-    }
+	}
 }

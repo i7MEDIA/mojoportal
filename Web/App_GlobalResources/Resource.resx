@@ -781,7 +781,7 @@
     <value>Medium Text</value>
   </data>
   <data name="MemberListAddUserLabel" xml:space="preserve">
-    <value> Add New User</value>
+    <value>Add New User</value>
   </data>
   <data name="MemberListAllUsersLink" xml:space="preserve">
     <value>All</value>
@@ -799,7 +799,7 @@
     <value>Search</value>
   </data>
   <data name="MemberListShowAllLabel" xml:space="preserve">
-    <value>Show All</value>
+    <value>Show All Users</value>
   </data>
   <data name="MemberListTitleLabel" xml:space="preserve">
     <value>Member List</value>
@@ -3457,7 +3457,7 @@
     <value>Redirect Manager</value>
   </data>
   <data name="RedirectsToLabel" xml:space="preserve">
-    <value>redirects to</value>
+    <value>→</value>
   </data>
   <data name="SaveButton" xml:space="preserve">
     <value>Save</value>
@@ -3672,8 +3672,8 @@
   <data name="ShowHomePageCrumb" xml:space="preserve">
     <value>Show Home Page Crumb?</value>
   </data>
-  <data name="LookupUserByIPAddressButton" xml:space="preserve">
-    <value>Search By IP Address</value>
+  <data name="MemberListSearchByIPLabel" xml:space="preserve">
+    <value>Search</value>
   </data>
   <data name="SiteSettingsCompanyNameLabel" xml:space="preserve">
     <value>Company Name</value>
@@ -6306,5 +6306,77 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="UnknownUser" xml:space="preserve">
     <value>Unknown</value>
+  </data>
+  <data name="RoleAddRoleHeader" xml:space="preserve">
+    <value>Add New Role</value>
+  </data>
+  <data name="RoleDisplayName" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
+  <data name="RoleSystemName" xml:space="preserve">
+    <value>System Name</value>
+  </data>
+  <data name="RoleSystemNameCantChange" xml:space="preserve">
+    <value>System Name cannot be changed.</value>
+  </data>
+  <data name="NewUrl" xml:space="preserve">
+    <value>New Url</value>
+  </data>
+  <data name="OldUrl" xml:space="preserve">
+    <value>Old Url</value>
+  </data>
+  <data name="RedirectAddNew" xml:space="preserve">
+    <value>Add New Redirect</value>
+  </data>
+  <data name="ClearSearch" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="RedirectEdit" xml:space="preserve">
+    <value>Edit Redirect</value>
+  </data>
+  <data name="RedirectSearch" xml:space="preserve">
+    <value>Find Redirect</value>
+  </data>
+  <data name="MemberListAddUserTooltip" xml:space="preserve">
+    <value>Create a new user.</value>
+  </data>
+  <data name="MemberListIPSearchPlaceholder" xml:space="preserve">
+    <value>IP Address</value>
+  </data>
+  <data name="MemberListOtherActionsHeading" xml:space="preserve">
+    <value>Other Actions</value>
+  </data>
+  <data name="MemberListSearchByIPDescription" xml:space="preserve">
+    <value>User IPs are logged when they use the site. This search will find users who have used the site from a connection with the specified IP Address.</value>
+  </data>
+  <data name="MemberListSearchByIPHeading" xml:space="preserve">
+    <value>Search by IP Address</value>
+  </data>
+  <data name="MemberListSearchDescription" xml:space="preserve">
+    <value>Fields searched are username, display name and email address.</value>
+  </data>
+  <data name="MemberListSearchHeading" xml:space="preserve">
+    <value>Search for User</value>
+  </data>
+  <data name="MemberListSearchPlaceholder" xml:space="preserve">
+    <value>User Search</value>
+  </data>
+  <data name="MemberListShowAllTooltip" xml:space="preserve">
+    <value>Remove all sorting and filtering.</value>
+  </data>
+  <data name="PagerPageOfFormat" xml:space="preserve">
+    <value>Page {0} of {1}</value>
+  </data>
+  <data name="RoleDisplayNameRequired" xml:space="preserve">
+    <value>Please enter a Display Name.</value>
+  </data>
+  <data name="RoleSystemNameRequired" xml:space="preserve">
+    <value>Please enter a System Name.</value>
+  </data>
+  <data name="ShowLockedOutUsersTooltip" xml:space="preserve">
+    <value>Show users who have been locked out.</value>
+  </data>
+  <data name="ShowNotApprovedUsersTooltip" xml:space="preserve">
+    <value>Show users who have not been approved for login.</value>
   </data>
 </root>

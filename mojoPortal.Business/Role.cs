@@ -1,12 +1,6 @@
 // Author:					
 // Created:				    2004-07-19
-// Last Modified:		    2013-05-08
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
+// Last Modified:		    2018-10-31
 //
 // You must not remove this notice, or any other, from this software. 
 
@@ -46,22 +40,10 @@ namespace mojoPortal.Business
 			GetRole(siteId, roleName);
 		}
 
-
 		#endregion
-
 		#region Private Properties
 
-        private Guid roleGuid = Guid.Empty;
-		private int roleID = -1;
-		private int siteID = -1;
-        private Guid siteGuid = Guid.Empty;
-		private string roleName = string.Empty;
-		private string displayName = string.Empty;
-        //private bool enforceRelatedSitesMode = false;
-
-        
-
-        private static bool UseRelatedSiteMode
+		private static bool UseRelatedSiteMode
         {
             get
             {
@@ -95,68 +77,21 @@ namespace mojoPortal.Business
 
 		#region Public Properties
 
-		public int RoleId
-		{
-			get{return roleID;}
-		}
+		public int RoleId { get; private set; } = -1;
 
-        public Guid RoleGuid
-        {
-            get { return roleGuid; }
-           
-        }
+		public Guid RoleGuid { get; private set; } = Guid.Empty;
 
-        public Guid SiteGuid
-        {
-            get { return siteGuid; }
-            set { siteGuid = value; }
-        }
+		public Guid SiteGuid { get; set; } = Guid.Empty;
 
-		public int SiteId
-		{
-			get
-            {
-                //if (UseRelatedSiteMode) { return RelatedSiteID; }
-                return siteID;
-            }
-			set
-            {
-                //if (UseRelatedSiteMode)
-                //{
-                //    siteID = RelatedSiteID;
-                //}
-                //else
-                //{
-                   siteID = value;
-                //}
-            }
-		}
+		public int SiteId { get; set; } = -1;
 
-		public string RoleName
-		{
-			get{return displayName;}
-			set{displayName = value;}
-		}
+		public string RoleName { get; set; } = string.Empty;
 
-        public string DisplayName
-        {
-            get { return displayName; }
-        }
-
-        //public bool EnforceRelatedSitesMode
-        //{
-        //    get { return enforceRelatedSitesMode; }
-        //    set { enforceRelatedSitesMode = value; }
-        //}
-
-        private int memberCount = 0;
-        /// <summary>
-        /// this is only populated when calling GetbySite
-        /// </summary>
-        public int MemberCount
-        {
-            get { return memberCount; }
-        }
+		public string DisplayName { get; set; } = string.Empty;
+		/// <summary>
+		/// this is only populated when calling GetbySite
+		/// </summary>
+		public int MemberCount { get; private set; } = 0;
 
 		#endregion
 
@@ -169,16 +104,16 @@ namespace mojoPortal.Business
             {
                 if (reader.Read())
                 {
-                    this.roleID = int.Parse(reader["RoleID"].ToString());
+                    this.RoleId = int.Parse(reader["RoleID"].ToString());
 
-                    this.siteID = int.Parse(reader["SiteID"].ToString());
+                    this.SiteId = int.Parse(reader["SiteID"].ToString());
 
-                    if (UseRelatedSiteMode) { siteID = RelatedSiteID; }
+                    if (UseRelatedSiteMode) { SiteId = RelatedSiteID; }
 
-                    this.roleName = reader["RoleName"].ToString();
-                    this.displayName = reader["DisplayName"].ToString();
-                    this.siteGuid = new Guid(reader["SiteGuid"].ToString());
-                    this.roleGuid = new Guid(reader["RoleGuid"].ToString());
+                    this.RoleName = reader["RoleName"].ToString();
+                    this.DisplayName = reader["DisplayName"].ToString();
+                    this.SiteGuid = new Guid(reader["SiteGuid"].ToString());
+                    this.RoleGuid = new Guid(reader["RoleGuid"].ToString());
 
                 }
 
@@ -195,12 +130,12 @@ namespace mojoPortal.Business
             {
                 if (reader.Read())
                 {
-                    this.roleID = int.Parse(reader["RoleID"].ToString());
-                    this.siteID = int.Parse(reader["SiteID"].ToString());
-                    this.roleName = reader["RoleName"].ToString();
-                    this.displayName = reader["DisplayName"].ToString();
-                    this.siteGuid = new Guid(reader["SiteGuid"].ToString());
-                    this.roleGuid = new Guid(reader["RoleGuid"].ToString());
+                    this.RoleId = int.Parse(reader["RoleID"].ToString());
+                    this.SiteId = int.Parse(reader["SiteID"].ToString());
+                    this.RoleName = reader["RoleName"].ToString();
+                    this.DisplayName = reader["DisplayName"].ToString();
+                    this.SiteGuid = new Guid(reader["SiteGuid"].ToString());
+                    this.RoleGuid = new Guid(reader["RoleGuid"].ToString());
 
                 }
 
@@ -218,9 +153,9 @@ namespace mojoPortal.Business
 			// and edit modules would be orphaned when
 			// a role was re-named
 
-            if (UseRelatedSiteMode) { siteID = RelatedSiteID; }
+            if (UseRelatedSiteMode) { SiteId = RelatedSiteID; }
 
-			if(Exists(this.siteID, this.displayName))
+			if(Exists(this.SiteId, this.RoleName))
 			{
 				//string errorMessage = ConfigurationManager.AppSettings["RoleExistsError"];
 				//throw new Exception(errorMessage);
@@ -229,20 +164,21 @@ namespace mojoPortal.Business
 			}
 			else
 			{
-                this.roleGuid = Guid.NewGuid();
+                this.RoleGuid = Guid.NewGuid();
 
                
 				newID = DBRoles.RoleCreate(
-                    this.roleGuid,
-                    this.siteGuid,
-                    this.siteID,
-                    this.displayName);
+                    RoleGuid,
+                    SiteGuid,
+                    SiteId,
+					RoleName,
+                    DisplayName);
 			}
 
 			if(newID > 0)
 			{
-				this.roleID = newID;
-				this.roleName = this.displayName;
+				RoleId = newID;
+				//this.roleName = this.displayName;
 				return true;
 			}
 			else
@@ -253,13 +189,13 @@ namespace mojoPortal.Business
 
 		private bool Update()
 		{
-			return DBRoles.Update(this.roleID,this.displayName);
+			return DBRoles.Update(RoleId, DisplayName);
 		}
 
         public bool Equals(string roleName)
         {
             bool result = false;
-            if (roleName == this.roleName) result = true;
+            if (roleName == RoleName) result = true;
 
             return result;
 
@@ -274,7 +210,7 @@ namespace mojoPortal.Business
 
 		public bool Save()
 		{
-			if(this.roleID > -1)
+			if(this.RoleId > -1)
 			{
 				return Update();
 			}
@@ -294,7 +230,7 @@ namespace mojoPortal.Business
             // TODO: implement actual select count from db
             // this is works but is not ideal
             int count = 0;
-            using (IDataReader reader = GetRoleMembers(this.roleID))
+            using (IDataReader reader = GetRoleMembers(this.RoleId))
             {
                 while (reader.Read())
                 {
@@ -313,8 +249,8 @@ namespace mojoPortal.Business
             {
                 foreach (string roleName in rolesThatCannotBeDeleted)
                 {
-                    if (this.roleName == roleName) { return false; }
-                    if (this.displayName == roleName) { return false; }
+                    //if (this.DisplayName == roleName) { return false; }
+                    if (this.RoleName == roleName) { return false; }
                 }
             }
 
@@ -350,13 +286,13 @@ namespace mojoPortal.Business
                 while (reader.Read())
                 {
                     Role role = new Role();
-                    role.roleID = Convert.ToInt32(reader["RoleID"]);
-                    role.siteID = Convert.ToInt32(reader["SiteID"]);
-                    role.displayName = reader["DisplayName"].ToString();
-                    role.roleName = reader["RoleName"].ToString();
-                    role.roleGuid = new Guid(reader["RoleGuid"].ToString());
-                    role.siteGuid = new Guid(reader["SiteGuid"].ToString());
-                    role.memberCount = Convert.ToInt32(reader["MemberCount"]);
+                    role.RoleId = Convert.ToInt32(reader["RoleID"]);
+                    role.SiteId = Convert.ToInt32(reader["SiteID"]);
+                    role.DisplayName = reader["DisplayName"].ToString();
+                    role.RoleName = reader["RoleName"].ToString();
+                    role.RoleGuid = new Guid(reader["RoleGuid"].ToString());
+                    role.SiteGuid = new Guid(reader["SiteGuid"].ToString());
+                    role.MemberCount = Convert.ToInt32(reader["MemberCount"]);
 
                     roles.Add(role);
                 }
@@ -379,12 +315,12 @@ namespace mojoPortal.Business
                     if (foundName == roleName)
                     {
                         role = new Role();
-                        role.roleID = Convert.ToInt32(reader["RoleID"]);
-                        role.siteID = Convert.ToInt32(reader["SiteID"]);
-                        role.displayName = reader["DisplayName"].ToString();
-                        role.roleName = reader["RoleName"].ToString();
-                        role.roleGuid = new Guid(reader["RoleGuid"].ToString());
-                        role.siteGuid = new Guid(reader["SiteGuid"].ToString());
+                        role.RoleId = Convert.ToInt32(reader["RoleID"]);
+                        role.SiteId = Convert.ToInt32(reader["SiteID"]);
+                        role.DisplayName = reader["DisplayName"].ToString();
+                        role.RoleName = reader["RoleName"].ToString();
+                        role.RoleGuid = new Guid(reader["RoleGuid"].ToString());
+                        role.SiteGuid = new Guid(reader["SiteGuid"].ToString());
                     }
                 }
             }

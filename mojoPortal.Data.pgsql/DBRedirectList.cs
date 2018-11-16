@@ -1,6 +1,6 @@
 ﻿/// Author:					
 /// Created:				2008-11-19
-/// Last Modified:			2012-08-11
+/// Last Modified:			2018-11-16
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -12,6 +12,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Npgsql;
@@ -293,101 +294,116 @@ namespace mojoPortal.Data
         /// <summary>
         /// Gets a count of rows in the mp_RedirectList table.
         /// </summary>
-        public static int GetCount(int siteId)
+        public static int GetCount(int siteId, string searchTerm = "")
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_redirectlist ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("siteid = :siteid ");
-            sqlCommand.Append(";");
+			var useSearch = !string.IsNullOrWhiteSpace(searchTerm);
+			var sqlCommand = $@"SELECT  Count(*)
+				FROM	mp_redirectlist
+				WHERE siteid = :siteid
+				{(useSearch ? "AND (newurl LIKE :searchterm OR oldurl Like :searchterm);" : ";")}";
+	
 
-            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
+			var sqlParams = new List<NpgsqlParameter>
+			{
+				new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				}
+			};
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
+			if (useSearch)
+			{
+				sqlParams.Add(
+					new NpgsqlParameter("searchterm", NpgsqlTypes.NpgsqlDbType.Varchar, 255)
+					{
+						Direction = ParameterDirection.Input,
+						Value = searchTerm
+					}
+				);
+			}
 
-            return Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
+			return Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 CommandType.Text,
-                sqlCommand.ToString(),
-                arParams));
-
+                sqlCommand,
+                sqlParams.ToArray()));
         }
 
+		/// <summary>
+		/// Gets a page of data from the mp_RedirectList table with search term
+		/// </summary>
+		public static IDataReader GetPage(
+			int siteId,
+			int pageNumber,
+			int pageSize,
+			out int totalPages,
+			string searchTerm = "")
+		{
+			var useSearch = !string.IsNullOrWhiteSpace(searchTerm);
+			int pageLowerBound = (pageSize * pageNumber) - pageSize;
+			totalPages = 1;
+			int totalRows = GetCount(siteId, searchTerm);
 
-        /// <summary>
-        /// Gets a page of data from the mp_RedirectList table.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="totalPages">total pages</param>
-        public static IDataReader GetPage(
-            int siteId,
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-            totalPages = 1;
-            int totalRows = GetCount(siteId);
+			if (pageSize > 0) totalPages = totalRows / pageSize;
 
-            if (pageSize > 0) totalPages = totalRows / pageSize;
+			if (totalRows <= pageSize)
+			{
+				totalPages = 1;
+			}
+			else
+			{
+				Math.DivRem(totalRows, pageSize, out int remainder);
+				if (remainder > 0)
+				{
+					totalPages += 1;
+				}
+			}
 
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
+			var sqlParams = new List<NpgsqlParameter>
+			{
+				new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+				new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageSize
+				},
+				new NpgsqlParameter("pageoffset", NpgsqlTypes.NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageLowerBound
+				}
+			};
 
-
-
-            NpgsqlParameter[] arParams = new NpgsqlParameter[3];
-
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            arParams[1] = new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = pageSize;
-
-            arParams[2] = new NpgsqlParameter("pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = pageLowerBound;
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT	* ");
-            sqlCommand.Append("FROM	mp_redirectlist  ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("siteid = :siteid ");
-            sqlCommand.Append("ORDER BY oldurl ");
-            //sqlCommand.Append("  ");
-            sqlCommand.Append("LIMIT  :pagesize");
-
-            if (pageNumber > 1)
-                sqlCommand.Append(" OFFSET :pageoffset ");
-
-            sqlCommand.Append(";");
-
-            return NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.Text,
-                sqlCommand.ToString(),
-                arParams);
+			if (useSearch)
+			{
+				sqlParams.Add(
+					new NpgsqlParameter("?searchterm", NpgsqlTypes.NpgsqlDbType.Varchar, 255)
+					{
+						Direction = ParameterDirection.Input,
+						Value = "%" + searchTerm + "%"
+					}
+				);
+			}
 
 
-        }
+			var sqlCommand = $@"SELECT	*
+					FROM	mp_redirectlist
+					WHERE siteid = :siteid
+					{(useSearch ? "AND (newurl LIKE :searchterm OR oldurl Like :searchterm)" : "")}
+					ORDER BY oldurl
+					LIMIT  :pagesize
+					{(pageNumber > 1 ? " OFFSET :pageoffset " : "")};";
 
-
-    }
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.Text,
+				sqlCommand,
+				sqlParams.ToArray());
+		}
+	}
 }

@@ -8,60 +8,87 @@
 <asp:HyperLink ID="lnkRedirectManager" runat="server" />
 </portal:AdminCrumbContainer>
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-<mp:CornerRounderTop id="ctop1" runat="server" />
 <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper admin urlmanager">
 <portal:HeadingControl ID="heading" runat="server" />
 <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-			<asp:Panel ID="pnlAddRedirect" runat="server" DefaultButton="btnAdd">
-			<div class="settingrow">
-			    <asp:Label ID="lblSiteRoot" Runat="server" ></asp:Label>
-				<asp:TextBox ID="txtOldUrl" Runat="server" Columns="60" MaxLength="255"></asp:TextBox>
+	<div class="settingrow">
+		<mp:SiteLabel ID="Sitelabel5" runat="server" ConfigKey="RedirectHelp" />
+	</div>
+	<div class="row">
+		<asp:Panel ID="pnlAddRedirect" runat="server" DefaultButton="btnAdd" CssClass="col-md-8">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title"><%= Resources.Resource.RedirectAddNew %></h3>
+				</div>
+				<div class="panel-body">
+					<div class="form-inline">
+						<div class="form-group">
+							<div class="input-group">
+								<asp:Label ID="lblSiteRoot" runat="server" CssClass="input-group-addon" />
+								<asp:TextBox ID="txtOldUrl" runat="server" MaxLength="255" />
+								<mp:SiteLabel runat="server" ConfigKey="RedirectsToLabel" CssClass="input-group-addon" UseLabelTag="false" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<asp:Label ID="lblSiteRoot2" runat="server" CssClass="input-group-addon" />
+								<asp:TextBox ID="txtNewUrl" runat="server" />
+							</div>
+						</div>
+						<portal:mojoButton  runat="server" ID="btnAdd" SkinID="AddButton"/>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<portal:mojoLabel ID="lblError" runat="server" CssClass="txterror warning text-danger" />
+				</div>
 			</div>
-			<div class="settingrow">
-			    <strong><mp:SiteLabel id="Sitelabel4" runat="server" ConfigKey="RedirectsToLabel" ></mp:SiteLabel></strong>
+		</asp:Panel>
+		<asp:Panel ID="pnlSearch" runat="server" CssClass="col-md-4" DefaultButton="btnSearchUrls">
+			<div class="panel panel-warning">
+				<div class="panel-heading">
+					<h3 class="panel-title"><%= Resources.Resource.RedirectSearch %></h3>
+				</div>
+				<div class="panel-body">
+					<div class="input-group">
+						<asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" />
+						<span class="input-group-btn">
+							<portal:mojoButton ID="btnSearchUrls" runat="server" SkinID="InfoButton" />
+							<portal:mojoButton ID="btnClearSearch" runat="server" />
+						</span>
+					</div>
+				</div>
+				<div class="panel-footer"></div>
 			</div>
-			<div class="settingrow">
-			    <asp:Label ID="lblSiteRoot2" Runat="server" ></asp:Label>
-				<asp:Textbox id="txtNewUrl" Columns="60"   runat="server" />
-				<portal:mojoButton  runat="server" ID="btnAdd"/> 
-			</div>
-			<div class="settingrow">
-			     <mp:SiteLabel id="Sitelabel5" runat="server" ConfigKey="RedirectHelp" ></mp:SiteLabel>
-			</div>
-			<div>
-		        <portal:mojoLabel ID="lblError" Runat="server" CssClass="txterror warning"></portal:mojoLabel>
-		    </div>
-			</asp:Panel>
-		<hr />
+		</asp:Panel>
+	</div>
 		<portal:mojoDataList id="dlRedirects" DataKeyField="RowGuid" runat="server">
 			<ItemTemplate>
 				<asp:ImageButton ImageUrl='<%# EditPropertiesImage %>' CommandName="edit" AlternateText="<%# Resources.Resource.EditLink %>" ToolTip="<%# Resources.Resource.EditLink %>"  runat="server" ID="btnEdit"/>
 				<asp:ImageButton ImageUrl='<%# DeleteLinkImage %>' CommandName="delete" AlternateText="<%# Resources.Resource.DeleteLink %>" ToolTip="<%# Resources.Resource.DeleteLink %>" runat="server" ID="btnDelete"/>
-				&nbsp;&nbsp;
-				<a href='<%# RootUrl + DataBinder.Eval(Container.DataItem, "OldUrl")%>'><%# RootUrl + DataBinder.Eval(Container.DataItem, "OldUrl")%></a> &nbsp;&nbsp;
-				<strong><mp:SiteLabel id="lblPageNameLayout" runat="server" ConfigKey="RedirectsToLabel" UseLabelTag="false"></mp:SiteLabel></strong>&nbsp;&nbsp;
-				<a href='<%# RootUrl + DataBinder.Eval(Container.DataItem, "NewUrl")%>'><%# RootUrl + DataBinder.Eval(Container.DataItem, "NewUrl")%></a>
+				<a href='<%# RootUrl + DataBinder.Eval(Container.DataItem, "OldUrl")%>' class="btn btn-link"><%# RootUrl + DataBinder.Eval(Container.DataItem, "OldUrl")%></a>
+				<span><%# Resources.Resource.RedirectsToLabel %></span>
+				<a href='<%# RootUrl + DataBinder.Eval(Container.DataItem, "NewUrl")%>' class="btn btn-link"><%# RootUrl + DataBinder.Eval(Container.DataItem, "NewUrl")%></a>
 			    <hr />
 			</ItemTemplate>
 			<EditItemTemplate>
-			<fieldset>
-			    <div class="settingrow">
-			    <asp:Label Text='<%# RootUrl %>'  runat="server" ID="Label3"/><asp:Textbox id="txtGridOldUrl" Columns="60" Text='<%# DataBinder.Eval(Container.DataItem, "OldUrl").ToString() %>' runat="server" />
-			    </div>
-			    <div class="settingrow">
-			        <strong><mp:SiteLabel id="Sitelabel4" runat="server" ConfigKey="RedirectsToLabel" ></mp:SiteLabel></strong>
-			    </div>
-			    <div class="settingrow">
-			    <asp:Label Text='<%# RootUrl %>'  runat="server" ID="Label4"/>
-				<asp:Textbox id="txtGridNewUrl" Columns="60" Text='<%# DataBinder.Eval(Container.DataItem, "NewUrl").ToString() %>' runat="server" />
-				 
+				<div class="form-inline">
+					<div class="form-group"> 
+						<div class="input-group">
+							<asp:Label Text='<%# RootUrl %>'  runat="server" ID="Label3" CssClass="input-group-addon"/>
+							<asp:Textbox id="txtGridOldUrl" Text='<%# DataBinder.Eval(Container.DataItem, "OldUrl").ToString() %>' runat="server" CssClass="form-control"/>
+							<mp:SiteLabel runat="server" ConfigKey="RedirectsToLabel" CssClass="input-group-addon" UseLabelTag="false" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<asp:Label Text='<%# RootUrl %>'  runat="server" ID="Label4" CssClass="input-group-addon"/>
+							<asp:Textbox id="txtGridNewUrl" Text='<%# DataBinder.Eval(Container.DataItem, "NewUrl").ToString() %>' runat="server" CssClass="form-control"/>
+						</div>
+					</div>
+					<portal:mojoButton Text="<%# Resources.Resource.SaveButton %>" ToolTip="<%# Resources.Resource.SaveButton %>" CommandName="apply" runat="server" ID="button1" SkinID="SaveButton"/>
+					<portal:mojoButton Text="<%# Resources.Resource.CancelButton %>" ToolTip="<%# Resources.Resource.CancelButton %>" CommandName="cancel" runat="server" ID="button3" /> 
 				</div>
-				<div class="settingrow">
-				    <asp:Button Text="<%# Resources.Resource.SaveButton %>" ToolTip="<%# Resources.Resource.SaveButton %>" CommandName="apply" runat="server" ID="button1" />
-				    <asp:Button Text="<%# Resources.Resource.CancelButton %>" ToolTip="<%# Resources.Resource.CancelButton %>" CommandName="cancel" runat="server" ID="button3" /> 
-				</div>
-		    </fieldset>
 			</EditItemTemplate>
 		</portal:mojoDataList>
     <portal:mojoCutePager ID="pgrFriendlyUrls" runat="server" Visible="false" />
@@ -69,7 +96,6 @@
 	</portal:OuterBodyPanel>
 	<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
 </portal:InnerWrapperPanel>
-<mp:CornerRounderBottom id="cbottom1" runat="server" />
 </portal:OuterWrapperPanel>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />

@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2012-08-11
+/// Last Modified:			2018-10-31
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -27,7 +27,8 @@ namespace mojoPortal.Data
             Guid roleGuid,
             Guid siteGuid,
             int siteId,
-            string roleName)
+            string roleName,
+			string displayName)
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[4];
             
