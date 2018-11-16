@@ -25,11 +25,13 @@ namespace mojoPortal.Web
 
 		public string CssClass { get; set; } = "customadminlink";
 
-		public string VisibleToRoles { get; set; } = string.Empty;
+		private string visibleToRoles { get; set; } = string.Empty;
 
 		public int SortOrder { get; set; } = 500;
 
 		public string IconCssClass { get; set; } = string.Empty;
+
+		public string Parent { get; set; } = "root";
 
 		public static void LoadLinksFromXml(
             ContentAdminLinksConfiguration config,
@@ -62,7 +64,7 @@ namespace mojoPortal.Web
                         item.CssClass = attributeCollection["cssClass"].Value;
                     }
 
-					if (attributeCollection["cssClass"] != null)
+					if (attributeCollection["iconCssClass"] != null)
 					{
 						item.IconCssClass = attributeCollection["iconCssClass"].Value;
 					}
@@ -74,7 +76,7 @@ namespace mojoPortal.Web
 
                     if (attributeCollection["visibleToRoles"] != null)
                     {
-                        item.VisibleToRoles = attributeCollection["visibleToRoles"].Value;
+                        item.visibleToRoles = attributeCollection["visibleToRoles"].Value;
                     }
 
 					if (attributeCollection["sortOrder"] != null)
@@ -82,7 +84,12 @@ namespace mojoPortal.Web
 						item.SortOrder = Convert.ToInt32(attributeCollection["sortOrder"].Value);
 					}
 
-					if (WebUser.IsInRoles(item.VisibleToRoles))
+					if (attributeCollection["parent"] != null)
+					{
+						item.Parent = attributeCollection["parent"].Value;
+					}
+
+					if (WebUser.IsInRoles(item.visibleToRoles))
 					{
 						config.AdminLinks.Add(item);
 					}

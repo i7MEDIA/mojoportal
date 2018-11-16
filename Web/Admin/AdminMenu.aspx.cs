@@ -1,5 +1,5 @@
 /// Created:				2007-04-29
-/// Last Modified:			2018-10-30
+/// Last Modified:			2018-11-12
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Eclipse Public License 1.0 (https://opensource.org/licenses/eclipse-1.0)
@@ -11,12 +11,13 @@
 
 using System;
 using System.Collections.Generic;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
-using Resources;
-using mojoPortal.Web.UI;
-using mojoPortal.Web.Components;
+using System.Linq;
 using log4net;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Components;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.UI;
+using Resources;
 
 namespace mojoPortal.Web.AdminUI
 {
@@ -31,8 +32,9 @@ namespace mojoPortal.Web.AdminUI
 		private bool isCommerceReportViewer = false;
 		private CommerceConfiguration commerceConfig = null;
 		SecurityAdvisor securityAdvisor = new SecurityAdvisor();
-		private List<ContentAdminLink> model = new List<ContentAdminLink>();
+		private Models.AdminMenuPage model;
 		private ContentAdminLinksConfiguration supplementalLinks;
+		private const string partialName = "_AdminMenu";
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!Request.IsAuthenticated)
@@ -61,10 +63,16 @@ namespace mojoPortal.Web.AdminUI
 
 		private void PopulateModel()
 		{
+			model = new Models.AdminMenuPage
+			{
+				PageTitle = Resource.AdminMenuHeading,
+				PageHeading = Resource.AdminMenuHeading
+			};
+
 			//Site Settings
 			if (IsAdminOrContentAdmin || isSiteEditor)
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuSiteSettingsLink",
@@ -78,7 +86,7 @@ namespace mojoPortal.Web.AdminUI
 			//Site List
 			if (WebConfigSettings.AllowMultipleSites && siteSettings.IsServerAdminSite && IsAdmin)
 			{
-				model.Add(new ContentAdminLink {
+				model.Links.Add(new ContentAdminLink {
 					ResourceFile = "Resource",
 					ResourceKey = "SiteList",
 					Url = SiteRoot + "/Admin/SiteList.aspx",
@@ -92,7 +100,7 @@ namespace mojoPortal.Web.AdminUI
 			if (IsAdmin && siteSettings.IsServerAdminSite)
 			{
 				bool needsAttention = !securityAdvisor.UsingCustomMachineKey();
-				model.Add(new ContentAdminLink {
+				model.Links.Add(new ContentAdminLink {
 					ResourceFile = "Resource",
 					ResourceKey = needsAttention ? "SecurityAdvisorNeedsAttention" : "SecurityAdvisor",
 					Url = SiteRoot + "/Admin/SecurityAdvisor.aspx",
@@ -112,7 +120,7 @@ namespace mojoPortal.Web.AdminUI
 				}
 				if (addLink)
 				{
-					model.Add(new ContentAdminLink
+					model.Links.Add(new ContentAdminLink
 					{
 						ResourceFile = "Resource",
 						ResourceKey = "AdminMenuRoleAdminLink",
@@ -127,7 +135,7 @@ namespace mojoPortal.Web.AdminUI
 			//Site Permissions
 			if (IsAdmin)
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "SiteSettingsPermissionsTab",
@@ -141,7 +149,7 @@ namespace mojoPortal.Web.AdminUI
 			//Member List
 			if (WebUser.IsInRoles(siteSettings.RolesThatCanViewMemberList) || WebUser.IsInRoles(siteSettings.RolesThatCanLookupUsers))
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "MemberListLink",
@@ -155,7 +163,7 @@ namespace mojoPortal.Web.AdminUI
 			//Add User
 			if (WebUser.IsInRoles(siteSettings.RolesThatCanCreateUsers + siteSettings.RolesThatCanManageUsers + siteSettings.RolesThatCanLookupUsers))
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "MemberListAddUserLabel",
@@ -169,7 +177,7 @@ namespace mojoPortal.Web.AdminUI
 			//Page Manager
 			if (IsAdminOrContentAdmin || isSiteEditor || SiteMapHelper.UserHasAnyCreatePagePermissions(siteSettings))
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuPageTreeLink",
@@ -183,7 +191,7 @@ namespace mojoPortal.Web.AdminUI
 			//Content Manager
 			if (IsAdminOrContentAdmin || isSiteEditor)
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuContentManagerLink",
@@ -197,7 +205,7 @@ namespace mojoPortal.Web.AdminUI
 			//Content Workflow
 			if (WebConfigSettings.EnableContentWorkflow && siteSettings.EnableContentWorkflow)
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuContentWorkflowLabel",
@@ -211,7 +219,7 @@ namespace mojoPortal.Web.AdminUI
 			//Content Templates/Styles
 			if (IsAdminOrContentAdmin || isSiteEditor || WebUser.IsInRoles(siteSettings.RolesThatCanEditContentTemplates))
 			{
-				model.AddRange(new List<ContentAdminLink> {
+				model.Links.AddRange(new List<ContentAdminLink> {
 					new ContentAdminLink
 					{
 						ResourceFile = "Resource",
@@ -236,7 +244,7 @@ namespace mojoPortal.Web.AdminUI
 			//Design Tools
 			if (IsAdmin || WebUser.IsContentAdmin || WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins))
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "DevTools",
 					ResourceKey = "DesignTools",
@@ -252,7 +260,7 @@ namespace mojoPortal.Web.AdminUI
 			var fileManagerLinkTest = new FileManagerLink();
 			if (fileManagerLinkTest.ShouldRender())
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuFileManagerLink",
@@ -266,7 +274,7 @@ namespace mojoPortal.Web.AdminUI
 			//Newsletter
 			if (WebConfigSettings.EnableNewsletter && (IsAdmin || isSiteEditor || WebUser.IsNewsletterAdmin))
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuNewsletterAdminLabel",
@@ -280,7 +288,7 @@ namespace mojoPortal.Web.AdminUI
 			//Commerce
 			if (isCommerceReportViewer && commerceConfig != null && commerceConfig.IsConfigured)
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "CommerceReportsLink",
@@ -294,7 +302,7 @@ namespace mojoPortal.Web.AdminUI
 			//Registration Agreement
 			if (IsAdminOrContentAdmin)
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "RegistrationAgreementLink",
@@ -307,7 +315,7 @@ namespace mojoPortal.Web.AdminUI
 				//Login Page Text
 				if (!WebConfigSettings.DisableLoginInfo)
 				{
-					model.Add(new ContentAdminLink
+					model.Links.Add(new ContentAdminLink
 					{
 						ResourceFile = "Resource",
 						ResourceKey = "LoginPageContent",
@@ -321,7 +329,7 @@ namespace mojoPortal.Web.AdminUI
 				//Core Data
 				if (siteSettings.IsServerAdminSite)
 				{
-					model.Add(new ContentAdminLink
+					model.Links.Add(new ContentAdminLink
 					{
 						ResourceFile = "Resource",
 						ResourceKey = "CoreDataAdministrationLink",
@@ -336,7 +344,7 @@ namespace mojoPortal.Web.AdminUI
 			//Adv. Tools
 			if (IsAdminOrContentAdmin || isSiteEditor)
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdvancedToolsLink",
@@ -349,7 +357,7 @@ namespace mojoPortal.Web.AdminUI
 				//System Info
 				if (siteSettings.IsServerAdminSite || WebConfigSettings.ShowSystemInformationInChildSiteAdminMenu)
 				{
-					model.Add(new ContentAdminLink
+					model.Links.Add(new ContentAdminLink
 					{
 						ResourceFile = "Resource",
 						ResourceKey = "AdminMenuServerInfoLabel",
@@ -364,7 +372,7 @@ namespace mojoPortal.Web.AdminUI
 			//Log Viewer
 			if (IsAdmin && siteSettings.IsServerAdminSite && WebConfigSettings.EnableLogViewer)
 			{
-				model.Add(new ContentAdminLink
+				model.Links.Add(new ContentAdminLink
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuServerLogLabel",
@@ -376,209 +384,29 @@ namespace mojoPortal.Web.AdminUI
 			}
 
 			//Supplemental Links
-			model.AddRange(supplementalLinks.AdminLinks);
+			model.Links.AddRange(supplementalLinks.AdminLinks.Where(l => l.Parent.ToLower() == "root").ToList());
 
 			//Sort the whole thing (allows mixing Supplemental Links with system links instead of them always being at the bottom)
-			model.Sort((a, b) => a.SortOrder.CompareTo(b.SortOrder));
+			model.Links.Sort((a, b) => a.SortOrder.CompareTo(b.SortOrder));
 		}
 
 		private void PopulateControls()
 		{
 			try
 			{
-				litMenu.Text = RazorBridge.RenderPartialToString("_AdminMenu", model, "Admin");
+				litMenu.Text = RazorBridge.RenderPartialToString(partialName, model, "Admin");
 			}
 			catch (System.Web.HttpException ex)
 			{
-				log.ErrorFormat(
-					"layout for AdminMenu (_AdminMenu) was not found in skin {0}. perhaps it is in a different skin. Error was: {1}",
-					SiteUtils.GetSkinBaseUrl(true, Page),
-					ex
-				);
+				log.Error($"layout ({partialName}) was not found in skin {SiteUtils.GetSkinBaseUrl(true, Page)}. perhaps it is in a different skin. Error was: {ex}");
 			}
 		}
-
-		//private void BuildAdditionalMenuListItems()
-		//{
-		//	if (siteSettings == null) return;
-
-
-
-
-		//	StringBuilder addedLinks = new StringBuilder();
-		//	foreach (ContentAdminLink link in supplementalLinks.AdminLinks)
-		//	{
-		//		if (
-		//			(link.VisibleToRoles.Length == 0)
-		//			|| (WebUser.IsInRoles(link.VisibleToRoles))
-		//			)
-		//		{
-		//			addedLinks.Append("\n<li>");
-		//			addedLinks.Append("<a ");
-		//			string title = ResourceHelper.GetResourceString(link.ResourceFile, link.ResourceKey);
-		//			addedLinks.Append("title='" + title + "' ");
-		//			addedLinks.Append("class='" + link.CssClass + "' ");
-		//			string url = link.Url;
-		//			if (url.StartsWith("~/"))
-		//			{
-		//				url = SiteRoot + "/" + url.Replace("~/", string.Empty);
-		//			}
-		//			addedLinks.Append("href='" + url + "'>" + title + "</a>");
-		//			addedLinks.Append("</li>");
-		//		}
-
-		//	}
-
-		//	litSupplementalLinks.Text = addedLinks.ToString();
-		//}
-
 
 		private void PopulateLabels()
 		{
 			Title = SiteUtils.FormatPageTitle(siteSettings, Resource.AdminMenuHeading);
 
-			heading.Text = Resource.AdminMenuHeading;
-
-			//liSiteSettings.Visible = IsAdminOrContentAdmin || isSiteEditor;
-			//lnkSiteSettings.Text = Resource.AdminMenuSiteSettingsLink;
-			//lnkSiteSettings.NavigateUrl = SiteRoot + "/Admin/SiteSettings.aspx";
-
-			//liSiteList.Visible = ((WebConfigSettings.AllowMultipleSites) && (siteSettings.IsServerAdminSite) && IsAdmin);
-			//lnkSiteList.Text = Resource.SiteList;
-			//lnkSiteList.NavigateUrl = SiteRoot + "/Admin/SiteList.aspx";
-
-			//lnkSecurityAdvisor.Text = Resource.SecurityAdvisor;
-			//lnkSecurityAdvisor.NavigateUrl = SiteRoot + "/Admin/SecurityAdvisor.aspx";
-			//if (IsAdmin && siteSettings.IsServerAdminSite)
-			//{
-			//	liSecurityAdvisor.Visible = true;
-			//	if (!securityAdvisor.UsingCustomMachineKey())
-			//	{
-			//		liSecurityAdvisor.Attributes["class"] += " secwarning";
-			//		lnkSecurityAdvisor.Text = Resource.SecurityAdvisorNeedsAttention;
-			//	}
-			//}
-
-			//liCommerceReports.Visible = (isCommerceReportViewer && (commerceConfig != null) && (commerceConfig.IsConfigured));
-			//lnkCommerceReports.Text = Resource.CommerceReportsLink;
-			//lnkCommerceReports.NavigateUrl = SiteRoot + "/Admin/SalesSummary.aspx";
-
-			//liContentManager.Visible = (IsAdminOrContentAdmin || isSiteEditor);
-			//lnkContentManager.Text = Resource.AdminMenuContentManagerLink;
-			//lnkContentManager.NavigateUrl = SiteRoot + "/Admin/ContentCatalog.aspx";
-
-			//liContentWorkFlow.Visible = (WebConfigSettings.EnableContentWorkflow && siteSettings.EnableContentWorkflow);
-			//lnkContentWorkFlow.Visible = siteSettings.EnableContentWorkflow && WebUser.IsAdminOrContentAdminOrContentPublisher;
-			//lnkContentWorkFlow.Text = Resource.AdminMenuContentWorkflowLabel;
-			//lnkContentWorkFlow.NavigateUrl = SiteRoot + "/Admin/ContentWorkflow.aspx";
-
-			//liContentTemplates.Visible = (IsAdminOrContentAdmin || isSiteEditor || (WebUser.IsInRoles(siteSettings.RolesThatCanEditContentTemplates)));
-			//lnkContentTemplates.Text = Resource.ContentTemplates;
-			//lnkContentTemplates.NavigateUrl = SiteRoot + "/Admin/ContentTemplates.aspx";
-
-			//liStyleTemplates.Visible = (IsAdminOrContentAdmin || isSiteEditor || (WebUser.IsInRoles(siteSettings.RolesThatCanEditContentTemplates)));
-			//lnkStyleTemplates.Text = Resource.ContentStyleTemplates;
-			//lnkStyleTemplates.NavigateUrl = SiteRoot + "/Admin/ContentStyles.aspx";
-
-			//liPageTree.Visible = (IsAdminOrContentAdmin || isSiteEditor || (SiteMapHelper.UserHasAnyCreatePagePermissions(siteSettings)));
-			//lnkPageTree.Text = Resource.AdminMenuPageTreeLink;
-			//lnkPageTree.NavigateUrl = SiteRoot + WebConfigSettings.PageTreeRelativeUrl;
-
-			//liRoleAdmin.Visible = (WebUser.IsRoleAdmin || IsAdmin);
-			//lnkRoleAdmin.Text = Resource.AdminMenuRoleAdminLink;
-			//lnkRoleAdmin.NavigateUrl = SiteRoot + "/Admin/RoleManager.aspx";
-
-			//liPermissions.Visible = IsAdmin;
-			//lnkPermissionAdmin.Text = Resource.SiteSettingsPermissionsTab;
-			//lnkPermissionAdmin.NavigateUrl = SiteRoot + "/Admin/PermissionsMenu.aspx";
-
-			//if ((WebConfigSettings.UseRelatedSiteMode) && (WebConfigSettings.RelatedSiteModeHideRoleManagerInChildSites))
-			//{
-			//	if (siteSettings.SiteId != WebConfigSettings.RelatedSiteID)
-			//	{
-			//		liRoleAdmin.Visible = false;
-			//	}
-			//}
-
-
-			////
-			//// File Manager Link
-			////
-			////liFileManager.Visible = IsAdminOrContentAdmin;
-
-			////if ((!siteSettings.IsServerAdminSite) && (!WebConfigSettings.AllowFileManagerInChildSites))
-			////{
-			////	liFileManager.Visible = false;
-			////}
-
-			////if (WebConfigSettings.DisableFileManager)
-			////{
-			////	liFileManager.Visible = false;
-			////}
-
-			////lnkFileManager.Text = Resource.AdminMenuFileManagerLink;
-			////lnkFileManager.NavigateUrl = SiteRoot + "/FileManager";
-
-
-			////
-			//// Member List
-			////
-			//lnkMemberList.Text = Resource.MemberListLink;
-			//lnkMemberList.NavigateUrl = SiteRoot + WebConfigSettings.MemberListUrl;
-			//lnkMemberList.Visible = ((WebUser.IsInRoles(siteSettings.RolesThatCanViewMemberList)) || (WebUser.IsInRoles(siteSettings.RolesThatCanLookupUsers)));
-
-			//liAddUser.Visible = ((WebUser.IsInRoles(siteSettings.RolesThatCanCreateUsers)) || (WebUser.IsInRoles(siteSettings.RolesThatCanManageUsers)) || (WebUser.IsInRoles(siteSettings.RolesThatCanLookupUsers)));
-			//lnkAddUser.Text = Resource.MemberListAddUserLabel;
-			//lnkAddUser.NavigateUrl = SiteRoot + "/Admin/ManageUsers.aspx?userId=-1";
-
-			//if (WebConfigSettings.EnableNewsletter)
-			//{
-			//	liNewsletter.Visible = (IsAdmin || isSiteEditor || WebUser.IsNewsletterAdmin);
-			//	lnkNewsletter.Text = Resource.AdminMenuNewsletterAdminLabel;
-			//	lnkNewsletter.NavigateUrl = SiteRoot + "/eletter/Admin.aspx";
-
-			//	//liTaskQueue.Visible = IsAdmin || WebUser.IsNewsletterAdmin;
-			//	//lnkTaskQueue.Text = Resource.TaskQueueMonitorHeading;
-			//	//lnkTaskQueue.NavigateUrl = SiteRoot + "/Admin/TaskQueueMonitor.aspx";
-
-			//}
-			//else
-			//{
-			//	liNewsletter.Visible = false;
-			//	//liTaskQueue.Visible = false;
-			//}
-
-			//liRegistrationAgreement.Visible = (IsAdminOrContentAdmin);
-			//lnkRegistrationAgreement.Text = Resource.RegistrationAgreementLink;
-			//lnkRegistrationAgreement.NavigateUrl = SiteRoot + "/Admin/EditRegistrationAgreement.aspx";
-
-			//liLoginInfo.Visible = (IsAdminOrContentAdmin) && !WebConfigSettings.DisableLoginInfo;
-			//lnkLoginInfo.Text = Resource.LoginPageContent;
-			//lnkLoginInfo.NavigateUrl = SiteRoot + "/Admin/EditLoginInfo.aspx";
-
-
-
-			//liCoreData.Visible = (IsAdminOrContentAdmin && siteSettings.IsServerAdminSite);
-			//lnkCoreData.Text = Resource.CoreDataAdministrationLink;
-			//lnkCoreData.NavigateUrl = SiteRoot + "/Admin/CoreData.aspx";
-
-			//liAdvancedTools.Visible = (IsAdminOrContentAdmin || isSiteEditor);
-			//lnkAdvancedTools.Text = Resource.AdvancedToolsLink;
-			//lnkAdvancedTools.NavigateUrl = SiteRoot + "/Admin/AdvancedTools.aspx";
-
-
-			//liServerInfo.Visible = (IsAdminOrContentAdmin || isSiteEditor) && (siteSettings.IsServerAdminSite || WebConfigSettings.ShowSystemInformationInChildSiteAdminMenu);
-			//lnkServerInfo.Text = Resource.AdminMenuServerInfoLabel;
-			//lnkServerInfo.NavigateUrl = SiteRoot + "/Admin/ServerInformation.aspx";
-
-			//liLogViewer.Visible = IsAdmin && siteSettings.IsServerAdminSite && WebConfigSettings.EnableLogViewer;
-			//lnkLogViewer.Text = Resource.AdminMenuServerLogLabel;
-			//lnkLogViewer.NavigateUrl = SiteRoot + "/Admin/ServerLog.aspx";
-
-			//liDesignTools.Visible = IsAdmin || WebUser.IsContentAdmin || WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins);
-			//lnkDesignTools.Text = DevTools.DesignTools;
-			//lnkDesignTools.NavigateUrl = SiteRoot + "/DesignTools/Default.aspx";
-
+			//heading.Text = Resource.AdminMenuHeading;
 		}
 
 		private void LoadSettings()

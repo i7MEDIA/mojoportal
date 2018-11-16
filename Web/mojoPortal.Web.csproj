@@ -1632,6 +1632,7 @@
     <Compile Include="Components\SecurityAdvisor.cs" />
     <Compile Include="Components\SiteMapHelper.cs" />
     <Compile Include="Components\SkinHelper.cs" />
+    <Compile Include="Components\SkinStyleInfo.cs" />
     <Compile Include="Components\SystemLogAppender.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FileManager\FileManagerController.cs" />
@@ -1753,6 +1754,7 @@
     <Compile Include="Controls\mojoListBox.cs" />
     <Compile Include="Controls\mojoRegisterButton.cs" />
     <Compile Include="Controls\mojoScriptManager.cs" />
+    <Compile Include="Controls\mojoTextBox.cs" />
     <Compile Include="Controls\NoFollowHyperlink.cs" />
     <Compile Include="Controls\PageHeading.cs" />
     <Compile Include="Controls\PageTreeLink.cs" />
@@ -3041,8 +3043,13 @@
     <Compile Include="MemberList.aspx.designer.cs">
       <DependentUpon>MemberList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminMenuPage.cs" />
+    <Compile Include="Components\BreadCrumb.cs" />
+    <Compile Include="Models\BreadCrumbs.cs" />
     <Compile Include="Models\FileManager.cs" />
     <Compile Include="Models\FileService.cs" />
+    <Compile Include="Models\MemberListModel.cs" />
+    <Compile Include="Models\PagerInfo.cs" />
     <Compile Include="Modules\ChildPageSiteMapModule.ascx.cs">
       <DependentUpon>ChildPageSiteMapModule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3515,8 +3522,10 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\eletter\_Admin.cshtml" />
-    <Content Include="Views\Shared\_AdminCrumbs.cshtml" />
     <Content Include="Views\Admin\_AdminMenu.cshtml" />
+    <Content Include="Views\Shared\_BreadCrumbs.cshtml" />
+    <Content Include="Views\Shared\MemberList.cshtml" />
+    <Content Include="Views\Shared\_Pager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />
