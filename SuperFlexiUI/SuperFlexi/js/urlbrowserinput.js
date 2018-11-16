@@ -1,3 +1,4 @@
+/*eslint eqeqeq: ["error", "smart"]*/
 document.forms[0].setAttribute('novalidate', '');
 
 var filePicker = {

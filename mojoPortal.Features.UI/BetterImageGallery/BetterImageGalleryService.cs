@@ -32,7 +32,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		private string mediaRootPath = string.Empty;
 		private string galleryRootPath = string.Empty;
 		private string galleryPath = string.Empty;
-		private readonly string moduleThumbnailCachePath = "/Data/systemfiles/BetterImageGalleryCache/";
+		private readonly string moduleThumbnailCachePath = "~/Data/systemfiles/BetterImageGalleryCache/";
 		private readonly int thumbnailSize = 200;
 
 		public BIGErrorResult Error { get; set; } = null;
