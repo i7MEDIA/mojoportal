@@ -25,8 +25,7 @@ namespace mojoPortal.Business
 
         #region Constructors
 
-        public BannedIPAddress()
-        { }
+        public BannedIPAddress() { }
 
 
         public BannedIPAddress(int rowId)
@@ -34,58 +33,30 @@ namespace mojoPortal.Business
             GetBannedIPAddress(rowId);
         }
 
-        #endregion
+		#endregion
 
-        #region Private Properties
 
-        private int rowID;
-        private string bannedIP;
-        private DateTime bannedUTC;
-        private string bannedReason;
+		public int RowId { get; set; }
+		public string BannedIP { get; set; }
+		public DateTime BannedUtc { get; set; }
+		public string BannedReason { get; set; }
 
-        #endregion
+		#region Private Methods
 
-        #region Public Properties
-
-        public int RowId
-        {
-            get { return rowID; }
-            set { rowID = value; }
-        }
-        public string BannedIP
-        {
-            get { return bannedIP; }
-            set { bannedIP = value; }
-        }
-        public DateTime BannedUtc
-        {
-            get { return bannedUTC; }
-            set { bannedUTC = value; }
-        }
-        public string BannedReason
-        {
-            get { return bannedReason; }
-            set { bannedReason = value; }
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        /// <summary>
-        /// Gets an instance of BannedIPAddress.
-        /// </summary>
-        /// <param name="rowId"> rowId </param>
-        private void GetBannedIPAddress(int rowId)
+		/// <summary>
+		/// Gets an instance of BannedIPAddress.
+		/// </summary>
+		/// <param name="rowId"> rowId </param>
+		private void GetBannedIPAddress(int rowId)
         {
             using (IDataReader reader = DBBannedIP.GetOne(rowId))
             {
                 if (reader.Read())
                 {
-                    this.rowID = Convert.ToInt32(reader["RowID"]);
-                    this.bannedIP = reader["BannedIP"].ToString();
-                    this.bannedUTC = Convert.ToDateTime(reader["BannedUTC"]);
-                    this.bannedReason = reader["BannedReason"].ToString();
+                    this.RowId = Convert.ToInt32(reader["RowID"]);
+                    this.BannedIP = reader["BannedIP"].ToString();
+                    this.BannedUtc = Convert.ToDateTime(reader["BannedUTC"]);
+                    this.BannedReason = reader["BannedReason"].ToString();
 
                 }
 
@@ -102,11 +73,11 @@ namespace mojoPortal.Business
             int newID = 0;
 
             newID = DBBannedIP.Add(
-                this.bannedIP,
-                this.bannedUTC,
-                this.bannedReason);
+                this.BannedIP,
+                this.BannedUtc,
+                this.BannedReason);
 
-            this.rowID = newID;
+            this.RowId = newID;
 
             return (newID > 0);
 
@@ -121,10 +92,10 @@ namespace mojoPortal.Business
         {
 
             return DBBannedIP.Update(
-                this.rowID,
-                this.bannedIP,
-                this.bannedUTC,
-                this.bannedReason);
+                this.RowId,
+                this.BannedIP,
+                this.BannedUtc,
+                this.BannedReason);
 
         }
 
@@ -139,7 +110,7 @@ namespace mojoPortal.Business
         /// <returns>bool</returns>
         public bool Save()
         {
-            if (this.rowID > 0)
+            if (this.RowId > 0)
             {
                 return Update();
             }
@@ -190,10 +161,10 @@ namespace mojoPortal.Business
                 while (reader.Read())
                 {
                     BannedIPAddress bannedIPAddress = new BannedIPAddress();
-                    bannedIPAddress.rowID = Convert.ToInt32(reader["RowID"]);
-                    bannedIPAddress.bannedIP = reader["BannedIP"].ToString();
-                    bannedIPAddress.bannedUTC = Convert.ToDateTime(reader["BannedUTC"]);
-                    bannedIPAddress.bannedReason = reader["BannedReason"].ToString();
+                    bannedIPAddress.RowId = Convert.ToInt32(reader["RowID"]);
+                    bannedIPAddress.BannedIP = reader["BannedIP"].ToString();
+                    bannedIPAddress.BannedUtc = Convert.ToDateTime(reader["BannedUTC"]);
+                    bannedIPAddress.BannedReason = reader["BannedReason"].ToString();
                     bannedIPAddressList.Add(bannedIPAddress);
                 }
             }
@@ -243,10 +214,10 @@ namespace mojoPortal.Business
                 while (reader.Read())
                 {
                     BannedIPAddress bannedIPAddress = new BannedIPAddress();
-                    bannedIPAddress.rowID = Convert.ToInt32(reader["RowID"]);
-                    bannedIPAddress.bannedIP = reader["BannedIP"].ToString();
-                    bannedIPAddress.bannedUTC = Convert.ToDateTime(reader["BannedUTC"]);
-                    bannedIPAddress.bannedReason = reader["BannedReason"].ToString();
+                    bannedIPAddress.RowId = Convert.ToInt32(reader["RowID"]);
+                    bannedIPAddress.BannedIP = reader["BannedIP"].ToString();
+                    bannedIPAddress.BannedUtc = Convert.ToDateTime(reader["BannedUTC"]);
+                    bannedIPAddress.BannedReason = reader["BannedReason"].ToString();
                     bannedIPAddressList.Add(bannedIPAddress);
 
                 }
