@@ -93,9 +93,14 @@
 	<add key="CacheCssInBrowser" value="true"/>	
 	<add key="CombineCSS" value="true"/>
 	<add key="MinifyCSS" value="true"/> -->
-
+	
+	<!-- Showing the skin version could be a security risk IF a bug is found in a specific version -->
+	<add key="IncludeVersionInCssUrl" value="false" />
+	
 	<!-- Cache Settings -->
 	<!-- <add key="DisableCacheFor301Redirects" value="false" />
 	<add key="SetExplicitCacheFor301Redirects" value="true" />
 	<add key="CacheDurationInDaysFor301Redirects" value="5" /> -->
+	
+	
 </appSettings>
