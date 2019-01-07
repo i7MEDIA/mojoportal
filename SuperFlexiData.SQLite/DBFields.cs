@@ -340,6 +340,7 @@ namespace SuperFlexiData
                 new SqliteParameter(":DateFormat", DbType.String, 255) { Direction = ParameterDirection.Input, Value = dateFormat },
                 new SqliteParameter(":TextBoxMode", DbType.String, 25) { Direction = ParameterDirection.Input, Value = textBoxMode },
                 new SqliteParameter(":Attributes", DbType.String, 255) { Direction = ParameterDirection.Input, Value = attributes },
+                new SqliteParameter(":IsDeleted", DbType.Boolean) { Direction = ParameterDirection.Input, Value = isDeleted },
                 new SqliteParameter(":IsGlobal", DbType.Boolean) { Direction = ParameterDirection.Input, Value = isGlobal },
 				new SqliteParameter(":ViewRoles", DbType.String, 255) { Direction = ParameterDirection.Input, Value = viewRoles },
 				new SqliteParameter(":EditRoles", DbType.String, 255) { Direction = ParameterDirection.Input, Value = editRoles }

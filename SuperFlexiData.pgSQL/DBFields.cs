@@ -342,6 +342,7 @@ namespace SuperFlexiData
                 new NpgsqlParameter(":dateformat", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = dateFormat },
                 new NpgsqlParameter(":textboxmode", NpgsqlDbType.Varchar, 25) { Direction = ParameterDirection.Input, Value = textBoxMode },
                 new NpgsqlParameter(":attributes", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = attributes },
+                new NpgsqlParameter(":isdeleted", NpgsqlDbType.Boolean) { Direction = ParameterDirection.Input, Value = isDeleted },
                 new NpgsqlParameter(":isglobal", NpgsqlDbType.Boolean) { Direction = ParameterDirection.Input, Value = isGlobal },
 				new NpgsqlParameter(":viewroles", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = viewRoles },
 				new NpgsqlParameter(":editroles", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = editRoles }

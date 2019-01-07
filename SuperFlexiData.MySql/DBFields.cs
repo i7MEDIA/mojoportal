@@ -341,6 +341,7 @@ namespace SuperFlexiData
                 new MySqlParameter("?DateFormat", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = dateFormat },
                 new MySqlParameter("?TextBoxMode", MySqlDbType.VarChar, 25) { Direction = ParameterDirection.Input, Value = textBoxMode },
                 new MySqlParameter("?Attributes", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = attributes },
+                new MySqlParameter("?IsDeleted", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = isDeleted },
                 new MySqlParameter("?IsGlobal", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = isGlobal },
 				new MySqlParameter("?ViewRoles", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = viewRoles },
 				new MySqlParameter("?EditRoles", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = editRoles }
