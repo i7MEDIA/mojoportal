@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2017-09-11
+/// Last Modified:			2019-01-07
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -495,6 +495,12 @@ namespace mojoPortal.Data
 			int count = Convert.ToInt32(sph.ExecuteScalar());
 			return (count > 0);
 		}
+		public static void UpdateSkinVersionGuidForAllSites()
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Sites_UpdateSkinVersionGuidForAllSites", 1);
+			sph.DefineSqlParameter("@NewGuid", SqlDbType.NVarChar, 255, ParameterDirection.Input, Guid.NewGuid());
 
+			sph.ExecuteScalar();
+		}
     }
 }

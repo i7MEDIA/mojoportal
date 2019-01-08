@@ -1582,7 +1582,6 @@ Global
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|.NET.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|.NET.Build.0 = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|Any CPU.ActiveCfg = Release - pgSQL|Any CPU
-		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|Any CPU.Build.0 = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|Mixed Platforms.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|x64.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|x64.Build.0 = Release - pgSQL|Any CPU
@@ -1610,7 +1609,6 @@ Global
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|.NET.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|.NET.Build.0 = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|Any CPU.ActiveCfg = Release - pgSQL|Any CPU
-		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|Any CPU.Build.0 = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|Mixed Platforms.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|x64.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|x64.Build.0 = Release - pgSQL|Any CPU
@@ -1656,7 +1654,6 @@ Global
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|.NET.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|.NET.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|Any CPU.ActiveCfg = Debug - SQLite|Any CPU
-		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|Any CPU.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|Mixed Platforms.ActiveCfg = Release - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|x64.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|x64.Build.0 = Debug - SQLite|Any CPU
@@ -1665,7 +1662,6 @@ Global
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|.NET.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|.NET.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|Any CPU.ActiveCfg = Debug - SQLite|Any CPU
-		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|Any CPU.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|Mixed Platforms.ActiveCfg = Release - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|x64.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|x64.Build.0 = Debug - SQLite|Any CPU
@@ -1684,7 +1680,6 @@ Global
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|.NET.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|.NET.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|Any CPU.ActiveCfg = Debug - SQLite|Any CPU
-		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|Any CPU.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|Mixed Platforms.ActiveCfg = Release - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|x64.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|x64.Build.0 = Debug - SQLite|Any CPU

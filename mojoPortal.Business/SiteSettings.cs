@@ -8,7 +8,7 @@
 // Created:				    2004-07-25
 // 
 // 2007-07-17   Alexander Yushchenko added site folders properties (SiteDataFolder, etc)
-// Last Modified:		    2014-01-10
+// Last Modified:		    2019-01-07
 
 using System;
 using System.Configuration;
@@ -2698,6 +2698,14 @@ namespace mojoPortal.Business
 		public static bool HostNameExists(string hostName)
 		{
 			return DBSiteSettings.HostNameExists(hostName);
+		}
+
+		/// <summary>
+		/// Updates the Skin Version for all sites. This is used when Setup has upgraded the core to force browsers to download skin files after upgrades
+		/// </summary>
+		public static void UpdateSkinVersionGuidForAllSites()
+		{
+			DBSiteSettings.UpdateSkinVersionGuidForAllSites();
 		}
 
 		#endregion

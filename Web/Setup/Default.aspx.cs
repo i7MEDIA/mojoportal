@@ -1,6 +1,6 @@
 // Author:					
 // Created:				    2006-09-30
-// Last Modified:		    2017-10-26
+// Last Modified:		    2019-01-07
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
 // which can be found in the file CPL.TXT at the root of this distribution.
@@ -378,7 +378,9 @@ namespace mojoPortal.Web.UI.Pages
                 if (string.Equals(applicationName, "mojoportal-core", StringComparison.InvariantCultureIgnoreCase))
                 {
                     mojoSetup.DoPostScriptTasks(scriptVersion, null);
-                }
+					SiteSettings.UpdateSkinVersionGuidForAllSites();
+					log.Info("Skin Version updated on all sites by Setup.");
+				}
 
                 Version newVersion
                     = DatabaseHelper.ParseVersionFromFileName(scriptFile.Name);
@@ -473,8 +475,6 @@ namespace mojoPortal.Web.UI.Pages
                 return false;
 
             }
-
-            
 
             bool result = RunUpgradeScripts(
                 appID,
