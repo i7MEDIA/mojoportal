@@ -60,6 +60,10 @@
 
 							<div class="collapse navbar-collapse fb-parent fb-row fb-j-end fb-ai-center fb-sm-66" id="site-menu">
 								<portal:SiteMenu id="SiteMenu1" runat="server" MenuSkinId="MainMenu" UseFlexMenu="true" />
+								<%-- Below is an optional cart-link that sits by the menu, but only works if the webstore add-on is installed --%>
+								<%-- <span class="flex-cart-inline">
+									<webstore:FlexCartLink id="cartlink1" runat="server" PageId="4" ModuleId="5" ModuleGuid="f4260a9f-d170-4e4a-a8c8-baf0bcbc22b6" IncludeItemCount="true" IncludeCartTotal="true" LiteralTopMarkup="<span class='topnavitem cartnav'><span class='ui-icon ui-icon-cart'></span>" LiteralBottomMarkup="</span>" CssClass="sitelink" />
+								</span> --%>
 							</div>
 						</div>
 					</nav>
@@ -76,6 +80,8 @@
 
 						<div class="row" id="start-content">
 							<portal:LayoutPanel id="divLeft" runat="server" SkinID="LeftPane">
+								<%-- Below is an optional page menu, uncomment to enable --%>
+								<%-- portal:PageMenu id="PageMenu1" runat="server" UseFlexMenu="true" /> --%>
 								<asp:contentplaceholder id="leftContent" runat="server"></asp:contentplaceholder>
 							</portal:LayoutPanel>
 
