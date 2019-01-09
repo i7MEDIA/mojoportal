@@ -1,6 +1,6 @@
 /// Author:             
 /// Created:            2006-01-20
-/// Last Modified:      2017-09-27
+/// Last Modified:      2019-01-09
 
 using System;
 using System.Globalization;
@@ -20,15 +20,15 @@ namespace mojoPortal.Web
         #region declarations moved here from designer.cs 2012-09-16
         
 
-        protected global::mojoPortal.Web.UI.SiteMenu SiteMenu1;
-        protected global::System.Web.UI.WebControls.Panel divLeft;
-        protected global::mojoPortal.Web.UI.PageMenuControl PageMenu1;
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder leftContent;
-        protected global::System.Web.UI.WebControls.Panel divCenter;
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder mainContent;
-        protected global::System.Web.UI.WebControls.Panel divRight;
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder rightContent;
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder pageEditContent;
+        protected SiteMenu SiteMenu1;
+        protected Panel divLeft;
+        protected PageMenuControl PageMenu1;
+        protected ContentPlaceHolder leftContent;
+        protected Panel divCenter;
+        protected ContentPlaceHolder mainContent;
+        protected Panel divRight;
+        protected ContentPlaceHolder rightContent;
+        protected ContentPlaceHolder pageEditContent;
 
         #endregion
 
@@ -44,13 +44,8 @@ namespace mojoPortal.Web
         protected string SkinBaseUrl = string.Empty;
 
         private bool useArtisteer3 = false;
-
-        
-
         private bool hideEmptyAlt1 = true;
-
         private bool hideEmptyAlt2 = true;
-
         private string leftSideNoRightSideCss = "art-layout-cell art-sidebar1 leftside left2column";
         private string rightSideNoLeftSideCss = "art-layout-cell art-sidebar2 rightside right2column";
         private string leftAndRightNoCenterCss = string.Empty;
