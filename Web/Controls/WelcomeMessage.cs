@@ -8,7 +8,7 @@
 ///
 ///		Author:				
 ///		Created:			2005-03-24
-///		Last Modified:		2010-07-30
+///		Last Modified:		2019-01-09
 /// 
 /// 03/13/2007   Alexander Yushchenko: moved all the control logic to Render() to simplify it.
 /// 2011-02-08 made it possible to customize the welcome message, by default it comes from resource file
@@ -101,16 +101,16 @@ namespace mojoPortal.Web.UI
 
                 if (WrapInProfileLink)
                 {
-                    writer.Write("<a class='" + CssClass + "' href='" + SiteUtils.GetNavigationSiteRoot() + "/Secure/UserProfile.aspx" + "'>" + string.Format(format, HttpUtility.HtmlEncode(siteUser.Name)) + "</a>");
+                    writer.Write("<a class='" + CssClass + "' href='" + SiteUtils.GetNavigationSiteRoot() + "/Secure/UserProfile.aspx" + "'>" + string.Format(format, HttpUtility.HtmlEncode(siteUser.Name), SiteUtils.GetPrivateProfileUrl(), Resource.ProfileLink) + "</a>");
                 }
                 else if (WrapInAnchor)
                 {
-                    writer.Write("<a class='" + CssClass + "' name='welcome'>" + string.Format(format, HttpUtility.HtmlEncode(siteUser.Name)) + "</a>");
+                    writer.Write("<a class='" + CssClass + "' name='welcome'>" + string.Format(format, HttpUtility.HtmlEncode(siteUser.Name), SiteUtils.GetPrivateProfileUrl(), Resource.ProfileLink) + "</a>");
                 }
                 else
                 {
 
-                    writer.Write("<span class='" + CssClass + "'>" + string.Format(format, HttpUtility.HtmlEncode(siteUser.Name)) + "</span>");
+                    writer.Write("<span class='" + CssClass + "'>" + string.Format(format, HttpUtility.HtmlEncode(siteUser.Name), SiteUtils.GetPrivateProfileUrl(), Resource.ProfileLink) + "</span>");
                 }
             }
 
