@@ -1470,6 +1470,16 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("AllowUserProfilePage", true); }
 		}
 
+		public static string PrivateProfileRelativeUrl
+		{
+			get { return ConfigHelper.GetStringProperty("PrivateProfileRelativeUrl", "/Secure/UserProfile.aspx"); }
+
+		}
+		public static string PublicProfileRelativeUrl
+		{
+			get { return ConfigHelper.GetStringProperty("PublicProfileRelativeUrl", "/ProfileView.aspx"); }
+
+		}
 		public static bool AllowPasswordFormatChange
 		{
 			get { return ConfigHelper.GetBoolProperty("AllowPasswordFormatChange", true); }

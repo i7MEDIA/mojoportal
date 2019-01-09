@@ -3480,6 +3480,23 @@ namespace mojoPortal.Web
 		//    return markup;
 
 		//}
+		public static string GetPrivateProfileUrl()
+		{
+			return WebConfigSettings.PrivateProfileRelativeUrl;
+		}
+
+		public static string GetPublicProfileUrl(int userId)
+		{
+			var url = WebConfigSettings.PublicProfileRelativeUrl;
+			if (url.Contains("?"))
+			{
+				return $"{url}&userid={userId.ToInvariantString()}";
+			}
+			else
+			{
+				return $"{url}?userid={userId.ToInvariantString()}";
+			}
+		}
 
 		public static string GetProfileLink(object objUserId, object userName)
 		{
