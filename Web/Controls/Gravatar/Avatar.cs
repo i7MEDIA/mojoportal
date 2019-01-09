@@ -135,7 +135,13 @@ namespace mojoPortal.Web.UI
 
 		public string ExtraCssClass { get; set; } = string.Empty;
 
+		public bool LinkToPublicProfile { get; set; } = false;
 
+		public bool LinkToPrivateProfile { get; set; } = false;
+
+		public bool LinkToGravatar { get; set; } = true;
+
+		public bool LinkToCustom { get; set; } = false;
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
@@ -257,15 +263,28 @@ namespace mojoPortal.Web.UI
 				return "<img  alt='" + LinkTitle + "' src='" + GetInternalAvatarUrl() + "' class='" + CssClass + "' />";
 			}
 
-			return "<a rel='nofollow' href='" + GetProfileUrl() + "' class='" + CssClass + "'><img  alt='" + GetAltText() + "' src='" + GetInternalAvatarUrl() + "' /></a>";
+			return "<a rel='nofollow' href='" + GetLinkUrl() + "' class='" + CssClass + "'><img  alt='" + GetAltText() + "' src='" + GetInternalAvatarUrl() + "' /></a>";
 		}
 
-
-		private string GetProfileUrl()
+		/*
+		 * 1/9/2019 - Added LinkTo... options in hopes to make this control a bit friendlier to skin developers
+		 * while maintaing backwards compatibility. 
+		 * The overall goal is to be able to link to a user's public or private profile from the skin, even if gravatar is used
+		 * and have those links when mojo is installed in a virtual directory or the site is a folder-based tenant.
+		 * 
+		 */
+		private string GetLinkUrl()
 		{
-			if (UserId > -1)
+			if (!LinkToGravatar && !LinkToCustom && UserId > -1)
 			{
-				return SiteRoot + "/ProfileView.aspx?userid=" + UserId.ToInvariantString();
+				if (LinkToPrivateProfile)
+				{
+					return SiteUtils.GetPrivateProfileUrl();
+				}
+				else if (LinkToPublicProfile)
+				{
+					return SiteUtils.GetPublicProfileUrl(UserId);
+				}
 			}
 
 			return LinkUrl;
@@ -299,10 +318,10 @@ namespace mojoPortal.Web.UI
 			// output the default attributes:
 			AddAttributesToRender(output);
 
-			if (UseLink)
-			{
-				LinkUrl = GetProfileUrl();
-			}
+			//if (UseLink)
+			//{
+			//	LinkUrl = GetLinkUrl();
+			//}
 
 			// if the size property has been specified, ensure it is a short, and in the range 
 			// 1..512:
@@ -358,7 +377,7 @@ namespace mojoPortal.Web.UI
 			// if we need to output the site link:
 			if (OutputGravatarSiteLink)
 			{
-				output.AddAttribute(HtmlTextWriterAttribute.Href, LinkUrl);
+				output.AddAttribute(HtmlTextWriterAttribute.Href, GetLinkUrl());
 				output.AddAttribute(HtmlTextWriterAttribute.Title, LinkTitle);
 
 				if (CssClass.Length > 0)
