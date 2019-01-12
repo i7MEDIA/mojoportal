@@ -378,8 +378,11 @@ namespace mojoPortal.Web.UI.Pages
                 if (string.Equals(applicationName, "mojoportal-core", StringComparison.InvariantCultureIgnoreCase))
                 {
                     mojoSetup.DoPostScriptTasks(scriptVersion, null);
-					SiteSettings.UpdateSkinVersionGuidForAllSites();
-					log.Info("Skin Version updated on all sites by Setup.");
+					if (scriptVersion >= Version.Parse("2.7.0.3"))
+					{
+						SiteSettings.UpdateSkinVersionGuidForAllSites();
+						log.Info("Skin Version updated on all sites by Setup.");
+					}
 				}
 
                 Version newVersion
