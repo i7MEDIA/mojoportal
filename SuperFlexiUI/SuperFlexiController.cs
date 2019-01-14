@@ -16,38 +16,19 @@ namespace SuperFlexiUI
 
 	public class RequestObject
 	{
-		private int pageId = -1;
-		public int PageId { get => pageId; set => pageId = value; }
-
-		private int moduleId = -1;
-		public int ModuleId { get => moduleId; set => moduleId = value; }
-
-		private int pageNumber = 1;
-		public int PageNumber { get => pageNumber; set => pageNumber = value; }
-
-		private int pageSize = 10;
-		public int PageSize { get => pageSize; set => pageSize = value; }
-
-		private int itemId = -1;
-		public int ItemId { get => itemId; set => itemId = value; }
-
-		private bool sortDescending = false;
-		public bool SortDescending { get => sortDescending; set => sortDescending = value; }
-
-		private string sortField = string.Empty;
-		public string SortField { get => sortField; set => sortField = value; }
-
-		private string searchField = string.Empty;
-		public string SearchField { get => searchField; set => searchField = value; }
-
-		private string searchTerm = string.Empty;
-		public string SearchTerm { get => searchTerm; set => searchTerm = value; }
-
-		private IDictionary<string,string> searchObject;
-		public IDictionary<string,string> SearchObject { get => searchObject; set => searchObject = value; }
-
-		private string field = string.Empty;
-		public string Field { get => field; set => field = value; }
+		public int PageId { get; set; } = -1;
+		public int ModuleId { get; set; } = -1;
+		public int PageNumber { get; set; } = 1;
+		public int PageSize { get; set; } = 10;
+		public int ItemId { get; set; } = -1;
+		public bool SortDescending { get; set; } = false;
+		public string SortField { get; set; } = string.Empty;
+		public string SearchField { get; set; } = string.Empty;
+		public string SearchTerm { get; set; } = string.Empty;
+		public IDictionary<string, string> SearchObject { get; set; }
+		public string Field { get; set; } = string.Empty;
+		//public Guid SolutionGuid { get; set; } = Guid.Empty;
+		public bool GetAllForSolution { get; set; } = false;
 	}
 
 	public class ReturnObject
@@ -122,27 +103,29 @@ namespace SuperFlexiUI
 					{
 						foreach (var setA in set.Value.SplitOnCharAndTrim(';'))
 						{
-							items.AddRange(Item.GetPageOfModuleItems(
+							items.AddRange(GetItems(
 								module.ModuleGuid,
 								1,
 								99999,
 								out totalPages,
 								out totalRows,
 								setA,
-								set.Key
+								set.Key,
+								r.GetAllForSolution
 							));
 						}
 					}
 					else
 					{
-						items.AddRange(Item.GetPageOfModuleItems(
+						items.AddRange(GetItems(
 							module.ModuleGuid,
 							1,
 							99999,
 							out totalPages,
 							out totalRows,
 							set.Value,
-							set.Key
+							set.Key,
+							r.GetAllForSolution
 						));
 					}
 					//we have to figure out paging with this
@@ -152,15 +135,16 @@ namespace SuperFlexiUI
 			}
 			else
 			{
-				items = Item.GetPageOfModuleItems(
-				module.ModuleGuid,
-				r.PageNumber,
-				r.PageSize,
-				out totalPages,
-				out totalRows,
-				r.SearchTerm,
-				r.SearchField,
-				r.SortDescending);
+				items.AddRange(GetItems(
+					module.ModuleGuid,
+					r.PageNumber,
+					r.PageSize,
+					out totalPages,
+					out totalRows,
+					r.SearchTerm,
+					r.SearchField,
+					r.GetAllForSolution,
+					r.SortDescending));
 			}
 			
 			List<PopulatedItem> popItems = new List<PopulatedItem>();
@@ -177,9 +161,17 @@ namespace SuperFlexiUI
 				List<Field> fields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
 				var itemGuids = items.Select(x => x.ItemGuid).ToList();
 				List<ItemFieldValue> values = ItemFieldValue.GetByItemGuids(itemGuids);
-
-				foreach (Item item in items)
+				Module itemModule = null;
+				Guid currentModuleGuid = Guid.Empty;
+				foreach (Item item in items.OrderBy(x => x.ModuleID).ToList())
 				{
+					if (item.ModuleGuid != currentModuleGuid)
+					{
+						currentModuleGuid = item.ModuleGuid;
+						itemModule = new Module(item.ModuleGuid);
+					}
+					if (itemModule == null) continue;
+					if (!WebUser.IsInRoles(itemModule.ViewRoles)) continue;
 					var populatedItem = new PopulatedItem(item, fields, values.Where(v => v.ItemGuid == item.ItemGuid).ToList(), canEdit);
 					if (populatedItem != null)
 					{
@@ -231,8 +223,8 @@ namespace SuperFlexiUI
 				CmsModuleId = module.ModuleId,
 				CmsPageId = module.PageId
 			};
-
 		}
+
 
 		[HttpPost]
 		public ReturnObject GetFieldValues(RequestObject r)
@@ -308,26 +300,65 @@ namespace SuperFlexiUI
 			};
 		}
 		// GET api/<controller>/5
-		public string Get(int id)
-		{
-			return "value";
-		}
+		//public string Get(int id)
+		//{
+		//	return "value";
+		//}
 
 		// POST api/<controller>
-		public void Post([FromBody]RequestObject dataRequest)
+		//public void Post([FromBody]RequestObject dataRequest)
+		//{
+
+		//	var foo = string.Empty;
+		//}
+
+		//// PUT api/<controller>/5
+		//public void Put(int id, [FromBody]string value)
+		//{
+		//}
+
+		//// DELETE api/<controller>/5
+		//public void Delete(int id)
+		//{
+		//}
+
+		private List<Item> GetItems(
+			Guid moduleGuid,
+			int pageNumber,
+			int pageSize,
+			out int totalPages,
+			out int totalRows,
+			string searchTerm = "",
+			string searchField = "",
+			bool byDefinition = false,
+			bool descending = false)
 		{
 
-			var foo = string.Empty;
-		}
+			if (byDefinition)
+			{
+				return Item.GetPageForDefinition(
+					config.FieldDefinitionGuid,
+					1,
+					99999,
+					out totalPages,
+					out totalRows,
+					searchTerm,
+					searchField
+				);
 
-		// PUT api/<controller>/5
-		public void Put(int id, [FromBody]string value)
-		{
-		}
-
-		// DELETE api/<controller>/5
-		public void Delete(int id)
-		{
+			}
+			else
+			{
+				return Item.GetPageOfModuleItems(
+					moduleGuid,
+					1,
+					99999,
+					out totalPages,
+					out totalRows,
+					searchTerm,
+					searchField
+				);
+			}
 		}
 
 		private bool ShouldAllowEdit()

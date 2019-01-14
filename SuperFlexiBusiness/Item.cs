@@ -490,6 +490,58 @@ namespace SuperFlexiBusiness
 		}
 
 		/// <summary>
+		/// Gets a list of Items within a "page" for a Definition
+		/// </summary>
+		/// <param name="moduleId"></param>
+		/// <param name="pageNumber"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="totalPages"></param>
+		/// <param name="searchTerm"></param>
+		/// <param name="searchField"></param>
+		/// <param name="descending"></param>
+		/// <returns></returns>
+		public static List<Item> GetPageForDefinition(
+			Guid defGuid,
+			int pageNumber,
+			int pageSize,
+			out int totalPages,
+			out int totalRows,
+			string searchTerm = "",
+			string searchField = "",
+			bool descending = false)
+		{
+			totalPages = 1;
+
+			IDataReader reader = DBItems.GetPageForDefinition(defGuid, pageNumber, pageSize, searchTerm, searchField, descending);
+
+			var items = LoadListFromReader(reader, true);
+
+			totalRows = _totalRows;
+
+			if (pageSize > 0)
+			{
+				totalPages = totalRows / pageSize;
+			}
+			if (totalRows <= pageSize)
+			{
+				totalPages = 1;
+			}
+			else
+			{
+				int remainder;
+				Math.DivRem(totalRows, pageSize, out remainder);
+				if (remainder > 0)
+				{
+					totalPages += 1;
+				}
+			}
+
+			return items;
+		}
+
+
+
+		/// <summary>
 		/// Gets an IList with all items for a single definition
 		/// </summary>
 		/// <param name="fieldDefinitionGuid"></param>

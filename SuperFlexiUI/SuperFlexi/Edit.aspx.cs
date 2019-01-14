@@ -23,8 +23,6 @@ using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
 using SuperFlexiBusiness;
-using System.Dynamic;
-using Resources;
 
 namespace SuperFlexiUI
 {

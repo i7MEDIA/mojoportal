@@ -276,7 +276,61 @@ namespace SuperFlexiData
 			}
 			return sph.ExecuteReader();
 		}
+		/// <summary>
+		/// Gets and IDataReader for a page of items for a definition
+		/// </summary>
+		/// <param name="definitionGuid"></param>
+		/// <param name="pageNumber"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="totalPages"></param>
+		/// <param name="searchTerm"></param>
+		/// <param name="searchField"></param>
+		/// <param name="sortField"></param>
+		/// <param name="descending"></param>
+		/// <returns></returns>
+		public static IDataReader GetPageForDefinition(
+			Guid defGuid,
+			int pageNumber,
+			int pageSize,
+			string searchTerm = "",
+			string searchField = "",
+			//string sortField = "",
+			bool descending = false)
+		{
+			SqlParameterHelper sph = null;
 
+			if (String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+			{
+				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinitionWithTerm", 5);
+				sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
+				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
+				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
+				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, descending ? "desc" : "asc");
+			}
+			else if (!String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+			{
+				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinitionWithTermAndField", 6);
+				sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
+				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
+				sph.DefineSqlParameter("@SearchField", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchField);
+				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
+				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, descending ? "desc" : "asc");
+			}
+			else
+			{
+				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinition", 4);
+				sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
+				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
+				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, descending ? "desc" : "asc");
+			}
+			return sph.ExecuteReader();
+		}
 		/// <summary>
 		/// Gets an IDataReader with all items for a single definition.
 		/// </summary>
