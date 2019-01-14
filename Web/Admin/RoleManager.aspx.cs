@@ -88,7 +88,7 @@ namespace mojoPortal.Web.AdminUI
 
         private void BindRoleList()
         {
-            Collection<Role> siteRoles = Role.GetbySite(siteSettings.SiteId);
+            Collection<Role> siteRoles = Role.GetBySite(siteSettings.SiteId);
             if (!WebUser.IsAdmin)
             {
                 // must be only Role Admin

@@ -180,6 +180,12 @@
 									<asp:CheckBox ID="chkHideMainMenu" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink16" runat="server" HelpKey="pagesettingshidemenuhelp" />
 								</div>
+<%--								<div id="div1" runat="server" class="settingrow">
+									<mp:SiteLabel ID="Sitelabel35" runat="server" ForControl="chkHideMainMenu" CssClass="settinglabel"
+										ConfigKey="PageLayoutHideMenuLabel"></mp:SiteLabel>
+									<asp:CheckBox ID="CheckBox1" runat="server" CssClass="forminput"></asp:CheckBox>
+									<portal:mojoHelpLink ID="MojoHelpLink6" runat="server" HelpKey="pagesettingshidemenuhelp" />
+								</div>--%>
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel13" runat="server" ForControl="chkHideAfterLogin" CssClass="settinglabel"
 										ConfigKey="PageSettingstHideAfterLoginLabel"></mp:SiteLabel>

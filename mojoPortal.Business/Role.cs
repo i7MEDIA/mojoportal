@@ -276,7 +276,7 @@ namespace mojoPortal.Business
         //    return GetbySite(siteId, enforceRelatedSitesMode);
         //}
 
-        public static Collection<Role> GetbySite(int siteId)
+        public static Collection<Role> GetBySite(int siteId)
         {
             if (UseRelatedSiteMode) { siteId = RelatedSiteID; }
 

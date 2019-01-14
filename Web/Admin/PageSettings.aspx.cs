@@ -495,6 +495,7 @@ namespace mojoPortal.Web.AdminUI
 			if (siteSettings.AllowHideMenuOnPages)
 			{
 				chkHideMainMenu.Checked = pageSettings.HideMainMenu;
+				//chkHidePageMenu.Checked = pageSettings.HidePageMenu;
 
 			}
 			else

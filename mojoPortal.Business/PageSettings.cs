@@ -50,6 +50,7 @@ namespace mojoPortal.Business
         }
 
 		#endregion
+
 		#region Properties
 		//http://www.w3schools.com/TAGS/att_a_rel.asp
 		public string LinkRel { get; set; } = string.Empty;
@@ -134,6 +135,9 @@ namespace mojoPortal.Business
 
 		public bool HideMainMenu { get; set; } = false;
 
+		public bool HidePageMenu { get; set; } = true;
+
+
 		public bool HideAfterLogin { get; set; } = false;
 
 		public bool EnableComments { get; set; } = false;
@@ -147,7 +151,7 @@ namespace mojoPortal.Business
 		public bool OpenInNewWindow { get; set; } = false;
 
 		public bool ShowChildPageMenu { get; set; } = false;
-		
+
 		public string PageMetaKeyWords { get; set; } = string.Empty;
 
 		public string PageMetaDescription { get; set; } = string.Empty;
