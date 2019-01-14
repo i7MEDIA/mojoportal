@@ -183,7 +183,7 @@ namespace SuperFlexiUI
 								var value = populatedItem.Values[searchItem.Key];
 								List<string> itemValArray = value as List<string>;
 								List<string> searchItemValArray = searchItem.Value.SplitOnCharAndTrim(';');
-								log.Info($"[{searchItem.Key}]={searchItem.Value}");
+								//log.Info($"[{searchItem.Key}]={searchItem.Value}");
 
 								/*  Check if itemValArray == null because if it is, that means the value is just a plain value, not a List<string>.
 								 *  If we try to do a comparison on value.ToString() when value is a List<string>, .ToString() returns System.Collections.Generic...

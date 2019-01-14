@@ -61,6 +61,10 @@ namespace SuperFlexiUI
 					{
 						Values.Add(field.Name, thisValue.FieldValue.SplitOnCharAndTrim(';'));
 					}
+					else if (field.ControlType == "CheckBox" && field.CheckBoxReturnBool == true)
+					{
+						Values.Add(field.Name, Convert.ToBoolean(thisValue.FieldValue));
+					}
 					else
 					{
 						Values.Add(field.Name, thisValue.FieldValue);

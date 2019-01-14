@@ -537,10 +537,19 @@ public ModuleConfiguration()
         public string JsonRenderLocation { get { return jsonRenderLocation; } }
 
 
-        public bool RenderJSONOfData { get { return !String.IsNullOrWhiteSpace(jsonRenderLocation); } }
+		public bool RenderJSONOfData
+		{
+			get
+			{
+				if (processItems && !String.IsNullOrWhiteSpace(jsonRenderLocation))
+					return true;
+
+				return false;
+			}
+		}
 
 
-        private bool jsonLabelObjects = false;
+		private bool jsonLabelObjects = false;
         public bool JsonLabelObjects { get { return jsonLabelObjects; } }
         //private bool renderModuleLinksWithModuleTitle = true;
         //public bool RenderModuleLinksWithModuleTitle { get { return renderModuleLinksWithModuleTitle; } }
