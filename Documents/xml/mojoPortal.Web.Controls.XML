@@ -1901,25 +1901,6 @@
             not sure what the defsault is
             </summary>
         </member>
-        <member name="T:mojoPortal.Web.Controls.SiteLabel">
-            <summary>
-            Author:				    
-            Created:			    2006-12-13
-            Last Modified:		    2008-08-15
-            
-            02/12/2007  Alexander Yushchenko: refactoring to simplify control logic.
-            2007/04/16 JA fixed bugs introduced in refactoring, 
-            was not resolving booleans correctly with tryparse
-            and once that was fixed was showing config key instead of text 
-            when UseLabelTag = false
-            
-            This control is really just designed for use in mojoPortal
-            and external projects that plug into mojoPortal.
-            
-            2007-11-26  - change to render directly to output without unneccesary string creation
-            2008-08-15  removed use of viewstate
-            </summary>
-        </member>
         <member name="T:mojoPortal.Web.Controls.SmartCombo">
             <summary>
             Author:				
