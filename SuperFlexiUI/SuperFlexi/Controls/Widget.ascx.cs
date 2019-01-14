@@ -401,10 +401,17 @@ namespace SuperFlexiUI
                                 //}
                                 //else
                                 //{
-                                    jsonWriter.WriteValue(fieldValue.FieldValue);
-                                //}
-                                
-                            }
+								if (field.ControlType == "CheckBox" && field.CheckBoxReturnBool == true)
+								{
+                                    jsonWriter.WriteValue(Convert.ToBoolean(fieldValue.FieldValue));
+								}
+								else
+								{
+									jsonWriter.WriteValue(fieldValue.FieldValue);
+								}
+								//}
+
+							}
                         }
                     }
 
