@@ -399,6 +399,82 @@ namespace SuperFlexiData
 				sqlParams.ToArray());
 		}
 
+		public static IDataReader GetPageForDefinition(
+			Guid defGuid,
+			int pageNumber,
+			int pageSize,
+			string searchTerm = "",
+			string searchField = "",
+			//string sortField = "",
+			bool descending = false)
+		{
+						StringBuilder sqlCommand = new StringBuilder();
+
+			if (String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+			{
+				sqlCommand.Append(@"select row_number() over (order by sortorder) as rowid
+					, count(*) over() as totalrows
+					, i.*
+					from i7_sflexi_items i
+						join(
+							select distinct itemguid
+							from i7_sflexi_values
+							where fieldvalue like '%:searchterm%'
+							) v on v.itemguid = i.itemguid
+						where definitionguid = ':defguid'
+						order by sortorder :sortdirection
+						limit :pagesize " + (pageNumber > 1 ? "offset :offsetrows;" : ";"));
+			}
+			else if (!String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+			{
+				sqlCommand.Append(@"select row_number() over (order by sortorder) as rowid
+					, count(*) over() as totalrows
+					, i.*
+					from i7_sflexi_items i
+						join(
+							select distinct itemguid, fieldguid
+							from i7_sflexi_values
+							where fieldvalue like '%:searchterm%'
+							) v on v.itemguid = i.itemguid
+						join(
+							select distinct fieldguid
+							from i7_sflexi_fields
+							where name = :searchfield
+							) f on f.fieldguid = v.fieldguid
+						where definitionguid = ':defguid'
+						order by sortorder :sortdirection
+						limit :pagesize " + (pageNumber > 1 ? "offset :offsetrows;" : ";"));
+			}
+			else
+			{
+				sqlCommand.Append(@"select row_number() over (order by sortorder) as rowid
+					, count(*) over() as totalrows
+					, i.*
+					from i7_sflexi_items i
+					where definitionguid = ':defguid' 
+					order by sortorder :sortdirection
+					limit :pagesize " + (pageNumber > 1 ? "offset :offsetrows;" : ";"));
+			}
+
+			int offsetRows = (pageSize * pageNumber) - pageSize;
+
+			var sqlParams = new List<NpgsqlParameter>
+			{
+				new NpgsqlParameter(":pagesize", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = pageSize },
+				new NpgsqlParameter(":offsetrows", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = offsetRows },
+				new NpgsqlParameter(":searchterm", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = searchTerm },
+				new NpgsqlParameter(":searchfield", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = searchField },
+				new NpgsqlParameter(":defguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = defGuid },
+				new NpgsqlParameter(":sortdirection", NpgsqlDbType.Varchar, 4) { Direction = ParameterDirection.Input, Value = descending ? "desc" : "asc" }
+			};
+
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+                CommandType.Text,
+				sqlCommand.ToString(),
+				sqlParams.ToArray());
+		}
+
 			/// <summary>
 			/// Gets an IDataReader with all items for a single definition.
 			/// </summary>

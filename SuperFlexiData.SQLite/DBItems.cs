@@ -1,5 +1,5 @@
 ﻿// Created:					2018-01-02
-// Last Modified:   2018-01-03
+// Last Modified:			2019-01-15
 
 using mojoPortal.Data;
 using Mono.Data.Sqlite;
@@ -390,11 +390,87 @@ namespace SuperFlexiData
 				sqlParams.ToArray());
 		}
 
-			/// <summary>
-			/// Gets an IDataReader with all items for a single definition.
-			/// </summary>
-			/// <param name="itemID"> itemID </param>
-			public static IDataReader GetAllForDefinition(Guid definitionGuid)
+		public static IDataReader GetPageForDefinition(
+			Guid defGuid,
+			int pageNumber,
+			int pageSize,
+			string searchTerm = "",
+			string searchField = "",
+			//string sortField = "",
+			bool descending = false)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+
+			if (String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+			{
+				sqlCommand.Append(@"select row_number() over (order by SortOrder) as rowid
+					, count(*) over() as totalrows
+					, i.*
+					from i7_sflexi_items i
+						join(
+							select distinct ItemGuid
+							from i7_sflexi_values
+							where FieldValue like '%:SearchTerm%'
+							) v on v.ItemGuid = i.ItemGuid
+						where DefinitionGuid = ':DefinitionGuid' 
+						order by SortOrder :SortDirection
+						limit :PageSize " + (pageNumber > 1 ? "offset :OffsetRows;" : ";"));
+			}
+			else if (!String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+			{
+				sqlCommand.Append(@"select row_number() over (order by SortOrder) as rowid
+					, count(*) over() as totalrows
+					, i.*
+					from i7_sflexi_items i
+						join(
+							select distinct ItemGuid, FieldGuid
+							from i7_sflexi_values
+							where FieldValue like '%:SearchTerm%'
+							) v on v.ItemGuid = i.ItemGuid
+						join(
+							select distinct FieldGuid
+							from i7_sflexi_fields
+							where name = :SearchField
+							) f on f.FieldGuid = v.FieldGuid
+						where DefinitionGuid = :DefinitionGuid
+						order by SortOrder :SortDirection
+						limit :PageSize " + (pageNumber > 1 ? "offset :OffsetRows;" : ";"));
+			}
+			else
+			{
+				sqlCommand.Append(@"select row_number() over (order by SortOrder) as rowid
+					, count(*) over() as totalrows
+					, i.*
+					from i7_sflexi_items i
+					where DefinitionGuid = ':DefinitionGuid' 
+					order by SortOrder :SortDirection
+					limit :PageSize " + (pageNumber > 1 ? "offset :OffsetRows;" : ";"));
+			}
+
+			int offsetRows = (pageSize * pageNumber) - pageSize;
+
+			var sqlParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":PageSize", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
+				new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
+				new SqliteParameter(":SearchTerm", DbType.String, 255) { Direction = ParameterDirection.Input, Value = searchTerm },
+				new SqliteParameter(":SearchField", DbType.String, 50) { Direction = ParameterDirection.Input, Value = searchField },
+				new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = defGuid.ToString() },
+				new SqliteParameter(":SortDirection", DbType.String, 4) { Direction = ParameterDirection.Input, Value = descending ? "desc" : "asc" }
+			};
+
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand.ToString(),
+				sqlParams.ToArray());
+		}
+
+
+		/// <summary>
+		/// Gets an IDataReader with all items for a single definition.
+		/// </summary>
+		/// <param name="itemID"> itemID </param>
+		public static IDataReader GetAllForDefinition(Guid definitionGuid)
         {
             string sqlCommand = @"select 
                 SiteGuid, 
