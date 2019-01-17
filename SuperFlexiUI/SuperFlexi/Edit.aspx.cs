@@ -18,6 +18,7 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.SearchIndex;
 using mojoPortal.Web;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Controls;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
@@ -262,10 +263,12 @@ namespace SuperFlexiUI
 				case "TextBox":
 				case "":
 				default:
-					TextBox textBox = new TextBox();
-					textBox.TabIndex = 10;
-					textBox.ID = field.Name;
-					textBox.CssClass = field.EditPageControlCssClass;
+					TextBox textBox = new TextBox
+					{
+						TabIndex = 10,
+						ID = field.Name,
+						CssClass = field.EditPageControlCssClass
+					};
 					label.ForControl = textBox.ID;
 					
 					switch (field.TextBoxMode)
@@ -369,18 +372,19 @@ namespace SuperFlexiUI
 						if (regexValidator != null) panel.Controls.Add(regexValidator);
 					}
 
-
-
 					break;
 
                 case "LinkPicker":
-                    TextBox linkPicker = new TextBox();
-                    linkPicker.TabIndex = 10;
-                    linkPicker.ID = field.Name;
-                    linkPicker.CssClass = field.EditPageControlCssClass;
-                    linkPicker.SetOrAppendCss("url-browser__browser-input");
+					TextBox linkPicker = new TextBox
+					{
+						TabIndex = 10,
+						ID = field.Name,
+						CssClass = field.EditPageControlCssClass
+					};
+					linkPicker.SetOrAppendCss("advanced-file-picker__output");
                     label.ForControl = linkPicker.ID;
-                    try
+
+					try
                     {
                         linkPicker.SkinID = field.DefinitionName.Replace(" ", string.Empty);
                     }
@@ -404,11 +408,11 @@ namespace SuperFlexiUI
                         }
                         else
                         {
-                            linkPicker.Attributes.Add(key, (string)attribs[key]);
+                            linkPicker.Attributes.Add(key, attribs[key]);
                         }
 
                     }
-                    linkPicker.Attributes.Add("data-filetype", "file");
+
                     linkPicker.TextMode = TextBoxMode.Url;
                     panel.Controls.Add(linkPicker);
 
@@ -430,13 +434,16 @@ namespace SuperFlexiUI
                     break;
                 case "ImagePicker":
 
-                    TextBox imagePicker = new TextBox();
-                    imagePicker.TabIndex = 10;
-                    imagePicker.ID = field.Name;
-                    imagePicker.CssClass = field.EditPageControlCssClass;
-                    imagePicker.SetOrAppendCss("url-browser__browser-input");
+					TextBox imagePicker = new TextBox
+					{
+						TabIndex = 10,
+						ID = field.Name,
+						CssClass = field.EditPageControlCssClass
+					};
+					imagePicker.SetOrAppendCss("advanced-file-picker__output");
                     label.ForControl = imagePicker.ID;
-                    try
+
+					try
                     {
                         imagePicker.SkinID = field.DefinitionName.Replace(" ", string.Empty);
                     }
@@ -464,7 +471,7 @@ namespace SuperFlexiUI
                         }
 
                     }
-                    imagePicker.Attributes.Add("data-filetype", "image");
+
                     imagePicker.TextMode = TextBoxMode.Url;
                     panel.Controls.Add(imagePicker);
 
@@ -1054,49 +1061,50 @@ namespace SuperFlexiUI
 
         private void AddUrlBrowserSupport(Panel panel, Field field, bool isImage = false)
         {
-            //create script reference
-            MarkupScript urlBrowserScript = new MarkupScript();
-            urlBrowserScript.Url = "~/SuperFlexi/js/urlbrowserinput.js";
-            urlBrowserScript.ScriptName = "urlbrowserscript";
-            urlBrowserScript.Position = "bottomStartup";
-            //create css reference
-            MarkupCss urlBrowserCss = new MarkupCss();
-            urlBrowserCss.Url = "~/SuperFlexi/css/urlbrowserinput.css";
-            urlBrowserCss.RenderAboveSSC = true;
-            urlBrowserCss.Name = "urlbrowsercss";
-            //add script and css references to page scripts/css
-            config.EditPageScripts.Add(urlBrowserScript);
+			//create script reference
+			MarkupScript urlBrowserScript = new MarkupScript
+			{
+				Url = "~/SuperFlexi/js/urlbrowserinput.js",
+				ScriptName = "urlbrowserscript",
+				Position = "bottomStartup"
+			};
+			
+			//create css reference
+			MarkupCss urlBrowserCss = new MarkupCss
+			{
+				Url = "~/SuperFlexi/css/urlbrowserinput.css",
+				RenderAboveSSC = true,
+				Name = "urlbrowsercss"
+			};
+
+			//add script and css references to page scripts/css
+			config.EditPageScripts.Add(urlBrowserScript);
             config.EditPageCSS.Add(urlBrowserCss);
 
-			//create link picker button
-			string buttonText = isImage ? Resources.SuperFlexiResources.BrowseFeaturedImage : Resources.SuperFlexiResources.Browse;
-
-			Literal linkPickerButton = new Literal();
-			linkPickerButton.Text = $"<button id=\"{field.Name}button\" class=\"btn btn-link\" onclick=\"openUrlBrowser(this)\" type=\"button\">{buttonText}</button>";
-            panel.Controls.Add(linkPickerButton);
-
-			if (isImage)
+			// Create model for razor templating
+			AdvancedFilePicker pickerModel = new AdvancedFilePicker
 			{
-				string imagePreviewUrl = string.Empty;
-				if (string.IsNullOrWhiteSpace(field.ImageBrowserEmptyUrl))
-				{
-					imagePreviewUrl = SuperFlexiHelpers.GetPathToFile(config, "~/Data/SiteImages/1x1.gif");
-				}
-				else
-				{ 
-					imagePreviewUrl = SuperFlexiHelpers.GetPathToFile(config, field.ImageBrowserEmptyUrl);
-				}
+				PickerType = isImage ? "image" : "file",
+				FileText = SuperFlexiResources.Browse,
+				ImageText = SuperFlexiResources.BrowseFeaturedImage
+			};
 
-				Literal imagePreview = new Literal();
-				imagePreview.Text = $"<img src=\"{imagePreviewUrl}\" class=\"url-browser__image-preview\"/>";
-                panel.Controls.Add(imagePreview);
-            }
+			// Render razor template to string
+			Literal linkPickerAdvanced = new Literal
+			{
+				Text = RazorBridge.RenderPartialToString("_AdvancedFilePicker", pickerModel, "SuperFlexi")
+			};
+
+			panel.Controls.Add(linkPickerAdvanced);
 
             if (!urlBrowserHtmlAdded)
             {
-                Literal linkPickerModal = new Literal();
-                linkPickerModal.Text = SuperFlexiHelpers.GetHelpText("~/SuperFlexi/html/urlbrowsermodal.html", config);
-                pnlEdit.Controls.Add(linkPickerModal);
+				Literal linkPickerModal = new Literal
+				{
+					Text = SuperFlexiHelpers.GetHelpText("~/SuperFlexi/html/urlbrowsermodal.html", config)
+				};
+
+				pnlEdit.Controls.Add(linkPickerModal);
                 urlBrowserHtmlAdded = true;
             }
         }
@@ -1702,5 +1710,12 @@ namespace SuperFlexiUI
             }
 
 		}
+	}
+
+	public class AdvancedFilePicker
+	{
+		public string PickerType { get; set; }
+		public string FileText { get; set; }
+		public string ImageText { get; set; }
 	}
 }
