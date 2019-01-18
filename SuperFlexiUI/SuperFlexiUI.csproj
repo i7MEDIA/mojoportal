@@ -170,7 +170,6 @@
     <Content Include="SuperFlexi\Edit.aspx" />
     <Content Include="SuperFlexi\EditHeader.aspx" />
     <Content Include="SuperFlexi\Export.aspx" />
-    <Content Include="SuperFlexi\html\urlbrowsermodal.html" />
     <Content Include="SuperFlexi\Import.aspx" />
     <Content Include="SuperFlexi\js\advanced-file-picker.js" />
     <Content Include="SuperFlexi\Module.ascx" />
