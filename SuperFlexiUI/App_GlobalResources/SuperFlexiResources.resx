@@ -270,4 +270,16 @@
   <data name="ImportDeleteExistingRecordsLabel" xml:space="preserve">
     <value>Delete Existing Records?</value>
   </data>
+  <data name="AFPClearButtonText" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="AFPFilePlaceholder" xml:space="preserve">
+    <value>File URL</value>
+  </data>
+  <data name="AFPImagePlaceholder" xml:space="preserve">
+    <value>Image URL</value>
+  </data>
+  <data name="AFPSetButtonText" xml:space="preserve">
+    <value>Set</value>
+  </data>
 </root>

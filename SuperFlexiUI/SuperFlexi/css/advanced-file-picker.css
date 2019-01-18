@@ -260,12 +260,12 @@
 	outline: 0 none;
 }
 
-.advanced-file-picker__tools-btn--cancel {
+.advanced-file-picker__tools-btn--clear {
 	color: red;
 	margin-left: 1.5px;
 }
 
-.advanced-file-picker__tools-btn--ok {
+.advanced-file-picker__tools-btn--set {
 	color: green;
 	margin-right: 1.5px;
 } 

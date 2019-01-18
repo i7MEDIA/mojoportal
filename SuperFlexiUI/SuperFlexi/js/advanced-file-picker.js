@@ -85,8 +85,8 @@ var filePicker = {
 		const showToolsBtn = picker.querySelector('.advanced-file-picker__show-tools-btn');
 		const tools = picker.querySelector('.advanced-file-picker__tools');
 		const toolsInput = tools.querySelector('.advanced-file-picker__tools-input');
-		const okToolsBtn = tools.querySelector('.advanced-file-picker__tools-btn--ok');
-		const clearToolsBtn = tools.querySelector('.advanced-file-picker__tools-btn--cancel');
+		const okToolsBtn = tools.querySelector('.advanced-file-picker__tools-btn--set');
+		const clearToolsBtn = tools.querySelector('.advanced-file-picker__tools-btn--clear');
 		const pickerLink = picker.querySelector('.advanced-file-picker__link');
 		const imagePreview = picker.querySelector('.advanced-file-picker__image-preview');
 		const pickerText = picker.querySelector('.advanced-file-picker__text');
@@ -335,8 +335,6 @@ var filePicker = {
 			const valid = pickerValidation();
 
 			bindEvents();
-
-			output.classList.add('hide');
 
 			if (output.value === '') {
 				if (valid !== false) {

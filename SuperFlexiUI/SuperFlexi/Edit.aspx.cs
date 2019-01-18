@@ -380,7 +380,7 @@ namespace SuperFlexiUI
 					{
 						TabIndex = 10,
 						ID = field.Name,
-						CssClass = field.EditPageControlCssClass
+						CssClass = field.EditPageControlCssClass + " hide"
 					};
 					linkPicker.SetOrAppendCss("advanced-file-picker__output");
                     label.ForControl = linkPicker.ID;
@@ -439,7 +439,7 @@ namespace SuperFlexiUI
 					{
 						TabIndex = 10,
 						ID = field.Name,
-						CssClass = field.EditPageControlCssClass
+						CssClass = field.EditPageControlCssClass + " hide"
 					};
 					imagePicker.SetOrAppendCss("advanced-file-picker__output");
                     label.ForControl = imagePicker.ID;
