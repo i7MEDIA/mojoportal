@@ -9,8 +9,8 @@
         <asp:HyperLink ID="lnkServerInfo" runat="server" CssClass="selectedcrumb" />
    </portal:AdminCrumbContainer>
     <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-    <mp:CornerRounderTop ID="ctop1" runat="server" />
-    <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper admin serverinformation">
+    <portalAdmin:AdminDisplaySettings ID="displaySettings" runat="server" />
+		<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper admin serverinformation">
         <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
             <portal:HeadingControl id="heading" runat="server" />
             <div class="settingrow">
@@ -20,6 +20,7 @@
                 </span>
                 <asp:Literal ID="litCodeVersion" runat="server" />
                 <asp:Literal ID="litPlatform" runat="server" />
+				<asp:Literal ID="litUpdateInfo" runat="server" />
             </div>
             <div class="settingrow">
                 <mp:SiteLabel ID="SiteLabel5" runat="server" CssClass="settinglabel" ConfigKey="OperatingSystemLabel" UseLabelTag="false"></mp:SiteLabel>
@@ -45,6 +46,9 @@
                     UseLabelTag="false"></mp:SiteLabel>
                 <asp:Literal ID="litCurrentGMT" runat="server" />
             </div>
+			<div class="settingrow restartbuttonrow">
+				<button id="btnRestart" runat="server" onserverclick="btnRestart_ServerClick" class="<%= displaySettings.RestartButtonClass %>"><%= Resources.Resource.RestartWebApp %></button>
+			</div>
             <asp:Panel ID="pnlFeatureVersions" runat="server" CssClass="settingrow">
             <h2 class="heading">
                 <asp:Literal ID="litFeaturesHeading" runat="server" /> <portal:mojoHelpLink ID="MojoHelpLink2" runat="server" HelpKey="featureversion-help"  /></h2>

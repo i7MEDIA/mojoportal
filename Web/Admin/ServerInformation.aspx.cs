@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-08-08
-/// Last Modified:			2018-03-28
+/// Last Modified:			2019-01-16
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -12,9 +12,14 @@
 
 using System;
 using System.Data;
+using System.IO;
+using System.Net;
+using System.Web;
+using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
+using Newtonsoft.Json.Linq;
 using Resources;
 
 namespace mojoPortal.Web.AdminUI
@@ -22,8 +27,9 @@ namespace mojoPortal.Web.AdminUI
     public partial class ServerInformation : NonCmsBasePage
     {
         private bool shouldAllow = false;
+		private static readonly ILog log = LogManager.GetLogger(typeof(ServerInformation));
 
-        protected void Page_Load(object sender, EventArgs e)
+		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!Request.IsAuthenticated)
 			{
@@ -56,8 +62,11 @@ namespace mojoPortal.Web.AdminUI
         {
             
             litPlatform.Text = DatabaseHelper.DBPlatform();
-            litCodeVersion.Text = DatabaseHelper.DBCodeVersion().ToString();
-            if (TimeZone.CurrentTimeZone.IsDaylightSavingTime(DateTime.Now))
+			litCodeVersion.Text = DatabaseHelper.DBCodeVersion().ToString();
+
+			GetUpdateInfo();
+
+			if (TimeZone.CurrentTimeZone.IsDaylightSavingTime(DateTime.Now))
             {
                 litServerTimeZone.Text = TimeZone.CurrentTimeZone.DaylightName;
             }
@@ -123,7 +132,51 @@ namespace mojoPortal.Web.AdminUI
 
         }
 
-        private void PopulateLabels()
+		private void GetUpdateInfo()
+		{
+			if (WebConfigSettings.AllowUpdateCheck)
+			{
+
+				var request = WebRequest.CreateHttp(new Uri("https://www.mojoportal.com:443/currentVersion.js"));
+				WebResponse response;
+				try
+				{
+					response = request.GetResponse();
+				}
+				catch (System.Net.WebException ex)
+				{
+					return;
+				}
+				Stream dataStream = response.GetResponseStream();
+				StreamReader reader = new StreamReader(dataStream);
+				string responseFromServer = reader.ReadToEnd();
+
+				reader.Close();
+				response.Close();
+
+				JObject jObject = JObject.Parse(responseFromServer);
+				string strSiteVersion = DatabaseHelper.DBCodeVersion().ToString();
+				string strCurrentVersion = (string)jObject["version"];
+				string strCurrentVersionUrl = (string)jObject["url"];
+
+				if (!string.IsNullOrWhiteSpace(strCurrentVersion))
+				{
+					var currentVersion = Version.Parse(strCurrentVersion);
+					var siteVersion = Version.Parse(strSiteVersion);
+					if (currentVersion != null && siteVersion != null && currentVersion > siteVersion)
+					{
+						if (string.IsNullOrWhiteSpace(strCurrentVersionUrl))
+						{
+							strCurrentVersionUrl = "https://www.mojoportal.com";
+						}
+
+						litUpdateInfo.Text = string.Format(displaySettings.UpdateAvailableLinkMarkup, strCurrentVersionUrl, Resource.UpdateAvailable);
+					}
+				}
+			}
+		}
+
+		private void PopulateLabels()
         {
             litFeaturesHeading.Text = Resource.FeatureVersions;
             lnkAdminMenu.Text = Resource.AdminMenuLink;
@@ -164,7 +217,14 @@ namespace mojoPortal.Web.AdminUI
         }
 
 
-        #endregion
+		#endregion
 
-    }
+		protected void btnRestart_ServerClick(object sender, EventArgs e)
+		{
+			log.Info($"Application Restart triggered by administrator userid={SiteUtils.GetCurrentSiteUser().UserId}, username={SiteUtils.GetCurrentSiteUser().LoginName}");
+			HttpRuntime.UnloadAppDomain();
+			//WebUtils.SetupRedirect(this, Request.RawUrl);
+			return;
+		}
+	}
 }

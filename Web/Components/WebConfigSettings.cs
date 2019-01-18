@@ -4672,6 +4672,11 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("TryEnsureCustomMachineKeyOnSetup", false); }
 		}
 
+		public static bool AllowUpdateCheck
+		{
+			get { return ConfigHelper.GetBoolProperty("AllowUpdateCheck", true); }
+		}
+
 		/// <summary>
 		/// calls to this method should be made inside a try catch log
 		/// we don't expect the Web.config file to be writable in general but it usually is on a new 

@@ -13408,6 +13408,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restart Application.
+        /// </summary>
+        internal static string RestartWebApp {
+            get {
+                return ResourceManager.GetString("RestartWebApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restore To Editor.
         /// </summary>
         internal static string RestoreToEditorButton {
@@ -17482,6 +17491,15 @@ namespace Resources {
         internal static string Untitled {
             get {
                 return ResourceManager.GetString("Untitled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Available.
+        /// </summary>
+        internal static string UpdateAvailable {
+            get {
+                return ResourceManager.GetString("UpdateAvailable", resourceCulture);
             }
         }
         

@@ -6379,4 +6379,10 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="ShowNotApprovedUsersTooltip" xml:space="preserve">
     <value>Show users who have not been approved for login.</value>
   </data>
+  <data name="RestartWebApp" xml:space="preserve">
+    <value>Restart Application</value>
+  </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Update Available</value>
+  </data>
 </root>

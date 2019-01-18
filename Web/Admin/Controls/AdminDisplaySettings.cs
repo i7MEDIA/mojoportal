@@ -18,7 +18,8 @@ namespace mojoPortal.Web.AdminUI
 		public string ModuleSettingsSettingPanelClass { get; set; } = "settingrow";
 		public string ModuleSettingsSettingLabelClass { get; set; } = "settinglabel";
 		public string ModuleSettingsSettingControlClass { get; set; } = "forminput";
-
+		public string RestartButtonClass { get; set; } = "btn btn-danger btn-sm ";
+		public string UpdateAvailableLinkMarkup { get; set; } = "<a href=\"{0}\">{1}</a>";
 		protected override void Render(HtmlTextWriter writer)
 		{
 			if (HttpContext.Current == null)
