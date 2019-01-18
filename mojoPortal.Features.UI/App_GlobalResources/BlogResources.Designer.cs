@@ -1681,6 +1681,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extra CSS Class.
+        /// </summary>
+        internal static string ExtraCssClassSetting {
+            get {
+                return ResourceManager.GetString("ExtraCssClassSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Facebook Like Button Height.
         /// </summary>
         internal static string FacebookLikeButtonHeight {
