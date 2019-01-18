@@ -202,44 +202,52 @@
 	right: 10px;
 	top: 10px;
 	z-index: 2;
-} 
- 
-.advanced-file-picker__tools { 
+}
+
+.advanced-file-picker__tools {
 	background-color: #337ab7;
 	border-radius: 3px;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	left: calc(100% - 20px);
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	    -ms-flex-flow: row wrap;
+	        flex-flow: row wrap;
+	left: calc(100% - 22px);
 	padding: 3px;
 	position: absolute;
-	top: 37px;
+	top: 41px;
 	-webkit-transform: translateX(-50%);
-	        transform: translateX(-50%);
+	transform: translateX(-50%);
 	z-index: 3;
 } 
  
 .advanced-file-picker__tools::before { 
-	border-bottom-color: #337ab7;
 	border: 5px solid transparent;
+	border-bottom-color: #337ab7;
 	content: "";
 	left: 50%;
 	position: absolute;
 	top: -10px;
 	-webkit-transform: translateX(-50%);
 	        transform: translateX(-50%);
-} 
- 
-.advanced-file-picker__tools-input { 
+}
+
+.advanced-file-picker__tools-input {
 	border: 0 none;
+	margin-bottom: 3px;
 	padding: 2px 5px;
 	width: 200px;
-} 
- 
-.advanced-file-picker__tools-btn { 
+}
+
+.advanced-file-picker__tools-btn {
 	background: none repeat scroll 0 0 #f2f2f2;
-	border-left: 1px solid #999;
 	border: 0 none;
+	border-left: 1px solid #999;
+	-webkit-box-flex: 1;
+	    -ms-flex: 1 1 49%;
+	        flex: 1 1 49%;
 } 
  
 .advanced-file-picker__tools-btn:hover { 
@@ -249,14 +257,16 @@
 .advanced-file-picker__tools-btn:hover:focus { 
 	background-color: #CCC;
 	outline: 0 none;
-} 
- 
-.advanced-file-picker__tools-btn--cancel { 
+}
+
+.advanced-file-picker__tools-btn--cancel {
 	color: red;
-} 
- 
-.advanced-file-picker__tools-btn--ok { 
+	margin-left: 1.5px;
+}
+
+.advanced-file-picker__tools-btn--ok {
 	color: green;
+	margin-right: 1.5px;
 } 
  
 .advanced-file-picker__image-preview { 
@@ -268,14 +278,14 @@
  
 .advanced-file-picker__text { 
 	-webkit-box-align: center; 
-	    -ms-flex-align: center; 
-	        align-items: center;
+	   -ms-flex-align: center; 
+	      align-items: center;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
 	-webkit-box-pack: center;
-	    -ms-flex-pack: center;
-	        justify-content: center;
+	   -ms-flex-pack: center;
+	 justify-content: center;
 	margin: 5px 0;
 	text-align: center;
 	padding: 0 10px;

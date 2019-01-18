@@ -42,7 +42,8 @@ namespace SuperFlexiUI
         //protected HiddenField hdnImageBrowser;
         //private SiteSettings siteSettings = new SiteSettings();
 
-        private bool urlBrowserHtmlAdded = false;
+        private bool advancedFilePickerAdded = false;
+
 		#region OnInit
 
 		protected override void OnPreInit(EventArgs e)
@@ -1064,17 +1065,17 @@ namespace SuperFlexiUI
 			//create script reference
 			MarkupScript urlBrowserScript = new MarkupScript
 			{
-				Url = "~/SuperFlexi/js/urlbrowserinput.js",
-				ScriptName = "urlbrowserscript",
+				Url = "~/SuperFlexi/js/advanced-file-picker.js",
+				ScriptName = "AdvancedFilePickerJS",
 				Position = "bottomStartup"
 			};
 			
 			//create css reference
 			MarkupCss urlBrowserCss = new MarkupCss
 			{
-				Url = "~/SuperFlexi/css/urlbrowserinput.css",
+				Url = "~/SuperFlexi/css/advanced-file-picker.css",
 				RenderAboveSSC = true,
-				Name = "urlbrowsercss"
+				Name = "AdvancedFilePickerCSS"
 			};
 
 			//add script and css references to page scripts/css
@@ -1097,15 +1098,15 @@ namespace SuperFlexiUI
 
 			panel.Controls.Add(linkPickerAdvanced);
 
-            if (!urlBrowserHtmlAdded)
+            if (!advancedFilePickerAdded)
             {
 				Literal linkPickerModal = new Literal
 				{
-					Text = SuperFlexiHelpers.GetHelpText("~/SuperFlexi/html/urlbrowsermodal.html", config)
+					Text = RazorBridge.RenderPartialToString("_AdvancedFilePickerModal", "", "SuperFlexi")
 				};
 
 				pnlEdit.Controls.Add(linkPickerModal);
-                urlBrowserHtmlAdded = true;
+				advancedFilePickerAdded = true;
             }
         }
 
