@@ -467,7 +467,17 @@ namespace mojoPortal.Web.BlogUI
 
 			PostListModel postListObject = new PostListModel();
 
-			postListObject.ModuleTitle = module == null ? "" : module.ModuleTitle;
+			if (module != null)
+			{
+				postListObject.ModuleTitle = module.ModuleTitle;
+				postListObject.Module = module;
+			}
+			else
+			{
+				postListObject.ModuleTitle = "";
+			}
+
+			//postListObject.ModuleTitle = module == null ? "" : module.ModuleTitle;
 			postListObject.ModulePageUrl = Page.ResolveUrl(blogPageUrl);
 			postListObject.Posts = models;
 
