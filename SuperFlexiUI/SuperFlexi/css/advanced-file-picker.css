@@ -220,6 +220,7 @@
 	top: 41px;
 	-webkit-transform: translateX(-50%);
 	transform: translateX(-50%);
+	width: 206px;
 	z-index: 3;
 } 
  
@@ -246,8 +247,8 @@
 	border: 0 none;
 	border-left: 1px solid #999;
 	-webkit-box-flex: 1;
-	    -ms-flex: 1 1 49%;
-	        flex: 1 1 49%;
+	    -ms-flex: 1 1 1%;
+	        flex: 1 1 1%;
 } 
  
 .advanced-file-picker__tools-btn:hover { 

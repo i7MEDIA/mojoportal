@@ -3,11 +3,14 @@
 Element.prototype.matches||(Element.prototype.matches=Element.prototype.msMatchesSelector||Element.prototype.webkitMatchesSelector),Element.prototype.closest||(Element.prototype.closest=function(e){var t=this;do{if(t.matches(e))return t;t=t.parentElement||t.parentNode}while(null!==t&&1===t.nodeType);return null});
 // NodeList.prototype.forEach() Polyfill
 window.NodeList&&!NodeList.prototype.forEach&&(NodeList.prototype.forEach=function(o,t){t=t||window;for(var i=0;i<this.length;i++)o.call(t,this[i],i,this)});
+// https://tc39.github.io/ecma262/#sec-array.prototype.includes
+Array.prototype.includes||Object.defineProperty(Array.prototype,"includes",{value:function(r,e){if(null==this)throw new TypeError('"this" is null or not defined');var t=Object(this),n=t.length>>>0;if(0===n)return!1;var i,o,a=0|e,u=Math.max(0<=a?a:n-Math.abs(a),0);for(;u<n;){if((i=t[u])===(o=r)||"number"==typeof i&&"number"==typeof o&&isNaN(i)&&isNaN(o))return!0;u++}return!1}});
 
 
-// 
+
+//
 // Global method for setting input value from modal
-// 
+//
 
 var filePicker = {
 	set: function(url, clientId) {
@@ -29,36 +32,35 @@ var filePicker = {
 };
 
 
-// 
+//
 // Advanced File Picker
-// 
+//
 
-(function() {
-	const d = document;
+(function(d) {
 	const advancedFilePicker = d.querySelectorAll('.advanced-file-picker');
 
 
-	// 
+	//
 	// Keep native validation from running
-	// 
+	//
 
 	d.forms[0].setAttribute('novalidate', '');
 
 
-	// 
+	//
 	// Set heading and iframe source of modal, then open it
-	// 
+	//
 
 	const openFileManager = function(output, pickerType) {
-		var modal = d.querySelector('.url-browser__modal'),
-			modalIframe = modal.querySelector('.url-browser__modal-iframe'),
-			modalType = modal.querySelector('.url-browser__modal-type'),
-			modalPath = systemKeys.fileBrowserUrl + '?editor=filepicker&type=' + pickerType + '&inputId=' + output.id;
+		const modal = d.querySelector('.url-browser__modal');
+		const modalIframe = modal.querySelector('.url-browser__modal-iframe');
+		const modalType = modal.querySelector('.url-browser__modal-type');
+		const modalPath = systemKeys.fileBrowserUrl + '?editor=filepicker&type=' + pickerType + '&inputId=' + output.id;
 
 		modalType.textContent = pickerType.charAt(0).toUpperCase() + pickerType.slice(1);
 		modalIframe.src = modalPath;
 		modalIframe.addEventListener('load', function() {
-			if (this.src != '') {
+			if (this.src !== '') {
 				this.removeAttribute('style');
 			}
 		});
@@ -67,15 +69,15 @@ var filePicker = {
 	};
 
 
-	// 
+	//
 	// For Every File Picker
-	// 
+	//
 
 	advancedFilePicker.forEach(function(picker) {
 
-		// 
+		//
 		// Variables
-		// 
+		//
 
 		const pickerType = picker.dataset.pickerType;
 		const pickerDefaultText = picker.dataset.pickerDefaultText;
@@ -91,9 +93,9 @@ var filePicker = {
 		const outputEvent = document.createEvent('Event');
 
 
-		// 
+		//
 		// Functions
-		// 
+		//
 
 		const previewState = function(state) {
 			if (state === 'inside') {
@@ -146,13 +148,13 @@ var filePicker = {
 		};
 
 		const validateInput = function(mutationsList) {
-			for (var mutation of mutationsList) {
+			mutationsList.forEach(function (mutation) {
 				if (mutation.type == 'attributes' && mutation.attributeName === 'style') {
 					const validationMessage = mutation.target.dataset.valErrormessage;
 
 					failValidation(validationMessage);
 				}
-			}
+			});
 		};
 
 		const pickerValidation = function() {
@@ -207,9 +209,9 @@ var filePicker = {
 		};
 
 
-		// 
+		//
 		// Event Handlers
-		// 
+		//
 		
 		const fileManagerEvent = function(e) {
 			e.preventDefault();
@@ -259,7 +261,7 @@ var filePicker = {
 							break;
 						default:
 							iconCssClass = 'fa-file-o';
-					};
+					}
 
 					newPickerText = '<span class="trunc-icon fa ' + iconCssClass + '">' + '</span>' +
 						'<span class="trunc-center">' + fileName + '</span>' +
@@ -269,13 +271,13 @@ var filePicker = {
 				}
 			}
 
-			checkFile();
 
 			if (url === '') {
 				setPickerText(pickerDefaultText);
 				previewState('inside');
 			} else {
 				setPickerText(newPickerText, newPickerTextTitle);
+				checkFile();
 			}
 		};
 
@@ -323,9 +325,9 @@ var filePicker = {
 		};
 
 
-		// 
+		//
 		// Init
-		// 
+		//
 
 		const init = function() {
 			outputEvent.initEvent('input', true, true);
@@ -347,4 +349,4 @@ var filePicker = {
 
 		init();
 	});
-})();
+})(document);
