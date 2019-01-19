@@ -178,6 +178,105 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Index Browser.
+        /// </summary>
+        internal static string AdminIndexBrowser {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Author:.
+        /// </summary>
+        internal static string AdminIndexBrowserAuthor {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear Filter.
+        /// </summary>
+        internal static string AdminIndexBrowserClearFilter {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserClearFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created UTC.
+        /// </summary>
+        internal static string AdminIndexBrowserCreatedDate {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserCreatedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This error happens when the search index has not been created yet. You could click the Rebuild Index button but if you do you should wait about 5 - 10 minutes before reloading the page..
+        /// </summary>
+        internal static string AdminIndexBrowserExceptionDescription {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserExceptionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modified Between.
+        /// </summary>
+        internal static string AdminIndexBrowserModifiedBetween {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserModifiedBetween", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modified UTC.
+        /// </summary>
+        internal static string AdminIndexBrowserModifiedDate {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserModifiedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Module View Roles.
+        /// </summary>
+        internal static string AdminIndexBrowserModuleViewRoles {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserModuleViewRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page Meta Description:.
+        /// </summary>
+        internal static string AdminIndexBrowserPageMetaDesc {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserPageMetaDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page Meta Keywords:.
+        /// </summary>
+        internal static string AdminIndexBrowserPageMetaKeywords {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserPageMetaKeywords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page View Roles:.
+        /// </summary>
+        internal static string AdminIndexBrowserPageViewRoles {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserPageViewRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Administration.
         /// </summary>
         internal static string AdminLink {
@@ -12697,6 +12796,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Redirect.
+        /// </summary>
+        internal static string RedirectDelete {
+            get {
+                return ResourceManager.GetString("RedirectDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this 301 redirect?.
         /// </summary>
         internal static string RedirectDeleteWarning {
@@ -12711,6 +12819,24 @@ namespace Resources {
         internal static string RedirectEdit {
             get {
                 return ResourceManager.GetString("RedirectEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to new URL.
+        /// </summary>
+        internal static string RedirectGoToNew {
+            get {
+                return ResourceManager.GetString("RedirectGoToNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to old URL.
+        /// </summary>
+        internal static string RedirectGoToOld {
+            get {
+                return ResourceManager.GetString("RedirectGoToOld", resourceCulture);
             }
         }
         

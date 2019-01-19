@@ -6385,4 +6385,46 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="UpdateAvailable" xml:space="preserve">
     <value>Update Available</value>
   </data>
+  <data name="AdminIndexBrowser" xml:space="preserve">
+    <value>Index Browser</value>
+  </data>
+  <data name="AdminIndexBrowserAuthor" xml:space="preserve">
+    <value>Author:</value>
+  </data>
+  <data name="AdminIndexBrowserClearFilter" xml:space="preserve">
+    <value>Clear Filter</value>
+  </data>
+  <data name="AdminIndexBrowserCreatedDate" xml:space="preserve">
+    <value>Created UTC</value>
+  </data>
+  <data name="AdminIndexBrowserExceptionDescription" xml:space="preserve">
+    <value>This error happens when the search index has not been created yet. You could click the Rebuild Index button but if you do you should wait about 5 - 10 minutes before reloading the page.</value>
+  </data>
+  <data name="AdminIndexBrowserModifiedBetween" xml:space="preserve">
+    <value>Modified Between</value>
+  </data>
+  <data name="AdminIndexBrowserModifiedDate" xml:space="preserve">
+    <value>Modified UTC</value>
+  </data>
+  <data name="AdminIndexBrowserModuleViewRoles" xml:space="preserve">
+    <value>Module View Roles</value>
+  </data>
+  <data name="AdminIndexBrowserPageMetaDesc" xml:space="preserve">
+    <value>Page Meta Description:</value>
+  </data>
+  <data name="AdminIndexBrowserPageMetaKeywords" xml:space="preserve">
+    <value>Page Meta Keywords:</value>
+  </data>
+  <data name="AdminIndexBrowserPageViewRoles" xml:space="preserve">
+    <value>Page View Roles:</value>
+  </data>
+  <data name="RedirectDelete" xml:space="preserve">
+    <value>Delete Redirect</value>
+  </data>
+  <data name="RedirectGoToNew" xml:space="preserve">
+    <value>Go to new URL</value>
+  </data>
+  <data name="RedirectGoToOld" xml:space="preserve">
+    <value>Go to old URL</value>
+  </data>
 </root>

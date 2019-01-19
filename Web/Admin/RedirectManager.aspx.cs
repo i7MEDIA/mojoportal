@@ -28,11 +28,11 @@ namespace mojoPortal.Web.AdminUI
 
         private int totalPages = 1;
         private int pageNumber = 1;
-        private int pageSize = 15;
+        private int pageSize = 30;
         protected string RootUrl = string.Empty;
         private bool isAdminOrContentAdmin = false;
         private bool isSiteEditor = false;
-        protected string EditPropertiesImage = "~/Data/SiteImages/" + WebConfigSettings.EditPropertiesImage;
+        protected string EditPropertiesImage = "~/Data/SiteImages/" + WebConfigSettings.EditContentImage;
         protected string DeleteLinkImage = "~/Data/SiteImages/" + WebConfigSettings.DeleteLinkImage;
 		private string searchTerm = string.Empty;
 

@@ -8,24 +8,6 @@ namespace mojoPortal.Web
 {
 	public static class WebConfigSettings
 	{
-
-		public static string AssembliesNotSearchedForWebParts
-		{
-			get
-			{
-				if (ConfigurationManager.AppSettings["AssembliesNotSearchedForWebParts"] != null)
-				{
-					return ConfigurationManager.AppSettings["AssembliesNotSearchedForWebParts"];
-				}
-				return "AjaxControlToolkit.dll Argotic.Common.dll Argotic.Core.dll Argotic.Extensions.dll Blacklight.Silverlight.Controls.dll Brettle.Web.NeatHtml.dll CSSFriendly.dll DayPilot.dll GCheckout.dll Jayrock.dll Jayrock.Json.dll log4net.dll Lucene.Net.dll MetaDataExtractor.dll Microsoft.Web.Preview.dll mojoPortal.Business.dll mojoPortal.Business.WebHelpers.dll mojoPortal.Data.dll mojoPortal.Net.dll mojoPortal.Web.Controls.dll mojoPortal.Web.dll mojoPortal.Web.Editor.dll mojoPortal.Web.Framework.dll MySql.Data.dll Newtonsoft.Json.dll Novell.Directory.Ldap.dll OpenPOP.dll Org.Mentalis.Security.dll mojoPortal.Features.Business.dll mojoPortal.Features.Data.dll mojoPortal.Features.UI.dll Recaptcha.dll RSS.NET.dll SharpMimeTools.dll SiteOffice.Business.dll SiteOffice.Data.dll SiteOffice.ExternalMail.dll SiteOffice.UI.dll sqlite3.dll Subkismet.dll System.Web.Extensions.dll WebStore.Business.dll WebStore.Data.dll WebStore.UI.dll FirebirdSql.Data.FirebirdClient.dll Mono.Data.Sqlite.dll Mono.Security.dll Npgsql.dll TimelineNet.dll ZedGraph.dll ZedGraph.Web.dll";
-			}
-		}
-
-		//public static bool RunningInMediumTrust
-		//{
-		//    get { return ConfigHelper.GetBoolProperty("RunningInMediumTrust", false); }
-		//}
-
 		public static bool UseSiteIdAppThemesInMediumTrust
 		{
 			get { return ConfigHelper.GetBoolProperty("UseSiteIdAppThemesInMediumTrust", false); }
@@ -35,11 +17,6 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetBoolProperty("EnableOpenIDAuthentication", false); }
 		}
-
-		//public static bool UseLDAPFallbackAuthentication
-		//{
-		//    get { return ConfigHelper.GetBoolProperty("UseLDAPFallbackAuthentication", false); }
-		//}
 
 		public static bool DisableRpxAuthentication
 		{
@@ -66,8 +43,6 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetBoolProperty("HtmlFragmentUseMediaFolder", false); }
 		}
-		//
-		
 
 		public static bool DisableGoogleTranslate
 		{
@@ -179,18 +154,6 @@ namespace mojoPortal.Web
 				if (ConfigurationManager.AppSettings["SecureConnectionServerVariableSecureValue"] != null)
 				{
 					return ConfigurationManager.AppSettings["SecureConnectionServerVariableSecureValue"];
-				}
-				return string.Empty;
-			}
-		}
-
-		public static string WebSnaprKey
-		{
-			get
-			{
-				if (ConfigurationManager.AppSettings["WebSnaprKey"] != null)
-				{
-					return ConfigurationManager.AppSettings["WebSnaprKey"];
 				}
 				return string.Empty;
 			}
@@ -469,8 +432,6 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("CommerceGlobalWorldPayProduceShopperCancellationResponse", true); }
 		}
 
-		
-
 		public static bool SetupTryAnywayIfFailedAlterSchemaTest
 		{
 			get { return ConfigHelper.GetBoolProperty("SetupTryAnywayIfFailedAlterSchemaTest", false); }
@@ -485,8 +446,6 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetBoolProperty("MaskPasswordsInUserAdmin", true); }
 		}
-
-		
 
 		public static bool ShowProviderListInDBAdminTool
 		{
@@ -503,8 +462,6 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetStringProperty("MemberListOverrideLinkText", string.Empty); }
 		}
 
-		
-
 		public static bool ShowEmailInMemberList
 		{
 			get { return ConfigHelper.GetBoolProperty("ShowEmailInMemberList", false); }
@@ -514,7 +471,6 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetBoolProperty("ShowPurgeUserLocationsInUserManagement", true); }
 		}
-
 
 		public static bool ShowForumUnsubscribeLinkInUserManagement
 		{
@@ -591,11 +547,6 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("HidePageMenuOnMemberListPage", true); }
 		}
 
-		public static bool HideAllMenusOnMyPage
-		{
-			get { return ConfigHelper.GetBoolProperty("HideAllMenusOnMyPage", false); }
-		}
-
 		public static bool HidePageViewModeIfNoWorkflowItems
 		{
 			get { return ConfigHelper.GetBoolProperty("HidePageViewModeIfNoWorkflowItems", true); }
@@ -611,8 +562,6 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("DisableLoginInfo", false); }
 		}
 
-		
-
 		public static bool ShowLoginNameInMemberList
 		{
 			get { return ConfigHelper.GetBoolProperty("ShowLoginNameInMemberList", false); }
@@ -622,7 +571,6 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetBoolProperty("ShowUserIDInMemberList", false); }
 		}
-
 
 		public static bool ShowLeftColumnOnSearchResults
 		{
@@ -643,13 +591,11 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetBoolProperty("ShowRightColumnOnSearchResults", false); }
 		}
-		
 
 		public static bool ShowModuleTitlesByDefault
 		{
 			get { return ConfigHelper.GetBoolProperty("ShowModuleTitlesByDefault", true); }
 		}
-
 
 		public static bool EnableEditingModuleTitleElement
 		{
@@ -800,11 +746,11 @@ namespace mojoPortal.Web
 		/// this is false by default since most skins don't use LESS
 		/// If set to true the menu item will appear under Administration > Advanced Tools > Design Tools
 		/// </summary>
-        [Obsolete("The dotless tool is out of date. Please do not use it. It will be removed soon.")]
-		public static bool EnableLessUtility
-		{
-			get { return ConfigHelper.GetBoolProperty("EnableLessUtility", false); }
-		}
+  //      [Obsolete("The dotless tool is out of date. Please do not use it. It will be removed soon.")]
+		//public static bool EnableLessUtility
+		//{
+		//	get { return ConfigHelper.GetBoolProperty("EnableLessUtility", false); }
+		//}
 
 		public static bool EnableLogViewer
 		{
@@ -829,11 +775,6 @@ namespace mojoPortal.Web
 		public static bool UseCustomHandlingForPersianCulture
 		{
 			get { return ConfigHelper.GetBoolProperty("UseCustomHandlingForPersianCulture", false); }
-		}
-
-		public static bool IncludeTextSizeCss
-		{
-			get { return ConfigHelper.GetBoolProperty("IncludeTextSizeCss", false); }
 		}
 
 		//this fixes some ajax updatepanel issues in webkit
@@ -871,37 +812,11 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("CKEditor:SuppressTitle", true); }
 		}
 
-		
 
 		public static bool CKeditorEncodeBrackets
 		{
 			get { return ConfigHelper.GetBoolProperty("CKeditor:EncodeBrackets", false); }
 		}
-
-		//public static string FCKeditorEmoticonsPath
-		//{
-		//	get
-		//	{
-		//		if (ConfigurationManager.AppSettings["FCKeditor:EmoticonsPath"] != null)
-		//		{
-		//			return ConfigurationManager.AppSettings["FCKeditor:EmoticonsPath"];
-		//		}
-		//		return "~/Data/SiteImages/emoticons/";
-		//	}
-		//}
-
-
-		//public static string FCKeditorSkin
-		//{
-		//	get
-		//	{
-		//		if (ConfigurationManager.AppSettings["FCKeditor:Skin"] != null)
-		//		{
-		//			return ConfigurationManager.AppSettings["FCKeditor:Skin"];
-		//		}
-		//		return "normal";
-		//	}
-		//}
 
 		public static bool UseSkinCssInEditor
 		{
@@ -1005,8 +920,6 @@ namespace mojoPortal.Web
 			}
 		}
 
-
-
 		public static string UnobtrusiveValidationMode
 		{
 			get { return ConfigHelper.GetStringProperty("ValidationSettings:UnobtrusiveValidationMode", string.Empty); }
@@ -1022,27 +935,15 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetStringProperty("jQueryUIAvailableThemes", string.Empty); }
 		}
 
-
 		public static bool UseHtml5
 		{
 			get { return ConfigHelper.GetBoolProperty("UseHtml5", false); }
 		}
 
-		public static bool DisableHtmlValidatorLink
-		{
-			get { return ConfigHelper.GetBoolProperty("DisableHtmlValidatorLink", false); }
-		}
-
-		public static bool DisableCssValidatorLink
-		{
-			get { return ConfigHelper.GetBoolProperty("DisableCssValidatorLink", true); }
-		}
-
 		public static bool DisableViewStateOnSiteMapDataSource
 		{
 			get { return ConfigHelper.GetBoolProperty("DisableViewStateOnSiteMapDataSource", true); }
-		}
-		
+		}		
 
 		public static bool CombineCSS
 		{
@@ -1060,15 +961,12 @@ namespace mojoPortal.Web
 		}
 
 		/// <summary>
-		/// keeping this as true makes it change the url for css when you upgrade and this is good because if any core included css has changed
-		/// it forces visitors to relaod css because the path changed whereas otherwise they might still have it cached with the old css
+		/// This can easily show the mojoPortal version to nefarious jerks that could then use it to exploit vulnerabilities in the advertised version
 		/// </summary>
 		public static bool IncludeVersionInCssUrl
 		{
-			get { return ConfigHelper.GetBoolProperty("IncludeVersionInCssUrl", true); }
+			get { return ConfigHelper.GetBoolProperty("IncludeVersionInCssUrl", false); }
 		}
-
-		
 
 		public static int CssCacheInDays
 		{
@@ -1077,7 +975,7 @@ namespace mojoPortal.Web
 
 		public static int ChannelFileCacheInDays
 		{
-			get { return ConfigHelper.GetIntProperty("CHannelFileCacheInDays", 365); }
+			get { return ConfigHelper.GetIntProperty("ChannelFileCacheInDays", 365); }
 		}
 
 		public static bool MinifyCSS
@@ -1105,8 +1003,6 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("MenusAreResponsibleForAddingCss", false); }
 		}
 
-		
-
 		public static bool AllowChangingFriendlyUrlPattern
 		{
 			get { return ConfigHelper.GetBoolProperty("AllowChangingFriendlyUrlPattern", true); }
@@ -1122,10 +1018,9 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("AllowDirectEntryOfUserIdForEditPermission", false); }
 		}
 
-
 		public static bool AllowMultipleSites
 		{
-			get { return ConfigHelper.GetBoolProperty("AllowMultipleSites", false); }
+			get { return ConfigHelper.GetBoolProperty("AllowMultipleSites", true); }
 		}
 
 		public static bool AppendDefaultPageToFolderRootUrl
@@ -1145,12 +1040,12 @@ namespace mojoPortal.Web
 
 		public static int SiteListPageSize
 		{
-			get { return ConfigHelper.GetIntProperty("SiteListPageSize", 15); }
+			get { return ConfigHelper.GetIntProperty("SiteListPageSize", 30); }
 		}
 
 		public static int RoleMemberPageSize
 		{
-			get { return ConfigHelper.GetIntProperty("RoleMemberPageSize", 20); }
+			get { return ConfigHelper.GetIntProperty("RoleMemberPageSize", 30); }
 		}
 
 		public static bool EnableSiteSettingsSmtpSettings
@@ -1178,12 +1073,6 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("HideGoogleAnalyticsInChildSites", false); }
 		}
 		
-
-		//public static bool AllowGravatars
-		//{
-		//    get { return ConfigHelper.GetBoolProperty("AllowGravatars", true); }
-		//}
-
 		public static string GravatarMaxAllowedRating
 		{
 			get
@@ -1196,16 +1085,6 @@ namespace mojoPortal.Web
 				return "G";
 			}
 		}
-
-		///// <summary>
-		///// deprecated
-		///// </summary>
-		//public static bool DisableOldCheesyAvatars
-		//{
-		//    get { return ConfigHelper.GetBoolProperty("DisableOldCheesyAvatars", true); }
-		//}
-
-		
 
 		public static bool OnlyAdminsCanEditCheesyAvatars
 		{
@@ -1221,8 +1100,6 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetBoolProperty("UseSslForMyPage", false); }
 		}
-
-		
 
 		public static bool UseSslForSiteMap
 		{
@@ -1332,7 +1209,7 @@ namespace mojoPortal.Web
 
 		public static int SystemLogPageSize
 		{
-			get { return ConfigHelper.GetIntProperty("SystemLogPageSize", 10); }
+			get { return ConfigHelper.GetIntProperty("SystemLogPageSize", 30); }
 		}
 
 		public static bool SystemLogSortAscending
@@ -3094,25 +2971,12 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetBoolProperty("ForceTextAreaEditorInMobile", false); }
 		}
-
-		public static bool ForceFCKToDegradeToTextAreaInSafari
-		{
-			get { return ConfigHelper.GetBoolProperty("ForceFCKToDegradeToTextAreaInSafari", true); }
-		}
-
-		public static bool ForceFCKToDegradeToTextAreaInOpera
-		{
-			get { return ConfigHelper.GetBoolProperty("ForceFCKToDegradeToTextAreaInOpera", true); }
-		}
-
+		
 		public static bool ForceTinyMCEInSafari
 		{
 			get { return ConfigHelper.GetBoolProperty("ForceTinyMCEInSafari", false); }
 		}
 
-		/// <summary>
-		/// 2009-06-10 changed default from true to false as it works in testing the latest FCKeditor and Opera
-		/// </summary>
 		public static bool ForceTinyMCEInOpera
 		{
 			get { return ConfigHelper.GetBoolProperty("ForceTinyMCEInOpera", false); }
@@ -3127,9 +2991,7 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetBoolProperty("ForcePlainTextInIpad", true); }
 		}
-
 		
-
 		public static bool ForcePlainTextInAndroid
 		{
 			get { return ConfigHelper.GetBoolProperty("ForcePlainTextInAndroid", true); }
@@ -3153,12 +3015,12 @@ namespace mojoPortal.Web
 
 		public static int SearchResultsPageSize
 		{
-			get { return ConfigHelper.GetIntProperty("SearchResultsPageSize", 10); }
+			get { return ConfigHelper.GetIntProperty("SearchResultsPageSize", 30); }
 		}
 
 		public static int SearchResultsFragmentSize
 		{
-			get { return ConfigHelper.GetIntProperty("SearchResultsFragmentSize", 300); }
+			get { return ConfigHelper.GetIntProperty("SearchResultsFragmentSize", 500); }
 		}
 
 		public static int SearchMaxClauseCount
@@ -3170,22 +3032,22 @@ namespace mojoPortal.Web
 
 		public static int ContentCatalogPageSize
 		{
-			get { return ConfigHelper.GetIntProperty("ContentCatalogPageSize", 15); }
+			get { return ConfigHelper.GetIntProperty("ContentCatalogPageSize", 30); }
 		}
 
 		public static int UrlManagerPageSize
 		{
-			get { return ConfigHelper.GetIntProperty("UrlManagerPageSize", 15); }
+			get { return ConfigHelper.GetIntProperty("UrlManagerPageSize", 30); }
 		}
 
 		public static int RedirectManagerPageSize
 		{
-			get { return ConfigHelper.GetIntProperty("RedirectManagerPageSize", 15); }
+			get { return ConfigHelper.GetIntProperty("RedirectManagerPageSize", 30); }
 		}
 
 		public static int ContentStyleTemplatePageSize
 		{
-			get { return ConfigHelper.GetIntProperty("ContentStyleTemplatePageSize", 15); }
+			get { return ConfigHelper.GetIntProperty("ContentStyleTemplatePageSize", 30); }
 		}
 
 		public static int ContentTemplatePageSize
@@ -3222,18 +3084,18 @@ namespace mojoPortal.Web
 
 		public static int ContentRatingListPageSize
 		{
-			get { return ConfigHelper.GetIntProperty("ContentRatingListPageSize", 12); }
+			get { return ConfigHelper.GetIntProperty("ContentRatingListPageSize", 30); }
 		}
 
 
 		public static int MemberListPageSize
 		{
-			get { return ConfigHelper.GetIntProperty("MemberListPageSize", 20); }
+			get { return ConfigHelper.GetIntProperty("MemberListPageSize", 30); }
 		}
 
 		public static int NewsletterArchivePageSize
 		{
-			get { return ConfigHelper.GetIntProperty("NewsletterArchivePageSize", 15); }
+			get { return ConfigHelper.GetIntProperty("NewsletterArchivePageSize", 30); }
 		}
 
 		public static int NewsletterMaxToSendPerMinute
@@ -3603,7 +3465,7 @@ namespace mojoPortal.Web
 
 		public static long AdminMaxSizePerFileInMegaBytes
 		{
-			get { return ConfigHelper.GetLongProperty("AdminMaxSizePerFileInMegaBytes", 2000); }
+			get { return ConfigHelper.GetLongProperty("AdminMaxSizePerFileInMegaBytes", 2048); }
 		}
 
 		public static int UserFolderMaxNumberOfFiles
@@ -3889,7 +3751,7 @@ namespace mojoPortal.Web
 		{
 			get
 			{
-				string defaultPath = "~/ClientScript/ckeditor462/";
+				string defaultPath = "~/ClientScript/ckeditor4112/";
 				string path = ConfigHelper.GetStringProperty("CKEditor:BasePath", defaultPath);
 
 				return String.IsNullOrWhiteSpace(path) ? defaultPath : path;
@@ -4477,7 +4339,7 @@ namespace mojoPortal.Web
 
 		public static int BingSearchPageSize
 		{
-			get { return ConfigHelper.GetIntProperty("BingSearchPageSize", 25); }
+			get { return ConfigHelper.GetIntProperty("BingSearchPageSize", 30); }
 		}
 
 		public static string BingApiUrl

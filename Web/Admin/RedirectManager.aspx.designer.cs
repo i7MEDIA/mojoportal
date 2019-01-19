@@ -226,7 +226,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoDataList dlRedirects;
+        protected global::System.Web.UI.WebControls.DataList dlRedirects;
         
         /// <summary>
         /// pgrFriendlyUrls control.
