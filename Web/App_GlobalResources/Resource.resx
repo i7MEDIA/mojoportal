@@ -6389,7 +6389,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
     <value>Index Browser</value>
   </data>
   <data name="AdminIndexBrowserAuthor" xml:space="preserve">
-    <value>Author:</value>
+    <value>Author</value>
   </data>
   <data name="AdminIndexBrowserClearFilter" xml:space="preserve">
     <value>Clear Filter</value>
@@ -6410,13 +6410,13 @@ Copy the machine key below to your site's configuration by following &lt;a href=
     <value>Module View Roles</value>
   </data>
   <data name="AdminIndexBrowserPageMetaDesc" xml:space="preserve">
-    <value>Page Meta Description:</value>
+    <value>Page Meta Description</value>
   </data>
   <data name="AdminIndexBrowserPageMetaKeywords" xml:space="preserve">
-    <value>Page Meta Keywords:</value>
+    <value>Page Meta Keywords</value>
   </data>
   <data name="AdminIndexBrowserPageViewRoles" xml:space="preserve">
-    <value>Page View Roles:</value>
+    <value>Page View Roles</value>
   </data>
   <data name="RedirectDelete" xml:space="preserve">
     <value>Delete Redirect</value>
@@ -6426,5 +6426,17 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="RedirectGoToOld" xml:space="preserve">
     <value>Go to old URL</value>
+  </data>
+  <data name="AdminIndexBrowserDocKey" xml:space="preserve">
+    <value>Result Key</value>
+  </data>
+  <data name="AdminIndexBrowserItemDetails" xml:space="preserve">
+    <value>Result Details</value>
+  </data>
+  <data name="AdminIndexBrowserItemIntro" xml:space="preserve">
+    <value>Result Fragment</value>
+  </data>
+  <data name="NotApplicable" xml:space="preserve">
+    <value>N/A</value>
   </data>
 </root>

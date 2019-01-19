@@ -85,6 +85,15 @@ namespace mojoPortal.Web.AdminUI
 						IconCssClass = "fa fa-reply",
 						SortOrder = 15
 					},
+					new ContentAdminLink
+					{
+						ResourceFile = "Resource",
+						ResourceKey = "AdminIndexBrowser",
+						Url = SiteRoot + "/Admin/IndexBrowser.aspx",
+						CssClass = "adminlink-advanced-indexbrowser",
+						IconCssClass = "fa fa-search",
+						SortOrder = 18
+					},
 				});
 			}
 

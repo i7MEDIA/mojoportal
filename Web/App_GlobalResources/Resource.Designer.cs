@@ -187,7 +187,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Author:.
+        ///   Looks up a localized string similar to Author.
         /// </summary>
         internal static string AdminIndexBrowserAuthor {
             get {
@@ -214,11 +214,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Result Key.
+        /// </summary>
+        internal static string AdminIndexBrowserDocKey {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserDocKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This error happens when the search index has not been created yet. You could click the Rebuild Index button but if you do you should wait about 5 - 10 minutes before reloading the page..
         /// </summary>
         internal static string AdminIndexBrowserExceptionDescription {
             get {
                 return ResourceManager.GetString("AdminIndexBrowserExceptionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result Details.
+        /// </summary>
+        internal static string AdminIndexBrowserItemDetails {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserItemDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result Fragment.
+        /// </summary>
+        internal static string AdminIndexBrowserItemIntro {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserItemIntro", resourceCulture);
             }
         }
         
@@ -250,7 +277,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Page Meta Description:.
+        ///   Looks up a localized string similar to Page Meta Description.
         /// </summary>
         internal static string AdminIndexBrowserPageMetaDesc {
             get {
@@ -259,7 +286,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Page Meta Keywords:.
+        ///   Looks up a localized string similar to Page Meta Keywords.
         /// </summary>
         internal static string AdminIndexBrowserPageMetaKeywords {
             get {
@@ -268,7 +295,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Page View Roles:.
+        ///   Looks up a localized string similar to Page View Roles.
         /// </summary>
         internal static string AdminIndexBrowserPageViewRoles {
             get {
@@ -10335,6 +10362,15 @@ namespace Resources {
         internal static string NoSSLWarning {
             get {
                 return ResourceManager.GetString("NoSSLWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        internal static string NotApplicable {
+            get {
+                return ResourceManager.GetString("NotApplicable", resourceCulture);
             }
         }
         
