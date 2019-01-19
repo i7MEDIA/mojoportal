@@ -2342,8 +2342,7 @@ namespace mojoPortal.Web
 
 		public static void ForceSsl()
 		{
-			if (IsSecureRequest()) { return; }
-
+			if (IsSecureRequest() || !SslIsAvailable()) { return; }
 			
 			if (!WebConfigSettings.ProxyPreventsSSLDetection)
 			{
