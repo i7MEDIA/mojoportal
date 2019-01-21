@@ -2,6 +2,48 @@
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
+	<style type="text/css">
+		.label-v-center { 
+			vertical-align: middle; 
+			margin: 0; 
+		} 
+ 
+		button.ui-datepicker-trigger { 
+			padding: 0 10px 10px; 
+			font-weight: 700; 
+		} 
+ 
+		.label-width-small { 
+			width: auto; 
+		} 
+ 
+		.input-group-separated > * { 
+			margin: 0 10px; 
+			flex: 1 1 auto; 
+		} 
+ 
+		.input-group-separated { 
+			display: flex; 
+			flex-flow: row wrap; 
+			justify-content: center; 
+			align-items: center; 
+		} 
+ 
+		.input-as-text { 
+			border: 0 none; 
+			box-shadow: 0 0; 
+			padding: 0 !important; 
+			margin: 10px; 
+			font-weight: 700; 
+			width: auto !important; 
+			float: right !important; 
+		}
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.date-picker').addClass('input-as-text');
+		});
+	</script>
 	<portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs">
 		<asp:HyperLink ID="lnkAdminMenu" runat="server" NavigateUrl="~/Admin/AdminMenu.aspx" />
 		<portal:AdminCrumbSeparator ID="litLinkSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
@@ -14,19 +56,60 @@
 			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 				<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
 
-					<div>
-						<asp:DropDownList ID="ddFeatureList" runat="server" CssClass="searchfeatures"></asp:DropDownList>
-						<mp:SiteLabel runat="server" EnableViewState="false" ConfigKey="AdminIndexBrowserModifiedBetween" />
-						<portal:jDatePicker ID="beginDate" runat="server" />
-						<mp:SiteLabel runat="server" EnableViewState="false" ConfigKey="and" />
-
-						<portal:jDatePicker ID="endDate" runat="server" />
-						<asp:Button ID="btnGo" runat="server" Text="GO" OnClick="btnGo_Click" />
-						<a href='<%= SiteRoot %>/Admin/IndexBrowser.aspx'><%= Resources.Resource.AdminIndexBrowserClearFilter %></a>
-					</div>
-					<div>
-						<portal:mojoButton ID="btnRebuildSearchIndex" runat="server" OnClick="btnRebuildSearchIndex_Click" />
-
+					<div class="row">
+						<div class="col-md-2">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title"><%= Resources.Resource.AdminIndexBrowserFilterContentType %></h3>
+								</div>
+								<div class="panel-body">
+									<div class="form-inline">
+										<div class="form-group">
+											<div class="input-group">
+												<asp:DropDownList ID="ddFeatureList" runat="server" CssClass="searchfeatures"></asp:DropDownList>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title"><%= Resources.Resource.AdminIndexBrowserFilterDate %></h3>
+								</div>
+								<div class="panel-body">
+									<div class="form-inline">
+										<div class="form-group">
+											<div class="input-group input-group-sm input-group-separated">
+												<mp:SiteLabel runat="server" EnableViewState="false" ConfigKey="AdminIndexBrowserModifiedBetween" CssClass="label-v-center settinglabel label-width-small" />
+												<portal:jDatePicker ID="beginDate" runat="server" />
+												<mp:SiteLabel runat="server" EnableViewState="false" ConfigKey="and" CssClass="label-v-center settinglabel label-width-small" />
+												<portal:jDatePicker ID="endDate" runat="server" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title"><%= Resources.Resource.AdminIndexBrowserActionsHeading %></h3>
+								</div>
+								<div class="panel-body">
+									<div class="form-inline">
+										<div class="form-group">
+											<div class="input-group input-group-separated input-group-btn">
+												<portal:mojoButton ID="btnGo" runat="server" SkinID="SuccessButton" />
+												<a href='<%= SiteRoot %>/Admin/IndexBrowser.aspx' class="btn btn-warning"><%= Resources.Resource.AdminIndexBrowserClearFilter %></a>
+												<portal:mojoButton ID="btnRebuildSearchIndex" runat="server" SkinID="DangerButton" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div>
 						<portal:mojoLabel ID="lblMessage" runat="server" />
@@ -35,13 +118,13 @@
 
 					<asp:Panel ID="pnlSearchResults" runat="server" CssClass="settingrow searchresults">
 						<portal:mojoCutePager ID="pgrTop" runat="server" Visible="false" />
-						<asp:Repeater ID="rptResults" runat="server" EnableViewState="true" OnItemCommand="rptResults_ItemCommand">
+						<asp:Repeater ID="rptResults" runat="server" EnableViewState="true" OnItemCommand="rptResults_ItemCommand" OnItemDataBound="rptResults_ItemDataBound">
 							<ItemTemplate>
 								<div class="result">
 									<h3>
 										<asp:HyperLink ID="Hyperlink1" runat="server" EnableViewState="false"
 											NavigateUrl='<%# BuildUrl((mojoPortal.SearchIndex.IndexItem)Container.DataItem) %>'
-											Text='<%# FormatLinkText(Eval("PageName").ToString(), Eval("ModuleTitle").ToString(), Eval("Title").ToString())  %>' />
+											Text='<%# FormatItemTitle(Eval("PageName").ToString(), Eval("ModuleTitle").ToString(), Eval("Title").ToString(), ">")  %>' />
 									</h3>
 									<div class="row">
 										<div class="col-md-3">

@@ -37,24 +37,8 @@ namespace mojoPortal.Web.AdminUI
 		{
 			base.OnInit(e);
 			this.Load += new EventHandler(this.Page_Load);
-		}
-
-
-		private void PopulateLabels()
-		{
-			Title = SiteUtils.FormatPageTitle(siteSettings, Resource.AdminIndexBrowser);
-
-			heading.Text = Resource.AdminIndexBrowser;
-
-			lnkAdminMenu.Text = Resource.AdminMenuLink;
-			lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
-
-			lnkAdvancedTools.Text = Resource.AdvancedToolsLink;
-			lnkAdvancedTools.NavigateUrl = SiteRoot + "/Admin/AdvancedTools.aspx";
-
-			lnkCurrentPage.Text = Resource.AdminIndexBrowser;
-			lnkCurrentPage.NavigateUrl = SiteRoot + "/Admin/IndexBrowser.aspx";
-
+			btnGo.Click += new EventHandler(this.btnGo_Click);
+			btnRebuildSearchIndex.Click += new EventHandler(this.btnRebuildSearchIndex_Click);
 		}
 
 		protected void Page_Load(object sender, EventArgs e)
@@ -80,8 +64,8 @@ namespace mojoPortal.Web.AdminUI
 				return;
 			}
 
-
 			PopulateLabels();
+
 			if (!IsPostBack)
 			{
 				try
@@ -115,7 +99,53 @@ namespace mojoPortal.Web.AdminUI
 
 
 		}
-		
+
+		private void PopulateLabels()
+		{
+			Title = SiteUtils.FormatPageTitle(siteSettings, Resource.AdminIndexBrowser);
+
+			heading.Text = Resource.AdminIndexBrowser;
+
+			lnkAdminMenu.Text = Resource.AdminMenuLink;
+			lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
+
+			lnkAdvancedTools.Text = Resource.AdvancedToolsLink;
+			lnkAdvancedTools.NavigateUrl = SiteRoot + "/Admin/AdvancedTools.aspx";
+
+			lnkCurrentPage.Text = Resource.AdminIndexBrowser;
+			lnkCurrentPage.NavigateUrl = SiteRoot + "/Admin/IndexBrowser.aspx";
+
+			btnRebuildSearchIndex.Text = Resource.SearchRebuildIndexButton;
+			btnGo.Text = Resource.AdminIndexBrowserFilter;
+		}
+
+		private void LoadSettings()
+		{
+
+			//siteSettings = CacheHelper.GetCurrentSiteSettings();
+			pageNumber = WebUtils.ParseInt32FromQueryString("p", true, 1);
+
+			modifiedBeginDate = WebUtils.ParseDateFromQueryString("bd", DateTime.MinValue).Date;
+			modifiedEndDate = WebUtils.ParseDateFromQueryString("ed", DateTime.MaxValue).Date;
+			featureGuid = WebUtils.ParseGuidFromQueryString("f", featureGuid);
+
+			if (!IsPostBack)
+			{
+				if (modifiedBeginDate.Date > DateTime.MinValue.Date)
+				{
+					beginDate.Text = modifiedBeginDate.ToShortDateString();
+				}
+
+				if (modifiedEndDate.Date < DateTime.MaxValue.Date)
+				{
+					endDate.Text = modifiedEndDate.ToShortDateString();
+				}
+
+			}
+
+			UIHelper.AddConfirmationDialog(btnRebuildSearchIndex, Resource.SearchRebuildIndexWarning);
+		}
+
 		private void BindIndex()
 		{
 
@@ -138,8 +168,7 @@ namespace mojoPortal.Web.AdminUI
 			}
 			else
 			{
-				int remainder;
-				Math.DivRem(totalHits, pageSize, out remainder);
+				Math.DivRem(totalHits, pageSize, out int remainder);
 				if (remainder > 0)
 				{
 					totalPages += 1;
@@ -236,18 +265,39 @@ namespace mojoPortal.Web.AdminUI
 
 
 
-		protected string FormatLinkText(string pageName, string moduleTtile, string itemTitle)
+		protected string FormatItemTitle(string pageName, string moduleTitle, string itemTitle, string separator = "\\")
 		{
+			string returnValue = string.Empty;
 
-			if (itemTitle.Length > 0)
+			if (!string.IsNullOrWhiteSpace(pageName))
 			{
-				return pageName + " &gt; " + itemTitle;
+				returnValue = pageName;
 			}
 
+			if (!string.IsNullOrWhiteSpace(moduleTitle))
+			{
+				if (string.IsNullOrWhiteSpace(returnValue))
+				{
+					returnValue = moduleTitle;
+				}
+				else
+				{
+					returnValue += $" {separator} {moduleTitle}";
+				}
+			}
 
-			return pageName;
-
-
+			if (!string.IsNullOrWhiteSpace(itemTitle))
+			{
+				if (string.IsNullOrWhiteSpace(returnValue))
+				{
+					returnValue = itemTitle;
+				}
+				else
+				{
+					returnValue += $" {separator} {itemTitle}";
+				}
+			}
+			return returnValue;
 		}
 
 		public string BuildUrl(IndexItem indexItem)
@@ -292,47 +342,36 @@ namespace mojoPortal.Web.AdminUI
 			IndexHelper.VerifySearchIndex(siteSettings);
 
 			lblMessage.Text = Resource.SearchResultsBuildingIndexMessage;
-			Thread.Sleep(1000); //wait 1 seconds
+			Thread.Sleep(5000); //wait 1 seconds
 			SiteUtils.QueueIndexing();
 		}
 
-
-
-		private void LoadSettings()
-		{
-
-			//siteSettings = CacheHelper.GetCurrentSiteSettings();
-			pageNumber = WebUtils.ParseInt32FromQueryString("p", true, 1);
-
-			modifiedBeginDate = WebUtils.ParseDateFromQueryString("bd", DateTime.MinValue).Date;
-			modifiedEndDate = WebUtils.ParseDateFromQueryString("ed", DateTime.MaxValue).Date;
-			featureGuid = WebUtils.ParseGuidFromQueryString("f", featureGuid);
-
-			if (!IsPostBack)
-			{
-				if (modifiedBeginDate.Date > DateTime.MinValue.Date)
-				{
-					beginDate.Text = modifiedBeginDate.ToShortDateString();
-				}
-
-				if (modifiedEndDate.Date < DateTime.MaxValue.Date)
-				{
-					endDate.Text = modifiedEndDate.ToShortDateString();
-				}
-
-			}
-
-			btnRebuildSearchIndex.Text = Resource.SearchRebuildIndexButton;
-			UIHelper.AddConfirmationDialog(btnRebuildSearchIndex, Resource.SearchRebuildIndexWarning);
-
-
-		}
+		
 
 		protected string FormatProperty(string propVal)
 		{
 			if (string.IsNullOrWhiteSpace(propVal)) { return Resource.NotApplicable; }
 
 			return propVal;
+		}
+
+		protected void rptResults_ItemDataBound(object sender, RepeaterItemEventArgs e)
+		{
+			if (e.Item.ItemType == ListItemType.Item)
+			{
+				var indexItem = ((IndexItem)e.Item.DataItem);
+				//var title = row["Title"].ToString();
+				//var moduleTitle = row["ModuleTitle"].ToString();
+				//var pageName = row["PageName"].ToString();
+				var title = FormatItemTitle(indexItem.PageName, indexItem.ModuleTitle, indexItem.Title);
+				Button btnDelete = (Button)e.Item.FindControl("btnDelete");
+				if (btnDelete != null)
+				{
+					btnDelete.Attributes.Add("OnClick", 
+						$"return confirm(\"{string.Format(Resource.AdminIndexBrowserDeleteItemWarning, title.JsonEscape())}\");");
+				}
+			}
+
 		}
 	}
 }

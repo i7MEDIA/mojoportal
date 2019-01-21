@@ -9,7 +9,7 @@ namespace mojoPortal.Business.WebHelpers
     {
         public static bool IsInRole(string role)
         {
-            if (HttpContext.Current == null || HttpContext.Current.User == null) { return false; }
+            if (HttpContext.Current == null || HttpContext.Current.User == null || HttpContext.Current.Request == null) { return false; }
             if (role == null) { return false; }
             if (role.Contains("All Users")) { return true; }
             if (!HttpContext.Current.Request.IsAuthenticated) { return false; }
@@ -22,7 +22,9 @@ namespace mojoPortal.Business.WebHelpers
 
         public static bool IsInRoles(string roles)
         {
-            if (IsInRole("Admins")) return true;
+			if (HttpContext.Current == null || HttpContext.Current.Request == null || string.IsNullOrWhiteSpace(roles)) { return false; }
+
+			if (IsInRole("Admins")) return true;
             if (String.IsNullOrEmpty(roles)) return false;
             if (roles.Contains("All Users;")) return true;
             if (!HttpContext.Current.Request.IsAuthenticated) return false;
@@ -61,8 +63,8 @@ namespace mojoPortal.Business.WebHelpers
         {
             get 
             {
-
-                if (!HttpContext.Current.Request.IsAuthenticated) return false;
+				if (HttpContext.Current == null || HttpContext.Current.Request == null) { return false; }
+				if (!HttpContext.Current.Request.IsAuthenticated) return false;
                 return IsInRole("Admins"); 
             }
         }
@@ -72,8 +74,9 @@ namespace mojoPortal.Business.WebHelpers
         {
             get 
             {
-                if (!HttpContext.Current.Request.IsAuthenticated) return false;
-                return IsInRole("Content Administrators"); 
+				if (HttpContext.Current == null || HttpContext.Current.Request == null) { return false; }
+				if (!HttpContext.Current.Request.IsAuthenticated) return false;
+				return IsInRole("Content Administrators"); 
             }
         }
 
@@ -81,8 +84,9 @@ namespace mojoPortal.Business.WebHelpers
         {
             get
             {
+				if (HttpContext.Current == null || HttpContext.Current.Request == null) { return false; }
                 if (!HttpContext.Current.Request.IsAuthenticated) return false;
-                return IsInRole("Content Publishers");
+				return IsInRole("Content Publishers");
             }
         }
 
@@ -90,8 +94,9 @@ namespace mojoPortal.Business.WebHelpers
         {
             get
             {
+				if (HttpContext.Current == null || HttpContext.Current.Request == null) { return false; }
                 if (!HttpContext.Current.Request.IsAuthenticated) return false;
-                return IsInRole("Content Authors");
+				return IsInRole("Content Authors");
             }
         }
 
@@ -99,8 +104,9 @@ namespace mojoPortal.Business.WebHelpers
         {
             get 
             {
+				if (HttpContext.Current == null || HttpContext.Current.Request == null) { return false; }
                 if (!HttpContext.Current.Request.IsAuthenticated) return false;
-                return IsInRole("Role Admins"); 
+				return IsInRole("Role Admins"); 
             }
         }
 
@@ -108,8 +114,9 @@ namespace mojoPortal.Business.WebHelpers
         {
             get 
             {
+				if (HttpContext.Current == null || HttpContext.Current.Request == null) { return false; }
                 if (!HttpContext.Current.Request.IsAuthenticated) return false;
-                return IsInRole("Newsletter Administrators"); 
+				return IsInRole("Newsletter Administrators"); 
             }
         }
 
@@ -117,6 +124,7 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
+				if (HttpContext.Current == null || HttpContext.Current.Request == null) { return false; }
 				if (!HttpContext.Current.Request.IsAuthenticated) return false;
 				SiteSettings siteSettings = (SiteSettings)HttpContext.Current.Items["SiteSettings"];
 				if (siteSettings == null) return false;

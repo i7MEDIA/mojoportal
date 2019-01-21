@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:				    2009-12-30
-// Last Modified:			2009-12-30
+// Last Modified:			2019-01-20
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -18,5 +18,7 @@ namespace mojoPortal.FileSystem
     {
         public abstract IFileSystem GetFileSystem();
         public abstract IFileSystem GetFileSystem(IFileSystemPermission permission);
+
+		public abstract IFileSystem GetFileSystem(int siteId);
     }
 }

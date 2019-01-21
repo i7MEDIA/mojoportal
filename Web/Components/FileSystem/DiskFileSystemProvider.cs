@@ -18,7 +18,7 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
 using mojoPortal.Web.Framework;
-
+using log4net;
 
 namespace mojoPortal.FileSystem
 {
@@ -27,11 +27,12 @@ namespace mojoPortal.FileSystem
         private SiteSettings siteSettings = null;
         private SiteUser currentUser = null;
         private const long bytesPerMegabyte = 1048576;
-
+		private ILog log = LogManager.GetLogger(typeof(DiskFileSystemProvider));
         
         public override IFileSystem GetFileSystem()
         {
-            siteSettings = CacheHelper.GetCurrentSiteSettings();
+			if (siteSettings == null)
+				CacheHelper.GetCurrentSiteSettings();
             IFileSystemPermission p = GetFileSystemPermission();
             if (p == null) { return null; }
             if(string.IsNullOrEmpty(p.VirtualRoot)) { return null; }
@@ -39,7 +40,13 @@ namespace mojoPortal.FileSystem
             return DiskFileSystem.GetFileSystem(p);
         }
 
-        public override IFileSystem GetFileSystem(IFileSystemPermission permission)
+		public override IFileSystem GetFileSystem(int siteId)
+		{
+			siteSettings = new SiteSettings(siteId);
+			return GetFileSystem();
+		}
+
+		public override IFileSystem GetFileSystem(IFileSystemPermission permission)
         {
             siteSettings = CacheHelper.GetCurrentSiteSettings();
             //IFileSystemPermission p = GetFileSystemPermission();
@@ -72,6 +79,7 @@ namespace mojoPortal.FileSystem
            
             if (siteSettings == null)
             {
+				log.Error("Cannot load file system because Site Settings could not be loaded.");
                 throw new ArgumentNullException("could not load SiteSettings");
             }
 
@@ -114,7 +122,8 @@ namespace mojoPortal.FileSystem
                 currentUser = SiteUtils.GetCurrentSiteUser();
                 if (currentUser == null)
                 {
-                    throw new ArgumentNullException("could not load current SiteUser");
+					log.Error("Cannot load file system because Site User could not be loaded.");
+					throw new ArgumentNullException("could not load current SiteUser");
                 }
 
                 virtualPath = "~/Data/Sites/" + siteId.ToInvariantString() + "/userfiles/" + currentUser.UserId.ToInvariantString() + "/";
@@ -129,7 +138,8 @@ namespace mojoPortal.FileSystem
         private bool UserHasUploadPermission()
         {
             bool result = false;
-            
+			if (siteSettings == null) return false;
+
             if ((WebUser.IsAdminOrContentAdmin)||SiteUtils.UserIsSiteEditor())
             {
                 result = true;
@@ -149,6 +159,7 @@ namespace mojoPortal.FileSystem
 
 		private bool UserHasBrowsePermission()
 		{
+			if (siteSettings == null) return false;
 			if (WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor() || WebUser.IsInRoles(siteSettings.GeneralBrowseRoles))
 			{
 				return true;

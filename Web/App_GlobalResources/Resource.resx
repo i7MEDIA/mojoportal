@@ -3499,7 +3499,7 @@
     <value>Reset Content</value>
   </data>
   <data name="SearchRebuildIndexButton" xml:space="preserve">
-    <value>Rebuild Search Index</value>
+    <value>Rebuild Index</value>
   </data>
   <data name="SearchRebuildIndexWarning" xml:space="preserve">
     <value>Are you sure you want to delete and rebuild the search index? For a large site this may take a while.</value>
@@ -6438,5 +6438,20 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="NotApplicable" xml:space="preserve">
     <value>N/A</value>
+  </data>
+  <data name="AdminIndexBrowserActionsHeading" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="AdminIndexBrowserDeleteItemWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this item? \r\n {0}</value>
+  </data>
+  <data name="AdminIndexBrowserFilter" xml:space="preserve">
+    <value>Set Filter</value>
+  </data>
+  <data name="AdminIndexBrowserFilterContentType" xml:space="preserve">
+    <value>Filter by Content Type</value>
+  </data>
+  <data name="AdminIndexBrowserFilterDate" xml:space="preserve">
+    <value>Filter by Date</value>
   </data>
 </root>

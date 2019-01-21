@@ -187,6 +187,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        internal static string AdminIndexBrowserActionsHeading {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserActionsHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Author.
         /// </summary>
         internal static string AdminIndexBrowserAuthor {
@@ -214,6 +223,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this item? \r\n {0}.
+        /// </summary>
+        internal static string AdminIndexBrowserDeleteItemWarning {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserDeleteItemWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Result Key.
         /// </summary>
         internal static string AdminIndexBrowserDocKey {
@@ -228,6 +246,33 @@ namespace Resources {
         internal static string AdminIndexBrowserExceptionDescription {
             get {
                 return ResourceManager.GetString("AdminIndexBrowserExceptionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Filter.
+        /// </summary>
+        internal static string AdminIndexBrowserFilter {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter by Content Type.
+        /// </summary>
+        internal static string AdminIndexBrowserFilterContentType {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserFilterContentType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter by Date.
+        /// </summary>
+        internal static string AdminIndexBrowserFilterDate {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserFilterDate", resourceCulture);
             }
         }
         
@@ -14236,7 +14281,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rebuild Search Index.
+        ///   Looks up a localized string similar to Rebuild Index.
         /// </summary>
         internal static string SearchRebuildIndexButton {
             get {

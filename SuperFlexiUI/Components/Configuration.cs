@@ -26,6 +26,7 @@ namespace SuperFlexiUI
         private static readonly ILog log = LogManager.GetLogger(typeof(ModuleConfiguration));
         private Module module;
         private Hashtable settings;
+		private SiteSettings siteSettings;
         private int siteId = -1;
 
 		FileSystemProvider fsProvider;
@@ -34,23 +35,12 @@ namespace SuperFlexiUI
 
 
 #region contstructors
-public ModuleConfiguration()
+		public ModuleConfiguration()
         { }
 
         public ModuleConfiguration(Module module, bool reloadDefinitionFromDisk = false)
         {
-			fsProvider = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
-			if (fsProvider == null)
-			{
-				log.Error("File System Provider Could Not Be Loaded.");
-				return;
-			}
-			fileSystem = fsProvider.GetFileSystem();
-			if (fileSystem == null)
-			{
-				log.Error("File System Could Not Be Loaded.");
-				return;
-			}
+
 
 			if (module != null)
             {
@@ -59,13 +49,35 @@ public ModuleConfiguration()
                 featureGuid = module.FeatureGuid;
                 settings = ModuleSettings.GetModuleSettings(module.ModuleId);
 
-                if (siteId < 1)
-                {
-                    siteId = CacheHelper.GetCurrentSiteSettings().SiteId;
-                }
+				if (siteId < 1)
+				{
+					if (siteSettings == null)
+					{
+						siteSettings = CacheHelper.GetCurrentSiteSettings();
+					}
+				}
+
+				fsProvider = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+				if (fsProvider == null)
+				{
+					log.Error("File System Provider Could Not Be Loaded.");
+					return;
+				}
+				fileSystem = fsProvider.GetFileSystem(siteId);
+				if (fileSystem == null)
+				{
+					log.Error("File System Could Not Be Loaded.");
+					return;
+				}
+
                 LoadSettings(settings, reloadDefinitionFromDisk);
             }
         }
+
+		public ModuleConfiguration(Module module, int siteId, bool reloadDefinitionFromDisk = false)
+		{
+			siteSettings = new SiteSettings(siteId);
+		}
         #endregion
         #region public methods
         /// <summary>

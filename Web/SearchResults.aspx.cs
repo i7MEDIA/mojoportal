@@ -555,14 +555,12 @@ namespace mojoPortal.Web.UI.Pages
         void btnRebuildSearchIndex_Click(object sender, EventArgs e)
         {
             IndexingQueue.DeleteAll();
-            mojoPortal.SearchIndex.IndexHelper.DeleteSearchIndex(siteSettings);
-            mojoPortal.SearchIndex.IndexHelper.VerifySearchIndex(siteSettings);
+			IndexHelper.DeleteSearchIndex(siteSettings);
+			IndexHelper.VerifySearchIndex(siteSettings);
             
             this.lblMessage.Text = Resource.SearchResultsBuildingIndexMessage;
             Thread.Sleep(5000); //wait 5 seconds
             SiteUtils.QueueIndexing();
-           
-            
         }
 
         private void SetupScript()

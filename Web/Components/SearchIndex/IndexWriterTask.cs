@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:				    2008-06-19
-// Last Modified:			2017-03-09
+// Last Modified:			2019-01-20
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -14,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
-
 using System.Text.RegularExpressions;
 using System.Threading;
 using log4net;
@@ -30,9 +29,6 @@ using mojoPortal.Business;
 
 namespace mojoPortal.SearchIndex
 {
-    /// <summary>
-    ///
-    /// </summary>
     [Serializable()]
     public class IndexWriterTask : ITaskQueueTask
     {
@@ -231,7 +227,7 @@ namespace mojoPortal.SearchIndex
             }
             catch (System.IO.IOException ex)
             {
-                log.Info("IndexWriter swallowed exception this is not unexpected if building or rebuilding the search index ",ex);
+                log.Info("IndexWriter swallowed exception this is expected if building or rebuilding the search index ",ex);
                 errorCount += 1;
             }
             catch (TypeInitializationException ex)
@@ -308,12 +304,8 @@ namespace mojoPortal.SearchIndex
                     {
                         log.Error(ex);
                     }
-
-
                 }
             }
-
-
         }
 
         private void WriteToIndex(Document doc, IndexWriter indexWriter)
@@ -326,8 +318,6 @@ namespace mojoPortal.SearchIndex
             {
                 log.Error(ex);
             }
-
-
         }
 
 
