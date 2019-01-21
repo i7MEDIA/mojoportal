@@ -1650,6 +1650,11 @@ namespace mojoPortal.Web.BlogUI
 		{
 			if (blog != null)
 			{
+				if (blog.ItemId == config.FeaturedPostId)
+				{
+					Module module = GetModule(moduleId, Blog.FeatureGuid);
+					ModuleSettings.UpdateModuleSetting(module.ModuleGuid, moduleId, "FeaturedPostId", "0");
+				}
 				blog.ContentChanged += new ContentChangedEventHandler(blog_ContentChanged);
 				blog.Delete();
 				FriendlyUrl.DeleteByPageGuid(blog.BlogGuid);
