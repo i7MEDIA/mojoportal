@@ -1073,7 +1073,7 @@ namespace mojoPortal.Web.BlogUI
 
 			if (btnDeleteMeta != null)
 			{
-				btnDelete.Attributes.Add("OnClick", $"return confirm('{BlogResources.ContentMetaDeleteWarning}');");
+				btnDeleteMeta.Attributes.Add("OnClick", $"return confirm('{BlogResources.ContentMetaDeleteWarning}');");
 			}
 
 			upMeta.Update();
@@ -1444,8 +1444,7 @@ namespace mojoPortal.Web.BlogUI
 			Button btnDelete = (Button)grid.Rows[e.NewEditIndex].Cells[1].FindControl("btnDeleteMetaLink");
 			if (btnDelete != null)
 			{
-				btnDelete.Attributes.Add("OnClick", "return confirm('"
-					+ BlogResources.ContentMetaLinkDeleteWarning + "');");
+				btnDelete.Attributes.Add("OnClick", $"return confirm(\"{BlogResources.ContentMetaLinkDeleteWarning}\");");
 
 				if (guid == Guid.Empty) { btnDelete.Visible = false; }
 			}
@@ -1560,8 +1559,7 @@ namespace mojoPortal.Web.BlogUI
 			Button btnDelete = (Button)e.Row.Cells[0].FindControl("btnDelete");
 			if (btnDelete != null)
 			{
-				btnDelete.Attributes.Add("OnClick", "return confirm('"
-					+ BlogResources.DeleteHistoryItemWarning + "');");
+				btnDelete.Attributes.Add("OnClick", $"return confirm(\"{BlogResources.DeleteHistoryItemWarning}\");");
 			}
 
 		}
