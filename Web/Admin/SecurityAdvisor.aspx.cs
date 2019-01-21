@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2010-09-19
-// Last Modified:			2018-03-28
+// Last Modified:			2019-01-20
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -12,22 +12,19 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-using mojoPortal.Web.Framework;
-using mojoPortal.Business.WebHelpers;
-using Resources;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web.Script.Serialization;
-using System.Security.Cryptography.X509Certificates;
 using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Framework;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Linq;
+using Resources;
 namespace mojoPortal.Web.AdminUI
 {
 
-    public partial class SecurityAdvisorPage : NonCmsBasePage
+	public partial class SecurityAdvisorPage : NonCmsBasePage
     {
         SecurityAdvisor securityAdvisor = new SecurityAdvisor();
 
@@ -69,7 +66,7 @@ namespace mojoPortal.Web.AdminUI
             else
             {
 				litMachineKeyResults.Text = $@"<div class='alert alert-danger'><strong>{Resource.Attention}</strong> {Resource.SecurityAdvisorMachineKeyWrong}</div>
-					<pre class='language language-xml'><code>{SiteUtils.GenerateRandomMachineKey()}</code></pre>
+					<pre class='language language-xml'><code>{Server.HtmlEncode(SiteUtils.GenerateRandomMachineKey())}</code></pre>
 					<div class=''>{Resource.CustomMachineKeyInstructions}</div>
 					<div class='alert alert-info'>{Resource.GenerateMachineKey}.</div>";
             }
