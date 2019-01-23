@@ -1156,7 +1156,7 @@
     <value>Move selected content up in the list</value>
   </data>
   <data name="PageLayoutAlt2DeleteButton" xml:space="preserve">
-    <value>Remove the selected  content from the page</value>
+    <value>Remove the selected content from the page</value>
   </data>
   <data name="PageLayoutAlt2EditButton" xml:space="preserve">
     <value>Edit settings for the selected content</value>
@@ -1180,7 +1180,7 @@
     <value>View Roles</value>
   </data>
   <data name="PageLayoutContentDeleteAlternateText" xml:space="preserve">
-    <value>Remove the selected  content from the page</value>
+    <value>Remove the selected content from the page</value>
   </data>
   <data name="PageLayoutContentDownAlternateText" xml:space="preserve">
     <value>Move selected content down in list</value>
@@ -1222,7 +1222,7 @@
     <value>Hide Main Menu?</value>
   </data>
   <data name="PageLayoutLeftDeleteAlternateText" xml:space="preserve">
-    <value>Remove the selected  content from the page</value>
+    <value>Remove the selected content from the page</value>
   </data>
   <data name="PageLayoutLeftDownAlternateText" xml:space="preserve">
     <value>Move selected module down in list</value>
@@ -1297,7 +1297,7 @@
     <value>Require SSL?</value>
   </data>
   <data name="PageLayoutRightDeleteAlternateText" xml:space="preserve">
-    <value>Remove the selected  content from the page</value>
+    <value>Remove the selected content from the page</value>
   </data>
   <data name="PageLayoutRightDownAlternateText" xml:space="preserve">
     <value>Move selected content down in list</value>

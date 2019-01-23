@@ -261,3 +261,27 @@ table.FileManager_table { width:99%; }
 
 div.cmdbar { display:inline-block; min-width:300px; min-height:14px; max-height: 14px; }
 a.forumcommand { margin: 0px 10px 0px 10px; }
+
+
+/* added for 2.7 */
+.pagelayout__item-btn { 
+    background: 0; 
+    border: 0 none; 
+    outline: 0 none;
+    padding: 5px 0;
+    cursor: pointer;
+}
+.pagelayout__item-btn:hover > svg {
+    fill: #a90a11;
+}
+
+.pagelayout .panelistbox { 
+    display: flex; 
+    flex-flow: row nowrap; 
+}
+
+.pagelayout-item-btns {
+    width: 40px;
+    flex: 1 1 33px;
+}
+/* end add for 2.7 */

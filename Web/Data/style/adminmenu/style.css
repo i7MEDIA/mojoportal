@@ -1,12 +1,96 @@
 /* ----------------------------------
-MojoPortal Admin Menu CSS
-For more information about Crystal Clear icons, http://commons.wikimedia.org/wiki/Category:Crystal_Clear_icons 
-This css and few custom modified verasions of crystal icons were contributed by Steve Railsback of Colorado State U 2010-09-29
+mojoPortal Admin Menu CSS
 To use this, add this to your style.config file:
 <file cssvpath="/Data/style/adminmenu/style.css" imagebasevpath="/Data/style/adminmenu/">none</file>
 ------------------------------------- */
 
-/* Admin menu */
+/* Admin menu -- 2.8+ */
+.panelwrapper.adminmenu { 
+    padding: 30px 30px 30px 27px;
+}
+
+.adminmenu ul.simplelist * {
+    box-sizing: border-box;
+}
+
+.adminmenu ul.simplelist {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    margin-left: -15px; 
+    margin-right: -15px;
+    padding: 0
+}
+
+.adminmenu ul.simplelist>li {
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 calc(100%/7);
+    flex: 0 0 calc(100%/7);
+    font-family: arial,sans-serif;
+    font-size: 14px;
+    min-width: 160px;
+    padding: 15px;
+    text-align: center;
+}
+
+.adminmenu ul.simplelist>li a {
+    border: 1px solid #ddd;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 100%;
+    flex: 1 0 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column wrap;
+    flex-flow: column wrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 15px;
+    position: relative;
+	text-decoration: none;
+}
+
+.adminmenu ul.simplelist>li a>span.fa {
+    margin: 10px 0;
+    font-size: 30px;
+}
+
+.adminmenu ul.simplelist>li a>span.fa.fa-stack {
+    font-size: 20px;
+}
+
+.adminmenu ul.simplelist>li a:hover {
+    background-color: #eee;
+    text-decoration: none;
+}
+
+/* Admin menu -- before 2.8 
+For more information about Crystal Clear icons, http://commons.wikimedia.org/wiki/Category:Crystal_Clear_icons 
+This css and few custom modified verasions of crystal icons were contributed by Steve Railsback of Colorado State U 2010-09-29
+
+*/
+
+
+/*
 div.adminmenu {  }
 div.adminmenu ul.simplelist { margin: 0 0 1em -20px; }
 div.adminmenu ul.simplelist li { float: left; display: block; background-image:none; }
@@ -19,7 +103,6 @@ div.adminmenu ul.simplelist li  a {
 	padding: 60px 10px 10px 10px; 
 	margin: 5px; 
 	text-decoration: none; 
-	/* color: #666; */
 	border: 1px solid #ddd; 
 	text-align: center;  
 }
@@ -78,5 +161,5 @@ a.lnkRegistrationAgreement, a.lnkLoginInfo  { background: url('RegAgreement.png'
 a.lnkPermissionAdmin { background: url('permissions.png') no-repeat  center 10px; }
 a.lnkSkinList { background: url('skin.png') no-repeat center 10px; }
 a.lnkCacheTool { background: url('cache.png') no-repeat center 10px; }
-
+*/
 

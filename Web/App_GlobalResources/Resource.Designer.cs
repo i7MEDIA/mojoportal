@@ -10924,7 +10924,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove the selected  content from the page.
+        ///   Looks up a localized string similar to Remove the selected content from the page.
         /// </summary>
         internal static string PageLayoutAlt2DeleteButton {
             get {
@@ -10996,7 +10996,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove the selected  content from the page.
+        ///   Looks up a localized string similar to Remove the selected content from the page.
         /// </summary>
         internal static string PageLayoutContentDeleteAlternateText {
             get {
@@ -11131,7 +11131,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove the selected  content from the page.
+        ///   Looks up a localized string similar to Remove the selected content from the page.
         /// </summary>
         internal static string PageLayoutLeftDeleteAlternateText {
             get {
@@ -11383,7 +11383,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove the selected  content from the page.
+        ///   Looks up a localized string similar to Remove the selected content from the page.
         /// </summary>
         internal static string PageLayoutRightDeleteAlternateText {
             get {
