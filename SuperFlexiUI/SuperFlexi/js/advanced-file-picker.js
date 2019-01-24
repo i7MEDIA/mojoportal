@@ -116,7 +116,9 @@ var filePicker = {
 			return splitString[splitString.length - 1];
 		};
 
-		const setPickerText = function(str, title = str) {
+		const setPickerText = function(str, title) {
+			if (title === undefined) title = str;
+
 			pickerText.classList.remove('text-danger');
 			pickerText.title = title;
 			pickerText.innerHTML = str;
