@@ -11,6 +11,7 @@
 // Last Modified:		    2019-01-07
 
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
@@ -2473,6 +2474,19 @@ namespace mojoPortal.Business
 		public static IDataReader GetHostList(int siteId) 
 		{
 			return DBSiteSettings.GetHostList(siteId);
+		}
+
+		public static List<KeyValuePair<string, Guid>> GetHostList()
+		{
+			List<KeyValuePair<string, Guid>> hostList = new List<KeyValuePair<string, Guid>>();
+			using (IDataReader reader = DBSiteSettings.GetHostList())
+			{
+				while (reader.Read())
+				{
+					hostList.Add(new KeyValuePair<reader["HostName"].ToString(), Guid.Parse(reader["SiteGuid"].ToString()));
+				}
+
+			}
 		}
 
 		public static void AddHost(Guid siteGuid, int siteId, string hostName) 

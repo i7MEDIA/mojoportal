@@ -841,15 +841,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator regexCacheTime;
         
         /// <summary>
-        /// SiteLabel35 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel35;
-        
-        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>

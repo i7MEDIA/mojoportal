@@ -639,9 +639,9 @@
 						<portal:mojoLabel ID="lblError" runat="server" CssClass="txterror warning" />
 					</div>
 
-					<div class="settingrow btn-row">
-						<portal:mojoButton ID="applyBtn" runat="server" Text="Apply Changes" />
-						<portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" />
+					<div class="settingrow btn-row text-center">
+						<portal:mojoButton ID="applyBtn" runat="server" Text="Apply Changes" SkinID="SuccessButton"/>
+						<portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" SkinID="DeleteButton"/>
 					</div>
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>

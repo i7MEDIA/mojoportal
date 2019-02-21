@@ -1923,7 +1923,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["GoogleCDNjQueryVersion"];
 				}
 				// default value
-				return "1.4.1";
+				return "1.9.1";
 			}
 		}
 
@@ -1936,7 +1936,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["GoogleCDNjQueryUIVersion"];
 				}
 				// default value
-				return "1.7.2";
+				return "1.10.2";
 			}
 		}
 
