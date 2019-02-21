@@ -1,6 +1,6 @@
 ﻿// Author:				    i7MEDIA (joe davis)
 // Created:			        2014-12-22
-// Last Modified:		    2017-09-16
+// Last Modified:		    2019-01-24
 // 
 // You must not remove this notice, or any other, from this software.
 
@@ -342,9 +342,11 @@ namespace SuperFlexiUI
                 useFooter = XmlUtils.ParseBoolFromAttribute(attrCollection, "useFooter", useFooter);
                 allowImport = XmlUtils.ParseBoolFromAttribute(attrCollection, "allowImport", allowImport);
                 allowExport = XmlUtils.ParseBoolFromAttribute(attrCollection, "allowExport", allowExport);
-                //renderModuleLinksWithModuleTitle = XmlUtils.ParseBoolFromAttribute(attrCollection, "renderModuleLinksWithModuleTitle", renderModuleLinksWithModuleTitle);
+				if (attrCollection["itemViewRolesFieldName"] != null) ItemViewRolesFieldName = attrCollection["itemViewRolesFieldName"].Value;
+				if (attrCollection["itemEditRolesFieldName"] != null) ItemEditRolesFieldName = attrCollection["itemEditRolesFieldName"].Value;
+				//renderModuleLinksWithModuleTitle = XmlUtils.ParseBoolFromAttribute(attrCollection, "renderModuleLinksWithModuleTitle", renderModuleLinksWithModuleTitle);
 
-                if (attrCollection["editPageClass"] != null) editPageCssClass += " " + attrCollection["editPageClass"].Value;
+				if (attrCollection["editPageClass"] != null) editPageCssClass += " " + attrCollection["editPageClass"].Value;
                 if (attrCollection["editPageTitle"] != null) editPageTitle = attrCollection["editPageTitle"].Value;
                 if (attrCollection["editPageUpdateButtonText"] != null) editPageUpdateButtonText = attrCollection["editPageUpdateButtonText"].Value;
                 if (attrCollection["editPageSaveButtonText"] != null) editPageSaveButtonText = attrCollection["editPageSaveButtonText"].Value;
@@ -768,8 +770,11 @@ namespace SuperFlexiUI
 		/// used when populating data via api
 		/// </summary>
 		public bool ProcessItems { get { return processItems; } }
-        #endregion
-    }
+
+		public string ItemViewRolesFieldName { get; set; } = string.Empty;
+		public string ItemEditRolesFieldName { get; set; } = string.Empty;
+		#endregion
+	}
 
     public class MarkupScript
     {

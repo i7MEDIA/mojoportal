@@ -1,6 +1,6 @@
 /// Author:                     i7MEDIA
 /// Created:				    2015-03-06
-///	Last Modified:              2018-03-28
+///	Last Modified:              2019-01-24
 /// 
 /// You must not remove this notice, or any other, from this software.
 using System;
@@ -37,12 +37,13 @@ namespace SuperFlexiUI
 		private int pageId = -1;
 		protected ModuleConfiguration config = new ModuleConfiguration();
 		private Item item = new Item();
-        //protected Image imgPreview;
-        //protected HiddenField hdnEmptyImageUrl;
-        //protected HiddenField hdnImageBrowser;
-        //private SiteSettings siteSettings = new SiteSettings();
 
-        private bool advancedFilePickerAdded = false;
+		//protected Image imgPreview;
+		//protected HiddenField hdnEmptyImageUrl;
+		//protected HiddenField hdnImageBrowser;
+		//private SiteSettings siteSettings = new SiteSettings();
+
+		private bool advancedFilePickerAdded = false;
 
 		#region OnInit
 
@@ -91,7 +92,7 @@ namespace SuperFlexiUI
 			LoadParams();
             LoadSettings();
 
-            if (!UserCanEditModule(moduleId, config.FeatureGuid) && !WebUser.IsInRoles(module.AuthorizedEditRoles))
+            if (!UserCanEditModule(moduleId, config.FeatureGuid) && !WebUser.IsInRoles(module.AuthorizedEditRoles) && !WebUser.IsInRoles(item.EditRoles))
 			{
 					SiteUtils.RedirectToAccessDeniedPage(this);
 					return;
@@ -1338,6 +1339,7 @@ namespace SuperFlexiUI
 			item.SortOrder = int.Parse(txtViewOrder.Text);
             item.LastModUtc = DateTime.UtcNow;
             item.ContentChanged += new ContentChangedEventHandler(sflexiItem_ContentChanged);
+
             if (item.Save())
 			{
 				List<Field> fields = null;
@@ -1375,7 +1377,7 @@ namespace SuperFlexiUI
 		/// <param name="field"></param>
 		private void SaveFieldValue(Panel controlsPanel, Field field)
 		{
-			String controlID = field.Name;
+			string controlID = field.Name;
 
 			List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
 			ItemFieldValue fieldValue;
@@ -1564,6 +1566,16 @@ namespace SuperFlexiUI
 
 				}
 				fieldValue.Save();
+				if (field.Name == config.ItemViewRolesFieldName)
+				{
+					item.ViewRoles = fieldValue.FieldValue;
+					item.Save();
+				}
+				if (field.Name == config.ItemEditRolesFieldName)
+				{
+					item.EditRoles = fieldValue.FieldValue;
+					item.Save();
+				}
 			}
 		}
 

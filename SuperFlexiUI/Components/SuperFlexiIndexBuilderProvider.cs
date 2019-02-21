@@ -1,6 +1,6 @@
 ﻿/// Author:					    i7MEDIA
 /// Created:				    2015-03-06
-/// Last Modified:			    2015-11-18
+/// Last Modified:			    2019-01-24
 ///
 /// You must not remove this notice, or any other, from this software.
 
@@ -50,7 +50,7 @@ namespace SuperFlexiUI
                     log.InfoFormat("RebuildIndex indexing content [{0}]", row["ModuleTitle"]);
                     IndexItem indexItem = GetIndexItem(pageSettings, Convert.ToInt32(row["ModuleID"]), item);
                     if (indexItem == null) continue;
-                    indexItem.ModuleViewRoles = row["ViewRoles"].ToString();
+                    indexItem.ModuleViewRoles = row["ModuleViewRoles"].ToString() + row["ItemViewRoles"].ToString();
                     indexItem.ModuleId = Convert.ToInt32(row["ModuleID"], CultureInfo.InvariantCulture);
                     indexItem.ModuleTitle = row["ModuleTitle"].ToString();
 

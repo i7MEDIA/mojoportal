@@ -139,7 +139,7 @@ namespace SuperFlexiUI
         {
             string featuredImageUrl = string.Empty;
 
-            featuredImageUrl = String.IsNullOrWhiteSpace(config.InstanceFeaturedImage) ? featuredImageUrl : WebUtils.GetRelativeSiteRoot() + config.InstanceFeaturedImage;
+            featuredImageUrl = String.IsNullOrWhiteSpace(config.InstanceFeaturedImage) ? featuredImageUrl : SiteUtils.GetNavigationSiteRoot() + config.InstanceFeaturedImage;
 
             //dynamic expando = new ExpandoObject();
 
@@ -171,7 +171,7 @@ namespace SuperFlexiUI
                 {
                     continue;
                 }
-                string itemEditUrl = WebUtils.GetSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + pageId + "&mid=" + item.ModuleID + "&itemid=" + item.ItemID;
+                string itemEditUrl = SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + pageId + "&mid=" + item.ModuleID + "&itemid=" + item.ItemID;
 
                 //var itemModel = new ItemModel();
 

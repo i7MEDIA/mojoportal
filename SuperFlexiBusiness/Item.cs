@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-3-6
-// Last Modified:			2017-01-17
+// Last Modified:			2019-01-24
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -179,6 +179,8 @@ namespace SuperFlexiBusiness
 					this.sortOrder = Convert.ToInt32(reader["SortOrder"]);
 					this.createdUtc = Convert.ToDateTime(reader["CreatedUtc"]);
 					this.lastModUtc = Convert.ToDateTime(reader["LastModUtc"]);
+					viewRoles = reader["ViewRoles"].ToString();
+					editRoles = reader["EditRoles"].ToString();
 				}
 
             }
@@ -194,15 +196,17 @@ namespace SuperFlexiBusiness
             int newID = 0;
 
             newID = DBItems.Create(
-                this.siteGuid,
-                this.featureGuid,
-                this.moduleGuid,
-                this.moduleID,
-                this.definitionGuid,
-                this.itemGuid,
-                this.sortOrder,
-                this.createdUtc,
-                this.lastModUtc);
+                siteGuid,
+                featureGuid,
+                moduleGuid,
+                moduleID,
+                definitionGuid,
+                itemGuid,
+                sortOrder,
+                createdUtc,
+                lastModUtc,
+				viewRoles,
+				editRoles);
 
             this.itemID = newID;
 
@@ -227,15 +231,17 @@ namespace SuperFlexiBusiness
         {
 
             bool result = DBItems.Update(
-                this.siteGuid,
-                this.featureGuid,
-                this.moduleGuid,
-                this.moduleID,
-                this.definitionGuid,
-                this.itemGuid,
-                this.sortOrder,
-                this.createdUtc,
-                this.lastModUtc);
+                siteGuid,
+                featureGuid,
+                moduleGuid,
+                moduleID,
+                definitionGuid,
+                itemGuid,
+                sortOrder,
+                createdUtc,
+                lastModUtc,
+				viewRoles,
+				editRoles);
 
             if (result)
             {
@@ -246,10 +252,6 @@ namespace SuperFlexiBusiness
             return result;
 
         }
-
-
-
-
 
         #endregion
 
@@ -369,7 +371,8 @@ namespace SuperFlexiBusiness
                     item.sortOrder = Convert.ToInt32(reader["SortOrder"]);
                     item.createdUtc = Convert.ToDateTime(reader["CreatedUtc"]);
                     item.lastModUtc = Convert.ToDateTime(reader["LastModUtc"]);
-
+					item.viewRoles = reader["ViewRoles"].ToString();
+					item.editRoles = reader["EditRoles"].ToString();
 					// Not all methods will use TotalRows but there is no sense in having an extra method to load the reader
 					// so, we'll catch the error and do nothing with it because we are expecting it
 					// the if statement should keep any problems at bay but we still use try/catch in case someone inadvertently 
@@ -584,8 +587,9 @@ namespace SuperFlexiBusiness
             dataTable.Columns.Add("SortOrder", typeof(int));
             dataTable.Columns.Add("CreatedUtc", typeof(DateTime));
             dataTable.Columns.Add("ModuleTitle", typeof(string));
-            dataTable.Columns.Add("ViewRoles", typeof(string));
-            dataTable.Columns.Add("PublishBeginDate", typeof(DateTime));
+            dataTable.Columns.Add("ModuleViewRoles", typeof(string));
+            dataTable.Columns.Add("ItemViewRoles", typeof(string));
+			dataTable.Columns.Add("PublishBeginDate", typeof(DateTime));
             dataTable.Columns.Add("PublishEndDate", typeof(DateTime));
             using (IDataReader reader = DBItems.GetByCMSPage(siteGuid, pageId))
             {
@@ -599,9 +603,10 @@ namespace SuperFlexiBusiness
                     row["SortOrder"] = reader["sortOrder"];
                     row["CreatedUtc"] = Convert.ToDateTime(reader["createdUtc"]);
                     row["ModuleTitle"] = reader["moduleTitle"];
-                    row["ViewRoles"] = reader["viewRoles"];
+                    row["ModuleViewRoles"] = reader["moduleViewRoles"];
+                    row["ItemViewRoles"] = reader["itemViewRoles"];
 
-                    if (reader["publishBeginDate"] != DBNull.Value)
+					if (reader["publishBeginDate"] != DBNull.Value)
                     {
                         row["PublishBeginDate"]
                             = Convert.ToDateTime(reader["publishBeginDate"]);

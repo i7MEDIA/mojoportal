@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA (joe davis)
 // Created:				    2014-12-22
-// Last Modified:			2017-12-19
+// Last Modified:			2019-01-24
 //
 // You must not remove this notice, or any other, from this software.
 //
@@ -149,7 +149,7 @@ namespace SuperFlexiUI
             string markupTop = string.Empty;
             string markupBottom = string.Empty;
 
-            featuredImageUrl = String.IsNullOrWhiteSpace(config.InstanceFeaturedImage) ? featuredImageUrl : WebUtils.GetRelativeSiteRoot() + config.InstanceFeaturedImage;
+            featuredImageUrl = String.IsNullOrWhiteSpace(config.InstanceFeaturedImage) ? featuredImageUrl : SiteUtils.GetNavigationSiteRoot() + config.InstanceFeaturedImage;
             markupTop = displaySettings.ModuleInstanceMarkupTop;
             markupBottom = displaySettings.ModuleInstanceMarkupBottom;
 
@@ -200,7 +200,7 @@ namespace SuperFlexiUI
             foreach (Item item in items)
             {
                 bool itemIsEditable = isEditable || WebUser.IsInRoles(item.EditRoles);
-                bool itemIsViewable = WebUser.IsInRoles(item.ViewRoles) || itemIsEditable;
+				bool itemIsViewable = itemIsEditable || WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor || WebUser.IsInRoles(item.ViewRoles);
                 if (!itemIsViewable)
                 {
                     continue;
@@ -237,7 +237,7 @@ namespace SuperFlexiUI
                 //List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
 
                 //using item.ModuleID here because if we are using a 'global view' we need to be sure the item edit link uses the correct module id.
-                string itemEditUrl = WebUtils.GetSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + pageId + "&mid=" + item.ModuleID + "&itemid=" + item.ItemID;
+                string itemEditUrl = SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + pageId + "&mid=" + item.ModuleID + "&itemid=" + item.ItemID;
                 string itemEditLink = itemIsEditable ? String.Format(displaySettings.ItemEditLinkFormat, itemEditUrl) : string.Empty;
 
                 if (config.RenderJSONOfData)
@@ -281,7 +281,12 @@ namespace SuperFlexiUI
 
                 foreach (Field field in fields)
                 {
-                    if (String.IsNullOrWhiteSpace(field.Token)) field.Token = "$_NONE_$"; //just in case someone has loaded the database with fields without using a source file. 
+					//if (!WebUser.IsInRoles(field.ViewRoles))
+					//{
+					//	continue;
+					//}
+
+					if (String.IsNullOrWhiteSpace(field.Token)) field.Token = "$_NONE_$"; //just in case someone has loaded the database with fields without using a source file. 
 
                     bool fieldValueFound = false;
 
@@ -295,7 +300,9 @@ namespace SuperFlexiUI
                                 fieldValue.FieldValue.StartsWith("&deleted&") ||
                                 fieldValue.FieldValue.StartsWith("&amp;deleted&amp;") ||
                                 fieldValue.FieldValue.StartsWith("<p>&deleted&</p>") ||
-                                fieldValue.FieldValue.StartsWith("<p>&amp;deleted&amp;</p>"))
+                                fieldValue.FieldValue.StartsWith("<p>&amp;deleted&amp;</p>") ||
+								(!WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor &&
+								!WebUser.IsInRoles(field.ViewRoles)))
                             {
 
                                 content.Replace("^" + field.Token + "^", string.Empty);
@@ -387,7 +394,8 @@ namespace SuperFlexiUI
                             //    }
                             //}
 
-                            if (config.RenderJSONOfData)
+                            if (config.RenderJSONOfData && 
+								(WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor || WebUser.IsInRoles(field.ViewRoles)))
                             {
                                 jsonWriter.WritePropertyName(field.Name);
                                 //if (IsDateField(field))
@@ -418,6 +426,17 @@ namespace SuperFlexiUI
                     if (!fieldValueFound)
                     {
                         content.Replace(field.Token, field.DefaultValue);
+						if (config.RenderJSONOfData)
+						{
+							if (field.ControlType == "CheckBox" && field.CheckBoxReturnBool == true)
+							{
+								jsonWriter.WriteValue(Convert.ToBoolean(field.DefaultValue));
+							}
+							else
+							{
+								jsonWriter.WriteValue(field.DefaultValue);
+							}
+						}
                     }
                 }
 
@@ -465,7 +484,6 @@ namespace SuperFlexiUI
                 {
                         //allItems.Append(displaySettings.GlobalViewModuleGroupMarkup.Replace("$_ModuleGroupName_$", sb.GroupName));
                     allItems.Append(sb.ToString());
-                    
                 }
                 if (usingGlobalViewMarkup)
                 {
