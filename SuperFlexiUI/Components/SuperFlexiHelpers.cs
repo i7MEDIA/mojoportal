@@ -43,7 +43,7 @@ namespace SuperFlexiUI
             {
                 settings = String.Format(
                     displaySettings.ModuleSettingsLinkFormat,
-                    WebUtils.GetSiteRoot() + "/Admin/ModuleSettings.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+                    SiteUtils.GetNavigationSiteRoot() + "/Admin/ModuleSettings.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
                     SuperFlexiResources.SettingsLinkLabel);
 
                 if (!String.IsNullOrWhiteSpace(config.MarkupDefinitionName) && config.MarkupDefinitionName != "0")
@@ -52,7 +52,7 @@ namespace SuperFlexiUI
 					{
 						add = String.Format(
                       displaySettings.AddItemLinkFormat,
-                      WebUtils.GetSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+                      SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
                       SuperFlexiResources.AddItem);
                     }
 
@@ -60,7 +60,7 @@ namespace SuperFlexiUI
                     {
                         header = String.Format(
                             displaySettings.EditHeaderLinkFormat,
-                            WebUtils.GetSiteRoot() + "/SuperFlexi/EditHeader.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+                            SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/EditHeader.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
                             SuperFlexiResources.EditHeader);
                     }
 
@@ -68,7 +68,7 @@ namespace SuperFlexiUI
                     {
                         footer = String.Format(
                             displaySettings.EditFooterLinkFormat,
-                            WebUtils.GetSiteRoot() + "/SuperFlexi/EditHeader.aspx?f=true&pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+                            SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/EditHeader.aspx?f=true&pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
                             SuperFlexiResources.EditFooter);
                     }
 
@@ -76,7 +76,7 @@ namespace SuperFlexiUI
                     {
                         import = String.Format(
                             displaySettings.ImportLinkFormat,
-                            WebUtils.GetSiteRoot() + "/SuperFlexi/Import.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+                            SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Import.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
                             SuperFlexiResources.ImportTitle);
                     }
 
@@ -84,7 +84,7 @@ namespace SuperFlexiUI
                     {
                         export = String.Format(
                             displaySettings.ExportLinkFormat,
-                            WebUtils.GetSiteRoot() + "/SuperFlexi/Export.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+                            SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Export.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
                             SuperFlexiResources.ExportTitle);
                     }
                 }
@@ -201,10 +201,10 @@ namespace SuperFlexiUI
             out StringBuilder sb)
         {
             sb = stringBuilder;
-            string featuredImageUrl = String.IsNullOrWhiteSpace(config.InstanceFeaturedImage) ? string.Empty : WebUtils.GetRelativeSiteRoot() + config.InstanceFeaturedImage;
+            string featuredImageUrl = String.IsNullOrWhiteSpace(config.InstanceFeaturedImage) ? string.Empty : WebUtils.GetApplicationRoot() + config.InstanceFeaturedImage;
             string jsonObjName = "sflexi" + moduleId.ToString() + (config.IsGlobalView ? "Modules" : "Items");
             string currentSkin = string.Empty;
-            string siteRoot = WebUtils.GetRelativeSiteRoot();
+            string siteRoot = SiteUtils.GetNavigationSiteRoot();
 			bool publishedOnCurrentPage = true;
 
 			if (HttpContext.Current != null && HttpContext.Current.Request.Params.Get("skin") != null)
