@@ -1,6 +1,7 @@
 ﻿using mojoPortal.Data;
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 
 
@@ -69,12 +70,40 @@ namespace mojoPortal.Business
 			}
 		}
 
-		public Tag GetTagByModuleGuid(Guid moduleGuid)
+		public List<Tag> GetTagsByModuleGuid(Guid moduleGuid)
 		{
-			using (IDataReader reader = DBTag.GetByModule(moduleGuid))
-			{
-				return getTagFromIDataReader(reader);
-			}
+			return getTagListFromIDataReader(DBTag.GetByModule(moduleGuid));
+		}
+
+		public List<Tag> GetTagsByFeatureGuid(Guid featureGuid)
+		{
+			return getTagListFromIDataReader(DBTag.GetByFeature(featureGuid));
+		}
+
+		public List<Tag> GetTagsBySite(Guid siteGuid)
+		{
+			return getTagListFromIDataReader(DBTag.GetBySite(siteGuid));
+		}
+
+		public List<Tag> GetTagsBySite(int siteId)
+		{
+			return getTagListFromIDataReader(DBTag.GetBySite(siteId));
+		}
+
+		public List<Tag> GetTagsByVocabulary(Guid vocabularyGuid)
+		{
+			return getTagListFromIDataReader(DBTag.GetByVocabulary(vocabularyGuid));
+		}
+
+		/// <summary>
+		/// Gets count of Tag instances by chosen type. Default is 'site'.
+		/// </summary>
+		/// <param name="guid"></param>
+		/// <param name="type">site,module,feature</param>
+		/// <returns></returns>
+		public int GetTagCount(Guid guid, string type="site")
+		{
+			return DBTag.GetCount(guid, type);
 		}
 
 		#endregion
@@ -84,14 +113,14 @@ namespace mojoPortal.Business
 
 		public TagItem SaveTagItem(TagItem tagItem, out bool result)
 		{
-			tagItem.Guid = Guid.NewGuid();
+			tagItem.TagItemGuid = Guid.NewGuid();
 
 			result = DBTagItem.Create(
-				tagItem.Guid,
+				tagItem.TagItemGuid,
 				tagItem.SiteGuid,
 				tagItem.FeatureGuid,
 				tagItem.ModuleGuid,
-				tagItem.ItemGuid,
+				tagItem.RelatedItemGuid,
 				tagItem.TagGuid,
 				tagItem.ExtraGuid,
 				tagItem.TaggedBy
@@ -135,6 +164,21 @@ namespace mojoPortal.Business
 			return DBTagItem.DeleteBySite(siteGuid);
 		}
 
+		public List<TagItem> GetTagItemsByRelatedItemGuid(Guid relatedItemGuid)
+		{
+			return getTagItemListFromIDataReader(DBTagItem.GetByRelatedItem(relatedItemGuid));
+		}
+
+		public List<TagItem> GetTagItemsByRelatedExtraGuid(Guid extraGuid)
+		{
+			return getTagItemListFromIDataReader(DBTagItem.GetByExtra(extraGuid));
+		}
+
+		public TagItem GetTagItemByTagItemGuid(Guid tagItemGuid)
+		{
+			return getTagItemFromIDataReader(DBTagItem.GetByTagItem(tagItemGuid));
+		}
+
 		#endregion
 
 
@@ -150,8 +194,8 @@ namespace mojoPortal.Business
 					SiteGuid = new Guid(reader["SiteGuid"].ToString()),
 					FeatureGuid = new Guid(reader["FeatureGuid"].ToString()),
 					ModuleGuid = new Guid(reader["ModuleGuid"].ToString()),
-					TagText = reader["Tax"].ToString(),
-					ItemCount = Convert.ToInt32(reader["Tag"]),
+					TagText = reader["Tag"].ToString(),
+					ItemCount = Convert.ToInt32(reader["ItemCount"]),
 					CreatedUtc = Convert.ToDateTime(reader["CreatedUtc"]),
 					CreatedBy = new Guid(reader["CreatedBy"].ToString()),
 					ModifiedUtc = Convert.ToDateTime(reader["ModifiedUtc"]),
@@ -161,6 +205,51 @@ namespace mojoPortal.Business
 			}
 
 			return null;
+		}
+
+		private List<Tag> getTagListFromIDataReader(IDataReader reader)
+		{
+			List<Tag> tags = new List<Tag>();
+
+			while (reader.Read())
+			{
+				tags.Add(getTagFromIDataReader(reader));
+			}
+
+			return tags;
+		}
+
+		private TagItem getTagItemFromIDataReader(IDataReader reader)
+		{
+			if (reader.Read())
+			{
+				return new TagItem
+				{
+					TagItemGuid = new Guid(reader["Guid"].ToString()),
+					RelatedItemGuid = new Guid(reader["RelatedItemGuid"].ToString()),
+					SiteGuid = new Guid(reader["SiteGuid"].ToString()),
+					FeatureGuid = new Guid(reader["FeatureGuid"].ToString()),
+					ModuleGuid = new Guid(reader["ModuleGuid"].ToString()),
+					TagGuid = new Guid(reader["TagGuid"].ToString()),
+					ExtraGuid = new Guid(reader["ExtraGuid"].ToString()),
+					TaggedBy = new Guid(reader["TaggedBy"].ToString()),
+					TagText = reader["TagText"].ToString(),
+				};
+			}
+
+			return null;
+		}
+
+		private List<TagItem> getTagItemListFromIDataReader(IDataReader reader)
+		{
+			List<TagItem> tagItems = new List<TagItem>();
+
+			while (reader.Read())
+			{
+				tagItems.Add(getTagItemFromIDataReader(reader));
+			}
+
+			return tagItems;
 		}
 
 		#endregion

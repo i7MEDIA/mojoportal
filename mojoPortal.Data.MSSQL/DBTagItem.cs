@@ -9,33 +9,33 @@ namespace mojoPortal.Data
 		/// <summary>
 		/// Inserts a row in the mp_TagItem table. Returns rows affected count.
 		/// </summary>
-		/// <param name="guid"> guid </param>
+		/// <param name="tagItemGuid"> tagItemGuid </param>
 		/// <param name="siteGuid"> siteGuid </param>
 		/// <param name="featureGuid"> featureGuid </param>
 		/// <param name="moduleGuid"> moduleGuid </param>
-		/// <param name="itemGuid"> itemGuid </param>
+		/// <param name="relatedItemGuid"> relatedItemGuid </param>
 		/// <param name="tagGuid"> tagGuid </param>
 		/// <param name="extraGuid"> extraGuid </param>
 		/// <param name="taggedBy"> taggedBy </param>
 		/// <returns>int</returns>
 		public static bool Create(
-			Guid guid,
+			Guid tagItemGuid,
 			Guid siteGuid,
 			Guid featureGuid,
 			Guid moduleGuid,
-			Guid itemGuid,
+			Guid relatedItemGuid,
 			Guid tagGuid,
 			Guid extraGuid,
 			Guid taggedBy
 		)
 		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_Insert", 8);
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_Insert", 8);//change params in DB
 
-			sph.DefineSqlParameter("@Guid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, guid);
+			sph.DefineSqlParameter("@TagItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, tagItemGuid);
 			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
 			sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
 			sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
-			sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
+			sph.DefineSqlParameter("@RelatedItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, relatedItemGuid);
 			sph.DefineSqlParameter("@TagGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, tagGuid);
 			sph.DefineSqlParameter("@ExtraGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, extraGuid);
 			sph.DefineSqlParameter("@TaggedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, taggedBy);
@@ -47,13 +47,13 @@ namespace mojoPortal.Data
 		/// <summary>
 		/// Deletes a row from the mp_TagItem table. Returns true if row deleted.
 		/// </summary>
-		/// <param name="guid"> guid </param>
+		/// <param name="tagItemGuid"> tagItemGuid </param>
 		/// <returns>bool</returns>
-		public static bool Delete(Guid guid)
+		public static bool Delete(Guid tagItemGuid)
 		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_Delete", 1);
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_Delete", 1);//change params in DB
 
-			sph.DefineSqlParameter("@Guid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, guid);
+			sph.DefineSqlParameter("@TagItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, tagItemGuid);
 
 			return sph.ExecuteNonQuery() > 0;
 		}
@@ -64,11 +64,11 @@ namespace mojoPortal.Data
 		/// </summary>
 		/// <param name="guid"> guid </param>
 		/// <returns>bool</returns>
-		public static bool DeleteByItem(Guid itemGuid)
+		public static bool DeleteByItem(Guid relatedItemGuid)
 		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_DeleteByItem", 1);
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_DeleteByRelatedItem", 1);
 
-			sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
+			sph.DefineSqlParameter("@RelatedItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, relatedItemGuid);
 
 			return sph.ExecuteNonQuery() > 0;
 		}
@@ -146,6 +146,36 @@ namespace mojoPortal.Data
 			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
 
 			return sph.ExecuteNonQuery() > 0;
+		}
+
+
+		public static IDataReader GetByRelatedItem(Guid relatedItemGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_GetByRelatedItem", 1);
+
+			sph.DefineSqlParameter("@RelatedItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, relatedItemGuid);
+
+			return sph.ExecuteReader();
+		}
+
+
+		public static IDataReader GetByExtra(Guid extraGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_GetByExtra", 1);
+
+			sph.DefineSqlParameter("@ExtraGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, extraGuid);
+
+			return sph.ExecuteReader();
+		}
+
+
+		public static IDataReader GetByTagItem(Guid tagItemGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_GetByTagItem", 1);
+
+			sph.DefineSqlParameter("@TagItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, tagItemGuid);
+
+			return sph.ExecuteReader();
 		}
 	}
 }

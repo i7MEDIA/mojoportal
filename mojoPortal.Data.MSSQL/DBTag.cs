@@ -42,7 +42,6 @@ namespace mojoPortal.Data
 			return sph.ExecuteNonQuery() > 0;
 		}
 
-
 		/// <summary>
 		/// Updates a row in the mp_Tag table. Returns true if row was updated.
 		/// </summary>
@@ -180,14 +179,65 @@ namespace mojoPortal.Data
 		/// Gets a count of rows in the mp_Tag table.
 		/// </summary>
 		/// <param name="moduleGuid"> moduleGuid </param>
+		/// <param name="type">site,module,feature</param>
 		/// <returns>int</returns>
-		public static int GetCount(Guid moduleGuid)
+		public static int GetCount(Guid guid, string type="site")
 		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Tag_GetCountByModule", 1);
-
-			sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
-
+			SqlParameterHelper sph = null;
+			switch (type)
+			{
+				case "module":
+					sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Tag_GetCountByModule", 1);
+					sph.DefineSqlParameter("@Guid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, guid);
+					break;
+				case "site":
+				default:
+					sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Tag_GetCountBySite", 1);
+					sph.DefineSqlParameter("@Guid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, guid);
+					break;
+				case "feature":
+					sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Tag_GetCountByFeature", 1);
+					sph.DefineSqlParameter("@Guid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, guid);
+					break;
+			}
 			return Convert.ToInt32(sph.ExecuteScalar());
+		}
+
+
+		public static IDataReader GetBySite(Guid siteGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Tag_SelectBySiteGuid", 1);
+
+			sph.DefineSqlParameter("@Guid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+
+			return sph.ExecuteReader();
+		}
+
+		public static IDataReader GetBySite(int siteId)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Tag_SelectBySite", 1);
+
+			sph.DefineSqlParameter("@ID", SqlDbType.Int, ParameterDirection.Input, siteId);
+
+			return sph.ExecuteReader();
+		}
+
+		public static IDataReader GetByFeature(Guid featureGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Tag_SelectByFeature", 1);
+
+			sph.DefineSqlParameter("@Guid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
+
+			return sph.ExecuteReader();
+		}
+
+		public static IDataReader GetByVocabulary(Guid vocabularyGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Tag_SelectByVocabulary", 1);
+
+			sph.DefineSqlParameter("@Guid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, vocabularyGuid);
+
+			return sph.ExecuteReader();
 		}
 	}
 }
