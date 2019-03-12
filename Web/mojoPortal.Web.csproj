@@ -1911,6 +1911,7 @@
     <Compile Include="Controls\SortSetting.ascx.designer.cs">
       <DependentUpon>SortSetting.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Tags\TagService.cs" />
     <Compile Include="Controls\TimeZoneIdSetting.ascx.cs">
       <DependentUpon>TimeZoneIdSetting.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
