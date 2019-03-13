@@ -1,69 +1,71 @@
-﻿
-using System;
-using System.Configuration;
+﻿using System.Configuration;
+
 
 namespace mojoPortal.Data
 {
-    public static class ConnectionString
-    {
-        public static string GetReadConnectionString()
-        {
-            if (UseConnectionStringSection()) { return GetReadConnectionStringFromConnectionStringSection(); }
+	public static class ConnectionString
+	{
+		private const string connectionString = "MSSQLConnectionString";
+		private const string writeString = "MSSQLWriteConnectionString";
 
-            return ConfigurationManager.AppSettings["MSSQLConnectionString"];
+		public static string GetReadConnectionString()
+		{
+			if (UseConnectionStringSection())
+			{
+				return GetReadConnectionStringFromConnectionStringSection();
+			}
 
-        }
-
-        /// <summary>
-        /// Gets the connection string for write.
-        /// </summary>
-        /// <returns></returns>
-        public static string GetWriteConnectionString()
-        {
-            if (UseConnectionStringSection()) { return GetWriteConnectionStringFromConnectionStringSection(); }
-
-            if (ConfigurationManager.AppSettings["MSSQLWriteConnectionString"] != null)
-            {
-                return ConfigurationManager.AppSettings["MSSQLWriteConnectionString"];
-            }
-
-            return ConfigurationManager.AppSettings["MSSQLConnectionString"];
-
-        }
-
-        private static string GetWriteConnectionStringFromConnectionStringSection()
-        {
-            if (ConfigurationManager.ConnectionStrings["MSSQLWriteConnectionString"] != null)
-            {
-                return ConfigurationManager.ConnectionStrings["MSSQLWriteConnectionString"].ConnectionString;
-            }
-
-            return ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString;
-
-        }
-
-        private static string GetReadConnectionStringFromConnectionStringSection()
-        {
-            return ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString;
-
-        }
-
-        private static bool UseConnectionStringSection()
-        {
-            if (ConfigurationManager.AppSettings["UseConnectionStringSection"] != null)
-            {
-                if (ConfigurationManager.AppSettings["UseConnectionStringSection"] == "true") { return true; }
-
-            }
+			return ConfigurationManager.AppSettings[connectionString];
+		}
 
 
-            return false;
-        }
+		/// <summary>
+		/// Gets the connection string for write.
+		/// </summary>
+		/// <returns>string</returns>
+		public static string GetWriteConnectionString()
+		{
+			if (UseConnectionStringSection())
+			{
+				return GetWriteConnectionStringFromConnectionStringSection();
+			}
 
-    }
+			if (ConfigurationManager.AppSettings[writeString] != null)
+			{
+				return ConfigurationManager.AppSettings[writeString];
+			}
 
-    
+			return ConfigurationManager.AppSettings[connectionString];
+		}
 
 
+		private static string GetWriteConnectionStringFromConnectionStringSection()
+		{
+			if (ConfigurationManager.ConnectionStrings[writeString] != null)
+			{
+				return ConfigurationManager.ConnectionStrings[writeString].ConnectionString;
+			}
+
+			return ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
+		}
+
+
+		private static string GetReadConnectionStringFromConnectionStringSection()
+		{
+			return ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
+		}
+
+
+		private static bool UseConnectionStringSection()
+		{
+			var connectionStringSection = ConfigurationManager.AppSettings["UseConnectionStringSection"];
+
+			if (connectionStringSection != null && connectionStringSection == "true")
+			{
+				return true;
+			}
+
+			return false;
+		}
+	}
 }
-
