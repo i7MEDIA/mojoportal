@@ -45,7 +45,8 @@ namespace mojoPortal.Web
 
         public const string ViewCommerceReports = "4d2e379e-21df-4b70-8e3b-c43f4bfae726";
 
-        
+		public const string CanManageTags = "00e308f6-80b8-4eeb-b25c-1d88345f5585";
 
-    }
+
+	}
 }

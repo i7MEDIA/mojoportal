@@ -25,13 +25,16 @@ namespace mojoPortal.Web.Tags
 			_guid = guid;
 			_selectionType = selectionType;
 
-			if (!WebUser.IsAdminOrContentAdmin || !SiteUtils.UserIsSiteEditor())
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
+			currentUser = SiteUtils.GetCurrentSiteUser();
+
+			if (
+				!WebUser.IsAdminOrContentAdmin ||
+				!SiteUtils.UserIsSiteEditor() ||
+				!WebUser.IsInRoles(siteSettings.TagManagementRoles))
 			{
 				allowed = false;
 			}
-
-			currentUser = SiteUtils.GetCurrentSiteUser();
-			siteSettings = CacheHelper.GetCurrentSiteSettings();
 		}
 
 
@@ -103,9 +106,9 @@ namespace mojoPortal.Web.Tags
 		}
 
 
-		public void CreateTag(string tagText, Guid guid)
+		public (bool, Tag) CreateTag(string tagText)
 		{
-			if (!allowed) return;
+			if (!allowed) return (false, null);
 
 			var tag = new Tag
 			{
@@ -118,19 +121,24 @@ namespace mojoPortal.Web.Tags
 				ModifiedBy = currentUser.UserGuid
 			};
 
-			TagRepository.SaveTag(tag, out bool result);
+			var newTag = TagRepository.SaveTag(tag, out bool result);
+
+			return (result, newTag);
 		}
 
 
-		public void EditTag(string tagText, Guid guid)
+		public (bool, Tag) UpdateTag(string tagText, Guid guid)
 		{
-			if (!allowed) return;
+			if (!allowed) return (false, null);
 
-			var tag = TagRepository.GetTagByGuid(guid);
+			var oldTag = TagRepository.GetTagByGuid(guid);
 
-			tag.TagText = tagText.Trim();
+			oldTag.TagText = tagText.Trim();
+			oldTag.ModifiedBy = currentUser.UserGuid;
 
-			TagRepository.SaveTag(tag, out bool result);
+			var newTag = TagRepository.SaveTag(oldTag, out bool result);
+
+			return (result, newTag);
 		}
 
 
@@ -153,11 +161,11 @@ namespace mojoPortal.Web.Tags
 		}
 
 
-		public void DeleteTag(Guid tagGuid)
+		public bool DeleteTag(Guid tagGuid)
 		{
-			if (!allowed) return;
+			if (!allowed) return false;
 
-			TagRepository.DeleteTagByGuid(tagGuid);
+			return TagRepository.DeleteTagByGuid(tagGuid);
 		}
 
 

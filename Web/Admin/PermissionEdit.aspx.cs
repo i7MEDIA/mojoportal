@@ -219,6 +219,10 @@ namespace mojoPortal.Web.AdminUI
 					selectedSite.DefaultRootPageViewRoles = chkAllowedRoles.Items.SelectedItemsToSemiColonSeparatedString();
 					break;
 
+				case CorePermission.CanManageTags:
+					selectedSite.TagManagementRoles = chkAllowedRoles.Items.SelectedItemsToSemiColonSeparatedString();
+					break;
+
 			}
 
 			selectedSite.Save();

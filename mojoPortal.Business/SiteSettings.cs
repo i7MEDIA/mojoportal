@@ -1450,7 +1450,18 @@ namespace mojoPortal.Business
             set { SetExpandoProperty("DefaultRootPageCreateChildPageRoles", value); }
         }
 
-        public Guid SkinVersion
+		public string TagManagementRoles
+		{
+			get
+			{
+				string result = GetExpandoProperty("TagManagementRoles");
+				if (result != null) { return result; }
+				return "Content Administrators;";
+			}
+			set { SetExpandoProperty("TagManagementRoles", value); }
+		}
+
+		public Guid SkinVersion
         {
             get
             {
