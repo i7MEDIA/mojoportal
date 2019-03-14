@@ -425,18 +425,27 @@ namespace SuperFlexiUI
 
                     if (!fieldValueFound)
                     {
-                        content.Replace(field.Token, field.DefaultValue);
-						if (config.RenderJSONOfData)
+						if (WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor || WebUser.IsInRoles(field.ViewRoles))
 						{
-							if (field.ControlType == "CheckBox" && field.CheckBoxReturnBool == true)
+							content.Replace(field.Token, field.DefaultValue);
+							if (config.RenderJSONOfData)
 							{
-								jsonWriter.WriteValue(Convert.ToBoolean(field.DefaultValue));
-							}
-							else
-							{
-								jsonWriter.WriteValue(field.DefaultValue);
+								jsonWriter.WritePropertyName(field.Name);
+								if (field.ControlType == "CheckBox" && field.CheckBoxReturnBool == true)
+								{
+									jsonWriter.WriteValue(Convert.ToBoolean(field.DefaultValue));
+								}
+								else
+								{
+									jsonWriter.WriteValue(field.DefaultValue);
+								}
 							}
 						}
+						else
+						{
+							content.Replace(field.Token, string.Empty);
+						}
+						
                     }
                 }
 
