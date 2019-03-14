@@ -118,7 +118,8 @@ namespace mojoPortal.Web.Tags
 				VocabularyGuid = Guid.Empty,
 				TagText = tagText.Trim(),
 				CreatedBy = currentUser.UserGuid,
-				ModifiedBy = currentUser.UserGuid
+				ModifiedBy = currentUser.UserGuid,
+				ModifiedUtc = DateTime.UtcNow
 			};
 
 			var newTag = TagRepository.SaveTag(tag, out bool result);
@@ -135,6 +136,7 @@ namespace mojoPortal.Web.Tags
 
 			oldTag.TagText = tagText.Trim();
 			oldTag.ModifiedBy = currentUser.UserGuid;
+			oldTag.ModifiedUtc = DateTime.UtcNow;
 
 			var newTag = TagRepository.SaveTag(oldTag, out bool result);
 
