@@ -129,7 +129,7 @@ namespace mojoPortal.Web
                             exceptionReferrer = "none";
                         }
 
-                        log.Error("Referrer(" + exceptionReferrer + ")  PageNotFoundHttpModule handled error.", ex);
+                        log.Info("Referrer(" + exceptionReferrer + ")  PageNotFoundHttpModule handled error.", ex);
 
                         app.Server.ClearError();
 #if !MONO
