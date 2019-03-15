@@ -15,8 +15,7 @@ namespace mojoPortal.Web.ForumUI
 {
     public static class ForumNotification
     {
-        public static void SendForumModeratorNotificationEmail(
-            object oNotificationInfo)
+        public static void SendForumModeratorNotificationEmail(object oNotificationInfo)
         {
             if (oNotificationInfo == null) return;
             if (!(oNotificationInfo is ForumNotificationInfo)) return;
@@ -69,8 +68,7 @@ namespace mojoPortal.Web.ForumUI
 
         }
 
-        public static void SendForumNotificationEmail(
-            object oNotificationInfo)
+        public static void SendForumNotificationEmail(object oNotificationInfo)
         {
             if (oNotificationInfo == null) return;
             if (!(oNotificationInfo is ForumNotificationInfo)) return;
@@ -214,17 +212,14 @@ namespace mojoPortal.Web.ForumUI
                     + "#post" + thread.PostId.ToInvariantString();
             }
 
-            ForumNotificationInfo notificationInfo = new ForumNotificationInfo();
+			ForumNotificationInfo notificationInfo = new ForumNotificationInfo
+			{
+				ThreadId = thread.ThreadId,
+				PostId = thread.PostId,
+				SubjectTemplate = ResourceHelper.GetMessageTemplate(defaultCulture, "ForumNotificationEmailSubject.config")
+			};
 
-            notificationInfo.ThreadId = thread.ThreadId;
-            notificationInfo.PostId = thread.PostId;
-
-            
-            notificationInfo.SubjectTemplate
-                = ResourceHelper.GetMessageTemplate(defaultCulture,
-                "ForumNotificationEmailSubject.config");
-
-            if (config.IncludePostBodyInNotification)
+			if (config.IncludePostBodyInNotification)
             {
                 string postedBy = string.Empty;
                 if (siteUser != null)
