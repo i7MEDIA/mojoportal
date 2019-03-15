@@ -335,11 +335,10 @@ namespace mojoPortal.Web.Framework
 
         public static void ForceSsl()
         {
-            bool proxyPreventsSSLDetection;
-            bool.TryParse(ConfigurationManager.AppSettings["ProxyPreventsSSLDetection"], out proxyPreventsSSLDetection);
-            // proxyPreventsSSLDetection is false if parsing failed for any reason
+			bool.TryParse(ConfigurationManager.AppSettings["ProxyPreventsSSLDetection"], out bool proxyPreventsSSLDetection);
+			// proxyPreventsSSLDetection is false if parsing failed for any reason
 
-            if (!proxyPreventsSSLDetection)
+			if (!proxyPreventsSSLDetection)
             {
                 string url = HttpContext.Current.Request.Url.ToString();
                 if (url.StartsWith("http:"))
