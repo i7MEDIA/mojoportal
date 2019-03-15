@@ -1,8 +1,4 @@
-﻿// Author:				
-// Created:			    2008-12-12
-// Last Modified:		2012-05-22
-// 
-// The use and distribution terms for this software are covered by the 
+﻿// The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
 // which can be found in the file CPL.TXT at the root of this distribution.
 // By using this software in any fashion, you are agreeing to be bound by 
@@ -19,9 +15,6 @@ using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class PageNotFoundHttpModule : IHttpModule
     {
         private static readonly ILog log

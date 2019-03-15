@@ -1,7 +1,3 @@
-// Author:					
-// Created:					2005-03-31
-// Last Modified:			2012-12-17
-// 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
 // which can be found in the file CPL.TXT at the root of this distribution.
@@ -427,6 +423,8 @@ namespace mojoPortal.Business.WebHelpers
             }
             else
             {
+				//todo: cache number of sites in db when application starts (or when sites are added) then, if there's only one, we don't need to go to db to get the siteid
+				//maybe we could cache all of the hostnames and site ids?
                 String hostName = WebUtils.GetHostName();
                 siteId = SiteSettings.GetSiteIdByHostName(hostName);
                 cachekey = "SiteSettings_" + siteId.ToInvariantString();
@@ -844,35 +842,48 @@ namespace mojoPortal.Business.WebHelpers
                 {
                     Module m = new Module();
                     m.ModuleId = Convert.ToInt32(reader["ModuleID"]);
-                    m.ModuleGuid = new Guid(reader["Guid"].ToString());
+					m.SiteId = Convert.ToInt32(reader["SiteID"]);
                     m.ModuleDefId = Convert.ToInt32(reader["ModuleDefID"]);
-                    m.PageId = Convert.ToInt32(reader["PageID"]);
-                    m.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
-                    m.PaneName = reader["PaneName"].ToString();
                     m.ModuleTitle = reader["ModuleTitle"].ToString();
-                    m.ViewRoles = reader["ViewRoles"].ToString();
                     m.AuthorizedEditRoles = reader["AuthorizedEditRoles"].ToString();
-                    m.DraftEditRoles = reader["DraftEditRoles"].ToString();
-                    m.DraftApprovalRoles = reader["DraftApprovalRoles"].ToString();
                     m.CacheTime = Convert.ToInt32(reader["CacheTime"]);
-                    m.ModuleOrder = Convert.ToInt32(reader["ModuleOrder"]);
-
-                    m.HideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]);
-                    m.HideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]);
-                    m.IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]);
-                    m.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
-
+					string showTitle = reader["ShowTitle"].ToString();
+                    m.ShowTitle = (showTitle == "True" || showTitle == "1");
                     if (reader["EditUserID"] != DBNull.Value)
                     {
                         m.EditUserId = Convert.ToInt32(reader["EditUserID"]);
                     }
-
-                    string showTitle = reader["ShowTitle"].ToString();
-                    m.ShowTitle = (showTitle == "True" || showTitle == "1");
-                    m.ControlSource = reader["ControlSrc"].ToString();
+					//m.AvailableForMyPage = Convert.ToBoolean(reader["AvailableForMyPage"]);
+					//m.AllowMultipleInstancesOnMyPage = Convert.ToBoolean(reader["AllowMultipleInstancesOnMyPage"]);
+					//m.Icon = reader["Icon"].ToString();
+					m.CreatedByUserId = Convert.ToInt32(reader["CreatedByUserID"]);
+					if (reader["CreatedDate"] != DBNull.Value)
+					{
+						m.CreatedDate = Convert.ToDateTime(reader["CreatedDate"]);
+					}
+					//m.CountOfUseOnMyPage
+					m.ModuleGuid = new Guid(reader["Guid"].ToString());
+                    m.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
+					m.SiteGuid = new Guid(reader["SiteGuid"].ToString());
+					if (reader["EditUserGuid"] != DBNull.Value)
+					{
+						m.EditUserGuid = new Guid(reader["EditUserGuid"].ToString());
+					}
+                    m.HideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]);
+                    m.HideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]);
+					m.ViewRoles = reader["ViewRoles"].ToString();
+                    m.DraftEditRoles = reader["DraftEditRoles"].ToString();
+                    m.IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]);
+                    m.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
                     m.HeadElement = reader["HeadElement"].ToString();
                     m.PublishMode = Convert.ToInt32(reader["PublishMode"]);
+                    m.DraftApprovalRoles = reader["DraftApprovalRoles"].ToString();
 
+                    m.PageId = Convert.ToInt32(reader["PageID"]);
+                    m.PaneName = reader["PaneName"].ToString();
+                    m.ModuleOrder = Convert.ToInt32(reader["ModuleOrder"]);
+                    m.ControlSource = reader["ControlSrc"].ToString();
+					
                     pageSettings.Modules.Add(m);
                 }
             }

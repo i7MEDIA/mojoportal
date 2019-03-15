@@ -1,20 +1,15 @@
-// Author:					
-// Created:				    2004-12-26
-// Last Modified:			2013-04-23
-// 
 // The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
+// Eclipse Public License 1.0 (https://opensource.org/licenses/eclipse-1.0)  
+// which can be found in the file LICENSE.MD at the root of this distribution.
 // By using this software in any fashion, you are agreeing to be bound by 
 // the terms of this license.
 //
 // You must not remove this notice, or any other, from this software.
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using mojoPortal.Data;
-using System.Collections.Generic;
 
 namespace mojoPortal.Business
 {
@@ -26,14 +21,12 @@ namespace mojoPortal.Business
 
 		#region Constructors
 
-		public Module()
-		{}
+		public Module() {}
 
         public Module(Guid moduleGuid)
         {
             GetModule(moduleGuid);
         }
-
 
         public Module(int moduleId)
         {
@@ -42,297 +35,137 @@ namespace mojoPortal.Business
 
         public Module(int moduleId, int pageId)
         {
-            this.pageID = pageId;
+            this.PageId = pageId;
             GetModule(moduleId, pageId);
         }
 
 		#endregion
 
-		#region Private Properties
+		#region Properties
 
-		private int moduleID = -1;
-        private Guid guid = Guid.Empty;
-        private Guid featureGuid = Guid.Empty;
-        private Guid siteGuid = Guid.Empty;
-        private int siteID = 0;
-		private int pageID = -1; 
-		private int moduleDefID; 
-		private int moduleOrder = 999; 
-		private string paneName = String.Empty; 
-		private string moduleTitle = String.Empty;
-        private string viewRoles = "All Users;";
-		private string authorizedEditRoles = String.Empty;
-        private string draftEditRoles = String.Empty;
-        private string draftApprovalRoles = String.Empty;
-		private int cacheTime = 0; 
-		private bool showTitle = true; 
-		private string controlSource = string.Empty;
-		private int editUserID = -1;
-        private Guid editUserGuid = Guid.Empty;
-        private bool availableForMyPage = false;
-        private bool allowMultipleInstancesOnMyPage = true;
-        private String icon = String.Empty;
-        private int createdByUserID = -1;
-        private DateTime createdDate = DateTime.MinValue;
-        private String featureName = String.Empty;
-        private bool hideFromAuthenticated = false;
-        private bool hideFromUnauthenticated = false;
-        private bool includeInSearch = true;
-        private bool isGlobal = false;
+		public Guid ModuleGuid { get; set; } = Guid.Empty;
 
-        private string headElement = "h2";
-        private int publishMode = 0; //All
-        
-      
-		#endregion
+		public Guid SiteGuid { get; set; } = Guid.Empty;
 
-		#region Public Properties
+		public Guid FeatureGuid { get; set; } = Guid.Empty;
 
-        public Guid ModuleGuid
-        {
-            get { return guid; }
-            set { guid = value; }
-        }
+		public int ModuleId { get; set; } = -1;
 
-        public Guid SiteGuid
-        {
-            get { return siteGuid; }
-            set { siteGuid = value; }
-        }
+		public int SiteId { get; set; } = 0;
 
-        public Guid FeatureGuid
-        {
-            get { return featureGuid; }
-            set { featureGuid = value; }
-        }
+		public int EditUserId { get; set; } = -1;
 
-		public int ModuleId 
-		{
-			get { return moduleID; }
-			set { moduleID = value; }
-		}
+		public Guid EditUserGuid { get; set; } = Guid.Empty;
 
-        public int SiteId
-        {
-            get { return siteID; }
-            set { siteID = value; }
-        }
+		public int PageId { get; set; } = -1;
+		public int ModuleDefId { get; set; }
 
-		public int EditUserId 
-		{
-			get { return editUserID; }
-			set { editUserID = value; }
-		}
+		public int ModuleOrder { get; set; } = 999;
 
-        public Guid EditUserGuid
-        {
-            get { return editUserGuid; }
-            set { editUserGuid = value; }
-        }
+		public int PublishMode { get; set; } = 0;
 
-		public int PageId 
-		{
-			get { return pageID; }
-			set { pageID = value; }
-		}
-		public int ModuleDefId 
-		{
-			get { return moduleDefID; }
-			set { moduleDefID = value; }
-		}
+		public string PaneName { get; set; } = String.Empty;
 
-		public int ModuleOrder 
-		{
-			get { return moduleOrder; }
-			set { moduleOrder = value; }
-		}
+		public string ModuleTitle { get; set; } = String.Empty;
 
-        public int PublishMode
-        {
-            get { return publishMode; }
-            set { publishMode = value; }
-        }
+		public string HeadElement { get; set; } = "h2";
 
-		public string PaneName 
-		{
-			get { return paneName; }
-			set { paneName = value; }
-		}
-		public string ModuleTitle 
-		{
-			get { return moduleTitle; }
-			set { moduleTitle = value; }
-		}
+		public string ViewRoles { get; set; } = "All Users;";
 
-        public string HeadElement
-        {
-            get { return headElement; }
-            set { headElement = value; }
-        }
+		public string AuthorizedEditRoles { get; set; } = string.Empty;
 
-        public string ViewRoles
-        {
-            get { return viewRoles; }
-            set { viewRoles = value; }
-        }
+		public string DraftEditRoles { get; set; } = String.Empty;
 
-		public string AuthorizedEditRoles 
-		{
-			get { return authorizedEditRoles; }
-			set { authorizedEditRoles = value; }
-		}
+		public string DraftApprovalRoles { get; set; } = String.Empty;
 
-        public string DraftEditRoles
-        {
-            get { return draftEditRoles; }
-            set { draftEditRoles = value; }
-        }
+		public int CacheTime { get; set; } = 0;
 
-        public string DraftApprovalRoles
-        {
-            get { return draftApprovalRoles; }
-            set { draftApprovalRoles = value; }
-        }
+		public bool ShowTitle { get; set; } = true;
 
-		public int CacheTime 
-		{
-			get { return cacheTime; }
-			set { cacheTime = value; }
-		}
-		public bool ShowTitle 
-		{
-			get { return showTitle; }
-			set { showTitle = value; }
-		}
+		public string ControlSource { get; set; } = string.Empty;
 
-		public string ControlSource 
-		{
-			get {return controlSource;}
-			set {controlSource = value;}
-		}
+		public bool AvailableForMyPage { get; set; } = false;
 
-        public bool AvailableForMyPage
-        {
-            get { return availableForMyPage; }
-            set { availableForMyPage = value; }
-        }
+		public bool AllowMultipleInstancesOnMyPage { get; set; } = true;
 
-        public bool AllowMultipleInstancesOnMyPage
-        {
-            get { return allowMultipleInstancesOnMyPage; }
-            set { allowMultipleInstancesOnMyPage = value; }
-        }
+		public int CreatedByUserId { get; set; } = -1;
 
-        public int CreatedByUserId
-        {
-            get { return createdByUserID; }
-            set { createdByUserID = value; }
-        }
+		public DateTime CreatedDate { get; set; } = DateTime.MinValue;
 
-        public DateTime CreatedDate
-        {
-            get { return createdDate; }
-           
-        }
+		public string FeatureName { get; private set; } = String.Empty;
 
-        public string FeatureName
-        {
-            get { return this.featureName; }
-           
-        }
+		public string Icon { get; set; } = String.Empty;
 
-        public string Icon
-        {
-            get { return icon; }
-            set { icon = value; }
-        }
+		public bool HideFromAuthenticated { get; set; } = false;
 
-        public bool HideFromAuthenticated
-        {
-            get { return hideFromAuthenticated; }
-            set { hideFromAuthenticated = value; }
-        }
+		public bool HideFromUnauthenticated { get; set; } = false;
 
-        public bool HideFromUnauthenticated
-        {
-            get { return hideFromUnauthenticated; }
-            set { hideFromUnauthenticated = value; }
-        }
+		public bool IncludeInSearch { get; set; } = true;
 
-        public bool IncludeInSearch
-        {
-            get { return includeInSearch; }
-            set { includeInSearch = value; }
-        }
-
-        public bool IsGlobal
-        {
-            get { return isGlobal; }
-            set { isGlobal = value; }
-        }
+		public bool IsGlobal { get; set; } = false;
 
 		#endregion
 
 		#region Private Methods
 
-        private void PopulateFromReader(IDataReader reader)
+		private void PopulateFromReader(IDataReader reader)
         {
             if (reader.Read())
             {
-                this.moduleID = Convert.ToInt32(reader["ModuleID"]);
-                this.siteID = Convert.ToInt32(reader["SiteID"]);
+                this.ModuleId = Convert.ToInt32(reader["ModuleID"]);
+                this.SiteId = Convert.ToInt32(reader["SiteID"]);
                 //this.pageID = Convert.ToInt32(reader["PageID"]);
-                this.moduleDefID = Convert.ToInt32(reader["ModuleDefID"]);
+                this.ModuleDefId = Convert.ToInt32(reader["ModuleDefID"]);
                 //this.moduleOrder = Convert.ToInt32(reader["ModuleOrder"]);
                 //this.paneName = reader["PaneName"].ToString();
-                this.moduleTitle = reader["ModuleTitle"].ToString();
-                this.authorizedEditRoles = reader["AuthorizedEditRoles"].ToString();
-                this.draftEditRoles = reader["DraftEditRoles"].ToString();
-                this.draftApprovalRoles = reader["DraftApprovalRoles"].ToString();
-                this.cacheTime = Convert.ToInt32(reader["CacheTime"]);
-                this.showTitle = Convert.ToBoolean(reader["ShowTitle"]);
+                this.ModuleTitle = reader["ModuleTitle"].ToString();
+                this.AuthorizedEditRoles = reader["AuthorizedEditRoles"].ToString();
+                this.DraftEditRoles = reader["DraftEditRoles"].ToString();
+                this.DraftApprovalRoles = reader["DraftApprovalRoles"].ToString();
+                this.CacheTime = Convert.ToInt32(reader["CacheTime"]);
+                this.ShowTitle = Convert.ToBoolean(reader["ShowTitle"]);
                 if (reader["EditUserID"] != DBNull.Value)
                 {
-                    this.editUserID = Convert.ToInt32(reader["EditUserID"]);
+                    this.EditUserId = Convert.ToInt32(reader["EditUserID"]);
                 }
-                this.availableForMyPage = Convert.ToBoolean(reader["AvailableForMyPage"]);
-                this.allowMultipleInstancesOnMyPage = Convert.ToBoolean(reader["AllowMultipleInstancesOnMyPage"]);
+                this.AvailableForMyPage = Convert.ToBoolean(reader["AvailableForMyPage"]);
+                this.AllowMultipleInstancesOnMyPage = Convert.ToBoolean(reader["AllowMultipleInstancesOnMyPage"]);
                 if (reader["CreatedByUserID"] != DBNull.Value)
                 {
-                    this.createdByUserID = Convert.ToInt32(reader["CreatedByUserID"]);
+                    this.CreatedByUserId = Convert.ToInt32(reader["CreatedByUserID"]);
                 }
                 if (reader["CreatedDate"] != DBNull.Value)
                 {
-                    this.createdDate = Convert.ToDateTime(reader["CreatedDate"]);
+                    this.CreatedDate = Convert.ToDateTime(reader["CreatedDate"]);
                 }
 
-                this.icon = reader["Icon"].ToString();
+                this.Icon = reader["Icon"].ToString();
 
 
-                this.guid = new Guid(reader["Guid"].ToString());
-                this.featureGuid = new Guid(reader["FeatureGuid"].ToString());
-                this.siteGuid = new Guid(reader["SiteGuid"].ToString());
+                this.ModuleGuid = new Guid(reader["Guid"].ToString());
+                this.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
+                this.SiteGuid = new Guid(reader["SiteGuid"].ToString());
 
                 string edUserGuid = reader["EditUserGuid"].ToString();
-                if (edUserGuid.Length == 36) this.editUserGuid = new Guid(edUserGuid);
+                if (edUserGuid.Length == 36) this.EditUserGuid = new Guid(edUserGuid);
 
-                this.hideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]);
-                this.hideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]);
+                this.HideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]);
+                this.HideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]);
 
-                this.viewRoles = reader["ViewRoles"].ToString();
+                this.ViewRoles = reader["ViewRoles"].ToString();
 
                 //ModuleDefinition moduleDef = new ModuleDefinition(this.moduleDefID);
                 //this.controlSource = moduleDef.ControlSrc;
                 //this.featureName = moduleDef.FeatureName;
 
-                this.controlSource = reader["ControlSrc"].ToString();
-                this.featureName = reader["FeatureName"].ToString();
+                this.ControlSource = reader["ControlSrc"].ToString();
+                this.FeatureName = reader["FeatureName"].ToString();
                
-                this.includeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]);
-                this.isGlobal = Convert.ToBoolean(reader["IsGlobal"]);
-                this.headElement = reader["HeadElement"].ToString();
+                this.IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]);
+                this.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
+                this.HeadElement = reader["HeadElement"].ToString();
 
-                this.publishMode = Convert.ToInt32(reader["PublishMode"]);
+                this.PublishMode = Convert.ToInt32(reader["PublishMode"]);
             }
 
         }
@@ -361,12 +194,8 @@ namespace mojoPortal.Business
             {
                 PopulateFromReader(reader);
             }
-
-            
-
         }
-
-
+		
 		#endregion
 
 		#region Public Methods
@@ -386,7 +215,7 @@ namespace mojoPortal.Business
 
 		public bool Save()
 		{
-			if(this.moduleID > -1)
+			if(this.ModuleId > -1)
 			{
 				return Update();
 			}
@@ -401,40 +230,40 @@ namespace mojoPortal.Business
 			bool created = false;
 			int newID = -1;
             
-            if (this.guid == Guid.Empty)// tni 2013-06-26 forced moduleGuid implementation
-                this.guid = Guid.NewGuid();
+            if (this.ModuleGuid == Guid.Empty)// tni 2013-06-26 forced moduleGuid implementation
+                this.ModuleGuid = Guid.NewGuid();
 
 			newID = DBModule.AddModule(
-				this.pageID, 
-                this.siteID,
-                this.siteGuid,
-				this.moduleDefID, 
-				this.moduleOrder, 
-				this.paneName, 
-				this.moduleTitle, 
-                this.viewRoles,
-				this.authorizedEditRoles,
-                this.draftEditRoles,
-                this.draftApprovalRoles,
-				this.cacheTime, 
-				this.showTitle,
-                this.availableForMyPage,
-                this.allowMultipleInstancesOnMyPage,
-                this.icon,
-                this.createdByUserID,
+				this.PageId, 
+                this.SiteId,
+                this.SiteGuid,
+				this.ModuleDefId, 
+				this.ModuleOrder, 
+				this.PaneName, 
+				this.ModuleTitle, 
+                this.ViewRoles,
+				this.AuthorizedEditRoles,
+                this.DraftEditRoles,
+                this.DraftApprovalRoles,
+				this.CacheTime, 
+				this.ShowTitle,
+                this.AvailableForMyPage,
+                this.AllowMultipleInstancesOnMyPage,
+                this.Icon,
+                this.CreatedByUserId,
                 DateTime.UtcNow,
-                this.guid,
-                this.featureGuid,
-                this.hideFromAuthenticated,
-                this.hideFromUnauthenticated,
-                this.headElement,
-                this.publishMode); 
+                this.ModuleGuid,
+                this.FeatureGuid,
+                this.HideFromAuthenticated,
+                this.HideFromUnauthenticated,
+                this.HeadElement,
+                this.PublishMode); 
 			
-			this.moduleID = newID;
+			this.ModuleId = newID;
 			created = (newID > -1);
 			if(created)
 			{
-				ModuleSettings.CreateDefaultModuleSettings(this.moduleID);
+				ModuleSettings.CreateDefaultModuleSettings(this.ModuleId);
 			}
 					
 			return created;
@@ -445,25 +274,25 @@ namespace mojoPortal.Business
 		{
 
 			return DBModule.UpdateModule(
-				this.moduleID, 
-				this.moduleDefID, 
-				this.moduleTitle, 
-                this.viewRoles,
-				this.authorizedEditRoles, 
-                this.draftEditRoles,
-                this.draftApprovalRoles,
-				this.cacheTime, 
-				this.showTitle,
-				this.editUserID,
-                this.availableForMyPage,
-                this.allowMultipleInstancesOnMyPage,
-                this.icon,
-                this.hideFromAuthenticated,
-                this.hideFromUnauthenticated,
-                this.includeInSearch,
-                this.isGlobal,
-                this.headElement,
-                this.publishMode); 
+				this.ModuleId, 
+				this.ModuleDefId, 
+				this.ModuleTitle, 
+                this.ViewRoles,
+				this.AuthorizedEditRoles, 
+                this.DraftEditRoles,
+                this.DraftApprovalRoles,
+				this.CacheTime, 
+				this.ShowTitle,
+				this.EditUserId,
+                this.AvailableForMyPage,
+                this.AllowMultipleInstancesOnMyPage,
+                this.Icon,
+                this.HideFromAuthenticated,
+                this.HideFromUnauthenticated,
+                this.IncludeInSearch,
+                this.IsGlobal,
+                this.HeadElement,
+                this.PublishMode); 
 				
 		}
 		
@@ -488,44 +317,6 @@ namespace mojoPortal.Business
         public static void DeletePageModules(int pageId)
         {
             DBModule.PageModuleDeleteByPage(pageId);
-            //IDataReader result = GetPageModules(pageId);
-            //ArrayList modules = new ArrayList();
-
-            //while (result.Read())
-            //{
-            //    Module m = new Module();
-            //    m.ModuleId = Convert.ToInt32(result["ModuleID"]);
-            //    m.ModuleDefId = Convert.ToInt32(result["ModuleDefID"]);
-            //    m.PageId = Convert.ToInt32(result["PageID"]);
-            //    m.PaneName = result["PaneName"].ToString();
-            //    m.ModuleTitle = result["ModuleTitle"].ToString();
-            //    m.AuthorizedEditRoles = result["AuthorizedEditRoles"].ToString();
-            //    m.CacheTime = Convert.ToInt32(result["CacheTime"]);
-            //    m.ModuleOrder = Convert.ToInt32(result["ModuleOrder"]);
-            //    if (result["EditUserID"] != DBNull.Value)
-            //    {
-            //        m.EditUserId = Convert.ToInt32(result["EditUserID"]);
-            //    }
-
-
-            //    string showTitle = result["ShowTitle"].ToString();
-            //    m.ShowTitle = (showTitle == "True" || showTitle == "1");
-            //    m.ControlSource = result["ControlSrc"].ToString();
-
-
-            //    modules.Add(m);
-
-
-            //}
-            //result.Close();
-
-            //foreach (Module m in modules)
-            //{
-            //    DeleteModuleInstance(m.ModuleId, pageId);
-
-            //}
-
-
         }
 
         public static bool UpdateModuleOrder(int pageId, int moduleId, int moduleOrder, string paneName)
@@ -535,10 +326,8 @@ namespace mojoPortal.Business
 
 		public static bool DeleteModule(int moduleId) 
 		{
-            
 			ModuleSettings.DeleteModuleSettings(moduleId);
 			return DBModule.DeleteModule(moduleId);
-			
 		}
 
         public static bool DeleteModuleInstance(int moduleId, int pageId)
@@ -565,7 +354,6 @@ namespace mojoPortal.Business
                 moduleOrder, 
                 publishBeginDate, 
                 publishEndDate);
-
         }
 
         public static bool UpdatePage(int oldPageId, int newPageId, int moduleId)
@@ -621,7 +409,6 @@ namespace mojoPortal.Business
         public static IDataReader GetMyPageModules(int siteId)
         {
             return DBModule.GetMyPageModules(siteId);
-
         }
 
         public static bool UpdateCountOfUseOnMyPage(int moduleId, int increment)
@@ -657,5 +444,4 @@ namespace mojoPortal.Business
         }
 		#endregion
 	}
-	
 }

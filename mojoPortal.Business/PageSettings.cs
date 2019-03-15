@@ -1,7 +1,3 @@
-// Author:				
-// Created:			    2004-09-06
-// Last Modified:		2019-01-10
-// 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
 // which can be found in the file CPL.TXT at the root of this distribution.
@@ -607,7 +603,8 @@ namespace mojoPortal.Business
                 {
                     Module m = new Module();
                     m.ModuleId = Convert.ToInt32(reader["ModuleID"]);
-                    m.ModuleDefId = Convert.ToInt32(reader["ModuleDefID"]);
+					m.SiteId = Convert.ToInt32(reader["SiteID"]);
+					m.ModuleDefId = Convert.ToInt32(reader["ModuleDefID"]);
                     m.PageId = Convert.ToInt32(reader["PageID"]);
                     m.PaneName = reader["PaneName"].ToString();
                     m.ModuleTitle = reader["ModuleTitle"].ToString();
