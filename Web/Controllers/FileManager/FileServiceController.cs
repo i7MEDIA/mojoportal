@@ -741,7 +741,7 @@ namespace mojoPortal.Web.Controllers
 			switch (type)
 			{
 				case "folder":
-					return Path.GetFileName(item).ToCleanFileName(WebConfigSettings.ForceLowerCaseForFolderCreation);
+					return Path.GetFileName(item).ToCleanFolderName(WebConfigSettings.ForceLowerCaseForFolderCreation);
 				case "file":
 				default:
 					return Path.GetFileName(item).ToCleanFileName(WebConfigSettings.ForceLowerCaseForUploadedFiles);
