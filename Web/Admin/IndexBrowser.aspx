@@ -9,8 +9,11 @@
 		} 
  
 		button.ui-datepicker-trigger { 
-			padding: 0 10px 10px; 
-			font-weight: 700; 
+			padding: 1px 10px 6px 10px !important;
+		    font-weight: 700 !important;
+		    margin: 0 !important;
+		    border: 1px solid #eee !important;
+		    background-color: #f7f7f7 !important;
 		} 
  
 		.label-width-small { 
@@ -30,13 +33,17 @@
 		} 
  
 		.input-as-text { 
-			border: 0 none; 
-			box-shadow: 0 0; 
-			padding: 0 !important; 
-			margin: 10px; 
-			font-weight: 700; 
-			width: auto !important; 
-			float: right !important; 
+			border: 1px solid #eee !important;
+		    margin: 0;
+		    font-weight: 700;
+		    width: auto !important;
+		    float: none !important;
+		    box-shadow: none !important;
+		    border-right: 0 none !important;
+		}
+
+		.padded-group {
+			padding: 5px 0;
 		}
 	</style>
 	<script type="text/javascript">
@@ -80,7 +87,7 @@
 								</div>
 								<div class="panel-body">
 									<div class="form-inline">
-										<div class="form-group">
+										<div class="form-group padded-group">
 											<div class="input-group input-group-sm input-group-separated">
 												<mp:SiteLabel runat="server" EnableViewState="false" ConfigKey="AdminIndexBrowserModifiedBetween" CssClass="label-v-center settinglabel label-width-small" />
 												<portal:jDatePicker ID="beginDate" runat="server" />

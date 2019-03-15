@@ -195,8 +195,13 @@ namespace mojoPortal.Web.AdminUI
 			pgrBottom.PageCount = totalPages;
 			pgrBottom.Visible = (totalPages > 1);
 
-			this.rptResults.DataSource = searchResults;
-			this.rptResults.DataBind();
+			if (searchResults.Count > 0 && searchResults.ItemCount > 0)
+			{
+				this.rptResults.DataSource = searchResults;
+				this.rptResults.DataBind();
+
+			}
+
 
 
 
