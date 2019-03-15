@@ -601,31 +601,51 @@ namespace mojoPortal.Business
             {
                 while (reader.Read())
                 {
-                    Module m = new Module();
-                    m.ModuleId = Convert.ToInt32(reader["ModuleID"]);
+					Module m = new Module();
+					m.ModuleId = Convert.ToInt32(reader["ModuleID"]);
 					m.SiteId = Convert.ToInt32(reader["SiteID"]);
 					m.ModuleDefId = Convert.ToInt32(reader["ModuleDefID"]);
-                    m.PageId = Convert.ToInt32(reader["PageID"]);
-                    m.PaneName = reader["PaneName"].ToString();
-                    m.ModuleTitle = reader["ModuleTitle"].ToString();
-                    m.ViewRoles = reader["ViewRoles"].ToString();
-                    m.AuthorizedEditRoles = reader["AuthorizedEditRoles"].ToString();
-                    m.CacheTime = Convert.ToInt32(reader["CacheTime"]);
-                    m.ModuleOrder = Convert.ToInt32(reader["ModuleOrder"]);
-                    if (reader["EditUserID"] != DBNull.Value)
-                    {
-                        m.EditUserId = Convert.ToInt32(reader["EditUserID"]);
-                    }
+					m.ModuleTitle = reader["ModuleTitle"].ToString();
+					m.AuthorizedEditRoles = reader["AuthorizedEditRoles"].ToString();
+					m.CacheTime = Convert.ToInt32(reader["CacheTime"]);
+					string showTitle = reader["ShowTitle"].ToString();
+					m.ShowTitle = (showTitle == "True" || showTitle == "1");
+					if (reader["EditUserID"] != DBNull.Value)
+					{
+						m.EditUserId = Convert.ToInt32(reader["EditUserID"]);
+					}
+					//m.AvailableForMyPage = Convert.ToBoolean(reader["AvailableForMyPage"]);
+					//m.AllowMultipleInstancesOnMyPage = Convert.ToBoolean(reader["AllowMultipleInstancesOnMyPage"]);
+					//m.Icon = reader["Icon"].ToString();
+					m.CreatedByUserId = Convert.ToInt32(reader["CreatedByUserID"]);
+					if (reader["CreatedDate"] != DBNull.Value)
+					{
+						m.CreatedDate = Convert.ToDateTime(reader["CreatedDate"]);
+					}
+					//m.CountOfUseOnMyPage
+					m.ModuleGuid = new Guid(reader["Guid"].ToString());
+					m.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
+					m.SiteGuid = new Guid(reader["SiteGuid"].ToString());
+					if (reader["EditUserGuid"] != DBNull.Value)
+					{
+						m.EditUserGuid = new Guid(reader["EditUserGuid"].ToString());
+					}
+					m.HideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]);
+					m.HideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]);
+					m.ViewRoles = reader["ViewRoles"].ToString();
+					m.DraftEditRoles = reader["DraftEditRoles"].ToString();
+					m.IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]);
+					m.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
+					m.HeadElement = reader["HeadElement"].ToString();
+					m.PublishMode = Convert.ToInt32(reader["PublishMode"]);
+					m.DraftApprovalRoles = reader["DraftApprovalRoles"].ToString();
 
-                    string showTitle = reader["ShowTitle"].ToString();
-                    m.ShowTitle = (showTitle == "True" || showTitle == "1");
-                    m.ControlSource = reader["ControlSrc"].ToString();
+					m.PageId = Convert.ToInt32(reader["PageID"]);
+					m.PaneName = reader["PaneName"].ToString();
+					m.ModuleOrder = Convert.ToInt32(reader["ModuleOrder"]);
+					m.ControlSource = reader["ControlSrc"].ToString();
 
-                    m.HideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]);
-                    m.HideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]);
-                    m.PublishMode = Convert.ToInt32(reader["PublishMode"]);
-
-                    this.Modules.Add(m);
+					this.Modules.Add(m);
                 }
             }
 
