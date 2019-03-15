@@ -1,6 +1,4 @@
 ﻿/// Author:					i7MEDIA
-/// Created:				2015-03-06
-/// Last Modified:			2019-01-24
 /// You must not remove this notice, or any other, from this software.
 /// 
 using log4net;
@@ -43,7 +41,18 @@ namespace SuperFlexiUI
         /// <param name="featureGuid"></param>
         public static void SaveFieldsToDB(List<Field> definedFields, Guid siteGuid, Guid featureGuid, bool deleteOrphans = false)
         {
-            Guid definitionGuid = definedFields[0].DefinitionGuid;
+
+			Guid definitionGuid = Guid.Empty;
+			if (definedFields.Count > 0)
+			{
+				definitionGuid = definedFields[0].DefinitionGuid;
+			}
+			else
+			{
+				log.Error("definedFields is empty.");
+				return;
+			}
+
             List<Field> savedFields = Field.GetAllForDefinition(definitionGuid, true);
             
             FieldComparer fieldComp = new FieldComparer();
@@ -400,7 +409,10 @@ namespace SuperFlexiUI
                     }
                 }
             }
-
+			else
+			{
+				log.Error($"Definition \"{solutionFieldDefSrc}\" does not exist.");
+			}
             fields.Sort();
             return fields;
         }

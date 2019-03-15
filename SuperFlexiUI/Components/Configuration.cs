@@ -1,7 +1,4 @@
 ﻿// Author:				    i7MEDIA (joe davis)
-// Created:			        2014-12-22
-// Last Modified:		    2019-01-24
-// 
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -26,7 +23,7 @@ namespace SuperFlexiUI
         private static readonly ILog log = LogManager.GetLogger(typeof(ModuleConfiguration));
         private Module module;
         private Hashtable settings;
-		private SiteSettings siteSettings;
+		//private SiteSettings siteSettings;
         private int siteId = -1;
 
 		FileSystemProvider fsProvider;
@@ -40,22 +37,31 @@ namespace SuperFlexiUI
 
         public ModuleConfiguration(Module module, bool reloadDefinitionFromDisk = false)
         {
-
-
 			if (module != null)
             {
+				//log.Debug($"module {module.ModuleId} has siteid={module.SiteId}");
+				if (module.SiteId < 1)
+				{
+					Module m2 = new Module(module.ModuleId);
+					if (m2 != null)
+					{
+						module = m2;
+					}
+				}
+
                 this.module = module;
                 this.siteId = module.SiteId;
                 featureGuid = module.FeatureGuid;
                 settings = ModuleSettings.GetModuleSettings(module.ModuleId);
 
-				if (siteId < 1)
-				{
-					if (siteSettings == null)
-					{
-						siteSettings = CacheHelper.GetCurrentSiteSettings();
-					}
-				}
+				//if (siteId < 1)
+				//{
+				//	if (siteSettings == null)
+				//	{
+				//		siteSettings = CacheHelper.GetCurrentSiteSettings();
+				//	}
+				//	siteId = siteSettings.SiteId;
+				//}
 
 				fsProvider = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
 				if (fsProvider == null)
@@ -74,10 +80,10 @@ namespace SuperFlexiUI
             }
         }
 
-		public ModuleConfiguration(Module module, int siteId, bool reloadDefinitionFromDisk = false)
-		{
-			siteSettings = new SiteSettings(siteId);
-		}
+		//public ModuleConfiguration(Module module, int siteId, bool reloadDefinitionFromDisk = false)
+		//{
+		//	siteSettings = new SiteSettings(siteId);
+		//}
         #endregion
         #region public methods
         /// <summary>
@@ -356,6 +362,7 @@ namespace SuperFlexiUI
                 if (attrCollection["importPageTitle"] != null) importPageTitle = attrCollection["importPageTitle"].Value;
                 if (attrCollection["exportPageTitle"] != null) exportPageTitle = attrCollection["exportPageTitle"].Value;
                 if (attrCollection["importPageCancelLinkText"] != null) importPageCancelLinkText = attrCollection["importPageCancelLinkText"].Value;
+				log.Debug($"current siteid={siteId.ToString()}. invariant siteid={siteId.ToInvariantString()}");
                 if (attrCollection["fieldDefinitionSrc"] != null) fieldDefinitionSrc = attrCollection["fieldDefinitionSrc"].Value.Replace("$_SitePath_$", "/Data/Sites/" + siteId.ToInvariantString());
                 if (attrCollection["fieldDefinitionGuid"] != null) fieldDefinitionGuid = Guid.Parse(attrCollection["fieldDefinitionGuid"].Value);
                 if (attrCollection["jsonRenderLocation"] != null) jsonRenderLocation = attrCollection["jsonRenderLocation"].Value;
