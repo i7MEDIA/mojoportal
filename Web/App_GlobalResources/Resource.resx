@@ -6454,4 +6454,22 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="AdminIndexBrowserFilterDate" xml:space="preserve">
     <value>Filter by Date</value>
   </data>
+  <data name="SecurityAdvisorSecurityProtocolInsecureCiphers" xml:space="preserve">
+    <value>Insecure Ciphers Detected</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolBeastVuln" xml:space="preserve">
+    <value>Beast Vulnerability</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolEphemeralKeys" xml:space="preserve">
+    <value>Ephemeral Key Support</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolNMinusOneSplitting" xml:space="preserve">
+    <value>Detected N - 1 Splitting</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolTLSCompression" xml:space="preserve">
+    <value>TLS Compression</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolUnknownCiphers" xml:space="preserve">
+    <value>Supports Unknown Ciphers</value>
+  </data>
 </root>

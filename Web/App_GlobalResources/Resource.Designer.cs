@@ -14498,6 +14498,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Beast Vulnerability.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolBeastVuln {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolBeastVuln", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ciphers.
         /// </summary>
         internal static string SecurityAdvisorSecurityProtocolCiphers {
@@ -14512,6 +14521,15 @@ namespace Resources {
         internal static string SecurityAdvisorSecurityProtocolDescription {
             get {
                 return ResourceManager.GetString("SecurityAdvisorSecurityProtocolDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ephemeral Key Support.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolEphemeralKeys {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolEphemeralKeys", resourceCulture);
             }
         }
         
@@ -14534,11 +14552,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insecure Ciphers Detected.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolInsecureCiphers {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolInsecureCiphers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detected N - 1 Splitting.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolNMinusOneSplitting {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolNMinusOneSplitting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rating.
         /// </summary>
         internal static string SecurityAdvisorSecurityProtocolRating {
             get {
                 return ResourceManager.GetString("SecurityAdvisorSecurityProtocolRating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TLS Compression.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolTLSCompression {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolTLSCompression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supports Unknown Ciphers.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolUnknownCiphers {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolUnknownCiphers", resourceCulture);
             }
         }
         

@@ -1,8 +1,4 @@
-﻿// Author:					
-// Created:					2010-09-19
-// Last Modified:			2019-01-20
-// 
-// The use and distribution terms for this software are covered by the 
+﻿// The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
 // which can be found in the file CPL.TXT at the root of this distribution.
 // By using this software in any fashion, you are agreeing to be bound by 
@@ -151,19 +147,35 @@ namespace mojoPortal.Web.AdminUI
 				IList<string> ciphers = ((JArray)jObject["given_cipher_suites"]).Select(c => (string)c).ToList();
 				string tlsver = (string)jObject["tls_version"];
 				string rating = (string)jObject["rating"];
+				var ekeys = (string)jObject["ephemeral_keys_supported"];
+				var sticket = (string)jObject["session_ticket_supported"];
+				var tlscompr = (string)jObject["tls_compression_supported"];
+				var unknownCiphpers = (string)jObject["unknown_cipher_suite_supported"];
+				var beast = (string)jObject["beast_vuln"];
+				var n_minus_one_splitting = (string)jObject["able_to_detect_n_minus_one_splitting"];
+				var insecureCiphers = (JObject)jObject["insecure_cipher_suites"];
 
 				StringBuilder sb = new StringBuilder();
 				sb.Append($"<strong>{Resource.SecurityAdvisorSecurityProtocolVersion}:</strong> {tlsver}<br/>");
 				sb.Append($"<strong>{Resource.SecurityAdvisorSecurityProtocolRating}:</strong> {rating}<br/>");
+				sb.Append($"<strong>{Resource.SecurityAdvisorSecurityProtocolEphemeralKeys}:</strong> {ekeys}<br/>");
+				sb.Append($"<strong>{Resource.SecurityAdvisorSecurityProtocolTLSCompression}:</strong> {tlscompr}<br/>");
+				sb.Append($"<strong>{Resource.SecurityAdvisorSecurityProtocolUnknownCiphers}:</strong> {unknownCiphpers}<br/>");
+				sb.Append($"<strong>{Resource.SecurityAdvisorSecurityProtocolBeastVuln}:</strong> {beast}<br/>");
+				sb.Append($"<strong>{Resource.SecurityAdvisorSecurityProtocolNMinusOneSplitting}:</strong> {n_minus_one_splitting}<br/>");
 
+				sb.Append($"<h5 class=\"text-danger\">{Resource.SecurityAdvisorSecurityProtocolInsecureCiphers}</h5><dl>");
+				foreach (var cipher in insecureCiphers)
+				{
+					sb.Append($"<dt>{cipher.Key}</dt><dd>{(string)cipher.Value}</dd>");
+				}
+				sb.Append("</dl>");
 				sb.Append($"<h5>{Resource.SecurityAdvisorSecurityProtocolCiphers}</h5><ul>");
 				foreach (string cipher in ciphers)
 				{
-					sb.AppendFormat("<li>{0}</li>", cipher);
+					sb.Append($"<li>{cipher}</li>");
 				}
 				sb.Append("</ul>");
-
-				
 
 				sb.Append($"<h5>{Resource.SecurityAdvisorSecurityProtocolFullCheckResponse}</h5><pre class='language language-js'><code>{JsonConvert.SerializeObject(jObject, Formatting.Indented)}</code></pre>");
 
