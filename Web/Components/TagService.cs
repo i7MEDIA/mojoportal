@@ -1,9 +1,10 @@
 ﻿using System;
-using mojoPortal.Business;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+
+using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+
 
 namespace mojoPortal.Web.Tags
 {
@@ -190,13 +191,13 @@ namespace mojoPortal.Web.Tags
 			switch (_selectionType)
 			{
 				case TagScopeType.Site:
-					tags = TagRepository.GetTagsBySite(_guid);
+					tags = TagRepository.GetTagsBySite(siteSettings.SiteGuid);
 					break;
 				case TagScopeType.Module:
-					tags = TagRepository.GetTagsByModuleGuid(_guid);
+					tags = TagRepository.GetTagsByModuleGuid(siteSettings.SiteGuid, _guid);
 					break;
 				case TagScopeType.Feature:
-					tags = TagRepository.GetTagsByFeatureGuid(_guid);
+					tags = TagRepository.GetTagsByFeatureGuid(siteSettings.SiteGuid, _guid);
 					break;
 			}
 
@@ -210,10 +211,10 @@ namespace mojoPortal.Web.Tags
 			switch (tagItemType)
 			{
 				case TagItemScopeType.RelatedItem:
-					tagItems = TagRepository.GetTagItemsByRelatedItemGuid(guid);
+					tagItems = TagRepository.GetTagItemsByRelatedItemGuid(siteSettings.SiteGuid, guid);
 					break;
 				case TagItemScopeType.Extra:
-					tagItems = TagRepository.GetTagItemsByExtraGuid(guid);
+					tagItems = TagRepository.GetTagItemsByExtraGuid(siteSettings.SiteGuid, guid);
 					break;
 			}
 

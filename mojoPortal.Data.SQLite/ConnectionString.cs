@@ -22,15 +22,8 @@ namespace mojoPortal.Data
 		// these methods are only for compatibility with import and upgrade utils
 		// there is no replication supported for SQLite so there is no real need for different connection
 		// strings for read/write
-		public static String GetReadConnectionString()
-		{
-			return GetConnectionString();
-		}
+		public static string GetReadConnectionString() => GetConnectionString();
 
-
-		public static String GetWriteConnectionString()
-		{
-			return GetConnectionString();
-		}
+		public static string GetWriteConnectionString() => GetConnectionString();
 	}
 }

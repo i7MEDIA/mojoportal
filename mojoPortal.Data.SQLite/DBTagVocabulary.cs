@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace mojoPortal.Data
+﻿namespace mojoPortal.Data
 {
-    class DBTagVocabulary
-    {
-    }
+	class DBTagVocabulary
+	{}
 }

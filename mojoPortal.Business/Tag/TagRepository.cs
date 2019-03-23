@@ -70,14 +70,14 @@ namespace mojoPortal.Business
 			}
 		}
 
-		public static List<Tag> GetTagsByModuleGuid(Guid moduleGuid)
+		public static List<Tag> GetTagsByModuleGuid(Guid siteGuid, Guid moduleGuid)
 		{
-			return getTagListFromIDataReader(DBTag.GetByModule(moduleGuid));
+			return getTagListFromIDataReader(DBTag.GetByModule(siteGuid, moduleGuid));
 		}
 
-		public static List<Tag> GetTagsByFeatureGuid(Guid featureGuid)
+		public static List<Tag> GetTagsByFeatureGuid(Guid siteGuid, Guid featureGuid)
 		{
-			return getTagListFromIDataReader(DBTag.GetByFeature(featureGuid));
+			return getTagListFromIDataReader(DBTag.GetByFeature(siteGuid, featureGuid));
 		}
 
 		public static List<Tag> GetTagsBySite(Guid siteGuid)
@@ -136,7 +136,7 @@ namespace mojoPortal.Business
 
 		public static bool DeleteTagItemByItemGuid(Guid itemGuid)
 		{
-			return DBTagItem.DeleteByItem(itemGuid);
+			return DBTagItem.DeleteByRelatedItem(itemGuid);
 		}
 
 		public static bool DeleteTagItemByExtraGuid(Guid extraGuid)
@@ -164,14 +164,14 @@ namespace mojoPortal.Business
 			return DBTagItem.DeleteBySite(siteGuid);
 		}
 
-		public static List<TagItem> GetTagItemsByRelatedItemGuid(Guid relatedItemGuid)
+		public static List<TagItem> GetTagItemsByRelatedItemGuid(Guid siteGuid, Guid relatedItemGuid)
 		{
-			return getTagItemListFromIDataReader(DBTagItem.GetByRelatedItem(relatedItemGuid));
+			return getTagItemListFromIDataReader(DBTagItem.GetByRelatedItem(siteGuid, relatedItemGuid));
 		}
 
-		public static List<TagItem> GetTagItemsByExtraGuid(Guid extraGuid)
+		public static List<TagItem> GetTagItemsByExtraGuid(Guid siteGuid, Guid extraGuid)
 		{
-			return getTagItemListFromIDataReader(DBTagItem.GetByExtra(extraGuid));
+			return getTagItemListFromIDataReader(DBTagItem.GetByExtra(siteGuid, extraGuid));
 		}
 
 		public static TagItem GetTagItemByTagItemGuid(Guid tagItemGuid)

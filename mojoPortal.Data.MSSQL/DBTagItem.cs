@@ -6,18 +6,8 @@ namespace mojoPortal.Data
 {
 	public static class DBTagItem
 	{
-		/// <summary>
-		/// Inserts a row in the mp_TagItem table. Returns rows affected count.
-		/// </summary>
-		/// <param name="tagItemGuid"> tagItemGuid </param>
-		/// <param name="siteGuid"> siteGuid </param>
-		/// <param name="featureGuid"> featureGuid </param>
-		/// <param name="moduleGuid"> moduleGuid </param>
-		/// <param name="relatedItemGuid"> relatedItemGuid </param>
-		/// <param name="tagGuid"> tagGuid </param>
-		/// <param name="extraGuid"> extraGuid </param>
-		/// <param name="taggedBy"> taggedBy </param>
-		/// <returns>int</returns>
+		#region Create Method
+
 		public static bool Create(
 			Guid tagItemGuid,
 			Guid siteGuid,
@@ -43,102 +33,11 @@ namespace mojoPortal.Data
 			return sph.ExecuteNonQuery() > 0;
 		}
 
-
-		/// <summary>
-		/// Deletes a row from the mp_TagItem table. Returns true if row deleted.
-		/// </summary>
-		/// <param name="tagItemGuid"> tagItemGuid </param>
-		/// <returns>bool</returns>
-		public static bool Delete(Guid tagItemGuid)
-		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_Delete", 1);//change params in DB
-
-			sph.DefineSqlParameter("@TagItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, tagItemGuid);
-
-			return sph.ExecuteNonQuery() > 0;
-		}
+		#endregion
 
 
-		/// <summary>
-		/// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-		/// </summary>
-		/// <param name="guid"> guid </param>
-		/// <returns>bool</returns>
-		public static bool DeleteByItem(Guid relatedItemGuid)
-		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_DeleteByRelatedItem", 1);
+		#region Delete Methods
 
-			sph.DefineSqlParameter("@RelatedItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, relatedItemGuid);
-
-			return sph.ExecuteNonQuery() > 0;
-		}
-
-
-		/// <summary>
-		/// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-		/// </summary>
-		/// <param name="guid"> guid </param>
-		/// <returns>bool</returns>
-		public static bool DeleteByExtraGuid(Guid extraGuid)
-		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_DeleteByExtraGuid", 1);
-
-			sph.DefineSqlParameter("@ExtraGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, extraGuid);
-
-			return sph.ExecuteNonQuery() > 0;
-		}
-
-
-		/// <summary>
-		/// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-		/// </summary>
-		/// <param name="guid"> guid </param>
-		/// <returns>bool</returns>
-		public static bool DeleteByTag(Guid tagGuid)
-		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_DeleteByTag", 1);
-
-			sph.DefineSqlParameter("@TagGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, tagGuid);
-
-			return sph.ExecuteNonQuery() > 0;
-		}
-
-
-		/// <summary>
-		/// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-		/// </summary>
-		/// <param name="guid"> guid </param>
-		/// <returns>bool</returns>
-		public static bool DeleteByModule(Guid moduleGuid)
-		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_DeleteByModule", 1);
-
-			sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
-
-			return sph.ExecuteNonQuery() > 0;
-		}
-
-
-		/// <summary>
-		/// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-		/// </summary>
-		/// <param name="guid"> guid </param>
-		/// <returns>bool</returns>
-		public static bool DeleteByFeature(Guid featureGuid)
-		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_DeleteByFeature", 1);
-
-			sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
-
-			return sph.ExecuteNonQuery() > 0;
-		}
-
-
-		/// <summary>
-		/// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-		/// </summary>
-		/// <param name="guid"> guid </param>
-		/// <returns>bool</returns>
 		public static bool DeleteBySite(Guid siteGuid)
 		{
 			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_DeleteBySite", 1);
@@ -149,25 +48,69 @@ namespace mojoPortal.Data
 		}
 
 
-		public static IDataReader GetByRelatedItem(Guid relatedItemGuid)
+		public static bool Delete(Guid tagItemGuid)
 		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_GetByRelatedItem", 1);
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_Delete", 1);//change params in DB
+
+			sph.DefineSqlParameter("@TagItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, tagItemGuid);
+
+			return sph.ExecuteNonQuery() > 0;
+		}
+
+
+		public static bool DeleteByTag(Guid tagGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_DeleteByTag", 1);
+
+			sph.DefineSqlParameter("@TagGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, tagGuid);
+
+			return sph.ExecuteNonQuery() > 0;
+		}
+
+
+		public static bool DeleteByModule(Guid moduleGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_DeleteByModule", 1);
+
+			sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
+
+			return sph.ExecuteNonQuery() > 0;
+		}
+
+
+		public static bool DeleteByFeature(Guid featureGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_DeleteByFeature", 1);
+
+			sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
+
+			return sph.ExecuteNonQuery() > 0;
+		}
+
+
+		public static bool DeleteByRelatedItem(Guid relatedItemGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_DeleteByRelatedItem", 1);
 
 			sph.DefineSqlParameter("@RelatedItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, relatedItemGuid);
 
-			return sph.ExecuteReader();
+			return sph.ExecuteNonQuery() > 0;
 		}
 
 
-		public static IDataReader GetByExtra(Guid extraGuid)
+		public static bool DeleteByExtraGuid(Guid extraGuid)
 		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_GetByExtra", 1);
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_DeleteByExtraGuid", 1);
 
 			sph.DefineSqlParameter("@ExtraGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, extraGuid);
 
-			return sph.ExecuteReader();
+			return sph.ExecuteNonQuery() > 0;
 		}
 
+		#endregion
+
+
+		#region Get Methods
 
 		public static IDataReader GetByTagItem(Guid tagItemGuid)
 		{
@@ -177,5 +120,29 @@ namespace mojoPortal.Data
 
 			return sph.ExecuteReader();
 		}
+
+
+		public static IDataReader GetByRelatedItem(Guid siteGuid, Guid relatedItemGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_GetByRelatedItem", 2);
+
+			sph.DefineSqlParameter("@RelatedItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, relatedItemGuid);
+			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+
+			return sph.ExecuteReader();
+		}
+
+
+		public static IDataReader GetByExtra(Guid siteGuid, Guid extraGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_TagItem_GetByExtra", 2);
+
+			sph.DefineSqlParameter("@ExtraGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, extraGuid);
+			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+
+			return sph.ExecuteReader();
+		}
+
+		#endregion
 	}
 }
