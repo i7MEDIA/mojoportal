@@ -90,9 +90,9 @@ namespace mojoPortal.Business
 			return getTagListFromIDataReader(DBTag.GetBySite(siteId));
 		}
 
-		public static List<Tag> GetTagsByVocabulary(Guid vocabularyGuid)
+		public static List<Tag> GetTagsByVocabulary(Guid siteGuid, Guid vocabularyGuid)
 		{
-			return getTagListFromIDataReader(DBTag.GetByVocabulary(vocabularyGuid));
+			return getTagListFromIDataReader(DBTag.GetByVocabulary(siteGuid, vocabularyGuid));
 		}
 
 		/// <summary>
