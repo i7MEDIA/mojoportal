@@ -22,7 +22,7 @@ namespace mojoPortal.Data
 
 		#region Create Method
 
-		public static int Create(
+		public static bool Create(
 			Guid tagItemGuid,
 			Guid siteGuid,
 			Guid featureGuid,
