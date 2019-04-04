@@ -173,7 +173,7 @@ namespace mojoPortal.Business
         private decimal totalRevenue = 0;
         private bool mustChangePwd = false;
 
-        private string timeZoneId = "Eastern Standard Time"; //default
+        private string timeZoneId = "Central Standard Time"; //default
         private string newEmail = string.Empty;
         private Guid emailChangeGuid = Guid.Empty;
         private string editorPreference = string.Empty; // use site default
@@ -182,7 +182,8 @@ namespace mojoPortal.Business
         private bool rolesChanged = false;
 
         private string authorBio = string.Empty;
-
+		private bool allowPasswordChange = true;
+		private bool readonlyUserProfile = false;
 
         private string passwordHash = string.Empty; // used for asp.net identity pwd field is still used for membership
 
