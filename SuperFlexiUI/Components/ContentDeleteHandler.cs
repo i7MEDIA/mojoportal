@@ -1,20 +1,17 @@
-﻿//  Author:                     i7MEDIA
-//  Created:                    2015-03-05
-//	Last Modified:              2016-09-13
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
+using mojoPortal.Core.Configuration;
+
 using SuperFlexiBusiness;
+
+
 namespace SuperFlexiUI
 {
-    public class SuperFlexiDeleteHandler : ContentDeleteHandlerProvider
+	public class SuperFlexiDeleteHandler : ContentDeleteHandlerProvider
     {
         public SuperFlexiDeleteHandler()
         { }
@@ -40,7 +37,7 @@ namespace SuperFlexiUI
 
             if ( deleteOrphanFields || deleteOrphanItems || deleteOrphanSearchDefinitions)
             {
-                List<Item> sflexiItems = Item.GetAll();
+                List<Item> sflexiItems = Item.GetModuleItems(module.ModuleId);
                 List<Guid> definitionGuids = new List<Guid>();
 
 
@@ -66,7 +63,7 @@ namespace SuperFlexiUI
 
                     foreach (Guid guid in definitionGuids)
                     {
-                        List<Item> definitionItems = Item.GetAllForDefinition(guid);
+                        List<Item> definitionItems = Item.GetAllForDefinition(guid, module.SiteGuid);
                         if (definitionItems.Count == 0)
                         {
                             //delete field definitions when there are no more modules using them

@@ -1669,12 +1669,12 @@ namespace SuperFlexiUI
 			//config.EditPageScripts = FieldUtils.ParseScriptsFromXml(config);
 			if (config.EditPageScripts.Count > 0)
 			{
-				SuperFlexiHelpers.SetupScripts(config.EditPageScripts, config, displaySettings, true, IsPostBack, ClientID, moduleId, pageId, Page, this);
+				SuperFlexiHelpers.SetupScripts(config.EditPageScripts, config, displaySettings, siteSettings.UseSslOnAllPages, true, IsPostBack, ClientID, moduleId, pageId, Page, this);
 			}
 
             if (config.EditPageCSS.Count > 0)
             {
-                SuperFlexiHelpers.SetupStyle(config.EditPageCSS, config, displaySettings, ClientID, moduleId, pageId, Page, this);
+                SuperFlexiHelpers.SetupStyle(config.EditPageCSS, config, displaySettings, siteSettings.UseSslOnAllPages, ClientID, moduleId, pageId, Page, this);
             }
 
 		}

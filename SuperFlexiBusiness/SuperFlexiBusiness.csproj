@@ -125,6 +125,7 @@
     <ProjectReference Condition="'$(Configuration)'=='Debug - MySql'" Include="..\mojoPortal.Data.MySql\mojoPortal.Data.MySql.csproj">
       <Project>{E2EF8E92-91A8-49CA-8500-DF558C795976}</Project>
       <Name>mojoPortal.Data.MySql</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Condition="'$(Configuration)'=='Debug - MySql'" Include="..\SuperFlexiData.MySql\SuperFlexiData.MySql.csproj">
       <Project>{B7B278B1-E566-41DA-BC1B-D846078B87DB}</Project>
@@ -141,6 +142,7 @@
     <ProjectReference Condition="'$(Configuration)'=='Debug - pgSQL'" Include="..\mojoPortal.Data.pgSQL\mojoPortal.Data.pgSQL.csproj">
       <Project>{B528429F-7155-496A-86B3-8B23219C10D4}</Project>
       <Name>mojoPortal.Data.pgSQL</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Condition="'$(Configuration)'=='Debug - pgSQL'" Include="..\SuperFlexiData.pgSQL\SuperFlexiData.pgSQL.csproj">
       <Project>{6304E650-958B-43E3-AFAB-E034389D65E1}</Project>
@@ -157,6 +159,7 @@
     <ProjectReference Condition="'$(Configuration)'=='Debug - SQLite'" Include="..\mojoPortal.Data.SQLite\mojoPortal.Data.SQLite.csproj">
       <Project>{C224A35B-AB21-4476-A411-CA5BA406598B}</Project>
       <Name>mojoPortal.Data.SQLite</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Condition="'$(Configuration)'=='Debug - SQLite'" Include="..\SuperFlexiData.SQLite\SuperFlexiData.SQLite.csproj">
       <Project>{87546876-48BC-42BB-B7C8-E02436C6ECBB}</Project>

@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-03-06
-// Last Modified:			2019-01-24
+// Last Modified:			2019-04-03
 // You must not remove this notice, or any other, from this software.
 
 using mojoPortal.Data;
@@ -87,8 +87,7 @@ namespace SuperFlexiData
         /// Deletes a row from the i7_sflexi_items table. Returns true if row deleted.
         /// </summary>
         /// <returns>bool</returns>
-        public static bool Delete(
-            int itemID)
+        public static bool Delete(int itemID)
         {
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_Delete", 1);
             sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemID);
@@ -126,19 +125,18 @@ namespace SuperFlexiData
         /// </summary>
         /// <param name="definitionGuid"> guid </param>
         /// <returns>bool</returns>
-        public static bool DeleteByDefinition(Guid definitionGuid)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_DeleteByDefinition", 1);
-            sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
-            int rowsAffected = sph.ExecuteNonQuery();
-            return (rowsAffected > 0);
-        }
+        //public static bool DeleteByDefinition(Guid definitionGuid)
+        //{
+        //    SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_DeleteByDefinition", 1);
+        //    sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
+        //    int rowsAffected = sph.ExecuteNonQuery();
+        //    return (rowsAffected > 0);
+        //}
 
         /// <summary>
         /// Gets an IDataReader with one row from the i7_sflexi_items table.
         /// </summary>
-        public static IDataReader GetOne(
-            int itemID)
+        public static IDataReader GetOne(int itemID)
         {
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectOne", 1);
             sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemID);
@@ -169,7 +167,6 @@ namespace SuperFlexiData
                 CommandType.StoredProcedure,
                 "i7_sflexi_items_GetCount",
                 null));
-
         }
 
 		public static int GetCountForModule(int moduleId)
@@ -182,15 +179,11 @@ namespace SuperFlexiData
 		/// <summary>
 		/// Gets an IDataReader with all rows in the i7_sflexi_items table.
 		/// </summary>
-		public static IDataReader GetAll()
+		public static IDataReader GetAll(Guid siteGuid)
         {
-
-            return SqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "i7_sflexi_items_SelectAll",
-                null);
-
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAll", 1);
+			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			return sph.ExecuteReader();
         }
 
 
@@ -203,7 +196,6 @@ namespace SuperFlexiData
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModule", 1);
             sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
             return sph.ExecuteReader();
-
         }
 
 		/// <summary>
@@ -259,28 +251,31 @@ namespace SuperFlexiData
 		/// <returns></returns>
 		public static IDataReader GetPageForDefinition(
 			Guid defGuid,
+			Guid siteGuid,
 			int pageNumber,
 			int pageSize,
 			string searchTerm = "",
 			string searchField = "",
 			//string sortField = "",
-			bool descending = false)
+			bool descending = false
+			)
 		{
 			SqlParameterHelper sph = null;
 
 			if (String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
 			{
-				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinitionWithTerm", 5);
+				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinitionWithTerm", 6);
 				sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
 				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
 				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
 				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
 				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
 				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, descending ? "desc" : "asc");
+				sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
 			}
 			else if (!String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
 			{
-				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinitionWithTermAndField", 6);
+				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinitionWithTermAndField", 7);
 				sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
 				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
 				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
@@ -288,27 +283,29 @@ namespace SuperFlexiData
 				sph.DefineSqlParameter("@SearchField", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchField);
 				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
 				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, descending ? "desc" : "asc");
+				sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
 			}
 			else
 			{
-				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinition", 4);
+				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinition", 5);
 				sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
 				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
 				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
 				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
 				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, descending ? "desc" : "asc");
+				sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
 			}
 			return sph.ExecuteReader();
 		}
 		/// <summary>
 		/// Gets an IDataReader with all items for a single definition.
 		/// </summary>
-		public static IDataReader GetAllForDefinition(Guid definitionGuid)
+		public static IDataReader GetAllForDefinition(Guid definitionGuid, Guid siteGuid)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinition", 1);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinition", 2);
             sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
-            return sph.ExecuteReader();
-
+            sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			return sph.ExecuteReader();
         }
 
         /// <summary>

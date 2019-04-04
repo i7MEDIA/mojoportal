@@ -338,6 +338,7 @@ namespace SuperFlexiUI
 			{
 				return Item.GetPageForDefinition(
 					config.FieldDefinitionGuid,
+					siteSettings.SiteGuid,
 					1,
 					99999,
 					out totalPages,

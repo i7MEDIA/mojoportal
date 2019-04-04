@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-3-6
-// Last Modified:			2019-01-24
+// Last Modified:			2019-04-03
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -332,10 +332,10 @@ namespace SuperFlexiBusiness
         /// </summary>
         /// <param name="definitionGuid"> definitionGuid </param>
         /// <returns>bool</returns>
-        public static bool DeleteByDefinition(Guid definitionGuid)
-        {
-            return DBItems.DeleteByDefinition(definitionGuid);
-        }
+        //public static bool DeleteByDefinition(Guid definitionGuid)
+        //{
+        //    return DBItems.DeleteByDefinition(definitionGuid);
+        //}
 
 		/// <summary>
 		/// Gets a count of item. 
@@ -406,9 +406,9 @@ namespace SuperFlexiBusiness
         /// <summary>
         /// Gets an IList with all instances of item.
         /// </summary>
-        public static List<Item> GetAll()
+        public static List<Item> GetAll(Guid siteGuid)
         {
-            IDataReader reader = DBItems.GetAll();
+            IDataReader reader = DBItems.GetAll(siteGuid);
             return LoadListFromReader(reader);
 
         }
@@ -419,12 +419,12 @@ namespace SuperFlexiBusiness
         /// <param name="pageNumber">The page number.</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <param name="totalPages">total pages</param>
-        public static List<Item> GetPage(int pageNumber, int pageSize, out int totalPages)
-        {
-            totalPages = 1;
-            IDataReader reader = DBItems.GetPage(pageNumber, pageSize, out totalPages);
-            return LoadListFromReader(reader);
-        }
+        //public static List<Item> GetPage(int pageNumber, int pageSize, out int totalPages)
+        //{
+        //    totalPages = 1;
+        //    IDataReader reader = DBItems.GetPage(pageNumber, pageSize, out totalPages);
+        //    return LoadListFromReader(reader);
+        //}
 
         /// <summary>
         /// Gets an IList with all items for a module instance
@@ -505,6 +505,7 @@ namespace SuperFlexiBusiness
 		/// <returns></returns>
 		public static List<Item> GetPageForDefinition(
 			Guid defGuid,
+			Guid siteGuid,
 			int pageNumber,
 			int pageSize,
 			out int totalPages,
@@ -515,7 +516,7 @@ namespace SuperFlexiBusiness
 		{
 			totalPages = 1;
 
-			IDataReader reader = DBItems.GetPageForDefinition(defGuid, pageNumber, pageSize, searchTerm, searchField, descending);
+			IDataReader reader = DBItems.GetPageForDefinition(defGuid, siteGuid, pageNumber, pageSize, searchTerm, searchField, descending);
 
 			var items = LoadListFromReader(reader, true);
 
@@ -550,9 +551,9 @@ namespace SuperFlexiBusiness
 		/// <param name="fieldDefinitionGuid"></param>
 		/// <param name="descending"></param>
 		/// <returns></returns>
-		public static List<Item> GetAllForDefinition(Guid fieldDefinitionGuid, bool descending = false)
+		public static List<Item> GetAllForDefinition(Guid fieldDefinitionGuid, Guid siteGuid, bool descending = false)
         {
-            IDataReader reader = DBItems.GetAllForDefinition(fieldDefinitionGuid);
+            IDataReader reader = DBItems.GetAllForDefinition(fieldDefinitionGuid, siteGuid);
             List<Item> items = LoadListFromReader(reader);
             if (descending)
             {
