@@ -7,7 +7,7 @@
 // You must not remove this notice, or any other, from this software.
 // Author:					
 // Created:				    2004-07-04
-// Last Modified:			2012-03-16
+// Last Modified:			2019-04-04
 // 
 // 04/30/2005	Dean Brettle Provided a better handling of proxy settings
 //				in generating the base path for site links
@@ -17,11 +17,13 @@
 // 04/05/2007   Alexander Yushchenko introduced Redirect* and AllowOnly* functions
 // 2011-02-27  added method IsSecureRequest()
 // 2011-11-02 make it possible to use wysiwyg editors in IOs 5 devices since it is now supported
-
+// 2019-04-04 implement mojoPortal.Core
 
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using Config = mojoPortal.Core.Configuration;
+using mojoPortal.Core.Helpers;
 using mojoPortal.FileSystem;
 using mojoPortal.Net;
 using mojoPortal.SearchIndex;
@@ -46,9 +48,6 @@ using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web
 {
-	/// <summary>
-	///
-	/// </summary>
 	public static class SiteUtils
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(SiteUtils));
@@ -1447,11 +1446,11 @@ namespace mojoPortal.Web
 				smtpSettings.Server = ConfigurationManager.AppSettings["SMTPServer"];
 			}
 
-			smtpSettings.Port = ConfigHelper.GetIntProperty("SMTPPort", 25);
+			smtpSettings.Port = Config.ConfigHelper.GetIntProperty("SMTPPort", 25);
 
 			bool byPassContext = true;
-			smtpSettings.RequiresAuthentication = ConfigHelper.GetBoolProperty("SMTPRequiresAuthentication", false, byPassContext); ;
-			smtpSettings.UseSsl = ConfigHelper.GetBoolProperty("SMTPUseSsl", false, byPassContext);
+			smtpSettings.RequiresAuthentication = Config.ConfigHelper.GetBoolProperty("SMTPRequiresAuthentication", false, byPassContext); ;
+			smtpSettings.UseSsl = Config.ConfigHelper.GetBoolProperty("SMTPUseSsl", false, byPassContext);
 
 			if (
 		   (ConfigurationManager.AppSettings["SmtpPreferredEncoding"] != null)
@@ -1991,7 +1990,7 @@ namespace mojoPortal.Web
 			}
 			
 			
-			bool useFolderForSiteDetection = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+			bool useFolderForSiteDetection = Config.ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
 
 			if (useFolderForSiteDetection)
 			{
@@ -2002,7 +2001,7 @@ namespace mojoPortal.Web
 
 			if(navigationRoot.StartsWith("http:"))
 			{
-				if(IsSecureRequest())
+				if(WebHelper.IsSecureRequest())
 				{
 					navigationRoot = navigationRoot.Replace("http:", "https:");
 				}
@@ -2024,7 +2023,7 @@ namespace mojoPortal.Web
 			}
 
 			string navigationRoot = WebUtils.GetSiteRoot();
-			bool useFolderForSiteDetection = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+			bool useFolderForSiteDetection = Config.ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
 
 			if (useFolderForSiteDetection)
 			{
@@ -2038,7 +2037,7 @@ namespace mojoPortal.Web
 
 			if (navigationRoot.StartsWith("http:"))
 			{
-				if (IsSecureRequest())
+				if (WebHelper.IsSecureRequest())
 				{
 					navigationRoot = navigationRoot.Replace("http:", "https:");
 				}
@@ -2060,7 +2059,7 @@ namespace mojoPortal.Web
 			}
 
 			string navigationRoot = WebUtils.GetRelativeSiteRoot();
-			bool useFolderForSiteDetection = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+			bool useFolderForSiteDetection = Config.ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
 
 			if (useFolderForSiteDetection)
 			{
@@ -2089,7 +2088,7 @@ namespace mojoPortal.Web
 			}
 
 			string navigationRoot = WebUtils.GetSecureSiteRoot();
-			bool useFolderForSiteDetection = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+			bool useFolderForSiteDetection = Config.ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
 
 			if (useFolderForSiteDetection)
 			{
@@ -2118,7 +2117,7 @@ namespace mojoPortal.Web
 			}
 
 			string navigationRoot = WebUtils.GetInSecureSiteRoot();
-			bool useFolderForSiteDetection = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+			bool useFolderForSiteDetection = Config.ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
 
 			if (useFolderForSiteDetection)
 			{
@@ -2211,7 +2210,7 @@ namespace mojoPortal.Web
 		public static string GetPageUrl(PageSettings pageSettings)
 		{
 			string navigationRoot = string.Empty;
-			bool useFolderForSiteDetection = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+			bool useFolderForSiteDetection = Config.ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
 
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 			if (
@@ -2298,30 +2297,10 @@ namespace mojoPortal.Web
 		/// encapsulates checks for a secure connection with configurable server variable checks
 		/// </summary>
 		/// <returns></returns>
+		[Obsolete("Use mojoPortal.Core.Helpers.WebHelper.IsSecureRequest")]
 		public static bool IsSecureRequest()
 		{
-			if((HttpContext.Current != null)&&(HttpContext.Current.Request != null))
-			{
-				// default this works when the SSL certificate is installed in the site but not when using load balancers or other proxy server
-				if (HttpContext.Current.Request.IsSecureConnection) { return true; } 
-
-				if (WebConfigSettings.SecureConnectionServerVariableForPresenceCheck.Length > 0)
-				{
-					if (HttpContext.Current.Request.ServerVariables[WebConfigSettings.SecureConnectionServerVariableForPresenceCheck] != null) { return true; }
-				}
-
-				if ((WebConfigSettings.SecureConnectionServerVariableForValueCheck.Length > 0) && (WebConfigSettings.SecureConnectionServerVariableSecureValue.Length > 0))
-				{
-					if (HttpContext.Current.Request.ServerVariables[WebConfigSettings.SecureConnectionServerVariableForValueCheck] != null)
-					{
-						if (HttpContext.Current.Request.ServerVariables[WebConfigSettings.SecureConnectionServerVariableForValueCheck] == WebConfigSettings.SecureConnectionServerVariableSecureValue) { return true; }
-					}
-				}
-
-			}
-			
-
-			return false;
+			return WebHelper.IsSecureRequest();
 		}
 
 		public static bool SslIsAvailable()
@@ -2333,7 +2312,7 @@ namespace mojoPortal.Web
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-SSLIsAvailable";
 			if (ConfigurationManager.AppSettings[key] != null)
 			{
-				return ConfigHelper.GetBoolProperty(key, false);
+				return Config.ConfigHelper.GetBoolProperty(key, false);
 			}
 		   
 			return false;
@@ -2342,7 +2321,7 @@ namespace mojoPortal.Web
 
 		public static void ForceSsl()
 		{
-			if (IsSecureRequest() || !SslIsAvailable()) { return; }
+			if (WebHelper.IsSecureRequest() || !SslIsAvailable()) { return; }
 			
 			if (!WebConfigSettings.ProxyPreventsSSLDetection)
 			{
@@ -3678,7 +3657,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-DisableRecentContentFeed";
 
-			return ConfigHelper.GetBoolProperty(key, WebConfigSettings.DisableRecentContentFeed);
+			return Config.ConfigHelper.GetBoolProperty(key, WebConfigSettings.DisableRecentContentFeed);
 
 		}
 
@@ -3688,7 +3667,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentChannelDescription";
 
-			return ConfigHelper.GetStringProperty(key, WebConfigSettings.RecentContentChannelDescription);
+			return Config.ConfigHelper.GetStringProperty(key, WebConfigSettings.RecentContentChannelDescription);
 
 		}
 
@@ -3698,7 +3677,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentChannelCopyright";
 
-			return ConfigHelper.GetStringProperty(key, WebConfigSettings.RecentContentChannelCopyright);
+			return Config.ConfigHelper.GetStringProperty(key, WebConfigSettings.RecentContentChannelCopyright);
 
 		}
 
@@ -3708,7 +3687,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentChannelNotifyEmail";
 
-			return ConfigHelper.GetStringProperty(key, WebConfigSettings.RecentContentChannelNotifyEmail);
+			return Config.ConfigHelper.GetStringProperty(key, WebConfigSettings.RecentContentChannelNotifyEmail);
 
 		}
 
@@ -3718,7 +3697,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentFeedMaxDaysOld";
 
-			return ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentFeedMaxDaysOld);
+			return Config.ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentFeedMaxDaysOld);
 
 		}
 
@@ -3730,7 +3709,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentDefaultItemsToRetrieve";
 
-			return ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentDefaultItemsToRetrieve);
+			return Config.ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentDefaultItemsToRetrieve);
 
 		}
 
@@ -3740,7 +3719,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentMaxItemsToRetrieve";
 
-			return ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentMaxItemsToRetrieve);
+			return Config.ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentMaxItemsToRetrieve);
 
 		}
 
@@ -3750,7 +3729,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentFeedTimeToLive";
 
-			return ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentFeedTimeToLive);
+			return Config.ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentFeedTimeToLive);
 
 		}
 
@@ -3760,7 +3739,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentFeedCacheTimeInMinutes";
 
-			return ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentFeedCacheTimeInMinutes);
+			return Config.ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentFeedCacheTimeInMinutes);
 
 		}
 
@@ -3773,7 +3752,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RedirectToPageAfterCreation";
 
-			return ConfigHelper.GetBoolProperty(key, WebConfigSettings.RedirectToNewPageOnCreationGlobalDefault);
+			return Config.ConfigHelper.GetBoolProperty(key, WebConfigSettings.RedirectToNewPageOnCreationGlobalDefault);
 
 		}
 

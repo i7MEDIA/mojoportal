@@ -1,4 +1,4 @@
-using mojoPortal.Web.Framework;
+using mojoPortal.Core.Configuration;
 using System;
 using System.Configuration;
 using System.Web.Hosting;
@@ -115,19 +115,16 @@ namespace mojoPortal.Web
 
 		/// <summary>
 		/// this can be used to detect a secure request in a proxied environment when the mere presence of a specific server variable indicates a secure connection
-		/// for example this can be used with IIS 7 AAR (Application Request Routing Module) where the presence of a server variable named HTTP_X_ARR_SSL indicates a secure request
+		/// for example this can be used with IIS AAR (Application Request Routing Module) where the presence of a server variable named HTTP_X_ARR_SSL indicates a secure request
 		/// So you would add this to user.config  <add key="SecureConnectionServerVariableForPresenceCheck" value="HTTP_X_ARR_SSL"/>
-		/// This setting is checked in SiteUtils.IsSecureRequest();
+		/// This setting is checked in WebHelper.IsSecureRequest();
 		/// </summary>
+		[Obsolete("Use mojoPortal.Core.Configuration.AppConfig")]
 		public static string SecureConnectionServerVariableForPresenceCheck
 		{
 			get
 			{
-				if (ConfigurationManager.AppSettings["SecureConnectionServerVariableForPresenceCheck"] != null)
-				{
-					return ConfigurationManager.AppSettings["SecureConnectionServerVariableForPresenceCheck"];
-				}
-				return string.Empty;
+				return AppConfig.SecureConnectionServerVariableForPresenceCheck;
 			}
 		}
 
@@ -135,27 +132,21 @@ namespace mojoPortal.Web
 		/// use this if you need to check a custom server variable for a specific value to determine a secure request
 		/// you must also set the value for SecureConnectionServerVariableSecureValue that corresponds to a secure request
 		/// </summary>
+		[Obsolete("Use mojoPortal.Core.Configuration.AppConfig")]
 		public static string SecureConnectionServerVariableForValueCheck
 		{
 			get
 			{
-				if (ConfigurationManager.AppSettings["SecureConnectionServerVariableForValueCheck"] != null)
-				{
-					return ConfigurationManager.AppSettings["SecureConnectionServerVariableForValueCheck"];
-				}
-				return string.Empty;
+				return AppConfig.SecureConnectionServerVariableForValueCheck;
 			}
 		}
 
+		[Obsolete("Use mojoPortal.Core.Configuration.AppConfig")]
 		public static string SecureConnectionServerVariableSecureValue
 		{
 			get
 			{
-				if (ConfigurationManager.AppSettings["SecureConnectionServerVariableSecureValue"] != null)
-				{
-					return ConfigurationManager.AppSettings["SecureConnectionServerVariableSecureValue"];
-				}
-				return string.Empty;
+				return AppConfig.SecureConnectionServerVariableSecureValue;
 			}
 		}
 
@@ -1608,9 +1599,20 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("ShowHistoryOnUpgradePage", false); }
 		}
 
+		[Obsolete("Replaced by UseFolderBasedMultiTenants")]
 		public static bool UseFoldersInsteadOfHostnamesForMultipleSites
 		{
-			get { return ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false); }
+			get { return UseFolderBasedMultiTenants; }
+		}
+
+		public static bool UseFolderBasedMultiTenants
+		{
+			get
+			{
+				return ConfigurationManager.AppSettings["UseFoldersInsteadOfHostnamesForMultipleSites"] != null
+					? ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false)
+					: ConfigHelper.GetBoolProperty("UseFolderBasedMultiTenants", false);
+			}
 		}
 
 		public static bool UseSiteNameForRootBreadcrumb
@@ -2964,7 +2966,7 @@ namespace mojoPortal.Web
 
 		public static bool AdaptEditorForMobile
 		{
-			get { return ConfigHelper.GetBoolProperty("AdaptEditorForMobile", true); }
+			get { return ConfigHelper.GetBoolProperty("AdaptEditorForMobile", false); }
 		}
 
 		public static bool ForceTextAreaEditorInMobile
