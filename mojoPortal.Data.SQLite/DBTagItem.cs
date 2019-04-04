@@ -101,11 +101,13 @@ namespace mojoPortal.Data
 			}.ToArray();
 
 
-			return SqliteHelper.ExecuteNonQuery(
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
 				ConnectionString.GetConnectionString(),
 				sqlCommand.ToString(),
 				arParams
 			);
+
+			return rowsAffected > -1;
 		}
 
 		#endregion

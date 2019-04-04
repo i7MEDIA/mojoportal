@@ -9,9 +9,9 @@ namespace mojoPortal.Data
 {
 	public static class DBTag
 	{
-		#region Create/Uddate Methods
+		#region Create/Update Methods
 
-		public static int Create(
+		public static bool Create(
 			Guid guid,
 			Guid siteGuid,
 			Guid featureGuid,
@@ -110,11 +110,13 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			return MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams
 			);
+
+			return rowsAffected > -1;
 		}
 
 

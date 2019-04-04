@@ -12,7 +12,7 @@ namespace mojoPortal.Data
 	{
 		#region Create Method
 
-		public static int Create(
+		public static bool Create(
 			Guid tagItemGuid,
 			Guid siteGuid,
 			Guid featureGuid,
@@ -90,12 +90,14 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			return NpgsqlHelper.ExecuteNonQuery(
+			int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				CommandType.Text,
 				sqlCommand,
 				arParams
 			);
+
+			return rowsAffected > -1;
 		}
 
 		#endregion

@@ -11,7 +11,7 @@ namespace mojoPortal.Data
 	{
 		#region Create/Update Methods
 
-		public static int Create(
+		public static bool Create(
 			Guid guid,
 			Guid siteGuid,
 			Guid featureGuid,
@@ -117,7 +117,7 @@ namespace mojoPortal.Data
 				arParams
 			);
 
-			return rowsAffected;
+			return rowsAffected > -1;
 		}
 
 

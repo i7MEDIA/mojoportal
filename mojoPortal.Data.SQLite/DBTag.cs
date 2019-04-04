@@ -19,7 +19,7 @@ namespace mojoPortal.Data
 	{
 		#region Create/Update Methods
 
-		public static int Create(
+		public static bool Create(
 			Guid guid,
 			Guid siteGuid,
 			Guid featureGuid,
@@ -118,11 +118,13 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			return SqliteHelper.ExecuteNonQuery(
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				arParams
 			);
+
+			return rowsAffected > -1;
 		}
 
 

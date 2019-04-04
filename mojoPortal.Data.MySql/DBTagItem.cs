@@ -10,7 +10,7 @@ namespace mojoPortal.Data
 	{
 		#region Create Method
 
-		public static int Create(
+		public static bool Create(
 			Guid tagItemGuid,
 			Guid siteGuid,
 			Guid featureGuid,
@@ -88,11 +88,13 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			return MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams
 			);
+
+			return rowsAffected > -1;
 		}
 
 		#endregion
