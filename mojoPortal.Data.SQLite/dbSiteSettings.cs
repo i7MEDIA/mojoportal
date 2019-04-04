@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2019-01-07
+/// Last Modified:			2019-04-04
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -1717,11 +1717,15 @@ namespace mojoPortal.Data
                 GetConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
-
-
         }
 
-        public static void AddHost(Guid siteGuid, int siteId, string hostName)
+		public static IDataReader GetHostList()
+		{
+			var sqlCommand = "SELECT * FROM mp_SiteHosts order by HostName;";
+			return SqliteHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand);
+		}
+
+		public static void AddHost(Guid siteGuid, int siteId, string hostName)
         {
             StringBuilder sqlCommand = new StringBuilder();
 

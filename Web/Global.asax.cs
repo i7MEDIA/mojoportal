@@ -28,7 +28,7 @@
 // 2011-03-14 added logic for .NET 4 to enable memory and excepton monitoring
 // 2011-08-05  refactored end request user activity tracking
 // 2014-07-11 added updated routing for web api and mvc
-
+// 2019-04-04 SystemInfoCaching
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -62,6 +62,7 @@ using System.Web.Optimization;
 using mojoPortal.Web.Routing;
 using mojoPortal.Web.Optimization;
 using System.Net;
+using System.Dynamic;
 #endif
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
@@ -197,9 +198,9 @@ namespace mojoPortal.Web
 			}
 
 
-				AreaRegistration.RegisterAllAreas();
-				GlobalConfiguration.Configure(WebApiConfig.Register);
-				FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+			AreaRegistration.RegisterAllAreas();
+			GlobalConfiguration.Configure(WebApiConfig.Register);
+			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
@@ -226,6 +227,7 @@ namespace mojoPortal.Web
             AreaRegistration.RegisterAllAreas();
             RouteRegistrar.RegisterRoutes(RouteTable.Routes);
 
+			CreateSystemInfoCache();
 
 			StartOrResumeTasks();
 			PurgeOldLogEvents();
@@ -264,6 +266,31 @@ namespace mojoPortal.Web
 #endif
 
 
+		}
+
+		private void CreateSystemInfoCache()
+		{
+			//string cacheKey = "systemInfoCache";
+
+			//DateTime absoluteExpiration = DateTime.Now.AddHours(1);
+
+			//try
+			//{
+			//	SystemInfo systemInfo = CacheManager.Cache.Get<SystemInfo>(cacheKey, absoluteExpiration, () =>
+			//	{
+			//		// This is the anonymous function which gets called if the data is not in the cache.
+			//		// This method is executed and whatever is returned, is added to the cache with the passed in expiry time.
+			//		SystemInfo info = new SystemInfo()
+			//		{
+			//			SiteCount = SiteSettings.SiteCount(),
+			//			SiteMappings = SiteSettings.Host
+			//		};
+			//	});
+			//}
+			//catch (Exception ex)
+			//{
+			//	log.Error("failed to create systemInfoCache", ex);
+			//}
 		}
 
 		private void PurgeOldLogEvents()

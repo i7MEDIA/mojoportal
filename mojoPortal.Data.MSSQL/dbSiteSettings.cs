@@ -410,7 +410,13 @@ namespace mojoPortal.Data
             return sph.ExecuteReader();
         }
 
-        public static void AddHost(Guid siteGuid, int siteId, string hostName)
+		public static IDataReader GetHostList()
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_SiteHosts_SelectAll", 0);
+			return sph.ExecuteReader();
+		}
+
+		public static void AddHost(Guid siteGuid, int siteId, string hostName)
         {
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_SiteHosts_Insert", 3);
             sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
