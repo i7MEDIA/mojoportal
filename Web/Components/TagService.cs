@@ -12,27 +12,35 @@ namespace mojoPortal.Web.Tags
 	{
 		#region Private Properties
 
-		private Guid _guid;
-		private TagScopeType _selectionType;
+		private Guid _featureGuid;
+		private Guid _moduleGuid;
+		private SelectTagByType _selectTagByType;
 		private SiteUser currentUser = null;
 		private SiteSettings siteSettings = null;
 		private bool allowed = true;
 
 		#endregion
 
-
-		public TagService(Guid guid, TagScopeType selectionType)
+		/// <summary>
+		/// Inistiallizes instance of TagService
+		/// </summary>
+		/// <param name="featureGuid">featureGuid</param>
+		/// <param name="moduleGuid">moduleGuid</param>
+		/// <param name="selectTagByType">selectTagByType</param>
+		public TagService(Guid featureGuid, Guid moduleGuid, SelectTagByType selectTagByType)
 		{
-			_guid = guid;
-			_selectionType = selectionType;
+			_featureGuid = featureGuid;
+			_moduleGuid = moduleGuid;
+			_selectTagByType = selectTagByType;
 
 			siteSettings = CacheHelper.GetCurrentSiteSettings();
 			currentUser = SiteUtils.GetCurrentSiteUser();
 
 			if (
-				!WebUser.IsAdminOrContentAdmin ||
-				!SiteUtils.UserIsSiteEditor() ||
-				!WebUser.IsInRoles(siteSettings.TagManagementRoles))
+				!WebUser.IsAdminOrContentAdmin
+				|| !SiteUtils.UserIsSiteEditor()
+				|| !WebUser.IsInRoles(siteSettings.TagManagementRoles)
+			)
 			{
 				allowed = false;
 			}
@@ -41,9 +49,13 @@ namespace mojoPortal.Web.Tags
 
 		#region Public Methods
 
+		/// <summary>
+		/// Gets list of TagModel which has the tag text and guid properties. Selected is always false.
+		/// </summary>
+		/// <returns>List<TagModel></returns>
 		public List<TagModel> GetTagList()
 		{
-			var tags = returnSelectionTags();
+			var tags = selectTags();
 			var returnModel = new List<TagModel>();
 
 			foreach (var tag in tags)
@@ -62,10 +74,16 @@ namespace mojoPortal.Web.Tags
 		}
 
 
-		public List<TagModel> GetTagListWithSelections(Guid guid, TagItemScopeType tagItemType)
+		/// <summary>
+		/// Gets list of TagModel which has the tag text, guid, and selected properties.
+		/// </summary>
+		/// <param name="guid">The RelatedItemGuid or ExtraGuid.</param>
+		/// <param name="selectTagItemType">RelatedItem or Extra</param>
+		/// <returns>List<TagModel></returns>
+		public List<TagModel> GetTagListWithSelections(Guid guid, SelectTagItemByType selectTagItemType)
 		{
-			var tags = returnSelectionTags();
-			var tagItems = returnSelectionTagItems(guid, tagItemType);
+			var tags = selectTags();
+			var tagItems = selectTagItems(guid, selectTagItemType);
 			var returnModel = new List<TagModel>();
 
 			foreach (var tag in tags)
@@ -84,11 +102,17 @@ namespace mojoPortal.Web.Tags
 		}
 
 
-		public void UpdateTags(Guid guid, TagItemScopeType tagItemType, List<TagModel> returnedTags)
+		/// <summary>
+		/// Takes a list of TagModel and creates/deletes any tags based on what already exists in the DB.
+		/// </summary>
+		/// <param name="guid">The RelatedItemGuid or ExtraGuid.</param>
+		/// <param name="selectTagItemType">RelatedItem or Extra</param>
+		/// <param name="returnedTags">List of the tags returned to this method.</param>
+		public void UpdateTags(Guid guid, SelectTagItemByType selectTagItemType, List<TagModel> returnedTags)
 		{
 			if (!allowed) return;
 
-			var tagItems = returnSelectionTagItems(guid, tagItemType);
+			var tagItems = selectTagItems(guid, selectTagItemType);
 			var selectedTags = returnedTags.Where(tag => tag.Selected).ToList();
 			var tagItemsToSave = getTagsToSave(selectedTags, tagItems);
 			var tagItemsToDelete = getTagItemsToDelete(selectedTags, tagItems);
@@ -96,7 +120,7 @@ namespace mojoPortal.Web.Tags
 			// Create new TagItems
 			foreach (var tag in tagItemsToSave)
 			{
-				CreateTagItem(tag.TagGuid, guid, tagItemType);
+				CreateTagItem(tag.TagGuid, guid, selectTagItemType);
 			}
 
 			// Delete TagItems
@@ -107,6 +131,11 @@ namespace mojoPortal.Web.Tags
 		}
 
 
+		/// <summary>
+		/// Creates a single tag.
+		/// </summary>
+		/// <param name="tagText">Text of tag to be created.</param>
+		/// <returns>Returns true if successful and the new tag.</returns>
 		public (bool, Tag) CreateTag(string tagText)
 		{
 			if (!allowed) return (false, null);
@@ -114,8 +143,8 @@ namespace mojoPortal.Web.Tags
 			var tag = new Tag
 			{
 				SiteGuid = siteSettings.SiteGuid,
-				FeatureGuid = (_selectionType == TagScopeType.Feature) ? _guid : Guid.Empty,
-				ModuleGuid = (_selectionType == TagScopeType.Module) ? _guid : Guid.Empty,
+				FeatureGuid = _featureGuid,
+				ModuleGuid = _moduleGuid,
 				VocabularyGuid = Guid.Empty,
 				TagText = tagText.Trim(),
 				CreatedBy = currentUser.UserGuid,
@@ -129,6 +158,12 @@ namespace mojoPortal.Web.Tags
 		}
 
 
+		/// <summary>
+		/// Updates a specific tag.
+		/// </summary>
+		/// <param name="tagText">New tag text.</param>
+		/// <param name="guid">Guid of tag to update.</param>
+		/// <returns>Returns true if successful and the new tag.</returns>
 		public (bool, Tag) UpdateTag(string tagText, Guid guid)
 		{
 			if (!allowed) return (false, null);
@@ -145,17 +180,23 @@ namespace mojoPortal.Web.Tags
 		}
 
 
-		public void CreateTagItem(Guid tagGuid, Guid guid, TagItemScopeType tagItemType)
+		/// <summary>
+		/// Creates new TagItem
+		/// </summary>
+		/// <param name="tagGuid">The related TagGuid of the TagItem to create.</param>
+		/// <param name="guid">The RelatedItemGuid or ExtraGuid.</param>
+		/// <param name="selectTagItemType">RelatedItem or Extra</param>
+		public void CreateTagItem(Guid tagGuid, Guid guid, SelectTagItemByType selectTagItemType)
 		{
 			if (!allowed) return;
 
 			var tagItem = new TagItem
 			{
 				SiteGuid = siteSettings.SiteGuid,
-				FeatureGuid = (_selectionType == TagScopeType.Feature) ? _guid : Guid.Empty,
-				ModuleGuid = (_selectionType == TagScopeType.Module) ? _guid : Guid.Empty,
-				RelatedItemGuid = (tagItemType == TagItemScopeType.RelatedItem) ? guid : Guid.Empty,
-				ExtraGuid = (tagItemType == TagItemScopeType.Extra) ? guid : Guid.Empty,
+				FeatureGuid = _featureGuid,
+				ModuleGuid = _moduleGuid,
+				RelatedItemGuid = (selectTagItemType == SelectTagItemByType.RelatedItem) ? guid : Guid.Empty,
+				ExtraGuid = (selectTagItemType == SelectTagItemByType.Extra) ? guid : Guid.Empty,
 				TagGuid = tagGuid,
 				TaggedBy = currentUser.UserGuid
 			};
@@ -164,6 +205,11 @@ namespace mojoPortal.Web.Tags
 		}
 
 
+		/// <summary>
+		/// Deletes a single tag guid by it's GUID.
+		/// </summary>
+		/// <param name="tagGuid"></param>
+		/// <returns>Return true if successful.</returns>
 		public bool DeleteTag(Guid tagGuid)
 		{
 			if (!allowed) return false;
@@ -172,6 +218,10 @@ namespace mojoPortal.Web.Tags
 		}
 
 
+		/// <summary>
+		/// Deletes a single tag item by it's GUID.
+		/// </summary>
+		/// <param name="tagItemGuid"></param>
 		public void DeleteTagItem(Guid tagItemGuid)
 		{
 			if (!allowed) return;
@@ -184,42 +234,44 @@ namespace mojoPortal.Web.Tags
 
 		#region Private Methods
 
-		private List<Tag> returnSelectionTags()
+		private List<Tag> selectTags()
 		{
 			var tags = new List<Tag>();
 
-			switch (_selectionType)
+			switch (_selectTagByType)
 			{
-				case TagScopeType.Site:
+				case SelectTagByType.Site:
 					tags = TagRepository.GetTagsBySite(siteSettings.SiteGuid);
 					break;
-				case TagScopeType.Module:
-					tags = TagRepository.GetTagsByModuleGuid(siteSettings.SiteGuid, _guid);
+				case SelectTagByType.Feature:
+					tags = TagRepository.GetTagsByFeatureGuid(siteSettings.SiteGuid, _moduleGuid);
 					break;
-				case TagScopeType.Feature:
-					tags = TagRepository.GetTagsByFeatureGuid(siteSettings.SiteGuid, _guid);
+				case SelectTagByType.Module:
+					tags = TagRepository.GetTagsByModuleGuid(siteSettings.SiteGuid, _moduleGuid);
 					break;
 			}
 
 			return tags;
 		}
 
-		private List<TagItem> returnSelectionTagItems(Guid guid, TagItemScopeType tagItemType)
+
+		private List<TagItem> selectTagItems(Guid guid, SelectTagItemByType selectTagItemType)
 		{
 			var tagItems = new List<TagItem>();
 
-			switch (tagItemType)
+			switch (selectTagItemType)
 			{
-				case TagItemScopeType.RelatedItem:
+				case SelectTagItemByType.RelatedItem:
 					tagItems = TagRepository.GetTagItemsByRelatedItemGuid(siteSettings.SiteGuid, guid);
 					break;
-				case TagItemScopeType.Extra:
+				case SelectTagItemByType.Extra:
 					tagItems = TagRepository.GetTagItemsByExtraGuid(siteSettings.SiteGuid, guid);
 					break;
 			}
 
 			return tagItems;
 		}
+
 
 		private List<TagModel> getTagsToSave(List<TagModel> tags, List<TagItem> tagItems)
 		{
@@ -274,11 +326,12 @@ namespace mojoPortal.Web.Tags
 	{
 		public string TagText { get; set; } = string.Empty;
 		public Guid TagGuid { get; set; } = Guid.Empty;
+		public Guid ChannelGuid { get; set; } = Guid.Empty;
 		public bool Selected { get; set; } = false;
 	}
 
 
-	public enum TagScopeType
+	public enum SelectTagByType
 	{
 		Site,
 		Module,
@@ -286,7 +339,7 @@ namespace mojoPortal.Web.Tags
 	}
 
 
-	public enum TagItemScopeType
+	public enum SelectTagItemByType
 	{
 		RelatedItem,
 		Extra
