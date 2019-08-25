@@ -167,7 +167,7 @@ namespace mojoPortal.Web.AdminUI
 				sb.Append($"<h5 class=\"text-danger\">{Resource.SecurityAdvisorSecurityProtocolInsecureCiphers}</h5><dl>");
 				foreach (var cipher in insecureCiphers)
 				{
-					sb.Append($"<dt>{cipher.Key}</dt><dd>{(string)cipher.Value}</dd>");
+					sb.Append($"<dt>{cipher.Key}</dt><dd>{(string)cipher.Value[0]}</dd>");
 				}
 				sb.Append("</dl>");
 				sb.Append($"<h5>{Resource.SecurityAdvisorSecurityProtocolCiphers}</h5><ul>");
