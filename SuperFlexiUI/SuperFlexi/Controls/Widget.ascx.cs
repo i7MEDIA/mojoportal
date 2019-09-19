@@ -279,7 +279,8 @@ namespace SuperFlexiUI
                 }
                 content.Append(displaySettings.ItemMarkup);
 
-                foreach (Field field in fields)
+
+				foreach (Field field in fields)
                 {
 					//if (!WebUser.IsInRoles(field.ViewRoles))
 					//{
@@ -290,7 +291,11 @@ namespace SuperFlexiUI
 
                     bool fieldValueFound = false;
 
-                    foreach (ItemFieldValue fieldValue in fieldValues.Where( fv => fv.ItemGuid == item.ItemGuid))
+					var itemFieldValues = fieldValues.Where(fv => fv.ItemGuid == item.ItemGuid);
+					var tokens = fields.Select(x => new { x.Token, x.FieldGuid });
+
+
+					foreach (ItemFieldValue fieldValue in itemFieldValues)
                     {
                         if (field.FieldGuid == fieldValue.FieldGuid)
                         {
@@ -309,11 +314,9 @@ namespace SuperFlexiUI
                                 content.Replace("^" + field.Token, string.Empty);
                                 content.Replace(field.Token + "^", string.Empty);
                                 content.Replace(field.Token, string.Empty);
-
                             }
                             else
                             {
-
                                 if (IsDateField(field))
                                 {
                                     DateTime dateTime = new DateTime();
@@ -373,16 +376,23 @@ namespace SuperFlexiUI
 									}
 								}
 
-                                //else
-                                //{
-                                    /// ^field.Token is used when we don't want the preTokenString and postTokenString to be used
+                                // ^field.Token^ is used when we don't want the preTokenString and postTokenString to be used
+                                content.Replace("^" + field.Token + "^", fieldValue.FieldValue);
+                                content.Replace("^" + field.Token, fieldValue.FieldValue + field.PostTokenString);
+                                content.Replace(field.Token + "^", field.PreTokenString + fieldValue.FieldValue);
+                                content.Replace(field.Token, field.PreTokenString + fieldValue.FieldValue + field.PostTokenString);
 
+								//We want any tokens used in our pre or post token strings to be replaced. 
+								//todo: add controlType specific logic to be sure tokens used in pre and post are replaced with proper formatting (i.e.: date field)
+								var prePostTokenStrings = $@"{field.PreTokenString} {field.PostTokenString} {field.PreTokenStringWhenTrue} 
+									{field.PreTokenStringWhenFalse} {field.PostTokenStringWhenTrue} {field.PostTokenStringWhenFalse}".SplitOnChar(' ');
 
-                                    content.Replace("^" + field.Token + "^", fieldValue.FieldValue);
-                                    content.Replace("^" + field.Token, fieldValue.FieldValue + field.PostTokenString);
-                                    content.Replace(field.Token + "^", field.PreTokenString + fieldValue.FieldValue);
-                                    content.Replace(field.Token, field.PreTokenString + fieldValue.FieldValue + field.PostTokenString);
-                                //}
+								var sharedTokens = tokens.Where(token => prePostTokenStrings.Select(subStr => subStr).Contains(token.Token)).ToList();
+								foreach (var token in sharedTokens)
+								{
+									content.Replace(token.Token, fieldValues.Where(x => x.FieldGuid == token.FieldGuid).Select(y => y.FieldValue).Single());
+								}
+
                             }
                             //if (!String.IsNullOrWhiteSpace(field.LinkedField))
                             //{
