@@ -26,8 +26,7 @@ namespace SuperFlexiUI
     {
         #region Properties
         private static readonly ILog log = LogManager.GetLogger(typeof(Widget));
-        private ModuleConfiguration config = new ModuleConfiguration();
-        private List<Field> fields = new List<Field>();
+		private List<Field> fields = new List<Field>();
         private string moduleTitle = string.Empty;
         private string markupErrorFormat = "SuperFlexi markup definition error when rendering {0} for {1}. Error was {2}";
         StringBuilder strOutput = new StringBuilder();
@@ -39,102 +38,68 @@ namespace SuperFlexiUI
         SiteSettings siteSettings;
         PageSettings pageSettings;
         Module module;
-        public ModuleConfiguration Config
-        {
-            get { return config; }
-            set { config = value; }
-        }
+		public ModuleConfiguration Config { get; set; } = new ModuleConfiguration();
+		public string SiteRoot { get; set; } = string.Empty;
+		public string ImageSiteRoot { get; set; } = string.Empty;
+		public bool IsEditable { get; set; } = false;
+		public int ModuleId { get; set; } = -1;
+		public int PageId { get; set; } = -1;
 
-        private string siteRoot = string.Empty;
-        public string SiteRoot
-        {
-            get { return siteRoot; }
-            set { siteRoot = value; }
-        }
+		#endregion
 
-        private string imageSiteRoot = string.Empty;
-        public string ImageSiteRoot
-        {
-            get { return imageSiteRoot; }
-            set { imageSiteRoot = value; }
-        }
-
-        private bool isEditable = false;
-        public bool IsEditable
-        {
-            get { return isEditable; }
-            set { isEditable = value; }
-        }
-
-        private int moduleId = -1;
-        public int ModuleId
-        {
-            get { return moduleId; }
-            set { moduleId = value; }
-        }
-
-        private int pageId = -1;
-        public int PageId
-        {
-            get { return pageId; }
-            set { pageId = value; }
-        }
-
-        #endregion
-
-        protected void Page_Load(object sender, EventArgs e)
+		protected void Page_Load(object sender, EventArgs e)
         {
             //LoadSettings();
             //SetupScripts();
 
-            module = new Module(moduleId);
+            module = new Module(ModuleId);
             moduleTitle = module.ModuleTitle;
 
             siteSettings = CacheHelper.GetCurrentSiteSettings();
-            pageSettings = new PageSettings(siteSettings.SiteId, pageId);
-            if (config.MarkupDefinition != null)
+            pageSettings = new PageSettings(siteSettings.SiteId, PageId);
+            if (Config.MarkupDefinition != null)
             {
-                displaySettings = config.MarkupDefinition;
+                displaySettings = Config.MarkupDefinition;
             }
 
-			if (config.ProcessItems)
+			if (Config.ProcessItems)
 			{
-				fields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
+				fields = Field.GetAllForDefinition(Config.FieldDefinitionGuid);
 			
-				if (config.IsGlobalView)
+				if (Config.IsGlobalView)
 				{
-					items = Item.GetAllForDefinition(config.FieldDefinitionGuid, siteSettings.SiteGuid, config.DescendingSort);
-					fieldValues = ItemFieldValue.GetItemValuesByDefinition(config.FieldDefinitionGuid);
+					items = Item.GetAllForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, Config.DescendingSort);
+					fieldValues = ItemFieldValue.GetItemValuesByDefinition(Config.FieldDefinitionGuid);
 				}
 				else
 				{
-					items = Item.GetModuleItems(moduleId, config.DescendingSort);
+					items = Item.GetModuleItems(ModuleId, Config.DescendingSort);
 					fieldValues = ItemFieldValue.GetItemValuesByModule(module.ModuleGuid);
 				}
 			}
 
-			if (SiteUtils.IsMobileDevice() && config.MobileMarkupDefinition != null)
+			if (SiteUtils.IsMobileDevice() && Config.MobileMarkupDefinition != null)
             {
-                displaySettings = config.MobileMarkupDefinition;
+                displaySettings = Config.MobileMarkupDefinition;
             }
 
-            if (config.MarkupScripts.Count > 0 || (SiteUtils.IsMobileDevice() && config.MobileMarkupScripts.Count > 0))
+            if (Config.MarkupScripts.Count > 0 || (SiteUtils.IsMobileDevice() && Config.MobileMarkupScripts.Count > 0))
             {
 
-                if (SiteUtils.IsMobileDevice() && config.MobileMarkupScripts.Count > 0)
+                if (SiteUtils.IsMobileDevice() && Config.MobileMarkupScripts.Count > 0)
                 {
-                    SuperFlexiHelpers.SetupScripts(config.MobileMarkupScripts, config, displaySettings, siteSettings.UseSslOnAllPages, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
+                    SuperFlexiHelpers.SetupScripts(Config.MobileMarkupScripts, Config, displaySettings, siteSettings.UseSslOnAllPages, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
                 }
                 else
                 {
-                    SuperFlexiHelpers.SetupScripts(config.MarkupScripts, config, displaySettings, siteSettings.UseSslOnAllPages, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
+                    SuperFlexiHelpers.SetupScripts(Config.MarkupScripts, Config, displaySettings, siteSettings.UseSslOnAllPages, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
                 }
 
             }
 
-            if (config.MarkupCSS.Count > 0)
+            if (Config.MarkupCSS.Count > 0)
             {
-                SuperFlexiHelpers.SetupStyle(config.MarkupCSS, config, displaySettings, siteSettings.UseSslOnAllPages, ClientID, ModuleId, PageId, Page, this);
+                SuperFlexiHelpers.SetupStyle(Config.MarkupCSS, Config, displaySettings, siteSettings.UseSslOnAllPages, ClientID, ModuleId, PageId, Page, this);
             }
 
             //if (Page.IsPostBack) { return; }
@@ -149,18 +114,18 @@ namespace SuperFlexiUI
             string markupTop = string.Empty;
             string markupBottom = string.Empty;
 
-            featuredImageUrl = String.IsNullOrWhiteSpace(config.InstanceFeaturedImage) ? featuredImageUrl : SiteUtils.GetNavigationSiteRoot() + config.InstanceFeaturedImage;
+            featuredImageUrl = String.IsNullOrWhiteSpace(Config.InstanceFeaturedImage) ? featuredImageUrl : SiteUtils.GetNavigationSiteRoot() + Config.InstanceFeaturedImage;
             markupTop = displaySettings.ModuleInstanceMarkupTop;
             markupBottom = displaySettings.ModuleInstanceMarkupBottom;
 
             strOutput.Append(markupTop);
 
-            if (config.UseHeader && config.HeaderLocation == "InnerBodyPanel" && !String.IsNullOrWhiteSpace(config.HeaderContent) && !String.Equals(config.HeaderContent, "<p>&nbsp;</p>"))
+            if (Config.UseHeader && Config.HeaderLocation == "InnerBodyPanel" && !String.IsNullOrWhiteSpace(Config.HeaderContent) && !String.Equals(Config.HeaderContent, "<p>&nbsp;</p>"))
             {
                 try
                 {
 
-                    strOutput.Append(string.Format(displaySettings.HeaderContentFormat, config.HeaderContent));
+                    strOutput.Append(string.Format(displaySettings.HeaderContentFormat, Config.HeaderContent));
 
                 }
                 catch (FormatException ex)
@@ -177,12 +142,12 @@ namespace SuperFlexiUI
             // http://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_DateFormatHandling.htm
             jsonWriter.DateFormatHandling = DateFormatHandling.IsoDateFormat;
 
-            string jsonObjName = "sflexi" + module.ModuleId.ToString() + (config.IsGlobalView ? "Modules" : "Items");
-            if (config.RenderJSONOfData)
+            string jsonObjName = "sflexi" + module.ModuleId.ToString() + (Config.IsGlobalView ? "Modules" : "Items");
+            if (Config.RenderJSONOfData)
             {
 
                 jsonWriter.WriteRaw("var " + jsonObjName + " = ");
-                if (config.JsonLabelObjects || config.IsGlobalView)
+                if (Config.JsonLabelObjects || Config.IsGlobalView)
                 {
                     jsonWriter.WriteStartObject();
                 }
@@ -199,7 +164,7 @@ namespace SuperFlexiUI
             int currentModuleID = -1;
             foreach (Item item in items)
             {
-                bool itemIsEditable = isEditable || WebUser.IsInRoles(item.EditRoles);
+                bool itemIsEditable = IsEditable || WebUser.IsInRoles(item.EditRoles);
 				bool itemIsViewable = itemIsEditable || WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor || WebUser.IsInRoles(item.ViewRoles);
                 if (!itemIsViewable)
                 {
@@ -210,9 +175,9 @@ namespace SuperFlexiUI
                 //StringBuilder content = new StringBuilder();
                 IndexedStringBuilder content = new IndexedStringBuilder();
 
-				ModuleConfiguration itemModuleConfig = config;
+				ModuleConfiguration itemModuleConfig = Config;
 
-				if (config.IsGlobalView)
+				if (Config.IsGlobalView)
 				{
 					itemModuleConfig = new ModuleConfiguration(module);
 					content.SortOrder1 = itemModuleConfig.GlobalViewSortOrder;
@@ -237,12 +202,12 @@ namespace SuperFlexiUI
                 //List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
 
                 //using item.ModuleID here because if we are using a 'global view' we need to be sure the item edit link uses the correct module id.
-                string itemEditUrl = SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + pageId + "&mid=" + item.ModuleID + "&itemid=" + item.ItemID;
+                string itemEditUrl = SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + PageId + "&mid=" + item.ModuleID + "&itemid=" + item.ItemID;
                 string itemEditLink = itemIsEditable ? String.Format(displaySettings.ItemEditLinkFormat, itemEditUrl) : string.Empty;
 
-                if (config.RenderJSONOfData)
+                if (Config.RenderJSONOfData)
                 {
-                    if (config.IsGlobalView)
+                    if (Config.IsGlobalView)
                     {
                         if (currentModuleID != item.ModuleID)
                         {
@@ -265,7 +230,7 @@ namespace SuperFlexiUI
 
 
                     }
-                    if (config.JsonLabelObjects || config.IsGlobalView) jsonWriter.WritePropertyName("i" + item.ItemID.ToString());
+                    if (Config.JsonLabelObjects || Config.IsGlobalView) jsonWriter.WritePropertyName("i" + item.ItemID.ToString());
                     jsonWriter.WriteStartObject();
                     jsonWriter.WritePropertyName("ItemId");
                     jsonWriter.WriteValue(item.ItemID.ToString());
@@ -332,7 +297,7 @@ namespace SuperFlexiUI
 
                                 if (IsCheckBoxListField(field) || IsRadioButtonListField(field))
                                 {
-                                    foreach (CheckBoxListMarkup cblm in config.CheckBoxListMarkups)
+                                    foreach (CheckBoxListMarkup cblm in Config.CheckBoxListMarkups)
                                     {
                                         if (cblm.Field == field.Name)
                                         {
@@ -404,7 +369,7 @@ namespace SuperFlexiUI
                             //    }
                             //}
 
-                            if (config.RenderJSONOfData && 
+                            if (Config.RenderJSONOfData && 
 								(WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor || WebUser.IsInRoles(field.ViewRoles)))
                             {
                                 jsonWriter.WritePropertyName(field.Name);
@@ -438,7 +403,7 @@ namespace SuperFlexiUI
 						if (WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor || WebUser.IsInRoles(field.ViewRoles))
 						{
 							content.Replace(field.Token, field.DefaultValue);
-							if (config.RenderJSONOfData)
+							if (Config.RenderJSONOfData)
 							{
 								jsonWriter.WritePropertyName(field.Name);
 								if (field.ControlType == "CheckBox" && field.CheckBoxReturnBool == true)
@@ -459,7 +424,7 @@ namespace SuperFlexiUI
                     }
                 }
 
-                if (config.RenderJSONOfData)
+                if (Config.RenderJSONOfData)
                 {
                     //if (config.IsGlobalView)
                     //{
@@ -478,7 +443,7 @@ namespace SuperFlexiUI
                 }
                 
             }
-            if (config.DescendingSort)
+            if (Config.DescendingSort)
             {
                 itemsMarkup.Sort(delegate (IndexedStringBuilder a, IndexedStringBuilder b)
                 {
@@ -569,13 +534,13 @@ namespace SuperFlexiUI
             
 
             //strOutput.Append(displaySettings.ItemListMarkupBottom);
-            if (config.RenderJSONOfData)
+            if (Config.RenderJSONOfData)
             {
-                if (config.JsonLabelObjects || config.IsGlobalView)
+                if (Config.JsonLabelObjects || Config.IsGlobalView)
                 {
                     jsonWriter.WriteEndObject();
 
-                    if (config.IsGlobalView)
+                    if (Config.IsGlobalView)
                     {
                         jsonWriter.WriteEndObject();
                         jsonWriter.WriteEnd();
@@ -592,20 +557,20 @@ namespace SuperFlexiUI
                 stringWriter.Close();
 
                 jsonScript.RawScript = stringWriter.ToString();
-                jsonScript.Position = config.JsonRenderLocation;
-                jsonScript.ScriptName = "sflexi" + module.ModuleId.ToString() + config.MarkupDefinitionName.ToCleanFileName() + "-JSON";
+                jsonScript.Position = Config.JsonRenderLocation;
+                jsonScript.ScriptName = "sflexi" + module.ModuleId.ToString() + Config.MarkupDefinitionName.ToCleanFileName() + "-JSON";
 
                 List<MarkupScript> scripts = new List<MarkupScript>();
                 scripts.Add(jsonScript);
 
-                SuperFlexiHelpers.SetupScripts(scripts, config, displaySettings, siteSettings.UseSslOnAllPages, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
+                SuperFlexiHelpers.SetupScripts(scripts, Config, displaySettings, siteSettings.UseSslOnAllPages, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
             }
 
-            if (config.UseFooter && config.FooterLocation == "InnerBodyPanel" && !String.IsNullOrWhiteSpace(config.FooterContent) && !String.Equals(config.FooterContent, "<p>&nbsp;</p>")) 
+            if (Config.UseFooter && Config.FooterLocation == "InnerBodyPanel" && !String.IsNullOrWhiteSpace(Config.FooterContent) && !String.Equals(Config.FooterContent, "<p>&nbsp;</p>")) 
             {
                 try
                 {
-                    strOutput.AppendFormat(displaySettings.FooterContentFormat, config.FooterContent);
+                    strOutput.AppendFormat(displaySettings.FooterContentFormat, Config.FooterContent);
                 }
                 catch (System.FormatException ex)
                 {
@@ -615,10 +580,10 @@ namespace SuperFlexiUI
             
             strOutput.Append(markupBottom);
 
-            SuperFlexiHelpers.ReplaceStaticTokens(strOutput, config, isEditable, displaySettings, module.ModuleId, pageSettings, siteSettings, out strOutput);
+            SuperFlexiHelpers.ReplaceStaticTokens(strOutput, Config, IsEditable, displaySettings, module.ModuleId, pageSettings, siteSettings, out strOutput);
             
             //this is for displaying all of the selected values from the items outside of the items themselves
-            foreach (CheckBoxListMarkup cblm in config.CheckBoxListMarkups)
+            foreach (CheckBoxListMarkup cblm in Config.CheckBoxListMarkups)
             {
                 StringBuilder cblmContent = new StringBuilder();
 
