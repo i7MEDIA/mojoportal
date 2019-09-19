@@ -32,12 +32,12 @@
 						</asp:Repeater>
 						<portal:mojoCutePager ID="pgr" runat="server" />
 						<asp:HyperLink ID="lnkRefresh2" runat="server" />
-						<portal:mojoButton ID="btnClearDbLOg" runat="server" />
+						<portal:mojoButton ID="btnClearDbLOg" runat="server" SkinID="WarningButton" />
 					</asp:Panel>
 
 					<portal:BasePanel runat="server" ID="pnlFileLog">
 						<portal:FormGroupPanel runat="server">
-							<asp:TextBox ID="txtLog" runat="server" Width="100%" Height="300px" TextMode="MultiLine"></asp:TextBox>
+							<asp:TextBox ID="txtLog" runat="server" Width="100%" Height="600px" TextMode="MultiLine"></asp:TextBox>
 						</portal:FormGroupPanel>
 						<portal:FormGroupPanel runat="server">
 							<asp:HyperLink ID="lnkRefresh" runat="server" SkinID="SuccessButton" />

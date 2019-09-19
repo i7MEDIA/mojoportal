@@ -21,6 +21,8 @@ using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.Controls
 {
+	[ParseChildren(false)]
+	[PersistChildren(true)]
     public class SiteLabel : WebControl, INamingContainer
     {
 
