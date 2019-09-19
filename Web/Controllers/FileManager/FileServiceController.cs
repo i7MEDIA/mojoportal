@@ -224,6 +224,19 @@ namespace mojoPortal.Web.Controllers
 			var files = fileSystem.GetFileList(FilePath(requestPath)).Select(Mapper.Map<WebFile, FileServiceDto>).ToList();
 			var allowedFiles = new List<FileServiceDto>();
 			var folders = fileSystem.GetFolderList(FilePath(requestPath)).Select(Mapper.Map<WebFolder, FileServiceDto>).ToList();
+			if (!String.IsNullOrWhiteSpace(fileSystem.Permission.UserFolder) && fileSystem.Permission.UserFolder != fileSystem.VirtualRoot)
+			{
+				var userFolder = new List<WebFolder>() {
+					new WebFolder {
+						VirtualPath = fileSystem.Permission.UserFolder,
+						Path = fileSystem.Permission.UserFolder,
+						Created = DateTime.Now,
+						Modified = DateTime.Now,
+						Name = Resource.UserFolder
+					}
+				};
+				folders.AddRange(userFolder.Select(Mapper.Map<WebFolder, FileServiceDto>).ToList());
+			}
 			var type = WebUtils.ParseStringFromQueryString("type", "file");
 
 			foreach (var folder in folders)

@@ -18026,6 +18026,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My Files.
+        /// </summary>
+        internal static string UserFolder {
+            get {
+                return ResourceManager.GetString("UserFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is Locked Out?.
         /// </summary>
         internal static string UserIsLockedOutLabel {

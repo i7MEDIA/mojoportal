@@ -57,13 +57,15 @@ namespace mojoPortal.Web.Controllers
 			}
 
 			var virtualPath = VirtualPathUtility.RemoveTrailingSlash(fileSystem.FileBaseUrl + fileSystem.VirtualRoot.Replace("~", string.Empty));
+			var userFolder = VirtualPathUtility.RemoveTrailingSlash(fileSystem.FileBaseUrl + fileSystem.Permission.UserFolder.Replace("~", string.Empty));
 			var rootName = virtualPath.Split('/');
-
+			var manageFiles = fileSystem.UserHasUploadPermission.ToString().ToLowerInvariant();
+			var deleteFiles = (WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor) || WebUser.IsContentAdmin || userFolder == virtualPath).ToString().ToLowerInvariant();
 			var model = new Models.FileManager
 			{
 				OverwriteFiles = WebConfigSettings.FileManagerOverwriteFiles,
 				FileSystemToken = Global.FileSystemToken.ToString(),
-				RootName = rootName[rootName.Count() - 1],
+				RootName = userFolder == virtualPath ? Resource.UserFolder : rootName[rootName.Count() - 1],
 				VirtualPath = virtualPath,
 				ReturnFullPath = queryParams.returnFullPath,
 				View = Request.QueryString.Get("view"),
@@ -72,20 +74,21 @@ namespace mojoPortal.Web.Controllers
 				InputId = queryParams.inputId,
 				CKEditorFuncNumber = queryParams.CKEditorFuncNum,
 				QueryString = queryParams,
+				UserFolder = userFolder,
 
-				Upload = WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles) ? "true" : "false",
-				Rename = WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles) ? "true" : "false",
-				Move = WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles) ? "true" : "false",
-				Copy = WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles) ? "true" : "false",
-				Edit = WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles) ? "true" : "false",
-				Compress = WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles) ? "true" : "false",
+				Upload = manageFiles,
+				Rename = manageFiles,
+				Move = manageFiles,
+				Copy = manageFiles,
+				Edit = manageFiles,
+				Compress = manageFiles,
 				CompressChooseName = "true",
-				Extract = WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles) ? "true" : "false",
+				Extract = manageFiles,
 				Download = "true",
 				DownloadMultiple = "true",
 				Preview = "true",
-				Remove = WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor) || WebUser.IsContentAdmin ? "true" : "false",
-				CreateFolder = WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles) ? "true" : "false",
+				Remove = deleteFiles,
+				CreateFolder = manageFiles,
 
 				PagePickerLinkText = Resource.FileManagerPagePickerLink,
 				BackToWebsiteLinkText = Resource.FileManagerBackToWebsite,
