@@ -29,7 +29,7 @@ namespace mojoPortal.Web.EventCalendarUI
         //private String cacheDependencyKey;
         private DateTime thisDay = DateTime.Today;
         private string virtualRoot;
-
+		private bool enableMap = true;
         #region OnInit
 
         protected override void OnPreInit(EventArgs e)
@@ -125,6 +125,9 @@ namespace mojoPortal.Web.EventCalendarUI
 
                 txtLocation.Text = calEvent.Location;
 
+				lblShowMap.Visible = calEvent.ShowMap;
+				chkShowMap.Visible = calEvent.ShowMap;
+				chkShowMap.Checked = calEvent.ShowMap;
             }
             else
             {

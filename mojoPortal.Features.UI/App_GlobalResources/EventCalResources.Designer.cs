@@ -115,6 +115,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable Map.
+        /// </summary>
+        internal static string EnableMapSetting {
+            get {
+                return ResourceManager.GetString("EnableMapSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Event.
         /// </summary>
         internal static string EventCalendarAddEventLabel {
@@ -358,11 +367,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Location.
+        ///   Looks up a localized string similar to Location:.
         /// </summary>
         internal static string LocationLabel {
             get {
                 return ResourceManager.GetString("LocationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Map:.
+        /// </summary>
+        internal static string ShowMap {
+            get {
+                return ResourceManager.GetString("ShowMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Time in Month View:.
+        /// </summary>
+        internal static string ShowTimeInMonthViewSetting {
+            get {
+                return ResourceManager.GetString("ShowTimeInMonthViewSetting", resourceCulture);
             }
         }
     }

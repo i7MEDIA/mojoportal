@@ -1807,6 +1807,15 @@
   <ItemGroup>
     <Content Include="BetterImageGallery\Views\_BetterImageGallery_Error.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\0.0.0.3.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\0.0.0.4.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\0.0.0.5.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\0.0.0.6.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\1.0.0.0.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -1,8 +1,4 @@
-﻿/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2010-07-01
-/// 
-/// The use and distribution terms for this software are covered by the 
+﻿/// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
 /// which can be found in the file CPL.TXT at the root of this distribution.
 /// By using this software in any fashion, you are agreeing to be bound by 
@@ -11,17 +7,12 @@
 /// You must not remove this notice, or any other, from this software.
 
 using System;
-using System.IO;
-using System.Text;
 using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Configuration;
 
 namespace mojoPortal.Data
 {
-    
-    public static class DBEvents
+
+	public static class DBEvents
     {
         
         /// <summary>
@@ -58,9 +49,11 @@ namespace mojoPortal.Data
             string location,
             bool requiresTicket,
             decimal ticketPrice,
-            DateTime createdDate)
+            DateTime createdDate,
+			bool showMap)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_CalendarEvents_Insert", 15);
+			
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_CalendarEvents_Insert", 16);
             sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
             sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
             sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
@@ -77,8 +70,9 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@RequiresTicket", SqlDbType.Bit, ParameterDirection.Input, requiresTicket);
             sph.DefineSqlParameter("@TicketPrice", SqlDbType.Decimal, ParameterDirection.Input, ticketPrice);
             sph.DefineSqlParameter("@CreatedDate", SqlDbType.DateTime, ParameterDirection.Input, createdDate);
+			sph.DefineSqlParameter("@ShowMap", SqlDbType.Bit, ParameterDirection.Input, showMap);
 
-            int newID = Convert.ToInt32(sph.ExecuteScalar());
+			int newID = Convert.ToInt32(sph.ExecuteScalar());
             return newID;
         }
 
@@ -113,9 +107,10 @@ namespace mojoPortal.Data
             bool requiresTicket,
             decimal ticketPrice,
             DateTime lastModUtc,
-            Guid lastModUserGuid)
+            Guid lastModUserGuid,
+			bool showMap)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_CalendarEvents_Update", 13);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_CalendarEvents_Update", 14);
             sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemId);
             sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
             sph.DefineSqlParameter("@Title", SqlDbType.NVarChar, ParameterDirection.Input, title);
@@ -129,8 +124,9 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@TicketPrice", SqlDbType.Decimal, ParameterDirection.Input, ticketPrice);
             sph.DefineSqlParameter("@LastModUtc", SqlDbType.DateTime, ParameterDirection.Input, lastModUtc);
             sph.DefineSqlParameter("@LastModUserGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, lastModUserGuid);
+			sph.DefineSqlParameter("@ShowMap", SqlDbType.Bit, ParameterDirection.Input, showMap);
 
-            int rowsAffected = sph.ExecuteNonQuery();
+			int rowsAffected = sph.ExecuteNonQuery();
             return (rowsAffected > -1);
         }
 
@@ -192,9 +188,23 @@ namespace mojoPortal.Data
             dt.Columns.Add("ItemID", typeof(int));
             dt.Columns.Add("ModuleID", typeof(int));
             dt.Columns.Add("Title", typeof(string));
-            dt.Columns.Add("EventDate", typeof(DateTime));
-
-            using (IDataReader reader = sph.ExecuteReader())
+			dt.Columns.Add("Description", typeof(string));
+			dt.Columns.Add("ImageName", typeof(string));
+			dt.Columns.Add("EventDate", typeof(DateTime));
+			dt.Columns.Add("StartTime", typeof(DateTime));
+			dt.Columns.Add("EndTime", typeof(DateTime));
+			dt.Columns.Add("CreatedDate", typeof(DateTime));
+			dt.Columns.Add("UserID", typeof(int));
+			dt.Columns.Add("ItemGuid", typeof(Guid));
+			dt.Columns.Add("ModuleGuid", typeof(Guid));
+			dt.Columns.Add("UserGuid", typeof(Guid));
+			dt.Columns.Add("Location", typeof(string));
+			dt.Columns.Add("LastModUserGuid", typeof(Guid));
+			dt.Columns.Add("LastModUtc", typeof(DateTime));
+			dt.Columns.Add("TicketPrice", typeof(decimal));
+			dt.Columns.Add("RequiresTicket", typeof(bool));
+			dt.Columns.Add("ShowMap", typeof(bool));
+			using (IDataReader reader = sph.ExecuteReader())
             {
                 while (reader.Read())
                 {
@@ -202,9 +212,23 @@ namespace mojoPortal.Data
                     row["ItemID"] = reader["ItemID"];
                     row["ModuleID"] = reader["ModuleID"];
                     row["Title"] = reader["Title"];
+					row["Description"] = reader["Description"];
+					row["ImageName"] = reader["ImageName"];
                     row["EventDate"] = reader["EventDate"];
-
-                    dt.Rows.Add(row);
+					row["StartTime"] = reader["StartTime"];
+					row["EndTime"] = reader["EndTime"];
+					row["CreatedDate"] = reader["CreatedDate"];
+					row["UserID"] = reader["UserID"];
+					row["ItemGuid"] = reader["ItemGuid"];
+					row["ModuleGuid"] = reader["ModuleGuid"];
+					row["UserGuid"] = reader["UserGuid"];
+					row["Location"] = reader["Location"];
+					row["LastModUserGuid"] = reader["LastModUserGuid"];
+					row["LastModUtc"] = reader["LastModUtc"];
+					row["TicketPrice"] = reader["TicketPrice"];
+					row["RequiresTicket"] = reader["RequiresTicket"];
+					row["ShowMap"] = reader["ShowMap"];
+					dt.Rows.Add(row);
 
                 }
 

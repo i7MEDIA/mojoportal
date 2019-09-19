@@ -13,6 +13,8 @@
 				<br />
 				<mp:SiteLabel id="Sitelabel2" runat="server" ConfigKey="EventCalendarEditEndTimeLabel" ResourceFile="EventCalResources"></mp:SiteLabel>
 				<asp:Label id="lblEndTime" runat="server"></asp:Label>
+				<mp:SiteLabel runat="server" ConfigKey="LocationLabel" ResourceFile="EventCalResources" />
+				<asp:Label ID="lblLocation" runat="server" />
 				<br /><br />
 				<div>
 				<asp:Literal id="litDescription" runat="server" />
