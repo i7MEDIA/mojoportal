@@ -151,7 +151,7 @@ var filePicker = {
 
 		const validateInput = function(mutationsList) {
 			mutationsList.forEach(function (mutation) {
-				if (mutation.type == 'attributes' && mutation.attributeName === 'style') {
+				if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
 					const validationMessage = mutation.target.dataset.valErrormessage;
 
 					failValidation(validationMessage);

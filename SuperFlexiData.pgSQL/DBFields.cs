@@ -460,7 +460,7 @@ namespace SuperFlexiData
         public static IDataReader GetAll()
         {
             StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_fields where isdeleted = 0;");
+            sqlCommand.Append("select * from i7_sflexi_fields where isdeleted = false;");
 
             return NpgsqlHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
@@ -543,7 +543,7 @@ namespace SuperFlexiData
         public static bool MarkAsDeleted(Guid fieldGuid)
         {
             StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("update i7_sflexi_fields set isdeleted = 1 where fieldguid = :fieldguid;");
+            sqlCommand.Append("update i7_sflexi_fields set isdeleted = true where fieldguid = :fieldguid;");
 
             var sqlParam = new NpgsqlParameter(":fieldguid", NpgsqlDbType.Uuid)
             {
