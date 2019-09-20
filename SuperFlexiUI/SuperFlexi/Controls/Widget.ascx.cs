@@ -349,13 +349,51 @@ namespace SuperFlexiUI
 
 								//We want any tokens used in our pre or post token strings to be replaced. 
 								//todo: add controlType specific logic to be sure tokens used in pre and post are replaced with proper formatting (i.e.: date field)
-								var prePostTokenStrings = $@"{field.PreTokenString} {field.PostTokenString} {field.PreTokenStringWhenTrue} 
-									{field.PreTokenStringWhenFalse} {field.PostTokenStringWhenTrue} {field.PostTokenStringWhenFalse}".SplitOnChar(' ');
+								List<string> prePostTokenStrings = new List<string>();
 
-								var sharedTokens = tokens.Where(token => prePostTokenStrings.Select(subStr => subStr).Contains(token.Token)).ToList();
+								if (!String.IsNullOrWhiteSpace(field.PreTokenString))
+								{
+									prePostTokenStrings.Add(field.PreTokenString);
+								}
+
+								if (!String.IsNullOrWhiteSpace(field.PostTokenString))
+								{
+									prePostTokenStrings.Add(field.PostTokenString);
+								}
+
+								if (!String.IsNullOrWhiteSpace(field.PreTokenStringWhenTrue))
+								{
+									prePostTokenStrings.Add(field.PreTokenStringWhenTrue);
+								}
+
+								if (!String.IsNullOrWhiteSpace(field.PreTokenStringWhenFalse))
+								{
+									prePostTokenStrings.Add(field.PreTokenStringWhenFalse);
+								}
+
+								if (!String.IsNullOrWhiteSpace(field.PostTokenStringWhenTrue))
+								{
+									prePostTokenStrings.Add(field.PostTokenStringWhenTrue);
+								}
+
+								if (!String.IsNullOrWhiteSpace(field.PostTokenStringWhenFalse))
+								{
+									prePostTokenStrings.Add(field.PostTokenStringWhenFalse);
+								}
+
+								var sharedTokens = tokens.Where(token => prePostTokenStrings.Any(tokenString => tokenString.Contains(token.Token))).ToList();
+
+								//foreach (var token in tokens)
+								//{
+								//	if (prePostTokenStrings.Contains(token.Token))
+								//	{
+								//		sharedTokens.Add(token);
+								//	}
+								//}
+
 								foreach (var token in sharedTokens)
 								{
-									content.Replace(token.Token, fieldValues.Where(x => x.FieldGuid == token.FieldGuid).Select(y => y.FieldValue).Single());
+									content.Replace(token.Token, fieldValues.Where(x => x.FieldGuid == token.FieldGuid && x.ItemGuid == item.ItemGuid).Select(y => y.FieldValue).Single());
 								}
 
                             }
