@@ -1,5 +1,5 @@
 ﻿// Created:					2017-12-30
-// Last Modified:			2018-01-02
+// Last Modified:			2019-09-18
 
 using mojoPortal.Data;
 using Npgsql;
@@ -347,13 +347,15 @@ namespace SuperFlexiData
 				new NpgsqlParameter(":viewroles", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = viewRoles },
 				new NpgsqlParameter(":editroles", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = editRoles }
 			};
-            int rowsAffected = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
+			int rowsAffected = 0;
+			var returnValue = NpgsqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
 				sqlCommand.ToString(),
-                sqlParams.ToArray()).ToString());
+                sqlParams.ToArray());
+			rowsAffected = Convert.ToInt32(returnValue.ToString());
 
-            return (rowsAffected > 0);
+			return (rowsAffected > 0);
 
         }
 
