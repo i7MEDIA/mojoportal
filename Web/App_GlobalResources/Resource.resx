@@ -6475,4 +6475,10 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="UserFolder" xml:space="preserve">
     <value>My Files</value>
   </data>
+  <data name="ManageUsersIsDeleted" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="ManageUsersUnDeleteUserWarning" xml:space="preserve">
+    <value>Are you sure you want to undelete this user?</value>
+  </data>
 </root>

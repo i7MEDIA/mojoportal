@@ -7405,6 +7405,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleted.
+        /// </summary>
+        internal static string ManageUsersIsDeleted {
+            get {
+                return ResourceManager.GetString("ManageUsersIsDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Capture Count.
         /// </summary>
         internal static string ManageUsersLocationGridCaptureCountHeading {
@@ -7644,6 +7653,15 @@ namespace Resources {
         internal static string ManageUsersTrustedLabel {
             get {
                 return ResourceManager.GetString("ManageUsersTrustedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to undelete this user?.
+        /// </summary>
+        internal static string ManageUsersUnDeleteUserWarning {
+            get {
+                return ResourceManager.GetString("ManageUsersUnDeleteUserWarning", resourceCulture);
             }
         }
         
