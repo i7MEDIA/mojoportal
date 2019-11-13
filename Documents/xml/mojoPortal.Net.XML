@@ -72,7 +72,7 @@
             <param name="attachmentPaths"></param>
             <param name="attachmentNames"></param>
         </member>
-        <member name="M:mojoPortal.Net.Email.Send(mojoPortal.Net.SmtpSettings,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String[],System.String[])">
+        <member name="M:mojoPortal.Net.Email.Send(mojoPortal.Net.SmtpSettings,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String[],System.String[],System.String@)">
             <summary>
             This method uses the built in .NET classes to send mail.
             </summary>

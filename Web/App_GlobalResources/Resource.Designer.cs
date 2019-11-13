@@ -3445,6 +3445,105 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom Menu.
+        /// </summary>
+        internal static string CustomMenuFeatureName {
+            get {
+                return ResourceManager.GetString("CustomMenuFeatureName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum Menu Depth.
+        /// </summary>
+        internal static string CustomMenuMaxDepth {
+            get {
+                return ResourceManager.GetString("CustomMenuMaxDepth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Starting Page.
+        /// </summary>
+        internal static string CustomMenuShowStartingNode {
+            get {
+                return ResourceManager.GetString("CustomMenuShowStartingNode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skin ID.
+        /// </summary>
+        internal static string CustomMenuSkinId {
+            get {
+                return ResourceManager.GetString("CustomMenuSkinId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting Node URL.
+        /// </summary>
+        internal static string CustomMenuStartingNodeUrl {
+            get {
+                return ResourceManager.GetString("CustomMenuStartingNodeUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting Page.
+        /// </summary>
+        internal static string CustomMenuStartingPage {
+            get {
+                return ResourceManager.GetString("CustomMenuStartingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        internal static string CustomMenuStartingPageBrowseLink {
+            get {
+                return ResourceManager.GetString("CustomMenuStartingPageBrowseLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the starting page.
+        /// </summary>
+        internal static string CustomMenuStartingPageBrowseLinkTooltip {
+            get {
+                return ResourceManager.GetString("CustomMenuStartingPageBrowseLinkTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting Page Is Invalid. Check Module Settings..
+        /// </summary>
+        internal static string CustomMenuStartingPageInvalid {
+            get {
+                return ResourceManager.GetString("CustomMenuStartingPageInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use TreeView?.
+        /// </summary>
+        internal static string CustomMenuUseTreeView {
+            get {
+                return ResourceManager.GetString("CustomMenuUseTreeView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menu Theme.
+        /// </summary>
+        internal static string CustomMenuView {
+            get {
+                return ResourceManager.GetString("CustomMenuView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom Javascript.
         /// </summary>
         internal static string CustomScriptModuleFeatureName {
@@ -10456,6 +10555,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Themes Available in Skin.
+        /// </summary>
+        internal static string NoViewsInSkin {
+            get {
+                return ResourceManager.GetString("NoViewsInSkin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string OKLabel {
@@ -16595,6 +16703,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email Address.
+        /// </summary>
+        internal static string SiteSettingsTestSMTPEmailAddress {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPEmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Test Message.
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsButton {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the form below to test your email settings. If a password is not entered above, the saved password will be used, if available..
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test SMTP Settings.
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use Email for Login?.
         /// </summary>
         internal static string SiteSettingsUseEmailForLoginLabel {
@@ -18391,6 +18535,15 @@ namespace Resources {
         internal static string ViewLive {
             get {
                 return ResourceManager.GetString("ViewLive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Theme.
+        /// </summary>
+        internal static string ViewSelectDropDown {
+            get {
+                return ResourceManager.GetString("ViewSelectDropDown", resourceCulture);
             }
         }
         

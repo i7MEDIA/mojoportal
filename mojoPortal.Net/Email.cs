@@ -1,6 +1,6 @@
 // Author:				
 // Created:			2004-08-14
-// Last Modified:		2014-03-18
+// Last Modified:		2019-11-13
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -381,8 +381,24 @@ namespace mojoPortal.Net
                 attachmentNames);
                 
         }
+		public static bool Send(
+			SmtpSettings smtpSettings,
+			string from,
+			string fromAlias,
+			string replyTo,
+			string to,
+			string cc,
+			string bcc,
+			string subject,
+			string messageBody,
+			bool html,
+			string priority)
+		{
+			return Send(smtpSettings, from, fromAlias, replyTo, to, cc, bcc, subject, messageBody, html, priority, out _);
+		}
 
-        public static bool Send(
+
+		public static bool Send(
             SmtpSettings smtpSettings,
             string from,
             string fromAlias,
@@ -393,13 +409,18 @@ namespace mojoPortal.Net
             string subject,
             string messageBody,
             bool html,
-            string priority)
+            string priority,
+			out string result)
         {
-            if (to == "admin@admin.com") { return false; } //demo site 
+            if (to == "admin@admin.com") {
+				//demo site
+				result = "can't use admin@admin.com email address";
+				return false;
+			}
 
             string[] attachmentPaths = new string[0];
             string[] attachmentNames = new string[0];
-
+			//result = string.Empty;
             return Send(
                 smtpSettings,
                 from,
@@ -413,13 +434,45 @@ namespace mojoPortal.Net
                 html,
                 priority,
                 attachmentPaths,
-                attachmentNames);
+                attachmentNames,
+				out result);
         }
 
-        /// <summary>
-        /// This method uses the built in .NET classes to send mail.
-        /// </summary>
-        public static bool Send(
+		public static bool Send(
+			SmtpSettings smtpSettings,
+			string from,
+			string fromAlias,
+			string replyTo,
+			string to,
+			string cc,
+			string bcc,
+			string subject,
+			string messageBody,
+			bool html,
+			string priority,
+			string[] attachmentPaths,
+			string[] attachmentNames)
+		{
+			return Send(smtpSettings,
+				from,
+				fromAlias,
+				replyTo,
+				to,
+				cc,
+				bcc,
+				subject,
+				messageBody,
+				html,
+				priority,
+				attachmentPaths,
+				attachmentNames,
+				out _);
+		}
+
+		/// <summary>
+		/// This method uses the built in .NET classes to send mail.
+		/// </summary>
+		public static bool Send(
             SmtpSettings smtpSettings,
             string from,
             string fromAlias,
@@ -432,7 +485,8 @@ namespace mojoPortal.Net
             bool html,
             string priority,
             string[] attachmentPaths,
-            string[] attachmentNames)
+            string[] attachmentNames,
+			out string result)
         {
             
                 // add attachments if there are any
@@ -468,12 +522,29 @@ namespace mojoPortal.Net
                     messageBody,
                     html,
                     priority,
-                    attachments);
+                    attachments,
+					out result);
 
 
         }
+		public static bool Send(
+			SmtpSettings smtpSettings,
+			string from,
+			string fromAlias,
+			string replyTo,
+			string to,
+			string cc,
+			string bcc,
+			string subject,
+			string messageBody,
+			bool html,
+			string priority,
+			List<Attachment> attachments)
+		{
+			return Send(smtpSettings, from, fromAlias, replyTo, to, cc, bcc, subject, messageBody, html, priority, attachments, out _);
+		}
 
-        public static bool Send(
+		public static bool Send(
             SmtpSettings smtpSettings,
             string from,
             string fromAlias,
@@ -485,31 +556,30 @@ namespace mojoPortal.Net
             string messageBody,
             bool html,
             string priority,
-            List<Attachment> attachments)
+            List<Attachment> attachments,
+			out string result)
         {
-            if (to == "admin@admin.com") { return false; } //demo site
+            if (to == "admin@admin.com") {
+				//demo site
+				result = "can't use admin@admin.com email address";
+				return false;
+			}
 
             if ((ConfigurationManager.AppSettings["DisableSmtp"] != null) && (ConfigurationManager.AppSettings["DisableSmtp"] == "true"))
             {
-                log.Info("Not Sending email because DisableSmtp is true in config.");
-                return false;
+				result = "Not Sending email because DisableSmtp is true in config.";
+                log.Info(result);
+				return false;
             }
 
             if ((smtpSettings == null) || (!smtpSettings.IsValid))
             {
-                log.Error("Invalid smtp settings detected in SendEmail ");
+				result = "Invalid smtp settings detected in Email.Send ";
+				log.Error(result);
                 return false;
             }
 
-            if (debugLog) log.DebugFormat("In SendEmailNormal({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})",
-                                                    from,
-                                                    to,
-                                                    cc,
-                                                    bcc,
-                                                    subject,
-                                                    messageBody,
-                                                    html,
-                                                    priority);
+            if (debugLog) log.Debug($"In Email.Send({from}, {to}, {cc}, {bcc}, {subject}, {messageBody}, {html}, {priority})");
 
             using (MailMessage mail = new MailMessage())
             {
@@ -530,14 +600,16 @@ namespace mojoPortal.Net
                 }
                 catch (ArgumentException)
                 {
-                    log.Error("invalid from address " + from);
+					result = $"invalid from address {from}";
+                    log.Error(result);
                     log.Info("no valid from address was provided so not sending message " + messageBody);
                     return false;
                 }
                 catch (FormatException)
                 {
-                    log.Error("invalid from address " + from);
-                    log.Info("no valid from address was provided so not sending message " + messageBody);
+					result = $"invalid from address {from}";
+					log.Error(result);
+					log.Info("no valid from address was provided so not sending message " + messageBody);
                     return false;
                 }
 
@@ -564,7 +636,8 @@ namespace mojoPortal.Net
 
                 if (mail.To.Count == 0)
                 {
-                    log.Error("no valid to address was provided so not sending message " + messageBody);
+					result = $"no valid to address was provided so not sending message {messageBody}";
+					log.Error(result);
                     return false;
                 }
 
@@ -677,7 +750,7 @@ namespace mojoPortal.Net
                     mail.Headers.Add("Precedence", "bulk");
                 }
 
-                
+				result = string.Empty;
                 return Send(smtpSettings, mail);
 
 
@@ -699,10 +772,18 @@ namespace mojoPortal.Net
             return string.Empty;
 
         }
-
-        public static bool Send(SmtpSettings smtpSettings, MailMessage message)
+		public static bool Send(SmtpSettings smtpSettings, MailMessage message)
+		{
+			return Send(smtpSettings, message, out _);
+		}
+        public static bool Send(SmtpSettings smtpSettings, MailMessage message, out string result)
         {
-            if (message.To.ToString() == "admin@admin.com") { return false; } //demo site
+            if (message.To.ToString() == "admin@admin.com")
+			{ 
+				//demo site
+				result = "can't use admin@admin.com email address";
+				return false;
+			} 
 
             string globalBcc = GetGlobalBccAddress();
             if (globalBcc.Length > 0)
@@ -747,48 +828,57 @@ namespace mojoPortal.Net
                 bool logEmail = ConfigHelper.GetBoolProperty("LogAllEmailsWithSubject", false);
 
                 if (logEmail) { log.Info("Sent message " + message.Subject + " to " + message.To[0].Address); }
-
+				result = "sent";
                 return true;
             }
             catch (System.Net.Mail.SmtpException ex)
             {
-                //log.Error("error sending email to " + to + " from " + from, ex);
+				//log.Error("error sending email to " + to + " from " + from, ex);
+				result = $"error: {ex}";
                 log.Error("error sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", will retry", ex);
                 return RetrySend(message, smtpClient, ex);
 
             }
             catch (WebException ex)
             {
+				result = $"error: {ex}";
                 log.Error("error sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", message was: " + message.Body, ex);
                 return false;
             }
             catch (SocketException ex)
             {
-                log.Error("error sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", message was: " + message.Body, ex);
+				result = $"error: {ex}";
+				log.Error("error sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", message was: " + message.Body, ex);
                 return false;
             }
             catch (InvalidOperationException ex)
             {
-                log.Error("error sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", message was: " + message.Body, ex);
+				result = $"error: {ex}";
+				log.Error("error sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", message was: " + message.Body, ex);
                 return false;
             }
             catch (FormatException ex)
             {
-                log.Error("error sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", message was: " + message.Body, ex);
+				result = $"error: {ex}";
+				log.Error("error sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", message was: " + message.Body, ex);
                 return false;
             }
 
         }
 
+		private static bool RetrySend(MailMessage message, SmtpClient smtp, Exception ex)
+		{
+			return RetrySend(message, smtp, ex, out _);
+		}
 
 
-        private static bool RetrySend(MailMessage message, SmtpClient smtp, Exception ex)
+		private static bool RetrySend(MailMessage message, SmtpClient smtp, Exception ex, out string result)
         {
             //retry
             int timesToRetry = ConfigHelper.GetIntProperty("TimesToRetryOnSmtpError", 3);
             for (int i = 1; i <= timesToRetry; )
             {
-                if (RetrySend(message, smtp, i)) { return true; }
+                if (RetrySend(message, smtp, i)) { result = "sent"; return true; }
                 i += 1;
                 Thread.Sleep(1000); // 1 second sleep in case it is a temporary network issue
             }
@@ -806,6 +896,7 @@ namespace mojoPortal.Net
                 {
                     smtpClient.Send(message);
                     log.Info("success using backup smtp server sending email to " + message.To.ToString() + " from " + message.From);
+					result = "sent";
                     return true;
                 }
                 catch (System.Net.Mail.SmtpException) { }
@@ -818,7 +909,7 @@ namespace mojoPortal.Net
 
             //log.Info("all retries failed sending email to " + message.To.ToString() + " from " + message.From);
             log.Error("all retries failed sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", message was: " + message.Body, ex);
-
+			result = "fail";
             return false;
 
         }

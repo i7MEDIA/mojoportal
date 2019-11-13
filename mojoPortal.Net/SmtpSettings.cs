@@ -1,6 +1,6 @@
 ﻿// Author:				
 // Created:			2008-09-12
-// Last Modified:		2012-08-27
+// Last Modified:		2019-11-13
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -10,85 +10,41 @@
 //
 // You must not remove this notice, or any other, from this software.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace mojoPortal.Net
 {
-    
-    public class SmtpSettings
+
+	public class SmtpSettings
     {
         public SmtpSettings()
         { }
 
-        private string user = string.Empty;
-        private string password = string.Empty;
-        private string server = string.Empty;
-        private int port = 25;
-        private bool requiresAuthentication = false;
-        private bool useSsl = false;
-        private string preferredEncoding = string.Empty;
-        private bool addBulkMailHeader = false;
+		public string User { get; set; } = string.Empty;
 
-        public string User
-        {
-            get { return user; }
-            set { user = value; }
-        }
+		public string Password { get; set; } = string.Empty;
 
-        public string Password
-        {
-            get { return password; }
-            set { password = value; }
-        }
+		public string Server { get; set; } = string.Empty;
 
-        public string Server
-        {
-            get { return server; }
-            set { server = value; }
-        }
+		public int Port { get; set; } = 25;
 
-        public int Port
-        {
-            get { return port; }
-            set { port = value; }
-        }
+		public bool RequiresAuthentication { get; set; } = false;
 
-        public bool RequiresAuthentication
-        {
-            get { return requiresAuthentication; }
-            set { requiresAuthentication = value; }
-        }
+		public bool UseSsl { get; set; } = false;
 
-        public bool UseSsl
-        {
-            get { return useSsl; }
-            set { useSsl = value; }
-        }
+		public string PreferredEncoding { get; set; } = string.Empty;
 
-        public string PreferredEncoding
-        {
-            get { return preferredEncoding; }
-            set { preferredEncoding = value; }
-        }
+		public bool AddBulkMailHeader { get; set; } = false;
 
-        public bool AddBulkMailHeader
-        {
-            get { return addBulkMailHeader; }
-            set { addBulkMailHeader = value; }
-        }
-
-        public bool IsValid
+		public bool IsValid
         {
             get
             {
-                if (server.Length == 0) { return false; }
+                if (Server.Length == 0) { return false; }
 
-                if (requiresAuthentication)
+                if (RequiresAuthentication)
                 {
-                    if (user.Length == 0) { return false; }
-                    if (password.Length == 0) { return false; }
+                    if (User.Length == 0) { return false; }
+                    if (Password.Length == 0) { return false; }
                 }
 
                 return true;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -6472,6 +6472,45 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="SecurityAdvisorSecurityProtocolUnknownCiphers" xml:space="preserve">
     <value>Supports Unknown Ciphers</value>
   </data>
+  <data name="CustomMenuFeatureName" xml:space="preserve">
+    <value>Custom Menu</value>
+  </data>
+  <data name="CustomMenuMaxDepth" xml:space="preserve">
+    <value>Maximum Menu Depth</value>
+  </data>
+  <data name="CustomMenuShowStartingNode" xml:space="preserve">
+    <value>Show Starting Page</value>
+  </data>
+  <data name="CustomMenuSkinId" xml:space="preserve">
+    <value>Skin ID</value>
+  </data>
+  <data name="CustomMenuStartingNodeUrl" xml:space="preserve">
+    <value>Starting Node URL</value>
+  </data>
+  <data name="CustomMenuStartingPage" xml:space="preserve">
+    <value>Starting Page</value>
+  </data>
+  <data name="CustomMenuStartingPageBrowseLink" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="CustomMenuStartingPageBrowseLinkTooltip" xml:space="preserve">
+    <value>Select the starting page</value>
+  </data>
+  <data name="CustomMenuStartingPageInvalid" xml:space="preserve">
+    <value>Starting Page Is Invalid. Check Module Settings.</value>
+  </data>
+  <data name="CustomMenuUseTreeView" xml:space="preserve">
+    <value>Use TreeView?</value>
+  </data>
+  <data name="CustomMenuView" xml:space="preserve">
+    <value>Menu Theme</value>
+  </data>
+  <data name="NoViewsInSkin" xml:space="preserve">
+    <value>No Themes Available in Skin</value>
+  </data>
+  <data name="ViewSelectDropDown" xml:space="preserve">
+    <value>Select Theme</value>
+  </data>
   <data name="UserFolder" xml:space="preserve">
     <value>My Files</value>
   </data>
@@ -6480,5 +6519,17 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="ManageUsersUnDeleteUserWarning" xml:space="preserve">
     <value>Are you sure you want to undelete this user?</value>
+  </data>
+  <data name="SiteSettingsTestSMTPEmailAddress" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="SiteSettingsTestSMTPSettingsButton" xml:space="preserve">
+    <value>Send Test Message</value>
+  </data>
+  <data name="SiteSettingsTestSMTPSettingsDescription" xml:space="preserve">
+    <value>Use the form below to test your email settings. If a password is not entered above, the saved password will be used, if available.</value>
+  </data>
+  <data name="SiteSettingsTestSMTPSettingsLabel" xml:space="preserve">
+    <value>Test SMTP Settings</value>
   </data>
 </root>

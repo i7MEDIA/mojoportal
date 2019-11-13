@@ -16,6 +16,7 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers;
+using mojoPortal.Net;
 using mojoPortal.Web.Controls.Captcha;
 using mojoPortal.Web.Editor;
 using mojoPortal.Web.Framework;
@@ -27,11 +28,12 @@ using System.Data;
 using System.Data.Common;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using System.Net.Mail;
 namespace mojoPortal.Web.AdminUI
 {
 
@@ -578,7 +580,7 @@ namespace mojoPortal.Web.AdminUI
 				&&((selectedSite.SiteId != WebConfigSettings.RelatedSiteID)||(selectedSiteID == -1))
 				)
 			{
-				if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+				if (WebConfigSettings.UseFolderBasedMultiTenants)
 				{
 					liGeneralSecurity.Visible = false;
 					tabGeneralSecurity.Visible = false;
@@ -702,7 +704,7 @@ namespace mojoPortal.Web.AdminUI
 			if(countOfOtherSites > 0 || selectedSiteID == -1)
 			{
 				
-				if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+				if (WebConfigSettings.UseFolderBasedMultiTenants)
 				{
 					PopulateFolderList();
 					litHostMessage.Text = String.Format(displaySettings.SiteSettingsNoticeMarkup, Resource.SiteSettingsHostNamesTurnedOff);
@@ -1524,7 +1526,78 @@ namespace mojoPortal.Web.AdminUI
 			return LdapHelper.TestUser(testLdapSettings, user.LoginName, txtLdapTestPassword.Text);
 		}
 
-		
+		private void btnTestSMTPSettings_Click(object sender, EventArgs e)
+		{
+			SmtpSettings smtpSettings = new SmtpSettings
+			{
+				Server = txtSMTPServer.Text,
+				PreferredEncoding = txtSMTPPreferredEncoding.Text,
+				UseSsl = chkSMTPUseSsl.Checked
+			};
+
+			try
+			{
+				smtpSettings.Port = Convert.ToInt32(txtSMTPPort.Text);
+			}
+			catch (FormatException ex)
+			{
+				litTestSMTPResult.Text = "Port invalid";
+				return;
+			}
+
+
+			if (chkSMTPRequiresAuthentication.Checked)
+			{
+				smtpSettings.RequiresAuthentication = true;
+				smtpSettings.User = txtSMTPUser.Text;
+				if (String.IsNullOrWhiteSpace(txtSMTPPassword.Text))
+				{
+					//get password from saved site settings
+				}
+				else
+				{
+					smtpSettings.Password = txtSMTPPassword.Text;
+				}
+			}
+			
+			if (smtpSettings.IsValid)
+			{
+				string msg = ResourceHelper.GetMessageTemplate("TestEmailSettings.config");
+				StringBuilder message = new StringBuilder();
+				message.Append(string.IsNullOrWhiteSpace(msg) ? "If you're reading this, your email settings on your website are working fine." : msg);
+				message.Replace("{SiteName}", siteSettings.SiteName);
+				message.Replace("{AdminEmail}", txtSiteEmailFromAddress.Text);
+				string resultMessage = string.Empty;
+				bool result = Email.Send(
+					smtpSettings,
+					txtSiteEmailFromAddress.Text,
+					txtSiteEmailFromAlias.Text,
+					string.Empty,
+					txtTestSMTPEmailAddress.Text,
+					string.Empty,
+					string.Empty,
+					siteSettings.SiteName,
+					message.ToString(),
+					false,
+					"Normal",
+					out resultMessage);
+				if (result && resultMessage == "sent")
+				{
+					litTestSMTPResult.Text = "Settings are valid. Email was sent. This does not ensure your message will arrive, only that we were able to connect to the specified email server, authenticate, and relay an email to it.";
+				}
+				else
+				{
+					litTestSMTPResult.Text = $"Settings are invalid. Email was not sent. Message was<br>{resultMessage}";
+				}
+			}
+			else
+			{
+				litTestSMTPResult.Text = "Settings are not valid. Please check your settings and try again.";
+				return;
+			}
+
+
+		}
 
 		private void btnAddFeature_Click(object sender, EventArgs e)
 		{
@@ -1939,10 +2012,13 @@ namespace mojoPortal.Web.AdminUI
 
 			litPasswordRecoverySettingsHeader.Text = String.Format(displaySettings.SiteSettingsSubPanelHeadingMarkup, Resource.SiteSettingsSecurityPasswordRecoverySettingsLabel, Resource.SiteSettingsSecurityPasswordRecoverySettingsDescription);
 
-			litOpenIDSettingsHeader.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsSecurityOpenIDSettingsLabel, Resource.SiteSettingsSecurityOpenIDSettingsDescription);
-			litWindowsLiveIDSettingsHeader.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsSecurityWindowsLiveIDSettingsLabel, Resource.SiteSettingsSecurityWindowsLiveIDSettingsDescription);
+			litOpenIDSettingsHeader.Text = string.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsSecurityOpenIDSettingsLabel, Resource.SiteSettingsSecurityOpenIDSettingsDescription);
+			litWindowsLiveIDSettingsHeader.Text = string.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsSecurityWindowsLiveIDSettingsLabel, Resource.SiteSettingsSecurityWindowsLiveIDSettingsDescription);
 
-			litSMTPSettingsHeader.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsSMTPSettingsLabel, Resource.SiteSettingsSMTPSettingsDescription);
+			litSMTPSettingsHeader.Text = string.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsSMTPSettingsLabel, Resource.SiteSettingsSMTPSettingsDescription);
+			litTestSMTPSettingsHeader.Text = string.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsTestSMTPSettingsLabel, Resource.SiteSettingsTestSMTPSettingsDescription);
+			btnTestSMTPSettings.Text = Resource.SiteSettingsTestSMTPSettingsButton;
+
 			litHostListHeader.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsExistingHostsLabel, Resource.SiteSettingsExistingHostsDescription);
 			litFolderNamesListHeader.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsExistingFolderMappingsLabel, Resource.SiteSettingsExistingFolderMappingsDescription);
 
@@ -2255,7 +2331,7 @@ namespace mojoPortal.Web.AdminUI
 			chkRequireApprovalForLogin.CheckedChanged += new EventHandler(chkRequireApprovalForLogin_Changed);
 			//ddSiteList.SelectedIndexChanged += new EventHandler(ddSiteList_SelectedIndexChanged);
 			ddDefaultCountry.SelectedIndexChanged += new EventHandler(ddDefaultCountry_SelectedIndexChanged);
-
+			btnTestSMTPSettings.Click += new EventHandler(btnTestSMTPSettings_Click);
 			SuppressMenuSelection();
 			SuppressPageMenu();
 			//ScriptConfig.IncludeYuiTabs = true;

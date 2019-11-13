@@ -2218,6 +2218,69 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.TextBox txtSMTPPreferredEncoding;
         
         /// <summary>
+        /// fgpTestSMTPSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpTestSMTPSettings;
+        
+        /// <summary>
+        /// litTestSMTPSettingsHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litTestSMTPSettingsHeader;
+        
+        /// <summary>
+        /// pnlTestSMTPSettingsWrapper control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.BasePanel pnlTestSMTPSettingsWrapper;
+        
+        /// <summary>
+        /// updTestSMTPSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updTestSMTPSettings;
+        
+        /// <summary>
+        /// txtTestSMTPEmailAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTestSMTPEmailAddress;
+        
+        /// <summary>
+        /// btnTestSMTPSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTestSMTPSettings;
+        
+        /// <summary>
+        /// litTestSMTPResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litTestSMTPResult;
+        
+        /// <summary>
         /// vSummary control.
         /// </summary>
         /// <remarks>

@@ -887,6 +887,22 @@
 										</portal:FormGroupPanel>
 									</portal:BasePanel>
 								</portal:FormGroupPanel>
+								<portal:FormGroupPanel runat="server" ID="fgpTestSMTPSettings" SkinID="SMTPSettings">
+									<asp:Literal runat="server" ID="litTestSMTPSettingsHeader" EnableViewState="false" />
+									<portal:mojoHelpLink runat="server" HelpKey="smtptesthelp" />
+									<portal:BasePanel runat="server" ID="pnlTestSMTPSettingsWrapper" RenderContentsOnly="true">
+										<portal:FormGroupPanel runat="server" DefaultButton="btnTestSMTPSettings">
+											<asp:UpdatePanel runat="server" ID="updTestSMTPSettings">
+												<ContentTemplate>
+													<mp:SiteLabel runat="server" ForControl="txtTestSMTPEmailAddress" CssClass="settinglabel" ConfigKey="TestSMTPEmailAddress" />
+													<asp:TextBox ID="txtTestSMTPEmailAddress" MaxLength="100" Columns="45" runat="server" CssClass="forminput" TabIndex="10" />
+													<asp:Button ID="btnTestSMTPSettings" runat="server" />
+													<asp:Literal ID="litTestSMTPResult" runat="server" EnableViewState="false" />
+												</ContentTemplate>
+											</asp:UpdatePanel>
+										</portal:FormGroupPanel>
+									</portal:BasePanel>
+								</portal:FormGroupPanel>
 
 							</div>
 						</div>

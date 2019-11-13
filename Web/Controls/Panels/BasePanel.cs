@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:				    2011-05-20
-// Last Modified:			2017-09-07
+// Last Modified:			2019-10-17
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -27,134 +27,49 @@ namespace mojoPortal.Web.UI
 	/// </summary>
 	public class BasePanel : Panel
 	{
-		private string element = "div";
+		public string Element { get; set; } = "div";
 
-		public string Element
-		{
-			get { return element; }
-			set { element = value; }
-		}
+		public string ExtraCssClasses { get; set; } = string.Empty;
 
-		private string extraCssClasses = string.Empty;
+		public bool RenderContentsOnly { get; set; } = false;
 
-		public string ExtraCssClasses
-		{
-			get { return extraCssClasses; }
-			set { extraCssClasses = value; }
-		}
-
-		private bool renderContentsOnly = false;
-
-		public bool RenderContentsOnly
-		{
-			get { return renderContentsOnly; }
-			set { renderContentsOnly = value; }
-		}
-
-		private string insideTopMarkup = string.Empty;
-
-		public string InsideTopMarkup
-		{
-			get { return insideTopMarkup; }
-			set { insideTopMarkup = value; }
-		}
+		public string InsideTopMarkup { get; set; } = string.Empty;
 
 		[Obsolete("Use InsideTopMarkup instead.")]
 		public string LiteralExtraTopContent
 		{
-			get { return insideTopMarkup; }
-			set { insideTopMarkup = value; }
+			get { return InsideTopMarkup; }
+			set { InsideTopMarkup = value; }
 		}
 
-		private string insideBottomMarkup = string.Empty;
-
-		public string InsideBottomMarkup
-		{
-			get { return insideBottomMarkup; }
-			set { insideBottomMarkup = value; }
-		}
+		public string InsideBottomMarkup { get; set; } = string.Empty;
 
 		[Obsolete("Use InsideBottomMarkup instead.")]
 		public string LiteralExtraBottomContent
 		{
-			get { return insideBottomMarkup; }
-			set { insideBottomMarkup = value; }
+			get { return InsideBottomMarkup; }
+			set { InsideBottomMarkup = value; }
 		}
+		public string OutsideTopMarkup { get; set; } = string.Empty;
+		public string OutsideBottomMarkup { get; set; } = string.Empty;
+
+		public bool DetectSideColumn { get; set; } = false;
 
 
-		private string outsideTopMarkup = string.Empty;
-		public string OutsideTopMarkup
-		{
-			get => outsideTopMarkup;
-			set => outsideTopMarkup = value;
-		}
+		public string SideColumnxtraCssClasses { get; set; } = string.Empty;
 
-		private string outsideBottomMarkup = string.Empty;
-		public string OutsideBottomMarkup
-		{
-			get => outsideBottomMarkup;
-			set => outsideBottomMarkup = value;
-		}
+		public string SideColumnLiteralExtraTopContent { get; set; } = string.Empty;
 
-		private bool detectSideColumn = false;
+		public string SideColumnLiteralExtraBottomContent { get; set; } = string.Empty;
 
-		public bool DetectSideColumn
-		{
-			get { return detectSideColumn; }
-			set { detectSideColumn = value; }
-		}
+		public virtual bool RenderId { get; set; } = true;
 
-		private string columnId = UIHelper.CenterColumnId;
+		public bool DontRender { get; set; } = false;
 
-		private string sideColumnxtraCssClasses = string.Empty;
-
-		public string SideColumnxtraCssClasses
-		{
-			get { return sideColumnxtraCssClasses; }
-			set { sideColumnxtraCssClasses = value; }
-		}
-
-		private string sideColumnLiteralExtraTopContent = string.Empty;
-
-		public string SideColumnLiteralExtraTopContent
-		{
-			get { return sideColumnLiteralExtraTopContent; }
-			set { sideColumnLiteralExtraTopContent = value; }
-		}
-
-		private string sideColumnLiteralExtraBottomContent = string.Empty;
-
-		public string SideColumnLiteralExtraBottomContent
-		{
-			get { return sideColumnLiteralExtraBottomContent; }
-			set { sideColumnLiteralExtraBottomContent = value; }
-		}
-
-		private bool renderId = true;
-
-		public virtual bool RenderId
-		{
-			get { return renderId; }
-			set { renderId = value; }
-		}
-
-		private bool dontRender = false;
-
-		public bool DontRender
-		{
-			get { return dontRender; }
-			set { dontRender = value; }
-		}
-
-		private bool autohide = false;
-
-		public bool Autohide
-		{
-			get => autohide;
-			set => autohide = value;
-		}
+		public bool Autohide { get; set; } = false;
 
 		private int countOfVisibleWebControls = 0;
+		private string columnId = UIHelper.CenterColumnId;
 
 		protected override void OnPreRender(EventArgs e)
 		{
@@ -165,9 +80,9 @@ namespace mojoPortal.Web.UI
 			}
 
 			countOfVisibleWebControls = GetCountVisibleChildWebControls();
-			Visible = !(autohide && countOfVisibleWebControls == 0);
+			Visible = !(Autohide && countOfVisibleWebControls == 0);
 
-			if (detectSideColumn)
+			if (DetectSideColumn)
 			{
 				columnId = this.GetColumnId();
 
@@ -175,9 +90,9 @@ namespace mojoPortal.Web.UI
 				{
 					case UIHelper.LeftColumnId:
 					case UIHelper.RightColumnId:
-						extraCssClasses = sideColumnxtraCssClasses;
-						insideTopMarkup = sideColumnLiteralExtraTopContent;
-						insideBottomMarkup = sideColumnLiteralExtraBottomContent;
+						ExtraCssClasses = SideColumnxtraCssClasses;
+						InsideTopMarkup = SideColumnLiteralExtraTopContent;
+						InsideBottomMarkup = SideColumnLiteralExtraBottomContent;
 
 						break;
 
@@ -192,18 +107,18 @@ namespace mojoPortal.Web.UI
 			}
 
 			
-			if (extraCssClasses.Length > 0)
+			if (ExtraCssClasses.Length > 0)
 			{
 				if (CssClass.Length > 0)
 				{
-					if (!CssClass.Contains(extraCssClasses))
+					if (!CssClass.Contains(ExtraCssClasses))
 					{
-						CssClass = CssClass + " " + extraCssClasses;
+						CssClass = CssClass + " " + ExtraCssClasses;
 					}
 				}
 				else
 				{
-					CssClass = extraCssClasses;
+					CssClass = ExtraCssClasses;
 				}
 			}
 		}
@@ -223,7 +138,7 @@ namespace mojoPortal.Web.UI
 
 			countOfVisibleWebControls = GetCountVisibleChildWebControls();
 
-			if (autohide && countOfVisibleWebControls == 0)
+			if (Autohide && countOfVisibleWebControls == 0)
 			{
 				return;
 			}
@@ -273,7 +188,7 @@ namespace mojoPortal.Web.UI
 
 			if (!RenderContentsOnly)
 			{
-				writer.Write("\n</" + element + ">");
+				writer.Write("\n</" + Element + ">");
 			}
 
 			if (OutsideBottomMarkup.Length > 0)

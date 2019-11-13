@@ -3,18 +3,8 @@ namespace mojoPortal.Web.UI
 {
 	public class FormGroupPanel : BasePanel
 	{
-		private string cssClass = "settingrow";
-		public override string CssClass
-		{
-			get { return cssClass; }
-			set { cssClass = value; }
-		}
+		public override string CssClass { get; set; } = "settingrow";
 
-		private bool renderId = false;
-		public override bool RenderId
-		{
-			get { return renderId; }
-			set { renderId = value; }
-		}
+		public override bool RenderId { get; set; } = false;
 	}
 }
