@@ -2272,6 +2272,24 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Button btnTestSMTPSettings;
         
         /// <summary>
+        /// fgpTestSMTPSettingsResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpTestSMTPSettingsResult;
+        
+        /// <summary>
+        /// litTestSMTPResultHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litTestSMTPResultHeader;
+        
+        /// <summary>
         /// litTestSMTPResult control.
         /// </summary>
         /// <remarks>

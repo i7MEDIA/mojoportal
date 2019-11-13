@@ -6532,4 +6532,10 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="SiteSettingsTestSMTPSettingsLabel" xml:space="preserve">
     <value>Test SMTP Settings</value>
   </data>
+  <data name="SiteSettingsTestSMTPSettingsInvalidMessage" xml:space="preserve">
+    <value>Settings are invalid. Please check your settings and try again.</value>
+  </data>
+  <data name="SiteSettingsTestSMTPSettingsInvalidMessageDetailed" xml:space="preserve">
+    <value>Settings are invalid. Please check your settings and try again. Message was </value>
+  </data>
 </root>

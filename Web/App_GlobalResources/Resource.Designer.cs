@@ -16730,11 +16730,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings are invalid. Please check your settings and try again..
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsInvalidMessage {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsInvalidMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings are invalid. Please check your settings and try again. Message was .
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsInvalidMessageDetailed {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsInvalidMessageDetailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test SMTP Settings.
         /// </summary>
         internal static string SiteSettingsTestSMTPSettingsLabel {
             get {
                 return ResourceManager.GetString("SiteSettingsTestSMTPSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsValidMessage {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsValidMessage", resourceCulture);
             }
         }
         

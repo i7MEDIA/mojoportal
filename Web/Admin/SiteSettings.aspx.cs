@@ -1473,11 +1473,11 @@ namespace mojoPortal.Web.AdminUI
 				{
 					SiteSettings masterSite = CacheHelper.GetSiteSettings(WebConfigSettings.RelatedSiteID);
 					// siteSettings is the master site we need some permissions from it synced to the new site
-					SiteSettings.SyncRelatedSites(masterSite, WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites);
+					SiteSettings.SyncRelatedSites(masterSite, WebConfigSettings.UseFolderBasedMultiTenants);
 				}
 				else
 				{
-					SiteSettings.SyncRelatedSites(selectedSite, WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites);
+					SiteSettings.SyncRelatedSites(selectedSite, WebConfigSettings.UseFolderBasedMultiTenants);
 				}
 
 				// reset the sitesettings cache for each site
@@ -1528,6 +1528,9 @@ namespace mojoPortal.Web.AdminUI
 
 		private void btnTestSMTPSettings_Click(object sender, EventArgs e)
 		{
+			string validFormat = displaySettings.SiteSettingsNoticeMarkup;
+			string invalidFormat = displaySettings.SiteSettingsAlertMarkup;
+
 			SmtpSettings smtpSettings = new SmtpSettings
 			{
 				Server = txtSMTPServer.Text,
@@ -1539,9 +1542,9 @@ namespace mojoPortal.Web.AdminUI
 			{
 				smtpSettings.Port = Convert.ToInt32(txtSMTPPort.Text);
 			}
-			catch (FormatException ex)
+			catch (FormatException)
 			{
-				litTestSMTPResult.Text = "Port invalid";
+				litTestSMTPResult.Text = string.Format(invalidFormat, $"{Resource.SiteSettingsTestSMTPSettingsInvalidMessageDetailed}: 'Port invalid'");
 				return;
 			}
 
@@ -1552,7 +1555,8 @@ namespace mojoPortal.Web.AdminUI
 				smtpSettings.User = txtSMTPUser.Text;
 				if (String.IsNullOrWhiteSpace(txtSMTPPassword.Text))
 				{
-					//get password from saved site settings
+					SmtpSettings savedSmtpSettings = SiteUtils.GetSmtpSettings();
+					smtpSettings.Password = savedSmtpSettings.Password;
 				}
 				else
 				{
@@ -1563,6 +1567,16 @@ namespace mojoPortal.Web.AdminUI
 			if (smtpSettings.IsValid)
 			{
 				string msg = ResourceHelper.GetMessageTemplate("TestEmailSettings.config");
+				string subj = ResourceHelper.GetMessageTemplate("TestEmailSettingsSubject.config");
+				if (string.IsNullOrWhiteSpace(subj))
+				{
+					subj = $"{siteSettings.SiteName} Email Test";
+				}
+				else
+				{
+					subj = subj.Replace("{SiteName}", siteSettings.SiteName);
+				}
+
 				StringBuilder message = new StringBuilder();
 				message.Append(string.IsNullOrWhiteSpace(msg) ? "If you're reading this, your email settings on your website are working fine." : msg);
 				message.Replace("{SiteName}", siteSettings.SiteName);
@@ -1576,23 +1590,23 @@ namespace mojoPortal.Web.AdminUI
 					txtTestSMTPEmailAddress.Text,
 					string.Empty,
 					string.Empty,
-					siteSettings.SiteName,
+					subj,
 					message.ToString(),
 					false,
 					"Normal",
 					out resultMessage);
 				if (result && resultMessage == "sent")
 				{
-					litTestSMTPResult.Text = "Settings are valid. Email was sent. This does not ensure your message will arrive, only that we were able to connect to the specified email server, authenticate, and relay an email to it.";
+					litTestSMTPResult.Text = Resource.SiteSettingsTestSMTPSettingsValidMessage;
 				}
 				else
 				{
-					litTestSMTPResult.Text = $"Settings are invalid. Email was not sent. Message was<br>{resultMessage}";
+					litTestSMTPResult.Text = string.Format(invalidFormat, $"{Resource.SiteSettingsTestSMTPSettingsInvalidMessageDetailed}<br>{resultMessage}");
 				}
 			}
 			else
 			{
-				litTestSMTPResult.Text = "Settings are not valid. Please check your settings and try again.";
+				litTestSMTPResult.Text = string.Format(invalidFormat, Resource.SiteSettingsTestSMTPSettingsInvalidMessage);
 				return;
 			}
 
@@ -2016,7 +2030,7 @@ namespace mojoPortal.Web.AdminUI
 			litWindowsLiveIDSettingsHeader.Text = string.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsSecurityWindowsLiveIDSettingsLabel, Resource.SiteSettingsSecurityWindowsLiveIDSettingsDescription);
 
 			litSMTPSettingsHeader.Text = string.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsSMTPSettingsLabel, Resource.SiteSettingsSMTPSettingsDescription);
-			litTestSMTPSettingsHeader.Text = string.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsTestSMTPSettingsLabel, Resource.SiteSettingsTestSMTPSettingsDescription);
+			litTestSMTPSettingsHeader.Text = string.Format(displaySettings.SiteSettingsSubPanelHeadingMarkup, Resource.SiteSettingsTestSMTPSettingsLabel, Resource.SiteSettingsTestSMTPSettingsDescription);
 			btnTestSMTPSettings.Text = Resource.SiteSettingsTestSMTPSettingsButton;
 
 			litHostListHeader.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SiteSettingsExistingHostsLabel, Resource.SiteSettingsExistingHostsDescription);
@@ -2171,7 +2185,7 @@ namespace mojoPortal.Web.AdminUI
 			lblErrorMessage.Text = String.Empty;
 			isAdmin = WebUser.IsAdmin;
 			isContentAdmin = WebUser.IsContentAdmin || SiteUtils.UserIsSiteEditor();
-			useFolderForSiteDetection = WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites;
+			useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 			fgpShowPasswordStrength.Visible = WebConfigSettings.EnableAjaxControlPasswordStrength;
 
 #if!MONO

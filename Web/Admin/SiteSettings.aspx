@@ -897,7 +897,12 @@
 													<mp:SiteLabel runat="server" ForControl="txtTestSMTPEmailAddress" CssClass="settinglabel" ConfigKey="TestSMTPEmailAddress" />
 													<asp:TextBox ID="txtTestSMTPEmailAddress" MaxLength="100" Columns="45" runat="server" CssClass="forminput" TabIndex="10" />
 													<asp:Button ID="btnTestSMTPSettings" runat="server" />
-													<asp:Literal ID="litTestSMTPResult" runat="server" EnableViewState="false" />
+
+													<portal:FormGroupPanel runat="server" ID="fgpTestSMTPSettingsResult" SkinID="SMTPTestResult">
+														<asp:Literal ID="litTestSMTPResultHeader" runat="server" EnableViewState="false" />
+														<asp:Literal ID="litTestSMTPResult" runat="server" EnableViewState="false" />
+
+													</portal:FormGroupPanel>
 												</ContentTemplate>
 											</asp:UpdatePanel>
 										</portal:FormGroupPanel>
