@@ -2253,10 +2253,10 @@ namespace mojoPortal.Business
 			return DBSiteUser.UserCount(siteId);
 		}
 
-        public static int UserCount(int siteId, String userNameBeginsWith)
+        public static int UserCount(int siteId, string userNameBeginsWith, string nameFilterMode)
         {
             if (UseRelatedSiteMode) { siteId = RelatedSiteID; }
-            return DBSiteUser.UserCount(siteId, userNameBeginsWith);
+            return DBSiteUser.UserCount(siteId, userNameBeginsWith, nameFilterMode);
         }
 
         public static int UsersOnlineSinceCount(int siteId, DateTime sinceTime)
@@ -2377,9 +2377,10 @@ namespace mojoPortal.Business
             int siteId,
             int pageNumber, 
             int pageSize, 
-            string userNameBeginsWith,
+            string beginsWith,
             int sortMode,
-            out int totalPages)
+			string nameFilterMode,
+			out int totalPages)
         {
             //sortMode: 0 = DisplayName asc, 1 = JoinDate desc, 2 = Last, First
 
@@ -2392,7 +2393,7 @@ namespace mojoPortal.Business
 
             using (IDataReader reader
                 = DBSiteUser.GetUserListPage(
-                    siteId, pageNumber, pageSize, userNameBeginsWith, sortMode, out totalPages))
+                    siteId, pageNumber, pageSize, beginsWith, sortMode, nameFilterMode, out totalPages))
             {
 
                 while (reader.Read())

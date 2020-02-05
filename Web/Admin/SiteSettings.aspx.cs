@@ -611,6 +611,7 @@ namespace mojoPortal.Web.AdminUI
 
 			DoTabSelection();
 			PopulateMailSettings();
+			fgpTestSMTPSettings.Visible = !WebConfigSettings.IsDemoSite;
 		}
 
 
@@ -1531,6 +1532,9 @@ namespace mojoPortal.Web.AdminUI
 			string validFormat = displaySettings.SiteSettingsNoticeMarkup;
 			string invalidFormat = displaySettings.SiteSettingsAlertMarkup;
 
+			btnTestSMTPSettings.Text = Resource.SiteSettingsTestSMTPSettingsButtonSending;
+			btnTestSMTPSettings.Enabled = false;
+
 			SmtpSettings smtpSettings = new SmtpSettings
 			{
 				Server = txtSMTPServer.Text,
@@ -1545,6 +1549,7 @@ namespace mojoPortal.Web.AdminUI
 			catch (FormatException)
 			{
 				litTestSMTPResult.Text = string.Format(invalidFormat, $"{Resource.SiteSettingsTestSMTPSettingsInvalidMessageDetailed}: 'Port invalid'");
+				ResetButton();
 				return;
 			}
 
@@ -1553,7 +1558,7 @@ namespace mojoPortal.Web.AdminUI
 			{
 				smtpSettings.RequiresAuthentication = true;
 				smtpSettings.User = txtSMTPUser.Text;
-				if (String.IsNullOrWhiteSpace(txtSMTPPassword.Text))
+				if (string.IsNullOrWhiteSpace(txtSMTPPassword.Text))
 				{
 					SmtpSettings savedSmtpSettings = SiteUtils.GetSmtpSettings();
 					smtpSettings.Password = savedSmtpSettings.Password;
@@ -1595,21 +1600,32 @@ namespace mojoPortal.Web.AdminUI
 					false,
 					"Normal",
 					out resultMessage);
-				if (result && resultMessage == "sent")
+				if (result)
 				{
-					litTestSMTPResult.Text = Resource.SiteSettingsTestSMTPSettingsValidMessage;
+					litTestSMTPResult.Text = string.Format(validFormat, Resource.SiteSettingsTestSMTPSettingsValidMessage);
+					ResetButton();
+					return;
 				}
 				else
 				{
-					litTestSMTPResult.Text = string.Format(invalidFormat, $"{Resource.SiteSettingsTestSMTPSettingsInvalidMessageDetailed}<br>{resultMessage}");
+					//the mojoPortal.Net.Email class returns the messagebody with the error message so we need to strip it with a Replace below
+					litTestSMTPResult.Text = string.Format(invalidFormat, $"{Resource.SiteSettingsTestSMTPSettingsInvalidMessageDetailed}<br>{resultMessage.Replace(message.ToString(),"")}");
+					ResetButton();
+					return;
 				}
 			}
 			else
 			{
 				litTestSMTPResult.Text = string.Format(invalidFormat, Resource.SiteSettingsTestSMTPSettingsInvalidMessage);
+				ResetButton();
 				return;
 			}
 
+			void ResetButton()
+			{
+				btnTestSMTPSettings.Text = Resource.SiteSettingsTestSMTPSettingsButton;
+				btnTestSMTPSettings.Enabled = true;
+			}
 
 		}
 

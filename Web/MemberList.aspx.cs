@@ -60,23 +60,15 @@ namespace mojoPortal.Web.UI.Pages
 		private Models.MemberListModel model;
 		private List<SiteUser> siteUserPage;
 
-		//private bool sortByDateDesc = false;
-
 		#region OnInit
 		override protected void OnInit(EventArgs e)
         {
             base.OnInit(e);
-            this.Load += new EventHandler(this.Page_Load);
-            //this.btnSearchUser.Click += new EventHandler(btnSearchUser_Click);
-            //btnSearchIP.Click += new EventHandler(btnSearchIP_Click);
-
+            Load += new EventHandler(this.Page_Load);
             SuppressMenuSelection();
             if (WebConfigSettings.HidePageMenuOnMemberListPage) { SuppressPageMenu(); }
         }
 
-        
-
-        
         #endregion
 
 		private void Page_Load(object sender, EventArgs e)
@@ -91,10 +83,8 @@ namespace mojoPortal.Web.UI.Pages
                 {
                     SiteUtils.ClearSsl();
                 }
-
             }
             
-
             LoadSettings();
             PopulateLabels();
             
@@ -108,7 +98,6 @@ namespace mojoPortal.Web.UI.Pages
             {
                 PopulateControls();
             }
-			
 		}
 
         private void PopulateControls()
@@ -117,11 +106,12 @@ namespace mojoPortal.Web.UI.Pages
 
             if ((Page.Header != null) && (CurrentPage.Url.Length > 0))
             {
-                Literal link = new Literal();
-                link.ID = "pageurl";
-                link.Text = "\n<link rel='canonical' href='"
-                    + SiteRoot + "/MemberList.aspx' />";
-                Page.Header.Controls.Add(link);
+				Literal link = new Literal
+				{
+					ID = "pageurl",
+					Text = $"\n<link rel='canonical' href='{SiteRoot}/MemberList.aspx' />"
+				};
+				Page.Header.Controls.Add(link);
             }
 
             if ((canManageUsers) && (showUnApproved))
@@ -159,8 +149,6 @@ namespace mojoPortal.Web.UI.Pages
 			{
 				log.Error($"layout (MemberList) was not found in skin {SiteUtils.GetSkinBaseUrl(true, Page)}. perhaps it is in a different skin. Error was: {ex}");
 			}
-
-
 		}
 
         private void BindAlphaList()
@@ -171,7 +159,9 @@ namespace mojoPortal.Web.UI.Pages
                 pageSize,
                 filterLetter,
                 sortMode,
-                out totalPages);
+				sortMode == 2 ? "lastname" : "display",
+				out totalPages
+				);
 
             if (pageNumber > totalPages)
             {
@@ -182,36 +172,9 @@ namespace mojoPortal.Web.UI.Pages
 					pageSize,
 					filterLetter,
 					sortMode,
+					sortMode == 2 ? "lastname" : "display",
 					out totalPages);
-            }
-
-            //if (userNameBeginsWith.Length > 1)
-            //{
-            //    txtSearchUser.Text = Server.HtmlEncode(userNameBeginsWith);
-            //}
-
-            //AddAlphaPagerLinks();
-
-            //string pageUrl = SiteRoot
-            //    + "/MemberList.aspx?"
-            //    + "pagenumber={0}"
-            //    + "&amp;letter=" + Server.UrlEncode(Server.HtmlEncode(userNameBeginsWith))
-            //    + "&amp;sd=" + sortMode.ToInvariantString();
-
-            //pgrMembers.PageURLFormat = pageUrl;
-            //pgrMembers.ShowFirstLast = true;
-            //pgrMembers.CurrentIndex = pageNumber;
-            //pgrMembers.PageSize = pageSize;
-            //pgrMembers.PageCount = totalPages;
-            //pgrMembers.Visible = (totalPages > 1);
-
-
-            //rptUsers.DataSource = siteUserPage;
-            //rptUsers.DataBind();
-
-
-
-
+			}
         }
 
         private void BindForSearch()
@@ -244,35 +207,6 @@ namespace mojoPortal.Web.UI.Pages
                         sortMode,
                         out totalPages);
             }
-            
-
-            //if (searchText.Length > 0)
-            //{
-            //    txtSearchUser.Text = Server.HtmlEncode(searchText);
-            //}
-
-            //AddAlphaPagerLinks();
-
-           
-            //string pageUrl = SiteRoot
-            //    + "/MemberList.aspx?"
-            //    + "search=" + Server.UrlEncode(Server.HtmlEncode(searchText))
-            //    + "&amp;pagenumber={0}" 
-            //    +"&amp;sd=" + sortMode.ToInvariantString(); ;
-
-            //pgrMembers.PageURLFormat = pageUrl;
-            //pgrMembers.ShowFirstLast = true;
-            //pgrMembers.CurrentIndex = pageNumber;
-            //pgrMembers.PageSize = pageSize;
-            //pgrMembers.PageCount = totalPages;
-            //pgrMembers.Visible = (totalPages > 1);
-
-
-            //rptUsers.DataSource = siteUserPage;
-            //rptUsers.DataBind();
-
-
-
 		}
 
 		private void PopulateModel()
@@ -286,78 +220,17 @@ namespace mojoPortal.Web.UI.Pages
 					CurrentIndex = pageNumber,
 					PageSize = pageSize,
 					PageCount = totalPages,
-					LinkFormat = SiteRoot + "/MemberList.aspx?pagenumber={0}&letter=" + filterLetter + "&sd=" + sortMode.ToString()
+					LinkFormat = SiteRoot 
+						+ "/MemberList.aspx?pagenumber={0}"
+						+ (sortMode == 0 ? "" : "&sd=" + sortMode.ToString())
+						+ (string.IsNullOrWhiteSpace(filterLetter) ? "" : "&letter=" + filterLetter)
+						+ (showLocked ? "&locked=true" : "") 
+						+ (string.IsNullOrWhiteSpace(searchText) ? "" : "&search=" + searchText)
+						+ (showUnApproved ? "&needapproval=true" : "")
+						+ (string.IsNullOrWhiteSpace(ipSearchText) ? "" : "&ips=" + ipSearchText)
 				}
 			};
 		}
-
-        //private void AddAlphaPagerLinks()
-        //{
-        //    Literal topPageLinks = new Literal();
-        //    string pageUrl = SiteRoot + "/MemberList.aspx?sd=" + sortMode.ToInvariantString() + "&amp;pagenumber=";
-            
-
-        //    if (displaySettings.AlphaPagerContainerCssClass.Length > 0)
-        //    {
-        //        spnTopPager.Attributes.Add("class", displaySettings.AlphaPagerContainerCssClass);
-        //    }
-
-        //    string alphaChars;
-
-        //    if (WebConfigSettings.GetAlphaPagerCharsFromResourceFile)
-        //    {
-        //        alphaChars = Resource.AlphaPagerChars;
-        //    }
-        //    else
-        //    {
-        //        alphaChars = WebConfigSettings.AlphaPagerChars;
-        //    }
-
-
-        //    topPageLinks.Text = UIHelper.GetAlphaPagerLinks(
-        //        pageUrl,
-        //        pageNumber,
-        //        alphaChars,
-        //        userNameBeginsWith,
-        //        displaySettings.AlphaPagerCurrentPageCssClass,
-        //        displaySettings.AlphaPagerOtherPageCssClass,
-        //        displaySettings.UseListForAlphaPager,
-        //        BuildAllUsersLink());
-
-        //    this.spnTopPager.Controls.Add(topPageLinks);
-        //}
-
-        //private string BuildAllUsersLink()
-        //{
-        //    string cssAttribute = string.Empty;
-        //    if (displaySettings.AllUsersLinkCssClass.Length > 0)
-        //    {
-        //        cssAttribute = " class='" + displaySettings.AllUsersLinkCssClass + "'";
-        //    }
-        //    string firstLink = "<a href='" + SiteRoot + "/MemberList.aspx'" + cssAttribute + ">"
-        //        + Resource.MemberListAllUsersLink + "</a> ";
-
-        //    return firstLink;
-
-        //}
-
-        //void btnSearchUser_Click(object sender, EventArgs e)
-        //{
-        //    string pageUrl = SiteRoot + "/MemberList.aspx?search=" + Server.UrlEncode(Server.HtmlEncode(txtSearchUser.Text)) + "&pagenumber=";
-
-        //    WebUtils.SetupRedirect(this, pageUrl);
-
-        //}
-
-        //void btnSearchIP_Click(object sender, EventArgs e)
-        //{
-        //    pgrMembers.Visible = false;
-        //    List<SiteUser> users = SiteUser.GetByIPAddress(siteSettings.SiteGuid, txtIPAddress.Text);
-        //    rptUsers.DataSource = users;
-        //    rptUsers.DataBind();
-
-
-        //}
 
         void BindLockedUsers()
         {
@@ -378,112 +251,34 @@ namespace mojoPortal.Web.UI.Pages
 					pageSize,
 					out totalPages);
             }
-
-            //string pageUrl = SiteRoot
-            //    + "/MemberList.aspx?"
-            //    + "pagenumber={0}"
-            //    + "&amp;locked=true";
-
-            //pgrMembers.PageURLFormat = pageUrl;
-            //pgrMembers.ShowFirstLast = true;
-            //pgrMembers.CurrentIndex = pageNumber;
-            //pgrMembers.PageSize = pageSize;
-            //pgrMembers.PageCount = totalPages;
-            //pgrMembers.Visible = (totalPages > 1);
-
-
-            //rptUsers.DataSource = siteUserPage;
-
-            //rptUsers.DataBind();
 		}
 
-        void BindNotApprovedUsers()
-        {
-            if (!canManageUsers) { return; }
+		void BindNotApprovedUsers()
+		{
+			if (!canManageUsers) { return; }
 
-            List<SiteUser> siteUserPage = SiteUser.GetNotApprovedUsers(
-                siteSettings.SiteId,
-                pageNumber,
-                pageSize,
-                out totalPages);
+			List<SiteUser> siteUserPage = SiteUser.GetNotApprovedUsers(
+				siteSettings.SiteId,
+				pageNumber,
+				pageSize,
+				out totalPages);
 
-            if ((pageNumber > 1)&&(pageNumber > totalPages))
-            {
-                pageNumber = 1;
-                siteUserPage = SiteUser.GetNotApprovedUsers(
+			if ((pageNumber > 1) && (pageNumber > totalPages))
+			{
+				pageNumber = 1;
+				siteUserPage = SiteUser.GetNotApprovedUsers(
 					siteSettings.SiteId,
 					pageNumber,
 					pageSize,
 					out totalPages);
-            }
-
-            //string pageUrl = SiteRoot
-            //    + "/MemberList.aspx?"
-            //    + "pagenumber={0}"
-            //    + "&amp;needapproval=true";
-
-            //pgrMembers.PageURLFormat = pageUrl;
-            //pgrMembers.ShowFirstLast = true;
-            //pgrMembers.CurrentIndex = pageNumber;
-            //pgrMembers.PageSize = pageSize;
-            //pgrMembers.PageCount = totalPages;
-            //pgrMembers.Visible = (totalPages > 1);
-
-
-            //rptUsers.DataSource = siteUserPage;
-
-            //rptUsers.DataBind();
+			}
 		}
-
-        //protected string FormatName(string displayName, string lastName, string firstName)
-        //{
-        //    if ((displaySettings.ShowFirstAndLastName)&&(firstName.Length > 0) && (lastName.Length > 0))
-        //    {
-        //        return Server.HtmlEncode(string.Format(CultureInfo.InvariantCulture, Resource.MemberListNameFormat, lastName, firstName));
-        //    }
-
-        //    return Server.HtmlEncode(displayName);
-        //}
 
         private void PopulateLabels()
         {
-           
             Title = SiteUtils.FormatPageTitle(siteSettings, Resource.MemberListLink);
-
-            //heading.Text = Resource.MemberListTitleLabel;
-
-            MetaDescription = string.Format(CultureInfo.InvariantCulture, 
-                Resource.MetaDescriptionMemberListFormat, siteSettings.SiteName);
-
-   //         btnSearchIP.Text = Resource.MemberListSearchByIPLabel;
-
-            
-   //         btnSearchUser.Text = Resource.MemberListSearchButton;
-			//litSearchHeader.Text = string.Format(displaySettings.SearchPanelHeadingMarkup, Resource.MemberListSearchHeading);
-			//litIPSearchHeader.Text = string.Format(displaySettings.IPSearchPanelHeadingMarkup, Resource.MemberListSearchByIPHeading);
-			//litOtherActionsHeader.Text = string.Format(displaySettings.OtherActionsHeadingMarkup, Resource.MemberListOtherActionsHeading);
-
-			//lnkAdminMenu.Text = Resource.AdminMenuLink;
-   //         lnkAdminMenu.ToolTip = Resource.AdminMenuLink;
-   //         lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
-
-   //         lnkMemberList.Text = Resource.MemberListLink;
-   //         lnkMemberList.ToolTip = Resource.MemberListLink;
-   //         lnkMemberList.NavigateUrl = SiteRoot + WebConfigSettings.MemberListUrl;
-
-   //         if (displaySettings.ShowFirstAndLastName)
-   //         {
-   //             lnkNameSort.Text = Resource.Name;
-   //         }
-   //         else
-   //         {
-   //             lnkNameSort.Text = Resource.MemberListUserNameLabel;
-   //         }
-
-   //         lnkNameSort.NavigateUrl = SiteRoot + "/MemberList.aspx";
-
-   //         lnkDateSort.Text = Resource.MemberListDateCreatedLabel;
-   //         lnkDateSort.NavigateUrl = SiteRoot + "/MemberList.aspx?sd=1";
+	        MetaDescription = string.Format(CultureInfo.InvariantCulture, 
+            Resource.MetaDescriptionMemberListFormat, siteSettings.SiteName);
         }
 
         private void LoadSettings()
@@ -492,8 +287,8 @@ namespace mojoPortal.Web.UI.Pages
             timeZone = SiteUtils.GetUserTimeZone();
             //lnkAllUsers.NavigateUrl = SiteRoot + "/MemberList.aspx";
             IsAdmin = WebUser.IsAdmin;
-
-            ShowEmailInMemberList = WebConfigSettings.ShowEmailInMemberList || displaySettings.ShowEmail;
+			canManageUsers = IsAdmin || WebUser.IsInRoles(siteSettings.RolesThatCanManageUsers);
+			ShowEmailInMemberList = WebConfigSettings.ShowEmailInMemberList || displaySettings.ShowEmail;
             ShowUserIDInMemberList = WebConfigSettings.ShowUserIDInMemberList || displaySettings.ShowUserId;
             ShowLoginNameInMemberList = WebConfigSettings.ShowLoginNameInMemberList || displaySettings.ShowLoginName;
             ShowJoinDate = displaySettings.ShowJoinDate;
@@ -502,37 +297,6 @@ namespace mojoPortal.Web.UI.Pages
             //ShowForumPostColumn = WebConfigSettings.ShowForumPostsInMemberList && displaySettings.ShowForumPosts && !WebConfigSettings.UseRelatedSiteMode;
 
             allowView = WebUser.IsInRoles(siteSettings.RolesThatCanViewMemberList);
-
-			//if (IsAdmin || WebUser.IsInRoles(siteSettings.RolesThatCanManageUsers))
-			//{
-			//	canManageUsers = true;
-			//	fgpOtherActions.Visible = true;
-			//}
-
-			//if (canManageUsers || WebUser.IsInRoles(siteSettings.RolesThatCanCreateUsers))
-			//{
-			//	fgpOtherActions.Controls.Add(new Literal
-			//	{
-			//		Text = string.Format(displaySettings.NewUserLinkFormat, SiteRoot + "/Admin/ManageUsers.aspx?userId=-1", Resource.MemberListAddUserTooltip, Resource.MemberListAddUserLabel)
-			//	});
-			//}
-
-			//if (canManageUsers)
-   //         {
-   //             fgpIPSearch.Visible = true;
-			//	fgpOtherActions.Controls.Add(new Literal
-			//	{
-			//		Text = string.Format(displaySettings.LockedUsersLinkFormat, SiteRoot + "/MemberList.aspx?locked=true", Resource.ShowLockedOutUsersTooltip, Resource.ShowLockedOutUsers)
-			//	});
-			//}
-            
-			//if (canManageUsers && siteSettings.RequireApprovalBeforeLogin)
-			//{
-			//	fgpOtherActions.Controls.Add(new Literal
-			//	{
-			//		Text = string.Format(displaySettings.UnapprovedUsersLinkFormat, SiteRoot + "/MemberList.aspx?needapproval=true", Resource.ShowNotApprovedUsersTooltip, Resource.ShowNotApprovedUsers)
-			//	});
-			//}
             
             pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", 1);
 
@@ -556,61 +320,12 @@ namespace mojoPortal.Web.UI.Pages
             showLocked = WebUtils.ParseBoolFromQueryString("locked", showLocked);
             showUnApproved = WebUtils.ParseBoolFromQueryString("needapproval", showUnApproved);
 
-			//if (showLocked || showUnApproved || !string.IsNullOrWhiteSpace(searchText) || !string.IsNullOrWhiteSpace(userNameBeginsWith))
-			//{
-			//	fgpOtherActions.Controls.Add(new Literal
-			//	{
-			//		Text = string.Format(displaySettings.ShowAllUsersLinkFormat, SiteRoot + "/MemberList.aspx", Resource.MemberListShowAllTooltip, Resource.MemberListShowAllLabel)
-			//	});
-			//}
-
 			pageSize = WebConfigSettings.MemberListPageSize;
-
-            //mojoProfileConfiguration profileConfig = mojoProfileConfiguration.GetConfig();
-            //if (profileConfig != null)
-            //{
-            //    if (profileConfig.Contains("WebSiteUrl"))
-            //    {
-            //        mojoProfilePropertyDefinition webSiteUrlProperty = profileConfig.GetPropertyDefinition("WebSiteUrl");
-            //        if(
-            //            (webSiteUrlProperty.OnlyVisibleForRoles.Length == 0)
-            //            || (WebUser.IsInRoles(webSiteUrlProperty.OnlyVisibleForRoles))
-            //            )
-            //        {
-            //            ShowWebSiteColumn = true;
-            //        }
-
-            //    }
-            //}
-
-            // displaySettings can be configured from theme.skin
-            //if (displaySettings.HideWebSiteColumn) { ShowWebSiteColumn = false; }
-
-            //if(displaySettings.TableCssClass.Length > 0)
-            //{
-            //    tableClassMarkup = " class='" + displaySettings.TableCssClass + "'";
-            //}
-
-            //tableAttributes = displaySettings.TableAttributes;
-
-            //if (!ShowWebSiteColumn) { thWebLink.Visible = false; }
-            //if (!ShowJoinDate) { thJoinDate.Visible = false; }
-
-
-
-            //if (IsAdmin) { pnlAdminCrumbs.Visible = true; }
-
-            //if (!ShowForumPostColumn) { thForumPosts.Visible = false; }
 
             //this page has no content other than nav
             SiteUtils.AddNoIndexFollowMeta(Page);
 
             AddClassToBody("memberlist");
-
-            //if (displaySettings.TableCssClass == "jqtable")
-            //{
-            //    ScriptConfig.IncludeJQTable = true;
-            //}
         }
 	}
 }
@@ -656,14 +371,6 @@ namespace mojoPortal.Web.UI
 		public string TableCssClass { get; set; } = string.Empty;
 
 		public string TableAttributes { get; set; } = "cellspacing='0' width='100%'";
-
-		//public string NewUserLinkFormat { get; set; } = "<span class=\"fa fa-user-plus\"></span> <a href=\"{0}\" title=\"{1}\">{2}</a>";
-		//public string LockedUsersLinkFormat { get; set; } = "<span class=\"fa fa-user-times\"></span> <a href=\"{0}\" title=\"{1}\">{2}</a>";
-		//public string UnapprovedUsersLinkFormat { get; set; } = "<span class=\"fa fa-user-o\"></span> <a href=\"{0}\" title=\"{1}\">{2}</a>";
-		//public string ShowAllUsersLinkFormat { get; set; } = "<span class=\"fa fa-users\"></span> <a href=\"{0}\" title=\"{1}\">{2}</a>";
-		//public string SearchPanelHeadingMarkup { get; set; } = "<h3>{0}</h3>";
-		//public string IPSearchPanelHeadingMarkup { get; set; } = "<h3>{0}</h3>";
-		//public string OtherActionsHeadingMarkup { get; set; } = "<h3>{0}</h3>";
 
 		protected override void Render(HtmlTextWriter writer)
         {

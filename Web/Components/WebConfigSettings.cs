@@ -1117,7 +1117,10 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("RedirectSslWith301Status", false); }
 		}
 
-
+		public static bool IsDemoSite
+		{
+			get { return ConfigHelper.GetBoolProperty("IsDemoSite", false); }
+		}
 		/// <summary>
 		/// I use this to track people using our demo site who try to DOS (denial of service) our demo site by deleting all the pages
 		/// I want to ban those ip addresses

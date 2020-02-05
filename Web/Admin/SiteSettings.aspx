@@ -892,9 +892,9 @@
 									<portal:mojoHelpLink runat="server" HelpKey="smtptesthelp" />
 									<portal:BasePanel runat="server" ID="pnlTestSMTPSettingsWrapper" RenderContentsOnly="true">
 										<portal:FormGroupPanel runat="server" DefaultButton="btnTestSMTPSettings">
-											<asp:UpdatePanel runat="server" ID="updTestSMTPSettings">
+											<asp:UpdatePanel runat="server" ID="updTestSMTPSettings" UpdateMode="Always">
 												<ContentTemplate>
-													<mp:SiteLabel runat="server" ForControl="txtTestSMTPEmailAddress" CssClass="settinglabel" ConfigKey="TestSMTPEmailAddress" />
+													<mp:SiteLabel runat="server" ForControl="txtTestSMTPEmailAddress" CssClass="settinglabel" ConfigKey="SiteSettingsTestSMTPEmailAddress" />
 													<asp:TextBox ID="txtTestSMTPEmailAddress" MaxLength="100" Columns="45" runat="server" CssClass="forminput" TabIndex="10" />
 													<asp:Button ID="btnTestSMTPSettings" runat="server" />
 
@@ -904,9 +904,36 @@
 
 													</portal:FormGroupPanel>
 												</ContentTemplate>
+												<Triggers>
+													<asp:AsyncPostBackTrigger ControlID="btnTestSMTPSettings" />
+												</Triggers>
 											</asp:UpdatePanel>
 										</portal:FormGroupPanel>
 									</portal:BasePanel>
+									<script type="text/javascript">
+										<!-- 
+										var prm = Sys.WebForms.PageRequestManager.getInstance();
+										prm.add_initializeRequest(InitializeRequest);
+										prm.add_endRequest(EndRequest);
+										var postBackElement;
+										function InitializeRequest(sender, args) {
+											if (prm.get_isInAsyncPostBack()) {
+												args.set_cancel(true);
+											}
+											postBackElement = args.get_postBackElement();
+											if (postBackElement.id == 'btnTestSMTPSettings') {
+												$get('btnTestSMTPSettings').value = 'Attempting to send ...';
+												$get('btnTestSMTPSettings').disabled = true;
+											}
+										}
+										function EndRequest(sender, args) {
+											if (postBackElement.id == 'btnTestSMTPSettings') {
+												$get('btnTestSMTPSettings').value = 'Send Test Message';
+												$get('btnTestSMTPSettings').disabled = false;
+											}
+										}
+										// -->
+									</script>
 								</portal:FormGroupPanel>
 
 							</div>

@@ -16721,6 +16721,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attempting to send ... .
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsButtonSending {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsButtonSending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use the form below to test your email settings. If a password is not entered above, the saved password will be used, if available..
         /// </summary>
         internal static string SiteSettingsTestSMTPSettingsDescription {
@@ -16757,7 +16766,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Settings are valid. Email was sent. This does not ensure your message will arrive, only that we were able to connect to the specified email server, authenticate, and relay an email to it..
         /// </summary>
         internal static string SiteSettingsTestSMTPSettingsValidMessage {
             get {

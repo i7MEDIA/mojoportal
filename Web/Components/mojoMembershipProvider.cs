@@ -820,6 +820,7 @@ namespace mojoPortal.Web
                     pageSize,
                     string.Empty,
                     0,
+					"display",
                     out totalPages);
 
                 foreach(SiteUser siteUser in siteUserPage)

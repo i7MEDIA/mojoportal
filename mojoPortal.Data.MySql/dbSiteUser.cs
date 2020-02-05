@@ -1,7 +1,3 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2014-07-24
-/// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
 /// which can be found in the file CPL.TXT at the root of this distribution.
@@ -56,7 +52,6 @@ namespace mojoPortal.Data
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
-
         }
        
 
@@ -85,7 +80,6 @@ namespace mojoPortal.Data
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
-
         }
 
         public static IDataReader GetSmartDropDownData(int siteId, string query, int rowsToGet)
@@ -105,9 +99,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("WHERE SiteID = ?SiteID ");
             sqlCommand.Append("AND IsDeleted = 0 ");
             sqlCommand.Append("AND (");
-            sqlCommand.Append("(Name LIKE ?Query) ");
-            sqlCommand.Append("OR (FirstName LIKE ?Query) ");
-            sqlCommand.Append("OR (LastName LIKE ?Query) ");
+            sqlCommand.Append("(LOWER(Name) LIKE LOWER(?Query)) ");
+            sqlCommand.Append("OR (LOWER(FirstName) LIKE LOWER(?Query)) ");
+            sqlCommand.Append("OR (LOWER(LastName) LIKE LOWER(?Query)) ");
             sqlCommand.Append(") ");
 
             sqlCommand.Append("UNION ");
@@ -123,7 +117,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("FROM mp_Users ");
             sqlCommand.Append("WHERE SiteID = ?SiteID ");
             sqlCommand.Append("AND IsDeleted = 0 ");
-            sqlCommand.Append("AND Email LIKE ?Query ");
+            sqlCommand.Append("AND LOWER(Email) LIKE LOWER(?Query) ");
 
             sqlCommand.Append("ORDER BY SiteUser ");
             sqlCommand.Append("LIMIT " + rowsToGet.ToString());
@@ -161,10 +155,10 @@ namespace mojoPortal.Data
             sqlCommand.Append("WHERE SiteID = ?SiteID ");
             sqlCommand.Append("AND IsDeleted = 0 ");
             sqlCommand.Append("AND (");
-            sqlCommand.Append("(Email LIKE ?Query) ");
-            sqlCommand.Append("OR (Name LIKE ?Query) ");
-            sqlCommand.Append("OR (FirstName LIKE ?Query) ");
-            sqlCommand.Append("OR (LastName LIKE ?Query) ");
+            sqlCommand.Append("(LOWER(Email) LIKE LOWER(?Query)) ");
+            sqlCommand.Append("OR (LOWER(Name) LIKE LOWER(?Query)) ");
+            sqlCommand.Append("OR (LOWER(FirstName) LIKE LOWER(?Query)) ");
+            sqlCommand.Append("OR (LOWER(LastName) LIKE LOWER(?Query)) ");
             sqlCommand.Append(") ");
 
             sqlCommand.Append("ORDER BY Email ");
@@ -247,35 +241,47 @@ namespace mojoPortal.Data
             return count;
         }
 
-        public static int UserCount(int siteId, String userNameBeginsWith)
+        public static int UserCount(int siteId, String nameBeginsWith, string nameFilterMode)
         {
             StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT COUNT(*) FROM mp_Users ");
-            sqlCommand.Append("WHERE SiteID = ?SiteID ");
-            sqlCommand.Append("AND IsDeleted = 0 ");
-            sqlCommand.Append("AND ProfileApproved = 1 ");
+            sqlCommand.Append(@"SELECT COUNT(*) FROM mp_Users 
+				WHERE SiteID = ?SiteID 
+				AND IsDeleted = 0 
+				AND ProfileApproved = 1 ");
 
-            if (userNameBeginsWith.Length == 1)
-            {
-                sqlCommand.Append("AND LEFT(Name, 1) = ?UserNameBeginsWith ");
-            }
+			switch(nameFilterMode)
+			{
+				case "display":
+				default:
+					sqlCommand.Append("AND Lower(Name) LIKE LOWER(?BeginsWith) ");
+					break;
+				case "lastname":
+					sqlCommand.Append("AND Lower(LastName) LIKE LOWER(?BeginsWith) ");
+					break;
+				case "":
+					break;
+			}
 
             sqlCommand.Append("; ");
 
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            arParams[1] = new MySqlParameter("?UserNameBeginsWith", MySqlDbType.VarChar, 1);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = userNameBeginsWith;
+			List<MySqlParameter> arParams = new List<MySqlParameter>()
+			{
+				new MySqlParameter("?SiteID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+				new MySqlParameter("?BeginsWith", MySqlDbType.VarChar, 50)
+				{
+					Direction = ParameterDirection.Input,
+					Value = nameBeginsWith + "%"
+				}
+			};
 
             int count = Convert.ToInt32(MySqlHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(), 
                 sqlCommand.ToString(), 
-                arParams).ToString());
+                arParams.ToArray()).ToString());
 
             return count;
 
@@ -448,15 +454,16 @@ namespace mojoPortal.Data
             int siteId,
             int pageNumber,
             int pageSize,
-            string userNameBeginsWith,
+            string beginsWith,
             int sortMode,
+			string nameFilterMode,
             out int totalPages)
         {
             StringBuilder sqlCommand = new StringBuilder();
             int pageLowerBound = (pageSize * pageNumber) - pageSize;
 
             int totalRows
-                = Count(siteId, userNameBeginsWith);
+                = Count(siteId, beginsWith);
 
             totalPages = 1;
             if (pageSize > 0) totalPages = totalRows / pageSize;
@@ -467,30 +474,30 @@ namespace mojoPortal.Data
             }
             else
             {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
+				Math.DivRem(totalRows, pageSize, out int remainder);
+				if (remainder > 0)
                 {
                     totalPages += 1;
                 }
             }
 
             
-            sqlCommand.Append("SELECT	u.*  ");
-            
-            //sqlCommand.Append(" " + totalPages.ToString() + " As TotalPages  ");
+            sqlCommand.Append(@"SELECT	u.*  
+				FROM mp_Users u  
+				WHERE u.ProfileApproved = 1   
+				AND u.SiteID = ?SiteID ");
 
-            sqlCommand.Append("FROM	mp_Users u  ");
-
-            sqlCommand.Append("WHERE u.ProfileApproved = 1   ");
-            sqlCommand.Append("AND u.SiteID = ?SiteID   ");
-
-            if (userNameBeginsWith.Length > 0)
-            {
-                sqlCommand.Append(" AND u.Name LIKE ?UserNameBeginsWith ");
-            }
-
-            switch (sortMode)
+			switch (nameFilterMode)
+			{
+				case "display":
+				default:
+					sqlCommand.Append("AND Lower(Name) LIKE LOWER(?BeginsWith) ");
+					break;
+				case "lastname":
+					sqlCommand.Append("AND Lower(LastName) LIKE LOWER(?BeginsWith) ");
+					break;
+			}
+			switch (sortMode)
             {
                 case 1:
                 sqlCommand.Append(" ORDER BY u.DateCreated DESC ");
@@ -511,25 +518,29 @@ namespace mojoPortal.Data
                 + pageLowerBound.ToString(CultureInfo.InvariantCulture)
                 + ", ?PageSize  ; ");
 
-            MySqlParameter[] arParams = new MySqlParameter[3];
-
-
-            arParams[0] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = pageSize;
-
-            arParams[1] = new MySqlParameter("?UserNameBeginsWith", MySqlDbType.VarChar, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = userNameBeginsWith + "%";
-
-            arParams[2] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = siteId;
+			List<MySqlParameter> arParams = new List<MySqlParameter>()
+			{
+				new MySqlParameter("?PageSize", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageSize
+				},
+				new MySqlParameter("?UserNameBeginsWith", MySqlDbType.VarChar, 50)
+				{
+					Direction = ParameterDirection.Input,
+					Value = beginsWith + "%"
+		},
+				new MySqlParameter("?SiteID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+			};
 
             return MySqlHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
-                arParams);
+                arParams.ToArray());
 
         }
 
@@ -537,23 +548,22 @@ namespace mojoPortal.Data
         private static int CountForSearch(int siteId, string searchInput)
         {
             StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT Count(*) FROM mp_Users WHERE SiteID = ?SiteID ");
-            sqlCommand.Append("AND ProfileApproved = 1 ");
-            sqlCommand.Append("AND DisplayInMemberList = 1 ");
-            sqlCommand.Append("AND IsDeleted = 0 ");
+            sqlCommand.Append(@"SELECT Count(*) FROM mp_Users WHERE SiteID = ?SiteID
+				AND ProfileApproved = 1 
+				AND DisplayInMemberList = 1 
+				AND IsDeleted = 0 ");
 
             if (searchInput.Length > 0)
             {
-                sqlCommand.Append(" AND ");
-                sqlCommand.Append("(");
-
-                sqlCommand.Append(" (Name LIKE ?SearchInput) ");
-                sqlCommand.Append(" OR ");
-                sqlCommand.Append(" (LoginName LIKE ?SearchInput) ");
-                //sqlCommand.Append(" OR ");
-                //sqlCommand.Append(" (Email LIKE ?SearchInput) ");
-
-                sqlCommand.Append(")");
+                sqlCommand.Append(@" AND (
+					(Lower(Name) LIKE LOWER(?SearchInput)) 
+					OR 
+					(Lower(LoginName) LIKE LOWER(?SearchInput))
+					OR
+					(Lower(LastName) LIKE LOWER(?SearchInput)) 
+					OR
+					(Lower(FirstName) LIKE LOWER(?SearchInput)) 
+					)");
             }
             sqlCommand.Append(" ;  ");
 
@@ -616,21 +626,20 @@ namespace mojoPortal.Data
             sqlCommand.Append("AND DisplayInMemberList = 1 ");
             sqlCommand.Append("AND IsDeleted = 0 ");
 
-            if (searchInput.Length > 0)
-            {
-                sqlCommand.Append(" AND ");
-                sqlCommand.Append("(");
+			if (searchInput.Length > 0)
+			{
+				sqlCommand.Append(@" AND (
+					(Lower(Name) LIKE LOWER(?SearchInput)) 
+					OR 
+					(Lower(LoginName) LIKE LOWER(?SearchInput))
+					OR
+					(Lower(LastName) LIKE LOWER(?SearchInput)) 
+					OR
+					(Lower(FirstName) LIKE LOWER(?SearchInput)) 
+					)");
+			}
 
-                sqlCommand.Append(" (Name LIKE ?SearchInput) ");
-                sqlCommand.Append(" OR ");
-                sqlCommand.Append(" (LoginName LIKE ?SearchInput) ");
-                //sqlCommand.Append(" OR ");
-                //sqlCommand.Append(" (Email LIKE ?SearchInput) ");
-
-                sqlCommand.Append(")");
-            }
-
-            switch (sortMode)
+			switch (sortMode)
             {
                 case 1:
                     sqlCommand.Append(" ORDER BY DateCreated DESC ");
@@ -746,21 +755,22 @@ namespace mojoPortal.Data
             sqlCommand.Append("WHERE   ");
             sqlCommand.Append("SiteID = ?SiteID    ");
 
-            if (searchInput.Length > 0)
-            {
-                sqlCommand.Append(" AND ");
-                sqlCommand.Append("(");
+			if (searchInput.Length > 0)
+			{
+				sqlCommand.Append(@" AND (
+					(Lower(Name) LIKE LOWER(?SearchInput)) 
+					OR 
+					(Lower(LoginName) LIKE LOWER(?SearchInput))
+					OR
+					(Lower(LastName) LIKE LOWER(?SearchInput)) 
+					OR
+					(Lower(FirstName) LIKE LOWER(?SearchInput)) 
+					OR
+					(Lower(Email) LIKE LOWER(?SearchInput)) 
+					)");
+			}
 
-                sqlCommand.Append(" (Name LIKE ?SearchInput) ");
-                sqlCommand.Append(" OR ");
-                sqlCommand.Append(" (LoginName LIKE ?SearchInput) ");
-                sqlCommand.Append(" OR ");
-                sqlCommand.Append(" (Email LIKE ?SearchInput) ");
-
-                sqlCommand.Append(")");
-            }
-
-            switch (sortMode)
+			switch (sortMode)
             {
                 case 1:
                     sqlCommand.Append(" ORDER BY DateCreated DESC ");

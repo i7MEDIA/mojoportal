@@ -1,7 +1,3 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2014-07-24
-/// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
 /// which can be found in the file CPL.TXT at the root of this distribution.
@@ -61,14 +57,23 @@ namespace mojoPortal.Data
             return count;
         }
 
-        public static int UserCount(int siteId, String userNameBeginsWith)
+        public static int UserCount(int siteId, string nameBeginsWith, string nameFilterMode)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_CountByFirstLetter", 2);
-            sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
-            sph.DefineSqlParameter("@UserNameBeginsWith", SqlDbType.NVarChar, 1, ParameterDirection.Input, userNameBeginsWith);
+			switch (nameFilterMode)
+			{
+				case "display":
+				default:
+					SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_CountByFirstLetterDisplayName", 2);
+					sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
+					sph.DefineSqlParameter("@Letter", SqlDbType.NVarChar, 50, ParameterDirection.Input, nameBeginsWith);
+					return Convert.ToInt32(sph.ExecuteScalar()); 
 
-            int count = Convert.ToInt32(sph.ExecuteScalar());
-            return count;
+				case "lastname":
+					SqlParameterHelper sph2 = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_CountByFirstLetterLastName", 2);
+					sph2.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
+					sph2.DefineSqlParameter("@Letter", SqlDbType.NVarChar, 50, ParameterDirection.Input, nameBeginsWith);
+					return Convert.ToInt32(sph2.ExecuteScalar());
+			}
         }
 
         public static int CountUsersByRegistrationDateRange(
@@ -122,13 +127,14 @@ namespace mojoPortal.Data
             int siteId,
             int pageNumber,
             int pageSize,
-            string userNameBeginsWith,
+            string beginsWith,
             int sortMode,
+			string nameFilterMode,
             out int totalPages
             )
         {
             totalPages = 1;
-            int totalRows = UserCount(siteId, userNameBeginsWith);
+            int totalRows = UserCount(siteId, beginsWith, nameFilterMode);
 
             if (pageSize > 0) totalPages = totalRows / pageSize;
 
@@ -138,39 +144,42 @@ namespace mojoPortal.Data
             }
             else
             {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
+				Math.DivRem(totalRows, pageSize, out int remainder);
+				if (remainder > 0)
                 {
                     totalPages += 1;
                 }
             }
 
-            SqlParameterHelper sph;
 
-            switch(sortMode)
-            {
-                case 1:
-                    sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_SelectPageByDateDesc", 4);
-                    break;
+			// Moved this switch statement to the stored procedure
 
-                case 2:
-                    sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_SelectPageSortLF", 4);
-                    break;
-                    
-                case 0:
-                default:
-                    sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_SelectPage", 4);
-                    break;
-            }
-            
-               
-            
+			//SqlParameterHelper sph;
+			//switch(sortMode)
+			//{
+			//    case 1:
+			//        sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_SelectPageByDateDesc", 4);
+			//        break;
 
-            sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+			//    case 2:
+			//        sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_SelectPageSortLF", 4);
+			//        break;
+
+			//    case 0:
+			//    default:
+			//        sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_SelectPage", 5);
+			//        break;
+			//}
+
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_SelectPage", 6);
+
+			sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
             sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
-            sph.DefineSqlParameter("@UserNameBeginsWith", SqlDbType.NVarChar, 50, ParameterDirection.Input, userNameBeginsWith);
+            sph.DefineSqlParameter("@BeginsWith", SqlDbType.NVarChar, 50, ParameterDirection.Input, beginsWith);
             sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
+            sph.DefineSqlParameter("@SortMode", SqlDbType.Int, ParameterDirection.Input, sortMode);
+			sph.DefineSqlParameter("@NameFilterMode", SqlDbType.NVarChar, 10, ParameterDirection.Input, nameFilterMode);
+
             return sph.ExecuteReader();
         }
 

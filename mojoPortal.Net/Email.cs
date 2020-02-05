@@ -750,8 +750,8 @@ namespace mojoPortal.Net
                     mail.Headers.Add("Precedence", "bulk");
                 }
 
-				result = string.Empty;
-                return Send(smtpSettings, mail);
+				
+                return Send(smtpSettings, mail, out result);
 
 
 

@@ -6538,4 +6538,10 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="SiteSettingsTestSMTPSettingsInvalidMessageDetailed" xml:space="preserve">
     <value>Settings are invalid. Please check your settings and try again. Message was </value>
   </data>
+  <data name="SiteSettingsTestSMTPSettingsButtonSending" xml:space="preserve">
+    <value>Attempting to send ... </value>
+  </data>
+  <data name="SiteSettingsTestSMTPSettingsValidMessage" xml:space="preserve">
+    <value>Settings are valid. Email was sent. This does not ensure your message will arrive, only that we were able to connect to the specified email server, authenticate, and relay an email to it.</value>
+  </data>
 </root>

@@ -1,7 +1,3 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2014-07-24
-/// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
 /// which can be found in the file CPL.TXT at the root of this distribution.
@@ -21,382 +17,411 @@ using NpgsqlTypes;
 
 namespace mojoPortal.Data
 {
-    
-    public static class DBSiteUser
-    {
-        
-        public static IDataReader GetUserCountByYearMonth(int siteId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("cast(date_part('year', datecreated) as int4) As y,  ");
-            sqlCommand.Append("cast(date_part('month', datecreated) as int4) As m, ");
-            sqlCommand.Append("cast(date_part('year', datecreated) as varchar(10)) || '-' || cast(date_part('month', datecreated) as varchar(3))  As label, ");
-            sqlCommand.Append("COUNT(*) As users ");
-
-            sqlCommand.Append("FROM ");
-            sqlCommand.Append("mp_users ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("siteid = :siteid ");
-            sqlCommand.Append("GROUP BY cast(date_part('year', datecreated) as int4), cast(date_part('month', datecreated) as int4), cast(date_part('year', datecreated) as varchar(10)) || '-' || cast(date_part('month', datecreated) as varchar(3)) ");
-            sqlCommand.Append("ORDER BY cast(date_part('year', datecreated) as int4), cast(date_part('month', datecreated) as int4) ");
-            sqlCommand.Append("; ");
-
-            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
-
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            return NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.Text,
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-
-        public static IDataReader GetUserList(int siteId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT UserID, ");
-            sqlCommand.Append("name, ");
-            sqlCommand.Append("passwordsalt, ");
-            sqlCommand.Append("pwd, ");
-            sqlCommand.Append("email ");
-            sqlCommand.Append("FROM mp_users ");
- 
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("siteid = :siteid ");
-            sqlCommand.Append("ORDER BY ");
-            sqlCommand.Append("email");
-            sqlCommand.Append(";");
-
-            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
-
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            return NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.Text,
-                sqlCommand.ToString(),
-                arParams);
-            
-            
-
-        }
-
-
-        public static IDataReader GetSmartDropDownData(int siteId, string query, int rowsToGet)
-        {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[2];
-
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            arParams[1] = new NpgsqlParameter("query", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = query + "%";
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT ");
-
-            sqlCommand.Append("userid, ");
-            sqlCommand.Append("userguid, ");
-            sqlCommand.Append("firstname, ");
-            sqlCommand.Append("lastname, ");
-            sqlCommand.Append("email, ");
-            sqlCommand.Append("name AS siteuser ");
-
-            sqlCommand.Append("FROM mp_users ");
-
-            sqlCommand.Append("WHERE siteid = :siteid ");
-            sqlCommand.Append("AND isdeleted = false ");
-            sqlCommand.Append("AND (  ");
-            sqlCommand.Append(" (name LIKE :query) ");
-            sqlCommand.Append(" OR (firstname LIKE :query) ");
-            sqlCommand.Append(" OR (lastname LIKE :query) ");
-            sqlCommand.Append(") ");
 
-            sqlCommand.Append("UNION ");
+	public static class DBSiteUser
+	{
+
+		public static IDataReader GetUserCountByYearMonth(int siteId)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT ");
+			sqlCommand.Append("cast(date_part('year', datecreated) as int4) As y,  ");
+			sqlCommand.Append("cast(date_part('month', datecreated) as int4) As m, ");
+			sqlCommand.Append("cast(date_part('year', datecreated) as varchar(10)) || '-' || cast(date_part('month', datecreated) as varchar(3))  As label, ");
+			sqlCommand.Append("COUNT(*) As users ");
+
+			sqlCommand.Append("FROM ");
+			sqlCommand.Append("mp_users ");
+			sqlCommand.Append("WHERE ");
+			sqlCommand.Append("siteid = :siteid ");
+			sqlCommand.Append("GROUP BY cast(date_part('year', datecreated) as int4), cast(date_part('month', datecreated) as int4), cast(date_part('year', datecreated) as varchar(10)) || '-' || cast(date_part('month', datecreated) as varchar(3)) ");
+			sqlCommand.Append("ORDER BY cast(date_part('year', datecreated) as int4), cast(date_part('month', datecreated) as int4) ");
+			sqlCommand.Append("; ");
+
+			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
+
+			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = siteId;
+
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.Text,
+				sqlCommand.ToString(),
+				arParams);
 
-            sqlCommand.Append("SELECT ");
+		}
 
-            sqlCommand.Append("userid, ");
-            sqlCommand.Append("userguid, ");
-            sqlCommand.Append("firstname, ");
-            sqlCommand.Append("lastname, ");
-            sqlCommand.Append("email, ");
-            sqlCommand.Append("email As siteuser ");
 
-            sqlCommand.Append("FROM mp_users ");
+		public static IDataReader GetUserList(int siteId)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT UserID, ");
+			sqlCommand.Append("name, ");
+			sqlCommand.Append("passwordsalt, ");
+			sqlCommand.Append("pwd, ");
+			sqlCommand.Append("email ");
+			sqlCommand.Append("FROM mp_users ");
 
-            sqlCommand.Append("WHERE siteid = :siteid ");
-            sqlCommand.Append("AND isdeleted = false ");
-            sqlCommand.Append("AND email LIKE :query   ");
+			sqlCommand.Append("WHERE ");
+			sqlCommand.Append("siteid = :siteid ");
+			sqlCommand.Append("ORDER BY ");
+			sqlCommand.Append("email");
+			sqlCommand.Append(";");
 
-            sqlCommand.Append("ORDER BY siteuser ");
+			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            sqlCommand.Append("LIMIT " + rowsToGet.ToString());
+			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = siteId;
 
-            sqlCommand.Append(";");
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.Text,
+				sqlCommand.ToString(),
+				arParams);
+		}
 
-            return NpgsqlHelper.ExecuteReader(
-               ConnectionString.GetReadConnectionString(),
-               CommandType.Text,
-               sqlCommand.ToString(),
-               arParams);
-            
-            
 
-        }
+		public static IDataReader GetSmartDropDownData(int siteId, string query, int rowsToGet)
+		{
+			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-        public static IDataReader EmailLookup(int siteId, string query, int rowsToGet)
-        {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[2];
+			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = siteId;
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
+			arParams[1] = new NpgsqlParameter("query", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = query + "%";
 
-            arParams[1] = new NpgsqlParameter("query", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = query + "%";
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT ");
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT ");
+			sqlCommand.Append("userid, ");
+			sqlCommand.Append("userguid, ");
+			sqlCommand.Append("firstname, ");
+			sqlCommand.Append("lastname, ");
+			sqlCommand.Append("email, ");
+			sqlCommand.Append("name AS siteuser ");
 
-            sqlCommand.Append("userid, ");
-            sqlCommand.Append("userguid, ");
-            sqlCommand.Append("email ");
-           
-            sqlCommand.Append("FROM mp_users ");
+			sqlCommand.Append("FROM mp_users ");
 
-            sqlCommand.Append("WHERE siteid = :siteid ");
-            sqlCommand.Append("AND isdeleted = false ");
-            sqlCommand.Append("AND (  ");
-            sqlCommand.Append(" (email LIKE :query) ");
-            sqlCommand.Append("OR (name LIKE :query) ");
-            sqlCommand.Append(" OR (firstname LIKE :query) ");
-            sqlCommand.Append(" OR (lastname LIKE :query) ");
-            sqlCommand.Append(") ");
+			sqlCommand.Append("WHERE siteid = :siteid ");
+			sqlCommand.Append("AND isdeleted = false ");
+			sqlCommand.Append("AND (  ");
+			sqlCommand.Append(" (LOWER(name LIKE LOWER(:query)) ");
+			sqlCommand.Append(" OR (LOWER(firstname LIKE LOWER(:query)) ");
+			sqlCommand.Append(" OR (LOWER(lastname LIKE LOWER(:query)) ");
+			sqlCommand.Append(") ");
 
-            sqlCommand.Append("ORDER BY email ");
+			sqlCommand.Append("UNION ");
 
-            sqlCommand.Append("LIMIT " + rowsToGet.ToString());
+			sqlCommand.Append("SELECT ");
 
-            sqlCommand.Append(";");
+			sqlCommand.Append("userid, ");
+			sqlCommand.Append("userguid, ");
+			sqlCommand.Append("firstname, ");
+			sqlCommand.Append("lastname, ");
+			sqlCommand.Append("email, ");
+			sqlCommand.Append("email As siteuser ");
 
-            return NpgsqlHelper.ExecuteReader(
-               ConnectionString.GetReadConnectionString(),
-               CommandType.Text,
-               sqlCommand.ToString(),
-               arParams);
-        }
+			sqlCommand.Append("FROM mp_users ");
 
+			sqlCommand.Append("WHERE siteid = :siteid ");
+			sqlCommand.Append("AND isdeleted = false ");
+			sqlCommand.Append("AND LOWER(email) LIKE LOWER(:query)   ");
 
+			sqlCommand.Append("ORDER BY siteuser ");
 
+			sqlCommand.Append("LIMIT " + rowsToGet.ToString());
 
+			sqlCommand.Append(";");
 
+			return NpgsqlHelper.ExecuteReader(
+			   ConnectionString.GetReadConnectionString(),
+			   CommandType.Text,
+			   sqlCommand.ToString(),
+			   arParams);
 
-        public static int UserCount(int siteId)
-        {
 
-            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-            
-            int count = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "mp_users_count(:siteid)", arParams));
+		}
 
-            return count;
+		public static IDataReader EmailLookup(int siteId, string query, int rowsToGet)
+		{
+			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-        }
+			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = siteId;
 
-        public static int UserCount(int siteId, String userNameBeginsWith)
-        {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[2];
+			arParams[1] = new NpgsqlParameter("query", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = query + "%";
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT ");
 
-            arParams[1] = new NpgsqlParameter("usernamebeginswith", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = userNameBeginsWith + "%";
-            
-            int count = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "mp_users_countbyfirstletter(:siteid,:usernamebeginswith)", arParams));
+			sqlCommand.Append("userid, ");
+			sqlCommand.Append("userguid, ");
+			sqlCommand.Append("email ");
 
-            return count;
+			sqlCommand.Append("FROM mp_users ");
 
-        }
+			sqlCommand.Append("WHERE siteid = :siteid ");
+			sqlCommand.Append("AND isdeleted = false ");
+			sqlCommand.Append("AND (  ");
+			sqlCommand.Append(" (LOWER(email) LIKE LOWER(:query)) ");
+			sqlCommand.Append(" OR (LOWER(name) LIKE LOWER(:query)) ");
+			sqlCommand.Append(" OR (LOWER(firstname) LIKE LOWER(:query)) ");
+			sqlCommand.Append(" OR (LOWER(lastname) LIKE LOWER(:query)) ");
+			sqlCommand.Append(") ");
 
-        
-        public static int CountUsersByRegistrationDateRange(
-            int siteId,
-            DateTime beginDate,
-            DateTime endDate)
-        {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[3];
+			sqlCommand.Append("ORDER BY email ");
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
+			sqlCommand.Append("LIMIT " + rowsToGet.ToString());
 
-            arParams[1] = new NpgsqlParameter("begindate", NpgsqlTypes.NpgsqlDbType.Timestamp);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = beginDate;
+			sqlCommand.Append(";");
 
-            arParams[2] = new NpgsqlParameter("enddate", NpgsqlTypes.NpgsqlDbType.Timestamp);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = endDate;
-            
-            int count = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "mp_users_countbyregistrationdaterange(:siteid,:begindate,:enddate)", arParams));
+			return NpgsqlHelper.ExecuteReader(
+			   ConnectionString.GetReadConnectionString(),
+			   CommandType.Text,
+			   sqlCommand.ToString(),
+			   arParams);
+		}
 
-            return count;
 
-        }
 
 
-        public static int CountOnlineSince(int siteId, DateTime sinceTime)
-        {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            arParams[1] = new NpgsqlParameter("sincetime", NpgsqlTypes.NpgsqlDbType.Timestamp);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = sinceTime;
-            
-            int count = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "mp_users_countonlinesince(:siteid,:sincetime)", arParams));
 
-            return count;
+		public static int UserCount(int siteId)
+		{
 
-        }
+			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-        public static IDataReader GetUsersOnlineSince(int siteId, DateTime sinceTime)
-        {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[2];
+			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = siteId;
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
+			int count = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.StoredProcedure,
+				"mp_users_count(:siteid)", arParams));
 
-            arParams[1] = new NpgsqlParameter("sincetime", NpgsqlTypes.NpgsqlDbType.Timestamp);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = sinceTime;
-            
-            return NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "mp_users_getusersonlinesince(:siteid,:sincetime)",
-                arParams);
+			return count;
 
-        }
+		}
 
-        public static IDataReader GetTop50UsersOnlineSince(int siteId, DateTime sinceTime)
-        {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[2];
+		public static int UserCount(int siteId, string nameBeginsWith, string nameFilterMode)
+		{
+			List<NpgsqlParameter> arParams = new List<NpgsqlParameter>
+			{
+				new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
+				new NpgsqlParameter("namebeginswith", NpgsqlTypes.NpgsqlDbType.Varchar, 50)
+				{
+					Direction = ParameterDirection.Input,
+					Value = nameBeginsWith + "%"
+				}
+			};
 
-            arParams[1] = new NpgsqlParameter("sincetime", NpgsqlTypes.NpgsqlDbType.Timestamp);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = sinceTime;
-            
-            return NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "mp_users_gettopusersonlinesince(:siteid,:sincetime)",
-                arParams);
 
+			StringBuilder sqlCommand = new StringBuilder();
 
+			sqlCommand.Append($@"select cast(count(*) as int4)
+				from mp_users
+				where siteid = :siteid
+				and isdelete = 0
+				and profileapproved = 1");
 
-        }
+			switch (nameFilterMode)
+			{
+				case "display":
+				default:
+					sqlCommand.Append(" AND LOWER(name) LIKE LOWER(:namebeginswith) ");
+					break;
+				case "lastname":
+					sqlCommand.Append(" AND LOWER(lastname) LIKE LOWER(:namebeginswith) ");
+					break;
+			}
 
-        public static int GetNewestUserId(int siteId)
-        {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
+			int count = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.Text,
+				sqlCommand.ToString(), arParams.ToArray()));
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-            
-            int count = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "mp_users_getnewestid(:siteid)", arParams));
+			return count;
 
-            return count;
+		}
 
-        }
 
+		public static int CountUsersByRegistrationDateRange(
+			int siteId,
+			DateTime beginDate,
+			DateTime endDate)
+		{
+			NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 
-        public static IDataReader GetUserListPage(
-            int siteId,
-            int pageNumber,
-            int pageSize,
-            string userNameBeginsWith,
-            int sortMode,
-            out int totalPages)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-            int totalRows = UserCount(siteId, userNameBeginsWith);
-            totalPages = 1;
-            if (pageSize > 0) totalPages = totalRows / pageSize;
+			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = siteId;
 
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
+			arParams[1] = new NpgsqlParameter("begindate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = beginDate;
 
-            NpgsqlParameter[] arParams = new NpgsqlParameter[4];
+			arParams[2] = new NpgsqlParameter("enddate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+			arParams[2].Direction = ParameterDirection.Input;
+			arParams[2].Value = endDate;
 
-            arParams[0] = new NpgsqlParameter("pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = pageLowerBound;
+			int count = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.StoredProcedure,
+				"mp_users_countbyregistrationdaterange(:siteid,:begindate,:enddate)", arParams));
 
-            arParams[1] = new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = pageSize;
+			return count;
 
-            arParams[2] = new NpgsqlParameter("usernamebeginswith", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = userNameBeginsWith + "%";
+		}
 
-            arParams[3] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = siteId;
+
+		public static int CountOnlineSince(int siteId, DateTime sinceTime)
+		{
+			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
+
+			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = siteId;
+
+			arParams[1] = new NpgsqlParameter("sincetime", NpgsqlTypes.NpgsqlDbType.Timestamp);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = sinceTime;
+
+			int count = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.StoredProcedure,
+				"mp_users_countonlinesince(:siteid,:sincetime)", arParams));
+
+			return count;
+
+		}
+
+		public static IDataReader GetUsersOnlineSince(int siteId, DateTime sinceTime)
+		{
+			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
+
+			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = siteId;
+
+			arParams[1] = new NpgsqlParameter("sincetime", NpgsqlTypes.NpgsqlDbType.Timestamp);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = sinceTime;
+
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.StoredProcedure,
+				"mp_users_getusersonlinesince(:siteid,:sincetime)",
+				arParams);
+
+		}
+
+		public static IDataReader GetTop50UsersOnlineSince(int siteId, DateTime sinceTime)
+		{
+			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
+
+			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = siteId;
+
+			arParams[1] = new NpgsqlParameter("sincetime", NpgsqlTypes.NpgsqlDbType.Timestamp);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = sinceTime;
+
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.StoredProcedure,
+				"mp_users_gettopusersonlinesince(:siteid,:sincetime)",
+				arParams);
+
+
+
+		}
+
+		public static int GetNewestUserId(int siteId)
+		{
+			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
+
+			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = siteId;
+
+			int count = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.StoredProcedure,
+				"mp_users_getnewestid(:siteid)", arParams));
+
+			return count;
+
+		}
+
+
+		public static IDataReader GetUserListPage(
+			int siteId,
+			int pageNumber,
+			int pageSize,
+			string beginsWith,
+			int sortMode,
+			string nameFilterMode,
+			out int totalPages
+			)
+		{
+			int pageLowerBound = (pageSize * pageNumber) - pageSize;
+			int totalRows = UserCount(siteId, beginsWith, nameFilterMode);
+			totalPages = 1;
+			if (pageSize > 0) totalPages = totalRows / pageSize;
+
+			if (totalRows <= pageSize)
+			{
+				totalPages = 1;
+			}
+			else
+			{
+				Math.DivRem(totalRows, pageSize, out int remainder);
+				if (remainder > 0)
+				{
+					totalPages += 1;
+				}
+			}
+
+			List<NpgsqlParameter> arParams = new List<NpgsqlParameter>
+			{
+				new NpgsqlParameter("pageoffset", NpgsqlTypes.NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageLowerBound
+				},
+				new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageSize
+				},
+				new NpgsqlParameter("beginswith", NpgsqlTypes.NpgsqlDbType.Varchar, 50)
+				{
+					Direction = ParameterDirection.Input,
+					Value = beginsWith + "%"
+				},
+				new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer)
+				{ 
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				}
+			};
 
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT	u.* ");
@@ -406,10 +431,19 @@ namespace mojoPortal.Data
             sqlCommand.Append("WHERE u.profileapproved = true   ");
             sqlCommand.Append("AND u.siteid = :siteid   ");
 
-            if (userNameBeginsWith.Length > 0)
+            if (beginsWith.Length > 0)
             {
-                sqlCommand.Append(" AND u.name LIKE :usernamebeginswith ");
-            }
+				switch (nameFilterMode)
+				{
+					case "display":
+					default:
+						sqlCommand.Append(" AND LOWER(name) LIKE LOWER(:beginswith) ");
+						break;
+					case "lastname":
+						sqlCommand.Append(" AND LOWER(lastname) LIKE LOWER(:beginswith) ");
+						break;
+				}
+			}
 
             switch (sortMode)
             {
@@ -439,7 +473,7 @@ namespace mojoPortal.Data
                 ConnectionString.GetReadConnectionString(),
                 CommandType.Text,
                 sqlCommand.ToString(),
-                arParams);
+                arParams.ToArray());
             
             
 
@@ -447,7 +481,6 @@ namespace mojoPortal.Data
 
         private static int CountForSearch(int siteId, string searchInput)
         {
-
             StringBuilder sqlCommand = new StringBuilder();
             
             sqlCommand.Append("SELECT Count(*) FROM mp_users WHERE siteid = :siteid ");
@@ -457,18 +490,16 @@ namespace mojoPortal.Data
 
             if (searchInput.Length > 0)
             {
-                sqlCommand.Append(" AND ");
-                sqlCommand.Append("(");
-
-                sqlCommand.Append(" (name LIKE :searchinput) ");
-                sqlCommand.Append(" OR ");
-                sqlCommand.Append(" (loginname LIKE :searchinput) ");
-                //sqlCommand.Append(" OR ");
-                //sqlCommand.Append(" (email LIKE :searchinput) ");
-
-                sqlCommand.Append(")");
-
-            }
+				sqlCommand.Append($@" AND (
+					(LOWER(name) LIKE LOWER(:searchinput)) 
+					OR 
+					(LOWER(loginname) LIKE LOWER(:searchinput))
+					OR			
+					(LOWER(lastname) LIKE LOWER(:searchinput))
+					OR			
+					(LOWER(firstname) LIKE LOWER(:searchinput))
+				)");
+			}
             sqlCommand.Append(" ;  ");
 
            
@@ -550,18 +581,16 @@ namespace mojoPortal.Data
 
             if (searchInput.Length > 0)
             {
-                sqlCommand.Append(" AND ");
-                sqlCommand.Append("(");
-
-                sqlCommand.Append(" (name LIKE :searchinput) ");
-                sqlCommand.Append(" OR ");
-                sqlCommand.Append(" (loginname LIKE :searchinput) ");
-                //sqlCommand.Append(" OR ");
-                //sqlCommand.Append(" (email LIKE :searchinput) ");
-
-                sqlCommand.Append(")");
-
-            }
+				sqlCommand.Append($@" AND (
+					(LOWER(name) LIKE LOWER(:searchinput)) 
+					OR 
+					(LOWER(loginname) LIKE LOWER(:searchinput))
+					OR			
+					(LOWER(lastname) LIKE LOWER(:searchinput))
+					OR			
+					(LOWER(firstname) LIKE LOWER(:searchinput))
+				)");
+			}
 
             switch (sortMode)
             {
@@ -602,18 +631,18 @@ namespace mojoPortal.Data
             sqlCommand.Append("SELECT Count(*) FROM mp_users WHERE siteid = :siteid ");
             if (searchInput.Length > 0)
             {
-                sqlCommand.Append(" AND ");
-                sqlCommand.Append("(");
-
-                sqlCommand.Append(" (name LIKE :searchinput) ");
-                sqlCommand.Append(" OR ");
-                sqlCommand.Append(" (loginname LIKE :searchinput) ");
-                sqlCommand.Append(" OR ");
-                sqlCommand.Append(" (email LIKE :searchinput) ");
-
-                sqlCommand.Append(")");
-
-            }
+				sqlCommand.Append($@" AND (
+					(LOWER(name) LIKE LOWER(:searchinput)) 
+					OR 
+					(LOWER(loginname) LIKE LOWER(:searchinput))
+					OR			
+					(LOWER(lastname) LIKE LOWER(:searchinput))
+					OR			
+					(LOWER(firstname) LIKE LOWER(:searchinput))
+					OR
+					(LOWER(email) LIKE LOWER(:searchinput)) 
+				)");
+			}
             sqlCommand.Append(" ;  ");
 
 
@@ -690,18 +719,19 @@ namespace mojoPortal.Data
 
             if (searchInput.Length > 0)
             {
-                sqlCommand.Append(" AND ");
-                sqlCommand.Append("(");
+				sqlCommand.Append($@" AND (
+					(LOWER(name) LIKE LOWER(:searchinput)) 
+					OR 
+					(LOWER(loginname) LIKE LOWER(:searchinput))
+					OR			
+					(LOWER(lastname) LIKE LOWER(:searchinput))
+					OR			
+					(LOWER(firstname) LIKE LOWER(:searchinput))
+					OR
+					(LOWER(email) LIKE LOWER(:searchinput)) 
+				)");
 
-                sqlCommand.Append(" (name LIKE :searchinput) ");
-                sqlCommand.Append(" OR ");
-                sqlCommand.Append(" (loginname LIKE :searchinput) ");
-                sqlCommand.Append(" OR ");
-                sqlCommand.Append(" (email LIKE :searchinput) ");
-
-                sqlCommand.Append(")");
-
-            }
+			}
 
             switch (sortMode)
             {
