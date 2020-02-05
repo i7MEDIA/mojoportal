@@ -1,7 +1,3 @@
-// Author:					
-// Created:				    2006-01-14
-// Last Modified:			2017-10-26
-
 using System;
 using System.Collections;
 using System.Data;
@@ -40,7 +36,7 @@ namespace mojoPortal.Business
             int major = 2;
             int minor = 7;
             int build = 0;
-            int revision = 8;
+            int revision = 9;
             return new Version(major, minor, build, revision);
 
         }
