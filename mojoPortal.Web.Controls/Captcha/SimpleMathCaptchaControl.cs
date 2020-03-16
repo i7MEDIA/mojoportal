@@ -66,8 +66,8 @@ namespace mojoPortal.Web.Controls
             }
 
         }
-
-        protected override bool EvaluateIsValid()
+		public override short TabIndex { get; set; } = 0;
+		protected override bool EvaluateIsValid()
         {
             if (SpamPreventionQuestion != null)
             {
@@ -113,7 +113,7 @@ namespace mojoPortal.Web.Controls
             litQuestionExpression = new Literal();
             txtAnswerInput = new TextBox();
             lblInstructions = new Label();
-
+			txtAnswerInput.TabIndex = this.TabIndex;
 
             this.Controls.Add(this.litQuestionExpression);
             this.Controls.Add(this.txtAnswerInput);

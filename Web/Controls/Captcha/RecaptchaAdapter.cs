@@ -94,8 +94,19 @@ namespace mojoPortal.Web.Controls.Captcha
                 captchaControl.ValidationGroup = value;
             }
         }
+		public short TabIndex
+		{
+			get
+			{
+				return captchaControl.TabIndex;
+			}
+			set
+			{
+				captchaControl.TabIndex = value;
+			}
+		}
 
-        private void InitializeAdapter()
+		private void InitializeAdapter()
         {
            
         }
@@ -110,7 +121,7 @@ namespace mojoPortal.Web.Controls.Captcha
                 captchaControl.PublicKey = WebConfigSettings.RecaptchaPublicKey;
                 //captchaControl.Theme = WebConfigSettings.RecaptchaTheme;
                 captchaControl.RegisterWithScriptManager = true;
-
+				captchaControl.TabIndex = 10;
                 return captchaControl;
             }
 
