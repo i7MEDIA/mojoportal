@@ -13,32 +13,31 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Text;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 using AjaxControlToolkit;
+using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
 using mojoPortal.Web.Configuration;
 using mojoPortal.Web.Controls;
 using mojoPortal.Web.Framework;
-using mojoPortal.Net;
 using Resources;
-using log4net;
 
 namespace mojoPortal.Web.UI.Pages
 {
-    
-//#if !NET35
 
-//    //http://stackoverflow.com/questions/4575214/how-to-change-the-layout-of-the-createuserwizard-control
-//    //http://channel9.msdn.com/Shows/HanselminutesOn9/Hanselminutes-on-9-ASPNET-4-and-Marcin-Dobosz-on-New-Markup-from-Old-Controls
-//    //http://www.velocityreviews.com/forums/t122608-createuserwizard-ignores-startnavigationtemplate.html
-//    //http://stackoverflow.com/questions/1077121/added-to-createuserwizard-control-additional-wizard-steps-after-createuserwiz
+	//#if !NET35
 
-    public class LayoutTemplate : ITemplate
+	//    //http://stackoverflow.com/questions/4575214/how-to-change-the-layout-of-the-createuserwizard-control
+	//    //http://channel9.msdn.com/Shows/HanselminutesOn9/Hanselminutes-on-9-ASPNET-4-and-Marcin-Dobosz-on-New-Markup-from-Old-Controls
+	//    //http://www.velocityreviews.com/forums/t122608-createuserwizard-ignores-startnavigationtemplate.html
+	//    //http://stackoverflow.com/questions/1077121/added-to-createuserwizard-control-additional-wizard-steps-after-createuserwiz
+
+	public class LayoutTemplate : ITemplate
     {
         // this gets rid of the default rendering with tables
         void ITemplate.InstantiateIn(Control container)
@@ -1275,44 +1274,22 @@ namespace mojoPortal.Web.UI.Pages
 
 namespace mojoPortal.Web.UI
 {
-    using System;
-    using System.Web;
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
-    /// <summary>
-    /// this control doesn't render anything, it is used only as a themeable collection of settings for things we would like to be able to configure from theme.skin
-    /// </summary>
-    public class RegistrationPageDisplaySettings : WebControl
+	using System.Web;
+	using System.Web.UI;
+	using System.Web.UI.WebControls;
+	/// <summary>
+	/// this control doesn't render anything, it is used only as a themeable collection of settings for things we would like to be able to configure from theme.skin
+	/// </summary>
+	public class RegistrationPageDisplaySettings : WebControl
     {
 
+		public string NewsletterListHeading { get; set; } = string.Empty;
 
-        private string newsletterListHeading = string.Empty;
+		public bool IncludeNewsletterDescriptionInList { get; set; } = false;
 
-        public string NewsletterListHeading
-        {
-            get { return newsletterListHeading; }
-            set { newsletterListHeading = value; }
-        }
+		public bool ShowNewsLetters { get; set; } = true;
 
-        private bool includeNewsletterDescriptionInList = false;
-
-        public bool IncludeNewsletterDescriptionInList
-        {
-            get { return includeNewsletterDescriptionInList; }
-            set { includeNewsletterDescriptionInList = value; }
-        }
-
-        private bool showNewsLetters = true;
-
-        public bool ShowNewsLetters
-        {
-            get { return showNewsLetters; }
-            set { showNewsLetters = value; }
-        }
-
-
-
-        protected override void Render(HtmlTextWriter writer)
+		protected override void Render(HtmlTextWriter writer)
         {
             if (HttpContext.Current == null)
             {

@@ -13,6 +13,15 @@ namespace mojoPortal.Web.UI.Pages {
     public partial class LoginPage {
         
         /// <summary>
+        /// coreDisplaySettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.CoreDisplaySettings coreDisplaySettings;
+        
+        /// <summary>
         /// pnlLogin control.
         /// </summary>
         /// <remarks>
