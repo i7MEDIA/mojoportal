@@ -5542,6 +5542,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred. Please check your inputs and try again..
+        /// </summary>
+        internal static string GenericErrorOccurred {
+            get {
+                return ResourceManager.GetString("GenericErrorOccurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geographic Zone Administration.
         /// </summary>
         internal static string GeoZoneAdministrationHeading {
@@ -13831,7 +13840,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry, that role name has already been used..
+        ///   Looks up a localized string similar to Sorry, that role system name has already been used..
         /// </summary>
         internal static string RoleExistsError {
             get {
@@ -13854,6 +13863,15 @@ namespace Resources {
         internal static string RoleManagerCancelButton {
             get {
                 return ResourceManager.GetString("RoleManagerCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System name is not valid..
+        /// </summary>
+        internal static string RoleNameInvalid {
+            get {
+                return ResourceManager.GetString("RoleNameInvalid", resourceCulture);
             }
         }
         

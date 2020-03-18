@@ -2,6 +2,7 @@
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
+	<portal:CoreDisplaySettings ID="displaySettings" runat="server" />
 <portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs">
 <asp:HyperLink ID="lnkAdminMenu" runat="server" NavigateUrl="~/Admin/AdminMenu.aspx" /><portal:AdminCrumbSeparator id="litLinkSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
 <asp:HyperLink ID="lnkRoleAdmin" runat="server" />
@@ -11,8 +12,8 @@
 <portal:HeadingControl id="heading" runat="server" />
 <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-<div class="settingrow">
-    <portal:mojoDataList id="rolesList" DataKeyField="RoleID" runat="server" RepeatLayout="Flow">
+<div>
+    <portal:mojoDataList ID="rolesList" DataKeyField="RoleID" runat="server" RepeatLayout="Flow" EditItemStyle-CssClass=" ">
 		<ItemTemplate>
 			<div>
 				<asp:ImageButton ImageUrl='<%# EditPropertiesImage %>' CommandName="edit" AlternateText="<%# Resources.Resource.RolesEditLabel %>" ToolTip="<%# Resources.Resource.RolesEditLabel %>" runat="server" ID="btnEdit" CausesValidation="false" />
@@ -24,19 +25,19 @@
 			</div>
 		</ItemTemplate>
 		<EditItemTemplate>
-			<div class="form-inline">
-				<div class="form-group col-md-3">
-					<asp:Label Text="<%# Resources.Resource.RoleSystemName %>" runat="server" AssociatedControlID="roleName" />
-					<asp:Textbox ID="roleName" Text='<%# DataBinder.Eval(Container.DataItem, "RoleName") %>' runat="server" Enabled="false" ClientIDMode="Static" />
+			<div class="well">
+				<div class="form-group">
+					<asp:Label Text="<%# Resources.Resource.RoleSystemName %>" runat="server" AssociatedControlID="roleName" /><br />
+					<asp:TextBox ID="roleName" Text='<%# DataBinder.Eval(Container.DataItem, "RoleName") %>' runat="server" Enabled="false" ClientIDMode="Static" SkinID="fullwidth" />
 					<p id="roleNameHelp" class="help-block"><%# Resources.Resource.RoleSystemNameCantChange %></p>
 				</div>
-				<div class="form-group col-md-3">
-					<asp:Label Text="<%# Resources.Resource.RoleDisplayName %>" runat="server" AssociatedControlID="displayName" />
-					<asp:Textbox ID="displayName" Text='<%# DataBinder.Eval(Container.DataItem, "DisplayName") %>' runat="server" ClientIDMode="Static" ValidationGroup="edit" />
+				<div class="form-group">
+					<asp:Label Text="<%# Resources.Resource.RoleDisplayName %>" runat="server" AssociatedControlID="displayName" /><br />
+					<asp:TextBox ID="displayName" Text='<%# DataBinder.Eval(Container.DataItem, "DisplayName") %>' runat="server" ClientIDMode="Static" ValidationGroup="edit" SkinID="fullwidth" />
 					<asp:RequiredFieldValidator ID="rfvDisplayName" runat="server" ValidationGroup="edit" ControlToValidate="displayName" Display="Dynamic" CssClass="text-danger" ErrorMessage="*" />
 
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group text-right">
 					<portal:mojoButton Text="<%# Resources.Resource.RolesApplyLabel %>" ToolTip="<%# Resources.Resource.RolesApplyLabel %>" CommandName="apply" ValidationGroup="edit" runat="server" ID="Button1" SkinID="SaveButton" />&nbsp;
 					<portal:mojoButton Text="<%# Resources.Resource.RoleManagerCancelButton %>" ToolTip="<%# Resources.Resource.RoleManagerCancelButton %>" CommandName="cancel"  runat="server" ID="Button2" SkinID="LinkButton"/>
 				</div>
@@ -44,14 +45,14 @@
 		</EditItemTemplate>
 	</portal:mojoDataList>
 </div>
-<div class="settingrow">
-    <portal:mojoLabel ID="lblError" Runat="server" CssClass="txterror warning" />
-</div>
+
 <asp:Panel ID="pnlAddRole" runat="server" CssClass="form-inline" DefaultButton="btnAddRole">
 	<h3><%= Resources.Resource.RoleAddRoleHeader %> <portal:mojoHelpLink ID="MojoHelpLink4" runat="server" HelpKey="roleadministrationhelp" /></h3>
+	<asp:Literal ID="litAddRoleMessage" runat="server" />
 	<div class="form-group">
 		<asp:TextBox ID="txtNewRoleName" runat="server" MaxLength="50" ValidationGroup="create" />
 		<asp:RequiredFieldValidator ID="rfvNewRoleName" runat="server" ValidationGroup="create" ControlToValidate="txtNewRoleName" Display="Dynamic" CssClass="text-danger" ErrorMessage='*'/>
+		<asp:RegularExpressionValidator ID="revNewRoleName" runat="server" ValidationGroup="create" ControlToValidate="txtNewRoleName" Display="Dynamic" CssClass="text-danger" ErrorMessage="*" ValidationExpression="^[a-zA-Z0-9^;]+$" />
 		<%--<p id="roleNameHelp" class="help-block"><%# Resources.Resource.RoleSystemNameCantChange %></p>--%>
 	</div>
 	<div class="form-group">

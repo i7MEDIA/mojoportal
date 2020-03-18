@@ -13,6 +13,15 @@ namespace mojoPortal.Web.AdminUI {
     public partial class RoleManagerPage {
         
         /// <summary>
+        /// displaySettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.CoreDisplaySettings displaySettings;
+        
+        /// <summary>
         /// pnlAdminCrumbs control.
         /// </summary>
         /// <remarks>
@@ -103,15 +112,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoDataList rolesList;
         
         /// <summary>
-        /// lblError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoLabel lblError;
-        
-        /// <summary>
         /// pnlAddRole control.
         /// </summary>
         /// <remarks>
@@ -130,6 +130,15 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink4;
         
         /// <summary>
+        /// litAddRoleMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litAddRoleMessage;
+        
+        /// <summary>
         /// txtNewRoleName control.
         /// </summary>
         /// <remarks>
@@ -146,6 +155,15 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNewRoleName;
+        
+        /// <summary>
+        /// revNewRoleName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revNewRoleName;
         
         /// <summary>
         /// txtNewDisplayName control.

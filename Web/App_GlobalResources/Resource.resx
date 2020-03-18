@@ -1576,7 +1576,7 @@
     <value>Return to Site Home</value>
   </data>
   <data name="RoleExistsError" xml:space="preserve">
-    <value>Sorry, that role name has already been used.</value>
+    <value>Sorry, that role system name has already been used.</value>
   </data>
   <data name="RoleManagerAllUsersInRole" xml:space="preserve">
     <value>All Users are in this role</value>
@@ -6543,5 +6543,11 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="SiteSettingsTestSMTPSettingsValidMessage" xml:space="preserve">
     <value>Settings are valid. Email was sent. This does not ensure your message will arrive, only that we were able to connect to the specified email server, authenticate, and relay an email to it.</value>
+  </data>
+  <data name="GenericErrorOccurred" xml:space="preserve">
+    <value>An error occurred. Please check your inputs and try again.</value>
+  </data>
+  <data name="RoleNameInvalid" xml:space="preserve">
+    <value>System name is not valid.</value>
   </data>
 </root>

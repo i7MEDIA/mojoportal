@@ -138,20 +138,48 @@ namespace mojoPortal.Web.AdminUI
 
         protected void btnAddRole_Click(Object sender, EventArgs e)
         {
-            if (this.txtNewRoleName.Text.Length > 0)
+            if (!string.IsNullOrWhiteSpace(txtNewRoleName.Text) && !string.IsNullOrWhiteSpace(txtNewDisplayName.Text))
             {
-                Role role = new Role();
-                role.SiteId = siteSettings.SiteId;
-                role.SiteGuid = siteSettings.SiteGuid;
-                role.RoleName = txtNewRoleName.Text;
-				role.DisplayName = txtNewDisplayName.Text;
-                //role.EnforceRelatedSitesMode = WebConfigSettings.UseRelatedSiteMode;
-                role.Save();
+				if (txtNewRoleName.Text.Contains(";"))
+				{
+					litAddRoleMessage.Text = string.Format(displaySettings.AlertErrorMarkup, Resource.RoleNameInvalid);
+					return;
+				}
+				else if (Role.Exists(SiteId, txtNewRoleName.Text))
+				{
+					litAddRoleMessage.Text = string.Format(displaySettings.AlertErrorMarkup, Resource.RoleExistsError);
+					return;
+				}
+				else
+				{
+					Role role = new Role
+					{
+						SiteId = siteSettings.SiteId,
+						SiteGuid = siteSettings.SiteGuid,
+						RoleName = txtNewRoleName.Text,
+						DisplayName = txtNewDisplayName.Text
+					};
+					//role.EnforceRelatedSitesMode = WebConfigSettings.UseRelatedSiteMode;
+					if (role.Save())
+					{
+						WebUtils.SetupRedirect(this, Request.RawUrl);
+						return;
+					}
+					else
+					{
+						litAddRoleMessage.Text = string.Format(displaySettings.AlertErrorMarkup, Resource.GenericErrorOccurred);
+						return;
+					}
+				}
             }
-
-            WebUtils.SetupRedirect(this, Request.RawUrl);
-            return;
-        }
+			else if (string.IsNullOrWhiteSpace(txtNewRoleName.Text))
+			{
+				litAddRoleMessage.Text = string.Format(displaySettings.AlertErrorMarkup, Resource.RoleSystemNameRequired);
+				return;
+			}
+			litAddRoleMessage.Text = string.Format(displaySettings.AlertErrorMarkup, Resource.RoleDisplayNameRequired);
+			return;
+		}
 
 
         protected void RolesList_ItemCommand(object sender, DataListCommandEventArgs e)
@@ -231,9 +259,6 @@ namespace mojoPortal.Web.AdminUI
 
 			txtNewRoleName.Attributes.Add("placeholder", Resource.RoleSystemName);
 			txtNewDisplayName.Attributes.Add("placeholder", Resource.RoleDisplayName);
-
-
-
 		}
 
         private void LoadSettings()

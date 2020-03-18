@@ -23,13 +23,13 @@
 			</asp:Panel>
 
 			<div class="settingrow buttonrow">
-				<portal:mojoButton ID="Login" CommandName="Login" runat="server" Text="Login" />
+				<portal:mojoButton ID="Login" CommandName="Login" runat="server" Text="Login" SkinID="LoginControlLoginButton"/>
 				<portal:mojoLabel ID="FailureText" runat="server" CssClass="txterror" EnableViewState="false" />
 			</div>
 
 			<div class="settingrow registerrow">
-				<asp:HyperLink ID="lnkPasswordRecovery" runat="server" CssClass="lnkpasswordrecovery" />
-				<asp:HyperLink ID="lnkRegisterExtraLink" runat="server" CssClass="lnkregister" />
+				<asp:HyperLink ID="lnkPasswordRecovery" runat="server" CssClass="lnkpasswordrecovery" SkinID="LoginControlPasswordRecoveryLink"/>
+				<asp:HyperLink ID="lnkRegisterExtraLink" runat="server" CssClass="lnkregister" SkinID="LoginControlRegisterLink"/>
 			</div>
 		</asp:Panel>
 	</LayoutTemplate>

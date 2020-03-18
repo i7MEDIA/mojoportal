@@ -118,9 +118,9 @@ namespace mojoPortal.Web.AdminUI
             lnkThisPage.ToolTip = Resource.SecurityAdvisor;
             lnkThisPage.NavigateUrl = SiteRoot + "/Admin/SecurityAdvisor.aspx";
 
-			litMachineKeyHeading.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SecurityAdvisorMachineKeyHeading, Resource.SecurityAdvisorMachineKeyDescription);
-			litFileSystemHeading.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SecurityAdvisorFileSystemHeading, Resource.SecurityAdvisorFileSystemDescription);
-			litSecurityProtocolHeading.Text = String.Format(displaySettings.SiteSettingsPanelHeadingMarkup, Resource.SecurityAdvisorSecurityProtocolHeading, Resource.SecurityAdvisorSecurityProtocolDescription);
+			litMachineKeyHeading.Text = String.Format(displaySettings.PanelHeadingMarkup, Resource.SecurityAdvisorMachineKeyHeading, Resource.SecurityAdvisorMachineKeyDescription);
+			litFileSystemHeading.Text = String.Format(displaySettings.PanelHeadingMarkup, Resource.SecurityAdvisorFileSystemHeading, Resource.SecurityAdvisorFileSystemDescription);
+			litSecurityProtocolHeading.Text = String.Format(displaySettings.PanelHeadingMarkup, Resource.SecurityAdvisorSecurityProtocolHeading, Resource.SecurityAdvisorSecurityProtocolDescription);
         }
 
 		public void SslTest_HowsMySsl()
