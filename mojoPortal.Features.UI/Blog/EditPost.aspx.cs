@@ -63,6 +63,10 @@ namespace mojoPortal.Web.BlogUI
 
 		private SiteUser siteUser = null;
 
+		private string blogMetaConfigFile = string.Empty;
+		private string blogMetaConfigDefault = string.Empty;
+
+
 		private void Page_Load(object sender, EventArgs e)
 		{
 			if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl))
@@ -649,11 +653,27 @@ namespace mojoPortal.Web.BlogUI
 			if (blog.HeadlineImageUrl != currentFeaturedImagePath)
 			{
 				//update meta 
+				List<ContentMeta> metas = metaRepository.FetchByContent(blog.BlogGuid);
+				List<ContentMeta> filteredMetas = new List<ContentMeta>();
 
-				string fullPath = SiteRoot + Page.ResolveUrl(currentFeaturedImagePath);
+				if (string.IsNullOrWhiteSpace(currentFeaturedImagePath))
+				{
+					List<ContentMeta> metaTags;
 
-				List <ContentMeta> metas = metaRepository.FetchByContent(blog.BlogGuid).Where(m => m.MetaContent == fullPath).ToList();
-				foreach (ContentMeta meta in metas)
+					if (fileSystem.FileExists(blogMetaConfigFile))
+						metaTags = GetJsonFile();
+					else
+						metaTags = JsonConvert.DeserializeObject<List<ContentMeta>>(blogMetaConfigDefault);
+
+					metaTags = metaTags.Where(m => m.MetaContent == "{{image}}").ToList();
+					filteredMetas = metas.Where(m => metaTags.Any(x => x.Name == m.Name)).ToList();
+				}
+				else
+				{
+					filteredMetas = metas.Where(m => m.MetaContent == SiteRoot + Page.ResolveUrl(currentFeaturedImagePath)).ToList();
+				}
+
+				foreach (ContentMeta meta in filteredMetas)
 				{
 					meta.MetaContent = SiteRoot + Page.ResolveUrl(blog.HeadlineImageUrl);
 					metaRepository.Save(meta);
@@ -816,9 +836,6 @@ namespace mojoPortal.Web.BlogUI
 
 		void CreateDefaultMetaTags()
 		{
-			string blogMetaConfigFile = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/MetadataConfiguration/blog.json";
-			string blogMetaConfigDefault = "[{\"NameProperty\":\"itemprop\",\"Name\":\"\",\"ContentProperty\":\"itemtype\",\"MetaContent\":\"http://schema.org/Article\"},{\"NameProperty\":\"itemprop\",\"Name\":\"name\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"itemprop\",\"Name\":\"description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"itemprop\",\"Name\":\"image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:type\",\"ContentProperty\":\"content\",\"MetaContent\":\"article\"},{\"NameProperty\":\"property\",\"Name\":\"og:site_name\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{site-name}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:title\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:url\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{url}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:card\",\"ContentProperty\":\"content\",\"MetaContent\":\"summary_large_image\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:title\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"}]";
-
 			if (fileSystem.FileExists(blogMetaConfigFile))
 			{
 				List<ContentMeta> metaTags = GetJsonFile();
@@ -915,15 +932,16 @@ namespace mojoPortal.Web.BlogUI
 					);
 				}
 			}
+		}
 
-			List<ContentMeta> GetJsonFile()
+
+		private List<ContentMeta> GetJsonFile()
+		{
+			using (StreamReader r = new StreamReader(HttpContext.Current.Server.MapPath(blogMetaConfigFile)))
 			{
-				using (StreamReader r = new StreamReader(HttpContext.Current.Server.MapPath(blogMetaConfigFile)))
-				{
-					string json = r.ReadToEnd();
+				string json = r.ReadToEnd();
 
-					return JsonConvert.DeserializeObject<List<ContentMeta>>(json);
-				}
+				return JsonConvert.DeserializeObject<List<ContentMeta>>(json);
 			}
 		}
 
@@ -2000,6 +2018,9 @@ namespace mojoPortal.Web.BlogUI
 
 				return;
 			}
+
+			blogMetaConfigFile = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/MetadataConfiguration/blog.json";
+			blogMetaConfigDefault = "[{\"NameProperty\":\"itemprop\",\"Name\":\"\",\"ContentProperty\":\"itemtype\",\"MetaContent\":\"http://schema.org/Article\"},{\"NameProperty\":\"itemprop\",\"Name\":\"name\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"itemprop\",\"Name\":\"description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"itemprop\",\"Name\":\"image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:type\",\"ContentProperty\":\"content\",\"MetaContent\":\"article\"},{\"NameProperty\":\"property\",\"Name\":\"og:site_name\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{site-name}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:title\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:url\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{url}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:card\",\"ContentProperty\":\"content\",\"MetaContent\":\"summary_large_image\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:title\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"}]";
 		}
 
 
