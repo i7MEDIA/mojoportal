@@ -31,7 +31,7 @@
 								<li>
 									<a href="#tabMapSettings">
 										<asp:Literal ID="litMapSettingsTab" runat="server" />
-								    </a>
+									</a>
 								</li>
 								<li id="liAttachment" runat="server">
 									<asp:Literal ID="litAttachmentsTab" runat="server" />
@@ -48,8 +48,7 @@
 										CssClass="settinglabel"
 										ForControl="txtTitle"
 										ID="lblTitle"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtTitle" runat="server" CssClass="forminput verywidetextbox"></asp:TextBox>
 								</div>
 
@@ -59,8 +58,7 @@
 										CssClass="settinglabel"
 										ForControl="txtSubTitle"
 										ID="SiteLabel15"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtSubTitle" runat="server" MaxLength="500" CssClass="forminput verywidetextbox"></asp:TextBox>
 								</div>
 
@@ -74,8 +72,7 @@
 										CssClass="settinglabel"
 										ForControl="txtItemUrl"
 										ID="SiteLabel5"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtItemUrl" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<span id="spnUrlWarning" runat="server" style="font-weight: normal; display: none;" class="txterror"></span>
 									<asp:HiddenField ID="hdnTitle" runat="server" />
@@ -90,13 +87,12 @@
 													CssClass="settinglabel"
 													ForControl="txtCategory"
 													ID="lblCat"
-													ResourceFile="BlogResources"
-												/>
+													ResourceFile="BlogResources" />
 												<asp:TextBox ID="txtCategory" runat="server" CssClass="widetextbox forminput"></asp:TextBox>
 												<portal:mojoButton ID="btnAddCategory" runat="server" CssClass="forminput" />
 											</div>
 											<div class="settingrow blogeditcategories">
-												<asp:CheckBoxList ID="chkCategories" runat="server" SkinID="Blog" RepeatDirection="Horizontal"> </asp:CheckBoxList>
+												<asp:CheckBoxList ID="chkCategories" runat="server" SkinID="Blog" RepeatDirection="Horizontal"></asp:CheckBoxList>
 											</div>
 										</ContentTemplate>
 									</asp:UpdatePanel>
@@ -109,8 +105,7 @@
 										CssClass="settinglabel"
 										ForControl="chkIncludeInFeed"
 										ID="Sitelabel1"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkIncludeInFeed" runat="server" CssClass="forminput"></asp:CheckBox>
 								</div>
 
@@ -120,8 +115,7 @@
 										CssClass="settinglabel"
 										ForControl="chkIncludeInSearchIndex"
 										ID="Sitelabel25"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkIncludeInSearchIndex" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 								</div>
 
@@ -130,8 +124,7 @@
 										ConfigKey="ExcludeFromRecentContent"
 										CssClass="settinglabel"
 										ForControl="chkExcludeFromRecentContent"
-										ID="Sitelabel14"
-									/>
+										ID="Sitelabel14" />
 									<asp:CheckBox ID="chkExcludeFromRecentContent" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink8" runat="server" HelpKey="ExcludeFromRecentContent-help" />
 								</div>
@@ -142,8 +135,7 @@
 										CssClass="settinglabel"
 										ForControl="chkIncludeInSiteMap"
 										ID="Sitelabel31"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkIncludeInSiteMap" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 								</div>
 
@@ -153,8 +145,7 @@
 										CssClass="settinglabel"
 										ForControl="chkIsPublished"
 										ID="Sitelabel13"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkIsPublished" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 								</div>
 
@@ -164,8 +155,7 @@
 										CssClass="settinglabel"
 										ForControl="chkShowAuthorName"
 										ID="Sitelabel27"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkShowAuthorName" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 								</div>
 
@@ -175,8 +165,7 @@
 										CssClass="settinglabel"
 										ForControl="chkShowAuthorAvatar"
 										ID="Sitelabel28"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkShowAuthorAvatar" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 								</div>
 
@@ -186,8 +175,7 @@
 										CssClass="settinglabel"
 										ForControl="chkShowAuthorBio"
 										ID="Sitelabel29"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkShowAuthorBio" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 								</div>
 
@@ -196,8 +184,7 @@
 										ConfigKey="BlogEditStartDateLabel"
 										CssClass="settinglabel"
 										ID="lblStartDate"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<mp:DatePickerControl ID="dpBeginDate" runat="server" ShowTime="True" SkinID="blog" CssClass="forminput"></mp:DatePickerControl>
 									<mp:SiteLabel ID="SiteLabel3" runat="server" ResourceFile="BlogResources" ConfigKey="BlogDraftInstructions" UseLabelTag="false" />
 								</div>
@@ -207,8 +194,7 @@
 										ConfigKey="EndDate"
 										CssClass="settinglabel"
 										ID="SiteLabel16"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<mp:DatePickerControl ID="dpEndDate" runat="server" ShowTime="True" SkinID="blog" CssClass="forminput"></mp:DatePickerControl>
 								</div>
 
@@ -218,8 +204,7 @@
 										ForControl="ddCommentAllowedForDays"
 										ConfigKey="BlogEditAllowedCommentsForDaysPrefix"
 										ResourceFile="BlogResources"
-										CssClass="settinglabel"
-									/>
+										CssClass="settinglabel" />
 									<asp:DropDownList ID="ddCommentAllowedForDays" runat="server" CssClass="forminput">
 										<asp:ListItem Value="-1" Text="<%$ Resources:BlogResources, BlogCommentsNotAllowed %>" />
 										<asp:ListItem Value="0" Text="<%$ Resources:BlogResources, BlogCommentsUnlimited %>" />
@@ -241,8 +226,7 @@
 										ForControl="chkFeaturedPost"
 										ConfigKey="IsFeaturedPost"
 										ResourceFile="BlogResources"
-										CssClass="settinglabel"
-									/>
+										CssClass="settinglabel" />
 									<asp:CheckBox ID="chkFeaturedPost" runat="server" CssClass="forminput" Checked="false"></asp:CheckBox>
 								</div>
 
@@ -258,8 +242,7 @@
 														ConfigKey="VersionHistory"
 														CssClass="settinglabel"
 														ID="SiteLabel10"
-														ResourceFile="BlogResources"
-													/>
+														ResourceFile="BlogResources" />
 												</div>
 												<div class="settingrow">
 													<mp:mojoGridView ID="grdHistory" runat="server" CssClass="editgrid" AutoGenerateColumns="false" DataKeyNames="Guid">
@@ -286,22 +269,19 @@
 																		NavigateUrl='<%# SiteRoot + "/Blog/BlogCompare.aspx?pageid=" + pageId + "&mid=" + moduleId + "&ItemID=" + itemId + "&h=" + Eval("Guid") %>'
 																		SkinID="TextButtonSmall"
 																		Text='<%# Resources.BlogResources.CompareHistoryToCurrentLink %>'
-																		ToolTip='<%# Resources.BlogResources.CompareHistoryToCurrentLink %>'
-																	/>
+																		ToolTip='<%# Resources.BlogResources.CompareHistoryToCurrentLink %>' />
 																	<portal:mojoButton runat="server"
 																		CommandName="RestoreToEditor" CommandArgument='<%# Eval("Guid") %>'
 																		ID="btnRestoreToEditor"
 																		SkinID="SaveButtonSmall"
-																		Text='<%# Resources.BlogResources.RestoreToEditorButton %>'
-																	/>
+																		Text='<%# Resources.BlogResources.RestoreToEditorButton %>' />
 																	<portal:mojoButton runat="server"
 																		CommandArgument='<%# Eval("Guid") %>'
 																		CommandName="DeleteHistory"
 																		ID="btnDelete"
 																		SkinID="DeleteButtonSmall"
 																		Text='<%# Resources.BlogResources.DeleteHistoryButton %>'
-																		Visible='<%# isAdmin %>'
-																	/>
+																		Visible='<%# isAdmin %>' />
 																</ItemTemplate>
 															</asp:TemplateField>
 														</Columns>
@@ -336,8 +316,7 @@
 										CssClass="settinglabel"
 										ForControl="txtHeadlineImage"
 										ID="SiteLabel41"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtHeadlineImage" runat="server" MaxLength="255" CssClass="forminput verywidetextbox" />
 									<portal:FileBrowserTextBoxExtender ID="fbHeadlineImage" runat="server" BrowserType="image" />
 									<portal:mojoHelpLink ID="MojoHelpLink9" runat="server" HelpKey="Blog-HeadlineImage-help" />
@@ -353,8 +332,7 @@
 										CssClass="settinglabel"
 										ForControl="chkIncludeImageInExcerpt"
 										ID="SiteLabel42"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkIncludeImageInExcerpt" runat="server" Checked="true" CssClass="forminput" />
 									<portal:mojoHelpLink ID="MojoHelpLink20" runat="server" HelpKey="Blog-IncludeImageInExcerpt-help" />
 								</div>
@@ -365,8 +343,7 @@
 										CssClass="settinglabel"
 										ForControl="chkIncludeImageInPost"
 										ID="SiteLabel8"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkIncludeImageInPost" runat="server" Checked="true" CssClass="forminput" />
 									<portal:mojoHelpLink ID="MojoHelpLink10" runat="server" HelpKey="Blog-IncludeImageInPost-help" />
 								</div>
@@ -379,8 +356,7 @@
 										CssClass="settinglabel"
 										ForControl="txtMetaDescription"
 										ID="SiteLabel6"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtMetaDescription" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 								</div>
 
@@ -390,8 +366,7 @@
 										CssClass="settinglabel"
 										ForControl="txtMetaKeywords"
 										ID="SiteLabel7"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtMetaKeywords" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 								</div>
 
@@ -400,8 +375,7 @@
 										ConfigKey="MetaAdditionalLabel"
 										CssClass="settinglabel"
 										ID="lblAdditionalMetaTags"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<portal:mojoHelpLink ID="MojoHelpLink25" runat="server" HelpKey="pagesettingsadditionalmetahelp" />
 								</div>
 
@@ -416,23 +390,20 @@
 																CommandName="Edit"
 																ID="btnEditMetaLink"
 																SkinID="InfoButtonSmall"
-																Text='<%# Resources.BlogResources.ContentMetaGridEditButton %>'
-															/>
+																Text='<%# Resources.BlogResources.ContentMetaGridEditButton %>' />
 															<asp:ImageButton runat="server"
 																AlternateText='<%# Resources.BlogResources.ContentMetaGridMoveUpButton %>'
 																CommandArgument='<%# Eval("Guid") %>'
 																CommandName="MoveUp"
 																ID="btnMoveUpMetaLink"
 																ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/up.png") %>'
-																Visible='<%# (Convert.ToInt32(Eval("SortRank")) > 3) %>'
-															/>
+																Visible='<%# (Convert.ToInt32(Eval("SortRank")) > 3) %>' />
 															<asp:ImageButton runat="server"
 																AlternateText='<%# Resources.BlogResources.ContentMetaGridMoveDownButton %>'
 																CommandArgument='<%# Eval("Guid") %>'
 																CommandName="MoveDown"
 																ID="btnMoveDownMetaLink"
-																ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/down.png") %>'
-															/>
+																ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/down.png") %>' />
 														</ItemTemplate>
 
 														<EditItemTemplate></EditItemTemplate>
@@ -448,42 +419,37 @@
 																	CssClass="settinglabel"
 																	ForControl="txtRel"
 																	ID="lblNameMetaRel"
-																	ResourceFile="BlogResources"
-																/>
+																	ResourceFile="BlogResources" />
 																<asp:TextBox ID="txtRel" CssClass="widetextbox forminput" runat="server" Text='<%# Eval("Rel") %>' />
 																<asp:RequiredFieldValidator runat="server"
 																	ControlToValidate="txtRel"
 																	ErrorMessage='<%# Resources.BlogResources.ContentMetaLinkRelRequired %>'
 																	ID="reqMetaName"
-																	ValidationGroup="metalink"
-																/>
+																	ValidationGroup="metalink" />
 															</div>
 
 															<div class="settingrow">
 																<mp:SiteLabel runat="server"
-																	ConfigKey="ContentMetaMetaHrefLabel"
+																	ConfigKey="ContentMetaHrefLabel"
 																	CssClass="settinglabel"
 																	ForControl="txtHref"
 																	ID="lblMetaHref"
-																	ResourceFile="BlogResources"
-																/>
+																	ResourceFile="BlogResources" />
 																<asp:TextBox ID="txtHref" CssClass="verywidetextbox forminput" runat="server" Text='<%# Eval("Href") %>' />
 																<asp:RequiredFieldValidator runat="server"
 																	ControlToValidate="txtHref"
 																	ErrorMessage='<%# Resources.BlogResources.ContentMetaLinkHrefRequired %>'
 																	ID="RequiredFieldValidator1"
-																	ValidationGroup="metalink"
-																/>
+																	ValidationGroup="metalink" />
 															</div>
 
 															<div class="settingrow">
 																<mp:SiteLabel runat="server"
-																	ConfigKey="ContentMetHrefLangLabel"
+																	ConfigKey="ContentMetaHrefLangLabel"
 																	CssClass="settinglabel"
 																	ForControl="txtScheme"
 																	ID="lblScheme"
-																	ResourceFile="BlogResources"
-																/>
+																	ResourceFile="BlogResources" />
 																<asp:TextBox ID="txtHrefLang" CssClass="widetextbox forminput" runat="server" Text='<%# Eval("HrefLang") %>' />
 															</div>
 
@@ -494,22 +460,19 @@
 																	ID="btnUpdateMetaLink"
 																	SkinID="SaveButtonSmall"
 																	Text='<%# Resources.BlogResources.ContentMetaGridUpdateButton %>'
-																	ValidationGroup="metalink"
-																/>
+																	ValidationGroup="metalink" />
 																<portal:mojoButton runat="server"
 																	CausesValidation="false"
 																	CommandName="Delete"
 																	ID="btnDeleteMetaLink"
 																	SkinID="DeleteButtonSmall"
-																	Text='<%# Resources.BlogResources.ContentMetaGridDeleteButton %>'
-																/>
+																	Text='<%# Resources.BlogResources.ContentMetaGridDeleteButton %>' />
 																<portal:mojoButton runat="server"
 																	CausesValidation="false"
 																	CommandName="Cancel"
 																	ID="btnCancelMetaLink"
 																	SkinID="TextButtonSmall"
-																	Text='<%# Resources.BlogResources.ContentMetaGridCancelButton %>'
-																/>
+																	Text='<%# Resources.BlogResources.ContentMetaGridCancelButton %>' />
 															</div>
 														</EditItemTemplate>
 													</asp:TemplateField>
@@ -525,7 +488,8 @@
 											<div class="settingrow">
 												<table>
 													<tr>
-														<td><portal:mojoButton ID="btnAddMetaLink" runat="server" SkinID="AddButton" /></td>
+														<td>
+															<portal:mojoButton ID="btnAddMetaLink" runat="server" SkinID="AddButton" /></td>
 														<td>
 															<asp:UpdateProgress ID="prgMetaLinks" runat="server" AssociatedUpdatePanelID="updMetaLinks">
 																<ProgressTemplate>
@@ -542,184 +506,169 @@
 									<div class="settingrow">
 										<asp:UpdatePanel ID="upMeta" runat="server" UpdateMode="Conditional">
 											<ContentTemplate>
-												<mp:mojoGridView ID="grdContentMeta" runat="server" CssClass="editgrid" AutoGenerateColumns="false" DataKeyNames="Guid">
-													<Columns>
-														<asp:TemplateField>
-															<ItemTemplate>
-																<portal:mojoButton runat="server"
-																	CommandName="Edit"
-																	ID="btnEditMeta"
-																	SkinID="InfoButtonSmall"
-																	Text='<%# Resources.BlogResources.ContentMetaGridEditButton %>'
-																/>
-																<asp:ImageButton runat="server"
-																	AlternateText='<%# Resources.BlogResources.ContentMetaGridMoveUpButton %>'
-																	CommandArgument='<%# Eval("Guid") %>'
-																	CommandName="MoveUp"
-																	ID="btnMoveUpMeta"
-																	ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/up.png") %>'
-																	Visible='<%# (Convert.ToInt32(Eval("SortRank")) > 3) %>'
-																/>
-																<asp:ImageButton runat="server"
-																	AlternateText='<%# Resources.BlogResources.ContentMetaGridMoveDownButton %>'
-																	CommandArgument='<%# Eval("Guid") %>'
-																	CommandName="MoveDown"
-																	ID="btnMoveDownMeta"
-																	ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/down.png") %>'
-																/>
-															</ItemTemplate>
+												<div class="table-responsive">
+													<mp:mojoGridView ID="grdContentMeta" runat="server" CssClass="editgrid" AutoGenerateColumns="false" DataKeyNames="Guid">
+														<Columns>
+															<asp:TemplateField>
+																<ItemTemplate>
+																	<portal:mojoButton runat="server"
+																		CommandName="Edit"
+																		ID="btnEditMeta"
+																		SkinID="InfoButtonSmall"
+																		Text='<%# Resources.BlogResources.ContentMetaGridEditButton %>' />
+																	<asp:ImageButton runat="server"
+																		AlternateText='<%# Resources.BlogResources.ContentMetaGridMoveUpButton %>'
+																		CommandArgument='<%# Eval("Guid") %>'
+																		CommandName="MoveUp"
+																		ID="btnMoveUpMeta"
+																		ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/up.png") %>'
+																		Visible='<%# (Convert.ToInt32(Eval("SortRank")) > 3) %>' />
+																	<asp:ImageButton runat="server"
+																		AlternateText='<%# Resources.BlogResources.ContentMetaGridMoveDownButton %>'
+																		CommandArgument='<%# Eval("Guid") %>'
+																		CommandName="MoveDown"
+																		ID="btnMoveDownMeta"
+																		ImageUrl='<%# Page.ResolveUrl("~/Data/SiteImages/down.png") %>' />
+																</ItemTemplate>
 
-															<EditItemTemplate></EditItemTemplate>
-														</asp:TemplateField>
+																<EditItemTemplate>
+																	<div class="settingrow">
+																		<portal:mojoButton runat="server"
+																			CausesValidation="true"
+																			CommandName="Update"
+																			ID="btnUpdateMeta"
+																			SkinID="SaveButtonSmall"
+																			Text='<%# Resources.BlogResources.ContentMetaGridUpdateButton %>'
+																			ValidationGroup="meta" />
+																		<portal:mojoButton runat="server"
+																			CausesValidation="false"
+																			CommandName="Delete"
+																			ID="btnDeleteMeta"
+																			SkinID="DeleteButtonSmall"
+																			Text='<%# Resources.BlogResources.ContentMetaGridDeleteButton %>' />
+																		<portal:mojoButton runat="server"
+																			CausesValidation="false"
+																			CommandName="Cancel"
+																			ID="btnCancelMeta"
+																			SkinID="TextButtonSmall"
+																			Text='<%# Resources.BlogResources.ContentMetaGridCancelButton %>' />
+																	</div>
+																</EditItemTemplate>
+															</asp:TemplateField>
 
-														<asp:TemplateField>
-															<ItemTemplate><%# Eval("Name") %></ItemTemplate>
+															<asp:TemplateField>
+																<ItemTemplate><%# Eval("NameProperty") %></ItemTemplate>
 
-															<EditItemTemplate>
-																<div class="settingrow">
-																	<mp:SiteLabel runat="server"
-																		ConfigKey="MetaNameProperty"
-																		CssClass="settinglabel"
-																		ForControl="txtNameProperty"
-																		ID="lblNameProperty"
-																		ResourceFile="BlogResources"
-																	/>
-																	<asp:TextBox ID="txtNameProperty" CssClass="widetextbox forminput" runat="server" Text='<%# Eval("NameProperty") %>' />
-																	<asp:RequiredFieldValidator runat="server"
-																		ControlToValidate="txtNameProperty"
-																		ErrorMessage='<%# Resources.BlogResources.MetaNamePropertyRequired %>'
-																		ID="valNameProperty"
-																		ValidationGroup="meta"
-																	/>
-																</div>
+																<EditItemTemplate>
+																	<div class="settingrow">
 
-																<div class="settingrow">
-																	<mp:SiteLabel runat="server"
-																		ConfigKey="ContentMetaNameLabel"
-																		CssClass="settinglabel"
-																		ForControl="txtName"
-																		ID="lblName"
-																		ResourceFile="BlogResources"
-																	/>
-																	<asp:TextBox ID="txtName" CssClass="widetextbox forminput" runat="server" Text='<%# Eval("Name") %>' />
+																		<asp:TextBox runat="server"
+																			ID="txtNameProperty"
+																			CssClass="widetextbox forminput"
+																			Text='<%# Eval("NameProperty") %>' />
+
+																		<asp:RequiredFieldValidator runat="server"
+																			ControlToValidate="txtNameProperty"
+																			ErrorMessage='<%# Resources.BlogResources.MetaNamePropertyRequired %>'
+																			ID="valNameProperty"
+																			ValidationGroup="meta" />
+																	</div>
+																</EditItemTemplate>
+															</asp:TemplateField>
+
+															<asp:TemplateField>
+																<ItemTemplate><%# Eval("Name") %></ItemTemplate>
+
+																<EditItemTemplate>
+																	<asp:TextBox runat="server"
+																		ID="txtName"
+																		CssClass="widetextbox forminput"
+																		Text='<%# Eval("Name") %>' />
+
 																	<asp:RequiredFieldValidator runat="server"
 																		ControlToValidate="txtName"
 																		ErrorMessage='<%# Resources.BlogResources.ContentMetaNameRequired %>'
 																		ID="reqMetaName"
-																		ValidationGroup="meta"
-																	/>
-																</div>
+																		ValidationGroup="meta" />
+																</EditItemTemplate>
+															</asp:TemplateField>
 
-																<div class="settingrow">
-																	<mp:SiteLabel runat="server"
-																		ConfigKey="MetaContentProperty"
-																		CssClass="settinglabel"
-																		ForControl="txtMetaContentProperty"
-																		ID="lblMetaContentProperty"
-																		ResourceFile="BlogResources"
-																	/>
-																	<asp:TextBox ID="txtMetaContentProperty" CssClass="verywidetextbox forminput" runat="server" Text='<%# Eval("ContentProperty") %>' />
+															<asp:TemplateField>
+																<ItemTemplate><%# Eval("ContentProperty") %></ItemTemplate>
+
+																<EditItemTemplate>
+																	<asp:TextBox runat="server"
+																		ID="txtMetaContentProperty"
+																		CssClass="verywidetextbox forminput"
+																		Text='<%# Eval("ContentProperty") %>' />
+
 																	<asp:RequiredFieldValidator runat="server"
 																		ControlToValidate="txtMetaContentProperty"
 																		ErrorMessage='<%# Resources.BlogResources.MetaContentPropertyRequired %>'
 																		ID="valMetaContentProperty"
-																		ValidationGroup="meta"
-																	/>
-																</div>
+																		ValidationGroup="meta" />
+																</EditItemTemplate>
+															</asp:TemplateField>
 
-																<div class="settingrow">
-																	<mp:SiteLabel runat="server"
-																		ConfigKey="ContentMetaMetaContentLabel"
-																		CssClass="settinglabel"
-																		ForControl="txtMetaContent"
-																		ID="lblMetaContent"
-																		ResourceFile="BlogResources"
-																	/>
-																	<asp:TextBox ID="txtMetaContent" CssClass="verywidetextbox forminput" runat="server" Text='<%# Eval("MetaContent") %>' />
+															<asp:TemplateField>
+																<ItemTemplate><%# Eval("MetaContent") %></ItemTemplate>
+
+																<EditItemTemplate>
+																	<asp:TextBox runat="server"
+																		ID="txtMetaContent"
+																		CssClass="verywidetextbox forminput"
+																		Text='<%# Eval("MetaContent") %>' />
+
 																	<asp:RequiredFieldValidator runat="server"
 																		ControlToValidate="txtName"
 																		ErrorMessage='<%# Resources.BlogResources.ContentMetaContentRequired %>'
 																		ID="RequiredFieldValidator1"
-																		ValidationGroup="meta"
-																	/>
-																</div>
+																		ValidationGroup="meta" />
+																</EditItemTemplate>
+															</asp:TemplateField>
 
-																<div class="settingrow">
-																	<mp:SiteLabel runat="server"
-																		ConfigKey="ContentMetaSchemeLabel"
-																		CssClass="settinglabel"
-																		ForControl="txtScheme"
-																		ID="lblScheme"
-																		ResourceFile="BlogResources"
-																	/>
-																	<asp:TextBox ID="txtScheme" CssClass="widetextbox forminput" runat="server" Text='<%# Eval("Scheme") %>' />
-																</div>
+															<asp:TemplateField>
+																<ItemTemplate><%# Eval("Scheme") %></ItemTemplate>
 
-																<div class="settingrow">
-																	<mp:SiteLabel runat="server"
-																		ConfigKey="ContentMetaLangCodeLabel"
-																		CssClass="settinglabel"
-																		ForControl="txtLangCode"
-																		ID="lblLangCode"
-																		ResourceFile="BlogResources"
-																	/>
-																	<asp:TextBox ID="txtLangCode" CssClass="smalltextbox forminput" runat="server" Text='<%# Eval("LangCode") %>' />
-																</div>
+																<EditItemTemplate>
+																	<asp:TextBox runat="server"
+																		ID="txtScheme"
+																		CssClass="widetextbox forminput"
+																		Text='<%# Eval("Scheme") %>' />
+																</EditItemTemplate>
+															</asp:TemplateField>
 
-																<div class="settingrow">
-																	<mp:SiteLabel runat="server"
-																		ConfigKey="ContentMetaDirLabel"
-																		CssClass="settinglabel"
-																		ForControl="ddDirection"
-																		ID="lblDir"
-																		ResourceFile="BlogResources"
-																	/>
+															<asp:TemplateField>
+																<ItemTemplate><%# Eval("LangCode") %></ItemTemplate>
+
+																<EditItemTemplate>
+																	<asp:TextBox runat="server"
+																		ID="txtLangCode"
+																		CssClass="smalltextbox forminput"
+																		Text='<%# Eval("LangCode") %>' />
+																</EditItemTemplate>
+															</asp:TemplateField>
+
+															<asp:TemplateField>
+																<ItemTemplate><%# Eval("Dir") %></ItemTemplate>
+
+																<EditItemTemplate>
 																	<asp:DropDownList ID="ddDirection" runat="server" CssClass="forminput">
 																		<asp:ListItem Text="" Value=""></asp:ListItem>
 																		<asp:ListItem Text="ltr" Value="ltr"></asp:ListItem>
 																		<asp:ListItem Text="rtl" Value="rtl"></asp:ListItem>
 																	</asp:DropDownList>
-																</div>
-
-																<div class="settingrow">
-																	<portal:mojoButton runat="server"
-																		CausesValidation="true"
-																		CommandName="Update"
-																		ID="btnUpdateMeta"
-																		SkinID="SaveButtonSmall"
-																		Text='<%# Resources.BlogResources.ContentMetaGridUpdateButton %>'
-																		ValidationGroup="meta"
-																	/>
-																	<portal:mojoButton runat="server"
-																		CausesValidation="false"
-																		CommandName="Delete"
-																		ID="btnDeleteMeta"
-																		SkinID="DeleteButtonSmall"
-																		Text='<%# Resources.BlogResources.ContentMetaGridDeleteButton %>'
-																	/>
-																	<portal:mojoButton runat="server"
-																		CausesValidation="false"
-																		CommandName="Cancel"
-																		ID="btnCancelMeta"
-																		SkinID="TextButtonSmall"
-																		Text='<%# Resources.BlogResources.ContentMetaGridCancelButton %>'
-																	/>
-																</div>
-															</EditItemTemplate>
-														</asp:TemplateField>
-
-														<asp:TemplateField>
-															<ItemTemplate><%# Eval("MetaContent") %></ItemTemplate>
-
-															<EditItemTemplate></EditItemTemplate>
-														</asp:TemplateField>
-													</Columns>
-												</mp:mojoGridView>
+																</EditItemTemplate>
+															</asp:TemplateField>
+														</Columns>
+													</mp:mojoGridView>
+												</div>
 
 												<div class="settingrow">
 													<table>
 														<tr>
-															<td><portal:mojoButton ID="btnAddMeta" runat="server" SkinID="AddButton" /></td>
+															<td>
+																<portal:mojoButton ID="btnAddMeta" runat="server" SkinID="AddButton" /></td>
 															<td>
 																<asp:UpdateProgress ID="prgMeta" runat="server" AssociatedUpdatePanelID="upMeta">
 																	<ProgressTemplate>
@@ -743,8 +692,7 @@
 										CssClass="settinglabel"
 										ForControl="txtLocation"
 										ID="SiteLabel4"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtLocation" runat="server" MaxLength="300" CssClass="forminput widetextbox"></asp:TextBox>
 								</div>
 
@@ -754,8 +702,7 @@
 										CssClass="settinglabel"
 										ForControl="chkUseBing"
 										ID="SiteLabel17"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkUseBing" runat="server" Checked="false" CssClass="forminput" />
 								</div>
 
@@ -764,8 +711,7 @@
 										ConfigKey="GoogleMapInitialMapTypeSetting"
 										CssClass="settinglabel"
 										ID="SiteLabel18"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<portal:GMapTypeSetting ID="MapTypeControl" runat="server" />
 								</div>
 
@@ -774,8 +720,7 @@
 										ConfigKey="GoogleMapInitialZoomSetting"
 										CssClass="settinglabel"
 										ID="SiteLabel19"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<portal:GMapZoomLevelSetting ID="ZoomLevelControl" runat="server" />
 								</div>
 
@@ -785,16 +730,14 @@
 										CssClass="settinglabel"
 										ForControl="txtMapHeight"
 										ID="SiteLabel21"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtMapHeight" runat="server" Text="300" MaxLength="4" CssClass="forminput smalltextbox"></asp:TextBox>
 									<asp:RegularExpressionValidator runat="server"
 										ControlToValidate="txtMapHeight"
 										Display="None"
 										ID="regexMapHeight"
 										ValidationExpression="^[1-9][0-9]{0,4}$"
-										ValidationGroup="blog"
-									/>
+										ValidationGroup="blog" />
 								</div>
 
 								<div class="settingrow">
@@ -803,16 +746,14 @@
 										CssClass="settinglabel"
 										ForControl="txtMapWidth"
 										ID="SiteLabel20"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtMapWidth" runat="server" Text="500" MaxLength="6" CssClass="forminput smalltextbox"></asp:TextBox>
 									<asp:RegularExpressionValidator runat="server"
 										ControlToValidate="txtMapWidth"
 										Display="None"
 										ID="regexMapWidth"
 										ValidationExpression="^[1-9][0-9]{0,4}[px|%]?"
-										ValidationGroup="blog"
-									/>
+										ValidationGroup="blog" />
 								</div>
 
 								<div class="settingrow">
@@ -821,8 +762,7 @@
 										CssClass="settinglabel"
 										ForControl="chkShowMapOptions"
 										ID="SiteLabel22"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkShowMapOptions" runat="server" Checked="true" CssClass="forminput" />
 								</div>
 
@@ -832,8 +772,7 @@
 										CssClass="settinglabel"
 										ForControl="chkShowMapZoom"
 										ID="SiteLabel23"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkShowMapZoom" runat="server" Checked="true" CssClass="forminput" />
 								</div>
 
@@ -843,8 +782,7 @@
 										CssClass="settinglabel"
 										ForControl="chkShowMapBalloon"
 										ID="SiteLabel24"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkShowMapBalloon" runat="server" Checked="false" CssClass="forminput" />
 								</div>
 
@@ -854,8 +792,7 @@
 										CssClass="settinglabel"
 										ForControl="chkShowMapDirections"
 										ID="SiteLabel26"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkShowMapDirections" runat="server" Checked="true" CssClass="forminput" />
 								</div>
 							</div>
@@ -873,15 +810,13 @@
 														ImageUrl='<%# this.ImageSiteRoot + "/Data/SiteImages/arrow_in_down.png" %>'
 														NavigateUrl='<%# upLoadPath + Eval("ServerFileName") %>'
 														SkinID="TextButtonSmall"
-														ToolTip='<%# Resources.BlogResources.Download %>'
-													/>
+														ToolTip='<%# Resources.BlogResources.Download %>' />
 													<portal:mojoButton runat="server"
 														CommandArgument='<%# Eval("RowGuid") %>'
 														CommandName="delete"
 														ID="btnDelete"
 														SkinID="DeleteButtonSmall"
-														Text='<%# Resources.BlogResources.DeleteImageAltText %>'
-													/>
+														Text='<%# Resources.BlogResources.DeleteImageAltText %>' />
 												</ItemTemplate>
 											</asp:TemplateField>
 										</Columns>
@@ -901,8 +836,7 @@
 										CssClass="settinglabel"
 										ForControl="chkShowDownloadLink"
 										ID="Sitelabel30"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkShowDownloadLink" runat="server" CssClass="forminput"></asp:CheckBox>
 								</div>
 							</div>
@@ -914,8 +848,7 @@
 										CssClass="settinglabel"
 										ForControl="chkIncludeInNews"
 										ID="SiteLabel34"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:CheckBox ID="chkIncludeInNews" runat="server" Checked="true" CssClass="forminput" />
 									<portal:mojoHelpLink ID="MojoHelpLink1" runat="server" HelpKey="Blog-IncludeInGoogleNews-help" />
 								</div>
@@ -926,8 +859,7 @@
 										CssClass="settinglabel"
 										ForControl="txtPublicationName"
 										ID="SiteLabel33"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtPublicationName" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink2" runat="server" HelpKey="Blog-PublicationName-help" />
 								</div>
@@ -938,8 +870,7 @@
 										CssClass="settinglabel"
 										ForControl="txtPubLanguage"
 										ID="SiteLabel36"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtPubLanguage" runat="server" MaxLength="7" CssClass="forminput smalltextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink3" runat="server" HelpKey="Blog-PublicationLanguage-help" />
 								</div>
@@ -950,8 +881,7 @@
 										CssClass="settinglabel"
 										ForControl="txtPubGenres"
 										ID="SiteLabel37"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtPubGenres" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink4" runat="server" HelpKey="Blog-PublicationGenres-help" />
 								</div>
@@ -962,8 +892,7 @@
 										CssClass="settinglabel"
 										ForControl="txtPubKeyWords"
 										ID="SiteLabel38"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtPubKeyWords" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink5" runat="server" HelpKey="Blog-PublicationKeyWords-help" />
 								</div>
@@ -974,8 +903,7 @@
 										CssClass="settinglabel"
 										ForControl="txtPubGeoLocations"
 										ID="SiteLabel39"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtPubGeoLocations" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink6" runat="server" HelpKey="Blog-PublicationGeoLocation-help" />
 								</div>
@@ -986,8 +914,7 @@
 										CssClass="settinglabel"
 										ForControl="txtPubStockTickers"
 										ID="SiteLabel40"
-										ResourceFile="BlogResources"
-									/>
+										ResourceFile="BlogResources" />
 									<asp:TextBox ID="txtPubStockTickers" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink7" runat="server" HelpKey="Blog-PublicationStockTickers-help" />
 								</div>
@@ -998,8 +925,7 @@
 							<mp:SiteLabel runat="server"
 								ConfigKey="spacer"
 								CssClass="settinglabel"
-								ID="SiteLabel35"
-							/>
+								ID="SiteLabel35" />
 							<div class="forminput">
 								<portal:mojoButton ID="btnUpdate" runat="server" ValidationGroup="blog" SkinID="SaveButton" />
 								<portal:mojoButton ID="btnSaveAndPreview" runat="server" ValidationGroup="blog" Visible="false" SkinID="InfoButton" />
@@ -1018,27 +944,23 @@
 									CssClass="txterror"
 									Display="None"
 									ID="reqTitle"
-									ValidationGroup="blog"
-								></asp:RequiredFieldValidator>
+									ValidationGroup="blog"></asp:RequiredFieldValidator>
 								<asp:RequiredFieldValidator runat="server"
 									ControlToValidate="dpBeginDate"
 									CssClass="txterror"
 									Display="None"
 									ID="reqStartDate"
-									ValidationGroup="blog"
-								></asp:RequiredFieldValidator>
+									ValidationGroup="blog"></asp:RequiredFieldValidator>
 								<asp:RegularExpressionValidator runat="server"
 									ControlToValidate="txtItemUrl"
 									Display="None"
 									ID="regexUrl"
 									ValidationExpression="((~/){1}\S+)"
-									ValidationGroup="blog"
-								/>
+									ValidationGroup="blog" />
 								<asp:ValidationSummary runat="server"
 									CssClass="txterror"
 									ID="vSummary"
-									ValidationGroup="blog"
-								></asp:ValidationSummary>
+									ValidationGroup="blog"></asp:ValidationSummary>
 							</div>
 						</div>
 

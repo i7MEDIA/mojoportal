@@ -1853,14 +1853,18 @@ namespace mojoPortal.Web.BlogUI
 
 			btnAddMeta.Text = BlogResources.AddMetaButton;
 			grdContentMeta.Columns[0].HeaderText = string.Empty;
-			grdContentMeta.Columns[1].HeaderText = BlogResources.ContentMetaNameLabel;
-			grdContentMeta.Columns[2].HeaderText = BlogResources.ContentMetaMetaContentLabel;
+			grdContentMeta.Columns[1].HeaderText = BlogResources.MetaNameProperty;
+			grdContentMeta.Columns[2].HeaderText = BlogResources.ContentMetaNameLabel;
+			grdContentMeta.Columns[3].HeaderText = BlogResources.MetaContentProperty;
+			grdContentMeta.Columns[4].HeaderText = BlogResources.ContentMetaContentLabel;
+			grdContentMeta.Columns[5].HeaderText = BlogResources.ContentMetaSchemeLabel;
+			grdContentMeta.Columns[6].HeaderText = BlogResources.ContentMetaLangCodeLabel;
+			grdContentMeta.Columns[7].HeaderText = BlogResources.ContentMetaDirLabel;
 
 			btnAddMetaLink.Text = BlogResources.AddMetaLinkButton;
-
 			grdMetaLinks.Columns[0].HeaderText = string.Empty;
 			grdMetaLinks.Columns[1].HeaderText = BlogResources.ContentMetaRelLabel;
-			grdMetaLinks.Columns[2].HeaderText = BlogResources.ContentMetaMetaHrefLabel;
+			grdMetaLinks.Columns[2].HeaderText = BlogResources.ContentMetaHrefLabel;
 
 
 			btnUpload.Text = BlogResources.Upload;

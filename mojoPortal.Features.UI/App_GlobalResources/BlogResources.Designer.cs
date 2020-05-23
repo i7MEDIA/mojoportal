@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option or rebuild the Visual Studio project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class BlogResources {
@@ -1204,6 +1204,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Content.
+        /// </summary>
+        internal static string ContentMetaContentLabel {
+            get {
+                return ResourceManager.GetString("ContentMetaContentLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Content is required..
         /// </summary>
         internal static string ContentMetaContentRequired {
@@ -1285,6 +1294,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Href.
+        /// </summary>
+        internal static string ContentMetaHrefLabel {
+            get {
+                return ResourceManager.GetString("ContentMetaHrefLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HrefLang.
+        /// </summary>
+        internal static string ContentMetaHrefLangLabel {
+            get {
+                return ResourceManager.GetString("ContentMetaHrefLangLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lang.
         /// </summary>
         internal static string ContentMetaLangCodeLabel {
@@ -1321,24 +1348,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Content.
-        /// </summary>
-        internal static string ContentMetaMetaContentLabel {
-            get {
-                return ResourceManager.GetString("ContentMetaMetaContentLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Href.
-        /// </summary>
-        internal static string ContentMetaMetaHrefLabel {
-            get {
-                return ResourceManager.GetString("ContentMetaMetaHrefLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string ContentMetaNameLabel {
@@ -1371,15 +1380,6 @@ namespace Resources {
         internal static string ContentMetaSchemeLabel {
             get {
                 return ResourceManager.GetString("ContentMetaSchemeLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HrefLang.
-        /// </summary>
-        internal static string ContentMetHrefLangLabel {
-            get {
-                return ResourceManager.GetString("ContentMetHrefLangLabel", resourceCulture);
             }
         }
         

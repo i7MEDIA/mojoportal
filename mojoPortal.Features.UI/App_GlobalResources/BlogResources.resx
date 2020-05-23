@@ -642,10 +642,10 @@
   <data name="ContentMetaLinkRelRequired" xml:space="preserve">
     <value>Rel is required.</value>
   </data>
-  <data name="ContentMetaMetaContentLabel" xml:space="preserve">
+  <data name="ContentMetaContentLabel" xml:space="preserve">
     <value>Content</value>
   </data>
-  <data name="ContentMetaMetaHrefLabel" xml:space="preserve">
+  <data name="ContentMetaHrefLabel" xml:space="preserve">
     <value>Href</value>
   </data>
   <data name="ContentMetaNameLabel" xml:space="preserve">
@@ -660,7 +660,7 @@
   <data name="ContentMetaSchemeLabel" xml:space="preserve">
     <value>Scheme</value>
   </data>
-  <data name="ContentMetHrefLangLabel" xml:space="preserve">
+  <data name="ContentMetaHrefLangLabel" xml:space="preserve">
     <value>HrefLang</value>
   </data>
   <data name="MetaAdditionalLabel" xml:space="preserve">
