@@ -35,9 +35,7 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-#if!NET35
 using System.Runtime.ExceptionServices;
-#endif
 using System.Security;
 using System.Security.Cryptography;
 using System.Threading;
@@ -55,7 +53,6 @@ using mojoPortal.Web.Caching;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.Security;
 using Resources;
-#if !NET35 && !NET40
 using System.Web.Mvc;
 using System.Web.Http;
 using System.Web.Optimization;
@@ -63,7 +60,6 @@ using mojoPortal.Web.Routing;
 using mojoPortal.Web.Optimization;
 using System.Net;
 using System.Dynamic;
-#endif
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 
@@ -85,12 +81,7 @@ namespace mojoPortal.Web
 
 		private static bool debugLog = log.IsDebugEnabled;
 
-		private static bool registeredVirtualThemes = false;
-
-		public static bool RegisteredVirtualThemes
-		{
-			get { return registeredVirtualThemes; }
-		}
+		public static bool RegisteredVirtualThemes { get; private set; } = false;
 
 		// this changes everytime the app starts and the token is required when calling /Services/FileService.ashx
 		// to help mitigate against xsrf attacks
@@ -248,7 +239,7 @@ namespace mojoPortal.Web
 
 			//#endif
 
-#if!NET35 && !NET40
+//#if!NET35 && !NET40
 
 			if (WebConfigSettings.UnobtrusiveValidationMode == "WebForms")
 			{
@@ -263,7 +254,7 @@ namespace mojoPortal.Web
 				}
 				
 			}
-#endif
+//#endif
 
 
 		}
@@ -421,7 +412,7 @@ namespace mojoPortal.Web
 			// in less than full trust it blows up even with a try catch if present in 
 			// Application_Start, moving into a separate method works with a try catch
 			HostingEnvironment.RegisterVirtualPathProvider(new mojoVirtualPathProvider());
-			registeredVirtualThemes = true;
+			RegisteredVirtualThemes = true;
 
 		}
 
@@ -710,71 +701,6 @@ namespace mojoPortal.Web
 				}
 			}
 		}
-
-
-		protected void Profile_MigrateAnonymous(Object sender, ProfileMigrateEventArgs args)
-		{
-			//TODO: maybe support capturing profile properties for anonymous users
-			// then if they register transfer them to the new user
-
-		   
-			//WebProfile anonymousProfile = new WebProfile(args.Context.Profile);
-			
-
-			//Profile.ZipCode = anonymousProfile;
-			//Profile.CityAndState = anonymousProfile.CityAndState;
-			//Profile.StockSymbols = anonymousProfile.StockSymbols;
-
-			////////
-			// Delete the anonymous profile. If the anonymous ID is not 
-			// needed in the rest of the site, remove the anonymous cookie.
-
-			//ProfileManager.DeleteProfile(args.AnonymousID);
-			//AnonymousIdentificationModule.ClearAnonymousIdentifier();
-
-			// Delete the user row that was created for the anonymous user.
-			//Membership.DeleteUser(args.AnonymousID, true);
-		}
-
-		#region Forms Authentication Handlers
-
-		//public void FormsAuthentication_OnAuthenticate(object sender, FormsAuthenticationEventArgs args)
-		//{
-		//    if (FormsAuthentication.CookiesSupported)
-		//    {
-		//        if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
-		//        {
-		//            try
-		//            {
-						
-
-		//                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(
-		//                  Request.Cookies[FormsAuthentication.FormsCookieName].Value);
-
-						
-
-		//                //args.User = new System.Security.Principal.GenericPrincipal(
-		//                //  new Samples.AspNet.Security.MyFormsIdentity(ticket),
-		//                //  new string[0]);
-		//            }
-		//            catch (Exception e)
-		//            {
-		//                // Decrypt method failed.
-		//            }
-		//        }
-		//    }
-		//    else
-		//    {
-		//        throw new HttpException("Cookieless Forms Authentication is not " +
-		//                                "supported for this application.");
-		//    }
-		//}
-
-		#endregion
-
-
-		
-
 	}
 }
 

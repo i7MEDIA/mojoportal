@@ -52,9 +52,6 @@ namespace mojoPortal.Web.UI.Pages
             menu.TreeNodeDataBound += new TreeNodeEventHandler(menu_TreeNodeDataBound);
             if (treeViewPopulateOnDemand)
             {
-#if NET35
-            if (WebConfigSettings.DisablePageViewStateByDefault) {Page.EnableViewState = true; }
-#endif
                 menu.EnableViewState = true;
                 menu.TreeNodeExpanded += new TreeNodeEventHandler(menu_TreeNodeExpanded);
             }
