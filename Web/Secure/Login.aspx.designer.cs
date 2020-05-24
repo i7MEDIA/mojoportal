@@ -31,13 +31,13 @@ namespace mojoPortal.Web.UI.Pages {
         protected global::System.Web.UI.WebControls.Panel pnlLogin;
         
         /// <summary>
-        /// SiteLabel1 control.
+        /// litHeading control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel1;
+        protected global::System.Web.UI.WebControls.Literal litHeading;
         
         /// <summary>
         /// pnlTopContent control.
@@ -74,42 +74,6 @@ namespace mojoPortal.Web.UI.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.LoginControl login1;
-        
-        /// <summary>
-        /// pnlWindowsLive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlWindowsLive;
-        
-        /// <summary>
-        /// livelogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.WindowsLiveLoginControl livelogin;
-        
-        /// <summary>
-        /// divLiteralOr control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel divLiteralOr;
-        
-        /// <summary>
-        /// litOr control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litOr;
         
         /// <summary>
         /// pnlOpenID control.

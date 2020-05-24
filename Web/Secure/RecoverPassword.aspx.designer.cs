@@ -13,15 +13,6 @@ namespace mojoPortal.Web.UI.Pages {
     public partial class RecoverPassword {
         
         /// <summary>
-        /// phMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phMessage;
-        
-        /// <summary>
         /// pnlRecoverPassword control.
         /// </summary>
         /// <remarks>
@@ -31,13 +22,31 @@ namespace mojoPortal.Web.UI.Pages {
         protected global::System.Web.UI.WebControls.Panel pnlRecoverPassword;
         
         /// <summary>
-        /// SiteLabel1 control.
+        /// lblHead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel1;
+        protected global::mojoPortal.Web.Controls.SiteLabel lblHead;
+        
+        /// <summary>
+        /// lbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl;
+        
+        /// <summary>
+        /// litMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litMessage;
         
         /// <summary>
         /// PasswordRecovery1 control.
@@ -56,5 +65,14 @@ namespace mojoPortal.Web.UI.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoLabel lblMailError;
+        
+        /// <summary>
+        /// litMailError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litMailError;
     }
 }

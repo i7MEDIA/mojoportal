@@ -1,23 +1,8 @@
-/// Author:					    
-/// Created:				    2006-04-15
-///	Last Modified:              2018-03-28
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
 using System;
 using System.Globalization;
-using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
 using System.Web.Security;
-using System.Net;
-using System.Net.Mail;
 using log4net;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.Controls;
@@ -27,7 +12,7 @@ using Resources;
 namespace mojoPortal.Web.UI.Pages
 {
 
-    public partial class RecoverPassword : NonCmsBasePage
+	public partial class RecoverPassword : NonCmsBasePage
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(RecoverPassword));
 
@@ -67,34 +52,28 @@ namespace mojoPortal.Web.UI.Pages
             bool allow = ((siteSettings.AllowPasswordRetrieval || siteSettings.AllowPasswordReset) && (!siteSettings.UseLdapAuth ||
                                                                            (siteSettings.UseLdapAuth && siteSettings.AllowDbFallbackWithLdap)));
 
-            if ((!allow))
+            if (!allow)
             {
                 SiteUtils.RedirectToAccessDeniedPage(this);
                 return;
             }
-
+			MPContent.Controls.Add(DisplaySettings);
             PopulateLabels();
+			
         }
 
         private void PopulateLabels()
         {
             Title = SiteUtils.FormatPageTitle(siteSettings, Resource.PasswordRecoveryTitle);
-
-            MetaDescription = Server.HtmlEncode(string.Format(CultureInfo.InvariantCulture,
+			//lblHead.Format = coreDisplaySettings.DefaultPageHeaderMarkup;
+			//lblHead.DataBind();
+			MetaDescription = Server.HtmlEncode(string.Format(CultureInfo.InvariantCulture,
                 Resource.RecoverPasswordMetaDescriptionFormat,
                 siteSettings.SiteName));
 			if (Request.IsAuthenticated)
 			{
-				pnlRecoverPassword.Visible = false;
-
-				AlertPanel alertPanel = new AlertPanel
-				{
-					SkinID = "Error"
-				};
-				Literal litMessage = new Literal();
-				litMessage.Text = Resource.PasswordRecoveryNotAllowedWhenAuthenticated;
-				alertPanel.Controls.Add(litMessage);
-				phMessage.Controls.Add(alertPanel);
+				PasswordRecovery1.Visible = false;
+				litMessage.Text = string.Format(DisplaySettings.AlertErrorMarkup, Resource.PasswordRecoveryNotAllowedWhenAuthenticated);
 			}
 
             EnterUserNameLabel = (Label)this.PasswordRecovery1.UserNameTemplateContainer.FindControl("lblEnterUserName");
@@ -143,9 +122,9 @@ namespace mojoPortal.Web.UI.Pages
                 reqAnswer.ErrorMessage = Resource.PasswordRecoveryAnswerRequired;
             }
 
-            this.PasswordRecovery1.GeneralFailureText = Resource.PasswordRecoveryGeneralFailureText;
-            this.PasswordRecovery1.QuestionFailureText = Resource.PasswordRecoveryQuestionFailureText;
-            this.PasswordRecovery1.UserNameFailureText = Resource.PasswordRecoveryUserNameFailureText;
+			this.PasswordRecovery1.GeneralFailureText = string.Format(DisplaySettings.AlertErrorMarkup, Resource.PasswordRecoveryGeneralFailureText);
+            this.PasswordRecovery1.QuestionFailureText = string.Format(DisplaySettings.AlertErrorMarkup, Resource.PasswordRecoveryQuestionFailureText);
+            this.PasswordRecovery1.UserNameFailureText = string.Format(DisplaySettings.AlertErrorMarkup, Resource.PasswordRecoveryUserNameFailureText);
 
             this.PasswordRecovery1.MailDefinition.From = siteSettings.DefaultEmailFromAddress;
             this.PasswordRecovery1.MailDefinition.Subject

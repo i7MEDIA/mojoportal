@@ -6,7 +6,7 @@
 	<portal:CoreDisplaySettings id="coreDisplaySettings" runat="server" />
 	<asp:Panel ID="pnlLogin" runat="server" CssClass="panelwrapper login">
 		<div class="modulecontent">
-			<%= coreDisplaySettings.DefaultPageHeaderMarkupTop %><mp:SiteLabel ID="SiteLabel1" runat="server" ConfigKey="SignInLabel" UseLabelTag="false"/><%= coreDisplaySettings.DefaultPageHeaderMarkupBottom %>
+			<asp:Literal ID="litHeading" runat="server" />
 			<asp:Panel ID="pnlTopContent" runat="server" Visible="false" CssClass="logincontent logincontenttop" EnableViewState="false">
 				<asp:Literal ID="litTopContent" runat="server" EnableViewState="false" />
 			</asp:Panel>
@@ -14,14 +14,6 @@
 				<mp:Login ID="login1" runat="server" />
 			</asp:Panel>
 			<div class="floatpanel thirdpartyloginpanel">
-				<asp:Panel ID="pnlWindowsLive" runat="server" Visible="false">
-					<div style="padding: 0px 0px 0px 6px;">
-						<portal:WindowsLiveLoginControl ID="livelogin" runat="server" />
-					</div>
-				</asp:Panel>
-				<asp:Panel ID="divLiteralOr" runat="server" Visible="false" CssClass="clearpanel">
-					<asp:Literal ID="litOr" runat="server" />
-				</asp:Panel>
 				<asp:Panel ID="pnlOpenID" runat="server" Visible="false"></asp:Panel>
 			</div>
 			<asp:Panel ID="pnlBottomContent" runat="server" Visible="false" CssClass="clearpanel logincontent logincontentbottom" EnableViewState="false">

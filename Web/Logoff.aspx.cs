@@ -98,7 +98,11 @@ namespace mojoPortal.Web.UI.Pages
 
             try
             {
-                if (Session != null) { Session.Abandon(); }
+                if (Session != null)
+				{
+					Session.Clear();
+					Session.Abandon();
+				}
             }
             catch (HttpException) { }
 
