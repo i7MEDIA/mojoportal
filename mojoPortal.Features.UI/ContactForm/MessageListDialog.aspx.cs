@@ -223,7 +223,9 @@ namespace mojoPortal.Web.ContactUI
 			pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", pageNumber);
 			timeOffset = SiteUtils.GetUserTimeOffset();
 			timeZone = SiteUtils.GetUserTimeZone();
-
+			//var headControls = Parent.FindControl("phHead");
+			//todo: add control to layout.master to allow adding head elements to other pages.
+			//headControls.Controls.Add(litHead);
 			if (moduleId > -1)
 			{
 				Module m = GetModule(moduleId, ContactFormMessage.FeatureGuid);
@@ -251,7 +253,7 @@ namespace mojoPortal.Web.ContactUI
 			//SetupScript();
 		}
 
-
+		
 		override protected void OnInit(EventArgs e)
 		{
 			base.OnInit(e);

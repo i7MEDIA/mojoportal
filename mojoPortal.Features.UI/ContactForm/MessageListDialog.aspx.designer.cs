@@ -58,15 +58,6 @@ namespace mojoPortal.Web.ContactUI {
         protected global::mojoPortal.Web.Controls.mojoGridView grdContactFormMessage;
         
         /// <summary>
-        /// pgrContactFormMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoCutePager pgrContactFormMessage;
-        
-        /// <summary>
         /// lnkRefresh control.
         /// </summary>
         /// <remarks>
@@ -101,5 +92,14 @@ namespace mojoPortal.Web.ContactUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.BasePanel pnlMessage;
+        
+        /// <summary>
+        /// pgrContactFormMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoCutePager pgrContactFormMessage;
     }
 }
