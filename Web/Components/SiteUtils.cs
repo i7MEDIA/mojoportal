@@ -885,7 +885,10 @@ namespace mojoPortal.Web
 			RedirectToAccessDeniedPage();
 		}
 
-
+		//public static void RedirectToAccessDeniedPage()
+		//{
+		//	RedirectToAccessDeniedPage("");
+		//}
 		public static void RedirectToAccessDeniedPage(string returnUrl = "")
 		{
 			if (HttpContext.Current == null) { return; }

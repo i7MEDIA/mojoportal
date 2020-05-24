@@ -483,6 +483,15 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetStringProperty("AlphaPagerChars", "ABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
 		}
 
+		public static bool AdaptHtmlDirectionToCulture
+		{
+			get { return ConfigHelper.GetBoolProperty("AdaptHtmlDirectionToCulture", false); }
+		}
+
+		/*
+		 * Menu hiding options. As of version 2.8, these are in the <portal:CoreDisplaySettings /> 
+		 * control used in the theme.skin.
+		 */ 
 		public static bool HideAllMenusOnSiteClosedPage
 		{
 			get { return ConfigHelper.GetBoolProperty("HideAllMenusOnSiteClosedPage", true); }
@@ -491,11 +500,6 @@ namespace mojoPortal.Web
 		public static bool HideMenusOnLoginPage
 		{
 			get { return ConfigHelper.GetBoolProperty("HideMenusOnLoginPage", true); }
-		}
-
-		public static bool AdaptHtmlDirectionToCulture
-		{
-			get { return ConfigHelper.GetBoolProperty("AdaptHtmlDirectionToCulture", false); }
 		}
 
 		public static bool HideMenusOnSiteMap
@@ -541,6 +545,11 @@ namespace mojoPortal.Web
 		public static bool HidePageViewModeIfNoWorkflowItems
 		{
 			get { return ConfigHelper.GetBoolProperty("HidePageViewModeIfNoWorkflowItems", true); }
+		}
+
+		public static bool SuppressMenuOnBuiltIn404Page
+		{
+			get { return ConfigHelper.GetBoolProperty("SuppressMenuOnBuiltIn404Page", true); }
 		}
 
 		public static bool ShowForumPostsInMemberList
@@ -2293,7 +2302,7 @@ namespace mojoPortal.Web
 
 		public static bool ForceHttpForCanonicalUrlsThatDontRequireSsl
 		{
-			get { return ConfigHelper.GetBoolProperty("ForceHttpForCanonicalUrlsThatDontRequireSsl", true); }
+			get { return ConfigHelper.GetBoolProperty("ForceHttpForCanonicalUrlsThatDontRequireSsl", false); }
 		}
 
 		public static bool ShowWarningWhenSslIsAvailableButNotUsedWithLoginModule
@@ -2949,10 +2958,7 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("EnableGoogle404Enhancement", true); }
 		}
 
-		public static bool SuppressMenuOnBuiltIn404Page
-		{
-			get { return ConfigHelper.GetBoolProperty("SuppressMenuOnBuiltIn404Page", true); }
-		}
+
 
 		
 

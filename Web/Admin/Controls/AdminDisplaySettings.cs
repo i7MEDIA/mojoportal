@@ -9,10 +9,8 @@ namespace mojoPortal.Web.AdminUI
 	/// </summary>
 	public class AdminDisplaySettings : WebControl
 	{
-		public string SiteSettingsNoticeMarkup { get; set; } = "<div class='alert alert-info'>{0}</div>";
-		public string SiteSettingsAlertMarkup { get; set; } = "<div class='alert alert-danger'>{0}</div>";
-		public string SiteSettingsPanelHeadingMarkup { get; set; } = "<h3>{0} <small>{1}</small></h3>";
-		public string SiteSettingsSubPanelHeadingMarkup { get; set; } = "<h4>{0} <small>{1}</small></h4>";
+		public string PanelHeadingMarkup { get; set; } = "<h3>{0} <small>{1}</small></h3>";
+		public string SubPanelHeadingMarkup { get; set; } = "<h4>{0} <small>{1}</small></h4>";
 		public string SecurityProtocolCheckResponseMarkup { get; set; } = "<div>{0}</div>";
 		public string ModuleSettingsSettingPanelElement { get; set; } = "div";
 		public string ModuleSettingsSettingLabelMarkup { get; set; } = "<label class=\"{0}\" for=\"{1}\">{2}</label>";

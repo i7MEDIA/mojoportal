@@ -59,7 +59,7 @@ namespace mojoPortal.Web
 		private int webOnly = (int)ContentPublishMode.WebOnly;
 		private string analyticsSection = string.Empty;
 
-
+		public CoreDisplaySettings DisplaySettings = new CoreDisplaySettings();
 		private mojoDropDownList ddlContentView = new mojoDropDownList();
 		private PageViewMode viewMode = PageViewMode.WorkInProgress;
 

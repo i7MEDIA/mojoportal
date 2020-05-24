@@ -1,7 +1,3 @@
-/// Author:             
-/// Created:            2006-01-20
-/// Last Modified:      2019-01-09
-
 using System;
 using System.Globalization;
 using System.Web;
@@ -314,11 +310,7 @@ namespace mojoPortal.Web
                 {
                     if (c is mojoUserControl) { leftModuleCount++; }
                 }
-
             }
-
-            
-
         }
 
         private void CountVisibleMenus()
