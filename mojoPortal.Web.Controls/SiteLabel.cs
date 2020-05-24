@@ -15,6 +15,7 @@
 /// 2008-08-15  removed use of viewstate
 
 using System;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -33,6 +34,8 @@ namespace mojoPortal.Web.Controls
 		public bool UseLabelTag { get; set; } = true;
 		public string ForControl { get; set; } = string.Empty;
 		public bool ShowWarningOnMissingKey { get; set; } = true;
+		public string Format { get; set; } = "{0}";
+
 
 		#endregion
 
@@ -54,8 +57,9 @@ namespace mojoPortal.Web.Controls
                 writer.Write("[" + this.ID + "]");
                 return;
             }
-
-            DoRender(writer);
+			if (string.IsNullOrWhiteSpace(ConfigKey)) return;
+			//DoRender(writer);
+			writer.Write(GetControlMarkup());
         }
 
         private void DoRender(HtmlTextWriter writer)
@@ -79,7 +83,6 @@ namespace mojoPortal.Web.Controls
 
         private void RenderLabelElement(HtmlTextWriter writer)
         {
-            
             writer.WriteBeginTag("label");
             
             if (ForControl.Length > 0)
@@ -101,15 +104,14 @@ namespace mojoPortal.Web.Controls
 
             if ((ConfigKey != "EmptyLabel") && (ConfigKey != "spacer"))
             {
-                string text = HttpContext.GetGlobalResourceObject(ResourceFile, ConfigKey) as string;
-                if (text == null)
-                {
-                    text = ShowWarningOnMissingKey
-                               ? string.Format("{0} not found in {1}.resx file", ConfigKey, ResourceFile)
-                               : ConfigKey;
-                }
-                // should we be html encoding here?
-                writer.WriteEncodedText(text);
+				if (!(HttpContext.GetGlobalResourceObject(ResourceFile, ConfigKey) is string text))
+				{
+					text = ShowWarningOnMissingKey
+							   ? string.Format("{0} not found in {1}.resx file", ConfigKey, ResourceFile)
+							   : ConfigKey;
+				}
+				// should we be html encoding here?
+				writer.WriteEncodedText(string.Format(Format,text));
 
             }
 
@@ -128,18 +130,16 @@ namespace mojoPortal.Web.Controls
 
             if ((ConfigKey != "EmptyLabel") && (ConfigKey != "spacer"))
             {
-                string text = HttpContext.GetGlobalResourceObject(ResourceFile, ConfigKey) as string;
-                if (text == null)
-                {
-                    text = ShowWarningOnMissingKey
-                               ? string.Format("{0} not found in {1}.resx file", ConfigKey, ResourceFile)
-                               : ConfigKey;
-                }
+				if (!(HttpContext.GetGlobalResourceObject(ResourceFile, ConfigKey) is string text))
+				{
+					text = ShowWarningOnMissingKey
+							   ? string.Format("{0} not found in {1}.resx file", ConfigKey, ResourceFile)
+							   : ConfigKey;
+				}
 
-                // should we be html encoding here?
-                writer.WriteEncodedText(text);
-
-            }
+				// should we be html encoding here?
+				writer.WriteEncodedText(string.Format(Format, text));
+			}
 
             writer.WriteEndTag("span");
 
@@ -149,15 +149,15 @@ namespace mojoPortal.Web.Controls
         {
             if ((ConfigKey != "EmptyLabel") && (ConfigKey != "spacer"))
             {
-                string text = HttpContext.GetGlobalResourceObject(ResourceFile, ConfigKey) as string;
-                if (text == null)
-                {
-                    text = ShowWarningOnMissingKey
-                               ? string.Format("{0} not found in {1}.resx file", ConfigKey, ResourceFile)
-                               : ConfigKey;
-                }
-                // should we be html encoding here?
-                writer.WriteEncodedText(text);
+				if (!(HttpContext.GetGlobalResourceObject(ResourceFile, ConfigKey) is string text))
+				{
+					text = ShowWarningOnMissingKey
+							   ? string.Format("{0} not found in {1}.resx file", ConfigKey, ResourceFile)
+							   : ConfigKey;
+				}
+				// should we be html encoding here?
+				text = string.Format(Format, text);
+				writer.WriteEncodedText(text);
             }
         }
 
@@ -180,7 +180,7 @@ namespace mojoPortal.Web.Controls
                                : ConfigKey;
                 }
             }
-
+			
             string forString = string.Empty;
             if (ForControl.Length > 0)
             {
@@ -196,14 +196,14 @@ namespace mojoPortal.Web.Controls
             if (CssClass.Length > 0)
             {
                 return UseLabelTag
-                           ? string.Format("<label " + forString + " class='{0}'>{1}</label>", CssClass, text)
-                           : string.Format("<span class='{0}'>{1}</span>", CssClass, text);
+                           ? string.Format(Format,string.Format("<label " + forString + " class='{0}'>{1}</label>", CssClass, text))
+                           : string.Format(Format, string.Format("<span class='{0}'>{1}</span>", CssClass, text));
             }
             else
             {
                 return UseLabelTag
-                           ? string.Format("<label " + forString + ">{0}</label>", text)
-                           : text;
+                           ? string.Format(Format, string.Format("<label " + forString + ">{0}</label>", text))
+                           : string.Format(Format, text);
             }
         }
     }

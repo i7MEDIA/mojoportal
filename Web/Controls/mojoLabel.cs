@@ -10,17 +10,27 @@ namespace mojoPortal.Web.UI
     /// </summary>
     public class mojoLabel : Label
     {
-        protected override void Render(System.Web.UI.HtmlTextWriter writer)
-        {
-            if (HttpContext.Current == null)
-            {
-                writer.Write("[" + this.ID + "]");
-                return;
-            }
+		public string Format { get; set; } = string.Empty;
+		protected override void Render(System.Web.UI.HtmlTextWriter writer)
+		{
+			if (HttpContext.Current == null)
+			{
+				writer.Write("[" + this.ID + "]");
+				return;
+			}
 
-            if(Text.Length > 0) { base.Render(writer); }
-        }
-
+			if (Text.Length > 0)
+			{
+				if (string.IsNullOrWhiteSpace(Format))
+				{
+					base.Render(writer);
+				}
+				else
+				{
+					writer.Write(string.Format(Format, Text));
+				}
+			}
+		}
     }
 
     /// <summary>
