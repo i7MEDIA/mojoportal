@@ -24,23 +24,6 @@ namespace mojoPortal.Web.Editor
 {
 	public class CKEditorControl : TextBox
 	{
-		//http://simonbartlett.co.uk/2010/05/ckeditor-and-asp-net/
-
-
-		private string siteRoot = "~/";
-		private string basePath = WebConfigSettings.CKEditorBasePath;
-		private string customConfigPath = WebConfigSettings.CKEditorConfigPath;
-
-		private Direction textDirection = Direction.LeftToRight;
-		private ToolBar toolBar = ToolBar.AnonymousUser;
-		private string editorCSSUrl = string.Empty;
-		private bool fullPageMode = false;
-		private string templatesJsonUrl = string.Empty;
-		private string stylesJsonUrl = string.Empty;
-
-		// kama, v2, office2003
-		private string skin = "kama";
-
 		private bool htmlEncode = false;
 
 		public override string Text
@@ -59,142 +42,42 @@ namespace mojoPortal.Web.Editor
 			}
 		}
 
-		public string CustomConfigPath
-		{
-			get { return customConfigPath; }
-			set { customConfigPath = value; }
-		}
+		public string CustomConfigPath { get; set; } = WebConfigSettings.CKEditorConfigPath;
 
 
-		public string BasePath
-		{
-			get { return basePath; }
-			set { basePath = value; }
-		}
+		public string BasePath { get; set; } = WebConfigSettings.CKEditorBasePath;
 
-		public string SiteRoot
-		{
-			get { return siteRoot; }
-			set { siteRoot = value; }
-		}
+		public string SiteRoot { get; set; } = "~/";
 
-		public string StylesJsonUrl
-		{
-			get { return stylesJsonUrl; }
-			set { stylesJsonUrl = value; }
-		}
+		public string StylesJsonUrl { get; set; } = string.Empty;
+		public string Templates { get; set; } = string.Empty;
 
-		private string templates = string.Empty;
-		public string Templates
-		{
-			get { return templates; }
-			set { templates = value; }
-		}
+		public string TemplatesJsonUrl { get; set; } = string.Empty;
 
-		public string TemplatesJsonUrl
-		{
-			get { return templatesJsonUrl; }
-			set { templatesJsonUrl = value; }
-		}
+		public string Skin { get; set; } = "kama";
 
-		public string Skin
-		{
-			get { return skin; }
-			set { skin = value; }
-		}
+		public ToolBar ToolBar { get; set; } = ToolBar.AnonymousUser;
 
-		public ToolBar ToolBar
-		{
-			get { return toolBar; }
-			set { toolBar = value; }
-		}
+		public Direction TextDirection { get; set; } = Direction.LeftToRight;
 
-		public Direction TextDirection
-		{
-			get { return textDirection; }
-			set { textDirection = value; }
-		}
+		public string EditorCSSUrl { get; set; } = string.Empty;
 
-		public string EditorCSSUrl
-		{
-			get { return editorCSSUrl; }
-			set { editorCSSUrl = value; }
-		}
+		public bool FullPageMode { get; set; } = false;
 
-		public bool FullPageMode
-		{
-			get { return fullPageMode; }
-			set { fullPageMode = value; }
-		}
+		public bool EnableFileBrowser { get; set; } = false;
 
-		private bool enableFileBrowser = false;
+		public bool ForcePasteAsPlainText { get; set; } = false;
+		public string FileManagerUrl { get; set; } = string.Empty;
+		public string DropFileUploadUrl { get; set; } = string.Empty;
 
-		public bool EnableFileBrowser
-		{
-			get { return enableFileBrowser; }
-			set { enableFileBrowser = value; }
-		}
+		public bool EntityEncode { get; set; } = false;
 
-		private bool forcePasteAsPlainText = false;
+		public bool UseGoodbyePrompt { get; set; } = true;
+		public bool DisableViewState { get; set; } = true;
 
-		public bool ForcePasteAsPlainText
-		{
-			get { return forcePasteAsPlainText; }
-			set { forcePasteAsPlainText = value; }
-		}
+		public bool AutoFocus { get; set; } = false;
 
-		private string fileManagerUrl = string.Empty;
-		public string FileManagerUrl
-		{
-			get { return fileManagerUrl; }
-			set { fileManagerUrl = value; }
-		}
-
-		private string dropFileUploadUrl = string.Empty;
-		public string DropFileUploadUrl
-		{
-			get { return dropFileUploadUrl; }
-			set { dropFileUploadUrl = value; }
-		}
-
-		private bool entityEncode = false;
-
-		public bool EntityEncode
-		{
-			get { return entityEncode; }
-			set { entityEncode = value; }
-		}
-
-		private bool useGoodbyePrompt = true;
-
-		public bool UseGoodbyePrompt
-		{
-			get { return useGoodbyePrompt; }
-			set { useGoodbyePrompt = value; }
-		}
-
-		private bool disableViewState = true;
-		public bool DisableViewState
-		{
-			get { return disableViewState; }
-			set { disableViewState = value; }
-		}
-
-		private bool autoFocus = false;
-
-		public bool AutoFocus
-		{
-			get { return autoFocus; }
-			set { autoFocus = value; }
-		}
-
-		private string editorBodyCssClass = "wysiwygeditor modulecontent art-postcontent";
-
-		public string EditorBodyCssClass
-		{
-			get { return editorBodyCssClass; }
-			set { editorBodyCssClass = value; }
-		}
+		public string EditorBodyCssClass { get; set; } = "wysiwygeditor modulecontent art-postcontent";
 
 		protected override void OnInit(EventArgs e)
 		{
@@ -205,12 +88,12 @@ namespace mojoPortal.Web.Editor
 
 			htmlEncode = WebConfigSettings.CKeditorEncodeBrackets;
 
-			if (siteRoot.StartsWith("~/"))
+			if (SiteRoot.StartsWith("~/"))
 			{
-				siteRoot = ResolveUrl(siteRoot);
+				SiteRoot = ResolveUrl(SiteRoot);
 			}
 
-			if (disableViewState)
+			if (DisableViewState)
 			{
 				EnableViewState = false;
 			}
@@ -262,8 +145,8 @@ namespace mojoPortal.Web.Editor
 			script.Append("\n<script type=\"text/javascript\">");
 			script.Append("var editor" + this.ClientID + " = CKEDITOR.replace('" + this.ClientID + "'");
 			script.Append(", { ");
-			script.Append("customConfig : '" + ResolveUrl(customConfigPath) + "' ");
-			script.Append(", baseHref : '" + siteRoot + "'");
+			script.Append("customConfig : '" + ResolveUrl(CustomConfigPath) + "' ");
+			script.Append(", baseHref : '" + SiteRoot + "'");
 
 			if (Height != Unit.Empty)
 			{
@@ -274,12 +157,12 @@ namespace mojoPortal.Web.Editor
 				script.Append(", height : 350");
 			}
 
-			if (autoFocus)
+			if (AutoFocus)
 			{
 				script.Append(",startupFocus : true");
 			}
 
-			script.Append(",skin:'" + skin + "'");
+			script.Append(",skin:'" + Skin + "'");
 			script.Append(",editorId:'" + ClientID + "'");
 
 			CultureInfo culture;
@@ -299,19 +182,19 @@ namespace mojoPortal.Web.Editor
 
 			script.Append(",language:'" + GetLanguageCode(culture) + "'");
 
-			if ((textDirection == Direction.RightToLeft) || (culture.TextInfo.IsRightToLeft))
+			if ((TextDirection == Direction.RightToLeft) || (culture.TextInfo.IsRightToLeft))
 			{
 				script.Append(", contentsLangDirection : 'rtl'");
 			}
 
-			if (editorCSSUrl.Length > 0)
+			if (EditorCSSUrl.Length > 0)
 			{
-				script.Append(", contentsCss : '" + editorCSSUrl + "'");
+				script.Append(", contentsCss : '" + EditorCSSUrl + "'");
 			}
 
-			script.Append(",bodyClass:'" + editorBodyCssClass + "' ");
+			script.Append(",bodyClass:'" + EditorBodyCssClass + "' ");
 
-			if ((enableFileBrowser) && (fileManagerUrl.Length > 0))
+			if ((EnableFileBrowser) && (FileManagerUrl.Length > 0))
 			{
 				//script.Append(",filebrowserWindowWidth : 860");
 				//script.Append(",filebrowserWindowHeight : 700");
@@ -323,21 +206,21 @@ namespace mojoPortal.Web.Editor
 
 				script.Append(",filebrowserWindowWidth : ~~((80 / 100) * screen.width)"); // 80% of window width
 				script.Append(",filebrowserWindowHeight : ~~((80 / 100) * screen.height)"); // 80% of window height
-				script.Append(",filebrowserBrowseUrl:'" + fileManagerUrl + "?editor=ckeditor&type=file'");
-				script.Append(",filebrowserImageBrowseUrl:'" + fileManagerUrl + "?editor=ckeditor&type=image'");
-				script.Append(",filebrowserFlashBrowseUrl:'" + fileManagerUrl + "?editor=ckeditorck&type=media'");
-				script.Append(",filebrowserImageBrowseLinkUrl:'" + fileManagerUrl + "?editor=ckeditor&type=file'");
+				script.Append(",filebrowserBrowseUrl:'" + FileManagerUrl + "?editor=ckeditor&type=file'");
+				script.Append(",filebrowserImageBrowseUrl:'" + FileManagerUrl + "?editor=ckeditor&type=image'");
+				script.Append(",filebrowserFlashBrowseUrl:'" + FileManagerUrl + "?editor=ckeditorck&type=media'");
+				script.Append(",filebrowserImageBrowseLinkUrl:'" + FileManagerUrl + "?editor=ckeditor&type=file'");
 				script.Append(",filebrowserWindowFeatures:'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes'");
 
-				if (dropFileUploadUrl.Length > 0)
+				if (DropFileUploadUrl.Length > 0)
 				{
-					script.Append(",dropFileUploadUrl:'" + Page.ResolveUrl(dropFileUploadUrl) + "'");
+					script.Append(",dropFileUploadUrl:'" + Page.ResolveUrl(DropFileUploadUrl) + "'");
 				}
 			}
 
 			// script.Append(",ignoreEmptyParagraph:true");
 
-			if (forcePasteAsPlainText)
+			if (ForcePasteAsPlainText)
 			{
 				script.Append(",forcePasteAsPlainText:true");
 			}
@@ -352,7 +235,7 @@ namespace mojoPortal.Web.Editor
 				script.Append(",htmlEncodeOutput:true");
 			}
 
-			if (fullPageMode)
+			if (FullPageMode)
 			{
 				script.Append(",fullPage : true ");
 			}
@@ -363,22 +246,22 @@ namespace mojoPortal.Web.Editor
 			script.Append("); ");
 			script.Append("function SetupEditor" + this.ClientID + "( editorObj){");
 
-			if (stylesJsonUrl.Length > 0)
+			if (StylesJsonUrl.Length > 0)
 			{
-				script.Append("editorObj.config.stylesCombo_stylesSet = 'mojo:" + stylesJsonUrl + "';");
+				script.Append("editorObj.config.stylesCombo_stylesSet = 'mojo:" + StylesJsonUrl + "';");
 			}
 
-			if (templatesJsonUrl.Length > 0)
+			if (TemplatesJsonUrl.Length > 0)
 			{
 				script.Append("editorObj.config.templates = 'mojo';");
-				script.Append("editorObj.config.templates_files = ['" + templatesJsonUrl + "'];");
+				script.Append("editorObj.config.templates_files = ['" + TemplatesJsonUrl + "'];");
 				script.Append("editorObj.config.templates_replaceContent = false;");
 			}
 
 			script.Append("editorObj.config.smiley_path = '" + Page.ResolveUrl("~/Data/SiteImages/emoticons/") + "';");
 			script.Append("editorObj.config.extraPlugins='onchange'; ");
 
-			if (useGoodbyePrompt)
+			if (UseGoodbyePrompt)
 			{
 				script.Append("editorObj.on( 'change', function(e) {");
 				//script.Append("hookupGoodbyePrompt(\"" + Page.Server.HtmlEncode(Resource.UnSavedChangesPrompt) + "\"); ");
@@ -411,7 +294,7 @@ namespace mojoPortal.Web.Editor
 			//htmldataprocessor,image,indent,justify,keystrokes,link,list,newpage,pagebreak,pastefromword,pastetext,preview,print,removeformat,save,smiley,showblocks,
 			//sourcearea,stylescombo,table,specialchar,tab,templates,toolbar,undo,wysiwygarea,wsc';
 
-			switch (toolBar)
+			switch (ToolBar)
 			{
 				case ToolBar.FullWithTemplates:
 					script.Append(",toolbar:'FullWithTemplates'");
