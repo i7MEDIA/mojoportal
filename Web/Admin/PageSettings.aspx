@@ -633,9 +633,9 @@
 						<asp:RegularExpressionValidator ID="regexUrl" runat="server" ControlToValidate="txtUrl"
 							ValidationExpression="((http\://|https\://|~/){1}(\S+){0,1})" Display="None" ValidationGroup="pagesettings" />
 						<asp:RegularExpressionValidator ID="regexBodyCss" runat="server" ControlToValidate="txtBodyCssClass"
-							ValidationExpression="^([\s]?[a-zA-Z]+[_\-a-zA-Z0-9]+)*\z+" Display="None" ValidationGroup="pagesettings" />
+							ValidationExpression="^([\s]*[a-zA-Z]+_?\-?)+([\w]\-*)*$" Display="None" ValidationGroup="pagesettings" />
 						<asp:RegularExpressionValidator ID="regexMenuCss" runat="server" ControlToValidate="txtMenuCssClass"
-							ValidationExpression="^([\s]?[a-zA-Z]+[_\-a-zA-Z0-9]+)*\z+" Display="None" ValidationGroup="pagesettings" />
+							ValidationExpression="^([\s]*[a-zA-Z]+_?\-?)+([\w]\-*)*$" Display="None" ValidationGroup="pagesettings" />
 						<portal:mojoLabel ID="lblError" runat="server" CssClass="txterror warning" />
 					</div>
 
