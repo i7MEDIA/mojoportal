@@ -799,7 +799,7 @@
     <value>Search</value>
   </data>
   <data name="MemberListShowAllLabel" xml:space="preserve">
-    <value>Show All Users</value>
+    <value>Clear Filters</value>
   </data>
   <data name="MemberListTitleLabel" xml:space="preserve">
     <value>Member List</value>
@@ -4849,7 +4849,7 @@
     <value>Facebook Like Button Width</value>
   </data>
   <data name="ShowLockedOutUsers" xml:space="preserve">
-    <value>Show Locked Out Users</value>
+    <value>Show Only Locked Out Users</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Loading</value>
