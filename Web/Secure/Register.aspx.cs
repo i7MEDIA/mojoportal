@@ -512,8 +512,8 @@ namespace mojoPortal.Web.UI.Pages
             this.RegisterUser.CreateUserButtonStyle.Font.Bold = true;
 
             
-            
             Title = SiteUtils.FormatPageTitle(siteSettings, Resource.RegisterLink);
+			litHeading.Text = string.Format(coreDisplaySettings.DefaultPageHeaderMarkup, Resource.RegisterLabel);
 
             litAlreadyAuthenticated.Text = Resource.AlreadyRegisteredMessage;
 

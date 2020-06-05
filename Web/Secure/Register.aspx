@@ -6,7 +6,7 @@
 	<portal:CoreDisplaySettings id="coreDisplaySettings" runat="server" />
     <asp:Panel ID="pnlRegister" runat="server" CssClass="panelwrapper register">
         <div class="modulecontent">
-			<mp:SiteLabel ID="lblRegisterLabel" runat="server" ConfigKey="RegisterLabel" UseLabelTag="false" Format='<%= coreDisplaySettings.DefaultPageHeaderMarkup %>' />
+            <asp:Literal ID="litHeading" runat="server" />
 
             <asp:Panel ID="pnlAuthenticated" runat="server" Visible="false">
                 <asp:Literal ID="litAlreadyAuthenticated" runat="server" />
