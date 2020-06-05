@@ -3,7 +3,7 @@
 <%@ Register TagPrefix="mp" TagName="Login" Src="~/Controls/LoginControl.ascx" %>
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
-	<portal:CoreDisplaySettings id="coreDisplaySettings" runat="server" />
+	<portal:CoreDisplaySettings ID="coreDisplaySettings" runat="server" />
 	<asp:Panel ID="pnlLogin" runat="server" CssClass="panelwrapper login">
 		<div class="modulecontent">
 			<asp:Literal ID="litHeading" runat="server" />
