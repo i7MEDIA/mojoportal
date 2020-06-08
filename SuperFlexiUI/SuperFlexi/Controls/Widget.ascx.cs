@@ -257,7 +257,7 @@ namespace SuperFlexiUI
                     bool fieldValueFound = false;
 
 					var itemFieldValues = fieldValues.Where(fv => fv.ItemGuid == item.ItemGuid);
-					var tokens = fields.Select(x => new { x.Token, x.FieldGuid });
+					var tokens = fields.Select(x => new { x.Token, x.FieldGuid, x.PreTokenString, x.PostTokenString, x.PreTokenStringWhenFalse, x.PreTokenStringWhenTrue, x.PostTokenStringWhenFalse, x.PostTokenStringWhenTrue, x.ControlType });
 
 
 					foreach (ItemFieldValue fieldValue in itemFieldValues)
@@ -393,7 +393,38 @@ namespace SuperFlexiUI
 
 								foreach (var token in sharedTokens)
 								{
-									content.Replace(token.Token, fieldValues.Where(x => x.FieldGuid == token.FieldGuid && x.ItemGuid == item.ItemGuid).Select(y => y.FieldValue).Single());
+									var sharedTokenFieldValue = fieldValues.Where(x => x.FieldGuid == token.FieldGuid && x.ItemGuid == item.ItemGuid).Select(y => y.FieldValue).Single();
+
+									//content.Replace(token.Token, );
+
+
+									//if (token.ControlType == "CheckBox")
+									//{
+									//	string checkBoxContent = string.Empty;
+
+									//	if (sharedTokenFieldValue == field.CheckBoxReturnValueWhenTrue)
+									//	{
+									//		content.Replace("^" + field.Token + "^", fieldValue.FieldValue);
+									//		content.Replace("^" + field.Token, fieldValue.FieldValue + field.PostTokenString + field.PostTokenStringWhenTrue);
+									//		content.Replace(field.Token + "^", field.PreTokenString + field.PreTokenStringWhenTrue + fieldValue.FieldValue);
+									//		content.Replace(field.Token, field.PreTokenString + field.PreTokenStringWhenTrue + fieldValue.FieldValue + field.PostTokenString + field.PostTokenStringWhenTrue);
+									//	}
+
+									//	else if (fieldValue.FieldValue == field.CheckBoxReturnValueWhenFalse)
+									//	{
+									//		content.Replace("^" + field.Token + "^", fieldValue.FieldValue);
+									//		content.Replace("^" + field.Token, fieldValue.FieldValue + field.PostTokenString + field.PostTokenStringWhenFalse);
+									//		content.Replace(field.Token + "^", field.PreTokenString + field.PreTokenStringWhenFalse + fieldValue.FieldValue);
+									//		content.Replace(field.Token, field.PreTokenString + field.PreTokenStringWhenFalse + fieldValue.FieldValue + field.PostTokenString + field.PostTokenStringWhenFalse);
+									//	}
+									//}
+									if (!String.IsNullOrWhiteSpace(sharedTokenFieldValue))
+									{
+										content.Replace("^" + token.Token + "^", sharedTokenFieldValue);
+										content.Replace("^" + token.Token, sharedTokenFieldValue + token.PostTokenString);
+										content.Replace(token.Token + "^", token.PreTokenString + sharedTokenFieldValue);
+										content.Replace(token.Token, token.PreTokenString + sharedTokenFieldValue + token.PostTokenString);
+									}
 								}
 
                             }

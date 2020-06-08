@@ -105,8 +105,8 @@ namespace SuperFlexiUI
 						{
 							items.AddRange(GetItems(
 								module.ModuleGuid,
-								1,
-								99999,
+								r.PageNumber,
+								r.PageSize,
 								out totalPages,
 								out totalRows,
 								setA,
@@ -119,8 +119,8 @@ namespace SuperFlexiUI
 					{
 						items.AddRange(GetItems(
 							module.ModuleGuid,
-							1,
-							99999,
+							r.PageNumber,
+							r.PageSize,
 							out totalPages,
 							out totalRows,
 							set.Value,
@@ -158,7 +158,7 @@ namespace SuperFlexiUI
 
 			if (items != null && items.Count > 0)
 			{
-				List<Field> fields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
+				List<Field> fields = Field.GetAllForDefinition(config.FieldDefinitionGuid).Where(f => f.ControlType != "InstructionBlock").ToList();
 				var itemGuids = items.Select(x => x.ItemGuid).ToList();
 				List<ItemFieldValue> values = ItemFieldValue.GetByItemGuids(itemGuids);
 				Module itemModule = null;
@@ -218,7 +218,7 @@ namespace SuperFlexiUI
 				Status = "success",
 				Data = sfObject,
 				TotalPages = totalPages,
-				TotalRows = totalRows == popItems.Count ? totalRows : popItems.Count,
+				TotalRows = totalRows > popItems.Count ? totalRows : popItems.Count,
 				AllowEdit = ShouldAllowEdit(),
 				CmsModuleId = module.ModuleId,
 				CmsPageId = module.PageId
@@ -339,8 +339,8 @@ namespace SuperFlexiUI
 				return Item.GetPageForDefinition(
 					config.FieldDefinitionGuid,
 					siteSettings.SiteGuid,
-					1,
-					99999,
+					pageNumber,
+					pageSize,
 					out totalPages,
 					out totalRows,
 					searchTerm,
@@ -352,8 +352,8 @@ namespace SuperFlexiUI
 			{
 				return Item.GetPageOfModuleItems(
 					moduleGuid,
-					1,
-					99999,
+					pageNumber,
+					pageSize,
 					out totalPages,
 					out totalRows,
 					searchTerm,

@@ -77,6 +77,7 @@ namespace SuperFlexiUI
 				}
 			}
 			//Values = popValues;
+			// if (field.ControlType != "InstructionBlock")
 		}
 		public PopulatedItem (Item item)
 		{
