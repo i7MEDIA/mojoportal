@@ -52,7 +52,8 @@
 								</button>
 
 								<% if (siteSettings.Logo != "" && siteSettings.Logo != "blank.gif") { %>
-								<portal:SiteLogo runat="server" ImageCssClass="site-logo" LinkCssClass="navbar-brand navbar-logo" />
+									<portal:SiteLogo runat="server" ImageCssClass="site-logo" LinkCssClass="navbar-brand navbar-logo" />
+									<portal:SiteTitle runat="server" SkinId="HiddenTitle" UseLink="false" />
 								<% } else { %>
 									<portal:SiteTitle runat="server" SkinId="navbar-brand" UseLink="true" />
 								<% } %>

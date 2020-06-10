@@ -197,6 +197,9 @@
 <portal:jQueryAutoCompleteTextBox runat="server" SkinId="modulesecurity"
 	CssClass="form-control auto-complete"
 />
+<asp:TextBox runat="server" SkinId="fullwidth"
+	CssClass="form-control input-fullwidth"
+/>
 
 
 <%-- Panel Classes --%>
@@ -262,8 +265,8 @@
 
 <%-- Site Settings Display Settings --%>
 <portalAdmin:AdminDisplaySettings runat="server"
-	SiteSettingsPanelHeadingMarkup = "<h3 class='setting-section-title'>{0} <small>{1}</small></h3><div class='setting-section-body'>"
-	SiteSettingsSubPanelHeadingMarkup = "<div class='panel-heading'><h3 class='panel-title'>{0} <small>{1}</small></h3></div><div class='panel-body'>"
+	PanelHeadingMarkup = "<h3 class='setting-section-title'>{0} <small>{1}</small></h3><div class='setting-section-body'>"
+	SubPanelHeadingMarkup = "<div class='panel-heading'><h3 class='panel-title'>{0} <small>{1}</small></h3></div><div class='panel-body'>"
 />
 
 <%-- Form Group Panels --%>
@@ -354,6 +357,10 @@
 	Element="div"
 	OutsideBottomMarkup="</div>"
 	CssClass="manage-site-features__right col-sm-4 text-center"
+/>
+
+<mp:SiteLabel runat="server" SkinID="settinglabel"
+	CssClass="settinglabel"
 />
 
 <asp:Button runat="server" SkinID="SiteFeaturesRemove" 
@@ -564,8 +571,9 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 />
 
 <portal:SiteTitle runat="server" SkinId="navbar-brand"
-	UseLink="false"
-	UseElement="false"
+	Element="h1"
+	UseLink="true"
+	UseElement="true"
 />
 
 <portal:SiteTitle runat="server" SkinId="HiddenTitle"
