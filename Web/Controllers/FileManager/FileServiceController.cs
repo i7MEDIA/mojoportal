@@ -36,7 +36,7 @@ namespace mojoPortal.Web.Controllers
 
 		// POST: /fileservice
 		[HttpPost]
-		public dynamic FileManagerPost([FromBody]FileService.RequestObject request, [FromUri]string t)
+		public dynamic FileManagerPost([FromBody] FileService.RequestObject request, [FromUri] string t)
 		{
 			var loadSettings = LoadSettings(request, t);
 
@@ -221,10 +221,17 @@ namespace mojoPortal.Web.Controllers
 
 		private dynamic ListAllFilesFolders(string requestPath)
 		{
-			var files = fileSystem.GetFileList(FilePath(requestPath)).Select(Mapper.Map<WebFile, FileServiceDto>).ToList();
+			var filePath = FilePath(requestPath);
+			var files = fileSystem.GetFileList(filePath).Select(Mapper.Map<WebFile, FileServiceDto>).ToList();
+			var folders = fileSystem.GetFolderList(filePath).Select(Mapper.Map<WebFolder, FileServiceDto>).ToList();
 			var allowedFiles = new List<FileServiceDto>();
-			var folders = fileSystem.GetFolderList(FilePath(requestPath)).Select(Mapper.Map<WebFolder, FileServiceDto>).ToList();
-			if (!String.IsNullOrWhiteSpace(fileSystem.Permission.UserFolder) && fileSystem.Permission.UserFolder != fileSystem.VirtualRoot)
+
+
+			if (
+				requestPath == "/" &&
+				!string.IsNullOrWhiteSpace(fileSystem.Permission.UserFolder) &&
+				fileSystem.Permission.UserFolder != fileSystem.VirtualRoot
+			)
 			{
 				var userFolder = new List<WebFolder>() {
 					new WebFolder {
@@ -235,8 +242,10 @@ namespace mojoPortal.Web.Controllers
 						Name = Resource.UserFolder
 					}
 				};
+
 				folders.AddRange(userFolder.Select(Mapper.Map<WebFolder, FileServiceDto>).ToList());
 			}
+
 			var type = WebUtils.ParseStringFromQueryString("type", "file");
 
 			foreach (var folder in folders)
@@ -246,11 +255,16 @@ namespace mojoPortal.Web.Controllers
 
 			foreach (var file in files)
 			{
-				if ((type == "image") && !file.IsWebImageFile()) { continue; }
-				if ((type == "media" || type == "audio" || type == "video") && !file.IsAllowedMediaFile()) { continue; }
-				if ((type == "audio") && !file.IsAllowedFileType(WebConfigSettings.AudioFileExtensions)) { continue; }
-				if ((type == "video") && !file.IsAllowedFileType(WebConfigSettings.VideoFileExtensions)) { continue; }
-				if ((type == "file") && !file.IsAllowedFileType(allowedExtensions)) { continue; }
+				if ((type == "image") && !file.IsWebImageFile())
+				{ continue; }
+				if ((type == "media" || type == "audio" || type == "video") && !file.IsAllowedMediaFile())
+				{ continue; }
+				if ((type == "audio") && !file.IsAllowedFileType(WebConfigSettings.AudioFileExtensions))
+				{ continue; }
+				if ((type == "video") && !file.IsAllowedFileType(WebConfigSettings.VideoFileExtensions))
+				{ continue; }
+				if ((type == "file") && !file.IsAllowedFileType(allowedExtensions))
+				{ continue; }
 
 				file.ContentType = "file";
 				allowedFiles.Add(file);
@@ -367,7 +381,8 @@ namespace mojoPortal.Web.Controllers
 					}
 				}
 
-				return new FileService.ReturnObject(ReturnResult(OpResult.FileTypeNotAllowed)); ;
+				return new FileService.ReturnObject(ReturnResult(OpResult.FileTypeNotAllowed));
+				;
 			}
 
 			return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = Resource.FileEditInFileManagerNotAllowed });
@@ -494,7 +509,7 @@ namespace mojoPortal.Web.Controllers
 						}
 
 						e.Extract(FilePath(destination + "/" + folderName, true), overwriteExistingFiles ? ExtractExistingFileAction.OverwriteSilently : ExtractExistingFileAction.DoNotOverwrite);
-						
+
 					}
 				}
 
@@ -578,7 +593,7 @@ namespace mojoPortal.Web.Controllers
 
 				if (!move)
 				{
-					switch(FolderOrFile(origin))
+					switch (FolderOrFile(origin))
 					{
 						case "folder":
 							result = fileSystem.MoveFolder(FilePath(origin, false, true), FilePath(dir + "/" + CleanFileName(destination, "folder"), false, true));
@@ -600,7 +615,7 @@ namespace mojoPortal.Web.Controllers
 				}
 				else
 				{
-					switch(FolderOrFile(origin))
+					switch (FolderOrFile(origin))
 					{
 						case "folder":
 							string org = FilePath(origin, false, true);
@@ -728,6 +743,17 @@ namespace mojoPortal.Web.Controllers
 				return itemPath;
 			}
 
+			var userFolder = "/" + Resource.UserFolder;
+
+			if (itemPath.Contains(userFolder))
+			{
+				if (!Directory.Exists(fileSystem.Permission.UserFolder))
+					fileSystem.CreateFolder(fileSystem.Permission.UserFolder);
+
+				itemPath = itemPath.Replace(userFolder, fileSystem.Permission.UserFolder);
+				isFullPath = true;
+			}
+
 			// Remove "../" or "\" to prevent hacks 
 			itemPath = itemPath.Replace("..", string.Empty).Replace("\\", string.Empty).Trim();
 			string fullPath = !isFullPath ? virtualPath + itemPath : itemPath;
@@ -740,7 +766,7 @@ namespace mojoPortal.Web.Controllers
 
 			if (returnDiskPath)
 				return diskPath;
-			else 
+			else
 				return cleanPath;
 		}
 
