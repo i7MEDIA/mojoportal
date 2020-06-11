@@ -1816,6 +1816,29 @@
   <ItemGroup>
     <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\1.0.0.0.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\comments\FeatureDefinitions\90000_CommentsModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\kdmediaplayer\FeatureDefinitions\KDAudioPlayer.config" />
+    <Content Include="Setup\applications\kdmediaplayer\FeatureDefinitions\KDVideoPlayer.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\firebirdsql\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\firebirdsql\1.0.0.0\a_generators.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\firebirdsql\1.0.0.0\b_tables.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\firebirdsql\1.0.0.0\c_procedures.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\firebirdsql\1.0.0.0\d_tables.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\mssql\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\mysql\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\pgsql\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\sqlce\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\sqlite\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\firebirdsql\1.0.0.1.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\mssql\1.0.0.1.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\mysql\1.0.0.1.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\pgsql\1.0.0.1.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\sqlce\1.0.0.1.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\sqlite\1.0.0.1.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
