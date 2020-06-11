@@ -1112,7 +1112,7 @@ namespace mojoPortal.Web.AdminUI
 				pageSettings.HideMainMenu = chkHideMainMenu.Checked;
 			}
 
-			string friendlyUrlString = SiteUtils.RemoveInvalidUrlChars(txtUrl.Text.Replace("~/", String.Empty));
+			string friendlyUrlString = SiteUtils.RemoveInvalidUrlChars(txtUrl.Text.Replace("~/", string.Empty));
 
 			//when using extensionless urls lets not allow a trailing slash
 			//if the user enters on in the browser we can resolve it to the page
