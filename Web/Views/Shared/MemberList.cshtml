@@ -1,12 +1,9 @@
 ﻿@using System.Collections.Generic;
 @using System.Globalization;
-@using mojoPortal.Business;
 @using mojoPortal.Business.WebHelpers;
-@using mojoPortal.Web.Components;
 @using mojoPortal.Web.Configuration;
 @using mojoPortal.Web.Framework;
 @using mojoPortal.Web;
-@using mojoPortal.Web.UI;
 @using Resources;
 
 @model mojoPortal.Web.Models.MemberListModel
@@ -26,8 +23,8 @@
 	var showLocked = WebUtils.ParseBoolFromQueryString("locked", false);
 	var showUnApproved = WebUtils.ParseBoolFromQueryString("needapproval", false);
 	var filterLetter = Server.UrlEncode(WebUtils.ParseStringFromQueryString("letter", string.Empty));
-	var searchText = Server.UrlEncode(WebUtils.ParseStringFromQueryString("search", string.Empty));
-	var ipSearchText = Server.UrlEncode(WebUtils.ParseStringFromQueryString("ips", string.Empty));
+	var searchText = Server.UrlDecode(WebUtils.ParseStringFromQueryString("search", string.Empty));
+	var ipSearchText = Server.UrlDecode(WebUtils.ParseStringFromQueryString("ips", string.Empty));
 
 	var pagePath = siteRoot + "/MemberList.aspx";
 	var pagerFormat = pagePath + "?pagenumber={0}" + "&letter=" + filterLetter + "&sd=" + sortMode;
@@ -61,7 +58,8 @@
 	}
 
 	// displaySettings can be configured from theme.skin
-	if (displaySettings.HideWebSiteColumn) { showWebSiteColumn = false; }
+	if (displaySettings.HideWebSiteColumn)
+	{ showWebSiteColumn = false; }
 
 }
 
@@ -69,7 +67,7 @@
 {
 	mojoPortal.Web.Models.BreadCrumbs crumbsModel = new mojoPortal.Web.Models.BreadCrumbs();
 	crumbsModel.Crumbs = new List<BreadCrumb>
-	{
+{
 		new BreadCrumb { Text = Resource.AdminMenuLink, Url = siteRoot + "/Admin/AdminMenu.aspx"},
 		new BreadCrumb { Text = Resource.MemberListLink, Url = pagePath}
 	};
@@ -83,7 +81,7 @@
 
 	<div class="col-sm-6 text-right form-inline">
 		<div class="input-group">
-			<input type="text" id="txtSearch" class="form-control" placeholder="@Resource.MemberListSearchPlaceholder" value="@searchText"/>
+			<input type="text" id="txtSearch" class="form-control" placeholder="@Resource.MemberListSearchPlaceholder" value="@searchText" />
 			<span class="input-group-btn"><button type="button" id="btnSearchUser" class="btn btn-default" onclick="DoSearch('user');">@Resource.MemberListSearchButton</button></span>
 		</div>
 	</div>
@@ -135,58 +133,77 @@
 				{
 					thNameString = Resource.Name;
 				}
-				 <a href="@pagePath">@thNameString</a>				
+				<a href="@pagePath">@thNameString</a>
 			</th>
-			@if (showJoinDate) {<th><a href="@pagePath?sd=1">@Resource.MemberListDateCreatedLabel</a></th> }
-			@if (showWebSiteColumn) { <th>@Resource.MemberListUserWebSiteLabel</th> }
-			@if (showForumPostColumn) { <th>@Resource.MemberListUserTotalPostsLabel</th> }
+			@if (showJoinDate)
+			{
+				<th><a href="@pagePath?sd=1">@Resource.MemberListDateCreatedLabel</a></th>
+			}
+			@if (showWebSiteColumn)
+			{
+				<th>@Resource.MemberListUserWebSiteLabel</th>
+			}
+			@if (showForumPostColumn)
+			{
+				<th>@Resource.MemberListUserTotalPostsLabel</th>
+			}
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 		@foreach (var user in Model.Users)
 		{
-		<tr>
-			<td>
-				@{
-					var nameString = user.Name;
-					if ((displaySettings.ShowFirstAndLastName) && (user.FirstName.Length > 0) && (user.LastName.Length > 0))
-					{
-						nameString = string.Format(CultureInfo.InvariantCulture, Resource.MemberListNameFormat, user.LastName, user.FirstName);
+			<tr>
+				<td>
+					@{
+						var nameString = user.Name;
+						if ((displaySettings.ShowFirstAndLastName) && (user.FirstName.Length > 0) && (user.LastName.Length > 0))
+						{
+							nameString = string.Format(CultureInfo.InvariantCulture, Resource.MemberListNameFormat, user.LastName, user.FirstName);
+						}
 					}
-				}
-				<span class="avatar"><img src="@(string.IsNullOrWhiteSpace(user.AvatarUrl) ? WebUtils.ResolveUrl("~/Data/SiteImages/anonymous.png") : siteAvatarPath + "/" + user.AvatarUrl)" style="width: 35px; height: 35px;" /></span>
-				<span class="name">@nameString</span>
-				@if (showEmailInMemberList || showLoginNameInMemberList || showUserIDInMemberList || (isAdmin && !user.DisplayInMemberList))
+					<span class="avatar"><img src="@(string.IsNullOrWhiteSpace(user.AvatarUrl) ? WebUtils.ResolveUrl("~/Data/SiteImages/anonymous.png") : siteAvatarPath + "/" + user.AvatarUrl)" style="width: 35px; height: 35px;" /></span>
+					<span class="name">@nameString</span>
+					@if (showEmailInMemberList || showLoginNameInMemberList || showUserIDInMemberList || (isAdmin && !user.DisplayInMemberList))
+					{
+						<ul class="list-unstyled">
+							@if (showEmailInMemberList)
+							{
+								<li class="email"><a href="mailto:@user.Email">@user.Email</a></li>
+							}
+							@if (showLoginNameInMemberList)
+							{
+								<li class="login">@user.LoginName</li>
+							}
+							@if (showUserIDInMemberList)
+							{
+								<li class="userid">@Resource.RegisterLoginNameLabel @user.UserId</li>
+							}
+							@if (isAdmin && !user.DisplayInMemberList)
+							{
+								<li class="text-danger">@Resources.Resource.HiddenUser</li>
+							}
+						</ul>
+					}
+				</td>
+				@if (showJoinDate)
 				{
-					<ul class="list-unstyled">
-						@if (showEmailInMemberList)
-						{
-							<li class="email"><a href="mailto:@user.Email">@user.Email</a></li>
-						}
-						@if (showLoginNameInMemberList)
-						{
-							<li class="login">@user.LoginName</li>
-						}
-						@if (showUserIDInMemberList)
-						{
-							<li class="userid">@Resource.RegisterLoginNameLabel @user.UserId</li>
-						}
-						@if (isAdmin && !user.DisplayInMemberList)
-						{
-							<li class="text-danger">@Resources.Resource.HiddenUser</li>
-						}
-					</ul>
+					<td>@DateTimeHelper.Format(user.DateCreated, timeZone, "d", timeOffset)</td>
 				}
-			</td>
-			@if (showJoinDate) { <td>@DateTimeHelper.Format(user.DateCreated, timeZone, "d", timeOffset)</td> }
-			@if (showWebSiteColumn) { <td><a rel="nofollow noreferrer noopener" href="@user.WebSiteUrl">@user.WebSiteUrl</a></td> }
-			@if (showForumPostColumn) { <td>@user.TotalPosts</td> }
-			<td>
-				<a href="@(siteRoot)/ProfileView.aspx?userid=@user.UserId" class="btn btn-link">@Resource.MemberListViewProfileLabel</a> 
-				@if (canManageUsers) { <a href="@(siteRoot)/Admin/ManageUsers.aspx?userid=@user.UserId" class="btn btn-warning">@Resource.ManageUserLink</a> }
-			</td>
-		</tr>
+				@if (showWebSiteColumn)
+				{
+					<td><a rel="nofollow noreferrer noopener" href="@user.WebSiteUrl">@user.WebSiteUrl</a></td>
+				}
+				@if (showForumPostColumn)
+				{
+					<td>@user.TotalPosts</td>
+				}
+				<td>
+					<a href="@(siteRoot)/ProfileView.aspx?userid=@user.UserId" class="btn btn-link">@Resource.MemberListViewProfileLabel</a>
+					@if (canManageUsers)
+					{<a href="@(siteRoot)/Admin/ManageUsers.aspx?userid=@user.UserId" class="btn btn-warning">@Resource.ManageUserLink</a>}
+				</td>
+			</tr>
 		}
 	</tbody>
 </table>
