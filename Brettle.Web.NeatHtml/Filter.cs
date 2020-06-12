@@ -76,7 +76,7 @@ namespace Brettle.Web.NeatHtml
 			return String.Format(Format, clientSideFilterName, jailed, 
 			                     noScriptDownlevelIEWidth, noScriptDownlevelIEHeight,
 			                     maxComplexity, 
-			                     trustedImageUrlRegex == null ? "null" : "new RegExp(\"" + trustedImageUrlRegex + "\")");
+			                     trustedImageUrlRegex == null ? "null" : "new RegExp(\"" + trustedImageUrlRegex + "\")", Guid.NewGuid().ToString());
 		}
 		
 		private ScriptJail(bool supportNoScriptTables, int maxComplexity, 
@@ -149,23 +149,36 @@ namespace Brettle.Web.NeatHtml
 						
 		private static string ParserResetString = "<NeatHtmlParserReset s='' d=\"\" /><script></script>";
 
-		private static string Format 
-			= "\n"
-			+ "<!--[if gte IE 7]><!-->\n"
-			+ "<div class='NeatHtml' style='overflow: hidden; position: relative; border: none; padding: 0; margin: 0;'>\n"
-			+ "<!--<![endif]-->\n"
-			+ "<!--[if lt IE 7]>\n"
-			+ "<div class='NeatHtml' style='width: {2}; height: {3}; overflow: auto; position: relative; border: none; padding: 0; margin: 0;'>\n"
-			+ "<![endif]-->\n"
-			+ "<table style='border-spacing: 0;'><tr><td style='padding: 0;'><!-- test comment --><script type='text/javascript'>\n"
-			+ "try {{ {0}.BeginUntrusted(); }} catch (ex) {{ document.writeln('NeatHtml not found\\074!-' + '-'); }}</script>"
-			+ "<div>{1}</div>"
-			+ "<input name='NeatHtmlEndUntrusted' type='hidden' value=\"\" /><script type='text/javascript'></script><!-- > --><!-- <xmp></xmp><xml></xml><! --></td></tr></table><script type='text/javascript'>\n"
-			+ "{0}.ProcessUntrusted({4}, {5});\n"
-			+ "</script>\n"
-			+ "</div><script type='text/javascript'>\n"
-			+ "{0}.ResizeContainer();\n"
-			+ "</script>\n";
+		//private static string Format 
+		//	= "\n"
+		//	//+ "<!--[if gte IE 7]><!-->\n"
+		//	+ "<div class='NeatHtml' data-nhContainerId='{6}' style='overflow: hidden; position: relative; border: none; padding: 0; margin: 0;'>\n"
+		//	//+ "<!--<![endif]-->\n"
+		//	//+ "<!--[if lt IE 7]>\n"
+		//	//+ "<div class='NeatHtml' nhContainerId='{6}' style='width: {2}; height: {3}; overflow: auto; position: relative; border: none; padding: 0; margin: 0;'>\n"
+		//	//+ "<![endif]-->\n"
+		//	+ "<table style='border-spacing: 0;'><tr><td style='padding: 0;'><!-- test comment --><script type='text/javascript' data-nhScriptId='{6}'>\n"
+		//	+ "try {{ {0}.BeginUntrusted('{6}'); }} catch (ex) {{ document.writeln('NeatHtml not found\\074!-' + '-'); }}</script>"
+		//	+ "<div>{1}</div>"
+		//	+ "<input name='NeatHtmlEndUntrusted' type='hidden' value=\"\" /><script type='text/javascript'></script><!-- > --><!-- <xmp></xmp><xml></xml><! --></td></tr></table><script type='text/javascript'>\n"
+		//	+ "{0}.ProcessUntrusted({4}, {5});\n"
+		//	+ "</script>\n"
+		//	+ "</div><script type='text/javascript'>\n"
+		//	+ "{0}.ResizeContainer(undefined,'{6}');\n"
+		//	+ "</script>\n";
+
+		private static string Format = @"
+<div class='NeatHtml' data-nhContainerId='{6}' style='overflow: hidden; position: relative; border: none; padding: 0; margin: 0;'>
+	<script type='text/javascript' data-nhScriptId='{6}'>
+		try {{ {0}.BeginUntrusted('{6}'); }} catch (ex) {{ document.writeln('NeatHtml not found\\074!-' + '-'); }}
+	</script>
+	<div>{1}</div>
+	<input name='NeatHtmlEndUntrusted' type='hidden' />
+	<!-- > -->
+	<!-- <xmp></xmp><xml></xml><! -->
+	<script type='text/javascript'>{0}.ProcessUntrusted({4}, {5});</script>
+</div>
+<script type='text/javascript'>{0}.ResizeContainer(undefined,'{6}');</script>";
 
 		private static string[] tagsAllowedWhenNoScript
 			= { "a", "abbr", "acronym", "address", "b", "basefont", "bdo", "big", "blockquote", "br",

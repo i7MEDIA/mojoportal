@@ -393,7 +393,7 @@ NeatHtml.Filter.prototype.RemoveElem = function(tagInfo)
 	tagInfo.bOutputTags = tagInfo.bOutputContent = null;
 };
 	
-NeatHtml.Filter.prototype.BeginUntrusted = function() {
+NeatHtml.Filter.prototype.BeginUntrusted = function(nhScriptId) {
 	try
 	{
 		// Inject markup to prevent the untrusted content from being parsed as HTML.  
@@ -402,19 +402,21 @@ NeatHtml.Filter.prototype.BeginUntrusted = function() {
 		// Otherwise (e.g. Safari and Konqueror), start an <xmp> element.
 	
 		// Find the calling script element and remember it so we can use it to find the untrusted content.
-		var scriptElems = document.getElementsByTagName("script");
-		var offset = 1;
-		this.BeginUntrustedScript = scriptElems[scriptElems.length - offset];
+		
+		//var scriptElems = document.getElementsByTagName("script");
+		//var offset = 1;
+		//this.BeginUntrustedScript = scriptElems[scriptElems.length - offset];
 		
 		// JA added 2014-11-12 this was finding the addthis script instead of the one it was looking for
 		// so check if the src has length, the one we are looking for does not
-		while(this.BeginUntrustedScript.src.length > 0)
-		{
-			offset++;
-			this.BeginUntrustedScript = scriptElems[scriptElems.length - offset];
-		}
+		//while(this.BeginUntrustedScript.src.length > 0)
+		//{
+		//	offset++;
+		//	this.BeginUntrustedScript = scriptElems[scriptElems.length - offset];
+		//}
 		
-		
+		var scriptElem = document.querySelector('[data-nhScriptId="' + nhScriptId + '"]');
+		this.BeginUntrustedScript = scriptElem;
 		
 		// The calling script element must be preceded by an HTML comment (i.e. <!-- something -->).
 		var prevSibling = this.BeginUntrustedScript.previousSibling || GetPreviousSibling(this.BeginUntrustedScript);
@@ -790,7 +792,7 @@ NeatHtml.Filter.prototype.FilterFirstElement = function(s)
 	}
 };
 
-NeatHtml.Filter.prototype.ResizeContainer = function(container) {
+NeatHtml.Filter.prototype.ResizeContainer = function(container, nhContainerId) {
     var my = this;
 	var parent;
 	if (typeof(container) != "undefined")
@@ -798,8 +800,11 @@ NeatHtml.Filter.prototype.ResizeContainer = function(container) {
 	else
 	{
 	    // Find the calling script element and remember it so we can use it to find the container.
-	    var scriptElems = document.getElementsByTagName("script");
-	    parent = scriptElems[scriptElems.length - 1].previousSibling;
+	    //var scriptElems = document.getElementsByTagName("script");
+	    //parent = scriptElems[scriptElems.length - 1].previousSibling;
+				
+		var scriptElem = document.querySelector('[data-nhContainerId="' + nhContainerId + '"]');
+		parent = scriptElem;
 	}
 
     // For IE6 and earlier, we used conditional comments to set the overflow to "auto".  For all other browsers,
@@ -813,13 +818,13 @@ NeatHtml.Filter.prototype.ResizeContainer = function(container) {
         overflow = document.defaultView.getComputedStyle(parent, null).getPropertyValue("overflow");
     if (overflow == "hidden")
         return;
-
+ 
     // Limit the width of the content based on the width of the containing div, and
     // set the height of the div based on the new content.  This allows IE6 to hide overflow that was
     // absolutely positioned.
-    parent.firstChild.style.width = parent.style.width;
-    parent.style.height = parent.firstChild.scrollHeight + "px";
-    parent.style.overflow = "hidden";
+    //parent.firstChild.style.width = parent.style.width;
+    //parent.style.height = parent.firstChild.scrollHeight + "px";
+    //parent.style.overflow = "hidden";
 };
 
 NeatHtml.Filter.prototype.HtmlEncode = function(s, filter)
