@@ -84,8 +84,9 @@ namespace mojoPortal.Web.Controllers.FileManager
 
 				if (fileUploadsRemaining < files.Count)
 				{
-					string errorMessage = string.Empty;
 					log.Info("upload rejected due to fileSystem.Permission.MaxFiles");
+
+					string errorMessage;
 
 					if (fileUploadsRemaining == 0)
 					{
@@ -156,7 +157,7 @@ namespace mojoPortal.Web.Controllers.FileManager
 			}
 		}
 
-		private string FilePath(string itemPath, bool returnDiskPath = false, bool appendTrailingSlash = false)
+		private string FilePath(string itemPath, bool returnDiskPath = false, bool appendTrailingSlash = false, bool isFullPath = false)
 		{
 			Regex onlyOneSlashRegEx = new Regex("(/)(?<=\\1\\1)");
 
@@ -165,9 +166,20 @@ namespace mojoPortal.Web.Controllers.FileManager
 				return itemPath;
 			}
 
+			var userFolder = "/" + Resource.UserFolder;
+
+			if (itemPath.Contains(userFolder))
+			{
+				if (!Directory.Exists(fileSystem.Permission.UserFolder))
+					fileSystem.CreateFolder(fileSystem.Permission.UserFolder);
+
+				itemPath = itemPath.Replace(userFolder, fileSystem.Permission.UserFolder);
+				isFullPath = true;
+			}
+
 			// Remove "../" or "\" to prevent hacks 
 			itemPath = itemPath.Replace("..", string.Empty).Replace("\\", string.Empty).Trim();
-			string fullPath = virtualPath + itemPath;
+			string fullPath = !isFullPath ? virtualPath + itemPath : itemPath;
 			// Clean virtual path
 			string cleanPath = onlyOneSlashRegEx.Replace(fullPath, string.Empty);
 			if (appendTrailingSlash)

@@ -32,7 +32,8 @@
 							<div id="tabSettings">
 								<div class="settingrow">
 									<mp:SiteLabel ID="lblParentPage" runat="server" ForControl="ddPages" CssClass="settinglabel"
-										ConfigKey="PageLayoutParentPageLabel"></mp:SiteLabel>
+										ConfigKey="PageLayoutParentPageLabel">
+									</mp:SiteLabel>
 									<asp:Label ID="lblParentPageName" runat="server" Visible="false" />
 									<asp:DropDownList ID="ddPages" runat="server" DataTextField="PageName"
 										DataValueField="PageID" CssClass="forminput">
@@ -43,45 +44,52 @@
 								</div>
 								<div class="settingrow">
 									<mp:SiteLabel ID="lblPageNameLabel" runat="server" ForControl="txtPageName" CssClass="settinglabel"
-										ConfigKey="PageSettingsPageNameLabel"></mp:SiteLabel>
+										ConfigKey="PageSettingsPageNameLabel">
+									</mp:SiteLabel>
 									<asp:TextBox ID="txtPageName" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink2" runat="server" HelpKey="pagesettingspagenamehelp" />
 									<asp:HiddenField ID="hdnPageName" runat="server" />
 								</div>
 								<div class="settingrow">
 									<mp:SiteLabel ID="SiteLabel11" runat="server" ForControl="txtPageTitle" CssClass="settinglabel"
-										ConfigKey="PageSettingsPageTitleOverrideLabel"></mp:SiteLabel>
+										ConfigKey="PageSettingsPageTitleOverrideLabel">
+									</mp:SiteLabel>
 									<asp:TextBox ID="txtPageTitle" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink3" runat="server" HelpKey="pagesettingspagetitlehelp" />
 								</div>
 								<div id="divPageHeading" runat="server" class="settingrow">
 									<mp:SiteLabel ID="SiteLabel38" runat="server" ForControl="txtPageHeading" CssClass="settinglabel"
-										ConfigKey="PageHeading"></mp:SiteLabel>
+										ConfigKey="PageHeading">
+									</mp:SiteLabel>
 									<asp:TextBox ID="txtPageHeading" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink20" runat="server" HelpKey="page-heading-help" />
 								</div>
 								<div id="divShowPageHeading" runat="server" class="settingrow">
 									<mp:SiteLabel ID="Sitelabel39" runat="server" ForControl="chkShowPageHeading" CssClass="settinglabel"
-										ConfigKey="ShowPageHeading"></mp:SiteLabel>
+										ConfigKey="ShowPageHeading">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkShowPageHeading" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink21" runat="server" HelpKey="ShowPageHeading-help" />
 								</div>
 								<div id="divUseUrl" runat="server" class="settingrow">
 									<mp:SiteLabel ID="Sitelabel2" runat="server" ForControl="chkUseUrl" CssClass="settinglabel"
-										ConfigKey="PageLayoutUseUrlLabel"></mp:SiteLabel>
+										ConfigKey="PageLayoutUseUrlLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkUseUrl" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink4" runat="server" HelpKey="pagesettingsuseurlhelp" />
 								</div>
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel3" runat="server" ForControl="txtUrl" CssClass="settinglabel"
-										ConfigKey="PageLayoutUrlLabel"></mp:SiteLabel>
+										ConfigKey="PageLayoutUrlLabel">
+									</mp:SiteLabel>
 									<asp:TextBox ID="txtUrl" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink5" runat="server" HelpKey="pagesettingsurlhelp" />
 									<span id="spnUrlWarning" runat="server" style="font-weight: normal; display: none;" class="txterror warning"></span>
 								</div>
 								<div id="tabSSL" runat="server" class="settingrow">
 									<mp:SiteLabel ID="lblRequireSSL" runat="server" ForControl="chkRequireSSL" CssClass="settinglabel"
-										ConfigKey="PageLayoutRequireSSLLabel"></mp:SiteLabel>
+										ConfigKey="PageLayoutRequireSSLLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkRequireSSL" runat="server"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink18" runat="server" HelpKey="pagesettingsrequiresslhelp" />
 								</div>
@@ -92,95 +100,110 @@
 								</div>
 								<div id="divSkin" runat="server" class="settingrow">
 									<mp:SiteLabel ID="lblSkin" runat="server" ForControl="ddSkins" CssClass="settinglabel"
-										ConfigKey="SiteSettingsSiteSkinLabel"></mp:SiteLabel>
+										ConfigKey="SiteSettingsSiteSkinLabel">
+									</mp:SiteLabel>
 									<portal:SkinList ID="SkinSetting" runat="server" AddSiteDefaultOption="true" />
 									<portal:mojoHelpLink ID="MojoHelpLink7" runat="server" HelpKey="pagesettingsskinhelp" />
 								</div>
 								<div id="divMenuDesc" runat="server" visible="false" class="settingrow menudesc">
 									<mp:SiteLabel ID="Sitelabel36" runat="server" ForControl="txtMenuDesc" CssClass="settinglabel"
-										ConfigKey="MenuDescription"></mp:SiteLabel>
+										ConfigKey="MenuDescription">
+									</mp:SiteLabel>
 									<asp:TextBox ID="txtMenuDesc" runat="server" TextMode="MultiLine" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink19" runat="server" HelpKey="pagesettings-menudesc-help" />
 								</div>
 								<div id="divIsClickable" runat="server" class="settingrow" visible="false">
 									<mp:SiteLabel ID="Sitelabel25" runat="server" ForControl="chkIsClickable" CssClass="settinglabel"
-										ConfigKey="PageSettingsIsClickableLabel"></mp:SiteLabel>
+										ConfigKey="PageSettingsIsClickableLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkIsClickable" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink33" runat="server" HelpKey="pagesettingsisclickablehelp" />
 								</div>
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel12" runat="server" ForControl="chkAllowBrowserCache" CssClass="settinglabel"
-										ConfigKey="PageSettingsAllowBrowserCacheLabel"></mp:SiteLabel>
+										ConfigKey="PageSettingsAllowBrowserCacheLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkAllowBrowserCache" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink8" runat="server" HelpKey="pagesettingsallowbrowsercachehelp" />
 								</div>
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel10" runat="server" ForControl="chkIncludeInMenu" CssClass="settinglabel"
-										ConfigKey="PageSettingsIncludeInMenuLabel"></mp:SiteLabel>
+										ConfigKey="PageSettingsIncludeInMenuLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkIncludeInMenu" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink9" runat="server" HelpKey="pagesettingsincludeinmenuhelp" />
 								</div>
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel16" runat="server" ForControl="chkIncludeInSiteMap" CssClass="settinglabel"
-										ConfigKey="PageSettingsIncludeInSiteMapLabel"></mp:SiteLabel>
+										ConfigKey="PageSettingsIncludeInSiteMapLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkIncludeInSiteMap" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink10" runat="server" HelpKey="pagesettingsincludeinsitemaphelp" />
 								</div>
 								<div class="settingrow expandonsitemap">
 									<mp:SiteLabel ID="Sitelabel29" runat="server" ForControl="chkExpandOnSiteMap" CssClass="settinglabel"
-										ConfigKey="PageSettingsExpandOnSiteMapLabel"></mp:SiteLabel>
+										ConfigKey="PageSettingsExpandOnSiteMapLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkExpandOnSiteMap" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink37" runat="server" HelpKey="pagesettings-expandonsitemap-help" />
 								</div>
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel26" runat="server" ForControl="chkIncludeInChildSiteMap" CssClass="settinglabel"
-										ConfigKey="PageSettingsIncludeInChildSiteMap"></mp:SiteLabel>
+										ConfigKey="PageSettingsIncludeInChildSiteMap">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkIncludeInChildSiteMap" runat="server" CssClass="forminput" Checked="true"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink34" runat="server" HelpKey="pagesettings-includeinchildsitemap-help" />
 								</div>
 								<div id="divIsPending" runat="server" class="settingrow">
 									<mp:SiteLabel ID="Sitelabel19" runat="server" ForControl="chkIsPending" CssClass="settinglabel"
-										ConfigKey="PageSettingsIsPendingLabel"></mp:SiteLabel>
+										ConfigKey="PageSettingsIsPendingLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkIsPending" runat="server" CssClass="forminput" Checked="false"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink29" runat="server" HelpKey="pagesettingsisdrafthelp" />
 								</div>
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel1" runat="server" ForControl="chkShowBreadcrumbs" CssClass="settinglabel"
-										ConfigKey="PageLayoutShowBreadcrumbsLabel"></mp:SiteLabel>
+										ConfigKey="PageLayoutShowBreadcrumbsLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkShowBreadcrumbs" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink11" runat="server" HelpKey="pagesettingsbreadcrumbshelp" />
 								</div>
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel7" runat="server" ForControl="chkShowChildPageBreadcrumbs"
-										CssClass="settinglabel" ConfigKey="PageLayoutShowChildBreadcrumbsLabel"></mp:SiteLabel>
+										CssClass="settinglabel" ConfigKey="PageLayoutShowChildBreadcrumbsLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkShowChildPageBreadcrumbs" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink12" runat="server" HelpKey="pagesettingschildpagebreadcrumbshelp" />
 								</div>
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel17" runat="server" ForControl="chkShowHomeCrumb" CssClass="settinglabel"
-										ConfigKey="ShowHomePageCrumb"></mp:SiteLabel>
+										ConfigKey="ShowHomePageCrumb">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkShowHomeCrumb" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink13" runat="server" HelpKey="pagesettingshomecrumbhelp" />
 								</div>
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel4" runat="server" ForControl="chkNewWindow" CssClass="settinglabel"
-										ConfigKey="PageLayoutOpenInNewWindowLabel"></mp:SiteLabel>
+										ConfigKey="PageLayoutOpenInNewWindowLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkNewWindow" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink14" runat="server" HelpKey="pagesettingsnewwindowhelp" />
 								</div>
 								<div class="settingrow ShowChildMenu">
 									<mp:SiteLabel ID="Sitelabel5" runat="server" ForControl="chkShowChildMenu" CssClass="settinglabel"
-										ConfigKey="PageLayoutShowChildMenuLabel"></mp:SiteLabel>
+										ConfigKey="PageLayoutShowChildMenuLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkShowChildMenu" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink15" runat="server" HelpKey="pagesettingschildpagemenuhelp" />
 								</div>
 								<div id="divHideMenu" runat="server" class="settingrow">
 									<mp:SiteLabel ID="Sitelabel9" runat="server" ForControl="chkHideMainMenu" CssClass="settinglabel"
-										ConfigKey="PageLayoutHideMenuLabel"></mp:SiteLabel>
+										ConfigKey="PageLayoutHideMenuLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkHideMainMenu" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink16" runat="server" HelpKey="pagesettingshidemenuhelp" />
 								</div>
-<%--								<div id="div1" runat="server" class="settingrow">
+								<%--								<div id="div1" runat="server" class="settingrow">
 									<mp:SiteLabel ID="Sitelabel35" runat="server" ForControl="chkHideMainMenu" CssClass="settinglabel"
 										ConfigKey="PageLayoutHideMenuLabel"></mp:SiteLabel>
 									<asp:CheckBox ID="CheckBox1" runat="server" CssClass="forminput"></asp:CheckBox>
@@ -188,54 +211,63 @@
 								</div>--%>
 								<div class="settingrow">
 									<mp:SiteLabel ID="Sitelabel13" runat="server" ForControl="chkHideAfterLogin" CssClass="settinglabel"
-										ConfigKey="PageSettingstHideAfterLoginLabel"></mp:SiteLabel>
+										ConfigKey="PageSettingstHideAfterLoginLabel">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkHideAfterLogin" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink17" runat="server" HelpKey="pagesettingshideafterloginhelp" />
 								</div>
 								<asp:Panel ID="pnlComments" runat="server" Visible="false" CssClass="settingrow">
 									<mp:SiteLabel ID="Sitelabel24" runat="server" ForControl="chkEnableComments" CssClass="settinglabel"
-										ConfigKey="PageSettingsEnableComments"></mp:SiteLabel>
+										ConfigKey="PageSettingsEnableComments">
+									</mp:SiteLabel>
 									<asp:CheckBox ID="chkEnableComments" runat="server" CssClass="forminput"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink32" runat="server" HelpKey="pagesettings-enablecomments-help" />
 								</asp:Panel>
 
 								<div id="divBodyCss" runat="server" class="settingrow">
 									<mp:SiteLabel ID="SiteLabel27" runat="server" ForControl="txtBodyCssClass" CssClass="settinglabel"
-										ConfigKey="PageSettingsBodyCssClass"></mp:SiteLabel>
+										ConfigKey="PageSettingsBodyCssClass">
+									</mp:SiteLabel>
 									<asp:TextBox ID="txtBodyCssClass" runat="server" MaxLength="50" CssClass="forminput normaltextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink35" runat="server" HelpKey="pagesettings-bodycssclass-help" />
 								</div>
 								<div id="divMenuCss" runat="server" class="settingrow">
 									<mp:SiteLabel ID="SiteLabel28" runat="server" ForControl="txtMenuCssClass" CssClass="settinglabel"
-										ConfigKey="PageSettingsMenuCssClass"></mp:SiteLabel>
+										ConfigKey="PageSettingsMenuCssClass">
+									</mp:SiteLabel>
 									<asp:TextBox ID="txtMenuCssClass" runat="server" MaxLength="50" CssClass="forminput normaltextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink36" runat="server" HelpKey="pagesettings-menucssclass-help" />
 								</div>
 								<div id="divMenuLinkRelation" runat="server" class="settingrow">
 									<mp:SiteLabel ID="SiteLabel40" runat="server" ForControl="txtMenuLinkRelation" CssClass="settinglabel"
-										ConfigKey="MenuLinkRelation"></mp:SiteLabel>
+										ConfigKey="MenuLinkRelation">
+									</mp:SiteLabel>
 									<asp:TextBox ID="txtMenuLinkRelation" runat="server" MaxLength="20" CssClass="forminput normaltextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink28" runat="server" HelpKey="menu-link-relation-help" />
 								</div>
 								<asp:Panel ID="pnlModified" runat="server" EnableViewState="false" Visible="false">
 									<div class="settingrow pcreateddate">
 										<mp:SiteLabel ID="Sitelabel31" runat="server" CssClass="settinglabel"
-											ConfigKey="Created"></mp:SiteLabel>
+											ConfigKey="Created">
+										</mp:SiteLabel>
 										<asp:Label ID="lblCreatedDate" runat="server" CssClass="readonly" />
 									</div>
 									<div class="settingrow pmodifieddate">
 										<mp:SiteLabel ID="Sitelabel32" runat="server" CssClass="settinglabel"
-											ConfigKey="LastModified"></mp:SiteLabel>
+											ConfigKey="LastModified">
+										</mp:SiteLabel>
 										<asp:Label ID="lblLastModifiedDate" runat="server" CssClass="readonly" />
 									</div>
 									<div class="settingrow pmodby">
 										<mp:SiteLabel ID="Sitelabel33" runat="server" CssClass="settinglabel"
-											ConfigKey="LastModifiedBy"></mp:SiteLabel>
+											ConfigKey="LastModifiedBy">
+										</mp:SiteLabel>
 										<asp:Label ID="lblLastModifiedBy" runat="server" CssClass="readonly" />
 									</div>
 									<div class="settingrow pmodfromip">
 										<mp:SiteLabel ID="Sitelabel34" runat="server" CssClass="settinglabel"
-											ConfigKey="LastModifiedFromIpAddress"></mp:SiteLabel>
+											ConfigKey="LastModifiedFromIpAddress">
+										</mp:SiteLabel>
 										<asp:Label ID="lblLastModifiedFromIp" runat="server" CssClass="readonly" />
 									</div>
 								</asp:Panel>
@@ -354,19 +386,22 @@
 								<asp:Panel ID="pnlMetaSettings" runat="server" SkinID="plain">
 									<div class="settingrow">
 										<mp:SiteLabel ID="lblKeywords" runat="server" ForControl="txtPageKeywords" CssClass="settinglabel"
-											ConfigKey="PageLayoutMetaKeyWordsLabel"></mp:SiteLabel>
+											ConfigKey="PageLayoutMetaKeyWordsLabel">
+										</mp:SiteLabel>
 										<asp:TextBox ID="txtPageKeywords" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 										<portal:mojoHelpLink ID="MojoHelpLink22" runat="server" HelpKey="pagesettingskeywordshelp" />
 									</div>
 									<div class="settingrow">
 										<mp:SiteLabel ID="lblDescription" runat="server" ForControl="txtPageDescription"
-											CssClass="settinglabel" ConfigKey="PageLayoutMetaDescriptionLabel"></mp:SiteLabel>
+											CssClass="settinglabel" ConfigKey="PageLayoutMetaDescriptionLabel">
+										</mp:SiteLabel>
 										<asp:TextBox ID="txtPageDescription" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 										<portal:mojoHelpLink ID="MojoHelpLink23" runat="server" HelpKey="pagesettingsmetadescriptionhelp" />
 									</div>
 									<div id="divPageEncoding" runat="server" visible="false" class="settingrow">
 										<mp:SiteLabel ID="lblEncoding" runat="server" ForControl="txtPageEncoding" CssClass="settinglabel"
-											ConfigKey="PageLayoutMetaEncodingLabel"></mp:SiteLabel>
+											ConfigKey="PageLayoutMetaEncodingLabel">
+										</mp:SiteLabel>
 										<asp:TextBox ID="txtPageEncoding" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 										<portal:mojoHelpLink ID="MojoHelpLink24" runat="server" HelpKey="pagesettingsmetaencodinghelp" />
 									</div>
@@ -437,7 +472,8 @@
 														</Columns>
 														<EmptyDataTemplate>
 															<p class="nodata">
-																<asp:Literal ID="litempty" runat="server" Text="<%$ Resources:Resource, GridViewNoData %>" /></p>
+																<asp:Literal ID="litempty" runat="server" Text="<%$ Resources:Resource, GridViewNoData %>" />
+															</p>
 														</EmptyDataTemplate>
 													</mp:mojoGridView>
 													<div class="settingrow">
@@ -551,7 +587,8 @@
 														</Columns>
 														<EmptyDataTemplate>
 															<p class="nodata">
-																<asp:Literal ID="litempty" runat="server" Text="<%$ Resources:Resource, GridViewNoData %>" /></p>
+																<asp:Literal ID="litempty" runat="server" Text="<%$ Resources:Resource, GridViewNoData %>" />
+															</p>
 														</EmptyDataTemplate>
 													</mp:mojoGridView>
 													<div class="settingrow">
@@ -583,14 +620,16 @@
 								<asp:Panel ID="pnlSearchEngineOptimization" runat="server" SkinID="plain">
 									<div class="settingrow">
 										<mp:SiteLabel ID="SiteLabel14" runat="server" ForControl="ddChangeFrequency" CssClass="settinglabel"
-											ConfigKey="PageSettingsChangeFrequencyLabel"></mp:SiteLabel>
+											ConfigKey="PageSettingsChangeFrequencyLabel">
+										</mp:SiteLabel>
 										<asp:DropDownList ID="ddChangeFrequency" runat="server" CssClass="forminput">
 										</asp:DropDownList>
 										<portal:mojoHelpLink ID="MojoHelpLink26" runat="server" HelpKey="pagesettingsseochangefequencyhelp" />
 									</div>
 									<div class="settingrow">
 										<mp:SiteLabel ID="SiteLabel15" runat="server" ForControl="ddSiteMapPriority" CssClass="settinglabel"
-											ConfigKey="PageSettingsPriorityLabel"></mp:SiteLabel>
+											ConfigKey="PageSettingsPriorityLabel">
+										</mp:SiteLabel>
 										<asp:DropDownList ID="ddSiteMapPriority" runat="server" CssClass="forminput">
 											<asp:ListItem Text="0.0" Value="0.0" />
 											<asp:ListItem Text="0.1" Value="0.1" />
@@ -633,15 +672,15 @@
 						<asp:RegularExpressionValidator ID="regexUrl" runat="server" ControlToValidate="txtUrl"
 							ValidationExpression="((http\://|https\://|~/){1}(\S+){0,1})" Display="None" ValidationGroup="pagesettings" />
 						<asp:RegularExpressionValidator ID="regexBodyCss" runat="server" ControlToValidate="txtBodyCssClass"
-							ValidationExpression="^([\s]*[a-zA-Z]+_?\-?)+([\w]\-*)*$" Display="None" ValidationGroup="pagesettings" />
+							ValidationExpression="^(\s*[a-zA-Z]+\w*|\-*|\s*)*$" Display="None" ValidationGroup="pagesettings" />
 						<asp:RegularExpressionValidator ID="regexMenuCss" runat="server" ControlToValidate="txtMenuCssClass"
-							ValidationExpression="^([\s]*[a-zA-Z]+_?\-?)+([\w]\-*)*$" Display="None" ValidationGroup="pagesettings" />
+							ValidationExpression="^(\s*[a-zA-Z]+\w*|\-*|\s*)*$" Display="None" ValidationGroup="pagesettings" />
 						<portal:mojoLabel ID="lblError" runat="server" CssClass="txterror warning" />
 					</div>
 
 					<div class="settingrow btn-row text-center">
-						<portal:mojoButton ID="applyBtn" runat="server" Text="Apply Changes" SkinID="SuccessButton"/>
-						<portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" SkinID="DeleteButton"/>
+						<portal:mojoButton ID="applyBtn" runat="server" Text="Apply Changes" SkinID="SuccessButton" />
+						<portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" SkinID="DeleteButton" />
 					</div>
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>
