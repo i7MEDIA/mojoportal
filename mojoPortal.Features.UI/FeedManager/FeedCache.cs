@@ -1,6 +1,8 @@
 ﻿using Argotic.Common;
 using Argotic.Syndication;
 using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using System;
 using System.Data;
@@ -8,6 +10,7 @@ using System.Data.Common;
 using System.Net;
 using System.Text;
 using System.Threading;
+using System.Web;
 
 namespace mojoPortal.Web.FeedUI
 {
@@ -17,6 +20,7 @@ namespace mojoPortal.Web.FeedUI
 		private static bool debugLog = log.IsDebugEnabled;
 		private static ReaderWriterLock cacheLock = new ReaderWriterLock();
 		private const int cacheLockTimeoutInMilliseconds = 2000; //2 seconds
+		private static SiteSettings siteSettings = null;
 
 
 		private static string FormatFeedUrl(string feedUrl, string siteRoot, string secureSiteRoot)
@@ -58,7 +62,6 @@ namespace mojoPortal.Web.FeedUI
 		}
 
 
-
 		public static DataTable GetRssFeedEntries(
 			int moduleId,
 			Guid moduleGuid,
@@ -68,6 +71,7 @@ namespace mojoPortal.Web.FeedUI
 			bool enableSelectivePublishing
 		)
 		{
+			loadSettings();
 			DateTime cutoffDate = DateTime.UtcNow.AddDays(-maxDaysOld);
 			DateTime cacheExpiration = DateTime.UtcNow.AddMinutes(-entryCacheTimeout);
 			DateTime lastCacheTime = Business.RssFeed.GetLastCacheTime(moduleGuid);
@@ -116,7 +120,13 @@ namespace mojoPortal.Web.FeedUI
 
 					if (feedUrl.StartsWith("~/"))
 					{
-						feedUrl = WebUtils.ResolveServerUrl(feedUrl).Replace("https:", "http:");
+						bool useHttps = (siteSettings != null && !siteSettings.UseSslOnAllPages) || HttpContext.Current.Request.IsSecureConnection;
+						feedUrl = WebUtils.ResolveServerUrl(feedUrl, useHttps);
+
+						//if (siteSettings != null && !siteSettings.UseSslOnAllPages)
+						//{
+						//	feedUrl = feedUrl.Replace("https:", "http:");
+						//}
 					}
 
 					bool publishByDefault = Convert.ToBoolean(dr["PublishByDefault"]);
@@ -142,7 +152,7 @@ namespace mojoPortal.Web.FeedUI
 
 						if (gsFeed.Format == SyndicationContentFormat.Rss)
 						{
-							RssFeed rssFeed = gsFeed.Resource as RssFeed;
+							Argotic.Syndication.RssFeed rssFeed = gsFeed.Resource as Argotic.Syndication.RssFeed;
 
 							if (rssFeed != null)
 							{
@@ -342,6 +352,7 @@ namespace mojoPortal.Web.FeedUI
 			return Business.RssFeed.GetEntries(moduleGuid);
 		}
 
+
 		public static void RefreshFeed(
 			Business.RssFeed feedInfo,
 			int moduleId,
@@ -351,6 +362,8 @@ namespace mojoPortal.Web.FeedUI
 			bool enableSelectivePublishing
 		)
 		{
+			loadSettings();
+
 			if (feedInfo == null)
 			{
 				return;
@@ -386,7 +399,13 @@ namespace mojoPortal.Web.FeedUI
 
 				if (feedUrl.StartsWith("~/"))
 				{
-					feedUrl = WebUtils.ResolveServerUrl(feedUrl).Replace("https:", "http:");
+					bool useHttps = (siteSettings != null && !siteSettings.UseSslOnAllPages) || HttpContext.Current.Request.IsSecureConnection;
+					feedUrl = WebUtils.ResolveServerUrl(feedUrl, useHttps);
+
+					//if (siteSettings != null && !siteSettings.UseSslOnAllPages)
+					//{
+					//	feedUrl = feedUrl.Replace("https:", "http:");
+					//}
 				}
 
 				try
@@ -397,7 +416,8 @@ namespace mojoPortal.Web.FeedUI
 
 					if (gsFeed.Format == SyndicationContentFormat.Rss)
 					{
-						RssFeed rssFeed = gsFeed.Resource as RssFeed;
+						Argotic.Syndication.RssFeed rssFeed = gsFeed.Resource as Argotic.Syndication.RssFeed;
+
 						if (rssFeed != null)
 						{
 
@@ -647,6 +667,11 @@ namespace mojoPortal.Web.FeedUI
 
 				return res;
 			}
+		}
+
+		private static void loadSettings()
+		{
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
 		}
 	}
 }

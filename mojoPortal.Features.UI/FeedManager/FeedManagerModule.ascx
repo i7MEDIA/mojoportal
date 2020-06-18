@@ -151,7 +151,8 @@
 												CommandArgument='<%#DataBinder.Eval(Container, "DataItem.EntryHash") + "_" + Convert.ToString(DataBinder.Eval(Container, "DataItem.Confirmed")) %>'
 												ID="ConfirmBtn"
 												ImageUrl='<%# ConfirmImage + (DataBinder.Eval(Container, "DataItem.Confirmed").ToString() == "true" ? "done_cover.png" : "plus.png")%>'
-												Visible='<%# EnableInPlaceEditing %>' AlternateText='<%# Convert.ToBoolean(DataBinder.Eval(Container, "DataItem.Confirmed"))?Resources.FeedResources.EntryPublishTrueAlternateText:Resources.FeedResources.EntryPublishFalseAlternateText %>' />
+												Visible='<%# EnableInPlaceEditing %>'
+												AlternateText='<%# Convert.ToBoolean(DataBinder.Eval(Container, "DataItem.Confirmed"))?Resources.FeedResources.EntryPublishTrueAlternateText:Resources.FeedResources.EntryPublishFalseAlternateText %>' />
 
 											<div class='<%#"rssfeedentry" + DataBinder.Eval(Container, "DataItem.Confirmed") %>' id="divFeedEntry" runat="server" enableviewstate="false">
 												<div class="rsstitle">

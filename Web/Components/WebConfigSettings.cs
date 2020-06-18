@@ -2335,7 +2335,7 @@ namespace mojoPortal.Web
 
 		public static bool ForceSslOnAllPages
 		{
-			get { return ConfigHelper.GetBoolProperty("ForceSslOnAllPages", false); }
+			get { return ConfigHelper.GetBoolProperty("ForceSslOnAllPages", true); }
 		}
 
 		public static bool ClearSslOnNonSecurePages

@@ -462,7 +462,16 @@ namespace mojoPortal.Web.AdminUI
 			chkAllowPageSkins.Checked = selectedSite.AllowPageSkins;
 			chkAllowHideMenuOnPages.Checked = selectedSite.AllowHideMenuOnPages;
 
-			chkRequireSSL.Checked = selectedSite.UseSslOnAllPages;
+			if (WebConfigSettings.ForceSslOnAllPages)
+			{
+				chkRequireSSL.Checked = true;
+				chkRequireSSL.Enabled = false;
+			}
+			else
+			{
+				chkRequireSSL.Checked = selectedSite.UseSslOnAllPages;
+			}
+
 			chkAllowPersistentLogin.Checked = selectedSite.AllowPersistentLogin;
 
 			txtPreferredHostName.Text = selectedSite.PreferredHostName;
@@ -1225,7 +1234,7 @@ namespace mojoPortal.Web.AdminUI
 
 				if (sslIsAvailable)
 				{
-					selectedSite.UseSslOnAllPages = chkRequireSSL.Checked;
+					selectedSite.UseSslOnAllPages = WebConfigSettings.ForceSslOnAllPages || chkRequireSSL.Checked;
 				}
 
 				

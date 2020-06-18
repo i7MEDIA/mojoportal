@@ -334,7 +334,6 @@ namespace mojoPortal.Web.FeedUI
 
 			if (totalPages > 1)
 			{
-
 				pgrRptEntries.ShowFirstLast = true;
 				pgrRptEntries.PageSize = pageSize;
 				pgrRptEntries.PageCount = totalPages;

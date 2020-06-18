@@ -442,7 +442,7 @@ namespace mojoPortal.Web
 
 			//http://www.troyhunt.com/2011/11/owasp-top-10-for-net-developers-part-9.html
 
-			if (WebConfigSettings.ForceSslOnAllPages)
+			if (SiteUtils.SslIsAvailable() && WebConfigSettings.ForceSslOnAllPages)
 			{
 				switch (Request.Url.Scheme)
 				{
@@ -455,14 +455,9 @@ namespace mojoPortal.Web
 						Response.Status = "301 Moved Permanently";
 						Response.AddHeader("Location", path);
 						break;
-
 				}
-
 			}
-			
-		   
 		}
-
 
 		protected void Application_EndRequest(Object sender, EventArgs e)
 		{
