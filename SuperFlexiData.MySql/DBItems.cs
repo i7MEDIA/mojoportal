@@ -65,13 +65,13 @@ namespace SuperFlexiData
 				new MySqlParameter("?LastModUtc", MySqlDbType.DateTime) { Direction = ParameterDirection.Input, Value = lastModUtc },
 				new MySqlParameter("?ViewRoles", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = viewRoles },
 				new MySqlParameter("?EditRoles", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = editRoles }
-			}.ToArray();
+			};
 
 			return Convert.ToInt32(
 				MySqlHelper.ExecuteScalar(
 					ConnectionString.GetWriteConnectionString(),
 					sqlCommand,
-					sqlParams
+					sqlParams.ToArray()
 				)
 			);
 		}
@@ -124,13 +124,13 @@ namespace SuperFlexiData
 				new MySqlParameter("?LastModUtc", MySqlDbType.DateTime) { Direction = ParameterDirection.Input, Value = lastModUtc },
 				new MySqlParameter("?ViewRoles", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = viewRoles },
 				new MySqlParameter("?EditRoles", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = editRoles }
-			}.ToArray();
+			};
 
 			int rowsAffected = Convert.ToInt32(
 				MySqlHelper.ExecuteNonQuery(
 					ConnectionString.GetWriteConnectionString(),
 					sqlCommand,
-					sqlParams
+					sqlParams.ToArray()
 				)
 			);
 
@@ -255,13 +255,16 @@ namespace SuperFlexiData
 		/// Gets a count of rows in the i7_sflexi_items table.
 		/// </summary>
 		//public static int GetCount()
-		//      {
-		//          string sqlCommand = "SELECT Count(*) FROM i7_sflexi_items;";
+		//{
+		//	string sqlCommand = "SELECT Count(*) FROM i7_sflexi_items;";
 
-		//       return Convert.ToInt32(MySqlHelper.ExecuteScalar(
-		//ConnectionString.GetReadConnectionString(),
-		//            sqlCommand));
-		//      }
+		//	return Convert.ToInt32(
+		//		MySqlHelper.ExecuteScalar(
+		//			ConnectionString.GetReadConnectionString(),
+		//			sqlCommand
+		//		)
+		//	);
+		//}
 
 
 		/// <summary>
@@ -387,12 +390,12 @@ namespace SuperFlexiData
 				new MySqlParameter("?SearchTerm", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = searchTerm },
 				new MySqlParameter("?SearchField", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = searchField },
 				new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid }
-			}.ToArray();
+			};
 
 			return MySqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
-				sqlParams
+				sqlParams.ToArray()
 			);
 		}
 
@@ -470,12 +473,12 @@ namespace SuperFlexiData
 				new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = defGuid },
 				new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid },
 				new MySqlParameter("?SortDirection", MySqlDbType.VarChar, 4) { Direction = ParameterDirection.Input, Value = descending ? "DESC" : "ASC" }
-			}.ToArray();
+			};
 
 			return MySqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
-				sqlParams
+				sqlParams.ToArray()
 			);
 		}
 
@@ -508,12 +511,12 @@ namespace SuperFlexiData
 			var sqlParams = new List<MySqlParameter> {
 				new MySqlParameter("?DefGuid", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = definitionGuid },
 				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = siteGuid }
-			}.ToArray();
+			};
 
 			return MySqlHelper.ExecuteReader(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
-				sqlParams
+				sqlParams.ToArray()
 			);
 		}
 
@@ -525,43 +528,44 @@ namespace SuperFlexiData
 		/// <param name="pageSize">Size of the page.</param>
 		/// <param name="totalPages">total pages</param>
 		//public static IDataReader GetPage(
-		//    int pageNumber,
-		//    int pageSize,
-		//    out int totalPages)
+		//	int pageNumber,
+		//	int pageSize,
+		//	out int totalPages)
 		//{
-		//    int pageLowerBound = (pageSize * pageNumber) - pageSize;
-		//    totalPages = 1;
-		//    int totalRows = GetCount();
+		//	int pageLowerBound = (pageSize * pageNumber) - pageSize;
+		//	totalPages = 1;
+		//	int totalRows = GetCount();
 
-		//    if (pageSize > 0) totalPages = totalRows / pageSize;
+		//	if (pageSize > 0)
+		//		totalPages = totalRows / pageSize;
 
-		//    if (totalRows <= pageSize)
-		//    {
-		//        totalPages = 1;
-		//    }
-		//    else
-		//    {
-		//        int remainder;
-		//        Math.DivRem(totalRows, pageSize, out remainder);
-		//        if (remainder > 0)
-		//        {
-		//            totalPages += 1;
-		//        }
-		//    }
-		//    StringBuilder sqlCommand = new StringBuilder();
+		//	if (totalRows <= pageSize)
+		//	{
+		//		totalPages = 1;
+		//	}
+		//	else
+		//	{
+		//		int remainder;
+		//		Math.DivRem(totalRows, pageSize, out remainder);
+		//		if (remainder > 0)
+		//		{
+		//			totalPages += 1;
+		//		}
+		//	}
+		//	StringBuilder sqlCommand = new StringBuilder();
 
-		//    sqlCommand.Append("SELECT * FROM i7_sflexi_items LIMIT ?PageSize" + (pageNumber > 1 ? "OFFSET ?OffsetRows;" : ";"));
+		//	sqlCommand.Append("SELECT * FROM i7_sflexi_items LIMIT ?PageSize" + (pageNumber > 1 ? "OFFSET ?OffsetRows;" : ";"));
 
-		//    var sqlParams = new List<MySqlParameter>
-		//    {
-		//        new MySqlParameter("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
-		//        new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageLowerBound }
-		//    };
+		//	var sqlParams = new List<MySqlParameter>
+		//	{
+		//		new MySqlParameter("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
+		//		new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageLowerBound }
+		//	};
 
-		//    return MySqlHelper.ExecuteReader(
-		//        ConnectionString.GetReadConnectionString(),
-		//        sqlCommand.ToString(),
-		//        sqlParams.ToArray());
+		//	return MySqlHelper.ExecuteReader(
+		//		ConnectionString.GetReadConnectionString(),
+		//		sqlCommand.ToString(),
+		//		sqlParams.ToArray());
 		//}
 
 
@@ -597,12 +601,12 @@ namespace SuperFlexiData
 			{
 				new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid },
 				new MySqlParameter("?PageID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageId }
-			}.ToArray();
+			};
 
 			return MySqlHelper.ExecuteReader(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
-				sqlParams
+				sqlParams.ToArray()
 			);
 		}
 	}
