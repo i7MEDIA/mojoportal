@@ -25,64 +25,16 @@ namespace mojoPortal.Web.UI
 {
     public class SiteLogo : WebControl
     {
-        private bool useH1 = false;
+		public bool UseH1 { get; set; } = false;
+		public string OverrideUrl { get; set; } = string.Empty;
+		public string OverrideTitle { get; set; } = string.Empty;
+		public string OverrideImageUrl { get; set; } = string.Empty;
+		public string ImageCssClass { get; set; } = "sitelogo";
+		public string LinkCssClass { get; set; } = string.Empty;
+		public string H1CssClass { get; set; } = "sitelogo";
+		public bool UseUrl { get; set; } = true;
 
-        public bool UseH1
-        {
-            get { return useH1; }
-            set { useH1 = value; }
-        }
-
-        private string overrideUrl = string.Empty;
-        public string OverrideUrl
-        {
-            get { return overrideUrl; }
-            set { overrideUrl = value; }
-        }
-
-        private string overrideTitle = string.Empty;
-        public string OverrideTitle
-        {
-            get { return overrideTitle; }
-            set { overrideTitle = value; }
-        }
-
-        private string overrideImageUrl = string.Empty;
-        public string OverrideImageUrl
-        {
-            get { return overrideImageUrl; }
-            set { overrideImageUrl = value; }
-        }
-
-        private string imageCssClass = "sitelogo";
-        public string ImageCssClass
-        {
-            get { return imageCssClass; }
-            set { imageCssClass = value; }
-        }
-
-        private string linkCssClass = string.Empty;
-        public string LinkCssClass
-        {
-            get { return linkCssClass; }
-            set { linkCssClass = value; }
-        }
-
-        private string h1CssClass = "sitelogo";
-        public string H1CssClass
-        {
-            get { return h1CssClass; }
-            set { h1CssClass = value; }
-        }
-
-        private bool useUrl = true;
-        public bool UseUrl
-        {
-            get { return useUrl; }
-            set { useUrl = value; }
-        }
-
-        protected override void Render(HtmlTextWriter writer)
+		protected override void Render(HtmlTextWriter writer)
         {
 
             if (HttpContext.Current == null)
@@ -96,7 +48,7 @@ namespace mojoPortal.Web.UI
                 if (siteSettings == null || String.IsNullOrEmpty(siteSettings.Logo)) return;
 
                 string urlToUse = "~/";
-                string titleToUse = siteSettings.SiteName;
+                string titleToUse = siteSettings.SiteName.Replace("\"","'");
                 string imageUrlToUse;
 
                 if (WebConfigSettings.SiteLogoUseMediaFolder)
@@ -122,45 +74,37 @@ namespace mojoPortal.Web.UI
                     urlToUse = siteRoot + "/Default.aspx";
                 }
 
-                if (useH1)
+                if (UseH1)
                 {
-                    writer.Write("<h1 class='{0}'>", h1CssClass);
+                    writer.Write("<h1 class='{0}'>", H1CssClass);
                 }
 
-                if (overrideUrl.Length > 0)
+                if (OverrideUrl.Length > 0)
                 {
                     if (siteSettings.SiteFolderName.Length > 0)
                     {
-                        overrideUrl = siteRoot + overrideUrl.Replace("~/", "/");
+                        OverrideUrl = siteRoot + OverrideUrl.Replace("~/", "/");
                     }
-                    urlToUse = overrideUrl;
+                    urlToUse = OverrideUrl;
                 }
 
-                if (overrideImageUrl.Length > 0)
+                if (OverrideImageUrl.Length > 0)
                 {
-                    imageUrlToUse = Page.ResolveUrl(overrideImageUrl);
+                    imageUrlToUse = Page.ResolveUrl(OverrideImageUrl);
                 }
 
-                if (overrideTitle.Length > 0) titleToUse = overrideTitle;
+                if (OverrideTitle.Length > 0) titleToUse = OverrideTitle;
                 //if (cssClass == string.Empty) cssClass = "sitelogo";
-                if (useUrl)
+                if (UseUrl)
                 {
-                    writer.Write("<a href='{0}' title='{1}' class='{4}'><img class='{3}' alt='{1}' src='{2}' /></a>",
-                        Page.ResolveUrl(urlToUse),
-                        titleToUse,
-                        imageUrlToUse,
-                        imageCssClass,
-                        linkCssClass);
+                    writer.Write($"<a href=\"{Page.ResolveUrl(urlToUse)}\" title=\"{titleToUse}\" class=\"{LinkCssClass}\"><img class=\"{ImageCssClass}\" alt=\"{titleToUse}\" src=\"{imageUrlToUse}\" /></a>");
                 }
                 else
                 {
-                    writer.Write("<img class='{0}' alt='{1}' src='{2}' />",
-                        imageCssClass,
-                        titleToUse,
-                        imageUrlToUse);
+                    writer.Write($"<img class=\"{ImageCssClass}\" alt=\"{titleToUse}\" src=\"{imageUrlToUse}\" />");
                 }
 
-                if (useH1)
+                if (UseH1)
                 {
                     writer.Write("</h1>");
                 }
