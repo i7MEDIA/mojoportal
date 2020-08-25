@@ -442,8 +442,11 @@ namespace mojoPortal.Web
 
 			//http://www.troyhunt.com/2011/11/owasp-top-10-for-net-developers-part-9.html
 
-			if (SiteUtils.SslIsAvailable() && WebConfigSettings.ForceSslOnAllPages)
+			if ((SiteSettings.SiteCount() > 0 && SiteUtils.SslIsAvailable() && WebConfigSettings.ForceSslOnAllPages) || (SiteSettings.SiteCount() == 0 && WebConfigSettings.SslisAvailable))
 			{
+				//if we have sites (not a new install) and SSL is avail and forced, we want to force all pages to SSL
+				//OR if we don't have any sites (is a new install) and SSL is avail, we want to force to SSL, which would really 
+				//    only force it for default.aspx which then redirects to setup/default.aspx because there are no sites (see EnsurePageAndSite() in default.aspx)
 				switch (Request.Url.Scheme)
 				{
 					case "https":
@@ -454,6 +457,9 @@ namespace mojoPortal.Web
 						string path = "https://" + Request.Url.Host + Request.Url.PathAndQuery;
 						Response.Status = "301 Moved Permanently";
 						Response.AddHeader("Location", path);
+						Response.Cache.SetNoStore();
+						Response.Cache.SetCacheability(HttpCacheability.NoCache);
+						Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
 						break;
 				}
 			}
