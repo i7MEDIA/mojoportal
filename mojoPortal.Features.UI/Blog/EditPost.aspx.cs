@@ -1159,8 +1159,8 @@ namespace mojoPortal.Web.BlogUI
 
 			TextBox txtName = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtName");
 			TextBox txtNameProperty = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtNameProperty");
-			TextBox txtMetaContent = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtMetaContent");
 			TextBox txtMetaContentProperty = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtMetaContentProperty");
+			TextBox txtMetaContent = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtMetaContent");
 			TextBox txtScheme = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtScheme");
 			TextBox txtLangCode = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtLangCode");
 			DropDownList ddDirection = (DropDownList)grid.Rows[e.RowIndex].Cells[1].FindControl("ddDirection");
@@ -1291,7 +1291,7 @@ namespace mojoPortal.Web.BlogUI
 			grdContentMeta.EditIndex = 0;
 			grdContentMeta.DataSource = dataTable.DefaultView;
 			grdContentMeta.DataBind();
-			grdContentMeta.Columns[2].Visible = false;
+			//grdContentMeta.Columns[2].Visible = false;
 			btnAddMeta.Visible = false;
 
 			upMeta.Update();
