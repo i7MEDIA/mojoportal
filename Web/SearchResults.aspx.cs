@@ -655,30 +655,34 @@ namespace mojoPortal.Web.UI.Pages
             
 		}
 
-		
+		public string BuildUrl(IndexItem indexItem)
+		{
+			string value = string.Empty;
+			if (indexItem.UseQueryStringParams)
+			{
+				value = "/" + indexItem.ViewPage
+					+ "?pageid="
+					+ indexItem.PageId.ToInvariantString()
+					+ "&mid="
+					+ indexItem.ModuleId.ToInvariantString()
+					+ "&ItemID="
+					+ indexItem.ItemId.ToInvariantString()
+					+ indexItem.QueryStringAddendum;
+			}
+			else
+			{
+				value = "/" + indexItem.ViewPage;
+			}
 
-        public string BuildUrl(IndexItem indexItem)
-        {
-            if (indexItem.UseQueryStringParams)
-            {
-                return SiteRoot + "/" + indexItem.ViewPage
-                    + "?pageid="
-                    + indexItem.PageId.ToInvariantString()
-                    + "&mid="
-                    + indexItem.ModuleId.ToInvariantString()
-                    + "&ItemID="
-                    + indexItem.ItemId.ToInvariantString()
-                    + indexItem.QueryStringAddendum;
-                    
-            }
-            else
-            {
-                return SiteRoot + "/" + indexItem.ViewPage;
-            }
+			if (value.StartsWith("/"))
+			{
+				value = SiteRoot + value;
+			}
 
-        }
+			return value;
+		}
 
-        public string FormatCreatedDate(IndexItem indexItem)
+		public string FormatCreatedDate(IndexItem indexItem)
         {
             if ((!displaySettings.ShowCreatedDate)||(timeZone == null)) { return string.Empty; }
 

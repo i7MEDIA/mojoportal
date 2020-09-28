@@ -119,7 +119,7 @@
 						</div>
 					</div>
 					<div>
-						<portal:mojoLabel ID="lblMessage" runat="server" />
+						<portal:mojoLabel ID="lblMessage" runat="server" SkinID="error" />
 					</div>
 
 
@@ -138,6 +138,7 @@
 											<div class="well">
 												<h4><%# Resources.Resource.AdminIndexBrowserItemDetails %></h4>
 												<strong><%# Resources.Resource.AdminIndexBrowserDocKey %>:</strong> <%# Eval("DocKey").ToString() %><br />
+												<strong><%# Resources.Resource.AdminIndexBrowserItemUrl %>:</strong> <%# Eval("ViewPage").ToString() %><br />
 												<strong><%# Resources.Resource.AdminIndexBrowserAuthor %>:</strong> <%# FormatProperty(Eval("Author").ToString()) %><br />
 												<strong><%# Resources.Resource.AdminIndexBrowserPageViewRoles %>:</strong> <%# FormatProperty(Eval("ViewRoles").ToString()) %><br />
 												<strong><%# Resources.Resource.AdminIndexBrowserModuleViewRoles %>:</strong> <%# FormatProperty(Eval("ModuleViewRoles").ToString()) %><br />

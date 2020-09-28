@@ -197,13 +197,11 @@ namespace mojoPortal.Web.AdminUI
 
 			if (searchResults.Count > 0 && searchResults.ItemCount > 0)
 			{
-				this.rptResults.DataSource = searchResults;
-				this.rptResults.DataBind();
+				rptResults.Visible = true;
+				rptResults.DataSource = searchResults;
+				rptResults.DataBind();
 
 			}
-
-
-
 
 		}
 
@@ -307,9 +305,10 @@ namespace mojoPortal.Web.AdminUI
 
 		public string BuildUrl(IndexItem indexItem)
 		{
+			string value = string.Empty;
 			if (indexItem.UseQueryStringParams)
 			{
-				return SiteRoot + "/" + indexItem.ViewPage
+				value = "/" + indexItem.ViewPage
 					+ "?pageid="
 					+ indexItem.PageId.ToInvariantString()
 					+ "&mid="
@@ -321,8 +320,15 @@ namespace mojoPortal.Web.AdminUI
 			}
 			else
 			{
-				return SiteRoot + "/" + indexItem.ViewPage;
+				value = "/" + indexItem.ViewPage;
 			}
+
+			if (value.StartsWith("/"))
+			{
+				value = SiteRoot + value;
+			}
+
+			return value;
 
 		}
 
@@ -345,7 +351,7 @@ namespace mojoPortal.Web.AdminUI
 			IndexingQueue.DeleteAll();
 			IndexHelper.DeleteSearchIndex(siteSettings);
 			IndexHelper.VerifySearchIndex(siteSettings);
-
+			rptResults.Visible = false;
 			lblMessage.Text = Resource.SearchResultsBuildingIndexMessage;
 			Thread.Sleep(5000); //wait 1 seconds
 			SiteUtils.QueueIndexing();

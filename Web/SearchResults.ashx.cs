@@ -306,28 +306,36 @@ namespace mojoPortal.Web.UI
 
         }
 
-        private string BuildUrl(mojoPortal.SearchIndex.IndexItem indexItem)
-        {
-            if (indexItem.UseQueryStringParams)
-            {
-                return SiteRoot + "/" + indexItem.ViewPage
-                    + "?pageid="
-                    + indexItem.PageId.ToString(CultureInfo.InvariantCulture)
-                    + "&mid="
-                    + indexItem.ModuleId.ToString(CultureInfo.InvariantCulture)
-                    + "&ItemID="
-                    + indexItem.ItemId.ToString(CultureInfo.InvariantCulture)
-                    + indexItem.QueryStringAddendum;
+		public string BuildUrl(IndexItem indexItem)
+		{
+			string value = string.Empty;
+			if (indexItem.UseQueryStringParams)
+			{
+				value = "/" + indexItem.ViewPage
+					+ "?pageid="
+					+ indexItem.PageId.ToInvariantString()
+					+ "&mid="
+					+ indexItem.ModuleId.ToInvariantString()
+					+ "&ItemID="
+					+ indexItem.ItemId.ToInvariantString()
+					+ indexItem.QueryStringAddendum;
 
-            }
-            else
-            {
-                return SiteRoot + "/" + indexItem.ViewPage;
-            }
+			}
+			else
+			{
+				value = "/" + indexItem.ViewPage;
+			}
 
-        }
+			if (value.StartsWith("/"))
+			{
+				value = SiteRoot + value;
+			}
 
-        private void ProcessError(HttpContext context)
+			return value;
+
+		}
+
+		private void ProcessError(HttpContext context)
         {
             context.Response.ContentType = "application/xml";
             Encoding encoding = new UTF8Encoding();

@@ -6550,4 +6550,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="RoleNameInvalid" xml:space="preserve">
     <value>System name is not valid.</value>
   </data>
+  <data name="AdminIndexBrowserItemUrl" xml:space="preserve">
+    <value>Url</value>
+  </data>
 </root>
