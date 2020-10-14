@@ -49,7 +49,12 @@ namespace SuperFlexiUI
                     if (item == null) continue;
                     log.DebugFormat("RebuildIndex indexing content [{0}]", row["ModuleTitle"]);
                     IndexItem indexItem = GetIndexItem(pageSettings, Convert.ToInt32(row["ModuleID"]), item);
-                    if (indexItem == null) continue;
+					if (indexItem == null)
+					{
+						log.DebugFormat("RebuildIndex IndexItem was NULL for content [{0}]", row["ModuleTitle"]);
+
+						continue;
+					}
                     indexItem.ModuleViewRoles = row["ModuleViewRoles"].ToString() + row["ItemViewRoles"].ToString();
                     indexItem.ModuleId = Convert.ToInt32(row["ModuleID"], CultureInfo.InvariantCulture);
                     indexItem.ModuleTitle = row["ModuleTitle"].ToString();
@@ -66,7 +71,7 @@ namespace SuperFlexiUI
 
                     IndexHelper.RebuildIndex(indexItem, indexPath);
 
-                    if (debugLog) log.DebugFormat("RebuildIndex [{0}\\{1}\\{2}]", indexItem.PageName, indexItem.ModuleTitle, indexItem.Title);
+                    log.Debug($"RebuildIndex [{indexItem.PageName}\\{indexItem.ModuleTitle}\\{indexItem.Title}]");
                 }
             }
             catch (System.Data.Common.DbException ex)
@@ -84,13 +89,21 @@ namespace SuperFlexiUI
             {
                 if (log.IsErrorEnabled)
                 {
-                    log.Error("SuperFlexi object passed to SuperFlexi. IndexItem was null");
+                    log.Error("SuperFlexi object passed to SuperFlexi. SiteSettings was null");
                 }
 
                 return;
             }
 
-            if (item == null) return;
+			if (item == null)
+			{
+				if (log.IsErrorEnabled)
+				{
+					log.Error("SuperFlexi object passed to SuperFlexi. Item was null");
+				}
+
+				return;
+			}
 
             Module module = new Module(item.ModuleGuid);
 
@@ -145,7 +158,9 @@ namespace SuperFlexiUI
         private IndexItem GetIndexItem(PageSettings pageSettings, int moduleID, Item item)
         {
             Module module = new Module(moduleID);
-            ModuleConfiguration config = new ModuleConfiguration(module);
+			log.Debug($"moduleid: {moduleID} for module {module.ModuleTitle}");
+
+			ModuleConfiguration config = new ModuleConfiguration(module);
             if (!config.IncludeInSearch) return null;
             SuperFlexiDisplaySettings displaySettings = new SuperFlexiDisplaySettings();
             ModuleDefinition flexiFeature = new ModuleDefinition(config.FeatureGuid);
@@ -193,7 +208,9 @@ namespace SuperFlexiUI
             SuperFlexiHelpers.ReplaceStaticTokens(sbLink, config, false, displaySettings, moduleID, pageSettings, siteSettings, out sbLink);
             SuperFlexiHelpers.ReplaceStaticTokens(sbLinkQueryAddendum, config, false, displaySettings, moduleID, pageSettings, siteSettings, out sbLinkQueryAddendum);
 
-            foreach (ItemFieldValue fieldValue in ItemFieldValue.GetItemValues(item.ItemGuid))
+			var fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
+			log.Debug($"SuperFlexi Index: total field value count for ItemGuid ({item.ItemGuid}) is {fieldValues.Count}");
+			foreach (ItemFieldValue fieldValue in fieldValues)
             {
                 Field field = new Field(fieldValue.FieldGuid);
                 if (field == null || !field.Searchable) continue;

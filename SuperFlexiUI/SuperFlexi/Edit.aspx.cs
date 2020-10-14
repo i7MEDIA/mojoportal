@@ -1338,7 +1338,6 @@ namespace SuperFlexiUI
 
 			item.SortOrder = int.Parse(txtViewOrder.Text);
             item.LastModUtc = DateTime.UtcNow;
-            item.ContentChanged += new ContentChangedEventHandler(sflexiItem_ContentChanged);
 
             if (item.Save())
 			{
@@ -1360,7 +1359,12 @@ namespace SuperFlexiUI
 				{
 					SaveFieldValue(customControls, field);
 				}
-                
+
+				//so indexing is a pain in the ass with how superflexi works so we're going to save the item again to fire contentchanged AFTER our field values have been saved
+				//we totally need to do something different
+				item.ContentChanged += new ContentChangedEventHandler(sflexiItem_ContentChanged);
+				item.Save();
+
                 CurrentPage.UpdateLastModifiedTime();
 				//CacheHelper.TouchCacheDependencyFile(cacheDependencyKey);
 				CacheHelper.ClearModuleCache(item.ModuleID);
