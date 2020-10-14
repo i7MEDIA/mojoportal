@@ -61,6 +61,13 @@
 	if (displaySettings.HideWebSiteColumn)
 	{ showWebSiteColumn = false; }
 
+	var thNameString = Resource.MemberListUserNameLabel;
+	var nameSortType = displaySettings.ShowFirstAndLastName ? 2 : 0;
+
+	if (displaySettings.ShowFirstAndLastName)
+	{
+		thNameString = Resource.Name;
+	}
 }
 
 @if (isAdmin)
@@ -81,7 +88,7 @@
 
 	<div class="col-sm-6 text-right form-inline">
 		<div class="input-group">
-			<input type="text" id="txtSearch" class="form-control" placeholder="@Resource.MemberListSearchPlaceholder" value="@searchText" />
+			<input type="text" id="txtSearch" class="form-control" placeholder="@Resource.MemberListSearchPlaceholder" value="@searchText"/>
 			<span class="input-group-btn"><button type="button" id="btnSearchUser" class="btn btn-default" onclick="DoSearch('user');">@Resource.MemberListSearchButton</button></span>
 		</div>
 	</div>
@@ -128,12 +135,7 @@
 	<thead>
 		<tr>
 			<th>
-				@{ var thNameString = Resource.MemberListUserNameLabel; }
-				@if (displaySettings.ShowFirstAndLastName)
-				{
-					thNameString = Resource.Name;
-				}
-				<a href="@pagePath">@thNameString</a>
+				<a href="@pagePath?sd=@nameSortType">@thNameString</a>
 			</th>
 			@if (showJoinDate)
 			{
@@ -151,59 +153,62 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var user in Model.Users)
+		@if (Model.Users != null)
 		{
-			<tr>
-				<td>
-					@{
-						var nameString = user.Name;
-						if ((displaySettings.ShowFirstAndLastName) && (user.FirstName.Length > 0) && (user.LastName.Length > 0))
-						{
-							nameString = string.Format(CultureInfo.InvariantCulture, Resource.MemberListNameFormat, user.LastName, user.FirstName);
+			@foreach (var user in Model.Users)
+			{
+				<tr>
+					<td>
+						@{
+							var nameString = user.Name;
+							if ((displaySettings.ShowFirstAndLastName) && (user.FirstName.Length > 0) && (user.LastName.Length > 0))
+							{
+								nameString = string.Format(CultureInfo.InvariantCulture, Resource.MemberListNameFormat, user.LastName, user.FirstName);
+							}
 						}
-					}
-					<span class="avatar"><img src="@(string.IsNullOrWhiteSpace(user.AvatarUrl) ? WebUtils.ResolveUrl("~/Data/SiteImages/anonymous.png") : siteAvatarPath + "/" + user.AvatarUrl)" style="width: 35px; height: 35px;" /></span>
-					<span class="name">@nameString</span>
-					@if (showEmailInMemberList || showLoginNameInMemberList || showUserIDInMemberList || (isAdmin && !user.DisplayInMemberList))
+						<span class="avatar"><img src="@(string.IsNullOrWhiteSpace(user.AvatarUrl) ? WebUtils.ResolveUrl("~/Data/SiteImages/anonymous.png") : siteAvatarPath + "/" + user.AvatarUrl)" style="width: 35px; height: 35px;" /></span>
+						<span class="name">@nameString</span>
+						@if (showEmailInMemberList || showLoginNameInMemberList || showUserIDInMemberList || (isAdmin && !user.DisplayInMemberList))
+						{
+							<ul class="list-unstyled">
+								@if (showEmailInMemberList)
+								{
+									<li class="email"><a href="mailto:@user.Email">@user.Email</a></li>
+								}
+								@if (showLoginNameInMemberList)
+								{
+									<li class="login">@user.LoginName</li>
+								}
+								@if (showUserIDInMemberList)
+								{
+									<li class="userid">@Resource.RegisterLoginNameLabel @user.UserId</li>
+								}
+								@if (isAdmin && !user.DisplayInMemberList)
+								{
+									<li class="text-danger">@Resources.Resource.HiddenUser</li>
+								}
+							</ul>
+						}
+					</td>
+					@if (showJoinDate)
 					{
-						<ul class="list-unstyled">
-							@if (showEmailInMemberList)
-							{
-								<li class="email"><a href="mailto:@user.Email">@user.Email</a></li>
-							}
-							@if (showLoginNameInMemberList)
-							{
-								<li class="login">@user.LoginName</li>
-							}
-							@if (showUserIDInMemberList)
-							{
-								<li class="userid">@Resource.RegisterLoginNameLabel @user.UserId</li>
-							}
-							@if (isAdmin && !user.DisplayInMemberList)
-							{
-								<li class="text-danger">@Resources.Resource.HiddenUser</li>
-							}
-						</ul>
+						<td>@DateTimeHelper.Format(user.DateCreated, timeZone, "d", timeOffset)</td>
 					}
-				</td>
-				@if (showJoinDate)
-				{
-					<td>@DateTimeHelper.Format(user.DateCreated, timeZone, "d", timeOffset)</td>
-				}
-				@if (showWebSiteColumn)
-				{
-					<td><a rel="nofollow noreferrer noopener" href="@user.WebSiteUrl">@user.WebSiteUrl</a></td>
-				}
-				@if (showForumPostColumn)
-				{
-					<td>@user.TotalPosts</td>
-				}
-				<td>
-					<a href="@(siteRoot)/ProfileView.aspx?userid=@user.UserId" class="btn btn-link">@Resource.MemberListViewProfileLabel</a>
-					@if (canManageUsers)
-					{<a href="@(siteRoot)/Admin/ManageUsers.aspx?userid=@user.UserId" class="btn btn-warning">@Resource.ManageUserLink</a>}
-				</td>
-			</tr>
+					@if (showWebSiteColumn)
+					{
+						<td><a rel="nofollow noreferrer noopener" href="@user.WebSiteUrl">@user.WebSiteUrl</a></td>
+					}
+					@if (showForumPostColumn)
+					{
+						<td>@user.TotalPosts</td>
+					}
+					<td>
+						<a href="@(siteRoot)/ProfileView.aspx?userid=@user.UserId" class="btn btn-link">@Resource.MemberListViewProfileLabel</a>
+						@if (canManageUsers)
+						{<a href="@(siteRoot)/Admin/ManageUsers.aspx?userid=@user.UserId" class="btn btn-warning">@Resource.ManageUserLink</a>}
+					</td>
+				</tr>
+			}
 		}
 	</tbody>
 </table>
@@ -231,4 +236,30 @@
 		var searchValue = encodeURIComponent(search.value);  // encode the search query
 		window.location.href = url + searchValue;
 	}
+
+	var txtSearch = document.getElementById("txtSearch");
+
+	// Execute a function when the user releases a key on the keyboard
+	txtSearch.addEventListener("keyup", function (event) {
+		// Number 13 is the "Enter" key on the keyboard
+		if (event.keyCode === 13) {
+			// Cancel the default action, if needed
+			event.preventDefault();
+			// Trigger the button element with a click
+			DoSearch("user");
+		}
+	});
+
+	var txtIPSearch = document.getElementById("txtIPSearch");
+	// Execute a function when the user releases a key on the keyboard
+	txtIPSearch.addEventListener("keyup", function (event) {
+		// Number 13 is the "Enter" key on the keyboard
+		if (event.keyCode === 13) {
+			// Cancel the default action, if needed
+			event.preventDefault();
+			// Trigger the button element with a click
+			DoSearch("ip");
+		}
+	});	
+
 </script>

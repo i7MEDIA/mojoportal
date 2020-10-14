@@ -288,6 +288,8 @@ namespace mojoPortal.Web.UI.Pages
 					out totalPages
 				);
 			}
+
+			log.Debug($"found {siteUserPage.Count} users not approved");
 		}
 
 		private void PopulateLabels()
