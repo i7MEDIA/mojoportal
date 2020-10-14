@@ -46,8 +46,7 @@ namespace mojoPortal.Features
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info("SharedFilesIndexBuilderProvider indexing page - " 
-                + pageSettings.PageName);
+            log.Info(Resources.SharedFileResources.SharedFilesFeatureName + " indexing page - " + pageSettings.PageName);
 
             try
             {

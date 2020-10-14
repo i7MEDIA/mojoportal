@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
-
+using Resources;
 namespace mojoPortal.Features
 {
     public class LinksIndexBuilderProvider : IndexBuilderProvider
@@ -45,8 +45,7 @@ namespace mojoPortal.Features
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info("LinksIndexBuilderProvider indexing page - "
-                + pageSettings.PageName);
+            log.Info(LinkResources.FeatureName + " indexing page - " + pageSettings.PageName);
 
             try
             {

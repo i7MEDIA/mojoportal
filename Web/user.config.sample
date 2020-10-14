@@ -67,6 +67,12 @@
 	<add key="EnableSearchResultsHighlighting" value="true" />
 	<add key="Forum:AggregateSearchIndexPerThread" value="true" />
 
+	<!-- 
+		Logging 404 Errors:
+		It is good to log 404 errors (page not found) but only when you will be actively reviewing the logs to identify bad links.
+		It's best to use analytics to do this though. We disable 404 logging by default on new sites.
+	-->
+	<add key="Log404Errors" value="false"/>
 
 	<!--
 		Email Settings:

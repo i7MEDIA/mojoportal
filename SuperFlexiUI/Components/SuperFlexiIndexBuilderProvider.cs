@@ -37,7 +37,7 @@ namespace SuperFlexiUI
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.InfoFormat("RebuildIndex indexing page [{0}]", pageSettings.PageName);
+            log.InfoFormat(Resources.SuperFlexiResources.FeatureName + " indexing page [{0}]", pageSettings.PageName);
 
             try
             {
@@ -47,7 +47,7 @@ namespace SuperFlexiUI
                 {
                     Item item = new Item(Convert.ToInt32(row["ItemID"]));
                     if (item == null) continue;
-                    log.InfoFormat("RebuildIndex indexing content [{0}]", row["ModuleTitle"]);
+                    log.DebugFormat("RebuildIndex indexing content [{0}]", row["ModuleTitle"]);
                     IndexItem indexItem = GetIndexItem(pageSettings, Convert.ToInt32(row["ModuleID"]), item);
                     if (indexItem == null) continue;
                     indexItem.ModuleViewRoles = row["ModuleViewRoles"].ToString() + row["ItemViewRoles"].ToString();
@@ -103,7 +103,7 @@ namespace SuperFlexiUI
                 //don't index pending/unpublished pages
                 if (pageSettings.IsPending) { continue; }
 
-                log.InfoFormat("RebuildIndex indexing content [{0}]", module.ModuleTitle);
+                log.DebugFormat("RebuildIndex indexing content [{0}]", module.ModuleTitle);
                 IndexItem indexItem = GetIndexItem(pageSettings, module.ModuleId, item);
                 if (indexItem == null) continue;
                 indexItem.ModuleViewRoles = module.ViewRoles;

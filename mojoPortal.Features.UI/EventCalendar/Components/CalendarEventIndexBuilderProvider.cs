@@ -44,8 +44,7 @@ namespace mojoPortal.Features
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info("CalendarEventIndexBuilderProvider indexing page - " 
-                + pageSettings.PageName);
+            log.Info(Resources.EventCalResources.EventCalendarFeatureName + " indexing page - " + pageSettings.PageName);
 
             try
             {
