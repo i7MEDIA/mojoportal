@@ -68,14 +68,14 @@ namespace mojoPortal.SearchIndex
             if (oTask == null) return;
             IndexWriterTask task = oTask as IndexWriterTask;
 
-            log.Info("deserialized IndexWriterTask task");
+            log.Debug("deserialized IndexWriterTask task");
 
             // give a little time to make sure the taskqueue was updated after spawning the thread
             Thread.Sleep(100); // 0.10 seconds
 
             task.RunTask();
 
-            log.Info("started IndexWriterTask task");
+            log.Debug("started IndexWriterTask task");
 
         }
 
@@ -851,7 +851,7 @@ namespace mojoPortal.SearchIndex
             task.LastStatusUpdateUTC = DateTime.UtcNow;
             task.Save();
 
-            log.Info("Queued IndexWriterTask on a new thread");
+            log.Debug("Queued IndexWriterTask on a new thread");
 
 
         }

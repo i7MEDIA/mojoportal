@@ -1,21 +1,11 @@
-﻿// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Globalization;
+﻿using System;
 using System.Web;
-using System.Configuration;
 using log4net;
 using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web
 {
-    public class PageNotFoundHttpModule : IHttpModule
+	public class PageNotFoundHttpModule : IHttpModule
     {
         private static readonly ILog log
             = LogManager.GetLogger(typeof(PageNotFoundHttpModule));
@@ -39,49 +29,46 @@ namespace mojoPortal.Web
 
         void app_BeginRequest(object sender, EventArgs e)
         {
-            HttpApplication app = sender as HttpApplication;
 
-	        // ReSharper disable once RedundantJumpStatement
-	        if (app == null) return;
+			// ReSharper disable once RedundantJumpStatement
+			if (!(sender is HttpApplication app)) return;
 
-			// Commented out for issue #70
-			// https://github.com/i7MEDIA/mojoportal/issues/70
-			//if (WebConfigSettings.DetectPageNotFoundForExtensionlessUrls)
-			//{
-			//    if ((app.Context.Items["UrlNotFound"] != null) && (Convert.ToBoolean(app.Context.Items["UrlNotFound"]) == true))
-			//    {
-			//        log.Info("handled page not found for url " + app.Context.Request.Url.ToString());
-			//        if (WebConfigSettings.Custom404Page.Length > 0)
-			//        {
-			//            app.Server.Transfer(WebConfigSettings.Custom404Page);
-			//        }
-			//        else
-			//        {
-			//            app.Server.Transfer("~/PageNotFound.aspx");
-			//        }
-			//    }
-			//}
+			//HttpApplication app = sender as HttpApplication;
+
+			//// ReSharper disable once RedundantJumpStatement
+			//if (app == null) return;
 		}
 
 		void app_Error(object sender, EventArgs e)
         {
-            HttpApplication app = sender as HttpApplication;
-            if (app == null) { return; }
+			if (!(sender is HttpApplication app)) { return; }
 
-            if (
-                (app.Request.Path.EndsWith(".gif", StringComparison.InvariantCultureIgnoreCase))
-                    || (app.Request.Path.EndsWith(".js", StringComparison.InvariantCultureIgnoreCase))
-                    || (app.Request.Path.EndsWith(".png", StringComparison.InvariantCultureIgnoreCase))
-                    || (app.Request.Path.EndsWith(".jpg", StringComparison.InvariantCultureIgnoreCase))
-                    || (app.Request.Path.EndsWith(".css", StringComparison.InvariantCultureIgnoreCase))
-                    || (app.Request.Path.EndsWith(".axd", StringComparison.InvariantCultureIgnoreCase))
-                    || (app.Request.Path.EndsWith(".ashx", StringComparison.InvariantCultureIgnoreCase))
-                    )
-            {
-                // don't handle 404 errors for images and javascript files and web services
-                return;
+			// don't handle 404 errors for images, javascript files, and web services
 
-            }
+			var fileExtToSkip = WebConfigSettings.ExtensionsToSkipIn404Handler.SplitOnCharAndTrim('|');
+
+			foreach (var ext in fileExtToSkip)
+			{
+				if (app.Request.Path.EndsWith(ext, StringComparison.InvariantCultureIgnoreCase))
+				{
+					return;
+				}
+			}
+
+			//if (
+   //             (app.Request.Path.EndsWith(".gif", StringComparison.InvariantCultureIgnoreCase))
+   //                 || (app.Request.Path.EndsWith(".js", StringComparison.InvariantCultureIgnoreCase))
+   //                 || (app.Request.Path.EndsWith(".png", StringComparison.InvariantCultureIgnoreCase))
+   //                 || (app.Request.Path.EndsWith(".jpg", StringComparison.InvariantCultureIgnoreCase))
+   //                 || (app.Request.Path.EndsWith(".css", StringComparison.InvariantCultureIgnoreCase))
+   //                 || (app.Request.Path.EndsWith(".axd", StringComparison.InvariantCultureIgnoreCase))
+   //                 || (app.Request.Path.EndsWith(".ashx", StringComparison.InvariantCultureIgnoreCase))
+   //                 )
+   //         {
+   //             // don't handle 404 errors for images and javascript files and web services
+   //             return;
+
+   //         }
 
             Exception ex = null;
 
@@ -109,7 +96,7 @@ namespace mojoPortal.Web
                     //    || (ex.StackTrace.Contains(aspnet404StackTraceMarker))
                     //    || (ex.StackTrace.Contains(mono404StackTraceMarker))
                     //)
-                    if(((HttpException)(ex)).GetHttpCode() == 404)
+                    if(((HttpException)ex).GetHttpCode() == 404)
                     {
                         string exceptionReferrer = string.Empty;
 
@@ -122,14 +109,15 @@ namespace mojoPortal.Web
                             exceptionReferrer = "none";
                         }
 
-                        log.Info("Referrer(" + exceptionReferrer + ")  PageNotFoundHttpModule handled error.", ex);
+                        if (WebConfigSettings.Log404Errors)
+							log.Info("Referrer(" + exceptionReferrer + ")  PageNotFoundHttpModule handled error.", ex);
 
                         app.Server.ClearError();
-#if !MONO
+
                         // this solves the IIS 7 issue where the standard 404 page was returned
                         //http://www.west-wind.com/weblog/posts/745738.aspx
                         app.Context.Response.TrySkipIisCustomErrors = true;
-#endif
+
                         //app.Context.Response.StatusCode = 404;
                         //app.Context.Response.Write(GetCustom404Html());
                         //app.Context.Response.End();
@@ -149,9 +137,7 @@ namespace mojoPortal.Web
                             log.Info("PageNotFoundHttpModule ignoring error ", ex);
                         }
                     }
-
                 }
-
             }
             catch (Exception ex2)
             {
@@ -159,46 +145,6 @@ namespace mojoPortal.Web
             }
         }
 
-        
-
-        //private string GetCustom404Html()
-        //{
-        //    try
-        //    {
-        //        if (ConfigurationManager.AppSettings["Custom404Page"] == null) { return fallBack404Content; }
-
-        //        string custom404PageUrl = SiteUtils.GetNavigationSiteRoot() + ConfigurationManager.AppSettings["Custom404Page"];
-
-        //        string html = WebUtils.GetHtmlFromWeb(custom404PageUrl + "?c=" + CultureInfo.CurrentCulture.Name);
-
-        //        if (html.Contains(webFormInitScript))
-        //        {
-        //            html = html.Replace(webFormInitScript, string.Empty);
-        //        }
-
-        //        if (html.Contains(openingForm))
-        //        {
-        //            html = html.Replace(openingForm, string.Empty);
-        //        }
-
-        //        if (html.Contains(closingFormTag))
-        //        {
-        //            html = html.Replace(closingFormTag, string.Empty);
-        //        }
-
-        //        return html;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        log.Error("PageNotFoundHttpModule raised an error trying to get Custom 404 page content.", ex);
-
-        //    }
-
-        //    return fallBack404Content;
-        //}
-
-        
-
-        public void Dispose() { }
+		public void Dispose() { }
     }
 }

@@ -2478,7 +2478,23 @@ namespace mojoPortal.Web
 
 		public static bool LogErrorsFrom404Handler
 		{
-			get { return ConfigHelper.GetBoolProperty("LogErrorsFrom404Handler", false); }
+			get { return Log404HandlerExceptions; }
+		}
+		public static bool Log404HandlerExceptions
+		{
+			get
+			{
+				if (ConfigurationManager.AppSettings["Log404HandlerExceptions"] != null)
+				{
+					return ConfigHelper.GetBoolProperty("Log404HandlerExceptions", false);
+				}
+				//backwards compatibility with old setting
+				return ConfigHelper.GetBoolProperty("LogErrorsFrom404Handler", false);
+			}
+		}
+		public static bool Log404Errors
+		{
+			get { return ConfigHelper.GetBoolProperty("Log404Errors", true); }
 		}
 
 		public static bool LogRedirectsToPreferredHostName
@@ -2952,15 +2968,6 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetBoolProperty("DisableWoopraGlobally", false); }
 		}
-
-		public static bool EnableGoogle404Enhancement
-		{
-			get { return ConfigHelper.GetBoolProperty("EnableGoogle404Enhancement", true); }
-		}
-
-
-
-		
 
 		public static bool UseOfficeFeature
 		{
@@ -3574,7 +3581,7 @@ namespace mojoPortal.Web
 			{
 				if (ConfigurationManager.AppSettings["AllowedSkinFileExtensions"] != null)
 				{
-					return ConfigurationManager.AppSettings["AllowedSkinFileExtensions"];
+					return ConfigurationManager.AppSettings["AllowedSkinFileExtensions"].ToLower();
 				}
 				// default value
 				return ".master|.skin|.css|.jpg|.jpeg|.png|.gif|.ico|.txt|.config|.js|.swf|.flv|.fla|.html|.xml|.less|.eot|.otf|.woff|.ttf|.svg|.cshtml";
@@ -3688,7 +3695,7 @@ namespace mojoPortal.Web
 			{
 				if (ConfigurationManager.AppSettings["AllowedUploadFileExtensions"] != null)
 				{
-					return ConfigurationManager.AppSettings["AllowedUploadFileExtensions"];
+					return ConfigurationManager.AppSettings["AllowedUploadFileExtensions"].ToLower();
 				}
 				// default value
 				return ".gif|.jpg|.jpeg|.svg|.png|.flv|.swf|.wmv|.mp3|.mp4|.tif|.asf|.asx|.avi|.mov|.mpeg|.mpg|.zip|.pdf|.doc|.docx|.xls|.xlsx|.ppt|.pptx|.csv|.txt";
@@ -3703,7 +3710,7 @@ namespace mojoPortal.Web
 			{
 				if (ConfigurationManager.AppSettings["AllowedLessPriveledgedUserUploadFileExtensions"] != null)
 				{
-					return ConfigurationManager.AppSettings["AllowedLessPriveledgedUserUploadFileExtensions"];
+					return ConfigurationManager.AppSettings["AllowedLessPriveledgedUserUploadFileExtensions"].ToLower();
 				}
 				// default value
 				return ".gif|.jpg|.jpeg|.png|.svg|.zip";
@@ -4366,8 +4373,6 @@ namespace mojoPortal.Web
 			}
 		}
 
-		
-
 		public static string Custom404Page
 		{
 			get
@@ -4378,6 +4383,24 @@ namespace mojoPortal.Web
 				}
 
 				return "~/PageNotFound.aspx";
+			}
+		}
+
+		public static bool EnableGoogle404Enhancement
+		{
+			get { return ConfigHelper.GetBoolProperty("EnableGoogle404Enhancement", true); }
+		}
+
+		public static string ExtensionsToSkipIn404Handler
+		{
+			get
+			{
+				if (ConfigurationManager.AppSettings["ExtensionsToSkipIn404Handler"] != null)
+				{
+					return ConfigurationManager.AppSettings["ExtensionsToSkipIn404Handler"].ToLower();
+				}
+				// default value
+				return ImageFileExtensions + "|" + AudioFileExtensions + "|" + VideoFileExtensions + ".js|.css|.ashx|.axd";
 			}
 		}
 

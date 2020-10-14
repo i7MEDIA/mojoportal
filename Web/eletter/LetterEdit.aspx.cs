@@ -275,7 +275,7 @@ namespace mojoPortal.Web.ELetterUI
             letter.IsApproved = true;
 
             string baseUrl = WebUtils.GetHostRoot();
-            if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+            if (WebConfigSettings.UseFolderBasedMultiTenants)
             {
                 // in folder based sites the relative urls in the editor will already have the folder name
                 // so we want to use just the raw site root not the navigation root

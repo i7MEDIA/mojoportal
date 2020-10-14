@@ -52,8 +52,7 @@ namespace mojoPortal.SearchIndex
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info("HtmlContentIndexBuilderProvider indexing page - " 
-                + pageSettings.PageName);
+            log.Info(Resource.HtmlContentFeatureName + " indexing page - " + pageSettings.PageName);
 
             try
             {
