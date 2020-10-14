@@ -665,6 +665,7 @@ namespace mojoPortal.Web
 			MatchCollection matches = Regex.Matches(html, urlRegex);
 			foreach (Match m in matches)
 			{
+				if (urls.Contains(m.Value)) continue; //this should prevent duplicates
 				urls.Add(SecurityHelper.RemoveAngleBrackets(RemoveQuotes(m.Value)));
 			}
 
