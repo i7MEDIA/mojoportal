@@ -55,6 +55,11 @@ namespace mojoPortal.Web
                 log.Error(ex);
                 return;
             }
+			catch (InvalidOperationException ex)
+			{
+				log.Error(ex);
+				return;
+			}
             catch (Exception ex)
             {
                 // hate to trap System.Exception but SqlCeException doe snot inherit from DbException as it should

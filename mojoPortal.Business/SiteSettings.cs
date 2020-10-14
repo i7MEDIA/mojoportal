@@ -2432,25 +2432,25 @@ namespace mojoPortal.Business
         {
             int sitesFound = 0;
 
-            try
-            {
-                using (IDataReader reader = DBSiteSettings.GetSiteList())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            sitesFound += 1;
+			try
+			{
+				using (IDataReader reader = DBSiteSettings.GetSiteList())
+				{
+					if (reader != null)
+					{
+						while (reader.Read())
+						{
+							sitesFound += 1;
 
-                        }
-                    }
-                }
+						}
+					}
+				}
 
-            }
-            catch (System.Data.Common.DbException) { }
-            catch (InvalidOperationException) { }
-            catch (System.Security.SecurityException) { }
-            catch(System.Net.Sockets.SocketException) {}
+			}
+			catch (System.Data.Common.DbException) { }
+			catch (InvalidOperationException) { }
+			catch (System.Security.SecurityException) { }
+			catch (System.Net.Sockets.SocketException) { }
 
 
             return sitesFound;
