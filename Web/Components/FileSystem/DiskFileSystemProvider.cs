@@ -18,7 +18,11 @@ namespace mojoPortal.FileSystem
 
 		public override IFileSystem GetFileSystem()
 		{
-			siteSettings = CacheHelper.GetCurrentSiteSettings();
+			if (siteSettings == null)
+			{
+				siteSettings = CacheHelper.GetCurrentSiteSettings();
+			}
+
 			IFileSystemPermission p = GetFileSystemPermission();
 
 			if (p == null)
@@ -37,19 +41,20 @@ namespace mojoPortal.FileSystem
 
 		public override IFileSystem GetFileSystem(int siteId)
 		{
-			siteSettings = CacheHelper.GetCurrentSiteSettings();
-
+			siteSettings =  new SiteSettings(siteId);
 			if (siteSettings == null)
 			{
-				siteSettings = new SiteSettings(siteId);
+				log.Error($"Site Settings is NULL!!!! Passed SiteId={siteId} from ");
 			}
-
 			return GetFileSystem();
 		}
 
 		public override IFileSystem GetFileSystem(IFileSystemPermission permission)
 		{
-			siteSettings = CacheHelper.GetCurrentSiteSettings();
+			if (siteSettings == null)
+			{
+				siteSettings = CacheHelper.GetCurrentSiteSettings();
+			}
 			//IFileSystemPermission p = GetFileSystemPermission();
 			if (permission == null)
 			{
