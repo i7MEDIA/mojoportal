@@ -75,9 +75,9 @@
 	mojoPortal.Web.Models.BreadCrumbs crumbsModel = new mojoPortal.Web.Models.BreadCrumbs();
 	crumbsModel.Crumbs = new List<BreadCrumb>
 {
-		new BreadCrumb { Text = Resource.AdminMenuLink, Url = siteRoot + "/Admin/AdminMenu.aspx"},
-		new BreadCrumb { Text = Resource.MemberListLink, Url = pagePath}
-	};
+new BreadCrumb { Text = Resource.AdminMenuLink, Url = siteRoot + "/Admin/AdminMenu.aspx"},
+new BreadCrumb { Text = Resource.MemberListLink, Url = pagePath}
+};
 
 	Html.RenderPartial("_BreadCrumbs", crumbsModel);
 }
@@ -88,7 +88,7 @@
 
 	<div class="col-sm-6 text-right form-inline">
 		<div class="input-group">
-			<input type="text" id="txtSearch" class="form-control" placeholder="@Resource.MemberListSearchPlaceholder" value="@searchText"/>
+			<input type="text" id="txtSearch" class="form-control" placeholder="@Resource.MemberListSearchPlaceholder" value="@searchText" />
 			<span class="input-group-btn"><button type="button" id="btnSearchUser" class="btn btn-default" onclick="DoSearch('user');">@Resource.MemberListSearchButton</button></span>
 		</div>
 	</div>
@@ -155,7 +155,7 @@
 	<tbody>
 		@if (Model.Users != null)
 		{
-			@foreach (var user in Model.Users)
+			foreach (var user in Model.Users)
 			{
 				<tr>
 					<td>
@@ -260,6 +260,6 @@
 			// Trigger the button element with a click
 			DoSearch("ip");
 		}
-	});	
+	});
 
 </script>
