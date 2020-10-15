@@ -22,41 +22,50 @@ using SuperFlexiBusiness;
 
 namespace SuperFlexiUI
 {
-    public partial class Widget : UserControl
-    {
-        #region Properties
-        private static readonly ILog log = LogManager.GetLogger(typeof(Widget));
+	public partial class Widget : UserControl
+	{
+		#region Properties
+		private static readonly ILog log = LogManager.GetLogger(typeof(Widget));
 		private List<Field> fields = new List<Field>();
-        private string moduleTitle = string.Empty;
-        private string markupErrorFormat = "SuperFlexi markup definition error when rendering {0} for {1}. Error was {2}";
-        StringBuilder strOutput = new StringBuilder();
-        StringBuilder strAboveMarkupScripts = new StringBuilder();
-        StringBuilder strBelowMarkupScripts = new StringBuilder();
-        List<Item> items = new List<Item>();
-        List<ItemFieldValue> fieldValues = new List<ItemFieldValue>();
+		private string moduleTitle = string.Empty;
+		private string markupErrorFormat = "SuperFlexi markup definition error when rendering {0} for {1}. Error was {2}";
+		StringBuilder strOutput = new StringBuilder();
+		StringBuilder strAboveMarkupScripts = new StringBuilder();
+		StringBuilder strBelowMarkupScripts = new StringBuilder();
+		List<Item> items = new List<Item>();
+		List<ItemFieldValue> fieldValues = new List<ItemFieldValue>();
 		List<ModuleConfiguration> moduleConfigs = new List<ModuleConfiguration>();
-        SiteSettings siteSettings;
-        PageSettings pageSettings;
-        Module module;
+		SiteSettings siteSettings;
+		//PageSettings pageSettings;
+		Module module;
 		public ModuleConfiguration Config { get; set; } = new ModuleConfiguration();
 		public string SiteRoot { get; set; } = string.Empty;
 		public string ImageSiteRoot { get; set; } = string.Empty;
 		public bool IsEditable { get; set; } = false;
 		public int ModuleId { get; set; } = -1;
 		public int PageId { get; set; } = -1;
-
+		public PageSettings CurrentPage { get; set; }
 		#endregion
 
 		protected void Page_Load(object sender, EventArgs e)
-        {
-            //LoadSettings();
-            //SetupScripts();
+		{
+			//LoadSettings();
+			//SetupScripts();
 
-            module = new Module(ModuleId);
-            moduleTitle = module.ModuleTitle;
+			module = new Module(ModuleId);
+			moduleTitle = module.ModuleTitle;
 
-            siteSettings = CacheHelper.GetCurrentSiteSettings();
-            pageSettings = new PageSettings(siteSettings.SiteId, PageId);
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
+
+			if (CurrentPage == null)
+			{
+				CurrentPage = CacheHelper.GetCurrentPage();
+				if (CurrentPage == null)
+				{
+					log.Info("Can't use CacheHelper.GetCurrentPage() here.");
+					CurrentPage = new PageSettings(siteSettings.SiteId, PageId);
+				}
+			}
             if (Config.MarkupDefinition != null)
             {
                 displaySettings = Config.MarkupDefinition;
@@ -88,18 +97,18 @@ namespace SuperFlexiUI
 
                 if (SiteUtils.IsMobileDevice() && Config.MobileMarkupScripts.Count > 0)
                 {
-                    SuperFlexiHelpers.SetupScripts(Config.MobileMarkupScripts, Config, displaySettings, siteSettings.UseSslOnAllPages, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
+                    SuperFlexiHelpers.SetupScripts(Config.MobileMarkupScripts, Config, displaySettings, IsEditable, IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, this);
                 }
                 else
                 {
-                    SuperFlexiHelpers.SetupScripts(Config.MarkupScripts, Config, displaySettings, siteSettings.UseSslOnAllPages, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
+                    SuperFlexiHelpers.SetupScripts(Config.MarkupScripts, Config, displaySettings, IsEditable, IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, this);
                 }
 
             }
 
             if (Config.MarkupCSS.Count > 0)
             {
-                SuperFlexiHelpers.SetupStyle(Config.MarkupCSS, Config, displaySettings, siteSettings.UseSslOnAllPages, ClientID, ModuleId, PageId, Page, this);
+                SuperFlexiHelpers.SetupStyle(Config.MarkupCSS, Config, displaySettings, IsEditable, ClientID, siteSettings, module, CurrentPage, Page, this);
             }
 
             //if (Page.IsPostBack) { return; }
@@ -632,7 +641,7 @@ namespace SuperFlexiUI
                 List<MarkupScript> scripts = new List<MarkupScript>();
                 scripts.Add(jsonScript);
 
-                SuperFlexiHelpers.SetupScripts(scripts, Config, displaySettings, siteSettings.UseSslOnAllPages, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
+                SuperFlexiHelpers.SetupScripts(scripts, Config, displaySettings, IsEditable, IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, this);
             }
 
             if (Config.UseFooter && Config.FooterLocation == "InnerBodyPanel" && !String.IsNullOrWhiteSpace(Config.FooterContent) && !String.Equals(Config.FooterContent, "<p>&nbsp;</p>")) 
@@ -649,7 +658,7 @@ namespace SuperFlexiUI
             
             strOutput.Append(markupBottom);
 
-            SuperFlexiHelpers.ReplaceStaticTokens(strOutput, Config, IsEditable, displaySettings, module.ModuleId, pageSettings, siteSettings, out strOutput);
+            SuperFlexiHelpers.ReplaceStaticTokens(strOutput, Config, IsEditable, displaySettings, module, CurrentPage, siteSettings, out strOutput);
             
             //this is for displaying all of the selected values from the items outside of the items themselves
             foreach (CheckBoxListMarkup cblm in Config.CheckBoxListMarkups)

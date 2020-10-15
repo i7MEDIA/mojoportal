@@ -1652,7 +1652,7 @@ namespace SuperFlexiUI
 			rawScript.Append("\"fileBrowserUrl\": \"$_FileBrowserUrl_$\"");
 			rawScript.Append("};");
 
-			SuperFlexiHelpers.ReplaceStaticTokens(rawScript, config, true, displaySettings, module.ModuleId, CurrentPage, SiteInfo, out rawScript);
+			SuperFlexiHelpers.ReplaceStaticTokens(rawScript, config, true, displaySettings, module, CurrentPage, SiteInfo, out rawScript);
 
 			StringBuilder scriptText = new StringBuilder();
 
@@ -1669,12 +1669,12 @@ namespace SuperFlexiUI
 			//config.EditPageScripts = FieldUtils.ParseScriptsFromXml(config);
 			if (config.EditPageScripts.Count > 0)
 			{
-				SuperFlexiHelpers.SetupScripts(config.EditPageScripts, config, displaySettings, siteSettings.UseSslOnAllPages, true, IsPostBack, ClientID, moduleId, pageId, Page, this);
+				SuperFlexiHelpers.SetupScripts(config.EditPageScripts, config, displaySettings, true, IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, this);
 			}
 
             if (config.EditPageCSS.Count > 0)
             {
-                SuperFlexiHelpers.SetupStyle(config.EditPageCSS, config, displaySettings, siteSettings.UseSslOnAllPages, ClientID, moduleId, pageId, Page, this);
+                SuperFlexiHelpers.SetupStyle(config.EditPageCSS, config, displaySettings, true, ClientID, siteSettings, module, CurrentPage, Page, this);
             }
 
 		}

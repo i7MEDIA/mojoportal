@@ -29,6 +29,7 @@ namespace SuperFlexiUI
 		{
 			Module module = new Module(ModuleGuid);
 			config = new ModuleConfiguration(module);
+			//PageSettings currentPage = CacheHelper.GetCurrentPage();
 
 			if (config.MarkupDefinition != null)
 			{
@@ -43,7 +44,7 @@ namespace SuperFlexiUI
 			StringBuilder moduleTitle = new StringBuilder();
 
 			moduleTitle.Append(displaySettings.ModuleTitleMarkup);
-			SuperFlexiHelpers.ReplaceStaticTokens(moduleTitle, config, IsEditable, displaySettings, ModuleId, PageId, out moduleTitle);
+			SuperFlexiHelpers.ReplaceStaticTokens(moduleTitle, config, IsEditable, displaySettings, module, currentPage, siteSettings, out moduleTitle);
 			litModuleTitle.Text = moduleTitle.ToString();
 
 			if (config.InstanceCssClass.Length > 0 && !config.HideOuterWrapperPanel)
@@ -57,10 +58,10 @@ namespace SuperFlexiUI
 			}
 
 			theWidget.Config = config;
-			PageSettings currentPage = CacheHelper.GetCurrentPage();
 			if (currentPage != null)
 			{
 				theWidget.PageId = currentPage.PageId;
+				theWidget.CurrentPage = currentPage;
 			}
 			theWidget.ModuleId = ModuleId;
 			theWidget.IsEditable = IsEditable;
@@ -81,7 +82,7 @@ namespace SuperFlexiUI
 			{
 				StringBuilder headerContent = new StringBuilder();
 				headerContent.AppendFormat(displaySettings.HeaderContentFormat, config.HeaderContent);
-				SuperFlexiHelpers.ReplaceStaticTokens(headerContent, config, IsEditable, displaySettings, ModuleId, PageId, out headerContent);
+				SuperFlexiHelpers.ReplaceStaticTokens(headerContent, config, IsEditable, displaySettings, module, currentPage, siteSettings, out headerContent);
 				LiteralControl litHeaderContent = new LiteralControl(headerContent.ToString());
 				//if HeaderLocation is set to a hidden panel the header will be added to the Outside.
 				switch (config.HeaderLocation)
@@ -113,7 +114,7 @@ namespace SuperFlexiUI
 			{
 				StringBuilder footerContent = new StringBuilder();
 				footerContent.AppendFormat(displaySettings.FooterContentFormat, config.FooterContent);
-				SuperFlexiHelpers.ReplaceStaticTokens(footerContent, config, IsEditable, displaySettings, ModuleId, PageId, out footerContent);
+				SuperFlexiHelpers.ReplaceStaticTokens(footerContent, config, IsEditable, displaySettings, module, currentPage, siteSettings, out footerContent);
 				LiteralControl litFooterContent = new LiteralControl(footerContent.ToString());
 				//if FooterLocation is set to a hidden panel the footer will be added to the Outside.
 				switch (config.FooterLocation)

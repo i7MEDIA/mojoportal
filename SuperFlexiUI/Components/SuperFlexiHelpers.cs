@@ -169,48 +169,68 @@ namespace SuperFlexiUI
             return helpText;
         }
 
-        public static void ReplaceStaticTokens(
-            StringBuilder stringBuilder,
-            ModuleConfiguration config,
-            bool isEditable,
-            SuperFlexiDisplaySettings displaySettings,
-            int moduleId,
-            int pageId,
-            out StringBuilder sb)
-        {
-            SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+        //public static void ReplaceStaticTokens(
+        //    StringBuilder stringBuilder,
+        //    ModuleConfiguration config,
+        //    bool isEditable,
+        //    SuperFlexiDisplaySettings displaySettings,
+        //    int moduleId,
+        //    int pageId,
+        //    out StringBuilder sb)
+        //{
+        //    SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 
-            if (siteSettings == null)
-            {
-                siteSettings = new SiteSettings(SiteSettings.GetRootSiteGuid());
-            }
+        //    if (siteSettings == null)
+        //    {
+        //        siteSettings = new SiteSettings(SiteSettings.GetRootSiteGuid());
+        //    }
 
-            PageSettings pageSettings = new PageSettings(siteSettings.SiteId, pageId);
+        //    PageSettings pageSettings = new PageSettings(siteSettings.SiteId, pageId);
 
-            ReplaceStaticTokens(stringBuilder, config, isEditable, displaySettings, moduleId, pageSettings, siteSettings, out sb);
-        }
+        //    ReplaceStaticTokens(stringBuilder, config, isEditable, displaySettings, moduleId, pageSettings, siteSettings, out sb);
+        //}
 
-        public static void ReplaceStaticTokens(
-            StringBuilder stringBuilder,
-            ModuleConfiguration config,
-            bool isEditable,
-            SuperFlexiDisplaySettings displaySettings,
-            int moduleId,
-            PageSettings pageSettings,
-            SiteSettings siteSettings,
-            out StringBuilder sb)
-        {
-            sb = stringBuilder;
-            string featuredImageUrl = String.IsNullOrWhiteSpace(config.InstanceFeaturedImage) ? string.Empty : WebUtils.GetApplicationRoot() + config.InstanceFeaturedImage;
-            string jsonObjName = "sflexi" + moduleId.ToString() + (config.IsGlobalView ? "Modules" : "Items");
-            string currentSkin = string.Empty;
-            string siteRoot = SiteUtils.GetNavigationSiteRoot();
+  //      public static void ReplaceStaticTokens(
+  //          StringBuilder stringBuilder,
+  //          ModuleConfiguration config,
+  //          bool isEditable,
+  //          SuperFlexiDisplaySettings displaySettings,
+  //          int moduleId,
+  //          PageSettings pageSettings,
+  //          SiteSettings siteSettings,
+  //          out StringBuilder sb)
+  //      {
+		//	Module module = new Module(moduleId);
+
+
+		//	ReplaceStaticTokens(stringBuilder, config, isEditable, displaySettings, module, pageSettings, siteSettings, out sb);
+
+		//}
+
+
+		public static void ReplaceStaticTokens(
+			StringBuilder stringBuilder,
+			ModuleConfiguration config,
+			bool isEditable,
+			SuperFlexiDisplaySettings displaySettings,
+			Module module,
+			PageSettings pageSettings,
+			SiteSettings siteSettings,
+			out StringBuilder sb)
+		{
+			sb = stringBuilder;
+			int moduleId = module.ModuleId;
+
+			string featuredImageUrl = String.IsNullOrWhiteSpace(config.InstanceFeaturedImage) ? string.Empty : WebUtils.GetApplicationRoot() + config.InstanceFeaturedImage;
+			string jsonObjName = "sflexi" + moduleId.ToString() + (config.IsGlobalView ? "Modules" : "Items");
+			string currentSkin = string.Empty;
+			string siteRoot = SiteUtils.GetNavigationSiteRoot();
 			bool publishedOnCurrentPage = true;
 
 			if (HttpContext.Current != null && HttpContext.Current.Request.Params.Get("skin") != null)
-            {
-                currentSkin = SiteUtils.SanitizeSkinParam(HttpContext.Current.Request.Params.Get("skin")) + "/";
-            }
+			{
+				currentSkin = SiteUtils.SanitizeSkinParam(HttpContext.Current.Request.Params.Get("skin")) + "/";
+			}
 
 			if (isEditable)
 			{
@@ -221,53 +241,49 @@ namespace SuperFlexiUI
 				}
 			}
 
-			Module module = new Module(moduleId);
+			sb.Replace("$_ModuleTitle_$", module.ShowTitle ? String.Format(displaySettings.ModuleTitleFormat, module.ModuleTitle) : string.Empty);
+			sb.Replace("$_RawModuleTitle_$", module.ModuleTitle);
+			sb.Replace("$_ModuleGuid_$", module.ModuleGuid.ToString());
+			if (String.IsNullOrWhiteSpace(config.ModuleFriendlyName))
+			{
+				sb.Replace("$_FriendlyName_$", module.ModuleTitle);
+			}
 
-			if (module != null)
-            {
-                sb.Replace("$_ModuleTitle_$", module.ShowTitle ? String.Format(displaySettings.ModuleTitleFormat, module.ModuleTitle) : string.Empty);
-                sb.Replace("$_RawModuleTitle_$", module.ModuleTitle);
-                sb.Replace("$_ModuleGuid_$", module.ModuleGuid.ToString());
-                if (String.IsNullOrWhiteSpace(config.ModuleFriendlyName))
-                {
-                    sb.Replace("$_FriendlyName_$", module.ModuleTitle);
-                }
+			siteSettings = new SiteSettings(module.SiteGuid);
 
-                siteSettings = new SiteSettings(module.SiteGuid);
-            }
-            if (!String.IsNullOrWhiteSpace(config.ModuleFriendlyName))
-            {
-                sb.Replace("$_FriendlyName_$", config.ModuleFriendlyName);
-            }
-            sb.Replace("$_FeaturedImageUrl_$", featuredImageUrl);
-            sb.Replace("$_ModuleID_$", moduleId.ToString());
-            sb.Replace("$_PageID_$", pageSettings.PageId.ToString());
-            sb.Replace("$_PageUrl_$", siteRoot + pageSettings.Url.Replace("~/", ""));
-            sb.Replace("$_PageName_$", siteRoot + pageSettings.PageName);
+			if (!String.IsNullOrWhiteSpace(config.ModuleFriendlyName))
+			{
+				sb.Replace("$_FriendlyName_$", config.ModuleFriendlyName);
+			}
+			sb.Replace("$_FeaturedImageUrl_$", featuredImageUrl);
+			sb.Replace("$_ModuleID_$", moduleId.ToString());
+			sb.Replace("$_PageID_$", pageSettings.PageId.ToString());
+			sb.Replace("$_PageUrl_$", siteRoot + pageSettings.Url.Replace("~/", ""));
+			sb.Replace("$_PageName_$", siteRoot + pageSettings.PageName);
 			//sb.Replace("$_ModuleLinks_$", isEditable ? SuperFlexiHelpers.GetModuleLinks(config, displaySettings, moduleId, pageSettings.PageId) : string.Empty);
 			sb.Replace("$_ModuleLinks_$", isEditable ? SuperFlexiHelpers.GetModuleLinks(config, displaySettings, moduleId, publishedOnCurrentPage ? pageSettings.PageId : -1) : string.Empty);
 			sb.Replace("$_JSONNAME_$", jsonObjName);
-            sb.Replace("$_ModuleClass_$", SiteUtils.IsMobileDevice() && !String.IsNullOrWhiteSpace(config.MobileInstanceCssClass) ? config.MobileInstanceCssClass : config.InstanceCssClass);
-            sb.Replace("$_ModuleTitleElement_$", module.HeadElement);
-            sb.Replace("$_SiteID_$", siteSettings.SiteId.ToString());
-            sb.Replace("$_SiteRoot_$", String.IsNullOrWhiteSpace(siteRoot) ? "/" : siteRoot);
-            sb.Replace("$_SitePath_$", String.IsNullOrWhiteSpace(siteRoot) ? "/" : WebUtils.GetApplicationRoot() + "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToInvariantString());
-            sb.Replace("$_SkinPath_$", SiteUtils.DetermineSkinBaseUrl(currentSkin));
-            sb.Replace("$_CustomSettings_$", config.CustomizableSettings); //this needs to be enhanced, a lot, right now we just dump the 'settings' where ever this token exists.
-            sb.Replace("$_EditorType_$", siteSettings.EditorProviderName);
-            sb.Replace("$_EditorSkin_$", siteSettings.EditorSkin.ToString());
-            sb.Replace("$_EditorBasePath_$", WebUtils.ResolveUrl(ConfigurationManager.AppSettings["CKEditor:BasePath"]));
-            sb.Replace("$_EditorConfigPath_$", WebUtils.ResolveUrl(ConfigurationManager.AppSettings["CKEditor:ConfigPath"]));
-            sb.Replace("$_EditorToolbarSet_$", mojoPortal.Web.Editor.ToolBar.FullWithTemplates.ToString());
-            sb.Replace("$_EditorTemplatesUrl_$", siteRoot + "/Services/CKeditorTemplates.ashx?cb=" + Guid.NewGuid().ToString());
-            sb.Replace("$_EditorStylesUrl_$", siteRoot + "/Services/CKeditorStyles.ashx?cb=" + Guid.NewGuid().ToString().Replace("-", string.Empty));
-            sb.Replace("$_DropFileUploadUrl_$", siteRoot + "/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko=" + WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()
-                    + "&t=" + Global.FileSystemToken.ToString());
-            sb.Replace("$_FileBrowserUrl_$", siteRoot + WebConfigSettings.FileDialogRelativeUrl);
-            sb.Replace("$_HeaderContent_$", config.HeaderContent);
-            sb.Replace("$_FooterContent_$", config.FooterContent);
+			sb.Replace("$_ModuleClass_$", SiteUtils.IsMobileDevice() && !String.IsNullOrWhiteSpace(config.MobileInstanceCssClass) ? config.MobileInstanceCssClass : config.InstanceCssClass);
+			sb.Replace("$_ModuleTitleElement_$", module.HeadElement);
+			sb.Replace("$_SiteID_$", siteSettings.SiteId.ToString());
+			sb.Replace("$_SiteRoot_$", String.IsNullOrWhiteSpace(siteRoot) ? "/" : siteRoot);
+			sb.Replace("$_SitePath_$", String.IsNullOrWhiteSpace(siteRoot) ? "/" : WebUtils.GetApplicationRoot() + "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToInvariantString());
+			sb.Replace("$_SkinPath_$", SiteUtils.DetermineSkinBaseUrl(currentSkin));
+			sb.Replace("$_CustomSettings_$", config.CustomizableSettings); //this needs to be enhanced, a lot, right now we just dump the 'settings' where ever this token exists.
+			sb.Replace("$_EditorType_$", siteSettings.EditorProviderName);
+			sb.Replace("$_EditorSkin_$", siteSettings.EditorSkin.ToString());
+			sb.Replace("$_EditorBasePath_$", WebUtils.ResolveUrl(ConfigurationManager.AppSettings["CKEditor:BasePath"]));
+			sb.Replace("$_EditorConfigPath_$", WebUtils.ResolveUrl(ConfigurationManager.AppSettings["CKEditor:ConfigPath"]));
+			sb.Replace("$_EditorToolbarSet_$", mojoPortal.Web.Editor.ToolBar.FullWithTemplates.ToString());
+			sb.Replace("$_EditorTemplatesUrl_$", siteRoot + "/Services/CKeditorTemplates.ashx?cb=" + Guid.NewGuid().ToString());
+			sb.Replace("$_EditorStylesUrl_$", siteRoot + "/Services/CKeditorStyles.ashx?cb=" + Guid.NewGuid().ToString().Replace("-", string.Empty));
+			sb.Replace("$_DropFileUploadUrl_$", siteRoot + "/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko=" + WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()
+					+ "&t=" + Global.FileSystemToken.ToString());
+			sb.Replace("$_FileBrowserUrl_$", siteRoot + WebConfigSettings.FileDialogRelativeUrl);
+			sb.Replace("$_HeaderContent_$", config.HeaderContent);
+			sb.Replace("$_FooterContent_$", config.FooterContent);
 			sb.Replace("$_SkinVersionGuid_$", siteSettings.SkinVersion.ToString());
-        }
+		}
 
 		[Obsolete("Use mojoPortal.Web.Framework.UIHelper.GetDictionaryFromString")]
         public static IDictionary<string, string> GetDictionaryFromString(string str)
@@ -371,153 +387,177 @@ namespace SuperFlexiUI
 			}
 		}
 
-        public static void SetupScripts(
-            List<MarkupScript> markupScripts,
-            ModuleConfiguration config,
-            SuperFlexiDisplaySettings displaySettings,
-			bool forceHttps,
-            bool isEditable,
-            bool isPostBack,
-            string clientID,
-            int moduleID,
-            int pageID,
-            Page page,
-            Control control)
-        {
-            string scriptRefFormat = "\n<script type=\"text/javascript\" src=\"{0}\" data-name=\"{1}\"></script>";
-            string rawScriptFormat = "\n<script type=\"text/javascript\" data-name=\"{1}\">\n{0}\n</script>";
+		//public static void SetupScripts(
+		//	List<MarkupScript> markupScripts,
+		//	ModuleConfiguration config,
+		//	SuperFlexiDisplaySettings displaySettings,
+		//	bool isEditable,
+		//	bool isPostBack,
+		//	string clientID,
+		//	SiteSettings siteSettings,
+		//	int moduleID,
+		//	int pageID,
+		//	Page page,
+		//	Control control)
+		//{
+		//	Module module = new Module(moduleID);
+		//	PageSettings pageSettings = new PageSettings(siteSettings.SiteId, pageID);
+
+		//	SetupScripts(markupScripts, config, displaySettings, isEditable, isPostBack, clientID, siteSettings, module, pageSettings, page, control);
+		//}
+
+		public static void SetupScripts(
+			List<MarkupScript> markupScripts,
+			ModuleConfiguration config,
+			SuperFlexiDisplaySettings displaySettings,
+			bool isEditable,
+			bool isPostBack,
+			string clientID,
+			SiteSettings siteSettings,
+			Module module,
+			PageSettings pageSettings,
+			Page page,
+			Control control)
+		{
+			string scriptRefFormat = "\n<script type=\"text/javascript\" src=\"{0}\" data-name=\"{1}\"></script>";
+			string rawScriptFormat = "\n<script type=\"text/javascript\" data-name=\"{1}\">\n{0}\n</script>";
 
 			foreach (MarkupScript script in markupScripts)
-            {
-                StringBuilder sbScriptText = new StringBuilder();
-                StringBuilder sbScriptName = new StringBuilder();
+			{
+				StringBuilder sbScriptText = new StringBuilder();
+				StringBuilder sbScriptName = new StringBuilder();
+				var moduleID = module.ModuleId;
+				var pageID = pageSettings.PageId;
 
-                sbScriptName.Append(String.IsNullOrWhiteSpace(script.ScriptName) ? clientID + "flexiScript_" + markupScripts.IndexOf(script) : "flexiScript_" + script.ScriptName);
-                SuperFlexiHelpers.ReplaceStaticTokens(sbScriptName, config, isEditable, displaySettings, moduleID, pageID, out sbScriptName);
-                string scriptName = sbScriptName.ToString();
-                if (!String.IsNullOrWhiteSpace(script.Url))
-                {
-					string scriptUrl = GetPathToFile(config, script.Url, forceHttps);
+				sbScriptName.Append(String.IsNullOrWhiteSpace(script.ScriptName) ? clientID + "flexiScript_" + markupScripts.IndexOf(script) : "flexiScript_" + script.ScriptName);
+				ReplaceStaticTokens(sbScriptName, config, isEditable, displaySettings, module, pageSettings, siteSettings, out sbScriptName);
+
+				string scriptName = sbScriptName.ToString();
+				if (!String.IsNullOrWhiteSpace(script.Url))
+				{
+					string scriptUrl = GetPathToFile(config, script.Url, siteSettings.UseSslOnAllPages);
 					sbScriptText.Append(string.Format(scriptRefFormat, scriptUrl, scriptName));
 				}
-                else if (!String.IsNullOrWhiteSpace(script.RawScript))
-                {
-                    sbScriptText.Append(string.Format(rawScriptFormat, script.RawScript, scriptName));
-                }
+				else if (!String.IsNullOrWhiteSpace(script.RawScript))
+				{
+					sbScriptText.Append(string.Format(rawScriptFormat, script.RawScript, scriptName));
+				}
 
-                SuperFlexiHelpers.ReplaceStaticTokens(sbScriptText, config, isEditable, displaySettings, moduleID, pageID, out sbScriptText);
+				ReplaceStaticTokens(sbScriptText, config, isEditable, displaySettings, module, pageSettings, siteSettings, out sbScriptName);
 
-                // script position options
-                // inHead
-                // inBody (register script) (default)
-                // aboveMarkupDefinition
-                // belowMarkupDefinition
-                // bottomStartup (register startup script)
-                switch (script.Position)
-                {
-                    case "inHead":
-                        if (!isPostBack && !page.IsCallback)
-                        {
-                            if (page.Header.FindControl(scriptName) == null)
-                            {
-                                LiteralControl headLit = new LiteralControl();
-                                headLit.ID = scriptName;
-                                headLit.Text = sbScriptText.ToString();
-                                headLit.ClientIDMode = System.Web.UI.ClientIDMode.Static;
-                                headLit.EnableViewState = false;
-                                page.Header.Controls.Add(headLit);
-                            }
-                        }
-                        break;
+				// script position options
+				// inHead
+				// inBody (register script) (default)
+				// aboveMarkupDefinition
+				// belowMarkupDefinition
+				// bottomStartup (register startup script)
+				switch (script.Position)
+				{
+					case "inHead":
+						if (!isPostBack && !page.IsCallback)
+						{
+							if (page.Header.FindControl(scriptName) == null)
+							{
+								LiteralControl headLit = new LiteralControl();
+								headLit.ID = scriptName;
+								headLit.Text = sbScriptText.ToString();
+								headLit.ClientIDMode = System.Web.UI.ClientIDMode.Static;
+								headLit.EnableViewState = false;
+								page.Header.Controls.Add(headLit);
+							}
+						}
+						break;
 
-                    case "aboveMarkupDefinition":
-                        if (control == null) goto case "bottomStartup";
-                        if (control.FindControlRecursive(scriptName) == null)
-                        {
-                            Control aboveMarkupDefinitionScripts = control.FindControlRecursive("aboveMarkupDefinitionScripts");
-                            if (aboveMarkupDefinitionScripts != null)
-                            {
-                                LiteralControl aboveLit = new LiteralControl();
-                                aboveLit.ID = scriptName;
-                                aboveLit.Text = sbScriptText.ToString();
-                                aboveMarkupDefinitionScripts.Controls.Add(aboveLit);
-                            }
-                            else
-                            {
-                                goto case "bottomStartup";
-                            }
-                        }
-                        break;
+					case "aboveMarkupDefinition":
+						if (control == null) goto case "bottomStartup";
+						if (control.FindControlRecursive(scriptName) == null)
+						{
+							Control aboveMarkupDefinitionScripts = control.FindControlRecursive("aboveMarkupDefinitionScripts");
+							if (aboveMarkupDefinitionScripts != null)
+							{
+								LiteralControl aboveLit = new LiteralControl();
+								aboveLit.ID = scriptName;
+								aboveLit.Text = sbScriptText.ToString();
+								aboveMarkupDefinitionScripts.Controls.Add(aboveLit);
+							}
+							else
+							{
+								goto case "bottomStartup";
+							}
+						}
+						break;
 
-                    case "belowMarkupDefinition":
-                        if (control == null) goto case "bottomStartup";
-                        if (control.FindControlRecursive(scriptName) == null)
-                        {
-                            Control belowMarkupDefinitionScripts = control.FindControlRecursive("belowMarkupDefinitionScripts");
-                            if (belowMarkupDefinitionScripts != null)
-                            {
-                                LiteralControl belowLit = new LiteralControl();
-                                belowLit.ID = scriptName;
-                                belowLit.Text = sbScriptText.ToString();
-                                belowMarkupDefinitionScripts.Controls.Add(belowLit);
-                            }
-                            else
-                            {
-                                goto case "bottomStartup";
-                            }
-                        }
-                        //strBelowMarkupScripts.AppendLine(scriptText);
-                        break;
+					case "belowMarkupDefinition":
+						if (control == null) goto case "bottomStartup";
+						if (control.FindControlRecursive(scriptName) == null)
+						{
+							Control belowMarkupDefinitionScripts = control.FindControlRecursive("belowMarkupDefinitionScripts");
+							if (belowMarkupDefinitionScripts != null)
+							{
+								LiteralControl belowLit = new LiteralControl();
+								belowLit.ID = scriptName;
+								belowLit.Text = sbScriptText.ToString();
+								belowMarkupDefinitionScripts.Controls.Add(belowLit);
+							}
+							else
+							{
+								goto case "bottomStartup";
+							}
+						}
+						//strBelowMarkupScripts.AppendLine(scriptText);
+						break;
 
-                    case "bottomStartup":
-                        if (!page.ClientScript.IsStartupScriptRegistered(scriptName))
-                        {
-                            ScriptManager.RegisterStartupScript(
-                                page,
-                                typeof(Page),
-                                scriptName,
-                                sbScriptText.ToString(),
-                                false);
-                        }
-                        break;
+					case "bottomStartup":
+						if (!page.ClientScript.IsStartupScriptRegistered(scriptName))
+						{
+							ScriptManager.RegisterStartupScript(
+								page,
+								typeof(Page),
+								scriptName,
+								sbScriptText.ToString(),
+								false);
+						}
+						break;
 
-                    case "inBody":
-                    default:
-                        if (!page.ClientScript.IsClientScriptBlockRegistered(scriptName))
-                        {
-                            ScriptManager.RegisterClientScriptBlock(
-                                page,
-                                typeof(Page),
-                                scriptName,
-                                sbScriptText.ToString(),
-                                false);
-                        }
-                        break;
-                }
-            }
-        }
+					case "inBody":
+					default:
+						if (!page.ClientScript.IsClientScriptBlockRegistered(scriptName))
+						{
+							ScriptManager.RegisterClientScriptBlock(
+								page,
+								typeof(Page),
+								scriptName,
+								sbScriptText.ToString(),
+								false);
+						}
+						break;
+				}
+			}
+		}
 
         public static void SetupStyle(
             List<MarkupCss> markupCss,
             ModuleConfiguration config,
             SuperFlexiDisplaySettings displaySettings,
-			bool forceHttps,
-            string clientID,
-            int moduleID,
-            int pageID,
-            Page page,
+			bool isEditable,
+			string clientID,
+			SiteSettings siteSettings,
+			Module module,
+			PageSettings pageSettings,
+			Page page,
             Control control)
         {
             string styleLinkFormat = "\n<link rel=\"stylesheet\" href=\"{0}\" media=\"{2}\" data-name=\"{1}\">";
             string rawCSSFormat = "\n<style type=\"text/css\" data-name=\"{1}\" media=\"{2}\">\n{0}\n</style>";
-
-            foreach (MarkupCss style in markupCss)
+			var moduleID = module.ModuleId;
+			var pageID = pageSettings.PageId;
+			foreach (MarkupCss style in markupCss)
             {
                 StringBuilder sbStyleText = new StringBuilder();
                 StringBuilder sbStyleName = new StringBuilder();
 
                 sbStyleName.Append(String.IsNullOrWhiteSpace(style.Name) ? clientID + "flexiStyle_" + markupCss.IndexOf(style) : "flexiStyle_" + style.Name);
-                SuperFlexiHelpers.ReplaceStaticTokens(sbStyleName, config, false, displaySettings, moduleID, pageID, out sbStyleName);
+                ReplaceStaticTokens(sbStyleName, config, false, displaySettings, module, pageSettings, siteSettings, out sbStyleName);
                 string styleName = sbStyleName.ToString();
                 if (!String.IsNullOrWhiteSpace(style.Url))
                 {
@@ -531,7 +571,7 @@ namespace SuperFlexiUI
 					}
 					else if (style.Url.StartsWith("~/"))
 					{
-						styleUrl = WebUtils.ResolveServerUrl(style.Url, forceHttps);
+						styleUrl = WebUtils.ResolveServerUrl(style.Url, siteSettings.UseSslOnAllPages);
 					}
 					else if (style.Url.StartsWith("$_SitePath_$"))
 					{
@@ -554,7 +594,7 @@ namespace SuperFlexiUI
                     sbStyleText.Append(string.Format(rawCSSFormat, style.CSS, styleName, style.Media));
                 }
 
-                SuperFlexiHelpers.ReplaceStaticTokens(sbStyleText, config, false, displaySettings, moduleID, pageID, out sbStyleText);
+                ReplaceStaticTokens(sbStyleText, config, false, displaySettings, module, pageSettings, siteSettings, out sbStyleText);
 
                 LiteralControl theLiteral = new LiteralControl();
                 theLiteral.Text = sbStyleText.ToString();
