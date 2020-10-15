@@ -747,13 +747,6 @@
     <Compile Include="FeedManager\FeedManagerModule.ascx.designer.cs">
       <DependentUpon>FeedManagerModule.ascx</DependentUpon>
     </Compile>
-    <Compile Include="FlashModule\FlashMovieModule.ascx.cs">
-      <DependentUpon>FlashMovieModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FlashModule\FlashMovieModule.ascx.designer.cs">
-      <DependentUpon>FlashMovieModule.ascx</DependentUpon>
-    </Compile>
     <Compile Include="FolderGallery\Components\FolderGalleryConfiguration.cs" />
     <Compile Include="FolderGallery\Components\FolderGalleryContentInstaller.cs" />
     <Compile Include="FolderGallery\Edit.aspx.cs">
@@ -1536,7 +1529,6 @@
     <Content Include="XmlXsl\XmlModule.ascx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FlashModule\FlashMovieModule.ascx" />
     <Content Include="HtmlInclude\HtmlFragmentInclude.ascx" />
     <Content Include="HtmlInclude\Edit.aspx" />
     <Content Include="Setup\applications\xmlmodule\FeatureDefinitions\90300_XmlXslModule.config">
@@ -1875,17 +1867,24 @@
 xcopy /s /y /d "$(ProjectDir)bin\mojoPortal.Features.Business.dll" "$(SolutionDir)Web\bin\"
 xcopy /s /y /d "$(ProjectDir)bin\mojoPortal.Features.Data.dll" "$(SolutionDir)Web\bin\"
 xcopy /s /y /d "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\App_GlobalResources\"
+
 xcopy /s /y /d "$(ProjectDir)Setup\*" "$(SolutionDir)Web\Setup"
+
 xcopy /s /y /d "$(ProjectDir)Poll\*.aspx" "$(SolutionDir)Web\Poll\"
 xcopy /s /y /d "$(ProjectDir)Poll\*.ascx" "$(SolutionDir)Web\Poll\"
+
 xcopy /s /y /d "$(ProjectDir)Survey\*.aspx" "$(SolutionDir)Web\Survey\"
 xcopy /s /y /d "$(ProjectDir)Survey\*.ascx" "$(SolutionDir)Web\Survey\"
+
 xcopy /s /y /d "$(ProjectDir)FeedManager\*.aspx" "$(SolutionDir)Web\FeedManager\"
 xcopy /s /y /d "$(ProjectDir)FeedManager\*.ascx" "$(SolutionDir)Web\FeedManager\"
+
 xcopy /s /y /d "$(ProjectDir)bin\Argotic*.dll" "$(SolutionDir)Web\bin\"
+
 xcopy /s /y /d "$(ProjectDir)BetterImageGallery\blueimp-gallery\*" "$(SolutionDir)Web\BetterImageGallery\blueimp-gallery\"
 xcopy /s /y /d "$(ProjectDir)BetterImageGallery\*.ascx" "$(SolutionDir)Web\BetterImageGallery\"
 xcopy /s /y /d "$(ProjectDir)BetterImageGallery\Views\*" "$(SolutionDir)Web\Views\BetterImageGallery\"
+
 xcopy /s /y /d "$(ProjectDir)Blog\*.aspx" "$(SolutionDir)Web\Blog\"
 xcopy /s /y /d "$(ProjectDir)Blog\*.ascx" "$(SolutionDir)Web\Blog\"
 xcopy /s /y /d "$(ProjectDir)Blog\BlogUrlSuggestService.ashx" "$(SolutionDir)Web\Blog\"
@@ -1895,39 +1894,51 @@ xcopy /s /y /d "$(ProjectDir)Blog\news-map.ashx" "$(SolutionDir)Web\Blog\"
 xcopy /s /y /d "$(ProjectDir)Blog\metaweblogapi.ashx" "$(SolutionDir)Web\"
 xcopy /s /y /d "$(ProjectDir)Blog\wlwmanifest.xml" "$(SolutionDir)Web\"
 xcopy /s /y /d "$(ProjectDir)Blog\Views\*" "$(SolutionDir)Web\Views\Blog\"
+
 xcopy /s /y /d "$(ProjectDir)ContactForm\*.aspx" "$(SolutionDir)Web\ContactForm\"
 xcopy /s /y /d "$(ProjectDir)ContactForm\*.ascx" "$(SolutionDir)Web\ContactForm\"
+
 xcopy /s /y /d "$(ProjectDir)EventCalendar\*.aspx" "$(SolutionDir)Web\EventCalendar\"
 xcopy /s /y /d "$(ProjectDir)EventCalendar\*.ascx" "$(SolutionDir)Web\EventCalendar\"
+
 xcopy /s /y /d "$(ProjectDir)Forums\*.aspx" "$(SolutionDir)Web\Forums\"
 xcopy /s /y /d "$(ProjectDir)Forums\*.ascx" "$(SolutionDir)Web\Forums\"
 xcopy /s /y /d "$(ProjectDir)Forums\*.ashx" "$(SolutionDir)Web\Forums\"
+
 xcopy /s /y /d "$(ProjectDir)ImageGallery\*.aspx" "$(SolutionDir)Web\ImageGallery\"
 xcopy /s /y /d "$(ProjectDir)ImageGallery\*.ashx" "$(SolutionDir)Web\ImageGallery\"
 xcopy /s /y /d "$(ProjectDir)ImageGallery\*.ascx" "$(SolutionDir)Web\ImageGallery\"
 xcopy /s /y /d "$(ProjectDir)ImageGallery\*.xsl" "$(SolutionDir)Web\ImageGallery\"
+
 xcopy /s /y /d "$(ProjectDir)List\*.aspx" "$(SolutionDir)Web\List\"
 xcopy /s /y /d "$(ProjectDir)List\*.ascx" "$(SolutionDir)Web\List\"
+
 xcopy /s /y /d "$(ProjectDir)SharedFiles\*.aspx" "$(SolutionDir)Web\SharedFiles\"
 xcopy /s /y /d "$(ProjectDir)SharedFiles\*.ascx" "$(SolutionDir)Web\SharedFiles\"
 xcopy /s /y /d "$(ProjectDir)SharedFiles\*.ashx" "$(SolutionDir)Web\SharedFiles\"
+
 xcopy /s /y /d "$(ProjectDir)FolderGallery\*.aspx" "$(SolutionDir)Web\FolderGallery\"
 xcopy /s /y /d "$(ProjectDir)FolderGallery\*.ascx" "$(SolutionDir)Web\FolderGallery\"
 xcopy /s /y /d "$(ProjectDir)FolderGallery\*.ashx" "$(SolutionDir)Web\FolderGallery\"
+
 xcopy /s /y /d "$(ProjectDir)GoogleMap\*.aspx" "$(SolutionDir)Web\GoogleMap\"
 xcopy /s /y /d "$(ProjectDir)GoogleMap\*.ascx" "$(SolutionDir)Web\GoogleMap\"
+
 xcopy /s /y /d "$(ProjectDir)XmlXsl\*.aspx" "$(SolutionDir)Web\XmlXsl\"
 xcopy /s /y /d "$(ProjectDir)XmlXsl\*.ascx" "$(SolutionDir)Web\XmlXsl\"
 xcopy /s /y /d "$(ProjectDir)XmlXsl\*.ashx" "$(SolutionDir)Web\XmlXsl\"
+
 xcopy /s /y /d "$(ProjectDir)HtmlInclude\*.aspx" "$(SolutionDir)Web\HtmlInclude\"
 xcopy /s /y /d "$(ProjectDir)HtmlInclude\*.ascx" "$(SolutionDir)Web\HtmlInclude\"
-xcopy /s /y /d "$(ProjectDir)LiveMessenger\*.ascx" "$(SolutionDir)Web\LiveMessenger\"
+
 xcopy /s /y /d "$(ProjectDir)Data\*" "$(SolutionDir)Web\Data"
+
 xcopy /s /y /d "$(ProjectDir)Services\*.ashx" "$(SolutionDir)Web\Services\"
-xcopy /s /y /d "$(ProjectDir)Flickr\*.ascx" "$(SolutionDir)Web\Flickr\"
-xcopy /s /y /d "$(ProjectDir)Twitter\*.ascx" "$(SolutionDir)Web\Twitter\"
+
 xcopy /s /y /d "$(ProjectDir)IFrame\*.ascx" "$(SolutionDir)Web\IFrame\"
+
 xcopy /s /y /d "$(ProjectDir)GoogleTranslate\*.ascx" "$(SolutionDir)Web\GoogleTranslate\"
+
 xcopy /s /y /d "$(ProjectDir)BingMap\*.ascx" "$(SolutionDir)Web\BingMap\"
 
 xcopy /s /y /d "$(ProjectDir)KDMediaPlayer\*.aspx" "$(SolutionDir)Web\KDMediaPlayer\"
