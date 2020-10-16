@@ -764,11 +764,11 @@ namespace SuperFlexiUI
 
             if (allForDefinition)
             {
-                items = Item.GetAllForDefinition(config.FieldDefinitionGuid, module.SiteGuid, config.DescendingSort);
+                items = Item.GetForDefinition(config.FieldDefinitionGuid, module.SiteGuid, config.DescendingSort);
             }
             else
             {
-                items = Item.GetModuleItems(module.ModuleId, config.DescendingSort);
+                items = Item.GetForModule(module.ModuleId, config.DescendingSort);
             }
 
             if (fields == null || items == null)

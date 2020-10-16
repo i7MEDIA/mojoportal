@@ -76,11 +76,11 @@ namespace SuperFlexiUI
 
             if (config.IsGlobalView)
             {
-                items = Item.GetAllForDefinition(config.FieldDefinitionGuid, siteSettings.SiteGuid, config.DescendingSort);
+                items = Item.GetForDefinition(config.FieldDefinitionGuid, siteSettings.SiteGuid, config.DescendingSort);
             }
             else
             {
-                items = Item.GetModuleItems(ModuleId, config.DescendingSort);
+                items = Item.GetForModule(ModuleId, config.DescendingSort);
             }
 
 

@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using log4net;
-using SuperFlexiBusiness;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
 using mojoPortal.Web;
+using mojoPortal.Web.Framework;
+using SuperFlexiBusiness;
 
 namespace SuperFlexiUI
 {
@@ -48,7 +46,7 @@ namespace SuperFlexiUI
 		public string FriendlyName { get; set; }
 		public string ModuleTitle { get; set; }
 		public int GlobalSortOrder { get; set; }
-		public List<PopulatedItem> Items { get; set; }
+		public List<ItemWithValues> Items { get; set; }
 	}
 
 	public class SuperFlexiController : ApiController
@@ -94,7 +92,7 @@ namespace SuperFlexiUI
 
 			int totalPages = 0;
 			int totalRows = 0;
-			List<Item> items = new List<Item>();
+			List<ItemWithValues> items = new List<ItemWithValues>();
 			if (r.SearchObject != null && r.SearchObject.Count > 0)
 			{
 				foreach (var set in r.SearchObject)
@@ -131,7 +129,7 @@ namespace SuperFlexiUI
 					//we have to figure out paging with this
 
 				}
-				items = items.Distinct(new SimpleItemComparer()).ToList();
+				items = items.Distinct(new SimpleItemWithValuesComparer()).ToList();
 			}
 			else
 			{
@@ -147,81 +145,81 @@ namespace SuperFlexiUI
 					r.SortDescending));
 			}
 			
-			List<PopulatedItem> popItems = new List<PopulatedItem>();
+			//List<PopulatedItem> popItems = new List<PopulatedItem>();
 			SuperFlexiObject sfObject = new SuperFlexiObject()
 			{
 				FriendlyName = config.ModuleFriendlyName,
 				ModuleTitle = module.ModuleTitle,
 				GlobalSortOrder = config.GlobalViewSortOrder,
-				Items = popItems
+				Items = items
 			};
+			#region oldCode
+			//if (items != null && items.Count > 0)
+			//{
+			//	List<Field> fields = Field.GetAllForDefinition(config.FieldDefinitionGuid).Where(f => f.ControlType != "InstructionBlock").ToList();
+			//	var itemGuids = items.Select(x => x.ItemGuid).ToList();
+			//	List<ItemFieldValue> values = ItemFieldValue.GetByItemGuids(itemGuids);
+			//	Module itemModule = null;
+			//	Guid currentModuleGuid = Guid.Empty;
+			//	foreach (Item item in items.OrderBy(x => x.ModuleID).ToList())
+			//	{
+			//		if (item.ModuleGuid != currentModuleGuid)
+			//		{
+			//			currentModuleGuid = item.ModuleGuid;
+			//			itemModule = new Module(item.ModuleGuid);
+			//		}
+			//		if (itemModule == null) continue;
+			//		if (!WebUser.IsInRoles(itemModule.ViewRoles)) continue;
+			//		var populatedItem = new PopulatedItem(item, fields, values.Where(v => v.ItemGuid == item.ItemGuid).ToList(), canEdit);
+			//		if (populatedItem != null)
+			//		{
+			//			if (r.SearchObject != null && r.SearchObject.Count > 0)
+			//			{
+			//				int matchCount = 0;
+			//				foreach (var searchItem in r.SearchObject)
+			//				{
+			//					var value = populatedItem.Values[searchItem.Key];
+			//					List<string> itemValArray = value as List<string>;
+			//					List<string> searchItemValArray = searchItem.Value.SplitOnCharAndTrim(';');
+			//					//log.Info($"[{searchItem.Key}]={searchItem.Value}");
 
-			if (items != null && items.Count > 0)
-			{
-				List<Field> fields = Field.GetAllForDefinition(config.FieldDefinitionGuid).Where(f => f.ControlType != "InstructionBlock").ToList();
-				var itemGuids = items.Select(x => x.ItemGuid).ToList();
-				List<ItemFieldValue> values = ItemFieldValue.GetByItemGuids(itemGuids);
-				Module itemModule = null;
-				Guid currentModuleGuid = Guid.Empty;
-				foreach (Item item in items.OrderBy(x => x.ModuleID).ToList())
-				{
-					if (item.ModuleGuid != currentModuleGuid)
-					{
-						currentModuleGuid = item.ModuleGuid;
-						itemModule = new Module(item.ModuleGuid);
-					}
-					if (itemModule == null) continue;
-					if (!WebUser.IsInRoles(itemModule.ViewRoles)) continue;
-					var populatedItem = new PopulatedItem(item, fields, values.Where(v => v.ItemGuid == item.ItemGuid).ToList(), canEdit);
-					if (populatedItem != null)
-					{
-						if (r.SearchObject != null && r.SearchObject.Count > 0)
-						{
-							int matchCount = 0;
-							foreach (var searchItem in r.SearchObject)
-							{
-								var value = populatedItem.Values[searchItem.Key];
-								List<string> itemValArray = value as List<string>;
-								List<string> searchItemValArray = searchItem.Value.SplitOnCharAndTrim(';');
-								//log.Info($"[{searchItem.Key}]={searchItem.Value}");
+			//					/*  Check if itemValArray == null because if it is, that means the value is just a plain value, not a List<string>.
+			//					 *  If we try to do a comparison on value.ToString() when value is a List<string>, .ToString() returns System.Collections.Generic...
+			//					 *  and then our comparison is actually looking for matches in "System.Collections.Generic...". We had that happen with the word
+			//					 *  "Collections". Oops.
+			//					 */
 
-								/*  Check if itemValArray == null because if it is, that means the value is just a plain value, not a List<string>.
-								 *  If we try to do a comparison on value.ToString() when value is a List<string>, .ToString() returns System.Collections.Generic...
-								 *  and then our comparison is actually looking for matches in "System.Collections.Generic...". We had that happen with the word
-								 *  "Collections". Oops.
-								 */
+			//					if ((itemValArray == null && value.ToString().ToLower().IndexOf(searchItem.Value.ToLower()) >= 0 )
+			//						|| (itemValArray != null && itemValArray.Any(s => s.Equals(searchItem.Value, StringComparison.OrdinalIgnoreCase)))
+			//						|| (searchItemValArray != null && searchItemValArray.Any(s => s.Equals(value.ToString(), StringComparison.OrdinalIgnoreCase))))
+			//					{
 
-								if ((itemValArray == null && value.ToString().ToLower().IndexOf(searchItem.Value.ToLower()) >= 0 )
-									|| (itemValArray != null && itemValArray.Any(s => s.Equals(searchItem.Value, StringComparison.OrdinalIgnoreCase)))
-									|| (searchItemValArray != null && searchItemValArray.Any(s => s.Equals(value.ToString(), StringComparison.OrdinalIgnoreCase))))
-								{
+			//						matchCount++;
+			//					}
+			//				}
 
-									matchCount++;
-								}
-							}
-
-							if (matchCount == r.SearchObject.Count)
-							{
-								popItems.Add(populatedItem);
-							}
-						}
-						else
-						{
-							popItems.Add(populatedItem);
-						}
-					}
-				}
-			}
-
+			//				if (matchCount == r.SearchObject.Count)
+			//				{
+			//					popItems.Add(populatedItem);
+			//				}
+			//			}
+			//			else
+			//			{
+			//				popItems.Add(populatedItem);
+			//			}
+			//		}
+			//	}
+			//}
+			#endregion
 			return new ReturnObject()
 			{
 				Status = "success",
-				Data = sfObject,
 				TotalPages = totalPages,
-				TotalRows = totalRows > popItems.Count ? totalRows : popItems.Count,
+				TotalRows = totalRows > items.Count ? totalRows : items.Count,
 				AllowEdit = ShouldAllowEdit(),
 				CmsModuleId = module.ModuleId,
-				CmsPageId = module.PageId
+				CmsPageId = module.PageId,
+				Data = sfObject
 			};
 		}
 
@@ -256,8 +254,6 @@ namespace SuperFlexiUI
 
 			config = new ModuleConfiguration(module);
 
-			int totalPages = 0;
-			int totalRows = 0;
 
 			var fieldValues = ItemFieldValue.GetPageOfValues(
 				module.ModuleGuid,
@@ -265,8 +261,8 @@ namespace SuperFlexiUI
 				r.Field,
 				r.PageNumber,
 				r.PageSize,
-				out totalPages,
-				out totalRows);
+				out int totalPages,
+				out int totalRows);
 
 			//much of the below is temporary, we needed to implement in a hurry
 			//to-do: implement distinct on sql side
@@ -322,7 +318,7 @@ namespace SuperFlexiUI
 		//{
 		//}
 
-		private List<Item> GetItems(
+		private List<ItemWithValues> GetItems(
 			Guid moduleGuid,
 			int pageNumber,
 			int pageSize,
@@ -336,7 +332,7 @@ namespace SuperFlexiUI
 
 			if (byDefinition)
 			{
-				return Item.GetPageForDefinition(
+				return Item.GetForDefinitionWithValues_Paged(
 					config.FieldDefinitionGuid,
 					siteSettings.SiteGuid,
 					pageNumber,
@@ -350,7 +346,7 @@ namespace SuperFlexiUI
 			}
 			else
 			{
-				return Item.GetPageOfModuleItems(
+				return Item.GetForModuleWithValues_Paged(
 					moduleGuid,
 					pageNumber,
 					pageSize,

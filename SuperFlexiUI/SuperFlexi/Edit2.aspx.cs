@@ -155,7 +155,7 @@ namespace SuperFlexiUI
 			}
 			else
 			{
-				if (Item.GetModuleItems(moduleId).Count > 0)
+				if (Item.GetForModule(moduleId).Count > 0)
 				{
 					txtViewOrder.Text = (Item.GetHighestSortOrder(moduleId) + 10).ToString();
 				}
@@ -623,11 +623,11 @@ namespace SuperFlexiUI
 
 					if (field.IsGlobal)
 					{
-						dynamicOptions = ItemFieldValue.GetByGuid(field.FieldGuid);
+						dynamicOptions = ItemFieldValue.GetByFieldGuid(field.FieldGuid);
 					}
 					else
 					{
-						dynamicOptions = ItemFieldValue.GetByGuidForModule(field.FieldGuid, moduleId);
+						dynamicOptions = ItemFieldValue.GetByFieldGuidForModule(field.FieldGuid, moduleId);
 					}
 
 					if (!String.IsNullOrWhiteSpace(field.Options))

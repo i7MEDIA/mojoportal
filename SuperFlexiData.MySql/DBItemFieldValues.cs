@@ -238,7 +238,11 @@ namespace SuperFlexiData
 		/// <param name="valueGuid"> valueGuid </param>
 		public static IDataReader GetOne(Guid valueGuid)
 		{
-			const string sqlCommand = "SELECT * FROM `i7_sflexi_values` WHERE `ValueGuid` = ?ValueGuid;";
+			const string sqlCommand = @"
+				SELECT v.*, f.Name AS `FieldName` 
+				FROM `i7_sflexi_values` v 
+				JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid 
+				WHERE `ValueGuid` = ?ValueGuid;";
 
 			var sqlParam = new MySqlParameter("?ValueGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = valueGuid };
 
@@ -271,7 +275,10 @@ namespace SuperFlexiData
 		/// </summary>
 		public static IDataReader GetAll()
 		{
-			const string sqlCommand = "SELECT * FROM `i7_sflexi_values`;";
+			const string sqlCommand = @"
+				SELECT v.*, f.Name AS `FieldName` 
+				FROM `i7_sflexi_values` v 
+				JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid;";
 
 			return MySqlHelper.ExecuteReader(
 				ConnectionString.GetWriteConnectionString(),
@@ -288,7 +295,12 @@ namespace SuperFlexiData
 		/// <returns></returns>
 		public static IDataReader GetByItemField(Guid itemGuid, Guid fieldGuid)
 		{
-			const string sqlCommand = "SELECT * FROM `i7_sflexi_values` WHERE `ItemGuid` = ?ItemGuid AND `FieldGuid` = ?FieldGuid;";
+			const string sqlCommand = @"
+				SELECT v.*, f.Name AS `FieldName` 
+				FROM `i7_sflexi_values` v 
+				JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
+				WHERE `ItemGuid` = ?ItemGuid 
+				AND `f.FieldGuid` = ?FieldGuid;";
 
 			var sqlParams = new List<MySqlParameter>
 			{
@@ -311,7 +323,11 @@ namespace SuperFlexiData
 			//
 			// This was how the broken command was rendering: SELECT * FROM i7_sflexi_values WHERE IN ('\'guid1'\','\'guid2'\')
 			// TODO: Find out how to make "WHERE IN" work
-			var sqlCommand = $"SELECT * FROM `i7_sflexi_values` WHERE {getItems()};";
+			var sqlCommand = $@"
+				SELECT v.*, f.Name AS `FieldName` 
+				FROM `i7_sflexi_values` v 
+				JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
+				WHERE {getItems()};";
 
 			string getItems()
 			{
@@ -345,7 +361,11 @@ namespace SuperFlexiData
 
 		public static IDataReader GetByItemGuid(Guid itemGuid)
 		{
-			const string sqlCommand = "SELECT * FROM `i7_sflexi_values` WHERE `ItemGuid` = ?ItemGuid;";
+			const string sqlCommand = @"
+				SELECT v.*, f.Name AS `FieldName` 
+				FROM `i7_sflexi_values` v 
+				JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid 
+				WHERE `ItemGuid` = ?ItemGuid;";
 
 			var sqlParam = new MySqlParameter("?ItemGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = itemGuid };
 
@@ -359,7 +379,11 @@ namespace SuperFlexiData
 
 		public static IDataReader GetByModuleGuid(Guid moduleGuid)
 		{
-			const string sqlCommand = "SELECT * FROM `i7_sflexi_values` WHERE `ModuleGuid` = ?ModuleGuid;";
+			const string sqlCommand = @"
+				SELECT v.*, f.Name AS `FieldName` 
+				FROM `i7_sflexi_values` v 
+				JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid 
+				WHERE `ModuleGuid` = ?ModuleGuid;";
 
 			var sqlParam = new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid };
 
@@ -373,7 +397,11 @@ namespace SuperFlexiData
 
 		public static IDataReader GetByDefinitionGuid(Guid definitionGuid)
 		{
-			const string sqlCommand = "SELECT v.* FROM `i7_sflexi_values` v JOIN `i7_sflexi_fields` f on f.`FieldGuid` = v.`FieldGuid` WHERE `DefinitionGuid` = ?DefinitionGuid;";
+			const string sqlCommand = @"
+				SELECT v.*, f.Name AS `FieldName` 
+				FROM `i7_sflexi_values` v 
+				JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
+				WHERE `DefinitionGuid` = ?DefinitionGuid;";
 
 			var sqlParam = new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = definitionGuid };
 
@@ -385,9 +413,13 @@ namespace SuperFlexiData
 		}
 
 
-		public static IDataReader GetByGuid(Guid fieldGuid)
+		public static IDataReader GetByFieldGuid(Guid fieldGuid)
 		{
-			const string sqlCommand = "SELECT * FROM `i7_sflexi_values` WHERE `FieldGuid` = ?FieldGuid;";
+			const string sqlCommand = @"
+				SELECT v.*, f.Name AS `FieldName` 
+				FROM `i7_sflexi_values` v 
+				JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
+				WHERE f.`FieldGuid` = ?FieldGuid;";
 
 			var sqlParam = new MySqlParameter("?FieldGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = fieldGuid };
 
@@ -399,9 +431,14 @@ namespace SuperFlexiData
 		}
 
 
-		public static IDataReader GetByGuidForModule(Guid fieldGuid, Guid moduleGuid)
+		public static IDataReader GetByFieldGuidForModule(Guid fieldGuid, Guid moduleGuid)
 		{
-			const string sqlCommand = "SELECT * FROM `i7_sflexi_values` WHERE `ModuleGuid` = ?ModuleGuid AND `FieldGuid` = ?FieldGuid;";
+			const string sqlCommand = @"
+				SELECT v.*, f.Name AS `FieldName` 
+				FROM `i7_sflexi_values` v 
+				JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
+				WHERE `ModuleGuid` = ?ModuleGuid 
+				AND f.`FieldGuid` = ?FieldGuid;";
 
 			var sqlParams = new List<MySqlParameter>
 			{
@@ -457,10 +494,10 @@ namespace SuperFlexiData
 			{
 				sqlCommand = $@"
 					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS()
-					AS TotalRows, v.*
+					AS TotalRows, v.*, f.`FieldName`
 					FROM `i7_sflexi_values` v
 					JOIN(
-						SELECT DISTINCT `FieldGuid`
+						SELECT DISTINCT `FieldGuid`, `Name` AS `FieldName`
 						FROM `i7_sflexi_fields`
 						WHERE `Name` = ?Field
 						AND `DefinitionGuid` = ?DefinitionGuid
@@ -475,10 +512,10 @@ namespace SuperFlexiData
 			{
 				sqlCommand = $@"
 					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS()
-					AS TotalRows, v.*
+					AS TotalRows, v.*, f.Name AS `FieldName`
 					FROM `i7_sflexi_values` v
 					JOIN(
-						SELECT DISTINCT `FieldGuid`
+						SELECT DISTINCT `FieldGuid`, `Name` AS `FieldName`
 						FROM `i7_sflexi_fields`
 						WHERE `Name` = ?Field
 						AND `DefinitionGuid` = ?DefinitionGuid
@@ -539,7 +576,11 @@ namespace SuperFlexiData
 				}
 			}
 
-			var sqlCommand = $"SELECT * FROM `i7_sflexi_values` LIMIT ?PageSize {ifTrue(pageNumber > 1, "OFFSET ?OffsetRows")};";
+			var sqlCommand = $@"
+				SELECT v.*, f.Name AS `FieldName` 
+				FROM `i7_sflexi_values` v 
+				JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
+				LIMIT ?PageSize {ifTrue(pageNumber > 1, "OFFSET ?OffsetRows")};";
 
 			var sqlParams = new List<MySqlParameter>
 			{
