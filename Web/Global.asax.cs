@@ -450,7 +450,7 @@ namespace mojoPortal.Web
 				switch (Request.Url.Scheme)
 				{
 					case "https":
-						Response.AddHeader("Strict-Transport-Security", "max-age=300");
+						Response.AddHeader("Strict-Transport-Security", WebConfigSettings.HSTSHeaders );
 						break;
 
 					case "http":
