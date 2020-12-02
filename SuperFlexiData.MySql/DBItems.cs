@@ -308,10 +308,30 @@ namespace SuperFlexiData
 		/// Gets an IDataReader with all items for module.
 		/// </summary>
 		/// <param name="itemID"> itemID </param>
-		public static IDataReader GetModuleItems(int moduleID)
+		public static IDataReader GetForModule(int moduleID, string sortDirection = "ASC")
 		{
-			string sqlCommand = "SELECT * FROM i7_sflexi_items WHERE ModuleID = ?ModuleID ORDER BY SortOrder ASC;";
+			string sqlCommand = $"SELECT * FROM i7_sflexi_items WHERE ModuleID = ?ModuleID ORDER BY SortOrder {sortDirection};";
 
+			var sqlParam = new MySqlParameter("?ModuleID", MySqlDbType.Int32)
+			{ Direction = ParameterDirection.Input, Value = moduleID };
+
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand,
+				sqlParam
+			);
+		}
+
+		public static IDataReader GetForModuleWithValues(int moduleID, string sortDirection)
+		{
+			string sqlCommand = $@"
+				SELECT i.*, f.Name AS FieldName, v.FieldValue 
+				FROM i7_sflexi_items i
+				JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
+				JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
+				WHERE ModuleID = ?ModuleID 
+				ORDER BY SortOrder {sortDirection};";
+			
 			var sqlParam = new MySqlParameter("?ModuleID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID };
 
 			return MySqlHelper.ExecuteReader(
@@ -321,15 +341,14 @@ namespace SuperFlexiData
 			);
 		}
 
-
-		public static IDataReader GetPageOfModuleItems(
+		public static IDataReader GetForModuleWithValues_Paged(
 			Guid moduleGuid,
 			int pageNumber,
 			int pageSize,
 			string searchTerm = "",
 			string searchField = "",
 			//string sortField = "",
-			bool descending = false
+			string sortDirection = "ASC"
 		)
 		{
 			string sqlCommand;
@@ -337,15 +356,16 @@ namespace SuperFlexiData
 			if (string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
 			{
 				sqlCommand = $@"
-					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*
+					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*, v.FieldValue, f.Name AS `FieldName`, v.FieldGuid
 					FROM `i7_sflexi_items` i
 					JOIN(
-						SELECT DISTINCT ItemGuid
+						SELECT DISTINCT ItemGuid, FieldValue, FieldGuid
 						FROM `i7_sflexi_values`
-						WHERE FieldValue LIKE '%?SearchTerm%'
+						WHERE FieldValue LIKE ?SearchTerm
 						) v ON v.ItemGuid = i.ItemGuid
-					WHERE `ModuleGuid` = '?ModuleGuid' 
-					ORDER BY `SortOrder` {(descending ? "DESC" : "ASC")}
+					JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
+					WHERE i.`ModuleGuid` = '?ModuleGuid' 
+					ORDER BY i.`SortOrder` {sortDirection}
 					LIMIT ?PageSize
 					{(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
 			}
@@ -353,30 +373,32 @@ namespace SuperFlexiData
 			{
 				sqlCommand = $@"
 					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS()
-					AS TotalRows, i.*
+					AS TotalRows, i.*, v.FieldValue, f.FieldName, v.FieldGuid
 					FROM `i7_sflexi_items` i
 					JOIN(
-						SELECT DISTINCT `ItemGuid`, `FieldGuid`
+						SELECT DISTINCT `ItemGuid`, `FieldGuid`, `FieldValue`
 						FROM `i7_sflexi_values`
-						WHERE FieldValue LIKE '%?SearchTerm%'
+						WHERE FieldValue LIKE ?SearchTerm
 						) v ON v.ItemGuid = i.ItemGuid
 					JOIN(
-						SELECT DISTINCT `FieldGuid`
+						SELECT DISTINCT `FieldGuid`, `Name` as `FieldName`
 						FROM `i7_sflexi_fields`
 						WHERE `Name` = ?SearchField
 						) f on f.FieldGuid = v.FieldGuid
-					WHERE `ModuleGuid` = ?ModuleGuid
-					ORDER BY `SortOrder` {(descending ? "DESC" : "ASC")}
+					WHERE i.`ModuleGuid` = ?ModuleGuid
+					ORDER BY i.`SortOrder` {sortDirection}
 					LIMIT ?PageSize
 					{(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
 			}
 			else
 			{
 				sqlCommand = $@"
-					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*
+					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*, v.FieldValue, f.Name AS `FieldName`, v.FieldGuid
 					FROM `i7_sflexi_items` i
-					WHERE `ModuleGuid` = ?ModuleGuid
-					ORDER BY `SortOrder` {(descending ? "DESC" : "ASC")}
+					JOIN `i7_sflexi_values` v ON v.ItemGuid = i.ItemGuid
+					JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
+					WHERE i.`ModuleGuid` = ?ModuleGuid
+					ORDER BY i.`SortOrder` {sortDirection}
 					LIMIT ?PageSize 
 					{(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
 			}
@@ -387,7 +409,7 @@ namespace SuperFlexiData
 			{
 				new MySqlParameter("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
 				new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
-				new MySqlParameter("?SearchTerm", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = searchTerm },
+				new MySqlParameter("?SearchTerm", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = "%" + searchTerm + "%"},
 				new MySqlParameter("?SearchField", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = searchField },
 				new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid }
 			};
@@ -400,15 +422,14 @@ namespace SuperFlexiData
 		}
 
 
-		public static IDataReader GetPageForDefinition(
+		public static IDataReader GetForDefinitionWithValues_Paged(
 			Guid defGuid,
 			Guid siteGuid,
 			int pageNumber,
 			int pageSize,
 			string searchTerm = "",
 			string searchField = "",
-			//string sortField = "",
-			bool descending = false
+			string sortDirection = "ASC"
 		)
 		{
 			string sqlCommand;
@@ -417,47 +438,52 @@ namespace SuperFlexiData
 			{
 				sqlCommand = $@"
 					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS()
-					AS TotalRows, i.*
+					AS TotalRows, i.*, v.FieldValue, f.Name AS `FieldName`, v.`FieldGuid`
 					FROM `i7_sflexi_items` i
 					JOIN (
-						SELECT DISTINCT ItemGuid
+						SELECT DISTINCT `ItemGuid`, `FieldGuid`, `FieldValue`
 						FROM `i7_sflexi_values`
 						WHERE FieldValue
-						LIKE '%?SearchTerm%'
+						LIKE ?SearchTerm
 						) v ON v.ItemGuid = i.ItemGuid
-					WHERE `DefinitionGuid` = '?DefinitionGuid'
-					AND `SiteGuid` = '?SiteGuid'
-					ORDER BY `SortOrder` {(descending ? "DESC" : "ASC")}
+					JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
+					WHERE i.`DefinitionGuid` = '?DefinitionGuid'
+					AND i.`SiteGuid` = '?SiteGuid'
+					ORDER BY i.`SortOrder` {sortDirection}
 					LIMIT ?PageSize
 					{(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
 			}
 			else if (!string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
 			{
 				sqlCommand = $@"
-					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*
+					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*, v.FieldValue, f.`FieldName`, v.`FieldGuid`
 					FROM `i7_sflexi_items` i
 					JOIN(
-						SELECT DISTINCT `ItemGuid`, `FieldGuid`
+						SELECT DISTINCT `ItemGuid`, `FieldGuid`, `FieldValue`
 						FROM `i7_sflexi_values`
-						WHERE FieldValue LIKE '%?SearchTerm%'
+						WHERE FieldValue LIKE ?SearchTerm
 						) v ON v.ItemGuid = i.ItemGuid
 					JOIN(
-						SELECT DISTINCT `FieldGuid`
+						SELECT DISTINCT `FieldGuid`, `Name` as `FieldName`
 						FROM `i7_sflexi_fields`
 						WHERE `Name` = ?SearchField
-						) f on f.FieldGuid = v.FieldGuid
-					WHERE `DefinitionGuid` = ?DefinitionGuid AND `SiteGuid` = '?SiteGuid'
-					ORDER BY `SortOrder` {(descending ? "DESC" : "ASC")}
+						) f ON f.FieldGuid = v.FieldGuid
+					WHERE i.`DefinitionGuid` = ?DefinitionGuid 
+					AND i.`SiteGuid` = ?SiteGuid
+					ORDER BY i.`SortOrder` {sortDirection}
 					LIMIT ?PageSize
 					{(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
 			}
 			else
 			{
 				sqlCommand = $@"
-					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*
+					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*, v.FieldValue, f.Name AS `FieldName`, v.`FieldGuid`
 					FROM `i7_sflexi_items` i
-					WHERE `DefinitionGuid` = '?DefinitionGuid' AND `SiteGuid` = '?SiteGuid'
-					ORDER BY `SortOrder` {(descending ? "DESC" : "ASC")}
+					JOIN `i7_sflexi_values` v ON v.ItemGuid = i.ItemGuid
+					JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
+					WHERE i.`DefinitionGuid` = ?DefinitionGuid
+					AND i.`SiteGuid` = ?SiteGuid
+					ORDER BY i.`SortOrder` {sortDirection}
 					LIMIT ?PageSize
 					{(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
 			}
@@ -468,11 +494,11 @@ namespace SuperFlexiData
 			{
 				new MySqlParameter("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
 				new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
-				new MySqlParameter("?SearchTerm", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = searchTerm },
+				new MySqlParameter("?SearchTerm", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = "%" + searchTerm + "%"},
 				new MySqlParameter("?SearchField", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = searchField },
 				new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = defGuid },
 				new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid },
-				new MySqlParameter("?SortDirection", MySqlDbType.VarChar, 4) { Direction = ParameterDirection.Input, Value = descending ? "DESC" : "ASC" }
+				//new MySqlParameter("?SortDirection", MySqlDbType.VarChar, 4) { Direction = ParameterDirection.Input, Value = sortDirection }
 			};
 
 			return MySqlHelper.ExecuteReader(
@@ -486,9 +512,9 @@ namespace SuperFlexiData
 		/// <summary>
 		/// Gets an IDataReader with all items for a single definition.
 		/// </summary>
-		public static IDataReader GetAllForDefinition(Guid definitionGuid, Guid siteGuid)
+		public static IDataReader GetForDefinition(Guid definitionGuid, Guid siteGuid, string sortDirection)
 		{
-			const string sqlCommand = @"
+			string sqlCommand = $@"
 				SELECT 
 					SiteGuid, 
 					FeatureGuid, 
@@ -506,7 +532,7 @@ namespace SuperFlexiData
 				FROM i7_sflexi_items i
 				LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
 				WHERE DefinitionGuid = ?DefGuid AND i.SiteGuid = ?SiteGuid AND ms.SettingName = 'GlobalViewSortOrder' 
-				ORDER BY GlobalViewSortOrder ASC, i.ModuleID ASC, SortOrder ASC, CreatedUtc ASC;";
+				ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, SortOrder {sortDirection}, CreatedUtc {sortDirection};";
 
 			var sqlParams = new List<MySqlParameter> {
 				new MySqlParameter("?DefGuid", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = definitionGuid },
@@ -520,54 +546,39 @@ namespace SuperFlexiData
 			);
 		}
 
-
 		/// <summary>
-		/// Gets a page of data from the i7_sflexi_items table.
+		/// Get all Items with Values for a single definition
 		/// </summary>
-		/// <param name="pageNumber">The page number.</param>
-		/// <param name="pageSize">Size of the page.</param>
-		/// <param name="totalPages">total pages</param>
-		//public static IDataReader GetPage(
-		//	int pageNumber,
-		//	int pageSize,
-		//	out int totalPages)
-		//{
-		//	int pageLowerBound = (pageSize * pageNumber) - pageSize;
-		//	totalPages = 1;
-		//	int totalRows = GetCount();
+		/// <param name="definitionGuid"></param>
+		/// <param name="siteGuid"></param>
+		/// <returns></returns>
+		public static IDataReader GetForDefinitionWithValues(Guid definitionGuid, Guid siteGuid, string sortDirection)
+		{
+			string sqlCommand = $@"
+				SELECT 
+					i.*,
+					ms.SettingValue AS GlobalViewSortOrder 
+					f.Name AS FieldName,
+					v.FieldValue,
+					v.FieldGuid
+				FROM i7_sflexi_items i
+				LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
+				LEFT JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
+				LEFT JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
+				WHERE i.DefinitionGuid = ?DefGuid AND i.SiteGuid = ?SiteGuid AND ms.SettingName = 'GlobalViewSortOrder' 
+				ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, i.SortOrder {sortDirection}, i.CreatedUtc {sortDirection};";
 
-		//	if (pageSize > 0)
-		//		totalPages = totalRows / pageSize;
+			var sqlParams = new List<MySqlParameter> {
+				new MySqlParameter("?DefGuid", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = definitionGuid },
+				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = siteGuid }
+			};
 
-		//	if (totalRows <= pageSize)
-		//	{
-		//		totalPages = 1;
-		//	}
-		//	else
-		//	{
-		//		int remainder;
-		//		Math.DivRem(totalRows, pageSize, out remainder);
-		//		if (remainder > 0)
-		//		{
-		//			totalPages += 1;
-		//		}
-		//	}
-		//	StringBuilder sqlCommand = new StringBuilder();
-
-		//	sqlCommand.Append("SELECT * FROM i7_sflexi_items LIMIT ?PageSize" + (pageNumber > 1 ? "OFFSET ?OffsetRows;" : ";"));
-
-		//	var sqlParams = new List<MySqlParameter>
-		//	{
-		//		new MySqlParameter("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
-		//		new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageLowerBound }
-		//	};
-
-		//	return MySqlHelper.ExecuteReader(
-		//		ConnectionString.GetReadConnectionString(),
-		//		sqlCommand.ToString(),
-		//		sqlParams.ToArray());
-		//}
-
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				sqlParams.ToArray()
+			);
+		}
 
 		/// <summary>
 		/// Gets
@@ -607,6 +618,26 @@ namespace SuperFlexiData
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParams.ToArray()
+			);
+		}
+
+		/// <summary>
+		/// Gets Highest (largest) SortOrder
+		/// </summary>
+		/// <param name="moduleId"></param>
+		/// <returns></returns>
+		public static int GetHighestSortOrder(int moduleId)
+		{
+			string sqlCommand = $"SELECT Max(SortOrder) FROM i7_sflexi_items where ModuleID = ?ModuleID;";
+
+			var sqlParam = new MySqlParameter("?ModuleID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = moduleId };
+
+			return Convert.ToInt32(
+				MySqlHelper.ExecuteScalar(
+					ConnectionString.GetReadConnectionString(),
+					sqlCommand,
+					sqlParam
+				)
 			);
 		}
 	}

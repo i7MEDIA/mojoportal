@@ -431,7 +431,7 @@ NeatHtml.Filter.prototype.BeginUntrusted = function(nhScriptId) {
 			{
 				document.write("<xml>");
 			}
-			else if (ua.indexOf("webkit") != -1 || ua.indexOf("khtml") != -1)
+			else if (ua.indexOf("webkit") != -1 || ua.indexOf("khtml") != -1 || ua.indexOf("gecko") != -1)
 			{
 				document.write("<xmp>");
 			}

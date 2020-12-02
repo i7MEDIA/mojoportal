@@ -37,7 +37,7 @@ namespace SuperFlexiUI
 
             if ( deleteOrphanFields || deleteOrphanItems || deleteOrphanSearchDefinitions)
             {
-                List<Item> sflexiItems = Item.GetModuleItems(module.ModuleId);
+                List<Item> sflexiItems = Item.GetForModule(module.ModuleId);
                 List<Guid> definitionGuids = new List<Guid>();
 
 
@@ -63,7 +63,7 @@ namespace SuperFlexiUI
 
                     foreach (Guid guid in definitionGuids)
                     {
-                        List<Item> definitionItems = Item.GetAllForDefinition(guid, module.SiteGuid);
+                        List<Item> definitionItems = Item.GetForDefinition(guid, module.SiteGuid);
                         if (definitionItems.Count == 0)
                         {
                             //delete field definitions when there are no more modules using them

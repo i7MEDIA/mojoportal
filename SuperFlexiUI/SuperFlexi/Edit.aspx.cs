@@ -150,7 +150,7 @@ namespace SuperFlexiUI
 			}
 			else
 			{
-				if (Item.GetModuleItems(moduleId).Count > 0)
+				if (Item.GetForModule(moduleId).Count > 0)
 				{
 					txtViewOrder.Text = (Item.GetHighestSortOrder(moduleId) + 10).ToString();
 				}
@@ -628,11 +628,11 @@ namespace SuperFlexiUI
 
 					if (field.IsGlobal)
 					{
-						dynamicOptions = ItemFieldValue.GetByGuid(field.FieldGuid);
+						dynamicOptions = ItemFieldValue.GetByFieldGuid(field.FieldGuid);
 					}
 					else
 					{
-						dynamicOptions = ItemFieldValue.GetByGuidForModule(field.FieldGuid, moduleId);
+						dynamicOptions = ItemFieldValue.GetByFieldGuidForModule(field.FieldGuid, moduleId);
 					}
 
 					if (!String.IsNullOrWhiteSpace(field.Options))
@@ -1701,7 +1701,7 @@ namespace SuperFlexiUI
 			rawScript.Append("\"fileBrowserUrl\": \"$_FileBrowserUrl_$\"");
 			rawScript.Append("};");
 
-			SuperFlexiHelpers.ReplaceStaticTokens(rawScript, config, true, displaySettings, module.ModuleId, CurrentPage, SiteInfo, out rawScript);
+			SuperFlexiHelpers.ReplaceStaticTokens(rawScript, config, true, displaySettings, module, CurrentPage, SiteInfo, out rawScript);
 
 			StringBuilder scriptText = new StringBuilder();
 
@@ -1718,12 +1718,12 @@ namespace SuperFlexiUI
 			//config.EditPageScripts = FieldUtils.ParseScriptsFromXml(config);
 			if (config.EditPageScripts.Count > 0)
 			{
-				SuperFlexiHelpers.SetupScripts(config.EditPageScripts, config, displaySettings, siteSettings.UseSslOnAllPages, true, IsPostBack, ClientID, moduleId, pageId, Page, this);
+				SuperFlexiHelpers.SetupScripts(config.EditPageScripts, config, displaySettings, true, IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, this);
 			}
 
             if (config.EditPageCSS.Count > 0)
             {
-                SuperFlexiHelpers.SetupStyle(config.EditPageCSS, config, displaySettings, siteSettings.UseSslOnAllPages, ClientID, moduleId, pageId, Page, this);
+                SuperFlexiHelpers.SetupStyle(config.EditPageCSS, config, displaySettings, true, ClientID, siteSettings, module, CurrentPage, Page, this);
             }
 
 		}

@@ -2338,6 +2338,11 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("ForceSslOnAllPages", true); }
 		}
 
+		public static string HSTSHeaders
+		{
+			get { return ConfigHelper.GetStringProperty("HSTSHeaders", "max-age: 63072000;"); }
+		}
+
 		public static bool ClearSslOnNonSecurePages
 		{
 			get { return ConfigHelper.GetBoolProperty("ClearSslOnNonSecurePages", false); }

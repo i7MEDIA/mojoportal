@@ -202,11 +202,11 @@ namespace SuperFlexiUI
             System.Text.StringBuilder sbLink = new System.Text.StringBuilder(searchDef.Link);
             System.Text.StringBuilder sbLinkQueryAddendum = new System.Text.StringBuilder(searchDef.LinkQueryAddendum);
             SiteSettings siteSettings = new SiteSettings(pageSettings.SiteGuid);
-            SuperFlexiHelpers.ReplaceStaticTokens(sbTitle, config, false, displaySettings, moduleID, pageSettings, siteSettings, out sbTitle);
-            SuperFlexiHelpers.ReplaceStaticTokens(sbKeywords, config, false, displaySettings, moduleID, pageSettings, siteSettings, out sbKeywords);
-            SuperFlexiHelpers.ReplaceStaticTokens(sbDescription, config, false, displaySettings, moduleID, pageSettings, siteSettings, out sbDescription);
-            SuperFlexiHelpers.ReplaceStaticTokens(sbLink, config, false, displaySettings, moduleID, pageSettings, siteSettings, out sbLink);
-            SuperFlexiHelpers.ReplaceStaticTokens(sbLinkQueryAddendum, config, false, displaySettings, moduleID, pageSettings, siteSettings, out sbLinkQueryAddendum);
+            SuperFlexiHelpers.ReplaceStaticTokens(sbTitle, config, false, displaySettings, module, pageSettings, siteSettings, out sbTitle);
+            SuperFlexiHelpers.ReplaceStaticTokens(sbKeywords, config, false, displaySettings, module, pageSettings, siteSettings, out sbKeywords);
+            SuperFlexiHelpers.ReplaceStaticTokens(sbDescription, config, false, displaySettings, module, pageSettings, siteSettings, out sbDescription);
+            SuperFlexiHelpers.ReplaceStaticTokens(sbLink, config, false, displaySettings, module, pageSettings, siteSettings, out sbLink);
+            SuperFlexiHelpers.ReplaceStaticTokens(sbLinkQueryAddendum, config, false, displaySettings, module, pageSettings, siteSettings, out sbLinkQueryAddendum);
 
 			var fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
 			log.Debug($"SuperFlexi Index: total field value count for ItemGuid ({item.ItemGuid}) is {fieldValues.Count}");

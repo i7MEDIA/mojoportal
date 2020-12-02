@@ -33,62 +33,41 @@ namespace SuperFlexiUI
         List<Item> items = new List<Item>();
         List<ItemFieldValue> fieldValues = new List<ItemFieldValue>();
         SiteSettings siteSettings;
-        PageSettings pageSettings;
+        //PageSettings pageSettings;
         Module module;
         public ModuleConfiguration Config
         {
             get { return config; }
             set { config = value; }
         }
+		public string SiteRoot { get; set; } = string.Empty;
+		public string ImageSiteRoot { get; set; } = string.Empty;
+		public bool IsEditable { get; set; } = false;
+		public int ModuleId { get; set; } = -1;
+		public int PageId { get; set; } = -1;
+		public PageSettings CurrentPage { get; set; }
 
-        private string siteRoot = string.Empty;
-        public string SiteRoot
-        {
-            get { return siteRoot; }
-            set { siteRoot = value; }
-        }
+		#endregion
 
-        private string imageSiteRoot = string.Empty;
-        public string ImageSiteRoot
-        {
-            get { return imageSiteRoot; }
-            set { imageSiteRoot = value; }
-        }
-
-        private bool isEditable = false;
-        public bool IsEditable
-        {
-            get { return isEditable; }
-            set { isEditable = value; }
-        }
-
-        private int moduleId = -1;
-        public int ModuleId
-        {
-            get { return moduleId; }
-            set { moduleId = value; }
-        }
-
-        private int pageId = -1;
-        public int PageId
-        {
-            get { return pageId; }
-            set { pageId = value; }
-        }
-
-        #endregion
-
-        protected void Page_Load(object sender, EventArgs e)
+		protected void Page_Load(object sender, EventArgs e)
         {
             //LoadSettings();
             //SetupScripts();
 
-            module = new Module(moduleId);
+            module = new Module(ModuleId);
             moduleTitle = module.ModuleTitle;
 
             siteSettings = CacheHelper.GetCurrentSiteSettings();
-            pageSettings = new PageSettings(siteSettings.SiteId, pageId);
-            if (config.MarkupDefinition != null)
+			if (CurrentPage == null)
+			{
+				CurrentPage = CacheHelper.GetCurrentPage();
+				if (CurrentPage == null)
+				{
+					log.Info("Can't use CacheHelper.GetCurrentPage() here.");
+					CurrentPage = new PageSettings(siteSettings.SiteId, PageId);
+				}
+			}
+			if (config.MarkupDefinition != null)
             {
                 displaySettings = config.MarkupDefinition;
             }
@@ -97,11 +76,11 @@ namespace SuperFlexiUI
 
             if (config.IsGlobalView)
             {
-                items = Item.GetAllForDefinition(config.FieldDefinitionGuid, siteSettings.SiteGuid, config.DescendingSort);
+                items = Item.GetForDefinition(config.FieldDefinitionGuid, siteSettings.SiteGuid, config.DescendingSort);
             }
             else
             {
-                items = Item.GetModuleItems(moduleId, config.DescendingSort);
+                items = Item.GetForModule(ModuleId, config.DescendingSort);
             }
 
 
@@ -115,18 +94,18 @@ namespace SuperFlexiUI
 
                 if (SiteUtils.IsMobileDevice() && config.MobileMarkupScripts.Count > 0)
                 {
-                    SuperFlexiHelpers.SetupScripts(config.MobileMarkupScripts, config, displaySettings, siteSettings.UseSslOnAllPages, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
+                    SuperFlexiHelpers.SetupScripts(config.MobileMarkupScripts, config, displaySettings, IsEditable, IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, this);
                 }
                 else
                 {
-                    SuperFlexiHelpers.SetupScripts(config.MarkupScripts, config, displaySettings, siteSettings.UseSslOnAllPages, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
-                }
+                    SuperFlexiHelpers.SetupScripts(config.MarkupScripts, config, displaySettings, IsEditable, IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, this);
+				}
 
             }
 
             if (config.MarkupCSS.Count > 0)
             {
-                SuperFlexiHelpers.SetupStyle(config.MarkupCSS, config, displaySettings, siteSettings.UseSslOnAllPages, ClientID, ModuleId, PageId, Page, this);
+                SuperFlexiHelpers.SetupStyle(config.MarkupCSS, config, displaySettings, IsEditable, ClientID, siteSettings, module, CurrentPage, Page, this);
             }
 
             //if (Page.IsPostBack) { return; }
@@ -157,21 +136,21 @@ namespace SuperFlexiUI
             model.Header = config.HeaderContent;
             model.Footer = config.FooterContent;
             model.FeaturedImage = featuredImageUrl;
-            model.PageId = pageSettings.PageId;
-            model.PageUrl = pageSettings.Url;
-            model.PageName = pageSettings.PageName;
+            model.PageId = CurrentPage.PageId;
+            model.PageUrl = CurrentPage.Url;
+            model.PageName = CurrentPage.PageName;
 
             //dynamic dModel = model;
 
             foreach (Item item in items)
             {
-                bool itemIsEditable = isEditable || WebUser.IsInRoles(item.EditRoles);
+                bool itemIsEditable = IsEditable || WebUser.IsInRoles(item.EditRoles);
                 bool itemIsViewable = WebUser.IsInRoles(item.ViewRoles) || itemIsEditable;
                 if (!itemIsViewable)
                 {
                     continue;
                 }
-                string itemEditUrl = SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + pageId + "&mid=" + item.ModuleID + "&itemid=" + item.ItemID;
+                string itemEditUrl = SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + PageId + "&mid=" + item.ModuleID + "&itemid=" + item.ItemID;
 
                 //var itemModel = new ItemModel();
 
