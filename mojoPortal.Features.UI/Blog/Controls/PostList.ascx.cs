@@ -616,7 +616,7 @@ namespace mojoPortal.Web.BlogUI
 				" class='" +
 				displaySettings.ListViewPostSubtitleClass +
 				"'>" +
-				subTitle +
+				SecurityHelper.SanitizeHtml(subTitle) +
 				"</" +
 				displaySettings.ListViewPostSubtitleElement +
 				">"
