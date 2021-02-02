@@ -69,9 +69,10 @@ namespace mojoPortal.Web.ContactUI
 
             if (emailAliases == null) { emailAliases = new List<string>(); }
 
-            useSpamBlocking = WebUtils.ParseBoolFromHashtable(settings, "ContactFormUseCommentSpamBlocker", false);
+            useSpamBlocking = WebUtils.ParseBoolFromHashtable(settings, "ContactFormUseCommentSpamBlocker", true);
+			BlockBadWords = WebUtils.ParseBoolFromHashtable(settings, "ContactFormBlockBadWords", true);
 
-            appendIPToMessageSetting = WebUtils.ParseBoolFromHashtable(settings, "AppendIPToMessageSetting", appendIPToMessageSetting);
+			appendIPToMessageSetting = WebUtils.ParseBoolFromHashtable(settings, "AppendIPToMessageSetting", appendIPToMessageSetting);
             keepMessages = WebUtils.ParseBoolFromHashtable(settings, "KeepMessagesInDatabase", keepMessages);
             useInputAsFromAddress = WebUtils.ParseBoolFromHashtable(settings, "UseInputAddressAsFromAddress", useInputAsFromAddress);
             //useHeading = WebUtils.ParseBoolFromHashtable(settings, "UseHeading", useHeading);
@@ -84,8 +85,9 @@ namespace mojoPortal.Web.ContactUI
         {
             get { return useSpamBlocking; }
         }
+		public bool BlockBadWords { get; private set; } = true;
 
-        private bool appendIPToMessageSetting = true;
+		private bool appendIPToMessageSetting = true;
 
         public bool AppendIPToMessageSetting
         {

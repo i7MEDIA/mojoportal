@@ -388,6 +388,7 @@ namespace mojoPortal.Business
         }
 
 
+
         public static DataTable SelectGlobalPage(
             int siteId,
             int moduleDefId,
@@ -405,6 +406,28 @@ namespace mojoPortal.Business
                 out totalPages);
         }
 
+		public static List<GlobalContent> GetGlobalContent(int siteId)
+		{
+			List<GlobalContent> globalContents = new List<GlobalContent>();
+			using (IDataReader reader = DBModule.GetGlobalContent(siteId))
+			{
+				while (reader.Read())
+				{
+					globalContents.Add(new GlobalContent {
+						ModuleGuid = Guid.Parse(reader["ModuleGuid"].ToString()),
+						ModuleID = Convert.ToInt32(reader["ModuleId"]),
+						ModuleTitle = reader["ModuleTitle"].ToString(),
+						FeatureName = reader["FeatureName"].ToString(),
+						ResourceFile = reader["ResourceFile"].ToString(),
+						CreatedBy = reader["CreatedBy"].ToString(),
+						CreatedById = Convert.ToInt32(reader["CreatedById"]),
+						ControlSrc = reader["ContrlSrc"].ToString(),
+						UseCount = Convert.ToInt32(reader["UseCount"])
+					});
+				}
+			}
+			return globalContents;
+		}
 
         public static IDataReader GetMyPageModules(int siteId)
         {
@@ -443,5 +466,18 @@ namespace mojoPortal.Business
             return modules;
         }
 		#endregion
+
+		public class GlobalContent
+		{
+			public int ModuleID { get; set; }
+			public Guid ModuleGuid { get; set; }
+			public string ModuleTitle { get; set; }
+			public string FeatureName { get; set; }
+			public string ResourceFile { get; set; }
+			public string CreatedBy { get; set; }
+			public int CreatedById { get; set; }
+			public string ControlSrc { get; set; }
+			public int UseCount { get; set; }
+		}
 	}
 }

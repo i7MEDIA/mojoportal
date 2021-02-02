@@ -16,6 +16,10 @@
     <asp:TextBox ID="moduleTitle" runat="server" CssClass="widetextbox forminput" Text="" EnableViewState="false"></asp:TextBox>
      <asp:RequiredFieldValidator ID="reqModuleTitle" runat="server" ControlToValidate="moduleTitle" ValidationGroup="contentwizard" />
 </div>
+	<div class="settingrow">
+		<mp:SiteLabel ID="lblShowTitle" runat="server" ForControl="chkShowTitle" CssClass="setting" ConfigKey="ModuleSettingsShowTitleLabel" />
+		<asp:CheckBox ID="chkShowTitle" runat="server" />
+	</div>
 <div class="settingrow">
     <portal:mojoButton ID="btnCreateNewContent" runat="server" CssClass="forminput" ValidationGroup="contentwizard" />
 </div>

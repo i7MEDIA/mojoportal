@@ -40,7 +40,7 @@
 						<portal:mojoButton ID="btnSend" Runat="server" ValidationGroup="Contact" Text="Send" CausesValidation="true" />
 					</div>
 				</asp:Panel>
-				<portal:mojoLabel ID="lblMessage" Runat="server" CssClass="txterror" />
+				<portal:mojoLabel ID="lblMessage" Runat="server" CssClass="txterror" SkinID="error" />
 			</portal:InnerBodyPanel>
 		</portal:OuterBodyPanel>
 	</portal:InnerWrapperPanel>

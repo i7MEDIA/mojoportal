@@ -1849,11 +1849,48 @@ namespace mojoPortal.Business
             set { SetExpandoProperty("SiteIsClosedMessage", value); }
         }
 
+		public string BadWordList
+		{
+			get
+			{
+				string result = GetExpandoProperty("BadWordList");
+				if (result != null) { return result; }
+				return string.Empty;
+			}
+			set { SetExpandoProperty("BadWordList", value); }
+		}
+		/// <summary>
+		/// Is true if any words are in the BadWordList.
+		/// </summary>
+		public bool BadWordCheckingEnabled
+		{
+			get
+			{
+				if (string.IsNullOrWhiteSpace(BadWordList)) return false;
+				return true;
+			}
+		}
+		public bool BadWordCheckingEnforced
+		{
+			get
+			{
+				string sBool = GetExpandoProperty("ForceBadWordChecking");
+
+				if ((sBool != null) && (sBool.Length > 0))
+				{
+					return Convert.ToBoolean(sBool);
+				}
+
+				return false;
+			}
+			set { SetExpandoProperty("ForceBadWordChecking", value.ToString()); }
+		}
+
 		#endregion
 
 		#region Private Methods
 
-        private void GetSiteSettings(Guid siteGuid)
+		private void GetSiteSettings(Guid siteGuid)
         {
             using (IDataReader result = DBSiteSettings.GetSite(siteGuid))
             {
@@ -2211,32 +2248,32 @@ namespace mojoPortal.Business
 
         #region ExpandoProperties
 
-        private DataTable exapandoProperties = null;
+        private DataTable expandoProperties = null;
 
         private void EnsureExpandoProperties()
         {
-            if (exapandoProperties == null)
+            if (expandoProperties == null)
             {
-                exapandoProperties = GetExpandoProperties(siteID);
+                expandoProperties = GetExpandoProperties(siteID);
             }
 
         }
 
         public void ReloadExpandoProperties()
         {
-            exapandoProperties = GetExpandoProperties(siteID);
+            expandoProperties = GetExpandoProperties(siteID);
            
         }
 
         public void SaveExpandoProperties()
         {
-            if (exapandoProperties == null)
+            if (expandoProperties == null)
             {
                 log.Info("SiteSettings expandoProperties was null so nothing was saved");
                 return;
             }
 
-            foreach (DataRow row in exapandoProperties.Rows)
+            foreach (DataRow row in expandoProperties.Rows)
             {
                 bool isDirty = Convert.ToBoolean(row["IsDirty"]);
                 if (isDirty)
@@ -2258,7 +2295,7 @@ namespace mojoPortal.Business
         {
             EnsureExpandoProperties();
 
-            foreach (DataRow row in exapandoProperties.Rows)
+            foreach (DataRow row in expandoProperties.Rows)
             {
                 if (row["KeyName"].ToString().Trim().Equals(keyName, StringComparison.InvariantCulture))
                 {
@@ -2275,7 +2312,7 @@ namespace mojoPortal.Business
         {
             EnsureExpandoProperties();
             //bool found = false;
-            foreach (DataRow row in exapandoProperties.Rows)
+            foreach (DataRow row in expandoProperties.Rows)
             {
                 if (row["KeyName"].ToString().Trim().Equals(keyName, StringComparison.InvariantCulture))
                 {
@@ -2739,11 +2776,8 @@ namespace mojoPortal.Business
 
         protected void OnSiteCreated(SiteCreatedEventArgs e)
         {
-            if (SiteCreated != null)
-            {
-                SiteCreated(this, e);
-            }
-        }
+			SiteCreated?.Invoke(this, e);
+		}
 
 
 	}

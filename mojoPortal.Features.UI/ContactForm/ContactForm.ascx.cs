@@ -76,8 +76,21 @@ namespace mojoPortal.Web.ContactUI
 				isValid = false;
 			}
 
-			if (isValid && (edMessage.Text.Length > 0))
+			if (isValid && !string.IsNullOrWhiteSpace(edMessage.Text))
 			{
+				if (siteSettings.BadWordCheckingEnabled && (config.BlockBadWords || siteSettings.BadWordCheckingEnforced))
+				{
+					if (edMessage.Text.ContainsBadWords() 
+						|| txtName.Text.ContainsBadWords()
+						|| txtEmail.Text.ContainsBadWords()
+						|| txtSubject.Text.ContainsBadWords())
+					{
+						lblMessage.Text = ContactFormResources.BadWordsFound;
+						lblMessage.Visible = true;
+						return;
+					}
+				}
+
 				if (config.UseSpamBlocking && divCaptcha.Visible)
 				{
 					if (!captcha.IsValid)
@@ -199,7 +212,7 @@ namespace mojoPortal.Web.ContactUI
 			}
 			else
 			{
-				if (edMessage.Text.Length == 0)
+				if (string.IsNullOrWhiteSpace(edMessage.Text))
 				{
 					lblMessage.Text = ContactFormResources.ContactFormEmptyMessageWarning;
 				}

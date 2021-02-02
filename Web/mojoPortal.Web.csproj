@@ -786,6 +786,7 @@
     <Content Include="Controls\CountryISOCode2Setting.ascx" />
     <Content Include="Controls\CultureFlag.ascx" />
     <Content Include="Controls\EmailTemplates\EmailTemplateEditor.ascx" />
+    <Content Include="Controls\AdditionalContentSetting.ascx" />
     <Content Include="Controls\FilePathSetting.ascx" />
     <Content Include="Controls\Gravatar\Gravatar.bmp" />
     <Content Include="Controls\HtmlSetting.ascx" />
@@ -799,7 +800,9 @@
     <Content Include="Controls\Microsoft\BingSearchControl.ascx" />
     <Content Include="Controls\ModuleWrapper.ascx" />
     <Content Include="Controls\NeatUploadStylesheet.ascx" />
+    <Content Include="Controls\PageSelectorSetting.ascx" />
     <Content Include="Controls\PaymentLogList.ascx" />
+    <Content Include="Controls\ViewSelectorSetting.ascx" />
     <Content Include="Controls\PublishTypeSetting.ascx" />
     <Content Include="Controls\RelatedNewsletterSetting.ascx" />
     <Content Include="Controls\SearchableFeatureFilterSetting.ascx" />
