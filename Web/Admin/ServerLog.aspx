@@ -31,18 +31,29 @@
 							</FooterTemplate>
 						</asp:Repeater>
 						<portal:mojoCutePager ID="pgr" runat="server" />
-						<asp:HyperLink ID="lnkRefresh2" runat="server" />
-						<portal:mojoButton ID="btnClearDbLOg" runat="server" SkinID="WarningButton" />
+						<portal:FormGroupPanel runat="server" SkinID="ButtonGroup">
+							<asp:HyperLink ID="lnkRefresh2" runat="server" />
+						</portal:FormGroupPanel>
+						<portal:FormGroupPanel runat="server" SkinID="ButtonGroup">
+							<asp:TextBox ID="txtFromDate" runat="server" TextMode="Date" />
+
+							<portal:mojoButton ID="btnClearDbLOg" runat="server" SkinID="WarningButton" />
+						</portal:FormGroupPanel>
 					</asp:Panel>
 
 					<portal:BasePanel runat="server" ID="pnlFileLog">
 						<portal:FormGroupPanel runat="server">
 							<asp:TextBox ID="txtLog" runat="server" Width="100%" Height="600px" TextMode="MultiLine"></asp:TextBox>
 						</portal:FormGroupPanel>
-						<portal:FormGroupPanel runat="server">
+						<portal:FormGroupPanel runat="server" SkinID="ButtonGroup">
 							<asp:HyperLink ID="lnkRefresh" runat="server" SkinID="SuccessButton" />
+						</portal:FormGroupPanel>
+						<portal:FormGroupPanel runat="server" SkinID="InputGroup">
 							<portal:mojoButton ID="btnClearLog" runat="server" SkinID="WarningButton" />
+						</portal:FormGroupPanel>
+						<portal:FormGroupPanel runat="server" SkinID="ButtonGroup">
 							<portal:mojoButton ID="btnDownloadLog" runat="server" SkinID="InfoButton" />
+
 						</portal:FormGroupPanel>
 					</portal:BasePanel>
 
