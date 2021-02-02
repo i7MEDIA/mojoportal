@@ -30,12 +30,12 @@ using System.Web.Script.Serialization;
 namespace mojoPortal.Web.UI
 {
     /// <summary>
-    /// Calls the reCAPTCHA server to validate the answer to a reCAPTCHA challenge. Normally,
-    /// you will use the RecaptchaControl class to insert a web control on your page. However
+    /// Calls the captcha server to validate the answer to a reCAPTCHA challenge. Normally,
+    /// you will use the RecaptchaControl class to insert a web control on your page
     /// </summary>
     public class RecaptchaValidator
     {
-        private const string VerifyUrl = "https://www.google.com/recaptcha/api/siteverify";
+		private string VerifyUrl = WebConfigSettings.CaptchaVerifyUrl;
 
         private string privateKey;
         private string remoteIp;
@@ -71,13 +71,6 @@ namespace mojoPortal.Web.UI
 
                 this.remoteIp = ip.ToString();
             }
-        }
-
-        [Obsolete("No longer needed for recaptcha 2.0")]
-        public string Challenge
-        {
-            get { return this.challenge; }
-            set { this.challenge = value; }
         }
 
         public string Response

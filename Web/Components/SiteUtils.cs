@@ -4047,6 +4047,22 @@ namespace mojoPortal.Web
 
 		}
 
+		public static bool CheckForBadWords(string toBeChecked)
+		{
+			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+			if ((siteSettings == null) || (siteSettings.SiteGuid == Guid.Empty)) return false;
+
+			foreach (string badword in siteSettings.BadWordList.SplitOnNewLineAndTrim())
+			{
+				if (toBeChecked.ContainsCaseInsensitive(badword)) return true;
+			}
+			return false;
+		}
+
+		public static bool ContainsBadWords(this string s)
+		{
+			return CheckForBadWords(s);
+		}
 
 	}
 }

@@ -1126,7 +1126,7 @@ namespace mojoPortal.Data
                 arParams));
         }
 
-        public static DataTable SelectPage(
+		public static DataTable SelectPage(
             int siteId,
             int moduleDefId,
             string title,
@@ -1674,7 +1674,13 @@ namespace mojoPortal.Data
         }
 
 
+		public static IDataReader GetGlobalContent(int siteId)
+		{
+			//SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Modules_SelectGlobalContent", 1);
+			//sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
+			//return sph.ExecuteReader();
+			return null;
+		}
 
-
-    }
+	}
 }

@@ -3354,6 +3354,14 @@ namespace mojoPortal.Web
 			}
 		}
 
+		public static string CaptchaVerifyUrl
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("CaptchaVerifyUrl", "https://www.google.com/recaptcha/api/siteverify");
+			}
+		}
+
 		public static bool UseRawUrlForCmsPageLoginRedirects
 		{
 			get { return ConfigHelper.GetBoolProperty("UseRawUrlForCmsPageLoginRedirects", false); }

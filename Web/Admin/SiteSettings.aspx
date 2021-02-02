@@ -539,6 +539,16 @@
 											<asp:TextBox ID="txtRecaptchaPrivateKey" TabIndex="10" MaxLength="100" Columns="45" CssClass="forminput verywidetextbox" runat="server" />
 											<portal:mojoHelpLink runat="server" HelpKey="sitesettingsrecaptchahelp" />
 										</portal:FormGroupPanel>
+										<portal:FormGroupPanel runat="server">
+											<mp:SiteLabel runat="server" ForControl="txtBadWordList" CssClass="settinglabel" ConfigKey="SiteSettingsBadWordList" />
+											<mp:SiteLabel runat="server" ConfigKey="SiteSettingsBadWordListQuickHelp" CssClass="help-block" UseLabelTag="false" />
+											<asp:TextBox runat="server" ID="txtBadWordList" CssClass="forminput badwordlist" TextMode="MultiLine" />
+										</portal:FormGroupPanel>
+										<portal:FormGroupPanel runat="server">
+											<mp:SiteLabel runat="server" ForControl="chkForceBadWordChecking" CssClass="settinglabel" ConfigKey="SiteSettingsForceBadWordChecking" />
+											<asp:CheckBox runat="server" ID="chkForceBadWordChecking" CssClass="forminput" Checked="true" />
+											<mp:SiteLabel runat="server" ConfigKey="SiteSettingsForceBadWordCheckingQuickHelp" CssClass="help-block" UseLabelTag="false" />
+										</portal:FormGroupPanel>
 									</div>
 								</div>
 							</div>

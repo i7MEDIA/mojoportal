@@ -97,6 +97,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Content.
+        /// </summary>
+        internal static string AddContent {
+            get {
+                return ResourceManager.GetString("AddContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Existing Content.
         /// </summary>
         internal static string AddExistingContent {
@@ -394,7 +403,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feature Installation and Configuration.
+        ///   Looks up a localized string similar to Feature Management.
         /// </summary>
         internal static string AdminMenuFeatureModulesLink {
             get {
@@ -8377,7 +8386,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
+        ///   Looks up a localized string similar to Module Settings.
         /// </summary>
         internal static string ModuleAdminSettingsLink {
             get {
@@ -15434,6 +15443,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bad Word List.
+        /// </summary>
+        internal static string SiteSettingsBadWordList {
+            get {
+                return ResourceManager.GetString("SiteSettingsBadWordList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter words you want blocked from being entered by users. One per line..
+        /// </summary>
+        internal static string SiteSettingsBadWordListQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsBadWordListQuickHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anti-SPAM Captcha.
         /// </summary>
         internal static string SiteSettingsCaptchaProviderLabel {
@@ -15700,6 +15727,24 @@ namespace Resources {
         internal static string SiteSettingsFolderNamesTurnedOff {
             get {
                 return ResourceManager.GetString("SiteSettingsFolderNamesTurnedOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enforce Bad Word Checking.
+        /// </summary>
+        internal static string SiteSettingsForceBadWordChecking {
+            get {
+                return ResourceManager.GetString("SiteSettingsForceBadWordChecking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If enabled, compliant features will always check for bad words, regardless of their own settings to turn it off..
+        /// </summary>
+        internal static string SiteSettingsForceBadWordCheckingQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsForceBadWordCheckingQuickHelp", resourceCulture);
             }
         }
         
@@ -18184,6 +18229,15 @@ namespace Resources {
         internal static string UrlFormatExtensionless {
             get {
                 return ResourceManager.GetString("UrlFormatExtensionless", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usage.
+        /// </summary>
+        internal static string UseCount {
+            get {
+                return ResourceManager.GetString("UseCount", resourceCulture);
             }
         }
         

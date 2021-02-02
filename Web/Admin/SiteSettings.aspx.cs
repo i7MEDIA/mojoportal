@@ -351,6 +351,7 @@ namespace mojoPortal.Web.AdminUI
 
 			txtRecaptchaPrivateKey.Text = selectedSite.RecaptchaPrivateKey;
 			txtRecaptchaPublicKey.Text = selectedSite.RecaptchaPublicKey;
+			txtBadWordList.Text = selectedSite.BadWordList;
 			txtGmapApiKey.Text = selectedSite.GmapApiKey;
 			txtAddThisUserId.Text = selectedSite.AddThisDotComUsername;
 			txtGoogleAnayticsAccountCode.Text = selectedSite.GoogleAnalyticsAccountCode;
@@ -1134,6 +1135,7 @@ namespace mojoPortal.Web.AdminUI
 
 			selectedSite.RecaptchaPrivateKey = txtRecaptchaPrivateKey.Text;
 			selectedSite.RecaptchaPublicKey = txtRecaptchaPublicKey.Text;
+			selectedSite.BadWordList = txtBadWordList.Text;
 			selectedSite.GmapApiKey = txtGmapApiKey.Text;
 			selectedSite.AddThisDotComUsername = txtAddThisUserId.Text;
 			selectedSite.GoogleAnalyticsAccountCode = txtGoogleAnayticsAccountCode.Text;
@@ -1394,6 +1396,7 @@ namespace mojoPortal.Web.AdminUI
 					selectedSite.ShowPasswordStrengthOnRegistration = chkShowPasswordStrength.Checked;
 					selectedSite.RequireCaptchaOnRegistration = chkRequireCaptcha.Checked;
 					selectedSite.RequireCaptchaOnLogin = chkRequireCaptchaOnLogin.Checked;
+					selectedSite.BadWordCheckingEnforced = chkForceBadWordChecking.Checked;
 					selectedSite.RequireEnterEmailTwiceOnRegistration = chkRequireEmailTwice.Checked;
 				}
 

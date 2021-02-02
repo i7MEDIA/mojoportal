@@ -543,7 +543,12 @@ namespace mojoPortal.Data
             return dt;
 
         }
-       
 
-    }
+		public static IDataReader GetGlobalContent(int siteId)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Modules_SelectGlobalContent", 1);
+			sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
+			return sph.ExecuteReader();
+		}
+	}
 }
