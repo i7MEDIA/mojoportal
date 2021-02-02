@@ -161,7 +161,6 @@ namespace SuperFlexiData
         /// </summary>
         public static int GetCount()
         {
-
             return Convert.ToInt32(SqlHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 CommandType.StoredProcedure,
@@ -190,25 +189,35 @@ namespace SuperFlexiData
         /// <summary>
         /// Gets an IDataReader with all items for module.
         /// </summary>
-        /// <param name="itemID"> itemID </param>
-        public static IDataReader GetModuleItems(int moduleId)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModule", 1);
-            sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
-            return sph.ExecuteReader();
-        }
+		public static IDataReader GetForModule(int moduleId, string sortDirection = "ASC")
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModule", 2);
+			sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
+			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+			return sph.ExecuteReader();
+		}
 
 		/// <summary>
-		/// Gets and IDataReader for a page of items for a module
+		/// Gets an IDataReader with all items for module with values.
+		/// </summary>
+		public static IDataReader GetForModuleWithValues(int moduleId, string sortDirection)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModuleWithValues", 2);
+			sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
+			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+			return sph.ExecuteReader();
+		}
+
+		/// <summary>
+		/// Gets and IDataReader for a page of items with values for a module
 		/// </summary>
 		/// <returns></returns>
-		public static IDataReader GetPageOfModuleItems(
+		public static IDataReader GetForModuleWithValues_Paged(
 			Guid moduleGuid,
 			int pageNumber,
 			int pageSize,
 			string searchTerm = "",
 			string searchField = "",
-			//string sortField = "",
 			string sortDirection = "ASC")
 		{
 			SqlParameterHelper sph = null;
@@ -220,7 +229,6 @@ namespace SuperFlexiData
 				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
 				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
 				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
-				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
 				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 			}
 			else if (!String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
@@ -231,7 +239,6 @@ namespace SuperFlexiData
 				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
 				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
 				sph.DefineSqlParameter("@SearchField", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchField);
-				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
 				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 			}
 			else
@@ -240,16 +247,15 @@ namespace SuperFlexiData
 				sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
 				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
 				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
-				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
 				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 			}
 			return sph.ExecuteReader();
 		}
 		/// <summary>
-		/// Gets and IDataReader for a page of items for a definition
+		/// Gets and IDataReader for a page of items with values for a definition
 		/// </summary>
 		/// <returns></returns>
-		public static IDataReader GetPageForDefinition(
+		public static IDataReader GetForDefinitionWithValues_Paged(
 			Guid defGuid,
 			Guid siteGuid,
 			int pageNumber,
@@ -269,7 +275,6 @@ namespace SuperFlexiData
 				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
 				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
 				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
-				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
 				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 				sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
 			}
@@ -281,7 +286,6 @@ namespace SuperFlexiData
 				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
 				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
 				sph.DefineSqlParameter("@SearchField", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchField);
-				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
 				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 				sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
 			}
@@ -291,7 +295,6 @@ namespace SuperFlexiData
 				sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
 				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
 				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
-				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
 				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 				sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
 			}
@@ -300,18 +303,31 @@ namespace SuperFlexiData
 		/// <summary>
 		/// Gets an IDataReader with all items for a single definition.
 		/// </summary>
-		public static IDataReader GetAllForDefinition(Guid definitionGuid, Guid siteGuid)
+		public static IDataReader GetForDefinition(Guid definitionGuid, Guid siteGuid, string sortDirection)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinition", 2);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinition", 3);
             sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
             sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 			return sph.ExecuteReader();
         }
 
-        /// <summary>
-        /// Gets a page of data from the i7_sflexi_items table.
-        /// </summary>
-        public static IDataReader GetPage(
+		/// <summary>
+		/// Gets an IDataReader with all items for a single definition.
+		/// </summary>
+		public static IDataReader GetForDefinitionWithValues(Guid definitionGuid, Guid siteGuid, string sortDirection)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinitionWithValues", 3);
+			sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
+			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+			return sph.ExecuteReader();
+		}
+
+		/// <summary>
+		/// Gets a page of data from the i7_sflexi_items table.
+		/// </summary>
+		public static IDataReader GetPage(
             int pageNumber,
             int pageSize,
             out int totalPages)
@@ -354,6 +370,15 @@ namespace SuperFlexiData
             sph.DefineSqlParameter("@PageID", SqlDbType.Int, ParameterDirection.Input, pageId);
             return sph.ExecuteReader();
         }
+
+		public static int GetHighestSortOrder(int moduleId)
+		{
+			return Convert.ToInt32(SqlHelper.ExecuteScalar(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.StoredProcedure,
+				"i7_sflexi_items_GetHighestSortOrder",
+				null));
+		}
     }
 
 }

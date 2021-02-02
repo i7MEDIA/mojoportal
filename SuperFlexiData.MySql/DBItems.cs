@@ -310,6 +310,7 @@ namespace SuperFlexiData
 		/// <param name="itemID"> itemID </param>
 		public static IDataReader GetForModule(int moduleID, string sortDirection = "ASC")
 		{
+			if (sortDirection != "ASC" && sortDirection != "DESC") sortDirection = "ASC";
 			string sqlCommand = $"SELECT * FROM i7_sflexi_items WHERE ModuleID = ?ModuleID ORDER BY SortOrder {sortDirection};";
 
 			var sqlParam = new MySqlParameter("?ModuleID", MySqlDbType.Int32)
@@ -324,13 +325,14 @@ namespace SuperFlexiData
 
 		public static IDataReader GetForModuleWithValues(int moduleID, string sortDirection)
 		{
+			if (sortDirection != "ASC" && sortDirection != "DESC") sortDirection = "ASC";
 			string sqlCommand = $@"
 				SELECT i.*, f.Name AS FieldName, v.FieldValue 
 				FROM i7_sflexi_items i
 				JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
 				JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
 				WHERE ModuleID = ?ModuleID 
-				ORDER BY SortOrder {sortDirection};";
+				ORDER BY i.SortOrder {sortDirection};";
 			
 			var sqlParam = new MySqlParameter("?ModuleID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID };
 
@@ -352,7 +354,7 @@ namespace SuperFlexiData
 		)
 		{
 			string sqlCommand;
-
+			if (sortDirection != "ASC" && sortDirection != "DESC") sortDirection = "ASC";
 			if (string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
 			{
 				sqlCommand = $@"
@@ -433,7 +435,7 @@ namespace SuperFlexiData
 		)
 		{
 			string sqlCommand;
-
+			if (sortDirection != "ASC" && sortDirection != "DESC") sortDirection = "ASC";
 			if (string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
 			{
 				sqlCommand = $@"
@@ -514,6 +516,7 @@ namespace SuperFlexiData
 		/// </summary>
 		public static IDataReader GetForDefinition(Guid definitionGuid, Guid siteGuid, string sortDirection)
 		{
+			if (sortDirection != "ASC" && sortDirection != "DESC") sortDirection = "ASC";
 			string sqlCommand = $@"
 				SELECT 
 					SiteGuid, 
@@ -554,10 +557,11 @@ namespace SuperFlexiData
 		/// <returns></returns>
 		public static IDataReader GetForDefinitionWithValues(Guid definitionGuid, Guid siteGuid, string sortDirection)
 		{
+			if (sortDirection != "ASC" && sortDirection != "DESC") sortDirection = "ASC";
 			string sqlCommand = $@"
 				SELECT 
 					i.*,
-					ms.SettingValue AS GlobalViewSortOrder 
+					ms.SettingValue AS GlobalViewSortOrder, 
 					f.Name AS FieldName,
 					v.FieldValue,
 					v.FieldGuid
