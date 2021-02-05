@@ -373,11 +373,11 @@ namespace SuperFlexiData
 
 		public static int GetHighestSortOrder(int moduleId)
 		{
-			return Convert.ToInt32(SqlHelper.ExecuteScalar(
-				ConnectionString.GetReadConnectionString(),
-				CommandType.StoredProcedure,
-				"i7_sflexi_items_GetHighestSortOrder",
-				null));
+
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_GetHighestSortOrder", 1);
+			sph.DefineSqlParameter("@ModuleId", SqlDbType.Int, ParameterDirection.Input, moduleId);
+			//return sph.ExecuteReader();
+			return Convert.ToInt32(sph.ExecuteScalar());
 		}
     }
 
