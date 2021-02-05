@@ -62,9 +62,15 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-
-				if (!HttpContext.Current.Request.IsAuthenticated) return false;
-				return IsInRole("Admins");
+				try
+				{
+					if (!HttpContext.Current.Request.IsAuthenticated) return false;
+					return IsInRole("Admins");
+				}
+				catch (System.NullReferenceException)
+				{
+					return false;
+				}
 			}
 		}
 
@@ -73,8 +79,15 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-				if (!HttpContext.Current.Request.IsAuthenticated) return false;
-				return IsInRole("Content Administrators");
+				try
+				{
+					if (!HttpContext.Current.Request.IsAuthenticated) return false;
+					return IsInRole("Content Administrators");
+				}
+				catch (System.NullReferenceException)
+				{
+					return false;
+				}
 			}
 		}
 
@@ -82,8 +95,15 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-				if (!HttpContext.Current.Request.IsAuthenticated) return false;
-				return IsInRole("Content Publishers");
+				try
+				{
+					if (!HttpContext.Current.Request.IsAuthenticated) return false;
+					return IsInRole("Content Publishers");
+				}
+				catch (System.NullReferenceException)
+				{
+					return false;
+				}
 			}
 		}
 
@@ -91,8 +111,15 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-				if (!HttpContext.Current.Request.IsAuthenticated) return false;
-				return IsInRole("Content Authors");
+				try
+				{
+					if (!HttpContext.Current.Request.IsAuthenticated) return false;
+					return IsInRole("Content Authors");
+				}
+				catch (System.NullReferenceException)
+				{
+					return false;
+				}
 			}
 		}
 
@@ -100,8 +127,15 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-				if (!HttpContext.Current.Request.IsAuthenticated) return false;
-				return IsInRole("Role Admins");
+				try
+				{
+					if (!HttpContext.Current.Request.IsAuthenticated) return false;
+					return IsInRole("Role Admins");
+				}
+				catch (System.NullReferenceException)
+				{
+					return false;
+				}
 			}
 		}
 
@@ -109,8 +143,15 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-				if (!HttpContext.Current.Request.IsAuthenticated) return false;
-				return IsInRole("Newsletter Administrators");
+				try
+				{
+					if (!HttpContext.Current.Request.IsAuthenticated) return false;
+					return IsInRole("Newsletter Administrators");
+				}
+				catch (System.NullReferenceException)
+				{
+					return false;
+				}
 			}
 		}
 
@@ -118,10 +159,17 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-				if (!HttpContext.Current.Request.IsAuthenticated) return false;
-				SiteSettings siteSettings = (SiteSettings)HttpContext.Current.Items["SiteSettings"];
-				if (siteSettings == null) return false;
-				return IsInRoles(siteSettings.RolesThatCanManageSkins);
+				try
+				{
+					if (!HttpContext.Current.Request.IsAuthenticated) return false;
+					SiteSettings siteSettings = (SiteSettings)HttpContext.Current.Items["SiteSettings"];
+					if (siteSettings == null) return false;
+					return IsInRoles(siteSettings.RolesThatCanManageSkins);
+				}
+				catch (System.NullReferenceException)
+				{
+					return false;
+				}
 			}
 		}
 

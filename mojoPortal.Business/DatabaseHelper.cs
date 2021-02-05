@@ -34,9 +34,9 @@ namespace mojoPortal.Business
         {
             // this must be maintained/updated in code to make it run the new version upgrade script
             int major = 2;
-            int minor = 7;
+            int minor = 8;
             int build = 0;
-            int revision = 9;
+            int revision = 1;
             return new Version(major, minor, build, revision);
 
         }
