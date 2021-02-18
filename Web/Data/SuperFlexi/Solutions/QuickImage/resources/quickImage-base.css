@@ -1,0 +1,32 @@
+.quickImage figure {
+	padding: 10px;
+	display: table;
+}
+
+.quickImage figure figcaption {
+	display: table-caption;
+	caption-side: bottom;
+	padding: 0 10px 10px;
+}
+
+.quickImage figure figcaption:empty {
+	display: none;
+}
+
+figure.bg-white,
+figure.bg-white figcaption {
+	color: #6f6d6d;
+	background-color: #fff;
+}
+
+figure.bg-gray,
+figure.bg-gray figcaption {
+	color: #eee;
+	background-color: #555;
+}
+
+figure.bg-gray-dark,
+figure.bg-gray-dark figcaption {
+	color: #777;
+	background-color: #333;
+}

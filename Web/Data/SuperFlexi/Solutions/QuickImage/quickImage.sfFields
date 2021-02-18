@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Fields definitionName="Quick Image" definitionGuid="c0d21e09-e7eb-4210-88d3-28d762b270fe">
+    <!-- $_SitePath_$ is /Data/Sites/[site number] -->
+    <Field
+        name="image"
+        label="Image"
+        controlType="ImagePicker"
+        required="True"
+        requiredMessageFormat="An image is required."
+        token="$image$"
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="100"
+    >
+        <Attributes>
+            <Attribute name="class" value="form-control form-control--lg" />
+        </Attributes>
+    </Field>
+    <Field
+        name="float"
+        label="Image Position"
+        controlType="Dropdown"
+        required="False"
+        token="$float$"
+        isSearchable="false"
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="105"
+    >
+		<Options>
+			<Option name="Left" value="image-left" />
+			<Option name="Right" value="image-right" />
+		</Options>	
+        <Attributes>
+            <Attribute name="class" value="form-control form-control--lg" />
+        </Attributes>
+    </Field>	
+    <Field
+        name="alttext"
+        label="Alt Text"
+        controlType="TextBox"
+        required="True"
+        requiredMessageFormat="Alternate Text is required."
+        token="$alttext$"
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="forminput"
+        sortOrder="110"
+    />
+	
+    <Field
+        name="caption"
+        label="Caption"
+        controlType="TextBox"
+        required="False"
+        requiredMessageFormat="Alternate Text is required."
+        token="$caption$"
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="forminput"
+        sortOrder="120"
+    />
+    <Field
+        name="bgcolor"
+        label="Background Color"
+        controlType="Dropdown"
+        required="False"
+        token="$bgcolor$"
+        isSearchable="false"
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="125"
+    >
+		<Options>
+			<Option name="Transparent" value="bg-transparent" />
+			<Option name="White" value="bg-white" />
+			<Option name="Gray" value="bg-gray" />
+			<Option name="Dark Gray" value="bg-gray-dark" />
+		</Options>	
+        <Attributes>
+            <Attribute name="class" value="form-control form-control--lg" />
+        </Attributes>
+    </Field>	
+    <!--
+        Global Parameters:
+            name
+            label
+            controlType (if blank, TextBox is assumed)
+            defaultValue
+            sortOrder
+            token
+            required
+            requiredMessageFormat
+            regex
+            regexMessageFormat
+            helpKey
+            searchable
+            editPageControlWrapperCssClass
+            editPageLabelCssClass
+            editPageControlCssClass
+
+        Parameters by Control Type:
+            TextBox
+                textBoxMode
+                    "SingleLine" (default)
+                    "MultiLine"
+                    "Password"
+                    "Email"
+                    "Number"
+                    "Range"
+                    "Phone"
+                    "Url"
+            Image
+                imageBrowserEmptyUrl
+            CheckBox
+                checkBoxReturnBool
+                checkBoxReturnValueWhenTrue (only used when checkBoxReturnBool is false)
+                checkBoxReturnValueWhenFalse (only used when checkBoxReturnBool is false)
+            DateTime
+                datePickerIncludeTimeForDate
+                datePickerShowMonthList
+                datePickerShowYearList
+                datePickerYearRange
+                dateFormat
+            CustomField
+                controlSrc
+                    RTE:   ~/SuperFlexi/Controls/Wysiwyg.ascx
+                    image: ~/SuperFlexi/Controls/FeaturedImageSetting.ascx
+                    url:   ~/SuperFlexi/Controls/UrlSelector.ascx
+    -->
+
+</Fields>
