@@ -1,26 +1,11 @@
-﻿// Author:					
-// Created:					2011-03-14
-// Last Modified:			2018-05-02
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using mojoPortal.Business.WebHelpers;
+﻿using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using Resources;
 using System;
 using System.Web;
 
-
-
 namespace mojoPortal.Web.AdminUI
 {
-
 	public partial class CacheToolPage : NonCmsBasePage
     {
         private string cssCacheCookieName = string.Empty;
@@ -51,26 +36,28 @@ namespace mojoPortal.Web.AdminUI
             {
                 btnCssCacheToggle.Text = DevTools.DisableCssCaching;
             }
-
         }
 
         void btnCssCacheToggle_Click(object sender, EventArgs e)
         {
             if (CookieHelper.CookieExists(cssCacheCookieName))
             {
-                HttpCookie cssCookie = new HttpCookie(cssCacheCookieName, string.Empty);
-                cssCookie.Expires = DateTime.Now.AddMinutes(-10);
-                cssCookie.Path = "/";
-                Response.Cookies.Add(cssCookie);
+				HttpCookie cssCookie = new HttpCookie(cssCacheCookieName, string.Empty)
+				{
+					Expires = DateTime.Now.AddMinutes(-10),
+					Path = "/"
+				};
+
+				Response.Cookies.Add(cssCookie);
             }
             else
             {
                 CookieHelper.SetPersistentCookie(cssCacheCookieName, "true");
             }
 
-            WebUtils.SetupRedirect(this, Request.RawUrl);
+			CacheHelper.ResetThemeCache();
 
-
+			WebUtils.SetupRedirect(this, Request.RawUrl);
         }
 
         void btnResetSkinVersionGuid_Click(object sender, EventArgs e)
@@ -78,9 +65,8 @@ namespace mojoPortal.Web.AdminUI
             siteSettings.SkinVersion = Guid.NewGuid();
             siteSettings.Save();
             CacheHelper.ClearSiteSettingsCache(siteSettings.SiteId);
-
-            WebUtils.SetupRedirect(this, Request.RawUrl);
-            
+			CacheHelper.ResetThemeCache();
+			WebUtils.SetupRedirect(this, Request.RawUrl);
         }
 
         private void PopulateLabels()
@@ -97,7 +83,6 @@ namespace mojoPortal.Web.AdminUI
             lnkThisPage.NavigateUrl = SiteRoot + "/DesignTools/CacheTool.aspx";
 
             btnResetSkinVersionGuid.Text = Resource.ResetSkinVersionGuid;
-
         }
 
         private void LoadSettings()
@@ -107,7 +92,6 @@ namespace mojoPortal.Web.AdminUI
             AddClassToBody("administration");
             AddClassToBody("designtools");
         }
-
        
         #region OnInit
 
