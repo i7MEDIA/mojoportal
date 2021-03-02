@@ -919,7 +919,7 @@ namespace mojoPortal.Web
 				ForceSingleSession();
 			}
 
-			if ((Request.IsAuthenticated) && WebConfigSettings.EnforcRequirePasswordChanges)
+			if ((Request.IsAuthenticated) && WebConfigSettings.EnforceRequirePasswordChanges)
 			{
 				if (!IsChangePasswordPage)
 				{
@@ -1041,7 +1041,7 @@ namespace mojoPortal.Web
 			}
 			catch (HttpException ex)
 			{
-				log.Error("Error setting master page. Will try setting to default skin."
+				log.Error("Error setting master page. Trying default skin."
 					+ CultureInfo.CurrentCulture.ToString() + " - " + SiteUtils.GetIP4Address(), ex);
 
 				SetupFailsafeMasterPage();

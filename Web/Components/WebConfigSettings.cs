@@ -2280,7 +2280,7 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("ForceSingleSessionPerUser", false); }
 		}
 
-		public static bool EnforcRequirePasswordChanges
+		public static bool EnforceRequirePasswordChanges
 		{
 			get { return ConfigHelper.GetBoolProperty("EnforcRequirePasswordChanges", true); }
 		}
@@ -4133,10 +4133,10 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("AllowUserThreadBrowsing", true); }
 		}
 
-		public static bool ShowPageEncoding
-		{
-			get { return ConfigHelper.GetBoolProperty("ShowPageEncoding", false); }
-		}
+		//public static bool ShowPageEncoding
+		//{
+		//	get { return ConfigHelper.GetBoolProperty("ShowPageEncoding", false); }
+		//}
 
 		public static bool ShowUseUrlSettingInPageSettings
 		{

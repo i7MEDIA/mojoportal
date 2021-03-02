@@ -260,7 +260,6 @@ namespace mojoPortal.Business.WebHelpers
             catch (Exception ex)
             {
                 log.Error("failed to clear cache for key " + cachekey, ex);
-
             }
         }
 
@@ -702,136 +701,94 @@ namespace mojoPortal.Business.WebHelpers
 
             string key = "page_" + pageGuid.ToString();
 
-            PageSettings p = HttpContext.Current.Items[key] as PageSettings;
-            if (p == null)
-            {
-                p = LoadPage(pageGuid);
-                if (p != null)
-                    HttpContext.Current.Items[key] = p;
-            }
-            return p;
+			if (!(HttpContext.Current.Items[key] is PageSettings p))
+			{
+				p = LoadPage(pageGuid);
+				if (p != null)
+					HttpContext.Current.Items[key] = p;
+			}
+			return p;
         }
 
-        private static PageSettings LoadPage(int pageID)
-        {
-            if (debugLog) log.Debug("CacheHelper.cs LoadPage");
+		private static PageSettings LoadPage(int pageID)
+		{
+			if (debugLog) log.Debug("CacheHelper.cs LoadPage(pageID)");
 
-            
-            SiteSettings siteSettings = GetCurrentSiteSettings();
-            if (siteSettings == null) return null;
+			SiteSettings siteSettings = GetCurrentSiteSettings();
 
-            bool useFolderForSiteDetection
-                = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
-            string virtualFolder;
+			if (siteSettings == null) return null;
 
-            if (useFolderForSiteDetection)
-            {
-                virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
-            }
-            else
-            {
-                virtualFolder = string.Empty;
-            }
+			if (pageID == -1)
+			{
+				pageID = siteSettings.HomePageOverride;
+			}
 
-
-            PageSettings currentPage = new PageSettings(siteSettings.SiteId, pageID);
-            if (currentPage.SiteId != siteSettings.SiteId)
-            {   // probably url manipulation trying to use a pageid that
-                // doesn't belong to the site so just return the home page
-                currentPage = new PageSettings(siteSettings.SiteId, -1);
-            }
-
-            if (
-                (useFolderForSiteDetection)
-                && (virtualFolder.Length > 0)
-                && (currentPage.Url.StartsWith("~/"))
-                )
-            {
-                currentPage.Url
-                    = currentPage.Url.Replace("~/", "~/" + virtualFolder + "/");
-
-                currentPage.UrlHasBeenAdjustedForFolderSites = true;
-            }
-
-            if (
-                (useFolderForSiteDetection)
-                && (virtualFolder.Length > 0)
-                && (!currentPage.UseUrl)
-                )
-            {
-                currentPage.Url
-                    = "~/" + virtualFolder + "/Default.aspx?pageid="
-                    + currentPage.PageId.ToString();
-                currentPage.UseUrl = true;
-                currentPage.UrlHasBeenAdjustedForFolderSites = true;
-            }
-
-            LoadPageModule(currentPage);
-            
-            return currentPage;
-        }
+			PageSettings currentPage = new PageSettings(siteSettings.SiteId, pageID);
+			return LoadPage(currentPage);
+		}
 
         private static PageSettings LoadPage(Guid pageGuid)
         {
-            
+			if (debugLog) log.Debug("CacheHelper.cs LoadPage(pageGuid)");
 
-            SiteSettings siteSettings = GetCurrentSiteSettings();
-            if (siteSettings == null) return null;
-
-            bool useFolderForSiteDetection
-                = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
-            string virtualFolder;
-
-            if (useFolderForSiteDetection)
-            {
-                virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
-            }
-            else
-            {
-                virtualFolder = string.Empty;
-            }
-
-
-            //PageSettings currentPage = new PageSettings(siteSettings.SiteId, pageID);
-            PageSettings currentPage = new PageSettings(pageGuid);
-
-            if (currentPage.SiteId != siteSettings.SiteId)
-            {   // probably url manipulation trying to use a pageid that
-                // doesn't belong to the site so just return the home page
-                currentPage = new PageSettings(siteSettings.SiteId, -1);
-            }
-
-            
-
-            if (
-                (useFolderForSiteDetection)
-                && (virtualFolder.Length > 0)
-                && (currentPage.Url.StartsWith("~/"))
-                )
-            {
-                currentPage.Url
-                    = currentPage.Url.Replace("~/", "~/" + virtualFolder + "/");
-
-                currentPage.UrlHasBeenAdjustedForFolderSites = true;
-            }
-
-            if (
-                (useFolderForSiteDetection)
-                && (virtualFolder.Length > 0)
-                && (!currentPage.UseUrl)
-                )
-            {
-                currentPage.Url
-                    = "~/" + virtualFolder + "/Default.aspx?pageid="
-                    + currentPage.PageId.ToString();
-                currentPage.UseUrl = true;
-                currentPage.UrlHasBeenAdjustedForFolderSites = true;
-            }
-
-            LoadPageModule(currentPage);
-
-            return currentPage;
+			PageSettings currentPage = new PageSettings(pageGuid);
+			return LoadPage(currentPage);           
         }
+
+		private static PageSettings LoadPage (PageSettings page)
+		{
+			SiteSettings siteSettings = GetCurrentSiteSettings();
+			if (siteSettings == null) return null;
+
+			bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
+			//= ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+			string virtualFolder;
+
+			if (useFolderForSiteDetection)
+			{
+				virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
+			}
+			else
+			{
+				virtualFolder = string.Empty;
+			}
+
+
+			//PageSettings currentPage = new PageSettings(siteSettings.SiteId, pageID);
+			PageSettings currentPage = page;
+
+			if (currentPage.SiteId != siteSettings.SiteId)
+			{   // probably url manipulation trying to use a pageid that
+				// doesn't belong to the site so just return the home page
+				currentPage = new PageSettings(siteSettings.SiteId, siteSettings.HomePageOverride);
+			}
+
+			if (
+				(useFolderForSiteDetection)
+				&& (virtualFolder.Length > 0)
+				&& (currentPage.Url.StartsWith("~/"))
+				)
+			{
+				currentPage.Url = currentPage.Url.Replace("~/", "~/" + virtualFolder + "/");
+
+				currentPage.UrlHasBeenAdjustedForFolderSites = true;
+			}
+
+			if (
+				(useFolderForSiteDetection)
+				&& (virtualFolder.Length > 0)
+				&& (!currentPage.UseUrl)
+				)
+			{
+				currentPage.Url = "~/" + virtualFolder + "/Default.aspx?pageid=" + currentPage.PageId.ToString();
+				currentPage.UseUrl = true;
+				currentPage.UrlHasBeenAdjustedForFolderSites = true;
+			}
+
+			LoadPageModule(currentPage);
+
+			return currentPage;
+		}
 
         private static void LoadPageModule(PageSettings pageSettings)
         {
