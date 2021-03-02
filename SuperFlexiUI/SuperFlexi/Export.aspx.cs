@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using Resources;
+using System.Web.UI.WebControls;
 
 namespace SuperFlexiUI
 {
@@ -52,7 +53,9 @@ namespace SuperFlexiUI
 			PopulateLabels();
             if (!IsPostBack)
             {
-                if ((Request.UrlReferrer != null) && (hdnReturnUrl.Value.Length == 0))
+				txtExportName.Text = module.ModuleTitle;
+
+				if ((Request.UrlReferrer != null) && (hdnReturnUrl.Value.Length == 0))
                 {
                     hdnReturnUrl.Value = Request.UrlReferrer.ToString();
                     lnkCancel.NavigateUrl = Request.UrlReferrer.ToString();
@@ -64,7 +67,13 @@ namespace SuperFlexiUI
         private void ExportBtn_Click(Object sender, EventArgs e)
         {
             dynamic expando = SuperFlexiHelpers.GetExpandoForModuleItems(module, config, false);
-            ExportHelper.ExportDynamicListToCSV(HttpContext.Current, expando.Items, String.Format("export-{0}.csv", config.MarkupDefinitionName));
+			//TextBox exportNameControl = (TextBox)this.FindControl("txtExportName");
+			//string exportName = module.ModuleTitle;
+			//if (exportNameControl != null)
+			//{
+			//	exportName = exportNameControl.Text;
+			//}
+			ExportHelper.ExportDynamicListToCSV(HttpContext.Current, expando.Items, $"export-{txtExportName.Text}.csv");
         }
 
         private void PopulateLabels()

@@ -76,6 +76,15 @@ namespace SuperFlexiUI {
         protected global::System.Web.UI.WebControls.Literal litInstructions;
         
         /// <summary>
+        /// txtExportName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtExportName;
+        
+        /// <summary>
         /// exportButton control.
         /// </summary>
         /// <remarks>
