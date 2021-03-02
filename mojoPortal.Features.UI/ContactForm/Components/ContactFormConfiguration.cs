@@ -70,7 +70,7 @@ namespace mojoPortal.Web.ContactUI
             if (emailAliases == null) { emailAliases = new List<string>(); }
 
             useSpamBlocking = WebUtils.ParseBoolFromHashtable(settings, "ContactFormUseCommentSpamBlocker", true);
-			BlockBadWords = WebUtils.ParseBoolFromHashtable(settings, "ContactFormBlockBadWords", true);
+			BlockBadWords = WebUtils.ParseBoolFromHashtable(settings, "BlockBadWords", true);
 
 			appendIPToMessageSetting = WebUtils.ParseBoolFromHashtable(settings, "AppendIPToMessageSetting", appendIPToMessageSetting);
             keepMessages = WebUtils.ParseBoolFromHashtable(settings, "KeepMessagesInDatabase", keepMessages);
