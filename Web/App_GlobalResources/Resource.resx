@@ -6144,10 +6144,10 @@
   <data name="SiteSettingsSecureRegistrationDescription" xml:space="preserve">
     <value>User will be sent a verification email to be completed before they can login.</value>
   </data>
-  <data name="SiteSettingsSecurityContentEditorSettingsDescription" xml:space="preserve">
+  <data name="SiteSettingsContentEditorSettingsDescription" xml:space="preserve">
     <value>WYSIWYG options.</value>
   </data>
-  <data name="SiteSettingsSecurityContentEditorSettingsLabel" xml:space="preserve">
+  <data name="SiteSettingsContentEditorSettingsLabel" xml:space="preserve">
     <value>Content Editor</value>
   </data>
   <data name="SiteSettingsSecurityMainSettingsDescription" xml:space="preserve">
@@ -6180,10 +6180,10 @@
   <data name="SiteSettingsSecurityRegistrationSettingsLabel" xml:space="preserve">
     <value>Registration</value>
   </data>
-  <data name="SiteSettingsSecuritySkinSettingsDescription" xml:space="preserve">
+  <data name="SiteSettingsSkinSettingsDescription" xml:space="preserve">
     <value>Options for the visual design of the site.</value>
   </data>
-  <data name="SiteSettingsSecuritySkinSettingsLabel" xml:space="preserve">
+  <data name="SiteSettingsSkinSettingsLabel" xml:space="preserve">
     <value>Skinning/Theming</value>
   </data>
   <data name="SiteSettingsSecurityUserAccountSettingsDescription" xml:space="preserve">
