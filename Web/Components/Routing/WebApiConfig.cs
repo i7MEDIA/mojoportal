@@ -51,7 +51,7 @@ namespace mojoPortal.Web.Routing
 			settings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
 
 			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
-
+			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("multipart/form-data"));
 			config.Routes.MapHttpRoute(
 				name: "DefaultApi",
 				routeTemplate: "api/{controller}/{id}",
@@ -63,6 +63,12 @@ namespace mojoPortal.Web.Routing
 				routeTemplate: "FileService/{controller}/{id}",
 				defaults: new { controller = "FileService", id = RouteParameter.Optional, action = RouteParameter.Optional }
 			);
+
+			//config.Routes.MapHttpRoute(
+			//	name: "BadWord",
+			//	routeTemplate: "BadWord/{action}/{id}",
+			//	defaults: new {controller = "BadWord", action = "CheckString", id = RouteParameter.Optional }
+			//);
 		}
 	}
 }

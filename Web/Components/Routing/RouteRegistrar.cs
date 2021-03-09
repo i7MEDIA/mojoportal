@@ -14,16 +14,23 @@ namespace mojoPortal.Web.Routing
 
 		public static void RegisterRoutes(RouteCollection routes)
 		{
-			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-			routes.MapRoute(
-				name: "FileManager",
-				url: "FileManager/{action}/{id}",
-				defaults: new { controller = "FileManager", action = "Index", id = UrlParameter.Optional }
-			);
-
 			try
 			{
+
+				routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+				routes.MapRoute(
+					name: "FileManager",
+					url: "FileManager/{action}/{id}",
+					defaults: new { controller = "FileManager", action = "Index", id = UrlParameter.Optional }
+				);
+
+				//routes.MapRoute(
+				//	name: "BadWord",
+				//	url: "BadWord/{action}",
+				//	defaults: new { controller = "BadWord", action = "CheckString" }
+				//);
+
 				RoutesConfig registrarConfig = RoutesConfig.GetConfig();
 
 				foreach (IRegisterRoutes registrar in registrarConfig.RouteRegistrars)
