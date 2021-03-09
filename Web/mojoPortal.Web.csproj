@@ -1654,6 +1654,7 @@
     <Compile Include="Controllers\FileManager\FileServiceController.cs" />
     <Compile Include="Controllers\FileManager\FileUploadController.cs" />
     <Compile Include="Controllers\RazorBridge.cs" />
+    <Compile Include="Controllers\Security\BadWordController.cs" />
     <Compile Include="Controls\Adapters\SiteMapTreeViewAdapter.cs" />
     <Compile Include="Controls\Analytics\AnalyticsAsyncBottomScript.cs" />
     <Compile Include="Controls\Analytics\AnalyticsAsyncTopScript.cs" />

@@ -101,7 +101,11 @@ namespace mojoPortal.Web
 
 		private static Guid GetFileSystemToken()
 		{
-			string cacheKey = "fileSystemToken";
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
+			Guid siteGuid = Guid.NewGuid();
+			if (siteSettings != null) siteGuid = siteSettings.SiteGuid;
+			
+			string cacheKey = "fileSystemToken" + siteGuid.ToString();
 		
 			DateTime absoluteExpiration = DateTime.Now.AddHours(1);
 
@@ -419,7 +423,7 @@ namespace mojoPortal.Web
 
 		protected void Application_End(Object sender, EventArgs e)
 		{
-			if (log.IsInfoEnabled) log.Info("Global.asax.cs Application_End" );
+			if (log.IsInfoEnabled) log.Info("------Application Stopped------");
 		}
 
 		
@@ -490,6 +494,7 @@ namespace mojoPortal.Web
 			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".gif")) { return; }
 			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".jpg")) { return; }
 			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".jpeg")) { return; }
+			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".svg")) { return; }
 			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".css")) { return; }
 			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".axd")) { return; }
 			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".js")) { return; }
@@ -614,7 +619,7 @@ namespace mojoPortal.Web
 				{
 					// hopefully this is a fix for 
 					//http://visualstudiomagazine.com/articles/2010/09/14/aspnet-security-hack.aspx
-					// at this time the exploit is not fully disclosed but seems tey use the 500 status code 
+					// at this time the exploit is not fully disclosed but seems they use the 500 status code 
 					// so returning 404 instead may block it
 					if (WebConfigSettings.Return404StatusForCryptoError)
 					{
@@ -657,14 +662,14 @@ namespace mojoPortal.Web
 
 		protected void Session_Start(Object sender, EventArgs e)
 		{
-			if (debugLog) log.Debug("Global.asax.cs Session_Start");
+			if (debugLog) log.Debug("------ Session Started ------");
 			IncrementUserCount();
 		}
 
 
 		protected void Session_End(Object sender, EventArgs e)
 		{
-			if (debugLog) log.Debug("Global.asax.cs Session_End");
+			if (debugLog) log.Debug("------ Session Ended ------");
 			DecrementUserCount();
 		}
 
