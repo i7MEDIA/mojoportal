@@ -28,7 +28,6 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("ShowLegacyOpenIDSelector", false); }
 		}
 
-
 		public static bool XmlUseMediaFolder
 		{
 			get { return ConfigHelper.GetBoolProperty("XMLUseMediaFolder", false); }
