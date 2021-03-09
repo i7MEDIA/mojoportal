@@ -1886,6 +1886,17 @@ namespace mojoPortal.Business
 			set { SetExpandoProperty("ForceBadWordChecking", value.ToString()); }
 		}
 
+		public int HomePageOverride
+		{
+			get
+			{
+				string result = GetExpandoProperty("HomePageOverride");
+				if (result != null) { return Convert.ToInt32(result); }
+				return -1;
+			}
+			set { SetExpandoProperty("HomePageOverride", value.ToString()); }
+		}
+
 		#endregion
 
 		#region Private Methods

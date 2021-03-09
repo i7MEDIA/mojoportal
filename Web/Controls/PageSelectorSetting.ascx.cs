@@ -86,7 +86,7 @@ namespace mojoPortal.Web.UI
 
         public void SetValue(string val)
         {
-            if (!String.IsNullOrEmpty(val)) selectedPageId = Convert.ToInt32(val);
+            if (!string.IsNullOrEmpty(val)) selectedPageId = Convert.ToInt32(val);
             //string[] args = val.Split('|');
             //if (args.Length < 2) { return; }
 

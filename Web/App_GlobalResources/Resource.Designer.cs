@@ -772,7 +772,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application Started..
+        ///   Looks up a localized string similar to ------Application Started------.
         /// </summary>
         internal static string ApplicationStartEventMessage {
             get {
@@ -15335,6 +15335,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to These settings are usually not changed and should only be changed by advanced users..
+        /// </summary>
+        internal static string SiteSettingsAdvancedDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsAdvancedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced Settings.
+        /// </summary>
+        internal static string SiteSettingsAdvancedLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsAdvancedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced.
+        /// </summary>
+        internal static string SiteSettingsAdvancedTab {
+            get {
+                return ResourceManager.GetString("SiteSettingsAdvancedTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allow Hiding Main Menu on Page?.
         /// </summary>
         internal static string SiteSettingsAllowHideMainMenuLabel {
@@ -15493,6 +15520,24 @@ namespace Resources {
         internal static string SiteSettingsCompanyNameLabel {
             get {
                 return ResourceManager.GetString("SiteSettingsCompanyNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WYSIWYG options..
+        /// </summary>
+        internal static string SiteSettingsContentEditorSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsContentEditorSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content Editor.
+        /// </summary>
+        internal static string SiteSettingsContentEditorSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsContentEditorSettingsLabel", resourceCulture);
             }
         }
         
@@ -15812,6 +15857,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Home Page Override.
+        /// </summary>
+        internal static string SiteSettingsHomePageOverride {
+            get {
+                return ResourceManager.GetString("SiteSettingsHomePageOverride", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this host mapping?.
         /// </summary>
         internal static string SiteSettingsHostDeleteWarning {
@@ -15997,6 +16051,24 @@ namespace Resources {
         internal static string SiteSettingsLogoAltText {
             get {
                 return ResourceManager.GetString("SiteSettingsLogoAltText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SiteSettingsMainSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsMainSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main.
+        /// </summary>
+        internal static string SiteSettingsMainSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsMainSettingsLabel", resourceCulture);
             }
         }
         
@@ -16316,24 +16388,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WYSIWYG options..
-        /// </summary>
-        internal static string SiteSettingsSecurityContentEditorSettingsDescription {
-            get {
-                return ResourceManager.GetString("SiteSettingsSecurityContentEditorSettingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Content Editor.
-        /// </summary>
-        internal static string SiteSettingsSecurityContentEditorSettingsLabel {
-            get {
-                return ResourceManager.GetString("SiteSettingsSecurityContentEditorSettingsLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         internal static string SiteSettingsSecurityMainSettingsDescription {
@@ -16438,24 +16492,6 @@ namespace Resources {
         internal static string SiteSettingsSecurityRegistrationSettingsLabel {
             get {
                 return ResourceManager.GetString("SiteSettingsSecurityRegistrationSettingsLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Options for the visual design of the site..
-        /// </summary>
-        internal static string SiteSettingsSecuritySkinSettingsDescription {
-            get {
-                return ResourceManager.GetString("SiteSettingsSecuritySkinSettingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Skinning/Theming.
-        /// </summary>
-        internal static string SiteSettingsSecuritySkinSettingsLabel {
-            get {
-                return ResourceManager.GetString("SiteSettingsSecuritySkinSettingsLabel", resourceCulture);
             }
         }
         
@@ -16735,6 +16771,24 @@ namespace Resources {
         internal static string SiteSettingsSiteTitleLabel {
             get {
                 return ResourceManager.GetString("SiteSettingsSiteTitleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options for the visual design of the site..
+        /// </summary>
+        internal static string SiteSettingsSkinSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSkinSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skinning/Theming.
+        /// </summary>
+        internal static string SiteSettingsSkinSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSkinSettingsLabel", resourceCulture);
             }
         }
         

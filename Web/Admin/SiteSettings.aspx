@@ -1,5 +1,4 @@
 <%@ Page Language="C#" AutoEventWireup="false" MaintainScrollPositionOnPostback="true" MasterPageFile="~/App_MasterPages/layout.Master" CodeBehind="SiteSettings.aspx.cs" Inherits="mojoPortal.Web.AdminUI.SiteSettingsPage" %>
-
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server"></asp:Content>
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
 	<portalAdmin:AdminDisplaySettings ID="adminDisplaySettings" runat="server" />
@@ -49,6 +48,10 @@
 								<li id="liMailSettings" runat="server" enableviewstate="false">
 									<asp:Literal ID="litMailSettingsTabLink" runat="server" EnableViewState="false" />
 								</li>
+								<li id="liAdvanced" runat="server" enableviewstate="false">
+									<asp:Literal ID="litAdvancedTabLink" runat="server" EnableViewState="false" />
+								</li>
+
 							</ul>
 
 							<div id="tabSettings">
@@ -73,16 +76,7 @@
 										<mp:SiteLabel runat="server" CssClass="settinglabel" ConfigKey="TimeZone" />
 										<portal:TimeZoneIdSetting ID="timeZone" runat="server" />
 									</portal:FormGroupPanel>
-									<portal:FormGroupPanel runat="server" ID="fgpFriendlyUrlPattern">
-										<mp:SiteLabel ID="lblDefaultFriendlyUrlPatten" runat="server" ForControl="ddDefaultFriendlyUrlPattern" CssClass="settinglabel" ConfigKey="SiteSettingsDefaultFriendlyUrlPatternLabel"
-											EnableViewState="false" />
-										<asp:DropDownList ID="ddDefaultFriendlyUrlPattern" runat="server"
-											TabIndex="10" CssClass="forminput">
-											<asp:ListItem Value="PageNameWithDotASPX" Text="<%$ Resources:Resource, UrlFormatAspx %>"></asp:ListItem>
-											<asp:ListItem Value="PageName" Text="<%$ Resources:Resource, UrlFormatExtensionless %>"></asp:ListItem>
-										</asp:DropDownList>
-										<portal:mojoHelpLink runat="server" HelpKey="sitesettingsdefaultfriendlyurlpatternhelp" />
-									</portal:FormGroupPanel>
+
 
 									<portal:FormGroupPanel runat="server" ID="fgpSSL">
 										<mp:SiteLabel runat="server" ForControl="chkRequireSSL" CssClass="settinglabel" ConfigKey="SiteSettingsRequireSSLLabel" />
@@ -102,11 +96,7 @@
 										<mp:SiteLabel runat="server" />
 										<portal:mojoHelpLink runat="server" HelpKey="sitesettingsenablecontentworkflowhelp" />
 									</portal:FormGroupPanel>
-									<portal:FormGroupPanel runat="server" ID="fgpPreferredHostName">
-										<mp:SiteLabel runat="server" ForControl="txtPreferredHostName" CssClass="settinglabel" ConfigKey="SiteSettingsPreferredHostNameLabel" />
-										<asp:TextBox runat="server" ID="txtPreferredHostName" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" />
-										<portal:mojoHelpLink runat="server" HelpKey="sitesettingspreferredhostnamehelp" />
-									</portal:FormGroupPanel>
+
 									<portal:FormGroupPanel runat="server">
 										<mp:SiteLabel runat="server" ForControl="txtPrivacyPolicyUrl" CssClass="settinglabel" ConfigKey="SiteSettingsPrivacyUrlLabel" />
 										<asp:Label runat="server" ID="lblPrivacySiteRoot" SkinID="PrivacySiteRoot" />
@@ -203,20 +193,6 @@
 										<portal:mojoHelpLink runat="server" HelpKey="sitesetting-user-editor-help" />
 									</portal:FormGroupPanel>
 								</portal:FormGroupPanel>
-
-
-<%--								<portal:FormGroupPanel runat="server" ID="fgpMyPage">
-									<mp:SiteLabel ForControl="chkEnableMyPageFeature" runat="server" CssClass="settinglabel" ConfigKey="SiteSettingsEnableMyPageFeatureLabel" />
-									<asp:CheckBox ID="chkEnableMyPageFeature" runat="server" TabIndex="10" CssClass="forminput" />
-									<portal:mojoHelpLink runat="server" HelpKey="sitesettingsmypagehelp" />
-								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server" ID="fgpMyPageSkin">
-									<mp:SiteLabel runat="server" CssClass="settinglabel" ConfigKey="MyPageSkinLabel" />
-									<asp:DropDownList ID="ddMyPageSkin" runat="server" DataValueField="Name"
-										DataTextField="Name" CssClass="forminput" TabIndex="10">
-									</asp:DropDownList>
-									<portal:mojoHelpLink runat="server" HelpKey="mypageskinhelp" />
-								</portal:FormGroupPanel>--%>
 								
 							</div>
 
@@ -731,50 +707,7 @@
 								</portal:FormGroupPanel>
 							</div>
 
-							<%--							<div id="tabWebParts" runat="server" visible="false" class="minheightpanel">
-								<portal:FormGroupPanel runat="server" SkinID="WebParts">
-									<asp:UpdatePanel ID="upWebParts" UpdateMode="Conditional" runat="server">
-										<ContentTemplate>
-											<portal:FormGroupPanel runat="server" SkinID="WebPartsLeft">
-												<h3>
-													<mp:SiteLabel runat="server" ConfigKey="WebPartAdminAllWebParts" UseLabelTag="false" />
-													<portal:mojoHelpLink runat="server" HelpKey="sitesettingschildsitefeatureshelp" />
-												</h3>
-												<asp:ListBox ID="lstAllWebParts" runat="Server" />
-											</portal:FormGroupPanel>
-											<portal:FormGroupPanel runat="server" SkinID="WebPartsCenter">
-												<asp:Button Text="<-" runat="server" ID="btnRemoveWebPart" SkinID="WebPartsRemove" />
-												<asp:Button Text="->" runat="server" ID="btnAddWebPart" SkinID="WebPartsAdd" />
-											</portal:FormGroupPanel>
-											<portal:FormGroupPanel runat="server" SkinID="WebPartsLeft">
-												<h3>
-													<mp:SiteLabel runat="server" ConfigKey="WebPartAdminSelectedWebParts" UseLabelTag="false" />
-												</h3>
-												<asp:ListBox ID="lstSelectedWebParts" runat="Server" />
-											</portal:FormGroupPanel>
-											<portal:FormGroupPanel runat="server" SkinID="WebPartsMessage">
-												<portal:mojoLabel ID="lblWebPartMessage" runat="server" CssClass="txterror info" EnableViewState="false" />
-											</portal:FormGroupPanel>
-										</ContentTemplate>
-									</asp:UpdatePanel>
-									<script>
-										(function () {
-											Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(updateSelectsHeight);
-
-											function updateSelectsHeight() {
-												var select1 = document.getElementById('<%= lstAllWebParts.ClientID %>');
-												var select2 = document.getElementById('<%= lstSelectedWebParts.ClientID %>');
-												var height = Math.max(select1.length, select2.length) <= 1 ? 4 : Math.max(select1.length, select2.length);
-
-												select1.size = height;
-												select1.style.overflow = 'hidden';
-												select2.size = height;
-												select2.style.overflow = 'hidden';
-											};
-										})();
-									</script>
-								</portal:FormGroupPanel>
-							</div>--%>
+						
 
 							<div id="tabApiKeys">
 								<portal:FormGroupPanel runat="server">
@@ -947,6 +880,31 @@
 									</script>
 								</portal:FormGroupPanel>
 
+							</div>
+						
+							<div id="tabAdvanced" runat="server">
+								<portal:FormGroupPanel runat="server" ID="fgpAdvancedSettings">
+									<asp:Literal ID="litAdvSettingsHeader" runat="server" EnableViewState="false" />
+									<portal:FormGroupPanel runat="server" ID="fgpFriendlyUrlPattern">
+										<mp:SiteLabel ID="lblDefaultFriendlyUrlPatten" runat="server" ForControl="ddDefaultFriendlyUrlPattern" CssClass="settinglabel" ConfigKey="SiteSettingsDefaultFriendlyUrlPatternLabel"
+											EnableViewState="false" />
+										<asp:DropDownList ID="ddDefaultFriendlyUrlPattern" runat="server"
+											TabIndex="10" CssClass="forminput">
+											<asp:ListItem Value="PageNameWithDotASPX" Text="<%$ Resources:Resource, UrlFormatAspx %>"></asp:ListItem>
+											<asp:ListItem Value="PageName" Text="<%$ Resources:Resource, UrlFormatExtensionless %>"></asp:ListItem>
+										</asp:DropDownList>
+										<portal:mojoHelpLink runat="server" HelpKey="sitesettingsdefaultfriendlyurlpatternhelp" />
+									</portal:FormGroupPanel>
+									<portal:FormGroupPanel runat="server" ID="fgpPreferredHostName">
+										<mp:SiteLabel runat="server" ForControl="txtPreferredHostName" CssClass="settinglabel" ConfigKey="SiteSettingsPreferredHostNameLabel" />
+										<asp:TextBox runat="server" ID="txtPreferredHostName" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" />
+										<portal:mojoHelpLink runat="server" HelpKey="sitesettingspreferredhostnamehelp" />
+									</portal:FormGroupPanel>
+									<portal:FormGroupPanel runat="server" ID="fgpHomePage">
+										<mp:SiteLabel ForControl="pageSelector" runat="server" CssClass="settinglabel" ConfigKey="SiteSettingsHomePageOverride" />
+										<portal:PageSelectorSetting ID="pageSelector" runat="server" />
+									</portal:FormGroupPanel>
+								</portal:FormGroupPanel>
 							</div>
 						</div>
 

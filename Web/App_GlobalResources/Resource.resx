@@ -187,7 +187,7 @@
     <value>ABCDEFGHIJKLMNOPQRSTUVWXYZ</value>
   </data>
   <data name="ApplicationStartEventMessage" xml:space="preserve">
-    <value>Application Started.</value>
+    <value>------Application Started------</value>
   </data>
   <data name="BannedIPAddressDeleteConfirmMessage" xml:space="preserve">
     <value>Are you sure you want to delete this ip address? If you do it will no longer be banned.</value>
@@ -6570,5 +6570,23 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="SiteSettingsForceBadWordCheckingQuickHelp" xml:space="preserve">
     <value>If enabled, compliant features will always check for bad words, regardless of their own settings to turn it off.</value>
+  </data>
+  <data name="SiteSettingsHomePageOverride" xml:space="preserve">
+    <value>Home Page Override</value>
+  </data>
+  <data name="SiteSettingsAdvancedDescription" xml:space="preserve">
+    <value>These settings are usually not changed and should only be changed by advanced users.</value>
+  </data>
+  <data name="SiteSettingsAdvancedLabel" xml:space="preserve">
+    <value>Advanced Settings</value>
+  </data>
+  <data name="SiteSettingsAdvancedTab" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="SiteSettingsMainSettingsDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SiteSettingsMainSettingsLabel" xml:space="preserve">
+    <value>Main</value>
   </data>
 </root>

@@ -19,7 +19,6 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Net.Mail;
 namespace mojoPortal.Web.AdminUI
 {
 
@@ -42,8 +41,6 @@ namespace mojoPortal.Web.AdminUI
 		private bool maskSMTPPassword = true;
 		private string requestedTab = string.Empty;
 		protected string DeleteLinkImage = "~/Data/SiteImages/" + WebConfigSettings.DeleteLinkImage;
-		//private bool siteIsCommerceEnabled = false;
-
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -65,8 +62,7 @@ namespace mojoPortal.Web.AdminUI
 			}
 			
 			if (ScriptController != null)
-			{
-				
+			{	
 				ScriptController.RegisterAsyncPostBackControl(btnAddHost);
 				ScriptController.RegisterAsyncPostBackControl(rptHosts);
 
@@ -74,26 +70,18 @@ namespace mojoPortal.Web.AdminUI
 				ScriptController.RegisterAsyncPostBackControl(rptFolderNames);
 
 				ScriptController.RegisterAsyncPostBackControl(btnAddFeature);
-				//ScriptController.RegisterAsyncPostBackControl(btnAddWebPart);
 				ScriptController.RegisterAsyncPostBackControl(btnRemoveFeature);
-				//ScriptController.RegisterAsyncPostBackControl(btnRemoveWebPart);
-
-			  
 			}
 
 			PopulateLabels();
 			SetupScripts();
 			
-
 			if (!Page.IsPostBack)
 			{
-				//ViewState["skin"] = selectedSite.Skin;
 				hdnCurrentSkin.Value = selectedSite.Skin;
 				BindGeoLists();
 				PopulateControls();
-				
 			}
-
 		}
 
 		private void CheckAuthentication()
@@ -192,33 +180,17 @@ namespace mojoPortal.Web.AdminUI
 			//ddMyPageSkin.DataBind();
 
 			ListItem listItem = new ListItem();
-			//listItem.Value = "";
-			//listItem.Text = Resource.PageLayoutDefaultSkinLabel;
-			//ddMyPageSkin.Items.Insert(0, listItem);
-
+			
 			listItem = new ListItem();
 			listItem.Value = "";
 			listItem.Text = Resource.PageLayoutDefaultSkinLabel;
 			ddMobileSkin.Items.Insert(0, listItem);
-
-			//listItem = ddMyPageSkin.Items.FindByValue("printerfriendly");
-			//if (listItem != null)
-			//{
-			//	ddMyPageSkin.Items.Remove(listItem);
-			//}
 
 			listItem = ddMobileSkin.Items.FindByValue("printerfriendly");
 			if (listItem != null)
 			{
 				ddMobileSkin.Items.Remove(listItem);
 			}
-
-			//listItem = ddMyPageSkin.Items.FindByValue(selectedSite.MyPageSkin);
-			//if (listItem != null)
-			//{
-			//	ddMyPageSkin.ClearSelection();
-			//	listItem.Selected = true;
-			//}
 
 			listItem = ddMobileSkin.Items.FindByValue(selectedSite.MobileSkin);
 			if (listItem != null)
@@ -246,13 +218,6 @@ namespace mojoPortal.Web.AdminUI
 
 			if (selectedSite.Skin.Length > 0)
 			{
-				//item = ddSkins.Items.FindByValue(selectedSite.Skin.Replace(".ascx", ""));
-				//if (item != null)
-				//{
-				//    ddSkins.ClearSelection();
-				//    item.Selected = true;
-				//}
-
 				SkinSetting.SetValue(selectedSite.Skin);
 			}
 
@@ -270,12 +235,8 @@ namespace mojoPortal.Web.AdminUI
 				item.Selected = true;
 			}
 
-			if (selectedSite.SiteGuid == siteSettings.SiteGuid)
-			{
-				//SetupSkinPreviewScript();
-			}
-			else
-			{
+			if (selectedSite.SiteGuid != siteSettings.SiteGuid)
+			{ 
 				SkinSetting.ShowPreviewLink = false;
 			}
 
@@ -291,16 +252,7 @@ namespace mojoPortal.Web.AdminUI
 					item.Selected = true;
 				}
 
-				if (WebConfigSettings.SiteLogoUseMediaFolder)
-				{
-					imgLogo.Src = ImageSiteRoot + "/Data/Sites/" + selectedSite.SiteId.ToInvariantString() + "/media/logos/" + selectedSite.Logo;
-				}
-				else
-				{
-					imgLogo.Src = ImageSiteRoot + "/Data/Sites/" + selectedSite.SiteId.ToInvariantString() + "/logos/" + selectedSite.Logo;
-				}
-				
-				
+				imgLogo.Src = $"{logoPath}{selectedSite.Logo}";
 			}
 
 			item = ddEditorProviders.Items.FindByValue(selectedSite.EditorProviderName);
@@ -316,7 +268,6 @@ namespace mojoPortal.Web.AdminUI
 				ddNewsletterEditor.ClearSelection();
 				item.Selected = true;
 			}
-
 			
 			item = ddDefaultFriendlyUrlPattern.Items.FindByValue(selectedSite.DefaultFriendlyUrlPattern.ToString());
 			if (item != null)
@@ -340,18 +291,17 @@ namespace mojoPortal.Web.AdminUI
 				BindZoneList();
 			}
 
-
 			item = ddDefaultGeoZone.Items.FindByValue(selectedSite.DefaultStateGuid.ToString());
 			if (item != null)
 			{
 				ddDefaultGeoZone.ClearSelection();
-				item.Selected = true;
-				
+				item.Selected = true;	
 			}
 
 			txtRecaptchaPrivateKey.Text = selectedSite.RecaptchaPrivateKey;
 			txtRecaptchaPublicKey.Text = selectedSite.RecaptchaPublicKey;
 			txtBadWordList.Text = selectedSite.BadWordList;
+			chkForceBadWordChecking.Checked = selectedSite.BadWordCheckingEnforced;
 			txtGmapApiKey.Text = selectedSite.GmapApiKey;
 			txtAddThisUserId.Text = selectedSite.AddThisDotComUsername;
 			txtGoogleAnayticsAccountCode.Text = selectedSite.GoogleAnalyticsAccountCode;
@@ -368,21 +318,15 @@ namespace mojoPortal.Web.AdminUI
 			{
 				chkAllowOpenIDAuth.Checked = selectedSite.AllowOpenIdAuth;
 			}
-			//else
-			//{
-			//    tabOpenID.Visible = false;
-			//}
-
+			
 			if (WebConfigSettings.EnableWindowsLiveAuthentication)
 			{
 				chkAllowWindowsLiveAuth.Checked = selectedSite.AllowWindowsLiveAuth;
 				txtWindowsLiveAppID.Text = selectedSite.WindowsLiveAppId;
 				txtWindowsLiveKey.Text = selectedSite.WindowsLiveKey;
-
 			}
 			else
 			{
-				
 				chkAllowWindowsLiveAuth.Checked = false;
 				chkAllowWindowsLiveAuth.Enabled = false;
 				txtWindowsLiveAppID.Enabled = false;
@@ -423,11 +367,9 @@ namespace mojoPortal.Web.AdminUI
 				chkShowPasswordStrength.Checked = selectedSite.ShowPasswordStrengthOnRegistration;
 				chkRequireCaptcha.Checked = selectedSite.RequireCaptchaOnRegistration;
 				chkRequireEmailTwice.Checked = selectedSite.RequireEnterEmailTwiceOnRegistration;
-				
 
 				chkAllowDbFallbackWithLdap.Checked = selectedSite.AllowDbFallbackWithLdap;
 				chkAllowEmailLoginWithLdapDbFallback.Checked = selectedSite.AllowEmailLoginWithLdapDbFallback;
-
 			}
 			else
 			{
@@ -458,7 +400,6 @@ namespace mojoPortal.Web.AdminUI
 			chkDisableDbAuthentication.Checked = selectedSite.DisableDbAuth;
 
 			chkAllowUserEditorChoice.Checked = selectedSite.AllowUserEditorPreference;
-			//chkEnableMyPageFeature.Checked = selectedSite.EnableMyPageFeature;
 			chkAllowUserSkins.Checked = selectedSite.AllowUserSkins;
 			chkAllowPageSkins.Checked = selectedSite.AllowPageSkins;
 			chkAllowHideMenuOnPages.Checked = selectedSite.AllowHideMenuOnPages;
@@ -497,6 +438,8 @@ namespace mojoPortal.Web.AdminUI
 				tabSecurity.Visible = false;
 				liCommerce.Visible = false;
 				tabCommerce.Visible = false;
+				liAdvanced.Visible = false;
+				tabAdvanced.Visible = false;
 				//divCommerceRoles.Visible = false;
 				chkForceContentVersioning.Visible = false;
 				chkEnableContentWorkflow.Visible = false;
@@ -581,9 +524,6 @@ namespace mojoPortal.Web.AdminUI
 					tabLDAP.Visible = false;
 					lithirdpartyauth.Visible = false;
 					tabthirdpartyauth.Visible = false;
-					//liWindowsLive.Visible = false;
-					//tabWindowsLiveID.Visible = false;  
-					
 				}
 				else
 				{
@@ -591,7 +531,6 @@ namespace mojoPortal.Web.AdminUI
 					tabGeneralSecurity.Visible = false;
 					liLDAP.Visible = false;
 					tabLDAP.Visible = false;
-					
 				}
 
 				fgpReallyDeleteUsers.Visible = false; 
@@ -605,6 +544,8 @@ namespace mojoPortal.Web.AdminUI
 			DoTabSelection();
 			PopulateMailSettings();
 			fgpTestSMTPSettings.Visible = !WebConfigSettings.IsDemoSite;
+
+			pageSelector.SetValue(selectedSite.HomePageOverride.ToString());
 		}
 
 
@@ -624,32 +565,16 @@ namespace mojoPortal.Web.AdminUI
 					}
 
 					break;
-
 				default:
-
 					liGeneral.Attributes.Add("class", "selected");
-
-					//if (
-					//    (WebConfigSettings.UseRelatedSiteMode) 
-					//    && ((selectedSite.SiteId != WebConfigSettings.RelatedSiteID)||(selectedSiteID == -1))
-					//    )
-					//{
-					//    liPermissions.Attributes.Add("class", "selected");
-						
-
-					//}
-
 					break;
-
 			}
-
 		}
 
 		private void BindGeoLists()
 		{
 			BindCountryList();
 			BindZoneList();
-
 		}
 
 		private void BindCountryList()
@@ -679,18 +604,6 @@ namespace mojoPortal.Web.AdminUI
 			}
 		}
 
-
-		//private void SetupSiteEditRolesList()
-		//{
-		//    if (selectedSite == null) { return; }
-
-		//    //divSiteEditRoles.Visible = true;
-		//    //h3SiteEditRoles.Visible = true;
-
-		   
-
-		//}
-
 		private void PopulateMultiSiteControls()
 		{
 			int countOfOtherSites = SiteSettings.GetCountOfOtherSites(siteSettings.SiteId);
@@ -716,8 +629,6 @@ namespace mojoPortal.Web.AdminUI
 				if (!selectedSite.IsServerAdminSite)
 				{
 					PopulateFeatures();
-					//PopulateWebParts();
-
 				}
 			}
 			else
@@ -730,8 +641,6 @@ namespace mojoPortal.Web.AdminUI
 				litHostListHeader.Text = String.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsMultiTenancyNoOtherSitesLabel, string.Empty);
 				litHostMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, String.Format(Resource.SiteSettingsMultiTenancyNoOtherSites, SiteRoot + "/Admin/SiteSettings.aspx?SiteID=-1"));
 			}
-
-
 		}
 
 		private void PopulateFeatures()
@@ -753,12 +662,8 @@ namespace mojoPortal.Web.AdminUI
 						reader["Guid"].ToString());
 
 					lstAllFeatures.Items.Add(listItem);
-
 				}
-
 			}
-
-
 
 			using (IDataReader reader = ModuleDefinition.GetModuleDefinitions(selectedSite.SiteGuid))
 			{
@@ -773,48 +678,8 @@ namespace mojoPortal.Web.AdminUI
 				}
 			}
 
-			btnAddFeature.Enabled = (lstAllFeatures.Items.Count > 0);
-			btnRemoveFeature.Enabled = (lstSelectedFeatures.Items.Count > 0);
-
-		}
-
-		private void PopulateWebParts()
-		{
-// #if !MONO
-//			liWebParts.Visible = true;
-//			tabWebParts.Visible = true;
-//			lstAllWebParts.Items.Clear();
-//			lstSelectedWebParts.Items.Clear();
-
-
-//			using (IDataReader reader = WebPartContent.SelectBySite(this.currentSiteID))
-//			{
-//				lstAllWebParts.DataSource = reader;
-//				lstAllWebParts.DataTextField = "ClassName";
-//				lstAllWebParts.DataValueField = "WebPartID";
-//				lstAllWebParts.DataBind();
-//			}
-
-//			using (IDataReader reader = WebPartContent.SelectBySite(selectedSite.SiteId))
-//			{
-//				while (reader.Read())
-//				{
-//					ListItem matchItem = lstAllWebParts.Items.FindByText(reader["ClassName"].ToString());
-//					if (matchItem != null)
-//					{
-//						lstAllWebParts.Items.Remove(matchItem);
-
-//						matchItem.Value = reader["WebPartID"].ToString();
-//						lstSelectedWebParts.Items.Add(matchItem);
-
-//					}
-//				}
-//			}
-
-//			btnAddWebPart.Enabled = (lstAllWebParts.Items.Count > 0);
-//			btnRemoveWebPart.Enabled = (lstSelectedWebParts.Items.Count > 0);
-//#endif
-
+			btnAddFeature.Enabled = lstAllFeatures.Items.Count > 0;
+			btnRemoveFeature.Enabled = lstSelectedFeatures.Items.Count > 0;
 		}
 
 		private void PopulateHostList()
@@ -878,13 +743,11 @@ namespace mojoPortal.Web.AdminUI
 					litFolderMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsNoFolderNames);
 					rptFolderNames.Visible = false;
 				}
-
 			}
 		}
 
 		private void PopulateMailSettings()
 		{
-
 			if (this.selectedSiteID == -1)
 			{
 				//new site
@@ -907,7 +770,6 @@ namespace mojoPortal.Web.AdminUI
 
 				if (WebConfigSettings.UseLegacyCryptoHelper)
 				{
-
 					if (selectedSite.SMTPUser.Length > 0)
 					{
 						try
@@ -974,16 +836,12 @@ namespace mojoPortal.Web.AdminUI
 					txtSMTPPassword.Enabled = false;
 					txtSMTPUser.Enabled = false;
 				}
-
-
 			}
 			else
 			{
 				pnlSMTPSettingsWrapper.Visible = false;
 				litSMTPSettingsHeader.Text += String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsSMTPSettingsDisabled);
 			}
-
-
 		}
 
 		private void SetMailSettings()
@@ -1042,19 +900,16 @@ namespace mojoPortal.Web.AdminUI
 			selectedSite.SMTPPort = port;
 			selectedSite.SMTPRequiresAuthentication = chkSMTPRequiresAuthentication.Checked;
 			selectedSite.SMTPUseSsl = chkSMTPUseSsl.Checked;
-			selectedSite.SMTPPreferredEncoding = txtSMTPPreferredEncoding.Text;
-			
+			selectedSite.SMTPPreferredEncoding = txtSMTPPreferredEncoding.Text;			
 		}
-
 		
-
 		protected void btnSave_Click(Object sender, EventArgs e)
 		{
 			Page.Validate("sitesettings");
 			if (!Page.IsValid) { return; }
 
 			bool creatingNewSite = false;
-			if (this.IsServerAdmin)
+			if (IsServerAdmin)
 			{
 				if (isAdmin)
 				{
@@ -1086,13 +941,11 @@ namespace mojoPortal.Web.AdminUI
 			selectedSite.ShowAlternateSearchIfConfigured = chkShowAlternateSearchIfConfigured.Checked;
 			selectedSite.PrimarySearchEngine = ddSearchEngine.SelectedValue;
 
-#if!MONO
 			ISettingControl setting = timeZone as ISettingControl;
 			if (setting != null)
 			{
 				selectedSite.TimeZoneId = setting.GetValue();
 			}
-#endif
 			
 			selectedSite.Logo = ddLogos.SelectedValue;
 			selectedSite.Skin = SkinSetting.GetValue();
@@ -1102,7 +955,6 @@ namespace mojoPortal.Web.AdminUI
 				selectedSite.MobileSkin = ddMobileSkin.SelectedValue;
 			}
 
-			//selectedSite.MyPageSkin = ddMyPageSkin.SelectedValue;
 			if (ddEditorProviders.SelectedIndex > -1)
 			{
 				selectedSite.EditorProviderName = ddEditorProviders.SelectedValue;
@@ -1116,7 +968,6 @@ namespace mojoPortal.Web.AdminUI
 			selectedSite.AvatarSystem = ddAvatarSystem.SelectedValue;
 
 			selectedSite.DefaultFriendlyUrlPattern = (SiteSettings.FriendlyUrlPattern)Enum.Parse(typeof(SiteSettings.FriendlyUrlPattern), ddDefaultFriendlyUrlPattern.SelectedValue);
-
 
 			if (ddCaptchaProviders.SelectedIndex > -1)
 			{
@@ -1161,11 +1012,12 @@ namespace mojoPortal.Web.AdminUI
 			if (isAdmin)
 			{
 				selectedSite.PreferredHostName = txtPreferredHostName.Text.Replace("https://", string.Empty).Replace("http://",string.Empty).Replace("/", string.Empty);
-
+				selectedSite.HomePageOverride = Convert.ToInt32(pageSelector.GetValue());
 				if (WebConfigSettings.EnableOpenIdAuthentication)
 				{
 					selectedSite.AllowOpenIdAuth = chkAllowOpenIDAuth.Checked;
 				}
+				//selectedSite.HomePageOverride = 1;
 				if (WebConfigSettings.EnableWindowsLiveAuthentication)
 				{
 					selectedSite.AllowWindowsLiveAuth = chkAllowWindowsLiveAuth.Checked;
@@ -1201,47 +1053,12 @@ namespace mojoPortal.Web.AdminUI
 					selectedSite.CurrencyGuid = new Guid(currencyGuidString);
 				}
 
-				//ISettingControl commerceReportRoles = CommerceReportRolesSetting as ISettingControl;
-				//selectedSite.RolesThatCanCreateRootPages = chkRolesThatCanCreateRootPages.Items.SelectedItemsToSemiColonSeparatedString();
-				//selectedSite.CommerceReportViewRoles = chkCommerceReportRoles.Items.SelectedItemsToSemiColonSeparatedString();
-				//selectedSite.GeneralBrowseAndUploadRoles = chkGeneralBrowseAndUploadRoles.Items.SelectedItemsToSemiColonSeparatedString();
-				//selectedSite.UserFilesBrowseAndUploadRoles = chkUserFilesBrowseAndUploadRoles.Items.SelectedItemsToSemiColonSeparatedString();
-				//selectedSite.RolesThatCanEditContentTemplates = chkRolesThatCanEditContentTemplates.Items.SelectedItemsToSemiColonSeparatedString();
-				//selectedSite.RolesNotAllowedToEditModuleSettings = chkRolesNotAllowedToEditModuleSettings.Items.SelectedItemsToSemiColonSeparatedString();
-				//selectedSite.RolesThatCanCreateUsers = chkRolesThatCanCreateUsers.Items.SelectedItemsToSemiColonSeparatedString();
-				//selectedSite.RolesThatCanManageUsers = chkRolesThatCanManageUsers.Items.SelectedItemsToSemiColonSeparatedString();
-				//selectedSite.RolesThatCanLookupUsers = chkRolesThatCanLookupUsers.Items.SelectedItemsToSemiColonSeparatedString();
-				//selectedSite.RolesThatCanViewMemberList = chkRolesThatCanViewMemberList.Items.SelectedItemsToSemiColonSeparatedString();
-				//selectedSite.RolesThatCanViewMyPage = chkRolesThatCanViewMyPage.Items.SelectedItemsToSemiColonSeparatedString();
-				//selectedSite.RolesThatCanDeleteFilesInEditor = chkRolesThatCanDeleteFilesInEditor.Items.SelectedItemsToSemiColonSeparatedString();
-				//selectedSite.RolesThatCanManageSkins = chkRolesThatCanManageSkins.Items.SelectedItemsToSemiColonSeparatedString();
-				//selectedSite.RolesThatCanAssignSkinsToPages = chkRolesThatCanAssignSkinsToPages.Items.SelectedItemsToSemiColonSeparatedString();
-
-				//if (divDefaultRootPageViewRoles.Visible)
-				//{
-				//    selectedSite.DefaultRootPageViewRoles = chkDefaultRootPageViewRoles.Items.SelectedItemsToSemiColonSeparatedString();
-				//}
-
-				//if (divDefaultRootPageEditRoles.Visible)
-				//{
-				//    selectedSite.DefaultRootPageEditRoles = chkDefaultRootPageEditRoles.Items.SelectedItemsToSemiColonSeparatedString();
-				//}
-
-				//if (divDefaultRootPageCreateChildPageRoles.Visible)
-				//{
-				//    selectedSite.DefaultRootPageCreateChildPageRoles = chkDefaultRootPageCreateChildPageRoles.Items.SelectedItemsToSemiColonSeparatedString();
-				//}
-
-
-
 				if (sslIsAvailable)
 				{
 					selectedSite.UseSslOnAllPages = WebConfigSettings.ForceSslOnAllPages || chkRequireSSL.Checked;
-				}
+				}	
 
-				
-
-				if ((chkAllowRegistration.Enabled) && (fgpAllowRegistration.Visible)&&(tabGeneralSecurity.Visible))
+				if (chkAllowRegistration.Enabled && fgpAllowRegistration.Visible && tabGeneralSecurity.Visible)
 				{
 					selectedSite.AllowNewRegistration = chkAllowRegistration.Checked;
 				}
@@ -1251,44 +1068,42 @@ namespace mojoPortal.Web.AdminUI
 					{
 						selectedSite.AllowNewRegistration = false;
 					}
-
 				}
 
-				if (
-				(WebConfigSettings.UseRelatedSiteMode)
-				&& ((selectedSite.SiteId != WebConfigSettings.RelatedSiteID) && (selectedSiteID != -1))
+				if (WebConfigSettings.UseRelatedSiteMode
+				&& (selectedSite.SiteId != WebConfigSettings.RelatedSiteID) && (selectedSiteID != -1)
 				)
 				{
 					//don't change this on child sites in related sites mode
 				}
 				else
 				{
-					if ((chkAllowUserToChangeName.Enabled) && (fgpAllowUserToChangeName.Visible))
+					if (chkAllowUserToChangeName.Enabled && fgpAllowUserToChangeName.Visible)
 					{
 						selectedSite.AllowUserFullNameChange = chkAllowUserToChangeName.Checked;
 					}
 
-					if ((chkUseEmailForLogin.Enabled) && (fgpUseEmailForLogin.Visible))
+					if (chkUseEmailForLogin.Enabled && fgpUseEmailForLogin.Visible)
 					{
 						selectedSite.UseEmailForLogin = chkUseEmailForLogin.Checked;
-
 					}
-
-					
 				}
 
 				selectedSite.AutoCreateLdapUserOnFirstLogin = chkAutoCreateLdapUserOnFirstLogin.Checked;
 				selectedSite.AllowDbFallbackWithLdap = chkAllowDbFallbackWithLdap.Checked;
 				selectedSite.AllowEmailLoginWithLdapDbFallback = chkAllowEmailLoginWithLdapDbFallback.Checked;
 
-				if ((!selectedSite.UseLdapAuth) && (chkUseLdapAuth.Checked) && (!creatingNewSite))
+				if (!selectedSite.UseLdapAuth && chkUseLdapAuth.Checked && !creatingNewSite)
 				{
-					LdapSettings testLdapSettings = new LdapSettings();
-					testLdapSettings.Server = txtLdapServer.Text;
-					testLdapSettings.Port = Convert.ToInt32(txtLdapPort.Text);
-					testLdapSettings.Domain = txtLdapDomain.Text;
-					testLdapSettings.RootDN = txtLdapRootDN.Text;
-					testLdapSettings.UserDNKey = ddLdapUserDNKey.SelectedValue;
+					LdapSettings testLdapSettings = new LdapSettings
+					{
+						Server = txtLdapServer.Text,
+						Port = Convert.ToInt32(txtLdapPort.Text),
+						Domain = txtLdapDomain.Text,
+						RootDN = txtLdapRootDN.Text,
+						UserDNKey = ddLdapUserDNKey.SelectedValue
+					};
+
 					if (!TestCurrentUserLdap(testLdapSettings))
 					{
 						lblErrorMessage.Text += "  " + Resource.SiteSettingsLDAPAdminUserNotFound;
@@ -1298,10 +1113,7 @@ namespace mojoPortal.Web.AdminUI
 					}
 				}
 
-				if (
-				(WebConfigSettings.UseRelatedSiteMode)
-				&& ((selectedSite.SiteId != WebConfigSettings.RelatedSiteID) && (selectedSiteID != -1))
-				)
+				if (WebConfigSettings.UseRelatedSiteMode && selectedSite.SiteId != WebConfigSettings.RelatedSiteID && selectedSiteID != -1)
 				{
 					tabLDAP.Visible = false;
 				}
@@ -1353,13 +1165,12 @@ namespace mojoPortal.Web.AdminUI
 					selectedSite.ReallyDeleteUsers = chkReallyDeleteUsers.Checked;
 				}
 
-				if (WebConfigSettings.UseRelatedSiteMode && ((selectedSite.SiteId != WebConfigSettings.RelatedSiteID) && (selectedSiteID != -1)))
+				if (WebConfigSettings.UseRelatedSiteMode && selectedSite.SiteId != WebConfigSettings.RelatedSiteID && selectedSiteID != -1)
 				{
 					//don't change this on child sites in related sites mode
 				}
 				else
 				{
-					// (selectedSite.SiteGuid == Guid.Empty) is a new site
 					if (allowPasswordFormatChange || (selectedSite.SiteGuid == Guid.Empty))
 					{
 						try
@@ -1399,30 +1210,17 @@ namespace mojoPortal.Web.AdminUI
 					selectedSite.BadWordCheckingEnforced = chkForceBadWordChecking.Checked;
 					selectedSite.RequireEnterEmailTwiceOnRegistration = chkRequireEmailTwice.Checked;
 				}
-
-
-				//if (IsServerAdmin
-				//&& (WebConfigSettings.UseRelatedSiteMode)
-				//&& (selectedSite.SiteId != WebConfigSettings.RelatedSiteID)
-				//&& (chkListEditRoles.Items.Count > 0)
-				//)
-				//{
-				//    selectedSite.SiteRootEditRoles = chkListEditRoles.Items.SelectedItemsToSemiColonSeparatedString(); 
-				//}
-
-
 			} //end isAdmin
 
 			selectedSite.AllowUserEditorPreference = chkAllowUserEditorChoice.Checked;
 			selectedSite.MetaProfile = txtMetaProfile.Text;
 			selectedSite.DefaultEmailFromAddress = txtSiteEmailFromAddress.Text;
 			selectedSite.DefaultFromEmailAlias = txtSiteEmailFromAlias.Text;
-			//selectedSite.EnableMyPageFeature = chkEnableMyPageFeature.Checked;
-
+			
 			SetMailSettings();
 
 			// the site may previously have been using email for login
-			//but we need to make sure it uses loging name in case usinh ldap as fallback authentication
+			//but we need to make sure it uses login name in case using ldap as fallback authentication
 			if (selectedSite.UseLdapAuth) { selectedSite.UseEmailForLogin = false; }
 
 			if (creatingNewSite)
@@ -1432,35 +1230,28 @@ namespace mojoPortal.Web.AdminUI
 
 			selectedSite.Save();
 
-
 			if (creatingNewSite)
 			{
 				mojoSetup.CreateNewSiteData(selectedSite);
 			}
+
 			CacheHelper.ClearSiteSettingsCache(selectedSite.SiteId);
 
 			mojoMembershipProvider mojoMembership = (mojoMembershipProvider)Membership.Provider;
 			
-
-			if (
-				(!creatingNewSite)
-				&& (previousPasswordFormat != selectedSite.PasswordFormat)
-				)
+			if ((!creatingNewSite) && (previousPasswordFormat != selectedSite.PasswordFormat))
 			{
 				// this is not something you want to change very often
 				mojoMembership.ChangeUserPasswordFormat(selectedSite, previousPasswordFormat);
 				CacheHelper.ClearSiteSettingsCache(selectedSite.SiteId);
-
 			}
-
-			//String oldSkin = ViewState["skin"].ToString();
+			
 			string oldSkin = hdnCurrentSkin.Value;
 			if ((oldSkin != selectedSite.Skin)&&(WebConfigSettings.UseCacheDependencyFiles))
 			{
 				CacheHelper.ResetThemeCache();
 			}
 
-			//if ((WebConfigSettings.UseRelatedSiteMode)&&(selectedSite.SiteId == WebConfigSettings.RelatedSiteID))
 			if (WebConfigSettings.UseRelatedSiteMode)
 			{
 				// need to propagate any security changes to all child sites
@@ -1478,14 +1269,9 @@ namespace mojoPortal.Web.AdminUI
 
 				// reset the sitesettings cache for each site
 				CacheHelper.ClearRelatedSiteCache(-1);
-
-				
-
-
 			}
 
-			String redirectUrl = SiteRoot
-				+ "/Admin/SiteSettings.aspx?SiteID=" + selectedSite.SiteId.ToString();
+			string redirectUrl = SiteRoot + "/Admin/SiteSettings.aspx?SiteID=" + selectedSite.SiteId.ToString();
 
 			if (selectedSite.SiteId == currentSiteID)
 			{
@@ -1493,7 +1279,6 @@ namespace mojoPortal.Web.AdminUI
 			}
 
 			WebUtils.SetupRedirect(this, redirectUrl);
-
 		}
 
 		void siteSettings_SiteCreated(object sender, SiteCreatedEventArgs e)
@@ -1514,10 +1299,9 @@ namespace mojoPortal.Web.AdminUI
 			}
 		}
 
-
 		private bool TestCurrentUserLdap(LdapSettings testLdapSettings)
 		{
-			String uid = Context.User.Identity.Name;
+			string uid = Context.User.Identity.Name;
 			SiteUser user = new SiteUser(this.selectedSite, uid);
 			return LdapHelper.TestUser(testLdapSettings, user.LoginName, txtLdapTestPassword.Text);
 		}
@@ -1547,7 +1331,6 @@ namespace mojoPortal.Web.AdminUI
 				ResetButton();
 				return;
 			}
-
 
 			if (chkSMTPRequiresAuthentication.Checked)
 			{
@@ -1621,24 +1404,20 @@ namespace mojoPortal.Web.AdminUI
 				btnTestSMTPSettings.Text = Resource.SiteSettingsTestSMTPSettingsButton;
 				btnTestSMTPSettings.Enabled = true;
 			}
-
 		}
 
 		private void btnAddFeature_Click(object sender, EventArgs e)
 		{
-			
 			if (lstAllFeatures.SelectedIndex > -1)
 			{
 				foreach (ListItem item in lstAllFeatures.Items)
 				{
 					if(item.Selected)
 						SiteSettings.AddFeature(selectedSite.SiteGuid, new Guid(item.Value));
-
 				}
 
 				PopulateFeatures();
 				upFeatures.Update();
-
 			}
 			else
 			{
@@ -1648,15 +1427,12 @@ namespace mojoPortal.Web.AdminUI
 
 		private void btnRemoveFeature_Click(object sender, EventArgs e)
 		{
-			//if (selectedSite == null) { return; }
-
 			if (lstSelectedFeatures.SelectedIndex > -1)
 			{
 				foreach (ListItem item in lstSelectedFeatures.Items)
 				{
 					if (item.Selected)
 						SiteSettings.RemoveFeature(selectedSite.SiteGuid, new Guid(item.Value));
-
 				}
 
 				PopulateFeatures();
@@ -1667,69 +1443,6 @@ namespace mojoPortal.Web.AdminUI
 				litFeatureMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsSelectFeatureToRemoveWarning);
 			}
 		}
-
-		//protected void btnRemoveWebPart_Click(object sender, EventArgs e)
-		//{
-		//	if (lstSelectedWebParts.SelectedIndex > -1)
-		//	{
-		//		foreach (ListItem item in lstSelectedFeatures.Items)
-		//		{
-		//			if (item.Selected)
-		//			{
-		//				Guid webPartID = new Guid(item.Value);
-		//				WebPartContent.DeleteWebPart(webPartID);
-
-		//			}
-
-		//		}
-
-		//		PopulateWebParts();
-		//		upWebParts.Update();
-				
-		//	}
-		//	else
-		//	{
-		//		lblWebPartMessage.Text = Resource.SiteSettingsSelectWebPartToRemoveWarning;
-		//	}
-		//}
-
-		//protected void btnAddWebPart_Click(object sender, EventArgs e)
-		//{
-		//	if (lstAllWebParts.SelectedIndex > -1)
-		//	{
-		//		foreach (ListItem item in lstAllWebParts.Items)
-		//		{
-		//			if (item.Selected)
-		//			{
-		//				Guid webPartID = new Guid(item.Value);
-		//				WebPartContent baseSiteWebPart = new WebPartContent(webPartID);
-
-		//				WebPartContent childSiteWebPart = new WebPartContent();
-		//				childSiteWebPart.SiteId = selectedSite.SiteId;
-		//				childSiteWebPart.SiteGuid = selectedSite.SiteGuid;
-		//				childSiteWebPart.AllowMultipleInstancesOnMyPage = baseSiteWebPart.AllowMultipleInstancesOnMyPage;
-		//				childSiteWebPart.AssemblyName = baseSiteWebPart.AssemblyName;
-		//				childSiteWebPart.AvailableForContentSystem = baseSiteWebPart.AvailableForContentSystem;
-		//				childSiteWebPart.AvailableForMyPage = baseSiteWebPart.AvailableForMyPage;
-		//				childSiteWebPart.ClassName = baseSiteWebPart.ClassName;
-		//				childSiteWebPart.Description = baseSiteWebPart.Description;
-		//				childSiteWebPart.ImageUrl = baseSiteWebPart.ImageUrl;
-		//				childSiteWebPart.Title = baseSiteWebPart.Title;
-		//				childSiteWebPart.Save();
-
-		//			}
-
-		//		}
-
-		//		PopulateWebParts();
-		//		upWebParts.Update();
-		//	}
-		//	else
-		//	{
-		//		lblWebPartMessage.Text = Resource.SiteSettingsSelectWebPartToAddWarning;
-		//	}
-
-		//}
 
 		private void btnAddHost_Click(object sender, EventArgs e)
 		{
@@ -1752,12 +1465,8 @@ namespace mojoPortal.Web.AdminUI
 			try
 			{
 				SiteSettings.AddHost(selectedSite.SiteGuid, selectedSite.SiteId, this.txtHostName.Text.ToLower());
-				
 				CacheHelper.ClearSiteSettingsCache(selectedSite.SiteId);
 				CacheHelper.ClearSiteSettingsCache(siteSettings.SiteId); // this clears it from the defaut site which would use any host if it is not already assigned
-				//CacheHelper.ResetSiteMapCache(selectedSite.SiteId);
-				//CacheHelper.ResetSiteMapCache(1);
-			   
 			}
 			catch (DbException)
 			{
@@ -1767,8 +1476,6 @@ namespace mojoPortal.Web.AdminUI
 			PopulateHostList(); 
 
 			upHosts.Update();
-			
-
 		}
 
 		void rptHosts_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -1783,17 +1490,13 @@ namespace mojoPortal.Web.AdminUI
 					{
 						CacheHelper.ClearSiteSettingsCache(selectedSite.SiteId);
 						CacheHelper.ClearSiteSettingsCache(siteSettings.SiteId); // this clears it from the defaut site which would use any host if it is not already assigned
-						//CacheHelper.ResetSiteMapCache(selectedSite.SiteId);
-						//CacheHelper.ResetSiteMapCache(1);
 					}
 					break;
 
 				default:
-
 					break;
 			}
 
-			//WebUtils.SetupRedirect(this, Request.RawUrl);
 			PopulateHostList();
 			upHosts.Update();
 			
@@ -1823,15 +1526,16 @@ namespace mojoPortal.Web.AdminUI
 					litFolderMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNameInvalidCharsWarning);
 					return;
 				}
-				
-				SiteFolder siteFolder = new SiteFolder();
-				siteFolder.SiteGuid = selectedSite.SiteGuid;
-				siteFolder.FolderName = txtFolderName.Text;
+
+				SiteFolder siteFolder = new SiteFolder
+				{
+					SiteGuid = selectedSite.SiteGuid,
+					FolderName = txtFolderName.Text
+				};
 				siteFolder.Save();
 
 				PopulateFolderList();
 				upFolderNames.Update();
-
 			}
 			else
 			{
@@ -1850,7 +1554,6 @@ namespace mojoPortal.Web.AdminUI
 					break;
 
 				default:
-
 					break;
 			}
 
@@ -1858,13 +1561,11 @@ namespace mojoPortal.Web.AdminUI
 			upFolderNames.Update();
 		}
 
-
 		void rptFolderNames_ItemDataBound(object sender, RepeaterItemEventArgs e)
 		{
 			ImageButton btnDelete = e.Item.FindControl("btnDeleteFolder") as ImageButton;
 			UIHelper.AddConfirmationDialog(btnDelete, Resource.SiteSettingsDeleteFolderMappingWarning);
 		}
-
 
 		void rptHosts_ItemDataBound(object sender, RepeaterItemEventArgs e)
 		{
@@ -1877,9 +1578,7 @@ namespace mojoPortal.Web.AdminUI
 			if (selectedSite == null) { return; }
 			mojoSetup.CreateOrRestoreSiteSkins(selectedSite.SiteId);
 			WebUtils.SetupRedirect(this, Request.RawUrl);
-
 		}
-
 
 		void btnDelete_Click(object sender, EventArgs e)
 		{
@@ -1892,7 +1591,6 @@ namespace mojoPortal.Web.AdminUI
 						DeleteSiteContent(selectedSite.SiteId);
 						CommentRepository commentRepository = new CommentRepository();
 						commentRepository.DeleteBySite(selectedSite.SiteGuid);
-
 					}
 					catch (Exception ex)
 					{
@@ -1911,7 +1609,6 @@ namespace mojoPortal.Web.AdminUI
 
 			foreach(SitePreDeleteHandlerProvider contentDeleter in SitePreDeleteHandlerProviderManager.Providers)
 			{
-				
 				try
 				{
 					contentDeleter.DeleteSiteContent(siteId);
@@ -1920,7 +1617,6 @@ namespace mojoPortal.Web.AdminUI
 				{
 					log.Error("SiteSettings.aspx.cs.DeleteSiteContent ", ex);
 				}
-
 			}
 
 			if (WebConfigSettings.DeleteSiteFolderWhenDeletingSites)
@@ -1937,9 +1633,7 @@ namespace mojoPortal.Web.AdminUI
 
 				WebTaskManager.StartOrResumeTasks();
 			}
-
 		}
-
 
 		void btnSetupRpx_Click(object sender, EventArgs e)
 		{
@@ -1968,7 +1662,6 @@ namespace mojoPortal.Web.AdminUI
 					siteSettings.SiteGuid.ToString()));
 
 				return;
-
 			}
 
 			siteSettings.RpxNowAdminUrl = rpxAccount.AdminUrl;
@@ -1977,9 +1670,7 @@ namespace mojoPortal.Web.AdminUI
 			siteSettings.Save();
 			CacheHelper.ClearSiteSettingsCache(siteSettings.SiteId);
 			
-
 			WebUtils.SetupRedirect(this, SiteRoot + "/Admin/SiteSettings.aspx?t=oid");
-
 		}
 		private void chkRequireApprovalForLogin_Changed(object sender, EventArgs e)
 		{
@@ -2002,40 +1693,24 @@ namespace mojoPortal.Web.AdminUI
 				+ "document.images." + imgLogo.ClientID + ".src = logoPath + listBox.value;"
 				+ "}</script>";
 
-			this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "showLogo", logoScript);
-
-			
-
+			Page.ClientScript.RegisterClientScriptBlock(GetType(), "showLogo", logoScript);
 		}
-
-		
 
 		private void PopulateLabels()
 		{
 			Title = SiteUtils.FormatPageTitle(siteSettings, Resource.AdminMenuSiteSettingsLink);
 
-			
+			txtSMTPPassword.TextMode = maskSMTPPassword ? TextBoxMode.Password : TextBoxMode.SingleLine;
 
+			litMainSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsMainSettingsLabel, Resource.SiteSettingsMainSettingsDescription);
+			litSkinSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSkinSettingsLabel, Resource.SiteSettingsSkinSettingsDescription);
+			litContentEditorSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsContentEditorSettingsLabel, Resource.SiteSettingsContentEditorSettingsDescription);
 
+			litRegistrationSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityRegistrationSettingsLabel, Resource.SiteSettingsSecurityRegistrationSettingsDescription);
+			litUserAccountSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityUserAccountSettingsLabel, Resource.SiteSettingsSecurityUserAccountSettingsDescription);
+			litPasswordSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityPasswordSettingsLabel, Resource.SiteSettingsSecurityPasswordSettingsDescription);
 
-			if (maskSMTPPassword)
-			{
-				txtSMTPPassword.TextMode = TextBoxMode.Password;
-			}
-			else
-			{
-				txtSMTPPassword.TextMode = TextBoxMode.SingleLine;
-			}
-
-			litMainSettingsHeader.Text = String.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityMainSettingsLabel, Resource.SiteSettingsSecurityMainSettingsDescription);
-			litSkinSettingsHeader.Text = String.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecuritySkinSettingsLabel, Resource.SiteSettingsSecuritySkinSettingsDescription);
-			litContentEditorSettingsHeader.Text = String.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityContentEditorSettingsLabel, Resource.SiteSettingsSecurityContentEditorSettingsDescription);
-
-			litRegistrationSettingsHeader.Text = String.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityRegistrationSettingsLabel, Resource.SiteSettingsSecurityRegistrationSettingsDescription);
-			litUserAccountSettingsHeader.Text = String.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityUserAccountSettingsLabel, Resource.SiteSettingsSecurityUserAccountSettingsDescription);
-			litPasswordSettingsHeader.Text = String.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityPasswordSettingsLabel, Resource.SiteSettingsSecurityPasswordSettingsDescription);
-
-			litPasswordRecoverySettingsHeader.Text = String.Format(adminDisplaySettings.SubPanelHeadingMarkup, Resource.SiteSettingsSecurityPasswordRecoverySettingsLabel, Resource.SiteSettingsSecurityPasswordRecoverySettingsDescription);
+			litPasswordRecoverySettingsHeader.Text = string.Format(adminDisplaySettings.SubPanelHeadingMarkup, Resource.SiteSettingsSecurityPasswordRecoverySettingsLabel, Resource.SiteSettingsSecurityPasswordRecoverySettingsDescription);
 
 			litOpenIDSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityOpenIDSettingsLabel, Resource.SiteSettingsSecurityOpenIDSettingsDescription);
 			litWindowsLiveIDSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityWindowsLiveIDSettingsLabel, Resource.SiteSettingsSecurityWindowsLiveIDSettingsDescription);
@@ -2049,34 +1724,31 @@ namespace mojoPortal.Web.AdminUI
 
 			litSettingsTab.Text = Resource.SiteSettingsGeneralSettingsTab;
 
-			litSecurityTabLink.Text = "<a href='#" + tabSecurity.ClientID + "'>" + Resource.SiteSettingsSecurityTab + "</a>";
+			litSecurityTabLink.Text = $"<a href='#{tabSecurity.ClientID}'>{Resource.SiteSettingsSecurityTab}</a>";
+
+			litAdvancedTabLink.Text = $"<a href='#{tabAdvanced.ClientID}'>{Resource.SiteSettingsAdvancedTab}</a>";
+			litAdvSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsAdvancedLabel, Resource.SiteSettingsAdvancedDescription);
+
 
 			litCompanyInfoTab.Text = Resource.CompanyInfo;
 
-			litCommerceTabLink.Text = "<a href='#" + tabCommerce.ClientID + "'>" + Resource.CommerceTab + "</a>";
+			litCommerceTabLink.Text = $"<a href='#{tabCommerce.ClientID}'>{Resource.CommerceTab}</a>";
 
-			litGeneralSecurityTabLink.Text = "<a href='#" + tabGeneralSecurity.ClientID + "'>" + Resource.SiteSettingsSecurityMainTab + "</a>";
-			//litPermissionsTabLink.Text = "<a href='#" + tabPermissions.ClientID + "'>" + Resource.SiteSettingsPermissionsTab + "</a>";
-			litLDAPTabLink.Text = "<a href='#" + tabLDAP.ClientID + "'>" + Resource.SiteSettingsLdapSettingsLabel + "</a>";
-			litthirdpartyauthtabLink.Text = "<a href='#" + tabthirdpartyauth.ClientID + "'>" + Resource.SiteSettingsSecurityThirdPartyAuthTab + "</a>";
-			//litWindowsLiveTabLink.Text = "<a href='#" + tabWindowsLiveID.ClientID + "'>" + Resource.SiteSettingsSecurityWindowsLiveTab + "</a>";
+			litGeneralSecurityTabLink.Text = $"<a href='#{tabGeneralSecurity.ClientID}'>{Resource.SiteSettingsSecurityMainTab}</a>";
+			litLDAPTabLink.Text = $"<a href='#{tabLDAP.ClientID}'>{Resource.SiteSettingsLdapSettingsLabel}</a>";
+			litthirdpartyauthtabLink.Text = $"<a href='#{tabthirdpartyauth.ClientID}'>{Resource.SiteSettingsSecurityThirdPartyAuthTab}</a>";
 			litAntiSpamTab.Text = Resource.SiteSettingsSecurityAntiSPAMTab;
 			litAPIKeysTab.Text = Resource.SiteSettingsApiKeysTab;
-			litMailSettingsTabLink.Text = "<a href='#" + tabMailSettings.ClientID + "'>" + Resource.MailSettingsTab + "</a>";
-			litFeaturesTabLink.Text = "<a href='#" + tabSiteFeatures.ClientID + "'>" + Resource.SiteSettingsFeaturesAllowedLabel + "</a>";
-			//litWebPartsTabLink.Text = "<a href='#" + tabWebParts.ClientID + "'>" + Resource.SiteSettingsWebPartTab + "</a>";
-			litSiteMappingsTabLink.Text = "<a href='#" + tabSiteMappings.ClientID + "'>" + Resource.SiteSettingsSiteMappingsLabel + "</a>";
-			//litFolderNamesTabLink.Text = "<a href='#" + tabFolderNames.ClientID + "'>" + Resource.SiteSettingsFolderMappingLabel + "</a>";
-
+			litMailSettingsTabLink.Text = $"<a href='#{tabMailSettings.ClientID}'>{Resource.MailSettingsTab}</a>";
+			litFeaturesTabLink.Text = $"<a href='#{tabSiteFeatures.ClientID}'>{Resource.SiteSettingsFeaturesAllowedLabel}</a>";
+			litSiteMappingsTabLink.Text = $"<a href='#{tabSiteMappings.ClientID}'>{Resource.SiteSettingsSiteMappingsLabel}</a>";
 			
-			//btnAddWebPart.ToolTip = Resource.SiteSettignsAddWebPartTooltip;
+			
 			btnAddFeature.ToolTip = Resource.SiteSettingsAddFeatureTooltip;
-			//btnRemoveWebPart.ToolTip = Resource.SiteSettingsRemoveWebPartTooltip;
 			btnRemoveFeature.ToolTip = Resource.SiteSettingsRemoveFeatureTooltip;
 
 			litFeatureMessage.Text = string.Empty;
-			//lblWebPartMessage.Text = string.Empty;
-
+			
 			lnkAdminMenu.Text = Resource.AdminMenuLink;
 			lnkAdminMenu.ToolTip = Resource.AdminMenuLink;
 			lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
@@ -2085,12 +1757,7 @@ namespace mojoPortal.Web.AdminUI
 			lnkSiteList.Text = Resource.SiteList;
 			lnkSiteList.NavigateUrl = SiteRoot + "/Admin/SiteList.aspx";
 			litLinkSeparator2.Visible = lnkSiteList.Visible;
-
-			//linkNewSite.Visible = lnkSiteList.Visible;
-			//linkNewSite.Text = Resource.SiteSettingsNewSiteLabel;
-			//linkNewSite.ToolTip = Resource.CreateNewSite;
-			//linkNewSite.NavigateUrl = SiteRoot + "/Admin/SiteSettings.aspx?SiteID=-1";
-
+			
 			lnkSiteSettings.Text = Resource.AdminMenuSiteSettingsLink;
 			lnkSiteSettings.ToolTip = Resource.AdminMenuSiteSettingsLink;
 			lnkSiteSettings.NavigateUrl = SiteRoot + "/Admin/SiteSettings.aspx";
@@ -2157,10 +1824,9 @@ namespace mojoPortal.Web.AdminUI
 				ddPasswordFormat.Items.Add(listItem);
 			}
 
-			//litHostListHeader.Text = String.Format(displaySettings.SiteSettingsNoticeMarkup, Resource.SiteSettingsNoHostsFound);
 			btnAddHost.Text = Resource.SiteSettingsAddHostButtonLabel;
 			btnAddHost.ToolTip = Resource.SiteSettingsAddHostButtonLabel;
-			//litFolderNamesListHeading.Text = String.Format(displaySettings.SiteSettingsNoticeMarkup, Resource.SiteSettingsNoFolderNames);
+
 			fgpFriendlyUrlPattern.Visible = WebConfigSettings.AllowChangingFriendlyUrlPattern;
 
 			regexMaxInvalidPasswordAttempts.ErrorMessage = Resource.MaxInvalidPasswordAttemptsRegexWarning;
@@ -2174,22 +1840,8 @@ namespace mojoPortal.Web.AdminUI
 			btnSetupRpx.Text = Resource.SetupRpxButton;
 			lnkRpxAdmin.Text = Resource.RpxAdminLink;
 
-			//gbSkinPreview.Text = Resource.SkinPreviewLink;
-			
-
 			if (WebConfigSettings.EnableWoopraGlobally || WebConfigSettings.DisableWoopraGlobally) { fgpWoopra.Visible = false; }
-
-			// only need to set this for first instance of helplinkbutton on the page
-			
-
-#if MONO
-				divMyPage.Visible = false;
-
-#endif
-
 		}
-
-		
 
 		private void LoadSettings()
 		{
@@ -2199,17 +1851,12 @@ namespace mojoPortal.Web.AdminUI
 			useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 			fgpShowPasswordStrength.Visible = WebConfigSettings.EnableAjaxControlPasswordStrength;
 
-#if!MONO
 			fgpTimeZone.Visible = true;
-#endif
 
 			if (Request.QueryString["t"] != null)
 			{
 				requestedTab = Request.QueryString["t"];
 			}
-
-			//fgpMyPage.Visible = WebConfigSettings.MyPageIsInstalled;
-			//fgpMyPageSkin.Visible = WebConfigSettings.MyPageIsInstalled;
 
 			if (SiteUtils.SslIsAvailable())
 			{
@@ -2259,18 +1906,7 @@ namespace mojoPortal.Web.AdminUI
 				selectedSite = siteSettings;
 			}
 
-			if (WebConfigSettings.SiteLogoUseMediaFolder)
-			{
-				logoPath = ImageSiteRoot
-				+ "/Data/Sites/" + selectedSite.SiteId.ToString() + "/media/logos/";
-			}
-			else
-			{
-				logoPath = ImageSiteRoot
-				+ "/Data/Sites/" + selectedSite.SiteId.ToString() + "/logos/";
-			}
-
-			
+			logoPath = ImageSiteRoot + "/Data/Sites/" + selectedSite.SiteId.ToString() + (WebConfigSettings.SiteLogoUseMediaFolder ? "/media/logos/" : "/logos/");
 
 			imgLogo.Src = ImageSiteRoot
 				+ "/Data/SitesImages/1x1.gif";
@@ -2283,34 +1919,10 @@ namespace mojoPortal.Web.AdminUI
 				allowPasswordFormatChange = false;
 			}
 
-		   
-				//h3DefaultRootPageViewRoles.Visible = true;
-				//divDefaultRootPageViewRoles.Visible = true;
-				//h3DefaultRootPageEditRoles.Visible = true;
-				//divDefaultRootPageEditRoles.Visible = true;
-				//h3DefaultRootPageCreateChildPageRoles.Visible = true;
-				//divDefaultRootPageCreateChildPageRoles.Visible = true;
-			
-
-				if (!WebConfigSettings.AllowMultipleSites)
-				{
-					this.IsServerAdmin = false;
-				}
-				//else
-				//{
-				//    if ((!IsServerAdmin) && (WebConfigSettings.UseRelatedSiteMode))
-				//    {
-				//        // in related sites mode these are propagated from the master site
-				//        // and should not be editable here
-				//        chkRolesThatCanCreateUsers.Enabled = false;
-				//        chkRolesThatCanLookupUsers.Enabled = false;
-				//        chkRolesThatCanManageUsers.Enabled = false;
-				//        chkRolesThatCanViewMemberList.Enabled = false;
-						
-
-				//    }
-
-				//}
+			if (!WebConfigSettings.AllowMultipleSites)
+			{
+				this.IsServerAdmin = false;
+			}
 
 			try
 			{
@@ -2322,14 +1934,12 @@ namespace mojoPortal.Web.AdminUI
 				//this method was introduced in .NET 3.5 SP1
 			}
 
-			// I use this to prevent users from changing the mobile skin on the demo site
+			// prevent users from changing the mobile skin on the demo site
 			ddMobileSkin.Enabled = siteSettings.IsServerAdminSite || WebConfigSettings.AllowSettingMobileSkinInChildSites || WebConfigSettings.MobilePhoneSkin.Length > 0;
 
 			AddClassToBody("administration");
 			AddClassToBody("sitesettings");
-
 		}
-
 
 		#region OnInit
 
@@ -2339,30 +1949,33 @@ namespace mojoPortal.Web.AdminUI
 			Load += new EventHandler(Page_Load);
 
 			btnSave.Click += new EventHandler(btnSave_Click);
+
 			btnAddFeature.Click += new EventHandler(btnAddFeature_Click);
 			btnRemoveFeature.Click += new EventHandler(btnRemoveFeature_Click);
+
 			btnAddHost.Click += new EventHandler(btnAddHost_Click);
 			btnAddFolder.Click += new EventHandler(btnAddFolder_Click);
 			rptHosts.ItemCommand += new RepeaterCommandEventHandler(rptHosts_ItemCommand);
 			rptHosts.ItemDataBound += new RepeaterItemEventHandler(rptHosts_ItemDataBound);
 			rptFolderNames.ItemCommand += new RepeaterCommandEventHandler(rptFolderNames_ItemCommand);
 			rptFolderNames.ItemDataBound += new RepeaterItemEventHandler(rptFolderNames_ItemDataBound);
-			//this.btnAddWebPart.Click += new EventHandler(btnAddWebPart_Click);
-			//this.btnRemoveWebPart.Click += new EventHandler(btnRemoveWebPart_Click);
+
 			btnDelete.Click += new EventHandler(btnDelete_Click);
+
 			btnRestoreSkins.Click += new EventHandler(btnRestoreSkins_Click);
+
 			btnSetupRpx.Click += new EventHandler(btnSetupRpx_Click);
-			chkSMTPRequiresAuthentication.CheckedChanged += new EventHandler(chkSMTPRequiresAuthentication_Changed);
+
+
 			chkRequireApprovalForLogin.CheckedChanged += new EventHandler(chkRequireApprovalForLogin_Changed);
-			//ddSiteList.SelectedIndexChanged += new EventHandler(ddSiteList_SelectedIndexChanged);
+			
 			ddDefaultCountry.SelectedIndexChanged += new EventHandler(ddDefaultCountry_SelectedIndexChanged);
+
+			chkSMTPRequiresAuthentication.CheckedChanged += new EventHandler(chkSMTPRequiresAuthentication_Changed);
 			btnTestSMTPSettings.Click += new EventHandler(btnTestSMTPSettings_Click);
+
 			SuppressMenuSelection();
 			SuppressPageMenu();
-			//ScriptConfig.IncludeYuiTabs = true;
-			//IncludeYuiTabsCss = true;
-
-			//JQueryUIThemeName = "base";
 		}
 
 		protected override void OnPreInit(EventArgs e)
@@ -2371,59 +1984,52 @@ namespace mojoPortal.Web.AdminUI
 
 			// commented out for now because it causes this error
 			//http://www.mojoportal.com/Forums/Thread.aspx?thread=6281&mid=34&pageid=5&ItemID=2&pagenumber=1#post25767
-//#if !NET35
-//            //http://www.4guysfromrolla.com/articles/071410-1.aspx
-//            //optimize viewstate for .NET 4
-//            this.ViewStateMode = ViewStateMode.Disabled;
-//            ddLdapUserDNKey.ViewStateMode = ViewStateMode.Enabled;
-//            ddDefaultFriendlyUrlPattern.ViewStateMode = ViewStateMode.Enabled;
-//            ddDefaultGeoZone.ViewStateMode = ViewStateMode.Enabled;
-//            ddEditorProviders.ViewStateMode = ViewStateMode.Enabled;
-//            ddMyPageSkin.ViewStateMode = ViewStateMode.Enabled;
-//            ddLogos.ViewStateMode = ViewStateMode.Enabled;
-//            ddNewsletterEditor.ViewStateMode = ViewStateMode.Enabled;
-//            ddSkins.ViewStateMode = ViewStateMode.Enabled;
-//            ddSiteList.ViewStateMode = ViewStateMode.Enabled;
-//            ddDefaultCountry.ViewStateMode = ViewStateMode.Enabled;
-//            ddPasswordFormat.ViewStateMode = ViewStateMode.Enabled;
-//            ddSearchEngine.ViewStateMode = ViewStateMode.Enabled;
-//            ddAvatarSystem.ViewStateMode = ViewStateMode.Enabled;
-//            ddCaptchaProviders.ViewStateMode = ViewStateMode.Enabled;
-//            ddCommentSystem.ViewStateMode = ViewStateMode.Enabled;
+			//#if !NET35
+			//            //http://www.4guysfromrolla.com/articles/071410-1.aspx
+			//            //optimize viewstate for .NET 4
+			//            this.ViewStateMode = ViewStateMode.Disabled;
+			//            ddLdapUserDNKey.ViewStateMode = ViewStateMode.Enabled;
+			//            ddDefaultFriendlyUrlPattern.ViewStateMode = ViewStateMode.Enabled;
+			//            ddDefaultGeoZone.ViewStateMode = ViewStateMode.Enabled;
+			//            ddEditorProviders.ViewStateMode = ViewStateMode.Enabled;
+			//            ddMyPageSkin.ViewStateMode = ViewStateMode.Enabled;
+			//            ddLogos.ViewStateMode = ViewStateMode.Enabled;
+			//            ddNewsletterEditor.ViewStateMode = ViewStateMode.Enabled;
+			//            ddSkins.ViewStateMode = ViewStateMode.Enabled;
+			//            ddSiteList.ViewStateMode = ViewStateMode.Enabled;
+			//            ddDefaultCountry.ViewStateMode = ViewStateMode.Enabled;
+			//            ddPasswordFormat.ViewStateMode = ViewStateMode.Enabled;
+			//            ddSearchEngine.ViewStateMode = ViewStateMode.Enabled;
+			//            ddAvatarSystem.ViewStateMode = ViewStateMode.Enabled;
+			//            ddCaptchaProviders.ViewStateMode = ViewStateMode.Enabled;
+			//            ddCommentSystem.ViewStateMode = ViewStateMode.Enabled;
 
-//            chkListEditRoles.ViewStateMode = ViewStateMode.Enabled;
-//            chkGeneralBrowseAndUploadRoles.ViewStateMode = ViewStateMode.Enabled;
-//            chkUserFilesBrowseAndUploadRoles.ViewStateMode = ViewStateMode.Enabled;
-//            chkRolesNotAllowedToEditModuleSettings.ViewStateMode = ViewStateMode.Enabled;
-//            chkRolesThatCanCreateRootPages.ViewStateMode = ViewStateMode.Enabled;
-//            chkRolesThatCanDeleteFilesInEditor.ViewStateMode = ViewStateMode.Enabled;
-//            chkRolesThatCanEditContentTemplates.ViewStateMode = ViewStateMode.Enabled;
-//            chkRolesThatCanLookupUsers.ViewStateMode = ViewStateMode.Enabled;
-//            chkRolesThatCanManageUsers.ViewStateMode = ViewStateMode.Enabled;
-//            chkRolesThatCanViewMemberList.ViewStateMode = ViewStateMode.Enabled;
-//            chkRolesThatCanViewMyPage.ViewStateMode = ViewStateMode.Enabled;
+			//            chkListEditRoles.ViewStateMode = ViewStateMode.Enabled;
+			//            chkGeneralBrowseAndUploadRoles.ViewStateMode = ViewStateMode.Enabled;
+			//            chkUserFilesBrowseAndUploadRoles.ViewStateMode = ViewStateMode.Enabled;
+			//            chkRolesNotAllowedToEditModuleSettings.ViewStateMode = ViewStateMode.Enabled;
+			//            chkRolesThatCanCreateRootPages.ViewStateMode = ViewStateMode.Enabled;
+			//            chkRolesThatCanDeleteFilesInEditor.ViewStateMode = ViewStateMode.Enabled;
+			//            chkRolesThatCanEditContentTemplates.ViewStateMode = ViewStateMode.Enabled;
+			//            chkRolesThatCanLookupUsers.ViewStateMode = ViewStateMode.Enabled;
+			//            chkRolesThatCanManageUsers.ViewStateMode = ViewStateMode.Enabled;
+			//            chkRolesThatCanViewMemberList.ViewStateMode = ViewStateMode.Enabled;
+			//            chkRolesThatCanViewMyPage.ViewStateMode = ViewStateMode.Enabled;
 
-//            //upFeatures.ViewStateMode = ViewStateMode.Enabled;
-//            lstAllFeatures.ViewStateMode = ViewStateMode.Enabled;
-//            lstSelectedFeatures.ViewStateMode = ViewStateMode.Enabled;
-//            lstAllWebParts.ViewStateMode = ViewStateMode.Enabled;
-//            lstSelectedWebParts.ViewStateMode = ViewStateMode.Enabled;
-
-
-//            hdnCurrentSkin.ViewStateMode = ViewStateMode.Enabled;
-//            rptHosts.ViewStateMode = ViewStateMode.Enabled;
-//            rptFolderNames.ViewStateMode = ViewStateMode.Enabled;
+			//            //upFeatures.ViewStateMode = ViewStateMode.Enabled;
+			//            lstAllFeatures.ViewStateMode = ViewStateMode.Enabled;
+			//            lstSelectedFeatures.ViewStateMode = ViewStateMode.Enabled;
+			//            lstAllWebParts.ViewStateMode = ViewStateMode.Enabled;
+			//            lstSelectedWebParts.ViewStateMode = ViewStateMode.Enabled;
 
 
-//#endif
+			//            hdnCurrentSkin.ViewStateMode = ViewStateMode.Enabled;
+			//            rptHosts.ViewStateMode = ViewStateMode.Enabled;
+			//            rptFolderNames.ViewStateMode = ViewStateMode.Enabled;
 
 
+			//#endif
 		}
-		
-
-		
-
-   
 		#endregion
 	}
 }

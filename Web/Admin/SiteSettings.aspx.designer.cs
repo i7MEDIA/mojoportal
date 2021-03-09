@@ -265,6 +265,24 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.Literal litMailSettingsTabLink;
         
         /// <summary>
+        /// liAdvanced control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAdvanced;
+        
+        /// <summary>
+        /// litAdvancedTabLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litAdvancedTabLink;
+        
+        /// <summary>
         /// litMainSettingsHeader control.
         /// </summary>
         /// <remarks>
@@ -364,33 +382,6 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.TimeZoneIdSetting timeZone;
         
         /// <summary>
-        /// fgpFriendlyUrlPattern control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.FormGroupPanel fgpFriendlyUrlPattern;
-        
-        /// <summary>
-        /// lblDefaultFriendlyUrlPatten control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel lblDefaultFriendlyUrlPatten;
-        
-        /// <summary>
-        /// ddDefaultFriendlyUrlPattern control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddDefaultFriendlyUrlPattern;
-        
-        /// <summary>
         /// fgpSSL control.
         /// </summary>
         /// <remarks>
@@ -443,24 +434,6 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkEnableContentWorkflow;
-        
-        /// <summary>
-        /// fgpPreferredHostName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.FormGroupPanel fgpPreferredHostName;
-        
-        /// <summary>
-        /// txtPreferredHostName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPreferredHostName;
         
         /// <summary>
         /// lblPrivacySiteRoot control.
@@ -2324,6 +2297,96 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litTestSMTPResult;
+        
+        /// <summary>
+        /// tabAdvanced control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabAdvanced;
+        
+        /// <summary>
+        /// fgpAdvancedSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpAdvancedSettings;
+        
+        /// <summary>
+        /// litAdvSettingsHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litAdvSettingsHeader;
+        
+        /// <summary>
+        /// fgpFriendlyUrlPattern control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpFriendlyUrlPattern;
+        
+        /// <summary>
+        /// lblDefaultFriendlyUrlPatten control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel lblDefaultFriendlyUrlPatten;
+        
+        /// <summary>
+        /// ddDefaultFriendlyUrlPattern control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddDefaultFriendlyUrlPattern;
+        
+        /// <summary>
+        /// fgpPreferredHostName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpPreferredHostName;
+        
+        /// <summary>
+        /// txtPreferredHostName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPreferredHostName;
+        
+        /// <summary>
+        /// fgpHomePage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpHomePage;
+        
+        /// <summary>
+        /// pageSelector control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.PageSelectorSetting pageSelector;
         
         /// <summary>
         /// vSummary control.
