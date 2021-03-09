@@ -39,7 +39,6 @@ var filePicker = {
 (function(d) {
 	const advancedFilePicker = d.querySelectorAll('.advanced-file-picker');
 
-
 	//
 	// Keep native validation from running
 	//
@@ -51,14 +50,17 @@ var filePicker = {
 	// Set heading and iframe source of modal, then open it
 	//
 
-	const openFileManager = function(output, pickerType) {
+	const openFileManager = function(output, pickerType, startFolder) {
 		const modal = d.querySelector('.url-browser__modal');
 		const modalIframe = modal.querySelector('.url-browser__modal-iframe');
 		const modalType = modal.querySelector('.url-browser__modal-type');
 		const modalPath = systemKeys.fileBrowserUrl + '?editor=filepicker&type=' + pickerType + '&inputId=' + output.id;
-
+		var modalStartFolder = "";
+		if (startFolder !== "") {
+			modalStartFolder = "&startFolder=" + startFolder;
+		}
 		modalType.textContent = pickerType.charAt(0).toUpperCase() + pickerType.slice(1);
-		modalIframe.src = modalPath;
+		modalIframe.src = modalPath + modalStartFolder;
 		modalIframe.addEventListener('load', function() {
 			if (this.src !== '') {
 				this.removeAttribute('style');
@@ -80,6 +82,7 @@ var filePicker = {
 		//
 
 		const pickerType = picker.dataset.pickerType;
+		const startFolder = picker.dataset.startFolder;
 		const pickerDefaultText = picker.dataset.pickerDefaultText;
 		const output = picker.parentNode.querySelector('.advanced-file-picker__output');
 		const showToolsBtn = picker.querySelector('.advanced-file-picker__show-tools-btn');
@@ -217,7 +220,7 @@ var filePicker = {
 		
 		const fileManagerEvent = function(e) {
 			e.preventDefault();
-			openFileManager(output, pickerType);
+			openFileManager(output, pickerType, startFolder);
 		};
 
 		const updatePreviewEvent = function(e) {

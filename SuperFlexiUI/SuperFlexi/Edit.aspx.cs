@@ -260,6 +260,8 @@ namespace SuperFlexiUI
 
 			AttributeCollection attribs = null;
 
+			string pickerStartFolder = string.Empty;
+
 			switch (field.ControlType)
 			{
 				case "TextBox":
@@ -341,11 +343,11 @@ namespace SuperFlexiUI
 
 					foreach (string key in attribs.Keys)
 					{
-						if (key == "rows")
+						if (key.ToLower() == "rows")
 						{
 							textBox.Rows = Convert.ToInt32(attribs[key]);
 						}
-						else if (key == "cols")
+						else if (key.ToLower() == "cols")
 						{
 							textBox.Columns = Convert.ToInt32(attribs[key]);
 						}
@@ -398,27 +400,30 @@ namespace SuperFlexiUI
                     attribs = linkPicker.Attributes;
                     FieldUtils.GetFieldAttributes(field.Attributes, out attribs);
 
-                    foreach (string key in attribs.Keys)
+					foreach (string key in attribs.Keys)
                     {
-                        if (key == "rows")
+                        if (key.ToLower() == "rows")
                         {
                             linkPicker.Rows = Convert.ToInt32(attribs[key]);
                         }
-                        else if (key == "cols")
+                        else if (key.ToLower() == "cols")
                         {
                             linkPicker.Columns = Convert.ToInt32(attribs[key]);
                         }
-                        else
+						else if (key.ToLower() == "startfolder")
+						{
+							pickerStartFolder = attribs[key];
+						}
+						else
                         {
                             linkPicker.Attributes.Add(key, attribs[key]);
                         }
-
                     }
 
                     linkPicker.TextMode = TextBoxMode.Url;
                     panel.Controls.Add(linkPicker);
 
-                    AddUrlBrowserSupport(panel, field);
+                    AddUrlBrowserSupport(panel, field, pickerStartFolder);
 
                     if (field.Required)
                     {
@@ -459,17 +464,21 @@ namespace SuperFlexiUI
 
                     foreach (string key in attribs.Keys)
                     {
-                        if (key == "rows")
+                        if (key.ToLower() == "rows")
                         {
                             imagePicker.Rows = Convert.ToInt32(attribs[key]);
                         }
-                        else if (key == "cols")
+                        else if (key.ToLower() == "cols")
                         {
                             imagePicker.Columns = Convert.ToInt32(attribs[key]);
                         }
+						else if (key.ToLower() == "startfolder")
+						{
+							pickerStartFolder = attribs[key];
+						}
                         else
                         {
-                            imagePicker.Attributes.Add(key, (string)attribs[key]);
+                            imagePicker.Attributes.Add(key, attribs[key]);
                         }
 
                     }
@@ -477,7 +486,7 @@ namespace SuperFlexiUI
                     imagePicker.TextMode = TextBoxMode.Url;
                     panel.Controls.Add(imagePicker);
 
-                    AddUrlBrowserSupport(panel, field, true);
+                    AddUrlBrowserSupport(panel, field, pickerStartFolder, true);
 
                     if (field.Required)
                     {
@@ -1061,7 +1070,7 @@ namespace SuperFlexiUI
 
 		}
 
-        private void AddUrlBrowserSupport(Panel panel, Field field, bool isImage = false)
+        private void AddUrlBrowserSupport(Panel panel, Field field, string startFolder, bool isImage = false)
         {
 			//create script reference
 			MarkupScript urlBrowserScript = new MarkupScript
@@ -1084,11 +1093,12 @@ namespace SuperFlexiUI
             config.EditPageCSS.Add(urlBrowserCss);
 
 			// Create model for razor templating
-			AdvancedFilePicker pickerModel = new AdvancedFilePicker
+			var pickerModel = new AdvancedFilePicker
 			{
 				PickerType = isImage ? "image" : "file",
 				FileText = SuperFlexiResources.Browse,
-				ImageText = SuperFlexiResources.BrowseFeaturedImage
+				ImageText = SuperFlexiResources.BrowseFeaturedImage,
+				StartFolder = startFolder
 			};
 
 			// Render razor template to string
@@ -1734,5 +1744,6 @@ namespace SuperFlexiUI
 		public string PickerType { get; set; }
 		public string FileText { get; set; }
 		public string ImageText { get; set; }
+		public string StartFolder { get; set; }
 	}
 }

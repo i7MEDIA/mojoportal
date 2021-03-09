@@ -67,12 +67,6 @@ namespace SuperFlexiUI
         private void ExportBtn_Click(Object sender, EventArgs e)
         {
             dynamic expando = SuperFlexiHelpers.GetExpandoForModuleItems(module, config, false);
-			//TextBox exportNameControl = (TextBox)this.FindControl("txtExportName");
-			//string exportName = module.ModuleTitle;
-			//if (exportNameControl != null)
-			//{
-			//	exportName = exportNameControl.Text;
-			//}
 			ExportHelper.ExportDynamicListToCSV(HttpContext.Current, expando.Items, $"export-{txtExportName.Text}.csv");
         }
 
