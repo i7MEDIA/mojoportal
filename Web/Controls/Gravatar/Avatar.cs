@@ -299,7 +299,14 @@ namespace mojoPortal.Web.UI
 				return Page.ResolveUrl(DefaultInternalAvatar);
 			}
 
-			return Page.ResolveUrl("~/Data/Sites/" + SiteId.ToInvariantString() + "/useravatars/" + AvatarFile);
+			string userSiteId = SiteId.ToInvariantString();
+
+			if (WebConfigSettings.UseRelatedSiteMode)
+			{
+				userSiteId = WebConfigSettings.RelatedSiteID.ToInvariantString();
+			}
+
+			return Page.ResolveUrl("~/Data/Sites/" + userSiteId + "/useravatars/" + AvatarFile);
 		}
 
 

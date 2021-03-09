@@ -198,4 +198,7 @@
   <data name="ExportQueryDataAsCSV" xml:space="preserve">
     <value>Execute Query and Export as CSV</value>
   </data>
+  <data name="ClearThemeCache" xml:space="preserve">
+    <value>Clear Theme Cache</value>
+  </data>
 </root>
