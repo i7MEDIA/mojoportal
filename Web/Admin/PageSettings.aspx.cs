@@ -26,7 +26,7 @@ namespace mojoPortal.Web.AdminUI
 
 			AllowSkinOverride = (pageId > -1);
 			base.OnPreInit(e);
-#if !NET35
+
 			//http://www.4guysfromrolla.com/articles/071410-1.aspx
 			//optimize viewstate for .NET 4
 			this.ViewStateMode = ViewStateMode.Disabled;
@@ -45,14 +45,11 @@ namespace mojoPortal.Web.AdminUI
 			chkIncludeInChildSiteMap.ViewStateMode = ViewStateMode.Enabled;
 			SkinSetting.ViewStateMode = ViewStateMode.Enabled;
 			publishType.ViewStateMode = ViewStateMode.Enabled;
-#endif
 
-			if (
-				(pageId > -1) &&
+			if (pageId > -1 &&
 				siteSettings.AllowPageSkins &&
-				(CurrentPage != null) &&
-				(CurrentPage.Skin.Length > 0)
-			)
+				CurrentPage != null &&
+				CurrentPage.Skin.Length > 0)
 			{
 				if (Global.RegisteredVirtualThemes)
 				{
@@ -65,13 +62,12 @@ namespace mojoPortal.Web.AdminUI
 			}
 		}
 
-
 		override protected void OnInit(EventArgs e)
 		{
 			base.OnInit(e);
-			this.Load += new EventHandler(this.Page_Load);
-			this.applyBtn.Click += new EventHandler(this.Apply_Click);
-			this.btnDelete.Click += new EventHandler(btnDelete_Click);
+			Load += new EventHandler(Page_Load);
+			applyBtn.Click += new EventHandler(Apply_Click);
+			btnDelete.Click += new EventHandler(btnDelete_Click);
 
 			grdContentMeta.RowCommand += new GridViewCommandEventHandler(grdContentMeta_RowCommand);
 			grdContentMeta.RowEditing += new GridViewEditEventHandler(grdContentMeta_RowEditing);
@@ -100,17 +96,14 @@ namespace mojoPortal.Web.AdminUI
 
 		#endregion
 
-
 		private static readonly ILog log = LogManager.GetLogger(typeof(PageProperties));
 
-		//private string iconPath;
 		private bool sslIsAvailable = false;
 		private bool isAdmin = false;
 		private bool isAdminOrContentAdmin = false;
 		private bool isSiteEditor = false;
 		private bool canEdit = false;
 		private bool canEditDraftOnly = false;
-		//private bool canApproveDraft = false; 
 		private PageSettings pageSettings = null;
 		private PageSettings parentPage = null;
 		private int pageId = -1;
@@ -124,7 +117,6 @@ namespace mojoPortal.Web.AdminUI
 		private bool useSeparatePagesForRoles = false;
 		private TimeZoneInfo timeZone = null;
 		private bool useWorkFlow = false;
-
 
 		private void Page_Load(object sender, EventArgs e)
 		{
@@ -152,7 +144,6 @@ namespace mojoPortal.Web.AdminUI
 					if (!WebUser.IsAdmin)
 					{
 						SiteUtils.RedirectToAccessDeniedPage(this);
-
 						return;
 					}
 				}
@@ -206,23 +197,12 @@ namespace mojoPortal.Web.AdminUI
 				}
 				else
 				{
-					// new root level page
-					// TODO: promote these to site settings?
-					//pageSettings.AuthorizedRoles = WebConfigSettings.DefaultPageRoles;
-					//pageSettings.EditRoles = WebConfigSettings.DefaultRootPageEditRoles;
-					//pageSettings.CreateChildPageRoles = WebConfigSettings.DefaultRootPageCreateChildPageRoles;
 					pageSettings.AuthorizedRoles = siteSettings.DefaultRootPageViewRoles;
 					pageSettings.EditRoles = siteSettings.DefaultRootPageEditRoles;
 					pageSettings.CreateChildPageRoles = siteSettings.DefaultRootPageCreateChildPageRoles;
 
-					if (
-						!isAdminOrContentAdmin &&
-						!isSiteEditor &&
-						WebUser.IsInRoles(siteSettings.RolesThatCanCreateRootPages)
-					)
+					if (!isAdminOrContentAdmin && !isSiteEditor && WebUser.IsInRoles(siteSettings.RolesThatCanCreateRootPages))
 					{
-						//pageSettings.EditRoles = siteSettings.RolesThatCanCreateRootPages;
-						//pageSettings.CreateChildPageRoles = siteSettings.RolesThatCanCreateRootPages;
 						if (!IsPostBack)
 						{
 							lblParentPageName.Text = Resource.PageSettingsRootLabel;
@@ -232,7 +212,6 @@ namespace mojoPortal.Web.AdminUI
 				}
 
 				btnDelete.Visible = false;
-				//lblPageNameLayout.ConfigKey = "PageSettingsCreateNewPageLabel";
 				heading.Text = Resource.PageSettingsCreateNewPageLabel;
 			}
 
@@ -244,7 +223,6 @@ namespace mojoPortal.Web.AdminUI
 			if (!canEdit && !canEditDraftOnly)
 			{
 				SiteUtils.RedirectToAccessDeniedPage(this);
-
 				return;
 			}
 
@@ -265,16 +243,8 @@ namespace mojoPortal.Web.AdminUI
 			}
 		}
 
-
 		private void PopulateControls()
 		{
-			//ddIcons.DataSource = SiteUtils.GetFeatureIconList();
-			//ddIcons.DataBind();
-			//ddIcons.Items.Insert(0, new ListItem(Resource.ModuleSettingsNoIconLabel, "blank.gif"));
-			//ddIcons.Attributes.Add("onchange", "javascript:showIcon(this);");
-			//ddIcons.Attributes.Add("size", "6");
-			//SetupIconScript(this.imgIcon);
-
 			PopulatePageList();
 			PopulateChangeFrequencyDropdown();
 
@@ -282,12 +252,9 @@ namespace mojoPortal.Web.AdminUI
 
 			if (ddPages.Visible)
 			{
-				if (
-					isAdminOrContentAdmin ||
-					isSiteEditor ||
+				if (isAdminOrContentAdmin || isSiteEditor ||
 					WebUser.IsInRoles(siteSettings.RolesThatCanCreateRootPages) ||
-					((pageSettings.PageId != -1) && (pageSettings.ParentId == -1))
-				)
+					(pageSettings.PageId != -1 && pageSettings.ParentId == -1))
 				{
 					ddPages.Items.Insert(0, new ListItem(Resource.PageSettingsRootLabel, "-1"));
 				}
@@ -360,7 +327,6 @@ namespace mojoPortal.Web.AdminUI
 
 				lnkEditContent.NavigateUrl = SiteRoot + "/Admin/PageLayout.aspx?pageid=" + pageId.ToInvariantString();
 
-				//this.lblPageName.Text = pageSettings.PageName;
 				heading.Text = string.Format(CultureInfo.InvariantCulture, Resource.SettingsForPageFormat, pageSettings.PageName);
 
 				if (ddPages.Visible)
@@ -381,7 +347,7 @@ namespace mojoPortal.Web.AdminUI
 				chkShowHomeCrumb.Checked = pageSettings.ShowHomeCrumb;
 				txtPageKeywords.Text = pageSettings.PageMetaKeyWords;
 				txtPageDescription.Text = pageSettings.PageMetaDescription;
-				txtPageEncoding.Text = pageSettings.PageMetaEncoding;
+				//txtPageEncoding.Text = pageSettings.PageMetaEncoding;
 				//txtPageAdditionalMetaTags.Text = pageSettings.PageMetaAdditional;
 
 				txtMenuDesc.Text = pageSettings.MenuDescription;
@@ -413,18 +379,7 @@ namespace mojoPortal.Web.AdminUI
 				lblLastModifiedBy.Text = pageSettings.LastModByName;
 				lblLastModifiedFromIp.Text = pageSettings.LastModFromIp;
 
-				//ListItem item = ddIcons.Items.FindByValue(pageSettings.MenuImage);
-				//if (item != null)
-				//{
-				//    ddIcons.ClearSelection();
-				//    ddIcons.Items.FindByValue(pageSettings.MenuImage).Selected = true;
-				//    imgIcon.Src = iconPath + pageSettings.MenuImage;
-				//}
-
-				if (
-					autosuggestFriendlyUrls &&
-					(txtUrl.Text == string.Empty)
-				)
+				if (autosuggestFriendlyUrls && txtUrl.Text == string.Empty)
 				{
 					string friendlyUrl = SiteUtils.SuggestFriendlyUrl(txtPageName.Text, siteSettings);
 
@@ -452,10 +407,7 @@ namespace mojoPortal.Web.AdminUI
 				}
 				else
 				{
-					if (
-						(pageId == -1) &&
-						WebConfigSettings.AssignNewPagesParentPageSkinByDefault
-					)
+					if (pageId == -1 && WebConfigSettings.AssignNewPagesParentPageSkinByDefault)
 					{
 						if (parentPage != null)
 						{
@@ -473,7 +425,6 @@ namespace mojoPortal.Web.AdminUI
 			if (siteSettings.AllowHideMenuOnPages)
 			{
 				chkHideMainMenu.Checked = pageSettings.HideMainMenu;
-				//chkHidePageMenu.Checked = pageSettings.HidePageMenu;
 			}
 			else
 			{
@@ -482,7 +433,6 @@ namespace mojoPortal.Web.AdminUI
 
 			BindRoles(pageSettings);
 		}
-
 
 		private void BindRoles(PageSettings pageSettings)
 		{
@@ -542,7 +492,6 @@ namespace mojoPortal.Web.AdminUI
 					draftItem.Text = reader["DisplayName"].ToString();
 					draftItem.Value = reader["RoleName"].ToString();
 
-					//joe davis
 					ListItem draftApprovalItem = new ListItem();
 					draftApprovalItem.Text = reader["DisplayName"].ToString();
 					draftApprovalItem.Value = reader["RoleName"].ToString();
@@ -561,10 +510,7 @@ namespace mojoPortal.Web.AdminUI
 						rbViewAdminOnly.Checked = false;
 						rbViewUseRoles.Checked = true;
 
-						if (
-							pageSettings.AuthorizedRoles.LastIndexOf(listItem.Value + ";") > -1
-						// || ((isSiteEditor) && (siteSettings.SiteRootEditRoles.LastIndexOf(listItem.Value + ";") > -1)) //why?
-						)
+						if (pageSettings.AuthorizedRoles.LastIndexOf(listItem.Value + ";") > -1)
 						{
 							listItem.Selected = true;
 						}
@@ -580,44 +526,23 @@ namespace mojoPortal.Web.AdminUI
 						rbEditAdminOnly.Checked = false;
 						rbEditUseRoles.Checked = true;
 
-						if (
-							pageSettings.EditRoles.LastIndexOf(editItem.Value + ";") > -1
-						//  || ((isSiteEditor) && (siteSettings.SiteRootEditRoles.LastIndexOf(listItem.Value + ";") > -1))
-						)
+						if (pageSettings.EditRoles.LastIndexOf(editItem.Value + ";") > -1)
 						{
 							editItem.Selected = true;
 						}
 					}
-
-					//if (pageSettings.DraftEditOnlyRoles == "Admins;")
-					//{
-					//    rbDraftEditAdminsOnly.Checked = true;
-					//    rbDraftEditUseRoles.Checked = false;
-					//}
-					//else
-					//{
-					//    rbDraftEditAdminsOnly.Checked = false;
-					//    rbDraftEditUseRoles.Checked = true;
-
-					if (
-						pageSettings.DraftEditOnlyRoles.LastIndexOf(draftItem.Value + ";") > -1
-					//  || ((isSiteEditor) && (siteSettings.SiteRootDraftEditRoles.LastIndexOf(listItem.Value + ";") > -1))
-					)
+					
+					if (pageSettings.DraftEditOnlyRoles.LastIndexOf(draftItem.Value + ";") > -1)
 					{
 						draftItem.Selected = true;
 					}
 
-					//joe davis
-					if (
-						pageSettings.DraftApprovalRoles.LastIndexOf(draftApprovalItem.Value + ";") > -1
-					//  || ((isSiteEditor) && (siteSettings.SiteRootDraftEditRoles.LastIndexOf(listItem.Value + ";") > -1))
-					)
+
+					if (pageSettings.DraftApprovalRoles.LastIndexOf(draftApprovalItem.Value + ";") > -1)
 					{
 						draftApprovalItem.Selected = true;
 					}
-
-					// }
-
+					
 					if (pageSettings.CreateChildPageRoles == "Admins;")
 					{
 						rbCreateChildAdminOnly.Checked = true;
@@ -628,10 +553,7 @@ namespace mojoPortal.Web.AdminUI
 						rbCreateChildAdminOnly.Checked = false;
 						rbCreateChildUseRoles.Checked = true;
 
-						if (
-							pageSettings.CreateChildPageRoles.LastIndexOf(childItem.Value + ";") > -1
-						//   || ((isSiteEditor) && (siteSettings.SiteRootEditRoles.LastIndexOf(listItem.Value + ";") > -1))
-						)
+						if (pageSettings.CreateChildPageRoles.LastIndexOf(childItem.Value + ";") > -1)
 						{
 							childItem.Selected = true;
 						}
@@ -642,7 +564,7 @@ namespace mojoPortal.Web.AdminUI
 					chkDraftEditRoles.Items.Add(draftItem);
 					if (WebConfigSettings.Use3LevelContentWorkflow)
 					{
-						chkDraftApprovalRoles.Items.Add(draftApprovalItem); //joe davis
+						chkDraftApprovalRoles.Items.Add(draftApprovalItem); 
 					}
 
 					chkListCreateChildPageRoles.Items.Add(childItem);
@@ -655,7 +577,7 @@ namespace mojoPortal.Web.AdminUI
 				chkListEditRoles.Enabled = false;
 				chkListCreateChildPageRoles.Enabled = false;
 				chkDraftEditRoles.Enabled = false;
-				chkDraftApprovalRoles.Enabled = false; //joe davis
+				chkDraftApprovalRoles.Enabled = false; 
 			}
 		}
 
@@ -694,7 +616,6 @@ namespace mojoPortal.Web.AdminUI
 			return false;
 		}
 
-
 		private bool UserCanEditDraftOnly()
 		{
 			if (isAdminOrContentAdmin)
@@ -714,7 +635,6 @@ namespace mojoPortal.Web.AdminUI
 
 			return false;
 		}
-
 
 		private void PopulateChangeFrequencyDropdown()
 		{
@@ -742,7 +662,6 @@ namespace mojoPortal.Web.AdminUI
 			ddChangeFrequency.Items.Add(listItem);
 		}
 
-
 		private void PopulatePageList()
 		{
 			if (!ddPages.Visible)
@@ -764,13 +683,7 @@ namespace mojoPortal.Web.AdminUI
 		{
 			mojoSiteMapNode mojoNode = (mojoSiteMapNode)siteMapNode;
 
-			if (
-				!mojoNode.IsRootNode
-			//&&(mojoNode.IncludeInMenu) 
-			// commented out 2010-02-18 at request but I have a vague recollection there was an issue that required this
-			// it may have only been a concern it would cause support issues when people create new pages but then can't find them because
-			// they are invisible.
-			)
+			if (!mojoNode.IsRootNode)
 			{
 				if (
 					isAdminOrContentAdmin ||
@@ -808,11 +721,9 @@ namespace mojoPortal.Web.AdminUI
 				{
 					//recurse to populate children
 					PopulateListControl(listBox, childNode, pagePrefix);
-
 				}
 			}
 		}
-
 
 		private void Apply_Click(object sender, EventArgs e)
 		{
@@ -841,7 +752,6 @@ namespace mojoPortal.Web.AdminUI
 			}
 		}
 
-
 		void btnDelete_Click(object sender, EventArgs e)
 		{
 			if (pageSettings == null)
@@ -858,21 +768,19 @@ namespace mojoPortal.Web.AdminUI
 					userName = currentUser.Name;
 				}
 
-				log.Info("user " + userName + " deleted page " + pageSettings.PageName + " from ip address " + SiteUtils.GetIP4Address());
+				log.Info($"user {userName} deleted page {pageSettings.PageName} from ip address {SiteUtils.GetIP4Address()}");
 			}
 
 			metaRepository.DeleteByContent(pageSettings.PageGuid);
 			Module.DeletePageModules(pageSettings.PageId);
 			PageSettings.DeletePage(pageSettings.PageId);
 			FriendlyUrl.DeleteByPageGuid(pageSettings.PageGuid);
-			// needed for older versions where not every url has a pageguid
-			//FriendlyUrl.DeleteUrlByPageId(pageSettings.PageId);
+
 			mojoPortal.SearchIndex.IndexHelper.ClearPageIndexAsync(pageSettings);
 			CacheHelper.ResetSiteMapCache(siteSettings.SiteId);
 
 			WebUtils.SetupRedirect(this, SiteRoot + "/Default.aspx");
 		}
-
 
 		private bool SavePageData()
 		{
@@ -908,10 +816,8 @@ namespace mojoPortal.Web.AdminUI
 			pageSettings.SiteId = siteSettings.SiteId;
 			pageSettings.SiteGuid = siteSettings.SiteGuid;
 
-			if (
-				((pageSettings.PageId != newParentID) && (pageSettings.ParentId != newParentID)) ||
-				(pageSettings.PageId == -1)
-			)
+			if ((pageSettings.PageId != newParentID && pageSettings.ParentId != newParentID) ||
+				pageSettings.PageId == -1)
 			{
 				pageSettings.ParentId = newParentID;
 				pageSettings.PageOrder = PageSettings.GetNextPageOrder(pageSettings.SiteId, newParentID);
@@ -924,16 +830,13 @@ namespace mojoPortal.Web.AdminUI
 				userName = currentUser.Name;
 			}
 
-			if ((isAdminOrContentAdmin) && (!useSeparatePagesForRoles))
+			if (isAdminOrContentAdmin && !useSeparatePagesForRoles)
 			{
 				if (rbViewAdminOnly.Checked)
 				{
 					if (pageSettings.AuthorizedRoles != "Admins;")
 					{
-						log.Info("user " + userName + " changed page view roles for " + pageSettings.PageName
-							+ " to Admins "
-							+ " from ip address " + SiteUtils.GetIP4Address());
-
+						log.Info($"user {userName} changed page view roles for {pageSettings.PageName} to Admins from ip address {SiteUtils.GetIP4Address()}");
 						pageSettings.AuthorizedRoles = "Admins;";
 						reIndexPage = true;
 					}
@@ -944,10 +847,7 @@ namespace mojoPortal.Web.AdminUI
 
 					if (pageSettings.AuthorizedRoles != authorizedRoles)
 					{
-						log.Info("user " + userName + " changed page view roles for " + pageSettings.PageName
-							+ " to " + authorizedRoles
-							+ " from ip address " + SiteUtils.GetIP4Address());
-
+						log.Info($"user {userName} changed page view roles for {pageSettings.PageName} to {authorizedRoles} from ip address {SiteUtils.GetIP4Address()}");
 						pageSettings.AuthorizedRoles = authorizedRoles;
 						reIndexPage = true;
 					}
@@ -971,15 +871,8 @@ namespace mojoPortal.Web.AdminUI
 					pageSettings.CreateChildPageRoles = chkListCreateChildPageRoles.Items.SelectedItemsToSemiColonSeparatedString();
 				}
 
-				//if (rbDraftEditAdminsOnly.Checked)
-				//{
-				//    pageSettings.DraftEditOnlyRoles = "Admins;";
-				//}
-				//else
-				//{
 				pageSettings.DraftEditOnlyRoles = chkDraftEditRoles.Items.SelectedItemsToSemiColonSeparatedString();
-				//}
-				pageSettings.DraftApprovalRoles = chkDraftApprovalRoles.Items.SelectedItemsToSemiColonSeparatedString(); //joe davis
+				pageSettings.DraftApprovalRoles = chkDraftApprovalRoles.Items.SelectedItemsToSemiColonSeparatedString();
 			}
 
 			if (pageId == -1)
@@ -993,7 +886,7 @@ namespace mojoPortal.Web.AdminUI
 						pageSettings.EditRoles = parentPage.EditRoles;
 						pageSettings.CreateChildPageRoles = parentPage.CreateChildPageRoles;
 						pageSettings.DraftEditOnlyRoles = parentPage.DraftEditOnlyRoles;
-						pageSettings.DraftApprovalRoles = parentPage.DraftApprovalRoles; //joe davis
+						pageSettings.DraftApprovalRoles = parentPage.DraftApprovalRoles; 
 
 						if (WebUser.IsInRoles(parentPage.EditRoles))
 						{
@@ -1049,28 +942,20 @@ namespace mojoPortal.Web.AdminUI
 			pageSettings.ShowChildPageBreadcrumbs = chkShowChildPageBreadcrumbs.Checked;
 			pageSettings.ShowHomeCrumb = chkShowHomeCrumb.Checked;
 
-			if (
-				WebConfigSettings.IndexPageMeta &&
-				(pageSettings.PageMetaKeyWords != txtPageKeywords.Text)
-			)
+			if (WebConfigSettings.IndexPageMeta && pageSettings.PageMetaKeyWords != txtPageKeywords.Text)
 			{
 				reIndexPage = true;
 			}
 
 			pageSettings.PageMetaKeyWords = txtPageKeywords.Text;
 
-			if (
-				WebConfigSettings.IndexPageMeta &&
-				(pageSettings.PageMetaDescription != txtPageDescription.Text)
-			)
+			if (WebConfigSettings.IndexPageMeta && pageSettings.PageMetaDescription != txtPageDescription.Text)
 			{
 				reIndexPage = true;
 			}
 
 			pageSettings.PageMetaDescription = txtPageDescription.Text;
-			pageSettings.PageMetaEncoding = txtPageEncoding.Text;
-			//pageSettings.PageMetaAdditional = txtPageAdditionalMetaTags.Text;
-	
+
 			if (divUseUrl.Visible)
 			{
 				pageSettings.UseUrl = chkUseUrl.Checked;
@@ -1092,7 +977,7 @@ namespace mojoPortal.Web.AdminUI
 			pageSettings.IncludeInSiteMap = chkIncludeInSiteMap.Checked;
 			pageSettings.ExpandOnSiteMap = chkExpandOnSiteMap.Checked;
 			pageSettings.IncludeInChildSiteMap = chkIncludeInChildSiteMap.Checked;
-			//pageSettings.MenuImage = ddIcons.SelectedValue;
+
 			pageSettings.HideAfterLogin = chkHideAfterLogin.Checked;
 			pageSettings.IncludeInSearchMap = chkIncludeInSearchEngineSiteMap.Checked;
 			pageSettings.CanonicalOverride = txtCannonicalOverride.Text;
@@ -1103,7 +988,6 @@ namespace mojoPortal.Web.AdminUI
 
 			if (siteSettings.AllowPageSkins)
 			{
-				//pageSettings.Skin = ddSkins.SelectedValue;
 				pageSettings.Skin = SkinSetting.GetValue();
 			}
 
@@ -1124,11 +1008,9 @@ namespace mojoPortal.Web.AdminUI
 
 			FriendlyUrl friendlyUrl = new FriendlyUrl(siteSettings.SiteId, friendlyUrlString);
 
-			if (
-				(friendlyUrl.FoundFriendlyUrl && (friendlyUrl.PageGuid != pageSettings.PageGuid))
-				&& (pageSettings.Url != txtUrl.Text)
-				&& (!txtUrl.Text.StartsWith("http"))
-			)
+			if (friendlyUrl.FoundFriendlyUrl && friendlyUrl.PageGuid != pageSettings.PageGuid
+				&& pageSettings.Url != txtUrl.Text
+				&& !txtUrl.Text.StartsWith("http"))
 			{
 				lblError.Text = Resource.PageUrlInUseErrorMessage;
 				return false;
@@ -1195,8 +1077,8 @@ namespace mojoPortal.Web.AdminUI
 			//if page was renamed url will change, if url changes we need to redirect from the old url to the new with 301
 			// don't create a redirect for external urls, ie starting with "http"
 			if (
-				(oldUrl.Length > 0) &&
-				(newUrl.Length > 0) &&
+				oldUrl.Length > 0 &&
+				newUrl.Length > 0 &&
 				!SiteUtils.UrlsMatch(oldUrl, newUrl) &&
 				!oldUrl.StartsWith("http") &&
 				!newUrl.StartsWith("http")
@@ -1253,9 +1135,6 @@ namespace mojoPortal.Web.AdminUI
 				}
 			}
 
-			// commented out 2011-08-04 can't see why would clear the sitesettings cache here
-			//CacheHelper.ClearSiteSettingsCache();
-
 			CacheHelper.ResetSiteMapCache();
 
 			if (saved && reIndexPage)
@@ -1293,7 +1172,6 @@ namespace mojoPortal.Web.AdminUI
 
 
 		#region Meta Data
-
 		private void BindMeta()
 		{
 			if (pageSettings == null)
@@ -1312,7 +1190,6 @@ namespace mojoPortal.Web.AdminUI
 
 			btnAddMeta.Visible = true;
 		}
-
 
 		void grdContentMeta_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
@@ -1365,7 +1242,6 @@ namespace mojoPortal.Web.AdminUI
 			upMeta.Update();
 		}
 
-
 		void grdContentMeta_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
 			if (pageSettings == null)
@@ -1390,27 +1266,22 @@ namespace mojoPortal.Web.AdminUI
 			upMeta.Update();
 		}
 
-
 		void grdContentMeta_RowEditing(object sender, GridViewEditEventArgs e)
 		{
 			GridView grid = (GridView)sender;
 			grid.EditIndex = e.NewEditIndex;
 
 			BindMeta();
-
-			//Guid guid = new Guid(grid.DataKeys[grid.EditIndex].Value.ToString());
-
+			
 			Button btnDeleteMeta = (Button)grid.Rows[e.NewEditIndex].Cells[1].FindControl("btnDeleteMeta");
 
 			if (btnDeleteMeta != null)
 			{
 				btnDelete.Attributes.Add("OnClick", "return confirm('" + Resource.ContentMetaDeleteWarning + "');");
-				//if (guid == Guid.Empty) { btnDeleteMeta.Visible = false; }
 			}
 
 			upMeta.Update();
 		}
-
 
 		void grdContentMeta_RowDataBound(object sender, GridViewRowEventArgs e)
 		{
@@ -1449,7 +1320,6 @@ namespace mojoPortal.Web.AdminUI
 				}
 			}
 		}
-
 
 		void grdContentMeta_RowUpdating(object sender, GridViewUpdateEventArgs e)
 		{
@@ -1522,7 +1392,6 @@ namespace mojoPortal.Web.AdminUI
 			upMeta.Update();
 		}
 
-
 		void grdContentMeta_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
 		{
 			grdContentMeta.EditIndex = -1;
@@ -1531,7 +1400,6 @@ namespace mojoPortal.Web.AdminUI
 			BindMeta();
 			upMeta.Update();
 		}
-
 
 		void btnAddMeta_Click(object sender, EventArgs e)
 		{
@@ -1594,7 +1462,6 @@ namespace mojoPortal.Web.AdminUI
 			btnAddMetaLink.Visible = true;
 		}
 
-
 		void btnAddMetaLink_Click(object sender, EventArgs e)
 		{
 			DataTable dataTable = new DataTable();
@@ -1650,7 +1517,6 @@ namespace mojoPortal.Web.AdminUI
 			}
 		}
 
-
 		void grdMetaLinks_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
 			if (pageSettings == null)
@@ -1676,7 +1542,6 @@ namespace mojoPortal.Web.AdminUI
 			updMetaLinks.Update();
 		}
 
-
 		void grdMetaLinks_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
 		{
 			grdMetaLinks.EditIndex = -1;
@@ -1684,7 +1549,6 @@ namespace mojoPortal.Web.AdminUI
 			BindMetaLinks();
 			updMetaLinks.Update();
 		}
-
 
 		void grdMetaLinks_RowUpdating(object sender, GridViewUpdateEventArgs e)
 		{
@@ -1748,7 +1612,6 @@ namespace mojoPortal.Web.AdminUI
 			updMetaLinks.Update();
 		}
 
-
 		void grdMetaLinks_RowEditing(object sender, GridViewEditEventArgs e)
 		{
 			GridView grid = (GridView)sender;
@@ -1772,7 +1635,6 @@ namespace mojoPortal.Web.AdminUI
 
 			updMetaLinks.Update();
 		}
-
 
 		void grdMetaLinks_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
@@ -1834,19 +1696,10 @@ namespace mojoPortal.Web.AdminUI
 			heading.Text = Resource.PageSettingsLabel;
 
 			litSettingsTab.Text = Resource.PageSettingsMainSettingsTab;
-			//litSecurityTab.Text = Resource.PageSettingsSecurityTab;
 			litSecurityTab.Text = "<a href='#" + tabSecurity.ClientID + "'>" + Resource.PageSettingsSecurityTab + "</a>";
 
 			litMetaSettingsTab.Text = Resource.PageSettingsMetaDataTab;
 			litSEOTab.Text = Resource.PageSettingsSearchEngineOptimizationSettingsLabel;
-
-			//lnkSSLTab.HRef = "#" + tabSSL.ClientID;
-			//litSSLTab.Text = Resource.PageSettingsSSLTab;
-			//litViewRolesTab.Text = Resource.PageLayoutAuthorizedRolesLabel;
-			//litEditRolesTab.Text = Resource.PageLayoutEditRolesLabel;
-			//litDraftEditRolesTab.Text = Resource.PageLayoutDraftEditRolesLabel;
-			//litChildPageRolesTab.Text = Resource.PageLayoutCreateChildPageRolesLabel;
-			//lnkDraftEditRoles.HRef = "#" + tabDraftEditRoles.ClientID;
 
 			lnkPageViewRoles.Text = Resource.PageLayoutViewRolesLabel;
 			lnkPageViewRoles.NavigateUrl = SiteRoot + "/Admin/PagePermission.aspx?pageid=" + pageId.ToInvariantString() + "&p=v";
@@ -1862,8 +1715,6 @@ namespace mojoPortal.Web.AdminUI
 
 			lnkChildPageRoles.Text = Resource.PageLayoutCreateChildPageRolesLabel;
 			lnkChildPageRoles.NavigateUrl = SiteRoot + "/Admin/PagePermission.aspx?pageid=" + pageId.ToInvariantString() + "&p=ce";
-
-			//imgIcon.Alt = Resource.PageSettingsMenuImageAtlText;
 
 			reqPageName.ErrorMessage = Resource.PageNameRequiredWarning;
 			regexUrl.ErrorMessage = Resource.FriendlyUrlRegexWarning;
@@ -1884,7 +1735,6 @@ namespace mojoPortal.Web.AdminUI
 				{
 					UIHelper.AddConfirmationDialog(btnDelete, Resource.PageSettingsDeleteWarning);
 				}
-
 
 				lnkEditContent.Text = Resource.AddFeaturesToPageLink;
 				lnkViewPage.Text = Resource.PageViewPageLink;
@@ -1909,7 +1759,6 @@ namespace mojoPortal.Web.AdminUI
 				}
 			}
 
-			//liSSL.Visible = false;
 			tabSSL.Visible = false;
 
 			if (!siteSettings.UseSslOnAllPages)
@@ -1917,12 +1766,9 @@ namespace mojoPortal.Web.AdminUI
 				if (SiteUtils.SslIsAvailable())
 				{
 					sslIsAvailable = true;
-					// liSSL.Visible = true;
 					tabSSL.Visible = true;
 				}
 			}
-
-			//litUrlConflictWarning.Text = Resource.PageSettingsPhysicalUrlWarning;
 
 			lnkPageTree.Visible = WebUser.IsAdminOrContentAdmin;
 			lnkPageTree.Text = Resource.AdminMenuPageTreeLink;
@@ -1949,52 +1795,30 @@ namespace mojoPortal.Web.AdminUI
 			rbEditAdminOnly.Text = Resource.AdminsOnly;
 			rbEditUseRoles.Text = Resource.RolesAllowed;
 
-			//rbDraftEditAdminsOnly.Text = Resource.AdminsOnly;
-			//rbDraftEditUseRoles.Text = Resource.RolesAllowed;
-
 			rbCreateChildAdminOnly.Text = Resource.AdminsOnly;
 			rbCreateChildUseRoles.Text = Resource.RolesAllowed;
 		}
-
 
 		private void SetupRoleToggleScript()
 		{
 			StringBuilder script = new StringBuilder();
 
 			script.Append("\n<script type='text/javascript'>");
-
 			script.Append("function DeSelectRoles(chkBoxContainer) {");
-
-			//script.Append("alert('function called'); ");
-
 			script.Append("$(chkBoxContainer).find('input[type=checkbox]').each(function(){this.checked = false; }); ");
-
-			//script.Append("}");
-
 			script.Append("} ");
-
 			script.Append("$(document).ready(function() {");
-
 			script.Append("$('#" + rbViewAdminOnly.ClientID + "').change(function(){");
 			script.Append("var selectedVal = $('#" + rbViewAdminOnly.ClientID + "').attr('checked'); ");
 			script.Append("if(selectedVal === 'checked'){");
 			script.Append("DeSelectRoles('#" + chkListAuthRoles.ClientID + "');}");
 			script.Append("});");
 
-
 			script.Append("$('#" + rbEditAdminOnly.ClientID + "').change(function(){");
 			script.Append("var selectedVal = $('#" + rbEditAdminOnly.ClientID + "').attr('checked'); ");
 			script.Append("if(selectedVal === 'checked'){");
 			script.Append("DeSelectRoles('#" + chkListEditRoles.ClientID + "');}");
 			script.Append("});");
-
-
-			//script.Append("$('#" + rbDraftEditAdminsOnly.ClientID + "').change(function(){");
-			//script.Append("var selectedVal = $('#" + rbDraftEditAdminsOnly.ClientID + "').attr('checked'); ");
-			//script.Append("if(selectedVal === 'checked'){");
-			//script.Append("DeSelectRoles('#" + chkDraftEditRoles.ClientID + "');}");
-			//script.Append("});");
-
 
 			script.Append("$('#" + rbCreateChildAdminOnly.ClientID + "').change(function(){");
 			script.Append("var selectedVal = $('#" + rbCreateChildAdminOnly.ClientID + "').attr('checked'); ");
@@ -2009,16 +1833,12 @@ namespace mojoPortal.Web.AdminUI
 			Page.ClientScript.RegisterStartupScript(typeof(Page), "roletoggle", script.ToString());
 		}
 
-
 		private void SetupParentPageSelectorScript()
 		{
 			StringBuilder script = new StringBuilder();
 
 			script.Append("\n<script type='text/javascript'>");
-
 			script.Append("function SetPage(pageId, pageName) {");
-
-			// script.Append("GB_hide();");
 
 			script.Append("var hdnUI = document.getElementById('" + hdnParentPageId.ClientID + "'); ");
 			script.Append("hdnUI.value = pageId; ");
@@ -2026,7 +1846,6 @@ namespace mojoPortal.Web.AdminUI
 			script.Append("var lbl = document.getElementById('" + lblParentPageName.ClientID + "');  ");
 			script.Append("lbl.innerHTML = pageName; ");
 
-			//script.Append("alert(pageName);");
 			script.Append("$.colorbox.close(); ");
 
 			script.Append("}");
@@ -2034,20 +1853,6 @@ namespace mojoPortal.Web.AdminUI
 
 			Page.ClientScript.RegisterStartupScript(typeof(Page), "SelectPrentPageHandler", script.ToString());
 		}
-
-
-		//private void SetupIconScript(HtmlImage imgIcon)
-		//{
-		//    string logoScript = "<script type=\"text/javascript\">"
-		//        + "function showIcon(listBox) { if(!document.images) return; "
-		//        + "var iconPath = '" + iconPath + "'; "
-		//        + "document.images." + imgIcon.ClientID + ".src = iconPath + listBox.value;"
-		//        + "}</script>";
-
-		//    this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "showIcon", logoScript);
-
-		//}
-
 
 		private void LoadSettings()
 		{
@@ -2058,14 +1863,10 @@ namespace mojoPortal.Web.AdminUI
 			pageId = WebUtils.ParseInt32FromQueryString("pageid", -1);
 			startPageId = WebUtils.ParseInt32FromQueryString("start", -1);
 			currentUser = SiteUtils.GetCurrentSiteUser();
-			//iconPath = ImageSiteRoot + "/Data/SiteImages/FeatureIcons/";
 			divIsClickable.Visible = StyleCombiner.EnableNonClickablePageLinks;
 			ScriptConfig.IncludeColorBox = true;
 			timeZone = SiteUtils.GetUserTimeZone();
-
-			//divAdditionalMeta.Visible = WebConfigSettings.ShowAdditionalMeta;
-			divPageEncoding.Visible = WebConfigSettings.ShowPageEncoding;
-
+			
 			h3DraftRoles.Visible = useWorkFlow;
 			divIsPending.Visible = useWorkFlow;
 			divDraftRoles.Visible = useWorkFlow;
@@ -2120,11 +1921,7 @@ namespace mojoPortal.Web.AdminUI
 			if (pageCount > WebConfigSettings.TooManyPagesForDropdownList)
 			{
 				ddPages.Visible = false;
-				//lnkParentPageLookup.Visible = true;
-				//lnkParentPageLookup.Text = Resource.Browse;
-				//lnkParentPageLookup.ToolTip = Resource.ChooseParentPage;
-				//lnkParentPageLookup.DialogCloseText = Resource.CloseDialogButton;
-				//lnkParentPageLookup.NavigateUrl = SiteRoot + "/Dialog/ParentPageDialog.aspx?pageid=" + pageId.ToInvariantString();
+
 				lblParentPageName.Visible = true;
 
 				lnkParentPageEdit.Visible = true;
@@ -2144,8 +1941,6 @@ namespace mojoPortal.Web.AdminUI
 				rbViewUseRoles.Enabled = false;
 				rbEditAdminOnly.Enabled = false;
 				rbEditUseRoles.Enabled = false;
-				//rbDraftEditAdminsOnly.Enabled = false;
-				//rbDraftEditUseRoles.Enabled = false;
 				rbCreateChildAdminOnly.Enabled = false;
 				rbCreateChildUseRoles.Enabled = false;
 			}
@@ -2155,16 +1950,6 @@ namespace mojoPortal.Web.AdminUI
 
 			if (useSeparatePagesForRoles)
 			{
-				//liSecurity.Visible = false;
-				//tabSecurity.Visible = false;
-				//h3ViewRoles.Visible = false;
-				//divViewRoles.Visible = false;
-				//h3EditRoles.Visible = false;
-				//divEditRoles.Visible = false;
-				//h3DraftRoles.Visible = false;
-				//divDraftRoles.Visible = false;
-				//h3ChildEditRoles.Visible = false;
-				//divChildEditRoles.Visible = false;
 				divRoles.Visible = false;
 				if (pageId > -1)
 				{
@@ -2184,18 +1969,6 @@ namespace mojoPortal.Web.AdminUI
 
 		private void SetupScripts()
 		{
-			//if (!Page.ClientScript.IsClientScriptBlockRegistered("sarissa"))
-			//{
-			//    this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "sarissa", "<script type=\"text/javascript\" src=\""
-			//        + ResolveUrl("~/ClientScript/sarissa/sarissa.js") + "\"></script>");
-			//}
-
-			//if (!Page.ClientScript.IsClientScriptBlockRegistered("sarissa_ieemu_xpath"))
-			//{
-			//    this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "sarissa_ieemu_xpath", "<script type=\"text/javascript\" src=\""
-			//        + ResolveUrl("~/ClientScript/sarissa/sarissa_ieemu_xpath.js") + "\"></script>");
-			//}
-
 			if (
 				autosuggestFriendlyUrls &&
 				((pageId == -1) || WebConfigSettings.AutoSuggestFriendlyUrlsOnPageNameChanges)

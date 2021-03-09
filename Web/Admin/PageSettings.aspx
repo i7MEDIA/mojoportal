@@ -398,13 +398,13 @@
 										<asp:TextBox ID="txtPageDescription" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 										<portal:mojoHelpLink ID="MojoHelpLink23" runat="server" HelpKey="pagesettingsmetadescriptionhelp" />
 									</div>
-									<div id="divPageEncoding" runat="server" visible="false" class="settingrow">
+<%--									<div id="divPageEncoding" runat="server" visible="false" class="settingrow">
 										<mp:SiteLabel ID="lblEncoding" runat="server" ForControl="txtPageEncoding" CssClass="settinglabel"
 											ConfigKey="PageLayoutMetaEncodingLabel">
 										</mp:SiteLabel>
 										<asp:TextBox ID="txtPageEncoding" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 										<portal:mojoHelpLink ID="MojoHelpLink24" runat="server" HelpKey="pagesettingsmetaencodinghelp" />
-									</div>
+									</div>--%>
 									<asp:Panel ID="pnlMeta" runat="server">
 										<div class="settingrow">
 											<mp:SiteLabel ID="lblAdditionalMetaTags" runat="server" CssClass="settinglabel" ConfigKey="PageLayoutMetaAdditionalLabel"></mp:SiteLabel>
