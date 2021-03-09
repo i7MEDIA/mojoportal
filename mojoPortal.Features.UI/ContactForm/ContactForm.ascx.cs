@@ -145,10 +145,10 @@ namespace mojoPortal.Web.ContactUI
 
 				string fromAddress = siteSettings.DefaultEmailFromAddress;
 
-				if (config.UseInputAsFromAddress)
-				{
-					fromAddress = txtEmail.Text;
-				}
+				//if (config.UseInputAsFromAddress)
+				//{
+				//	fromAddress = txtEmail.Text;
+				//}
 
 				if ((config.EmailAddresses != null) && (config.EmailAddresses.Count > 0))
 				{
