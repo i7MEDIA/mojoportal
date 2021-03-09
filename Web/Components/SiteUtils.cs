@@ -1588,17 +1588,16 @@ namespace mojoPortal.Web
 				}
 
 				if (
-					(allowPageOverride)
+					allowPageOverride
 					&& (currentPage != null)
-					&& (siteSettings.AllowPageSkins)
-					&& ((page != null)
+					&& siteSettings.AllowPageSkins
+					&& (page != null)
 						&& (
 						(page is mojoPortal.Web.AdminUI.PageLayout)
 						|| (page is mojoPortal.Web.AdminUI.PageProperties)
 						|| (page is mojoPortal.Web.AdminUI.ModuleSettingsPage)
 						||(!(page is NonCmsBasePage))
 						)
-					   )
 					)
 				{
 					if (currentPage.Skin.Length > 0)

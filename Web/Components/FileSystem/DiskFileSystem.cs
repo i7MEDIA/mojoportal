@@ -475,22 +475,4 @@ namespace mojoPortal.FileSystem
 
 
 	}
-
-	#if NET35
-	public static class Net35IOHelper
-	{
-		//there is a CopyTo on Stream in .NET 4
-
-		public static void CopyTo(this Stream input, Stream output)
-		{
-			byte[] buffer = new byte[32768];
-			int read;
-			while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
-			{
-				output.Write(buffer, 0, read);
-			}
-		}
-
-	}
-#endif
 }
