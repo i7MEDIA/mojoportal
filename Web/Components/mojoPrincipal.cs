@@ -43,7 +43,7 @@ namespace mojoPortal.Web.Security
             }
 
             
-            if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+            if (WebConfigSettings.UseFolderBasedMultiTenants)
             {
                 string virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
 

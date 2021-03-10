@@ -409,7 +409,7 @@ namespace mojoPortal.Business.WebHelpers
         private static SiteSettings GetSiteSettingsFromCache()
         {
     
-            bool useFolderForSiteDetection = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+            bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
             string cachekey;
             int siteId;
 
@@ -460,7 +460,7 @@ namespace mojoPortal.Business.WebHelpers
 
             try
             {
-                bool useFolderForSiteDetection = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+                bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
                 
                 string siteFolderName;
                 if (useFolderForSiteDetection)
@@ -741,7 +741,6 @@ namespace mojoPortal.Business.WebHelpers
 			if (siteSettings == null) return null;
 
 			bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
-			//= ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
 			string virtualFolder;
 
 			if (useFolderForSiteDetection)
@@ -888,8 +887,7 @@ namespace mojoPortal.Business.WebHelpers
             SiteSettings siteSettings = GetCurrentSiteSettings();
             if (siteSettings == null) return menuPages;
 
-            bool useFolderForSiteDetection 
-                = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+            bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
             string virtualFolder;
             if (useFolderForSiteDetection)
             {
@@ -1059,7 +1057,7 @@ namespace mojoPortal.Business.WebHelpers
 
         public static string GetPathToWebConfigFile()
         {
-            return System.Web.Hosting.HostingEnvironment.MapPath("~/Web.config");
+            return HostingEnvironment.MapPath("~/Web.config");
         }
 
         

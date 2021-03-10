@@ -197,7 +197,7 @@ namespace mojoPortal.Web.ELetterUI
         void btnSendPreview_Click(object sender, EventArgs e)
         {
             string baseUrl = WebUtils.GetHostRoot();
-            if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+            if (WebConfigSettings.UseFolderBasedMultiTenants)
             {
                 // in folder based sites the relative urls in the editor will already have the folder name
                 // so we want to use just the raw site root not the navigation root

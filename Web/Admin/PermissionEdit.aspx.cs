@@ -231,7 +231,7 @@ namespace mojoPortal.Web.AdminUI
 			if (WebConfigSettings.UseRelatedSiteMode)
 			{
 
-				SiteSettings.SyncRelatedSites(selectedSite, WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites);
+				SiteSettings.SyncRelatedSites(selectedSite, WebConfigSettings.UseFolderBasedMultiTenants);
 
 				// reset the sitesettings cache for each site
 				CacheHelper.ClearRelatedSiteCache(-1);

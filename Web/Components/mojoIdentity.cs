@@ -78,7 +78,7 @@ namespace mojoPortal.Web.Security
             {
                 if (!alreadyChecked)
                 {
-                    bool useFolderForSiteDetection = WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites;
+                    bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
                     
                     if (
                         (isAuthenticated) 

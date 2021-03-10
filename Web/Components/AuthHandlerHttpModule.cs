@@ -67,7 +67,7 @@ namespace mojoPortal.Web
                 log.Error(ex);
                 return;
             }
-            bool useFolderForSiteDetection = WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites;
+            bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 
             // Added by Haluk Eryuksel - 2006-01-23
             // support for Windows authentication

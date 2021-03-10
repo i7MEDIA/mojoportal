@@ -378,7 +378,7 @@ namespace mojoPortal.Web.UI.Pages
 					FormsAuthentication.SetAuthCookie(siteUser.LoginName, false);
 				}
 
-				if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+				if (WebConfigSettings.UseFolderBasedMultiTenants)
 				{
 					string cookieName = "siteguid" + siteSettings.SiteGuid;
 					CookieHelper.SetCookie(cookieName, siteUser.UserGuid.ToString(), false);

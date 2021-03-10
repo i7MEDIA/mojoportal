@@ -61,13 +61,15 @@ namespace mojoPortal.Web.Controllers
 			StringBuilder returnErrors = new StringBuilder();
 			Dictionary<string, FileService.ReturnMessage> returnMessages = new Dictionary<string, FileService.ReturnMessage>();
 
-			request.Path = request.Path.Replace(Resource.UserFolder, fileSystem.Permission.UserFolder);
-			request.NewItemPath = request.NewItemPath.Replace(Resource.UserFolder, fileSystem.Permission.UserFolder);
-			request.NewPath = request.NewPath.Replace(Resource.UserFolder, fileSystem.Permission.UserFolder);
-			request.Item = request.Item.Replace(Resource.UserFolder, fileSystem.Permission.UserFolder);
+			var localizedUserFolder = "/" + Resource.UserFolder;
+
+			request.Path = request.Path.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
+			request.NewItemPath = request.NewItemPath.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
+			request.NewPath = request.NewPath.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
+			request.Item = request.Item.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
 			if (request.Items.Count > 0)
 			{
-				request.Items = request.Items.Select(s => s.Replace(Resource.UserFolder, fileSystem.Permission.UserFolder)).ToList();
+				request.Items = request.Items.Select(s => s.Replace(localizedUserFolder, fileSystem.Permission.UserFolder)).ToList();
 			}
 			switch (request.Action)
 			{
@@ -751,7 +753,7 @@ namespace mojoPortal.Web.Controllers
 				return itemPath;
 			}
 
-			var userFolder = "/" + Resource.UserFolder;
+			var userFolder = fileSystem.Permission.UserFolder;
 
 			if (itemPath.Contains(userFolder))
 			{

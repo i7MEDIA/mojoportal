@@ -89,7 +89,7 @@ namespace mojoPortal.Web.UI.Pages
                     siteUser.LoginName, liveUser.UsePersistentCookie);
             }
 
-            if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+            if (WebConfigSettings.UseFolderBasedMultiTenants)
             {
                 string cookieName = "siteguid" + siteSettings.SiteGuid;
                 CookieHelper.SetCookie(cookieName, siteUser.UserGuid.ToString(), liveUser.UsePersistentCookie);

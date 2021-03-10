@@ -93,12 +93,13 @@ namespace mojoPortal.Web
 
             string requestPath = app.Request.Path;
             
-            bool useFolderForSiteDetection = WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites;
+            bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 
             string virtualFolderName;
             if (useFolderForSiteDetection)
             {
                 virtualFolderName = VirtualFolderEvaluator.VirtualFolderName();
+				if (virtualFolderName.Length > 0) virtualFolderName = "/" + virtualFolderName;
             }
             else
             {
@@ -112,7 +113,7 @@ namespace mojoPortal.Web
             {
                 setClientFilePath = false;
 
-                if (requestPath.StartsWith("/" + virtualFolderName) && requestPath.Length > virtualFolderName.Length)
+                if (requestPath.StartsWith(virtualFolderName) && requestPath.Length > virtualFolderName.Length)
                 {
                     var v = requestPath.Split('/');
                     var w = v.Distinct().ToArray();

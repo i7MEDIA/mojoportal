@@ -84,7 +84,7 @@ namespace mojoPortal.Web.Services
 
                 siteSettings = CacheHelper.GetCurrentSiteSettings();
                 //string siteRoot;
-                //if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+                //if (WebConfigSettings.UseFolderBasedMultiTenants)
                 //{
                 //    siteRoot = WebUtils.GetSiteRoot();
                 //}

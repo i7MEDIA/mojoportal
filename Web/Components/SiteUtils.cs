@@ -1993,7 +1993,7 @@ namespace mojoPortal.Web
 			}
 			
 			
-			bool useFolderForSiteDetection = Config.ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+			bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 
 			if (useFolderForSiteDetection)
 			{
@@ -2026,7 +2026,7 @@ namespace mojoPortal.Web
 			}
 
 			string navigationRoot = WebUtils.GetSiteRoot();
-			bool useFolderForSiteDetection = Config.ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+			bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 
 			if (useFolderForSiteDetection)
 			{
@@ -2062,7 +2062,7 @@ namespace mojoPortal.Web
 			}
 
 			string navigationRoot = WebUtils.GetRelativeSiteRoot();
-			bool useFolderForSiteDetection = Config.ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+			bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 
 			if (useFolderForSiteDetection)
 			{
@@ -2091,7 +2091,7 @@ namespace mojoPortal.Web
 			}
 
 			string navigationRoot = WebUtils.GetSecureSiteRoot();
-			bool useFolderForSiteDetection = Config.ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+			bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 
 			if (useFolderForSiteDetection)
 			{
@@ -2120,7 +2120,7 @@ namespace mojoPortal.Web
 			}
 
 			string navigationRoot = WebUtils.GetInSecureSiteRoot();
-			bool useFolderForSiteDetection = Config.ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+			bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 
 			if (useFolderForSiteDetection)
 			{
@@ -2213,7 +2213,7 @@ namespace mojoPortal.Web
 		public static string GetPageUrl(PageSettings pageSettings)
 		{
 			string navigationRoot = string.Empty;
-			bool useFolderForSiteDetection = Config.ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+			bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 			if (

@@ -240,7 +240,7 @@ namespace mojoPortal.Web.UI.Pages
                 redirectUrl = SiteRoot;
                 if (
                     (!siteSettings.IsServerAdminSite)
-                    && (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+                    && (WebConfigSettings.UseFolderBasedMultiTenants)
                     && (WebConfigSettings.AppendDefaultPageToFolderRootUrl)
                     )
                 {

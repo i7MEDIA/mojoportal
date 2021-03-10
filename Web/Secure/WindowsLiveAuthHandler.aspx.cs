@@ -417,7 +417,7 @@ namespace mojoPortal.Web
 
                 }
 
-                if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+                if (WebConfigSettings.UseFolderBasedMultiTenants)
                 {
                     string cookieName = "siteguid" + siteSettings.SiteGuid;
                     CookieHelper.SetCookie(cookieName, user.UserGuid.ToString(), persistCookie);
