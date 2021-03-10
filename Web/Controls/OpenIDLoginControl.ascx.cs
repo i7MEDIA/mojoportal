@@ -175,7 +175,7 @@ namespace mojoPortal.Web
                     user.LoginName, true);
             }
 
-            if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+            if (WebConfigSettings.UseFolderBasedMultiTenants)
             {
                 string cookieName = "siteguid" + siteSettings.SiteGuid;
                 CookieHelper.SetCookie(cookieName, user.UserGuid.ToString(), true);
@@ -294,7 +294,7 @@ namespace mojoPortal.Web
                             newUser.LoginName, true);
                     }
 
-                    if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+                    if (WebConfigSettings.UseFolderBasedMultiTenants)
                     {
                         string cookieName = "siteguid" + siteSettings.SiteGuid;
                         CookieHelper.SetCookie(cookieName, newUser.UserGuid.ToString(), true);
