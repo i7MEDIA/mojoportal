@@ -10,19 +10,13 @@ namespace mojoPortal.FileSystem
 {
 	public class DiskFileSystemProvider : FileSystemProvider
 	{
-		private SiteSettings siteSettings = null;
-		private SiteUser currentUser = null;
 		private const long bytesPerMegabyte = 1048576;
 		private ILog log = LogManager.GetLogger(typeof(DiskFileSystemProvider));
 
 
 		public override IFileSystem GetFileSystem()
 		{
-			if (siteSettings == null)
-			{
-				siteSettings = CacheHelper.GetCurrentSiteSettings();
-			}
-
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
 			IFileSystemPermission p = GetFileSystemPermission();
 
 			if (p == null)
@@ -41,21 +35,30 @@ namespace mojoPortal.FileSystem
 
 		public override IFileSystem GetFileSystem(int siteId)
 		{
-			siteSettings =  new SiteSettings(siteId);
+			var siteSettings =  new SiteSettings(siteId);
 			if (siteSettings == null)
 			{
 				log.Error($"Site Settings is NULL!!!! Passed SiteId={siteId} from ");
 			}
-			return GetFileSystem();
+			IFileSystemPermission p = GetFileSystemPermission();
+
+			if (p == null)
+			{
+				return null;
+			}
+
+			if (string.IsNullOrEmpty(p.VirtualRoot))
+			{
+				return null;
+			}
+
+			return DiskFileSystem.GetFileSystem(p);
 		}
 
 		public override IFileSystem GetFileSystem(IFileSystemPermission permission)
 		{
-			if (siteSettings == null)
-			{
-				siteSettings = CacheHelper.GetCurrentSiteSettings();
-			}
-			//IFileSystemPermission p = GetFileSystemPermission();
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
+
 			if (permission == null)
 			{
 				return null;
@@ -89,6 +92,8 @@ namespace mojoPortal.FileSystem
 
 		private string GetVirtualPath()
 		{
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
+
 			if (siteSettings == null)
 			{
 				log.Error("Cannot load file system because Site Settings could not be loaded.");
@@ -128,7 +133,7 @@ namespace mojoPortal.FileSystem
 			}
 			else if (WebUser.IsInRoles(siteSettings.UserFilesBrowseAndUploadRoles))
 			{
-				currentUser = SiteUtils.GetCurrentSiteUser();
+				var currentUser = SiteUtils.GetCurrentSiteUser();
 
 				if (currentUser == null)
 				{
@@ -146,14 +151,16 @@ namespace mojoPortal.FileSystem
 
 		private string GetUserFolder()
 		{
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
+
+			if (siteSettings == null)
+			{
+				log.Error("Cannot load file system because Site Settings could not be loaded.");
+				throw new ArgumentNullException("could not load SiteSettings");
+			}
+
 			if (WebUser.IsInRoles(siteSettings.UserFilesBrowseAndUploadRoles))
 			{
-				if (siteSettings == null)
-				{
-					log.Error("Cannot load file system because Site Settings could not be loaded.");
-					throw new ArgumentNullException("could not load SiteSettings");
-				}
-
 				int siteId = siteSettings.SiteId;
 
 				if (WebConfigSettings.UseRelatedSiteMode && WebConfigSettings.UseSameContentFolderForRelatedSiteMode)
@@ -161,7 +168,7 @@ namespace mojoPortal.FileSystem
 					siteId = WebConfigSettings.RelatedSiteID;
 				}
 
-				currentUser = SiteUtils.GetCurrentSiteUser();
+				var currentUser = SiteUtils.GetCurrentSiteUser();
 
 				if (currentUser == null)
 				{
@@ -179,6 +186,8 @@ namespace mojoPortal.FileSystem
 		private bool UserHasUploadPermission()
 		{
 			bool result = false;
+
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
 
 			if (siteSettings == null)
 			{
@@ -204,6 +213,8 @@ namespace mojoPortal.FileSystem
 
 		private bool UserHasBrowsePermission()
 		{
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
+
 			if (siteSettings == null)
 			{
 				return false;
@@ -220,7 +231,9 @@ namespace mojoPortal.FileSystem
 
 		private int GetMaxFiles()
 		{
-			if ((WebUser.IsAdminOrContentAdmin) || SiteUtils.UserIsSiteEditor())
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
+			
+			if (WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor())
 			{
 				return WebConfigSettings.AdminMaxNumberOfFiles;
 			}
@@ -241,6 +254,8 @@ namespace mojoPortal.FileSystem
 
 		private int GetMaxFolders()
 		{
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
+
 			if (WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor())
 			{
 				return WebConfigSettings.AdminMaxNumberOfFolders;
@@ -262,6 +277,8 @@ namespace mojoPortal.FileSystem
 
 		private long GetMaxSizePerFile()
 		{
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
+
 			if (WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor())
 			{
 				return WebConfigSettings.AdminMaxSizePerFileInMegaBytes * bytesPerMegabyte;
@@ -283,6 +300,8 @@ namespace mojoPortal.FileSystem
 
 		private long GetQuota()
 		{
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
+
 			if (WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor())
 			{
 				return WebConfigSettings.AdminDiskQuotaInMegaBytes * bytesPerMegabyte;
@@ -304,6 +323,7 @@ namespace mojoPortal.FileSystem
 
 		private IEnumerable<string> GetAllowedExtensions()
 		{
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
 
 			if (WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor())
 			{
