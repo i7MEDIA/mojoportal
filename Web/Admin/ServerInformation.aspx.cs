@@ -130,6 +130,7 @@ namespace mojoPortal.Web.AdminUI
                 grdSchemaVersion.DataBind();
             }
 
+			btnRestart.Attributes.Add("class", displaySettings.RestartButtonClass);
         }
 
 		private void GetUpdateInfo()

@@ -47,7 +47,7 @@
                 <asp:Literal ID="litCurrentGMT" runat="server" />
             </div>
 			<div class="settingrow restartbuttonrow">
-				<button id="btnRestart" runat="server" onserverclick="btnRestart_ServerClick" class="<%= displaySettings.RestartButtonClass %>"><%= Resources.Resource.RestartWebApp %></button>
+				<button id="btnRestart" runat="server" onserverclick="btnRestart_ServerClick"><%= Resources.Resource.RestartWebApp %></button>
 			</div>
             <asp:Panel ID="pnlFeatureVersions" runat="server" CssClass="settingrow">
             <h2 class="heading">
