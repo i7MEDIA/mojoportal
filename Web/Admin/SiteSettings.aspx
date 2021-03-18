@@ -76,14 +76,11 @@
 										<mp:SiteLabel runat="server" CssClass="settinglabel" ConfigKey="TimeZone" />
 										<portal:TimeZoneIdSetting ID="timeZone" runat="server" />
 									</portal:FormGroupPanel>
-
-
 									<portal:FormGroupPanel runat="server" ID="fgpSSL">
 										<mp:SiteLabel runat="server" ForControl="chkRequireSSL" CssClass="settinglabel" ConfigKey="SiteSettingsRequireSSLLabel" />
 										<asp:CheckBox ID="chkRequireSSL" runat="server" TabIndex="10" CssClass="forminput" />
 										<portal:mojoHelpLink runat="server" HelpKey="sitesettingsrequiresslhelp" />
 									</portal:FormGroupPanel>
-
 									<portal:FormGroupPanel runat="server" ID="fgpContentVersioning">
 										<mp:SiteLabel runat="server" ForControl="chkForceContentVersioning" CssClass="settinglabel" ConfigKey="ForceContentVersioning" />
 										<asp:CheckBox ID="chkForceContentVersioning" runat="server" TabIndex="10" CssClass="forminput" /><mp:SiteLabel
@@ -96,7 +93,6 @@
 										<mp:SiteLabel runat="server" />
 										<portal:mojoHelpLink runat="server" HelpKey="sitesettingsenablecontentworkflowhelp" />
 									</portal:FormGroupPanel>
-
 									<portal:FormGroupPanel runat="server">
 										<mp:SiteLabel runat="server" ForControl="txtPrivacyPolicyUrl" CssClass="settinglabel" ConfigKey="SiteSettingsPrivacyUrlLabel" />
 										<asp:Label runat="server" ID="lblPrivacySiteRoot" SkinID="PrivacySiteRoot" />
@@ -114,12 +110,6 @@
 											runat="server" />
 										<portal:mojoHelpLink runat="server" HelpKey="meta-profile-help" />
 									</portal:FormGroupPanel>
-
-
-
-
-
-
 								</portal:FormGroupPanel>
 
 								<portal:FormGroupPanel runat="server" SkinID="SkinSettings">
@@ -164,12 +154,8 @@
 										<asp:TextBox ID="txtSlogan" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" />
 										<portal:mojoHelpLink runat="server" HelpKey="site-slogan-help" />
 										<mp:SiteLabel runat="server" CssClass="help-block" ConfigKey="SloganLabelDescription" UseLabelTag="false" />
-
 									</portal:FormGroupPanel>
 								</portal:FormGroupPanel>
-								
-
-
 								<portal:FormGroupPanel runat="server" SkinID="EditorSettings">
 									<asp:Literal ID="litContentEditorSettingsHeader" runat="server" EnableViewState="false" />
 									<portal:FormGroupPanel runat="server">
@@ -186,7 +172,6 @@
 										</asp:DropDownList>
 										<portal:mojoHelpLink runat="server" HelpKey="newletter-editor-help" />
 									</portal:FormGroupPanel>
-
 									<portal:FormGroupPanel runat="server">
 										<mp:SiteLabel runat="server" ForControl="chkAllowUserEditorChoice" CssClass="settinglabel" ConfigKey="AllowUserEditorLabel" />
 										<asp:CheckBox ID="chkAllowUserEditorChoice" runat="server" TabIndex="10" CssClass="forminput" />
@@ -498,102 +483,155 @@
 									</div>
 
 									<div id="tabAntiSpam">
-										<portal:FormGroupPanel runat="server">
-											<mp:SiteLabel runat="server" ForControl="ddCaptchaProviders" CssClass="settinglabel" ConfigKey="SiteSettingsCaptchaProviderLabel" />
-											<asp:DropDownList ID="ddCaptchaProviders" DataTextField="name" DataValueField="name"
-												EnableViewState="true" TabIndex="10" runat="server" CssClass="forminput">
-											</asp:DropDownList>
-											<portal:mojoHelpLink runat="server" HelpKey="sitesettingscaptchaproviderhelp" />
-										</portal:FormGroupPanel>
-										<portal:FormGroupPanel runat="server">
-											<mp:SiteLabel runat="server" ForControl="txtRecaptchaPublicKey" CssClass="settinglabel" ConfigKey="SiteSettingsSiteRecaptchaPublicKeyLabel" />
-											<asp:TextBox ID="txtRecaptchaPublicKey" TabIndex="10" MaxLength="100" Columns="45" CssClass="forminput verywidetextbox" runat="server" />
-											<portal:mojoHelpLink runat="server" HelpKey="sitesettingsrecaptchahelp" />
-										</portal:FormGroupPanel>
-										<portal:FormGroupPanel runat="server">
-											<mp:SiteLabel runat="server" ForControl="txtRecaptchPrivateKey" CssClass="settinglabel" ConfigKey="SiteSettingsSiteRecaptchaPrivateKeyLabel" />
-											<asp:TextBox ID="txtRecaptchaPrivateKey" TabIndex="10" MaxLength="100" Columns="45" CssClass="forminput verywidetextbox" runat="server" />
-											<portal:mojoHelpLink runat="server" HelpKey="sitesettingsrecaptchahelp" />
-										</portal:FormGroupPanel>
-										<portal:FormGroupPanel runat="server">
-											<mp:SiteLabel runat="server" ForControl="txtBadWordList" CssClass="settinglabel" ConfigKey="SiteSettingsBadWordList" />
-											<mp:SiteLabel runat="server" ConfigKey="SiteSettingsBadWordListQuickHelp" CssClass="help-block" UseLabelTag="false" />
-											<asp:TextBox runat="server" ID="txtBadWordList" CssClass="forminput badwordlist" TextMode="MultiLine" />
-										</portal:FormGroupPanel>
-										<portal:FormGroupPanel runat="server">
-											<mp:SiteLabel runat="server" ForControl="chkForceBadWordChecking" CssClass="settinglabel" ConfigKey="SiteSettingsForceBadWordChecking" />
-											<asp:CheckBox runat="server" ID="chkForceBadWordChecking" CssClass="forminput" Checked="true" />
-											<mp:SiteLabel runat="server" ConfigKey="SiteSettingsForceBadWordCheckingQuickHelp" CssClass="help-block" UseLabelTag="false" />
+										<asp:UpdatePanel ID="updCaptcha" runat="server" UpdateMode="Conditional" RenderMode="Inline" EnableViewState="true">
+											<ContentTemplate>
+												<portal:FormGroupPanel runat="server">
+													<mp:SiteLabel runat="server" ForControl="ddCaptchaProviders" CssClass="settinglabel" ConfigKey="SiteSettingsCaptchaProviderLabel" />
+													<asp:DropDownList ID="ddCaptchaProviders" DataTextField="name" DataValueField="name"
+														EnableViewState="true" TabIndex="10" runat="server" CssClass="forminput" AutoPostBack="true">
+													</asp:DropDownList>
+													<portal:mojoHelpLink runat="server" HelpKey="sitesettingscaptchaproviderhelp" />
+												</portal:FormGroupPanel>
+												<portal:FormGroupPanel ID="pnlRecaptchaSettings" runat="server">
+													<asp:Literal ID="litRecaptchaSettingsHeader" runat="server" EnableViewState="false" />
+													<portal:FormGroupPanel runat="server">
+														<mp:SiteLabel runat="server" ForControl="rbRecaptchaHcaptcha" CssClass="settinglabel" ConfigKey="SiteSettingsSiteRecaptchaHCaptchaChoiceLabel" />
+														<asp:RadioButtonList ID="rbRecaptchaHcaptcha" runat="server" EnableViewState="true" AutoPostBack="true">
+															<asp:ListItem Text="reCAPTCHA" Value="recaptcha" />
+															<asp:ListItem Text="hCaptcha" Value="hcaptcha" />
+														</asp:RadioButtonList>
+													</portal:FormGroupPanel>
+													<portal:FormGroupPanel runat="server">
+														<mp:SiteLabel runat="server" ForControl="txtRecaptchaPublicKey" CssClass="settinglabel" ConfigKey="SiteSettingsSiteRecaptchaPublicKeyLabel" />
+														<asp:TextBox ID="txtRecaptchaPublicKey" TabIndex="10" MaxLength="100" Columns="45" CssClass="forminput verywidetextbox" runat="server" />
+														<portal:mojoHelpLink runat="server" HelpKey="sitesettingsrecaptchahelp" />
+													</portal:FormGroupPanel>
+													<portal:FormGroupPanel runat="server">
+														<mp:SiteLabel runat="server" ForControl="txtRecaptchPrivateKey" CssClass="settinglabel" ConfigKey="SiteSettingsSiteRecaptchaPrivateKeyLabel" />
+														<asp:TextBox ID="txtRecaptchaPrivateKey" TabIndex="10" MaxLength="100" Columns="45" CssClass="forminput verywidetextbox" runat="server" />
+													</portal:FormGroupPanel>
+													<portal:FormGroupPanel runat="server" ID="pnlRecaptchaAdvancedSettings" SkinID="SettingsWarningPanel">
+														<asp:Literal ID="litRecaptchaAdvancedSettingsHeader" runat="server" EnableViewState="false" />
+														<portal:FormGroupPanel runat="server">
+															<mp:SiteLabel runat="server" ForControl="txtCaptchaVerifyUrl" CssClass="settinglabel" ConfigKey="SiteSettingsSiteCaptchaVerifyUrlLabel" />
+															<asp:TextBox ID="txtCaptchaVerifyUrl" TabIndex="10" MaxLength="100" Columns="45" CssClass="forminput verywidetextbox" runat="server" />
+															<asp:Literal runat="server" ID="litCaptchaVerifyDefault" EnableViewState="false" />
+														</portal:FormGroupPanel>
+														<portal:FormGroupPanel runat="server">
+															<mp:SiteLabel runat="server" ForControl="txtCaptchaClientScriptUrl" CssClass="settinglabel" ConfigKey="SiteSettingsSiteCaptchaClientScriptUrlLabel" />
+															<asp:TextBox ID="txtCaptchaClientScriptUrl" TabIndex="10" MaxLength="100" Columns="45" CssClass="forminput verywidetextbox" runat="server" />
+															<asp:Literal runat="server" ID="litCaptchaScriptDefault" EnableViewState="false" />
+														</portal:FormGroupPanel>
+														<portal:FormGroupPanel runat="server">
+															<mp:SiteLabel runat="server" ForControl="txtCaptchaTheme" CssClass="settinglabel" ConfigKey="SiteSettingsSiteCaptchaThemeLabel" />
+															<asp:TextBox ID="txtCaptchaTheme" TabIndex="10" MaxLength="100" Columns="45" CssClass="forminput verywidetextbox" runat="server" />
+															<asp:Literal runat="server" ID="litCaptchaThemeDefault" EnableViewState="false" />
+														</portal:FormGroupPanel>
+														<portal:FormGroupPanel runat="server">
+															<mp:SiteLabel runat="server" ForControl="txtCaptchaParam" CssClass="settinglabel" ConfigKey="SiteSettingsSiteCaptchaParamLabel" />
+															<asp:TextBox ID="txtCaptchaParam" TabIndex="10" MaxLength="100" Columns="45" CssClass="forminput verywidetextbox" runat="server" />
+															<asp:Literal runat="server" ID="litCaptchaParamDefault" EnableViewState="false" />
+														</portal:FormGroupPanel>
+														<portal:FormGroupPanel runat="server">
+															<mp:SiteLabel runat="server" ForControl="txtCaptchaResponseField" CssClass="settinglabel" ConfigKey="SiteSettingsSiteCaptchaResponseFieldLabel" />
+															<asp:TextBox ID="txtCaptchaResponseField" TabIndex="10" MaxLength="100" Columns="45" CssClass="forminput verywidetextbox" runat="server" />
+															<asp:Literal runat="server" ID="litCaptchaResponseDefault" EnableViewState="false" />
+														</portal:FormGroupPanel>
+														<portal:FormGroupPanel runat="server">
+															<portal:mojoButton runat="server" ID="btnResetRecaptchaHcaptchaDefaults" />
+														</portal:FormGroupPanel>
+													</portal:FormGroupPanel>
+												</portal:FormGroupPanel>
+											</ContentTemplate>
+										</asp:UpdatePanel>
+										<portal:FormGroupPanel runat="server" ID="fgpBadWordSettings" SkinID="SettingsPanel">
+											<asp:Literal ID="litBadWordHeader" runat="server" EnableViewState="false" />
+											<asp:Literal ID="litBadWordQuickHelp" runat="server" EnableViewState="false" />
+											<portal:FormGroupPanel runat="server">
+												<mp:SiteLabel runat="server" ForControl="txtBadWordList" CssClass="settinglabel" ConfigKey="SiteSettingsBadWordList" />
+												<mp:SiteLabel runat="server" ConfigKey="SiteSettingsBadWordListQuickHelp" CssClass="help-block" UseLabelTag="false" />
+												<asp:TextBox runat="server" ID="txtBadWordList" CssClass="forminput badwordlist" TextMode="MultiLine" />
+											</portal:FormGroupPanel>
+											<portal:FormGroupPanel runat="server">
+												<mp:SiteLabel runat="server" ForControl="chkForceBadWordChecking" CssClass="settinglabel" ConfigKey="SiteSettingsForceBadWordChecking" />
+												<asp:CheckBox runat="server" ID="chkForceBadWordChecking" CssClass="forminput" Checked="true" />
+												<mp:SiteLabel runat="server" ConfigKey="SiteSettingsForceBadWordCheckingQuickHelp" CssClass="help-block" UseLabelTag="false" />
+											</portal:FormGroupPanel>
 										</portal:FormGroupPanel>
 									</div>
 								</div>
 							</div>
-
 							<div id="tabCompanyInfo">
-								<portal:FormGroupPanel runat="server">
-									<mp:SiteLabel runat="server" ForControl="txtCompanyName" CssClass="settinglabel" ConfigKey="SiteSettingsCompanyNameLabel" />
-									<asp:TextBox ID="txtCompanyName" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput verywidetextbox" />
-									<portal:mojoHelpLink runat="server" HelpKey="sitesettingscompanynamehelp" />
-								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server">
-									<mp:SiteLabel runat="server" ForControl="txtStreetAddress" CssClass="settinglabel" ConfigKey="StreetAddress" />
-									<asp:TextBox ID="txtStreetAddress" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput verywidetextbox" />
-								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server">
-									<mp:SiteLabel runat="server" ForControl="txtStreetAddress2" CssClass="settinglabel" ConfigKey="StreetAddress2" />
-									<asp:TextBox ID="txtStreetAddress2" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput verywidetextbox" />
-								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server">
-									<mp:SiteLabel runat="server" ForControl="txtLocality" CssClass="settinglabel" ConfigKey="Locality" />
-									<asp:TextBox ID="txtLocality" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" />
-								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server">
-									<mp:SiteLabel runat="server" ForControl="txtRegion" CssClass="settinglabel" ConfigKey="Region" />
-									<asp:TextBox ID="txtRegion" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" />
-								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server">
-									<mp:SiteLabel runat="server" ForControl="txtPostalCode" CssClass="settinglabel" ConfigKey="PostalCode" />
-									<asp:TextBox ID="txtPostalCode" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput normaltextbox" />
-								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server">
-									<mp:SiteLabel runat="server" ForControl="txtCountry" CssClass="settinglabel" ConfigKey="Country" />
-									<asp:TextBox ID="txtCountry" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" />
-								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server">
-									<mp:SiteLabel runat="server" ForControl="txtPhone" CssClass="settinglabel" ConfigKey="Phone" />
-									<asp:TextBox ID="txtPhone" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput normaltextbox" />
-								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server">
-									<mp:SiteLabel runat="server" ForControl="txtFax" CssClass="settinglabel" ConfigKey="Fax" />
-									<asp:TextBox ID="txtFax" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput normaltextbox" />
-								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server">
-									<mp:SiteLabel runat="server" ForControl="txtPublicEmail" CssClass="settinglabel" ConfigKey="PublicEmail" />
-									<asp:TextBox ID="txtPublicEmail" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" />
+								<portal:FormGroupPanel runat="server" ID="fgpCompanyInfo" SkinID="SettingsPanel">
+									<asp:Literal ID="litCompanyInfoHeader" runat="server" EnableViewState="false" />
+									<asp:Literal ID="litCompanyInfoQuickHelp" runat="server" EnableViewState="false" />
+									<portal:FormGroupPanel runat="server">
+										<mp:SiteLabel runat="server" ForControl="txtCompanyName" CssClass="settinglabel" ConfigKey="SiteSettingsCompanyNameLabel" />
+										<asp:TextBox ID="txtCompanyName" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput verywidetextbox" />
+										<portal:mojoHelpLink runat="server" HelpKey="sitesettingscompanynamehelp" />
+									</portal:FormGroupPanel>
+									<portal:FormGroupPanel runat="server">
+										<mp:SiteLabel runat="server" ForControl="txtStreetAddress" CssClass="settinglabel" ConfigKey="StreetAddress" />
+										<asp:TextBox ID="txtStreetAddress" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput verywidetextbox" />
+									</portal:FormGroupPanel>
+									<portal:FormGroupPanel runat="server">
+										<mp:SiteLabel runat="server" ForControl="txtStreetAddress2" CssClass="settinglabel" ConfigKey="StreetAddress2" />
+										<asp:TextBox ID="txtStreetAddress2" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput verywidetextbox" />
+									</portal:FormGroupPanel>
+									<portal:FormGroupPanel runat="server">
+										<mp:SiteLabel runat="server" ForControl="txtLocality" CssClass="settinglabel" ConfigKey="Locality" />
+										<asp:TextBox ID="txtLocality" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" />
+									</portal:FormGroupPanel>
+									<portal:FormGroupPanel runat="server">
+										<mp:SiteLabel runat="server" ForControl="txtRegion" CssClass="settinglabel" ConfigKey="Region" />
+										<asp:TextBox ID="txtRegion" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" />
+									</portal:FormGroupPanel>
+									<portal:FormGroupPanel runat="server">
+										<mp:SiteLabel runat="server" ForControl="txtPostalCode" CssClass="settinglabel" ConfigKey="PostalCode" />
+										<asp:TextBox ID="txtPostalCode" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput normaltextbox" />
+									</portal:FormGroupPanel>
+									<portal:FormGroupPanel runat="server">
+										<mp:SiteLabel runat="server" ForControl="txtCountry" CssClass="settinglabel" ConfigKey="Country" />
+										<asp:TextBox ID="txtCountry" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" />
+									</portal:FormGroupPanel>
+									<portal:FormGroupPanel runat="server">
+										<mp:SiteLabel runat="server" ForControl="txtPhone" CssClass="settinglabel" ConfigKey="Phone" />
+										<asp:TextBox ID="txtPhone" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput normaltextbox" />
+									</portal:FormGroupPanel>
+									<portal:FormGroupPanel runat="server">
+										<mp:SiteLabel runat="server" ForControl="txtFax" CssClass="settinglabel" ConfigKey="Fax" />
+										<asp:TextBox ID="txtFax" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput normaltextbox" />
+									</portal:FormGroupPanel>
+									<portal:FormGroupPanel runat="server">
+										<mp:SiteLabel runat="server" ForControl="txtPublicEmail" CssClass="settinglabel" ConfigKey="PublicEmail" />
+										<asp:TextBox ID="txtPublicEmail" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" />
+									</portal:FormGroupPanel>
 								</portal:FormGroupPanel>
 							</div>
 
 							<div id="tabCommerce" runat="server">
-								<portal:FormGroupPanel runat="server">
-									<mp:SiteLabel ID="lblDefaultCountry" runat="server" CssClass="settinglabel" ConfigKey="DefaultCountryStateLabel" />
-									<div>
-										<asp:UpdatePanel ID="upCountryState" UpdateMode="Conditional" runat="server" EnableViewState="true">
-											<ContentTemplate>
-												<div>
-													<asp:DropDownList ID="ddDefaultCountry" runat="server" AutoPostBack="true" CssClass="countrylistdd"
-														DataValueField="Guid" DataTextField="Name" EnableViewState="true">
-													</asp:DropDownList>
-													<asp:DropDownList ID="ddDefaultGeoZone" runat="server" DataValueField="Guid" CssClass="statelistdd"
-														DataTextField="Name" EnableViewState="true">
-													</asp:DropDownList>
-												</div>
-											</ContentTemplate>
-										</asp:UpdatePanel>
-									</div>
+								<portal:FormGroupPanel runat="server" ID="fgpDefaultCountry" SkinID="SettingsPanel">
+									<asp:Literal ID="litDefaultCountryHeader" runat="server" EnableViewState="false" />
+									<asp:UpdatePanel ID="upCountryState" UpdateMode="Conditional" runat="server" EnableViewState="true" RenderMode="Inline">
+										<ContentTemplate>
+											<portal:FormGroupPanel runat="server">
+												<mp:SiteLabel ID="lblDefaultCountry" runat="server" CssClass="settinglabel" ConfigKey="Country" ForControl="ddDefaultCountry" />
+												<asp:DropDownList ID="ddDefaultCountry" runat="server" AutoPostBack="true" CssClass="countrylistdd" DataValueField="Guid" DataTextField="Name" EnableViewState="true" />
+												<asp:HyperLink ID="lnkCountryAdmin" runat="server" />
+											</portal:FormGroupPanel>
+											<portal:FormGroupPanel runat="server">
+												<mp:SiteLabel ID="lblDefaultState" runat="server" CssClass="settinglabel" ConfigKey="Region" ForControl="ddDefaultGeoZone" />
+												<asp:DropDownList ID="ddDefaultGeoZone" runat="server" DataValueField="Guid" CssClass="statelistdd" DataTextField="Name" EnableViewState="true" />
+												<asp:HyperLink ID="lnkStateAdmin" runat="server" />
+											</portal:FormGroupPanel>
+										</ContentTemplate>
+									</asp:UpdatePanel>
 								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server">
-									<mp:SiteLabel runat="server" ForControl="txtDefaultPageKeywords" CssClass="settinglabel" ConfigKey="CurrencyLabel" />
+								<portal:FormGroupPanel runat="server" ID="fgpDefaultCurrency" SkinID="SettingsPanel">
+									<asp:Literal ID="litDefaultCurrencyHeader" runat="server" EnableViewState="false" />
+									<mp:SiteLabel runat="server" ForControl="SiteCurrencySetting" CssClass="settinglabel" ConfigKey="CurrencyLabel" />
 									<portal:CurrencySetting ID="SiteCurrencySetting" runat="server" />
+									<asp:HyperLink ID="lnkCurrencyAdmin" runat="server" />
 								</portal:FormGroupPanel>
 							</div>
 

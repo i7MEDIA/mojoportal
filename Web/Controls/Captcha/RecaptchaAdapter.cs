@@ -115,30 +115,49 @@ namespace mojoPortal.Web.Controls.Captcha
 
         public Control GetControl()
         {
-            if ((WebConfigSettings.RecaptchaPrivateKey.Length > 0)&&(WebConfigSettings.RecaptchaPublicKey.Length > 0))
+			if ((WebConfigSettings.RecaptchaPrivateKey.Length > 0)&&(WebConfigSettings.RecaptchaPublicKey.Length > 0))
             {
-                captchaControl.PrivateKey = WebConfigSettings.RecaptchaPrivateKey;
+				if (WebConfigSettings.RecaptchaHCaptcha == "recaptcha")
+				{
+					captchaControl.Theme = WebConfigSettings.ReCaptchaDefaultTheme;
+					captchaControl.ClientScriptUrl = WebConfigSettings.ReCaptchaDefaultClientScriptUrl;
+					captchaControl.VerifyUrl = WebConfigSettings.ReCaptchaDefaultVerifyUrl;
+					captchaControl.Param = WebConfigSettings.ReCaptchaDefaultParam;
+					captchaControl.ResponseField = WebConfigSettings.ReCaptchaDefaultResponseField;
+				}
+				else
+				{
+					captchaControl.Theme = WebConfigSettings.HCaptchaDefaultTheme;
+					captchaControl.ClientScriptUrl = WebConfigSettings.HCaptchaDefaultClientScriptUrl;
+					captchaControl.VerifyUrl = WebConfigSettings.HCaptchaDefaultVerifyUrl;
+					captchaControl.Param = WebConfigSettings.HCaptchaDefaultParam;
+					captchaControl.ResponseField = WebConfigSettings.HCaptchaDefaultResponseField;
+				}
+
+				captchaControl.PrivateKey = WebConfigSettings.RecaptchaPrivateKey;
                 captchaControl.PublicKey = WebConfigSettings.RecaptchaPublicKey;
-                //captchaControl.Theme = WebConfigSettings.RecaptchaTheme;
-                captchaControl.RegisterWithScriptManager = true;
+				captchaControl.RegisterWithScriptManager = true;
 				captchaControl.TabIndex = 10;
                 return captchaControl;
             }
 
-            SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-            if ((siteSettings == null)||(siteSettings.RecaptchaPrivateKey.Length == 0)||(siteSettings.RecaptchaPublicKey.Length == 0))
+			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+
+			if ((siteSettings == null)||(siteSettings.RecaptchaPrivateKey.Length == 0)||(siteSettings.RecaptchaPublicKey.Length == 0))
             {
                 return new Subkismet.Captcha.CaptchaControl();
             }
 
-           
-            captchaControl.PrivateKey = siteSettings.RecaptchaPrivateKey;
+			captchaControl.Theme = siteSettings.CaptchaTheme;
+			captchaControl.ClientScriptUrl = siteSettings.CaptchaClientScriptUrl;
+			captchaControl.VerifyUrl = siteSettings.CaptchaVerifyUrl;
+			captchaControl.Param = siteSettings.CaptchaParam;
+			captchaControl.ResponseField = siteSettings.CaptchaResponseField;
+			captchaControl.PrivateKey = siteSettings.RecaptchaPrivateKey;
             captchaControl.PublicKey = siteSettings.RecaptchaPublicKey;
-            //captchaControl.Theme = WebConfigSettings.RecaptchaTheme;
+            captchaControl.Theme = siteSettings.CaptchaTheme;
             captchaControl.RegisterWithScriptManager = true;
             
-            
-
             return captchaControl;
         }
 

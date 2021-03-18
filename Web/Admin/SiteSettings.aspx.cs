@@ -95,24 +95,21 @@ namespace mojoPortal.Web.AdminUI
 
 		private void PopulateControls()
 		{
-			if (
-				(this.IsServerAdmin)
-				&& (WebConfigSettings.AllowMultipleSites)
-				)
+			if (IsServerAdmin && WebConfigSettings.AllowMultipleSites)
 			{
 				PopulateMultiSiteControls();
 			}
 			else if (!WebConfigSettings.AllowMultipleSites)
 			{
-				litHostListHeader.Text = String.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsMultiTenancyTurnedOffLabel, string.Empty);
-				litHostMessage.Text = String.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsMultiTenancyTurnedOff, string.Empty);
+				litHostListHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsMultiTenancyTurnedOffLabel, string.Empty);
+				litHostMessage.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsMultiTenancyTurnedOff, string.Empty);
 				pnlAddFolder.Visible = false;
 				pnlAddHostName.Visible = false;
 				rptFolderNames.Visible = false;
 				rptHosts.Visible = false;
 			}
 
-			if (this.selectedSiteID == -1)
+			if (selectedSiteID == -1)
 			{
 				heading.Text = Resource.CreateNewSite;
 				txtSiteName.Text = Resource.SiteSettingsNewSiteLabel;
@@ -122,7 +119,7 @@ namespace mojoPortal.Web.AdminUI
 				heading.Text = string.Format(CultureInfo.InvariantCulture, Resource.SiteSettingsFormat, SecurityHelper.RemoveMarkup(selectedSite.SiteName));
 				txtSiteName.Text = selectedSite.SiteName;
 
-				if ((!siteSettings.IsServerAdminSite) && (WebConfigSettings.HideGoogleAnalyticsInChildSites))
+				if (!siteSettings.IsServerAdminSite && WebConfigSettings.HideGoogleAnalyticsInChildSites)
 				{
 					fgpGAnalytics.Visible = false;
 				}
@@ -132,8 +129,7 @@ namespace mojoPortal.Web.AdminUI
 				lblSiteGuid.Text = selectedSite.SiteGuid.ToString();
 			}
 
-			ISettingControl setting = timeZone as ISettingControl;
-			if (setting != null)
+			if (timeZone is ISettingControl setting)
 			{
 				setting.SetValue(selectedSite.TimeZoneId);
 			}
@@ -179,11 +175,12 @@ namespace mojoPortal.Web.AdminUI
 			//ddMyPageSkin.DataSource = skins;
 			//ddMyPageSkin.DataBind();
 
-			ListItem listItem = new ListItem();
-			
-			listItem = new ListItem();
-			listItem.Value = "";
-			listItem.Text = Resource.PageLayoutDefaultSkinLabel;
+			//ListItem listItem = new ListItem();
+			ListItem listItem = new ListItem
+			{
+				Value = "",
+				Text = Resource.PageLayoutDefaultSkinLabel
+			};
 			ddMobileSkin.Items.Insert(0, listItem);
 
 			listItem = ddMobileSkin.Items.FindByValue("printerfriendly");
@@ -300,6 +297,24 @@ namespace mojoPortal.Web.AdminUI
 
 			txtRecaptchaPrivateKey.Text = selectedSite.RecaptchaPrivateKey;
 			txtRecaptchaPublicKey.Text = selectedSite.RecaptchaPublicKey;
+			rbRecaptchaHcaptcha.SelectedValue = selectedSite.CaptchaReCaptchaHCaptcha;
+
+			txtCaptchaClientScriptUrl.Text = selectedSite.CaptchaClientScriptUrl;
+			txtCaptchaVerifyUrl.Text = selectedSite.CaptchaVerifyUrl;
+			txtCaptchaTheme.Text = selectedSite.CaptchaTheme;
+			txtCaptchaParam.Text = selectedSite.CaptchaParam;
+			txtCaptchaResponseField.Text = selectedSite.CaptchaResponseField;
+
+
+			pnlRecaptchaSettings.Enabled = selectedSite.CaptchaProvider == "RecaptchaCaptchaProvider";
+
+			//if (selectedSite.CaptchaReCaptchaHCaptcha == "recaptcha")
+			//{
+			//	if (selectedSite)
+			//}
+
+
+
 			txtBadWordList.Text = selectedSite.BadWordList;
 			chkForceBadWordChecking.Checked = selectedSite.BadWordCheckingEnforced;
 			txtGmapApiKey.Text = selectedSite.GmapApiKey;
@@ -497,18 +512,14 @@ namespace mojoPortal.Web.AdminUI
 				btnRestoreSkins.Visible = true;
 			}
 
-			if (
-				(siteSettings.IsServerAdminSite)
-				&& (isAdmin)
-				&& (WebConfigSettings.AllowForcingPreferredHostName)
-				)
+			if (siteSettings.IsServerAdminSite && isAdmin && WebConfigSettings.AllowForcingPreferredHostName)
 			{
-				fgpPreferredHostName.Visible = true;
+				txtPreferredHostName.Enabled = true;
 
 			}
 			else
 			{
-				fgpPreferredHostName.Visible = false;
+				txtPreferredHostName.Enabled = false;
 			}
 
 			if (
@@ -604,6 +615,63 @@ namespace mojoPortal.Web.AdminUI
 			}
 		}
 
+		private void DdCaptchaProviders_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			pnlRecaptchaSettings.Enabled = ddCaptchaProviders.SelectedValue == "RecaptchaCaptchaProvider";
+			updCaptcha.Update();
+		}
+
+		private void RbRecaptchaHcaptcha_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (selectedSite.CaptchaReCaptchaHCaptcha == rbRecaptchaHcaptcha.SelectedValue)
+			{
+				txtCaptchaClientScriptUrl.Text = selectedSite.CaptchaClientScriptUrl;
+				txtCaptchaVerifyUrl.Text = selectedSite.CaptchaVerifyUrl;
+				txtCaptchaTheme.Text = selectedSite.CaptchaTheme;
+				txtCaptchaParam.Text = selectedSite.CaptchaParam;
+				txtCaptchaResponseField.Text = selectedSite.CaptchaResponseField;
+			}
+			else if (rbRecaptchaHcaptcha.SelectedValue == "hcaptcha")
+			{
+				txtCaptchaClientScriptUrl.Text = WebConfigSettings.HCaptchaDefaultClientScriptUrl;
+				txtCaptchaVerifyUrl.Text = WebConfigSettings.HCaptchaDefaultVerifyUrl;
+				txtCaptchaTheme.Text = WebConfigSettings.HCaptchaDefaultTheme;
+				txtCaptchaParam.Text = WebConfigSettings.HCaptchaDefaultParam;
+				txtCaptchaResponseField.Text = WebConfigSettings.HCaptchaDefaultResponseField;
+			}
+			else if (rbRecaptchaHcaptcha.SelectedValue == "recaptcha")
+			{
+				txtCaptchaClientScriptUrl.Text = WebConfigSettings.ReCaptchaDefaultClientScriptUrl;
+				txtCaptchaVerifyUrl.Text = WebConfigSettings.ReCaptchaDefaultVerifyUrl;
+				txtCaptchaTheme.Text = WebConfigSettings.ReCaptchaDefaultTheme;
+				txtCaptchaParam.Text = WebConfigSettings.ReCaptchaDefaultParam;
+				txtCaptchaResponseField.Text = WebConfigSettings.ReCaptchaDefaultResponseField;
+			}
+
+			updCaptcha.Update();
+		}
+		private void btnResetRecaptchaHcaptchaDefaults_Click(object sender, EventArgs e)
+		{
+			if (rbRecaptchaHcaptcha.SelectedValue == "hcaptcha")
+			{
+				txtCaptchaClientScriptUrl.Text = WebConfigSettings.HCaptchaDefaultClientScriptUrl;
+				txtCaptchaVerifyUrl.Text = WebConfigSettings.HCaptchaDefaultVerifyUrl;
+				txtCaptchaTheme.Text = WebConfigSettings.HCaptchaDefaultTheme;
+				txtCaptchaParam.Text = WebConfigSettings.HCaptchaDefaultParam;
+				txtCaptchaResponseField.Text = WebConfigSettings.HCaptchaDefaultResponseField;
+			}
+			else if (rbRecaptchaHcaptcha.SelectedValue == "recaptcha")
+			{
+				txtCaptchaClientScriptUrl.Text = WebConfigSettings.ReCaptchaDefaultClientScriptUrl;
+				txtCaptchaVerifyUrl.Text = WebConfigSettings.ReCaptchaDefaultVerifyUrl;
+				txtCaptchaTheme.Text = WebConfigSettings.ReCaptchaDefaultTheme;
+				txtCaptchaParam.Text = WebConfigSettings.ReCaptchaDefaultParam;
+				txtCaptchaResponseField.Text = WebConfigSettings.ReCaptchaDefaultResponseField;
+			}
+
+			updCaptcha.Update();
+		}
+
 		private void PopulateMultiSiteControls()
 		{
 			int countOfOtherSites = SiteSettings.GetCountOfOtherSites(siteSettings.SiteId);
@@ -614,14 +682,14 @@ namespace mojoPortal.Web.AdminUI
 				if (WebConfigSettings.UseFolderBasedMultiTenants)
 				{
 					PopulateFolderList();
-					litHostMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsHostNamesTurnedOff);
+					litHostMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsHostNamesTurnedOff);
 					pnlAddHostName.Visible = false;
 					rptHosts.Visible = false;
 				}
 				else
 				{
 					PopulateHostList();
-					litFolderMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNamesTurnedOff);
+					litFolderMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNamesTurnedOff);
 					pnlAddFolder.Visible = false;
 					rptFolderNames.Visible = false;
 				}
@@ -638,8 +706,8 @@ namespace mojoPortal.Web.AdminUI
 				upFolderNames.Visible = false; // we can hide the entire thing because we're not using any of it
 
 				//set the host list header and message to state there aren't other sites.
-				litHostListHeader.Text = String.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsMultiTenancyNoOtherSitesLabel, string.Empty);
-				litHostMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, String.Format(Resource.SiteSettingsMultiTenancyNoOtherSites, SiteRoot + "/Admin/SiteSettings.aspx?SiteID=-1"));
+				litHostListHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsMultiTenancyNoOtherSitesLabel, string.Empty);
+				litHostMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, string.Format(Resource.SiteSettingsMultiTenancyNoOtherSites, SiteRoot + "/Admin/SiteSettings.aspx?SiteID=-1"));
 			}
 		}
 
@@ -687,7 +755,7 @@ namespace mojoPortal.Web.AdminUI
 			if (selectedSiteID == -1)
 			{
 				// site must be created first
-				litHostMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsHostNamesAfterSiteCreated);
+				litHostMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsHostNamesAfterSiteCreated);
 				rptHosts.Visible = false;
 				pnlAddHostName.Visible = false;
 				return;
@@ -704,7 +772,7 @@ namespace mojoPortal.Web.AdminUI
 			}
 			else
 			{
-				litHostMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsNoHostsFound);
+				litHostMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsNoHostsFound);
 				rptHosts.Visible = false;
 			}
 		}
@@ -714,7 +782,7 @@ namespace mojoPortal.Web.AdminUI
 			if (selectedSiteID == -1)
 			{
 				// site must be created first
-				litFolderMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNamesAfterSiteCreated);
+				litFolderMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNamesAfterSiteCreated);
 				rptFolderNames.Visible = false;
 				pnlAddFolder.Visible = false;
 
@@ -727,7 +795,7 @@ namespace mojoPortal.Web.AdminUI
 				rptFolderNames.Visible = false;
 				pnlAddFolder.Visible = false;
 
-				litFolderMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNamesNotAllowedOnAdminSite);
+				litFolderMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNamesNotAllowedOnAdminSite);
 			}
 			else
 			{
@@ -740,7 +808,7 @@ namespace mojoPortal.Web.AdminUI
 				}
 				else
 				{
-					litFolderMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsNoFolderNames);
+					litFolderMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsNoFolderNames);
 					rptFolderNames.Visible = false;
 				}
 			}
@@ -755,11 +823,11 @@ namespace mojoPortal.Web.AdminUI
 				pnlSMTPSettingsWrapper.DontRender = true;
 				if (enableSiteSettingsSmtpSettings)
 				{
-					litSMTPSettingsHeader.Text += String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsSMTPSettingsAfterSiteCreated);
+					litSMTPSettingsHeader.Text += string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsSMTPSettingsAfterSiteCreated);
 				}
 				else
 				{
-					litSMTPSettingsHeader.Text += String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsSMTPSettingsDisabled);
+					litSMTPSettingsHeader.Text += string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsSMTPSettingsDisabled);
 				}
 				return;
 			}
@@ -840,7 +908,7 @@ namespace mojoPortal.Web.AdminUI
 			else
 			{
 				pnlSMTPSettingsWrapper.Visible = false;
-				litSMTPSettingsHeader.Text += String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsSMTPSettingsDisabled);
+				litSMTPSettingsHeader.Text += string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsSMTPSettingsDisabled);
 			}
 		}
 
@@ -986,6 +1054,12 @@ namespace mojoPortal.Web.AdminUI
 
 			selectedSite.RecaptchaPrivateKey = txtRecaptchaPrivateKey.Text;
 			selectedSite.RecaptchaPublicKey = txtRecaptchaPublicKey.Text;
+			selectedSite.CaptchaReCaptchaHCaptcha = rbRecaptchaHcaptcha.SelectedValue;
+			selectedSite.CaptchaClientScriptUrl = txtCaptchaClientScriptUrl.Text;
+			selectedSite.CaptchaVerifyUrl = txtCaptchaVerifyUrl.Text;
+			selectedSite.CaptchaParam = txtCaptchaParam.Text;
+			selectedSite.CaptchaResponseField = txtCaptchaResponseField.Text;
+			selectedSite.CaptchaTheme = txtCaptchaTheme.Text;
 			selectedSite.BadWordList = txtBadWordList.Text;
 			selectedSite.GmapApiKey = txtGmapApiKey.Text;
 			selectedSite.AddThisDotComUsername = txtAddThisUserId.Text;
@@ -1421,7 +1495,7 @@ namespace mojoPortal.Web.AdminUI
 			}
 			else
 			{
-				litFeatureMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsSelectFeatureToAddWarning);
+				litFeatureMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsSelectFeatureToAddWarning);
 			}
 		}
 
@@ -1440,7 +1514,7 @@ namespace mojoPortal.Web.AdminUI
 			}
 			else
 			{
-				litFeatureMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsSelectFeatureToRemoveWarning);
+				litFeatureMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsSelectFeatureToRemoveWarning);
 			}
 		}
 
@@ -1452,13 +1526,13 @@ namespace mojoPortal.Web.AdminUI
 
 			if (this.txtHostName.Text.Length == 0)
 			{
-				litHostMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsHostNameRequiredMessage);
+				litHostMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsHostNameRequiredMessage);
 				return;
 			}
 
 			if (SiteSettings.HostNameExists(txtHostName.Text))
 			{
-				litHostMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsDuplicateHostsWarning);
+				litHostMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsDuplicateHostsWarning);
 				return;
 			}
 
@@ -1470,7 +1544,7 @@ namespace mojoPortal.Web.AdminUI
 			}
 			catch (DbException)
 			{
-				litHostMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsDuplicateHostsWarning);
+				litHostMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsDuplicateHostsWarning);
 			}
 
 			PopulateHostList(); 
@@ -1511,19 +1585,19 @@ namespace mojoPortal.Web.AdminUI
 			{
 				if (SiteFolder.Exists(txtFolderName.Text))
 				{
-					litFolderMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNameAlreadyInUseWarning);
+					litFolderMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNameAlreadyInUseWarning);
 					return;
 				}
 
 				if (!SiteFolder.IsAllowedFolder(txtFolderName.Text))
 				{
-					litFolderMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNameNotAllowedWarning);
+					litFolderMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNameNotAllowedWarning);
 					return;
 				}
 
 				if (SiteFolder.HasInvalidChars(txtFolderName.Text))
 				{
-					litFolderMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNameInvalidCharsWarning);
+					litFolderMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNameInvalidCharsWarning);
 					return;
 				}
 
@@ -1539,7 +1613,7 @@ namespace mojoPortal.Web.AdminUI
 			}
 			else
 			{
-				litFolderMessage.Text = String.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNameBlankWarning);
+				litFolderMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsFolderNameBlankWarning);
 			}
 		}
 
@@ -1719,8 +1793,20 @@ namespace mojoPortal.Web.AdminUI
 			litTestSMTPSettingsHeader.Text = string.Format(adminDisplaySettings.SubPanelHeadingMarkup, Resource.SiteSettingsTestSMTPSettingsLabel, Resource.SiteSettingsTestSMTPSettingsDescription);
 			btnTestSMTPSettings.Text = Resource.SiteSettingsTestSMTPSettingsButton;
 
-			litHostListHeader.Text = String.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsExistingHostsLabel, Resource.SiteSettingsExistingHostsDescription);
-			litFolderNamesListHeader.Text = String.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsExistingFolderMappingsLabel, Resource.SiteSettingsExistingFolderMappingsDescription);
+			litHostListHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsExistingHostsLabel, Resource.SiteSettingsExistingHostsDescription);
+			litFolderNamesListHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsExistingFolderMappingsLabel, Resource.SiteSettingsExistingFolderMappingsDescription);
+
+			litRecaptchaSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSiteRecaptchaSettingsLabel, Resource.SiteSettingsSiteRecaptchaSettingsDescription);
+			pnlRecaptchaSettings.OutsideBottomMarkup += adminDisplaySettings.SubPanelBottomMarkup;
+			litRecaptchaAdvancedSettingsHeader.Text = string.Format(adminDisplaySettings.SubPanelHeadingMarkupCollapsible, Resource.SiteSettingsSiteRecaptchaAdvancedSettingsLabel, Resource.SiteSettingsSiteRecaptchaAdvancedSettingsDescription, litRecaptchaAdvancedSettingsHeader.ClientID);
+			pnlRecaptchaAdvancedSettings.OutsideBottomMarkup += adminDisplaySettings.SubPanelBottomMarkup;
+			btnResetRecaptchaHcaptchaDefaults.Text = Resource.SiteSettingsSiteRecaptchaHCaptchaDefaultResetButton;
+
+			litCaptchaVerifyDefault.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, string.Format(Resource.SiteSettingsSiteCaptchaSettingDefault, WebConfigSettings.ReCaptchaDefaultVerifyUrl, WebConfigSettings.HCaptchaDefaultVerifyUrl));
+			litCaptchaScriptDefault.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, string.Format(Resource.SiteSettingsSiteCaptchaSettingDefault, WebConfigSettings.ReCaptchaDefaultClientScriptUrl, WebConfigSettings.HCaptchaDefaultClientScriptUrl));
+			litCaptchaParamDefault.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, string.Format(Resource.SiteSettingsSiteCaptchaSettingDefault, WebConfigSettings.ReCaptchaDefaultParam, WebConfigSettings.HCaptchaDefaultParam));
+			litCaptchaResponseDefault.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, string.Format(Resource.SiteSettingsSiteCaptchaSettingDefault, WebConfigSettings.ReCaptchaDefaultResponseField, WebConfigSettings.HCaptchaDefaultResponseField));
+			litCaptchaThemeDefault.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, string.Format(Resource.SiteSettingsSiteCaptchaThemeValidOptions, WebConfigSettings.ReCaptchaDefaultResponseField));
 
 			litSettingsTab.Text = Resource.SiteSettingsGeneralSettingsTab;
 
@@ -1729,6 +1815,26 @@ namespace mojoPortal.Web.AdminUI
 			litAdvancedTabLink.Text = $"<a href='#{tabAdvanced.ClientID}'>{Resource.SiteSettingsAdvancedTab}</a>";
 			litAdvSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsAdvancedLabel, Resource.SiteSettingsAdvancedDescription);
 
+			litDefaultCountryHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.DefaultCountryStateLabel, string.Empty);
+			litDefaultCurrencyHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.DefaultCurrency, string.Empty);
+
+			litCompanyInfoHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsCompanyInfoHeader, string.Empty);
+			litCompanyInfoQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsCompanyInfoQuickHelp);
+
+			litBadWordHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsBadWordHeader, string.Empty);
+			litBadWordQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsBadWordListQuickHelp);
+
+			lnkCountryAdmin.Text = Resource.CountryAdministrationLink;
+			lnkCountryAdmin.NavigateUrl = "~/Admin/AdminCountry.aspx";
+			lnkCountryAdmin.Target = "_blank";
+
+			lnkStateAdmin.Text = Resource.GeoZoneAdministrationLink;
+			lnkStateAdmin.NavigateUrl = "~/Admin/AdminGeoZone.aspx";
+			lnkStateAdmin.Target = "_blank";
+
+			lnkCurrencyAdmin.Text = Resource.CurrencyAdministrationLink;
+			lnkCurrencyAdmin.NavigateUrl = "~/Admin/AdminCurrency.aspx";
+			lnkCurrencyAdmin.Target = "_blank";
 
 			litCompanyInfoTab.Text = Resource.CompanyInfo;
 
@@ -1738,6 +1844,8 @@ namespace mojoPortal.Web.AdminUI
 			litLDAPTabLink.Text = $"<a href='#{tabLDAP.ClientID}'>{Resource.SiteSettingsLdapSettingsLabel}</a>";
 			litthirdpartyauthtabLink.Text = $"<a href='#{tabthirdpartyauth.ClientID}'>{Resource.SiteSettingsSecurityThirdPartyAuthTab}</a>";
 			litAntiSpamTab.Text = Resource.SiteSettingsSecurityAntiSPAMTab;
+
+
 			litAPIKeysTab.Text = Resource.SiteSettingsApiKeysTab;
 			litMailSettingsTabLink.Text = $"<a href='#{tabMailSettings.ClientID}'>{Resource.MailSettingsTab}</a>";
 			litFeaturesTabLink.Text = $"<a href='#{tabSiteFeatures.ClientID}'>{Resource.SiteSettingsFeaturesAllowedLabel}</a>";
@@ -1765,6 +1873,8 @@ namespace mojoPortal.Web.AdminUI
 			lnkEditClosedMessage.Text = Resource.SiteClosedMessageEditLink;
 			lnkEditClosedMessage.NavigateUrl = SiteRoot + "/Admin/EditSiteClosedMessage.aspx";
 
+
+
 			if (ddEditorProviders.Items.Count == 0)
 			{
 				ddEditorProviders.DataSource = EditorManager.Providers;
@@ -1791,7 +1901,9 @@ namespace mojoPortal.Web.AdminUI
 				ddCaptchaProviders.DataBind();
 				foreach (ListItem providerItem in ddCaptchaProviders.Items)
 				{
+					providerItem.Text = providerItem.Text.Replace("CaptchaProvider", string.Empty);
 					providerItem.Text = providerItem.Text.Replace("Provider", string.Empty);
+					providerItem.Text = providerItem.Text.Replace("Recaptcha", "reCaptcha/hCaptcha");
 				}
 			}
 
@@ -1827,7 +1939,7 @@ namespace mojoPortal.Web.AdminUI
 			btnAddHost.Text = Resource.SiteSettingsAddHostButtonLabel;
 			btnAddHost.ToolTip = Resource.SiteSettingsAddHostButtonLabel;
 
-			fgpFriendlyUrlPattern.Visible = WebConfigSettings.AllowChangingFriendlyUrlPattern;
+			ddDefaultFriendlyUrlPattern.Enabled = WebConfigSettings.AllowChangingFriendlyUrlPattern;
 
 			regexMaxInvalidPasswordAttempts.ErrorMessage = Resource.MaxInvalidPasswordAttemptsRegexWarning;
 			regexMinPasswordLength.ErrorMessage = Resource.MinPasswordLengthRegexWarning;
@@ -1960,6 +2072,10 @@ namespace mojoPortal.Web.AdminUI
 			rptFolderNames.ItemCommand += new RepeaterCommandEventHandler(rptFolderNames_ItemCommand);
 			rptFolderNames.ItemDataBound += new RepeaterItemEventHandler(rptFolderNames_ItemDataBound);
 
+			rbRecaptchaHcaptcha.SelectedIndexChanged += new EventHandler(RbRecaptchaHcaptcha_SelectedIndexChanged);
+			ddCaptchaProviders.SelectedIndexChanged += new EventHandler(DdCaptchaProviders_SelectedIndexChanged);
+			btnResetRecaptchaHcaptchaDefaults.Click += new EventHandler(btnResetRecaptchaHcaptchaDefaults_Click);
+
 			btnDelete.Click += new EventHandler(btnDelete_Click);
 
 			btnRestoreSkins.Click += new EventHandler(btnRestoreSkins_Click);
@@ -1977,6 +2093,8 @@ namespace mojoPortal.Web.AdminUI
 			SuppressMenuSelection();
 			SuppressPageMenu();
 		}
+
+
 
 		protected override void OnPreInit(EventArgs e)
 		{

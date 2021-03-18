@@ -3353,11 +3353,95 @@ namespace mojoPortal.Web
 			}
 		}
 
-		public static string CaptchaVerifyUrl
+		public static string RecaptchaHCaptcha
 		{
 			get
 			{
-				return ConfigHelper.GetStringProperty("CaptchaVerifyUrl", "https://www.google.com/recaptcha/api/siteverify");
+				if (ConfigurationManager.AppSettings["RecaptchaPublicKey"] != null)
+				{
+					return ConfigurationManager.AppSettings["RecaptchaHCaptcha"];
+				}
+				return "recaptcha";
+			}
+		}
+
+		public static string ReCaptchaDefaultVerifyUrl
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("reCaptcha:DefaultVerifyUrl", "http://www.google.com/recaptcha/api/siteverify");
+			}
+		}
+
+		public static string HCaptchaDefaultVerifyUrl
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("hCaptcha:DefaultVerifyUrl", "https://hcaptcha.com/siteverify");
+			}
+		}
+
+		public static string ReCaptchaDefaultClientScriptUrl
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("reCaptcha:DefaultClientScriptUrl", "https://www.google.com/recaptcha/api.js");
+			}
+		}
+
+		public static string HCaptchaDefaultClientScriptUrl
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("hCaptcha:DefaultClientScriptUrl", "https://hcaptcha.com/1/api.js");
+			}
+		}
+
+		public static string ReCaptchaDefaultParam
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("reCaptcha:DefaultParam", "g-recaptcha");
+			}
+		}
+
+		public static string HCaptchaDefaultParam
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("hCaptcha:DefaultParam", "h-captcha");
+			}
+		}
+
+		public static string ReCaptchaDefaultTheme
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("reCaptcha:DefaultTheme", "light");
+			}
+		}
+
+		public static string HCaptchaDefaultTheme
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("hCaptcha:DefaultTheme", "light");
+			}
+		}
+
+		public static string ReCaptchaDefaultResponseField
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("reCaptcha:DefaultResponseField", "g-recaptcha-response");
+			}
+		}
+
+		public static string HCaptchaDefaultResponseField
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("HCaptcha:DefaultResponseField", "h-captcha-response");
 			}
 		}
 

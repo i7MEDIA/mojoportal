@@ -3724,6 +3724,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default Currency.
+        /// </summary>
+        internal static string DefaultCurrency {
+            get {
+                return ResourceManager.GetString("DefaultCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         internal static string DefaultHomePageName {
@@ -4975,7 +4984,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid token received by FileService so blocking access.
+        ///   Looks up a localized string similar to Invalid token received by FileService. Try refreshing your browser..
         /// </summary>
         internal static string FileSystemInvalidToken {
             get {
@@ -15470,6 +15479,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bad Word Checking/Filter.
+        /// </summary>
+        internal static string SiteSettingsBadWordHeader {
+            get {
+                return ResourceManager.GetString("SiteSettingsBadWordHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bad Word List.
         /// </summary>
         internal static string SiteSettingsBadWordList {
@@ -15484,6 +15502,15 @@ namespace Resources {
         internal static string SiteSettingsBadWordListQuickHelp {
             get {
                 return ResourceManager.GetString("SiteSettingsBadWordListQuickHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This feature will prevent forms being being posted with any of the listed words. Features must support Bad Word Checking for these settings to be relevant..
+        /// </summary>
+        internal static string SiteSettingsBadWordQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsBadWordQuickHelp", resourceCulture);
             }
         }
         
@@ -15511,6 +15538,24 @@ namespace Resources {
         internal static string SiteSettingsCommentSystem {
             get {
                 return ResourceManager.GetString("SiteSettingsCommentSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company Info.
+        /// </summary>
+        internal static string SiteSettingsCompanyInfoHeader {
+            get {
+                return ResourceManager.GetString("SiteSettingsCompanyInfoHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These values are used in some skins to display contact information. Other features could use them as well..
+        /// </summary>
+        internal static string SiteSettingsCompanyInfoQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsCompanyInfoQuickHelp", resourceCulture);
             }
         }
         
@@ -16289,6 +16334,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can use either reCaptcha or hCaptcha API keys..
+        /// </summary>
+        internal static string SiteSettingsRecaptchaQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsRecaptchaQuickHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove Selected Feature.
         /// </summary>
         internal static string SiteSettingsRemoveFeatureTooltip {
@@ -16640,6 +16694,69 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Client Script URL.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaClientScriptUrlLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaClientScriptUrlLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameter.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaParamLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaParamLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Response Field.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaResponseFieldLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaResponseFieldLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Defaults are: &lt;br&gt;&lt;strong&gt;reCaptcha&lt;/strong&gt;:{0}&lt;br&gt;&lt;strong&gt;hCaptcha&lt;/strong&gt;:{1}.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaSettingDefault {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaSettingDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaThemeLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaThemeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usually, the valid options are &apos;light&apos; and &apos;dark&apos;.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaThemeValidOptions {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaThemeValidOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify URL.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaVerifyUrlLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaVerifyUrlLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default Email From Address.
         /// </summary>
         internal static string SiteSettingsSiteEmailFromAddressLabel {
@@ -16730,7 +16847,43 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recaptcha Secret Key.
+        ///   Looks up a localized string similar to Only change these settings if you really know what you&apos;re doing..
+        /// </summary>
+        internal static string SiteSettingsSiteRecaptchaAdvancedSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteRecaptchaAdvancedSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced Recaptcha Settings.
+        /// </summary>
+        internal static string SiteSettingsSiteRecaptchaAdvancedSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteRecaptchaAdvancedSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SiteSettingsSiteRecaptchaHCaptchaChoiceLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteRecaptchaHCaptchaChoiceLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset to Defaults.
+        /// </summary>
+        internal static string SiteSettingsSiteRecaptchaHCaptchaDefaultResetButton {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteRecaptchaHCaptchaDefaultResetButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secret Key.
         /// </summary>
         internal static string SiteSettingsSiteRecaptchaPrivateKeyLabel {
             get {
@@ -16739,11 +16892,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recaptcha Site Key.
+        ///   Looks up a localized string similar to Site Key.
         /// </summary>
         internal static string SiteSettingsSiteRecaptchaPublicKeyLabel {
             get {
                 return ResourceManager.GetString("SiteSettingsSiteRecaptchaPublicKeyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These settings pertain to reCAPTCHA and hCaptcha only..
+        /// </summary>
+        internal static string SiteSettingsSiteRecaptchaSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteRecaptchaSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to reCAPTCHA/hCaptcha Settings.
+        /// </summary>
+        internal static string SiteSettingsSiteRecaptchaSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteRecaptchaSettingsLabel", resourceCulture);
             }
         }
         

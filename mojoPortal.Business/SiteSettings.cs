@@ -1849,6 +1849,72 @@ namespace mojoPortal.Business
             set { SetExpandoProperty("SiteIsClosedMessage", value); }
         }
 
+		public string CaptchaReCaptchaHCaptcha
+		{
+			get
+			{
+				string result = GetExpandoProperty("CaptchaReCaptchaHCaptcha");
+				if (result != null) { return result; }
+				return ConfigurationManager.AppSettings["reCaptchaHCaptchaDefault"];
+			}
+			set { SetExpandoProperty("CaptchaReCaptchaHCaptcha", value); }
+		}
+
+		public string CaptchaVerifyUrl
+		{
+			get
+			{
+				string result = GetExpandoProperty("CaptchaVerifyUrl");
+				if (result != null) { return result; }
+				return ConfigurationManager.AppSettings["reCaptcha:DefaultVerifyUrl"];
+			}
+			set { SetExpandoProperty("CaptchaVerifyUrl", value); }
+		}
+
+		public string CaptchaClientScriptUrl
+		{
+			get
+			{
+				string result = GetExpandoProperty("CaptchaClientScriptUrl");
+				if (result != null) { return result; }
+				return ConfigurationManager.AppSettings["reCaptcha:DefaultClientScriptUrl"];
+			}
+			set { SetExpandoProperty("CaptchaClientScriptUrl", value); }
+		}
+
+		public string CaptchaTheme
+		{
+			get
+			{
+				string result = GetExpandoProperty("CaptchaTheme");
+				if (result != null) { return result; }
+				return ConfigurationManager.AppSettings["reCaptcha:DefaultTheme"];
+			}
+			set { SetExpandoProperty("CaptchaTheme", value); }
+		}
+
+		public string CaptchaParam
+		{
+			get
+			{
+				string result = GetExpandoProperty("CaptchaParam");
+				if (result != null) { return result; }
+				return ConfigurationManager.AppSettings["reCaptcha:DefaultParam"];
+			}
+			set { SetExpandoProperty("CaptchaParam", value); }
+		}
+
+		public string CaptchaResponseField
+		{
+			get
+			{
+				string result = GetExpandoProperty("CaptchaResponseField");
+				if (result != null) { return result; }
+				return ConfigurationManager.AppSettings["reCaptcha:DefaultResponseField"];
+			}
+			set { SetExpandoProperty("CaptchaResponseField", value); }
+		}
+
 		public string BadWordList
 		{
 			get
@@ -1859,6 +1925,7 @@ namespace mojoPortal.Business
 			}
 			set { SetExpandoProperty("BadWordList", value); }
 		}
+
 		/// <summary>
 		/// Is true if any words are in the BadWordList.
 		/// </summary>

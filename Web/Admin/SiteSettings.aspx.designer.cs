@@ -1570,6 +1570,15 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.CheckBox chkDisableDbAuthentication;
         
         /// <summary>
+        /// updCaptcha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updCaptcha;
+        
+        /// <summary>
         /// ddCaptchaProviders control.
         /// </summary>
         /// <remarks>
@@ -1577,6 +1586,33 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddCaptchaProviders;
+        
+        /// <summary>
+        /// pnlRecaptchaSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FormGroupPanel pnlRecaptchaSettings;
+        
+        /// <summary>
+        /// litRecaptchaSettingsHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litRecaptchaSettingsHeader;
+        
+        /// <summary>
+        /// rbRecaptchaHcaptcha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rbRecaptchaHcaptcha;
         
         /// <summary>
         /// txtRecaptchaPublicKey control.
@@ -1597,6 +1633,150 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.TextBox txtRecaptchaPrivateKey;
         
         /// <summary>
+        /// pnlRecaptchaAdvancedSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FormGroupPanel pnlRecaptchaAdvancedSettings;
+        
+        /// <summary>
+        /// litRecaptchaAdvancedSettingsHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litRecaptchaAdvancedSettingsHeader;
+        
+        /// <summary>
+        /// txtCaptchaVerifyUrl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCaptchaVerifyUrl;
+        
+        /// <summary>
+        /// litCaptchaVerifyDefault control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litCaptchaVerifyDefault;
+        
+        /// <summary>
+        /// txtCaptchaClientScriptUrl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCaptchaClientScriptUrl;
+        
+        /// <summary>
+        /// litCaptchaScriptDefault control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litCaptchaScriptDefault;
+        
+        /// <summary>
+        /// txtCaptchaTheme control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCaptchaTheme;
+        
+        /// <summary>
+        /// litCaptchaThemeDefault control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litCaptchaThemeDefault;
+        
+        /// <summary>
+        /// txtCaptchaParam control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCaptchaParam;
+        
+        /// <summary>
+        /// litCaptchaParamDefault control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litCaptchaParamDefault;
+        
+        /// <summary>
+        /// txtCaptchaResponseField control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCaptchaResponseField;
+        
+        /// <summary>
+        /// litCaptchaResponseDefault control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litCaptchaResponseDefault;
+        
+        /// <summary>
+        /// btnResetRecaptchaHcaptchaDefaults control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoButton btnResetRecaptchaHcaptchaDefaults;
+        
+        /// <summary>
+        /// fgpBadWordSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpBadWordSettings;
+        
+        /// <summary>
+        /// litBadWordHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litBadWordHeader;
+        
+        /// <summary>
+        /// litBadWordQuickHelp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litBadWordQuickHelp;
+        
+        /// <summary>
         /// txtBadWordList control.
         /// </summary>
         /// <remarks>
@@ -1613,6 +1793,33 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkForceBadWordChecking;
+        
+        /// <summary>
+        /// fgpCompanyInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpCompanyInfo;
+        
+        /// <summary>
+        /// litCompanyInfoHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litCompanyInfoHeader;
+        
+        /// <summary>
+        /// litCompanyInfoQuickHelp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litCompanyInfoQuickHelp;
         
         /// <summary>
         /// txtCompanyName control.
@@ -1714,13 +1921,22 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabCommerce;
         
         /// <summary>
-        /// lblDefaultCountry control.
+        /// fgpDefaultCountry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel lblDefaultCountry;
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpDefaultCountry;
+        
+        /// <summary>
+        /// litDefaultCountryHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litDefaultCountryHeader;
         
         /// <summary>
         /// upCountryState control.
@@ -1732,6 +1948,15 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.UpdatePanel upCountryState;
         
         /// <summary>
+        /// lblDefaultCountry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel lblDefaultCountry;
+        
+        /// <summary>
         /// ddDefaultCountry control.
         /// </summary>
         /// <remarks>
@@ -1739,6 +1964,24 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddDefaultCountry;
+        
+        /// <summary>
+        /// lnkCountryAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkCountryAdmin;
+        
+        /// <summary>
+        /// lblDefaultState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel lblDefaultState;
         
         /// <summary>
         /// ddDefaultGeoZone control.
@@ -1750,6 +1993,33 @@ namespace mojoPortal.Web.AdminUI {
         protected global::System.Web.UI.WebControls.DropDownList ddDefaultGeoZone;
         
         /// <summary>
+        /// lnkStateAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkStateAdmin;
+        
+        /// <summary>
+        /// fgpDefaultCurrency control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FormGroupPanel fgpDefaultCurrency;
+        
+        /// <summary>
+        /// litDefaultCurrencyHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litDefaultCurrencyHeader;
+        
+        /// <summary>
         /// SiteCurrencySetting control.
         /// </summary>
         /// <remarks>
@@ -1757,6 +2027,15 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.CurrencySetting SiteCurrencySetting;
+        
+        /// <summary>
+        /// lnkCurrencyAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkCurrencyAdmin;
         
         /// <summary>
         /// tabSiteMappings control.

@@ -1987,10 +1987,10 @@
     <value>Default Page Keywords</value>
   </data>
   <data name="SiteSettingsSiteRecaptchaPrivateKeyLabel" xml:space="preserve">
-    <value>Recaptcha Secret Key</value>
+    <value>Secret Key</value>
   </data>
   <data name="SiteSettingsSiteRecaptchaPublicKeyLabel" xml:space="preserve">
-    <value>Recaptcha Site Key</value>
+    <value>Site Key</value>
   </data>
   <data name="SiteSettingsSiteSelectedFeaturesLabel" xml:space="preserve">
     <value>Selected Features</value>
@@ -6061,7 +6061,7 @@
     <value>Pick a Page</value>
   </data>
   <data name="FileSystemInvalidToken" xml:space="preserve">
-    <value>Invalid token received by FileService so blocking access</value>
+    <value>Invalid token received by FileService. Try refreshing your browser.</value>
   </data>
   <data name="FileSystemNotLoadedFromProvider" xml:space="preserve">
     <value>Could not load file system from provider {0}</value>
@@ -6588,5 +6588,62 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="SiteSettingsMainSettingsLabel" xml:space="preserve">
     <value>Main</value>
+  </data>
+  <data name="SiteSettingsRecaptchaQuickHelp" xml:space="preserve">
+    <value>You can use either reCaptcha or hCaptcha API keys.</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaAdvancedSettingsDescription" xml:space="preserve">
+    <value>Only change these settings if you really know what you're doing.</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaAdvancedSettingsLabel" xml:space="preserve">
+    <value>Advanced Recaptcha Settings</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaHCaptchaChoiceLabel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SiteSettingsSiteRecaptchaSettingsDescription" xml:space="preserve">
+    <value>These settings pertain to reCAPTCHA and hCaptcha only.</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaSettingsLabel" xml:space="preserve">
+    <value>reCAPTCHA/hCaptcha Settings</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaClientScriptUrlLabel" xml:space="preserve">
+    <value>Client Script URL</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaParamLabel" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaResponseFieldLabel" xml:space="preserve">
+    <value>Response Field</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaThemeLabel" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaVerifyUrlLabel" xml:space="preserve">
+    <value>Verify URL</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Default Currency</value>
+  </data>
+  <data name="SiteSettingsBadWordHeader" xml:space="preserve">
+    <value>Bad Word Checking/Filter</value>
+  </data>
+  <data name="SiteSettingsBadWordQuickHelp" xml:space="preserve">
+    <value>This feature will prevent forms being being posted with any of the listed words. Features must support Bad Word Checking for these settings to be relevant.</value>
+  </data>
+  <data name="SiteSettingsCompanyInfoHeader" xml:space="preserve">
+    <value>Company Info</value>
+  </data>
+  <data name="SiteSettingsCompanyInfoQuickHelp" xml:space="preserve">
+    <value>These values are used in some skins to display contact information. Other features could use them as well.</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaSettingDefault" xml:space="preserve">
+    <value>Defaults are: &lt;br&gt;&lt;strong&gt;reCaptcha&lt;/strong&gt;:{0}&lt;br&gt;&lt;strong&gt;hCaptcha&lt;/strong&gt;:{1}</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaThemeValidOptions" xml:space="preserve">
+    <value>Usually, the valid options are 'light' and 'dark'</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaHCaptchaDefaultResetButton" xml:space="preserve">
+    <value>Reset to Defaults</value>
   </data>
 </root>

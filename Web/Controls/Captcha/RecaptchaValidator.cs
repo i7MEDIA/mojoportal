@@ -35,27 +35,20 @@ namespace mojoPortal.Web.UI
     /// </summary>
     public class RecaptchaValidator
     {
-		private string VerifyUrl = WebConfigSettings.CaptchaVerifyUrl;
 
-        private string privateKey;
-        private string remoteIp;
+		private string remoteIp;
 
         private string challenge;
-        private string response;
 
-        private IWebProxy proxy;
+		public string VerifyUrl { get; set; }
 
-        public string PrivateKey
-        {
-            get { return this.privateKey; }
-            set { this.privateKey = value; }
-        }
+		public string PrivateKey { get; set; }
 
-        public string RemoteIP
+		public string RemoteIP
         {
             get
             {
-                return this.remoteIp;
+                return remoteIp;
             }
 
             set
@@ -69,23 +62,15 @@ namespace mojoPortal.Web.UI
                     throw new ArgumentException("Expecting an IP address, got " + ip);
                 }
 
-                this.remoteIp = ip.ToString();
+                remoteIp = ip.ToString();
             }
         }
 
-        public string Response
-        {
-            get { return this.response; }
-            set { this.response = value; }
-        }
+		public string Response { get; set; }
 
-        public IWebProxy Proxy
-        {
-            get { return this.proxy; }
-            set { this.proxy = value; }
-        }
+		public IWebProxy Proxy { get; set; }
 
-        private void CheckNotNull(object obj, string name)
+		private void CheckNotNull(object obj, string name)
         {
             if (obj == null)
             {
@@ -95,11 +80,11 @@ namespace mojoPortal.Web.UI
 
         public RecaptchaResponse Validate()
         {
-            this.CheckNotNull(this.PrivateKey, "PrivateKey");
-            this.CheckNotNull(this.RemoteIP, "RemoteIp");
-            this.CheckNotNull(this.Response, "Response");
+            CheckNotNull(PrivateKey, "PrivateKey");
+            CheckNotNull(RemoteIP, "RemoteIp");
+            CheckNotNull(Response, "Response");
 
-            if (this.response == string.Empty)
+            if (Response == string.Empty)
             {
                 return RecaptchaResponse.InvalidSolution;
             }
@@ -112,9 +97,9 @@ namespace mojoPortal.Web.UI
 
                 string googleReply = client.DownloadString(string.Format(VerifyUrl +
                     "?secret={0}&remoteip={1}&response={2}",
-                                    HttpUtility.UrlEncode(this.PrivateKey),
-                                    HttpUtility.UrlEncode(this.RemoteIP),
-                                    HttpUtility.UrlEncode(this.Response)));
+                                    HttpUtility.UrlEncode(PrivateKey),
+                                    HttpUtility.UrlEncode(RemoteIP),
+                                    HttpUtility.UrlEncode(Response)));
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 gOutput = serializer.Deserialize<GoogleVerificationResponseOutput>(googleReply);
             }
