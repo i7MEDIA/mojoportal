@@ -67,7 +67,7 @@ namespace mojoPortal.Web.BlogUI
                     throw new MetaWeblogException("11", MetaweblogResources.MetaweblogApiDisabled);
                 }
 
-                if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+                if (WebConfigSettings.UseFolderBasedMultiTenants)
                 {
                     navigationSiteRoot = SiteUtils.GetNavigationSiteRoot();
                     imageSiteRoot = WebUtils.GetSiteRoot();
