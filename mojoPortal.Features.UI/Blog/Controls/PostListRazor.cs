@@ -487,18 +487,33 @@ namespace mojoPortal.Web.BlogUI
 			{
 				text = RazorBridge.RenderPartialToString(config.Layout, postListObject, "Blog");
 			}
-			catch (System.Web.HttpException ex)
+			//catch (System.Web.HttpException ex)
+			//{
+			//	renderDefaultView(ex.ToString());
+			//}
+			//catch (ArgumentNullException ex)
+			//{
+			//	renderDefaultView(ex.ToString());
+			//}
+			catch (Exception ex)
 			{
-				log.ErrorFormat(
-					"chosen layout ({0}) for _BlogPostList was not found in skin {1}. perhaps it is in a different skin. Error was: {2}",
-					config.Layout,
-					SiteUtils.GetSkinBaseUrl(true, Page),
-					ex
-				);
+				renderDefaultView(ex.ToString());
+			}
+
+			void renderDefaultView(string error = "")
+			{
+				if (!string.IsNullOrWhiteSpace(error))
+				{
+					log.ErrorFormat(
+						"chosen layout ({0}) for _BlogPostList was not found in skin {1}. perhaps it is in a different skin. Error was: {2}",
+						config.Layout,
+						SiteUtils.GetSkinBaseUrl(true, Page),
+						error
+					);
+				}
 
 				text = RazorBridge.RenderPartialToString("_BlogPostList", postListObject, "Blog");
 			}
-
 			output.Write(text);
 		}
 	}
