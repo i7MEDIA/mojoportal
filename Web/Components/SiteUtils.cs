@@ -4053,8 +4053,13 @@ namespace mojoPortal.Web
 
 			foreach (string badword in siteSettings.BadWordList.SplitOnNewLineAndTrim())
 			{
-				if (toBeChecked.ContainsCaseInsensitive(badword)) return true;
+				var testValue = $"\\b{badword}\\b";
+				var regex = new Regex(testValue, RegexOptions.IgnoreCase);
+				var match = regex.Match(toBeChecked);
+				if (match.Captures.Count > 0) return true;
+				//if (toBeChecked.ContainsCaseInsensitive(badword)) return true;
 			}
+
 			return false;
 		}
 
