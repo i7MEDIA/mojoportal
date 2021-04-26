@@ -1964,6 +1964,50 @@ namespace mojoPortal.Business
 			set { SetExpandoProperty("HomePageOverride", value.ToString()); }
 		}
 
+		public string SiteWideHeaderScripts
+		{
+			get
+			{
+				string result = GetExpandoProperty("SiteWideHeaderScripts");
+				if (result != null) { return result; }
+				return string.Empty;
+			}
+			set { SetExpandoProperty("SiteWideHeaderScripts", value); }
+		}
+
+		public string SiteWideFooterScripts
+		{
+			get
+			{
+				string result = GetExpandoProperty("SiteWideFooterScripts");
+				if (result != null) { return result; }
+				return string.Empty;
+			}
+			set { SetExpandoProperty("SiteWideFooterScripts", value); }
+		}
+
+		public string SiteWideHeaderAdminScripts
+		{
+			get
+			{
+				string result = GetExpandoProperty("SiteWideHeaderAdminScripts");
+				if (result != null) { return result; }
+				return string.Empty;
+			}
+			set { SetExpandoProperty("SiteWideHeaderAdminScripts", value); }
+		}
+
+		public string SiteWideFooterAdminScripts
+		{
+			get
+			{
+				string result = GetExpandoProperty("SiteWideFooterAdminScripts");
+				if (result != null) { return result; }
+				return string.Empty;
+			}
+			set { SetExpandoProperty("SiteWideFooterAdminScripts", value); }
+		}
+
 		#endregion
 
 		#region Private Methods
@@ -2878,4 +2922,12 @@ namespace mojoPortal.Business
         }
     }
 
+	//public class SiteScript
+	//{
+	//	public int SortOrder { get; set; } = 0;
+	//	public string Name { get; set; } = string.Empty;
+	//	public string AllowedRoles { get; set; } = "All Users;";
+	//	public string BlockedRoles { get; set; } = string.Empty;
+	//	public string Script { get; set; } = string.Empty;
+	//}
 }

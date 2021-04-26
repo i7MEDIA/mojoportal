@@ -1037,7 +1037,6 @@ namespace mojoPortal.Web
 				}
 
 				SetupMasterPage();
-
 			}
 			catch (HttpException ex)
 			{
@@ -1061,6 +1060,16 @@ namespace mojoPortal.Web
 				if (styleCombiner != null) { styleCombiner.AllowPageOverride = allowSkinOverride; }
 			}
 
+			EnsureSiteSettings();
+			if (!string.IsNullOrWhiteSpace(siteSettings.SiteWideHeaderScripts) && !(Page is NonCmsBasePage))
+				Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "sitewideheaderscripts", siteSettings.SiteWideHeaderScripts, true);
+			if (!string.IsNullOrWhiteSpace(siteSettings.SiteWideFooterScripts) && !(Page is NonCmsBasePage))
+				Page.ClientScript.RegisterStartupScript(typeof(Page), "sitewidefooterscripts", siteSettings.SiteWideFooterScripts, true);
+
+			if (!string.IsNullOrWhiteSpace(siteSettings.SiteWideHeaderAdminScripts) && (Page is NonCmsBasePage))
+				Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "sitewideadminheaderscripts", siteSettings.SiteWideHeaderAdminScripts, true);
+			if (!string.IsNullOrWhiteSpace(siteSettings.SiteWideFooterAdminScripts) && (Page is NonCmsBasePage))
+				Page.ClientScript.RegisterStartupScript(typeof(Page), "sitewideadminfooterscripts", siteSettings.SiteWideFooterAdminScripts, true);
 		}
 
 

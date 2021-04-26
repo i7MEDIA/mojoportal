@@ -16415,6 +16415,87 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply to all admin pages. Do not include &amp;lt;script&amp;gt; tags..
+        /// </summary>
+        internal static string SiteSettingsScriptsAdminDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsScriptsAdminDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Site-Wide Admin Page Scripts.
+        /// </summary>
+        internal static string SiteSettingsScriptsAdminHeader {
+            get {
+                return ResourceManager.GetString("SiteSettingsScriptsAdminHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applies to all non-admin CMS pages. Do not include &amp;lt;script&amp;gt; tags..
+        /// </summary>
+        internal static string SiteSettingsScriptsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsScriptsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These scripts will be placed at the bottom of the page, above the &amp;lt;/body&amp;gt;..
+        /// </summary>
+        internal static string SiteSettingsScriptsFooterQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsScriptsFooterQuickHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bottom Startup Scripts.
+        /// </summary>
+        internal static string SiteSettingsScriptsFooterScripts {
+            get {
+                return ResourceManager.GetString("SiteSettingsScriptsFooterScripts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Site-Wide Page Scripts.
+        /// </summary>
+        internal static string SiteSettingsScriptsHeader {
+            get {
+                return ResourceManager.GetString("SiteSettingsScriptsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These scripts will be placed in the &amp;lt;head&amp;gt;..
+        /// </summary>
+        internal static string SiteSettingsScriptsHeaderQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsScriptsHeaderQuickHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Head Scripts.
+        /// </summary>
+        internal static string SiteSettingsScriptsHeaderScripts {
+            get {
+                return ResourceManager.GetString("SiteSettingsScriptsHeaderScripts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scripts.
+        /// </summary>
+        internal static string SiteSettingsScriptsLink {
+            get {
+                return ResourceManager.GetString("SiteSettingsScriptsLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User will be sent a verification email to be completed before they can login..
         /// </summary>
         internal static string SiteSettingsSecureRegistrationDescription {

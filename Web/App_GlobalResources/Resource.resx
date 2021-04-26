@@ -6646,4 +6646,31 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="SiteSettingsSiteRecaptchaHCaptchaDefaultResetButton" xml:space="preserve">
     <value>Reset to Defaults</value>
   </data>
+  <data name="SiteSettingsScriptsAdminDescription" xml:space="preserve">
+    <value>Apply to all admin pages. Do not include &amp;lt;script&amp;gt; tags.</value>
+  </data>
+  <data name="SiteSettingsScriptsAdminHeader" xml:space="preserve">
+    <value>Site-Wide Admin Page Scripts</value>
+  </data>
+  <data name="SiteSettingsScriptsDescription" xml:space="preserve">
+    <value>Applies to all non-admin CMS pages. Do not include &amp;lt;script&amp;gt; tags.</value>
+  </data>
+  <data name="SiteSettingsScriptsFooterQuickHelp" xml:space="preserve">
+    <value>These scripts will be placed at the bottom of the page, above the &amp;lt;/body&amp;gt;.</value>
+  </data>
+  <data name="SiteSettingsScriptsFooterScripts" xml:space="preserve">
+    <value>Bottom Startup Scripts</value>
+  </data>
+  <data name="SiteSettingsScriptsHeader" xml:space="preserve">
+    <value>Site-Wide Page Scripts</value>
+  </data>
+  <data name="SiteSettingsScriptsHeaderQuickHelp" xml:space="preserve">
+    <value>These scripts will be placed in the &amp;lt;head&amp;gt;.</value>
+  </data>
+  <data name="SiteSettingsScriptsHeaderScripts" xml:space="preserve">
+    <value>Head Scripts</value>
+  </data>
+  <data name="SiteSettingsScriptsLink" xml:space="preserve">
+    <value>Scripts</value>
+  </data>
 </root>
