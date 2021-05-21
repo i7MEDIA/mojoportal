@@ -1,9 +1,18 @@
-﻿// Author:					i7MEDIA (joe davis)
-// Created:				    2015-03-31
-// Last Modified:			2017-10-16
+﻿// Author:        i7MEDIA (joe davis)
+// Created:       2015-03-31
+// Last Modified: 2017-10-16
 //
 // You must not remove this notice, or any other, from this software.
 //
+using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.FileSystem;
+using mojoPortal.Web;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.UI;
+using Resources;
+using SuperFlexiBusiness;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,95 +23,86 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Xml;
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.FileSystem;
-using mojoPortal.Web;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.UI;
-using Resources;
-using SuperFlexiBusiness;
 
 namespace SuperFlexiUI
 {
 	public class SuperFlexiHelpers
-    {
-        private static readonly ILog log = LogManager.GetLogger(typeof(SuperFlexiHelpers));
+	{
+		private static readonly ILog log = LogManager.GetLogger(typeof(SuperFlexiHelpers));
 
-        public static string GetModuleLinks(ModuleConfiguration config, SuperFlexiDisplaySettings displaySettings, int moduleId, int pageId)
-        {
-            StringBuilder litExtraMarkup = new StringBuilder();
-            string settings = string.Empty;
-            string add = string.Empty;
-            string header = string.Empty;
-            string footer = string.Empty;
-            string import = string.Empty;
-            string export = string.Empty;
-            try
-            {
-                settings = String.Format(
-                    displaySettings.ModuleSettingsLinkFormat,
-                    SiteUtils.GetNavigationSiteRoot() + "/Admin/ModuleSettings.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
-                    SuperFlexiResources.SettingsLinkLabel);
+		public static string GetModuleLinks(ModuleConfiguration config, SuperFlexiDisplaySettings displaySettings, int moduleId, int pageId)
+		{
+			StringBuilder litExtraMarkup = new StringBuilder();
+			string settings = string.Empty;
+			string add = string.Empty;
+			string header = string.Empty;
+			string footer = string.Empty;
+			string import = string.Empty;
+			string export = string.Empty;
+			try
+			{
+				settings = String.Format(
+					displaySettings.ModuleSettingsLinkFormat,
+					SiteUtils.GetNavigationSiteRoot() + "/Admin/ModuleSettings.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+					SuperFlexiResources.SettingsLinkLabel);
 
-                if (!String.IsNullOrWhiteSpace(config.MarkupDefinitionName) && config.MarkupDefinitionName != "0")
-                {
+				if (!String.IsNullOrWhiteSpace(config.MarkupDefinitionName) && config.MarkupDefinitionName != "0")
+				{
 					if (!config.IsGlobalView && (config.MaxItems == -1 || Item.GetCountForModule(moduleId) < config.MaxItems))
 					{
 						add = String.Format(
-                      displaySettings.AddItemLinkFormat,
-                      SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
-                      SuperFlexiResources.AddItem);
-                    }
+					  displaySettings.AddItemLinkFormat,
+					  SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+					  SuperFlexiResources.AddItem);
+					}
 
-                    if (config.UseHeader)
-                    {
-                        header = String.Format(
-                            displaySettings.EditHeaderLinkFormat,
-                            SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/EditHeader.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
-                            SuperFlexiResources.EditHeader);
-                    }
+					if (config.UseHeader)
+					{
+						header = String.Format(
+							displaySettings.EditHeaderLinkFormat,
+							SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/EditHeader.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+							SuperFlexiResources.EditHeader);
+					}
 
-                    if (config.UseFooter)
-                    {
-                        footer = String.Format(
-                            displaySettings.EditFooterLinkFormat,
-                            SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/EditHeader.aspx?f=true&pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
-                            SuperFlexiResources.EditFooter);
-                    }
+					if (config.UseFooter)
+					{
+						footer = String.Format(
+							displaySettings.EditFooterLinkFormat,
+							SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/EditHeader.aspx?f=true&pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+							SuperFlexiResources.EditFooter);
+					}
 
-                    if (config.AllowImport)
-                    {
-                        import = String.Format(
-                            displaySettings.ImportLinkFormat,
-                            SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Import.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
-                            SuperFlexiResources.ImportTitle);
-                    }
+					if (config.AllowImport)
+					{
+						import = String.Format(
+							displaySettings.ImportLinkFormat,
+							SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Import.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+							SuperFlexiResources.ImportTitle);
+					}
 
-                    if (config.AllowExport)
-                    {
-                        export = String.Format(
-                            displaySettings.ExportLinkFormat,
-                            SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Export.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
-                            SuperFlexiResources.ExportTitle);
-                    }
-                }
+					if (config.AllowExport)
+					{
+						export = String.Format(
+							displaySettings.ExportLinkFormat,
+							SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Export.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
+							SuperFlexiResources.ExportTitle);
+					}
+				}
 
-                litExtraMarkup.AppendFormat(displaySettings.ModuleLinksFormat, settings, add, header, footer, import, export);
-            }
-            catch (System.FormatException ex)
-            {
-                Module module = new Module(moduleId);
-                string moduleTitle = "unknown";
-                if (module != null) moduleTitle = module.ModuleTitle;
-                log.ErrorFormat("Error rendering \"{0}\", with moduleID={1}, pageid={2}. Error was:\r\n{3}", moduleTitle, moduleId.ToString(), pageId.ToString(), ex);
-            }
-            return litExtraMarkup.ToString();
-        }
+				litExtraMarkup.AppendFormat(displaySettings.ModuleLinksFormat, settings, add, header, footer, import, export);
+			}
+			catch (System.FormatException ex)
+			{
+				Module module = new Module(moduleId);
+				string moduleTitle = "unknown";
+				if (module != null) moduleTitle = module.ModuleTitle;
+				log.ErrorFormat("Error rendering \"{0}\", with moduleID={1}, pageid={2}. Error was:\r\n{3}", moduleTitle, moduleId.ToString(), pageId.ToString(), ex);
+			}
+			return litExtraMarkup.ToString();
+		}
 
-        public static string GetHelpText(string helpKey, ModuleConfiguration config)
-        {
+		public static string GetHelpText(string helpKey, ModuleConfiguration config)
+		{
 
 			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
 			if (p == null)
@@ -155,51 +155,51 @@ namespace SuperFlexiUI
 				helpFile = null;
 			}
 
-            if (helpFile != null && fileSystem.FileExists(helpFile.VirtualPath))
-            {
+			if (helpFile != null && fileSystem.FileExists(helpFile.VirtualPath))
+			{
 				//FileInfo file = new FileInfo(helpFilePath);
 				//fileSystem.GetAsStream(helpFile.VirtualPath);
 				//StreamReader sr = file.OpenText();
-				
+
 				StreamReader sr = new StreamReader(fileSystem.GetAsStream(helpFile.VirtualPath));
 				helpText = sr.ReadToEnd();
 				sr.Close();
-            }
+			}
 
-            return helpText;
-        }
+			return helpText;
+		}
 
-        //public static void ReplaceStaticTokens(
-        //    StringBuilder stringBuilder,
-        //    ModuleConfiguration config,
-        //    bool isEditable,
-        //    SuperFlexiDisplaySettings displaySettings,
-        //    int moduleId,
-        //    int pageId,
-        //    out StringBuilder sb)
-        //{
-        //    SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+		//public static void ReplaceStaticTokens(
+		//    StringBuilder stringBuilder,
+		//    ModuleConfiguration config,
+		//    bool isEditable,
+		//    SuperFlexiDisplaySettings displaySettings,
+		//    int moduleId,
+		//    int pageId,
+		//    out StringBuilder sb)
+		//{
+		//    SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 
-        //    if (siteSettings == null)
-        //    {
-        //        siteSettings = new SiteSettings(SiteSettings.GetRootSiteGuid());
-        //    }
+		//    if (siteSettings == null)
+		//    {
+		//        siteSettings = new SiteSettings(SiteSettings.GetRootSiteGuid());
+		//    }
 
-        //    PageSettings pageSettings = new PageSettings(siteSettings.SiteId, pageId);
+		//    PageSettings pageSettings = new PageSettings(siteSettings.SiteId, pageId);
 
-        //    ReplaceStaticTokens(stringBuilder, config, isEditable, displaySettings, moduleId, pageSettings, siteSettings, out sb);
-        //}
+		//    ReplaceStaticTokens(stringBuilder, config, isEditable, displaySettings, moduleId, pageSettings, siteSettings, out sb);
+		//}
 
-  //      public static void ReplaceStaticTokens(
-  //          StringBuilder stringBuilder,
-  //          ModuleConfiguration config,
-  //          bool isEditable,
-  //          SuperFlexiDisplaySettings displaySettings,
-  //          int moduleId,
-  //          PageSettings pageSettings,
-  //          SiteSettings siteSettings,
-  //          out StringBuilder sb)
-  //      {
+		//      public static void ReplaceStaticTokens(
+		//          StringBuilder stringBuilder,
+		//          ModuleConfiguration config,
+		//          bool isEditable,
+		//          SuperFlexiDisplaySettings displaySettings,
+		//          int moduleId,
+		//          PageSettings pageSettings,
+		//          SiteSettings siteSettings,
+		//          out StringBuilder sb)
+		//      {
 		//	Module module = new Module(moduleId);
 
 
@@ -286,8 +286,8 @@ namespace SuperFlexiUI
 		}
 
 		[Obsolete("Use mojoPortal.Web.Framework.UIHelper.GetDictionaryFromString")]
-        public static IDictionary<string, string> GetDictionaryFromString(string str)
-        {
+		public static IDictionary<string, string> GetDictionaryFromString(string str)
+		{
 			//List<string> keyValuePairs = str.SplitOnChar(';');
 			//Dictionary<string, string> dictionary = new Dictionary<string, string>();
 			//foreach (string kvp in keyValuePairs)
@@ -297,72 +297,72 @@ namespace SuperFlexiUI
 			//}
 			//return dictionary;
 			return UIHelper.GetDictionaryFromString(str);
-        }
+		}
 
-        public static Module GetSuperFlexiModule(int moduleId)
-        {
-            mojoBasePage bp = new mojoBasePage();
-            Module m = bp.GetModule(moduleId);
-            if (m != null) { return m; }
+		public static Module GetSuperFlexiModule(int moduleId)
+		{
+			mojoBasePage bp = new mojoBasePage();
+			Module m = bp.GetModule(moduleId);
+			if (m != null) { return m; }
 
-            bool isSiteEditor = SiteUtils.UserIsSiteEditor();
+			bool isSiteEditor = SiteUtils.UserIsSiteEditor();
 
-            // these extra checks allow for editing an instance from modulewrapper
-            m = new Module(moduleId);
-            if ((m.SiteId != CacheHelper.GetCurrentSiteSettings().SiteId)
-                || (m.ModuleId == -1)
-                || ((!WebUser.IsInRoles(m.AuthorizedEditRoles)) && (!WebUser.IsAdminOrContentAdmin) && (!isSiteEditor))
-                )
-            { m = null; }
+			// these extra checks allow for editing an instance from modulewrapper
+			m = new Module(moduleId);
+			if ((m.SiteId != CacheHelper.GetCurrentSiteSettings().SiteId)
+				|| (m.ModuleId == -1)
+				|| ((!WebUser.IsInRoles(m.AuthorizedEditRoles)) && (!WebUser.IsAdminOrContentAdmin) && (!isSiteEditor))
+				)
+			{ m = null; }
 
-            return m;
-        }
+			return m;
+		}
 
-        public static List<MarkupScript> ParseScriptsFromXmlNode(XmlNode childNode)
-        {
-            // Script Positions:
-            // inHead
-            // inBody (register script) (default)
-            // aboveMarkupDefinition
-            // belowMarkupDefinition
-            // bottomStartup(register startup script)
+		public static List<MarkupScript> ParseScriptsFromXmlNode(XmlNode childNode)
+		{
+			// Script Positions:
+			// inHead
+			// inBody (register script) (default)
+			// aboveMarkupDefinition
+			// belowMarkupDefinition
+			// bottomStartup(register startup script)
 
-            List<MarkupScript> workingMarkupScripts = new List<MarkupScript>();
-            if (childNode.Name != "Scripts") return workingMarkupScripts;
-            foreach (XmlNode child in childNode)
-            {
-                if (child.Name == "Script")
-                {
-                    XmlAttributeCollection childAttrs = child.Attributes;
-                    string position = "inBody";
-                    string scriptName = string.Empty;
+			List<MarkupScript> workingMarkupScripts = new List<MarkupScript>();
+			if (childNode.Name != "Scripts") return workingMarkupScripts;
+			foreach (XmlNode child in childNode)
+			{
+				if (child.Name == "Script")
+				{
+					XmlAttributeCollection childAttrs = child.Attributes;
+					string position = "inBody";
+					string scriptName = string.Empty;
 
-                    if (childAttrs["position"] != null) { position = childAttrs["position"].Value; }
-                    if (childAttrs["name"] != null) { scriptName = childAttrs["name"].Value; }
+					if (childAttrs["position"] != null) { position = childAttrs["position"].Value; }
+					if (childAttrs["name"] != null) { scriptName = childAttrs["name"].Value; }
 
-                    if (childAttrs["src"] != null)
-                    {
-                        MarkupScript script = new MarkupScript();
-                        script.Url = childAttrs["src"].Value;
-                        script.Position = position;
-                        if (!String.IsNullOrWhiteSpace(scriptName)) { script.ScriptName = scriptName; }
-                        workingMarkupScripts.Add(script);
-                        continue;
-                    }
+					if (childAttrs["src"] != null)
+					{
+						MarkupScript script = new MarkupScript();
+						script.Url = childAttrs["src"].Value;
+						script.Position = position;
+						if (!String.IsNullOrWhiteSpace(scriptName)) { script.ScriptName = scriptName; }
+						workingMarkupScripts.Add(script);
+						continue;
+					}
 
-                    if (!String.IsNullOrWhiteSpace(child.InnerText))
-                    {
-                        MarkupScript raw = new MarkupScript();
-                        raw.RawScript = child.InnerText.Trim();
-                        raw.Position = position;
-                        if (!String.IsNullOrWhiteSpace(scriptName)) { raw.ScriptName = scriptName; }
-                        workingMarkupScripts.Add(raw);
-                    }
-                }
-            }
+					if (!String.IsNullOrWhiteSpace(child.InnerText))
+					{
+						MarkupScript raw = new MarkupScript();
+						raw.RawScript = child.InnerText.Trim();
+						raw.Position = position;
+						if (!String.IsNullOrWhiteSpace(scriptName)) { raw.ScriptName = scriptName; }
+						workingMarkupScripts.Add(raw);
+					}
+				}
+			}
 
-            return workingMarkupScripts;
-        }
+			return workingMarkupScripts;
+		}
 
 		public static string GetPathToFile(ModuleConfiguration config, string path, bool forceHttps = false)
 		{
@@ -535,32 +535,32 @@ namespace SuperFlexiUI
 			}
 		}
 
-        public static void SetupStyle(
-            List<MarkupCss> markupCss,
-            ModuleConfiguration config,
-            SuperFlexiDisplaySettings displaySettings,
+		public static void SetupStyle(
+			List<MarkupCss> markupCss,
+			ModuleConfiguration config,
+			SuperFlexiDisplaySettings displaySettings,
 			bool isEditable,
 			string clientID,
 			SiteSettings siteSettings,
 			Module module,
 			PageSettings pageSettings,
 			Page page,
-            Control control)
-        {
-            string styleLinkFormat = "\n<link rel=\"stylesheet\" href=\"{0}\" media=\"{2}\" data-name=\"{1}\">";
-            string rawCSSFormat = "\n<style type=\"text/css\" data-name=\"{1}\" media=\"{2}\">\n{0}\n</style>";
+			Control control)
+		{
+			string styleLinkFormat = "\n<link rel=\"stylesheet\" href=\"{0}\" media=\"{2}\" data-name=\"{1}\">";
+			string rawCSSFormat = "\n<style type=\"text/css\" data-name=\"{1}\" media=\"{2}\">\n{0}\n</style>";
 			var moduleID = module.ModuleId;
 			var pageID = pageSettings.PageId;
 			foreach (MarkupCss style in markupCss)
-            {
-                StringBuilder sbStyleText = new StringBuilder();
-                StringBuilder sbStyleName = new StringBuilder();
+			{
+				StringBuilder sbStyleText = new StringBuilder();
+				StringBuilder sbStyleName = new StringBuilder();
 
-                sbStyleName.Append(String.IsNullOrWhiteSpace(style.Name) ? clientID + "flexiStyle_" + markupCss.IndexOf(style) : "flexiStyle_" + style.Name);
-                ReplaceStaticTokens(sbStyleName, config, false, displaySettings, module, pageSettings, siteSettings, out sbStyleName);
-                string styleName = sbStyleName.ToString();
-                if (!String.IsNullOrWhiteSpace(style.Url))
-                {
+				sbStyleName.Append(String.IsNullOrWhiteSpace(style.Name) ? clientID + "flexiStyle_" + markupCss.IndexOf(style) : "flexiStyle_" + style.Name);
+				ReplaceStaticTokens(sbStyleName, config, false, displaySettings, module, pageSettings, siteSettings, out sbStyleName);
+				string styleName = sbStyleName.ToString();
+				if (!String.IsNullOrWhiteSpace(style.Url))
+				{
 					string styleUrl = string.Empty;
 
 					if (style.Url.StartsWith("/") ||
@@ -589,205 +589,205 @@ namespace SuperFlexiUI
 
 					sbStyleText.Append(string.Format(styleLinkFormat, styleUrl, styleName, style.Media));
 				}
-                else if (!String.IsNullOrWhiteSpace(style.CSS))
-                {
-                    sbStyleText.Append(string.Format(rawCSSFormat, style.CSS, styleName, style.Media));
-                }
+				else if (!String.IsNullOrWhiteSpace(style.CSS))
+				{
+					sbStyleText.Append(string.Format(rawCSSFormat, style.CSS, styleName, style.Media));
+				}
 
-                ReplaceStaticTokens(sbStyleText, config, false, displaySettings, module, pageSettings, siteSettings, out sbStyleText);
+				ReplaceStaticTokens(sbStyleText, config, false, displaySettings, module, pageSettings, siteSettings, out sbStyleText);
 
-                LiteralControl theLiteral = new LiteralControl();
-                theLiteral.Text = sbStyleText.ToString();
+				LiteralControl theLiteral = new LiteralControl();
+				theLiteral.Text = sbStyleText.ToString();
 
-                StyleSheetCombiner ssc = (StyleSheetCombiner)page.Header.FindControl("StyleSheetCombiner");
+				StyleSheetCombiner ssc = (StyleSheetCombiner)page.Header.FindControl("StyleSheetCombiner");
 
-                if (ssc != null)
-                {
-                    int sscIndex = page.Header.Controls.IndexOf(ssc);
-                    if (style.RenderAboveSSC)
-                    {
-                        page.Header.Controls.AddAt(sscIndex, theLiteral);
-                    }
-                    else
-                    {
-                        page.Header.Controls.AddAt(sscIndex +1, theLiteral);
-                    }
-                }
-                else
-                {
-                    page.Header.Controls.AddAt(0, theLiteral);
-                }
-            }
-        }
+				if (ssc != null)
+				{
+					int sscIndex = page.Header.Controls.IndexOf(ssc);
+					if (style.RenderAboveSSC)
+					{
+						page.Header.Controls.AddAt(sscIndex, theLiteral);
+					}
+					else
+					{
+						page.Header.Controls.AddAt(sscIndex + 1, theLiteral);
+					}
+				}
+				else
+				{
+					page.Header.Controls.AddAt(0, theLiteral);
+				}
+			}
+		}
 
-        internal static List<MarkupCss> ParseCssFromXmlNode(XmlNode childNode)
-        {
-            List<MarkupCss> markupCss = new List<MarkupCss>();
-            if (childNode.Name != "Styles") return markupCss;
-            foreach (XmlNode child in childNode)
-            {
-                if (child.Name == "Style")
-                {
-                    XmlAttributeCollection childAttrs = child.Attributes;
-                    string name = string.Empty;
-                    string media = "all";
-                    if (childAttrs["name"] != null) { name = childAttrs["name"].Value; }
-                    if (childAttrs["media"] != null) { media = childAttrs["media"].Value; }
-                    if (childAttrs["href"] != null)
-                    {
-                        MarkupCss style = new MarkupCss();
-                        style.Url = childAttrs["href"].Value;
-                        style.Media = media;
-                        if (childAttrs["renderAboveSSC"] != null) { style.RenderAboveSSC = Convert.ToBoolean(childAttrs["renderAboveSSC"].Value); }
-                        if (!String.IsNullOrWhiteSpace(name)) { style.Name = name; }
-                        markupCss.Add(style);
-                        continue;
-                    }
-                    if (!String.IsNullOrWhiteSpace(child.InnerText))
-                    {
-                        MarkupCss raw = new MarkupCss();
-                        raw.CSS = child.InnerText.Trim();
-                        raw.Media = media;
-                        if (!String.IsNullOrWhiteSpace(name)) { raw.Name = name; }
-                        markupCss.Add(raw);
-                    }
-                }
-            }
+		internal static List<MarkupCss> ParseCssFromXmlNode(XmlNode childNode)
+		{
+			List<MarkupCss> markupCss = new List<MarkupCss>();
+			if (childNode.Name != "Styles") return markupCss;
+			foreach (XmlNode child in childNode)
+			{
+				if (child.Name == "Style")
+				{
+					XmlAttributeCollection childAttrs = child.Attributes;
+					string name = string.Empty;
+					string media = "all";
+					if (childAttrs["name"] != null) { name = childAttrs["name"].Value; }
+					if (childAttrs["media"] != null) { media = childAttrs["media"].Value; }
+					if (childAttrs["href"] != null)
+					{
+						MarkupCss style = new MarkupCss();
+						style.Url = childAttrs["href"].Value;
+						style.Media = media;
+						if (childAttrs["renderAboveSSC"] != null) { style.RenderAboveSSC = Convert.ToBoolean(childAttrs["renderAboveSSC"].Value); }
+						if (!String.IsNullOrWhiteSpace(name)) { style.Name = name; }
+						markupCss.Add(style);
+						continue;
+					}
+					if (!String.IsNullOrWhiteSpace(child.InnerText))
+					{
+						MarkupCss raw = new MarkupCss();
+						raw.CSS = child.InnerText.Trim();
+						raw.Media = media;
+						if (!String.IsNullOrWhiteSpace(name)) { raw.Name = name; }
+						markupCss.Add(raw);
+					}
+				}
+			}
 
-            return markupCss;
-        }
+			return markupCss;
+		}
 
-        public static void ParseSearchDefinition(XmlNode searchNode, Guid fieldDefinitionGuid, Guid siteGuid)
-        {
-            ModuleConfiguration config = new ModuleConfiguration();
-            if (searchNode != null)
-            {
-                //XmlAttributeCollection attrCollection = node.Attributes;
-                //if (attrCollection["fieldDefinitionGuid"] != null) fieldDefinitionGuid = Guid.Parse(attrCollection["fieldDefinitionGuid"].Value);
-                //if (fieldDefinitionGuid == Guid.Empty) return;
+		public static void ParseSearchDefinition(XmlNode searchNode, Guid fieldDefinitionGuid, Guid siteGuid)
+		{
+			ModuleConfiguration config = new ModuleConfiguration();
+			if (searchNode != null)
+			{
+				//XmlAttributeCollection attrCollection = node.Attributes;
+				//if (attrCollection["fieldDefinitionGuid"] != null) fieldDefinitionGuid = Guid.Parse(attrCollection["fieldDefinitionGuid"].Value);
+				//if (fieldDefinitionGuid == Guid.Empty) return;
 
-                bool emptySearchDef = false;
-                bool searchDefExists = true;
-                SearchDef searchDef = SearchDef.GetByFieldDefinition(fieldDefinitionGuid);
-                if (searchDef == null)
-                {
-                    searchDefExists = false;
-                    emptySearchDef = true;
+				bool emptySearchDef = false;
+				bool searchDefExists = true;
+				SearchDef searchDef = SearchDef.GetByFieldDefinition(fieldDefinitionGuid);
+				if (searchDef == null)
+				{
+					searchDefExists = false;
+					emptySearchDef = true;
 
-                    searchDef = new SearchDef();
-                    searchDef.FieldDefinitionGuid = fieldDefinitionGuid;
-                    searchDef.SiteGuid = siteGuid;
-                    searchDef.FeatureGuid = config.FeatureGuid;
-                }
+					searchDef = new SearchDef();
+					searchDef.FieldDefinitionGuid = fieldDefinitionGuid;
+					searchDef.SiteGuid = siteGuid;
+					searchDef.FeatureGuid = config.FeatureGuid;
+				}
 
-                foreach (XmlNode childNode in searchNode)
-                {
-                    //need to find a way to clear out the searchdef if needed
-                    switch (childNode.Name)
-                    {
-                        case "Title":
-                            searchDef.Title = childNode.InnerText.Trim();
-                            emptySearchDef = false;
-                            break;
+				foreach (XmlNode childNode in searchNode)
+				{
+					//need to find a way to clear out the searchdef if needed
+					switch (childNode.Name)
+					{
+						case "Title":
+							searchDef.Title = childNode.InnerText.Trim();
+							emptySearchDef = false;
+							break;
 
-                        case "Keywords":
-                            searchDef.Keywords = childNode.InnerText.Trim();
-                            emptySearchDef = false;
-                            break;
+						case "Keywords":
+							searchDef.Keywords = childNode.InnerText.Trim();
+							emptySearchDef = false;
+							break;
 
-                        case "Description":
-                            searchDef.Description = childNode.InnerText.Trim();
-                            emptySearchDef = false;
-                            break;
+						case "Description":
+							searchDef.Description = childNode.InnerText.Trim();
+							emptySearchDef = false;
+							break;
 
-                        case "Link":
-                            searchDef.Link = childNode.InnerText.Trim();
-                            emptySearchDef = false;
-                            break;
+						case "Link":
+							searchDef.Link = childNode.InnerText.Trim();
+							emptySearchDef = false;
+							break;
 
-                        case "LinkQueryAddendum":
-                            searchDef.LinkQueryAddendum = childNode.InnerText.Trim();
-                            emptySearchDef = false;
-                            break;
-                    }
+						case "LinkQueryAddendum":
+							searchDef.LinkQueryAddendum = childNode.InnerText.Trim();
+							emptySearchDef = false;
+							break;
+					}
 
-                    //}
-                }
-                if (searchDefExists && emptySearchDef)
-                {
-                    SearchDef.DeleteByFieldDefinition(fieldDefinitionGuid);
-                }
-                else if (!emptySearchDef)
-                {
-                    searchDef.Save();
-                }
-                //if (!emptySearchDef) searchDef.Save();
-            }
-        }
+					//}
+				}
+				if (searchDefExists && emptySearchDef)
+				{
+					SearchDef.DeleteByFieldDefinition(fieldDefinitionGuid);
+				}
+				else if (!emptySearchDef)
+				{
+					searchDef.Save();
+				}
+				//if (!emptySearchDef) searchDef.Save();
+			}
+		}
 
-        //public static ExpandoObject GetExpandoForItem(Item item, ModuleConfiguration config)
-        //{
+		//public static ExpandoObject GetExpandoForItem(Item item, ModuleConfiguration config)
+		//{
 
-        //}
-        public static ExpandoObject GetExpandoForItem(Item item)
-        {
-            var fields = Field.GetAllForDefinition(item.DefinitionGuid);
+		//}
+		public static ExpandoObject GetExpandoForItem(Item item)
+		{
+			var fields = Field.GetAllForDefinition(item.DefinitionGuid);
 
-            if (fields == null || item == null)
-            {
-                return null;
-            }
+			if (fields == null || item == null)
+			{
+				return null;
+			}
 
-            dynamic itemExpando = new ExpandoObject();
-            itemExpando.Guid = item.ItemGuid;
-            itemExpando.SortOrder = item.SortOrder;
+			dynamic itemExpando = new ExpandoObject();
+			itemExpando.Guid = item.ItemGuid;
+			itemExpando.SortOrder = item.SortOrder;
 
-            List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
+			List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
 
-            foreach (Field field in fields)
-            {
-                foreach (ItemFieldValue fieldValue in fieldValues)
-                {
-                    if (field.FieldGuid == fieldValue.FieldGuid)
-                    {
-                        ((IDictionary<String, Object>)itemExpando)[field.Name] = fieldValue.FieldValue;
-                    }
-                }
-            }
+			foreach (Field field in fields)
+			{
+				foreach (ItemFieldValue fieldValue in fieldValues)
+				{
+					if (field.FieldGuid == fieldValue.FieldGuid)
+					{
+						((IDictionary<String, Object>)itemExpando)[field.Name] = fieldValue.FieldValue;
+					}
+				}
+			}
 
-            return itemExpando;
-        }
-        public static ExpandoObject GetExpandoForModuleItems(Module module, ModuleConfiguration config, bool allForDefinition = false)
-        {
-            var fields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
-            var items = new List<Item>();
+			return itemExpando;
+		}
+		public static ExpandoObject GetExpandoForModuleItems(Module module, ModuleConfiguration config, bool allForDefinition = false)
+		{
+			var fields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
+			var items = new List<Item>();
 
-            if (allForDefinition)
-            {
-                items = Item.GetForDefinition(config.FieldDefinitionGuid, module.SiteGuid, config.DescendingSort);
-            }
-            else
-            {
-                items = Item.GetForModule(module.ModuleId, config.DescendingSort);
-            }
+			if (allForDefinition)
+			{
+				items = Item.GetForDefinition(config.FieldDefinitionGuid, module.SiteGuid, config.DescendingSort);
+			}
+			else
+			{
+				items = Item.GetForModule(module.ModuleId, config.DescendingSort);
+			}
 
-            if (fields == null || items == null)
-            {
-                return null;
-            }
+			if (fields == null || items == null)
+			{
+				return null;
+			}
 
-            dynamic expando = new ExpandoObject();
+			dynamic expando = new ExpandoObject();
 
-            expando.Definition = config.MarkupDefinitionName;
-            expando.ModuleName = module.ModuleTitle;
-            expando.Items = new List<dynamic>();
+			expando.Definition = config.MarkupDefinitionName;
+			expando.ModuleName = module.ModuleTitle;
+			expando.Items = new List<dynamic>();
 
-            foreach (Item item in items)
-            {
-                expando.Items.Add(GetExpandoForItem(item));
-            }
+			foreach (Item item in items)
+			{
+				expando.Items.Add(GetExpandoForItem(item));
+			}
 
-            return expando;
-        }
-    }
+			return expando;
+		}
+	}
 }
