@@ -327,42 +327,63 @@ namespace SuperFlexiUI
 			// belowMarkupDefinition
 			// bottomStartup(register startup script)
 
-			List<MarkupScript> workingMarkupScripts = new List<MarkupScript>();
-			if (childNode.Name != "Scripts") return workingMarkupScripts;
+			var workingMarkupScripts = new List<MarkupScript>();
+
+			if (childNode.Name != "Scripts")
+			{
+				return workingMarkupScripts;
+			}
+
 			foreach (XmlNode child in childNode)
 			{
-				if (child.Name == "Script")
+				if (child.Name != "Script")
 				{
-					XmlAttributeCollection childAttrs = child.Attributes;
-					string position = "inBody";
-					string scriptName = string.Empty;
+					continue;
+				}
 
-					if (childAttrs["position"] != null) { position = childAttrs["position"].Value; }
-					if (childAttrs["name"] != null) { scriptName = childAttrs["name"].Value; }
+				XmlAttributeCollection childAttrs = child.Attributes;
+				var position = childAttrs["position"]?.Value ?? "inBody";
+				var scriptName = childAttrs["name"]?.Value ?? string.Empty;
 
-					if (childAttrs["src"] != null)
+
+				if (childAttrs["src"] != null)
+				{
+					var script = new MarkupScript
 					{
-						MarkupScript script = new MarkupScript();
-						script.Url = childAttrs["src"].Value;
-						script.Position = position;
-						if (!String.IsNullOrWhiteSpace(scriptName)) { script.ScriptName = scriptName; }
-						workingMarkupScripts.Add(script);
-						continue;
+						Url = childAttrs["src"].Value,
+						Position = position
+					};
+
+					if (!string.IsNullOrWhiteSpace(scriptName))
+					{
+						script.ScriptName = scriptName;
 					}
 
-					if (!String.IsNullOrWhiteSpace(child.InnerText))
+					workingMarkupScripts.Add(script);
+
+					continue;
+				}
+
+				if (!string.IsNullOrWhiteSpace(child.InnerText))
+				{
+					var raw = new MarkupScript
 					{
-						MarkupScript raw = new MarkupScript();
-						raw.RawScript = child.InnerText.Trim();
-						raw.Position = position;
-						if (!String.IsNullOrWhiteSpace(scriptName)) { raw.ScriptName = scriptName; }
-						workingMarkupScripts.Add(raw);
+						RawScript = child.InnerText.Trim(),
+						Position = position
+					};
+
+					if (!string.IsNullOrWhiteSpace(scriptName))
+					{
+						raw.ScriptName = scriptName;
 					}
+
+					workingMarkupScripts.Add(raw);
 				}
 			}
 
 			return workingMarkupScripts;
 		}
+
 
 		public static string GetPathToFile(ModuleConfiguration config, string path, bool forceHttps = false)
 		{
@@ -435,7 +456,7 @@ namespace SuperFlexiUI
 				string scriptName = sbScriptName.ToString();
 				if (!String.IsNullOrWhiteSpace(script.Url))
 				{
-					string scriptUrl = GetPathToFile(config, script.Url, siteSettings.UseSslOnAllPages);
+					string scriptUrl = GetPathToFile(config, script.Url, WebConfigSettings.SslisAvailable);
 					sbScriptText.Append(string.Format(scriptRefFormat, scriptUrl, scriptName));
 				}
 				else if (!String.IsNullOrWhiteSpace(script.RawScript))
