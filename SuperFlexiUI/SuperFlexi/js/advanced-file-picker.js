@@ -1,10 +1,10 @@
 /*eslint eqeqeq: ["error", "smart"]*/
 // Element.closest() Polyfill
-Element.prototype.matches||(Element.prototype.matches=Element.prototype.msMatchesSelector||Element.prototype.webkitMatchesSelector),Element.prototype.closest||(Element.prototype.closest=function(e){var t=this;do{if(t.matches(e))return t;t=t.parentElement||t.parentNode}while(null!==t&&1===t.nodeType);return null});
+Element.prototype.matches || (Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector), Element.prototype.closest || (Element.prototype.closest = function(e) { var t = this; do { if (t.matches(e)) return t; t = t.parentElement || t.parentNode } while (null !== t && 1 === t.nodeType); return null });
 // NodeList.prototype.forEach() Polyfill
-window.NodeList&&!NodeList.prototype.forEach&&(NodeList.prototype.forEach=function(o,t){t=t||window;for(var i=0;i<this.length;i++)o.call(t,this[i],i,this)});
+window.NodeList && !NodeList.prototype.forEach && (NodeList.prototype.forEach = function(o, t) { t = t || window; for (var i = 0; i < this.length; i++)o.call(t, this[i], i, this) });
 // https://tc39.github.io/ecma262/#sec-array.prototype.includes
-Array.prototype.includes||Object.defineProperty(Array.prototype,"includes",{value:function(r,e){if(null==this)throw new TypeError('"this" is null or not defined');var t=Object(this),n=t.length>>>0;if(0===n)return!1;var i,o,a=0|e,u=Math.max(0<=a?a:n-Math.abs(a),0);for(;u<n;){if((i=t[u])===(o=r)||"number"==typeof i&&"number"==typeof o&&isNaN(i)&&isNaN(o))return!0;u++}return!1}});
+Array.prototype.includes || Object.defineProperty(Array.prototype, "includes", { value: function(r, e) { if (null == this) throw new TypeError('"this" is null or not defined'); var t = Object(this), n = t.length >>> 0; if (0 === n) return !1; var i, o, a = 0 | e, u = Math.max(0 <= a ? a : n - Math.abs(a), 0); for (; u < n;) { if ((i = t[u]) === (o = r) || "number" == typeof i && "number" == typeof o && isNaN(i) && isNaN(o)) return !0; u++ } return !1 } });
 
 
 
@@ -93,7 +93,6 @@ var filePicker = {
 		const pickerLink = picker.querySelector('.advanced-file-picker__link');
 		const imagePreview = picker.querySelector('.advanced-file-picker__image-preview');
 		const pickerText = picker.querySelector('.advanced-file-picker__text');
-		const outputEvent = document.createEvent('Event');
 
 
 		//
@@ -153,7 +152,7 @@ var filePicker = {
 		};
 
 		const validateInput = function(mutationsList) {
-			mutationsList.forEach(function (mutation) {
+			mutationsList.forEach(function(mutation) {
 				if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
 					const validationMessage = mutation.target.dataset.valErrormessage;
 
@@ -190,17 +189,18 @@ var filePicker = {
 		};
 
 		const checkFile = function() {
-			const request = new XMLHttpRequest();
+			const builtUrl = window.location.protocol + '//' + window.location.host + output.value;
+			const url = output.value.startsWith('/') ? new URL(builtUrl) : new URL(output.value);
 
-			function listener() {
-				if (this.status !== 200) {
-					failValidation('That file does not exist, please choose another file.');
-				}
-			}
-
-			request.open('HEAD', output.value);
-			request.send();
-			request.addEventListener('load', listener);
+			fetch(url, { method: 'HEAD' })
+				.then(response => {
+					if (!response.ok) {
+						failValidation('That file does not exist, please choose another file.');
+					}
+				})
+				.catch(e => {
+					console.log(e);
+				});
 		};
 
 		const bindEvents = function() {
@@ -217,7 +217,7 @@ var filePicker = {
 		//
 		// Event Handlers
 		//
-		
+
 		const fileManagerEvent = function(e) {
 			e.preventDefault();
 			openFileManager(output, pickerType, startFolder);
@@ -226,64 +226,76 @@ var filePicker = {
 		const updatePreviewEvent = function(e) {
 			e.preventDefault();
 
-			const url = this.value;
-			const fileExt = url.split('.').pop();
+			if (this.value === '') {
+				setPickerText(pickerDefaultText);
+				previewState('inside');
 
-			let fileName = getFileName(url).split('.');
-			fileName.pop();
-			
-			let newPickerText = '<span class="trunc-center">' + fileName + '</span><span class="trunc-ext">.' + fileExt + '</span>';
-			let newPickerTextTitle = getFileName(url);
-
-			toolsInput.value = url;
-
-			if (picker.dataset.pickerType === 'image') {
-				setImagePreview(url);
+				return;
 			}
 
-			if (picker.dataset.pickerType === 'file') {
-				const imageTypes = ['bmp','cod','gif','ief','jpe','jpeg','jpg','jfif','svg','tif','tiff','ras','cmx','ico','png','pnm','pbm','pgm','ppm','rgb','xbm','xpm','xwd'];
+			const builtUrl = window.location.protocol + '//' + window.location.host + this.value;
+			const url = this.value.startsWith('/') ? new URL(builtUrl) : new URL(this.value);
 
-				if (imageTypes.includes(fileExt)) {
-					setImagePreview(url);
-				} else {
-					let iconCssClass;
+			let newPickerText = `<span class="trunc-center">${url.toString()}</span>`;
+			let newPickerTextTitle = url.toString();
 
-					switch (fileExt) {
-						case 'pdf':
-							iconCssClass = 'fa-file-pdf-o';
-							break;
-						case 'xls':
-						case 'xlsx':
-							iconCssClass = 'fa-file-excel-o';
-							break;
-						case 'doc':
-						case 'docx':
-							iconCssClass = 'fa-file-word-o';
-							break;
-						case 'ppt':
-							iconCssClass = 'fa-file-powerpoint-o';
-							break;
-						default:
-							iconCssClass = 'fa-file-o';
+			toolsInput.value = url.toString();
+
+			previewState('inside');
+
+			if (url.pathname.includes('.')) {
+				const fileExt = url.pathname.split('.').pop();
+				let fileName = getFileName(url.pathname).split('.');
+				fileName.pop();
+
+				newPickerText = '<span class="trunc-center">' + fileName + '</span><span class="trunc-ext">.' + fileExt + '</span>';
+				newPickerTextTitle = getFileName(url.pathname);
+
+				if (picker.dataset.pickerType === 'image') {
+					setImagePreview(url.toString());
+				}
+
+				if (picker.dataset.pickerType === 'file') {
+					const imageTypes = ['bmp', 'cod', 'gif', 'ief', 'jpe', 'jpeg', 'jpg', 'jfif', 'svg', 'tif', 'tiff', 'ras', 'cmx', 'ico', 'png', 'pnm', 'pbm', 'pgm', 'ppm', 'rgb', 'xbm', 'xpm', 'xwd'];
+
+					if (imageTypes.includes(fileExt)) {
+						setImagePreview(url.toString());
 					}
 
-					newPickerText = '<span class="trunc-icon fa ' + iconCssClass + '">' + '</span>' +
-						'<span class="trunc-center">' + fileName + '</span>' +
-						'<span class="trunc-ext">.' + fileExt + '</span>';
+					if (fileExt) {
+						let iconCssClass;
 
-					previewState('inside');
+						switch (fileExt) {
+							case 'pdf':
+								iconCssClass = 'fa-file-pdf-o';
+								break;
+							case 'xls':
+							case 'xlsx':
+								iconCssClass = 'fa-file-excel-o';
+								break;
+							case 'doc':
+							case 'docx':
+								iconCssClass = 'fa-file-word-o';
+								break;
+							case 'ppt':
+								iconCssClass = 'fa-file-powerpoint-o';
+								break;
+							default:
+								iconCssClass = 'fa-file-o';
+						}
+
+						newPickerText = '<span class="trunc-icon fa ' + iconCssClass + '">' + '</span>' +
+							'<span class="trunc-center">' + fileName + '</span>' +
+							'<span class="trunc-ext">.' + fileExt + '</span>';
+					}
+					else {
+
+					}
 				}
 			}
 
-
-			if (url === '') {
-				setPickerText(pickerDefaultText);
-				previewState('inside');
-			} else {
-				setPickerText(newPickerText, newPickerTextTitle);
-				checkFile();
-			}
+			setPickerText(newPickerText, newPickerTextTitle);
+			checkFile();
 		};
 
 		const toggleToolsEvent = function(e) {
@@ -299,6 +311,9 @@ var filePicker = {
 		const submitUrlEvent = function(e) {
 			e.preventDefault();
 
+			const outputEvent = document.createEvent('Event');
+			
+			outputEvent.initEvent('input', true, true);
 			output.value = toolsInput.value;
 			output.dispatchEvent(outputEvent);
 			hideTools();
@@ -316,6 +331,9 @@ var filePicker = {
 		const clearFileEvent = function(e) {
 			e.preventDefault();
 
+			const outputEvent = document.createEvent('Event');
+
+			outputEvent.initEvent('input', true, true);
 			output.value = '';
 			toolsInput.value = '';
 			imagePreview.src = returnGifIfEmpty('');
@@ -335,6 +353,7 @@ var filePicker = {
 		//
 
 		const init = function() {
+			const outputEvent = document.createEvent('Event');
 			outputEvent.initEvent('input', true, true);
 
 			const valid = pickerValidation();

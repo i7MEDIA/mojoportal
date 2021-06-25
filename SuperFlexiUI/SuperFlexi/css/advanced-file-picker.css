@@ -268,12 +268,33 @@
 .advanced-file-picker__tools-btn--set {
 	color: green;
 	margin-right: 1.5px;
-} 
- 
-.advanced-file-picker__image-preview { 
+}
+
+.advanced-file-picker__image-preview {
+	--checkerSize: 10px;
+	--checkerColor: #afafaf;
+	--checkerAltColor: #ebebeb;
+
+	background-image:
+		linear-gradient(45deg, var(--checkerColor, magenta) 25%, transparent 25%), 
+		linear-gradient(135deg, var(--checkerColor, orange) 25%, transparent 25%),
+		linear-gradient(45deg, transparent 75%, var(--checkerColor, dodgerblue) 75%),
+		linear-gradient(135deg, transparent 75%, var(--checkerColor, darkorchid) 75%);
+	background-color: var(--checkerAltColor);
+  
+	background-size: 
+		calc(2 * var(--checkerSize)) 
+		calc(2 * var(--checkerSize));
+  
+	background-position: 
+		0 0, 
+		var(--checkerSize) 0, 
+		var(--checkerSize) calc(-1 * var(--checkerSize)), 
+		0px var(--checkerSize);
+
 	height: 190px !important;
 	-o-object-fit: cover;
-	   object-fit: cover;
+	object-fit: cover;
 	width: 190px !important;
 } 
  
