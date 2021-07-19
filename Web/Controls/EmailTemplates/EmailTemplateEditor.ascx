@@ -35,9 +35,9 @@
 <asp:Panel ID="pnlTokens" runat="server">
 	<div class="settingrow">
 		<mp:SiteLabel id="SiteLabel3" runat="server" CssClass="settinglabel" ConfigKey="SupportedTokens" ResourceFile="Resource" UseLabelTag="false" />
+		<portal:mojoHelpLink ID="hlpTokens" runat="server" />
 	</div>
 	<div class="settingrow">
-		<portal:mojoHelpLink ID="hlpTokens" runat="server" />
 		<asp:Literal ID="litTokens" runat="server" />
 	</div>
 </asp:Panel>

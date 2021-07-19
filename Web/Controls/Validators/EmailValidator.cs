@@ -30,27 +30,25 @@ namespace mojoPortal.Web.UI
     /// </summary>
     public class EmailValidator : RegularExpressionValidator
     {
-        
-        private bool useRegex = false;
-        /// <summary>
-        /// set to true to act like a normal regularexpressionvalidator
-        /// </summary>
-        public bool UseRegex
-        {
-            get { return useRegex; }
-            set { useRegex = value; }
-        }
+		/// <summary>
+		/// set to true to act like a normal regularexpressionvalidator
+		/// </summary>
+		public bool UseRegex { get; set; } = false;
 
-        public EmailValidator()
+		public bool AllowEmpty { get; set; } = false;
+
+		public EmailValidator()
         {
 
         }
 
         protected override bool EvaluateIsValid()
         {
-            if (useRegex) { return base.EvaluateIsValid(); }
-
             string providedEmail = GetControlValidationValue(ControlToValidate);
+
+            if (AllowEmpty && providedEmail == string.Empty) return true;
+
+            if (UseRegex) { return base.EvaluateIsValid(); }
 
             return SecurityHelper.IsValidEmailAddress(providedEmail);
         }
@@ -64,7 +62,7 @@ namespace mojoPortal.Web.UI
                 ValidationExpression = SecurityHelper.GetEmailRegexExpression();
             }
 
-            if (WebConfigSettings.ForceRegexOnEmailValidator) { useRegex = true; }
+            if (WebConfigSettings.ForceRegexOnEmailValidator) { UseRegex = true; }
         }
 
         

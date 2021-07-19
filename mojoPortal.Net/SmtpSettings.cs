@@ -34,7 +34,7 @@ namespace mojoPortal.Net
 		public string PreferredEncoding { get; set; } = string.Empty;
 
 		public bool AddBulkMailHeader { get; set; } = false;
-
+		public string AdditionalHeaders { get; set; } = string.Empty;
 		public bool IsValid
         {
             get

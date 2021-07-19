@@ -225,8 +225,8 @@ namespace mojoPortal.Web.UI
             reqSubject.Enabled = showSubject;
             reqSubject.Visible = ShowSubject;
 
-            pnlTokens.Visible = (allowedTokens.Length > 0);
-            litTokens.Text = allowedTokens.Replace(" ", "\r\n");
+            pnlTokens.Visible = allowedTokens.Length > 0;
+            litTokens.Text = $"<div class='allowed-tokens'><pre>{allowedTokens.Replace(" ", "\r\n")}</pre></div>";
             hlpTokens.HelpKey = allowedTokensHelpKey;
 
             if (templateGuid != Guid.Empty)
