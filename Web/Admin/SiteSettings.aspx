@@ -923,7 +923,7 @@
 
 							</div>
 							<div id="tabScripts" runat="server" enableviewstate="false">
-								<portal:FormGroupPanel runat="server" ID="fgpScripts">
+								<portal:FormGroupPanel runat="server" ID="fgpScripts" SkinID="SettingsPanel">
 									<asp:Literal ID="litScriptsHeader" runat="server" EnableViewState="false" />
 									<portal:FormGroupPanel runat="server" ID="fgpHeaderScripts">
 										<mp:SiteLabel runat="server" ForControl="txtHeaderScripts" CssClass="settinglabel" ConfigKey="SiteSettingsScriptsHeaderScripts" EnableViewState="false" />
@@ -936,7 +936,7 @@
 										<asp:Literal ID="litFooterScriptsQuickHelp" runat="server" EnableViewState="false" />
 									</portal:FormGroupPanel>
 								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server" ID="fgpAdminScripts">
+								<portal:FormGroupPanel runat="server" ID="fgpAdminScripts" SkinID="SettingsPanel">
 									<asp:Literal ID="litAdminScriptsHeader" runat="server" EnableViewState="false" />
 									<portal:FormGroupPanel runat="server" ID="fgpHeaderScriptsAdmin">
 										<mp:SiteLabel runat="server" ForControl="txtHeaderAdminScripts" CssClass="settinglabel" ConfigKey="SiteSettingsScriptsHeaderScripts" EnableViewState="false" />

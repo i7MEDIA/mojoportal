@@ -5455,7 +5455,7 @@
     <value>Enable Keep Me Logged In?</value>
   </data>
   <data name="ResetSkinVersionGuid" xml:space="preserve">
-    <value>Reset Skin Version Guid</value>
+    <value>Clear Skin Cache</value>
   </data>
   <data name="RolesThatCanAssignSkinsToPages" xml:space="preserve">
     <value>Assign Skins to Pages</value>
