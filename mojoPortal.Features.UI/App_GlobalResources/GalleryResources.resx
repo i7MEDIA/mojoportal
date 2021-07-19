@@ -229,7 +229,7 @@
     <value>Only jpg, gif, and png files allowed.</value>
   </data>
   <data name="UseSilverlightSlideshow" xml:space="preserve">
-    <value>Use Silverlight Slide Show?</value>
+    <value>Use Silverlight Slide Show? - Obsolete</value>
   </data>
   <data name="SlideShowHeight" xml:space="preserve">
     <value>Slide Show Height</value>
@@ -310,7 +310,7 @@
     <value>previous</value>
   </data>
   <data name="SilverlightSettings" xml:space="preserve">
-    <value>Silverlight Slide Show Settings</value>
+    <value>Silverlight Slide Show Settings - Obsolete</value>
   </data>
   <data name="StartSlideShow" xml:space="preserve">
     <value>start slideshow</value>

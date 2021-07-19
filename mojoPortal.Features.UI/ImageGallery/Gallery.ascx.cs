@@ -39,7 +39,7 @@ namespace mojoPortal.Web.GalleryUI
         private int itemId = -1;
         private string ViewImagePage = "GalleryBrowse.aspx";
         private int totalRows = 0;
-        private bool UseSilverlightSlideshow = false;
+        //private bool UseSilverlightSlideshow = false;
         private string baseUrl = string.Empty;
         protected string thumnailBaseUrl = string.Empty;
         protected string webSizeBaseUrl = string.Empty;
@@ -131,32 +131,32 @@ namespace mojoPortal.Web.GalleryUI
 		{
             LoadSettings();
 
-            if (config.UseSlideShow)
-            {
-                SetupSilverlight();
-            }
-            else
-            {
+            //if (config.UseSlideShow)
+            //{
+            //    SetupSilverlight();
+            //}
+            //else
+            //{
 
                 if (!Page.IsPostBack)
                 {
                     PopulateControls();
                 }
-            }
+            //}
 		}
 
-        private void SetupSilverlight()
-        {
-            pnlSl.Visible = true;
-            pnlInnerBody.Visible = false;
-            slideShow.XmlDataUrl = SiteRoot + "/Services/GalleryDataService.ashx?pageid=" + PageId.ToInvariantString()
-                        + "&amp;mid=" + ModuleId.ToInvariantString();
+        //private void SetupSilverlight()
+        //{
+        //    pnlSl.Visible = true;
+        //    pnlInnerBody.Visible = false;
+        //    slideShow.XmlDataUrl = SiteRoot + "/Services/GalleryDataService.ashx?pageid=" + PageId.ToInvariantString()
+        //                + "&amp;mid=" + ModuleId.ToInvariantString();
 
-            slideShow.Theme = config.SlideShowTheme;
-            slideShow.Height = config.SlideShowHeight;
-            slideShow.Width = config.SlideShowWidth;
-            slideShow.Windowless = config.SlideShowWindowlessMode;
-        }
+        //    slideShow.Theme = config.SlideShowTheme;
+        //    slideShow.Height = config.SlideShowHeight;
+        //    slideShow.Width = config.SlideShowWidth;
+        //    slideShow.Windowless = config.SlideShowWindowlessMode;
+        //}
 
         private void PopulateControls()
         {
@@ -571,7 +571,7 @@ namespace mojoPortal.Web.GalleryUI
                 Description = this.ModuleConfiguration.FeatureName;
             }
 
-            UseSilverlightSlideshow = config.UseSlideShow;
+            //UseSilverlightSlideshow = config.UseSlideShow;
 
 
             if (config.CustomCssClass.Length > 0) { pnlOuterWrap.SetOrAppendCss(config.CustomCssClass); }
@@ -593,12 +593,12 @@ namespace mojoPortal.Web.GalleryUI
             thumbsPerPage = config.ThumbsPerPage;
             UseCompactMode = config.UseCompactMode;
 
-            if (RenderInWebPartMode)
-            {
-                UseCompactMode = false;
-                UseSilverlightSlideshow = false;
-                thumbsPerPage = 6;
-            }
+            //if (RenderInWebPartMode)
+            //{
+            //    UseCompactMode = false;
+            //    UseSilverlightSlideshow = false;
+            //    thumbsPerPage = 6;
+            //}
 
             if (UseCompactMode)
             {
