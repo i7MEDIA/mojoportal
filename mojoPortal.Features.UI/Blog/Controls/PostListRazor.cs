@@ -51,6 +51,7 @@ namespace mojoPortal.Web.BlogUI
 		private bool isEditable = false;
 		private string siteRoot = string.Empty;
 		private string imageSiteRoot = string.Empty;
+		private string navigationSiteRoot = string.Empty;
 		private SiteSettings siteSettings = null;
 		protected string CategoriesResourceKey = "PostCategories";
 		protected int Month = DateTime.UtcNow.Month;
@@ -224,6 +225,19 @@ namespace mojoPortal.Web.BlogUI
 			{
 				useFriendlyUrls = false;
 			}
+
+			if (WebConfigSettings.UseFolderBasedMultiTenants)
+			{
+				navigationSiteRoot = SiteUtils.GetNavigationSiteRoot();
+				imageSiteRoot = WebUtils.GetSiteRoot();
+			}
+			else
+			{
+				navigationSiteRoot = WebUtils.GetHostRoot();
+				imageSiteRoot = navigationSiteRoot;
+
+			}
+
 		}
 
 		protected override void RenderContents(HtmlTextWriter output)
@@ -427,7 +441,7 @@ namespace mojoPortal.Web.BlogUI
 
 				if (useFriendlyUrls && (postRow["ItemUrl"].ToString().Length > 0))
 				{
-					model.ItemUrl = postRow["ItemUrl"].ToString().Replace("~", string.Empty);
+					model.ItemUrl = navigationSiteRoot + postRow["ItemUrl"].ToString().Replace("~", string.Empty);
 				}
 				else
 				{
