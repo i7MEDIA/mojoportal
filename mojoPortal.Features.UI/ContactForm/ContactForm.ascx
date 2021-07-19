@@ -1,6 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="ContactForm.ascx.cs" Inherits="mojoPortal.Web.ContactUI.ContactForm" %>
 
-<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
+<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server" CssClass="contactform-wrap">
 	<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper contactform">
 		<portal:ModuleTitleControl id="Title1" runat="server"  />
 		<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
