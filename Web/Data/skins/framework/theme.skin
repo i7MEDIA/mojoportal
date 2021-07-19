@@ -267,6 +267,8 @@
 <portalAdmin:AdminDisplaySettings runat="server"
 	PanelHeadingMarkup = "<h3 class='setting-section-title'>{0} <small>{1}</small></h3><div class='setting-section-body'>"
 	SubPanelHeadingMarkup = "<div class='panel-heading'><h3 class='panel-title'>{0} <small>{1}</small></h3></div><div class='panel-body'>"
+	SubPanelHeadingMarkupCollapsible = "<div class='panel-heading'><a href='#{2}' data-toggle='collapse'><h3 class='panel-title'>{0} <small>{1}</small></h3></a></div><div class='panel-collapse collapse' id='{2}'><div class='panel-body'>"
+	SubPanelBottomMarkup = "</div>"
 />
 
 <%-- Form Group Panels --%>
@@ -305,6 +307,11 @@
 	CssClass="panel panel-warning"
 	OutsideBottomMarkup="</div>"
 />
+<portal:FormGroupPanel runat="server" SkinID="SettingsWarningPanel"
+	Element="div"
+	CssClass="panel panel-warning"
+	OutsideBottomMarkup="</div>"
+/>
 <portal:FormGroupPanel runat="server" SkinID="OpenIDSettings"
 	Element="div"
 	CssClass="settingrow"
@@ -330,7 +337,11 @@
 	CssClass="settingrow"
 	OutsideBottomMarkup="</div>"
 />
-
+<portal:FormGroupPanel runat="server" SkinID="SettingsPanel"
+	Element="div"
+	CssClass="settingrow"
+	OutsideBottomMarkup="</div>"
+/>
 <portal:FormGroupPanel runat="server" SkinID="ButtonPanel"
 	CssClass="settingrow button-row"
 	InsideTopMarkup="<label class='settinglabel'></label>"
