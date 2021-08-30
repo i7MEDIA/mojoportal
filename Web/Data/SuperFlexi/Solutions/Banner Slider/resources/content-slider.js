@@ -8,6 +8,7 @@ $(document).ready(function() {
 		touchMove: false,
 		adaptiveHeight: true,
 		cssEase: 'linear',
+		autoplay: true,
 		appendArrows: $('.content-slider__controls'),
 		appendDots: $('.content-slider__controls'),
 		nextArrow: '<button type="button" data-role="none" class="content-slider__control content-slider__control--next" aria-label="Next" role="button"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>',
