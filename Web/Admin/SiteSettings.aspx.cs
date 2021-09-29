@@ -1789,29 +1789,51 @@ namespace mojoPortal.Web.AdminUI
 			txtSMTPPassword.TextMode = maskSMTPPassword ? TextBoxMode.Password : TextBoxMode.SingleLine;
 
 			litMainSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsMainSettingsLabel, Resource.SiteSettingsMainSettingsDescription);
+			fgpMainSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
+			
 			litSkinSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSkinSettingsLabel, Resource.SiteSettingsSkinSettingsDescription);
+			fgpSkinSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
+
 			litContentEditorSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsContentEditorSettingsLabel, Resource.SiteSettingsContentEditorSettingsDescription);
+			fgpEditorSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
 			litRegistrationSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityRegistrationSettingsLabel, Resource.SiteSettingsSecurityRegistrationSettingsDescription);
+			fgpRegistrationOptions.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
+
 			litUserAccountSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityUserAccountSettingsLabel, Resource.SiteSettingsSecurityUserAccountSettingsDescription);
+			fgpUserAccountSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
+
 			litPasswordSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityPasswordSettingsLabel, Resource.SiteSettingsSecurityPasswordSettingsDescription);
+			fgpPasswordSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
 			litPasswordRecoverySettingsHeader.Text = string.Format(adminDisplaySettings.SubPanelHeadingMarkup, Resource.SiteSettingsSecurityPasswordRecoverySettingsLabel, Resource.SiteSettingsSecurityPasswordRecoverySettingsDescription);
+			fgpPasswordRecovery.OutsideBottomMarkup += adminDisplaySettings.SubPanelBottomMarkup;
 
 			litOpenIDSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityOpenIDSettingsLabel, Resource.SiteSettingsSecurityOpenIDSettingsDescription);
+			fgpOpenIDSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
+
 			litWindowsLiveIDSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSecurityWindowsLiveIDSettingsLabel, Resource.SiteSettingsSecurityWindowsLiveIDSettingsDescription);
+			fgpWinLiveID.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
 			litSMTPSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSMTPSettingsLabel, Resource.SiteSettingsSMTPSettingsDescription);
+			fgpSMTPSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
+
 			litTestSMTPSettingsHeader.Text = string.Format(adminDisplaySettings.SubPanelHeadingMarkup, Resource.SiteSettingsTestSMTPSettingsLabel, Resource.SiteSettingsTestSMTPSettingsDescription);
+			fgpTestSMTPSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 			btnTestSMTPSettings.Text = Resource.SiteSettingsTestSMTPSettingsButton;
 
 			litHostListHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsExistingHostsLabel, Resource.SiteSettingsExistingHostsDescription);
+			fgpHostNames.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
+
 			litFolderNamesListHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsExistingFolderMappingsLabel, Resource.SiteSettingsExistingFolderMappingsDescription);
+			fgpFolderNames.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
 			litRecaptchaSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSiteRecaptchaSettingsLabel, Resource.SiteSettingsSiteRecaptchaSettingsDescription);
-			pnlRecaptchaSettings.OutsideBottomMarkup += adminDisplaySettings.SubPanelBottomMarkup;
+			pnlRecaptchaSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
+
 			litRecaptchaAdvancedSettingsHeader.Text = string.Format(adminDisplaySettings.SubPanelHeadingMarkupCollapsible, Resource.SiteSettingsSiteRecaptchaAdvancedSettingsLabel, Resource.SiteSettingsSiteRecaptchaAdvancedSettingsDescription, litRecaptchaAdvancedSettingsHeader.ClientID);
-			pnlRecaptchaAdvancedSettings.OutsideBottomMarkup += adminDisplaySettings.SubPanelBottomMarkup;
+			pnlRecaptchaAdvancedSettings.OutsideBottomMarkup += adminDisplaySettings.SubPanelBottomMarkupCollapsible;
+
 			btnResetRecaptchaHcaptchaDefaults.Text = Resource.SiteSettingsSiteRecaptchaHCaptchaDefaultResetButton;
 
 			litCaptchaVerifyDefault.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, string.Format(Resource.SiteSettingsSiteCaptchaSettingDefault, WebConfigSettings.ReCaptchaDefaultVerifyUrl, WebConfigSettings.HCaptchaDefaultVerifyUrl));
@@ -1826,25 +1848,32 @@ namespace mojoPortal.Web.AdminUI
 
 			litAdvancedTabLink.Text = $"<a href='#{tabAdvanced.ClientID}'>{Resource.SiteSettingsAdvancedTab}</a>";
 			litAdvSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsAdvancedLabel, Resource.SiteSettingsAdvancedDescription);
+			fgpAdvancedSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
 			litDefaultCountryHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.DefaultCountryStateLabel, string.Empty);
+			fgpDefaultCountry.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
+
 			litDefaultCurrencyHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.DefaultCurrency, string.Empty);
+			fgpDefaultCurrency.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
 			litCompanyInfoHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsCompanyInfoHeader, string.Empty);
 			litCompanyInfoQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsCompanyInfoQuickHelp);
+			fgpCompanyInfo.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
 			litBadWordHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsBadWordHeader, string.Empty);
 			litBadWordQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsBadWordListQuickHelp);
+			fgpBadWordSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
 			litScriptsTabLink.Text = $"<a href='#{tabScripts.ClientID}'>{Resource.SiteSettingsScriptsLink}</a>";
 			litScriptsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsScriptsHeader, Resource.SiteSettingsScriptsDescription);
 			litHeaderScriptsQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsScriptsHeaderQuickHelp);
 			litFooterScriptsQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsScriptsFooterQuickHelp);
+			fgpScripts.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
 			litAdminScriptsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsScriptsAdminHeader, Resource.SiteSettingsScriptsAdminDescription);
 			litHeaderAdminScriptsQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsScriptsHeaderQuickHelp);
 			litFooterAdminScriptsQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsScriptsFooterQuickHelp);
-
+			fgpAdminScripts.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
 			lnkCountryAdmin.Text = Resource.CountryAdministrationLink;
 			lnkCountryAdmin.NavigateUrl = "~/Admin/AdminCountry.aspx";
@@ -1873,7 +1902,6 @@ namespace mojoPortal.Web.AdminUI
 			litFeaturesTabLink.Text = $"<a href='#{tabSiteFeatures.ClientID}'>{Resource.SiteSettingsFeaturesAllowedLabel}</a>";
 			litSiteMappingsTabLink.Text = $"<a href='#{tabSiteMappings.ClientID}'>{Resource.SiteSettingsSiteMappingsLabel}</a>";
 			
-			
 			btnAddFeature.ToolTip = Resource.SiteSettingsAddFeatureTooltip;
 			btnRemoveFeature.ToolTip = Resource.SiteSettingsRemoveFeatureTooltip;
 
@@ -1894,8 +1922,6 @@ namespace mojoPortal.Web.AdminUI
 
 			lnkEditClosedMessage.Text = Resource.SiteClosedMessageEditLink;
 			lnkEditClosedMessage.NavigateUrl = SiteRoot + "/Admin/EditSiteClosedMessage.aspx";
-
-
 
 			if (ddEditorProviders.Items.Count == 0)
 			{

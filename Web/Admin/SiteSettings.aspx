@@ -58,7 +58,7 @@
 							</ul>
 
 							<div id="tabSettings">
-								<portal:FormGroupPanel runat="server" SkinID="MainSettings">
+								<portal:FormGroupPanel ID="fgpMainSettings" runat="server" SkinID="MainSettings">
 									<asp:Literal ID="litMainSettingsHeader" runat="server" EnableViewState="false" />
 									<portal:FormGroupPanel runat="server">
 										<mp:SiteLabel ID="lblSiteTitle" ForControl="txtSiteName" runat="server" CssClass="settinglabel" ConfigKey="SiteSettingsSiteTitleLabel" />
@@ -115,7 +115,7 @@
 									</portal:FormGroupPanel>
 								</portal:FormGroupPanel>
 
-								<portal:FormGroupPanel runat="server" SkinID="SkinSettings">
+								<portal:FormGroupPanel ID="fgpSkinSettings" runat="server" SkinID="SkinSettings">
 									<asp:Literal ID="litSkinSettingsHeader" runat="server" EnableViewState="false" />
 									<portal:FormGroupPanel runat="server">
 										<mp:SiteLabel ID="lblSkin" ForControl="ddSkins" runat="server" CssClass="settinglabel" ConfigKey="SiteSettingsSiteSkinLabel" />
@@ -159,7 +159,7 @@
 										<mp:SiteLabel runat="server" CssClass="help-block" ConfigKey="SloganLabelDescription" UseLabelTag="false" />
 									</portal:FormGroupPanel>
 								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server" SkinID="EditorSettings">
+								<portal:FormGroupPanel ID="fgpEditorSettings" runat="server" SkinID="EditorSettings">
 									<asp:Literal ID="litContentEditorSettingsHeader" runat="server" EnableViewState="false" />
 									<portal:FormGroupPanel runat="server">
 										<mp:SiteLabel runat="server" ForControl="ddEditorProviders" CssClass="settinglabel" ConfigKey="SiteSettingsEditorProviderLabel" EnableViewState="false"></mp:SiteLabel>
@@ -251,7 +251,6 @@
 													</portal:FormGroupPanel>
 												</ContentTemplate>
 											</asp:UpdatePanel>
-
 										</portal:FormGroupPanel>
 										<portal:FormGroupPanel runat="server" ID="fgpUserAccountSettings" SkinID="UserAccountSettings">
 											<asp:Literal ID="litUserAccountSettingsHeader" runat="server" EnableViewState="false" />
@@ -295,7 +294,7 @@
 												<mp:SiteLabel runat="server" CssClass="help-block" ConfigKey="SiteSettingsReallyDeleteUsersExplainLabel" UseLabelTag="false" />
 											</portal:FormGroupPanel>
 										</portal:FormGroupPanel>
-										<portal:FormGroupPanel runat="server" SkinID="PasswordSettings">
+										<portal:FormGroupPanel ID="fgpPasswordSettings" runat="server" SkinID="PasswordSettings">
 											<asp:Literal ID="litPasswordSettingsHeader" runat="server" EnableViewState="false" />
 											<portal:FormGroupPanel runat="server">
 												<mp:SiteLabel runat="server" ForControl="ddPasswordFormat" CssClass="settinglabel" ConfigKey="SiteSettingsPasswordFormatLabel" />
@@ -333,7 +332,7 @@
 												<asp:TextBox ID="txtPasswordStrengthErrorMessage" TabIndex="10" runat="server" CssClass="forminput" TextMode="MultiLine" Rows="3" />
 											</portal:FormGroupPanel>
 											<portal:FormGroupPanel runat="server" SkinID="PasswordRecoverySettings">
-												<asp:Literal ID="litPasswordRecoverySettingsHeader" runat="server" EnableViewState="false" SkinID="" />
+												<asp:Literal ID="litPasswordRecoverySettingsHeader" runat="server" EnableViewState="false" />
 												<portal:FormGroupPanel runat="server" ID="fgpPasswordRecovery">
 													<mp:SiteLabel ID="lbl1" runat="server" ForControl="chkAllowPasswordRetrieval" CssClass="settinglabel" ConfigKey="SiteSettingsAllowPasswordRetrievalLabel" />
 													<asp:CheckBox ID="chkAllowPasswordRetrieval" runat="server" TabIndex="10" CssClass="forminput" />
@@ -445,6 +444,7 @@
 												<asp:HyperLink ID="lnkRpxAdmin" runat="server" Visible="false" />
 												<portal:mojoButton ID="btnSetupRpx" runat="server" />
 											</portal:FormGroupPanel>
+											
 										</portal:FormGroupPanel>
 										<portal:FormGroupPanel runat="server" ID="fgpWinLiveID" SkinID="WindowsLiveIDSettings">
 											<asp:Literal ID="litWindowsLiveIDSettingsHeader" runat="server" EnableViewState="false" />
@@ -486,7 +486,7 @@
 									</div>
 
 									<div id="tabAntiSpam">
-										<asp:UpdatePanel ID="updCaptcha" runat="server" UpdateMode="Conditional" RenderMode="Inline" EnableViewState="true">
+										<asp:UpdatePanel ID="updCaptcha" runat="server" UpdateMode="Conditional" RenderMode="Block" EnableViewState="true">
 											<ContentTemplate>
 												<portal:FormGroupPanel runat="server">
 													<mp:SiteLabel runat="server" ForControl="ddCaptchaProviders" CssClass="settinglabel" ConfigKey="SiteSettingsCaptchaProviderLabel" />
@@ -615,7 +615,7 @@
 							<div id="tabCommerce" runat="server">
 								<portal:FormGroupPanel runat="server" ID="fgpDefaultCountry" SkinID="SettingsPanel">
 									<asp:Literal ID="litDefaultCountryHeader" runat="server" EnableViewState="false" />
-									<asp:UpdatePanel ID="upCountryState" UpdateMode="Conditional" runat="server" EnableViewState="true" RenderMode="Inline">
+									<asp:UpdatePanel ID="upCountryState" UpdateMode="Conditional" runat="server" EnableViewState="true" RenderMode="Block">
 										<ContentTemplate>
 											<portal:FormGroupPanel runat="server">
 												<mp:SiteLabel ID="lblDefaultCountry" runat="server" CssClass="settinglabel" ConfigKey="Country" ForControl="ddDefaultCountry" />
@@ -641,7 +641,7 @@
 							<div id="tabSiteMappings" runat="server">
 								<asp:UpdatePanel ID="upHosts" UpdateMode="Conditional" runat="server">
 									<ContentTemplate>
-										<portal:FormGroupPanel runat="server" SkinID="HostNames">
+										<portal:FormGroupPanel ID="fgpHostNames" runat="server" SkinID="HostNames">
 											<asp:Literal ID="litHostListHeader" runat="server" EnableViewState="false" />
 											<asp:Panel ID="pnlAddHostName" runat="server" DefaultButton="btnAddHost" CssClass="add-mapping">
 												<asp:TextBox ID="txtHostName" MaxLength="255" runat="server" CssClass="mediumtextbox" />
@@ -671,7 +671,7 @@
 								</asp:UpdatePanel>
 								<asp:UpdatePanel ID="upFolderNames" UpdateMode="Conditional" runat="server" >
 									<ContentTemplate>
-										<portal:FormGroupPanel runat="server" SkinID="FolderNames">
+										<portal:FormGroupPanel ID="fgpFolderNames" runat="server" SkinID="FolderNames">
 											<asp:Literal ID="litFolderNamesListHeader" runat="server" EnableViewState="false" />
 											<asp:Panel ID="pnlAddFolder" runat="server" DefaultButton="btnAddFolder" CssClass="add-mapping">
 												<asp:TextBox ID="txtFolderName" MaxLength="255" runat="server" CssClass="mediumtextbox" />
@@ -728,7 +728,7 @@
 											<asp:Literal ID="litFeatureMessage" runat="server" EnableViewState="false" />
 										</ContentTemplate>
 									</asp:UpdatePanel>
-									<%-- This script determines how many items the selects have and set's the size to that many items --%>
+									<%-- This script determines how many items the selects have and sets the size to that many items --%>
 <%--									<script>
 										(function () {
 											Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(updateSelectsHeight);
@@ -895,7 +895,7 @@
 											</asp:UpdatePanel>
 										</portal:FormGroupPanel>
 									</portal:BasePanel>
-									<script type="text/javascript">
+									<script>
 										<!-- 
 										var prm = Sys.WebForms.PageRequestManager.getInstance();
 										prm.add_initializeRequest(InitializeRequest);

@@ -10,10 +10,14 @@ namespace mojoPortal.Web.AdminUI
 	public class AdminDisplaySettings : WebControl
 	{
 		public string PanelHeadingMarkup { get; set; } = "<h3>{0} <small>{1}</small></h3>";
+		public string PanelBottomMarkup { get; set; }
 		public string PanelHeadingMarkupCollapsible { get; set; } = "<a href='#{2}'><h3>{0} <small>{1}</small></h3></a>";
+		
 		public string SubPanelHeadingMarkup { get; set; } = "<h4>{0} <small>{1}</small></h4>";
-		public string SubPanelHeadingMarkupCollapsible { get; set; } = "<a href='#{2}'><h4>{0} <small>{1}</small></h4></a>";
 		public string SubPanelBottomMarkup { get; set; }
+		public string SubPanelHeadingMarkupCollapsible { get; set; } = "<a href='#{2}'><h4>{0} <small>{1}</small></h4></a>";
+		public string SubPanelBottomMarkupCollapsible { get; set; } = "";
+
 		public string PanelModalMarkupTop { get; set; } = @"<div class='modal fade' tabindex='-1' role='dialog'>
 			  <div class='modal-dialog' role='document'>
 				<div class='modal-content'>
