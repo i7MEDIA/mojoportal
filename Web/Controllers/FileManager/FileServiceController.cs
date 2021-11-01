@@ -535,6 +535,8 @@ namespace mojoPortal.Web.Controllers
 
 		private HttpResponseMessage DownloadItem(string path)
 		{
+			//todo! "My Files" logic here!
+
 			try
 			{
 				var result = new HttpResponseMessage(HttpStatusCode.OK);
@@ -755,7 +757,7 @@ namespace mojoPortal.Web.Controllers
 
 			var userFolder = fileSystem.Permission.UserFolder;
 
-			if (itemPath.Contains(userFolder))
+			if (!string.IsNullOrWhiteSpace(userFolder) && itemPath.Contains(userFolder))
 			{
 				if (!Directory.Exists(fileSystem.Permission.UserFolder))
 					fileSystem.CreateFolder(fileSystem.Permission.UserFolder);
