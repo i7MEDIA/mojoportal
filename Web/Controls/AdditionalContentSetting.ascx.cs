@@ -16,18 +16,18 @@ namespace mojoPortal.Web.Controls
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			AdditionalContentList model = new AdditionalContentList
-			{
-				GlobalContent = Module.GetGlobalContent(CacheHelper.GetCurrentSiteSettings().SiteId),
-				ChosenContent = JsonConvert.DeserializeObject(hdnChosenModules.Value) as List<ChosenContent>,
-				LocationOptions = new Dictionary<string, int>
-				{
-					{ "AbovePosts", 0 },
-					{ "BelowPosts", 1 },
-					{ "AboveNav", 2 },
-					{ "BelowNav", 3 }
-				} 
-			};
+			//AdditionalContentList model = new AdditionalContentList
+			//{
+			//	GlobalContent = Module.GetGlobalContent(CacheHelper.GetCurrentSiteSettings().SiteId),
+			//	ChosenContent = JsonConvert.DeserializeObject(hdnChosenModules.Value) as List<ChosenContent>,
+			//	LocationOptions = new Dictionary<string, int>
+			//	{
+			//		{ "AbovePosts", 0 },
+			//		{ "BelowPosts", 1 },
+			//		{ "AboveNav", 2 },
+			//		{ "BelowNav", 3 }
+			//	} 
+			//};
 
 			try
 			{

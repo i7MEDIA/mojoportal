@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page Content Settings.
+        /// </summary>
+        internal static string AdditionalContentSettings {
+            get {
+                return ResourceManager.GetString("AdditionalContentSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Meta Element.
         /// </summary>
         internal static string AddMetaButton {

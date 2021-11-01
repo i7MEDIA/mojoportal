@@ -1014,4 +1014,7 @@
   <data name="ExtraCssClassSetting" xml:space="preserve">
     <value>Extra CSS Class</value>
   </data>
+  <data name="AdditionalContentSettings" xml:space="preserve">
+    <value>Page Content Settings</value>
+  </data>
 </root>
