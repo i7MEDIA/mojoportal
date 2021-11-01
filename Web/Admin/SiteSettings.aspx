@@ -298,7 +298,12 @@
 											<asp:Literal ID="litPasswordSettingsHeader" runat="server" EnableViewState="false" />
 											<portal:FormGroupPanel runat="server">
 												<mp:SiteLabel runat="server" ForControl="ddPasswordFormat" CssClass="settinglabel" ConfigKey="SiteSettingsPasswordFormatLabel" />
-												<asp:DropDownList ID="ddPasswordFormat" runat="server" TabIndex="10" CssClass="forminput"></asp:DropDownList>
+												<asp:UpdatePanel runat="server" ID="upPasswordFormat" UpdateMode="Conditional">
+													<ContentTemplate>
+														<asp:DropDownList ID="ddPasswordFormat" runat="server" TabIndex="10" CssClass="forminput" Enabled="False" />
+														<portal:mojoButton runat="server" ID="btnEnablePasswordFormatChange" />
+													</ContentTemplate>
+												</asp:UpdatePanel>
 												<portal:mojoHelpLink runat="server" HelpKey="sitesettingspasswordformathelp" />
 											</portal:FormGroupPanel>
 											<portal:FormGroupPanel runat="server">

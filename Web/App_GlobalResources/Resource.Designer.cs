@@ -646,6 +646,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable Password Format Change.
+        /// </summary>
+        internal static string AllowPasswordFormatChange {
+            get {
+                return ResourceManager.GetString("AllowPasswordFormatChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable Keep Me Logged In?.
         /// </summary>
         internal static string AllowPersistentLogin {

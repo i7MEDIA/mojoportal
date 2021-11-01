@@ -493,7 +493,7 @@ namespace mojoPortal.Web.AdminUI
 				item.Selected = true;
 			}
 
-			ddPasswordFormat.Enabled = allowPasswordFormatChange;
+			btnEnablePasswordFormatChange.Enabled = allowPasswordFormatChange;
 			txtMaxInvalidPasswordAttempts.Text = selectedSite.MaxInvalidPasswordAttempts.ToInvariantString();
 			txtPasswordAttemptWindowMinutes.Text = selectedSite.PasswordAttemptWindowMinutes.ToInvariantString();
 			chkRequireCaptchaOnLogin.Checked = selectedSite.RequireCaptchaOnLogin;
@@ -1257,7 +1257,7 @@ namespace mojoPortal.Web.AdminUI
 				}
 				else
 				{
-					if (allowPasswordFormatChange || (selectedSite.SiteGuid == Guid.Empty))
+					if (allowPasswordFormatChange && int.Parse(ddPasswordFormat.SelectedValue) != selectedSite.PasswordFormat && ddPasswordFormat.Enabled || (selectedSite.SiteGuid == Guid.Empty))
 					{
 						try
 						{
@@ -1492,6 +1492,15 @@ namespace mojoPortal.Web.AdminUI
 			}
 		}
 
+		private void btnEnablePasswordFormatChange_Click(object sender, EventArgs e)
+		{
+			if (allowPasswordFormatChange)
+			{
+				ddPasswordFormat.Enabled = true;
+				upPasswordFormat.Update();
+				return;
+			}
+		}
 		private void btnAddFeature_Click(object sender, EventArgs e)
 		{
 			if (lstAllFeatures.SelectedIndex > -1)
@@ -1999,7 +2008,7 @@ namespace mojoPortal.Web.AdminUI
 
 			btnSetupRpx.Text = Resource.SetupRpxButton;
 			lnkRpxAdmin.Text = Resource.RpxAdminLink;
-
+			btnEnablePasswordFormatChange.Text = Resource.AllowPasswordFormatChange;
 			if (WebConfigSettings.EnableWoopraGlobally || WebConfigSettings.DisableWoopraGlobally) { fgpWoopra.Visible = false; }
 		}
 
@@ -2137,6 +2146,8 @@ namespace mojoPortal.Web.AdminUI
 
 			chkSMTPRequiresAuthentication.CheckedChanged += new EventHandler(chkSMTPRequiresAuthentication_Changed);
 			btnTestSMTPSettings.Click += new EventHandler(btnTestSMTPSettings_Click);
+
+			btnEnablePasswordFormatChange.Click += new EventHandler(btnEnablePasswordFormatChange_Click);
 
 			SuppressMenuSelection();
 			SuppressPageMenu();

@@ -6673,4 +6673,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="SiteSettingsScriptsLink" xml:space="preserve">
     <value>Scripts</value>
   </data>
+  <data name="AllowPasswordFormatChange" xml:space="preserve">
+    <value>Enable Password Format Change</value>
+  </data>
 </root>
