@@ -54,6 +54,10 @@ namespace mojoPortal.Web.Editor
 
 		public string TemplatesJsonUrl { get; set; } = string.Empty;
 
+		public string SkinTemplatesUrl { get; set; } = string.Empty;
+
+		public string MojoSkinPath { get; set; } = string.Empty;
+
 		public string Skin { get; set; } = "kama";
 
 		public ToolBar ToolBar { get; set; } = ToolBar.AnonymousUser;
@@ -251,10 +255,24 @@ namespace mojoPortal.Web.Editor
 				script.Append("editorObj.config.stylesCombo_stylesSet = 'mojo:" + StylesJsonUrl + "';");
 			}
 
-			if (TemplatesJsonUrl.Length > 0)
+			if (TemplatesJsonUrl.Length > 0 || SkinTemplatesUrl.Length > 0)
 			{
-				script.Append("editorObj.config.templates = 'mojo';");
-				script.Append("editorObj.config.templates_files = ['" + TemplatesJsonUrl + "'];");
+				var templates = string.Empty;
+				var templatesFiles = string.Empty;
+				if (TemplatesJsonUrl.Length > 0)
+				{
+					templates = "mojo";
+					templatesFiles = $"'{TemplatesJsonUrl}'";
+				}
+
+				if (SkinTemplatesUrl.Length > 0)
+				{
+					templates += ",skin";
+					templatesFiles += $",'{SkinTemplatesUrl}'";
+				}
+				
+				script.Append($"editorObj.config.templates = '{templates}';");
+				script.Append($"editorObj.config.templates_files = [{templatesFiles}];");
 				script.Append("editorObj.config.templates_replaceContent = false;");
 			}
 
@@ -273,6 +291,8 @@ namespace mojoPortal.Web.Editor
 
 			script.Append("}");
 			script.Append("SetupEditor" + this.ClientID + "(editor" + this.ClientID + ");");
+			script.Append($"var mojoSkinPath='{MojoSkinPath}';");
+
 			script.Append("</script>");
 
 			ScriptManager.RegisterStartupScript(

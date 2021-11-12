@@ -6676,4 +6676,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="AllowPasswordFormatChange" xml:space="preserve">
     <value>Enable Password Format Change</value>
   </data>
+  <data name="ExportTemplatesForCKEditor" xml:space="preserve">
+    <value>Export for CKEditor</value>
+  </data>
 </root>

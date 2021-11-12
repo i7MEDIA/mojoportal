@@ -15,7 +15,8 @@
         <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
             <div class="settingrow addnewtemplate">
                 <asp:HyperLink ID="lnkAddNewTop" runat="server" />
-            </div>
+				<asp:HyperLink ID="lnkExportTop" runat="server" SkinID="InfoButton" />
+			</div>
             <portal:mojoCutePager ID="pgrTop" runat="server" />
             <asp:Repeater ID="rptTemplates" runat="server">
                 <ItemTemplate>
@@ -36,6 +37,7 @@
             <div class="settingrow addnewtemplate addnewtemplatebottom">
                 <br />
                 <asp:HyperLink ID="lnkAddNewBottom" runat="server" />
+                <asp:HyperLink ID="lnkExportBottom" runat="server" SkinID="InfoButton" />
             </div>
             <portal:mojoCutePager ID="pgrBottom" runat="server" />
             <portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>

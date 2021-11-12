@@ -4345,6 +4345,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export for CKEditor.
+        /// </summary>
+        internal static string ExportTemplatesForCKEditor {
+            get {
+                return ResourceManager.GetString("ExportTemplatesForCKEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Facebook App ID.
         /// </summary>
         internal static string FacebookAppId {
