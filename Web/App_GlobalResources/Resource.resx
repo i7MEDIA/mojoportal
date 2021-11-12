@@ -5449,7 +5449,7 @@
     <value>Sorry, the file you are trying to upload is larger than allowed by configuration.</value>
   </data>
   <data name="FileSystemStorageQuotaError" xml:space="preserve">
-    <value>Sorry you've reached the quota of upload storage allowed by configuraiton.</value>
+    <value>Sorry you've reached the quota of upload storage allowed by configuration.</value>
   </data>
   <data name="AllowPersistentLogin" xml:space="preserve">
     <value>Enable Keep Me Logged In?</value>
@@ -6678,5 +6678,11 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="ExportTemplatesForCKEditor" xml:space="preserve">
     <value>Export for CKEditor</value>
+  </data>
+  <data name="SiteSettingsSMTPHeaders" xml:space="preserve">
+    <value>Custom SMTP Headers</value>
+  </data>
+  <data name="SiteSettingsSMTPHeadersDescription" xml:space="preserve">
+    <value>Enter each header on its own line as "HeaderName: header value"</value>
   </data>
 </root>

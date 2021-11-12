@@ -1,15 +1,4 @@
-﻿// Author:				
-// Created:			2008-09-12
-// Last Modified:		2019-11-13
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
+﻿using System.Collections.Specialized;
 
 namespace mojoPortal.Net
 {
@@ -34,7 +23,8 @@ namespace mojoPortal.Net
 		public string PreferredEncoding { get; set; } = string.Empty;
 
 		public bool AddBulkMailHeader { get; set; } = false;
-		public string AdditionalHeaders { get; set; } = string.Empty;
+        public NameValueCollection AdditionalHeaders { get; set; } = new NameValueCollection();
+        public string SenderHeader { get; set; } = string.Empty;
 		public bool IsValid
         {
             get

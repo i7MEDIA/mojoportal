@@ -1140,6 +1140,15 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.TextBox txtPasswordStrengthErrorMessage;
 
 		/// <summary>
+		/// fgpPasswordRecovery control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.FormGroupPanel fgpPasswordRecovery;
+
+		/// <summary>
 		/// litPasswordRecoverySettingsHeader control.
 		/// </summary>
 		/// <remarks>
@@ -1149,13 +1158,13 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.Literal litPasswordRecoverySettingsHeader;
 
 		/// <summary>
-		/// fgpPasswordRecovery control.
+		/// fgpAllowPasswordRecovery control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::mojoPortal.Web.UI.FormGroupPanel fgpPasswordRecovery;
+		protected global::mojoPortal.Web.UI.FormGroupPanel fgpAllowPasswordRecovery;
 
 		/// <summary>
 		/// lbl1 control.
@@ -2587,6 +2596,33 @@ namespace mojoPortal.Web.AdminUI
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::System.Web.UI.WebControls.TextBox txtSMTPPreferredEncoding;
+
+		/// <summary>
+		/// fgpSMTPHeaders control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.FormGroupPanel fgpSMTPHeaders;
+
+		/// <summary>
+		/// litSMTPHeadersHeading control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Literal litSMTPHeadersHeading;
+
+		/// <summary>
+		/// txtSMTPHeaders control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.TextBox txtSMTPHeaders;
 
 		/// <summary>
 		/// fgpTestSMTPSettings control.

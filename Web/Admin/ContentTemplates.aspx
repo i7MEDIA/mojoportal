@@ -8,13 +8,12 @@
     <asp:HyperLink ID="lnkThisPage" runat="server" CssClass="selectedcrumb" />
     </portal:AdminCrumbContainer>
     <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-    <mp:CornerRounderTop ID="ctop1" runat="server" EnableViewState="false" />
     <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper admin contenttemplates">
         <portal:HeadingControl id="heading" runat="server" />
   <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
         <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
             <div class="settingrow addnewtemplate">
-                <asp:HyperLink ID="lnkAddNewTop" runat="server" />
+                <asp:HyperLink ID="lnkAddNewTop" runat="server" SkinID="SuccessButton" />
 				<asp:HyperLink ID="lnkExportTop" runat="server" SkinID="InfoButton" />
 			</div>
             <portal:mojoCutePager ID="pgrTop" runat="server" />
@@ -36,7 +35,7 @@
             </asp:Repeater>
             <div class="settingrow addnewtemplate addnewtemplatebottom">
                 <br />
-                <asp:HyperLink ID="lnkAddNewBottom" runat="server" />
+                <asp:HyperLink ID="lnkAddNewBottom" runat="server" SkinID="SuccessButton" />
                 <asp:HyperLink ID="lnkExportBottom" runat="server" SkinID="InfoButton" />
             </div>
             <portal:mojoCutePager ID="pgrBottom" runat="server" />
@@ -44,7 +43,6 @@
         </portal:InnerBodyPanel>
         </portal:OuterBodyPanel>
     </portal:InnerWrapperPanel>
-    <mp:CornerRounderBottom ID="cbottom1" runat="server" EnableViewState="false" />
     </portal:OuterWrapperPanel>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />

@@ -336,9 +336,9 @@
 												<portal:mojoHelpLink runat="server" HelpKey="sitesettingspasswordstrength-errormessage-help" />
 												<asp:TextBox ID="txtPasswordStrengthErrorMessage" TabIndex="10" runat="server" CssClass="forminput" TextMode="MultiLine" Rows="3" />
 											</portal:FormGroupPanel>
-											<portal:FormGroupPanel runat="server" SkinID="PasswordRecoverySettings">
+											<portal:FormGroupPanel runat="server" SkinID="PasswordRecoverySettings" ID="fgpPasswordRecovery">
 												<asp:Literal ID="litPasswordRecoverySettingsHeader" runat="server" EnableViewState="false" />
-												<portal:FormGroupPanel runat="server" ID="fgpPasswordRecovery">
+												<portal:FormGroupPanel runat="server" ID="fgpAllowPasswordRecovery">
 													<mp:SiteLabel ID="lbl1" runat="server" ForControl="chkAllowPasswordRetrieval" CssClass="settinglabel" ConfigKey="SiteSettingsAllowPasswordRetrievalLabel" />
 													<asp:CheckBox ID="chkAllowPasswordRetrieval" runat="server" TabIndex="10" CssClass="forminput" />
 													<portal:mojoHelpLink runat="server" HelpKey="sitesettingsallowpasswordretrievalhelp" />
@@ -360,7 +360,7 @@
 												</portal:FormGroupPanel>
 											</portal:FormGroupPanel>
 										</portal:FormGroupPanel>
-									</div>
+									</div><!--end tab General Security-->
 
 									<div id="tabLDAP" runat="server">
 										<portal:FormGroupPanel runat="server" ID="fgpUseLdap">
@@ -419,7 +419,7 @@
 											<asp:CheckBox ID="chkAllowEmailLoginWithLdapDbFallback" runat="server" TabIndex="10" CssClass="forminput"></asp:CheckBox>
 											<portal:mojoHelpLink runat="server" HelpKey="sitesetting-AllowEmailLoginWithLdapDbFallback-help" />
 										</portal:FormGroupPanel>
-									</div>
+									</div><!--end tab LDAP-->
 
 									<div id="tabthirdpartyauth" runat="server">
 										<portal:FormGroupPanel runat="server" ID="fgpOpenIDSettings" SkinID="OpenIDSettings">
@@ -488,7 +488,7 @@
 											<asp:CheckBox ID="chkDisableDbAuthentication" runat="server" TabIndex="10" CssClass="forminput" />
 											<portal:mojoHelpLink runat="server" HelpKey="sitesettings-DisableDbAuthentication-help" />
 										</portal:FormGroupPanel>
-									</div>
+									</div><!--end tab 3rd party-->
 
 									<div id="tabAntiSpam">
 										<asp:UpdatePanel ID="updCaptcha" runat="server" UpdateMode="Conditional" RenderMode="Block" EnableViewState="true">
@@ -566,9 +566,9 @@
 												<mp:SiteLabel runat="server" ConfigKey="SiteSettingsForceBadWordCheckingQuickHelp" CssClass="help-block" UseLabelTag="false" />
 											</portal:FormGroupPanel>
 										</portal:FormGroupPanel>
-									</div>
-								</div>
-							</div>
+									</div><!--end tab SPAM-->
+								</div><!-- end Security Tabs Wrapper-->
+							</div><!-- end tab Security -->
 							<div id="tabCompanyInfo">
 								<portal:FormGroupPanel runat="server" ID="fgpCompanyInfo" SkinID="SettingsPanel">
 									<asp:Literal ID="litCompanyInfoHeader" runat="server" EnableViewState="false" />
@@ -615,7 +615,7 @@
 										<asp:TextBox ID="txtPublicEmail" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" />
 									</portal:FormGroupPanel>
 								</portal:FormGroupPanel>
-							</div>
+							</div><!--end tab Company -->
 
 							<div id="tabCommerce" runat="server">
 								<portal:FormGroupPanel runat="server" ID="fgpDefaultCountry" SkinID="SettingsPanel">
@@ -877,6 +877,12 @@
 										</portal:FormGroupPanel>
 									</portal:BasePanel>
 								</portal:FormGroupPanel>
+								<portal:FormGroupPanel runat="server" ID="fgpSMTPHeaders">
+									<asp:Literal runat="server" ID="litSMTPHeadersHeading" EnableViewState="false" />
+									<mp:SiteLabel runat="server" ForControl="" CssClass="settinglabel" ConfigKey="SiteSettingsSMTPHeaders" />
+									<asp:TextBox runat="server" ID="txtSMTPHeaders" TextMode="MultiLine" />
+									<portal:mojoHelpLink runat="server" HelpKey="smtpheaders" />
+								</portal:FormGroupPanel>
 								<portal:FormGroupPanel runat="server" ID="fgpTestSMTPSettings" SkinID="SMTPSettings">
 									<asp:Literal runat="server" ID="litTestSMTPSettingsHeader" EnableViewState="false" />
 									<portal:mojoHelpLink runat="server" HelpKey="smtptesthelp" />
@@ -964,7 +970,7 @@
 										<asp:DropDownList ID="ddDefaultFriendlyUrlPattern" runat="server"
 											TabIndex="10" CssClass="forminput">
 											<asp:ListItem Value="PageNameWithDotASPX" Text="<%$ Resources:Resource, UrlFormatAspx %>"></asp:ListItem>
-											<asp:ListItem Value="PageName" Text="<%$ Resources:Resource, UrlFormatExtensionless %>"></asp:ListItem>
+											<asp:ListItem Value="PageName" Text="<%$ Resources:Resource, UrlFormatExtensionless %>" Selected></asp:ListItem>
 										</asp:DropDownList>
 										<portal:mojoHelpLink runat="server" HelpKey="sitesettingsdefaultfriendlyurlpatternhelp" />
 									</portal:FormGroupPanel>

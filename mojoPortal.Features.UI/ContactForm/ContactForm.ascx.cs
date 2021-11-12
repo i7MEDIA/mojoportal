@@ -154,6 +154,8 @@ namespace mojoPortal.Web.ContactUI
 				{
 					SmtpSettings smtpSettings = SiteUtils.GetSmtpSettings();
 
+					smtpSettings.SenderHeader = "ContactForm";
+
 					if ((pnlToAddresses.Visible) && (ddToAddresses.SelectedIndex > -1))
 					{
 						string to = config.EmailAddresses[ddToAddresses.SelectedIndex];

@@ -1,24 +1,3 @@
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-// Author:					
-// Created:				    2004-07-04
-// Last Modified:			2019-04-04
-// 
-// 04/30/2005	Dean Brettle Provided a better handling of proxy settings
-//				in generating the base path for site links
-//				
-// 01/18/2007   Alexander Yushchenko introduced SetButtonAccessKey() function
-// 
-// 04/05/2007   Alexander Yushchenko introduced Redirect* and AllowOnly* functions
-// 2011-02-27  added method IsSecureRequest()
-// 2011-11-02 make it possible to use wysiwyg editors in IOs 5 devices since it is now supported
-// 2019-04-04 implement mojoPortal.Core
-
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -29,6 +8,7 @@ using mojoPortal.Net;
 using mojoPortal.SearchIndex;
 using mojoPortal.Web.Editor;
 using mojoPortal.Web.Framework;
+using mojoPortal.Web.UI;
 using Resources;
 using System;
 using System.Collections.Generic;
@@ -1136,7 +1116,7 @@ namespace mojoPortal.Web
 				templates.Add(t);
 			}
 
-			if (WebConfigSettings.IncludeFaqContentTemplate) //just in case anyone wants to remove this one
+			if (WebConfigSettings.IncludeFaqContentTemplate) 
 			{
 				t = ContentTemplate.GetEmpty();
 				//jQuery FAQ
@@ -1146,18 +1126,6 @@ namespace mojoPortal.Web
 				t.ImageFileName = "faq.jpg";
 				templates.Add(t);
 			}
-
-			//if (WebConfigSettings.AlwaysLoadYuiTabs)
-			//{
-			//    t = ContentTemplate.GetEmpty();
-			//    //Yui Tabs
-			//    t.Guid = new Guid("046dae46-5301-45a5-bcbf-0b87c2d9e919");
-			//    t.Body = "<p>Paragraph before the tabs</p><div class=\"yui-skin-sam\"><div class=\"yui-navset\"><ul class=\"yui-nav\"><li class=\"selected\"><a href=\"#tab1\"><em>Tab One Label</em></a></li><li><a href=\"#tab2\"><em>Tab Two Label</em></a></li><li><a href=\"#tab3\"><em>Tab Three Label</em></a></li></ul><div class=\"yui-content\"><div id=\"tab1\"><p>Tab One Content</p></div><div id=\"tab2\"><p>Tab Two Content</p></div><div id=\"tab3\"><p>Tab Three Content</p></div></div></div></div><p>Paragraph after the tabs</p>";
-			//    t.Title = Resource.TemplateYUITabsTitle;
-			//    t.ImageFileName = "yui-tabs.gif";
-			//    templates.Add(t);
-
-			//}
 
 			if (WebConfigSettings.Include2ColumnsOver1ColumnTemplate)
 			{
@@ -1196,8 +1164,6 @@ namespace mojoPortal.Web
 			return templates;
 		}
 
-
-	   
 		public static FileInfo[] GetLogoList(SiteSettings siteSettings)
 		{
 			if (siteSettings == null) return null;
@@ -1214,8 +1180,6 @@ namespace mojoPortal.Web
 				logoPath = HttpContext.Current.Server.MapPath
 				(WebUtils.GetApplicationRoot() + "/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/logos/");
 			}
-
-			
 
 			DirectoryInfo dir = new DirectoryInfo(logoPath);
 
@@ -1243,22 +1207,17 @@ namespace mojoPortal.Web
 			switch (WebConfigSettings.GravatarMaxAllowedRating)
 			{
 				case "PG":
-					return mojoPortal.Web.UI.Avatar.RatingType.PG;
+					return Avatar.RatingType.PG;
 
 				case "R":
-					return mojoPortal.Web.UI.Avatar.RatingType.R;
+					return Avatar.RatingType.R;
 
 				case "X":
-					return mojoPortal.Web.UI.Avatar.RatingType.X;
-
-
+					return Avatar.RatingType.X;
 			}
 
 			return mojoPortal.Web.UI.Avatar.RatingType.G;
 		}
-
-		
-
 
 		public static FileInfo[] GetAvatarList(SiteSettings siteSettings)
 		{
@@ -1377,7 +1336,6 @@ namespace mojoPortal.Web
 			{
 				return GetSmtpSettingsFromConfig();
 			}
-
 		}
 
 		public static SmtpSettings GetSmtpSettings(SiteSettings siteSettings)
@@ -1418,15 +1376,20 @@ namespace mojoPortal.Web
 					smtpSettings.RequiresAuthentication = siteSettings.SMTPRequiresAuthentication;
 					smtpSettings.UseSsl = siteSettings.SMTPUseSsl;
 					smtpSettings.PreferredEncoding = siteSettings.SMTPPreferredEncoding;
+					smtpSettings.AdditionalHeaders = new System.Collections.Specialized.NameValueCollection();
 
-
+					foreach (var header in siteSettings.SMTPCustomHeaders.SplitOnNewLineAndTrim())
+					{
+						var keyFinalIndex = header.IndexOf(':');
+						var key = header.Substring(0, keyFinalIndex).Trim();
+						var val = header.Substring(keyFinalIndex + 1).Trim();
+						smtpSettings.AdditionalHeaders.Add(key,val);
+					}
 				}
-
 			}
 			else
 			{
 				return GetSmtpSettingsFromConfig();
-
 			}
 
 			return smtpSettings;
@@ -1463,6 +1426,11 @@ namespace mojoPortal.Web
 			{
 				smtpSettings.PreferredEncoding = ConfigurationManager.AppSettings["SmtpPreferredEncoding"];
 			}
+
+			///
+			/// IF YOU WANT TO USE THE SMTPCUSTOMHEADERS, YOU MUST ENTER THEM IN THE SITE SETTINGS
+			///
+
 
 			return smtpSettings;
 		}

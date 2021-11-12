@@ -5047,7 +5047,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry you&apos;ve reached the quota of upload storage allowed by configuraiton..
+        ///   Looks up a localized string similar to Sorry you&apos;ve reached the quota of upload storage allowed by configuration..
         /// </summary>
         internal static string FileSystemStorageQuotaError {
             get {
@@ -17059,6 +17059,24 @@ namespace Resources {
         internal static string SiteSettingsSkinSettingsLabel {
             get {
                 return ResourceManager.GetString("SiteSettingsSkinSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom SMTP Headers.
+        /// </summary>
+        internal static string SiteSettingsSMTPHeaders {
+            get {
+                return ResourceManager.GetString("SiteSettingsSMTPHeaders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter each header on its own line as &quot;HeaderName: header value&quot;.
+        /// </summary>
+        internal static string SiteSettingsSMTPHeadersDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSMTPHeadersDescription", resourceCulture);
             }
         }
         

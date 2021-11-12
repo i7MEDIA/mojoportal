@@ -484,7 +484,8 @@ namespace mojoPortal.Web.AdminUI
 
 			txtSiteEmailFromAddress.Text = selectedSite.DefaultEmailFromAddress;
 			txtSiteEmailFromAlias.Text = selectedSite.DefaultFromEmailAlias;
-			
+			txtSMTPHeaders.Text = selectedSite.SMTPCustomHeaders;
+
 			item = ddPasswordFormat.Items.FindByValue(selectedSite.PasswordFormat.ToString(CultureInfo.InvariantCulture));
 
 			if (item != null)
@@ -918,11 +919,18 @@ namespace mojoPortal.Web.AdminUI
 				pnlSMTPSettingsWrapper.Visible = false;
 				litSMTPSettingsHeader.Text += string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsSMTPSettingsDisabled);
 			}
+
+
 		}
 
 		private void SetMailSettings()
 		{
 			if (selectedSite.SiteId == -1) { return; }
+
+			selectedSite.DefaultEmailFromAddress = txtSiteEmailFromAddress.Text;
+			selectedSite.DefaultFromEmailAlias = txtSiteEmailFromAlias.Text;
+			selectedSite.SMTPCustomHeaders = txtSMTPHeaders.Text;
+
 			if (!enableSiteSettingsSmtpSettings) { return; }
 
 			if (WebConfigSettings.UseLegacyCryptoHelper)
@@ -976,7 +984,7 @@ namespace mojoPortal.Web.AdminUI
 			selectedSite.SMTPPort = port;
 			selectedSite.SMTPRequiresAuthentication = chkSMTPRequiresAuthentication.Checked;
 			selectedSite.SMTPUseSsl = chkSMTPUseSsl.Checked;
-			selectedSite.SMTPPreferredEncoding = txtSMTPPreferredEncoding.Text;			
+			selectedSite.SMTPPreferredEncoding = txtSMTPPreferredEncoding.Text;
 		}
 		
 		protected void btnSave_Click(Object sender, EventArgs e)
@@ -1300,9 +1308,7 @@ namespace mojoPortal.Web.AdminUI
 
 			selectedSite.AllowUserEditorPreference = chkAllowUserEditorChoice.Checked;
 			selectedSite.MetaProfile = txtMetaProfile.Text;
-			selectedSite.DefaultEmailFromAddress = txtSiteEmailFromAddress.Text;
-			selectedSite.DefaultFromEmailAlias = txtSiteEmailFromAlias.Text;
-			
+
 			SetMailSettings();
 
 			// the site may previously have been using email for login
@@ -1432,7 +1438,16 @@ namespace mojoPortal.Web.AdminUI
 					smtpSettings.Password = txtSMTPPassword.Text;
 				}
 			}
-			
+
+			foreach (var header in txtSMTPHeaders.Text.SplitOnNewLineAndTrim())
+			{
+				var keyFinalIndex = header.IndexOf(':');
+				var key = header.Substring(0, keyFinalIndex).Trim();
+				var val = header.Substring(keyFinalIndex + 1).Trim();
+				smtpSettings.AdditionalHeaders.Add(key, val);
+				log.Info($"smtp header info [{key},{val}]");
+			}
+
 			if (smtpSettings.IsValid)
 			{
 				string msg = ResourceHelper.GetMessageTemplate("TestEmailSettings.config");
@@ -1827,8 +1842,11 @@ namespace mojoPortal.Web.AdminUI
 			litSMTPSettingsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsSMTPSettingsLabel, Resource.SiteSettingsSMTPSettingsDescription);
 			fgpSMTPSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
+			litSMTPHeadersHeading.Text = string.Format(adminDisplaySettings.SubPanelHeadingMarkup, Resource.SiteSettingsSMTPHeaders, Resource.SiteSettingsSMTPHeadersDescription);
+			fgpSMTPHeaders.OutsideBottomMarkup += adminDisplaySettings.SubPanelBottomMarkup;
+
 			litTestSMTPSettingsHeader.Text = string.Format(adminDisplaySettings.SubPanelHeadingMarkup, Resource.SiteSettingsTestSMTPSettingsLabel, Resource.SiteSettingsTestSMTPSettingsDescription);
-			fgpTestSMTPSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
+			fgpTestSMTPSettings.OutsideBottomMarkup += adminDisplaySettings.SubPanelBottomMarkup;
 			btnTestSMTPSettings.Text = Resource.SiteSettingsTestSMTPSettingsButton;
 
 			litHostListHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsExistingHostsLabel, Resource.SiteSettingsExistingHostsDescription);

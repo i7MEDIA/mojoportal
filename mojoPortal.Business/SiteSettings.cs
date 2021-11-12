@@ -1,32 +1,19 @@
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-// You must not remove this notice, or any other, from this software. 
-// Author:					
-// Created:				    2004-07-25
-// 
-// 2007-07-17   Alexander Yushchenko added site folders properties (SiteDataFolder, etc)
-// Last Modified:		    2019-01-07
-
+using log4net;
+using mojoPortal.Data;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
-using log4net;
-using mojoPortal.Data;
 
 namespace mojoPortal.Business
 {
-    // why we need serializable attribute is for AppFabricCache
-    // http://social.msdn.microsoft.com/Forums/en-HK/velocity/thread/b2e2f291-500f-4c25-8032-ae20cb7b99c8
+	// why we need serializable attribute is for AppFabricCache
+	// http://social.msdn.microsoft.com/Forums/en-HK/velocity/thread/b2e2f291-500f-4c25-8032-ae20cb7b99c8
 
 	/// <summary>
-    /// The preferred way to obtasin a reference to SiteSettings object is using mojoPortal.Business.WebHelpers.CacheHelper.GetCurrentSiteSettings();
+	/// The preferred way to obtain a reference to SiteSettings object is using mojoPortal.Business.WebHelpers.CacheHelper.GetCurrentSiteSettings();
 	/// </summary>
-    [Serializable()]
+	[Serializable()]
 	public class SiteSettings 
 	{
 		#region Constructors
@@ -64,19 +51,14 @@ namespace mojoPortal.Business
             normal,
             office2003,
             silver
-
         }
 
         public enum FriendlyUrlPattern
         {
             PageName, 
             PageNameWithDotASPX
-
-
         }
 
-		
-		
 		#endregion
 
 		#region Private Properties
@@ -1200,11 +1182,16 @@ namespace mojoPortal.Business
             set { SetExpandoProperty("SMTPUseSsl", value.ToString()); }
         }
 
+        public string SMTPCustomHeaders
+        {
+            get { return GetExpandoProperty("SMTPCustomHeaders"); }
+            set { SetExpandoProperty("SMTPCustomHeaders", value); }
+        }
+
         public bool AllowUserEditorPreference
         {
             get
             {
-
                 string s = GetExpandoProperty("AllowUserEditorPreference");
 
                 if ((s != null) && (s.Length > 0))

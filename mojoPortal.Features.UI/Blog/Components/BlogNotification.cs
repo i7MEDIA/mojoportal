@@ -25,6 +25,7 @@ namespace mojoPortal.Web.BlogUI
             message.Replace("{SiteName}", siteName);
             message.Replace("{MessageLink}", messageLink);
 
+            smtpSettings.SenderHeader = "BlogNotification";
 
             Email.SendEmail(
                 smtpSettings,

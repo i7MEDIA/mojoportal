@@ -1,34 +1,21 @@
-// Author:				
-// Created:			2004-08-14
-// Last Modified:		2019-11-13
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Configuration;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
-using System.Net.Mail;
-using System.Text;
-using System.Threading;
-using System.Text.RegularExpressions;
 using log4net;
 using mojoPortal.Web.Framework;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
 
 namespace mojoPortal.Net
 {
-    /// <summary>
-    /// A class for sending email.
-    /// </summary>
-    public static class Email
+	/// <summary>
+	/// A class for sending email.
+	/// </summary>
+	public static class Email
     {
        
         private static readonly ILog log = LogManager.GetLogger(typeof(Email));
@@ -750,10 +737,7 @@ namespace mojoPortal.Net
                     mail.Headers.Add("Precedence", "bulk");
                 }
 
-				
                 return Send(smtpSettings, mail, out result);
-
-
 
             }// end using MailMessage
 
@@ -818,6 +802,9 @@ namespace mojoPortal.Net
                 smtpClient.UseDefaultCredentials = true;
             }
 
+            message.Headers.Add(smtpSettings.AdditionalHeaders);
+            if (!string.IsNullOrWhiteSpace(smtpSettings.SenderHeader))
+                message.Headers.Add("X-mojo-Sender", smtpSettings.SenderHeader);
 
             try
             {
@@ -827,7 +814,10 @@ namespace mojoPortal.Net
 
                 bool logEmail = ConfigHelper.GetBoolProperty("LogAllEmailsWithSubject", false);
 
-                if (logEmail) { log.Info("Sent message " + message.Subject + " to " + message.To[0].Address); }
+                if (logEmail) 
+                {
+                    log.Info("Sent message " + message.Subject + " to " + message.To[0].Address); 
+                }
 				result = "sent";
                 return true;
             }
