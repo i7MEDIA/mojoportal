@@ -1,0 +1,74 @@
+.rsswrapper {
+	.make-row();
+}
+
+[class*="rssnav"] {
+	margin-top: 20px;
+	padding-left:  (@grid-gutter-width / 2);
+	padding-right: (@grid-gutter-width / 2);
+	width: 25%;
+
+	.feedlink,
+	[id*="FeedList"][id*="_Hyperlink3"] {
+		color: #FFA500;
+		.fontawesome("\f143", before);
+
+		img {
+			display: none;
+		}
+	}
+
+	.feededit & {
+		[id*="FeedListName"],
+		[id*="FeedListName"] + br {
+			display: none;
+		}
+	}
+}
+
+[class*="rsscenter"] {
+	padding-left:  (@grid-gutter-width / 2);
+	padding-right: (@grid-gutter-width / 2);
+	width: 75%;
+}
+
+.rssnavright,
+.rsscenter-leftnav {
+	float: right;
+}
+
+.rssnavleft,
+.rsscenter-rightnav {
+	float: left;
+}
+
+// Rss Feed Scroller
+.feedscroller .rsswrapper { position: relative; overflow: hidden; }
+.feedscroller .rssentries { position: relative; }
+
+
+// Edit feed page
+.rssmodule {
+	.modulecontent {
+		.make-row();
+	}
+
+	.feededit & {
+		[id*="pnlEdit"] {
+			float: left;
+			padding-left:  (@grid-gutter-width / 2);
+			padding-right: (@grid-gutter-width / 2);
+			width: 75%;
+		}
+	}
+}
+
+[id*="_btnClearCache"] {
+	clear: both;
+	display: block;
+	margin-left: (@grid-gutter-width / 2);
+}
+
+[class*="rssfeedentry"][class$="False"] {
+	opacity: 0.5;
+}

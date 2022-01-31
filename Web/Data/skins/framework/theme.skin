@@ -266,82 +266,15 @@
 <%-- Site Settings Display Settings --%>
 <portalAdmin:AdminDisplaySettings runat="server"
 	PanelHeadingMarkup = "<h3 class='setting-section-title'>{0} <small>{1}</small></h3><div class='setting-section-body'>"
-	SubPanelHeadingMarkup = "<div class='panel-heading'><h3 class='panel-title'>{0} <small>{1}</small></h3></div><div class='panel-body'>"
-	SubPanelHeadingMarkupCollapsible = "<div class='panel-heading'><a href='#{2}' data-toggle='collapse'><h3 class='panel-title'>{0} <small>{1}</small></h3></a></div><div class='panel-collapse collapse' id='{2}'><div class='panel-body'>"
-	SubPanelBottomMarkup = "</div>"
+	PanelBottomMarkup = "</div><!--end PanelBottomMarkup-->"
+	SubPanelHeadingMarkup = "<div class='panel panel-info'><div class='panel-heading'><h3 class='panel-title'>{0} <small>{1}</small></h3></div><div class='panel-body'>"
+	SubPanelBottomMarkup="</div><!--end panel-body--></div><!--end panel><!--end SubPanelBottomMarkup-->"
+	SubPanelHeadingMarkupCollapsible = "<div class='panel panel-info'><div class='panel-heading'><a href='#{2}' data-toggle='collapse'><h3 class='panel-title'>{0} <small>{1}</small></h3></a></div><div class='panel-collapse collapse' id='{2}'><div class='panel-body'>"
+	SubPanelBottomMarkupCollapsible="</div></div></div><!--end SubPanelBottomMarkupCollapsible-->"
+	
 />
 
-<%-- Form Group Panels --%>
-<portal:FormGroupPanel runat="server" SkinID="MainSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="SkinSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="EditorSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="RegistrationSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="UserAccountSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="PasswordSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="PasswordRecoverySettings"
-	Element="div"
-	CssClass="panel panel-warning"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="SettingsWarningPanel"
-	Element="div"
-	CssClass="panel panel-warning"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="OpenIDSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="WindowsLiveIDSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="SMTPSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="HostNames"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="FolderNames"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="SettingsPanel"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
+
 <portal:FormGroupPanel runat="server" SkinID="ButtonPanel"
 	CssClass="settingrow button-row"
 	InsideTopMarkup="<label class='settinglabel'></label>"

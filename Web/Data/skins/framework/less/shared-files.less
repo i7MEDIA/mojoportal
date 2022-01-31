@@ -1,0 +1,148 @@
+.FileManager_table {
+	width: 100%;
+}
+
+.shared-files-table {
+	margin-bottom: 0;
+
+	.col-rename {
+		display: none;
+	}
+
+	.col-edit {
+		a[href*="Download.aspx"] {
+			.fontawesome("\f019", before);
+
+			img {
+				display: none;
+			}
+		}
+	}
+}
+
+.trfilecount {
+	text-align: right;
+
+	.sfcount {
+		color: @text-muted;
+		font-size: floor((100% * @font-size-small / @font-size-base));
+	}
+}
+
+.filemanager .modulecontent > [id*="_pnlFile"] > table:first-of-type {
+	> tbody > tr:nth-child(3) {
+		text-align: right;
+
+		[id*="lblCounter"] {
+			color: @text-muted;
+			font-size: floor((100% * @font-size-small / @font-size-base));
+		}
+	}
+}
+
+.fileupload-dropzone {
+	text-align: center;
+}
+
+.fileinput-button {
+	overflow: hidden;
+	position: relative;
+	.fontawesome("\f0c5", before);
+
+	&::before {
+		margin-right: 6px;
+	}
+	
+	&::after {
+		content: "Choose Files";
+	}
+
+	button.ui-button {
+		display: none;
+	}
+
+	input {
+		bottom: 0;
+		cursor: pointer;
+		left: 0;
+		opacity: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+
+		&::-webkit-file-upload-button {
+			cursor: pointer;
+		}
+	}
+}
+
+.newfolderpanel {
+	margin-bottom: @line-height-computed;
+
+	+ [id*="_btnRefresh"] {
+		display: none;
+	}
+}
+
+.uploadfilelist .ui-button {
+	.fontawesome("\f093", before);
+
+	&::before {
+		margin-right: 6px;
+	}
+}
+
+ul.filelist {
+	.ui-icon.ui-icon-trash {
+		background: none repeat scroll 0 0 transparent;
+		color: @brand-danger;
+		cursor: pointer;
+		display: inline-block;
+		font: normal normal normal 14px/1 FontAwesome;
+		font-size: inherit;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		height: auto;
+		margin-left: 6px;
+		overflow: visible;
+		text-indent: 0;
+		text-rendering: auto;
+		vertical-align: middle;
+		width: auto;
+
+		.fontawesome("\f00d", before);
+	}
+}
+
+
+// Content Style Templates
+.choose-file.btn {
+	overflow: hidden;
+	position: relative;
+
+	.fileimportstyles {
+		-webkit-appearance: none;
+		bottom: 0;
+		cursor: pointer;
+		left: 0;
+		opacity: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+
+		&::-webkit-file-upload-button {
+			cursor: pointer;
+		}
+	}
+}
+
+.clear-input {
+	color: @brand-danger;
+	cursor: pointer;
+	display: inline-block;
+	font: normal normal normal 14px/1 FontAwesome;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	margin-left: 6px;
+	vertical-align: middle;
+}

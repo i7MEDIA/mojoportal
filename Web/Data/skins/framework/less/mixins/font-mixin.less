@@ -1,0 +1,65 @@
+.fontawesome(@font, @element: element, @color: false, @fixed-width: false) { 
+	& when (@element = element) {
+		display: inline-block;
+		font-size: inherit;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		font: normal normal normal 14px/1 FontAwesome;
+		text-rendering: auto;
+		
+		&::before {
+			& when not (@color = false) {
+				color: @color;
+			}
+
+			content: @font;
+
+			& when (@fixed-width = true) {
+				text-align: center;
+				width: (18em / 14);
+			}
+		}
+	}
+
+	& when (@element = before) {
+		&::before {
+			& when not (@color = false) {
+				color: @color;
+			}
+
+			content: @font;
+			display: inline-block;
+			font-size: inherit;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			font: normal normal normal 14px/1 FontAwesome;
+			text-rendering: auto;
+
+			& when (@fixed-width = true) {
+				text-align: center;
+				width: (18em / 14);
+			}
+		}
+	}
+
+	& when (@element = after) {
+		&::after {
+			& when not (@color = false) {
+				color: @color;
+			}
+
+			content: @font;
+			display: inline-block;
+			font-size: inherit;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			font: normal normal normal 14px/1 FontAwesome;
+			text-rendering: auto;
+
+			& when (@fixed-width = true) {
+				text-align: center;
+				width: (18em / 14);
+			}
+		}
+	}
+}

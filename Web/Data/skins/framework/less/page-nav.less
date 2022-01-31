@@ -1,0 +1,62 @@
+.page-nav {
+	border-left: 4px solid @gray-lighter;
+	padding: 10px 0;
+
+	a {
+		color: @link-color;
+	}
+
+	.active > a {
+		color: @link-color;
+
+		&::before {
+			background-color: @link-color;
+			bottom: 0;
+			content: "";
+			display: block;
+			left: -4px;
+			position: absolute;
+			top: 0;
+			width: 4px;
+		}
+	} 
+
+	> li {
+		padding-left: 20px;
+
+		> a {
+			color: @link-color;
+			font-weight: 700;
+			margin-left: -20px;
+			padding: 4px 0 4px 20px;
+			margin-bottom: 10px;
+		}
+	}
+
+	.sub-nav {
+		font-size: 14px;
+		margin-left: -20px;
+
+		li {
+			> a {
+				padding: 4px 0 4px 40px;
+			}
+
+			&.active {
+				> a {
+					font-weight: 700;
+				}
+			}
+		}
+
+		.sub-nav {
+			margin-left: 0;
+
+			> li {
+				> a {
+					padding: 4px 0 4px 60px;
+				}
+			}			
+		}
+	}
+}

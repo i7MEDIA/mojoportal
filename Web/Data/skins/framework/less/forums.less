@@ -1,0 +1,123 @@
+.forums {
+	table {
+		h3 {
+			font-size: 20px;
+			margin-top: 0;
+		}
+	}
+}
+
+.forumEdit,
+.threadEdit {
+	.fontawesome("\f044", before);
+	font: normal normal normal 14px/1 @font-family-sans-serif;
+	float: right;
+}
+
+.commentEdit {
+	.fontawesome("\f044\00a0", before);
+}
+
+.newpost {
+	.fontawesome("\f075\00a0", before);
+	text-transform: capitalize;
+}
+
+.newthread {
+	.fontawesome("\f040\00a0", before);
+	text-transform: capitalize;
+}
+
+.forumsearch {
+	text-align: right;
+}
+
+// Post
+.forumview .modulepager, 
+.forumthreadview .modulepager,
+.postlistwrap,
+.forumnotify {
+	margin-bottom: @line-height-computed;
+}
+
+.postcontainer .cmdbar {
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.postcontainer .markanswer,
+.postcontainer .marksent,
+.postcontainer .sendnotification {
+	margin-right: 5px;
+}
+
+.postcontainer {
+	border: 1px solid @table-border-color;
+
+	& + & {
+		border-top: 0 none;
+	}
+}
+
+.postwrapper {
+	display: flex;
+}
+
+.forumpostheader {
+	border-bottom: 1px solid  @table-border-color;
+	padding: 4px 15px;
+}
+
+.postleft {
+	flex: none;
+	text-align: center;
+	padding: 15px;
+	width: 25%;
+}
+
+@media (min-width: @screen-md) {
+	.postleft {
+		width: 16%;
+	}
+}
+
+.postright {
+	border-left: 1px solid @table-border-color;
+	flex: 1 1 auto;
+	padding: 15px;
+}
+
+.posttopic {
+	h3,
+	h4 {
+		font-size: 20px;
+		margin-top: 0;
+	}
+}
+
+.forumpostusername [id*="_Hyperlink"],
+.forumpostusername [id*="_edituser"],
+.forumpostusername [id*="_useredit"] {
+	.fontawesome("\f007", before);
+
+	img {
+		display: none;
+	}
+}
+
+.forumpostusername .edituser {
+	font-size: 0;
+	color: transparent;
+
+	.fontawesome("\f007", before);
+
+	&::before {
+		font-size: @font-size-base;
+		color: @link-color;
+	}
+
+	&:hover::before {
+		color: @link-hover-color;
+	}
+
+}

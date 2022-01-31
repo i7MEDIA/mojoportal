@@ -1,0 +1,57 @@
+// Admin color overrides
+.fb-bordered-section-wrap {
+	border: 2px solid @gray-lighter;
+
+	.fb-section-heading {
+
+		&::after {
+			background-color: @brand-success;
+		}
+
+	}
+
+	.fb-subsection-heading {
+		background: fade(@gray-lighter, 50%);
+		color: @text-color;
+	} 
+
+	.fb-text-subdued {
+	    color: fade(@text-color, 80%);
+	}
+
+}
+
+.fb-fieldset-style {
+
+	.fb-section-heading {
+		color: @brand-success; 
+	}
+
+}
+
+// Item Color Overrides
+.flip-box__item .front {
+  background-color: @gray-lighter;
+  color: @text-color;
+}
+
+.flip-box__item .back {
+  background-color: @brand-primary;
+  color: #fff;
+}
+
+.flip-box__item--green .back {
+  background-color: @brand-success;
+}
+.flip-box__item--red .back {
+  background-color: @brand-danger;
+}
+.flip-box__item--orange .back {
+  background-color: @brand-warning;
+}
+.flip-box__item--purple .back {
+  background-color: #965be8;
+}
+.flip-box__item--light-blue .back {
+  background-color: @brand-info;
+}

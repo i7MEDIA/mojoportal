@@ -1,0 +1,218 @@
+// 
+// Flex Blox Class Library
+// --------------------------------------------------
+
+.fb-styles(@class) {
+	// Flex Parent
+	.fb-@{class}-parent {
+		display: flex;
+
+		> * {
+			flex: 1 1 auto;
+		}
+	}
+	.fb-@{class}-row    {flex-direction: row;}
+	.fb-@{class}-column {flex-direction: column;}
+	.fb-@{class}-wrap   {flex-wrap: wrap;}
+	.fb-@{class}-nowrap {flex-wrap: nowrap;}
+
+	// Align Items
+	.fb-@{class}-ai-start    {align-items: flex-start;}
+	.fb-@{class}-ai-baseline {align-items: baseline;}
+	.fb-@{class}-ai-center   {align-items: center;}
+	.fb-@{class}-ai-end      {align-items: flex-end;}
+	.fb-@{class}-ai-stretch  {align-items: stretch;}
+
+	// Align Content
+	.fb-@{class}-ac-start    {align-content: flex-start;}
+	.fb-@{class}-ac-baseline {align-content: baseline;}
+	.fb-@{class}-ac-center   {align-content: center;}
+	.fb-@{class}-ac-end      {align-content: flex-end;}
+	.fb-@{class}-ac-stretch  {align-content: stretch;}
+
+	// Justify Content
+	.fb-@{class}-j-start   {justify-content: flex-start;}
+	.fb-@{class}-j-center  {justify-content: center;}
+	.fb-@{class}-j-around  {justify-content: space-around;}
+	.fb-@{class}-j-between {justify-content: space-between;}
+	.fb-@{class}-j-end     {justify-content: flex-end;}
+
+	// Align Self
+	.fb-@{class}-as-start    {align-self: flex-start;}
+	.fb-@{class}-as-baseline {align-self: baseline;}
+	.fb-@{class}-as-center   {align-self: center;}
+	.fb-@{class}-as-end      {align-self: flex-end;}
+	.fb-@{class}-as-stretch  {align-self: stretch;}
+
+	// Child Flex
+	.fb-@{class}-child  {flex: 0 0 auto;}
+	.fb-@{class}-grow   {flex-grow: 1;}
+	.fb-@{class}-shrink {flex-shrink: 1;}
+
+	// Flexbox Grid Classes (I don't like these, just use the grid col-xx-6/etc classes - E.F.)
+	.fb-@{class}-25 {
+		&:not(.flex-children),
+		&.flex-children > * {
+			flex-basis: 25%;
+		}
+	}
+
+	.fb-@{class}-33 {
+		&:not(.flex-children),
+		&.flex-children > * {
+			flex-basis: 33%;
+		}
+	}
+
+	.fb-@{class}-40 {
+		&:not(.flex-children),
+		&.flex-children > * {
+			flex-basis: 40%;
+		}
+	}
+
+	.fb-@{class}-50 {
+		&:not(.flex-children),
+		&.flex-children > * {
+			flex-basis: 50%;
+		}
+	}
+
+	.fb-@{class}-60 {
+		&:not(.flex-children),
+		&.flex-children > * {
+			flex-basis: 60%;
+		}
+	}
+
+	.fb-@{class}-66 {
+		&:not(.flex-children),
+		&.flex-children > * {
+			flex-basis: 66%;
+		}
+	}
+
+	.fb-@{class}-75 {
+		&:not(.flex-children),
+		&.flex-children > * {
+			flex-basis: 75%;
+		}
+	}
+
+	.fb-@{class}-100 {
+		&:not(.flex-children),
+		&.flex-children > * {
+			flex-basis: 100%;
+		}
+	}
+}
+
+.fb-order(@index, @class) {
+	.fb-@{class}-order-@{index} {
+		order: @index;
+	}
+}
+
+.loop-fb-order(@index, @class, @type) when (@index <= @grid-columns) {
+	.fb-order(@index, @class);
+	.loop-fb-order((@index + 1), @class, @type);
+}
+
+.make-fb-grid(@class) {
+	.define-screen-variable(@class) {
+		@xs: @screen-xs-min;
+		@sm: @screen-sm-min;
+		@md: @screen-md-min;
+		@lg: @screen-lg-min;
+
+		@set-size: '@{class}';
+	}
+
+	.define-screen-variable(@class);
+
+	& when (@class = xs) {
+		.fb-styles(@class);
+		.loop-fb-order(1, @class, width);
+	}
+
+	& when not (@class = xs) {
+		@media (min-width: @@set-size) {
+			.fb-styles(@class);
+			.loop-fb-order(1, @class, width);
+		}
+	}
+}
+
+// Sizeless Defaults
+@media (min-width: @screen-sm) {
+	.fb-parent,
+	.flex-children {
+		display: flex;
+
+		> * {
+			flex: 1 1 auto;
+		}
+	}
+	.fb-row    {flex-direction: row;}
+	.fb-column {flex-direction: column;}
+	.fb-wrap   {flex-wrap: wrap;}
+	.fb-nowrap {flex-wrap: nowrap;}
+
+	// Align Items
+	.fb-ai-start    {align-items: flex-start;}
+	.fb-ai-baseline {align-items: baseline;}
+	.fb-ai-center   {align-items: center;}
+	.fb-ai-end      {align-items: flex-end;}
+	.fb-ai-stretch  {align-items: stretch;}
+
+	// Align Content
+	.fb-ac-start    {align-content: flex-start;}
+	.fb-ac-baseline {align-content: baseline;}
+	.fb-ac-center   {align-content: center;}
+	.fb-ac-end      {align-content: flex-end;}
+	.fb-ac-stretch  {align-content: stretch;}
+
+	// Justify Content
+	.fb-j-start   {justify-content: flex-start;}
+	.fb-j-center  {justify-content: center;}
+	.fb-j-around  {justify-content: space-around;}
+	.fb-j-between {justify-content: space-between;}
+	.fb-j-end     {justify-content: flex-end;}
+
+	// Align Self
+	.fb-as-start    {align-self: flex-start;}
+	.fb-as-baseline {align-self: baseline;}
+	.fb-as-center   {align-self: center;}
+	.fb-as-end      {align-self: flex-end;}
+	.fb-as-stretch  {align-self: stretch;}
+
+	// Child Flex
+	.fb-child  {flex: 0 0 auto;}
+	.fb-grow   {flex-grow: 1;}
+	.fb-shrink {flex-shrink: 1;}
+}
+
+
+// Initialize
+.make-fb-grid(xs);
+.make-fb-grid(sm);
+.make-fb-grid(md);
+.make-fb-grid(lg);
+
+
+// Fix bootstrap nav with flexbox styles applied
+.nav.nav-pills[class*="fb-"][class*="-parent"],
+.nav.nav-pills[class*="fb-"][class*="-parent"] > * {
+	li + li {
+		margin-left: 0;
+	}
+}
+
+// Fix bootstrap row with flexbox styles applied
+.row[class*="fb-"][class*="-parent"],
+.row[class*="fb-"][class*="-parent"] > * {
+	&::before,
+	&::after {
+		content: none;
+	}
+}
