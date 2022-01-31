@@ -33,24 +33,8 @@ namespace mojoPortal.Web
 		private static readonly ILog log = LogManager.GetLogger(typeof(SiteUtils));
 		private static bool debugLog = log.IsDebugEnabled;
 
-		
-
-		public static bool RunningOnMono()
-		{
-			try
-			{
-				Type t = Type.GetType("Mono.Runtime");
-				if (t != null) { return true; }
-			}
-			catch (Exception) { }
-
-
-			return false;
-		}
-
 		public static bool UsingIntegratedPipeline()
 		{
-
 			try
 			{
 				// new as of .NET 3.5 SP1
@@ -64,8 +48,6 @@ namespace mojoPortal.Web
 			{
 				return false;
 			}
-
-
 		}
 
 		/// <summary>
@@ -80,11 +62,6 @@ namespace mojoPortal.Web
 		{
 			if (string.IsNullOrEmpty(url1)) { return false; }
 			if (string.IsNullOrEmpty(url2)) { return false; }
-
-			if (RunningOnMono())
-			{
-				return (url1 == url2);
-			}
 
 			return string.Equals(url1, url2, StringComparison.InvariantCultureIgnoreCase);
 
@@ -905,12 +882,24 @@ namespace mojoPortal.Web
 			pageOrControl.Page.Response.Redirect(redirectUrl);
 		}
 
+		public static void RedirectToAdminMenu(Control pageOrControl)
+        {
+			string redirectUrl = GetNavigationSiteRoot() + WebConfigSettings.AdminDirectoryLocation;
 
-		public static void RedirectToDefault()
+			WebUtils.SetupRedirect(pageOrControl, redirectUrl);
+		}
+
+		public static void RedirectToSiteRoot()
 		{
 			RedirectToUrl(GetNavigationSiteRoot() + "/Default.aspx");
 		}
 
+
+		[Obsolete("Will be removed in a future version. Please use RedirectToSiteRoot", false)]
+		public static void RedirectToDefault()
+        {
+			RedirectToSiteRoot();
+        }
 
 		public static void SetFormAction(Page page, string action)
 		{
@@ -921,11 +910,13 @@ namespace mojoPortal.Web
 		{
 			if (page.Header == null) { return; }
 
-			Literal meta = new Literal();
-			meta.ID = "metanoindexfollow";
-			meta.Text = "\n<meta name='robots' content='NOINDEX,FOLLOW' />";
+            Literal meta = new Literal
+            {
+                ID = "metanoindexfollow",
+                Text = "\n<meta name='robots' content='NOINDEX,FOLLOW' />"
+            };
 
-			page.Header.Controls.Add(meta);
+            page.Header.Controls.Add(meta);
 
 		}
 
@@ -933,11 +924,13 @@ namespace mojoPortal.Web
 		{
 			if (page.Header == null) { return; }
 
-			Literal meta = new Literal();
-			meta.ID = "metanoindexfollow";
-			meta.Text = "\n<meta name='robots' content='NOINDEX' />";
+            Literal meta = new Literal
+            {
+                ID = "metanoindexfollow",
+                Text = "\n<meta name='robots' content='NOINDEX' />"
+            };
 
-			page.Header.Controls.Add(meta);
+            page.Header.Controls.Add(meta);
 
 		}
 

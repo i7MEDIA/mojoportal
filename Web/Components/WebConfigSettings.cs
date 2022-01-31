@@ -3988,12 +3988,12 @@ namespace mojoPortal.Web
 
 		public static string PageTreeRelativeUrl
 		{
-			get { return ConfigHelper.GetStringProperty("PageTreeRelativeUrl", "/Admin/PageManager.aspx"); }
+			get { return ConfigHelper.GetStringProperty("PageTreeRelativeUrl", $"{AdminDirectoryLocation}/PageManager.aspx"); }
 		}
 
 		public static string ContentPublishPageRelativeUrl
 		{
-			get { return ConfigHelper.GetStringProperty("ContentPublishPageRelativeUrl", "/Admin/ContentManager.aspx"); }
+			get { return ConfigHelper.GetStringProperty("ContentPublishPageRelativeUrl", $"{AdminDirectoryLocation}/ContentManager.aspx"); }
 		}
 
 		public static string FileDialogRelativeUrl
@@ -4001,7 +4001,14 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetStringProperty("FileDialogRelativeUrl", "/FileManager"); }
 		}
 
-
+		/// <summary>
+		/// The filesystem location of the Admin directory. This is not configurable yet but will be to allow renaming of the Admin directory
+		/// to obfuscate it.
+		/// </summary>
+		public static string AdminDirectoryLocation
+        {
+			get { return "/Admin"; }
+		}
 		
 
 		
