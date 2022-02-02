@@ -78,12 +78,7 @@ namespace mojoPortal.Web.AdminUI
                 return;
             }
 
-            List <BannedIPAddress> bannedIPs
-                = BannedIPAddress.GetPage(
-                pageNumber, 
-                pageSize, 
-                out totalPages);
-
+			var bannedIPs = BannedIPAddress.GetPage(pageNumber, pageSize, out totalPages);
 
             if (this.totalPages > 1)
             {
@@ -125,12 +120,19 @@ namespace mojoPortal.Web.AdminUI
         {
             pgrBannedIPAddresses.Visible = false;
 
-            using (IDataReader reader = BannedIPAddress.GeByIpAddress(txtIPAddress.Text))
-            {
-                grdBannedIPAddresses.DataSource = reader;
-                grdBannedIPAddresses.DataBind();
-            }
+            //using (IDataReader reader = BannedIPAddress.GeByIpAddress(txtIPAddress.Text))
+            //{
+            //    grdBannedIPAddresses.DataSource = reader;
+            //    grdBannedIPAddresses.DataBind();
+            //}
+            var item = BannedIPAddress.GeByIpAddress(txtIPAddress.Text);
 
+            grdBannedIPAddresses.DataSource = new List<BannedIPAddress>
+            {
+                item
+            };
+
+            grdBannedIPAddresses.DataBind();
         }
 
         void grdBannedIPAddresses_Sorting(object sender, GridViewSortEventArgs e)
@@ -159,7 +161,13 @@ namespace mojoPortal.Web.AdminUI
             TextBox txtBannedUTC = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtBannedUTC");
             TextBox txtBannedReason = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtBannedReason");
 
-            BannedIPAddress bannedIPAddress = new BannedIPAddress(rowID);
+            BannedIPAddress bannedIPAddress = new BannedIPAddress();
+
+            if (rowID > 0)
+			{
+                bannedIPAddress = new BannedIPAddress(rowID);
+			}
+
             bannedIPAddress.BannedIP = txtBannedIP.Text;
             DateTime bannedTime = DateTime.UtcNow;
             
