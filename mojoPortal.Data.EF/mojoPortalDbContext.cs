@@ -82,259 +82,259 @@ namespace mojoPortal.Data.EF
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
-		//	modelBuilder.Entity<AuthorizeNetLog>()
-		//		.Property(e => e.ResponseCode)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<AuthorizeNetLog>()
+			//		.Property(e => e.ResponseCode)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<AuthorizeNetLog>()
-		//		.Property(e => e.CcvCode)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<AuthorizeNetLog>()
+			//		.Property(e => e.CcvCode)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<AuthorizeNetLog>()
-		//		.Property(e => e.CavCode)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<AuthorizeNetLog>()
+			//		.Property(e => e.CavCode)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<AuthorizeNetLog>()
-		//		.Property(e => e.Amount)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<AuthorizeNetLog>()
+			//		.Property(e => e.Amount)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<AuthorizeNetLog>()
-		//		.Property(e => e.Tax)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<AuthorizeNetLog>()
+			//		.Property(e => e.Tax)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<AuthorizeNetLog>()
-		//		.Property(e => e.Duty)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<AuthorizeNetLog>()
+			//		.Property(e => e.Duty)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<AuthorizeNetLog>()
-		//		.Property(e => e.Freight)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<AuthorizeNetLog>()
+			//		.Property(e => e.Freight)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<CommerceReport>()
-		//		.Property(e => e.Price)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<CommerceReport>()
+			//		.Property(e => e.Price)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<CommerceReport>()
-		//		.Property(e => e.SubTotal)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<CommerceReport>()
+			//		.Property(e => e.SubTotal)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<CommerceReportOrders>()
-		//		.Property(e => e.SubTotal)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<CommerceReportOrders>()
+			//		.Property(e => e.SubTotal)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<CommerceReportOrders>()
-		//		.Property(e => e.TaxTotal)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<CommerceReportOrders>()
+			//		.Property(e => e.TaxTotal)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<CommerceReportOrders>()
-		//		.Property(e => e.ShippingTotal)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<CommerceReportOrders>()
+			//		.Property(e => e.ShippingTotal)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<CommerceReportOrders>()
-		//		.Property(e => e.OrderTotal)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<CommerceReportOrders>()
+			//		.Property(e => e.OrderTotal)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<ContentWorkflow>()
-		//		.HasMany(e => e.ContentWorkflowAuditHistory)
-		//		.WithRequired(e => e.ContentWorkflow)
-		//		.HasForeignKey(e => e.ContentWorkflowGuid)
-		//		.WillCascadeOnDelete(false);
+			//	modelBuilder.Entity<ContentWorkflow>()
+			//		.HasMany(e => e.ContentWorkflowAuditHistory)
+			//		.WithRequired(e => e.ContentWorkflow)
+			//		.HasForeignKey(e => e.ContentWorkflowGuid)
+			//		.WillCascadeOnDelete(false);
 
-		//	modelBuilder.Entity<Currency>()
-		//		.Property(e => e.Code)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<Currency>()
+			//		.Property(e => e.Code)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<Currency>()
-		//		.Property(e => e.DecimalPointChar)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<Currency>()
+			//		.Property(e => e.DecimalPointChar)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<Currency>()
-		//		.Property(e => e.ThousandsPointChar)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<Currency>()
+			//		.Property(e => e.ThousandsPointChar)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<Currency>()
-		//		.Property(e => e.DecimalPlaces)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<Currency>()
+			//		.Property(e => e.DecimalPlaces)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<Currency>()
-		//		.Property(e => e.Value)
-		//		.HasPrecision(13, 8);
+			//	modelBuilder.Entity<Currency>()
+			//		.Property(e => e.Value)
+			//		.HasPrecision(13, 8);
 
-		//	modelBuilder.Entity<GeoCountry>()
-		//		.Property(e => e.ISOCode2)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<GeoCountry>()
+			//		.Property(e => e.ISOCode2)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<GeoCountry>()
-		//		.Property(e => e.ISOCode3)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<GeoCountry>()
+			//		.Property(e => e.ISOCode3)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<GeoCountry>()
-		//		.HasMany(e => e.GeoZone)
-		//		.WithRequired(e => e.GeoCountry)
-		//		.HasForeignKey(e => e.CountryGuid)
-		//		.WillCascadeOnDelete(false);
+			//	modelBuilder.Entity<GeoCountry>()
+			//		.HasMany(e => e.GeoZone)
+			//		.WithRequired(e => e.GeoCountry)
+			//		.HasForeignKey(e => e.CountryGuid)
+			//		.WillCascadeOnDelete(false);
 
-		//	modelBuilder.Entity<GoogleCheckoutLog>()
-		//		.Property(e => e.AuthAmt)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<GoogleCheckoutLog>()
+			//		.Property(e => e.AuthAmt)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<GoogleCheckoutLog>()
-		//		.Property(e => e.DiscountTotal)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<GoogleCheckoutLog>()
+			//		.Property(e => e.DiscountTotal)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<GoogleCheckoutLog>()
-		//		.Property(e => e.ShippingTotal)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<GoogleCheckoutLog>()
+			//		.Property(e => e.ShippingTotal)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<GoogleCheckoutLog>()
-		//		.Property(e => e.TaxTotal)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<GoogleCheckoutLog>()
+			//		.Property(e => e.TaxTotal)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<GoogleCheckoutLog>()
-		//		.Property(e => e.OrderTotal)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<GoogleCheckoutLog>()
+			//		.Property(e => e.OrderTotal)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<GoogleCheckoutLog>()
-		//		.Property(e => e.LatestChgAmt)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<GoogleCheckoutLog>()
+			//		.Property(e => e.LatestChgAmt)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<GoogleCheckoutLog>()
-		//		.Property(e => e.TotalChgAmt)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<GoogleCheckoutLog>()
+			//		.Property(e => e.TotalChgAmt)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<GoogleCheckoutLog>()
-		//		.Property(e => e.LatestRefundAmt)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<GoogleCheckoutLog>()
+			//		.Property(e => e.LatestRefundAmt)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<GoogleCheckoutLog>()
-		//		.Property(e => e.TotalRefundAmt)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<GoogleCheckoutLog>()
+			//		.Property(e => e.TotalRefundAmt)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<GoogleCheckoutLog>()
-		//		.Property(e => e.LatestChargeback)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<GoogleCheckoutLog>()
+			//		.Property(e => e.LatestChargeback)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<GoogleCheckoutLog>()
-		//		.Property(e => e.TotalChargeback)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<GoogleCheckoutLog>()
+			//		.Property(e => e.TotalChargeback)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<Language>()
-		//		.Property(e => e.Code)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<Language>()
+			//		.Property(e => e.Code)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<LetterInfo>()
-		//		.HasMany(e => e.Letter)
-		//		.WithRequired(e => e.LetterInfo)
-		//		.WillCascadeOnDelete(false);
+			//	modelBuilder.Entity<LetterInfo>()
+			//		.HasMany(e => e.Letter)
+			//		.WithRequired(e => e.LetterInfo)
+			//		.WillCascadeOnDelete(false);
 
-		//	modelBuilder.Entity<Modules>()
-		//		.HasMany(e => e.PageModules)
-		//		.WithRequired(e => e.Modules)
-		//		.WillCascadeOnDelete(false);
+			//	modelBuilder.Entity<Modules>()
+			//		.HasMany(e => e.PageModules)
+			//		.WithRequired(e => e.Modules)
+			//		.WillCascadeOnDelete(false);
 
-		//	modelBuilder.Entity<Pages>()
-		//		.HasMany(e => e.PageModules)
-		//		.WithRequired(e => e.Pages)
-		//		.WillCascadeOnDelete(false);
+			//	modelBuilder.Entity<Pages>()
+			//		.HasMany(e => e.PageModules)
+			//		.WithRequired(e => e.Pages)
+			//		.WillCascadeOnDelete(false);
 
-		//	modelBuilder.Entity<PaymentLog>()
-		//		.Property(e => e.ResponseCode)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<PaymentLog>()
+			//		.Property(e => e.ResponseCode)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<PaymentLog>()
-		//		.Property(e => e.CcvCode)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<PaymentLog>()
+			//		.Property(e => e.CcvCode)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<PaymentLog>()
-		//		.Property(e => e.CavCode)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<PaymentLog>()
+			//		.Property(e => e.CavCode)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<PaymentLog>()
-		//		.Property(e => e.Amount)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PaymentLog>()
+			//		.Property(e => e.Amount)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<PaymentLog>()
-		//		.Property(e => e.Tax)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PaymentLog>()
+			//		.Property(e => e.Tax)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<PaymentLog>()
-		//		.Property(e => e.Duty)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PaymentLog>()
+			//		.Property(e => e.Duty)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<PaymentLog>()
-		//		.Property(e => e.Freight)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PaymentLog>()
+			//		.Property(e => e.Freight)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<PayPalLog>()
-		//		.Property(e => e.ExchangeRate)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PayPalLog>()
+			//		.Property(e => e.ExchangeRate)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<PayPalLog>()
-		//		.Property(e => e.CartTotal)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PayPalLog>()
+			//		.Property(e => e.CartTotal)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<PayPalLog>()
-		//		.Property(e => e.PayPalAmt)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PayPalLog>()
+			//		.Property(e => e.PayPalAmt)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<PayPalLog>()
-		//		.Property(e => e.TaxAmt)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PayPalLog>()
+			//		.Property(e => e.TaxAmt)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<PayPalLog>()
-		//		.Property(e => e.FeeAmt)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PayPalLog>()
+			//		.Property(e => e.FeeAmt)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<PayPalLog>()
-		//		.Property(e => e.SettleAmt)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PayPalLog>()
+			//		.Property(e => e.SettleAmt)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<PlugNPayLog>()
-		//		.Property(e => e.Amount)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PlugNPayLog>()
+			//		.Property(e => e.Amount)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<PlugNPayLog>()
-		//		.Property(e => e.Tax)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PlugNPayLog>()
+			//		.Property(e => e.Tax)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<PlugNPayLog>()
-		//		.Property(e => e.Duty)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PlugNPayLog>()
+			//		.Property(e => e.Duty)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<PlugNPayLog>()
-		//		.Property(e => e.Freight)
-		//		.HasPrecision(15, 4);
+			//	modelBuilder.Entity<PlugNPayLog>()
+			//		.Property(e => e.Freight)
+			//		.HasPrecision(15, 4);
 
-		//	modelBuilder.Entity<SchemaVersion>()
-		//		.HasMany(e => e.SchemaScriptHistory)
-		//		.WithRequired(e => e.SchemaVersion)
-		//		.WillCascadeOnDelete(false);
+			//	modelBuilder.Entity<SchemaVersion>()
+			//		.HasMany(e => e.SchemaScriptHistory)
+			//		.WithRequired(e => e.SchemaVersion)
+			//		.WillCascadeOnDelete(false);
 
-		//	modelBuilder.Entity<Sites>()
-		//		.HasMany(e => e.SitePaths)
-		//		.WithRequired(e => e.Sites)
-		//		.WillCascadeOnDelete(false);
+			//	modelBuilder.Entity<Sites>()
+			//		.HasMany(e => e.SitePaths)
+			//		.WithRequired(e => e.Sites)
+			//		.WillCascadeOnDelete(false);
 
-		//	modelBuilder.Entity<Tag>()
-		//		.HasMany(e => e.TagItem)
-		//		.WithRequired(e => e.Tag)
-		//		.HasForeignKey(e => e.TagGuid);
+			//	modelBuilder.Entity<Tag>()
+			//		.HasMany(e => e.TagItem)
+			//		.WithRequired(e => e.Tag)
+			//		.HasForeignKey(e => e.TagGuid);
 
-		//	modelBuilder.Entity<TaxRate>()
-		//		.Property(e => e.Rate)
-		//		.HasPrecision(18, 4);
+			//	modelBuilder.Entity<TaxRate>()
+			//		.Property(e => e.Rate)
+			//		.HasPrecision(18, 4);
 
-		//	modelBuilder.Entity<TaxRateHistory>()
-		//		.Property(e => e.Rate)
-		//		.HasPrecision(18, 4);
+			//	modelBuilder.Entity<TaxRateHistory>()
+			//		.Property(e => e.Rate)
+			//		.HasPrecision(18, 4);
 
-		//	modelBuilder.Entity<Users>()
-		//		.Property(e => e.Gender)
-		//		.IsFixedLength();
+			//	modelBuilder.Entity<Users>()
+			//		.Property(e => e.Gender)
+			//		.IsFixedLength();
 
-		//	modelBuilder.Entity<Users>()
-		//		.Property(e => e.TotalRevenue)
-		//		.HasPrecision(15, 4);
-		//}
+			//	modelBuilder.Entity<Users>()
+			//		.Property(e => e.TotalRevenue)
+			//		.HasPrecision(15, 4);
+		}
 	}
 }

@@ -214,7 +214,7 @@ namespace mojoPortal.Business
 			var context = new mojoPortalDbContext();
 			var query = context.BannedIPAddresses;
 
-			var results = query.OrderBy(b => b.ro)
+			var results = query.OrderBy(b => b.RowID)
 				.Select(x => new
 				{
 					BannedIPAddress = new BannedIPAddress
