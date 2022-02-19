@@ -267,22 +267,22 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.Literal litMailSettingsTabLink;
 
 		/// <summary>
-		/// liScripts control.
+		/// liContent control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl liScripts;
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl liContent;
 
 		/// <summary>
-		/// litScriptsTabLink control.
+		/// litContentTabLink control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.Literal litScriptsTabLink;
+		protected global::System.Web.UI.WebControls.Literal litContentTabLink;
 
 		/// <summary>
 		/// liAdvanced control.
@@ -2706,13 +2706,13 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.Literal litTestSMTPResult;
 
 		/// <summary>
-		/// tabScripts control.
+		/// tabContent control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabScripts;
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabContent;
 
 		/// <summary>
 		/// fgpScripts control.
@@ -2733,67 +2733,67 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.Literal litScriptsHeader;
 
 		/// <summary>
-		/// fgpHeaderScripts control.
+		/// fgpHeaderContent control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::mojoPortal.Web.UI.FormGroupPanel fgpHeaderScripts;
+		protected global::mojoPortal.Web.UI.FormGroupPanel fgpHeaderContent;
 
 		/// <summary>
-		/// txtHeaderScripts control.
+		/// txtHeaderContent control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.TextBox txtHeaderScripts;
+		protected global::System.Web.UI.WebControls.TextBox txtHeaderContent;
 
 		/// <summary>
-		/// litHeaderScriptsQuickHelp control.
+		/// litHeaderContentQuickHelp control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.Literal litHeaderScriptsQuickHelp;
+		protected global::System.Web.UI.WebControls.Literal litHeaderContentQuickHelp;
 
 		/// <summary>
-		/// fgpFooterScripts control.
+		/// fgpFooterContent control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::mojoPortal.Web.UI.FormGroupPanel fgpFooterScripts;
+		protected global::mojoPortal.Web.UI.FormGroupPanel fgpFooterContent;
 
 		/// <summary>
-		/// txtFooterScripts control.
+		/// txtFooterContent control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.TextBox txtFooterScripts;
+		protected global::System.Web.UI.WebControls.TextBox txtFooterContent;
 
 		/// <summary>
-		/// litFooterScriptsQuickHelp control.
+		/// litFooterContentQuickHelp control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.Literal litFooterScriptsQuickHelp;
+		protected global::System.Web.UI.WebControls.Literal litFooterContentQuickHelp;
 
 		/// <summary>
-		/// fgpAdminScripts control.
+		/// fgpAdminContent control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::mojoPortal.Web.UI.FormGroupPanel fgpAdminScripts;
+		protected global::mojoPortal.Web.UI.FormGroupPanel fgpAdminContent;
 
 		/// <summary>
 		/// litAdminScriptsHeader control.
@@ -2805,58 +2805,58 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.Literal litAdminScriptsHeader;
 
 		/// <summary>
-		/// fgpHeaderScriptsAdmin control.
+		/// fgpHeaderContentAdmin control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::mojoPortal.Web.UI.FormGroupPanel fgpHeaderScriptsAdmin;
+		protected global::mojoPortal.Web.UI.FormGroupPanel fgpHeaderContentAdmin;
 
 		/// <summary>
-		/// txtHeaderAdminScripts control.
+		/// txtHeaderAdminContent control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.TextBox txtHeaderAdminScripts;
+		protected global::System.Web.UI.WebControls.TextBox txtHeaderAdminContent;
 
 		/// <summary>
-		/// litHeaderAdminScriptsQuickHelp control.
+		/// litHeaderAdminContentQuickHelp control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.Literal litHeaderAdminScriptsQuickHelp;
+		protected global::System.Web.UI.WebControls.Literal litHeaderAdminContentQuickHelp;
 
 		/// <summary>
-		/// fgpFooterAdminScripts control.
+		/// fgpFooterAdminContent control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::mojoPortal.Web.UI.FormGroupPanel fgpFooterAdminScripts;
+		protected global::mojoPortal.Web.UI.FormGroupPanel fgpFooterAdminContent;
 
 		/// <summary>
-		/// txtFooterAdminScripts control.
+		/// txtFooterAdminContent control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.TextBox txtFooterAdminScripts;
+		protected global::System.Web.UI.WebControls.TextBox txtFooterAdminContent;
 
 		/// <summary>
-		/// litFooterAdminScriptsQuickHelp control.
+		/// litFooterAdminContentQuickHelp control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.Literal litFooterAdminScriptsQuickHelp;
+		protected global::System.Web.UI.WebControls.Literal litFooterAdminContentQuickHelp;
 
 		/// <summary>
 		/// tabAdvanced control.

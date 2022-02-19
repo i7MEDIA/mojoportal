@@ -48,8 +48,8 @@
 								<li id="liMailSettings" runat="server" enableviewstate="false">
 									<asp:Literal ID="litMailSettingsTabLink" runat="server" EnableViewState="false" />
 								</li>
-								<li id="liScripts" runat="server" enableviewstate="false">
-									<asp:Literal ID="litScriptsTabLink" runat="server" EnableViewState="false" />
+								<li id="liContent" runat="server" enableviewstate="false">
+									<asp:Literal ID="litContentTabLink" runat="server" EnableViewState="false" />
 								</li>
 								<li id="liAdvanced" runat="server" enableviewstate="false">
 									<asp:Literal ID="litAdvancedTabLink" runat="server" EnableViewState="false" />
@@ -931,36 +931,42 @@
 										// -->
 									</script>
 								</portal:FormGroupPanel>
-
 							</div>
-							<div id="tabScripts" runat="server" enableviewstate="false">
+
+							<div id="tabContent" runat="server" enableviewstate="false">
 								<portal:FormGroupPanel runat="server" ID="fgpScripts" SkinID="SettingsPanel">
 									<asp:Literal ID="litScriptsHeader" runat="server" EnableViewState="false" />
-									<portal:FormGroupPanel runat="server" ID="fgpHeaderScripts">
-										<mp:SiteLabel runat="server" ForControl="txtHeaderScripts" CssClass="settinglabel" ConfigKey="SiteSettingsScriptsHeaderScripts" EnableViewState="false" />
-										<asp:TextBox runat="server" ID="txtHeaderScripts" TextMode="MultiLine" />
-										<asp:Literal ID="litHeaderScriptsQuickHelp" runat="server" EnableViewState="false" />
+
+									<portal:FormGroupPanel runat="server" ID="fgpHeaderContent">
+										<mp:SiteLabel runat="server" ForControl="txtHeaderContent" CssClass="settinglabel" ConfigKey="SiteSettingsContentHeaderContentHeading" EnableViewState="false" />
+										<asp:TextBox runat="server" ID="txtHeaderContent" TextMode="MultiLine" />
+										<asp:Literal ID="litHeaderContentQuickHelp" runat="server" EnableViewState="false" />
 									</portal:FormGroupPanel>
-									<portal:FormGroupPanel runat="server" ID="fgpFooterScripts">
-										<mp:SiteLabel runat="server" ForControl="txtFooterScripts" CssClass="settinglabel" ConfigKey="SiteSettingsScriptsFooterScripts" EnableViewState="false" />
-										<asp:TextBox runat="server" ID="txtFooterScripts" TextMode="MultiLine" />
-										<asp:Literal ID="litFooterScriptsQuickHelp" runat="server" EnableViewState="false" />
+
+									<portal:FormGroupPanel runat="server" ID="fgpFooterContent">
+										<mp:SiteLabel runat="server" ForControl="txtFooterContent" CssClass="settinglabel" ConfigKey="SiteSettingsContentFooterContentHeading" EnableViewState="false" />
+										<asp:TextBox runat="server" ID="txtFooterContent" TextMode="MultiLine" />
+										<asp:Literal ID="litFooterContentQuickHelp" runat="server" EnableViewState="false" />
 									</portal:FormGroupPanel>
 								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server" ID="fgpAdminScripts" SkinID="SettingsPanel">
+
+								<portal:FormGroupPanel runat="server" ID="fgpAdminContent" SkinID="SettingsPanel">
 									<asp:Literal ID="litAdminScriptsHeader" runat="server" EnableViewState="false" />
-									<portal:FormGroupPanel runat="server" ID="fgpHeaderScriptsAdmin">
-										<mp:SiteLabel runat="server" ForControl="txtHeaderAdminScripts" CssClass="settinglabel" ConfigKey="SiteSettingsScriptsHeaderScripts" EnableViewState="false" />
-										<asp:TextBox runat="server" ID="txtHeaderAdminScripts" TextMode="MultiLine" />
-										<asp:Literal ID="litHeaderAdminScriptsQuickHelp" runat="server" EnableViewState="false" />
+
+									<portal:FormGroupPanel runat="server" ID="fgpHeaderContentAdmin">
+										<mp:SiteLabel runat="server" ForControl="txtHeaderAdminContent" CssClass="settinglabel" ConfigKey="SiteSettingsContentHeaderContentHeading" EnableViewState="false" />
+										<asp:TextBox runat="server" ID="txtHeaderAdminContent" TextMode="MultiLine" />
+										<asp:Literal ID="litHeaderAdminContentQuickHelp" runat="server" EnableViewState="false" />
 									</portal:FormGroupPanel>
-									<portal:FormGroupPanel runat="server" ID="fgpFooterAdminScripts">
-										<mp:SiteLabel runat="server" ForControl="txtFooterAdminScripts" CssClass="settinglabel" ConfigKey="SiteSettingsScriptsFooterScripts" EnableViewState="false" />
-										<asp:TextBox runat="server" ID="txtFooterAdminScripts" TextMode="MultiLine" />
-										<asp:Literal ID="litFooterAdminScriptsQuickHelp" runat="server" EnableViewState="false" />
+
+									<portal:FormGroupPanel runat="server" ID="fgpFooterAdminContent">
+										<mp:SiteLabel runat="server" ForControl="txtFooterAdminContent" CssClass="settinglabel" ConfigKey="SiteSettingsContentFooterContentHeading" EnableViewState="false" />
+										<asp:TextBox runat="server" ID="txtFooterAdminContent" TextMode="MultiLine" />
+										<asp:Literal ID="litFooterAdminContentQuickHelp" runat="server" EnableViewState="false" />
 									</portal:FormGroupPanel>
 								</portal:FormGroupPanel>
 							</div>
+
 							<div id="tabAdvanced" runat="server" enableviewstate="false">
 								<portal:FormGroupPanel runat="server" ID="fgpAdvancedSettings">
 									<asp:Literal ID="litAdvSettingsHeader" runat="server" EnableViewState="false" />

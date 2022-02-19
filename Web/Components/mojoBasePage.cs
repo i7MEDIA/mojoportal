@@ -1,27 +1,20 @@
-// Author:             
-// Created:            2006-01-07
-// Last Modified:      2017-09-28
-
-
-using System;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.Security;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
+using System;
+using System.Globalization;
+using System.IO;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web
 {
-
 	public class mojoBasePage : Page
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(mojoBasePage));
@@ -34,18 +27,14 @@ namespace mojoPortal.Web
 		private ContentPlaceHolder altPane1;
 		private ContentPlaceHolder altPane2;
 
-
-
 		private ScriptManager scriptController;
 		protected StyleSheet StyleSheetControl;
 		private PageSettings currentPage = null;
-		//private string skinBaseUrl = null;
 		private string siteRoot = null;
 		private string relativeSiteRoot = null;
 		private string secureSiteRoot = null;
 		private string imageSiteRoot = null;
 
-		// changed default to false 2008-10-27
 		private bool appendQueryStringToAction = false;
 		private bool allowSkinOverride = false;
 		private bool setMasterInBasePage = true;
@@ -71,16 +60,22 @@ namespace mojoPortal.Web
 				if (scriptLoader == null)
 				{
 					scriptLoader = Master.FindControl("ScriptLoader1") as ScriptLoader;
-					if (scriptLoader != null) { scriptLoaderFoundInMaster = true; }
+
+					if (scriptLoader != null)
+					{
+						scriptLoaderFoundInMaster = true;
+					}
 				}
 
 				// older skins may not have the script loader so we can add it below in OnInit if scriptLoaderFoundInMaster is false
-				if (scriptLoader == null) { scriptLoader = new ScriptLoader(); }
+				if (scriptLoader == null)
+				{
+					scriptLoader = new ScriptLoader();
+				}
 
 				return scriptLoader;
 			}
 		}
-
 
 
 		public StyleSheetCombiner StyleCombiner
@@ -90,8 +85,8 @@ namespace mojoPortal.Web
 				if (styleCombiner == null)
 				{
 					styleCombiner = Master.FindControl("StyleSheetCombiner") as StyleSheetCombiner;
-
 				}
+
 				return styleCombiner;
 			}
 		}
@@ -103,11 +98,13 @@ namespace mojoPortal.Web
 			set { leftPane = value; }
 		}
 
+
 		public ContentPlaceHolder MPContent
 		{
 			get { return centerPane; }
 			set { centerPane = value; }
 		}
+
 
 		public ContentPlaceHolder MPRightPane
 		{
@@ -115,11 +112,13 @@ namespace mojoPortal.Web
 			set { rightPane = value; }
 		}
 
+
 		public ContentPlaceHolder AltPane1
 		{
 			get { return altPane1; }
 			set { altPane1 = value; }
 		}
+
 
 		public ContentPlaceHolder AltPane2
 		{
@@ -127,20 +126,24 @@ namespace mojoPortal.Web
 			set { altPane2 = value; }
 		}
 
+
 		public ContentPlaceHolder MPPageEdit
 		{
 			get { return editPane; }
 			set { editPane = value; }
 		}
 
+
 		public SiteSettings SiteInfo
 		{
 			get
 			{
 				EnsureSiteSettings();
+
 				return siteSettings;
 			}
 		}
+
 
 		public int SiteId
 		{
@@ -150,9 +153,11 @@ namespace mojoPortal.Web
 				{
 					return siteSettings.SiteId;
 				}
+
 				return -1;
 			}
 		}
+
 
 		public ScriptManager ScriptController
 		{
@@ -168,6 +173,7 @@ namespace mojoPortal.Web
 
 		}
 
+
 		public bool AppendQueryStringToAction
 		{
 			get { return appendQueryStringToAction; }
@@ -179,14 +185,15 @@ namespace mojoPortal.Web
 		{
 			get { return allowSkinOverride; }
 			set { allowSkinOverride = value; }
-
 		}
+
 
 		protected bool SetMasterInBasePage
 		{
 			get { return setMasterInBasePage; }
 			set { setMasterInBasePage = value; }
 		}
+
 
 		private bool isMobileDevice = false;
 
@@ -195,12 +202,14 @@ namespace mojoPortal.Web
 			get { return isMobileDevice; }
 		}
 
+
 		private bool useMobileSkin = false;
 
 		public bool UseMobileSkin
 		{
 			get { return useMobileSkin; }
 		}
+
 
 		public bool IncludeColorPickerCss
 		{
@@ -222,6 +231,7 @@ namespace mojoPortal.Web
 			}
 		}
 
+
 		public bool IncludeYuiTabsCss
 		{
 			get
@@ -230,6 +240,7 @@ namespace mojoPortal.Web
 				{
 					return StyleCombiner.IncludeYuiTabs;
 				}
+
 				return false;
 			}
 			set
@@ -241,6 +252,7 @@ namespace mojoPortal.Web
 			}
 		}
 
+
 		public bool IncludeYuiLayoutCss
 		{
 			get
@@ -249,6 +261,7 @@ namespace mojoPortal.Web
 				{
 					return StyleCombiner.IncludeYuiLayout;
 				}
+
 				return false;
 			}
 			set
@@ -259,6 +272,7 @@ namespace mojoPortal.Web
 				}
 			}
 		}
+
 
 		public string JQueryUIThemeName
 		{
@@ -280,6 +294,7 @@ namespace mojoPortal.Web
 			}
 		}
 
+
 		public bool UseIconsForAdminLinks
 		{
 			get
@@ -294,6 +309,7 @@ namespace mojoPortal.Web
 				return true; //keeping the old default for backward compat
 			}
 		}
+
 
 		public bool UseTextLinksForFeatureSettings
 		{
@@ -310,6 +326,7 @@ namespace mojoPortal.Web
 			}
 		}
 
+
 		/// <summary>
 		/// this property is now used for the PageHeading. Title is set with "Title = SiteUtils.FormatPageTitle, siteSettings, string topicTitle);"
 		/// </summary>
@@ -319,11 +336,13 @@ namespace mojoPortal.Web
 			set { PageHeading.Title.Text = value; }
 		}
 
+
 		public PageTitle PageHeading
 		{
 			get
 			{
 				PageTitle pageTitleControl = Master.FindControl("PageTitle1") as PageTitle;
+
 				if (pageTitleControl == null)
 				{
 					pageTitleControl = Master.FindControl("PageHeading1") as PageTitle;
@@ -333,11 +352,13 @@ namespace mojoPortal.Web
 				{
 					return pageTitleControl;
 				}
+
 				return new PageTitle();
 			}
 			set
 			{
 				PageTitle pageTitleControl = Master.FindControl("PageTitle1") as PageTitle;
+
 				if (pageTitleControl == null)
 				{
 					pageTitleControl = Master.FindControl("PageHeading1") as PageTitle;
@@ -355,6 +376,7 @@ namespace mojoPortal.Web
 			}
 		}
 
+
 		/// <summary>
 		/// This appends css class to the body, requires the body be declared like this in layout.master:
 		/// <body class="pagebody" id="Body" runat="server">
@@ -363,11 +385,13 @@ namespace mojoPortal.Web
 		public void AddClassToBody(string cssClass)
 		{
 			HtmlGenericControl body = Master.FindControl("Body") as HtmlGenericControl;
+
 			if (body != null)
 			{
 				body.Attributes["class"] += " " + cssClass;
 			}
 		}
+
 
 		private void EnsureMetaContentControl()
 		{
@@ -376,6 +400,7 @@ namespace mojoPortal.Web
 				metaContentControl = Master.FindControl("MetaContent") as MetaContent;
 			}
 		}
+
 
 		public string MetaKeywordCsv
 		{
@@ -400,6 +425,7 @@ namespace mojoPortal.Web
 				}
 			}
 		}
+
 
 		public new string MetaDescription
 		{
@@ -460,6 +486,7 @@ namespace mojoPortal.Web
 			}
 		}
 
+
 		/// <summary>
 		/// used by the google analytics tracking
 		/// if you specify a section it will be tracked as a custom variable scoped at page level in slot 2
@@ -484,6 +511,7 @@ namespace mojoPortal.Web
 			}
 		}
 
+
 		public bool UserCanViewPage()
 		{
 			if (CurrentPage == null)
@@ -491,13 +519,15 @@ namespace mojoPortal.Web
 				return false;
 			}
 
-			if (WebUser.IsAdmin) {
+			if (WebUser.IsAdmin)
+			{
 				return true;
 			}
 
 			if (WebUser.IsContentAdmin)
 			{
-				if (CurrentPage.AuthorizedRoles == "Admins;") {
+				if (CurrentPage.AuthorizedRoles == "Admins;")
+				{
 					return false;
 				}
 
@@ -506,72 +536,146 @@ namespace mojoPortal.Web
 
 			if (SiteUtils.UserIsSiteEditor())
 			{
-				if (CurrentPage.AuthorizedRoles == "Admins;") {
+				if (CurrentPage.AuthorizedRoles == "Admins;")
+				{
 					return false;
 				}
 
 				return true;
 			}
 
-			if (WebUser.IsInRoles(CurrentPage.AuthorizedRoles)) {
+			if (WebUser.IsInRoles(CurrentPage.AuthorizedRoles))
+			{
 				return true;
 			}
 
 			return false;
 		}
+
 
 		public bool UserCanViewPage(int moduleId)
 		{
-			if (CurrentPage == null) { return false; }
-			Module m = GetModule(moduleId);
-			if (m == null) { return false; }
+			if (CurrentPage == null)
+			{
+				return false;
+			}
 
-			if (WebUser.IsAdmin) { return true; }
+			Module m = GetModule(moduleId);
+
+			if (m == null)
+			{
+				return false;
+			}
+
+			if (WebUser.IsAdmin)
+			{
+				return true;
+			}
 
 			if (WebUser.IsContentAdmin)
 			{
-				if (CurrentPage.AuthorizedRoles == "Admins;") { return false; }
-				if (m.ViewRoles == "Admins;") { return false; }
+				if (CurrentPage.AuthorizedRoles == "Admins;")
+				{
+					return false;
+				}
+
+				if (m.ViewRoles == "Admins;")
+				{
+					return false;
+				}
+
 				return true;
 			}
+
 
 			if (SiteUtils.UserIsSiteEditor())
 			{
-				if (CurrentPage.AuthorizedRoles == "Admins;") { return false; }
-				if (m.ViewRoles == "Admins;") { return false; }
+				if (CurrentPage.AuthorizedRoles == "Admins;")
+				{
+					return false;
+				}
+
+				if (m.ViewRoles == "Admins;")
+				{
+					return false;
+				}
+
 				return true;
 			}
 
-			if (!WebUser.IsInRoles(m.ViewRoles)) { return false; }
-			if (WebUser.IsInRoles(CurrentPage.AuthorizedRoles)) { return true; }
+			if (!WebUser.IsInRoles(m.ViewRoles))
+			{
+				return false;
+			}
+
+			if (WebUser.IsInRoles(CurrentPage.AuthorizedRoles))
+			{
+				return true;
+			}
 
 			return false;
 		}
 
+
 		public bool UserCanViewPage(int moduleId, Guid featureGuid)
 		{
-			if (CurrentPage == null) { return false; }
-			Module m = GetModule(moduleId, featureGuid);
-			if (m == null) { return false; }
+			if (CurrentPage == null)
+			{
+				return false;
+			}
 
-			if (WebUser.IsAdmin) { return true; }
+			Module m = GetModule(moduleId, featureGuid);
+
+			if (m == null)
+			{
+				return false;
+			}
+
+			if (WebUser.IsAdmin)
+			{
+				return true;
+			}
 
 			if (WebUser.IsContentAdmin)
 			{
-				if (CurrentPage.AuthorizedRoles == "Admins;") { return false; }
-				if (m.ViewRoles == "Admins;") { return false; }
+				if (CurrentPage.AuthorizedRoles == "Admins;")
+				{
+					return false;
+				}
+
+				if (m.ViewRoles == "Admins;")
+				{
+					return false;
+				}
+
 				return true;
 			}
+
 
 			if (SiteUtils.UserIsSiteEditor())
 			{
-				if (CurrentPage.AuthorizedRoles == "Admins;") { return false; }
-				if (m.ViewRoles == "Admins;") { return false; }
+				if (CurrentPage.AuthorizedRoles == "Admins;")
+				{
+					return false;
+				}
+
+				if (m.ViewRoles == "Admins;")
+				{
+					return false;
+				}
+
 				return true;
 			}
 
-			if (!WebUser.IsInRoles(m.ViewRoles)) { return false; }
-			if (WebUser.IsInRoles(CurrentPage.AuthorizedRoles)) { return true; }
+			if (!WebUser.IsInRoles(m.ViewRoles))
+			{
+				return false;
+			}
+
+			if (WebUser.IsInRoles(CurrentPage.AuthorizedRoles))
+			{
+				return true;
+			}
 
 			return false;
 		}
@@ -579,31 +683,50 @@ namespace mojoPortal.Web
 
 		public bool UserCanEditPage()
 		{
-			if (CurrentPage == null) return false;
+			if (CurrentPage == null)
+			{
+				return false;
+			}
 
-			if (WebUser.IsAdmin) { return true; }
+			if (WebUser.IsAdmin)
+			{
+				return true;
+			}
 
 			if (WebUser.IsContentAdmin)
 			{
-				if (CurrentPage.EditRoles == "Admins;") { return false; }
+				if (CurrentPage.EditRoles == "Admins;")
+				{
+					return false;
+				}
+
 				return true;
 			}
 
 			if (SiteUtils.UserIsSiteEditor())
 			{
-				if (CurrentPage.EditRoles == "Admins;") { return false; }
+				if (CurrentPage.EditRoles == "Admins;")
+				{
+					return false;
+				}
+
 				return true;
 			}
 
-			if (WebUser.IsInRoles(CurrentPage.EditRoles)) return true;
+			if (WebUser.IsInRoles(CurrentPage.EditRoles))
+			{
+				return true;
+			}
 
 			return false;
 		}
+
 
 		public Module GetModule(int moduleId)
 		{
 			return GetModule(moduleId, Guid.Empty);
 		}
+
 
 		/// <summary>
 		/// this overload is preferred because  it verifies that th emodule represents an instance of the correct feature
@@ -613,19 +736,22 @@ namespace mojoPortal.Web
 		/// <returns></returns>
 		public Module GetModule(int moduleId, Guid featureGuid)
 		{
-			if (CurrentPage == null) { return null; }
+			if (CurrentPage == null)
+			{
+				return null;
+			}
 
 			foreach (Module m in CurrentPage.Modules)
 			{
-				if (
-					(m.ModuleId == moduleId)
-					&& ((featureGuid == Guid.Empty) || (m.FeatureGuid == featureGuid))
-					)
-				{ return m; }
+				if (m.ModuleId == moduleId && (featureGuid == Guid.Empty || m.FeatureGuid == featureGuid))
+				{
+					return m;
+				}
 			}
 
 			return null;
 		}
+
 
 		/// <summary>
 		/// Returns true if the module exists on the page and the user has permission to edit the page or the module.
@@ -637,6 +763,7 @@ namespace mojoPortal.Web
 			return UserCanEditModule(moduleId, Guid.Empty);
 		}
 
+
 		/// <summary>
 		/// this overload is preferred because it also checks that the module is an instance of the correct feature 
 		/// </summary>
@@ -645,63 +772,106 @@ namespace mojoPortal.Web
 		/// <returns></returns>
 		public bool UserCanEditModule(int moduleId, Guid featureGuid)
 		{
-			if (!Request.IsAuthenticated) { return false; }
+			if (!Request.IsAuthenticated)
+			{
+				return false;
+			}
 
-			if (CurrentPage == null) { return false; }
+			if (CurrentPage == null)
+			{
+				return false;
+			}
 
-			if (WebUser.IsAdmin) { return true; }
+			if (WebUser.IsAdmin)
+			{
+				return true;
+			}
 
 			bool isSiteEditor = SiteUtils.UserIsSiteEditor();
 
 			bool moduleFoundOnPage = false;
 			bool moduleIsGlobal = false; //global modules can only be edited by admins, content admins or users in module edit roles
+
 			foreach (Module m in CurrentPage.Modules)
 			{
-				if (
-					(m.ModuleId == moduleId)
-					 && ((featureGuid == Guid.Empty) || (m.FeatureGuid == featureGuid))
-					)
+				if (m.ModuleId == moduleId && (featureGuid == Guid.Empty || m.FeatureGuid == featureGuid))
 				{
 					moduleFoundOnPage = true;
 					moduleIsGlobal = m.IsGlobal;
-					if ((WebUser.IsContentAdmin) && (m.AuthorizedEditRoles == "Admins;")) { return false; }
-					if ((isSiteEditor) && (m.AuthorizedEditRoles == "Admins;")) { return false; }
-				}
 
+					if (WebUser.IsContentAdmin && m.AuthorizedEditRoles == "Admins;")
+					{
+						return false;
+					}
+
+					if (isSiteEditor && m.AuthorizedEditRoles == "Admins;")
+					{
+						return false;
+					}
+				}
 			}
 
 
-			if ((WebUser.IsContentAdmin) && (CurrentPage.EditRoles != "Admins;")) { return true; }
+			if (WebUser.IsContentAdmin && CurrentPage.EditRoles != "Admins;")
+			{
+				return true;
+			}
 
-			if ((isSiteEditor) && (CurrentPage.EditRoles != "Admins;")) { return true; }
+			if (isSiteEditor && CurrentPage.EditRoles != "Admins;")
+			{
+				return true;
+			}
 
 			// the above are allowed even if not on page to support modulewrapper
 
-			if (!moduleFoundOnPage) { return false; }
+			if (!moduleFoundOnPage)
+			{
+				return false;
+			}
 
-			if (!moduleIsGlobal && (WebUser.IsInRoles(CurrentPage.EditRoles))) { return true; }
+			if (!moduleIsGlobal && WebUser.IsInRoles(CurrentPage.EditRoles))
+			{
+				return true;
+			}
 
 			SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
-			if (currentUser == null) return false;
+
+			if (currentUser == null)
+			{
+				return false;
+			}
 
 			foreach (Module m in CurrentPage.Modules)
 			{
 				if (m.ModuleId == moduleId)
 				{
-					if (m.EditUserId == currentUser.UserId) { return true; }
+					if (m.EditUserId == currentUser.UserId)
+					{
+						return true;
+					}
 
-					if (WebUser.IsInRoles(m.AuthorizedEditRoles)) { return true; }
+					if (WebUser.IsInRoles(m.AuthorizedEditRoles))
+					{
+						return true;
+					}
 				}
 			}
 
 			return false;
 		}
 
+
 		public bool UserCanApproveDraftModule(int moduleId, Guid featureGuid)
 		{
-			if (!Request.IsAuthenticated) { return false; }
+			if (!Request.IsAuthenticated)
+			{
+				return false;
+			}
 
-			if (CurrentPage == null) { return false; }
+			if (CurrentPage == null)
+			{
+				return false;
+			}
 
 			if (WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor())
 			{
@@ -711,74 +881,117 @@ namespace mojoPortal.Web
 			bool moduleFoundOnPage = false;
 			bool moduleIsGlobal = false;
 			SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
-			if (currentUser == null) return false;
+
+			if (currentUser == null)
+			{
+				return false;
+			}
 
 			foreach (Module m in CurrentPage.Modules)
 			{
-				if ((m.ModuleId == moduleId)
-					&& ((featureGuid == Guid.Empty) || (m.FeatureGuid == featureGuid))
-					)
+				if (m.ModuleId == moduleId && (featureGuid == Guid.Empty || m.FeatureGuid == featureGuid))
 				{
 					moduleFoundOnPage = true;
 					moduleIsGlobal = m.IsGlobal;
-					if (WebUser.IsInRoles(m.DraftApprovalRoles)
-						|| WebUser.IsInRoles(m.AuthorizedEditRoles)
-						|| m.EditUserId == currentUser.UserId
-						)
+
+					if (WebUser.IsInRoles(m.DraftApprovalRoles) || WebUser.IsInRoles(m.AuthorizedEditRoles) || m.EditUserId == currentUser.UserId)
 					{
 						return true;
 					}
-
 				}
 			}
 
-			if (!moduleFoundOnPage) { return false; }
-			if (!moduleIsGlobal && (WebUser.IsInRoles(CurrentPage.DraftApprovalRoles))) { return true; }
+			if (!moduleFoundOnPage)
+			{
+				return false;
+			}
 
-			if (siteSettings == null) { return false; }
+			if (!moduleIsGlobal && (WebUser.IsInRoles(CurrentPage.DraftApprovalRoles)))
+			{
+				return true;
+			}
+
+			if (siteSettings == null)
+			{
+				return false;
+			}
 
 			return false;
 		}
+
 
 		public bool UserCanOnlyEditModuleAsDraft(int moduleId)
 		{
 			return UserCanOnlyEditModuleAsDraft(moduleId, Guid.Empty);
 		}
 
+
 		public bool UserCanOnlyEditModuleAsDraft(int moduleId, Guid featureGuid)
+
 		{
-			if (!Request.IsAuthenticated) { return false; }
+			if (!Request.IsAuthenticated)
+			{
+				return false;
+			}
 
-			if (WebUser.IsAdminOrContentAdmin) { return false; }
+			if (WebUser.IsAdminOrContentAdmin)
+			{
+				return false;
+			}
 
-			if (SiteUtils.UserIsSiteEditor()) { return false; }
+			if (SiteUtils.UserIsSiteEditor())
+			{
+				return false;
+			}
 
-			if (!WebConfigSettings.EnableContentWorkflow) { return false; }
-			if (siteSettings == null) { return false; }
-			if (!siteSettings.EnableContentWorkflow) { return false; }
+			if (!WebConfigSettings.EnableContentWorkflow)
+			{
+				return false;
+			}
 
-			if (CurrentPage == null) { return false; }
+			if (siteSettings == null)
+			{
+				return false;
+			}
+
+			if (!siteSettings.EnableContentWorkflow)
+			{
+				return false;
+			}
+
+			if (CurrentPage == null)
+			{
+				return false;
+			}
 
 			bool moduleFoundOnPage = false;
 			bool moduleIsGlobal = false; //global modules can only be edited by admins, content admins or users in module edit roles
+
 			foreach (Module m in CurrentPage.Modules)
 			{
-				if (
-					(m.ModuleId == moduleId)
-					&& ((featureGuid == Guid.Empty) || (m.FeatureGuid == featureGuid))
-					)
+				if (m.ModuleId == moduleId && (featureGuid == Guid.Empty || m.FeatureGuid == featureGuid))
 				{
 					moduleFoundOnPage = true;
 					moduleIsGlobal = m.IsGlobal;
 				}
 			}
 
-			if ((!moduleFoundOnPage) || (moduleIsGlobal)) { return false; }
+			if (!moduleFoundOnPage || moduleIsGlobal)
+			{
+				return false;
+			}
 
-			if (WebUser.IsInRoles(CurrentPage.DraftEditOnlyRoles)) { return true; }
+			if (WebUser.IsInRoles(CurrentPage.DraftEditOnlyRoles))
+			{
+				return true;
+			}
 
 			SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
-			if (currentUser == null) return false;
+
+			if (currentUser == null)
+			{
+				return false;
+			}
 
 			foreach (Module m in CurrentPage.Modules)
 			{
@@ -791,86 +1004,88 @@ namespace mojoPortal.Web
 			return false;
 		}
 
+
 		public string GetModuleTitle(int moduleId)
 		{
 			string title = string.Empty;
 
-			if (CurrentPage == null) return title;
+			if (CurrentPage == null)
+			{
+				return title;
+			}
 
 			foreach (Module m in CurrentPage.Modules)
 			{
-				if (m.ModuleId == moduleId) title = m.ModuleTitle;
+				if (m.ModuleId == moduleId)
+				{
+					title = m.ModuleTitle;
+				}
 			}
 
 			return title;
 		}
 
-		public bool ContainsPlaceHolder(string placeHoderId)
-		{
 
-			if (Master.FindControl(placeHoderId) != null) return true;
+		public bool ContainsPlaceHolder(string placeHoderId) => Master.FindControl(placeHoderId) != null;
 
-
-			return false;
-		}
-
-
-		//public String SkinBaseUrl
-		//{
-		//    get
-		//    {
-		//        if (skinBaseUrl == null) skinBaseUrl = SiteUtils.GetSkinBaseUrl();
-		//        return skinBaseUrl;
-		//    }
-		//}
 
 		public string SiteRoot
 		{
 			get
 			{
-				//if ((siteSettings != null)&&(siteSettings.SiteFolderName.Length > 0))
-				//{
-				//    return siteSettings.SiteRoot;
-				//}
-				//if (siteRoot == null) siteRoot = WebUtils.GetSiteRoot();
-				if (siteRoot == null) siteRoot = SiteUtils.GetNavigationSiteRoot();
+
+				if (siteRoot == null)
+				{
+					siteRoot = SiteUtils.GetNavigationSiteRoot();
+				}
+
 				return siteRoot;
 			}
 		}
+
 
 		public string RelativeSiteRoot
 		{
 			get
 			{
-				if (relativeSiteRoot == null) relativeSiteRoot = SiteUtils.GetRelativeNavigationSiteRoot();
+				if (relativeSiteRoot == null)
+				{
+					relativeSiteRoot = SiteUtils.GetRelativeNavigationSiteRoot();
+				}
+
 				return relativeSiteRoot;
 			}
 		}
 
-		public String SecureSiteRoot
+
+		public string SecureSiteRoot
 		{
 			get
 			{
-				if (!SiteUtils.SslIsAvailable()) return SiteRoot;
-				if (secureSiteRoot == null) secureSiteRoot = WebUtils.GetSecureSiteRoot();
+				if (!SiteUtils.SslIsAvailable())
+				{
+					return SiteRoot;
+				}
+
+				if (secureSiteRoot == null)
+				{
+					secureSiteRoot = WebUtils.GetSecureSiteRoot();
+				}
+
 				return secureSiteRoot;
 			}
 		}
 
-		//public String ImageSiteRoot
-		//{
-		//    get
-		//    {
-		//        if (imageSiteRoot == null) imageSiteRoot = WebUtils.GetSiteRoot();
-		//        return imageSiteRoot;
-		//    }
-		//}
 
-		public String ImageSiteRoot
+		public string ImageSiteRoot
 		{
 			get
 			{
-				if (imageSiteRoot == null) imageSiteRoot = SiteUtils.GetImageSiteRoot(this);
+				if (imageSiteRoot == null)
+				{
+					imageSiteRoot = SiteUtils.GetImageSiteRoot(this);
+				}
+
 				return imageSiteRoot;
 			}
 		}
@@ -878,48 +1093,60 @@ namespace mojoPortal.Web
 
 		protected bool IsChangePasswordPage = false;
 
+
 		// implement support for closing sites so tha only admins can access the content
 		private bool DidRedirectForClosedSite()
 		{
 			// allow accessing the login page
-			if (this is mojoPortal.Web.UI.Pages.LoginPage) { return false; }
+			if (this is UI.Pages.LoginPage)
+			{
+				return false;
+			}
+
 			// allow accessing the closed message
-			if (this is mojoPortal.Web.UI.Pages.ClosedPage) { return false; }
+			if (this is UI.Pages.ClosedPage)
+			{
+				return false;
+			}
 
 			EnsureSiteSettings();
 
-			if (siteSettings == null) { return false; }
+			if (siteSettings == null)
+			{
+				return false;
+			}
 
-			if ((siteSettings.SiteIsClosed) && (WebConfigSettings.AllowClosingSites))
+			if (siteSettings.SiteIsClosed && WebConfigSettings.AllowClosingSites)
 			{
 				if (!WebUser.IsInRoles(WebConfigSettings.RolesThatCanAccessClosedSites))
 				{
 					string redirectUrl = SiteUtils.GetNavigationSiteRoot() + WebConfigSettings.ClosedPageUrl;
+
 					Response.Redirect(redirectUrl, true);
+
 					return true;
 				}
-
 			}
 
 			return false;
 		}
 
+
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-
 
 			if (DidRedirectForClosedSite())
 			{
 				return;
 			}
 
-			if ((Request.IsAuthenticated) && (WebConfigSettings.ForceSingleSessionPerUser))
+			if (Request.IsAuthenticated && WebConfigSettings.ForceSingleSessionPerUser)
 			{
 				ForceSingleSession();
 			}
 
-			if ((Request.IsAuthenticated) && WebConfigSettings.EnforceRequirePasswordChanges)
+			if (Request.IsAuthenticated && WebConfigSettings.EnforceRequirePasswordChanges)
 			{
 				if (!IsChangePasswordPage)
 				{
@@ -943,6 +1170,7 @@ namespace mojoPortal.Web
 
 							currentUser.RolesChanged = false; //reset the flag that was set to true when roles were changed
 							currentUser.Save();
+
 							// we need to redirect because the updated cookie won't be detected until the next request
 							Response.Redirect(Request.RawUrl, true);
 						}
@@ -961,12 +1189,14 @@ namespace mojoPortal.Web
 			}
 		}
 
+
 		private void SetupHtmlDirection()
 		{
 			// requires having <html id="Html1" runat="server" in layout.master of the skin
 			HtmlControl html = Master.FindControl("Html1") as HtmlControl;
 
-			if (html == null) {
+			if (html == null)
+			{
 				return;
 			}
 
@@ -982,11 +1212,15 @@ namespace mojoPortal.Web
 			}
 		}
 
+
 		override protected void OnPreInit(EventArgs e)
 		{
 			base.OnPreInit(e);
 
-			if (HttpContext.Current == null) { return; }
+			if (HttpContext.Current == null)
+			{
+				return;
+			}
 
 			isMobileDevice = SiteUtils.IsMobileDevice();
 			useMobileSkin = SiteUtils.UseMobileSkin();
@@ -996,15 +1230,14 @@ namespace mojoPortal.Web
 				if (WebConfigSettings.AllowForcingPreferredHostName)
 				{
 					EnsureSiteSettings();
-					if (
-						(siteSettings != null)
-						&& (siteSettings.PreferredHostName.Length > 0)
-						)
+					if (siteSettings != null && siteSettings.PreferredHostName.Length > 0)
 					{
 						string requestedHostName = WebUtils.GetHostName();
+
 						if (siteSettings.PreferredHostName != requestedHostName)
 						{
 							string redirectUrl;
+
 							if (WebConfigSettings.RedirectToRootWhenEnforcingPreferredHostName)
 							{
 								redirectUrl = "http://" + siteSettings.PreferredHostName;
@@ -1029,55 +1262,72 @@ namespace mojoPortal.Web
 
 
 							Response.Redirect(redirectUrl, true);
-							return;
 
+							return;
 						}
 					}
-
 				}
 
 				SetupMasterPage();
 			}
 			catch (HttpException ex)
 			{
-				log.Error("Error setting master page. Trying default skin."
-					+ CultureInfo.CurrentCulture.ToString() + " - " + SiteUtils.GetIP4Address(), ex);
+				log.Error("Error setting master page. Trying default skin." + CultureInfo.CurrentCulture.ToString() + " - " + SiteUtils.GetIP4Address(), ex);
 
 				SetupFailsafeMasterPage();
 			}
 
-
 			if (setMasterInBasePage)
 			{
-				//StyleSheetControl = (StyleSheet)Master.FindControl("StyleSheet");
-				//if (StyleSheetControl != null)
-				//{
-				//    StyleSheetControl.LiteralStyleSheetLink.Text
-				//        = SiteUtils.GetStyleSheetLinks(allowSkinOverride);
-				//}
-
 				StyleSheetCombiner styleCombiner = (StyleSheetCombiner)Master.FindControl("StyleSheetCombiner");
-				if (styleCombiner != null) { styleCombiner.AllowPageOverride = allowSkinOverride; }
+
+				if (styleCombiner != null)
+				{
+					styleCombiner.AllowPageOverride = allowSkinOverride;
+				}
 			}
 
 			EnsureSiteSettings();
-			if (!string.IsNullOrWhiteSpace(siteSettings.SiteWideHeaderScripts) && !(Page is NonCmsBasePage))
-				Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "sitewideheaderscripts", siteSettings.SiteWideHeaderScripts, true);
-			if (!string.IsNullOrWhiteSpace(siteSettings.SiteWideFooterScripts) && !(Page is NonCmsBasePage))
-				Page.ClientScript.RegisterStartupScript(typeof(Page), "sitewidefooterscripts", siteSettings.SiteWideFooterScripts, true);
 
-			if (!string.IsNullOrWhiteSpace(siteSettings.SiteWideHeaderAdminScripts) && (Page is NonCmsBasePage))
-				Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "sitewideadminheaderscripts", siteSettings.SiteWideHeaderAdminScripts, true);
-			if (!string.IsNullOrWhiteSpace(siteSettings.SiteWideFooterAdminScripts) && (Page is NonCmsBasePage))
-				Page.ClientScript.RegisterStartupScript(typeof(Page), "sitewideadminfooterscripts", siteSettings.SiteWideFooterAdminScripts, true);
+			if (!(Page is NonCmsBasePage) && !string.IsNullOrWhiteSpace(siteSettings.SiteWideHeaderContent))
+			{
+				Master.FindControl("Head1").Controls.Add(new Literal
+				{
+					Text = siteSettings.SiteWideHeaderContent
+				});
+			}
+
+			if (!(Page is NonCmsBasePage) && !string.IsNullOrWhiteSpace(siteSettings.SiteWideFooterContent))
+			{
+				Controls.AddAt(Controls.Count, new Literal
+				{
+					Text = siteSettings.SiteWideFooterContent
+				});
+			}
+
+			if (Page is NonCmsBasePage && !string.IsNullOrWhiteSpace(siteSettings.SiteWideHeaderAdminContent))
+			{
+				Master.FindControl("Head1").Controls.Add(new Literal
+				{
+					Text = siteSettings.SiteWideHeaderAdminContent
+				});
+			}
+
+			if (Page is NonCmsBasePage && !string.IsNullOrWhiteSpace(siteSettings.SiteWideFooterAdminContent))
+			{
+				Controls.AddAt(Controls.Count, new Literal
+				{
+					Text = siteSettings.SiteWideFooterAdminContent
+				});
+			}
 		}
 
 
 		protected void EnsureSiteSettings()
 		{
 			if (siteSettings == null) siteSettings = CacheHelper.GetCurrentSiteSettings();
-
 		}
+
 
 		private void SetupMasterPage()
 		{
@@ -1089,22 +1339,19 @@ namespace mojoPortal.Web
 
 
 			EnsureSiteSettings();
-			if (
-				(siteSettings != null)
-				&&
-				(siteSettings.SiteGuid != Guid.Empty)
-				)
+
+			if (siteSettings != null && siteSettings.SiteGuid != Guid.Empty)
 			{
 				string skinName = SiteUtils.GetSkinName(allowSkinOverride, this);
+
 				if (setMasterInBasePage)
 				{
-					//SiteUtils.SetMasterPage(this, siteSettings, allowSkinOverride);
 					MasterPageFile = SiteUtils.GetMasterPage(this, skinName, siteSettings, allowSkinOverride);
 				}
 
 				SetupTheme(skinName);
-
 			}
+
 
 			if (!string.IsNullOrEmpty(MasterPageFile))
 			{
@@ -1115,83 +1362,81 @@ namespace mojoPortal.Web
 				altPane1 = (ContentPlaceHolder)Master.FindControl("altContent1");
 				altPane2 = (ContentPlaceHolder)Master.FindControl("altContent2");
 			}
-
-
-
 		}
+
 
 		private void SetupTheme(string skinName)
 		{
 			if (WebConfigSettings.DisableASPThemes)
 			{
-				this.Theme = string.Empty;
+				Theme = string.Empty;
+
 				return;
 			}
 
 			bool registeredVirtualThemes = Global.RegisteredVirtualThemes; //should always be true under .NET 4
-			if ((!registeredVirtualThemes) && (!WebConfigSettings.UseSiteIdAppThemesInMediumTrust))
+
+			if (!registeredVirtualThemes && !WebConfigSettings.UseSiteIdAppThemesInMediumTrust)
 			{
-				this.Theme = "default";
+				Theme = "default";
+
 				return;
 			}
 
-			if ((!registeredVirtualThemes) && (WebConfigSettings.UseSiteIdAppThemesInMediumTrust))
+			if (!registeredVirtualThemes && WebConfigSettings.UseSiteIdAppThemesInMediumTrust)
 			{
-				this.Theme = "default" + siteSettings.SiteId.ToInvariantString();
+				Theme = "default" + siteSettings.SiteId.ToInvariantString();
+
 				return;
 			}
 
 			// default to site skin
-			this.Theme = "default" + siteSettings.SiteId.ToInvariantString() + skinName;
+			Theme = "default" + siteSettings.SiteId.ToInvariantString() + skinName;
 
 			//use page skin if allowed
 			if (allowSkinOverride)
 			{
-				if (
-				(siteSettings.AllowPageSkins)
-				&& (CurrentPage != null)
-				&& (CurrentPage.Skin.Length > 0)
-				)
+				if (siteSettings.AllowPageSkins && CurrentPage != null && CurrentPage.Skin.Length > 0)
 				{
-					this.Theme = "pageskin-" + siteSettings.SiteId.ToInvariantString() + CurrentPage.Skin;
+					Theme = "pageskin-" + siteSettings.SiteId.ToInvariantString() + CurrentPage.Skin;
 				}
 			}
 
 			//use user skin if allowed
-			if (
-				(siteSettings.AllowUserSkins || (WebConfigSettings.AllowEditingSkins && WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins)))
-				)
+			if (siteSettings.AllowUserSkins || WebConfigSettings.AllowEditingSkins && WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins))
 			{
 				SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
-				if ((currentUser != null) && (currentUser.Skin.Length > 0))
+
+				if (currentUser != null && currentUser.Skin.Length > 0)
 				{
-					this.Theme = "userpersonal" + siteSettings.SiteId.ToInvariantString() + currentUser.Skin;
+					Theme = "userpersonal" + siteSettings.SiteId.ToInvariantString() + currentUser.Skin;
 				}
-
 			}
-
 
 			//use preview if skin param exists
 			string previewSkin = SiteUtils.GetSkinPreviewParam(siteSettings);
+
 			if (previewSkin.Length > 0)
 			{
-				this.Theme = "preview_" + siteSettings.SiteId.ToInvariantString() + previewSkin;
+				Theme = "preview_" + siteSettings.SiteId.ToInvariantString() + previewSkin;
 			}
 
 			//use mobile if mobile device
 			if (UseMobileSkin)
 			{
-				this.Theme = "mobile" + siteSettings.SiteId.ToInvariantString() + siteSettings.MobileSkin + WebConfigSettings.MobilePhoneSkin;
+				Theme = "mobile" + siteSettings.SiteId.ToInvariantString() + siteSettings.MobileSkin + WebConfigSettings.MobilePhoneSkin;
 			}
 		}
 
+
 		protected void SetupFailsafeMasterPage()
 		{
-			//if (!setMasterInBasePage) { return; }
+			if (!WebConfigSettings.UseFailSafeMasterPageOnError)
+			{
+				return;
+			}
 
-			if (!WebConfigSettings.UseFailSafeMasterPageOnError) { return; }
-
-			this.MasterPageFile = "~/App_MasterPages/layout.Master";
+			MasterPageFile = "~/App_MasterPages/layout.Master";
 
 			MPLeftPane = (ContentPlaceHolder)Master.FindControl("leftContent");
 			MPContent = (ContentPlaceHolder)Master.FindControl("mainContent");
@@ -1204,15 +1449,22 @@ namespace mojoPortal.Web
 			StyleSheetControl = (StyleSheet)Master.FindControl("StyleSheet");
 		}
 
+
 		protected bool ShouldShowModule(Module m)
 		{
-			if (UseMobileSkin && m.PublishMode == webOnly) { return false; }
+			if (UseMobileSkin && m.PublishMode == webOnly)
+			{
+				return false;
+			}
 
 			if (!UseMobileSkin && m.PublishMode == mobileOnly)
 			{
 				if (WebConfigSettings.RolesThatAlwaysViewMobileContent.Length > 0)
 				{
-					if (WebUser.IsInRoles(WebConfigSettings.RolesThatAlwaysViewMobileContent)) { return true; }
+					if (WebUser.IsInRoles(WebConfigSettings.RolesThatAlwaysViewMobileContent))
+					{
+						return true;
+					}
 				}
 
 				return false;
@@ -1221,11 +1473,18 @@ namespace mojoPortal.Web
 			return true;
 		}
 
+
 		public void LoadSideContent(bool includeLeft, bool includeRight)
 		{
-			if (CurrentPage == null) { return; }
+			if (CurrentPage == null)
+			{
+				return;
+			}
 
-			if ((!includeLeft) && (!includeRight)) { return; }
+			if (!includeLeft && !includeRight)
+			{
+				return;
+			}
 
 			int leftModulesAdded = 0;
 			int rightModulesAdded = 0;
@@ -1234,18 +1493,26 @@ namespace mojoPortal.Web
 			{
 				foreach (Module module in CurrentPage.Modules)
 				{
-					if (!ShouldShowModule(module)) { continue; }
+					if (!ShouldShowModule(module))
+					{
+						continue;
+					}
+
 					if (ModuleIsVisible(module))
 					{
-
-						if ((includeLeft) && (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "leftpane")))
+						if (includeLeft && StringHelper.IsCaseInsensitiveMatch(module.PaneName, "leftpane"))
 						{
 							Control c = Page.LoadControl("~/" + module.ControlSource);
-							if (c == null) { continue; }
+
+							if (c == null)
+							{
+								continue;
+							}
 
 							if (c is SiteModuleControl)
 							{
 								SiteModuleControl siteModule = (SiteModuleControl)c;
+
 								siteModule.SiteId = siteSettings.SiteId;
 								siteModule.ModuleConfiguration = module;
 							}
@@ -1253,18 +1520,23 @@ namespace mojoPortal.Web
 							MPLeftPane.Controls.Add(c);
 							MPLeftPane.Visible = true;
 							MPLeftPane.Parent.Visible = true;
-							leftModulesAdded += 1;
 
+							leftModulesAdded += 1;
 						}
 
-						if ((includeRight) && (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "rightpane")))
+						if (includeRight && StringHelper.IsCaseInsensitiveMatch(module.PaneName, "rightpane"))
 						{
 							Control c = Page.LoadControl("~/" + module.ControlSource);
-							if (c == null) { continue; }
+
+							if (c == null)
+							{
+								continue;
+							}
 
 							if (c is SiteModuleControl)
 							{
 								SiteModuleControl siteModule = (SiteModuleControl)c;
+
 								siteModule.SiteId = siteSettings.SiteId;
 								siteModule.ModuleConfiguration = module;
 							}
@@ -1272,36 +1544,53 @@ namespace mojoPortal.Web
 							MPRightPane.Controls.Add(c);
 							MPRightPane.Visible = true;
 							MPRightPane.Parent.Visible = true;
+
 							rightModulesAdded += 1;
-
 						}
-
 					}
 				}
 			}
 
-			forceShowLeft = (leftModulesAdded > 0);
-			forceShowRight = (rightModulesAdded > 0);
+			forceShowLeft = leftModulesAdded > 0;
+			forceShowRight = rightModulesAdded > 0;
 		}
+
 
 		private void SetupColumnCss(bool showLeft, bool showRight)
 		{
-			if ((!showLeft) && (!showRight)) { return; }
+			if (!showLeft && !showRight)
+			{
+				return;
+			}
 
 			Panel divLeft = (Panel)Master.FindControl("divLeft");
 			Panel divCenter = (Panel)Master.FindControl("divCenter");
 			Panel divRight = (Panel)Master.FindControl("divRight");
 
-			if (divLeft == null) { return; }
-			if (divRight == null) { return; }
-			if (divCenter == null) { return; }
+			if (divLeft == null)
+			{
+				return;
+			}
 
-			// this doesn't account for left may be visible due to pagemenu
-			//divLeft.Visible = showLeft;
-			//divRight.Visible = showRight;
+			if (divRight == null)
+			{
+				return;
+			}
 
-			if (showLeft) { divLeft.Visible = showLeft; }
-			if (showRight) { divRight.Visible = showRight; }
+			if (divCenter == null)
+			{
+				return;
+			}
+
+			if (showLeft)
+			{
+				divLeft.Visible = showLeft;
+			}
+
+			if (showRight)
+			{
+				divRight.Visible = showRight;
+			}
 
 			string leftSideNoRightSideCss = "art-layout-cell art-sidebar1 leftside left2column";
 			string rightSideNoLeftSideCss = "art-layout-cell art-sidebar2 rightside right2column";
@@ -1311,24 +1600,25 @@ namespace mojoPortal.Web
 			string centerWithLeftAndRightSideCss = "art-layout-cell  art-content-narrow center-rightandleftmargins cmszone";
 
 			Control l = Master.FindControl("LayoutDisplaySettings1");
-			if ((l != null) && (l is LayoutDisplaySettings))
+
+			if (l != null && l is LayoutDisplaySettings)
 			{
 				LayoutDisplaySettings layoutSettings = l as LayoutDisplaySettings;
+
 				leftSideNoRightSideCss = layoutSettings.LeftSideNoRightSideCss;
 				rightSideNoLeftSideCss = layoutSettings.RightSideNoLeftSideCss;
 				centerNoLeftSideCss = layoutSettings.CenterNoLeftSideCss;
 				centerNoRightSideCss = layoutSettings.CenterNoRightSideCss;
 				centerNoLeftOrRightSideCss = layoutSettings.CenterNoLeftOrRightSideCss;
 				centerWithLeftAndRightSideCss = layoutSettings.CenterWithLeftAndRightSideCss;
-
 			}
 
-			if ((divLeft.Visible) && (!divRight.Visible))
+			if (divLeft.Visible && !divRight.Visible)
 			{
 				divLeft.CssClass = leftSideNoRightSideCss;
 			}
 
-			if ((divRight.Visible) && (!divLeft.Visible))
+			if (divRight.Visible && !divLeft.Visible)
 			{
 				divRight.CssClass = rightSideNoLeftSideCss;
 			}
@@ -1337,39 +1627,62 @@ namespace mojoPortal.Web
 				divLeft.Visible
 					? (divRight.Visible ? centerWithLeftAndRightSideCss : centerNoRightSideCss)
 					: (divRight.Visible ? centerNoLeftSideCss : centerNoLeftOrRightSideCss);
-
 		}
+
 
 		public void LoadAltContent(bool includeTop, bool includeBottom)
 		{
-			if (CurrentPage == null) { return; }
+			if (CurrentPage == null)
+			{
+				return;
+			}
 
-			if ((!includeTop) && (!includeBottom)) { return; }
+			if (!includeTop && !includeBottom)
+			{
+				return;
+			}
 
-			if (AltPane1 == null) { return; }
-			if (AltPane2 == null) { return; }
+			if (AltPane1 == null)
+			{
+				return;
+			}
+
+			if (AltPane2 == null)
+			{
+				return;
+			}
 
 			if (CurrentPage.Modules.Count > 0)
 			{
 				foreach (Module module in CurrentPage.Modules)
 				{
-					if (!ShouldShowModule(module)) { continue; }
+					if (!ShouldShowModule(module))
+					{
+						continue;
+					}
 
 					if (ModuleIsVisible(module))
 					{
 
-						if ((includeTop) && (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent1")))
+						if (includeTop && StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent1"))
 						{
 							Control c = Page.LoadControl("~/" + module.ControlSource);
-							if (c == null) { continue; }
+
+							if (c == null)
+							{
+								continue;
+							}
 
 							if (c is SiteModuleControl)
 							{
 								SiteModuleControl siteModule = (SiteModuleControl)c;
+
 								siteModule.SiteId = siteSettings.SiteId;
 								siteModule.ModuleConfiguration = module;
 							}
+
 							Control a1 = Master.FindControl("divAlt1");
+
 							if (a1 != null)
 							{
 								a1.Visible = true;
@@ -1377,41 +1690,60 @@ namespace mojoPortal.Web
 							else
 							{
 								a1 = Master.FindControl("divAltContent1");
-								if (a1 != null) { a1.Visible = true; }
+
+								if (a1 != null)
+								{
+									a1.Visible = true;
+								}
 							}
 
 							AltPane1.Controls.Add(c);
-
 						}
 
-						if ((includeBottom) && (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent2")))
+						if (includeBottom && StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent2"))
 						{
 							Control c = Page.LoadControl("~/" + module.ControlSource);
-							if (c == null) { continue; }
+
+							if (c == null)
+							{
+								continue;
+							}
 
 							if (c is SiteModuleControl)
 							{
 								SiteModuleControl siteModule = (SiteModuleControl)c;
+
 								siteModule.SiteId = siteSettings.SiteId;
 								siteModule.ModuleConfiguration = module;
 							}
 
 							Control a2 = Master.FindControl("divAltContent2");
-							if (a2 != null) { a2.Visible = true; }
+
+							if (a2 != null)
+							{
+								a2.Visible = true;
+							}
 
 							AltPane2.Controls.Add(c);
-
 						}
 					}
 				}
 			}
 		}
 
+
 		protected bool ModuleIsVisible(Module module)
 		{
-			if ((module.HideFromAuthenticated) && (Request.IsAuthenticated)) { return false; }
-			if ((module.HideFromUnauthenticated) && (!Request.IsAuthenticated)) { return false; }
-			
+			if (module.HideFromAuthenticated && Request.IsAuthenticated)
+			{
+				return false;
+			}
+
+			if (module.HideFromUnauthenticated && !Request.IsAuthenticated)
+			{
+				return false;
+			}
+
 			return true;
 		}
 
@@ -1425,7 +1757,7 @@ namespace mojoPortal.Web
 
 			try
 			{
-				if ((Session != null) && (!string.IsNullOrEmpty(Session.SessionID)))
+				if (Session != null && !string.IsNullOrEmpty(Session.SessionID))
 				{
 					ViewStateUserKey = Session.SessionID;
 				}
@@ -1433,7 +1765,7 @@ namespace mojoPortal.Web
 			catch (HttpException)
 			{ }
 
-			if ((siteSettings != null) && (siteSettings.MetaProfile.Length > 0) && (Page.Header != null))
+			if (siteSettings != null && siteSettings.MetaProfile.Length > 0 && (Page.Header != null))
 			{
 				Page.Header.Attributes.Add("profile", siteSettings.MetaProfile);
 			}
@@ -1441,23 +1773,30 @@ namespace mojoPortal.Web
 			SetupAdminLinks();
 
 			// older skins may not have it included in layout.master so we load it here
-			if ((ScriptConfig != null) && (!scriptLoaderFoundInMaster)) { this.Controls.Add(scriptLoader); }
-
+			if (ScriptConfig != null && !scriptLoaderFoundInMaster)
+			{
+				Controls.Add(scriptLoader);
+			}
 
 			if (WebConfigSettings.UseAjaxFormActionUpdateScript) //possibly may want to remove this in future versions of .NET
 			{
 				//this keeps the form action correct during ajax postbacks
-				string formActionScript = "<script type=\"text/javascript\">"
-					+ "Sys.Application.add_load(function() { var form = Sys.WebForms.PageRequestManager.getInstance()._form; form._initialAction = form.action = window.location.href; }); "
-					+ "</script>";
+				string formActionScript = @"<script>
+Sys.Application.add_load(function() {
+	var form = Sys.WebForms.PageRequestManager.getInstance()._form;
+	form._initialAction = form.action = window.location.href;
+});
+</script>";
 
-				Page.ClientScript.RegisterStartupScript(this.GetType(), "formactionset", formActionScript);
+				Page.ClientScript.RegisterStartupScript(GetType(), "formactionset", formActionScript);
 			}
 		}
 
+
 		private void SetupAdminLinks()
 		{
-			if (string.IsNullOrEmpty(MasterPageFile)) {
+			if (string.IsNullOrEmpty(MasterPageFile))
+			{
 				return;
 			}
 
@@ -1481,19 +1820,22 @@ namespace mojoPortal.Web
 			}
 		}
 
+
 		protected void HideViewSelector()
 		{
 			ddlContentView.Visible = false;
 		}
 
+
 		protected bool UserCanSeeWorkflowControls()
 		{
-			if (WebUser.IsContentAdmin
-				|| WebUser.IsInRoles(CurrentPage.DraftEditOnlyRoles)
-				|| WebUser.IsInRoles(CurrentPage.EditRoles)
-				|| WebUser.IsInRoles(CurrentPage.DraftApprovalRoles)
-				|| SiteUtils.UserIsSiteEditor()
-				)
+			if (
+				WebUser.IsContentAdmin ||
+				WebUser.IsInRoles(CurrentPage.DraftEditOnlyRoles) ||
+				WebUser.IsInRoles(CurrentPage.EditRoles) ||
+				WebUser.IsInRoles(CurrentPage.DraftApprovalRoles) ||
+				SiteUtils.UserIsSiteEditor()
+			)
 			{
 				return true;
 			}
@@ -1502,10 +1844,14 @@ namespace mojoPortal.Web
 			{
 				foreach (Module module in CurrentPage.Modules)
 				{
-					if (UserCanEditModule(module.ModuleId, module.FeatureGuid)
-						|| UserCanOnlyEditModuleAsDraft(module.ModuleId, module.FeatureGuid)
-						|| UserCanApproveDraftModule(module.ModuleId, module.FeatureGuid)) return true;
-
+					if (
+						UserCanEditModule(module.ModuleId, module.FeatureGuid) ||
+						UserCanOnlyEditModuleAsDraft(module.ModuleId, module.FeatureGuid) ||
+						UserCanApproveDraftModule(module.ModuleId, module.FeatureGuid)
+					)
+					{
+						return true;
+					}
 				}
 			}
 
@@ -1515,7 +1861,7 @@ namespace mojoPortal.Web
 
 		protected void SetupWorkflowControls(bool forceShowWorkflow)
 		{
-			if ((WebConfigSettings.EnableContentWorkflow && siteSettings.EnableContentWorkflow) && (forceShowWorkflow || UserCanSeeWorkflowControls()))
+			if (WebConfigSettings.EnableContentWorkflow && siteSettings.EnableContentWorkflow && (forceShowWorkflow || UserCanSeeWorkflowControls()))
 			{
 				viewMode = GetUserViewMode();
 
@@ -1530,17 +1876,10 @@ namespace mojoPortal.Web
 				{
 					ddlContentView.ClearSelection();
 					item.Selected = true;
-
 				}
 
 				ddlContentView.SelectedIndexChanged += new EventHandler(ddlContentView_SelectedIndexChanged);
 				ddlContentView.AutoPostBack = true;
-
-				// All this seems to do is add a space between the icon and the workflow dropdown, commented out for now
-				//if (UseIconsForAdminLinks)
-				//{
-				//    this.MPPageEdit.Controls.Add(new LiteralControl("&nbsp;"));
-				//}
 
 				MPPageEdit.Controls.Add(ddlContentView);
 			}
@@ -1551,18 +1890,22 @@ namespace mojoPortal.Web
 
 		}
 
+
 		protected void ddlContentView_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (ddlContentView.SelectedIndex == -1)
 			{
 				//WebUtils.SetupRedirect(this, SiteUtils.GetCurrentPageUrl());
 				Response.Redirect(SiteUtils.GetCurrentPageUrl());
+
 				return;
 			}
 
 			CookieHelper.SetCookie(GetViewModeCookieName(), ddlContentView.SelectedItem.Value, false);
+
 			Response.Redirect(Request.RawUrl);
 		}
+
 
 		protected PageViewMode GetUserViewMode()
 		{
@@ -1574,40 +1917,40 @@ namespace mojoPortal.Web
 				try
 				{
 					viewMode = (PageViewMode)Enum.Parse(typeof(PageViewMode), Request.QueryString["vm"]);
-
 				}
 				catch (ArgumentException)
 				{ }
-
 			}
 			else
 			{
 				// if query string is not passed use the cookie
 				string viewCookieValue = CookieHelper.GetCookieValue(GetViewModeCookieName());
+
 				if (!string.IsNullOrEmpty(viewCookieValue))
 				{
 					try
 					{
 						viewMode = (PageViewMode)Enum.Parse(typeof(PageViewMode), viewCookieValue);
-
 					}
 					catch (ArgumentException)
 					{ }
 				}
-
 			}
 
 			return viewMode;
-
 		}
+
 
 		private string GetViewModeCookieName()
 		{
 			string cookieName = "viewmode";
-			if (siteSettings != null) { cookieName += siteSettings.SiteId.ToString(CultureInfo.InvariantCulture); }
+
+			if (siteSettings != null)
+			{
+				cookieName += siteSettings.SiteId.ToString(CultureInfo.InvariantCulture);
+			}
 
 			return cookieName;
-
 		}
 
 
@@ -1622,7 +1965,6 @@ namespace mojoPortal.Web
 		}
 
 
-
 		protected override void OnPreRender(EventArgs e)
 		{
 			base.OnPreRender(e);
@@ -1630,10 +1972,15 @@ namespace mojoPortal.Web
 			SetupColumnCss(forceShowLeft, forceShowRight);
 		}
 
+
 		private void EnsureFormAction()
 		{
-			if (Form.Action.Length == 0) { Form.Action = "/"; }
+			if (Form.Action.Length == 0)
+			{
+				Form.Action = "/";
+			}
 		}
+
 
 		protected override void Render(HtmlTextWriter writer)
 		{
@@ -1650,6 +1997,7 @@ namespace mojoPortal.Web
 				}
 
 				base.Render(writer);
+
 				return;
 			}
 
@@ -1663,18 +2011,7 @@ namespace mojoPortal.Web
 			// this removes the action attribute from the form
 			// so that it posts back correctly when using url re-writing
 
-
-			//string rawUrl = Request.RawUrl;
 			string action = Request.RawUrl;
-			//if (Request.RawUrl.IndexOf(".aspx") > -1)
-			//{
-			//    action = Path.GetFileName(Request.RawUrl.Substring(0, Request.RawUrl.IndexOf(".aspx") + 5));
-			//}
-			//else
-			//{
-			//    action = Path.GetFileName(Request.RawUrl);
-			//}
-
 
 			// we need to append the query string to the form action
 			// otherwise the params won't be available when the form posts back
@@ -1683,16 +2020,15 @@ namespace mojoPortal.Web
 			// mid and pageid params on postback. querystring is only available in get requests
 			// unless the form action includes it, then its also available in post requests
 
-			if (
-				(appendQueryStringToAction)
-				&& (action.IndexOf("?") == -1)
-				&& (Request.QueryString.Count > 0)
-				)
+			if (appendQueryStringToAction && action.IndexOf("?") == -1 && Request.QueryString.Count > 0)
 			{
 				action += "?" + Request.QueryString.ToString();
 			}
 
-			if (action.Length == 0) { action = "/"; }
+			if (action.Length == 0)
+			{
+				action = "/";
+			}
 
 			if (writer.GetType() == typeof(HtmlTextWriter))
 			{
@@ -1704,13 +2040,16 @@ namespace mojoPortal.Web
 			}
 
 			base.Render(writer);
-
 		}
+
 
 		private void ForceSingleSession()
 		{
 
-			if (Context.User.Identity.AuthenticationType != "Forms") return;
+			if (Context.User.Identity.AuthenticationType != "Forms")
+			{
+				return;
+			}
 
 			lock (HttpRuntime.Cache)
 			{
@@ -1727,6 +2066,7 @@ namespace mojoPortal.Web
 				else
 				{
 					requestUserSessionGUID = (string)Session["requestGuid"];
+
 					if ((string)HttpRuntime.Cache["UserSessionID"] == null)
 					{
 						HttpRuntime.Cache.Insert("UserSessionID", requestUserSessionGUID);
@@ -1736,7 +2076,6 @@ namespace mojoPortal.Web
 
 					if (cachedUserSessionID == requestUserSessionGUID)
 					{
-
 						return;
 					}
 					else
@@ -1744,17 +2083,19 @@ namespace mojoPortal.Web
 						// same user is logged in with another session, force this session to logout
 						FormsAuthentication.SignOut();
 						Session.Abandon();
+
 						return;
 					}
 				}
 			}
 		}
 
+
 		protected override void OnError(EventArgs e)
 		{
 			Exception lastError = Server.GetLastError();
 
-			if ((lastError != null) && (lastError is PathTooLongException))
+			if (lastError != null && lastError is PathTooLongException)
 			{
 				//let it be handled elsewhere (global.asax.cs)
 				return;
@@ -1769,13 +2110,8 @@ namespace mojoPortal.Web
 				{
 					exceptionUrl = CultureInfo.CurrentCulture.ToString() + " - " + HttpContext.Current.Request.RawUrl;
 					exceptionIpAddress = SiteUtils.GetIP4Address();
-
 				}
-
 			}
-
-			// 2013-01-02 commented this out since it should already be logging the same exception form global.asax
-			//if (lastError != null) log.Error(exceptionIpAddress + "-" + exceptionUrl, lastError);
 
 			int siteCount = DatabaseHelper.ExistingSiteCount();
 
@@ -1791,7 +2127,6 @@ namespace mojoPortal.Web
 					HttpContext.Current.Response.Redirect(WebUtils.GetSiteRoot() + "/Setup/Default.aspx");
 				}
 				catch (HttpException) { }
-
 			}
 
 			bool upgradeNeeded = mojoSetup.UpgradeIsNeeded();
@@ -1813,71 +2148,93 @@ namespace mojoPortal.Web
 		public void SuppressAllMenus()
 		{
 			Control menu = Master.FindControl("SiteMenu1");
-			if (menu != null) { menu.Visible = false; }
+
+			if (menu != null)
+			{
+				menu.Visible = false;
+			}
 
 			menu = Master.FindControl("PageMenu1");
-			if (menu != null) { menu.Visible = false; }
+
+			if (menu != null)
+			{
+				menu.Visible = false;
+			}
 
 			menu = Master.FindControl("PageMenu2");
-			if (menu != null) { menu.Visible = false; }
+
+			if (menu != null)
+			{
+				menu.Visible = false;
+			}
 
 			menu = Master.FindControl("PageMenu3");
-			if (menu != null) { menu.Visible = false; }
 
+			if (menu != null)
+			{
+				menu.Visible = false;
+			}
 		}
+
 
 		public void SuppressMenuSelection()
 		{
 			SiteMenu siteMenu = (SiteMenu)Master.FindControl("SiteMenu1");
-			if (siteMenu != null) siteMenu.SuppressPageSelection = true;
+
+			if (siteMenu != null)
+			{
+				siteMenu.SuppressPageSelection = true;
+			}
 		}
+
 
 		public void SuppressPageMenu()
 		{
 			PageMenuControl menu = (PageMenuControl)Master.FindControl("PageMenu1");
-			if ((menu != null) && (menu.Direction == "Vertical")) menu.Visible = false;
+
+			if (menu != null && menu.Direction == "Vertical")
+			{
+				menu.Visible = false;
+			}
 
 			menu = (PageMenuControl)Master.FindControl("PageMenu2");
-			if ((menu != null) && (menu.Direction == "Vertical")) menu.Visible = false;
+
+			if (menu != null && menu.Direction == "Vertical")
+			{
+				menu.Visible = false;
+			}
 
 			menu = (PageMenuControl)Master.FindControl("PageMenu3");
-			if ((menu != null) && (menu.Direction == "Vertical")) menu.Visible = false;
+
+			if (menu != null && menu.Direction == "Vertical")
+			{
+				menu.Visible = false;
+			}
 		}
+
 
 		public void SuppressGoogleAds()
 		{
 			Control googleAdControl = Master.FindControl("pnlGoogle");
-			if (googleAdControl != null) { googleAdControl.Visible = false; }
+
+			if (googleAdControl != null)
+			{
+				googleAdControl.Visible = false;
+			}
 
 			googleAdControl = Master.FindControl("pnlGoogle1");
-			if (googleAdControl != null) { googleAdControl.Visible = false; }
+
+			if (googleAdControl != null)
+			{
+				googleAdControl.Visible = false;
+			}
 
 			googleAdControl = Master.FindControl("pnlGoogle2");
-			if (googleAdControl != null) { googleAdControl.Visible = false; }
+
+			if (googleAdControl != null)
+			{
+				googleAdControl.Visible = false;
+			}
 		}
-
-		// potentially we can compress viewstate
-		//http://www.codeproject.com/KB/viewstate/ViewStateCompression.aspx
-		// not sure about using this, we no longer have view state chunking when using this which can
-		// be a problem for mobile browsers where length of hidden fields is limited
-		//protected override object LoadPageStateFromPersistenceMedium()
-		//{
-		//    string viewState = Request.Form["__VSTATE"];
-		//    byte[] bytes = Convert.FromBase64String(viewState);
-		//    bytes = Compressor.Decompress(bytes);
-		//    LosFormatter formatter = new LosFormatter();
-		//    return formatter.Deserialize(Convert.ToBase64String(bytes));
-		//}
-
-		//protected override void SavePageStateToPersistenceMedium(object viewState)
-		//{
-		//    LosFormatter formatter = new LosFormatter();
-		//    StringWriter writer = new StringWriter();
-		//    formatter.Serialize(writer, viewState);
-		//    string viewStateString = writer.ToString();
-		//    byte[] bytes = Convert.FromBase64String(viewStateString);
-		//    bytes = Compressor.Compress(bytes);
-		//    ScriptManager.RegisterHiddenField(this, "__VSTATE", Convert.ToBase64String(bytes));
-		//}
 	}
 }

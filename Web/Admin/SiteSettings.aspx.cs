@@ -327,10 +327,10 @@ namespace mojoPortal.Web.AdminUI
 			txtFacebookAppId.Text = selectedSite.FacebookAppId;
 
 
-			txtHeaderScripts.Text = selectedSite.SiteWideHeaderScripts;
-			txtFooterScripts.Text = selectedSite.SiteWideFooterScripts;
-			txtHeaderAdminScripts.Text = selectedSite.SiteWideHeaderAdminScripts;
-			txtFooterAdminScripts.Text = selectedSite.SiteWideFooterAdminScripts;
+			txtHeaderContent.Text = selectedSite.SiteWideHeaderContent;
+			txtFooterContent.Text = selectedSite.SiteWideFooterContent;
+			txtHeaderAdminContent.Text = selectedSite.SiteWideHeaderAdminContent;
+			txtFooterAdminContent.Text = selectedSite.SiteWideFooterAdminContent;
 						  
 			ISettingControl currencySetting = SiteCurrencySetting as ISettingControl;
 			currencySetting.SetValue(selectedSite.CurrencyGuid.ToString());
@@ -461,8 +461,8 @@ namespace mojoPortal.Web.AdminUI
 				tabCommerce.Visible = false;
 				liAdvanced.Visible = false;
 				tabAdvanced.Visible = false;
-				liScripts.Visible = false;
-				tabScripts.Visible = false;
+				liContent.Visible = false;
+				tabContent.Visible = false;
 				//divCommerceRoles.Visible = false;
 				chkForceContentVersioning.Visible = false;
 				chkEnableContentWorkflow.Visible = false;
@@ -1085,10 +1085,10 @@ namespace mojoPortal.Web.AdminUI
 			selectedSite.IntenseDebateAccountId = txtIntenseDebateAccountId.Text;
 			selectedSite.DisqusSiteShortName = txtDisqusSiteShortName.Text;
 			selectedSite.FacebookAppId = txtFacebookAppId.Text;
-			selectedSite.SiteWideHeaderScripts = txtHeaderScripts.Text;
-			selectedSite.SiteWideFooterScripts = txtFooterScripts.Text;
-			selectedSite.SiteWideHeaderAdminScripts = txtHeaderAdminScripts.Text;
-			selectedSite.SiteWideFooterAdminScripts = txtFooterAdminScripts.Text;
+			selectedSite.SiteWideHeaderContent = txtHeaderContent.Text;
+			selectedSite.SiteWideFooterContent = txtFooterContent.Text;
+			selectedSite.SiteWideHeaderAdminContent = txtHeaderAdminContent.Text;
+			selectedSite.SiteWideFooterAdminContent = txtFooterAdminContent.Text;
 
 			if (fgpWoopra.Visible)
 			{
@@ -1891,16 +1891,16 @@ namespace mojoPortal.Web.AdminUI
 			litBadWordQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsBadWordListQuickHelp);
 			fgpBadWordSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
-			litScriptsTabLink.Text = $"<a href='#{tabScripts.ClientID}'>{Resource.SiteSettingsScriptsLink}</a>";
-			litScriptsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsScriptsHeader, Resource.SiteSettingsScriptsDescription);
-			litHeaderScriptsQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsScriptsHeaderQuickHelp);
-			litFooterScriptsQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsScriptsFooterQuickHelp);
+			litContentTabLink.Text = $"<a href='#{tabContent.ClientID}'>{Resource.SiteSettingsContentLink}</a>";
+			litScriptsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsContentHeader, Resource.SiteSettingsContentDescription);
+			litHeaderContentQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsContentHeaderQuickHelp);
+			litFooterContentQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsContentFooterQuickHelp);
 			fgpScripts.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
-			litAdminScriptsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsScriptsAdminHeader, Resource.SiteSettingsScriptsAdminDescription);
-			litHeaderAdminScriptsQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsScriptsHeaderQuickHelp);
-			litFooterAdminScriptsQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsScriptsFooterQuickHelp);
-			fgpAdminScripts.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
+			litAdminScriptsHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsContentAdminHeader, Resource.SiteSettingsContentAdminDescription);
+			litHeaderAdminContentQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsContentHeaderQuickHelp);
+			litFooterAdminContentQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsContentFooterQuickHelp);
+			fgpAdminContent.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
 			lnkCountryAdmin.Text = Resource.CountryAdministrationLink;
 			lnkCountryAdmin.NavigateUrl = "~/Admin/AdminCountry.aspx";
