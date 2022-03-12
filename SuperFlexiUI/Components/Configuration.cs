@@ -218,7 +218,7 @@ namespace SuperFlexiUI
 					solutionLocation = sfMarkupFile.FolderVirtualPath;
 				}
 			}
-			useRazor = WebUtils.ParseBoolFromHashtable(settings, "UseRazor", useRazor);
+			//useRazor = WebUtils.ParseBoolFromHashtable(settings, "UseRazor", useRazor);
 			#region MarkupDefinition
 			if (settings.Contains("MarkupDefinitionContent"))
             {
@@ -374,7 +374,7 @@ namespace SuperFlexiUI
                 if (attrCollection["importPageTitle"] != null) importPageTitle = attrCollection["importPageTitle"].Value;
                 if (attrCollection["exportPageTitle"] != null) exportPageTitle = attrCollection["exportPageTitle"].Value;
                 if (attrCollection["importPageCancelLinkText"] != null) importPageCancelLinkText = attrCollection["importPageCancelLinkText"].Value;
-				log.Debug($"current siteid={siteId.ToString()}. invariant siteid={siteId.ToInvariantString()}");
+				log.Debug($"current siteid={siteId}. invariant siteid={siteId.ToInvariantString()}");
                 if (attrCollection["fieldDefinitionSrc"] != null) fieldDefinitionSrc = attrCollection["fieldDefinitionSrc"].Value.Replace("$_SitePath_$", "/Data/Sites/" + siteId.ToInvariantString());
                 if (attrCollection["fieldDefinitionGuid"] != null) fieldDefinitionGuid = Guid.Parse(attrCollection["fieldDefinitionGuid"].Value);
                 if (attrCollection["jsonRenderLocation"] != null) jsonRenderLocation = attrCollection["jsonRenderLocation"].Value;
@@ -388,6 +388,11 @@ namespace SuperFlexiUI
 				if (attrCollection["showSaveAsNewButton"] != null) showSaveAsNew = Convert.ToBoolean(attrCollection["showSaveAsNewButton"].Value);
 				if (attrCollection["maxItems"] != null) maxItems = Convert.ToInt32(attrCollection["maxItems"].Value);
 				if (attrCollection["processItems"] != null) processItems = Convert.ToBoolean(attrCollection["processItems"].Value);
+                if (attrCollection["viewName"] != null && !string.IsNullOrWhiteSpace(attrCollection["viewName"].Value))
+				{
+                    useRazor = true;
+                    ViewName = attrCollection["viewName"].Value;
+                }
 
 				MarkupDefinition workingMarkupDefinition = new MarkupDefinition();
                 if (isMobile && !useStandardMarkupOnDesktopOnly)
@@ -782,6 +787,8 @@ namespace SuperFlexiUI
 
         private bool useRazor = false;
         public bool UseRazor { get { return useRazor; } }
+
+        public string ViewName { get; set; }
 
 		private bool processItems = true;
 		/// <summary>

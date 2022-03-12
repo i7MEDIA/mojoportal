@@ -161,7 +161,6 @@
   <ItemGroup>
     <Content Include="SuperFlexi\Controls\UrlSelector.ascx" />
     <Content Include="SuperFlexi\Controls\FeaturedImageSetting.ascx" />
-    <Content Include="SuperFlexi\Controls\WidgetRazor.ascx" />
     <Content Include="SuperFlexi\Controls\Wysiwyg.ascx" />
     <Content Include="SuperFlexi\Controls\MarkupDefinitionSetting.ascx" />
     <Content Include="SuperFlexi\Controls\Widget.ascx" />
@@ -269,13 +268,7 @@
     <Compile Include="SuperFlexi\Controls\FeaturedImageSetting.ascx.designer.cs">
       <DependentUpon>FeaturedImageSetting.ascx</DependentUpon>
     </Compile>
-    <Compile Include="SuperFlexi\Controls\WidgetRazor.ascx.cs">
-      <DependentUpon>WidgetRazor.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SuperFlexi\Controls\WidgetRazor.ascx.designer.cs">
-      <DependentUpon>WidgetRazor.ascx</DependentUpon>
-    </Compile>
+    <Compile Include="SuperFlexi\Controls\WidgetRazor.cs" />
     <Compile Include="SuperFlexi\Controls\Wysiwyg.ascx.cs">
       <DependentUpon>Wysiwyg.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

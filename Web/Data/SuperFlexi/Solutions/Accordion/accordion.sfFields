@@ -29,6 +29,30 @@
         editPageControlCssClass="form-control"
         sortOrder="120"
     />
+    <Field
+        name="color"
+        label="Color"
+        controlType="Dropdown"
+        required="true"
+        requiredMessageFormat="Content is required."
+        editPageControlWrapperCssClass="form-group"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="125">
+        <Options>
+            <Option name="none" value="default" />
+            <Option name="Light Blue" value="info" />
+            <Option name="Light Yellow" value="warning" />
+            <Option name="Light Red" value="danger" />
+            <Option name="Blue" value="primary" />
+        </Options>
+    </Field>
+    <Field
+        name="important"
+        label="Important"
+        controlType="CheckBox"
+        editPageLabelCssClass="settinglabel"
+        sortOrder="130"/>
 
     <Scripts>
         <Script position="bottomStartup" name="AccordionTitleControl" src="resources/controls.checkbox-title.js"></Script>
