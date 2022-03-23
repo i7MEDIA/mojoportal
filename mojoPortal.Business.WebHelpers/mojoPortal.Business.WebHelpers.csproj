@@ -145,6 +145,7 @@
     <Compile Include="PaymentGateway\NotImplementedPaymentGateway.cs" />
     <Compile Include="PaymentGateway\PaymentGatewayResponse.cs" />
     <Compile Include="PaymentGateway\PaymentGatewayTransactionType.cs" />
+    <Compile Include="PaymentGateway\PaymentGatewayType.cs" />
     <Compile Include="PaymentGateway\PayPal\DoNothingPayPalIPNHandlerProvider.cs" />
     <Compile Include="PaymentGateway\PayPal\DoNothingPayPalPDTHandlerProvider.cs" />
     <Compile Include="PaymentGateway\PayPal\NotImplementedPayPalReturnHandler.cs" />
