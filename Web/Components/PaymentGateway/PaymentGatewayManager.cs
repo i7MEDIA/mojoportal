@@ -1,79 +1,55 @@
-﻿// Author:					
-// Created:				    2012-01-09
-// Last Modified:			2012-01-09
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Configuration;
-using System.Configuration.Provider;
+﻿using System.Configuration.Provider;
 using System.Web.Configuration;
 
 namespace mojoPortal.Web.Commerce
 {
-    public sealed class PaymentGatewayManager
-    {
-        private static object initializationLock = new object();
+	public sealed class PaymentGatewayManager
+	{
+		#region Properties
 
-        static PaymentGatewayManager()
-        {
-            Initialize();
-        }
+		public static PaymentGatewayProvider Provider { get; private set; }
+		public static PaymentGatewayProviderCollection Providers { get; private set; }
 
-        private static void Initialize()
-        {
+		#endregion
 
 
-            PaymentGatewayConfiguration config = PaymentGatewayConfiguration.GetConfig();
+		#region Constructors
 
-                if (
-                    (config.DefaultProvider == null)
-                    || (config.Providers == null)
-                    || (config.Providers.Count < 1)
-                    )
-                {
-                    throw new ProviderException("You must specify a valid default provider.");
-                }
+		static PaymentGatewayManager()
+		{
+			Initialize();
+		}
+
+		#endregion
 
 
-                providerCollection = new PaymentGatewayProviderCollection();
+		#region Private Methods
 
-                ProvidersHelper.InstantiateProviders(
-                    config.Providers, 
-                    providerCollection,
-                    typeof(PaymentGatewayProvider));
-                
-                providerCollection.SetReadOnly();
-                defaultProvider = providerCollection[config.DefaultProvider];
-                
-            
-        }
+		private static void Initialize()
+		{
+			PaymentGatewayConfiguration config = PaymentGatewayConfiguration.GetConfig();
 
+			if (
+				config.DefaultProvider == null ||
+				config.Providers == null ||
+				config.Providers.Count < 1
+			)
+			{
+				throw new ProviderException("You must specify a valid default provider.");
+			}
 
-        private static PaymentGatewayProvider defaultProvider;
-        private static PaymentGatewayProviderCollection providerCollection;
+			Providers = new PaymentGatewayProviderCollection();
 
-        public static PaymentGatewayProvider Provider
-        {
-            get
-            {
-                return defaultProvider;
-            }
-        }
+			ProvidersHelper.InstantiateProviders(
+				config.Providers,
+				Providers,
+				typeof(PaymentGatewayProvider)
+			);
 
-        public static PaymentGatewayProviderCollection Providers
-        {
-            get
-            {
-                return providerCollection;
-            }
-        }
+			Providers.SetReadOnly();
+			Provider = Providers[config.DefaultProvider];
+		}
 
-    }
+		#endregion
+	}
 }
