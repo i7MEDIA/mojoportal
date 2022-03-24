@@ -1,14 +1,3 @@
-// Created:       2004-10-03
-// Last Modified: 2018-11-14
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -58,6 +47,7 @@ namespace mojoPortal.Web.UI.Pages
 		private Models.MemberListModel model;
 		private List<SiteUser> siteUserPage;
 
+
 		#region OnInit
 
 		protected override void OnInit(EventArgs e)
@@ -73,6 +63,7 @@ namespace mojoPortal.Web.UI.Pages
 		}
 
 		#endregion
+
 
 		private void Page_Load(object sender, EventArgs e)
 		{
@@ -103,11 +94,12 @@ namespace mojoPortal.Web.UI.Pages
 			}
 		}
 
+
 		private void PopulateControls()
 		{
 			Title = SiteUtils.FormatPageTitle(siteSettings, Resource.MemberListLink);
 
-			if ((Page.Header != null) && (CurrentPage.Url.Length > 0))
+			if (Page.Header != null && CurrentPage.Url.Length > 0)
 			{
 				Literal link = new Literal
 				{
@@ -129,7 +121,6 @@ namespace mojoPortal.Web.UI.Pages
 			else if (searchText.Length > 0 || ipSearchText.Length > 0)
 			{
 				BindForSearch();
-
 			}
 			else
 			{
@@ -154,6 +145,7 @@ namespace mojoPortal.Web.UI.Pages
 			}
 		}
 
+
 		private void BindAlphaList()
 		{
 			siteUserPage = SiteUser.GetPage(
@@ -169,6 +161,7 @@ namespace mojoPortal.Web.UI.Pages
 			if (pageNumber > totalPages)
 			{
 				pageNumber = 1;
+
 				siteUserPage = SiteUser.GetPage(
 					siteSettings.SiteId,
 					pageNumber,
@@ -180,6 +173,7 @@ namespace mojoPortal.Web.UI.Pages
 				);
 			}
 		}
+
 
 		private void BindForSearch()
 		{
@@ -215,12 +209,14 @@ namespace mojoPortal.Web.UI.Pages
 			}
 		}
 
+
 		private void PopulateModel()
 		{
 			model = new Models.MemberListModel
 			{
 				Users = siteUserPage,
 				DisplaySettings = displaySettings,
+
 				PagerInfo = new Models.PagerInfo
 				{
 					CurrentIndex = pageNumber,
@@ -237,6 +233,7 @@ namespace mojoPortal.Web.UI.Pages
 				}
 			};
 		}
+
 
 		void BindLockedUsers()
 		{
@@ -263,6 +260,7 @@ namespace mojoPortal.Web.UI.Pages
 				);
 			}
 		}
+
 
 		void BindNotApprovedUsers()
 		{
@@ -292,12 +290,14 @@ namespace mojoPortal.Web.UI.Pages
 			log.Debug($"found {siteUserPage.Count} users not approved");
 		}
 
+
 		private void PopulateLabels()
 		{
 			Title = SiteUtils.FormatPageTitle(siteSettings, Resource.MemberListLink);
 			MetaDescription = string.Format(CultureInfo.InvariantCulture,
 			Resource.MetaDescriptionMemberListFormat, siteSettings.SiteName);
 		}
+
 
 		private void LoadSettings()
 		{
@@ -334,6 +334,7 @@ namespace mojoPortal.Web.UI.Pages
 			{
 				searchText = Request.Params["search"].Trim();
 			}
+
 			ipSearchText = WebUtils.ParseStringFromQueryString("ips", ipSearchText);
 			showLocked = WebUtils.ParseBoolFromQueryString("locked", showLocked);
 			showUnApproved = WebUtils.ParseBoolFromQueryString("needapproval", showUnApproved);
@@ -376,6 +377,7 @@ namespace mojoPortal.Web.UI
 		public string AlphaPagerOtherPageCssClass { get; set; } = "ModulePager";
 		public string TableCssClass { get; set; } = string.Empty;
 		public string TableAttributes { get; set; } = "cellspacing='0' width='100%'";
+
 
 		protected override void Render(HtmlTextWriter writer)
 		{

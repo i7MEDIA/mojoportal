@@ -41,6 +41,7 @@
 
 	var showWebSiteColumn = false;
 	mojoProfileConfiguration profileConfig = mojoProfileConfiguration.GetConfig();
+
 	if (profileConfig != null)
 	{
 		if (profileConfig.Contains("WebSiteUrl"))
@@ -59,7 +60,9 @@
 
 	// displaySettings can be configured from theme.skin
 	if (displaySettings.HideWebSiteColumn)
-	{ showWebSiteColumn = false; }
+	{
+		showWebSiteColumn = false;
+	}
 
 	var thNameString = Resource.MemberListUserNameLabel;
 	var nameSortType = displaySettings.ShowFirstAndLastName ? 2 : 0;
@@ -74,55 +77,68 @@
 {
 	mojoPortal.Web.Models.BreadCrumbs crumbsModel = new mojoPortal.Web.Models.BreadCrumbs();
 	crumbsModel.Crumbs = new List<BreadCrumb>
-{
-new BreadCrumb { Text = Resource.AdminMenuLink, Url = siteRoot + "/Admin/AdminMenu.aspx"},
-new BreadCrumb { Text = Resource.MemberListLink, Url = pagePath}
-};
+	{
+		new BreadCrumb { Text = Resource.AdminMenuLink, Url = siteRoot + "/Admin/AdminMenu.aspx"},
+		new BreadCrumb { Text = Resource.MemberListLink, Url = pagePath}
+	};
 
 	Html.RenderPartial("_BreadCrumbs", crumbsModel);
 }
+
 <div class="row">
 	<div class="col-sm-6">
 		<h2 class="m-t-0 moduletitle">@Resource.MemberListTitleLabel </h2>
 	</div>
 
 	<div class="col-sm-6 text-right form-inline">
-		<div class="input-group">
-			<input type="text" id="txtSearch" class="form-control" placeholder="@Resource.MemberListSearchPlaceholder" value="@searchText" />
-			<span class="input-group-btn"><button type="button" id="btnSearchUser" class="btn btn-default" onclick="DoSearch('user');">@Resource.MemberListSearchButton</button></span>
+		<div id="searchUser" class="input-group">
+			<input type="text" id="txtSearch" class="form-control" placeholder="@Resource.MemberListSearchPlaceholder" value="@searchText" data-type="search" />
+			<span class="input-group-btn"><button type="button" id="btnSearchUser" class="btn btn-default">@Resource.MemberListSearchButton</button></span>
 		</div>
 	</div>
 </div>
+
 <hr />
+
 @if (canCreateUsers || canManageUsers)
 {
 	<div class="row m-b-gutter">
 		<div class="col-sm-12 form-inline">
-			<div class="input-group">
-				<input type="text" placeholder="@Resource.MemberListIPSearchPlaceholder" id="txtIPSearch" class="form-control" value="@ipSearchText">
-				<span class="input-group-btn"><button type="button" id="btnSearchIP" class="btn btn-default" onclick="DoSearch('ip');">@Resource.MemberListSearchByIPLabel</button></span>
-			</div>&nbsp;
+			<div id="searchIp" class="input-group">
+				<input type="text" placeholder="@Resource.MemberListIPSearchPlaceholder" id="txtIPSearch" class="form-control" value="@ipSearchText" data-type="ips">
+
+				<span class="input-group-btn">
+					<button type="button" id="btnSearchIP" class="btn btn-default">@Resource.MemberListSearchByIPLabel</button>
+				</span>
+			</div>
+			
+			&nbsp;
+
 			<a href="@siteRoot/Admin/ManageUsers.aspx?userId=-1" title="@Resource.MemberListAddUserTooltip" class="btn btn-success"><span class="fa fa-user-plus"></span>  @Resource.MemberListAddUserLabel</a>
+
 			@if (!showLocked)
 			{
 				<a href="@pagePath?locked=true" title="@Resource.ShowLockedOutUsersTooltip" class="btn btn-info"><span class="fa fa-user-times"></span> @Resource.ShowLockedOutUsers</a>
 			}
+
 			@if (siteSettings.RequireApprovalBeforeLogin && !showUnApproved)
 			{
 				<a href="@pagePath?needapproval=true" title="@Resource.ShowNotApprovedUsersTooltip" class="btn btn-info"><span class="fa fa-user-o"></span> @Resource.ShowNotApprovedUsers</a>
 			}
+
 			@if (showLocked || showUnApproved || !string.IsNullOrWhiteSpace(searchText) || !string.IsNullOrWhiteSpace(filterLetter) || !string.IsNullOrWhiteSpace(ipSearchText))
 			{
 				<a href="@pagePath" title="@Resource.MemberListShowAllTooltip" class="btn btn-warning pull-right"><span class="fa fa-times"></span> @Resource.MemberListShowAllLabel</a>
 			}
-
 		</div>
 	</div>
 }
+
 <div class="modulepager">
 	<div class="member-list">
 		<ul>
 			<li><a href="@pagePath">@Resource.MemberListAllUsersLink</a></li>
+
 			@foreach (char c in Resource.AlphaPagerChars)
 			{
 				<li><a class="@(filterLetter == c.ToString() ? "active" : "")" href="@pagePath?sd=2&pagenumber=1&letter=@c.ToString()">@c</a></li>
@@ -137,21 +153,26 @@ new BreadCrumb { Text = Resource.MemberListLink, Url = pagePath}
 			<th>
 				<a href="@pagePath?sd=@nameSortType">@thNameString</a>
 			</th>
+
 			@if (showJoinDate)
 			{
 				<th><a href="@pagePath?sd=1">@Resource.MemberListDateCreatedLabel</a></th>
 			}
+
 			@if (showWebSiteColumn)
 			{
 				<th>@Resource.MemberListUserWebSiteLabel</th>
 			}
+
 			@if (showForumPostColumn)
 			{
 				<th>@Resource.MemberListUserTotalPostsLabel</th>
 			}
+
 			<th></th>
 		</tr>
 	</thead>
+
 	<tbody>
 		@if (Model.Users != null)
 		{
@@ -161,13 +182,16 @@ new BreadCrumb { Text = Resource.MemberListLink, Url = pagePath}
 					<td>
 						@{
 							var nameString = user.Name;
+
 							if ((displaySettings.ShowFirstAndLastName) && (user.FirstName.Length > 0) && (user.LastName.Length > 0))
 							{
 								nameString = string.Format(CultureInfo.InvariantCulture, Resource.MemberListNameFormat, user.LastName, user.FirstName);
 							}
 						}
+
 						<span class="avatar"><img src="@(string.IsNullOrWhiteSpace(user.AvatarUrl) ? WebUtils.ResolveUrl("~/Data/SiteImages/anonymous.png") : siteAvatarPath + "/" + user.AvatarUrl)" style="width: 35px; height: 35px;" /></span>
 						<span class="name">@nameString</span>
+
 						@if (showEmailInMemberList || showLoginNameInMemberList || showUserIDInMemberList || (isAdmin && !user.DisplayInMemberList))
 						{
 							<ul class="list-unstyled">
@@ -175,14 +199,17 @@ new BreadCrumb { Text = Resource.MemberListLink, Url = pagePath}
 								{
 									<li class="email"><a href="mailto:@user.Email">@user.Email</a></li>
 								}
+
 								@if (showLoginNameInMemberList)
 								{
 									<li class="login">@user.LoginName</li>
 								}
+
 								@if (showUserIDInMemberList)
 								{
 									<li class="userid">@Resource.RegisterLoginNameLabel @user.UserId</li>
 								}
+
 								@if (isAdmin && !user.DisplayInMemberList)
 								{
 									<li class="text-danger">@Resources.Resource.HiddenUser</li>
@@ -190,22 +217,29 @@ new BreadCrumb { Text = Resource.MemberListLink, Url = pagePath}
 							</ul>
 						}
 					</td>
+
 					@if (showJoinDate)
 					{
 						<td>@DateTimeHelper.Format(user.DateCreated, timeZone, "d", timeOffset)</td>
 					}
+
 					@if (showWebSiteColumn)
 					{
 						<td><a rel="nofollow noreferrer noopener" href="@user.WebSiteUrl">@user.WebSiteUrl</a></td>
 					}
+
 					@if (showForumPostColumn)
 					{
 						<td>@user.TotalPosts</td>
 					}
+
 					<td>
 						<a href="@(siteRoot)/ProfileView.aspx?userid=@user.UserId" class="btn btn-link">@Resource.MemberListViewProfileLabel</a>
+
 						@if (canManageUsers)
-						{<a href="@(siteRoot)/Admin/ManageUsers.aspx?userid=@user.UserId" class="btn btn-warning">@Resource.ManageUserLink</a>}
+						{
+							<a href="@(siteRoot)/Admin/ManageUsers.aspx?userid=@user.UserId" class="btn btn-warning">@Resource.ManageUserLink</a>
+						}
 					</td>
 				</tr>
 			}
@@ -216,50 +250,51 @@ new BreadCrumb { Text = Resource.MemberListLink, Url = pagePath}
 @if (Model.PagerInfo.PageCount > 0)
 {
 	var pagerModel = Model.PagerInfo;
+
 	Html.RenderPartial("_Pager", pagerModel);
 }
 
 <script type="text/javascript">
+	(() => {
+		function onSearch(type, value) {
+			const url = new URL('@pagePath');
 
-	function DoSearch(type) {
-		var search;
-		var url = '@pagePath?';
-		if (type === "user") {
-			search = document.getElementById('txtSearch');
-			url += "search=";
-		}
-		else if (type === "ip") {
-			search = document.getElementById('txtIPSearch');
-			url += "ips=";
+			url.searchParams.set(type, encodeURIComponent(value));
+
+			window.location.href = url;
 		}
 
-		var searchValue = encodeURIComponent(search.value);  // encode the search query
-		window.location.href = url + searchValue;
-	}
+		function onClick(e, input) {
+			e.preventDefault();
 
-	var txtSearch = document.getElementById("txtSearch");
-
-	// Execute a function when the user releases a key on the keyboard
-	txtSearch.addEventListener("keyup", function (event) {
-		// Number 13 is the "Enter" key on the keyboard
-		if (event.keyCode === 13) {
-			// Cancel the default action, if needed
-			event.preventDefault();
-			// Trigger the button element with a click
-			DoSearch("user");
+			if (input.value.trim() !== '') {
+				onSearch(input.dataset.type, input.value);
+			}
 		}
-	});
 
-	var txtIPSearch = document.getElementById("txtIPSearch");
-	// Execute a function when the user releases a key on the keyboard
-	txtIPSearch.addEventListener("keyup", function (event) {
-		// Number 13 is the "Enter" key on the keyboard
-		if (event.keyCode === 13) {
-			// Cancel the default action, if needed
-			event.preventDefault();
-			// Trigger the button element with a click
-			DoSearch("ip");
+		function onEnter(e) {
+			e.preventDefault();
+
+			if (e.key === 'Enter' && this.value.trim() !== '') {
+				onSearch(this.dataset.type, this.value);
+			}
 		}
-	});
 
+		function bindSearch(selector) {
+			const group = document.querySelector(selector);
+			const btn = group.querySelector('button');
+			const input = group.querySelector('input');
+
+			btn.addEventListener('click', function (e) {
+				onClick.call(this, e, input);
+			});
+
+			input.addEventListener('keyup', function (e) {
+				onEnter.call(this, e);
+			});
+		}
+
+		bindSearch('#searchUser');
+		bindSearch('#searchIp');
+	})();
 </script>
