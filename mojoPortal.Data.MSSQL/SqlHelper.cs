@@ -22,267 +22,256 @@ using System.Data.SqlClient;
 
 namespace mojoPortal.Data
 {
-	public static class SqlHelper
-	{
-		private static void PrepareCommand(
-			SqlCommand command,
-			SqlConnection connection,
-			SqlTransaction transaction,
-			CommandType commandType,
-			string commandText,
-			SqlParameter[] commandParameters
-		)
-		{
-			if (command == null)
-			{
-				throw new ArgumentNullException("command");
-			}
+    public static class SqlHelper
+    {
+        private static void PrepareCommand(
+            SqlCommand command,
+            SqlConnection connection,
+            SqlTransaction transaction,
+            CommandType commandType,
+            string commandText,
+            SqlParameter[] commandParameters)
+        {
+            if (command == null) throw new ArgumentNullException("command");
+            if (string.IsNullOrEmpty(commandText)) throw new ArgumentNullException("commandText");
 
-			if (string.IsNullOrEmpty(commandText))
-			{
-				throw new ArgumentNullException("commandText");
-			}
+            command.CommandType = commandType;
+            command.CommandText = commandText;
+            command.Connection = connection;
+            
+            if (transaction != null)
+            {
+                if (transaction.Connection == null) throw new ArgumentException("The transaction was rollbacked or commited, please provide an open transaction.", "transaction");
+                command.Transaction = transaction;
+            }
 
-			command.CommandType = commandType;
-			command.CommandText = commandText;
-			command.Connection = connection;
+            if (commandParameters != null) { AttachParameters(command, commandParameters); } 
+        }
 
-			if (transaction != null)
-			{
-				if (transaction.Connection == null)
-				{
-					throw new ArgumentException("The transaction was rollbacked or commited, please provide an open transaction.", "transaction");
-				}
+        private static void AttachParameters(SqlCommand command, SqlParameter[] commandParameters)
+        {
+            if (command == null) throw new ArgumentNullException("command");
+            if (commandParameters != null)
+            {
+                foreach (SqlParameter p in commandParameters)
+                {
+                    if (p != null)
+                    {
+                        if ((p.Direction == ParameterDirection.InputOutput ||
+                            p.Direction == ParameterDirection.Input) &&
+                            (p.Value == null))
+                        {
+                            p.Value = DBNull.Value;
+                        }
+                        command.Parameters.Add(p);
+                    }
+                }
+            }
+        }
 
-				command.Transaction = transaction;
-			}
+        public static int ExecuteNonQuery(string connectionString, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
+        {
+            int commandTimeout = 30; //30 seconds default http://msdn.microsoft.com/en-us/library/system.data.sqlclient.sqlcommand.commandtimeout.aspx
 
-			if (commandParameters != null)
-			{
-				AttachParameters(command, commandParameters);
-			}
-		}
+            return ExecuteNonQuery(connectionString, commandType, commandText, commandTimeout, commandParameters);
 
+            //if (connectionString == null || connectionString.Length == 0) throw new ArgumentNullException("connectionString");
+            //using (SqlConnection connection = new SqlConnection(connectionString))
+            //{
+            //    connection.Open();
+            //    using (SqlCommand command = new SqlCommand())
+            //    {
+            //        PrepareCommand(command, connection, null, commandType, commandText, commandParameters);
+            //        return command.ExecuteNonQuery();   
+            //    }
+            //}
+        }
 
-		private static void AttachParameters(SqlCommand command, SqlParameter[] commandParameters)
-		{
-			if (command == null)
-			{
-				throw new ArgumentNullException("command");
-			}
+        public static int ExecuteNonQuery(string connectionString, CommandType commandType, string commandText, int commandTimeout, params SqlParameter[] commandParameters)
+        {
+            if (connectionString == null || connectionString.Length == 0) throw new ArgumentNullException("connectionString");
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    PrepareCommand(command, connection, null, commandType, commandText, commandParameters);
+                    command.CommandTimeout = commandTimeout;
+                    return command.ExecuteNonQuery();
+                }
+            }
+        }
 
-			if (commandParameters != null)
-			{
-				foreach (SqlParameter p in commandParameters)
-				{
-					if (p != null)
-					{
-						if (
-							(
-								p.Direction == ParameterDirection.InputOutput ||
-								p.Direction == ParameterDirection.Input
-							) &&
-							p.Value == null
-						)
-						{
-							p.Value = DBNull.Value;
-						}
+        public static int ExecuteNonQuery(
+            SqlTransaction transaction,
+            CommandType commandType,
+            string commandText,
+            params SqlParameter[] commandParameters)
+        {
+            int commandTimeout = 30; //30 seconds default
 
-						command.Parameters.Add(p);
-					}
-				}
-			}
-		}
+            return ExecuteNonQuery(transaction, commandType, commandText, commandTimeout, commandParameters);
 
+            //if (transaction == null) throw new ArgumentNullException("transaction");
+            //if (transaction != null && transaction.Connection == null) throw new ArgumentException("The transaction was rollbacked or commited, please provide an open transaction.", "transaction");
 
-		public static int ExecuteNonQuery(string connectionString, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
-		{
-			int commandTimeout = 30; //30 seconds default http://msdn.microsoft.com/en-us/library/system.data.sqlclient.sqlcommand.commandtimeout.aspx
+            //using (SqlCommand command = new SqlCommand())
+            //{
+            //    PrepareCommand(
+            //        command,
+            //        transaction.Connection,
+            //        transaction,
+            //        commandType,
+            //        commandText,
+            //        commandParameters);
 
-			return ExecuteNonQuery(connectionString, commandType, commandText, commandTimeout, commandParameters);
-		}
+            //    return command.ExecuteNonQuery();
+            //} 
+        }
 
+        public static int ExecuteNonQuery(
+            SqlTransaction transaction,
+            CommandType commandType,
+            string commandText,
+            int commandTimeout,
+            params SqlParameter[] commandParameters)
+        {
+            if (transaction == null) throw new ArgumentNullException("transaction");
+            if (transaction != null && transaction.Connection == null) throw new ArgumentException("The transaction was rollbacked or commited, please provide an open transaction.", "transaction");
 
-		public static int ExecuteNonQuery(string connectionString, CommandType commandType, string commandText, int commandTimeout, params SqlParameter[] commandParameters)
-		{
-			if (connectionString == null || connectionString.Length == 0)
-			{
-				throw new ArgumentNullException("connectionString");
-			}
+            using (SqlCommand command = new SqlCommand())
+            {
+                PrepareCommand(
+                    command,
+                    transaction.Connection,
+                    transaction,
+                    commandType,
+                    commandText,
+                    commandParameters);
 
-			using (var connection = new SqlConnection(connectionString))
-			{
-				connection.Open();
+                command.CommandTimeout = commandTimeout;
 
-				using (var command = new SqlCommand())
-				{
-					PrepareCommand(command, connection, null, commandType, commandText, commandParameters);
-					command.CommandTimeout = commandTimeout;
+                return command.ExecuteNonQuery();
+            }
+        }
 
-					return command.ExecuteNonQuery();
-				}
-			}
-		}
+        public static SqlDataReader ExecuteReader(string connectionString, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
+        {
+            int commandTimeout = 30; //30 seconds default
+            return ExecuteReader(connectionString, commandType, commandText, commandTimeout, commandParameters);
 
+            //if (connectionString == null || connectionString.Length == 0) throw new ArgumentNullException("connectionString");
+            //SqlConnection connection = null;
+            //try
+            //{
+            //    connection = new SqlConnection(connectionString);
+            //    connection.Open();
+            //    using (SqlCommand command = new SqlCommand())
+            //    {
+            //        PrepareCommand(
+            //            command,
+            //            connection,
+            //            null,
+            //            commandType,
+            //            commandText,
+            //            commandParameters);
 
-		public static int ExecuteNonQuery(
-			SqlTransaction transaction,
-			CommandType commandType,
-			string commandText,
-			params SqlParameter[] commandParameters
-		)
-		{
-			int commandTimeout = 30; //30 seconds default
+            //        return command.ExecuteReader(CommandBehavior.CloseConnection);
+            //    }
+            //}
+            //catch
+            //{
+            //    if ((connection != null) && (connection.State == ConnectionState.Open)) { connection.Close(); }
+            //    throw;
+            //}
+        }
 
-			return ExecuteNonQuery(transaction, commandType, commandText, commandTimeout, commandParameters);
-		}
+        public static SqlDataReader ExecuteReader(string connectionString, CommandType commandType, string commandText, int commandTimeout, params SqlParameter[] commandParameters)
+        {
+            if (connectionString == null || connectionString.Length == 0) throw new ArgumentNullException("connectionString");
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(connectionString);
+                connection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    PrepareCommand(
+                        command,
+                        connection,
+                        null,
+                        commandType,
+                        commandText,
+                        commandParameters);
 
+                    command.CommandTimeout = commandTimeout;
 
-		public static int ExecuteNonQuery(
-			SqlTransaction transaction,
-			CommandType commandType,
-			string commandText,
-			int commandTimeout,
-			params SqlParameter[] commandParameters
-		)
-		{
-			if (transaction == null)
-			{
-				throw new ArgumentNullException("transaction");
-			}
+                    return command.ExecuteReader(CommandBehavior.CloseConnection);
+                }
+            }
+            catch
+            {
+                if ((connection != null) && (connection.State == ConnectionState.Open)) { connection.Close(); }
+                throw;
+            }
+        }
 
-			if (transaction != null && transaction.Connection == null)
-			{
-				throw new ArgumentException("The transaction was rollbacked or commited, please provide an open transaction.", "transaction");
-			}
+        public static object ExecuteScalar(string connectionString, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
+        {
+            int commandTimeout = 30; //30 seconds default
+            return ExecuteScalar(connectionString, commandType, commandText, commandTimeout, commandParameters);
 
-			using (var command = new SqlCommand())
-			{
-				PrepareCommand(
-					command,
-					transaction.Connection,
-					transaction,
-					commandType,
-					commandText,
-					commandParameters);
+            //if (connectionString == null || connectionString.Length == 0) throw new ArgumentNullException("connectionString");
+            //using (SqlConnection connection = new SqlConnection(connectionString))
+            //{
+            //    connection.Open();
+            //    using (SqlCommand command = new SqlCommand())
+            //    {
+            //        PrepareCommand(command, connection, (SqlTransaction)null, commandType, commandText, commandParameters);
+            //        return command.ExecuteScalar();
+            //    }
+            //}
+        }
 
-				command.CommandTimeout = commandTimeout;
+        public static object ExecuteScalar(string connectionString, CommandType commandType, string commandText, int commandTimeout, params SqlParameter[] commandParameters)
+        {
+            if (connectionString == null || connectionString.Length == 0) throw new ArgumentNullException("connectionString");
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    PrepareCommand(command, connection, (SqlTransaction)null, commandType, commandText, commandParameters);
+                    command.CommandTimeout = commandTimeout;
 
-				return command.ExecuteNonQuery();
-			}
-		}
+                    return command.ExecuteScalar();
+                }
+            }
+        }
 
+        public static DataSet ExecuteDataset(string connectionString, CommandType commandType, string commandText)
+        {
+            return ExecuteDataset(connectionString, commandType, commandText, (SqlParameter[])null);
+        }
 
-		public static SqlDataReader ExecuteReader(string connectionString, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
-		{
-			int commandTimeout = 30; //30 seconds default
+        public static DataSet ExecuteDataset(string connectionString, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
+        {
+            if (connectionString == null || connectionString.Length == 0) throw new ArgumentNullException("connectionString");
 
-			return ExecuteReader(connectionString, commandType, commandText, commandTimeout, commandParameters);
-		}
-
-
-		public static SqlDataReader ExecuteReader(string connectionString, CommandType commandType, string commandText, int commandTimeout, params SqlParameter[] commandParameters)
-		{
-			if (connectionString == null || connectionString.Length == 0)
-			{
-				throw new ArgumentNullException("connectionString");
-			}
-
-			SqlConnection connection = null;
-
-			try
-			{
-				connection = new SqlConnection(connectionString);
-				connection.Open();
-
-				using (var command = new SqlCommand())
-				{
-					PrepareCommand(
-						command,
-						connection,
-						null,
-						commandType,
-						commandText,
-						commandParameters
-					);
-
-					command.CommandTimeout = commandTimeout;
-
-					return command.ExecuteReader(CommandBehavior.CloseConnection);
-				}
-			}
-			catch
-			{
-				if (connection != null && connection.State == ConnectionState.Open)
-				{
-					connection.Close();
-				}
-
-				throw;
-			}
-		}
-
-
-		public static object ExecuteScalar(string connectionString, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
-		{
-			int commandTimeout = 30; //30 seconds default
-
-			return ExecuteScalar(connectionString, commandType, commandText, commandTimeout, commandParameters);
-		}
-
-
-		public static object ExecuteScalar(string connectionString, CommandType commandType, string commandText, int commandTimeout, params SqlParameter[] commandParameters)
-		{
-			if (connectionString == null || connectionString.Length == 0)
-			{
-				throw new ArgumentNullException("connectionString");
-			}
-
-			using (var connection = new SqlConnection(connectionString))
-			{
-				connection.Open();
-
-				using (var command = new SqlCommand())
-				{
-					PrepareCommand(command, connection, null, commandType, commandText, commandParameters);
-					command.CommandTimeout = commandTimeout;
-
-					return command.ExecuteScalar();
-				}
-			}
-		}
-
-
-		public static DataSet ExecuteDataset(string connectionString, CommandType commandType, string commandText)
-		{
-			return ExecuteDataset(connectionString, commandType, commandText, null);
-		}
-
-
-		public static DataSet ExecuteDataset(string connectionString, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
-		{
-			if (connectionString == null || connectionString.Length == 0)
-			{
-				throw new ArgumentNullException("connectionString");
-			}
-
-			using (var connection = new SqlConnection(connectionString))
-			{
-				connection.Open();
-
-				using (var command = new SqlCommand())
-				{
-					PrepareCommand(command, connection, null, commandType, commandText, commandParameters);
-
-					using (var adpater = new SqlDataAdapter(command))
-					{
-						DataSet dataSet = new DataSet();
-						adpater.Fill(dataSet);
-
-						return dataSet;
-					}
-				}
-			}
-		}
-	}
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    PrepareCommand(command, connection, (SqlTransaction)null, commandType, commandText, commandParameters);
+                    using (SqlDataAdapter adpater = new SqlDataAdapter(command))
+                    {
+                        DataSet dataSet = new DataSet();
+                        adpater.Fill(dataSet);
+                        return dataSet;
+                    }
+                }
+            }
+        }
+    }
 }

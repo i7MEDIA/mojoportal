@@ -19,10 +19,11 @@ namespace mojoPortal.Web.GalleryUI
 		private Literal imageLink;
 		private Gallery gallery;
 		private GalleryConfiguration config = new GalleryConfiguration();
+		private string imageFolderPath;
 		private int thumbsPerPage = 999;
 		private int itemId = -1;
-		//private string ViewImagePage = "GalleryBrowse.aspx";
-		//private int totalRows = 0;
+		private string ViewImagePage = "GalleryBrowse.aspx";
+		private int totalRows = 0;
 		private string baseUrl = string.Empty;
 		protected string thumnailBaseUrl = string.Empty;
 		protected string webSizeBaseUrl = string.Empty;
@@ -219,7 +220,7 @@ $(document).ready(function() {{
 			{
 				TotalPages = Convert.ToInt32(dt.Rows[0]["TotalPages"]);
 				itemId = Convert.ToInt32(dt.Rows[0]["ItemID"]);
-				//totalRows = thumbsPerPage * TotalPages;
+				totalRows = thumbsPerPage * TotalPages;
 			}
 
 			//this handles issue: when redirected back to page from edit page
@@ -511,6 +512,7 @@ $(document).ready(function() {{
 			webSizeBaseUrl = baseUrl + "WebImages/";
 			fullSizeBaseUrl = baseUrl + "FullSizeImages/";
 
+			imageFolderPath = HttpContext.Current.Server.MapPath(baseUrl);
 			thumbsPerPage = config.ThumbsPerPage;
 			UseCompactMode = config.UseCompactMode;
 
