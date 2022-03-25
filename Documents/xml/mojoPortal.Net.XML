@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>mojoPortal.Net</name>
+    </assembly>
+    <members>
+        <member name="T:mojoPortal.Net.Email">
+            <summary>
+            A class for sending email.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Net.Email.SendEmailNormal(mojoPortal.Net.SmtpSettings,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            This method uses the built in .NET classes to send mail.
+            </summary>
+            <param name="smtpSettings"></param>
+            <param name="from"></param>
+            <param name="to"></param>
+            <param name="cc"></param>
+            <param name="bcc"></param>
+            <param name="subject"></param>
+            <param name="messageBody"></param>
+            <param name="html"></param>
+            <param name="priority"></param>
+        </member>
+        <member name="M:mojoPortal.Net.Email.SendEmailNormal(mojoPortal.Net.SmtpSettings,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            This method uses the built in .NET classes to send mail.
+            </summary>
+            <param name="smtpSettings"></param>
+            <param name="from"></param>
+            <param name="replyTo"></param>
+            <param name="to"></param>
+            <param name="cc"></param>
+            <param name="bcc"></param>
+            <param name="subject"></param>
+            <param name="messageBody"></param>
+            <param name="html"></param>
+            <param name="priority"></param>
+        </member>
+        <member name="M:mojoPortal.Net.Email.SendEmailNormal(mojoPortal.Net.SmtpSettings,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String[],System.String[])">
+            <summary>
+            This method uses the built in .NET classes to send mail.
+            </summary>
+            <param name="smtpSettings"></param>
+            <param name="from"></param>
+            <param name="replyTo"></param>
+            <param name="to"></param>
+            <param name="cc"></param>
+            <param name="bcc"></param>
+            <param name="subject"></param>
+            <param name="messageBody"></param>
+            <param name="html"></param>
+            <param name="priority"></param>
+            <param name="attachmentPaths"></param>
+            <param name="attachmentNames"></param>
+        </member>
+        <member name="M:mojoPortal.Net.Email.Send(mojoPortal.Net.SmtpSettings,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String[],System.String[])">
+            <summary>
+            This method uses the built in .NET classes to send mail.
+            </summary>
+            <param name="smtpSettings"></param>
+            <param name="from"></param>
+            <param name="replyTo"></param>
+            <param name="to"></param>
+            <param name="cc"></param>
+            <param name="bcc"></param>
+            <param name="subject"></param>
+            <param name="messageBody"></param>
+            <param name="html"></param>
+            <param name="priority"></param>
+            <param name="attachmentPaths"></param>
+            <param name="attachmentNames"></param>
+        </member>
+        <member name="M:mojoPortal.Net.Email.Send(mojoPortal.Net.SmtpSettings,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String[],System.String[],System.String@)">
+            <summary>
+            This method uses the built in .NET classes to send mail.
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Net.Notification">
+            <summary>
+            this class is deprecated, better to create an EmailMessageTask messageTask = new EmailMessageTask(SiteUtils.GetSmtpSettings());
+            </summary>
+        </member>
+    </members>
+</doc>

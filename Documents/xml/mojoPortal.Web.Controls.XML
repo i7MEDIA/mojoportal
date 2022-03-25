@@ -1,0 +1,1968 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>mojoPortal.Web.Controls</name>
+    </assembly>
+    <members>
+        <member name="T:mojoPortal.Web.Controls.Captcha.CaptchaConfiguration">
+             <summary>
+             Author:		        
+             Created:            2007-08-15
+             Last Modified:      2007-08-15
+             
+             Licensed under the terms of the GNU Lesser General Public License:
+            	http://www.opensource.org/licenses/lgpl-license.php
+            
+             You must not remove this notice, or any other, from this software.
+             
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.Captcha.CaptchaManager">
+             <summary>
+             Author:		        
+             Created:            2007-08-15
+             Last Modified:      2007-08-15
+             
+             Licensed under the terms of the GNU Lesser General Public License:
+            	http://www.opensource.org/licenses/lgpl-license.php
+            
+             You must not remove this notice, or any other, from this software.
+             
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.Captcha.CaptchaProvider">
+             <summary>
+             Author:		        
+             Created:            2007-08-15
+             Last Modified:      2007-08-15
+             
+             The use and distribution terms for this software are covered by the 
+             Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+             which can be found in the file CPL.TXT at the root of this distribution.
+             By using this software in any fashion, you are agreeing to be bound by 
+             the terms of this license.
+            
+             You must not remove this notice, or any other, from this software.
+              
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.Captcha.CaptchaProviderCollection">
+             <summary>
+             Author:		        
+             Created:            2007-08-15
+             Last Modified:      2007-08-15
+             
+             Licensed under the terms of the GNU Lesser General Public License:
+            	http://www.opensource.org/licenses/lgpl-license.php
+            
+             You must not remove this notice, or any other, from this software.
+             
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.Captcha.SimpleMathCaptchaProvider">
+             <summary>
+             Author:		        
+             Created:            2007-08-16
+             Last Modified:      2007-08-16
+             
+             The use and distribution terms for this software are covered by the 
+             Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+             which can be found in the file CPL.TXT at the root of this distribution.
+             By using this software in any fashion, you are agreeing to be bound by 
+             the terms of this license.
+            
+             You must not remove this notice, or any other, from this software.
+              
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.Captcha.SubkismetCaptchaProvider">
+             <summary>
+             Author:		        
+             Created:            2007-08-16
+             Last Modified:      2007-08-16
+             
+             The use and distribution terms for this software are covered by the 
+             Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+             which can be found in the file CPL.TXT at the root of this distribution.
+             By using this software in any fashion, you are agreeing to be bound by 
+             the terms of this license.
+            
+             You must not remove this notice, or any other, from this software.
+              
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.Captcha.SubkismetInvisibleCaptchaProvider">
+             <summary>
+             Author:		        
+             Created:            2007-08-17
+             Last Modified:      2007-08-17
+             
+             Licensed under the terms of the GNU Lesser General Public License:
+            	http://www.opensource.org/licenses/lgpl-license.php
+            
+             You must not remove this notice, or any other, from this software.
+             
+             </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.CaptchaControl.RecaptchaPrivateKey">
+            <summary>
+            deprecated not used internally properties remain only for backward compat with custom modules
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.CaptchaControl.RecaptchaPublicKey">
+            <summary>
+            deprecated not used internally properties remain only for backward compat with custom modules
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.CollapseLinkButton">
+             <summary>
+            	Author:				
+            	Created:			2006-07-30
+            	Last Modified:		2007-08-30
+             
+             The use and distribution terms for this software are covered by the 
+             Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+             which can be found in the file CPL.TXT at the root of this distribution.
+             By using this software in any fashion, you are agreeing to be bound by 
+             the terms of this license.
+            
+             You must not remove this notice, or any other, from this software.
+              		
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.CornerRounderBottom">
+             <summary>
+             If DoRounding is true renders botom elements for
+             Corner Rounding Based on Nifty Corners: rounded corners 
+             without images By Alessandro Fulciniti
+             http://www.html.it/articoli/nifty/index.html
+             
+             Tip: this property can be set in theme.skin file for a skin
+             to turn rounded corners on or off. The rounding is actually 
+             done by css, this control only adds markup (extra unsemantic divs)
+             that the css is applied to for the rounding effect.
+             
+             Example css
+            .rtop, .rbottom{display: block;}
+            .rtop, .rbottom{background: #414141;}
+            .rtop .r1, .rtop .r2, .rtop .r3, .rtop .r4,
+            .rbottom .r1, .rbottom .r2, .rbottom .r3, .rbottom .r4{background: #545454;}
+            .rtop .r1, .rtop .r2, .rtop .r3, .rtop .r4,
+            .rbottom .r1, .rbottom .r2, .rbottom .r3, .rbottom .r4
+            { display: block;height: 1px;overflow: hidden; }
+            .r1{margin: 0 5px}
+            .r2{margin: 0 3px}
+            .r3{margin: 0 2px}
+            .rtop .r4, .rbottom .r4{ margin: 0 1px; height: 2px }
+            .rbottom { margin-bottom:10px;  }
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.CornerRounderTop">
+             <summary>
+             If DoRounding is true renders top elements for
+             Corner Rounding Based on Nifty Corners: rounded corners 
+             without images By Alessandro Fulciniti
+             http://www.html.it/articoli/nifty/index.html
+             
+             Tip: this property can be set in theme.skin file for a skin
+             to turn rounded corners on or off. The rounding is actually 
+             done by css, this control only adds markup (extra unsemantic divs)
+             that the css is applied to for the rounding effect.
+             
+             Example css
+            .rtop, .rbottom{display: block;}
+            .rtop, .rbottom{background: #414141;}
+            .rtop .r1, .rtop .r2, .rtop .r3, .rtop .r4,
+            .rbottom .r1, .rbottom .r2, .rbottom .r3, .rbottom .r4{background: #545454;}
+            .rtop .r1, .rtop .r2, .rtop .r3, .rtop .r4,
+            .rbottom .r1, .rbottom .r2, .rbottom .r3, .rbottom .r4
+            { display: block;height: 1px;overflow: hidden; }
+            .r1{margin: 0 5px}
+            .r2{margin: 0 3px}
+            .r3{margin: 0 2px}
+            .rtop .r4, .rbottom .r4{ margin: 0 1px; height: 2px }
+            .rbottom { margin-bottom:10px;  }
+             </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.CutePager.RenderNavElement">
+            <summary>
+            if true an html 5 nav element is wrapped arround the pager
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.DataCalendar">
+            <summary>
+            Code sample by Mike Ellison from article
+            http://www.codeproject.com/aspnet/MellDataCalendar.asp
+            
+            subclass of the ASP.NET Calendar control for
+            displaying events from a DataTable with support
+            for templates
+            
+            Mike has given permission to use this as we will with no conditions
+            though he does appreciate any reference to him in the credits or code
+            
+            Last Modified:		2008-01-28 
+            
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.DataCalendarItem">
+            <summary>
+            Based on an article by Mike Ellison
+            http://www.codeproject.com/aspnet/MellDataCalendar.asp
+            
+            allowing for databinding syntax like the following
+            to be used in the .aspx page:
+                
+            
+            Last Modified:		4/10/2005 
+            
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.DatePicker.DatePickerConfiguration">
+             <summary>
+             Author:		        
+             Created:            2007-11-07
+             Last Modified:      2007-11-07
+             
+             Licensed under the terms of the GNU Lesser General Public License:
+            	http://www.opensource.org/licenses/lgpl-license.php
+            
+             You must not remove this notice, or any other, from this software.
+             
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.DatePicker.DatePickerManager">
+             <summary>
+             Author:		        
+             Created:            2007-11-07
+             Last Modified:      2007-11-07
+             
+             Licensed under the terms of the GNU Lesser General Public License:
+            	http://www.opensource.org/licenses/lgpl-license.php
+            
+             You must not remove this notice, or any other, from this software.
+             
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.DatePicker.DatePickerProvider">
+             <summary>
+             Author:		        
+             Created:            2007-11-07
+             Last Modified:      2007-11-07
+             
+             Licensed under the terms of the GNU Lesser General Public License:
+            	http://www.opensource.org/licenses/lgpl-license.php
+            
+             You must not remove this notice, or any other, from this software.
+             
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.DatePicker.DatePickerProviderCollection">
+             <summary>
+             Author:		        
+             Created:            2007-11-07
+             Last Modified:      2007-11-07
+             
+             Licensed under the terms of the GNU Lesser General Public License:
+            	http://www.opensource.org/licenses/lgpl-license.php
+            
+             You must not remove this notice, or any other, from this software.
+             
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.DatePicker.jsCalendarDatePickerProvider">
+             <summary>
+             Author:		        
+             Created:            2007-11-07
+             Last Modified:      2007-11-07
+             
+             Licensed under the terms of the GNU Lesser General Public License:
+            	http://www.opensource.org/licenses/lgpl-license.php
+            
+             You must not remove this notice, or any other, from this software.
+             
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.CalendarDay">
+            <devdoc>
+               <para> Represents a calendar day.</para>
+            </devdoc>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.CalendarDay.#ctor(System.DateTime,System.Boolean,System.Boolean,System.Boolean,System.String)">
+            <devdoc>
+               <para>[To be supplied.]</para>
+            </devdoc>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.CalendarDay.Date">
+            <devdoc>
+               <para> Gets the date represented by an instance of this class. This
+                  property is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.CalendarDay.DayNumberText">
+            <devdoc>
+               <para>Gets the string equivilent of the date represented by an instance of this class. This property is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.CalendarDay.IsOtherMonth">
+            <devdoc>
+               <para>Gets a value indicating whether the date represented by an instance of
+                  this class is in a different month from the month currently being displayed. This
+                  property is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.CalendarDay.IsToday">
+            <devdoc>
+               <para>Gets a value indicating whether the date represented by an instance of this class is today's date. This property is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.CalendarDay.IsWeekend">
+            <devdoc>
+               <para>Gets a value indicating whether the date represented by an instance of
+                  this class is on a weekend day. This property is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.EventCalendarControl">
+            <summary>
+            A Calendar control that can be databound to a data source to show events
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.EventCalendarControl.DayField">
+            <summary>
+            The name of the field in the dataset that will represent the datetime
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.EventCalendarControl.DayEventTemplate">
+            <summary>
+            The template for the databound items
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.FlashMovie">
+            <summary>
+            Added 2007/04/26
+            Adapted from Code Project Article
+            http://www.codeproject.com/aspnet/swfobject_server_control.asp
+            Last Modified:  2007/05/01
+            
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.FlexibleGridView">
+            <summary>
+            Based on a custom GridView by Matt Berseth:
+            http://mattberseth.com/blog/2007/07/how_to_show_header_and_footer.html
+            
+            It allows header and footer to be shown even the there is no data
+            in the GridView.
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.Album">
+            <summary>
+            The photo album handler.
+            This class can act as an HttpHandler or as a Control. IHttpHandler,
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.Album.backGroundColor">
+            <summary>
+            The background color of the image thumbnails and previews.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.Album.borderColor">
+            <summary>
+            The color used to draw borders around image thumbnails and previews.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.BackToFolderViewTooltip">
+            <summary>
+            The tooltip for going back to the folder view from the image preview.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.BackToParentText">
+            <summary>
+            The text of the back to parent link.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.BackToParentTooltip">
+            <summary>
+            Tooltip for going back to the parent folder.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.CssClass">
+            <summary>
+            The top CSS class for the control.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.DetailsLinkCssClass">
+            <summary>
+            The CSS class for the details (meta-data) link in the preview pages.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.DetailsText">
+            <summary>
+            The text for the details (meta-data) link in the preview pages.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.DisplayImageTooltip">
+            <summary>
+            The tooltip for displaying the preview page.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.DisplayFullResolutionTooltip">
+            <summary>
+            Tooltip for seeing the image at full resolution.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.FolderModeTemplate">
+            <summary>
+            The template for the folder mode.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.ImageDivCssClass">
+            <summary>
+            The CSS class for a thumbnail.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.MetaNameCssClass">
+            <summary>
+            CSS class for metadata field names.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.MetaSectionHeadCssClass">
+            <summary>
+            CSS class for metadata section heads.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.MetaValueCssClass">
+            <summary>
+            CSS class for metadata values.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.NextImageTooltip">
+            <summary>
+            Tooltip for the link to the next image.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.OpenFolderTooltipFormatString">
+            <summary>
+            Format string for the open folder tooltip.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.PageModeTemplate">
+            <summary>
+            Template for the control in image preview mode.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.PermaLink">
+            <summary>
+            A permanent link to the current page with the Album in its current state.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.PreviousImageTooltip">
+            <summary>
+            The tooltip for the link to the previous image.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.FilePath">
+            <summary>
+            The path of the current file.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.ServiceUrl">
+            <summary>
+            The URL of the handler.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.Image">
+            <summary>
+            The info for the current image.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.Images">
+            <summary>
+            The list of image infos for the current folder.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.IsControl">
+            <summary>
+            True if the class is used in Control mode (as opposed to handler mode).
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.NavigationMode">
+            <summary>
+            Defines how the Album navigation links work.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.NextImage">
+            <summary>
+            Info for the next image.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.ParentFolder">
+            <summary>
+            Information for the parent folder.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.GalleryRootPath">
+            <summary>
+            The current virtual path.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.Path">
+            <summary>
+            The current virtual path.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.PathPrefix">
+            <summary>
+            The fixed part of the path.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.PreviousImage">
+            <summary>
+            The information for the previous image.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.SubFolders">
+            <summary>
+            The subfolders of the current folder.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.Title">
+            <summary>
+            The title for the current Album view.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Album.Description">
+            <summary>
+            The description for the current Album view.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.Album.CompareFileNames(System.IO.FileInfo,System.IO.FileInfo)">
+            <summary>
+            added by  2008-05-02
+            </summary>
+            <param name="f1"></param>
+            <param name="f2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.Album.EnsureNextPrevious">
+            <summary>
+            Ensures that the next and previous image infos have been computed.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.Album.RenderPrivate(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Directs to the right rendering methos according to the mode.
+            </summary>
+            <param name="writer">The writer to write to.</param>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.Album.GenerateFolderPage(System.Web.UI.HtmlTextWriter,System.String,System.String)">
+            <summary>
+            Does the actual rendering for the folder mode.
+            </summary>
+            <param name="writer">The writer to write to.</param>
+            <param name="dirPath">The virtual path to the folder.</param>
+            <param name="dirPhysicalPath">The physical for the folder.</param>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.Album.GetImages(System.String)">
+            <summary>
+            Gets an array of file infos for the images in a folder, sorted by date.
+            </summary>
+            <param name="path">The folder's physical path.</param>
+            <returns>The list of file infos, sorted by date.</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.Album.GetImages(System.String,System.Boolean)">
+            <summary>
+            Gets an array of file infos for the images in a folder, sorted by date.
+            </summary>
+            <param name="path">The folder's physical path.</param>
+            <param name="includeSubfolders">True if subfolders should be included.</param>
+            <returns>The list of file infos, sorted by date.</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.Album.GetImages(System.Int32,System.Boolean)">
+            <summary>
+            Gets the top n images in a folder, sorted by date descending.
+            </summary>
+            <param name="numberOfImages">Maximum number of images to return.</param>
+            <param name="includeSubFolders">True if subfolders should be included.</param>
+            <returns>The image infos.</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.Album.GeneratePreviewPage(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String)">
+            <summary>
+            Renders an image preview page.
+            </summary>
+            <param name="writer">The writer to render to.</param>
+            <param name="dirPath">The virtual path of the directory.</param>
+            <param name="dirPhysicalPath">The physical path of the directory.</param>
+            <param name="page">The name of the image.</param>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.Album.ReportError(System.String)">
+            <summary>
+            Sends a 500 error to the client.
+            </summary>
+            <param name="msg">The error message.</param>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.Album.ParseParams">
+            <summary>
+            Parses the parameters from the querystring.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.Album.ParseParams(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Parses the parameters.
+            </summary>
+            <param name="paramsCollection">The parameter collection to parse from.</param>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.FolderGallery.AlbumFolderInfo">
+            <summary>
+            Describes an album folder.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.AlbumFolderInfo.#ctor(mojoPortal.Web.Controls.Album,System.String,System.Boolean)">
+            <summary>
+            Constructs an AlbumFolderInfo.
+            </summary>
+            <param name="owner">The Album that owns this info.</param>
+            <param name="path">The virtual path of the folder.</param>
+            <param name="isParent">True if the folder decribes the parent of the current Album view.</param>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.AlbumFolderInfo.#ctor(mojoPortal.Web.Controls.Album,System.String)">
+            <summary>
+            Constructs an AlbumFolderInfo.
+            </summary>
+            <param name="owner">The Album that owns this info.</param>
+            <param name="path">The virtual path of the folder.</param>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.AlbumFolderInfo.IconUrl">
+            <summary>
+            The icon URL for the folder.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.AlbumFolderInfo.IsParent">
+            <summary>
+            True if the folder is the parent of the current view.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.AlbumFolderInfo.Name">
+            <summary>
+            The name of this folder.
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.FolderGallery.AlbumHandlerMode">
+            <summary>
+            The display modes or views for the Album Handler.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.AlbumHandlerMode.Unknown">
+            <summary>
+            Unknown mode.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.AlbumHandlerMode.Folder">
+            <summary>
+            Displays the contents of a folder.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.AlbumHandlerMode.Page">
+            <summary>
+            Displays the preview page for an image.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.AlbumHandlerMode.Preview">
+            <summary>
+            Returns the reduced image used in the preview page.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.AlbumHandlerMode.Thumbnail">
+            <summary>
+            Returns an image thumbnail.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.AlbumHandlerMode.FolderThumbnail">
+            <summary>
+            Returns a folder thumbnail.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.AlbumHandlerMode.ParentThumbnail">
+            <summary>
+            Returns a parent folder thumbnail.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.AlbumHandlerMode.Css">
+            <summary>
+            Returns the CSS stylesheet.
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.FolderGallery.AlbumNavigationMode">
+            <summary>
+            Navigation mode when the album is used as a control.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.AlbumNavigationMode.Callback">
+            <summary>
+            The default, this mode uses callbacks to refresh the album
+            without navigating away from the page or posting back.
+            Ifthe browser does not support callbacks, the control will post back.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.AlbumNavigationMode.Postback">
+            <summary>
+            This mode uses form post backs to navigate in the album.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.AlbumNavigationMode.Link">
+            <summary>
+            Uses regular links to navigate in the album.
+            May have side-effects on the rest of the page,
+            which may have its own state management.
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.FolderGallery.AlbumPageInfo">
+            <summary>
+            Base for classes that describe an album page
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.AlbumPageInfo.#ctor(mojoPortal.Web.Controls.Album,System.String)">
+            <summary>
+            Constructs an AlbumPageInfo.
+            </summary>
+            <param name="owner">The Album that owns this info.</param>
+            <param name="path">The virtual path of the page.</param>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.AlbumPageInfo.Owner">
+            <summary>
+            The Album that owns this page.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.AlbumPageInfo.Path">
+            <summary>
+            The virtual path to the page.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.AlbumPageInfo.CommandCharacter">
+            <summary>
+            The character used as a command for this type of album page
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.AlbumPageInfo.AlbumMode">
+            <summary>
+            The AlbumHandlerMode for this type of pages
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.AlbumPageInfo.Link">
+            <summary>
+            A javascript link (callback if the browser supports it, postback otherwise) to this album page.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.AlbumPageInfo.PermaLink">
+            <summary>
+            A permanent link to this image's preview page.
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.FolderGallery.AlbumTemplateContainer">
+            <summary>
+            A template container for the album handler.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.AlbumTemplateContainer.#ctor(mojoPortal.Web.Controls.Album)">
+            <summary>
+            Constructs a template container for an Album.
+            </summary>
+            <param name="owner">The Album that owns this template.</param>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.AlbumTemplateContainer.Owner">
+            <summary>
+            The Album that owns this template.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.AlbumTemplateContainer.System#Web#UI#IDataItemContainer#DataItem">
+            <summary>
+            The DataItem is the owner Album.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.AlbumTemplateContainer.System#Web#UI#IDataItemContainer#DataItemIndex">
+            <summary>
+            The templates are single items, so the index is always zero.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.AlbumTemplateContainer.System#Web#UI#IDataItemContainer#DisplayIndex">
+            <summary>
+            The templates are single items, so the index is always zero.
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.FolderGallery.ImageCacheLocation">
+            <summary>
+            Storing location for the cached preview and thumbnail images.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageCacheLocation.Disk">
+            <summary>
+            Cached images are stored on disk in the application's compilation folder.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageCacheLocation.Memory">
+            <summary>
+            Images are cached in memory.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageCacheLocation.None">
+            <summary>
+            No caching. Images are redrawn on every request.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.ThumbnailSize">
+            <summary>
+            Size in pixels of the thumbnails.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.PreviewSize">
+            <summary>
+            Size in pixels of the preview images.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.BackGround">
+            <summary>
+            The background color of the image thumbnails and previews.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.BorderColor">
+            <summary>
+            The color used to draw borders around image thumbnails and previews.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.ThumbnailBorderWidth">
+            <summary>
+            The width in pixels of the thumbnail border.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.PreviewBorderWidth">
+            <summary>
+            The width in pixels of the image previews.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.UpFolderBorderColor">
+            <summary>
+            The color of the shadow that's drawn around up folder stacked image thumbnails.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.UpFolderBorderWidth">
+            <summary>
+            The width in pixels of the shadow that's drawn around up folder stacked image thumbnails.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.UpArrowColor">
+            <summary>
+            The color of the arrow that's drawn on up folder thumbnails.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.UpArrowWidth">
+            <summary>
+            The color of the arrow that's drawn on up folder thumbnails.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.UpArrowSize">
+            <summary>
+            The relative size of the arrow that's drawn on up folder thumbnails.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.UpFolderStackHeight">
+            <summary>
+            The number of images on the up folder thumbnail stack.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.ThumbnailJpegQuality">
+            <summary>
+            The quality (between 0 and 100) of the thumbnail JPEGs.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.Caching">
+            <summary>
+            Location of the cache.
+            Can be Disk (recommended), Memory or None.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.MemoryCacheSlidingDuration">
+            <summary>
+            If using memory cache, the duration in minutes of the sliding expiration.
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.FolderGallery.ImageHelper.Css">
+            <summary>
+            The default CSS that's requested by the header.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.#cctor">
+            <summary>
+            Static constructor that sets up the caching directory
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.GetCachedPathAndCheckCacheStatus(System.String,System.String,System.String@)">
+            <summary>
+            Gets the path for a cached image and its status.
+            </summary>
+            <param name="path">The path to the image.</param>
+            <param name="imageTypeModifier">Type of image.</param>
+            <param name="cachedPath">The physical path of the cached image (out parameter).</param>
+            <returns>True if the cached image exists and is not outdated.</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.GenerateCssResponse(System.Web.HttpResponse)">
+            <summary>
+            Sends the default CSS to the response.
+            </summary>
+            <param name="response">The response where to write the CSS.</param>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.GenerateResizedImageResponse(System.Drawing.Color,System.Drawing.Color,System.String,System.Int32,System.Boolean,System.Web.HttpResponse)">
+            <summary>
+            Outputs a resized image to the HttpResponse object
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.GenerateFolderImageResponse(System.Drawing.Color,System.Drawing.Color,System.Boolean,System.String,System.Int32,System.Web.HttpResponse)">
+            <summary>
+            Outputs a folder thumbnail to the HttpResponse.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.JScriptEncode(System.String)">
+            <summary>
+            Prepares a string to be used in JScript by escaping characters.
+            </summary>
+            <remarks>This is not a general purpose escaping function:
+            we do not encode characters that can't be in Windows paths.
+            It should not be used in general to prevent injection attacks.</remarks>
+            <param name="unencoded">The unencoded string.</param>
+            <returns>The encoded string.</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.LoadOriginalImage(System.String)">
+            <summary>
+            Creates a Bitmap object from a file.
+            </summary>
+            <param name="imageFile">The path ofthe image.</param>
+            <returns>The bitmap object.</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.CreateNewImage(System.Drawing.Color,System.Drawing.Color,System.Drawing.Bitmap,System.Int32,System.Boolean)">
+            <summary>
+            Creates a reduced Bitmap from a full-size Bitmap.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.GetImageExtensions">
+            <summary>
+            Gets image file extensions from web.config and adds * to each.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.CreateFolderImage(System.Drawing.Color,System.Drawing.Color,System.Boolean,System.String,System.Int32)">
+            <summary>
+            Creates the thumbnail Bitmap for a folder.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.GetImageCodec">
+            <summary>
+            Gets the JPEG codec.
+            </summary>
+            <returns>The JPEG codec.</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.GetImageEncoderParams">
+            <summary>
+            Returns the encoder parameters.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.WriteNewImage(System.Drawing.Bitmap,System.Web.HttpResponse)">
+            <summary>
+            Writes an image on the response.
+            </summary>
+            <param name="newImage">The Bitmap to write.</param>
+            <param name="response">The HttpResponse to write to.</param>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.WriteNewImage(System.String,System.Web.HttpResponse)">
+            <summary>
+            Writes an image to the response.
+            </summary>
+            <param name="path">The path of the file.</param>
+            <param name="response">The HttpResponse to write to.</param>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.WriteNewImage(System.Byte[],System.Web.HttpResponse)">
+            <summary>
+            Writes a byte array to the response.
+            </summary>
+            <param name="imageBytes">The bytes to write</param>
+            <param name="response">The HttpResponse to write to.</param>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageHelper.GetImageBytes(System.Drawing.Bitmap)">
+            <summary>
+            Gets an array of bytes from a Bitmap.
+            </summary>
+            <param name="image">The Bitmap.</param>
+            <returns>The byte array.</returns>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.FolderGallery.ImageInfo">
+            <summary>
+            Describes an Album image.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageInfo.#ctor(mojoPortal.Web.Controls.Album,System.String,System.String)">
+            <summary>
+            Constructs an ImageInfo.
+            </summary>
+            <param name="owner">The Album that owns this image.</param>
+            <param name="path">The virtual path of the image.</param>
+            <param name="physicalPath">The physical path of the image.</param>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.ImageInfo.Caption">
+            <summary>
+            The image caption.
+            It is the name if available from the ITPC meta-data, or the file name.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.ImageInfo.Date">
+            <summary>
+            The date the image was created.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.ImageInfo.IconUrl">
+            <summary>
+            The URL of the thumbnail for this image.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.ImageInfo.MetaData">
+            <summary>
+            The metadata for this image.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.ImageInfo.PreviewUrl">
+            <summary>
+            The URL of the preview image for this image.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.FolderGallery.ImageInfo.Url">
+            <summary>
+            The virtual path of the full resolution image.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageInfo.GetImageData(System.IO.FileInfo)">
+            <summary>
+            Extracts and caches the metadata for an image.
+            </summary>
+            <param name="pictureFileInfo">The FileInfo to the image.</param>
+            <returns>The MetaData for the image.</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.FolderGallery.ImageInfo.GetImageDate(System.IO.FileInfo)">
+            <summary>
+            Gets and caches the most relevant date available for an image.
+            It looks first at the EXIF date, then at the creation date from ITPC data,
+            and then at the file's creation date if everything else failed.
+            </summary>
+            <param name="pictureFileInfo">The FileInfo for the image.</param>
+            <returns>The date.</returns>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.google.AnalyticsTransaction">
+             <summary>
+            	Author:				
+            	Created:			2008-08-12
+            	Last Modified:		2008-08-12
+             
+             The use and distribution terms for this software are covered by the 
+             Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+             which can be found in the file CPL.TXT at the root of this distribution.
+             By using this software in any fashion, you are agreeing to be bound by 
+             the terms of this license.
+            
+             You must not remove this notice, or any other, from this software.
+              		
+              An transaction you can map to from your commerce order for tracking purchases in google Analytics.
+              You must add transaction items corresponding to your order items.
+             </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.google.AnalyticsTransaction.#ctor">
+            <summary>
+            An transaction you can map to from your commerce order for tracking purchases in google Analytics.
+            You must add transaction items corresponding to your order items.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransaction.Items">
+            <summary>
+            Requires at least one item
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.google.AnalyticsTransaction.IsValid">
+            <summary>
+            Call this to check validity before rendering the google analytics transaction
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransaction.OrderId">
+            <summary>
+            Required
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransaction.StoreName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransaction.Total">
+            <summary>
+            Required
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransaction.Tax">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransaction.Shipping">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransaction.City">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransaction.State">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransaction.Country">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.google.AnalyticsTransactionItem">
+             <summary>
+            	Author:				
+            	Created:			2008-08-12
+            	Last Modified:		2008-08-12
+             
+             The use and distribution terms for this software are covered by the 
+             Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+             which can be found in the file CPL.TXT at the root of this distribution.
+             By using this software in any fashion, you are agreeing to be bound by 
+             the terms of this license.
+            
+             You must not remove this notice, or any other, from this software.
+             
+             An item you can map to from your commerce order items for tracking purchases in google Analytics
+              		
+             </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.google.AnalyticsTransactionItem.#ctor">
+            <summary>
+            An item you can map to from your commerce order items for tracking purchases in google Analytics
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.google.AnalyticsTransactionItem.IsValid">
+            <summary>
+            Call this to check validity before rendering the google analytics transaction
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransactionItem.OrderId">
+            <summary>
+            Required
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransactionItem.Sku">
+            <summary>
+            Optional
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransactionItem.ProductName">
+            <summary>
+            Optional
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransactionItem.Category">
+            <summary>
+            Optional
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransactionItem.Price">
+            <summary>
+            Required
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.AnalyticsTransactionItem.Quantity">
+            <summary>
+            Required
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.GMapBasePanel.NoApiKeyWarning">
+            <summary>
+            message to display if the api key is not found
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.GMapBasePanel.ZoomLevel">
+            <summary>
+            default is 13, lower number zooms out higher number zooms in
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.GMapBasePanel.GoogleJsBasePath">
+            <summary>
+            This should be the path to the folder containing mojoPortal custom javascript for working with google APIs
+            i.e ~/ClientScript/google/
+            This is NOT the path to the google server.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.GMapBasePanel.GMapApiKey">
+            <summary>
+            To use google maps you need an API key.
+            Get it here: http://code.google.com/apis/maps/signup.html
+            put it in Web.config as <add key="GoogleMapsAPIKey" value="" />
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.GMapBasePanel.GMapWebConfigKey">
+            <summary>
+            You can set this on the control if you need to use a different Web.config key for some reason.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.GMapBasePanel.ApiKeyFound">
+            <summary>
+            Indicates whether the GMapApiKey was initialized.
+            Initialization happens in on pre-render
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.google.GMapBasePanel.OnPreRender(System.EventArgs)">
+            <summary>
+            Hooks up the main GMap script.
+            SubClasses should override but call the base method before doing anything else.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.google.GStaticMap">
+             <summary>
+             Author:					
+             Created:				2008-03-23
+             Last Modified:			2008-03-23
+            		
+             The use and distribution terms for this software are covered by the 
+             Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+             which can be found in the file CPL.TXT at the root of this distribution.
+             By using this software in any fashion, you are agreeing to be bound by 
+             the terms of this license.
+            
+             You must not remove this notice, or any other, from this software.	
+             
+             implements support for google static map
+             http://code.google.com/apis/maps/documentation/staticmaps/
+             
+             
+             
+             </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.GStaticMap.ZoomLevel">
+            <summary>
+            default is 13, lower number zooms out higher number zooms in
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.GStaticMap.GMapApiKey">
+            <summary>
+            To use google maps you need an API key.
+            Get it here: http://code.google.com/apis/maps/signup.html
+            put it in Web.config as <add key="GoogleMapsAPIKey" value="" />
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.GStaticMap.GMapWebConfigKey">
+            <summary>
+            You can set this on the control if you need to use a different Web.config key for some reason.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.GStaticMap.MapHeight">
+            <summary>
+            pixel height of rendered map
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.GStaticMap.MapWidth">
+            <summary>
+            pixel width of rendered map
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.GStaticMap.ApiKeyFound">
+            <summary>
+            Indicates whether the GMapApiKey was initialized.
+            Initialization happens in on pre-render
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.google.LocationMap">
+            <summary>
+            This a control for displaying a google map based on the location set in the location property.
+            This is more simple than using latitude longitude, lat and long are derived automatically if possible
+            from the location. Alternatively you can set the coordinates.
+            
+            TODO: implement more of the optional features like overlays etc
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.LocationMap.DirectionsButtonText">
+            <summary>
+            gets or sets the text on the button used for requesting directions
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.LocationMap.DirectionsButtonToolTip">
+            <summary>
+            gets or sets the tooltip text on the button used for requesting directions
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.LocationMap.EnableMapType">
+            <summary>
+            if true the options for satelite and hybrid maps are vailable
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.LocationMap.EnableZoom">
+            <summary>
+            if true uses the ma control with zoom tool
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.LocationMap.ShowInfoWindow">
+            <summary>
+            if true shows a ballon with the location info
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.LocationMap.EnableLocalSearch">
+            <summary>
+            if true shows a search input and searches google for things close to the location
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.LocationMap.EnableDrivingDirections">
+            <summary>
+            if true shows an input and a button for entering a start address and requesting directions.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.LocationMap.MapHeight">
+            <summary>
+            pixel height of rendered map
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.LocationMap.MapWidth">
+            <summary>
+            pixel width of rendered map
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.LocationMap.UseLatLong">
+            <summary>
+            If set to true the map will be centered on the Latitude/Longitude coordinates.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.LocationMap.Latitude">
+            <summary>
+            If UseLatLong is true, the map will be centered using this Latitude.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.LocationMap.Longitude">
+            <summary>
+            If UseLatLong is true, the map will be centered using this Longitude.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.google.LocationMap.Location">
+            <summary>
+            If UseLatLong is false and this string has a value of a location that can be looked up, the map will display the found location.
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.google.LocationMap.OnPreRender(System.EventArgs)">
+            <summary>
+            Sets up the javscript for this map instance to be created.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.GoogleAnalyticsScript">
+            <summary>
+            sets up google analytics tacking	
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GoogleAnalyticsScript.Transactions">
+            <summary>
+            Requires at least one item
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GoogleAnalyticsScript.GoogleAnalyticsProfileId">
+            <summary>
+            Tracking code for google analytics
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GoogleAnalyticsScript.OverrideDomain">
+            <summary>
+            If you specify an overridedomain, ._setDomainName(...) will be called
+            http://code.google.com/apis/analytics/docs/tracking/gaTrackingSite.html
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GoogleAnalyticsScript.TrackerName">
+            <summary>
+            Instance name of the PageTracker 
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GoogleAnalyticsScript.TrackPageLoadTime">
+            <summary>
+            If true page load times will be measured
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GoogleAnalyticsScript.MemberLabel">
+            <summary>
+            A key for tracking authenticated user.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GoogleAnalyticsScript.MemberType">
+            <summary>
+            A label for tagging customers or members
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GoogleAnalyticsScript.LogToLocalServer">
+            <summary>
+            If true pageTracker._setLocalRemoteServerMode(); wil be called resulting in analytics data appearing in the web logs.
+            This data can be used for additional offline processing using Urchin.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GoogleAnalyticsScript.PageToTrack">
+            <summary>
+            If you want to ovveride how the page is tracked you can enter it here.
+            Like in SearchResults.aspx we track /SearchResults.aspx?q=searchterm
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GoogleAnalyticsScript.OverrideScriptUrl">
+            <summary>
+            if you want to host the script locally put the path for the src=
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.GoogleAnalyticsScript.OnPreRender(System.EventArgs)">
+            <summary>
+            Last chance to change what gets rendered.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.GraphicalCheckBox">
+            <summary>
+            http://www.codeproject.com/aspnet/graphicalcontrols.asp
+            Graphical Asp.Net checkbox (with customizable images)
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.LoadGlobalSettings">
+            <summary>
+            Load global graphical control settings from Application?
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.AutoPostBack">
+            <summary>
+            Automaticly post-back when control is clicked
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.Checked">
+            <summary>
+            Is checkbox checked ?
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.ThreeState">
+            <summary>
+            Gets or sets a value indicating whether the check box will allow three check states rather than two.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.CheckState">
+            <summary>
+            State of checkbox (Can be checked, unchecked and Indeterminate).
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.CheckedImg">
+            <summary>
+            Custom image url for checked checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.IndeterminateImg">
+            <summary>
+            Custom image url for indeterminate state of checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.IndeterminateOverImg">
+            <summary>
+            Custom image url for indeterminate state of active checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.UncheckedImg">
+            <summary>
+            Custom image url for unchecked checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.CheckedOverImg">
+            <summary>
+            Custom image url for checked checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.UncheckedOverImg">
+            <summary>
+            Custom image url for unchecked checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.CheckedDisImg">
+            <summary>
+            Custom image url for checked disabled checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.UncheckedDisImg">
+            <summary>
+            Custom image url for unchecked disabled checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.Title">
+            <summary>
+            Checkbox title (Used as alt attribute for image)
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalCheckBox.Text">
+            <summary>
+            Checkbox text
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.GraphicalCheckBox.Render(System.Web.UI.HtmlTextWriter)">
+            <summary> 
+            Render hidden input control and img element
+            </summary>
+            <param name="output"> The HTML writer to write out to </param>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.GraphicalCheckBox.RaisePostDataChangedEvent">
+            <summary>
+            Raise checked-changed event
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.GraphicalCheckBox.LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Load data from POST (load checked from hidden input)
+            </summary>
+            <param name="postDataKey">Key</param>
+            <param name="postCollection">Data</param>
+            <returns>True when value changed</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.GraphicalCheckBox.OnCheckedChanged(System.EventArgs)">
+            <summary>
+            Raise check-changed event
+            </summary>
+        </member>
+        <member name="E:mojoPortal.Web.Controls.GraphicalCheckBox.CheckedChanged">
+            <summary>
+            Is raised when value is changed
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.CheckState">
+            <summary>
+            State of checkbox (for three-state checkbox)
+            </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.CheckState.Unchecked">
+            <summary> The control is unchecked. </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.CheckState.Checked">
+            <summary> The control is checked. </summary>
+        </member>
+        <member name="F:mojoPortal.Web.Controls.CheckState.Indeterminate">
+            <summary> The control is indeterminate. 
+            An indeterminate control generally has a shaded appearance. </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.GraphicalControlsSettings">
+            <summary>
+            http://www.codeproject.com/aspnet/graphicalcontrols.asp
+            Class that allows developer to simply set same images 
+            to all Graphical controls in project
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.CheckboxIndeterminateImg">
+            <summary>
+            Custom image url for indeterminate state of checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.CheckboxIndeterminateOverImg">
+            <summary>
+            Custom image url for indeterminate state of active checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.CheckboxCheckedImg">
+            <summary>
+            Custom image url for checked checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.CheckboxUncheckedImg">
+            <summary>
+            Custom image url for unchecked checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.CheckboxCheckedOverImg">
+            <summary>
+            Custom image url for checked checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.CheckboxUncheckedOverImg">
+            <summary>
+            Custom image url for unchecked checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.CheckboxCheckedDisImg">
+            <summary>
+            Custom image url for checked disabled checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.CheckboxUncheckedDisImg">
+            <summary>
+            Custom image url for unchecked disabled checkbox
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.RadioCheckedImg">
+            <summary>
+            Custom image url for checked radiobutton
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.RadioUncheckedImg">
+            <summary>
+            Custom image url for unchecked radiobutton
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.RadioCheckedOverImg">
+            <summary>
+            Custom image url for checked radiobutton
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.RadioUncheckedOverImg">
+            <summary>
+            Custom image url for unchecked radiobutton
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.RadioCheckedDisImg">
+            <summary>
+            Custom image url for checked disabled radiobutton
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalControlsSettings.RadioUncheckedDisImg">
+            <summary>
+            Custom image url for unchecked disabled radiobutton
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.GraphicalControlsSettings.Save">
+            <summary>
+            Save settings to Application
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.GraphicalControlsSettings.Load">
+            <summary>
+            Load saved global settings
+            </summary>
+            <returns>Object with settings or null </returns>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.GraphicalRadioButton">
+            <summary>
+            http://www.codeproject.com/aspnet/graphicalcontrols.asp
+            
+            Graphical Asp.Net checkbox (with customizable images)
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalRadioButton.LoadGlobalSettings">
+            <summary>
+            Load global graphical control settings from Application?
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalRadioButton.AutoPostBack">
+            <summary>
+            Automaticly post-back when control is clicked
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalRadioButton.Checked">
+            <summary>
+            Is radiobutton checked ?
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalRadioButton.CheckedImg">
+            <summary>
+            Custom image url for checked radiobutton
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalRadioButton.UncheckedImg">
+            <summary>
+            Custom image url for unchecked radiobutton
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalRadioButton.CheckedOverImg">
+            <summary>
+            Custom image url for checked radiobutton
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalRadioButton.UncheckedOverImg">
+            <summary>
+            Custom image url for unchecked radiobutton
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalRadioButton.CheckedDisImg">
+            <summary>
+            Custom image url for checked disabled radiobutton
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalRadioButton.UncheckedDisImg">
+            <summary>
+            Custom image url for unchecked disabled radiobutton
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalRadioButton.Title">
+            <summary>
+            Radiobutton title (Used as alt attribute for image)
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalRadioButton.Text">
+            <summary>
+            Radiobutton text
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.GraphicalRadioButton.Group">
+            <summary>
+            Radio buttons group
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.GraphicalRadioButton.OnLoad(System.EventArgs)">
+            <summary>
+            Register client script
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.GraphicalRadioButton.Render(System.Web.UI.HtmlTextWriter)">
+            <summary> 
+            Render hidden input control and img element
+            </summary>
+            <param name="output"> The HTML writer to write out to </param>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.GraphicalRadioButton.RaisePostDataChangedEvent">
+            <summary>
+            Raise checked-changed event
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.GraphicalRadioButton.LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Load data from POST (load checked from hidden input)
+            </summary>
+            <param name="postDataKey">Key</param>
+            <param name="postCollection">Data</param>
+            <returns>True when value changed</returns>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.GraphicalRadioButton.OnCheckedChanged(System.EventArgs)">
+            <summary>
+            Raise check-changed event
+            </summary>
+        </member>
+        <member name="E:mojoPortal.Web.Controls.GraphicalRadioButton.CheckedChanged">
+            <summary>
+            Is raised when value is changed
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.Gravatar">
+            <summary>
+            
+            
+            Source: http://www.freshclickmedia.com/blog/2008/02/gravatar-aspnet-control/
+            2008-08-13  added to this project and changed namespace to be more convenient
+            2008-08-13  added support for SSL by returning the secure url if request is secure
+            
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Gravatar.Email">
+            <summary>
+            The Email for the user
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Gravatar.Size">
+            <summary>
+            Size of Gravatar image.  Must be between 1 and 512.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Gravatar.MaxAllowedRating">
+            <summary>
+            An optional "rating" parameter may follow with a value of [ G | PG | R | X ] that determines the highest rating (inclusive) that will be returned.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Gravatar.OutputGravatarSiteLink">
+            <summary>
+            Determines whether the image is wrapped in an anchor tag linking to the Gravatar sit
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Gravatar.LinkTitle">
+            <summary>
+            Optional property for link title for gravatar website link
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Gravatar.LinkUrl">
+            <summary>
+            By default links to Gravatar so users can get a gravatar, but you can override it and link to a user profile for example
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Gravatar.DefaultImage">
+            <summary>
+            An optional "default" parameter may follow that specifies the full, URL encoded URL, protocol included, of a GIF, JPEG, or PNG image that should be returned if either the requested email address has no associated gravatar, or that gravatar has a rating higher than is allowed by the "rating" parameter.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.Gravatar.GravatarBaseUrl">
+            <summary>
+            Gets the base Url based on whether the request is secure or not.
+            Added by  2008-08-13
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.HelpLinkButton">
+            <summary>
+            This control is deprecated, you should use the portal:mojoHelpLink from the mojoPortal.Web project instead of this one.
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.InsecurePanel">
+            <summary>
+            I use this to wrap things so they are not displayed 
+            when using https/ssl, otherwise the user gets browser warnings about
+            the insecure items in the request
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.jsCalendarDatePicker.Render(System.Web.UI.HtmlTextWriter)">
+            <summary> 
+            Render this control to the output parameter specified.
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.mojoGridView">
+            <summary>
+            The only purposeof this control is because we use the CSS Control Adapter to extend it
+            rather thasn extend the standard GridView directly. This allows the standard GridView to work
+            as expected for those who don't want to use the Adapter.
+            
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.SeparatorControl">
+             <summary>
+            	Created:			    2006/04/20
+            	Last Modified:		    2007/04/20
+             
+             The use and distribution terms for this software are covered by the 
+             Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+             which can be found in the file CPL.TXT at the root of this distribution.
+             By using this software in any fashion, you are agreeing to be bound by 
+             the terms of this license.
+            
+             You must not remove this notice, or any other, from this software.	
+             
+             The purpose of this control is just for displaying a separator between
+             links in the mojoportal skins either as text or image, with option to
+             hide when authenticated or hide when anonymous.
+             
+             </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.AddThisButton">
+            <summary>
+            See http://www.addthis.com
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.AddThisButton.AccountId">
+            <summary>
+            Your addthis.com username.
+            If this is not set the control will not render.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.AddThisButton.UseMouseOverWidget">
+            <summary>
+            if true will show widget in the page
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.AddThisButton.CustomLogoUrl">
+            <summary>
+            The logo to display on the popup window (about 200x50 pixels). 
+            The popup window is show when the user selects the 'More' choice
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.AddThisButton.CustomLogoBackgroundColor">
+            <summary>
+            The color to use as a background around the logo in the popup 
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.AddThisButton.CustomLogoColor">
+            <summary>
+            The color to use for the text next to the logo in the popup 
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.AddThisButton.CustomBrand">
+            <summary>
+            The brand name to display in the drop-down (top right)
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.AddThisButton.CustomOptions">
+            <summary>
+            A comma-separated ordered list of options to include in the drop-down
+            Example: addthis_options = 'favorites, email, digg, delicious, more'; 
+            Currently supported options:
+            delicious, digg, email, favorites, facebook, fark, furl, google, live, myweb, myspace, 
+            newsvine, reddit, slashdot, stumbleupon, technorati, twitter, more 
+            (the default is currently 'favorites, digg, delicious, google, myspace, facebook, 
+            reddit, newsvine, 
+            live, more', in that order).
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.AddThisButton.CustomOffsetTop">
+            <summary>
+            Vertical offset for the drop-down window widget (in pixels) 
+            thiscontrol defaults to -999 which means unsepcified
+            this will result in the defaults from addthis.com
+            not sure what the defsault is
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.AddThisButton.CustomOffsetLeft">
+            <summary>
+            Horizontal offset for the drop-down window widget (in pixels) 
+            thiscontrol defaults to -999 which means unsepcified
+            this will result in the defaults from addthis.com
+            not sure what the defsault is
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.SmartCombo">
+            <summary>
+            Author:				
+            Created:			2005-08-20
+            Last Modified:		2008-09-03
+            
+            Dependencies:	must point the ScriptDirectory property at
+            						a folder containing SmartCombo.js as well as
+            						the Sarissa javascript files: sarissa.js and sarissa_ieemu_xpath.js
+            						which provide a javascript abstration layer around
+            						the different XmlHttpRequest features of the different 
+            						web browsers.
+            						more info:
+            						http://sarissa.sourceforge.net/doc/
+            
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.SmartCombo.Render(System.Web.UI.HtmlTextWriter)">
+            <summary> 
+            Render this control to the output parameter specified.
+            </summary>
+        </member>
+        <member name="T:mojoPortal.Web.Controls.WatermarkTextBox">
+            <summary>
+            Based on article from CodeProject, with modifications by 
+            7/3/2006
+            
+            Source: http://www.codeproject.com/useritems/WatermarkTextBoxControl.asp?df=100
+            
+            The WatermarkTextBox is a asp.net servercontrol that extends a default textbox 
+            by showing the "watermark" when no text is entered by the user.
+            Typical watermark text can be " enter your text here " or " search terms "
+            Copyright 2006, Wouter Steenbergen - We See Consultancy (www.wesee.nl)
+            </summary>
+            
+        </member>
+        <member name="M:mojoPortal.Web.Controls.WatermarkTextBox.#ctor">
+            <summary>
+            Public default constructor
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.WatermarkTextBox.Watermark">
+            <summary>
+            The text to show when no text is entered by the user.
+            </summary>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.WatermarkTextBox.ScriptDirectory">
+            <summary>
+            Gets or sets the script directory.
+            </summary>
+            <value>The script directory.</value>
+        </member>
+        <member name="P:mojoPortal.Web.Controls.WatermarkTextBox.UsePlaceholder">
+            <summary>
+            Use the HTML5 placeholder attribute?
+            </summary>
+        </member>
+        <member name="M:mojoPortal.Web.Controls.WatermarkTextBox.Render(System.Web.UI.HtmlTextWriter)">
+            <summary> 
+            Render this control to the output parameter specified.
+            </summary>
+            <param name="output"> The HTML writer to write out to </param>
+        </member>
+    </members>
+</doc>
