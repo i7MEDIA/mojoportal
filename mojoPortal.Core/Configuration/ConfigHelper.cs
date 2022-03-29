@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Globalization;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.UI.WebControls;
 
 namespace mojoPortal.Core.Configuration
@@ -13,11 +14,12 @@ namespace mojoPortal.Core.Configuration
 			return GetBoolSettingFromContext(key, defaultValue);
 		}
 
+
 		public static bool GetBoolProperty(string key, bool defaultValue, bool byPassContext)
 		{
-			if (byPassContext) return GetBoolPropertyFromConfig(key, defaultValue);
-			return GetBoolSettingFromContext(key, defaultValue);
+			return byPassContext ? GetBoolPropertyFromConfig(key, defaultValue) : GetBoolSettingFromContext(key, defaultValue);
 		}
+
 
 		private static bool GetBoolSettingFromContext(string key, bool defaultValue)
 		{
@@ -31,6 +33,7 @@ namespace mojoPortal.Core.Configuration
 			if (HttpContext.Current.Items[key] == null)
 			{
 				setting = GetBoolPropertyFromConfig(key, defaultValue);
+
 				HttpContext.Current.Items[key] = setting;
 			}
 			else
@@ -41,25 +44,36 @@ namespace mojoPortal.Core.Configuration
 			return setting;
 		}
 
+
 		private static bool GetBoolPropertyFromConfig(string key, bool defaultValue)
 		{
-			if (ConfigurationManager.AppSettings[key] == null) return defaultValue;
-			if (string.Equals(ConfigurationManager.AppSettings[key], "true", StringComparison.InvariantCultureIgnoreCase)) return true;
-			if (string.Equals(ConfigurationManager.AppSettings[key], "false", StringComparison.InvariantCultureIgnoreCase)) return false;
+			if (ConfigurationManager.AppSettings[key] == null)
+			{
+				return defaultValue;
+			}
+
+			if (string.Equals(ConfigurationManager.AppSettings[key], "true", StringComparison.InvariantCultureIgnoreCase))
+			{
+				return true;
+			}
+
+			if (string.Equals(ConfigurationManager.AppSettings[key], "false", StringComparison.InvariantCultureIgnoreCase))
+			{
+				return false;
+			}
 
 			return defaultValue;
 		}
+
 
 		public static string GetStringProperty(string key, string defaultValue)
 		{
 			return GetStringSettingFromContext(key, defaultValue);
 		}
 
-		private static string GetStringPropertyFromConfig(string key, string defaultValue)
-		{
-			if (ConfigurationManager.AppSettings[key] == null) return defaultValue;
-			return ConfigurationManager.AppSettings[key];
-		}
+
+		private static string GetStringPropertyFromConfig(string key, string defaultValue) => ConfigurationManager.AppSettings[key] ?? defaultValue;
+
 
 		private static string GetStringSettingFromContext(string key, string defaultValue)
 		{
@@ -69,27 +83,33 @@ namespace mojoPortal.Core.Configuration
 			}
 
 			string setting;
+
 			if (HttpContext.Current.Items[key] == null)
 			{
 				setting = GetStringPropertyFromConfig(key, defaultValue);
+
 				HttpContext.Current.Items[key] = setting;
 			}
 			else
 			{
 				setting = HttpContext.Current.Items[key].ToString();
 			}
+
 			return setting;
 		}
+
 
 		public static int GetIntProperty(string key, int defaultValue)
 		{
 			return int.TryParse(ConfigurationManager.AppSettings[key], out int setting) ? setting : defaultValue;
 		}
 
+
 		public static long GetLongProperty(string key, long defaultValue)
 		{
 			return long.TryParse(ConfigurationManager.AppSettings[key], out long setting) ? setting : defaultValue;
 		}
+
 
 		public static Unit GetUnitProperty(string key, Unit defaultValue)
 		{
@@ -99,6 +119,12 @@ namespace mojoPortal.Core.Configuration
 			}
 
 			return defaultValue;
+		}
+
+
+		public static MachineKeySection GetMachineKeySection()
+		{
+			return (MachineKeySection)ConfigurationManager.GetSection("system.web/machineKey");
 		}
 	}
 }

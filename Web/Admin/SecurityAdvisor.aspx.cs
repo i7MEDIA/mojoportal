@@ -64,7 +64,7 @@ namespace mojoPortal.Web.AdminUI
             else
             {
 				litMachineKeyResults.Text = $@"<div class='alert alert-danger'><strong>{Resource.Attention}</strong> {Resource.SecurityAdvisorMachineKeyWrong}</div>
-					<pre class='language language-xml'><code>{Server.HtmlEncode(SiteUtils.GenerateRandomMachineKey())}</code></pre>
+					<pre class='language language-xml'><code>{Server.HtmlEncode(SiteUtils.GenerateRandomMachineKeyXml())}</code></pre>
 					<div class=''>{Resource.CustomMachineKeyInstructions}</div>
 					<div class='alert alert-info'>{Resource.GenerateMachineKey}.</div>";
             }

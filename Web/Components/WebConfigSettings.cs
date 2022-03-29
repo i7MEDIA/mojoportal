@@ -1309,31 +1309,31 @@ namespace mojoPortal.Web
 			}
 		}
 
-		public static string TestDecryptedValueForDefaultMahineKey
-		{
-			get
-			{
-				if (ConfigurationManager.AppSettings["TestDecryptedValueForDefaultMahineKey"] != null)
-				{
-					return ConfigurationManager.AppSettings["TestDecryptedValueForDefaultMahineKey"];
-				}
+		//public static string TestDecryptedValueForDefaultMachineKey
+		//{
+		//	get
+		//	{
+		//		if (ConfigurationManager.AppSettings["TestDecryptedValueForDefaultMachineKey"] != null)
+		//		{
+		//			return ConfigurationManager.AppSettings["TestDecryptedValueForDefaultMachineKey"];
+		//		}
 
-				return "thisSiteIsSecure123";
-			}
-		}
+		//		return "thisSiteIsSecure123";
+		//	}
+		//}
 
-		public static string TestEncryptedValueForDefaultMahineKey
-		{
-			get
-			{
-				if (ConfigurationManager.AppSettings["TestEncryptedValueForDefaultMahineKey"] != null)
-				{
-					return ConfigurationManager.AppSettings["TestEncryptedValueForDefaultMahineKey"];
-				}
+		//public static string TestEncryptedValueForDefaultMachineKey
+		//{
+		//	get
+		//	{
+		//		if (ConfigurationManager.AppSettings["TestEncryptedValueForDefaultMachineKey"] != null)
+		//		{
+		//			return ConfigurationManager.AppSettings["TestEncryptedValueForDefaultMachineKey"];
+		//		}
 
-				return "8qgZUAp4ukDE6U1/aMIHbmmmLk66RUNQb4KXdgnimwSoSMNyrMPqyzJQCrRf2+XQ";
-			}
-		}
+		//		return "8qgZUAp4ukDE6U1/aMIHbmmmLk66RUNQb4KXdgnimwSoSMNyrMPqyzJQCrRf2+XQ";
+		//	}
+		//}
 
 		/// <summary>
 		/// for backward compatibility this is true but for new installations this is false in the user.config.sample file so it uses the newer method
@@ -4681,6 +4681,18 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("SecurityAdvisorLogTLSCheckResponse", false); }
 		}
 
+		// Supported values are: MD5, SHA1, HMACSHA256, HMACSHA385, HMACSHA512
+		public static string MachineKeyValidationAlgorithm
+		{
+			get { return ConfigHelper.GetStringProperty("MachineKeyValidationAlgorithm", "HMACSHA256"); }
+		}
+
+		// Supported values are: AES, DES, 3DES
+		public static string MachineKeyDecryptionAlgorithm
+		{
+			get { return ConfigHelper.GetStringProperty("MachineKeyDecryptionAlgorithm", "3DES"); }
+		}
+
 		/// <summary>
 		/// calls to this method should be made inside a try catch log
 		/// we don't expect the Web.config file to be writable in general but it usually is on a new 
@@ -4690,34 +4702,42 @@ namespace mojoPortal.Web
 		{
 			SecurityAdvisor securityAdvisor = new SecurityAdvisor();
 
-			if (securityAdvisor.UsingCustomMachineKey()) { return; } //already using a custom key
+			if (securityAdvisor.UsingCustomMachineKey())
+			{
+				return; // already using a custom key
+			}
 
-			string webConfigPath = HostingEnvironment.MapPath("~/Web.config");
+			var webConfigPath = HostingEnvironment.MapPath("~/Web.config");
 			var xmlConfig = new XmlDocument();
+
 			xmlConfig.Load(webConfigPath);
 
 			XmlNode xmlMachineKey = xmlConfig.SelectSingleNode("/configuration/location/system.web/machineKey");
+
 			if(xmlMachineKey == null)
 			{
 				xmlMachineKey = xmlConfig.SelectSingleNode("/configuration/system.web/machineKey");
 			}
 
-			string validationKey = SiteUtils.GenerateKey(128);
-			string decryptionKey = SiteUtils.GenerateKey(64);
+			//string validationKey = SiteUtils.GenerateKey(64);
+			//string decryptionKey = SiteUtils.GenerateKey(64);
+			var (validationKey, decryptionKey, _, _) = SiteUtils.GenerateRandomMachineKey();
 
 			XmlAttribute attrib = xmlMachineKey.Attributes["validationKey"];
-			attrib.InnerText = validationKey;
 
+			attrib.InnerText = validationKey;
 			attrib = xmlMachineKey.Attributes["decryptionKey"];
 			attrib.InnerText = decryptionKey;
 
+			var writer = new XmlTextWriter(webConfigPath, null)
+			{
+				Formatting = Formatting.Indented
+			};
 
-			var writer = new XmlTextWriter(webConfigPath, null) { Formatting = Formatting.Indented };
 			xmlConfig.WriteTo(writer);
+
 			writer.Flush();
 			writer.Close();
-
 		}
-
 	}
 }

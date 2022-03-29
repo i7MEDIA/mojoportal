@@ -2376,28 +2376,108 @@ namespace mojoPortal.Web
 
 		}
 
+
 		//http://msdn.microsoft.com/en-us/library/ff649308.aspx
-		public static string GenerateKey(int length)
-		{
-			byte[] buff = new byte[length / 2];
-			RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
-			rng.GetBytes(buff);
-			StringBuilder key = new StringBuilder(length);
-			for (int i = 0; i < buff.Length; i++)
-				key.Append(string.Format("{0:X2}", buff[i]));
+		//public static string GenerateKey(int length)
+		//{
+		//	byte[] buff = new byte[length / 2];
+		//	RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+		//	rng.GetBytes(buff);
+		//	StringBuilder key = new StringBuilder(length);
+		//	for (int i = 0; i < buff.Length; i++)
+		//		key.Append(string.Format("{0:X2}", buff[i]));
 
-			return key.ToString();
+		//	return key.ToString();
+		//}
+
+
+		// Based off https://www.niteshluharuka.com/generate-machinekey-using-windows-powershell/
+		public static (string, string, string, string) GenerateRandomMachineKey()
+		{
+			var decryptionAlgorithm = WebConfigSettings.MachineKeyDecryptionAlgorithm;
+			var validationAlgorithm = WebConfigSettings.MachineKeyValidationAlgorithm;
+			SymmetricAlgorithm decryptionObject;
+			HMAC validationObject;
+
+			string BinaryToHex(byte[] bytes)
+			{
+				var result = new StringBuilder();
+
+				foreach (var b in bytes)
+				{
+					result = result.AppendFormat(CultureInfo.InvariantCulture, "{0:X2}", b);
+				}
+
+				return result.ToString().ToUpperInvariant();
+			}
+
+			switch (decryptionAlgorithm)
+			{
+				case "AES":
+					decryptionObject = new AesCryptoServiceProvider();
+					break;
+
+				case "DES":
+					decryptionObject = new DESCryptoServiceProvider();
+					break;
+
+				case "3DES":
+					decryptionObject = new TripleDESCryptoServiceProvider();
+					break;
+
+				default:
+					var e = new Exception("MachineKeyDecryptionAlgorithm's value must be AES, DES, or 3DES");
+					
+					log.Error(e.Message, e);
+
+					throw e;
+			}
+
+			switch (validationAlgorithm)
+			{
+				case "MD5":
+					validationObject = new HMACMD5();
+					break;
+				case "SHA1":
+					validationObject = new HMACSHA1();
+					break;
+				case "HMACSHA256":
+					validationObject = new HMACSHA256();
+					break;
+				case "HMACSHA385":
+					validationObject = new HMACSHA384();
+					break;
+				case "HMACSHA512":
+					validationObject = new HMACSHA512();
+					break;
+				default:
+					var e = new Exception("MachineKeyValidationAlgorithm's value must be MD5, SHA1, HMACSHA256, HMACSHA385, or HMACSHA512 ");
+					
+					log.Error(e.Message, e);
+
+					throw e;
+			}
+
+			decryptionObject.GenerateKey();
+
+			var decryptionKey = BinaryToHex(decryptionObject.Key);
+			var validationKey = BinaryToHex(validationObject.Key);
+
+			decryptionObject.Dispose();
+			validationObject.Dispose();
+
+			return (validationKey, decryptionKey, validationAlgorithm, decryptionAlgorithm);
 		}
 
-		public static string GenerateRandomMachineKey()
+
+		public static string GenerateRandomMachineKeyXml()
 		{
-			string validationKey = GenerateKey(128);
-			string decryptionKey = GenerateKey(64);
-			
-			return "<machineKey validationKey=\"" + validationKey + "\" decryptionKey=\"" + decryptionKey + "\" validation=\"HMACSHA256\" decryption=\"AES\" />";
+			var (validationKey, decryptionKey, validationAlgorithm, decryptionAlgorithm) = GenerateRandomMachineKey();
+
+			return $"<machineKey validationKey=\"{validationKey}\" decryptionKey=\"{decryptionKey}\" validation=\"{validationAlgorithm}\" decryption=\"{decryptionAlgorithm}\" />";
 		}
 
-		
+
 
 		public static string GetEditorProviderName()
 		{
