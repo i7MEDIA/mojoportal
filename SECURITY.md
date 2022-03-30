@@ -2,20 +2,17 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+Only the versions listed below are supported with Security Updates.
+
+If a vulnerability is found in a supported version, but the vulnerability does not exist in a later version, the vulnerability may not be patched in the affected version.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| 2.5 +   | :white_check_mark: |
+| < 2.5   | :x:                |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+Vulnerabilities should be reported on the mojoPortal website using the [Report a Vulnerability](https://www.mojoportal.com/report-a-vulnerability) form. 
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Each report will be taken seriously and we will respond directly to the person who submitted the report with our findings.
