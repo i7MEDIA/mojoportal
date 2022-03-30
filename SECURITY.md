@@ -8,7 +8,10 @@ If a vulnerability is found in a supported version, but the vulnerability does n
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 2.5 +   | :white_check_mark: |
+| 2.8.x   | :white_check_mark: |
+| 2.7.x   | :white_check_mark: |
+| 2.6.x   | :white_check_mark: |
+| 2.5.x   | :white_check_mark: |
 | < 2.5   | :x:                |
 
 ## Reporting a Vulnerability
