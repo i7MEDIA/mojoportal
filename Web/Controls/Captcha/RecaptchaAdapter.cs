@@ -1,99 +1,75 @@
-// Author:		        
-// Created:            2007-08-16
-// Last Modified:      2014-05-22
-// 
-// Licensed under the terms of the GNU Lesser General Public License:
-//	http://www.opensource.org/licenses/lgpl-license.php
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using mojoPortal.Web.Controls;
-using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-//using Recaptcha;
 using mojoPortal.Web.UI;
+using System.Web.UI;
 
 namespace mojoPortal.Web.Controls.Captcha
 {
-    
-    public class RecaptchaAdapter : ICaptcha
-    {
-        #region Constructors
+	public class RecaptchaAdapter : ICaptcha
+	{
+		#region Fields
 
-        public RecaptchaAdapter() 
-        {
-            InitializeAdapter();
-        }
+		private readonly RecaptchaControl captchaControl = new RecaptchaControl();
 
-        #endregion
-
-        private RecaptchaControl captchaControl = new RecaptchaControl();
-
-        //private RecaptchaControl captchaControl
-        //    = new RecaptchaControl();
+		#endregion
 
 
-        //public string PrivateKey
-        //{
-        //    get { return captchaControl.PrivateKey; }
-        //    set { captchaControl.PrivateKey = value; }
-        //}
+		#region Public Properties
 
-        //public string PublicKey
-        //{
-        //    get { return captchaControl.PublicKey; }
-        //    set { captchaControl.PublicKey = value; }
-        //}
+		public bool IsValid
+		{
+			get
+			{
+				captchaControl.Validate();
 
-        public bool IsValid
-        {
-            get {
-                captchaControl.Validate();
-                
-                return captchaControl.IsValid; 
-            }
-           
-        }
+				return captchaControl.IsValid;
+			}
+		}
 
-        public bool Enabled
-        {
-            get { return captchaControl.Enabled; }
-            set 
-            { 
-                captchaControl.Enabled = value;
-                if (!value) { captchaControl.SkipRecaptcha = true; }
-            }
 
-        }
+		public bool Enabled
+		{
+			get
+			{
+				return captchaControl.Enabled;
+			}
+			set
+			{
+				captchaControl.Enabled = value;
 
-        public string ControlID
-        {
-            get
-            {
-                return captchaControl.ID;
-            }
-            set
-            {
-                captchaControl.ID = value;
-            }
-        }
+				if (!value)
+				{
+					captchaControl.SkipRecaptcha = true;
+				}
+			}
+		}
 
-        public string ValidationGroup
-        {
-            get
-            {
-                return captchaControl.ValidationGroup;
-            }
-            set
-            {
-                captchaControl.ValidationGroup = value;
-            }
-        }
+
+		public string ControlID
+		{
+			get
+			{
+				return captchaControl.ID;
+			}
+			set
+			{
+				captchaControl.ID = value;
+			}
+		}
+
+
+		public string ValidationGroup
+		{
+			get
+			{
+				return captchaControl.ValidationGroup;
+			}
+			set
+			{
+				captchaControl.ValidationGroup = value;
+			}
+		}
+
+
 		public short TabIndex
 		{
 			get
@@ -106,17 +82,33 @@ namespace mojoPortal.Web.Controls.Captcha
 			}
 		}
 
+		#endregion
+
+
+		#region Constructors
+
+		public RecaptchaAdapter()
+		{
+			InitializeAdapter();
+		}
+
+		#endregion
+
+
+		#region Private Methods
+
 		private void InitializeAdapter()
-        {
-           
-        }
+		{ }
 
-        #region Public Methods
+		#endregion
 
-        public Control GetControl()
-        {
-			if ((WebConfigSettings.RecaptchaPrivateKey.Length > 0)&&(WebConfigSettings.RecaptchaPublicKey.Length > 0))
-            {
+
+		#region Public Methods
+
+		public Control GetControl()
+		{
+			if (WebConfigSettings.RecaptchaPrivateKey.Length > 0 && WebConfigSettings.RecaptchaPublicKey.Length > 0)
+			{
 				if (WebConfigSettings.RecaptchaHCaptcha == "recaptcha")
 				{
 					captchaControl.Theme = WebConfigSettings.ReCaptchaDefaultTheme;
@@ -135,18 +127,19 @@ namespace mojoPortal.Web.Controls.Captcha
 				}
 
 				captchaControl.PrivateKey = WebConfigSettings.RecaptchaPrivateKey;
-                captchaControl.PublicKey = WebConfigSettings.RecaptchaPublicKey;
+				captchaControl.PublicKey = WebConfigSettings.RecaptchaPublicKey;
 				captchaControl.RegisterWithScriptManager = true;
 				captchaControl.TabIndex = 10;
-                return captchaControl;
-            }
 
-			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+				return captchaControl;
+			}
 
-			if ((siteSettings == null)||(siteSettings.RecaptchaPrivateKey.Length == 0)||(siteSettings.RecaptchaPublicKey.Length == 0))
-            {
-                return new Subkismet.Captcha.CaptchaControl();
-            }
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
+
+			if (siteSettings == null || siteSettings.RecaptchaPrivateKey.Length == 0 || siteSettings.RecaptchaPublicKey.Length == 0)
+			{
+				return new Subkismet.Captcha.CaptchaControl();
+			}
 
 			captchaControl.Theme = siteSettings.CaptchaTheme;
 			captchaControl.ClientScriptUrl = siteSettings.CaptchaClientScriptUrl;
@@ -154,15 +147,13 @@ namespace mojoPortal.Web.Controls.Captcha
 			captchaControl.Param = siteSettings.CaptchaParam;
 			captchaControl.ResponseField = siteSettings.CaptchaResponseField;
 			captchaControl.PrivateKey = siteSettings.RecaptchaPrivateKey;
-            captchaControl.PublicKey = siteSettings.RecaptchaPublicKey;
-            captchaControl.Theme = siteSettings.CaptchaTheme;
-            captchaControl.RegisterWithScriptManager = true;
-            
-            return captchaControl;
-        }
+			captchaControl.PublicKey = siteSettings.RecaptchaPublicKey;
+			captchaControl.Theme = siteSettings.CaptchaTheme;
+			captchaControl.RegisterWithScriptManager = true;
 
+			return captchaControl;
+		}
 
-
-        #endregion
-    }
+		#endregion
+	}
 }

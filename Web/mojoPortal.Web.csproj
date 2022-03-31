@@ -1673,6 +1673,7 @@
     <Compile Include="Controls\Artisteer\MenuAdapterArtisteerVertical.cs" />
     <Compile Include="Controls\Artisteer\mojoMenuArtisteerVertical.cs" />
     <Compile Include="Controls\AutoHidePanel.cs" />
+    <Compile Include="Controls\Captcha\CaptchaVerificationResponse.cs" />
     <Compile Include="Controls\Captcha\RecaptchaControl.cs" />
     <Compile Include="Controls\Captcha\RecaptchaResponse.cs" />
     <Compile Include="Controls\Captcha\RecaptchaValidator.cs" />
