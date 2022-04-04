@@ -1,4 +1,6 @@
-﻿using mojoPortal.Core.Configuration;
+﻿using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Configuration;
 using Resources;
 using System;
 using System.Collections.Generic;
@@ -81,6 +83,31 @@ namespace mojoPortal.Web
 			}
 
 			return HttpRuntime.Cache[cacheKey] as List<string>;
+		}
+
+
+		/// <summary>
+		/// Determine if default admin account and password are in use
+		/// </summary>
+		/// <returns>(userExists, passwordIsDefault)</returns>
+		public (bool userExists, bool passwordIsDefault) DefaultAdmin()
+		{
+			var defaultEmail = "admin@admin.com";
+			var defaultPassword = "admin";
+			var encodedPassword = string.Empty;
+			var defaultAdminUser = SiteUser.GetByEmail(CacheHelper.GetCurrentSiteSettings(), defaultEmail);
+
+			if (defaultAdminUser == null)
+			{
+				return (false, false);
+			}
+
+			if (Membership.Provider is mojoMembershipProvider membershipProvider)
+			{
+				encodedPassword = membershipProvider.EncodePassword(defaultAdminUser.PasswordSalt + defaultPassword, MembershipPasswordFormat.Encrypted);
+			}
+
+			return (true, defaultAdminUser.Password == defaultPassword || defaultAdminUser.Password == encodedPassword);
 		}
 
 

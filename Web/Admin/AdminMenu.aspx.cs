@@ -1,27 +1,15 @@
-/// Created:				2007-04-29
-/// Last Modified:			2018-11-12
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Eclipse Public License 1.0 (https://opensource.org/licenses/eclipse-1.0)
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using log4net;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace mojoPortal.Web.AdminUI
 {
-
 	public partial class AdminMenuPage : NonCmsBasePage
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(AdminMenuPage));
@@ -35,22 +23,23 @@ namespace mojoPortal.Web.AdminUI
 		private Models.AdminMenuPage model;
 		private ContentAdminLinksConfiguration supplementalLinks;
 		private const string partialName = "_AdminMenu";
+
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!Request.IsAuthenticated)
 			{
 				SiteUtils.RedirectToLoginPage(this);
+
 				return;
 			}
 
 			LoadSettings();
-			if (
-				(!WebUser.IsAdminOrContentAdminOrRoleAdminOrNewsletterAdmin)
-				&& (!isSiteEditor)
-				&& (!isCommerceReportViewer)
-				)
+
+			if (!WebUser.IsAdminOrContentAdminOrRoleAdminOrNewsletterAdmin && !isSiteEditor && !isCommerceReportViewer)
 			{
 				WebUtils.SetupRedirect(this, SiteRoot + "/AccessDenied.aspx");
+
 				return;
 			}
 
@@ -60,6 +49,7 @@ namespace mojoPortal.Web.AdminUI
 			PopulateModel();
 			PopulateControls();
 		}
+
 
 		private void PopulateModel()
 		{
@@ -86,7 +76,8 @@ namespace mojoPortal.Web.AdminUI
 			//Site List
 			if (WebConfigSettings.AllowMultipleSites && siteSettings.IsServerAdminSite && IsAdmin)
 			{
-				model.Links.Add(new ContentAdminLink {
+				model.Links.Add(new ContentAdminLink
+				{
 					ResourceFile = "Resource",
 					ResourceKey = "SiteList",
 					Url = SiteRoot + "/Admin/SiteList.aspx",
@@ -99,8 +90,10 @@ namespace mojoPortal.Web.AdminUI
 			//Security Advisor
 			if (IsAdmin && siteSettings.IsServerAdminSite)
 			{
-				bool needsAttention = !securityAdvisor.UsingCustomMachineKey();
-				model.Links.Add(new ContentAdminLink {
+				var needsAttention = !securityAdvisor.UsingCustomMachineKey() || securityAdvisor.DefaultAdmin().userExists;
+
+				model.Links.Add(new ContentAdminLink
+				{
 					ResourceFile = "Resource",
 					ResourceKey = needsAttention ? "SecurityAdvisorNeedsAttention" : "SecurityAdvisor",
 					Url = SiteRoot + "/Admin/SecurityAdvisor.aspx",
@@ -113,11 +106,13 @@ namespace mojoPortal.Web.AdminUI
 			//Role Admin
 			if (WebUser.IsRoleAdmin || IsAdmin)
 			{
-				bool addLink = true;
+				var addLink = true;
+
 				if (WebConfigSettings.UseRelatedSiteMode && WebConfigSettings.RelatedSiteModeHideRoleManagerInChildSites && siteSettings.SiteId != WebConfigSettings.RelatedSiteID)
 				{
-						addLink = false;
+					addLink = false;
 				}
+
 				if (addLink)
 				{
 					model.Links.Add(new ContentAdminLink
@@ -353,7 +348,7 @@ namespace mojoPortal.Web.AdminUI
 					IconCssClass = "fa fa-wrench",
 					SortOrder = 100
 				});
-				
+
 				//System Info
 				if (siteSettings.IsServerAdminSite || WebConfigSettings.ShowSystemInformationInChildSiteAdminMenu)
 				{

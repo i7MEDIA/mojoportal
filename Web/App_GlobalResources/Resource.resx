@@ -6685,4 +6685,19 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="SiteSettingsSMTPHeadersDescription" xml:space="preserve">
     <value>Enter each header on its own line as "HeaderName: header value"</value>
   </data>
+  <data name="SecurityAdvisorDefaultAdminAccountDescription" xml:space="preserve">
+    <value>Checks for existence of default admin account</value>
+  </data>
+  <data name="SecurityAdvisorDefaultAdminAccountDoesNotExists" xml:space="preserve">
+    <value>Default admin user account does not exist</value>
+  </data>
+  <data name="SecurityAdvisorDefaultAdminAccountExists" xml:space="preserve">
+    <value>Default admin account "admin@admin.com" exists. Either update this account's email and password or delete this account.</value>
+  </data>
+  <data name="SecurityAdvisorDefaultAdminAccountExistsAndPasswordIsDefault" xml:space="preserve">
+    <value>Default admin account "admin@admin.com" exists and it's password is also default. Either update this account's email and password or delete this account.</value>
+  </data>
+  <data name="SecurityAdvisorDefaultAdminAccountHeading" xml:space="preserve">
+    <value>Default Admin Account</value>
+  </data>
 </root>

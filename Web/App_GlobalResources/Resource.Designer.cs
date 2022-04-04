@@ -14596,6 +14596,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///    Looks up a localized string similar to Checks for existence of default admin account.
+        /// </summary>
+        internal static string SecurityAdvisorDefaultAdminAccountDescription {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorDefaultAdminAccountDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Default admin user account does not exist.
+        /// </summary>
+        internal static string SecurityAdvisorDefaultAdminAccountDoesNotExists {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorDefaultAdminAccountDoesNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Default admin account &quot;admin@admin.com&quot; exists. Either update this account&apos;s email and password or delete this account..
+        /// </summary>
+        internal static string SecurityAdvisorDefaultAdminAccountExists {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorDefaultAdminAccountExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Default admin account &quot;admin@admin.com&quot; exists and it&apos;s password is also default. Either update this account&apos;s email and password or delete this account..
+        /// </summary>
+        internal static string SecurityAdvisorDefaultAdminAccountExistsAndPasswordIsDefault {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorDefaultAdminAccountExistsAndPasswordIsDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Default Admin Account.
+        /// </summary>
+        internal static string SecurityAdvisorDefaultAdminAccountHeading {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorDefaultAdminAccountHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Looks up a localized string similar to The website should only be able to write to the data directory..
         /// </summary>
         internal static string SecurityAdvisorFileSystemDescription {
