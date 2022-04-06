@@ -799,6 +799,7 @@
 								<portal:FormGroupPanel runat="server">
 									<mp:SiteLabel runat="server" ForControl="ddCommentSystem" CssClass="settinglabel" ConfigKey="SiteSettingsCommentSystem" />
 									<asp:DropDownList ID="ddCommentSystem" runat="server" CssClass="forminput">
+										<asp:ListItem Value="internal" Text="<%$ Resources:Resource, CommentSystemInternal %>" />
 										<asp:ListItem Value="intensedebate" Text="<%$ Resources:Resource, CommentSystemIntenseDebate %>" />
 										<asp:ListItem Value="disqus" Text="<%$ Resources:Resource, CommentSystemDisqus %>" />
 										<asp:ListItem Value="facebook" Text="<%$ Resources:Resource, CommentSystemFacebook %>" />
