@@ -447,6 +447,7 @@ namespace mojoPortal.Data
 
 		}
 
+
 		public static IDataReader GetUserListPage(
 			int siteId,
 			int pageNumber,
@@ -454,90 +455,112 @@ namespace mojoPortal.Data
 			string beginsWith,
 			int sortMode,
 			string nameFilterMode,
-			out int totalPages)
+			out int totalPages
+		)
 		{
-			var sqlCommand = @"
-				SELECT u.*
-				FROM mp_Users u
-				WHERE u.ProfileApproved = 1
-				AND u.SiteID = ?SiteID";
+			string commandText;
 
-			int pageLowerBound = (pageSize * pageNumber) - pageSize;
-
-			int totalRows = Count(siteId, beginsWith);
-
-			totalPages = 1;
-
-			if (pageSize > 0)
+			// Create temporary table
+			if (string.IsNullOrWhiteSpace(beginsWith))
 			{
-				totalPages = totalRows / pageSize;
-			}
-
-			if (totalRows <= pageSize)
-			{
-				totalPages = 1;
+				commandText = @"
+CREATE TEMPORARY TABLE IF NOT EXISTS PageIndexForUsers AS (
+	SELECT UserID
+	FROM mp_Users
+	WHERE ProfileApproved = 1
+	AND DisplayInMemberList = 1
+	AND SiteID = ?SiteId
+	AND IsDeleted = 0
+	ORDER BY Name
+)";
 			}
 			else
 			{
-				Math.DivRem(totalRows, pageSize, out int remainder);
-				if (remainder > 0)
-				{
-					totalPages += 1;
-				}
+				commandText = @"
+CREATE TEMPORARY TABLE IF NOT EXISTS PageIndexForUsers AS (
+	SELECT UserID
+	FROM mp_Users
+	WHERE ProfileApproved = 1
+	AND DisplayInMemberList = 1
+	AND SiteID = ?SiteID
+	AND IsDeleted = 0
+	AND (
+		(?NameFilterMode = 'display' AND LOWER(Name) LIKE LOWER(?BeginsWith) + '%')
+		OR (
+			(?NameFilterMode = 'lastname' AND LOWER(LastName) LIKE LOWER(?BeginsWith) + '%')
+			OR
+			(?NameFilterMode = 'lastname' AND LOWER(Name) LIKE LOWER(?BeginsWith) + '%')
+		)
+		OR (?NameFilterMode <> 'display' AND ?NameFilterMode <> 'lastname' AND LOWER(Name) LIKE LOWER(?BeginsWith) + '%')
+	)
+	ORDER BY
+		(CASE ?SortMode WHEN 1 THEN DateCreated END ) DESC,
+		(CASE ?SortMode WHEN 2 THEN LastName END),
+		(CASE ?SortMode WHEN 2 THEN FirstName END),
+		Name
+)
+";
 			}
 
-			switch (nameFilterMode)
+			// Query from temporary table and then drop it
+			commandText += @"
+SELECT * FROM mp_Users u
+JOIN #PageIndexForUsers p
+ON u.UserID = p.UserID
+WHERE u.ProfileApproved = 1
+AND u.SiteID = ?SiteID
+AND u.IsDeleted = 0
+AND p.IndexID > ?PageLowerBound
+AND p.IndexID < ?PageUpperBound
+ORDER BY p.IndexID
+
+DROP TABLE PageIndexForUsers";
+
+			var pageLowerBound = (pageSize * pageNumber) - pageSize;
+			var pageLowerUpper = pageLowerBound + pageSize + 1;
+			var totalRows = Count(siteId, beginsWith);
+			
+			// VS says that one of the casts are redundant, but I remember it being an issue in the past so we'll just leave it
+			totalPages = (int)Math.Ceiling((decimal)totalRows / (decimal)pageSize);
+
+			var commandParameters = new MySqlParameter[]
 			{
-				case "display":
-				default:
-					sqlCommand += " AND Lower(Name) LIKE LOWER(?BeginsWith)";
-					break;
-				case "lastname":
-					sqlCommand += " AND Lower(LastName) LIKE LOWER(?BeginsWith)";
-					break;
-			}
-
-			switch (sortMode)
-			{
-				case 1:
-					sqlCommand += " ORDER BY u.DateCreated DESC";
-					break;
-
-				case 2:
-					sqlCommand += " ORDER BY u.LastName, u.FirstName, u.Name";
-					break;
-
-				case 0:
-				default:
-					sqlCommand += " ORDER BY u.Name";
-					break;
-			}
-
-			sqlCommand += $" LIMIT { pageLowerBound.ToString(CultureInfo.InvariantCulture)}, ?PageSize;";
-
-			List<MySqlParameter> arParams = new List<MySqlParameter>()
-			{
-				new MySqlParameter("?PageSize", MySqlDbType.Int32)
+				new MySqlParameter("?SiteID", MySqlDbType.Int32)
 				{
 					Direction = ParameterDirection.Input,
-					Value = pageSize
+					Value = siteId
 				},
 				new MySqlParameter("?BeginsWith", MySqlDbType.VarChar, 50)
 				{
 					Direction = ParameterDirection.Input,
 					Value = beginsWith + "%"
 				},
-				new MySqlParameter("?SiteID", MySqlDbType.Int32)
+				new MySqlParameter("?PageLowerBound", MySqlDbType.Int32)
 				{
 					Direction = ParameterDirection.Input,
-					Value = siteId
+					Value = pageLowerBound
+				},
+				new MySqlParameter("?PageUpperBound", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageLowerUpper
+				},
+				new MySqlParameter("?NameFilterMode", MySqlDbType.VarChar, 10)
+				{
+					Direction = ParameterDirection.Input,
+					Value = nameFilterMode
+				},
+				new MySqlParameter("?SortMode", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = sortMode
 				},
 			};
 
 			return MySqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
-				sqlCommand,
-				arParams.ToArray()
+				commandText,
+				commandParameters
 			);
 		}
 
