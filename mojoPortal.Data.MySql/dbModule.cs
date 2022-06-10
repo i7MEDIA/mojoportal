@@ -1,29 +1,13 @@
-// Author:					
-// Created:				    2007-11-03
-// Last Modified:			2013-04-23
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-// 
-// Note moved into separate class file from dbPortal 2007-11-03
-// 
 using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Globalization;
 using System.Text;
 
-
 namespace mojoPortal.Data
 {
 	public static class DBModule
 	{
-
 		public static int AddModule(
 			int pageId,
 			int siteId,
@@ -50,8 +34,6 @@ namespace mojoPortal.Data
 			string headElement,
 			int publishMode)
 		{
-
-
 			// this is an unsigned int in the table
 			// and this is a hack to fix a setup bug
 			// where -1 is assigned when creating initial content

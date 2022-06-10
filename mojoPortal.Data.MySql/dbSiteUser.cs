@@ -518,7 +518,7 @@ DROP TABLE PageIndexForUsers";
 
 			var pageLowerBound = (pageSize * pageNumber) - pageSize;
 			var pageLowerUpper = pageLowerBound + pageSize + 1;
-			var totalRows = Count(siteId, beginsWith);
+			var totalRows = UserCount(siteId, beginsWith, nameFilterMode);
 			
 			// VS says that one of the casts are redundant, but I remember it being an issue in the past so we'll just leave it
 			totalPages = (int)Math.Ceiling((decimal)totalRows / (decimal)pageSize);
