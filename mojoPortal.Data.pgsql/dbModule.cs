@@ -1479,5 +1479,31 @@ namespace mojoPortal.Data
 
 			return dt;
 		}
+
+
+		public static IDataReader GetGlobalContent(int siteId)
+		{
+			var commandText = @"
+SELECT m.*,
+	md.FeatureName,
+	md.ControlSrc,
+	md.ResourceFile,
+	u.Name As CreatedBy,
+	u.UserID AS CreatedById,
+	(
+		SELECT COUNT(pm.PageID)
+		FROM mp_PageModules pm
+		WHERE pm.ModuleID = m.ModuleID
+	) AS UseCount
+FROM mp_Modules m
+JOIN mp_ModuleDefinitions md ON md.ModuleDefID = m.ModuleDefID
+LEFT OUTER JOIN mp_Users u ON m.CreatedByUserID = u.UserID";
+
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.Text,
+				commandText
+			);
+		}
 	}
 }

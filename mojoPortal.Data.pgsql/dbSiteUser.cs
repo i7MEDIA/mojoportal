@@ -7,10 +7,8 @@ using System.Text;
 
 namespace mojoPortal.Data
 {
-
 	public static class DBSiteUser
 	{
-
 		public static IDataReader GetUserCountByYearMonth(int siteId)
 		{
 			StringBuilder sqlCommand = new StringBuilder();
@@ -372,106 +370,115 @@ namespace mojoPortal.Data
 			int sortMode,
 			string nameFilterMode,
 			out int totalPages
-			)
+		)
 		{
-			int pageLowerBound = (pageSize * pageNumber) - pageSize;
-			int totalRows = UserCount(siteId, beginsWith, nameFilterMode);
-			totalPages = 1;
-			if (pageSize > 0)
-				totalPages = totalRows / pageSize;
+			string commandText;
 
-			if (totalRows <= pageSize)
+			// Create temporary table
+			if (string.IsNullOrWhiteSpace(beginsWith))
 			{
-				totalPages = 1;
+				commandText = @"
+CREATE TEMPORARY TABLE IF NOT EXISTS PageIndexForUsers AS (
+	SELECT UserID
+	FROM mp_Users
+	WHERE ProfileApproved = 1
+	AND DisplayInMemberList = 1
+	AND SiteID = :SiteId
+	AND IsDeleted = 0
+	ORDER BY Name
+)";
 			}
 			else
 			{
-				Math.DivRem(totalRows, pageSize, out int remainder);
-				if (remainder > 0)
-				{
-					totalPages += 1;
-				}
+				commandText = @"
+CREATE TEMPORARY TABLE IF NOT EXISTS PageIndexForUsers AS (
+	SELECT UserID
+	FROM mp_Users
+	WHERE ProfileApproved = 1
+	AND DisplayInMemberList = 1
+	AND SiteID = :SiteID
+	AND IsDeleted = 0
+	AND (
+		(:NameFilterMode = 'display' AND LOWER(Name) LIKE LOWER(:BeginsWith) + '%')
+		OR (
+			(:NameFilterMode = 'lastname' AND LOWER(LastName) LIKE LOWER(:BeginsWith) + '%')
+			OR
+			(:NameFilterMode = 'lastname' AND LOWER(Name) LIKE LOWER(:BeginsWith) + '%')
+		)
+		OR (:NameFilterMode <> 'display' AND :NameFilterMode <> 'lastname' AND LOWER(Name) LIKE LOWER(:BeginsWith) + '%')
+	)
+	ORDER BY
+		(CASE :SortMode WHEN 1 THEN DateCreated END ) DESC,
+		(CASE :SortMode WHEN 2 THEN LastName END),
+		(CASE :SortMode WHEN 2 THEN FirstName END),
+		Name
+)
+";
 			}
 
-			List<NpgsqlParameter> arParams = new List<NpgsqlParameter>
+			// Query from temporary table and then drop it
+			commandText += @"
+SELECT * FROM mp_Users u
+JOIN #PageIndexForUsers p
+ON u.UserID = p.UserID
+WHERE u.ProfileApproved = 1
+AND u.SiteID = :SiteID
+AND u.IsDeleted = 0
+AND p.IndexID > :PageLowerBound
+AND p.IndexID < :PageUpperBound
+ORDER BY p.IndexID
+
+DROP TABLE PageIndexForUsers";
+
+			var pageLowerBound = (pageSize * pageNumber) - pageSize;
+			var pageLowerUpper = pageLowerBound + pageSize + 1;
+			var totalRows = UserCount(siteId, beginsWith, nameFilterMode);
+
+			// VS says that one of the casts are redundant, but I remember it being an issue in the past so we'll just leave it
+			totalPages = (int)Math.Ceiling((decimal)totalRows / (decimal)pageSize);
+
+			NpgsqlParameter[] commandParameters = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter("pageoffset", NpgsqlTypes.NpgsqlDbType.Integer)
+				new NpgsqlParameter("SiteID", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
-					Value = pageLowerBound
+					Value = siteId
 				},
-				new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer)
-				{
-					Direction = ParameterDirection.Input,
-					Value = pageSize
-				},
-				new NpgsqlParameter("beginswith", NpgsqlTypes.NpgsqlDbType.Varchar, 50)
+				new NpgsqlParameter("BeginsWith", NpgsqlDbType.Varchar, 50)
 				{
 					Direction = ParameterDirection.Input,
 					Value = beginsWith + "%"
 				},
-				new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer)
+				new NpgsqlParameter("PageLowerBound", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
-					Value = siteId
+					Value = pageLowerBound
+				},
+				new NpgsqlParameter("PageUpperBound", NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageLowerUpper
+				},
+				new NpgsqlParameter("NameFilterMode", NpgsqlDbType.Varchar, 10)
+				{
+					Direction = ParameterDirection.Input,
+					Value = nameFilterMode
+				},
+				new NpgsqlParameter("SortMode", NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = sortMode
 				}
 			};
-
-			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("SELECT	u.* ");
-
-			sqlCommand.Append("FROM	mp_users u ");
-
-			sqlCommand.Append("WHERE u.profileapproved = true   ");
-			sqlCommand.Append("AND u.siteid = :siteid   ");
-
-			if (beginsWith.Length > 0)
-			{
-				switch (nameFilterMode)
-				{
-					case "display":
-					default:
-						sqlCommand.Append(" AND LOWER(name) LIKE LOWER(:beginswith) ");
-						break;
-					case "lastname":
-						sqlCommand.Append(" AND LOWER(lastname) LIKE LOWER(:beginswith) ");
-						break;
-				}
-			}
-
-			switch (sortMode)
-			{
-				case 1:
-					sqlCommand.Append(" ORDER BY u.datecreated DESC ");
-					break;
-
-				case 2:
-					sqlCommand.Append(" ORDER BY u.lastname, u.firstname, u.name ");
-					break;
-
-				case 0:
-				default:
-					sqlCommand.Append(" ORDER BY u.name ");
-					break;
-			}
-
-
-			sqlCommand.Append("LIMIT  :pagesize");
-
-			if (pageNumber > 1)
-				sqlCommand.Append(" OFFSET :pageoffset ");
-
-			sqlCommand.Append(";");
 
 			return NpgsqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				CommandType.Text,
-				sqlCommand.ToString(),
-				arParams.ToArray());
-
-
-
+				commandText,
+				commandParameters
+			);
 		}
+
 
 		private static int CountForSearch(int siteId, string searchInput)
 		{

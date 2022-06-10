@@ -675,15 +675,18 @@ not in
 
 		public static IDataReader GetUserModules(int siteId)
 		{
-			var sqlCommand = @"SELECT md.*, smd.authorizedroles 
-				FROM	mp_moduledefinitions md 
-				JOIN	mp_sitemoduledefinitions smd  
-							ON md.moduledefid = smd.moduledefid  
-				WHERE smd.siteid = :siteid 
-					AND md.isadmin = false 
-				ORDER BY md.sortorder, md.featurename ;";
+			var commandText = @"
+SELECT md.*, smd.FeatureGuid, smd.AuthorizedRoles
+FROM mp_ModuleDefinitions md
+JOIN mp_SiteModuleDefinitions smd
+ON smd.ModuleDefID = md.ModuleDefID
+WHERE smd.SiteID = :SiteID
+AND md.IsAdmin = 0
+ORDER BY 
+md.SortOrder,
+md.FeatureName";
 
-			var sqlParams = new List<NpgsqlParameter>()
+			var commandParameters = new NpgsqlParameter[]
 			{
 				new NpgsqlParameter("siteid", NpgsqlDbType.Integer)
 				{
@@ -695,8 +698,8 @@ not in
 			return NpgsqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				CommandType.Text,
-				sqlCommand,
-				sqlParams.ToArray()
+				commandText,
+				commandParameters
 			);
 		}
 
