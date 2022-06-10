@@ -1,34 +1,22 @@
-/// Created:			2004-12-26
-/// Last Modified:		2013-04-24
-
 using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Web;
 using System.Web.UI;
-#if !MONO
-using System.Web.UI.WebControls.WebParts;
-#endif
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web 
 {
-	
-	#if !MONO
-    public abstract class SiteModuleControl : mojoUserControl, IWebPart
-	#else
-	public abstract class SiteModuleControl : UserControl
-	#endif
+    public abstract class SiteModuleControl : mojoUserControl
 	{
         private Module moduleConfiguration;
         private bool isEditable = false;
         private bool forbidModuleSettings = false;
         private int siteID = -1;
         private Hashtable settings;
-        private bool renderInWebPartMode = false;
-        private string imageSiteRoot = null;
+		private string imageSiteRoot = null;
         private bool isSiteEditor = false;
         private bool enableWorkflow = false;
         private bool use3LevelWorkflow = false; //joe davis
@@ -151,20 +139,11 @@ namespace mojoPortal.Web
             return false;
         }
 
-#if !MONO
-        [Personalizable(PersonalizationScope.Shared)] 
-#endif
-        public bool RenderInWebPartMode
-        {
-            get { return renderInWebPartMode; }
-            set { renderInWebPartMode = value; }
-        }
 
-#if !MONO
-        [Personalizable(PersonalizationScope.Shared)]
-#endif
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int ModuleId
+        public bool RenderInWebPartMode { get; set; } = false;
+
+
+		public int ModuleId
         {
             get { return moduleConfiguration == null ? 0 : moduleConfiguration.ModuleId; }
             set
