@@ -367,6 +367,7 @@ namespace mojoPortal.Data
 
 		//}
 
+
 		public static IDataReader GetUserListPage(
 			int siteId,
 			int pageNumber,
@@ -374,90 +375,113 @@ namespace mojoPortal.Data
 			string beginsWith,
 			int sortMode,
 			string nameFilterMode,
-			out int totalPages)
+			out int totalPages
+		)
 		{
-			StringBuilder sqlCommand = new StringBuilder();
-			int pageLowerBound = (pageSize * pageNumber) - pageSize;
+			string commandText;
 
-			int totalRows
-				= UserCount(siteId, beginsWith, nameFilterMode);
-			totalPages = 1;
-			if (pageSize > 0)
-				totalPages = totalRows / pageSize;
-
-			if (totalRows <= pageSize)
+			// Create temporary table
+			if (string.IsNullOrWhiteSpace(beginsWith))
 			{
-				totalPages = 1;
+				commandText = @"
+CREATE TEMPORARY TABLE IF NOT EXISTS PageIndexForUsers AS (
+	SELECT UserID
+	FROM mp_Users
+	WHERE ProfileApproved = 1
+	AND DisplayInMemberList = 1
+	AND SiteID = ?SiteId
+	AND IsDeleted = 0
+	ORDER BY Name
+)";
 			}
 			else
 			{
-				int remainder;
-				Math.DivRem(totalRows, pageSize, out remainder);
-				if (remainder > 0)
+				commandText = @"
+CREATE TEMPORARY TABLE IF NOT EXISTS PageIndexForUsers AS (
+	SELECT UserID
+	FROM mp_Users
+	WHERE ProfileApproved = 1
+	AND DisplayInMemberList = 1
+	AND SiteID = ?SiteID
+	AND IsDeleted = 0
+	AND (
+		(?NameFilterMode = 'display' AND LOWER(Name) LIKE LOWER(?BeginsWith) + '%')
+		OR (
+			(?NameFilterMode = 'lastname' AND LOWER(LastName) LIKE LOWER(?BeginsWith) + '%')
+			OR
+			(?NameFilterMode = 'lastname' AND LOWER(Name) LIKE LOWER(?BeginsWith) + '%')
+		)
+		OR (?NameFilterMode <> 'display' AND ?NameFilterMode <> 'lastname' AND LOWER(Name) LIKE LOWER(?BeginsWith) + '%')
+	)
+	ORDER BY
+		(CASE ?SortMode WHEN 1 THEN DateCreated END ) DESC,
+		(CASE ?SortMode WHEN 2 THEN LastName END),
+		(CASE ?SortMode WHEN 2 THEN FirstName END),
+		Name
+)
+";
+			}
+
+			// Query from temporary table and then drop it
+			commandText += @"
+SELECT * FROM mp_Users u
+JOIN #PageIndexForUsers p
+ON u.UserID = p.UserID
+WHERE u.ProfileApproved = 1
+AND u.SiteID = ?SiteID
+AND u.IsDeleted = 0
+AND p.IndexID > ?PageLowerBound
+AND p.IndexID < ?PageUpperBound
+ORDER BY p.IndexID
+
+DROP TABLE PageIndexForUsers";
+
+			var pageLowerBound = (pageSize * pageNumber) - pageSize;
+			var pageLowerUpper = pageLowerBound + pageSize + 1;
+			var totalRows = UserCount(siteId, beginsWith, nameFilterMode);
+
+			// VS says that one of the casts are redundant, but I remember it being an issue in the past so we'll just leave it
+			totalPages = (int)Math.Ceiling((decimal)totalRows / (decimal)pageSize);
+
+			var commandParameters = new SqliteParameter[]
+			{
+				new SqliteParameter(":SiteID", DbType.Int32)
 				{
-					totalPages += 1;
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+				new SqliteParameter(":BeginsWith", DbType.String)
+				{
+					Direction = ParameterDirection.Input,
+					Value = beginsWith + "%"
+				},
+				new SqliteParameter(":PageLowerBound", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageLowerBound
+				},
+				new SqliteParameter(":PageUpperBound", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageLowerUpper
+				},
+				new SqliteParameter(":NameFilterMode", DbType.String){
+
+				},
+				new SqliteParameter(":SortMode", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = sortMode
 				}
-			}
-
-			sqlCommand.Append($@"SELECT u.*, {totalPages.ToString()} As TotalPages  
-				FROM mp_Users u  
-				WHERE u.ProfileApproved = 1 
-				AND u.SiteID = :SiteID ");
-
-			switch (nameFilterMode)
-			{
-				case "display":
-				default:
-					sqlCommand.Append("AND lower(Name) LIKE lower(:BeginsWith) ");
-					break;
-				case "lastname":
-					sqlCommand.Append("AND lower(LastName) LIKE lower(:BeginsWith) ");
-					break;
-			}
-
-			switch (sortMode)
-			{
-				case 1:
-					sqlCommand.Append(" ORDER BY u.DateCreated DESC ");
-					break;
-
-				case 2:
-					sqlCommand.Append(" ORDER BY u.LastName, u.FirstName, u.Name ");
-					break;
-
-				case 0:
-				default:
-					sqlCommand.Append(" ORDER BY u.Name ");
-					break;
-			}
-
-
-			sqlCommand.Append("LIMIT " + pageLowerBound.ToString() + ", :PageSize  ; ");
-
-			SqliteParameter[] arParams = new SqliteParameter[4];
-
-			arParams[0] = new SqliteParameter(":PageNumber", DbType.Int32);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = pageNumber;
-
-			arParams[1] = new SqliteParameter(":PageSize", DbType.Int32);
-			arParams[1].Direction = ParameterDirection.Input;
-			arParams[1].Value = pageSize;
-
-			arParams[2] = new SqliteParameter(":BeginsWith", DbType.String);
-			arParams[2].Direction = ParameterDirection.Input;
-			arParams[2].Value = beginsWith + "%";
-
-			arParams[3] = new SqliteParameter(":SiteID", DbType.Int32);
-			arParams[3].Direction = ParameterDirection.Input;
-			arParams[3].Value = siteId;
+			};
 
 			return SqliteHelper.ExecuteReader(
 				GetConnectionString(),
-				sqlCommand.ToString(),
-				arParams
+				commandText,
+				commandParameters
 			);
 		}
+
 
 		private static int CountForSearch(int siteId, string searchInput)
 		{
