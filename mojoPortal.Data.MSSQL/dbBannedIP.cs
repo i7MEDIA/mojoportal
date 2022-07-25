@@ -195,14 +195,6 @@ namespace mojoPortal.Data
             sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
             sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
             return sph.ExecuteReader();
-
         }
-
-
-
-       
-
-
-
     }
 }

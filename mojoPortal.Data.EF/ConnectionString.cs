@@ -1,21 +1,21 @@
-﻿using System.Configuration;
+﻿//https://www.pmichaels.net/2018/09/09/readonly-entity-framework/
 
+using Newtonsoft.Json;
+using System.IO;
+using System.Web;
+using mojoPortal.Data;
 
-namespace mojoPortal.Data
+namespace mojoPortal.Data.EF
 {
 	public static class ConnectionString
 	{
-		private const string connectionString = "MSSQLConnectionString";
-		private const string writeString = "MSSQLWriteConnectionString";
-
 		public static string GetReadConnectionString()
 		{
-			if (UseConnectionStringSection())
-			{
-				return GetReadConnectionStringFromConnectionStringSection();
-			}
+			var strings = GetConnectionStrings();
 
-			return ConfigurationManager.AppSettings[connectionString];
+			return !string.IsNullOrWhiteSpace(strings.ReadOnlyConnectionString) ?
+				strings.ReadOnlyConnectionString :
+				strings.ConnectionString;
 		}
 
 
@@ -25,47 +25,43 @@ namespace mojoPortal.Data
 		/// <returns>string</returns>
 		public static string GetWriteConnectionString()
 		{
-			if (UseConnectionStringSection())
-			{
-				return GetWriteConnectionStringFromConnectionStringSection();
-			}
+			var strings = GetConnectionStrings();
 
-			if (ConfigurationManager.AppSettings[writeString] != null)
-			{
-				return ConfigurationManager.AppSettings[writeString];
-			}
-
-			return ConfigurationManager.AppSettings[connectionString];
+			return strings.ConnectionString;
 		}
 
 
-		private static string GetWriteConnectionStringFromConnectionStringSection()
+		private static ConnectionStringsJson GetConnectionStrings()
 		{
-			if (ConfigurationManager.ConnectionStrings[writeString] != null)
+			var path = HttpContext.Current.Server.MapPath("~/App_Data/ConnectionStrings.json");
+
+			if (File.Exists(path))
 			{
-				return ConfigurationManager.ConnectionStrings[writeString].ConnectionString;
+				var file = File.ReadAllText(path);
+
+				return JsonConvert.DeserializeObject<ConnectionStringsJson>(file);
 			}
-
-			return ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
-		}
-
-
-		private static string GetReadConnectionStringFromConnectionStringSection()
-		{
-			return ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
-		}
-
-
-		private static bool UseConnectionStringSection()
-		{
-			var connectionStringSection = ConfigurationManager.AppSettings["UseConnectionStringSection"];
-
-			if (connectionStringSection != null && connectionStringSection == "true")
+			else
 			{
-				return true;
-			}
+				var write = Data.ConnectionString.GetReadConnectionString();
+				var read = Data.ConnectionString.GetWriteConnectionString();
 
-			return false;
+				var connectionStrings = new ConnectionStringsJson
+				{
+					ConnectionString = write,
+					ReadOnlyConnectionString = read == write ? string.Empty : read
+				};
+
+				File.WriteAllText(path, JsonConvert.SerializeObject(connectionStrings, Formatting.Indented));
+
+				return connectionStrings;
+			}
 		}
+	}
+
+	public class ConnectionStringsJson
+	{
+		public string ConnectionString { get; set; }
+		public string ReadOnlyConnectionString { get; set; } = null;
 	}
 }

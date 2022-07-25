@@ -1,0 +1,4 @@
+{
+  "ConnectionString": "server=devsql01;database=mojo-dev;UID=mojo-dev;PWD=pass;",
+  "ReadOnlyConnectionString": ""
+}

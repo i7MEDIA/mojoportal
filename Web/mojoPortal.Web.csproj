@@ -316,8 +316,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\Azure\Microsoft.WindowsFabric.Data.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Recaptcha">
       <HintPath>..\_libs\Recaptcha.dll</HintPath>
@@ -427,9 +427,17 @@
       <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
       <Name>mojoPortal.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Core.EF\mojoPortal.Core.EF.csproj">
+      <Project>{fccac830-33c1-4e66-82f1-85d511b16eec}</Project>
+      <Name>mojoPortal.Core.EF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">
       <Project>{fea72210-0415-4133-bdf9-8877683ba832}</Project>
       <Name>mojoPortal.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Data.EF\mojoPortal.Data.EF.csproj">
+      <Project>{E6A891F6-9533-47F5-8F94-6B89BEE60DB0}</Project>
+      <Name>mojoPortal.Data.EF</Name>
     </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Net\mojoPortal.Net.csproj">
       <Project>{30916752-1A97-49CA-95D6-81A5F784EEB5}</Project>

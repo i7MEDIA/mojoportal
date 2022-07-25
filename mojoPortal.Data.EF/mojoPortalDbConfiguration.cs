@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.SqlServer;
 
 namespace mojoPortal.Data.EF
 {
@@ -11,8 +8,8 @@ namespace mojoPortal.Data.EF
 	{
 		public mojoPortalDbConfiguration()
 		{
-			SetDefaultConnectionFactory(new System.Data.Entity.Infrastructure.SqlConnectionFactory());
-			SetProviderServices("System.Data.SqlClient", System.Data.Entity.SqlServer.SqlProviderServices.Instance);
+			SetDefaultConnectionFactory(connectionFactory: new SqlConnectionFactory());
+			SetProviderServices(providerInvariantName: "System.Data.SqlClient", provider: SqlProviderServices.Instance);
 		}
 	}
 }
