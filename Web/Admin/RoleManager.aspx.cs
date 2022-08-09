@@ -125,15 +125,10 @@ namespace mojoPortal.Web.AdminUI
                         }
                     }
                 }
-
-
             }
             
             rolesList.DataSource = siteRoles;
             rolesList.DataBind();
-            
-            
-
         }
 
         protected void btnAddRole_Click(Object sender, EventArgs e)
@@ -152,12 +147,13 @@ namespace mojoPortal.Web.AdminUI
 				}
 				else
 				{
-					Role role = new Role
-					{
-						SiteId = siteSettings.SiteId,
-						SiteGuid = siteSettings.SiteGuid,
-						RoleName = txtNewRoleName.Text,
-						DisplayName = txtNewDisplayName.Text
+                    Role role = new Role
+                    {
+                        SiteId = siteSettings.SiteId,
+                        SiteGuid = siteSettings.SiteGuid,
+                        RoleName = txtNewRoleName.Text,
+                        DisplayName = txtNewDisplayName.Text,
+                        Description = txtRoleDescription.Text
 					};
 					//role.EnforceRelatedSitesMode = WebConfigSettings.UseRelatedSiteMode;
 					if (role.Save())
@@ -198,6 +194,7 @@ namespace mojoPortal.Web.AdminUI
 
                 case "apply":
                     role.DisplayName = ((TextBox)e.Item.FindControl("displayName")).Text;
+                    role.Description = ((TextBox)e.Item.FindControl("description")).Text;
                     role.Save();
                     rolesList.EditItemIndex = -1;
                     BindRoleList();
@@ -259,7 +256,9 @@ namespace mojoPortal.Web.AdminUI
 
 			txtNewRoleName.Attributes.Add("placeholder", Resource.RoleSystemName);
 			txtNewDisplayName.Attributes.Add("placeholder", Resource.RoleDisplayName);
-		}
+            txtRoleDescription.Attributes.Add("placeholder", Resource.RoleDescription);
+
+        }
 
         private void LoadSettings()
         {

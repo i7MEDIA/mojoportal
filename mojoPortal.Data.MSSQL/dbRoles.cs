@@ -1,10 +1,3 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2018-10-31
-///
-/// You must not remove this notice, or any other, from this software.
-
-
 using System;
 using System.Data;
 using System.Configuration;
@@ -20,23 +13,26 @@ namespace mojoPortal.Data
             Guid siteGuid,
             int siteId,
             string roleName,
-			string displayName)
+			string displayName,
+            string description)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Roles_Insert", 5);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Roles_Insert", 6);
             sph.DefineSqlParameter("@RoleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, roleGuid);
             sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
             sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
             sph.DefineSqlParameter("@RoleName", SqlDbType.NVarChar, 50, ParameterDirection.Input, roleName);
             sph.DefineSqlParameter("@DisplayName", SqlDbType.NVarChar, 50, ParameterDirection.Input, displayName);
-			int newID = Convert.ToInt32(sph.ExecuteScalar());
+            sph.DefineSqlParameter("@Description", SqlDbType.NVarChar, 255, ParameterDirection.Input, description);
+            int newID = Convert.ToInt32(sph.ExecuteScalar());
             return newID;
         }
 
-        public static bool Update(int roleId, string displayName)
+        public static bool Update(int roleId, string displayName, string description)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Roles_Update", 2);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Roles_Update", 3);
             sph.DefineSqlParameter("@RoleID", SqlDbType.Int, ParameterDirection.Input, roleId);
             sph.DefineSqlParameter("@DisplayName", SqlDbType.NVarChar, 50, ParameterDirection.Input, displayName);
+            sph.DefineSqlParameter("@Description", SqlDbType.NVarChar, 255, ParameterDirection.Input, description);
             int rowsAffected = sph.ExecuteNonQuery();
             return (rowsAffected > -1);
         }

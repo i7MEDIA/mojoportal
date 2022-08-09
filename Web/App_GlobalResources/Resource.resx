@@ -4999,7 +4999,7 @@
     <value>Internal Lucene Site Search</value>
   </data>
   <data name="ShowAlternateSearchIfConfigured" xml:space="preserve">
-    <value>Show Alternate Search If Configured?</value>
+    <value>Show Alternate Search if Configured?</value>
   </data>
   <data name="RegistrationConfirmation" xml:space="preserve">
     <value>Registration Confirmation</value>
@@ -5218,7 +5218,7 @@
     <value>Sorry but a site administrator must approve your account before you can login.</value>
   </data>
   <data name="ShowNotApprovedUsers" xml:space="preserve">
-    <value>Show Users Waiting For Approval</value>
+    <value>Show Users Waiting for Approval</value>
   </data>
   <data name="SiteSettingsRequireApprovalForLogin" xml:space="preserve">
     <value>Require Admin Approval?</value>
@@ -5437,7 +5437,7 @@
     <value>Edit Closed Message</value>
   </data>
   <data name="SiteIsClosed" xml:space="preserve">
-    <value>Site Is Closed?</value>
+    <value>Close Site</value>
   </data>
   <data name="SiteClosedPageTitle" xml:space="preserve">
     <value>Temporarily Closed</value>
@@ -6699,5 +6699,8 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="SecurityAdvisorDefaultAdminAccountHeading" xml:space="preserve">
     <value>Default Admin Account</value>
+  </data>
+  <data name="RoleDescription" xml:space="preserve">
+    <value>Description of the role</value>
   </data>
 </root>
