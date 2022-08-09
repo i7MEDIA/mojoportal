@@ -37,6 +37,11 @@
 					<asp:RequiredFieldValidator ID="rfvDisplayName" runat="server" ValidationGroup="edit" ControlToValidate="displayName" Display="Dynamic" CssClass="text-danger" ErrorMessage="*" />
 
 				</div>
+				<div class="form-group">
+					<asp:Label Text="<%# Resources.Resource.RoleDescription %>" runat="server" AssociatedControlID="description" /><br />
+					<asp:TextBox ID="description" runat="server" ValidationGroup="create" Text='<%# DataBinder.Eval(Container.DataItem, "Description") %>'/>
+					<%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ValidationGroup="create" ControlToValidate="txtRoleDescription" Display="Dynamic" CssClass="text-danger" ErrorMessage='*' />--%>
+				</div>
 				<div class="form-group text-right">
 					<portal:mojoButton Text="<%# Resources.Resource.RolesApplyLabel %>" ToolTip="<%# Resources.Resource.RolesApplyLabel %>" CommandName="apply" ValidationGroup="edit" runat="server" ID="Button1" SkinID="SaveButton" />&nbsp;
 					<portal:mojoButton Text="<%# Resources.Resource.RoleManagerCancelButton %>" ToolTip="<%# Resources.Resource.RoleManagerCancelButton %>" CommandName="cancel"  runat="server" ID="Button2" SkinID="LinkButton"/>
@@ -58,6 +63,10 @@
 	<div class="form-group">
 		<asp:TextBox ID="txtNewDisplayName" runat="server" MaxLength="50" ValidationGroup="create" />
 		<asp:RequiredFieldValidator ID="rfvNewDisplayName" runat="server" ValidationGroup="create" ControlToValidate="txtNewDisplayName" Display="Dynamic" CssClass="text-danger" ErrorMessage='*' />
+	</div>
+	<div class="form-group">
+		<asp:TextBox ID="txtRoleDescription" runat="server" ValidationGroup="create" />
+		<%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ValidationGroup="create" ControlToValidate="txtRoleDescription" Display="Dynamic" CssClass="text-danger" ErrorMessage='*' />--%>
 	</div>
 	<div class="form-group">
 		<portal:mojoButton runat="server" id="btnAddRole" SkinID="AddButton" ValidationGroup="create" />

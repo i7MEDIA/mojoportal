@@ -92,13 +92,14 @@ namespace mojoPortal.Business
 		/// this is only populated when calling GetbySite
 		/// </summary>
 		public int MemberCount { get; private set; } = 0;
+        public string Description { get; set; } = string.Empty;
 
-		#endregion
+        #endregion
 
 
-		#region Private Methods
+        #region Private Methods
 
-		private void GetRole(int roleId)
+        private void GetRole(int roleId)
 		{
             using (IDataReader reader = DBRoles.GetById(roleId))
             {
@@ -112,14 +113,12 @@ namespace mojoPortal.Business
 
                     this.RoleName = reader["RoleName"].ToString();
                     this.DisplayName = reader["DisplayName"].ToString();
+                    this.Description = reader["Description"].ToString();
                     this.SiteGuid = new Guid(reader["SiteGuid"].ToString());
                     this.RoleGuid = new Guid(reader["RoleGuid"].ToString());
 
                 }
-
             }
-
-
 		}
 
 		private void GetRole(int siteId, string roleName)
@@ -134,14 +133,12 @@ namespace mojoPortal.Business
                     this.SiteId = int.Parse(reader["SiteID"].ToString());
                     this.RoleName = reader["RoleName"].ToString();
                     this.DisplayName = reader["DisplayName"].ToString();
+                    this.Description = reader["Description"].ToString();
                     this.SiteGuid = new Guid(reader["SiteGuid"].ToString());
                     this.RoleGuid = new Guid(reader["RoleGuid"].ToString());
 
                 }
-
             }
-
-
 		}
 
 		private bool Create()
@@ -172,7 +169,8 @@ namespace mojoPortal.Business
                     SiteGuid,
                     SiteId,
 					RoleName,
-                    DisplayName);
+                    DisplayName,
+                    Description);
 			}
 
 			if(newID > 0)
@@ -189,7 +187,7 @@ namespace mojoPortal.Business
 
 		private bool Update()
 		{
-			return DBRoles.Update(RoleId, DisplayName);
+			return DBRoles.Update(RoleId, DisplayName, Description);
 		}
 
         public bool Equals(string roleName)
@@ -289,6 +287,7 @@ namespace mojoPortal.Business
                     role.RoleId = Convert.ToInt32(reader["RoleID"]);
                     role.SiteId = Convert.ToInt32(reader["SiteID"]);
                     role.DisplayName = reader["DisplayName"].ToString();
+                    role.Description = reader["Description"].ToString(); 
                     role.RoleName = reader["RoleName"].ToString();
                     role.RoleGuid = new Guid(reader["RoleGuid"].ToString());
                     role.SiteGuid = new Guid(reader["SiteGuid"].ToString());
@@ -318,6 +317,7 @@ namespace mojoPortal.Business
                         role.RoleId = Convert.ToInt32(reader["RoleID"]);
                         role.SiteId = Convert.ToInt32(reader["SiteID"]);
                         role.DisplayName = reader["DisplayName"].ToString();
+                        role.Description = reader["Description"].ToString();
                         role.RoleName = reader["RoleName"].ToString();
                         role.RoleGuid = new Guid(reader["RoleGuid"].ToString());
                         role.SiteGuid = new Guid(reader["SiteGuid"].ToString());
