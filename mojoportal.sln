@@ -1347,6 +1347,7 @@ Global
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - MySql|x86.Build.0 = Debug|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|.NET.ActiveCfg = Debug|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|Any CPU.Build.0 = Debug|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|Mixed Platforms.ActiveCfg = Debug - pgSQL|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|Mixed Platforms.Build.0 = Debug - pgSQL|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|x64.ActiveCfg = Debug|Any CPU
@@ -1419,6 +1420,7 @@ Global
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - MySql|x86.Build.0 = Debug|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|.NET.ActiveCfg = Debug|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|Any CPU.Build.0 = Debug|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|Mixed Platforms.ActiveCfg = Debug - pgSQL|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|Mixed Platforms.Build.0 = Debug - pgSQL|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|x64.ActiveCfg = Debug|Any CPU
