@@ -40,7 +40,7 @@ namespace mojoPortal.FileSystem
 			{
 				log.Error($"Site Settings is NULL!!!! Passed SiteId={siteId} from ");
 			}
-			IFileSystemPermission p = GetFileSystemPermission();
+			IFileSystemPermission p = GetFileSystemPermission(siteId);
 
 			if (p == null)
 			{
@@ -73,13 +73,13 @@ namespace mojoPortal.FileSystem
 		}
 
 
-		private IFileSystemPermission GetFileSystemPermission()
+		private IFileSystemPermission GetFileSystemPermission(int siteId = -1)
 		{
 			return new FileSystemPermission()
 			{
 				UserHasUploadPermission = UserHasUploadPermission(),
 				UserHasBrowsePermission = UserHasBrowsePermission(),
-				VirtualRoot = GetVirtualPath(),
+				VirtualRoot = GetVirtualPath(siteId),
 				Quota = GetQuota(),
 				MaxSizePerFile = GetMaxSizePerFile(),
 				MaxFiles = GetMaxFiles(),
@@ -90,19 +90,24 @@ namespace mojoPortal.FileSystem
 		}
 
 
-		private string GetVirtualPath()
+		private string GetVirtualPath(int siteId = -1)
 		{
 			var siteSettings = CacheHelper.GetCurrentSiteSettings();
 
-			if (siteSettings == null)
+			if (siteId == -1 && siteSettings == null)
 			{
 				log.Error("Cannot load file system because Site Settings could not be loaded.");
 				throw new ArgumentNullException("could not load SiteSettings");
+				
 			}
+			else if (siteId == -1)
+			{
+				siteId = siteSettings.SiteId;
+			}
+			
+			//int siteId = siteSettings.SiteId;
 
-			int siteId = siteSettings.SiteId;
-
-			if (WebConfigSettings.UseRelatedSiteMode && WebConfigSettings.UseSameContentFolderForRelatedSiteMode)
+			if (siteId == -1 && WebConfigSettings.UseRelatedSiteMode && WebConfigSettings.UseSameContentFolderForRelatedSiteMode)
 			{
 				siteId = WebConfigSettings.RelatedSiteID;
 			}
