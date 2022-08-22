@@ -352,7 +352,7 @@ namespace SuperFlexiData
 			};
 
 			int rowsAffected = Convert.ToInt32(
-				MySqlHelper.ExecuteScalar(
+				MySqlHelper.ExecuteNonQuery(
 					ConnectionString.GetWriteConnectionString(),
 					sqlCommand,
 					sqlParams.ToArray()
