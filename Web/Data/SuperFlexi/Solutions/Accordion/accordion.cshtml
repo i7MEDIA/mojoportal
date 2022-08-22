@@ -16,7 +16,7 @@
 <div class="accordion__items panel-group" id="accordion-@Model.Module.Id" role="tablist" aria-multiselectable="true">
 @foreach (var item in Model.Items)
 {
-    <div class="accordion__item panel panel-@(item.important ? "danger" : "default")">
+    <div class="accordion__item panel panel-@(item.important ? "danger" : item.color)">
         <div class="accordion__item-heading panel-heading" role="tab" id="heading-@item.Id">
             <h4 class="accordion__item-title panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#accordion-@Model.Module.Id" href="#collapse-@item.Id" aria-expanded="true" aria-controls="collapse-@item.Id">@item.title[0]</a> 
@@ -33,8 +33,9 @@
 {
     <div class="accordion__footer">@Html.Raw(@Model.Config.HeaderContent)</div>
 }
-<a href="#modelinfo@(Model.Module.Id)" data-toggle="collapse">show/hide model info</a>
-<div class="collapse" id="modelinfo@(Model.Module.Id)">@ObjectInfo.Print(Model)</div>
+
+@*<a href="#modelinfo@(Model.Module.Id)" data-toggle="collapse">show/hide model info</a>
+<div class="collapse" id="modelinfo@(Model.Module.Id)">@ObjectInfo.Print(Model)</div>*@
 
 <script><![CDATA[$(document).ready(function(){$('.accordion__items').each(function(){$(this).find('[data-toggle="collapse"]').eq(0).click()})});]]></script>
 
