@@ -681,7 +681,7 @@ FROM mp_ModuleDefinitions md
 JOIN mp_SiteModuleDefinitions smd
 ON smd.ModuleDefID = md.ModuleDefID
 WHERE smd.SiteID = :SiteID
-AND md.IsAdmin = 0
+AND md.IsAdmin = FALSE
 ORDER BY 
 md.SortOrder,
 md.FeatureName";
