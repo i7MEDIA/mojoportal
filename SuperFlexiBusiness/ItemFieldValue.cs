@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using SuperFlexiData;
+using log4net;
 
 namespace SuperFlexiBusiness
 {
@@ -40,11 +41,14 @@ namespace SuperFlexiBusiness
 		#region Private Properties
 		//used to output total number of rows which match a query when using paging
 		private static int _totalRows;
-		#endregion
 
-		#region Public Properties
+        private static readonly ILog log = LogManager.GetLogger(typeof(ItemFieldValue));
 
-		public Guid ValueGuid { get; set; } = Guid.Empty;
+        #endregion
+
+        #region Public Properties
+
+        public Guid ValueGuid { get; set; } = Guid.Empty;
 		public Guid SiteGuid { get; set; } = Guid.Empty;
 		public Guid FeatureGuid { get; set; } = Guid.Empty;
 		public Guid ModuleGuid { get; set; } = Guid.Empty;
@@ -270,7 +274,21 @@ namespace SuperFlexiBusiness
                     value.FieldGuid = new Guid(reader["FieldGuid"].ToString());
                     value.FieldValue = reader["FieldValue"].ToString();
 
-					// Not all methods will use TotalRows but there is no sense in having an extra method to load the reader
+
+					try
+					{
+                        if (reader["FieldName"] != DBNull.Value)
+                        {
+                            value.FieldName = reader["FieldName"].ToString();
+                        }
+                    }
+                    catch(System.IndexOutOfRangeException ex)
+					{
+                        log.Debug("FieldName isn't used by here. Might want to fix that.");
+					}
+                    
+					
+                    // Not all methods will use TotalRows but there is no sense in having an extra method to load the reader
 					// so, we'll catch the error and do nothing with it because we are expecting it
 					// the if statement should keep any problems at bay but we still use try/catch in case someone inadvertently 
 					// set getTotalRows = true
@@ -285,9 +303,10 @@ namespace SuperFlexiBusiness
 						}
 						catch (System.IndexOutOfRangeException ex)
 						{
+                            //log.Debug("TotalRows isn't used by here. Might want to fix that.");
 
-						}
-					}
+                        }
+                    }
 
 					valueList.Add(value);
 
