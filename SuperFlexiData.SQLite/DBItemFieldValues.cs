@@ -1,4 +1,4 @@
-﻿// Created:					2018-01-02
+﻿// Created:			2018-01-02
 // Last Modified:   2018-01-03
 
 using mojoPortal.Data;
@@ -353,25 +353,33 @@ namespace SuperFlexiData
 		}
 
 
-			public static IDataReader GetByGuid(Guid fieldGuid)
+		public static IDataReader GetByFieldGuid(Guid fieldGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_values where FieldGuid = :FieldGuid;");
+            
+            var sqlCommand = @"
+                SELECT v.*, f.Name as FieldName 
+                FROM i7_sflexi_values v
+                JOIN i7_sflexi_values f ON f.FieldGuid = v.FieldGuid
+                WHERE f.FieldGuid = :FieldGuid;";
 
             var sqlParam = new SqliteParameter(":FieldGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = fieldGuid.ToString() };
             
             return SqliteHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParam);
         }
 
-        public static IDataReader GetByGuidForModule(Guid fieldGuid, Guid moduleGuid)
+        public static IDataReader GetByFieldGuidForModule(Guid fieldGuid, Guid moduleGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_values where ModuleGuid = :ModuleGuid and FieldGuid = :FieldGuid;");
+            var sqlCommand = @"
+                SELECT v.*, f.Name AS FieldNAme 
+                FROM i7_sflexi_values v
+                JOIN i7_sflexi_values f ON f.FieldName = v.FieldGuid
+                WHERE ModuleGuid = :ModuleGuid
+                AND FieldGuid = :FieldGuid";
 
-            var sqlParams = new List<SqliteParameter>
+            var sqlParams = new SqliteParameter[]
             {
                 new SqliteParameter(":ModuleGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = moduleGuid.ToString() },
                 new SqliteParameter(":FieldGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = fieldGuid.ToString() }
@@ -379,8 +387,8 @@ namespace SuperFlexiData
 
             return SqliteHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
-				sqlCommand.ToString(),
-                sqlParams.ToArray());
+				sqlCommand,
+                sqlParams);
         }
 
         public static IDataReader GetByGuidForModule(Guid fieldGuid, int moduleId)
@@ -468,10 +476,10 @@ namespace SuperFlexiData
 			/// <param name="pageNumber">The page number.</param>
 			/// <param name="pageSize">Size of the page.</param>
 			/// <param name="totalPages">total pages</param>
-			public static IDataReader GetPage(
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
+		public static IDataReader GetPage(
+        int pageNumber,
+        int pageSize,
+        out int totalPages)
         {
             int pageLowerBound = (pageSize * pageNumber) - pageSize;
             totalPages = 1;
@@ -508,8 +516,6 @@ namespace SuperFlexiData
                 sqlParams.ToArray());
 
         }
-
-
     }
 
 }

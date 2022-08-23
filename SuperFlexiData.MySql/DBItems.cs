@@ -310,12 +310,13 @@ namespace SuperFlexiData
 		/// <param name="itemID"> itemID </param>
 		public static IDataReader GetForModule(int moduleID, string sortDirection = "ASC")
 		{
-			if (sortDirection != "ASC" && sortDirection != "DESC") sortDirection = "ASC";
+			sortDirection = santizeSortDirection(sortDirection);
 			string sqlCommand = $"SELECT * FROM i7_sflexi_items WHERE ModuleID = ?ModuleID ORDER BY SortOrder {sortDirection};";
 
-			var sqlParam = new MySqlParameter("?ModuleID", MySqlDbType.Int32)
-			{ Direction = ParameterDirection.Input, Value = moduleID };
-
+			var sqlParam = new MySqlParameter[]
+			{
+				new MySqlParameter("?ModuleID", MySqlDbType.Int32){ Direction = ParameterDirection.Input, Value = moduleID }
+			};
 			return MySqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
@@ -325,17 +326,20 @@ namespace SuperFlexiData
 
 		public static IDataReader GetForModuleWithValues(int moduleID, string sortDirection)
 		{
-			if (sortDirection != "ASC" && sortDirection != "DESC") sortDirection = "ASC";
+			sortDirection = santizeSortDirection(sortDirection);
+
 			string sqlCommand = $@"
-				SELECT i.*, f.Name AS FieldName, v.FieldValue 
+				SELECT *, f.Name AS FieldName, v.FieldValue 
 				FROM i7_sflexi_items i
 				JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
 				JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
 				WHERE ModuleID = ?ModuleID 
 				ORDER BY i.SortOrder {sortDirection};";
-			
-			var sqlParam = new MySqlParameter("?ModuleID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID };
 
+			var sqlParam = new MySqlParameter[]
+			{
+				new MySqlParameter("?ModuleID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID }
+			};
 			return MySqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
@@ -354,7 +358,9 @@ namespace SuperFlexiData
 		)
 		{
 			string sqlCommand;
-			if (sortDirection != "ASC" && sortDirection != "DESC") sortDirection = "ASC";
+
+			sortDirection = santizeSortDirection(sortDirection);
+			
 			if (string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
 			{
 				sqlCommand = $@"
@@ -407,7 +413,7 @@ namespace SuperFlexiData
 
 			int offsetRows = (pageSize * pageNumber) - pageSize;
 
-			var sqlParams = new List<MySqlParameter>
+			var sqlParams = new MySqlParameter[]
 			{
 				new MySqlParameter("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
 				new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
@@ -419,7 +425,7 @@ namespace SuperFlexiData
 			return MySqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
-				sqlParams.ToArray()
+				sqlParams
 			);
 		}
 
@@ -435,7 +441,7 @@ namespace SuperFlexiData
 		)
 		{
 			string sqlCommand;
-			if (sortDirection != "ASC" && sortDirection != "DESC") sortDirection = "ASC";
+			sortDirection = santizeSortDirection(sortDirection);
 			if (string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
 			{
 				sqlCommand = $@"
@@ -643,6 +649,16 @@ namespace SuperFlexiData
 					sqlParam
 				)
 			);
+		}
+
+		private static string santizeSortDirection(string sortDirection)
+		{
+			if (sortDirection != "ASC" && sortDirection != "DESC")
+			{
+				return "ASC";
+			}
+
+			return sortDirection;
 		}
 	}
 }

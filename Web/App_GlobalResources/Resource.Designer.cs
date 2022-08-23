@@ -943,6 +943,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {0} was not applied..
+        /// </summary>
+        internal static string AttributeNotApplied {
+            get {
+                return ResourceManager.GetString("AttributeNotApplied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auth. Code.
         /// </summary>
         internal static string AuthorizeNetLogAuthCode {
@@ -4129,6 +4138,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {0} element could not be found..
+        /// </summary>
+        internal static string ElementNotFound {
+            get {
+                return ResourceManager.GetString("ElementNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         internal static string Email {
@@ -6195,6 +6213,15 @@ namespace Resources {
         internal static string Hour {
             get {
                 return ResourceManager.GetString("Hour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must add id=&quot;html1&quot; runat=&quot;server&quot; to the html element in the layout.master of the skin..
+        /// </summary>
+        internal static string HowToFixHtmlElement {
+            get {
+                return ResourceManager.GetString("HowToFixHtmlElement", resourceCulture);
             }
         }
         

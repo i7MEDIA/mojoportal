@@ -1,43 +1,56 @@
 <div class="accordion" id="module@Model.Module.Id" data-contentsection="@Model.Config.ModuleFriendlyName">
-<@Model.Module.TitleElement class="accordion__title moduletitle" data-moduleid="module@Model.Module.Id">@Model.Module.Title
-<a class="ModuleEditLink flexi-settings" href="~/Admin/ModuleSettings.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-cog"></span> Settings</a> 
-<a class="ModuleEditLink flexi-item-add" href="~/SuperFlexi/Edit.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-plus"></span> Add Item</a>
-@if (Model.Config.UseHeader){<a class="ModuleEditLink flexi-header-edit" href="~/SuperFlexi/EditHeader.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-edit"></span> Edit Header</a>}
-@if (Model.Config.UseFooter){<a class="ModuleEditLink flexi-footer-edit" href="~/SuperFlexi/EditFooter.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-edit"></span> Edit Footer</a>}
-@if (Model.Config.AllowImport){<a class='ModuleEditLink flexi-import-link' href='~/SuperFlexi/Import.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id'><span class='fa fa-upload'></span>&nbsp;Import</a>}
-@if (Model.Config.AllowExport){<a class='ModuleEditLink flexi-export-link' href='~/SuperFlexi/Export.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id'><span class='fa fa-download'></span>&nbsp;Export</a>}
-</@Model.Module.TitleElement>
+	<@Model.Module.TitleElement class="accordion__title moduletitle" data-moduleid="module@Model.Module.Id">
+		@Model.Module.Title
 
-@if (Model.Config.UseHeader && !string.IsNullOrWhiteSpace(Model.Config.HeaderContent))
-{
-    <div class="accordion__header">@Html.Raw(@Model.Config.HeaderContent)</div>
-}
+		@if (Model.Module.IsEditable)
+		{
+			<a class="ModuleEditLink flexi-settings" href="~/Admin/ModuleSettings.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-cog"></span> Settings</a>
+			<a class="ModuleEditLink flexi-item-add" href="~/SuperFlexi/Edit.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-plus"></span> Add Item</a>
+			if (Model.Config.UseHeader)
+			{<a class="ModuleEditLink flexi-header-edit" href="~/SuperFlexi/EditHeader.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-edit"></span> Edit Header</a>}
+			if (Model.Config.UseFooter)
+			{<a class="ModuleEditLink flexi-footer-edit" href="~/SuperFlexi/EditFooter.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-edit"></span> Edit Footer</a>}
+			if (Model.Config.AllowImport)
+			{<a class='ModuleEditLink flexi-import-link' href='~/SuperFlexi/Import.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id'><span class='fa fa-upload'></span>&nbsp;Import</a>}
+			if (Model.Config.AllowExport)
+			{<a class='ModuleEditLink flexi-export-link' href='~/SuperFlexi/Export.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id'><span class='fa fa-download'></span>&nbsp;Export</a>}
+		}
+	</@Model.Module.TitleElement>
 
-<div class="accordion__items panel-group" id="accordion-@Model.Module.Id" role="tablist" aria-multiselectable="true">
-@foreach (var item in Model.Items)
-{
-    <div class="accordion__item panel panel-@(item.important ? "danger" : "default")">
-        <div class="accordion__item-heading panel-heading" role="tab" id="heading-@item.Id">
-            <h4 class="accordion__item-title panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion-@Model.Module.Id" href="#collapse-@item.Id" aria-expanded="true" aria-controls="collapse-@item.Id">@item.title[0]</a> 
-                <a class="ModuleEditLink flexi-item-edit" href="@item.EditUrl"><span class="fa fa-edit"></span> Edit Item</a>
-            </h4>
-        </div>
-        <div id="collapse-@item.Id" class="accordion__item-panel panel-collapse collapse" role="tabpanel" aria-labelledby="heading-@item.Id">
-            <div class="panel-body accordion__item-panel-body">@Html.Raw(item.content)</div>
-        </div>
-    </div>
-}
-</div>
-@if (Model.Config.UseFooter && !string.IsNullOrWhiteSpace(Model.Config.FooterContent))
-{
-    <div class="accordion__footer">@Html.Raw(@Model.Config.HeaderContent)</div>
-}
-<a href="#modelinfo@(Model.Module.Id)" data-toggle="collapse">show/hide model info</a>
-<div class="collapse" id="modelinfo@(Model.Module.Id)">@ObjectInfo.Print(Model)</div>
+	@if (Model.Config.UseHeader && !string.IsNullOrWhiteSpace(Model.Config.HeaderContent))
+	{
+		<div class="accordion__header">@Html.Raw(@Model.Config.HeaderContent)</div>
+	}
 
-<script><![CDATA[$(document).ready(function(){$('.accordion__items').each(function(){$(this).find('[data-toggle="collapse"]').eq(0).click()})});]]></script>
+	<div class="accordion__items panel-group" id="accordion-@Model.Module.Id" role="tablist" aria-multiselectable="true">
+		@foreach (var item in Model.Items)
+		{
+			<div class="accordion__item panel panel-@(item.important ? "danger" : item.color)">
+				<div class="accordion__item-heading panel-heading" role="tab" id="heading-@item.Id">
+					<h4 class="accordion__item-title panel-title">
+						<a role="button" data-toggle="collapse" data-parent="#accordion-@Model.Module.Id" href="#collapse-@item.Id" aria-expanded="true" aria-controls="collapse-@item.Id">@item.title[0]</a>
+						@if (item.IsEditable)
+						{
+							<a class="ModuleEditLink flexi-item-edit" href="@item.EditUrl"><span class="fa fa-edit"></span> Edit Item</a>
+						}
+					</h4>
+				</div>
+				<div id="collapse-@item.Id" class="accordion__item-panel panel-collapse collapse" role="tabpanel" aria-labelledby="heading-@item.Id">
+					<div class="panel-body accordion__item-panel-body">@Html.Raw(item.content)</div>
+				</div>
+			</div>
+		}
+	</div>
+	@if (Model.Config.UseFooter && !string.IsNullOrWhiteSpace(Model.Config.FooterContent))
+	{
+		<div class="accordion__footer">@Html.Raw(@Model.Config.HeaderContent)</div>
+	}
+	@if (Model.Module.IsEditable)
+	{
+		<a href="#modelinfo@(Model.Module.Id)" data-toggle="collapse">show/hide model info</a>
+			<div class="collapse" id="modelinfo@(Model.Module.Id)">@ObjectInfo.Print(Model)</div>
+	}
 
-
-</div>
+	<script>$(document).ready(function () { $('.accordion__items').each(function () { $(this).find('[data-toggle="collapse"]').eq(0).click() }) });</script>
+	</div>
 

@@ -1,6 +1,6 @@
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="~/App_MasterPages/layout.Master.cs" Inherits="mojoPortal.Web.layout" %>
 <!DOCTYPE html>
-<html>
+<html id="Html" runat="server">
 <head id="Head1" runat="server"><title></title>
     <portal:StyleSheetCombiner id="StyleSheetCombiner" runat="server" UseIconsForAdminLinks="false" />
     <portal:IEStyleIncludes id="IEStyleIncludes1"  runat="server" IncludeHtml5Script="true" />

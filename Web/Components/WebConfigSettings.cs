@@ -737,20 +737,6 @@ namespace mojoPortal.Web
 			}
 		}
 
-		/// <summary>
-		/// LESS Utility is a tool that can generate CSS from LESS code
-		/// using .less (a .net port of ruby less compiler)
-		/// https://github.com/dotless
-		/// http://lesscss.org/
-		/// this is false by default since most skins don't use LESS
-		/// If set to true the menu item will appear under Administration > Advanced Tools > Design Tools
-		/// </summary>
-  //      [Obsolete("The dotless tool is out of date. Please do not use it. It will be removed soon.")]
-		//public static bool EnableLessUtility
-		//{
-		//	get { return ConfigHelper.GetBoolProperty("EnableLessUtility", false); }
-		//}
-
 		public static bool EnableLogViewer
 		{
 			get { return ConfigHelper.GetBoolProperty("EnableLogViewer", true); }
@@ -4604,8 +4590,33 @@ namespace mojoPortal.Web
 			}
 		}
 
-		
-		
+
+		public static string BodyElementClientIDMode
+		{
+			get
+			{
+				if (ConfigurationManager.AppSettings["BodyElementClientIDMode"] != null)
+				{
+					return ConfigurationManager.AppSettings["BodyElementClientIDMode"];
+				}
+
+				return "Static";
+			}
+		}
+
+		public static string HeadElementClientIDMode
+		{
+			get
+			{
+				if (ConfigurationManager.AppSettings["HeadElementClientIDMode"] != null)
+				{
+					return ConfigurationManager.AppSettings["HeadElementClientIDMode"];
+				}
+
+				return "Static";
+			}
+		}
+
 
 		public static string SubSonicProvider
 		{
