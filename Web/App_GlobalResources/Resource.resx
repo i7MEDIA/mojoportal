@@ -6703,4 +6703,13 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="RoleDescription" xml:space="preserve">
     <value>Description of the role</value>
   </data>
+  <data name="AttributeNotApplied" xml:space="preserve">
+    <value>The {0} was not applied.</value>
+  </data>
+  <data name="ElementNotFound" xml:space="preserve">
+    <value>The {0} element could not be found.</value>
+  </data>
+  <data name="HowToFixHtmlElement" xml:space="preserve">
+    <value>You must add id="html1" runat="server" to the html element in the layout.master of the skin.</value>
+  </data>
 </root>
