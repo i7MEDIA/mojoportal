@@ -82,7 +82,7 @@ namespace SuperFlexiUI
                 CurrentPage = CacheHelper.GetCurrentPage();
                 if (CurrentPage == null)
                 {
-                    log.Info("Can't use CacheHelper.GetCurrentPage() here.");
+                    log.Debug("Can't use CacheHelper.GetCurrentPage() here.");
                     CurrentPage = new PageSettings(siteSettings.SiteId, PageId);
                 }
             }
@@ -148,7 +148,8 @@ namespace SuperFlexiUI
                     Id = module.ModuleId,
                     Guid = module.ModuleGuid,
                     Title = module.ModuleTitle,
-                    TitleElement = module.HeadElement
+                    TitleElement = module.HeadElement,
+                    IsEditable = IsEditable
                 },
                 Config = Config,
                 Page = new PageModel
@@ -184,6 +185,7 @@ namespace SuperFlexiUI
                 SetItemClassProperty(itemObject, "Guid", item.ItemGuid);
                 SetItemClassProperty(itemObject, "SortOrder", item.SortOrder);
                 SetItemClassProperty(itemObject, "EditUrl", itemEditUrl);
+                SetItemClassProperty(itemObject, "IsEditable", itemIsEditable);
 
                 //dynamic itemModel = new ExpandoObject();
                 //itemModel.Id = item.ItemID;
@@ -333,11 +335,12 @@ namespace SuperFlexiUI
                         public Guid Guid {{get;set;}}
                         public int SortOrder {{get;set;}}
                         public string EditUrl {{get;set;}}
+                        public bool IsEditable {{get;set;}}
                         {getFields()}                        
                     }}";
 
 
-            log.Info(classCode);
+            log.Debug(classCode);
             var options = new CompilerParameters
             {
                 GenerateExecutable = false,
@@ -394,6 +397,7 @@ namespace SuperFlexiUI
         public Guid Guid { get; set; }
         public string Title { get; set; }
         public string TitleElement { get; set; }
+        public bool IsEditable { get; set; }
     }
 
     public class PageModel
