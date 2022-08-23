@@ -7,6 +7,7 @@ using Resources;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -1289,37 +1290,80 @@ namespace mojoPortal.Web
 
 			EnsureSiteSettings();
 
-			if (!(Page is NonCmsBasePage) && !string.IsNullOrWhiteSpace(siteSettings.SiteWideHeaderContent))
+
+			var body = Master.FindControl("Body");
+			if (body != null)
 			{
-				Master.FindControl("Head1").Controls.Add(new Literal
+
+				body.ClientIDMode = (ClientIDMode)Enum.Parse(typeof(ClientIDMode), WebConfigSettings.BodyElementClientIDMode);
+			}
+			
+			var head1 = Master.FindControl("Head1");
+
+			if (head1 != null)
+			{
+
+				head1.ClientIDMode = (ClientIDMode)Enum.Parse(typeof(ClientIDMode), WebConfigSettings.HeadElementClientIDMode);
+
+				if (!(Page is NonCmsBasePage) && !string.IsNullOrWhiteSpace(siteSettings.SiteWideHeaderContent))
 				{
-					Text = siteSettings.SiteWideHeaderContent
-				});
+					//add to head
+					head1.Controls.Add(new Literal
+					{
+						Text = siteSettings.SiteWideHeaderContent
+					});
+				}
+
+				if (!(Page is NonCmsBasePage) && !string.IsNullOrWhiteSpace(siteSettings.SiteWideFooterContent))
+				{
+					//add to bottom of body
+					Controls.AddAt(Controls.Count, new Literal
+					{
+						Text = siteSettings.SiteWideFooterContent
+					});
+				}
+
+				if (Page is NonCmsBasePage && !string.IsNullOrWhiteSpace(siteSettings.SiteWideHeaderAdminContent))
+				{
+					//add to head
+					head1.Controls.Add(new Literal
+					{
+						Text = siteSettings.SiteWideHeaderAdminContent
+					});
+				}
+
+				if (Page is NonCmsBasePage && !string.IsNullOrWhiteSpace(siteSettings.SiteWideFooterAdminContent))
+				{
+					//add to bottom body
+					Controls.AddAt(Controls.Count, new Literal
+					{
+						Text = siteSettings.SiteWideFooterAdminContent
+					});
+				}
 			}
 
-			if (!(Page is NonCmsBasePage) && !string.IsNullOrWhiteSpace(siteSettings.SiteWideFooterContent))
+			var html = (HtmlElement)Master.FindControl("Html");
+
+			if (html != null)
 			{
-				Controls.AddAt(Controls.Count, new Literal
+				html.ClientIDMode = ClientIDMode.Static;
+
+				var langAttr = html.Attributes["lang"];
+
+				if (langAttr == null)
 				{
-					Text = siteSettings.SiteWideFooterContent
-				});
+					html.Attributes.Add("lang", SiteUtils.GetDefaultUICulture().Name);
+				}
+			}
+			else
+			{
+				string logMessage = string.Format(Resource.ElementNotFound, "Html");
+				logMessage += " " + string.Format(Resource.AttributeNotApplied, "lang");
+				logMessage += " " + Resource.HowToFixHtmlElement;
+				log.Warn(logMessage);
 			}
 
-			if (Page is NonCmsBasePage && !string.IsNullOrWhiteSpace(siteSettings.SiteWideHeaderAdminContent))
-			{
-				Master.FindControl("Head1").Controls.Add(new Literal
-				{
-					Text = siteSettings.SiteWideHeaderAdminContent
-				});
-			}
 
-			if (Page is NonCmsBasePage && !string.IsNullOrWhiteSpace(siteSettings.SiteWideFooterAdminContent))
-			{
-				Controls.AddAt(Controls.Count, new Literal
-				{
-					Text = siteSettings.SiteWideFooterAdminContent
-				});
-			}
 		}
 
 
