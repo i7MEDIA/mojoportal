@@ -12,6 +12,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.Text;
 
@@ -460,66 +461,45 @@ namespace mojoPortal.Data
 		{
 			string commandText;
 
-			// Create temporary table
-			if (string.IsNullOrWhiteSpace(beginsWith))
+			commandText = @"
+				SELECT * FROM mp_Users u
+					WHERE u.ProfileApproved = 1
+						AND DisplayInMemberList = 1
+						AND u.SiteID = ?SiteID
+						AND u.IsDeleted = 0";
+
+			switch (nameFilterMode)
 			{
-				commandText = @"
-CREATE TEMPORARY TABLE IF NOT EXISTS PageIndexForUsers AS (
-	SELECT UserID
-	FROM mp_Users
-	WHERE ProfileApproved = 1
-	AND DisplayInMemberList = 1
-	AND SiteID = ?SiteId
-	AND IsDeleted = 0
-	ORDER BY Name
-)";
-			}
-			else
-			{
-				commandText = @"
-CREATE TEMPORARY TABLE IF NOT EXISTS PageIndexForUsers AS (
-	SELECT UserID
-	FROM mp_Users
-	WHERE ProfileApproved = 1
-	AND DisplayInMemberList = 1
-	AND SiteID = ?SiteID
-	AND IsDeleted = 0
-	AND (
-		(?NameFilterMode = 'display' AND LOWER(Name) LIKE LOWER(?BeginsWith) + '%')
-		OR (
-			(?NameFilterMode = 'lastname' AND LOWER(LastName) LIKE LOWER(?BeginsWith) + '%')
-			OR
-			(?NameFilterMode = 'lastname' AND LOWER(Name) LIKE LOWER(?BeginsWith) + '%')
-		)
-		OR (?NameFilterMode <> 'display' AND ?NameFilterMode <> 'lastname' AND LOWER(Name) LIKE LOWER(?BeginsWith) + '%')
-	)
-	ORDER BY
-		(CASE ?SortMode WHEN 1 THEN DateCreated END ) DESC,
-		(CASE ?SortMode WHEN 2 THEN LastName END),
-		(CASE ?SortMode WHEN 2 THEN FirstName END),
-		Name
-)
-";
+				case "display":
+				default:
+					commandText += " AND Lower(Name) LIKE LOWER(?BeginsWith)";
+					break;
+				case "lastname":
+					commandText += " AND Lower(LastName) LIKE LOWER(?BeginsWith)";
+					break;
 			}
 
-			// Query from temporary table and then drop it
-			commandText += @"
-SELECT * FROM mp_Users u
-JOIN #PageIndexForUsers p
-ON u.UserID = p.UserID
-WHERE u.ProfileApproved = 1
-AND u.SiteID = ?SiteID
-AND u.IsDeleted = 0
-AND p.IndexID > ?PageLowerBound
-AND p.IndexID < ?PageUpperBound
-ORDER BY p.IndexID
+			switch (sortMode)
+			{
+				case 1:
+					commandText += " ORDER BY u.DateCreated DESC";
+					break;
 
-DROP TABLE PageIndexForUsers";
+				case 2:
+					commandText += " ORDER BY u.LastName, u.FirstName, u.Name";
+					break;
 
-			var pageLowerBound = (pageSize * pageNumber) - pageSize;
-			var pageLowerUpper = pageLowerBound + pageSize + 1;
+				case 0:
+				default:
+					commandText += " ORDER BY u.Name";
+					break;
+			}
+
+			commandText += $" LIMIT ?Offset,?PageSize;";
+
+			var offset = (pageSize * pageNumber) - pageSize;
 			var totalRows = UserCount(siteId, beginsWith, nameFilterMode);
-			
+
 			// VS says that one of the casts are redundant, but I remember it being an issue in the past so we'll just leave it
 			totalPages = (int)Math.Ceiling((decimal)totalRows / (decimal)pageSize);
 
@@ -535,15 +515,15 @@ DROP TABLE PageIndexForUsers";
 					Direction = ParameterDirection.Input,
 					Value = beginsWith + "%"
 				},
-				new MySqlParameter("?PageLowerBound", MySqlDbType.Int32)
+				new MySqlParameter("?Offset", MySqlDbType.Int32)
 				{
 					Direction = ParameterDirection.Input,
-					Value = pageLowerBound
+					Value = offset
 				},
-				new MySqlParameter("?PageUpperBound", MySqlDbType.Int32)
+				new MySqlParameter("?PageSize", MySqlDbType.Int32)
 				{
 					Direction = ParameterDirection.Input,
-					Value = pageLowerUpper
+					Value = pageSize
 				},
 				new MySqlParameter("?NameFilterMode", MySqlDbType.VarChar, 10)
 				{

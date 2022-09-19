@@ -3,6 +3,7 @@ using NpgsqlTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace mojoPortal.Data
@@ -237,6 +238,8 @@ namespace mojoPortal.Data
 				case "lastname":
 					sqlCommand.Append(" AND LOWER(lastname) LIKE LOWER(:namebeginswith) ");
 					break;
+				case "":
+					break;
 			}
 
 			int count = Convert.ToInt32(
@@ -374,64 +377,48 @@ namespace mojoPortal.Data
 		{
 			string commandText;
 
-			// Create temporary table
-			if (string.IsNullOrWhiteSpace(beginsWith))
+			commandText = @"
+				SELECT * FROM mp_Users u
+					WHERE u.profileapproved = '1'
+						AND u.displayinmemberlist = '1' 
+						AND u.siteid = :SiteID
+						AND u.isdeleted = '0'";
+
+
+
+			switch (nameFilterMode)
 			{
-				commandText = @"
-CREATE TEMPORARY TABLE IF NOT EXISTS PageIndexForUsers AS (
-	SELECT UserID
-	FROM mp_Users
-	WHERE ProfileApproved = 1
-	AND DisplayInMemberList = 1
-	AND SiteID = :SiteId
-	AND IsDeleted = 0
-	ORDER BY Name
-)";
-			}
-			else
-			{
-				commandText = @"
-CREATE TEMPORARY TABLE IF NOT EXISTS PageIndexForUsers AS (
-	SELECT UserID
-	FROM mp_Users
-	WHERE ProfileApproved = 1
-	AND DisplayInMemberList = 1
-	AND SiteID = :SiteID
-	AND IsDeleted = 0
-	AND (
-		(:NameFilterMode = 'display' AND LOWER(Name) LIKE LOWER(:BeginsWith) + '%')
-		OR (
-			(:NameFilterMode = 'lastname' AND LOWER(LastName) LIKE LOWER(:BeginsWith) + '%')
-			OR
-			(:NameFilterMode = 'lastname' AND LOWER(Name) LIKE LOWER(:BeginsWith) + '%')
-		)
-		OR (:NameFilterMode <> 'display' AND :NameFilterMode <> 'lastname' AND LOWER(Name) LIKE LOWER(:BeginsWith) + '%')
-	)
-	ORDER BY
-		(CASE :SortMode WHEN 1 THEN DateCreated END ) DESC,
-		(CASE :SortMode WHEN 2 THEN LastName END),
-		(CASE :SortMode WHEN 2 THEN FirstName END),
-		Name
-)
-";
+				case "display":
+				default:
+					commandText += " AND Lower(name) LIKE LOWER(:BeginsWith)";
+					break;
+				case "lastname":
+					commandText += " AND Lower(lastname) LIKE LOWER(:BeginsWith)";
+					break;
 			}
 
-			// Query from temporary table and then drop it
-			commandText += @"
-SELECT * FROM mp_Users u
-JOIN #PageIndexForUsers p
-ON u.UserID = p.UserID
-WHERE u.ProfileApproved = 1
-AND u.SiteID = :SiteID
-AND u.IsDeleted = 0
-AND p.IndexID > :PageLowerBound
-AND p.IndexID < :PageUpperBound
-ORDER BY p.IndexID
+			switch (sortMode)
+			{
+				case 1:
+					commandText += " ORDER BY u.datecreated DESC";
+					break;
 
-DROP TABLE PageIndexForUsers";
+				case 2:
+					commandText += " ORDER BY u.lastname, u.firstname, u.name";
+					break;
 
-			var pageLowerBound = (pageSize * pageNumber) - pageSize;
-			var pageLowerUpper = pageLowerBound + pageSize + 1;
+				case 0:
+				default:
+					commandText += " ORDER BY u.name";
+					break;
+			}
+
+			commandText += $" LIMIT :pageSize";
+			if (pageNumber > 1)
+				commandText += " OFFSET :offset";
+			commandText += ";";
+
+			var offset = (pageSize * pageNumber) - pageSize;
 			var totalRows = UserCount(siteId, beginsWith, nameFilterMode);
 
 			// VS says that one of the casts are redundant, but I remember it being an issue in the past so we'll just leave it
@@ -439,32 +426,32 @@ DROP TABLE PageIndexForUsers";
 
 			NpgsqlParameter[] commandParameters = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter("SiteID", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":SiteID", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteId
 				},
-				new NpgsqlParameter("BeginsWith", NpgsqlDbType.Varchar, 50)
+				new NpgsqlParameter(":BeginsWith", NpgsqlDbType.Varchar, 50)
 				{
 					Direction = ParameterDirection.Input,
 					Value = beginsWith + "%"
 				},
-				new NpgsqlParameter("PageLowerBound", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":offset", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
-					Value = pageLowerBound
+					Value = offset
 				},
-				new NpgsqlParameter("PageUpperBound", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":pageSize", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
-					Value = pageLowerUpper
+					Value = pageSize
 				},
-				new NpgsqlParameter("NameFilterMode", NpgsqlDbType.Varchar, 10)
+				new NpgsqlParameter(":NameFilterMode", NpgsqlDbType.Varchar, 10)
 				{
 					Direction = ParameterDirection.Input,
 					Value = nameFilterMode
 				},
-				new NpgsqlParameter("SortMode", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":SortMode", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = sortMode
