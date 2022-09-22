@@ -36,7 +36,7 @@
 			    NavigateUrl='<%# this.SiteRoot + "/EventCalendar/EditEvent.aspx?pageid=" + PageId.ToString() + "&ItemID=" + Container.DataItem["ItemID"] + "&mid=" + ModuleId.ToString()  %>' 
 			    Visible="<%# IsEditable %>" runat="server" />
 			    <a class="eventlink" href='<%# SiteRoot + "/EventCalendar/EventDetails.aspx?ItemID=" + Container.DataItem["ItemID"] + "&mid=" + Container.DataItem["ModuleID"] + "&pageid=" + PageId %>'>
-			    <% if (config.ShowTimeInMonthView) { %><strong><%# DateTime.Parse(Container.DataItem["StartTime"].ToString()) %></strong><%} %>
+			    <% if (config.ShowTimeInMonthView) { %><strong><%# DateTime.Parse(Container.DataItem["StartTime"].ToString()).ToString("t") %></strong>: <%} %>
 				<%# Server.HtmlEncode(Container.DataItem["Title"].ToString()) %></a>
 			</div>
 	    </ItemTemplate>
