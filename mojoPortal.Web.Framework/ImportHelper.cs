@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -13,7 +14,7 @@ namespace mojoPortal.Web.Framework
         {
             return new CsvReader(
                 new StreamReader(fileStream),
-                new CsvConfiguration() { HasHeaderRecord = hasHeader })
+                new CsvConfiguration(CultureInfo.CurrentCulture) { HasHeaderRecord = hasHeader })
                 .GetRecords<dynamic>().ToList();
         }
     }
