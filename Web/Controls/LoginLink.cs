@@ -150,7 +150,7 @@ namespace mojoPortal.Web.UI
             {
                 if (
                     !(Page is mojoPortal.Web.UI.Pages.LoginPage)
-                    && !(Page is mojoPortal.Web.UI.Pages.ConfirmRegistration)// https://github.com/joeaudette/mojoportal/issues/7
+                    && !(Page is mojoPortal.Web.UI.Pages.ConfirmRegistration)// https://github.com/i7media/mojoportal/issues/7
 					&& !(Page is mojoPortal.Web.UI.Pages.RecoverPassword)
 					&& !(Page is mojoPortal.Web.UI.Pages.AccessDeniedPage)
 					)
@@ -172,6 +172,7 @@ namespace mojoPortal.Web.UI
                     if (!string.IsNullOrEmpty(returnUrlParam))
                     {
                         urlToUse += "?returnurl=" + returnUrlParam;
+                        urlToUse = Page.Server.UrlEncode(urlToUse);
                     }
                 }
             }
