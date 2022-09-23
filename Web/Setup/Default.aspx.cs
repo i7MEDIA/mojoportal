@@ -676,7 +676,7 @@ namespace mojoPortal.Web.UI.Pages
                 Guid WebPartGuid = new Guid("437a19b0-ef57-4963-b311-a1e13d9d883c");
                 if (feature.FeatureGuid != WebPartGuid)
 #endif
-                if (feature.SupportedDatabases.Contains(dbPlatform))
+                if (feature.SupportedDatabases.ToLower().Contains(dbPlatform.ToLower()))
                 {
                     SetupFeature(feature);
                 }
