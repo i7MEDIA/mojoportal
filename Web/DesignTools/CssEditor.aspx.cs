@@ -26,6 +26,7 @@ namespace mojoPortal.Web.AdminUI
 		protected string skinName = string.Empty;
 		protected string cssFile = string.Empty;
 		private string skinBasePath = string.Empty;
+		protected string chosenSkinPath = string.Empty;
 		private bool allowEditing = false;
 
 
@@ -117,7 +118,9 @@ namespace mojoPortal.Web.AdminUI
 			skinBasePath = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/";
 			skinName = WebUtils.ParseStringFromQueryString("s", string.Empty);
 			cssFile = WebUtils.ParseStringFromQueryString("f", string.Empty);
-			allowEditing = WebConfigSettings.AllowEditingSkins && (WebConfigSettings.AllowEditingSkinsInChildSites || siteSettings.IsServerAdminSite);
+			chosenSkinPath = skinBasePath + skinName + "/";
+			
+			allowEditing = cssFile.EndsWith(".css") && IOHelper.IsDecendentDirectory(skinBasePath, chosenSkinPath) && IOHelper.IsDecendentFile(chosenSkinPath, chosenSkinPath + cssFile) && WebConfigSettings.AllowEditingSkins && (WebConfigSettings.AllowEditingSkinsInChildSites || siteSettings.IsServerAdminSite);
 
 			if (WebConfigSettings.DisableEditAreaForCssEditor) { edCss.Disable = true; }
 			if (BrowserHelper.IsIE9())
