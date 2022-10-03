@@ -1,0 +1,35 @@
+.poll {
+	[id*="_lblQuestion"] {
+		display: block;
+		margin: 0 0 (@line-height-computed / 2);
+	}
+
+	.box-inline {
+		display: block;
+		margin: 0 0 (@line-height-computed / 2);
+
+		li {
+			display: block;
+			margin-left: 0;
+		}
+	}
+
+	#tblOptions {
+		tr:first-child {
+			td {
+				padding-bottom: @form-group-margin-bottom;
+			}
+		}
+	}
+
+	[id*="_lblMessage"] {
+		display: block;
+	}
+
+	[id*="_pnlPollUpdate"] {
+		br,
+		+ br {
+			display: none;
+		}
+	}
+}

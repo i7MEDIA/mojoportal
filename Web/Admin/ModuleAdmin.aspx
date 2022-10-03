@@ -17,9 +17,9 @@
     <portal:mojoDataList id="defsList" DataKeyField="ModuleDefID" runat="server">
 		<ItemTemplate>
 			<asp:HyperLink ID="HyperLink1" Visible='<%# isServerAdminSite %>' runat="server" Text='<%# Resources.Resource.ModuleAdminEditLink%>' ToolTip='<%# Resources.Resource.ModuleAdminEditLink %>' ImageUrl='<%# GetEditImageUrl() %>' NavigateUrl='<%# SiteRoot + "/Admin/ModuleDefinitions.aspx?defid=" + DataBinder.Eval(Container.DataItem, "ModuleDefID") %>' />
-			&nbsp;&nbsp;
-			<asp:Label Text='<%# mojoPortal.Web.Framework.ResourceHelper.GetResourceString(DataBinder.Eval(Container.DataItem, "ResourceFile").ToString(),DataBinder.Eval(Container.DataItem, "FeatureName").ToString()) %>' runat="server" ID="Label1" />
-			<asp:HyperLink ID="lnkSettings" runat="server" Visible='<%# isServerAdminSite %>' Text='<%# Resources.Resource.ModuleAdminSettingsLink %>' ToolTip='<%# Resources.Resource.ModuleAdminSettingsLink %>' NavigateUrl='<%# SiteRoot + "/Admin/ModuleDefinitionSettings.aspx?defid=" + DataBinder.Eval(Container.DataItem, "ModuleDefID") %>' />
+			&emsp;&emsp;
+			<asp:Label Text='<%# mojoPortal.Web.Framework.ResourceHelper.GetResourceString(DataBinder.Eval(Container.DataItem, "ResourceFile").ToString(),DataBinder.Eval(Container.DataItem, "FeatureName").ToString()) %>' runat="server" ID="Label1" />&emsp;&emsp;
+			<asp:HyperLink ID="lnkSettings" runat="server" Visible='<%# isServerAdminSite %>' Text='<%# Resources.Resource.ModuleAdminSettingsLink %>' ToolTip='<%# Resources.Resource.ModuleAdminSettingsLink %>' NavigateUrl='<%# SiteRoot + "/Admin/ModuleDefinitionSettings.aspx?defid=" + DataBinder.Eval(Container.DataItem, "ModuleDefID") %>' />&emsp;&emsp;
 		    <asp:HyperLink ID="lnkPermissions" runat="server" Text='<%# Resources.Resource.FeaturePermissionsLink %>' ToolTip='<%# Resources.Resource.FeaturePermissionsLink %>' NavigateUrl='<%# SiteRoot + "/Admin/FeaturePermissions.aspx?defid=" + DataBinder.Eval(Container.DataItem, "ModuleDefID") %>' />
 		
         </ItemTemplate>

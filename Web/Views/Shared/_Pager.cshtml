@@ -1,0 +1,30 @@
+﻿@using Resources;
+
+@model mojoPortal.Web.Models.PagerInfo
+
+<nav role="navigation">
+	<ul class="pagination">
+		<li class="disabled"><span class="disabled">@string.Format(Resource.PagerPageOfFormat, Model.CurrentIndex, Model.PageCount)</span></li>
+		@if (Model.CurrentIndex != 1)
+		{
+			<li><a href="@string.Format(Model.LinkFormat, "1")" title="@Resource.CutePagerBackToFirstClause"><span class="fa fa-angle-double-left"></span></a></li>
+			<li><a href="@string.Format(Model.LinkFormat, "1")" title="@Resource.CutePagerBackToPageClause @(Model.CurrentIndex - 1)"><span class="fa fa-angle-left"></span></a></li>
+		}
+		@for (int i = 1; i < Model.PageCount + 1; i++)
+		{
+			if (i == Model.CurrentIndex)
+			{
+				<li class="active"><span>@i.ToString()</span></li>
+			}
+			else
+			{
+				<li><a href="@string.Format(Model.LinkFormat, i.ToString())" title="@Resource.CutePagerNavigateToPageText @i">@i.ToString()</a></li>
+			}
+		}
+		@if (Model.CurrentIndex < Model.PageCount)
+		{
+			<li><a href="@string.Format(Model.LinkFormat, Model.CurrentIndex + 1)" title="@Resource.CutePagerNextToPageClause @(Model.CurrentIndex + 1)"><span class="fa fa-angle-right"></span></a></li>
+			<li><a href="@string.Format(Model.LinkFormat, Model.PageCount)" title="@Resource.CutePagerGoToLastClause"><span class="fa fa-angle-double-right"></span></a></li>
+		}
+	</ul>
+</nav>

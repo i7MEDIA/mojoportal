@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-3-6
-// Last Modified:			2017-01-17
+// Last Modified:			2019-04-03
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -179,6 +179,8 @@ namespace SuperFlexiBusiness
 					this.sortOrder = Convert.ToInt32(reader["SortOrder"]);
 					this.createdUtc = Convert.ToDateTime(reader["CreatedUtc"]);
 					this.lastModUtc = Convert.ToDateTime(reader["LastModUtc"]);
+					viewRoles = reader["ViewRoles"].ToString();
+					editRoles = reader["EditRoles"].ToString();
 				}
 
             }
@@ -194,15 +196,17 @@ namespace SuperFlexiBusiness
             int newID = 0;
 
             newID = DBItems.Create(
-                this.siteGuid,
-                this.featureGuid,
-                this.moduleGuid,
-                this.moduleID,
-                this.definitionGuid,
-                this.itemGuid,
-                this.sortOrder,
-                this.createdUtc,
-                this.lastModUtc);
+                siteGuid,
+                featureGuid,
+                moduleGuid,
+                moduleID,
+                definitionGuid,
+                itemGuid,
+                sortOrder,
+                createdUtc,
+                lastModUtc,
+				viewRoles,
+				editRoles);
 
             this.itemID = newID;
 
@@ -227,15 +231,17 @@ namespace SuperFlexiBusiness
         {
 
             bool result = DBItems.Update(
-                this.siteGuid,
-                this.featureGuid,
-                this.moduleGuid,
-                this.moduleID,
-                this.definitionGuid,
-                this.itemGuid,
-                this.sortOrder,
-                this.createdUtc,
-                this.lastModUtc);
+                siteGuid,
+                featureGuid,
+                moduleGuid,
+                moduleID,
+                definitionGuid,
+                itemGuid,
+                sortOrder,
+                createdUtc,
+                lastModUtc,
+				viewRoles,
+				editRoles);
 
             if (result)
             {
@@ -246,10 +252,6 @@ namespace SuperFlexiBusiness
             return result;
 
         }
-
-
-
-
 
         #endregion
 
@@ -325,24 +327,6 @@ namespace SuperFlexiBusiness
             return DBItems.DeleteByModule(moduleGuid);
         }
 
-        /// <summary>
-        /// Deletes Items and Values by Field Definition. Returns true on success.
-        /// </summary>
-        /// <param name="definitionGuid"> definitionGuid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByDefinition(Guid definitionGuid)
-        {
-            return DBItems.DeleteByDefinition(definitionGuid);
-        }
-
-		/// <summary>
-		/// Gets a count of item. 
-		/// </summary>
-		//public static int GetCount()
-		//{
-		//    return DBItems.GetCount();
-		//}
-		
 		/// <summary>
 		/// Gets a count of all items for a module
 		/// </summary>
@@ -351,76 +335,14 @@ namespace SuperFlexiBusiness
 			return DBItems.GetCountForModule(moduleId);
 		}
 
-		private static List<Item> LoadListFromReader(IDataReader reader, bool getTotalRows = false)
-        {
-            List<Item> itemList = new List<Item>();
-            try
-            {
-                while (reader.Read())
-                {
-                    Item item = new Item();
-                    item.siteGuid = new Guid(reader["SiteGuid"].ToString());
-                    item.featureGuid = new Guid(reader["FeatureGuid"].ToString());
-                    item.moduleGuid = new Guid(reader["ModuleGuid"].ToString());
-                    item.moduleID = Convert.ToInt32(reader["ModuleID"]);
-                    item.definitionGuid = new Guid(reader["DefinitionGuid"].ToString());
-                    item.itemGuid = new Guid(reader["ItemGuid"].ToString());
-                    item.itemID = Convert.ToInt32(reader["ItemID"]);
-                    item.sortOrder = Convert.ToInt32(reader["SortOrder"]);
-                    item.createdUtc = Convert.ToDateTime(reader["CreatedUtc"]);
-                    item.lastModUtc = Convert.ToDateTime(reader["LastModUtc"]);
-
-					// Not all methods will use TotalRows but there is no sense in having an extra method to load the reader
-					// so, we'll catch the error and do nothing with it because we are expecting it
-					// the if statement should keep any problems at bay but we still use try/catch in case someone inadvertently 
-					// set getTotalRows = true
-					if (getTotalRows)
-					{
-						try
-						{
-							if (reader["TotalRows"] != DBNull.Value)
-							{
-								_totalRows = Convert.ToInt32(reader["TotalRows"]);
-							}
-						}
-						catch (System.IndexOutOfRangeException ex)
-						{
-
-						}
-					}
-					itemList.Add(item);
-                }
-            }
-            finally
-            {
-                reader.Close();
-            }
-
-            return itemList;
-
-        }
-
         /// <summary>
         /// Gets an IList with all instances of item.
         /// </summary>
-        public static List<Item> GetAll()
+        public static List<Item> GetAll(Guid siteGuid)
         {
-            IDataReader reader = DBItems.GetAll();
+            IDataReader reader = DBItems.GetAll(siteGuid);
             return LoadListFromReader(reader);
 
-        }
-
-        /// <summary>
-        /// Gets an IList with page of instances of item.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="totalPages">total pages</param>
-        public static List<Item> GetPage(int pageNumber, int pageSize, out int totalPages)
-        {
-            totalPages = 1;
-            IDataReader reader = DBItems.GetPage(pageNumber, pageSize, out totalPages);
-            return LoadListFromReader(reader);
         }
 
         /// <summary>
@@ -428,17 +350,26 @@ namespace SuperFlexiBusiness
         /// </summary>
         /// <param name="moduleId"></param>
         /// <returns>IList</returns>
-        public static List<Item> GetModuleItems(int moduleId, bool descending = false)
+        public static List<Item> GetForModule(int moduleId, bool descending = false)
         {
-            IDataReader reader = DBItems.GetModuleItems(moduleId);
+            IDataReader reader = DBItems.GetForModule(moduleId, descending ? "DESC" : "ASC");
             List<Item> items = LoadListFromReader(reader);
-            if (descending)
-            {
-                Item_SortDescendingOrder descendingSort = new Item_SortDescendingOrder();
-                items.Sort(descendingSort);
-            }
             return items;
         }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="moduleId"></param>
+		/// <param name="descending"></param>
+		/// <returns></returns>
+		public static List<ItemWithValues> GetForModuleWithValues(int moduleId, bool descending = false)
+		{
+			IDataReader reader = DBItems.GetForModuleWithValues(moduleId, descending ? "DESC" : "ASC");
+			List<ItemWithValues> iwv = LoadListFromReaderWithValues(reader);
+			return iwv;
+		}
+
 		/// <summary>
 		/// Gets a list of Items within a "page"
 		/// </summary>
@@ -450,7 +381,7 @@ namespace SuperFlexiBusiness
 		/// <param name="searchField"></param>
 		/// <param name="descending"></param>
 		/// <returns></returns>
-		public static List<Item> GetPageOfModuleItems(
+		public static List<ItemWithValues> GetForModuleWithValues_Paged(
 			Guid moduleGuid, 
 			int pageNumber, 
 			int pageSize, 
@@ -462,9 +393,10 @@ namespace SuperFlexiBusiness
 		{
 			totalPages = 1;
 
-			IDataReader reader = DBItems.GetPageOfModuleItems(moduleGuid, pageNumber, pageSize, searchTerm, searchField, descending);
+			IDataReader reader = 
+				DBItems.GetForModuleWithValues_Paged(moduleGuid, pageNumber, pageSize, searchTerm, searchField, descending ? "DESC" : "ASC");
 
-			var items = LoadListFromReader(reader, true);
+			var items = LoadListFromReaderWithValues(reader, true);
 
 			totalRows = _totalRows;
 
@@ -478,8 +410,7 @@ namespace SuperFlexiBusiness
 			}
 			else
 			{
-				int remainder;
-				Math.DivRem(totalRows, pageSize, out remainder);
+				Math.DivRem(totalRows, pageSize, out int remainder);
 				if (remainder > 0)
 				{
 					totalPages += 1;
@@ -490,31 +421,84 @@ namespace SuperFlexiBusiness
 		}
 
 		/// <summary>
+		/// Gets a list of Items within a "page" for a Definition
+		/// </summary>
+		/// <param name="moduleId"></param>
+		/// <param name="pageNumber"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="totalPages"></param>
+		/// <param name="searchTerm"></param>
+		/// <param name="searchField"></param>
+		/// <param name="descending"></param>
+		/// <returns></returns>
+		public static List<ItemWithValues> GetForDefinitionWithValues_Paged(
+			Guid defGuid,
+			Guid siteGuid,
+			int pageNumber,
+			int pageSize,
+			out int totalPages,
+			out int totalRows,
+			string searchTerm = "",
+			string searchField = "",
+			bool descending = false)
+		{
+			totalPages = 1;
+
+			IDataReader reader = 
+				DBItems.GetForDefinitionWithValues_Paged(defGuid, siteGuid, pageNumber, pageSize, searchTerm, searchField, descending ? "DESC" : "ASC");
+
+			var items = LoadListFromReaderWithValues(reader, true);
+
+			totalRows = _totalRows;
+
+			if (pageSize > 0)
+			{
+				totalPages = totalRows / pageSize;
+			}
+			if (totalRows <= pageSize)
+			{
+				totalPages = 1;
+			}
+			else
+			{
+				Math.DivRem(totalRows, pageSize, out int remainder);
+				if (remainder > 0)
+				{
+					totalPages += 1;
+				}
+			}
+
+			return items;
+		}
+
+
+
+		/// <summary>
 		/// Gets an IList with all items for a single definition
 		/// </summary>
 		/// <param name="fieldDefinitionGuid"></param>
 		/// <param name="descending"></param>
 		/// <returns></returns>
-		public static List<Item> GetAllForDefinition(Guid fieldDefinitionGuid, bool descending = false)
+		public static List<Item> GetForDefinition(Guid fieldDefinitionGuid, Guid siteGuid, bool descending = false)
         {
-            IDataReader reader = DBItems.GetAllForDefinition(fieldDefinitionGuid);
+            IDataReader reader = DBItems.GetForDefinition(fieldDefinitionGuid, siteGuid, descending ? "DESC" : "ASC");
             List<Item> items = LoadListFromReader(reader);
-            if (descending)
-            {
-
-                return items
-                    .OrderByDescending(i => i.GlobalViewSortOrder)
-                    .ThenByDescending(i => i.ModuleID)
-                    .ThenByDescending(i => i.SortOrder)
-                    .ThenByDescending(i => i.CreatedUtc).ToList();
-
-                //Item_SortDescendingOrder descendingSort = new Item_SortDescendingOrder();
-                //items.Sort(descendingSort);
-
-
-            }
             return items;
         }
+
+		/// <summary>
+		/// Gets an IList of all items, with values, for a single definition
+		/// </summary>
+		/// <param name="fieldDefinitionGuid"></param>
+		/// <param name="siteGuid"></param>
+		/// <param name="descending"></param>
+		/// <returns></returns>
+		public static List<ItemWithValues> GetForDefinitionWithValues(Guid fieldDefinitionGuid, Guid siteGuid, bool descending = false)
+		{
+			IDataReader reader = DBItems.GetForDefinitionWithValues(fieldDefinitionGuid, siteGuid, descending ? "DESC" : "ASC");
+			List<ItemWithValues> items = LoadListFromReaderWithValues(reader);
+			return items;
+		}
 
         /// <summary>
         /// Gets a DataTable with items on a specific page
@@ -532,8 +516,9 @@ namespace SuperFlexiBusiness
             dataTable.Columns.Add("SortOrder", typeof(int));
             dataTable.Columns.Add("CreatedUtc", typeof(DateTime));
             dataTable.Columns.Add("ModuleTitle", typeof(string));
-            dataTable.Columns.Add("ViewRoles", typeof(string));
-            dataTable.Columns.Add("PublishBeginDate", typeof(DateTime));
+            dataTable.Columns.Add("ModuleViewRoles", typeof(string));
+            dataTable.Columns.Add("ItemViewRoles", typeof(string));
+			dataTable.Columns.Add("PublishBeginDate", typeof(DateTime));
             dataTable.Columns.Add("PublishEndDate", typeof(DateTime));
             using (IDataReader reader = DBItems.GetByCMSPage(siteGuid, pageId))
             {
@@ -547,9 +532,10 @@ namespace SuperFlexiBusiness
                     row["SortOrder"] = reader["sortOrder"];
                     row["CreatedUtc"] = Convert.ToDateTime(reader["createdUtc"]);
                     row["ModuleTitle"] = reader["moduleTitle"];
-                    row["ViewRoles"] = reader["viewRoles"];
+                    row["ModuleViewRoles"] = reader["moduleViewRoles"];
+                    row["ItemViewRoles"] = reader["itemViewRoles"];
 
-                    if (reader["publishBeginDate"] != DBNull.Value)
+					if (reader["publishBeginDate"] != DBNull.Value)
                     {
                         row["PublishBeginDate"]
                             = Convert.ToDateTime(reader["publishBeginDate"]);
@@ -575,18 +561,149 @@ namespace SuperFlexiBusiness
         /// <returns>int</returns>
         public static int GetHighestSortOrder(int moduleId)
         {
-            List<Item> items = GetModuleItems(moduleId);
-            Item lastItem = items[items.Count - 1];
-            return lastItem.SortOrder;
+			return DBItems.GetHighestSortOrder(moduleId);
         }
-        #endregion
+		#endregion
 
-        #region Comparison Methods
+		#region Load From Reader
+		private static List<Item> LoadListFromReader(IDataReader reader, bool getTotalRows = false)
+		{
+			List<Item> itemList = new List<Item>();
+			try
+			{
+				while (reader.Read())
+				{
+					Item item = new Item
+					{
+						siteGuid = new Guid(reader["SiteGuid"].ToString()),
+						featureGuid = new Guid(reader["FeatureGuid"].ToString()),
+						moduleGuid = new Guid(reader["ModuleGuid"].ToString()),
+						moduleID = Convert.ToInt32(reader["ModuleID"]),
+						definitionGuid = new Guid(reader["DefinitionGuid"].ToString()),
+						itemGuid = new Guid(reader["ItemGuid"].ToString()),
+						itemID = Convert.ToInt32(reader["ItemID"]),
+						sortOrder = Convert.ToInt32(reader["SortOrder"]),
+						createdUtc = Convert.ToDateTime(reader["CreatedUtc"]),
+						lastModUtc = Convert.ToDateTime(reader["LastModUtc"]),
+						viewRoles = reader["ViewRoles"].ToString(),
+						editRoles = reader["EditRoles"].ToString()
+					};
+					// Not all methods will use TotalRows but there is no sense in having an extra method to load the reader
+					// so, we'll catch the error and do nothing with it because we are expecting it
+					// the if statement should keep any problems at bay but we still use try/catch in case someone inadvertently 
+					// set getTotalRows = true
+					if (getTotalRows)
+					{
+						try
+						{
+							if (reader["TotalRows"] != DBNull.Value)
+							{
+								_totalRows = Convert.ToInt32(reader["TotalRows"]);
+							}
+						}
+						catch (System.IndexOutOfRangeException ex)
+						{
 
-        /// <summary>
-        /// Compares 2 instances of item.
-        /// </summary>
-        public static int CompareByModuleID(Item item1, Item item2)
+						}
+					}
+					itemList.Add(item);
+				}
+			}
+			finally
+			{
+				reader.Close();
+			}
+
+			return itemList;
+
+		}
+
+		private static List<ItemWithValues> LoadListFromReaderWithValues(IDataReader reader, bool getTotalRows = false)
+		{
+			List<ItemWithValues> itemList = new List<ItemWithValues>();
+
+			// for each distinct item i need a list of values (fieldname=>fieldvalue)
+
+			try
+			{
+
+				while (reader.Read())
+				{
+					ItemWithValues itemWithValues = new ItemWithValues
+					{
+						Item = new Item
+						{
+							SiteGuid = new Guid(reader["SiteGuid"].ToString()),
+							FeatureGuid = new Guid(reader["FeatureGuid"].ToString()),
+							ModuleGuid = new Guid(reader["ModuleGuid"].ToString()),
+							ModuleID = Convert.ToInt32(reader["ModuleID"]),
+							DefinitionGuid = new Guid(reader["DefinitionGuid"].ToString()),
+							ItemGuid = new Guid(reader["ItemGuid"].ToString()),
+							ItemID = Convert.ToInt32(reader["ItemID"]),
+							SortOrder = Convert.ToInt32(reader["SortOrder"]),
+							CreatedUtc = Convert.ToDateTime(reader["CreatedUtc"]),
+							LastModUtc = Convert.ToDateTime(reader["LastModUtc"]),
+							ViewRoles = reader["ViewRoles"].ToString(),
+							EditRoles = reader["EditRoles"].ToString()
+						},
+						Values = new Dictionary<string, object>(),
+						//FieldGuids = new Dictionary<string, Guid>()
+					};
+
+					// Not all methods will use TotalRows but there is no sense in having an extra method to load the reader
+					// so, we'll catch the error and do nothing with it because we are expecting it
+					// the if statement should keep any problems at bay but we still use try/catch in case someone inadvertently 
+					// set getTotalRows = true
+					if (getTotalRows)
+					{
+						try
+						{
+							if (reader["TotalRows"] != DBNull.Value)
+							{
+								_totalRows = Convert.ToInt32(reader["TotalRows"]);
+							}
+						}
+						catch (System.IndexOutOfRangeException ex)
+						{
+
+						}
+					}
+					try
+					{
+						//first, we'll try to add the value to the list with the corresponding item
+						//itemList.Where(i => i.Item.ItemGuid == itemWithValues.Item.ItemGuid).First().Values
+						//	.Add(reader["FieldName"].ToString(), 
+						//	new { GUID = reader["FieldGuid"].ToString(), Value = reader["FieldValue"].ToString() });
+						itemList.Where(i => i.Item.ItemGuid == itemWithValues.Item.ItemGuid).First().Values
+							.Add(reader["FieldName"].ToString(), reader["FieldValue"].ToString());
+					}
+					catch (Exception ex)
+					{
+						//corresponding item not found, we'll add our value to the current item and then add that item to our list
+						//itemWithValues.Values.Add(reader["FieldName"].ToString(),
+						//	new { GUID = reader["FieldGuid"].ToString(), Value = reader["FieldValue"].ToString() });
+						itemWithValues.Values.Add(reader["FieldName"].ToString(), reader["FieldValue"].ToString());
+
+						itemList.Add(itemWithValues);
+					}
+				}
+			}
+			finally
+			{
+				reader.Close();
+			}
+
+			return itemList;
+		}
+
+		#endregion
+
+		#region Comparison Methods
+
+		/// <summary>
+		/// Compares 2 instances of item.
+		/// </summary>
+		public static int CompareByModuleID(Item item1, Item item2)
         {
             return item1.ModuleID.CompareTo(item2.ModuleID);
         }
@@ -631,11 +748,8 @@ namespace SuperFlexiBusiness
 
         protected void OnContentChanged(ContentChangedEventArgs e)
         {
-            if (ContentChanged != null)
-            {
-                ContentChanged(this, e);
-            }
-        }
+			ContentChanged?.Invoke(this, e);
+		}
         #endregion
         
         

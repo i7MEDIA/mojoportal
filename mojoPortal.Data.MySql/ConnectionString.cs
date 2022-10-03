@@ -1,39 +1,28 @@
 ﻿using System.Configuration;
 
+
 namespace mojoPortal.Data
 {
 	public static class ConnectionString
 	{
-		private const string StringName = "MySqlConnectionString";
-		private const string WriteStringName = "MySqlWriteConnectionString";
+		private const string connectionString = "MySqlConnectionString";
+		private const string writeString = "MySqlWriteConnectionString";
 
 
-		public static string GetReadConnectionString()
+		public static string GetReadConnectionString() => GetString();
+
+
+		public static string GetWriteConnectionString() => GetString("write");
+
+
+		private static string GetString(string type = "")
 		{
-			return GetString();
-		}
-
-
-		public static string GetWriteConnectionString()
-		{
-			return GetString("write") ?? GetString();
-		}
-
-
-		private static string GetString(string type = "get")
-		{
-			switch (type)
+			if (type == "write" && ConfigurationManager.AppSettings[writeString] != null)
 			{
-				default:
-					return ConfigurationManager.AppSettings[StringName].AddSslMode();
-				case "write":
-					if (ConfigurationManager.AppSettings[WriteStringName] != null)
-					{
-						return ConfigurationManager.AppSettings[WriteStringName].AddSslMode();
-					}
-
-					return null;
+				return ConfigurationManager.AppSettings[writeString].AddSslMode();
 			}
+
+			return ConfigurationManager.AppSettings[connectionString].AddSslMode();
 		}
 
 

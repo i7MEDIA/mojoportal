@@ -32,292 +32,87 @@ namespace mojoPortal.Web.UI
         private SiteMapNode rootNode = null;
         private SiteMapNode startingNode = null;
         private mojoSiteMapNode currentNode = null;
+		/// <summary>
+		/// if specified then the menu will show the child pages of the page corresponding to the specific page id
+		/// it must be a page within the current site, ie it must exist in the site map data for the current site
+		/// </summary>
+		public int StartingNodePageId { get; set; } = -1;
 
-        private int startingNodePageId = -1;
-        /// <summary>
-        /// if specified then the menu will show the child pages of the page corresponding to the specific page id
-        /// it must be a page within the current site, ie it must exist in the site map data for the current site
-        /// </summary>
-        public int StartingNodePageId
-        {
-            get { return startingNodePageId; }
-            set { startingNodePageId = value; }
-        }
+		public int StartingNodeOffset { get; set; } = -1;
+		/// <summary>
+		/// -1 = no limit
+		/// </summary>
+		public int MaxDataRenderDepth { get; set; } = -1;
 
-        private int startingNodeOffset = -1;
-
-        public int StartingNodeOffset
-        {
-            get { return startingNodeOffset; }
-            set { startingNodeOffset = value; }
-        }
-
-        private int maxDataRenderDepth = -1; // no limit
-
-        public int MaxDataRenderDepth
-        {
-            get { return maxDataRenderDepth; }
-            set { maxDataRenderDepth = value; }
-        }
-
-        //private bool isMobileSkin = false;
-        private int mobileOnly = (int)ContentPublishMode.MobileOnly;
+		//private bool isMobileSkin = false;
+		private int mobileOnly = (int)ContentPublishMode.MobileOnly;
         private int webOnly = (int)ContentPublishMode.WebOnly;
 
-        private string containerElement = string.Empty;
+		public string ContainerElement { get; set; } = string.Empty;
 
-        public string ContainerElement
-        {
-            get { return containerElement; }
-            set { containerElement = value; }
-        }
+		public string ContainerCssClass { get; set; } = string.Empty;
 
-        private string containerCssClass = string.Empty;
+		public string RootUlCssClass { get; set; } = string.Empty;
 
-        public string ContainerCssClass
-        {
-            get { return containerCssClass; }
-            set { containerCssClass = value; }
-        }
+		public bool RenderDescription { get; set; } = true;
+		public string DescriptionCssClass { get; set; } = string.Empty;
 
-        private string rootUlCssClass = string.Empty;
+		public string ChildContainerElement { get; set; } = string.Empty;
 
-        public string RootUlCssClass
-        {
-            get { return rootUlCssClass; }
-            set { rootUlCssClass = value; }
-        }
+		public string ChildContainerCssClass { get; set; } = string.Empty;
 
-        private bool renderDescription = true;
+		public string ChildUlCssClass { get; set; } = string.Empty;
 
-        public bool RenderDescription
-        {
-            get { return renderDescription; }
-            set { renderDescription = value; }
-        }
+		public int ChildNodesPerUl { get; set; } = -1;
 
-        private string descriptionCssClass = string.Empty;
-        public string DescriptionCssClass
-        {
-            get { return descriptionCssClass; }
-            set { descriptionCssClass = value; }
-        }
+		public string RootLevelLiCssClass { get; set; } = string.Empty;
 
-        private string childContainerElement = string.Empty;
+		public string LiCssClass { get; set; } = string.Empty;
 
-        public string ChildContainerElement
-        {
-            get { return childContainerElement; }
-            set { childContainerElement = value; }
-        }
+		public string ItemDepthCssPrefix { get; set; } = string.Empty;
 
-        private string childContainerCssClass = string.Empty;
+		public string ParentLiCssClass { get; set; } = string.Empty;
 
-        public string ChildContainerCssClass
-        {
-            get { return childContainerCssClass; }
-            set { childContainerCssClass = value; }
-        }
+		public string UlSelectedCssClass { get; set; } = string.Empty;
 
-        private string childUlCssClass = string.Empty;
+		public string LiSelectedCssClass { get; set; } = string.Empty;
 
-        public string ChildUlCssClass
-        {
-            get { return childUlCssClass; }
-            set { childUlCssClass = value; }
-        }
+		public string AnchorSelectedCssClass { get; set; } = string.Empty;
 
-        private int childNodesPerUl = -1;
+		public string AnchorInnerHtmlTop { get; set; } = string.Empty;
 
-        public int ChildNodesPerUl
-        {
-            get { return childNodesPerUl; }
-            set { childNodesPerUl = value; }
-        }
+		public string AnchorInnerHtmlBottom { get; set; } = string.Empty;
 
-        private string rootLevelLiCssClass = string.Empty;
+		public bool RenderCustomClassOnLi { get; set; } = true;
 
-        public string RootLevelLiCssClass
-        {
-            get { return rootLevelLiCssClass; }
-            set { rootLevelLiCssClass = value; }
-        }
+		public bool RenderCustomClassOnAnchor { get; set; } = false;
 
-        private string liCssClass = string.Empty;
+		public string AnchorCssClass { get; set; } = string.Empty;
 
-        public string LiCssClass
-        {
-            get { return liCssClass; }
-            set { liCssClass = value; }
-        }
+		public string AnchorChildSelectedCssClass { get; set; } = string.Empty;
 
-        private string itemDepthCssPrefix = string.Empty;
+		public string LiChildSelectedCssClass { get; set; } = string.Empty;
 
-        public string ItemDepthCssPrefix
-        {
-            get { return itemDepthCssPrefix; }
-            set { itemDepthCssPrefix = value; }
-        }
+		public string UlChildSelectedCssClass { get; set; } = string.Empty;
 
-        private string parentLiCssClass = string.Empty;
+		/// <summary>
+		/// literal markup added inside the begin container tag 
+		/// </summary>
+		public string ExtraTopMarkup { get; set; } = string.Empty;
 
-        public string ParentLiCssClass
-        {
-            get { return parentLiCssClass; }
-            set { parentLiCssClass = value; }
-        }
+		/// <summary>
+		/// literal markup added before the closing container tag 
+		/// </summary>
+		public string ExtraBottomMarkup { get; set; } = string.Empty;
 
-        private string ulSelectedCssClass = string.Empty;
+		public bool IsMobileSkin { get; set; } = false;
 
-        public string UlSelectedCssClass
-        {
-            get { return ulSelectedCssClass; }
-            set { ulSelectedCssClass = value; }
-        }
+		public string DividerElement { get; set; } = string.Empty;
 
-        private string liSelectedCssClass = string.Empty;
+		public string DividerCssClass { get; set; } = string.Empty;
+		public bool RenderHrefWhenUnclickable { get; set; } = true;
 
-        public string LiSelectedCssClass
-        {
-            get { return liSelectedCssClass; }
-            set { liSelectedCssClass = value; }
-        }
-
-        private string anchorSelectedCssClass = string.Empty;
-
-        public string AnchorSelectedCssClass
-        {
-            get { return anchorSelectedCssClass; }
-            set { anchorSelectedCssClass = value; }
-        }
-
-        private string anchorInnerHtmlTop = string.Empty;
-
-        public string AnchorInnerHtmlTop
-        {
-            get { return anchorInnerHtmlTop; }
-            set { anchorInnerHtmlTop = value; }
-        }
-
-        private string anchorInnerHtmlBottom = string.Empty;
-
-        public string AnchorInnerHtmlBottom
-        {
-            get { return anchorInnerHtmlBottom; }
-            set { anchorInnerHtmlBottom = value; }
-        }
-
-        private bool renderCustomClassOnLi = true;
-
-        public bool RenderCustomClassOnLi
-        {
-            get { return renderCustomClassOnLi; }
-            set { renderCustomClassOnLi = value; }
-        }
-
-        private bool renderCustomClassOnAnchor = false;
-
-        public bool RenderCustomClassOnAnchor
-        {
-            get { return renderCustomClassOnAnchor; }
-            set { renderCustomClassOnAnchor = value; }
-        }
-
-        private string anchorCssClass = string.Empty;
-
-        public string AnchorCssClass
-        {
-            get { return anchorCssClass; }
-            set { anchorCssClass = value; }
-        }
-        
-        private string anchorChildSelectedCssClass = string.Empty;
-
-        public string AnchorChildSelectedCssClass
-        {
-            get { return anchorChildSelectedCssClass; }
-            set { anchorChildSelectedCssClass = value; }
-        }
-
-        private string liChildSelectedCssClass = string.Empty;
-
-        public string LiChildSelectedCssClass
-        {
-            get { return liChildSelectedCssClass; }
-            set { liChildSelectedCssClass = value; }
-        }
-
-        private string ulChildSelectedCssClass = string.Empty;
-
-        public string UlChildSelectedCssClass
-        {
-            get { return ulChildSelectedCssClass; }
-            set { ulChildSelectedCssClass = value; }
-        }
-
-        
-        private string extraTopMarkup = string.Empty;
-
-        /// <summary>
-        /// literal markup added inside the begin container tag 
-        /// </summary>
-        public string ExtraTopMarkup
-        {
-            get { return extraTopMarkup; }
-            set { extraTopMarkup = value; }
-        }
-
-        private string extraBottomMarkup = string.Empty;
-
-        /// <summary>
-        /// literal markup added before the closing container tag 
-        /// </summary>
-        public string ExtraBottomMarkup
-        {
-            get { return extraBottomMarkup; }
-            set { extraBottomMarkup = value; }
-        }
-
-        //private bool isSubMenu = false;
-
-        //public bool IsSubMenu
-        //{
-        //    get { return isSubMenu; }
-        //    set { isSubMenu = value; }
-        //}
-
-        private bool isMobileSkin = false;
-
-        public bool IsMobileSkin
-        {
-            get { return isMobileSkin; }
-            set { isMobileSkin = value; }
-        }
-
-        private string dividerElement = string.Empty;
-
-        public string DividerElement
-        {
-            get { return dividerElement; }
-            set { dividerElement = value; }
-        }
-
-        private string dividerCssClass = string.Empty;
-
-        public string DividerCssClass
-        {
-            get { return dividerCssClass; }
-            set { dividerCssClass = value; }
-        }
-
-        private bool renderHrefWhenUnclickable = true;
-        public bool RenderHrefWhenUnclickable
-        {
-            get { return renderHrefWhenUnclickable; }
-            set { renderHrefWhenUnclickable = value; }
-        }
-
-        protected override void OnLoad(EventArgs e)
+		protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             LoadSettings();
@@ -348,13 +143,13 @@ namespace mojoPortal.Web.UI
             currentNode = SiteUtils.GetCurrentPageSiteMapNode(rootNode);
             startingNode = rootNode;
 
-            if (startingNodePageId > -1)
+            if (StartingNodePageId > -1)
             {
-                startingNode = SiteUtils.GetSiteMapNodeForPage(rootNode, startingNodePageId);
+                startingNode = SiteUtils.GetSiteMapNodeForPage(rootNode, StartingNodePageId);
             }
-            else if (startingNodeOffset > -1)
+            else if (StartingNodeOffset > -1)
             {
-                startingNode = SiteUtils.GetOffsetNode(currentNode, startingNodeOffset);
+                startingNode = SiteUtils.GetOffsetNode(currentNode, StartingNodeOffset);
             }
             //else if (isSubMenu)
             //{
@@ -369,25 +164,25 @@ namespace mojoPortal.Web.UI
             string spacer = string.Empty;
 
             //added 2013-11-08 https://www.mojoportal.com/Forums/Thread.aspx?pageid=5&t=12214~1#post50717
-            if (childUlCssClass.Length > 0)
+            if (ChildUlCssClass.Length > 0)
             {
-                result += spacer + childUlCssClass;
+                result += spacer + ChildUlCssClass;
                 spacer = " ";
             }
 
-            if ((ulChildSelectedCssClass.Length > 0) && (currentNode != null)
+            if ((UlChildSelectedCssClass.Length > 0) && (currentNode != null)
                 && (currentNode.IsDescendantOf(mojoNode))
                 )
             {
-                result += spacer + ulChildSelectedCssClass;
+                result += spacer + UlChildSelectedCssClass;
                 spacer = " ";
             }
 
-            if ((ulSelectedCssClass.Length > 0) && (currentNode != null)
+            if ((UlSelectedCssClass.Length > 0) && (currentNode != null)
                 && (currentNode.PageGuid == mojoNode.PageGuid)
                 )
             {
-                result += spacer + ulSelectedCssClass;
+                result += spacer + UlSelectedCssClass;
                 spacer = " ";
             }
 
@@ -406,29 +201,29 @@ namespace mojoPortal.Web.UI
             string result = string.Empty;
             string spacer = string.Empty;
 
-            if (anchorCssClass.Length > 0)
+            if (AnchorCssClass.Length > 0)
             {
-                result += anchorCssClass;
+                result += AnchorCssClass;
                 spacer = " ";
             }
 
-            if ((anchorChildSelectedCssClass.Length > 0) && (currentNode != null)
+            if ((AnchorChildSelectedCssClass.Length > 0) && (currentNode != null)
                 && (currentNode.IsDescendantOf(mojoNode)) 
                 )
             {
-                result += spacer + anchorChildSelectedCssClass;
+                result += spacer + AnchorChildSelectedCssClass;
                 spacer = " ";
             }
 
-            if ((anchorSelectedCssClass.Length > 0) && (currentNode != null)
+            if ((AnchorSelectedCssClass.Length > 0) && (currentNode != null)
                 && (currentNode.PageGuid == mojoNode.PageGuid)
                 )
             {
-                result += spacer + anchorSelectedCssClass;
+                result += spacer + AnchorSelectedCssClass;
                 spacer = " ";
             }
 
-            if ((renderCustomClassOnAnchor) && (mojoNode.MenuCssClass.Length > 0))
+            if ((RenderCustomClassOnAnchor) && (mojoNode.MenuCssClass.Length > 0))
             {
                 result += spacer + mojoNode.MenuCssClass;
                 spacer = " ";
@@ -454,51 +249,51 @@ namespace mojoPortal.Web.UI
             string spacer = string.Empty;
 
             if (((mojoNode.Depth == 0) 
-                || (mojoNode.Depth == startingNodeOffset) 
+                || (mojoNode.Depth == StartingNodeOffset) 
                 //|| ((startingNodeOffset > 0) &&(isSubMenu) &&(mojoNode.Depth == startingNodeOffset + 1)))
-                || ((startingNodeOffset > -1) && (mojoNode.Depth == startingNodeOffset + 1)))
-                && (rootLevelLiCssClass.Length > 0))
+                || ((StartingNodeOffset > -1) && (mojoNode.Depth == StartingNodeOffset + 1)))
+                && (RootLevelLiCssClass.Length > 0))
             {
-                result = rootLevelLiCssClass;
+                result = RootLevelLiCssClass;
                 spacer = " ";
             }
-            else if(liCssClass.Length > 0)
+            else if(LiCssClass.Length > 0)
             {
-                result = liCssClass;
+                result = LiCssClass;
                 spacer = " ";
             }
 
-            if (itemDepthCssPrefix.Length > 0)
+            if (ItemDepthCssPrefix.Length > 0)
             {
-                result += spacer + itemDepthCssPrefix + mojoNode.Depth.ToInvariantString();
+                result += spacer + ItemDepthCssPrefix + mojoNode.Depth.ToInvariantString();
                 spacer = " ";
             }
 
             //if ((parentLiCssClass.Length > 0) && (mojoNode.ChildNodes.Count > 0))
-            if ((parentLiCssClass.Length > 0) && (mojoNode.HasVisibleChildren()))
+            if ((ParentLiCssClass.Length > 0) && (mojoNode.HasVisibleChildren()))
             {
-                result += spacer + parentLiCssClass;
+                result += spacer + ParentLiCssClass;
                 spacer = " ";
             }
 
 
-            if ((liChildSelectedCssClass.Length > 0) && (currentNode != null)
+            if ((LiChildSelectedCssClass.Length > 0) && (currentNode != null)
                 && (currentNode.IsDescendantOf(mojoNode)) 
                 )
             {
-                result += spacer + liChildSelectedCssClass;
+                result += spacer + LiChildSelectedCssClass;
                 spacer = " ";
             }
 
-            if ((liSelectedCssClass.Length > 0) && (currentNode != null)
+            if ((LiSelectedCssClass.Length > 0) && (currentNode != null)
                 && (currentNode.PageGuid == mojoNode.PageGuid)
                 )
             {
-                result += spacer + liSelectedCssClass;
+                result += spacer + LiSelectedCssClass;
                 spacer = " ";
             }
 
-            if ((renderCustomClassOnLi) && (mojoNode.MenuCssClass.Length > 0))
+            if ((RenderCustomClassOnLi) && (mojoNode.MenuCssClass.Length > 0))
             {
                 result += spacer + mojoNode.MenuCssClass;
             }
@@ -519,36 +314,36 @@ namespace mojoPortal.Web.UI
 
             if (rootNode == null) { return; }
 
-            if ((maxDataRenderDepth > -1)&&(startingNode.ChildNodes.Count > 0))
+            if ((MaxDataRenderDepth > -1)&&(startingNode.ChildNodes.Count > 0))
             {
                 mojoSiteMapNode firstChildNode = startingNode.ChildNodes[0] as mojoSiteMapNode;
                 if (firstChildNode == null) { return; }
-                if (firstChildNode.Depth > maxDataRenderDepth) { return; }
+                if (firstChildNode.Depth > MaxDataRenderDepth) { return; }
 
             }
 
            
-            if (containerElement.Length > 0)
+            if (ContainerElement.Length > 0)
             {
                 
-                writer.Write("<" + containerElement);
-                if (containerCssClass.Length > 0)
+                writer.Write("<" + ContainerElement);
+                if (ContainerCssClass.Length > 0)
                 {
-                    writer.Write(" class='" +  containerCssClass + "'");
+                    writer.Write(" class='" +  ContainerCssClass + "'");
                 }
                 writer.Write(">");
                
             }
 
-            if (extraTopMarkup.Length > 0)
+            if (ExtraTopMarkup.Length > 0)
             {
-                writer.Write(extraTopMarkup);
+                writer.Write(ExtraTopMarkup);
             }
 
             writer.Write("<ul");
-            if (rootUlCssClass.Length > 0)
+            if (RootUlCssClass.Length > 0)
             {
-                writer.Write(" class='" + rootUlCssClass  + "'");
+                writer.Write(" class='" + RootUlCssClass  + "'");
             }
             writer.Write(">");
 
@@ -560,7 +355,7 @@ namespace mojoPortal.Web.UI
                 mojoSiteMapNode mojoNode = childNode as mojoSiteMapNode;
                 if (mojoNode == null) { continue; }
 
-                renderDivider = !String.IsNullOrEmpty(dividerElement) && (nodePos < startingNode.ChildNodes.Count);
+                renderDivider = !String.IsNullOrEmpty(DividerElement) && (nodePos < startingNode.ChildNodes.Count);
                 //RenderNode(writer, mojoNode);
                 RenderNode(writer, mojoNode, renderDivider);
 
@@ -572,14 +367,14 @@ namespace mojoPortal.Web.UI
 
             writer.WriteLine("</ul>");
 
-            if (extraBottomMarkup.Length > 0)
+            if (ExtraBottomMarkup.Length > 0)
             {
-                writer.Write(extraBottomMarkup);
+                writer.Write(ExtraBottomMarkup);
             }
 
-            if (containerElement.Length > 0)
+            if (ContainerElement.Length > 0)
             {
-                writer.WriteLine("</" + containerElement + ">");
+                writer.WriteLine("</" + ContainerElement + ">");
             }
 
            // writer.WriteLine(" ");
@@ -609,7 +404,7 @@ namespace mojoPortal.Web.UI
                 writer.Write(" rel='" + mojoNode.LinkRel + "'");
             }
 
-            if (mojoNode.IsClickable || (renderHrefWhenUnclickable && !mojoNode.IsClickable))
+            if (mojoNode.IsClickable || (RenderHrefWhenUnclickable && !mojoNode.IsClickable))
             {
                 writer.Write(" href='" + FormatUrl(mojoNode) + "'>");
             }
@@ -618,26 +413,26 @@ namespace mojoPortal.Web.UI
                 writer.Write(">");
             }
 
-            if ((anchorInnerHtmlTop.Length > 0) && (anchorInnerHtmlBottom.Length > 0))
+            if ((AnchorInnerHtmlTop.Length > 0) && (AnchorInnerHtmlBottom.Length > 0))
             {
-                writer.Write(anchorInnerHtmlTop);
+                writer.Write(AnchorInnerHtmlTop);
             }
 
             writer.Write(mojoNode.Title);
 
-            if ((anchorInnerHtmlTop.Length > 0) && (anchorInnerHtmlBottom.Length > 0))
+            if ((AnchorInnerHtmlTop.Length > 0) && (AnchorInnerHtmlBottom.Length > 0))
             {
-                writer.Write(anchorInnerHtmlBottom);
+                writer.Write(AnchorInnerHtmlBottom);
             }
 
             writer.Write("</a>");
 
-            if ((renderDescription)&&(mojoNode.MenuDescription.Length > 0))
+            if ((RenderDescription)&&(mojoNode.MenuDescription.Length > 0))
             {
                 writer.Write("<span");
-                if (descriptionCssClass.Length > 0)
+                if (DescriptionCssClass.Length > 0)
                 {
-                    writer.Write(" class='" + descriptionCssClass + "'");
+                    writer.Write(" class='" + DescriptionCssClass + "'");
                 }
                 writer.Write(">");
                 writer.Write(mojoNode.MenuDescription);
@@ -647,21 +442,21 @@ namespace mojoPortal.Web.UI
             //if (mojoNode.ChildNodes.Count > 0)
             if(HasVisibleChildNodes(mojoNode))
             {
-                if (childContainerElement.Length > 0)
+                if (ChildContainerElement.Length > 0)
                 {
-                    writer.Write("<" + childContainerElement);
-                    if (childContainerCssClass.Length > 0)
+                    writer.Write("<" + ChildContainerElement);
+                    if (ChildContainerCssClass.Length > 0)
                     {
-                        writer.Write(" class='" + childContainerCssClass + "'");
+                        writer.Write(" class='" + ChildContainerCssClass + "'");
                     }
                     writer.Write(">");
                 }
 
                 RenderChildNodes(writer, mojoNode);
 
-                if (childContainerElement.Length > 0)
+                if (ChildContainerElement.Length > 0)
                 {
-                    writer.Write("</" + childContainerElement + ">");
+                    writer.Write("</" + ChildContainerElement + ">");
                 }
             }
 
@@ -669,12 +464,12 @@ namespace mojoPortal.Web.UI
 
             if (renderDivider)
             {
-                writer.Write("<" + dividerElement);
-                if (!String.IsNullOrEmpty(dividerCssClass))
+                writer.Write("<" + DividerElement);
+                if (!String.IsNullOrEmpty(DividerCssClass))
                 {
-                    writer.Write(" class='" + dividerCssClass + "'");
+                    writer.Write(" class='" + DividerCssClass + "'");
                 }
-                writer.Write("></" + dividerElement + ">");
+                writer.Write("></" + DividerElement + ">");
             }
             
         }
@@ -701,7 +496,7 @@ namespace mojoPortal.Web.UI
                 mojoSiteMapNode mojoNode = childNode as mojoSiteMapNode;
                 if (mojoNode == null) { continue; }
                 if (!ShouldRender(mojoNode)) { continue; }
-                renderDivider = !String.IsNullOrEmpty(dividerElement) && (nodePos < startingNode.ChildNodes.Count);
+                renderDivider = !String.IsNullOrEmpty(DividerElement) && (nodePos < startingNode.ChildNodes.Count);
                 //RenderNode(writer, mojoNode);
                 RenderNode(writer, mojoNode, renderDivider);
 
@@ -710,9 +505,9 @@ namespace mojoPortal.Web.UI
                 itemsAdded += 1;
                 trueItemsAdded += 1;
 
-                if (childNodesPerUl > -1)
+                if (ChildNodesPerUl > -1)
                 {
-                    if ((itemsAdded == childNodesPerUl) && (trueItemsAdded < node.ChildNodes.Count))
+                    if ((itemsAdded == ChildNodesPerUl) && (trueItemsAdded < node.ChildNodes.Count))
                     {
                         //writer.Write("</ul><ul>");
                         writer.Write("</ul><ul" + BuildUlClass((mojoSiteMapNode)childNode) + ">");
@@ -795,11 +590,11 @@ namespace mojoPortal.Web.UI
 
             if ((mapNode.HideAfterLogin) && (Page.Request.IsAuthenticated)) { remove = true; }
 
-            if ((!isMobileSkin)&&(mapNode.PublishMode == mobileOnly)) { remove = true; }
+            if ((!IsMobileSkin)&&(mapNode.PublishMode == mobileOnly)) { remove = true; }
 
-            if ((isMobileSkin) && (mapNode.PublishMode == webOnly)) { remove = true; }
+            if ((IsMobileSkin) && (mapNode.PublishMode == webOnly)) { remove = true; }
 
-            if ((maxDataRenderDepth > -1) && (mapNode.Depth > maxDataRenderDepth)) { remove = true; }
+            if ((MaxDataRenderDepth > -1) && (mapNode.Depth > MaxDataRenderDepth)) { remove = true; }
 
             { return !remove; }
 

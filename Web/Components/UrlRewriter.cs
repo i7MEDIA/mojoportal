@@ -27,14 +27,10 @@ namespace mojoPortal.Web
         private static readonly ILog log = LogManager.GetLogger(typeof(UrlRewriter));
         private static bool debugLog = log.IsDebugEnabled;
 
-
 		public void Init(HttpApplication app)
 		{
 			app.BeginRequest += new EventHandler(this.UrlRewriter_BeginRequest);
-            
 		}
-
-        
 
 		public void Dispose() {}
 
@@ -44,23 +40,14 @@ namespace mojoPortal.Web
 
             HttpApplication app = (HttpApplication)sender;
 
-            
-            if (!WebConfigSettings.UseUrlReWritingForStaticFiles)
-            {
-
-                if (WebUtils.IsRequestForStaticFile(app.Request.Path)) { return; }
-
-                if (
-                      (app.Request.Path.EndsWith("csshandler.ashx", StringComparison.InvariantCultureIgnoreCase))
-                        || (app.Request.Path.EndsWith("CaptchaImage.ashx", StringComparison.InvariantCultureIgnoreCase)) 
-                        || (app.Request.Path.EndsWith("/Data/", StringComparison.InvariantCultureIgnoreCase))
-                        || (app.Request.Path.StartsWith("/Data/", StringComparison.InvariantCultureIgnoreCase))
-                        )
-                {
-                    return;
-
-                }
-            }
+			if (!WebConfigSettings.UseUrlReWritingForStaticFiles && (WebUtils.IsRequestForStaticFile(app.Request.Path)
+					|| app.Request.Path.EndsWith("csshandler.ashx", StringComparison.InvariantCultureIgnoreCase)
+					|| app.Request.Path.EndsWith("CaptchaImage.ashx", StringComparison.InvariantCultureIgnoreCase)
+					|| app.Request.Path.EndsWith("/Data/", StringComparison.InvariantCultureIgnoreCase)
+					|| app.Request.Path.StartsWith("/Data/", StringComparison.InvariantCultureIgnoreCase)))
+			{
+				return;
+			}
 
             if (WebConfigSettings.UseUrlReWriting)
             {
@@ -82,8 +69,6 @@ namespace mojoPortal.Web
                     if (DatabaseHelper.DBPlatform() != "SqlCe") { throw; }
                     log.Error(ex);
                 }
-               
-
             }
 		}
 
@@ -93,45 +78,42 @@ namespace mojoPortal.Web
 
             string requestPath = app.Request.Path;
             
-            bool useFolderForSiteDetection = WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites;
-
+            bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
             string virtualFolderName;
-            if (useFolderForSiteDetection)
+			bool setClientFilePath = true;
+
+			if (useFolderForSiteDetection)
             {
                 virtualFolderName = VirtualFolderEvaluator.VirtualFolderName();
+				if (virtualFolderName.Length > 0)
+				{
+					virtualFolderName = "/" + virtualFolderName;
+
+					setClientFilePath = false;
+
+					if (requestPath.StartsWith(virtualFolderName) && requestPath.Length > virtualFolderName.Length)
+					{
+						var v = requestPath.Split('/');
+						var w = v.Distinct().ToArray();
+						if (v.Count() > w.Count())
+						{
+							WebUtils.SetupRedirect(new System.Web.UI.Control(), String.Join("/", w));
+							return;
+						}
+					}
+					//requestPath = requestPath.Replace("/default.aspx", "");
+					if (requestPath.EndsWith(virtualFolderName) || requestPath.EndsWith(virtualFolderName + "/"))
+					{
+						DoRewrite(app, realPageName: "default.aspx", setClientFilePath: setClientFilePath);
+						return;
+					}
+				}
             }
             else
             {
                 virtualFolderName = string.Empty;
             }
-
-            bool setClientFilePath = true;
-            
-
-            if (useFolderForSiteDetection && (virtualFolderName.Length > 0))
-            {
-                setClientFilePath = false;
-
-                if (requestPath.StartsWith("/" + virtualFolderName) && requestPath.Length > virtualFolderName.Length)
-                {
-                    var v = requestPath.Split('/');
-                    var w = v.Distinct().ToArray();
-                    if (v.Count() > w.Count())
-                    {
-                        WebUtils.SetupRedirect(new System.Web.UI.Control(), String.Join("/", w));
-                        return;
-                    }
-                }
-
-                if (requestPath.EndsWith(virtualFolderName) || requestPath.EndsWith(virtualFolderName + "/"))
-                {
-                    DoRewrite(app, realPageName: "default.aspx", setClientFilePath: setClientFilePath);
-                    return;
-                }
-            }
-            
-            
-
+			
             // Remove extended information after path, such as for Web services 
             // or bogus /default.aspx/default.aspx
             string pathInfo = app.Request.PathInfo;
@@ -150,9 +132,13 @@ namespace mojoPortal.Web
             string targetUrl = requestPath.Substring(appRoot.Length + 1);
             //if (targetUrl.Length == 0) return;
             if(StringHelper.IsCaseInsensitiveMatch(targetUrl, "default.aspx"))return;
+            if (useFolderForSiteDetection)
+            {
+				if (!targetUrl.StartsWith("/")) targetUrl = "/" + targetUrl;
 
-            if (useFolderForSiteDetection && targetUrl.StartsWith(virtualFolderName + "/"))
-                {
+				if (targetUrl.StartsWith(virtualFolderName + "/"))
+				{
+
                     // 2009-03-01 Kris reported a bug where folder site using /er for the folder
                     // was making an incorrect targetUrl 
                     // this url from an edit link in feed manager http://localhost/er/FeedManager/FeedEdit.aspx?mid=54&pageid=34
@@ -160,11 +146,13 @@ namespace mojoPortal.Web
                     // caused by this commented line
                     //targetUrl = targetUrl.Replace(virtualFolderName + "/", string.Empty);
                     //fixed by changing to this
-                    targetUrl = targetUrl.Remove(0, virtualFolderName.Length + 1);
-            }
+                    targetUrl = targetUrl.Remove(0, virtualFolderName.Length + 1).Replace("default.aspx", "");
+					if (targetUrl.Length == 0) return;
+				}
+			}
 
 
-            if (!WebConfigSettings.Disable301Redirector)
+			if (!WebConfigSettings.Disable301Redirector)
             {
                 try
                 {
@@ -265,7 +253,7 @@ namespace mojoPortal.Web
                         {
                             q = "?" + q;
                         }
-
+						if (!pathToUse.StartsWith("/")) pathToUse = "/" + pathToUse;
                         app.Context.Server.TransferRequest(pathToUse + q, true);
 
                     }
@@ -338,7 +326,6 @@ namespace mojoPortal.Web
                             + HttpUtility.UrlEncode(app.Request.QueryString.Get(key), Encoding.UTF8));
                         
                         if(separator.Length == 0)separator = "&";
-
                     }
                 }
 
@@ -356,18 +343,14 @@ namespace mojoPortal.Web
 
                 DoRewrite(app, queryStringToUse, realPageName, setClientFilePath);
             }
-
-            
         }
 
-        private static string SanitizeChildSiteFolderPath(string path, string siteFolder)
-        {
-            //string[] siteFolders = path.Split(new string[] { "/" + path + "/" }, StringSplitOptions.None);
+        //private static string SanitizeChildSiteFolderPath(string path, string siteFolder)
+        //{
+        //    //string[] siteFolders = path.Split(new string[] { "/" + path + "/" }, StringSplitOptions.None);
 
-            return String.Join("/", path.SplitOnCharAndTrim('/').Distinct());
-
-
-        }
+        //    return String.Join("/", path.SplitOnCharAndTrim('/').Distinct());
+        //}
 
         private static void DoRewrite(HttpApplication app, string queryStringToUse = "", string realPageName = "", bool setClientFilePath = true)
         {
@@ -469,10 +452,5 @@ namespace mojoPortal.Web
             }
 
         }
-
-
-
-       
-		
 	}
 }

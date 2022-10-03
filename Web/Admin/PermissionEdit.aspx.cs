@@ -219,6 +219,10 @@ namespace mojoPortal.Web.AdminUI
 					selectedSite.DefaultRootPageViewRoles = chkAllowedRoles.Items.SelectedItemsToSemiColonSeparatedString();
 					break;
 
+				case CorePermission.CanManageTags:
+					selectedSite.TagManagementRoles = chkAllowedRoles.Items.SelectedItemsToSemiColonSeparatedString();
+					break;
+
 			}
 
 			selectedSite.Save();
@@ -227,7 +231,7 @@ namespace mojoPortal.Web.AdminUI
 			if (WebConfigSettings.UseRelatedSiteMode)
 			{
 
-				SiteSettings.SyncRelatedSites(selectedSite, WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites);
+				SiteSettings.SyncRelatedSites(selectedSite, WebConfigSettings.UseFolderBasedMultiTenants);
 
 				// reset the sitesettings cache for each site
 				CacheHelper.ClearRelatedSiteCache(-1);

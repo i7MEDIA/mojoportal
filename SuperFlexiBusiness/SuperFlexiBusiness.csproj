@@ -82,18 +82,21 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.14\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Field.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="ItemWithValues.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ItemFieldValue.cs" />
     <Compile Include="SearchDef.cs" />
@@ -125,6 +128,7 @@
     <ProjectReference Condition="'$(Configuration)'=='Debug - MySql'" Include="..\mojoPortal.Data.MySql\mojoPortal.Data.MySql.csproj">
       <Project>{E2EF8E92-91A8-49CA-8500-DF558C795976}</Project>
       <Name>mojoPortal.Data.MySql</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Condition="'$(Configuration)'=='Debug - MySql'" Include="..\SuperFlexiData.MySql\SuperFlexiData.MySql.csproj">
       <Project>{B7B278B1-E566-41DA-BC1B-D846078B87DB}</Project>
@@ -141,6 +145,7 @@
     <ProjectReference Condition="'$(Configuration)'=='Debug - pgSQL'" Include="..\mojoPortal.Data.pgSQL\mojoPortal.Data.pgSQL.csproj">
       <Project>{B528429F-7155-496A-86B3-8B23219C10D4}</Project>
       <Name>mojoPortal.Data.pgSQL</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Condition="'$(Configuration)'=='Debug - pgSQL'" Include="..\SuperFlexiData.pgSQL\SuperFlexiData.pgSQL.csproj">
       <Project>{6304E650-958B-43E3-AFAB-E034389D65E1}</Project>
@@ -157,6 +162,7 @@
     <ProjectReference Condition="'$(Configuration)'=='Debug - SQLite'" Include="..\mojoPortal.Data.SQLite\mojoPortal.Data.SQLite.csproj">
       <Project>{C224A35B-AB21-4476-A411-CA5BA406598B}</Project>
       <Name>mojoPortal.Data.SQLite</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Condition="'$(Configuration)'=='Debug - SQLite'" Include="..\SuperFlexiData.SQLite\SuperFlexiData.SQLite.csproj">
       <Project>{87546876-48BC-42BB-B7C8-E02436C6ECBB}</Project>

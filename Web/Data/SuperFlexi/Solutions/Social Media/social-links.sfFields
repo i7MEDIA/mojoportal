@@ -40,7 +40,6 @@
             <Option value="twitter" name="Twitter"></Option>
             <Option value="facebook" name="Facebook"></Option>
             <Option value="linkedin" name="Linked In"></Option>
-            <Option value="google-plus" name="Google+"></Option>
             <Option value="youtube-play" name="YouTube"></Option>
             <Option value="tumblr" name="Tumblr"></Option>
             <Option value="vimeo" name="Vimeo"></Option>

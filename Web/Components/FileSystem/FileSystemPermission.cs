@@ -15,15 +15,9 @@ namespace mojoPortal.FileSystem
 {
 	public class FileSystemPermission : IFileSystemPermission
     {
-        public bool UserHasUploadPermission
-        { get; set; } 
-		public bool UserHasBrowsePermission
-		{ get; set; }
-        public string VirtualRoot
-        {
-            get;
-            set;
-        }
+        public bool UserHasUploadPermission { get; set; } 
+		public bool UserHasBrowsePermission { get; set; }
+        public string VirtualRoot { get; set; }
 
         //public string RootFolder
         //{
@@ -42,34 +36,16 @@ namespace mojoPortal.FileSystem
             return AllowedExtensions.Contains(extension.ToLower());
         }
 
-        public IEnumerable<string> AllowedExtensions
-        {
-            get;
-            set;
-        }
+        public IEnumerable<string> AllowedExtensions { get; set; }
 
-        public long Quota
-        {
-            get;
-            set;
-        }
+        public long Quota { get; set; }
 
-        public long MaxSizePerFile
-        {
-            get;
-            set;
-        }
+        public long MaxSizePerFile { get; set; }
 
-        public int MaxFolders
-        {
-            get;
-            set;
-        }
+        public int MaxFolders { get; set; }
 
-        public int MaxFiles
-        {
-            get;
-            set;
-        }
+        public int MaxFiles { get; set; }
+
+		public string UserFolder { get; set; }
     }
 }

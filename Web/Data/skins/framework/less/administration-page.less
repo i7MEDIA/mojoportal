@@ -1,0 +1,205 @@
+// Admin Menu
+.adminmenu {
+	ul.simplelist {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: flex-start;
+		margin-left: -15px;
+		margin-right: -15px;
+		padding: 0;
+
+		> li {
+			align-items: stretch;
+			display: flex;
+			flex: 0 0 calc(~"100%/7");
+			font-family: arial, sans-serif;
+			font-size: 14px;
+			min-width: 160px;
+			padding: 15px;
+			text-align: center;
+
+			a > {
+				border: 1px solid #ddd;
+				display: flex;
+				flex: 1 0 100%;
+				flex-flow: column wrap;
+				justify-content: center;
+				align-items: center;
+				padding: 15px;
+				position: relative;
+
+				> span.fa {
+					margin: 10px 0;
+    				font-size: 30px; 
+				}
+
+				> span.fa.fa-stack {
+					font-size: 20px;
+				}
+
+				// &::before {
+				// 	content: "\f07c";
+				// 	display: block;
+				// 	font-family: FontAwesome;
+				// 	font-size: 30px;
+				// 	margin-bottom: 5px;
+				// }
+
+				// &.lnkSiteSettings:before {
+				// 	content: "\f013";
+				// }
+
+				// &.lnkSiteList::before {
+				// 	content: "\f03a";
+				// }
+
+				// &.lnkSecurityAdvisor::before {
+				// 	content: "\f132";
+				// }
+
+				// &.lnkRoleAdmin::before {
+				// 	content: "\f0e8";
+				// }
+
+				// &.lnkPermissionAdmin::before {
+				// 	content: "\f084";
+				// }
+
+				// &.lnkMemberList::before {
+				// 	content: "\f0c0";
+				// }
+
+				// &.lnkAddUser::before {
+				// 	content: "\f234";
+				// }
+
+				// &.lnkPageTree::before {
+				// 	content: "\f0c5";
+				// }
+				
+				// &.lnkContentWorkFlow::before {
+				// 	content: "\f126";
+				// }
+
+				// &.lnkContentManager::before {
+				// 	content: "\f25a";
+				// }
+
+				// &.lnkContentTemplates::before {
+				// 	content: "\f247";
+				// }
+
+				// &.lnkStyleTemplates::before {
+				// 	content: "\f121";
+				// }
+
+				// &.lnkFileManager::before {
+				// 	content: "\f07c";
+				// }
+
+				// &.lnkNewsletter::before {
+				// 	content: "\f1ea";
+				// }
+
+				// &.lnkRegistrationAgreement::before {
+				// 	content: "\f0e3";
+				// }
+
+				// &.lnkLoginInfo::before {
+				// 	content: "\f016";
+				// 	font-size: 30px;
+				// }
+
+				// &.lnkLoginInfo::after {
+				// 	content: "\f023";
+				// 	display: block;
+				// 	font-family: FontAwesome;
+				// 	font-size: 15px;
+				// 	left: 50%;
+				// 	margin-bottom: 5px;
+				// 	position: absolute;
+				// 	top: 29px;
+				// 	transform: translateX(-50%);
+				// }
+
+				// &.lnkCoreData::before {
+				// 	content: "\f1c0";
+				// }
+
+				// // Sub items of Core Data Admin (same class structure)
+				// 	&.lnkCurrencyAdmin::before {
+				// 		content: "\f155";
+				// 	}
+
+				// 	&.lnkCountryAdmin::before {
+				// 		content: "\f024";
+				// 	}
+
+				// 	&.lnkGeoZone::before {
+				// 		content: "\f0ac";
+				// 	}
+
+				// 	&.lnkTaxClassAdmin::before {
+				// 		content: "\f24e";
+				// 	}
+
+				// 	&.lnkTaxRateAdmin::before {
+				// 		content: "%";
+				// 		font-weight: 700;
+				// 	}
+
+				// &.lnkAdvancedTools::before {
+				// 	content: "\f0ad";
+				// }
+				
+				// // Sub items of Advanced Tools (same class structure)
+				// 	&.lnkUrlManager::before {
+				// 		content: "\f0c1";
+				// 	}
+
+				// 	&.lnkRedirectManager::before {
+				// 		content: "\f112";
+				// 	}
+
+				// 	&.lnkBannedIPs::before {
+				// 		content: "\f05e";
+				// 	}
+
+				// 	&.lnkFeatureAdmin::before {
+				// 		content: "\f005";
+				// 	}
+
+				// 	&.lnkTaskQueue::before {
+				// 		content: "\f161";
+				// 	}
+
+				// 	&.lnkDesignTools::before {
+				// 		content: "\f1fc";
+				// 	}
+
+				// 	/// Sub items of Design Tools (same class structure)
+				// 		&.lnkSkinList::before {
+				// 			content: "\f042";
+				// 		}
+
+				// 		&.lnkCacheTool::before {
+				// 			content: "\f0c7";
+				// 		}
+
+				// &.lnkLogViewer::before {
+				// 	content: "\f0ea";
+				// }
+
+				// &.lnkServerInfo::before {
+				// 	content: "\f05a";
+				// }
+
+				&:hover {
+					background-color: @nav-link-hover-bg;
+					text-decoration: none;
+				}
+
+			}
+		}
+	}
+}

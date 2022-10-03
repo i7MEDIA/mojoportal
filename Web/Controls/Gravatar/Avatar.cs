@@ -1,6 +1,6 @@
 ﻿// Author:
 // Created:       2012-08-08
-// Last Modified: 2017-07-18
+// Last Modified: 2019-01-09
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -38,66 +38,24 @@ namespace mojoPortal.Web.UI
 		public enum RatingType { G, PG, R, X }
 
 		private string _email;
-		private short _size = 80;
-		private RatingType _maxAllowedRating;
 
-		// customise the link title:
-		private string _linkTitle = "Get your avatar";
-		private string _linkUrl = "http://www.gravatar.com";
+		public int SiteId { get; set; } = -1;
 
-		private int siteId = -1;
+		public int UserId { get; set; } = -1;
 
-		public int SiteId
-		{
-			get { return siteId; }
-			set { siteId = value; }
-		}
-
-		private int userId = -1;
-
-		public int UserId
-		{
-			get { return userId; }
-			set { userId = value; }
-		}
-
-		private string siteRoot = string.Empty;
-
-		public string SiteRoot
-		{
-			get { return siteRoot; }
-			set { siteRoot = value; }
-		}
-
-		private bool useGravatar = true;
+		public string SiteRoot { get; set; } = string.Empty;
 
 		/// <summary>
 		/// if true uses gravatar, if false uses the internal site avatar system, default is true
 		/// </summary>
-		public bool UseGravatar
-		{
-			get { return useGravatar; }
-			set { useGravatar = value; }
-		}
-
-		private bool disable = false;
+		public bool UseGravatar { get; set; } = true;
 
 		/// <summary>
 		/// if true doesn't render at all
 		/// </summary>
-		public bool Disable
-		{
-			get { return disable; }
-			set { disable = value; }
-		}
+		public bool Disable { get; set; } = false;
 
-		private string avatarFile = string.Empty;
-
-		public string AvatarFile
-		{
-			get { return avatarFile; }
-			set { avatarFile = value; }
-		}
+		public string AvatarFile { get; set; } = string.Empty;
 
 		/// <summary>
 		/// The Email for the user
@@ -109,109 +67,50 @@ namespace mojoPortal.Web.UI
 			set { _email = value.ToLower(); }
 		}
 
-		private string userName = string.Empty;
-
-		public string UserName
-		{
-			get { return userName; }
-			set { userName = value; }
-		}
-
-		private string userNameTooltipFormat = string.Empty;
+		public string UserName { get; set; } = string.Empty;
 
 		/// <summary>
 		/// if specified the alt text for the image will use this format string and pass in the username
 		/// </summary>
-		public string UserNameTooltipFormat
-		{
-			get { return userNameTooltipFormat; }
-			set { userNameTooltipFormat = value; }
-		}
+		public string UserNameTooltipFormat { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Size of Gravatar image.  Must be between 1 and 512.
 		/// </summary>
 		[Bindable(true), Category("Appearance"), DefaultValue("80")]
-		public short Size
-		{
-			get { return _size; }
-			set { _size = value; }
-		}
+		public short Size { get; set; } = 80;
 
 		/// <summary>
 		/// An optional "rating" parameter may follow with a value of [ G | PG | R | X ] that determines the highest rating (inclusive) that will be returned.
 		/// </summary>
-		public RatingType MaxAllowedRating
-		{
-			get { return _maxAllowedRating; }
-			set { _maxAllowedRating = value; }
-		}
-
-		// output gravatar site link true by default:
-		private bool _outputGravatarSiteLink = true;
+		public RatingType MaxAllowedRating { get; set; }
 
 		/// <summary>
 		/// Determines whether the image is wrapped in an anchor tag linking to the Gravatar sit
 		/// </summary>
-		public bool OutputGravatarSiteLink
-		{
-			get { return _outputGravatarSiteLink; }
-			set { _outputGravatarSiteLink = value; }
-		}
+		public bool OutputGravatarSiteLink { get; set; } = true;
 
 		/// <summary>
 		/// Optional property for link title for gravatar website link
 		/// </summary>
-		public string LinkTitle
-		{
-			get { return _linkTitle; }
-			set { _linkTitle = value; }
-		}
+		public string LinkTitle { get; set; } = "Get your avatar";
 
 		/// <summary>
 		/// By default links to Gravatar so users can get a gravatar, but you can override it and link to a user profile for example
 		/// </summary>
-		public string LinkUrl
-		{
-			get { return _linkUrl; }
-			set { _linkUrl = value; }
-		}
+		public string LinkUrl { get; set; } = "http://www.gravatar.com";
 
-		private string defaultInternalAvatar = "~/Data/SiteImages/anonymous.png";
-
-		public string DefaultInternalAvatar
-		{
-			get { return defaultInternalAvatar; }
-			set { defaultInternalAvatar = value; }
-		}
-
-		private bool useInternalDefaultForGravatar = true;
+		public string DefaultInternalAvatar { get; set; } = "~/Data/SiteImages/anonymous.png";
 
 		/// <summary>
 		/// if true uses the DefaultInternalAvatar for users who have no gravatar
 		/// note that this doesn't work from localhost because gravatar cannot load the image
 		/// </summary>
-		public bool UseInternalDefaultForGravatar
-		{
-			get { return useInternalDefaultForGravatar; }
-			set { useInternalDefaultForGravatar = value; }
-		}
+		public bool UseInternalDefaultForGravatar { get; set; } = true;
 
-		private string target = string.Empty;
+		public string Target { get; set; } = string.Empty;
 
-		public string Target
-		{
-			get { return target; }
-			set { target = value; }
-		}
-
-		private string imageUrl = string.Empty;
-
-		public string ImageUrl
-		{
-			get { return imageUrl; }
-			set { imageUrl = value; }
-		}
+		public string ImageUrl { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Gets the base Url based on whether the request is secure or not.
@@ -226,51 +125,27 @@ namespace mojoPortal.Web.UI
 			}
 		}
 
-		private bool useLink = false;
+		public bool UseLink { get; set; } = false;
 
-		public bool UseLink
-		{
-			get { return useLink; }
-			set { useLink = value; }
-		}
+		public bool AutoConfigure { get; set; } = false;
 
-		private bool autoConfigure = false;
+		public bool DisableUseLinkWithAutoConfigure { get; set; } = true;
 
-		public bool AutoConfigure
-		{
-			get { return autoConfigure; }
-			set { autoConfigure = value; }
-		}
+		public string GravatarFallbackEmailAddress { get; set; } = string.Empty;
 
-		private bool disableUseLinkWithAutoConfigure = true;
+		public string ExtraCssClass { get; set; } = string.Empty;
 
-		public bool DisableUseLinkWithAutoConfigure
-		{
-			get { return disableUseLinkWithAutoConfigure; }
-			set { disableUseLinkWithAutoConfigure = value; }
-		}
+		public bool LinkToPublicProfile { get; set; } = false;
 
-		private string gravatarFallbackEmailAddress = string.Empty;
+		public bool LinkToPrivateProfile { get; set; } = false;
 
-		public string GravatarFallbackEmailAddress
-		{
-			get { return gravatarFallbackEmailAddress; }
-			set { gravatarFallbackEmailAddress = value; }
-		}
+		public bool LinkToGravatar { get; set; } = true;
 
-		private string extraCssClass = string.Empty;
-
-		public string ExtraCssClass
-		{
-			get => extraCssClass;
-			set => extraCssClass = value;
-		}
-
-
+		public bool LinkToCustom { get; set; } = false;
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			if (!autoConfigure) { return; }
+			if (!AutoConfigure) { return; }
 
 			DoAutoConfiguration();
 		}
@@ -278,7 +153,7 @@ namespace mojoPortal.Web.UI
 
 		private void DoAutoConfiguration()
 		{
-			if (disable)
+			if (Disable)
 			{
 				return;
 			}
@@ -287,42 +162,42 @@ namespace mojoPortal.Web.UI
 
 			if (currentUser == null)
 			{
-				disable = true; return;
+				Disable = true; return;
 			}
 
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 
 			if (siteSettings == null)
 			{
-				disable = true; return;
+				Disable = true; return;
 			}
 
 			switch (siteSettings.AvatarSystem)
 			{
 				case "gravatar":
-					useGravatar = true;
-					disable = false;
+					UseGravatar = true;
+					Disable = false;
 					break;
 
 				case "internal":
-					useGravatar = false;
-					disable = false;
+					UseGravatar = false;
+					Disable = false;
 					break;
 
 				case "none":
 				default:
-					useGravatar = false;
-					disable = true;
+					UseGravatar = false;
+					Disable = true;
 					break;
 			}
 
-			siteId = siteSettings.SiteId;
-			_maxAllowedRating = SiteUtils.GetMaxAllowedGravatarRating();
-			userId = currentUser.UserId;
-			avatarFile = currentUser.AvatarUrl;
+			SiteId = siteSettings.SiteId;
+			MaxAllowedRating = SiteUtils.GetMaxAllowedGravatarRating();
+			UserId = currentUser.UserId;
+			AvatarFile = currentUser.AvatarUrl;
 			Email = currentUser.Email;
 
-			if (disableUseLinkWithAutoConfigure)
+			if (DisableUseLinkWithAutoConfigure)
 			{
 				UseLink = false;
 			}
@@ -338,7 +213,7 @@ namespace mojoPortal.Web.UI
 				return;
 			}
 
-			if (disable)
+			if (Disable)
 			{
 				return;
 			}
@@ -353,13 +228,13 @@ namespace mojoPortal.Web.UI
 				CssClass += " " + ExtraCssClass;
 			}
 
-			if (useGravatar)
+			if (UseGravatar)
 			{
 				if (string.IsNullOrEmpty(Email))
 				{
-					if (gravatarFallbackEmailAddress.Length > 0)
+					if (GravatarFallbackEmailAddress.Length > 0)
 					{
-						Email = gravatarFallbackEmailAddress;
+						Email = GravatarFallbackEmailAddress;
 					}
 					else
 					{
@@ -383,43 +258,63 @@ namespace mojoPortal.Web.UI
 
 		private string GetAvatarMarkup()
 		{
-			if (!useLink || (_linkUrl.Length == 0))
+			if (!UseLink || (LinkUrl.Length == 0))
 			{
 				return "<img  alt='" + LinkTitle + "' src='" + GetInternalAvatarUrl() + "' class='" + CssClass + "' />";
 			}
 
-			return "<a rel='nofollow' href='" + GetProfileUrl() + "' class='" + CssClass + "'><img  alt='" + GetAltText() + "' src='" + GetInternalAvatarUrl() + "' /></a>";
+			return "<a rel='nofollow' href='" + GetLinkUrl() + "' class='" + CssClass + "'><img  alt='" + GetAltText() + "' src='" + GetInternalAvatarUrl() + "' /></a>";
 		}
 
-
-		private string GetProfileUrl()
+		/*
+		 * 1/9/2019 - Added LinkTo... options in hopes to make this control a bit friendlier to skin developers
+		 * while maintaing backwards compatibility. 
+		 * The overall goal is to be able to link to a user's public or private profile from the skin, even if gravatar is used
+		 * and have those links when mojo is installed in a virtual directory or the site is a folder-based tenant.
+		 * 
+		 */
+		private string GetLinkUrl()
 		{
-			if (userId > -1)
+			if (!LinkToGravatar && !LinkToCustom && UserId > -1)
 			{
-				return SiteRoot + "/ProfileView.aspx?userid=" + userId.ToInvariantString();
+				if (LinkToPrivateProfile)
+				{
+					return SiteUtils.GetPrivateProfileUrl();
+				}
+				else if (LinkToPublicProfile)
+				{
+					return SiteUtils.GetPublicProfileUrl(UserId);
+				}
 			}
 
-			return _linkUrl;
+			return LinkUrl;
 		}
 
 
 		private string GetInternalAvatarUrl()
 		{
 			// if we get here we are using our own avatars
-			if ((SiteId == -1) || (string.IsNullOrEmpty(avatarFile)) || (avatarFile == "blank.gif"))
+			if ((SiteId == -1) || (string.IsNullOrEmpty(AvatarFile)) || (AvatarFile == "blank.gif"))
 			{
-				return Page.ResolveUrl(defaultInternalAvatar);
+				return Page.ResolveUrl(DefaultInternalAvatar);
 			}
 
-			return Page.ResolveUrl("~/Data/Sites/" + SiteId.ToInvariantString() + "/useravatars/" + avatarFile);
+			string userSiteId = SiteId.ToInvariantString();
+
+			if (WebConfigSettings.UseRelatedSiteMode)
+			{
+				userSiteId = WebConfigSettings.RelatedSiteID.ToInvariantString();
+			}
+
+			return Page.ResolveUrl("~/Data/Sites/" + userSiteId + "/useravatars/" + AvatarFile);
 		}
 
 
 		private string GetAltText()
 		{
-			if (userNameTooltipFormat.Length > 0)
+			if (UserNameTooltipFormat.Length > 0)
 			{
-				return string.Format(CultureInfo.InvariantCulture, userNameTooltipFormat, Page.Server.HtmlEncode(userName));
+				return string.Format(CultureInfo.InvariantCulture, UserNameTooltipFormat, Page.Server.HtmlEncode(UserName));
 			}
 
 			return LinkTitle;
@@ -430,10 +325,10 @@ namespace mojoPortal.Web.UI
 			// output the default attributes:
 			AddAttributesToRender(output);
 
-			if (useLink)
-			{
-				_linkUrl = GetProfileUrl();
-			}
+			//if (UseLink)
+			//{
+			//	LinkUrl = GetLinkUrl();
+			//}
 
 			// if the size property has been specified, ensure it is a short, and in the range 
 			// 1..512:
@@ -476,9 +371,9 @@ namespace mojoPortal.Web.UI
 			}
 
 			// output default parameter if specified
-			if ((useInternalDefaultForGravatar) && (defaultInternalAvatar.Length > 0))
+			if ((UseInternalDefaultForGravatar) && (DefaultInternalAvatar.Length > 0))
 			{
-				string defaultImageUrl = WebUtils.ResolveServerUrl(defaultInternalAvatar);
+				string defaultImageUrl = WebUtils.ResolveServerUrl(DefaultInternalAvatar);
 
 				if (!defaultImageUrl.Contains("localhost"))
 				{
@@ -489,7 +384,7 @@ namespace mojoPortal.Web.UI
 			// if we need to output the site link:
 			if (OutputGravatarSiteLink)
 			{
-				output.AddAttribute(HtmlTextWriterAttribute.Href, LinkUrl);
+				output.AddAttribute(HtmlTextWriterAttribute.Href, GetLinkUrl());
 				output.AddAttribute(HtmlTextWriterAttribute.Title, LinkTitle);
 
 				if (CssClass.Length > 0)
@@ -497,9 +392,9 @@ namespace mojoPortal.Web.UI
 					output.AddAttribute(HtmlTextWriterAttribute.Class, CssClass);
 				}
 
-				if (target.Length > 0)
+				if (Target.Length > 0)
 				{
-					output.AddAttribute(HtmlTextWriterAttribute.Target, target);
+					output.AddAttribute(HtmlTextWriterAttribute.Target, Target);
 				}
 
 				output.RenderBeginTag(HtmlTextWriterTag.A);

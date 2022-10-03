@@ -282,50 +282,85 @@ namespace mojoPortal.Web.AdminUI
 
 			cblViewRoles.Items.Add(vAllItem);
 
-			using (IDataReader roles = Role.GetSiteRoles(siteSettings.SiteId))
+			foreach (var role in Role.GetBySite(siteSettings.SiteId))
 			{
-				while (roles.Read())
+				// no need or benefit to checking content admins or admins roles
+				// since they are not limited by roles except the special case of Admins only role
+				// an admin can lock the content down to only admins
+
+				if (role.RoleName == Role.ContentAdministratorsRole || role.RoleName == Role.AdministratorsRole)
 				{
-					string roleName = roles["RoleName"].ToString();
+					continue;
+				}
 
-					// no need or benefit to checking content admins role
-					// since they are not limited by roles except the special case of Admins only role
-					if (roleName == Role.ContentAdministratorsRole)
-					{
-						continue;
-					}
+				ListItem vItem = new ListItem();
+				vItem.Text = role.DisplayName;
+				vItem.Value = role.RoleName;
+				cblViewRoles.Items.Add(vItem);
 
-					// administrators role doesn't need permission, the only reason to show it is so that
-					// an admin can lock the content down to only admins
-					if (roleName == Role.AdministratorsRole)
-					{
-						continue;
-					}
+				ListItem item = new ListItem();
+				item.Text = role.DisplayName;
+				item.Value = role.RoleName;
+				authEditRoles.Items.Add(item);
 
-					ListItem vItem = new ListItem();
-					vItem.Text = roles["DisplayName"].ToString();
-					vItem.Value = roles["RoleName"].ToString();
-					cblViewRoles.Items.Add(vItem);
+				ListItem draftItem = new ListItem();
+				draftItem.Text = role.DisplayName;
+				draftItem.Value = role.RoleName;
+				draftEditRoles.Items.Add(draftItem);
 
-					ListItem item = new ListItem();
-					item.Text = roles["DisplayName"].ToString();
-					item.Value = roles["RoleName"].ToString();
-					authEditRoles.Items.Add(item);
-
-					ListItem draftItem = new ListItem();
-					draftItem.Text = roles["DisplayName"].ToString();
-					draftItem.Value = roles["RoleName"].ToString();
-					draftEditRoles.Items.Add(draftItem);
-
-					if (use3LevelWorkFlow)
-					{
-						ListItem draftApprovalItem = new ListItem();
-						draftApprovalItem.Text = roles["DisplayName"].ToString();
-						draftApprovalItem.Value = roles["RoleName"].ToString();
-						draftApprovalRoles.Items.Add(draftApprovalItem);
-					}
+				if (use3LevelWorkFlow)
+				{
+					ListItem draftApprovalItem = new ListItem();
+					draftApprovalItem.Text = role.DisplayName;
+					draftApprovalItem.Value = role.RoleName;
+					draftApprovalRoles.Items.Add(draftApprovalItem);
 				}
 			}
+
+			//using (IDataReader roles = Role.GetSiteRoles(siteSettings.SiteId))
+			//{
+			//	while (roles.Read())
+			//	{
+			//		string roleName = roles["RoleName"].ToString();
+
+			//		// no need or benefit to checking content admins role
+			//		// since they are not limited by roles except the special case of Admins only role
+			//		if (roleName == Role.ContentAdministratorsRole)
+			//		{
+			//			continue;
+			//		}
+
+			//		// administrators role doesn't need permission, the only reason to show it is so that
+			//		// an admin can lock the content down to only admins
+			//		if (roleName == Role.AdministratorsRole)
+			//		{
+			//			continue;
+			//		}
+
+			//		ListItem vItem = new ListItem();
+			//		vItem.Text = roles["DisplayName"].ToString();
+			//		vItem.Value = roles["RoleName"].ToString();
+			//		cblViewRoles.Items.Add(vItem);
+
+			//		ListItem item = new ListItem();
+			//		item.Text = roles["DisplayName"].ToString();
+			//		item.Value = roles["RoleName"].ToString();
+			//		authEditRoles.Items.Add(item);
+
+			//		ListItem draftItem = new ListItem();
+			//		draftItem.Text = roles["DisplayName"].ToString();
+			//		draftItem.Value = roles["RoleName"].ToString();
+			//		draftEditRoles.Items.Add(draftItem);
+
+			//		if (use3LevelWorkFlow)
+			//		{
+			//			ListItem draftApprovalItem = new ListItem();
+			//			draftApprovalItem.Text = roles["DisplayName"].ToString();
+			//			draftApprovalItem.Value = roles["RoleName"].ToString();
+			//			draftApprovalRoles.Items.Add(draftApprovalItem);
+			//		}
+			//	}
+			//}
 
 			cblViewRoles.Enabled = isAdmin || isContentAdmin || isSiteEditor;
 			authEditRoles.Enabled = isAdmin || isContentAdmin || isSiteEditor;

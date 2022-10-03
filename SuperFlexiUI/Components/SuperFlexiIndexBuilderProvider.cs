@@ -1,6 +1,6 @@
 ﻿/// Author:					    i7MEDIA
 /// Created:				    2015-03-06
-/// Last Modified:			    2015-11-18
+/// Last Modified:			    2019-01-24
 ///
 /// You must not remove this notice, or any other, from this software.
 
@@ -37,7 +37,7 @@ namespace SuperFlexiUI
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.InfoFormat("RebuildIndex indexing page [{0}]", pageSettings.PageName);
+            log.InfoFormat(Resources.SuperFlexiResources.FeatureName + " indexing page [{0}]", pageSettings.PageName);
 
             try
             {
@@ -47,10 +47,15 @@ namespace SuperFlexiUI
                 {
                     Item item = new Item(Convert.ToInt32(row["ItemID"]));
                     if (item == null) continue;
-                    log.InfoFormat("RebuildIndex indexing content [{0}]", row["ModuleTitle"]);
+                    log.DebugFormat("RebuildIndex indexing content [{0}]", row["ModuleTitle"]);
                     IndexItem indexItem = GetIndexItem(pageSettings, Convert.ToInt32(row["ModuleID"]), item);
-                    if (indexItem == null) continue;
-                    indexItem.ModuleViewRoles = row["ViewRoles"].ToString();
+					if (indexItem == null)
+					{
+						log.DebugFormat("RebuildIndex IndexItem was NULL for content [{0}]", row["ModuleTitle"]);
+
+						continue;
+					}
+                    indexItem.ModuleViewRoles = row["ModuleViewRoles"].ToString() + row["ItemViewRoles"].ToString();
                     indexItem.ModuleId = Convert.ToInt32(row["ModuleID"], CultureInfo.InvariantCulture);
                     indexItem.ModuleTitle = row["ModuleTitle"].ToString();
 
@@ -66,7 +71,7 @@ namespace SuperFlexiUI
 
                     IndexHelper.RebuildIndex(indexItem, indexPath);
 
-                    if (debugLog) log.DebugFormat("RebuildIndex [{0}\\{1}\\{2}]", indexItem.PageName, indexItem.ModuleTitle, indexItem.Title);
+                    log.Debug($"RebuildIndex [{indexItem.PageName}\\{indexItem.ModuleTitle}\\{indexItem.Title}]");
                 }
             }
             catch (System.Data.Common.DbException ex)
@@ -84,13 +89,21 @@ namespace SuperFlexiUI
             {
                 if (log.IsErrorEnabled)
                 {
-                    log.Error("SuperFlexi object passed to SuperFlexi. IndexItem was null");
+                    log.Error("SuperFlexi object passed to SuperFlexi. SiteSettings was null");
                 }
 
                 return;
             }
 
-            if (item == null) return;
+			if (item == null)
+			{
+				if (log.IsErrorEnabled)
+				{
+					log.Error("SuperFlexi object passed to SuperFlexi. Item was null");
+				}
+
+				return;
+			}
 
             Module module = new Module(item.ModuleGuid);
 
@@ -103,7 +116,7 @@ namespace SuperFlexiUI
                 //don't index pending/unpublished pages
                 if (pageSettings.IsPending) { continue; }
 
-                log.InfoFormat("RebuildIndex indexing content [{0}]", module.ModuleTitle);
+                log.DebugFormat("RebuildIndex indexing content [{0}]", module.ModuleTitle);
                 IndexItem indexItem = GetIndexItem(pageSettings, module.ModuleId, item);
                 if (indexItem == null) continue;
                 indexItem.ModuleViewRoles = module.ViewRoles;
@@ -145,7 +158,9 @@ namespace SuperFlexiUI
         private IndexItem GetIndexItem(PageSettings pageSettings, int moduleID, Item item)
         {
             Module module = new Module(moduleID);
-            ModuleConfiguration config = new ModuleConfiguration(module);
+			log.Debug($"moduleid: {moduleID} for module {module.ModuleTitle}");
+
+			ModuleConfiguration config = new ModuleConfiguration(module);
             if (!config.IncludeInSearch) return null;
             SuperFlexiDisplaySettings displaySettings = new SuperFlexiDisplaySettings();
             ModuleDefinition flexiFeature = new ModuleDefinition(config.FeatureGuid);
@@ -187,13 +202,15 @@ namespace SuperFlexiUI
             System.Text.StringBuilder sbLink = new System.Text.StringBuilder(searchDef.Link);
             System.Text.StringBuilder sbLinkQueryAddendum = new System.Text.StringBuilder(searchDef.LinkQueryAddendum);
             SiteSettings siteSettings = new SiteSettings(pageSettings.SiteGuid);
-            SuperFlexiHelpers.ReplaceStaticTokens(sbTitle, config, false, displaySettings, moduleID, pageSettings, siteSettings, out sbTitle);
-            SuperFlexiHelpers.ReplaceStaticTokens(sbKeywords, config, false, displaySettings, moduleID, pageSettings, siteSettings, out sbKeywords);
-            SuperFlexiHelpers.ReplaceStaticTokens(sbDescription, config, false, displaySettings, moduleID, pageSettings, siteSettings, out sbDescription);
-            SuperFlexiHelpers.ReplaceStaticTokens(sbLink, config, false, displaySettings, moduleID, pageSettings, siteSettings, out sbLink);
-            SuperFlexiHelpers.ReplaceStaticTokens(sbLinkQueryAddendum, config, false, displaySettings, moduleID, pageSettings, siteSettings, out sbLinkQueryAddendum);
+            SuperFlexiHelpers.ReplaceStaticTokens(sbTitle, config, false, displaySettings, module, pageSettings, siteSettings, out sbTitle);
+            SuperFlexiHelpers.ReplaceStaticTokens(sbKeywords, config, false, displaySettings, module, pageSettings, siteSettings, out sbKeywords);
+            SuperFlexiHelpers.ReplaceStaticTokens(sbDescription, config, false, displaySettings, module, pageSettings, siteSettings, out sbDescription);
+            SuperFlexiHelpers.ReplaceStaticTokens(sbLink, config, false, displaySettings, module, pageSettings, siteSettings, out sbLink);
+            SuperFlexiHelpers.ReplaceStaticTokens(sbLinkQueryAddendum, config, false, displaySettings, module, pageSettings, siteSettings, out sbLinkQueryAddendum);
 
-            foreach (ItemFieldValue fieldValue in ItemFieldValue.GetItemValues(item.ItemGuid))
+			var fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
+			log.Debug($"SuperFlexi Index: total field value count for ItemGuid ({item.ItemGuid}) is {fieldValues.Count}");
+			foreach (ItemFieldValue fieldValue in fieldValues)
             {
                 Field field = new Field(fieldValue.FieldGuid);
                 if (field == null || !field.Searchable) continue;

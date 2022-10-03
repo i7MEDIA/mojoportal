@@ -1,12 +1,6 @@
 // Author:					
 // Created:				    2007-09-22
-// Last Modified:			2009-02-01
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
+// Last Modified:			2018-10-25
 //
 // You must not remove this notice, or any other, from this software.
 
@@ -32,153 +26,70 @@ namespace mojoPortal.Business
 
         #region Constructors
 
-        public Letter()
-        { }
+        public Letter() { }
 
 
-        public Letter(
-            Guid letterGuid)
+        public Letter(Guid letterGuid)
         {
-            GetLetter(
-                letterGuid);
+            GetLetter(letterGuid);
         }
 
-        #endregion
+		#endregion
 
-        #region Private Properties
+		#region Properties
 
-        private Guid letterGuid = Guid.Empty;
-        private Guid letterInfoGuid = Guid.Empty;
-        private string subject = string.Empty;
-        private string htmlBody = string.Empty;
-        private string textBody = string.Empty;
-        private Guid createdBy = Guid.Empty;
-        private DateTime createdUTC;
-        private Guid lastModBy = Guid.Empty;
-        private DateTime lastModUTC;
-        private bool isApproved;
-        private Guid approvedBy = Guid.Empty;
-        private DateTime sendClickedUTC = DateTime.MinValue;
-        private DateTime sendStartedUTC = DateTime.MinValue;
-        private DateTime sendCompleteUTC = DateTime.MinValue;
-        private int sendCount = 0;
+		public Guid LetterGuid { get; set; } = Guid.Empty;
+		public Guid LetterInfoGuid { get; set; } = Guid.Empty;
+		public string Subject { get; set; } = string.Empty;
+		public string HtmlBody { get; set; } = string.Empty;
+		public string TextBody { get; set; } = string.Empty;
+		public Guid CreatedBy { get; set; } = Guid.Empty;
+		public DateTime CreatedUtc { get; set; }
+		public Guid LastModBy { get; set; } = Guid.Empty;
+		public DateTime LastModUtc { get; set; }
+		public bool IsApproved { get; set; }
+		public Guid ApprovedBy { get; set; } = Guid.Empty;
+		public DateTime SendClickedUtc { get; set; } = DateTime.MinValue;
+		public DateTime SendStartedUtc { get; set; } = DateTime.MinValue;
+		public DateTime SendCompleteUtc { get; set; } = DateTime.MinValue;
+		public int SendCount { get; set; } = 0;
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Private Methods
 
-        public Guid LetterGuid
-        {
-            get { return letterGuid; }
-            set { letterGuid = value; }
-        }
-        public Guid LetterInfoGuid
-        {
-            get { return letterInfoGuid; }
-            set { letterInfoGuid = value; }
-        }
-        public string Subject
-        {
-            get { return subject; }
-            set { subject = value; }
-        }
-        public string HtmlBody
-        {
-            get { return htmlBody; }
-            set { htmlBody = value; }
-        }
-        public string TextBody
-        {
-            get { return textBody; }
-            set { textBody = value; }
-        }
-        public Guid CreatedBy
-        {
-            get { return createdBy; }
-            set { createdBy = value; }
-        }
-        public DateTime CreatedUtc
-        {
-            get { return createdUTC; }
-            set { createdUTC = value; }
-        }
-        public Guid LastModBy
-        {
-            get { return lastModBy; }
-            set { lastModBy = value; }
-        }
-        public DateTime LastModUtc
-        {
-            get { return lastModUTC; }
-            set { lastModUTC = value; }
-        }
-        public bool IsApproved
-        {
-            get { return isApproved; }
-            set { isApproved = value; }
-        }
-        public Guid ApprovedBy
-        {
-            get { return approvedBy; }
-            set { approvedBy = value; }
-        }
-        public DateTime SendClickedUtc
-        {
-            get { return sendClickedUTC; }
-            set { sendClickedUTC = value; }
-        }
-        public DateTime SendStartedUtc
-        {
-            get { return sendStartedUTC; }
-            set { sendStartedUTC = value; }
-        }
-        public DateTime SendCompleteUtc
-        {
-            get { return sendCompleteUTC; }
-            set { sendCompleteUTC = value; }
-        }
-        public int SendCount
-        {
-            get { return sendCount; }
-            set { sendCount = value; }
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        /// <summary>
-        /// Gets an instance of Letter.
-        /// </summary>
-        /// <param name="letterGuid"> letterGuid </param>
-        private void GetLetter(Guid letterGuid)
+		/// <summary>
+		/// Gets an instance of Letter.
+		/// </summary>
+		/// <param name="letterGuid"> letterGuid </param>
+		private void GetLetter(Guid letterGuid)
         {
             using (IDataReader reader = DBLetter.GetOne(letterGuid))
             {
                 if (reader.Read())
                 {
-                    this.letterGuid = new Guid(reader["LetterGuid"].ToString());
-                    this.letterInfoGuid = new Guid(reader["LetterInfoGuid"].ToString());
-                    this.subject = reader["Subject"].ToString();
-                    this.htmlBody = reader["HtmlBody"].ToString();
-                    this.textBody = reader["TextBody"].ToString();
-                    this.createdBy = new Guid(reader["CreatedBy"].ToString());
-                    this.createdUTC = Convert.ToDateTime(reader["CreatedUTC"]);
-                    this.lastModBy = new Guid(reader["LastModBy"].ToString());
-                    this.lastModUTC = Convert.ToDateTime(reader["LastModUTC"]);
-                    this.isApproved = Convert.ToBoolean(reader["IsApproved"]);
-                    this.approvedBy = new Guid(reader["ApprovedBy"].ToString());
+                    this.LetterGuid = new Guid(reader["LetterGuid"].ToString());
+                    this.LetterInfoGuid = new Guid(reader["LetterInfoGuid"].ToString());
+                    this.Subject = reader["Subject"].ToString();
+                    this.HtmlBody = reader["HtmlBody"].ToString();
+                    this.TextBody = reader["TextBody"].ToString();
+                    this.CreatedBy = new Guid(reader["CreatedBy"].ToString());
+                    this.CreatedUtc = Convert.ToDateTime(reader["CreatedUTC"]);
+                    this.LastModBy = new Guid(reader["LastModBy"].ToString());
+                    this.LastModUtc = Convert.ToDateTime(reader["LastModUTC"]);
+                    this.IsApproved = Convert.ToBoolean(reader["IsApproved"]);
+                    this.ApprovedBy = new Guid(reader["ApprovedBy"].ToString());
 
                     if (reader["SendClickedUTC"] != DBNull.Value)
-                        this.sendClickedUTC = Convert.ToDateTime(reader["SendClickedUTC"]);
+                        this.SendClickedUtc = Convert.ToDateTime(reader["SendClickedUTC"]);
 
                     if (reader["SendStartedUTC"] != DBNull.Value)
-                        this.sendStartedUTC = Convert.ToDateTime(reader["SendStartedUTC"]);
+                        this.SendStartedUtc = Convert.ToDateTime(reader["SendStartedUTC"]);
 
                     if (reader["SendCompleteUTC"] != DBNull.Value)
-                        this.sendCompleteUTC = Convert.ToDateTime(reader["SendCompleteUTC"]);
+                        this.SendCompleteUtc = Convert.ToDateTime(reader["SendCompleteUTC"]);
 
-                    this.sendCount = Convert.ToInt32(reader["SendCount"]);
+                    this.SendCount = Convert.ToInt32(reader["SendCount"]);
 
                 }
 
@@ -196,22 +107,22 @@ namespace mojoPortal.Business
         {
             Guid newID = Guid.NewGuid();
 
-            this.letterGuid = newID;
-            this.createdUTC = DateTime.UtcNow;
-            this.lastModUTC = DateTime.UtcNow;
+            this.LetterGuid = newID;
+            this.CreatedUtc = DateTime.UtcNow;
+            this.LastModUtc = DateTime.UtcNow;
 
             int rowsAffected = DBLetter.Create(
-                this.letterGuid,
-                this.letterInfoGuid,
-                this.subject,
-                this.htmlBody,
-                this.textBody,
-                this.createdBy,
-                this.createdUTC,
-                this.lastModBy,
-                this.lastModUTC,
-                this.isApproved,
-                this.approvedBy);
+                this.LetterGuid,
+                this.LetterInfoGuid,
+                this.Subject,
+                this.HtmlBody,
+                this.TextBody,
+                this.CreatedBy,
+                this.CreatedUtc,
+                this.LastModBy,
+                this.LastModUtc,
+                this.IsApproved,
+                this.ApprovedBy);
 
             return (rowsAffected > 0);
 
@@ -224,18 +135,18 @@ namespace mojoPortal.Business
         /// <returns>bool</returns>
         private bool Update()
         {
-            this.lastModUTC = DateTime.UtcNow;
+            this.LastModUtc = DateTime.UtcNow;
 
             return DBLetter.Update(
-                this.letterGuid,
-                this.letterInfoGuid,
-                this.subject,
-                this.htmlBody,
-                this.textBody,
-                this.lastModBy,
-                this.lastModUTC,
-                this.isApproved,
-                this.approvedBy);
+                this.LetterGuid,
+                this.LetterInfoGuid,
+                this.Subject,
+                this.HtmlBody,
+                this.TextBody,
+                this.LastModBy,
+                this.LastModUtc,
+                this.IsApproved,
+                this.ApprovedBy);
 
         }
 
@@ -246,7 +157,7 @@ namespace mojoPortal.Business
         /// <returns></returns>
         public bool TrackSendClicked()
         {
-            return DBLetter.SendClicked(this.letterGuid, DateTime.UtcNow);
+            return DBLetter.SendClicked(this.LetterGuid, DateTime.UtcNow);
 
         }
 
@@ -256,7 +167,7 @@ namespace mojoPortal.Business
         /// <returns></returns>
         public bool TrackSendStarted()
         {
-            return DBLetter.SendStarted(this.letterGuid, DateTime.UtcNow);
+            return DBLetter.SendStarted(this.LetterGuid, DateTime.UtcNow);
 
         }
 
@@ -267,7 +178,7 @@ namespace mojoPortal.Business
         /// <returns></returns>
         public bool TrackSendComplete(int sendCount)
         {
-            return DBLetter.SendComplete(this.letterGuid, DateTime.UtcNow, sendCount);
+            return DBLetter.SendComplete(this.LetterGuid, DateTime.UtcNow, sendCount);
 
         }
 
@@ -282,7 +193,7 @@ namespace mojoPortal.Business
         /// <returns>bool</returns>
         public bool Save()
         {
-            if (this.letterGuid != Guid.Empty)
+            if (this.LetterGuid != Guid.Empty)
             {
                 return Update();
             }
@@ -328,29 +239,29 @@ namespace mojoPortal.Business
                 while (reader.Read())
                 {
                     Letter letter = new Letter();
-                    letter.letterGuid = new Guid(reader["LetterGuid"].ToString());
-                    letter.letterInfoGuid = new Guid(reader["LetterInfoGuid"].ToString());
-                    letter.subject = reader["Subject"].ToString();
-                    letter.htmlBody = reader["HtmlBody"].ToString();
-                    letter.textBody = reader["TextBody"].ToString();
-                    letter.createdBy = new Guid(reader["CreatedBy"].ToString());
-                    letter.createdUTC = Convert.ToDateTime(reader["CreatedUTC"]);
-                    letter.lastModBy = new Guid(reader["LastModBy"].ToString());
-                    letter.lastModUTC = Convert.ToDateTime(reader["LastModUTC"]);
-                    letter.isApproved = Convert.ToBoolean(reader["IsApproved"]);
-                    letter.approvedBy = new Guid(reader["ApprovedBy"].ToString());
+                    letter.LetterGuid = new Guid(reader["LetterGuid"].ToString());
+                    letter.LetterInfoGuid = new Guid(reader["LetterInfoGuid"].ToString());
+                    letter.Subject = reader["Subject"].ToString();
+                    letter.HtmlBody = reader["HtmlBody"].ToString();
+                    letter.TextBody = reader["TextBody"].ToString();
+                    letter.CreatedBy = new Guid(reader["CreatedBy"].ToString());
+                    letter.CreatedUtc = Convert.ToDateTime(reader["CreatedUTC"]);
+                    letter.LastModBy = new Guid(reader["LastModBy"].ToString());
+                    letter.LastModUtc = Convert.ToDateTime(reader["LastModUTC"]);
+                    letter.IsApproved = Convert.ToBoolean(reader["IsApproved"]);
+                    letter.ApprovedBy = new Guid(reader["ApprovedBy"].ToString());
 
                     if (reader["SendClickedUTC"] != DBNull.Value)
-                        letter.sendClickedUTC = Convert.ToDateTime(reader["SendClickedUTC"]);
+                        letter.SendClickedUtc = Convert.ToDateTime(reader["SendClickedUTC"]);
 
                     if (reader["SendStartedUTC"] != DBNull.Value)
-                        letter.sendStartedUTC = Convert.ToDateTime(reader["SendStartedUTC"]);
+                        letter.SendStartedUtc = Convert.ToDateTime(reader["SendStartedUTC"]);
 
                     if (reader["SendCompleteUTC"] != DBNull.Value)
-                        letter.sendCompleteUTC = Convert.ToDateTime(reader["SendCompleteUTC"]);
+                        letter.SendCompleteUtc = Convert.ToDateTime(reader["SendCompleteUTC"]);
 
                     if (reader["SendCount"] != DBNull.Value)
-                        letter.sendCount = Convert.ToInt32(reader["SendCount"]);
+                        letter.SendCount = Convert.ToInt32(reader["SendCount"]);
 
                     letterList.Add(letter);
                 }

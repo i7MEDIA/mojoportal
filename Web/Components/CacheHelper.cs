@@ -1,7 +1,3 @@
-// Author:					
-// Created:					2005-03-31
-// Last Modified:			2012-12-17
-// 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
 // which can be found in the file CPL.TXT at the root of this distribution.
@@ -264,7 +260,6 @@ namespace mojoPortal.Business.WebHelpers
             catch (Exception ex)
             {
                 log.Error("failed to clear cache for key " + cachekey, ex);
-
             }
         }
 
@@ -414,7 +409,7 @@ namespace mojoPortal.Business.WebHelpers
         private static SiteSettings GetSiteSettingsFromCache()
         {
     
-            bool useFolderForSiteDetection = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+            bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
             string cachekey;
             int siteId;
 
@@ -427,6 +422,8 @@ namespace mojoPortal.Business.WebHelpers
             }
             else
             {
+				//todo: cache number of sites in db when application starts (or when sites are added) then, if there's only one, we don't need to go to db to get the siteid
+				//maybe we could cache all of the hostnames and site ids?
                 String hostName = WebUtils.GetHostName();
                 siteId = SiteSettings.GetSiteIdByHostName(hostName);
                 cachekey = "SiteSettings_" + siteId.ToInvariantString();
@@ -463,7 +460,7 @@ namespace mojoPortal.Business.WebHelpers
 
             try
             {
-                bool useFolderForSiteDetection = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+                bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
                 
                 string siteFolderName;
                 if (useFolderForSiteDetection)
@@ -704,136 +701,93 @@ namespace mojoPortal.Business.WebHelpers
 
             string key = "page_" + pageGuid.ToString();
 
-            PageSettings p = HttpContext.Current.Items[key] as PageSettings;
-            if (p == null)
-            {
-                p = LoadPage(pageGuid);
-                if (p != null)
-                    HttpContext.Current.Items[key] = p;
-            }
-            return p;
+			if (!(HttpContext.Current.Items[key] is PageSettings p))
+			{
+				p = LoadPage(pageGuid);
+				if (p != null)
+					HttpContext.Current.Items[key] = p;
+			}
+			return p;
         }
 
-        private static PageSettings LoadPage(int pageID)
-        {
-            if (debugLog) log.Debug("CacheHelper.cs LoadPage");
+		private static PageSettings LoadPage(int pageID)
+		{
+			if (debugLog) log.Debug("CacheHelper.cs LoadPage(pageID)");
 
-            
-            SiteSettings siteSettings = GetCurrentSiteSettings();
-            if (siteSettings == null) return null;
+			SiteSettings siteSettings = GetCurrentSiteSettings();
 
-            bool useFolderForSiteDetection
-                = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
-            string virtualFolder;
+			if (siteSettings == null) return null;
 
-            if (useFolderForSiteDetection)
-            {
-                virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
-            }
-            else
-            {
-                virtualFolder = string.Empty;
-            }
+			if (pageID == -1)
+			{
+				pageID = siteSettings.HomePageOverride;
+			}
 
-
-            PageSettings currentPage = new PageSettings(siteSettings.SiteId, pageID);
-            if (currentPage.SiteId != siteSettings.SiteId)
-            {   // probably url manipulation trying to use a pageid that
-                // doesn't belong to the site so just return the home page
-                currentPage = new PageSettings(siteSettings.SiteId, -1);
-            }
-
-            if (
-                (useFolderForSiteDetection)
-                && (virtualFolder.Length > 0)
-                && (currentPage.Url.StartsWith("~/"))
-                )
-            {
-                currentPage.Url
-                    = currentPage.Url.Replace("~/", "~/" + virtualFolder + "/");
-
-                currentPage.UrlHasBeenAdjustedForFolderSites = true;
-            }
-
-            if (
-                (useFolderForSiteDetection)
-                && (virtualFolder.Length > 0)
-                && (!currentPage.UseUrl)
-                )
-            {
-                currentPage.Url
-                    = "~/" + virtualFolder + "/Default.aspx?pageid="
-                    + currentPage.PageId.ToString();
-                currentPage.UseUrl = true;
-                currentPage.UrlHasBeenAdjustedForFolderSites = true;
-            }
-
-            LoadPageModule(currentPage);
-            
-            return currentPage;
-        }
+			PageSettings currentPage = new PageSettings(siteSettings.SiteId, pageID);
+			return LoadPage(currentPage);
+		}
 
         private static PageSettings LoadPage(Guid pageGuid)
         {
-            
+			if (debugLog) log.Debug("CacheHelper.cs LoadPage(pageGuid)");
 
-            SiteSettings siteSettings = GetCurrentSiteSettings();
-            if (siteSettings == null) return null;
-
-            bool useFolderForSiteDetection
-                = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
-            string virtualFolder;
-
-            if (useFolderForSiteDetection)
-            {
-                virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
-            }
-            else
-            {
-                virtualFolder = string.Empty;
-            }
-
-
-            //PageSettings currentPage = new PageSettings(siteSettings.SiteId, pageID);
-            PageSettings currentPage = new PageSettings(pageGuid);
-
-            if (currentPage.SiteId != siteSettings.SiteId)
-            {   // probably url manipulation trying to use a pageid that
-                // doesn't belong to the site so just return the home page
-                currentPage = new PageSettings(siteSettings.SiteId, -1);
-            }
-
-            
-
-            if (
-                (useFolderForSiteDetection)
-                && (virtualFolder.Length > 0)
-                && (currentPage.Url.StartsWith("~/"))
-                )
-            {
-                currentPage.Url
-                    = currentPage.Url.Replace("~/", "~/" + virtualFolder + "/");
-
-                currentPage.UrlHasBeenAdjustedForFolderSites = true;
-            }
-
-            if (
-                (useFolderForSiteDetection)
-                && (virtualFolder.Length > 0)
-                && (!currentPage.UseUrl)
-                )
-            {
-                currentPage.Url
-                    = "~/" + virtualFolder + "/Default.aspx?pageid="
-                    + currentPage.PageId.ToString();
-                currentPage.UseUrl = true;
-                currentPage.UrlHasBeenAdjustedForFolderSites = true;
-            }
-
-            LoadPageModule(currentPage);
-
-            return currentPage;
+			PageSettings currentPage = new PageSettings(pageGuid);
+			return LoadPage(currentPage);           
         }
+
+		private static PageSettings LoadPage (PageSettings page)
+		{
+			SiteSettings siteSettings = GetCurrentSiteSettings();
+			if (siteSettings == null) return null;
+
+			bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
+			string virtualFolder;
+
+			if (useFolderForSiteDetection)
+			{
+				virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
+			}
+			else
+			{
+				virtualFolder = string.Empty;
+			}
+
+
+			//PageSettings currentPage = new PageSettings(siteSettings.SiteId, pageID);
+			PageSettings currentPage = page;
+
+			if (currentPage.SiteId != siteSettings.SiteId)
+			{   // probably url manipulation trying to use a pageid that
+				// doesn't belong to the site so just return the home page
+				currentPage = new PageSettings(siteSettings.SiteId, siteSettings.HomePageOverride);
+			}
+
+			if (
+				(useFolderForSiteDetection)
+				&& (virtualFolder.Length > 0)
+				&& (currentPage.Url.StartsWith("~/"))
+				)
+			{
+				currentPage.Url = currentPage.Url.Replace("~/", "~/" + virtualFolder + "/");
+
+				currentPage.UrlHasBeenAdjustedForFolderSites = true;
+			}
+
+			if (
+				(useFolderForSiteDetection)
+				&& (virtualFolder.Length > 0)
+				&& (!currentPage.UseUrl)
+				)
+			{
+				currentPage.Url = "~/" + virtualFolder + "/Default.aspx?pageid=" + currentPage.PageId.ToString();
+				currentPage.UseUrl = true;
+				currentPage.UrlHasBeenAdjustedForFolderSites = true;
+			}
+
+			LoadPageModule(currentPage);
+
+			return currentPage;
+		}
 
         private static void LoadPageModule(PageSettings pageSettings)
         {
@@ -844,35 +798,48 @@ namespace mojoPortal.Business.WebHelpers
                 {
                     Module m = new Module();
                     m.ModuleId = Convert.ToInt32(reader["ModuleID"]);
-                    m.ModuleGuid = new Guid(reader["Guid"].ToString());
+					m.SiteId = Convert.ToInt32(reader["SiteID"]);
                     m.ModuleDefId = Convert.ToInt32(reader["ModuleDefID"]);
-                    m.PageId = Convert.ToInt32(reader["PageID"]);
-                    m.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
-                    m.PaneName = reader["PaneName"].ToString();
                     m.ModuleTitle = reader["ModuleTitle"].ToString();
-                    m.ViewRoles = reader["ViewRoles"].ToString();
                     m.AuthorizedEditRoles = reader["AuthorizedEditRoles"].ToString();
-                    m.DraftEditRoles = reader["DraftEditRoles"].ToString();
-                    m.DraftApprovalRoles = reader["DraftApprovalRoles"].ToString();
                     m.CacheTime = Convert.ToInt32(reader["CacheTime"]);
-                    m.ModuleOrder = Convert.ToInt32(reader["ModuleOrder"]);
-
-                    m.HideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]);
-                    m.HideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]);
-                    m.IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]);
-                    m.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
-
+					string showTitle = reader["ShowTitle"].ToString();
+                    m.ShowTitle = (showTitle == "True" || showTitle == "1");
                     if (reader["EditUserID"] != DBNull.Value)
                     {
                         m.EditUserId = Convert.ToInt32(reader["EditUserID"]);
                     }
-
-                    string showTitle = reader["ShowTitle"].ToString();
-                    m.ShowTitle = (showTitle == "True" || showTitle == "1");
-                    m.ControlSource = reader["ControlSrc"].ToString();
+					//m.AvailableForMyPage = Convert.ToBoolean(reader["AvailableForMyPage"]);
+					//m.AllowMultipleInstancesOnMyPage = Convert.ToBoolean(reader["AllowMultipleInstancesOnMyPage"]);
+					//m.Icon = reader["Icon"].ToString();
+					m.CreatedByUserId = Convert.ToInt32(reader["CreatedByUserID"]);
+					if (reader["CreatedDate"] != DBNull.Value)
+					{
+						m.CreatedDate = Convert.ToDateTime(reader["CreatedDate"]);
+					}
+					//m.CountOfUseOnMyPage
+					m.ModuleGuid = new Guid(reader["Guid"].ToString());
+                    m.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
+					m.SiteGuid = new Guid(reader["SiteGuid"].ToString());
+					if (reader["EditUserGuid"] != DBNull.Value)
+					{
+						m.EditUserGuid = new Guid(reader["EditUserGuid"].ToString());
+					}
+                    m.HideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]);
+                    m.HideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]);
+					m.ViewRoles = reader["ViewRoles"].ToString();
+                    m.DraftEditRoles = reader["DraftEditRoles"].ToString();
+                    m.IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]);
+                    m.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
                     m.HeadElement = reader["HeadElement"].ToString();
                     m.PublishMode = Convert.ToInt32(reader["PublishMode"]);
+                    m.DraftApprovalRoles = reader["DraftApprovalRoles"].ToString();
 
+                    m.PageId = Convert.ToInt32(reader["PageID"]);
+                    m.PaneName = reader["PaneName"].ToString();
+                    m.ModuleOrder = Convert.ToInt32(reader["ModuleOrder"]);
+                    m.ControlSource = reader["ControlSrc"].ToString();
+					
                     pageSettings.Modules.Add(m);
                 }
             }
@@ -920,8 +887,7 @@ namespace mojoPortal.Business.WebHelpers
             SiteSettings siteSettings = GetCurrentSiteSettings();
             if (siteSettings == null) return menuPages;
 
-            bool useFolderForSiteDetection 
-                = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
+            bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
             string virtualFolder;
             if (useFolderForSiteDetection)
             {
@@ -1091,7 +1057,7 @@ namespace mojoPortal.Business.WebHelpers
 
         public static string GetPathToWebConfigFile()
         {
-            return System.Web.Hosting.HostingEnvironment.MapPath("~/Web.config");
+            return HostingEnvironment.MapPath("~/Web.config");
         }
 
         

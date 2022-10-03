@@ -11,6 +11,7 @@ using System.Text;
 using System.Web;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Globalization;
 
 namespace mojoPortal.Web.Framework
 {
@@ -212,7 +213,7 @@ namespace mojoPortal.Web.Framework
             context.Response.AppendHeader("Content-Disposition", "attachment;filename=\"" + filename + "\"");
             context.Response.ContentEncoding = new UTF8Encoding();
             
-            using (var csv = new CsvWriter(new StreamWriter(context.Response.OutputStream)))
+            using (var csv = new CsvWriter(new StreamWriter(context.Response.OutputStream), CultureInfo.CurrentCulture))
             {
                 csv.WriteRecords(objects);
             }

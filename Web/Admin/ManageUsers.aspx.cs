@@ -1,6 +1,6 @@
 // Author:					    
 // Created:				        2004-08-29
-// Last Modified:			    2015-02-11 (i7MEDIA)
+// Last Modified:			    2019-10-08 (i7MEDIA)
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -13,7 +13,6 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Globalization;
 using System.Web.Security;
 using System.Web.UI;
@@ -21,19 +20,18 @@ using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
 using mojoPortal.Business.WebHelpers.ProfileUpdatedHandlers;
+using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
 using mojoPortal.Net;
 using mojoPortal.Web.Configuration;
-using mojoPortal.Web.Controls;
 using mojoPortal.Web.Editor;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
 
-namespace mojoPortal.Web.AdminUI 
+namespace mojoPortal.Web.AdminUI
 {
-    public partial class ManageUsers : NonCmsBasePage
+	public partial class ManageUsers : NonCmsBasePage
 	{
         private static readonly ILog log = LogManager.GetLogger(typeof(ManageUsers));
         private Guid userGuid = Guid.Empty;
@@ -216,14 +214,18 @@ namespace mojoPortal.Web.AdminUI
 
             if ((siteUser != null)&&(siteUser.UserId > -1))
 			{
-                if(siteUser.IsDeleted)
+				heading.Text = $"{Resource.ManageUsersTitleLabel} {siteUser.Name}";
+
+				if (siteUser.IsDeleted)
                 {
                     btnDelete.Text = Resource.Undelete;
                     btnDelete.ToolTip = Resource.UndeleteUserTooltip;
-                }
+					UIHelper.RemoveConfirmationDialog(btnDelete);
+					UIHelper.AddConfirmationDialog(btnDelete, Resource.ManageUsersUnDeleteUserWarning);
+					heading.Text += string.Format(displaySettings.IsDeletedUserNoteFormat, Resource.ManageUsersIsDeleted);
+				}
 
-                //spnTitle.InnerText = Resource.ManageUsersTitleLabel + " " + siteUser.Name;
-                heading.Text = Resource.ManageUsersTitleLabel + " " + siteUser.Name;
+				//spnTitle.InnerText = Resource.ManageUsersTitleLabel + " " + siteUser.Name;
 
                 txtName.Text = SecurityHelper.RemoveMarkup(siteUser.Name);
                 txtLoginName.Text = SecurityHelper.RemoveMarkup(siteUser.LoginName);
@@ -1341,27 +1343,15 @@ namespace mojoPortal.Web.AdminUI
 namespace mojoPortal.Web.UI
 {
 
-    public class ProfileDisplaySettings : WebControl
+	public class ProfileDisplaySettings : WebControl
     {
-        private string overrideAvatarLabel = string.Empty;
+		public string OverrideAvatarLabel { get; set; } = string.Empty;
 
-        public string OverrideAvatarLabel
-        {
-            get { return overrideAvatarLabel; }
-            set { overrideAvatarLabel = value; }
-        }
+		public bool HidePostCount { get; set; } = false;
 
-        private bool hidePostCount = false;
+		public string IsDeletedUserNoteFormat { get; set; } = "<span class='txterror'>{0}</span>";
 
-        public bool HidePostCount
-        {
-            get { return hidePostCount; }
-            set { hidePostCount = value; }
-        }
-
-
-
-        protected override void Render(HtmlTextWriter writer)
+		protected override void Render(HtmlTextWriter writer)
         {
 
             // nothing to render

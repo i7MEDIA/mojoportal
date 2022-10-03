@@ -228,14 +228,12 @@
                 ValidationGroup="ModuleSettings" ControlToValidate="cacheTime" ValidationExpression="^[0-9][0-9]{0,8}$"
                 EnableViewState="false" />
         </div>
-        <div class="settingrow">
-            <mp:SiteLabel ID="SiteLabel35" runat="server" CssClass="settinglabel" ConfigKey="spacer" />
-            <portal:mojoButton ID="btnSave" runat="server" ValidationGroup="ModuleSettings" />&nbsp;
-            <portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" />
-            &nbsp;<asp:HyperLink ID="lnkCancel" runat="server" />
-            &nbsp;&nbsp;&nbsp;&nbsp;<asp:HyperLink ID="lnkEditContent" runat="server" Visible="false"
-                EnableViewState="false" />
-            &nbsp;<asp:HyperLink ID="lnkPublishing" runat="server" Visible="false" EnableViewState="false" />
+        <div class="settingrow btn-row text-center">
+            <portal:mojoButton ID="btnSave" runat="server" ValidationGroup="ModuleSettings" SkinID="SuccessButton" />
+            <portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" SkinID="DeleteButton" />
+            <asp:HyperLink ID="lnkCancel" runat="server" SkinID="TextButton" />
+            <asp:HyperLink ID="lnkEditContent" runat="server" Visible="false" EnableViewState="false" SkinID="TextButtonSmall" />
+            <asp:HyperLink ID="lnkPublishing" runat="server" Visible="false" EnableViewState="false" SkinID="TextButtonSmall" />
         </div>
     </div>
            

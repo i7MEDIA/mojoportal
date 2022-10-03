@@ -1,331 +1,404 @@
-﻿// Author:					
-// Created:					2011-10-29
-// Last Modified:			2011-10-29
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using System.Configuration;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Web;
-using Mono.Data.Sqlite;
+using System.Web.Hosting;
+
 using mojoPortal.Data; // add a project reference to mojoPortal.Data.SQLite to get this
+using Mono.Data.Sqlite;
+
 
 namespace mojoPortal.Data
 {
-    public static class DBTagItem
-    {
-        public static String DBPlatform()
-        {
-            return "SQLite";
-        }
-
-        private static string GetConnectionString()
-        {
-            string connectionString = ConfigurationManager.AppSettings["SqliteConnectionString"];
-            if (connectionString == "defaultdblocation")
-            {
-
-                connectionString = "version=3,URI=file:"
-                    + System.Web.Hosting.HostingEnvironment.MapPath("~/Data/sqlitedb/mojo.db.config");
-
-            }
-            return connectionString;
-        }
+	public static class DBTagItem
+	{
+		public static string DBPlatform() => "SQLite";
 
 
-        /// <summary>
-        /// Inserts a row in the mp_TagItem table. Returns rows affected count.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <param name="siteGuid"> siteGuid </param>
-        /// <param name="featureGuid"> featureGuid </param>
-        /// <param name="moduleGuid"> moduleGuid </param>
-        /// <param name="itemGuid"> itemGuid </param>
-        /// <param name="tagGuid"> tagGuid </param>
-        /// <param name="extraGuid"> extraGuid </param>
-        /// <param name="taggedBy"> taggedBy </param>
-        /// <returns>int</returns>
-        public static int Create(
-            Guid guid,
-            Guid siteGuid,
-            Guid featureGuid,
-            Guid moduleGuid,
-            Guid itemGuid,
-            Guid tagGuid,
-            Guid extraGuid,
-            Guid taggedBy)
-        {
-        
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_TagItem (");
-            sqlCommand.Append("Guid, ");
-            sqlCommand.Append("SiteGuid, ");
-            sqlCommand.Append("FeatureGuid, ");
-            sqlCommand.Append("ModuleGuid, ");
-            sqlCommand.Append("ItemGuid, ");
-            sqlCommand.Append("TagGuid, ");
-            sqlCommand.Append("ExtraGuid, ");
-            sqlCommand.Append("TaggedBy )");
+		#region Create Method
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append(":Guid, ");
-            sqlCommand.Append(":SiteGuid, ");
-            sqlCommand.Append(":FeatureGuid, ");
-            sqlCommand.Append(":ModuleGuid, ");
-            sqlCommand.Append(":ItemGuid, ");
-            sqlCommand.Append(":TagGuid, ");
-            sqlCommand.Append(":ExtraGuid, ");
-            sqlCommand.Append(":TaggedBy )");
-            sqlCommand.Append(";");
+		public static bool Create(
+			Guid tagItemGuid,
+			Guid siteGuid,
+			Guid featureGuid,
+			Guid moduleGuid,
+			Guid relatedItemGuid,
+			Guid tagGuid,
+			Guid extraGuid,
+			Guid taggedBy
+		)
+		{
+			const string sqlCommand =
+				@"INSERT INTO mp_TagItem (
+					TagItemGuid,
+					SiteGuid,
+					FeatureGuid,
+					ModuleGuid,
+					RelatedItemGuid,
+					TagGuid,
+					ExtraGuid,
+					TaggedBy
+				)
 
-            SqliteParameter[] arParams = new SqliteParameter[8];
+				VALUES (
+					:TagItemGuid,
+					:SiteGuid,
+					:FeatureGuid,
+					:ModuleGuid,
+					:RelatedItemGuid,
+					:TagGuid,
+					:ExtraGuid,
+					:TaggedBy
+				);";
 
-            arParams[0] = new SqliteParameter(":Guid", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
-
-            arParams[1] = new SqliteParameter(":SiteGuid", DbType.String, 36);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = siteGuid.ToString();
-
-            arParams[2] = new SqliteParameter(":FeatureGuid", DbType.String, 36);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = featureGuid.ToString();
-
-            arParams[3] = new SqliteParameter(":ModuleGuid", DbType.String, 36);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = moduleGuid.ToString();
-
-            arParams[4] = new SqliteParameter(":ItemGuid", DbType.String, 36);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = itemGuid.ToString();
-
-            arParams[5] = new SqliteParameter(":TagGuid", DbType.String, 36);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = tagGuid.ToString();
-
-            arParams[6] = new SqliteParameter(":ExtraGuid", DbType.String, 36);
-            arParams[6].Direction = ParameterDirection.Input;
-            arParams[6].Value = extraGuid.ToString();
-
-            arParams[7] = new SqliteParameter(":TaggedBy", DbType.String, 36);
-            arParams[7].Direction = ParameterDirection.Input;
-            arParams[7].Value = taggedBy.ToString();
-
-
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return rowsAffected;
-
-        }
- 
-
-        /// <summary>
-        /// Deletes a row from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool Delete(Guid guid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("Guid = :Guid ");
-            sqlCommand.Append(";");
-
-            SqliteParameter[] arParams = new SqliteParameter[1];
-
-            arParams[0] = new SqliteParameter(":Guid", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
-
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-        }
-
-        /// <summary>
-        /// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByItem(Guid itemGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ItemGuid = :ItemGuid ");
-            sqlCommand.Append(";");
-
-            SqliteParameter[] arParams = new SqliteParameter[1];
-
-            arParams[0] = new SqliteParameter(":ItemGuid", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = itemGuid.ToString();
-
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-        }
-
-        /// <summary>
-        /// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByExtraGuid(Guid extraGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ExtraGuid = :ExtraGuid ");
-            sqlCommand.Append(";");
-
-            SqliteParameter[] arParams = new SqliteParameter[1];
-
-            arParams[0] = new SqliteParameter(":ExtraGuid", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = extraGuid.ToString();
-
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-        }
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":TagItemGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = tagItemGuid.ToString()
+				},
+				new SqliteParameter(":SiteGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteGuid.ToString()
+				},
+				new SqliteParameter(":FeatureGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = featureGuid.ToString()
+				},
+				new SqliteParameter(":ModuleGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = moduleGuid.ToString()
+				},
+				new SqliteParameter(":RelatedItemGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = relatedItemGuid.ToString()
+				},
+				new SqliteParameter(":TagGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = tagGuid.ToString()
+				},
+				new SqliteParameter(":ExtraGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = extraGuid.ToString()
+				},
+				new SqliteParameter(":TaggedBy", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = taggedBy.ToString()
+				}
+			}.ToArray();
 
 
-        /// <summary>
-        /// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByTag(Guid tagGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("TagGuid = :TagGuid ");
-            sqlCommand.Append(";");
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				ConnectionString.GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams
+			);
 
-            SqliteParameter[] arParams = new SqliteParameter[1];
+			return rowsAffected > -1;
+		}
 
-            arParams[0] = new SqliteParameter(":TagGuid", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = tagGuid.ToString();
-
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-        }
+		#endregion
 
 
-        /// <summary>
-        /// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByModule(Guid moduleGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ModuleGuid = :ModuleGuid ");
-            sqlCommand.Append(";");
+		#region Delete Methods
 
-            SqliteParameter[] arParams = new SqliteParameter[1];
+		public static bool DeleteBySite(Guid siteGuid)
+		{
+			const string sqlCommand = @"DELETE FROM mp_TagItem WHERE SiteGuid = :SiteGuid;";
 
-            arParams[0] = new SqliteParameter(":ModuleGuid", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleGuid.ToString();
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":SiteGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteGuid.ToString()
+				}
+			}.ToArray();
 
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				ConnectionString.GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams
+			);
 
-            return (rowsAffected > 0);
-        }
+			return rowsAffected > 0;
+		}
 
-        /// <summary>
-        /// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByFeature(Guid featureGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("FeatureGuid = :FeatureGuid ");
-            sqlCommand.Append(";");
 
-            SqliteParameter[] arParams = new SqliteParameter[1];
+		public static bool Delete(Guid tagItemGuid)
+		{
+			const string sqlCommand = @"DELETE FROM mp_TagItem WHERE TagItemGuid = :TagItemGuid;";
 
-            arParams[0] = new SqliteParameter(":FeatureGuid", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = featureGuid.ToString();
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":TagItemGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = tagItemGuid.ToString()
+				}
+			}.ToArray();
 
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				ConnectionString.GetConnectionString(),
+				sqlCommand,
+				arParams
+			);
 
-            return (rowsAffected > 0);
-        }
+			return rowsAffected > 0;
+		}
 
-        /// <summary>
-        /// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteBySite(Guid siteGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("SiteGuid = :SiteGuid ");
-            sqlCommand.Append(";");
 
-            SqliteParameter[] arParams = new SqliteParameter[1];
+		public static bool DeleteByTag(Guid tagGuid)
+		{
+			const string sqlCommand = @"DELETE FROM mp_TagItem WHERE TagGuid = :TagGuid;";
 
-            arParams[0] = new SqliteParameter(":SiteGuid", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteGuid.ToString();
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":TagGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = tagGuid.ToString()
+				}
+			}.ToArray();
 
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				ConnectionString.GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams
+			);
 
-            return (rowsAffected > 0);
+			return rowsAffected > 0;
+		}
 
-        }
 
-    }
+		public static bool DeleteByModule(Guid moduleGuid)
+		{
+			const string sqlCommand = @"DELETE FROM mp_TagItem WHERE ModuleGuid = :ModuleGuid;";
+
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":ModuleGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = moduleGuid.ToString()
+				}
+			}.ToArray();
+
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				ConnectionString.GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams
+			);
+
+			return rowsAffected > 0;
+		}
+
+
+		public static bool DeleteByFeature(Guid featureGuid)
+		{
+			const string sqlCommand = @"DELETE FROM mp_TagItem WHERE FeatureGuid = :FeatureGuid;";
+
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":FeatureGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = featureGuid.ToString()
+				}
+			}.ToArray();
+
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				ConnectionString.GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams
+			);
+
+			return rowsAffected > 0;
+		}
+
+
+		public static bool DeleteByRelatedItem(Guid relatedItemGuid)
+		{
+			const string sqlCommand = "DELETE FROM mp_TagItem WHERE RelatedItemGuid = :RelatedItemGuid;";
+
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":RelatedItemGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = relatedItemGuid.ToString()
+				}
+			}.ToArray();
+
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				ConnectionString.GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams
+			);
+
+			return rowsAffected > 0;
+		}
+
+
+		public static bool DeleteByExtraGuid(Guid extraGuid)
+		{
+			const string sqlCommand = @"DELETE FROM mp_TagItem WHERE ExtraGuid = :ExtraGuid;";
+
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":ExtraGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = extraGuid.ToString()
+				}
+			}.ToArray();
+
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				ConnectionString.GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams
+			);
+
+			return rowsAffected > 0;
+		}
+
+		#endregion
+
+
+		#region Get Methods
+
+
+		public static IDataReader GetByTagItem(Guid tagItemGuid)
+		{
+			const string sqlCommand =
+				@"SELECT 
+					ti.TagItemGuid,
+					ti.RelatedItemGuid,
+					ti.SiteGuid,
+					ti.FeatureGuid,
+					ti.ModuleGuid,
+					ti.TagGuid,
+					ti.ExtraGuid,
+					ti.TaggedBy,
+					t.Tag AS TagText
+				FROM mp_TagItem ti
+				INNER JOIN mp_Tag t
+				ON ti.TagGuid = t.Guid
+				WHERE TagItemGuid = :TagItemGuid
+				ORDER BY TagText";
+
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":RelatedItemGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = tagItemGuid.ToString()
+				}
+			}.ToArray();
+
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand.ToString(),
+				arParams
+			);
+		}
+
+		public static IDataReader GetByRelatedItem(Guid siteGuid, Guid relatedItemGuid)
+		{
+			const string sqlCommand =
+				@"SELECT 
+					ti.TagItemGuid,
+					ti.RelatedItemGuid,
+					ti.SiteGuid,
+					ti.FeatureGuid,
+					ti.ModuleGuid,
+					ti.TagGuid,
+					ti.ExtraGuid,
+					ti.TaggedBy,
+					t.Tag AS TagText
+				FROM mp_TagItem ti
+				INNER JOIN mp_Tag t
+				ON ti.TagGuid = t.Guid
+				WHERE RelatedItemGuid = :RelatedItemGuid
+				AND ti.SiteGuid = :SiteGuid
+				ORDER BY TagText";
+
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":RelatedItemGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = relatedItemGuid.ToString()
+				},
+				new SqliteParameter(":SiteGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteGuid.ToString()
+				}
+			}.ToArray();
+
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand.ToString(),
+				arParams
+			);
+		}
+
+
+		public static IDataReader GetByExtra(Guid siteGuid, Guid extraGuid)
+		{
+			const string sqlCommand =
+				@"SELECT 
+					ti.TagItemGuid,
+					ti.RelatedItemGuid,
+					ti.SiteGuid,
+					ti.FeatureGuid,
+					ti.ModuleGuid,
+					ti.TagGuid,
+					ti.ExtraGuid,
+					ti.TaggedBy,
+					t.Tag AS TagText
+				FROM mp_TagItem ti
+				INNER JOIN mp_Tag t
+				ON ti.TagGuid = t.Guid
+				WHERE ExtraGuid = :ExtraGuid
+				AND ti.SiteGuid = :SiteGuid
+				ORDER BY TagText";
+
+			var arParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":RelatedItemGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = extraGuid.ToString()
+				},
+				new SqliteParameter(":SiteGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteGuid.ToString()
+				}
+			}.ToArray();
+
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand.ToString(),
+				arParams
+			);
+		}
+
+		#endregion
+	}
 }

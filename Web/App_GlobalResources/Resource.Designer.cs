@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option or rebuild the Visual Studio project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resource {
@@ -93,6 +93,15 @@ namespace Resources {
         internal static string AccountLockedTemporarilyDueToPasswordFailures {
             get {
                 return ResourceManager.GetString("AccountLockedTemporarilyDueToPasswordFailures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Content.
+        /// </summary>
+        internal static string AddContent {
+            get {
+                return ResourceManager.GetString("AddContent", resourceCulture);
             }
         }
         
@@ -178,6 +187,186 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Index Browser.
+        /// </summary>
+        internal static string AdminIndexBrowser {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        internal static string AdminIndexBrowserActionsHeading {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserActionsHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Author.
+        /// </summary>
+        internal static string AdminIndexBrowserAuthor {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear Filter.
+        /// </summary>
+        internal static string AdminIndexBrowserClearFilter {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserClearFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created UTC.
+        /// </summary>
+        internal static string AdminIndexBrowserCreatedDate {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserCreatedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this item? \r\n {0}.
+        /// </summary>
+        internal static string AdminIndexBrowserDeleteItemWarning {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserDeleteItemWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result Key.
+        /// </summary>
+        internal static string AdminIndexBrowserDocKey {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserDocKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This error happens when the search index has not been created yet. You could click the Rebuild Index button but if you do you should wait about 5 - 10 minutes before reloading the page..
+        /// </summary>
+        internal static string AdminIndexBrowserExceptionDescription {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserExceptionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Filter.
+        /// </summary>
+        internal static string AdminIndexBrowserFilter {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter by Content Type.
+        /// </summary>
+        internal static string AdminIndexBrowserFilterContentType {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserFilterContentType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter by Date.
+        /// </summary>
+        internal static string AdminIndexBrowserFilterDate {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserFilterDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result Details.
+        /// </summary>
+        internal static string AdminIndexBrowserItemDetails {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserItemDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result Fragment.
+        /// </summary>
+        internal static string AdminIndexBrowserItemIntro {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserItemIntro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Url.
+        /// </summary>
+        internal static string AdminIndexBrowserItemUrl {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserItemUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modified Between.
+        /// </summary>
+        internal static string AdminIndexBrowserModifiedBetween {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserModifiedBetween", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modified UTC.
+        /// </summary>
+        internal static string AdminIndexBrowserModifiedDate {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserModifiedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Module View Roles.
+        /// </summary>
+        internal static string AdminIndexBrowserModuleViewRoles {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserModuleViewRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page Meta Description.
+        /// </summary>
+        internal static string AdminIndexBrowserPageMetaDesc {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserPageMetaDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page Meta Keywords.
+        /// </summary>
+        internal static string AdminIndexBrowserPageMetaKeywords {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserPageMetaKeywords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page View Roles.
+        /// </summary>
+        internal static string AdminIndexBrowserPageViewRoles {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserPageViewRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Administration.
         /// </summary>
         internal static string AdminLink {
@@ -214,7 +403,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feature Installation and Configuration.
+        ///   Looks up a localized string similar to Feature Management.
         /// </summary>
         internal static string AdminMenuFeatureModulesLink {
             get {
@@ -457,6 +646,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable Password Format Change.
+        /// </summary>
+        internal static string AllowPasswordFormatChange {
+            get {
+                return ResourceManager.GetString("AllowPasswordFormatChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable Keep Me Logged In?.
         /// </summary>
         internal static string AllowPersistentLogin {
@@ -583,7 +781,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application Started..
+        ///   Looks up a localized string similar to ------Application Started------.
         /// </summary>
         internal static string ApplicationStartEventMessage {
             get {
@@ -741,6 +939,15 @@ namespace Resources {
         internal static string Attention {
             get {
                 return ResourceManager.GetString("Attention", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} was not applied..
+        /// </summary>
+        internal static string AttributeNotApplied {
+            get {
+                return ResourceManager.GetString("AttributeNotApplied", resourceCulture);
             }
         }
         
@@ -1533,6 +1740,15 @@ namespace Resources {
         internal static string ChooseParentPage {
             get {
                 return ResourceManager.GetString("ChooseParentPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        internal static string ClearSearch {
+            get {
+                return ResourceManager.GetString("ClearSearch", resourceCulture);
             }
         }
         
@@ -3265,6 +3481,105 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom Menu.
+        /// </summary>
+        internal static string CustomMenuFeatureName {
+            get {
+                return ResourceManager.GetString("CustomMenuFeatureName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum Menu Depth.
+        /// </summary>
+        internal static string CustomMenuMaxDepth {
+            get {
+                return ResourceManager.GetString("CustomMenuMaxDepth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Starting Page.
+        /// </summary>
+        internal static string CustomMenuShowStartingNode {
+            get {
+                return ResourceManager.GetString("CustomMenuShowStartingNode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skin ID.
+        /// </summary>
+        internal static string CustomMenuSkinId {
+            get {
+                return ResourceManager.GetString("CustomMenuSkinId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting Node URL.
+        /// </summary>
+        internal static string CustomMenuStartingNodeUrl {
+            get {
+                return ResourceManager.GetString("CustomMenuStartingNodeUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting Page.
+        /// </summary>
+        internal static string CustomMenuStartingPage {
+            get {
+                return ResourceManager.GetString("CustomMenuStartingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        internal static string CustomMenuStartingPageBrowseLink {
+            get {
+                return ResourceManager.GetString("CustomMenuStartingPageBrowseLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the starting page.
+        /// </summary>
+        internal static string CustomMenuStartingPageBrowseLinkTooltip {
+            get {
+                return ResourceManager.GetString("CustomMenuStartingPageBrowseLinkTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting Page Is Invalid. Check Module Settings..
+        /// </summary>
+        internal static string CustomMenuStartingPageInvalid {
+            get {
+                return ResourceManager.GetString("CustomMenuStartingPageInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use TreeView?.
+        /// </summary>
+        internal static string CustomMenuUseTreeView {
+            get {
+                return ResourceManager.GetString("CustomMenuUseTreeView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menu Theme.
+        /// </summary>
+        internal static string CustomMenuView {
+            get {
+                return ResourceManager.GetString("CustomMenuView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom Javascript.
         /// </summary>
         internal static string CustomScriptModuleFeatureName {
@@ -3423,6 +3738,15 @@ namespace Resources {
         internal static string DefaultCountryStateLabel {
             get {
                 return ResourceManager.GetString("DefaultCountryStateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Currency.
+        /// </summary>
+        internal static string DefaultCurrency {
+            get {
+                return ResourceManager.GetString("DefaultCurrency", resourceCulture);
             }
         }
         
@@ -3814,6 +4138,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {0} element could not be found..
+        /// </summary>
+        internal static string ElementNotFound {
+            get {
+                return ResourceManager.GetString("ElementNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         internal static string Email {
@@ -4030,6 +4363,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export for CKEditor.
+        /// </summary>
+        internal static string ExportTemplatesForCKEditor {
+            get {
+                return ResourceManager.GetString("ExportTemplatesForCKEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Facebook App ID.
         /// </summary>
         internal static string FacebookAppId {
@@ -4111,7 +4453,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Users in selected roles will see this feature in the list of available features when adding features to pages or using the content manager to create new feature instances. Note that the user would have to have edit permissions on a page in order to be able to add any features. Typically, you will want to set All Users or Authenticated Users here unless there are specific roles that you don&apos;t want to be able to create new instances of the feature. It has no effect on a users permission to edit existing featu [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to  Users in selected roles will see this feature in the list of available features when adding features to pages or using the content manager to create new feature instances. Note that the user would have to have edit permissions on a page in order to be able to add any features. Typically, you will want to set All Users or Authenticated Users here unless there are specific roles that you don&apos;t want to be able to create new instances of the feature. It has no effect on a users permission to edit existing featu [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string FeaturePermissionInfo {
             get {
@@ -4678,7 +5020,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid token received by FileService so blocking access.
+        ///   Looks up a localized string similar to Invalid token received by FileService. Try refreshing your browser..
         /// </summary>
         internal static string FileSystemInvalidToken {
             get {
@@ -4723,7 +5065,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry you&apos;ve reached the quota of upload storage allowed by configuraiton..
+        ///   Looks up a localized string similar to Sorry you&apos;ve reached the quota of upload storage allowed by configuration..
         /// </summary>
         internal static string FileSystemStorageQuotaError {
             get {
@@ -5259,6 +5601,15 @@ namespace Resources {
         internal static string GenericError {
             get {
                 return ResourceManager.GetString("GenericError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred. Please check your inputs and try again..
+        /// </summary>
+        internal static string GenericErrorOccurred {
+            get {
+                return ResourceManager.GetString("GenericErrorOccurred", resourceCulture);
             }
         }
         
@@ -5862,6 +6213,15 @@ namespace Resources {
         internal static string Hour {
             get {
                 return ResourceManager.GetString("Hour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must add id=&quot;html1&quot; runat=&quot;server&quot; to the html element in the layout.master of the skin..
+        /// </summary>
+        internal static string HowToFixHtmlElement {
+            get {
+                return ResourceManager.GetString("HowToFixHtmlElement", resourceCulture);
             }
         }
         
@@ -6496,6 +6856,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Modified by {0} on {1}.
+        /// </summary>
+        internal static string LastModifiedFormat {
+            get {
+                return ResourceManager.GetString("LastModifiedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Modified From IP Address.
         /// </summary>
         internal static string LastModifiedFromIpAddress {
@@ -7018,15 +7387,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search By IP Address.
-        /// </summary>
-        internal static string LookupUserByIPAddressButton {
-            get {
-                return ResourceManager.GetString("LookupUserByIPAddressButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Site Office.
         /// </summary>
         internal static string MailboxLink {
@@ -7221,6 +7581,15 @@ namespace Resources {
         internal static string ManageUsersEmailLabel {
             get {
                 return ResourceManager.GetString("ManageUsersEmailLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted.
+        /// </summary>
+        internal static string ManageUsersIsDeleted {
+            get {
+                return ResourceManager.GetString("ManageUsersIsDeleted", resourceCulture);
             }
         }
         
@@ -7468,6 +7837,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to undelete this user?.
+        /// </summary>
+        internal static string ManageUsersUnDeleteUserWarning {
+            get {
+                return ResourceManager.GetString("ManageUsersUnDeleteUserWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unsubscribe from all forums..
         /// </summary>
         internal static string ManageUsersUnsubscribeForumsLink {
@@ -7603,11 +7981,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Add New User.
+        ///   Looks up a localized string similar to Add New User.
         /// </summary>
         internal static string MemberListAddUserLabel {
             get {
                 return ResourceManager.GetString("MemberListAddUserLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new user..
+        /// </summary>
+        internal static string MemberListAddUserTooltip {
+            get {
+                return ResourceManager.GetString("MemberListAddUserTooltip", resourceCulture);
             }
         }
         
@@ -7639,6 +8026,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IP Address.
+        /// </summary>
+        internal static string MemberListIPSearchPlaceholder {
+            get {
+                return ResourceManager.GetString("MemberListIPSearchPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Member List.
         /// </summary>
         internal static string MemberListLink {
@@ -7666,6 +8062,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Other Actions.
+        /// </summary>
+        internal static string MemberListOtherActionsHeading {
+            get {
+                return ResourceManager.GetString("MemberListOtherActionsHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pages:.
         /// </summary>
         internal static string MemberListPagesLabel {
@@ -7684,11 +8089,74 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show All.
+        ///   Looks up a localized string similar to User IPs are logged when they use the site. This search will find users who have used the site from a connection with the specified IP Address..
+        /// </summary>
+        internal static string MemberListSearchByIPDescription {
+            get {
+                return ResourceManager.GetString("MemberListSearchByIPDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by IP Address.
+        /// </summary>
+        internal static string MemberListSearchByIPHeading {
+            get {
+                return ResourceManager.GetString("MemberListSearchByIPHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        internal static string MemberListSearchByIPLabel {
+            get {
+                return ResourceManager.GetString("MemberListSearchByIPLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fields searched are username, display name and email address..
+        /// </summary>
+        internal static string MemberListSearchDescription {
+            get {
+                return ResourceManager.GetString("MemberListSearchDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for User.
+        /// </summary>
+        internal static string MemberListSearchHeading {
+            get {
+                return ResourceManager.GetString("MemberListSearchHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Search.
+        /// </summary>
+        internal static string MemberListSearchPlaceholder {
+            get {
+                return ResourceManager.GetString("MemberListSearchPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear Filters.
         /// </summary>
         internal static string MemberListShowAllLabel {
             get {
                 return ResourceManager.GetString("MemberListShowAllLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all sorting and filtering..
+        /// </summary>
+        internal static string MemberListShowAllTooltip {
+            get {
+                return ResourceManager.GetString("MemberListShowAllTooltip", resourceCulture);
             }
         }
         
@@ -7972,7 +8440,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
+        ///   Looks up a localized string similar to Module Settings.
         /// </summary>
         internal static string ModuleAdminSettingsLink {
             get {
@@ -9052,7 +9520,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View Previous Editions.
+        ///   Looks up a localized string similar to Archives.
         /// </summary>
         internal static string NewsletterArchiveListLink {
             get {
@@ -9142,7 +9610,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View/Edit Drafts.
+        ///   Looks up a localized string similar to Manage Drafts.
         /// </summary>
         internal static string NewsletterDraftListLink {
             get {
@@ -9160,7 +9628,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to Settings.
         /// </summary>
         internal static string NewsletterEditLink {
             get {
@@ -9268,6 +9736,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Sent: {0}.
+        /// </summary>
+        internal static string NewsletterLastSentFormat {
+            get {
+                return ResourceManager.GetString("NewsletterLastSentFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load Html Template.
         /// </summary>
         internal static string NewsLetterLoadHtmlTemplateButton {
@@ -9300,6 +9777,24 @@ namespace Resources {
         internal static string NewsletterMoreInfoTextSetting {
             get {
                 return ResourceManager.GetString("NewsletterMoreInfoTextSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Never.
+        /// </summary>
+        internal static string NewsletterNeverSent {
+            get {
+                return ResourceManager.GetString("NewsletterNeverSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have created any Newsletters yet..
+        /// </summary>
+        internal static string NewsletterNoLetters {
+            get {
+                return ResourceManager.GetString("NewsletterNoLetters", resourceCulture);
             }
         }
         
@@ -9961,7 +10456,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ({0} unverified).
+        ///   Looks up a localized string similar to {0} unverified.
         /// </summary>
         internal static string NewsletterUnverifiedCountFormat {
             get {
@@ -10029,6 +10524,15 @@ namespace Resources {
         internal static string NewsletterWatermarkTextSetting {
             get {
                 return ResourceManager.GetString("NewsletterWatermarkTextSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Url.
+        /// </summary>
+        internal static string NewUrl {
+            get {
+                return ResourceManager.GetString("NewUrl", resourceCulture);
             }
         }
         
@@ -10105,6 +10609,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        internal static string NotApplicable {
+            get {
+                return ResourceManager.GetString("NotApplicable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry, you are not in a role allowed to use this feature..
         /// </summary>
         internal static string NotInUserLookupRolesWarning {
@@ -10123,11 +10636,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Themes Available in Skin.
+        /// </summary>
+        internal static string NoViewsInSkin {
+            get {
+                return ResourceManager.GetString("NoViewsInSkin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string OKLabel {
             get {
                 return ResourceManager.GetString("OKLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Url.
+        /// </summary>
+        internal static string OldUrl {
+            get {
+                return ResourceManager.GetString("OldUrl", resourceCulture);
             }
         }
         
@@ -10600,7 +11131,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove the selected  content from the page.
+        ///   Looks up a localized string similar to Remove the selected content from the page.
         /// </summary>
         internal static string PageLayoutAlt2DeleteButton {
             get {
@@ -10672,7 +11203,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove the selected  content from the page.
+        ///   Looks up a localized string similar to Remove the selected content from the page.
         /// </summary>
         internal static string PageLayoutContentDeleteAlternateText {
             get {
@@ -10807,7 +11338,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove the selected  content from the page.
+        ///   Looks up a localized string similar to Remove the selected content from the page.
         /// </summary>
         internal static string PageLayoutLeftDeleteAlternateText {
             get {
@@ -11059,7 +11590,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove the selected  content from the page.
+        ///   Looks up a localized string similar to Remove the selected content from the page.
         /// </summary>
         internal static string PageLayoutRightDeleteAlternateText {
             get {
@@ -11244,6 +11775,15 @@ namespace Resources {
         internal static string PagePropertiesEditText {
             get {
                 return ResourceManager.GetString("PagePropertiesEditText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page {0} of {1}.
+        /// </summary>
+        internal static string PagerPageOfFormat {
+            get {
+                return ResourceManager.GetString("PagerPageOfFormat", resourceCulture);
             }
         }
         
@@ -11581,7 +12121,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Administrators and Content Administrators can view or edit any content. Therefore, Content Administrators role is not shown, and there is no need to ever check the Administrators role except for the special case where you would like to lock out Content Administrators so that only Administrators can view or edit the content. In that case you can check only the Administrators role and no other roles and Content Administrators will not be allowed. However, to protect content instance(s) on the page you should  [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to  Administrators and Content Administrators can view or edit any content. Therefore, Content Administrators role is not shown, and there is no need to ever check the Administrators role except for the special case where you would like to lock out Content Administrators so that only Administrators can view or edit the content. In that case you can check only the Administrators role and no other roles and Content Administrators will not be allowed. However, to protect content instance(s) on the page you should  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PageSettingsRoleHelp {
             get {
@@ -12535,6 +13075,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add New Redirect.
+        /// </summary>
+        internal static string RedirectAddNew {
+            get {
+                return ResourceManager.GetString("RedirectAddNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Redirect.
+        /// </summary>
+        internal static string RedirectDelete {
+            get {
+                return ResourceManager.GetString("RedirectDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this 301 redirect?.
         /// </summary>
         internal static string RedirectDeleteWarning {
@@ -12544,7 +13102,34 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 301 redirects are for pages that have moved permanently. The old url will return a 301 status code and redirect to the new url. The primary purpose of doing this is search engine optimization and ensuring a good user experience. If someone bookmarked the old url or it appears in search engine results this will result in the new page being served. Generally you should not have to add redirects here manually. If you rename a page and it gets a new url, the system will automatically create a redirect from the  [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Edit Redirect.
+        /// </summary>
+        internal static string RedirectEdit {
+            get {
+                return ResourceManager.GetString("RedirectEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to new URL.
+        /// </summary>
+        internal static string RedirectGoToNew {
+            get {
+                return ResourceManager.GetString("RedirectGoToNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to old URL.
+        /// </summary>
+        internal static string RedirectGoToOld {
+            get {
+                return ResourceManager.GetString("RedirectGoToOld", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  301 redirects are for pages that have moved permanently. The old url will return a 301 status code and redirect to the new url. The primary purpose of doing this is search engine optimization and ensuring a good user experience. If someone bookmarked the old url or it appears in search engine results this will result in the new page being served. Generally you should not have to add redirects here manually. If you rename a page and it gets a new url, the system will automatically create a redirect from the  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RedirectHelp {
             get {
@@ -12571,7 +13156,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to redirects to.
+        ///   Looks up a localized string similar to Find Redirect.
+        /// </summary>
+        internal static string RedirectSearch {
+            get {
+                return ResourceManager.GetString("RedirectSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to →.
         /// </summary>
         internal static string RedirectsToLabel {
             get {
@@ -13219,11 +13813,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset Skin Version Guid.
+        ///   Looks up a localized string similar to Clear Skin Cache.
         /// </summary>
         internal static string ResetSkinVersionGuid {
             get {
                 return ResourceManager.GetString("ResetSkinVersionGuid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart Application.
+        /// </summary>
+        internal static string RestartWebApp {
+            get {
+                return ResourceManager.GetString("RestartWebApp", resourceCulture);
             }
         }
         
@@ -13282,7 +13885,43 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry, that role name has already been used..
+        ///   Looks up a localized string similar to Add New Role.
+        /// </summary>
+        internal static string RoleAddRoleHeader {
+            get {
+                return ResourceManager.GetString("RoleAddRoleHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description of the role.
+        /// </summary>
+        internal static string RoleDescription {
+            get {
+                return ResourceManager.GetString("RoleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Name.
+        /// </summary>
+        internal static string RoleDisplayName {
+            get {
+                return ResourceManager.GetString("RoleDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a Display Name..
+        /// </summary>
+        internal static string RoleDisplayNameRequired {
+            get {
+                return ResourceManager.GetString("RoleDisplayNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, that role system name has already been used..
         /// </summary>
         internal static string RoleExistsError {
             get {
@@ -13305,6 +13944,15 @@ namespace Resources {
         internal static string RoleManagerCancelButton {
             get {
                 return ResourceManager.GetString("RoleManagerCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System name is not valid..
+        /// </summary>
+        internal static string RoleNameInvalid {
+            get {
+                return ResourceManager.GetString("RoleNameInvalid", resourceCulture);
             }
         }
         
@@ -13494,6 +14142,33 @@ namespace Resources {
         internal static string RolesThatCanViewMyPage {
             get {
                 return ResourceManager.GetString("RolesThatCanViewMyPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Name.
+        /// </summary>
+        internal static string RoleSystemName {
+            get {
+                return ResourceManager.GetString("RoleSystemName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Name cannot be changed..
+        /// </summary>
+        internal static string RoleSystemNameCantChange {
+            get {
+                return ResourceManager.GetString("RoleSystemNameCantChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a System Name..
+        /// </summary>
+        internal static string RoleSystemNameRequired {
+            get {
+                return ResourceManager.GetString("RoleSystemNameRequired", resourceCulture);
             }
         }
         
@@ -13831,7 +14506,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rebuild Search Index.
+        ///   Looks up a localized string similar to Rebuild Index.
         /// </summary>
         internal static string SearchRebuildIndexButton {
             get {
@@ -13957,6 +14632,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checks for existence of default admin account.
+        /// </summary>
+        internal static string SecurityAdvisorDefaultAdminAccountDescription {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorDefaultAdminAccountDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default admin user account does not exist.
+        /// </summary>
+        internal static string SecurityAdvisorDefaultAdminAccountDoesNotExists {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorDefaultAdminAccountDoesNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default admin account &quot;admin@admin.com&quot; exists. Either update this account&apos;s email and password or delete this account..
+        /// </summary>
+        internal static string SecurityAdvisorDefaultAdminAccountExists {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorDefaultAdminAccountExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default admin account &quot;admin@admin.com&quot; exists and it&apos;s password is also default. Either update this account&apos;s email and password or delete this account..
+        /// </summary>
+        internal static string SecurityAdvisorDefaultAdminAccountExistsAndPasswordIsDefault {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorDefaultAdminAccountExistsAndPasswordIsDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Admin Account.
+        /// </summary>
+        internal static string SecurityAdvisorDefaultAdminAccountHeading {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorDefaultAdminAccountHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The website should only be able to write to the data directory..
         /// </summary>
         internal static string SecurityAdvisorFileSystemDescription {
@@ -14048,6 +14768,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Beast Vulnerability.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolBeastVuln {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolBeastVuln", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ciphers.
         /// </summary>
         internal static string SecurityAdvisorSecurityProtocolCiphers {
@@ -14062,6 +14791,15 @@ namespace Resources {
         internal static string SecurityAdvisorSecurityProtocolDescription {
             get {
                 return ResourceManager.GetString("SecurityAdvisorSecurityProtocolDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ephemeral Key Support.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolEphemeralKeys {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolEphemeralKeys", resourceCulture);
             }
         }
         
@@ -14084,11 +14822,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insecure Ciphers Detected.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolInsecureCiphers {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolInsecureCiphers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detected N - 1 Splitting.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolNMinusOneSplitting {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolNMinusOneSplitting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rating.
         /// </summary>
         internal static string SecurityAdvisorSecurityProtocolRating {
             get {
                 return ResourceManager.GetString("SecurityAdvisorSecurityProtocolRating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TLS Compression.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolTLSCompression {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolTLSCompression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supports Unknown Ciphers.
+        /// </summary>
+        internal static string SecurityAdvisorSecurityProtocolUnknownCiphers {
+            get {
+                return ResourceManager.GetString("SecurityAdvisorSecurityProtocolUnknownCiphers", resourceCulture);
             }
         }
         
@@ -14237,7 +15011,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Alternate Search If Configured?.
+        ///   Looks up a localized string similar to Show Alternate Search if Configured?.
         /// </summary>
         internal static string ShowAlternateSearchIfConfigured {
             get {
@@ -14327,11 +15101,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Locked Out Users.
+        ///   Looks up a localized string similar to Show Only Locked Out Users.
         /// </summary>
         internal static string ShowLockedOutUsers {
             get {
                 return ResourceManager.GetString("ShowLockedOutUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show users who have been locked out..
+        /// </summary>
+        internal static string ShowLockedOutUsersTooltip {
+            get {
+                return ResourceManager.GetString("ShowLockedOutUsersTooltip", resourceCulture);
             }
         }
         
@@ -14363,11 +15146,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Users Waiting For Approval.
+        ///   Looks up a localized string similar to Show Users Waiting for Approval.
         /// </summary>
         internal static string ShowNotApprovedUsers {
             get {
                 return ResourceManager.GetString("ShowNotApprovedUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show users who have not been approved for login..
+        /// </summary>
+        internal static string ShowNotApprovedUsersTooltip {
+            get {
+                return ResourceManager.GetString("ShowNotApprovedUsersTooltip", resourceCulture);
             }
         }
         
@@ -14534,7 +15326,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Site Is Closed?.
+        ///   Looks up a localized string similar to Close Site.
         /// </summary>
         internal static string SiteIsClosed {
             get {
@@ -14651,6 +15443,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to These settings are usually not changed and should only be changed by advanced users..
+        /// </summary>
+        internal static string SiteSettingsAdvancedDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsAdvancedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced Settings.
+        /// </summary>
+        internal static string SiteSettingsAdvancedLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsAdvancedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced.
+        /// </summary>
+        internal static string SiteSettingsAdvancedTab {
+            get {
+                return ResourceManager.GetString("SiteSettingsAdvancedTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allow Hiding Main Menu on Page?.
         /// </summary>
         internal static string SiteSettingsAllowHideMainMenuLabel {
@@ -14759,6 +15578,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bad Word Checking/Filter.
+        /// </summary>
+        internal static string SiteSettingsBadWordHeader {
+            get {
+                return ResourceManager.GetString("SiteSettingsBadWordHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bad Word List.
+        /// </summary>
+        internal static string SiteSettingsBadWordList {
+            get {
+                return ResourceManager.GetString("SiteSettingsBadWordList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter words you want blocked from being entered by users. One per line..
+        /// </summary>
+        internal static string SiteSettingsBadWordListQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsBadWordListQuickHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This feature will prevent forms being being posted with any of the listed words. Features must support Bad Word Checking for these settings to be relevant..
+        /// </summary>
+        internal static string SiteSettingsBadWordQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsBadWordQuickHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anti-SPAM Captcha.
         /// </summary>
         internal static string SiteSettingsCaptchaProviderLabel {
@@ -14786,11 +15641,128 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Company Info.
+        /// </summary>
+        internal static string SiteSettingsCompanyInfoHeader {
+            get {
+                return ResourceManager.GetString("SiteSettingsCompanyInfoHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These values are used in some skins to display contact information. Other features could use them as well..
+        /// </summary>
+        internal static string SiteSettingsCompanyInfoQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsCompanyInfoQuickHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company Name.
         /// </summary>
         internal static string SiteSettingsCompanyNameLabel {
             get {
                 return ResourceManager.GetString("SiteSettingsCompanyNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This content will apply to all admin pages..
+        /// </summary>
+        internal static string SiteSettingsContentAdminDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsContentAdminDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Site-Wide Admin Content.
+        /// </summary>
+        internal static string SiteSettingsContentAdminHeader {
+            get {
+                return ResourceManager.GetString("SiteSettingsContentAdminHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This content applies to all non-admin CMS pages..
+        /// </summary>
+        internal static string SiteSettingsContentDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsContentDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WYSIWYG options..
+        /// </summary>
+        internal static string SiteSettingsContentEditorSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsContentEditorSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content Editor.
+        /// </summary>
+        internal static string SiteSettingsContentEditorSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsContentEditorSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bottom Content.
+        /// </summary>
+        internal static string SiteSettingsContentFooterContentHeading {
+            get {
+                return ResourceManager.GetString("SiteSettingsContentFooterContentHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This content will be placed at the bottom of the page, above the &amp;lt;/body&amp;gt; tag..
+        /// </summary>
+        internal static string SiteSettingsContentFooterQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsContentFooterQuickHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Site-Wide Content.
+        /// </summary>
+        internal static string SiteSettingsContentHeader {
+            get {
+                return ResourceManager.GetString("SiteSettingsContentHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top Content.
+        /// </summary>
+        internal static string SiteSettingsContentHeaderContentHeading {
+            get {
+                return ResourceManager.GetString("SiteSettingsContentHeaderContentHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This content will be placed in the &amp;lt;head&amp;gt; tag..
+        /// </summary>
+        internal static string SiteSettingsContentHeaderQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsContentHeaderQuickHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Content.
+        /// </summary>
+        internal static string SiteSettingsContentLink {
+            get {
+                return ResourceManager.GetString("SiteSettingsContentLink", resourceCulture);
             }
         }
         
@@ -15029,6 +16001,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enforce Bad Word Checking.
+        /// </summary>
+        internal static string SiteSettingsForceBadWordChecking {
+            get {
+                return ResourceManager.GetString("SiteSettingsForceBadWordChecking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If enabled, compliant features will always check for bad words, regardless of their own settings to turn it off..
+        /// </summary>
+        internal static string SiteSettingsForceBadWordCheckingQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsForceBadWordCheckingQuickHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Site Settings.
         /// </summary>
         internal static string SiteSettingsFormat {
@@ -15088,6 +16078,15 @@ namespace Resources {
         internal static string SiteSettingsHideUserSecurity {
             get {
                 return ResourceManager.GetString("SiteSettingsHideUserSecurity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home Page Override.
+        /// </summary>
+        internal static string SiteSettingsHomePageOverride {
+            get {
+                return ResourceManager.GetString("SiteSettingsHomePageOverride", resourceCulture);
             }
         }
         
@@ -15277,6 +16276,24 @@ namespace Resources {
         internal static string SiteSettingsLogoAltText {
             get {
                 return ResourceManager.GetString("SiteSettingsLogoAltText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SiteSettingsMainSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsMainSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main.
+        /// </summary>
+        internal static string SiteSettingsMainSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsMainSettingsLabel", resourceCulture);
             }
         }
         
@@ -15497,6 +16514,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can use either reCaptcha or hCaptcha API keys..
+        /// </summary>
+        internal static string SiteSettingsRecaptchaQuickHelp {
+            get {
+                return ResourceManager.GetString("SiteSettingsRecaptchaQuickHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove Selected Feature.
         /// </summary>
         internal static string SiteSettingsRemoveFeatureTooltip {
@@ -15592,24 +16618,6 @@ namespace Resources {
         internal static string SiteSettingsSecurityAntiSPAMTab {
             get {
                 return ResourceManager.GetString("SiteSettingsSecurityAntiSPAMTab", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to WYSIWYG options..
-        /// </summary>
-        internal static string SiteSettingsSecurityContentEditorSettingsDescription {
-            get {
-                return ResourceManager.GetString("SiteSettingsSecurityContentEditorSettingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Content Editor.
-        /// </summary>
-        internal static string SiteSettingsSecurityContentEditorSettingsLabel {
-            get {
-                return ResourceManager.GetString("SiteSettingsSecurityContentEditorSettingsLabel", resourceCulture);
             }
         }
         
@@ -15718,24 +16726,6 @@ namespace Resources {
         internal static string SiteSettingsSecurityRegistrationSettingsLabel {
             get {
                 return ResourceManager.GetString("SiteSettingsSecurityRegistrationSettingsLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Options for the visual design of the site..
-        /// </summary>
-        internal static string SiteSettingsSecuritySkinSettingsDescription {
-            get {
-                return ResourceManager.GetString("SiteSettingsSecuritySkinSettingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Skinning/Theming.
-        /// </summary>
-        internal static string SiteSettingsSecuritySkinSettingsLabel {
-            get {
-                return ResourceManager.GetString("SiteSettingsSecuritySkinSettingsLabel", resourceCulture);
             }
         }
         
@@ -15884,6 +16874,69 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Client Script URL.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaClientScriptUrlLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaClientScriptUrlLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameter.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaParamLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaParamLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Response Field.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaResponseFieldLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaResponseFieldLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Defaults are: &lt;br&gt;&lt;strong&gt;reCaptcha&lt;/strong&gt;:{0}&lt;br&gt;&lt;strong&gt;hCaptcha&lt;/strong&gt;:{1}.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaSettingDefault {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaSettingDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaThemeLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaThemeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usually, the valid options are &apos;light&apos; and &apos;dark&apos;.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaThemeValidOptions {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaThemeValidOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify URL.
+        /// </summary>
+        internal static string SiteSettingsSiteCaptchaVerifyUrlLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteCaptchaVerifyUrlLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default Email From Address.
         /// </summary>
         internal static string SiteSettingsSiteEmailFromAddressLabel {
@@ -15974,7 +17027,43 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recaptcha Secret Key.
+        ///   Looks up a localized string similar to Only change these settings if you really know what you&apos;re doing..
+        /// </summary>
+        internal static string SiteSettingsSiteRecaptchaAdvancedSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteRecaptchaAdvancedSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced Recaptcha Settings.
+        /// </summary>
+        internal static string SiteSettingsSiteRecaptchaAdvancedSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteRecaptchaAdvancedSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SiteSettingsSiteRecaptchaHCaptchaChoiceLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteRecaptchaHCaptchaChoiceLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset to Defaults.
+        /// </summary>
+        internal static string SiteSettingsSiteRecaptchaHCaptchaDefaultResetButton {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteRecaptchaHCaptchaDefaultResetButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secret Key.
         /// </summary>
         internal static string SiteSettingsSiteRecaptchaPrivateKeyLabel {
             get {
@@ -15983,11 +17072,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recaptcha Site Key.
+        ///   Looks up a localized string similar to Site Key.
         /// </summary>
         internal static string SiteSettingsSiteRecaptchaPublicKeyLabel {
             get {
                 return ResourceManager.GetString("SiteSettingsSiteRecaptchaPublicKeyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These settings pertain to reCAPTCHA and hCaptcha only..
+        /// </summary>
+        internal static string SiteSettingsSiteRecaptchaSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteRecaptchaSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to reCAPTCHA/hCaptcha Settings.
+        /// </summary>
+        internal static string SiteSettingsSiteRecaptchaSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSiteRecaptchaSettingsLabel", resourceCulture);
             }
         }
         
@@ -16015,6 +17122,42 @@ namespace Resources {
         internal static string SiteSettingsSiteTitleLabel {
             get {
                 return ResourceManager.GetString("SiteSettingsSiteTitleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options for the visual design of the site..
+        /// </summary>
+        internal static string SiteSettingsSkinSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSkinSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skinning/Theming.
+        /// </summary>
+        internal static string SiteSettingsSkinSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsSkinSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom SMTP Headers.
+        /// </summary>
+        internal static string SiteSettingsSMTPHeaders {
+            get {
+                return ResourceManager.GetString("SiteSettingsSMTPHeaders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter each header on its own line as &quot;HeaderName: header value&quot;.
+        /// </summary>
+        internal static string SiteSettingsSMTPHeadersDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsSMTPHeadersDescription", resourceCulture);
             }
         }
         
@@ -16051,6 +17194,78 @@ namespace Resources {
         internal static string SiteSettingsSMTPSettingsLabel {
             get {
                 return ResourceManager.GetString("SiteSettingsSMTPSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email Address.
+        /// </summary>
+        internal static string SiteSettingsTestSMTPEmailAddress {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPEmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Test Message.
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsButton {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempting to send ... .
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsButtonSending {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsButtonSending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the form below to test your email settings. If a password is not entered above, the saved password will be used, if available..
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsDescription {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings are invalid. Please check your settings and try again..
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsInvalidMessage {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsInvalidMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings are invalid. Please check your settings and try again. Message was .
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsInvalidMessageDetailed {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsInvalidMessageDetailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test SMTP Settings.
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsLabel {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings are valid. Email was sent. This does not ensure your message will arrive, only that we were able to connect to the specified email server, authenticate, and relay an email to it..
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsValidMessage {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsValidMessage", resourceCulture);
             }
         }
         
@@ -17198,6 +18413,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        internal static string UnknownUser {
+            get {
+                return ResourceManager.GetString("UnknownUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You have un-saved changes, are you sure you want to leave this page without saving?.
         /// </summary>
         internal static string UnSavedChangesPrompt {
@@ -17221,6 +18445,15 @@ namespace Resources {
         internal static string Untitled {
             get {
                 return ResourceManager.GetString("Untitled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Available.
+        /// </summary>
+        internal static string UpdateAvailable {
+            get {
+                return ResourceManager.GetString("UpdateAvailable", resourceCulture);
             }
         }
         
@@ -17423,6 +18656,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Usage.
+        /// </summary>
+        internal static string UseCount {
+            get {
+                return ResourceManager.GetString("UseCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Facebook Like button?.
         /// </summary>
         internal static string UseFacebookLikeButton {
@@ -17482,6 +18724,15 @@ namespace Resources {
         internal static string UserFilesBrowseAndUploadRoles {
             get {
                 return ResourceManager.GetString("UserFilesBrowseAndUploadRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Files.
+        /// </summary>
+        internal static string UserFolder {
+            get {
+                return ResourceManager.GetString("UserFolder", resourceCulture);
             }
         }
         
@@ -17824,6 +19075,15 @@ namespace Resources {
         internal static string ViewLive {
             get {
                 return ResourceManager.GetString("ViewLive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Theme.
+        /// </summary>
+        internal static string ViewSelectDropDown {
+            get {
+                return ResourceManager.GetString("ViewSelectDropDown", resourceCulture);
             }
         }
         

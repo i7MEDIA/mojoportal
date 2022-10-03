@@ -22,7 +22,7 @@
 				case "ckeditor":
 					<text>
 						function ckSubmit(url) {
-							if (window.opener.CKEDITOR != null) {
+							if (window.opener.CKEDITOR !== null) {
 								var CKEditorFuncNum = '@Model.CKEditorFuncNumber' || console.error('Error: lost CKEditorFuncNum param from url' + window.location.href) || 1;
 								window.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, url);
 								window.close();
@@ -36,7 +36,7 @@
 				case "tinymce":
 					<text>
 						function tmceSubmit(url) {
-							if (top.tinymce != null) {
+							if (top.tinymce !== null) {
 								top.tinymce.activeEditor.windowManager.getParams().oninsert(url);
 								top.tinymce.activeEditor.windowManager.close();
 							} else {
@@ -50,7 +50,7 @@
 				case "folderpicker":
 					<text>
 						function fpSubmit(url) {
-							if (top.window.filePicker != null) {
+							if (top.window.filePicker !== null) {
 								top.window.filePicker.set(url, '@Model.InputId');
 								top.window.filePicker.close();
 							} else {

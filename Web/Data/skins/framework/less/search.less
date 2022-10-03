@@ -1,0 +1,46 @@
+// search
+.searchresultlist {
+	.searchresult:first-child {
+		h3 {
+			margin-top: 0;
+		}
+	}
+}
+
+.searchduration {
+	display: block;
+	font-size: smaller;
+}
+
+[id*="_upFeatures"] {
+	display: flex;
+
+	h3 {
+		margin-top: 0;
+	}
+
+	.floatpanel {
+		flex: 0 0 auto;
+		padding: 0 30px;
+
+		&:first-child,
+		&:last-child {
+			flex: 1 0 auto;
+			padding: 0;
+		}
+	}
+
+	[title*="Feature"] {
+		margin-top: 40px;
+	}
+}
+
+.searchcontrols:extend(.well all):extend(.well-sm all) {
+	.mhelp {
+		float: right;
+	}
+}
+
+.search-button {
+	font-family: FontAwesome;
+}

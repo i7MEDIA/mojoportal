@@ -1,17 +1,3 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2012-07-20
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-/// 
-/// Note moved into separate class file from dbPortal 2007-11-03
-
 using System;
 using System.Text;
 using System.Data;
@@ -20,111 +6,116 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 
 namespace mojoPortal.Data
 {
     
     public static class DBRoles
     {
-       
+
         public static int RoleCreate(
             Guid roleGuid,
             Guid siteGuid,
             int siteId,
-            string roleName)
+            string roleName,
+            string displayName,
+            string description
+        )
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_Roles (");
-            sqlCommand.Append("SiteID, ");
-            sqlCommand.Append("RoleName, ");
-            sqlCommand.Append("DisplayName, ");
-            sqlCommand.Append("SiteGuid, ");
-            sqlCommand.Append("RoleGuid )");
+            var sqlCommand = @"
+            INSERT INTO mp_Roles (
+                SiteID, 
+                RoleName, 
+                DisplayName, 
+                Description, 
+                SiteGuid, 
+                RoleGuid )
+            VALUES (
+                ?SiteID,
+                ?RoleName,
+                ?DisplayName,
+                ?Description,
+                ?SiteGuid,
+                ?RoleGuid 
+            );
+            SELECT LAST_INSERT_ID();";
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?SiteID, ");
-            sqlCommand.Append("?RoleName, ");
-            sqlCommand.Append("?DisplayName, ");
-            sqlCommand.Append("?SiteGuid, ");
-            sqlCommand.Append("?RoleGuid )");
-            sqlCommand.Append(";");
+            var sqlParams = new List<MySqlParameter>
+            {
+                new MySqlParameter("?SiteID", MySqlDbType.Int32)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = siteId
+                },
 
-            sqlCommand.Append("SELECT LAST_INSERT_ID();");
-
-            MySqlParameter[] arParams = new MySqlParameter[5];
-
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            arParams[1] = new MySqlParameter("?RoleName", MySqlDbType.VarChar, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = roleName;
-
-            arParams[2] = new MySqlParameter("?DisplayName", MySqlDbType.VarChar, 50);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = roleName;
-
-            arParams[3] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = siteGuid.ToString();
-
-            arParams[4] = new MySqlParameter("?RoleGuid", MySqlDbType.VarChar, 36);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = roleGuid.ToString();
+                new MySqlParameter("?RoleName", MySqlDbType.VarChar, 50)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = roleName
+                },
+                new MySqlParameter("?DisplayName", MySqlDbType.VarChar, 50)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = displayName
+                },
+                new MySqlParameter("?Description", MySqlDbType.VarChar, 255)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = description
+                },
+                new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = siteGuid.ToString()
+                },
+                new MySqlParameter("?RoleGuid", MySqlDbType.VarChar, 36)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = roleGuid.ToString()
+                }
+            };
 
             int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
-                arParams).ToString());
+                sqlParams.ToArray()).ToString());
 
             return newID;
-            
-            //sqlCommand.Append("INSERT INTO mp_Roles (SiteID, RoleName, DisplayName) ");
-            //sqlCommand.Append("VALUES (");
-
-            //sqlCommand.Append(" ?SiteID , ?RoleName, ?RoleName");
-
-            //sqlCommand.Append(");");
-            //sqlCommand.Append("SELECT LAST_INSERT_ID();");
-
-            //MySqlParameter[] arParams = new MySqlParameter[2];
-
-            //arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            //arParams[0].Direction = ParameterDirection.Input;
-            //arParams[0].Value = siteId;
-
-            //arParams[1] = new MySqlParameter("?RoleName", MySqlDbType.VarChar, 50);
-            //arParams[1].Direction = ParameterDirection.Input;
-            //arParams[1].Value = roleName;
-
-            //int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), arParams).ToString());
-
-            //return newID;
-
         }
 
-        public static bool Update(int roleId, string roleName)
+        public static bool Update(int roleId, string displayName, string description)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_Roles ");
-            sqlCommand.Append("SET DisplayName = ?RoleName  ");
-            sqlCommand.Append("WHERE RoleID = ?RoleID  ;");
+            var sqlCommand = @"
+                UPDATE mp_Roles ( 
+                SET DisplayName = ?DisplayName,
+                SET Description = ?Description  
+                WHERE RoleID = ?RoleID);  ";
 
-            MySqlParameter[] arParams = new MySqlParameter[2];
 
-            arParams[0] = new MySqlParameter("?RoleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = roleId;
-
-            arParams[1] = new MySqlParameter("?RoleName", MySqlDbType.VarChar, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = roleName;
+            var sqlParams = new List<MySqlParameter>
+            {
+                new MySqlParameter("?RoleId", MySqlDbType.Int32)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = roleId
+                },
+                new MySqlParameter("?DisplayName", MySqlDbType.VarChar, 50)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = displayName
+                },
+                new MySqlParameter("?Description", MySqlDbType.VarChar, 255)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = description
+                },
+            };
 
             int rowsAffected = MySqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
-                arParams);
+                sqlParams.ToArray());
 
             return (rowsAffected > 0);
         }
@@ -246,7 +237,8 @@ namespace mojoPortal.Data
             sqlCommand.Append("r.RoleID, ");
             sqlCommand.Append("r.SiteID, ");
             sqlCommand.Append("r.RoleName, ");
-            sqlCommand.Append("r.DisplayName, ");
+            sqlCommand.Append("r.DisplayName, "); 
+            sqlCommand.Append("r.Description, ");
             sqlCommand.Append("r.SiteGuid, ");
             sqlCommand.Append("r.RoleGuid, ");
             sqlCommand.Append("COUNT(ur.UserID) As MemberCount ");

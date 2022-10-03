@@ -1,21 +1,10 @@
-// Author:
-// Created:			        2010-05-11
-// Last Modified:		    2017-09-28
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
 using mojoPortal.Web.Framework;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Web.UI.WebControls;
-
+using Newtonsoft.Json;
 namespace mojoPortal.Web.BlogUI
 {
 	/// <summary>
@@ -381,6 +370,35 @@ namespace mojoPortal.Web.BlogUI
 			if (settings.Contains("DefaultUrlPrefix"))
 			{
 				defaultUrlPrefix = settings["DefaultUrlPrefix"].ToString();
+			}
+
+			if (settings.Contains("ContentModules"))
+			{
+				//saved as JSON
+				//{
+				//	"ContentModules": [
+				//			      {
+				//      "ModuleID": 0,
+				//			        "Location": [
+				//			          "bottom",
+				//			          "right"
+				//        ],
+				//      "SortOrder": 0
+				//    },
+				//    {
+				//      "ModuleID": 1,
+				//      "Location": [
+				//        "left",
+				//        "top"
+				//        ],
+				//      "SortOrder": 2
+				//    }
+				//  ]
+				//}
+
+				var contentModules = settings["ContentModules"].ToString();
+
+				ContentModules = JsonConvert.DeserializeObject<List<ContentModule>>(contentModules);
 			}
 		}
 
@@ -1360,6 +1378,7 @@ namespace mojoPortal.Web.BlogUI
 			get { return ConfigHelper.GetBoolProperty("Blog:ShowAuthorBioCheckedByDefault", false); }
 		}
 
+		public static List<ContentModule> ContentModules { get; set; }
 
 		public static string GetBingMapType(string googleMapType)
 		{
@@ -1420,5 +1439,12 @@ namespace mojoPortal.Web.BlogUI
 			}
 
 		}
+		public class ContentModule
+		{
+			public int ModuleID { get; set; }
+			public int SortOrder { get; set; }
+			public List<string> Locations { get; set; }
+		}
 	}
+
 }

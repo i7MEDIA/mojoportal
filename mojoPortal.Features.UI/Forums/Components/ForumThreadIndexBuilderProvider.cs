@@ -53,8 +53,7 @@ namespace mojoPortal.Features
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info("ForumThreadIndexBuilderProvider indexing page - "
-                + pageSettings.PageName);
+            log.Info(Resources.ForumResources.ForumsFeatureName + " indexing page - " + pageSettings.PageName);
 
             try
             {

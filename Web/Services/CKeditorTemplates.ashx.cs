@@ -50,30 +50,84 @@ namespace mojoPortal.Web.Services
                 return;
             }
 
-            RenderJsonList(context);
+            var export = context.Request.QueryString["e"] != null && context.Request.QueryString["e"].ToLower() == "true";
+			
+            RenderJsonList(context, export);
 
         }
 
-        private void RenderJsonList(HttpContext context)
+  //      public void ExportAsJson(HttpContext context)
+		//{
+  //          HttpContext.Current.Response.ContentType = "application/octet-stream";
+
+  //          siteRoot = SiteUtils.GetNavigationSiteRoot();
+
+  //          context.Response.Write(",\"templates\":");
+  //          context.Response.Write("[");
+
+
+  //          List<ContentTemplate> templates = ContentTemplate.GetAll(siteSettings.SiteGuid);
+  //          foreach (ContentTemplate t in templates)
+  //          {
+  //              if (!WebUser.IsInRoles(t.AllowedRoles)) { continue; }
+
+  //              context.Response.Write(comma);
+  //              context.Response.Write("{");
+
+  //              context.Response.Write("\"title\":\"" + t.Title.JsonEscape() + "\"");
+  //              context.Response.Write(",\"image\":\"" + t.ImageFileName.JsonEscape() + "\"");
+  //              context.Response.Write(",\"description\":\"" + t.Description.RemoveLineBreaks().JsonEscape() + "\"");
+  //              // is this going to work?
+  //              context.Response.Write(",\"html\":\"" + t.Body.RemoveLineBreaks().JsonEscape() + "\"");
+
+  //              context.Response.Write("}");
+
+  //              comma = ",";
+
+  //          }
+
+  //          context.Response.Write("]");
+
+  //          context.Response.Write("});");
+
+  //          HttpContext.Current.Response.AddHeader("Content-Disposition", $"attachment; filename={siteSettings.SiteName} Content Templates.json");
+
+  //      }
+        private void RenderJsonList(HttpContext context, bool export = false)
         {
-            context.Response.ContentType = "text/javascript";
             Encoding encoding = new UTF8Encoding();
             context.Response.ContentEncoding = encoding;
 
             siteRoot = SiteUtils.GetNavigationSiteRoot();
 
-            // Register a templates definition set named "mojo".
-            context.Response.Write("CKEDITOR.addTemplates( 'mojo',{");
+            if (export)
+            {
+                context.Response.ContentType = "application/octet-stream";
+                // Set template definition set name as "skin".
+                context.Response.Write("CKEDITOR.addTemplates( 'skin',{");
 
-            context.Response.Write("\"imagesPath\":\"" + siteRoot + "/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/htmltemplateimages/" + "\"");
+                // Set standard image path
+                context.Response.Write("\"imagesPath\": mojoSkinPath + \"" + "/templates/thumbs/" + "\"");
+                context.Response.AddHeader("Content-Disposition", $"attachment; filename={siteSettings.SiteName} Content Templates.js");
+            }
+            else
+			{
+                context.Response.ContentType = "text/javascript";
+                // Register a templates definition set named "mojo".
+                context.Response.Write("CKEDITOR.addTemplates( 'mojo',{");
+                // Set standard image path
+                context.Response.Write("\"imagesPath\":\"" + siteRoot + "/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/htmltemplateimages/" + "\"");
+            }
+
+
             context.Response.Write(",\"templates\":");
             context.Response.Write("[");
 
-
-            if (WebConfigSettings.AddSystemContentTemplatesAboveSiteTemplates) //true by default
-            {
-                RenderSystemTemplateItems(context);
-            }
+			//2018/10/31 -- we don't really want to use these anymore. we're adding the ability to have templates in the skin but not system wide templates
+            //if (WebConfigSettings.AddSystemContentTemplatesAboveSiteTemplates) //false by default
+            //{
+            //    RenderSystemTemplateItems(context);
+            //}
 
             
             List<ContentTemplate> templates = ContentTemplate.GetAll(siteSettings.SiteGuid);
@@ -96,15 +150,15 @@ namespace mojoPortal.Web.Services
 
             }
 
-            if (WebConfigSettings.AddSystemContentTemplatesBelowSiteTemplates) //false by default
-            {
-                RenderSystemTemplateItems(context);
-            }
+			//2018/10/31 -- we don't really want to use these anymore. we're adding the ability to have templates in the skin but not system wide templates
+			//if (WebConfigSettings.AddSystemContentTemplatesBelowSiteTemplates) //false by default
+   //         {
+   //             RenderSystemTemplateItems(context);
+   //         }
 
             context.Response.Write("]");
 
             context.Response.Write("});");
-
 
         }
 

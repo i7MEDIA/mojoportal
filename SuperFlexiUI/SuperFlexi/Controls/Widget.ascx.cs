@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA (joe davis)
 // Created:				    2014-12-22
-// Last Modified:			2017-12-19
+// Last Modified:			2020-10-16
 //
 // You must not remove this notice, or any other, from this software.
 //
@@ -22,119 +22,97 @@ using SuperFlexiBusiness;
 
 namespace SuperFlexiUI
 {
-    public partial class Widget : UserControl
-    {
-        #region Properties
-        private static readonly ILog log = LogManager.GetLogger(typeof(Widget));
-        private ModuleConfiguration config = new ModuleConfiguration();
-        private List<Field> fields = new List<Field>();
-        private string moduleTitle = string.Empty;
-        private string markupErrorFormat = "SuperFlexi markup definition error when rendering {0} for {1}. Error was {2}";
-        StringBuilder strOutput = new StringBuilder();
-        StringBuilder strAboveMarkupScripts = new StringBuilder();
-        StringBuilder strBelowMarkupScripts = new StringBuilder();
-        List<Item> items = new List<Item>();
-        List<ItemFieldValue> fieldValues = new List<ItemFieldValue>();
+	public partial class Widget : UserControl
+	{
+		#region Properties
+		private static readonly ILog log = LogManager.GetLogger(typeof(Widget));
+		private List<Field> fields = new List<Field>();
+		//private object tokens;
+		private string moduleTitle = string.Empty;
+		private string markupErrorFormat = "SuperFlexi markup definition error when rendering {0} for {1}. Error was {2}";
+		StringBuilder strOutput = new StringBuilder();
+		StringBuilder strAboveMarkupScripts = new StringBuilder();
+		StringBuilder strBelowMarkupScripts = new StringBuilder();
+		//List<Item> items = new List<Item>();
+		List<ItemWithValues> itemsWithValues = new List<ItemWithValues>();
+		//List<ItemFieldValue> fieldValues = new List<ItemFieldValue>();
 		List<ModuleConfiguration> moduleConfigs = new List<ModuleConfiguration>();
-        SiteSettings siteSettings;
-        PageSettings pageSettings;
-        Module module;
-        public ModuleConfiguration Config
-        {
-            get { return config; }
-            set { config = value; }
-        }
+		SiteSettings siteSettings;
+		//PageSettings pageSettings;
+		Module module;
+		public ModuleConfiguration Config { get; set; } = new ModuleConfiguration();
+		public string SiteRoot { get; set; } = string.Empty;
+		public string ImageSiteRoot { get; set; } = string.Empty;
+		public bool IsEditable { get; set; } = false;
+		public int ModuleId { get; set; } = -1;
+		public int PageId { get; set; } = -1;
+		public PageSettings CurrentPage { get; set; }
+		#endregion
 
-        private string siteRoot = string.Empty;
-        public string SiteRoot
-        {
-            get { return siteRoot; }
-            set { siteRoot = value; }
-        }
+		protected void Page_Load(object sender, EventArgs e)
+		{
+			//LoadSettings();
+			//SetupScripts();
 
-        private string imageSiteRoot = string.Empty;
-        public string ImageSiteRoot
-        {
-            get { return imageSiteRoot; }
-            set { imageSiteRoot = value; }
-        }
+			module = new Module(ModuleId);
+			moduleTitle = module.ModuleTitle;
 
-        private bool isEditable = false;
-        public bool IsEditable
-        {
-            get { return isEditable; }
-            set { isEditable = value; }
-        }
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
 
-        private int moduleId = -1;
-        public int ModuleId
-        {
-            get { return moduleId; }
-            set { moduleId = value; }
-        }
-
-        private int pageId = -1;
-        public int PageId
-        {
-            get { return pageId; }
-            set { pageId = value; }
-        }
-
-        #endregion
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            //LoadSettings();
-            //SetupScripts();
-
-            module = new Module(moduleId);
-            moduleTitle = module.ModuleTitle;
-
-            siteSettings = CacheHelper.GetCurrentSiteSettings();
-            pageSettings = new PageSettings(siteSettings.SiteId, pageId);
-            if (config.MarkupDefinition != null)
+			if (CurrentPage == null)
+			{
+				CurrentPage = CacheHelper.GetCurrentPage();
+				//if (CurrentPage == null)
+				//{
+				//	log.Info("Can't use CacheHelper.GetCurrentPage() here.");
+				//	CurrentPage = new PageSettings(siteSettings.SiteId, PageId);
+				//}
+			}
+            if (Config.MarkupDefinition != null)
             {
-                displaySettings = config.MarkupDefinition;
+                displaySettings = Config.MarkupDefinition;
             }
 
-			if (config.ProcessItems)
+			if (Config.ProcessItems)
 			{
-				fields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
-			
-				if (config.IsGlobalView)
+				fields = Field.GetAllForDefinition(Config.FieldDefinitionGuid);
+
+				if (Config.IsGlobalView)
 				{
-					items = Item.GetAllForDefinition(config.FieldDefinitionGuid, config.DescendingSort);
-					fieldValues = ItemFieldValue.GetItemValuesByDefinition(config.FieldDefinitionGuid);
+					//items = Item.GetAllForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, Config.DescendingSort);
+					//fieldValues = ItemFieldValue.GetItemValuesByDefinition(Config.FieldDefinitionGuid);
+					itemsWithValues = Item.GetForDefinitionWithValues(Config.FieldDefinitionGuid, siteSettings.SiteGuid, Config.DescendingSort);
 				}
 				else
 				{
-					items = Item.GetModuleItems(moduleId, config.DescendingSort);
-					fieldValues = ItemFieldValue.GetItemValuesByModule(module.ModuleGuid);
+					//items = Item.GetForModule(ModuleId, Config.DescendingSort);
+					//fieldValues = ItemFieldValue.GetItemValuesByModule(module.ModuleGuid);
+					itemsWithValues = Item.GetForModuleWithValues(ModuleId, Config.DescendingSort);
 				}
 			}
 
-			if (SiteUtils.IsMobileDevice() && config.MobileMarkupDefinition != null)
+			if (SiteUtils.IsMobileDevice() && Config.MobileMarkupDefinition != null)
             {
-                displaySettings = config.MobileMarkupDefinition;
+                displaySettings = Config.MobileMarkupDefinition;
             }
 
-            if (config.MarkupScripts.Count > 0 || (SiteUtils.IsMobileDevice() && config.MobileMarkupScripts.Count > 0))
+            if (Config.MarkupScripts.Count > 0 || (SiteUtils.IsMobileDevice() && Config.MobileMarkupScripts.Count > 0))
             {
 
-                if (SiteUtils.IsMobileDevice() && config.MobileMarkupScripts.Count > 0)
+                if (SiteUtils.IsMobileDevice() && Config.MobileMarkupScripts.Count > 0)
                 {
-                    SuperFlexiHelpers.SetupScripts(config.MobileMarkupScripts, config, displaySettings, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
+                    SuperFlexiHelpers.SetupScripts(Config.MobileMarkupScripts, Config, displaySettings, IsEditable, IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, this);
                 }
                 else
                 {
-                    SuperFlexiHelpers.SetupScripts(config.MarkupScripts, config, displaySettings, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
+                    SuperFlexiHelpers.SetupScripts(Config.MarkupScripts, Config, displaySettings, IsEditable, IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, this);
                 }
 
             }
 
-            if (config.MarkupCSS.Count > 0)
+            if (Config.MarkupCSS.Count > 0)
             {
-                SuperFlexiHelpers.SetupStyle(config.MarkupCSS, config, displaySettings, ClientID, ModuleId, PageId, Page, this);
+                SuperFlexiHelpers.SetupStyle(Config.MarkupCSS, Config, displaySettings, IsEditable, ClientID, siteSettings, module, CurrentPage, Page, this);
             }
 
             //if (Page.IsPostBack) { return; }
@@ -149,18 +127,18 @@ namespace SuperFlexiUI
             string markupTop = string.Empty;
             string markupBottom = string.Empty;
 
-            featuredImageUrl = String.IsNullOrWhiteSpace(config.InstanceFeaturedImage) ? featuredImageUrl : WebUtils.GetRelativeSiteRoot() + config.InstanceFeaturedImage;
+            featuredImageUrl = String.IsNullOrWhiteSpace(Config.InstanceFeaturedImage) ? featuredImageUrl : SiteUtils.GetNavigationSiteRoot() + Config.InstanceFeaturedImage;
             markupTop = displaySettings.ModuleInstanceMarkupTop;
             markupBottom = displaySettings.ModuleInstanceMarkupBottom;
 
             strOutput.Append(markupTop);
 
-            if (config.UseHeader && config.HeaderLocation == "InnerBodyPanel" && !String.IsNullOrWhiteSpace(config.HeaderContent) && !String.Equals(config.HeaderContent, "<p>&nbsp;</p>"))
+            if (Config.UseHeader && Config.HeaderLocation == "InnerBodyPanel" && !String.IsNullOrWhiteSpace(Config.HeaderContent) && !String.Equals(Config.HeaderContent, "<p>&nbsp;</p>"))
             {
                 try
                 {
 
-                    strOutput.Append(string.Format(displaySettings.HeaderContentFormat, config.HeaderContent));
+                    strOutput.Append(string.Format(displaySettings.HeaderContentFormat, Config.HeaderContent));
 
                 }
                 catch (FormatException ex)
@@ -170,19 +148,20 @@ namespace SuperFlexiUI
             }
             StringBuilder jsonString = new StringBuilder();
             StringWriter stringWriter = new StringWriter(jsonString);
-            JsonTextWriter jsonWriter = new JsonTextWriter(stringWriter);
+			JsonTextWriter jsonWriter = new JsonTextWriter(stringWriter)
+			{
+				// http://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_DateTimeZoneHandling.htm
+				DateTimeZoneHandling = DateTimeZoneHandling.Utc,
+				// http://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_DateFormatHandling.htm
+				DateFormatHandling = DateFormatHandling.IsoDateFormat
+			};
 
-            // http://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_DateTimeZoneHandling.htm
-            jsonWriter.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-            // http://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_DateFormatHandling.htm
-            jsonWriter.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-
-            string jsonObjName = "sflexi" + module.ModuleId.ToString() + (config.IsGlobalView ? "Modules" : "Items");
-            if (config.RenderJSONOfData)
+			string jsonObjName = "sflexi" + module.ModuleId.ToString() + (Config.IsGlobalView ? "Modules" : "Items");
+            if (Config.RenderJSONOfData)
             {
 
                 jsonWriter.WriteRaw("var " + jsonObjName + " = ");
-                if (config.JsonLabelObjects || config.IsGlobalView)
+                if (Config.JsonLabelObjects || Config.IsGlobalView)
                 {
                     jsonWriter.WriteStartObject();
                 }
@@ -197,10 +176,13 @@ namespace SuperFlexiUI
             //List<Item> categorizedItems = new List<Item>();
             bool usingGlobalViewMarkup = !String.IsNullOrWhiteSpace(displaySettings.GlobalViewMarkup);
             int currentModuleID = -1;
-            foreach (Item item in items)
+
+			var tokens = fields.Select(x => new { FieldName = x.Name, x.Token, x.FieldGuid, x.PreTokenString, x.PostTokenString, x.PreTokenStringWhenFalse, x.PreTokenStringWhenTrue, x.PostTokenStringWhenFalse, x.PostTokenStringWhenTrue, x.ControlType });
+
+			foreach (var iwv in itemsWithValues)
             {
-                bool itemIsEditable = isEditable || WebUser.IsInRoles(item.EditRoles);
-                bool itemIsViewable = WebUser.IsInRoles(item.ViewRoles) || itemIsEditable;
+                bool itemIsEditable = IsEditable || WebUser.IsInRoles(iwv.Item.EditRoles);
+				bool itemIsViewable = itemIsEditable || WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor || WebUser.IsInRoles(iwv.Item.ViewRoles);
                 if (!itemIsViewable)
                 {
                     continue;
@@ -210,41 +192,40 @@ namespace SuperFlexiUI
                 //StringBuilder content = new StringBuilder();
                 IndexedStringBuilder content = new IndexedStringBuilder();
 
-				ModuleConfiguration itemModuleConfig = config;
+				ModuleConfiguration itemModuleConfig = Config;
 
-				if (config.IsGlobalView)
+				if (Config.IsGlobalView)
 				{
 					itemModuleConfig = new ModuleConfiguration(module);
 					content.SortOrder1 = itemModuleConfig.GlobalViewSortOrder;
-                    content.SortOrder2 = item.SortOrder;
+                    content.SortOrder2 = iwv.Item.SortOrder;
 				}
                 else
                 {
-                    content.SortOrder1 = item.SortOrder;
+                    content.SortOrder1 = iwv.Item.SortOrder;
                 }
 
-                item.ModuleFriendlyName = itemModuleConfig.ModuleFriendlyName;
+				iwv.Item.ModuleFriendlyName = itemModuleConfig.ModuleFriendlyName;
                 if (String.IsNullOrWhiteSpace(itemModuleConfig.ModuleFriendlyName))
                 {
-                    Module itemModule = new Module(item.ModuleGuid);
+                    Module itemModule = new Module(iwv.Item.ModuleGuid);
                     if (itemModule != null)
                     {
-                        item.ModuleFriendlyName = itemModule.ModuleTitle;
+						iwv.Item.ModuleFriendlyName = itemModule.ModuleTitle;
                     }
-
                 }
 
                 //List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
 
                 //using item.ModuleID here because if we are using a 'global view' we need to be sure the item edit link uses the correct module id.
-                string itemEditUrl = WebUtils.GetSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + pageId + "&mid=" + item.ModuleID + "&itemid=" + item.ItemID;
+                string itemEditUrl = SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + PageId + "&mid=" + iwv.Item.ModuleID + "&itemid=" + iwv.Item.ItemID;
                 string itemEditLink = itemIsEditable ? String.Format(displaySettings.ItemEditLinkFormat, itemEditUrl) : string.Empty;
 
-                if (config.RenderJSONOfData)
+                if (Config.RenderJSONOfData)
                 {
-                    if (config.IsGlobalView)
+                    if (Config.IsGlobalView)
                     {
-                        if (currentModuleID != item.ModuleID)
+                        if (currentModuleID != iwv.Item.ModuleID)
                         {
                             if (currentModuleID != -1)
                             {
@@ -252,25 +233,25 @@ namespace SuperFlexiUI
                                 jsonWriter.WriteEndObject();
                             }
 
-                            currentModuleID = item.ModuleID;
+                            currentModuleID = iwv.Item.ModuleID;
 
                             //always label objects in globalview
                             jsonWriter.WritePropertyName("m" + currentModuleID.ToString());
                             jsonWriter.WriteStartObject();
                             jsonWriter.WritePropertyName("Module");
-                            jsonWriter.WriteValue(item.ModuleFriendlyName);
+                            jsonWriter.WriteValue(iwv.Item.ModuleFriendlyName);
                             jsonWriter.WritePropertyName("Items");
                             jsonWriter.WriteStartObject();
                         }
 
 
                     }
-                    if (config.JsonLabelObjects || config.IsGlobalView) jsonWriter.WritePropertyName("i" + item.ItemID.ToString());
+                    if (Config.JsonLabelObjects || Config.IsGlobalView) jsonWriter.WritePropertyName("i" + iwv.Item.ItemID.ToString());
                     jsonWriter.WriteStartObject();
                     jsonWriter.WritePropertyName("ItemId");
-                    jsonWriter.WriteValue(item.ItemID.ToString());
+                    jsonWriter.WriteValue(iwv.Item.ItemID.ToString());
                     jsonWriter.WritePropertyName("SortOrder");
-                    jsonWriter.WriteValue(item.SortOrder.ToString());
+                    jsonWriter.WriteValue(iwv.Item.SortOrder.ToString());
                     if (IsEditable)
                     {
                         jsonWriter.WritePropertyName("EditUrl");
@@ -279,38 +260,49 @@ namespace SuperFlexiUI
                 }
                 content.Append(displaySettings.ItemMarkup);
 
-                foreach (Field field in fields)
+
+				foreach (Field field in fields)
                 {
-                    if (String.IsNullOrWhiteSpace(field.Token)) field.Token = "$_NONE_$"; //just in case someone has loaded the database with fields without using a source file. 
+					//if (!WebUser.IsInRoles(field.ViewRoles))
+					//{
+					//	continue;
+					//}
+
+					if (String.IsNullOrWhiteSpace(field.Token)) field.Token = "$_NONE_$"; //just in case someone has loaded the database with fields without using a source file. 
 
                     bool fieldValueFound = false;
 
-                    foreach (ItemFieldValue fieldValue in fieldValues.Where( fv => fv.ItemGuid == item.ItemGuid))
+					//var itemFieldValues = fieldValues.Where(fv => fv.ItemGuid == item.ItemGuid);
+
+
+					foreach (var valKVP in iwv.Values)
                     {
-                        if (field.FieldGuid == fieldValue.FieldGuid)
+						var fieldName = valKVP.Key;
+						var fieldValue = valKVP.Value.ToString();
+                        if (field.Name == fieldName)
                         {
                             fieldValueFound = true;
 
-                            if (String.IsNullOrWhiteSpace(fieldValue.FieldValue) ||
-                                fieldValue.FieldValue.StartsWith("&deleted&") ||
-                                fieldValue.FieldValue.StartsWith("&amp;deleted&amp;") ||
-                                fieldValue.FieldValue.StartsWith("<p>&deleted&</p>") ||
-                                fieldValue.FieldValue.StartsWith("<p>&amp;deleted&amp;</p>"))
+                            if (String.IsNullOrWhiteSpace(fieldValue.ToString()) ||
+                                fieldValue.StartsWith("&deleted&") ||
+                                fieldValue.StartsWith("&amp;deleted&amp;") ||
+                                fieldValue.StartsWith("<p>&deleted&</p>") ||
+                                fieldValue.StartsWith("<p>&amp;deleted&amp;</p>") ||
+								(!WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor &&
+								!WebUser.IsInRoles(field.ViewRoles)))
                             {
 
                                 content.Replace("^" + field.Token + "^", string.Empty);
                                 content.Replace("^" + field.Token, string.Empty);
                                 content.Replace(field.Token + "^", string.Empty);
                                 content.Replace(field.Token, string.Empty);
-
                             }
                             else
                             {
-
                                 if (IsDateField(field))
                                 {
                                     DateTime dateTime = new DateTime();
-                                    if (DateTime.TryParse(fieldValue.FieldValue, out dateTime))
+                                    if (DateTime.TryParse(fieldValue, out dateTime))
                                     {
                                         /// ^field.Token is used when we don't want the preTokenString and postTokenString to be used
                                         content.Replace("^" + field.Token + "^", dateTime.ToString(field.DateFormat));
@@ -322,20 +314,20 @@ namespace SuperFlexiUI
 
                                 if (IsCheckBoxListField(field) || IsRadioButtonListField(field))
                                 {
-                                    foreach (CheckBoxListMarkup cblm in config.CheckBoxListMarkups)
+                                    foreach (CheckBoxListMarkup cblm in Config.CheckBoxListMarkups)
                                     {
                                         if (cblm.Field == field.Name)
                                         {
                                             StringBuilder cblmContent = new StringBuilder();
 
-                                            List<string> values = fieldValue.FieldValue.SplitOnCharAndTrim(';');
+                                            List<string> values = fieldValue.SplitOnCharAndTrim(';');
                                             if (values.Count > 0)
                                             {
                                                 foreach (string value in values)
                                                 {
                                                     //why did we use _ValueItemID_ here instead of _ItemID_?
-                                                    cblmContent.Append(cblm.Markup.Replace(field.Token, value).Replace("$_ValueItemID_$", item.ItemID.ToString()) + cblm.Separator);
-                                                    cblm.SelectedValues.Add(new CheckBoxListMarkup.SelectedValue { Value = value, ItemID = item.ItemID });
+                                                    cblmContent.Append(cblm.Markup.Replace(field.Token, value).Replace("$_ValueItemID_$", iwv.Item.ItemID.ToString()) + cblm.Separator);
+                                                    cblm.SelectedValues.Add(new CheckBoxListMarkup.SelectedValue { Value = value, ItemID = iwv.Item.ItemID });
                                                     //cblm.SelectedValues.Add(fieldValue);
                                                 }
                                             }
@@ -349,33 +341,79 @@ namespace SuperFlexiUI
 								{
 									string checkBoxContent = string.Empty;
 
-									if (fieldValue.FieldValue == field.CheckBoxReturnValueWhenTrue)
+									if (fieldValue == field.CheckBoxReturnValueWhenTrue)
 									{
-										content.Replace("^" + field.Token + "^", fieldValue.FieldValue);
-										content.Replace("^" + field.Token, fieldValue.FieldValue + field.PostTokenString + field.PostTokenStringWhenTrue);
-										content.Replace(field.Token + "^", field.PreTokenString + field.PreTokenStringWhenTrue + fieldValue.FieldValue);
-										content.Replace(field.Token, field.PreTokenString + field.PreTokenStringWhenTrue + fieldValue.FieldValue + field.PostTokenString + field.PostTokenStringWhenTrue);
+										content.Replace("^" + field.Token + "^", fieldValue);
+										content.Replace("^" + field.Token, fieldValue + field.PostTokenString + field.PostTokenStringWhenTrue);
+										content.Replace(field.Token + "^", field.PreTokenString + field.PreTokenStringWhenTrue + fieldValue);
+										content.Replace(field.Token, field.PreTokenString + field.PreTokenStringWhenTrue + fieldValue + field.PostTokenString + field.PostTokenStringWhenTrue);
 									}
 
-									else if (fieldValue.FieldValue == field.CheckBoxReturnValueWhenFalse)
+									else if (fieldValue == field.CheckBoxReturnValueWhenFalse)
 									{
-										content.Replace("^" + field.Token + "^", fieldValue.FieldValue);
-										content.Replace("^" + field.Token, fieldValue.FieldValue + field.PostTokenString + field.PostTokenStringWhenFalse);
-										content.Replace(field.Token + "^", field.PreTokenString + field.PreTokenStringWhenFalse + fieldValue.FieldValue);
-										content.Replace(field.Token, field.PreTokenString + field.PreTokenStringWhenFalse + fieldValue.FieldValue + field.PostTokenString + field.PostTokenStringWhenFalse);
+										content.Replace("^" + field.Token + "^", fieldValue);
+										content.Replace("^" + field.Token, fieldValue + field.PostTokenString + field.PostTokenStringWhenFalse);
+										content.Replace(field.Token + "^", field.PreTokenString + field.PreTokenStringWhenFalse + fieldValue);
+										content.Replace(field.Token, field.PreTokenString + field.PreTokenStringWhenFalse + fieldValue + field.PostTokenString + field.PostTokenStringWhenFalse);
 									}
 								}
 
-                                //else
-                                //{
-                                    /// ^field.Token is used when we don't want the preTokenString and postTokenString to be used
+                                // ^field.Token^ is used when we don't want the preTokenString and postTokenString to be used
+                                content.Replace("^" + field.Token + "^", fieldValue);
+                                content.Replace("^" + field.Token, fieldValue + field.PostTokenString);
+                                content.Replace(field.Token + "^", field.PreTokenString + fieldValue);
+                                content.Replace(field.Token, field.PreTokenString + fieldValue + field.PostTokenString);
 
+								//We want any tokens used in our pre or post token strings to be replaced. 
+								//todo: add controlType specific logic to be sure tokens used in pre and post are replaced with proper formatting (i.e.: date field)
+								List<string> prePostTokenStrings = new List<string>();
 
-                                    content.Replace("^" + field.Token + "^", fieldValue.FieldValue);
-                                    content.Replace("^" + field.Token, fieldValue.FieldValue + field.PostTokenString);
-                                    content.Replace(field.Token + "^", field.PreTokenString + fieldValue.FieldValue);
-                                    content.Replace(field.Token, field.PreTokenString + fieldValue.FieldValue + field.PostTokenString);
-                                //}
+								if (!String.IsNullOrWhiteSpace(field.PreTokenString))
+								{
+									prePostTokenStrings.Add(field.PreTokenString);
+								}
+
+								if (!String.IsNullOrWhiteSpace(field.PostTokenString))
+								{
+									prePostTokenStrings.Add(field.PostTokenString);
+								}
+
+								if (!String.IsNullOrWhiteSpace(field.PreTokenStringWhenTrue))
+								{
+									prePostTokenStrings.Add(field.PreTokenStringWhenTrue);
+								}
+
+								if (!String.IsNullOrWhiteSpace(field.PreTokenStringWhenFalse))
+								{
+									prePostTokenStrings.Add(field.PreTokenStringWhenFalse);
+								}
+
+								if (!String.IsNullOrWhiteSpace(field.PostTokenStringWhenTrue))
+								{
+									prePostTokenStrings.Add(field.PostTokenStringWhenTrue);
+								}
+
+								if (!String.IsNullOrWhiteSpace(field.PostTokenStringWhenFalse))
+								{
+									prePostTokenStrings.Add(field.PostTokenStringWhenFalse);
+								}
+
+								var sharedTokens = tokens.Where(token => prePostTokenStrings.Any(tokenString => tokenString.Contains(token.Token))).ToList();
+
+								foreach (var token in sharedTokens)
+								{
+									//var sharedTokenFieldValue = iwv.Values.Where(x => x.Key == token.FieldName && x.ItemGuid == iwv.Item.ItemGuid).Select(y => y.FieldValue).Single();
+									var sharedTokenFieldValue = iwv.Values.Where(x => x.Key == token.FieldName).Select(y => y.Value).Single().ToString();
+
+									if (!String.IsNullOrWhiteSpace(sharedTokenFieldValue))
+									{
+										content.Replace("^" + token.Token + "^", sharedTokenFieldValue);
+										content.Replace("^" + token.Token, sharedTokenFieldValue + token.PostTokenString);
+										content.Replace(token.Token + "^", token.PreTokenString + sharedTokenFieldValue);
+										content.Replace(token.Token, token.PreTokenString + sharedTokenFieldValue + token.PostTokenString);
+									}
+								}
+
                             }
                             //if (!String.IsNullOrWhiteSpace(field.LinkedField))
                             //{
@@ -387,45 +425,56 @@ namespace SuperFlexiUI
                             //    }
                             //}
 
-                            if (config.RenderJSONOfData)
+                            if (Config.RenderJSONOfData && 
+								(WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor || WebUser.IsInRoles(field.ViewRoles)))
                             {
                                 jsonWriter.WritePropertyName(field.Name);
-                                //if (IsDateField(field))
-                                //{
-                                //    DateTime dateTime = new DateTime();
-                                //    if (DateTime.TryParse(fieldValue.FieldValue, out dateTime))
-                                //    {
-                                //        jsonWriter.WriteValue(dateTime);
-                                //    }
 
-                                //}
-                                //else
-                                //{
-                                    jsonWriter.WriteValue(fieldValue.FieldValue);
-                                //}
-                                
-                            }
+								if (field.ControlType == "CheckBox" && field.CheckBoxReturnBool == true)
+								{
+                                    jsonWriter.WriteValue(Convert.ToBoolean(fieldValue));
+								}
+								else
+								{
+									jsonWriter.WriteValue(fieldValue);
+								}
+							}
                         }
                     }
 
                     if (!fieldValueFound)
                     {
-                        content.Replace(field.Token, field.DefaultValue);
+						if (WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor || WebUser.IsInRoles(field.ViewRoles))
+						{
+							content.Replace(field.Token, field.DefaultValue);
+							if (Config.RenderJSONOfData)
+							{
+								jsonWriter.WritePropertyName(field.Name);
+								if (field.ControlType == "CheckBox" && field.CheckBoxReturnBool == true)
+								{
+									jsonWriter.WriteValue(Convert.ToBoolean(field.DefaultValue));
+								}
+								else
+								{
+									jsonWriter.WriteValue(field.DefaultValue);
+								}
+							}
+						}
+						else
+						{
+							content.Replace(field.Token, string.Empty);
+						}
                     }
                 }
 
-                if (config.RenderJSONOfData)
+                if (Config.RenderJSONOfData)
                 {
-                    //if (config.IsGlobalView)
-                    //{
-                    //    jsonWriter.WriteEndObject();
-                    //}
                     jsonWriter.WriteEndObject();
                 }
 
                 content.Replace("$_EditLink_$", itemEditLink);
-                content.Replace("$_ItemID_$", item.ItemID.ToString());
-                content.Replace("$_SortOrder_$", item.SortOrder.ToString());
+                content.Replace("$_ItemID_$", iwv.Item.ItemID.ToString());
+                content.Replace("$_SortOrder_$", iwv.Item.SortOrder.ToString());
 
                 if (!String.IsNullOrWhiteSpace(content))
                 {
@@ -433,7 +482,7 @@ namespace SuperFlexiUI
                 }
                 
             }
-            if (config.DescendingSort)
+            if (Config.DescendingSort)
             {
                 itemsMarkup.Sort(delegate (IndexedStringBuilder a, IndexedStringBuilder b)
                 {
@@ -456,10 +505,9 @@ namespace SuperFlexiUI
             {
                 foreach (IndexedStringBuilder sb in itemsMarkup)
                 {
-                        //allItems.Append(displaySettings.GlobalViewModuleGroupMarkup.Replace("$_ModuleGroupName_$", sb.GroupName));
                     allItems.Append(sb.ToString());
-                    
                 }
+
                 if (usingGlobalViewMarkup)
                 {
 
@@ -469,7 +517,6 @@ namespace SuperFlexiUI
                 {
                     strOutput.AppendFormat(displaySettings.ItemsWrapperFormat, allItems.ToString());
                 }
-                
             }
             else
             {
@@ -525,13 +572,13 @@ namespace SuperFlexiUI
             
 
             //strOutput.Append(displaySettings.ItemListMarkupBottom);
-            if (config.RenderJSONOfData)
+            if (Config.RenderJSONOfData)
             {
-                if (config.JsonLabelObjects || config.IsGlobalView)
+                if (Config.JsonLabelObjects || Config.IsGlobalView)
                 {
                     jsonWriter.WriteEndObject();
 
-                    if (config.IsGlobalView)
+                    if (Config.IsGlobalView)
                     {
                         jsonWriter.WriteEndObject();
                         jsonWriter.WriteEnd();
@@ -548,20 +595,20 @@ namespace SuperFlexiUI
                 stringWriter.Close();
 
                 jsonScript.RawScript = stringWriter.ToString();
-                jsonScript.Position = config.JsonRenderLocation;
-                jsonScript.ScriptName = "sflexi" + module.ModuleId.ToString() + config.MarkupDefinitionName.ToCleanFileName() + "-JSON";
+                jsonScript.Position = Config.JsonRenderLocation;
+                jsonScript.ScriptName = "sflexi" + module.ModuleId.ToString() + Config.MarkupDefinitionName.ToCleanFileName() + "-JSON";
 
                 List<MarkupScript> scripts = new List<MarkupScript>();
                 scripts.Add(jsonScript);
 
-                SuperFlexiHelpers.SetupScripts(scripts, config, displaySettings, IsEditable, IsPostBack, ClientID, ModuleId, PageId, Page, this);
+                SuperFlexiHelpers.SetupScripts(scripts, Config, displaySettings, IsEditable, IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, this);
             }
 
-            if (config.UseFooter && config.FooterLocation == "InnerBodyPanel" && !String.IsNullOrWhiteSpace(config.FooterContent) && !String.Equals(config.FooterContent, "<p>&nbsp;</p>")) 
+            if (Config.UseFooter && Config.FooterLocation == "InnerBodyPanel" && !String.IsNullOrWhiteSpace(Config.FooterContent) && !String.Equals(Config.FooterContent, "<p>&nbsp;</p>")) 
             {
                 try
                 {
-                    strOutput.AppendFormat(displaySettings.FooterContentFormat, config.FooterContent);
+                    strOutput.AppendFormat(displaySettings.FooterContentFormat, Config.FooterContent);
                 }
                 catch (System.FormatException ex)
                 {
@@ -571,10 +618,10 @@ namespace SuperFlexiUI
             
             strOutput.Append(markupBottom);
 
-            SuperFlexiHelpers.ReplaceStaticTokens(strOutput, config, isEditable, displaySettings, module.ModuleId, pageSettings, siteSettings, out strOutput);
+            SuperFlexiHelpers.ReplaceStaticTokens(strOutput, Config, IsEditable, displaySettings, module, CurrentPage, siteSettings, out strOutput);
             
             //this is for displaying all of the selected values from the items outside of the items themselves
-            foreach (CheckBoxListMarkup cblm in config.CheckBoxListMarkups)
+            foreach (CheckBoxListMarkup cblm in Config.CheckBoxListMarkups)
             {
                 StringBuilder cblmContent = new StringBuilder();
 
@@ -677,16 +724,10 @@ namespace SuperFlexiUI
         private StringBuilder _stringBuilder;
         public string CurrentString => _stringBuilder.ToString();
         public int Length => _stringBuilder.Length;
-
-        private int sortOrder1 = 0;
-        public int SortOrder1 { get { return sortOrder1; } set { sortOrder1 = value; } }
-
-        private int sortOrder2 = 0;
-        public int SortOrder2 { get { return sortOrder2; } set { sortOrder2 = value; } }
-
-        private string groupName = string.Empty;
-        public string GroupName { get { return groupName; } set { groupName = value; } }
-        public IndexedStringBuilder()
+		public int SortOrder1 { get; set; } = 0;
+		public int SortOrder2 { get; set; } = 0;
+		public string GroupName { get; set; } = string.Empty;
+		public IndexedStringBuilder()
         {
             _stringBuilder = new StringBuilder();
         }

@@ -18,7 +18,7 @@
 <div class='postlistwrap <%= displaySettings.PostListCssClass %>'>
 	<asp:Repeater ID="rptMessages" runat="server" EnableViewState="False">
 		<ItemTemplate>
-			<div class="postcontainer">
+			<div class="postcontainer" id='post<%# DataBinder.Eval(Container.DataItem,"PostID") %>'>
 				<div class="forumpostheader">
 					<%# FormatDate(Convert.ToDateTime(Eval("PostDate")))%>
 					<div runat="server" data-tb='<%# Eval("PostID") %>' visible='<%# IsModerator && !Convert.ToBoolean(Eval("NotificationSent")) %>' class="cmdbar">
@@ -100,7 +100,7 @@
 
 					<div class="postright">
 						<div class="posttopic">
-							<h3 id='post<%# DataBinder.Eval(Container.DataItem,"PostID") %>'>
+							<h3>
 								<asp:HyperLink runat="server"
 									CssClass="postEdit"
 									ToolTip="<%# Resources.ForumResources.ForumEditPostLink %>"
@@ -127,7 +127,7 @@
 		</ItemTemplate>
 
 		<AlternatingItemTemplate>
-			<div class="postcontainer postcontaineralt">
+			<div class="postcontainer postcontaineralt" id='post<%# DataBinder.Eval(Container.DataItem,"PostID") %>'>
 				<div class="forumpostheader">
 					<%# FormatDate(Convert.ToDateTime(Eval("PostDate")))%>
 					<div data-tb='<%# Eval("PostID") %>' runat="server" visible='<%# IsModerator && !Convert.ToBoolean(Eval("NotificationSent")) %>' class="cmdbar">
@@ -222,7 +222,7 @@
 
 					<div class="postright">
 						<div class="posttopic">
-							<h3 id='post<%# DataBinder.Eval(Container.DataItem,"PostID") %>'>
+							<h3>
 								<asp:HyperLink runat="server"
 									CssClass="postEdit"
 									ToolTip="<%# Resources.ForumResources.ForumEditPostLink %>"

@@ -1,0 +1,300 @@
+﻿@using System.Collections.Generic;
+@using System.Globalization;
+@using mojoPortal.Business.WebHelpers;
+@using mojoPortal.Web.Configuration;
+@using mojoPortal.Web.Framework;
+@using mojoPortal.Web;
+@using Resources;
+
+@model mojoPortal.Web.Models.MemberListModel
+
+@{
+	var timeOffset = SiteUtils.GetUserTimeOffset();
+	var timeZone = SiteUtils.GetUserTimeZone();
+	var siteRoot = SiteUtils.GetNavigationSiteRoot();
+	var siteSettings = CacheHelper.GetCurrentSiteSettings();
+
+	var isAdmin = WebUser.IsAdmin;
+	var canManageUsers = isAdmin || WebUser.IsInRoles(siteSettings.RolesThatCanManageUsers);
+	var canCreateUsers = canManageUsers || WebUser.IsInRoles(siteSettings.RolesThatCanCreateUsers);
+
+	var pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", 1);
+	var sortMode = WebUtils.ParseInt32FromQueryString("sd", 0); // 0 = displayName Asc, 1 = JoinDate Desc, 2 = Last, First
+	var showLocked = WebUtils.ParseBoolFromQueryString("locked", false);
+	var showUnApproved = WebUtils.ParseBoolFromQueryString("needapproval", false);
+	var filterLetter = Server.UrlEncode(WebUtils.ParseStringFromQueryString("letter", string.Empty));
+	var searchText = Server.UrlDecode(WebUtils.ParseStringFromQueryString("search", string.Empty));
+	var ipSearchText = Server.UrlDecode(WebUtils.ParseStringFromQueryString("ips", string.Empty));
+
+	var pagePath = siteRoot + "/MemberList.aspx";
+	var pagerFormat = pagePath + "?pagenumber={0}" + "&letter=" + filterLetter + "&sd=" + sortMode;
+	var siteAvatarPath = siteRoot + "/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/useravatars";
+
+	var displaySettings = Model.DisplaySettings;
+	var showEmailInMemberList = WebConfigSettings.ShowEmailInMemberList || displaySettings.ShowEmail;
+	var showUserIDInMemberList = canManageUsers && (WebConfigSettings.ShowUserIDInMemberList || displaySettings.ShowUserId);
+	var showLoginNameInMemberList = canManageUsers && (WebConfigSettings.ShowLoginNameInMemberList || displaySettings.ShowLoginName);
+	var showJoinDate = displaySettings.ShowJoinDate;
+
+	// this can't be used in related site mode because we can't assume forum posts were in this site.
+	var showForumPostColumn = WebConfigSettings.ShowForumPostsInMemberList && displaySettings.ShowForumPosts && !WebConfigSettings.UseRelatedSiteMode;
+
+	var showWebSiteColumn = false;
+	mojoProfileConfiguration profileConfig = mojoProfileConfiguration.GetConfig();
+
+	if (profileConfig != null)
+	{
+		if (profileConfig.Contains("WebSiteUrl"))
+		{
+			mojoProfilePropertyDefinition webSiteUrlProperty = profileConfig.GetPropertyDefinition("WebSiteUrl");
+			if (
+				(webSiteUrlProperty.OnlyVisibleForRoles.Length == 0)
+				|| (WebUser.IsInRoles(webSiteUrlProperty.OnlyVisibleForRoles))
+				)
+			{
+				showWebSiteColumn = true;
+			}
+
+		}
+	}
+
+	// displaySettings can be configured from theme.skin
+	if (displaySettings.HideWebSiteColumn)
+	{
+		showWebSiteColumn = false;
+	}
+
+	var thNameString = Resource.MemberListUserNameLabel;
+	var nameSortType = displaySettings.ShowFirstAndLastName ? 2 : 0;
+
+	if (displaySettings.ShowFirstAndLastName)
+	{
+		thNameString = Resource.Name;
+	}
+}
+
+@if (isAdmin)
+{
+	mojoPortal.Web.Models.BreadCrumbs crumbsModel = new mojoPortal.Web.Models.BreadCrumbs();
+	crumbsModel.Crumbs = new List<BreadCrumb>
+	{
+		new BreadCrumb { Text = Resource.AdminMenuLink, Url = siteRoot + "/Admin/AdminMenu.aspx"},
+		new BreadCrumb { Text = Resource.MemberListLink, Url = pagePath}
+	};
+
+	Html.RenderPartial("_BreadCrumbs", crumbsModel);
+}
+
+<div class="row">
+	<div class="col-sm-6">
+		<h2 class="m-t-0 moduletitle">@Resource.MemberListTitleLabel </h2>
+	</div>
+
+	<div class="col-sm-6 text-right form-inline">
+		<div id="searchUser" class="input-group">
+			<input type="text" id="txtSearch" class="form-control" placeholder="@Resource.MemberListSearchPlaceholder" value="@searchText" data-type="search" />
+			<span class="input-group-btn"><button type="button" id="btnSearchUser" class="btn btn-default">@Resource.MemberListSearchButton</button></span>
+		</div>
+	</div>
+</div>
+
+<hr />
+
+@if (canCreateUsers || canManageUsers)
+{
+	<div class="row m-b-gutter">
+		<div class="col-sm-12 form-inline">
+			<div id="searchIp" class="input-group">
+				<input type="text" placeholder="@Resource.MemberListIPSearchPlaceholder" id="txtIPSearch" class="form-control" value="@ipSearchText" data-type="ips">
+
+				<span class="input-group-btn">
+					<button type="button" id="btnSearchIP" class="btn btn-default">@Resource.MemberListSearchByIPLabel</button>
+				</span>
+			</div>
+			
+			&nbsp;
+
+			<a href="@siteRoot/Admin/ManageUsers.aspx?userId=-1" title="@Resource.MemberListAddUserTooltip" class="btn btn-success"><span class="fa fa-user-plus"></span>  @Resource.MemberListAddUserLabel</a>
+
+			@if (!showLocked)
+			{
+				<a href="@pagePath?locked=true" title="@Resource.ShowLockedOutUsersTooltip" class="btn btn-info"><span class="fa fa-user-times"></span> @Resource.ShowLockedOutUsers</a>
+			}
+
+			@if (siteSettings.RequireApprovalBeforeLogin && !showUnApproved)
+			{
+				<a href="@pagePath?needapproval=true" title="@Resource.ShowNotApprovedUsersTooltip" class="btn btn-info"><span class="fa fa-user-o"></span> @Resource.ShowNotApprovedUsers</a>
+			}
+
+			@if (showLocked || showUnApproved || !string.IsNullOrWhiteSpace(searchText) || !string.IsNullOrWhiteSpace(filterLetter) || !string.IsNullOrWhiteSpace(ipSearchText))
+			{
+				<a href="@pagePath" title="@Resource.MemberListShowAllTooltip" class="btn btn-warning pull-right"><span class="fa fa-times"></span> @Resource.MemberListShowAllLabel</a>
+			}
+		</div>
+	</div>
+}
+
+<div class="modulepager">
+	<div class="member-list">
+		<ul>
+			<li><a href="@pagePath">@Resource.MemberListAllUsersLink</a></li>
+
+			@foreach (char c in Resource.AlphaPagerChars)
+			{
+				<li><a class="@(filterLetter == c.ToString() ? "active" : "")" href="@pagePath?sd=2&pagenumber=1&letter=@c.ToString()">@c</a></li>
+			}
+		</ul>
+	</div>
+</div>
+
+<table class="table table-striped table-bordered">
+	<thead>
+		<tr>
+			<th>
+				<a href="@pagePath?sd=@nameSortType">@thNameString</a>
+			</th>
+
+			@if (showJoinDate)
+			{
+				<th><a href="@pagePath?sd=1">@Resource.MemberListDateCreatedLabel</a></th>
+			}
+
+			@if (showWebSiteColumn)
+			{
+				<th>@Resource.MemberListUserWebSiteLabel</th>
+			}
+
+			@if (showForumPostColumn)
+			{
+				<th>@Resource.MemberListUserTotalPostsLabel</th>
+			}
+
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		@if (Model.Users != null)
+		{
+			foreach (var user in Model.Users)
+			{
+				<tr>
+					<td>
+						@{
+							var nameString = user.Name;
+
+							if ((displaySettings.ShowFirstAndLastName) && (user.FirstName.Length > 0) && (user.LastName.Length > 0))
+							{
+								nameString = string.Format(CultureInfo.InvariantCulture, Resource.MemberListNameFormat, user.LastName, user.FirstName);
+							}
+						}
+
+						<span class="avatar"><img src="@(string.IsNullOrWhiteSpace(user.AvatarUrl) ? WebUtils.ResolveUrl("~/Data/SiteImages/anonymous.png") : siteAvatarPath + "/" + user.AvatarUrl)" style="width: 35px; height: 35px;" /></span>
+						<span class="name">@nameString</span>
+
+						@if (showEmailInMemberList || showLoginNameInMemberList || showUserIDInMemberList || (isAdmin && !user.DisplayInMemberList))
+						{
+							<ul class="list-unstyled">
+								@if (showEmailInMemberList)
+								{
+									<li class="email"><a href="mailto:@user.Email">@user.Email</a></li>
+								}
+
+								@if (showLoginNameInMemberList)
+								{
+									<li class="login">@user.LoginName</li>
+								}
+
+								@if (showUserIDInMemberList)
+								{
+									<li class="userid">@Resource.RegisterLoginNameLabel @user.UserId</li>
+								}
+
+								@if (isAdmin && !user.DisplayInMemberList)
+								{
+									<li class="text-danger">@Resources.Resource.HiddenUser</li>
+								}
+							</ul>
+						}
+					</td>
+
+					@if (showJoinDate)
+					{
+						<td>@DateTimeHelper.Format(user.DateCreated, timeZone, "d", timeOffset)</td>
+					}
+
+					@if (showWebSiteColumn)
+					{
+						<td><a rel="nofollow noreferrer noopener" href="@user.WebSiteUrl">@user.WebSiteUrl</a></td>
+					}
+
+					@if (showForumPostColumn)
+					{
+						<td>@user.TotalPosts</td>
+					}
+
+					<td>
+						<a href="@(siteRoot)/ProfileView.aspx?userid=@user.UserId" class="btn btn-link">@Resource.MemberListViewProfileLabel</a>
+
+						@if (canManageUsers)
+						{
+							<a href="@(siteRoot)/Admin/ManageUsers.aspx?userid=@user.UserId" class="btn btn-warning">@Resource.ManageUserLink</a>
+						}
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>
+
+@if (Model.PagerInfo.PageCount > 0)
+{
+	var pagerModel = Model.PagerInfo;
+
+	Html.RenderPartial("_Pager", pagerModel);
+}
+
+<script type="text/javascript">
+	(() => {
+		function onSearch(type, value) {
+			const url = new URL('@pagePath');
+
+			url.searchParams.set(type, encodeURIComponent(value));
+
+			window.location.href = url;
+		}
+
+		function onClick(e, input) {
+			e.preventDefault();
+
+			if (input.value.trim() !== '') {
+				onSearch(input.dataset.type, input.value);
+			}
+		}
+
+		function onEnter(e) {
+			e.preventDefault();
+
+			if (e.key === 'Enter' && this.value.trim() !== '') {
+				onSearch(this.dataset.type, this.value);
+			}
+		}
+
+		function bindSearch(selector) {
+			const group = document.querySelector(selector);
+			const btn = group.querySelector('button');
+			const input = group.querySelector('input');
+
+			btn.addEventListener('click', function (e) {
+				onClick.call(this, e, input);
+			});
+
+			input.addEventListener('keyup', function (e) {
+				onEnter.call(this, e);
+			});
+		}
+
+		bindSearch('#searchUser');
+		bindSearch('#searchIp');
+	})();
+</script>

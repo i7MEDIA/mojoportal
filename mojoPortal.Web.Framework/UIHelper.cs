@@ -99,6 +99,11 @@ namespace mojoPortal.Web.Framework
 
         }
 
+		public static string ToInvariantString(this decimal i)
+		{
+			return i.ToString(CultureInfo.InvariantCulture);
+		}
+
         /// <summary>
         /// for easily converting an Enum to an IDictionary for data binding ie for a dropdown list
         /// </summary>

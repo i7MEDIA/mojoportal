@@ -1,311 +1,391 @@
-﻿// Author:					
-// Created:					2011-10-29
-// Last Modified:			2012-07-20
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Text;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
+
 using MySql.Data.MySqlClient;
 
 namespace mojoPortal.Data
 {
+	public static class DBTagItem
+	{
+		#region Create Method
 
-    public static class DBTagItem
-    {
-       
+		public static bool Create(
+			Guid tagItemGuid,
+			Guid siteGuid,
+			Guid featureGuid,
+			Guid moduleGuid,
+			Guid relatedItemGuid,
+			Guid tagGuid,
+			Guid extraGuid,
+			Guid taggedBy
+		)
+		{
+			const string sqlCommand =
+				@"INSERT INTO mp_TagItem (
+					TagItemGuid,
+					SiteGuid,
+					FeatureGuid,
+					ModuleGuid,
+					RelatedItemGuid,
+					TagGuid,
+					ExtraGuid,
+					TaggedBy
+				)
 
-        /// <summary>
-        /// Inserts a row in the mp_TagItem table. Returns rows affected count.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <param name="siteGuid"> siteGuid </param>
-        /// <param name="featureGuid"> featureGuid </param>
-        /// <param name="moduleGuid"> moduleGuid </param>
-        /// <param name="itemGuid"> itemGuid </param>
-        /// <param name="tagGuid"> tagGuid </param>
-        /// <param name="extraGuid"> extraGuid </param>
-        /// <param name="taggedBy"> taggedBy </param>
-        /// <returns>int</returns>
-        public static int Create(
-            Guid guid,
-            Guid siteGuid,
-            Guid featureGuid,
-            Guid moduleGuid,
-            Guid itemGuid,
-            Guid tagGuid,
-            Guid extraGuid,
-            Guid taggedBy)
-        {
+				VALUES (
+					?TagItemGuid,
+					?SiteGuid,
+					?FeatureGuid,
+					?ModuleGuid,
+					?RelatedItemGuid,
+					?TagGuid,
+					?ExtraGuid,
+					?TaggedBy
+				);";
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_TagItem (");
-            sqlCommand.Append("Guid, ");
-            sqlCommand.Append("SiteGuid, ");
-            sqlCommand.Append("FeatureGuid, ");
-            sqlCommand.Append("ModuleGuid, ");
-            sqlCommand.Append("ItemGuid, ");
-            sqlCommand.Append("TagGuid, ");
-            sqlCommand.Append("ExtraGuid, ");
-            sqlCommand.Append("TaggedBy )");
+			var arParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?TagItemGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = tagItemGuid.ToString()
+				},
+				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteGuid.ToString()
+				},
+				new MySqlParameter("?FeatureGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = featureGuid.ToString()
+				},
+				new MySqlParameter("?ModuleGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = moduleGuid.ToString()
+				},
+				new MySqlParameter("?RelatedItemGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = relatedItemGuid.ToString()
+				},
+				new MySqlParameter("?TagGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = tagGuid.ToString()
+				},
+				new MySqlParameter("?ExtraGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = extraGuid.ToString()
+				},
+				new MySqlParameter("?TaggedBy", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = taggedBy.ToString()
+				}
+			}.ToArray();
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?Guid, ");
-            sqlCommand.Append("?SiteGuid, ");
-            sqlCommand.Append("?FeatureGuid, ");
-            sqlCommand.Append("?ModuleGuid, ");
-            sqlCommand.Append("?ItemGuid, ");
-            sqlCommand.Append("?TagGuid, ");
-            sqlCommand.Append("?ExtraGuid, ");
-            sqlCommand.Append("?TaggedBy )");
-            sqlCommand.Append(";");
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				arParams
+			);
 
-            MySqlParameter[] arParams = new MySqlParameter[8];
+			return rowsAffected > -1;
+		}
 
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
-
-            arParams[1] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = siteGuid.ToString();
-
-            arParams[2] = new MySqlParameter("?FeatureGuid", MySqlDbType.VarChar, 36);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = featureGuid.ToString();
-
-            arParams[3] = new MySqlParameter("?ModuleGuid", MySqlDbType.VarChar, 36);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = moduleGuid.ToString();
-
-            arParams[4] = new MySqlParameter("?ItemGuid", MySqlDbType.VarChar, 36);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = itemGuid.ToString();
-
-            arParams[5] = new MySqlParameter("?TagGuid", MySqlDbType.VarChar, 36);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = tagGuid.ToString();
-
-            arParams[6] = new MySqlParameter("?ExtraGuid", MySqlDbType.VarChar, 36);
-            arParams[6].Direction = ParameterDirection.Input;
-            arParams[6].Value = extraGuid.ToString();
-
-            arParams[7] = new MySqlParameter("?TaggedBy", MySqlDbType.VarChar, 36);
-            arParams[7].Direction = ParameterDirection.Input;
-            arParams[7].Value = taggedBy.ToString();
-
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return rowsAffected;
-
-        }
-
-
-        
-
-        /// <summary>
-        /// Deletes a row from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool Delete(Guid guid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("Guid = ?Guid ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
-
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
-
-        }
-
-        /// <summary>
-        /// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByItem(Guid itemGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ItemGuid = ?ItemGuid ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ItemGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = itemGuid.ToString();
-
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
-
-        }
-
-        /// <summary>
-        /// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByExtraGuid(Guid extraGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ExtraGuid = ?ExtraGuid ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ExtraGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = extraGuid.ToString();
-
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
-
-        }
-
-        /// <summary>
-        /// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByTag(Guid tagGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("TagGuid = ?TagGuid ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?TagGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = tagGuid.ToString();
-
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
-
-        }
+		#endregion
 
 
-        /// <summary>
-        /// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByModule(Guid moduleGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ModuleGuid = ?ModuleGuid ");
-            sqlCommand.Append(";");
+		#region Delete Methods
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		public static bool DeleteBySite(Guid siteGuid)
+		{
+			const string sqlCommand = @"DELETE FROM mp_TagItem WHERE SiteGuid = ?SiteGuid;";
 
-            arParams[0] = new MySqlParameter("?ModuleGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleGuid.ToString();
+			var arParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteGuid.ToString()
+				}
+			}.ToArray();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				arParams
+			);
 
-        }
+			return (rowsAffected > 0);
+		}
 
 
-        /// <summary>
-        /// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByFeature(Guid featureGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("FeatureGuid = ?FeatureGuid ");
-            sqlCommand.Append(";");
+		public static bool Delete(Guid tagItemGuid)
+		{
+			const string sqlCommand = @"DELETE FROM mp_TagItem WHERE TagItemGuid = ?TagItemGuid;";
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+			var arParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?TagItemGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = tagItemGuid.ToString()
+				}
+			}.ToArray();
 
-            arParams[0] = new MySqlParameter("?FeatureGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = featureGuid.ToString();
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				arParams
+			);
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
+			return rowsAffected > 0;
+		}
 
-        }
 
-        /// <summary>
-        /// Deletes rows from the mp_TagItem table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteBySite(Guid siteGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TagItem ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("SiteGuid = ?SiteGuid ");
-            sqlCommand.Append(";");
+		public static bool DeleteByTag(Guid tagGuid)
+		{
+			const string sqlCommand = @"DELETE FROM mp_TagItem WHERE TagGuid = ?TagGuid;";
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+			var arParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?TagGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = tagGuid.ToString()
+				}
+			}.ToArray();
 
-            arParams[0] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteGuid.ToString();
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				arParams
+			);
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
+			return rowsAffected > 0;
+		}
 
-        }
 
-    }
+		public static bool DeleteByModule(Guid moduleGuid)
+		{
+			const string sqlCommand = @"DELETE FROM mp_TagItem WHERE ModuleGuid = ?ModuleGuid;";
+
+			var arParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?ModuleGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = moduleGuid.ToString()
+				}
+			}.ToArray();
+
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				arParams
+			);
+
+			return rowsAffected > 0;
+		}
+
+
+		public static bool DeleteByFeature(Guid featureGuid)
+		{
+			const string sqlCommand = @"DELETE FROM mp_TagItem WHERE FeatureGuid = ?FeatureGuid;";
+
+			var arParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?FeatureGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = featureGuid.ToString()
+				}
+			}.ToArray();
+
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				arParams
+			);
+
+			return rowsAffected > 0;
+		}
+
+
+		public static bool DeleteByRelatedItem(Guid relatedItemGuid)
+		{
+			const string sqlCommand = "DELETE FROM mp_TagItem WHERE RelatedItemGuid = ?RelatedItemGuid;";
+
+			var arParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?RelatedItemGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = relatedItemGuid.ToString()
+				}
+			}.ToArray();
+
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				arParams
+			);
+
+			return rowsAffected > 0;
+		}
+
+
+		public static bool DeleteByExtraGuid(Guid extraGuid)
+		{
+			const string sqlCommand = @"DELETE FROM mp_TagItem WHERE ExtraGuid = ?ExtraGuid;";
+
+			var arParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?ExtraGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = extraGuid.ToString()
+				}
+			}.ToArray();
+
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				arParams
+			);
+
+			return rowsAffected > 0;
+		}
+
+		#endregion
+
+
+		#region Get Methods
+
+		public static IDataReader GetByTagItem(Guid tagItemGuid)
+		{
+			const string sqlCommand =
+				@"SELECT 
+					ti.TagItemGuid,
+					ti.RelatedItemGuid,
+					ti.SiteGuid,
+					ti.FeatureGuid,
+					ti.ModuleGuid,
+					ti.TagGuid,
+					ti.ExtraGuid,
+					ti.TaggedBy,
+					t.Tag AS TagText
+				FROM mp_TagItem ti
+				INNER JOIN mp_Tag t
+				ON ti.TagGuid = t.Guid
+				WHERE TagItemGuid = ?TagItemGuid
+				ORDER BY TagText";
+
+			var arParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?TagItemGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = tagItemGuid.ToString()
+				}
+			}.ToArray();
+
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand,
+				arParams
+			);
+		}
+
+
+		public static IDataReader GetByRelatedItem(Guid siteGuid, Guid relatedItemGuid)
+		{
+			const string sqlCommand =
+				@"SELECT 
+					ti.TagItemGuid,
+					ti.RelatedItemGuid,
+					ti.SiteGuid,
+					ti.FeatureGuid,
+					ti.ModuleGuid,
+					ti.TagGuid,
+					ti.ExtraGuid,
+					ti.TaggedBy,
+					t.Tag AS TagText
+				FROM mp_TagItem ti
+				INNER JOIN mp_Tag t
+				ON ti.TagGuid = t.Guid
+				WHERE RelatedItemGuid = ?RelatedItemGuid
+				AND ti.SiteGuid = ?SiteGuid
+				ORDER BY TagText";
+
+			var arParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?RelatedItemGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = relatedItemGuid.ToString()
+				},
+				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteGuid.ToString()
+				}
+			}.ToArray();
+
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand,
+				arParams
+			);
+		}
+
+
+		public static IDataReader GetByExtra(Guid siteGuid, Guid extraGuid)
+		{
+			const string sqlCommand =
+				@"SELECT 
+					ti.TagItemGuid,
+					ti.RelatedItemGuid,
+					ti.SiteGuid,
+					ti.FeatureGuid,
+					ti.ModuleGuid,
+					ti.TagGuid,
+					ti.ExtraGuid,
+					ti.TaggedBy,
+					t.Tag AS TagText
+				FROM mp_TagItem ti
+				INNER JOIN mp_Tag t
+				ON ti.TagGuid = t.Guid
+				WHERE ExtraGuid = ?ExtraGuid
+				AND ti.SiteGuid = ?SiteGuid
+				ORDER BY TagText";
+
+			var arParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?ExtraGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = extraGuid.ToString()
+				},
+				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteGuid.ToString()
+				}
+			}.ToArray();
+
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand,
+				arParams
+			);
+		}
+
+		#endregion
+	}
 }

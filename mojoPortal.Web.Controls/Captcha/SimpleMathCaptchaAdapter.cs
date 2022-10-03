@@ -67,8 +67,19 @@ namespace mojoPortal.Web.Controls.Captcha
                 captchaControl.ValidationGroup = value;
             }
         }
+		public short TabIndex
+		{
+			get
+			{
+				return captchaControl.TabIndex;
+			}
+			set
+			{
+				captchaControl.TabIndex = value;
+			}
+		}
 
-        private void InitializeAdapter()
+		private void InitializeAdapter()
         {
 
         }

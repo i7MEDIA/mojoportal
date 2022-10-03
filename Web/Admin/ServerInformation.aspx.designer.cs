@@ -58,13 +58,13 @@ namespace mojoPortal.Web.AdminUI {
         protected global::mojoPortal.Web.UI.OuterWrapperPanel pnlOuterWrap;
         
         /// <summary>
-        /// ctop1 control.
+        /// displaySettings control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderTop ctop1;
+        protected global::mojoPortal.Web.AdminUI.AdminDisplaySettings displaySettings;
         
         /// <summary>
         /// pnlInnerWrap control.
@@ -119,6 +119,15 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litPlatform;
+        
+        /// <summary>
+        /// litUpdateInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litUpdateInfo;
         
         /// <summary>
         /// SiteLabel5 control.
@@ -236,6 +245,15 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litCurrentGMT;
+        
+        /// <summary>
+        /// btnRestart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnRestart;
         
         /// <summary>
         /// pnlFeatureVersions control.

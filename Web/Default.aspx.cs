@@ -22,7 +22,9 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using Resources;
-
+using mojoPortal.Core.Configuration;
+using mojoPortal.Core.Helpers;
+using mojoPortal.Core.API;
 namespace mojoPortal.Web.UI
 {
 
@@ -187,13 +189,12 @@ namespace mojoPortal.Web.UI
                                 urlToUse = SiteRoot + CurrentPage.Url.Replace("~/", "/");
                             }
 
-                            if (SiteUtils.IsSecureRequest() && (!CurrentPage.RequireSsl) && (!siteSettings.UseSslOnAllPages))
-                            {
-                                if (WebConfigSettings.ForceHttpForCanonicalUrlsThatDontRequireSsl)
+                            if (WebConfigSettings.ForceHttpForCanonicalUrlsThatDontRequireSsl)
+							{
+								if (WebHelper.IsSecureRequest() && (!CurrentPage.RequireSsl) && (!siteSettings.UseSslOnAllPages))
                                 {
                                     urlToUse = urlToUse.Replace("https:", "http:");
                                 }
-
                             }
                         }
                     }

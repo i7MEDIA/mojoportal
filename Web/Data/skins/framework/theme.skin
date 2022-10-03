@@ -7,7 +7,24 @@
 <%@ Register Namespace="mojoPortal.Web.SharedFilesUI" Assembly="mojoPortal.Features.UI" TagPrefix="sf" %>
 <%@ Register TagPrefix="portal" TagName="ChildPagesSiteMap" Src="~/Controls/ChildPageMenu.ascx" %>
 <%@ Register TagPrefix="portal" TagName="mojoRating" Src="~/Controls/mojoRating.ascx" %>
-
+ 
+<%-- The following registers the WebStore controls in the layout.master. Uncomment if you have installed the WebStore. --%>
+<%-- <%@ Register Namespace="WebStore.UI" Assembly="WebStore.UI" TagPrefix="webstore" %>
+<webstore:WebStoreDisplaySettings runat="server"
+	EmptyCartFormat="<div class='row'><div class='col-xl-3 col-lg-4 col-md-5 col-xs-12'><div class='alert alert-info'>{0} <a class='alert-link' href='{1}'>{2}</a></div></div></div>"
+	CartCheckoutDiscountDivCssClass="settingrow discountcode store-cart-discountcode col-md-6"
+	CartCheckoutLinksDivCssClass="settingrow checkoutlinks store-cart-checkoutlinks"
+	CartCheckoutLinksDivOutsideTopMarkup="<div class='col-md-6'>"
+	CartCheckoutLinksDivOutsideBottomMarkup=""
+	CartCheckoutLinksDivAnonymousOutsideTopMarkup="<div class='col-md-6'>"
+	CartCheckoutLinksDivAnonymousOutsideBottomMarkup="</div>"
+	CartPayPalDivCssClass="settingrow paypalrow store-cart-paypal"
+	CartPayPalDivOutsideBottomMarkup="</div>"
+	CartCheckoutActionsEmptyCartOutsideBottomMarkup="</div>"
+	CartCheckoutActionsDivClass="row"
+	CartTableCssClass="cartgrid table table-bordered table-striped"
+	OfferTableCssClass="offergrid table table-bordered table-striped"
+/> --%>
 <%--
 	These are for Pro Modules
 	=========================
@@ -180,6 +197,9 @@
 <portal:jQueryAutoCompleteTextBox runat="server" SkinId="modulesecurity"
 	CssClass="form-control auto-complete"
 />
+<asp:TextBox runat="server" SkinId="fullwidth"
+	CssClass="form-control input-fullwidth"
+/>
 
 
 <%-- Panel Classes --%>
@@ -245,71 +265,15 @@
 
 <%-- Site Settings Display Settings --%>
 <portalAdmin:AdminDisplaySettings runat="server"
-	SiteSettingsPanelHeadingMarkup = "<h3 class='setting-section-title'>{0} <small>{1}</small></h3><div class='setting-section-body'>"
-	SiteSettingsSubPanelHeadingMarkup = "<div class='panel-heading'><h3 class='panel-title'>{0} <small>{1}</small></h3></div><div class='panel-body'>"
+	PanelHeadingMarkup = "<h3 class='setting-section-title'>{0} <small>{1}</small></h3><div class='setting-section-body'>"
+	PanelBottomMarkup = "</div><!--end PanelBottomMarkup-->"
+	SubPanelHeadingMarkup = "<div class='panel panel-info'><div class='panel-heading'><h3 class='panel-title'>{0} <small>{1}</small></h3></div><div class='panel-body'>"
+	SubPanelBottomMarkup="</div><!--end panel-body--></div><!--end panel><!--end SubPanelBottomMarkup-->"
+	SubPanelHeadingMarkupCollapsible = "<div class='panel panel-info'><div class='panel-heading'><a href='#{2}' data-toggle='collapse'><h3 class='panel-title'>{0} <small>{1}</small></h3></a></div><div class='panel-collapse collapse' id='{2}'><div class='panel-body'>"
+	SubPanelBottomMarkupCollapsible="</div></div></div><!--end SubPanelBottomMarkupCollapsible-->"
+	
 />
 
-<%-- Form Group Panels --%>
-<portal:FormGroupPanel runat="server" SkinID="MainSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="SkinSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="EditorSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="RegistrationSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="UserAccountSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="PasswordSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="PasswordRecoverySettings"
-	Element="div"
-	CssClass="panel panel-warning"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="OpenIDSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="WindowsLiveIDSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="SMTPSettings"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="HostNames"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
-<portal:FormGroupPanel runat="server" SkinID="FolderNames"
-	Element="div"
-	CssClass="settingrow"
-	OutsideBottomMarkup="</div>"
-/>
 
 <portal:FormGroupPanel runat="server" SkinID="ButtonPanel"
 	CssClass="settingrow button-row"
@@ -337,6 +301,10 @@
 	Element="div"
 	OutsideBottomMarkup="</div>"
 	CssClass="manage-site-features__right col-sm-4 text-center"
+/>
+
+<mp:SiteLabel runat="server" SkinID="settinglabel"
+	CssClass="settinglabel"
 />
 
 <asp:Button runat="server" SkinID="SiteFeaturesRemove" 
@@ -513,15 +481,43 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 <asp:button runat="server" SkinID="LinkButton" CssClass="btn btn-link" />
 <asp:HyperLink runat="server" SkinID="LinkButton" CssClass="btn btn-link"/>
 <portal:mojoButton runat="server" SkinID="LinkButton" CssClass="btn btn-link" />
-
+<portal:mojoButton runat="server" SkinID="TextButton" CssClass="btn btn-link" />
 <asp:HyperLink runat="server" SkinID="TextButton" CssClass="btn btn-link"/>
 <asp:HyperLink runat="server" SkinID="TextButtonSmall" CssClass="btn btn-link btn-xs" />
 <asp:HyperLink runat="server" SkinID="CBTextButtonSmall" CssClass="cblink btn btn-link btn-xs" />
 
+<%--
+	Below we define classes for our alerts to match bootstrap 3.3.7. Note that AlertPanel was added in mojoPortal version 2.6.0.2 and you MUST comment all instances of AlertPanel out if you are running a previous version
+--%>
+<portal:AlertPanel runat="server" SkinID="Success"
+	Element="div"
+	ExtraCssClasses="alert alert-success"
+/>
+
+<portal:AlertPanel runat="server" SkinID="Info"
+	Element="div"
+	ExtraCssClasses="alert alert-info"
+/>
+
+<portal:AlertPanel runat="server" SkinID="Warning"
+	Element="div"
+	ExtraCssClasses="alert alert-warning"
+/>
+
+<portal:AlertPanel runat="server" SkinID="Error"
+	Element="div"
+	ExtraCssClasses="alert alert-danger"
+/>
+
+<portal:AlertPanel runat="server" SkinID="Danger"
+	Element="div"
+	ExtraCssClasses="alert alert-danger"
+/>
 
 <portal:SiteTitle runat="server" SkinId="navbar-brand"
-	UseLink="false"
-	UseElement="false"
+	Element="h1"
+	UseLink="true"
+	UseElement="true"
 />
 
 <portal:SiteTitle runat="server" SkinId="HiddenTitle"
@@ -648,6 +644,39 @@ http://foundation.zurb.com/docs/ui.php
 	StartingNodeOffset="-1"
 	UlChildSelectedCssClass=""
 	UlSelectedCssClass=""
+/>
+
+<%-- Page Menu --%>
+<portal:FlexMenu runat="server" SkinID="PageMenu"
+     AnchorChildSelectedCssClass=""
+     AnchorCssClass=""
+     AnchorInnerHtmlBottom=""
+     AnchorInnerHtmlTop=""
+     AnchorSelectedCssClass=""
+     ChildContainerCssClass=""
+     ChildContainerElement=""
+     ChildNodesPerUl="-1"
+     ChildUlCssClass="nav sub-nav"
+     ContainerCssClass="page-menu"
+     ContainerElement=""
+     DescriptionCssClass=""
+     ExtraBottomMarkup=""
+     ExtraTopMarkup=""
+     IsMobileSkin="false"
+     ItemDepthCssPrefix=""
+     LiChildSelectedCssClass="show"
+     LiCssClass=""
+     LiSelectedCssClass="show active"
+     MaxDataRenderDepth="2"
+     ParentLiCssClass=""
+     RenderCustomClassOnAnchor=""
+     RenderCustomClassOnLi=""
+     RenderDescription="true"
+     RootLevelLiCssClass="hide"
+     RootUlCssClass="nav page-nav hidden-xs"
+     StartingNodeOffset="-1"
+     UlChildSelectedCssClass=""
+     UlSelectedCssClass=""
 />
 
 <portal:mojoTreeView runat="server" SkinID="SiteMenu"

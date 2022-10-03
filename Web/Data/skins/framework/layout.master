@@ -18,8 +18,8 @@
 
 		<!-- Scripts -->
 		<portal:ScriptLoader id="ScriptLoader1" runat="server" AssumejQueryIsLoaded="true" AssumejQueryUiIsLoaded="true" IncludeColorBox="false" IncludeSimpleFaq="true" IncludejQueryAccordion="true" />
-		<script src="//code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/jquery/jquery-3.2.1.min.js" ScriptRefFormat="<script>window.jQuery || document.write('<script src=\'{0}\'><\/script>')</script>" RenderInPlace="true" />
+		<script src="//code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/jquery/jquery-3.6.0.min.js" ScriptRefFormat="<script>window.jQuery || document.write('<script src=\'{0}\'><\/script>')</script>" RenderInPlace="true" />
 		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/jquery/jquery-ui-1.12.1/jquery-ui.min.js" ScriptRefFormat="<script>window.jQuery.ui || document.write('<script src=\'{0}\'><\/script>')</script>" RenderInPlace="true" />
 		<portal:SkinFolderCssFile runat="server" CssFileName="js/vendors/jquery/jquery-ui-1.12.1/jquery-ui.min.css" LinkFormat="<script>window.jQuery.ui || document.write('<link rel=\'stylesheet\' href=\'{0}\'>')</script>" RenderInPlace="true" />
@@ -52,7 +52,8 @@
 								</button>
 
 								<% if (siteSettings.Logo != "" && siteSettings.Logo != "blank.gif") { %>
-								<portal:SiteLogo runat="server" ImageCssClass="site-logo" LinkCssClass="navbar-brand navbar-logo" />
+									<portal:SiteLogo runat="server" ImageCssClass="site-logo" LinkCssClass="navbar-brand navbar-logo" />
+									<portal:SiteTitle runat="server" SkinId="HiddenTitle" UseLink="false" />
 								<% } else { %>
 									<portal:SiteTitle runat="server" SkinId="navbar-brand" UseLink="true" />
 								<% } %>
@@ -60,6 +61,10 @@
 
 							<div class="collapse navbar-collapse fb-parent fb-row fb-j-end fb-ai-center fb-sm-66" id="site-menu">
 								<portal:SiteMenu id="SiteMenu1" runat="server" MenuSkinId="MainMenu" UseFlexMenu="true" />
+								<%-- Below is an optional cart-link that sits by the menu, but only works if the webstore add-on is installed --%>
+								<%-- <span class="flex-cart-inline">
+									<webstore:FlexCartLink id="cartlink1" runat="server" PageId="4" ModuleId="5" ModuleGuid="f4260a9f-d170-4e4a-a8c8-baf0bcbc22b6" IncludeItemCount="true" IncludeCartTotal="true" LiteralTopMarkup="<span class='topnavitem cartnav'><span class='ui-icon ui-icon-cart'></span>" LiteralBottomMarkup="</span>" CssClass="sitelink" />
+								</span> --%>
 							</div>
 						</div>
 					</nav>
@@ -76,6 +81,8 @@
 
 						<div class="row" id="start-content">
 							<portal:LayoutPanel id="divLeft" runat="server" SkinID="LeftPane">
+								<%-- Below is an optional page menu, uncomment to enable --%>
+								<%-- portal:PageMenu id="PageMenu1" runat="server" UseFlexMenu="true" /> --%>
 								<asp:contentplaceholder id="leftContent" runat="server"></asp:contentplaceholder>
 							</portal:LayoutPanel>
 

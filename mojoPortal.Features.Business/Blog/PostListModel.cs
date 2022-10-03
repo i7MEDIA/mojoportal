@@ -4,6 +4,7 @@ namespace mojoPortal.Business
 {
 	public class PostListModel
 	{
+		public Module Module { get; set; }
 		public string ModuleTitle { get; set; }
 		public string ModulePageUrl { get; set; }
 		public IEnumerable<BlogPostModel> Posts { get; set; }

@@ -63,8 +63,7 @@ namespace SuperFlexiData
 			string editRoles)
         {
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.AppendFormat("insert into i7_sflexi_fields ({0}) values ({1});"
+            string sqlCommand = string.Format("insert into i7_sflexi_fields ({0}) values ({1});"
                 ,@"SiteGuid
                   ,FeatureGuid
                   ,DefinitionGuid
@@ -197,7 +196,7 @@ namespace SuperFlexiData
             };
             int rowsAffected = Convert.ToInt32(SqliteHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParams.ToArray()).ToString());
 
             return rowsAffected;
@@ -254,9 +253,8 @@ namespace SuperFlexiData
 			string viewRoles,
 			string editRoles)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.AppendFormat("update i7_sflexi_fields set {0} where FieldGuid = :FieldGuid;",
-                @"SiteGuid = :SiteGuid
+            string sqlCommand = @"update i7_sflexi_fields set 
+                  SiteGuid = :SiteGuid
                  ,FeatureGuid = :FeatureGuid
                  ,DefinitionGuid = :DefinitionGuid
                  ,DefinitionName = :DefinitionName
@@ -297,7 +295,8 @@ namespace SuperFlexiData
                  ,IsDeleted = :IsDeleted
                  ,IsGlobal = :IsGlobal
                  ,ViewRoles = :ViewRoles
-				 ,EditRoles = :EditRoles");
+				 ,EditRoles = :EditRoles
+            where FieldGuid = :FieldGuid;";
 
             var sqlParams = new List<SqliteParameter>
             {
@@ -340,12 +339,14 @@ namespace SuperFlexiData
                 new SqliteParameter(":DateFormat", DbType.String, 255) { Direction = ParameterDirection.Input, Value = dateFormat },
                 new SqliteParameter(":TextBoxMode", DbType.String, 25) { Direction = ParameterDirection.Input, Value = textBoxMode },
                 new SqliteParameter(":Attributes", DbType.String, 255) { Direction = ParameterDirection.Input, Value = attributes },
+                new SqliteParameter(":IsDeleted", DbType.Boolean) { Direction = ParameterDirection.Input, Value = isDeleted },
                 new SqliteParameter(":IsGlobal", DbType.Boolean) { Direction = ParameterDirection.Input, Value = isGlobal },
 				new SqliteParameter(":ViewRoles", DbType.String, 255) { Direction = ParameterDirection.Input, Value = viewRoles },
 				new SqliteParameter(":EditRoles", DbType.String, 255) { Direction = ParameterDirection.Input, Value = editRoles }
 			};
-            int rowsAffected = Convert.ToInt32(SqliteHelper.ExecuteScalar(
-                ConnectionString.GetWriteConnectionString(),				sqlCommand.ToString(),
+            int rowsAffected = Convert.ToInt32(SqliteHelper.ExecuteNonQuery(
+                ConnectionString.GetWriteConnectionString(),				
+                sqlCommand,
                 sqlParams.ToArray()).ToString());
 
             return (rowsAffected > 0);

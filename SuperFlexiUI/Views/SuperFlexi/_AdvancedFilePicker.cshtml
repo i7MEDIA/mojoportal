@@ -1,0 +1,21 @@
+﻿@using Resources
+
+@model SuperFlexiUI.AdvancedFilePicker
+
+@{
+	var defaultText = Model.PickerType == "image" ? Model.ImageText : Model.FileText;
+	var placeholderText = @Model.PickerType == "image" ? SuperFlexiResources.AFPImagePlaceholder : SuperFlexiResources.AFPFilePlaceholder;
+}
+
+<div class="advanced-file-picker" data-picker-type="@Model.PickerType" data-picker-default-text="@defaultText" data-start-folder="@Model.StartFolder">
+	<button class="advanced-file-picker__show-tools-btn" type="button"><i class="fa fa-gear"></i></button>
+	<div class="advanced-file-picker__tools hide">
+		<input class="advanced-file-picker__tools-input" type="text" placeholder="@placeholderText">
+		<button class="advanced-file-picker__tools-btn advanced-file-picker__tools-btn--set" type="button"><i class="fa fa-check"></i> @SuperFlexiResources.AFPSetButtonText</button>
+		<button class="advanced-file-picker__tools-btn advanced-file-picker__tools-btn--clear" type="button"><i class="fa fa-times"></i> @SuperFlexiResources.AFPClearButtonText</button>
+	</div>
+	<a class="advanced-file-picker__link" href="#">
+		<img class="advanced-file-picker__image-preview hide">
+		<div class="advanced-file-picker__text">@defaultText</div>
+	</a>
+</div>

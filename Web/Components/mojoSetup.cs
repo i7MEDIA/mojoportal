@@ -351,50 +351,67 @@ namespace mojoPortal.Web
 
 		public static void CreateRequiredRolesAndAdminUser(SiteSettings site)
 		{
-			Role adminRole = new Role();
-			adminRole.RoleName = "Admins";
-			adminRole.SiteId = site.SiteId;
-			adminRole.SiteGuid = site.SiteGuid;
-			adminRole.Save();
-			adminRole.RoleName = "Administrators";
+			Role adminRole = new Role
+			{
+				RoleName = "Admins",
+				DisplayName = "Administrators",
+				SiteId = site.SiteId,
+				SiteGuid = site.SiteGuid
+			};
 			adminRole.Save();
 
-			Role roleAdminRole = new Role();
-			roleAdminRole.RoleName = "Role Admins";
-			roleAdminRole.SiteId = site.SiteId;
-			roleAdminRole.SiteGuid = site.SiteGuid;
-			roleAdminRole.Save();
-			roleAdminRole.RoleName = "Role Administrators";
+			Role roleAdminRole = new Role
+			{
+				RoleName = "Role Admins",
+				DisplayName = "Role Administrators",
+				SiteId = site.SiteId,
+				SiteGuid = site.SiteGuid
+			};
 			roleAdminRole.Save();
 
-			Role contentAdminRole = new Role();
-			contentAdminRole.RoleName = "Content Administrators";
-			contentAdminRole.SiteId = site.SiteId;
-			contentAdminRole.SiteGuid = site.SiteGuid;
+			Role contentAdminRole = new Role
+			{
+				RoleName = "Content Administrators",
+				DisplayName = "Content Administrators",
+				SiteId = site.SiteId,
+				SiteGuid = site.SiteGuid
+			};
 			contentAdminRole.Save();
 
-			Role authenticatedUserRole = new Role();
-			authenticatedUserRole.RoleName = "Authenticated Users";
-			authenticatedUserRole.SiteId = site.SiteId;
-			authenticatedUserRole.SiteGuid = site.SiteGuid;
+			Role authenticatedUserRole = new Role
+			{
+				RoleName = "Authenticated Users",
+				DisplayName = "Authenticated Users",
+				SiteId = site.SiteId,
+				SiteGuid = site.SiteGuid
+			};
 			authenticatedUserRole.Save();
 
-			Role contentPublisherRole = new Role();
-			contentPublisherRole.RoleName = "Content Publishers";
-			contentPublisherRole.SiteId = site.SiteId;
-			contentPublisherRole.SiteGuid = site.SiteGuid;
+			Role contentPublisherRole = new Role
+			{
+				RoleName = "Content Publishers",
+				DisplayName = "Content Publishers",
+				SiteId = site.SiteId,
+				SiteGuid = site.SiteGuid
+			};
 			contentPublisherRole.Save();
 
-			Role contentAuthorRole = new Role();
-			contentAuthorRole.RoleName = "Content Authors";
-			contentAuthorRole.SiteId = site.SiteId;
-			contentAuthorRole.SiteGuid = site.SiteGuid;
+			Role contentAuthorRole = new Role
+			{
+				RoleName = "Content Authors",
+				DisplayName = "Content Authors",
+				SiteId = site.SiteId,
+				SiteGuid = site.SiteGuid
+			};
 			contentAuthorRole.Save();
 
-			Role newsletterAdminRole = new Role();
-			newsletterAdminRole.RoleName = "Newsletter Administrators";
-			newsletterAdminRole.SiteId = site.SiteId;
-			newsletterAdminRole.SiteGuid = site.SiteGuid;
+			Role newsletterAdminRole = new Role
+			{
+				RoleName = "Newsletter Administrators",
+				DisplayName = "Newsletter Administrators",
+				SiteId = site.SiteId,
+				SiteGuid = site.SiteGuid
+			};
 			newsletterAdminRole.Save();
 
 			// if using related sites mode there is a problem if we already have user admin@admin.com
@@ -500,12 +517,15 @@ namespace mojoPortal.Web
 
 			if (!Role.Exists(site.SiteId, "Admins"))
 			{
-				Role adminRole = new Role();
-				adminRole.RoleName = "Admins";
-				adminRole.SiteId = site.SiteId;
-				adminRole.SiteGuid = site.SiteGuid;
+				Role adminRole = new Role
+				{
+					RoleName = "Admins",
+					DisplayName = "Administrators",
+					SiteId = site.SiteId,
+					SiteGuid = site.SiteGuid
+				};
 				adminRole.Save();
-				adminRole.RoleName = "Administrators";
+				//adminRole.RoleName = "Administrators";
 				adminRole.Save();
 
 				Role.AddUser(adminRole.RoleId, adminUser.UserId, adminRole.RoleGuid, adminUser.UserGuid);
@@ -514,57 +534,73 @@ namespace mojoPortal.Web
 
 			if (!Role.Exists(site.SiteId, "Role Admins"))
 			{
-				Role roleAdminRole = new Role();
-				roleAdminRole.RoleName = "Role Admins";
-				roleAdminRole.SiteId = site.SiteId;
-				roleAdminRole.SiteGuid = site.SiteGuid;
-				roleAdminRole.Save();
-				roleAdminRole.RoleName = "Role Administrators";
+				Role roleAdminRole = new Role
+				{
+					RoleName = "Role Admins",
+					DisplayName = "Role Administrators",
+					SiteId = site.SiteId,
+					SiteGuid = site.SiteGuid
+				};
 				roleAdminRole.Save();
 			}
 
 			if (!Role.Exists(site.SiteId, "Content Administrators"))
 			{
-				Role contentAdminRole = new Role();
-				contentAdminRole.RoleName = "Content Administrators";
-				contentAdminRole.SiteId = site.SiteId;
-				contentAdminRole.SiteGuid = site.SiteGuid;
+				Role contentAdminRole = new Role
+				{
+					RoleName = "Content Administrators",
+					DisplayName = "Content Administrators",
+					SiteId = site.SiteId,
+					SiteGuid = site.SiteGuid
+				};
 				contentAdminRole.Save();
 			}
 
 			if (!Role.Exists(site.SiteId, "Authenticated Users"))
 			{
-				Role authenticatedUserRole = new Role();
-				authenticatedUserRole.RoleName = "Authenticated Users";
-				authenticatedUserRole.SiteId = site.SiteId;
-				authenticatedUserRole.SiteGuid = site.SiteGuid;
+				Role authenticatedUserRole = new Role
+				{
+					RoleName = "Authenticated Users",
+					DisplayName = "Authenticated Users",
+					SiteId = site.SiteId,
+					SiteGuid = site.SiteGuid
+				};
 				authenticatedUserRole.Save();
 			}
 
 			if (!Role.Exists(site.SiteId, "Content Publishers"))
 			{
-				Role contentPublisherRole = new Role();
-				contentPublisherRole.RoleName = "Content Publishers";
-				contentPublisherRole.SiteId = site.SiteId;
-				contentPublisherRole.SiteGuid = site.SiteGuid;
+				Role contentPublisherRole = new Role
+				{
+					RoleName = "Content Publishers",
+					DisplayName = "Content Publishers",
+					SiteId = site.SiteId,
+					SiteGuid = site.SiteGuid
+				};
 				contentPublisherRole.Save();
 			}
 
 			if (!Role.Exists(site.SiteId, "Content Authors"))
 			{
-				Role contentAuthorRole = new Role();
-				contentAuthorRole.RoleName = "Content Authors";
-				contentAuthorRole.SiteId = site.SiteId;
-				contentAuthorRole.SiteGuid = site.SiteGuid;
+				Role contentAuthorRole = new Role
+				{
+					RoleName = "Content Authors",
+					DisplayName = "Content Authors",
+					SiteId = site.SiteId,
+					SiteGuid = site.SiteGuid
+				};
 				contentAuthorRole.Save();
 			}
 
 			if (!Role.Exists(site.SiteId, "Newsletter Administrators"))
 			{
-				Role newsletterAdminRole = new Role();
-				newsletterAdminRole.RoleName = "Newsletter Administrators";
-				newsletterAdminRole.SiteId = site.SiteId;
-				newsletterAdminRole.SiteGuid = site.SiteGuid;
+				Role newsletterAdminRole = new Role
+				{
+					RoleName = "Newsletter Administrators",
+					DisplayName = "Newsletter Administrators",
+					SiteId = site.SiteId,
+					SiteGuid = site.SiteGuid
+				};
 				newsletterAdminRole.Save();
 			}
 		}

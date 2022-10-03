@@ -263,9 +263,8 @@
     <Reference Include="Ionic.Zip.Reduced">
       <HintPath>..\_libs\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.14\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Lucene.Net">
       <HintPath>..\_libs\Apache-Lucene.Net-3.0.3\Lucene.Net.dll</HintPath>
@@ -316,9 +315,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\Azure\Microsoft.WindowsFabric.Data.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Recaptcha">
       <HintPath>..\_libs\Recaptcha.dll</HintPath>
@@ -350,7 +348,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization">
@@ -362,6 +359,9 @@
     <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceModel.Web">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions">
@@ -378,11 +378,9 @@
     </Reference>
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -427,6 +425,10 @@
     <ProjectReference Include="..\mojoPortal.Business\mojoPortal.Business.csproj">
       <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
       <Name>mojoPortal.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{fea72210-0415-4133-bdf9-8877683ba832}</Project>
+      <Name>mojoPortal.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Net\mojoPortal.Net.csproj">
       <Project>{30916752-1A97-49CA-95D6-81A5F784EEB5}</Project>
@@ -473,6 +475,7 @@
     <Content Include="Admin\EditRegistrationAgreement.aspx" />
     <Content Include="Admin\EditSiteClosedMessage.aspx" />
     <Content Include="Admin\FeaturePermissions.aspx" />
+    <Content Include="Admin\IndexBrowser.aspx" />
     <Content Include="Admin\ManageUsers.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -782,6 +785,7 @@
     <Content Include="Controls\CountryISOCode2Setting.ascx" />
     <Content Include="Controls\CultureFlag.ascx" />
     <Content Include="Controls\EmailTemplates\EmailTemplateEditor.ascx" />
+    <Content Include="Controls\AdditionalContentSetting.ascx" />
     <Content Include="Controls\FilePathSetting.ascx" />
     <Content Include="Controls\Gravatar\Gravatar.bmp" />
     <Content Include="Controls\HtmlSetting.ascx" />
@@ -795,7 +799,9 @@
     <Content Include="Controls\Microsoft\BingSearchControl.ascx" />
     <Content Include="Controls\ModuleWrapper.ascx" />
     <Content Include="Controls\NeatUploadStylesheet.ascx" />
+    <Content Include="Controls\PageSelectorSetting.ascx" />
     <Content Include="Controls\PaymentLogList.ascx" />
+    <Content Include="Controls\ViewSelectorSetting.ascx" />
     <Content Include="Controls\PublishTypeSetting.ascx" />
     <Content Include="Controls\RelatedNewsletterSetting.ascx" />
     <Content Include="Controls\SearchableFeatureFilterSetting.ascx" />
@@ -1399,6 +1405,13 @@
     <Compile Include="Admin\FileManagerAlt.aspx.designer.cs">
       <DependentUpon>FileManagerAlt.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\IndexBrowser.aspx.cs">
+      <DependentUpon>IndexBrowser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\IndexBrowser.aspx.designer.cs">
+      <DependentUpon>IndexBrowser.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\ModulePermissions.aspx.cs">
       <DependentUpon>ModulePermissions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1477,6 +1490,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PageManagerResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_MasterPages\CoreDisplaySettings.cs" />
     <Compile Include="App_MasterPages\LayoutDisplaySettings.cs" />
     <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="BingSearch.aspx.cs">
@@ -1632,13 +1646,22 @@
     <Compile Include="Components\SecurityAdvisor.cs" />
     <Compile Include="Components\SiteMapHelper.cs" />
     <Compile Include="Components\SkinHelper.cs" />
+    <Compile Include="Components\SkinStyleInfo.cs" />
     <Compile Include="Components\SystemLogAppender.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FileManager\FileManagerController.cs" />
     <Compile Include="Controllers\FileManager\FileServiceController.cs" />
     <Compile Include="Controllers\FileManager\FileUploadController.cs" />
     <Compile Include="Controllers\RazorBridge.cs" />
+    <Compile Include="Controllers\Security\BadWordController.cs" />
     <Compile Include="Controls\Adapters\SiteMapTreeViewAdapter.cs" />
+    <Compile Include="Controls\AdditionalContentSetting.ascx.cs">
+      <DependentUpon>AdditionalContentSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\AdditionalContentSetting.ascx.designer.cs">
+      <DependentUpon>AdditionalContentSetting.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Analytics\AnalyticsAsyncBottomScript.cs" />
     <Compile Include="Controls\Analytics\AnalyticsAsyncTopScript.cs" />
     <Compile Include="Controls\Analytics\mojoGoogleAnalyticsScript.cs" />
@@ -1650,6 +1673,7 @@
     <Compile Include="Controls\Artisteer\MenuAdapterArtisteerVertical.cs" />
     <Compile Include="Controls\Artisteer\mojoMenuArtisteerVertical.cs" />
     <Compile Include="Controls\AutoHidePanel.cs" />
+    <Compile Include="Controls\Captcha\CaptchaVerificationResponse.cs" />
     <Compile Include="Controls\Captcha\RecaptchaControl.cs" />
     <Compile Include="Controls\Captcha\RecaptchaResponse.cs" />
     <Compile Include="Controls\Captcha\RecaptchaValidator.cs" />
@@ -1753,8 +1777,16 @@
     <Compile Include="Controls\mojoListBox.cs" />
     <Compile Include="Controls\mojoRegisterButton.cs" />
     <Compile Include="Controls\mojoScriptManager.cs" />
+    <Compile Include="Controls\mojoTextBox.cs" />
     <Compile Include="Controls\NoFollowHyperlink.cs" />
     <Compile Include="Controls\PageHeading.cs" />
+    <Compile Include="Controls\PageSelectorSetting.ascx.cs">
+      <DependentUpon>PageSelectorSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\PageSelectorSetting.ascx.designer.cs">
+      <DependentUpon>PageSelectorSetting.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PageTreeLink.cs" />
     <Compile Include="Controls\Panels\AdminCrumbContainer.cs" />
     <Compile Include="Controls\Panels\AlertPanel.cs" />
@@ -1901,6 +1933,7 @@
     <Compile Include="Controls\SortSetting.ascx.designer.cs">
       <DependentUpon>SortSetting.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Components\TagService.cs" />
     <Compile Include="Controls\TimeZoneIdSetting.ascx.cs">
       <DependentUpon>TimeZoneIdSetting.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2773,13 +2806,6 @@
     <Compile Include="Dialog\AvatarUploadDialog.aspx.designer.cs">
       <DependentUpon>AvatarUploadDialog.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Dialog\FileDialog.aspx.cs">
-      <DependentUpon>FileDialog.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialog\FileDialog.aspx.designer.cs">
-      <DependentUpon>FileDialog.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Dialog\FileManagerAltDialog.aspx.cs">
       <DependentUpon>FileManagerAltDialog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3041,8 +3067,13 @@
     <Compile Include="MemberList.aspx.designer.cs">
       <DependentUpon>MemberList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminMenuPage.cs" />
+    <Compile Include="Components\BreadCrumb.cs" />
+    <Compile Include="Models\BreadCrumbs.cs" />
     <Compile Include="Models\FileManager.cs" />
     <Compile Include="Models\FileService.cs" />
+    <Compile Include="Models\MemberListModel.cs" />
+    <Compile Include="Models\PagerInfo.cs" />
     <Compile Include="Modules\ChildPageSiteMapModule.ascx.cs">
       <DependentUpon>ChildPageSiteMapModule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3513,6 +3544,12 @@
     <Content Include="Views\FileManager\Pages.cshtml" />
     <Content Include="Views\FileManager\_FileManagerLayout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\eletter\_Admin.cshtml" />
+    <Content Include="Views\Admin\_AdminMenu.cshtml" />
+    <Content Include="Views\Shared\_BreadCrumbs.cshtml" />
+    <Content Include="Views\Shared\MemberList.cshtml" />
+    <Content Include="Views\Shared\_Pager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />
@@ -3723,9 +3760,6 @@
     <Content Include="Admin\RejectContent.aspx" />
     <Content Include="Admin\RejectedContent.aspx" />
     <Content Include="Dialog\UserSelectorDialog.aspx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Dialog\FileDialog.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controls\CommentSystems\CommentSystemSetting.ascx" />

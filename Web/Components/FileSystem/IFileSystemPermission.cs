@@ -75,5 +75,7 @@ namespace mojoPortal.FileSystem
         /// The max number of files allowed for the user.
         /// </value>
         int MaxFiles { get; }
+
+		string UserFolder { get; }
     }
 }

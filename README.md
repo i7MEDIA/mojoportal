@@ -2,17 +2,18 @@
 mojoPortal is an extensible, cross database, mobile friendly, web content management system (CMS), and web application framework written in C# ASP.NET.
 
 ## Features
-- [Blog](https://www.mojoportal.com/blogmodule.aspx)
-- [Image Galleries](https://www.mojoportal.com/image-galleries.aspx)
-- [Forum](https://www.mojoportal.com/forumsmodule.aspx)
-- [Contact Form](https://www.mojoportal.com/using-the-contact-form.aspx)
-- [Newsletter](https://www.mojoportal.com/using-the-newsletter)
-- [WebStore](https://www.mojoportal.com/using-the-webstore-feature.aspx)
-- [Content Workflow](https://www.mojoportal.com/using-the-content-workflow-system.aspx)
-- [Content Versioning](https://www.mojoportal.com/using-content-version-history.aspx)
-- [Integrated Site Search](https://www.mojoportal.com/site-search-overview)
-- [Users](https://www.mojoportal.com/managingusers.aspx), [Roles and Permissions](https://www.mojoportal.com/rolesandpermissions.aspx)
+- [Blog](https://www.mojoportal.com/docs/blog)
+- [Image Gallery](https://www.mojoportal.com/docs/image-gallery)
+- [Forum](https://www.mojoportal.com/docs/forums)
+- [Contact Form](https://www.mojoportal.com/docs/contact-form)
+- [Newsletter](https://www.mojoportal.com/docs/newsletter)
+- [WebStore](https://www.mojoportal.com/docs/webstore)
+- [Content Workflow](https://www.mojoportal.com/docs/content-workflow)
+- [Content Versioning](https://www.mojoportal.com/docs/content-versioning)
+- [Integrated Site Search](https://www.mojoportal.com/docs/site-search)
+- [Users](https://www.mojoportal.com/docs/managing-users), [Roles and Permissions](https://www.mojoportal.com/docs/roles-permissions)
 - Calendar
+- Survey
 
 ## Commercial Features
 - [Form Builder](https://www.mojoportal.com/form-wizard-pro-product)

@@ -14,6 +14,7 @@ using mojoPortal.FileSystem;
 using mojoPortal.Web;
 using Newtonsoft.Json;
 using Resources;
+using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Features.UI.BetterImageGallery
 {
@@ -32,7 +33,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 		private string mediaRootPath = string.Empty;
 		private string galleryRootPath = string.Empty;
 		private string galleryPath = string.Empty;
-		private readonly string moduleThumbnailCachePath = "/Data/systemfiles/BetterImageGalleryCache/";
+		private readonly string moduleThumbnailCachePath = "~/Data/systemfiles/BetterImageGalleryCache/";
 		private readonly int thumbnailSize = 200;
 
 		public BIGErrorResult Error { get; set; } = null;
@@ -150,7 +151,14 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			}
 
 			// Media Folder
+			//VirtualRoot isn't always media folder, depending on how the site is configured, so we'll make sure to use media folder
+			
 			mediaRootPath = fileSystem.VirtualRoot;
+			if (!mediaRootPath.TrimEnd('/').EndsWith("media"))
+			{
+				mediaRootPath = mediaRootPath.TrimEnd('/') + "/media/";
+			}
+
 			// Gallery Module Folder
 			galleryRootPath = mediaRootPath + "BetterImageGallery/";
 			// Gallery Folder

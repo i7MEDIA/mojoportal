@@ -1,5 +1,5 @@
 ﻿// Created:					2017-12-30
-// Last Modified:			2018-01-02
+// Last Modified:			2022-08-17
 
 using mojoPortal.Data;
 using Npgsql;
@@ -323,9 +323,13 @@ namespace SuperFlexiData
 		public static IDataReader GetByItemGuid(Guid itemGuid)
         {
             StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_values where itemguid = :itemguid;");
+            sqlCommand.Append(@"
+				SELECT v.*, f.Name AS FieldName 
+				FROM i7_sflexi_values v 
+				JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid 
+				WHERE ItemGuid = :ItemGuid;");
 
-            var sqlParam = new NpgsqlParameter(":itemguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = itemGuid };
+            var sqlParam = new NpgsqlParameter(":ItemGuid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = itemGuid };
 
             return NpgsqlHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
@@ -363,58 +367,85 @@ namespace SuperFlexiData
 		}
 
 
-			public static IDataReader GetByGuid(Guid fieldGuid)
+		public static IDataReader GetByFieldGuid(Guid fieldGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_values where fieldguid = :fieldguid;");
+            var commandText = @"
+                SELECT v.*, f.Name AS FieldName
+                FROM public.i7_sflexi_values v
+                JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
+                WHERE f.FieldGuid = :FieldGuild;";
 
-            var sqlParam = new NpgsqlParameter(":fieldguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldGuid };
+            var commandParamters = new NpgsqlParameter[] {
+                new NpgsqlParameter(":FieldGuild", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldGuid }
+            };
             
             return NpgsqlHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
-				sqlCommand.ToString(),
-                sqlParam);
+                commandText,
+                commandParamters
+            );
         }
+
 
         public static IDataReader GetByGuidForModule(Guid fieldGuid, Guid moduleGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_values where moduleguid = :moduleguid and fieldguid = :fieldguid;");
+            var commandText = @"
+                SELECT v.*, f.Name AS FieldName
+                FROM public.i7_sflexi_values v
+                JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
+                WHERE v.ModuleGuid = :ModuleGuid
+                AND f.FieldGuid = :FieldGuild;";
 
-            var sqlParams = new List<NpgsqlParameter>
+            var commandParameters = new NpgsqlParameter[]
             {
-                new NpgsqlParameter(":moduleguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = moduleGuid },
-                new NpgsqlParameter(":fieldguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldGuid }
+                new NpgsqlParameter(":ModuleGuid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = moduleGuid },
+                new NpgsqlParameter(":FieldGuid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldGuid }
             };
 
             return NpgsqlHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
-				sqlCommand.ToString(),
-                sqlParams.ToArray());
+                commandText,
+                commandParameters
+            );
         }
+
 
         public static IDataReader GetByGuidForModule(Guid fieldGuid, int moduleId)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_values "
-                +"join mp_modules on mp_modules.guid = i7_sflexi_values.moduleguid "
-                +"where fieldguid = :fieldguid " 
-                +"and mp_modules.moduleid = :moduleid;");
+            var commandText = @"
+                    SELECT
+                        ValueGuid,
+                        v.SiteGuid,
+                        v.FeatureGuid,
+                        ModuleGuid,
+                        ItemGuid,
+                        FieldGuid,
+                        FieldValue
+                    FROM
+                        public.i7_sflexi_values v
+                    JOIN
+                        public.mp_Modules m ON m.Guid::uuid = v.ModuleGuid
+                    WHERE
+                        v.FieldGuid = :FieldGuid
+                    AND
+                        m.ModuleID = :ModuleID;";
 
-            var sqlParams = new List<NpgsqlParameter>
+            var commandParameters = new NpgsqlParameter[]
             {
-                new NpgsqlParameter(":moduleid", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = moduleId },
-                new NpgsqlParameter(":fieldguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldGuid }
+                new NpgsqlParameter(":ModuleID", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = moduleId },
+                new NpgsqlParameter(":FieldGuid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldGuid }
             };
 
             return NpgsqlHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
-				sqlCommand.ToString(),
-                sqlParams.ToArray());
+                commandText,
+                commandParameters
+            );
         }
+
 
 		public static IDataReader GetPageOfValuesForField(
 			Guid moduleGuid,
@@ -523,8 +554,46 @@ namespace SuperFlexiData
                 sqlParams.ToArray());
 
         }
+		//    public static IDataReader GetByFieldGuid(Guid fieldGuid)
+		//    {
+		//        const string sqlCommand = @"
+		//SELECT v.*, f.Name AS `FieldName` 
+		//FROM `i7_sflexi_values` v 
+		//JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
+		//WHERE f.`FieldGuid` = :FieldGuid;";
+
+		//        var sqlParam = new NpgsqlParameter(":FieldGuid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldGuid };
+
+		//        return NpgsqlHelper.ExecuteReader(
+		//                       ConnectionString.GetReadConnectionString(),
+		//                       CommandType.Text,
+		//                       sqlCommand.ToString(),
+		//                       sqlParam);
+		//    }
 
 
-    }
+		public static IDataReader GetByFieldGuidForModule(Guid fieldGuid, Guid moduleGuid)
+		{
+			const string sqlCommand = @"
+				SELECT v.*, f.Name AS FieldName 
+				FROM i7_sflexi_values v 
+				JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
+				WHERE ModuleGuid = :ModuleGuid 
+				AND f.FieldGuid = :FieldGuid;";
+
+			var sqlParams = new List<NpgsqlParameter>
+			{
+				new NpgsqlParameter(":moduleguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = moduleGuid },
+				new NpgsqlParameter(":fieldguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldGuid },
+			};
+
+			return NpgsqlHelper.ExecuteReader(
+						   ConnectionString.GetReadConnectionString(),
+						   CommandType.Text,
+						   sqlCommand.ToString(),
+						   sqlParams.ToArray());
+		}
+
+	}
 
 }

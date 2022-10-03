@@ -45,15 +45,25 @@
 
 	<!--
 		Security Settings:
-		CheckMD5PasswordHashAsFallback - This is true by default so that upgraded sites can change
-		automatically from the older md5 hashing to the newer sha512 with salt. It is false here
-		because it is not needed to do this extra check for new installations after we changed the
-		hashing since user.config.sample is only used when creating new sites and it is then
-		renamed to user.config.
-	-->
+		
+		CheckMD5PasswordHashAsFallback (true)
+			This is true by default so that upgraded sites can change
+			automatically from the older md5 hashing to the newer sha512 with salt. It is false here
+			because it is not needed to do this extra check for new installations after we changed the
+			hashing since user.config.sample is only used when creating new sites and it is then
+			renamed to user.config.
+		
+		SSLIsAvailable (false)
+			is a global setting that means all sites in the installation can use SSL
+			if you want to enable SSL in only specific sites use
+			<add key="Site1-SSLIsAvailable" value="true" />
+			where the numeric part corresponds to the SiteID
+		
+		-->
 	<add key="CheckMD5PasswordHashAsFallback" value="false" />
-	<add key="UseLegacyCryptoHelper" value="false" />
 
+	<add key="UseLegacyCryptoHelper" value="false" />
+	<add key="SSLIsAvailable" value="false" />
 
 	<!-- Administration Settings -->
 	<add key="ImageGalleryUseMediaFolder" value="true" />
@@ -67,6 +77,12 @@
 	<add key="EnableSearchResultsHighlighting" value="true" />
 	<add key="Forum:AggregateSearchIndexPerThread" value="true" />
 
+	<!-- 
+		Logging 404 Errors:
+		It is good to log 404 errors (page not found) but only when you will be actively reviewing the logs to identify bad links.
+		It's best to use analytics to do this though. We disable 404 logging by default on new sites.
+	-->
+	<add key="Log404Errors" value="false"/>
 
 	<!--
 		Email Settings:
@@ -93,9 +109,14 @@
 	<add key="CacheCssInBrowser" value="true"/>	
 	<add key="CombineCSS" value="true"/>
 	<add key="MinifyCSS" value="true"/> -->
-
+	
+	<!-- Showing the skin version could be a security risk IF a bug is found in a specific version -->
+	<add key="IncludeVersionInCssUrl" value="false" />
+	
 	<!-- Cache Settings -->
 	<!-- <add key="DisableCacheFor301Redirects" value="false" />
 	<add key="SetExplicitCacheFor301Redirects" value="true" />
 	<add key="CacheDurationInDaysFor301Redirects" value="5" /> -->
+	
+	
 </appSettings>

@@ -1,0 +1,31 @@
+﻿@using mojoPortal.Web.Framework;
+@using mojoPortal.Web.Helpers;
+@using mojoPortal.Business;
+@using mojoPortal.Web;
+@using mojoPortal.Web.Models;
+@using mojoPortal.Business.WebHelpers;
+@using Resources;
+
+@model mojoPortal.Web.Models.BreadCrumbs
+
+
+@{
+	var siteRoot = SiteUtils.GetNavigationSiteRoot();
+	var siteSettings = CacheHelper.GetCurrentSiteSettings();
+	var currentUser = SiteUtils.GetCurrentSiteUser();
+	var i = 1;
+
+	var listCssClass = Model.CrumbArea == BreadCrumbArea.Admin ? "breadcrumb admin-crumb" : "breadcrumb";
+}
+
+
+<ul class="@listCssClass">
+	@foreach (var crumb in Model.Crumbs)
+	{
+		<li class="@crumb.CssClass">
+			<a href="@crumb.Url"@(crumb.IsCurrent ? "class=\"selectedcrumb\"" : "")@(String.IsNullOrWhiteSpace(crumb.Tooltip) ? "" : "title=\"@crumb.ToolTip\"")>
+				@crumb.Text
+			</a>
+		</li>
+	}
+</ul>

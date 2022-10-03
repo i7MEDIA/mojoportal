@@ -40,7 +40,7 @@ namespace mojoPortal.Web.GalleryUI
 
             showTechnicalData = WebUtils.ParseBoolFromHashtable(settings, "GalleryShowTechnicalDataSetting", showTechnicalData);
             useCompactMode = WebUtils.ParseBoolFromHashtable(settings, "GalleryCompactModeSetting", useCompactMode);
-            useSlideShow = WebUtils.ParseBoolFromHashtable(settings, "UseSilverlightSlideshow", useSlideShow);
+            //useSlideShow = WebUtils.ParseBoolFromHashtable(settings, "UseSilverlightSlideshow", useSlideShow);
 
             if (settings.Contains("SlideShowTheme"))
             {
@@ -138,11 +138,11 @@ namespace mojoPortal.Web.GalleryUI
             get { return useCompactMode; }
         }
 
-        private bool useSlideShow = false;
+        //private bool useSlideShow = false;
 
         public bool UseSlideShow
         {
-            get { return useSlideShow; }
+            get { return false; }
         }
 
         private string slideShowTheme = "LightTheme";

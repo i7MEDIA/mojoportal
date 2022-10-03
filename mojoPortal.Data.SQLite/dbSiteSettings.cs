@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2017-09-11
+/// Last Modified:			2019-04-04
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -19,6 +19,7 @@ using System.Globalization;
 using System.IO;
 using System.Web;
 using Mono.Data.Sqlite;
+using System.Collections.Generic;
 
 namespace mojoPortal.Data
 {
@@ -1716,11 +1717,15 @@ namespace mojoPortal.Data
                 GetConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
-
-
         }
 
-        public static void AddHost(Guid siteGuid, int siteId, string hostName)
+		public static IDataReader GetHostList()
+		{
+			var sqlCommand = "SELECT * FROM mp_SiteHosts order by HostName;";
+			return SqliteHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand);
+		}
+
+		public static void AddHost(Guid siteGuid, int siteId, string hostName)
         {
             StringBuilder sqlCommand = new StringBuilder();
 
@@ -2124,6 +2129,27 @@ namespace mojoPortal.Data
 
 		}
 
+		public static void UpdateSkinVersionGuidForAllSites()
+		{
+			var sqlCommand = $@"UPDATE mp_SiteSettingsEx
+				SET KeyValue = :NewGuid
+				WHERE KeyName = 'SkinVersion'
+				AND GroupName = 'Settings';";
+
+			List<SqliteParameter> sqlParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":NewGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = Guid.NewGuid().ToString()
+				}
+			};
+
+			SqliteHelper.ExecuteScalar(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				sqlParams.ToArray());
+		}
 
 	}
 }

@@ -397,7 +397,7 @@ namespace mojoPortal.Core.API.MetaWeblog
         /// </param>
         private void LoadXmlRequest(string xml)
         {
-            var request = new XmlDocument();
+            var request = new XmlDocument() { XmlResolver = null }; 
             try
             {
                 if (!(xml.StartsWith("<?xml") || xml.StartsWith("<method")))

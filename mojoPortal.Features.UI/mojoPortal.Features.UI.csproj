@@ -142,9 +142,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\HtmlDiff.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.14\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -746,13 +745,6 @@
     </Compile>
     <Compile Include="FeedManager\FeedManagerModule.ascx.designer.cs">
       <DependentUpon>FeedManagerModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="FlashModule\FlashMovieModule.ascx.cs">
-      <DependentUpon>FlashMovieModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FlashModule\FlashMovieModule.ascx.designer.cs">
-      <DependentUpon>FlashMovieModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="FolderGallery\Components\FolderGalleryConfiguration.cs" />
     <Compile Include="FolderGallery\Components\FolderGalleryContentInstaller.cs" />
@@ -1536,7 +1528,6 @@
     <Content Include="XmlXsl\XmlModule.ascx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FlashModule\FlashMovieModule.ascx" />
     <Content Include="HtmlInclude\HtmlFragmentInclude.ascx" />
     <Content Include="HtmlInclude\Edit.aspx" />
     <Content Include="Setup\applications\xmlmodule\FeatureDefinitions\90300_XmlXslModule.config">
@@ -1807,6 +1798,38 @@
   <ItemGroup>
     <Content Include="BetterImageGallery\Views\_BetterImageGallery_Error.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\0.0.0.3.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\0.0.0.4.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\0.0.0.5.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\0.0.0.6.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\1.0.0.0.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\comments\FeatureDefinitions\90000_CommentsModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\kdmediaplayer\FeatureDefinitions\KDAudioPlayer.config" />
+    <Content Include="Setup\applications\kdmediaplayer\FeatureDefinitions\KDVideoPlayer.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\firebirdsql\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\firebirdsql\1.0.0.0\a_generators.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\firebirdsql\1.0.0.0\b_tables.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\firebirdsql\1.0.0.0\c_procedures.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\firebirdsql\1.0.0.0\d_tables.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\mssql\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\mysql\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\pgsql\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\sqlce\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\sqlite\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\firebirdsql\1.0.0.1.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\mssql\1.0.0.1.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\mysql\1.0.0.1.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\pgsql\1.0.0.1.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\sqlce\1.0.0.1.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\sqlite\1.0.0.1.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -1843,17 +1866,24 @@
 xcopy /s /y /d "$(ProjectDir)bin\mojoPortal.Features.Business.dll" "$(SolutionDir)Web\bin\"
 xcopy /s /y /d "$(ProjectDir)bin\mojoPortal.Features.Data.dll" "$(SolutionDir)Web\bin\"
 xcopy /s /y /d "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\App_GlobalResources\"
+
 xcopy /s /y /d "$(ProjectDir)Setup\*" "$(SolutionDir)Web\Setup"
+
 xcopy /s /y /d "$(ProjectDir)Poll\*.aspx" "$(SolutionDir)Web\Poll\"
 xcopy /s /y /d "$(ProjectDir)Poll\*.ascx" "$(SolutionDir)Web\Poll\"
+
 xcopy /s /y /d "$(ProjectDir)Survey\*.aspx" "$(SolutionDir)Web\Survey\"
 xcopy /s /y /d "$(ProjectDir)Survey\*.ascx" "$(SolutionDir)Web\Survey\"
+
 xcopy /s /y /d "$(ProjectDir)FeedManager\*.aspx" "$(SolutionDir)Web\FeedManager\"
 xcopy /s /y /d "$(ProjectDir)FeedManager\*.ascx" "$(SolutionDir)Web\FeedManager\"
+
 xcopy /s /y /d "$(ProjectDir)bin\Argotic*.dll" "$(SolutionDir)Web\bin\"
+
 xcopy /s /y /d "$(ProjectDir)BetterImageGallery\blueimp-gallery\*" "$(SolutionDir)Web\BetterImageGallery\blueimp-gallery\"
 xcopy /s /y /d "$(ProjectDir)BetterImageGallery\*.ascx" "$(SolutionDir)Web\BetterImageGallery\"
 xcopy /s /y /d "$(ProjectDir)BetterImageGallery\Views\*" "$(SolutionDir)Web\Views\BetterImageGallery\"
+
 xcopy /s /y /d "$(ProjectDir)Blog\*.aspx" "$(SolutionDir)Web\Blog\"
 xcopy /s /y /d "$(ProjectDir)Blog\*.ascx" "$(SolutionDir)Web\Blog\"
 xcopy /s /y /d "$(ProjectDir)Blog\BlogUrlSuggestService.ashx" "$(SolutionDir)Web\Blog\"
@@ -1863,39 +1893,51 @@ xcopy /s /y /d "$(ProjectDir)Blog\news-map.ashx" "$(SolutionDir)Web\Blog\"
 xcopy /s /y /d "$(ProjectDir)Blog\metaweblogapi.ashx" "$(SolutionDir)Web\"
 xcopy /s /y /d "$(ProjectDir)Blog\wlwmanifest.xml" "$(SolutionDir)Web\"
 xcopy /s /y /d "$(ProjectDir)Blog\Views\*" "$(SolutionDir)Web\Views\Blog\"
+
 xcopy /s /y /d "$(ProjectDir)ContactForm\*.aspx" "$(SolutionDir)Web\ContactForm\"
 xcopy /s /y /d "$(ProjectDir)ContactForm\*.ascx" "$(SolutionDir)Web\ContactForm\"
+
 xcopy /s /y /d "$(ProjectDir)EventCalendar\*.aspx" "$(SolutionDir)Web\EventCalendar\"
 xcopy /s /y /d "$(ProjectDir)EventCalendar\*.ascx" "$(SolutionDir)Web\EventCalendar\"
+
 xcopy /s /y /d "$(ProjectDir)Forums\*.aspx" "$(SolutionDir)Web\Forums\"
 xcopy /s /y /d "$(ProjectDir)Forums\*.ascx" "$(SolutionDir)Web\Forums\"
 xcopy /s /y /d "$(ProjectDir)Forums\*.ashx" "$(SolutionDir)Web\Forums\"
+
 xcopy /s /y /d "$(ProjectDir)ImageGallery\*.aspx" "$(SolutionDir)Web\ImageGallery\"
 xcopy /s /y /d "$(ProjectDir)ImageGallery\*.ashx" "$(SolutionDir)Web\ImageGallery\"
 xcopy /s /y /d "$(ProjectDir)ImageGallery\*.ascx" "$(SolutionDir)Web\ImageGallery\"
 xcopy /s /y /d "$(ProjectDir)ImageGallery\*.xsl" "$(SolutionDir)Web\ImageGallery\"
+
 xcopy /s /y /d "$(ProjectDir)List\*.aspx" "$(SolutionDir)Web\List\"
 xcopy /s /y /d "$(ProjectDir)List\*.ascx" "$(SolutionDir)Web\List\"
+
 xcopy /s /y /d "$(ProjectDir)SharedFiles\*.aspx" "$(SolutionDir)Web\SharedFiles\"
 xcopy /s /y /d "$(ProjectDir)SharedFiles\*.ascx" "$(SolutionDir)Web\SharedFiles\"
 xcopy /s /y /d "$(ProjectDir)SharedFiles\*.ashx" "$(SolutionDir)Web\SharedFiles\"
+
 xcopy /s /y /d "$(ProjectDir)FolderGallery\*.aspx" "$(SolutionDir)Web\FolderGallery\"
 xcopy /s /y /d "$(ProjectDir)FolderGallery\*.ascx" "$(SolutionDir)Web\FolderGallery\"
 xcopy /s /y /d "$(ProjectDir)FolderGallery\*.ashx" "$(SolutionDir)Web\FolderGallery\"
+
 xcopy /s /y /d "$(ProjectDir)GoogleMap\*.aspx" "$(SolutionDir)Web\GoogleMap\"
 xcopy /s /y /d "$(ProjectDir)GoogleMap\*.ascx" "$(SolutionDir)Web\GoogleMap\"
+
 xcopy /s /y /d "$(ProjectDir)XmlXsl\*.aspx" "$(SolutionDir)Web\XmlXsl\"
 xcopy /s /y /d "$(ProjectDir)XmlXsl\*.ascx" "$(SolutionDir)Web\XmlXsl\"
 xcopy /s /y /d "$(ProjectDir)XmlXsl\*.ashx" "$(SolutionDir)Web\XmlXsl\"
+
 xcopy /s /y /d "$(ProjectDir)HtmlInclude\*.aspx" "$(SolutionDir)Web\HtmlInclude\"
 xcopy /s /y /d "$(ProjectDir)HtmlInclude\*.ascx" "$(SolutionDir)Web\HtmlInclude\"
-xcopy /s /y /d "$(ProjectDir)LiveMessenger\*.ascx" "$(SolutionDir)Web\LiveMessenger\"
+
 xcopy /s /y /d "$(ProjectDir)Data\*" "$(SolutionDir)Web\Data"
+
 xcopy /s /y /d "$(ProjectDir)Services\*.ashx" "$(SolutionDir)Web\Services\"
-xcopy /s /y /d "$(ProjectDir)Flickr\*.ascx" "$(SolutionDir)Web\Flickr\"
-xcopy /s /y /d "$(ProjectDir)Twitter\*.ascx" "$(SolutionDir)Web\Twitter\"
+
 xcopy /s /y /d "$(ProjectDir)IFrame\*.ascx" "$(SolutionDir)Web\IFrame\"
+
 xcopy /s /y /d "$(ProjectDir)GoogleTranslate\*.ascx" "$(SolutionDir)Web\GoogleTranslate\"
+
 xcopy /s /y /d "$(ProjectDir)BingMap\*.ascx" "$(SolutionDir)Web\BingMap\"
 
 xcopy /s /y /d "$(ProjectDir)KDMediaPlayer\*.aspx" "$(SolutionDir)Web\KDMediaPlayer\"

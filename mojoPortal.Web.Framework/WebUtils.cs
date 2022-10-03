@@ -1,6 +1,5 @@
-// Author:					
-// Created:				2004-07-14
-// Last Modified:			2011-11-18
+// Created:					2004-07-14
+// Last Modified:			2019-04-04
 // 
 // 4/30/2005	Dean Brettle Provided a better handling of proxy settings
 //				in generating the base path for site links
@@ -22,15 +21,14 @@ using System.IO;
 using System.Net;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using log4net;
-
+using mojoPortal.Core.Helpers;
 namespace mojoPortal.Web.Framework
 {
-    /// <summary>
-    /// Utility functions
-    /// </summary>
-    public static class WebUtils
+	/// <summary>
+	/// Utility functions
+	/// </summary>
+	public static class WebUtils
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WebUtils));
         private static bool debugLog = log.IsDebugEnabled;
@@ -335,11 +333,10 @@ namespace mojoPortal.Web.Framework
 
         public static void ForceSsl()
         {
-            bool proxyPreventsSSLDetection;
-            bool.TryParse(ConfigurationManager.AppSettings["ProxyPreventsSSLDetection"], out proxyPreventsSSLDetection);
-            // proxyPreventsSSLDetection is false if parsing failed for any reason
+			bool.TryParse(ConfigurationManager.AppSettings["ProxyPreventsSSLDetection"], out bool proxyPreventsSSLDetection);
+			// proxyPreventsSSLDetection is false if parsing failed for any reason
 
-            if (!proxyPreventsSSLDetection)
+			if (!proxyPreventsSSLDetection)
             {
                 string url = HttpContext.Current.Request.Url.ToString();
                 if (url.StartsWith("http:"))
@@ -1031,13 +1028,14 @@ namespace mojoPortal.Web.Framework
         /// <returns></returns>
         public static string ResolveServerUrl(string serverUrl)
         {
-            return ResolveServerUrl(serverUrl, false);
+			bool forceHttps = WebHelper.IsSecureRequest();
+	        return ResolveServerUrl(serverUrl, forceHttps);
         }
 
-        /// <summary>
-        /// Forces the Uri to use https
-        /// </summary>
-        private static Uri ForceUriToHttps(Uri uri)
+		/// <summary>
+		/// Forces the Uri to use https
+		/// </summary>
+		private static Uri ForceUriToHttps(Uri uri)
         {
             // ** Re-write Url using builder.
             UriBuilder builder = new UriBuilder(uri);

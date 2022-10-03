@@ -1,6 +1,6 @@
 ﻿/// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2009-06-24
+/// Last Modified:			2019-09-18
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -47,21 +47,6 @@ namespace mojoPortal.Data
         /// <summary>
         /// Inserts a row in the mp_CalendarEvents table. Returns new integer id.
         /// </summary>
-        /// <param name="itemGuid"> itemGuid </param>
-        /// <param name="moduleGuid"> moduleGuid </param>
-        /// <param name="moduleID"> moduleID </param>
-        /// <param name="title"> title </param>
-        /// <param name="description"> description </param>
-        /// <param name="imageName"> imageName </param>
-        /// <param name="eventDate"> eventDate </param>
-        /// <param name="startTime"> startTime </param>
-        /// <param name="endTime"> endTime </param>
-        /// <param name="userID"> userID </param>
-        /// <param name="userGuid"> userGuid </param>
-        /// <param name="location"> location </param>
-        /// <param name="requiresTicket"> requiresTicket </param>
-        /// <param name="ticketPrice"> ticketPrice </param>
-        /// <param name="createdDate"> createdDate </param>
         /// <returns>int</returns>
         public static int AddCalendarEvent(
             Guid itemGuid,
@@ -78,24 +63,27 @@ namespace mojoPortal.Data
             string location,
             bool requiresTicket,
             decimal ticketPrice,
-            DateTime createdDate)
+            DateTime createdDate,
+			bool showMap)
         {
-            #region Bit Conversion
+			#region Bit Conversion
 
-            int intRequiresTicket;
-            if (requiresTicket)
-            {
-                intRequiresTicket = 1;
-            }
-            else
-            {
-                intRequiresTicket = 0;
-            }
+			int intRequiresTicket = requiresTicket ? 1 : 0;
+			//if (requiresTicket)
+			//{
+			//    intRequiresTicket = 1;
+			//}
+			//else
+			//{
+			//    intRequiresTicket = 0;
+			//}
+
+			int intShowMap = showMap ? 1 : 0;
 
 
-            #endregion
+			#endregion
 
-            StringBuilder sqlCommand = new StringBuilder();
+			StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("INSERT INTO mp_CalendarEvents (");
             sqlCommand.Append("ModuleID, ");
             sqlCommand.Append("Title, ");
@@ -113,7 +101,8 @@ namespace mojoPortal.Data
             sqlCommand.Append("LastModUserGuid, ");
             sqlCommand.Append("LastModUtc, ");
             sqlCommand.Append("TicketPrice, ");
-            sqlCommand.Append("RequiresTicket )");
+			sqlCommand.Append("RequiresTicket,");
+			sqlCommand.Append("ShowMap )");
 
             sqlCommand.Append(" VALUES (");
             sqlCommand.Append(":ModuleID, ");
@@ -132,12 +121,13 @@ namespace mojoPortal.Data
             sqlCommand.Append(":UserGuid, ");
             sqlCommand.Append(":CreatedDate, ");
             sqlCommand.Append(":TicketPrice, ");
-            sqlCommand.Append(":RequiresTicket )");
+			sqlCommand.Append(":RequiresTicket,");
+			sqlCommand.Append(":ShowMap)");
             sqlCommand.Append(";");
 
             sqlCommand.Append("SELECT LAST_INSERT_ROWID();");
 
-            SqliteParameter[] arParams = new SqliteParameter[15];
+            SqliteParameter[] arParams = new SqliteParameter[16];
 
             arParams[0] = new SqliteParameter(":ModuleID", DbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -199,8 +189,11 @@ namespace mojoPortal.Data
             arParams[14].Direction = ParameterDirection.Input;
             arParams[14].Value = intRequiresTicket;
 
+			arParams[15] = new SqliteParameter(":ShowMap", DbType.Int32);
+			arParams[15].Direction = ParameterDirection.Input;
+			arParams[15].Value = intShowMap;
 
-            int newID = Convert.ToInt32(SqliteHelper.ExecuteScalar(
+			int newID = Convert.ToInt32(SqliteHelper.ExecuteScalar(
                 GetConnectionString(),
                 sqlCommand.ToString(),
                 arParams).ToString());
@@ -213,19 +206,6 @@ namespace mojoPortal.Data
         /// <summary>
         /// Updates a row in the mp_CalendarEvents table. Returns true if row updated.
         /// </summary>
-        /// <param name="itemID"> itemID </param>
-        /// <param name="moduleID"> moduleID </param>
-        /// <param name="title"> title </param>
-        /// <param name="description"> description </param>
-        /// <param name="imageName"> imageName </param>
-        /// <param name="eventDate"> eventDate </param>
-        /// <param name="startTime"> startTime </param>
-        /// <param name="endTime"> endTime </param>
-        /// <param name="location"> location </param>
-        /// <param name="ticketPrice"> ticketPrice </param>
-        /// <param name="requiresTicket"> requiresTicket </param>
-        /// <param name="lastModUtc"> lastModUtc </param>
-        /// <param name="lastModUserGuid"> lastModUserGuid </param>
         /// <returns>bool</returns>
         public static bool UpdateCalendarEvent(
             int itemId,
@@ -240,24 +220,27 @@ namespace mojoPortal.Data
             bool requiresTicket,
             decimal ticketPrice,
             DateTime lastModUtc,
-            Guid lastModUserGuid)
+            Guid lastModUserGuid,
+			bool showMap)
         {
-            #region Bit Conversion
+			#region Bit Conversion
 
-            int intRequiresTicket;
-            if (requiresTicket)
-            {
-                intRequiresTicket = 1;
-            }
-            else
-            {
-                intRequiresTicket = 0;
-            }
+			int intRequiresTicket = requiresTicket ? 1 : 0;
+			//if (requiresTicket)
+			//{
+			//    intRequiresTicket = 1;
+			//}
+			//else
+			//{
+			//    intRequiresTicket = 0;
+			//}
+
+			int intShowMap = showMap ? 1 : 0;
 
 
-            #endregion
+			#endregion
 
-            StringBuilder sqlCommand = new StringBuilder();
+			StringBuilder sqlCommand = new StringBuilder();
 
             sqlCommand.Append("UPDATE mp_CalendarEvents ");
             sqlCommand.Append("SET  ");
@@ -272,12 +255,13 @@ namespace mojoPortal.Data
             sqlCommand.Append("LastModUserGuid = :LastModUserGuid, ");
             sqlCommand.Append("LastModUtc = :LastModUtc, ");
             sqlCommand.Append("TicketPrice = :TicketPrice, ");
-            sqlCommand.Append("RequiresTicket = :RequiresTicket ");
+			sqlCommand.Append("RequiresTicket = :RequiresTicket,");
+			sqlCommand.Append("ShowMap = :ShowMap ");
 
             sqlCommand.Append("WHERE  ");
             sqlCommand.Append("ItemID = :ItemID ;");
 
-            SqliteParameter[] arParams = new SqliteParameter[13];
+            SqliteParameter[] arParams = new SqliteParameter[14];
 
             arParams[0] = new SqliteParameter(":ItemID", DbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -331,7 +315,11 @@ namespace mojoPortal.Data
             arParams[12].Direction = ParameterDirection.Input;
             arParams[12].Value = intRequiresTicket;
 
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
+			arParams[13] = new SqliteParameter(":ShowMap", DbType.Int32);
+			arParams[13].Direction = ParameterDirection.Input;
+			arParams[13].Value = intShowMap;
+
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
                 GetConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

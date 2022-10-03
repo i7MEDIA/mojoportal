@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear Theme Cache.
+        /// </summary>
+        internal static string ClearThemeCache {
+            get {
+                return ResourceManager.GetString("ClearThemeCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Saved Query.
         /// </summary>
         internal static string DeleteSavedQuery {

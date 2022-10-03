@@ -123,6 +123,7 @@ namespace mojoPortal.Web.BlogUI
             postList.ModuleId = moduleId;
             postList.PageId = pageId;
             postList.DisplayMode = "ByMonth";
+			postList.ShowFeaturedPost = false;
             postList.IsEditable = UserCanEditModule(moduleId, Blog.FeatureGuid);
             postList.Config = config;
             postList.SiteRoot = SiteRoot;

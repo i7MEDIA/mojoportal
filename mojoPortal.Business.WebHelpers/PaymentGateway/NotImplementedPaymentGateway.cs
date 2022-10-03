@@ -455,6 +455,8 @@ namespace mojoPortal.Business.WebHelpers.PaymentGateway
             set { timeoutInMilliseconds = value; }
         }
 
+        public PaymentGatewayType Type { get; set; } = PaymentGatewayType.None;
+
         #endregion
 
         #region IPaymentGateway Methods

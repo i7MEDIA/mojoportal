@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2017-09-11
+/// Last Modified:			2019-04-04
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -20,6 +20,7 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 
 namespace mojoPortal.Data
 {
@@ -1589,9 +1590,13 @@ namespace mojoPortal.Data
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
-
-
         }
+
+		public static IDataReader GetHostList()
+		{
+			var sqlCommand = "SELECT * FROM mp_SiteHosts order by HostName;";
+			return MySqlHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand);
+		}
 
         public static void AddHost(Guid siteGuid, int siteId, string hostName)
         {
@@ -2086,7 +2091,27 @@ namespace mojoPortal.Data
 
 		}
 
+		public static void UpdateSkinVersionGuidForAllSites()
+		{
+			var sqlCommand = $@"UPDATE mp_SiteSettingsEx
+				SET KeyValue = ?NewGuid
+				WHERE KeyName = 'SkinVersion'
+				AND GroupName = 'Settings';";
 
+			List<MySqlParameter> sqlParams = new List<MySqlParameter>
+			{
+				new MySqlParameter("?NewGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = Guid.NewGuid().ToString()
+				}
+			};
+
+			MySqlHelper.ExecuteScalar(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				sqlParams.ToArray());
+		}
 
 	}
 }

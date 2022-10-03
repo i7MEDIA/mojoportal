@@ -1542,11 +1542,23 @@ namespace mojoPortal.SearchIndex
         {
             if (WebConfigSettings.DisableSearchIndex) { return; }
 
-            if (indexItem == null) return;
-            if (indexPath == null) return;
-            if (indexPath.Length == 0) return;
+			if (indexItem == null)
+			{
+				log.Info("IndexItem was NULL");
+				return;
+			}
+            if (indexPath == null)
+			{
+				log.Info("IndexPath was NULL");
+				return;
+			}
+			if (indexPath.Length == 0)
+			{
+				log.Info("IndexItem was empty");
+				return;
+			}
 
-            IndexingQueue queueItem = new IndexingQueue();
+			IndexingQueue queueItem = new IndexingQueue();
             queueItem.SiteId = indexItem.SiteId;
             queueItem.IndexPath = indexPath;
             queueItem.ItemKey = indexItem.Key;

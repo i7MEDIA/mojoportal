@@ -1,7 +1,3 @@
-/// Author:				
-/// Created:			2005-04-10
-///	Last Modified:		2008-11-08
-///	
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
 /// which can be found in the file CPL.TXT at the root of this distribution.
@@ -19,6 +15,8 @@ using mojoPortal.Business;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
+using mojoPortal.Features.UI.EventCalendar;
+using System.Collections;
 
 namespace mojoPortal.Web.EventCalendarUI
 {
@@ -42,22 +40,10 @@ namespace mojoPortal.Web.EventCalendarUI
         private DateTime visibleDate;
         private DateTime currentDate;
         private string visibleDateParam;
-        private string instanceCssClass = string.Empty;
-        private bool useFillerOnEmptyDays = true; 
-
-        protected bool UseFillerOnEmptyDays
-        {
-            get
-            {
-                return useFillerOnEmptyDays;
-            }
-            set
-            {
-                useFillerOnEmptyDays = value;
-            }
-        }
-        
-       
+  //      private string instanceCssClass = string.Empty;
+  //      private bool useFillerOnEmptyDays = true;
+		//private bool showTimeInCalendar = false;
+		protected CalendarConfiguration config;
 
         protected override void OnInit(EventArgs e)
         {
@@ -65,9 +51,7 @@ namespace mojoPortal.Web.EventCalendarUI
             this.Load += new EventHandler(Page_Load);
             this.cal1.VisibleMonthChanged += new MonthChangedEventHandler(Cal1VisibleMonthChanged);
             this.cal1.SelectionChanged += new EventHandler(Cal1SelectionChanged);
-            
         }
-
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -85,8 +69,6 @@ namespace mojoPortal.Web.EventCalendarUI
 
             LoadParams();
 
-           
-
             SetupCss();
 
             if (
@@ -95,11 +77,7 @@ namespace mojoPortal.Web.EventCalendarUI
                 )
 			{
 				PopulateControls();
-				
 			}
-			
-
-            
 		}
 
 
@@ -121,9 +99,6 @@ namespace mojoPortal.Web.EventCalendarUI
             this.cal1.DataSource = dt;
 			
 		}
-
-        
-
 
 		private void Cal1VisibleMonthChanged(object sender, MonthChangedEventArgs e)
 		{
@@ -179,7 +154,7 @@ namespace mojoPortal.Web.EventCalendarUI
                     Literal cssLink = new Literal();
                     cssLink.ID = "mpdatacalendarcss";
                     cssLink.Text = "\n<link href='"
-                    + SiteUtils.GetSkinBaseUrl()
+                    + SiteUtils.GetSkinBaseUrl(this.Page)
                     + "mpdatacalendar.css' type='text/css' rel='stylesheet' media='screen' />";
 
                     stylesheet.Controls.Add(cssLink);
@@ -195,20 +170,12 @@ namespace mojoPortal.Web.EventCalendarUI
             visibleDate = WebUtils.ParseDateFromQueryString(visibleDateParam, DateTime.Now);
             currentDate = DateTime.Now;
 
-            useFillerOnEmptyDays = WebUtils.ParseBoolFromHashtable(
-                Settings, "CalendarUseFillerOnEmptyDays", true);
+			config = new CalendarConfiguration(Settings);
 
-            if (Settings.Contains("CustomCssClassSetting"))
-            {
-                instanceCssClass = Settings["CustomCssClassSetting"].ToString();
-            }
-            if (instanceCssClass.Length > 0) { pnlOuterWrap.SetOrAppendCss(instanceCssClass); }
+			if (config.InstanceCssClass.Length > 0) { pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass); }
 
 
-            
 
-        }
-
-        
-    }
+		}
+	}
 }

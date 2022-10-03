@@ -12,9 +12,12 @@
 
 //TODO: need to figure out how to implement image browsing and link browsing
 
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Framework;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -217,14 +220,31 @@ namespace mojoPortal.Web.Editor
 		{
 			string siteRoot = SiteUtils.GetNavigationSiteRoot();
 
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
+
+			string skinRootFolder = SiteUtils.GetSiteSkinFolderPath();
+
+			string currentSkin = siteSettings.Skin;
+			var currentPage = CacheHelper.GetCurrentPage();
+
+			if (currentPage != null && !string.IsNullOrEmpty(currentPage.Skin))
+			{
+				currentSkin = currentPage.Skin;
+			}
+
+			FileInfo skinTemplates = new FileInfo($"{skinRootFolder + currentSkin}/templates/ckeditortemplates.js");
+			
+			var skinUrl = SiteUtils.DetermineSkinBaseUrl(currentSkin);
+			
+			Editor.MojoSkinPath = skinUrl;
+
 			switch (toolBar)
 			{
 				case ToolBar.Full:
 					Editor.FileManagerUrl = siteRoot + WebConfigSettings.FileDialogRelativeUrl;
 					Editor.EnableFileBrowser = true;
 					Editor.StylesJsonUrl = siteRoot + "/Services/CKeditorStyles.ashx?cb=" + Guid.NewGuid().ToString().Replace("-", string.Empty);
-					Editor.DropFileUploadUrl = siteRoot + "/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko=" + WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()
-					+ "&t=" + Global.FileSystemToken.ToString();
+					Editor.DropFileUploadUrl = $"{siteRoot}/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko={WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()}&t={Global.FileSystemToken}";
 					break;
 
 				case ToolBar.FullWithTemplates:
@@ -233,11 +253,17 @@ namespace mojoPortal.Web.Editor
 					Editor.EnableFileBrowser = true;
 					//string navRoot = SiteUtils.GetNavigationSiteRoot();
 					Editor.TemplatesJsonUrl = siteRoot + "/Services/CKeditorTemplates.ashx?cb=" + Guid.NewGuid().ToString(); //prevent caching with a guid param
+					
+					if (skinTemplates.Exists)
+					{
+						
+						Editor.SkinTemplatesUrl = $"{skinUrl}templates/ckeditortemplates.js?cb={Guid.NewGuid()}";
+					}
+
 					//Editor.TemplatesXmlUrl = navRoot + "/Services/HtmlTemplates.ashx?cb=" + Guid.NewGuid().ToString(); 
 					Editor.StylesJsonUrl = siteRoot + "/Services/CKeditorStyles.ashx?cb=" + Guid.NewGuid().ToString().Replace("-",string.Empty);
 					//Editor.StylesJsonUrl =  "/ckstyles.js";
-					Editor.DropFileUploadUrl = siteRoot + "/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko=" + WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()
-					+ "&t=" + Global.FileSystemToken.ToString();
+					Editor.DropFileUploadUrl = $"{siteRoot}/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko={WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()}&t={Global.FileSystemToken}";
 					break;
 
 				case ToolBar.Newsletter:

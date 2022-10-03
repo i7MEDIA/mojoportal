@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mojoPortal.Web", "Web\mojoPortal.Web.csproj", "{8E511D65-4779-4689-82D4-811D3FE6866E}"
 EndProject
@@ -56,6 +56,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiData.pgSQL", "SuperFlexiData.pgSQL\SuperFlexiData.pgSQL.csproj", "{6304E650-958B-43E3-AFAB-E034389D65E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiData.SQLite", "SuperFlexiData.SQLite\SuperFlexiData.SQLite.csproj", "{87546876-48BC-42BB-B7C8-E02436C6ECBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mojoPortal.Core", "mojoPortal.Core\mojoPortal.Core.csproj", "{FEA72210-0415-4133-BDF9-8877683BA832}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1345,6 +1347,7 @@ Global
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - MySql|x86.Build.0 = Debug|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|.NET.ActiveCfg = Debug|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|Any CPU.Build.0 = Debug|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|Mixed Platforms.ActiveCfg = Debug - pgSQL|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|Mixed Platforms.Build.0 = Debug - pgSQL|Any CPU
 		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}.Debug - pgSQL|x64.ActiveCfg = Debug|Any CPU
@@ -1417,6 +1420,7 @@ Global
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - MySql|x86.Build.0 = Debug|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|.NET.ActiveCfg = Debug|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|Any CPU.Build.0 = Debug|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|Mixed Platforms.ActiveCfg = Debug - pgSQL|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|Mixed Platforms.Build.0 = Debug - pgSQL|Any CPU
 		{CF097537-8F40-4FE4-AF50-9D2F90BC7796}.Debug - pgSQL|x64.ActiveCfg = Debug|Any CPU
@@ -1546,7 +1550,6 @@ Global
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - MySql|.NET.ActiveCfg = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - MySql|.NET.Build.0 = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - MySql|Any CPU.ActiveCfg = Debug - pgSQL|Any CPU
-		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - MySql|Any CPU.Build.0 = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - MySql|Mixed Platforms.ActiveCfg = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - MySql|x64.ActiveCfg = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug - MySql|x64.Build.0 = Debug - pgSQL|Any CPU
@@ -1573,7 +1576,6 @@ Global
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug|.NET.ActiveCfg = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug|.NET.Build.0 = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug|Any CPU.ActiveCfg = Debug - pgSQL|Any CPU
-		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug|Any CPU.Build.0 = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug|Mixed Platforms.ActiveCfg = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug|x64.ActiveCfg = Debug - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Debug|x64.Build.0 = Debug - pgSQL|Any CPU
@@ -1582,7 +1584,6 @@ Global
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|.NET.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|.NET.Build.0 = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|Any CPU.ActiveCfg = Release - pgSQL|Any CPU
-		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|Any CPU.Build.0 = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|Mixed Platforms.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|x64.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - MySql|x64.Build.0 = Release - pgSQL|Any CPU
@@ -1601,7 +1602,6 @@ Global
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - SQLite|.NET.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - SQLite|.NET.Build.0 = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - SQLite|Any CPU.ActiveCfg = Release - pgSQL|Any CPU
-		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - SQLite|Any CPU.Build.0 = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - SQLite|Mixed Platforms.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - SQLite|x64.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release - SQLite|x64.Build.0 = Release - pgSQL|Any CPU
@@ -1610,7 +1610,6 @@ Global
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|.NET.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|.NET.Build.0 = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|Any CPU.ActiveCfg = Release - pgSQL|Any CPU
-		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|Any CPU.Build.0 = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|Mixed Platforms.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|x64.ActiveCfg = Release - pgSQL|Any CPU
 		{6304E650-958B-43E3-AFAB-E034389D65E1}.Release|x64.Build.0 = Release - pgSQL|Any CPU
@@ -1619,7 +1618,6 @@ Global
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - MySql|.NET.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - MySql|.NET.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - MySql|Any CPU.ActiveCfg = Debug - SQLite|Any CPU
-		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - MySql|Any CPU.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - MySql|Mixed Platforms.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - MySql|x64.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - MySql|x64.Build.0 = Debug - SQLite|Any CPU
@@ -1628,7 +1626,6 @@ Global
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - pgSQL|.NET.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - pgSQL|.NET.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - pgSQL|Any CPU.ActiveCfg = Debug - SQLite|Any CPU
-		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - pgSQL|Any CPU.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - pgSQL|Mixed Platforms.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - pgSQL|x64.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug - pgSQL|x64.Build.0 = Debug - SQLite|Any CPU
@@ -1647,7 +1644,6 @@ Global
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug|.NET.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug|.NET.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug|Any CPU.ActiveCfg = Debug - SQLite|Any CPU
-		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug|Any CPU.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug|Mixed Platforms.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug|x64.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Debug|x64.Build.0 = Debug - SQLite|Any CPU
@@ -1656,7 +1652,6 @@ Global
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|.NET.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|.NET.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|Any CPU.ActiveCfg = Debug - SQLite|Any CPU
-		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|Any CPU.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|Mixed Platforms.ActiveCfg = Release - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|x64.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - MySql|x64.Build.0 = Debug - SQLite|Any CPU
@@ -1665,7 +1660,6 @@ Global
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|.NET.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|.NET.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|Any CPU.ActiveCfg = Debug - SQLite|Any CPU
-		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|Any CPU.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|Mixed Platforms.ActiveCfg = Release - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|x64.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release - pgSQL|x64.Build.0 = Debug - SQLite|Any CPU
@@ -1684,12 +1678,91 @@ Global
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|.NET.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|.NET.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|Any CPU.ActiveCfg = Debug - SQLite|Any CPU
-		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|Any CPU.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|Mixed Platforms.ActiveCfg = Release - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|x64.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|x64.Build.0 = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|x86.ActiveCfg = Debug - SQLite|Any CPU
 		{87546876-48BC-42BB-B7C8-E02436C6ECBB}.Release|x86.Build.0 = Debug - SQLite|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - MySql|.NET.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - MySql|.NET.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - MySql|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - MySql|Any CPU.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - MySql|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - MySql|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - MySql|x64.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - MySql|x64.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - MySql|x86.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - MySql|x86.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - pgSQL|.NET.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - pgSQL|.NET.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - pgSQL|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - pgSQL|Any CPU.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - pgSQL|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - pgSQL|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - pgSQL|x64.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - pgSQL|x64.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - pgSQL|x86.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - pgSQL|x86.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - SQLite|.NET.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - SQLite|.NET.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - SQLite|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - SQLite|Any CPU.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - SQLite|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - SQLite|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - SQLite|x64.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - SQLite|x64.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - SQLite|x86.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug - SQLite|x86.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug|.NET.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug|x64.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Debug|x86.Build.0 = Debug|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - MySql|.NET.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - MySql|.NET.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - MySql|Any CPU.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - MySql|Any CPU.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - MySql|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - MySql|Mixed Platforms.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - MySql|x64.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - MySql|x64.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - MySql|x86.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - MySql|x86.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - pgSQL|.NET.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - pgSQL|.NET.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - pgSQL|Any CPU.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - pgSQL|Any CPU.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - pgSQL|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - pgSQL|Mixed Platforms.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - pgSQL|x64.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - pgSQL|x64.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - pgSQL|x86.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - pgSQL|x86.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - SQLite|.NET.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - SQLite|.NET.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - SQLite|Any CPU.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - SQLite|Any CPU.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - SQLite|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - SQLite|Mixed Platforms.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - SQLite|x64.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - SQLite|x64.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - SQLite|x86.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release - SQLite|x86.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release|.NET.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release|.NET.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release|x64.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release|x64.Build.0 = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release|x86.ActiveCfg = Release|Any CPU
+		{FEA72210-0415-4133-BDF9-8877683BA832}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

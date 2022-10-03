@@ -1,5 +1,5 @@
 ///	Created:			    2007-04-26
-///	Last Modified:		    2009-01-04
+///	Last Modified:		    2019-01-19
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -9,33 +9,20 @@
 ///
 /// You must not remove this notice, or any other, from this software.	
 
-using System.Globalization;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Resources;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
 
 namespace mojoPortal.Web.UI
 {
-    public class CssValidatorLink : WebControl
+	public class CssValidatorLink : WebControl
     {
-        private bool useImage = true;
+		public bool UseImage { get; set; } = true;
 
-        public bool UseImage
-        {
-            get { return useImage; }
-            set { useImage = value; }
-        }
-
-        
-
-        protected override void Render(HtmlTextWriter writer)
+		protected override void Render(HtmlTextWriter writer)
         {
 			// this is an unnecessary control 
 			// if you want a CSSValidator link on your site, place one there with an <a href=
-
+			return;
             //if (this.Site != null && this.Site.DesignMode)
             //{
             //    // TODO: show a bmp or some other design time thing?

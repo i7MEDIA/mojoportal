@@ -1,0 +1,50 @@
+.stats {
+	.modulecontent:extend(.clearfix all) {}
+
+	.site-statistics {
+		padding-right: 15px;
+
+		&.floatpanel {
+			float: left;
+			width: 50%;
+		}
+
+		> ul.userstats {
+			> li {
+				&:first-child {
+					font-weight: 700;
+					margin-bottom: (@line-height-computed / 2);
+				}
+			}
+		}
+
+		+ .site-statistics {
+			padding-left: 15px;
+			padding-right: 0;
+		}
+	}
+
+
+	.onlinemembers:extend(.clearfix all) {
+		clear: both;
+
+		> ul.userstats {
+			margin-left: -5px;
+			margin-right: -5px;
+
+			> li {
+				float: left;
+				padding: 0 5px;
+				text-align: center;
+
+				&:first-child {
+					display: block;
+					float: none;
+					font-weight: 700;
+					margin-bottom: (@line-height-computed / 2);
+					text-align: left;
+				}
+			}
+		}
+	}
+}

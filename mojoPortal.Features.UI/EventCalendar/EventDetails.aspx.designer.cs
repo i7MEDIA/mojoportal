@@ -103,6 +103,15 @@ namespace mojoPortal.Web.EventCalendarUI {
         protected global::System.Web.UI.WebControls.Label lblEndTime;
         
         /// <summary>
+        /// lblLocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLocation;
+        
+        /// <summary>
         /// litDescription control.
         /// </summary>
         /// <remarks>

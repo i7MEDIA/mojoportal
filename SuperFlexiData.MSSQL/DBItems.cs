@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-03-06
-// Last Modified:			2017-11-03
+// Last Modified:			2019-04-03
 // You must not remove this notice, or any other, from this software.
 
 using mojoPortal.Data;
@@ -17,15 +17,6 @@ namespace SuperFlexiData
         /// <summary>
         /// Inserts a row in the i7_sflexi_items table. Returns new integer id.
         /// </summary>
-        /// <param name="siteGuid"> siteGuid </param>
-        /// <param name="featureGuid"> featureGuid </param>
-        /// <param name="moduleGuid"> moduleGuid </param>
-        /// <param name="moduleID"> moduleID </param>
-        /// <param name="definitionGuid"> definitionGuid </param>
-        /// <param name="itemGuid"> itemGuid </param>
-        /// <param name="sortOrder"> sortOrder </param>
-        /// <param name="createdUtc"> createdUtc </param>
-        /// <param name="lastModUtc"> lastModUtc </param>
         /// <returns>int</returns>
         public static int Create(
             Guid siteGuid,
@@ -36,9 +27,11 @@ namespace SuperFlexiData
             Guid itemGuid,
             int sortOrder,
             DateTime createdUtc,
-            DateTime lastModUtc)
+            DateTime lastModUtc,
+			string viewRoles,
+			string editRoles)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_Insert", 9);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_Insert", 11);
             sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
             sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
             sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
@@ -48,7 +41,9 @@ namespace SuperFlexiData
             sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
             sph.DefineSqlParameter("@CreatedUtc", SqlDbType.DateTime, ParameterDirection.Input, createdUtc);
             sph.DefineSqlParameter("@LastModUtc", SqlDbType.DateTime, ParameterDirection.Input, lastModUtc);
-            int newID = Convert.ToInt32(sph.ExecuteScalar());
+			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, viewRoles);
+			sph.DefineSqlParameter("@EditRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, editRoles);
+			int newID = Convert.ToInt32(sph.ExecuteScalar());
             return newID;
         }
 
@@ -56,16 +51,6 @@ namespace SuperFlexiData
         /// <summary>
         /// Updates a row in the i7_sflexi_items table. Returns true if row updated.
         /// </summary>
-        /// <param name="siteGuid"> siteGuid </param>
-        /// <param name="featureGuid"> featureGuid </param>
-        /// <param name="moduleGuid"> moduleGuid </param>
-        /// <param name="moduleID"> moduleID </param>
-        /// <param name="definitionGuid"> definitionGuid </param>
-        /// <param name="itemGuid"> itemGuid </param>
-        /// <param name="itemID"> itemID </param>
-        /// <param name="sortOrder"> sortOrder </param>
-        /// <param name="createdUtc"> createdUtc </param>
-        /// <param name="lastModUtc"> lastModUtc </param>
         /// <returns>bool</returns>
         public static bool Update(
             Guid siteGuid,
@@ -76,9 +61,11 @@ namespace SuperFlexiData
             Guid itemGuid,
             int sortOrder,
             DateTime createdUtc,
-            DateTime lastModUtc)
+            DateTime lastModUtc,
+			string viewRoles,
+			string editRoles)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_Update", 9);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_Update", 11);
             sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
             sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
             sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
@@ -88,7 +75,10 @@ namespace SuperFlexiData
             sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
             sph.DefineSqlParameter("@CreatedUtc", SqlDbType.DateTime, ParameterDirection.Input, createdUtc);
             sph.DefineSqlParameter("@LastModUtc", SqlDbType.DateTime, ParameterDirection.Input, lastModUtc);
-            int rowsAffected = sph.ExecuteNonQuery();
+			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, viewRoles);
+			sph.DefineSqlParameter("@EditRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, editRoles);
+
+			int rowsAffected = sph.ExecuteNonQuery();
             return (rowsAffected > 0);
 
         }
@@ -96,10 +86,8 @@ namespace SuperFlexiData
         /// <summary>
         /// Deletes a row from the i7_sflexi_items table. Returns true if row deleted.
         /// </summary>
-        /// <param name="itemID"> itemID </param>
         /// <returns>bool</returns>
-        public static bool Delete(
-            int itemID)
+        public static bool Delete(int itemID)
         {
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_Delete", 1);
             sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemID);
@@ -111,7 +99,6 @@ namespace SuperFlexiData
         /// <summary>
         /// Deletes rows from the i7_sflexi_items table. Returns true if rows deleted.
         /// </summary>
-        /// <param name="guid"> guid </param>
         /// <returns>bool</returns>
         public static bool DeleteBySite(Guid siteGuid)
         {
@@ -124,7 +111,6 @@ namespace SuperFlexiData
         /// <summary>
         /// Deletes rows from the i7_sflexi_items table. Returns true if rows deleted.
         /// </summary>
-        /// <param name="guid"> guid </param>
         /// <returns>bool</returns>
         public static bool DeleteByModule(Guid moduleGuid)
         {
@@ -139,20 +125,18 @@ namespace SuperFlexiData
         /// </summary>
         /// <param name="definitionGuid"> guid </param>
         /// <returns>bool</returns>
-        public static bool DeleteByDefinition(Guid definitionGuid)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_DeleteByDefinition", 1);
-            sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
-            int rowsAffected = sph.ExecuteNonQuery();
-            return (rowsAffected > 0);
-        }
+        //public static bool DeleteByDefinition(Guid definitionGuid)
+        //{
+        //    SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_DeleteByDefinition", 1);
+        //    sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
+        //    int rowsAffected = sph.ExecuteNonQuery();
+        //    return (rowsAffected > 0);
+        //}
 
         /// <summary>
         /// Gets an IDataReader with one row from the i7_sflexi_items table.
         /// </summary>
-        /// <param name="itemID"> itemID </param>
-        public static IDataReader GetOne(
-            int itemID)
+        public static IDataReader GetOne(int itemID)
         {
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectOne", 1);
             sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemID);
@@ -163,7 +147,6 @@ namespace SuperFlexiData
         /// <summary>
         /// Gets an IDataReader with one row from the i7_sflexi_items table.
         /// </summary>
-        /// <param name="itemGuid"> itemGuid </param>
         public static IDataReader GetOne(
             Guid itemGuid)
         {
@@ -178,13 +161,11 @@ namespace SuperFlexiData
         /// </summary>
         public static int GetCount()
         {
-
             return Convert.ToInt32(SqlHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 CommandType.StoredProcedure,
                 "i7_sflexi_items_GetCount",
                 null));
-
         }
 
 		public static int GetCountForModule(int moduleId)
@@ -197,50 +178,47 @@ namespace SuperFlexiData
 		/// <summary>
 		/// Gets an IDataReader with all rows in the i7_sflexi_items table.
 		/// </summary>
-		public static IDataReader GetAll()
+		public static IDataReader GetAll(Guid siteGuid)
         {
-
-            return SqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "i7_sflexi_items_SelectAll",
-                null);
-
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAll", 1);
+			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			return sph.ExecuteReader();
         }
 
 
         /// <summary>
         /// Gets an IDataReader with all items for module.
         /// </summary>
-        /// <param name="itemID"> itemID </param>
-        public static IDataReader GetModuleItems(int moduleId)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModule", 1);
-            sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
-            return sph.ExecuteReader();
-
-        }
+		public static IDataReader GetForModule(int moduleId, string sortDirection = "ASC")
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModule", 2);
+			sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
+			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+			return sph.ExecuteReader();
+		}
 
 		/// <summary>
-		/// Gets and IDataReader for a page of items for a module
+		/// Gets an IDataReader with all items for module with values.
 		/// </summary>
-		/// <param name="moduleId"></param>
-		/// <param name="pageNumber"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="totalPages"></param>
-		/// <param name="searchTerm"></param>
-		/// <param name="searchField"></param>
-		/// <param name="sortField"></param>
-		/// <param name="descending"></param>
+		public static IDataReader GetForModuleWithValues(int moduleId, string sortDirection)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModuleWithValues", 2);
+			sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
+			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+			return sph.ExecuteReader();
+		}
+
+		/// <summary>
+		/// Gets and IDataReader for a page of items with values for a module
+		/// </summary>
 		/// <returns></returns>
-		public static IDataReader GetPageOfModuleItems(
+		public static IDataReader GetForModuleWithValues_Paged(
 			Guid moduleGuid,
 			int pageNumber,
 			int pageSize,
 			string searchTerm = "",
 			string searchField = "",
-			//string sortField = "",
-			bool descending = false)
+			string sortDirection = "ASC")
 		{
 			SqlParameterHelper sph = null;
 
@@ -251,8 +229,7 @@ namespace SuperFlexiData
 				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
 				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
 				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
-				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
-				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, descending ? "desc" : "asc");
+				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 			}
 			else if (!String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
 			{
@@ -262,8 +239,7 @@ namespace SuperFlexiData
 				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
 				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
 				sph.DefineSqlParameter("@SearchField", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchField);
-				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
-				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, descending ? "desc" : "asc");
+				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 			}
 			else
 			{
@@ -271,31 +247,87 @@ namespace SuperFlexiData
 				sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
 				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
 				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
-				//sph.DefineSqlParameter("@sortField", SqlDbType.NVarChar, -1, ParameterDirection.Input, sortField);
-				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, descending ? "desc" : "asc");
+				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 			}
 			return sph.ExecuteReader();
 		}
+		/// <summary>
+		/// Gets and IDataReader for a page of items with values for a definition
+		/// </summary>
+		/// <returns></returns>
+		public static IDataReader GetForDefinitionWithValues_Paged(
+			Guid defGuid,
+			Guid siteGuid,
+			int pageNumber,
+			int pageSize,
+			string searchTerm = "",
+			string searchField = "",
+			//string sortField = "",
+			string sortDirection = "ASC"
+			)
+		{
+			SqlParameterHelper sph = null;
+
+			if (String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+			{
+				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinitionWithTerm", 6);
+				sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
+				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
+				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+				sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			}
+			else if (!String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+			{
+				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinitionWithTermAndField", 7);
+				sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
+				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
+				sph.DefineSqlParameter("@SearchField", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchField);
+				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+				sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			}
+			else
+			{
+				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinition", 5);
+				sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
+				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+				sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			}
+			return sph.ExecuteReader();
+		}
+		/// <summary>
+		/// Gets an IDataReader with all items for a single definition.
+		/// </summary>
+		public static IDataReader GetForDefinition(Guid definitionGuid, Guid siteGuid, string sortDirection)
+        {
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinition", 3);
+            sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
+            sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+			return sph.ExecuteReader();
+        }
 
 		/// <summary>
 		/// Gets an IDataReader with all items for a single definition.
 		/// </summary>
-		/// <param name="itemID"> itemID </param>
-		public static IDataReader GetAllForDefinition(Guid definitionGuid)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinition", 1);
-            sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
-            return sph.ExecuteReader();
+		public static IDataReader GetForDefinitionWithValues(Guid definitionGuid, Guid siteGuid, string sortDirection)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinitionWithValues", 3);
+			sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
+			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+			return sph.ExecuteReader();
+		}
 
-        }
-
-        /// <summary>
-        /// Gets a page of data from the i7_sflexi_items table.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="totalPages">total pages</param>
-        public static IDataReader GetPage(
+		/// <summary>
+		/// Gets a page of data from the i7_sflexi_items table.
+		/// </summary>
+		public static IDataReader GetPage(
             int pageNumber,
             int pageSize,
             out int totalPages)
@@ -328,10 +360,8 @@ namespace SuperFlexiData
         }
 
 		/// <summary>
-		/// Gets
+		/// Gets all superflexi items from all superflexi modules on a page
 		/// </summary>
-		/// <param name="siteGuid"></param>
-		/// <param name="pageId"></param>
 		/// <returns></returns>
 		public static IDataReader GetByCMSPage(Guid siteGuid, int pageId)
         {
@@ -340,6 +370,15 @@ namespace SuperFlexiData
             sph.DefineSqlParameter("@PageID", SqlDbType.Int, ParameterDirection.Input, pageId);
             return sph.ExecuteReader();
         }
+
+		public static int GetHighestSortOrder(int moduleId)
+		{
+
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_GetHighestSortOrder", 1);
+			sph.DefineSqlParameter("@ModuleId", SqlDbType.Int, ParameterDirection.Input, moduleId);
+			//return sph.ExecuteReader();
+			return Convert.ToInt32(sph.ExecuteScalar());
+		}
     }
 
 }

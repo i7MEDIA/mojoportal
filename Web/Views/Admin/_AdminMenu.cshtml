@@ -1,0 +1,56 @@
+﻿@using mojoPortal.Web.Framework;
+@using mojoPortal.Web.Helpers;
+@using mojoPortal.Business;
+@using mojoPortal.Web;
+@using mojoPortal.Business.WebHelpers;
+@using Models = mojoPortal.Web.Models;
+
+@using Resources;
+@model Models.AdminMenuPage
+@{
+	var siteRoot = SiteUtils.GetNavigationSiteRoot();
+	var siteSettings = CacheHelper.GetCurrentSiteSettings();
+	var currentUser = SiteUtils.GetCurrentSiteUser();
+	var i = 1;
+	// doesn't work yet, we're rendering our view to a string
+	//ViewBag.Title = SiteUtils.FormatPageTitle(siteSettings, Model.PageTitle);
+
+}
+
+@if (Model.BreadCrumbs != null && Model.BreadCrumbs.Crumbs.Count() > 0)
+{
+	Html.RenderPartial("~/Views/Shared/_BreadCrumbs.cshtml", Model.BreadCrumbs);
+}
+
+<div class="outerwrap">
+	<div class="panelwrapper adminmenu">
+		<h2 class="">@Model.PageHeading</h2>
+		<div class="outerbody">
+			<div class="modulecontent">
+				<ul class="simplelist">
+					@foreach (var link in Model.Links)
+					{
+						<li class="@link.CssClass">
+							<a href="@link.Url">
+								@if (link.ResourceKey == "LoginPageContent")
+								{
+									<span class="fa fa-stack fa-lg">
+										<span class="@link.IconCssClass fa-stack-2x"></span>
+										<span class="fa fa-lock fa-stack-1x"></span>
+									</span>
+								}
+								else
+								{
+									<span class="@link.IconCssClass"></span>
+								}
+								@Html.Raw(ResourceHelper.GetResourceString(link.ResourceFile, link.ResourceKey))
+							</a>
+						</li>
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+

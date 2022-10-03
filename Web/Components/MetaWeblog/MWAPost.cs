@@ -13,7 +13,11 @@ namespace mojoPortal.Core.API.MetaWeblog
     /// </summary>
     public struct MWAPost
     {
-        #region Constants and Fields
+		#region Constants and Fields
+
+		public string wp_post_thumbnail;
+		//public bool includeImageInPost;
+		//public bool includeImageInExcerpt;
 
         /// <summary>
         ///     wp_author_id

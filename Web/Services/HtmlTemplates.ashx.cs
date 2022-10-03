@@ -63,14 +63,16 @@ namespace mojoPortal.Web.Services
                 xmlTextWriter.WriteStartElement("Templates");
                 xmlTextWriter.WriteAttributeString("imagesBasePath", imagebaseUrl);
 
-                if (WebConfigSettings.AddSystemContentTemplatesAboveSiteTemplates) //true by default
+				//2018/10/31 -- we don't really want to use these anymore. we're adding the ability to have templates in the skin but not system wide templates
+				if (WebConfigSettings.AddSystemContentTemplatesAboveSiteTemplates) //false by default
                 {
                     RenderSystemTemplates(context, xmlTextWriter);
                 }
 
                 RenderSiteTemplates(context, xmlTextWriter);
 
-                if (WebConfigSettings.AddSystemContentTemplatesBelowSiteTemplates) //false by default
+				//2018/10/31 -- we don't really want to use these anymore. we're adding the ability to have templates in the skin but not system wide templates
+				if (WebConfigSettings.AddSystemContentTemplatesBelowSiteTemplates) //false by default
                 {
                     RenderSystemTemplates(context, xmlTextWriter);
                 }

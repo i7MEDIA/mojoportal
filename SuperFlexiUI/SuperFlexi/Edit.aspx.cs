@@ -1,6 +1,6 @@
 /// Author:                     i7MEDIA
 /// Created:				    2015-03-06
-///	Last Modified:              2018-03-28
+///	Last Modified:              2019-01-24
 /// 
 /// You must not remove this notice, or any other, from this software.
 using System;
@@ -18,13 +18,12 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.SearchIndex;
 using mojoPortal.Web;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Controls;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
 using SuperFlexiBusiness;
-using System.Dynamic;
-using Resources;
 
 namespace SuperFlexiUI
 {
@@ -38,12 +37,14 @@ namespace SuperFlexiUI
 		private int pageId = -1;
 		protected ModuleConfiguration config = new ModuleConfiguration();
 		private Item item = new Item();
-        //protected Image imgPreview;
-        //protected HiddenField hdnEmptyImageUrl;
-        //protected HiddenField hdnImageBrowser;
-        //private SiteSettings siteSettings = new SiteSettings();
 
-        private bool urlBrowserHtmlAdded = false;
+		//protected Image imgPreview;
+		//protected HiddenField hdnEmptyImageUrl;
+		//protected HiddenField hdnImageBrowser;
+		//private SiteSettings siteSettings = new SiteSettings();
+
+		private bool advancedFilePickerAdded = false;
+
 		#region OnInit
 
 		protected override void OnPreInit(EventArgs e)
@@ -91,7 +92,7 @@ namespace SuperFlexiUI
 			LoadParams();
             LoadSettings();
 
-            if (!UserCanEditModule(moduleId, config.FeatureGuid) && !WebUser.IsInRoles(module.AuthorizedEditRoles))
+            if (!UserCanEditModule(moduleId, config.FeatureGuid) && !WebUser.IsInRoles(module.AuthorizedEditRoles) && !WebUser.IsInRoles(item.EditRoles))
 			{
 					SiteUtils.RedirectToAccessDeniedPage(this);
 					return;
@@ -149,7 +150,7 @@ namespace SuperFlexiUI
 			}
 			else
 			{
-				if (Item.GetModuleItems(moduleId).Count > 0)
+				if (Item.GetForModule(moduleId).Count > 0)
 				{
 					txtViewOrder.Text = (Item.GetHighestSortOrder(moduleId) + 10).ToString();
 				}
@@ -259,15 +260,19 @@ namespace SuperFlexiUI
 
 			AttributeCollection attribs = null;
 
+			string pickerStartFolder = string.Empty;
+
 			switch (field.ControlType)
 			{
 				case "TextBox":
 				case "":
 				default:
-					TextBox textBox = new TextBox();
-					textBox.TabIndex = 10;
-					textBox.ID = field.Name;
-					textBox.CssClass = field.EditPageControlCssClass;
+					TextBox textBox = new TextBox
+					{
+						TabIndex = 10,
+						ID = field.Name,
+						CssClass = field.EditPageControlCssClass
+					};
 					label.ForControl = textBox.ID;
 					
 					switch (field.TextBoxMode)
@@ -338,11 +343,11 @@ namespace SuperFlexiUI
 
 					foreach (string key in attribs.Keys)
 					{
-						if (key == "rows")
+						if (key.ToLower() == "rows")
 						{
 							textBox.Rows = Convert.ToInt32(attribs[key]);
 						}
-						else if (key == "cols")
+						else if (key.ToLower() == "cols")
 						{
 							textBox.Columns = Convert.ToInt32(attribs[key]);
 						}
@@ -371,18 +376,19 @@ namespace SuperFlexiUI
 						if (regexValidator != null) panel.Controls.Add(regexValidator);
 					}
 
-
-
 					break;
 
                 case "LinkPicker":
-                    TextBox linkPicker = new TextBox();
-                    linkPicker.TabIndex = 10;
-                    linkPicker.ID = field.Name;
-                    linkPicker.CssClass = field.EditPageControlCssClass;
-                    linkPicker.SetOrAppendCss("url-browser__browser-input");
+					TextBox linkPicker = new TextBox
+					{
+						TabIndex = 10,
+						ID = field.Name,
+						CssClass = field.EditPageControlCssClass + " hide"
+					};
+					linkPicker.SetOrAppendCss("advanced-file-picker__output");
                     label.ForControl = linkPicker.ID;
-                    try
+
+					try
                     {
                         linkPicker.SkinID = field.DefinitionName.Replace(" ", string.Empty);
                     }
@@ -394,27 +400,30 @@ namespace SuperFlexiUI
                     attribs = linkPicker.Attributes;
                     FieldUtils.GetFieldAttributes(field.Attributes, out attribs);
 
-                    foreach (string key in attribs.Keys)
+					foreach (string key in attribs.Keys)
                     {
-                        if (key == "rows")
+                        if (key.ToLower() == "rows")
                         {
                             linkPicker.Rows = Convert.ToInt32(attribs[key]);
                         }
-                        else if (key == "cols")
+                        else if (key.ToLower() == "cols")
                         {
                             linkPicker.Columns = Convert.ToInt32(attribs[key]);
                         }
-                        else
+						else if (key.ToLower() == "startfolder")
+						{
+							pickerStartFolder = attribs[key];
+						}
+						else
                         {
-                            linkPicker.Attributes.Add(key, (string)attribs[key]);
+                            linkPicker.Attributes.Add(key, attribs[key]);
                         }
-
                     }
-                    linkPicker.Attributes.Add("data-filetype", "file");
+
                     linkPicker.TextMode = TextBoxMode.Url;
                     panel.Controls.Add(linkPicker);
 
-                    AddUrlBrowserSupport(panel, field);
+                    AddUrlBrowserSupport(panel, field, pickerStartFolder);
 
                     if (field.Required)
                     {
@@ -432,13 +441,16 @@ namespace SuperFlexiUI
                     break;
                 case "ImagePicker":
 
-                    TextBox imagePicker = new TextBox();
-                    imagePicker.TabIndex = 10;
-                    imagePicker.ID = field.Name;
-                    imagePicker.CssClass = field.EditPageControlCssClass;
-                    imagePicker.SetOrAppendCss("url-browser__browser-input");
+					TextBox imagePicker = new TextBox
+					{
+						TabIndex = 10,
+						ID = field.Name,
+						CssClass = field.EditPageControlCssClass + " hide"
+					};
+					imagePicker.SetOrAppendCss("advanced-file-picker__output");
                     label.ForControl = imagePicker.ID;
-                    try
+
+					try
                     {
                         imagePicker.SkinID = field.DefinitionName.Replace(" ", string.Empty);
                     }
@@ -452,25 +464,29 @@ namespace SuperFlexiUI
 
                     foreach (string key in attribs.Keys)
                     {
-                        if (key == "rows")
+                        if (key.ToLower() == "rows")
                         {
                             imagePicker.Rows = Convert.ToInt32(attribs[key]);
                         }
-                        else if (key == "cols")
+                        else if (key.ToLower() == "cols")
                         {
                             imagePicker.Columns = Convert.ToInt32(attribs[key]);
                         }
+						else if (key.ToLower() == "startfolder")
+						{
+							pickerStartFolder = attribs[key];
+						}
                         else
                         {
-                            imagePicker.Attributes.Add(key, (string)attribs[key]);
+                            imagePicker.Attributes.Add(key, attribs[key]);
                         }
 
                     }
-                    imagePicker.Attributes.Add("data-filetype", "image");
+
                     imagePicker.TextMode = TextBoxMode.Url;
                     panel.Controls.Add(imagePicker);
 
-                    AddUrlBrowserSupport(panel, field, true);
+                    AddUrlBrowserSupport(panel, field, pickerStartFolder, true);
 
                     if (field.Required)
                     {
@@ -621,11 +637,11 @@ namespace SuperFlexiUI
 
 					if (field.IsGlobal)
 					{
-						dynamicOptions = ItemFieldValue.GetByGuid(field.FieldGuid);
+						dynamicOptions = ItemFieldValue.GetByFieldGuid(field.FieldGuid);
 					}
 					else
 					{
-						dynamicOptions = ItemFieldValue.GetByGuidForModule(field.FieldGuid, moduleId);
+						dynamicOptions = ItemFieldValue.GetByFieldGuidForModule(field.FieldGuid, moduleId);
 					}
 
 					if (!String.IsNullOrWhiteSpace(field.Options))
@@ -1054,52 +1070,54 @@ namespace SuperFlexiUI
 
 		}
 
-        private void AddUrlBrowserSupport(Panel panel, Field field, bool isImage = false)
+        private void AddUrlBrowserSupport(Panel panel, Field field, string startFolder, bool isImage = false)
         {
-            //create script reference
-            MarkupScript urlBrowserScript = new MarkupScript();
-            urlBrowserScript.Url = "~/SuperFlexi/js/urlbrowserinput.js";
-            urlBrowserScript.ScriptName = "urlbrowserscript";
-            urlBrowserScript.Position = "bottomStartup";
-            //create css reference
-            MarkupCss urlBrowserCss = new MarkupCss();
-            urlBrowserCss.Url = "~/SuperFlexi/css/urlbrowserinput.css";
-            urlBrowserCss.RenderAboveSSC = true;
-            urlBrowserCss.Name = "urlbrowsercss";
-            //add script and css references to page scripts/css
-            config.EditPageScripts.Add(urlBrowserScript);
+			//create script reference
+			MarkupScript urlBrowserScript = new MarkupScript
+			{
+				Url = "~/SuperFlexi/js/advanced-file-picker.js",
+				ScriptName = "AdvancedFilePickerJS",
+				Position = "bottomStartup"
+			};
+			
+			//create css reference
+			MarkupCss urlBrowserCss = new MarkupCss
+			{
+				Url = "~/SuperFlexi/css/advanced-file-picker.css",
+				RenderAboveSSC = true,
+				Name = "AdvancedFilePickerCSS"
+			};
+
+			//add script and css references to page scripts/css
+			config.EditPageScripts.Add(urlBrowserScript);
             config.EditPageCSS.Add(urlBrowserCss);
 
-			//create link picker button
-			string buttonText = isImage ? Resources.SuperFlexiResources.BrowseFeaturedImage : Resources.SuperFlexiResources.Browse;
-
-			Literal linkPickerButton = new Literal();
-			linkPickerButton.Text = $"<button id=\"{field.Name}button\" class=\"btn btn-link\" onclick=\"openUrlBrowser(this)\" type=\"button\">{buttonText}</button>";
-            panel.Controls.Add(linkPickerButton);
-
-			if (isImage)
+			// Create model for razor templating
+			var pickerModel = new AdvancedFilePicker
 			{
-				string imagePreviewUrl = string.Empty;
-				if (string.IsNullOrWhiteSpace(field.ImageBrowserEmptyUrl))
-				{
-					imagePreviewUrl = SuperFlexiHelpers.GetPathToFile(config, "~/Data/SiteImages/1x1.gif");
-				}
-				else
-				{ 
-					imagePreviewUrl = SuperFlexiHelpers.GetPathToFile(config, field.ImageBrowserEmptyUrl);
-				}
+				PickerType = isImage ? "image" : "file",
+				FileText = SuperFlexiResources.Browse,
+				ImageText = SuperFlexiResources.BrowseFeaturedImage,
+				StartFolder = startFolder
+			};
 
-				Literal imagePreview = new Literal();
-				imagePreview.Text = $"<img src=\"{imagePreviewUrl}\" class=\"url-browser__image-preview\"/>";
-                panel.Controls.Add(imagePreview);
-            }
+			// Render razor template to string
+			Literal linkPickerAdvanced = new Literal
+			{
+				Text = RazorBridge.RenderPartialToString("_AdvancedFilePicker", pickerModel, "SuperFlexi")
+			};
 
-            if (!urlBrowserHtmlAdded)
+			panel.Controls.Add(linkPickerAdvanced);
+
+            if (!advancedFilePickerAdded)
             {
-                Literal linkPickerModal = new Literal();
-                linkPickerModal.Text = SuperFlexiHelpers.GetHelpText("~/SuperFlexi/html/urlbrowsermodal.html", config);
-                pnlEdit.Controls.Add(linkPickerModal);
-                urlBrowserHtmlAdded = true;
+				Literal linkPickerModal = new Literal
+				{
+					Text = RazorBridge.RenderPartialToString("_AdvancedFilePickerModal", "", "SuperFlexi")
+				};
+
+				pnlEdit.Controls.Add(linkPickerModal);
+				advancedFilePickerAdded = true;
             }
         }
 
@@ -1330,7 +1348,7 @@ namespace SuperFlexiUI
 
 			item.SortOrder = int.Parse(txtViewOrder.Text);
             item.LastModUtc = DateTime.UtcNow;
-            item.ContentChanged += new ContentChangedEventHandler(sflexiItem_ContentChanged);
+
             if (item.Save())
 			{
 				List<Field> fields = null;
@@ -1351,7 +1369,12 @@ namespace SuperFlexiUI
 				{
 					SaveFieldValue(customControls, field);
 				}
-                
+
+				//so indexing is a pain in the ass with how superflexi works so we're going to save the item again to fire contentchanged AFTER our field values have been saved
+				//we totally need to do something different
+				item.ContentChanged += new ContentChangedEventHandler(sflexiItem_ContentChanged);
+				item.Save();
+
                 CurrentPage.UpdateLastModifiedTime();
 				//CacheHelper.TouchCacheDependencyFile(cacheDependencyKey);
 				CacheHelper.ClearModuleCache(item.ModuleID);
@@ -1368,7 +1391,7 @@ namespace SuperFlexiUI
 		/// <param name="field"></param>
 		private void SaveFieldValue(Panel controlsPanel, Field field)
 		{
-			String controlID = field.Name;
+			string controlID = field.Name;
 
 			List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
 			ItemFieldValue fieldValue;
@@ -1557,6 +1580,16 @@ namespace SuperFlexiUI
 
 				}
 				fieldValue.Save();
+				if (field.Name == config.ItemViewRolesFieldName)
+				{
+					item.ViewRoles = fieldValue.FieldValue;
+					item.Save();
+				}
+				if (field.Name == config.ItemEditRolesFieldName)
+				{
+					item.EditRoles = fieldValue.FieldValue;
+					item.Save();
+				}
 			}
 		}
 
@@ -1646,7 +1679,7 @@ namespace SuperFlexiUI
 				return;
 
 			}
-            config = new ModuleConfiguration(module);
+            config = new ModuleConfiguration(module, reloadDefinitionFromDisk: true);
 
 			lnkCancel.NavigateUrl = SiteUtils.GetCurrentPageUrl();
 
@@ -1678,7 +1711,7 @@ namespace SuperFlexiUI
 			rawScript.Append("\"fileBrowserUrl\": \"$_FileBrowserUrl_$\"");
 			rawScript.Append("};");
 
-			SuperFlexiHelpers.ReplaceStaticTokens(rawScript, config, true, displaySettings, module.ModuleId, CurrentPage, SiteInfo, out rawScript);
+			SuperFlexiHelpers.ReplaceStaticTokens(rawScript, config, true, displaySettings, module, CurrentPage, SiteInfo, out rawScript);
 
 			StringBuilder scriptText = new StringBuilder();
 
@@ -1695,14 +1728,22 @@ namespace SuperFlexiUI
 			//config.EditPageScripts = FieldUtils.ParseScriptsFromXml(config);
 			if (config.EditPageScripts.Count > 0)
 			{
-				SuperFlexiHelpers.SetupScripts(config.EditPageScripts, config, displaySettings, true, IsPostBack, ClientID, moduleId, pageId, Page, this);
+				SuperFlexiHelpers.SetupScripts(config.EditPageScripts, config, displaySettings, true, IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, this);
 			}
 
             if (config.EditPageCSS.Count > 0)
             {
-                SuperFlexiHelpers.SetupStyle(config.EditPageCSS, config, displaySettings, ClientID, moduleId, pageId, Page, this);
+                SuperFlexiHelpers.SetupStyle(config.EditPageCSS, config, displaySettings, true, ClientID, siteSettings, module, CurrentPage, Page, this);
             }
 
 		}
+	}
+
+	public class AdvancedFilePicker
+	{
+		public string PickerType { get; set; }
+		public string FileText { get; set; }
+		public string ImageText { get; set; }
+		public string StartFolder { get; set; }
 	}
 }

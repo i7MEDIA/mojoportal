@@ -127,7 +127,7 @@
     <value>Content Manager</value>
   </data>
   <data name="AdminMenuFeatureModulesLink" xml:space="preserve">
-    <value>Feature Installation and Configuration</value>
+    <value>Feature Management</value>
   </data>
   <data name="AdminMenuFileManagerLink" xml:space="preserve">
     <value>File Manager</value>
@@ -187,7 +187,7 @@
     <value>ABCDEFGHIJKLMNOPQRSTUVWXYZ</value>
   </data>
   <data name="ApplicationStartEventMessage" xml:space="preserve">
-    <value>Application Started.</value>
+    <value>------Application Started------</value>
   </data>
   <data name="BannedIPAddressDeleteConfirmMessage" xml:space="preserve">
     <value>Are you sure you want to delete this ip address? If you do it will no longer be banned.</value>
@@ -781,7 +781,7 @@
     <value>Medium Text</value>
   </data>
   <data name="MemberListAddUserLabel" xml:space="preserve">
-    <value> Add New User</value>
+    <value>Add New User</value>
   </data>
   <data name="MemberListAllUsersLink" xml:space="preserve">
     <value>All</value>
@@ -799,7 +799,7 @@
     <value>Search</value>
   </data>
   <data name="MemberListShowAllLabel" xml:space="preserve">
-    <value>Show All</value>
+    <value>Clear Filters</value>
   </data>
   <data name="MemberListTitleLabel" xml:space="preserve">
     <value>Member List</value>
@@ -820,7 +820,7 @@
     <value>Edit</value>
   </data>
   <data name="ModuleAdminSettingsLink" xml:space="preserve">
-    <value>Settings</value>
+    <value>Module Settings</value>
   </data>
   <data name="ModuleDefinitionDefaultCacheRegexWarning" xml:space="preserve">
     <value>Default Cache must be an integer between 0 and 99999999</value>
@@ -1156,7 +1156,7 @@
     <value>Move selected content up in the list</value>
   </data>
   <data name="PageLayoutAlt2DeleteButton" xml:space="preserve">
-    <value>Remove the selected  content from the page</value>
+    <value>Remove the selected content from the page</value>
   </data>
   <data name="PageLayoutAlt2EditButton" xml:space="preserve">
     <value>Edit settings for the selected content</value>
@@ -1180,7 +1180,7 @@
     <value>View Roles</value>
   </data>
   <data name="PageLayoutContentDeleteAlternateText" xml:space="preserve">
-    <value>Remove the selected  content from the page</value>
+    <value>Remove the selected content from the page</value>
   </data>
   <data name="PageLayoutContentDownAlternateText" xml:space="preserve">
     <value>Move selected content down in list</value>
@@ -1222,7 +1222,7 @@
     <value>Hide Main Menu?</value>
   </data>
   <data name="PageLayoutLeftDeleteAlternateText" xml:space="preserve">
-    <value>Remove the selected  content from the page</value>
+    <value>Remove the selected content from the page</value>
   </data>
   <data name="PageLayoutLeftDownAlternateText" xml:space="preserve">
     <value>Move selected module down in list</value>
@@ -1297,7 +1297,7 @@
     <value>Require SSL?</value>
   </data>
   <data name="PageLayoutRightDeleteAlternateText" xml:space="preserve">
-    <value>Remove the selected  content from the page</value>
+    <value>Remove the selected content from the page</value>
   </data>
   <data name="PageLayoutRightDownAlternateText" xml:space="preserve">
     <value>Move selected content down in list</value>
@@ -1576,7 +1576,7 @@
     <value>Return to Site Home</value>
   </data>
   <data name="RoleExistsError" xml:space="preserve">
-    <value>Sorry, that role name has already been used.</value>
+    <value>Sorry, that role system name has already been used.</value>
   </data>
   <data name="RoleManagerAllUsersInRole" xml:space="preserve">
     <value>All Users are in this role</value>
@@ -1987,10 +1987,10 @@
     <value>Default Page Keywords</value>
   </data>
   <data name="SiteSettingsSiteRecaptchaPrivateKeyLabel" xml:space="preserve">
-    <value>Recaptcha Secret Key</value>
+    <value>Secret Key</value>
   </data>
   <data name="SiteSettingsSiteRecaptchaPublicKeyLabel" xml:space="preserve">
-    <value>Recaptcha Site Key</value>
+    <value>Site Key</value>
   </data>
   <data name="SiteSettingsSiteSelectedFeaturesLabel" xml:space="preserve">
     <value>Selected Features</value>
@@ -2734,13 +2734,13 @@
     <value>You have been unsubscribed from {0}.</value>
   </data>
   <data name="NewsletterArchiveListLink" xml:space="preserve">
-    <value>View Previous Editions</value>
+    <value>Archives</value>
   </data>
   <data name="NewsletterDraftListLink" xml:space="preserve">
-    <value>View/Edit Drafts</value>
+    <value>Manage Drafts</value>
   </data>
   <data name="NewsletterEditLink" xml:space="preserve">
-    <value>Edit</value>
+    <value>Settings</value>
   </data>
   <data name="NewsLetterPreviousLettersHeadingFormatString" xml:space="preserve">
     <value>{0} - Previous Editions</value>
@@ -3457,7 +3457,7 @@
     <value>Redirect Manager</value>
   </data>
   <data name="RedirectsToLabel" xml:space="preserve">
-    <value>redirects to</value>
+    <value>→</value>
   </data>
   <data name="SaveButton" xml:space="preserve">
     <value>Save</value>
@@ -3499,7 +3499,7 @@
     <value>Reset Content</value>
   </data>
   <data name="SearchRebuildIndexButton" xml:space="preserve">
-    <value>Rebuild Search Index</value>
+    <value>Rebuild Index</value>
   </data>
   <data name="SearchRebuildIndexWarning" xml:space="preserve">
     <value>Are you sure you want to delete and rebuild the search index? For a large site this may take a while.</value>
@@ -3672,8 +3672,8 @@
   <data name="ShowHomePageCrumb" xml:space="preserve">
     <value>Show Home Page Crumb?</value>
   </data>
-  <data name="LookupUserByIPAddressButton" xml:space="preserve">
-    <value>Search By IP Address</value>
+  <data name="MemberListSearchByIPLabel" xml:space="preserve">
+    <value>Search</value>
   </data>
   <data name="SiteSettingsCompanyNameLabel" xml:space="preserve">
     <value>Company Name</value>
@@ -4588,7 +4588,7 @@
     <value>Search</value>
   </data>
   <data name="NewsletterUnverifiedCountFormat" xml:space="preserve">
-    <value>({0} unverified)</value>
+    <value>{0} unverified</value>
   </data>
   <data name="NewsletterUnverifiedWarning" xml:space="preserve">
     <value>Your subscription is not verified. Please click the Save Preferences button to confirm your subscription.</value>
@@ -4849,7 +4849,7 @@
     <value>Facebook Like Button Width</value>
   </data>
   <data name="ShowLockedOutUsers" xml:space="preserve">
-    <value>Show Locked Out Users</value>
+    <value>Show Only Locked Out Users</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Loading</value>
@@ -4999,7 +4999,7 @@
     <value>Internal Lucene Site Search</value>
   </data>
   <data name="ShowAlternateSearchIfConfigured" xml:space="preserve">
-    <value>Show Alternate Search If Configured?</value>
+    <value>Show Alternate Search if Configured?</value>
   </data>
   <data name="RegistrationConfirmation" xml:space="preserve">
     <value>Registration Confirmation</value>
@@ -5218,7 +5218,7 @@
     <value>Sorry but a site administrator must approve your account before you can login.</value>
   </data>
   <data name="ShowNotApprovedUsers" xml:space="preserve">
-    <value>Show Users Waiting For Approval</value>
+    <value>Show Users Waiting for Approval</value>
   </data>
   <data name="SiteSettingsRequireApprovalForLogin" xml:space="preserve">
     <value>Require Admin Approval?</value>
@@ -5437,7 +5437,7 @@
     <value>Edit Closed Message</value>
   </data>
   <data name="SiteIsClosed" xml:space="preserve">
-    <value>Site Is Closed?</value>
+    <value>Close Site</value>
   </data>
   <data name="SiteClosedPageTitle" xml:space="preserve">
     <value>Temporarily Closed</value>
@@ -5449,13 +5449,13 @@
     <value>Sorry, the file you are trying to upload is larger than allowed by configuration.</value>
   </data>
   <data name="FileSystemStorageQuotaError" xml:space="preserve">
-    <value>Sorry you've reached the quota of upload storage allowed by configuraiton.</value>
+    <value>Sorry you've reached the quota of upload storage allowed by configuration.</value>
   </data>
   <data name="AllowPersistentLogin" xml:space="preserve">
     <value>Enable Keep Me Logged In?</value>
   </data>
   <data name="ResetSkinVersionGuid" xml:space="preserve">
-    <value>Reset Skin Version Guid</value>
+    <value>Clear Skin Cache</value>
   </data>
   <data name="RolesThatCanAssignSkinsToPages" xml:space="preserve">
     <value>Assign Skins to Pages</value>
@@ -6061,7 +6061,7 @@
     <value>Pick a Page</value>
   </data>
   <data name="FileSystemInvalidToken" xml:space="preserve">
-    <value>Invalid token received by FileService so blocking access</value>
+    <value>Invalid token received by FileService. Try refreshing your browser.</value>
   </data>
   <data name="FileSystemNotLoadedFromProvider" xml:space="preserve">
     <value>Could not load file system from provider {0}</value>
@@ -6144,10 +6144,10 @@
   <data name="SiteSettingsSecureRegistrationDescription" xml:space="preserve">
     <value>User will be sent a verification email to be completed before they can login.</value>
   </data>
-  <data name="SiteSettingsSecurityContentEditorSettingsDescription" xml:space="preserve">
+  <data name="SiteSettingsContentEditorSettingsDescription" xml:space="preserve">
     <value>WYSIWYG options.</value>
   </data>
-  <data name="SiteSettingsSecurityContentEditorSettingsLabel" xml:space="preserve">
+  <data name="SiteSettingsContentEditorSettingsLabel" xml:space="preserve">
     <value>Content Editor</value>
   </data>
   <data name="SiteSettingsSecurityMainSettingsDescription" xml:space="preserve">
@@ -6180,10 +6180,10 @@
   <data name="SiteSettingsSecurityRegistrationSettingsLabel" xml:space="preserve">
     <value>Registration</value>
   </data>
-  <data name="SiteSettingsSecuritySkinSettingsDescription" xml:space="preserve">
+  <data name="SiteSettingsSkinSettingsDescription" xml:space="preserve">
     <value>Options for the visual design of the site.</value>
   </data>
-  <data name="SiteSettingsSecuritySkinSettingsLabel" xml:space="preserve">
+  <data name="SiteSettingsSkinSettingsLabel" xml:space="preserve">
     <value>Skinning/Theming</value>
   </data>
   <data name="SiteSettingsSecurityUserAccountSettingsDescription" xml:space="preserve">
@@ -6291,5 +6291,425 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="GeneralBrowseRoles" xml:space="preserve">
     <value>Browse Files</value>
+  </data>
+  <data name="LastModifiedFormat" xml:space="preserve">
+    <value>Last Modified by {0} on {1}</value>
+  </data>
+  <data name="NewsletterLastSentFormat" xml:space="preserve">
+    <value>Last Sent: {0}</value>
+  </data>
+  <data name="NewsletterNeverSent" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="NewsletterNoLetters" xml:space="preserve">
+    <value>You have created any Newsletters yet.</value>
+  </data>
+  <data name="UnknownUser" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="RoleAddRoleHeader" xml:space="preserve">
+    <value>Add New Role</value>
+  </data>
+  <data name="RoleDisplayName" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
+  <data name="RoleSystemName" xml:space="preserve">
+    <value>System Name</value>
+  </data>
+  <data name="RoleSystemNameCantChange" xml:space="preserve">
+    <value>System Name cannot be changed.</value>
+  </data>
+  <data name="NewUrl" xml:space="preserve">
+    <value>New Url</value>
+  </data>
+  <data name="OldUrl" xml:space="preserve">
+    <value>Old Url</value>
+  </data>
+  <data name="RedirectAddNew" xml:space="preserve">
+    <value>Add New Redirect</value>
+  </data>
+  <data name="ClearSearch" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="RedirectEdit" xml:space="preserve">
+    <value>Edit Redirect</value>
+  </data>
+  <data name="RedirectSearch" xml:space="preserve">
+    <value>Find Redirect</value>
+  </data>
+  <data name="MemberListAddUserTooltip" xml:space="preserve">
+    <value>Create a new user.</value>
+  </data>
+  <data name="MemberListIPSearchPlaceholder" xml:space="preserve">
+    <value>IP Address</value>
+  </data>
+  <data name="MemberListOtherActionsHeading" xml:space="preserve">
+    <value>Other Actions</value>
+  </data>
+  <data name="MemberListSearchByIPDescription" xml:space="preserve">
+    <value>User IPs are logged when they use the site. This search will find users who have used the site from a connection with the specified IP Address.</value>
+  </data>
+  <data name="MemberListSearchByIPHeading" xml:space="preserve">
+    <value>Search by IP Address</value>
+  </data>
+  <data name="MemberListSearchDescription" xml:space="preserve">
+    <value>Fields searched are username, display name and email address.</value>
+  </data>
+  <data name="MemberListSearchHeading" xml:space="preserve">
+    <value>Search for User</value>
+  </data>
+  <data name="MemberListSearchPlaceholder" xml:space="preserve">
+    <value>User Search</value>
+  </data>
+  <data name="MemberListShowAllTooltip" xml:space="preserve">
+    <value>Remove all sorting and filtering.</value>
+  </data>
+  <data name="PagerPageOfFormat" xml:space="preserve">
+    <value>Page {0} of {1}</value>
+  </data>
+  <data name="RoleDisplayNameRequired" xml:space="preserve">
+    <value>Please enter a Display Name.</value>
+  </data>
+  <data name="RoleSystemNameRequired" xml:space="preserve">
+    <value>Please enter a System Name.</value>
+  </data>
+  <data name="ShowLockedOutUsersTooltip" xml:space="preserve">
+    <value>Show users who have been locked out.</value>
+  </data>
+  <data name="ShowNotApprovedUsersTooltip" xml:space="preserve">
+    <value>Show users who have not been approved for login.</value>
+  </data>
+  <data name="RestartWebApp" xml:space="preserve">
+    <value>Restart Application</value>
+  </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Update Available</value>
+  </data>
+  <data name="AdminIndexBrowser" xml:space="preserve">
+    <value>Index Browser</value>
+  </data>
+  <data name="AdminIndexBrowserAuthor" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="AdminIndexBrowserClearFilter" xml:space="preserve">
+    <value>Clear Filter</value>
+  </data>
+  <data name="AdminIndexBrowserCreatedDate" xml:space="preserve">
+    <value>Created UTC</value>
+  </data>
+  <data name="AdminIndexBrowserExceptionDescription" xml:space="preserve">
+    <value>This error happens when the search index has not been created yet. You could click the Rebuild Index button but if you do you should wait about 5 - 10 minutes before reloading the page.</value>
+  </data>
+  <data name="AdminIndexBrowserModifiedBetween" xml:space="preserve">
+    <value>Modified Between</value>
+  </data>
+  <data name="AdminIndexBrowserModifiedDate" xml:space="preserve">
+    <value>Modified UTC</value>
+  </data>
+  <data name="AdminIndexBrowserModuleViewRoles" xml:space="preserve">
+    <value>Module View Roles</value>
+  </data>
+  <data name="AdminIndexBrowserPageMetaDesc" xml:space="preserve">
+    <value>Page Meta Description</value>
+  </data>
+  <data name="AdminIndexBrowserPageMetaKeywords" xml:space="preserve">
+    <value>Page Meta Keywords</value>
+  </data>
+  <data name="AdminIndexBrowserPageViewRoles" xml:space="preserve">
+    <value>Page View Roles</value>
+  </data>
+  <data name="RedirectDelete" xml:space="preserve">
+    <value>Delete Redirect</value>
+  </data>
+  <data name="RedirectGoToNew" xml:space="preserve">
+    <value>Go to new URL</value>
+  </data>
+  <data name="RedirectGoToOld" xml:space="preserve">
+    <value>Go to old URL</value>
+  </data>
+  <data name="AdminIndexBrowserDocKey" xml:space="preserve">
+    <value>Result Key</value>
+  </data>
+  <data name="AdminIndexBrowserItemDetails" xml:space="preserve">
+    <value>Result Details</value>
+  </data>
+  <data name="AdminIndexBrowserItemIntro" xml:space="preserve">
+    <value>Result Fragment</value>
+  </data>
+  <data name="NotApplicable" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="AdminIndexBrowserActionsHeading" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="AdminIndexBrowserDeleteItemWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this item? \r\n {0}</value>
+  </data>
+  <data name="AdminIndexBrowserFilter" xml:space="preserve">
+    <value>Set Filter</value>
+  </data>
+  <data name="AdminIndexBrowserFilterContentType" xml:space="preserve">
+    <value>Filter by Content Type</value>
+  </data>
+  <data name="AdminIndexBrowserFilterDate" xml:space="preserve">
+    <value>Filter by Date</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolInsecureCiphers" xml:space="preserve">
+    <value>Insecure Ciphers Detected</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolBeastVuln" xml:space="preserve">
+    <value>Beast Vulnerability</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolEphemeralKeys" xml:space="preserve">
+    <value>Ephemeral Key Support</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolNMinusOneSplitting" xml:space="preserve">
+    <value>Detected N - 1 Splitting</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolTLSCompression" xml:space="preserve">
+    <value>TLS Compression</value>
+  </data>
+  <data name="SecurityAdvisorSecurityProtocolUnknownCiphers" xml:space="preserve">
+    <value>Supports Unknown Ciphers</value>
+  </data>
+  <data name="CustomMenuFeatureName" xml:space="preserve">
+    <value>Custom Menu</value>
+  </data>
+  <data name="CustomMenuMaxDepth" xml:space="preserve">
+    <value>Maximum Menu Depth</value>
+  </data>
+  <data name="CustomMenuShowStartingNode" xml:space="preserve">
+    <value>Show Starting Page</value>
+  </data>
+  <data name="CustomMenuSkinId" xml:space="preserve">
+    <value>Skin ID</value>
+  </data>
+  <data name="CustomMenuStartingNodeUrl" xml:space="preserve">
+    <value>Starting Node URL</value>
+  </data>
+  <data name="CustomMenuStartingPage" xml:space="preserve">
+    <value>Starting Page</value>
+  </data>
+  <data name="CustomMenuStartingPageBrowseLink" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="CustomMenuStartingPageBrowseLinkTooltip" xml:space="preserve">
+    <value>Select the starting page</value>
+  </data>
+  <data name="CustomMenuStartingPageInvalid" xml:space="preserve">
+    <value>Starting Page Is Invalid. Check Module Settings.</value>
+  </data>
+  <data name="CustomMenuUseTreeView" xml:space="preserve">
+    <value>Use TreeView?</value>
+  </data>
+  <data name="CustomMenuView" xml:space="preserve">
+    <value>Menu Theme</value>
+  </data>
+  <data name="NoViewsInSkin" xml:space="preserve">
+    <value>No Themes Available in Skin</value>
+  </data>
+  <data name="ViewSelectDropDown" xml:space="preserve">
+    <value>Select Theme</value>
+  </data>
+  <data name="UserFolder" xml:space="preserve">
+    <value>My Files</value>
+  </data>
+  <data name="ManageUsersIsDeleted" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="ManageUsersUnDeleteUserWarning" xml:space="preserve">
+    <value>Are you sure you want to undelete this user?</value>
+  </data>
+  <data name="SiteSettingsTestSMTPEmailAddress" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="SiteSettingsTestSMTPSettingsButton" xml:space="preserve">
+    <value>Send Test Message</value>
+  </data>
+  <data name="SiteSettingsTestSMTPSettingsDescription" xml:space="preserve">
+    <value>Use the form below to test your email settings. If a password is not entered above, the saved password will be used, if available.</value>
+  </data>
+  <data name="SiteSettingsTestSMTPSettingsLabel" xml:space="preserve">
+    <value>Test SMTP Settings</value>
+  </data>
+  <data name="SiteSettingsTestSMTPSettingsInvalidMessage" xml:space="preserve">
+    <value>Settings are invalid. Please check your settings and try again.</value>
+  </data>
+  <data name="SiteSettingsTestSMTPSettingsInvalidMessageDetailed" xml:space="preserve">
+    <value>Settings are invalid. Please check your settings and try again. Message was </value>
+  </data>
+  <data name="SiteSettingsTestSMTPSettingsButtonSending" xml:space="preserve">
+    <value>Attempting to send ... </value>
+  </data>
+  <data name="SiteSettingsTestSMTPSettingsValidMessage" xml:space="preserve">
+    <value>Settings are valid. Email was sent. This does not ensure your message will arrive, only that we were able to connect to the specified email server, authenticate, and relay an email to it.</value>
+  </data>
+  <data name="GenericErrorOccurred" xml:space="preserve">
+    <value>An error occurred. Please check your inputs and try again.</value>
+  </data>
+  <data name="RoleNameInvalid" xml:space="preserve">
+    <value>System name is not valid.</value>
+  </data>
+  <data name="AdminIndexBrowserItemUrl" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="AddContent" xml:space="preserve">
+    <value>Add Content</value>
+  </data>
+  <data name="UseCount" xml:space="preserve">
+    <value>Usage</value>
+  </data>
+  <data name="SiteSettingsBadWordList" xml:space="preserve">
+    <value>Bad Word List</value>
+  </data>
+  <data name="SiteSettingsBadWordListQuickHelp" xml:space="preserve">
+    <value>Enter words you want blocked from being entered by users. One per line.</value>
+  </data>
+  <data name="SiteSettingsForceBadWordChecking" xml:space="preserve">
+    <value>Enforce Bad Word Checking</value>
+  </data>
+  <data name="SiteSettingsForceBadWordCheckingQuickHelp" xml:space="preserve">
+    <value>If enabled, compliant features will always check for bad words, regardless of their own settings to turn it off.</value>
+  </data>
+  <data name="SiteSettingsHomePageOverride" xml:space="preserve">
+    <value>Home Page Override</value>
+  </data>
+  <data name="SiteSettingsAdvancedDescription" xml:space="preserve">
+    <value>These settings are usually not changed and should only be changed by advanced users.</value>
+  </data>
+  <data name="SiteSettingsAdvancedLabel" xml:space="preserve">
+    <value>Advanced Settings</value>
+  </data>
+  <data name="SiteSettingsAdvancedTab" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="SiteSettingsMainSettingsDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SiteSettingsMainSettingsLabel" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="SiteSettingsRecaptchaQuickHelp" xml:space="preserve">
+    <value>You can use either reCaptcha or hCaptcha API keys.</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaAdvancedSettingsDescription" xml:space="preserve">
+    <value>Only change these settings if you really know what you're doing.</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaAdvancedSettingsLabel" xml:space="preserve">
+    <value>Advanced Recaptcha Settings</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaHCaptchaChoiceLabel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SiteSettingsSiteRecaptchaSettingsDescription" xml:space="preserve">
+    <value>These settings pertain to reCAPTCHA and hCaptcha only.</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaSettingsLabel" xml:space="preserve">
+    <value>reCAPTCHA/hCaptcha Settings</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaClientScriptUrlLabel" xml:space="preserve">
+    <value>Client Script URL</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaParamLabel" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaResponseFieldLabel" xml:space="preserve">
+    <value>Response Field</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaThemeLabel" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaVerifyUrlLabel" xml:space="preserve">
+    <value>Verify URL</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Default Currency</value>
+  </data>
+  <data name="SiteSettingsBadWordHeader" xml:space="preserve">
+    <value>Bad Word Checking/Filter</value>
+  </data>
+  <data name="SiteSettingsBadWordQuickHelp" xml:space="preserve">
+    <value>This feature will prevent forms being being posted with any of the listed words. Features must support Bad Word Checking for these settings to be relevant.</value>
+  </data>
+  <data name="SiteSettingsCompanyInfoHeader" xml:space="preserve">
+    <value>Company Info</value>
+  </data>
+  <data name="SiteSettingsCompanyInfoQuickHelp" xml:space="preserve">
+    <value>These values are used in some skins to display contact information. Other features could use them as well.</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaSettingDefault" xml:space="preserve">
+    <value>Defaults are: &lt;br&gt;&lt;strong&gt;reCaptcha&lt;/strong&gt;:{0}&lt;br&gt;&lt;strong&gt;hCaptcha&lt;/strong&gt;:{1}</value>
+  </data>
+  <data name="SiteSettingsSiteCaptchaThemeValidOptions" xml:space="preserve">
+    <value>Usually, the valid options are 'light' and 'dark'</value>
+  </data>
+  <data name="SiteSettingsSiteRecaptchaHCaptchaDefaultResetButton" xml:space="preserve">
+    <value>Reset to Defaults</value>
+  </data>
+  <data name="SiteSettingsContentAdminDescription" xml:space="preserve">
+    <value>This content will apply to all admin pages.</value>
+  </data>
+  <data name="SiteSettingsContentAdminHeader" xml:space="preserve">
+    <value>Site-Wide Admin Content</value>
+  </data>
+  <data name="SiteSettingsContentDescription" xml:space="preserve">
+    <value>This content applies to all non-admin CMS pages.</value>
+  </data>
+  <data name="SiteSettingsContentFooterQuickHelp" xml:space="preserve">
+    <value>This content will be placed at the bottom of the page, above the &amp;lt;/body&amp;gt; tag.</value>
+  </data>
+  <data name="SiteSettingsContentFooterContentHeading" xml:space="preserve">
+    <value>Bottom Content</value>
+  </data>
+  <data name="SiteSettingsContentHeader" xml:space="preserve">
+    <value>Site-Wide Content</value>
+  </data>
+  <data name="SiteSettingsContentHeaderQuickHelp" xml:space="preserve">
+    <value>This content will be placed in the &amp;lt;head&amp;gt; tag.</value>
+  </data>
+  <data name="SiteSettingsContentHeaderContentHeading" xml:space="preserve">
+    <value>Top Content</value>
+  </data>
+  <data name="SiteSettingsContentLink" xml:space="preserve">
+    <value>Custom Content</value>
+  </data>
+  <data name="AllowPasswordFormatChange" xml:space="preserve">
+    <value>Enable Password Format Change</value>
+  </data>
+  <data name="ExportTemplatesForCKEditor" xml:space="preserve">
+    <value>Export for CKEditor</value>
+  </data>
+  <data name="SiteSettingsSMTPHeaders" xml:space="preserve">
+    <value>Custom SMTP Headers</value>
+  </data>
+  <data name="SiteSettingsSMTPHeadersDescription" xml:space="preserve">
+    <value>Enter each header on its own line as "HeaderName: header value"</value>
+  </data>
+  <data name="SecurityAdvisorDefaultAdminAccountDescription" xml:space="preserve">
+    <value>Checks for existence of default admin account</value>
+  </data>
+  <data name="SecurityAdvisorDefaultAdminAccountDoesNotExists" xml:space="preserve">
+    <value>Default admin user account does not exist</value>
+  </data>
+  <data name="SecurityAdvisorDefaultAdminAccountExists" xml:space="preserve">
+    <value>Default admin account "admin@admin.com" exists. Either update this account's email and password or delete this account.</value>
+  </data>
+  <data name="SecurityAdvisorDefaultAdminAccountExistsAndPasswordIsDefault" xml:space="preserve">
+    <value>Default admin account "admin@admin.com" exists and it's password is also default. Either update this account's email and password or delete this account.</value>
+  </data>
+  <data name="SecurityAdvisorDefaultAdminAccountHeading" xml:space="preserve">
+    <value>Default Admin Account</value>
+  </data>
+  <data name="RoleDescription" xml:space="preserve">
+    <value>Description of the role</value>
+  </data>
+  <data name="AttributeNotApplied" xml:space="preserve">
+    <value>The {0} was not applied.</value>
+  </data>
+  <data name="ElementNotFound" xml:space="preserve">
+    <value>The {0} element could not be found.</value>
+  </data>
+  <data name="HowToFixHtmlElement" xml:space="preserve">
+    <value>You must add id="html1" runat="server" to the html element in the layout.master of the skin.</value>
   </data>
 </root>

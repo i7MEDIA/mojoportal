@@ -673,7 +673,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Silverlight Slide Show Settings.
+        ///   Looks up a localized string similar to Silverlight Slide Show Settings - Obsolete.
         /// </summary>
         internal static string SilverlightSettings {
             get {
@@ -763,7 +763,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Silverlight Slide Show?.
+        ///   Looks up a localized string similar to Use Silverlight Slide Show? - Obsolete.
         /// </summary>
         internal static string UseSilverlightSlideshow {
             get {

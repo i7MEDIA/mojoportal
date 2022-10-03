@@ -110,8 +110,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\GCheckout1.3.2\GCheckout.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.14\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -145,6 +145,7 @@
     <Compile Include="PaymentGateway\NotImplementedPaymentGateway.cs" />
     <Compile Include="PaymentGateway\PaymentGatewayResponse.cs" />
     <Compile Include="PaymentGateway\PaymentGatewayTransactionType.cs" />
+    <Compile Include="PaymentGateway\PaymentGatewayType.cs" />
     <Compile Include="PaymentGateway\PayPal\DoNothingPayPalIPNHandlerProvider.cs" />
     <Compile Include="PaymentGateway\PayPal\DoNothingPayPalPDTHandlerProvider.cs" />
     <Compile Include="PaymentGateway\PayPal\NotImplementedPayPalReturnHandler.cs" />
@@ -204,9 +205,6 @@
     <Compile Include="WebUser.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\mojoPortal.Business\mojoPortal.Business.csproj">
       <Project>{8582d51e-126b-4d64-b080-07ad8245b38f}</Project>
       <Name>mojoPortal.Business</Name>
@@ -219,6 +217,9 @@
       <Project>{e0d12031-bfdd-4069-9024-8b00a2aa6dbc}</Project>
       <Name>mojoPortal.Web.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

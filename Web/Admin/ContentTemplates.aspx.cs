@@ -106,7 +106,11 @@ namespace mojoPortal.Web.AdminUI
             lnkAddNewBottom.Text = Resource.ContentTemplateAddNewLink;
             lnkAddNewBottom.NavigateUrl = SiteRoot + "/Admin/ContentTemplateEdit.aspx";
 
-            
+            lnkExportTop.Text = lnkExportBottom.Text = Resource.ExportTemplatesForCKEditor;
+            lnkExportTop.NavigateUrl = lnkExportBottom.NavigateUrl = $"{SiteRoot}/Services/CKeditorTemplates.ashx?cb={Guid.NewGuid()}&e=true";
+
+            lnkAddNewBottom.Text = Resource.ContentTemplateAddNewLink;
+            lnkAddNewBottom.NavigateUrl = SiteRoot + "/Admin/ContentTemplateEdit.aspx";
         }
 
         

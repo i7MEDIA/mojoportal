@@ -1,6 +1,6 @@
 ﻿/// Author:		        
 /// Created:            2008-01-17
-/// Last Modified:      2009-06-10
+/// Last Modified:      2018-10-31
 
 using System;
 using System.Data;
@@ -117,7 +117,7 @@ namespace mojoPortal.Web.Services
             xmlTextWriter.WriteAttributeString("element", "img");
             xmlTextWriter.WriteStartElement("Attribute");
             xmlTextWriter.WriteAttributeString("name", "class");
-            xmlTextWriter.WriteAttributeString("value", "floatrightimage");
+            xmlTextWriter.WriteAttributeString("value", "image-right");
             xmlTextWriter.WriteEndElement(); //Attribute
             xmlTextWriter.WriteEndElement(); //Style
 
@@ -126,7 +126,7 @@ namespace mojoPortal.Web.Services
             xmlTextWriter.WriteAttributeString("element", "img");
             xmlTextWriter.WriteStartElement("Attribute");
             xmlTextWriter.WriteAttributeString("name", "class");
-            xmlTextWriter.WriteAttributeString("value", "floatleftimage");
+            xmlTextWriter.WriteAttributeString("value", "image-left");
             xmlTextWriter.WriteEndElement(); //Attribute
             xmlTextWriter.WriteEndElement(); //Style
 

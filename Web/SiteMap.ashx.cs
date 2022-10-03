@@ -60,13 +60,15 @@ namespace mojoPortal.Web.Services
                 secureSiteRoot = insecureSiteRoot;
             }
 
-            //secureSiteRoot = WebUtils.GetSecureSiteRoot();
-            //insecureSiteRoot = secureSiteRoot.Replace("https", "http");
+			//secureSiteRoot = WebUtils.GetSecureSiteRoot();
+			//insecureSiteRoot = secureSiteRoot.Replace("https", "http");
 
-            Page page = new Page();
-            page.AppRelativeVirtualPath = context.Request.AppRelativeCurrentExecutionFilePath;
+			Page page = new Page
+			{
+				AppRelativeVirtualPath = context.Request.AppRelativeCurrentExecutionFilePath
+			};
 
-            context.Response.Expires = -1;
+			context.Response.Expires = -1;
             context.Response.ContentType = "application/xml";
             Encoding encoding = new UTF8Encoding();
             context.Response.ContentEncoding = encoding;
@@ -83,22 +85,23 @@ namespace mojoPortal.Web.Services
                 xmlTextWriter.WriteEndAttribute();
 
                 siteSettings = CacheHelper.GetCurrentSiteSettings();
-                //string siteRoot;
-                //if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
-                //{
-                //    siteRoot = WebUtils.GetSiteRoot();
-                //}
-                //else
-                //{
-                //    siteRoot = SiteUtils.GetNavigationSiteRoot();
-                //}
+				//string siteRoot;
+				//if (WebConfigSettings.UseFolderBasedMultiTenants)
+				//{
+				//    siteRoot = WebUtils.GetSiteRoot();
+				//}
+				//else
+				//{
+				//    siteRoot = SiteUtils.GetNavigationSiteRoot();
+				//}
 
-                SiteMapDataSource siteMapDataSource = new SiteMapDataSource();
+				SiteMapDataSource siteMapDataSource = new SiteMapDataSource
+				{
+					SiteMapProvider
+						= "mojosite" + siteSettings.SiteId.ToString(CultureInfo.InvariantCulture)
+				};
 
-                siteMapDataSource.SiteMapProvider
-                        = "mojosite" + siteSettings.SiteId.ToString(CultureInfo.InvariantCulture);
-
-                SiteMapNode siteMapNode = siteMapDataSource.Provider.RootNode;
+				SiteMapNode siteMapNode = siteMapDataSource.Provider.RootNode;
                 ArrayList alreadyAddedUrls = new ArrayList();
 
                 RenderNodesToSiteMap(

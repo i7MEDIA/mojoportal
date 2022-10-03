@@ -63,6 +63,10 @@ namespace mojoPortal.Web.BlogUI
 
 		private SiteUser siteUser = null;
 
+		private string blogMetaConfigFile = string.Empty;
+		private string blogMetaConfigDefault = string.Empty;
+
+
 		private void Page_Load(object sender, EventArgs e)
 		{
 			if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl))
@@ -646,17 +650,40 @@ namespace mojoPortal.Web.BlogUI
 			blog.HeadlineImageUrl = txtHeadlineImage.Text;
 
 
-			if (blog.HeadlineImageUrl != currentFeaturedImagePath)
+			if (blog.HeadlineImageUrl != currentFeaturedImagePath || String.IsNullOrWhiteSpace(blog.HeadlineImageUrl))
 			{
 				//update meta 
+				List<ContentMeta> metas = metaRepository.FetchByContent(blog.BlogGuid);
+				List<ContentMeta> filteredMetas = new List<ContentMeta>();
 
-				string fullPath = SiteRoot + Page.ResolveUrl(currentFeaturedImagePath);
-
-				List <ContentMeta> metas = metaRepository.FetchByContent(blog.BlogGuid).Where(m => m.MetaContent == fullPath).ToList();
-				foreach (ContentMeta meta in metas)
+				if (string.IsNullOrWhiteSpace(currentFeaturedImagePath))
 				{
-					meta.MetaContent = SiteRoot + Page.ResolveUrl(blog.HeadlineImageUrl);
-					metaRepository.Save(meta);
+					List<ContentMeta> metaTags;
+
+					if (fileSystem.FileExists(blogMetaConfigFile))
+						metaTags = GetJsonFile();
+					else
+						metaTags = JsonConvert.DeserializeObject<List<ContentMeta>>(blogMetaConfigDefault);
+
+					metaTags = metaTags.Where(m => m.MetaContent == "{{image}}").ToList();
+					filteredMetas = metas.Where(m => metaTags.Any(x => x.Name == m.Name)).ToList();
+				}
+				else
+				{
+					filteredMetas = metas.Where(m => m.MetaContent == SiteRoot + Page.ResolveUrl(currentFeaturedImagePath)).ToList();
+				}
+
+				foreach (ContentMeta meta in filteredMetas)
+				{
+					if (!String.IsNullOrWhiteSpace(blog.HeadlineImageUrl))
+					{
+						meta.MetaContent = SiteRoot + Page.ResolveUrl(blog.HeadlineImageUrl);
+						metaRepository.Save(meta);
+					}
+					else
+					{ //remove image meta with empty MetaContent
+						metaRepository.Delete(meta.Guid);
+					}
 				}
 			}
 
@@ -816,9 +843,6 @@ namespace mojoPortal.Web.BlogUI
 
 		void CreateDefaultMetaTags()
 		{
-			string blogMetaConfigFile = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/MetadataConfiguration/blog.json";
-			string blogMetaConfigDefault = "[{\"NameProperty\":\"itemprop\",\"Name\":\"\",\"ContentProperty\":\"itemtype\",\"MetaContent\":\"http://schema.org/Article\"},{\"NameProperty\":\"itemprop\",\"Name\":\"name\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"itemprop\",\"Name\":\"description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"itemprop\",\"Name\":\"image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:type\",\"ContentProperty\":\"content\",\"MetaContent\":\"article\"},{\"NameProperty\":\"property\",\"Name\":\"og:site_name\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{site-name}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:title\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:url\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{url}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:card\",\"ContentProperty\":\"content\",\"MetaContent\":\"summary_large_image\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:title\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"}]";
-
 			if (fileSystem.FileExists(blogMetaConfigFile))
 			{
 				List<ContentMeta> metaTags = GetJsonFile();
@@ -835,7 +859,7 @@ namespace mojoPortal.Web.BlogUI
 				foreach (ContentMeta tag in metaTags)
 				{
 					int truncateLength = 155;
-
+					bool useMeta = true;
 					switch (tag.MetaContent)
 					{
 						case "{{site-name}}":
@@ -881,6 +905,7 @@ namespace mojoPortal.Web.BlogUI
 							}
 							else
 							{
+								useMeta = false;
 								tag.MetaContent = string.Empty;
 							}
 							break;
@@ -903,27 +928,31 @@ namespace mojoPortal.Web.BlogUI
 							//	break;
 					}
 
-					createMetaEntry(
-						new Guid(),
-						tag.NameProperty,
-						tag.Name,
-						tag.ContentProperty,
-						tag.MetaContent,
-						tag.Scheme,
-						tag.LangCode,
-						tag.Dir
-					);
+					if (useMeta) //don't want to add meta with empty MetaContent
+					{
+						createMetaEntry(
+							new Guid(),
+							tag.NameProperty,
+							tag.Name,
+							tag.ContentProperty,
+							tag.MetaContent,
+							tag.Scheme,
+							tag.LangCode,
+							tag.Dir
+						);
+					}
 				}
 			}
+		}
 
-			List<ContentMeta> GetJsonFile()
+
+		private List<ContentMeta> GetJsonFile()
+		{
+			using (StreamReader r = new StreamReader(HttpContext.Current.Server.MapPath(blogMetaConfigFile)))
 			{
-				using (StreamReader r = new StreamReader(HttpContext.Current.Server.MapPath(blogMetaConfigFile)))
-				{
-					string json = r.ReadToEnd();
+				string json = r.ReadToEnd();
 
-					return JsonConvert.DeserializeObject<List<ContentMeta>>(json);
-				}
+				return JsonConvert.DeserializeObject<List<ContentMeta>>(json);
 			}
 		}
 
@@ -1073,7 +1102,7 @@ namespace mojoPortal.Web.BlogUI
 
 			if (btnDeleteMeta != null)
 			{
-				btnDelete.Attributes.Add("OnClick", $"return confirm('{BlogResources.ContentMetaDeleteWarning}');");
+				btnDeleteMeta.Attributes.Add("OnClick", $"return confirm('{BlogResources.ContentMetaDeleteWarning}');");
 			}
 
 			upMeta.Update();
@@ -1130,8 +1159,8 @@ namespace mojoPortal.Web.BlogUI
 
 			TextBox txtName = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtName");
 			TextBox txtNameProperty = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtNameProperty");
-			TextBox txtMetaContent = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtMetaContent");
 			TextBox txtMetaContentProperty = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtMetaContentProperty");
+			TextBox txtMetaContent = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtMetaContent");
 			TextBox txtScheme = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtScheme");
 			TextBox txtLangCode = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtLangCode");
 			DropDownList ddDirection = (DropDownList)grid.Rows[e.RowIndex].Cells[1].FindControl("ddDirection");
@@ -1262,7 +1291,7 @@ namespace mojoPortal.Web.BlogUI
 			grdContentMeta.EditIndex = 0;
 			grdContentMeta.DataSource = dataTable.DefaultView;
 			grdContentMeta.DataBind();
-			grdContentMeta.Columns[2].Visible = false;
+			//grdContentMeta.Columns[2].Visible = false;
 			btnAddMeta.Visible = false;
 
 			upMeta.Update();
@@ -1444,8 +1473,7 @@ namespace mojoPortal.Web.BlogUI
 			Button btnDelete = (Button)grid.Rows[e.NewEditIndex].Cells[1].FindControl("btnDeleteMetaLink");
 			if (btnDelete != null)
 			{
-				btnDelete.Attributes.Add("OnClick", "return confirm('"
-					+ BlogResources.ContentMetaLinkDeleteWarning + "');");
+				btnDelete.Attributes.Add("OnClick", $"return confirm(\"{BlogResources.ContentMetaLinkDeleteWarning}\");");
 
 				if (guid == Guid.Empty) { btnDelete.Visible = false; }
 			}
@@ -1560,8 +1588,7 @@ namespace mojoPortal.Web.BlogUI
 			Button btnDelete = (Button)e.Row.Cells[0].FindControl("btnDelete");
 			if (btnDelete != null)
 			{
-				btnDelete.Attributes.Add("OnClick", "return confirm('"
-					+ BlogResources.DeleteHistoryItemWarning + "');");
+				btnDelete.Attributes.Add("OnClick", $"return confirm(\"{BlogResources.DeleteHistoryItemWarning}\");");
 			}
 
 		}
@@ -1652,6 +1679,11 @@ namespace mojoPortal.Web.BlogUI
 		{
 			if (blog != null)
 			{
+				if (blog.ItemId == config.FeaturedPostId)
+				{
+					Module module = GetModule(moduleId, Blog.FeatureGuid);
+					ModuleSettings.UpdateModuleSetting(module.ModuleGuid, moduleId, "FeaturedPostId", "0");
+				}
 				blog.ContentChanged += new ContentChangedEventHandler(blog_ContentChanged);
 				blog.Delete();
 				FriendlyUrl.DeleteByPageGuid(blog.BlogGuid);
@@ -1832,14 +1864,18 @@ namespace mojoPortal.Web.BlogUI
 
 			btnAddMeta.Text = BlogResources.AddMetaButton;
 			grdContentMeta.Columns[0].HeaderText = string.Empty;
-			grdContentMeta.Columns[1].HeaderText = BlogResources.ContentMetaNameLabel;
-			grdContentMeta.Columns[2].HeaderText = BlogResources.ContentMetaMetaContentLabel;
+			grdContentMeta.Columns[1].HeaderText = BlogResources.MetaNameProperty;
+			grdContentMeta.Columns[2].HeaderText = BlogResources.ContentMetaNameLabel;
+			grdContentMeta.Columns[3].HeaderText = BlogResources.MetaContentProperty;
+			grdContentMeta.Columns[4].HeaderText = BlogResources.ContentMetaContentLabel;
+			grdContentMeta.Columns[5].HeaderText = BlogResources.ContentMetaSchemeLabel;
+			grdContentMeta.Columns[6].HeaderText = BlogResources.ContentMetaLangCodeLabel;
+			grdContentMeta.Columns[7].HeaderText = BlogResources.ContentMetaDirLabel;
 
 			btnAddMetaLink.Text = BlogResources.AddMetaLinkButton;
-
 			grdMetaLinks.Columns[0].HeaderText = string.Empty;
 			grdMetaLinks.Columns[1].HeaderText = BlogResources.ContentMetaRelLabel;
-			grdMetaLinks.Columns[2].HeaderText = BlogResources.ContentMetaMetaHrefLabel;
+			grdMetaLinks.Columns[2].HeaderText = BlogResources.ContentMetaHrefLabel;
 
 
 			btnUpload.Text = BlogResources.Upload;
@@ -1997,6 +2033,9 @@ namespace mojoPortal.Web.BlogUI
 
 				return;
 			}
+
+			blogMetaConfigFile = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/MetadataConfiguration/blog.json";
+			blogMetaConfigDefault = "[{\"NameProperty\":\"itemprop\",\"Name\":\"\",\"ContentProperty\":\"itemtype\",\"MetaContent\":\"http://schema.org/Article\"},{\"NameProperty\":\"itemprop\",\"Name\":\"name\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"itemprop\",\"Name\":\"description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"itemprop\",\"Name\":\"image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:type\",\"ContentProperty\":\"content\",\"MetaContent\":\"article\"},{\"NameProperty\":\"property\",\"Name\":\"og:site_name\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{site-name}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:title\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:url\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{url}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:card\",\"ContentProperty\":\"content\",\"MetaContent\":\"summary_large_image\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:title\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"}]";
 		}
 
 

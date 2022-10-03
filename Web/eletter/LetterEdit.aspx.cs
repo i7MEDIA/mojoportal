@@ -44,9 +44,9 @@ namespace mojoPortal.Web.ELetterUI
                 return;
             }
             
+            LoadSettings();
             PopulateLabels();
 
-            LoadSettings();
 
             PopulateControls();
 
@@ -197,7 +197,7 @@ namespace mojoPortal.Web.ELetterUI
         void btnSendPreview_Click(object sender, EventArgs e)
         {
             string baseUrl = WebUtils.GetHostRoot();
-            if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+            if (WebConfigSettings.UseFolderBasedMultiTenants)
             {
                 // in folder based sites the relative urls in the editor will already have the folder name
                 // so we want to use just the raw site root not the navigation root
@@ -275,7 +275,7 @@ namespace mojoPortal.Web.ELetterUI
             letter.IsApproved = true;
 
             string baseUrl = WebUtils.GetHostRoot();
-            if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+            if (WebConfigSettings.UseFolderBasedMultiTenants)
             {
                 // in folder based sites the relative urls in the editor will already have the folder name
                 // so we want to use just the raw site root not the navigation root
@@ -288,32 +288,34 @@ namespace mojoPortal.Web.ELetterUI
             SaveLetter();
 
             letter.TrackSendClicked();
+            SmtpSettings smtpSettings = GetSmtpSettings();
 
-            LetterSendTask letterSender = new LetterSendTask();
-            letterSender.SiteGuid = siteSettings.SiteGuid;
-            letterSender.QueuedBy = currentUser.UserGuid;
-            letterSender.LetterGuid = letter.LetterGuid;
-            letterSender.UnsubscribeLinkText = Resource.NewsletterUnsubscribeLink;
-            letterSender.ViewAsWebPageText = Resource.NewsletterViewAsWebPageLink;
-            letterSender.UnsubscribeUrl = SiteRoot + "/eletter/Unsubscribe.aspx";
-            if (letterInfo.AllowArchiveView)
+			LetterSendTask letterSender = new LetterSendTask
+			{
+				SiteGuid = siteSettings.SiteGuid,
+				QueuedBy = currentUser.UserGuid,
+				LetterGuid = letter.LetterGuid,
+				UnsubscribeLinkText = Resource.NewsletterUnsubscribeLink,
+				ViewAsWebPageText = Resource.NewsletterViewAsWebPageLink,
+				UnsubscribeUrl = SiteRoot + "/eletter/Unsubscribe.aspx",
+				NotificationFromEmail = siteSettings.DefaultEmailFromAddress,
+				NotifyOnCompletion = true,
+				NotificationToEmail = currentUser.Email,
+				User = smtpSettings.User,
+				Password = smtpSettings.Password,
+				Server = smtpSettings.Server,
+				Port = smtpSettings.Port,
+				RequiresAuthentication = smtpSettings.RequiresAuthentication,
+				UseSsl = smtpSettings.UseSsl,
+				PreferredEncoding = smtpSettings.PreferredEncoding,
+				TaskUpdateFrequency = 65,
+				MaxToSendPerMinute = WebConfigSettings.NewsletterMaxToSendPerMinute
+			};
+
+			if (letterInfo.AllowArchiveView)
             {
                 letterSender.WebPageUrl = SiteRoot + "/eletter/LetterView.aspx?l=" + letter.LetterInfoGuid.ToString() + "&amp;letter=" + letter.LetterGuid.ToString();
             }
-            letterSender.NotificationFromEmail = siteSettings.DefaultEmailFromAddress;
-            letterSender.NotifyOnCompletion = true;
-            letterSender.NotificationToEmail = currentUser.Email;
-
-            SmtpSettings smtpSettings = GetSmtpSettings();
-            letterSender.User = smtpSettings.User;
-            letterSender.Password = smtpSettings.Password;
-            letterSender.Server = smtpSettings.Server;
-            letterSender.Port = smtpSettings.Port;
-            letterSender.RequiresAuthentication = smtpSettings.RequiresAuthentication;
-            letterSender.UseSsl = smtpSettings.UseSsl;
-            letterSender.PreferredEncoding = smtpSettings.PreferredEncoding;
-            letterSender.TaskUpdateFrequency = 65;
-            letterSender.MaxToSendPerMinute = WebConfigSettings.NewsletterMaxToSendPerMinute;
             
             letterSender.QueueTask();
 

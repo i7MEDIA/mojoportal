@@ -1,0 +1,58 @@
+﻿@using mojoPortal.Web.Framework;
+@using mojoPortal.Web.Helpers;
+@using mojoPortal.Business;
+@using mojoPortal.Web;
+@using mojoPortal.Business.WebHelpers;
+@using Models = mojoPortal.Web.Models;
+
+@using Resources;
+@model Models.AdditionalContentList
+@{
+	var siteRoot = SiteUtils.GetNavigationSiteRoot();
+	var siteSettings = CacheHelper.GetCurrentSiteSettings();
+	var currentUser = SiteUtils.GetCurrentSiteUser();
+	var i = 1;
+
+
+	var chosenContentModules = Model.ChosenContent.Select(x => x.GlobalContent).ToList();
+
+}
+
+<table border="0" class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>@Html.Raw(ResourceHelper.GetResourceString("Resource", "Title"))</th>
+			<th>@Html.Raw(ResourceHelper.GetResourceString("Resource", "FeatureName"))</th>
+			<th>@Html.Raw(ResourceHelper.GetResourceString("Resource", "UseCount"))</th>
+			@*<th>@Html.Raw(ResourceHelper.GetResourceString("Resource", "LastModified"))</th>*@
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var content in Model.GlobalContent)
+		{
+			if (!chosenContentModules.Contains(content))
+			{
+				<tr id="mid_@content.ModuleID">
+					<td>@content.ModuleTitle</td>
+					<td>@Html.Raw(ResourceHelper.GetResourceString(content.ResourceFile, content.FeatureName))</td>
+					<td>@content.UseCount</td>
+					<td>
+						<select id="sel@content.ModuleID">
+							@*<option>@Html.Raw(ResourceHelper.GetResourceString("Resource", "PageLayoutAltPanel1Label"))</option>
+							<option>@Html.Raw(ResourceHelper.GetResourceString("Resource", "PageLayoutLeftPaneLabel"))</option>
+							<option>@Html.Raw(ResourceHelper.GetResourceString("Resource", "PageLayoutContentPaneLabel"))</option>
+							<option>@Html.Raw(ResourceHelper.GetResourceString("Resource", "PageLayoutRightPaneLabel"))</option>
+							<option>@Html.Raw(ResourceHelper.GetResourceString("Resource", "PageLayoutAltPanel2Label"))</option>*@
+							@foreach (var location in Model.LocationOptions.OrderBy(x => x.Value))
+							{
+								<option>@location.Key</option>
+							}
+						</select>
+						<button type="button" id="btn@content.ModuleID" onclick="addToSelected">@Html.Raw(ResourceHelper.GetResourceString("Resource", "AddContent"))</button>
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>

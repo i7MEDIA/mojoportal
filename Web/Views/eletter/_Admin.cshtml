@@ -1,0 +1,66 @@
+﻿@using mojoPortal.Web.Framework;
+@using mojoPortal.Web.Helpers;
+@using mojoPortal.Business;
+@using mojoPortal.Web;
+@using mojoPortal.Business.WebHelpers;
+@using Resources;
+@model List<LetterInfo>
+@{ 
+	var siteRoot = SiteUtils.GetNavigationSiteRoot();
+	var siteSettings = CacheHelper.GetCurrentSiteSettings();
+	var currentUser = SiteUtils.GetCurrentSiteUser();
+	var i = 1;
+}
+
+<div class="row">
+	@foreach (var letterInfo in Model)
+	{
+		SiteUser lastModUser = new SiteUser(siteSettings, letterInfo.LastModBy);
+		string lastModUsername = string.Empty;
+		string lastModDate = DateTimeHelper.GetTimeZoneAdjustedShortDateString(letterInfo.LastModUtc, currentUser.TimeOffsetHours);
+		if (lastModUser != null)
+		{
+			lastModUsername = lastModUser.Name;
+
+			if (string.IsNullOrWhiteSpace(lastModUsername))
+			{
+				lastModUsername = Resource.UnknownUser;
+			}
+		}
+		string lastSent = string.Empty;
+		if (letterInfo.LastSentUtc != DateTime.MaxValue)
+		{
+			lastSent = DateTimeHelper.GetTimeZoneAdjustedDateTimeString(letterInfo.LastSentUtc, currentUser.TimeOffsetHours);
+		}
+		else
+		{
+			lastSent = Resource.NewsletterNeverSent;
+		}
+
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3 class="panel-title">@SecurityHelper.RemoveMarkup(letterInfo.Title) <a href="@siteRoot/eletter/LetterInfoEdit.aspx?l=@letterInfo.LetterInfoGuid.ToString()" title="@Resource.NewsletterEditLink" class="ModuleEditLink">@Resource.NewsletterEditLink</a></h3></div>
+				<div class="panel-body">
+					@Html.Raw(letterInfo.Description)
+					<a href="@siteRoot/eletter/LetterEdit.aspx?l=@letterInfo.LetterInfoGuid.ToString()" title="@Resource.NewsLetterAddNewLetterToolTip" class="btn btn-success btn-block">@Resource.NewsLetterAddNewLetterLink</a>
+					<a href="@siteRoot/eletter/LetterDrafts.aspx?l=@letterInfo.LetterInfoGuid.ToString()" title="@Resource.NewsletterDraftListLink" class="btn btn-info btn-block">@Resource.NewsletterDraftListLink</a>
+					<a href="@siteRoot/eletter/LetterArchive.aspx?l=@letterInfo.LetterInfoGuid.ToString()" title="@Resource.NewsletterArchiveListLink" class="btn btn-warning btn-block">@Resource.NewsletterArchiveListLink</a>
+				</div>
+				<div class="panel-footer">@string.Format(Resource.LastModifiedFormat, lastModUsername, lastModDate)<br />
+					@string.Format(Resource.NewsletterLastSentFormat, lastSent)<br />
+					<a href="@siteRoot/eletter/LetterSubscribers.aspx?l=@letterInfo.LetterInfoGuid.ToString()" title="@Resource.NewsletterSubscribersToolTip" class="">@letterInfo.SubscriberCount @Resource.NewsletterSubscribersLink</a> (@string.Format(Resource.NewsletterUnverifiedCountFormat, letterInfo.UnVerifiedCount))</div>
+			</div>
+		</div>
+
+		if (i % 4 == 0)
+		{
+			@:</div><div class="row">
+		}
+		i++;
+	}
+</div>
+					<div class="">
+						<a href="@siteRoot/eletter/LetterInfoEdit.aspx" class="btn btn-success">@Resource.NewsLetterAddNewLink</a>
+						<a href="@siteRoot/eletter/LetterTemplates.aspx" class="btn btn-sm btn-info">@Resource.LetterEditManageTemplatesLink</a>
+
+					</div>

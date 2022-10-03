@@ -580,6 +580,21 @@ namespace mojoPortal.Web.Framework
             return list;
         }
 
+		public static List<string> SplitOnNewLineAndTrim (this string s)
+		{
+			var list = new List<string>();
+			if (string.IsNullOrWhiteSpace(s)) { return list; }
+			string[] a = s.Split(
+				new[] { "\r\n", "\r", "\n" },
+				StringSplitOptions.RemoveEmptyEntries
+			);
+			foreach (string b in a)
+			{
+				if (!string.IsNullOrWhiteSpace(b)) { list.Add(b.Trim()); }
+			}
+			return list;
+		}
+
         public static List<string> SplitOnPipes(string s)
         {
             List<string> list = new List<string>();

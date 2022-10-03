@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2017-09-11
+/// Last Modified:			2019-04-04
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -11,6 +11,7 @@
 /// You must not remove this notice, or any other, from this software.
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Npgsql;
@@ -1214,7 +1215,13 @@ namespace mojoPortal.Data
                 arParams);
         }
 
-        public static void AddHost(Guid siteGuid, int siteId, string hostName)
+		public static IDataReader GetHostList()
+		{
+			var sqlCommand = "select * from mp_sitehosts order by hostname;";
+			return NpgsqlHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), CommandType.Text, sqlCommand);
+		}
+
+		public static void AddHost(Guid siteGuid, int siteId, string hostName)
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 
@@ -1472,6 +1479,29 @@ namespace mojoPortal.Data
 
 			return (count > 0);
 
+		}
+
+		public static void UpdateSkinVersionGuidForAllSites()
+		{
+			var sqlCommand = $@"UPDATE mp_sitesettingsex
+				SET keyvalue = :newguid
+				WHERE keyname = 'SkinVersion'
+				AND groupname = 'Settings';";
+
+			List<NpgsqlParameter> sqlParams = new List<NpgsqlParameter>
+			{
+				new NpgsqlParameter("newguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = Guid.NewGuid().ToString()
+				}
+			};
+
+			NpgsqlHelper.ExecuteScalar(
+				ConnectionString.GetWriteConnectionString(),
+				CommandType.Text,
+				sqlCommand,
+				sqlParams.ToArray());
 		}
 
 	}

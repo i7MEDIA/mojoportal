@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Web;
+﻿using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -11,46 +9,48 @@ namespace mojoPortal.Web.AdminUI
 	/// </summary>
 	public class AdminDisplaySettings : WebControl
 	{
+		public string PanelHeadingMarkup { get; set; } = "<h3>{0} <small>{1}</small></h3>";
+		public string PanelBottomMarkup { get; set; }
+		public string PanelHeadingMarkupCollapsible { get; set; } = "<a href='#{2}'><h3>{0} <small>{1}</small></h3></a>";
+		public string SubPanelHeadingMarkup { get; set; } = "<h4>{0} <small>{1}</small></h4>";
+		public string SubPanelBottomMarkup { get; set; }
+		public string SubPanelHeadingMarkupCollapsible { get; set; } = "<a href='#{2}'><h4>{0} <small>{1}</small></h4></a>";
+		public string SubPanelBottomMarkupCollapsible { get; set; } = "";
+		public string PanelModalMarkupTop { get; set; } =
+			@"<div class='modal fade' tabindex='-1' role='dialog'>
+				<div class='modal-dialog' role='document'>
+					<div class='modal-content'>
+						<div class='modal-header'>
+							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+							<h4 class='modal-title'>{0}</h4>
+						</div>
+						<div class='modal-body'>{1}</div>
+						<div class='modal-footer'>
+							<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+							<button type='button' class='btn btn-primary'>Save changes</button>
+						</div>
+					</div>
+				</div>
+			</div>";
+		public string SecurityProtocolCheckResponseMarkup { get; set; } = " <div>{0}</div>";
+		public string ModuleSettingsSettingPanelElement { get; set; } = "div";
+		public string ModuleSettingsSettingLabelMarkup { get; set; } = "<label class=\"{0}\" for=\"{1}\">{2}</label>";
+		public string ModuleSettingsSettingPanelClass { get; set; } = "settingrow";
+		public string ModuleSettingsSettingLabelClass { get; set; } = "settinglabel";
+		public string ModuleSettingsSettingControlClass { get; set; } = "forminput";
+		public string RestartButtonClass { get; set; } = "btn btn-danger btn-sm ";
+		public string UpdateAvailableLinkMarkup { get; set; } = "<a href=\"{0}\">{1}</a>";
+		public string HelpBlockMarkup { get; set; } = "<span class='help-block'>{0}</span>";
 
-		//private string siteSettingsFolderNamesListNoNamesMarkup = "<div class='alert alert-info'>{0}</div>";
-		//public string SiteSettingsFolderNamesListNoNamesMarkup { get => siteSettingsFolderNamesListNoNamesMarkup; set => siteSettingsFolderNamesListNoNamesMarkup = value; }
-
-		private string siteSettingsNoticeMarkup = "<div class='alert alert-info'>{0}</div>";
-		public string SiteSettingsNoticeMarkup { get => siteSettingsNoticeMarkup; set => siteSettingsNoticeMarkup = value; }
-
-		private string siteSettingsPanelHeadingMarkup = "<h3>{0} <small>{1}</small></h3>";
-		public string SiteSettingsPanelHeadingMarkup { get => siteSettingsPanelHeadingMarkup; set => siteSettingsPanelHeadingMarkup = value; }
-
-		private string siteSettingsSubPanelHeadingMarkup = "<h4>{0} <small>{1}</small></h4>";
-		public string SiteSettingsSubPanelHeadingMarkup { get => siteSettingsSubPanelHeadingMarkup; set => siteSettingsSubPanelHeadingMarkup = value; }
-
-		private string securityProtocolCheckResponseMarkup = "<div>{0}</div>";
-		public string SecurityProtocolCheckResponseMarkup { get => securityProtocolCheckResponseMarkup; set => securityProtocolCheckResponseMarkup = value; }
-
-		private string moduleSettingsSettingPanelElement = "div";
-		public string ModuleSettingsSettingPanelElement { get => moduleSettingsSettingPanelElement; set => moduleSettingsSettingPanelElement = value; }
-
-		private string moduleSettingsSettingLabelMarkup = "<label class=\"{0}\" for=\"{1}\">{2}</label>";
-		public string ModuleSettingsSettingLabelMarkup { get => moduleSettingsSettingLabelMarkup; set => moduleSettingsSettingLabelMarkup = value; }
-
-		private string moduleSettingsSettingPanelClass = "settingrow";
-		public string ModuleSettingsSettingPanelClass { get => moduleSettingsSettingPanelClass; set => moduleSettingsSettingPanelClass = value; }
-		
-		private string moduleSettingsSettingLabelClass = "settinglabel";
-		public string ModuleSettingsSettingLabelClass { get => moduleSettingsSettingLabelClass; set => moduleSettingsSettingLabelClass = value; }
-		
-		private string moduleSettingsSettingControlClass = "forminput";
-		public string ModuleSettingsSettingControlClass { get => moduleSettingsSettingControlClass; set => moduleSettingsSettingControlClass = value; }
 
 		protected override void Render(HtmlTextWriter writer)
 		{
 			if (HttpContext.Current == null)
 			{
-				writer.Write("[" + this.ID + "]");
+				writer.Write("[" + ID + "]");
+
 				return;
 			}
-
-			// nothing to render
 		}
 	}
 }

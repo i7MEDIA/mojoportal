@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2012-08-11
+/// Last Modified:			2018-10-31
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -15,6 +15,7 @@ using System;
 using System.Data;
 using System.Text;
 using Npgsql;
+using System.Collections.Generic;
 
 
 namespace mojoPortal.Data
@@ -22,58 +23,90 @@ namespace mojoPortal.Data
 
     public static class DBRoles
     {
-       
+
         public static int RoleCreate(
             Guid roleGuid,
             Guid siteGuid,
             int siteId,
-            string roleName)
+            string roleName,
+            string displayName,
+            string description)
         {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[4];
+            var sqlParams = new List<NpgsqlParameter>
+            {
+                new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = siteId
+                },
+                new NpgsqlParameter("rolename", NpgsqlTypes.NpgsqlDbType.Text, 50)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = roleName
+                },
+                new NpgsqlParameter("displayName", NpgsqlTypes.NpgsqlDbType.Text, 50)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = displayName
+                },
+                new NpgsqlParameter("description", NpgsqlTypes.NpgsqlDbType.Text, 255)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = description
+                },
+                new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = siteGuid.ToString()
+                },
+                new NpgsqlParameter("roleguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = roleGuid.ToString()
+                }
+        };
             
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            arParams[1] = new NpgsqlParameter("rolename", NpgsqlTypes.NpgsqlDbType.Text, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = roleName;
-
-            arParams[2] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = siteGuid.ToString();
-
-            arParams[3] = new NpgsqlParameter("roleguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = roleGuid.ToString();
+            
 
             int newID = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(ConnectionString.GetWriteConnectionString(),
                     CommandType.StoredProcedure,
-                    "mp_roles_insert(:siteid,:rolename,:siteguid,:roleguid)",
-                    arParams));
+                    "mp_roles_insert(:siteid,:rolename,:displayName,:description,:siteguid,:roleguid)",
+                    sqlParams.ToArray()).ToString());
 
             return newID;
 
         }
 
-        public static bool Update(int roleId, string roleName)
+        public static bool Update(int roleId, string displayname, string description)
         {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[2];
-            
-            arParams[0] = new NpgsqlParameter("roleid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = roleId;
+            var sqlParams = new List<NpgsqlParameter>
+            {
+                new NpgsqlParameter("roleid", NpgsqlTypes.NpgsqlDbType.Integer)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = roleId
+                },
+             
+                 new NpgsqlParameter("displayname", NpgsqlTypes.NpgsqlDbType.Text, 50)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = displayname
+                },
+                new NpgsqlParameter("description", NpgsqlTypes.NpgsqlDbType.Text, 255)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = description
+                },
 
-            arParams[1] = new NpgsqlParameter("rolename", NpgsqlTypes.NpgsqlDbType.Text, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = roleName;
-            
+
+            };
+
+
             int rowsAffected = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.StoredProcedure,
-                "mp_roles_update(:roleid,:rolename)",
-                arParams));
-
+                "mp_roles_update(:roleid,:displayname,:description)",
+                sqlParams.ToArray()).ToString());
             return (rowsAffected > -1);
         }
 
@@ -182,6 +215,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("r.siteid, ");
             sqlCommand.Append("r.rolename, ");
             sqlCommand.Append("r.displayname, ");
+            sqlCommand.Append("r.description, ");
             sqlCommand.Append("r.siteguid, ");
             sqlCommand.Append("r.roleguid, ");
             sqlCommand.Append("COUNT(ur.userid) As membercount ");

@@ -120,6 +120,12 @@
   <data name="AppendIPToMessageSetting" xml:space="preserve">
     <value>Append Visitor IP to Message?</value>
   </data>
+  <data name="BadWordsFound" xml:space="preserve">
+    <value>Your entry contains words that are not allowed by this site.</value>
+  </data>
+  <data name="BlockBadWords" xml:space="preserve">
+    <value>Block Bad Words</value>
+  </data>
   <data name="ButtonDisabledPleaseWait" xml:space="preserve">
     <value>Please Wait...</value>
   </data>
@@ -232,6 +238,6 @@
     <value>Use Heading for Title?</value>
   </data>
   <data name="UseInputAddressAsFromAddress" xml:space="preserve">
-    <value>Use entered email as from address?</value>
+    <value>Use entered email as reply-to address?</value>
   </data>
 </root>

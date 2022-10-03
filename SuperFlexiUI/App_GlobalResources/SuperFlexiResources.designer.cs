@@ -79,6 +79,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        internal static string AFPClearButtonText {
+            get {
+                return ResourceManager.GetString("AFPClearButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File URL.
+        /// </summary>
+        internal static string AFPFilePlaceholder {
+            get {
+                return ResourceManager.GetString("AFPFilePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image URL.
+        /// </summary>
+        internal static string AFPImagePlaceholder {
+            get {
+                return ResourceManager.GetString("AFPImagePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set.
+        /// </summary>
+        internal static string AFPSetButtonText {
+            get {
+                return ResourceManager.GetString("AFPSetButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select File.
         /// </summary>
         internal static string Browse {

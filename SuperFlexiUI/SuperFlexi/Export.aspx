@@ -14,6 +14,7 @@
                         <asp:Literal ID="litInstructions" runat="server" />
                     </div>
                     <div class="col-md-6">
+						<asp:TextBox ID="txtExportName" runat="server" /><br />
                         <portal:mojoButton ID="exportButton" runat="server" Text="Export" SkinID="ExportButton" UseSubmitBehavior="false" />
                         <asp:HyperLink ID="lnkCancel" runat="server" CssClass="cancellink" SkinID="TextButton" />
                     </div>

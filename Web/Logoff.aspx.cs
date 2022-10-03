@@ -56,8 +56,7 @@ namespace mojoPortal.Web.UI.Pages
             //https://www.mojoportal.com/Forums/EditPost.aspx?thread=13195&forumid=2&mid=34&pageid=5&pagenumber=1
             CookieHelper.ExpireCookie("siteguid" + siteSettings.SiteGuid);
            
-            bool useFolderForSiteDetection = ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false);
-            if ((useFolderForSiteDetection)&&(!WebConfigSettings.UseRelatedSiteMode))
+            if (WebConfigSettings.UseFolderBasedMultiTenants && !WebConfigSettings.UseRelatedSiteMode)
             {
                 string cookieName = "siteguid" + siteSettings.SiteGuid.ToString();
 
@@ -98,7 +97,11 @@ namespace mojoPortal.Web.UI.Pages
 
             try
             {
-                if (Session != null) { Session.Abandon(); }
+                if (Session != null)
+				{
+					Session.Clear();
+					Session.Abandon();
+				}
             }
             catch (HttpException) { }
 

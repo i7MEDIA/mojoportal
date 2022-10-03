@@ -1,6 +1,6 @@
 ﻿// Author:					
 // Created:					2010-12-11
-// Last Modified:			2014-08-28
+// Last Modified:			2020-03-03
 // 
 // The use and distribution terms for this software are covered by the 
 // Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -26,9 +26,9 @@ using Resources;
 
 namespace mojoPortal.Web.UI
 {
+	[Themeable(true)]
     public partial class LoginControl : UserControl
     {
-
         //Constituent controls inside LoginControl
         private SiteLabel lblUserID;
         private SiteLabel lblEmail;
@@ -40,26 +40,13 @@ namespace mojoPortal.Web.UI
         private TextBox txtPassword;
         private Panel divCaptcha = null;
         private CaptchaControl captcha = null;
-
         private SiteSettings siteSettings = null;
         private string siteRoot = string.Empty;
+		public bool SetFocus { get; set; } = false;
 
-        private bool setFocus = false;
-        public bool SetFocus
-        {
-            get { return setFocus; }
-            set { setFocus = value; }
-        }
+		public bool SetRedirectUrl { get; set; } = true;
 
-        private bool setRedirectUrl = true;
-
-        public bool SetRedirectUrl
-        {
-            get { return setRedirectUrl; }
-            set { setRedirectUrl = value; }
-        }
-
-        protected void Page_Load(object sender, EventArgs e)
+		protected void Page_Load(object sender, EventArgs e)
         {
 
             if (Request.IsAuthenticated)
@@ -81,7 +68,7 @@ namespace mojoPortal.Web.UI
             if (siteSettings == null) { return; }
             if (siteSettings.DisableDbAuth) { this.Visible = false; return; }
 
-            LoginCtrl.SetRedirectUrl = setRedirectUrl;
+            LoginCtrl.SetRedirectUrl = SetRedirectUrl;
 
             lblUserID = (SiteLabel)this.LoginCtrl.FindControl("lblUserID");
             lblEmail = (SiteLabel)this.LoginCtrl.FindControl("lblEmail");
@@ -134,7 +121,7 @@ namespace mojoPortal.Web.UI
                 this.lblEmail.Visible = false;
             }
 
-            if (setFocus) { txtUserName.Focus(); }
+            if (SetFocus) { txtUserName.Focus(); }
 
             lnkRecovery.Visible = ((siteSettings.AllowPasswordRetrieval ||siteSettings.AllowPasswordReset) && (!siteSettings.UseLdapAuth ||
                                                                            (siteSettings.UseLdapAuth && siteSettings.AllowDbFallbackWithLdap)));

@@ -1,6 +1,4 @@
 ﻿/// Author:					i7MEDIA
-/// Created:				2015-03-06
-/// Last Modified:			2017-10-09
 /// You must not remove this notice, or any other, from this software.
 /// 
 using log4net;
@@ -43,7 +41,18 @@ namespace SuperFlexiUI
         /// <param name="featureGuid"></param>
         public static void SaveFieldsToDB(List<Field> definedFields, Guid siteGuid, Guid featureGuid, bool deleteOrphans = false)
         {
-            Guid definitionGuid = definedFields[0].DefinitionGuid;
+
+			Guid definitionGuid = Guid.Empty;
+			if (definedFields.Count > 0)
+			{
+				definitionGuid = definedFields[0].DefinitionGuid;
+			}
+			else
+			{
+				log.Error("definedFields is empty.");
+				return;
+			}
+
             List<Field> savedFields = Field.GetAllForDefinition(definitionGuid, true);
             
             FieldComparer fieldComp = new FieldComparer();
@@ -253,12 +262,10 @@ namespace SuperFlexiUI
 
 					if (definitionGuid != config.FieldDefinitionGuid)
 					{
-						log.ErrorFormat(@"
-							SuperFlexi Solution [{0}] located at [{1}] uses fieldDefinitionGuid = [{2}]
-							but the field definition at [{3}] uses definitionGuid = [{4}]. Items will not display properly and may end up corrupted.
-							",
-							config.MarkupDefinitionName, config.MarkupDefinitionFile, config.FieldDefinitionGuid.ToString(),
-							solutionFieldDefSrc, definitionGuid);
+						log.Error($@"
+							SuperFlexi Solution [{config.MarkupDefinitionName}] located at [{config.MarkupDefinitionFile}] uses 
+							fieldDefinitionGuid = [{config.FieldDefinitionGuid.ToString()}] but the field definition at [{solutionFieldDefSrc}] 
+							uses definitionGuid = [{definitionGuid}]. Items will not display properly and may end up corrupted.");
 
 						return null;
 					}
@@ -402,7 +409,10 @@ namespace SuperFlexiUI
                     }
                 }
             }
-
+			else
+			{
+				log.Error($"Definition \"{solutionFieldDefSrc}\" does not exist.");
+			}
             fields.Sort();
             return fields;
         }
@@ -447,7 +457,7 @@ namespace SuperFlexiUI
         public static bool EnsureFields(Guid siteGuid, ModuleConfiguration config, out List<Field> savedFields, bool deleteOrphanedFieldValues = false)
         {
             savedFields = null;
-            List<Field> definedFields = FieldUtils.ParseFieldDefinitionXml(config, siteGuid);
+            List<Field> definedFields = ParseFieldDefinitionXml(config, siteGuid);
             FieldComparer fieldComp = new FieldComparer();
             if (config.FieldDefinitionGuid != Guid.Empty)
             {

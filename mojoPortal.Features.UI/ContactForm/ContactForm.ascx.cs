@@ -76,8 +76,21 @@ namespace mojoPortal.Web.ContactUI
 				isValid = false;
 			}
 
-			if (isValid && (edMessage.Text.Length > 0))
+			if (isValid && !string.IsNullOrWhiteSpace(edMessage.Text))
 			{
+				if (siteSettings.BadWordCheckingEnabled && (config.BlockBadWords || siteSettings.BadWordCheckingEnforced))
+				{
+					if (edMessage.Text.ContainsBadWords() 
+						|| txtName.Text.ContainsBadWords()
+						|| txtEmail.Text.ContainsBadWords()
+						|| txtSubject.Text.ContainsBadWords())
+					{
+						lblMessage.Text = ContactFormResources.BadWordsFound;
+						lblMessage.Visible = true;
+						return;
+					}
+				}
+
 				if (config.UseSpamBlocking && divCaptcha.Visible)
 				{
 					if (!captcha.IsValid)
@@ -132,14 +145,16 @@ namespace mojoPortal.Web.ContactUI
 
 				string fromAddress = siteSettings.DefaultEmailFromAddress;
 
-				if (config.UseInputAsFromAddress)
-				{
-					fromAddress = txtEmail.Text;
-				}
+				//if (config.UseInputAsFromAddress)
+				//{
+				//	fromAddress = txtEmail.Text;
+				//}
 
 				if ((config.EmailAddresses != null) && (config.EmailAddresses.Count > 0))
 				{
 					SmtpSettings smtpSettings = SiteUtils.GetSmtpSettings();
+
+					smtpSettings.SenderHeader = "ContactForm";
 
 					if ((pnlToAddresses.Visible) && (ddToAddresses.SelectedIndex > -1))
 					{
@@ -199,7 +214,7 @@ namespace mojoPortal.Web.ContactUI
 			}
 			else
 			{
-				if (edMessage.Text.Length == 0)
+				if (string.IsNullOrWhiteSpace(edMessage.Text))
 				{
 					lblMessage.Text = ContactFormResources.ContactFormEmptyMessageWarning;
 				}

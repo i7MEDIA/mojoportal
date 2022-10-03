@@ -1,15 +1,3 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2012-04-10
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
 using System;
 using System.Text;
 using System.Data;
@@ -19,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Web;
 using Mono.Data.Sqlite;
+using System.Collections.Generic;
 
 namespace mojoPortal.Data
 {
@@ -45,76 +34,109 @@ namespace mojoPortal.Data
             Guid roleGuid,
             Guid siteGuid,
             int siteId,
-            string roleName)
+            string roleName,
+            string displayName,
+            string description)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_Roles (");
-            sqlCommand.Append("SiteID, ");
-            sqlCommand.Append("RoleName, ");
-            sqlCommand.Append("DisplayName, ");
-            sqlCommand.Append("SiteGuid, ");
-            sqlCommand.Append("RoleGuid )");
+            var sqlCommand = @"
+            INSERT INTO mp_Roles (
+                SiteID, 
+                RoleName, 
+                DisplayName,
+                Description, 
+                SiteGuid,
+                RoleGuid )
+            VALUES (
+                :SiteID, 
+                :RoleName, 
+                :DisplayName,
+                :Description,
+                :SiteGuid, 
+                :RoleGuid 
+            );
+            SELECT LAST_INSERT_ROWID();";
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append(":SiteID, ");
-            sqlCommand.Append(":RoleName, ");
-            sqlCommand.Append(":RoleName, ");
-            sqlCommand.Append(":SiteGuid, ");
-            sqlCommand.Append(":RoleGuid )");
-            sqlCommand.Append(";");
+            var sqlParams = new List<SqliteParameter>
+            {
 
-            sqlCommand.Append("SELECT LAST_INSERT_ROWID();");
+                new SqliteParameter(":SiteID", DbType.Int32)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = siteId
+                },
 
-            SqliteParameter[] arParams = new SqliteParameter[4];
+                new SqliteParameter(":RoleName", DbType.String, 50)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = roleName
+                },
+                new SqliteParameter(":DisplayName", DbType.String, 50)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = displayName
+                },
+                new SqliteParameter(":Description", DbType.String, 255)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = description 
+                },
+                new SqliteParameter(":SiteGuid", DbType.String, 36)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = siteGuid.ToString()
+                },
 
-            arParams[0] = new SqliteParameter(":SiteID", DbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            arParams[1] = new SqliteParameter(":RoleName", DbType.String, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = roleName;
-
-            arParams[2] = new SqliteParameter(":SiteGuid", DbType.String, 36);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = siteGuid.ToString();
-
-            arParams[3] = new SqliteParameter(":RoleGuid", DbType.String, 36);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = roleGuid.ToString();
+                new SqliteParameter(":RoleGuid", DbType.String, 36)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = roleGuid.ToString()
+                }
+            };
+			
 
             int newID = Convert.ToInt32(SqliteHelper.ExecuteScalar(
                     GetConnectionString(),
                     sqlCommand.ToString(),
-                    arParams).ToString());
+                    sqlParams.ToArray()).ToString());
 
             return newID;
 
         }
 
-        public static bool Update(int roleId, string roleName)
+        public static bool Update(int roleId, string displayName, string description)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_Roles ");
-            sqlCommand.Append("SET DisplayName = :RoleName  ");
-            sqlCommand.Append("WHERE RoleID = :RoleID  ;");
+            var sqlCommand = @"
+                UPDATE mp_Roles
+                SET DisplayName = :DisplayName,
+                    Description = :Description
+                WHERE RoleID = :RoleID;";
 
-            SqliteParameter[] arParams = new SqliteParameter[2];
+            var sqlParams = new List<SqliteParameter>
+            {
+                new SqliteParameter(":DisplayName", DbType.String, 50)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = displayName
+                },
+                new SqliteParameter(":Description", DbType.String, 255)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = description
+                },                
+                new SqliteParameter(":RoleID", DbType.Int32)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = roleId
+                },
 
-            arParams[0] = new SqliteParameter(":RoleID", DbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = roleId;
-
-            arParams[1] = new SqliteParameter(":RoleName", DbType.String, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = roleName;
-
+            };
+                
             int rowsAffected = 0;
 
             rowsAffected = SqliteHelper.ExecuteNonQuery(
                 GetConnectionString(),
                 sqlCommand.ToString(),
-                arParams);
+                sqlParams.ToArray());
 
             return (rowsAffected > 0);
         }
@@ -241,6 +263,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("r.SiteID AS SiteID, ");
             sqlCommand.Append("r.RoleName AS RoleName, ");
             sqlCommand.Append("r.DisplayName AS DisplayName, ");
+            sqlCommand.Append("r.Description AS Description, ");
             sqlCommand.Append("r.SiteGuid AS SiteGuid, ");
             sqlCommand.Append("r.RoleGuid AS RoleGuid, ");
             sqlCommand.Append("COUNT(ur.UserID) As MemberCount ");
@@ -257,6 +280,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("r.SiteID, ");
             sqlCommand.Append("r.RoleName, ");
             sqlCommand.Append("r.DisplayName, ");
+            sqlCommand.Append("r.Description, ");
             sqlCommand.Append("r.SiteGuid, ");
             sqlCommand.Append("r.RoleGuid ");
 

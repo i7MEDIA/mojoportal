@@ -88,7 +88,7 @@ namespace mojoPortal.Web.AdminUI
 
         private void BindRoleList()
         {
-            Collection<Role> siteRoles = Role.GetbySite(siteSettings.SiteId);
+            Collection<Role> siteRoles = Role.GetBySite(siteSettings.SiteId);
             if (!WebUser.IsAdmin)
             {
                 // must be only Role Admin
@@ -125,32 +125,57 @@ namespace mojoPortal.Web.AdminUI
                         }
                     }
                 }
-
-
             }
             
             rolesList.DataSource = siteRoles;
             rolesList.DataBind();
-            
-            
-
         }
 
         protected void btnAddRole_Click(Object sender, EventArgs e)
         {
-            if (this.txtNewRoleName.Text.Length > 0)
+            if (!string.IsNullOrWhiteSpace(txtNewRoleName.Text) && !string.IsNullOrWhiteSpace(txtNewDisplayName.Text))
             {
-                Role role = new Role();
-                role.SiteId = siteSettings.SiteId;
-                role.SiteGuid = siteSettings.SiteGuid;
-                role.RoleName = this.txtNewRoleName.Text;
-                //role.EnforceRelatedSitesMode = WebConfigSettings.UseRelatedSiteMode;
-                role.Save();
+				if (txtNewRoleName.Text.Contains(";"))
+				{
+					litAddRoleMessage.Text = string.Format(displaySettings.AlertErrorMarkup, Resource.RoleNameInvalid);
+					return;
+				}
+				else if (Role.Exists(SiteId, txtNewRoleName.Text))
+				{
+					litAddRoleMessage.Text = string.Format(displaySettings.AlertErrorMarkup, Resource.RoleExistsError);
+					return;
+				}
+				else
+				{
+                    Role role = new Role
+                    {
+                        SiteId = siteSettings.SiteId,
+                        SiteGuid = siteSettings.SiteGuid,
+                        RoleName = txtNewRoleName.Text,
+                        DisplayName = txtNewDisplayName.Text,
+                        Description = txtRoleDescription.Text
+					};
+					//role.EnforceRelatedSitesMode = WebConfigSettings.UseRelatedSiteMode;
+					if (role.Save())
+					{
+						WebUtils.SetupRedirect(this, Request.RawUrl);
+						return;
+					}
+					else
+					{
+						litAddRoleMessage.Text = string.Format(displaySettings.AlertErrorMarkup, Resource.GenericErrorOccurred);
+						return;
+					}
+				}
             }
-
-            WebUtils.SetupRedirect(this, Request.RawUrl);
-            return;
-        }
+			else if (string.IsNullOrWhiteSpace(txtNewRoleName.Text))
+			{
+				litAddRoleMessage.Text = string.Format(displaySettings.AlertErrorMarkup, Resource.RoleSystemNameRequired);
+				return;
+			}
+			litAddRoleMessage.Text = string.Format(displaySettings.AlertErrorMarkup, Resource.RoleDisplayNameRequired);
+			return;
+		}
 
 
         protected void RolesList_ItemCommand(object sender, DataListCommandEventArgs e)
@@ -168,7 +193,8 @@ namespace mojoPortal.Web.AdminUI
                     break;
 
                 case "apply":
-                    role.RoleName = ((TextBox)e.Item.FindControl("roleName")).Text;
+                    role.DisplayName = ((TextBox)e.Item.FindControl("displayName")).Text;
+                    role.Description = ((TextBox)e.Item.FindControl("description")).Text;
                     role.Save();
                     rolesList.EditItemIndex = -1;
                     BindRoleList();
@@ -228,7 +254,9 @@ namespace mojoPortal.Web.AdminUI
             btnAddRole.ToolTip = Resource.RolesAddButton;
             SiteUtils.SetButtonAccessKey(btnAddRole, AccessKeys.RolesAddButtonAccessKey);
 
-            
+			txtNewRoleName.Attributes.Add("placeholder", Resource.RoleSystemName);
+			txtNewDisplayName.Attributes.Add("placeholder", Resource.RoleDisplayName);
+            txtRoleDescription.Attributes.Add("placeholder", Resource.RoleDescription);
 
         }
 

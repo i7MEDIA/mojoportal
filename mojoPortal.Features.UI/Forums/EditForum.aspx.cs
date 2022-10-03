@@ -163,7 +163,7 @@ namespace mojoPortal.Web.ForumUI
 			
 			this.lblCreatedDate.Text = forum.CreatedDate.AddHours(timeOffset).ToString();
             edContent.Text = forum.Description;
-			this.txtTitle.Text = forum.Title;
+			this.txtTitle.Text = SecurityHelper.SanitizeHtml(forum.Title);
 			this.chkIsActive.Checked = forum.IsActive;
 			//this.chkAllowAnonymousPosts.Checked = forum.AllowAnonymousPosts;
 			this.chkIsModerated.Checked = forum.IsModerated;
@@ -203,7 +203,7 @@ namespace mojoPortal.Web.ForumUI
 
             forum.ModuleId = moduleId;
             forum.Description = edContent.Text;
-			forum.Title = this.txtTitle.Text;
+			forum.Title = SecurityHelper.SanitizeHtml(this.txtTitle.Text);
 			forum.IsActive = this.chkIsActive.Checked;
 			//forum.AllowAnonymousPosts = this.chkAllowAnonymousPosts.Checked;
 			forum.IsModerated = this.chkIsModerated.Checked;

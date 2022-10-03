@@ -1,17 +1,4 @@
-﻿// Author:				        
-// Created:			            2012-08-30
-//	Last Modified:              2013-05-29
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Web;
@@ -197,7 +184,6 @@ namespace mojoPortal.Web.UI
         {
             EmailTemplate.Delete(templateGuid);
 
-            
             WebUtils.SetupRedirect(this, editPageBaseUrl);
 
         }
@@ -224,12 +210,9 @@ namespace mojoPortal.Web.UI
             litPlainTextTab.Text = Resource.PlainTextTab;
 
             UIHelper.AddConfirmationDialog(btnDelete, Resource.LetterTemplateDeleteButtonWarning);
-
-
-
+			
             reqTitle.ErrorMessage = Resource.TitleRequiredWarning;
             reqSubject.ErrorMessage = Resource.SubjectRequiredWarning;
-            
         }
 
         private void LoadSettings()
@@ -242,8 +225,8 @@ namespace mojoPortal.Web.UI
             reqSubject.Enabled = showSubject;
             reqSubject.Visible = ShowSubject;
 
-            pnlTokens.Visible = (allowedTokens.Length > 0);
-            litTokens.Text = allowedTokens;
+            pnlTokens.Visible = allowedTokens.Length > 0;
+            litTokens.Text = $"<div class='allowed-tokens'><pre>{allowedTokens.Replace(" ", "\r\n")}</pre></div>";
             hlpTokens.HelpKey = allowedTokensHelpKey;
 
             if (templateGuid != Guid.Empty)
@@ -261,10 +244,7 @@ namespace mojoPortal.Web.UI
 
             edTemplate.WebEditor.Width = Unit.Percentage(100);
             edTemplate.WebEditor.Height = Unit.Pixel(800);
-
         }
-
-        
 
         override protected void OnInit(EventArgs e)
         {
@@ -277,11 +257,7 @@ namespace mojoPortal.Web.UI
             SiteUtils.SetupNewsletterEditor(edTemplate);
             edTemplate.WebEditor.UseFullyQualifiedUrlsForResources = true;
 
-            base.OnInit(e);
-
-            
+            base.OnInit(e);	
         }
-
-        
     }
 }

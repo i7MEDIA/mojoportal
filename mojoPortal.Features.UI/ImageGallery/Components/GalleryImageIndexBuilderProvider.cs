@@ -39,8 +39,7 @@ namespace mojoPortal.Features
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info("GalleryImageIndexBuilderProvider indexing page - " 
-                + pageSettings.PageName);
+            log.Info(Resources.GalleryResources.ImageGalleryFeatureName + " indexing page - " + pageSettings.PageName);
 
             try
             {

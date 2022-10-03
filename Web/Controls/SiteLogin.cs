@@ -27,6 +27,7 @@ using mojoPortal.Web.Framework;
 using mojoPortal.Net;
 using log4net;
 using Resources;
+using mojoPortal.Core.Helpers;
 
 namespace mojoPortal.Web.UI
 {
@@ -273,7 +274,7 @@ namespace mojoPortal.Web.UI
 
             SiteUser siteUser = new SiteUser(siteSettings, this.UserName);
 
-            if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+            if (WebConfigSettings.UseFolderBasedMultiTenants)
             {
                 string cookieName = "siteguid" + siteSettings.SiteGuid;
                 CookieHelper.SetCookie(cookieName, siteUser.UserGuid.ToString(), this.RememberMeSet);
@@ -353,7 +354,7 @@ namespace mojoPortal.Web.UI
             string defaultRedirect = siteRoot;
             if (
                 (!siteSettings.IsServerAdminSite)
-                && (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+                && (WebConfigSettings.UseFolderBasedMultiTenants)
                 && (WebConfigSettings.AppendDefaultPageToFolderRootUrl)
                 )
             {
@@ -382,7 +383,7 @@ namespace mojoPortal.Web.UI
 
             if (Page.Request.Params["r"] == "h") { redirectPath = defaultRedirect; }
 
-            if (SiteUtils.IsSecureRequest())
+            if (WebHelper.IsSecureRequest())
             {
                 if (redirectPath.StartsWith("http:"))
                 {

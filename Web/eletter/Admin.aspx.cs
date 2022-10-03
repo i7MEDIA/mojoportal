@@ -1,35 +1,38 @@
 /// Author:					
 /// Created:				2007-09-23
-/// Last Modified:			2011-03-15
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
+/// Last Modified:			2018-10-25
 ///
 /// You must not remove this notice, or any other, from this software.
 
 using System;
-using System.Collections.Generic;
+using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
+using mojoPortal.Web.Components;
 using Resources;
 
 namespace mojoPortal.Web.ELetterUI
 {
 
-    public partial class AdminPage : NonCmsBasePage
+	public partial class AdminPage : NonCmsBasePage
     {
-        private int totalPages = 1;
-        private int pageNumber = 1;
-        private int pageSize = 20;
+        //private int totalPages = 1;
+        //private int pageNumber = 1;
+        //private int pageSize = 999;
         private bool isSiteEditor = false;
+		private SiteUser currentUser;
+		private static readonly ILog log = LogManager.GetLogger(typeof(AdminPage));
 
-        protected void Page_Load(object sender, EventArgs e)
+		protected void Page_Load(object sender, EventArgs e)
         {
-            LoadSettings();
+			if (!Request.IsAuthenticated)
+			{
+				SiteUtils.RedirectToLoginPage(this);
+				return;
+			}
+
+			LoadSettings();
+
             if ((!isSiteEditor) && (!WebUser.IsNewsletterAdmin))
             {
                 SiteUtils.RedirectToAccessDeniedPage(this);
@@ -40,46 +43,23 @@ namespace mojoPortal.Web.ELetterUI
 
         }
 
-        private void PopulateControls()
-        {
-            BindGrid();
+		private void PopulateControls()
+		{
+			var letterInfoList = LetterInfo.GetAll(siteSettings.SiteGuid);
 
-        }
-
-        private void BindGrid()
-        {
-            List<LetterInfo> letterInfoList
-                        = LetterInfo.GetPage(
-                        siteSettings.SiteGuid,
-                        pageNumber,
-                        pageSize,
-                        out totalPages);
-
-            if (this.totalPages > 1)
-            {
-                string pageUrl = SiteUtils.GetNavigationSiteRoot() 
-                    + "/eletter/Admin.aspx?pagenumber={0}";
-
-                pgrLetterInfo.PageURLFormat = pageUrl;
-                pgrLetterInfo.ShowFirstLast = true;
-                pgrLetterInfo.CurrentIndex = pageNumber;
-                pgrLetterInfo.PageSize = pageSize;
-                pgrLetterInfo.PageCount = totalPages;
-
-            }
-            else
-            {
-                pgrLetterInfo.Visible = false;
-            }
-
-            grdLetterInfo.DataSource = letterInfoList;
-            grdLetterInfo.PageIndex = pageNumber;
-            grdLetterInfo.PageSize = pageSize;
-            grdLetterInfo.DataBind();
-
-        }
-
-
+			try
+			{
+				litLetters.Text = RazorBridge.RenderPartialToString("_Admin", letterInfoList, "eletter");
+			}
+			catch (System.Web.HttpException ex)
+			{
+				log.ErrorFormat(
+					"layout for Newsletter _Admin was not found in skin {0}. perhaps it is in a different skin. Error was: {1}",
+					SiteUtils.GetSkinBaseUrl(true, Page),
+					ex
+				);
+			}
+		}
         private void PopulateLabels()
         {
             Title = SiteUtils.FormatPageTitle(siteSettings, Resource.AdminMenuNewsletterAdminLabel);
@@ -91,26 +71,17 @@ namespace mojoPortal.Web.ELetterUI
 
             lnkThisPage.Text = Resource.NewsLetterAdministrationHeading;
             lnkThisPage.NavigateUrl = SiteRoot + "/eletter/Admin.aspx";
-
-            
-            lnkAddNew.Text = Resource.NewsLetterAddNewLink;
-            lnkAddNew.NavigateUrl = SiteRoot + "/eletter/LetterInfoEdit.aspx";
-            //grdLetterInfo.Columns[0].HeaderText = Resource.NewsLetterTitleLabel;
-
-            lnkManageTemplates.Text = Resource.LetterEditManageTemplatesLink;
-            lnkManageTemplates.ToolTip = Resource.LetterEditManageTemplatesToolTip;
-            lnkManageTemplates.NavigateUrl = SiteRoot + "/eletter/LetterTemplates.aspx";
-
-
         }
 
         private void LoadSettings()
         {
-            pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", 1);
+            //pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", 1);
             isSiteEditor = SiteUtils.UserIsSiteEditor();
 
             lnkAdminMenu.Visible = WebUser.IsAdminOrContentAdmin;
             litLinkSeparator1.Visible = lnkAdminMenu.Visible;
+
+			currentUser = SiteUtils.GetCurrentSiteUser();
 
             AddClassToBody("administration");
             AddClassToBody("eletteradmin");

@@ -1,5 +1,5 @@
 ﻿// Created:					2017-12-30
-// Last Modified:			2018-01-02
+// Last Modified:			2019-09-18
 
 using mojoPortal.Data;
 using Npgsql;
@@ -161,7 +161,7 @@ namespace SuperFlexiData
                 new NpgsqlParameter(":name", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = name },
                 new NpgsqlParameter(":label", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = label },
                 new NpgsqlParameter(":defaultvalue", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = defaultValue },
-                new NpgsqlParameter(":controltype", NpgsqlDbType.Varchar, 16) { Direction = ParameterDirection.Input, Value = controlType },
+                new NpgsqlParameter(":controltype", NpgsqlDbType.Varchar, 25) { Direction = ParameterDirection.Input, Value = controlType },
                 new NpgsqlParameter(":controlsrc", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = controlSrc },
                 new NpgsqlParameter(":sortorder", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = sortOrder },
                 new NpgsqlParameter(":helpkey", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = helpKey },
@@ -311,7 +311,7 @@ namespace SuperFlexiData
                 new NpgsqlParameter(":name", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = name },
                 new NpgsqlParameter(":label", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = label },
                 new NpgsqlParameter(":defaultvalue", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = defaultValue },
-                new NpgsqlParameter(":controltype", NpgsqlDbType.Varchar, 16) { Direction = ParameterDirection.Input, Value = controlType },
+                new NpgsqlParameter(":controltype", NpgsqlDbType.Varchar, 25) { Direction = ParameterDirection.Input, Value = controlType },
                 new NpgsqlParameter(":controlsrc", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = controlSrc },
                 new NpgsqlParameter(":sortorder", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = sortOrder },
                 new NpgsqlParameter(":helpkey", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = helpKey },
@@ -342,17 +342,20 @@ namespace SuperFlexiData
                 new NpgsqlParameter(":dateformat", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = dateFormat },
                 new NpgsqlParameter(":textboxmode", NpgsqlDbType.Varchar, 25) { Direction = ParameterDirection.Input, Value = textBoxMode },
                 new NpgsqlParameter(":attributes", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = attributes },
+                new NpgsqlParameter(":isdeleted", NpgsqlDbType.Boolean) { Direction = ParameterDirection.Input, Value = isDeleted },
                 new NpgsqlParameter(":isglobal", NpgsqlDbType.Boolean) { Direction = ParameterDirection.Input, Value = isGlobal },
 				new NpgsqlParameter(":viewroles", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = viewRoles },
 				new NpgsqlParameter(":editroles", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = editRoles }
 			};
-            int rowsAffected = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
+			int rowsAffected = 0;
+			var returnValue = NpgsqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
 				sqlCommand.ToString(),
-                sqlParams.ToArray()).ToString());
+                sqlParams.ToArray());
+			rowsAffected = Convert.ToInt32(returnValue.ToString());
 
-            return (rowsAffected > 0);
+			return (rowsAffected > 0);
 
         }
 
@@ -459,7 +462,7 @@ namespace SuperFlexiData
         public static IDataReader GetAll()
         {
             StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_fields where isdeleted = 0;");
+            sqlCommand.Append("select * from i7_sflexi_fields where isdeleted = false;");
 
             return NpgsqlHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
@@ -542,7 +545,7 @@ namespace SuperFlexiData
         public static bool MarkAsDeleted(Guid fieldGuid)
         {
             StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("update i7_sflexi_fields set isdeleted = 1 where fieldguid = :fieldguid;");
+            sqlCommand.Append("update i7_sflexi_fields set isdeleted = true where fieldguid = :fieldguid;");
 
             var sqlParam = new NpgsqlParameter(":fieldguid", NpgsqlDbType.Uuid)
             {

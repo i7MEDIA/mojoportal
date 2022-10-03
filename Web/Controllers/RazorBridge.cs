@@ -22,7 +22,7 @@ namespace mojoPortal.Web.Components
 		private static ViewContext vctx;
 
 
-		private static void PrepareContexts(string partialName, object model, string controller)
+		private static void PrepareContexts(string partialName, object model, string controller, ViewDataDictionary viewData)
 		{
 			//get a wrapper for the legacy WebForm context
 			httpCtx = new HttpContextWrapper(HttpContext.Current);
@@ -31,8 +31,12 @@ namespace mojoPortal.Web.Components
 			rt = new RouteData();
 			rt.Values.Add("controller", controller);
 
+			Controller theController = new BaseController();
+
+			theController.ViewData = viewData;
+
 			//create a controller context for the route and http context
-			ctx = new ControllerContext(new RequestContext(httpCtx, rt), new BaseController());
+			ctx = new ControllerContext(new RequestContext(httpCtx, rt), theController);
 
 			//find the partial view using the viewengine
 			veResult = ViewEngines.Engines.FindPartialView(ctx, partialName);
@@ -57,7 +61,7 @@ namespace mojoPortal.Web.Components
 
 		public static void ReleaseView(string viewName, string controller = "BaseController")
 		{
-			PrepareContexts(viewName, new { }, controller);
+			PrepareContexts(viewName, new { }, controller, new ViewDataDictionary());
 
 			if (veResult != null)
 			{
@@ -68,7 +72,7 @@ namespace mojoPortal.Web.Components
 
 		public static void FindPartialView(string partialName, object model, string controller = "BaseController")
 		{
-			PrepareContexts(partialName, model, controller);
+			PrepareContexts(partialName, model, controller, new ViewDataDictionary());
 
 			mojoViewEngine mve = new mojoViewEngine();
 			veResult = mve.FindPartialView(ctx, partialName, false); //find view without cache
@@ -77,19 +81,18 @@ namespace mojoPortal.Web.Components
 
 		public static void RenderPartial(string partialName, object model, string controller = "BaseController")
 		{
-			PrepareContexts(partialName, model, controller);
+			PrepareContexts(partialName, model, controller, new ViewDataDictionary());
 			//render the partial view
 			view.Render(vctx, HttpContext.Current.Response.Output);
 		}
 
-
-		public static string RenderPartialToString(string partialName, object model, string controller = "BaseController")
+		public static string RenderPartialToString(string partialName, object model, ViewDataDictionary viewData, string controller = "BaseController")
 		{
-			PrepareContexts(partialName, model, controller);
+			PrepareContexts(partialName, model, controller, viewData);
 
 			if (view == null)
 			{
-				PrepareContexts(partialName.Substring(0, partialName.Substring(partialName.IndexOf("--")).Length + 2), model, controller);
+				PrepareContexts(partialName.Substring(0, partialName.Substring(partialName.IndexOf("--")).Length + 2), model, controller, viewData);
 			}
 
 			using (var sw = new StringWriter())
@@ -114,6 +117,12 @@ namespace mojoPortal.Web.Components
 
 				return sw.GetStringBuilder().ToString();
 			}
+		}
+
+		public static string RenderPartialToString(string partialName, object model, string controller = "BaseController")
+		{
+			var viewData = new ViewDataDictionary();
+			return RenderPartialToString(partialName, model, viewData, controller);
 		}
 
 

@@ -574,7 +574,7 @@ namespace mojoPortal.Web.BlogUI
 
             if (!canView) { return; }
 
-            if (WebConfigSettings.UseFoldersInsteadOfHostnamesForMultipleSites)
+            if (WebConfigSettings.UseFolderBasedMultiTenants)
             {
                 navigationSiteRoot = SiteUtils.GetNavigationSiteRoot();
                 blogBaseUrl = navigationSiteRoot;

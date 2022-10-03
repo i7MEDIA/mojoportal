@@ -31,7 +31,7 @@ namespace mojoPortal.Web.Framework
         /// a regular expression for validating email addresses, efficient but not completely RFC 822 compliant
         /// </summary>
         public const string RegexEmailValidationPattern
-            = @"^([0-9a-zA-Z](['-.\w]*[_0-9a-zA-Z])*@(([0-9a-zA-Z])+([-\w']*[0-9a-zA-Z])*\.)+[a-zA-Z]{2,9})$";
+            = @"^([0-9a-zA-Z](['-.\w]*[_0-9a-zA-Z])*@(([0-9a-zA-Z])+([-\w']*[0-9a-zA-Z])*\.)+[a-zA-Z]{2,9})$|^$";
 
         // 2014-03-18 this expression hangs with patriciarichards5395@yahoo.comgetgoing
         // but is still the best one I've found because the others fail to accept foo+test@foo.com

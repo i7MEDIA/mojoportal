@@ -49,8 +49,7 @@ namespace mojoPortal.Features
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info("BlogIndexBuilderProvider indexing page - "
-                + pageSettings.PageName);
+            log.Info(BlogResources.BlogFeatureName + " indexing page - " + pageSettings.PageName);
 
             //try
             //{

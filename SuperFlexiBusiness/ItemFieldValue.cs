@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-3-6
-// Last Modified:			2017-11-06
+// Last Modified:			2020-10-15
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using SuperFlexiData;
+using log4net;
 
 namespace SuperFlexiBusiness
 {
@@ -36,69 +37,35 @@ namespace SuperFlexiBusiness
             GetValueByItemField(itemGuid, fieldGuid);
         }
 
-        #endregion
-
-        #region Private Properties
-
-        private Guid valueGuid = Guid.Empty;
-        private Guid siteGuid = Guid.Empty;
-        private Guid featureGuid = Guid.Empty;
-        private Guid moduleGuid = Guid.Empty;
-        private Guid itemGuid = Guid.Empty;
-        private Guid fieldGuid = Guid.Empty;
-        private string fieldValue = string.Empty;
+		#endregion
+		#region Private Properties
 		//used to output total number of rows which match a query when using paging
 		private static int _totalRows;
-		#endregion
 
-		#region Public Properties
-
-		public Guid ValueGuid
-        {
-            get { return valueGuid; }
-            set { valueGuid = value; }
-        }
-        public Guid SiteGuid
-        {
-            get { return siteGuid; }
-            set { siteGuid = value; }
-        }
-        public Guid FeatureGuid
-        {
-            get { return featureGuid; }
-            set { featureGuid = value; }
-        }
-        public Guid ModuleGuid
-        {
-            get { return moduleGuid; }
-            set { moduleGuid = value; }
-        }
-        public Guid ItemGuid
-        {
-            get { return itemGuid; }
-            set { itemGuid = value; }
-        }
-
-		public Guid FieldGuid
-        {
-            get { return fieldGuid; }
-            set { fieldGuid = value; }
-        }
-        public string FieldValue
-        {
-            get { return fieldValue; }
-            set { fieldValue = value; }
-        }
+        private static readonly ILog log = LogManager.GetLogger(typeof(ItemFieldValue));
 
         #endregion
 
-        #region Private Methods
+        #region Public Properties
 
-        /// <summary>
-        /// Gets an instance of value.
-        /// </summary>
-        /// <param name="valueGuid"> valueGuid </param>
-        private void GetValue(Guid valueGuid)
+        public Guid ValueGuid { get; set; } = Guid.Empty;
+		public Guid SiteGuid { get; set; } = Guid.Empty;
+		public Guid FeatureGuid { get; set; } = Guid.Empty;
+		public Guid ModuleGuid { get; set; } = Guid.Empty;
+		public Guid ItemGuid { get; set; } = Guid.Empty;
+
+		public Guid FieldGuid { get; set; } = Guid.Empty;
+		public string FieldValue { get; set; } = string.Empty;
+		public string FieldName { get; internal set; } = string.Empty;
+		#endregion
+
+		#region Private Methods
+
+		/// <summary>
+		/// Gets an instance of value.
+		/// </summary>
+		/// <param name="valueGuid"> valueGuid </param>
+		private void GetValue(Guid valueGuid)
         {
             using (IDataReader reader = DBItemFieldValues.GetOne(valueGuid))
             {
@@ -120,13 +87,14 @@ namespace SuperFlexiBusiness
         {
             if (reader.Read())
             {
-                this.valueGuid = new Guid(reader["ValueGuid"].ToString());
-                this.siteGuid = new Guid(reader["SiteGuid"].ToString());
-                this.featureGuid = new Guid(reader["FeatureGuid"].ToString());
-                this.moduleGuid = new Guid(reader["ModuleGuid"].ToString());
-                this.itemGuid = new Guid(reader["ItemGuid"].ToString());
-                this.fieldGuid = new Guid(reader["FieldGuid"].ToString());
-                this.fieldValue = reader["FieldValue"].ToString();
+                this.ValueGuid = new Guid(reader["ValueGuid"].ToString());
+                this.SiteGuid = new Guid(reader["SiteGuid"].ToString());
+                this.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
+                this.ModuleGuid = new Guid(reader["ModuleGuid"].ToString());
+                this.ItemGuid = new Guid(reader["ItemGuid"].ToString());
+                this.FieldGuid = new Guid(reader["FieldGuid"].ToString());
+                this.FieldValue = reader["FieldValue"].ToString();
+				this.FieldName = reader["FieldName"].ToString();
 
             }
 
@@ -138,16 +106,16 @@ namespace SuperFlexiBusiness
         /// <returns></returns>
         private bool Create()
         {
-            this.valueGuid = Guid.NewGuid();
+            this.ValueGuid = Guid.NewGuid();
 
             int rowsAffected = DBItemFieldValues.Create(
-                this.valueGuid,
-                this.siteGuid,
-                this.featureGuid,
-                this.moduleGuid,
-                this.itemGuid,
-                this.fieldGuid,
-                this.fieldValue);
+                this.ValueGuid,
+                this.SiteGuid,
+                this.FeatureGuid,
+                this.ModuleGuid,
+                this.ItemGuid,
+                this.FieldGuid,
+                this.FieldValue);
 
             return (rowsAffected > 0);
 
@@ -162,13 +130,13 @@ namespace SuperFlexiBusiness
         {
 
             return DBItemFieldValues.Update(
-                this.valueGuid,
-                this.siteGuid,
-                this.featureGuid,
-                this.moduleGuid,
-                this.itemGuid,
-                this.fieldGuid,
-                this.fieldValue);
+                this.ValueGuid,
+                this.SiteGuid,
+                this.FeatureGuid,
+                this.ModuleGuid,
+                this.ItemGuid,
+                this.FieldGuid,
+                this.FieldValue);
 
         }
 
@@ -186,7 +154,7 @@ namespace SuperFlexiBusiness
         /// <returns>bool</returns>
         public bool Save()
         {
-            if (this.valueGuid != Guid.Empty)
+            if (this.ValueGuid != Guid.Empty)
             {
                 return Update();
             }
@@ -298,15 +266,29 @@ namespace SuperFlexiBusiness
                 while (reader.Read())
                 {
                     ItemFieldValue value = new ItemFieldValue();
-                    value.valueGuid = new Guid(reader["ValueGuid"].ToString());
-                    value.siteGuid = new Guid(reader["SiteGuid"].ToString());
-                    value.featureGuid = new Guid(reader["FeatureGuid"].ToString());
-                    value.moduleGuid = new Guid(reader["ModuleGuid"].ToString());
-                    value.itemGuid = new Guid(reader["ItemGuid"].ToString());
-                    value.fieldGuid = new Guid(reader["FieldGuid"].ToString());
-                    value.fieldValue = reader["FieldValue"].ToString();
+                    value.ValueGuid = new Guid(reader["ValueGuid"].ToString());
+                    value.SiteGuid = new Guid(reader["SiteGuid"].ToString());
+                    value.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
+                    value.ModuleGuid = new Guid(reader["ModuleGuid"].ToString());
+                    value.ItemGuid = new Guid(reader["ItemGuid"].ToString());
+                    value.FieldGuid = new Guid(reader["FieldGuid"].ToString());
+                    value.FieldValue = reader["FieldValue"].ToString();
 
-					// Not all methods will use TotalRows but there is no sense in having an extra method to load the reader
+
+					try
+					{
+                        if (reader["FieldName"] != DBNull.Value)
+                        {
+                            value.FieldName = reader["FieldName"].ToString();
+                        }
+                    }
+                    catch(System.IndexOutOfRangeException ex)
+					{
+                        log.Debug("FieldName isn't used by here. Might want to fix that.");
+					}
+                    
+					
+                    // Not all methods will use TotalRows but there is no sense in having an extra method to load the reader
 					// so, we'll catch the error and do nothing with it because we are expecting it
 					// the if statement should keep any problems at bay but we still use try/catch in case someone inadvertently 
 					// set getTotalRows = true
@@ -321,9 +303,10 @@ namespace SuperFlexiBusiness
 						}
 						catch (System.IndexOutOfRangeException ex)
 						{
+                            //log.Debug("TotalRows isn't used by here. Might want to fix that.");
 
-						}
-					}
+                        }
+                    }
 
 					valueList.Add(value);
 
@@ -414,19 +397,19 @@ namespace SuperFlexiBusiness
             return LoadListFromReader(reader);
         }
 
-        public static List<ItemFieldValue> GetByGuid(Guid fieldGuid)
+        public static List<ItemFieldValue> GetByFieldGuid(Guid fieldGuid)
         {
-            IDataReader reader = DBItemFieldValues.GetByGuid(fieldGuid);
+            IDataReader reader = DBItemFieldValues.GetByFieldGuid(fieldGuid);
             return LoadListFromReader(reader);
         }
 
-        public static List<ItemFieldValue> GetByGuidForModule(Guid fieldGuid, Guid moduleGuid)
+        public static List<ItemFieldValue> GetByFieldGuidForModule(Guid fieldGuid, Guid moduleGuid)
         {
-            IDataReader reader = DBItemFieldValues.GetByGuidForModule(fieldGuid, moduleGuid);
+            IDataReader reader = DBItemFieldValues.GetByFieldGuidForModule(fieldGuid, moduleGuid);
             return LoadListFromReader(reader);
         }
 
-        public static List<ItemFieldValue> GetByGuidForModule(Guid fieldGuid, int moduleId)
+        public static List<ItemFieldValue> GetByFieldGuidForModule(Guid fieldGuid, int moduleId)
         {
             IDataReader reader = DBItemFieldValues.GetByGuidForModule(fieldGuid, moduleId);
             return LoadListFromReader(reader);

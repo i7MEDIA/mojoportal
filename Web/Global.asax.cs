@@ -28,16 +28,14 @@
 // 2011-03-14 added logic for .NET 4 to enable memory and excepton monitoring
 // 2011-08-05  refactored end request user activity tracking
 // 2014-07-11 added updated routing for web api and mvc
-
+// 2019-04-04 SystemInfoCaching
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-#if!NET35
 using System.Runtime.ExceptionServices;
-#endif
 using System.Security;
 using System.Security.Cryptography;
 using System.Threading;
@@ -55,14 +53,13 @@ using mojoPortal.Web.Caching;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.Security;
 using Resources;
-#if !NET35 && !NET40
 using System.Web.Mvc;
 using System.Web.Http;
 using System.Web.Optimization;
 using mojoPortal.Web.Routing;
 using mojoPortal.Web.Optimization;
 using System.Net;
-#endif
+using System.Dynamic;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 
@@ -84,12 +81,7 @@ namespace mojoPortal.Web
 
 		private static bool debugLog = log.IsDebugEnabled;
 
-		private static bool registeredVirtualThemes = false;
-
-		public static bool RegisteredVirtualThemes
-		{
-			get { return registeredVirtualThemes; }
-		}
+		public static bool RegisteredVirtualThemes { get; private set; } = false;
 
 		// this changes everytime the app starts and the token is required when calling /Services/FileService.ashx
 		// to help mitigate against xsrf attacks
@@ -109,7 +101,11 @@ namespace mojoPortal.Web
 
 		private static Guid GetFileSystemToken()
 		{
-			string cacheKey = "fileSystemToken";
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
+			Guid siteGuid = Guid.NewGuid();
+			if (siteSettings != null) siteGuid = siteSettings.SiteGuid;
+			
+			string cacheKey = "fileSystemToken" + siteGuid.ToString();
 		
 			DateTime absoluteExpiration = DateTime.Now.AddHours(1);
 
@@ -197,9 +193,9 @@ namespace mojoPortal.Web
 			}
 
 
-				AreaRegistration.RegisterAllAreas();
-				GlobalConfiguration.Configure(WebApiConfig.Register);
-				FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+			AreaRegistration.RegisterAllAreas();
+			GlobalConfiguration.Configure(WebApiConfig.Register);
+			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
@@ -226,6 +222,7 @@ namespace mojoPortal.Web
             AreaRegistration.RegisterAllAreas();
             RouteRegistrar.RegisterRoutes(RouteTable.Routes);
 
+			CreateSystemInfoCache();
 
 			StartOrResumeTasks();
 			PurgeOldLogEvents();
@@ -246,7 +243,7 @@ namespace mojoPortal.Web
 
 			//#endif
 
-#if!NET35 && !NET40
+//#if!NET35 && !NET40
 
 			if (WebConfigSettings.UnobtrusiveValidationMode == "WebForms")
 			{
@@ -261,9 +258,34 @@ namespace mojoPortal.Web
 				}
 				
 			}
-#endif
+//#endif
 
 
+		}
+
+		private void CreateSystemInfoCache()
+		{
+			//string cacheKey = "systemInfoCache";
+
+			//DateTime absoluteExpiration = DateTime.Now.AddHours(1);
+
+			//try
+			//{
+			//	SystemInfo systemInfo = CacheManager.Cache.Get<SystemInfo>(cacheKey, absoluteExpiration, () =>
+			//	{
+			//		// This is the anonymous function which gets called if the data is not in the cache.
+			//		// This method is executed and whatever is returned, is added to the cache with the passed in expiry time.
+			//		SystemInfo info = new SystemInfo()
+			//		{
+			//			SiteCount = SiteSettings.SiteCount(),
+			//			SiteMappings = SiteSettings.Host
+			//		};
+			//	});
+			//}
+			//catch (Exception ex)
+			//{
+			//	log.Error("failed to create systemInfoCache", ex);
+			//}
 		}
 
 		private void PurgeOldLogEvents()
@@ -394,14 +416,14 @@ namespace mojoPortal.Web
 			// in less than full trust it blows up even with a try catch if present in 
 			// Application_Start, moving into a separate method works with a try catch
 			HostingEnvironment.RegisterVirtualPathProvider(new mojoVirtualPathProvider());
-			registeredVirtualThemes = true;
+			RegisteredVirtualThemes = true;
 
 		}
 
 
 		protected void Application_End(Object sender, EventArgs e)
 		{
-			if (log.IsInfoEnabled) log.Info("Global.asax.cs Application_End" );
+			if (log.IsInfoEnabled) log.Info("------Application Stopped------");
 		}
 
 		
@@ -424,27 +446,28 @@ namespace mojoPortal.Web
 
 			//http://www.troyhunt.com/2011/11/owasp-top-10-for-net-developers-part-9.html
 
-			if (WebConfigSettings.ForceSslOnAllPages)
+			if ((SiteSettings.SiteCount() > 0 && SiteUtils.SslIsAvailable() && WebConfigSettings.ForceSslOnAllPages) || (SiteSettings.SiteCount() == 0 && WebConfigSettings.SslisAvailable))
 			{
+				//if we have sites (not a new install) and SSL is avail and forced, we want to force all pages to SSL
+				//OR if we don't have any sites (is a new install) and SSL is avail, we want to force to SSL, which would really 
+				//    only force it for default.aspx which then redirects to setup/default.aspx because there are no sites (see EnsurePageAndSite() in default.aspx)
 				switch (Request.Url.Scheme)
 				{
 					case "https":
-						Response.AddHeader("Strict-Transport-Security", "max-age=300");
+						if (WebConfigSettings.UseHSTSHeader)  Response.AddHeader("Strict-Transport-Security", WebConfigSettings.HSTSHeaders );
 						break;
 
 					case "http":
 						string path = "https://" + Request.Url.Host + Request.Url.PathAndQuery;
 						Response.Status = "301 Moved Permanently";
 						Response.AddHeader("Location", path);
+						Response.Cache.SetNoStore();
+						Response.Cache.SetCacheability(HttpCacheability.NoCache);
+						Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
 						break;
-
 				}
-
 			}
-			
-		   
 		}
-
 
 		protected void Application_EndRequest(Object sender, EventArgs e)
 		{
@@ -471,6 +494,7 @@ namespace mojoPortal.Web
 			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".gif")) { return; }
 			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".jpg")) { return; }
 			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".jpeg")) { return; }
+			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".svg")) { return; }
 			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".css")) { return; }
 			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".axd")) { return; }
 			if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".js")) { return; }
@@ -595,7 +619,7 @@ namespace mojoPortal.Web
 				{
 					// hopefully this is a fix for 
 					//http://visualstudiomagazine.com/articles/2010/09/14/aspnet-security-hack.aspx
-					// at this time the exploit is not fully disclosed but seems tey use the 500 status code 
+					// at this time the exploit is not fully disclosed but seems they use the 500 status code 
 					// so returning 404 instead may block it
 					if (WebConfigSettings.Return404StatusForCryptoError)
 					{
@@ -638,14 +662,14 @@ namespace mojoPortal.Web
 
 		protected void Session_Start(Object sender, EventArgs e)
 		{
-			if (debugLog) log.Debug("Global.asax.cs Session_Start");
+			if (debugLog) log.Debug("------ Session Started ------");
 			IncrementUserCount();
 		}
 
 
 		protected void Session_End(Object sender, EventArgs e)
 		{
-			if (debugLog) log.Debug("Global.asax.cs Session_End");
+			if (debugLog) log.Debug("------ Session Ended ------");
 			DecrementUserCount();
 		}
 
@@ -683,71 +707,6 @@ namespace mojoPortal.Web
 				}
 			}
 		}
-
-
-		protected void Profile_MigrateAnonymous(Object sender, ProfileMigrateEventArgs args)
-		{
-			//TODO: maybe support capturing profile properties for anonymous users
-			// then if they register transfer them to the new user
-
-		   
-			//WebProfile anonymousProfile = new WebProfile(args.Context.Profile);
-			
-
-			//Profile.ZipCode = anonymousProfile;
-			//Profile.CityAndState = anonymousProfile.CityAndState;
-			//Profile.StockSymbols = anonymousProfile.StockSymbols;
-
-			////////
-			// Delete the anonymous profile. If the anonymous ID is not 
-			// needed in the rest of the site, remove the anonymous cookie.
-
-			//ProfileManager.DeleteProfile(args.AnonymousID);
-			//AnonymousIdentificationModule.ClearAnonymousIdentifier();
-
-			// Delete the user row that was created for the anonymous user.
-			//Membership.DeleteUser(args.AnonymousID, true);
-		}
-
-		#region Forms Authentication Handlers
-
-		//public void FormsAuthentication_OnAuthenticate(object sender, FormsAuthenticationEventArgs args)
-		//{
-		//    if (FormsAuthentication.CookiesSupported)
-		//    {
-		//        if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
-		//        {
-		//            try
-		//            {
-						
-
-		//                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(
-		//                  Request.Cookies[FormsAuthentication.FormsCookieName].Value);
-
-						
-
-		//                //args.User = new System.Security.Principal.GenericPrincipal(
-		//                //  new Samples.AspNet.Security.MyFormsIdentity(ticket),
-		//                //  new string[0]);
-		//            }
-		//            catch (Exception e)
-		//            {
-		//                // Decrypt method failed.
-		//            }
-		//        }
-		//    }
-		//    else
-		//    {
-		//        throw new HttpException("Cookieless Forms Authentication is not " +
-		//                                "supported for this application.");
-		//    }
-		//}
-
-		#endregion
-
-
-		
-
 	}
 }
 

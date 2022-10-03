@@ -1,0 +1,44 @@
+
+.blog-postlist__metadata {
+
+    .fa {
+	    width: 20px;
+	    height: 20px;
+	    vertical-align: bottom;
+	    font-size: 16px;
+	    text-align: center;
+	    line-height: 20px;
+    }
+
+    > span {
+    	margin-bottom: 5px;
+    	margin-right: 5px;
+
+    	&:last-child {
+    		margin-right: 0;
+    	}
+
+    }
+
+    a,
+    > span {
+    	display: inline-block;
+    }
+
+	// Make author avatar small and rounded if it's not inside author bio
+	.blog-postlist__author-avatar {
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		vertical-align: bottom;
+		text-align: center;
+
+		img {
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+		}
+
+	}
+
+}

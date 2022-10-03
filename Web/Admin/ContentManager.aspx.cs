@@ -271,7 +271,7 @@ namespace mojoPortal.Web.AdminUI
                         userName = currentUser.Name;
                     }
 
-                    log.Info("user " + userName + " removed module " + m.ModuleTitle + " from page " + contentPage.PageName + " from ip address " + SiteUtils.GetIP4Address());
+                    log.Info($"user {userName} removed module {m.ModuleTitle} from page {contentPage.PageName} from ip address {SiteUtils.GetIP4Address()}");
 
                 }
 
@@ -648,7 +648,7 @@ namespace mojoPortal.Web.AdminUI
 
         private void SetupDialogScript()
         {
-            string dialogScript = "$('a.publink').colorbox({width:'600px', height:'370px', iframe:true}); ";
+            string dialogScript = "$('a.publink').colorbox({width:'600px', height:'450px', iframe:true}); ";
 
             ScriptManager.RegisterStartupScript(this, typeof(Page),
                    "pubdialog", "\n<script type=\"text/javascript\" >"

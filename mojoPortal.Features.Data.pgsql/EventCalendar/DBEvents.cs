@@ -1,6 +1,6 @@
 ﻿/// Author:					
 /// Created:				2007-11-03
-/// Last Modified:			2012-08-12
+/// Last Modified:			2019-09-18
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
@@ -24,21 +24,6 @@ namespace mojoPortal.Data
         /// <summary>
         /// Inserts a row in the mp_CalendarEvents table. Returns new integer id.
         /// </summary>
-        /// <param name="itemGuid"> itemGuid </param>
-        /// <param name="moduleGuid"> moduleGuid </param>
-        /// <param name="moduleID"> moduleID </param>
-        /// <param name="title"> title </param>
-        /// <param name="description"> description </param>
-        /// <param name="imageName"> imageName </param>
-        /// <param name="eventDate"> eventDate </param>
-        /// <param name="startTime"> startTime </param>
-        /// <param name="endTime"> endTime </param>
-        /// <param name="userID"> userID </param>
-        /// <param name="userGuid"> userGuid </param>
-        /// <param name="location"> location </param>
-        /// <param name="requiresTicket"> requiresTicket </param>
-        /// <param name="ticketPrice"> ticketPrice </param>
-        /// <param name="createdDate"> createdDate </param>
         /// <returns>int</returns>
         public static int AddCalendarEvent(
             Guid itemGuid,
@@ -55,9 +40,10 @@ namespace mojoPortal.Data
             string location,
             bool requiresTicket,
             decimal ticketPrice,
-            DateTime createdDate)
+            DateTime createdDate,
+			bool showMap)
         {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[15];
+            NpgsqlParameter[] arParams = new NpgsqlParameter[16];
             
             arParams[0] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
@@ -119,10 +105,14 @@ namespace mojoPortal.Data
             arParams[14].Direction = ParameterDirection.Input;
             arParams[14].Value = requiresTicket;
 
-            int newID = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
+			arParams[15] = new NpgsqlParameter("showmap", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[15].Direction = ParameterDirection.Input;
+			arParams[15].Value = showMap;
+
+			int newID = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.StoredProcedure,
-                "mp_calendarevents_insert(:moduleid,:title,:description,:imagename,:eventdate,:starttime,:endtime,:userid,:itemguid,:moduleguid,:userguid,:location,:createddate,:ticketprice,:requiresticket)",
+                "mp_calendarevents_insert(:moduleid,:title,:description,:imagename,:eventdate,:starttime,:endtime,:userid,:itemguid,:moduleguid,:userguid,:location,:createddate,:ticketprice,:requiresticket,:showmap)",
                 arParams));
 
             return newID;
@@ -132,19 +122,6 @@ namespace mojoPortal.Data
         /// <summary>
         /// Updates a row in the mp_CalendarEvents table. Returns true if row updated.
         /// </summary>
-        /// <param name="itemID"> itemID </param>
-        /// <param name="moduleID"> moduleID </param>
-        /// <param name="title"> title </param>
-        /// <param name="description"> description </param>
-        /// <param name="imageName"> imageName </param>
-        /// <param name="eventDate"> eventDate </param>
-        /// <param name="startTime"> startTime </param>
-        /// <param name="endTime"> endTime </param>
-        /// <param name="location"> location </param>
-        /// <param name="ticketPrice"> ticketPrice </param>
-        /// <param name="requiresTicket"> requiresTicket </param>
-        /// <param name="lastModUtc"> lastModUtc </param>
-        /// <param name="lastModUserGuid"> lastModUserGuid </param>
         /// <returns>bool</returns>
         public static bool UpdateCalendarEvent(
             int itemId,
@@ -159,9 +136,10 @@ namespace mojoPortal.Data
             bool requiresTicket,
             decimal ticketPrice,
             DateTime lastModUtc,
-            Guid lastModUserGuid)
+            Guid lastModUserGuid,
+			bool showMap)
         {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[14];
+            NpgsqlParameter[] arParams = new NpgsqlParameter[15];
             
             arParams[0] = new NpgsqlParameter("itemid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
@@ -215,10 +193,14 @@ namespace mojoPortal.Data
             arParams[13].Direction = ParameterDirection.Input;
             arParams[13].Value = requiresTicket;
 
-            int rowsAffected = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
+			arParams[14] = new NpgsqlParameter("showmap", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[14].Direction = ParameterDirection.Input;
+			arParams[14].Value = showMap;
+
+			int rowsAffected = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.StoredProcedure,
-                "mp_calendarevents_update(:itemid,:moduleid,:title,:description,:imagename,:eventdate,:starttime,:endtime,:lastmoduserguid,:location,:lastmodutc,:ticketprice,:requiresticket)",
+                "mp_calendarevents_update(:itemid,:moduleid,:title,:description,:imagename,:eventdate,:starttime,:endtime,:lastmoduserguid,:location,:lastmodutc,:ticketprice,:requiresticket,:showmap)",
                 arParams));
 
             return (rowsAffected > -1);

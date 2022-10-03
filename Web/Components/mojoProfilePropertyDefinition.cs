@@ -388,7 +388,7 @@ namespace mojoPortal.Web.Configuration
                     cbl.EnableTheming = false;
                     cbl.CssClass = "forminput";
 
-                    cbl.TabIndex = 10;
+                    cbl.TabIndex = 0;
                     label.ForControl = cbl.ID;
                     parentControl.Controls.Add(label);
 
@@ -423,7 +423,7 @@ namespace mojoPortal.Web.Configuration
                     dd.EnableTheming = false;
                     dd.CssClass = "forminput " + propertyDefinition.CssClass;
 
-                    dd.TabIndex = 10;
+                    dd.TabIndex = 0;
                     label.ForControl = dd.ID;
                     parentControl.Controls.Add(label);
 
@@ -485,7 +485,7 @@ namespace mojoPortal.Web.Configuration
                 {
                     case "System.Boolean":
                         CheckBox checkBox = new CheckBox();
-                        checkBox.TabIndex = 10;
+                        checkBox.TabIndex = 0;
                         checkBox.ID = "chk" + propertyDefinition.Name;
                         checkBox.CssClass = "forminput " + propertyDefinition.CssClass;
                         label.ForControl = checkBox.ID;
@@ -508,7 +508,7 @@ namespace mojoPortal.Web.Configuration
                         // parse the date
                         DatePickerControl datePicker = CreateDatePicker(propertyDefinition, propertyValue, legacyTimeZoneOffset, timeZone, siteRoot);
                         
-                        datePicker.TabIndex = 10;
+                        datePicker.TabIndex = 0;
                         datePicker.ID = "dp" + propertyDefinition.Name;
                         datePicker.CssClass = "forminput " + propertyDefinition.CssClass;
                         parentControl.Controls.Add(label);
@@ -560,7 +560,7 @@ namespace mojoPortal.Web.Configuration
                     default:
 
                         TextBox textBox = new TextBox();
-                        textBox.TabIndex = 10;
+                        textBox.TabIndex = 0;
                         textBox.ID = "txt" + propertyDefinition.Name;
                         textBox.CssClass = "forminput " + propertyDefinition.CssClass;
                         label.ForControl = textBox.ID;

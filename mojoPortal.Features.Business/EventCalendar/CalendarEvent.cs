@@ -70,7 +70,7 @@ namespace mojoPortal.Business
 
         private int siteId = -1;
         private string searchIndexPath = string.Empty;
-
+		private bool showMap = true;
 
         #endregion
 
@@ -198,6 +198,12 @@ namespace mojoPortal.Business
             set { searchIndexPath = value; }
         }
 
+
+		public bool ShowMap
+		{
+			get { return showMap; }
+			set { showMap = value; }
+		}
         #endregion
 
         #region Private Methods
@@ -236,7 +242,7 @@ namespace mojoPortal.Business
 
                     this.requiresTicket = Convert.ToBoolean(reader["RequiresTicket"], CultureInfo.InvariantCulture);
                     this.ticketPrice = Convert.ToDecimal(reader["TicketPrice"], CultureInfo.InvariantCulture);
-
+					this.showMap = Convert.ToBoolean(reader["ShowMap"], CultureInfo.InvariantCulture);
                 }
 
             }
@@ -265,7 +271,8 @@ namespace mojoPortal.Business
                 this.location,
                 this.requiresTicket,
                 this.ticketPrice,
-                this.createdDate);
+                this.createdDate,
+				this.showMap);
 
             this.itemID = newID;
 
@@ -298,7 +305,8 @@ namespace mojoPortal.Business
                 this.requiresTicket,
                 this.ticketPrice,
                 this.lastModUtc,
-                this.lastModUserGuid);
+                this.lastModUserGuid,
+				this.showMap);
 
             if (result)
             {
@@ -391,7 +399,7 @@ namespace mojoPortal.Business
 
             dataTable.Columns.Add("CreatedDate", typeof(DateTime));
             dataTable.Columns.Add("LastModUtc", typeof(DateTime));
-
+			dataTable.Columns.Add("ShowMap", typeof(bool));
             using (IDataReader reader = DBEvents.GetEventsByPage(siteId, pageId))
             {
                 while (reader.Read())
@@ -407,7 +415,7 @@ namespace mojoPortal.Business
 
                     row["CreatedDate"] = Convert.ToDateTime(reader["CreatedDate"]);
                     row["LastModUtc"] = Convert.ToDateTime(reader["LastModUtc"]);
-
+					row["ShowMap"] = Convert.ToBoolean(reader["ShowMap"]);
                     dataTable.Rows.Add(row);
                 }
             }

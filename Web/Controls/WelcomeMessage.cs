@@ -8,7 +8,7 @@
 ///
 ///		Author:				
 ///		Created:			2005-03-24
-///		Last Modified:		2010-07-30
+///		Last Modified:		2019-01-09
 /// 
 /// 03/13/2007   Alexander Yushchenko: moved all the control logic to Render() to simplify it.
 /// 2011-02-08 made it possible to customize the welcome message, by default it comes from resource file
@@ -24,80 +24,30 @@ namespace mojoPortal.Web.UI
 {
     public partial class WelcomeMessage : WebControl
     {
-        
-        private bool useRightSeparator = false;
-        /// <summary>
-        /// This property is deprecated. Instead to use mojoPortal.Web.Controls.SeparatorControl
-        /// </summary>
-        public bool UseRightSeparator
-        {
-            get { return useRightSeparator; }
-            set { useRightSeparator = value; }
-        }
+		/// <summary>
+		/// This property is deprecated. Instead to use mojoPortal.Web.Controls.SeparatorControl
+		/// </summary>
+		public bool UseRightSeparator { get; set; } = false;
+		public bool RenderAsListItem { get; set; } = false;
+		public string ListItemCss { get; set; } = "topnavitem";
+		public bool UseFirstLast { get; set; } = false;
+		/// <summary>
+		/// allows using first and last name in the welcome message, the default value is "Signed in as: {0} {1}"
+		/// the {0} is required and will be replaced by the first name and {1} will be replaced by the last name
+		/// However this is only useful if first and last name are actually populated
+		/// which it may not be if you have not required it on registration and there are existing users
+		/// also requires setting UseFirstLast to true
+		/// </summary>
+		public string FirstLastFormat { get; set; } = string.Empty;
+		/// <summary>
+		/// allows overriding the welcome message, the default value is "Signed in as: {0}"
+		/// the {0} is required and will be replaced by the user name
+		/// </summary>
+		public string OverrideFormat { get; set; } = string.Empty;
+		public bool WrapInAnchor { get; set; } = false;
+		public bool WrapInProfileLink { get; set; } = false;
 
-        private bool renderAsListItem = false;
-        public bool RenderAsListItem
-        {
-            get { return renderAsListItem; }
-            set { renderAsListItem = value; }
-        }
-
-        private string listItemCSS = "topnavitem";
-        public string ListItemCss
-        {
-            get { return listItemCSS; }
-            set { listItemCSS = value; }
-        }
-
-        private bool useFirstLast = false;
-        public bool UseFirstLast
-        {
-            get { return useFirstLast; }
-            set { useFirstLast = value; }
-        }
-
-        private string firstLastFormat = string.Empty;
-        /// <summary>
-        /// allows using first and last name in the welcome message, the default value is "Signed in as: {0} {1}"
-        /// the {0} is required and will be replaced by the first name and {1} will be replaced by the last name
-        /// However this is only useful if first and last name are actually populated
-        /// which it may not be if you have not required it on registration and there are existing users
-        /// also requires setting UseFirstLast to true
-        /// </summary>
-        public string FirstLastFormat
-        {
-            get { return firstLastFormat; }
-            set { firstLastFormat = value; }
-        }
-
-         
-
-        private string overrideFormat = string.Empty;
-        /// <summary>
-        /// allows overriding the welcome message, the default value is "Signed in as: {0}"
-        /// the {0} is required and will be replaced by the user name
-        /// </summary>
-        public string OverrideFormat
-        {
-            get { return overrideFormat; }
-            set { overrideFormat = value; }
-        }
-
-        private bool wrapInAnchor = false;
-        public bool WrapInAnchor
-        {
-            get { return wrapInAnchor; }
-            set { wrapInAnchor = value; }
-        }
-
-        private bool wrapInProfileLink = false;
-        public bool WrapInProfileLink
-        {
-            get { return wrapInProfileLink; }
-            set { wrapInProfileLink = value; }
-        }
-
-        protected override void Render(HtmlTextWriter writer)
+		protected override void Render(HtmlTextWriter writer)
         {
             if (HttpContext.Current == null)
             {
@@ -119,26 +69,26 @@ namespace mojoPortal.Web.UI
 
             if (CssClass.Length == 0) CssClass = "sitelink";
 
-            if (renderAsListItem) writer.Write("<li class='" + listItemCSS + "'>");
+            if (RenderAsListItem) writer.Write("<li class='" + ListItemCss + "'>");
 
-            if ((useFirstLast)&&(siteUser.FirstName.Length > 0)&&(siteUser.LastName.Length > 0))
+            if ((UseFirstLast)&&(siteUser.FirstName.Length > 0)&&(siteUser.LastName.Length > 0))
             {
-                if (firstLastFormat.Length == 0) { firstLastFormat = Resource.FirstLastFormat; }
+                if (FirstLastFormat.Length == 0) { FirstLastFormat = Resource.FirstLastFormat; }
 
-                if (wrapInProfileLink)
+                if (WrapInProfileLink)
                 {
-                    writer.Write("<a class='" + CssClass + "' href='" + SiteUtils.GetNavigationSiteRoot() + "/Secure/UserProfile.aspx" + "'>" + string.Format(firstLastFormat,
+                    writer.Write("<a class='" + CssClass + "' href='" + SiteUtils.GetNavigationSiteRoot() + "/Secure/UserProfile.aspx" + "'>" + string.Format(FirstLastFormat,
                         HttpUtility.HtmlEncode(siteUser.FirstName), HttpUtility.HtmlEncode(siteUser.LastName)) + "</a>");
                 }
-                else if (wrapInAnchor)
+                else if (WrapInAnchor)
                 {
-                    writer.Write("<a class='" + CssClass + "' name='welcome'>" + string.Format(firstLastFormat,
+                    writer.Write("<a class='" + CssClass + "' name='welcome'>" + string.Format(FirstLastFormat,
                         HttpUtility.HtmlEncode(siteUser.FirstName), HttpUtility.HtmlEncode(siteUser.LastName)) + "</a>");
                 }
                 else
                 {
 
-                    writer.Write("<span class='" + CssClass + "'>" + string.Format(firstLastFormat,
+                    writer.Write("<span class='" + CssClass + "'>" + string.Format(FirstLastFormat,
                         HttpUtility.HtmlEncode(siteUser.FirstName), HttpUtility.HtmlEncode(siteUser.LastName)) + "</span>");
                 }
 
@@ -147,26 +97,26 @@ namespace mojoPortal.Web.UI
             {
                 string format = Resource.WelcomeMessageFormat;
 
-                if (overrideFormat.Length > 0) { format = overrideFormat; }
+                if (OverrideFormat.Length > 0) { format = OverrideFormat; }
 
-                if (wrapInProfileLink)
+                if (WrapInProfileLink)
                 {
-                    writer.Write("<a class='" + CssClass + "' href='" + SiteUtils.GetNavigationSiteRoot() + "/Secure/UserProfile.aspx" + "'>" + string.Format(format, HttpUtility.HtmlEncode(siteUser.Name)) + "</a>");
+                    writer.Write("<a class='" + CssClass + "' href='" + SiteUtils.GetNavigationSiteRoot() + "/Secure/UserProfile.aspx" + "'>" + string.Format(format, HttpUtility.HtmlEncode(siteUser.Name), SiteUtils.GetPrivateProfileUrl(), Resource.ProfileLink) + "</a>");
                 }
-                else if (wrapInAnchor)
+                else if (WrapInAnchor)
                 {
-                    writer.Write("<a class='" + CssClass + "' name='welcome'>" + string.Format(format, HttpUtility.HtmlEncode(siteUser.Name)) + "</a>");
+                    writer.Write("<a class='" + CssClass + "' name='welcome'>" + string.Format(format, HttpUtility.HtmlEncode(siteUser.Name), SiteUtils.GetPrivateProfileUrl(), Resource.ProfileLink) + "</a>");
                 }
                 else
                 {
 
-                    writer.Write("<span class='" + CssClass + "'>" + string.Format(format, HttpUtility.HtmlEncode(siteUser.Name)) + "</span>");
+                    writer.Write("<span class='" + CssClass + "'>" + string.Format(format, HttpUtility.HtmlEncode(siteUser.Name), SiteUtils.GetPrivateProfileUrl(), Resource.ProfileLink) + "</span>");
                 }
             }
 
             if (UseRightSeparator) writer.Write(" <span class='Accent'>|</span>");
 
-            if (renderAsListItem) writer.Write("</li>");
+            if (RenderAsListItem) writer.Write("</li>");
         }
 
     }

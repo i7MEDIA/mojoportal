@@ -18,6 +18,7 @@ namespace mojoPortal.Web.Controls.Captcha
         string ControlID { get;set;}
         string ValidationGroup { get; set; }
         bool Enabled { get; set; }
+		short TabIndex { get; set; }
         //string ValidationGroup { get; set; }
     }
 }

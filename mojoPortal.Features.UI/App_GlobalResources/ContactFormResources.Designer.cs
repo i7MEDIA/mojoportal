@@ -70,6 +70,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your entry contains words that are not allowed by this site..
+        /// </summary>
+        internal static string BadWordsFound {
+            get {
+                return ResourceManager.GetString("BadWordsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Block Bad Words.
+        /// </summary>
+        internal static string BlockBadWords {
+            get {
+                return ResourceManager.GetString("BlockBadWords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please Wait....
         /// </summary>
         internal static string ButtonDisabledPleaseWait {
@@ -403,7 +421,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use entered email as from address?.
+        ///   Looks up a localized string similar to Use entered email as reply-to address?.
         /// </summary>
         internal static string UseInputAddressAsFromAddress {
             get {

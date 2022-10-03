@@ -83,6 +83,7 @@ namespace mojoPortal.Web.UI
             m.CacheTime = moduleDefinition.DefaultCacheTime;
             m.PageId = CurrentPage.PageId;
             m.ModuleTitle = moduleTitle.Text;
+			m.ShowTitle = chkShowTitle.Checked;
             m.PaneName = "contentpane";
             //m.AuthorizedEditRoles = "Admins";
             SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
@@ -90,7 +91,7 @@ namespace mojoPortal.Web.UI
             {
                 m.CreatedByUserId = currentUser.UserId;
             }
-            m.ShowTitle = WebConfigSettings.ShowModuleTitlesByDefault;
+            //m.ShowTitle = WebConfigSettings.ShowModuleTitlesByDefault;
             m.HeadElement = WebConfigSettings.ModuleTitleTag;
             m.Save();
 
@@ -111,8 +112,9 @@ namespace mojoPortal.Web.UI
         private void LoadSettings()
         {
             siteSettings = CacheHelper.GetCurrentSiteSettings();
+			chkShowTitle.Checked = WebConfigSettings.ShowModuleTitlesByDefault;
 
-        }
+		}
 
         protected override void OnInit(EventArgs e)
         {
