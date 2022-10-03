@@ -1,6 +1,6 @@
 <%@ Page Language="C#" MaintainScrollPositionOnPostback="true" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/layout.Master" CodeBehind="FileManager.aspx.cs" Inherits="mojoPortal.Web.AdminUI.FileManagerPage" %>
 
-<%@ Register TagPrefix="admin" TagName="AdvFileManager" Src="~/Admin/Controls/AdvFileManager.ascx" %>
+<%--<%@ Register TagPrefix="admin" TagName="AdvFileManager" Src="~/Admin/Controls/AdvFileManager.ascx" %>--%>
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
@@ -14,7 +14,7 @@
 <portal:HeadingControl id="heading" runat="server" />
 <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-<admin:AdvFileManager ID="fm2" runat="server"  />
+<%--<admin:AdvFileManager ID="fm2" runat="server"  />--%>
 </portal:InnerBodyPanel>
 </portal:OuterBodyPanel>
 <portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
