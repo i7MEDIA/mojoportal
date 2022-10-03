@@ -25,7 +25,9 @@ namespace mojoPortal.Web.AdminUI
 
         protected void Page_Load(object sender, EventArgs e)
 		{
-			if (!Request.IsAuthenticated)
+            SiteUtils.RedirectToUrl(SiteUtils.GetNavigationSiteRoot() + "/FileManager");
+
+            if (!Request.IsAuthenticated)
 			{
 				SiteUtils.RedirectToLoginPage(this);
 				return;
