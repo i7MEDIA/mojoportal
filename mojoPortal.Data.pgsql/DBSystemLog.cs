@@ -69,39 +69,39 @@ namespace mojoPortal.Data
             sqlCommand.Append(" SELECT CURRVAL('mp_systemlogid_seq');");
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[9];
-            arParams[0] = new NpgsqlParameter("logdate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[0] = new NpgsqlParameter(":logdate", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = logDate;
 
-            arParams[1] = new NpgsqlParameter("ipaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[1] = new NpgsqlParameter(":ipaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = ipAddress;
 
-            arParams[2] = new NpgsqlParameter("culture", NpgsqlTypes.NpgsqlDbType.Varchar, 10);
+            arParams[2] = new NpgsqlParameter(":culture", NpgsqlTypes.NpgsqlDbType.Varchar, 10);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = culture;
 
-            arParams[3] = new NpgsqlParameter("url", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[3] = new NpgsqlParameter(":url", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = url;
 
-            arParams[4] = new NpgsqlParameter("shorturl", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[4] = new NpgsqlParameter(":shorturl", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = shortUrl;
 
-            arParams[5] = new NpgsqlParameter("thread", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[5] = new NpgsqlParameter(":thread", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = thread;
 
-            arParams[6] = new NpgsqlParameter("loglevel", NpgsqlTypes.NpgsqlDbType.Varchar, 20);
+            arParams[6] = new NpgsqlParameter(":loglevel", NpgsqlTypes.NpgsqlDbType.Varchar, 20);
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = logLevel;
 
-            arParams[7] = new NpgsqlParameter("logger", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[7] = new NpgsqlParameter(":logger", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[7].Direction = ParameterDirection.Input;
             arParams[7].Value = logger;
 
-            arParams[8] = new NpgsqlParameter("message", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[8] = new NpgsqlParameter(":message", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[8].Direction = ParameterDirection.Input;
             arParams[8].Value = message;
 
@@ -130,7 +130,7 @@ namespace mojoPortal.Data
             sqlCommand.Append(";");
 
             //NpgsqlParameter[] arParams = new NpgsqlParameter[1];
-            //arParams[0] = new NpgsqlParameter("id", NpgsqlTypes.NpgsqlDbType.Integer);
+            //arParams[0] = new NpgsqlParameter(":id", NpgsqlTypes.NpgsqlDbType.Integer);
             //arParams[0].Direction = ParameterDirection.Input;
             //arParams[0].Value = id;
 
@@ -158,7 +158,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("id", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":id", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = id;
 
@@ -187,7 +187,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("cutoffdate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[0] = new NpgsqlParameter(":cutoffdate", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = cutoffDate;
 
@@ -216,7 +216,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("loglevel", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":loglevel", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = logLevel;
 
@@ -280,11 +280,11 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-            arParams[0] = new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = pageSize;
 
-            arParams[1] = new NpgsqlParameter("pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[1] = new NpgsqlParameter(":pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = pageLowerBound;
 
@@ -342,11 +342,11 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-            arParams[0] = new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = pageSize;
 
-            arParams[1] = new NpgsqlParameter("pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[1] = new NpgsqlParameter(":pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = pageLowerBound;
 

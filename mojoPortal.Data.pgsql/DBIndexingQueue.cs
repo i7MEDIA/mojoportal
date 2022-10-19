@@ -35,23 +35,23 @@ namespace mojoPortal.Data
 			bool removeOnly) 
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[5];
-			arParams[0] = new NpgsqlParameter("indexpath", NpgsqlTypes.NpgsqlDbType.Varchar,255);
+			arParams[0] = new NpgsqlParameter(":indexpath", NpgsqlTypes.NpgsqlDbType.Varchar,255);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = indexPath;
 			
-			arParams[1] = new NpgsqlParameter("serializeditem", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[1] = new NpgsqlParameter(":serializeditem", NpgsqlTypes.NpgsqlDbType.Text);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = serializedItem;
 			
-			arParams[2] = new NpgsqlParameter("itemkey", NpgsqlTypes.NpgsqlDbType.Varchar,255);
+			arParams[2] = new NpgsqlParameter(":itemkey", NpgsqlTypes.NpgsqlDbType.Varchar,255);
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = itemKey;
 			
-			arParams[3] = new NpgsqlParameter("removeonly", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[3] = new NpgsqlParameter(":removeonly", NpgsqlTypes.NpgsqlDbType.Boolean);
 			arParams[3].Direction = ParameterDirection.Input;
 			arParams[3].Value = removeOnly;
 
-            arParams[4] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[4] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = siteId;
 			
@@ -102,23 +102,23 @@ namespace mojoPortal.Data
         //{
         //    NpgsqlParameter[] arParams = new NpgsqlParameter[5];
 			
-        //    arParams[0] = new NpgsqlParameter("rowid", NpgsqlTypes.NpgsqlDbType.Bigint); 
+        //    arParams[0] = new NpgsqlParameter(":rowid", NpgsqlTypes.NpgsqlDbType.Bigint); 
         //    arParams[0].Direction = ParameterDirection.Input;
         //    arParams[0].Value = rowId;
 			
-        //    arParams[1] = new NpgsqlParameter("indexpath", NpgsqlTypes.NpgsqlDbType.Varchar,255); 
+        //    arParams[1] = new NpgsqlParameter(":indexpath", NpgsqlTypes.NpgsqlDbType.Varchar,255); 
         //    arParams[1].Direction = ParameterDirection.Input;
         //    arParams[1].Value = indexPath;
 			
-        //    arParams[2] = new NpgsqlParameter("serializeditem", NpgsqlTypes.NpgsqlDbType.Text); 
+        //    arParams[2] = new NpgsqlParameter(":serializeditem", NpgsqlTypes.NpgsqlDbType.Text); 
         //    arParams[2].Direction = ParameterDirection.Input;
         //    arParams[2].Value = serializedItem;
 			
-        //    arParams[3] = new NpgsqlParameter("itemkey", NpgsqlTypes.NpgsqlDbType.Varchar,255); 
+        //    arParams[3] = new NpgsqlParameter(":itemkey", NpgsqlTypes.NpgsqlDbType.Varchar,255); 
         //    arParams[3].Direction = ParameterDirection.Input;
         //    arParams[3].Value = itemKey;
 			
-        //    arParams[4] = new NpgsqlParameter("removeonly", NpgsqlTypes.NpgsqlDbType.Boolean); 
+        //    arParams[4] = new NpgsqlParameter(":removeonly", NpgsqlTypes.NpgsqlDbType.Boolean); 
         //    arParams[4].Direction = ParameterDirection.Input;
         //    arParams[4].Value = removeOnly;
 			
@@ -154,7 +154,7 @@ namespace mojoPortal.Data
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 			
-			arParams[0] = new NpgsqlParameter("rowid", NpgsqlTypes.NpgsqlDbType.Bigint);
+			arParams[0] = new NpgsqlParameter(":rowid", NpgsqlTypes.NpgsqlDbType.Bigint);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = rowId;
 				
@@ -200,7 +200,7 @@ namespace mojoPortal.Data
         {
 			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("indexpath", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[0] = new NpgsqlParameter(":indexpath", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = indexPath;
 			
@@ -288,7 +288,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteId;
 

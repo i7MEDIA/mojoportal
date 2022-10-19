@@ -32,31 +32,31 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[7];
             
-            arParams[0] = new NpgsqlParameter("userpageid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":userpageid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userPageId.ToString();
 
-            arParams[1] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[1] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = siteId;
 
-            arParams[2] = new NpgsqlParameter("userguid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[2] = new NpgsqlParameter(":userguid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = userGuid.ToString();
 
-            arParams[3] = new NpgsqlParameter("pagename", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[3] = new NpgsqlParameter(":pagename", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = pageName;
 
-            arParams[4] = new NpgsqlParameter("pagepath", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[4] = new NpgsqlParameter(":pagepath", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = pagePath;
 
-            arParams[5] = new NpgsqlParameter("pageorder", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[5] = new NpgsqlParameter(":pageorder", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = pageOrder;
 
-            arParams[6] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[6] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = siteGuid.ToString();
 
@@ -77,15 +77,15 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[3];
             
-            arParams[0] = new NpgsqlParameter("userpageid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":userpageid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userPageId.ToString();
 
-            arParams[1] = new NpgsqlParameter("pagename", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[1] = new NpgsqlParameter(":pagename", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = pageName;
 
-            arParams[2] = new NpgsqlParameter("pageorder", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[2] = new NpgsqlParameter(":pageorder", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = pageOrder;
 
@@ -103,7 +103,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
            
-            arParams[0] = new NpgsqlParameter("userpageid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":userpageid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userPageId.ToString();
 
@@ -121,7 +121,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter("userpageid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":userpageid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userPageId.ToString();
 
@@ -143,7 +143,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userGuid.ToString();
 
@@ -160,7 +160,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter("userguid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":userguid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userGuid.ToString();
 
@@ -176,7 +176,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("userguid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":userguid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userGuid.ToString();
             
@@ -194,11 +194,11 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[2];
             
-            arParams[0] = new NpgsqlParameter("userpageid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":userpageid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userPageId.ToString();
 
-            arParams[1] = new NpgsqlParameter("pageorder", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[1] = new NpgsqlParameter(":pageorder", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = pageOrder;
 

@@ -89,27 +89,27 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[6];
             
-            arParams[0] = new NpgsqlParameter("applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = applicationId.ToString();
 
-            arParams[1] = new NpgsqlParameter("applicationname", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[1] = new NpgsqlParameter(":applicationname", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = applicationName;
 
-            arParams[2] = new NpgsqlParameter("major", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[2] = new NpgsqlParameter(":major", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = major;
 
-            arParams[3] = new NpgsqlParameter("minor", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[3] = new NpgsqlParameter(":minor", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = minor;
 
-            arParams[4] = new NpgsqlParameter("build", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[4] = new NpgsqlParameter(":build", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = build;
 
-            arParams[5] = new NpgsqlParameter("revision", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[5] = new NpgsqlParameter(":revision", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = revision;
 
@@ -135,27 +135,27 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[6];
             
-            arParams[0] = new NpgsqlParameter("applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = applicationId.ToString();
 
-            arParams[1] = new NpgsqlParameter("applicationname", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[1] = new NpgsqlParameter(":applicationname", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = applicationName;
 
-            arParams[2] = new NpgsqlParameter("major", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[2] = new NpgsqlParameter(":major", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = major;
 
-            arParams[3] = new NpgsqlParameter("minor", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[3] = new NpgsqlParameter(":minor", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = minor;
 
-            arParams[4] = new NpgsqlParameter("build", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[4] = new NpgsqlParameter(":build", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = build;
 
-            arParams[5] = new NpgsqlParameter("revision", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[5] = new NpgsqlParameter(":revision", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = revision;
 
@@ -172,7 +172,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter("applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = applicationId.ToString();
 
@@ -205,7 +205,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter("applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = applicationId.ToString();
 
@@ -247,27 +247,27 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[6];
             
-            arParams[0] = new NpgsqlParameter("applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = applicationId.ToString();
 
-            arParams[1] = new NpgsqlParameter("scriptfile", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[1] = new NpgsqlParameter(":scriptfile", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = scriptFile;
 
-            arParams[2] = new NpgsqlParameter("runtime", NpgsqlTypes.NpgsqlDbType.Date);
+            arParams[2] = new NpgsqlParameter(":runtime", NpgsqlTypes.NpgsqlDbType.Date);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = runTime;
 
-            arParams[3] = new NpgsqlParameter("erroroccurred", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[3] = new NpgsqlParameter(":erroroccurred", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = errorOccurred;
 
-            arParams[4] = new NpgsqlParameter("errormessage", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[4] = new NpgsqlParameter(":errormessage", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = errorMessage;
 
-            arParams[5] = new NpgsqlParameter("scriptbody", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[5] = new NpgsqlParameter(":scriptbody", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = scriptBody;
 
@@ -285,7 +285,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter("id", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":id", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = id;
 
@@ -302,7 +302,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter("id", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":id", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = id;
 
@@ -318,7 +318,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter("applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = applicationId.ToString();
 
@@ -334,7 +334,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter("applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = applicationId.ToString();
 
@@ -351,11 +351,11 @@ namespace mojoPortal.Data
             
             NpgsqlParameter[] arParams = new NpgsqlParameter[2];
             
-            arParams[0] = new NpgsqlParameter("applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = applicationId.ToString();
 
-            arParams[1] = new NpgsqlParameter("scriptfile", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[1] = new NpgsqlParameter(":scriptfile", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = scriptFile;
 

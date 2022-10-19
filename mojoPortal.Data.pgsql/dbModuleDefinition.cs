@@ -80,77 +80,77 @@ namespace mojoPortal.Data
 
 			var sqlParams = new List<NpgsqlParameter>()
 			{
-				new NpgsqlParameter("featurename", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":featurename", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureName
 				},
-				new NpgsqlParameter("controlsrc", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":controlsrc", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = controlSrc
 				},
-				new NpgsqlParameter("sortorder", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":sortorder", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = sortOrder
 				},
-				new NpgsqlParameter("isadmin", NpgsqlDbType.Boolean)
+				new NpgsqlParameter(":isadmin", NpgsqlDbType.Boolean)
 				{
 					Direction = ParameterDirection.Input,
 					Value = isAdmin
 				},
-				new NpgsqlParameter("icon", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":icon", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = icon
 				},
-				new NpgsqlParameter("defaultcachetime", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":defaultcachetime", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = defaultCacheTime
 				},
-				new NpgsqlParameter("guid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":guid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureGuid.ToString()
 				},
-				new NpgsqlParameter("resourcefile", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":resourcefile", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = resourceFile
 				},
-				new NpgsqlParameter("iscacheable", NpgsqlDbType.Boolean)
+				new NpgsqlParameter(":iscacheable", NpgsqlDbType.Boolean)
 				{
 					Direction = ParameterDirection.Input,
 					Value = isCacheable
 				},
-				new NpgsqlParameter("issearchable", NpgsqlDbType.Boolean)
+				new NpgsqlParameter(":issearchable", NpgsqlDbType.Boolean)
 				{
 					Direction = ParameterDirection.Input,
 					Value = isSearchable
 				},
-				new NpgsqlParameter("searchlistname", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":searchlistname", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = searchListName
 				},
-				new NpgsqlParameter("supportspagereuse", NpgsqlDbType.Boolean)
+				new NpgsqlParameter(":supportspagereuse", NpgsqlDbType.Boolean)
 				{
 					Direction = ParameterDirection.Input,
 					Value = supportsPageReuse
 				},
-				new NpgsqlParameter("deleteprovider", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":deleteprovider", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = deleteProvider
 				},
-				new NpgsqlParameter("partialview", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":partialview", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = partialView
 				},
-				new NpgsqlParameter("skinfilename", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":skinfilename", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = skinFileName
@@ -185,12 +185,12 @@ namespace mojoPortal.Data
 
 				sqlParams = new List<NpgsqlParameter>()
 				{
-					new NpgsqlParameter("siteid", NpgsqlDbType.Integer)
+					new NpgsqlParameter(":siteid", NpgsqlDbType.Integer)
 					{
 						Direction = ParameterDirection.Input,
 						Value = siteId
 					},
-					new NpgsqlParameter("moduledefid", NpgsqlDbType.Integer)
+					new NpgsqlParameter(":moduledefid", NpgsqlDbType.Integer)
 					{
 						Direction = ParameterDirection.Input,
 						Value = newID
@@ -263,77 +263,77 @@ namespace mojoPortal.Data
 
 			var sqlParams = new List<NpgsqlParameter>()
 			{
-				new NpgsqlParameter("moduledefid", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":moduledefid", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleDefId
 				},
-				new NpgsqlParameter("featurename", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":featurename", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureName
 				},
-				new NpgsqlParameter("controlsrc", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":controlsrc", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = controlSrc
 				},
-				new NpgsqlParameter("sortorder", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":sortorder", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = sortOrder
 				},
-				new NpgsqlParameter("isadmin", NpgsqlDbType.Boolean)
+				new NpgsqlParameter(":isadmin", NpgsqlDbType.Boolean)
 				{
 					Direction = ParameterDirection.Input,
 					Value = isAdmin
 				},
-				new NpgsqlParameter("icon", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":icon", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = icon
 				},
-				new NpgsqlParameter("defaultcachetime", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":defaultcachetime", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = defaultCacheTime
 				},
-				new NpgsqlParameter("resourcefile", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":resourcefile", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = resourceFile
 				},
-				new NpgsqlParameter("iscacheable", NpgsqlDbType.Boolean)
+				new NpgsqlParameter(":iscacheable", NpgsqlDbType.Boolean)
 				{
 					Direction = ParameterDirection.Input,
 					Value = isCacheable
 				},
-				new NpgsqlParameter("issearchable", NpgsqlDbType.Boolean)
+				new NpgsqlParameter(":issearchable", NpgsqlDbType.Boolean)
 				{
 					Direction = ParameterDirection.Input,
 					Value = isSearchable
 				},
-				new NpgsqlParameter("searchlistname", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":searchlistname", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = searchListName
 				},
-				new NpgsqlParameter("supportspagereuse", NpgsqlDbType.Boolean)
+				new NpgsqlParameter(":supportspagereuse", NpgsqlDbType.Boolean)
 				{
 					Direction = ParameterDirection.Input,
 					Value = supportsPageReuse
 				},
-				new NpgsqlParameter("deleteprovider", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":deleteprovider", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = deleteProvider
 				},
-				new NpgsqlParameter("partialview", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":partialview", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = partialView
 				},
-				new NpgsqlParameter("skinfilename", NpgsqlDbType.Varchar, 255) {
+				new NpgsqlParameter(":skinfilename", NpgsqlDbType.Varchar, 255) {
 					Direction = ParameterDirection.Input,
 					Value = skinFileName
 				}
@@ -365,17 +365,17 @@ namespace mojoPortal.Data
 
 			var sqlParams = new List<NpgsqlParameter>()
 			{
-				new NpgsqlParameter("siteid", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":siteid", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteId
 				},
-				new NpgsqlParameter("moduledefid", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":moduledefid", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleDefId
 				},
-				new NpgsqlParameter("authorizedroles", NpgsqlDbType.Text)
+				new NpgsqlParameter(":authorizedroles", NpgsqlDbType.Text)
 				{
 					Direction = ParameterDirection.Input,
 					Value = authorizedRoles
@@ -397,7 +397,7 @@ namespace mojoPortal.Data
 		{
 			var arParams = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter("moduledefid", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":moduledefid", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleDefId
@@ -429,7 +429,7 @@ namespace mojoPortal.Data
 
 			var arParams = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter("moduledefid", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":moduledefid", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleDefId
@@ -452,7 +452,7 @@ namespace mojoPortal.Data
 		{
 			var arParams = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter("id", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":id", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = id
@@ -483,7 +483,7 @@ namespace mojoPortal.Data
 
 			var arParams = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter("moduledefid", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":moduledefid", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleDefId
@@ -505,7 +505,7 @@ namespace mojoPortal.Data
 		{
 			var arParams = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter("moduledefid", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":moduledefid", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleDefId
@@ -525,7 +525,7 @@ namespace mojoPortal.Data
 		{
 			var arParams = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter("featureguid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":featureguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureGuid.ToString()
@@ -593,7 +593,7 @@ not in
 
 			var sqlParams = new List<NpgsqlParameter>()
 			{
-				new NpgsqlParameter("siteguid", NpgsqlDbType.Char, 36) {
+				new NpgsqlParameter(":siteguid", NpgsqlDbType.Char, 36) {
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
 				}
@@ -645,7 +645,7 @@ not in
 
 			var sqlParams = new List<NpgsqlParameter>()
 			{
-				new NpgsqlParameter("skinfilename", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":skinfilename", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = skinFileName
@@ -688,7 +688,7 @@ md.FeatureName";
 
 			var commandParameters = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter("siteid", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":siteid", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteId
@@ -717,7 +717,7 @@ md.FeatureName";
 
 			var sqlParams = new List<NpgsqlParameter>()
 			{
-				new NpgsqlParameter("siteid", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = siteId }
+				new NpgsqlParameter(":siteid", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = siteId }
 			};
 
 			return NpgsqlHelper.ExecuteReader(
@@ -742,17 +742,17 @@ md.FeatureName";
 
 			var sqlParams = new List<NpgsqlParameter>()
 			{
-				new NpgsqlParameter("featureguid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":featureguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureGuid.ToString()
 				},
-				new NpgsqlParameter("moduledefid", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":moduledefid", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleDefId
 				},
-				new NpgsqlParameter("settingname", NpgsqlDbType.Varchar, 50)
+				new NpgsqlParameter(":settingname", NpgsqlDbType.Varchar, 50)
 				{
 					Direction = ParameterDirection.Input,
 					Value = settingName
@@ -825,67 +825,67 @@ md.FeatureName";
 
 				var sqlParams = new List<NpgsqlParameter>()
 				{
-					new NpgsqlParameter("featureguid", NpgsqlDbType.Char, 36)
+					new NpgsqlParameter(":featureguid", NpgsqlDbType.Char, 36)
 					{
 						 Direction = ParameterDirection.Input,
 						 Value = featureGuid.ToString()
 					},
-					new NpgsqlParameter("moduledefid", NpgsqlDbType.Integer)
+					new NpgsqlParameter(":moduledefid", NpgsqlDbType.Integer)
 					{
 						 Direction = ParameterDirection.Input,
 						 Value = moduleDefId
 					},
-					new NpgsqlParameter("settingname", NpgsqlDbType.Varchar, 50)
+					new NpgsqlParameter(":settingname", NpgsqlDbType.Varchar, 50)
 					{
 						 Direction = ParameterDirection.Input,
 						 Value = settingName
 					},
-					new NpgsqlParameter("settingvalue", NpgsqlDbType.Text)
+					new NpgsqlParameter(":settingvalue", NpgsqlDbType.Text)
 					{
 						 Direction = ParameterDirection.Input,
 						 Value = settingValue
 					},
-					new NpgsqlParameter("controltype", NpgsqlDbType.Varchar, 50)
+					new NpgsqlParameter(":controltype", NpgsqlDbType.Varchar, 50)
 					{
 						 Direction = ParameterDirection.Input,
 						 Value = controlType
 					},
-					new NpgsqlParameter("regexvalidationexpression", NpgsqlDbType.Text)
+					new NpgsqlParameter(":regexvalidationexpression", NpgsqlDbType.Text)
 					{
 						 Direction = ParameterDirection.Input,
 						 Value = regexValidationExpression
 					},
-					new NpgsqlParameter("resourcefile", NpgsqlDbType.Varchar, 255)
+					new NpgsqlParameter(":resourcefile", NpgsqlDbType.Varchar, 255)
 					{
 						 Direction = ParameterDirection.Input,
 						 Value = resourceFile
 					},
-					new NpgsqlParameter("controlsrc", NpgsqlDbType.Varchar, 255)
+					new NpgsqlParameter(":controlsrc", NpgsqlDbType.Varchar, 255)
 					{
 						 Direction = ParameterDirection.Input,
 						 Value = controlSrc
 					},
-					new NpgsqlParameter("sortorder", NpgsqlDbType.Integer)
+					new NpgsqlParameter(":sortorder", NpgsqlDbType.Integer)
 					{
 						 Direction = ParameterDirection.Input,
 						 Value = sortOrder
 					},
-					new NpgsqlParameter("helpkey", NpgsqlDbType.Varchar, 255)
+					new NpgsqlParameter(":helpkey", NpgsqlDbType.Varchar, 255)
 					{
 						 Direction = ParameterDirection.Input,
 						 Value = helpKey
 					},
-					new NpgsqlParameter("groupname", NpgsqlDbType.Varchar, 255)
+					new NpgsqlParameter(":groupname", NpgsqlDbType.Varchar, 255)
 					{
 						 Direction = ParameterDirection.Input,
 						 Value = groupName
 					},
-					new NpgsqlParameter("attributes", NpgsqlDbType.Text)
+					new NpgsqlParameter(":attributes", NpgsqlDbType.Text)
 					{
 						 Direction = ParameterDirection.Input,
 						 Value = attributes
 					},
-					new NpgsqlParameter("options", NpgsqlDbType.Text)
+					new NpgsqlParameter(":options", NpgsqlDbType.Text)
 					{
 						 Direction = ParameterDirection.Input,
 						 Value = options
@@ -939,67 +939,67 @@ md.FeatureName";
 
 			var sqlParams = new List<NpgsqlParameter>()
 			{
-				new NpgsqlParameter("id", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":id", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = id
 				},
-				new NpgsqlParameter("moduledefid", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":moduledefid", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleDefId
 				},
-				new NpgsqlParameter("settingname", NpgsqlDbType.Varchar, 50)
+				new NpgsqlParameter(":settingname", NpgsqlDbType.Varchar, 50)
 				{
 					Direction = ParameterDirection.Input,
 					Value = settingName
 				},
-				new NpgsqlParameter("settingvalue", NpgsqlDbType.Text)
+				new NpgsqlParameter(":settingvalue", NpgsqlDbType.Text)
 				{
 					Direction = ParameterDirection.Input,
 					Value = settingValue
 				},
-				new NpgsqlParameter("controltype", NpgsqlDbType.Varchar, 50)
+				new NpgsqlParameter(":controltype", NpgsqlDbType.Varchar, 50)
 				{
 					Direction = ParameterDirection.Input,
 					Value = controlType
 				},
-				new NpgsqlParameter("regexvalidationexpression", NpgsqlDbType.Text)
+				new NpgsqlParameter(":regexvalidationexpression", NpgsqlDbType.Text)
 				{
 					Direction = ParameterDirection.Input,
 					Value = regexValidationExpression
 				},
-				new NpgsqlParameter("resourcefile", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":resourcefile", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = resourceFile
 				},
-				new NpgsqlParameter("controlsrc", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":controlsrc", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = controlSrc
 				},
-				new NpgsqlParameter("sortorder", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":sortorder", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = sortOrder
 				},
-				new NpgsqlParameter("helpkey", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":helpkey", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = helpKey
 				},
-				new NpgsqlParameter("groupname", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":groupname", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = groupName
 				},
-				new NpgsqlParameter("attributes", NpgsqlDbType.Text)
+				new NpgsqlParameter(":attributes", NpgsqlDbType.Text)
 				{
 					Direction = ParameterDirection.Input,
 					Value = attributes
 				},
-				new NpgsqlParameter("options", NpgsqlDbType.Text)
+				new NpgsqlParameter(":options", NpgsqlDbType.Text)
 				{
 					Direction = ParameterDirection.Input,
 					Value = options
@@ -1066,67 +1066,67 @@ md.FeatureName";
 
 			var sqlParams = new List<NpgsqlParameter>()
 			{
-				new NpgsqlParameter("featureguid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":featureguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureGuid.ToString()
 				},
-				new NpgsqlParameter("moduledefid", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":moduledefid", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleDefId
 				},
-				new NpgsqlParameter("settingname", NpgsqlDbType.Varchar, 50)
+				new NpgsqlParameter(":settingname", NpgsqlDbType.Varchar, 50)
 				{
 					Direction = ParameterDirection.Input,
 					Value = settingName
 				},
-				new NpgsqlParameter("settingvalue", NpgsqlDbType.Text)
+				new NpgsqlParameter(":settingvalue", NpgsqlDbType.Text)
 				{
 					Direction = ParameterDirection.Input,
 					Value = settingValue
 				},
-				new NpgsqlParameter("controltype", NpgsqlDbType.Varchar, 50)
+				new NpgsqlParameter(":controltype", NpgsqlDbType.Varchar, 50)
 				{
 					Direction = ParameterDirection.Input,
 					Value = controlType
 				},
-				new NpgsqlParameter("regexvalidationexpression", NpgsqlDbType.Text)
+				new NpgsqlParameter(":regexvalidationexpression", NpgsqlDbType.Text)
 				{
 					Direction = ParameterDirection.Input,
 					Value = regexValidationExpression
 				},
-				new NpgsqlParameter("resourcefile", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":resourcefile", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = resourceFile
 				},
-				new NpgsqlParameter("controlsrc", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":controlsrc", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = controlSrc
 				},
-				new NpgsqlParameter("sortorder", NpgsqlDbType.Integer)
+				new NpgsqlParameter(":sortorder", NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = sortOrder
 				},
-				new NpgsqlParameter("helpkey", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":helpkey", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = helpKey
 				},
-				new NpgsqlParameter("groupname", NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":groupname", NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = groupName
 				},
-				new NpgsqlParameter("attributes", NpgsqlDbType.Text)
+				new NpgsqlParameter(":attributes", NpgsqlDbType.Text)
 				{
 					Direction = ParameterDirection.Input,
 					Value = attributes
 				},
-				new NpgsqlParameter("options", NpgsqlDbType.Text)
+				new NpgsqlParameter(":options", NpgsqlDbType.Text)
 				{
 					Direction = ParameterDirection.Input,
 					Value = options
@@ -1148,12 +1148,12 @@ md.FeatureName";
 		{
 			var sqlParams = new List<NpgsqlParameter>()
 			{
-				new NpgsqlParameter("featureguid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":featureguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureGuid.ToString()
 				},
-				new NpgsqlParameter("settingname", NpgsqlDbType.Varchar, 50)
+				new NpgsqlParameter(":settingname", NpgsqlDbType.Varchar, 50)
 				{
 					Direction = ParameterDirection.Input,
 					Value = settingName

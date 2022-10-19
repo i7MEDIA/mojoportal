@@ -52,47 +52,47 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[11];
 
-            arParams[0] = new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
 
-            arParams[1] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[1] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = siteGuid.ToString();
 
-            arParams[2] = new NpgsqlParameter("geozoneguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[2] = new NpgsqlParameter(":geozoneguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = geoZoneGuid.ToString();
 
-            arParams[3] = new NpgsqlParameter("taxclassguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[3] = new NpgsqlParameter(":taxclassguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = taxClassGuid.ToString();
 
-            arParams[4] = new NpgsqlParameter("priority", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[4] = new NpgsqlParameter(":priority", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = priority;
 
-            arParams[5] = new NpgsqlParameter("rate", NpgsqlTypes.NpgsqlDbType.Numeric);
+            arParams[5] = new NpgsqlParameter(":rate", NpgsqlTypes.NpgsqlDbType.Numeric);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = rate;
 
-            arParams[6] = new NpgsqlParameter("description", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[6] = new NpgsqlParameter(":description", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = description;
 
-            arParams[7] = new NpgsqlParameter("created", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[7] = new NpgsqlParameter(":created", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[7].Direction = ParameterDirection.Input;
             arParams[7].Value = created;
 
-            arParams[8] = new NpgsqlParameter("createdby", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[8] = new NpgsqlParameter(":createdby", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[8].Direction = ParameterDirection.Input;
             arParams[8].Value = createdBy.ToString();
 
-            arParams[9] = new NpgsqlParameter("lastmodified", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[9] = new NpgsqlParameter(":lastmodified", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[9].Direction = ParameterDirection.Input;
             arParams[9].Value = lastModified;
 
-            arParams[10] = new NpgsqlParameter("modifiedby", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[10] = new NpgsqlParameter(":modifiedby", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[10].Direction = ParameterDirection.Input;
             arParams[10].Value = modifiedBy.ToString();
 
@@ -163,35 +163,35 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[8];
 
-            arParams[0] = new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
 
-            arParams[1] = new NpgsqlParameter("geozoneguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[1] = new NpgsqlParameter(":geozoneguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = geoZoneGuid.ToString();
 
-            arParams[2] = new NpgsqlParameter("taxclassguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[2] = new NpgsqlParameter(":taxclassguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = taxClassGuid.ToString();
 
-            arParams[3] = new NpgsqlParameter("priority", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[3] = new NpgsqlParameter(":priority", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = priority;
 
-            arParams[4] = new NpgsqlParameter("rate", NpgsqlTypes.NpgsqlDbType.Numeric);
+            arParams[4] = new NpgsqlParameter(":rate", NpgsqlTypes.NpgsqlDbType.Numeric);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = rate;
 
-            arParams[5] = new NpgsqlParameter("description", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[5] = new NpgsqlParameter(":description", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = description;
 
-            arParams[6] = new NpgsqlParameter("lastmodified", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[6] = new NpgsqlParameter(":lastmodified", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = lastModified;
 
-            arParams[7] = new NpgsqlParameter("modifiedby", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[7] = new NpgsqlParameter(":modifiedby", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[7].Direction = ParameterDirection.Input;
             arParams[7].Value = modifiedBy.ToString();
 
@@ -228,7 +228,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
 
@@ -255,7 +255,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
 
@@ -285,11 +285,11 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-            arParams[0] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteGuid.ToString();
 
-            arParams[1] = new NpgsqlParameter("geozoneguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[1] = new NpgsqlParameter(":geozoneguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = geoZoneGuid.ToString();
 
@@ -346,55 +346,55 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[13];
 
-            arParams[0] = new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
 
-            arParams[1] = new NpgsqlParameter("taxrateguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[1] = new NpgsqlParameter(":taxrateguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = taxRateGuid.ToString();
 
-            arParams[2] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[2] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = siteGuid.ToString();
 
-            arParams[3] = new NpgsqlParameter("geozoneguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[3] = new NpgsqlParameter(":geozoneguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = geoZoneGuid.ToString();
 
-            arParams[4] = new NpgsqlParameter("taxclassguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[4] = new NpgsqlParameter(":taxclassguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = taxClassGuid.ToString();
 
-            arParams[5] = new NpgsqlParameter("priority", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[5] = new NpgsqlParameter(":priority", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = priority;
 
-            arParams[6] = new NpgsqlParameter("rate", NpgsqlTypes.NpgsqlDbType.Numeric);
+            arParams[6] = new NpgsqlParameter(":rate", NpgsqlTypes.NpgsqlDbType.Numeric);
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = rate;
 
-            arParams[7] = new NpgsqlParameter("description", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[7] = new NpgsqlParameter(":description", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[7].Direction = ParameterDirection.Input;
             arParams[7].Value = description;
 
-            arParams[8] = new NpgsqlParameter("created", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[8] = new NpgsqlParameter(":created", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[8].Direction = ParameterDirection.Input;
             arParams[8].Value = created;
 
-            arParams[9] = new NpgsqlParameter("createdby", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[9] = new NpgsqlParameter(":createdby", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[9].Direction = ParameterDirection.Input;
             arParams[9].Value = createdBy.ToString();
 
-            arParams[10] = new NpgsqlParameter("lastmodified", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[10] = new NpgsqlParameter(":lastmodified", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[10].Direction = ParameterDirection.Input;
             arParams[10].Value = lastModified;
 
-            arParams[11] = new NpgsqlParameter("modifiedby", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[11] = new NpgsqlParameter(":modifiedby", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[11].Direction = ParameterDirection.Input;
             arParams[11].Value = modifiedBy.ToString();
 
-            arParams[12] = new NpgsqlParameter("logtime", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[12] = new NpgsqlParameter(":logtime", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[12].Direction = ParameterDirection.Input;
             arParams[12].Value = logTime;
 

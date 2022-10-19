@@ -142,115 +142,115 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[28];
 
-            arParams[0] = new NpgsqlParameter("letterinfoguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":letterinfoguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = letterInfoGuid.ToString();
 
-            arParams[1] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[1] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = siteGuid.ToString();
 
-            arParams[2] = new NpgsqlParameter("title", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[2] = new NpgsqlParameter(":title", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = title;
 
-            arParams[3] = new NpgsqlParameter("description", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[3] = new NpgsqlParameter(":description", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = description;
 
-            arParams[4] = new NpgsqlParameter("availabletoroles", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[4] = new NpgsqlParameter(":availabletoroles", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = availableToRoles;
 
-            arParams[5] = new NpgsqlParameter("enabled", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[5] = new NpgsqlParameter(":enabled", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = enabled;
 
-            arParams[6] = new NpgsqlParameter("allowuserfeedback", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[6] = new NpgsqlParameter(":allowuserfeedback", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = allowUserFeedback;
 
-            arParams[7] = new NpgsqlParameter("allowanonfeedback", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[7] = new NpgsqlParameter(":allowanonfeedback", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[7].Direction = ParameterDirection.Input;
             arParams[7].Value = allowAnonFeedback;
 
-            arParams[8] = new NpgsqlParameter("fromaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[8] = new NpgsqlParameter(":fromaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[8].Direction = ParameterDirection.Input;
             arParams[8].Value = fromAddress;
 
-            arParams[9] = new NpgsqlParameter("fromname", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[9] = new NpgsqlParameter(":fromname", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[9].Direction = ParameterDirection.Input;
             arParams[9].Value = fromName;
 
-            arParams[10] = new NpgsqlParameter("replytoaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[10] = new NpgsqlParameter(":replytoaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[10].Direction = ParameterDirection.Input;
             arParams[10].Value = replyToAddress;
 
-            arParams[11] = new NpgsqlParameter("sendmode", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[11] = new NpgsqlParameter(":sendmode", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[11].Direction = ParameterDirection.Input;
             arParams[11].Value = sendMode;
 
-            arParams[12] = new NpgsqlParameter("enableviewaswebpage", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[12] = new NpgsqlParameter(":enableviewaswebpage", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[12].Direction = ParameterDirection.Input;
             arParams[12].Value = enableViewAsWebPage;
 
-            arParams[13] = new NpgsqlParameter("enablesendlog", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[13] = new NpgsqlParameter(":enablesendlog", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[13].Direction = ParameterDirection.Input;
             arParams[13].Value = enableSendLog;
 
-            arParams[14] = new NpgsqlParameter("rolesthatcanedit", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[14] = new NpgsqlParameter(":rolesthatcanedit", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[14].Direction = ParameterDirection.Input;
             arParams[14].Value = rolesThatCanEdit;
 
-            arParams[15] = new NpgsqlParameter("rolesthatcanapprove", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[15] = new NpgsqlParameter(":rolesthatcanapprove", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[15].Direction = ParameterDirection.Input;
             arParams[15].Value = rolesThatCanApprove;
 
-            arParams[16] = new NpgsqlParameter("rolesthatcansend", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[16] = new NpgsqlParameter(":rolesthatcansend", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[16].Direction = ParameterDirection.Input;
             arParams[16].Value = rolesThatCanSend;
 
-            arParams[17] = new NpgsqlParameter("subscribercount", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[17] = new NpgsqlParameter(":subscribercount", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[17].Direction = ParameterDirection.Input;
             arParams[17].Value = 0;
 
-            arParams[18] = new NpgsqlParameter("createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[18] = new NpgsqlParameter(":createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[18].Direction = ParameterDirection.Input;
             arParams[18].Value = createdUtc;
 
-            arParams[19] = new NpgsqlParameter("createdby", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[19] = new NpgsqlParameter(":createdby", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[19].Direction = ParameterDirection.Input;
             arParams[19].Value = createdBy.ToString();
 
-            arParams[20] = new NpgsqlParameter("lastmodutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[20] = new NpgsqlParameter(":lastmodutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[20].Direction = ParameterDirection.Input;
             arParams[20].Value = lastModUtc;
 
-            arParams[21] = new NpgsqlParameter("lastmodby", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[21] = new NpgsqlParameter(":lastmodby", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[21].Direction = ParameterDirection.Input;
             arParams[21].Value = lastModBy.ToString();
 
-            arParams[22] = new NpgsqlParameter("allowarchiveview", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[22] = new NpgsqlParameter(":allowarchiveview", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[22].Direction = ParameterDirection.Input;
             arParams[22].Value = allowArchiveView;
 
-            arParams[23] = new NpgsqlParameter("profileoptin", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[23] = new NpgsqlParameter(":profileoptin", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[23].Direction = ParameterDirection.Input;
             arParams[23].Value = profileOptIn;
 
-            arParams[24] = new NpgsqlParameter("sortrank", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[24] = new NpgsqlParameter(":sortrank", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[24].Direction = ParameterDirection.Input;
             arParams[24].Value = sortRank;
 
-            arParams[25] = new NpgsqlParameter("displaynamedefault", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[25] = new NpgsqlParameter(":displaynamedefault", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[25].Direction = ParameterDirection.Input;
             arParams[25].Value = displayNameDefault;
 
-            arParams[26] = new NpgsqlParameter("firstnamedefault", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[26] = new NpgsqlParameter(":firstnamedefault", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[26].Direction = ParameterDirection.Input;
             arParams[26].Value = firstNameDefault;
 
-            arParams[27] = new NpgsqlParameter("lastnamedefault", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[27] = new NpgsqlParameter(":lastnamedefault", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[27].Direction = ParameterDirection.Input;
             arParams[27].Value = lastNameDefault;
 
@@ -358,111 +358,111 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[27];
 
-            arParams[0] = new NpgsqlParameter("letterinfoguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":letterinfoguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = letterInfoGuid.ToString();
 
-            arParams[1] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[1] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = siteGuid.ToString();
 
-            arParams[2] = new NpgsqlParameter("title", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[2] = new NpgsqlParameter(":title", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = title;
 
-            arParams[3] = new NpgsqlParameter("description", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[3] = new NpgsqlParameter(":description", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = description;
 
-            arParams[4] = new NpgsqlParameter("availabletoroles", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[4] = new NpgsqlParameter(":availabletoroles", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = availableToRoles;
 
-            arParams[5] = new NpgsqlParameter("enabled", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[5] = new NpgsqlParameter(":enabled", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = enabled;
 
-            arParams[6] = new NpgsqlParameter("allowuserfeedback", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[6] = new NpgsqlParameter(":allowuserfeedback", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = allowUserFeedback;
 
-            arParams[7] = new NpgsqlParameter("allowanonfeedback", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[7] = new NpgsqlParameter(":allowanonfeedback", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[7].Direction = ParameterDirection.Input;
             arParams[7].Value = allowAnonFeedback;
 
-            arParams[8] = new NpgsqlParameter("fromaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[8] = new NpgsqlParameter(":fromaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[8].Direction = ParameterDirection.Input;
             arParams[8].Value = fromAddress;
 
-            arParams[9] = new NpgsqlParameter("fromname", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[9] = new NpgsqlParameter(":fromname", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[9].Direction = ParameterDirection.Input;
             arParams[9].Value = fromName;
 
-            arParams[10] = new NpgsqlParameter("replytoaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[10] = new NpgsqlParameter(":replytoaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[10].Direction = ParameterDirection.Input;
             arParams[10].Value = replyToAddress;
 
-            arParams[11] = new NpgsqlParameter("sendmode", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[11] = new NpgsqlParameter(":sendmode", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[11].Direction = ParameterDirection.Input;
             arParams[11].Value = sendMode;
 
-            arParams[12] = new NpgsqlParameter("enableviewaswebpage", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[12] = new NpgsqlParameter(":enableviewaswebpage", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[12].Direction = ParameterDirection.Input;
             arParams[12].Value = enableViewAsWebPage;
 
-            arParams[13] = new NpgsqlParameter("enablesendlog", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[13] = new NpgsqlParameter(":enablesendlog", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[13].Direction = ParameterDirection.Input;
             arParams[13].Value = enableSendLog;
 
-            arParams[14] = new NpgsqlParameter("rolesthatcanedit", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[14] = new NpgsqlParameter(":rolesthatcanedit", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[14].Direction = ParameterDirection.Input;
             arParams[14].Value = rolesThatCanEdit;
 
-            arParams[15] = new NpgsqlParameter("rolesthatcanapprove", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[15] = new NpgsqlParameter(":rolesthatcanapprove", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[15].Direction = ParameterDirection.Input;
             arParams[15].Value = rolesThatCanApprove;
 
-            arParams[16] = new NpgsqlParameter("rolesthatcansend", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[16] = new NpgsqlParameter(":rolesthatcansend", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[16].Direction = ParameterDirection.Input;
             arParams[16].Value = rolesThatCanSend;
 
-            arParams[17] = new NpgsqlParameter("createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[17] = new NpgsqlParameter(":createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[17].Direction = ParameterDirection.Input;
             arParams[17].Value = createdUtc;
 
-            arParams[18] = new NpgsqlParameter("createdby", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[18] = new NpgsqlParameter(":createdby", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[18].Direction = ParameterDirection.Input;
             arParams[18].Value = createdBy.ToString();
 
-            arParams[19] = new NpgsqlParameter("lastmodutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[19] = new NpgsqlParameter(":lastmodutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[19].Direction = ParameterDirection.Input;
             arParams[19].Value = lastModUtc;
 
-            arParams[20] = new NpgsqlParameter("lastmodby", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[20] = new NpgsqlParameter(":lastmodby", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[20].Direction = ParameterDirection.Input;
             arParams[20].Value = lastModBy.ToString();
 
-            arParams[21] = new NpgsqlParameter("allowarchiveview", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[21] = new NpgsqlParameter(":allowarchiveview", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[21].Direction = ParameterDirection.Input;
             arParams[21].Value = allowArchiveView;
 
-            arParams[22] = new NpgsqlParameter("profileoptin", NpgsqlTypes.NpgsqlDbType.Boolean);
+            arParams[22] = new NpgsqlParameter(":profileoptin", NpgsqlTypes.NpgsqlDbType.Boolean);
             arParams[22].Direction = ParameterDirection.Input;
             arParams[22].Value = profileOptIn;
 
-            arParams[23] = new NpgsqlParameter("sortrank", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[23] = new NpgsqlParameter(":sortrank", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[23].Direction = ParameterDirection.Input;
             arParams[23].Value = sortRank;
 
-            arParams[24] = new NpgsqlParameter("displaynamedefault", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[24] = new NpgsqlParameter(":displaynamedefault", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[24].Direction = ParameterDirection.Input;
             arParams[24].Value = displayNameDefault;
 
-            arParams[25] = new NpgsqlParameter("firstnamedefault", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[25] = new NpgsqlParameter(":firstnamedefault", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[25].Direction = ParameterDirection.Input;
             arParams[25].Value = firstNameDefault;
 
-            arParams[26] = new NpgsqlParameter("lastnamedefault", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[26] = new NpgsqlParameter(":lastnamedefault", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[26].Direction = ParameterDirection.Input;
             arParams[26].Value = lastNameDefault;
 
@@ -486,7 +486,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter("letterinfoguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":letterinfoguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = letterInfoGuid.ToString();
 
@@ -530,7 +530,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter("letterinfoguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":letterinfoguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = letterInfoGuid.ToString();
 
@@ -551,7 +551,7 @@ namespace mojoPortal.Data
         {
             //NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            //arParams[0] = new NpgsqlParameter("letterinfoguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            //arParams[0] = new NpgsqlParameter(":letterinfoguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             //arParams[0].Direction = ParameterDirection.Input;
             //arParams[0].Value = letterInfoGuid.ToString();
 
@@ -572,7 +572,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("letterinfoguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":letterinfoguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = letterInfoGuid.ToString();
 
@@ -597,7 +597,7 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteGuid.ToString();
 
@@ -618,7 +618,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteGuid.ToString();
 
@@ -665,15 +665,15 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 
-            arParams[0] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteGuid.ToString();
 
-            arParams[1] = new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[1] = new NpgsqlParameter(":pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = pageSize;
 
-            arParams[2] = new NpgsqlParameter("pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[2] = new NpgsqlParameter(":pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = pageLowerBound;
 
@@ -720,15 +720,15 @@ namespace mojoPortal.Data
 
             //NpgsqlParameter[] arParams = new NpgsqlParameter[3];
             
-            //arParams[0] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            //arParams[0] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             //arParams[0].Direction = ParameterDirection.Input;
             //arParams[0].Value = siteGuid.ToString();
 
-            //arParams[1] = new NpgsqlParameter("pagenumber", NpgsqlTypes.NpgsqlDbType.Integer);
+            //arParams[1] = new NpgsqlParameter(":pagenumber", NpgsqlTypes.NpgsqlDbType.Integer);
             //arParams[1].Direction = ParameterDirection.Input;
             //arParams[1].Value = pageNumber;
 
-            //arParams[2] = new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
+            //arParams[2] = new NpgsqlParameter(":pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
             //arParams[2].Direction = ParameterDirection.Input;
             //arParams[2].Value = pageSize;
 

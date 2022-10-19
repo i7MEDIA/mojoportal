@@ -48,42 +48,42 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("?TagItemGuid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":tagitemguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = tagItemGuid.ToString()
 				},
-				new NpgsqlParameter("?SiteGuid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":siteguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
 				},
-				new NpgsqlParameter("?FeatureGuid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":featureguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureGuid.ToString()
 				},
-				new NpgsqlParameter("?ModuleGuid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":moduleguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleGuid.ToString()
 				},
-				new NpgsqlParameter("?RelatedItemGuid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":relateditemguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = relatedItemGuid.ToString()
 				},
-				new NpgsqlParameter("?TagGuid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":tagguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = tagGuid.ToString()
 				},
-				new NpgsqlParameter("?ExtraGuid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":extraguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = extraGuid.ToString()
 				},
-				new NpgsqlParameter("?TaggedBy", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":taggedby", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = taggedBy.ToString()
@@ -111,7 +111,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("siteguid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":siteguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
@@ -135,7 +135,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("tagitemguid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":tagitemguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = tagItemGuid.ToString()
@@ -159,7 +159,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("tagguid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":tagguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = tagGuid.ToString()
@@ -183,7 +183,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("moduleguid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":moduleguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleGuid.ToString()
@@ -207,7 +207,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("featureguid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":featureguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureGuid.ToString()
@@ -231,7 +231,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("itemguid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":itemguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = relatedItemGuid.ToString()
@@ -255,7 +255,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("extraguid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":extraguid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = extraGuid.ToString()
@@ -298,7 +298,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("?RelatedItemGuid", NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":RelatedItemGuid", NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = tagItemGuid.ToString()

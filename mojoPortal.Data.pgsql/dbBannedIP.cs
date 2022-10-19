@@ -38,15 +38,15 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[3];
             
-            arParams[0] = new NpgsqlParameter("bannedip", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[0] = new NpgsqlParameter(":bannedip", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = bannedIP;
 
-            arParams[1] = new NpgsqlParameter("bannedutc", NpgsqlTypes.NpgsqlDbType.Date);
+            arParams[1] = new NpgsqlParameter(":bannedutc", NpgsqlTypes.NpgsqlDbType.Date);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = bannedUtc;
 
-            arParams[2] = new NpgsqlParameter("bannedreason", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[2] = new NpgsqlParameter(":bannedreason", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = bannedReason;
 
@@ -76,19 +76,19 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[4];
             
-            arParams[0] = new NpgsqlParameter("rowid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":rowid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowId;
 
-            arParams[1] = new NpgsqlParameter("bannedip", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[1] = new NpgsqlParameter(":bannedip", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = bannedIP;
 
-            arParams[2] = new NpgsqlParameter("bannedutc", NpgsqlTypes.NpgsqlDbType.Date);
+            arParams[2] = new NpgsqlParameter(":bannedutc", NpgsqlTypes.NpgsqlDbType.Date);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = bannedUtc;
 
-            arParams[3] = new NpgsqlParameter("bannedreason", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[3] = new NpgsqlParameter(":bannedreason", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = bannedReason;
 
@@ -110,7 +110,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter("rowid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":rowid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowId;
 
@@ -132,7 +132,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter("rowid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":rowid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowId;
 
@@ -159,7 +159,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("bannedip", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[0] = new NpgsqlParameter(":bannedip", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = ipAddress;
 
@@ -206,7 +206,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("bannedip", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[0] = new NpgsqlParameter(":bannedip", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = ipAddress;
 
@@ -260,11 +260,11 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[2];
             
-            arParams[0] = new NpgsqlParameter("pagenumber", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":pagenumber", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = pageNumber;
 
-            arParams[1] = new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[1] = new NpgsqlParameter(":pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = pageSize;
 

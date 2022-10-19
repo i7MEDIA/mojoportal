@@ -40,15 +40,15 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 
-            arParams[0] = new NpgsqlParameter("loginprovider", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[0] = new NpgsqlParameter(":loginprovider", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = loginProvider;
 
-            arParams[1] = new NpgsqlParameter("providerkey", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[1] = new NpgsqlParameter(":providerkey", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = providerKey;
 
-            arParams[2] = new NpgsqlParameter("userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[2] = new NpgsqlParameter(":userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = userId;
 
@@ -80,15 +80,15 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 
-            arParams[0] = new NpgsqlParameter("loginprovider", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[0] = new NpgsqlParameter(":loginprovider", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = loginProvider;
 
-            arParams[1] = new NpgsqlParameter("providerkey", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[1] = new NpgsqlParameter(":providerkey", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = providerKey;
 
-            arParams[2] = new NpgsqlParameter("userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[2] = new NpgsqlParameter(":userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = userId;
 
@@ -113,7 +113,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[0] = new NpgsqlParameter(":userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userId;
 
@@ -139,7 +139,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteGuid.ToString();
 
@@ -168,11 +168,11 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-            arParams[0] = new NpgsqlParameter("loginprovider", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[0] = new NpgsqlParameter(":loginprovider", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = loginProvider;
 
-            arParams[1] = new NpgsqlParameter("providerkey", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[1] = new NpgsqlParameter(":providerkey", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = providerKey;
 
@@ -197,7 +197,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[0] = new NpgsqlParameter(":userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userId;
 

@@ -75,39 +75,39 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[9];
 
-            arParams[0] = new NpgsqlParameter("rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowGuid.ToString();
 
-            arParams[1] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[1] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = siteGuid.ToString();
 
-            arParams[2] = new NpgsqlParameter("contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[2] = new NpgsqlParameter(":contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = contentGuid.ToString();
 
-            arParams[3] = new NpgsqlParameter("userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[3] = new NpgsqlParameter(":userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = userGuid.ToString();
 
-            arParams[4] = new NpgsqlParameter("emailaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 100);
+            arParams[4] = new NpgsqlParameter(":emailaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 100);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = emailAddress;
 
-            arParams[5] = new NpgsqlParameter("rating", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[5] = new NpgsqlParameter(":rating", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = rating;
 
-            arParams[6] = new NpgsqlParameter("comments", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[6] = new NpgsqlParameter(":comments", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = comments;
 
-            arParams[7] = new NpgsqlParameter("ipaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[7] = new NpgsqlParameter(":ipaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[7].Direction = ParameterDirection.Input;
             arParams[7].Value = ipAddress;
 
-            arParams[8] = new NpgsqlParameter("createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[8] = new NpgsqlParameter(":createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[8].Direction = ParameterDirection.Input;
             arParams[8].Value = createdUtc;
 
@@ -155,27 +155,27 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[6];
 
-            arParams[0] = new NpgsqlParameter("rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowGuid.ToString();
 
-            arParams[1] = new NpgsqlParameter("emailaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 100);
+            arParams[1] = new NpgsqlParameter(":emailaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 100);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = emailAddress;
 
-            arParams[2] = new NpgsqlParameter("rating", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[2] = new NpgsqlParameter(":rating", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = rating;
 
-            arParams[3] = new NpgsqlParameter("comments", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[3] = new NpgsqlParameter(":comments", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = comments;
 
-            arParams[4] = new NpgsqlParameter("ipaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[4] = new NpgsqlParameter(":ipaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = ipAddress;
 
-            arParams[5] = new NpgsqlParameter("lastmodutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[5] = new NpgsqlParameter(":lastmodutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = lastModUtc;
 
@@ -204,7 +204,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowGuid.ToString();
 
@@ -233,7 +233,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = contentGuid.ToString();
 
@@ -262,7 +262,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteGuid.ToString();
 
@@ -291,7 +291,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userGuid.ToString();
 
@@ -320,7 +320,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowGuid.ToString();
 
@@ -349,11 +349,11 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-            arParams[0] = new NpgsqlParameter("contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = contentGuid.ToString();
 
-            arParams[1] = new NpgsqlParameter("userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[1] = new NpgsqlParameter(":userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = userGuid.ToString();
 
@@ -381,7 +381,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = contentGuid.ToString();
 
@@ -408,7 +408,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = contentGuid.ToString();
 
@@ -435,11 +435,11 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-            arParams[0] = new NpgsqlParameter("contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = contentGuid.ToString();
 
-            arParams[1] = new NpgsqlParameter("userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[1] = new NpgsqlParameter(":userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = userGuid.ToString();
 
@@ -468,15 +468,15 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 
-            arParams[0] = new NpgsqlParameter("contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = contentGuid.ToString();
 
-            arParams[1] = new NpgsqlParameter("ipaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[1] = new NpgsqlParameter(":ipaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = ipAddress;
 
-            arParams[2] = new NpgsqlParameter("beginutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[2] = new NpgsqlParameter(":beginutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = beginUtc;
 
@@ -523,15 +523,15 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 
-            arParams[0] = new NpgsqlParameter("contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":contentguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = contentGuid.ToString();
 
-            arParams[1] = new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[1] = new NpgsqlParameter(":pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = pageSize;
 
-            arParams[2] = new NpgsqlParameter("pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[2] = new NpgsqlParameter(":pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = pageLowerBound;
 

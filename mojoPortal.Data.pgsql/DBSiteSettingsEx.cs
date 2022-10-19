@@ -42,7 +42,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteId;
 
@@ -143,15 +143,15 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteId;
 
-            arParams[1] = new NpgsqlParameter("keyname", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[1] = new NpgsqlParameter(":keyname", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = keyName;
 
-            arParams[2] = new NpgsqlParameter("keyvalue", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[2] = new NpgsqlParameter(":keyvalue", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = keyValue;
 
@@ -190,23 +190,23 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[5];
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteId;
 
-            arParams[1] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[1] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = siteGuid.ToString();
 
-            arParams[2] = new NpgsqlParameter("keyname", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[2] = new NpgsqlParameter(":keyname", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = keyName;
 
-            arParams[3] = new NpgsqlParameter("keyvalue", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[3] = new NpgsqlParameter(":keyvalue", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = keyValue;
 
-            arParams[4] = new NpgsqlParameter("groupname", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[4] = new NpgsqlParameter(":groupname", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = groupName;
 
@@ -237,15 +237,15 @@ namespace mojoPortal.Data
 			
 			NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 			
-			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer); 
+			arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer); 
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteID;
 			
-			arParams[1] = new NpgsqlParameter("keyname", NpgsqlTypes.NpgsqlDbType.Varchar,128); 
+			arParams[1] = new NpgsqlParameter(":keyname", NpgsqlTypes.NpgsqlDbType.Varchar,128); 
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = keyName;
 			
-			arParams[2] = new NpgsqlParameter("keyvalue", NpgsqlTypes.NpgsqlDbType.Text); 
+			arParams[2] = new NpgsqlParameter(":keyvalue", NpgsqlTypes.NpgsqlDbType.Text); 
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = keyValue;
 
@@ -273,11 +273,11 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteID;
 
-            arParams[1] = new NpgsqlParameter("keyname", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[1] = new NpgsqlParameter(":keyname", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = keyName;
 

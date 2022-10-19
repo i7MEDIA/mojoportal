@@ -60,31 +60,31 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[7];
 
-            arParams[0] = new NpgsqlParameter("id", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":id", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = id.ToString();
 
-            arParams[1] = new NpgsqlParameter("name", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[1] = new NpgsqlParameter(":name", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = name;
 
-            arParams[2] = new NpgsqlParameter("statement", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[2] = new NpgsqlParameter(":statement", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = statement;
 
-            arParams[3] = new NpgsqlParameter("createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[3] = new NpgsqlParameter(":createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = createdUtc;
 
-            arParams[4] = new NpgsqlParameter("createdby", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[4] = new NpgsqlParameter(":createdby", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = createdBy.ToString();
 
-            arParams[5] = new NpgsqlParameter("lastmodutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[5] = new NpgsqlParameter(":lastmodutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = createdUtc;
 
-            arParams[6] = new NpgsqlParameter("lastmodby", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[6] = new NpgsqlParameter(":lastmodby", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = createdBy.ToString();
 
@@ -129,19 +129,19 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[4];
 
-            arParams[0] = new NpgsqlParameter("id", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":id", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = id.ToString();
 
-            arParams[1] = new NpgsqlParameter("statement", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[1] = new NpgsqlParameter(":statement", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = statement;
 
-            arParams[2] = new NpgsqlParameter("lastmodutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[2] = new NpgsqlParameter(":lastmodutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = lastModUtc;
 
-            arParams[3] = new NpgsqlParameter("lastmodby", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[3] = new NpgsqlParameter(":lastmodby", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = lastModBy.ToString();
 
@@ -171,7 +171,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("id", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":id", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = id.ToString();
             int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
@@ -200,7 +200,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("id", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":id", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = id.ToString();
 
@@ -229,7 +229,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("name", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[0] = new NpgsqlParameter(":name", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = name;
 

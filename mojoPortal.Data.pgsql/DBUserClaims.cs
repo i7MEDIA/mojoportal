@@ -41,15 +41,15 @@ namespace mojoPortal.Data
             sqlCommand.Append(" SELECT CURRVAL('mp_userclaimsid_seq');");
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[3];
-            arParams[0] = new NpgsqlParameter("userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[0] = new NpgsqlParameter(":userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userId;
 
-            arParams[1] = new NpgsqlParameter("claimtype", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[1] = new NpgsqlParameter(":claimtype", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = claimType;
 
-            arParams[2] = new NpgsqlParameter("claimvalue", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[2] = new NpgsqlParameter(":claimvalue", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = claimValue;
 
@@ -75,7 +75,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("id", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":id", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = id;
 
@@ -99,7 +99,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[0] = new NpgsqlParameter(":userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userId;
 
@@ -125,11 +125,11 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-            arParams[0] = new NpgsqlParameter("userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[0] = new NpgsqlParameter(":userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userId;
 
-            arParams[1] = new NpgsqlParameter("claimtype", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[1] = new NpgsqlParameter(":claimtype", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = claimType;
 
@@ -157,15 +157,15 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 
-            arParams[0] = new NpgsqlParameter("userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[0] = new NpgsqlParameter(":userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userId;
 
-            arParams[1] = new NpgsqlParameter("claimtype", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[1] = new NpgsqlParameter(":claimtype", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = claimType;
 
-            arParams[2] = new NpgsqlParameter("claimvalue", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[2] = new NpgsqlParameter(":claimvalue", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = claimValue;
 
@@ -189,7 +189,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
+            arParams[0] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteGuid.ToString();
 
@@ -213,7 +213,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
+            arParams[0] = new NpgsqlParameter(":userid", NpgsqlTypes.NpgsqlDbType.Varchar, 128);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userId;
 
