@@ -1444,7 +1444,7 @@ namespace mojoPortal.Web.AdminUI
 				var keyFinalIndex = header.IndexOf(':');
 				var key = header.Substring(0, keyFinalIndex).Trim();
 				var val = header.Substring(keyFinalIndex + 1).Trim();
-				smtpSettings.AdditionalHeaders.Add(key, val);
+				smtpSettings.AdditionalHeaders.Add(new SmtpHeader { Name = key, Value = val});
 				log.Info($"smtp header info [{key},{val}]");
 			}
 
