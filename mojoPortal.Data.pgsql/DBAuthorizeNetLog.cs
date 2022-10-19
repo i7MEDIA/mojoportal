@@ -71,87 +71,87 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[21];
 
-            arParams[0] = new NpgsqlParameter("rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowGuid.ToString();
 
-            arParams[1] = new NpgsqlParameter("createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[1] = new NpgsqlParameter(":createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = createdUtc;
 
-            arParams[2] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[2] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = siteGuid.ToString();
 
-            arParams[3] = new NpgsqlParameter("userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[3] = new NpgsqlParameter(":userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = userGuid.ToString();
 
-            arParams[4] = new NpgsqlParameter("storeguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[4] = new NpgsqlParameter(":storeguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = storeGuid.ToString();
 
-            arParams[5] = new NpgsqlParameter("cartguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[5] = new NpgsqlParameter(":cartguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = cartGuid.ToString();
 
-            arParams[6] = new NpgsqlParameter("rawresponse", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[6] = new NpgsqlParameter(":rawresponse", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = rawResponse;
 
-            arParams[7] = new NpgsqlParameter("responsecode", NpgsqlTypes.NpgsqlDbType.Text, 1);
+            arParams[7] = new NpgsqlParameter(":responsecode", NpgsqlTypes.NpgsqlDbType.Text, 1);
             arParams[7].Direction = ParameterDirection.Input;
             arParams[7].Value = responseCode;
 
-            arParams[8] = new NpgsqlParameter("responsereasoncode", NpgsqlTypes.NpgsqlDbType.Varchar, 20);
+            arParams[8] = new NpgsqlParameter(":responsereasoncode", NpgsqlTypes.NpgsqlDbType.Varchar, 20);
             arParams[8].Direction = ParameterDirection.Input;
             arParams[8].Value = responseReasonCode;
 
-            arParams[9] = new NpgsqlParameter("reason", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[9] = new NpgsqlParameter(":reason", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[9].Direction = ParameterDirection.Input;
             arParams[9].Value = reason;
 
-            arParams[10] = new NpgsqlParameter("avscode", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[10] = new NpgsqlParameter(":avscode", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[10].Direction = ParameterDirection.Input;
             arParams[10].Value = avsCode;
 
-            arParams[11] = new NpgsqlParameter("ccvcode", NpgsqlTypes.NpgsqlDbType.Text, 1);
+            arParams[11] = new NpgsqlParameter(":ccvcode", NpgsqlTypes.NpgsqlDbType.Text, 1);
             arParams[11].Direction = ParameterDirection.Input;
             arParams[11].Value = ccvCode;
 
-            arParams[12] = new NpgsqlParameter("cavcode", NpgsqlTypes.NpgsqlDbType.Text, 1);
+            arParams[12] = new NpgsqlParameter(":cavcode", NpgsqlTypes.NpgsqlDbType.Text, 1);
             arParams[12].Direction = ParameterDirection.Input;
             arParams[12].Value = cavCode;
 
-            arParams[13] = new NpgsqlParameter("transactionid", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[13] = new NpgsqlParameter(":transactionid", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[13].Direction = ParameterDirection.Input;
             arParams[13].Value = transactionId;
 
-            arParams[14] = new NpgsqlParameter("transactiontype", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[14] = new NpgsqlParameter(":transactiontype", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[14].Direction = ParameterDirection.Input;
             arParams[14].Value = transactionType;
 
-            arParams[15] = new NpgsqlParameter("method", NpgsqlTypes.NpgsqlDbType.Varchar, 20);
+            arParams[15] = new NpgsqlParameter(":method", NpgsqlTypes.NpgsqlDbType.Varchar, 20);
             arParams[15].Direction = ParameterDirection.Input;
             arParams[15].Value = method;
 
-            arParams[16] = new NpgsqlParameter("authcode", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[16] = new NpgsqlParameter(":authcode", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[16].Direction = ParameterDirection.Input;
             arParams[16].Value = authCode;
 
-            arParams[17] = new NpgsqlParameter("amount", NpgsqlTypes.NpgsqlDbType.Numeric);
+            arParams[17] = new NpgsqlParameter(":amount", NpgsqlTypes.NpgsqlDbType.Numeric);
             arParams[17].Direction = ParameterDirection.Input;
             arParams[17].Value = amount;
 
-            arParams[18] = new NpgsqlParameter("tax", NpgsqlTypes.NpgsqlDbType.Numeric);
+            arParams[18] = new NpgsqlParameter(":tax", NpgsqlTypes.NpgsqlDbType.Numeric);
             arParams[18].Direction = ParameterDirection.Input;
             arParams[18].Value = tax;
 
-            arParams[19] = new NpgsqlParameter("duty", NpgsqlTypes.NpgsqlDbType.Numeric);
+            arParams[19] = new NpgsqlParameter(":duty", NpgsqlTypes.NpgsqlDbType.Numeric);
             arParams[19].Direction = ParameterDirection.Input;
             arParams[19].Value = duty;
 
-            arParams[20] = new NpgsqlParameter("freight", NpgsqlTypes.NpgsqlDbType.Numeric);
+            arParams[20] = new NpgsqlParameter(":freight", NpgsqlTypes.NpgsqlDbType.Numeric);
             arParams[20].Direction = ParameterDirection.Input;
             arParams[20].Value = freight;
 
@@ -263,83 +263,83 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[20];
 
-            arParams[0] = new NpgsqlParameter("rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowGuid.ToString();
 
-            arParams[1] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[1] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = siteGuid.ToString();
 
-            arParams[2] = new NpgsqlParameter("userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[2] = new NpgsqlParameter(":userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = userGuid.ToString();
 
-            arParams[3] = new NpgsqlParameter("storeguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[3] = new NpgsqlParameter(":storeguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = storeGuid.ToString();
 
-            arParams[4] = new NpgsqlParameter("cartguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[4] = new NpgsqlParameter(":cartguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = cartGuid.ToString();
 
-            arParams[5] = new NpgsqlParameter("rawresponse", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[5] = new NpgsqlParameter(":rawresponse", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = rawResponse;
 
-            arParams[6] = new NpgsqlParameter("responsecode", NpgsqlTypes.NpgsqlDbType.Text, 1);
+            arParams[6] = new NpgsqlParameter(":responsecode", NpgsqlTypes.NpgsqlDbType.Text, 1);
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = responseCode;
 
-            arParams[7] = new NpgsqlParameter("responsereasoncode", NpgsqlTypes.NpgsqlDbType.Varchar, 20);
+            arParams[7] = new NpgsqlParameter(":responsereasoncode", NpgsqlTypes.NpgsqlDbType.Varchar, 20);
             arParams[7].Direction = ParameterDirection.Input;
             arParams[7].Value = responseReasonCode;
 
-            arParams[8] = new NpgsqlParameter("reason", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[8] = new NpgsqlParameter(":reason", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[8].Direction = ParameterDirection.Input;
             arParams[8].Value = reason;
 
-            arParams[9] = new NpgsqlParameter("avscode", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[9] = new NpgsqlParameter(":avscode", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[9].Direction = ParameterDirection.Input;
             arParams[9].Value = avsCode;
 
-            arParams[10] = new NpgsqlParameter("ccvcode", NpgsqlTypes.NpgsqlDbType.Text, 1);
+            arParams[10] = new NpgsqlParameter(":ccvcode", NpgsqlTypes.NpgsqlDbType.Text, 1);
             arParams[10].Direction = ParameterDirection.Input;
             arParams[10].Value = ccvCode;
 
-            arParams[11] = new NpgsqlParameter("cavcode", NpgsqlTypes.NpgsqlDbType.Text, 1);
+            arParams[11] = new NpgsqlParameter(":cavcode", NpgsqlTypes.NpgsqlDbType.Text, 1);
             arParams[11].Direction = ParameterDirection.Input;
             arParams[11].Value = cavCode;
 
-            arParams[12] = new NpgsqlParameter("transactionid", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[12] = new NpgsqlParameter(":transactionid", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[12].Direction = ParameterDirection.Input;
             arParams[12].Value = transactionId;
 
-            arParams[13] = new NpgsqlParameter("transactiontype", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[13] = new NpgsqlParameter(":transactiontype", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[13].Direction = ParameterDirection.Input;
             arParams[13].Value = transactionType;
 
-            arParams[14] = new NpgsqlParameter("method", NpgsqlTypes.NpgsqlDbType.Varchar, 20);
+            arParams[14] = new NpgsqlParameter(":method", NpgsqlTypes.NpgsqlDbType.Varchar, 20);
             arParams[14].Direction = ParameterDirection.Input;
             arParams[14].Value = method;
 
-            arParams[15] = new NpgsqlParameter("authcode", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[15] = new NpgsqlParameter(":authcode", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[15].Direction = ParameterDirection.Input;
             arParams[15].Value = authCode;
 
-            arParams[16] = new NpgsqlParameter("amount", NpgsqlTypes.NpgsqlDbType.Numeric);
+            arParams[16] = new NpgsqlParameter(":amount", NpgsqlTypes.NpgsqlDbType.Numeric);
             arParams[16].Direction = ParameterDirection.Input;
             arParams[16].Value = amount;
 
-            arParams[17] = new NpgsqlParameter("tax", NpgsqlTypes.NpgsqlDbType.Numeric);
+            arParams[17] = new NpgsqlParameter(":tax", NpgsqlTypes.NpgsqlDbType.Numeric);
             arParams[17].Direction = ParameterDirection.Input;
             arParams[17].Value = tax;
 
-            arParams[18] = new NpgsqlParameter("duty", NpgsqlTypes.NpgsqlDbType.Numeric);
+            arParams[18] = new NpgsqlParameter(":duty", NpgsqlTypes.NpgsqlDbType.Numeric);
             arParams[18].Direction = ParameterDirection.Input;
             arParams[18].Value = duty;
 
-            arParams[19] = new NpgsqlParameter("freight", NpgsqlTypes.NpgsqlDbType.Numeric);
+            arParams[19] = new NpgsqlParameter(":freight", NpgsqlTypes.NpgsqlDbType.Numeric);
             arParams[19].Direction = ParameterDirection.Input;
             arParams[19].Value = freight;
 
@@ -388,7 +388,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowGuid.ToString();
 
@@ -415,7 +415,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":rowguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowGuid.ToString();
 
@@ -443,7 +443,7 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("cartguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":cartguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = cartGuid.ToString();
 
@@ -539,11 +539,11 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-            arParams[0] = new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0] = new NpgsqlParameter(":pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = pageSize;
 
-            arParams[1] = new NpgsqlParameter("pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[1] = new NpgsqlParameter(":pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = pageLowerBound;
 

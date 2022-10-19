@@ -96,99 +96,99 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[24];
 
-			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteId;
 
-			arParams[1] = new NpgsqlParameter("moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[1] = new NpgsqlParameter(":moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = moduleDefId;
 
-			arParams[2] = new NpgsqlParameter("moduletitle", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+			arParams[2] = new NpgsqlParameter(":moduletitle", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = moduleTitle;
 
-			arParams[3] = new NpgsqlParameter("authorizededitroles", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[3] = new NpgsqlParameter(":authorizededitroles", NpgsqlTypes.NpgsqlDbType.Text);
 			arParams[3].Direction = ParameterDirection.Input;
 			arParams[3].Value = authorizedEditRoles;
 
-			arParams[4] = new NpgsqlParameter("cachetime", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[4] = new NpgsqlParameter(":cachetime", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[4].Direction = ParameterDirection.Input;
 			arParams[4].Value = cacheTime;
 
-			arParams[5] = new NpgsqlParameter("showtitle", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[5] = new NpgsqlParameter(":showtitle", NpgsqlTypes.NpgsqlDbType.Boolean);
 			arParams[5].Direction = ParameterDirection.Input;
 			arParams[5].Value = showTitle;
 
-			arParams[6] = new NpgsqlParameter("edituserid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[6] = new NpgsqlParameter(":edituserid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[6].Direction = ParameterDirection.Input;
 			arParams[6].Value = -1;
 
-			arParams[7] = new NpgsqlParameter("availableformypage", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[7] = new NpgsqlParameter(":availableformypage", NpgsqlTypes.NpgsqlDbType.Boolean);
 			arParams[7].Direction = ParameterDirection.Input;
 			arParams[7].Value = availableForMyPage;
 
-			arParams[8] = new NpgsqlParameter("allowmultipleinstancesonmypage", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[8] = new NpgsqlParameter(":allowmultipleinstancesonmypage", NpgsqlTypes.NpgsqlDbType.Boolean);
 			arParams[8].Direction = ParameterDirection.Input;
 			arParams[8].Value = allowMultipleInstancesOnMyPage;
 
-			arParams[9] = new NpgsqlParameter("icon", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+			arParams[9] = new NpgsqlParameter(":icon", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[9].Direction = ParameterDirection.Input;
 			arParams[9].Value = icon;
 
-			arParams[10] = new NpgsqlParameter("createdbyuserid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[10] = new NpgsqlParameter(":createdbyuserid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[10].Direction = ParameterDirection.Input;
 			arParams[10].Value = createdByUserId;
 
-			arParams[11] = new NpgsqlParameter("createddate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+			arParams[11] = new NpgsqlParameter(":createddate", NpgsqlTypes.NpgsqlDbType.Timestamp);
 			arParams[11].Direction = ParameterDirection.Input;
 			arParams[11].Value = createdDate;
 
-			arParams[12] = new NpgsqlParameter("countofuseonmypage", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[12] = new NpgsqlParameter(":countofuseonmypage", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[12].Direction = ParameterDirection.Input;
 			arParams[12].Value = 0;
 
-			arParams[13] = new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+			arParams[13] = new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
 			arParams[13].Direction = ParameterDirection.Input;
 			arParams[13].Value = guid.ToString();
 
-			arParams[14] = new NpgsqlParameter("featureguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+			arParams[14] = new NpgsqlParameter(":featureguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
 			arParams[14].Direction = ParameterDirection.Input;
 			arParams[14].Value = featureGuid.ToString();
 
-			arParams[15] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+			arParams[15] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
 			arParams[15].Direction = ParameterDirection.Input;
 			arParams[15].Value = siteGuid.ToString();
 
-			arParams[16] = new NpgsqlParameter("edituserguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+			arParams[16] = new NpgsqlParameter(":edituserguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
 			arParams[16].Direction = ParameterDirection.Input;
 			arParams[16].Value = Guid.Empty.ToString();
 
-			arParams[17] = new NpgsqlParameter("hidefromunauth", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[17] = new NpgsqlParameter(":hidefromunauth", NpgsqlTypes.NpgsqlDbType.Boolean);
 			arParams[17].Direction = ParameterDirection.Input;
 			arParams[17].Value = hideFromUnauthenticated;
 
-			arParams[18] = new NpgsqlParameter("hidefromauth", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[18] = new NpgsqlParameter(":hidefromauth", NpgsqlTypes.NpgsqlDbType.Boolean);
 			arParams[18].Direction = ParameterDirection.Input;
 			arParams[18].Value = hideFromAuthenticated;
 
-			arParams[19] = new NpgsqlParameter("viewroles", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[19] = new NpgsqlParameter(":viewroles", NpgsqlTypes.NpgsqlDbType.Text);
 			arParams[19].Direction = ParameterDirection.Input;
 			arParams[19].Value = viewRoles;
 
-			arParams[20] = new NpgsqlParameter("drafteditroles", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[20] = new NpgsqlParameter(":drafteditroles", NpgsqlTypes.NpgsqlDbType.Text);
 			arParams[20].Direction = ParameterDirection.Input;
 			arParams[20].Value = draftEditRoles;
 
-			arParams[21] = new NpgsqlParameter("headelement", NpgsqlTypes.NpgsqlDbType.Varchar, 25);
+			arParams[21] = new NpgsqlParameter(":headelement", NpgsqlTypes.NpgsqlDbType.Varchar, 25);
 			arParams[21].Direction = ParameterDirection.Input;
 			arParams[21].Value = headElement;
 
-			arParams[22] = new NpgsqlParameter("publishmode", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[22] = new NpgsqlParameter(":publishmode", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[22].Direction = ParameterDirection.Input;
 			arParams[22].Value = publishMode;
 
-			arParams[23] = new NpgsqlParameter("draftapprovalroles", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[23] = new NpgsqlParameter(":draftapprovalroles", NpgsqlTypes.NpgsqlDbType.Text);
 			arParams[23].Direction = ParameterDirection.Input;
 			arParams[23].Value = draftApprovalRoles;
 
@@ -266,75 +266,75 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[18];
 
-			arParams[0] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleId;
 
-			arParams[1] = new NpgsqlParameter("moduletitle", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+			arParams[1] = new NpgsqlParameter(":moduletitle", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = moduleTitle;
 
-			arParams[2] = new NpgsqlParameter("authorizededitroles", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[2] = new NpgsqlParameter(":authorizededitroles", NpgsqlTypes.NpgsqlDbType.Text);
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = authorizedEditRoles;
 
-			arParams[3] = new NpgsqlParameter("cachetime", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[3] = new NpgsqlParameter(":cachetime", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[3].Direction = ParameterDirection.Input;
 			arParams[3].Value = cacheTime;
 
-			arParams[4] = new NpgsqlParameter("showtitle", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[4] = new NpgsqlParameter(":showtitle", NpgsqlTypes.NpgsqlDbType.Boolean);
 			arParams[4].Direction = ParameterDirection.Input;
 			arParams[4].Value = showTitle;
 
-			arParams[5] = new NpgsqlParameter("edituserid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[5] = new NpgsqlParameter(":edituserid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[5].Direction = ParameterDirection.Input;
 			arParams[5].Value = editUserId;
 
-			arParams[6] = new NpgsqlParameter("availableformypage", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[6] = new NpgsqlParameter(":availableformypage", NpgsqlTypes.NpgsqlDbType.Boolean);
 			arParams[6].Direction = ParameterDirection.Input;
 			arParams[6].Value = availableForMyPage;
 
-			arParams[7] = new NpgsqlParameter("allowmultipleinstancesonmypage", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[7] = new NpgsqlParameter(":allowmultipleinstancesonmypage", NpgsqlTypes.NpgsqlDbType.Boolean);
 			arParams[7].Direction = ParameterDirection.Input;
 			arParams[7].Value = allowMultipleInstancesOnMyPage;
 
-			arParams[8] = new NpgsqlParameter("icon", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+			arParams[8] = new NpgsqlParameter(":icon", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[8].Direction = ParameterDirection.Input;
 			arParams[8].Value = icon;
 
-			arParams[9] = new NpgsqlParameter("hidefromunauth", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[9] = new NpgsqlParameter(":hidefromunauth", NpgsqlTypes.NpgsqlDbType.Boolean);
 			arParams[9].Direction = ParameterDirection.Input;
 			arParams[9].Value = hideFromUnauthenticated;
 
-			arParams[10] = new NpgsqlParameter("hidefromauth", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[10] = new NpgsqlParameter(":hidefromauth", NpgsqlTypes.NpgsqlDbType.Boolean);
 			arParams[10].Direction = ParameterDirection.Input;
 			arParams[10].Value = hideFromAuthenticated;
 
-			arParams[11] = new NpgsqlParameter("viewroles", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[11] = new NpgsqlParameter(":viewroles", NpgsqlTypes.NpgsqlDbType.Text);
 			arParams[11].Direction = ParameterDirection.Input;
 			arParams[11].Value = viewRoles;
 
-			arParams[12] = new NpgsqlParameter("drafteditroles", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[12] = new NpgsqlParameter(":drafteditroles", NpgsqlTypes.NpgsqlDbType.Text);
 			arParams[12].Direction = ParameterDirection.Input;
 			arParams[12].Value = draftEditRoles;
 
-			arParams[13] = new NpgsqlParameter("includeinsearch", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[13] = new NpgsqlParameter(":includeinsearch", NpgsqlTypes.NpgsqlDbType.Boolean);
 			arParams[13].Direction = ParameterDirection.Input;
 			arParams[13].Value = includeInSearch;
 
-			arParams[14] = new NpgsqlParameter("isglobal", NpgsqlTypes.NpgsqlDbType.Boolean);
+			arParams[14] = new NpgsqlParameter(":isglobal", NpgsqlTypes.NpgsqlDbType.Boolean);
 			arParams[14].Direction = ParameterDirection.Input;
 			arParams[14].Value = isGlobal;
 
-			arParams[15] = new NpgsqlParameter("headelement", NpgsqlTypes.NpgsqlDbType.Varchar, 25);
+			arParams[15] = new NpgsqlParameter(":headelement", NpgsqlTypes.NpgsqlDbType.Varchar, 25);
 			arParams[15].Direction = ParameterDirection.Input;
 			arParams[15].Value = headElement;
 
-			arParams[16] = new NpgsqlParameter("publishmode", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[16] = new NpgsqlParameter(":publishmode", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[16].Direction = ParameterDirection.Input;
 			arParams[16].Value = publishMode;
 
-			arParams[17] = new NpgsqlParameter("draftapprovalroles", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[17] = new NpgsqlParameter(":draftapprovalroles", NpgsqlTypes.NpgsqlDbType.Text);
 			arParams[17].Direction = ParameterDirection.Input;
 			arParams[17].Value = draftApprovalRoles;
 
@@ -359,19 +359,19 @@ namespace mojoPortal.Data
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[4];
 
-			arParams[0] = new NpgsqlParameter("pageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = pageId;
 
-			arParams[1] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[1] = new NpgsqlParameter(":moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = moduleId;
 
-			arParams[2] = new NpgsqlParameter("moduleorder", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[2] = new NpgsqlParameter(":moduleorder", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = moduleOrder;
 
-			arParams[3] = new NpgsqlParameter("panename", NpgsqlTypes.NpgsqlDbType.Text, 50);
+			arParams[3] = new NpgsqlParameter(":panename", NpgsqlTypes.NpgsqlDbType.Text, 50);
 			arParams[3].Direction = ParameterDirection.Input;
 			arParams[3].Value = paneName;
 
@@ -396,15 +396,15 @@ namespace mojoPortal.Data
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 
-			arParams[0] = new NpgsqlParameter("oldpageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":oldpageid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = oldPageId;
 
-			arParams[1] = new NpgsqlParameter("newpageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[1] = new NpgsqlParameter(":newpageid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = newPageId;
 
-			arParams[2] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[2] = new NpgsqlParameter(":moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = moduleId;
 
@@ -461,11 +461,11 @@ namespace mojoPortal.Data
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-			arParams[0] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleId;
 
-			arParams[1] = new NpgsqlParameter("pageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[1] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = pageId;
 
@@ -518,7 +518,7 @@ namespace mojoPortal.Data
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-			arParams[0] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleId;
 
@@ -557,7 +557,7 @@ namespace mojoPortal.Data
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-			arParams[0] = new NpgsqlParameter("pageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = pageId;
 
@@ -603,27 +603,27 @@ namespace mojoPortal.Data
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[6];
 
-			arParams[0] = new NpgsqlParameter("pageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = pageId;
 
-			arParams[1] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[1] = new NpgsqlParameter(":moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = moduleId;
 
-			arParams[2] = new NpgsqlParameter("moduleorder", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[2] = new NpgsqlParameter(":moduleorder", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = moduleOrder;
 
-			arParams[3] = new NpgsqlParameter("panename", NpgsqlTypes.NpgsqlDbType.Text);
+			arParams[3] = new NpgsqlParameter(":panename", NpgsqlTypes.NpgsqlDbType.Text);
 			arParams[3].Direction = ParameterDirection.Input;
 			arParams[3].Value = paneName;
 
-			arParams[4] = new NpgsqlParameter("publishbegindate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+			arParams[4] = new NpgsqlParameter(":publishbegindate", NpgsqlTypes.NpgsqlDbType.Timestamp);
 			arParams[4].Direction = ParameterDirection.Input;
 			arParams[4].Value = publishBeginDate;
 
-			arParams[5] = new NpgsqlParameter("publishenddate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+			arParams[5] = new NpgsqlParameter(":publishenddate", NpgsqlTypes.NpgsqlDbType.Timestamp);
 			arParams[5].Direction = ParameterDirection.Input;
 
 			if (publishEndDate > DateTime.MinValue)
@@ -659,27 +659,27 @@ namespace mojoPortal.Data
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[6];
 
-			arParams[0] = new NpgsqlParameter("pageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = pageId;
 
-			arParams[1] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[1] = new NpgsqlParameter(":moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = moduleId;
 
-			arParams[2] = new NpgsqlParameter("moduleorder", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[2] = new NpgsqlParameter(":moduleorder", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = moduleOrder;
 
-			arParams[3] = new NpgsqlParameter("panename", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+			arParams[3] = new NpgsqlParameter(":panename", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
 			arParams[3].Direction = ParameterDirection.Input;
 			arParams[3].Value = paneName;
 
-			arParams[4] = new NpgsqlParameter("publishbegindate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+			arParams[4] = new NpgsqlParameter(":publishbegindate", NpgsqlTypes.NpgsqlDbType.Timestamp);
 			arParams[4].Direction = ParameterDirection.Input;
 			arParams[4].Value = publishBeginDate;
 
-			arParams[5] = new NpgsqlParameter("publishenddate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+			arParams[5] = new NpgsqlParameter(":publishenddate", NpgsqlTypes.NpgsqlDbType.Timestamp);
 			arParams[5].Direction = ParameterDirection.Input;
 
 			if (publishEndDate > DateTime.MinValue)
@@ -735,7 +735,7 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-			arParams[0] = new NpgsqlParameter("pageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = pageId;
 
@@ -754,11 +754,11 @@ namespace mojoPortal.Data
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-			arParams[0] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleId;
 
-			arParams[1] = new NpgsqlParameter("increment", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[1] = new NpgsqlParameter(":increment", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = increment;
 
@@ -779,7 +779,7 @@ namespace mojoPortal.Data
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-			arParams[0] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleId;
 
@@ -800,11 +800,11 @@ namespace mojoPortal.Data
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-			arParams[0] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleId;
 
-			arParams[1] = new NpgsqlParameter("pageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[1] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = pageId;
 
@@ -840,7 +840,7 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-			arParams[0] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleId;
 
@@ -872,7 +872,7 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-			arParams[0] = new NpgsqlParameter("moduleguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+			arParams[0] = new NpgsqlParameter(":moduleguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleGuid.ToString();
 
@@ -912,11 +912,11 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-			arParams[0] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleId;
 
-			arParams[1] = new NpgsqlParameter("pageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[1] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = pageId;
 
@@ -962,11 +962,11 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-			arParams[0] = new NpgsqlParameter("pageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = pageId;
 
-			arParams[1] = new NpgsqlParameter("nowdate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+			arParams[1] = new NpgsqlParameter(":nowdate", NpgsqlTypes.NpgsqlDbType.Timestamp);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = DateTime.UtcNow;
 
@@ -983,7 +983,7 @@ namespace mojoPortal.Data
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteId;
 
@@ -1029,11 +1029,11 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
-			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteId;
 
-			arParams[1] = new NpgsqlParameter("featureguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+			arParams[1] = new NpgsqlParameter(":featureguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = featureGuid.ToString();
 
@@ -1050,7 +1050,7 @@ namespace mojoPortal.Data
 		{
 			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteId;
 
@@ -1091,15 +1091,15 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 
-			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteId;
 
-			arParams[1] = new NpgsqlParameter("moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[1] = new NpgsqlParameter(":moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = moduleDefId;
 
-			arParams[2] = new NpgsqlParameter("title", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+			arParams[2] = new NpgsqlParameter(":title", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = title;
 
@@ -1156,27 +1156,27 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[6];
 
-			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteId;
 
-			arParams[1] = new NpgsqlParameter("moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[1] = new NpgsqlParameter(":moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = moduleDefId;
 
-			arParams[2] = new NpgsqlParameter("title", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+			arParams[2] = new NpgsqlParameter(":title", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = "%" + title + "%";
 
-			arParams[3] = new NpgsqlParameter("pagenumber", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[3] = new NpgsqlParameter(":pagenumber", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[3].Direction = ParameterDirection.Input;
 			arParams[3].Value = pageNumber;
 
-			arParams[4] = new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[4] = new NpgsqlParameter(":pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[4].Direction = ParameterDirection.Input;
 			arParams[4].Value = pageSize;
 
-			arParams[5] = new NpgsqlParameter("pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[5] = new NpgsqlParameter(":pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[5].Direction = ParameterDirection.Input;
 			arParams[5].Value = offset;
 
@@ -1282,7 +1282,7 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-			arParams[0] = new NpgsqlParameter("moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleDefId;
 
@@ -1318,15 +1318,15 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 
-			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteId;
 
-			arParams[1] = new NpgsqlParameter("moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[1] = new NpgsqlParameter(":moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = moduleDefId;
 
-			arParams[2] = new NpgsqlParameter("pageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[2] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = pageId;
 
@@ -1381,27 +1381,27 @@ namespace mojoPortal.Data
 
 			NpgsqlParameter[] arParams = new NpgsqlParameter[6];
 
-			arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteId;
 
-			arParams[1] = new NpgsqlParameter("moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[1] = new NpgsqlParameter(":moduledefid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = moduleDefId;
 
-			arParams[2] = new NpgsqlParameter("pageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[2] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = pageId;
 
-			arParams[3] = new NpgsqlParameter("pagenumber", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[3] = new NpgsqlParameter(":pagenumber", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[3].Direction = ParameterDirection.Input;
 			arParams[3].Value = pageNumber;
 
-			arParams[4] = new NpgsqlParameter("pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[4] = new NpgsqlParameter(":pagesize", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[4].Direction = ParameterDirection.Input;
 			arParams[4].Value = pageSize;
 
-			arParams[5] = new NpgsqlParameter("pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[5] = new NpgsqlParameter(":pageoffset", NpgsqlTypes.NpgsqlDbType.Integer);
 			arParams[5].Direction = ParameterDirection.Input;
 			arParams[5].Value = offset;
 

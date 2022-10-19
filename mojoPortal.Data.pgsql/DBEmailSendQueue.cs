@@ -104,71 +104,71 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[17];
 
-            arParams[0] = new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
 
-            arParams[1] = new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[1] = new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = siteGuid.ToString();
 
-            arParams[2] = new NpgsqlParameter("moduleguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[2] = new NpgsqlParameter(":moduleguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = moduleGuid.ToString();
 
-            arParams[3] = new NpgsqlParameter("userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[3] = new NpgsqlParameter(":userguid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = userGuid.ToString();
 
-            arParams[4] = new NpgsqlParameter("specialguid1", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[4] = new NpgsqlParameter(":specialguid1", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = specialGuid1.ToString();
 
-            arParams[5] = new NpgsqlParameter("specialguid2", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[5] = new NpgsqlParameter(":specialguid2", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = specialGuid2.ToString();
 
-            arParams[6] = new NpgsqlParameter("fromaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 100);
+            arParams[6] = new NpgsqlParameter(":fromaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 100);
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = fromAddress;
 
-            arParams[7] = new NpgsqlParameter("replyto", NpgsqlTypes.NpgsqlDbType.Varchar, 100);
+            arParams[7] = new NpgsqlParameter(":replyto", NpgsqlTypes.NpgsqlDbType.Varchar, 100);
             arParams[7].Direction = ParameterDirection.Input;
             arParams[7].Value = replyTo;
 
-            arParams[8] = new NpgsqlParameter("toaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[8] = new NpgsqlParameter(":toaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[8].Direction = ParameterDirection.Input;
             arParams[8].Value = toAddress;
 
-            arParams[9] = new NpgsqlParameter("ccaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[9] = new NpgsqlParameter(":ccaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[9].Direction = ParameterDirection.Input;
             arParams[9].Value = ccAddress;
 
-            arParams[10] = new NpgsqlParameter("bccaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[10] = new NpgsqlParameter(":bccaddress", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[10].Direction = ParameterDirection.Input;
             arParams[10].Value = bccAddress;
 
-            arParams[11] = new NpgsqlParameter("subject", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[11] = new NpgsqlParameter(":subject", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
             arParams[11].Direction = ParameterDirection.Input;
             arParams[11].Value = subject;
 
-            arParams[12] = new NpgsqlParameter("textbody", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[12] = new NpgsqlParameter(":textbody", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[12].Direction = ParameterDirection.Input;
             arParams[12].Value = textBody;
 
-            arParams[13] = new NpgsqlParameter("htmlbody", NpgsqlTypes.NpgsqlDbType.Text);
+            arParams[13] = new NpgsqlParameter(":htmlbody", NpgsqlTypes.NpgsqlDbType.Text);
             arParams[13].Direction = ParameterDirection.Input;
             arParams[13].Value = htmlBody;
 
-            arParams[14] = new NpgsqlParameter("type", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
+            arParams[14] = new NpgsqlParameter(":type", NpgsqlTypes.NpgsqlDbType.Varchar, 50);
             arParams[14].Direction = ParameterDirection.Input;
             arParams[14].Value = type;
 
-            arParams[15] = new NpgsqlParameter("datetosend", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[15] = new NpgsqlParameter(":datetosend", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[15].Direction = ParameterDirection.Input;
             arParams[15].Value = dateToSend;
 
-            arParams[16] = new NpgsqlParameter("createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[16] = new NpgsqlParameter(":createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[16].Direction = ParameterDirection.Input;
             arParams[16].Value = createdUtc;
 
@@ -199,7 +199,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
+            arParams[0] = new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
             int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
@@ -227,7 +227,7 @@ namespace mojoPortal.Data
 
             NpgsqlParameter[] arParams = new NpgsqlParameter[1];
 
-            arParams[0] = new NpgsqlParameter("currenttime", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[0] = new NpgsqlParameter(":currenttime", NpgsqlTypes.NpgsqlDbType.Timestamp);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = currentTime;
 

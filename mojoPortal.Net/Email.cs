@@ -802,7 +802,12 @@ namespace mojoPortal.Net
                 smtpClient.UseDefaultCredentials = true;
             }
 
-            message.Headers.Add(smtpSettings.AdditionalHeaders);
+            foreach (var header in smtpSettings.AdditionalHeaders)
+            {
+                message.Headers.Add(header.Name, header.Value);
+            }
+
+            //message.Headers.Add(smtpSettings.AdditionalHeaders);
             if (!string.IsNullOrWhiteSpace(smtpSettings.SenderHeader))
                 message.Headers.Add("X-mojo-Sender", smtpSettings.SenderHeader);
 

@@ -1369,14 +1369,13 @@ namespace mojoPortal.Web
 					smtpSettings.RequiresAuthentication = siteSettings.SMTPRequiresAuthentication;
 					smtpSettings.UseSsl = siteSettings.SMTPUseSsl;
 					smtpSettings.PreferredEncoding = siteSettings.SMTPPreferredEncoding;
-					smtpSettings.AdditionalHeaders = new System.Collections.Specialized.NameValueCollection();
 
 					foreach (var header in siteSettings.SMTPCustomHeaders.SplitOnNewLineAndTrim())
 					{
 						var keyFinalIndex = header.IndexOf(':');
 						var key = header.Substring(0, keyFinalIndex).Trim();
 						var val = header.Substring(keyFinalIndex + 1).Trim();
-						smtpSettings.AdditionalHeaders.Add(key,val);
+						smtpSettings.AdditionalHeaders.Add(new SmtpHeader { Name = key, Value = val });
 					}
 				}
 			}

@@ -53,57 +53,57 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = guid.ToString()
 				},
-				new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
 				},
-				new NpgsqlParameter("featureguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":featureguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureGuid.ToString()
 				},
-				new NpgsqlParameter("moduleguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":moduleguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleGuid.ToString()
 				},
-				new NpgsqlParameter("tag", NpgsqlTypes.NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":tag", NpgsqlTypes.NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = tagText
 				},
-				new NpgsqlParameter("createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp)
+				new NpgsqlParameter(":createdutc", NpgsqlTypes.NpgsqlDbType.Timestamp)
 				{
 					Direction = ParameterDirection.Input,
 					Value = createdUtc
 				},
-				new NpgsqlParameter("createdby", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":createdby", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = createdBy.ToString()
 				},
-				new NpgsqlParameter("modifiedutc", NpgsqlTypes.NpgsqlDbType.Timestamp)
+				new NpgsqlParameter(":modifiedutc", NpgsqlTypes.NpgsqlDbType.Timestamp)
 				{
 					Direction = ParameterDirection.Input,
 					Value = createdUtc
 				},
-				new NpgsqlParameter("modifiedby", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":modifiedby", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = createdBy.ToString()
 				},
-				new NpgsqlParameter("itemcount", NpgsqlTypes.NpgsqlDbType.Integer)
+				new NpgsqlParameter(":itemcount", NpgsqlTypes.NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = 0
 				},
-				new NpgsqlParameter("vocabularyguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":vocabularyguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = vocabularyGuid.ToString()
@@ -141,27 +141,27 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = guid.ToString()
 				},
-				new NpgsqlParameter("tag", NpgsqlTypes.NpgsqlDbType.Varchar, 255)
+				new NpgsqlParameter(":tag", NpgsqlTypes.NpgsqlDbType.Varchar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = tagText
 				},
-				new NpgsqlParameter("modifiedutc", NpgsqlTypes.NpgsqlDbType.Timestamp)
+				new NpgsqlParameter(":modifiedutc", NpgsqlTypes.NpgsqlDbType.Timestamp)
 				{
 					Direction = ParameterDirection.Input,
 					Value = modifiedUtc
 				},
-				new NpgsqlParameter("modifiedby", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":modifiedby", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = modifiedBy.ToString()
 				},
-				new NpgsqlParameter("vocabularyguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":vocabularyguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = vocabularyGuid.ToString()
@@ -192,7 +192,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = guid.ToString()
@@ -220,7 +220,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
@@ -244,7 +244,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = guid.ToString()
@@ -268,7 +268,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("moduleguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":moduleguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleGuid.ToString()
@@ -292,7 +292,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("featureguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":featureguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureGuid.ToString()
@@ -320,7 +320,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = guid.ToString()
@@ -356,7 +356,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = guid.ToString()
@@ -379,7 +379,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
@@ -409,7 +409,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("id", NpgsqlTypes.NpgsqlDbType.Integer)
+				new NpgsqlParameter(":id", NpgsqlTypes.NpgsqlDbType.Integer)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteId.ToString()
@@ -431,12 +431,12 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("moduleguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":moduleguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleGuid.ToString()
 				},
-				new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
@@ -458,12 +458,12 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureGuid.ToString()
 				},
-				new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
@@ -485,12 +485,12 @@ namespace mojoPortal.Data
 
 			var arParams = new List<NpgsqlParameter>
 			{
-				new NpgsqlParameter("guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":guid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = vocabularyGuid.ToString()
 				},
-				new NpgsqlParameter("siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+				new NpgsqlParameter(":siteguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
