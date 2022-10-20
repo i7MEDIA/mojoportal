@@ -360,7 +360,8 @@ namespace SuperFlexiUI
                 useFooter = XmlUtils.ParseBoolFromAttribute(attrCollection, "useFooter", useFooter);
                 allowImport = XmlUtils.ParseBoolFromAttribute(attrCollection, "allowImport", allowImport);
                 allowExport = XmlUtils.ParseBoolFromAttribute(attrCollection, "allowExport", allowExport);
-				if (attrCollection["itemViewRolesFieldName"] != null) ItemViewRolesFieldName = attrCollection["itemViewRolesFieldName"].Value;
+                Debug = XmlUtils.ParseBoolFromAttribute(attrCollection, "debug", Debug);
+                if (attrCollection["itemViewRolesFieldName"] != null) ItemViewRolesFieldName = attrCollection["itemViewRolesFieldName"].Value;
 				if (attrCollection["itemEditRolesFieldName"] != null) ItemEditRolesFieldName = attrCollection["itemEditRolesFieldName"].Value;
 				//renderModuleLinksWithModuleTitle = XmlUtils.ParseBoolFromAttribute(attrCollection, "renderModuleLinksWithModuleTitle", renderModuleLinksWithModuleTitle);
 
@@ -390,7 +391,7 @@ namespace SuperFlexiUI
 				if (attrCollection["processItems"] != null) processItems = Convert.ToBoolean(attrCollection["processItems"].Value);
                 if (attrCollection["viewName"] != null && !string.IsNullOrWhiteSpace(attrCollection["viewName"].Value))
 				{
-                    useRazor = true;
+                    UseRazor = true;
                     ViewName = attrCollection["viewName"].Value;
                 }
 
@@ -752,7 +753,9 @@ namespace SuperFlexiUI
         private bool allowExport = false;
         public bool AllowExport { get { return allowExport; } }
 
-		private bool showSaveAsNew = true;
+        public bool Debug { get; private set; } = false;
+
+        private bool showSaveAsNew = true;
 		public bool ShowSaveAsNew { get => showSaveAsNew; }
 
 		private int maxItems = -1;
@@ -785,10 +788,11 @@ namespace SuperFlexiUI
         private string itemDeleteRoles = string.Empty;
         public string ItemDeleteRoles { get { return itemDeleteRoles; } }
 
-        private bool useRazor = false;
-        public bool UseRazor { get { return useRazor; } }
+        public bool UseRazor { get; private set; } = false;
 
         public string ViewName { get; set; }
+
+        public string SkinViewLocation { get; set; }
 
 		private bool processItems = true;
 		/// <summary>
