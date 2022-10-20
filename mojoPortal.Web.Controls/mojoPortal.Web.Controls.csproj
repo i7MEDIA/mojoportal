@@ -51,7 +51,8 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>..\Documents\xml\mojoPortal.Web.Controls.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <FileAlignment>4096</FileAlignment>
     <Optimize>true</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
