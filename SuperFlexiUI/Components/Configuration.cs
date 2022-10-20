@@ -203,7 +203,22 @@ namespace SuperFlexiUI
                 itemDeleteRoles = settings["ItemDeleteRoles"].ToString();
             }
 
-			if (settings.Contains("MarkupDefinitionFile"))
+            if (settings.Contains("MaxItems"))
+            {
+                var maxItemsFromModuleSettings = settings["MaxItems"].ToString();
+
+                if (maxItemsFromModuleSettings.ToUpper() != "ALL")
+                {
+                    if (!int.TryParse(maxItemsFromModuleSettings, out maxItems))
+                    {
+                        maxItems = -1;
+                    }
+                }
+			}
+
+			maxItems = WebUtils.ParseInt32FromHashtable(settings, "MaxItems", maxItems);
+			
+            if (settings.Contains("MarkupDefinitionFile"))
 			{
 				markupDefinitionFile = settings["MarkupDefinitionFile"].ToString();
 				if (markupDefinitionFile.IndexOf("~", 0) < 0) markupDefinitionFile = "~" + markupDefinitionFile;

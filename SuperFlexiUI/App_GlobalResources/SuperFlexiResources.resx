@@ -282,4 +282,7 @@
   <data name="AFPSetButtonText" xml:space="preserve">
     <value>Set</value>
   </data>
+  <data name="MaxItems" xml:space="preserve">
+    <value>Maximum Items to Render</value>
+  </data>
 </root>
