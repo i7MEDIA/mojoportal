@@ -1,20 +1,48 @@
-﻿<@Model.Module.TitleElement class="accordion__title moduletitle" data-moduleid="module@Model.Module.Id">
+﻿@using mojoPortal.Business.WebHelpers;
+@using mojoPortal.Business;
+<@Model.Module.TitleElement class="accordion__title moduletitle" data-moduleid="module@Model.Module.Id">
 	@Model.Module.Title
-	<a class="ModuleEditLink flexi-settings" href="~/Admin/ModuleSettings.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-cog"></span> Settings</a>
-	<a class="ModuleEditLink flexi-item-add" href="~/SuperFlexi/Edit.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-plus"></span> Add Item</a>
-	@if (Model.Config.UseHeader)
-	{<a class="ModuleEditLink flexi-header-edit" href="~/SuperFlexi/EditHeader.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-edit"></span> Edit Header</a>}
-	@if (Model.Config.UseFooter)
-	{<a class="ModuleEditLink flexi-footer-edit" href="~/SuperFlexi/EditFooter.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-edit"></span> Edit Footer</a>}
-	@if (Model.Config.AllowImport)
-	{<a class='ModuleEditLink flexi-import-link' href='~/SuperFlexi/Import.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id'><span class='fa fa-upload'></span>&nbsp;Import</a>}
-	@if (Model.Config.AllowExport)
-	{<a class='ModuleEditLink flexi-export-link' href='~/SuperFlexi/Export.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id'><span class='fa fa-download'></span>&nbsp;Export</a>}
+	@if (Model.Module.IsEditable)
+	{
+		<a class="ModuleEditLink flexi-settings" href="~/Admin/ModuleSettings.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-cog"></span> Settings</a>
+		<a class="ModuleEditLink flexi-item-add" href="~/SuperFlexi/Edit.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-plus"></span> Add Item</a>
+		if (Model.Config.UseHeader)
+		{<a class="ModuleEditLink flexi-header-edit" href="~/SuperFlexi/EditHeader.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-edit"></span> Edit Header</a>}
+		if (Model.Config.UseFooter)
+		{<a class="ModuleEditLink flexi-footer-edit" href="~/SuperFlexi/EditFooter.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id"><span class="fa fa-edit"></span> Edit Footer</a>}
+		if (Model.Config.AllowImport)
+		{<a class='ModuleEditLink flexi-import-link' href='~/SuperFlexi/Import.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id'><span class='fa fa-upload'></span>&nbsp;Import</a>}
+		if (Model.Config.AllowExport)
+		{<a class='ModuleEditLink flexi-export-link' href='~/SuperFlexi/Export.aspx?pageid=@Model.Page.Id&mid=@Model.Module.Id'><span class='fa fa-download'></span>&nbsp;Export</a>}
+	}
 </@Model.Module.TitleElement>
 
 <div class="modulecontent">
 	<p class="alert alert-warning"><strong>Warning</strong> The selected solution does not contain a matching view.</p>
 </div>
 
-<a href="#modelinfo" data-toggle="collapse">show/hide model info</a>
-<div class="collapse" id="modelinfo">@ObjectInfo.Print(Model)</div>
+@{ 
+
+	var siteSettings = CacheHelper.GetCurrentSiteSettings();
+	var pageSettings = new PageSettings(Model.Site.Id, Model.Page.Id);
+	var module = new Module(Model.Module.Guid);
+
+	foreach (PageModule foo in PageModule.GetPageModulesByModule(Model.Module.Id))
+			{
+				<div>@foo.PaneName</div>
+			}
+
+	if (!pageSettings.BodyCssClass.Contains("food"))
+	{
+		pageSettings.BodyCssClass += " food";
+		pageSettings.BodyCssClass = pageSettings.BodyCssClass.Trim();
+		pageSettings.Save();
+	}
+
+}
+
+@if (Model.Module.IsEditable && Model.Config.Debug)
+{
+	<a href="#modelinfo@(Model.Module.Id)" data-toggle="collapse">show/hide model info</a>
+	<div class="collapse" id="modelinfo@(Model.Module.Id)">@ObjectInfo.Print(Model)</div>
+}

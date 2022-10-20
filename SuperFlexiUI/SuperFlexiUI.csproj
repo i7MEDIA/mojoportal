@@ -226,6 +226,8 @@
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\pgsql\0.0.2.0.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.2.1.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.2.2.config" />
+    <Content Include="Views\SuperFlexi\_ModuleLinks.cshtml" />
+    <Content Include="Views\SuperFlexi\_ModuleTitle.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -401,7 +403,9 @@
       <Name>SuperFlexiBusiness</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\SuperFlexi\Components\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />

@@ -5,22 +5,19 @@ using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
-using Resources;
 using SuperFlexiBusiness;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Data;
-using System.Dynamic;
-using Reflection = System.Reflection;
+using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Linq;
+using Reflection = System.Reflection;
 
 namespace SuperFlexiUI
 {
-    [ToolboxData("<{0}:WidgetRazor runat=server></{0}:WidgetRazor>")]
+	[ToolboxData("<{0}:WidgetRazor runat=server></{0}:WidgetRazor>")]
     public class WidgetRazor : WebControl
     {
         #region Properties
@@ -134,6 +131,17 @@ namespace SuperFlexiUI
 
             featuredImageUrl = String.IsNullOrWhiteSpace(config.InstanceFeaturedImage) ? featuredImageUrl : SiteUtils.GetNavigationSiteRoot() + config.InstanceFeaturedImage;
 
+
+            bool publishedToCurrentPage = true;
+            //if (IsEditable)
+            //{
+                var pageModules = PageModule.GetPageModulesByModule(module.ModuleId);
+                if (pageModules.Where(pm => pm.PageId == CurrentPage.PageId).ToList().Count() == 0)
+                {
+                    publishedToCurrentPage = false;
+                }
+            //}
+
             //dynamic expando = new ExpandoObject();
 
             var superFlexiItemClass = CreateClass();
@@ -149,7 +157,9 @@ namespace SuperFlexiUI
                     Guid = module.ModuleGuid,
                     Title = module.ModuleTitle,
                     TitleElement = module.HeadElement,
-                    IsEditable = IsEditable
+                    IsEditable = IsEditable,
+                    Pane = module.PaneName,
+                    PublishedToPageId = publishedToCurrentPage ? CurrentPage.PageId : -1
                 },
                 Config = Config,
                 Page = new PageModel
@@ -161,9 +171,13 @@ namespace SuperFlexiUI
                 Site = new SiteModel
                 {
                     Id = module.SiteId,
+                    CacheGuid = siteSettings.SkinVersion,
+                    CacheKey = SiteUtils.GetCssCacheCookieName(siteSettings),
+                    PhysAppRoot = WebUtils.GetApplicationRoot(),
+                    SitePath = WebUtils.GetApplicationRoot() + "/Data/Sites/" + module.SiteId,
+                    SiteUrl = SiteUtils.GetNavigationSiteRoot(),
                     SkinPath = SiteUtils.DetermineSkinBaseUrl(SiteUtils.GetSkinName(true, this.Page))
                 },
-                SiteRoot = SiteUtils.GetNavigationSiteRoot()
             };
 
             //dynamic dModel = model;
@@ -187,36 +201,7 @@ namespace SuperFlexiUI
                 SetItemClassProperty(itemObject, "EditUrl", itemEditUrl);
                 SetItemClassProperty(itemObject, "IsEditable", itemIsEditable);
 
-                //dynamic itemModel = new ExpandoObject();
-                //itemModel.Id = item.ItemID;
-                //itemModel.Guid = item.ItemGuid;
-                //itemModel.SortOrder = item.SortOrder;
-                //itemModel.EditUrl = itemEditUrl;
-
                 List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
-
-                //foreach (Field field in fields)
-                //{
-                //    foreach (ItemFieldValue fieldValue in fieldValues)
-                //    {
-                //        if (field.FieldGuid == fieldValue.FieldGuid)
-                //        {
-                //            if (field.ControlType == "CheckBox")
-                //            {
-                //                ((IDictionary<string, object>)itemModel)[field.Name] = Convert.ToBoolean(fieldValue.FieldValue);
-                //            }
-                //            ((IDictionary<string, object>)itemModel)[field.Name] = fieldValue.FieldValue;
-                //        }
-                //    }
-                //}
-
-                //var itemModel = new
-                //{
-                //    Id = item.ItemID,
-                //    Guid = item.ItemGuid,
-                //    SortOrder = item.SortOrder,
-                //    EditUrl = itemEditUrl,
-                //};
 
                 foreach (Field field in fields)
                 {
@@ -227,7 +212,14 @@ namespace SuperFlexiUI
                             switch (field.ControlType)
                             {
                                 case "CheckBox":
-                                    SetItemClassProperty(itemObject, field.Name, Convert.ToBoolean(fieldValue.FieldValue));
+                                    if (field.CheckBoxReturnBool)
+									{
+                                        SetItemClassProperty(itemObject, field.Name, Convert.ToBoolean(fieldValue.FieldValue));
+									}
+									else
+									{
+                                        goto default;
+                                    }
 
                                     break;
                                 case "CheckBoxList":
@@ -258,14 +250,31 @@ namespace SuperFlexiUI
 
             var viewPath = config.RelativeSolutionLocation +"/"+ config.ViewName;
 
-            string text;
-            try
-            {
-                text = RazorBridge.RenderPartialToString(viewPath, model, "SuperFlexi");
+			string text;
+
+			model.Site.SkinViewPath = model.Site.SkinPath + "Views/" + config.RelativeSolutionLocation.Replace("~/Data/", string.Empty).Replace("sites/" + model.Site.Id, string.Empty) + "/" + config.ViewName;
+			try
+			{
+                text = RazorBridge.RenderPartialToString(model.Site.SkinViewPath, model, "SuperFlexi");
             }
             catch (Exception ex)
-            {
-                renderDefaultView(ex.ToString());
+			{
+
+                log.DebugFormat(
+                    "chosen layout ({0}) for _SuperFlexiRazor was not found in skin {1} or SuperFlexi Solution. Perhaps it is in a different skin or Solution. Error was: {2}",
+                    config.ViewName,
+                    SiteUtils.GetSkinBaseUrl(true, Page),
+                    ex
+                );
+
+                try
+                {
+                    text = RazorBridge.RenderPartialToString(viewPath, model, "SuperFlexi");
+                }
+                catch (Exception ex2)
+                {
+                    renderDefaultView(ex2.ToString());
+                }
             }
 
             void renderDefaultView(string error = "")
@@ -283,13 +292,12 @@ namespace SuperFlexiUI
             }
 
             output.Write(text);
-
-
         }
 
         private Type CreateClass()
         {
-            var className = config.MarkupDefinitionName + config.FieldDefinitionGuid.ToString("N");
+            var className = "_" + config.FieldDefinitionGuid.ToString("N");
+            var solutionName = config.MarkupDefinitionName;
             string getFields()
             {
 
@@ -302,8 +310,14 @@ namespace SuperFlexiUI
                     switch (field.ControlType)
                     {
                         case "CheckBox":
-                            sb.AppendLine($"public bool {field.Name} {{get;set;}}");
-
+                            if (field.CheckBoxReturnBool)
+                            {
+                                sb.AppendLine($"public bool {field.Name} {{get;set;}}");
+                            }
+                            else
+                            {
+                                goto default;
+                            }
                             break;
                         case "CheckBoxList":
                         case "DynamicCheckBoxList":
@@ -330,6 +344,9 @@ namespace SuperFlexiUI
             var classCode = $@"
                     using System;
                     using System.Collections.Generic;
+                    /// <summary>
+                    /// Dynamically generated class for {solutionName}
+                    /// </summary>
                     public class {className} {{
                         public int Id {{get;set;}}
                         public Guid Guid {{get;set;}}
@@ -384,11 +401,11 @@ namespace SuperFlexiUI
         public ModuleModel Module { get; set; }
         public PageModel Page { get; set; }
         public SiteModel Site { get; set; }
-        public string SkinPath { get; set; }
-        public int SiteId { get; set; }
-        public string SiteRoot { get; set; }
         public ModuleConfiguration Config { get; set; }
         public List<object> Items { get; set; } 
+        //public string SkinPath { get; set; }
+        //public int SiteId { get; set; }
+        //public string SiteRoot { get; set; }
     }
 
     public class ModuleModel
@@ -398,6 +415,8 @@ namespace SuperFlexiUI
         public string Title { get; set; }
         public string TitleElement { get; set; }
         public bool IsEditable { get; set; }
+        public string Pane { get; set; }
+        public int PublishedToPageId { get; set; }
     }
 
     public class PageModel
@@ -410,9 +429,13 @@ namespace SuperFlexiUI
     public class SiteModel
     {
         public int Id { get; set; }
-        public string MojoLocation { get; set; }
-        public string SiteInstancePath { get; set; }
-        public string SkinPath { get; set; }
+        public string CacheKey { get; set; }
         public Guid CacheGuid { get; set; }
+        public string PhysAppRoot { get; set; }
+        public string SitePath { get; set; }
+        public string SiteUrl { get; set; }
+        //public string MediaPath { get; set; }
+        public string SkinPath { get; set; }
+        public string SkinViewPath { get; set; }
     }
 }

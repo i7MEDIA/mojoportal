@@ -46,7 +46,10 @@ namespace SuperFlexiUI
 
 				widgetRazor.Visible = widgetRazor.Enabled = true;
 				theWidget.Visible = false;
-				//pnlOuterWrap.Visible = false;
+				pnlOuterWrap.RenderContentsOnly = config.HideOuterWrapperPanel;
+				pnlInnerWrap.RenderContentsOnly = config.HideInnerWrapperPanel;
+				pnlOuterBody.RenderContentsOnly = config.HideOuterBodyPanel;
+				pnlInnerBody.RenderContentsOnly = config.HideInnerBodyPanel;
 			}
 			else
 			{

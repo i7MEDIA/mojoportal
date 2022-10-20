@@ -51,9 +51,6 @@ namespace SuperFlexiUI
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			//LoadSettings();
-			//SetupScripts();
-
 			module = new Module(ModuleId);
 			moduleTitle = module.ModuleTitle;
 
@@ -62,11 +59,6 @@ namespace SuperFlexiUI
 			if (CurrentPage == null)
 			{
 				CurrentPage = CacheHelper.GetCurrentPage();
-				//if (CurrentPage == null)
-				//{
-				//	log.Info("Can't use CacheHelper.GetCurrentPage() here.");
-				//	CurrentPage = new PageSettings(siteSettings.SiteId, PageId);
-				//}
 			}
             if (Config.MarkupDefinition != null)
             {
@@ -120,7 +112,6 @@ namespace SuperFlexiUI
             PopulateControls();
 
         }
-
         private void PopulateControls()
         {
             string featuredImageUrl = string.Empty;
