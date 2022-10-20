@@ -943,7 +943,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The {0} was not applied..
+        ///   Looks up a localized string similar to The {0} attribute was not applied..
         /// </summary>
         internal static string AttributeNotApplied {
             get {
@@ -6217,7 +6217,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must add id=&quot;html1&quot; runat=&quot;server&quot; to the html element in the layout.master of the skin..
+        ///   Looks up a localized string similar to You must add id=&quot;Html&quot; runat=&quot;server&quot; to the html element in the layout.master of the skin..
         /// </summary>
         internal static string HowToFixHtmlElement {
             get {

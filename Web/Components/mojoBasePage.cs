@@ -1193,8 +1193,8 @@ namespace mojoPortal.Web
 
 		private void SetupHtmlDirection()
 		{
-			// requires having <html id="Html1" runat="server" in layout.master of the skin
-			HtmlControl html = Master.FindControl("Html1") as HtmlControl;
+			// requires having <html id="Html" runat="server" in layout.master of the skin
+			HtmlControl html = Master.FindControl("Html") as HtmlControl;
 
 			if (html == null)
 			{
