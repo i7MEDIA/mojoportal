@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fields definitionName="Cookie Consent" definitionGuid="e462d8ff-18ee-45b9-82ba-c3436f661226">
+	<Field
+		name="Content"
+		label="Content"
+		controlType="TextBox"
+		required="True"
+		requiredMessageFormat="Content is required."
+		token="$Content$"
+		isSearchable="true"
+		editPageControlWrapperCssClass="settingrow"
+		editPageLabelCssClass="settinglabel"
+		editPageControlCssClass="form-control"
+		sortOrder="100"
+	/>
+
+	<Field
+		name="BackgroundColor"
+		label="Background Color"
+		controlType="TextBox"
+		required="True"
+		requiredMessageFormat="Background Color is required."
+		token="$BackgroundColor$"
+		editPageControlWrapperCssClass="settingrow"
+		editPageLabelCssClass="settinglabel"
+		editPageControlCssClass="form-control"
+		sortOrder="110"
+	/>
+
+	<Field
+		name="Color"
+		label="Text Color"
+		controlType="TextBox"
+		required="True"
+		requiredMessageFormat="Text Color is required."
+		token="$Color$"
+		isSearchable="true"
+		editPageControlWrapperCssClass="settingrow"
+		editPageLabelCssClass="settinglabel"
+		editPageControlCssClass="form-control"
+		sortOrder="120"
+	/>
+</Fields>
