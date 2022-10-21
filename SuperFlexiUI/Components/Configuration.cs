@@ -150,7 +150,7 @@ namespace SuperFlexiUI
 
             if (settings.Contains("ExtraCssClassSetting"))
             {
-                instanceCssClass = settings["ExtraCssClassSetting"].ToString();
+                ModuleCssClass = settings["ExtraCssClassSetting"].ToString();
             }
 
             isGlobalView = WebUtils.ParseBoolFromHashtable(settings, "IsGlobalView", isGlobalView);
@@ -363,11 +363,11 @@ namespace SuperFlexiUI
                 {
                     if (isMobile)
                     {
-                        mobileInstanceCssClass += " " + attrCollection["moduleClass"].Value;
+                        ModuleMobileCssClass += " " + attrCollection["moduleClass"].Value;
                     }
                     else
                     {
-                        instanceCssClass += " " + attrCollection["moduleClass"].Value;
+                        ModuleCssClass += " " + attrCollection["moduleClass"].Value;
                     }
                 }
                 useStandardMarkupOnDesktopOnly = XmlUtils.ParseBoolFromAttribute(attrCollection, "desktopOnly", useStandardMarkupOnDesktopOnly);
@@ -720,13 +720,11 @@ namespace SuperFlexiUI
         private string addItemText = SuperFlexiResources.AddItem;
         public string AddItemText { get { return addItemText; } }
 
-        private string instanceCssClass = string.Empty;
-        public string InstanceCssClass { get { return instanceCssClass; } }
+        public string ModuleCssClass { get; private set; } = string.Empty;
 
-        private string mobileInstanceCssClass = string.Empty;
-        public string MobileInstanceCssClass { get { return mobileInstanceCssClass; } }
+        public string ModuleMobileCssClass { get; private set; } = string.Empty;
 
-        private string editPageCssClass = string.Empty;
+		private string editPageCssClass = string.Empty;
         public string EditPageCssClass { get { return editPageCssClass; } }
 
         private string editPageTitle = SuperFlexiResources.EditItemTitle;

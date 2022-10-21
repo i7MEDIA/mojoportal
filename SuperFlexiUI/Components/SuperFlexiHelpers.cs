@@ -212,7 +212,7 @@ namespace SuperFlexiUI
 			//sb.Replace("$_ModuleLinks_$", isEditable ? SuperFlexiHelpers.GetModuleLinks(config, displaySettings, moduleId, pageSettings.PageId) : string.Empty);
 			sb.Replace("$_ModuleLinks_$", isEditable ? SuperFlexiHelpers.GetModuleLinks(config, displaySettings, moduleId, publishedOnCurrentPage ? pageSettings.PageId : -1) : string.Empty);
 			sb.Replace("$_JSONNAME_$", jsonObjName);
-			sb.Replace("$_ModuleClass_$", SiteUtils.IsMobileDevice() && !string.IsNullOrWhiteSpace(config.MobileInstanceCssClass) ? config.MobileInstanceCssClass : config.InstanceCssClass);
+			sb.Replace("$_ModuleClass_$", SiteUtils.IsMobileDevice() && !string.IsNullOrWhiteSpace(config.ModuleMobileCssClass) ? config.ModuleMobileCssClass : config.ModuleCssClass);
 			sb.Replace("$_ModuleTitleElement_$", module.HeadElement);
 			sb.Replace("$_SiteID_$", siteSettings.SiteId.ToString());
 			sb.Replace("$_SiteRoot_$", string.IsNullOrWhiteSpace(siteRoot) ? "/" : siteRoot);

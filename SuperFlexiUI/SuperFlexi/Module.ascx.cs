@@ -66,14 +66,14 @@ namespace SuperFlexiUI
 				SuperFlexiHelpers.ReplaceStaticTokens(moduleTitle, config, IsEditable, displaySettings, module, currentPage, siteSettings, out moduleTitle);
 				litModuleTitle.Text = moduleTitle.ToString();
 
-				if (config.InstanceCssClass.Length > 0 && !config.HideOuterWrapperPanel)
+				if (config.ModuleCssClass.Length > 0 && !config.HideOuterWrapperPanel)
 				{
-					pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
+					pnlOuterWrap.SetOrAppendCss(config.ModuleCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
 				}
 
-				if (SiteUtils.IsMobileDevice() && config.MobileInstanceCssClass.Length > 0 && !config.HideOuterWrapperPanel)
+				if (SiteUtils.IsMobileDevice() && config.ModuleMobileCssClass.Length > 0 && !config.HideOuterWrapperPanel)
 				{
-					pnlOuterWrap.SetOrAppendCss(config.MobileInstanceCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
+					pnlOuterWrap.SetOrAppendCss(config.ModuleMobileCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
 				}
 
 				theWidget.Config = config;
