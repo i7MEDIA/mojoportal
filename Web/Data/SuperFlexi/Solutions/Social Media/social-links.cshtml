@@ -1,0 +1,32 @@
+<div class="social-links" id="module@(Model.Module.Id)" data-contentsection="@Model.Config.ModuleFriendlyName">
+	@Html.Partial("_ModuleTitle")
+
+	@if (Model.Config.UseHeader && !string.IsNullOrWhiteSpace(Model.Config.HeaderContent))
+	{
+		<div class="social-links__header">@Html.Raw(@Model.Config.HeaderContent)</div>
+	}
+
+	<div class="social-links__items" id="social-links-@Model.Module.Id" role="tablist" aria-multiselectable="true">
+		@foreach (var item in Model.Items)
+		{
+			<div class="social-links__item">
+				<a class="social-links__link fa fa-@item.mediatype" href="@item.url" title="@item.title"></a>
+				@if (item.IsEditable)
+				{
+					<a class="ModuleEditLink flexi-item-edit" href="@item.EditUrl"><span class="fa fa-edit"></span> Edit Item</a>
+				}
+			</div>
+		}
+	</div>
+	@if (Model.Config.UseFooter && !string.IsNullOrWhiteSpace(Model.Config.FooterContent))
+	{
+		<div class="social-links__footer">@Html.Raw(@Model.Config.HeaderContent)</div>
+	}
+	@if (Model.Module.IsEditable && Model.Config.IsDevelopment)
+	{
+		<a href="#modelinfo@(Model.Module.Id)" data-toggle="collapse">show/hide model info</a>
+			<div class="collapse" id="modelinfo@(Model.Module.Id)">@ObjectInfo.Print(Model)
+				<style>.objectinfo {text-align:left;}</style>
+			</div>
+	}
+</div>

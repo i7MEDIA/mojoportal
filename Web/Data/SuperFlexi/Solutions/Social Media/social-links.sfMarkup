@@ -14,6 +14,8 @@
 		hideInnerWrapperPanel="false" 
 		hideOuterBodyPanel="false"
 		hideInnerBodyPanel="false"
+		viewName="social-links.cshtml"
+		debug="true"
 	>
 	<!--
 		## Unused MarkupDefinition settings
