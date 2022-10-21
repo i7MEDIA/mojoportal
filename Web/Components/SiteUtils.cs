@@ -853,10 +853,11 @@ namespace mojoPortal.Web
 
 			string url = GetNavigationSiteRoot() + "/AccessDenied.aspx" + (String.IsNullOrWhiteSpace(returnUrl) ? "" : "?ReturnUrl=" + returnUrl);
 
-			HttpContext.Current.Response.RedirectLocation = url;
+			HttpContext.Current.Response.TrySkipIisCustomErrors = true;
 			HttpContext.Current.Response.StatusCode = 403;
 			HttpContext.Current.Response.StatusDescription = "Redirecting to " + url;
 			HttpContext.Current.Response.Write("Redirecting to " + url);
+			HttpContext.Current.Response.Redirect(url);
 			HttpContext.Current.ApplicationInstance.CompleteRequest();
 		}
 
