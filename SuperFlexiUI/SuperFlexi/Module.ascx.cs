@@ -35,6 +35,18 @@ namespace SuperFlexiUI
 				displaySettings = config.MarkupDefinition;
 			}
 
+			// this stuff should always apply, regardless if using razor or markupdef
+
+			pnlOuterWrap.RenderContentsOnly = config.HideOuterWrapperPanel;
+			pnlInnerWrap.RenderContentsOnly = config.HideInnerWrapperPanel;
+			pnlOuterBody.RenderContentsOnly = config.HideOuterBodyPanel;
+			pnlInnerBody.RenderContentsOnly = config.HideInnerBodyPanel;
+
+			if (config.ModuleCssClass.Length > 0 && !config.HideOuterWrapperPanel)
+			{
+				pnlOuterWrap.SetOrAppendCss(config.ModuleCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
+			}
+
 			if (config.UseRazor)
 			{
                 widgetRazor.Config = config;
@@ -46,10 +58,7 @@ namespace SuperFlexiUI
 
 				widgetRazor.Visible = widgetRazor.Enabled = true;
 				theWidget.Visible = false;
-				pnlOuterWrap.RenderContentsOnly = config.HideOuterWrapperPanel;
-				pnlInnerWrap.RenderContentsOnly = config.HideInnerWrapperPanel;
-				pnlOuterBody.RenderContentsOnly = config.HideOuterBodyPanel;
-				pnlInnerBody.RenderContentsOnly = config.HideInnerBodyPanel;
+
 			}
 			else
 			{
@@ -150,10 +159,10 @@ namespace SuperFlexiUI
 					}
 				}
 
-				pnlOuterWrap.RenderContentsOnly = config.HideOuterWrapperPanel;
-				pnlInnerWrap.RenderContentsOnly = config.HideInnerWrapperPanel;
-				pnlOuterBody.RenderContentsOnly = config.HideOuterBodyPanel;
-				pnlInnerBody.RenderContentsOnly = config.HideInnerBodyPanel;
+				//pnlOuterWrap.RenderContentsOnly = config.HideOuterWrapperPanel;
+				//pnlInnerWrap.RenderContentsOnly = config.HideInnerWrapperPanel;
+				//pnlOuterBody.RenderContentsOnly = config.HideOuterBodyPanel;
+				//pnlInnerBody.RenderContentsOnly = config.HideInnerBodyPanel;
 			}
 		}
 		#region OnInit
