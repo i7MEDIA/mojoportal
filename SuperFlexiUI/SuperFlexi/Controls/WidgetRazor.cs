@@ -252,7 +252,24 @@ namespace SuperFlexiUI
 
 			string text;
 
-			model.Site.SkinViewPath = model.Site.SkinPath + "Views/" + config.RelativeSolutionLocation.Replace("~/Data/", string.Empty).Replace("sites/" + model.Site.Id, string.Empty) + "/" + config.ViewName;
+            mojoViewEngine mve = new mojoViewEngine();
+			
+            model.Site.SkinViewPath = model.Site.SkinPath + "Views/" + config.RelativeSolutionLocation.Replace("~/Data/", string.Empty).Replace("sites/" + model.Site.Id, string.Empty) + "/" + config.ViewName;
+
+			List<string> masterLocationFormats = new List<string>(mve.MasterLocationFormats);
+			masterLocationFormats.Insert(0, "~/Data/Sites/$SiteId$/skins/$Skin$/Views/SuperFlexi/{0}.cshtml");
+			mve.MasterLocationFormats = masterLocationFormats.ToArray();
+
+			List<string> partialViewLocationFormats = new List<string>(mve.PartialViewLocationFormats);
+			partialViewLocationFormats.Insert(0, model.Site.SkinViewPath.Replace(config.ViewName, string.Empty) +"/{0}.cshtml");
+			mve.PartialViewLocationFormats = partialViewLocationFormats.ToArray();
+
+			List<string> viewLocationFormats = new List<string>(mve.ViewLocationFormats);
+			viewLocationFormats.Insert(0, model.Site.SkinViewPath.Replace(config.ViewName, string.Empty) + "/{0}.cshtml");
+			mve.ViewLocationFormats = viewLocationFormats.ToArray();
+
+
+
 			try
 			{
                 text = RazorBridge.RenderPartialToString(model.Site.SkinViewPath, model, "SuperFlexi");
