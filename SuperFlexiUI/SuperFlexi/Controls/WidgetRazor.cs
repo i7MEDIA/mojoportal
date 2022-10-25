@@ -17,7 +17,7 @@ using Reflection = System.Reflection;
 
 namespace SuperFlexiUI
 {
-	[ToolboxData("<{0}:WidgetRazor runat=server></{0}:WidgetRazor>")]
+    [ToolboxData("<{0}:WidgetRazor runat=server></{0}:WidgetRazor>")]
     public class WidgetRazor : WebControl
     {
         #region Properties
@@ -25,7 +25,9 @@ namespace SuperFlexiUI
         private ModuleConfiguration config = new ModuleConfiguration();
         private List<Field> fields = new List<Field>();
         private string moduleTitle = string.Empty;
-        private SuperFlexiDisplaySettings displaySettings { get; set; }
+		protected TimeZoneInfo timeZone = null;
+
+		private SuperFlexiDisplaySettings displaySettings { get; set; }
 
         StringBuilder strOutput = new StringBuilder();
         StringBuilder strAboveMarkupScripts = new StringBuilder();
@@ -83,7 +85,10 @@ namespace SuperFlexiUI
                     CurrentPage = new PageSettings(siteSettings.SiteId, PageId);
                 }
             }
-            if (config.MarkupDefinition != null)
+
+			timeZone = SiteUtils.GetUserTimeZone();
+
+			if (config.MarkupDefinition != null)
             {
                 displaySettings = config.MarkupDefinition;
             }
@@ -155,11 +160,12 @@ namespace SuperFlexiUI
                 {
                     Id = module.ModuleId,
                     Guid = module.ModuleGuid,
-                    Title = module.ModuleTitle,
-                    TitleElement = module.HeadElement,
                     IsEditable = IsEditable,
                     Pane = module.PaneName,
-                    PublishedToPageId = publishedToCurrentPage ? CurrentPage.PageId : -1
+                    PublishedToPageId = publishedToCurrentPage ? CurrentPage.PageId : -1,
+                    ShowTitle = module.ShowTitle,
+                    Title = module.ModuleTitle,
+                    TitleElement = module.HeadElement,
                 },
                 Config = Config,
                 Page = new PageModel
@@ -176,11 +182,10 @@ namespace SuperFlexiUI
                     PhysAppRoot = WebUtils.GetApplicationRoot(),
                     SitePath = WebUtils.GetApplicationRoot() + "/Data/Sites/" + module.SiteId,
                     SiteUrl = SiteUtils.GetNavigationSiteRoot(),
-                    SkinPath = SiteUtils.DetermineSkinBaseUrl(SiteUtils.GetSkinName(true, this.Page))
+                    SkinPath = SiteUtils.DetermineSkinBaseUrl(SiteUtils.GetSkinName(true, this.Page)),
+                    TimeZone = SiteUtils.GetSiteTimeZone()
                 },
             };
-
-            //dynamic dModel = model;
 
             foreach (Item item in items)
             {
@@ -230,9 +235,12 @@ namespace SuperFlexiUI
                                 case "Date":
                                     if (!string.IsNullOrWhiteSpace(fieldValue.FieldValue))
                                     {
-                                        DateTime.TryParse(fieldValue.FieldValue, out DateTime dt);  
-                                        SetItemClassProperty(itemObject, field.Name, dt);
-                                    }
+                                        DateTime.TryParse(fieldValue.FieldValue, out DateTime dt);
+                                        SetItemClassProperty(itemObject, field.Name, TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(TimeZoneInfo.ConvertTimeToUtc(dt), DateTimeKind.Utc), timeZone));
+                                        SetItemClassProperty(itemObject, field.Name + "UTC", TimeZoneInfo.ConvertTimeToUtc(dt));
+
+										//var dt2 = TimeZoneInfo.ConvertTimeToUtc(DateTime.SpecifyKind(dt, DateTimeKind.Utc));
+									}
                                     break;
                                 case "TextBox":
                                 default:
@@ -315,52 +323,11 @@ namespace SuperFlexiUI
         {
             var className = "_" + config.FieldDefinitionGuid.ToString("N");
             var solutionName = config.MarkupDefinitionName;
-            string getFields()
-            {
 
-                var sb = new StringBuilder();
-                var forConstructor = new StringBuilder();
-                forConstructor.AppendLine($"public {className}(){{");
-
-                foreach (Field field in fields)
-                {
-                    switch (field.ControlType)
-                    {
-                        case "CheckBox":
-                            if (field.CheckBoxReturnBool)
-                            {
-                                sb.AppendLine($"public bool {field.Name} {{get;set;}}");
-                            }
-                            else
-                            {
-                                goto default;
-                            }
-                            break;
-                        case "CheckBoxList":
-                        case "DynamicCheckBoxList":
-                            sb.AppendLine($"public List<string> {field.Name} {{get;set;}}");
-                            forConstructor.AppendLine(field.Name + " = new List<string>();");
-                            break;
-                        case "DateTime":
-                        case "Date":
-                            sb.AppendLine($"public DateTime {field.Name} {{get;set;}}");
-                            break;
-                        case "TextBox":
-                        default:
-                            sb.AppendLine($"public string {field.Name} {{get;set;}}");
-                            break;
-                    }
-                }
-                if (forConstructor.Length > 1)
-                {
-                    forConstructor.AppendLine("}");
-                    sb.AppendLine(forConstructor.ToString());
-                }
-                return sb.ToString();
-            }
             var classCode = $@"
                     using System;
                     using System.Collections.Generic;
+                    //using mojoPortal.Web.ModelBinders;
                     /// <summary>
                     /// Dynamically generated class for {solutionName}
                     /// </summary>
@@ -373,8 +340,55 @@ namespace SuperFlexiUI
                         {getFields()}                        
                     }}";
 
+			string getFields()
+			{
 
-            log.Debug(classCode);
+				var sb = new StringBuilder();
+				var sbConstructor = new StringBuilder();
+				sbConstructor.AppendLine($"public {className}(){{");
+
+				foreach (Field field in fields)
+				{
+					switch (field.ControlType)
+					{
+						case "CheckBox":
+							if (field.CheckBoxReturnBool)
+							{
+								sb.AppendLine($"public bool {field.Name} {{get;set;}}");
+							}
+							else
+							{
+								goto default;
+							}
+							break;
+						case "CheckBoxList":
+						case "DynamicCheckBoxList":
+							sb.AppendLine($"public List<string> {field.Name} {{get;set;}}");
+							sbConstructor.AppendLine(field.Name + " = new List<string>();");
+							break;
+						case "DateTime":
+						case "Date":
+							//sb.AppendLine("[DateTimeKind(DateTimeKind.Local)]");
+							sb.AppendLine($"public DateTime {field.Name} {{get;set;}}");
+							//sb.AppendLine("[ModelBinder(BinderType = typeof(DateTimeUtcModelBinder))]");
+							//sb.AppendLine("[DateTimeKind(DateTimeKind.Utc)]");
+							sb.AppendLine($"public DateTime {field.Name}UTC {{get;set;}}");
+							break;
+						case "TextBox":
+						default:
+							sb.AppendLine($"public string {field.Name} {{get;set;}}");
+							break;
+					}
+				}
+				if (sbConstructor.Length > 1)
+				{
+					sbConstructor.AppendLine("}");
+					sb.AppendLine(sbConstructor.ToString());
+				}
+				return sb.ToString();
+			}
+
+			log.Debug(classCode);
             var options = new CompilerParameters
             {
                 GenerateExecutable = false,
@@ -383,6 +397,8 @@ namespace SuperFlexiUI
             };
             //options.ReferencedAssemblies.Add(System.Web.Hosting.HostingEnvironment.MapPath("~/bin/System.dll"));
             options.ReferencedAssemblies.Add(Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8));
+            //options.ReferencedAssemblies.Add(AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(assembly => assembly.GetName().Name == "mojoPortal.Web").FullName);
+            options.ReferencedAssemblies.Add(Reflection.Assembly.GetAssembly(typeof(Global)).CodeBase.Substring(8));
 
             var provider = new CSharpCodeProvider();
             var compile = provider.CompileAssemblyFromSource(options, classCode);
@@ -415,11 +431,11 @@ namespace SuperFlexiUI
 
     public class WidgetModel 
     {
+        public ModuleConfiguration Config { get; set; }
+        public List<object> Items { get; set; } 
         public ModuleModel Module { get; set; }
         public PageModel Page { get; set; }
         public SiteModel Site { get; set; }
-        public ModuleConfiguration Config { get; set; }
-        public List<object> Items { get; set; } 
         //public string SkinPath { get; set; }
         //public int SiteId { get; set; }
         //public string SiteRoot { get; set; }
@@ -429,22 +445,26 @@ namespace SuperFlexiUI
     {
         public int Id { get; set; }
         public Guid Guid { get; set; }
-        public string Title { get; set; }
-        public string TitleElement { get; set; }
         public bool IsEditable { get; set; }
         public string Pane { get; set; }
         public int PublishedToPageId { get; set; }
+        public bool ShowTitle { get; set; }
+        public string Title { get; set; }
+        public string TitleElement { get; set; }
     }
 
     public class PageModel
     {
         public int Id { get; set; }
-        public string Url { get; set; }
         public string Name { get; set; }
+        public string Url { get; set; }
     }
 
-    public class SiteModel
+	public class SiteModel
     {
+        //[System.Web.Mvc.ModelBinder(typeof(mojoPortal.Web.ModelBinders.DateTimeLocalModelBinder))]
+        
+        //[System.Web.Http.ModelBinding.ModelBinder(typeof(mojoPortal.Web.ModelBinders.DateTimeLocalModelBinder))]
         public int Id { get; set; }
         public string CacheKey { get; set; }
         public Guid CacheGuid { get; set; }
@@ -452,7 +472,37 @@ namespace SuperFlexiUI
         public string SitePath { get; set; }
         public string SiteUrl { get; set; }
         //public string MediaPath { get; set; }
-        public string SkinPath { get; set; }
+		public string SkinPath { get; set; }
         public string SkinViewPath { get; set; }
+        public TimeZoneInfo TimeZone { get; set; }
     }
+
+	//[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+	//public abstract class PropertyBindAttribute : Attribute
+	//{
+	//	public abstract bool BindProperty(ControllerContext controllerContext,
+	//	System.Web.Mvc.ModelBindingContext bindingContext, PropertyDescriptor propertyDescriptor);
+	//}
+
+
+	//	[System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Struct)
+	//]
+	//	public class DateTimeKindAttribute : System.Attribute
+	//	{
+	//        private string kind { get; set; }
+	//		public DateTimeKindAttribute(string kind)
+	//		{
+	//			this.kind = kind;
+	//		}
+	//	}
+
+	//    public class DateTimePropertyBindAttribute : PropertyBindAttribute
+	//    {
+	//        public override bool BindProperty(ControllerContext controllerContext,
+	//            System.Web.Mvc.ModelBindingContext bindingContext, PropertyDescriptor propertyDescriptor)
+	//        {
+	//            return propertyDescriptor.PropertyType == typeof(DateTime);
+	//        }
+	//    }
+
 }

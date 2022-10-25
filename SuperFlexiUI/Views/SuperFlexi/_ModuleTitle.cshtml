@@ -1,17 +1,21 @@
-﻿@{ 
-	var module = new mojoPortal.Business.Module(Model.Module.Guid);
+﻿@{
+	//var module = new mojoPortal.Business.Module(Model.Module.Guid);
+
+
 }
 
-@if (module.ShowTitle)
-{ 
-	<@Model.Module.TitleElement class="social-links__title moduletitle" data-moduleid="module@(Model.Module.Id)">
-	@Model.Module.Title
+@if (Model.Module.ShowTitle)
+{
 
-	@if (Model.Module.IsEditable)
+	@Html.Raw("<" + Model.Module.TitleElement + " class=\"" + Model.Config.ModuleCssClass +"__title moduletitle\" data-moduleid=\"module" + Model.Module.Id + "\">")
+	<text>@Model.Module.Title</text>
+
+	if (Model.Module.IsEditable)
 	{
 		@Html.Partial("_ModuleLinks")
 	}
-	</@Model.Module.TitleElement>
+
+	@Html.Raw("</" + Model.Module.TitleElement + ">")
 }
 else if (Model.Module.IsEditable)
 {
