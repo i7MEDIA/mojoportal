@@ -29,8 +29,6 @@ namespace SuperFlexiUI
 		FileSystemProvider fsProvider;
 		IFileSystem fileSystem;
 
-
-
 #region contstructors
 		public ModuleConfiguration()
         { }
@@ -361,14 +359,26 @@ namespace SuperFlexiUI
 
                 if (attrCollection["moduleClass"] != null)
                 {
-                    if (isMobile)
+
+                    SolutionCssClass = attrCollection["moduleClass"].Value.Trim();
+
+					if (isMobile)
                     {
-                        ModuleMobileCssClass += " " + attrCollection["moduleClass"].Value;
-                    }
+                        ModuleMobileCssClass += (" " + SolutionCssClass).Trim();
+					}
                     else
                     {
-                        ModuleCssClass += " " + attrCollection["moduleClass"].Value;
-                    }
+                        //this looks weird but it's a handy way to append the class with a space between existing value and this value without checking if existing value is empty
+                        ModuleCssClass += (" " + SolutionCssClass).Trim();
+
+                        //this doesn't look weird but is harder to read and is significantly more code.
+                        //ModuleCssClass = string.IsNullOrWhiteSpace(ModuleCssClass) ? attrCollection["moduleClass"].Value : $"{ModuleCssClass} {attrCollection["moduleClass"].Value}";
+
+                        //each of these produces about the same amount of code when compiled, with the first being slightly less
+                        //text = string.Concat(text, string.Concat(" ", text2).Trim());
+                        //text = (string.IsNullOrWhiteSpace(text) ? text2 : string.Concat(text, " ", text2));
+
+					}
                 }
                 useStandardMarkupOnDesktopOnly = XmlUtils.ParseBoolFromAttribute(attrCollection, "desktopOnly", useStandardMarkupOnDesktopOnly);
                 useHeader = XmlUtils.ParseBoolFromAttribute(attrCollection, "useHeader", useHeader);
@@ -719,6 +729,8 @@ namespace SuperFlexiUI
 
         private string addItemText = SuperFlexiResources.AddItem;
         public string AddItemText { get { return addItemText; } }
+
+        public string SolutionCssClass { get; private set; } = string.Empty;
 
         public string ModuleCssClass { get; private set; } = string.Empty;
 
