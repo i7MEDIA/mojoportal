@@ -60,6 +60,7 @@ using mojoPortal.Web.Routing;
 using mojoPortal.Web.Optimization;
 using System.Net;
 using System.Dynamic;
+using mojoPortal.Web.ModelBinders;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 
@@ -221,6 +222,11 @@ namespace mojoPortal.Web
 
             AreaRegistration.RegisterAllAreas();
             RouteRegistrar.RegisterRoutes(RouteTable.Routes);
+
+			//System.Web.Mvc.ModelBinders.Binders.Add(typeof(DateTime), new DateTimeBinder());
+			//System.Web.Mvc.ModelBinders.Binders.Add(typeof(DateTime?), new DateTimeBinder());
+			//System.Web.Mvc.ModelBinders.Binders.Add(typeof(DateTime), new DateTimeSiteTimeZoneBinder());
+
 
 			CreateSystemInfoCache();
 
