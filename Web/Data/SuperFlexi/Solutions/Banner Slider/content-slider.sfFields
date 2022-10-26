@@ -2,33 +2,105 @@
 <Fields definitionName="Content Slider" definitionGuid="3ef1d095-63a6-4973-8125-dc700cf856a9">
     <!-- $_FlexiHelp_$ is /Data/SuperFlexi/Help/ -->
 
+    <Field name="orientation" label="Slide Orientation (layout)" controlType="Dropdown" sortOrder="90">
+        <Options>
+            <Option value="center" name="Center"></Option>
+            <Option value="left" name="Left"></Option>
+            <Option value="right" name="Right"></Option>
+        </Options>
+    </Field>
+
     <Field
-        name="content"
-        label="Slide Content"
-        controlType="CustomField"
-        controlSrc="~/SuperFlexi/Controls/Wysiwyg.ascx"
-        required="false"
-        requiredMessageFormat="Slide Content is required for each box."
-        token="$content$"
+        name="title"
+        label="Title"
+        controlType="TextBox"
+        required="True"
+        requiredMessageFormat="Title is required."
+        isSearchable="true"
 
         editPageControlWrapperCssClass="settingrow"
         editPageLabelCssClass="settinglabel"
-        editPageControlCssClass="form-control"
+        editPageControlCssClass="forminput"
         sortOrder="100"
     />
 
     <Field
-        name="image"
-        label="Slide Image"
-        controlType="ImagePicker"
+        name="showdescription"
+        label="Show Title &amp; Description?"
+        controlType="CheckBox"
         required="false"
-        requiredMessageFormat="Slide Image is required for each box."
-        token="$image$"
+        requiredMessageFormat="Show Description is required."
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="forminput list-inline cats-list"
+        sortOrder="110"
+    />
+
+    <Field
+        name="content"
+        label="Description:"
+        controlType="CustomField"
+        controlSrc="~/SuperFlexi/Controls/Wysiwyg.ascx"
+        required="false"
+        requiredMessageFormat="Slide Content is required for each box."
 
         editPageControlWrapperCssClass="settingrow"
         editPageLabelCssClass="settinglabel"
         editPageControlCssClass="form-control"
-        sortOrder="110"
+        sortOrder="120"
+    />
+
+    <Field
+        name="imgasbackground"
+        label="Background Image?"
+        controlType="CheckBox"
+        required="false"
+        requiredMessageFormat="Background Image is required."
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="forminput list-inline cats-list"
+        sortOrder="130"
+    />
+
+    <Field
+        name="image"
+        label="Slide Background Image"
+        controlType="ImagePicker"
+        required="false"
+        requiredMessageFormat="Slide Image is required for each box."
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="140"
+    />
+
+     <Field
+        name="includeimgtag"
+        label="Content Image?"
+        controlType="CheckBox"
+        required="false"
+        requiredMessageFormat="Content Image is required."
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="forminput list-inline cats-list"
+        sortOrder="150"
+    />
+
+    <Field
+        name="contentimage"
+        label="Slide Content Image"
+        controlType="ImagePicker"
+        required="false"
+        requiredMessageFormat="Slide Content Image is required for each box."
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="160"
     />
 
     <!--

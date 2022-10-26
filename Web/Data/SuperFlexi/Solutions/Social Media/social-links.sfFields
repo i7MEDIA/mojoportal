@@ -41,6 +41,7 @@
             <Option value="facebook" name="Facebook"></Option>
             <Option value="linkedin" name="Linked In"></Option>
             <Option value="youtube-play" name="YouTube"></Option>
+            <Option value="instagram" name="Instagram"></Option>
             <Option value="tumblr" name="Tumblr"></Option>
             <Option value="vimeo" name="Vimeo"></Option>
             <Option value="pinterest-p" name="Pinterest"></Option>

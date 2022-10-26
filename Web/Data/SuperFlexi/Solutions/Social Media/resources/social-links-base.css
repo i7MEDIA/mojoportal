@@ -106,6 +106,13 @@
   font-size: 20px;
 }
 .social-links__item a.fa-pinterest-p:hover {
+  background-color: #E4405F;
+}
+.social-links__item a.fa-instagram {
+  background-color: #ff3459;
+  font-size: 20px;
+}
+.social-links__item a.fa-instagram:hover {
   background-color: #ee0a23;
 }
 .social-links__item a.fa-flickr {

@@ -1,5 +1,5 @@
-<div class="accordion" id="module@Model.Module.Id" data-contentsection="@Model.Config.ModuleFriendlyName">
-	<@Model.Module.TitleElement class="accordion__title moduletitle" data-moduleid="module@Model.Module.Id">
+<div class="accordion" id="module@(Model.Module.Id)" data-contentsection="@Model.Config.ModuleFriendlyName">
+	<@Model.Module.TitleElement class="accordion__title moduletitle" data-moduleid="module@(Model.Module.Id)">
 		@Model.Module.Title
 		@if (Model.Module.IsEditable)
 		{
@@ -21,7 +21,7 @@
 		<div class="accordion__header">@Html.Raw(@Model.Config.HeaderContent)</div>
 	}
 
-	<div class="accordion__items panel-group" id="accordion-@Model.Module.Id" role="tablist" aria-multiselectable="true">
+	<div class="accordion__items panel-group" id="accordion-@(Model.Module.Id)" role="tablist" aria-multiselectable="true">
 		@foreach (var item in Model.Items)
 		{
 			<div class="accordion__item panel panel-@(item.important ? "danger" : item.color)">
@@ -44,7 +44,7 @@
 	{
 		<div class="accordion__footer">@Html.Raw(@Model.Config.HeaderContent)</div>
 	}
-	@if (Model.Module.IsEditable && Model.Config.IsDevelopment)
+	@if (Model.Module.IsEditable && Model.Config.Debug)
 	{
 		<a href="#modelinfo@(Model.Module.Id)" data-toggle="collapse">show/hide model info</a>
 			<div class="collapse" id="modelinfo@(Model.Module.Id)">@ObjectInfo.Print(Model)</div>
