@@ -148,7 +148,7 @@ namespace SuperFlexiUI
 
             if (settings.Contains("ExtraCssClassSetting"))
             {
-                ModuleCssClass = settings["ExtraCssClassSetting"].ToString();
+                ModuleCssClass = settings["ExtraCssClassSetting"].ToString().Trim();
             }
 
             isGlobalView = WebUtils.ParseBoolFromHashtable(settings, "IsGlobalView", isGlobalView);
@@ -362,23 +362,16 @@ namespace SuperFlexiUI
 
                     SolutionCssClass = attrCollection["moduleClass"].Value.Trim();
 
+                    var classes = ModuleCssClass.SplitOnCharAndTrim(' ');
+                    classes.AddRange(SolutionCssClass.SplitOnCharAndTrim(' '));
+
+                    ModuleCssClass = string.Join(" ", classes);
+
 					if (isMobile)
                     {
-                        ModuleMobileCssClass += (" " + SolutionCssClass).Trim();
+                        ModuleMobileCssClass = ModuleCssClass;
 					}
-                    else
-                    {
-                        //this looks weird but it's a handy way to append the class with a space between existing value and this value without checking if existing value is empty
-                        ModuleCssClass += (" " + SolutionCssClass).Trim();
-
-                        //this doesn't look weird but is harder to read and is significantly more code.
-                        //ModuleCssClass = string.IsNullOrWhiteSpace(ModuleCssClass) ? attrCollection["moduleClass"].Value : $"{ModuleCssClass} {attrCollection["moduleClass"].Value}";
-
-                        //each of these produces about the same amount of code when compiled, with the first being slightly less
-                        //text = string.Concat(text, string.Concat(" ", text2).Trim());
-                        //text = (string.IsNullOrWhiteSpace(text) ? text2 : string.Concat(text, " ", text2));
-
-					}
+                    
                 }
                 useStandardMarkupOnDesktopOnly = XmlUtils.ParseBoolFromAttribute(attrCollection, "desktopOnly", useStandardMarkupOnDesktopOnly);
                 useHeader = XmlUtils.ParseBoolFromAttribute(attrCollection, "useHeader", useHeader);
