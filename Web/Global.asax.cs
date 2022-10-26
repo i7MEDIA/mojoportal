@@ -60,7 +60,7 @@ using mojoPortal.Web.Routing;
 using mojoPortal.Web.Optimization;
 using System.Net;
 using System.Dynamic;
-//using mojoPortal.Web.ModelBinders;
+using mojoPortal.Web.ModelBinders;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 
