@@ -1,0 +1,90 @@
+@using mojoPortal.Business.WebHelpers;
+@using mojoPortal.Business;
+
+@{ 
+	var siteSettings = CacheHelper.GetCurrentSiteSettings();
+	var pageSettings = new PageSettings(Model.Site.Id, Model.Page.Id);
+	var module = new Module(Model.Module.Guid);
+
+	var itemCount = 0;
+
+	string maxItems = Model.Config.MaxItems.ToString();
+	int maxItemsAsNumber;
+
+	bool isParsable = Int32.TryParse(maxItems, out maxItemsAsNumber);
+
+	if (!isParsable || maxItemsAsNumber == -1)
+	{
+		maxItemsAsNumber = 9999;
+	}
+}
+
+<div class="@(Model.Config.ModuleCssClass)" id="module@(Model.Module.Id)" data-contentsection="@Model.Config.ModuleFriendlyName" data-customsettings="@Model.Config.CustomizableSettings">
+
+	@Html.Partial("_ModuleTitle")
+
+	@if (Model.Config.UseHeader && !string.IsNullOrWhiteSpace(Model.Config.HeaderContent))
+	{
+		<div class="@(Model.Config.ModuleCssClass)__header">@Html.Raw(@Model.Config.HeaderContent)</div>
+	}
+	<div class="@(Model.Config.ModuleCssClass)__items" id="@(Model.Config.ModuleCssClass)-@Model.Module.Id">
+
+		@foreach (var item in Model.Items)
+		{
+			++itemCount;
+			var startDate = item.datestart.ToString("ddd, MMM dd h:mm tt");
+			var endDate = item.dateend.ToString("ddd, MMM dd h:mm tt");
+			if (itemCount <= maxItemsAsNumber)
+			{
+			<div class="@(Model.Config.ModuleCssClass)__item">
+				@if (!String.IsNullOrWhiteSpace(item.image)) {
+					<div class="@(Model.Config.ModuleCssClass)__image">
+						<img src="@item.image" alt="@item.title" />
+					</div>
+				}
+				<div class="@(Model.Config.ModuleCssClass)__item--inner">
+					<div class="@(Model.Config.ModuleCssClass)__date">
+						<span class="date-start">@startDate</span> - <span class="date-end">@endDate</span>
+					</div>
+					<h3 class="@(Model.Config.ModuleCssClass)__item--title">
+						@if (!String.IsNullOrWhiteSpace(item.url)) {
+							<a href="@item.url" target="@item.btnmode" class="@(Model.Config.ModuleCssClass)__title-link">@item.title</a>
+						}
+						else {
+							@item.title
+						}
+						@if (item.IsEditable)
+						{
+							<a class="ModuleEditLink flexi-item-edit" href="@item.EditUrl"><span class="fa fa-edit"></span> Edit Item</a>
+						}
+					</h3>
+					@if (!String.IsNullOrWhiteSpace(item.description)) {
+						<div class="@(Model.Config.ModuleCssClass)__item--desc">
+							@Html.Raw(item.description)
+						</div>
+					}
+					@if (!String.IsNullOrWhiteSpace(item.location)) {
+						<div class="@(Model.Config.ModuleCssClass)__item--location">
+							<span class="text-italic">at </span>@Html.Raw(item.location)
+						</div>
+					}
+					@if (!String.IsNullOrWhiteSpace(item.url))
+					{
+						<p><a href="@item.url" target="@item.btnmode" class="arrow-link">@(!String.IsNullOrWhiteSpace(item.ctabtntext) ? item.ctabtntext : "Learn More")</a></p>
+					}
+				</div>
+			</div>
+			}
+		}
+	</div>
+	@if (Model.Config.UseFooter && !string.IsNullOrWhiteSpace(Model.Config.FooterContent))
+	{
+		<div class="@(Model.Config.ModuleCssClass)__footer">@Html.Raw(@Model.Config.HeaderContent)</div>
+	}
+	@if (Model.Module.IsEditable && Model.Config.Debug)
+	{
+		<a href="#modelinfo@(Model.Module.Id)" data-toggle="collapse">show/hide model info</a>
+			<div class="collapse" id="modelinfo@(Model.Module.Id)">@ObjectInfo.Print(Model)</div>
+	}
+</div>
+

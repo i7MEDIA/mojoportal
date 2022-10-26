@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Fields definitionName="Jumbotron" definitionGuid="763495ae-98ef-49f2-bfe7-91b552bb6c63">
+    <!-- $_FlexiHelp_$ is /Data/SuperFlexi/Help/ -->
+
+    <Field
+        name="description"
+        label="Description"
+        controlType="CustomField"
+        controlSrc="~/SuperFlexi/Controls/Wysiwyg.ascx"
+        required="false"
+        requiredMessageFormat="Description is required."
+        token="$description$"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="120"
+    />
+
+    <Field
+        name="url"
+        label="Button URL"
+        controlType="LinkPicker"
+        required="false"
+        requiredMessageFormat="Button URL is required."
+        isSearchable="true"
+        token="$url$"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="160"
+    >
+        <Attributes>
+            <Attribute name="class" value="form-control form-control--lg" />
+        </Attributes>
+    </Field>
+
+    <Field
+        name="ctabtntext"
+        label="Button Text"
+        controlType="TextBox"
+        required="false"
+        requiredMessageFormat="Button Text is required."
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="forminput"
+        sortOrder="170"
+    />
+
+    <Field name="btnmode" label="Open Link In..." controlType="Dropdown" sortOrder="175">
+        <Options>
+            <Option value="_self" name="Same Window"></Option>
+            <Option value="_blank" name="New Window"></Option>
+        </Options>
+    </Field>
+
+    <Field
+        name="urltwo"
+        label="Second Button URL"
+        controlType="LinkPicker"
+        required="false"
+        requiredMessageFormat="Button URL is required."
+        isSearchable="true"
+        token="$urltwo$"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="form-control"
+        sortOrder="180"
+    >
+        <Attributes>
+            <Attribute name="class" value="form-control form-control--lg" />
+        </Attributes>
+    </Field>
+
+    <Field
+        name="ctabtntexttwo"
+        label="Second Button Text"
+        controlType="TextBox"
+        required="false"
+        requiredMessageFormat="Button Text is required."
+        isSearchable="true"
+
+        editPageControlWrapperCssClass="settingrow"
+        editPageLabelCssClass="settinglabel"
+        editPageControlCssClass="forminput"
+        sortOrder="190"
+    />
+
+    <Field name="btnmodetwo" label="Open Link In..." controlType="Dropdown" sortOrder="195">
+        <Options>
+            <Option value="_self" name="Same Window"></Option>
+            <Option value="_blank" name="New Window"></Option>
+        </Options>
+    </Field>
+
+    <!--
+        Global Parameters:
+            name
+            label
+            controlType (if blank, TextBox is assumed)
+            defaultValue
+            sortOrder
+            token
+            required
+            requiredMessageFormat
+            regex
+            regexMessageFormat
+            helpKey
+            searchable
+            editPageControlWrapperCssClass
+            editPageLabelCssClass
+            editPageControlCssClass
+
+        Parameters by Control Type:
+            TextBox
+                textBoxMode
+                    "SingleLine" (default)
+                    "MultiLine"
+                    "Password"
+                    "Email"
+                    "Number"
+                    "Range"
+                    "Phone"
+                    "Url"
+            Image
+                imageBrowserEmptyUrl
+            CheckBox
+                checkBoxReturnBool
+                checkBoxReturnValueWhenTrue (only used when checkBoxReturnBool is false)
+                checkBoxReturnValueWhenFalse (only used when checkBoxReturnBool is false)
+            DateTime
+                datePickerIncludeTimeForDate
+                datePickerShowMonthList
+                datePickerShowYearList
+                datePickerYearRange
+                dateFormat
+            CustomField
+                controlSrc
+                    RTE:   ~/SuperFlexi/Controls/Wysiwyg.ascx
+                    image: ~/SuperFlexi/Controls/FeaturedImageSetting.ascx
+                    url:   ~/SuperFlexi/Controls/UrlSelector.ascx
+    -->
+    
+</Fields>

@@ -1,0 +1,51 @@
+@using mojoPortal.Business.WebHelpers;
+@using mojoPortal.Business;
+
+@{ 
+	var siteSettings = CacheHelper.GetCurrentSiteSettings();
+	var pageSettings = new PageSettings(Model.Site.Id, Model.Page.Id);
+	var module = new Module(Model.Module.Guid);
+}
+
+<div class="@(Model.Config.ModuleCssClass)-razorwidget" id="module@(Model.Module.Id)" data-contentsection="@Model.Config.ModuleFriendlyName" data-customsettings="@Model.Config.CustomizableSettings">
+
+	@if (Model.Items.Count == 0) {
+		@Html.Partial("_ModuleTitle") 
+	}
+
+	@if (Model.Config.UseHeader && !string.IsNullOrWhiteSpace(Model.Config.HeaderContent))
+	{
+		<div class="@(Model.Config.ModuleCssClass)__header">@Html.Raw(@Model.Config.HeaderContent)</div>
+	}
+	<div class="@(Model.Config.ModuleCssClass)__items" id="@(Model.Config.ModuleCssClass)-@Model.Module.Id">
+		@foreach (var item in Model.Items)
+		{
+			<div class="jumbotron text-center m-t-gutter">
+				@Html.Partial("_ModuleTitle")
+				@if (item.IsEditable)
+				{
+					<a class="ModuleEditLink flexi-item-edit" href="@item.EditUrl"><span class="fa fa-edit"></span> Edit Item</a>
+				}
+				<div class="jumbotron__item--inner">@Html.Raw(@item.description)</div>
+				@if (!String.IsNullOrWhiteSpace(item.urltwo))
+				{
+					<a href="@item.urltwo" target="@item.btnmodetwo" class="btn btn-default">@(!String.IsNullOrWhiteSpace(item.ctabtntexttwo) ? item.ctabtntexttwo : "Learn More")</a><text>&nbsp;&nbsp;</text>
+				}
+				@if (!String.IsNullOrWhiteSpace(item.url)) 
+				{
+					<a href="@item.url" target="@item.btnmode" class="btn btn-primary arrow-btn arrow-first btn-lg">@(!String.IsNullOrWhiteSpace(item.ctabtntext) ? item.ctabtntext : "Learn More")</a>
+				}
+			</div>
+		}
+	</div>
+	@if (Model.Config.UseFooter && !string.IsNullOrWhiteSpace(Model.Config.FooterContent))
+	{
+		<div class="@(Model.Config.ModuleCssClass)__footer">@Html.Raw(@Model.Config.HeaderContent)</div>
+	}
+	@if (Model.Module.IsEditable && Model.Config.Debug)
+	{
+		<a href="#modelinfo@(Model.Module.Id)" data-toggle="collapse">show/hide model info</a>
+			<div class="collapse" id="modelinfo@(Model.Module.Id)">@ObjectInfo.Print(Model)</div>
+	}
+</div>
+

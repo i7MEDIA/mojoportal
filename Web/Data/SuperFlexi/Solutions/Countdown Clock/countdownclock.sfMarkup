@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions>
+	<MarkupDefinition
+		name="Countdown Clock"
+		moduleClass="countdownclock"
+		editPageClass="countdownclock-edit"
+		fieldDefinitionSrc="countdownclock.sfFields"
+		fieldDefinitionGuid="d9f1f4b7-ab6e-49b4-96ff-ffa9d86eefbf"
+		editPageTitle="Clock Details"
+		editPageDeleteButtonText="Delete Clock"
+		useHeader="false"
+		useFooter="false"
+		hideOuterWrapperPanel="true"
+		hideInnerWrapperPanel="true"
+		hideOuterBodyPanel="true"
+		hideInnerBodyPanel="true"
+		viewName="countdownclock.cshtml"
+		maxItems="1"
+	>
+
+	</MarkupDefinition>
+
+    <SearchDefinition>
+        <Title>$title$</Title>
+        <Keywords>Countdown Clock</Keywords>
+        <Description></Description>
+        <Link>$_PageUrl_$</Link>
+    </SearchDefinition>
+    
+</Definitions>

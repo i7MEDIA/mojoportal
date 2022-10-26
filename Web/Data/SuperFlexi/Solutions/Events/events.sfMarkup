@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions>
+	<MarkupDefinition
+		name="Events"
+		moduleClass="events"
+		editPageClass="events-edit"
+		fieldDefinitionSrc="events.sfFields"
+		fieldDefinitionGuid="f1fcfe4d-3b3d-4b4a-9fc0-146c09c4a193"
+		editPageTitle="Event Details"
+		editPageDeleteButtonText="Delete Event"
+		useHeader="false"
+		useFooter="false"
+		hideOuterWrapperPanel="false"
+		hideInnerWrapperPanel="false"
+		hideOuterBodyPanel="false"
+		hideInnerBodyPanel="false"
+		viewName="events.cshtml"
+	>
+
+	</MarkupDefinition>
+
+    <SearchDefinition>
+        <Title>$title$</Title>
+        <Keywords>Event</Keywords>
+        <Description>$datestart$ - $dateend$ : $description$</Description>
+        <Link>$url$</Link>
+    </SearchDefinition>
+    
+</Definitions>
