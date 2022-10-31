@@ -16,19 +16,19 @@
 		
 	<Message Text="Building Data layer for Features and SuperFlexi" Importance="High"/>
 	
-	<MSBuild Condition="'$(Configuration)' == 'Release' "
+	<MSBuild Condition="'$(Configuration)' == 'Release' OR '$(Configuration)' == 'Debug'"
 		Projects="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj;
 		..\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj" />
 		
-	<MSBuild Condition="'$(Configuration)' == 'Release - MySql' "
+	<MSBuild Condition="'$(Configuration)' == 'Release - MySql' OR '$(Configuration)' == 'Debug - MySql'"
 		Projects="..\mojoPortal.Features.Data.MySql\mojoPortal.Features.Data.MySql.csproj;
 		..\SuperFlexiData.MySql\SuperFlexiData.MySql.csproj" />
 		
-	<MSBuild Condition="'$(Configuration)' == 'Release - pgSQL' "
+	<MSBuild Condition="'$(Configuration)' == 'Release - pgSQL' OR '$(Configuration)' == 'Debug - pgSQL'"
 		Projects="..\mojoPortal.Features.Data.pgSQL\mojoPortal.Features.Data.pgSQL.csproj;
 		..\SuperFlexiData.pgSQL\SuperFlexiData.pgSQL.csproj" />	
 		
-	<MSBuild Condition="'$(Configuration)' == 'Release - SQLite' "
+	<MSBuild Condition="'$(Configuration)' == 'Release - SQLite' OR '$(Configuration)' == 'Debug - SQLite'"
 		Projects="..\mojoPortal.Features.Data.SQLite\mojoPortal.Features.Data.SQLite.csproj;
 		..\SuperFlexiData.SQLite\SuperFlexiData.SQLite.csproj" />		
 		
