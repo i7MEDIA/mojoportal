@@ -51,7 +51,7 @@ namespace mojoPortal.Web.Services
             if (payPalToken.Length == 0)
             {
                 log.Info("invalid request no PayPalLog token provided");
-                SiteUtils.RedirectToDefault();
+                SiteUtils.RedirectToSiteRoot();
                 return;
             }
 
@@ -60,7 +60,7 @@ namespace mojoPortal.Web.Services
             if (setExpressCheckoutLog == null)
             {
                 log.Info("invalid request no PayPalLog found for token " + payPalToken);
-                SiteUtils.RedirectToDefault();
+                SiteUtils.RedirectToSiteRoot();
                 return;
 
             }
