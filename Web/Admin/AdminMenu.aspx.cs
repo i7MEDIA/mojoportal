@@ -66,7 +66,7 @@ namespace mojoPortal.Web.AdminUI
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuSiteSettingsLink",
-					Url = SiteRoot + "/Admin/SiteSettings.aspx",
+					Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/SiteSettings.aspx",
 					CssClass = "adminlink-sitesettings",
 					IconCssClass = "fa fa-cog",
 					SortOrder = -1
@@ -80,7 +80,7 @@ namespace mojoPortal.Web.AdminUI
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "SiteList",
-					Url = SiteRoot + "/Admin/SiteList.aspx",
+					Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/SiteList.aspx",
 					CssClass = "adminlink-sitelist",
 					IconCssClass = "fa fa-list",
 					SortOrder = 10
@@ -96,7 +96,7 @@ namespace mojoPortal.Web.AdminUI
 				{
 					ResourceFile = "Resource",
 					ResourceKey = needsAttention ? "SecurityAdvisorNeedsAttention" : "SecurityAdvisor",
-					Url = SiteRoot + "/Admin/SecurityAdvisor.aspx",
+					Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/SecurityAdvisor.aspx",
 					CssClass = needsAttention ? "adminlink-securityadvisor text-danger" : "adminlink-securityadvisor",
 					IconCssClass = needsAttention ? "fa fa-shield text-danger" : "fa fa-shield",
 					SortOrder = 15
@@ -119,7 +119,7 @@ namespace mojoPortal.Web.AdminUI
 					{
 						ResourceFile = "Resource",
 						ResourceKey = "AdminMenuRoleAdminLink",
-						Url = SiteRoot + "/Admin/RoleManager.aspx",
+						Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/RoleManager.aspx",
 						CssClass = "adminlink-rolemanager",
 						IconCssClass = "fa fa-users",
 						SortOrder = 20
@@ -134,7 +134,7 @@ namespace mojoPortal.Web.AdminUI
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "SiteSettingsPermissionsTab",
-					Url = SiteRoot + "/Admin/PermissionsMenu.aspx",
+					Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/PermissionsMenu.aspx",
 					CssClass = "adminlink-sitepermissions",
 					IconCssClass = "fa fa-key",
 					SortOrder = 25
@@ -162,7 +162,7 @@ namespace mojoPortal.Web.AdminUI
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "MemberListAddUserLabel",
-					Url = SiteRoot + "/Admin/ManageUsers.aspx?userId=-1",
+					Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/ManageUsers.aspx?userId=-1",
 					CssClass = "adminlink-adduser",
 					IconCssClass = "fa fa-user-plus",
 					SortOrder = 35
@@ -190,7 +190,7 @@ namespace mojoPortal.Web.AdminUI
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuContentManagerLink",
-					Url = SiteRoot + "/Admin/ContentCatalog.aspx",
+					Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/ContentCatalog.aspx",
 					CssClass = "adminlink-contentmanager",
 					IconCssClass = "fa fa-hand-pointer-o",
 					SortOrder = 45
@@ -204,7 +204,7 @@ namespace mojoPortal.Web.AdminUI
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuContentWorkflowLabel",
-					Url = SiteRoot + "/Admin/ContentWorkflow.aspx",
+					Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/ContentWorkflow.aspx",
 					CssClass = "adminlink-contentworkflow",
 					IconCssClass = "fa fa-code-fork",
 					SortOrder = 50
@@ -219,7 +219,7 @@ namespace mojoPortal.Web.AdminUI
 					{
 						ResourceFile = "Resource",
 						ResourceKey = "ContentTemplates",
-						Url = SiteRoot + "/Admin/ContentTemplates.aspx",
+						Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/ContentTemplates.aspx",
 						CssClass = "adminlink-contenttemplates",
 						IconCssClass = "fa fa-object-group",
 						SortOrder = 55
@@ -228,7 +228,7 @@ namespace mojoPortal.Web.AdminUI
 					{
 						ResourceFile = "Resource",
 						ResourceKey = "ContentStyleTemplates",
-						Url = SiteRoot + "/Admin/ContentStyles.aspx",
+						Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/ContentStyles.aspx",
 						CssClass = "adminlink-contentstyles",
 						IconCssClass = "fa fa-code",
 						SortOrder = 60
@@ -287,7 +287,7 @@ namespace mojoPortal.Web.AdminUI
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "CommerceReportsLink",
-					Url = SiteRoot + "/Admin/SalesSummary.aspx",
+					Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/SalesSummary.aspx",
 					CssClass = "adminlink-commercereports",
 					IconCssClass = "fa fa-shopping-basket",
 					SortOrder = 80
@@ -301,7 +301,7 @@ namespace mojoPortal.Web.AdminUI
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "RegistrationAgreementLink",
-					Url = SiteRoot + "/Admin/EditRegistrationAgreement.aspx",
+					Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/EditRegistrationAgreement.aspx",
 					CssClass = "adminlink-registrationagreement",
 					IconCssClass = "fa fa-handshake-o",
 					SortOrder = 85
@@ -314,7 +314,7 @@ namespace mojoPortal.Web.AdminUI
 					{
 						ResourceFile = "Resource",
 						ResourceKey = "LoginPageContent",
-						Url = SiteRoot + "/Admin/EditLoginInfo.aspx",
+						Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/EditLoginInfo.aspx",
 						CssClass = "adminlink-logininfo",
 						IconCssClass = "fa fa-file-o",
 						SortOrder = 90
@@ -328,7 +328,7 @@ namespace mojoPortal.Web.AdminUI
 					{
 						ResourceFile = "Resource",
 						ResourceKey = "CoreDataAdministrationLink",
-						Url = SiteRoot + "/Admin/CoreData.aspx",
+						Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/CoreData.aspx",
 						CssClass = "adminlink-coredata",
 						IconCssClass = "fa fa-database",
 						SortOrder = 95
@@ -343,7 +343,7 @@ namespace mojoPortal.Web.AdminUI
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdvancedToolsLink",
-					Url = SiteRoot + "/Admin/AdvancedTools.aspx",
+					Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/AdvancedTools.aspx",
 					CssClass = "adminlink-advancedtools",
 					IconCssClass = "fa fa-wrench",
 					SortOrder = 100
@@ -356,7 +356,7 @@ namespace mojoPortal.Web.AdminUI
 					{
 						ResourceFile = "Resource",
 						ResourceKey = "AdminMenuServerInfoLabel",
-						Url = SiteRoot + "/Admin/ServerInformation.aspx",
+						Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/ServerInformation.aspx",
 						CssClass = "adminlink-serverinfo",
 						IconCssClass = "fa fa-info-circle",
 						SortOrder = 105
@@ -371,7 +371,7 @@ namespace mojoPortal.Web.AdminUI
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuServerLogLabel",
-					Url = SiteRoot + "/Admin/ServerLog.aspx",
+					Url = SiteRoot + $"{WebConfigSettings.AdminDirectoryLocation}/ServerLog.aspx",
 					CssClass = "adminlink-log",
 					IconCssClass = "fa fa-clipboard",
 					SortOrder = 110
