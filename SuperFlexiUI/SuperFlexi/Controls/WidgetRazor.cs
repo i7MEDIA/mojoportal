@@ -5,6 +5,7 @@ using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
+using SuperFlexiUI.Models;
 using SuperFlexiBusiness;
 using System;
 using System.CodeDom.Compiler;
@@ -429,80 +430,5 @@ namespace SuperFlexiUI
         }
     }
 
-    public class WidgetModel 
-    {
-        public ModuleConfiguration Config { get; set; }
-        public List<object> Items { get; set; } 
-        public ModuleModel Module { get; set; }
-        public PageModel Page { get; set; }
-        public SiteModel Site { get; set; }
-        //public string SkinPath { get; set; }
-        //public int SiteId { get; set; }
-        //public string SiteRoot { get; set; }
-    }
-
-    public class ModuleModel
-    {
-        public int Id { get; set; }
-        public Guid Guid { get; set; }
-        public bool IsEditable { get; set; }
-        public string Pane { get; set; }
-        public int PublishedToPageId { get; set; }
-        public bool ShowTitle { get; set; }
-        public string Title { get; set; }
-        public string TitleElement { get; set; }
-    }
-
-    public class PageModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; }
-    }
-
-	public class SiteModel
-    {
-        //[System.Web.Mvc.ModelBinder(typeof(mojoPortal.Web.ModelBinders.DateTimeLocalModelBinder))]
-        
-        //[System.Web.Http.ModelBinding.ModelBinder(typeof(mojoPortal.Web.ModelBinders.DateTimeLocalModelBinder))]
-        public int Id { get; set; }
-        public string CacheKey { get; set; }
-        public Guid CacheGuid { get; set; }
-        public string PhysAppRoot { get; set; }
-        public string SitePath { get; set; }
-        public string SiteUrl { get; set; }
-        //public string MediaPath { get; set; }
-		public string SkinPath { get; set; }
-        public string SkinViewPath { get; set; }
-        public TimeZoneInfo TimeZone { get; set; }
-    }
-
-	//[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-	//public abstract class PropertyBindAttribute : Attribute
-	//{
-	//	public abstract bool BindProperty(ControllerContext controllerContext,
-	//	System.Web.Mvc.ModelBindingContext bindingContext, PropertyDescriptor propertyDescriptor);
-	//}
-
-
-	//	[System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Struct)
-	//]
-	//	public class DateTimeKindAttribute : System.Attribute
-	//	{
-	//        private string kind { get; set; }
-	//		public DateTimeKindAttribute(string kind)
-	//		{
-	//			this.kind = kind;
-	//		}
-	//	}
-
-	//    public class DateTimePropertyBindAttribute : PropertyBindAttribute
-	//    {
-	//        public override bool BindProperty(ControllerContext controllerContext,
-	//            System.Web.Mvc.ModelBindingContext bindingContext, PropertyDescriptor propertyDescriptor)
-	//        {
-	//            return propertyDescriptor.PropertyType == typeof(DateTime);
-	//        }
-	//    }
 
 }

@@ -262,10 +262,14 @@
     <Compile Include="Components\MarkupDefinition.cs" />
     <Compile Include="Components\SitePreDeleteHandler.cs" />
     <Compile Include="Components\XmlUtils.cs" />
+    <Compile Include="Models\ModuleModel.cs" />
+    <Compile Include="Models\PageModel.cs" />
     <Compile Include="Models\RequestObject.cs" />
     <Compile Include="Models\ReturnObject.cs" />
     <Compile Include="Controllers\SuperFlexiController.cs" />
+    <Compile Include="Models\SiteModel.cs" />
     <Compile Include="Models\SuperFlexiObject.cs" />
+    <Compile Include="Models\WidgetModel.cs" />
     <Compile Include="SuperFlexi\Controls\FieldControls\TextBox.cs" />
     <Compile Include="SuperFlexi\Controls\FileBrowserTextBoxExtender.cs" />
     <Compile Include="SuperFlexi\Controls\InterfaceControl.cs" />
