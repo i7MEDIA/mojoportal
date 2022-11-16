@@ -71,15 +71,6 @@
 											Display="None" ValidationGroup="profile" EnableClientScript="false" SkinID="Registration"></asp:CustomValidator>
 										<asp:RegularExpressionValidator ID="PasswordRegex" runat="server" ControlToValidate="Password"
 											Display="None" ValidationGroup="profile" SkinID="Registration"></asp:RegularExpressionValidator>
-										<ajaxToolkit:PasswordStrength ID="passwordStrengthChecker" runat="server" Enabled="false"
-											TargetControlID="Password"
-											DisplayPosition="RightSide"
-											StrengthIndicatorType="Text"
-											PrefixText="Strength:"
-											TextCssClass="pwdstrength"
-											BarBorderCssClass="pwdstrengthbarborder"
-											BarIndicatorCssClass="pwdstrengthbar"
-											StrengthStyles="pwspoor;pwsweak;pwsaverage;pwsstrong;pwsexcellent" />
 										<asp:Panel ID="pnlPasswordHint" runat="server" CssClass="hint" Visible="false">
 											<mp:SiteLabel ID="SiteLabel5" runat="server" ConfigKey="RegisterPasswordHint" UseLabelTag="false"></mp:SiteLabel>
 										</asp:Panel>

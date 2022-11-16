@@ -177,47 +177,47 @@ namespace mojoPortal.Web.UI.Pages
                 NewPasswordRegex.Enabled = false;
             }
 
-            if (siteSettings.ShowPasswordStrengthOnRegistration)
-            {
+            //if (siteSettings.ShowPasswordStrengthOnRegistration)
+            //{
                
-                passwordStrengthChecker.Enabled = true;
-                passwordStrengthChecker.RequiresUpperAndLowerCaseCharacters = true;
-                passwordStrengthChecker.MinimumLowerCaseCharacters = WebConfigSettings.PasswordStrengthMinimumLowerCaseCharacters;
-                passwordStrengthChecker.MinimumUpperCaseCharacters = WebConfigSettings.PasswordStrengthMinimumUpperCaseCharacters;
-                passwordStrengthChecker.MinimumSymbolCharacters = siteSettings.MinRequiredNonAlphanumericCharacters;
-                passwordStrengthChecker.PreferredPasswordLength = siteSettings.MinRequiredPasswordLength;
-                passwordStrengthChecker.PrefixText = Resource.PasswordStrengthPrefix;
-                passwordStrengthChecker.TextStrengthDescriptions = Resource.PasswordStrengthDescriptions;
-                passwordStrengthChecker.CalculationWeightings = WebConfigSettings.PasswordStrengthCalculationWeightings;
+            //    passwordStrengthChecker.Enabled = true;
+            //    passwordStrengthChecker.RequiresUpperAndLowerCaseCharacters = true;
+            //    passwordStrengthChecker.MinimumLowerCaseCharacters = WebConfigSettings.PasswordStrengthMinimumLowerCaseCharacters;
+            //    passwordStrengthChecker.MinimumUpperCaseCharacters = WebConfigSettings.PasswordStrengthMinimumUpperCaseCharacters;
+            //    passwordStrengthChecker.MinimumSymbolCharacters = siteSettings.MinRequiredNonAlphanumericCharacters;
+            //    passwordStrengthChecker.PreferredPasswordLength = siteSettings.MinRequiredPasswordLength;
+            //    passwordStrengthChecker.PrefixText = Resource.PasswordStrengthPrefix;
+            //    passwordStrengthChecker.TextStrengthDescriptions = Resource.PasswordStrengthDescriptions;
+            //    passwordStrengthChecker.CalculationWeightings = WebConfigSettings.PasswordStrengthCalculationWeightings;
 
-                try
-                {
-                    passwordStrengthChecker.StrengthIndicatorType = (StrengthIndicatorTypes)Enum.Parse(typeof(StrengthIndicatorTypes), WebConfigSettings.PasswordStrengthIndicatorType, true);
-                }
-                catch (ArgumentException)
-                {
-                    passwordStrengthChecker.StrengthIndicatorType = StrengthIndicatorTypes.Text;
-                }
-                catch (OverflowException)
-                {
-                    passwordStrengthChecker.StrengthIndicatorType = StrengthIndicatorTypes.Text;
-                }
+            //    try
+            //    {
+            //        passwordStrengthChecker.StrengthIndicatorType = (StrengthIndicatorTypes)Enum.Parse(typeof(StrengthIndicatorTypes), WebConfigSettings.PasswordStrengthIndicatorType, true);
+            //    }
+            //    catch (ArgumentException)
+            //    {
+            //        passwordStrengthChecker.StrengthIndicatorType = StrengthIndicatorTypes.Text;
+            //    }
+            //    catch (OverflowException)
+            //    {
+            //        passwordStrengthChecker.StrengthIndicatorType = StrengthIndicatorTypes.Text;
+            //    }
 
-                try
-                {
-                    passwordStrengthChecker.DisplayPosition = (DisplayPosition)Enum.Parse(typeof(DisplayPosition), WebConfigSettings.PasswordStrengthDisplayPosition, true);
-                }
-                catch (ArgumentException)
-                {
-                    passwordStrengthChecker.DisplayPosition = DisplayPosition.RightSide;
-                }
-                catch (OverflowException)
-                {
-                    passwordStrengthChecker.DisplayPosition = DisplayPosition.RightSide;
-                }
+            //    try
+            //    {
+            //        passwordStrengthChecker.DisplayPosition = (DisplayPosition)Enum.Parse(typeof(DisplayPosition), WebConfigSettings.PasswordStrengthDisplayPosition, true);
+            //    }
+            //    catch (ArgumentException)
+            //    {
+            //        passwordStrengthChecker.DisplayPosition = DisplayPosition.RightSide;
+            //    }
+            //    catch (OverflowException)
+            //    {
+            //        passwordStrengthChecker.DisplayPosition = DisplayPosition.RightSide;
+            //    }
                 
 
-            }
+            //}
 
         }
 

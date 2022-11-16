@@ -10,7 +10,7 @@
 //
 // You must not remove this notice, or any other, from this software.
 
-using AjaxControlToolkit;
+//using AjaxControlToolkit;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -102,128 +102,128 @@ namespace mojoPortal.Web.AdminUI
             litAllTimeRevenue.Text = string.Format(currencyCulture,
                 Resource.AllTimeRevenueFormatString, allTimeRevenue.ToString("c", currencyCulture));
 
-            if (WebConfigSettings.DisableZedGraph)
-            {
-                BindBarChart();
-            }
+            //if (WebConfigSettings.DisableZedGraph)
+            //{
+            //    BindBarChart();
+            //}
 
         }
 
-        private void BindBarChart()
-        {
-            zgSales.Visible = false;
-            bcSales.Visible = true;
-            if (salesByMonthData == null) { salesByMonthData = CommerceReport.GetSalesByYearMonthByModule(moduleGuid); }
+        //private void BindBarChart()
+        //{
+        //    zgSales.Visible = false;
+        //    bcSales.Visible = true;
+        //    if (salesByMonthData == null) { salesByMonthData = CommerceReport.GetSalesByYearMonthByModule(moduleGuid); }
 
-            StringBuilder categories = new StringBuilder();
+        //    StringBuilder categories = new StringBuilder();
 
-            string comma = string.Empty;
-            List<decimal> revenue = new List<decimal>();
+        //    string comma = string.Empty;
+        //    List<decimal> revenue = new List<decimal>();
 
-            // original data is sorted descending on Y, M resorting here 
-            DataRow[] result = salesByMonthData.Select(string.Empty, "Y ASC, M ASC");
+        //    // original data is sorted descending on Y, M resorting here 
+        //    DataRow[] result = salesByMonthData.Select(string.Empty, "Y ASC, M ASC");
 
-            int spaceInterval = 0;
-            int totalItems = result.Length;
-            int itemsAdded = 0;
-            if (totalItems > 12)
-            {
-                spaceInterval = 4;
-            }
-            int nextItemToShow = 0;
+        //    int spaceInterval = 0;
+        //    int totalItems = result.Length;
+        //    int itemsAdded = 0;
+        //    if (totalItems > 12)
+        //    {
+        //        spaceInterval = 4;
+        //    }
+        //    int nextItemToShow = 0;
 
-            foreach (DataRow row in result)
-            {
-                categories.Append(comma);
+        //    foreach (DataRow row in result)
+        //    {
+        //        categories.Append(comma);
 
-                if (itemsAdded == nextItemToShow)
-                {
-                    categories.Append(row["Y"].ToString());
-                    categories.Append("-");
-                    categories.Append(row["M"].ToString());
-                    nextItemToShow = itemsAdded + spaceInterval;
-                }
+        //        if (itemsAdded == nextItemToShow)
+        //        {
+        //            categories.Append(row["Y"].ToString());
+        //            categories.Append("-");
+        //            categories.Append(row["M"].ToString());
+        //            nextItemToShow = itemsAdded + spaceInterval;
+        //        }
 
-                comma = ",";
+        //        comma = ",";
 
-                revenue.Add(Convert.ToDecimal(row["Sales"]));
-                itemsAdded += 1;
+        //        revenue.Add(Convert.ToDecimal(row["Sales"]));
+        //        itemsAdded += 1;
 
-            }
+        //    }
 
-            bcSales.ChartTitle = Resource.SalesByMonthChartLabel;
+        //    bcSales.ChartTitle = Resource.SalesByMonthChartLabel;
 
 
-            bcSales.CategoriesAxis = categories.ToString();
-            BarChartSeries series = new BarChartSeries();
-            //series.Name = Resource.SalesByMonthChartSalesLabel;
-            series.Data = revenue.ToArray();
+        //    bcSales.CategoriesAxis = categories.ToString();
+        //    BarChartSeries series = new BarChartSeries();
+        //    //series.Name = Resource.SalesByMonthChartSalesLabel;
+        //    series.Data = revenue.ToArray();
 
-            bcSales.Series.Add(series);
+        //    bcSales.Series.Add(series);
 
-            //bcSales.CategoriesAxis
-            //bcSales.Series.
+        //    //bcSales.CategoriesAxis
+        //    //bcSales.Series.
 
-        }
+        //}
 
-        private void BindChart()
-        {
-            // line chart is very slow to render when there are lots of data points
-            // bar chart is much faster
-            zgSales.Visible = false;
-            lcSales.Visible = true;
-            if (salesByMonthData == null) { salesByMonthData = CommerceReport.GetSalesByYearMonthByModule(moduleGuid); }
+        //private void BindChart()
+        //{
+        //    // line chart is very slow to render when there are lots of data points
+        //    // bar chart is much faster
+        //    zgSales.Visible = false;
+        //    lcSales.Visible = true;
+        //    if (salesByMonthData == null) { salesByMonthData = CommerceReport.GetSalesByYearMonthByModule(moduleGuid); }
 
-            StringBuilder categories = new StringBuilder();
+        //    StringBuilder categories = new StringBuilder();
 
-            string comma = string.Empty;
-            List<decimal> revenue = new List<decimal>();
+        //    string comma = string.Empty;
+        //    List<decimal> revenue = new List<decimal>();
 
-            // original data is sorted descending on Y, M resorting here 
-            DataRow[] result = salesByMonthData.Select(string.Empty, "Y ASC, M ASC");
+        //    // original data is sorted descending on Y, M resorting here 
+        //    DataRow[] result = salesByMonthData.Select(string.Empty, "Y ASC, M ASC");
 
-            int spaceInterval = 0;
-            int totalItems = result.Length;
-            int itemsAdded = 0;
-            if (totalItems > 12)
-            {
-                spaceInterval = 4;
-            }
-            int nextItemToShow = 0;
+        //    int spaceInterval = 0;
+        //    int totalItems = result.Length;
+        //    int itemsAdded = 0;
+        //    if (totalItems > 12)
+        //    {
+        //        spaceInterval = 4;
+        //    }
+        //    int nextItemToShow = 0;
 
-            foreach (DataRow row in result)
-            {
-                categories.Append(comma);
+        //    foreach (DataRow row in result)
+        //    {
+        //        categories.Append(comma);
 
-                if (itemsAdded == nextItemToShow)
-                {
-                    categories.Append(row["Y"].ToString());
-                    categories.Append("-");
-                    categories.Append(row["M"].ToString());
-                    nextItemToShow = itemsAdded + spaceInterval;
-                }
+        //        if (itemsAdded == nextItemToShow)
+        //        {
+        //            categories.Append(row["Y"].ToString());
+        //            categories.Append("-");
+        //            categories.Append(row["M"].ToString());
+        //            nextItemToShow = itemsAdded + spaceInterval;
+        //        }
                 
-                comma = ",";
+        //        comma = ",";
 
-                revenue.Add(Convert.ToDecimal(row["Sales"]));
-                itemsAdded += 1;
+        //        revenue.Add(Convert.ToDecimal(row["Sales"]));
+        //        itemsAdded += 1;
                 
-            }
+        //    }
 
-            lcSales.ChartTitle = Resource.SalesByMonthChartLabel;
+        //    lcSales.ChartTitle = Resource.SalesByMonthChartLabel;
             
 
-            lcSales.CategoriesAxis = categories.ToString();
-            LineChartSeries series = new LineChartSeries();
-            series.Name = Resource.SalesByMonthChartSalesLabel;
-            series.Data = revenue.ToArray();
+        //    lcSales.CategoriesAxis = categories.ToString();
+        //    LineChartSeries series = new LineChartSeries();
+        //    series.Name = Resource.SalesByMonthChartSalesLabel;
+        //    series.Data = revenue.ToArray();
 
-            lcSales.Series.Add(series);
+        //    lcSales.Series.Add(series);
 
-            //bcSales.CategoriesAxis
-            //bcSales.Series.
+        //    //bcSales.CategoriesAxis
+        //    //bcSales.Series.
 
-        }
+        //}
 
         private void OnRenderUserChart(ZedGraphWeb z, Graphics g, MasterPane masterPane)
         {

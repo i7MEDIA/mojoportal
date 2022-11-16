@@ -2,7 +2,7 @@
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server" >
-<mp:CornerRounderTop id="ctop1" runat="server" />
+
 <asp:Panel id="pnlPassword" runat="server" CssClass="panelwrapper login">
 <div class="modulecontent">
 <fieldset>
@@ -19,16 +19,6 @@
             <div class="settingrow">
                <strong><mp:SiteLabel id="SiteLabel1" runat="server" ForControl="NewPassword" ConfigKey="ChangePasswordNewPasswordLabel"></mp:SiteLabel></strong>
                 <br /><asp:TextBox ID="NewPassword" runat="server" TextMode="password"  />
-                <ajaxToolkit:PasswordStrength ID="passwordStrengthChecker" runat="server" Enabled="false"
-                                                TargetControlID="NewPassword"
-                                                DisplayPosition="RightSide"
-                                                StrengthIndicatorType="Text"
-                                                PrefixText="Strength:"
-                                                TextCssClass="pwdstrength"
-                                                BarBorderCssClass="pwdstrengthbarborder"
-                                                BarIndicatorCssClass="pwdstrengthbar"
-                                                StrengthStyles="pwspoor;pwsweak;pwsaverage;pwsstrong;pwsexcellent"
-                                                 />
             </div>
             <div class="settingrow">
                 <strong><mp:SiteLabel id="SiteLabel2" runat="server" ForControl="ConfirmNewPassword" ConfigKey="ChangePasswordConfirmNewPasswordLabel"></mp:SiteLabel></strong>
@@ -74,7 +64,6 @@
 </fieldset>
 </div>
 </asp:Panel> 
-<mp:CornerRounderBottom id="cbottom1" runat="server" />	
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />
 <asp:Content ContentPlaceHolderID="pageEditContent" ID="MPPageEdit" runat="server" />

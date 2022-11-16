@@ -122,10 +122,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=16.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
-      <HintPath>..\packages\AjaxControlToolkit.16.1.0.0\lib\net40\AjaxControlToolkit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Argotic.Common, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\argotic\Argotic.Common.dll</HintPath>
@@ -1828,6 +1824,198 @@
     <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\pgsql\1.0.0.1.config" />
     <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\sqlce\1.0.0.1.config" />
     <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\sqlite\1.0.0.1.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.0.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.0.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.0.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.0.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.0.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.0.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.1.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.1.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.1.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.1.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.1.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.1.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.1.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.1.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.1.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.1.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.2.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.2.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.2.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.2.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.2.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.2.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.0.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.0.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.0.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.0.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.0.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.0.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.0.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.0.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.0.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.0.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.1.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.1.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.1.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.1.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.1.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.1.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.1.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.1.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.1.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.1.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.2.0.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.2.1.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.0.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.0.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.0.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.0.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.0.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.0.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.1.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.1.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.1.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.1.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.1.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.1.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.1.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.1.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.1.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.1.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.2.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.2.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.2.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.2.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.2.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\0.0.2.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.0.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.0.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.0.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.0.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.0.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.0.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.0.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.0.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.0.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.0.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.1.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.1.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.1.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.1.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.1.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.1.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.1.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.1.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.1.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.1.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.2.0.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.2.1.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.0.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.0.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.0.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.0.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.0.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.0.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.1.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.1.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.1.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.1.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.1.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.1.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.1.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.1.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.1.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.1.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.2.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.2.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.2.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.2.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.2.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\0.0.2.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.0.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.0.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.0.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.0.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.0.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.0.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.0.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.0.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.0.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.0.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.1.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.1.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.1.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.1.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.1.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.1.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.1.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.1.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.1.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.1.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.2.0.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.2.1.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.0.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.0.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.0.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.0.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.0.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.0.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.1.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.1.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.1.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.1.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.1.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.1.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.1.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.1.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.1.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.1.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.2.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.2.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.2.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.2.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.2.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.2.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.0.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.0.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.0.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.0.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.0.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.0.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.0.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.0.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.0.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.0.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.1.0.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.1.1.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.1.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.1.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.1.4.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.1.5.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.1.6.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.1.7.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.1.8.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.1.9.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.2.0.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.2.1.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

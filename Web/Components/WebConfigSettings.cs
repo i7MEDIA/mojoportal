@@ -1898,15 +1898,15 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("AjaxToolkitUseCdnForBundle", true); }
 		}
 
-		public static string AjaxToolkitJsBundleCdnUrl
-		{
-			get { return ConfigHelper.GetStringProperty("AjaxToolkitJsBundleCdnUrl", "https://ajax.aspnetcdn.com/ajax/act/15.1.1/Scripts/AjaxControlToolkit/Bundle.js"); }
-		}
+		//public static string AjaxToolkitJsBundleCdnUrl
+		//{
+		//	get { return ConfigHelper.GetStringProperty("AjaxToolkitJsBundleCdnUrl", "https://ajax.aspnetcdn.com/ajax/act/15.1.1/Scripts/AjaxControlToolkit/Bundle.js"); }
+		//}
 
-		public static string AjaxToolkitCssBundleCdnUrl
-		{
-			get { return ConfigHelper.GetStringProperty("AjaxToolkitCssBundleCdnUrl", "https://ajax.aspnetcdn.com/ajax/act/15.1.1/Content/AjaxControlToolkit/Styles/Bundle.css"); }
-		}
+		//public static string AjaxToolkitCssBundleCdnUrl
+		//{
+		//	get { return ConfigHelper.GetStringProperty("AjaxToolkitCssBundleCdnUrl", "https://ajax.aspnetcdn.com/ajax/act/15.1.1/Content/AjaxControlToolkit/Styles/Bundle.css"); }
+		//}
 
 		public static bool DisableAjaxToolkitBundlesAndScriptReferences
 		{
@@ -2718,7 +2718,8 @@ namespace mojoPortal.Web
 
 		public static bool DisableZedGraph
 		{
-			get { return ConfigHelper.GetBoolProperty("DisableZedGraph", false); }
+			get { return false; }
+			//get { return ConfigHelper.GetBoolProperty("DisableZedGraph", false); }
 		}
 
 		public static bool IncludeFaqContentTemplate

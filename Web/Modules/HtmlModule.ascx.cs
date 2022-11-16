@@ -463,35 +463,17 @@ namespace mojoPortal.Web.ContentUI
                 pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass); 
             }
 
-            if ((config.IncludeSwfObject)&&(Page is mojoBasePage))
-            {
-                mojoBasePage p = Page as mojoBasePage;
-                if (p != null) { p.ScriptConfig.IncludeSwfObject = true; }
-            }
+            //if ((config.IncludeSwfObject)&&(Page is mojoBasePage))
+            //{
+            //    mojoBasePage p = Page as mojoBasePage;
+            //    if (p != null) { p.ScriptConfig.IncludeSwfObject = true; }
+            //}
             
             if (this.ModuleConfiguration != null)
             {
                 this.Title = this.ModuleConfiguration.ModuleTitle;
                 this.Description = this.ModuleConfiguration.FeatureName;
             }
-
-
-            if (config.EnableContentRatingSetting && !displaySettings.DisableContentRating)
-            {
-                if (displaySettings.UseBottomContentRating)
-                {
-                    RatingBottom.Enabled = config.EnableContentRatingSetting;
-                    RatingBottom.AllowFeedback = config.EnableRatingCommentsSetting;
-                    RatingBottom.ContentGuid = ModuleGuid;
-                }
-                else
-                {
-                    Rating.Enabled = config.EnableContentRatingSetting;
-                    Rating.AllowFeedback = config.EnableRatingCommentsSetting;
-                    Rating.ContentGuid = ModuleGuid;
-                }
-            }
-           
 
             //pnlContainer.ModuleId = this.ModuleId;
 

@@ -67,8 +67,6 @@
 					<asp:Literal ID="litSubtitle" runat="server" EnableViewState="false" />
 
 					<portal:BasePanel runat="server" ID="pnlDetails">
-						<portal:mojoRating runat="server" ID="Rating" Enabled="false" />
-
 						<mp:OdiogoItem ID="odiogoPlayer" runat="server" EnableViewState="false" />
 
 						<asp:Literal runat="server" ID="featuredImagePostTop" Visible="false" />
@@ -161,8 +159,6 @@
 					<portal:BasePanel runat="server" ID="pnlCopyright" RenderId="false">
 						<asp:Literal runat="server" ID="litCopyright" />
 					</portal:BasePanel>
-
-					<portal:mojoRating runat="server" ID="RatingBottom" Enabled="false" />
 
 					<div id="bsocial" runat="server" class="bsocial">
 						<div id="divAddThis" runat="server" class="blogaddthis" enableviewstate="false">

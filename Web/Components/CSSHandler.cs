@@ -10,8 +10,8 @@
 //
 // You must not remove this notice, or any other, from this software.	
 
-using dotless.Core;
-using dotless.Core.configuration;
+//using dotless.Core;
+//using dotless.Core.configuration;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -263,25 +263,20 @@ namespace mojoPortal.Web.UI
 				}
 			}
 
-			string finalCss;
 
 			if (hasLessFiles && (less != null))
 			{
-				finalCss = ProcessLess(less.ToString()) + cssContent.ToString();
-			}
-			else
-			{
-				finalCss = cssContent.ToString();
+				log.Error($"LESS parser has been removed from mojoPortal. Compile your LESS files to CSS using another tool (i.e., prepros) and then reference the CSS files in your skin style.config");
 			}
 
-			if ((ShouldCacheOnServer()) && (WebConfigSettings.MinifyCSS))
+			if (ShouldCacheOnServer() && WebConfigSettings.MinifyCSS)
 			{
 				// this method is expensive (7.87 seconds as measured by ANTS Profiler
 				// we do cache so its not called very often
-				return encoding.GetBytes(CssMinify.Minify(finalCss));
+				return encoding.GetBytes(CssMinify.Minify(cssContent.ToString()));
 			}
 
-			return encoding.GetBytes(finalCss);
+			return encoding.GetBytes(cssContent.ToString());
 		}
 
 		private void ProcessCssFileList(StringBuilder cssContent, string basePath, string siteRoot, string skinImageBasePath, out bool hasLessFiles)
@@ -511,27 +506,6 @@ namespace mojoPortal.Web.UI
 			less.Append(lessContent);
 		}
 
-		private string ProcessLess(string finalCss)
-		{
-			DotlessConfiguration config = DotlessConfiguration.GetDefaultWeb();
-
-			config.CacheEnabled = false;
-			config.DisableUrlRewriting = true;
-			config.DisableParameters = true;
-			config.MapPathsToWeb = false;
-			config.MinifyOutput = false;
-			config.HandleWebCompression = false;
-			config.Debug = WebConfigSettings.DebugDotLess;
-
-			string css = LessWeb.Parse(finalCss, config);
-
-			if (string.IsNullOrEmpty(css))
-			{
-				return "/* less parsing failed - probably a syntax error */\n" + finalCss;
-			}
-
-			return css;
-		}
 
 		private bool WriteFromCache(HttpContext context, int siteId, string skinName, bool isCompressed)
 		{

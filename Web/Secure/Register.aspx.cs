@@ -320,23 +320,11 @@ namespace mojoPortal.Web.UI.Pages
 				// set default values first
 				foreach (mojoProfilePropertyDefinition propertyDefinition in profileConfig.PropertyDefinitions)
 				{
-#if !MONO
-					// we are using the new TimeZoneInfo list but it doesn't work under Mono
-					// this makes us skip the TimeOffsetHours setting from mojoProfile.config which is not used under windows
-					if (propertyDefinition.Name == mojoProfilePropertyDefinition.TimeOffsetHoursKey)
-					{ continue; }
-#endif
 					mojoProfilePropertyDefinition.SavePropertyDefault(siteUser, propertyDefinition);
 				}
 
 				foreach (mojoProfilePropertyDefinition propertyDefinition in profileConfig.PropertyDefinitions)
 				{
-#if !MONO
-					// we are using the new TimeZoneInfo list but it doesn't work under Mono
-					// this makes us skip the TimeOffsetHours setting from mojoProfile.config which is not used under windows
-					if (propertyDefinition.Name == mojoProfilePropertyDefinition.TimeOffsetHoursKey)
-					{ continue; }
-#endif
 					if ((propertyDefinition.RequiredForRegistration) || (propertyDefinition.ShowOnRegistration))
 					{
 						mojoProfilePropertyDefinition.SaveProperty(
@@ -347,9 +335,6 @@ namespace mojoPortal.Web.UI.Pages
 							timeZone);
 					}
 				}
-
-
-
 			}
 
 
@@ -798,52 +783,52 @@ namespace mojoPortal.Web.UI.Pages
 				{ txtUserName.Text = "nothing"; }
 			}
 
-			if (
-				(WebConfigSettings.EnableAjaxControlPasswordStrength) // false as of 2014-12-15 because enabling it causes viewstate mac error
-				&& (siteSettings.ShowPasswordStrengthOnRegistration))
-			{
-				PasswordStrength passwordStrengthChecker = (PasswordStrength)CreateUserWizardStep1.ContentTemplateContainer.FindControl("passwordStrengthChecker");
-				if (passwordStrengthChecker != null)
-				{
-					passwordStrengthChecker.Enabled = true;
-					passwordStrengthChecker.RequiresUpperAndLowerCaseCharacters = true;
-					passwordStrengthChecker.MinimumLowerCaseCharacters = WebConfigSettings.PasswordStrengthMinimumLowerCaseCharacters;
-					passwordStrengthChecker.MinimumUpperCaseCharacters = WebConfigSettings.PasswordStrengthMinimumUpperCaseCharacters;
-					passwordStrengthChecker.MinimumSymbolCharacters = siteSettings.MinRequiredNonAlphanumericCharacters;
-					passwordStrengthChecker.PreferredPasswordLength = siteSettings.MinRequiredPasswordLength;
+			//if (
+			//	(WebConfigSettings.EnableAjaxControlPasswordStrength) // false as of 2014-12-15 because enabling it causes viewstate mac error
+			//	&& (siteSettings.ShowPasswordStrengthOnRegistration))
+			//{
+			//	PasswordStrength passwordStrengthChecker = (PasswordStrength)CreateUserWizardStep1.ContentTemplateContainer.FindControl("passwordStrengthChecker");
+			//	if (passwordStrengthChecker != null)
+			//	{
+			//		passwordStrengthChecker.Enabled = true;
+			//		passwordStrengthChecker.RequiresUpperAndLowerCaseCharacters = true;
+			//		passwordStrengthChecker.MinimumLowerCaseCharacters = WebConfigSettings.PasswordStrengthMinimumLowerCaseCharacters;
+			//		passwordStrengthChecker.MinimumUpperCaseCharacters = WebConfigSettings.PasswordStrengthMinimumUpperCaseCharacters;
+			//		passwordStrengthChecker.MinimumSymbolCharacters = siteSettings.MinRequiredNonAlphanumericCharacters;
+			//		passwordStrengthChecker.PreferredPasswordLength = siteSettings.MinRequiredPasswordLength;
 
-					passwordStrengthChecker.PrefixText = Resource.PasswordStrengthPrefix;
-					passwordStrengthChecker.TextStrengthDescriptions = Resource.PasswordStrengthDescriptions;
-					passwordStrengthChecker.CalculationWeightings = WebConfigSettings.PasswordStrengthCalculationWeightings;
+			//		passwordStrengthChecker.PrefixText = Resource.PasswordStrengthPrefix;
+			//		passwordStrengthChecker.TextStrengthDescriptions = Resource.PasswordStrengthDescriptions;
+			//		passwordStrengthChecker.CalculationWeightings = WebConfigSettings.PasswordStrengthCalculationWeightings;
 
-					try
-					{
-						passwordStrengthChecker.StrengthIndicatorType = (StrengthIndicatorTypes)Enum.Parse(typeof(StrengthIndicatorTypes), WebConfigSettings.PasswordStrengthIndicatorType, true);
-					}
-					catch (ArgumentException)
-					{
-						passwordStrengthChecker.StrengthIndicatorType = StrengthIndicatorTypes.Text;
-					}
-					catch (OverflowException)
-					{
-						passwordStrengthChecker.StrengthIndicatorType = StrengthIndicatorTypes.Text;
-					}
+			//		try
+			//		{
+			//			passwordStrengthChecker.StrengthIndicatorType = (StrengthIndicatorTypes)Enum.Parse(typeof(StrengthIndicatorTypes), WebConfigSettings.PasswordStrengthIndicatorType, true);
+			//		}
+			//		catch (ArgumentException)
+			//		{
+			//			passwordStrengthChecker.StrengthIndicatorType = StrengthIndicatorTypes.Text;
+			//		}
+			//		catch (OverflowException)
+			//		{
+			//			passwordStrengthChecker.StrengthIndicatorType = StrengthIndicatorTypes.Text;
+			//		}
 
-					try
-					{
-						passwordStrengthChecker.DisplayPosition = (DisplayPosition)Enum.Parse(typeof(DisplayPosition), WebConfigSettings.PasswordStrengthDisplayPosition, true);
-					}
-					catch (ArgumentException)
-					{
-						passwordStrengthChecker.DisplayPosition = DisplayPosition.RightSide;
-					}
-					catch (OverflowException)
-					{
-						passwordStrengthChecker.DisplayPosition = DisplayPosition.RightSide;
-					}
-				}
+			//		try
+			//		{
+			//			passwordStrengthChecker.DisplayPosition = (DisplayPosition)Enum.Parse(typeof(DisplayPosition), WebConfigSettings.PasswordStrengthDisplayPosition, true);
+			//		}
+			//		catch (ArgumentException)
+			//		{
+			//			passwordStrengthChecker.DisplayPosition = DisplayPosition.RightSide;
+			//		}
+			//		catch (OverflowException)
+			//		{
+			//			passwordStrengthChecker.DisplayPosition = DisplayPosition.RightSide;
+			//		}
+			//	}
 
-			}
+			//}
 
 			if (siteSettings.RequireEnterEmailTwiceOnRegistration)
 			{

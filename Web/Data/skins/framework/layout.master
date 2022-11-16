@@ -1,6 +1,6 @@
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="~/App_MasterPages/layout.Master.cs" Inherits="mojoPortal.Web.layout" %>
 <!DOCTYPE html>
-<html class="htmlclass">
+<html class="htmlclass" id="Html" runat="server">
 	<head id="Head1" runat="server">
 		<meta charset="utf-8">
 		<meta http-equiv="x-ua-compatible" content="ie=edge">

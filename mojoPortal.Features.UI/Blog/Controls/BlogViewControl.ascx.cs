@@ -811,22 +811,6 @@ namespace mojoPortal.Web.BlogUI
 				{
 					addThisAccountId = basePage.SiteInfo.AddThisDotComUsername;
 				}
-
-				if (config.EnableContentRating && !displaySettings.DetailViewDisableContentRating)
-				{
-					if (displaySettings.UseBottomContentRating)
-					{
-						((mojoRating)RatingBottom).Enabled = true;
-						((mojoRating)RatingBottom).AllowFeedback = config.EnableRatingComments;
-						((mojoRating)RatingBottom).ContentGuid = blog.BlogGuid;
-					}
-					else
-					{
-						((mojoRating)Rating).Enabled = true;
-						((mojoRating)Rating).AllowFeedback = config.EnableRatingComments;
-						((mojoRating)Rating).ContentGuid = blog.BlogGuid;
-					}
-				}
 			}
 
 			pnlDateTop.RenderId = false;

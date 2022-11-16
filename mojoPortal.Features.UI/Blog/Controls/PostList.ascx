@@ -81,11 +81,6 @@
 					</portal:BasePanel>
 
 					<portal:BasePanel ID="pnlPost" runat="server" Visible='<%# !TitleOnly %>' RenderId="false">
-						<portal:mojoRating runat="server"
-							ID="Rating"
-							Enabled='<%# EnableContentRating && !displaySettings.UseBottomContentRating %>'
-							ContentGuid='<%# new Guid(Eval("BlogGuid").ToString()) %>'
-							AllowFeedback='false' />
 
 						<mp:OdiogoItem runat="server"
 							ID="od1"
@@ -216,12 +211,6 @@
 								</FooterTemplate>
 							</asp:Repeater>
 						</portal:BasePanel>
-
-						<portal:mojoRating runat="server"
-							ID="Rating2"
-							Enabled='<%# EnableContentRating && displaySettings.UseBottomContentRating %>'
-							ContentGuid='<%# new Guid(Eval("BlogGuid").ToString()) %>'
-							AllowFeedback='false' />
 
 						<portal:BasePanel runat="server" ID="pnlBlogSocial">
 							<portal:AddThisWidget runat="server"

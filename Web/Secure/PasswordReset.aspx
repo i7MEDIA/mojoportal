@@ -22,10 +22,10 @@
                     </strong>
                     <br />
                     <asp:textbox id="txtNewPassword" runat="server" textmode="password" />
-                    <ajaxtoolkit:passwordstrength id="passwordStrengthChecker" runat="server" enabled="false"
+<%--                    <ajaxtoolkit:passwordstrength id="passwordStrengthChecker" runat="server" enabled="false"
                         targetcontrolid="txtNewPassword" displayposition="RightSide" strengthindicatortype="Text"
                         prefixtext="Strength:" textcssclass="pwdstrength" barbordercssclass="pwdstrengthbarborder"
-                        barindicatorcssclass="pwdstrengthbar" textstrengthdescriptionstyles="pwspoor;pwsweak;pwsaverage;pwsstrong;pwsexcellent" />
+                        barindicatorcssclass="pwdstrengthbar" textstrengthdescriptionstyles="pwspoor;pwsweak;pwsaverage;pwsstrong;pwsexcellent" />--%>
                 </div>
                 <div class="settingrow">
                     <strong>
