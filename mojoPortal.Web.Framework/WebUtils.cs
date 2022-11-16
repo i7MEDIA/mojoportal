@@ -18,10 +18,12 @@ using System.Collections;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.UI;
 using log4net;
+using mojoPortal.Core.Configuration;
 using mojoPortal.Core.Helpers;
 namespace mojoPortal.Web.Framework
 {
@@ -60,46 +62,21 @@ namespace mojoPortal.Web.Framework
 
         public static bool IsRequestForStaticFile(string requestPath)
         {
-            if (string.IsNullOrEmpty(requestPath)) { return false; }
-            if (string.IsNullOrEmpty(requestPath.Trim())) { return false; }
+            if (string.IsNullOrWhiteSpace(requestPath.Replace("/", ""))) { return false; }
 
             if (requestPath.ContainsCaseInsensitive(".aspx")) { return false; }
             if (requestPath.ContainsCaseInsensitive(".ashx")) { return false; }
             if (requestPath.ContainsCaseInsensitive(".svc")) { return false; }
 
-            if (requestPath.ContainsCaseInsensitive(".html")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".htm")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".png")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".gif")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".jpg")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".jpeg")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".mp3")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".css")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".js")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".txt")) { return true; } 
-            if (requestPath.ContainsCaseInsensitive(".ico")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".zip")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".pdf")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".xml")) { return true; }
+            var staticExtensions = AppConfig.StaticFileExtensions;
 
-            if (requestPath.ContainsCaseInsensitive(".mpg")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".wmv")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".swf")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".flv")) { return true; }
+            var extIdx = requestPath.LastIndexOf('.');
 
 
-            if (requestPath.ContainsCaseInsensitive(".doc")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".docx")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".xls")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".xlsx")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".ppt")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".pptx")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".pps")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".csv")) { return true; }
-            if (requestPath.ContainsCaseInsensitive(".xlsx")) { return true; }
+            var foo = staticExtensions.SplitOnCharAndTrim('|').Contains(requestPath.Substring(extIdx > -1 ? extIdx : 0, extIdx > -1 ? requestPath.Length - extIdx : requestPath.Length));
 
+            return foo;
 
-            return false;
         }
 
         private static string CalculateApplicationRoot()

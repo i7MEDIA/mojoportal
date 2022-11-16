@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +55,15 @@ namespace mojoPortal.Core.Configuration
 					return prop;
 				}
 				return string.Empty;
+			}
+		}
+
+		public static string StaticFileExtensions
+		{
+			get
+			{
+				var defaultVal = ".asf|.asx|.avi|.css|.csv|.doc|.docx|.fla|.flv|.gif|.htm|.html|.ico|.jpeg|.jpg|.js|.json|.less|.m4a|.m4v|.mov|.mp3|.mp4|.mpeg|.mpg|.oga|.ogg|.ogv|.pdf|.png|.pps|.ppt|.pptx|.svg|.swf|.tif|.ttf|.txt|.wav|.webm|.webma|.webmv|.webp|.wmv|.woff|.xls|.xlsx|.xml|.zip";
+				return ConfigHelper.GetStringProperty("StaticFileExtensions", defaultVal);
 			}
 		}
 	}
