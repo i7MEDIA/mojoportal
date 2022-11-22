@@ -104,7 +104,7 @@ namespace mojoPortal.Web
 
 			if (Membership.Provider is mojoMembershipProvider membershipProvider)
 			{
-				encodedPassword = membershipProvider.EncodePassword(defaultAdminUser.PasswordSalt + defaultPassword, MembershipPasswordFormat.Encrypted);
+				encodedPassword = membershipProvider.EncodePassword(defaultPassword, defaultAdminUser.PasswordSalt, MembershipPasswordFormat.Encrypted);
 			}
 
 			return (true, defaultAdminUser.Password == defaultPassword || defaultAdminUser.Password == encodedPassword);

@@ -2358,7 +2358,7 @@ namespace mojoPortal.Web
 			mojoMembershipProvider m = Membership.Provider as mojoMembershipProvider;
 			if (m == null) { throw new System.InvalidOperationException("could not obtain membership provider to use for encryption"); }
 
-			return m.EncodePassword(unencrypted, MembershipPasswordFormat.Encrypted);
+			return m.EncodePassword(unencrypted, string.Empty, MembershipPasswordFormat.Encrypted);
 
 		}
 

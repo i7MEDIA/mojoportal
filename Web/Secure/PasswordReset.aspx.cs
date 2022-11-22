@@ -122,7 +122,7 @@ namespace mojoPortal.Web.UI.Pages
             }
 
             mojoMembershipProvider m = Membership.Provider as mojoMembershipProvider;
-            if (siteUser.Password == m.EncodePassword(siteUser.PasswordSalt + txtNewPassword.Text, siteSettings))
+            if (siteUser.Password == m.EncodePassword(txtNewPassword.Text, siteUser.PasswordSalt, siteSettings))
             {
                 args.IsValid = false;
                 validator.ErrorMessage += Resource.ChangePasswordNewMatchesOldWarning + "<br />";
