@@ -1,10 +1,10 @@
+using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
 using mojoPortal.Net;
 using mojoPortal.Web.Framework;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration.Provider;
 using System.Data;
@@ -13,33 +13,31 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Web;
 using System.Web.Security;
 
 namespace mojoPortal.Web
 {
 	public class mojoMembershipProvider : MembershipProvider
 	{
-
 		#region Private Properties
 
-		private static readonly log4net.ILog log
-			= log4net.LogManager.GetLogger(typeof(mojoMembershipProvider));
+		private static readonly ILog log = LogManager.GetLogger(typeof(mojoMembershipProvider));
 
-		private String description = String.Empty;
-		private String name = String.Empty;
-		private String applicationName = String.Empty;
+		private string description = string.Empty;
+		private string name = string.Empty;
+		private string applicationName = string.Empty;
 
 		private const int LoginnameMaxlength = 50;
 		private const int EmailMaxlength = 100;
 		private const int PasswordquestionMaxlength = 255;
 		private const int PasswordanswerMaxlength = 255;
-		private const int PasswordSize = 14;
-		//private MachineKeySection machineKey;
 
-		private readonly bool saltFirst = true;
-
+		protected bool saltFirst = true;
+		protected int saltLength = 128;
 
 		#endregion
+
 
 		private static SiteSettings GetSiteSettings()
 		{
@@ -51,6 +49,7 @@ namespace mojoPortal.Web
 			return CacheHelper.GetCurrentSiteSettings();
 		}
 
+
 		#region Public Properties
 
 		public override string ApplicationName
@@ -58,9 +57,8 @@ namespace mojoPortal.Web
 			get
 			{
 				SiteSettings siteSettings = GetSiteSettings();
-				if (siteSettings != null)
-					return siteSettings.SiteName;
-				return applicationName;
+
+				return siteSettings != null ? siteSettings.SiteName : applicationName;
 			}
 			set { applicationName = value; }
 		}
@@ -75,10 +73,8 @@ namespace mojoPortal.Web
 			get
 			{
 				SiteSettings siteSettings = GetSiteSettings();
-				if (siteSettings != null)
-					return siteSettings.AllowPasswordReset;
 
-				return false;
+				return siteSettings != null ? siteSettings.AllowPasswordReset : false;
 			}
 		}
 
@@ -87,10 +83,8 @@ namespace mojoPortal.Web
 			get
 			{
 				SiteSettings siteSettings = GetSiteSettings();
-				if (siteSettings != null)
-					return siteSettings.AllowPasswordRetrieval;
 
-				return false;
+				return siteSettings != null ? siteSettings.AllowPasswordRetrieval : false;
 			}
 		}
 
@@ -99,10 +93,8 @@ namespace mojoPortal.Web
 			get
 			{
 				SiteSettings siteSettings = GetSiteSettings();
-				if (siteSettings != null)
-					return siteSettings.MaxInvalidPasswordAttempts;
 
-				return 5;
+				return siteSettings != null ? siteSettings.MaxInvalidPasswordAttempts : 5;
 			}
 		}
 
@@ -111,10 +103,8 @@ namespace mojoPortal.Web
 			get
 			{
 				SiteSettings siteSettings = GetSiteSettings();
-				if (siteSettings != null)
-					return siteSettings.MinRequiredNonAlphanumericCharacters;
 
-				return 0;
+				return siteSettings != null ? siteSettings.MinRequiredNonAlphanumericCharacters : 0;
 			}
 		}
 
@@ -123,9 +113,8 @@ namespace mojoPortal.Web
 			get
 			{
 				SiteSettings siteSettings = GetSiteSettings();
-				if (siteSettings != null)
-					return siteSettings.MinRequiredPasswordLength;
-				return 4;
+
+				return siteSettings != null ? siteSettings.MinRequiredPasswordLength : 4;
 			}
 		}
 
@@ -139,10 +128,8 @@ namespace mojoPortal.Web
 			get
 			{
 				SiteSettings siteSettings = GetSiteSettings();
-				if (siteSettings != null)
-					return siteSettings.PasswordAttemptWindowMinutes;
 
-				return 5;
+				return siteSettings != null ? siteSettings.PasswordAttemptWindowMinutes : 5;
 			}
 		}
 
@@ -151,6 +138,7 @@ namespace mojoPortal.Web
 			get
 			{
 				SiteSettings siteSettings = GetSiteSettings();
+
 				if (siteSettings != null)
 				{
 					return (MembershipPasswordFormat)siteSettings.PasswordFormat;
@@ -165,10 +153,8 @@ namespace mojoPortal.Web
 			get
 			{
 				SiteSettings siteSettings = GetSiteSettings();
-				if (siteSettings != null)
-					return siteSettings.PasswordStrengthRegularExpression;
 
-				return string.Empty;
+				return siteSettings != null ? siteSettings.PasswordStrengthRegularExpression : string.Empty;
 			}
 		}
 
@@ -177,10 +163,8 @@ namespace mojoPortal.Web
 			get
 			{
 				SiteSettings siteSettings = GetSiteSettings();
-				if (siteSettings != null)
-					return siteSettings.RequiresQuestionAndAnswer;
 
-				return true;
+				return siteSettings != null ? siteSettings.RequiresQuestionAndAnswer : true;
 			}
 		}
 
@@ -189,29 +173,29 @@ namespace mojoPortal.Web
 			get
 			{
 				SiteSettings siteSettings = GetSiteSettings();
-				if (siteSettings != null)
-					return siteSettings.RequiresUniqueEmail;
 
-				return true;
+				return siteSettings != null ? siteSettings.RequiresUniqueEmail : true;
 			}
 		}
 
-
 		#endregion
 
-		#region Private Methods
 
+		#region Private Methods
 
 		private MembershipUser CreateMembershipUserFromSiteUser(SiteUser siteUser)
 		{
 			SiteSettings siteSettings = GetSiteSettings();
-			if ((siteUser == null) || (siteUser.UserId <= 0))
+
+			if (siteUser == null || siteUser.UserId <= 0)
+			{
 				return null;
+			}
 
 			if (siteSettings.UseEmailForLogin)
 			{
 				return new MembershipUser(
-					this.name,
+					name,
 					siteUser.Email,
 					siteUser.UserGuid,
 					siteUser.Email,
@@ -223,12 +207,13 @@ namespace mojoPortal.Web
 					siteUser.LastLoginDate,
 					siteUser.LastActivityDate,
 					siteUser.LastPasswordChangedDate,
-					siteUser.LastLockoutDate);
+					siteUser.LastLockoutDate
+				);
 			}
 			else
 			{
 				return new MembershipUser(
-					this.name,
+					name,
 					siteUser.LoginName,
 					siteUser.UserGuid,
 					siteUser.Email,
@@ -240,24 +225,22 @@ namespace mojoPortal.Web
 					siteUser.LastLoginDate,
 					siteUser.LastActivityDate,
 					siteUser.LastPasswordChangedDate,
-					siteUser.LastLockoutDate);
+					siteUser.LastLockoutDate
+				);
 			}
 		}
 
-
 		#endregion
+
 
 		#region Public Methods
 
 		public override void Initialize(string name, NameValueCollection config)
 		{
-
 			base.Initialize(name, config);
-			this.name = "mojoMembershipProvider";
-			this.description = "mojoPortal Membership Provider";
-
+			this.name = nameof(mojoMembershipProvider);
+			description = "mojoPortal Membership Provider";
 		}
-
 
 
 		public override bool ChangePassword(string username, string oldPassword, string newPassword)
@@ -278,10 +261,13 @@ namespace mojoPortal.Web
 			bool result = false;
 
 			if (
-				(username == null) || (username == String.Empty)
-				|| (oldPassword == null) || (oldPassword == String.Empty)
-				|| (newPassword == null) || (newPassword == String.Empty)
-				)
+				username == null ||
+				username == string.Empty ||
+				oldPassword == null ||
+				oldPassword == string.Empty ||
+				newPassword == null ||
+				newPassword == string.Empty
+			)
 			{
 				return result;
 			}
@@ -313,12 +299,12 @@ namespace mojoPortal.Web
 			{
 				if (!Regex.IsMatch(newPassword, siteSettings.PasswordStrengthRegularExpression))
 				{
-					throw new ArgumentException(
-						ResourceHelper.GetMessageTemplate("PasswordDoesntMatchRegularExpressionMessage.config"));
+					throw new ArgumentException(ResourceHelper.GetMessageTemplate("PasswordDoesntMatchRegularExpressionMessage.config"));
 				}
 			}
 
-			ValidatePasswordEventArgs e = new ValidatePasswordEventArgs(username, newPassword, false);
+			var e = new ValidatePasswordEventArgs(username, newPassword, false);
+
 			OnValidatingPassword(e);
 
 			if (e.Cancel)
@@ -333,21 +319,25 @@ namespace mojoPortal.Web
 				}
 			}
 
-			SiteUser siteUser = new SiteUser(siteSettings, username);
+			var siteUser = new SiteUser(siteSettings, username);
+
 			if (siteUser.UserId == -1)
-			{ return result; }
+			{
+				return result;
+			}
 
 			if (
-				((MembershipPasswordFormat)siteSettings.PasswordFormat == MembershipPasswordFormat.Hashed)
-				&& (!siteSettings.UseLdapAuth)
-				)
+				(MembershipPasswordFormat)siteSettings.PasswordFormat == MembershipPasswordFormat.Hashed &&
+				!siteSettings.UseLdapAuth
+			)
 			{
 				if (siteUser.Password == EncodePassword(oldPassword, siteUser.PasswordSalt, MembershipPasswordFormat.Hashed))
 				{
-					siteUser.PasswordSalt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
+					siteUser.PasswordSalt = CreateSaltKey();
 					siteUser.Password = EncodePassword(newPassword, siteUser.PasswordSalt, MembershipPasswordFormat.Hashed);
 					siteUser.MustChangePwd = false;
 					siteUser.PasswordFormat = siteSettings.PasswordFormat;
+
 					result = siteUser.Save();
 				}
 			}
@@ -355,10 +345,11 @@ namespace mojoPortal.Web
 			{
 				if (siteUser.Password == EncodePassword(oldPassword, siteUser.PasswordSalt, MembershipPasswordFormat.Encrypted))
 				{
-					siteUser.PasswordSalt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
+					siteUser.PasswordSalt = CreateSaltKey();
 					siteUser.Password = EncodePassword(newPassword, siteUser.PasswordSalt, MembershipPasswordFormat.Encrypted);
 					siteUser.MustChangePwd = false;
 					siteUser.PasswordFormat = siteSettings.PasswordFormat;
+
 					result = siteUser.Save();
 				}
 			}
@@ -369,6 +360,7 @@ namespace mojoPortal.Web
 					siteUser.Password = newPassword;
 					siteUser.MustChangePwd = false;
 					siteUser.PasswordFormat = siteSettings.PasswordFormat;
+
 					result = siteUser.Save();
 				}
 			}
@@ -383,16 +375,16 @@ namespace mojoPortal.Web
 				siteUser.UpdateLastPasswordChangeTime();
 			}
 
-
 			return result;
-
 		}
+
 
 		public override bool ChangePasswordQuestionAndAnswer(
 			string userName,
 			string password,
 			string newPasswordQuestion,
-			string newPasswordAnswer)
+			string newPasswordAnswer
+		)
 		{
 			/*
 			 * 	Takes, as input, a user name, password, password question, and password answer and 
@@ -405,22 +397,26 @@ namespace mojoPortal.Web
 			 */
 
 			if (
-				String.IsNullOrEmpty(userName)
-				|| (password == null)
-				|| String.IsNullOrEmpty(newPasswordQuestion)
-				|| String.IsNullOrEmpty(newPasswordAnswer)
-				|| (newPasswordQuestion.Length > PasswordquestionMaxlength)
-				|| (newPasswordAnswer.Length > PasswordanswerMaxlength)
-				)
+				string.IsNullOrEmpty(userName) ||
+				password == null ||
+				string.IsNullOrEmpty(newPasswordQuestion) ||
+				string.IsNullOrEmpty(newPasswordAnswer) ||
+				newPasswordQuestion.Length > PasswordquestionMaxlength ||
+				newPasswordAnswer.Length > PasswordanswerMaxlength
+			)
 			{
 				return false;
 			}
 
 			SiteSettings siteSettings = GetSiteSettings();
-			if (siteSettings == null)
-			{ return false; }
 
-			SiteUser siteUser = new SiteUser(siteSettings, userName);
+			if (siteSettings == null)
+			{
+				return false;
+			}
+
+			var siteUser = new SiteUser(siteSettings, userName);
+
 			if (siteUser.UserId > -1 && ValidateUser(userName, password))
 			{
 				return siteUser.UpdatePasswordQuestionAndAnswer(newPasswordQuestion, newPasswordAnswer);
@@ -438,7 +434,8 @@ namespace mojoPortal.Web
 			string passwordAnswer,
 			bool isApproved,
 			object providerUserKey,
-			out MembershipCreateStatus status)
+			out MembershipCreateStatus status
+		)
 		{
 			/*
 			 * Takes, as input, a user name, password, e-mail address, and other information and adds 
@@ -456,9 +453,11 @@ namespace mojoPortal.Web
 			 */
 
 			SiteSettings siteSettings = GetSiteSettings();
+
 			if (siteSettings == null)
 			{
 				status = MembershipCreateStatus.UserRejected;
+
 				return null;
 			}
 
@@ -468,37 +467,46 @@ namespace mojoPortal.Web
 			}
 
 
-			if (String.IsNullOrEmpty(userName) || userName.Length > LoginnameMaxlength)
+			if (string.IsNullOrEmpty(userName) || userName.Length > LoginnameMaxlength)
 			{
 				status = MembershipCreateStatus.InvalidUserName;
+
 				return null;
 			}
 
-			if (String.IsNullOrEmpty(email) || email.Length > EmailMaxlength)
+			if (string.IsNullOrEmpty(email) || email.Length > EmailMaxlength)
 			{
 				status = MembershipCreateStatus.InvalidEmail;
+
 				return null;
 			}
 
-			if (String.IsNullOrEmpty(password))
+			if (string.IsNullOrEmpty(password))
 			{
 				status = MembershipCreateStatus.InvalidPassword;
+
 				return null;
 			}
 
 			if (siteSettings.RequiresQuestionAndAnswer)
 			{
-				if (String.IsNullOrEmpty(passwordQuestion)
-					|| passwordQuestion.Length > PasswordquestionMaxlength)
+				if (
+					string.IsNullOrEmpty(passwordQuestion) ||
+					passwordQuestion.Length > PasswordquestionMaxlength
+				)
 				{
 					status = MembershipCreateStatus.InvalidQuestion;
+
 					return null;
 				}
 
-				if (String.IsNullOrEmpty(passwordAnswer)
-					|| passwordAnswer.Length > PasswordanswerMaxlength)
+				if (
+					string.IsNullOrEmpty(passwordAnswer) ||
+					passwordAnswer.Length > PasswordanswerMaxlength
+				)
 				{
 					status = MembershipCreateStatus.InvalidAnswer;
+
 					return null;
 				}
 			}
@@ -511,7 +519,8 @@ namespace mojoPortal.Web
 				if (WebConfigSettings.AllowNewRegistrationToActivateDeletedAccountWithSameEmail)
 				{
 					existingUser = SiteUser.GetByEmail(siteSettings, email);
-					if ((existingUser != null) && (!existingUser.IsDeleted))
+
+					if (existingUser != null && !existingUser.IsDeleted)
 					{
 						// if it isn't a deleted account set it back to null
 						// we can't let a new registration assum this user
@@ -522,6 +531,7 @@ namespace mojoPortal.Web
 				if (existingUser == null)
 				{
 					status = MembershipCreateStatus.DuplicateEmail;
+
 					return null;
 				}
 			}
@@ -531,15 +541,16 @@ namespace mojoPortal.Web
 			if (SiteUser.LoginExistsInDB(siteSettings.SiteId, userName))
 			{
 				status = MembershipCreateStatus.DuplicateUserName;
+
 				return null;
 			}
 
 			if (password.Length < MinRequiredPasswordLength)
 			{
 				status = MembershipCreateStatus.InvalidPassword;
+
 				return null;
 			}
-
 
 			int nonAlphaNumericCharactersUsedCount = 0;
 
@@ -554,30 +565,33 @@ namespace mojoPortal.Web
 			if (nonAlphaNumericCharactersUsedCount < siteSettings.MinRequiredNonAlphanumericCharacters)
 			{
 				status = MembershipCreateStatus.InvalidPassword;
+
 				return null;
 			}
-
 
 			if (siteSettings.PasswordStrengthRegularExpression.Length > 0)
 			{
 				if (!Regex.IsMatch(password, siteSettings.PasswordStrengthRegularExpression))
 				{
 					status = MembershipCreateStatus.InvalidPassword;
+
 					return null;
 				}
 			}
 
+			var e = new ValidatePasswordEventArgs(userName, password, true);
 
-			ValidatePasswordEventArgs e = new ValidatePasswordEventArgs(userName, password, true);
-			this.OnValidatingPassword(e);
+			OnValidatingPassword(e);
 
 			if (e.Cancel)
 			{
 				status = MembershipCreateStatus.InvalidPassword;
+
 				return null;
 			}
 
 			SiteUser siteUser;
+
 			if (existingUser != null)
 			{
 				siteUser = existingUser;
@@ -586,6 +600,7 @@ namespace mojoPortal.Web
 			{
 				siteUser = new SiteUser(siteSettings);
 			}
+
 			siteUser.Name = userName;
 			siteUser.LoginName = userName;
 			siteUser.Email = email;
@@ -595,29 +610,28 @@ namespace mojoPortal.Web
 
 			if (PasswordFormat != MembershipPasswordFormat.Clear)
 			{
-				siteUser.PasswordSalt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
+				siteUser.PasswordSalt = CreateSaltKey();
 				password = EncodePassword(password, siteUser.PasswordSalt, PasswordFormat);
 			}
 
 			siteUser.Password = password;
 			siteUser.ApprovedForLogin = !siteSettings.RequireApprovalBeforeLogin;
 			siteUser.PasswordFormat = siteSettings.PasswordFormat;
-			bool created = siteUser.Save();
+
+			var created = siteUser.Save();
 
 			if (existingUser != null)
 			{
 				// was flagged as deleted
 				// need to unflag
 				SiteUser.FlagAsNotDeleted(siteUser.UserId);
-
 			}
-
 
 			if (created)
 			{
 				if (siteSettings.UseSecureRegistration)
 				{
-					Guid registerConfirmGuid = Guid.NewGuid();
+					var registerConfirmGuid = Guid.NewGuid();
 					siteUser.SetRegistrationConfirmationGuid(registerConfirmGuid);
 
 					// send email with confirmation link that will approve profile
@@ -631,7 +645,7 @@ namespace mojoPortal.Web
 						SiteUtils.GetNavigationSiteRoot() + "/ConfirmRegistration.aspx?ticket=" +
 						registerConfirmGuid.ToString()
 						+ "&returnurl=" + GetReturnUrl()
-						);
+					);
 				}
 				else
 				{
@@ -639,21 +653,25 @@ namespace mojoPortal.Web
 				}
 
 				status = MembershipCreateStatus.Success;
+
 				return CreateMembershipUserFromSiteUser(siteUser);
 			}
 			else
 			{
 				status = MembershipCreateStatus.UserRejected;
+
 				return null;
 			}
 		}
 
+
 		private string GetReturnUrl()
 		{
-			if (System.Web.HttpContext.Current != null)
+			if (HttpContext.Current != null)
 			{
-				string returnUrlParam = System.Web.HttpContext.Current.Request.Params.Get("returnurl");
-				if (!String.IsNullOrEmpty(returnUrlParam))
+				var returnUrlParam = HttpContext.Current.Request.Params.Get("returnurl");
+
+				if (!string.IsNullOrEmpty(returnUrlParam))
 				{
 					return returnUrlParam;
 				}
@@ -672,15 +690,17 @@ namespace mojoPortal.Web
 			 * If deleteAllRelatedData is true, DeleteUser should delete role data, profile data, and all other data associated 
 			 * with that user.
 			 */
-			bool result = false;
+
+			var result = false;
 			SiteSettings siteSettings = GetSiteSettings();
+
 			// we are ignoring deleteAllRelatedData
 			// on purpose because whether to really delete or just flag as deleted
 			// is determined by the siteSettings.ReallyDeleteUsers setting
-
-			if ((userName != null) && (siteSettings != null))
+			if (userName != null && siteSettings != null)
 			{
-				SiteUser siteUser = new SiteUser(siteSettings, userName);
+				var siteUser = new SiteUser(siteSettings, userName);
+
 				if (siteUser.UserId > -1)
 				{
 					result = siteUser.DeleteUser();
@@ -689,15 +709,15 @@ namespace mojoPortal.Web
 			}
 
 			return result;
-
-
 		}
+
 
 		public override MembershipUserCollection FindUsersByEmail(
 			string emailToMatch,
 			int pageIndex,
 			int pageSize,
-			out int totalRecords)
+			out int totalRecords
+		)
 		{
 			/*
 			 * Returns a MembershipUserCollection containing MembershipUser objects representing 
@@ -707,24 +727,16 @@ namespace mojoPortal.Web
 			 * MembershipUserCollection.
 			 */
 			SiteSettings siteSettings = GetSiteSettings();
-			MembershipUserCollection users = new MembershipUserCollection();
+			var users = new MembershipUserCollection();
+
 			totalRecords = 0;
-
-			if (
-				(siteSettings != null)
-				&& (emailToMatch != null)
-				&& (emailToMatch.Length > 5)
-				)
-			{
-
-			}
 
 			using (IDataReader reader = SiteUser.GetUserByEmail(siteSettings.SiteId, emailToMatch))
 			{
 				while (reader.Read())
 				{
-					MembershipUser user = new MembershipUser(
-						this.name,
+					var user = new MembershipUser(
+						name,
 						reader["LoginName"].ToString(),
 						reader["UserGuid"],
 						reader["Email"].ToString(),
@@ -736,46 +748,42 @@ namespace mojoPortal.Web
 						Convert.ToDateTime(reader["LastLoginDate"], CultureInfo.InvariantCulture),
 						Convert.ToDateTime(reader["LastActivityDate"], CultureInfo.InvariantCulture),
 						Convert.ToDateTime(reader["LastPasswordChangedDate"], CultureInfo.InvariantCulture),
-						Convert.ToDateTime(reader["LastLockoutDate"], CultureInfo.InvariantCulture));
+						Convert.ToDateTime(reader["LastLockoutDate"], CultureInfo.InvariantCulture)
+					);
 
 					users.Add(user);
 					totalRecords += 1;
-
 				}
 			}
 
 			return users;
 		}
+
 
 		public override MembershipUserCollection FindUsersByName(
 			string usernameToMatch,
 			int pageIndex,
 			int pageSize,
-			out int totalRecords)
+			out int totalRecords
+		)
 		{
-			MembershipUserCollection users = new MembershipUserCollection();
-			totalRecords = 0;
 			SiteSettings siteSettings = GetSiteSettings();
+			var users = new MembershipUserCollection();
 
-			if (
-				(siteSettings != null)
-				&& (usernameToMatch != null)
-				&& (usernameToMatch.Length > 0)
-				)
-			{
-
-			}
+			totalRecords = 0;
 
 			using (IDataReader reader = SiteUser.GetUserByLoginName(
 				siteSettings.SiteId,
 				usernameToMatch,
-				(siteSettings.UseLdapAuth && siteSettings.AllowDbFallbackWithLdap && siteSettings.AllowEmailLoginWithLdapDbFallback)
-				))
+				siteSettings.UseLdapAuth &&
+				siteSettings.AllowDbFallbackWithLdap &&
+				siteSettings.AllowEmailLoginWithLdapDbFallback
+			))
 			{
 				while (reader.Read())
 				{
-					MembershipUser user = new MembershipUser(
-						this.name,
+					var user = new MembershipUser(
+						name,
 						reader["LoginName"].ToString(),
 						reader["UserGuid"],
 						reader["Email"].ToString(),
@@ -787,23 +795,23 @@ namespace mojoPortal.Web
 						Convert.ToDateTime(reader["LastLoginDate"], CultureInfo.InvariantCulture),
 						Convert.ToDateTime(reader["LastActivityDate"], CultureInfo.InvariantCulture),
 						Convert.ToDateTime(reader["LastPasswordChangedDate"], CultureInfo.InvariantCulture),
-						Convert.ToDateTime(reader["LastLockoutDate"], CultureInfo.InvariantCulture));
+						Convert.ToDateTime(reader["LastLockoutDate"], CultureInfo.InvariantCulture)
+					);
 
 					users.Add(user);
 					totalRecords += 1;
-
 				}
 			}
 
-
 			return users;
-
 		}
+
 
 		public override MembershipUserCollection GetAllUsers(
 			int pageIndex,
 			int pageSize,
-			out int totalRecords)
+			out int totalRecords
+		)
 		{
 			/*
 			 Returns a MembershipUserCollection containing MembershipUser objects representing all registered users. 
@@ -815,49 +823,47 @@ namespace mojoPortal.Web
 			 */
 
 			SiteSettings siteSettings = GetSiteSettings();
-			MembershipUserCollection users = new MembershipUserCollection();
+			var users = new MembershipUserCollection();
+
 			totalRecords = 0;
 
 			if (siteSettings != null)
 			{
-				int totalPages = 1;
-
-				List<SiteUser> siteUserPage = SiteUser.GetPage(
+				var siteUserPage = SiteUser.GetPage(
 					siteSettings.SiteId,
 					pageIndex,
 					pageSize,
 					string.Empty,
 					0,
 					"display",
-					out totalPages);
+					out _
+				);
 
 				foreach (SiteUser siteUser in siteUserPage)
 				{
-					MembershipUser user = new MembershipUser(
-					   this.name,
-					   siteUser.LoginName,
-					   siteUser.UserGuid,
-					   siteUser.Email,
-					   siteUser.PasswordQuestion,
-					   siteUser.Comment,
-					   siteUser.ProfileApproved,
-					   siteUser.IsLockedOut,
-					   siteUser.DateCreated,
-					   siteUser.LastLoginDate,
-					   siteUser.LastActivityDate,
-					   siteUser.LastPasswordChangedDate,
-					   siteUser.LastLockoutDate);
+					var user = new MembershipUser(
+						name,
+						siteUser.LoginName,
+						siteUser.UserGuid,
+						siteUser.Email,
+						siteUser.PasswordQuestion,
+						siteUser.Comment,
+						siteUser.ProfileApproved,
+						siteUser.IsLockedOut,
+						siteUser.DateCreated,
+						siteUser.LastLoginDate,
+						siteUser.LastActivityDate,
+						siteUser.LastPasswordChangedDate,
+						siteUser.LastLockoutDate
+					);
 
 					users.Add(user);
 				}
 
 				totalRecords = SiteUser.UserCount(siteSettings.SiteId);
-
-
 			}
 
 			return users;
-
 		}
 
 		public override int GetNumberOfUsersOnline()
@@ -872,6 +878,7 @@ namespace mojoPortal.Web
 			 * userIsOnlineTimeWindow attribute.
 			 */
 			SiteSettings siteSettings = GetSiteSettings();
+
 			if (siteSettings != null)
 			{
 				DateTime sinceTime = DateTime.UtcNow.AddMinutes(-Membership.UserIsOnlineTimeWindow);
@@ -880,7 +887,6 @@ namespace mojoPortal.Web
 
 			return result;
 		}
-
 
 
 		public override string GetPassword(string userName, string passwordAnswer)
@@ -901,37 +907,34 @@ namespace mojoPortal.Web
 			 * user whose password is being retrieved is currently locked out.
 			 */
 
-			SiteSettings siteSettings = GetSiteSettings();
+			var siteSettings = GetSiteSettings();
 
 			if (!siteSettings.AllowPasswordRetrieval)
 			{
-				throw new MojoMembershipException(
-					ResourceHelper.GetMessageTemplate("PasswordRetrievalNotEnabledMessage.config")
-					);
+				throw new MojoMembershipException(ResourceHelper.GetMessageTemplate("PasswordRetrievalNotEnabledMessage.config"));
 			}
 
 
-			if ((userName != null) && (siteSettings != null))
+			if (userName != null && siteSettings != null)
 			{
-				SiteUser siteUser = new SiteUser(siteSettings, userName);
+				var siteUser = new SiteUser(siteSettings, userName);
+
 				if (siteUser.UserId > -1)
 				{
 					if (siteUser.IsLockedOut)
 					{
-						throw new MembershipPasswordException(
-							ResourceHelper.GetMessageTemplate("UserAccountLockedMessage.config"));
+						throw new MembershipPasswordException(ResourceHelper.GetMessageTemplate("UserAccountLockedMessage.config"));
 					}
 
 					if (siteUser.IsDeleted)
 					{
-						throw new MembershipPasswordException(
-							ResourceHelper.GetMessageTemplate("UserNotFoundMessage.config"));
+						throw new MembershipPasswordException(ResourceHelper.GetMessageTemplate("UserNotFoundMessage.config"));
 					}
 
 					bool okToGetPassword = false;
 					if (siteSettings.RequiresQuestionAndAnswer)
 					{
-						if ((passwordAnswer != null) && (PasswordAnswerIsMatch(passwordAnswer, siteUser.PasswordAnswer)))
+						if (passwordAnswer != null && PasswordAnswerIsMatch(passwordAnswer, siteUser.PasswordAnswer))
 						{
 							okToGetPassword = true;
 						}
@@ -948,10 +951,8 @@ namespace mojoPortal.Web
 										siteUser.LockoutAccount();
 									}
 								}
-
 							}
 						}
-
 					}
 					else
 					{
@@ -963,13 +964,13 @@ namespace mojoPortal.Web
 						if (siteSettings.RequirePasswordChangeOnResetRecover)
 						{
 							siteUser.MustChangePwd = true;
+
 							siteUser.Save();
 						}
 
 						switch (PasswordFormat)
 						{
 							case MembershipPasswordFormat.Clear:
-
 
 								return siteUser.Password;
 
@@ -989,50 +990,42 @@ namespace mojoPortal.Web
 								catch (FormatException ex)
 								{
 									log.Error(ex);
+
 									throw new MembershipPasswordException("failure retrieving password");
 								}
 
 							case MembershipPasswordFormat.Hashed:
 
-								string newPassword = SiteUser.CreateRandomPassword(siteSettings.MinRequiredPasswordLength + 2, WebConfigSettings.PasswordGeneratorChars);
+								var newPassword = SiteUser.CreateRandomPassword(siteSettings.MinRequiredPasswordLength + 2, WebConfigSettings.PasswordGeneratorChars);
 
-
-								siteUser.PasswordSalt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
+								siteUser.PasswordSalt = CreateSaltKey();
 								siteUser.Password = EncodePassword(newPassword, siteUser.PasswordSalt, MembershipPasswordFormat.Hashed);
 								siteUser.PasswordFormat = siteSettings.PasswordFormat;
-
 								//after the new random password is emailed to the user we can force him to change it again immediately after he logs in
 								siteUser.MustChangePwd = siteSettings.RequirePasswordChangeOnResetRecover;
-
 								// needed if we are sending a link for automatic login and force to change password instead of sending the random one by email
 								// will be cleared to Guid.Empty when password is changed
 								siteUser.PasswordResetGuid = Guid.NewGuid();
+
 								siteUser.Save();
-								//siteUser.UnlockAccount();
+
 								return newPassword;
-
-
 						}
-
 					}
 					else
 					{
 						return null;
 					}
-
 				}
 				else
 				{
 					throw new ProviderException(ResourceHelper.GetMessageTemplate("UserNotFoundMessage.config"));
-
 				}
-
 			}
 
 			return null;
-
-
 		}
+
 
 		private bool PasswordAnswerIsMatch(string suppliedAnswer, string actualAnswer)
 		{
@@ -1041,9 +1034,9 @@ namespace mojoPortal.Web
 				return string.Equals(suppliedAnswer, actualAnswer, StringComparison.InvariantCultureIgnoreCase);
 			}
 
-			return (suppliedAnswer == actualAnswer);
-
+			return suppliedAnswer == actualAnswer;
 		}
+
 
 		public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
 		{
@@ -1054,53 +1047,45 @@ namespace mojoPortal.Web
 			 * user ID is invalid (that is, if it doesn't represent a registered user) GetUser returns null (Nothing in Visual Basic).
 			 */
 			SiteSettings siteSettings = GetSiteSettings();
-			if ((siteSettings != null) && (providerUserKey != null))
+
+			if (siteSettings != null && providerUserKey != null)
 			{
 				SiteUser siteUser = null;
-				if (providerUserKey is Guid)
+
+				if (providerUserKey is Guid userGuid)
 				{
-					siteUser = new SiteUser(siteSettings, (Guid)providerUserKey);
-					if (siteUser.UserId > 0)
-					{
-						if (siteUser.IsDeleted)
-						{ return null; }
-
-						if (userIsOnline)
-						{
-							siteUser.UpdateLastActivityTime();
-						}
-						return this.CreateMembershipUserFromSiteUser(siteUser);
-					}
-
+					siteUser = new SiteUser(siteSettings, userGuid);
 				}
 
-				if (providerUserKey is int)
+				if (providerUserKey is int userId)
 				{
-					siteUser = new SiteUser(siteSettings, (int)providerUserKey);
-					if (siteUser.UserId > 0)
-					{
-						if (siteUser.IsDeleted)
-						{ return null; }
-
-						if (userIsOnline)
-						{
-							siteUser.UpdateLastActivityTime();
-						}
-						return this.CreateMembershipUserFromSiteUser(siteUser);
-					}
+					siteUser = new SiteUser(siteSettings, userId);
 				}
 
+				if (siteUser?.UserId > 0)
+				{
+					if (siteUser.IsDeleted)
+					{
+						return null;
+					}
+
+					if (userIsOnline)
+					{
+						siteUser.UpdateLastActivityTime();
+					}
+
+					return CreateMembershipUserFromSiteUser(siteUser);
+				}
 			}
-
-
 
 			return null;
 		}
 
+
 		public override MembershipUser GetUser(string username, bool userIsOnline)
 		{
 			/*
-			 * 	Takes, as input, a user name or user ID (the method is overloaded) and a 
+			 * Takes, as input, a user name or user ID (the method is overloaded) and a 
 			 * Boolean value indicating whether to update the user's LastActivityDate to 
 			 * show that the user is currently online. GetUser returns a MembershipUser object 
 			 * representing the specified user. If the user name or user ID is invalid (that is, if 
@@ -1108,42 +1093,48 @@ namespace mojoPortal.Web
 			 */
 			SiteSettings siteSettings = GetSiteSettings();
 
-			if ((siteSettings != null) && (username != null) && (username.Length > 0))
+			if (
+				siteSettings != null &&
+				username != null &&
+				username.Length > 0
+			)
 			{
-				SiteUser siteUser = null;
-				siteUser = new SiteUser(siteSettings, username);
+				var siteUser = new SiteUser(siteSettings, username);
+
 				if (siteUser.UserId > 0)
 				{
 					if (siteUser.IsDeleted)
-					{ return null; }
+					{
+						return null;
+					}
 
 					if (userIsOnline)
 					{
 						siteUser.UpdateLastActivityTime();
 					}
-					return this.CreateMembershipUserFromSiteUser(siteUser);
+
+					return CreateMembershipUserFromSiteUser(siteUser);
 				}
 			}
 
 			return null;
-
 		}
 
 
 		public override string GetUserNameByEmail(string email)
 		{
 			SiteSettings siteSettings = GetSiteSettings();
-			if ((siteSettings != null) && (email != null) && (email.Length > 5))
-			{
-				return SiteUser.GetUserNameFromEmail(siteSettings.SiteId, email);
-			}
-			return String.Empty;
+
+			return siteSettings != null && email != null && email.Length > 5
+				? SiteUser.GetUserNameFromEmail(siteSettings.SiteId, email)
+				: string.Empty;
 		}
+
 
 		public override string ResetPassword(string userName, string passwordAnswer)
 		{
 			/*
-			Takes, as input, a user name and a password answer and replaces the user's current password 
+			 * Takes, as input, a user name and a password answer and replaces the user's current password 
 			 * with a new, random password. ResetPassword then returns the new password. A 
 			 * convenient mechanism for generating a random password is the 
 			 * Membership.GeneratePassword method. If the user name is not valid, ResetPassword 
@@ -1168,24 +1159,24 @@ namespace mojoPortal.Web
 				throw new Exception("The method or operation is not implemented.");
 			}
 
-			String newPassword = null;
+			string newPassword = null;
 
-			if ((userName != null) && (siteSettings != null))
+			if (userName != null && siteSettings != null)
 			{
-				SiteUser siteUser = new SiteUser(siteSettings, userName);
+				var siteUser = new SiteUser(siteSettings, userName);
+
 				if (siteUser.UserId > -1)
 				{
-
 					if (siteUser.IsLockedOut)
 					{
-						throw new MembershipPasswordException(
-							ResourceHelper.GetMessageTemplate("UserAccountLockedMessage.config"));
+						throw new MembershipPasswordException(ResourceHelper.GetMessageTemplate("UserAccountLockedMessage.config"));
 					}
 
-					bool okToResetPassword = false;
+					bool okToResetPassword;
+
 					if (siteSettings.RequiresQuestionAndAnswer)
 					{
-						if ((passwordAnswer != null) && (passwordAnswer == siteUser.PasswordAnswer))
+						if (passwordAnswer != null && passwordAnswer == siteUser.PasswordAnswer)
 						{
 							okToResetPassword = true;
 						}
@@ -1194,7 +1185,6 @@ namespace mojoPortal.Web
 							// if wrong answer or user is locked out
 							throw new MembershipPasswordException(ResourceHelper.GetMessageTemplate("PasswordWrongAnswerToQuestionMessage.config"));
 						}
-
 					}
 					else
 					{
@@ -1203,40 +1193,37 @@ namespace mojoPortal.Web
 
 					if (okToResetPassword)
 					{
-
 						newPassword = SiteUser.CreateRandomPassword(siteSettings.MinRequiredPasswordLength + 2, WebConfigSettings.PasswordGeneratorChars);
 
 						switch (PasswordFormat)
 						{
 							case MembershipPasswordFormat.Clear:
 								siteUser.Password = newPassword;
+
 								break;
+
 							default:
-								siteUser.PasswordSalt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
+								siteUser.PasswordSalt = CreateSaltKey();
 								siteUser.Password = EncodePassword(newPassword, siteUser.PasswordSalt, PasswordFormat);
+
 								break;
 						}
 
 						siteUser.MustChangePwd = siteSettings.RequirePasswordChangeOnResetRecover;
 						siteUser.PasswordFormat = siteSettings.PasswordFormat;
+
 						siteUser.Save();
-
 						siteUser.UpdateLastPasswordChangeTime();
-
 					}
 				}
 				else
 				{
 					throw new ProviderException(ResourceHelper.GetMessageTemplate("UserNotFoundMessage.config"));
-
 				}
-
 			}
 
 			return newPassword;
-
 		}
-
 
 
 		public override bool UnlockUser(string userName)
@@ -1248,10 +1235,12 @@ namespace mojoPortal.Web
 			 */
 			SiteSettings siteSettings = GetSiteSettings();
 
-			bool result = false;
-			if ((siteSettings != null) && (userName != null) && (userName.Length > 0))
+			var result = false;
+
+			if (siteSettings != null && userName != null && userName.Length > 0)
 			{
-				SiteUser siteUser = new SiteUser(siteSettings, userName);
+				var siteUser = new SiteUser(siteSettings, userName);
+
 				if (siteUser.UserId > 0)
 				{
 					if (!siteUser.IsLockedOut)
@@ -1262,14 +1251,12 @@ namespace mojoPortal.Web
 					{
 						result = siteUser.UnlockAccount();
 					}
-
 				}
-
 			}
 
 			return result;
-
 		}
+
 
 		public override void UpdateUser(MembershipUser user)
 		{
@@ -1285,9 +1272,10 @@ namespace mojoPortal.Web
 			 */
 			SiteSettings siteSettings = GetSiteSettings();
 
-			if ((siteSettings != null) && (user != null))
+			if (siteSettings != null && user != null)
 			{
 				SiteUser siteUser;
+
 				if (siteSettings.UseEmailForLogin)
 				{
 					siteUser = new SiteUser(siteSettings, user.Email);
@@ -1296,38 +1284,38 @@ namespace mojoPortal.Web
 				{
 					siteUser = new SiteUser(siteSettings, user.UserName);
 				}
+
 				if (siteUser.UserId > 0)
 				{
 					siteUser.Comment = user.Comment;
 					siteUser.Email = user.Email;
+
 					if (!siteSettings.UseEmailForLogin)
 					{
 						siteUser.LoginName = user.UserName;
 					}
+
 					siteUser.ProfileApproved = user.IsApproved;
 
 					if (
-						(user.PasswordQuestion != null)
-						&& (user.PasswordQuestion.Length > 0)
-						&& (user.PasswordQuestion != siteUser.PasswordQuestion)
-						)
+						user.PasswordQuestion != null &&
+						user.PasswordQuestion.Length > 0 &&
+						user.PasswordQuestion != siteUser.PasswordQuestion
+					)
 					{
 						siteUser.PasswordQuestion = user.PasswordQuestion;
-
 					}
 
 					siteUser.Save();
-
 
 					if (user.LastActivityDate > siteUser.LastActivityDate)
 					{
 						siteUser.UpdateLastActivityTime();
 					}
-
 				}
-
 			}
 		}
+
 
 		public override bool ValidateUser(string userName, string password)
 		{
@@ -1349,188 +1337,117 @@ namespace mojoPortal.Web
 			SiteSettings siteSettings = GetSiteSettings();
 
 			if (siteSettings == null)
-			{ return false; }
-
-
-
-			if (string.IsNullOrEmpty(userName))
-			{ return false; }
-			if (string.IsNullOrEmpty(password))
-			{ return false; }
-
-			bool result = false;
-
-
-
-			if (
-				(siteSettings.UseEmailForLogin)
-				&& (userName.Length > EmailMaxlength)
-				)
-			{
-				return result;
-			}
-
-			if (
-				(!siteSettings.UseEmailForLogin)
-				&& (userName.Length > LoginnameMaxlength)
-				)
-			{
-				return result;
-			}
-
-			//previous implementation
-
-			//SiteUser siteUser = null;
-			//string encPassword = EncodePassword(password, siteSettings);
-
-			//string user;
-			//if (!siteSettings.UseLdapAuth || (siteSettings.UseLdapAuth && WebConfigSettings.UseLDAPFallbackAuthentication))
-			//{
-			//    user = SiteUser.Login(siteSettings, userName, encPassword);
-			//    if ((user != null) && (user != String.Empty))
-			//    {
-			//        result = true;
-			//        siteUser = new SiteUser(siteSettings, userName);
-			//    }
-			//    else if (!siteSettings.UseLdapAuth)
-			//    {
-			//        // need to create the user here so we can increment the failed password attmpt count below
-			//        siteUser = new SiteUser(siteSettings, userName);
-			//    }
-			//}
-			//if (siteSettings.UseLdapAuth && siteUser == null)
-			//{
-			//    user = SiteUser.LoginLDAP(siteSettings, userName, password, out siteUser);
-			//    if ((user != null) && (user != String.Empty))
-			//    {
-			//        result = true;
-			//        if (siteUser != null)
-			//        {
-			//            //we just auto created a user who was validated against LDAP, but did not exist as a site user
-			//            NewsletterHelper.ClaimExistingSubscriptions(siteUser);
-			//            UserRegisteredEventArgs u = new UserRegisteredEventArgs(siteUser);
-			//            OnUserRegistered(u);
-			//        }
-			//        else
-			//        {
-			//            siteUser = new SiteUser(siteSettings, userName);
-			//        }
-			//    }
-			//}
-
-			SiteUser siteUser = GetSiteUser(siteSettings, userName);
-
-			if ((siteUser != null) && (siteUser.IsLockedOut) && (WebConfigSettings.ReturnFalseInValidateUserIfAccountLocked))
 			{
 				return false;
 			}
 
-			if ((siteUser != null) && (siteUser.IsDeleted) && (WebConfigSettings.ReturnFalseInValidateUserIfAccountDeleted))
+			if (string.IsNullOrEmpty(userName))
+			{
+				return false;
+			}
+
+			if (string.IsNullOrEmpty(password))
+			{
+				return false;
+			}
+
+			var result = false;
+
+			if (siteSettings.UseEmailForLogin && userName.Length > EmailMaxlength)
+			{
+				return result;
+			}
+
+			if (!siteSettings.UseEmailForLogin && userName.Length > LoginnameMaxlength)
+			{
+				return result;
+			}
+
+			SiteUser siteUser = GetSiteUser(siteSettings, userName);
+
+			if (siteUser != null && siteUser.IsLockedOut && WebConfigSettings.ReturnFalseInValidateUserIfAccountLocked)
+			{
+				return false;
+			}
+
+			if (siteUser != null && siteUser.IsDeleted && WebConfigSettings.ReturnFalseInValidateUserIfAccountDeleted)
 			{
 				return false;
 			}
 
 			if (siteSettings.UseLdapAuth)
 			{
-				SiteUser createdUser = null;
-				string user = SiteUser.LoginLDAP(siteSettings, userName, password, out createdUser);
-				if (!(string.IsNullOrEmpty(user)))
+				var user = SiteUser.LoginLDAP(siteSettings, userName, password, out SiteUser createdUser);
+
+				if (!string.IsNullOrEmpty(user))
 				{
 					result = true;
+
 					if (createdUser != null)
 					{
 						//we just auto created a user who was validated against LDAP, but did not exist as a site user
 						siteUser = createdUser;
 						// lets make sure to use the right password encoding, the auto creation assigned a random one but did not encode it
 						siteUser.Password = EncodePassword(siteSettings, siteUser, siteUser.Password);
+
 						siteUser.Save();
+
 						NewsletterHelper.ClaimExistingSubscriptions(siteUser);
 						UserRegisteredEventArgs u = new UserRegisteredEventArgs(siteUser);
+
 						OnUserRegistered(u);
 					}
-					//else
-					//{
-					//    siteUser = new SiteUser(siteSettings, userName);
-					//}
 				}
-				else if ((siteSettings.AllowDbFallbackWithLdap) && (siteUser != null))
+				else if (siteSettings.AllowDbFallbackWithLdap && siteUser != null)
 				{
 					// ldap auth failed but we did find a matching user in the db
 					// and we are allowing db users in addition to ldap
 					// so validate the db way
 					result = PasswordIsValid(siteSettings, siteUser, password);
 				}
-
 			}
 			else
 			{
 				result = PasswordIsValid(siteSettings, siteUser, password);
 			}
 
-
 			if (result)
 			{
 				siteUser.UpdateLastLoginTime();
-
-				//PerfCounters.IncrementCounter(AppPerfCounter.MEMBER_SUCCESS);
-
-				// this raises an error for some reason just by raisng the event
-				// maybe because there is no handler for it
-
-				//mojoWebAuthenticationSuccessAuditEvent webSuccess
-				//    = new mojoWebAuthenticationSuccessAuditEvent(
-				//            null,
-				//            this,
-				//            WebEventCodes.AuditMembershipAuthenticationSuccess,
-				//            userName);
-
-				//webSuccess.Raise();
-
 			}
 			else
 			{
-
 				if (
-					(siteSettings.MaxInvalidPasswordAttempts > 0)
-					&& (siteUser != null)
-					&& (siteUser.UserGuid != Guid.Empty))
+					siteSettings.MaxInvalidPasswordAttempts > 0 &&
+					siteUser != null &&
+					siteUser.UserGuid != Guid.Empty
+				)
 				{
 					siteUser.IncrementPasswordAttempts(siteSettings);
-
 				}
 
 				if (WebConfigSettings.LogFailedLoginAttempts)
 				{
 					log.Info("failed login attempt for user " + userName);
 				}
-
-				//PerfCounters.IncrementCounter(AppPerfCounter.MEMBER_FAIL);
-
-				//mojoWebAuthenticationFailureAuditEvent webEvent
-				//    = new mojoWebAuthenticationFailureAuditEvent(
-				//            null,
-				//            this,
-				//            WebEventCodes.AuditMembershipAuthenticationFailure,
-				//            userName);
-
-				//webEvent.Raise();
-
 			}
 
 			return result;
 		}
 
+
 		private SiteUser GetSiteUser(SiteSettings siteSettings, string login)
 		{
-			SiteUser siteUser = new SiteUser(siteSettings, login);
+			var siteUser = new SiteUser(siteSettings, login);
 
-			if ((siteUser.UserGuid != Guid.Empty) && (siteUser.SiteId == siteSettings.SiteId))
+			if (siteUser.UserGuid != Guid.Empty && siteUser.SiteId == siteSettings.SiteId)
 			{
 				return siteUser;
 			}
 
 			return null;
 		}
+
 
 		private void OnUserRegistered(UserRegisteredEventArgs e)
 		{
@@ -1540,36 +1457,41 @@ namespace mojoPortal.Web
 			}
 		}
 
+
 		private bool PasswordIsValid(SiteSettings siteSettings, SiteUser siteUser, string providedPassword)
 		{
 			if (siteUser == null)
-			{ return false; }
-			if (string.IsNullOrEmpty(providedPassword))
-			{ return false; }
+			{
+				return false;
+			}
 
-			bool isValid = false;
-			bool didUpdatePassword = false;
+			if (string.IsNullOrEmpty(providedPassword))
+			{
+				return false;
+			}
+
+			var isValid = false;
+			var didUpdatePassword = false;
 
 			switch (PasswordFormat)
 			{
 				case MembershipPasswordFormat.Clear:
 					isValid = ClearTextPasswordIsValid(siteSettings, siteUser, providedPassword);
+
 					break;
 
 				case MembershipPasswordFormat.Encrypted:
-
 					isValid = EncryptedPasswordIsValid(siteSettings, siteUser, providedPassword);
 
 					// this is to support older installations from before we used salt
-					if ((isValid) && (siteUser.PasswordSalt.Length == 0))
-					{   // user is valid but he doesn't have a salt
+					if (isValid && siteUser.PasswordSalt.Length == 0)
+					{
+						// user is valid but he doesn't have a salt
 						// generate a random salt and update the siteuser password to encrypted with salt
-						siteUser.PasswordSalt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
-						byte[] bIn = Encoding.Unicode.GetBytes(siteUser.PasswordSalt + providedPassword);
-						byte[] bRet = EncryptPassword(bIn);
-						siteUser.Password = Convert.ToBase64String(bRet);
-						siteUser.Save();
+						siteUser.PasswordSalt = CreateSaltKey();
+						siteUser.Password = EncodePassword(providedPassword, siteUser.PasswordSalt, MembershipPasswordFormat.Encrypted);
 
+						siteUser.Save();
 					}
 
 					break;
@@ -1578,7 +1500,7 @@ namespace mojoPortal.Web
 
 					isValid = HashedSha512PasswordIsValid(siteSettings, siteUser, providedPassword);
 
-					if ((!isValid) && (WebConfigSettings.CheckMD5PasswordHashAsFallback))
+					if (!isValid && WebConfigSettings.CheckMD5PasswordHashAsFallback)
 					{
 						// previously we were using md5 so we need to check against that
 						// and if valid re-hash it with sha512
@@ -1588,35 +1510,33 @@ namespace mojoPortal.Web
 						{
 							// update user to sha512 hash with random salt
 							// then set didUpdatePassword to true so we don't do it again below
-							siteUser.PasswordSalt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
-							siteUser.Password = GetSHA512Hash(siteUser.PasswordSalt + providedPassword);
+							siteUser.PasswordSalt = CreateSaltKey();
+							siteUser.Password = EncodePassword(providedPassword, siteUser.PasswordSalt, MembershipPasswordFormat.Hashed);
+
 							siteUser.Save();
+
 							didUpdatePassword = true;
-
 						}
-
 					}
 
 					// this is to support older installations from before we used salt
 					if (
-						(isValid)
-						&& (!didUpdatePassword)
-						&& (siteUser.PasswordSalt.Length == 0)
-						)
+						isValid &&
+						!didUpdatePassword &&
+						siteUser.PasswordSalt.Length == 0
+					)
 					{
 						// generate a random salt and update the siteuser password to encrypted with salt
-						siteUser.PasswordSalt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
-						siteUser.Password = GetSHA512Hash(siteUser.PasswordSalt + providedPassword);
-						siteUser.Save();
+						siteUser.PasswordSalt = CreateSaltKey();
+						siteUser.Password = EncodePassword(providedPassword, siteUser.PasswordSalt, MembershipPasswordFormat.Hashed);
 
+						siteUser.Save();
 					}
 
-
 					break;
-
 			}
 
-			if ((!isValid) && (WebConfigSettings.CheckAllPasswordFormatsOnAuthFailure))
+			if (!isValid && WebConfigSettings.CheckAllPasswordFormatsOnAuthFailure)
 			{
 				// CheckAllPasswordFormatsOnAuthFailure is false by default so this code will not execute unless you change 
 				// it to true by adding it to web.config or user.config 
@@ -1631,7 +1551,7 @@ namespace mojoPortal.Web
 				// so this is a safety valve that can be enabled to fallback and check other formats and if
 				// the user can be validated with another format then update him to the current format
 
-				bool isValidByAlternateFormat = false;
+				bool isValidByAlternateFormat;
 
 				switch (PasswordFormat)
 				{
@@ -1654,7 +1574,9 @@ namespace mojoPortal.Web
 							//current format is clear but user validated with another format so we need to update him to clear
 							siteUser.PasswordSalt = string.Empty;
 							siteUser.Password = providedPassword;
+
 							siteUser.Save();
+
 							isValid = true;
 						}
 
@@ -1668,7 +1590,7 @@ namespace mojoPortal.Web
 						{
 							isValidByAlternateFormat = HashedSha512PasswordIsValid(siteSettings, siteUser, providedPassword);
 
-							if ((!isValidByAlternateFormat) && (WebConfigSettings.CheckMD5PasswordHashAsFallback))
+							if (!isValidByAlternateFormat && WebConfigSettings.CheckMD5PasswordHashAsFallback)
 							{
 								isValidByAlternateFormat = HashedMd5PasswordIsValid(siteSettings, siteUser, providedPassword);
 							}
@@ -1677,9 +1599,11 @@ namespace mojoPortal.Web
 						if (isValidByAlternateFormat)
 						{
 							//current format is encrypted but user was validated with another format so we need to encrypt his password
-							siteUser.PasswordSalt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
+							siteUser.PasswordSalt = CreateSaltKey();
 							siteUser.Password = EncodePassword(providedPassword, siteUser.PasswordSalt, MembershipPasswordFormat.Encrypted);
+
 							siteUser.Save();
+
 							isValid = true;
 						}
 
@@ -1694,7 +1618,7 @@ namespace mojoPortal.Web
 						{
 							isValidByAlternateFormat = EncryptedPasswordIsValid(siteSettings, siteUser, providedPassword);
 
-							if ((!isValidByAlternateFormat) && (WebConfigSettings.CheckMD5PasswordHashAsFallback))
+							if (!isValidByAlternateFormat && WebConfigSettings.CheckMD5PasswordHashAsFallback)
 							{
 								isValidByAlternateFormat = HashedMd5PasswordIsValid(siteSettings, siteUser, providedPassword);
 							}
@@ -1703,112 +1627,73 @@ namespace mojoPortal.Web
 						if (isValidByAlternateFormat)
 						{
 							//current format is hashed but user was validated with another format so we need to hash his password
-							siteUser.PasswordSalt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
+							siteUser.PasswordSalt = CreateSaltKey();
 							siteUser.Password = EncodePassword(providedPassword, siteUser.PasswordSalt, MembershipPasswordFormat.Hashed);
+
 							siteUser.Save();
+
 							isValid = true;
 						}
 
 						break;
 				}
-
 			}
-
 
 			return isValid;
 		}
 
+
 		private bool ClearTextPasswordIsValid(SiteSettings siteSettings, SiteUser siteUser, string providedPassword)
 		{
-			if (providedPassword == siteUser.Password)
-			{ return true; }
-
-			return false;
+			return providedPassword == siteUser.Password;
 		}
+
 
 		private bool EncryptedPasswordIsValid(SiteSettings siteSettings, SiteUser siteUser, string providedPassword)
 		{
-			byte[] bIn = Encoding.Unicode.GetBytes(siteUser.PasswordSalt + providedPassword);
-			byte[] bRet = EncryptPassword(bIn);
+			var encryptedPassword = EncodePassword(providedPassword, siteUser.PasswordSalt, MembershipPasswordFormat.Encrypted);
 
-			string encryptedPassword = Convert.ToBase64String(bRet);
-
-			if (encryptedPassword == siteUser.Password)
-			{ return true; }
-
-			return false;
+			return encryptedPassword == siteUser.Password;
 		}
+
 
 		private bool HashedSha512PasswordIsValid(SiteSettings siteSettings, SiteUser siteUser, string providedPassword)
 		{
-			string sha512Hash = GetSHA512Hash(siteUser.PasswordSalt + providedPassword);
+			var sha512Hash = EncodePassword(providedPassword, siteUser.PasswordSalt, MembershipPasswordFormat.Hashed);
 
-			if (sha512Hash == siteUser.Password)
-			{ return true; }
-
-			return false;
+			return sha512Hash == siteUser.Password;
 		}
+
 
 		// legacy support for upgrades
 		private bool HashedMd5PasswordIsValid(SiteSettings siteSettings, SiteUser siteUser, string providedPassword)
 		{
 			string md5Hash = GetMD5Hash(siteUser.PasswordSalt + providedPassword);
 
-			if (md5Hash == siteUser.Password)
-			{ return true; }
-
-			return false;
+			return md5Hash == siteUser.Password;
 		}
 
 
-		/// <summary>
-		/// If you call this method from custom code, you need to concatenate passwordsalt + password before passing it into this method
-		/// </summary>
-		/// <param name="password"></param>
-		/// <param name="site"></param>
-		/// <returns>encoded password</returns>
-		public string EncodePassword(string password, string saltKey = "", SiteSettings site = null)
+		public virtual string EncodePassword(string password, string saltKey = "", SiteSettings siteSettings = null)
 		{
-			return EncodePassword(password, saltKey, (MembershipPasswordFormat)site.PasswordFormat);
+			return EncodePassword(password, saltKey, (MembershipPasswordFormat)siteSettings.PasswordFormat);
 		}
 
 
-		public string EncodePassword(SiteSettings site, SiteUser siteUser, string password)
+		public virtual string EncodePassword(SiteSettings site, SiteUser siteUser, string password)
 		{
 			MembershipPasswordFormat passwordFormat = (MembershipPasswordFormat)site.PasswordFormat;
 
 			if (passwordFormat != MembershipPasswordFormat.Clear)
 			{
-				siteUser.PasswordSalt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
+				siteUser.PasswordSalt = CreateSaltKey();
 			}
 
 			return EncodePassword(password, siteUser.PasswordSalt, passwordFormat);
 		}
 
 
-		[Obsolete("Use EncodePassword(string password, string saltKey, MembershipPasswordFormat passwordFormat) instead.", true)]
-		public string EncodePassword(string pass, MembershipPasswordFormat passwordFormat)
-		{
-			if (passwordFormat == MembershipPasswordFormat.Clear)
-			{
-				return pass;
-			}
-
-			if (passwordFormat == MembershipPasswordFormat.Hashed)
-			{
-				return GetSHA512Hash(pass);
-
-			}
-
-			// else encrypted
-			byte[] bIn = Encoding.Unicode.GetBytes(pass);
-			byte[] bRet = EncryptPassword(bIn);
-
-			return Convert.ToBase64String(bRet);
-		}
-
-
-		public string EncodePassword(string password, string saltKey = "", MembershipPasswordFormat passwordFormat = MembershipPasswordFormat.Clear)
+		public virtual string EncodePassword(string password, string saltKey = "", MembershipPasswordFormat passwordFormat = MembershipPasswordFormat.Clear)
 		{
 			var saltedPassword = saltFirst ? string.Concat(saltKey, password) : string.Concat(password, saltKey);
 
@@ -1819,107 +1704,94 @@ namespace mojoPortal.Web
 					return saltedPassword;
 
 				case MembershipPasswordFormat.Hashed:
-					return GetSHA512Hash(saltedPassword);
+					return CreatePasswordHash(saltedPassword);
 
 				case MembershipPasswordFormat.Encrypted:
-					byte[] bIn = Encoding.Unicode.GetBytes(saltedPassword);
-					byte[] bRet = EncryptPassword(bIn);
-
-					return Convert.ToBase64String(bRet);
+					return EncryptPassword(saltedPassword);
 			}
 		}
 
 
-		public string UnencodePassword(string pass, MembershipPasswordFormat passwordFormat)
+		public virtual string UnencodePassword(string password, MembershipPasswordFormat passwordFormat)
 		{
 			switch (passwordFormat)
 			{
+				default:
 				case MembershipPasswordFormat.Clear:
-					return pass;
+					return password;
+
 				case MembershipPasswordFormat.Hashed:
 					throw new ProviderException("Can't decrypt hashed password");
-				default:
-					byte[] bIn = Convert.FromBase64String(pass);
-					byte[] bRet = DecryptPassword(bIn);
 
-					if (bRet == null)
-						return null;
-
-					return Encoding.Unicode.GetString(bRet);
+				case MembershipPasswordFormat.Encrypted:
+					return DecryptPassword(password);
 			}
 		}
 
+
+		protected virtual string EncryptPassword(string password)
+		{
+			var bIn = Encoding.Unicode.GetBytes(password);
+			var bRet = EncryptPassword(bIn); // Inherited method uses web.config machine key settings
+
+			return Convert.ToBase64String(bRet);
+		}
+
+
+		protected virtual string DecryptPassword(string password)
+		{
+			var bIn = Convert.FromBase64String(password);
+			var bRet = DecryptPassword(bIn); // Inherited method uses web.config machine key settings
+
+			return bRet == null ? null : Encoding.Unicode.GetString(bRet);
+		}
 
 
 		private string GetMD5Hash(string cleanText)
 		{
 			if (string.IsNullOrEmpty(cleanText))
-			{ return string.Empty; }
-
-			using (MD5CryptoServiceProvider hasher = new MD5CryptoServiceProvider())
 			{
-				Byte[] clearBytes = new UnicodeEncoding().GetBytes(cleanText);
-				Byte[] hashedBytes = hasher.ComputeHash(clearBytes);
-
-				return BitConverter.ToString(hashedBytes);
-
+				return string.Empty;
 			}
 
+			using (var hasher = new MD5CryptoServiceProvider())
+			{
+				var clearBytes = new UnicodeEncoding().GetBytes(cleanText);
+				var hashedBytes = hasher.ComputeHash(clearBytes);
+
+				return BitConverter.ToString(hashedBytes);
+			}
 		}
 
-		private string GetSHA512Hash(string cleanText)
+
+		protected virtual string CreateSaltKey()
 		{
-			if (string.IsNullOrEmpty(cleanText))
-			{ return string.Empty; }
+			return SiteUser.CreateRandomPassword(saltLength, WebConfigSettings.PasswordGeneratorChars);
+		}
 
-			using (SHA512CryptoServiceProvider hasher = new SHA512CryptoServiceProvider())
+
+		protected virtual string CreatePasswordHash(string text)
+		{
+			if (string.IsNullOrEmpty(text))
 			{
-				Byte[] clearBytes = new UnicodeEncoding().GetBytes(cleanText);
-				Byte[] hashedBytes = hasher.ComputeHash(clearBytes);
-
-				return BitConverter.ToString(hashedBytes);
-
+				return string.Empty;
 			}
 
+			using (var hasher = new SHA512CryptoServiceProvider())
+			{
+				var clearBytes = new UnicodeEncoding().GetBytes(text);
+				var hashedBytes = hasher.ComputeHash(clearBytes);
+
+				return BitConverter.ToString(hashedBytes);
+			}
 		}
 
 
 
 		#endregion
 
+
 		#region Protected Methods
-
-
-
-
-
-
-		//protected override byte[] DecryptPassword(byte[] encodedPassword)
-		//{
-		//    /*
-		//     * Takes, as input, a byte array containing an encrypted password and returns a byte array 
-		//     * containing the password in plaintext form. The default implementation in MembershipProvider 
-		//     * decrypts the password using <machineKey>'s decryptionKey, but throws an exception if the 
-		//     * decryption key is autogenerated. Override only if you want to customize the decryption process. 
-		//     * Do not call the base class's DecryptPassword method if you override this method.
-		//     */
-
-		//    return base.DecryptPassword(encodedPassword);
-
-
-		//}
-
-		//protected override byte[] EncryptPassword(byte[] password)
-		//{
-		//    /*
-		//     * 	Takes, as input, a byte array containing a plaintext password and returns a byte array containing the 
-		//     * password in encrypted form. The default implementation in MembershipProvider encrypts the password 
-		//     * using <machineKey>'s decryptionKey, but throws an exception if the decryption key is autogenerated. 
-		//     * Override only if you want to customize the encryption process. Do not call the base class's EncryptPassword 
-		//     * method if you override this method.
-		//     */
-		//    return base.EncryptPassword(password);
-		//}
 
 		protected override void OnValidatingPassword(ValidatePasswordEventArgs e)
 		{
@@ -1933,8 +1805,6 @@ namespace mojoPortal.Web
 
 			base.OnValidatingPassword(e);
 		}
-
-
 
 		#endregion
 
@@ -1954,7 +1824,6 @@ namespace mojoPortal.Web
 			switch (oldPasswordFormat)
 			{
 				case (int)MembershipPasswordFormat.Clear:
-
 					switch (siteSettings.PasswordFormat)
 					{
 						case (int)MembershipPasswordFormat.Encrypted:
@@ -1966,13 +1835,11 @@ namespace mojoPortal.Web
 							ThreadPool.QueueUserWorkItem(new WaitCallback(ChangeFromClearTextPasswordsToHashed), siteSettings);
 
 							break;
-
 					}
 
 					break;
 
 				case (int)MembershipPasswordFormat.Encrypted:
-
 					switch (siteSettings.PasswordFormat)
 					{
 						case (int)MembershipPasswordFormat.Clear:
@@ -1984,14 +1851,11 @@ namespace mojoPortal.Web
 							ThreadPool.QueueUserWorkItem(new WaitCallback(ChangeFromEncryptedPasswordsToHashed), siteSettings);
 
 							break;
-
 					}
 
 					break;
 
-
 				case (int)MembershipPasswordFormat.Hashed:
-
 					switch (siteSettings.PasswordFormat)
 					{
 						case (int)MembershipPasswordFormat.Encrypted:
@@ -2003,35 +1867,32 @@ namespace mojoPortal.Web
 							ThreadPool.QueueUserWorkItem(new WaitCallback(ChangeFromHashedPasswordsToClearText), siteSettings);
 
 							break;
-
 					}
 
 					break;
-
-
 			}
-
 		}
 
 
-		private void ChangeFromClearTextPasswordsToEncrypted(Object objSiteSettings)
+		private void ChangeFromClearTextPasswordsToEncrypted(object objSiteSettings)
 		{
-			SiteSettings site = objSiteSettings as SiteSettings;
-			if (site == null)
+			if (!(objSiteSettings is SiteSettings site))
+			{
 				return;
+			}
 
 			DataTable dtUsers = SiteUser.GetUserListForPasswordFormatChange(site.SiteId);
+
 			foreach (DataRow row in dtUsers.Rows)
 			{
 				try
 				{
-					int userId = Convert.ToInt32(row["UserID"]);
-					string oldPassword = row["Pwd"].ToString();
-					string salt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
-					string password = EncodePassword(oldPassword, salt, MembershipPasswordFormat.Encrypted);
+					var userId = Convert.ToInt32(row["UserID"]);
+					var oldPassword = row["Pwd"].ToString();
+					var salt = CreateSaltKey();
+					var password = EncodePassword(oldPassword, salt, MembershipPasswordFormat.Encrypted);
 
 					SiteUser.UpdatePasswordAndSalt(userId, (int)MembershipPasswordFormat.Encrypted, password, salt);
-
 				}
 				catch (Exception ex)
 				{
@@ -2043,23 +1904,24 @@ namespace mojoPortal.Web
 		}
 
 
-		private void ChangeFromClearTextPasswordsToHashed(Object objSiteSettings)
+		private void ChangeFromClearTextPasswordsToHashed(object objSiteSettings)
 		{
-			SiteSettings site = objSiteSettings as SiteSettings;
-			if (site == null)
+			if (!(objSiteSettings is SiteSettings site))
+			{
 				return;
+			}
 
 			DataTable dtUsers = SiteUser.GetUserListForPasswordFormatChange(site.SiteId);
+
 			foreach (DataRow row in dtUsers.Rows)
 			{
 				try
 				{
-					int userId = Convert.ToInt32(row["UserID"]);
-					string salt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
-					string password = GetSHA512Hash(salt + row["Pwd"].ToString());
+					var userId = Convert.ToInt32(row["UserID"]);
+					var salt = CreateSaltKey();
+					var password = EncodePassword(row["Pwd"].ToString(), salt, MembershipPasswordFormat.Hashed);
 
 					SiteUser.UpdatePasswordAndSalt(userId, (int)MembershipPasswordFormat.Hashed, password, salt);
-
 				}
 				catch (Exception ex)
 				{
@@ -2071,21 +1933,24 @@ namespace mojoPortal.Web
 		}
 
 
-		private void ChangeFromEncryptedPasswordsToClearText(Object objSiteSettings)
+		private void ChangeFromEncryptedPasswordsToClearText(object objSiteSettings)
 		{
-			SiteSettings site = objSiteSettings as SiteSettings;
-			if (site == null)
+			if (!(objSiteSettings is SiteSettings site))
+			{
 				return;
+			}
 
 			DataTable dtUsers = SiteUser.GetUserListForPasswordFormatChange(site.SiteId);
+
 			foreach (DataRow row in dtUsers.Rows)
 			{
 				try
 				{
-					int userId = Convert.ToInt32(row["UserID"]);
-					string oldPassword = row["Pwd"].ToString();
-					string salt = row["PasswordSalt"].ToString();
+					var userId = Convert.ToInt32(row["UserID"]);
+					var oldPassword = row["Pwd"].ToString();
+					var salt = row["PasswordSalt"].ToString();
 					string clearPassword;
+
 					if (salt.Length > 0)
 					{
 						clearPassword = UnencodePassword(oldPassword, MembershipPasswordFormat.Encrypted).Replace(salt, string.Empty);
@@ -2096,7 +1961,6 @@ namespace mojoPortal.Web
 					}
 
 					SiteUser.UpdatePasswordAndSalt(userId, (int)MembershipPasswordFormat.Clear, clearPassword, string.Empty);
-
 				}
 				catch (Exception ex)
 				{
@@ -2108,21 +1972,24 @@ namespace mojoPortal.Web
 		}
 
 
-		private void ChangeFromEncryptedPasswordsToHashed(Object objSiteSettings)
+		private void ChangeFromEncryptedPasswordsToHashed(object objSiteSettings)
 		{
-			SiteSettings site = objSiteSettings as SiteSettings;
-			if (site == null)
+			if (!(objSiteSettings is SiteSettings site))
+			{
 				return;
+			}
 
 			DataTable dtUsers = SiteUser.GetUserListForPasswordFormatChange(site.SiteId);
+
 			foreach (DataRow row in dtUsers.Rows)
 			{
 				try
 				{
-					int userId = Convert.ToInt32(row["UserID"]);
-					string oldPassword = row["Pwd"].ToString();
-					string salt = row["PasswordSalt"].ToString();
+					var userId = Convert.ToInt32(row["UserID"]);
+					var oldPassword = row["Pwd"].ToString();
+					var salt = row["PasswordSalt"].ToString();
 					string clearPassword;
+
 					if (salt.Length > 0)
 					{
 						clearPassword = UnencodePassword(oldPassword, MembershipPasswordFormat.Encrypted).Replace(salt, string.Empty);
@@ -2132,11 +1999,10 @@ namespace mojoPortal.Web
 						clearPassword = UnencodePassword(oldPassword, MembershipPasswordFormat.Encrypted);
 					}
 
-					salt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
-					string hashedPassword = GetSHA512Hash(salt + clearPassword);
+					salt = CreateSaltKey();
+					var hashedPassword = EncodePassword(clearPassword, salt, MembershipPasswordFormat.Hashed);
 
 					SiteUser.UpdatePasswordAndSalt(userId, (int)MembershipPasswordFormat.Hashed, hashedPassword, salt);
-
 				}
 				catch (Exception ex)
 				{
@@ -2148,22 +2014,24 @@ namespace mojoPortal.Web
 		}
 
 
-		private void ChangeFromHashedPasswordsToClearText(Object objSiteSettings)
+		private void ChangeFromHashedPasswordsToClearText(object objSiteSettings)
 		{
-			SiteSettings site = objSiteSettings as SiteSettings;
-			if (site == null)
+			if (!(objSiteSettings is SiteSettings site))
+			{
 				return;
+			}
 
 			//Hashed to cleartext - replace password with random password
 			DataTable dtUsers = SiteUser.GetUserListForPasswordFormatChange(site.SiteId);
+
 			foreach (DataRow row in dtUsers.Rows)
 			{
 				try
 				{
-					int userId = Convert.ToInt32(row["UserID"]);
-					string newPassword = SiteUser.CreateRandomPassword(site.MinRequiredPasswordLength + 2, WebConfigSettings.PasswordGeneratorChars);
-					SiteUser.UpdatePasswordAndSalt(userId, (int)MembershipPasswordFormat.Clear, newPassword, string.Empty);
+					var userId = Convert.ToInt32(row["UserID"]);
+					var newPassword = SiteUser.CreateRandomPassword(site.MinRequiredPasswordLength + 2, WebConfigSettings.PasswordGeneratorChars);
 
+					SiteUser.UpdatePasswordAndSalt(userId, (int)MembershipPasswordFormat.Clear, newPassword, string.Empty);
 				}
 				catch (Exception ex)
 				{
@@ -2172,15 +2040,15 @@ namespace mojoPortal.Web
 					log.Error("ChangeFromClearTextPasswordsToEncrypted", ex);
 				}
 			}
-
 		}
 
 
-		private void ChangeFromHashedPasswordsToEncrypted(Object objSiteSettings)
+		private void ChangeFromHashedPasswordsToEncrypted(object objSiteSettings)
 		{
-			SiteSettings site = objSiteSettings as SiteSettings;
-			if (site == null)
+			if (!(objSiteSettings is SiteSettings site))
+			{
 				return;
+			}
 
 			//Hashed to encrypted - replace passwords with random passwords then encrypt them
 			DataTable dtUsers = SiteUser.GetUserListForPasswordFormatChange(site.SiteId);
@@ -2189,13 +2057,12 @@ namespace mojoPortal.Web
 			{
 				try
 				{
-					int userId = Convert.ToInt32(row["UserID"]);
-					string newPassword = SiteUser.CreateRandomPassword(site.MinRequiredPasswordLength + 2, WebConfigSettings.PasswordGeneratorChars);
-					string salt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
-					string password = EncodePassword(newPassword, salt, MembershipPasswordFormat.Encrypted);
+					var userId = Convert.ToInt32(row["UserID"]);
+					var newPassword = SiteUser.CreateRandomPassword(site.MinRequiredPasswordLength + 2, WebConfigSettings.PasswordGeneratorChars);
+					var salt = CreateSaltKey();
+					var password = EncodePassword(newPassword, salt, MembershipPasswordFormat.Encrypted);
 
 					SiteUser.UpdatePasswordAndSalt(userId, (int)MembershipPasswordFormat.Encrypted, password, salt);
-
 				}
 				catch (Exception ex)
 				{
@@ -2203,8 +2070,47 @@ namespace mojoPortal.Web
 					//on a different thread best to log anything that goes wrong
 					log.Error("ChangeFromClearTextPasswordsToEncrypted", ex);
 				}
-
 			}
 		}
+
+
+		#region Obsolete Methods
+
+		/// <summary>
+		/// If you call this method from custom code, you need to concatenate passwordsalt + password before passing it into this method
+		/// </summary>
+		/// <param name="password">The Password to be encoded.</param>
+		/// <param name="siteSettings"></param>
+		/// <returns>Return an encoded password using the site's password format settings.</returns>
+		[Obsolete("Use EncodePassword(string password, string saltKey, SiteSettings siteSettings) instead.", true)]
+		public string EncodePassword(string password, SiteSettings siteSettings)
+		{
+			return EncodePassword(password, (MembershipPasswordFormat)siteSettings.PasswordFormat);
+		}
+
+
+		/// <summary>
+		/// If you call this method from custom code, you need to concatenate passwordsalt + password before passing it into this method
+		/// </summary>
+		/// <param name="password">The Password to be encoded.</param>
+		/// <param name="passwordFormat"></param>
+		/// <returns>Return an encoded password using specified password format.</returns>
+		[Obsolete("Use EncodePassword(string password, string saltKey, MembershipPasswordFormat passwordFormat) instead.", true)]
+		public string EncodePassword(string password, MembershipPasswordFormat passwordFormat)
+		{
+			if (passwordFormat == MembershipPasswordFormat.Clear)
+			{
+				return password;
+			}
+
+			if (passwordFormat == MembershipPasswordFormat.Hashed)
+			{
+				return CreatePasswordHash(password);
+			}
+
+			return EncryptPassword(password);
+		}
+
+		#endregion
 	}
 }
