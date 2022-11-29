@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using AjaxControlToolkit;
+//using AjaxControlToolkit;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -840,7 +840,7 @@ namespace SuperFlexiUI
 
 					break;
 				case "Date":
-					CalendarExtender calendar = new CalendarExtender();
+					//CalendarExtender calendar = new CalendarExtender();
 					TextBox calTxt = new TextBox();
 					Label calBtn = new Label();
 					
@@ -856,9 +856,9 @@ namespace SuperFlexiUI
 					calBtn.Text = "...";
 					calBtn.CssClass = "btn btn-default";
 					
-					calendar.TargetControlID = calTxt.ID;
-					calendar.PopupButtonID = calBtn.ID;
-					calendar.Format = field.DateFormat;
+					//calendar.TargetControlID = calTxt.ID;
+					//calendar.PopupButtonID = calBtn.ID;
+					//calendar.Format = field.DateFormat;
 
 					attribs = calTxt.Attributes;
                     FieldUtils.GetFieldAttributes(field.Attributes, out attribs);
@@ -872,7 +872,7 @@ namespace SuperFlexiUI
 
 					panel.Controls.Add(calTxt);
 					panel.Controls.Add(calBtn);
-					panel.Controls.Add(calendar);
+					//panel.Controls.Add(calendar);
 
 					if (field.Required)
 					{
