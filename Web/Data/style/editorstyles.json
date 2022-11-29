@@ -1,0 +1,97 @@
+[
+    {
+        "name": "Image - Left",
+        "element": "img",
+        "type": "widget",
+        "widget": "image",
+        "attributes":{
+            "class": "image-left"
+        },
+        "group": "imgalign"
+    },
+    {
+        "name": "Image - Right",
+        "element": "img",
+        "type": "widget",
+        "widget": "image",
+        "attributes":{
+            "class": "image-right"
+        },
+        "group": "imgalign"
+    },    
+    {
+        "name": "Image - Centered",
+        "element": "img",
+        "type": "widget",
+        "widget": "image",
+        "attributes":{
+            "class": "image-center"
+        },
+        "group": "imgalign"
+    },
+    {
+        "name": "Paragraph",
+        "element": "p",
+        "group": "block"
+    },
+    {
+        "name": "Document Block",
+        "element": "div",
+        "group": "block"
+    },
+    {
+        "name": "Preformatted Text",
+        "element": "pre"
+    },
+    {
+        "name": "Address",
+        "element": "address"
+    },
+    {
+        "name": "Inline Quotation",
+        "element": "q"
+    },
+    {
+        "name": "Cited Work",
+        "element": "c"
+    },
+    {
+        "name": "Emphasis",
+        "element": "em"
+    },
+    {
+        "name": "Code",
+        "element": "code"
+    },
+    {
+        "name": "Keyboard Input",
+        "element": "kbd"
+    },
+    {
+        "name": "Sample Text",
+        "element": "samp"
+    },
+    {
+        "name": "Term Definition",
+        "element": "dfn"
+    },
+    {
+        "name": "Variable",
+        "element": "var"
+    },
+    {
+        "name": "Deleted Text",
+        "element": "del"
+    },
+    {
+        "name": "Inserted Text",
+        "element": "ins"
+    },
+    {
+        "name": "Highlight",
+        "element": "mark",
+        "attributes": {
+            "class": "text-highlight"
+        }
+    }
+]

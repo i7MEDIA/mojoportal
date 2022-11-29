@@ -1,187 +1,157 @@
-﻿// Author:		        
-// Created:            2009-08-31
-// Last Modified:      2018-10-31
-//
-// Licensed under the terms of the GNU Lesser General Public License:
-//	http://www.opensource.org/licenses/lgpl-license.php
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
+﻿using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Serializers.Newtonsoft;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Data;
 using System.IO;
-using System.Web;
-using System.Collections;
-
-//using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Web.Services;
-using System.Web.Services.Protocols;
-using System.Xml;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.Editor;
-using Resources;
+using System.Web;
 
 namespace mojoPortal.Web.Services
 {
-    /// <summary>
-    /// Returns styles in json format for CKeditor
-    /// </summary>
-    //[WebService(Namespace = "http://tempuri.org/")]
-    //[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-    public class CKeditorStyles : IHttpHandler
+	/// <summary>
+	/// Returns styles JS for CKeditor
+	/// </summary>
+	public class CKeditorStyles : IHttpHandler
     {
 
         private SiteSettings siteSettings = null;
-        private string comma = string.Empty;
+        private string siteRoot = string.Empty;
+        private string skinRootFolder = string.Empty;
+		private string currentSkin = string.Empty;
+        private FileInfo skinStylesFile = null;
+        private FileInfo systemStylesFile = null;
 
-
-        public void ProcessRequest(HttpContext context)
+		public void ProcessRequest(HttpContext context)
         {
             siteSettings = CacheHelper.GetCurrentSiteSettings();
+			
             if (siteSettings == null)
-            {
+			{
+				return;
+			}
+			
+            siteRoot = SiteUtils.GetNavigationSiteRoot();
+			skinRootFolder = SiteUtils.GetSiteSkinFolderPath();
+			currentSkin = siteSettings.Skin;
+            
+			var currentPage = CacheHelper.GetCurrentPage();
 
-                return;
-            }
-            RenderJsonList(context);
+			if (currentPage != null && !string.IsNullOrEmpty(currentPage.Skin))
+			{
+				currentSkin = currentPage.Skin;
+			}
 
+			skinStylesFile = new FileInfo($"{skinRootFolder + currentSkin}\\config\\editorstyles.json");
+			systemStylesFile = new FileInfo(HttpContext.Current.Server.MapPath("~/data/style/editorstyles.json"));
+
+			RenderJsonList(context);
         }
 
         private void RenderJsonList(HttpContext context)
         {
-            context.Response.ContentType = "text/javascript";
-            Encoding encoding = new UTF8Encoding();
-            context.Response.ContentEncoding = encoding;
+			context.Response.ContentType = "text/javascript";
+            context.Response.ContentEncoding = new UTF8Encoding();
 
-            context.Response.Write("try{CKEDITOR.addStylesSet('mojo',[");
+			List<CkEditorStyle> styles = new List<CkEditorStyle>();
 
-            if (WebConfigSettings.AddSystemStyleTemplatesAboveSiteTemplates)
+			if (WebConfigSettings.AddSystemStyleTemplatesAboveSiteTemplates && systemStylesFile.Exists)
             {
-                RenderSystemStyles(context);
-            }
+				styles.AddRange(GetEditorStyles(systemStylesFile));
+			}
 
             using (IDataReader reader = ContentStyle.GetAllActive(siteSettings.SiteGuid))
             {
                 while (reader.Read())
                 {
-                    context.Response.Write(comma);
-                    context.Response.Write("{\"name\":\"" + reader["Name"].ToString().JsonEscape() + "\"");
-                    context.Response.Write(",\"element\":\"" + reader["Element"].ToString().JsonEscape() + "\"");
-                    context.Response.Write(",\"attributes\":{\"class\":\"" + reader["CssClass"].ToString().JsonEscape() + "\"}");
-                    context.Response.Write("}");
-
-                    comma = ",";
-
+					styles.Add(new CkEditorStyle
+					{
+						Name = reader["Name"].ToString(),
+						Element = new List<string> { reader["Element"].ToString() },
+						Attributes = new Dictionary<string, string>() { { "class", reader["CssClass"].ToString() } }
+					});
                 }
-
             }
 
-
-            if (WebConfigSettings.AddSystemStyleTemplatesBelowSiteTemplates)
+            if (skinStylesFile.Exists)
             {
-                RenderSystemStyles(context);
-            }
+				styles.AddRange(GetEditorStyles(skinStylesFile));
+			}
 
-            context.Response.Write("]);\r\n}catch(err){}");
-
-        }
-
-        private void RenderSystemStyles(HttpContext context)
-        {
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Image on Right\"");
-            context.Response.Write(",\"element\":\"img\"");
-            context.Response.Write(",\"attributes\":{\"class\":\"image-right\"}");
-            context.Response.Write("}");
-
-            comma = ",";
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Image on Left\"");
-            context.Response.Write(",\"element\":\"img\"");
-            context.Response.Write(",\"attributes\":{\"class\":\"image-left\"}");
-            context.Response.Write("}");
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Document Block aka div\"");
-            context.Response.Write(",\"element\":\"div\"");
-            context.Response.Write("}");
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Preformatted Text\"");
-            context.Response.Write(",\"element\":\"pre\"");
-            context.Response.Write("}");
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Address\"");
-            context.Response.Write(",\"element\":\"address\"");
-            context.Response.Write("}");
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Inline Quotation\"");
-            context.Response.Write(",\"element\":\"q\"");
-            context.Response.Write("}");
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Cited Work\"");
-            context.Response.Write(",\"element\":\"c\"");
-            context.Response.Write("}");
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Emphasis\"");
-            context.Response.Write(",\"element\":\"em\"");
-            context.Response.Write("}");
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Code\"");
-            context.Response.Write(",\"element\":\"code\"");
-            context.Response.Write("}");
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Keyboard Input\"");
-            context.Response.Write(",\"element\":\"kbd\"");
-            context.Response.Write("}");
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Sample Text\"");
-            context.Response.Write(",\"element\":\"samp\"");
-            context.Response.Write("}");
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Term Definition\"");
-            context.Response.Write(",\"element\":\"dfn\"");
-            context.Response.Write("}");
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Variable\"");
-            context.Response.Write(",\"element\":\"var\"");
-            context.Response.Write("}");
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Deleted Text\"");
-            context.Response.Write(",\"element\":\"del\"");
-            context.Response.Write("}");
-
-            context.Response.Write(comma);
-            context.Response.Write("{\"name\":\"Inserted Text\"");
-            context.Response.Write(",\"element\":\"ins\"");
-            context.Response.Write("}");
-
-           
-
-        }
-
-        public bool IsReusable
-        {
-            get
+			if (WebConfigSettings.AddSystemStyleTemplatesBelowSiteTemplates && systemStylesFile.Exists)
             {
-                return false;
-            }
+				styles.AddRange(GetEditorStyles(systemStylesFile));
+			}
+
+			var json = JsonConvert.SerializeObject(styles, Formatting.None);
+
+			context.Response.Write($"try{{CKEDITOR.addStylesSet('mojo',{json});}}catch(err){{}}");
         }
+
+		public List<CkEditorStyle> GetEditorStyles(FileInfo file)
+		{
+			var styles = new List<CkEditorStyle>();
+			if (file.Exists)
+			{
+				var bar = File.ReadAllText(file.FullName);
+				
+				styles = JsonConvert.DeserializeObject<List<CkEditorStyle>>(bar);
+				
+			}
+			return styles;
+		}
+
+        public bool IsReusable { get { return false; } }
     }
+
+
+
+	public class CkEditorStyle
+	{
+		[JsonProperty(PropertyName = "name")]
+		public string Name { get; set; }
+
+		[JsonProperty(PropertyName = "element")]
+		[JsonConverter(typeof(SingleOrArrayConverter<string>))] 
+		public List<string> Element { get; set; }
+		
+		[JsonProperty(PropertyName = "type")]
+		public string Type { get; set; }
+
+		[JsonProperty(PropertyName = "widget")]
+		public string Widget { get; set; }
+
+		[JsonProperty(PropertyName = "group")]
+
+		public List<string> Group { get; set; }
+
+		[JsonProperty(PropertyName = "attributes")]
+		public Dictionary<string, string> Attributes { get; set; }
+
+		public bool ShouldSerializeAttributes()
+		{
+			return Attributes != null;
+		}
+
+		public bool ShouldSerializeElement()
+		{
+			return Element != null;
+		}
+		
+		public bool ShouldSerializeType()
+		{
+			return Type != null;
+		}
+
+		public bool ShouldSerializeWidget()
+		{
+			return Widget != null;
+		}
+
+		public bool ShouldSerializeGroup()
+		{
+			return Group != null;
+		}
+	}
 }

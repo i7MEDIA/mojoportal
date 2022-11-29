@@ -1,24 +1,11 @@
-﻿// Author:					
-// Created:					2009-04-02
-// Last Modified:			2016-02-09
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
+﻿
+using mojoPortal.Web.Framework;
+using Resources;
 using System;
 using System.Globalization;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Resources;
-using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.Editor
 {
@@ -50,6 +37,7 @@ namespace mojoPortal.Web.Editor
 		public string SiteRoot { get; set; } = "~/";
 
 		public string StylesJsonUrl { get; set; } = string.Empty;
+
 		public string Templates { get; set; } = string.Empty;
 
 		public string TemplatesJsonUrl { get; set; } = string.Empty;
@@ -58,7 +46,7 @@ namespace mojoPortal.Web.Editor
 
 		public string MojoSkinPath { get; set; } = string.Empty;
 
-		public string Skin { get; set; } = "kama";
+		public string Skin { get; set; } = "moono-lisa";
 
 		public ToolBar ToolBar { get; set; } = ToolBar.AnonymousUser;
 
@@ -250,22 +238,22 @@ namespace mojoPortal.Web.Editor
 			script.Append("); ");
 			script.Append("function SetupEditor" + this.ClientID + "( editorObj){");
 
-			if (StylesJsonUrl.Length > 0)
+			if (!string.IsNullOrWhiteSpace(StylesJsonUrl))
 			{
 				script.Append("editorObj.config.stylesCombo_stylesSet = 'mojo:" + StylesJsonUrl + "';");
 			}
 
-			if (TemplatesJsonUrl.Length > 0 || SkinTemplatesUrl.Length > 0)
+			if (!string.IsNullOrWhiteSpace(TemplatesJsonUrl) || !string.IsNullOrWhiteSpace(SkinTemplatesUrl))
 			{
 				var templates = string.Empty;
 				var templatesFiles = string.Empty;
-				if (TemplatesJsonUrl.Length > 0)
+				if (!string.IsNullOrWhiteSpace(TemplatesJsonUrl))
 				{
 					templates = "mojo";
 					templatesFiles = $"'{TemplatesJsonUrl}'";
 				}
 
-				if (SkinTemplatesUrl.Length > 0)
+				if (!string.IsNullOrWhiteSpace(SkinTemplatesUrl))
 				{
 					templates += ",skin";
 					templatesFiles += $",'{SkinTemplatesUrl}'";
@@ -277,7 +265,7 @@ namespace mojoPortal.Web.Editor
 			}
 
 			script.Append("editorObj.config.smiley_path = '" + Page.ResolveUrl("~/Data/SiteImages/emoticons/") + "';");
-			script.Append("editorObj.config.extraPlugins='onchange'; ");
+			//script.Append("editorObj.config.extraPlugins='onchange'; ");
 
 			if (UseGoodbyePrompt)
 			{

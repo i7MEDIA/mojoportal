@@ -1,25 +1,6 @@
-﻿// Author:					
-// Created:					2009-04-02
-// Last Modified:			2014-01-07
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-//TODO: need to figure out how to implement image browsing and link browsing
-
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
+﻿using mojoPortal.Business.WebHelpers;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Text;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -27,14 +8,10 @@ namespace mojoPortal.Web.Editor
 {
 	public class CKEditorAdapter : IWebEditor
 	{
-		#region Constructors
-
 		public CKEditorAdapter()
 		{
 			InitializeEditor();
 		}
-
-		#endregion
 
 		#region Private Properties
 
@@ -232,8 +209,8 @@ namespace mojoPortal.Web.Editor
 				currentSkin = currentPage.Skin;
 			}
 
-			FileInfo skinTemplates = new FileInfo($"{skinRootFolder + currentSkin}/templates/ckeditortemplates.js");
-			
+			FileInfo skinTemplates = new FileInfo($"{skinRootFolder + currentSkin}\\config\\ckeditortemplates.js");
+
 			var skinUrl = SiteUtils.DetermineSkinBaseUrl(currentSkin);
 			
 			Editor.MojoSkinPath = skinUrl;
@@ -257,12 +234,10 @@ namespace mojoPortal.Web.Editor
 					if (skinTemplates.Exists)
 					{
 						
-						Editor.SkinTemplatesUrl = $"{skinUrl}templates/ckeditortemplates.js?cb={Guid.NewGuid()}";
+						Editor.SkinTemplatesUrl = $"{skinUrl}config/ckeditortemplates.js?cb={Guid.NewGuid()}";
 					}
-
-					//Editor.TemplatesXmlUrl = navRoot + "/Services/HtmlTemplates.ashx?cb=" + Guid.NewGuid().ToString(); 
+ 
 					Editor.StylesJsonUrl = siteRoot + "/Services/CKeditorStyles.ashx?cb=" + Guid.NewGuid().ToString().Replace("-",string.Empty);
-					//Editor.StylesJsonUrl =  "/ckstyles.js";
 					Editor.DropFileUploadUrl = $"{siteRoot}/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko={WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()}&t={Global.FileSystemToken}";
 					break;
 
@@ -270,7 +245,6 @@ namespace mojoPortal.Web.Editor
 					Editor.FileManagerUrl = siteRoot + WebConfigSettings.FileDialogRelativeUrl;
 					Editor.EnableFileBrowser = true;
 					Editor.FullPageMode = true;
-					//Editor.CustomConfigPath = "~/ClientScript/ckeditor-mojo-newsletterconfig.js";
 					break;
 
 				case ToolBar.ForumWithImages:

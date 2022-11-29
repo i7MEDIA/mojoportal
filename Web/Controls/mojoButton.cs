@@ -42,6 +42,7 @@ namespace mojoPortal.Web.UI
                 CssClass += " jqbutton ui-button ui-widget ui-state-default ui-corner-all";
 
             }
+            TabIndex = 10;
         }
 
         //jqbutton

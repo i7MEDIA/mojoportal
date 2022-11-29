@@ -1,16 +1,4 @@
-﻿// Created:				    2010-08-01
-// Last Modified:			2017-06-16
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-// 2011-03-05 changed to use CKeditor which now can work inside updatepanel. The ajaxtoolkit editor does not work in medium trust so this solves a medium trust problem as well
-// Cloned from mojoPortal for use in SuperFlexi.
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web.UI;
@@ -21,6 +9,7 @@ using mojoPortal.Web;
 using mojoPortal.Web.Editor;
 using SuperFlexiBusiness;
 using mojoPortal.Web.UI;
+using System.IO;
 
 namespace SuperFlexiUI
 {
@@ -44,9 +33,23 @@ namespace SuperFlexiUI
 
             SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
             
-            string siteRoot = SiteUtils.GetNavigationSiteRoot(); ;
-            //ed1.SiteRoot = siteRoot;
-            if(WebConfigSettings.UseSkinCssInEditor)
+            string siteRoot = SiteUtils.GetNavigationSiteRoot();
+
+			string skinRootFolder = SiteUtils.GetSiteSkinFolderPath();
+
+			string currentSkin = siteSettings.Skin;
+			var currentPage = CacheHelper.GetCurrentPage();
+
+			if (currentPage != null && !string.IsNullOrEmpty(currentPage.Skin))
+			{
+				currentSkin = currentPage.Skin;
+			}
+			//ed1.SiteRoot = siteRoot;
+
+			FileInfo skinTemplates = new FileInfo($"{skinRootFolder + currentSkin}\\config\\ckeditortemplates.js");
+			var skinUrl = SiteUtils.DetermineSkinBaseUrl(currentSkin);
+
+			if (WebConfigSettings.UseSkinCssInEditor)
             {
                 ed1.EditorCSSUrl = SiteUtils.GetEditorStyleSheetUrl(true, true, Page);
             }
@@ -61,21 +64,24 @@ namespace SuperFlexiUI
 
             if (siteSettings != null)
             {
-                if (
-                    (WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles))
-                    || (WebUser.IsInRoles(siteSettings.UserFilesBrowseAndUploadRoles))
-                    )
+                if (WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles + ";" + siteSettings.UserFilesBrowseAndUploadRoles))
                 {
                     ed1.FileManagerUrl = siteRoot + WebConfigSettings.FileDialogRelativeUrl;
                     ed1.EnableFileBrowser = true;
                 }
             }
+            var cacheCrusher = Guid.NewGuid().ToString().Replace("-", string.Empty); //prevent caching with a guid param
 
-            ed1.TemplatesJsonUrl = siteRoot + "/Services/CKeditorTemplates.ashx?cb=" + Guid.NewGuid().ToString(); //prevent caching with a guid param
-            ed1.StylesJsonUrl = siteRoot + "/Services/CKeditorStyles.ashx?cb=" + Guid.NewGuid().ToString().Replace("-", string.Empty);
+			ed1.TemplatesJsonUrl = $"{siteRoot}/Services/CKeditorTemplates.ashx?cb={cacheCrusher}"; 
+            ed1.StylesJsonUrl = $"{siteRoot}/Services/CKeditorStyles.ashx?cb={cacheCrusher}";
+			if (skinTemplates.Exists)
+			{
+
+				ed1.SkinTemplatesUrl = $"{skinUrl}config/ckeditortemplates.js?cb={cacheCrusher}";
+			}
 
 
-            CultureInfo defaultCulture = SiteUtils.GetDefaultUICulture();
+			CultureInfo defaultCulture = SiteUtils.GetDefaultUICulture();
             if (defaultCulture.TextInfo.IsRightToLeft)
             {
                 ed1.TextDirection = Direction.RightToLeft;
