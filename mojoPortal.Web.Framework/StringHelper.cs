@@ -226,16 +226,13 @@ namespace mojoPortal.Web.Framework
         }
 
 
-        //public static string JsonEscapeHtml(this string s)
-        //{
-        //    if (string.IsNullOrEmpty(s)) { return s; }
+		//public static string JsonEscapeHtml(this string s)
+		//{
+		//    if (string.IsNullOrEmpty(s)) { return s; }
 
-        //    return EscapHtmlToJson(s);
+		//    return EscapHtmlToJson(s);
 
-        //}
-
-        
-
+		//}
 
         public static string HtmlEscapeQuotes(this string s)
         {
@@ -455,43 +452,6 @@ namespace mojoPortal.Web.Framework
             }
         }
 
-        //public static string ToAsciiIfPossible(this string s)
-        //{
-        //    if (string.IsNullOrEmpty(s)) { return s; }
-
-
-        //    //TODO: could improve this based on:
-        //    //http://www.mojoportal.com/Forums/Thread.aspx?thread=9176&mid=34&pageid=5&ItemID=9&pagenumber=1#post38114
-
-        //    try
-        //    {
-
-        //        string normalized = s.Normalize(NormalizationForm.FormKD);
-
-        //        Encoding ascii = Encoding.GetEncoding(
-        //              "us-ascii",
-        //              new EncoderReplacementFallback(string.Empty),
-        //              new DecoderReplacementFallback(string.Empty));
-
-        //        byte[] encodedBytes = new byte[ascii.GetByteCount(normalized)];
-        //        int numberOfEncodedBytes = ascii.GetBytes(normalized, 0, normalized.Length,
-        //        encodedBytes, 0);
-
-        //        if (numberOfEncodedBytes <= 1) { return s; } // wasn't able to get ascii equivalent chars
-
-        //        string newString = ascii.GetString(encodedBytes);
-
-        //        return newString;
-
-        //    }
-        //    catch
-        //    {
-        //        return s;
-        //    }
-
-
-        //}
-
         public static string RemoveNonNumeric(this string s)
         {
             if (string.IsNullOrEmpty(s)) { return s; }
@@ -511,13 +471,42 @@ namespace mojoPortal.Web.Framework
             return s;
         }
 
-        public static string RemoveLineBreaks(this string s)
+        public static string RemoveLineBreaks(this string s, string Replacement = "")
         {
             if (string.IsNullOrEmpty(s)) { return s; }
 
-            return s.Replace("\r\n", string.Empty).Replace("\n", string.Empty).Replace("\r", string.Empty);
+            return s.Replace("\r\n", Replacement).Replace("\n", Replacement).Replace("\r", Replacement);
         }
 
+        /// <summary>
+        /// Removes Sequential Spaces in a string. RegEx isn't necessarily faster.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="UseRegEx"></param>
+        /// <returns></returns>
+        public static string RemoveMultipleSpaces(this string s, bool UseRegEx = false)
+        {
+            if (string.IsNullOrEmpty(s)) { return s; }
+
+            if (UseRegEx)
+            {
+				Regex regex = new Regex("[ ]{2,}", RegexOptions.None);
+				return regex.Replace(s, " ");
+			}
+
+            StringBuilder sb = new StringBuilder(s.Length);
+
+            int i = 0;
+            foreach (char c in s)
+            {
+                if (c != ' ' || i == 0 || s[i-1] != ' ')
+                {
+                    sb.Append(c);
+                }
+                i++;
+            }
+            return sb.ToString();
+        }
 
         public static string EscapeXml(this string s)
         {
