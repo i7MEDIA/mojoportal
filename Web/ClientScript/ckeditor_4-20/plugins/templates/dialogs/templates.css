@@ -10,7 +10,8 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 	overflow-y: auto;
 	overflow-x: hidden;
 	width: 100%;
-	height: 220px;
+	height: auto;
+	max-height: 400px;
 }
 
 .cke_tpl_item

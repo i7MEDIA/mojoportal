@@ -17,7 +17,7 @@ namespace mojoPortal.Web.Services
     {
 
         private SiteSettings siteSettings = null;
-        private string siteRoot = string.Empty;
+        //private string siteRoot = string.Empty;
         private string skinRootFolder = string.Empty;
 		private string currentSkin = string.Empty;
         private FileInfo skinStylesFile = null;
@@ -32,7 +32,7 @@ namespace mojoPortal.Web.Services
 				return;
 			}
 			
-            siteRoot = SiteUtils.GetNavigationSiteRoot();
+            //siteRoot = SiteUtils.GetNavigationSiteRoot();
 			skinRootFolder = SiteUtils.GetSiteSkinFolderPath();
 			currentSkin = siteSettings.Skin;
             
@@ -94,9 +94,9 @@ namespace mojoPortal.Web.Services
 			var styles = new List<CkEditorStyle>();
 			if (file.Exists)
 			{
-				var bar = File.ReadAllText(file.FullName);
+				var content = File.ReadAllText(file.FullName);
 				
-				styles = JsonConvert.DeserializeObject<List<CkEditorStyle>>(bar);
+				styles = JsonConvert.DeserializeObject<List<CkEditorStyle>>(content);
 				
 			}
 			return styles;
@@ -123,7 +123,7 @@ namespace mojoPortal.Web.Services
 		public string Widget { get; set; }
 
 		[JsonProperty(PropertyName = "group")]
-
+		[JsonConverter(typeof(SingleOrArrayConverter<string>))]
 		public List<string> Group { get; set; }
 
 		[JsonProperty(PropertyName = "attributes")]

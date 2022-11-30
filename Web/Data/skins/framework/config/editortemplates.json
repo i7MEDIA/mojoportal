@@ -1,0 +1,53 @@
+{
+	"imagesPath": "$skinpath$config/thumbs/",
+	"templates": [
+		{
+			"title": "Paragraph with Lead",
+			"image": "paralead.jpg",
+			"description": "Simple paragraph with a Leading Intro Line",
+			"html": "<p class=\"lead\">Paragraph Lead</p><p>Aut eum dolorem laudantium. Id voluptas officia autem vero accusantium libero. Quis amet odit repellendus debitis doloribus beatae. Nisi et aut odit tempora ea est blanditiis minima. Sed fugiat molestiae quos quidem ex officia iusto quia. Consequatur iusto nam necessitatibus officiis consequatur tempore ut.</p>"
+		},
+		{
+			"title": "Paragraphs with Image",
+			"image": "para-img.jpg",
+			"description": "<p>A couple of paragraphs with a single image.</p>\r\n",
+			"html": "<p><img alt=\"U.S.A. Flag\" class=\"image-right\" height=\"194\" src=\"/Data/Sites/1/media/images/flag-of-usa.jpg\" width=\"290\" />Aut et aut inventore odio minus eligendi fugiat. Cumque incidunt mollitia sed adipisci maiores quia et. Provident voluptatum aut at amet omnis. Placeat est a nostrum occaecati rerum necessitatibus deleniti esse. Et dignissimos repellendus eius dolorem.</p><p>Nobis repellat sint reiciendis maiores quia ea pariatur aut. Quia eveniet facilis magni molestias et. Officia ab ducimus officia consequatur sint non fuga. Quia a est ducimus et cumque. Consectetur itaque vitae commodi perspiciatis voluptatem voluptates.</p><p>Commodi similique quia veritatis eligendi. Cumque totam autem est cumque et dolores vitae voluptates. Porro vero quia sed. Et molestiae qui quos voluptate veniam voluptatem sit voluptates. Laborum qui porro aut eos ut et sed a.</p>"
+		},
+		{
+			"title": "Callout",
+			"image": "callout.jpg",
+			"description": "A callout box to draw attention to a particular bit of content",
+			"html": "<p class=\"well\" style=\"width: max-content;\">mojoPortal has a long history of making complex websites easy to build and maintain.&nbsp;<a class=\"btn btn-primary\" href=\"https://www.mojoportal.com\">Learn More</a></p>"
+		},
+		{
+			"title": "Alert - Success",
+			"image": "alert-green.jpg",
+			"description": "Alert box with a color signifying success.",
+			"html": "<p class=\"alert alert-success\" style=\"width: max-content;\"><strong>¡Hola!</strong> mojoPortal es impresionante. Ya lo sabes, pero nos gusta decirlo. <a class=\"btn btn-success\" href=\"#\">Haga clic ahora</a></p>"
+		},
+		{
+			"title": "Alert - Informational",
+			"image": "alert-blue.jpg",
+			"description": "Alert box with a color signifying information.",
+			"html": "<p class=\"alert alert-info\" style=\"width: max-content;\"><strong>Note:</strong>&nbsp;i7MEDIA is here to help you.&nbsp;<a class=\"btn btn-info\" href=\"https://i7media.com\">Click for Help</a></p>"
+		},
+		{
+			"title": "Alert - Critical",
+			"image": "alert-red.jpg",
+			"description": "Alert box with a color signifying critical information.",
+			"html": "<p class=\"alert alert-danger\" style=\"width: max-content;\"><strong>Attention!</strong> This is very important. Please pay attention. <a class=\"btn btn-danger\" href=\"/\">Click Now</a></p>"
+		},
+		{
+			"title": "Alert - Warning",
+			"image": "alert-yellow.jpg",
+			"description": "Alert box with a color signifying a warning.",
+			"html": "<p class=\"alert alert-warning\" style=\"width: max-content;\"><strong>Howdy!</strong> This is kinda important. Please pay attention. <a class=\"btn btn-warning\" href=\"/\">Click Now</a></p>"
+		},
+		{
+			"title": "Formatted Table",
+			"image": "table-formatted.jpg",
+			"description": "Table with borders, header row, and striping.",
+			"html": "<table class=\"table table-bordered table-striped\"><thead><tr><th scope=\"col\">Column 1</th><th scope=\"col\">Column 2</th><th scope=\"col\">Column 3</th></tr></thead><tbody><tr><td>Right-Click</td><td>to&nbsp;</td><td>add/remove</td></tr><tr><td>rows</td><td>and</td><td>columns</td></tr><tr><td>mojoPortal</td><td>makes</td><td>this easy</td></tr></tbody></table>"
+		}
+	]
+}
