@@ -134,7 +134,6 @@ namespace mojoPortal.Web
 		public string PayPalAPIUsername => PaymentGatewayUseTestMode ? payPalSandboxAPIUsername : payPalProductionAPIUsername;
 		public string PayPalAPIPassword => PaymentGatewayUseTestMode ? payPalSandboxAPIPassword : payPalProductionAPIPassword;
 		public string PayPalAPISignature => PaymentGatewayUseTestMode ? payPalSandboxAPISignature : payPalProductionAPISignature;
-		public GCheckout.EnvironmentType GoogleEnvironment => PaymentGatewayUseTestMode ? GCheckout.EnvironmentType.Sandbox : GCheckout.EnvironmentType.Production;
 		public string GoogleMerchantID => PaymentGatewayUseTestMode ? googleSandboxMerchantID : googleProductionMerchantID;
 		public string GoogleMerchantKey => PaymentGatewayUseTestMode ? googleSandboxMerchantKey : googleProductionMerchantKey;
 		public int DefaultTimeoutInMilliseconds { get; } = 30000;

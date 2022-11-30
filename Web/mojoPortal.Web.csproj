@@ -225,9 +225,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\dotnetopenauth\DotNetOpenAuth.dll</HintPath>
     </Reference>
-    <Reference Include="GCheckout, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\_libs\GCheckout1.3.2\GCheckout.dll</HintPath>
-    </Reference>
     <Reference Include="Google.GData.Analytics, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9e229226d7996434, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\gdata-1-9\Google.GData.Analytics.dll</HintPath>
