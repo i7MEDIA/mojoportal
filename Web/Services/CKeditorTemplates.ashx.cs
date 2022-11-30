@@ -1,199 +1,211 @@
-﻿// Author:		        
-// Created:            2009-08-31
-// Last Modified:      2014-04-08
-//
-// Licensed under the terms of the GNU Lesser General Public License:
-//	http://www.opensource.org/licenses/lgpl-license.php
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Data;
-using System.IO;
-using System.Web;
-using System.Collections;
-
-//using System.Runtime.Serialization.Json;
-using System.Text;
-using System.Web.Services;
-using System.Web.Services.Protocols;
-using System.Xml;
+﻿using Microsoft.Web.Preview.UI;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Configuration;
 using mojoPortal.Web.Framework;
-using mojoPortal.Web.Editor;
-using Resources;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Web;
+using System.Web.Services;
 
 namespace mojoPortal.Web.Services
 {
-    /// <summary>
-    /// Returns content templates in a json format consumable by CKeditor
-    /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
-    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-    public class CKeditorTemplates : IHttpHandler
-    {
+	/// <summary>
+	/// Returns content templates in a json format consumable by CKeditor
+	/// </summary>
+	[WebService(Namespace = "http://tempuri.org/")]
+	[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+	public class CKeditorTemplates : IHttpHandler
+	{
 
-        private SiteSettings siteSettings = null;
-        private string siteRoot = string.Empty;
-        private string comma = string.Empty;
+		private SiteSettings siteSettings = null;
+		private string siteRoot = string.Empty;
+		private string skinRootFolder = string.Empty;
+		private string currentSkin = string.Empty;
+		private FileInfo skinTemplatesFile = null;
+		private FileInfo systemTemplatesFile = null;
 
-        
-        public void ProcessRequest(HttpContext context)
-        {
-            siteSettings = CacheHelper.GetCurrentSiteSettings();
-            if (siteSettings == null)
-            {
-
-                return;
-            }
-
-            var export = context.Request.QueryString["e"] != null && context.Request.QueryString["e"].ToLower() == "true";
-			
-            RenderJsonList(context, export);
-
-        }
-
-  //      public void ExportAsJson(HttpContext context)
-		//{
-  //          HttpContext.Current.Response.ContentType = "application/octet-stream";
-
-  //          siteRoot = SiteUtils.GetNavigationSiteRoot();
-
-  //          context.Response.Write(",\"templates\":");
-  //          context.Response.Write("[");
-
-
-  //          List<ContentTemplate> templates = ContentTemplate.GetAll(siteSettings.SiteGuid);
-  //          foreach (ContentTemplate t in templates)
-  //          {
-  //              if (!WebUser.IsInRoles(t.AllowedRoles)) { continue; }
-
-  //              context.Response.Write(comma);
-  //              context.Response.Write("{");
-
-  //              context.Response.Write("\"title\":\"" + t.Title.JsonEscape() + "\"");
-  //              context.Response.Write(",\"image\":\"" + t.ImageFileName.JsonEscape() + "\"");
-  //              context.Response.Write(",\"description\":\"" + t.Description.RemoveLineBreaks().JsonEscape() + "\"");
-  //              // is this going to work?
-  //              context.Response.Write(",\"html\":\"" + t.Body.RemoveLineBreaks().JsonEscape() + "\"");
-
-  //              context.Response.Write("}");
-
-  //              comma = ",";
-
-  //          }
-
-  //          context.Response.Write("]");
-
-  //          context.Response.Write("});");
-
-  //          HttpContext.Current.Response.AddHeader("Content-Disposition", $"attachment; filename={siteSettings.SiteName} Content Templates.json");
-
-  //      }
-        private void RenderJsonList(HttpContext context, bool export = false)
-        {
-            Encoding encoding = new UTF8Encoding();
-            context.Response.ContentEncoding = encoding;
-
-            siteRoot = SiteUtils.GetNavigationSiteRoot();
-
-            if (export)
-            {
-                context.Response.ContentType = "application/octet-stream";
-                // Set template definition set name as "skin".
-                context.Response.Write("CKEDITOR.addTemplates( 'skin',{");
-
-                // Set standard image path
-                context.Response.Write("\"imagesPath\": mojoSkinPath + \"" + "/templates/thumbs/" + "\"");
-                context.Response.AddHeader("Content-Disposition", $"attachment; filename={siteSettings.SiteName} Content Templates.js");
-            }
-            else
+		public void ProcessRequest(HttpContext context)
+		{
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
+			if (siteSettings == null)
 			{
-                context.Response.ContentType = "text/javascript";
-                // Register a templates definition set named "mojo".
-                context.Response.Write("CKEDITOR.addTemplates( 'mojo',{");
-                // Set standard image path
-                context.Response.Write("\"imagesPath\":\"" + siteRoot + "/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/htmltemplateimages/" + "\"");
-            }
 
+				return;
+			}
 
-            context.Response.Write(",\"templates\":");
-            context.Response.Write("[");
+			var export = context.Request.QueryString["e"] != null && context.Request.QueryString["e"].ToLower() == "true";
 
-			//2018/10/31 -- we don't really want to use these anymore. we're adding the ability to have templates in the skin but not system wide templates
-            //if (WebConfigSettings.AddSystemContentTemplatesAboveSiteTemplates) //false by default
-            //{
-            //    RenderSystemTemplateItems(context);
-            //}
+			siteRoot = SiteUtils.GetNavigationSiteRoot();
+			skinRootFolder = SiteUtils.GetSiteSkinFolderPath();
+			currentSkin = siteSettings.Skin;
 
-            
-            List<ContentTemplate> templates = ContentTemplate.GetAll(siteSettings.SiteGuid);
-            foreach (ContentTemplate t in templates)
-            {
-                if (!WebUser.IsInRoles(t.AllowedRoles)) { continue; }
+			if (HttpContext.Current.Request.Params.Get("skin") != null)
+			{
+				currentSkin = SiteUtils.SanitizeSkinParam(HttpContext.Current.Request.Params.Get("skin"));
+			}
 
-                context.Response.Write(comma);
-                context.Response.Write("{");
+			//var currentPage = CacheHelper.GetCurrentPage();
 
-                context.Response.Write("\"title\":\"" + t.Title.JsonEscape() + "\"");
-                context.Response.Write(",\"image\":\"" + t.ImageFileName.JsonEscape() + "\"");
-                context.Response.Write(",\"description\":\"" + t.Description.RemoveLineBreaks().JsonEscape() + "\"");
-                // is this going to work?
-                context.Response.Write(",\"html\":\"" + t.Body.RemoveLineBreaks().JsonEscape() + "\"");
+			//if (currentPage != null && !string.IsNullOrEmpty(currentPage.Skin))
+			//{
+			//	currentSkin = currentPage.Skin;
+			//}
 
-                context.Response.Write("}");
+			skinTemplatesFile = new FileInfo($"{skinRootFolder + currentSkin}\\config\\editortemplates.json");
+			systemTemplatesFile = new FileInfo(HttpContext.Current.Server.MapPath("~/data/style/editortemplates.json"));
 
-                comma = ",";
+			RenderJsonList(context, export);
 
-            }
+		}
 
-			//2018/10/31 -- we don't really want to use these anymore. we're adding the ability to have templates in the skin but not system wide templates
-			//if (WebConfigSettings.AddSystemContentTemplatesBelowSiteTemplates) //false by default
-   //         {
-   //             RenderSystemTemplateItems(context);
-   //         }
+		private void RenderJsonList(HttpContext context, bool export = false)
+		{
+			context.Response.ContentEncoding = new UTF8Encoding();
+			context.Response.ContentType = "text/javascript";
 
-            context.Response.Write("]");
+			StringBuilder output = new StringBuilder();
 
-            context.Response.Write("});");
+			var templatesOrder = AppConfig.EditorTemplatesOrder.SplitOnCharAndTrim(',');
+			List<string> templateNames = new List<string>();
 
-        }
+			foreach (var i in templatesOrder)
+			{
+				var collection = new CkEditorTemplateCollection();
 
-        private void RenderSystemTemplateItems(HttpContext context)
-        {
-            List<ContentTemplate> templates = SiteUtils.GetSystemContentTemplates();
-            foreach (ContentTemplate t in templates)
-            {
-                context.Response.Write(comma);
-                context.Response.Write("{");
+				switch (i)
+				{
+					case "site":
 
-                context.Response.Write("\"title\":\"" + t.Title.JsonEscape() + "\"");
-                context.Response.Write(",\"image\":\"" + t.ImageFileName.JsonEscape() + "\"");
-                context.Response.Write(",\"description\":\"" + t.Description.RemoveLineBreaks().JsonEscape() + "\"");
-                // is this going to work?
-                context.Response.Write(",\"html\":\"" + t.Body.RemoveLineBreaks().JsonEscape() + "\"");
+						collection.ImagesPath = $"{siteRoot}/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/htmltemplateimages/";
 
-                context.Response.Write("}");
+						//add site content templates to list
+						foreach (var t in ContentTemplate.GetAll(siteSettings.SiteGuid))
+						{
+							if (!WebUser.IsInRoles(t.AllowedRoles)) { continue; }
 
-                comma = ",";
+							collection.Templates.Add(new CkEditorTemplate
+							{
+								Title = t.Title,
+								Image = t.ImageFileName,
+								Description = t.Description,
+								Html = t.Body.RemoveLineBreaks()
+							});
+						}
+						if (collection.Templates.Count > 0)
+						{
 
-            }
+							var siteJson = JsonConvert.SerializeObject(collection, Formatting.None);
 
-        }
+							if (export)
+							{
+								context.Response.ContentType = "application/octet-stream";
+								context.Response.AddHeader("Content-Disposition", $"attachment; filename={siteSettings.SiteName} Content Templates.json");
+								output.AppendLine(siteJson);
+							}
+							else
+							{
+								templateNames.Add("site");
+								output.AppendLine($"try{{CKEDITOR.addTemplates('site',{siteJson});}}catch(err){{}}");
+							}
+						}
+						break;
+					case "system":
+						if (export || !systemTemplatesFile.Exists) break;
 
+						collection = GetEditorTemplateCollection(systemTemplatesFile);
 
-       
+						if (collection.Templates.Count > 0)
+						{
+							templateNames.Add("system");
+							var sysJson = JsonConvert.SerializeObject(collection, Formatting.None);
+							output.AppendLine($"try{{CKEDITOR.addTemplates('system',{sysJson});}}catch(err){{}}");
+						}
+						break;
+					case "skin":
+						if (export || !skinTemplatesFile.Exists) break;
 
-        public bool IsReusable
-        {
-            get
-            {
-                return false;
-            }
-        }
+						collection = GetEditorTemplateCollection(skinTemplatesFile);
 
-    }
+						if (collection.ImagesPath.Contains("$skinpath$"))
+						{
+							collection.ImagesPath = collection.ImagesPath.Replace("$skinpath$", SiteUtils.DetermineSkinBaseUrl(currentSkin));
+						}
+
+						if (collection.Templates.Count > 0)
+						{
+							templateNames.Add("skin");
+							var skinJson = JsonConvert.SerializeObject(collection, Formatting.None);
+							output.AppendLine($"try{{CKEDITOR.addTemplates('skin',{skinJson});}}catch(err){{}}");
+						}
+						break;
+					default:
+						break;
+				}
+			}
+
+			if (templateNames.Count > 0)
+			{
+				context.Response.Write($"CKEDITOR.config.templates = '{string.Join(",", templateNames)}';\r\n{output}");
+			}
+			else if (export)
+			{
+				context.Response.Write(output.ToString());
+			}
+		}
+
+		public CkEditorTemplateCollection GetEditorTemplateCollection(FileInfo file)
+		{
+			var collection = new CkEditorTemplateCollection();
+			if (file.Exists)
+			{
+				var contents = File.ReadAllText(file.FullName);
+				collection = JsonConvert.DeserializeObject<CkEditorTemplateCollection>(contents);
+			}
+			return collection;
+		}
+
+		public bool IsReusable { get { return false; } }
+
+	}
+
+	public class CkEditorTemplateCollection
+	{
+		[JsonProperty(PropertyName = "imagesPath")]
+		public string ImagesPath { get; set; } = string.Empty;
+
+		[JsonProperty(PropertyName = "templates")]
+		public List<CkEditorTemplate> Templates { get; set; }
+
+		public CkEditorTemplateCollection()
+		{
+			Templates = new List<CkEditorTemplate>();
+		}
+	}
+
+	public class CkEditorTemplate
+	{
+		[JsonProperty(PropertyName = "title")]
+		public string Title { get; set; } = string.Empty;
+
+		[JsonProperty(PropertyName = "image")]
+		public string Image { get; set; } = string.Empty;
+
+		[JsonProperty(PropertyName = "description")]
+		public string Description { get; set; } = string.Empty;
+
+		[JsonProperty(PropertyName = "html")]
+		public string Html { get; set; } = string.Empty;
+
+		public bool ShouldSerializeDescription()
+		{
+			return Description != null;
+		}
+		public bool ShouldSerializeImage()
+		{
+			return Image != null;
+		}
+	}
 }

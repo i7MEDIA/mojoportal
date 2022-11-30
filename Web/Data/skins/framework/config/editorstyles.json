@@ -1,0 +1,129 @@
+[
+    {
+        "name": "Framed Image",
+        "type": "widget",
+        "widget": "image",
+        "attributes": {
+            "class": "well well-sm" 
+        }
+    },
+    {
+        "name": "Formatted Table",
+        "element": "table",
+        "attributes": {
+            "class": "table"
+        }
+    },
+    {
+        "name": "Formatted Table - Bordered",
+        "element": "table",
+        "attributes": {
+            "class": "table table-striped table-bordered"
+        }
+    },
+    {
+        "name": "Formatted Table - Striped",
+        "element": "table",
+        "attributes": {
+            "class": "table table-striped"
+        }
+    },
+    {
+        "name": "Formatted Table - Striped with Border",
+        "element": "table",
+        "attributes": {
+            "class": "table table-striped table-bordered"
+        }
+    },
+    {
+        "name": "Leading Intro",
+        "element": "p",
+        "attributes": {
+            "class": "lead"
+        }
+    },
+    {
+        "name": "Alert - Informational",
+        "element": "p",
+        "attributes": {
+            "class": "alert alert-info"
+        }
+    },
+    {
+        "name": "Alert - Success",
+        "element": "p",
+        "attributes": {
+            "class": "alert alert-success"
+        }
+    },
+    {
+        "name": "Alert - Critical",
+        "element": "p",
+        "attributes": {
+            "class": "alert alert-danger"
+        }
+    },
+    {
+        "name": "Alert - Warning",
+        "element": "p",
+        "attributes": {
+            "class": "alert alert-warning"
+        }
+    },
+    {
+        "name": "Highlight - Blue",
+        "element": "mark",
+        "attributes": {
+            "class": "alert alert-info p-a-0"
+        }
+    },
+    {
+        "name": "Highlight - Green",
+        "element": "mark",
+        "attributes": {
+            "class": "alert alert-success p-a-0"
+        }
+    },
+    {
+        "name": "Highlight - Red",
+        "element": "mark",
+        "attributes": {
+            "class": "alert alert-danger p-a-0"
+        }
+    },
+    {
+        "name": "Highlight - Yellow",
+        "element": "mark",
+        "attributes": {
+            "class": "alert alert-warning p-a-0"
+        }
+    },
+    {
+        "name": "Button - Informational",
+        "element": "a",
+        "attributes": {
+            "class": "btn btn-info"
+        }
+    },
+    {
+        "name": "Button - Success",
+        "element": "a",
+        "attributes": {
+            "class": "btn btn-success"
+        }
+    },
+    {
+        "name": "Button - Critical",
+        "element": "a",
+        "attributes": {
+            "class": "btn btn-danger"
+        }
+    },
+    {
+        "name": "Button - Warning",
+        "element": "a",
+        "attributes": {
+            "class": "btn btn-warning"
+        }
+    }
+]

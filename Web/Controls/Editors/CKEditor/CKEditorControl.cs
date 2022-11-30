@@ -1,4 +1,5 @@
 ﻿
+using mojoPortal.Core.Configuration;
 using mojoPortal.Web.Framework;
 using Resources;
 using System;
@@ -258,9 +259,9 @@ namespace mojoPortal.Web.Editor
 					templates += ",skin";
 					templatesFiles += $",'{SkinTemplatesUrl}'";
 				}
-				
-				script.Append($"editorObj.config.templates = '{templates}';");
-				script.Append($"editorObj.config.templates_files = [{templatesFiles}];");
+
+				//script.Append($"editorObj.config.templates = '{AppConfig.EditorTemplatesOrder}';");
+				script.Append($"editorObj.config.templates_files = ['{TemplatesJsonUrl}'];");
 				script.Append("editorObj.config.templates_replaceContent = false;");
 			}
 

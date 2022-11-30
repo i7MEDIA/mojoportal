@@ -66,5 +66,14 @@ namespace mojoPortal.Core.Configuration
 				return ConfigHelper.GetStringProperty("StaticFileExtensions", defaultVal);
 			}
 		}
+
+		public static string EditorTemplatesOrder
+		{
+			get
+			{
+				var defaultVal = "site,skin,system";
+				return ConfigHelper.GetStringProperty("EditorTemplatesOrder", defaultVal);
+			}
+		}
 	}
 }
