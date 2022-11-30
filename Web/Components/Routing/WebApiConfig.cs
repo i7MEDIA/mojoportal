@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration;
 using log4net;
 using mojoPortal.Web.App_Start;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.CodeDom.Compiler;
 using System.Net.Http.Headers;
 using System.Web.Http;
 
@@ -41,7 +43,14 @@ namespace mojoPortal.Web.Routing
 				log.Error(ex);
 			}
 
-			Mapper.Initialize(c => c.AddProfile<MappingProfile>());
+			//Mapper.Initialize(c => c.AddProfile<MappingProfile>());
+
+			//var mapperConfig = new MapperConfiguration(cfg =>
+			//{
+			//	cfg.AddProfile<MappingProfile>();
+			//});
+
+			//var mapper = mapperConfig.CreateMapper();
 
 			var settings = config.Formatters.JsonFormatter.SerializerSettings;
 			settings.ContractResolver = new CamelCasePropertyNamesContractResolver();

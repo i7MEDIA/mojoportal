@@ -3,6 +3,7 @@ using Ionic.Zip;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Mappers;
 using mojoPortal.FileSystem;
 using mojoPortal.Web.Dtos;
 using mojoPortal.Web.Framework;
@@ -232,8 +233,8 @@ namespace mojoPortal.Web.Controllers
 		private dynamic ListAllFilesFolders(string requestPath)
 		{
 			var filePath = FilePath(requestPath);
-			var files = fileSystem.GetFileList(filePath).Select(Mapper.Map<WebFile, FileServiceDto>).ToList();
-			var folders = fileSystem.GetFolderList(filePath).Select(Mapper.Map<WebFolder, FileServiceDto>).ToList();
+			var files = fileSystem.GetFileList(filePath).Select(AutoMapperAdapter.Mapper.Map<WebFile, FileServiceDto>).ToList();
+			var folders = fileSystem.GetFolderList(filePath).Select(AutoMapperAdapter.Mapper.Map<WebFolder, FileServiceDto>).ToList();
 			var allowedFiles = new List<FileServiceDto>();
 
 
@@ -253,7 +254,7 @@ namespace mojoPortal.Web.Controllers
 					}
 				};
 
-				folders.AddRange(userFolder.Select(Mapper.Map<WebFolder, FileServiceDto>).ToList());
+				folders.AddRange(userFolder.Select(AutoMapperAdapter.Mapper.Map<WebFolder, FileServiceDto>).ToList());
 			}
 
 			var type = WebUtils.ParseStringFromQueryString("type", "file");

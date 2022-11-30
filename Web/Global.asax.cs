@@ -29,42 +29,33 @@
 // 2011-08-05  refactored end request user activity tracking
 // 2014-07-11 added updated routing for web api and mvc
 // 2019-04-04 SystemInfoCaching
+using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.App_Start;
+using mojoPortal.Web.Caching;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.Optimization;
+using mojoPortal.Web.Routing;
+using Resources;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.ExceptionServices;
+using System.Net;
 using System.Security;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Web;
-using System.Web.UI;
 using System.Web.Hosting;
-using System.Web.Profile;
-using System.Web.Routing;
-using System.Web.Security;
-using log4net;
-using log4net.Config;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Caching;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.Security;
-using Resources;
-using System.Web.Mvc;
 using System.Web.Http;
+using System.Web.Mvc;
 using System.Web.Optimization;
-using mojoPortal.Web.Routing;
-using mojoPortal.Web.Optimization;
-using System.Net;
-using System.Dynamic;
+using System.Web.Routing;
+using System.Web.UI;
 //using mojoPortal.Web.ModelBinders;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 
-namespace mojoPortal.Web 
+namespace mojoPortal.Web
 {
 	//http://haacked.com/archive/2010/05/16/three-hidden-extensibility-gems-in-asp-net-4.aspx/
 	//public class WebInitializer
@@ -193,6 +184,7 @@ namespace mojoPortal.Web
 				}
 			}
 
+			AutoMapperConfig.Configure();
 
 			AreaRegistration.RegisterAllAreas();
 			GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -264,7 +256,9 @@ namespace mojoPortal.Web
 				}
 				
 			}
-//#endif
+			//#endif
+
+
 
 
 		}

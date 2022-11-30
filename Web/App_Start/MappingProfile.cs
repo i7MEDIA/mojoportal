@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using AutoMapper;
+﻿using AutoMapper;
+using mojoPortal.Core.Mappers;
 using mojoPortal.FileSystem;
 using mojoPortal.Web.Dtos;
 
@@ -12,11 +9,38 @@ namespace mojoPortal.Web.App_Start
 	{
 		public MappingProfile()
 		{
-			CreateMap<WebFile, FileServiceDto>();
-			CreateMap<WebFolder, FileServiceDto>();
+			CreateMap<WebFile, FileServiceDto>()
+				.ForMember(x => x.Rights, y => y.Ignore());
 
-			CreateMap<FileServiceDto, WebFile>();
-			CreateMap<FileServiceDto, WebFolder>();
+			CreateMap<WebFolder, FileServiceDto>()
+				.ForMember(x => x.Rights, y => y.Ignore())
+				.ForMember(x => x.Size, y => y.Ignore())
+				.ForMember(x => x.ContentType, y => y.Ignore());
+
+			CreateMap<FileServiceDto, WebFile>()
+				.ForMember(x => x.Path, y => y.Ignore())
+				.ForMember(x => x.FolderVirtualPath, y => y.Ignore())
+				.ForMember(x => x.Data, y => y.Ignore())
+				.ForMember(x => x.VirtualPath, y => y.Ignore())
+				.ForMember(x => x.Created, y => y.Ignore());
+
+			CreateMap<FileServiceDto, WebFolder>()
+				.ForMember(x => x.Path, y => y.Ignore())
+				.ForMember(x => x.VirtualPath, y => y.Ignore())
+				.ForMember(x => x.Created, y => y.Ignore());
+		}
+	}
+
+	public class AutoMapperConfig
+	{
+		public static void Configure()
+		{
+			AutoMapperAdapter.Initialize(cfg =>
+			{
+				cfg.AddProfile<MappingProfile>();
+			});
+
+			AutoMapperAdapter.AssertConfigurationIsValid();
 		}
 	}
 }
