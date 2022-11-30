@@ -1,3 +1,30 @@
+// Event Calendar Pro Recurrence list support
+.recur-day-selection span {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.recur-day-selection span input {
+	margin-left: 5px;
+}
+
+.recur-wrap input[type=checkbox] {
+    margin: 0 5px 3px 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.recur-wrap .settinglabel {
+	display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.eventcalendaredit .forminput>input[name*=Date] {
+	min-width: 160px;
+}
+
 // Server log
 .serverlog dd.logmessage { 
     overflow: auto hidden; 
@@ -19,6 +46,10 @@
     margin-top: 20px; 
 } 
 
+// Basic formwizard styles
+.formwizard .block-label .settinglabel {width: auto;display:block;}
+.formwizard .inline-block-label {width:auto;}
+.formwizard .hide-label .settinglabel {display:none;}
 
 // Misc Fixes / Fixes For SuperFlexi Solutions
 .top-pane .content-slider-module:first-child {
@@ -320,6 +351,11 @@ img {
 
 .cke_panel_listItem address {
 	margin: 0;
+}
+
+// Other CKE niceties
+span.cke_combo_text {
+	width: inherit;
 }
 
 
