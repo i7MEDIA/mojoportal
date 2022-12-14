@@ -99,11 +99,11 @@ namespace mojoPortal.Web.UI
             set { renderInPlace = value; }
         }
 
-        private string scriptRefFormat = "\n<script src=\"{0}\" type=\"text/javascript\" ></script>";
+        private string scriptRefFormat = "<script src=\"{0}\" type=\"text/javascript\" data-loader=\"skinfolderscript\"></script>";
         public string ScriptRefFormat
         {
             get { return scriptRefFormat; }
-            set { scriptRefFormat = value; }
+            set { scriptRefFormat = "\n" + value; }
         }
 
         protected override void OnPreRender(System.EventArgs e)
@@ -121,7 +121,6 @@ namespace mojoPortal.Web.UI
 
         private void SetupScript()
         {
-            
             if (scriptFullUrl.Length > 0)
             {
                 if (isStartup)

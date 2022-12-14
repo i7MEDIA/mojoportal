@@ -77,12 +77,12 @@ namespace mojoPortal.Web.UI
             set { visibleUrls = value; }
         }
 
-        private string linkFormat = "\n<link rel='stylesheet' type='text/css' href='{0}'>";
+        private string linkFormat = "<link rel=\"stylesheet\" type=\"text/css\" href=\"{0}\" data-loader=\"skinfoldercss\">";
 
         public string LinkFormat
         {
             get { return linkFormat; }
-            set { linkFormat = value; }
+            set { linkFormat = "\n" + value; }
         }
 
 
@@ -126,9 +126,7 @@ namespace mojoPortal.Web.UI
 
             if(cssFullUrl.Length > 0)
             {
-                writer.Write(
-                string.Format(CultureInfo.InvariantCulture, linkFormat, cssFullUrl)
-                );
+                writer.Write(string.Format(CultureInfo.InvariantCulture, linkFormat, cssFullUrl));
                 return;
             }
 
@@ -138,9 +136,7 @@ namespace mojoPortal.Web.UI
             string cssUrl = SiteUtils.DetermineSkinBaseUrl(true, WebConfigSettings.UseFullUrlsForSkins, Page)
                 + cssFileName + "?v=" + siteSettings.SkinVersion.ToString();
 
-            writer.Write(
-                string.Format(CultureInfo.InvariantCulture, linkFormat, cssUrl)
-                );
+            writer.Write(string.Format(CultureInfo.InvariantCulture, linkFormat, cssUrl));
         }
 
     }
