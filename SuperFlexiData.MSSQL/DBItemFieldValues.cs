@@ -245,7 +245,15 @@ namespace SuperFlexiData
             return sph.ExecuteReader();
         }
 
-        public static IDataReader GetByGuidForModule(Guid fieldGuid, int moduleId)
+		public static IDataReader GetByGuidForModule(Guid fieldGuid, Guid moduleGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_values_SelectByGuidForModule", 2);
+			sph.DefineSqlParameter("@FieldGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, fieldGuid);
+			sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
+			return sph.ExecuteReader();
+		}
+
+		public static IDataReader GetByGuidForModule(Guid fieldGuid, int moduleId)
         {
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_values_SelectByGuidForModuleById", 2);
             sph.DefineSqlParameter("@FieldGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, fieldGuid);

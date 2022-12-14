@@ -27,16 +27,6 @@ namespace SuperFlexiBusiness
             GetValue(valueGuid);
         }
 
-        /// <summary>
-        /// Item Field Value by ItemGuid and FieldGuid
-        /// </summary>
-        /// <param name="itemGuid"></param>
-        /// <param name="fieldGuid"></param>
-        public ItemFieldValue(Guid itemGuid, Guid fieldGuid)
-        {
-            GetValueByItemField(itemGuid, fieldGuid);
-        }
-
 		#endregion
 		#region Private Properties
 		//used to output total number of rows which match a query when using paging
@@ -73,15 +63,6 @@ namespace SuperFlexiBusiness
             }
 
         }
-
-        private void GetValueByItemField(Guid itemGuid, Guid fieldGuid)
-        {
-            using (IDataReader reader = DBItemFieldValues.GetByItemField(itemGuid, fieldGuid))
-            {
-                //need to do something here
-            }
-        }
-
 
         private void PopulateFromReader(IDataReader reader)
         {
@@ -164,18 +145,16 @@ namespace SuperFlexiBusiness
             }
         }
 
+		#endregion
 
+		#region Static Methods
 
-        #endregion
-
-        #region Static Methods
-
-        /// <summary>
-        /// Gets all values for item with ItemGuid. Returns List<ItemFieldValue>
-        /// </summary>
-        /// <param name="itemGuid"></param>
-        /// <returns></returns>
-        public static List<ItemFieldValue> GetItemValues(Guid itemGuid)
+		/// <summary>
+		/// Gets all values for item with ItemGuid. Returns List<ItemFieldValue>
+		/// </summary>
+		/// <param name="itemGuid"></param>
+		/// <returns></returns>
+		public static List<ItemFieldValue> GetItemValues(Guid itemGuid)
         {
             return LoadListFromReader(DBItemFieldValues.GetByItemGuid(itemGuid));
         }
@@ -265,26 +244,28 @@ namespace SuperFlexiBusiness
             {
                 while (reader.Read())
                 {
-                    ItemFieldValue value = new ItemFieldValue();
-                    value.ValueGuid = new Guid(reader["ValueGuid"].ToString());
-                    value.SiteGuid = new Guid(reader["SiteGuid"].ToString());
-                    value.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
-                    value.ModuleGuid = new Guid(reader["ModuleGuid"].ToString());
-                    value.ItemGuid = new Guid(reader["ItemGuid"].ToString());
-                    value.FieldGuid = new Guid(reader["FieldGuid"].ToString());
-                    value.FieldValue = reader["FieldValue"].ToString();
+                    ItemFieldValue value = new ItemFieldValue
+                    {
+                        ValueGuid = new Guid(reader["ValueGuid"].ToString()),
+                        SiteGuid = new Guid(reader["SiteGuid"].ToString()),
+                        FeatureGuid = new Guid(reader["FeatureGuid"].ToString()),
+                        ModuleGuid = new Guid(reader["ModuleGuid"].ToString()),
+                        ItemGuid = new Guid(reader["ItemGuid"].ToString()),
+                        FieldGuid = new Guid(reader["FieldGuid"].ToString()),
+                        FieldValue = reader["FieldValue"].ToString()
+                    };
 
 
-					try
+                    try
 					{
                         if (reader["FieldName"] != DBNull.Value)
                         {
                             value.FieldName = reader["FieldName"].ToString();
                         }
                     }
-                    catch(System.IndexOutOfRangeException ex)
+                    catch(IndexOutOfRangeException ex)
 					{
-                        log.Debug("FieldName isn't used by here. Might want to fix that.");
+                        log.Debug("FieldName isn't used by here. Might want to fix that." + ex);
 					}
                     
 					
@@ -405,7 +386,7 @@ namespace SuperFlexiBusiness
 
         public static List<ItemFieldValue> GetByFieldGuidForModule(Guid fieldGuid, Guid moduleGuid)
         {
-            IDataReader reader = DBItemFieldValues.GetByFieldGuidForModule(fieldGuid, moduleGuid);
+            IDataReader reader = DBItemFieldValues.GetByGuidForModule(fieldGuid, moduleGuid);
             return LoadListFromReader(reader);
         }
 
@@ -415,14 +396,20 @@ namespace SuperFlexiBusiness
             return LoadListFromReader(reader);
         }
 
-        #endregion
+		public static List<ItemFieldValue> GetByFieldGuidForDefinition(Guid fieldGuid)
+		{
+			IDataReader reader = DBItemFieldValues.GetByFieldGuid(fieldGuid);
+			return LoadListFromReader(reader);
+		}
 
-        #region Comparison Methods
+		#endregion
 
-        /// <summary>
-        /// Compares 2 instances of value.
-        /// </summary>
-        public static int CompareByFieldValue(ItemFieldValue value1, ItemFieldValue value2)
+		#region Comparison Methods
+
+		/// <summary>
+		/// Compares 2 instances of value.
+		/// </summary>
+		public static int CompareByFieldValue(ItemFieldValue value1, ItemFieldValue value2)
         {
             return value1.FieldValue.CompareTo(value2.FieldValue);
         }

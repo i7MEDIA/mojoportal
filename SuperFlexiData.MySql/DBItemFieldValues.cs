@@ -358,7 +358,6 @@ namespace SuperFlexiData
 			);
 		}
 
-
 		public static IDataReader GetByItemGuid(Guid itemGuid)
 		{
 			const string sqlCommand = @"
@@ -431,7 +430,7 @@ namespace SuperFlexiData
 		}
 
 
-		public static IDataReader GetByFieldGuidForModule(Guid fieldGuid, Guid moduleGuid)
+		public static IDataReader GetByGuidForModule(Guid fieldGuid, Guid moduleGuid)
 		{
 			const string sqlCommand = @"
 				SELECT v.*, f.Name AS `FieldName` 
@@ -475,6 +474,26 @@ namespace SuperFlexiData
 			);
 		}
 
+		//public static IDataReader GetByGuidForDefinition(Guid fieldGuid, Guid defGuid)
+		//{
+		//	const string sqlCommand = @"
+		//		SELECT * FROM `i7_sflexi_values`
+		//		JOIN `mp_Modules` ON `mp_Modules`.`Guid` = `i7_sflexi_values`.`ModuleGuid`
+		//		WHERE `FieldGuid` = ?FieldGuid
+		//		AND `mp_Modules`.`ModuleID` = ?ModuleID;";
+
+		//	var sqlParams = new List<MySqlParameter>
+		//	{
+		//		new MySqlParameter("?FieldGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = fieldGuid },
+		//		new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = defGuid }
+		//	};
+
+		//	return MySqlHelper.ExecuteReader(
+		//		ConnectionString.GetWriteConnectionString(),
+		//		sqlCommand.ToString(),
+		//		sqlParams.ToArray()
+		//	);
+		//}
 
 		public static IDataReader GetPageOfValuesForField(
 			Guid moduleGuid,

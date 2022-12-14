@@ -2,7 +2,7 @@
 	<a class="ModuleEditLink flexi-settings" href="~/Admin/ModuleSettings.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id"><span class="fa fa-cog"></span> Settings</a>
 	@if (Model.Config.MaxItems == -1 || Model.Config.MaxItems > Model.Items.Count)
 	{
-		<a class="ModuleEditLink flexi-item-add" href="~/SuperFlexi/Edit.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id"><span class="fa fa-plus"></span> Test</a>
+		<a class="ModuleEditLink flexi-item-add" href="~/SuperFlexi/Edit.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id"><span class="fa fa-plus"></span> Add Item</a>
 	}
 	@if (Model.Config.UseHeader)
 	{

@@ -1,4 +1,5 @@
 ﻿using log4net;
+using Microsoft.CSharp;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.FileSystem;
@@ -8,6 +9,7 @@ using mojoPortal.Web.UI;
 using Resources;
 using SuperFlexiBusiness;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Dynamic;

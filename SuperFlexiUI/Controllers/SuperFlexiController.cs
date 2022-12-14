@@ -65,7 +65,7 @@ namespace SuperFlexiUI.Controllers
 				{
 					if (set.Value.Contains(";"))
 					{
-						foreach (var setA in set.Value.SplitOnCharAndTrim(';'))
+						foreach (var setValue in set.Value.SplitOnCharAndTrim(';'))
 						{
 							items.AddRange(
 								GetItems(
@@ -74,9 +74,10 @@ namespace SuperFlexiUI.Controllers
 									r.PageSize,
 									out totalPages,
 									out totalRows,
-									setA,
+									setValue,
 									set.Key,
-									r.GetAllForSolution
+									r.GetAllForSolution,
+									r.SortDescending
 								)
 							);
 						}
@@ -92,7 +93,8 @@ namespace SuperFlexiUI.Controllers
 								out totalRows,
 								set.Value,
 								set.Key,
-								r.GetAllForSolution
+								r.GetAllForSolution,
+								r.SortDescending
 							)
 						);
 					}
@@ -230,25 +232,25 @@ namespace SuperFlexiUI.Controllers
 		{
 			if (byDefinition)
 			{
-				return Item.GetForDefinitionWithValues_Paged(
+				return Item.GetForDefinitionWithValues(
 					config.FieldDefinitionGuid,
 					siteSettings.SiteGuid,
-					pageNumber,
-					pageSize,
 					out totalPages,
 					out totalRows,
+					pageNumber,
+					pageSize,
 					searchTerm,
 					searchField
 				);
 			}
 			else
 			{
-				return Item.GetForModuleWithValues_Paged(
+				return Item.GetForModuleWithValues(
 					moduleGuid,
-					pageNumber,
-					pageSize,
 					out totalPages,
 					out totalRows,
+					pageNumber,
+					pageSize,
 					searchTerm,
 					searchField
 				);
@@ -265,32 +267,15 @@ namespace SuperFlexiUI.Controllers
 
 			if (module != null)
 			{
-				if (module.AuthorizedEditRoles == "Admins;")
+				if (module.AuthorizedEditRoles == "Admins;" || currentPage.EditRoles == "Admins;")
 				{
 					return false;
 				}
 
-				if (currentPage.EditRoles == "Admins;")
-				{
-					return false;
-				}
-
-				if (WebUser.IsContentAdmin)
-				{
-					return true;
-				}
-
-				if (SiteUtils.UserIsSiteEditor())
-				{
-					return true;
-				}
-
-				if (WebUser.IsInRoles(module.AuthorizedEditRoles))
-				{
-					return true;
-				}
-
-				if (!module.IsGlobal && WebUser.IsInRoles(currentPage.EditRoles))
+				if (WebUser.IsContentAdmin || 
+					SiteUtils.UserIsSiteEditor() || 
+					WebUser.IsInRoles(module.AuthorizedEditRoles) || 
+					(!module.IsGlobal && WebUser.IsInRoles(currentPage.EditRoles)))
 				{
 					return true;
 				}

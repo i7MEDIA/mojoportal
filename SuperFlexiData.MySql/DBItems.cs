@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace SuperFlexiData
 {
@@ -250,6 +251,80 @@ namespace SuperFlexiData
 			);
 		}
 
+		/// <summary>
+		/// Gets an IDataReader with item and values
+		/// </summary>
+		public static IDataReader GetOneWithValues(int itemId)
+		{
+			string sqlCommand = $@"
+					SELECT i.*, f.`Name` AS `FieldName`, v.`FieldValue`
+					FROM `i7_sflexi_items` i
+					JOIN `i7_sflexi_values` v ON v.ItemGuid = i.ItemGuid
+					JOIN `i7_sflexi_fields` f ON v.FieldGuid = f.FieldGuid
+					WHERE i.ItemID = ?ItemID;";
+
+			var sqlParam = new MySqlParameter("?ItemID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = itemId };
+
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand,
+				sqlParam
+			);
+		}
+
+		public static IDataReader GetByIDsWithValues(List<int> itemIDs, int pageNumber = 1, int pageSize = 20)
+		{
+
+			string sqlCommand = $@"
+
+					SELECT pg.*, f.`Name` AS `FieldName`, v.`FieldValue`
+					FROM (
+						SELECT i.*, COUNT(*) AS `TotalRows`
+						FROM i7_sflexi_items i
+						WHERE {getItems()}
+						GROUP BY ItemID
+				 		LIMIT ?PageSize
+				 		OFFSET ?OffSetRows) pg
+					JOIN `i7_sflexi_values` v ON  v.ItemGuid = pg.ItemGuid
+					JOIN `i7_sflexi_fields` f ON v.FieldGuid = f.FieldGuid
+					WHERE `TotalRows` > 0;";
+
+			string getItems()
+			{
+				return string.Join(" ", itemIDs.Select((x, i) =>
+				{
+					var item = $"`ItemID` = ?ItemID{i}";
+
+					if (i < itemIDs.Count() - 1)
+					{
+						item += " OR";
+					}
+
+					return item;
+				}));
+			}
+
+			var sqlParams = new List<MySqlParameter>();
+
+			for (var i = 0; i < itemIDs.Count(); i++)
+			{
+				sqlParams.Add(new MySqlParameter($"?ItemID{i}", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = itemIDs[i] });
+			}
+
+			int offsetRows = (pageSize * pageNumber) - pageSize;
+
+			sqlParams.AddRange(new List<MySqlParameter>()
+			{
+				new MySqlParameter("?PageSize", MySqlDbType.Int32){ Direction = ParameterDirection.Input, Value = pageSize },
+				new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
+			});
+
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand,
+				sqlParams.ToArray()
+			);
+		}
 
 		/// <summary>
 		/// Gets a count of rows in the i7_sflexi_items table.
@@ -308,38 +383,55 @@ namespace SuperFlexiData
 		/// Gets an IDataReader with all items for module.
 		/// </summary>
 		/// <param name="itemID"> itemID </param>
-		public static IDataReader GetForModule(int moduleID, string sortDirection = "ASC")
+		//public static IDataReader GetForModule(int moduleID, string sortDirection = "ASC")
+		//{
+		//	sortDirection = santizeSortDirection(sortDirection);
+		//	string sqlCommand = $"SELECT * FROM i7_sflexi_items WHERE ModuleID = ?ModuleID ORDER BY SortOrder {sortDirection};";
+
+		//	var sqlParam = new MySqlParameter[]
+		//	{
+		//		new MySqlParameter("?ModuleID", MySqlDbType.Int32){ Direction = ParameterDirection.Input, Value = moduleID }
+		//	};
+		//	return MySqlHelper.ExecuteReader(
+		//		ConnectionString.GetReadConnectionString(),
+		//		sqlCommand,
+		//		sqlParam
+		//	);
+		//}
+
+		/// <summary>
+		/// Gets an IDataReader with page of items for module.
+		/// </summary>
+		/// <param name="itemID"> itemID </param>
+		public static IDataReader GetForModule(
+			int moduleID, 
+			int pageNumber = 1, 
+			int pageSize = 20, 
+			string sortDirection = "ASC")
 		{
 			sortDirection = santizeSortDirection(sortDirection);
-			string sqlCommand = $"SELECT * FROM i7_sflexi_items WHERE ModuleID = ?ModuleID ORDER BY SortOrder {sortDirection};";
-
-			var sqlParam = new MySqlParameter[]
-			{
-				new MySqlParameter("?ModuleID", MySqlDbType.Int32){ Direction = ParameterDirection.Input, Value = moduleID }
-			};
-			return MySqlHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
-				sqlCommand,
-				sqlParam
-			);
-		}
-
-		public static IDataReader GetForModuleWithValues(int moduleID, string sortDirection)
-		{
-			sortDirection = santizeSortDirection(sortDirection);
+			//string sqlCommand = $"SELECT * FROM i7_sflexi_items WHERE ModuleID = ?ModuleID ORDER BY SortOrder {sortDirection};";
 
 			string sqlCommand = $@"
-				SELECT *, f.Name AS FieldName, v.FieldValue 
-				FROM i7_sflexi_items i
-				JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
-				JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
-				WHERE ModuleID = ?ModuleID 
-				ORDER BY i.SortOrder {sortDirection};";
+					SELECT *
+					FROM (
+						SELECT *, COUNT(*) AS `TotalRows`
+						FROM `i7_sflexi_items` i
+						WHERE i.`ModuleID` = ?ModuleID ) t
+					WHERE `TotalRows` > 0
+					ORDER BY t.`SortOrder` {sortDirection}
+					{(pageSize > -1 ? "LIMIT ?PageSize" : string.Empty)} 
+					{(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
+
+			int offsetRows = (pageSize * pageNumber) - pageSize;
 
 			var sqlParam = new MySqlParameter[]
 			{
-				new MySqlParameter("?ModuleID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID }
+				new MySqlParameter("?ModuleID", MySqlDbType.Int32){ Direction = ParameterDirection.Input, Value = moduleID },
+				new MySqlParameter("?PageSize", MySqlDbType.Int32){ Direction = ParameterDirection.Input, Value = pageSize },
+				new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
 			};
+
 			return MySqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
@@ -347,10 +439,10 @@ namespace SuperFlexiData
 			);
 		}
 
-		public static IDataReader GetForModuleWithValues_Paged(
+		public static IDataReader GetForModuleWithValues(
 			Guid moduleGuid,
-			int pageNumber,
-			int pageSize,
+			int pageNumber = 1,
+			int pageSize = 20,
 			string searchTerm = "",
 			string searchField = "",
 			//string sortField = "",
@@ -360,57 +452,45 @@ namespace SuperFlexiData
 			string sqlCommand;
 
 			sortDirection = santizeSortDirection(sortDirection);
-			
-			if (string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
+			if (pageSize > -1)
 			{
-				sqlCommand = $@"
-					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*, v.FieldValue, f.Name AS `FieldName`, v.FieldGuid
-					FROM `i7_sflexi_items` i
-					JOIN(
-						SELECT DISTINCT ItemGuid, FieldValue, FieldGuid
-						FROM `i7_sflexi_values`
-						WHERE FieldValue LIKE ?SearchTerm
-						) v ON v.ItemGuid = i.ItemGuid
-					JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
-					WHERE i.`ModuleGuid` = '?ModuleGuid' 
-					ORDER BY i.`SortOrder` {sortDirection}
-					LIMIT ?PageSize
-					{(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
-			}
-			else if (!string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
-			{
-				sqlCommand = $@"
-					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS()
-					AS TotalRows, i.*, v.FieldValue, f.FieldName, v.FieldGuid
-					FROM `i7_sflexi_items` i
-					JOIN(
-						SELECT DISTINCT `ItemGuid`, `FieldGuid`, `FieldValue`
-						FROM `i7_sflexi_values`
-						WHERE FieldValue LIKE ?SearchTerm
-						) v ON v.ItemGuid = i.ItemGuid
-					JOIN(
-						SELECT DISTINCT `FieldGuid`, `Name` as `FieldName`
-						FROM `i7_sflexi_fields`
-						WHERE `Name` = ?SearchField
-						) f on f.FieldGuid = v.FieldGuid
-					WHERE i.`ModuleGuid` = ?ModuleGuid
-					ORDER BY i.`SortOrder` {sortDirection}
-					LIMIT ?PageSize
-					{(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
+				//query with paging
+				sqlCommand = $@"		
+					SELECT pg.*, f.`Name` AS `FieldName`, v.`FieldValue`
+					FROM (
+						SELECT i.*, COUNT(*) AS `TotalRows`
+						FROM i7_sflexi_items i
+						WHERE i.ItemGuid IN (
+							SELECT DISTINCT ItemGuid
+							FROM i7_sflexi_values v
+							{(!string.IsNullOrWhiteSpace(searchField) ? "JOIN i7_sflexi_fields f ON f.`FieldGuid` = v.`FieldGuid`" : string.Empty)}
+							WHERE v.ItemGuid = i.ItemGuid
+							{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.`FieldValue` LIKE ?SearchTerm" : string.Empty)}
+							{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.`Name` = ?SearchField" : string.Empty)}
+						) 
+						AND i.ModuleGuid = ?ModuleGuid
+						GROUP BY ItemID
+						ORDER BY SortOrder {sortDirection}, CreatedUtc {sortDirection}
+				 		LIMIT ?PageSize
+				 		OFFSET ?OffSetRows) pg
+					JOIN `i7_sflexi_values` v ON  v.ItemGuid = pg.ItemGuid
+					JOIN `i7_sflexi_fields` f ON v.FieldGuid = f.FieldGuid
+					WHERE `TotalRows` > 0;";
 			}
 			else
 			{
+				//query without paging
 				sqlCommand = $@"
-					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*, v.FieldValue, f.Name AS `FieldName`, v.FieldGuid
+					SELECT i.*, f.`Name` AS `FieldName`, v.`FieldValue`
 					FROM `i7_sflexi_items` i
 					JOIN `i7_sflexi_values` v ON v.ItemGuid = i.ItemGuid
-					JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
-					WHERE i.`ModuleGuid` = ?ModuleGuid
-					ORDER BY i.`SortOrder` {sortDirection}
-					LIMIT ?PageSize 
-					{(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
+					JOIN `i7_sflexi_fields` f ON v.FieldGuid = f.FieldGuid
+					WHERE i.ModuleGuid = ?ModuleGuid
+					{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.`FieldValue` LIKE ?SearchTerm" : string.Empty)}
+					{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.`Name` = ?SearchField" : string.Empty)}
+					ORDER BY SortOrder {sortDirection}, CreatedUtc {sortDirection};";
 			}
-
+			
 			int offsetRows = (pageSize * pageNumber) - pageSize;
 
 			var sqlParams = new MySqlParameter[]
@@ -430,163 +510,109 @@ namespace SuperFlexiData
 		}
 
 
-		public static IDataReader GetForDefinitionWithValues_Paged(
+		/// <summary>
+		/// Gets an IDataReader with all items for a single definition.
+		/// </summary>
+		public static IDataReader GetForDefinition(Guid definitionGuid, Guid siteGuid, int pageNumber = 1, int pageSize = 20, string sortDirection = "ASC")
+		{
+			sortDirection = santizeSortDirection(sortDirection);
+			string sqlCommand = $@"
+				SELECT i.*, ms.SettingValue AS GlobalViewSortOrder, Count(i.*) AS `TotalRows`
+				FROM `i7_sflexi_items` i
+				LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
+				WHERE DefinitionGuid = ?DefGuid AND i.SiteGuid = ?SiteGuid AND ms.SettingName = 'GlobalViewSortOrder' 
+				ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, SortOrder {sortDirection}, CreatedUtc {sortDirection})
+				LIMIT ?PageSize {(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
+
+			int offsetRows = (pageSize * pageNumber) - pageSize;
+
+			var sqlParams = new MySqlParameter[] {
+				new MySqlParameter("?DefGuid", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = definitionGuid },
+				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = siteGuid },
+				new MySqlParameter("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
+				new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
+			};
+
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				sqlParams
+			);
+		}
+
+
+		public static IDataReader GetForDefinitionWithValues(
 			Guid defGuid,
 			Guid siteGuid,
-			int pageNumber,
-			int pageSize,
+			int pageNumber = 1,
+			int pageSize = 25,
 			string searchTerm = "",
 			string searchField = "",
 			string sortDirection = "ASC"
 		)
 		{
 			string sqlCommand;
+
 			sortDirection = santizeSortDirection(sortDirection);
-			if (string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
+			if (pageSize > -1)
 			{
+				//query with paging
 				sqlCommand = $@"
-					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS()
-					AS TotalRows, i.*, v.FieldValue, f.Name AS `FieldName`, v.`FieldGuid`
-					FROM `i7_sflexi_items` i
-					JOIN (
-						SELECT DISTINCT `ItemGuid`, `FieldGuid`, `FieldValue`
-						FROM `i7_sflexi_values`
-						WHERE FieldValue
-						LIKE ?SearchTerm
-						) v ON v.ItemGuid = i.ItemGuid
-					JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
-					WHERE i.`DefinitionGuid` = '?DefinitionGuid'
-					AND i.`SiteGuid` = '?SiteGuid'
-					ORDER BY i.`SortOrder` {sortDirection}
-					LIMIT ?PageSize
-					{(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
-			}
-			else if (!string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
-			{
-				sqlCommand = $@"
-					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*, v.FieldValue, f.`FieldName`, v.`FieldGuid`
-					FROM `i7_sflexi_items` i
-					JOIN(
-						SELECT DISTINCT `ItemGuid`, `FieldGuid`, `FieldValue`
-						FROM `i7_sflexi_values`
-						WHERE FieldValue LIKE ?SearchTerm
-						) v ON v.ItemGuid = i.ItemGuid
-					JOIN(
-						SELECT DISTINCT `FieldGuid`, `Name` as `FieldName`
-						FROM `i7_sflexi_fields`
-						WHERE `Name` = ?SearchField
-						) f ON f.FieldGuid = v.FieldGuid
-					WHERE i.`DefinitionGuid` = ?DefinitionGuid 
-					AND i.`SiteGuid` = ?SiteGuid
-					ORDER BY i.`SortOrder` {sortDirection}
-					LIMIT ?PageSize
-					{(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
+					SELECT pg.*, f.`Name` AS `FieldName`, v.`FieldValue`
+					FROM (
+						SELECT i.*, ms.SettingValue AS GlobalViewSortOrder, COUNT(i.*) AS `TotalRows`
+						FROM i7_sflexi_items i
+						LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
+						WHERE i.ItemGuid IN (
+							SELECT DISTINCT ItemGuid
+							FROM i7_sflexi_values v
+							{(!string.IsNullOrWhiteSpace(searchField) ? "JOIN i7_sflexi_fields f ON f.`FieldGuid` = v.`FieldGuid`" : string.Empty)}
+							WHERE v.ItemGuid = i.ItemGuid
+							{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.`FieldValue` LIKE ?SearchTerm" : string.Empty)}
+							{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.`Name` = ?SearchField" : string.Empty)}
+						) 
+						AND i.DefinitionGuid = ?DefinitionGuid
+						AND i.SiteGuid = ?SiteGuid
+						AND ms.SettingName = 'GlobalViewSortOrder' 
+						ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, i.SortOrder {sortDirection}, i.CreatedUtc {sortDirection}
+				 		LIMIT ?PageSize
+				 		OFFSET ?OffSetRows) pg
+					JOIN `i7_sflexi_values` v ON  v.ItemGuid = pg.ItemGuid
+					JOIN `i7_sflexi_fields` f ON v.FieldGuid = f.FieldGuid
+					LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = pg.ModuleGuid
+					WHERE `TotalRows` > 0;";
 			}
 			else
 			{
+				//query without paging
 				sqlCommand = $@"
-					SELECT SQL_CALC_FOUND_ROWS FOUND_ROWS() AS TotalRows, i.*, v.FieldValue, f.Name AS `FieldName`, v.`FieldGuid`
+					SELECT i.*, f.`Name` AS `FieldName`, v.`FieldValue`, ms.SettingValue AS GlobalViewSortOrder
 					FROM `i7_sflexi_items` i
 					JOIN `i7_sflexi_values` v ON v.ItemGuid = i.ItemGuid
-					JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid
-					WHERE i.`DefinitionGuid` = ?DefinitionGuid
-					AND i.`SiteGuid` = ?SiteGuid
-					ORDER BY i.`SortOrder` {sortDirection}
-					LIMIT ?PageSize
-					{(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
+					JOIN `i7_sflexi_fields` f ON v.FieldGuid = f.FieldGuid
+					LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
+					WHERE DefinitionGuid = ?DefGuid AND i.SiteGuid = ?SiteGuid AND ms.SettingName = 'GlobalViewSortOrder' 
+					{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.`FieldValue` LIKE ?SearchTerm" : string.Empty)}
+					{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.`Name` = ?SearchField" : string.Empty)}
+					ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, i.SortOrder {sortDirection}, i.CreatedUtc {sortDirection};";
 			}
 
 			var offsetRows = (pageSize * pageNumber) - pageSize;
 
-			var sqlParams = new List<MySqlParameter>
+			var sqlParams = new MySqlParameter[]
 			{
 				new MySqlParameter("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
 				new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
 				new MySqlParameter("?SearchTerm", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = "%" + searchTerm + "%"},
 				new MySqlParameter("?SearchField", MySqlDbType.VarChar, 50) { Direction = ParameterDirection.Input, Value = searchField },
 				new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = defGuid },
-				new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid },
-				//new MySqlParameter("?SortDirection", MySqlDbType.VarChar, 4) { Direction = ParameterDirection.Input, Value = sortDirection }
+				new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid }
 			};
 
 			return MySqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
-				sqlParams.ToArray()
-			);
-		}
-
-
-		/// <summary>
-		/// Gets an IDataReader with all items for a single definition.
-		/// </summary>
-		public static IDataReader GetForDefinition(Guid definitionGuid, Guid siteGuid, string sortDirection)
-		{
-			if (sortDirection != "ASC" && sortDirection != "DESC") sortDirection = "ASC";
-			string sqlCommand = $@"
-				SELECT 
-					SiteGuid, 
-					FeatureGuid, 
-					i.ModuleGuid, 
-					i.ModuleID, 
-					DefinitionGuid, 
-					ItemGuid, 
-					ItemID, 
-					i.SortOrder, 
-					CreatedUtc, 
-					LastModUtc, 
-					i.ViewRoles,
-					i.EditRoles,
-					ms.SettingValue AS GlobalViewSortOrder 
-				FROM i7_sflexi_items i
-				LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
-				WHERE DefinitionGuid = ?DefGuid AND i.SiteGuid = ?SiteGuid AND ms.SettingName = 'GlobalViewSortOrder' 
-				ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, SortOrder {sortDirection}, CreatedUtc {sortDirection};";
-
-			var sqlParams = new List<MySqlParameter> {
-				new MySqlParameter("?DefGuid", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = definitionGuid },
-				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = siteGuid }
-			};
-
-			return MySqlHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
-				sqlCommand,
-				sqlParams.ToArray()
-			);
-		}
-
-		/// <summary>
-		/// Get all Items with Values for a single definition
-		/// </summary>
-		/// <param name="definitionGuid"></param>
-		/// <param name="siteGuid"></param>
-		/// <returns></returns>
-		public static IDataReader GetForDefinitionWithValues(Guid definitionGuid, Guid siteGuid, string sortDirection)
-		{
-			if (sortDirection != "ASC" && sortDirection != "DESC") sortDirection = "ASC";
-			string sqlCommand = $@"
-				SELECT 
-					i.*,
-					ms.SettingValue AS GlobalViewSortOrder, 
-					f.Name AS FieldName,
-					v.FieldValue,
-					v.FieldGuid
-				FROM i7_sflexi_items i
-				LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
-				LEFT JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
-				LEFT JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
-				WHERE i.DefinitionGuid = ?DefGuid AND i.SiteGuid = ?SiteGuid AND ms.SettingName = 'GlobalViewSortOrder' 
-				ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, i.SortOrder {sortDirection}, i.CreatedUtc {sortDirection};";
-
-			var sqlParams = new List<MySqlParameter> {
-				new MySqlParameter("?DefGuid", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = definitionGuid },
-				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = siteGuid }
-			};
-
-			return MySqlHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
-				sqlCommand,
-				sqlParams.ToArray()
+				sqlParams
 			);
 		}
 

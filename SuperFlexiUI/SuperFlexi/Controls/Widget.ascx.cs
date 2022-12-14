@@ -51,6 +51,11 @@ namespace SuperFlexiUI
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+            if (!this.Visible)
+            {
+                return;
+            }
+
 			module = new Module(ModuleId);
 			moduleTitle = module.ModuleTitle;
 
@@ -73,13 +78,13 @@ namespace SuperFlexiUI
 				{
 					//items = Item.GetAllForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, Config.DescendingSort);
 					//fieldValues = ItemFieldValue.GetItemValuesByDefinition(Config.FieldDefinitionGuid);
-					itemsWithValues = Item.GetForDefinitionWithValues(Config.FieldDefinitionGuid, siteSettings.SiteGuid, Config.DescendingSort);
+					itemsWithValues = Item.GetForDefinitionWithValues(Config.FieldDefinitionGuid, siteSettings.SiteGuid, out _, out _, descending: Config.DescendingSort);
 				}
 				else
 				{
 					//items = Item.GetForModule(ModuleId, Config.DescendingSort);
 					//fieldValues = ItemFieldValue.GetItemValuesByModule(module.ModuleGuid);
-					itemsWithValues = Item.GetForModuleWithValues(ModuleId, Config.DescendingSort);
+					itemsWithValues = Item.GetForModuleWithValues(module.ModuleGuid, out _, out _, pageSize: 0, descending: Config.DescendingSort);
 				}
 			}
 
@@ -290,7 +295,7 @@ namespace SuperFlexiUI
                             }
                             else
                             {
-                                if (IsDateField(field))
+                                if (field.IsDateField())
                                 {
                                     DateTime dateTime = new DateTime();
                                     if (DateTime.TryParse(fieldValue, out dateTime))
@@ -303,7 +308,7 @@ namespace SuperFlexiUI
                                     }
                                 }
 
-                                if (IsCheckBoxListField(field) || IsRadioButtonListField(field))
+                                if (field.IsCheckBoxListField() || field.IsRadioButtonListField())
                                 {
                                     foreach (CheckBoxListMarkup cblm in Config.CheckBoxListMarkups)
                                     {
@@ -657,32 +662,32 @@ namespace SuperFlexiUI
             theLit.Text = strOutput.ToString();
         }
 
-        private bool IsCheckBoxListField(Field field)
-        {
-            if (field.ControlType == "CheckBoxList" || field.ControlType == "DynamicCheckBoxList")
-            {
-                return true;
-            }
-            return false;
-        }
+        //private bool IsCheckBoxListField(Field field)
+        //{
+        //    if (field.ControlType == "CheckBoxList" || field.ControlType == "DynamicCheckBoxList")
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
-        private bool IsRadioButtonListField(Field field)
-        {
-            if (field.ControlType == "RadioButtonList" || field.ControlType == "DynamicRadioButtonList")
-            {
-                return true;
-            }
-            return false;
-        }
+        //private bool IsRadioButtonListField(Field field)
+        //{
+        //    if (field.ControlType == "RadioButtonList" || field.ControlType == "DynamicRadioButtonList")
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
-        private bool IsDateField(Field field)
-        {
-            if (field.ControlType == "DateTime" || field.ControlType == "Date" || (field.ControlType == "TextBox" && (field.TextBoxMode == "Date" || field.TextBoxMode == "DateTime" || field.TextBoxMode == "DateTimeLocal")))
-            {
-                return true;
-            }
-            return false;
-        }
+        //private bool IsDateField(Field field)
+        //{
+        //    if (field.ControlType == "DateTime" || field.ControlType == "Date" || (field.ControlType == "TextBox" && (field.TextBoxMode == "Date" || field.TextBoxMode == "DateTime" || field.TextBoxMode == "DateTimeLocal")))
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
         void link_ContentChanged(object sender, ContentChangedEventArgs e)
         {

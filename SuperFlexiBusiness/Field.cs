@@ -547,6 +547,43 @@ namespace SuperFlexiBusiness
 		}
 
 
+		public bool IsDynamicListField()
+		{
+			if (ControlType == "DynamicRadioButtonList" || ControlType == "DynamicCheckBoxList")
+			{
+				return true;
+			}
+			return false;
+		}
+
+		public bool IsCheckBoxListField()
+		{
+			if (ControlType == "CheckBoxList" || ControlType == "DynamicCheckBoxList")
+			{
+				return true;
+			}
+			return false;
+		}
+
+		public bool IsRadioButtonListField()
+		{
+			if (ControlType == "RadioButtonList" || ControlType == "DynamicRadioButtonList")
+			{
+				return true;
+			}
+			return false;
+		}
+
+		public bool IsDateField()
+		{
+			if (ControlType == "DateTime" || ControlType == "Date" || (ControlType == "TextBox" && (TextBoxMode == "Date" || TextBoxMode == "DateTime" || TextBoxMode == "DateTimeLocal")))
+			{
+				return true;
+			}
+			return false;
+		}
+
+
 		#endregion
 
 		#region Static Methods

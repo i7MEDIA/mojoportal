@@ -1,11 +1,8 @@
-﻿// Author:					i7MEDIA
-// Created:					2015-03-06
-// Last Modified:			2019-04-03
-// You must not remove this notice, or any other, from this software.
-
-using mojoPortal.Data;
+﻿using mojoPortal.Data;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace SuperFlexiData
 {
@@ -156,10 +153,39 @@ namespace SuperFlexiData
 
         }
 
-        /// <summary>
-        /// Gets a count of rows in the i7_sflexi_items table.
-        /// </summary>
-        public static int GetCount()
+		/// <summary>
+		/// Gets an IDataReader with item and values
+		/// </summary>
+		public static IDataReader GetOneWithValues(int itemId)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_itemsvalues_SelectOneById", 1);
+			sph.DefineSqlParameter("@ItemId", SqlDbType.Int, ParameterDirection.Input, itemId);
+			return sph.ExecuteReader();
+		}
+
+		public static IDataReader GetByIDsWithValues(Guid defGuid, Guid siteGuid, List<int> itemIDs, int pageNumber = 1, int pageSize = 20, string sortDirection = "ASC")
+		{
+			//var idTable = new CSV_splitter(itemIDs, ',', SqlDbType.Int);
+			//var idListString = string.Join(",", itemIDs);
+
+			var idTable = new SqlDataRecordList(itemIDs);
+
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_itemsvalues_SelectByMultipleIDs", 6);
+			sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
+			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid); 
+			sph.DefineSqlParameter("@ItemIDs", SqlDbType.Structured, "integer_list_tbltype", ParameterDirection.Input, idTable);
+			sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+			sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+
+			return sph.ExecuteReader();
+
+		}
+
+		/// <summary>
+		/// Gets a count of rows in the i7_sflexi_items table.
+		/// </summary>
+		public static int GetCount()
         {
             return Convert.ToInt32(SqlHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
@@ -189,10 +215,28 @@ namespace SuperFlexiData
         /// <summary>
         /// Gets an IDataReader with all items for module.
         /// </summary>
-		public static IDataReader GetForModule(int moduleId, string sortDirection = "ASC")
+		//public static IDataReader GetForModule(int moduleId, string sortDirection = "ASC")
+		//{
+		//	SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModule", 2);
+		//	sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
+		//	sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+		//	return sph.ExecuteReader();
+		//}
+
+		/// <summary>
+		/// Gets an IDataReader with page of items for module.
+		/// </summary>
+		public static IDataReader GetForModule(
+			int moduleId, 
+			int pageNumber = 1, 
+			int pageSize = 20, 
+			string sortDirection = "ASC"
+		)
 		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModule", 2);
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModule", 4);
 			sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
+			sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+			sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize); 
 			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 			return sph.ExecuteReader();
 		}
@@ -200,10 +244,22 @@ namespace SuperFlexiData
 		/// <summary>
 		/// Gets an IDataReader with all items for module with values.
 		/// </summary>
-		public static IDataReader GetForModuleWithValues(int moduleId, string sortDirection)
+		public static IDataReader GetForModuleWithValues(
+			Guid moduleGuid,
+			int pageNumber = 1,
+			int pageSize = 20,
+			string searchTerm = "",
+			string searchField = "",
+			//string sortField = "",
+			string sortDirection = "ASC"
+		)
 		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModuleWithValues", 2);
-			sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModuleWithValues", 6);
+			sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
+			sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, ParameterDirection.Input, searchTerm);
+			sph.DefineSqlParameter("@SearchField", SqlDbType.NVarChar, 50, ParameterDirection.Input, searchField);
+			sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+			sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
 			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 			return sph.ExecuteReader();
 		}
@@ -212,152 +268,145 @@ namespace SuperFlexiData
 		/// Gets and IDataReader for a page of items with values for a module
 		/// </summary>
 		/// <returns></returns>
-		public static IDataReader GetForModuleWithValues_Paged(
-			Guid moduleGuid,
-			int pageNumber,
-			int pageSize,
-			string searchTerm = "",
-			string searchField = "",
-			string sortDirection = "ASC")
-		{
-			SqlParameterHelper sph = null;
+		//public static IDataReader GetForModuleWithValues_Paged(
+		//	Guid moduleGuid,
+		//	int pageNumber,
+		//	int pageSize,
+		//	string searchTerm = "",
+		//	string searchField = "",
+		//	string sortDirection = "ASC")
+		//{
+		//	SqlParameterHelper sph = null;
 
-			if (String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
-			{
-				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForModuleWithTerm", 5);
-				sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
-				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
-				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
-				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
-				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
-			}
-			else if (!String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
-			{
-				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForModuleWithTermAndField", 6);
-				sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
-				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
-				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
-				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
-				sph.DefineSqlParameter("@SearchField", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchField);
-				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
-			}
-			else
-			{
-				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForModule", 4);
-				sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
-				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
-				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
-				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
-			}
+		//	if (String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+		//	{
+		//		sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForModuleWithTerm", 5);
+		//		sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
+		//		sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+		//		sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+		//		sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
+		//		sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+		//	}
+		//	else if (!String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+		//	{
+		//		sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForModuleWithTermAndField", 6);
+		//		sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
+		//		sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+		//		sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+		//		sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
+		//		sph.DefineSqlParameter("@SearchField", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchField);
+		//		sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+		//	}
+		//	else
+		//	{
+		//		sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForModule", 4);
+		//		sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
+		//		sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+		//		sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+		//		sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+		//	}
+		//	return sph.ExecuteReader();
+		//}
+
+		/// <summary>
+		/// Gets an IDataReader with all items for a single definition.
+		/// </summary>
+		//public static IDataReader GetForDefinition(Guid definitionGuid, Guid siteGuid, string sortDirection)
+		//{
+		//	SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinition", 3);
+		//	sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
+		//	sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+		//	sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+		//	return sph.ExecuteReader();
+		//}
+
+		/// <summary>
+		/// Gets an IDataReader with all items for a single definition.
+		/// </summary>
+		public static IDataReader GetForDefinition(Guid definitionGuid, Guid siteGuid, int pageNumber = 1, int pageSize = 20, string sortDirection = "ASC")
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinition", 5);
+			sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
+			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+			sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 			return sph.ExecuteReader();
 		}
+
 		/// <summary>
 		/// Gets and IDataReader for a page of items with values for a definition
 		/// </summary>
 		/// <returns></returns>
-		public static IDataReader GetForDefinitionWithValues_Paged(
+		//public static IDataReader GetForDefinitionWithValues_Paged(
+		//	Guid defGuid,
+		//	Guid siteGuid,
+		//	int pageNumber,
+		//	int pageSize,
+		//	string searchTerm = "",
+		//	string searchField = "",
+		//	//string sortField = "",
+		//	string sortDirection = "ASC"
+		//	)
+		//{
+		//	SqlParameterHelper sph = null;
+
+		//	if (String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+		//	{
+		//		sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinitionWithTerm", 6);
+		//		sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
+		//		sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+		//		sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+		//		sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
+		//		sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+		//		sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+		//	}
+		//	else if (!String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
+		//	{
+		//		sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinitionWithTermAndField", 7);
+		//		sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
+		//		sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+		//		sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+		//		sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
+		//		sph.DefineSqlParameter("@SearchField", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchField);
+		//		sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+		//		sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+		//	}
+		//	else
+		//	{
+		//		sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinition", 5);
+		//		sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
+		//		sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+		//		sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
+		//		sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
+		//		sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+		//	}
+		//	return sph.ExecuteReader();
+		//}
+
+		/// <summary>
+		/// Gets an IDataReader with all items for a single definition.
+		/// </summary>
+		public static IDataReader GetForDefinitionWithValues(
 			Guid defGuid,
 			Guid siteGuid,
-			int pageNumber,
-			int pageSize,
+			int pageNumber = 1,
+			int pageSize = 25,
 			string searchTerm = "",
 			string searchField = "",
-			//string sortField = "",
 			string sortDirection = "ASC"
-			)
+		)
 		{
-			SqlParameterHelper sph = null;
-
-			if (String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
-			{
-				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinitionWithTerm", 6);
-				sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
-				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
-				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
-				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
-				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
-				sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
-			}
-			else if (!String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
-			{
-				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinitionWithTermAndField", 7);
-				sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
-				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
-				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
-				sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
-				sph.DefineSqlParameter("@SearchField", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchField);
-				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
-				sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
-			}
-			else
-			{
-				sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPageForDefinition", 5);
-				sph.DefineSqlParameter("@DefGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
-				sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
-				sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
-				sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
-				sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
-			}
-			return sph.ExecuteReader();
-		}
-		/// <summary>
-		/// Gets an IDataReader with all items for a single definition.
-		/// </summary>
-		public static IDataReader GetForDefinition(Guid definitionGuid, Guid siteGuid, string sortDirection)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinition", 3);
-            sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
-            sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
-			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
-			return sph.ExecuteReader();
-        }
-
-		/// <summary>
-		/// Gets an IDataReader with all items for a single definition.
-		/// </summary>
-		public static IDataReader GetForDefinitionWithValues(Guid definitionGuid, Guid siteGuid, string sortDirection)
-		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinitionWithValues", 3);
-			sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForDefinitionWithValues", 7);
+			sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
 			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, ParameterDirection.Input, searchTerm);
+			sph.DefineSqlParameter("@SearchField", SqlDbType.NVarChar, 50, ParameterDirection.Input, searchField);
+			sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
+			sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
 			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 			return sph.ExecuteReader();
 		}
-
-		/// <summary>
-		/// Gets a page of data from the i7_sflexi_items table.
-		/// </summary>
-		public static IDataReader GetPage(
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            totalPages = 1;
-            int totalRows
-                = GetCount();
-
-            if (pageSize > 0) totalPages = totalRows / pageSize;
-
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
-
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectPage", 2);
-            sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
-            sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
-            return sph.ExecuteReader();
-
-        }
 
 		/// <summary>
 		/// Gets all superflexi items from all superflexi modules on a page

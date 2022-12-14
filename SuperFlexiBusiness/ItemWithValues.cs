@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using SuperFlexiData;
 namespace SuperFlexiBusiness
 {
 	public class ItemWithValues 
@@ -12,6 +13,34 @@ namespace SuperFlexiBusiness
 		public List<Field> Fields { get; set; }
 		public Dictionary<string, object> Values { get; set; }
 		//public Dictionary<string, Guid> FieldGuids { get; set; } 
+
+		public ItemWithValues() { }
+
+		public ItemWithValues (int itemID)
+		{
+			var reader = DBItems.GetOneWithValues(itemID);
+			while (reader.Read())
+			{
+				Item = new Item
+				{
+					SiteGuid = new Guid(reader["SiteGuid"].ToString()),
+					FeatureGuid = new Guid(reader["FeatureGuid"].ToString()),
+					ModuleGuid = new Guid(reader["ModuleGuid"].ToString()),
+					ModuleID = Convert.ToInt32(reader["ModuleID"]),
+					DefinitionGuid = new Guid(reader["DefinitionGuid"].ToString()),
+					ItemGuid = new Guid(reader["ItemGuid"].ToString()),
+					ItemID = Convert.ToInt32(reader["ItemID"]),
+					SortOrder = Convert.ToInt32(reader["SortOrder"]),
+					CreatedUtc = Convert.ToDateTime(reader["CreatedUtc"]),
+					LastModUtc = Convert.ToDateTime(reader["LastModUtc"]),
+					ViewRoles = reader["ViewRoles"].ToString(),
+					EditRoles = reader["EditRoles"].ToString()
+				};
+				Values = new Dictionary<string, object>();
+			}
+		}
+
+
 
 		public int CompareTo(ItemWithValues other)
 		{
