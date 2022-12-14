@@ -1,14 +1,11 @@
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="~/App_MasterPages/layout.Master.cs" Inherits="mojoPortal.Web.layout" %>
 <!DOCTYPE html>
 <html id="Html" runat="server">
-<head id="Head1" runat="server"><title></title>
+<head id="Head1" runat="server">
+	<title></title>
     <portal:StyleSheetCombiner id="StyleSheetCombiner" runat="server" UseIconsForAdminLinks="false" />
-    <portal:IEStyleIncludes id="IEStyleIncludes1"  runat="server" IncludeHtml5Script="true" />
     <portal:MetaContent id="MetaContent" runat="server" />
-	<!--[if IE]>
-	<meta http-equiv="Page-Enter" content="blendTrans(Duration=0)" /><meta http-equiv="Page-Exit" content="blendTrans(Duration=0)" />
-	<![endif]-->
-	<meta name="viewport" content="width=670, initial-scale=0.45, minimum-scale=0.45"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<portal:Favicon id="Favicon1"  runat="server" />
 	<portal:ScriptLoader id="ScriptLoader1" runat="server" />
 </head>
@@ -30,9 +27,7 @@
             <portal:WelcomeMessage id="WelcomeMessage" runat="server" RenderAsListItem="true" ListItemCSS="firstnav" />
             <portal:HomeLink id="HomeLink" runat="server" RenderAsListItem="true" />
             <portal:SiteMapLink id="SiteMapLink2" runat="server" CssClass="sitelink" RenderAsListItem="true"  />
-            <portal:MyPageLink id="MyPageLink1" runat="server" RenderAsListItem="true" />
             <portal:UserProfileLink id="UserProfileLink" runat="server" RenderAsListItem="true" />
-            <portal:MailboxLink id="MailboxLink1" runat="server" RenderAsListItem="true"  />
             <portal:MemberListLink id="MemberListLink" runat="server" RenderAsListItem="true"  />
             <portal:RegisterLink id="RegisterLink" runat="server" RenderAsListItem="true" />
             <portal:SearchInput id="SearchInput1" LinkOnly="True" RenderAsListItem="true"  runat="server" />
@@ -43,7 +38,7 @@
         
     </div>
     <div id="wrapcenter">
-		<div class="alert alert-danger">If you're seeing this page there is a problem with the layout.master file of your skin.</div>
+		<div class="alert alert-danger"><%= Resources.Resource.LayoutMasterError %></div>
 	    <asp:Panel id="divLeft" runat="server" cssclass="leftside" visible="True" SkinID="pnlPlain">
 		    <portal:PageMenu id="PageMenu1" runat="server" UseTreeView="true" TreeViewShowExpandCollapse="true"  />
 		    <a id="startcontent"></a>

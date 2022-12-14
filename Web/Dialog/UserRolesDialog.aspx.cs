@@ -45,7 +45,7 @@ namespace mojoPortal.Web.UI
             
             if (
                     (
-                   ((WebUser.IsInRoles(CurrentSite.RolesThatCanManageUsers)) || (WebUser.IsInRoles(CurrentSite.RolesThatCanCreateUsers)))
+                   ((WebUser.IsInRoles(SiteInfo.RolesThatCanManageUsers)) || (WebUser.IsInRoles(SiteInfo.RolesThatCanCreateUsers)))
                     && !isAdmin)
                     )
             {
@@ -91,16 +91,16 @@ namespace mojoPortal.Web.UI
         private void BindRoles()
         {
             if (userId == -1) { return; }
-            if (CurrentSite == null) { return; }
+            if (SiteInfo == null) { return; }
 
-            using (IDataReader reader = SiteUser.GetRolesByUser(CurrentSite.SiteId, userId))
+            using (IDataReader reader = SiteUser.GetRolesByUser(SiteInfo.SiteId, userId))
             {
                 userRoles.DataSource = reader;
                 userRoles.DataBind();
             }
 
             
-            using (IDataReader reader = Role.GetRolesUserIsNotIn(CurrentSite.SiteId, userId))
+            using (IDataReader reader = Role.GetRolesUserIsNotIn(SiteInfo.SiteId, userId))
             {
                 if (WebUser.IsAdmin)
                 {
@@ -139,9 +139,9 @@ namespace mojoPortal.Web.UI
 
         private void AddRole_Click(Object sender, EventArgs e)
         {
-            if ((userId > -1) && (CurrentSite != null))
+            if ((userId > -1) && (SiteInfo != null))
             {
-                SiteUser user = new SiteUser(CurrentSite, userId);
+                SiteUser user = new SiteUser(SiteInfo, userId);
                 int roleID = int.Parse(allRoles.SelectedItem.Value, CultureInfo.InvariantCulture);
                 Role role = new Role(roleID);
                 Role.AddUser(roleID, userId, role.RoleGuid, user.UserGuid);
@@ -159,7 +159,7 @@ namespace mojoPortal.Web.UI
         private void UserRoles_ItemCommand(object sender, DataListCommandEventArgs e)
         {
             int roleID = Convert.ToInt32(userRoles.DataKeys[e.Item.ItemIndex]);
-            SiteUser user = new SiteUser(CurrentSite, userId);
+            SiteUser user = new SiteUser(SiteInfo, userId);
 
             Role.RemoveUser(roleID, userId);
             userRoles.EditItemIndex = -1;
@@ -210,7 +210,7 @@ namespace mojoPortal.Web.UI
 
             if (userId > -1)
             {
-                siteUser = new SiteUser(CurrentSite, userId);
+                siteUser = new SiteUser(SiteInfo, userId);
                 if (siteUser.UserId == -1) { siteUser = null; }
             }
         }

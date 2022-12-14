@@ -210,7 +210,7 @@ namespace mojoPortal.Web.AdminUI
                 if (WebConfigSettings.LogIpAddressForContentDeletions)
                 {
                     Module m = new Module(moduleId);
-                    PageSettings contentPage = new PageSettings(CurrentSite.SiteId, pageId);
+                    PageSettings contentPage = new PageSettings(SiteInfo.SiteId, pageId);
                     string userName = string.Empty;
                     SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
                     if (currentUser != null)
@@ -254,8 +254,8 @@ namespace mojoPortal.Web.AdminUI
             timeOffset = SiteUtils.GetUserTimeOffset();
             timeZone = SiteUtils.GetUserTimeZone();
 
-            currentPage = new PageSettings(CurrentSite.SiteId, pageId);
-            if (currentPage.SiteId != CurrentSite.SiteId) { currentPage = null; }
+            currentPage = new PageSettings(SiteInfo.SiteId, pageId);
+            if (currentPage.SiteId != SiteInfo.SiteId) { currentPage = null; }
             if (currentPage != null)
             {
                 if (
@@ -268,7 +268,7 @@ namespace mojoPortal.Web.AdminUI
             }
 
             currentModule = new Module(moduleId);
-            if (currentModule.SiteId != CurrentSite.SiteId) { currentModule = null; }
+            if (currentModule.SiteId != SiteInfo.SiteId) { currentModule = null; }
             if (currentModule != null)
             {
                 if (

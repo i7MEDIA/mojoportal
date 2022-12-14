@@ -21,16 +21,11 @@ namespace mojoPortal.Web
 		private static readonly ILog log = LogManager.GetLogger(typeof(mojoBasePage));
 
 		protected SiteSettings siteSettings = null;
-		private ContentPlaceHolder leftPane;
-		private ContentPlaceHolder centerPane;
-		private ContentPlaceHolder rightPane;
-		private ContentPlaceHolder editPane;
-		private ContentPlaceHolder altPane1;
-		private ContentPlaceHolder altPane2;
 
 		private ScriptManager scriptController;
 		protected StyleSheet StyleSheetControl;
 		private PageSettings currentPage = null;
+		public string MasterPageName = "layout.Master";
 		private string siteRoot = null;
 		private string relativeSiteRoot = null;
 		private string secureSiteRoot = null;
@@ -93,46 +88,25 @@ namespace mojoPortal.Web
 		}
 
 
-		public ContentPlaceHolder MPLeftPane
-		{
-			get { return leftPane; }
-			set { leftPane = value; }
-		}
+		public ContentPlaceHolder MPLeftPane { get; set; }
 
 
-		public ContentPlaceHolder MPContent
-		{
-			get { return centerPane; }
-			set { centerPane = value; }
-		}
+		public ContentPlaceHolder MPContent { get; set; }
 
 
-		public ContentPlaceHolder MPRightPane
-		{
-			get { return rightPane; }
-			set { rightPane = value; }
-		}
+		public ContentPlaceHolder MPRightPane { get; set; }
 
 
-		public ContentPlaceHolder AltPane1
-		{
-			get { return altPane1; }
-			set { altPane1 = value; }
-		}
+		public ContentPlaceHolder AltPane1 { get; set; }
 
 
-		public ContentPlaceHolder AltPane2
-		{
-			get { return altPane2; }
-			set { altPane2 = value; }
-		}
+		public ContentPlaceHolder AltPane2 { get; set; }
 
 
-		public ContentPlaceHolder MPPageEdit
-		{
-			get { return editPane; }
-			set { editPane = value; }
-		}
+		public ContentPlaceHolder MPPageEdit { get; set; }
+
+		public ContentPlaceHolder PhHead { get; set; }
+		public ContentPlaceHolder PhMain { get; set; }
 
 
 		public SiteSettings SiteInfo
@@ -638,6 +612,29 @@ namespace mojoPortal.Web
 			return false;
 		}
 
+
+		public bool UserCanEditPage(int pageId)
+		{
+			if (pageId == -1) { return false; }
+			if (CurrentPage == null) { return false; }
+			if (CurrentPage.PageId != pageId) { return false; }
+
+			if (WebUser.IsAdmin) { return true; }
+
+			if (WebUser.IsContentAdmin)
+			{
+				if (CurrentPage.EditRoles == "Admins;") { return false; }
+				return true;
+			}
+
+			if (SiteUtils.UserIsSiteEditor())
+			{
+				if (CurrentPage.EditRoles == "Admins;") { return false; }
+				return true;
+			}
+
+			return WebUser.IsInRoles(CurrentPage.EditRoles);
+		}
 
 		public bool UserCanEditPage()
 		{
@@ -1347,7 +1344,7 @@ namespace mojoPortal.Web
 
 				if (setMasterInBasePage)
 				{
-					MasterPageFile = SiteUtils.GetMasterPage(this, skinName, siteSettings, allowSkinOverride);
+					MasterPageFile = SiteUtils.GetMasterPage(this, skinName, siteSettings, allowSkinOverride, MasterPageName);
 				}
 
 				SetupTheme(skinName);
@@ -1356,17 +1353,17 @@ namespace mojoPortal.Web
 
 			if (!string.IsNullOrEmpty(MasterPageFile))
 			{
-				leftPane = (ContentPlaceHolder)Master.FindControl("leftContent");
-				centerPane = (ContentPlaceHolder)Master.FindControl("mainContent");
-				rightPane = (ContentPlaceHolder)Master.FindControl("rightContent");
-				editPane = (ContentPlaceHolder)Master.FindControl("pageEditContent");
-				altPane1 = (ContentPlaceHolder)Master.FindControl("altContent1");
-				altPane2 = (ContentPlaceHolder)Master.FindControl("altContent2");
+				MPLeftPane = (ContentPlaceHolder)Master.FindControl("leftContent");
+				MPContent = (ContentPlaceHolder)Master.FindControl("mainContent");
+				MPRightPane = (ContentPlaceHolder)Master.FindControl("rightContent");
+				MPPageEdit = (ContentPlaceHolder)Master.FindControl("pageEditContent");
+				AltPane1 = (ContentPlaceHolder)Master.FindControl("altContent1");
+				AltPane2 = (ContentPlaceHolder)Master.FindControl("altContent2");
 			}
 		}
 
 
-		private void SetupTheme(string skinName)
+		protected void SetupTheme(string skinName)
 		{
 			if (WebConfigSettings.DisableASPThemes)
 			{
@@ -1437,15 +1434,26 @@ namespace mojoPortal.Web
 				return;
 			}
 
-			MasterPageFile = "~/App_MasterPages/layout.Master";
+			MasterPageFile = $"~/App_MasterPages/{MasterPageName}";
 
-			MPLeftPane = (ContentPlaceHolder)Master.FindControl("leftContent");
-			MPContent = (ContentPlaceHolder)Master.FindControl("mainContent");
-			MPRightPane = (ContentPlaceHolder)Master.FindControl("rightContent");
-			AltPane1 = (ContentPlaceHolder)Master.FindControl("altContent1");
-			AltPane2 = (ContentPlaceHolder)Master.FindControl("altContent2");
+			switch (MasterPageName.ToLower())
+			{
+				case "layout.master":
+				default:
+					MPLeftPane = (ContentPlaceHolder)Master.FindControl("leftContent");
+					MPContent = (ContentPlaceHolder)Master.FindControl("mainContent");
+					MPRightPane = (ContentPlaceHolder)Master.FindControl("rightContent");
+					AltPane1 = (ContentPlaceHolder)Master.FindControl("altContent1");
+					AltPane2 = (ContentPlaceHolder)Master.FindControl("altContent2");
+					MPPageEdit = (ContentPlaceHolder)Master.FindControl("pageEditContent");
 
-			MPPageEdit = (ContentPlaceHolder)Master.FindControl("pageEditContent");
+					break;
+
+				case "dialogmaster.master":
+					PhHead = (ContentPlaceHolder)Master.FindControl("phHead");
+					PhMain = (ContentPlaceHolder)Master.FindControl("phMain");
+					break;
+			}
 
 			StyleSheetControl = (StyleSheet)Master.FindControl("StyleSheet");
 		}
@@ -1534,10 +1542,8 @@ namespace mojoPortal.Web
 								continue;
 							}
 
-							if (c is SiteModuleControl)
+							if (c is SiteModuleControl siteModule)
 							{
-								SiteModuleControl siteModule = (SiteModuleControl)c;
-
 								siteModule.SiteId = siteSettings.SiteId;
 								siteModule.ModuleConfiguration = module;
 							}
@@ -1710,10 +1716,8 @@ namespace mojoPortal.Web
 								continue;
 							}
 
-							if (c is SiteModuleControl)
+							if (c is SiteModuleControl siteModule)
 							{
-								SiteModuleControl siteModule = (SiteModuleControl)c;
-
 								siteModule.SiteId = siteSettings.SiteId;
 								siteModule.ModuleConfiguration = module;
 							}

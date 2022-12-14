@@ -6883,6 +6883,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If you&apos;re seeing this page there is a problem with the layout.master file of the site or page skin..
+        /// </summary>
+        internal static string LayoutMasterError {
+            get {
+                return ResourceManager.GetString("LayoutMasterError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to view the page.
         /// </summary>
         internal static string LayoutViewThePageLink {

@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option or rebuild the Visual Studio project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class SetupResource {
@@ -286,7 +286,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Data folder beneath the root of the web site is not writable by the ASP.NET worker process. 
+        ///   Looks up a localized string similar to  The Data folder beneath the root of the web site is not writable by the ASP.NET worker process. 
         ///
         ///You need to make this folder and all its child folders and files writable before setup can proceed. mojoPortal needs this to be able to write search index files, error logs, image gallery uploads, and other important features. 
         ///
@@ -691,7 +691,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: This page shows some information that is helpful during setup and upgrades but for security it would be best not to show any information when the system is up to date. You can disable setup and suppress all information on this page by setting DisableSetup=true in Web.config. When you need to upgrade, you can set this back to false. If you are logged in as Administrator setup will run and you will be able to see this page even if it is disabled in Web.config so you can easily leave it disabled and just [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to  Note: This page shows some information that is helpful during setup and upgrades but for security it would be best not to show any information when the system is up to date. You can disable setup and suppress all information on this page by setting DisableSetup=true in Web.config. When you need to upgrade, you can set this back to false. If you are logged in as Administrator setup will run and you will be able to see this page even if it is disabled in Web.config so you can easily leave it disabled and just [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SetupEnabledMessage {
             get {

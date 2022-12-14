@@ -9,7 +9,7 @@ namespace mojoPortal.Web.UI.Pages
 {
 	public partial class Help : Page
 	{
-		private string helpKey = String.Empty;
+		private string helpKey = string.Empty;
 
 
 		protected override void OnInit(EventArgs e)
@@ -26,25 +26,18 @@ namespace mojoPortal.Web.UI.Pages
 				helpKey = Request.Params.Get("helpkey");
 			}
 
-			// if we pass this param suppress edit link doesn't work in cluetip
 			if (Request.Params.Get("e") == null)
 			{
 				if (WebUser.IsAdminOrContentAdmin)
 				{
-					if (helpKey != String.Empty)
+					if (helpKey != string.Empty)
 					{
-						litEditLink.Text =
-							"<a href='" +
-							SiteUtils.GetNavigationSiteRoot() + "/HelpEdit.aspx?helpkey=" +
-							SecurityHelper.RemoveMarkup(helpKey) + "'>" +
-							Resource.HelpEditLink +
-							"</a><br />"
-						;
+						litEditLink.Text = $"<a href=\"{SiteUtils.GetNavigationSiteRoot()}/HelpEdit.aspx?helpkey={SecurityHelper.RemoveMarkup(helpKey)}\">{Resource.HelpEditLink}</a>";
 					}
 				}
 			}
 
-			if (helpKey != String.Empty)
+			if (helpKey != string.Empty)
 			{
 				ShowHelp();
 			}
@@ -53,13 +46,18 @@ namespace mojoPortal.Web.UI.Pages
 
 		protected void ShowHelp()
 		{
-			String helpText = ResourceHelper.GetHelpFileText(helpKey);
+			var helpText = ResourceHelper.GetHelpFileText(helpKey);
 
-			if (helpText == String.Empty)
+			if (string.IsNullOrWhiteSpace(helpText))
 			{
-				helpText = WebUser.IsAdminOrContentAdmin ?
-					String.Format(Resource.HelpNoHelpAvailableAdminUser, HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(helpKey))) :
-					Resource.HelpNoHelpAvailable;
+				if (WebUser.IsAdminOrContentAdmin)
+				{
+					helpText = string.Format(Resource.HelpNoHelpAvailableAdminUser, HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(helpKey)));
+				}
+				else
+				{
+					helpText = Resource.HelpNoHelpAvailable;
+				}
 			}
 
 			litHelp.Text = helpText;

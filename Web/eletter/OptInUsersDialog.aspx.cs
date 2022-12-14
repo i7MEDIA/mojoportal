@@ -57,7 +57,7 @@ namespace mojoPortal.Web.UI
             heading.Text = letterInfo.Title;
 
             countOfAvailableUsers = SubscriberRepository.CountUsersNotSubscribedByLetter(
-                CurrentSite.SiteGuid,
+                SiteInfo.SiteGuid,
                 letterInfoGuid,
                 WebConfigSettings.NewsletterExcludeAllPreviousOptOutsWhenOptingInUsers);
 
@@ -71,7 +71,7 @@ namespace mojoPortal.Web.UI
             if (currentUser == null) { return; }
 
             LetterOptInTask optInTask = new LetterOptInTask();
-            optInTask.SiteGuid = CurrentSite.SiteGuid;
+            optInTask.SiteGuid = SiteInfo.SiteGuid;
             optInTask.QueuedBy = currentUser.UserGuid;
             optInTask.LetterInfoGuid = letterInfoGuid;
             optInTask.ExcludeIfAnyUnsubscribeHx = WebConfigSettings.NewsletterExcludeAllPreviousOptOutsWhenOptingInUsers;

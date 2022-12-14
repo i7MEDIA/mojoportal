@@ -6709,4 +6709,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="HowToFixHtmlElement" xml:space="preserve">
     <value>You must add id="Html" runat="server" to the html element in the layout.master of the skin.</value>
   </data>
+  <data name="LayoutMasterError" xml:space="preserve">
+    <value>If you're seeing this page there is a problem with the layout.master file of the site or page skin.</value>
+  </data>
 </root>

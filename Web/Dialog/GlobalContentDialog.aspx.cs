@@ -36,14 +36,12 @@ namespace mojoPortal.Web.UI
         //private bool sortByAuthor = false;
         private int moduleDefId = -1;
         private string title = string.Empty;
-        
-        private SiteSettings siteSettings = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadSettings();
 
-            if (!UserCanEditPage(pageId))
+            if (UserCanEditPage())
             {
                 SiteUtils.RedirectToAccessDeniedPage(this);
                 return;
@@ -58,9 +56,12 @@ namespace mojoPortal.Web.UI
 
         private void PopulateControls()
         {
-            if (siteSettings == null) { return; }
+            if (siteSettings == null)
+            {
+                return;
+            }
 
-                BindList();
+            BindList();
             
 
         }
@@ -166,7 +167,7 @@ namespace mojoPortal.Web.UI
 
         private void LoadSettings()
         {
-            siteSettings = CacheHelper.GetCurrentSiteSettings();
+            //siteSettings = CacheHelper.GetCurrentSiteSettings();
             pageId = WebUtils.ParseInt32FromQueryString("pageid", pageId);
             pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", pageNumber);
             

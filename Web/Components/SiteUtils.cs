@@ -951,10 +951,11 @@ namespace mojoPortal.Web
 			Page page,
 			string skinName,
 			SiteSettings siteSettings,
-			bool allowOverride)
+			bool allowOverride,
+			string masterPageName = "layout.Master")
 		{
 			string skinFolder = "~/App_MasterPages/";
-			string masterPage = "layout.Master";
+			string masterPage = masterPageName;
 			PageSettings currentPage = CacheHelper.GetCurrentPage();
 
 			if (
@@ -963,9 +964,8 @@ namespace mojoPortal.Web
 				&& (siteSettings != null)
 				)
 			{
-				skinFolder = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/";
-				masterPage = skinName + "/layout.Master";
-
+				skinFolder = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/skins/";
+				masterPage = $"{skinName}/{masterPageName}";
 			}
 
 			if (page is mojoBasePage)
@@ -974,12 +974,12 @@ namespace mojoPortal.Web
 				{
 					if (siteSettings.MobileSkin.Length > 0)
 					{
-						masterPage = siteSettings.MobileSkin + "/layout.Master";
+						masterPage = $"{siteSettings.MobileSkin}/{masterPageName}";
 					}
 					//web.config setting trumps site setting
 					if (WebConfigSettings.MobilePhoneSkin.Length > 0)
 					{
-						masterPage = WebConfigSettings.MobilePhoneSkin + "/layout.Master";
+						masterPage = $"{WebConfigSettings.MobilePhoneSkin}/{masterPageName}";
 					}
 				}
 			}
@@ -987,7 +987,6 @@ namespace mojoPortal.Web
 			//log.Info("set master page to " + skinFolder + masterPage);
 
 			return skinFolder + masterPage;
-
 		}
 
 		public static string GetSkinPreviewParam(SiteSettings siteSettings)
@@ -1502,9 +1501,7 @@ namespace mojoPortal.Web
 			if (siteSettings == null) { return $"/Data/Skins/{WebConfigSettings.DefaultInitialSkin}/"; }
 			
 
-			string skinUrl = "/Data/Sites/"
-					+ siteSettings.SiteId.ToInvariantString()
-					+ "/skins/" + skinName + "/";
+			string skinUrl = $"/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/skins/{skinName}/";
 
 			return skinUrl;
 
@@ -1763,24 +1760,24 @@ namespace mojoPortal.Web
 			}
 
 
-			if (WebConfigSettings.AdaptEditorForMobile)
-			{
-				if (
-					(IsMobileDevice() || BrowserHelper.IsIpad())
-					&& (
-						(!BrowserHelper.MobileDeviceSupportsWYSIWYG()) || (WebConfigSettings.ForceTextAreaEditorInMobile)
-						)
-					)
-				{
-					providerName = "TextAreaProvider";
-					if ((page != null) && (page is mojoBasePage))
-					{
-						mojoBasePage basePage = page as mojoBasePage;
-						basePage.ScriptConfig.IncludeMarkitUpHtml = true;
-					}
+			//if (WebConfigSettings.AdaptEditorForMobile)
+			//{
+			//	if (
+			//		(IsMobileDevice() || BrowserHelper.IsIpad())
+			//		&& (
+			//			(!BrowserHelper.MobileDeviceSupportsWYSIWYG()) || (WebConfigSettings.ForceTextAreaEditorInMobile)
+			//			)
+			//		)
+			//	{
+			//		providerName = "TextAreaProvider";
+			//		if ((page != null) && (page is mojoBasePage))
+			//		{
+			//			mojoBasePage basePage = page as mojoBasePage;
+			//			basePage.ScriptConfig.IncludeMarkitUpHtml = true;
+			//		}
 
-				}
-			}
+			//	}
+			//}
 
 			string siteRoot = GetNavigationSiteRoot();
 
@@ -2167,7 +2164,7 @@ namespace mojoPortal.Web
 
 			//todo: allow tokens in pageTitle so the format can chang per page if necessary
 			//return pageTitle.Replace("$_SiteName_$", siteSettings.SiteName).Replace("$_PageTitle_$", topicTitle);
-			return pageTitle;
+			return pageTitle.Trim();
 
 		}
 

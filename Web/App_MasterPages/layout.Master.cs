@@ -7,6 +7,7 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.UI;
 using mojoPortal.Web.Framework;
+using Resources;
 
 namespace mojoPortal.Web
 {
@@ -67,11 +68,19 @@ namespace mojoPortal.Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (HttpContext.Current == null) { return; }
+            if (HttpContext.Current == null) 
+            { 
+                return; 
+            }
 
             siteSettings = CacheHelper.GetCurrentSiteSettings();
 
-            SkinBaseUrl = SiteUtils.GetSkinBaseUrl(Page);
+			if (siteSettings == null) 
+            { 
+                return; 
+            }
+
+			SkinBaseUrl = SiteUtils.GetSkinBaseUrl(Page);
 
             isMobileDevice = SiteUtils.IsMobileDevice();
 
@@ -87,18 +96,17 @@ namespace mojoPortal.Web
 				currentPage = CacheHelper.GetPage(WebUtils.ParseInt32FromQueryString("pageid", -1));
 			}
 			
-            if (siteSettings == null) { return; }
-
             siteMapDataSource = (SiteMapDataSource)this.FindControl("SiteMapData");
             if(siteMapDataSource == null){ return;}
 
-            siteMapDataSource.SiteMapProvider
-                    = "mojosite" + siteSettings.SiteId.ToInvariantString();
+            siteMapDataSource.SiteMapProvider = "mojosite" + siteSettings.SiteId.ToInvariantString();
 
-            try {
+            try 
+            {
                 rootNode = siteMapDataSource.Provider.RootNode;
             }
-            catch(HttpException) {
+            catch(HttpException) 
+            {
                 return;
             }
 
@@ -132,7 +140,6 @@ namespace mojoPortal.Web
                 }
             }
 			
-
             SetupLayout();
         }
 

@@ -66,7 +66,7 @@ namespace mojoPortal.Web.UI
          
 
             List<SiteUser> siteUserPage = SiteUser.GetUserSearchPage(
-                CurrentSite.SiteId,
+                SiteInfo.SiteId,
                 pageNumber,
                 pageSize,
                 userNameBeginsWith,
