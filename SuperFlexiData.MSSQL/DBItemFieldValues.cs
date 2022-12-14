@@ -205,12 +205,7 @@ namespace SuperFlexiData
 		public static IDataReader GetByItemGuids(List<Guid> itemGuids)
 		{
 			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_values_SelectByItemGuids", 1);
-			var guids = String.Join(",", itemGuids);
-			sph.DefineSqlParameter("@ItemGuids"
-				, SqlDbType.Structured
-				, "guid_list_tbltype"
-				, ParameterDirection.Input
-				, new CSV_splitter(guids, ',', SqlDbType.UniqueIdentifier));
+			sph.DefineSqlParameter("@ItemGuids", SqlDbType.Structured, "guid_list_tbltype", ParameterDirection.Input, new SqlDataRecordList(itemGuids));
 			return sph.ExecuteReader();
 		}
 

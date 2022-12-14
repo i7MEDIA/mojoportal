@@ -77,7 +77,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ConnectionString.cs" />
-    <Compile Include="CSVSplitter.cs" />
+    <Compile Include="SqlDataRecordList.cs" />
     <Compile Include="DBCategoryItem.cs" />
     <Compile Include="DBPaymentLog.cs" />
     <Compile Include="DBSystemLog.cs" />
