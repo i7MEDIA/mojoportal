@@ -2,15 +2,20 @@
 using System.Web.UI;
 using System.Web.Optimization;
 using AspNet.ScriptManager.jQuery;
+using Microsoft.Ajax.Utilities;
+using System.Web.Configuration;
 
 namespace mojoPortal.Web.Optimization
 {
     public class BundleConfig
     {
+        private static string protocol = "http";
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-           
+
+            protocol = Core.Helpers.WebHelper.IsSecureRequest() ? "https" : protocol;
+
             bundles.Add(new ScriptBundle("~/bundles/WebFormsJs").Include(
                   "~/Scripts/WebForms/WebForms.js",
                   "~/Scripts/WebForms/WebUIValidation.js",
@@ -25,7 +30,7 @@ namespace mojoPortal.Web.Optimization
             ScriptManager.ScriptResourceMapping.AddDefinition("WebFormsBundle", new ScriptResourceDefinition
             {
                 Path = "~/bundles/WebFormsJs",
-                CdnPath = "//ajax.aspnetcdn.com/ajax/4.5/6/WebFormsBundle.js",
+                CdnPath = $"{protocol}://ajax.aspnetcdn.com/ajax/4.5.1/1/WebFormsBundle.js",
                 LoadSuccessExpression = "window.WebForm_PostBackOptions",
                 CdnSupportsSecureConnection = true,
             });
@@ -39,13 +44,13 @@ namespace mojoPortal.Web.Optimization
             ScriptManager.ScriptResourceMapping.AddDefinition("MsAjaxBundle", new ScriptResourceDefinition
             {
                 Path = "~/bundles/MsAjaxJs",
-                CdnPath = "//ajax.aspnetcdn.com/ajax/4.5/6/MsAjaxBundle.js",
+                CdnPath = $"{protocol}://ajax.aspnetcdn.com/ajax/4.5.1/1/MsAjaxBundle.js",
                 LoadSuccessExpression = "window.Sys",
                 CdnSupportsSecureConnection = true
 
             });
 
-            var ajaxVersion = "4.5/6";
+            var ajaxVersion = "4.5.1/1";
 
             AddMsAjaxMapping("MicrosoftAjax.js", ajaxVersion, "window.Sys && Sys._Application && Sys.Observer");
             AddMsAjaxMapping("MicrosoftAjaxCore.js", ajaxVersion, "window.Type && Sys.Observer");
@@ -59,7 +64,7 @@ namespace mojoPortal.Web.Optimization
                 ScriptManager.ScriptResourceMapping.AddDefinition("AjaxToolkitBundle", new ScriptResourceDefinition
                 {
                     Path = "~/Scripts/AjaxControlToolkit/Bundle",
-                    //CdnPath = "//ajax.aspnetcdn.com/ajax/act/16_1_0/Scripts/AjaxControlToolkit/Bundle.js",
+                    //CdnPath = $"{protocol}://ajax.aspnetcdn.com/ajax/act/16_1_0/Scripts/AjaxControlToolkit/Bundle.js",
                     CdnSupportsSecureConnection = true
                 });
 
@@ -67,12 +72,12 @@ namespace mojoPortal.Web.Optimization
                 var scripts = BundleTable.Bundles.GetBundleFor("~/bundles/WebFormsJs");
                 if (scripts != null)
                 { 
-                    scripts.CdnPath = "//ajax.aspnetcdn.com/ajax/4.5/6/WebFormsBundle.js";  
+                    scripts.CdnPath = $"{protocol}://ajax.aspnetcdn.com/ajax/4.5.1/1/WebFormsBundle.js";  
                 }
                 scripts = BundleTable.Bundles.GetBundleFor("~/bundles/MsAjaxJs");
                 if (scripts != null)
                 {
-                    scripts.CdnPath = "//ajax.aspnetcdn.com/ajax/4.5/6/MsAjaxBundle.js";
+                    scripts.CdnPath = $"{protocol}://ajax.aspnetcdn.com/ajax/4.5.1/1/MsAjaxBundle.js";
                 }
 
 
@@ -107,7 +112,7 @@ namespace mojoPortal.Web.Optimization
             ScriptManager.ScriptResourceMapping.AddDefinition(name, new ScriptResourceDefinition
             {
                 Path = "~/Scripts/WebForms/MsAjax/" + name,
-                CdnPath = "//ajax.aspnetcdn.com/ajax/" + version + "/" + name,
+                CdnPath = $"{protocol}://ajax.aspnetcdn.com/ajax/" + version + "/" + name,
                 LoadSuccessExpression = loadSuccessExpression,
                 CdnSupportsSecureConnection = true
 

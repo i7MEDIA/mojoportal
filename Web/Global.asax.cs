@@ -190,9 +190,7 @@ namespace mojoPortal.Web
 			GlobalConfiguration.Configure(WebApiConfig.Register);
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
-			BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            ViewEngines.Engines.Clear();
+			ViewEngines.Engines.Clear();
 
             mojoViewEngine engine = new mojoViewEngine();
             //engine.AddViewLocationFormat("~/Data/Sites/{2}/skins/Views/{1}/{0}.cshtml");
@@ -463,6 +461,8 @@ namespace mojoPortal.Web
 						break;
 				}
 			}
+			//moved RegisterBundles here so it can properly check the request for SSL. Can't do that when called from Application_Start
+			BundleConfig.RegisterBundles(BundleTable.Bundles);
 		}
 
 		protected void Application_EndRequest(Object sender, EventArgs e)
