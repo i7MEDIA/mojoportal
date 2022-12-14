@@ -134,10 +134,5 @@ namespace mojoPortal.MediaPlayerUI
         {
             get { return ConfigHelper.GetStringProperty("KDMediaPlayer:VideoPreload", "metadata"); }
         }
-
-        public static bool PreferFlashSolution
-        {
-            get { return ConfigHelper.GetBoolProperty("KDMediaPlayer:VideoPreferFlashSolution", false); }
-        }
     }
 }

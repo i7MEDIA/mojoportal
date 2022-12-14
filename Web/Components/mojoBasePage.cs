@@ -232,49 +232,6 @@ namespace mojoPortal.Web
 			}
 		}
 
-
-		public bool IncludeYuiTabsCss
-		{
-			get
-			{
-				if (StyleCombiner != null)
-				{
-					return StyleCombiner.IncludeYuiTabs;
-				}
-
-				return false;
-			}
-			set
-			{
-				if (StyleCombiner != null)
-				{
-					StyleCombiner.IncludeYuiTabs = value;
-				}
-			}
-		}
-
-
-		public bool IncludeYuiLayoutCss
-		{
-			get
-			{
-				if (StyleCombiner != null)
-				{
-					return StyleCombiner.IncludeYuiLayout;
-				}
-
-				return false;
-			}
-			set
-			{
-				if (StyleCombiner != null)
-				{
-					StyleCombiner.IncludeYuiLayout = value;
-				}
-			}
-		}
-
-
 		public string JQueryUIThemeName
 		{
 			get

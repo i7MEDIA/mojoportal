@@ -132,7 +132,7 @@ namespace mojoPortal.Web
                     }
                     else
                     {
-                        if (WebConfigSettings.LogErrorsFrom404Handler)
+                        if (WebConfigSettings.Log404HandlerExceptions)
                         {
                             log.Info("PageNotFoundHttpModule ignoring error ", ex);
                         }

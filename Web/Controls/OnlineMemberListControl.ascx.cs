@@ -26,7 +26,6 @@ namespace mojoPortal.Web.UI
         protected SiteSettings siteSettings;
         private bool isAdmin;
 
-        //Gravatar public enum RatingType { G, PG, R, X }
         protected Avatar.RatingType MaxAllowedGravatarRating = SiteUtils.GetMaxAllowedGravatarRating();
         protected bool allowGravatars = false;
         protected bool disableAvatars = true;
@@ -36,7 +35,6 @@ namespace mojoPortal.Web.UI
             get{return isAdmin;}  
         }
 
-        private bool siteMailEnabled;
         private String siteRoot; 
 
         protected String SiteRoot
@@ -44,11 +42,7 @@ namespace mojoPortal.Web.UI
             get{return siteRoot;} 
         }
         private String toolTipPrefix;
-        
-        // TODO: add link for site mail when authenticated
-        // set to use top 30 here, link to OnlineMembers.aspx
-        // for page able list of online members
-        // 
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -82,13 +76,6 @@ namespace mojoPortal.Web.UI
 
             isAdmin = WebUser.IsAdmin;
 
-            //if (Context.Request.IsAuthenticated)
-            //{
-            //    isAuthenticated = true;
-            //}
-
-            siteMailEnabled = WebConfigSettings.UseSiteMailFeature;
-
             PopulateControls();
         }
 
@@ -114,29 +101,5 @@ namespace mojoPortal.Web.UI
                 }
             }
         }
-
-
-        //public String GetAvatarUrl(object userId, String userName, String avatar)
-        //{
-        //    if (allowGravatars) { return string.Empty; }
-        //    if (disableAvatars) { return string.Empty; }
-
-        //    String toolTip = toolTipPrefix + " " + userName;
-        //    if ((avatar != null) 
-        //        && (
-        //        (avatar == "blank.gif")||(avatar == String.Empty)
-        //            )
-        //        )
-        //    {
-        //        return String.Empty;
-        //    }
-        //    else
-        //    {
-        //        return "<br />" 
-        //            + SiteUtils.GetProfileAvatarLink(Page, userId, siteSettings.SiteId, avatar, toolTip) 
-        //            + "<br />";
-        //    }
-        //}
-
     }
 }

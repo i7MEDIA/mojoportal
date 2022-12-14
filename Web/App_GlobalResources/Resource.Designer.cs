@@ -6577,15 +6577,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include swfobject script for Flash?.
-        /// </summary>
-        internal static string IncludeSwfObjectSetting {
-            get {
-                return ResourceManager.GetString("IncludeSwfObjectSetting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Complete.
         /// </summary>
         internal static string IndexWriterTaskCompleteMessage {

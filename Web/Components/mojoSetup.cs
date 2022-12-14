@@ -1,16 +1,3 @@
-// Author:                  
-// Created:                 2006-02-03
-// Last Modified:           2017-05-30
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-// 2011-03-03 implemented better support for page hierarchy in initial content
-// 2013-06-24 / Thomas Nicolaïdès : moduleSettings / moduleGuidxxxx handling (tni-20130624)
-
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -888,40 +875,6 @@ namespace mojoPortal.Web
 				Directory.CreateDirectory(siteFolderPath + "media");
 			}
 
-			//if (!Directory.Exists(siteFolderPath + "banners"))
-			//{
-			//    Directory.CreateDirectory(siteFolderPath + "banners");
-			//}
-
-			//if (!Directory.Exists(siteFolderPath + "flash"))
-			//{
-			//    Directory.CreateDirectory(siteFolderPath + "flash");
-			//}
-
-			//if (!Directory.Exists(siteFolderPath + "GalleryImages"))
-			//{
-			//    Directory.CreateDirectory(siteFolderPath + "GalleryImages");
-			//}
-
-			//if (!Directory.Exists(siteFolderPath + "GalleryImages" + Path.DirectorySeparatorChar + "EditorUploadImages"))
-			//{
-			//    Directory.CreateDirectory(siteFolderPath + "GalleryImages" + Path.DirectorySeparatorChar + "EditorUploadImages");
-			//}
-
-			//if (!Directory.Exists(siteFolderPath + "GalleryImages" + Path.DirectorySeparatorChar + "FullSizeImages"))
-			//{
-			//    Directory.CreateDirectory(siteFolderPath + "GalleryImages" + Path.DirectorySeparatorChar + "FullSizeImages");
-			//}
-
-			//if (!Directory.Exists(siteFolderPath + "GalleryImages" + Path.DirectorySeparatorChar + "Thumbnails"))
-			//{
-			//    Directory.CreateDirectory(siteFolderPath + "GalleryImages" + Path.DirectorySeparatorChar + "Thumbnails");
-			//}
-
-			//if (!Directory.Exists(siteFolderPath + "GalleryImages" + Path.DirectorySeparatorChar + "WebImages"))
-			//{
-			//    Directory.CreateDirectory(siteFolderPath + "GalleryImages" + Path.DirectorySeparatorChar + "WebImages");
-			//}
 			if (WebConfigSettings.SiteLogoUseMediaFolder)
 			{
 				if (!Directory.Exists(siteFolderPath + "media" + Path.DirectorySeparatorChar + "logos"))
@@ -1242,65 +1195,6 @@ namespace mojoPortal.Web
 				dir = new DirectoryInfo(sourceFilesPath + Path.DirectorySeparatorChar + "skins");
 
 				CopySkinFilesRecursively(dir, dirDest);
-
-				//theDirectories = dir.GetDirectories();
-				//DirectoryInfo[] theSubDirectories;
-				//foreach (DirectoryInfo d in theDirectories)
-				//{
-				//    // don't want .svn files
-				//    if (!d.Name.StartsWith("."))
-				//    {
-				//        try
-				//        {
-				//            dirDestination.CreateSubdirectory(d.Name);
-				//            theFiles = d.GetFiles();
-				//            foreach (FileInfo f in theFiles)
-				//            {
-				//                try
-				//                {
-				//                    File.Copy(
-				//                        f.FullName,
-				//                        dirDestination.FullName + Path.DirectorySeparatorChar
-				//                        + d.Name + Path.DirectorySeparatorChar + f.Name, true);
-				//                }
-				//                catch (UnauthorizedAccessException) { }
-				//                catch (System.IO.IOException) { }
-				//                //catch (System.IO.DirectoryNotFoundException) { }
-
-				//            }
-
-				//            //added 2010-02-20 to get the Images folder beneath Artisteer skins
-				//            theSubDirectories = d.GetDirectories();
-				//            foreach (DirectoryInfo sub in theSubDirectories)
-				//            {
-				//                if (sub.Name.StartsWith(".")) { continue; } //.svn files
-				//                dirDestination.CreateSubdirectory(d.Name + Path.DirectorySeparatorChar + sub.Name);
-				//                theFiles = sub.GetFiles();
-				//                foreach (FileInfo f in theFiles)
-				//                {
-				//                    try
-				//                    {
-				//                        File.Copy(
-				//                            f.FullName,
-				//                            dirDestination.FullName + Path.DirectorySeparatorChar
-				//                            + d.Name + Path.DirectorySeparatorChar + sub.Name + Path.DirectorySeparatorChar + f.Name, true);
-				//                    }
-				//                    catch (UnauthorizedAccessException) { }
-				//                    catch (System.IO.IOException) { }
-				//                    //catch (System.IO.DirectoryNotFoundException) { }
-
-				//                }
-				//            }
-
-				//        }
-				//        catch (System.Security.SecurityException ex)
-				//        {
-				//            log.Error("error trying to copy skins into site skins folder ", ex);
-				//        }
-
-
-				//    }
-				//}
 			}
 
 			return true;

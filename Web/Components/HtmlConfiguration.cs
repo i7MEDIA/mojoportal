@@ -1,22 +1,6 @@
-﻿// Author:				    
-// Created:			        2010-06-01
-// Last Modified:		    2013-07-04
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-// 2011-02-18 Joe Davis added settings for enabling the slide show pager
-
+﻿using mojoPortal.Web.Framework;
 using System;
 using System.Collections;
-using System.Configuration;
-using System.Globalization;
-using System.Web.UI.WebControls;
-using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.ContentUI
 {
@@ -38,8 +22,6 @@ namespace mojoPortal.Web.ContentUI
             enableContentRatingSetting = WebUtils.ParseBoolFromHashtable(settings, "EnableContentRatingSetting", enableContentRatingSetting);
 
             enableRatingCommentsSetting = WebUtils.ParseBoolFromHashtable(settings, "EnableRatingCommentsSetting", enableRatingCommentsSetting);
-
-            includeSwfObject = WebUtils.ParseBoolFromHashtable(settings, "IncludeSwfObjectSetting", includeSwfObject);
 
             enableSlideShow = WebUtils.ParseBoolFromHashtable(settings, "HtmlEnableSlideShow", enableSlideShow);
 
@@ -231,13 +213,6 @@ namespace mojoPortal.Web.ContentUI
         public bool EnableRatingCommentsSetting
         {
             get { return enableRatingCommentsSetting; }
-        }
-
-        private bool includeSwfObject = false;
-
-        public bool IncludeSwfObject
-        {
-            get { return includeSwfObject; }
         }
 
         private bool enableSlideShow = false;

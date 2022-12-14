@@ -660,12 +660,6 @@
     <Content Include="robots.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-1.9.0.intellisense.js" />
-    <Content Include="Scripts\jquery-1.9.0.js" />
-    <Content Include="Scripts\jquery-1.9.0.min.js" />
-    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.3.js" />
-    <Content Include="Scripts\jquery-2.1.3.min.js" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -830,20 +824,6 @@
       <DependentUpon>ContentPublishDialog.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Controls\AdminDisplaySettings.cs" />
-    <Compile Include="Admin\Controls\AdvFileManager.ascx.cs">
-      <DependentUpon>AdvFileManager.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Controls\AdvFileManager.ascx.designer.cs">
-      <DependentUpon>AdvFileManager.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Controls\FileManager.ascx.cs">
-      <DependentUpon>FileManager.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Controls\FileManager.ascx.designer.cs">
-      <DependentUpon>FileManager.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\Controls\PageContentWizard.ascx.cs">
       <DependentUpon>PageContentWizard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -885,13 +865,6 @@
     </Compile>
     <Compile Include="Admin\FeaturePermissions.aspx.designer.cs">
       <DependentUpon>FeaturePermissions.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\FileManagerAlt.aspx.cs">
-      <DependentUpon>FileManagerAlt.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\FileManagerAlt.aspx.designer.cs">
-      <DependentUpon>FileManagerAlt.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\IndexBrowser.aspx.cs">
       <DependentUpon>IndexBrowser.aspx</DependentUpon>
@@ -1568,13 +1541,6 @@
     <Compile Include="Admin\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\FileManager.aspx.cs">
-      <DependentUpon>FileManager.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\FileManager.aspx.designer.cs">
-      <DependentUpon>FileManager.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\ManageUsers.aspx.cs">
       <DependentUpon>ManageUsers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1821,8 +1787,6 @@
     <Compile Include="Components\WorkflowHelper.cs" />
     <Compile Include="Controls\Captcha\RecaptchaAdapter.cs" />
     <Compile Include="Controls\Captcha\RecaptchaCaptchaProvider.cs" />
-    <Compile Include="Controls\ClueTipHelpLink.cs" />
-    <Compile Include="Controls\ClueTipHyperlink.cs" />
     <Compile Include="Controls\CodeEditor.cs" />
     <Compile Include="Controls\CommentSystems\CommentSystemSetting.ascx.cs">
       <DependentUpon>CommentSystemSetting.ascx</DependentUpon>
@@ -1995,15 +1959,12 @@
     <Compile Include="Controls\GMapZoomLevelSetting.ascx.designer.cs">
       <DependentUpon>GMapZoomLevelSetting.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\GreyBoxHyperlink.cs" />
     <Compile Include="Controls\HomeLink.cs" />
     <Compile Include="Controls\IEStyleIncludes.cs" />
     <Compile Include="Controls\InsecurePageWarning.cs" />
     <Compile Include="Controls\LiveMessengerControl.cs" />
     <Compile Include="Controls\LoginLink.cs" />
     <Compile Include="Controls\LogoutLink.cs" />
-    <Compile Include="Controls\MailboxLink.cs">
-    </Compile>
     <Compile Include="Controls\MemberListLink.cs">
     </Compile>
     <Compile Include="Controls\MembershipStatisticsControl.ascx.cs">
@@ -2272,20 +2233,6 @@
     </Compile>
     <Compile Include="Dialog\AvatarUploadDialog.aspx.designer.cs">
       <DependentUpon>AvatarUploadDialog.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Dialog\FileManagerAltDialog.aspx.cs">
-      <DependentUpon>FileManagerAltDialog.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialog\FileManagerAltDialog.aspx.designer.cs">
-      <DependentUpon>FileManagerAltDialog.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Dialog\FileManagerDialog.aspx.cs">
-      <DependentUpon>FileManagerDialog.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialog\FileManagerDialog.aspx.designer.cs">
-      <DependentUpon>FileManagerDialog.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dialog\GlobalContentDialog.aspx.cs">
       <DependentUpon>GlobalContentDialog.aspx</DependentUpon>
@@ -3056,7 +3003,6 @@
   <ItemGroup>
     <Content Include="Admin\AdminMenu.aspx" />
     <Content Include="Admin\ContentCatalog.aspx" />
-    <Content Include="Admin\FileManager.aspx" />
     <Content Include="Admin\ModuleAdmin.aspx" />
     <Content Include="Admin\RoleManager.aspx" />
     <Content Include="Admin\SiteSettings.aspx" />
@@ -3237,15 +3183,10 @@
     <Content Include="Modules\NewsLetterSubscribeModule.ascx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin\Controls\AdvFileManager.ascx" />
-    <Content Include="Admin\Controls\FileManager.ascx" />
-    <Content Include="Admin\FileManagerAlt.aspx" />
     <Content Include="DevAdmin\Controls\QueryTool.ascx" />
     <Content Include="DevAdmin\Controls\ServerVars.ascx" />
     <Content Include="DevAdmin\QueryTool.aspx" />
     <Content Include="Dialog\ContentRatingsDialog.aspx" />
-    <Content Include="Dialog\FileManagerAltDialog.aspx" />
-    <Content Include="Dialog\FileManagerDialog.aspx" />
     <Content Include="Dialog\RoleUserSelectDialog.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -3273,10 +3214,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-1.9.0.min.map" />
-    <Content Include="Scripts\jquery-2.1.3.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

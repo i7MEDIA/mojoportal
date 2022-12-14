@@ -356,7 +356,6 @@ namespace mojoPortal.Web
 
 		private void StartOrResumeTasks()
 		{
-			
 			// NOTE: In IIS 7 using integrated mode, HttpContext.Current will always be null in Application_Start
 			// http://weblogs.asp.net/jgaylord/archive/2008/09/04/iis7-integrated-mode-and-global-asax.aspx
 			if (WebConfigSettings.UseAppKeepAlive)
@@ -368,10 +367,12 @@ namespace mojoPortal.Web
 					{
 						if ((HttpContext.Current != null) && (HttpContext.Current.Request != null))
 						{
-							keepAlive = new AppKeepAliveTask();
-							keepAlive.UrlToRequest = WebUtils.GetSiteRoot();
-							keepAlive.MaxRunTimeMinutes = WebConfigSettings.AppKeepAliveMaxRunTimeMinutes;
-							keepAlive.MinutesToSleep = WebConfigSettings.AppKeepAliveSleepMinutes;
+							keepAlive = new AppKeepAliveTask
+							{
+								UrlToRequest = WebUtils.GetSiteRoot(),
+								MaxRunTimeMinutes = WebConfigSettings.AppKeepAliveMaxRunTimeMinutes,
+								MinutesToSleep = WebConfigSettings.AppKeepAliveSleepMinutes
+							};
 							keepAlive.QueueTask();
 						}
 					}
@@ -383,10 +384,12 @@ namespace mojoPortal.Web
 						if (WebConfigSettings.AppKeepAliveUrl.Length > 0)
 						{
 
-							keepAlive = new AppKeepAliveTask();
-							keepAlive.UrlToRequest = WebConfigSettings.AppKeepAliveUrl;
-							keepAlive.MaxRunTimeMinutes = WebConfigSettings.AppKeepAliveMaxRunTimeMinutes;
-							keepAlive.MinutesToSleep = WebConfigSettings.AppKeepAliveSleepMinutes;
+							keepAlive = new AppKeepAliveTask
+							{
+								UrlToRequest = WebConfigSettings.AppKeepAliveUrl,
+								MaxRunTimeMinutes = WebConfigSettings.AppKeepAliveMaxRunTimeMinutes,
+								MinutesToSleep = WebConfigSettings.AppKeepAliveSleepMinutes
+							};
 							keepAlive.QueueTask();
 
 						}
@@ -398,17 +401,10 @@ namespace mojoPortal.Web
 					// if a new installation the table will not exist yet so just log and swallow
 					log.Error(ex);
 				}
-
-
-
-
 			}
 
-			
 			WebTaskManager.StartOrResumeTasks(true);
-
 		}
-
 
 		private void RegisterVirtualPathProvider()
 		{

@@ -1,16 +1,11 @@
-///	Author:					
-///	Created:				2006-12-14
-/// Last Modified:			2013-08-29
-
-using System;
-using System.Globalization;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using Resources;
+using System;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.UI
 {
@@ -20,16 +15,8 @@ namespace mojoPortal.Web.UI
 
         public ModuleTitleControl()
 		{
-            //if (this.Site != null && this.Site.DesignMode) 
-            //{
-            //    this.Visible = false;
-            //    return; 
-            //}
             if (HttpContext.Current == null) { return; }
-
 			EnsureChildControls();
-
-            
 		}
 
 		#endregion
@@ -44,7 +31,6 @@ namespace mojoPortal.Web.UI
         protected ImageButton ibPublishContent = null;
         protected HyperLink lnkRejectContent;
         protected ImageButton ibCancelChanges;
-        //protected ClueTipHelpLink statusLink;
         protected WorkflowStatusIcon statusIcon;
 
         #endregion
@@ -55,7 +41,6 @@ namespace mojoPortal.Web.UI
 
         private string editUrl = string.Empty;
         private string editText = string.Empty;
-        //private bool useHTag = true;
         private bool canEdit = false;
         private bool forbidModuleSettings = false;
         private bool showEditLinkOverride = false;
@@ -66,9 +51,10 @@ namespace mojoPortal.Web.UI
         private bool isAdminEditor = false;
         private bool useHeading = true;
 
+        private string columnId = UIHelper.CenterColumnId;
+        
         #region deprecated properties
 
-        private string columnId = UIHelper.CenterColumnId;
         //private string artHeader = UIHelper.ArtisteerPostMetaHeader;
         //private string artHeadingCss = UIHelper.ArtPostHeader;
 
@@ -117,27 +103,15 @@ namespace mojoPortal.Web.UI
 
         private string headingTag = "h2";
 
-        private string element = "h2";
-
         /// <summary>
         /// only used when UseModuleHeading is false
         /// </summary>
-        public string Element
-        {
-            get { return element; }
-            set { element = value; }
-        }
-
-        private string sideColumnElement = "h2";
+        public string Element { get; set; } = "h2";
 
         /// <summary>
         /// only used when UseModuleHeadingOnSideColumns is false
         /// </summary>
-        public string SideColumnElement
-        {
-            get { return sideColumnElement; }
-            set { sideColumnElement = value; }
-        }
+        public string SideColumnElement { get; set; } = "h2";
 
 
 
@@ -145,126 +119,41 @@ namespace mojoPortal.Web.UI
         private string bottomContent = string.Empty;
         private string cssClassToUse = string.Empty;
 
-
-        private bool detectSideColumn = false;
-
-        public bool DetectSideColumn
-        {
-            get { return detectSideColumn; }
-            set { detectSideColumn = value; }
-        }
-
-        private bool useModuleHeading = true;
+        public bool DetectSideColumn { get; set; } = false;
 
         /// <summary>
         /// if true (default is true) use the heading element defined on the module
         /// else use the themeable property on this control
         /// </summary>
-        public bool UseModuleHeading
-        {
-            get { return useModuleHeading; }
-            set { useModuleHeading = value; }
-        }
-
-        private bool useModuleHeadingOnSideColumns = true;
+        public bool UseModuleHeading { get; set; } = true;
 
         /// <summary>
         /// if true (default is true) use the heading element defined on the module
         /// else use the themeable property on this control
         /// </summary>
-        public bool UseModuleHeadingOnSideColumns
-        {
-            get { return useModuleHeadingOnSideColumns; }
-            set { useModuleHeadingOnSideColumns = value; }
-        }
+        public bool UseModuleHeadingOnSideColumns { get; set; } = true;
 
-        private string literalExtraTopContent = string.Empty;
+        public string LiteralExtraTopContent { get; set; } = string.Empty;
 
-        public string LiteralExtraTopContent
-        {
-            get { return literalExtraTopContent; }
-            set { literalExtraTopContent = value; }
-        }
+        public string LiteralExtraBottomContent { get; set; } = string.Empty;
 
-        private string literalExtraBottomContent = string.Empty;
+        public string SideColumnLiteralExtraTopContent { get; set; } = string.Empty;
 
-        public string LiteralExtraBottomContent
-        {
-            get { return literalExtraBottomContent; }
-            set { literalExtraBottomContent = value; }
-        }
+        public string SideColumnLiteralExtraBottomContent { get; set; } = string.Empty;
 
-        private string sideColumnLiteralExtraTopContent = string.Empty;
+        public string ExtraCssClasses { get; set; } = string.Empty;
 
-        public string SideColumnLiteralExtraTopContent
-        {
-            get { return sideColumnLiteralExtraTopContent; }
-            set { sideColumnLiteralExtraTopContent = value; }
-        }
+        public string SideColumnExtraCssClasses { get; set; } = string.Empty;
 
-        private string sideColumnLiteralExtraBottomContent = string.Empty;
+        public string LiteralHeadingTopWrap { get; set; } = string.Empty;
 
-        public string SideColumnLiteralExtraBottomContent
-        {
-            get { return sideColumnLiteralExtraBottomContent; }
-            set { sideColumnLiteralExtraBottomContent = value; }
-        }
+        public string LiteralHeadingBottomWrap { get; set; } = string.Empty;
 
-        private string extraCssClasses = string.Empty;
+        public string LiteraSideColumnHeadingTopWrap { get; set; } = string.Empty;
 
-        public string ExtraCssClasses
-        {
-            get { return extraCssClasses; }
-            set { extraCssClasses = value; }
-        }
+        public string LiteralSideColumnHeadingBottomWrap { get; set; } = string.Empty;
 
-        private string sideColumnExtraCssClasses = string.Empty;
-
-        public string SideColumnExtraCssClasses
-        {
-            get { return sideColumnExtraCssClasses; }
-            set { sideColumnExtraCssClasses = value; }
-        }
-
-        private string literalHeadingTopWrap = string.Empty;
-
-        public string LiteralHeadingTopWrap
-        {
-            get { return literalHeadingTopWrap; }
-            set { literalHeadingTopWrap = value; }
-        }
-
-        private string literalHeadingBottomWrap = string.Empty;
-
-        public string LiteralHeadingBottomWrap
-        {
-            get { return literalHeadingBottomWrap; }
-            set { literalHeadingBottomWrap = value; }
-        }
-
-        private string literaSideColumnlHeadingTopWrap = string.Empty;
-
-        public string LiteraSideColumnlHeadingTopWrap
-        {
-            get { return literaSideColumnlHeadingTopWrap; }
-            set { literaSideColumnlHeadingTopWrap = value; }
-        }
-
-        private string literalSideColumnHeadingBottomWrap = string.Empty;
-
-        public string LiteralSideColumnHeadingBottomWrap
-        {
-            get { return literalSideColumnHeadingBottomWrap; }
-            set { literalSideColumnHeadingBottomWrap = value; }
-        }
-
-        private bool wrapLinksInSpan = true;
-
-        public bool WrapLinksInSpan
-        {
-            get { return wrapLinksInSpan; }
-            set { wrapLinksInSpan = true; }
-        }
+        public bool WrapLinksInSpan { get; set; } = true;
 
         #region Public Properties
 
@@ -363,11 +252,9 @@ namespace mojoPortal.Web.UI
 
         private SiteModuleControl GetParentAsSiteModelControl(Control child)
         {
-            if (HttpContext.Current == null) { return null; }
-
-            if (child.Parent == null)
-            {
-                return null;
+            if (HttpContext.Current == null || child.Parent == null) 
+            { 
+                return null; 
             }
             else if (child.Parent is SiteModuleControl)
             {
@@ -381,52 +268,24 @@ namespace mojoPortal.Web.UI
 
         protected override void Render(HtmlTextWriter writer)
         {
-           
             if (HttpContext.Current == null) 
             {
-                writer.Write("[" + this.ID + "]");
+                writer.Write($"[{this.ID}]");
                 return;
             }
-            
-            //if ((useHeading)&&(renderArtisteer))
-            //{
-            //    string firstClass = string.Empty;
-            //    if ((artHeader == UIHelper.ArtisteerBlockHeader) || (artHeader == UIHelper.ArtisteerBlockHeaderLower))
-            //    {
-            //        firstClass = "art-bar ";
-            //    }
 
-            //    writer.Write("<div class=\"" + firstClass + artHeader + "\">\n");
-
-            //    if ((artHeader == UIHelper.ArtisteerBlockHeader)||(artHeader == UIHelper.ArtisteerBlockHeaderLower))
-            //    {
-            //        writer.Write("<div class=\"l\"></div>");
-            //        writer.Write("<div class=\"r\"></div>");
-            //        writer.Write("<div class=\"art-header-tag-icon\">");
-            //        if (!useArtisteer3) { writer.Write("<div class=\"t\">"); }
-            //    }
-
-            //}
-            //else if ((useJQueryUI)&&(module != null) &&(module.ShowTitle))
-            //{
-            //    writer.Write("<div class=\"ui-widget-header ui-corner-top\">");
-            //}
-
-            if ((useHeading) && (topContent.Length > 0))
+            if (useHeading && topContent.Length > 0)
             {
                 writer.Write(topContent);
             }
 
-                
             if ((!useHeading)&&(module != null))
             {
                 // only need this when not rendering a heading element
                 writer.Write("<a id='module" + module.ModuleId.ToInvariantString() + "' class='moduleanchor'></a>");
             }
 
-                
-
-            if ((useHeading)&&(headingTag.Length > 0))
+            if (useHeading && headingTag.Length > 0)
             {
                 writer.WriteBeginTag(headingTag);
 
@@ -435,37 +294,30 @@ namespace mojoPortal.Web.UI
                     writer.WriteAttribute("id", "module" + module.ModuleId.ToInvariantString());
                 }
 
-                //if (useArtisteer3)
-                //{
-                //    writer.WriteAttribute("class", artHeadingCss + " t moduletitle");
-                //}
-                //else
-                //{
-                //    writer.WriteAttribute("class", artHeadingCss + " moduletitle");
-                //}
-
                 writer.WriteAttribute("class", cssClassToUse + " moduletitle");
-
                 writer.Write(HtmlTextWriter.TagRightChar);
             }
 
-            if ((useHeading) &&(literalHeadingTopWrap.Length > 0))
+            if (useHeading && LiteralHeadingTopWrap.Length > 0)
             {
-                writer.Write(literalHeadingTopWrap);
+                writer.Write(LiteralHeadingTopWrap);
             }
                 
             litModuleTitle.RenderControl(writer);
 
-            if ((useHeading) &&(literalHeadingBottomWrap.Length > 0))
+            if (useHeading && LiteralHeadingBottomWrap.Length > 0)
             {
-                writer.Write(literalHeadingBottomWrap);
+                writer.Write(LiteralHeadingBottomWrap);
             }
 
             if (renderEditLinksInsideHeading)
             {
                 if (CanEdit)
                 {
-                    if (wrapLinksInSpan) { writer.Write("<span class='modulelinks'>"); }
+                    if (WrapLinksInSpan) 
+                    { 
+                        writer.Write("<span class='modulelinks'>"); 
+                    }
                     if (!forbidModuleSettings)
                     {
                         writer.Write(HtmlTextWriter.SpaceChar);
@@ -496,29 +348,22 @@ namespace mojoPortal.Web.UI
                         ibApproveContent.RenderControl(writer);
                     }
 
-                    //joe davis
                     if (ibPublishContent != null && ibPublishContent.Visible)
                     {
                         writer.Write(HtmlTextWriter.SpaceChar);
                         ibPublishContent.RenderControl(writer);
                     }
 
-                    //if (statusLink != null && statusLink.Visible)
-                    //{
                     if (statusIcon.ToolTip.Length > 0)
                     {
                         writer.Write(HtmlTextWriter.SpaceChar);
-                        //statusLink.ToolTip = Resource.WorkflowStatus;
-                        //statusLink.RenderControl(writer);
-
                         statusIcon.RenderControl(writer);
                     }
-                    //}
 
                     if (
-                    (lnkModuleEdit != null)
-                        && (!string.IsNullOrEmpty(EditUrl))
-                    && (!string.IsNullOrEmpty(EditText))
+                        lnkModuleEdit != null
+                        && !string.IsNullOrWhiteSpace(EditUrl)
+                        && !string.IsNullOrWhiteSpace(EditText)
                     )
                     {
                         writer.Write(HtmlTextWriter.SpaceChar);
@@ -530,7 +375,10 @@ namespace mojoPortal.Web.UI
                         writer.Write(literalExtraMarkup);
                     }
 
-                    if (wrapLinksInSpan) { writer.Write("</span>"); }
+                    if (WrapLinksInSpan) 
+                    { 
+                        writer.Write("</span>"); 
+                    }
                 }
                 else
                 {
@@ -542,43 +390,21 @@ namespace mojoPortal.Web.UI
                             writer.Write(literalExtraMarkup);
                         }
                     }
-
                 }
-
-                    
-
-                
-
             }
 
-            if ((useHeading)&&(headingTag.Length > 0))
+            if (useHeading && headingTag.Length > 0)
             {
                 writer.WriteEndTag(headingTag);
             }
 
-            //if ((useHeading) && (renderArtisteer))
-            //{
-            //    writer.Write("</div>");
-            //    if ((artHeader == UIHelper.ArtisteerBlockHeader) || (artHeader == UIHelper.ArtisteerBlockHeaderLower))
-            //    {
-            //        writer.Write("</div>");
-            //        if (!useArtisteer3) { writer.Write("</div>"); }
-            //    }
-            //}
-            //else if ((useJQueryUI)&&(module != null) &&(module.ShowTitle))
-            //{
-            //    writer.Write("</div>");
-            //}
-
-            if ((useHeading) &&(bottomContent.Length > 0))
+            if (useHeading && bottomContent.Length > 0)
             {
                 writer.Write(bottomContent);
             }
 
-
             if (!renderEditLinksInsideHeading)
             {
-                
                 if (CanEdit)
                 {
                     writer.Write("<div class=\"edlinks\">");
@@ -613,23 +439,17 @@ namespace mojoPortal.Web.UI
                         ibApproveContent.RenderControl(writer);
                     }
 
-                    //joe davis
                     if (ibPublishContent != null && ibPublishContent.Visible)
                     {
                         writer.Write(HtmlTextWriter.SpaceChar);
                         ibPublishContent.RenderControl(writer);
                     }
 
-                    //if (statusLink != null && statusLink.Visible)
-                    //{
                     if (statusIcon.ToolTip.Length > 0)
                     {
                         writer.Write(HtmlTextWriter.SpaceChar);
-                        //statusLink.ToolTip = Resource.WorkflowStatus;
-                        //statusLink.RenderControl(writer);
                         statusIcon.RenderControl(writer);
                     }
-                    //}
 
                     if (
                     (lnkModuleEdit != null)
@@ -645,51 +465,41 @@ namespace mojoPortal.Web.UI
 
                 } //can edit
 
-                    
-
                 if (literalExtraMarkup.Length > 0)
                 {
                     writer.Write(literalExtraMarkup);
                 }
-
-               
-
             }
-
-
         }
 
         void ibApproveContent_Click(object sender, ImageClickEventArgs e)
         {
-            SiteModuleControl siteModule = GetParentAsSiteModelControl(this);
+            var siteModule = GetParentAsSiteModelControl(this);
             if (siteModule == null) { return; }
             if (!(siteModule is IWorkflow)) { return; }
 
             IWorkflow workflow = siteModule as IWorkflow;
             workflow.Approve();
-
         }
 
         protected void ibPostDraftContentForApproval_Click(object sender, ImageClickEventArgs e)
         {
-            SiteModuleControl siteModule = GetParentAsSiteModelControl(this);
+            var siteModule = GetParentAsSiteModelControl(this);
             if (siteModule == null) { return; }
             if (!(siteModule is IWorkflow)) { return; }
 
             IWorkflow workflow = siteModule as IWorkflow;
             workflow.SubmitForApproval();
-           
         }
 
         protected void ibCancelChanges_Click(object sender, ImageClickEventArgs e)
         {
-            SiteModuleControl siteModule = GetParentAsSiteModelControl(this);
+            var siteModule = GetParentAsSiteModelControl(this);
             if (siteModule == null) { return; }
             if (!(siteModule is IWorkflow)) { return; }
 
             IWorkflow workflow = siteModule as IWorkflow;
             workflow.CancelChanges();
-           
         }
 
        
@@ -698,103 +508,73 @@ namespace mojoPortal.Web.UI
         {
            
             base.OnPreRender(e);
-            if (HttpContext.Current == null) { return; }
+            if (HttpContext.Current == null) 
+            { 
+                return; 
+            }
 
             headingTag = WebConfigSettings.ModuleTitleTag;
 
             Initialize();
 
-            //if ((useHeading) && (renderArtisteer))
-            if (detectSideColumn)
+            if (DetectSideColumn)
             {
                 columnId = this.GetColumnId();
-
-                //if (useLowerCaseArtisteerClasses)
-                //{
-                //    artHeader = UIHelper.ArtisteerPostMetaHeaderLower;
-                //    artHeadingCss = UIHelper.ArtPostHeaderLower;
-
-                //}
 
                 switch (columnId)
                 {
                     case UIHelper.LeftColumnId:
                     case UIHelper.RightColumnId:
+                        topContent = SideColumnLiteralExtraTopContent;
+                        bottomContent = SideColumnLiteralExtraBottomContent;
+                        cssClassToUse = SideColumnExtraCssClasses;
 
-                        //if (useLowerCaseArtisteerClasses)
-                        //{
-                        //    if ((artHeader == UIHelper.ArtisteerPostMetaHeader)||(artHeader == UIHelper.ArtisteerPostMetaHeaderLower))
-                        //    {
-                        //        artHeader = UIHelper.ArtisteerBlockHeaderLower;
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    if (artHeader == UIHelper.ArtisteerPostMetaHeader)
-                        //    {
-                        //        artHeader = UIHelper.ArtisteerBlockHeader;
-                        //    }
-                        //}
-
-                        //artHeadingCss = string.Empty;
-
-                        //if (useH3ForSideHeader) { headingTag = "h3"; }
-
-                        topContent = sideColumnLiteralExtraTopContent;
-                        bottomContent = sideColumnLiteralExtraBottomContent;
-                        cssClassToUse = sideColumnExtraCssClasses;
-
-                        literalHeadingTopWrap = literaSideColumnlHeadingTopWrap;
-                        literalHeadingBottomWrap = literalSideColumnHeadingBottomWrap;
+                        LiteralHeadingTopWrap = LiteraSideColumnHeadingTopWrap;
+                        LiteralHeadingBottomWrap = LiteralSideColumnHeadingBottomWrap;
 
                         if (!UseModuleHeadingOnSideColumns)
                         {
-                            headingTag = sideColumnElement;
+                            headingTag = SideColumnElement;
                         }
-
                         break;
 
                     case UIHelper.CenterColumnId:
                     default:
 
-                        topContent = literalExtraTopContent;
-                        bottomContent = literalExtraBottomContent;
-                        cssClassToUse = extraCssClasses;
+                        topContent = LiteralExtraTopContent;
+                        bottomContent = LiteralExtraBottomContent;
+                        cssClassToUse = ExtraCssClasses;
 
                         if (!UseModuleHeading)
                         {
-                            headingTag = element;
+                            headingTag = Element;
                         }
-
                         break;
-
                 }
             }
             else
             {
-                topContent = literalExtraTopContent;
-                bottomContent = literalExtraBottomContent;
-                cssClassToUse = extraCssClasses;
+                topContent = LiteralExtraTopContent;
+                bottomContent = LiteralExtraBottomContent;
+                cssClassToUse = ExtraCssClasses;
                 if (!UseModuleHeading)
                 {
-                    headingTag = element;
+                    headingTag = Element;
                 }
             }
-            
-           
-            
-
         }
 
         private void Initialize()
         {
-            if (HttpContext.Current == null) { return; }
+            if (HttpContext.Current == null) 
+            { 
+                return; 
+            }
             
             siteModule = GetParentAsSiteModelControl(this);
+            var useTextLinksForFeatureSettings = true;
 
-            bool useTextLinksForFeatureSettings = true;
-            mojoBasePage basePage = Page as mojoBasePage;
-            if (basePage != null)
+            if (Page is mojoBasePage basePage)
             {
                 useTextLinksForFeatureSettings = basePage.UseTextLinksForFeatureSettings;
             }
@@ -805,8 +585,6 @@ namespace mojoPortal.Web.UI
                 CanEdit = siteModule.IsEditable;
                 enableWorkflow = siteModule.EnableWorkflow;
                 forbidModuleSettings = siteModule.ForbidModuleSettings;
-                
-                  
             }
 
             if (module != null)
@@ -823,7 +601,6 @@ namespace mojoPortal.Web.UI
 
                 if (CanEdit)
                 {
-                   
                     if (!disabledModuleSettingsLink)
                     {
                         lnkModuleSettings.Visible = true;
@@ -849,18 +626,14 @@ namespace mojoPortal.Web.UI
                         if ((enableWorkflow) && (siteModule != null) && (siteModule is IWorkflow))
                         {
                             SetupWorkflowControls();
-                            
                         }
-
                     }
-
                 }
 
                 if (
-                    ((CanEdit) || (ShowEditLinkOverride))
-                    && ((EditText != null) && (editUrl.Length > 0)))
+                    (CanEdit || ShowEditLinkOverride)
+                    && EditText != null && editUrl.Length > 0)
                 {
-
                     lnkModuleEdit.Text = EditText;
                     if (this.ToolTip.Length > 0)
                     {
@@ -879,9 +652,7 @@ namespace mojoPortal.Web.UI
                     {
                         lnkModuleEdit.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/" + WebConfigSettings.EditContentImage);
                     }
-
                 }
-
             }
         }
 
@@ -892,16 +663,8 @@ namespace mojoPortal.Web.UI
             if (siteModule == null) { return; }
             if (module == null) { return; }
 
-           
-            CmsPage cmsPage = this.Page as CmsPage;
-            if ((cmsPage != null) && (cmsPage.ViewMode == PageViewMode.WorkInProgress))
+            if ((this.Page is CmsPage cmsPage) && (cmsPage.ViewMode == PageViewMode.WorkInProgress))
             {
-                //ScriptReference script = new ScriptReference();
-                //script.Path = "~/ClientScript/jqmojo/jquery.cluetip.js";
-                //cmsPage.ScriptConfig.AddPathScriptReference(script);
-
-                //this.Controls.Add(statusLink);
-
                 switch (workflowStatus)
                 {
                     case ContentWorkflowStatus.Draft:
@@ -909,11 +672,8 @@ namespace mojoPortal.Web.UI
                         ibPostDraftContentForApproval.ImageUrl = Page.ResolveUrl(WebConfigSettings.RequestApprovalImage);
                         ibPostDraftContentForApproval.ToolTip = Resource.RequestApprovalToolTip;
                         ibPostDraftContentForApproval.Visible = true;
-                        //statusLink.HelpKey = "workflowstatus-draft-help";
 
                         statusIcon.ToolTip = Resource.WorkflowDraft;
-                        //statusLink.Visible = true;
-                        //statusLink.HookupScript();
 
                         if (WebConfigSettings.WorkflowShowPublishForUnSubmittedDraft)
                         {
@@ -928,21 +688,17 @@ namespace mojoPortal.Web.UI
                                 ibApproveContent.Visible = true;
                                 ibApproveContent.ToolTip = Resource.ApproveContentToolTip;
                             }
-
                         }
-
                         break;
 
                     case ContentWorkflowStatus.AwaitingApproval:
-                        
+
                         if (WebConfigSettings.Use3LevelContentWorkflow)
                         {
-                            //joe davis
                             //disable edit link because draft is awaiting approval
                             lnkModuleEdit.Visible = false;
                         }
 
-                        //if (WebUser.IsAdminOrContentAdminOrContentPublisher)
                         if (
                             (cmsPage.CurrentPage != null)
                             && (isAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(this.module.AuthorizedEditRoles)
@@ -972,21 +728,14 @@ namespace mojoPortal.Web.UI
                         }
 
                         statusIcon.ToolTip = WebConfigSettings.Use3LevelContentWorkflow ? Resource.WorkflowAwaitingApproval3Level : Resource.WorkflowAwaitingApproval;
-
-                        //statusLink.Visible = true;
-                        //statusLink.HookupScript();
-
                         break;
 
                     case ContentWorkflowStatus.AwaitingPublishing:
-                        //joe davis
                         if (
                             (cmsPage.CurrentPage != null)
                             && (isAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(this.module.AuthorizedEditRoles))
                             )
                         {
-
-                            //add in the reject and publish links:                                            
                             ibPublishContent.ImageUrl = Page.ResolveUrl(WebConfigSettings.PublishContentImage);
                             ibPublishContent.Visible = true;
                             ibPublishContent.ToolTip = Resource.PublishContentToolTip;
@@ -999,7 +748,6 @@ namespace mojoPortal.Web.UI
                             lnkRejectContent.ImageUrl = Page.ResolveUrl(WebConfigSettings.RejectContentImage);
                             lnkRejectContent.ToolTip = Resource.RejectContentToolTip;
                             lnkRejectContent.Visible = true;
-
                         }
 
                         statusIcon.ToolTip = Resource.WorkflowAwaitingPublishing;
@@ -1007,19 +755,14 @@ namespace mojoPortal.Web.UI
                         break;
 
                     case ContentWorkflowStatus.ApprovalRejected:
-                       // statusLink.HelpKey = "workflowstatus-rejected-help";
                         statusIcon.ToolTip = Resource.WorkflowRejected;
-                        //statusLink.Visible = true;
-                        //statusLink.HookupScript();
                         break;
-
-                    
                 }
 
                 if (
-                    (workflowStatus != ContentWorkflowStatus.Cancelled)
-                    && (workflowStatus != ContentWorkflowStatus.Approved)
-                    && (workflowStatus != ContentWorkflowStatus.None)
+                    workflowStatus != ContentWorkflowStatus.Cancelled
+                    && workflowStatus != ContentWorkflowStatus.Approved
+                    && workflowStatus != ContentWorkflowStatus.None
                     )
                 {
                     //allow changes to be cancelled:                                            
@@ -1027,86 +770,84 @@ namespace mojoPortal.Web.UI
                     ibCancelChanges.ToolTip = Resource.CancelChangesToolTip;
                     ibCancelChanges.Visible = true;
                 }
-
             }
         }
 
 
         protected override void CreateChildControls()
         {
-            if (HttpContext.Current == null) { return; }
+            if (HttpContext.Current == null)
+            {
+                return;
+            }
 
             litModuleTitle = new Literal();
-            //this.Controls.Add(litModuleTitle);
-            lnkModuleSettings = new HyperLink();
-            lnkModuleSettings.CssClass = "modulesettingslink";
-            //this.Controls.Add(lnkModuleSettings);
             
-            lnkModuleEdit = new HyperLink();
-            //this.Controls.Add(lnkModuleEdit);
-            lnkModuleEdit.CssClass = "ModuleEditLink";
-            lnkModuleEdit.SkinID = "plain";
-
+            lnkModuleSettings = new HyperLink
+            {
+                CssClass = "modulesettingslink"
+            };
             
+            lnkModuleEdit = new HyperLink
+            {
+                CssClass = "ModuleEditLink",
+                SkinID = "plain"
+            };
 
-            ibPostDraftContentForApproval = new ImageButton();
-            ibPostDraftContentForApproval.ID = "lbPostDraftContentForApproval";
-            ibPostDraftContentForApproval.CssClass = "jqtt ModulePostDraftForApprovalLink";
-            ibPostDraftContentForApproval.SkinID = "plain";
-            ibPostDraftContentForApproval.Visible = false;
+            ibPostDraftContentForApproval = new ImageButton
+            {
+                ID = "lbPostDraftContentForApproval",
+                CssClass = "jqtt ModulePostDraftForApprovalLink",
+                SkinID = "plain",
+                Visible = false
+            };
             ibPostDraftContentForApproval.Click += new ImageClickEventHandler(ibPostDraftContentForApproval_Click);
             this.Controls.Add(ibPostDraftContentForApproval);
 
-            ibApproveContent = new ImageButton();
-            ibApproveContent.ID = "ibApproveContent";
-            ibApproveContent.CssClass = "jqtt ModuleApproveContentLink";
-            ibApproveContent.SkinID = "plain";
-            ibApproveContent.Visible = false;
+            ibApproveContent = new ImageButton
+            {
+                ID = "ibApproveContent",
+                CssClass = "jqtt ModuleApproveContentLink",
+                SkinID = "plain",
+                Visible = false
+            };
             ibApproveContent.Click += new ImageClickEventHandler(ibApproveContent_Click);
             this.Controls.Add(ibApproveContent);
 
             if (WebConfigSettings.Use3LevelContentWorkflow)
             {
-                //joe davis
-                ibPublishContent = new ImageButton();
-                ibPublishContent.ID = "ibPublishContent";
-                ibPublishContent.CssClass = "jqtt ModulePublishContentLink";
-                ibPublishContent.SkinID = "plain";
-                ibPublishContent.Visible = false;
+                ibPublishContent = new ImageButton
+                {
+                    ID = "ibPublishContent",
+                    CssClass = "jqtt ModulePublishContentLink",
+                    SkinID = "plain",
+                    Visible = false
+                };
                 ibPublishContent.Click += new ImageClickEventHandler(ibApproveContent_Click); //approve and publish are the same at this point so we have only one method
                 this.Controls.Add(ibPublishContent);
             }
 
-            lnkRejectContent = new HyperLink();
-            lnkRejectContent.ID = "ibRejectContent";
-            lnkRejectContent.CssClass = "jqtt ModuleRejectContentLink";
-            lnkRejectContent.SkinID = "plain";
-            lnkRejectContent.Visible = false;
+            lnkRejectContent = new HyperLink
+            {
+                ID = "ibRejectContent",
+                CssClass = "jqtt ModuleRejectContentLink",
+                SkinID = "plain",
+                Visible = false
+            };
 
-            ibCancelChanges = new ImageButton();
-            ibCancelChanges.ID = "ibCancelChanges";
-            ibCancelChanges.CssClass = "jqtt ModuleCancelChangesLink";
-            ibCancelChanges.SkinID = "plain";
-            ibCancelChanges.Visible = false;
+            ibCancelChanges = new ImageButton
+            {
+                ID = "ibCancelChanges",
+                CssClass = "jqtt ModuleCancelChangesLink",
+                SkinID = "plain",
+                Visible = false
+            };
             UIHelper.AddConfirmationDialog(ibCancelChanges, Resource.CancelContentChangesButtonWarning);
             ibCancelChanges.Click += new ImageClickEventHandler(ibCancelChanges_Click);
             this.Controls.Add(ibCancelChanges);
 
             statusIcon = new WorkflowStatusIcon();
-            //statusLink = new ClueTipHelpLink();
-            //if (!HttpContext.Current.Request.IsAuthenticated)
-            //{
-            //    statusLink.AssumeScriptIsLoaded = true; //we only show the cluetip if the user is in an edit role, so leave out the script when it isn't needed
-            //}
-            //statusLink.Visible = false;
-
-            //this.Controls.Add(statusLink);
             this.Controls.Add(statusIcon);
-           
-
         }
-
-        
-
     }
 }

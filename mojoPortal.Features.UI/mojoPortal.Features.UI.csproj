@@ -1232,6 +1232,10 @@
       <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
       <Name>mojoPortal.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{fea72210-0415-4133-bdf9-8877683ba832}</Project>
+      <Name>mojoPortal.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Features.Business\mojoPortal.Features.Business.csproj">
       <Project>{65849992-8F44-4480-9494-1CA0D6325795}</Project>
       <Name>mojoPortal.Features.Business</Name>

@@ -87,9 +87,7 @@ namespace mojoPortal.Web.UI
                 mojoBasePage basePage = Page as mojoBasePage;
                 basePage.ScriptConfig.IncludeGoogleSearchV2 = true;
                 basePage.ScriptConfig.GoogleSearchV2Id = SiteUtils.GetGoogleCustomSearchId();
-
             }
-
         }
 
         private void LoadV1()
@@ -99,7 +97,6 @@ namespace mojoPortal.Web.UI
                 mojoBasePage basePage = Page as mojoBasePage;
                 basePage.ScriptConfig.IncludeGoogleSearch = true;
                 basePage.StyleCombiner.IncludeGoogleCustomSearchCss = includeGoogleCustomSearchCss;
-
             }
 
             if (customSearchId.Length == 0) { customSearchId = SiteUtils.GetGoogleCustomSearchId(); }
@@ -119,9 +116,6 @@ namespace mojoPortal.Web.UI
             {
                 RenderV2(writer);
             }
-            
-
-
         }
 
         private bool useHtml5 = true;

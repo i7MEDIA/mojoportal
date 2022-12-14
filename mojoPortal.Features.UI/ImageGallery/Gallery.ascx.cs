@@ -530,12 +530,9 @@ $(document).ready(function() {{
 
 			if (UseLightboxMode)
 			{
-				mojoBasePage basePage = Page as mojoBasePage;
-
-				if (basePage != null)
+				if (Page is mojoBasePage basePage)
 				{
 					basePage.ScriptConfig.IncludeColorBox = true;
-					basePage.ScriptConfig.IncludeImageFit = false; // this seems needed for win7 phone
 				}
 			}
 

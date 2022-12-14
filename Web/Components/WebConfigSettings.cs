@@ -781,14 +781,7 @@ namespace mojoPortal.Web
 
 		public static string CKEditorSkin
 		{
-			get
-			{
-				if (ConfigurationManager.AppSettings["CKEditor:Skin"] != null)
-				{
-					return ConfigurationManager.AppSettings["CKEditor:Skin"];
-				}
-				return "moono-lisa";
-			}
+			get { return ConfigHelper.GetStringProperty("CKEditor:Skin", "moono-lisa"); }
 		}
 
 		//https://www.mojoportal.com/Forums/Thread.aspx?pageid=5&t=12326~1#post51248
@@ -2471,10 +2464,6 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("UseSiteMailFeature", false); }
 		}
 
-		public static bool LogErrorsFrom404Handler
-		{
-			get { return Log404HandlerExceptions; }
-		}
 		public static bool Log404HandlerExceptions
 		{
 			get
@@ -2795,11 +2784,6 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("DisableEditAreaForCssEditor", false); }
 		}
 
-		public static bool DisableSwfObject
-		{
-			get { return ConfigHelper.GetBoolProperty("DisableSwfObject", false); }
-		}
-
 		public static bool DisablejQueryUI
 		{
 			get { return ConfigHelper.GetBoolProperty("DisablejQueryUI", false); }
@@ -2877,21 +2861,6 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetIntProperty("RecentContentMaxItemsToRetrieve", 60); }
 		}
-
-		//public static bool DisableOomph
-		//{
-		//    get { return ConfigHelper.GetBoolProperty("DisableOomph", true); }
-		//}
-
-		/// <summary>
-		/// http://www.websnapr.com/
-		/// </summary>
-		public static bool DisableWebSnapr
-		{
-			get { return ConfigHelper.GetBoolProperty("DisableWebSnapr", false); }
-		}
-
-		
 
 		public static bool AllowLoginWithUsernameWhenSiteSettingIsUseEmailForLogin
 		{
@@ -3254,55 +3223,6 @@ namespace mojoPortal.Web
 		{
 			get { return ConfigHelper.GetStringProperty("RolesThatCannotBeDeleted", string.Empty); }
 		}
-
-		///// <summary>
-		///// used when creating new root level pages since we have no parent page to inherit roles from
-		///// these are the view roles
-		///// </summary>
-		//public static string DefaultPageRoles
-		//{
-		//    get
-		//    {
-		//        if (ConfigurationManager.AppSettings["DefaultPageRoles"] != null)
-		//        {
-		//            return ConfigurationManager.AppSettings["DefaultPageRoles"];
-		//        }
-	   
-		//        return string.Empty;
-		//    }
-		//}
-
-		///// <summary>
-		///// used when creating new root level pages since we have no parent page to inherit roles from
-		///// </summary>
-		//public static string DefaultRootPageEditRoles
-		//{
-		//    get
-		//    {
-		//        if (ConfigurationManager.AppSettings["DefaultRootPageEditRoles"] != null)
-		//        {
-		//            return ConfigurationManager.AppSettings["DefaultRootPageEditRoles"];
-		//        }
-
-		//        return string.Empty;
-		//    }
-		//}
-
-		///// <summary>
-		///// used when creating new root level pages since we have no parent page to inherit roles from
-		///// </summary>
-		//public static string DefaultRootPageCreateChildPageRoles
-		//{
-		//    get
-		//    {
-		//        if (ConfigurationManager.AppSettings["DefaultRootPageCreateChildPageRoles"] != null)
-		//        {
-		//            return ConfigurationManager.AppSettings["DefaultRootPageCreateChildPageRoles"];
-		//        }
-
-		//        return string.Empty;
-		//    }
-		//}
 
 		public static string DefaultContentTemplateAllowedRoles
 		{
@@ -3672,7 +3592,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["AllowedSkinFileExtensions"].ToLower();
 				}
 				// default value
-				return ".master|.skin|.css|.jpg|.jpeg|.png|.gif|.ico|.txt|.config|.js|.swf|.flv|.fla|.html|.xml|.less|.eot|.otf|.woff|.ttf|.svg|.cshtml";
+				return ".master|.skin|.css|.jpg|.jpeg|.png|.gif|.ico|.txt|.config|.js|.webm|.weba|.webp|.html|.xml|.less|.eot|.otf|.woff|.ttf|.svg|.cshtml";
 			}
 		}
 
@@ -3695,7 +3615,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["ImageFileExtensions"].ToLower();
 				}
 
-				return ".gif|.jpg|.jpeg|.png|.svg";
+				return ".gif|.jpg|.jpeg|.png|.svg|.webp";
 			}
 		}
 
@@ -3734,7 +3654,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["VideoFileExtensions"].ToLower();
 				}
 				// default value
-				return ".flv|.swf|.wmv|.mp4|.m4v|.ogv|.webmv|.webm|.avi|.mov|.mpeg|.mpg";
+				return ".wmv|.mp4|.m4v|.ogv|.webmv|.webm|.avi|.mov|.mpeg|.mpg";
 			}
 		}
 
@@ -3747,7 +3667,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["JPlayerAudioFileExtensions"].ToLower();
 				}
 				// default value
-				return ".mp3|.m4a|.mp4|.oga|.webma|.webm|.wav|.fla";
+				return ".mp3|.m4a|.mp4|.oga|.webma|.webm|.wav";
 			}
 		}
 
@@ -3760,7 +3680,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["JPlayerVideoFileExtensions"].ToLower();
 				}
 				// default value
-				return ".flv|.m4v|.mp4|.ogv|.webmv|.webm|.ogg";
+				return ".m4v|.mp4|.ogv|.webmv|.webm|.ogg";
 			}
 		}
 
@@ -3786,7 +3706,7 @@ namespace mojoPortal.Web
 					return ConfigurationManager.AppSettings["AllowedUploadFileExtensions"].ToLower();
 				}
 				// default value
-				return ".gif|.jpg|.jpeg|.svg|.png|.flv|.swf|.wmv|.mp3|.mp4|.tif|.asf|.asx|.avi|.mov|.mpeg|.mpg|.zip|.pdf|.doc|.docx|.xls|.xlsx|.ppt|.pptx|.csv|.txt";
+				return ".gif|.jpg|.jpeg|.svg|.png|.wmv|.mp3|.mp4|.tif|.asf|.asx|.avi|.mov|.mpeg|.mpg|.zip|.pdf|.doc|.docx|.xls|.xlsx|.ppt|.pptx|.csv|.txt";
 			}
 		}
 
@@ -4636,46 +4556,6 @@ namespace mojoPortal.Web
 				return string.Empty;
 			}
 		}
-
-
-		//
-		//// This setting is used only in CacheHelper.cs in another project (not referencing this one)!
-		//public static int SiteSettingsCacheDurationInSeconds
-		//{
-		//    get { return GetIntProperty("SiteSettingsCacheDurationInSeconds", 360); }
-		//}
-
-		//// This setting is used only in CacheHelper.cs in another project (not referencing this one)!
-		//public static int MenuCacheDurationInSeconds
-		//{
-		//    get { return GetIntProperty("MenuCacheDurationInSeconds", 360); }
-		//}
-
-		//// This setting is used only in CacheHelper.cs in another project (not referencing this one)!
-		//public static int DefaultModuleCacheDurationInSeconds
-		//{
-		//    get { return GetIntProperty("DefaultModuleCacheDurationInSeconds", 360); }
-		//}
-
-		//public static Unit ExtJsDefaultWindowHeight
-		//{
-		//    get { return ConfigHelper.GetUnit("ExtJsDefaultWindowHeight", Unit.Parse("700")); }
-		//}
-
-		//public static Unit ExtJsDefaultWindowWidth
-		//{
-		//    get { return ConfigHelper.GetUnit("ExtJsDefaultWindowWidth", Unit.Parse("100%")); }
-		//}
-
-		//public static int ExtJsDefaultWindowTop
-		//{
-		//    get { return ConfigHelper.GetIntProperty("ExtJsDefaultWindowTop", 200); }
-		//}
-
-		//public static int ExtJsDefaultWindowLeft
-		//{
-		//    get { return ConfigHelper.GetIntProperty("ExtJsDefaultWindowLeft", 0); }
-		//}
 
 		/// <summary>
 		/// this is false by default but true in user.config.sample

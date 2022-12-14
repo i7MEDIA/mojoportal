@@ -179,11 +179,11 @@ namespace mojoPortal.MediaPlayerUI
                             if (!suppliedTypes.Contains("ogv"))
                                 suppliedTypes.Add("ogv");
                             break;
-                        case ".flv":
-                            script.Append("flv:\"" + fullFilePath + "\"");
-                            if (!suppliedTypes.Contains("flv"))
-                                suppliedTypes.Add("flv");
-                            break;
+                        //case ".flv":
+                        //    script.Append("flv:\"" + fullFilePath + "\"");
+                        //    if (!suppliedTypes.Contains("flv"))
+                        //        suppliedTypes.Add("flv");
+                        //    break;
                         default:
                             throw new ArgumentException("No Supported Video File Extension Found");
                     }
@@ -202,8 +202,8 @@ namespace mojoPortal.MediaPlayerUI
                 script.Append(",autoPlay: true");
             }
             script.Append("},");
-            script.Append("swfPath: \"" + Page.ResolveUrl(WebConfigSettings.JPlayerBasePath + "Jplayer.swf") + "\"");
-            script.Append(",supplied: \"");
+            //script.Append("swfPath: \"" + Page.ResolveUrl(WebConfigSettings.JPlayerBasePath + "Jplayer.swf") + "\"");
+            script.Append("supplied: \"");
 
             bool isFirstSupplied = true;
             foreach (string type in suppliedTypes)
@@ -225,11 +225,6 @@ namespace mojoPortal.MediaPlayerUI
             script.Append(",preload:\"" + VideoPlayerConfiguration.VideoPreload + "\"");
 
             script.Append(",wmode: \"" + VideoPlayerConfiguration.VideoWindowMode + "\"");
-
-            if (VideoPlayerConfiguration.PreferFlashSolution)
-            {
-                script.Append(",solution:'flash,html'");
-            }
 
             //script.Append(",wmode: \"transparent\"");
 

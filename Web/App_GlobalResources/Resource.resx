@@ -4164,9 +4164,6 @@
   <data name="CurrentDraftHeadingFormat" xml:space="preserve">
     <value>Current Draft Version as of {0}</value>
   </data>
-  <data name="IncludeSwfObjectSetting" xml:space="preserve">
-    <value>Include swfobject script for Flash?</value>
-  </data>
   <data name="Template3ColumnsOver1ColumnTitle" xml:space="preserve">
     <value>3 Columns Over 1 Column</value>
   </data>

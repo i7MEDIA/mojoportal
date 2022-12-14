@@ -95,12 +95,5 @@ namespace mojoPortal.MediaPlayerUI
         {
             get { return disableShuffle; }
         }
-
-        public static bool PreferFlashSolution
-        {
-            get { return ConfigHelper.GetBoolProperty("KDMediaPlayer:AudioPreferFlashSolution", false); }
-        }
-
-
     }
 }

@@ -189,19 +189,11 @@ namespace mojoPortal.Web.Editor
 
 			if ((EnableFileBrowser) && (FileManagerUrl.Length > 0))
 			{
-				//script.Append(",filebrowserWindowWidth : 860");
-				//script.Append(",filebrowserWindowHeight : 700");
-				//script.Append(",filebrowserBrowseUrl:'" + fileManagerUrl + "?ed=ck&type=file' ");
-				//script.Append(",filebrowserImageBrowseUrl:'" + fileManagerUrl + "?ed=ck&type=image' ");
-				//script.Append(",filebrowserFlashBrowseUrl:'" + fileManagerUrl + "?ed=ck&type=media' ");
-				//script.Append(",filebrowserImageBrowseLinkUrl:'" + fileManagerUrl + "?ed=ck&type=file' ");
-				//script.Append(",filebrowserWindowFeatures:'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes'");
-
 				script.Append(",filebrowserWindowWidth : ~~((80 / 100) * screen.width)"); // 80% of window width
 				script.Append(",filebrowserWindowHeight : ~~((80 / 100) * screen.height)"); // 80% of window height
 				script.Append(",filebrowserBrowseUrl:'" + FileManagerUrl + "?editor=ckeditor&type=file'");
 				script.Append(",filebrowserImageBrowseUrl:'" + FileManagerUrl + "?editor=ckeditor&type=image'");
-				script.Append(",filebrowserFlashBrowseUrl:'" + FileManagerUrl + "?editor=ckeditorck&type=media'");
+				//script.Append(",filebrowserFlashBrowseUrl:'" + FileManagerUrl + "?editor=ckeditorck&type=media'");
 				script.Append(",filebrowserImageBrowseLinkUrl:'" + FileManagerUrl + "?editor=ckeditor&type=file'");
 				script.Append(",filebrowserWindowFeatures:'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes'");
 
@@ -298,11 +290,6 @@ namespace mojoPortal.Web.Editor
 
 		private void SetupToolBar(StringBuilder script)
 		{
-
-			//'basicstyles,blockquote,button,clipboard,colorbutton,contextmenu,elementspath,enterkey,entities,find,flash,font,format,forms,horizontalrule,
-			//htmldataprocessor,image,indent,justify,keystrokes,link,list,newpage,pagebreak,pastefromword,pastetext,preview,print,removeformat,save,smiley,showblocks,
-			//sourcearea,stylescombo,table,specialchar,tab,templates,toolbar,undo,wysiwygarea,wsc';
-
 			switch (ToolBar)
 			{
 				case ToolBar.FullWithTemplates:

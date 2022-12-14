@@ -883,17 +883,6 @@ namespace mojoPortal.Business
 			set { SetExpandoProperty("RpxNowAdminUrl", value); }
 		}
 
-		public string WebSnaprKey
-		{
-			get
-			{
-				string result = GetExpandoProperty("WebSnaprKey");
-				if (result != null) { return result; }
-				return string.Empty;
-			}
-			set { SetExpandoProperty("WebSnaprKey", value); }
-		}
-
 		public string OpenSearchName
 		{
 			get

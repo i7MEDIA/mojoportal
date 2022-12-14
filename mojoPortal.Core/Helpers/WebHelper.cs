@@ -19,7 +19,7 @@ namespace mojoPortal.Core.Helpers
 					if (HttpContext.Current.Request.ServerVariables[AppConfig.SecureConnectionServerVariableForPresenceCheck] != null) { return true; }
 				}
 
-				if ((AppConfig.SecureConnectionServerVariableForValueCheck.Length > 0) && (AppConfig.SecureConnectionServerVariableSecureValue.Length > 0))
+				if (AppConfig.SecureConnectionServerVariableForValueCheck.Length > 0 && AppConfig.SecureConnectionServerVariableSecureValue.Length > 0)
 				{
 					if (HttpContext.Current.Request.ServerVariables[AppConfig.SecureConnectionServerVariableForValueCheck] != null)
 					{

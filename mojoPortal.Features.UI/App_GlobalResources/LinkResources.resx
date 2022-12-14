@@ -201,12 +201,6 @@
   <data name="LinksSearchName" xml:space="preserve">
     <value>List/Links</value>
   </data>
-  <data name="LinksAddWebSnaprCss" xml:space="preserve">
-    <value>Enable Link Preview from WebSnapr.com?</value>
-  </data>
-  <data name="LinksWebSnaprKeySetting" xml:space="preserve">
-    <value>WebSnapr.com Key</value>
-  </data>
   <data name="EditLinkPageTitle" xml:space="preserve">
     <value>Link Editor</value>
   </data>

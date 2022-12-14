@@ -181,11 +181,11 @@ namespace mojoPortal.MediaPlayerUI
                                 if (!suppliedTypes.Contains("oga"))
                                     suppliedTypes.Add("oga");
                                 break;
-                            case ".fla":
-                                script.Append("fla:\"" + fullFilePath + "\"");
-                                if (!suppliedTypes.Contains("fla"))
-                                    suppliedTypes.Add("fla");
-                                break;
+                            //case ".fla":
+                            //    script.Append("fla:\"" + fullFilePath + "\"");
+                            //    if (!suppliedTypes.Contains("fla"))
+                            //        suppliedTypes.Add("fla");
+                            //    break;
                             case ".wav":
                                 script.Append("wav:\"" + fullFilePath + "\"");
                                 if (!suppliedTypes.Contains("wav"))
@@ -211,8 +211,8 @@ namespace mojoPortal.MediaPlayerUI
             }
 
             script.Append("},");
-            script.Append("swfPath: \"" + Page.ResolveUrl(WebConfigSettings.JPlayerBasePath + "Jplayer.swf") + "\"");
-            script.Append(",supplied: \"");
+            //script.Append("swfPath: \"" + Page.ResolveUrl(WebConfigSettings.JPlayerBasePath + "Jplayer.swf") + "\"");
+            script.Append("supplied: \"");
 
             bool isFirstSupplied = true;
             foreach (string type in suppliedTypes)
@@ -227,11 +227,6 @@ namespace mojoPortal.MediaPlayerUI
                 }
 
                 script.Append(type);
-            }
-
-            if (AudioPlayerConfiguration.PreferFlashSolution)
-            {
-                script.Append(",solution:'flash,html'");
             }
 
             script.Append("\",preload: \"auto\"");

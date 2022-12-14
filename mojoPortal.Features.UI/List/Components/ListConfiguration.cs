@@ -27,7 +27,6 @@ namespace mojoPortal.Web.LinksUI
         public ListConfiguration(Hashtable settings)
         {
             LoadSettings(settings);
-
         }
 
         private void LoadSettings(Hashtable settings)
@@ -46,13 +45,6 @@ namespace mojoPortal.Web.LinksUI
 
             pageSize = WebUtils.ParseInt32FromHashtable(settings, "LinksPageSizeSetting", pageSize);
 
-            addWebSnaprCssToLinks = WebUtils.ParseBoolFromHashtable(settings, "LinksAddWebSnaprCss", addWebSnaprCssToLinks);
-
-            if (settings.Contains("LinksWebSnaprKeySetting"))
-            {
-                webSnaprKey = settings["LinksWebSnaprKeySetting"].ToString();
-            }
-
             if (settings.Contains("LinksExtraCssClassSetting"))
             {
                 instanceCssClass = settings["LinksExtraCssClassSetting"].ToString();
@@ -68,9 +60,6 @@ namespace mojoPortal.Web.LinksUI
             {
                 introContent = settings["IntroContent"].ToString();
             }
-
-            
-
         }
 
         private string introContent = string.Empty;
@@ -106,20 +95,6 @@ namespace mojoPortal.Web.LinksUI
         public bool EnablePager
         {
             get { return enablePager; }
-        }
-
-        private bool addWebSnaprCssToLinks = false;
-
-        public bool AddWebSnaprCssToLinks
-        {
-            get { return addWebSnaprCssToLinks; }
-        }
-
-        private string webSnaprKey = string.Empty;
-
-        public string WebSnaprKey
-        {
-            get { return webSnaprKey; }
         }
 
         private bool useAjaxPaging = true;

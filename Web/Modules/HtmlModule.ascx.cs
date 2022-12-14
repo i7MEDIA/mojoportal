@@ -462,12 +462,6 @@ namespace mojoPortal.Web.ContentUI
             if (config.InstanceCssClass.Length > 0)  {
                 pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass); 
             }
-
-            //if ((config.IncludeSwfObject)&&(Page is mojoBasePage))
-            //{
-            //    mojoBasePage p = Page as mojoBasePage;
-            //    if (p != null) { p.ScriptConfig.IncludeSwfObject = true; }
-            //}
             
             if (this.ModuleConfiguration != null)
             {
@@ -613,14 +607,12 @@ namespace mojoPortal.Web.ContentUI
             
 
             string fileManagerUrl = SiteRoot + WebConfigSettings.FileDialogRelativeUrl;
-            //script.Append(",filebrowserBrowseUrl:'" + fileManagerUrl + "?ed=ck&type=file' ");
-            //script.Append(",filebrowserImageBrowseUrl:'" + fileManagerUrl + "?ed=ck&type=image' ");
-            //script.Append(",filebrowserFlashBrowseUrl:'" + fileManagerUrl + "?ed=ck&type=media' ");
+
             script.Append(",filebrowserWindowWidth : ~~((80 / 100) * screen.width)"); // 80% of window width
             script.Append(",filebrowserWindowHeight : ~~((80 / 100) * screen.height)"); // 80% of window height
             script.Append(",filebrowserBrowseUrl:'" + fileManagerUrl + "?editor=ckeditor&type=file'");
             script.Append(",filebrowserImageBrowseUrl:'" + fileManagerUrl + "?editor=ckeditor&type=image'");
-            script.Append(",filebrowserFlashBrowseUrl:'" + fileManagerUrl + "?editor=ckeditorck&type=media'");
+            //script.Append(",filebrowserFlashBrowseUrl:'" + fileManagerUrl + "?editor=ckeditorck&type=media'");
             script.Append(",filebrowserImageBrowseLinkUrl:'" + fileManagerUrl + "?editor=ckeditor&type=file'");
             script.Append(",filebrowserWindowFeatures:'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes'");
 

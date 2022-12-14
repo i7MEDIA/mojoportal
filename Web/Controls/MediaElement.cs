@@ -206,10 +206,10 @@ namespace mojoPortal.Web.UI
             script.Append("audioWidth: '100%',");
             script.Append("audioHeight: 30,");
             script.Append("loop: false,");
-            script.Append("plugins: ['silverlight','flash'],");
-            script.Append("pluginPath: '" + Page.ResolveUrl(mediaElementBasePath) + "',");
-            script.Append("flashName: 'flashmediaelement.swf',");
-            script.Append("silverlightName: 'silverlightmediaelement.xap',");
+            //script.Append("plugins: ['silverlight','flash'],");
+            //script.Append("pluginPath: '" + Page.ResolveUrl(mediaElementBasePath) + "',");
+            //script.Append("flashName: 'flashmediaelement.swf',");
+            //script.Append("silverlightName: 'silverlightmediaelement.xap',");
             script.Append("enableAutosize: false");
             script.Append("});");
 
@@ -308,25 +308,25 @@ namespace mojoPortal.Web.UI
             writer.Write(Page.ResolveUrl(fileUrl));
             writer.Write("' />");
 
-            if (includeNonHtml5Fallback)
-            {
-                writer.Write("<object ");
-                if (Height != Unit.Empty)
-                {
-                    writer.Write("height='" + Height.ToString() + "' ");
-                }
+            //if (includeNonHtml5Fallback)
+            //{
+            //    writer.Write("<object ");
+            //    if (Height != Unit.Empty)
+            //    {
+            //        writer.Write("height='" + Height.ToString() + "' ");
+            //    }
 
-                writer.Write("type='application/x-shockwave-flash' ");
-                writer.Write("data='" + Page.ResolveUrl(mediaElementBasePath + "flashmediaelement.swf") + "'>");
-                writer.Write("<param name='movie' value='" + Page.ResolveUrl(mediaElementBasePath + "flashmediaelement.swf") + "' />");
+            //    writer.Write("type='application/x-shockwave-flash' ");
+            //    writer.Write("data='" + Page.ResolveUrl(mediaElementBasePath + "flashmediaelement.swf") + "'>");
+            //    writer.Write("<param name='movie' value='" + Page.ResolveUrl(mediaElementBasePath + "flashmediaelement.swf") + "' />");
 
-                writer.Write("<param name='flashvars' ");
-                writer.Write("value='controls=true&file=");
-                writer.Write(Page.ResolveUrl(fileUrl));
-                writer.Write("' />");
-                writer.Write("</object>");
+            //    writer.Write("<param name='flashvars' ");
+            //    writer.Write("value='controls=true&file=");
+            //    writer.Write(Page.ResolveUrl(fileUrl));
+            //    writer.Write("' />");
+            //    writer.Write("</object>");
 
-            }
+            //}
 
 
             writer.Write("</audio>");
@@ -410,61 +410,61 @@ namespace mojoPortal.Web.UI
             writer.Write(Page.ResolveUrl(fileUrl));
             writer.Write("' />");
 
-            if (includeNonHtml5Fallback)
-            {
-                writer.Write("<object ");
+            //if (includeNonHtml5Fallback)
+            //{
+            //    writer.Write("<object ");
 
-                if (Width != Unit.Empty)
-                {
-                    writer.Write("width='" + Width.ToString() + "' ");
-                }
+            //    if (Width != Unit.Empty)
+            //    {
+            //        writer.Write("width='" + Width.ToString() + "' ");
+            //    }
 
-                if (Height != Unit.Empty)
-                {
-                    writer.Write("height='" + Height.ToString() + "' ");
-                }
+            //    if (Height != Unit.Empty)
+            //    {
+            //        writer.Write("height='" + Height.ToString() + "' ");
+            //    }
 
-                writer.Write("type='application/x-shockwave-flash' ");
-                writer.Write("data='" + Page.ResolveUrl(mediaElementBasePath + "flashmediaelement.swf") + "'>");
-                writer.Write("<param name='movie' value='" + Page.ResolveUrl(mediaElementBasePath + "flashmediaelement.swf") + "' />");
+            //    writer.Write("type='application/x-shockwave-flash' ");
+            //    writer.Write("data='" + Page.ResolveUrl(mediaElementBasePath + "flashmediaelement.swf") + "'>");
+            //    writer.Write("<param name='movie' value='" + Page.ResolveUrl(mediaElementBasePath + "flashmediaelement.swf") + "' />");
 
-                writer.Write("<param name='flashvars' ");
-                writer.Write("value='controls=true&file=");
-                writer.Write(Page.ResolveUrl(fileUrl));
-                writer.Write("' />");
+            //    writer.Write("<param name='flashvars' ");
+            //    writer.Write("value='controls=true&file=");
+            //    writer.Write(Page.ResolveUrl(fileUrl));
+            //    writer.Write("' />");
 
-                if (posterUrl.Length > 0)
-                {
-                    writer.Write("<img src='");
-                    writer.Write(Page.ResolveUrl(posterUrl));
-                    writer.Write("' ");
+            //    if (posterUrl.Length > 0)
+            //    {
+            //        writer.Write("<img src='");
+            //        writer.Write(Page.ResolveUrl(posterUrl));
+            //        writer.Write("' ");
 
-                    if (Width != Unit.Empty)
-                    {
-                        writer.Write("width='" + Width.ToString() + "' ");
-                    }
+            //        if (Width != Unit.Empty)
+            //        {
+            //            writer.Write("width='" + Width.ToString() + "' ");
+            //        }
 
-                    if (Height != Unit.Empty)
-                    {
-                        writer.Write("height='" + Height.ToString() + "' ");
-                    }
+            //        if (Height != Unit.Empty)
+            //        {
+            //            writer.Write("height='" + Height.ToString() + "' ");
+            //        }
 
-                    writer.Write("alt='");
-                    if (title.Length > 0)
-                    {
-                        writer.Write(title);
-                    }
-                    else
-                    {
-                        writer.Write(" ");
-                    }
-                    writer.Write("' />");
+            //        writer.Write("alt='");
+            //        if (title.Length > 0)
+            //        {
+            //            writer.Write(title);
+            //        }
+            //        else
+            //        {
+            //            writer.Write(" ");
+            //        }
+            //        writer.Write("' />");
 
-                }
+            //    }
 
-                writer.Write("</object>");
+            //    writer.Write("</object>");
 
-            }
+            //}
 
             writer.Write("</video>");
 

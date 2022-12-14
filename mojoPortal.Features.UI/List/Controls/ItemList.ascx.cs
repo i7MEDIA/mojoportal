@@ -1,17 +1,6 @@
-﻿// Author:					
-// Created:					2010-12-06
-// Last Modified:			2015-01-19
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using mojoPortal.Business;
+﻿using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Helpers;
 using mojoPortal.SearchIndex;
 using mojoPortal.Web.Framework;
 using Resources;
@@ -34,8 +23,6 @@ namespace mojoPortal.Web.LinksUI
         private int pageNumber = 1;
         private int totalPages = 1;
         private ListConfiguration config = new ListConfiguration();
-        //private string cacheDependencyKey;
-        private string webSnaprKey = string.Empty;
 
         public ListConfiguration Config
         {
@@ -83,7 +70,6 @@ namespace mojoPortal.Web.LinksUI
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadSettings();
-            SetupScripts();
 
             if (Page.IsPostBack) { return; }
             PopulateControls();
@@ -125,7 +111,7 @@ namespace mojoPortal.Web.LinksUI
                             SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
                             PageSettings currentPage = CacheHelper.GetCurrentPage();
 
-                            if (SiteUtils.IsSecureRequest() && (!currentPage.RequireSsl) && (!siteSettings.UseSslOnAllPages))
+                            if (WebHelper.IsSecureRequest() && (!currentPage.RequireSsl) && (!siteSettings.UseSslOnAllPages))
                             {
                                 if (WebConfigSettings.ForceHttpForCanonicalUrlsThatDontRequireSsl)
                                 {
@@ -136,19 +122,25 @@ namespace mojoPortal.Web.LinksUI
 
                             }
 
-                            Literal link = new Literal();
-                            link.ID = "threadurl";
-                            link.Text = "\n<link rel='canonical' href='" + canonicalUrl + "' />";
+                            Literal link = new Literal
+                            {
+                                ID = "threadurl",
+                                Text = "\n<link rel='canonical' href='" + canonicalUrl + "' />"
+                            };
 
                             Page.Header.Controls.Add(link);
 
-                            Literal nextLink = new Literal();
-                            nextLink.ID = "threadNextLink";
-                            nextLink.Text = "\n<link rel='next' href='" + nextUrl + "' />";
+                            Literal nextLink = new Literal
+                            {
+                                ID = "threadNextLink",
+                                Text = "\n<link rel='next' href='" + nextUrl + "' />"
+                            };
 
-                            Literal prevLink = new Literal();
-                            prevLink.ID = "threadPrevLink";
-                            prevLink.Text = "\n<link rel='prev' href='" + previousUrl + "' />";
+                            Literal prevLink = new Literal
+                            {
+                                ID = "threadPrevLink",
+                                Text = "\n<link rel='prev' href='" + previousUrl + "' />"
+                            };
 
                             if (totalPages > 1)
                             {
@@ -275,19 +267,13 @@ namespace mojoPortal.Web.LinksUI
             string target)
         {
             if (string.IsNullOrEmpty(url)) { return string.Empty; }
-            string webSnapr = string.Empty;
-
-            if ((config.AddWebSnaprCssToLinks) && (webSnaprKey.Length > 0) && (!config.UseAjaxPaging))
-            {
-                webSnapr = "\n<div class='webSnapr'><script type=\"text/javascript\">wsr_snapshot('" + GetLinkUrl(url) + "', '" + webSnaprKey + "', 's');</script></div>";
-            }
 
             String link =  "<a class='" + linkCssClass + "' href='" + GetLinkUrl(url) + "' "
                 + GetTarget(target)
                 + GetTitle(title, description)
                 + ">"
                 + title
-                + "</a>" + webSnapr;
+                + "</a>";
 
             return link;
         }
@@ -341,54 +327,16 @@ namespace mojoPortal.Web.LinksUI
                 + "&pageid=" + PageId.ToInvariantString();
         }
 
-        private void SetupScripts()
-        {
-            if (config.UseAjaxPaging) { return; } //doesn't work except on first page when using ajax paging
-            if (!config.AddWebSnaprCssToLinks) { return; }
-            if (webSnaprKey.Length == 0) { return; }
-
-            // this script doesn't support https as far as I know
-            if (SiteUtils.IsSecureRequest()) { return; }
-
-            
-            mojoBasePage basePage = Page as mojoBasePage;
-            if (basePage != null) { basePage.ScriptConfig.IncludeWebSnapr = true; }
-            
-
-           //ScriptManager.RegisterClientScriptBlock(
-           //    this,
-           //    typeof(System.Web.UI.Page),
-           //     "websnapr", "\n<script src=\"http://bubble.websnapr.com/"
-           //     + config.WebSnaprKey + "/swh/" + "\" type=\"text/javascript\" ></script>", 
-           //     false);
-
-        }
-
         private void LoadSettings()
         {
             litIntro.Text = config.IntroContent;
-          
-            //cacheDependencyKey = "Module-" + ModuleId.ToString();
-            
+                    
             if (IsEditable)
             {
                 LinkImage = ImageSiteRoot + "/Data/SiteImages/" + EditContentImage;
                 DeleteImage = ImageSiteRoot + "/Data/SiteImages/" + DeleteLinkImage;
 
             }
-
-            webSnaprKey = config.WebSnaprKey;
-            if (webSnaprKey.Length == 0)
-            {
-                SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-                if ((siteSettings != null) && (siteSettings.WebSnaprKey.Length > 0))
-                {
-                    webSnaprKey = siteSettings.WebSnaprKey;
-                }
-
-            }
-
-            if (config.AddWebSnaprCssToLinks) { linkCssClass += " websnapr"; }
 
             if (config.UseAjaxPaging)
             {
@@ -411,19 +359,9 @@ namespace mojoPortal.Web.LinksUI
         {
             base.OnInit(e);
             this.Load += new EventHandler(Page_Load);
-            //this.rptLinks.ItemCommand += new RepeaterCommandEventHandler(rptLinks_ItemCommand);
-            //this.rptLinks.ItemDataBound += new RepeaterItemEventHandler(rptLinks_ItemDataBound);
-            //this.rptDescription.ItemCommand += new RepeaterCommandEventHandler(rptLinks_ItemCommand);
-            //this.rptDescription.ItemDataBound += new RepeaterItemEventHandler(rptLinks_ItemDataBound);
 
-
-#if NET35
             if (WebConfigSettings.DisablePageViewStateByDefault) {Page.EnableViewState = true; }
-#endif
         }
-
-
-
         #endregion
 
     }

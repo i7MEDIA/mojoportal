@@ -119,8 +119,8 @@ namespace mojoPortal.Features.UI.Comments
 
             userCanEdit = UserCanEditComment();
 
-            commentEditor.SiteGuid = CurrentSite.SiteGuid;
-            commentEditor.SiteId = CurrentSite.SiteId;
+            commentEditor.SiteGuid = SiteInfo.SiteGuid;
+            commentEditor.SiteId = SiteInfo.SiteId;
             commentEditor.SiteRoot = SiteRoot;
             commentEditor.CommentsClosed = !config.AllowComments;
             //commentEditor.CommentUrl = Request.RawUrl;

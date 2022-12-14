@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option or rebuild the Visual Studio project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class LinkResources {
@@ -241,15 +241,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable Link Preview from WebSnapr.com?.
-        /// </summary>
-        internal static string LinksAddWebSnaprCss {
-            get {
-                return ResourceManager.GetString("LinksAddWebSnaprCss", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string LinksDeleteLink {
@@ -399,15 +390,6 @@ namespace Resources {
         internal static string LinksViewOrderRequiredHelp {
             get {
                 return ResourceManager.GetString("LinksViewOrderRequiredHelp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to WebSnapr.com Key.
-        /// </summary>
-        internal static string LinksWebSnaprKeySetting {
-            get {
-                return ResourceManager.GetString("LinksWebSnaprKeySetting", resourceCulture);
             }
         }
         

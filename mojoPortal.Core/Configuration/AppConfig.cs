@@ -62,7 +62,7 @@ namespace mojoPortal.Core.Configuration
 		{
 			get
 			{
-				var defaultVal = ".asf|.asx|.avi|.css|.csv|.doc|.docx|.fla|.flv|.gif|.htm|.html|.ico|.jpeg|.jpg|.js|.json|.less|.m4a|.m4v|.mov|.mp3|.mp4|.mpeg|.mpg|.oga|.ogg|.ogv|.pdf|.png|.pps|.ppt|.pptx|.svg|.swf|.tif|.ttf|.txt|.wav|.webm|.webma|.webmv|.webp|.wmv|.woff|.xls|.xlsx|.xml|.zip";
+				var defaultVal = ".asf|.asx|.avi|.css|.csv|.doc|.docx|.gif|.htm|.html|.ico|.jpeg|.jpg|.js|.json|.less|.m4a|.m4v|.mov|.mp3|.mp4|.mpeg|.mpg|.oga|.ogg|.ogv|.pdf|.png|.pps|.ppt|.pptx|.svg|.tif|.ttf|.txt|.wav|.webm|.webma|.webmv|.webp|.wmv|.woff|.xls|.xlsx|.xml|.zip";
 				return ConfigHelper.GetStringProperty("StaticFileExtensions", defaultVal);
 			}
 		}
@@ -73,6 +73,30 @@ namespace mojoPortal.Core.Configuration
 			{
 				var defaultVal = "site,skin,system";
 				return ConfigHelper.GetStringProperty("EditorTemplatesOrder", defaultVal);
+			}
+		}
+
+		public static string JQueryVersion
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("JQueryVersion", "3.6.0");
+			}
+		}
+
+		public static string JQueryUIVersion
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("JQueryUIVersion", "~/Scripts/");
+			}
+		}
+
+		public static string JQueryBasePath
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("JQueryPath", "~/Scripts/");
 			}
 		}
 	}

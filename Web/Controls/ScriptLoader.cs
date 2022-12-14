@@ -1,4 +1,7 @@
-﻿using mojoPortal.Core.Helpers;
+﻿using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Helpers;
+using mojoPortal.Web.Framework;
 using Resources;
 using System;
 using System.Configuration;
@@ -20,7 +23,7 @@ namespace mojoPortal.Web.UI
 
 		ScriptManager scriptManager = null;
 		private string protocol = "http";
-
+		private SiteSettings siteSettings;
 		/// <summary>
 		/// if you set this to false then you need this in layout.master ScriptManagerDeclaration:
 		/// <asp:ScriptManager runat="server">
@@ -68,26 +71,6 @@ namespace mojoPortal.Web.UI
 		public bool IncludeGoogleSearch { get; set; } = false;
 		public bool IncludeGoogleSearchV2 { get; set; } = false;
 		public string GoogleSearchV2Id { get; set; } = string.Empty;
-		public bool IncludeWebSnapr { get; set; } = false;
-
-		private bool includeClueTip = false;
-
-		public bool IncludeClueTip
-		{
-			get
-			{
-				return includeClueTip;
-			}
-			set
-			{
-				includeClueTip = value;
-				
-				if (includeClueTip)
-				{
-					IncludeJQuery = true;
-				}
-			}
-		}
 
 		private bool includeSimpleFaq = true;
 
@@ -108,27 +91,6 @@ namespace mojoPortal.Web.UI
 			}
 		}
 
-		private bool includeMarkitUpHtml = false;
-
-		public bool IncludeMarkitUpHtml
-		{
-			get
-			{
-				return includeMarkitUpHtml;
-			}
-			set
-			{
-				includeMarkitUpHtml = value;
-
-				if (includeMarkitUpHtml)
-				{
-					IncludeJQuery = true;
-				}
-			}
-		}
-
-		public bool IncludeYahooMediaPlayer { get; set; } = false;
-		public bool IncludeSwfObject { get; set; } = false;
 		public bool IncludeJQuery { get; set; } = true;
 
 		private bool includejPlayer = false;
@@ -239,45 +201,6 @@ namespace mojoPortal.Web.UI
 		/// </summary>
 		public string JQueryAccordionNoHeightConfig { get; set; } = "{heightStyle:'content',animate:{opacity:'toggle',duration:'400'}}";
 
-		private bool includeQtFile = false;
-		public bool IncludeQtFile
-		{
-			get
-			{
-				return includeQtFile;
-			}
-			set
-			{
-				includeQtFile = value;
-
-				if (includeQtFile)
-				{
-					includeImpromtu = true;
-					IncludeJQuery = true;
-					IncludejQueryUICore = true;
-				}
-			}
-		}
-
-		private bool includeImpromtu = false;
-		public bool IncludeImpromtu
-		{
-			get
-			{
-				return includeImpromtu;
-			}
-			set
-			{
-				includeImpromtu = value;
-
-				if (includeImpromtu)
-				{
-					IncludeJQuery = true;
-					IncludejQueryUICore = true;
-				}
-			}
-		}
-
 		private bool includeJqueryScroller = false;
 		public bool IncludeJqueryScroller
 		{
@@ -290,24 +213,6 @@ namespace mojoPortal.Web.UI
 				includeJqueryScroller = value;
 
 				if (includeJqueryScroller)
-				{
-					IncludeJQuery = true;
-				}
-			}
-		}
-
-		private bool includeFlickrGallery = false;
-		public bool IncludeFlickrGallery
-		{
-			get
-			{
-				return includeFlickrGallery;
-			}
-			set
-			{
-				includeFlickrGallery = value;
-
-				if (includeFlickrGallery)
 				{
 					IncludeJQuery = true;
 				}
@@ -339,58 +244,15 @@ namespace mojoPortal.Web.UI
 
 
 		private bool includeColorPicker = false;
-		private bool includeSlider = false;
-		private bool includeYuiDom = false;
 		public bool IncludeColorPicker
 		{
 			get { return includeColorPicker; }
 			set
 			{
 				includeColorPicker = value;
-				if (includeColorPicker)
-				{
-					includeYuiDom = true;
-					includeSlider = true;
-
-				}
 			}
 		}
 
-		private bool includeYuiTabs = false;
-		public bool IncludeYuiTabs
-		{
-			get
-			{
-				return includeYuiTabs;
-			}
-			set
-			{
-				includeYuiTabs = value;
-
-				if (includeYuiTabs)
-				{
-					includeYuiDom = true;
-				}
-			}
-		}
-
-		private bool includeYuiAccordion = false;
-		public bool IncludeYuiAccordion
-		{
-			get
-			{
-				return includeYuiAccordion;
-			}
-			set
-			{
-				includeYuiAccordion = value;
-
-				if (includeYuiAccordion)
-				{
-					includeYuiDom = true;
-				}
-			}
-		}
 
 		public bool RenderjQueryInHead { get; set; } = true;
 		public bool AssumejQueryIsLoaded { get; set; } = false;
@@ -448,26 +310,6 @@ namespace mojoPortal.Web.UI
 
 		public bool IncludeKnockoutJs { get; set; } = false;
 
-		private bool includeImageFit = false;
-		public bool IncludeImageFit
-		{
-			get
-			{
-				return includeImageFit;
-			}
-			set
-			{
-				includeImageFit = value;
-
-				if (includeImageFit)
-				{
-					IncludeJQuery = true;
-				}
-			}
-		}
-
-		public string ImageFitSelector { get; set; } = string.Empty;
-
 		/// <summary>
 		///  in case you need to override with a different script file to include more things
 		/// </summary>
@@ -501,19 +343,19 @@ namespace mojoPortal.Web.UI
 					includejPlayer = true;
 					IncludeJQueryMigrate = true;
 				}
-
 			}
 		}
 
+		public string ScriptFormatRef { get; set; } = "\n<script src=\"{0}\" data-loader=\"scriptloader\"></script>";
+		public string ScriptFormatInline { get; set; } = "\n<script data-loader=\"scriptloader\">{0}</script>";
 		#endregion
-
 
 		protected override void Render(HtmlTextWriter writer)
 		{
 			// Modernizr needs to be the first script in the head
 			if (IncludeModernizr)
 			{
-				writer.Write($"\n<script src=\"{Page.ResolveUrl("~/ClientScript/" + ModernizrFileName)}\"></script>");
+				writer.WriteLine(string.Format(ScriptFormatRef, Page.ResolveUrl("~/ClientScript/" + ModernizrFileName)));
 			}
 
 			if (RenderjQueryInHead)
@@ -527,11 +369,11 @@ namespace mojoPortal.Web.UI
 				{
 					string jqueryBasePath = GetJQueryBasePath();
 
-					writer.Write($"\n<script src=\"{jqueryBasePath}jquery.min.js\"></script>");
+					writer.Write(string.Format(ScriptFormatRef, $"{jqueryBasePath}jquery.min.js"));
 
 					if (IncludeJQueryMigrate)
 					{
-						writer.Write($"\n<script src=\"{Page.ResolveUrl(JQueryMigrateUrl)}\"></script>");
+						writer.Write(string.Format(ScriptFormatRef, Page.ResolveUrl(JQueryMigrateUrl)));
 					}
 				}
 
@@ -539,18 +381,19 @@ namespace mojoPortal.Web.UI
 				{
 					string jqueryUIBasePath = GetJQueryUIBasePath();
 
-					writer.Write($"\n<script src=\"{jqueryUIBasePath}jquery-ui.min.js\"></script>");
+					writer.Write(string.Format(ScriptFormatRef, $"{jqueryUIBasePath}jquery-ui.min.js"));
+
 				}
 			}
 
 			if (!AssumeMojoCombinedIsLoaded && RenderCombinedInHead)
 			{
-				writer.Write($"\n<script src=\"{Page.ResolveUrl($"~/ClientScript/{MojoCombinedFullScript}?{WebConfigSettings.mojoCombinedScriptVersionParam}")}\"></script>");
+				writer.Write(string.Format(ScriptFormatRef, Page.ResolveUrl($"~/ClientScript/{MojoCombinedFullScript}?{WebConfigSettings.mojoCombinedScriptVersionParam}")));
 			}
 
 			if (IncludeGoogleSearchV2 && GoogleSearchV2Id.Length > 0)
 			{
-				writer.Write(BuildGoogleSearchV2Script());
+				writer.Write(string.Format(ScriptFormatInline, BuildGoogleSearchV2Script()));
 			}
 
 			if (IncludeAjaxToolkit || AlwaysIncludeAjaxToolkit)
@@ -559,7 +402,6 @@ namespace mojoPortal.Web.UI
 				{
 					if (AutoAddAjaxToolkitCss)
 					{
-						writer.Write("\n");
 						writer.Write(Styles.Render("~/Content/AjaxControlToolkit/Styles/Bundle").ToHtmlString());
 					}
 				}
@@ -569,22 +411,17 @@ namespace mojoPortal.Web.UI
 
 		private string BuildGoogleSearchV2Script()
 		{
-			var script = $@"<script>
-(function() {{
-	var cx = '{GoogleSearchV2Id}';
-	var gcse = document.createElement('script');
-	
-	gcse.type = 'text/javascript';
-	gcse.async = true;
-	gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx; 
+			var script = $@"(function() {{
+var cx = '{GoogleSearchV2Id}';
+var gcse = document.createElement('script');	
+gcse.type = 'text/javascript';
+gcse.async = true;
+gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx; 
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(gcse, s);
+}})();";
 
-	var s = document.getElementsByTagName('script')[0];
-
-	s.parentNode.insertBefore(gcse, s);
-}})();
-</script>";
-
-			return script;
+			return script.RemoveLineBreaks(Replacement: " ").RemoveMultipleSpaces();
 		}
 
 
@@ -604,7 +441,7 @@ namespace mojoPortal.Web.UI
 				}
 			}
 
-			//setup these in page load to ensure the come in before other scripts that may depend on them
+			//setup these in page load to ensure they come in before other scripts that may depend on them
 			SetupCoreScripts();
 		}
 
@@ -613,12 +450,7 @@ namespace mojoPortal.Web.UI
 		{
 			base.OnPreRender(e);
 
-			if (HttpContext.Current == null)
-			{
-				return;
-			}
-
-			if (HttpContext.Current.Request == null)
+			if (HttpContext.Current == null || HttpContext.Current.Request == null)
 			{
 				return;
 			}
@@ -627,6 +459,8 @@ namespace mojoPortal.Web.UI
 			{
 				protocol = "https";
 			}
+
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
 
 			SetupScripts();
 		}
@@ -679,24 +513,9 @@ namespace mojoPortal.Web.UI
 
 				SetupInitScript();
 
-				if (includeImpromtu)
-				{
-					SetupImpromtu();
-				}
-
-				if (includeQtFile)
-				{
-					SetupQtFile();
-				}
-
 				if (includejQueryValidator)
 				{
 					SetupJQueryValidate();
-				}
-
-				if (includeFlickrGallery)
-				{
-					SetupFlickrGallery();
 				}
 
 				if (includeColorBox)
@@ -704,29 +523,14 @@ namespace mojoPortal.Web.UI
 					SetupColorBox();
 				}
 
-				if (includeMarkitUpHtml)
-				{
-					SetupMarkitUpHtml();
-				}
-
 				if (includejPlayer)
 				{
 					SetupjPlayer();
 				}
 
-				if (includeJqueryTmpl)
-				{
-					SetupJQueryTmpl();
-				}
-
 				if (includeJqueryScroller)
 				{
 					SetupScroller();
-				}
-
-				if (includeClueTip)
-				{
-					SetupClueTip();
 				}
 
 				if (includejQueryCycle)
@@ -750,26 +554,6 @@ namespace mojoPortal.Web.UI
 				SetupKnockoutJs();
 			}
 
-			if (includeImageFit)
-			{
-				SetupJQueryImageFit();
-			}
-
-			if (!WebConfigSettings.DisableWebSnapr && IncludeWebSnapr)
-			{
-				SetupWebSnapr();
-			}
-
-			if (IncludeYahooMediaPlayer)
-			{
-				SetupYahooMediaPlayer();
-			}
-
-			if (IncludeSwfObject)
-			{
-				SetupSwfObject();
-			}
-
 			SetupBrowserSpecificScripts();
 
 			if (IncludeGreyBox)
@@ -790,7 +574,7 @@ namespace mojoPortal.Web.UI
 					Page,
 					typeof(Page),
 					"requireExitPrompt",
-					"\n<script>requireExitPrompt = true;</script>",
+					string.Format(ScriptFormatInline, "requireExitPrompt = true;"),
 					false
 				);
 			}
@@ -823,11 +607,6 @@ namespace mojoPortal.Web.UI
 					initAutoScript.Append("$('.faqs dd').hide();"); // Hide all DDs inside .faqs
 					initAutoScript.Append("$('.faqs dt').hover(function(){$(this).addClass('hover')},function(){$(this).removeClass('hover')}).click(function(){ "); // Add class "hover" on dt when hover
 					initAutoScript.Append("$(this).next().slideToggle('normal'); });"); // Toggle dd when the respective dt is clicked
-				}
-
-				if (includeImageFit && ImageFitSelector.Length > 0)
-				{
-					initAutoScript.Append($"$('{ImageFitSelector}').imagefit();");
 				}
 
 				if (IncludeJQTable && !DisableJQTable)
@@ -866,7 +645,7 @@ $('table.jqtable tr').click(function() {
 					this,
 					typeof(Page),
 					"jui-init",
-					$"\n<script>{initAutoScript}</script>",
+					string.Format(ScriptFormatInline, initAutoScript),
 					false
 				);
 			}
@@ -973,12 +752,7 @@ $('table.jqtable tr').click(function() {
 
 		private void SetupAjaxControlToolkitScripts(ScriptManager scriptManager)
 		{
-			if (WebConfigSettings.DisableAjaxToolkitBundlesAndScriptReferences)
-			{
-				return;
-			}
-
-			if (scriptManager == null)
+			if (WebConfigSettings.DisableAjaxToolkitBundlesAndScriptReferences || scriptManager == null)
 			{
 				return;
 			}
@@ -991,12 +765,7 @@ $('table.jqtable tr').click(function() {
 
 		private void AddPathScriptReference(ScriptManager scriptManager, ScriptReference scriptReference)
 		{
-			if (scriptManager == null)
-			{
-				return;
-			}
-
-			if (scriptReference == null)
+			if (scriptManager == null || scriptReference == null)
 			{
 				return;
 			}
@@ -1034,9 +803,13 @@ $('table.jqtable tr').click(function() {
 		{
 			if (WebConfigSettings.UseGoogleCDN)
 			{
-				return WebConfigSettings.GoogleCDNJQueryBaseUrl + WebConfigSettings.GoogleCDNjQueryVersion + "/";
+				var baseUrl = WebConfigSettings.GoogleCDNJQueryBaseUrl;
+				if (baseUrl.StartsWith("//"))
+				{
+					baseUrl = $"{protocol}:{baseUrl}";
+				}
+				return $"{baseUrl + WebConfigSettings.GoogleCDNjQueryVersion}/";
 			}
-
 			return Page.ResolveUrl(WebConfigSettings.jQueryBasePath);
 		}
 
@@ -1057,7 +830,7 @@ $('table.jqtable tr').click(function() {
 
 			if (WebConfigSettings.UseGoogleCDN)
 			{
-				Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "jquery", $"\n<script src=\"{jqueryBasePath}jquery.min.js\"></script>");
+				Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "jquery", string.Format(ScriptFormatRef, $"{jqueryBasePath}jquery.min.js"));
 			}
 			else
 			{
@@ -1072,7 +845,7 @@ $('table.jqtable tr').click(function() {
 				}
 				else
 				{
-					Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "jquery", $"\n<script src=\"{jqueryBasePath}jquery.min.js\"></script>");
+					Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "jquery", string.Format(ScriptFormatRef, $"{jqueryBasePath}jquery.min.js"));
 				}
 			}
 		}
@@ -1082,7 +855,12 @@ $('table.jqtable tr').click(function() {
 		{
 			if (WebConfigSettings.UseGoogleCDN)
 			{
-				return WebConfigSettings.GoogleCDNJQueryUIBaseUrl + WebConfigSettings.GoogleCDNjQueryUIVersion + "/";
+				var baseUrl = WebConfigSettings.GoogleCDNJQueryUIBaseUrl;
+				if (baseUrl.StartsWith("//"))
+				{
+					baseUrl = $"{protocol}:{baseUrl}";
+				}
+				return $"{baseUrl + WebConfigSettings.GoogleCDNjQueryUIVersion}/";
 			}
 
 			return Page.ResolveUrl(WebConfigSettings.jQueryUIBasePath);
@@ -1105,7 +883,7 @@ $('table.jqtable tr').click(function() {
 					Page.ClientScript.RegisterClientScriptBlock(
 						typeof(Page),
 						"jqueryui-core",
-						$"\n<script src=\"{jqueryUIBasePath}jquery-ui.min.js\"></script>"
+						string.Format(ScriptFormatRef, Page.ResolveUrl("~/ClientScript/" + ModernizrFileName))
 					);
 				}
 				else
@@ -1124,7 +902,7 @@ $('table.jqtable tr').click(function() {
 						Page.ClientScript.RegisterClientScriptBlock(
 							typeof(Page),
 							"jqueryui-core",
-							$"\n<script src=\"{jqueryUIBasePath}jquery-ui.min.js\"></script>"
+							string.Format(ScriptFormatRef, Page.ResolveUrl("~/ClientScript/" + ModernizrFileName))
 						);
 					}
 				}
@@ -1156,12 +934,12 @@ $('table.jqtable tr').click(function() {
 				Page.ClientScript.RegisterClientScriptBlock(
 					typeof(Page),
 					"cssadapterutils",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/CSSFriendly/AdapterUtils.min.js")}\"></script>"
+					string.Format(ScriptFormatRef, $"{Page.ResolveUrl("~/ClientScript/CSSFriendly/AdapterUtils.min.js")}")
 				);
 				Page.ClientScript.RegisterClientScriptBlock(
 					typeof(Page),
 					"treeviewadapter",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/CSSFriendly/TreeViewAdapter.min.js")}\"></script>"
+					string.Format(ScriptFormatRef, $"{Page.ResolveUrl("~/ClientScript/CSSFriendly/TreeViewAdapter.min.js")}")
 				);
 			}
 		}
@@ -1190,12 +968,12 @@ $('table.jqtable tr').click(function() {
 				Page.ClientScript.RegisterClientScriptBlock(
 					typeof(Page),
 					"cssadapterutils",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/CSSFriendly/AdapterUtils.min.js")}\"></script>"
+					string.Format(ScriptFormatRef, $"{Page.ResolveUrl("~/ClientScript/CSSFriendly/AdapterUtils.min.js")}")
 				);
 				Page.ClientScript.RegisterClientScriptBlock(
 					typeof(Page),
 					"aspmenuadapter",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/CSSFriendly/MenuAdapter.min.js")}\"></script>"
+					string.Format(ScriptFormatRef, $"{Page.ResolveUrl("~/ClientScript/CSSFriendly/MenuAdapter.min.js")}")
 				);
 			}
 		}
@@ -1211,7 +989,7 @@ $('table.jqtable tr').click(function() {
 			Page.ClientScript.RegisterClientScriptBlock(
 				typeof(Page),
 				"jqcycle",
-				$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/jqmojo/jquery.cycle.all.min.js")}\"></script>"
+				string.Format(ScriptFormatRef, $"{Page.ResolveUrl("~/ClientScript/jqmojo/jquery.cycle.all.min.js")}")
 			);
 		}
 
@@ -1227,7 +1005,7 @@ $('table.jqtable tr').click(function() {
 				this,
 				typeof(Page),
 				"nivoslidermain",
-				$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/jqmojo/jquery.nivo.slider.pack3-2.js")}\"></script>",
+				string.Format(ScriptFormatRef, $"{Page.ResolveUrl("~/ClientScript/jqmojo/jquery.nivo.slider.pack3-2.js")}"),
 				false
 			);
 		}
@@ -1245,65 +1023,10 @@ $('table.jqtable tr').click(function() {
 				this,
 				typeof(Page),
 				"mediaelementmain",
-				$"\n<script src=\"{Page.ResolveUrl(MediaElementScriptPath)}\"></script>",
+				string.Format(ScriptFormatRef, Page.ResolveUrl(MediaElementScriptPath)),
 				false
 			);
 		}
-
-
-		private void SetupJQueryTmpl()
-		{
-			if (WebConfigSettings.DisablejQueryUI)
-			{
-				return;
-			}
-
-			if (CombineScriptsWithScriptManager)
-			{
-				ScriptReference script = new ScriptReference
-				{
-					Path = "~/ClientScript/jqmojo/jquery.tmpl.js"
-				};
-
-				AddPathScriptReference(scriptManager, script);
-			}
-			else
-			{
-				Page.ClientScript.RegisterClientScriptBlock(
-					typeof(Page),
-					"jqtmpl",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/jqmojo/jquery.tmpl.js")}\"></script>"
-				);
-			}
-		}
-
-
-		private void SetupJQueryImageFit()
-		{
-			if (WebConfigSettings.DisablejQueryUI)
-			{
-				return;
-			}
-
-			if (CombineScriptsWithScriptManager)
-			{
-				ScriptReference script = new ScriptReference
-				{
-					Path = "~/ClientScript/jqmojo/jquery.imagefit.min.js"
-				};
-
-				AddPathScriptReference(scriptManager, script);
-			}
-			else
-			{
-				Page.ClientScript.RegisterClientScriptBlock(
-					typeof(Page),
-					"jqimagefit",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/jqmojo/jquery.imagefit.min.js")}\"></script>"
-				);
-			}
-		}
-
 
 		private void SetupKnockoutJs()
 		{
@@ -1323,11 +1046,10 @@ $('table.jqtable tr').click(function() {
 				Page.ClientScript.RegisterClientScriptBlock(
 					typeof(Page),
 					"knockoutjs",
-					$"\n<script src=\"{Page.ResolveUrl(KnockouJsPath)}\"></script>"
+					string.Format(ScriptFormatRef, Page.ResolveUrl(KnockouJsPath))
 				);
 			}
 		}
-
 
 		private void SetupJQueryValidate()
 		{
@@ -1345,83 +1067,10 @@ $('table.jqtable tr').click(function() {
 				Page.ClientScript.RegisterClientScriptBlock(
 					typeof(Page),
 					"jqvalidate",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/jqmojo/jquery.validate.min.js")}\"></script>"
+					string.Format(ScriptFormatRef, Page.ResolveUrl("~/ClientScript/jqmojo/jquery.validate.min.js"))
 				);
 			}
 		}
-
-
-		private void SetupQtFile()
-		{
-			CultureInfo defaultCulture = SiteUtils.GetDefaultUICulture();
-
-			bool loadedQtLangFile = false;
-
-			if (defaultCulture.TwoLetterISOLanguageName != "en")
-			{
-				if (File.Exists(HostingEnvironment.MapPath($"~/ClientScript/jqmojo/{defaultCulture.TwoLetterISOLanguageName}.qtfile.js")))
-				{
-					if (CombineScriptsWithScriptManager)
-					{
-						ScriptReference script = new ScriptReference
-						{
-							Path = $"~/ClientScript/jqmojo/{defaultCulture.TwoLetterISOLanguageName}.qtfile.js"
-						};
-
-						AddPathScriptReference(scriptManager, script);
-					}
-					else
-					{
-						Page.ClientScript.RegisterClientScriptBlock(
-							typeof(Page),
-							"qtfilelocalize",
-							$"\n<script src=\"{Page.ResolveUrl($"~/ClientScript/jqmojo/{defaultCulture.TwoLetterISOLanguageName}.qtfile.js")}\"></script>"
-						);
-					}
-
-					loadedQtLangFile = true;
-				}
-			}
-
-			if (!loadedQtLangFile)
-			{
-				Page.ClientScript.RegisterClientScriptBlock(
-					typeof(Page),
-					"qtfilelocalize",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/jqmojo/en.qtfile.js")}\"></script>"
-				);
-			}
-
-			Page.ClientScript.RegisterClientScriptBlock(
-				typeof(Page),
-				"qtfile",
-				$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/jqmojo/mojoqtfilev2.js")}\"></script>"
-			);
-		}
-
-
-		private void SetupFlickrGallery()
-		{
-
-			if (UseMobileVersionOfFlickrGallery)
-			{
-				// only difference is the positioning of the lightbox
-				Page.ClientScript.RegisterClientScriptBlock(
-					typeof(Page),
-					"jqflickrgal",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/jqueryflickr/inc/flickrGallery-mobile-min.js")}\"></script>"
-				);
-			}
-			else
-			{
-				Page.ClientScript.RegisterClientScriptBlock(
-					typeof(Page),
-					"jqflickrgal",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/jqueryflickr/inc/flickrGallery-min.js")}\"></script>"
-				);
-			}
-		}
-
 
 		private void SetupSizzle()
 		{
@@ -1439,7 +1088,7 @@ $('table.jqtable tr').click(function() {
 				Page.ClientScript.RegisterClientScriptBlock(
 					typeof(Page),
 					"sizzle",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/jqmojo/sizzle.js")}\"></script>"
+					string.Format(ScriptFormatRef, Page.ResolveUrl("~/ClientScript/jqmojo/sizzle.js"))
 				);
 			}
 		}
@@ -1450,7 +1099,7 @@ $('table.jqtable tr').click(function() {
 			Page.ClientScript.RegisterClientScriptBlock(
 				typeof(Page),
 				"jqprompt",
-				$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/jqmojo/jquery-impromptu42.min.js")}\"></script>"
+				string.Format(ScriptFormatRef, Page.ResolveUrl("~/ClientScript/jqmojo/jquery-impromptu42.min.js"))
 			);
 		}
 
@@ -1471,7 +1120,7 @@ $('table.jqtable tr').click(function() {
 				Page.ClientScript.RegisterClientScriptBlock(
 					typeof(Page),
 					"jqcolorbox",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/colorbox/jquery.colorbox-min.js")}\"></script>"
+					string.Format(ScriptFormatRef, Page.ResolveUrl("~/ClientScript/colorbox/jquery.colorbox-min.js"))
 				);
 			}
 		}
@@ -1493,7 +1142,7 @@ $('table.jqtable tr').click(function() {
 				Page.ClientScript.RegisterClientScriptBlock(
 					typeof(Page),
 					"jqscroller",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/jqmojo/jquery.scroller.min.js")}\"></script>"
+					string.Format(ScriptFormatRef, Page.ResolveUrl("~/ClientScript/jqmojo/jquery.scroller.min.js"))
 				);
 			}
 		}
@@ -1504,7 +1153,7 @@ $('table.jqtable tr').click(function() {
 			Page.ClientScript.RegisterClientScriptBlock(
 				typeof(Page),
 				"jplayer",
-				$"\n<script src=\"{Page.ResolveUrl(WebConfigSettings.JPlayerBasePath + "jquery.jplayer.min.js")}\"></script>"
+				string.Format(ScriptFormatRef, Page.ResolveUrl(WebConfigSettings.JPlayerBasePath + "jquery.jplayer.min.js"))
 			);
 
 			if (includejPlayerPlaylist)
@@ -1512,212 +1161,19 @@ $('table.jqtable tr').click(function() {
 				Page.ClientScript.RegisterClientScriptBlock(
 					typeof(Page),
 					"jplayer-playlist",
-					$"\n<script src=\"{Page.ResolveUrl(WebConfigSettings.JPlayerBasePath + "add-on/jplayer.playlist.min.js")}\"></script>"
-				);
-			}
-		}
-
-
-		// TODO: when jQueryUI ships it will have a built in tooltip so we can get rid of this/
-		private void SetupClueTip()
-		{
-			if (WebConfigSettings.DisablejQueryUI)
-			{ 
-				return;
-			}
-
-			if (CombineScriptsWithScriptManager)
-			{
-				ScriptReference script = new ScriptReference
-				{
-					Path = "~/ClientScript/jqmojo/jquery.cluetip.min.js"
-				};
-
-				AddPathScriptReference(scriptManager, script);
-			}
-			else
-			{
-				Page.ClientScript.RegisterClientScriptBlock(
-					typeof(Page),
-					"cluetip",
-					$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/jqmojo/jquery.cluetip.min.js")}\"></script>"
-				);
-			}
-
-			var initAutoScript = @"
-$(document).ready(function() {
-	$('a.cluetiplink').cluetip({
-		attribute:'href',
-		topOffset:25,
-		leftOffset:25
-	});
-});";
-
-			Page.ClientScript.RegisterStartupScript(
-				typeof(Page),
-				"cluetip-init",
-				$"\n<script >{initAutoScript}</script>"
-			);
-		}
-
-
-		private void SetupMarkitUpHtml()
-		{
-			if (AssumeMarkitupIsLoaded)
-			{
-				return;
-			}
-
-			Page.ClientScript.RegisterClientScriptBlock(
-				typeof(Page),
-				"markitup",
-				$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/markitup/jquery.markitup-html.js")}\"></script>"
-			);
-
-			var initAutoScript = @"
-$(document).ready(function() {
-	$('textarea.markituphtml').markItUp(htmlSettings);
-});";
-
-			Page.ClientScript.RegisterStartupScript(
-				typeof(Page),
-				"markituphtml-init",
-				$"\n<script>{initAutoScript}</script>"
-			);
-		}
-
-		#endregion
-
-
-		#region swfobject
-
-		private string GetSwfObjectUrl()
-		{
-			var version = "2.2";
-
-			if (ConfigurationManager.AppSettings["GoogleCDNSwfObjectVersion"] != null)
-			{
-				version = ConfigurationManager.AppSettings["GoogleCDNSwfObjectVersion"];
-			}
-
-			if (WebConfigSettings.UseGoogleCDN)
-			{
-				return $"{protocol}://ajax.googleapis.com/ajax/libs/swfobject/{version}/swfobject.js";
-			}
-
-			if (ConfigurationManager.AppSettings["SwfObjectUrl"] != null)
-			{
-				string surl = ConfigurationManager.AppSettings["SwfObjectUrl"];
-
-				return Page.ResolveUrl(surl);
-			}
-
-			return string.Empty;
-		}
-
-
-		private void SetupSwfObject()
-		{
-			if (HttpContext.Current == null)
-			{
-				return;
-			}
-
-			if (HttpContext.Current.Request == null)
-			{
-				return;
-			}
-
-			if (WebConfigSettings.DisableSwfObject)
-			{
-				return;
-			}
-
-			//http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js
-			string swfUrl = GetSwfObjectUrl();
-
-			if (swfUrl.Length > 0)
-			{
-				Page.ClientScript.RegisterClientScriptBlock(
-					typeof(Page),
-					"swfobject",
-					$"\n<script src=\"{swfUrl}\"></script>"
+					string.Format(ScriptFormatRef, $"{Page.ResolveUrl(WebConfigSettings.JPlayerBasePath + "add-on/jplayer.playlist.min.js")}")
 				);
 			}
 		}
 
 		#endregion
-
-
-		private void SetupWebSnapr()
-		{
-			if (HttpContext.Current == null)
-			{
-				return;
-			}
-
-			if (HttpContext.Current.Request == null)
-			{
-				return;
-			}
-
-			// this script doesn't support https as far as I know
-			if (WebHelper.IsSecureRequest())
-			{
-				return;
-			}
-
-			Page.ClientScript.RegisterClientScriptBlock(
-				typeof(Page),
-				"websnapr",
-				$"\n<script src=\"http://www.websnapr.com/js/websnapr.js\"></script>"
-			);
-		}
-
-
-		private void SetupYahooMediaPlayer()
-		{
-			if (HttpContext.Current == null)
-			{
-				return;
-			}
-
-			if (HttpContext.Current.Request == null)
-			{
-				return;
-			}
-
-			//https not supported
-			if (WebHelper.IsSecureRequest()) 
-			{
-				return;
-			}
-
-			//yahoo media player doesn't seem to work on localhost so usethe delicious one
-			if (HttpContext.Current.Request.Url.ToString().Contains("localhost"))
-			{
-				Page.ClientScript.RegisterClientScriptBlock(
-					typeof(Page),
-					"dmedia",
-					"\n<script src=\"http://static.delicious.com/js/playtagger.js\"></script>");
-			}
-			else
-			{
-				Page.ClientScript.RegisterClientScriptBlock(
-					typeof(Page),
-					"yahoomedia",
-					"\n<script src=\"http://mediaplayer.yahoo.com/js\"></script>"
-				);
-			}
-		}
-
 
 		private void SetupGreyBox()
 		{
 			Page.ClientScript.RegisterClientScriptBlock(
 				typeof(Page),
 				"gbVar",
-				$"\n<script>var GB_ROOT_DIR = '{Page.ResolveUrl("~/ClientScript/greybox/")}'; var GBCloseText = '{Resource.CloseDialogButton}';</script>"
+				string.Format(ScriptFormatInline, $"var GB_ROOT_DIR = '{Page.ResolveUrl("~/ClientScript/greybox/")}'; var GBCloseText = '{Resource.CloseDialogButton}';")
 			);
 
 			//Page.ClientScript.RegisterClientScriptBlock(
@@ -1734,7 +1190,7 @@ $(document).ready(function() {
 			Page.ClientScript.RegisterClientScriptBlock(
 				typeof(Page),
 				"GreyBoxJs",
-				$"\n<script src=\"{Page.ResolveUrl("~/ClientScript/greybox/gbcombined.js")}\"></script>"
+				string.Format(ScriptFormatRef, Page.ResolveUrl("~/ClientScript/greybox/gbcombined.js"))
 			);
 		}
 
@@ -1762,7 +1218,7 @@ $(document).ready(function() {
 					Page.ClientScript.RegisterClientScriptBlock(
 						typeof(Page),
 						"mojocombined",
-						$"\n<script src=\"{Page.ResolveUrl("~/ClientScript" + MojoCombinedFullScript)}\"></script>"
+						string.Format(ScriptFormatRef, Page.ResolveUrl($"~/ClientScript{MojoCombinedFullScript}?{WebConfigSettings.mojoCombinedScriptVersionParam}"))
 					);
 				}
 			}
@@ -1783,7 +1239,7 @@ $(document).ready(function() {
 				Page.ClientScript.RegisterClientScriptBlock(
 					typeof(Page),
 					"gajaxmain",
-					$"\n<script src=\"{protocol}://www.google.com/jsapi?key={googleApiKey}\"></script>"
+					String.Format(ScriptFormatRef, $"{protocol}://www.google.com/jsapi?key={googleApiKey}")
 				);
 			}
 			else
@@ -1791,11 +1247,11 @@ $(document).ready(function() {
 				Page.ClientScript.RegisterClientScriptBlock(
 					typeof(Page),
 					"gajaxmain",
-					$"\n<script src=\"{protocol}://www.google.com/jsapi\"></script>"
-				);
+					String.Format(ScriptFormatRef, $"{protocol}://www.google.com/jsapi")
+				); ;
 			}
 
-			var script = $@"<script>
+			var script = string.Format(ScriptFormatInline, $@"
 {(IncludeGoogleMaps ? "google.load('maps', '2');" : string.Empty)}
 {(IncludeGoogleSearch ? $"google.load('search', '1', {{ language: '{LanguageCode}' }});" : string.Empty)}
 {(includeGoogleGeoLocator && Page.Request.IsAuthenticated ? $@"
@@ -1807,9 +1263,7 @@ function trackLocation() {{
 	}}
 }}
 
-google.setOnLoadCallback(trackLocation);
-</script>" : string.Empty)}
-";
+google.setOnLoadCallback(trackLocation);" : string.Empty)}");
 
 			Page.ClientScript.RegisterClientScriptBlock(
 				typeof(Page),
@@ -1834,8 +1288,8 @@ google.setOnLoadCallback(trackLocation);
 				{
 					//this fixes some ajax updatepanel issues in webkit
 					//http://forums.asp.net/p/1252014/2392110.aspx
-					try
-					{
+					//try
+					//{
 						ScriptReference scriptReference = new ScriptReference
 						{
 							Path = Page.ResolveUrl("~/ClientScript/AjaxWebKitFix.js")
@@ -1847,10 +1301,10 @@ google.setOnLoadCallback(trackLocation);
 						{
 							ajax.Scripts.Add(scriptReference);
 						}
-					}
+					//}
 					// this can happen if SP1 is not installed for .NET 3.5
-					catch (TypeLoadException)
-					{ }
+					//catch (TypeLoadException)
+					//{ }
 				}
 			}
 		}

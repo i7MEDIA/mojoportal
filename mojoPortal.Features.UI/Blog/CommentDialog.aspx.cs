@@ -128,8 +128,8 @@ namespace mojoPortal.Web.BlogUI
 
             userCanEdit = UserCanEditComment();
 
-            commentEditor.SiteGuid = CurrentSite.SiteGuid;
-            commentEditor.SiteId = CurrentSite.SiteId;
+            commentEditor.SiteGuid = SiteInfo.SiteGuid;
+            commentEditor.SiteId = SiteInfo.SiteId;
             commentEditor.SiteRoot = SiteRoot;
             commentEditor.CommentsClosed = false;
             //commentEditor.CommentUrl = Request.RawUrl;

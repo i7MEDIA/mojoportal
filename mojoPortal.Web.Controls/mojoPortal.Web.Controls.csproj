@@ -195,7 +195,6 @@
     <Compile Include="EventCalendar\DayNumberDiv.cs" />
     <Compile Include="EventCalendar\EventCalendar.cs" />
     <Compile Include="FancyPagerTemplate.cs" />
-    <Compile Include="FlashMovie.cs" />
     <Compile Include="FlexibleGridView.cs" />
     <Compile Include="FolderGallery\AlbumControl.cs" />
     <Compile Include="FolderGallery\AlbumFolderInfo.cs" />
