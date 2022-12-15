@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using SuperFlexiData;
 namespace SuperFlexiBusiness
 {
-	public class ItemWithValues 
+	public class ItemWithValues
 	{
 		public Item Item { get; set; }
 		public List<Field> Fields { get; set; }
@@ -16,7 +16,7 @@ namespace SuperFlexiBusiness
 
 		public ItemWithValues() { }
 
-		public ItemWithValues (int itemID)
+		public ItemWithValues(int itemID)
 		{
 			var reader = DBItems.GetOneWithValues(itemID);
 			while (reader.Read())
@@ -39,8 +39,6 @@ namespace SuperFlexiBusiness
 				Values = new Dictionary<string, object>();
 			}
 		}
-
-
 
 		public int CompareTo(ItemWithValues other)
 		{

@@ -16,44 +16,55 @@ namespace SuperFlexiUI
 	public class ClassBuilder
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(ClassBuilder));
-
-
-		private readonly ModuleConfiguration _config;
-		private readonly List<Field> _fields;
+		private string _defName;
+		private Guid _defGuid;
+		private List<Field> _fields;
 		private object _item;
+		private List<ItemWithValues> ItemsWithValues { get; set; }
 
 		public Type Class { get; private set; }
 		public List<object> Items { get; private set; } = new List<object>();
 		public bool IsEditable { get; set; }
 		public int PageId { get; set; }
-		public List<ItemWithValues> ItemsWithValues { get; set; }
 
-		public ClassBuilder(ModuleConfiguration config, List<Field> fields)
+		public ClassBuilder(List<ItemWithValues> items)
 		{
-			_config = config;
-			_fields = fields;
-			
+			ItemsWithValues = items;
 			Class = CreateSolutionClass();
 		}
 
 		public ClassBuilder Init()
 		{
-			//_item = Activator.CreateInstance(Class);
+
 			PopulateItemValues();
 			return this;
 		}
 
 		public Type CreateSolutionClass()
 		{
-			var className = "_" + _config.FieldDefinitionGuid.ToString("N");
-			var solutionName = _config.MarkupDefinitionName;
 
+			if (ItemsWithValues != null && ItemsWithValues.Count > 0)
+			{
+				_fields = ItemsWithValues[0].Fields;
+			}
+
+			if (_fields != null && _fields.Count > 0)
+			{
+				_defName = _fields[0].DefinitionName;
+				_defGuid = _fields[0].DefinitionGuid;
+			}
+
+			if (ItemsWithValues == null || _fields == null)
+			{
+				return this.GetType();
+			}
+
+			var className = $"_{_defGuid:N}";
 			var classCode = $@"
                     using System;
                     using System.Collections.Generic;
-                    //using mojoPortal.Web.ModelBinders;
                     /// <summary>
-                    /// Dynamically generated class for {solutionName}
+                    /// Dynamically generated class for {_defName}
                     /// </summary>
                     public class {className} {{
                         public int Id {{get;set;}}
@@ -168,9 +179,7 @@ namespace SuperFlexiUI
 				SetItemClassProperty("SortOrder", iwv.Item.SortOrder);
 				SetItemClassProperty("EditUrl", itemIsEditable ? itemEditUrl : string.Empty);
 				SetItemClassProperty("IsEditable", itemIsEditable);
-
-				//List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(iwv.Item.ItemGuid);
-
+				
 				foreach (var fieldValue in iwv.Values)
 				{
 					var field = _fields.FirstOrDefault(f => f.Name == fieldValue.Key);

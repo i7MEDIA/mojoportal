@@ -27,6 +27,10 @@ namespace SuperFlexiUI
 		private void LoadSettings()
 		{
 			Module module = new Module(ModuleGuid);
+			if (module == null)
+			{
+				return;
+			}
 			config = new ModuleConfiguration(module);
 			PageSettings currentPage = CacheHelper.GetCurrentPage();
 
@@ -49,20 +53,50 @@ namespace SuperFlexiUI
 
 			if (config.UseRazor)
 			{
-                widgetRazor.Config = config;
-                widgetRazor.PageId = PageId;
-                widgetRazor.ModuleId = ModuleId;
-                widgetRazor.IsEditable = IsEditable;
-                widgetRazor.SiteRoot = SiteRoot;
-				widgetRazor.ImageSiteRoot = ImageSiteRoot;
 
-				widgetRazor.Visible = widgetRazor.Enabled = true;
-				theWidget.Visible = false;
+				WidgetRazor razor = new WidgetRazor
+				{
+					Config = config,
+					PageId = PageId,
+					ModuleGuid = ModuleGuid,
+					ModuleId = ModuleId,
+					IsEditable = IsEditable,
+					SiteRoot = SiteRoot,
+					ImageSiteRoot = ImageSiteRoot,
+					Visible = true,
+					Enabled = true
+				};
+
+				sflexi.Controls.Add(razor);
+
+				//widgetRazor.Config = config;
+				//widgetRazor.PageId = PageId;
+				//widgetRazor.ModuleGuid = ModuleGuid;
+				//widgetRazor.ModuleId = ModuleId;
+				//widgetRazor.IsEditable = IsEditable;
+				//widgetRazor.SiteRoot = SiteRoot;
+				//widgetRazor.ImageSiteRoot = ImageSiteRoot;
+
+				//widgetRazor.Visible = widgetRazor.Enabled = true;
+				//theWidget.Visible = false;
 
 			}
 			else
 			{
-				widgetRazor.Visible = widgetRazor.Enabled = false;
+				//widgetRazor.Visible = widgetRazor.Enabled = false;
+
+				var legacyWidget = new WidgetLegacy
+				{
+					Config = config,
+					ModuleId = ModuleId,
+					IsEditable = IsEditable,
+					SiteRoot = SiteRoot,
+					ImageSiteRoot = ImageSiteRoot,
+					PageId = PageId,
+					CurrentPage = currentPage ?? CacheHelper.GetCurrentPage()
+				};
+
+				sflexi.Controls.Add(legacyWidget);
 
 				if (ModuleConfiguration != null)
 				{
@@ -85,18 +119,18 @@ namespace SuperFlexiUI
 					pnlOuterWrap.SetOrAppendCss(config.ModuleMobileCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
 				}
 
-				theWidget.Config = config;
-				if (currentPage != null)
-				{
-					theWidget.PageId = currentPage.PageId;
-					theWidget.CurrentPage = currentPage;
-				}
-				theWidget.ModuleId = ModuleId;
-				theWidget.IsEditable = IsEditable;
-				theWidget.SiteRoot = SiteRoot;
-				theWidget.ImageSiteRoot = ImageSiteRoot;
+				//theWidget.Config = config;
+				//if (currentPage != null)
+				//{
+				//	theWidget.PageId = currentPage.PageId;
+				//	theWidget.CurrentPage = currentPage;
+				//}
+				//theWidget.ModuleId = ModuleId;
+				//theWidget.IsEditable = IsEditable;
+				//theWidget.SiteRoot = SiteRoot;
+				//theWidget.ImageSiteRoot = ImageSiteRoot;
 
-				theWidget.Visible = true;
+				//theWidget.Visible = true;
 
 				if (config.UseHeader && config.HeaderLocation != "InnerBodyPanel" && !String.IsNullOrWhiteSpace(config.HeaderContent) && !String.Equals(config.HeaderContent, "<p>&nbsp;</p>"))
 				{

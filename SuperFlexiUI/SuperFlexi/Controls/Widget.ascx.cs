@@ -51,11 +51,6 @@ namespace SuperFlexiUI
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-            if (!this.Visible)
-            {
-                return;
-            }
-
 			module = new Module(ModuleId);
 			moduleTitle = module.ModuleTitle;
 

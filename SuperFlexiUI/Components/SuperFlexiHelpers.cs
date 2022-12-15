@@ -411,9 +411,11 @@ namespace SuperFlexiUI
 							Control aboveMarkupDefinitionScripts = control.FindControlRecursive("aboveMarkupDefinitionScripts");
 							if (aboveMarkupDefinitionScripts != null)
 							{
-								LiteralControl aboveLit = new LiteralControl();
-								aboveLit.ID = scriptName;
-								aboveLit.Text = sbScriptText.ToString();
+								LiteralControl aboveLit = new LiteralControl
+								{
+									ID = scriptName,
+									Text = sbScriptText.ToString()
+								};
 								aboveMarkupDefinitionScripts.Controls.Add(aboveLit);
 							}
 							else
@@ -430,9 +432,11 @@ namespace SuperFlexiUI
 							Control belowMarkupDefinitionScripts = control.FindControlRecursive("belowMarkupDefinitionScripts");
 							if (belowMarkupDefinitionScripts != null)
 							{
-								LiteralControl belowLit = new LiteralControl();
-								belowLit.ID = scriptName;
-								belowLit.Text = sbScriptText.ToString();
+								LiteralControl belowLit = new LiteralControl
+								{
+									ID = scriptName,
+									Text = sbScriptText.ToString()
+								};
 								belowMarkupDefinitionScripts.Controls.Add(belowLit);
 							}
 							else

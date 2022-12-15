@@ -53,6 +53,7 @@ namespace SuperFlexiUI
         public string ImageSiteRoot { get; set; } = string.Empty;
         public bool IsEditable { get; set; } = false;
         public int ModuleId { get; set; } = -1;
+        public Guid ModuleGuid { get; set; }
         public int PageId { get; set; } = -1;
         public PageSettings CurrentPage { get; set; }
 
@@ -67,7 +68,7 @@ namespace SuperFlexiUI
 
             if (module == null)
             {
-                Visible = false;
+                //Visible = false;
                 return;
             }
 
@@ -80,6 +81,10 @@ namespace SuperFlexiUI
         protected virtual void LoadSettings()
         {
             module = new Module(ModuleId);
+            if (module == null)
+            {
+                return;
+            }
             //moduleTitle = module.ModuleTitle;
 
 			pageNumber = WebUtils.ParseInt32FromQueryString($"sf{ModuleId}_PageNumber", pageNumber);
@@ -144,11 +149,11 @@ namespace SuperFlexiUI
 
                 if (SiteUtils.IsMobileDevice() && Config.MobileMarkupScripts.Count > 0)
                 {
-                    SuperFlexiHelpers.SetupScripts(Config.MobileMarkupScripts, Config, displaySettings, IsEditable, Page.IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, this);
+                    SuperFlexiHelpers.SetupScripts(Config.MobileMarkupScripts, Config, displaySettings, IsEditable, Page.IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, Parent);
                 }
                 else
                 {
-                    SuperFlexiHelpers.SetupScripts(Config.MarkupScripts, Config, displaySettings, IsEditable, Page.IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, this);
+                    SuperFlexiHelpers.SetupScripts(Config.MarkupScripts, Config, displaySettings, IsEditable, Page.IsPostBack, ClientID, siteSettings, module, CurrentPage, Page, Parent);
                 }
 
             }
@@ -259,7 +264,7 @@ namespace SuperFlexiUI
 			else
 			{
 				return Item.GetForModuleWithValues(
-						module.ModuleGuid,
+						ModuleGuid,
 						out totalPages,
 						out totalRows,
 						pageNumber,
@@ -271,7 +276,7 @@ namespace SuperFlexiUI
 			}
 		}
 
-		protected override void RenderContents(HtmlTextWriter output)
+		protected override void RenderContents(HtmlTextWriter writer)
         {
             string featuredImageUrl = string.Empty;
 
@@ -285,9 +290,8 @@ namespace SuperFlexiUI
                 publishedToCurrentPage = false;
             }
 
-            var superFlexiItemClass = new ClassBuilder(Config, fields)
+            var superFlexiItemClass = new ClassBuilder(itemsWithValues)
             {
-                ItemsWithValues = itemsWithValues,
                 IsEditable = IsEditable,
                 PageId = PageId
             }.Init();
@@ -318,6 +322,7 @@ namespace SuperFlexiUI
                 Site = new SiteModel
                 {
                     Id = module.SiteId,
+                    Guid = siteSettings.SiteGuid,
                     CacheGuid = siteSettings.SkinVersion,
                     CacheKey = SiteUtils.GetCssCacheCookieName(siteSettings),
                     PhysAppRoot = WebUtils.GetApplicationRoot(),
@@ -542,117 +547,122 @@ namespace SuperFlexiUI
                 content = RazorBridge.RenderPartialToString("_SuperFlexiRazor", model, "SuperFlexi");
             }
 
-            output.Write(content);
+            writer.Write(content);
         }
 
-   //     private Type CreateClass()
-   //     {
-   //         var className = "_" + Config.FieldDefinitionGuid.ToString("N");
-   //         var solutionName = Config.MarkupDefinitionName;
+		protected override void Render(HtmlTextWriter writer)
+		{
+			this.RenderContents(writer);
+		}
 
-   //         var classCode = $@"
-   //                 using System;
-   //                 using System.Collections.Generic;
-   //                 //using mojoPortal.Web.ModelBinders;
-   //                 /// <summary>
-   //                 /// Dynamically generated class for {solutionName}
-   //                 /// </summary>
-   //                 public class {className} {{
-   //                     public int Id {{get;set;}}
-   //                     public Guid Guid {{get;set;}}
-   //                     public int SortOrder {{get;set;}}
-   //                     public string EditUrl {{get;set;}}
-   //                     public bool IsEditable {{get;set;}}
-   //                     {getFields()}                        
-   //                 }}";
+		//     private Type CreateClass()
+		//     {
+		//         var className = "_" + Config.FieldDefinitionGuid.ToString("N");
+		//         var solutionName = Config.MarkupDefinitionName;
 
-			//string getFields()
-			//{
+		//         var classCode = $@"
+		//                 using System;
+		//                 using System.Collections.Generic;
+		//                 //using mojoPortal.Web.ModelBinders;
+		//                 /// <summary>
+		//                 /// Dynamically generated class for {solutionName}
+		//                 /// </summary>
+		//                 public class {className} {{
+		//                     public int Id {{get;set;}}
+		//                     public Guid Guid {{get;set;}}
+		//                     public int SortOrder {{get;set;}}
+		//                     public string EditUrl {{get;set;}}
+		//                     public bool IsEditable {{get;set;}}
+		//                     {getFields()}                        
+		//                 }}";
 
-			//	var sb = new StringBuilder();
-			//	var sbConstructor = new StringBuilder();
-			//	sbConstructor.AppendLine($"public {className}(){{");
+		//string getFields()
+		//{
 
-			//	foreach (Field field in fields)
-			//	{
-			//		switch (field.ControlType)
-			//		{
-			//			case "CheckBox":
-			//				if (field.CheckBoxReturnBool)
-			//				{
-			//					sb.AppendLine($"public bool {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
-			//				}
-			//				else
-			//				{
-			//					goto default;
-			//				}
-			//				break;
-			//			case "CheckBoxList":
-			//			case "DynamicCheckBoxList":
-			//				sb.AppendLine($"public List<string> {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
-			//				sbConstructor.AppendLine(field.Name + " = new List<string>();");
-			//				break;
-			//			case "DateTime":
-			//			case "Date":
-			//				sb.AppendLine($"public DateTime {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
-			//				sb.AppendLine($"public DateTime {field.Name.Replace(" ", string.Empty)}UTC {{get;set;}}");
-			//				break;
-			//			case "TextBox":
-			//			default:
-   //                         if (field.IsDateField()) goto case "Date";
+		//	var sb = new StringBuilder();
+		//	var sbConstructor = new StringBuilder();
+		//	sbConstructor.AppendLine($"public {className}(){{");
 
-			//				sb.AppendLine($"public string {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
-			//				break;
-			//		}
-			//	}
-			//	if (sbConstructor.Length > 1)
-			//	{
-			//		sbConstructor.AppendLine("}");
-			//		sb.AppendLine(sbConstructor.ToString());
-			//	}
-			//	return sb.ToString();
-			//}
+		//	foreach (Field field in fields)
+		//	{
+		//		switch (field.ControlType)
+		//		{
+		//			case "CheckBox":
+		//				if (field.CheckBoxReturnBool)
+		//				{
+		//					sb.AppendLine($"public bool {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
+		//				}
+		//				else
+		//				{
+		//					goto default;
+		//				}
+		//				break;
+		//			case "CheckBoxList":
+		//			case "DynamicCheckBoxList":
+		//				sb.AppendLine($"public List<string> {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
+		//				sbConstructor.AppendLine(field.Name + " = new List<string>();");
+		//				break;
+		//			case "DateTime":
+		//			case "Date":
+		//				sb.AppendLine($"public DateTime {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
+		//				sb.AppendLine($"public DateTime {field.Name.Replace(" ", string.Empty)}UTC {{get;set;}}");
+		//				break;
+		//			case "TextBox":
+		//			default:
+		//                         if (field.IsDateField()) goto case "Date";
 
-			//log.Debug(classCode);
-   //         var options = new CompilerParameters
-   //         {
-   //             GenerateExecutable = false,
-   //             GenerateInMemory = true,
+		//				sb.AppendLine($"public string {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
+		//				break;
+		//		}
+		//	}
+		//	if (sbConstructor.Length > 1)
+		//	{
+		//		sbConstructor.AppendLine("}");
+		//		sb.AppendLine(sbConstructor.ToString());
+		//	}
+		//	return sb.ToString();
+		//}
 
-   //         };
-   //         //options.ReferencedAssemblies.Add(System.Web.Hosting.HostingEnvironment.MapPath("~/bin/System.dll"));
-   //         options.ReferencedAssemblies.Add(Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8));
-   //         //options.ReferencedAssemblies.Add(AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(assembly => assembly.GetName().Name == "mojoPortal.Web").FullName);
-   //         options.ReferencedAssemblies.Add(Reflection.Assembly.GetAssembly(typeof(Global)).CodeBase.Substring(8));
+		//log.Debug(classCode);
+		//         var options = new CompilerParameters
+		//         {
+		//             GenerateExecutable = false,
+		//             GenerateInMemory = true,
 
-   //         var provider = new CSharpCodeProvider();
-   //         var compile = provider.CompileAssemblyFromSource(options, classCode);
+		//         };
+		//         //options.ReferencedAssemblies.Add(System.Web.Hosting.HostingEnvironment.MapPath("~/bin/System.dll"));
+		//         options.ReferencedAssemblies.Add(Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8));
+		//         //options.ReferencedAssemblies.Add(AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(assembly => assembly.GetName().Name == "mojoPortal.Web").FullName);
+		//         options.ReferencedAssemblies.Add(Reflection.Assembly.GetAssembly(typeof(Global)).CodeBase.Substring(8));
 
-   //         if (compile != null)
-   //         {
-   //             if (compile.Errors.Count > 0)
-   //             {
-   //                 log.Error(compile.Errors);
-   //             }
+		//         var provider = new CSharpCodeProvider();
+		//         var compile = provider.CompileAssemblyFromSource(options, classCode);
 
-   //             return compile.CompiledAssembly.GetType(className);
+		//         if (compile != null)
+		//         {
+		//             if (compile.Errors.Count > 0)
+		//             {
+		//                 log.Error(compile.Errors);
+		//             }
 
-   //             //return Activator.CreateInstance(type);
-   //         }
-   //         else
-   //         {
-   //             log.Error("could not compile");
-   //             return null;
-   //         }
-   //     }
+		//             return compile.CompiledAssembly.GetType(className);
 
-        //public void SetItemClassProperty(object itemObject, string propName, object propValue)
-        //{
-        //    itemObject.GetType()
-        //        .GetProperty(propName, Reflection.BindingFlags.Public | Reflection.BindingFlags.Instance)
-        //        .SetValue(itemObject, propValue);
-        //}
-    }
+		//             //return Activator.CreateInstance(type);
+		//         }
+		//         else
+		//         {
+		//             log.Error("could not compile");
+		//             return null;
+		//         }
+		//     }
+
+		//public void SetItemClassProperty(object itemObject, string propName, object propValue)
+		//{
+		//    itemObject.GetType()
+		//        .GetProperty(propName, Reflection.BindingFlags.Public | Reflection.BindingFlags.Instance)
+		//        .SetValue(itemObject, propValue);
+		//}
+	}
 
 
 }

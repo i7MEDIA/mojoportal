@@ -583,7 +583,7 @@ namespace SuperFlexiBusiness
 		private static List<ItemWithValues> LoadListFromReaderWithValues(IDataReader reader, int pageSize, out int totalPages, out int totalRows)
 		{
 			List<ItemWithValues> itemList = new List<ItemWithValues>();
-
+            List<Field> fields = new List<Field>();
             totalRows = 0;
             totalPages = 1;
 
@@ -613,6 +613,13 @@ namespace SuperFlexiBusiness
 						Values = new Dictionary<string, object>(),
 						//FieldGuids = new Dictionary<string, Guid>()
 					};
+
+                    if (fields.Count == 0)
+                    {
+                        fields = Field.GetAllForDefinition(itemWithValues.Item.DefinitionGuid);
+                    }
+
+                    itemWithValues.Fields = fields;
 
 					// Not all methods will use TotalRows but there is no sense in having an extra method to load the reader
 					// so, we'll catch the error and do nothing with it because we are expecting it
