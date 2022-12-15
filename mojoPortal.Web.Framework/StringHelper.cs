@@ -556,7 +556,7 @@ namespace mojoPortal.Web.Framework
 
         public static List<string> SplitOnCharAndTrim(this string s, char c)
         {
-            List<string> list = new List<string>();
+            var list = new List<string>();
             if (string.IsNullOrEmpty(s)) { return list; }
 
             string[] a = s.Split(c);
@@ -565,9 +565,22 @@ namespace mojoPortal.Web.Framework
                 if (!string.IsNullOrEmpty(item)) { list.Add(item.Trim()); }
             }
 
-
             return list;
         }
+
+		public static List<int> SplitIntStringOnCharAndTrim(this string s, char c)
+		{
+			var list = new List<int>();
+			if (string.IsNullOrEmpty(s)) { return list; }
+
+			string[] a = s.Split(c);
+			foreach (string item in a)
+			{
+				if (!string.IsNullOrEmpty(item)) { list.Add(Convert.ToInt32(item.Trim())); }
+			}
+
+			return list;
+		}
 
 		public static List<string> SplitOnNewLineAndTrim (this string s)
 		{
