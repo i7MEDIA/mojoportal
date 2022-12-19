@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-03-06
-// Last Modified:			2017-12-20
+// Last Modified:			2022-12-16
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -18,9 +18,7 @@ namespace SuperFlexiBusiness
 
 		#region Constructors
 		 
-		public Field()
-		{ }
-
+		public Field() { }
 
 		public Field(Guid fieldGuid)
 		{
@@ -136,6 +134,8 @@ namespace SuperFlexiBusiness
 			get { return controlSrc; }
 			set { controlSrc = value; }
 		}
+		public string DataType { get; set; } = "string";
+		public bool IsList { get; set; } = false;
 		public int SortOrder
 		{
 			get { return sortOrder; }
@@ -350,6 +350,8 @@ namespace SuperFlexiBusiness
 				this.defaultValue = reader["DefaultValue"].ToString();
 				this.controlType = reader["ControlType"].ToString();
 				this.controlSrc = reader["ControlSrc"].ToString();
+				this.DataType = reader["DataType"].ToString();
+				this.IsList = Convert.ToBoolean(reader["IsList"]);
 				this.sortOrder = Convert.ToInt32(reader["SortOrder"]);
 				this.helpKey = reader["HelpKey"].ToString();
 				this.required = Convert.ToBoolean(reader["Required"]);
@@ -422,6 +424,8 @@ namespace SuperFlexiBusiness
 				this.defaultValue,
 				this.controlType,
 				this.controlSrc,
+				this.DataType,
+				this.IsList,
 				this.sortOrder,
 				this.helpKey,
 				this.required,
@@ -479,6 +483,8 @@ namespace SuperFlexiBusiness
 				this.defaultValue,
 				this.controlType,
 				this.controlSrc,
+				this.DataType,
+				this.IsList,
 				this.sortOrder,
 				this.helpKey,
 				this.required,
@@ -644,6 +650,8 @@ namespace SuperFlexiBusiness
 					field.defaultValue = reader["DefaultValue"].ToString();
 					field.controlType = reader["ControlType"].ToString();
 					field.controlSrc = reader["ControlSrc"].ToString();
+					field.DataType = reader["DataType"].ToString();
+					field.IsList = Convert.ToBoolean(reader["IsList"]);
 					field.sortOrder = Convert.ToInt32(reader["SortOrder"]);
 					field.helpKey = reader["HelpKey"].ToString();
 					field.required = Convert.ToBoolean(reader["Required"]);
@@ -800,6 +808,8 @@ namespace SuperFlexiBusiness
 				&& x.DefinitionGuid == y.DefinitionGuid
 				&& x.ControlType == y.ControlType
 				&& x.ControlSrc == y.ControlSrc
+				&& x.DataType == y.DataType
+				&& x.IsList == y.IsList
 				&& x.SortOrder == y.SortOrder
 				&& x.DefaultValue == y.DefaultValue
 				&& x.Token == y.Token
@@ -849,6 +859,8 @@ namespace SuperFlexiBusiness
 			int hashDefinitionGuid = field.DefinitionGuid.GetHashCode();
 			int hashControlType = field.ControlType.GetHashCode();
 			int hashControlSrc = field.ControlSrc.GetHashCode();
+			int hashDataType = field.DataType.GetHashCode();
+			int hashIsList = field.IsList.GetHashCode();
 			int hashSortOrder = field.SortOrder.GetHashCode();
 			int hashDefaultValue = field.DefaultValue.GetHashCode();
 			int hashToken = field.Token.GetHashCode();
@@ -890,6 +902,8 @@ namespace SuperFlexiBusiness
 				 ^ hashDefinitionGuid 
 				 ^ hashControlType 
 				 ^ hashControlSrc 
+				 ^ hashDataType
+				 ^ hashIsList
 				 ^ hashLabel 
 				 ^ hashDefaultValue 
 				 ^ hashSortOrder 

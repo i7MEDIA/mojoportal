@@ -249,7 +249,7 @@ namespace SuperFlexiUI
 		{
 			if (Config.IsGlobalView)
 			{
-				return Item.GetForDefinitionWithValues(
+				return ItemWithValues.GetListForDefinition(
 					Config.FieldDefinitionGuid,
 					siteSettings.SiteGuid,
 					out totalPages,
@@ -263,7 +263,7 @@ namespace SuperFlexiUI
 			}
 			else
 			{
-				return Item.GetForModuleWithValues(
+				return ItemWithValues.GetListForModule(
 						ModuleGuid,
 						out totalPages,
 						out totalRows,

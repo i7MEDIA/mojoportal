@@ -1,6 +1,7 @@
 ﻿using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Extensions;
 using mojoPortal.Web;
 using mojoPortal.Web.Framework;
 using Newtonsoft.Json;
@@ -20,11 +21,11 @@ namespace SuperFlexiUI
 	{
 		#region Properties
 		private static readonly ILog log = LogManager.GetLogger(typeof(WidgetLegacy));
-		private List<Field> fields = new List<Field>();
+		//private List<Field> fields = new List<Field>();
 		private string moduleTitle = string.Empty;
 		private const string markupErrorFormat = "SuperFlexi markup definition error when rendering {0} for {1}. Error was {2}";
 		private StringBuilder strOutput = new StringBuilder();
-		private SuperFlexiDisplaySettings displaySettings { get; set; }
+		private SuperFlexiDisplaySettings displaySettings = new SuperFlexiDisplaySettings();
 		private List<ItemWithValues> itemsWithValues = new List<ItemWithValues>();
 		private List<ModuleConfiguration> moduleConfigs = new List<ModuleConfiguration>();
 		private SiteSettings siteSettings;
@@ -80,19 +81,20 @@ namespace SuperFlexiUI
 
 			if (Config.ProcessItems)
 			{
-				fields = Field.GetAllForDefinition(Config.FieldDefinitionGuid);
+				//Fields come with the ItemsWithValues now
+				//fields = Field.GetAllForDefinition(Config.FieldDefinitionGuid);
 
 				if (Config.IsGlobalView)
 				{
 					//items = Item.GetAllForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, Config.DescendingSort);
 					//fieldValues = ItemFieldValue.GetItemValuesByDefinition(Config.FieldDefinitionGuid);
-					itemsWithValues = Item.GetForDefinitionWithValues(Config.FieldDefinitionGuid, siteSettings.SiteGuid, out _, out _, descending: Config.DescendingSort);
+					itemsWithValues = ItemWithValues.GetListForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, out _, out _, descending: Config.DescendingSort);
 				}
 				else
 				{
 					//items = Item.GetForModule(ModuleId, Config.DescendingSort);
 					//fieldValues = ItemFieldValue.GetItemValuesByModule(module.ModuleGuid);
-					itemsWithValues = Item.GetForModuleWithValues(module.ModuleGuid, out _, out _, pageSize: 0, descending: Config.DescendingSort);
+					itemsWithValues = ItemWithValues.GetListForModule(module.ModuleGuid, out _, out _, pageSize: 0, descending: Config.DescendingSort);
 				}
 			}
 
@@ -179,10 +181,22 @@ namespace SuperFlexiUI
 			bool usingGlobalViewMarkup = !String.IsNullOrWhiteSpace(displaySettings.GlobalViewMarkup);
 			int currentModuleID = -1;
 
-			var tokens = fields.Select(x => new { FieldName = x.Name, x.Token, x.FieldGuid, x.PreTokenString, x.PostTokenString, x.PreTokenStringWhenFalse, x.PreTokenStringWhenTrue, x.PostTokenStringWhenFalse, x.PostTokenStringWhenTrue, x.ControlType });
+			//var tokens = fields.Select(x => new { FieldName = x.Name, x.Token, x.FieldGuid, x.PreTokenString, x.PostTokenString, x.PreTokenStringWhenFalse, x.PreTokenStringWhenTrue, x.PostTokenStringWhenFalse, x.PostTokenStringWhenTrue, x.ControlType });
 
+			var tokens = new List<dynamic>();
+			var fields = new List<Field>();
 			foreach (var iwv in itemsWithValues)
 			{
+				if (tokens.Count == 0)
+				{
+					tokens.AddRange(iwv.Fields.Select(x => new { FieldName = x.Name, x.Token, x.FieldGuid, x.PreTokenString, x.PostTokenString, x.PreTokenStringWhenFalse, x.PreTokenStringWhenTrue, x.PostTokenStringWhenFalse, x.PostTokenStringWhenTrue, x.ControlType }));
+				}
+
+				if (fields.Count == 0)
+				{
+					fields = iwv.Fields;
+				}
+
 				bool itemIsEditable = IsEditable || WebUser.IsInRoles(iwv.Item.EditRoles);
 				bool itemIsViewable = itemIsEditable || WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor || WebUser.IsInRoles(iwv.Item.ViewRoles);
 				if (!itemIsViewable)
@@ -263,7 +277,7 @@ namespace SuperFlexiUI
 				content.Append(displaySettings.ItemMarkup);
 
 
-				foreach (Field field in fields)
+				foreach (Field field in iwv.Fields)
 				{
 					//if (!WebUser.IsInRoles(field.ViewRoles))
 					//{

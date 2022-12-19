@@ -1,6 +1,6 @@
 ﻿// Author:					i7MEDIA
 // Created:					2015-03-06
-// Last Modified:			2017-12-19
+// Last Modified:			2022-12-16
 // You must not remove this notice, or any other, from this software.
 
 using System;
@@ -29,7 +29,9 @@ namespace SuperFlexiData
             string defaultValue,
             string controlType,
             string controlSrc,
-            int sortOrder,
+            string dataType,
+            bool isList,
+			int sortOrder,
             string helpKey,
             bool required,
             string requiredMessageFormat,
@@ -62,7 +64,7 @@ namespace SuperFlexiData
 			string viewRoles,
 			string editRoles)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Insert", 42);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Insert", 44);
             sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
             sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
             sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
@@ -73,7 +75,9 @@ namespace SuperFlexiData
             sph.DefineSqlParameter("@DefaultValue", SqlDbType.NVarChar, -1, ParameterDirection.Input, defaultValue);
             sph.DefineSqlParameter("@ControlType", SqlDbType.NVarChar, 25, ParameterDirection.Input, controlType);
             sph.DefineSqlParameter("@ControlSrc", SqlDbType.NVarChar, -1, ParameterDirection.Input, controlSrc);
-            sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
+            sph.DefineSqlParameter("@DataType", SqlDbType.NVarChar, 500, ParameterDirection.Input, dataType);
+			sph.DefineSqlParameter("@IsList", SqlDbType.Bit, ParameterDirection.Input, isList);
+			sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
             sph.DefineSqlParameter("@HelpKey", SqlDbType.NVarChar, 255, ParameterDirection.Input, helpKey);
             sph.DefineSqlParameter("@Required", SqlDbType.Bit, ParameterDirection.Input, required);
             sph.DefineSqlParameter("@RequiredMessageFormat", SqlDbType.NVarChar, -1, ParameterDirection.Input, requiredMessageFormat);
@@ -125,7 +129,9 @@ namespace SuperFlexiData
             string defaultValue,
             string controlType,
             string controlSrc,
-            int sortOrder,
+            string dataType,
+            bool isList,
+			int sortOrder,
             string helpKey,
             bool required,
             string requiredMessageFormat,
@@ -160,7 +166,7 @@ namespace SuperFlexiData
 			string viewRoles,
 			string editRoles)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Update", 43);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_fields_Update", 45);
             sph.DefineSqlParameter("@FieldGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, fieldGuid);
             sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
             sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
@@ -171,7 +177,9 @@ namespace SuperFlexiData
             sph.DefineSqlParameter("@DefaultValue", SqlDbType.NVarChar, -1, ParameterDirection.Input, defaultValue);
             sph.DefineSqlParameter("@ControlType", SqlDbType.NVarChar, 25, ParameterDirection.Input, controlType);
             sph.DefineSqlParameter("@ControlSrc", SqlDbType.NVarChar, -1, ParameterDirection.Input, controlSrc);
-            sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
+            sph.DefineSqlParameter("@DataType", SqlDbType.NVarChar, 500, ParameterDirection.Input, dataType);
+			sph.DefineSqlParameter("@IsList", SqlDbType.Bit, ParameterDirection.Input, isList);
+			sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
             sph.DefineSqlParameter("@HelpKey", SqlDbType.NVarChar, 255, ParameterDirection.Input, helpKey);
             sph.DefineSqlParameter("@Required", SqlDbType.Bit, ParameterDirection.Input, required);
             sph.DefineSqlParameter("@RequiredMessageFormat", SqlDbType.NVarChar, -1, ParameterDirection.Input, requiredMessageFormat);

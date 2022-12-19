@@ -232,7 +232,7 @@ namespace SuperFlexiUI.Controllers
 		{
 			if (byDefinition)
 			{
-				return Item.GetForDefinitionWithValues(
+				return ItemWithValues.GetListForDefinition(
 					config.FieldDefinitionGuid,
 					siteSettings.SiteGuid,
 					out totalPages,
@@ -245,7 +245,7 @@ namespace SuperFlexiUI.Controllers
 			}
 			else
 			{
-				return Item.GetForModuleWithValues(
+				return ItemWithValues.GetListForModule(
 					moduleGuid,
 					out totalPages,
 					out totalRows,

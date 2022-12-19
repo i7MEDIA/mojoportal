@@ -287,7 +287,9 @@ namespace SuperFlexiUI
                                 if (itemDefAttribs["defaultValue"] != null) field.DefaultValue = itemDefAttribs["defaultValue"].Value;
                                 if (itemDefAttribs["controlType"] != null) field.ControlType = itemDefAttribs["controlType"].Value;
                                 if (itemDefAttribs["controlSrc"] != null) field.ControlSrc = itemDefAttribs["controlSrc"].Value;
-                                field.SortOrder = XmlUtils.ParseInt32FromAttribute(itemDefAttribs, "sortOrder", field.SortOrder);
+                                if (itemDefAttribs["dataType"] != null) field.DataType = itemDefAttribs["dataType"].Value;
+                                field.IsList = XmlUtils.ParseBoolFromAttribute(itemDefAttribs, "isList", field.IsList);
+								field.SortOrder = XmlUtils.ParseInt32FromAttribute(itemDefAttribs, "sortOrder", field.SortOrder);
                                 if (itemDefAttribs["helpKey"] != null) field.HelpKey = itemDefAttribs["helpKey"].Value;
                                 field.Required = XmlUtils.ParseBoolFromAttribute(itemDefAttribs, "required", field.Required);
                                 if (itemDefAttribs["requiredMessageFormat"] != null) field.RequiredMessageFormat = itemDefAttribs["requiredMessageFormat"].Value;

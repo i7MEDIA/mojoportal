@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.WebPages;
 
 namespace SuperFlexiUI
 {
@@ -30,6 +32,16 @@ namespace SuperFlexiUI
 		public ClassBuilder(List<ItemWithValues> items)
 		{
 			ItemsWithValues = items;
+			Class = CreateSolutionClass();
+		}
+
+		public ClassBuilder(int itemId)
+		{
+			var list = new List<ItemWithValues> { 
+				new ItemWithValues(itemId)
+			};
+
+			ItemsWithValues = list;
 			Class = CreateSolutionClass();
 		}
 
@@ -83,22 +95,25 @@ namespace SuperFlexiUI
 
 				foreach (Field field in _fields)
 				{
+					var fieldName = field.Name.Replace(" ", string.Empty);
+
 					switch (field.ControlType)
 					{
 						case "CheckBox":
 							if (field.CheckBoxReturnBool)
 							{
-								sb.AppendLine($"public bool {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
+								sb.AppendLine($"public bool {fieldName} {{get;set;}}");
 							}
 							else
 							{
 								goto default;
 							}
 							break;
+						case "List":
 						case "CheckBoxList":
 						case "DynamicCheckBoxList":
-							sb.AppendLine($"public List<string> {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
-							sbConstructor.AppendLine(field.Name + " = new List<string>();");
+							sb.AppendLine($"public List<{field.DataType}> {fieldName} {{get;set;}}");
+							sbConstructor.AppendLine($"{fieldName} = new List<{field.DataType}>();");
 							break;
 						case "DateTime":
 						case "Date":
@@ -108,8 +123,9 @@ namespace SuperFlexiUI
 						case "TextBox":
 						default:
 							if (field.IsDateField()) goto case "Date";
+							if (field.IsList) goto case "List";
+							sb.AppendLine($"public {field.DataType} {fieldName} {{get;set;}}");
 
-							sb.AppendLine($"public string {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
 							break;
 					}
 				}
@@ -185,32 +201,90 @@ namespace SuperFlexiUI
 					var field = _fields.FirstOrDefault(f => f.Name == fieldValue.Key);
 					if (field != null)
 					{
+						var fieldName = field.Name.Replace(" ", string.Empty);
+
+						object theValue;
+						var emptyValue = string.IsNullOrWhiteSpace(fieldValue.Value.ToString());
+						
+
+						switch (field.DataType)
+						{
+							case "int":
+								if (field.IsList || field.IsCheckBoxListField() || field.IsDynamicListField()) goto case "string";
+								if (int.TryParse(fieldValue.Value.ToString(), out _) && !emptyValue)
+								{
+									theValue = Convert.ToInt32(emptyValue ? null : fieldValue.Value.ToString()); 
+								}
+								else
+								{
+									theValue = null;
+								}
+								
+								break;
+							case "bool":
+							case "boolean":
+								theValue = Convert.ToBoolean(fieldValue.Value.ToString());
+								break;
+							case "string":
+							default:
+									if (field.ControlType == "CheckBox") goto case "bool";
+									theValue = fieldValue.Value.ToString();
+								break;
+							//case "float":
+							//	theValue = Convert.ToSingle(emptyValue ? float.MinValue : fieldValue.Value);
+							//	break;
+							//case "decimal":
+							//	theValue = Convert.ToDecimal(fieldValue.Value);
+							//	break;
+							//case "double":
+							//	theValue = Convert.ToDouble(fieldValue.Value);
+							//	break;
+							//case "byte":
+							//	theValue = Convert.ToByte(fieldValue.Value);
+							//	break;
+							//case "char":
+							//	theValue = Convert.ToChar(fieldValue.Value);
+							//	break;
+						}
+
 						switch (field.ControlType)
 						{
 							case "CheckBox":
 								if (!field.CheckBoxReturnBool) goto default;
 
-								SetItemClassProperty(field.Name, Convert.ToBoolean(fieldValue.Value.ToString()));
+								SetItemClassProperty(fieldName, theValue);
 
 								break;
+							case "List":
 							case "CheckBoxList":
 							case "DynamicCheckBoxList":
-								SetItemClassProperty(field.Name, fieldValue.Value.ToString().SplitOnCharAndTrim(';'));
+
+								if (field.DataType == "int")
+								{
+									SetItemClassProperty(fieldName, fieldValue.Value.ToString().SplitIntStringOnCharAndTrim(';'));
+								}
+								else 
+								{
+									SetItemClassProperty(fieldName, fieldValue.Value.ToString().SplitOnCharAndTrim(';'));
+								}
+
 								break;
 							case "DateTime":
 							case "Date":
 								if (!string.IsNullOrWhiteSpace(fieldValue.Value.ToString()))
 								{
 									DateTime.TryParse(fieldValue.Value.ToString(), out DateTime dt);
-									SetItemClassProperty(field.Name, TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(TimeZoneInfo.ConvertTimeToUtc(dt), DateTimeKind.Utc), SiteUtils.GetUserTimeZone()));
-									SetItemClassProperty(field.Name + "UTC", TimeZoneInfo.ConvertTimeToUtc(dt));
+									SetItemClassProperty(fieldName, TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(TimeZoneInfo.ConvertTimeToUtc(dt), DateTimeKind.Utc), SiteUtils.GetUserTimeZone()));
+									SetItemClassProperty(fieldName + "UTC", TimeZoneInfo.ConvertTimeToUtc(dt));
 								}
 								break;
 							case "TextBox":
 							default:
 								if (field.IsDateField()) goto case "Date";
+								if (field.IsList) goto case "List";
 
-								SetItemClassProperty(field.Name, fieldValue.Value.ToString());
+								SetItemClassProperty(fieldName, theValue);
+
 								break;
 						}
 					}

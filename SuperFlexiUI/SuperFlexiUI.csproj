@@ -187,7 +187,6 @@
     <Content Include="SuperFlexi\Controls\FeaturedImageSetting.ascx" />
     <Content Include="SuperFlexi\Controls\Wysiwyg.ascx" />
     <Content Include="SuperFlexi\Controls\MarkupDefinitionSetting.ascx" />
-    <Content Include="SuperFlexi\Controls\Widget.ascx" />
     <Content Include="SuperFlexi\css\advanced-file-picker.css" />
     <Content Include="SuperFlexi\Edit2.aspx" />
     <Content Include="SuperFlexi\Edit.aspx" />
@@ -244,6 +243,7 @@
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\sqlite\0.0.2.0.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.2.3.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.2.4.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.2.5.config" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -319,13 +319,6 @@
     </Compile>
     <Compile Include="SuperFlexi\Controls\MarkupDefinitionSetting.ascx.designer.cs">
       <DependentUpon>MarkupDefinitionSetting.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="SuperFlexi\Controls\Widget.ascx.cs">
-      <DependentUpon>Widget.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SuperFlexi\Controls\Widget.ascx.designer.cs">
-      <DependentUpon>Widget.ascx</DependentUpon>
     </Compile>
     <Compile Include="SuperFlexi\Edit2.aspx.cs">
       <DependentUpon>Edit2.aspx</DependentUpon>
