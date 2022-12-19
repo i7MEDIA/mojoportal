@@ -78,16 +78,34 @@ namespace mojoPortal.Web.Framework
             if (c.CssClass.Length == 0)
             {
                 c.CssClass = cssClass;
+                return;
             }
-            else
+
+            var classes = c.CssClass.SplitOnCharAndTrim(' ');
+
+            if (classes != null && !classes.Contains(cssClass))
             {
                 c.CssClass += " " + cssClass;
             }
 
         }
 
+        public static void RemoveCss(this WebControl c, string cssClass)
+        {
+			if (string.IsNullOrEmpty(cssClass) || c.CssClass.Length == 0) { return; }
 
-        public static string ToInvariantString(this int i)
+            var classes = c.CssClass.SplitOnCharAndTrim(' ');
+
+            if (classes != null && classes.Contains(cssClass))
+            {
+                classes.Remove(cssClass);
+            }
+
+            c.CssClass = string.Join(" ", classes);
+		}
+
+
+		public static string ToInvariantString(this int i)
         {
             return i.ToString(CultureInfo.InvariantCulture);
 
