@@ -55,14 +55,13 @@
     <Compile Include="Configuration\AppConfig.cs" />
     <Compile Include="Configuration\ConfigHelper.cs" />
     <Compile Include="ExpressionBuilder.cs" />
+    <Compile Include="Extensions\IndexedStringBuilder.cs" />
     <Compile Include="Helpers\WebHelper.cs" />
     <Compile Include="Mappers\AutoMapperAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializers\Newtonsoft.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
