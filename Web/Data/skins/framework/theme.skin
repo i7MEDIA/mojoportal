@@ -27,9 +27,9 @@
 <%--
 	These are for Pro Modules
 	=========================
+	<%@ Register Namespace="sts.FormWizard.Web.UI" Assembly="sts.FormWizard.Web.UI" TagPrefix="stsfw" %>
 	<%@ Register TagPrefix="sts" Namespace="sts.Web.UI" Assembly="sts.Web.UI" %>
 	<%@ Register Namespace="sts.Events.Web.UI.Controls" Assembly="sts.Events.Web.UI" TagPrefix="ecp" %>
-	<%@ Register Namespace="sts.FormWizard.Web.UI" Assembly="sts.FormWizard.Web.UI" TagPrefix="stsfw" %>
 --%>
 
 <%--
@@ -76,6 +76,22 @@
 		TodayDayStyle-CssClass="ec-day ec-today"
 		WeekendDayStyle-CssClass="ec-day ec-weekend-day"
 	/>
+	<ecp:EventDisplaySettings runat="server"
+		MonthViewCssClass="hide"
+		MonthViewHeaderMarkupTop="</td></tr></tbody></table><div class='ec-month-head row fb-parent fb-row fb-wrap fb-ai-center fb-j-between'>"
+		MonthViewHeaderMarkupBottom="</div><table class='event-cal-pro table table-condensed table-bordered table-responsive'><tbody><tr class='hide'><td>"
+		MonthViewDayHeaderCssClass="ec-head"
+		MonthViewDayCssClass="ec-day"
+		MonthViewTodayCssClass="ec-day ec-today"
+		MonthViewWeekendDayCssClass="ec-day ec-weekend-day"
+		MonthViewOtherMonthDayCssClass="ec-day ec-other-month"
+		MonthViewHeaderPreviousMonthLinkFormat="<div class='ec-month-previous fb-child col-sm-3 text-xs-center text-md-left'><a href='{0}' class='eventNextPrevious previousMonth'><span class='fa fa-angle-double-left'></span> <span class='monthName'>{1}</span></a></div>"
+		MonthViewHeaderNextMonthLinkFormat="<div class='nextMonth ec-month-next fb-child col-sm-3 text-xs-center text-md-right'><a href='{0}' class='eventNextPrevious nextMonth'><span class='monthName'>{1}</span> <span class='fa fa-angle-double-right'></span></a></div>"
+		MonthViewHeaderCurrentMonthFormat="<h3 class='currentMonth fb-child col-sm-6 fb-ai-center fb-j-center text-center'>{0}</h3>"
+		MonthViewEmptyDayFiller="<div class='ec-filler'></div>" 
+		MonthViewEventEditLinkFormat="<a href='{0}' title='{1}' class='editeventlink ModuleEditLink {3}' ><span class='fa fa-pencil-square-o'></span></a>"
+		MonthViewEventMarkupTop="<div class='eventcontainer {0}' style='{1} {2} {3}'>"
+	 />
 --%>
 
 <%--
@@ -434,7 +450,7 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 <asp:button runat="server" CssClass="btn btn-default" />
 <%-- <asp:HyperLink runat="server" CssClass="btn btn-default"/> --%>
 <portal:mojoButton runat="server" CssClass="btn btn-default" />
-
+<asp:HyperLink runat="server" SkinID="DefaultButton" CssClass="btn btn-default" />
 <portal:mojoButton runat="server" SkinID="ExportButton" CssClass="btn btn-xs btn-default" />
 
 
@@ -1016,6 +1032,12 @@ http://foundation.zurb.com/docs/ui.php
 />
 
 <asp:RadioButtonList runat="server"
+	CssClass="box-inline"
+	RepeatDirection="vertical"
+	RepeatLayout="UnorderedList"
+/>
+
+<asp:CheckBoxList runat="server" SkinID="InlineList"
 	CssClass="box-inline"
 	RepeatDirection="vertical"
 	RepeatLayout="UnorderedList"

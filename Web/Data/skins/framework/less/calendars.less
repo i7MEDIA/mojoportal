@@ -164,3 +164,97 @@
 .emptydayfiller {
 	display: inline-block;
 }
+
+// Event Calendar Pro Recurrence list support
+.recur-day-selection span {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+// .recur-day-selection span input {
+// 	margin-left: 5px;
+// }
+
+// .recur-day-selection label {
+// 	margin-right: 10px;
+// }
+.recur-wrap input[type=checkbox],
+.recur-row input[type=radio] {
+    margin: 5px 5px 3px 0;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.recur-row input[type=radio] {
+	vertical-align: middle;
+}
+
+.recur-wrap .settinglabel {
+	display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.recur-wrap .prettyemptylabel {
+	vertical-align: top; //keeps checkbox/radio from moving
+	top: 7px;
+}
+
+// .recur-day-selection input[type=checkbox] {
+// 	margin-top: 0;
+// }
+
+.recur-day-selection .box-inline {
+	margin-top: 0;
+}
+
+.recur-day-selection .box-inline li {
+	margin-top: 0;
+	padding-left: 0;
+	padding-right: 5px;
+	cursor: default;
+	position: relative;
+}
+
+.recur-day-selection .box-inline input[type=checkbox] {
+	visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+
+.pretty-checkboxes .recur-day-selection .box-inline label {
+    font-size: 0; 
+    color: transparent; 
+	display: block;
+	cursor: pointer;
+	padding-left: 0;
+	margin-bottom: 0;
+}
+
+.recur-day-selection .box-inline label::first-letter {
+	font-size: 16px;
+    color: initial;
+	background-color: @gray-midlight;
+	border-radius: 50%;
+	padding: 6px 9px;
+    font-family: 'Lucida Console',Courier,monospace;
+}
+
+.recur-day-selection .box-inline input[type=checkbox]:checked + label::first-letter {
+	background-color: @brand-primary;
+	color: @body-bg;
+}
+
+.pretty-checkboxes .recur-day-selection .box-inline label::before,
+.pretty-checkboxes .recur-day-selection .box-inline label::after {
+	display: none;
+	content: none;
+}
+
+
+.eventcalendaredit .forminput>input[name*=Date] {
+	min-width: 160px;
+}

@@ -1,6 +1,6 @@
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="~/App_MasterPages/layout.Master.cs" Inherits="mojoPortal.Web.layout" %>
 <!DOCTYPE html>
-<html class="htmlclass">
+<html class="htmlclass" id="Html" runat="server">
 	<head id="Head1" runat="server">
 		<meta charset="utf-8">
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -19,15 +19,15 @@
 		<portal:SkinFolderCssFile runat="server" CssFileName="js/vendors/nivo-slider/themes/dark/dark.css" />
 		<portal:SkinFolderCssFile runat="server" CssFileName="js/vendors/nivo-slider/themes/bar/bar.css" />
 		<portal:SkinFolderCssFile runat="server" CssFileName="js/vendors/nivo-slider/nivo-slider.css" />
-		<portal:StyleSheetCombiner id="StyleSheetCombiner" runat="server" IncludeJQueryUI="false" UseIconsForAdminLinks="false" EnableNonClickablePageLinks="true" QtFileCssIsInMainCss="false" IncludeColorBox="true" />
+		<portal:StyleSheetCombiner id="StyleSheetCombiner" runat="server" IncludeJQueryUI="false" UseIconsForAdminLinks="false" EnableNonClickablePageLinks="true" IncludeColorBox="true" />
 
 		<!-- Scripts -->
-		<portal:ScriptLoader id="ScriptLoader1" runat="server" AssumejQueryIsLoaded="true" AssumejQueryUiIsLoaded="true" IncludeColorBox="false" IncludeSimpleFaq="true" IncludejQueryAccordion="true" />
+		<portal:ScriptLoader id="ScriptLoader1" runat="server" AssumejQueryIsLoaded="true" AssumejQueryUiIsLoaded="true" IncludeColorBox="false" IncludejQueryAccordion="true" />
 		<script src="//code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/jquery/jquery-3.6.0.min.js" ScriptRefFormat="<script>window.jQuery || document.write('<script src=\'{0}\'><\/script>')</script>" RenderInPlace="true" />
 		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/nivo-slider/jquery.nivo.slider.pack.js" RenderInPlace="true" />
-		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/jquery/jquery-ui-1.12.1/jquery-ui.min.js" RenderInPlace="true" />
+		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/jquery/jquery-ui-1.12.1/jquery-ui.min.js" RenderInPlace="true" ScriptRefFormat="<script>window.jQuery || document.write('<script src=\'{0}\'><\/script>')</script>"/>
 	    <portal:SkinFolderCssFile runat="server" CssFileName="js/vendors/jquery/jquery-ui-1.12.1/jquery-ui.min.css" LinkFormat="<script>window.jQuery.ui || document.write('<link rel=\'stylesheet\' href=\'{0}\'>')</script>" RenderInPlace="true" />
 
 		<!-- Change JQueryUI plugin names to fix name collision with Bootstrap. -->
