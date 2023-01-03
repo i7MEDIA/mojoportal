@@ -601,49 +601,50 @@ namespace mojoPortal.Business
             {
                 while (reader.Read())
                 {
-					Module m = new Module();
-					m.ModuleId = Convert.ToInt32(reader["ModuleID"]);
-					m.SiteId = Convert.ToInt32(reader["SiteID"]);
-					m.ModuleDefId = Convert.ToInt32(reader["ModuleDefID"]);
-					m.ModuleTitle = reader["ModuleTitle"].ToString();
-					m.AuthorizedEditRoles = reader["AuthorizedEditRoles"].ToString();
-					m.CacheTime = Convert.ToInt32(reader["CacheTime"]);
+					Module m = new Module
+					{
+						ModuleId = Convert.ToInt32(reader["ModuleID"]),
+						SiteId = Convert.ToInt32(reader["SiteID"]),
+						ModuleDefId = Convert.ToInt32(reader["ModuleDefID"]),
+						ModuleTitle = reader["ModuleTitle"].ToString(),
+						AuthorizedEditRoles = reader["AuthorizedEditRoles"].ToString(),
+						CacheTime = Convert.ToInt32(reader["CacheTime"]),
+						CreatedByUserId = Convert.ToInt32(reader["CreatedByUserID"]),
+						ModuleGuid = new Guid(reader["Guid"].ToString()),
+						FeatureGuid = new Guid(reader["FeatureGuid"].ToString()),
+						SiteGuid = new Guid(reader["SiteGuid"].ToString()),
+						HideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]),
+						HideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]),
+						ViewRoles = reader["ViewRoles"].ToString(),
+						DraftEditRoles = reader["DraftEditRoles"].ToString(),
+						IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]),
+						IsGlobal = Convert.ToBoolean(reader["IsGlobal"]),
+						HeadElement = reader["HeadElement"].ToString(),
+						PublishMode = Convert.ToInt32(reader["PublishMode"]),
+						DraftApprovalRoles = reader["DraftApprovalRoles"].ToString(),
+						PageId = Convert.ToInt32(reader["PageID"]),
+						PaneName = reader["PaneName"].ToString(),
+						ModuleOrder = Convert.ToInt32(reader["ModuleOrder"]),
+						ControlSource = reader["ControlSrc"].ToString()
+					};
+
 					string showTitle = reader["ShowTitle"].ToString();
 					m.ShowTitle = (showTitle == "True" || showTitle == "1");
+
 					if (reader["EditUserID"] != DBNull.Value)
 					{
 						m.EditUserId = Convert.ToInt32(reader["EditUserID"]);
 					}
-					//m.AvailableForMyPage = Convert.ToBoolean(reader["AvailableForMyPage"]);
-					//m.AllowMultipleInstancesOnMyPage = Convert.ToBoolean(reader["AllowMultipleInstancesOnMyPage"]);
-					//m.Icon = reader["Icon"].ToString();
-					m.CreatedByUserId = Convert.ToInt32(reader["CreatedByUserID"]);
-					if (reader["CreatedDate"] != DBNull.Value)
+					
+                    if (reader["CreatedDate"] != DBNull.Value)
 					{
 						m.CreatedDate = Convert.ToDateTime(reader["CreatedDate"]);
 					}
-					//m.CountOfUseOnMyPage
-					m.ModuleGuid = new Guid(reader["Guid"].ToString());
-					m.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
-					m.SiteGuid = new Guid(reader["SiteGuid"].ToString());
-					if (reader["EditUserGuid"] != DBNull.Value)
+					
+                    if (reader["EditUserGuid"] != DBNull.Value)
 					{
 						m.EditUserGuid = new Guid(reader["EditUserGuid"].ToString());
 					}
-					m.HideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]);
-					m.HideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]);
-					m.ViewRoles = reader["ViewRoles"].ToString();
-					m.DraftEditRoles = reader["DraftEditRoles"].ToString();
-					m.IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]);
-					m.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
-					m.HeadElement = reader["HeadElement"].ToString();
-					m.PublishMode = Convert.ToInt32(reader["PublishMode"]);
-					m.DraftApprovalRoles = reader["DraftApprovalRoles"].ToString();
-
-					m.PageId = Convert.ToInt32(reader["PageID"]);
-					m.PaneName = reader["PaneName"].ToString();
-					m.ModuleOrder = Convert.ToInt32(reader["ModuleOrder"]);
-					m.ControlSource = reader["ControlSrc"].ToString();
 
 					this.Modules.Add(m);
                 }

@@ -45,6 +45,7 @@ namespace mojoPortal.Web
 		private string analyticsSection = string.Empty;
 
 		public CoreDisplaySettings DisplaySettings = new CoreDisplaySettings();
+		public bool UseGridLayout = false;
 		private mojoDropDownList ddlContentView = new mojoDropDownList();
 		private PageViewMode viewMode = PageViewMode.WorkInProgress;
 
@@ -101,6 +102,7 @@ namespace mojoPortal.Web
 
 
 		public ContentPlaceHolder AltPane2 { get; set; }
+		public ContentPlaceHolder GridLayout { get; set; }
 
 
 		public ContentPlaceHolder MPPageEdit { get; set; }
@@ -1207,14 +1209,11 @@ namespace mojoPortal.Web
 								log.Info("received a request for hostname " + requestedHostName + ", redirecting to preferred host name " + redirectUrl);
 							}
 
-#if !NET35
 							if (WebConfigSettings.Use301RedirectWhenEnforcingPreferredHostName)
 							{
 								Response.RedirectPermanent(redirectUrl, true);
 								return;
 							}
-#endif
-
 
 							Response.Redirect(redirectUrl, true);
 
@@ -1359,7 +1358,10 @@ namespace mojoPortal.Web
 				MPPageEdit = (ContentPlaceHolder)Master.FindControl("pageEditContent");
 				AltPane1 = (ContentPlaceHolder)Master.FindControl("altContent1");
 				AltPane2 = (ContentPlaceHolder)Master.FindControl("altContent2");
+				GridLayout = (ContentPlaceHolder)Master.FindControl("gridLayout");
 			}
+
+			UseGridLayout = GridLayout!= null;
 		}
 
 
@@ -1445,8 +1447,8 @@ namespace mojoPortal.Web
 					MPRightPane = (ContentPlaceHolder)Master.FindControl("rightContent");
 					AltPane1 = (ContentPlaceHolder)Master.FindControl("altContent1");
 					AltPane2 = (ContentPlaceHolder)Master.FindControl("altContent2");
+					GridLayout = (ContentPlaceHolder)Master.FindControl("gridLayout");
 					MPPageEdit = (ContentPlaceHolder)Master.FindControl("pageEditContent");
-
 					break;
 
 				case "dialogmaster.master":
@@ -1483,84 +1485,84 @@ namespace mojoPortal.Web
 		}
 
 
-		public void LoadSideContent(bool includeLeft, bool includeRight)
-		{
-			if (CurrentPage == null)
-			{
-				return;
-			}
+		//public void LoadSideContent(bool includeLeft, bool includeRight)
+		//{
+		//	if (CurrentPage == null)
+		//	{
+		//		return;
+		//	}
 
-			if (!includeLeft && !includeRight)
-			{
-				return;
-			}
+		//	if (!includeLeft && !includeRight)
+		//	{
+		//		return;
+		//	}
 
-			int leftModulesAdded = 0;
-			int rightModulesAdded = 0;
+		//	int leftModulesAdded = 0;
+		//	int rightModulesAdded = 0;
 
-			if (CurrentPage.Modules.Count > 0)
-			{
-				foreach (Module module in CurrentPage.Modules)
-				{
-					if (!ShouldShowModule(module))
-					{
-						continue;
-					}
+		//	if (CurrentPage.Modules.Count > 0)
+		//	{
+		//		foreach (Module module in CurrentPage.Modules)
+		//		{
+		//			if (!ShouldShowModule(module))
+		//			{
+		//				continue;
+		//			}
 
-					if (ModuleIsVisible(module))
-					{
-						if (includeLeft && StringHelper.IsCaseInsensitiveMatch(module.PaneName, "leftpane"))
-						{
-							Control c = Page.LoadControl("~/" + module.ControlSource);
+		//			if (ModuleIsVisible(module))
+		//			{
+		//				if (includeLeft && StringHelper.IsCaseInsensitiveMatch(module.PaneName, "leftpane"))
+		//				{
+		//					Control c = Page.LoadControl("~/" + module.ControlSource);
 
-							if (c == null)
-							{
-								continue;
-							}
+		//					if (c == null)
+		//					{
+		//						continue;
+		//					}
 
-							if (c is SiteModuleControl)
-							{
-								SiteModuleControl siteModule = (SiteModuleControl)c;
+		//					if (c is SiteModuleControl)
+		//					{
+		//						SiteModuleControl siteModule = (SiteModuleControl)c;
 
-								siteModule.SiteId = siteSettings.SiteId;
-								siteModule.ModuleConfiguration = module;
-							}
+		//						siteModule.SiteId = siteSettings.SiteId;
+		//						siteModule.ModuleConfiguration = module;
+		//					}
 
-							MPLeftPane.Controls.Add(c);
-							MPLeftPane.Visible = true;
-							MPLeftPane.Parent.Visible = true;
+		//					MPLeftPane.Controls.Add(c);
+		//					MPLeftPane.Visible = true;
+		//					MPLeftPane.Parent.Visible = true;
 
-							leftModulesAdded += 1;
-						}
+		//					leftModulesAdded += 1;
+		//				}
 
-						if (includeRight && StringHelper.IsCaseInsensitiveMatch(module.PaneName, "rightpane"))
-						{
-							Control c = Page.LoadControl("~/" + module.ControlSource);
+		//				if (includeRight && StringHelper.IsCaseInsensitiveMatch(module.PaneName, "rightpane"))
+		//				{
+		//					Control c = Page.LoadControl("~/" + module.ControlSource);
 
-							if (c == null)
-							{
-								continue;
-							}
+		//					if (c == null)
+		//					{
+		//						continue;
+		//					}
 
-							if (c is SiteModuleControl siteModule)
-							{
-								siteModule.SiteId = siteSettings.SiteId;
-								siteModule.ModuleConfiguration = module;
-							}
+		//					if (c is SiteModuleControl siteModule)
+		//					{
+		//						siteModule.SiteId = siteSettings.SiteId;
+		//						siteModule.ModuleConfiguration = module;
+		//					}
 
-							MPRightPane.Controls.Add(c);
-							MPRightPane.Visible = true;
-							MPRightPane.Parent.Visible = true;
+		//					MPRightPane.Controls.Add(c);
+		//					MPRightPane.Visible = true;
+		//					MPRightPane.Parent.Visible = true;
 
-							rightModulesAdded += 1;
-						}
-					}
-				}
-			}
+		//					rightModulesAdded += 1;
+		//				}
+		//			}
+		//		}
+		//	}
 
-			forceShowLeft = leftModulesAdded > 0;
-			forceShowRight = rightModulesAdded > 0;
-		}
+		//	forceShowLeft = leftModulesAdded > 0;
+		//	forceShowRight = rightModulesAdded > 0;
+		//}
 
 
 		private void SetupColumnCss(bool showLeft, bool showRight)
@@ -1637,104 +1639,104 @@ namespace mojoPortal.Web
 		}
 
 
-		public void LoadAltContent(bool includeTop, bool includeBottom)
-		{
-			if (CurrentPage == null)
-			{
-				return;
-			}
+		//public void LoadAltContent(bool includeTop, bool includeBottom)
+		//{
+		//	if (CurrentPage == null)
+		//	{
+		//		return;
+		//	}
 
-			if (!includeTop && !includeBottom)
-			{
-				return;
-			}
+		//	if (!includeTop && !includeBottom)
+		//	{
+		//		return;
+		//	}
 
-			if (AltPane1 == null)
-			{
-				return;
-			}
+		//	if (AltPane1 == null)
+		//	{
+		//		return;
+		//	}
 
-			if (AltPane2 == null)
-			{
-				return;
-			}
+		//	if (AltPane2 == null)
+		//	{
+		//		return;
+		//	}
 
-			if (CurrentPage.Modules.Count > 0)
-			{
-				foreach (Module module in CurrentPage.Modules)
-				{
-					if (!ShouldShowModule(module))
-					{
-						continue;
-					}
+		//	if (CurrentPage.Modules.Count > 0)
+		//	{
+		//		foreach (Module module in CurrentPage.Modules)
+		//		{
+		//			if (!ShouldShowModule(module))
+		//			{
+		//				continue;
+		//			}
 
-					if (ModuleIsVisible(module))
-					{
+		//			if (ModuleIsVisible(module))
+		//			{
 
-						if (includeTop && StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent1"))
-						{
-							Control c = Page.LoadControl("~/" + module.ControlSource);
+		//				if (includeTop && StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent1"))
+		//				{
+		//					Control c = Page.LoadControl("~/" + module.ControlSource);
 
-							if (c == null)
-							{
-								continue;
-							}
+		//					if (c == null)
+		//					{
+		//						continue;
+		//					}
 
-							if (c is SiteModuleControl)
-							{
-								SiteModuleControl siteModule = (SiteModuleControl)c;
+		//					if (c is SiteModuleControl)
+		//					{
+		//						SiteModuleControl siteModule = (SiteModuleControl)c;
 
-								siteModule.SiteId = siteSettings.SiteId;
-								siteModule.ModuleConfiguration = module;
-							}
+		//						siteModule.SiteId = siteSettings.SiteId;
+		//						siteModule.ModuleConfiguration = module;
+		//					}
 
-							Control a1 = Master.FindControl("divAlt1");
+		//					Control a1 = Master.FindControl("divAlt1");
 
-							if (a1 != null)
-							{
-								a1.Visible = true;
-							}
-							else
-							{
-								a1 = Master.FindControl("divAltContent1");
+		//					if (a1 != null)
+		//					{
+		//						a1.Visible = true;
+		//					}
+		//					else
+		//					{
+		//						a1 = Master.FindControl("divAltContent1");
 
-								if (a1 != null)
-								{
-									a1.Visible = true;
-								}
-							}
+		//						if (a1 != null)
+		//						{
+		//							a1.Visible = true;
+		//						}
+		//					}
 
-							AltPane1.Controls.Add(c);
-						}
+		//					AltPane1.Controls.Add(c);
+		//				}
 
-						if (includeBottom && StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent2"))
-						{
-							Control c = Page.LoadControl("~/" + module.ControlSource);
+		//				if (includeBottom && StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent2"))
+		//				{
+		//					Control c = Page.LoadControl("~/" + module.ControlSource);
 
-							if (c == null)
-							{
-								continue;
-							}
+		//					if (c == null)
+		//					{
+		//						continue;
+		//					}
 
-							if (c is SiteModuleControl siteModule)
-							{
-								siteModule.SiteId = siteSettings.SiteId;
-								siteModule.ModuleConfiguration = module;
-							}
+		//					if (c is SiteModuleControl siteModule)
+		//					{
+		//						siteModule.SiteId = siteSettings.SiteId;
+		//						siteModule.ModuleConfiguration = module;
+		//					}
 
-							Control a2 = Master.FindControl("divAltContent2");
+		//					Control a2 = Master.FindControl("divAltContent2");
 
-							if (a2 != null)
-							{
-								a2.Visible = true;
-							}
+		//					if (a2 != null)
+		//					{
+		//						a2.Visible = true;
+		//					}
 
-							AltPane2.Controls.Add(c);
-						}
-					}
-				}
-			}
-		}
+		//					AltPane2.Controls.Add(c);
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
 
 
 		protected bool ModuleIsVisible(Module module)
