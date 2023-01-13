@@ -1,4 +1,4 @@
-;(function ($) { $.fn.datepicker.language['ro'] = {
+export default {
     days: ['Duminică', 'Luni', 'Marţi', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'],
     daysShort: ['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm'],
     daysMin: ['D', 'L', 'Ma', 'Mi', 'J', 'V', 'S'],
@@ -6,8 +6,7 @@
     monthsShort: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
     today: 'Azi',
     clear: 'Şterge',
-    dateFormat: 'dd.mm.yyyy',
-    timeFormat: 'hh:ii',
+    dateFormat: 'dd.MM.yyyy',
+    timeFormat: 'HH:mm',
     firstDay: 1
 };
- })(jQuery);

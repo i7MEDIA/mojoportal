@@ -1,4 +1,4 @@
-;(function ($) { $.fn.datepicker.language['da'] = {
+export default {
     days: ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'],
     daysShort: ['Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør'],
     daysMin: ['Sø', 'Ma', 'Ti', 'On', 'To', 'Fr', 'Lø'],
@@ -6,7 +6,7 @@
     monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
     today: 'I dag',
     clear: 'Nulstil',
-    dateFormat: 'dd/mm/yyyy',
-    timeFormat: 'hh:ii',
+    dateFormat: 'dd/MM/yyyy',
+    timeFormat: 'HH:mm',
     firstDay: 1
-}; })(jQuery);
+};

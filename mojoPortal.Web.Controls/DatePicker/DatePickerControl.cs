@@ -11,6 +11,7 @@ using System;
 using System.ComponentModel;
 using System.Configuration;
 using System.Globalization;
+using System.Reflection.Emit;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
@@ -42,31 +43,26 @@ namespace mojoPortal.Web.Controls
 
        
 
-        public string ProviderName
-        {
-            get { return providerName; }
-            set
-            {
+        //public string ProviderName
+        //{
+        //    get { return providerName; }
+        //    set
+        //    {
                 
-                providerName = value;
-                if (HttpContext.Current == null) { return; }
-                DatePickerProvider newProvider = DatePickerManager.Providers[providerName];
-                if ((newProvider != null)&&(newProvider != provider))
-                {
-                    provider = newProvider;
-                    picker = provider.GetDatePicker();
-                    datePickerControl = picker.GetControl();
-                    datePickerControl.ID = "dp" + this.ID;
-                    this.Controls.Clear();
-                    this.Controls.Add(datePickerControl);
-
-                   
-                }
-
-                
-
-            }
-        }
+        //        providerName = value;
+        //        if (HttpContext.Current == null) { return; }
+        //        DatePickerProvider newProvider = DatePickerManager.Providers[providerName];
+        //        if ((newProvider != null)&&(newProvider != provider))
+        //        {
+        //            provider = newProvider;
+        //            picker = provider.GetDatePicker();
+        //            datePickerControl = picker.GetControl();
+        //            datePickerControl.ID = "dp" + ID;
+        //            Controls.Clear();
+        //            Controls.Add(datePickerControl);
+        //        }
+        //    }
+        //}
 
         public string Text
         {
@@ -80,21 +76,6 @@ namespace mojoPortal.Web.Controls
                 if (picker == null) InitPicker();
                 if (HttpContext.Current == null) { return; }
                 picker.Text = value;
-            }
-        }
-
-        public string ButtonImageUrl
-        {
-            get
-            {
-                if (picker == null) InitPicker();
-                return picker.ButtonImageUrl;
-            }
-            set
-            {
-                if (picker == null) InitPicker();
-                if (HttpContext.Current == null) { return; }
-                picker.ButtonImageUrl = value;
             }
         }
 
@@ -235,6 +216,57 @@ namespace mojoPortal.Web.Controls
             }
         }
 
+        public string RelatedPickerControl
+        {
+            get
+            {
+                if (picker == null) InitPicker();
+                if (picker is AirDatepickerAdapter airDatePicker)
+                {
+                    return airDatePicker.RelatedPickerControl;
+                }
+                return null;
+            }
+            set
+            {
+                if (picker == null) InitPicker();
+                if (HttpContext.Current == null) { return; }
+                if (picker is AirDatepickerAdapter airDatePicker)
+                {
+                    if (!string.IsNullOrWhiteSpace(value))
+                    {
+                        Control c = this.Controls[0].Parent.FindControl(value);
+					    if (c != null)
+					    {
+					        airDatePicker.RelatedPickerControl = c.ClientID + "dp";
+					    }
+                    }
+                }
+            }
+        }
+
+        public RelatedPickerRelation RelatedPickerRelation
+        {
+            get
+            {
+                if (picker == null) InitPicker();
+				if (picker is AirDatepickerAdapter airDatePicker)
+				{
+					return airDatePicker.RelatedPickerRelation;
+				}
+				return RelatedPickerRelation.None;
+			}
+            set
+            {
+                if (picker == null) InitPicker();
+                if (HttpContext.Current == null) { return; }
+				if (picker is AirDatepickerAdapter airDatePicker)
+				{
+					airDatePicker.RelatedPickerRelation = value;
+				}
+			}
+        }
+
         public DatePickerProvider Provider
         {
             get { return provider; }
@@ -285,7 +317,7 @@ namespace mojoPortal.Web.Controls
                     if(picker == null)picker = provider.GetDatePicker();
                 
                     datePickerControl = picker.GetControl();
-                    datePickerControl.ID = "dp" + this.ID;
+                    datePickerControl.ID = this.ID + "dp";
                     this.Controls.Clear();
                     this.Controls.Add(datePickerControl);
                 }

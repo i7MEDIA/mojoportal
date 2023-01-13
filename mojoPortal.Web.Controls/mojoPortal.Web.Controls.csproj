@@ -182,6 +182,9 @@
     <Compile Include="CutePager.cs" />
     <Compile Include="DataCalendar.cs" />
     <Compile Include="DataCalendarItem.cs" />
+    <Compile Include="DatePicker\AirDatepicker.cs" />
+    <Compile Include="DatePicker\AirDatepickerAdapter.cs" />
+    <Compile Include="DatePicker\AirDatepickerProvider.cs" />
     <Compile Include="DatePicker\DatePickerConfiguration.cs" />
     <Compile Include="DatePicker\DatePickerControl.cs" />
     <Compile Include="DatePicker\DatePickerManager.cs" />
@@ -254,6 +257,10 @@
     <Content Include="Gravatar\Gravatar.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{fea72210-0415-4133-bdf9-8877683ba832}</Project>
+      <Name>mojoPortal.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
       <Project>{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}</Project>
       <Name>mojoPortal.Web.Framework</Name>
@@ -266,8 +273,7 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy /s /y "$(ProjectDir)ClientScript\*" "$(SolutionDir)Web\ClientScript\"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="SpicNSpan" AfterTargets="Clean">
     <RemoveDir Directories="$(TargetDir)" />

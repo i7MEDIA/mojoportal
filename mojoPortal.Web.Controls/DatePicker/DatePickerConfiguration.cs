@@ -6,132 +6,98 @@ using System.Xml;
 
 namespace mojoPortal.Web.Controls.DatePicker
 {
-    /// <summary>
-    /// Author:		        
-    /// Created:            2007-11-07
-    /// Last Modified:      2007-11-07
-    /// 
-    /// Licensed under the terms of the GNU Lesser General Public License:
-    ///	http://www.opensource.org/licenses/lgpl-license.php
-    ///
-    /// You must not remove this notice, or any other, from this software.
-    /// 
-    /// </summary>
-    public class DatePickerConfiguration
-    {
-        private ProviderSettingsCollection providerSettingsCollection = new ProviderSettingsCollection();
-        private string defaultProvider = "jsCalendarDatePickerProvider";
+	public class DatePickerConfiguration
+	{
+		public DatePickerConfiguration(XmlNode node)
+		{
+			LoadValuesFromConfigurationXml(node);
+		}
 
-        public DatePickerConfiguration(XmlNode node)
-        {
-            LoadValuesFromConfigurationXml(node);
-        }
+		public ProviderSettingsCollection Providers { get; } = new ProviderSettingsCollection();
 
-        public ProviderSettingsCollection Providers
-        {
-            get { return providerSettingsCollection; }
-        }
+		public string DefaultProvider { get; private set; } = "jsCalendarDatePickerProvider";
 
+		public void LoadValuesFromConfigurationXml(XmlNode node)
+		{
+			if (node.Attributes["defaultProvider"] != null)
+			{
+				DefaultProvider = node.Attributes["defaultProvider"].Value;
+			}
 
-        public string DefaultProvider
-        {
-            get {return defaultProvider;}
-        }
+			foreach (XmlNode child in node.ChildNodes)
+			{
+				if (child.Name == "providers")
+				{
+					foreach (XmlNode providerNode in child.ChildNodes)
+					{
+						if (
+							providerNode.NodeType == XmlNodeType.Element
+							&& providerNode.Name == "add"
+						)
+						{
+							if (
+								providerNode.Attributes["name"] != null
+								&& providerNode.Attributes["type"] != null
+							)
+							{
+								ProviderSettings providerSettings
+									= new ProviderSettings(
+									providerNode.Attributes["name"].Value,
+									providerNode.Attributes["type"].Value);
 
-        public void LoadValuesFromConfigurationXml(XmlNode node)
-        {
-            if (node.Attributes["defaultProvider"] != null)
-            {
-                defaultProvider = node.Attributes["defaultProvider"].Value;
-            }
+								Providers.Add(providerSettings);
+							}
+						}
+					}
+				}
+			}
+		}
 
-            foreach (XmlNode child in node.ChildNodes)
-            {
-                if (child.Name == "providers")
-                {
-                    foreach (XmlNode providerNode in child.ChildNodes)
-                    {
-                        if (
-                            (providerNode.NodeType == XmlNodeType.Element)
-                            && (providerNode.Name == "add")
-                            )
-                        {
-                            if (
-                                (providerNode.Attributes["name"] != null)
-                                && (providerNode.Attributes["type"] != null)
-                                )
-                            {
-                                ProviderSettings providerSettings
-                                    = new ProviderSettings(
-                                    providerNode.Attributes["name"].Value,
-                                    providerNode.Attributes["type"].Value);
+		public static DatePickerConfiguration GetConfig()
+		{
+			DatePickerConfiguration datePickerConfig;
 
-                                providerSettingsCollection.Add(providerSettings);
-                            }
+			if (
+				HttpRuntime.Cache["mojoDatePickerConfig"] != null
+				&& HttpRuntime.Cache["mojoDatePickerConfig"] is DatePickerConfiguration configuration
+			)
+			{
+				return configuration;
+			}
+			else
+			{
+				string configFileName = "mojoDatePicker.config";
+				if (ConfigurationManager.AppSettings["mojoDatePickerConfigFileName"] != null)
+				{
+					configFileName = ConfigurationManager.AppSettings["mojoDatePickerConfigFileName"];
+				}
 
-                        }
-                    }
+				if (!configFileName.StartsWith("~/"))
+				{
+					configFileName = "~/" + configFileName;
+				}
 
-                }
-            }
-        }
+				string pathToConfigFile = HttpContext.Current.Server.MapPath(configFileName);
 
-        public static DatePickerConfiguration GetConfig()
-        {
-            DatePickerConfiguration datePickerConfig = null;
+				var configXml = new XmlDocument();
+				configXml.Load(pathToConfigFile);
 
-            if (
-                (HttpRuntime.Cache["mojoDatePickerConfig"] != null)
-                && (HttpRuntime.Cache["mojoDatePickerConfig"] is DatePickerConfiguration)
-            )
-            {
-                return (DatePickerConfiguration)HttpRuntime.Cache["mojoDatePickerConfig"];
-            }
-            else
-            {
-                String configFileName = "mojoDatePicker.config";
-                if (ConfigurationManager.AppSettings["mojoDatePickerConfigFileName"] != null)
-                {
-                    configFileName
-                        = ConfigurationManager.AppSettings["mojoDatePickerConfigFileName"];
-                }
- 
-                if (!configFileName.StartsWith("~/"))
-                {
-                    configFileName = "~/" + configFileName;
-                }
+				datePickerConfig = new DatePickerConfiguration(configXml.DocumentElement);
 
-                String pathToConfigFile 
-                    = HttpContext.Current.Server.MapPath(configFileName);
+				var aggregateCacheDependency = new AggregateCacheDependency();
+				aggregateCacheDependency.Add(new CacheDependency(pathToConfigFile));
 
-                XmlDocument configXml = new XmlDocument();
-                configXml.Load(pathToConfigFile);
+				HttpRuntime.Cache.Insert(
+					"mojoDatePickerConfig",
+					datePickerConfig,
+					aggregateCacheDependency,
+					DateTime.Now.AddYears(1),
+					TimeSpan.Zero,
+					CacheItemPriority.Default,
+					null);
 
-                datePickerConfig
-                    = new DatePickerConfiguration(configXml.DocumentElement);
-
-                AggregateCacheDependency aggregateCacheDependency 
-                    = new AggregateCacheDependency();
-
-                aggregateCacheDependency.Add(new CacheDependency(pathToConfigFile));
-                
-                System.Web.HttpRuntime.Cache.Insert(
-                    "mojoDatePickerConfig",
-                    datePickerConfig,
-                    aggregateCacheDependency,
-                    DateTime.Now.AddYears(1),
-                    TimeSpan.Zero,
-                    System.Web.Caching.CacheItemPriority.Default,
-                    null);
-
-                return (DatePickerConfiguration)HttpRuntime.Cache["mojoDatePickerConfig"];
-
-            }
-
-            
-
-        }
-
-
-    }
+				return (DatePickerConfiguration)HttpRuntime.Cache["mojoDatePickerConfig"];
+			}
+		}
+	}
 }

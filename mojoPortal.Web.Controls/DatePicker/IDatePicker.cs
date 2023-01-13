@@ -21,7 +21,6 @@ namespace mojoPortal.Web.Controls.DatePicker
         bool ShowTime { get;set;}
         string ClockHours { get;set;}
         Unit Width { get; set; }
-        string ButtonImageUrl { get; set; }
 
         // *** added by ghalib ghniem Aug-14-2011 ChangeMonth: bool ,ChangeYear: bool, YearRange: string
         bool ShowMonthList { get; set; }
@@ -31,7 +30,7 @@ namespace mojoPortal.Web.Controls.DatePicker
         string CalculateWeek { get; set; }
         bool ShowWeek { get; set; }
         int FirstDay { get; set; }
-        
 
     }
+    public enum RelatedPickerRelation{ Start, End, None }
 }
