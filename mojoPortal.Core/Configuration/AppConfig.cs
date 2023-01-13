@@ -99,5 +99,21 @@ namespace mojoPortal.Core.Configuration
 				return ConfigHelper.GetStringProperty("JQueryPath", "~/Scripts/");
 			}
 		}
+
+		public static string GoogleAnalyticsInitScript
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("GoogleAnalyticsInitScript", "~/ClientScript/GA4-gtag.js");
+			}
+		}
+
+		public static string GoogleAnalyticsScript
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("GoogleAnalyticsScript", "https://www.googletagmanager.com/gtag/js?id=");
+			}
+		}
 	}
 }

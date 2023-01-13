@@ -72,7 +72,7 @@ namespace mojoPortal.Web.UI
 
 			int siteId = SiteUtils.ParseSiteIdFromSkinRequestUrl();
 
-			string skinName = "styleshout-refresh";
+			string skinName = "framework";
 
 			if (context.Request["skin"] != null)
 			{

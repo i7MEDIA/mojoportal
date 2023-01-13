@@ -1,5 +1,6 @@
 ﻿using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Configuration;
 using mojoPortal.Core.Helpers;
 using mojoPortal.Web.Framework;
 using Resources;
@@ -71,6 +72,10 @@ namespace mojoPortal.Web.UI
 		public bool IncludeGoogleSearch { get; set; } = false;
 		public bool IncludeGoogleSearchV2 { get; set; } = false;
 		public string GoogleSearchV2Id { get; set; } = string.Empty;
+
+		public bool IncludeGoogleAnalytics { get; set; } = true;
+
+		public string GoogleAnalyticsAccountCode { get; set; }
 
 		private bool includeSimpleFaq = true;
 
@@ -347,15 +352,23 @@ namespace mojoPortal.Web.UI
 		}
 
 		public string ScriptFormatRef { get; set; } = "\n<script src=\"{0}\" data-loader=\"scriptloader\"></script>";
+		public string ScriptFormatRefAsync { get; set; } = "\n<script async src=\"{0}\" data-loader=\"scriptloader\"></script>";
 		public string ScriptFormatInline { get; set; } = "\n<script data-loader=\"scriptloader\">{0}</script>";
 		#endregion
 
 		protected override void Render(HtmlTextWriter writer)
 		{
+
 			// Modernizr needs to be the first script in the head
 			if (IncludeModernizr)
 			{
 				writer.WriteLine(string.Format(ScriptFormatRef, Page.ResolveUrl("~/ClientScript/" + ModernizrFileName)));
+			}
+
+			if (IncludeGoogleAnalytics)
+			{
+				writer.WriteLine(string.Format(ScriptFormatRefAsync, $"{AppConfig.GoogleAnalyticsScript}{GoogleAnalyticsAccountCode}"));
+				writer.WriteLine(string.Format(ScriptFormatRef, Page.ResolveUrl($"{AppConfig.GoogleAnalyticsInitScript}?id={GoogleAnalyticsAccountCode}")));
 			}
 
 			if (RenderjQueryInHead)
@@ -462,6 +475,28 @@ s.parentNode.insertBefore(gcse, s);
 
 			siteSettings = CacheHelper.GetCurrentSiteSettings();
 
+
+			if (WebConfigSettings.GoogleAnalyticsRolesToExclude.Length > 0)
+			{
+				if (WebUser.IsInRoles(WebConfigSettings.GoogleAnalyticsRolesToExclude))
+				{
+					IncludeGoogleAnalytics = false;
+				}
+			}
+
+			GoogleAnalyticsAccountCode = siteSettings.GoogleAnalyticsAccountCode;
+
+			// webconfig overrides site settings, this is helpful with demo site where public has access to change the value in site settings
+			if (ConfigurationManager.AppSettings["GoogleAnalyticsProfileId"] != null)
+			{
+				GoogleAnalyticsAccountCode = ConfigurationManager.AppSettings["GoogleAnalyticsProfileId"].ToString();
+			}
+
+			if (string.IsNullOrWhiteSpace(GoogleAnalyticsAccountCode) || GoogleAnalyticsAccountCode.StartsWith("UA"))
+			{
+				IncludeGoogleAnalytics = false;
+			}
+
 			SetupScripts();
 		}
 
@@ -480,7 +515,6 @@ s.parentNode.insertBefore(gcse, s);
 				}
 			}
 		}
-
 
 		private void SetupScripts()
 		{

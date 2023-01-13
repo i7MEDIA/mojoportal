@@ -15,9 +15,9 @@ namespace mojoPortal.Core.Configuration
 		}
 
 
-		public static bool GetBoolProperty(string key, bool defaultValue, bool byPassContext)
+		public static bool GetBoolProperty(string key, bool defaultValue, bool bypassContext)
 		{
-			return byPassContext ? GetBoolPropertyFromConfig(key, defaultValue) : GetBoolSettingFromContext(key, defaultValue);
+			return bypassContext ? GetBoolPropertyFromConfig(key, defaultValue) : GetBoolSettingFromContext(key, defaultValue);
 		}
 
 
@@ -71,6 +71,10 @@ namespace mojoPortal.Core.Configuration
 			return GetStringSettingFromContext(key, defaultValue);
 		}
 
+		public static string GetStringProperty(string key, string defaultValue, bool bypassContext)
+		{
+			return bypassContext ? GetStringPropertyFromConfig(key, defaultValue) : GetStringSettingFromContext(key, defaultValue);
+		}
 
 		private static string GetStringPropertyFromConfig(string key, string defaultValue) => ConfigurationManager.AppSettings[key] ?? defaultValue;
 

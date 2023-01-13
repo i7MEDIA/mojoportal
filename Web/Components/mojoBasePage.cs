@@ -1502,12 +1502,12 @@ namespace mojoPortal.Web
 			{
 				foreach (Module module in CurrentPage.Modules)
 				{
-					if (!ShouldShowModule(module))
+					if (!ShouldShowModule(module)) //mobile skin publishing
 					{
 						continue;
 					}
 
-					if (ModuleIsVisible(module))
+					if (ModuleIsVisible(module)) //hide from authenticated/unauthenticated
 					{
 						if (includeLeft && StringHelper.IsCaseInsensitiveMatch(module.PaneName, "leftpane"))
 						{

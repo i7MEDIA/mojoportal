@@ -40,10 +40,17 @@ namespace mojoPortal.Web.UI
         private string overrideScriptUrl = string.Empty;
 
 
-        /// <summary>
-        /// if you want to host the script locally put the path for the src=
-        /// </summary>
-        public string OverrideScriptUrl
+		/// <summary>
+		/// This control should no longer be used and will be removed in a future version.
+		/// Google Analytics completely changed and this control only ever support GA.
+		/// This control has been replaced with logic in ScriptLoader.
+		/// </summary>
+		public bool Disable { get; set; } = true;
+
+		/// <summary>
+		/// if you want to host the script locally put the path for the src=
+		/// </summary>
+		public string OverrideScriptUrl
         {
             get { return overrideScriptUrl; }
             set { overrideScriptUrl = value; }
@@ -94,7 +101,7 @@ namespace mojoPortal.Web.UI
 
         protected override void OnInit(EventArgs e)
         {
-            base.OnInit(e);
+			base.OnInit(e);
 
             if (HttpContext.Current == null) { return; }
 
@@ -105,27 +112,31 @@ namespace mojoPortal.Web.UI
                 overrideScriptUrl = WebConfigSettings.GoogleAnalyticsScriptOverrideUrl;
             }
 
-            // let Web.config setting trump site settings. this meets my needs where I want to track the demo site but am letting people login as admin
-            // this way if the remove or change it in site settings it still uses my profile id
-            if (ConfigurationManager.AppSettings["GoogleAnalyticsProfileId"] != null)
-            {
-                googleAnalyticsProfileId = ConfigurationManager.AppSettings["GoogleAnalyticsProfileId"].ToString();
-                return;
-
-            }
-
             siteSettings = CacheHelper.GetCurrentSiteSettings();
             if ((siteSettings != null) && (siteSettings.GoogleAnalyticsAccountCode.Length > 0))
             {
                 googleAnalyticsProfileId = siteSettings.GoogleAnalyticsAccountCode;
 
             }
-            
-        }
 
-        protected override void OnLoad(EventArgs e)
+            // let Web.config setting trump site settings. this meets my needs where I want to track the demo site but am letting people login as admin
+            // this way if the remove or change it in site settings it still uses my profile id
+            if (ConfigurationManager.AppSettings["GoogleAnalyticsProfileId"] != null)
+            {
+                googleAnalyticsProfileId = ConfigurationManager.AppSettings["GoogleAnalyticsProfileId"].ToString();
+            }
+
+            if (!googleAnalyticsProfileId.StartsWith("UA") || !useUniversal)
+            {
+                Disable = true;
+            }
+		}
+
+		protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);
+			if (Disable) return;
+
+			base.OnLoad(e);
 
             if (WebConfigSettings.GoogleAnalyticsRolesToExclude.Length > 0)
             {
@@ -133,13 +144,14 @@ namespace mojoPortal.Web.UI
                 {
                     Visible = false; //prevent rendering
                 }
-
             }
         }
 
         protected override void Render(HtmlTextWriter writer)
         {
-            if (HttpContext.Current == null)
+			if (Disable) return;
+
+			if (HttpContext.Current == null)
             {
                 writer.Write("[" + this.ID + "]");
             }
@@ -151,10 +163,7 @@ namespace mojoPortal.Web.UI
                 {
                     SetupMainScript(writer);
                 }
-                
             }
-
         }
-
     }
 }
