@@ -159,9 +159,52 @@ namespace mojoPortal.Web.Controls.DatePicker
             get { return showWeek; }
             set { showWeek = value; }
         }
-        
 
-        private void InitializeAdapter()
+		public string RelatedPickerControl
+		{
+			get { return control.RelatedPickerControl; }
+			set { control.RelatedPickerControl = value; }
+		}
+
+		public RelatedPickerRelation RelatedPickerRelation
+		{
+			get { return control.RelatedPickerRelation; }
+			set { control.RelatedPickerRelation = value; }
+		}
+
+		public string View
+		{
+			get { return control.View; }
+			set { control.View = value; }
+		}
+
+		public string MinView
+		{
+			get { return control.View; }
+			set { control.View = value; }
+		}
+		public bool ShowTimeOnly
+		{
+			get { return control.ShowTimeOnly; }
+			set { control.ShowTimeOnly = value; }
+		}
+		public string MinDate
+		{
+			get { return control.MinDate; }
+			set { control.MinDate = value; }
+		}
+		public string MaxDate
+		{
+			get { return control.MaxDate; }
+			set { control.MaxDate = value; }
+		}
+
+		public string OnSelectJS
+		{
+			get { return control.OnSelectJS; }
+			set { control.OnSelectJS = value; }
+		}
+		private void InitializeAdapter()
         {
             control = new jsCalendarDatePicker();
 

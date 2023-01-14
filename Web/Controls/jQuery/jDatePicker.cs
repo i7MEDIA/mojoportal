@@ -19,6 +19,7 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using mojoPortal.Web.Controls.DatePicker;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -541,6 +542,15 @@ namespace mojoPortal.Web.UI
 		public bool ShowWeek { get; set; } = false;
 
 		public string TimeCssClass { get; set; } = "timepicker";
+
+		public string View { get; set; }
+		public string MinView { get; set; }
+		public string RelatedPickerControl { get; set; }
+		public RelatedPickerRelation RelatedPickerRelation { get; set; }
+
+		public string MinDate { get; set; }
+		public string MaxDate { get; set; }
+        public string OnSelectJS { get; set; }
 		//private int stepMonths = 1;
 		///// <summary>
 		///// Set how many months to move when clicking the Previous/Next links.

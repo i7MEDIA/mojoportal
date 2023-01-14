@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.Controls.DatePicker
@@ -20,6 +21,11 @@ namespace mojoPortal.Web.Controls.DatePicker
 
 			if (HttpContext.Current == null) { return; }
 			if (HttpContext.Current.Request == null) { return; }
+
+			if (AutoLocalize)
+			{
+				LangCode = GetSupportedLangCode(LangCode, LangCode);
+			}
 
 			LangCode = GetSupportedLangCode(CultureInfo.CurrentCulture.Name, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
 
@@ -53,9 +59,13 @@ namespace mojoPortal.Web.Controls.DatePicker
 
 		private void SetupScript()
 		{
+			var style = new HtmlLink();
+			style.Href = ResolveUrl(StylePath);
+			style.Attributes.Add("rel", "stylesheet");
+			Page.Header.Controls.Add(style);
+
 			ScriptManager.RegisterClientScriptBlock(this, GetType(), "airDate", 
 $@"
-<link rel=""stylesheet"" href=""{ResolveUrl(StylePath)}""/>
 <script src=""{ResolveUrl(ScriptPath)}""></script>
 <script>
 window.airDatepickerExt = {{
@@ -81,8 +91,8 @@ window.airDatepickerExt = {{
 </script>
 ", false);
 
-			string relatedPickerScript = string.Empty; //will be populated if RelatedPickerControl has value
-	
+			//string relatedPickerScript = string.Empty; //will be populated if RelatedPickerControl has value
+			//string onSelectEvents = string.Empty;
 			if (!string.IsNullOrWhiteSpace(RelatedPickerControl))
 			{
 				string relatedPickerBaseScript = $@"<script>
@@ -126,13 +136,13 @@ window.airDatepickerExt = {{
 					endInstance = ClientID;
 				}
 
-				relatedPickerScript = $@"onSelect: function(date, formattedDate, instance) {{
+				OnSelectJS += $@"
 	window.airDatepickerExt.relatedEnsureRange({{
 		caller: '{caller}',
 		startInstance: window.airDatepickerExt.pickers.{startInstance},
 		endInstance: window.airDatepickerExt.pickers.{endInstance}
 	}});
-}}";
+";
 				ScriptManager.RegisterStartupScript(this, GetType(), "relatedPickerBaseScript", relatedPickerBaseScript, false);
 			}
 
@@ -145,6 +155,13 @@ window.airDatepickerExt = {{
 				thisDateTime = DateTime.Parse(Text);
 			}
 
+			if (View != MinView)
+			{
+				View = MinView;
+			}
+
+
+
 			string airdateScriptSingleton = $@"<script type=""module"">
 import {ClientID}_thelocale from '{ResolveUrl(LocalePath + LangCode + ".js")}';
 window.airDatepickerExt.pickers.{ClientID} = new AirDatepicker('#{ClientID}', {{
@@ -152,7 +169,12 @@ window.airDatepickerExt.pickers.{ClientID} = new AirDatepicker('#{ClientID}', {{
 	timepicker: {ShowTime.ToString().ToLower()},
 	buttons: [window.airDatepickerExt.todayButton,{(ShowTime ? "window.airDatepickerExt.nowButton," : string.Empty)}'clear'],
 	keyboardNav: {KeyboardNav.ToString().ToLower()},
-	{relatedPickerScript} 
+	view: '{View.ToLower()}',
+	minView: '{MinView.ToLower()}',
+	{(ShowTimeOnly ? "onlyTimePicker: true," : string.Empty)}
+	{(string.IsNullOrWhiteSpace(MinDate) ? string.Empty : $"minDate: '{MinDate}',")}	
+	{(string.IsNullOrWhiteSpace(MaxDate) ? string.Empty : $"maxDate: '{MaxDate}',")}
+	{(string.IsNullOrWhiteSpace(OnSelectJS) ? string.Empty : $"onSelect: function(data){{{OnSelectJS}}},")}
 }});
 
 {(string.IsNullOrWhiteSpace(Text) ? string.Empty : $@"window.airDatepickerExt.pickers.{ClientID}.selectDate(new Date(
@@ -272,35 +294,13 @@ window.airDatepickerExt.selectDateOpts);")}
 		public string RelatedPickerControl { get; set; }
 		public RelatedPickerRelation RelatedPickerRelation { get; set; } = RelatedPickerRelation.Start;
 		public bool KeyboardNav { get; set; }
-		//private int stepMonths = 1;
-		///// <summary>
-		///// Set how many months to move when clicking the Previous/Next links.
-		///// </summary>
-		//public int StepMonths
-		//{
-		//    get { return stepMonths; }
-		//    set { stepMonths = value; }
-		//}
 
-		//private string weekHeader = "Wk";
-		///// <summary>
-		///// The text to display for the week of the year column heading. This attribute is one of the regionalisation attributes. Use showWeek to display this column.
-		///// </summary>
-		//public string WeekHeader
-		//{
-		//    get { return weekHeader; }
-		//    set { weekHeader = value; }
-		//}
+		public string View { get; set; } = "days";
+		public string MinView { get; set; } = "days";
+		public string MinDate { get; set; }
+		public string MaxDate { get; set; }
+		public string OnSelectJS { get; set; }
 
-		//private string yearSuffix = string.Empty;
-		///// <summary>
-		///// Additional text to display after the year in the month headers. This attribute is one of the regionalisation attributes.
-		///// </summary>
-		//public string YearSuffix
-		//{
-		//    get { return yearSuffix; }
-		//    set { yearSuffix = value; }
-		//}
 
 
 	}

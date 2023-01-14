@@ -28,7 +28,6 @@ namespace mojoPortal.Web.Controls
     {
         private DatePickerProvider provider;
         private IDatePicker picker;
-        private string providerName = "jsCalendarDatePickerProvider";
         private Control datePickerControl;
 
 
@@ -40,29 +39,6 @@ namespace mojoPortal.Web.Controls
                 return picker; 
             }
         }
-
-       
-
-        //public string ProviderName
-        //{
-        //    get { return providerName; }
-        //    set
-        //    {
-                
-        //        providerName = value;
-        //        if (HttpContext.Current == null) { return; }
-        //        DatePickerProvider newProvider = DatePickerManager.Providers[providerName];
-        //        if ((newProvider != null)&&(newProvider != provider))
-        //        {
-        //            provider = newProvider;
-        //            picker = provider.GetDatePicker();
-        //            datePickerControl = picker.GetControl();
-        //            datePickerControl.ID = "dp" + ID;
-        //            Controls.Clear();
-        //            Controls.Add(datePickerControl);
-        //        }
-        //    }
-        //}
 
         public string Text
         {
@@ -109,7 +85,22 @@ namespace mojoPortal.Web.Controls
             }
         }
 
-        public string ClockHours
+		public bool ShowTimeOnly
+		{
+			get
+			{
+				if (picker == null) InitPicker();
+				return picker.ShowTimeOnly;
+			}
+			set
+			{
+				if (picker == null) InitPicker();
+				if (HttpContext.Current == null) { return; }
+				picker.ShowTimeOnly = value;
+			}
+		}
+
+		public string ClockHours
         {
             get 
             {
@@ -221,27 +212,27 @@ namespace mojoPortal.Web.Controls
             get
             {
                 if (picker == null) InitPicker();
-                if (picker is AirDatepickerAdapter airDatePicker)
-                {
-                    return airDatePicker.RelatedPickerControl;
-                }
-                return null;
+                //if (picker is AirDatepickerAdapter airDatePicker)
+                //{
+                    return picker.RelatedPickerControl;
+                //}
+                //return null;
             }
             set
             {
                 if (picker == null) InitPicker();
                 if (HttpContext.Current == null) { return; }
-                if (picker is AirDatepickerAdapter airDatePicker)
-                {
+                //if (picker is AirDatepickerAdapter airDatePicker)
+                //{
                     if (!string.IsNullOrWhiteSpace(value))
                     {
                         Control c = this.Controls[0].Parent.FindControl(value);
 					    if (c != null)
 					    {
-					        airDatePicker.RelatedPickerControl = c.ClientID + "dp";
+					        picker.RelatedPickerControl = c.ClientID + "dp";
 					    }
                     }
-                }
+                //}
             }
         }
 
@@ -250,24 +241,97 @@ namespace mojoPortal.Web.Controls
             get
             {
                 if (picker == null) InitPicker();
-				if (picker is AirDatepickerAdapter airDatePicker)
-				{
-					return airDatePicker.RelatedPickerRelation;
-				}
-				return RelatedPickerRelation.None;
+				//if (picker is AirDatepickerAdapter airDatePicker)
+				//{
+					return picker.RelatedPickerRelation;
+				//}
+				//return RelatedPickerRelation.None;
 			}
             set
             {
                 if (picker == null) InitPicker();
                 if (HttpContext.Current == null) { return; }
-				if (picker is AirDatepickerAdapter airDatePicker)
-				{
-					airDatePicker.RelatedPickerRelation = value;
-				}
+				//if (picker is AirDatepickerAdapter airDatePicker)
+				//{
+					picker.RelatedPickerRelation = value;
+				//}
 			}
         }
 
-        public DatePickerProvider Provider
+		public string View
+		{
+			get
+			{
+				if (picker == null) InitPicker();
+				return picker.View;
+			}
+			set
+			{
+				if (picker == null) InitPicker();
+				if (HttpContext.Current == null) { return; }
+				picker.View = value;
+			}
+		}
+
+		public string MinView
+		{
+			get
+			{
+				if (picker == null) InitPicker();
+				return picker.MinView;
+			}
+			set
+			{
+				if (picker == null) InitPicker();
+				if (HttpContext.Current == null) { return; }
+				picker.MinView = value;
+			}
+		}
+
+		public string MinDate
+		{
+			get
+			{
+				if (picker == null) InitPicker();
+				return picker.MinDate;
+			}
+			set
+			{
+				if (picker == null) InitPicker();
+				if (HttpContext.Current == null) { return; }
+				picker.MinDate = value;
+			}
+		}
+
+		public string MaxDate
+		{
+			get
+			{
+				if (picker == null) InitPicker();
+				return picker.MaxDate;
+			}
+			set
+			{
+				if (picker == null) InitPicker();
+				if (HttpContext.Current == null) { return; }
+				picker.MaxDate = value;
+			}
+		}
+        public string OnSelectJS
+        {
+			get
+			{
+				if (picker == null) InitPicker();
+				return picker.OnSelectJS;
+			}
+			set
+			{
+				if (picker == null) InitPicker();
+				if (HttpContext.Current == null) { return; }
+				picker.OnSelectJS = value;
+			}
+		}
+		public DatePickerProvider Provider
         {
             get { return provider; }
         }

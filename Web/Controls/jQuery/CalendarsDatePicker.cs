@@ -19,6 +19,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using mojoPortal.Web.Controls.DatePicker;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -101,7 +102,17 @@ namespace mojoPortal.Web.UI
             set { langCode = value; }
         }
 
-        protected override void OnPreRender(EventArgs e)
+		public string View { get; set; }
+		public string MinView { get; set; }
+		public string RelatedPickerControl { get; set; }
+		public RelatedPickerRelation RelatedPickerRelation { get; set; }
+
+		public bool ShowTimeOnly { get; set; } = false;
+		public string MinDate { get; set; }
+		public string MaxDate { get; set; }
+		public string OnSelectJS { get; set; }
+
+		protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
 

@@ -1,36 +1,32 @@
-// Author:		        
-// Created:            2007-11-07
-// Last Modified:      2011-08-14
-// 
-// Licensed under the terms of the GNU Lesser General Public License:
-//	http://www.opensource.org/licenses/lgpl-license.php
-//
-// You must not remove this notice, or any other, from this software.
-
+using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.Controls.DatePicker
 {
-    
-    public interface IDatePicker
-    {
-        Control GetControl();
-        string ControlID { get;set;}
-        string Text { get;set;}
-        bool ShowTime { get;set;}
-        string ClockHours { get;set;}
-        Unit Width { get; set; }
 
-        // *** added by ghalib ghniem Aug-14-2011 ChangeMonth: bool ,ChangeYear: bool, YearRange: string
-        bool ShowMonthList { get; set; }
-        bool ShowYearList { get; set; }
-        string YearRange { get; set; }
-
-        string CalculateWeek { get; set; }
-        bool ShowWeek { get; set; }
-        int FirstDay { get; set; }
-
-    }
-    public enum RelatedPickerRelation{ Start, End, None }
+	public interface IDatePicker
+	{
+		Control GetControl();
+		string ControlID { get; set; }
+		string Text { get; set; }
+		bool ShowTime { get; set; }
+		bool ShowTimeOnly { get; set; }
+		string ClockHours { get; set; }
+		Unit Width { get; set; }
+		bool ShowMonthList { get; set; }
+		bool ShowYearList { get; set; }
+		string YearRange { get; set; }
+		string CalculateWeek { get; set; }
+		bool ShowWeek { get; set; }
+		int FirstDay { get; set; }
+		string View { get; set; }
+		string MinView { get; set; }
+		string RelatedPickerControl { get; set; }
+		RelatedPickerRelation RelatedPickerRelation { get; set; }
+		string MinDate { get; set; }
+		string MaxDate { get; set; }
+		string OnSelectJS { get; set; }
+	}
+	public enum RelatedPickerRelation { Start, End, None }
 }

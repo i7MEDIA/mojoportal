@@ -1,22 +1,8 @@
-﻿//  Author:                 
-//	Created:			    2010-06-15
-//	Last Modified:		    2011-08-14
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.	
-
+﻿using mojoPortal.Web.Controls.DatePicker;
+using Resources;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using mojoPortal.Web.Controls.DatePicker;
-using Resources;
 
 namespace mojoPortal.Web.UI
 {
@@ -62,23 +48,6 @@ namespace mojoPortal.Web.UI
             }
         }
 
-        string buttonImageUrl = string.Empty;
-        /// <summary>
-        /// implemented only to support the interface but not really used for this datepicker
-        /// </summary>
-        public string ButtonImageUrl
-        {
-            get
-            {
-
-                return control.ButtonImage;
-            }
-            set
-            {
-
-                control.ButtonImage = value;
-            }
-        }
 
         public Unit Width
         {
@@ -170,13 +139,59 @@ namespace mojoPortal.Web.UI
             set { control.FirstDay = value; }
         }
 
+		public string RelatedPickerControl
+		{
+			get { return control.RelatedPickerControl; }
+			set { control.RelatedPickerControl = value; }
+		}
 
-        private void InitializeAdapter()
+		public RelatedPickerRelation RelatedPickerRelation
+		{
+			get { return control.RelatedPickerRelation; }
+			set { control.RelatedPickerRelation = value; }
+		}
+
+		public string View
+		{
+			get { return control.View; }
+			set { control.View = value; }
+		}
+
+		public string MinView
+		{
+			get { return control.View; }
+			set { control.View = value; }
+		}
+
+		public bool ShowTimeOnly
+		{
+			get { return control.ShowTimeOnly; }
+			set { control.ShowTimeOnly = value; }
+		}
+		public string MinDate
+		{
+			get { return control.MinDate; }
+			set { control.MinDate = value; }
+		}
+		public string MaxDate
+		{
+			get { return control.MaxDate; }
+			set { control.MaxDate = value; }
+		}
+
+		public string OnSelectJS
+		{
+			get { return control.OnSelectJS; }
+			set { control.OnSelectJS = value; }
+		}
+		private void InitializeAdapter()
         {
-            control = new jDatePicker();
-            control.DoneLabel = Resource.DoneButton;
-            control.HourLabel = Resource.Hour;
-            control.MinuteLabel = Resource.Minute;
+            control = new jDatePicker
+            {
+                DoneLabel = Resource.DoneButton,
+                HourLabel = Resource.Hour,
+                MinuteLabel = Resource.Minute
+            };
 
         }
 

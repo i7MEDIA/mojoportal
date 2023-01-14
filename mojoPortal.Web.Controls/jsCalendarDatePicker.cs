@@ -6,6 +6,7 @@
 //		http://www.dynarch.com/projects/calendar/
 
 
+using mojoPortal.Web.Controls.DatePicker;
 using System;
 using System.ComponentModel;
 using System.Configuration;
@@ -199,6 +200,14 @@ namespace mojoPortal.Web.Controls
             }
         }
 
+		public string View { get; set; }
+		public string MinView { get; set; }
+		public string RelatedPickerControl { get; set; }
+		public RelatedPickerRelation RelatedPickerRelation { get; set; }
+		public bool ShowTimeOnly { get; set; } = false;
+		public string MinDate { get; set; }
+		public string MaxDate { get; set; }
+		public string OnSelectJS { get; set; }
 		[Bindable(true), Category("Appearance"), DefaultValue(CalendarTheme.CalendarMojo)]
 		public CalendarTheme Theme
 		{

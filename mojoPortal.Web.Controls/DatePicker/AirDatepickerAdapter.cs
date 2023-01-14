@@ -1,4 +1,5 @@
-﻿using System.Web.UI;
+﻿using System;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.Controls.DatePicker
@@ -35,7 +36,11 @@ namespace mojoPortal.Web.Controls.DatePicker
 			get { return control.ShowTime; }
 			set { control.ShowTime = value; }
 		}
-
+		public bool ShowTimeOnly
+		{
+			get { return control.ShowTimeOnly; }
+			set { control.ShowTimeOnly = value; }
+		}
 		public string ClockHours
 		{
 			get { return control.ClockHours; }
@@ -96,6 +101,34 @@ namespace mojoPortal.Web.Controls.DatePicker
 			set { control.KeyboardNav = value; }
 		}
 
+		public string View 
+		{ 
+			get { return control.View; }
+			set { control.View = value; }
+		}
+
+		public string MinView
+		{
+			get { return control.MinView; }
+			set { control.MinView = value; }
+		}
+
+
+		public string MinDate
+		{
+			get { return control.MinDate; }
+			set { control.MinDate = value; }
+		}
+		public string MaxDate
+		{
+			get { return control.MaxDate; }
+			set { control.MaxDate = value; }
+		}
+		public string OnSelectJS
+		{
+			get { return control.OnSelectJS; }
+			set { control.OnSelectJS = value; }
+		}
 		private void InitializeAdapter()
 		{
 			control = new AirDatepicker();
