@@ -431,3 +431,4 @@ Web/App_GlobalResources/BetterImageGalleryResources\.resx
 
 Web/Data/sqlitedb/mojo\.db\.config
 /Web/Data/skins/artisteer-sample
+/Web/ClientScript/air-datepicker
