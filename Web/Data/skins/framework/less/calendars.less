@@ -258,3 +258,32 @@
 .eventcalendaredit .forminput>input[name*=Date] {
 	min-width: 160px;
 }
+
+
+.calendar-filter .gotomonth .date-picker {
+	clip: rect(0 0 0 0);  
+	clip-path: inset(50%); 
+	height: 1px; 
+	overflow: hidden; 
+	position: absolute; 
+	white-space: nowrap;  
+	width: 1px;
+}
+
+.calendar-filter .filter-dates .fb-parent input {
+	width: 46%;
+}
+.calendar-filter .filter-dates .fb-parent label {
+	width: 1%;
+    line-height: 34px;
+    padding: 0 2px;
+}
+
+.ec-today .dayNumber a {
+    border: 2px solid @brand-warning;
+    border-radius: 20px;
+    padding: 4px;
+    margin: 0;
+}
+
+.ec-today.dayHeader {padding-right: 0;}

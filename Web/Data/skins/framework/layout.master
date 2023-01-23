@@ -11,9 +11,9 @@
 		<portal:MetaContent id="MetaContent" runat="server" DisableContentType="true" PreZoomForIPhone="false" />
 
 		<!-- Style -->
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<portal:SkinFolderCssFile runat="server" CssFileName="js/vendors/smartmenus/jquery.smartmenus.bootstrap.css" />
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+		<portal:SkinFolderCssFile runat="server" CssFileName="js/vendors/smartmenus/jquery.smartmenus.bootstrap.css" /> 
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"> 
 		<portal:SkinFolderCssFile runat="server" CssFileName="js/vendors/nivo-slider/themes/default/default.css" />
 		<portal:SkinFolderCssFile runat="server" CssFileName="js/vendors/nivo-slider/themes/light/light.css" />
 		<portal:SkinFolderCssFile runat="server" CssFileName="js/vendors/nivo-slider/themes/dark/dark.css" />
@@ -136,5 +136,6 @@
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/smartmenus/jquery.smartmenus.bootstrap.min.js" RenderInPlace="true" />
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/main.min.js" RenderInPlace="true" />
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/administration.min.js" RenderInPlace="true" VisibleRoles="Authenticated Users" />
+		<asp:PlaceHolder ID="phSiteFooter" runat="server" />
 	</body>
 </html>

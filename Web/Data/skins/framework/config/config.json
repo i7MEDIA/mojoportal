@@ -1,0 +1,10 @@
+{
+    "Name": "Framework",
+    "Version": "4.0",
+    "Author": "i7MEDIA",
+    "License": "EPL",
+    "SupportUrl": "https://i7media.com",
+    "HelpLinkScriptPath": "",
+    "ModalScriptPath": "$SkinPath$/js/GenericModalScript.js",
+    "ModalTemplatePath": "$SkinPath$/includes/modal.html"
+}

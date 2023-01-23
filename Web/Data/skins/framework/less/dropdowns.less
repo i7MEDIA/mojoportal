@@ -61,8 +61,9 @@
     .nav-divider(@dropdown-divider-bg);
   }
 
-  // Links within the dropdown menu
-  > li > a {
+  // Links/Buttons within the dropdown menu
+  > li > a,
+  > li > button {
     display: block;
     padding: 3px 20px;
     clear: both;
@@ -74,7 +75,8 @@
 }
 
 // Hover/Focus state
-.dropdown-menu > li > a {
+.dropdown-menu > li > a,
+.dropdown-menu > li > button {
   &:hover,
   &:focus {
     text-decoration: none;
@@ -84,7 +86,8 @@
 }
 
 // Active state
-.dropdown-menu > .active > a {
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > button {
   &,
   &:hover,
   &:focus {

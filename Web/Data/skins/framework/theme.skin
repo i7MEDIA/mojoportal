@@ -1,3 +1,64 @@
+<%--
+	## Using the theme.skin file
+
+	Many components of mojoPortal can be customized using the theme.skin file. 
+
+	Most options are included in the theme.skin for the "Framework" skin. 
+
+	You are encouraged to set CSS Classes, settings, and in some cases even markup. 
+	What you should not do is set styles (color, font, width, height, etc...) in this file. 
+	Styles should be controlled by CSS.
+
+	### File Organization
+
+	We've tried to keep controls of similar types grouped together. 
+
+	1. Core Namespace Registrations
+	2. Plugins/Addons (Namespace Registrations and Controls)
+		a. Web Store
+		b. Event Calendar Pro
+		c. Form Wizard Pro
+	3. Base Layout 
+	4. Inputs
+	5. Content Panels
+	6. Admin Areas
+	7. HTML Module
+	8. Blog
+	9. Buttons
+	10. Alerts
+	11. Titles/Headings (Site, Page, Module)
+	12. Breadcrumbs
+	13. Menus
+		a. Main/Site Menu
+		b. Page Menu
+	14. Pagers
+	15. Member List 
+	16. Search
+	17. Grid View
+	18. Shared Files
+	19. Create User Wizard
+	20. Calendars
+	21. Validators
+	22. Lists (checkboxlist, radiobuttonlist)
+	23. Obsolete - controls that are left for backwards compatibility but are disabled through theme.skin settings
+
+	### Plugins / Addons
+	
+	You will some controls are commented out (thus disabled) in this file. This is done 
+	because those controls are not available in mojoPortal out of the box, they are for 
+	plugins/addons. If the plugins they support are not installed and the controls are not
+	commented out, the skin will fail to load. To use these controls, first install the plugin
+	associated with them and then remove the comment tags from around the controls. Be sure
+	get the opening and closing comment tags. Also be sure to leave any actual comments 
+	wrapped with comment tags. As this is a webforms file, the comment tags use % characters, 
+	not ! characters. For example, this information is wrapped in comment tags.
+
+	
+
+	For more info: http://www.mojoportal.com/docs/theme-skin-file
+--%>
+
+
 <%@ Register Namespace="mojoPortal.Web.UI" Assembly="mojoPortal.Web" TagPrefix="portal" %>
 <%@ Register Namespace="mojoPortal.Web.Controls" Assembly="mojoPortal.Web.Controls" TagPrefix="mp" %>
 <%@ Register Namespace="mojoPortal.Web.ContentUI" Assembly="mojoPortal.Web" TagPrefix="html" %>
@@ -28,26 +89,16 @@
 	These are for Pro Modules
 	=========================
 	<%@ Register Namespace="sts.FormWizard.Web.UI" Assembly="sts.FormWizard.Web.UI" TagPrefix="stsfw" %>
+--%>
 	<%@ Register TagPrefix="sts" Namespace="sts.Web.UI" Assembly="sts.Web.UI" %>
 	<%@ Register Namespace="sts.Events.Web.UI.Controls" Assembly="sts.Events.Web.UI" TagPrefix="ecp" %>
---%>
-
-<%--
-	IMPORTANT
-	=========
-
-	Setting any styling in the theme.skin will make the page heavier and cause
-	the site to be slower overall.  All styles should go in your CSS style sheets.
-
-	For more info: http://www.mojoportal.com/understanding-the-theme-skin-file.aspx
---%>
-
 
 <%--
 	Event Calendar Pro
 	==================
 	To enable, remove comments from the @Register statement for the sts.Web.UI Namespace and the sts:CalendarGrid control below.
 	Only enable if Event Calendar Pro is installed.
+--%>
 
 	<sts:CalendarGrid runat="server"
 		BackColor=""
@@ -85,14 +136,25 @@
 		MonthViewTodayCssClass="ec-day ec-today"
 		MonthViewWeekendDayCssClass="ec-day ec-weekend-day"
 		MonthViewOtherMonthDayCssClass="ec-day ec-other-month"
-		MonthViewHeaderPreviousMonthLinkFormat="<div class='ec-month-previous fb-child col-sm-3 text-xs-center text-md-left'><a href='{0}' class='eventNextPrevious previousMonth'><span class='fa fa-angle-double-left'></span> <span class='monthName'>{1}</span></a></div>"
-		MonthViewHeaderNextMonthLinkFormat="<div class='nextMonth ec-month-next fb-child col-sm-3 text-xs-center text-md-right'><a href='{0}' class='eventNextPrevious nextMonth'><span class='monthName'>{1}</span> <span class='fa fa-angle-double-right'></span></a></div>"
+		MonthViewHeaderPreviousMonthContainer="<div class='ec-month-previous fb-child col-sm-3 text-xs-center text-md-left'>{0}</div>"
+
+		MonthViewHeaderPreviousMonthLinkFormat="<a href='{0}' class='eventNextPrevious previousMonth'><span class='fa fa-angle-double-left'></span> <span class='monthName'>{1}</span></a>"
+		
+		MonthViewHeaderNextMonthContainer="<div class='nextMonth ec-month-next fb-child col-sm-3 text-xs-center text-md-right'>{0}</div>"
+		
+		MonthViewHeaderNextMonthLinkFormat="<a href='{0}' class='eventNextPrevious nextMonth'><span class='monthName'>{1}</span> <span class='fa fa-angle-double-right'></span></a>"
+		
 		MonthViewHeaderCurrentMonthFormat="<h3 class='currentMonth fb-child col-sm-6 fb-ai-center fb-j-center text-center'>{0}</h3>"
+		
 		MonthViewEmptyDayFiller="<div class='ec-filler'></div>" 
 		MonthViewEventEditLinkFormat="<a href='{0}' title='{1}' class='editeventlink ModuleEditLink {3}' ><span class='fa fa-pencil-square-o'></span></a>"
 		MonthViewEventMarkupTop="<div class='eventcontainer {0}' style='{1} {2} {3}'>"
+		WeekViewPreviousFormat="<div class='row m-b-gutter-half m-t-gutter-half'><div class='col-sm-6 text-left'><a href='{0}' title='{1}' class='btn btn-sm btn-default'>{2}</a></div>"
+		WeekViewNextFormat="<div class='col-sm-6 text-right'><a href='{0}' title='{1}' class='btn btn-sm btn-default'>{2}</a></div></div>"
+		DayViewPreviousFormat="<div class='row m-b-gutter-half m-t-gutter-half'><div class='col-sm-6 text-left'><a href='{0}' title='{1}' class='btn btn-sm btn-default'>{2}</a></div>"
+		DayViewNextFormat="<div class='col-sm-6 text-right'><a href='{0}' title='{1}' class='btn btn-sm btn-default'>{2}</a></div></div>"
+
 	 />
---%>
 
 <%--
 	Form Wizard Pro
@@ -164,6 +226,7 @@
 />
 --%>
 
+<%-- Base Layout --%>
 
 <portal:LayoutDisplaySettings runat="server"
 	LeftSideNoRightSideCss="left-center"
@@ -174,6 +237,32 @@
 	CenterWithLeftAndRightSideCss="col-md-6 center-left-right"
 />
 
+<%-- Main Content Layout Panels --%>
+<portal:LayoutPanel runat="server" SkinID="TopPane"
+	Element="div"
+	ExtraCssClasses="top-pane clearfix"
+	RenderId="false"
+/>
+
+<portal:LayoutPanel runat="server" SkinID="LeftPane"
+	Element="div"
+	ExtraCssClasses="left-pane col-md-3 clearfix"
+/>
+
+<portal:LayoutPanel runat="server" SkinID="CenterPane"
+	Element="div"
+	ExtraCssClasses="center-pane clearfix"
+/>
+
+<portal:LayoutPanel runat="server" SkinID="RightPane"
+	Element="div"
+	ExtraCssClasses="right-pane col-md-3 clearfix"
+/>
+
+<portal:LayoutPanel runat="server" SkinID="BottomPane"
+	Element="div"
+	ExtraCssClasses="bottom-pane clearfix"
+/>
 
 <%-- Input Classes --%>
 <asp:TextBox runat="server"
@@ -204,6 +293,12 @@
 	CssClass="form-control"
 />
 <portal:jDatePicker runat="server"
+	CssClass="form-control date-picker"
+/>
+<mp:DatePickerControl runat="server"
+	CssClass="form-control date-picker"
+/>
+<mp:AirDatepicker runat="server"
 	CssClass="form-control date-picker"
 />
 <portal:jQueryAutoCompleteTextBox runat="server"
@@ -251,34 +346,7 @@
 />
 
 
-<%-- Main Content Panels --%>
-<portal:LayoutPanel runat="server" SkinID="TopPane"
-	Element="div"
-	ExtraCssClasses="top-pane clearfix"
-	RenderId="false"
-/>
-
-<portal:LayoutPanel runat="server" SkinID="LeftPane"
-	Element="div"
-	ExtraCssClasses="left-pane col-md-3 clearfix"
-/>
-
-<portal:LayoutPanel runat="server" SkinID="CenterPane"
-	Element="div"
-	ExtraCssClasses="center-pane clearfix"
-/>
-
-<portal:LayoutPanel runat="server" SkinID="RightPane"
-	Element="div"
-	ExtraCssClasses="right-pane col-md-3 clearfix"
-/>
-
-<portal:LayoutPanel runat="server" SkinID="BottomPane"
-	Element="div"
-	ExtraCssClasses="bottom-pane clearfix"
-/>
-
-<%-- Site Settings Display Settings --%>
+<%-- Admin Areas --%>
 <portalAdmin:AdminDisplaySettings runat="server"
 	PanelHeadingMarkup = "<h3 class='setting-section-title'>{0} <small>{1}</small></h3><div class='setting-section-body'>"
 	PanelBottomMarkup = "</div><!--end PanelBottomMarkup-->"
@@ -288,7 +356,6 @@
 	SubPanelBottomMarkupCollapsible="</div></div></div><!--end SubPanelBottomMarkupCollapsible-->"
 	
 />
-
 
 <portal:FormGroupPanel runat="server" SkinID="ButtonPanel"
 	CssClass="settingrow button-row"
@@ -329,6 +396,21 @@
 <asp:Button runat="server" SkinID="SiteFeaturesAdd" 
 	CssClass="btn btn-success btn-sm"
 />
+
+<%-- these are settings for /Admin/PageLayout.aspx and /Admin/PageSettings.aspx --%>
+<portal:PageLayoutDisplaySettings  runat="server"
+	AdminLinksContainerDivCssClass="btn-group pagelayout-buttons"
+	AdminLinkSeparator=""
+	AdminLinkCssClass="btn btn-default"
+/>
+
+<portal:mojoHelpLink runat="server" 
+	UseImage="false" 
+	ModalScript=""
+	ModalHtml=""
+	LinkCss=""
+/>
+
 
 <%-- HTML Module Display Settings --%>
 <html:HtmlDisplaySettings runat="server"
@@ -458,6 +540,7 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 <asp:button runat="server" SkinID="PrimaryButton" CssClass="btn btn-primary" />
 <asp:HyperLink runat="server" SkinID="PrimaryButton" CssClass="btn btn-primary"/>
 <portal:mojoButton runat="server" SkinID="PrimaryButton" CssClass="btn btn-primary" />
+<portal:mojoButton runat="server" SkinID="LoginControlLoginButton" CssClass="btn btn-primary" />
 
 
 <%-- Success --%>
@@ -497,9 +580,11 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 <asp:HyperLink runat="server" SkinID="LinkButton" CssClass="btn btn-link"/>
 <portal:mojoButton runat="server" SkinID="LinkButton" CssClass="btn btn-link" />
 <portal:mojoButton runat="server" SkinID="TextButton" CssClass="btn btn-link" />
+<portal:mojoButton runat="server" SkinID="Text" CssClass="btn-text" />
 <asp:HyperLink runat="server" SkinID="TextButton" CssClass="btn btn-link"/>
 <asp:HyperLink runat="server" SkinID="TextButtonSmall" CssClass="btn btn-link btn-xs" />
 <asp:HyperLink runat="server" SkinID="CBTextButtonSmall" CssClass="cblink btn btn-link btn-xs" />
+
 
 <%--
 	Below we define classes for our alerts to match bootstrap 3.3.7. Note that AlertPanel was added in mojoPortal version 2.6.0.2 and you MUST comment all instances of AlertPanel out if you are running a previous version
@@ -528,6 +613,8 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 	Element="div"
 	ExtraCssClasses="alert alert-danger"
 />
+
+<%-- Titles/Headings --%>
 
 <portal:SiteTitle runat="server" SkinId="navbar-brand"
 	Element="h1"
@@ -559,7 +646,7 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 	ExtraCssClasses=""
 />
 
-<%--
+<%-- Breadcrumbs
 below we are wrapping a nav element around the breadcrumbs, it is debateable whether that is a good idea we leave it up to you
 the documentation says it is only needed for major navigation blocks but it does not say it hurts to use it for lesser navigation
 http://dev.w3.org/html5/spec/single-page.html#the-nav-element
@@ -594,7 +681,6 @@ http://foundation.zurb.com/docs/ui.php
 	CrumbSeparator="</li><li>"
 	LiteralExtraBottomContent="</li></ul>"
 />
-
 
 <%-- Main Menu --%>
 <portal:FlexMenu runat="server" SkinID="MainMenu"
@@ -783,6 +869,8 @@ http://foundation.zurb.com/docs/ui.php
 	SuppressCornerDivs="true"
 />
 
+<%-- Pagers --%>
+
 <portal:mojoCutePager runat="server"
 	ContainerElement=""
 	ContainerElementCssClass=""
@@ -819,6 +907,8 @@ http://foundation.zurb.com/docs/ui.php
 	LastClause="&#xf101;"
 />
 
+<%-- Member List --%>
+
 <portal:MemberListDisplaySettings  runat="server"
 	TableCssClass="table table-condensed table-hover"
 	TableAttributes=""
@@ -835,6 +925,8 @@ http://foundation.zurb.com/docs/ui.php
 	AllUsersLinkCssClass=""
 />
 
+<%-- Search --%>
+
 <portal:SearchPanel  runat="server"
 	Element="div"
 	CssClass="wrapsearchinput"
@@ -842,12 +934,6 @@ http://foundation.zurb.com/docs/ui.php
 
 
 
-<%-- these are settings for /Admin/PageLayout.aspx and /Admin/PageSettings.aspx --%>
-<portal:PageLayoutDisplaySettings  runat="server"
-	AdminLinksContainerDivCssClass="btn-group pagelayout-buttons"
-	AdminLinkSeparator=""
-	AdminLinkCssClass="btn btn-default"
-/>
 
 
 <%-- Grid Views --%>
@@ -903,6 +989,8 @@ http://foundation.zurb.com/docs/ui.php
 	FinishCompleteButtonStyle-CssClass="btn btn-success"
 	StartNextButtonStyle-CssClass="btn btn-default"
 />
+
+<%-- Calendars --%>
 
 <asp:Calendar  runat="server"
 	CaptionAlign="Top"
@@ -1012,10 +1100,8 @@ http://foundation.zurb.com/docs/ui.php
 />
 
 
-<%-- these are used in other skins to add additional markup for nifty corners --%>
-<mp:CornerRounderTop    runat="server" DoRounding="false" />
-<mp:CornerRounderBottom runat="server" DoRounding="false" />
 
+<%-- Validators --%>
 <%-- this clears hard coded style from validators --%>
 <asp:ValidationSummary          runat="server" ForeColor="" CssClass="txterror" />
 <asp:RangeValidator             runat="server" ForeColor="" CssClass="txterror" />
@@ -1024,6 +1110,7 @@ http://foundation.zurb.com/docs/ui.php
 <asp:CompareValidator           runat="server" ForeColor="" CssClass="txterror" />
 <asp:CustomValidator            runat="server" ForeColor="" CssClass="txterror" />
 
+<%-- Lists --%>
 
 <asp:CheckBoxList runat="server"
 	CssClass="box-table"
@@ -1072,3 +1159,12 @@ http://foundation.zurb.com/docs/ui.php
 	RepeatDirection="vertical"
 	RepeatLayout="UnorderedList"
 />
+
+
+
+
+<%-- Obsolete --%>
+
+<%-- these are used in other skins to add additional markup for nifty corners --%>
+<mp:CornerRounderTop    runat="server" DoRounding="false" />
+<mp:CornerRounderBottom runat="server" DoRounding="false" />
