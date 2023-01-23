@@ -130,12 +130,12 @@ namespace mojoPortal.Web.Editor
 				this,
 				this.GetType(),
 				"ckeditormain",
-				"\n<script type=\"text/javascript\" src=\"" + ResolveUrl(this.BasePath + "ckeditor.js") + "\"></script>",
+				"\n<script data-loader=\"ckeditorcontrol\" src=\"" + ResolveUrl(this.BasePath + "ckeditor.js") + "\"></script>",
 				false
 			);
 
 			StringBuilder script = new StringBuilder();
-			script.Append("\n<script type=\"text/javascript\">");
+			script.Append("\n<script data-loader=\"ckeditorcontrol\">");
 			script.Append("var editor" + this.ClientID + " = CKEDITOR.replace('" + this.ClientID + "'");
 			script.Append(", { ");
 			script.Append("customConfig : '" + ResolveUrl(CustomConfigPath) + "' ");
