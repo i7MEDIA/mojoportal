@@ -505,20 +505,46 @@ namespace mojoPortal.Web.Framework
 		public static void AddConfirmationDialog(WebControl button, string confirmationText)
 		{
 			if (button == null) return;
-			button.Attributes.Add("onclick", string.Format("return confirm('{0}');", confirmationText));
+            var onclick = string.Format("return confirm('{0}');", confirmationText);
+
+			if (button.Attributes["onclick"] != null)
+            {
+                button.Attributes["onclick"] = onclick + button.Attributes["onclick"];
+			}
+            else
+            {
+			    button.Attributes.Add("onclick", onclick);
+            }
 		}
 
 		public static void AddConfirmationDialog(HtmlButton button, string confirmationText)
 		{
 			if (button == null) return;
-			button.Attributes.Add("onclick", string.Format("if(!confirm('{0}')) {{return}};", confirmationText));
+            var onclick = string.Format("if(!confirm('{0}')) {{return}};", confirmationText);
+			if (button.Attributes["onclick"] != null)
+			{
+				button.Attributes["onclick"] = onclick + button.Attributes["onclick"];
+			}
+			else
+			{
+			    button.Attributes.Add("onclick", onclick);
+			}
 		}
 
 		public static void AddConfirmationDialogWithClearExitCode(WebControl button, string confirmationText)
         {
             if (button == null) return;
-            button.Attributes.Add("onclick", string.Format("unHookGoodbyePrompt(); return confirm('{0}');", confirmationText));
-        }
+            var onclick = string.Format("unHookGoodbyePrompt(); return confirm('{0}');", confirmationText);
+
+			if (button.Attributes["onclick"] != null)
+			{
+				button.Attributes["onclick"] = onclick + button.Attributes["onclick"];
+			}
+			else
+			{
+				button.Attributes.Add("onclick", onclick);
+			}
+		}
 
         public static void RemoveConfirmationDialog(WebControl button)
         {
@@ -529,8 +555,17 @@ namespace mojoPortal.Web.Framework
         public static void AddClearPageExitCode(WebControl button)
         {
             if (button == null) return;
-            button.Attributes.Add("onclick", string.Format("unHookGoodbyePrompt(); return true;"));
-        }
+            var onclick = "unHookGoodbyePrompt(); return true;";
+
+			if (button.Attributes["onclick"] != null)
+			{
+				button.Attributes["onclick"] = onclick + button.Attributes["onclick"];
+			}
+			else
+			{
+				button.Attributes.Add("onclick", onclick);
+			}
+		}
 
         #endregion
 
