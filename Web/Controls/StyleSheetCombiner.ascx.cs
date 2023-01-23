@@ -231,11 +231,11 @@ namespace mojoPortal.Web.UI
 
             if (OverrideSkinName.Length > 0)
             {
-                cssLink.Text = $"\n<link rel=\"stylesheet\"  type=\"text/css\"{FormatMedia()}href=\"{siteRoot}/csshandler.ashx?skin={OverrideSkinName + siteParam}\"/>\n";
+                cssLink.Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" {FormatMedia()}href=\"{siteRoot}/csshandler.ashx?skin={OverrideSkinName + siteParam}\"/>\n";
             }
             else
             {
-                cssLink.Text = $"\n<link rel=\"stylesheet\" type=\"text/css\"{FormatMedia()}href=\"{siteRoot}/csshandler.ashx?skin={SiteUtils.GetSkinName(AllowPageOverride, Page) + siteParam}\"/>\n";
+                cssLink.Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" {FormatMedia()}href=\"{siteRoot}/csshandler.ashx?skin={SiteUtils.GetSkinName(AllowPageOverride, Page) + siteParam}\"/>\n";
             }
 
             this.Controls.Add(cssLink);
@@ -248,8 +248,8 @@ namespace mojoPortal.Web.UI
             var cssLink = new Literal
             {
                 ID = "mediaelementcss",
-                Text = "\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{Page.ResolveUrl(MediaElementCssPath)}\"/>"
-            };
+                Text = "\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" href=\"{Page.ResolveUrl(MediaElementCssPath)}\"/>"
+			};
             Controls.Add(cssLink);
         }
 
@@ -258,7 +258,7 @@ namespace mojoPortal.Web.UI
             var cssLink = new Literal
             {
                 ID = "twittercsss",
-                Text = $"\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{protocol}://widgets.twimg.com/j/1/widget.css\" />"
+                Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" href=\"{protocol}://widgets.twimg.com/j/1/widget.css\" />"
             };
             Controls.Add(cssLink);
         }
@@ -268,7 +268,7 @@ namespace mojoPortal.Web.UI
             var cssLink = new Literal
             {
                 ID = "googlesearchcsss",
-                Text = $"\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{protocol}://www.google.com/cse/static/style/look/v4/default.css\" />"
+                Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" href=\"{protocol}://www.google.com/cse/static/style/look/v4/default.css\" />"
 			};
             Controls.Add(cssLink);
         }
@@ -293,7 +293,7 @@ namespace mojoPortal.Web.UI
             var cssLink = new Literal
             {
                 ID = "jqueryui-css",
-                Text = $"\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{jQueryUIBasePath}themes/{JQueryUIThemeName}/{jQueryCssAllName}\" />"
+                Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" href=\"{jQueryUIBasePath}themes/{JQueryUIThemeName}/{jQueryCssAllName}\" />"
             };
             this.Controls.Add(cssLink);
         }
@@ -303,7 +303,7 @@ namespace mojoPortal.Web.UI
             var cssLink = new Literal
             {
                 ID = "jcrop-css",
-                Text = $"\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{Page.ResolveUrl("~/ClientScript/jcrop0912/jquery.Jcrop.css")}\" />"
+                Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" href=\"{Page.ResolveUrl("~/ClientScript/jcrop0912/jquery.Jcrop.css")}\" />"
             };
             this.Controls.Add(cssLink);
         }
@@ -362,7 +362,7 @@ namespace mojoPortal.Web.UI
 
             var cssLink = new Literal
             {
-                Text = $"\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{cssUrl}\" />"
+                Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" href=\"{cssUrl}\" />"
             };
 
             this.Controls.Add(cssLink);

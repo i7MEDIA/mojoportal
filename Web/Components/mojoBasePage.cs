@@ -9,6 +9,7 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.Remoting.Messaging;
 using System.Web;
+using System.Web.DynamicData;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -87,6 +88,25 @@ namespace mojoPortal.Web
 			}
 		}
 
+		public void EnsureDefaultModal()
+		{
+			ScriptManager.RegisterStartupScript(this, typeof(Page), "mojoModalScript", $"<script data-loader=\"mojoBasePage\" src=\"{Global.SkinConfig.ModalScriptPath}\"></script>", false);
+			var phSiteFooter = Master.FindControl("phSiteFooter");
+			if (phSiteFooter != null && phSiteFooter.FindControlRecursive("mojoModalTemplate") == null)
+			{
+				FileInfo modalFile = new(Server.MapPath(Global.SkinConfig.ModalTemplatePath));
+				if (modalFile.Exists)
+				{
+					var content = File.ReadAllText(modalFile.FullName);
+
+					var control = new Literal();
+					control.Text = content;
+					control.ID = "mojoModalTemplate";
+
+					phSiteFooter.Controls.Add(control);
+				}
+			}
+		}
 
 		public ContentPlaceHolder MPLeftPane { get; set; }
 
@@ -1323,7 +1343,7 @@ namespace mojoPortal.Web
 
 		protected void EnsureSiteSettings()
 		{
-			if (siteSettings == null) siteSettings = CacheHelper.GetCurrentSiteSettings();
+			siteSettings ??= CacheHelper.GetCurrentSiteSettings();
 		}
 
 
@@ -1397,6 +1417,7 @@ namespace mojoPortal.Web
 				if (siteSettings.AllowPageSkins && CurrentPage != null && CurrentPage.Skin.Length > 0)
 				{
 					Theme = "pageskin-" + siteSettings.SiteId.ToInvariantString() + CurrentPage.Skin;
+					//Global.SkinConfigManager.GetConfig(CurrentPage.Skin);
 				}
 			}
 
