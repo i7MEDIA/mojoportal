@@ -1,16 +1,4 @@
-﻿// Author:					
-// Created:				    2011-05-20
-// Last Modified:			2019-10-17
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.	
-
-using mojoPortal.Web.Framework;
+﻿using mojoPortal.Web.Framework;
 using System;
 using System.Web;
 using System.Web.UI;
@@ -28,22 +16,16 @@ namespace mojoPortal.Web.UI
 	public class BasePanel : Panel
 	{
 		public string Element { get; set; } = "div";
-
 		public string ExtraCssClasses { get; set; } = string.Empty;
-
 		public bool RenderContentsOnly { get; set; } = false;
-
 		public string InsideTopMarkup { get; set; } = string.Empty;
-
 		[Obsolete("Use InsideTopMarkup instead.")]
 		public string LiteralExtraTopContent
 		{
 			get { return InsideTopMarkup; }
 			set { InsideTopMarkup = value; }
 		}
-
 		public string InsideBottomMarkup { get; set; } = string.Empty;
-
 		[Obsolete("Use InsideBottomMarkup instead.")]
 		public string LiteralExtraBottomContent
 		{
@@ -52,30 +34,25 @@ namespace mojoPortal.Web.UI
 		}
 		public string OutsideTopMarkup { get; set; } = string.Empty;
 		public string OutsideBottomMarkup { get; set; } = string.Empty;
-
 		public bool DetectSideColumn { get; set; } = false;
-
-
 		public string SideColumnxtraCssClasses { get; set; } = string.Empty;
-
 		public string SideColumnLiteralExtraTopContent { get; set; } = string.Empty;
-
 		public string SideColumnLiteralExtraBottomContent { get; set; } = string.Empty;
-
 		public virtual bool RenderId { get; set; } = true;
-
 		public bool DontRender { get; set; } = false;
-
 		public bool Autohide { get; set; } = false;
+
 
 		private int countOfVisibleWebControls = 0;
 		private string columnId = UIHelper.CenterColumnId;
+
 
 		protected override void OnPreRender(EventArgs e)
 		{
 			if (HttpContext.Current == null)
 			{
 				base.OnPreRender(e);
+
 				return;
 			}
 
@@ -106,7 +83,6 @@ namespace mojoPortal.Web.UI
 				base.OnPreRender(e);
 			}
 
-			
 			if (ExtraCssClasses.Length > 0)
 			{
 				if (CssClass.Length > 0)
@@ -123,11 +99,13 @@ namespace mojoPortal.Web.UI
 			}
 		}
 
+
 		protected override void Render(HtmlTextWriter writer)
 		{
 			if (HttpContext.Current == null)
 			{
-				writer.Write("[" + ID + "]");
+				writer.Write($"[{ID}]");
+
 				return;
 			}
 
@@ -152,26 +130,15 @@ namespace mojoPortal.Web.UI
 			{
 				if (RenderId)
 				{
-					writer.Write("<" + Element + " id='" + ClientID + "'");
-
-					if (!string.IsNullOrWhiteSpace(CssClass))
-					{
-						writer.Write(" class='" + CssClass + "'");
-					}
-
-					writer.Write(">\n");
+					writer.AddAttribute(HtmlTextWriterAttribute.Id, ClientID.ToString());
 				}
-				else
+
+				if (!string.IsNullOrWhiteSpace(CssClass))
 				{
-					writer.Write("<" + Element);
-
-					if (!string.IsNullOrWhiteSpace(CssClass))
-					{
-						writer.Write(" class='" + CssClass + "'");
-					}
-
-					writer.Write(">\n");
+					writer.AddAttribute(HtmlTextWriterAttribute.Class, CssClass);
 				}
+
+				writer.RenderBeginTag(Element);
 			}
 
 			if (InsideTopMarkup.Length > 0)
@@ -188,21 +155,21 @@ namespace mojoPortal.Web.UI
 
 			if (!RenderContentsOnly)
 			{
-				writer.Write("\n</" + Element + ">");
+				writer.RenderEndTag();
 			}
 
 			if (OutsideBottomMarkup.Length > 0)
 			{
 				writer.Write(OutsideBottomMarkup);
 			}
-
 		}
+
 
 		private int GetCountVisibleChildWebControls()
 		{
 			foreach (Control c in Controls)
 			{
-				if ((c is WebControl) && c.Visible)
+				if (c is WebControl && c.Visible)
 				{
 					return 1;
 				}
@@ -211,7 +178,7 @@ namespace mojoPortal.Web.UI
 				{
 					foreach (Control child in c.Controls)
 					{
-						if ((child is WebControl) && child.Visible)
+						if (child is WebControl && child.Visible)
 						{
 							return 1;
 						}
