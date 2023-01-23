@@ -1,15 +1,6 @@
-//		Author:				
-//		Created:			2005-08-08
-//		Last Modified:		2007-12-01
-//		
-//		.NET wrapper control for jsCalendar 
-//		http://www.dynarch.com/projects/calendar/
-
-
 using mojoPortal.Web.Controls.DatePicker;
 using System;
 using System.ComponentModel;
-using System.Configuration;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -19,10 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.Controls
 {
-    //		example usage: 
-    //		<%@ Register TagPrefix="mp" Namespace="mojoPortal.Web.Controls" Assembly="mojoPortal.Web.Controls" %>
-
-	
+	/// <summary>
+	/// .NET wrapper control for jsCalendar http://www.dynarch.com/projects/calendar/
+	/// </summary>
 	[DefaultProperty("Text"), ToolboxData("<{0}:DatePicker runat=server></{0}:DatePicker>")]
 	[ValidationProperty("Text")]
 	public class jsCalendarDatePicker :  WebControl, INamingContainer
@@ -208,6 +198,8 @@ namespace mojoPortal.Web.Controls
 		public string MinDate { get; set; }
 		public string MaxDate { get; set; }
 		public string OnSelectJS { get; set; }
+		public string ExtraSettingsJS { get; set; }
+
 		[Bindable(true), Category("Appearance"), DefaultValue(CalendarTheme.CalendarMojo)]
 		public CalendarTheme Theme
 		{
@@ -410,19 +402,15 @@ namespace mojoPortal.Web.Controls
 
             if (Page.Header.FindControl("jscalcss") == null)
             {
-                Literal cssLink = new Literal();
-                cssLink.ID = "jscalcss";
-                cssLink.Text = "<style type=\"text/css\">@import url("
-                + ResolveUrl(this.StyleDirectory) + "/"
-                + this.Theme.ToString() + ".css);</style>\n";
-
-                Page.Header.Controls.Add(cssLink);
-
-
+				var csslink = new HtmlLink
+				{
+					ID = "jscalcss",
+					Href = $"{ResolveUrl(StyleDirectory)}/{Theme}.css"
+				};
+				csslink.Attributes.Add("rel", "stylesheet");
+				Page.Header.Controls.Add(csslink);
             }
 		}
-
-
 
 		private void SetupScripts()
 		{
@@ -483,6 +471,12 @@ namespace mojoPortal.Web.Controls
             
             script.Append("align : '" + this.Align + "', ");
             script.Append("singleClick : " + this.SingleClick.ToString().ToLower(CultureInfo.InvariantCulture));
+			
+			if (!string.IsNullOrWhiteSpace(ExtraSettingsJS))
+			{
+				script.Append($",{ExtraSettingsJS}");
+			}
+
             script.Append("});  ");
             script.Append("</script>  ");
 

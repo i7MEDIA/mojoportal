@@ -1,27 +1,13 @@
-// Author:		        
-// Created:            2007-11-07
-// Last Modified:      2011-08-14
-// 
-// Licensed under the terms of the GNU Lesser General Public License:
-//	http://www.opensource.org/licenses/lgpl-license.php
-//
-// You must not remove this notice, or any other, from this software.
-
+using mojoPortal.Web.Controls.DatePicker;
 using System;
 using System.ComponentModel;
-using System.Configuration;
-using System.Globalization;
-using System.Reflection.Emit;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using mojoPortal.Web.Controls.DatePicker;
 
 namespace mojoPortal.Web.Controls
 {
-    
+
     [DefaultProperty("Text"), ToolboxData("<{0}:DatePickerControl runat=server></{0}:DatePickerControl>")]
     [ValidationProperty("Text")]
     public class DatePickerControl : WebControl
@@ -212,27 +198,21 @@ namespace mojoPortal.Web.Controls
             get
             {
                 if (picker == null) InitPicker();
-                //if (picker is AirDatepickerAdapter airDatePicker)
-                //{
-                    return picker.RelatedPickerControl;
-                //}
-                //return null;
+                return picker.RelatedPickerControl;
             }
             set
             {
                 if (picker == null) InitPicker();
                 if (HttpContext.Current == null) { return; }
-                //if (picker is AirDatepickerAdapter airDatePicker)
-                //{
-                    if (!string.IsNullOrWhiteSpace(value))
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    Control c = this.Controls[0].Parent.FindControl(value + "dp");
+                    if (c != null)
                     {
-                        Control c = this.Controls[0].Parent.FindControl(value);
-					    if (c != null)
-					    {
-					        picker.RelatedPickerControl = c.ClientID + "dp";
-					    }
+                        picker.RelatedPickerControl = c.ClientID;
                     }
-                //}
+                    //picker.RelatedPickerControl = value + "dp";
+                }
             }
         }
 
@@ -241,20 +221,13 @@ namespace mojoPortal.Web.Controls
             get
             {
                 if (picker == null) InitPicker();
-				//if (picker is AirDatepickerAdapter airDatePicker)
-				//{
-					return picker.RelatedPickerRelation;
-				//}
-				//return RelatedPickerRelation.None;
+				return picker.RelatedPickerRelation;
 			}
             set
             {
                 if (picker == null) InitPicker();
                 if (HttpContext.Current == null) { return; }
-				//if (picker is AirDatepickerAdapter airDatePicker)
-				//{
-					picker.RelatedPickerRelation = value;
-				//}
+				picker.RelatedPickerRelation = value;
 			}
         }
 
@@ -331,6 +304,22 @@ namespace mojoPortal.Web.Controls
 				picker.OnSelectJS = value;
 			}
 		}
+
+		public string ExtraSettingsJS
+		{
+			get
+			{
+				if (picker == null) InitPicker();
+				return picker.ExtraSettingsJS;
+			}
+			set
+			{
+				if (picker == null) InitPicker();
+				if (HttpContext.Current == null) { return; }
+				picker.ExtraSettingsJS = value;
+			}
+		}
+
 		public DatePickerProvider Provider
         {
             get { return provider; }
@@ -352,9 +341,6 @@ namespace mojoPortal.Web.Controls
             //}
             //catch { }
             InitPicker();
-
-            
-
         }
 
         protected override void Render(HtmlTextWriter writer)
@@ -376,10 +362,16 @@ namespace mojoPortal.Web.Controls
                 if (datePickerControl == null)
                 {
 
-                    if(provider == null)provider = DatePickerManager.Provider;
+                    if (provider == null)
+                    {
+                        provider = DatePickerManager.Provider;
+                    }
 
-                    if(picker == null)picker = provider.GetDatePicker();
-                
+                    if (picker == null)
+                    {
+                        picker = provider.GetDatePicker();
+                    }
+
                     datePickerControl = picker.GetControl();
                     datePickerControl.ID = this.ID + "dp";
                     this.Controls.Clear();

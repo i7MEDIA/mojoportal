@@ -20,10 +20,6 @@ namespace mojoPortal.Web.UI
         #endregion
 
 
-
-
-
-
         public string ControlID
         {
             get
@@ -183,6 +179,12 @@ namespace mojoPortal.Web.UI
 		{
 			get { return control.OnSelectJS; }
 			set { control.OnSelectJS = value; }
+		}
+
+		public string ExtraSettingsJS
+		{
+			get { return control.ExtraSettingsJS; }
+			set { control.ExtraSettingsJS = value; }
 		}
 		private void InitializeAdapter()
         {

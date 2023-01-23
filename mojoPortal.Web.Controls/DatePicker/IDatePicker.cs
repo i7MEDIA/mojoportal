@@ -27,6 +27,8 @@ namespace mojoPortal.Web.Controls.DatePicker
 		string MinDate { get; set; }
 		string MaxDate { get; set; }
 		string OnSelectJS { get; set; }
+		string ExtraSettingsJS { get; set; }
+
 	}
 	public enum RelatedPickerRelation { Start, End, None }
 }

@@ -1,16 +1,4 @@
-﻿//  Author:                 
-//	Created:			    2010-05-25
-//	Last Modified:		    2019-01-20
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.	
-
-using System;
+﻿using System;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
@@ -164,8 +152,13 @@ namespace mojoPortal.Web.UI
             if (ShowWeek) { script.Append(",showWeek:true"); }
             if (FirstDay > -1) { script.Append(",firstDay:" + FirstDay.ToInvariantString()); }
             if (CalculateWeek.Length > 0) { script.Append(",calculateWeek:" + CalculateWeek); }
+			
+            if (!string.IsNullOrWhiteSpace(ExtraSettingsJS))
+			{
+				script.Append($",{ExtraSettingsJS}");
+			}
 
-            script.Append("}");
+			script.Append("}");
             script.Append("); ");
 
             script.Append(" });");
@@ -551,6 +544,8 @@ namespace mojoPortal.Web.UI
 		public string MinDate { get; set; }
 		public string MaxDate { get; set; }
         public string OnSelectJS { get; set; }
+		public string ExtraSettingsJS { get; set; }
+
 		//private int stepMonths = 1;
 		///// <summary>
 		///// Set how many months to move when clicking the Previous/Next links.

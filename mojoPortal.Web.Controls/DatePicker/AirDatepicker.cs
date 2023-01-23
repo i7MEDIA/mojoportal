@@ -13,8 +13,6 @@ namespace mojoPortal.Web.Controls.DatePicker
 {
 	public class AirDatepicker : TextBox
 	{
-
-
 		protected override void OnPreRender(EventArgs e)
 		{
 			base.OnPreRender(e);
@@ -22,12 +20,14 @@ namespace mojoPortal.Web.Controls.DatePicker
 			if (HttpContext.Current == null) { return; }
 			if (HttpContext.Current.Request == null) { return; }
 
-			if (AutoLocalize)
+			if (AutoLocalize || string.IsNullOrWhiteSpace(LangCode))
+			{
+				LangCode = GetSupportedLangCode(CultureInfo.CurrentCulture.Name, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+			}
+			else
 			{
 				LangCode = GetSupportedLangCode(LangCode, LangCode);
 			}
-
-			LangCode = GetSupportedLangCode(CultureInfo.CurrentCulture.Name, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
 
 			SetupScript();
 		}
@@ -59,15 +59,22 @@ namespace mojoPortal.Web.Controls.DatePicker
 
 		private void SetupScript()
 		{
-			var style = new HtmlLink();
-			style.Href = ResolveUrl(StylePath);
-			style.Attributes.Add("rel", "stylesheet");
-			Page.Header.Controls.Add(style);
+			if (Page.Header.FindControl("airdatepickercss") == null)
+			{
+				var csslink = new HtmlLink
+				{
+					ID = "airdatepickercss",
+					Href = ResolveUrl(StylePath)
+				};
+				csslink.Attributes.Add("rel", "stylesheet");
+				csslink.Attributes.Add("data-loader", "airdatepicker");
+				Page.Header.Controls.Add(csslink);
+			}
 
-			ScriptManager.RegisterClientScriptBlock(this, GetType(), "airDate", 
+			ScriptManager.RegisterStartupScript(this.Page, GetType(), "airDate", 
 $@"
-<script src=""{ResolveUrl(ScriptPath)}""></script>
-<script>
+<script src=""{ResolveUrl(ScriptPath)}"" data-loader=""airdatepicker""></script>
+<script data-loader=""airdatepicker"">
 window.airDatepickerExt = {{
 	selectDateOpts: {{updateTime:true,silent:true}},
 	nowButton: {{
@@ -95,7 +102,8 @@ window.airDatepickerExt = {{
 			//string onSelectEvents = string.Empty;
 			if (!string.IsNullOrWhiteSpace(RelatedPickerControl))
 			{
-				string relatedPickerBaseScript = $@"<script>
+				string relatedPickerBaseScript = $@"
+<script data-loader=""airdatepicker"">
 (function(){{
 	function ensureDateRange(dateRange){{
 		if (dateRange.startInstance.lastSelectedDate.valueOf() > dateRange.endInstance.lastSelectedDate.valueOf()) {{
@@ -143,7 +151,7 @@ window.airDatepickerExt = {{
 		endInstance: window.airDatepickerExt.pickers.{endInstance}
 	}});
 ";
-				ScriptManager.RegisterStartupScript(this, GetType(), "relatedPickerBaseScript", relatedPickerBaseScript, false);
+				ScriptManager.RegisterStartupScript(this.Page, GetType(), "relatedPickerBaseScript", relatedPickerBaseScript, false);
 			}
 
 			//string airdateScriptBase = $@"<script>window.airDatepickerSelectDateOpts = {{updateTime:true,silent:true}};</script>";
@@ -160,9 +168,8 @@ window.airDatepickerExt = {{
 				View = MinView;
 			}
 
-
-
-			string airdateScriptSingleton = $@"<script type=""module"">
+			string airdateScriptSingleton = $@"
+<script type=""module"" data-loader=""airdatepicker"">
 import {ClientID}_thelocale from '{ResolveUrl(LocalePath + LangCode + ".js")}';
 window.airDatepickerExt.pickers.{ClientID} = new AirDatepicker('#{ClientID}', {{
 	locale: {ClientID}_thelocale,
@@ -174,19 +181,13 @@ window.airDatepickerExt.pickers.{ClientID} = new AirDatepicker('#{ClientID}', {{
 	{(ShowTimeOnly ? "onlyTimePicker: true," : string.Empty)}
 	{(string.IsNullOrWhiteSpace(MinDate) ? string.Empty : $"minDate: '{MinDate}',")}	
 	{(string.IsNullOrWhiteSpace(MaxDate) ? string.Empty : $"maxDate: '{MaxDate}',")}
-	{(string.IsNullOrWhiteSpace(OnSelectJS) ? string.Empty : $"onSelect: function(data){{{OnSelectJS}}},")}
+	{(string.IsNullOrWhiteSpace(ExtraSettingsJS) ? string.Empty : $"{ExtraSettingsJS}")}
+	{(string.IsNullOrWhiteSpace(OnSelectJS) ? string.Empty : $"onSelect: function(data){{{OnSelectJS}}},")}	
 }});
-
-{(string.IsNullOrWhiteSpace(Text) ? string.Empty : $@"window.airDatepickerExt.pickers.{ClientID}.selectDate(new Date(
-	{thisDateTime.Year},
-	{thisDateTime.Month - 1},
-	{thisDateTime.Day},
-	{thisDateTime.Hour},
-	{thisDateTime.Minute}
-),	
-window.airDatepickerExt.selectDateOpts);")}
+{(string.IsNullOrWhiteSpace(Text) ? string.Empty : $@"window.airDatepickerExt.pickers.{ClientID}.selectDate(
+	new Date({thisDateTime.Year},{thisDateTime.Month - 1},{thisDateTime.Day},{thisDateTime.Hour},{thisDateTime.Minute}), window.airDatepickerExt.selectDateOpts);")}
 </script>";
-			ScriptManager.RegisterStartupScript(this, GetType(), UniqueID + "airdateScriptSingleton", airdateScriptSingleton, false);
+			ScriptManager.RegisterStartupScript(this.Page, GetType(), ClientID + "airdateScriptSingleton", airdateScriptSingleton, false);
 		}
 
 		public string ScriptPath { get; set; } = ConfigHelper.GetStringProperty("AirdateScriptPath", "~/ClientScript/air-datepicker/air-datepicker.js");
@@ -208,7 +209,7 @@ window.airDatepickerExt.selectDateOpts);")}
 
 		public bool AutoLocalize { get; set; } = true;
 
-		public string LangCode { get; set; } = "en";
+		public string LangCode { get; set; }
 
 		/// <summary>
 		/// this allows localizing the Done button in the time picker
@@ -300,7 +301,7 @@ window.airDatepickerExt.selectDateOpts);")}
 		public string MinDate { get; set; }
 		public string MaxDate { get; set; }
 		public string OnSelectJS { get; set; }
-
+		public string ExtraSettingsJS { get; set; }
 
 
 	}
