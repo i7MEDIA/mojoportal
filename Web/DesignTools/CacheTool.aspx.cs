@@ -1,4 +1,5 @@
 ﻿using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using Resources;
 using System;
@@ -66,6 +67,7 @@ namespace mojoPortal.Web.AdminUI
             siteSettings.Save();
             CacheHelper.ClearSiteSettingsCache(siteSettings.SiteId);
 			CacheHelper.ResetThemeCache();
+            Global.SkinConfigManager.ClearAll();
 			WebUtils.SetupRedirect(this, Request.RawUrl);
         }
 

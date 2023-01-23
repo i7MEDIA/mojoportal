@@ -15,9 +15,7 @@
     <AssemblyName>mojoPortal.Web</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
-    <DefaultClientScript>JScript</DefaultClientScript>
-    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
-    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <LangVersion>latest</LangVersion>
     <DelaySign>false</DelaySign>
     <OutputType>Library</OutputType>
     <RootNamespace>mojoPortal.Web</RootNamespace>
@@ -28,7 +26,6 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <UseIISExpress>false</UseIISExpress>
@@ -1106,8 +1103,8 @@
     <Compile Include="Components\SearchIndex\LuceneSettingsProvider\ThaiAnalysisProvider.cs" />
     <Compile Include="Components\SecurityAdvisor.cs" />
     <Compile Include="Components\SiteMapHelper.cs" />
+    <Compile Include="Components\SkinConfig.cs" />
     <Compile Include="Components\SkinHelper.cs" />
-    <Compile Include="Components\SkinStyleInfo.cs" />
     <Compile Include="Components\SystemLogAppender.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FileManager\FileManagerController.cs" />

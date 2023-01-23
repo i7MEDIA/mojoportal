@@ -1838,7 +1838,7 @@ namespace mojoPortal.Web
 			return siteId;
 		}
 
-		public static string GetSkinName(bool allowPageOverride, Page page)
+		public static string GetSkinName(bool allowPageOverride, Page page = null)
 		{
 
 			string currentSkin = WebConfigSettings.DefaultInitialSkin;

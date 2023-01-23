@@ -34,6 +34,7 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.App_Start;
 using mojoPortal.Web.Caching;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.Optimization;
 using mojoPortal.Web.Routing;
@@ -75,13 +76,24 @@ namespace mojoPortal.Web
 
 		public static bool RegisteredVirtualThemes { get; private set; } = false;
 
+
+		public static SkinConfigManager SkinConfigManager { get; private set; } = new SkinConfigManager();
+		public static SkinConfig SkinConfig 
+		{
+			get
+			{
+				return SkinConfigManager.GetConfig();
+			} 
+		}
+
 		// this changes everytime the app starts and the token is required when calling /Services/FileService.ashx
 		// to help mitigate against xsrf attacks
 		//private static Guid fileSystemToken = Guid.NewGuid();
 
 		public static Guid FileSystemToken
 		{
-			get { 
+			get 
+			{ 
 				//2012-04-25 changed from application variable to cached item
 				// since application variable won't work well in a web farm
 				// return fileSystemToken; 
@@ -89,7 +101,6 @@ namespace mojoPortal.Web
 				return GetFileSystemToken();
 			}
 		}
-
 
 		private static Guid GetFileSystemToken()
 		{
