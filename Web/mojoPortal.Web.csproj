@@ -1112,6 +1112,7 @@
     <Compile Include="Controllers\FileManager\FileUploadController.cs" />
     <Compile Include="Controllers\RazorBridge.cs" />
     <Compile Include="Controllers\Security\BadWordController.cs" />
+    <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Controls\Adapters\SiteMapTreeViewAdapter.cs" />
     <Compile Include="Controls\AdditionalContentSetting.ascx.cs">
       <DependentUpon>AdditionalContentSetting.ascx</DependentUpon>
