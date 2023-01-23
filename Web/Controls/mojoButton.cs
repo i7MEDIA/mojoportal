@@ -10,9 +10,8 @@
 // You must not remove this notice, or any other, from this software.
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.UI
@@ -20,7 +19,9 @@ namespace mojoPortal.Web.UI
     /// <summary>
     /// inherits button and adds extra markup for Artisteer if RenderArtisteer is true
     /// </summary>
-    public class mojoButton : Button
+    /// 
+    [ParseChildren(false),PersistChildren(true)]
+    public class mojoButton : Button, INamingContainer
     {
 		public bool RenderArtisteer { get; set; } = false;
 		public bool UsejQueryButton { get; set; } = false;
@@ -31,28 +32,43 @@ namespace mojoPortal.Web.UI
 
 		public string LiteralBottomMarkup { get; set; } = string.Empty;
 
+		public HtmlTextWriterTag Element { get; set; } = HtmlTextWriterTag.Input;
 
-		protected override void OnPreRender(EventArgs e)
-        {
-            base.OnPreRender(e);
-            if (HttpContext.Current == null) { return; }
+        public bool BlockPostBack { get; set; } = false;
 
-            if ((!RenderArtisteer) && (UsejQueryButton))
-            {
-                CssClass += " jqbutton ui-button ui-widget ui-state-default ui-corner-all";
+		//public virtual ITemplate InsideMarkup { get; set; }
 
-            }
-            TabIndex = 10;
-        }
+		public new string Text
+		{
+			get { return (string)ViewState["NewText"] ?? ""; }
+			set { ViewState["NewText"] = value; }
+		}
 
-        //jqbutton
+		protected override HtmlTextWriterTag TagKey { get { return Element; } }
 
-        protected override void Render(System.Web.UI.HtmlTextWriter writer)
+		protected override void AddParsedSubObject(object obj)
+		{
+			if (obj is LiteralControl literal)
+			{
+				Text = literal.Text;
+			}
+			//else
+			//{
+				base.AddParsedSubObject(obj);
+			//}
+		}
+
+		protected override void Render(System.Web.UI.HtmlTextWriter writer)
         {
             if (HttpContext.Current == null)
             {
                 writer.Write("[" + this.ID + "]");
                 return;
+            }
+
+            if (BlockPostBack)
+            {
+                OnClientClick = "return false;";
             }
 
             if (RenderArtisteer)
@@ -77,6 +93,43 @@ namespace mojoPortal.Web.UI
                 writer.Write(LiteralBottomMarkup);
             }
         }
+		protected override void OnPreRender(System.EventArgs e)
+		{
+			base.OnPreRender(e);
+			if (HttpContext.Current == null) { return; }
+			if (!RenderArtisteer && UsejQueryButton)
+			{
+				CssClass += " jqbutton ui-button ui-widget ui-state-default ui-corner-all";
+			}
+			TabIndex = 10;
 
-    }
+			// I wasn't sure what the best way to handle 'Text' would
+			// be. Text is treated as another control which gets added
+			// to the end of the button's control collection in this 
+			//implementation
+			LiteralControl lc = new LiteralControl(this.Text);
+
+			if (Element != HtmlTextWriterTag.Input)
+			{
+				Controls.Add(lc);
+				
+				// Add a value for base.Text for the parent class
+				// If the following line is omitted, the 'value' 
+				// attribute will be blank upon rendering
+				base.Text = this.UniqueID;
+			}
+			else
+			{
+				//this.Parent.Controls.Add(lc);
+				base.Text = this.Text;
+			}
+
+
+		}
+
+		protected override void RenderContents(HtmlTextWriter writer)
+		{
+			RenderChildren(writer);
+		}
+	}
 }
