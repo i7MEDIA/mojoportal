@@ -77,14 +77,8 @@ namespace mojoPortal.Web
 		public static bool RegisteredVirtualThemes { get; private set; } = false;
 
 
-		public static SkinConfigManager SkinConfigManager { get; private set; } = new SkinConfigManager();
-		public static SkinConfig SkinConfig 
-		{
-			get
-			{
-				return SkinConfigManager.GetConfig();
-			} 
-		}
+		public static SkinConfigManager SkinConfigManager { get; private set; }
+		public static SkinConfig SkinConfig { get; private set; }
 
 		// this changes everytime the app starts and the token is required when calling /Services/FileService.ashx
 		// to help mitigate against xsrf attacks
@@ -474,6 +468,9 @@ namespace mojoPortal.Web
 			}
 			//moved RegisterBundles here so it can properly check the request for SSL. Can't do that when called from Application_Start
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+			SkinConfigManager = new SkinConfigManager();
+			SkinConfig = SkinConfigManager.GetConfig();
 		}
 
 		protected void Application_EndRequest(Object sender, EventArgs e)
