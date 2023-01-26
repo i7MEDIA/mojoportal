@@ -256,7 +256,7 @@ namespace SuperFlexiData
 		{
 			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModuleWithValues", 6);
 			sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
-			sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, ParameterDirection.Input, searchTerm);
+			sph.DefineSqlParameter("@SearchTerm", SqlDbType.NVarChar, -1, ParameterDirection.Input, searchTerm);
 			sph.DefineSqlParameter("@SearchField", SqlDbType.NVarChar, 50, ParameterDirection.Input, searchField);
 			sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
 			sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
