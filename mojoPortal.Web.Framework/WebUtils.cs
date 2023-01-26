@@ -291,15 +291,9 @@ namespace mojoPortal.Web.Framework
             string hostname = HttpContext.Current.Items["hostname"] as string;
             if (hostname == null)
             {
-                if (HttpContext.Current.Request != null)
-                {
-                    hostname = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
-                    if (hostname != null)
-                    {
-                        HttpContext.Current.Items["hostname"] = hostname;
-
-                    }
-                }
+                hostname = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
+                if (hostname != null)
+                    HttpContext.Current.Items["hostname"] = hostname;
             }
             return hostname;
 
