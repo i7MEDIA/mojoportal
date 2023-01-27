@@ -412,21 +412,19 @@ namespace mojoPortal.Web
         {
             if (this.taskGuid == Guid.Empty) return;
 
-            TaskQueue task = new TaskQueue(this.taskGuid);
-            task.Status = statusRunningMessage;
-            task.CompleteRatio = 0.5; 
-            task.LastStatusUpdateUTC = DateTime.UtcNow;
+            TaskQueue task = new(this.taskGuid)
+            {
+                Status = statusRunningMessage,
+                CompleteRatio = 0.5,
+                LastStatusUpdateUTC = DateTime.UtcNow
+            };
             task.Save();
 
         }
 
         private void DoSleeping()
         {
-
-
             Thread.Sleep(updateFrequency * millisecondsPerSecond);
-            
-
         }
 
 

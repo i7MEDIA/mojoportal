@@ -63,8 +63,6 @@ namespace SuperFlexiUI
 
 		private void LoadSettings()
 		{
-			this.
-
 			module = new Module(ModuleId);
 			moduleTitle = module.ModuleTitle;
 

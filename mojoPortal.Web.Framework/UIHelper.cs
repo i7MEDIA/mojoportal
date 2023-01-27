@@ -54,7 +54,13 @@ namespace mojoPortal.Web.Framework
         public const string ArtisteerBlockLower = "art-block";
         public const string ArtisteerBlockContentLower = "art-blockcontent";
 
-        public static string GetColumnId(this Control c)
+        private const string ConfirmationDialogReturn = "if(!confirm(this.dataset.confirmation)) {return};";
+        private const string ConfirmationDialogReturnValue = "return confirm(this.dataset.confirmation);";
+        private const string ConfirmationDialogWithClearExitCode = "unHookGoodbyePrompt(); return confirm(this.dataset.confirmation);";
+        private const string ClearPageExitCodeWithReturn = "unHookGoodbyePrompt(); return true;";
+        private const string ClearPageExitCode = "unHookGoodbyePrompt();";
+		private const string DisableAfterClick = "this.value=dataset.disableAfterClick;this.disabled = true;";
+		public static string GetColumnId(this Control c)
         {
             Control parent = c.Parent;
             if (parent == null) { return CenterColumnId; }
@@ -505,65 +511,75 @@ namespace mojoPortal.Web.Framework
 		public static void AddConfirmationDialog(WebControl button, string confirmationText)
 		{
 			if (button == null) return;
-            var onclick = string.Format("return confirm('{0}');", confirmationText);
+            //var onclick = string.Format("return confirm('{0}');", confirmationText);
 
 			if (button.Attributes["onclick"] != null)
             {
-                button.Attributes["onclick"] = onclick + button.Attributes["onclick"];
+                button.Attributes["onclick"] = ConfirmationDialogReturnValue + button.Attributes["onclick"];
 			}
             else
             {
-			    button.Attributes.Add("onclick", onclick);
+			    button.Attributes.Add("onclick", ConfirmationDialogReturnValue);
             }
+            button.Attributes.Add("data-confirmation", confirmationText);
 		}
 
 		public static void AddConfirmationDialog(HtmlButton button, string confirmationText)
 		{
 			if (button == null) return;
-            var onclick = string.Format("if(!confirm('{0}')) {{return}};", confirmationText);
+            //var onclick = string.Format("if(!confirm('{0}')) {{return}};", confirmationText);
 			if (button.Attributes["onclick"] != null)
 			{
-				button.Attributes["onclick"] = onclick + button.Attributes["onclick"];
+				button.Attributes["onclick"] = ConfirmationDialogReturn + button.Attributes["onclick"];
 			}
 			else
 			{
-			    button.Attributes.Add("onclick", onclick);
+			    button.Attributes.Add("onclick", ConfirmationDialogReturn);
 			}
+			button.Attributes.Add("data-confirmation", confirmationText);
 		}
 
 		public static void AddConfirmationDialogWithClearExitCode(WebControl button, string confirmationText)
         {
             if (button == null) return;
-            var onclick = string.Format("unHookGoodbyePrompt(); return confirm('{0}');", confirmationText);
+            //var onclick = string.Format("", confirmationText);
 
 			if (button.Attributes["onclick"] != null)
 			{
-				button.Attributes["onclick"] = onclick + button.Attributes["onclick"];
+				button.Attributes["onclick"] = ConfirmationDialogWithClearExitCode + button.Attributes["onclick"];
 			}
 			else
 			{
-				button.Attributes.Add("onclick", onclick);
+				button.Attributes.Add("onclick", ConfirmationDialogWithClearExitCode);
 			}
+			button.Attributes.Add("data-confirmation", confirmationText);
+
 		}
 
-        public static void RemoveConfirmationDialog(WebControl button)
+		public static void RemoveConfirmationDialog(WebControl button)
         {
             if (button == null) return;
-            button.Attributes.Remove("onclick");
+            if (button.Attributes["onclick"] != null)
+            {
+                button.Attributes["onclick"] = button.Attributes["onclick"]
+                    .Replace(ConfirmationDialogReturn, string.Empty)
+                    .Replace(ConfirmationDialogReturnValue, string.Empty)
+                    .Replace(ConfirmationDialogWithClearExitCode, string.Empty);
+			}
         }
 
         public static void AddClearPageExitCode(WebControl button)
         {
             if (button == null) return;
-            var onclick = "unHookGoodbyePrompt(); return true;";
+            //var onclick = "unHookGoodbyePrompt(); return true;";
 
 			if (button.Attributes["onclick"] != null)
 			{
-				button.Attributes["onclick"] = onclick + button.Attributes["onclick"];
+				button.Attributes["onclick"] = ClearPageExitCodeWithReturn + button.Attributes["onclick"];
 			}
 			else
 			{
-				button.Attributes.Add("onclick", onclick);
+				button.Attributes.Add("onclick", ClearPageExitCodeWithReturn);
 			}
 		}
 
@@ -586,53 +602,63 @@ namespace mojoPortal.Web.Framework
         /// <param name="button"></param>
         /// <param name="disabledText"></param>
         /// <param name="postbackEventReference"></param>
-        public static void DisableButtonAfterClick(
-            WebControl button, 
-            string disabledText,
-            string postbackEventReference)
+        public static void DisableButtonAfterClick(WebControl button, string disabledText, string postbackEventReference)
         {
             if (button == null) return;
-            button.Attributes.Add("onclick", "this.value='"
-                + disabledText
-                + "';this.disabled = true;"
-                + postbackEventReference);
-        }
+			if (button.Attributes["onclick"] != null)
+			{
+				button.Attributes["onclick"] = DisableAfterClick + postbackEventReference + button.Attributes["onclick"];
+			}
+			else
+			{
+				button.Attributes.Add("onclick", DisableAfterClick + postbackEventReference);
 
-        public static void DisableButtonAfterClickAndClearExitCode(
-            WebControl button,
-            string disabledText,
-            string postbackEventReference)
+			}
+
+			button.Attributes.Add("data-disable-after-click", disabledText);
+
+		}
+
+		public static void DisableButtonAfterClickAndClearExitCode(WebControl button, string disabledText, string postbackEventReference)
         {
             if (button == null) return;
-            button.Attributes.Add("onclick", "unHookGoodbyePrompt(); this.value='"
-                + disabledText
-                + "';this.disabled = true;"
-                + postbackEventReference);
-        }
 
-        //button.OnClientClick = "this.value='"
-        //    + disabledText
-        //    + "';this.disabled = true;"
-        //    + postbackEventReference;
+			if (button.Attributes["onclick"] != null)
+			{
+				button.Attributes["onclick"] = ClearPageExitCode + DisableAfterClick + postbackEventReference + button.Attributes["onclick"];
+			}
+			else
+			{
+			    button.Attributes.Add("onclick", ClearPageExitCode + DisableAfterClick + postbackEventReference);
+			}
 
-        //public static void DisableButtonAfterClick(
-        //    Button button,
-        //    string disabledText)
-        //{
-        //    if (button == null) return;
-        //    button.OnClientClick = "this.value='"
-        //        + disabledText
-        //        + "';this.disabled = true;";
+			button.Attributes.Add("data-disable-after-click", disabledText);
 
-        //    //button.Attributes.Add("onclick", "this.value='"
-        //    //    + disabledText
-        //    //    + "';this.disabled = true;"
-        //    //    + postbackEventReference);
-        //}
+		}
+
+		//button.OnClientClick = "this.value='"
+		//    + disabledText
+		//    + "';this.disabled = true;"
+		//    + postbackEventReference;
+
+		//public static void DisableButtonAfterClick(
+		//    Button button,
+		//    string disabledText)
+		//{
+		//    if (button == null) return;
+		//    button.OnClientClick = "this.value='"
+		//        + disabledText
+		//        + "';this.disabled = true;";
+
+		//    //button.Attributes.Add("onclick", "this.value='"
+		//    //    + disabledText
+		//    //    + "';this.disabled = true;"
+		//    //    + postbackEventReference);
+		//}
 
 
 
-        public static Control GetPostBackControl(Page page)
+		public static Control GetPostBackControl(Page page)
         {
             Control control = null;
             string ctrlname = page.Request.Params["__EVENTTARGET"];
