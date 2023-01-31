@@ -10,6 +10,7 @@
 // You must not remove this notice, or any other, from this software.
 
 using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -44,19 +45,23 @@ namespace mojoPortal.Web.UI
 			set { ViewState["NewText"] = value; }
 		}
 
+		private Dictionary<string,string> parsedSubObjects = new();
+
 		protected override HtmlTextWriterTag TagKey { get { return Element; } }
 
-		protected override void AddParsedSubObject(object obj)
-		{
-			if (obj is LiteralControl literal)
-			{
-				Text = literal.Text;
-			}
-			//else
-			//{
-				base.AddParsedSubObject(obj);
-			//}
-		}
+		//protected override void AddParsedSubObject(object obj)
+		//{
+		//	//if (obj is LiteralControl literal)
+		//	//{
+		//	//	Text = literal.Text + base.Text;
+		//	//}
+		//	//else
+		//	//{
+		//		base.AddParsedSubObject(obj);
+		//	//}
+
+			
+		//}
 
 		protected override void Render(System.Web.UI.HtmlTextWriter writer)
         {
@@ -107,18 +112,37 @@ namespace mojoPortal.Web.UI
 			// be. Text is treated as another control which gets added
 			// to the end of the button's control collection in this 
 			//implementation
-			LiteralControl lc = new LiteralControl(this.Text);
+			LiteralControl lc = new(this.Text);
 
 			if (Element != HtmlTextWriterTag.Input)
 			{
 				Controls.Add(lc);
-				
+
 				// Add a value for base.Text for the parent class
 				// If the following line is omitted, the 'value' 
 				// attribute will be blank upon rendering
-				base.Text = this.UniqueID;
+				if (string.IsNullOrWhiteSpace(base.Text))
+				{
+					if (!string.IsNullOrWhiteSpace(this.Text))
+					{
+						base.Text = this.Text;
+						var foo = base.Text;
+					}
+					else
+					{
+						base.Text = this.UniqueID;
+					}
+				}
+				else
+				{
+					Controls.Add(new LiteralControl(base.Text));
+				}
+				//else if(!string.IsNullOrWhiteSpace(this.Text))
+				//{
+				//	base.Text = this.Text;
+				//}
 			}
-			else
+			else if (!string.IsNullOrWhiteSpace(this.Text))
 			{
 				//this.Parent.Controls.Add(lc);
 				base.Text = this.Text;
