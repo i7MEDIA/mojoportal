@@ -892,6 +892,8 @@ namespace mojoPortal.Web.Services
 					script.Append(",\"Url\":\"" + FormatUrl(mapNode) + "\"");
 					script.Append(",\"RelativeUrl\":\"" + mapNode.Url.Replace("~/", "/") + "\"");
 					script.Append(",\"IsRoot\":false");
+					script.Append($",\"ShowInMenu\": {mapNode.IncludeInMenu}");
+					script.Append($",\"CssClass\": {mapNode.MenuCssClass}");
 					script.Append(",\"ParentId\":" + mapNode.ParentId.ToInvariantString());
 					script.Append(",\"childcount\":" + mapNode.ChildNodes.Count.ToInvariantString());
 					script.Append(",\"children\":[");
@@ -1185,4 +1187,6 @@ namespace mojoPortal.Web.Services
 		}
 
 	}
+
+	
 }
