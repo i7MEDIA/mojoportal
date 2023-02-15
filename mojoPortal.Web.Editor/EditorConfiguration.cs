@@ -106,9 +106,9 @@ namespace mojoPortal.Web.Editor
 
                 String pathToConfigFile = HttpContext.Current.Server.MapPath(configFileName);
 
-                XmlDocument configXml = new XmlDocument();
-                configXml.Load(pathToConfigFile);
-                editorConfig = new EditorConfiguration(configXml.DocumentElement);
+                var configXml = Core.Helpers.XmlHelper.GetXmlDocument(pathToConfigFile);
+
+				editorConfig = new EditorConfiguration(configXml.DocumentElement);
 
                 AggregateCacheDependency aggregateCacheDependency = new AggregateCacheDependency();
                 aggregateCacheDependency.Add(new CacheDependency(pathToConfigFile));

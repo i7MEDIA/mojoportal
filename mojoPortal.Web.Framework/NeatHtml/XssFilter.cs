@@ -93,8 +93,11 @@ namespace mojoPortal.Web.Framework
 
 				try
 				{
-					XmlDocument doc = new XmlDocument();
-					doc.PreserveWhitespace = true;
+					XmlDocument doc = new XmlDocument
+					{
+						PreserveWhitespace = true,
+						XmlResolver = null
+					};
 					doc.Load(reader);
 					FilterInfo.UriAndStyleValidator.Validate(doc);
 				}

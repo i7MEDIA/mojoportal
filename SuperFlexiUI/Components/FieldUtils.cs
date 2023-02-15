@@ -6,6 +6,7 @@ using mojoPortal.FileSystem;
 using mojoPortal.Web;
 using mojoPortal.Web.Controls;
 using mojoPortal.Web.Framework;
+using Core = mojoPortal.Core;
 using SuperFlexiBusiness;
 using System;
 using System.Collections.Generic;
@@ -154,7 +155,7 @@ namespace SuperFlexiUI
                 try
                 {
 					//doc.Load(fileInfo.FullName);
-					doc.Load(webFile.Path);
+					doc = Core.Helpers.XmlHelper.GetXmlDocument(webFile.Path);
                     return true;
                 }
                 catch (XmlException ex)
@@ -202,10 +203,10 @@ namespace SuperFlexiUI
         public static List<Field> ParseFieldDefinitionXml(ModuleConfiguration config, Guid siteGuid)
         {
 			List<Field> fields = new List<Field>();
-            string fullPath = string.Empty;
+            //string fullPath = string.Empty;
             XmlDocument doc = new XmlDocument();
 
-			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+            FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
 			if (p == null)
 			{
 				log.Error("File System Provider Could Not Be Loaded.");
@@ -331,11 +332,11 @@ namespace SuperFlexiUI
                                     switch (subNode.Name)
                                     {
                                         case "Options":
-											options = XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
+											options = Core.Helpers.XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
 											//GetKeyValuePairs(subNode.ChildNodes, out options);
                                             break;
                                         case "Attributes":
-											attributes = XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
+											attributes = Core.Helpers.XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
                                             //GetKeyValuePairs(subNode.ChildNodes, out attributes);
                                             break;
                                         case "PreTokenString":

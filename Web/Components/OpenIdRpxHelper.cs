@@ -206,12 +206,8 @@ namespace mojoPortal.Web
             if (response == null) { return null; }
 			*/
 
-			XmlDocument doc = new XmlDocument();
-			doc.PreserveWhitespace = false;
-			using (Stream dataStream = response.GetResponseStream())
-			{
-				doc.Load(dataStream);
-			}
+			Stream dataStream = response.GetResponseStream();
+			var doc = Core.Helpers.XmlHelper.GetXmlDocument(dataStream);
 
 			XmlElement resp = doc.DocumentElement;
 

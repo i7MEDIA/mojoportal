@@ -9,11 +9,13 @@ using System.Xml;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using Core = mojoPortal.Core;
 using mojoPortal.Web.Framework;
 using Resources;
 using SuperFlexiBusiness;
 using mojoPortal.FileSystem;
 using mojoPortal.Web;
+using mojoPortal.Core.Helpers;
 
 namespace SuperFlexiUI
 {
@@ -243,8 +245,7 @@ namespace SuperFlexiUI
 
                 if (!string.IsNullOrWhiteSpace(markupDefinitionContent))
                 {
-                    XmlDocument doc = new XmlDocument();
-                    doc.LoadXml(markupDefinitionContent);
+                    var doc = Core.Helpers.XmlHelper.GetXmlDocumentFromString(markupDefinitionContent);
 
                     XmlNode node = doc.DocumentElement.SelectSingleNode("/Definitions/MarkupDefinition");
                     if (node != null) MapDefinedMarkup(node);
@@ -277,9 +278,7 @@ namespace SuperFlexiUI
 
 					WebFile webFile = fileSystem.RetrieveFile(markupDefinitionFile);
 
-					XmlDocument doc = new XmlDocument();
-					//doc.Load(fileInfo.FullName);
-					doc.Load(webFile.Path);
+					var doc = Core.Helpers.XmlHelper.GetXmlDocument(webFile.Path);
 
 					XmlNode node = doc.DocumentElement.SelectSingleNode("/Definitions/MarkupDefinition");
 					if (node != null) MapDefinedMarkup(node);

@@ -67,10 +67,8 @@ namespace mojoPortal.Business.WebHelpers.PageEventHandlers
 
                 foreach (FileInfo fileInfo in configFiles)
                 {
-                    XmlDocument configXml = new XmlDocument();
-                    configXml.Load(fileInfo.FullName);
-                    config.LoadValuesFromConfigurationXml(configXml.DocumentElement);
-
+					var configXml = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
+					config.LoadValuesFromConfigurationXml(configXml.DocumentElement);
                 }
 
                 AggregateCacheDependency aggregateCacheDependency

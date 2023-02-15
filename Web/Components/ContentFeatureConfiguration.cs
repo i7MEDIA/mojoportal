@@ -86,8 +86,7 @@ namespace mojoPortal.Web
 
                 foreach (FileInfo fileInfo in featureFiles)
                 {
-                    XmlDocument featureConfigFile = new XmlDocument();
-                    featureConfigFile.Load(fileInfo.FullName);
+                    var featureConfigFile = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
 
                     LoadFeature(
                         contentFeatureConfig, 

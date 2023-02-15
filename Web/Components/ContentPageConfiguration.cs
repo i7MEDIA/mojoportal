@@ -57,8 +57,7 @@ namespace mojoPortal.Web
             {
                 if (WebConfigSettings.ContentPagesToSkip.Contains(fileInfo.Name)) { continue; }
 
-                XmlDocument contentConfigFile = new XmlDocument();
-                contentConfigFile.Load(fileInfo.FullName);
+                var contentConfigFile = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
 
                 ContentPage.LoadPages(
                     contentPageConfig,

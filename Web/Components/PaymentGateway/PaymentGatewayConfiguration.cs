@@ -82,8 +82,7 @@ namespace mojoPortal.Web.Commerce
 
 				string pathToConfigFile = HttpContext.Current.Server.MapPath(configFileName);
 
-				XmlDocument configXml = new XmlDocument();
-				configXml.Load(pathToConfigFile);
+				var configXml = Core.Helpers.XmlHelper.GetXmlDocument(pathToConfigFile);
 				config = new PaymentGatewayConfiguration(configXml.DocumentElement);
 
 				var aggregateCacheDependency = new AggregateCacheDependency();

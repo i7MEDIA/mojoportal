@@ -110,9 +110,9 @@ namespace mojoPortal.SearchIndex
 
                 string pathToConfigFile = System.Web.Hosting.HostingEnvironment.MapPath(configFileName);
 
-                XmlDocument configXml = new XmlDocument();
-                configXml.Load(pathToConfigFile);
-                config = new LuceneSettingsConfiguration(configXml.DocumentElement);
+				var configXml = Core.Helpers.XmlHelper.GetXmlDocument(pathToConfigFile);
+
+				config = new LuceneSettingsConfiguration(configXml.DocumentElement);
 
                 AggregateCacheDependency aggregateCacheDependency = new AggregateCacheDependency();
                 aggregateCacheDependency.Add(new CacheDependency(pathToConfigFile));

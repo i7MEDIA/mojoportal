@@ -36,14 +36,10 @@ namespace mojoPortal.Features.UI
                 Directory.CreateDirectory(upLoadPath);
             }
 
-             XmlDocument xml = new XmlDocument();
+			FileStream stream = File.OpenRead(HostingEnvironment.MapPath(configInfo));
+			var xml = Core.Helpers.XmlHelper.GetXmlDocument(stream);
 
-            using (StreamReader stream = File.OpenText(HostingEnvironment.MapPath(configInfo)))
-            {
-                xml.LoadXml(stream.ReadToEnd());
-            }
-
-            XmlAttributeCollection attributes = xml.DocumentElement.Attributes;
+			XmlAttributeCollection attributes = xml.DocumentElement.Attributes;
 
             if (attributes["filePath"].Value.Length > 0)
             {

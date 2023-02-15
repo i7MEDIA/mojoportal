@@ -198,12 +198,13 @@ namespace mojoPortal.Web.Framework
 
         public static string SignAndSecureData(string[] values)
         {
-            XmlDocument xmlDoc = new XmlDocument();
+            var xmlDoc = new XmlDocument();
+            xmlDoc.XmlResolver = null;
             xmlDoc.LoadXml("<x></x>");
 
             for (int i = 0; i < values.Length; i++)
             {
-                XmlHelper.AddNode(xmlDoc, "v" + i.ToString(), values[i]);
+                Core.Helpers.XmlHelper.AddNode(xmlDoc, "v" + i.ToString(), values[i]);
             }
 
             RSACryptoServiceProvider.UseMachineKeyStore = true;
@@ -223,7 +224,7 @@ namespace mojoPortal.Web.Framework
                 byte[] signature = rsaProvider.SignData(Encoding.ASCII.GetBytes(xmlDoc.InnerXml),
                     "SHA1");
 
-                XmlHelper.AddNode(xmlDoc, "s", Convert.ToBase64String(signature, 0, signature.Length));
+                Core.Helpers.XmlHelper.AddNode(xmlDoc, "s", Convert.ToBase64String(signature, 0, signature.Length));
             }
 
             
@@ -235,8 +236,7 @@ namespace mojoPortal.Web.Framework
         {
             string xml = DecryptRijndaelManaged(input);
 
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(xml);
+            var xmlDoc = Core.Helpers.XmlHelper.GetXmlDocumentFromString(xml);
 
             values = null;
 

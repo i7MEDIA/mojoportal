@@ -30,14 +30,10 @@ namespace mojoPortal.Features.UI
             SiteSettings siteSettings = new SiteSettings(module.SiteId);
             SiteUser admin = SiteUser.GetNewestUser(siteSettings);
 
-            XmlDocument xml = new XmlDocument();
+            FileStream stream = File.OpenRead(HostingEnvironment.MapPath(configInfo));
+			var xml = Core.Helpers.XmlHelper.GetXmlDocument(stream);
 
-            using (StreamReader stream = File.OpenText(HostingEnvironment.MapPath(configInfo)))
-            {
-                xml.LoadXml(stream.ReadToEnd());
-            }
-
-            XmlNode postsNode = null;
+			XmlNode postsNode = null;
             foreach (XmlNode n in xml.DocumentElement.ChildNodes)
             {
                 if (n.Name == "posts")

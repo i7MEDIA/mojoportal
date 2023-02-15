@@ -4605,9 +4605,8 @@ namespace mojoPortal.Web
 			}
 
 			var webConfigPath = HostingEnvironment.MapPath("~/Web.config");
-			var xmlConfig = new XmlDocument();
 
-			xmlConfig.Load(webConfigPath);
+			var xmlConfig = Core.Helpers.XmlHelper.GetXmlDocument(webConfigPath);
 
 			XmlNode xmlMachineKey = xmlConfig.SelectSingleNode("/configuration/location/system.web/machineKey");
 

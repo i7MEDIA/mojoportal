@@ -59,13 +59,11 @@ namespace mojoPortal.Web.Framework
                     return (mojoEncryptionConfiguration)HttpRuntime.Cache["mojoEncryptionConfiguration"];
                 }
 
-                mojoEncryptionConfiguration config
-                    = new mojoEncryptionConfiguration();
+                var config = new mojoEncryptionConfiguration();
 
                 
 
-                string pathToConfigFile
-                    = System.Web.Hosting.HostingEnvironment.MapPath(ConfigHelper.GetStringProperty("mojoCryptoHelperKeyFile", "~/mojoEncryption.config"));
+                var pathToConfigFile = System.Web.Hosting.HostingEnvironment.MapPath(Core.Configuration.ConfigHelper.GetStringProperty("mojoCryptoHelperKeyFile", "~/mojoEncryption.config"));
 
                 log.Debug("path to crypto key " + pathToConfigFile);
 
@@ -77,14 +75,13 @@ namespace mojoPortal.Web.Framework
 
                 FileInfo fileInfo = new FileInfo(pathToConfigFile);
                 
-                XmlDocument configXml = new XmlDocument();
-                configXml.Load(fileInfo.FullName);
+				var configXml = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
+
                 config.LoadValuesFromConfigurationXml(configXml.DocumentElement);
 
                 
 
-                AggregateCacheDependency aggregateCacheDependency
-                    = new AggregateCacheDependency();
+                var aggregateCacheDependency = new AggregateCacheDependency();
 
                
                 aggregateCacheDependency.Add(new CacheDependency(pathToConfigFile));

@@ -198,6 +198,10 @@
       <Project>{8582d51e-126b-4d64-b080-07ad8245b38f}</Project>
       <Name>mojoPortal.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{fea72210-0415-4133-bdf9-8877683ba832}</Project>
+      <Name>mojoPortal.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Net\mojoPortal.Net.csproj">
       <Project>{30916752-1a97-49ca-95d6-81a5f784eeb5}</Project>
       <Name>mojoPortal.Net</Name>

@@ -32,17 +32,15 @@ namespace mojoPortal.MediaPlayerUI
             SiteSettings siteSettings = new SiteSettings(module.SiteId);
             SiteUser admin = SiteUser.GetNewestUser(siteSettings);
 
-            XmlDocument xml = new XmlDocument();
+			FileStream stream = File.OpenRead(HostingEnvironment.MapPath(configInfo));
+			var xml = Core.Helpers.XmlHelper.GetXmlDocument(stream);
 
-            using (StreamReader stream = File.OpenText(HostingEnvironment.MapPath(configInfo)))
+            MediaPlayer player = new MediaPlayer
             {
-                xml.LoadXml(stream.ReadToEnd());
-            }
-
-            MediaPlayer player = new MediaPlayer();
-            player.ModuleGuid = module.ModuleGuid;
-            player.ModuleId = module.ModuleId;
-            player.PlayerType = MediaType.Audio;
+                ModuleGuid = module.ModuleGuid,
+                ModuleId = module.ModuleId,
+                PlayerType = MediaType.Audio
+            };
 
             if ((xml.DocumentElement.Attributes["type"] != null) && (xml.DocumentElement.Attributes["type"].Value.Length > 0))
             {

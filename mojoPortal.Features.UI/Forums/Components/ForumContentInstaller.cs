@@ -29,14 +29,10 @@ namespace mojoPortal.Features.UI
 
             int userId = SiteUser.GetNewestUserId(module.SiteId);
 
-            XmlDocument xml = new XmlDocument();
+			FileStream stream = File.OpenRead(HostingEnvironment.MapPath(configInfo));
+			var xml = Core.Helpers.XmlHelper.GetXmlDocument(stream);
 
-            using (StreamReader stream = File.OpenText(HostingEnvironment.MapPath(configInfo)))
-            {
-                xml.LoadXml(stream.ReadToEnd());
-            }
-
-            foreach (XmlNode node in xml.DocumentElement.ChildNodes)
+			foreach (XmlNode node in xml.DocumentElement.ChildNodes)
             {
                 if (node.Name == "forum")
                 {

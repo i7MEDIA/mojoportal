@@ -77,7 +77,7 @@ namespace mojoPortal.Web.XmlUI
             {
                 try
                 {
-                    litContent.Text = XmlHelper.TransformXML(xmlUrl, xslUrl);
+                    litContent.Text = Core.Helpers.XmlHelper.TransformXML(xmlUrl, xslUrl);
                     if (litContent.Text.Length == 0)
                     {
                         //probably exception swallowed by XmlHelper

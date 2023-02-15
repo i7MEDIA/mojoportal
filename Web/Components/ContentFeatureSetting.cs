@@ -163,7 +163,7 @@ namespace mojoPortal.Web
 				StringBuilder options = new StringBuilder();
 				foreach (XmlNode subNode in featureSettingNode)
 				{
-					StringBuilder sb = XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
+					StringBuilder sb = Core.Helpers.XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
 
 					switch (subNode.Name)
 					{

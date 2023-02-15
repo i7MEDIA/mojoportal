@@ -300,9 +300,7 @@ namespace mojoPortal.Web.Configuration
 				}
 
 				var pathToConfigFile = HttpContext.Current.Server.MapPath(configFileName);
-				var configXml = new XmlDocument();
-	
-				configXml.Load(pathToConfigFile);
+				var configXml = Core.Helpers.XmlHelper.GetXmlDocument(pathToConfigFile);
 
 				profileConfig = new mojoProfileConfiguration(configXml.DocumentElement);
 

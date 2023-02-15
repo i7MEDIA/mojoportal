@@ -921,8 +921,7 @@ namespace mojoPortal.Web.Editor
 
 				string pathToConfigFile = HostingEnvironment.MapPath("~/" + GetConfigFileName());
 
-				XmlDocument configXml = new XmlDocument();
-				configXml.Load(pathToConfigFile);
+				var configXml = Core.Helpers.XmlHelper.GetXmlDocument(pathToConfigFile);
 
 				if (WebConfigSettings.TinyMceUseV4)
 				{

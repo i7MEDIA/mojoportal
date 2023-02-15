@@ -79,8 +79,7 @@ namespace mojoPortal.Web.Controls.DatePicker
 
 				string pathToConfigFile = HttpContext.Current.Server.MapPath(configFileName);
 
-				var configXml = new XmlDocument();
-				configXml.Load(pathToConfigFile);
+				var configXml = Core.Helpers.XmlHelper.GetXmlDocument(pathToConfigFile);
 
 				datePickerConfig = new DatePickerConfiguration(configXml.DocumentElement);
 

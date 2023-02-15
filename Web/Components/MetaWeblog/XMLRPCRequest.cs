@@ -397,7 +397,7 @@ namespace mojoPortal.Core.API.MetaWeblog
         /// </param>
         private void LoadXmlRequest(string xml)
         {
-            var request = new XmlDocument() { XmlResolver = null }; 
+			XmlDocument request; 
             try
             {
                 if (!(xml.StartsWith("<?xml") || xml.StartsWith("<method")))
@@ -405,7 +405,7 @@ namespace mojoPortal.Core.API.MetaWeblog
                     xml = xml.Substring(xml.IndexOf("<?xml"));
                 }
 
-                request.LoadXml(xml);
+                request = Helpers.XmlHelper.GetXmlDocumentFromString(xml);
             }
             catch (Exception ex)
             {

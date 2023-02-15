@@ -29,112 +29,114 @@
 //2008-10-13  added support for OnClientClick
 
 using System;
-using System.Xml;
 using System.Collections;
 using System.ComponentModel;
 using System.Security.Permissions;
 using System.Web;
 using System.Web.UI;
-using System.Web.Util;
 using System.Web.UI.WebControls;
+using System.Xml;
 
 
 namespace mojoPortal.Web.Controls
 {
 
-    
+
 	// CAS
-	[AspNetHostingPermissionAttribute (SecurityAction.LinkDemand, Level = AspNetHostingPermissionLevel.Minimal)]
-	[AspNetHostingPermissionAttribute (SecurityAction.InheritanceDemand, Level = AspNetHostingPermissionLevel.Minimal)]
+	[AspNetHostingPermissionAttribute(SecurityAction.LinkDemand, Level = AspNetHostingPermissionLevel.Minimal)]
+	[AspNetHostingPermissionAttribute(SecurityAction.InheritanceDemand, Level = AspNetHostingPermissionLevel.Minimal)]
 	// attributes
 	[DefaultEvent("AdCreated")]
 	[DefaultProperty("AdvertisementFile")]
 	public class AdRotator : DataBoundControl
 	{
 
-		protected  override void OnInit (EventArgs e)
+		protected override void OnInit(EventArgs e)
 		{
 			base.OnInit(e);
 		}
 
-		
 
-		protected  override void OnPreRender (EventArgs eee)
+
+		protected override void OnPreRender(EventArgs eee)
 		{
 			Hashtable ht = null;
-			
-			if (ad_file != "" && ad_file != null) {
-				ReadAdsFromFile (
+
+			if (ad_file != "" && ad_file != null)
+			{
+				ReadAdsFromFile(
 
 					System.Web.Hosting.HostingEnvironment.MapPath(ad_file)
 
 				);
-				ht = ChooseAd ();
+				ht = ChooseAd();
 			}
 
-		 	AdCreatedEventArgs e = new AdCreatedEventArgs (ht);
-			OnAdCreated (e);
+			AdCreatedEventArgs e = new AdCreatedEventArgs(ht);
+			OnAdCreated(e);
 			createdargs = e;
-			
+
 		}
 
 
-	
-		protected override void PerformDataBinding (IEnumerable data)
+
+		protected override void PerformDataBinding(IEnumerable data)
 		{
 			//throw new NotImplementedException ();
 		}
 
 
-		protected override void PerformSelect ()
+		protected override void PerformSelect()
 		{
 			//throw new NotImplementedException ();
 		}
-	
+
 
 		AdCreatedEventArgs createdargs;
 
 
-		protected override void Render (HtmlTextWriter w)
+		protected override void Render(HtmlTextWriter w)
 		{
 			AdCreatedEventArgs e = createdargs;
 
-			base.AddAttributesToRender (w);
+			base.AddAttributesToRender(w);
 
 			if (e.NavigateUrl != null && e.NavigateUrl.Length > 0)
-				w.AddAttribute (HtmlTextWriterAttribute.Href, ResolveAdUrl (e.NavigateUrl));
+				w.AddAttribute(HtmlTextWriterAttribute.Href, ResolveAdUrl(e.NavigateUrl));
 
-            if (e.OnClientClick != null && e.OnClientClick.Length > 0)
-                w.AddAttribute(HtmlTextWriterAttribute.Onclick, e.OnClientClick);
+			if (e.OnClientClick != null && e.OnClientClick.Length > 0)
+				w.AddAttribute(HtmlTextWriterAttribute.Onclick, e.OnClientClick);
 
 			if (Target != null && Target.Length > 0)
-				w.AddAttribute (HtmlTextWriterAttribute.Target, Target);
-			
-			w.RenderBeginTag (HtmlTextWriterTag.A);
+				w.AddAttribute(HtmlTextWriterAttribute.Target, Target);
+
+			w.RenderBeginTag(HtmlTextWriterTag.A);
 
 			if (e.ImageUrl != null && e.ImageUrl.Length > 0)
-				w.AddAttribute (HtmlTextWriterAttribute.Src, ResolveAdUrl (e.ImageUrl));
+				w.AddAttribute(HtmlTextWriterAttribute.Src, ResolveAdUrl(e.ImageUrl));
 
-			w.AddAttribute (HtmlTextWriterAttribute.Alt, e.AlternateText == null ? "" : e.AlternateText);
+			w.AddAttribute(HtmlTextWriterAttribute.Alt, e.AlternateText == null ? "" : e.AlternateText);
 			//w.AddAttribute (HtmlTextWriterAttribute.Border, "0", false);
-			w.RenderBeginTag (HtmlTextWriterTag.Img);
-			w.RenderEndTag (); // img
-			w.RenderEndTag (); // a
+			w.RenderBeginTag(HtmlTextWriterTag.Img);
+			w.RenderEndTag(); // img
+			w.RenderEndTag(); // a
 		}
 
-		string ResolveAdUrl (string url)
+		string ResolveAdUrl(string url)
 		{
 			string path = url;
 
-			if (AdvertisementFile != null && AdvertisementFile.Length > 0 && path [0] != '/' && path [0] != '~')
-				try {
-					new Uri (path);
+			if (AdvertisementFile != null && AdvertisementFile.Length > 0 && path[0] != '/' && path[0] != '~')
+				try
+				{
+					new Uri(path);
 				}
-				catch {
+				catch
+				{
 					return url;
 				}
-			
-			return ResolveUrl (path);
+
+			return ResolveUrl(path);
 		}
 
 		//
@@ -145,158 +147,181 @@ namespace mojoPortal.Web.Controls
 		// of the file. This lets us respect the weights
 		// given.
 		//
-		Hashtable ChooseAd ()
+		Hashtable ChooseAd()
 		{
 			// cache for performance
 			string KeywordFilter = this.KeywordFilter;
-			
+
 			int total_imp = 0;
 			int cur_imp = 0;
-			
-			foreach (Hashtable a in ads) {
-				if (KeywordFilter == "" || KeywordFilter == (string) a ["Keyword"])
-					total_imp += a ["Impressions"] != null ? int.Parse ((string) a ["Impressions"]) : 1;
+
+			foreach (Hashtable a in ads)
+			{
+				if (KeywordFilter == "" || KeywordFilter == (string)a["Keyword"])
+					total_imp += a["Impressions"] != null ? int.Parse((string)a["Impressions"]) : 1;
 			}
 
-			int r = new Random ().Next (total_imp);
+			int r = new Random().Next(total_imp);
 
-			foreach (Hashtable a in ads) {
-				if (KeywordFilter != "" && KeywordFilter != (string) a ["Keyword"])
+			foreach (Hashtable a in ads)
+			{
+				if (KeywordFilter != "" && KeywordFilter != (string)a["Keyword"])
 					continue;
-				cur_imp += a ["Impressions"] != null ? int.Parse ((string) a ["Impressions"]) : 1;
-				
+				cur_imp += a["Impressions"] != null ? int.Parse((string)a["Impressions"]) : 1;
+
 				if (cur_imp > r)
 					return a;
 			}
 
 			if (total_imp != 0)
-				throw new Exception ("I should only get here if no ads matched");
-			
+				throw new Exception("I should only get here if no ads matched");
+
 			return null;
 		}
 
-		ArrayList ads = new ArrayList ();
-		
-		void ReadAdsFromFile (string s)
-		{
-			XmlDocument d = new XmlDocument ();
-			try {
-				d.Load (s);
-			} catch (Exception e) {
-				throw new HttpException ("AdRotator could not parse the xml file", e);
-			}
-			
-			ads.Clear ();
-			
-			foreach (XmlNode n in d.DocumentElement.ChildNodes) {
+		ArrayList ads = new ArrayList();
 
-				Hashtable ad = new Hashtable ();
-				
-				foreach (XmlNode nn in n.ChildNodes)
-					ad.Add (nn.Name, nn.InnerText);
-				
-				ads.Add (ad);
+		void ReadAdsFromFile(string fileName)
+		{
+			XmlDocument xmlDoc;
+			try
+			{
+				xmlDoc = Core.Helpers.XmlHelper.GetXmlDocument(fileName);
+			}
+			catch (Exception ex)
+			{
+				throw new HttpException("AdRotator could not parse the xml file", ex);
+			}
+
+			ads.Clear();
+
+			foreach (XmlNode node in xmlDoc.DocumentElement.ChildNodes)
+			{
+				Hashtable ad = new Hashtable();
+
+				foreach (XmlNode childNode in node.ChildNodes)
+				{
+					ad.Add(childNode.Name, childNode.InnerText);
+				}
+
+				ads.Add(ad);
 			}
 		}
-		
+
 		string ad_file = string.Empty;
-		[UrlProperty]		
+		[UrlProperty]
 		[Bindable(true)]
 		[DefaultValue("")]
-		public string AdvertisementFile {
-			get {
+		public string AdvertisementFile
+		{
+			get
+			{
 				return ad_file;
 			}
-			set {
+			set
+			{
 				ad_file = value;
 			}
-			
+
 		}
 
-        
 
-		[DefaultValue ("AlternateText")]
-		public string AlternateTextField 
+
+		[DefaultValue("AlternateText")]
+		public string AlternateTextField
 		{
-			get {
-				throw new NotImplementedException ();
+			get
+			{
+				throw new NotImplementedException();
 			}
-			set {
-				throw new NotImplementedException ();
+			set
+			{
+				throw new NotImplementedException();
 			}
 		}
-	
-		
+
+
 		[Browsable(false)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public override FontInfo Font {
-			get {
+		public override FontInfo Font
+		{
+			get
+			{
 				return base.Font;
 			}
 		}
 
 
-		[DefaultValue ("ImageUrl")]
-		public string ImageUrlField 
+		[DefaultValue("ImageUrl")]
+		public string ImageUrlField
 		{
-			get {
-				throw new NotImplementedException ();
+			get
+			{
+				throw new NotImplementedException();
 			}
-			set {
-				throw new NotImplementedException ();
+			set
+			{
+				throw new NotImplementedException();
 			}
 		}
-	
-		
+
+
 
 		[Bindable(true)]
 		[DefaultValue("")]
-		public string KeywordFilter {
-			get {
-                if (ViewState["KeywordFilter"] != null)
-                {
-                    return ViewState["KeywordFilter"].ToString();
-                }
-                return string.Empty;
+		public string KeywordFilter
+		{
+			get
+			{
+				if (ViewState["KeywordFilter"] != null)
+				{
+					return ViewState["KeywordFilter"].ToString();
+				}
+				return string.Empty;
 
-				
+
 			}
-			set {
+			set
+			{
 				ViewState["KeywordFilter"] = value;
 			}
-			
+
 		}
 
 
-		[DefaultValue ("NavigateUrl")]
-		public string NavigateUrlField 
+		[DefaultValue("NavigateUrl")]
+		public string NavigateUrlField
 		{
-			get {
-				throw new NotImplementedException ();
+			get
+			{
+				throw new NotImplementedException();
 			}
-			set {
-				throw new NotImplementedException ();
+			set
+			{
+				throw new NotImplementedException();
 			}
 		}
-	
-		
+
+
 		[Bindable(true)]
 		[DefaultValue("")]
 		[TypeConverter(typeof(System.Web.UI.WebControls.TargetConverter))]
-		public string Target 
-        {
-			get {
-                if (ViewState["Target"] != null)
-                {
-                    return ViewState["Target"].ToString();
-                }
-                return string.Empty;
+		public string Target
+		{
+			get
+			{
+				if (ViewState["Target"] != null)
+				{
+					return ViewState["Target"].ToString();
+				}
+				return string.Empty;
 			}
-			set {
+			set
+			{
 				ViewState["Target"] = value;
 			}
-			
+
 		}
 
 
@@ -305,32 +330,35 @@ namespace mojoPortal.Web.Controls
 		/* all these are listed in corcompare */
 		public override string UniqueID
 		{
-			get {
+			get
+			{
 				return base.UniqueID;
 			}
 		}
 
-		protected override HtmlTextWriterTag TagKey 
+		protected override HtmlTextWriterTag TagKey
 		{
-			get {
+			get
+			{
 				return base.TagKey;
 			}
 		}
-	
-	
-		protected virtual void OnAdCreated (AdCreatedEventArgs e)
+
+
+		protected virtual void OnAdCreated(AdCreatedEventArgs e)
 		{
-			AdCreatedEventHandler h = (AdCreatedEventHandler) Events [AdCreatedEvent];
+			AdCreatedEventHandler h = (AdCreatedEventHandler)Events[AdCreatedEvent];
 			if (h != null)
-				h (this, e);
+				h(this, e);
 		}
 
-		static readonly object AdCreatedEvent = new object ();
+		static readonly object AdCreatedEvent = new object();
 
-		
-		public event AdCreatedEventHandler AdCreated {
-			add { Events.AddHandler (AdCreatedEvent, value); }
-			remove { Events.RemoveHandler (AdCreatedEvent, value); }
+
+		public event AdCreatedEventHandler AdCreated
+		{
+			add { Events.AddHandler(AdCreatedEvent, value); }
+			remove { Events.RemoveHandler(AdCreatedEvent, value); }
 		}
 	}
 }

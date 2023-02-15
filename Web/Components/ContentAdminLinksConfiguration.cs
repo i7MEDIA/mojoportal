@@ -54,9 +54,7 @@ namespace mojoPortal.Web
 
                 foreach (FileInfo fileInfo in files)
                 {
-                    XmlDocument configFile = new XmlDocument();
-                    
-                    configFile.Load(fileInfo.FullName);
+                    var configFile = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
 
                     ContentAdminLink.LoadLinksFromXml(
                         config,
@@ -81,9 +79,7 @@ namespace mojoPortal.Web
 
                     foreach (FileInfo fileInfo in files)
                     {
-                        XmlDocument configFile = new XmlDocument();
-                        
-                        configFile.Load(fileInfo.FullName);
+                        var configFile = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
 
                         ContentAdminLink.LoadLinksFromXml(
                             config,

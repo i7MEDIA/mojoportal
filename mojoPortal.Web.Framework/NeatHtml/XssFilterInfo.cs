@@ -63,6 +63,7 @@ namespace mojoPortal.Web.Framework
 		private static XmlDocument GetSchemaDoc(string schemaLocation)
 		{
 			XmlDocument schema = new XmlDocument();
+			schema.XmlResolver = null;
 			XmlTextReader schemaReader = new XmlTextReader(schemaLocation);
 			try
 			{
@@ -117,6 +118,7 @@ namespace mojoPortal.Web.Framework
 					string inclSchemaLocation = elem.Attributes["schemaLocation"].Value;
 					inclSchemaLocation = Path.Combine(Path.GetDirectoryName(schemaLocation), inclSchemaLocation);
 					XmlDocument inclSchema = new XmlDocument();
+					inclSchema.XmlResolver = null;
 					Debug.WriteLine("Including " + inclSchemaLocation);
 					XmlTextReader schemaReader = new XmlTextReader(inclSchemaLocation);
 					try

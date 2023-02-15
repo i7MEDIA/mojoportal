@@ -5,6 +5,7 @@
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using Core = mojoPortal.Core;
 using mojoPortal.FileSystem;
 using mojoPortal.Web;
 using mojoPortal.Web.Framework;
@@ -141,8 +142,7 @@ namespace SuperFlexiUI
 							nameAppendage = " (global)";
 						}
 
-						XmlDocument doc = new XmlDocument();
-						doc.Load(file.Path);
+						XmlDocument doc = Core.Helpers.XmlHelper.GetXmlDocument(file.Path);
 
 						XmlNode node = doc.DocumentElement.SelectSingleNode("/Definitions/MarkupDefinition");
 

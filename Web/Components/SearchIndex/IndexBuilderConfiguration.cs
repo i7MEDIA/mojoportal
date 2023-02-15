@@ -68,9 +68,8 @@ namespace mojoPortal.SearchIndex
 
                 foreach (FileInfo fileInfo in configFiles)
                 {
-                    XmlDocument configXml = new XmlDocument();
-                    configXml.Load(fileInfo.FullName);
-                    indexBuilderConfig.LoadValuesFromConfigurationXml(configXml.DocumentElement);
+					var configXml = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
+					indexBuilderConfig.LoadValuesFromConfigurationXml(configXml.DocumentElement);
 
                 }
 

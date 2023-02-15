@@ -2180,11 +2180,10 @@ namespace mojoPortal.Web
                 throw new ArgumentNullException("settingsFile");
             }
 
-            // Throws an exception on any failure.
-            XmlDocument xd = new XmlDocument();
-            xd.Load(settingsFile);
+			// Throws an exception on any failure.
+			var xmlDoc = Core.Helpers.XmlHelper.GetXmlDocument(settingsFile);
 
-            XmlNode topNode = xd.SelectSingleNode("//windowslivelogin");
+            XmlNode topNode = xmlDoc.SelectSingleNode("//windowslivelogin");
 
             if (topNode == null)
             {

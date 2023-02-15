@@ -38,6 +38,7 @@ namespace mojoPortal.Business
         {
             this.moduleID = galleryId;
             this.metaData = new XmlDocument();
+            this.metaData.XmlResolver = null;
             this.metaData.AppendChild(this.metaData.CreateElement("MetaData"));
 
             this.imageFile = moduleID.ToString() + "mfull" + Guid.NewGuid().ToString() + ".jpg";

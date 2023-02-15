@@ -81,10 +81,11 @@ namespace mojoPortal.Features.UI.ImageGallery
         private static void SetExifData(GalleryImage galleryImage, Bitmap originalImage, string filePath)
         {
             XmlDocument metaData = new XmlDocument();
-            if (metaData.DocumentElement == null)
-            {
+            metaData.XmlResolver = null;
+            //if (metaData.DocumentElement == null)
+            //{
                 metaData.AppendChild(metaData.CreateElement("MetaData"));
-            }
+            //}
 
 
             mojoPortal.Web.ImageHelper.SetMetadata("ImageFile", galleryImage.ImageFile, metaData);

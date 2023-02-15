@@ -174,7 +174,7 @@ namespace mojoPortal.Web.AdminUI
 
         private void SetupImageScript()
         {
-            string script = "<script type=\"text/javascript\">"
+            string script = "<script data-loader=\"ContentTemplateEdit\">"
                 + "function showImage(listBox) { if(!document.images) return; "
                 + "var imagePath = '" + imageBaseUrl + "'; "
                 + "document.images." + imgTemplate.ClientID + ".src = imagePath + listBox.value;"

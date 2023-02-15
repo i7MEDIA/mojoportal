@@ -395,11 +395,7 @@ namespace mojoPortal.Web.Components
         {
             try
             {
-                XmlDocument stylesXmlDoc = new XmlDocument();
-                using (stylesXmlStream)
-                {
-                    stylesXmlDoc.Load(stylesXmlStream);
-                }
+                var stylesXmlDoc = Core.Helpers.XmlHelper.GetXmlDocument(stylesXmlStream);
 
                 if (stylesXmlDoc.DocumentElement.Name != "ContentStyles") { return; }
                 foreach (XmlNode node in stylesXmlDoc.DocumentElement.ChildNodes)

@@ -48,9 +48,8 @@ namespace mojoPortal.Web.Routing
 
             foreach (FileInfo fileInfo in routeFiles)
             {
-                XmlDocument routeConfigFile = new XmlDocument();
-                routeConfigFile.Load(fileInfo.FullName);
-                LoadRoutes(config, routeConfigFile.DocumentElement);
+				var routeConfigFile = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
+				LoadRoutes(config, routeConfigFile.DocumentElement);
 
             }
 
