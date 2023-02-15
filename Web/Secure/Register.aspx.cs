@@ -142,7 +142,8 @@ namespace mojoPortal.Web.UI.Pages
 
 			if (!siteSettings.AllowNewRegistration)
 			{
-				Response.Redirect(SiteRoot, false);
+				WebUtils.SetupRedirect(this, SiteRoot);
+				//Response.Redirect(SiteRoot, true);
 			}
 
 			LoadSettings();
