@@ -178,24 +178,18 @@ namespace mojoPortal.Web.UI.Pages
                 return;
             }
 
-            DirectoryInfo appRootFolder
-                = new DirectoryInfo(pathToApplicationsFolder);
+            DirectoryInfo appRootFolder = new(pathToApplicationsFolder);
 
             DirectoryInfo[] appFolders = appRootFolder.GetDirectories();
 
             foreach (DirectoryInfo appFolder in appFolders)
             {
-                if (
-                    (!string.Equals(appFolder.Name,"mojoportal-core", StringComparison.InvariantCultureIgnoreCase))
-                    && (appFolder.Name.ToLower() != ".svn")
-                    && (appFolder.Name.ToLower() != "_svn")
-                    )
+                if (!string.Equals(appFolder.Name,"mojoportal-core", StringComparison.InvariantCultureIgnoreCase))
                 {
                     CreateInitialSchema(appFolder.Name);
                     UpgradeSchema(appFolder.Name);
                     SetupFeatures(appFolder.Name);
                 }
-
             }
 
             #endregion
@@ -271,12 +265,7 @@ namespace mojoPortal.Web.UI.Pages
             }
 
             
-            String pathToScriptFolder
-                = HttpContext.Current.Server.MapPath(
-                "~/Setup/applications/" + applicationName 
-                + "/SchemaInstallScripts/"
-                    + DatabaseHelper.DBPlatform().ToLowerInvariant()
-                    + "/");
+            var pathToScriptFolder = HttpContext.Current.Server.MapPath($"~/Setup/applications/{applicationName}/SchemaInstallScripts/{DatabaseHelper.DBPlatform().ToLowerInvariant()}/");
 
             if(!Directory.Exists(pathToScriptFolder))
             {
@@ -289,33 +278,22 @@ namespace mojoPortal.Web.UI.Pages
 
             }
 
-            return RunSetupScript(
-                appID, 
-                applicationName, 
-                pathToScriptFolder,
-                versionToStopAt);
+            return RunSetupScript(appID, applicationName, pathToScriptFolder, versionToStopAt);
 
         }
 
-        private bool RunSetupScript(
-            Guid applicationId,
-            string applicationName,
-            string pathToScriptFolder,
-            Version versionToStopAt)
+        private bool RunSetupScript(Guid applicationId, string applicationName, string pathToScriptFolder, Version versionToStopAt)
         {
             bool result = true;
 
             if (!Directory.Exists(pathToScriptFolder))
             {
-                WritePageContent(
-                pathToScriptFolder + " " + SetupResource.ScriptFolderNotFoundMessage,
-                false);
+                WritePageContent($"{pathToScriptFolder} {SetupResource.ScriptFolderNotFoundMessage}", false);
 
                 return false;
             }
 
-            DirectoryInfo directoryInfo
-                = new DirectoryInfo(pathToScriptFolder);
+            DirectoryInfo directoryInfo = new(pathToScriptFolder);
 
             FileInfo[] scriptFiles = directoryInfo.GetFiles("*.config");
             Array.Sort(scriptFiles, UIHelper.CompareFileNames);

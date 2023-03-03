@@ -428,6 +428,8 @@ namespace mojoPortal.Web
 		
 		protected void Application_BeginRequest(Object sender, EventArgs e)
 		{
+			var siteCount = SiteSettings.SiteCount();
+
 			//http://stackoverflow.com/questions/1340643/how-to-enable-ip-address-logging-with-log4net
 			log4net.ThreadContext.Properties["ip"] = SiteUtils.GetIP4Address();
 			log4net.ThreadContext.Properties["culture"] = CultureInfo.CurrentCulture.ToString();
@@ -445,7 +447,7 @@ namespace mojoPortal.Web
 
 			//http://www.troyhunt.com/2011/11/owasp-top-10-for-net-developers-part-9.html
 
-			if ((SiteSettings.SiteCount() > 0 && SiteUtils.SslIsAvailable() && WebConfigSettings.ForceSslOnAllPages) || (SiteSettings.SiteCount() == 0 && WebConfigSettings.SslisAvailable))
+			if ((siteCount > 0 && SiteUtils.SslIsAvailable() && WebConfigSettings.ForceSslOnAllPages) || (siteCount == 0 && WebConfigSettings.SslisAvailable))
 			{
 				//if we have sites (not a new install) and SSL is avail and forced, we want to force all pages to SSL
 				//OR if we don't have any sites (is a new install) and SSL is avail, we want to force to SSL, which would really 
@@ -469,8 +471,11 @@ namespace mojoPortal.Web
 			//moved RegisterBundles here so it can properly check the request for SSL. Can't do that when called from Application_Start
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-			SkinConfigManager = new SkinConfigManager();
-			SkinConfig = SkinConfigManager.GetConfig();
+			if (siteCount > 0 && SkinConfigManager == null)
+			{
+				SkinConfigManager = new SkinConfigManager();
+				SkinConfig = SkinConfigManager.GetConfig();
+			}
 		}
 
 		protected void Application_EndRequest(Object sender, EventArgs e)
