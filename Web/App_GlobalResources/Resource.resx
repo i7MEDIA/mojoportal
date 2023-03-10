@@ -6557,16 +6557,16 @@ Copy the machine key below to your site's configuration by following &lt;a href=
     <value>Usage</value>
   </data>
   <data name="SiteSettingsBadWordList" xml:space="preserve">
-    <value>Bad Word List</value>
+    <value>Keyword Blacklist</value>
   </data>
   <data name="SiteSettingsBadWordListQuickHelp" xml:space="preserve">
     <value>Enter words you want blocked from being entered by users. One per line.</value>
   </data>
   <data name="SiteSettingsForceBadWordChecking" xml:space="preserve">
-    <value>Enforce Bad Word Checking</value>
+    <value>Enforce Blacklist</value>
   </data>
   <data name="SiteSettingsForceBadWordCheckingQuickHelp" xml:space="preserve">
-    <value>If enabled, compliant features will always check for bad words, regardless of their own settings to turn it off.</value>
+    <value>If enabled, compliant features will always check for blacklisted words, regardless of their own settings to turn it off.</value>
   </data>
   <data name="SiteSettingsHomePageOverride" xml:space="preserve">
     <value>Home Page Override</value>
@@ -6623,10 +6623,10 @@ Copy the machine key below to your site's configuration by following &lt;a href=
     <value>Default Currency</value>
   </data>
   <data name="SiteSettingsBadWordHeader" xml:space="preserve">
-    <value>Bad Word Checking/Filter</value>
+    <value>Keyword Blacklist</value>
   </data>
   <data name="SiteSettingsBadWordQuickHelp" xml:space="preserve">
-    <value>This feature will prevent forms being being posted with any of the listed words. Features must support Bad Word Checking for these settings to be relevant.</value>
+    <value>This feature will prevent forms being being posted with any of the listed words. Features must support the Keyword Blacklist for these settings to be relevant.</value>
   </data>
   <data name="SiteSettingsCompanyInfoHeader" xml:space="preserve">
     <value>Company Info</value>

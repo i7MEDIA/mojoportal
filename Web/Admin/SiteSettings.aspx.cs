@@ -1888,7 +1888,7 @@ namespace mojoPortal.Web.AdminUI
 			fgpCompanyInfo.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
 			litBadWordHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsBadWordHeader, string.Empty);
-			litBadWordQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsBadWordListQuickHelp);
+			litBadWordQuickHelp.Text = string.Format(adminDisplaySettings.HelpBlockMarkup, Resource.SiteSettingsBadWordQuickHelp);
 			fgpBadWordSettings.OutsideBottomMarkup += adminDisplaySettings.PanelBottomMarkup;
 
 			litContentTabLink.Text = $"<a href='#{tabContent.ClientID}'>{Resource.SiteSettingsContentLink}</a>";
