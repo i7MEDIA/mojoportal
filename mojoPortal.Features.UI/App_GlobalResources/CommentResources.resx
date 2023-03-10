@@ -118,28 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AllowComments" xml:space="preserve">
-    <value>Allow New Comments?</value>
+    <value>Allow New Comments</value>
   </data>
   <data name="AllowCommentTitle" xml:space="preserve">
-    <value>Allow Comment Titles?</value>
+    <value>Allow Comment Titles</value>
   </data>
   <data name="AllowWebSiteUrlForComments" xml:space="preserve">
-    <value>Allow Web Site Url For Comments?</value>
+    <value>Allow Web Site Url For Comments</value>
   </data>
   <data name="FeatureName" xml:space="preserve">
     <value>Comments</value>
   </data>
   <data name="RequireApprovalForComments" xml:space="preserve">
-    <value>Require Approval For Comments?</value>
+    <value>Require Approval For Comments</value>
   </data>
   <data name="RequireAuthenticationForComments" xml:space="preserve">
-    <value>Require Authentication For Comments?</value>
+    <value>Require Authentication For Comments</value>
   </data>
   <data name="SortCommentsDescending" xml:space="preserve">
-    <value>Sort Comments Descending?</value>
+    <value>Sort Comments Descending</value>
   </data>
   <data name="UseCommentSpamBlocker" xml:space="preserve">
-    <value>Use Spam Blocker?</value>
+    <value>Use Spam Blocker</value>
   </data>
   <data name="CommentSystemSetting" xml:space="preserve">
     <value>Comment System</value>
@@ -148,7 +148,7 @@
     <value>Date Time Format</value>
   </data>
   <data name="ContentNotifyOnComment" xml:space="preserve">
-    <value>Notify On Comment?</value>
+    <value>Notify On Comment</value>
   </data>
   <data name="CustomCssClassSetting" xml:space="preserve">
     <value>Custom CSS Class</value>
@@ -157,6 +157,9 @@
     <value>Notification Email Address</value>
   </data>
   <data name="DisableAvatars" xml:space="preserve">
-    <value>Disable Avatars?</value>
+    <value>Disable Avatars</value>
+  </data>
+  <data name="CheckKeywordBlacklist" xml:space="preserve">
+    <value>Use Keyword Blacklist</value>
   </data>
 </root>
