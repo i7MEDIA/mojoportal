@@ -6712,4 +6712,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="LayoutMasterError" xml:space="preserve">
     <value>If you're seeing this page there is a problem with the layout.master file of the site or page skin.</value>
   </data>
+  <data name="KeywordBlacklistHit" xml:space="preserve">
+    <value>Your entry contains words that are not allowed by this site.</value>
+  </data>
 </root>

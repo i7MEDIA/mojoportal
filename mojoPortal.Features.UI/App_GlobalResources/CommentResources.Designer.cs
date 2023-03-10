@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option or rebuild the Visual Studio project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class CommentResources {
@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow New Comments?.
+        ///   Looks up a localized string similar to Allow New Comments.
         /// </summary>
         internal static string AllowComments {
             get {
@@ -70,7 +70,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow Comment Titles?.
+        ///   Looks up a localized string similar to Allow Comment Titles.
         /// </summary>
         internal static string AllowCommentTitle {
             get {
@@ -79,11 +79,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow Web Site Url For Comments?.
+        ///   Looks up a localized string similar to Allow Web Site Url For Comments.
         /// </summary>
         internal static string AllowWebSiteUrlForComments {
             get {
                 return ResourceManager.GetString("AllowWebSiteUrlForComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Keyword Blacklist.
+        /// </summary>
+        internal static string CheckKeywordBlacklist {
+            get {
+                return ResourceManager.GetString("CheckKeywordBlacklist", resourceCulture);
             }
         }
         
@@ -97,7 +106,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notify On Comment?.
+        ///   Looks up a localized string similar to Notify On Comment.
         /// </summary>
         internal static string ContentNotifyOnComment {
             get {
@@ -124,7 +133,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Avatars?.
+        ///   Looks up a localized string similar to Disable Avatars.
         /// </summary>
         internal static string DisableAvatars {
             get {
@@ -151,7 +160,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Require Approval For Comments?.
+        ///   Looks up a localized string similar to Require Approval For Comments.
         /// </summary>
         internal static string RequireApprovalForComments {
             get {
@@ -160,7 +169,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Require Authentication For Comments?.
+        ///   Looks up a localized string similar to Require Authentication For Comments.
         /// </summary>
         internal static string RequireAuthenticationForComments {
             get {
@@ -169,7 +178,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sort Comments Descending?.
+        ///   Looks up a localized string similar to Sort Comments Descending.
         /// </summary>
         internal static string SortCommentsDescending {
             get {
@@ -178,7 +187,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Spam Blocker?.
+        ///   Looks up a localized string similar to Use Spam Blocker.
         /// </summary>
         internal static string UseCommentSpamBlocker {
             get {
