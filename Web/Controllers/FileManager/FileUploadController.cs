@@ -1,6 +1,7 @@
 ﻿using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Helpers;
 using mojoPortal.FileSystem;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.Models;
@@ -134,7 +135,14 @@ namespace mojoPortal.Web.Controllers.FileManager
 					{
 						using (Stream s = file.InputStream)
 						{
-							results = fileSystem.SaveFile(destPath, s, mimeType, true);
+							if (Path.GetExtension(file.FileName).ToLower() == ".svg")
+							{
+								results = fileSystem.SaveFile(destPath, XmlSanitizer.RemoveScripts(s), mimeType, true);
+							}
+							else
+							{
+								results = fileSystem.SaveFile(destPath, s, mimeType, true);
+							}
 						}
 
 						if (results != OpResult.Succeed)
