@@ -39,18 +39,21 @@ namespace mojoPortal.Web.Controllers
 			ILog log = LogManager.GetLogger(typeof(FileServiceController));
 
 			siteSettings = CacheHelper.GetCurrentSiteSettings();
+
 			if (siteSettings == null)
 			{
 				log.Info(Resource.FileSystemSiteSettingsNotLoaded);
 			}
 
 			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+
 			if (p == null)
 			{
 				log.Info(string.Format(Resource.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider));
 			}
 
 			fileSystem = p.GetFileSystem();
+
 			if (fileSystem == null)
 			{
 				log.Info(string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider));
@@ -59,8 +62,10 @@ namespace mojoPortal.Web.Controllers
 			var virtualPath = VirtualPathUtility.RemoveTrailingSlash(fileSystem.FileBaseUrl + fileSystem.VirtualRoot.Replace("~", string.Empty));
 			var userFolder = VirtualPathUtility.RemoveTrailingSlash(fileSystem.FileBaseUrl + fileSystem.Permission.UserFolder.Replace("~", string.Empty));
 			var rootName = virtualPath.Split('/');
+
 			var manageFiles = fileSystem.UserHasUploadPermission.ToString().ToLowerInvariant();
 			var deleteFiles = (WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor) || WebUser.IsContentAdmin || userFolder == virtualPath).ToString().ToLowerInvariant();
+
 			var model = new Models.FileManager
 			{
 				OverwriteFiles = WebConfigSettings.FileManagerOverwriteFiles,
@@ -75,6 +80,7 @@ namespace mojoPortal.Web.Controllers
 				CKEditorFuncNumber = queryParams.CKEditorFuncNum,
 				QueryString = queryParams,
 				UserFolder = userFolder,
+				UserFolderName = Resource.UserFolder,
 
 				Upload = manageFiles,
 				Rename = manageFiles,

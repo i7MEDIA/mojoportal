@@ -47,7 +47,12 @@
 				pickCallback: function (item) {
 					@if (Model.ReturnFullPath)
 					{
-						<text>var url = '@Model.VirtualPath' + item.fullPath();</text>
+						<text>
+							const fullpath = item.fullPath();
+							const url = fullpath.startsWith('/@Model.UserFolderName') ?
+								'@Model.UserFolder' + fullpath.replace('/@Model.UserFolderName', '') :
+								'@Model.VirtualPath' + fullpath;
+						</text>
 					} else
 					{
 						<text>var url = item.fullPath().replace('/@Model.QueryString.startFolder/', '');</text>

@@ -8,6 +8,7 @@
 		public string VirtualPath { get; set; }
 		public bool ReturnFullPath { get; set; }
 		public string UserFolder { get; set; }
+		public string UserFolderName { get; set; }
 		public string View { get; set; }
 		public string Type { get; set; }
 		public string Editor { get; set; }
