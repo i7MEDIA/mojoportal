@@ -23,7 +23,7 @@
   left: 0;
   z-index: @zindex-modal;
   -webkit-overflow-scrolling: touch;
-  max-height: calc(100vh - 184px);
+  //max-height: calc(100vh - 184px);
 
   // Prevent Chrome on Windows from adding a focus outline. For details, see
   // https://github.com/twbs/bootstrap/pull/10951.
@@ -144,15 +144,4 @@
 
   // Modal sizes
   .modal-sm { width: @modal-sm; }
-}
-
-@media (min-width: @screen-md-min) {
-  .modal-lg { width: @modal-lg; }
-  .modal-fluid { width: 60%; }
-  .modal-fluid-lg { width: 75%; }
-  .modal-fluid-xl { width: 90%; }
-}
-
-@media (min-width: @screen-lg-min) {
-  .modal-xl { width: @modal-xl; }
 }
