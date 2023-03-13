@@ -88,17 +88,16 @@
 <%--
 	These are for Pro Modules
 	=========================
-	<%@ Register Namespace="sts.FormWizard.Web.UI" Assembly="sts.FormWizard.Web.UI" TagPrefix="stsfw" %>
---%>
 	<%@ Register TagPrefix="sts" Namespace="sts.Web.UI" Assembly="sts.Web.UI" %>
 	<%@ Register Namespace="sts.Events.Web.UI.Controls" Assembly="sts.Events.Web.UI" TagPrefix="ecp" %>
+	<%@ Register Namespace="sts.FormWizard.Web.UI" Assembly="sts.FormWizard.Web.UI" TagPrefix="stsfw" %>
+--%>
 
 <%--
 	Event Calendar Pro
 	==================
 	To enable, remove comments from the @Register statement for the sts.Web.UI Namespace and the sts:CalendarGrid control below.
 	Only enable if Event Calendar Pro is installed.
---%>
 
 	<sts:CalendarGrid runat="server"
 		BackColor=""
@@ -155,7 +154,7 @@
 		DayViewNextFormat="<div class='col-sm-6 text-right'><a href='{0}' title='{1}' class='btn btn-sm btn-default'>{2}</a></div></div>"
 
 	 />
-
+--%>
 <%--
 	Form Wizard Pro
 	===============
@@ -585,7 +584,6 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 <asp:HyperLink runat="server" SkinID="TextButtonSmall" CssClass="btn btn-link btn-xs" />
 <asp:HyperLink runat="server" SkinID="CBTextButtonSmall" CssClass="cblink btn btn-link btn-xs" />
 
-
 <%--
 	Below we define classes for our alerts to match bootstrap 3.3.7. Note that AlertPanel was added in mojoPortal version 2.6.0.2 and you MUST comment all instances of AlertPanel out if you are running a previous version
 --%>
@@ -932,10 +930,6 @@ http://foundation.zurb.com/docs/ui.php
 	CssClass="wrapsearchinput"
 />
 
-
-
-
-
 <%-- Grid Views --%>
 <mp:mojoGridView runat="server"
 	TableCssClass="table table-striped table-bordered table-condensed"
@@ -960,7 +954,6 @@ http://foundation.zurb.com/docs/ui.php
 	RenderCellSpacing="false"
 	RenderTableId="false"
 />
-
 
 <%-- Shared Files --%>
 <sf:SharedFilesDisplaySettings runat="server"
@@ -1098,8 +1091,6 @@ http://foundation.zurb.com/docs/ui.php
 	TodayDayStyle-CssClass="ec-day ec-today"
 	WeekendDayStyle-CssClass="ec-day ec-weekend-day"
 />
-
-
 
 <%-- Validators --%>
 <%-- this clears hard coded style from validators --%>
