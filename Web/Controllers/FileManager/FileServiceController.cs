@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DotNetOpenAuth.OpenId.Provider;
 using Ionic.Zip;
 using log4net;
 using mojoPortal.Business;
@@ -16,6 +17,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -68,10 +70,12 @@ namespace mojoPortal.Web.Controllers
 			request.NewItemPath = request.NewItemPath.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
 			request.NewPath = request.NewPath.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
 			request.Item = request.Item.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
+
 			if (request.Items.Count > 0)
 			{
 				request.Items = request.Items.Select(s => s.Replace(localizedUserFolder, fileSystem.Permission.UserFolder)).ToList();
 			}
+
 			switch (request.Action)
 			{
 				case "list":
@@ -536,18 +540,19 @@ namespace mojoPortal.Web.Controllers
 
 		private HttpResponseMessage DownloadItem(string path)
 		{
-			//todo! "My Files" logic here!
+			var newpath = path.Replace($"/{Resource.UserFolder}", fileSystem.Permission.UserFolder);
 
 			try
 			{
 				var result = new HttpResponseMessage(HttpStatusCode.OK);
-				var stream = new FileStream(FilePath(path, true), FileMode.Open);
+				var stream = new FileStream(FilePath(newpath, true), FileMode.Open);
 
 				result.Content = new StreamContent(stream);
-				result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+				result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(path));
+
 				result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
 				{
-					FileName = VirtualPathUtility.GetFileName(path)
+					FileName = VirtualPathUtility.GetFileName(newpath)
 				};
 
 				return result;

@@ -477,6 +477,7 @@ namespace mojoPortal.Web.UI
 			set => manageUserLinkFormat = value;
 		}
 
+        public bool CheckKeywordBlacklist { get; set; } = true;
 
 		#endregion
 
@@ -584,6 +585,7 @@ namespace mojoPortal.Web.UI
             commentEditor.UseCommentTitle = useCommentTitle;
             commentEditor.ShowUserUrl = showUserUrl;
 			commentEditor.IncludeCommentBodyInNotification = includeCommentBodyInNotification;
+            commentEditor.CheckKeywordBlacklist = CheckKeywordBlacklist;
 
             pnlCommentsClosed.Visible = commentsClosed;
             if (!commentsClosed && requireAuthenticationToPost && !Request.IsAuthenticated)
@@ -852,7 +854,7 @@ namespace mojoPortal.Web.UI
         {
             StringBuilder script = new StringBuilder();
 
-            script.Append("\n<script type='text/javascript'>");
+            script.Append("\n<script data-loader='CommentsWidget'>");
 
             script.Append("function ReloadPage() {");
             script.Append("location.reload(); ");

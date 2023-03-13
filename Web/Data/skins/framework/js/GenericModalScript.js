@@ -49,6 +49,16 @@
 			}
 		}
 
+		if (typeof (link.dataset.height) !== 'undefined' && link.dataset.height.trim() !== '') {
+			switch (link.dataset.height.toLowerCase()) {
+				default:
+					break;
+				case 'full':
+					modal.classList.add('modal-full-height');
+					break;
+			}
+		}
+
 		if (link.dataset.modalType === 'iframe' && link.href?.trim() !== '') {
 			const iframe = document.createElement('iframe');
 	
@@ -56,7 +66,7 @@
 			iframe.setAttribute('frameborder', 0);
 			iframe.title = link.title;
 			iframe.style.width = '100%';
-			iframe.style.minHeight = '400px';
+			//iframe.style.minHeight = '400px';
 	
 			modalBody.innerHTML = '';
 			modalBody.append(iframe);

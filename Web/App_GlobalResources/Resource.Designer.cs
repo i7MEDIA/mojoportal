@@ -6694,6 +6694,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your entry contains words that are not allowed by this site..
+        /// </summary>
+        internal static string KeywordBlacklistHit {
+            get {
+                return ResourceManager.GetString("KeywordBlacklistHit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kilometer.
         /// </summary>
         internal static string Kilometer {
@@ -15578,7 +15587,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bad Word Checking/Filter.
+        ///   Looks up a localized string similar to Keyword Blacklist.
         /// </summary>
         internal static string SiteSettingsBadWordHeader {
             get {
@@ -15587,7 +15596,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bad Word List.
+        ///   Looks up a localized string similar to Keyword Blacklist.
         /// </summary>
         internal static string SiteSettingsBadWordList {
             get {
@@ -15605,7 +15614,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This feature will prevent forms being being posted with any of the listed words. Features must support Bad Word Checking for these settings to be relevant..
+        ///   Looks up a localized string similar to This feature will prevent forms being being posted with any of the listed words. Features must support the Keyword Blacklist for these settings to be relevant..
         /// </summary>
         internal static string SiteSettingsBadWordQuickHelp {
             get {
@@ -16001,7 +16010,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enforce Bad Word Checking.
+        ///   Looks up a localized string similar to Enforce Blacklist.
         /// </summary>
         internal static string SiteSettingsForceBadWordChecking {
             get {
@@ -16010,7 +16019,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If enabled, compliant features will always check for bad words, regardless of their own settings to turn it off..
+        ///   Looks up a localized string similar to If enabled, compliant features will always check for blacklisted words, regardless of their own settings to turn it off..
         /// </summary>
         internal static string SiteSettingsForceBadWordCheckingQuickHelp {
             get {

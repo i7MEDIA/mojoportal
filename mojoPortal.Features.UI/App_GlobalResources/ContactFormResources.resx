@@ -124,7 +124,7 @@
     <value>Your entry contains words that are not allowed by this site.</value>
   </data>
   <data name="BlockBadWords" xml:space="preserve">
-    <value>Block Bad Words</value>
+    <value>Use Keyword Blacklist</value>
   </data>
   <data name="ButtonDisabledPleaseWait" xml:space="preserve">
     <value>Please Wait...</value>

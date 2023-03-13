@@ -1,0 +1,24 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="DialogMaster.master.cs" Inherits="mojoPortal.Web.DialogMaster" %>
+
+<!DOCTYPE html>
+
+<html id="Html">
+<head id="Head1" runat="server">
+	<title></title>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+
+	<portal:StyleSheetCombiner ID="StyleSheetCombiner" runat="server" />
+	<portal:ScriptLoader ID="ScriptInclude" runat="server" />
+	<asp:ContentPlaceHolder ID="phHead" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body class="dialogpage">
+	<form id="form1" runat="server" enctype="multipart/form-data">
+		<asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server" />
+		<div class="container-fluid">
+			<asp:ContentPlaceHolder ID="phMain" runat="server"></asp:ContentPlaceHolder>
+		</div>
+		<portal:mojoGoogleAnalyticsScript ID="mojoGoogleAnalyticsScript1" runat="server" />
+		<portal:Woopra ID="woopra11" runat="server" />
+	</form>
+</body>
+</html>

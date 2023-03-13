@@ -612,7 +612,7 @@
 									</portal:FormGroupPanel>
 									<portal:FormGroupPanel runat="server">
 										<mp:SiteLabel runat="server" ForControl="txtPublicEmail" CssClass="settinglabel" ConfigKey="PublicEmail" />
-										<asp:TextBox ID="txtPublicEmail" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" />
+										<asp:TextBox ID="txtPublicEmail" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" TextMode="Email" />
 									</portal:FormGroupPanel>
 								</portal:FormGroupPanel>
 							</div><!--end tab Company -->

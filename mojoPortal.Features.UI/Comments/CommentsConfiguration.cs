@@ -19,175 +19,169 @@ using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Features.UI
 {
-    /// <summary>
-    /// encapsulates the feature instance configuration loaded from module settings into a more friendly object
-    /// </summary>
-    public class CommentsConfiguration
-    {
-        public CommentsConfiguration()
-        { }
+	/// <summary>
+	/// encapsulates the feature instance configuration loaded from module settings into a more friendly object
+	/// </summary>
+	public class CommentsConfiguration
+	{
+		public CommentsConfiguration()
+		{ }
 
-        public CommentsConfiguration(Hashtable settings)
-        {
-            LoadSettings(settings);
+		public CommentsConfiguration(Hashtable settings)
+		{
+			LoadSettings(settings);
 
-            
-        }
 
-        private void LoadSettings(Hashtable settings)
-        {
-            if (settings == null) { throw new ArgumentException("must pass in a hashtable of settings"); }
+		}
 
-            requireApprovalForComments = WebUtils.ParseBoolFromHashtable(settings, "RequireApprovalForComments", requireApprovalForComments);
-            allowCommentTitle = WebUtils.ParseBoolFromHashtable(settings, "AllowCommentTitle", allowCommentTitle);
-            sortCommentsDescending = WebUtils.ParseBoolFromHashtable(settings, "SortCommentsDescending", sortCommentsDescending);
+		private void LoadSettings(Hashtable settings)
+		{
+			if (settings == null) { throw new ArgumentException("must pass in a hashtable of settings"); }
 
-            notifyOnComment = WebUtils.ParseBoolFromHashtable(settings, "ContentNotifyOnComment", notifyOnComment);
+			requireApprovalForComments = WebUtils.ParseBoolFromHashtable(settings, "RequireApprovalForComments", requireApprovalForComments);
+			allowCommentTitle = WebUtils.ParseBoolFromHashtable(settings, "AllowCommentTitle", allowCommentTitle);
+			sortCommentsDescending = WebUtils.ParseBoolFromHashtable(settings, "SortCommentsDescending", sortCommentsDescending);
 
-            if (settings.Contains("NotifyEmailSetting"))
-            {
-                notifyEmail = settings["NotifyEmailSetting"].ToString();
-            }
+			notifyOnComment = WebUtils.ParseBoolFromHashtable(settings, "ContentNotifyOnComment", notifyOnComment);
 
-            useCaptcha = WebUtils.ParseBoolFromHashtable(settings, "UseCommentSpamBlocker", useCaptcha);
+			if (settings.Contains("NotifyEmailSetting"))
+			{
+				notifyEmail = settings["NotifyEmailSetting"].ToString();
+			}
 
-            requireAuthenticationForComments = WebUtils.ParseBoolFromHashtable(settings, "RequireAuthenticationForComments", requireAuthenticationForComments);
+			useCaptcha = WebUtils.ParseBoolFromHashtable(settings, "UseCommentSpamBlocker", useCaptcha);
 
-            allowComments = WebUtils.ParseBoolFromHashtable(settings, "AllowComments", allowComments);
+			requireAuthenticationForComments = WebUtils.ParseBoolFromHashtable(settings, "RequireAuthenticationForComments", requireAuthenticationForComments);
 
-            allowWebSiteUrlForComments = WebUtils.ParseBoolFromHashtable(settings, "AllowWebSiteUrlForComments", allowWebSiteUrlForComments);
+			AllowComments = WebUtils.ParseBoolFromHashtable(settings, "AllowComments", AllowComments);
 
-            if (settings.Contains("DateTimeFormat"))
-            {
-                string format = settings["DateTimeFormat"].ToString().Trim();
-                if (format.Length > 0)
-                {
-                    try
-                    {
-                        string d = DateTime.Now.ToString(format, CultureInfo.CurrentCulture);
-                        dateTimeFormat = format;
-                    }
-                    catch (FormatException) { }
-                }
+			allowWebSiteUrlForComments = WebUtils.ParseBoolFromHashtable(settings, "AllowWebSiteUrlForComments", allowWebSiteUrlForComments);
 
-            }
+			if (settings.Contains("DateTimeFormat"))
+			{
+				string format = settings["DateTimeFormat"].ToString().Trim();
+				if (format.Length > 0)
+				{
+					try
+					{
+						string d = DateTime.Now.ToString(format, CultureInfo.CurrentCulture);
+						dateTimeFormat = format;
+					}
+					catch (FormatException) { }
+				}
 
-            if (settings.Contains("CustomCssClassSetting"))
-            {
-                instanceCssClass = settings["CustomCssClassSetting"].ToString();
-            }
+			}
 
-            allowedEditMinutesForUnModeratedPosts = WebUtils.ParseInt32FromHashtable(settings, "AllowedEditMinutesForUnModeratedPosts", allowedEditMinutesForUnModeratedPosts);
+			if (settings.Contains("CustomCssClassSetting"))
+			{
+				InstanceCssClass = settings["CustomCssClassSetting"].ToString();
+			}
 
-            if (settings.Contains("CommentSystemSetting"))
-            {
-                commentSystem = settings["CommentSystemSetting"].ToString();
-            }
+			allowedEditMinutesForUnModeratedPosts = WebUtils.ParseInt32FromHashtable(settings, "AllowedEditMinutesForUnModeratedPosts", allowedEditMinutesForUnModeratedPosts);
 
-            disableAvatars = WebUtils.ParseBoolFromHashtable(settings, "DisableAvatars", disableAvatars);
-        }
+			if (settings.Contains("CommentSystemSetting"))
+			{
+				commentSystem = settings["CommentSystemSetting"].ToString();
+			}
 
-        private bool disableAvatars = false;
-        public bool DisableAvatars
-        {
-            get { return disableAvatars; }
-        }
+			disableAvatars = WebUtils.ParseBoolFromHashtable(settings, "DisableAvatars", disableAvatars);
+			CheckKeywordBlacklist = WebUtils.ParseBoolFromHashtable(settings, "CheckKeywordBlacklist", CheckKeywordBlacklist);
 
-        private string commentSystem = "internal";
+		}
 
-        public string CommentSystem
-        {
-            get { return commentSystem; }
-        }
+		private bool disableAvatars = false;
+		public bool DisableAvatars
+		{
+			get { return disableAvatars; }
+		}
 
-        private int allowedEditMinutesForUnModeratedPosts = 10;
+		private string commentSystem = "internal";
 
-        public int AllowedEditMinutesForUnModeratedPosts
-        {
-            get { return allowedEditMinutesForUnModeratedPosts; }
-        }
+		public string CommentSystem
+		{
+			get { return commentSystem; }
+		}
 
-        private string dateTimeFormat = CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
+		private int allowedEditMinutesForUnModeratedPosts = 10;
 
-        public string DateTimeFormat
-        {
-            get { return dateTimeFormat; }
-        }
+		public int AllowedEditMinutesForUnModeratedPosts
+		{
+			get { return allowedEditMinutesForUnModeratedPosts; }
+		}
 
-        private bool sortCommentsDescending = false;
-        public bool SortCommentsDescending
-        {
-            get { return sortCommentsDescending; }
-        }
+		private string dateTimeFormat = CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
 
-        private bool requireApprovalForComments = false;
+		public string DateTimeFormat
+		{
+			get { return dateTimeFormat; }
+		}
 
-        public bool RequireApprovalForComments
-        {
-            get { return requireApprovalForComments; }
-        }
+		private bool sortCommentsDescending = false;
+		public bool SortCommentsDescending
+		{
+			get { return sortCommentsDescending; }
+		}
 
-        private bool allowCommentTitle = true;
-        public bool AllowCommentTitle
-        {
-            get { return allowCommentTitle; }
-        }
+		private bool requireApprovalForComments = false;
 
-        private string notifyEmail = string.Empty;
+		public bool RequireApprovalForComments
+		{
+			get { return requireApprovalForComments; }
+		}
 
-        public string NotifyEmail
-        {
-            get { return notifyEmail; }
-        }
+		private bool allowCommentTitle = true;
+		public bool AllowCommentTitle
+		{
+			get { return allowCommentTitle; }
+		}
 
-        private bool notifyOnComment = false;
+		private string notifyEmail = string.Empty;
 
-        public bool NotifyOnComment
-        {
-            get { return notifyOnComment; }
-        }
+		public string NotifyEmail
+		{
+			get { return notifyEmail; }
+		}
 
-        private bool requireAuthenticationForComments = false;
+		private bool notifyOnComment = false;
 
-        public bool RequireAuthenticationForComments
-        {
-            get { return requireAuthenticationForComments; }
-        }
+		public bool NotifyOnComment
+		{
+			get { return notifyOnComment; }
+		}
 
-        private bool useCaptcha = true;
+		private bool requireAuthenticationForComments = false;
 
-        public bool UseCaptcha
-        {
-            get { return useCaptcha; }
-        }
+		public bool RequireAuthenticationForComments
+		{
+			get { return requireAuthenticationForComments; }
+		}
 
-        private bool allowWebSiteUrlForComments = true;
+		private bool useCaptcha = true;
 
-        public bool AllowWebSiteUrlForComments
-        {
-            get { return allowWebSiteUrlForComments; }
-        }
+		public bool UseCaptcha
+		{
+			get { return useCaptcha; }
+		}
 
-        private bool allowComments = true;
+		private bool allowWebSiteUrlForComments = true;
 
-        public bool AllowComments
-        {
-            get { return allowComments; }
-        }
+		public bool AllowWebSiteUrlForComments
+		{
+			get { return allowWebSiteUrlForComments; }
+		}
 
-        private string instanceCssClass = string.Empty;
+		public bool AllowComments { get; private set; } = true;
 
-        public string InstanceCssClass
-        {
-            get { return instanceCssClass; }
-        }
+		public string InstanceCssClass { get; private set; } = string.Empty;
 
-        private const string featureGuid = "06451ec6-d4d7-47e3-a1ce-d19aaf7f98fe";
+		public bool CheckKeywordBlacklist { get; set; } = true;
 
-        public static Guid FeatureGuid
-        {
-            get { return new Guid(featureGuid); }
-        }
+		private const string featureGuid = "06451ec6-d4d7-47e3-a1ce-d19aaf7f98fe";
 
-    }
+		public static Guid FeatureGuid
+		{
+			get { return new Guid(featureGuid); }
+		}
+
+	}
 }

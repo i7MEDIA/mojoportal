@@ -83,9 +83,9 @@ namespace mojoPortal.Features.UI
             comments.IncludeIpAddressInNotification = true;
             comments.RequireCaptcha = config.UseCaptcha && !Request.IsAuthenticated;
             comments.ContainerControl = this;
+            comments.CheckKeywordBlacklist = config.CheckKeywordBlacklist;
             //comments.UpdateContainerControl = this;
-            comments.EditBaseUrl = SiteRoot + "/Comments/CommentsDialog.aspx?pageid=" + PageId.ToInvariantString()
-                + "&mid=" + ModuleId.ToInvariantString();
+            comments.EditBaseUrl = $"{SiteRoot}/Comments/CommentsDialog.aspx?pageid={PageId}&mid={ModuleId}";
 
             if (config.NotifyOnComment)
             {
@@ -93,7 +93,6 @@ namespace mojoPortal.Features.UI
                 {
                     comments.NotificationAddresses.Add(config.NotifyEmail);
                 }
-
             }
 
             comments.NotificationTemplateName = "BlogCommentNotificationEmail.config";
@@ -112,8 +111,6 @@ namespace mojoPortal.Features.UI
             }
 
         }
-
-
 
         #region IRefreshAfterPostback
 

@@ -153,17 +153,25 @@ namespace mojoPortal.Web.UI
 				return;
 			}
 
-			basePage.ScriptConfig.IncludeColorBox = true;
 
-			if (openInModal && (modalHookType == "CssClass"))
+			if (string.IsNullOrWhiteSpace(Global.SkinConfig.ModalTemplatePath) || string.IsNullOrWhiteSpace(Global.SkinConfig.ModalScriptPath))
 			{
-				CssClass = "adminlink filemanlink " + CssClass + " " + modalHookValue;
+				basePage.ScriptConfig.IncludeColorBox = true;
 			}
 			else
 			{
-				CssClass = "adminlink filemanlink " + CssClass;
+				basePage.EnsureDefaultModal();
 			}
 
+			if (openInModal && modalHookType == "CssClass")
+			{
+				CssClass = $"adminlink filemanlink {CssClass} {modalHookValue}";
+			}
+			else
+			{
+				CssClass = $"adminlink filemanlink {CssClass}";
+			}
+			
 			if (openInModal && (modalHookType == "Attributes"))
 			{
 				Dictionary<string, string> keyValuePairs = modalHookValue.Split(',')
@@ -176,17 +184,20 @@ namespace mojoPortal.Web.UI
 				}
 			}
 
-			Literal literalTop = new Literal();
-			literalTop.Text = literalExtraTopContent;
-			Controls.Add(literalTop);
+			Controls.Add(new Literal
+			{
+				Text = literalExtraTopContent
+			});
 
-			Literal literalText = new Literal();
-			literalText.Text = Resource.AdminMenuFileManagerLink;
-			Controls.Add(literalText);
+			Controls.Add(new Literal
+			{
+				Text = Resource.AdminMenuFileManagerLink
+			});
 
-			Literal literalBottom = new Literal();
-			literalBottom.Text = literalExtraBottomContent;
-			Controls.Add(literalBottom);
+			Controls.Add(new Literal
+			{
+				Text = literalExtraBottomContent
+			});
 			
 			ToolTip = Resource.AdminMenuFileManagerLink;
 
