@@ -15,6 +15,7 @@
 		hideOuterBodyPanel="true"
 		hideInnerBodyPanel="true"
 		maxItems="1"
+		showSaveAsNewButton="false"
 	>
 		<ModuleTitleFormat><![CDATA[<$_ModuleTitleElement_$ class="cookie-consent__title moduletitle" data-moduleid="module$_ModuleID_$">{0}</$_ModuleTitleElement_$>]]></ModuleTitleFormat>
 		<ModuleTitleMarkup><![CDATA[$_ModuleTitle_$ $_ModuleLinks_$]]></ModuleTitleMarkup>
