@@ -136,23 +136,17 @@
 		MonthViewWeekendDayCssClass="ec-day ec-weekend-day"
 		MonthViewOtherMonthDayCssClass="ec-day ec-other-month"
 		MonthViewHeaderPreviousMonthContainer="<div class='ec-month-previous fb-child col-sm-3 text-xs-center text-md-left'>{0}</div>"
-
-		MonthViewHeaderPreviousMonthLinkFormat="<a href='{0}' class='eventNextPrevious previousMonth'><span class='fa fa-angle-double-left'></span> <span class='monthName'>{1}</span></a>"
-		
+		MonthViewHeaderPreviousMonthLinkFormat="<a href='{0}' class='eventNextPrevious previousMonth' {2}><span class='fa fa-angle-double-left'></span> <span class='monthName'>{1}</span></a>"
 		MonthViewHeaderNextMonthContainer="<div class='nextMonth ec-month-next fb-child col-sm-3 text-xs-center text-md-right'>{0}</div>"
-		
-		MonthViewHeaderNextMonthLinkFormat="<a href='{0}' class='eventNextPrevious nextMonth'><span class='monthName'>{1}</span> <span class='fa fa-angle-double-right'></span></a>"
-		
+		MonthViewHeaderNextMonthLinkFormat="<a href='{0}' class='eventNextPrevious nextMonth' {2}><span class='monthName'>{1}</span> <span class='fa fa-angle-double-right'></span></a>"
 		MonthViewHeaderCurrentMonthFormat="<h3 class='currentMonth fb-child col-sm-6 fb-ai-center fb-j-center text-center'>{0}</h3>"
-		
 		MonthViewEmptyDayFiller="<div class='ec-filler'></div>" 
 		MonthViewEventEditLinkFormat="<a href='{0}' title='{1}' class='editeventlink ModuleEditLink {3}' ><span class='fa fa-pencil-square-o'></span></a>"
 		MonthViewEventMarkupTop="<div class='eventcontainer {0}' style='{1} {2} {3}'>"
-		WeekViewPreviousFormat="<div class='row m-b-gutter-half m-t-gutter-half'><div class='col-sm-6 text-left'><a href='{0}' title='{1}' class='btn btn-sm btn-default'>{2}</a></div>"
-		WeekViewNextFormat="<div class='col-sm-6 text-right'><a href='{0}' title='{1}' class='btn btn-sm btn-default'>{2}</a></div></div>"
-		DayViewPreviousFormat="<div class='row m-b-gutter-half m-t-gutter-half'><div class='col-sm-6 text-left'><a href='{0}' title='{1}' class='btn btn-sm btn-default'>{2}</a></div>"
-		DayViewNextFormat="<div class='col-sm-6 text-right'><a href='{0}' title='{1}' class='btn btn-sm btn-default'>{2}</a></div></div>"
-
+		WeekViewPreviousFormat="<div class='row m-b-gutter-half m-t-gutter-half'><div class='col-sm-6 text-left'><a href='{0}' title='{1}' class='btn btn-sm btn-default' {3}>{2}</a></div>"
+		WeekViewNextFormat="<div class='col-sm-6 text-right'><a href='{0}' title='{1}' class='btn btn-sm btn-default' {3}>{2}</a></div></div>"
+		DayViewPreviousFormat="<div class='row m-b-gutter-half m-t-gutter-half'><div class='col-sm-6 text-left'><a href='{0}' title='{1}' class='btn btn-sm btn-default' {3}>{2}</a></div>"
+		DayViewNextFormat="<div class='col-sm-6 text-right'><a href='{0}' title='{1}' class='btn btn-sm btn-default' {3}>{2}</a></div></div>"
 	 />
 --%>
 <%--

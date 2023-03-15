@@ -106,7 +106,13 @@
 
 .eventdetailview {
 	.daterow,
-	.localrow {
+	.timerow,
+	.contactsrow,
+	.categoriesrow,
+	.localrow,
+	.ecp-price,
+	.repeatsrow,
+	.registerlink {
 		.settinglabel {
 			font-size: @font-size-base;
 			margin-top: 0;
@@ -114,10 +120,14 @@
 			width: 5em;
 		}
 	}
+}
+.contactsrow ul.simplelist {
+	display: inline-block;
+	margin: 0;
+}
 
-	.localrow .settinglabel::after {
-		content: ':';
-	}
+.addtocalendarrow {
+    position: relative;
 }
 
 .eventlistview {
@@ -287,3 +297,19 @@
 }
 
 .ec-today.dayHeader {padding-right: 0;}
+
+td.ec-day.emptycell {padding: 0;} 
+
+ul.ecp-category-list,
+ul.ecp-contact-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+li.ecp-category-item:first-child {
+    padding-top: 0;
+}
+
+li.ecp-category-item {
+    padding-top: 10px;
+}
