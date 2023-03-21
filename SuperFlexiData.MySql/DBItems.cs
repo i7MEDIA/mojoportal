@@ -272,7 +272,7 @@ namespace SuperFlexiData
 			);
 		}
 
-		public static IDataReader GetByIDsWithValues(List<int> itemIDs, int pageNumber = 1, int pageSize = 20)
+		public static IDataReader GetByIDsWithValues(Guid defGuid, Guid siteGuid, List<int> itemIDs, int pageNumber = 1, int pageSize = 20)
 		{
 
 			string sqlCommand = $@"
@@ -282,12 +282,14 @@ namespace SuperFlexiData
 						SELECT i.*, COUNT(*) AS `TotalRows`
 						FROM i7_sflexi_items i
 						WHERE {getItems()}
+						AND i.DefinitionGuid = ?DefinitionGuid
+						AND i.SiteGuid = ?SiteGuid
 						GROUP BY ItemID
 				 		LIMIT ?PageSize
 				 		OFFSET ?OffSetRows) pg
 					JOIN `i7_sflexi_values` v ON  v.ItemGuid = pg.ItemGuid
 					JOIN `i7_sflexi_fields` f ON v.FieldGuid = f.FieldGuid
-					WHERE `TotalRows` > 0;";
+					WHERE `TotalRows` > 0";
 
 			string getItems()
 			{
@@ -308,7 +310,7 @@ namespace SuperFlexiData
 
 			for (var i = 0; i < itemIDs.Count(); i++)
 			{
-				sqlParams.Add(new MySqlParameter($"?ItemID{i}", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = itemIDs[i] });
+				sqlParams.Add(new MySqlParameter($"?ItemID{i}", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = itemIDs[i] });
 			}
 
 			int offsetRows = (pageSize * pageNumber) - pageSize;
@@ -317,6 +319,8 @@ namespace SuperFlexiData
 			{
 				new MySqlParameter("?PageSize", MySqlDbType.Int32){ Direction = ParameterDirection.Input, Value = pageSize },
 				new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
+				new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = defGuid },
+				new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid }
 			});
 
 			return MySqlHelper.ExecuteReader(
