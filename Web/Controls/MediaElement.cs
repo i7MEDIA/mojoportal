@@ -142,7 +142,7 @@ namespace mojoPortal.Web.UI
 				attributesList.Add("oncontextmenu=\"return false;\"");
 			}
 
-			writer.Write($"<{type} {string.Join(" ", attributesList)}><source type=\"{FileType}\" src=\"{Page.ResolveUrl(FileUrl)}\" /></video>");
+			writer.Write($"<{type} {string.Join(" ", attributesList)}><source type=\"{FileType}\" src=\"{Page.ResolveUrl(FileUrl)}\" /></{type}>");
 		}
     }
 }
