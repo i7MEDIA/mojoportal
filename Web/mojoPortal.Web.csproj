@@ -641,6 +641,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Modules\ChildPageSiteMapModule.ascx" />
+    <Content Include="Modules\CustomMenu.ascx" />
     <Content Include="Modules\CustomScript.ascx" />
     <Content Include="Modules\HtmlModule.ascx">
       <SubType>ASPXCodeBehind</SubType>
@@ -2482,6 +2483,7 @@
     <Compile Include="Models\AdminMenuPage.cs" />
     <Compile Include="Components\BreadCrumb.cs" />
     <Compile Include="Models\BreadCrumbs.cs" />
+    <Compile Include="Models\CustomMenu.cs" />
     <Compile Include="Models\FileManager.cs" />
     <Compile Include="Models\FileService.cs" />
     <Compile Include="Models\MemberListModel.cs" />
@@ -2492,6 +2494,13 @@
     </Compile>
     <Compile Include="Modules\ChildPageSiteMapModule.ascx.designer.cs">
       <DependentUpon>ChildPageSiteMapModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CustomMenu.ascx.cs">
+      <DependentUpon>CustomMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\CustomMenu.ascx.designer.cs">
+      <DependentUpon>CustomMenu.ascx</DependentUpon>
     </Compile>
     <Compile Include="Modules\CustomScript.ascx.cs">
       <DependentUpon>CustomScript.ascx</DependentUpon>
