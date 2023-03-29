@@ -523,13 +523,7 @@ namespace mojoPortal.Web.BlogUI
 					rptAttachments.DataSource = dv;
 					rptAttachments.DataBind();
 
-					rptAttachments.Visible = (rptAttachments.Items.Count > 0);
-
-					if (rptAttachments.Visible)
-					{
-						basePage.ScriptConfig.IncludeMediaElement = true;
-						basePage.StyleCombiner.IncludeMediaElement = true;
-					}
+					rptAttachments.Visible = rptAttachments.Items.Count > 0;
 				}
 			}
 		}

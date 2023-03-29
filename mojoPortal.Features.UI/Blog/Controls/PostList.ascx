@@ -102,12 +102,7 @@
 
 						<asp:Repeater ID="rptAttachments" runat="server" Visible='<%# !useExcerpt && !TitleOnly %>'>
 							<ItemTemplate>
-								<portal:MediaElement runat="server"
-									ID="ml1"
-									EnableViewState="false"
-									FileUrl='<%# attachmentBaseUrl + Eval("ServerFileName") %>'
-									AddInitScript="true"
-									IncludeDownloadLinkForMedia='<%# Convert.ToBoolean(Eval("ShowDownloadLink")) %>' />
+								<portal:MediaElement ID="ml1" runat="server" AllowDownload='<%# Convert.ToBoolean(Eval("ShowDownloadLink")) %>' EnableViewState="false" FileUrl='<%# attachmentBaseUrl + Eval("ServerFileName") %>' />
 							</ItemTemplate>
 						</asp:Repeater>
 
