@@ -90,7 +90,7 @@ namespace mojoPortal.Web.EventCalendarUI
 				this.cal1.SelectedDate = visibleDate;
 			}
             // add 7 days to begin and end date 
-            // this allows showing event s from previous or future month
+            // this allows showing events from previous or future month
             // when those days happen to be visible on the calendar
 			DateTime beginMonth = new DateTime(visibleDate.Year, visibleDate.Month,1).AddDays(-7);
 			DateTime endMonth = beginMonth.AddDays(49);
