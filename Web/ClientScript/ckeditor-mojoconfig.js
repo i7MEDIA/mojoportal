@@ -18,8 +18,8 @@ CKEDITOR.editorConfig = function(config) {
 
 
 	// ALLOW empty <i></i> elements, these are used for font awesome
-	config.protectedSource.push(/<i[\s\S]*?\>/g); //allows beginning <i> tag
-	config.protectedSource.push(/<\/i[\s\S]*?\>/g); //allows ending </i> tag
+	//config.protectedSource.push(/<i[\s\S]*?\>/g); //allows beginning <i> tag
+	//config.protectedSource.push(/<\/i[\s\S]*?\>/g); //allows ending </i> tag
 
 	// We're not using the "Stylesheet Parser" right now. It doesn't style some of the rules very well while in the dropdown,
 	// they work fine but they look like plaintext in the editor's selector dropdown.
