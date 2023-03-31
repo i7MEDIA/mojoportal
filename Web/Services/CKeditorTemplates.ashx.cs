@@ -9,6 +9,7 @@ using System.IO;
 using System.Text;
 using System.Web;
 using System.Web.Services;
+using mojoPortal.Web.Controls.Editors;
 
 namespace mojoPortal.Web.Services
 {
@@ -32,7 +33,6 @@ namespace mojoPortal.Web.Services
 			siteSettings = CacheHelper.GetCurrentSiteSettings();
 			if (siteSettings == null)
 			{
-
 				return;
 			}
 
@@ -66,14 +66,14 @@ namespace mojoPortal.Web.Services
 			context.Response.ContentEncoding = new UTF8Encoding();
 			context.Response.ContentType = "text/javascript";
 
-			StringBuilder output = new StringBuilder();
+			StringBuilder output = new();
 
 			var templatesOrder = AppConfig.EditorTemplatesOrder.SplitOnCharAndTrim(',');
-			List<string> templateNames = new List<string>();
+			List<string> templateNames = new();
 
 			foreach (var i in templatesOrder)
 			{
-				var collection = new CkEditorTemplateCollection();
+				var collection = new EditorTemplateCollection();
 
 				switch (i)
 				{
@@ -86,7 +86,7 @@ namespace mojoPortal.Web.Services
 						{
 							if (!WebUser.IsInRoles(t.AllowedRoles)) { continue; }
 
-							collection.Templates.Add(new CkEditorTemplate
+							collection.Templates.Add(new EditorTemplate
 							{
 								Title = t.Title,
 								Image = t.ImageFileName,
@@ -115,7 +115,7 @@ namespace mojoPortal.Web.Services
 					case "system":
 						if (export || !systemTemplatesFile.Exists) break;
 
-						collection = GetEditorTemplateCollection(systemTemplatesFile);
+						collection = new EditorTemplateCollection(systemTemplatesFile);
 
 						if (collection.Templates.Count > 0)
 						{
@@ -127,7 +127,7 @@ namespace mojoPortal.Web.Services
 					case "skin":
 						if (export || !skinTemplatesFile.Exists) break;
 
-						collection = GetEditorTemplateCollection(skinTemplatesFile);
+						collection = new EditorTemplateCollection(skinTemplatesFile);
 
 						if (collection.ImagesPath.Contains("$skinpath$"))
 						{
@@ -155,57 +155,7 @@ namespace mojoPortal.Web.Services
 				context.Response.Write(output.ToString());
 			}
 		}
-
-		public CkEditorTemplateCollection GetEditorTemplateCollection(FileInfo file)
-		{
-			var collection = new CkEditorTemplateCollection();
-			if (file.Exists)
-			{
-				var contents = File.ReadAllText(file.FullName);
-				collection = JsonConvert.DeserializeObject<CkEditorTemplateCollection>(contents);
-			}
-			return collection;
-		}
-
 		public bool IsReusable { get { return false; } }
 
-	}
-
-	public class CkEditorTemplateCollection
-	{
-		[JsonProperty(PropertyName = "imagesPath")]
-		public string ImagesPath { get; set; } = string.Empty;
-
-		[JsonProperty(PropertyName = "templates")]
-		public List<CkEditorTemplate> Templates { get; set; }
-
-		public CkEditorTemplateCollection()
-		{
-			Templates = new List<CkEditorTemplate>();
-		}
-	}
-
-	public class CkEditorTemplate
-	{
-		[JsonProperty(PropertyName = "title")]
-		public string Title { get; set; } = string.Empty;
-
-		[JsonProperty(PropertyName = "image")]
-		public string Image { get; set; } = string.Empty;
-
-		[JsonProperty(PropertyName = "description")]
-		public string Description { get; set; } = string.Empty;
-
-		[JsonProperty(PropertyName = "html")]
-		public string Html { get; set; } = string.Empty;
-
-		public bool ShouldSerializeDescription()
-		{
-			return Description != null;
-		}
-		public bool ShouldSerializeImage()
-		{
-			return Image != null;
-		}
 	}
 }

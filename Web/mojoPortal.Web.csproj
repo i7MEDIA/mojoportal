@@ -1179,6 +1179,8 @@
       <DependentUpon>CountryISOCode2Setting.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\EditLinkToggle.cs" />
+    <Compile Include="Controls\Editors\EditorStyle.cs" />
+    <Compile Include="Controls\Editors\EditorTemplate.cs" />
     <Compile Include="Controls\Editors\mojoTextArea.cs" />
     <Compile Include="Controls\Editors\TinyMCE\TinyMceEditor.cs" />
     <Compile Include="Controls\EmailTemplates\EmailTemplateEditor.ascx.cs">
@@ -1398,6 +1400,13 @@
     </Compile>
     <Compile Include="Controls\Validators\CheckBoxListValidator.cs" />
     <Compile Include="Controls\Validators\EmailValidator.cs" />
+    <Compile Include="Controls\ViewSelectorSetting.ascx.cs">
+      <DependentUpon>ViewSelectorSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ViewSelectorSetting.ascx.designer.cs">
+      <DependentUpon>ViewSelectorSetting.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\WorldPay\WorldPayAcceptanceMark.cs" />
     <Compile Include="Controls\WorldPay\WorldPayPurchaseButton.cs" />
     <Compile Include="DesignTools\CacheTool.aspx.cs">

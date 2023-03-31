@@ -36,9 +36,11 @@
 				case "tinymce":
 					<text>
 						function tmceSubmit(url) {
-							if (top.tinymce !== null) {
-								top.tinymce.activeEditor.windowManager.getParams().oninsert(url);
-								top.tinymce.activeEditor.windowManager.close();
+							var windowManager = top != undefined && top.tinymceWindowManager != undefined ? top.tinymceWindowManager : '';
+
+							if (windowManager !== '' && top.tinymceCallBackURL != undefined) {
+									top.tinymceCallBackURL = url;
+									windowManager.close();
 							} else {
 								console.log('TinyMCE instance does not exist.\nReturned Value:', url);
 							}

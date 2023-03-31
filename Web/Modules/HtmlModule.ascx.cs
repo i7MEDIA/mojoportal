@@ -525,20 +525,17 @@ namespace mojoPortal.Web.ContentUI
                 }
             }
 
-            if ((IsEditable) && (WebConfigSettings.EnableInlineEditing))
+            if (IsEditable && WebConfigSettings.EnableInlineEditing)
             {
-                if((WebConfigSettings.TinyMceUseV4)&&(siteSettings.EditorProviderName == "TinyMCEProvider"))
+                if(siteSettings.EditorProviderName == "TinyMCEProvider" && !WebConfigSettings.DisableTinyMceInlineEditing)
                 {
                     SetupTinyMceInline();
                 }
-                else
+                else if (siteSettings.EditorProviderName == "CKEditorProvider")
                 {
                     SetupCKEditorInline();
                 }
-                
             }
-            
-
         }
 
         private void SetupCKEditorInline()
@@ -563,11 +560,11 @@ namespace mojoPortal.Web.ContentUI
                 this,
                 this.GetType(),
                 "ckeditormain",
-                "\n<script type=\"text/javascript\" src=\""
-                + ResolveUrl(WebConfigSettings.CKEditorBasePath + "ckeditor.js") + "\"></script>", false);
+				"\n<script data-loader=\"HTMLModule\" src=\""
+				+ ResolveUrl(WebConfigSettings.CKEditorBasePath + "ckeditor.js") + "\"></script>", false);
 
             StringBuilder script = new StringBuilder();
-            script.Append("\n<script type=\"text/javascript\">");
+            script.Append("\n<script data-loader=\"HTMLModule\">");
             script.Append("\n CKEDITOR.disableAutoInline = true; ");
             script.Append("\n</script>");
 
@@ -581,7 +578,7 @@ namespace mojoPortal.Web.ContentUI
             // now setup the instance
             script = new StringBuilder();
 
-            script.Append("\n<script type=\"text/javascript\">\n");
+            script.Append("\n<script data-loader=\"HTMLModule\">\n");
 
             script.Append("var hceditor" + ModuleId.ToInvariantString() + "; ");
 
@@ -790,8 +787,8 @@ namespace mojoPortal.Web.ContentUI
                 this,
                 this.GetType(),
                 "tinymcemain",
-                "\n<script type=\"text/javascript\" src=\""
-                + ResolveUrl(WebConfigSettings.TinyMceBasePath + "tinymce.min.js") + "\"></script>", false);
+				"\n<script data-loader=\"HTMLModule\" src=\""
+				+ ResolveUrl(WebConfigSettings.TinyMceBasePath + "tinymce.min.js") + "\"></script>", false);
 
             TinyMceConfiguration config = TinyMceConfiguration.GetConfig();
             // need a clone beucause these are chached and we are modifying the object
@@ -804,11 +801,11 @@ namespace mojoPortal.Web.ContentUI
             editorSettings.FileManagerUrl = SiteRoot + WebConfigSettings.FileDialogRelativeUrl;
             editorSettings.GlobarVarToAssignEditor = "hceditor" + ModuleId.ToInvariantString();
 
-            string dropFileUploadUrl = Page.ResolveUrl(SiteRoot + "/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko=" 
+            string imagesUploadUrl = Page.ResolveUrl(SiteRoot + "/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko=" 
                 + WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()
                     + "&t=" + Global.FileSystemToken.ToString());
 
-            editorSettings.DropFileUploadUrl = dropFileUploadUrl;
+            editorSettings.ImagesUploadUrl = imagesUploadUrl;
 
             if (WebConfigSettings.TinyMceInlineUseSavePlugin) // true by default
             {
@@ -835,7 +832,7 @@ namespace mojoPortal.Web.ContentUI
 
             StringBuilder script = new StringBuilder();
 
-            script.Append("\n<script type=\"text/javascript\">\n");
+            script.Append("\n<script data-loader=\"HTMLModule\">\n");
 
             script.Append("var hceditor" + ModuleId.ToInvariantString() + "; ");
 

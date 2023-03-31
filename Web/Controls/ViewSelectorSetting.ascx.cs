@@ -46,7 +46,7 @@ namespace mojoPortal.Web.UI
 
             List<FileInfo> themeFiles = GetLayouts(themesPath);
 
-            List<ListItem> items = new List<ListItem>();
+            List<ListItem> items = new();
 
 
 

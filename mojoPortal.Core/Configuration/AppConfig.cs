@@ -115,5 +115,13 @@ namespace mojoPortal.Core.Configuration
 				return ConfigHelper.GetStringProperty("GoogleAnalyticsScript", "https://www.googletagmanager.com/gtag/js?id=");
 			}
 		}
+
+		public static bool EnableUploads
+		{
+			get
+			{
+				return ConfigHelper.GetBoolProperty("EnableUploads", true);
+			}
+		}
 	}
 }

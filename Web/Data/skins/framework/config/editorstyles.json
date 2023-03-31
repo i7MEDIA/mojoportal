@@ -3,6 +3,7 @@
         "name": "Framed Image",
         "type": "widget",
         "widget": "image",
+        "element":  "img",
         "attributes": {
             "class": "well well-sm" 
         }

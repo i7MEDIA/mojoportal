@@ -320,12 +320,7 @@ namespace mojoPortal.Web.Editor
 			set { fileManagerUrl = value; }
 		}
 
-		private string dropFileUploadUrl = string.Empty;
-		public string DropFileUploadUrl
-		{
-			get { return dropFileUploadUrl; }
-			set { dropFileUploadUrl = value; }
-		}
+		public string ImagesUploadUrl { get; set; } = string.Empty;
 
 		private string extendedValidElements = string.Empty;
 		/// <summary>
@@ -486,7 +481,7 @@ namespace mojoPortal.Web.Editor
 			Page.ClientScript.RegisterClientScriptBlock(
 				GetType(),
 				"tinymcemain",
-				"<script type=\"text/javascript\" src=\"" + ResolveUrl(BasePath + "tinymce.min.js") + "\"></script>"
+				"<script data-loader=\"TinyMCE\" src=\"" + ResolveUrl(BasePath + "tinymce.min.js") + "\"></script>"
 			);
 
 			StringBuilder script = new StringBuilder();
@@ -495,7 +490,7 @@ namespace mojoPortal.Web.Editor
 			//script.Append("hookupGoodbyePrompt(\"" + Resource.UnSavedChangesPrompt.HtmlEscapeQuotes().RemoveLineBreaks() + "\"); ");
 			//script.Append("} ");
 
-			script.Append("\n<script type=\"text/javascript\">");
+			script.Append("\n<script data-loader=\"TinyMCE\">");
 
 			BuildScript(script, this, ClientID, Width, Height);
 
@@ -685,7 +680,7 @@ namespace mojoPortal.Web.Editor
 
 			if (config.StyleFormats.Length > 0)
 			{
-				script.Append(",style_formats:" + config.StyleFormats);
+				script.Append(",style_formats_merge:true,style_formats:" + config.StyleFormats);
 			}
 
 			if (config.EmotionsBaseUrl.Length > 0)
@@ -702,30 +697,31 @@ namespace mojoPortal.Web.Editor
 				}
 			}
 
-			if (config.DropFileUploadUrl.Length > 0)
+			if (config.ImagesUploadUrl.Length > 0)
 			{
-				script.Append(",dropFileUploadUrl:'" + config.DropFileUploadUrl + "'");
+				script.Append(",images_upload_url:'" + config.ImagesUploadUrl + "'");
 			}
 
-			if ((config.FileManagerUrl.Length > 0))
+			if (config.FileManagerUrl.Length > 0)
 			{
-				script.Append(",file_browser_callback: function(field_name, url, type, win) { ");
-				script.Append("tinyMCE.activeEditor.windowManager.open({");
-				script.Append("url:'" + config.FileManagerUrl + "' + '?editor=tinymce&type=' + type, ");
-				script.Append("title:'" + Resource.FileBrowser.HtmlEscapeQuotes() + "',");
-				script.Append("width: ~~((80 / 100) * window.innerWidth),");
-				script.Append("height: ~~((80 / 100) * window.innerHeight)");
-				//script.Append(",resizable: true"); // doesn't seem to work
-				//script.Append("inline : 'yes',"); // not needed in 4.x I guess
-				//script.Append(" close_previous : 'no'"); // not needed in 4.x I guess
-				script.Append("}, {");
-				script.Append("oninsert: function(newurl) {win.document.getElementById(field_name).value = newurl;}");
-				script.Append("}); ");
-				script.Append("return false;");
-				script.Append("}");
+				script.Append(@$"
+,file_picker_types: 'file image media'
+,file_picker_callback: function(callback, value, meta) {{
+	window.tinymceCallBackURL = '';
+	window.tinymceWindowManager = tinymce.activeEditor.windowManager;
+	tinymceWindowManager.openUrl({{title: '{Resource.FileBrowser.HtmlEscapeQuotes()}',
+		url: '{config.FileManagerUrl}?editor=tinymce&type=' + meta.filetype,
+		width: ~~((80 / 100) * window.innerWidth),
+		height: ~~((80 / 100) * window.innerWidth),
+		onClose: function() {{
+			callback(tinymceCallBackURL);
+		}}
+	}});
+}}
+");
 			}
 
-			script.Append(",setup:function(editor) {");
+			script.Append(",promotion: false,setup:function(editor) {");
 
 			if (config.GlobarVarToAssignEditor.Length > 0)
 			{

@@ -821,15 +821,6 @@ namespace mojoPortal.Web
 			}
 		}
 
-		/// <summary>
-		/// TinyMCe 4.x is a complete re-write so rather than break the 3.x implementation
-		/// we added this setting to choose between using 3.x or 4.x and newer versions of TinyMCE
-		/// </summary>
-		public static bool TinyMceUseV4
-		{
-			get { return ConfigHelper.GetBoolProperty("TinyMCE:UseV4", true); }
-		}
-
 		public static bool DisableTinyMceInlineEditing
 		{
 			get { return ConfigHelper.GetBoolProperty("DisableTinyMceInlineEditing", false); }
@@ -3057,7 +3048,7 @@ namespace mojoPortal.Web
 
 		public static bool AddSystemStyleTemplatesAboveSiteTemplates
 		{
-			get { return ConfigHelper.GetBoolProperty("AddSystemStyleTemplatesAboveSiteTemplates", true); }
+			get { return ConfigHelper.GetBoolProperty("AddSystemStyleTemplatesAboveSiteTemplates", false); }
 		}
 
 		public static bool AddSystemStyleTemplatesBelowSiteTemplates
