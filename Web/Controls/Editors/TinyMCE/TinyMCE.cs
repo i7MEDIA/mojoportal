@@ -46,36 +46,12 @@ namespace mojoPortal.Web.Editor
 
         #region Properties
 
-        private string text = string.Empty;
         [DefaultValue("")]
-        public string Text
-        {
-            get 
-            { 
-                return text; 
-            }
-            set 
-            { 
-                text = value; 
-            }
-        }
+        public string Text { get; set; } = string.Empty;
 
-        //public string Text
-        //{
-        //    get
-        //    {
-        //        return text.Replace("&lt;", "<").Replace("&gt;", ">").Replace("&amp;", "&");
-        //    }
-        //    set
-        //    {
-        //        value.Replace("&lt;", "<").Replace("&gt;", ">").Replace("&amp;", "&");
-        //        text = value;
-        //    }
-        //}
-       
+
         #region Appearence Properties
 
-        private string skin = "default";
         /// <summary>
         /// advanced theme has 2 skins default and o2k7
         /// o2k7 also supports skin_variant with default, silver and black as options
@@ -85,20 +61,11 @@ namespace mojoPortal.Web.Editor
         /// o2k7silver
         /// o2k7black
         /// </summary>
-        public string Skin
-        {
-            get{ return skin;}
-            set{skin = value;}
-        }
+        public string Skin { get; set; } = "default";
 
-        private Unit width = Unit.Percentage(100);
         [Category("Appearence")]
         [DefaultValue("100%")]
-        public Unit Width
-        {
-            get { return width; }
-            set { width = value; }
-        }
+        public Unit Width { get; set; } = Unit.Percentage(100);
 
         [Category("Appearence")]
         [DefaultValue("200px")]
@@ -112,62 +79,20 @@ namespace mojoPortal.Web.Editor
 
         #region Configuration Properties
 
-        private string basePath = "/ClientScript/tiny_mce/";
 
-        public string BasePath
-        {
-            get { return basePath; }
-            set { basePath = value; }
-        }
+        public string BasePath { get; set; } = "/ClientScript/tiny_mce/";
+        public string ForcedRootBlock { get; set; } = "p";
 
-       
-        private string forcedRootBlock = "p";
-        public string ForcedRootBlock
-        {
-            get { return forcedRootBlock; }
-            set { forcedRootBlock = value; }
-        }
+        public bool EnableFileBrowser { get; set; } = false;
 
-        private bool enableFileBrowser = false;
+        public bool ConvertUrls { get; set; } = false;
 
-        public bool EnableFileBrowser
-        {
-            get { return enableFileBrowser; }
-            set { enableFileBrowser = value; }
-        }
+        public bool ForcePasteAsPlainText { get; set; } = false;
 
-        private bool convertUrls = false;
+        public string FileManagerUrl { get; set; } = string.Empty;
 
-        public bool ConvertUrls
-        {
-            get { return convertUrls; }
-            set { convertUrls = value; }
-        }
+        public string ExtendedValidElements { get; set; } = string.Empty;
 
-        private bool forcePasteAsPlainText = false;
-
-        public bool ForcePasteAsPlainText
-        {
-            get { return forcePasteAsPlainText; }
-            set { forcePasteAsPlainText = value; }
-        }
-
-        private string fileManagerUrl = string.Empty;
-        public string FileManagerUrl
-        {
-            get { return fileManagerUrl; }
-            set { fileManagerUrl = value; }
-        }
-
-
-        private string extendedValidElements = string.Empty;
-        public string ExtendedValidElements
-        {
-            get { return extendedValidElements; }
-            set { extendedValidElements = value; }
-        }
-
-        private bool autoFocus = false;
         /// <summary>
         /// This option enables you to auto focus an editor instance. The 
         /// value of this option should be an editor instance id. Editor 
@@ -176,26 +101,16 @@ namespace mojoPortal.Web.Editor
         /// instances on a page, they would have the following 
         /// ids - mce_editor_0, mce_editor_1 and mce_editor_2.
         /// </summary>
-        public bool AutoFocus
-        {
-            get { return autoFocus; }
-            set { autoFocus = value; }
-        }
+        public bool AutoFocus { get; set; } = false;
 
-        private bool accessibilityFocus = true;
         /// <summary>
         /// If true, some accessibility focus will be available to all buttons: 
         /// you will be able to tab through them all. If false, focus will be 
         /// placed inside the text area when you tab through the interface. 
         /// The default is true.
         /// </summary>
-        public bool AccessibilityFocus
-        {
-            get { return accessibilityFocus; }
-            set { accessibilityFocus = value; }
-        }
+        public bool AccessibilityFocus { get; set; } = true;
 
-        private bool accessibilityWarnings = true;
         /// <summary>
         /// If this option is set to true some accessibility warnings will be 
         /// presented to the user if they miss specifying that information. 
@@ -203,13 +118,8 @@ namespace mojoPortal.Web.Editor
         /// make this world a better place for disabled people. But if you 
         /// are annoyed with the warnings, set this option to false.
         /// </summary>
-        public bool AccessibilityWarnings
-        {
-            get { return accessibilityWarnings; }
-            set { accessibilityWarnings = value; }
-        }
+        public bool AccessibilityWarnings { get; set; } = true;
 
-        private string browsers = "msie,gecko,safari,opera";
         /// <summary>
         /// This option should contain a comma separated list of supported 
         /// browsers. This enables you, for example, to disable the editor 
@@ -219,52 +129,31 @@ namespace mojoPortal.Web.Editor
         /// version is released. The possible values of this option 
         /// are msie, gecko, safari and opera.
         /// </summary>
-        public string Browsers
-        {
-            get { return browsers; }
-            set { browsers = value; }
-        }
+        public string Browsers { get; set; } = "msie,gecko,safari,opera";
 
-        private bool customShortcuts = true;
         /// <summary>
         /// This option enables you to disable/enable the custom keyboard 
         /// shortcuts, which plugins and themes may register. The value 
         /// of this option is set to true by default.
         /// </summary>
-        public bool CustomShortcuts
-        {
-            get { return customShortcuts; }
-            set { customShortcuts = value; }
-        }
+        public bool CustomShortcuts { get; set; } = true;
 
-        private string dialogType = "window";
         /// <summary>
         /// This option enables you to specify how dialogs/popups should be 
         /// opened, possible values are "window" and "modal", where the 
         /// window option opens a normal window and the dialog option opens 
         /// a modal dialog. This option is set to "window" by default.
         /// </summary>
-        public string DialogType
-        {
-            get { return dialogType; }
-            set { dialogType = value; }
-        }
+        public string DialogType { get; set; } = "window";
 
-        private string textDirection = "ltr";
         /// <summary>
         /// This option specifies the default writing direction, some languages 
         /// (Like Hebrew, Arabic, Urdu...) write from right to left instead 
         /// of left to right. The default value of this option is "ltr" but 
         /// if you want to use from right to left mode specify "rtl" instead.
         /// </summary>
-        public string TextDirection
-        {
-            get { return textDirection; }
-            set { textDirection = value; }
-        }
+        public string TextDirection { get; set; } = "ltr";
 
-
-        private string deSelectorCSSClass = "mceNoEditor";
         /// <summary>
         /// This option enables you to specify a CSS class name that will 
         /// deselect textareas from being converted into editor instances. 
@@ -275,22 +164,10 @@ namespace mojoPortal.Web.Editor
         /// be excluded for conversion. This option also enables you to use 
         /// regular expressions like myEditor|myOtherEditor or .*editor.
         /// </summary>
-        public string DeSelectorCSSClass
-        {
-            get { return deSelectorCSSClass; }
-            set { deSelectorCSSClass = value; }
-        }
+        public string DeSelectorCSSClass { get; set; } = "mceNoEditor";
 
-        private bool enableGeckoSpellCheck = true;
-       
-        public bool EnableGeckoSpellCheck
-        {
-            get { return enableGeckoSpellCheck; }
-            set { enableGeckoSpellCheck = value; }
-        }
+        public bool EnableGeckoSpellCheck { get; set; } = true;
 
-
-        private string language = "en";
         /// <summary>
         /// This option should contain a language code of the language pack to 
         /// use with TinyMCE. These codes are in ISO-639-1 format to see if 
@@ -298,25 +175,15 @@ namespace mojoPortal.Web.Editor
         /// "tinymce/jscripts/tiny_mce/langs". The default value of this 
         /// option is "en" for English.
         /// </summary>
-        public string Language
-        {
-            get { return language; }
-            set { language = value; }
-        }
+        public string Language { get; set; } = "en";
 
-        private bool enableObjectResizing = true;
         /// <summary>
         /// This true/false option gives you the ability to turn on/off the 
         /// inline resizing controls of tables and images in Firefox/Mozilla. 
         /// These are enabled by default.
         /// </summary>
-        public bool EnableObjectResizing
-        {
-            get { return enableObjectResizing; }
-            set { enableObjectResizing = value; }
-        }
+        public bool EnableObjectResizing { get; set; } = true;
 
-        private string plugins = string.Empty;
         /// <summary>
         /// This option should contain a comma separated list of plugins. Plugins 
         /// are loaded from the "tinymce/jscripts/tiny_mce/plugins" directory, 
@@ -336,35 +203,18 @@ namespace mojoPortal.Web.Editor
         /// one of your own, please contribute it to this project by uploading 
         /// it to SourceForge.
         /// </summary>
-        public string Plugins
-        {
-            get { return plugins; }
-            set { plugins = value; }
-        }
-
-        private string templatesUrl = string.Empty;
+        public string Plugins { get; set; } = string.Empty;
 
         /// <summary>
         /// JavaScript file containing an array of template files.
         /// </summary>
-        public string TemplatesUrl
-        {
-            get { return templatesUrl; }
-            set { templatesUrl = value; }
-        }
-
-        private string emotionsBaseUrl = string.Empty;
+        public string TemplatesUrl { get; set; } = string.Empty;
 
         /// <summary>
         /// JavaScript file containing an array of template files.
         /// </summary>
-        public string EmotionsBaseUrl
-        {
-            get { return emotionsBaseUrl; }
-            set { emotionsBaseUrl = value; }
-        }
+        public string EmotionsBaseUrl { get; set; } = string.Empty;
 
-        private bool useStrictLoadingMode = false;
         /// <summary>
         /// This option will force TinyMCE to load script using a DOM insert 
         /// method, instead of document.write, on Gecko browsers. Since this 
@@ -376,11 +226,7 @@ namespace mojoPortal.Web.Editor
         /// by default, if the document content type is application/xhtml+xml.
         /// 
         /// </summary>
-        public bool UseStrictLoadingMode
-        {
-            get { return useStrictLoadingMode; }
-            set { useStrictLoadingMode = value; }
-        }
+        public bool UseStrictLoadingMode { get; set; } = false;
 
         /// <summary>
         /// This option enables you to specify what theme to use when rendering 
@@ -690,14 +536,7 @@ namespace mojoPortal.Web.Editor
             set { ViewState["EditorAreaCSS"] = value; }
         }
 
-        
-        private string editorBodyCssClass = "wysiwygeditor modulecontent art-postcontent";
-
-        public string EditorBodyCssClass
-        {
-            get { return editorBodyCssClass; }
-            set { editorBodyCssClass = value; }
-        }
+        public string EditorBodyCssClass { get; set; } = "wysiwygeditor modulecontent art-postcontent";
 
         #endregion
 
@@ -730,7 +569,7 @@ namespace mojoPortal.Web.Editor
                 this.Page.ClientScript.RegisterClientScriptBlock(
                     this.GetType(),
                     "tinymcemain",
-                    "<script type=\"text/javascript\" src=\""
+                    "<script data-loader=\"TinyMCE\" src=\""
                     + ResolveUrl(this.BasePath + "tiny_mce.js") + "\"></script>");
             }
             else
@@ -738,7 +577,7 @@ namespace mojoPortal.Web.Editor
                 this.Page.ClientScript.RegisterClientScriptBlock(
                     this.GetType(),
                     "tinymcemain",
-                    "<script type=\"text/javascript\" src=\""
+                    "<script data-loader=\"TinyMCE\" src=\""
                     + ResolveUrl(this.BasePath + "tinymce.min.js") + "\"></script>");
 
             }
@@ -751,11 +590,11 @@ namespace mojoPortal.Web.Editor
             setupScript.Append("} ");
 
             Page.ClientScript.RegisterClientScriptBlock(typeof(Page),
-                   "tinymceExitPrompt", "\n<script type=\"text/javascript\">\n"
-                   + setupScript.ToString() + "\n</script>");
+                   "tinymceExitPrompt", "\n<script data-loader=\"TinyMCE\">\n"
+				   + setupScript.ToString() + "\n</script>");
 
             setupScript = new StringBuilder();
-            setupScript.Append("\n<script type=\"text/javascript\">");
+            setupScript.Append("\n<script data-loader=\"TinyMCE\">");
 
             //this older approach did not work inside tabs
             // so we switched to use the editor constructor
@@ -801,14 +640,14 @@ namespace mojoPortal.Web.Editor
 
             setupScript.Append(", browsers : \"" + this.Browsers + "\"");
 
-            setupScript.Append(",forced_root_block:'" + forcedRootBlock + "'");
+            setupScript.Append(",forced_root_block:'" + ForcedRootBlock + "'");
 
             if (!CustomShortcuts)
             {
                 setupScript.Append(", custom_shortcuts : false ");
             }
 
-            if (!convertUrls)
+            if (!ConvertUrls)
             {
                 setupScript.Append(", convert_urls : false ");
             }
@@ -834,11 +673,11 @@ namespace mojoPortal.Web.Editor
 
             setupScript.Append(",language:'" + culture.TwoLetterISOLanguageName + "'");
 
-            if (culture.TextInfo.IsRightToLeft) { textDirection = "rtl"; }
+            if (culture.TextInfo.IsRightToLeft) { TextDirection = "rtl"; }
 
-            if (extendedValidElements.Length > 0)
+            if (ExtendedValidElements.Length > 0)
             {
-                setupScript.Append(",extended_valid_elements:\"" + extendedValidElements + "\"");
+                setupScript.Append(",extended_valid_elements:\"" + ExtendedValidElements + "\"");
             }
 
             //extended_valid_elements
@@ -857,7 +696,7 @@ namespace mojoPortal.Web.Editor
 
             //setupScript.Append(", language : \"" + this.Language + "\"");
 
-            setupScript.Append(",body_class:'" + editorBodyCssClass + "'");
+            setupScript.Append(",body_class:'" + EditorBodyCssClass + "'");
 
             if (!EnableObjectResizing)
             {
@@ -941,7 +780,7 @@ namespace mojoPortal.Web.Editor
                 // o2k7default
                 // o2k7silver
                 // o2k7black
-                switch (skin)
+                switch (Skin)
                 {
                     case "o2k7default":
                         setupScript.Append(",skin :'o2k7'");
@@ -965,9 +804,9 @@ namespace mojoPortal.Web.Editor
 
                 }
 
-                if (templatesUrl.Length > 0)
+                if (TemplatesUrl.Length > 0)
                 {
-                    setupScript.Append(",template_external_list_url: \"" + this.templatesUrl + "\"");
+                    setupScript.Append(",template_external_list_url: \"" + this.TemplatesUrl + "\"");
                 }
 
                 if (!Cleanup)
@@ -992,9 +831,9 @@ namespace mojoPortal.Web.Editor
                     setupScript.Append(", content_css : \"" + this.EditorAreaCSS + "\"");
                 }
 
-                if (emotionsBaseUrl.Length > 0)
+                if (EmotionsBaseUrl.Length > 0)
                 {
-                    setupScript.Append(",emotions_images_url : '" + emotionsBaseUrl + "'");
+                    setupScript.Append(",emotions_images_url : '" + EmotionsBaseUrl + "'");
                 }
 
                 if (AutoFocus)
@@ -1002,7 +841,7 @@ namespace mojoPortal.Web.Editor
                     setupScript.Append(", auto_focus : \"" + this.ClientID + "\" ");
                 }
 
-                if ((enableFileBrowser)&&(fileManagerUrl.Length > 0))
+                if ((EnableFileBrowser)&&(FileManagerUrl.Length > 0))
                 {
                     setupScript.Append(",file_browser_callback : 'myFileBrowser' ");
                 }
@@ -1011,7 +850,7 @@ namespace mojoPortal.Web.Editor
                 setupScript.Append(",onchange_callback : 'mojoTinyMCEOnChangeHandler' ");
                 
 
-                if (forcePasteAsPlainText)
+                if (ForcePasteAsPlainText)
                 {
                     //setupScript.Append(",oninit:'setPlainText'");
                     setupScript.Append(",paste_text_sticky:true");
@@ -1026,10 +865,10 @@ namespace mojoPortal.Web.Editor
 
             setupScript.Append("}); ");
 
-            if (plugins.Contains("fullpage"))
+            if (Plugins.Contains("fullpage"))
             {
                 StringBuilder supScript = new StringBuilder();
-                supScript.Append("\n<script type=\"text/javascript\">");
+                supScript.Append("\n<script data-loader=\"TinyMCE\">");
                 supScript.Append("var editorContentFilter = {");
                 supScript.Append("setContent: function(originalContent) {");
                 supScript.Append(" var headMatch = originalContent.match(/<head>(.|\\n|\\r)*?<\\/head>/i);");
@@ -1090,7 +929,7 @@ namespace mojoPortal.Web.Editor
                 setupScript.ToString());
 
 
-            if ((enableFileBrowser)&&(fileManagerUrl.Length > 0)) { SetupFileBrowserScript(); }
+            if ((EnableFileBrowser)&&(FileManagerUrl.Length > 0)) { SetupFileBrowserScript(); }
 
             //string submitScript = " tinyMCE.triggerSave(false,true); ";
             ////submitScript = " alert(tinyMCE.getContent('" + this.ClientID + "')); return false; ";
@@ -1108,7 +947,7 @@ namespace mojoPortal.Web.Editor
 
             //string fileManagerUrl = SiteUtils.GetNavigationSiteRoot() + "/Dialog/MCEFileDialog.aspx";
             
-            script.Append("var serviceUrl = '" + fileManagerUrl + "'; ");
+            script.Append("var serviceUrl = '" + FileManagerUrl + "'; ");
             script.Append("function myFileBrowser (field_name, url, type, win) {");
 
             //script.Append("alert(type);");

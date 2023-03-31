@@ -471,11 +471,11 @@ namespace mojoPortal.Web.BlogUI
 			rptAttachments.DataSource = attachments;
 			rptAttachments.DataBind();
 			rptAttachments.Visible = (attachments.Count > 0);
-			if (rptAttachments.Visible)
-			{
-				basePage.ScriptConfig.IncludeMediaElement = true;
-				basePage.StyleCombiner.IncludeMediaElement = true;
-			}
+			//if (rptAttachments.Visible)
+			//{
+			//	basePage.ScriptConfig.IncludeMediaElement = true;
+			//	basePage.StyleCombiner.IncludeMediaElement = true;
+			//}
 
 
 			//PopulateNavigation();
@@ -483,7 +483,7 @@ namespace mojoPortal.Web.BlogUI
 			if (Page.Header == null) { return; }
 
 			string canonicalUrl = FormatBlogUrl(blog.ItemUrl, blog.ItemId);
-			if (SiteUtils.IsSecureRequest() && (!basePage.CurrentPage.RequireSsl) && (!basePage.SiteInfo.UseSslOnAllPages))
+			if (Core.Helpers.WebHelper.IsSecureRequest() && (!basePage.CurrentPage.RequireSsl) && (!basePage.SiteInfo.UseSslOnAllPages))
 			{
 				if (WebConfigSettings.ForceHttpForCanonicalUrlsThatDontRequireSsl)
 				{

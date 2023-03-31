@@ -64,7 +64,6 @@ namespace mojoPortal.Web.UI
 			}
 		}
 
-		public bool IncludeMediaElement { get; set; } = false;
 		public bool IncludeGoogleMaps { get; set; } = false;
 		public bool IncludeGoogleSearch { get; set; } = false;
 		public bool IncludeGoogleSearchV2 { get; set; } = false;
@@ -572,11 +571,6 @@ s.parentNode.insertBefore(gcse, s);
 				if (includeNivoSlider)
 				{
 					SetupNivoSlider();
-				}
-
-				if (IncludeMediaElement)
-				{
-					SetupMediaElement();
 				}
 			}
 

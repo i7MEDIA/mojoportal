@@ -435,9 +435,6 @@
   <data name="FileManagerDeleteConfirm" xml:space="preserve">
     <value>Are you sure want to delete the selected files?</value>
   </data>
-  <data name="FileManagerDisabledMessage" xml:space="preserve">
-    <value>Sorry, this feature has been disabled in this site.</value>
-  </data>
   <data name="FileManagerFileNameLabel" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -6714,5 +6711,11 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="KeywordBlacklistHit" xml:space="preserve">
     <value>Your entry contains words that are not allowed by this site.</value>
+  </data>
+  <data name="FileManagerDisabledMessage" xml:space="preserve">
+    <value>Sorry, the File Manager has been disabled on this site.</value>
+  </data>
+  <data name="UploadDisabledMessage" xml:space="preserve">
+    <value>Sorry, file uploads have been disabled on this site.</value>
   </data>
 </root>

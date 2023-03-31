@@ -4777,7 +4777,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry, this feature has been disabled in this site..
+        ///   Looks up a localized string similar to Sorry, the File Manager has been disabled on this site..
         /// </summary>
         internal static string FileManagerDisabledMessage {
             get {
@@ -18571,6 +18571,15 @@ namespace Resources {
         internal static string UploadCompleteLabel {
             get {
                 return ResourceManager.GetString("UploadCompleteLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, file uploads have been disabled on this site..
+        /// </summary>
+        internal static string UploadDisabledMessage {
+            get {
+                return ResourceManager.GetString("UploadDisabledMessage", resourceCulture);
             }
         }
         

@@ -75,7 +75,7 @@ namespace SuperFlexiData
             sph.DefineSqlParameter("@DefaultValue", SqlDbType.NVarChar, -1, ParameterDirection.Input, defaultValue);
             sph.DefineSqlParameter("@ControlType", SqlDbType.NVarChar, 25, ParameterDirection.Input, controlType);
             sph.DefineSqlParameter("@ControlSrc", SqlDbType.NVarChar, -1, ParameterDirection.Input, controlSrc);
-            sph.DefineSqlParameter("@DataType", SqlDbType.NVarChar, 500, ParameterDirection.Input, dataType);
+            sph.DefineSqlParameter("@DataType", SqlDbType.NVarChar, 100, ParameterDirection.Input, dataType);
 			sph.DefineSqlParameter("@IsList", SqlDbType.Bit, ParameterDirection.Input, isList);
 			sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
             sph.DefineSqlParameter("@HelpKey", SqlDbType.NVarChar, 255, ParameterDirection.Input, helpKey);

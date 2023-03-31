@@ -1,18 +1,5 @@
-﻿/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2019-09-18
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-/// 
-/// Note moved into separate class file from dbPortal 2007-11-03
-
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using MySql.Data.MySqlClient;
@@ -452,55 +439,74 @@ namespace mojoPortal.Data
             DateTime endDate)
         {
             
-            MySqlParameter[] arParams = new MySqlParameter[3];
+            var sqlParams = new List<MySqlParameter>()
+            {
+				new MySqlParameter("?ModuleID", MySqlDbType.Int32) {Direction = ParameterDirection.Input, Value = moduleId },
+				new MySqlParameter("?BeginDate", MySqlDbType.DateTime) {Direction = ParameterDirection.Input,Value = beginDate },
+				new MySqlParameter("?EndDate", MySqlDbType.DateTime) {Direction = ParameterDirection.Input,Value = endDate }
+			};
 
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = beginDate;
-
-            arParams[2] = new MySqlParameter("?EndDate", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = endDate;
-            
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_CalendarEvents ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ModuleID = ?ModuleID ");
-            sqlCommand.Append("AND EventDate >= ?BeginDate ");
-            sqlCommand.Append("AND EventDate <= ?EndDate ");
-            sqlCommand.Append("ORDER BY	EventDate ");
-            sqlCommand.Append(" ;");
+            var sqlCommand = @"
+SELECT  * 
+FROM mp_CalendarEvents 
+WHERE ModuleID = ?ModuleID
+AND EventDate >= ?BeginDate 
+AND EventDate <= ?EndDate 
+ORDER BY EventDate;";
 
             DataTable dt = new DataTable();
 
-            dt.Columns.Add("ItemID", typeof(int));
-            dt.Columns.Add("ModuleID", typeof(int));
-            dt.Columns.Add("Title", typeof(string));
-            dt.Columns.Add("EventDate", typeof(DateTime));
+			dt.Columns.Add("ItemID", typeof(int));
+			dt.Columns.Add("ModuleID", typeof(int));
+			dt.Columns.Add("Title", typeof(string));
+			dt.Columns.Add("Description", typeof(string));
+			dt.Columns.Add("ImageName", typeof(string));
+			dt.Columns.Add("EventDate", typeof(DateTime));
+			dt.Columns.Add("StartTime", typeof(DateTime));
+			dt.Columns.Add("EndTime", typeof(DateTime));
+			dt.Columns.Add("CreatedDate", typeof(DateTime));
+			dt.Columns.Add("UserID", typeof(int));
+			dt.Columns.Add("ItemGuid", typeof(Guid));
+			dt.Columns.Add("ModuleGuid", typeof(Guid));
+			dt.Columns.Add("UserGuid", typeof(Guid));
+			dt.Columns.Add("Location", typeof(string));
+			dt.Columns.Add("LastModUserGuid", typeof(Guid));
+			dt.Columns.Add("LastModUtc", typeof(DateTime));
+			dt.Columns.Add("TicketPrice", typeof(decimal));
+			dt.Columns.Add("RequiresTicket", typeof(bool));
+			dt.Columns.Add("ShowMap", typeof(bool));
 
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+			using (IDataReader reader = MySqlHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams))
+                sqlCommand,
+                sqlParams.ToArray()))
             {
                 while (reader.Read())
                 {
                     DataRow row = dt.NewRow();
-                    row["ItemID"] = reader["ItemID"];
-                    row["ModuleID"] = reader["ModuleID"];
-                    row["Title"] = reader["Title"];
-                    row["EventDate"] = reader["EventDate"];
-                    dt.Rows.Add(row);
-                }
+					row["ItemID"] = reader["ItemID"];
+					row["ModuleID"] = reader["ModuleID"];
+					row["Title"] = reader["Title"];
+					row["Description"] = reader["Description"];
+					row["ImageName"] = reader["ImageName"];
+					row["EventDate"] = reader["EventDate"];
+					row["StartTime"] = reader["StartTime"];
+					row["EndTime"] = reader["EndTime"];
+					row["CreatedDate"] = reader["CreatedDate"];
+					row["UserID"] = reader["UserID"];
+					row["ItemGuid"] = reader["ItemGuid"];
+					row["ModuleGuid"] = reader["ModuleGuid"];
+					row["UserGuid"] = reader["UserGuid"];
+					row["Location"] = reader["Location"];
+					row["LastModUserGuid"] = reader["LastModUserGuid"];
+					row["LastModUtc"] = reader["LastModUtc"];
+					row["TicketPrice"] = reader["TicketPrice"];
+					row["RequiresTicket"] = reader["RequiresTicket"];
+					row["ShowMap"] = reader["ShowMap"];
+					dt.Rows.Add(row);
+				}
             }
-
             return dt;
-
         }
 
         public static IDataReader GetEventsByPage(int siteId, int pageId)

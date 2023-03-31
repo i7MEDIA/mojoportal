@@ -1,6 +1,7 @@
 ﻿using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Core.Serializers.Newtonsoft;
+using mojoPortal.Web.Controls.Editors;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
@@ -13,7 +14,7 @@ namespace mojoPortal.Web.Services
 	/// <summary>
 	/// Returns styles JS for CKeditor
 	/// </summary>
-	public class CKeditorStyles : IHttpHandler
+	public class CkEditorStyles : IHttpHandler
     {
 
         private SiteSettings siteSettings = null;
@@ -43,8 +44,8 @@ namespace mojoPortal.Web.Services
 				currentSkin = currentPage.Skin;
 			}
 
-			skinStylesFile = new FileInfo($"{skinRootFolder + currentSkin}\\config\\editorstyles.json");
-			systemStylesFile = new FileInfo(HttpContext.Current.Server.MapPath("~/data/style/editorstyles.json"));
+			skinStylesFile = new($"{skinRootFolder + currentSkin}\\config\\editorstyles.json");
+			systemStylesFile = new(HttpContext.Current.Server.MapPath("~/data/style/editorstyles.json"));
 
 			RenderJsonList(context);
         }
@@ -54,18 +55,18 @@ namespace mojoPortal.Web.Services
 			context.Response.ContentType = "text/javascript";
             context.Response.ContentEncoding = new UTF8Encoding();
 
-			List<CkEditorStyle> styles = new List<CkEditorStyle>();
+			List<EditorStyle> styles = new();
 
 			if (WebConfigSettings.AddSystemStyleTemplatesAboveSiteTemplates && systemStylesFile.Exists)
             {
-				styles.AddRange(GetEditorStyles(systemStylesFile));
+				styles.AddRange(EditorStyle.GetEditorStyles(systemStylesFile));
 			}
 
             using (IDataReader reader = ContentStyle.GetAllActive(siteSettings.SiteGuid))
             {
                 while (reader.Read())
                 {
-					styles.Add(new CkEditorStyle
+					styles.Add(new EditorStyle
 					{
 						Name = reader["Name"].ToString(),
 						Element = new List<string> { reader["Element"].ToString() },
@@ -76,12 +77,12 @@ namespace mojoPortal.Web.Services
 
             if (skinStylesFile.Exists)
             {
-				styles.AddRange(GetEditorStyles(skinStylesFile));
+				styles.AddRange(EditorStyle.GetEditorStyles(skinStylesFile));
 			}
 
 			if (WebConfigSettings.AddSystemStyleTemplatesBelowSiteTemplates && systemStylesFile.Exists)
             {
-				styles.AddRange(GetEditorStyles(systemStylesFile));
+				styles.AddRange(EditorStyle.GetEditorStyles(systemStylesFile));
 			}
 
 			var json = JsonConvert.SerializeObject(styles, Formatting.None);
@@ -89,69 +90,6 @@ namespace mojoPortal.Web.Services
 			context.Response.Write($"try{{CKEDITOR.addStylesSet('mojo',{json});}}catch(err){{}}");
         }
 
-		public List<CkEditorStyle> GetEditorStyles(FileInfo file)
-		{
-			var styles = new List<CkEditorStyle>();
-			if (file.Exists)
-			{
-				var content = File.ReadAllText(file.FullName);
-				
-				styles = JsonConvert.DeserializeObject<List<CkEditorStyle>>(content);
-				
-			}
-			return styles;
-		}
-
         public bool IsReusable { get { return false; } }
     }
-
-
-
-	public class CkEditorStyle
-	{
-		[JsonProperty(PropertyName = "name")]
-		public string Name { get; set; }
-
-		[JsonProperty(PropertyName = "element")]
-		[JsonConverter(typeof(SingleOrArrayConverter<string>))] 
-		public List<string> Element { get; set; }
-		
-		[JsonProperty(PropertyName = "type")]
-		public string Type { get; set; }
-
-		[JsonProperty(PropertyName = "widget")]
-		public string Widget { get; set; }
-
-		[JsonProperty(PropertyName = "group")]
-		[JsonConverter(typeof(SingleOrArrayConverter<string>))]
-		public List<string> Group { get; set; }
-
-		[JsonProperty(PropertyName = "attributes")]
-		public Dictionary<string, string> Attributes { get; set; }
-
-		public bool ShouldSerializeAttributes()
-		{
-			return Attributes != null;
-		}
-
-		public bool ShouldSerializeElement()
-		{
-			return Element != null;
-		}
-		
-		public bool ShouldSerializeType()
-		{
-			return Type != null;
-		}
-
-		public bool ShouldSerializeWidget()
-		{
-			return Widget != null;
-		}
-
-		public bool ShouldSerializeGroup()
-		{
-			return Group != null;
-		}
-	}
 }

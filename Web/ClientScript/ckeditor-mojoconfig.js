@@ -16,6 +16,11 @@ CKEDITOR.editorConfig = function(config) {
 	//A comma separated list of elements attributes to be removed when executing the remove format command.
 	config.removeFormatAttributes = 'class,style,lang,width,height,align,hspace,valign,border,cellspacing,cellpadding';
 
+
+	// ALLOW empty <i></i> elements, these are used for font awesome
+	//config.protectedSource.push(/<i[\s\S]*?\>/g); //allows beginning <i> tag
+	//config.protectedSource.push(/<\/i[\s\S]*?\>/g); //allows ending </i> tag
+
 	// We're not using the "Stylesheet Parser" right now. It doesn't style some of the rules very well while in the dropdown,
 	// they work fine but they look like plaintext in the editor's selector dropdown.
 	//config.stylesheetParser_skipSelectors = /(^body\.|\.high|^input\.|^textarea\.|^button\.|^fieldset\.|^span\.fa|^a\.thumbnail|^a\.btn|\.has-submenu|\.collapse|^select\.|^br\.|\.cartnav|\.treecommands|\.forminput|\.scroll-|\.blogdate|\.jp-|\.cke_|\.sr-|\.jqtree|^\.)/i;

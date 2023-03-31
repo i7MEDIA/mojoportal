@@ -525,20 +525,17 @@ namespace mojoPortal.Web.ContentUI
                 }
             }
 
-            if ((IsEditable) && (WebConfigSettings.EnableInlineEditing))
+            if (IsEditable && WebConfigSettings.EnableInlineEditing)
             {
-                if((WebConfigSettings.TinyMceUseV4)&&(siteSettings.EditorProviderName == "TinyMCEProvider"))
+                if(siteSettings.EditorProviderName == "TinyMCEProvider" && !WebConfigSettings.DisableTinyMceInlineEditing)
                 {
                     SetupTinyMceInline();
                 }
-                else
+                else if (siteSettings.EditorProviderName == "CKEditorProvider")
                 {
                     SetupCKEditorInline();
                 }
-                
             }
-            
-
         }
 
         private void SetupCKEditorInline()
@@ -563,11 +560,11 @@ namespace mojoPortal.Web.ContentUI
                 this,
                 this.GetType(),
                 "ckeditormain",
-                "\n<script type=\"text/javascript\" src=\""
-                + ResolveUrl(WebConfigSettings.CKEditorBasePath + "ckeditor.js") + "\"></script>", false);
+				"\n<script data-loader=\"HTMLModule\" src=\""
+				+ ResolveUrl(WebConfigSettings.CKEditorBasePath + "ckeditor.js") + "\"></script>", false);
 
             StringBuilder script = new StringBuilder();
-            script.Append("\n<script type=\"text/javascript\">");
+            script.Append("\n<script data-loader=\"HTMLModule\">");
             script.Append("\n CKEDITOR.disableAutoInline = true; ");
             script.Append("\n</script>");
 
@@ -581,7 +578,7 @@ namespace mojoPortal.Web.ContentUI
             // now setup the instance
             script = new StringBuilder();
 
-            script.Append("\n<script type=\"text/javascript\">\n");
+            script.Append("\n<script data-loader=\"HTMLModule\">\n");
 
             script.Append("var hceditor" + ModuleId.ToInvariantString() + "; ");
 
@@ -787,28 +784,25 @@ namespace mojoPortal.Web.ContentUI
             //divContent.Attributes.Add("contenteditable", "true");
 
             ScriptManager.RegisterClientScriptBlock(
-                this,
+                this, 
                 this.GetType(),
                 "tinymcemain",
-                "\n<script type=\"text/javascript\" src=\""
-                + ResolveUrl(WebConfigSettings.TinyMceBasePath + "tinymce.min.js") + "\"></script>", false);
+				$"\n<script data-loader=\"HTMLModule\" src=\"{ResolveUrl(WebConfigSettings.TinyMceBasePath + "tinymce.min.js")}\"></script>", false);
 
             TinyMceConfiguration config = TinyMceConfiguration.GetConfig();
             // need a clone beucause these are chached and we are modifying the object
             TinyMceSettings editorSettings = config.GetEditorSettings("FullWithTemplates").Clone();
             editorSettings.Inline = true;
             editorSettings.EditorAreaCSS = SiteUtils.GetEditorStyleSheetUrl(basePage.AllowSkinOverride, true, Page);
-            editorSettings.TemplatesUrl = SiteUtils.GetNavigationSiteRoot() + "/Services/TinyMceTemplates.ashx?cb=" + Guid.NewGuid().ToString();
-            editorSettings.StyleFormats = SiteUtils.BuildStylesListForTinyMce4();
-            editorSettings.EmotionsBaseUrl = Page.ResolveUrl("~/Data/SiteImages/emoticons/tinymce/");
+            editorSettings.TemplatesUrl = $"{SiteUtils.GetNavigationSiteRoot()}/Services/TinyMceTemplates.ashx?v={siteSettings.SkinVersion}";
+            editorSettings.StyleFormats = TinyMceEditorAdapter.BuildTinyMceStyleJson();
+			editorSettings.EmotionsBaseUrl = Page.ResolveUrl("~/Data/SiteImages/emoticons/tinymce/");
             editorSettings.FileManagerUrl = SiteRoot + WebConfigSettings.FileDialogRelativeUrl;
             editorSettings.GlobarVarToAssignEditor = "hceditor" + ModuleId.ToInvariantString();
 
-            string dropFileUploadUrl = Page.ResolveUrl(SiteRoot + "/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko=" 
-                + WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()
-                    + "&t=" + Global.FileSystemToken.ToString());
+            string imagesUploadUrl = Page.ResolveUrl($"{SiteRoot}/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko={WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()}&t={Global.FileSystemToken}");
 
-            editorSettings.DropFileUploadUrl = dropFileUploadUrl;
+            editorSettings.ImagesUploadUrl = imagesUploadUrl;
 
             if (WebConfigSettings.TinyMceInlineUseSavePlugin) // true by default
             {
@@ -833,14 +827,10 @@ namespace mojoPortal.Web.ContentUI
             }
             
 
-            StringBuilder script = new StringBuilder();
-
-            script.Append("\n<script type=\"text/javascript\">\n");
-
+            StringBuilder script = new();
+            script.Append("\n<script data-loader=\"HTMLModule\">\n");
             script.Append("var hceditor" + ModuleId.ToInvariantString() + "; ");
-
-            script.Append("function SetupCK" + ModuleId.ToInvariantString() + "(){");
-
+            script.Append("function SetupTinyMCE" + ModuleId.ToInvariantString() + "(){");
             script.Append("$('#" + divContent.ClientID + "').attr('contenteditable', true); ");
 
             TinyMceEditor.BuildScript(script, editorSettings, divContent.ClientID, Unit.Empty, Unit.Empty);
@@ -852,21 +842,13 @@ namespace mojoPortal.Web.ContentUI
                 script.Append("if(hceditor" + ModuleId.ToInvariantString() + ".isDirty()){");
                 //script.Append("alert('dirty');");
                 script.Append(" saveEditor" + ModuleId.ToInvariantString() + "(); ");
-
                 //script.Append("hceditor" + ModuleId.ToInvariantString() + ".isNotDirty = true; ");
-
                 script.Append("}"); //end if checkdirty
-
                 script.Append("});"); //end on blur
-
             }
             
-
             script.Append("} "); //end SetupCkModuleId funtion
-
-
             script.Append(" function saveEditor" + ModuleId.ToInvariantString() +" (){ ");
-
             script.Append("var editorData" + ModuleId.ToInvariantString() + " = hceditor" + ModuleId.ToInvariantString() + ".getContent(); ");
 
             //http://stackoverflow.com/questions/1078909/jquery-send-html-data-through-post
@@ -898,27 +880,27 @@ namespace mojoPortal.Web.ContentUI
             script.Append(" }"); // end save
 
 
-            script.Append("function DestroyCK" + ModuleId.ToInvariantString() + "() { ");
+            script.Append("function DestroyTinyMCE" + ModuleId.ToInvariantString() + "() { ");
 
             script.Append("hceditor" + ModuleId.ToInvariantString() + ".destroy(); ");
             script.Append("$('#" + divContent.ClientID + "').attr('contenteditable', false); ");
 
-            script.Append("} "); //end DestroyCkModuleId funtion
+            script.Append("} "); //end DestroyTinyMCEModuleId function
 
 
-            script.Append("function ToggleCk" + ModuleId.ToInvariantString() + "()");
+            script.Append("function ToggleTinyMCE" + ModuleId.ToInvariantString() + "()");
             script.Append("{ ");
 
             script.Append("if($('#mtogedit" + ModuleId.ToInvariantString() + "').hasClass('ui-icon-unlocked'))");
             script.Append("{ ");
-            script.Append(" DestroyCK" + ModuleId.ToInvariantString() + "(); ");
+            script.Append(" DestroyTinyMCE" + ModuleId.ToInvariantString() + "(); ");
             script.Append("$('#mtogedit" + ModuleId.ToInvariantString() + "').removeClass('ui-icon-unlocked'); ");
             script.Append("$('#mtogedit" + ModuleId.ToInvariantString() + "').addClass('ui-icon-locked'); ");
 
             script.Append("}else{ ");
 
             //script.Append("try{");
-            script.Append(" SetupCK" + ModuleId.ToInvariantString() + "(); ");
+            script.Append(" SetupTinyMCE" + ModuleId.ToInvariantString() + "(); ");
             
             //script.Append("}catch(err){");
             //script.Append(" alert(err); ");
@@ -950,7 +932,7 @@ namespace mojoPortal.Web.ContentUI
                 script.Append("}); ");
             }
 
-            script.Append(" $('#mtogedit" + ModuleId.ToInvariantString() + "').click(function() { ToggleCk"
+            script.Append(" $('#mtogedit" + ModuleId.ToInvariantString() + "').click(function() { ToggleTinyMCE"
                 + ModuleId.ToInvariantString() + "(); return false; });");
 
             script.Append("$('#mtogedit" + ModuleId.ToInvariantString() + "').tooltip(); ");

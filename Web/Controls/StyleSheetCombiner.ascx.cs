@@ -95,14 +95,6 @@ namespace mojoPortal.Web.UI
 
         public bool DisableCssHandler { get; set; } = false;
 
-		/// <summary>
-        /// http://mediaelementjs.com/
-        /// </summary>
-		public bool IncludeMediaElement { get; set; } = false;
-
-		public bool AssumeMediaElementIsLoaded { get; set; } = false;
-
-		public string MediaElementCssPath { get; set; } = "~/ClientScript/mediaelement2-13-1/mediaelementplayer.min.css";
 		#region Property Bag settings stored here but not used in this control
 
 		/// <summary>
@@ -169,8 +161,6 @@ namespace mojoPortal.Web.UI
             if (IncludejCrop) { SetupjCropCss(); }
             if (IncludeTwitterCss) { SetupTwitter(); }
             if (IncludeGoogleCustomSearchCss) { SetupGoogleSearch(); }
-            if (IncludeMediaElement) { SetupMediaElement(); }
-
 
             if (!LoadSkinCss) { return; }
 
@@ -239,18 +229,6 @@ namespace mojoPortal.Web.UI
             }
 
             this.Controls.Add(cssLink);
-        }
-
-        private void SetupMediaElement()
-        {
-            if (AssumeMediaElementIsLoaded) { return; }
-
-            var cssLink = new Literal
-            {
-                ID = "mediaelementcss",
-                Text = "\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" href=\"{Page.ResolveUrl(MediaElementCssPath)}\"/>"
-			};
-            Controls.Add(cssLink);
         }
 
         private void SetupTwitter()
