@@ -88,9 +88,9 @@
 <%--
 	These are for Pro Modules
 	=========================
+	<%@ Register Namespace="sts.FormWizard.Web.UI" Assembly="sts.FormWizard.Web.UI" TagPrefix="stsfw" %>
 	<%@ Register TagPrefix="sts" Namespace="sts.Web.UI" Assembly="sts.Web.UI" %>
 	<%@ Register Namespace="sts.Events.Web.UI.Controls" Assembly="sts.Events.Web.UI" TagPrefix="ecp" %>
-	<%@ Register Namespace="sts.FormWizard.Web.UI" Assembly="sts.FormWizard.Web.UI" TagPrefix="stsfw" %>
 --%>
 
 <%--
@@ -98,7 +98,6 @@
 	==================
 	To enable, remove comments from the @Register statement for the sts.Web.UI Namespace and the sts:CalendarGrid control below.
 	Only enable if Event Calendar Pro is installed.
-
 	<sts:CalendarGrid runat="server"
 		BackColor=""
 		BorderColor=""
@@ -149,6 +148,7 @@
 		DayViewNextFormat="<div class='col-sm-6 text-right'><a href='{0}' title='{1}' class='btn btn-sm btn-default' {3}>{2}</a></div></div>"
 	 />
 --%>
+
 <%--
 	Form Wizard Pro
 	===============

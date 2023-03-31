@@ -3,38 +3,43 @@
         "name": "Framed Image",
         "type": "widget",
         "widget": "image",
-        "element":  "img",
+        "element": "img",
         "attributes": {
-            "class": "well well-sm" 
-        }
+            "class": "well well-sm"
+        },
+        "group": "Images"
     },
     {
         "name": "Formatted Table",
         "element": "table",
         "attributes": {
             "class": "table"
-        }
+        },
+        "group": "Tables"
     },
     {
         "name": "Formatted Table - Bordered",
         "element": "table",
         "attributes": {
             "class": "table table-striped table-bordered"
-        }
+        },
+        "group": "Tables"
     },
     {
         "name": "Formatted Table - Striped",
         "element": "table",
         "attributes": {
             "class": "table table-striped"
-        }
+        },
+        "group": "Tables"
     },
     {
         "name": "Formatted Table - Striped with Border",
         "element": "table",
         "attributes": {
             "class": "table table-striped table-bordered"
-        }
+        },
+        "group": "Tables"
     },
     {
         "name": "Leading Intro",
@@ -48,83 +53,96 @@
         "element": "p",
         "attributes": {
             "class": "alert alert-info"
-        }
+        },
+        "group": "Alerts"
+
     },
     {
         "name": "Alert - Success",
         "element": "p",
         "attributes": {
             "class": "alert alert-success"
-        }
+        },
+        "group": "Alerts"
     },
     {
         "name": "Alert - Critical",
         "element": "p",
         "attributes": {
             "class": "alert alert-danger"
-        }
+        },
+        "group": "Alerts"
     },
     {
         "name": "Alert - Warning",
         "element": "p",
         "attributes": {
             "class": "alert alert-warning"
-        }
+        },
+        "group": [ "Alerts", "fooo" ]
     },
     {
         "name": "Highlight - Blue",
         "element": "mark",
         "attributes": {
             "class": "alert alert-info p-a-0"
-        }
+        },
+        "group": "Highlights"
     },
     {
         "name": "Highlight - Green",
         "element": "mark",
         "attributes": {
             "class": "alert alert-success p-a-0"
-        }
+        },
+        "group": "Highlights"
     },
     {
         "name": "Highlight - Red",
         "element": "mark",
         "attributes": {
             "class": "alert alert-danger p-a-0"
-        }
+        },
+        "group": "Highlights"
     },
     {
         "name": "Highlight - Yellow",
         "element": "mark",
         "attributes": {
             "class": "alert alert-warning p-a-0"
-        }
+        },
+        "group": "Highlights"
     },
     {
         "name": "Button - Informational",
         "element": "a",
         "attributes": {
             "class": "btn btn-info"
-        }
+        },
+        "group": "Buttons"
     },
     {
         "name": "Button - Success",
         "element": "a",
         "attributes": {
             "class": "btn btn-success"
-        }
+        },
+        "group": "Buttons"
     },
     {
         "name": "Button - Critical",
         "element": "a",
         "attributes": {
             "class": "btn btn-danger"
-        }
+        },
+        "group": "Buttons"
     },
     {
         "name": "Button - Warning",
         "element": "a",
         "attributes": {
             "class": "btn btn-warning"
-        }
+        },
+        "group": "Buttons"
     }
 ]
