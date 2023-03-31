@@ -34,7 +34,6 @@ namespace mojoPortal.Web.UI
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			startingPageId = WebUtils.ParseInt32FromHashtable(Settings, "CustomMenuStartingPage", startingPageId);
-			useTreeView = WebUtils.ParseBoolFromHashtable(Settings, "CustomMenuUseTreeView", useTreeView);
 			maxDepth = WebUtils.ParseInt32FromHashtable(Settings, "CustomMenuMaxDepth", maxDepth);
 			showStartingNode = WebUtils.ParseBoolFromHashtable(Settings, "CustomMenuShowStartingNode", showStartingNode);
 
@@ -46,9 +45,11 @@ namespace mojoPortal.Web.UI
 				}
 			}
 
-			PageSettings pageSettings = new PageSettings(siteSettings.SiteId, startingPageId);
-			SiteMapDataSource menuDataSource = new SiteMapDataSource();
-			menuDataSource.SiteMapProvider = "mojosite" + siteSettings.SiteId.ToInvariantString();
+			PageSettings pageSettings = new(siteSettings.SiteId, startingPageId);
+			SiteMapDataSource menuDataSource = new()
+			{
+				SiteMapProvider = "mojosite" + siteSettings.SiteId.ToInvariantString()
+			};
 			var model = new mojoPortal.Web.Models.CustomMenu
 			{
 				MenuData = menuDataSource,
@@ -59,65 +60,41 @@ namespace mojoPortal.Web.UI
 				MaxDepth = maxDepth
 			};
 
-			if (pageSettings == null || pageSettings.PageId == -2)
-			{
-			}
-			else
+			if (pageSettings != null && pageSettings.PageId != -2)
 			{
 
 				SiteMapNode node = menuDataSource.Provider.FindSiteMapNode(pageSettings.Url);
 
 				if (node != null || pageSettings.PageId == -1)
 				{
-					if (!useTreeView)
+
+					FlexMenu flexMenu = new()
 					{
-						FlexMenu flexMenu = new FlexMenu();
+						MaxDataRenderDepth = maxDepth,
+						StartingNodePageId = startingPageId
+					};
 
-						flexMenu.MaxDataRenderDepth = maxDepth;
-						flexMenu.StartingNodePageId = startingPageId;
-						//flexMenu.SkinID = skinID;
+					if (showStartingNode)
+					{
+						string startingPageName = pageSettings.PageId == -1 ? "Root" : pageSettings.PageName;
 
-						if (showStartingNode)
+						if (currentPage.PageId == pageSettings.PageId)
 						{
-							string startingPageName = pageSettings.PageId == -1 ? "Root" : pageSettings.PageName;
-
-							if (currentPage.PageId == pageSettings.PageId)
-							{
-								flexMenu.ExtraTopMarkup += $@"<ul class='{flexMenu.RootUlCssClass} {flexMenu.UlSelectedCssClass}'>
+							flexMenu.ExtraTopMarkup += $@"<ul class='{flexMenu.RootUlCssClass} {flexMenu.UlSelectedCssClass}'>
 								<li class='{flexMenu.RootLevelLiCssClass} {flexMenu.LiSelectedCssClass}'>
-									<a href='{WebUtils.ResolveUrl(pageSettings.Url)}' class='{flexMenu.AnchorSelectedCssClass}'>{startingPageName }</a>";
-							}
-							else
-							{
-								flexMenu.ExtraTopMarkup += $@"<ul class='{flexMenu.RootUlCssClass} {flexMenu.UlChildSelectedCssClass}'>
+									<a href='{WebUtils.ResolveUrl(pageSettings.Url)}' class='{flexMenu.AnchorSelectedCssClass}'>{startingPageName}</a>";
+						}
+						else
+						{
+							flexMenu.ExtraTopMarkup += $@"<ul class='{flexMenu.RootUlCssClass} {flexMenu.UlChildSelectedCssClass}'>
 									<li class='{flexMenu.RootLevelLiCssClass} {flexMenu.LiChildSelectedCssClass}'>
-										<a href='{WebUtils.ResolveUrl(pageSettings.Url)}' class='{flexMenu.AnchorChildSelectedCssClass}'>{startingPageName }</a>";
-							}
-
-							flexMenu.ExtraBottomMarkup += "</li></ul>";
+										<a href='{WebUtils.ResolveUrl(pageSettings.Url)}' class='{flexMenu.AnchorChildSelectedCssClass}'>{startingPageName}</a>";
 						}
 
-						pnlInnerBody.Controls.Add(flexMenu);
+						flexMenu.ExtraBottomMarkup += "</li></ul>";
 					}
-					else //useTreeView
-					{
-						menuDataSource.StartingNodeUrl = node == null ? "~/" : node.Url;
-						menuDataSource.ShowStartingNode = showStartingNode;
-						mojoTreeView treeView = new mojoTreeView();
-						//treeView.SkinID = skinID;
-						treeView.MaxDataBindDepth = maxDepth;
-						treeView.DataSource = menuDataSource;
-						try
-						{
-							treeView.DataBind();
-						}
-						catch (ArgumentException ex)
-						{
-							//log.Error(ex);
-						}
 
-						pnlInnerBody.Controls.Add(treeView);
-					}
+					pnlInnerBody.Controls.Add(flexMenu);
 				}
 			}
 		}
