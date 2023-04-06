@@ -13,8 +13,10 @@
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Framework;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace mojoPortal.Web.BlogUI
 {
@@ -41,7 +43,6 @@ namespace mojoPortal.Web.BlogUI
 			{
 				this.module = module;
 				siteId = module.SiteId;
-				featureGuid = module.FeatureGuid;
 				settings = ModuleSettings.GetModuleSettings(module.ModuleId);
 
 				if (siteId < 1)
@@ -66,28 +67,24 @@ namespace mojoPortal.Web.BlogUI
 
 				if (!String.IsNullOrWhiteSpace(layoutString))
 				{
-					layout = settings["PostListLayout"].ToString();
+					Layout = settings["PostListLayout"].ToString();
 				}
 			}
 
 			if (settings.Contains("PostListItemsPerPage"))
 			{
-				itemsPerPage = Convert.ToInt32(settings["PostListItemsPerPage"]);
+				ItemsPerPage = Convert.ToInt32(settings["PostListItemsPerPage"]);
 			}
 
 			if (settings.Contains("PostListBlogInstance"))
 			{
-				string bid = settings["PostListBlogInstance"].ToString();
+				BlogModuleIds = settings["PostListBlogInstance"].ToString().SplitIntStringOnCharAndTrim(',');
 
-				if (!string.IsNullOrWhiteSpace(bid))
-				{
-					blogModuleId = Convert.ToInt32(settings["PostListBlogInstance"]);
-				}
 			}
 
 			if (settings.Contains("ExtraCssClassSetting"))
 			{
-				instanceCssClass = settings["ExtraCssClassSetting"].ToString();
+				InstanceCssClass = settings["ExtraCssClassSetting"].ToString();
 			}
 		}
 
@@ -95,39 +92,15 @@ namespace mojoPortal.Web.BlogUI
 
 		#region Properties
 
-		private Guid featureGuid = Guid.Parse("031eb6a0-acf5-4559-8356-af6049d57ac1");
-		public Guid FeatureGuid
-		{
-			get { return featureGuid; }
-		}
+		public Guid FeatureGuid { get; private set; } = Guid.Parse("031eb6a0-acf5-4559-8356-af6049d57ac1");
 
-		private string layout = "_BlogPostList";
-		public string Layout
-		{
-			get { return layout; }
-			set { layout = value; }
-		}
+		public string Layout { get; set; } = "_BlogPostList";
 
-		private int itemsPerPage = 4;
-		public int ItemsPerPage
-		{
-			get => itemsPerPage;
-			set => itemsPerPage = value;
-		}
+		public int ItemsPerPage { get; set; } = 4;
 
-		private int blogModuleId = -1;
-		public int BlogModuleId
-		{
-			get { return blogModuleId; }
-			set { blogModuleId = value; }
-		}
+		public List<int> BlogModuleIds { get; set; } = new List<int>();		
 
-		private string instanceCssClass = string.Empty;
-		public string InstanceCssClass
-		{
-			get { return instanceCssClass; }
-			set { instanceCssClass = value; }
-		}
+		public string InstanceCssClass { get; set; } = string.Empty;
 
 		#endregion
 	}

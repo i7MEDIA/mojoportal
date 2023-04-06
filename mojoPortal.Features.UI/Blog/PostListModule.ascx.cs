@@ -14,6 +14,7 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace mojoPortal.Web.BlogUI
 {
@@ -22,7 +23,7 @@ namespace mojoPortal.Web.BlogUI
 	{
 		protected BlogConfiguration blogConfig = new BlogConfiguration();
 		protected BlogPostListAdvancedConfiguration config = new BlogPostListAdvancedConfiguration();
-
+		protected List<BlogConfiguration> blogConfigs = new List<BlogConfiguration>();
 		protected override void OnInit(EventArgs e)
 		{
 			base.OnInit(e);
@@ -51,7 +52,20 @@ namespace mojoPortal.Web.BlogUI
 		{
 			config = new BlogPostListAdvancedConfiguration(Settings);
 
-			blogConfig = new BlogConfiguration(ModuleSettings.GetModuleSettings(config.BlogModuleId));
+
+			if (config.BlogModuleIds.Count == 1)
+			{
+				blogConfig = new BlogConfiguration(ModuleSettings.GetModuleSettings(config.BlogModuleIds[0]));
+			}
+			else
+			{
+				foreach (int id in config.BlogModuleIds)
+				{
+					blogConfigs.Add(new BlogConfiguration(ModuleSettings.GetModuleSettings(id)));
+				}
+			}
+
+
 
 			if (config.InstanceCssClass.Length > 0)
 			{

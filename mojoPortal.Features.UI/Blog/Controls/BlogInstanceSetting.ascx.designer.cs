@@ -7,18 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mojoPortal.Web.BlogUI {
-    
-    
-    public partial class BlogInstanceSetting {
-        
-        /// <summary>
-        /// dd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList dd;
-    }
+namespace mojoPortal.Web.BlogUI
+{
+
+
+	public partial class BlogInstanceSetting
+	{
+
+		/// <summary>
+		/// list control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.ListBox list;
+	}
 }
