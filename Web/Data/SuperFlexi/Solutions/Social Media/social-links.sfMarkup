@@ -2,12 +2,12 @@
 <Definitions>
 	<MarkupDefinition
 		name="Social Links"
-		moduleClass="social-links"
+		moduleClass="social-links-module"
 		editPageClass="social-links-edit"
 		fieldDefinitionSrc="social-links.sfFields"
 		fieldDefinitionGuid="8e2cd322-d42b-4cd8-8984-1926c0a74d66"
-		editPageTitle="Item Details"
-		editPageDeleteButtonText="Delete Item"
+		editPageTitle="Link Details"
+		editPageDeleteButtonText="Delete Link"
 		useHeader="false"
 		useFooter="false"
 		hideOuterWrapperPanel="false"
@@ -16,6 +16,12 @@
 		hideInnerBodyPanel="false"
 		viewName="social-links.cshtml"
 	>
+	<!--
+		## Unused MarkupDefinition settings
+		jsonRenderLocation="inHead"
+		editPageTitle="Item Details"
+		editPageDeleteButtonText="Delete Item"
+	-->
 
 		<Styles>
 			<Style name="socialMediaBaseCSS" href="resources/social-links-base.css"></Style>

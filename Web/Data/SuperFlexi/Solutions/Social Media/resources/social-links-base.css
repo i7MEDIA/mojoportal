@@ -49,15 +49,22 @@
   -o-transition: background-color 150ms ease;
   transition: background-color 150ms ease;
 }
+.social-links__item a.fa-gab::before,
+.social-links__item a.fa-gettr::before,
+.social-links__item a.fa-mewe::before,
+.social-links__item a.fa-parler::before,
+.social-links__item a.fa-rumble::before,
+.social-links__item a.fa-tiktok::before {
+  content: "";
+  display: inline-flex;
+  background-repeat: no-repeat;
+  height: 40%;
+  width: 40%;
+  justify-content: center;
+  vertical-align: middle;
+}
 .social-links__item a.fa {
   color: #fff;
-}
-.social-links__item a.fa-twitter {
-  background-color: #469be4;
-  font-size: 20px;
-}
-.social-links__item a.fa-twitter:hover {
-  background-color: #73b3ea;
 }
 .social-links__item a.fa-facebook {
   background-color: #19568a;
@@ -66,6 +73,39 @@
 .social-links__item a.fa-facebook:hover {
   background-color: #2171b5;
 }
+.social-links__item a.fa-flickr {
+  background-color: #ff0084;
+  font-size: 20px;
+}
+.social-links__item a.fa-flickr:hover {
+  background-color: #ff339d;
+}
+.social-links__item a.fa-gab {
+  background-color: #21cf7b;
+}
+.social-links__item a.fa-gab::before {
+  background-image: url(../resources/Logos/gab_icon.svg);
+}
+.social-links__item a.fa-gab:hover {
+  background-color: #3BE995;
+}
+.social-links__item a.fa-gettr {
+  background-color: #ff0000;
+}
+.social-links__item a.fa-gettr::before {
+  background-image: url(../resources/Logos/gettr_icon.svg);
+  width: 70%;
+}
+.social-links__item a.fa-gettr:hover {
+  background-color: #FF3333;
+}
+.social-links__item a.fa-instagram {
+  background-color: #833AB4;
+  font-size: 20px;
+}
+.social-links__item a.fa-instagram:hover {
+  background-color: #9D54CE;
+}
 .social-links__item a.fa-linkedin {
   background-color: #0077B5;
   font-size: 20px;
@@ -73,19 +113,49 @@
 .social-links__item a.fa-linkedin:hover {
   background-color: #0099e8;
 }
-.social-links__item a.fa-google-plus {
-  background-color: #dd4b39;
+.social-links__item a.fa-mewe {
+  background-color: #16367b;
+}
+.social-links__item a.fa-mewe::before {
+  background-image: url(../resources/Logos/mewe_icon.svg);
+  width: 60%;
+}
+.social-links__item a.fa-mewe:hover {
+  background-color: #305095;
+}
+.social-links__item a.fa-parler {
+  background-color: #b91d2c;
+}
+.social-links__item a.fa-parler::before {
+  background-image: url(../resources/Logos/parler_icon.svg);
+}
+.social-links__item a.fa-parler:hover {
+  background-color: #D33746;
+}
+.social-links__item a.fa-pinterest-p {
+  background-color: #bd081c;
   font-size: 20px;
 }
-.social-links__item a.fa-google-plus:hover {
-  background-color: #e47365;
+.social-links__item a.fa-pinterest-p:hover {
+  background-color: #ee0a23;
 }
-.social-links__item a.fa-youtube-play {
-  background-color: #b91b20;
-  font-size: 20px;
+.social-links__item a.fa-rumble {
+  background-color: #74a441;
 }
-.social-links__item a.fa-youtube-play:hover {
-  background-color: #e0272d;
+.social-links__item a.fa-rumble::before {
+  background-image: url(../resources/Logos/rumble_icon.svg);
+}
+.social-links__item a.fa-rumble:hover {
+  background-color: #8EBE5B;
+}
+.social-links__item a.fa-tiktok {
+  background-color: #25F4EE;
+}
+.social-links__item a.fa-tiktok::before {
+  background-image: url(../resources/Logos/tiktok_icon.svg);
+}
+.social-links__item a.fa-tiktok:hover {
+  background-color: #FE2C55;
 }
 .social-links__item a.fa-tumblr {
   background-color: #34465d;
@@ -94,6 +164,13 @@
 .social-links__item a.fa-tumblr:hover {
   background-color: #465f7e;
 }
+.social-links__item a.fa-twitter {
+  background-color: #469be4;
+  font-size: 20px;
+}
+.social-links__item a.fa-twitter:hover {
+  background-color: #73b3ea;
+}
 .social-links__item a.fa-vimeo {
   background-color: #1ab7ea;
   font-size: 20px;
@@ -101,26 +178,12 @@
 .social-links__item a.fa-vimeo:hover {
   background-color: #49c6ee;
 }
-.social-links__item a.fa-pinterest-p {
-  background-color: #bd081c;
+.social-links__item a.fa-youtube-play {
+  background-color: #b91b20;
   font-size: 20px;
 }
-.social-links__item a.fa-pinterest-p:hover {
-  background-color: #E4405F;
-}
-.social-links__item a.fa-instagram {
-  background-color: #ff3459;
-  font-size: 20px;
-}
-.social-links__item a.fa-instagram:hover {
-  background-color: #ee0a23;
-}
-.social-links__item a.fa-flickr {
-  background-color: #ff0084;
-  font-size: 20px;
-}
-.social-links__item a.fa-flickr:hover {
-  background-color: #ff339d;
+.social-links__item a.fa-youtube-play:hover {
+  background-color: #e0272d;
 }
 .social-links__item a.fa-rss {
   background-color: #e16b26;

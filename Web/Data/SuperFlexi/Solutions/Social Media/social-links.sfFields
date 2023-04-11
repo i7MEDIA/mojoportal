@@ -37,15 +37,21 @@
 
    <Field name="mediatype" label="Social Media Platform" token="$icon$" controlType="Dropdown" sortOrder="200">
         <Options>
-            <Option value="twitter" name="Twitter"></Option>
             <Option value="facebook" name="Facebook"></Option>
-            <Option value="linkedin" name="Linked In"></Option>
-            <Option value="youtube-play" name="YouTube"></Option>
-            <Option value="instagram" name="Instagram"></Option>
-            <Option value="tumblr" name="Tumblr"></Option>
-            <Option value="vimeo" name="Vimeo"></Option>
-            <Option value="pinterest-p" name="Pinterest"></Option>
             <Option value="flickr" name="Flickr"></Option>
+            <Option value="gab" name="Gab"></Option>
+            <Option value="gettr" name="Gettr"></Option>
+            <Option value="instagram" name="Instagram"></Option>
+            <Option value="linkedin" name="Linked In"></Option>
+            <Option value="mewe" name="MeWe"></Option>
+            <Option value="parler" name="Parler"></Option>
+            <Option value="pinterest-p" name="Pinterest"></Option>
+            <Option value="rumble" name="Rumble"></Option>
+            <Option value="tiktok" name="Tik Tok"></Option>
+            <Option value="tumblr" name="Tumblr"></Option>
+            <Option value="twitter" name="Twitter"></Option>
+            <Option value="vimeo" name="Vimeo"></Option>
+            <Option value="youtube-play" name="YouTube"></Option>
             <Option value="rss" name="RSS"></Option>
         </Options>
     </Field>
