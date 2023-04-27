@@ -1406,38 +1406,49 @@ namespace mojoPortal.Web.AdminUI
 			btnTestSMTPSettings.Text = Resource.SiteSettingsTestSMTPSettingsButtonSending;
 			btnTestSMTPSettings.Enabled = false;
 
-			SmtpSettings smtpSettings = new SmtpSettings
-			{
-				Server = txtSMTPServer.Text,
-				PreferredEncoding = txtSMTPPreferredEncoding.Text,
-				UseSsl = chkSMTPUseSsl.Checked
-			};
+			SmtpSettings smtpSettings = new();
+			SmtpSettings savedSmtpSettings = SiteUtils.GetSmtpSettings();
 
-			try
+			if (!WebConfigSettings.EnableSiteSettingsSmtpSettings)
 			{
-				smtpSettings.Port = Convert.ToInt32(txtSMTPPort.Text);
-			}
-			catch (FormatException)
+				smtpSettings = savedSmtpSettings;
+			} 
+			else if (WebConfigSettings.EnableSiteSettingsSmtpSettings)
 			{
-				litTestSMTPResult.Text = string.Format(invalidFormat, $"{Resource.SiteSettingsTestSMTPSettingsInvalidMessageDetailed}: 'Port invalid'");
-				ResetButton();
-				return;
+				smtpSettings = new SmtpSettings
+				{
+					Server = txtSMTPServer.Text,
+					PreferredEncoding = txtSMTPPreferredEncoding.Text,
+					UseSsl = chkSMTPUseSsl.Checked
+				};
+
+				try
+				{
+					smtpSettings.Port = Convert.ToInt32(txtSMTPPort.Text);
+				}
+				catch (FormatException)
+				{
+					litTestSMTPResult.Text = string.Format(invalidFormat, $"{Resource.SiteSettingsTestSMTPSettingsInvalidMessageDetailed}: 'Port invalid'");
+					ResetButton();
+					return;
+				}
+
+				if (chkSMTPRequiresAuthentication.Checked)
+				{
+					smtpSettings.RequiresAuthentication = true;
+					smtpSettings.User = txtSMTPUser.Text;
+					if (string.IsNullOrWhiteSpace(txtSMTPPassword.Text))
+					{
+						smtpSettings.Password = savedSmtpSettings.Password;
+					}
+					else
+					{
+						smtpSettings.Password = txtSMTPPassword.Text;
+					}
+				}
 			}
 
-			if (chkSMTPRequiresAuthentication.Checked)
-			{
-				smtpSettings.RequiresAuthentication = true;
-				smtpSettings.User = txtSMTPUser.Text;
-				if (string.IsNullOrWhiteSpace(txtSMTPPassword.Text))
-				{
-					SmtpSettings savedSmtpSettings = SiteUtils.GetSmtpSettings();
-					smtpSettings.Password = savedSmtpSettings.Password;
-				}
-				else
-				{
-					smtpSettings.Password = txtSMTPPassword.Text;
-				}
-			}
+
 
 			foreach (var header in txtSMTPHeaders.Text.SplitOnNewLineAndTrim())
 			{
