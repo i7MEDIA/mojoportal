@@ -1,0 +1,6 @@
+<Project>
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+	</PropertyGroup>
+</Project>
