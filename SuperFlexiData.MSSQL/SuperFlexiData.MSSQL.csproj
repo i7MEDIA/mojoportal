@@ -33,6 +33,9 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DBFields.cs" />
     <Compile Include="DBItems.cs" />
     <Compile Include="DBItemFieldValues.cs" />

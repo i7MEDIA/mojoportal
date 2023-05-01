@@ -92,6 +92,9 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Field.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemWithValues.cs" />

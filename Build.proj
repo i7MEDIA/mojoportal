@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Go" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Import Project="$(MSBuildProjectDirectory)\Build.tasks" />
+
+	<PropertyGroup>
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<SolutionRoot>$(MSBuildProjectDirectory)</SolutionRoot>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<RegexTransform Include=" $(SolutionRoot)\CommonAssemblyInfo.cs ">
+			<Find>(?&lt;major&gt;\d+)\.(?&lt;minor&gt;\d+)\.(?&lt;build&gt;\d+)\.\d+\.(?&lt;revision&gt;\d+)</Find>
+			<ReplaceWith>$(Version)</ReplaceWith>
+		</RegexTransform>
+	</ItemGroup>
+
+	<Target Name="Go" DependsOnTargets="UpdateAssemblyVersion; Build"></Target>
+
+	<Target Name="UpdateAssemblyVersion" Condition="'$(Version)' != ''">
+		<RegexTransform Items="@(RegexTransform)" />
+	</Target>
+
+	<Target Name="Build">
+		<MSBuild Projects="$(SolutionRoot)\BuildVersionTest.sln" Targets="Build" />
+	</Target>
+</Project>

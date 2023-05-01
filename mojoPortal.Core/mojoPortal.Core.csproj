@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Caching.cs" />
     <Compile Include="Configuration\AppConfig.cs" />
     <Compile Include="Configuration\ConfigHelper.cs" />

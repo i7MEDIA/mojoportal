@@ -1,10 +1,5 @@
-using System;
-using System.Security;
-using System.Security.Permissions;
+﻿using System;
 using System.Reflection;
-using System.Web;
-using System.Web.UI;
-using System.Runtime.CompilerServices;
 
 //http://haacked.com/archive/2010/05/16/three-hidden-extensibility-gems-in-asp-net-4.aspx/
 //[assembly: PreApplicationStartMethod(
@@ -19,14 +14,13 @@ using System.Runtime.CompilerServices;
 //[assembly: TagPrefix("mojoPortal.Web", "portal")]
 
 
-[assembly: AssemblyTitle("mojoPortal Core")]
-[assembly: AssemblyDescription("mojoPortal is a Content Management System for ASP.NET")]
+[assembly: AssemblyDescription("mojoPortal is a Content Management System for the ASP.NET Framework")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("i7MEDIA, LLC")]
 [assembly: AssemblyProduct("mojoPortal CMS")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCopyright("Eclipse Public License 1.0 (EPL)")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]		
+[assembly: AssemblyCulture("")]
 
 //
 // Version information for an assembly consists of the following four values:

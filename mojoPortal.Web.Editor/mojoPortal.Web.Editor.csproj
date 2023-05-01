@@ -111,6 +111,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DirectionEnum.cs" />
     <Compile Include="EditorConfiguration.cs" />
     <Compile Include="EditorControl.cs" />
