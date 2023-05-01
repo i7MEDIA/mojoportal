@@ -202,11 +202,16 @@ namespace SuperFlexiBusiness
 			}
 			else
 			{
-				Math.DivRem(totalRows, pageSize, out int remainder);
-				if (remainder > 0)
-				{
-					totalPages += 1;
-				}
+				//totalPages = totalRows / pageSize;
+
+				//Math.DivRem(totalRows, pageSize, out int remainder);
+
+				//if (remainder > 0)
+				//{
+				//	totalPages += 1;
+				//}
+
+				totalPages = (int)decimal.Ceiling((decimal)totalRows / pageSize);
 			}
 
 			return itemList;
