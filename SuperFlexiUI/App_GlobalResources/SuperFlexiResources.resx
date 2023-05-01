@@ -285,4 +285,7 @@
   <data name="MaxItems" xml:space="preserve">
     <value>Maximum Items to Render</value>
   </data>
+  <data name="PageSize" xml:space="preserve">
+    <value>Page Size</value>
+  </data>
 </root>
