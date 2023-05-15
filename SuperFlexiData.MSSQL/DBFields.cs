@@ -1,7 +1,5 @@
-﻿// Author:					i7MEDIA
-// Created:					2015-03-06
+﻿// Created:					2015-03-06
 // Last Modified:			2022-12-16
-// You must not remove this notice, or any other, from this software.
 
 using System;
 using System.Data;
@@ -9,11 +7,8 @@ using mojoPortal.Data;
 
 namespace SuperFlexiData
 {
-
     public static class DBFields
     {
-
-
         /// <summary>
         /// Inserts a row in the i7_sflexi_fields table. Returns rows affected count.
         /// </summary>

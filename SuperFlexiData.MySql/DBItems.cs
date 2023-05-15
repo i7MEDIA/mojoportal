@@ -456,7 +456,7 @@ namespace SuperFlexiData
 			string sqlCommand;
 
 			sortDirection = santizeSortDirection(sortDirection);
-			if (pageSize > -1)
+			if (pageSize > 0)
 			{
 				//query with paging
 				sqlCommand = $@"		
@@ -517,7 +517,12 @@ namespace SuperFlexiData
 		/// <summary>
 		/// Gets an IDataReader with all items for a single definition.
 		/// </summary>
-		public static IDataReader GetForDefinition(Guid definitionGuid, Guid siteGuid, int pageNumber = 1, int pageSize = 20, string sortDirection = "ASC")
+		public static IDataReader GetForDefinition(
+			Guid definitionGuid, 
+			Guid siteGuid, 
+			int pageNumber = 1, 
+			int pageSize = 20, 
+			string sortDirection = "ASC")
 		{
 			sortDirection = santizeSortDirection(sortDirection);
 			string sqlCommand = $@"
@@ -595,7 +600,7 @@ namespace SuperFlexiData
 					JOIN `i7_sflexi_values` v ON v.ItemGuid = i.ItemGuid
 					JOIN `i7_sflexi_fields` f ON v.FieldGuid = f.FieldGuid
 					LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
-					WHERE DefinitionGuid = ?DefGuid AND i.SiteGuid = ?SiteGuid AND ms.SettingName = 'GlobalViewSortOrder' 
+					WHERE DefinitionGuid = ?DefinitionGuid AND i.SiteGuid = ?SiteGuid AND ms.SettingName = 'GlobalViewSortOrder' 
 					{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.`FieldValue` LIKE ?SearchTerm" : string.Empty)}
 					{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.`Name` = ?SearchField" : string.Empty)}
 					ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, i.SortOrder {sortDirection}, i.CreatedUtc {sortDirection};";

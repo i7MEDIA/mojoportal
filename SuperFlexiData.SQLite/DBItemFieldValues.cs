@@ -1,7 +1,4 @@
-﻿// Created:			2018-01-02
-// Last Modified:   2018-01-03
-
-using mojoPortal.Data;
+﻿using mojoPortal.Data;
 using Mono.Data.Sqlite;
 using System;
 using System.Collections.Generic;
@@ -390,8 +387,26 @@ namespace SuperFlexiData
 				sqlCommand,
                 sqlParams);
         }
+		public static IDataReader GetByGuidForModule(Guid fieldGuid, Guid moduleGuid)
+		{
+			var sqlCommand = @"select * from i7_sflexi_values 
+                join mp_Modules on mp_Modules.guid = i7_sflexi_values.ModuleGuid 
+                where FieldGuid = :FieldGuid 
+                and mp_Modules.ModuleGuid = :ModuleGuid;";
 
-        public static IDataReader GetByGuidForModule(Guid fieldGuid, int moduleId)
+			var sqlParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":ModuleGuid", DbType.String) { Direction = ParameterDirection.Input, Value = moduleGuid },
+				new SqliteParameter(":FieldGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = fieldGuid.ToString() }
+			};
+
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand.ToString(),
+				sqlParams.ToArray());
+		}
+
+		public static IDataReader GetByGuidForModule(Guid fieldGuid, int moduleId)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("select * from i7_sflexi_values "

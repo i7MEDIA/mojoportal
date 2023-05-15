@@ -6,6 +6,7 @@ using Mono.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace SuperFlexiData
@@ -29,6 +30,8 @@ namespace SuperFlexiData
             string defaultValue,
             string controlType,
             string controlSrc,
+			string dataType,
+			bool isList,
             int sortOrder,
             string helpKey,
             bool required,
@@ -74,6 +77,8 @@ namespace SuperFlexiData
                   ,DefaultValue
                   ,ControlType
                   ,ControlSrc
+                  ,DataType
+                  ,IsList
                   ,SortOrder
                   ,HelpKey
                   ,Required
@@ -116,6 +121,8 @@ namespace SuperFlexiData
                   ,:DefaultValue
                   ,:ControlType
                   ,:ControlSrc
+                  ,:DataType
+                  ,:IsList
                   ,:SortOrder
                   ,:HelpKey
                   ,:Required
@@ -161,7 +168,9 @@ namespace SuperFlexiData
                 new SqliteParameter(":DefaultValue", DbType.Object) { Direction = ParameterDirection.Input, Value = defaultValue },
                 new SqliteParameter(":ControlType", DbType.String, 16) { Direction = ParameterDirection.Input, Value = controlType },
                 new SqliteParameter(":ControlSrc", DbType.String, 255) { Direction = ParameterDirection.Input, Value = controlSrc },
-                new SqliteParameter(":SortOrder", DbType.Int32) { Direction = ParameterDirection.Input, Value = sortOrder },
+				new SqliteParameter(":DataType", DbType.String, 100) { Direction = ParameterDirection.Input, Value = dataType },
+				new SqliteParameter(":IsList", DbType.Boolean) { Direction = ParameterDirection.Input, Value = isList },
+				new SqliteParameter(":SortOrder", DbType.Int32) { Direction = ParameterDirection.Input, Value = sortOrder },
                 new SqliteParameter(":HelpKey", DbType.String, 255) { Direction = ParameterDirection.Input, Value = helpKey },
                 new SqliteParameter(":Required", DbType.Boolean) { Direction = ParameterDirection.Input, Value = required },
                 new SqliteParameter(":RequiredMessageFormat", DbType.String, 255) { Direction = ParameterDirection.Input, Value = requiredMessageFormat },
@@ -218,6 +227,8 @@ namespace SuperFlexiData
             string defaultValue,
             string controlType,
             string controlSrc,
+			string dataType,
+			bool isList,
             int sortOrder,
             string helpKey,
             bool required,
@@ -263,6 +274,8 @@ namespace SuperFlexiData
                  ,DefaultValue = :DefaultValue
                  ,ControlType = :ControlType
                  ,ControlSrc = :ControlSrc
+                 ,DataType = :DataType
+                 ,IsList = :IsList
                  ,SortOrder = :SortOrder
                  ,HelpKey = :HelpKey
                  ,Required = :Required
@@ -310,6 +323,8 @@ namespace SuperFlexiData
                 new SqliteParameter(":DefaultValue", DbType.Object) { Direction = ParameterDirection.Input, Value = defaultValue },
                 new SqliteParameter(":ControlType", DbType.String, 16) { Direction = ParameterDirection.Input, Value = controlType },
                 new SqliteParameter(":ControlSrc", DbType.String, 255) { Direction = ParameterDirection.Input, Value = controlSrc },
+				new SqliteParameter(":DataType", DbType.String, 100) { Direction = ParameterDirection.Input, Value = dataType },
+				new SqliteParameter(":IsList", DbType.Boolean) { Direction = ParameterDirection.Input, Value = isList },
                 new SqliteParameter(":SortOrder", DbType.Int32) { Direction = ParameterDirection.Input, Value = sortOrder },
                 new SqliteParameter(":HelpKey", DbType.String, 255) { Direction = ParameterDirection.Input, Value = helpKey },
                 new SqliteParameter(":Required", DbType.Boolean) { Direction = ParameterDirection.Input, Value = required },
@@ -361,14 +376,16 @@ namespace SuperFlexiData
         public static bool Delete(
             Guid fieldGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("delete from i7_sflexi_fields where FieldGuid = :FieldGuid;");
+            var sqlCommand = "delete from i7_sflexi_fields where FieldGuid = :FieldGuid;";
 
-            var sqlParam = new SqliteParameter(":FieldGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = fieldGuid.ToString() };
+            var sqlParam = new SqliteParameter(":FieldGuid", DbType.String, 36) { 
+                Direction = ParameterDirection.Input, 
+                Value = fieldGuid.ToString() 
+            };
 
             int rowsAffected = SqliteHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParam);
 
             return (rowsAffected > 0);
@@ -381,14 +398,13 @@ namespace SuperFlexiData
         /// <returns>bool</returns>
         public static bool DeleteBySite(Guid siteGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("delete from i7_sflexi_fields where SiteGuid = :SiteGuid;");
+            var sqlCommand = "delete from i7_sflexi_fields where SiteGuid = :SiteGuid;";
 
 			var sqlParam = new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() };
 
             int rowsAffected = SqliteHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParam);
 
             return (rowsAffected > 0);
@@ -401,14 +417,13 @@ namespace SuperFlexiData
         /// <returns>bool</returns>
         public static bool DeleteByDefinition(Guid definitionGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("delete from i7_sflexi_fields where DefinitionGuid = :DefinitionGuid;");
+            var sqlCommand = "delete from i7_sflexi_fields where DefinitionGuid = :DefinitionGuid;";
 
 			var sqlParam = new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() };
 
             int rowsAffected = SqliteHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParam);
 
             return (rowsAffected > 0);
@@ -421,14 +436,13 @@ namespace SuperFlexiData
         public static IDataReader GetOne(
             Guid fieldGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_fields where FieldGuid = :FieldGuid;");
+            var sqlCommand = "select * from i7_sflexi_fields where FieldGuid = :FieldGuid;";
 
 			var sqlParam = new SqliteParameter(":FieldGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = fieldGuid.ToString() };
 
             return SqliteHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParam);
         }
 
@@ -437,12 +451,11 @@ namespace SuperFlexiData
         /// </summary>
         public static int GetCount()
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select count(*) from i7_sflexi_fields;");
+            var sqlCommand = "select count(*) from i7_sflexi_fields;";
 
             return Convert.ToInt32(SqliteHelper.ExecuteScalar(
                  ConnectionString.GetReadConnectionString(),
-				 sqlCommand.ToString()));
+				 sqlCommand));
         }
 
         /// <summary>
@@ -450,22 +463,19 @@ namespace SuperFlexiData
         /// </summary>
         public static IDataReader GetAll()
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_fields where IsDeleted = 0;");
+            var sqlCommand = "select * from i7_sflexi_fields where IsDeleted = 0;";
 
             return SqliteHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
-
-				sqlCommand.ToString());
+				sqlCommand);
         }
 
         public static IDataReader GetAllForDefinition(Guid definitionGuid, bool includeDeleted = false)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_fields "
-                +"where DefinitionGuid = :DefinitionGuid "
-                +"and ((':IncludeDeleted' = 'true') or (IsDeleted = 0)) "
-                +"order by SortOrder, name;");
+            var sqlCommand = @"select * from i7_sflexi_fields 
+                where DefinitionGuid = :DefinitionGuid 
+                and ((':IncludeDeleted' = 'true') or (IsDeleted = 0)) 
+                order by SortOrder, name;";
 
             var sqlParams = new List<SqliteParameter>
             {
@@ -475,7 +485,7 @@ namespace SuperFlexiData
             
             return SqliteHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParams.ToArray());
         }
 
@@ -508,9 +518,7 @@ namespace SuperFlexiData
                     totalPages += 1;
                 }
             }
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("select * from i7_sflexi_fields limit :PageSize" + (pageNumber > 1 ? "offset :OffsetRows;" : ";"));
+            var sqlCommand = "select * from i7_sflexi_fields limit :PageSize" + (pageNumber > 1 ? "offset :OffsetRows;" : ";");
 
             var sqlParams = new List<SqliteParameter>
             {
@@ -520,7 +528,7 @@ namespace SuperFlexiData
 
             return SqliteHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParams.ToArray());
         }
 
@@ -531,8 +539,7 @@ namespace SuperFlexiData
         /// <returns></returns>
         public static bool MarkAsDeleted(Guid fieldGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("update i7_sflexi_fields set IsDeleted = 0 where FieldGuid = :FieldGuid;");
+            var sqlCommand = "update i7_sflexi_fields set IsDeleted = 0 where FieldGuid = :FieldGuid;";
 
             var sqlParam = new SqliteParameter(":FieldGuid", DbType.String, 36)
             {
@@ -542,7 +549,7 @@ namespace SuperFlexiData
 
             int rowsAffected = SqliteHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParam);
 
             return (rowsAffected > 0);

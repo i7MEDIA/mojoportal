@@ -1,19 +1,13 @@
-﻿// Author:					i7MEDIA
-// Created:					2015-3-6
-// Last Modified:			2020-10-15
-// You must not remove this notice, or any other, from this software.
-
+﻿using log4net;
+using SuperFlexiData;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using SuperFlexiData;
-using log4net;
 
 namespace SuperFlexiBusiness
 {
 
-    public class ItemFieldValue
+	public class ItemFieldValue
     {
 
         #region Constructors

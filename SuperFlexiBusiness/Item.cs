@@ -1,20 +1,13 @@
-﻿// Author:					i7MEDIA
-// Created:					2015-3-6
-// Last Modified:			2019-04-03
-// You must not remove this notice, or any other, from this software.
-
+﻿using mojoPortal.Business;
+using SuperFlexiData;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using SuperFlexiData;
-using mojoPortal.Business;
-using System.Linq;
 
 namespace SuperFlexiBusiness
 {
 
-    public class Item : IIndexableContent, IComparable<Item>
+	public class Item : IIndexableContent, IComparable<Item>
     {
 
         #region Constructors

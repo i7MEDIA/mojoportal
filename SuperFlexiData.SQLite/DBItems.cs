@@ -1,11 +1,9 @@
-﻿// Created:					2018-01-02
-// Last Modified:			2022-08-17
-
-using mojoPortal.Data;
+﻿using mojoPortal.Data;
 using Mono.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace SuperFlexiData
@@ -247,28 +245,101 @@ namespace SuperFlexiData
 				sqlParam);
 		}
 
+		public static IDataReader GetOneWithValues(int itemId)
+		{
+			string sqlCommand = $@"
+					SELECT i.*, f.Name AS FieldName, v.FieldValue
+					FROM i7_sflexi_items i
+					JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
+					JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
+					WHERE i.ItemID = :ItemID;";
+
+			var sqlParam = new SqliteParameter(":ItemID", DbType.Int32) { Direction = ParameterDirection.Input, Value = itemId };
+
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand,
+				sqlParam
+			);
+		}
+
+
+
+		public static IDataReader GetByIDsWithValues(Guid defGuid, Guid siteGuid, List<int> itemIDs, int pageNumber = 1, int pageSize = 20)
+		{
+
+			string sqlCommand = $@"
+
+					SELECT pg.*, f.Name AS FieldName, v.FieldValue
+					FROM (
+						SELECT i.*, COUNT(*) AS TotalRows
+						FROM i7_sflexi_items i
+						WHERE {getItems()}
+						AND i.DefinitionGuid = ?DefinitionGuid
+						AND i.SiteGuid = ?SiteGuid
+						GROUP BY ItemID
+				 		LIMIT :PageSize
+				 		OFFSET :OffSetRows) pg
+					JOIN i7_sflexi_values v ON  v.ItemGuid = pg.ItemGuid
+					JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
+					WHERE TotalRows > 0";
+
+			string getItems()
+			{
+				return string.Join(" ", itemIDs.Select((x, i) =>
+				{
+					var item = $"ItemID = :ItemID{i}";
+
+					if (i < itemIDs.Count() - 1)
+					{
+						item += " OR";
+					}
+
+					return item;
+				}));
+			}
+
+			var sqlParams = new List<SqliteParameter>();
+
+			for (var i = 0; i < itemIDs.Count(); i++)
+			{
+				sqlParams.Add(new SqliteParameter($"?ItemID{i}", DbType.Int32) { Direction = ParameterDirection.Input, Value = itemIDs[i] });
+			}
+
+			int offsetRows = (pageSize * pageNumber) - pageSize;
+
+			sqlParams.AddRange(new List<SqliteParameter>()
+			{
+				new SqliteParameter("?PageSize", DbType.Int32){ Direction = ParameterDirection.Input, Value = pageSize },
+				new SqliteParameter("?OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
+				new SqliteParameter("?DefinitionGuid", DbType.Guid) { Direction = ParameterDirection.Input, Value = defGuid },
+				new SqliteParameter("?SiteGuid", DbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid }
+			});
+
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand,
+				sqlParams.ToArray()
+			);
+		}
 		/// <summary>
 		/// Gets a count of rows in the i7_sflexi_items table.
 		/// </summary>
 		public static int GetCount()
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select count(*) from i7_sflexi_items;");
+            var sqlCommand = "select count(*) from i7_sflexi_items;";
 
             return Convert.ToInt32(SqliteHelper.ExecuteScalar(
                  ConnectionString.GetReadConnectionString(),
-
-				 sqlCommand.ToString()));
+				 sqlCommand));
         }
 		public static int GetCountForModule(int moduleId)
 		{
-			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append($"select count(*) from i7_sflexi_items where ModuleId = {moduleId};");
+			var sqlCommand = $"select count(*) from i7_sflexi_items where ModuleId = {moduleId};";
 
 			return Convert.ToInt32(SqliteHelper.ExecuteScalar(
 				 ConnectionString.GetReadConnectionString(),
-
-				 sqlCommand.ToString()));
+				 sqlCommand));
 		}
 		
 		/// <summary>
@@ -291,14 +362,12 @@ namespace SuperFlexiData
         /// <param name="itemID"> itemID </param>
         public static IDataReader GetModuleItems(int moduleID)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_items where ModuleId = :ModuleId order by SortOrder asc;");
-
+            var sqlCommand = "select * from i7_sflexi_items where ModuleId = :ModuleId order by SortOrder asc;";
             var sqlParam = new SqliteParameter(":ModuleId", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID };
 
             return SqliteHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParam);
         }
 
@@ -311,7 +380,7 @@ namespace SuperFlexiData
 			//string sortField = "",
 			bool descending = false)
 		{
-			StringBuilder sqlCommand = new StringBuilder();
+			StringBuilder sqlCommand = new();
 
 			if (String.IsNullOrWhiteSpace(searchField) && !String.IsNullOrWhiteSpace(searchTerm))
 			{
@@ -581,19 +650,32 @@ namespace SuperFlexiData
             return sortDirection;
 
         }
-        public static IDataReader GetForModule(int moduleID, string sortDirection = "ASC")
+        public static IDataReader GetForModule(
+			int moduleID,
+			int pageNumber = 1,
+			int pageSize = 20,
+			string sortDirection = "ASC")
 		{
             sortDirection = santizeSortDirection(sortDirection);
 
             var commandText = $@"
                 SELECT *
-                FROM i7_sflexi_items
-                WHERE ModuleId = :ModuleId
-                ORDER BY SortOrder {sortDirection}";
+					FROM (
+						SELECT *, COUNT(*) AS TotalRows
+						FROM i7_sflexi_items i
+						WHERE i.ModuleID = :ModuleID) t
+					WHERE TotalRows > 0
+					ORDER BY t.SortOrder {sortDirection}
+					{(pageSize > -1 ? "LIMIT :PageSize" : string.Empty)} 
+					{(pageNumber > 1 ? "OFFSET :OffsetRows" : string.Empty)};";
 
-            var commandParameters = new SqliteParameter[]
+			int offsetRows = (pageSize * pageNumber) - pageSize;
+
+			var commandParameters = new SqliteParameter[]
             {
                 new SqliteParameter(":ModuleId", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID },
+			    new SqliteParameter(":PageSize", DbType.Int32){ Direction = ParameterDirection.Input, Value = pageSize },
+				new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
             };
             return SqliteHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
@@ -601,28 +683,83 @@ namespace SuperFlexiData
                 commandParameters);
         }
 
-        public static IDataReader GetForModuleWithValues(int moduleId, string sortDirection)
+        public static IDataReader GetForModuleWithValues(
+			Guid moduleGuid,
+			int pageNumber = 1,
+			int pageSize = 20,
+			string searchTerm = "",
+			string searchField = "",
+			//string sortField = "",
+			string sortDirection = "ASC"
+			)
 		{
-            sortDirection = santizeSortDirection(sortDirection);
-            var commandText = $@"
-                    SELECT *, f.Name AS FieldName, v.FieldValue
-                    FROM i7_sflexi_items i
-                    JOIN i7_sflexi_values v
-                    ON v.ItemGuid = i.ItemGuid
-                    JOIN i7_sflexi_fields f
-                    ON f.FieldGuid = v.FieldGuid
-                    WHERE ModuleId = :ModuleId
-                    ORDER BY i.SortOrder {sortDirection}";
+			string sqlCommand;
 
-            var commandParameters = new SqliteParameter[]
-            {
-                new SqliteParameter(":ModuleId", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleId },
-            };
-            
-            return SqliteHelper.ExecuteReader(
+			sortDirection = santizeSortDirection(sortDirection);
+			//var commandText = $@"
+			//        SELECT *, f.Name AS FieldName, v.FieldValue
+			//        FROM i7_sflexi_items i
+			//        JOIN i7_sflexi_values v
+			//        ON v.ItemGuid = i.ItemGuid
+			//        JOIN i7_sflexi_fields f
+			//        ON f.FieldGuid = v.FieldGuid
+			//        WHERE ModuleId = :ModuleId
+			//        ORDER BY i.SortOrder {sortDirection}";
+
+			if (pageSize > 0)
+			{
+				//query with paging
+				sqlCommand = $@"		
+					SELECT pg.*, f.Name AS FieldName, v.FieldValue
+					FROM (
+						SELECT i.*, COUNT(*) AS TotalRows
+						FROM i7_sflexi_items i
+						WHERE i.ItemGuid IN (
+							SELECT DISTINCT ItemGuid
+							FROM i7_sflexi_values v
+							{(!string.IsNullOrWhiteSpace(searchField) ? "JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid" : string.Empty)}
+							WHERE v.ItemGuid = i.ItemGuid
+							{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.FieldValue LIKE :SearchTerm" : string.Empty)}
+							{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = :SearchField" : string.Empty)}
+						) 
+						AND i.ModuleGuid = :ModuleGuid
+						GROUP BY ItemID
+						ORDER BY SortOrder {sortDirection}, CreatedUtc {sortDirection}
+				 		LIMIT :PageSize
+				 		OFFSET :OffSetRows) pg
+					JOIN i7_sflexi_values v ON  v.ItemGuid = pg.ItemGuid
+					JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
+					WHERE TotalRows > 0;";
+			}
+			else
+			{
+				//query without paging
+				sqlCommand = $@"
+					SELECT i.*, f.Name AS FieldName, v.FieldValue
+					FROM i7_sflexi_items i
+					JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
+					JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
+					WHERE i.ModuleGuid = :ModuleGuid
+					{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.FieldValue LIKE :SearchTerm" : string.Empty)}
+					{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = :SearchField" : string.Empty)}
+					ORDER BY SortOrder {sortDirection}, CreatedUtc {sortDirection};";
+			}
+
+			int offsetRows = (pageSize * pageNumber) - pageSize;
+
+			var sqlParams = new SqliteParameter[]
+			{
+				new SqliteParameter(":PageSize", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
+				new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
+				new SqliteParameter(":SearchTerm", DbType.String, 255) { Direction = ParameterDirection.Input, Value = "%" + searchTerm + "%"},
+				new SqliteParameter(":SearchField", DbType.String, 50) { Direction = ParameterDirection.Input, Value = searchField },
+				new SqliteParameter(":ModuleGuid", DbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid }
+			};
+
+			return SqliteHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
-                commandText,
-                commandParameters);
+                sqlCommand,
+				sqlParams);
         }
 
         public static IDataReader GetForModuleWithValues_Paged(
@@ -741,121 +878,196 @@ namespace SuperFlexiData
               commandText,
               commandParameters);
         }
-        public static IDataReader GetForDefinition(Guid definitionGuid, Guid siteGuid, string sortDirection)
+        public static IDataReader GetForDefinition(
+            Guid definitionGuid,
+			Guid siteGuid,
+			int pageNumber = 1,
+			int pageSize = 20,
+			string sortDirection = "ASC")
 		{
             sortDirection = santizeSortDirection(sortDirection);
 
-            var commandText = $@"
-                IF {sortDirection} = 'DESC'
-                    SELECT SiteGuid
-                           FeatureGuid,
-                           i.ModuleGuid,
-                           i.ModuleID,
-                           DefinitionGuid,
-                           ItemGuid,
-                           ItemID,
-                           i.SortOrder,
-                           CreatedUtc,
-                           LastModUtc,
-                           i.ViewRoles,
-                           i.EditRoles,
-                           ms.SettingValue AS GlobalViewSortOrder
-                    FROM i7_sflexi_items i
-                    LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
-                    WHERE DefinitionGuid = :DefinitionGuid
-                    AND i.SiteGuid = :SiteGuid
-                    AND ms.SettingName = 'GLobalViewSortOrder'
-                    ORDER BY GlobalViewSortOrder DESC,
-                             i.SortOrder DESC,
-                             i.CreatedUtc DESC
-                ELSE IF {sortDirection} = 'ASC'
-                    SELECT
-                        SiteGuid,
-                        FeatureGuid,
-                        i.ModuleGuid,
-                        i.ModuleID,
-                        DefinitionGuid,
-                        ItemGuid,
-                        ItemID,
-                        i.SortOrder,
-                        CreatedUtc,
-                        LastModUtc,
-                        i.ViewRoles,
-                        i.EditRoles,
-                        ms.SettingValue AS GlobalViewSortOrder
-                    FROM i7_sflexi_items i
-                    LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
-                    WHERE 
-                        DefinitionGuid   = :DefinitionGuid
-                        AND i.SiteGuid   = :SiteGuid
-                        AND ms.SettingName = 'GlobalViewSortOrder'
-                    ORDER BY 
-                        GlobalViewSortOrder,
-                        i.SortOrder,
-                        i.CreatedUtc;";
+			//var commandText = $@"
+			//    IF {sortDirection} = 'DESC'
+			//        SELECT SiteGuid
+			//               FeatureGuid,
+			//               i.ModuleGuid,
+			//               i.ModuleID,
+			//               DefinitionGuid,
+			//               ItemGuid,
+			//               ItemID,
+			//               i.SortOrder,
+			//               CreatedUtc,
+			//               LastModUtc,
+			//               i.ViewRoles,
+			//               i.EditRoles,
+			//               ms.SettingValue AS GlobalViewSortOrder
+			//        FROM i7_sflexi_items i
+			//        LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
+			//        WHERE DefinitionGuid = :DefinitionGuid
+			//        AND i.SiteGuid = :SiteGuid
+			//        AND ms.SettingName = 'GLobalViewSortOrder'
+			//        ORDER BY GlobalViewSortOrder DESC,
+			//                 i.SortOrder DESC,
+			//                 i.CreatedUtc DESC
+			//    ELSE IF {sortDirection} = 'ASC'
+			//        SELECT
+			//            SiteGuid,
+			//            FeatureGuid,
+			//            i.ModuleGuid,
+			//            i.ModuleID,
+			//            DefinitionGuid,
+			//            ItemGuid,
+			//            ItemID,
+			//            i.SortOrder,
+			//            CreatedUtc,
+			//            LastModUtc,
+			//            i.ViewRoles,
+			//            i.EditRoles,
+			//            ms.SettingValue AS GlobalViewSortOrder
+			//        FROM i7_sflexi_items i
+			//        LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
+			//        WHERE 
+			//            DefinitionGuid   = :DefinitionGuid
+			//            AND i.SiteGuid   = :SiteGuid
+			//            AND ms.SettingName = 'GlobalViewSortOrder'
+			//        ORDER BY 
+			//            GlobalViewSortOrder,
+			//            i.SortOrder,
+			//            i.CreatedUtc;";
 
-            var commandParameters = new SqliteParameter[]
+			string sqlCommand = $@"
+				SELECT i.*, ms.SettingValue AS GlobalViewSortOrder, Count(i.*) AS TotalRows
+				FROM i7_sflexi_items i
+				LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
+				WHERE DefinitionGuid = :DefGuid AND i.SiteGuid = :SiteGuid AND ms.SettingName = 'GlobalViewSortOrder' 
+				ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, SortOrder {sortDirection}, CreatedUtc {sortDirection})
+				LIMIT :PageSize {(pageNumber > 1 ? "OFFSET :OffsetRows" : string.Empty)};";
+
+			int offsetRows = (pageSize * pageNumber) - pageSize;
+
+			var sqlParams = new SqliteParameter[]
             {
-                new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() },
-                new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() }
-            };
+                new SqliteParameter(":DefGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() },
+                new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
+				new SqliteParameter(":PageSize", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
+				new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
+			};
             return SqliteHelper.ExecuteReader(
               ConnectionString.GetWriteConnectionString(),
-              commandText,
-              commandParameters);
+			  sqlCommand,
+              sqlParams);
         }
 
-        public static IDataReader GetForDefinitionWithValues(Guid definitionGuid, Guid siteGuid, string sortDirection)
+        public static IDataReader GetForDefinitionWithValues(
+			Guid defGuid,
+			Guid siteGuid,
+			int pageNumber = 1,
+			int pageSize = 25,
+			string searchTerm = "",
+			string searchField = "",
+			string sortDirection = "ASC"
+            )
         {
-            sortDirection = santizeSortDirection(sortDirection);
+			string sqlCommand;
+			sortDirection = santizeSortDirection(sortDirection);
 
-            string commandText = $@"
-				IF {sortDirection} = 'DESC' 
-					SELECT
-                        i.*
-                        ms.SettingValue AS GlobalViewSortOrder,
-                        f.Name          AS FieldName,
-                        v.FieldValue,
-                        v.FieldGuid
-					FROM i7_sflexi_items i
-                    LEFT JOIN mp_ModuleSettings ms ON	ms.ModuleGuid = i.ModuleGuid
-                    LEFT JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
-                    LEFT JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
-					WHERE i.DefinitionGuid = :DefinitionGuid
-                    AND i.SiteGuid   = :SiteGuid
-                    AND ms.SettingName = 'GlobalViewSortOrder'
-					ORDER BY
-                        GlobalViewSortOrder DESC,
-                        i.SortOrder DESC,
-                        i.CreatedUtc DESC
-				ELSE IF {sortDirection} = 'ASC' 
-					SELECT
-                        i.*
-                        ms.SettingValue AS GlobalViewSortOrder,
-                        f.Name          AS FieldName,
-                        v.FieldValue,
-                        v.FieldGuid
-					FROM i7_sflexi_items i
-                    LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
-                    LEFT JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
-                    LEFT JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
-					WHERE i.DefinitionGuid = :DefinitionGuid
-                    AND i.SiteGuid   = :SiteGuid
-                    AND ms.SettingName = 'GlobalViewSortOrder'
-					ORDER BY
-                        GlobalViewSortOrder,
-                        i.SortOrder,
-                        i.CreatedUtc;";
+			//        string commandText = $@"
+			//IF {sortDirection} = 'DESC' 
+			//	SELECT
+			//                    i.*
+			//                    ms.SettingValue AS GlobalViewSortOrder,
+			//                    f.Name          AS FieldName,
+			//                    v.FieldValue,
+			//                    v.FieldGuid
+			//	FROM i7_sflexi_items i
+			//                LEFT JOIN mp_ModuleSettings ms ON	ms.ModuleGuid = i.ModuleGuid
+			//                LEFT JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
+			//                LEFT JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
+			//	WHERE i.DefinitionGuid = :DefinitionGuid
+			//                AND i.SiteGuid   = :SiteGuid
+			//                AND ms.SettingName = 'GlobalViewSortOrder'
+			//	ORDER BY
+			//                    GlobalViewSortOrder DESC,
+			//                    i.SortOrder DESC,
+			//                    i.CreatedUtc DESC
+			//ELSE IF {sortDirection} = 'ASC' 
+			//	SELECT
+			//                    i.*
+			//                    ms.SettingValue AS GlobalViewSortOrder,
+			//                    f.Name          AS FieldName,
+			//                    v.FieldValue,
+			//                    v.FieldGuid
+			//	FROM i7_sflexi_items i
+			//                LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
+			//                LEFT JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
+			//                LEFT JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
+			//	WHERE i.DefinitionGuid = :DefinitionGuid
+			//                AND i.SiteGuid   = :SiteGuid
+			//                AND ms.SettingName = 'GlobalViewSortOrder'
+			//	ORDER BY
+			//                    GlobalViewSortOrder,
+			//                    i.SortOrder,
+			//                    i.CreatedUtc;";
 
-            var commandParameters = new SqliteParameter[]
+			if (pageSize > -1)
+			{
+				//query with paging
+				sqlCommand = $@"
+					SELECT pg.*, f.Name AS FieldName, v.FieldValue
+					FROM (
+						SELECT i.*, ms.SettingValue AS GlobalViewSortOrder, COUNT(i.*) AS TotalRows
+						FROM i7_sflexi_items i
+						LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
+						WHERE i.ItemGuid IN (
+							SELECT DISTINCT ItemGuid
+							FROM i7_sflexi_values v
+							{(!string.IsNullOrWhiteSpace(searchField) ? "JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid" : string.Empty)}
+							WHERE v.ItemGuid = i.ItemGuid
+							{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.FieldValue LIKE :SearchTerm" : string.Empty)}
+							{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = :SearchField" : string.Empty)}
+						) 
+						AND i.DefinitionGuid = :DefinitionGuid
+						AND i.SiteGuid = :SiteGuid
+						AND ms.SettingName = 'GlobalViewSortOrder' 
+						ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, i.SortOrder {sortDirection}, i.CreatedUtc {sortDirection}
+				 		LIMIT :PageSize
+				 		OFFSET :OffsetRows) pg
+					JOIN i7_sflexi_values v ON  v.ItemGuid = pg.ItemGuid
+					JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
+					LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = pg.ModuleGuid
+					WHERE TotalRows > 0;";
+			}
+			else
+			{
+				//query without paging
+				sqlCommand = $@"
+					SELECT i.*, f.Name AS FieldName, v.FieldValue, ms.SettingValue AS GlobalViewSortOrder
+					FROM i7_sflexi_items i
+					JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
+					JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
+					LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
+					WHERE DefinitionGuid = :DefinitionGuid AND i.SiteGuid = :SiteGuid AND ms.SettingName = 'GlobalViewSortOrder' 
+					{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.FieldValue LIKE :SearchTerm" : string.Empty)}
+					{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = :SearchField" : string.Empty)}
+					ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, i.SortOrder {sortDirection}, i.CreatedUtc {sortDirection};";
+			}
+
+			var offsetRows = (pageSize * pageNumber) - pageSize;
+
+			var sqlParams = new SqliteParameter[]
             {
-                new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() },
+				new SqliteParameter(":PageSize", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
+				new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
+				new SqliteParameter(":SearchTerm", DbType.String, 255) { Direction = ParameterDirection.Input, Value = "%" + searchTerm + "%"},
+				new SqliteParameter(":SearchField", DbType.String, 50) { Direction = ParameterDirection.Input, Value = searchField },
+                new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = defGuid.ToString() },
                 new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() }
             };
             return SqliteHelper.ExecuteReader(
               ConnectionString.GetWriteConnectionString(),
-              commandText,
-              commandParameters);
+              sqlCommand,
+              sqlParams);
         }
 
 

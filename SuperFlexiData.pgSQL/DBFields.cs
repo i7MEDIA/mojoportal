@@ -1,7 +1,4 @@
-﻿// Created:					2017-12-30
-// Last Modified:			2019-09-18
-
-using mojoPortal.Data;
+﻿using mojoPortal.Data;
 using Npgsql;
 using NpgsqlTypes;
 using System;
@@ -11,10 +8,8 @@ using System.Text;
 
 namespace SuperFlexiData
 {
-
 	public static class DBFields
     {
-
         /// <summary>
         /// Inserts a row in the i7_sflexi_fields table. Returns rows affected count.
         /// </summary>
@@ -30,6 +25,8 @@ namespace SuperFlexiData
             string defaultValue,
             string controlType,
             string controlSrc,
+            string dataType,
+            bool isList,
             int sortOrder,
             string helpKey,
             bool required,
@@ -76,6 +73,8 @@ namespace SuperFlexiData
                   ,defaultvalue
                   ,controltype
                   ,controlsrc
+                  ,datatype
+                  ,islist
                   ,sortorder
                   ,helpkey
                   ,required
@@ -118,6 +117,8 @@ namespace SuperFlexiData
                   ,:defaultvalue
                   ,:controltype
                   ,:controlsrc
+                  ,:datatype
+                  ,:islist
                   ,:sortorder
                   ,:helpkey
                   ,:required
@@ -163,7 +164,9 @@ namespace SuperFlexiData
                 new NpgsqlParameter(":defaultvalue", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = defaultValue },
                 new NpgsqlParameter(":controltype", NpgsqlDbType.Varchar, 25) { Direction = ParameterDirection.Input, Value = controlType },
                 new NpgsqlParameter(":controlsrc", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = controlSrc },
-                new NpgsqlParameter(":sortorder", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = sortOrder },
+				new NpgsqlParameter(":datatype", NpgsqlDbType.Varchar, 100) { Direction = ParameterDirection.Input, Value = dataType },
+                new NpgsqlParameter(":islist", NpgsqlDbType.Boolean) { Direction = ParameterDirection.Input, Value = isList },
+				new NpgsqlParameter(":sortorder", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = sortOrder },
                 new NpgsqlParameter(":helpkey", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = helpKey },
                 new NpgsqlParameter(":required", NpgsqlDbType.Boolean) { Direction = ParameterDirection.Input, Value = required },
                 new NpgsqlParameter(":requiredmessageformat", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = requiredMessageFormat },
@@ -221,6 +224,8 @@ namespace SuperFlexiData
             string defaultValue,
             string controlType,
             string controlSrc,
+            string dataType,
+            bool isList,
             int sortOrder,
             string helpKey,
             bool required,
@@ -267,6 +272,8 @@ namespace SuperFlexiData
                  ,defaultvalue = :defaultvalue
                  ,controltype = :controltype
                  ,controlsrc = :controlsrc
+                 ,datatype = :datatype
+                 ,islist = :islist
                  ,sortorder = :sortorder
                  ,helpkey = :helpkey
                  ,required = :required
@@ -313,7 +320,9 @@ namespace SuperFlexiData
                 new NpgsqlParameter(":defaultvalue", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = defaultValue },
                 new NpgsqlParameter(":controltype", NpgsqlDbType.Varchar, 25) { Direction = ParameterDirection.Input, Value = controlType },
                 new NpgsqlParameter(":controlsrc", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = controlSrc },
-                new NpgsqlParameter(":sortorder", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = sortOrder },
+				new NpgsqlParameter(":datatype", NpgsqlDbType.Varchar, 100) { Direction = ParameterDirection.Input, Value = dataType },
+				new NpgsqlParameter(":islist", NpgsqlDbType.Boolean) { Direction = ParameterDirection.Input, Value = isList },
+				new NpgsqlParameter(":sortorder", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = sortOrder },
                 new NpgsqlParameter(":helpkey", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = helpKey },
                 new NpgsqlParameter(":required", NpgsqlDbType.Boolean) { Direction = ParameterDirection.Input, Value = required },
                 new NpgsqlParameter(":requiredmessageformat", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = requiredMessageFormat },
@@ -347,15 +356,14 @@ namespace SuperFlexiData
 				new NpgsqlParameter(":viewroles", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = viewRoles },
 				new NpgsqlParameter(":editroles", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = editRoles }
 			};
-			int rowsAffected = 0;
 			var returnValue = NpgsqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
 				sqlCommand.ToString(),
                 sqlParams.ToArray());
-			rowsAffected = Convert.ToInt32(returnValue.ToString());
+			int rowsAffected = Convert.ToInt32(returnValue.ToString());
 
-			return (rowsAffected > 0);
+			return rowsAffected > 0;
 
         }
 
@@ -367,15 +375,14 @@ namespace SuperFlexiData
         public static bool Delete(
             Guid fieldGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("delete from i7_sflexi_fields where fieldguid = :fieldguid;");
+            var sqlCommand = "delete from i7_sflexi_fields where fieldguid = :fieldguid;";
 
             var sqlParam = new NpgsqlParameter(":fieldguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldGuid };
 
             int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParam);
 
             return (rowsAffected > 0);
@@ -388,15 +395,14 @@ namespace SuperFlexiData
         /// <returns>bool</returns>
         public static bool DeleteBySite(Guid siteGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("delete from i7_sflexi_fields where siteguid = :siteguid;");
+            var sqlCommand = "delete from i7_sflexi_fields where siteguid = :siteguid;";
 
 			var sqlParam = new NpgsqlParameter(":siteguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = siteGuid };
 
             int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParam);
 
             return (rowsAffected > 0);
@@ -409,15 +415,14 @@ namespace SuperFlexiData
         /// <returns>bool</returns>
         public static bool DeleteByDefinition(Guid definitionGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("delete from i7_sflexi_fields where definitionguid = :definitionguid;");
+            var sqlCommand = "delete from i7_sflexi_fields where definitionguid = :definitionguid;";
 
 			var sqlParam = new NpgsqlParameter(":definitionguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = definitionGuid };
 
             int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParam);
 
             return (rowsAffected > 0);
@@ -430,15 +435,14 @@ namespace SuperFlexiData
         public static IDataReader GetOne(
             Guid fieldGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_fields where fieldguid = :fieldguid;");
+            var sqlCommand = "select * from i7_sflexi_fields where fieldguid = :fieldguid;";
 
 			var sqlParam = new NpgsqlParameter(":fieldguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldGuid };
 
             return NpgsqlHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParam);
         }
 
@@ -447,13 +451,12 @@ namespace SuperFlexiData
         /// </summary>
         public static int GetCount()
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select count(*) from i7_sflexi_fields;");
+            var sqlCommand = "select count(*) from i7_sflexi_fields;";
 
             return Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
                  ConnectionString.GetReadConnectionString(),
 				 CommandType.Text,
-				 sqlCommand.ToString()));
+				 sqlCommand));
         }
 
         /// <summary>
@@ -461,22 +464,20 @@ namespace SuperFlexiData
         /// </summary>
         public static IDataReader GetAll()
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_fields where isdeleted = false;");
+            var sqlCommand = "select * from i7_sflexi_fields where isdeleted = false;";
 
             return NpgsqlHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
-				sqlCommand.ToString());
+				sqlCommand);
         }
 
         public static IDataReader GetAllForDefinition(Guid definitionGuid, bool includeDeleted = false)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_fields "
-                +"where definitionguid = :definitionguid "
-                +"and ((:includedeleted = true) or (isdeleted = false)) "
-                +"order by sortorder, name;");
+            var sqlCommand = @"select * from i7_sflexi_fields 
+                where definitionguid = :definitionguid 
+                and ((:includedeleted = true) or (isdeleted = false)) 
+                order by sortorder, name;";
 
             var sqlParams = new List<NpgsqlParameter>
             {
@@ -487,7 +488,7 @@ namespace SuperFlexiData
             return NpgsqlHelper.ExecuteReader(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParams.ToArray());
         }
 
@@ -520,9 +521,7 @@ namespace SuperFlexiData
                     totalPages += 1;
                 }
             }
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("select * from i7_sflexi_fields limit :pagesize" + (pageNumber > 1 ? "offset :offsetrows;" : ";"));
+            var sqlCommand = "select * from i7_sflexi_fields limit :pagesize" + (pageNumber > 1 ? "offset :offsetrows;" : ";");
 
             var sqlParams = new List<NpgsqlParameter>
             {
@@ -533,7 +532,7 @@ namespace SuperFlexiData
             return NpgsqlHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 CommandType.Text,
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParams.ToArray());
         }
 
@@ -544,8 +543,7 @@ namespace SuperFlexiData
         /// <returns></returns>
         public static bool MarkAsDeleted(Guid fieldGuid)
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("update i7_sflexi_fields set isdeleted = true where fieldguid = :fieldguid;");
+            var sqlCommand = "update i7_sflexi_fields set isdeleted = true where fieldguid = :fieldguid;";
 
             var sqlParam = new NpgsqlParameter(":fieldguid", NpgsqlDbType.Uuid)
             {
@@ -556,7 +554,7 @@ namespace SuperFlexiData
             int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
-				sqlCommand.ToString(),
+				sqlCommand,
                 sqlParam);
 
             return (rowsAffected > 0);

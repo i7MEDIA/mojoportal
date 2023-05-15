@@ -1,17 +1,14 @@
-﻿// Created:					2017-12-30
-// Last Modified:			2022-08-17
-
-using mojoPortal.Data;
+﻿using mojoPortal.Data;
 using Npgsql;
 using NpgsqlTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace SuperFlexiData
 {
-
 	public static class DBItems
     {
 
@@ -265,16 +262,96 @@ namespace SuperFlexiData
 		/// <param name="itemID"> itemID </param>
 		public static IDataReader GetOne(int itemId)
 		{
-			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("select * from i7_sflexi_items where itemid = :itemid;");
+			var sqlCommand = "select * from i7_sflexi_items where itemid = :itemid;";
 
 			var sqlParam = new NpgsqlParameter(":itemid", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = itemId };
 
 			return NpgsqlHelper.ExecuteReader(
 				ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,
-				sqlCommand.ToString(),
+				sqlCommand,
 				sqlParam);
+		}
+
+		/// <summary>
+		/// Gets an IDataReader with item and values
+		/// </summary>
+		public static IDataReader GetOneWithValues(int itemId)
+		{
+			string sqlCommand = $@"
+					SELECT i.*, f.Name AS FieldName, v.FieldValue
+					FROM i7_sflexi_items i
+					JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
+					JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
+					WHERE i.ItemID = ?ItemID;";
+
+			var sqlParam = new NpgsqlParameter("?ItemID", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = itemId };
+
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+                CommandType.Text,
+				sqlCommand,
+				sqlParam
+			);
+		}
+
+		public static IDataReader GetByIDsWithValues(Guid defGuid, Guid siteGuid, List<int> itemIDs, int pageNumber = 1, int pageSize = 20)
+		{
+
+			string sqlCommand = $@"
+
+					SELECT pg.*, f.Name AS FieldName, v.FieldValue
+					FROM (
+						SELECT i.*, COUNT(*) AS TotalRows
+						FROM i7_sflexi_items i
+						WHERE {getItems()}
+						AND i.DefinitionGuid = ?DefinitionGuid
+						AND i.SiteGuid = ?SiteGuid
+						GROUP BY ItemID
+				 		LIMIT ?PageSize
+				 		OFFSET ?OffSetRows) pg
+					JOIN i7_sflexi_values v ON  v.ItemGuid = pg.ItemGuid
+					JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
+					WHERE TotalRows > 0";
+
+			string getItems()
+			{
+				return string.Join(" ", itemIDs.Select((x, i) =>
+				{
+					var item = $"ItemID = ?ItemID{i}";
+
+					if (i < itemIDs.Count() - 1)
+					{
+						item += " OR";
+					}
+
+					return item;
+				}));
+			}
+
+			var sqlParams = new List<NpgsqlParameter>();
+
+			for (var i = 0; i < itemIDs.Count(); i++)
+			{
+				sqlParams.Add(new NpgsqlParameter($"?ItemID{i}", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = itemIDs[i] });
+			}
+
+			int offsetRows = (pageSize * pageNumber) - pageSize;
+
+			sqlParams.AddRange(new List<NpgsqlParameter>()
+			{
+				new NpgsqlParameter("?PageSize", NpgsqlDbType.Integer){ Direction = ParameterDirection.Input, Value = pageSize },
+				new NpgsqlParameter("?OffsetRows", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = offsetRows },
+				new NpgsqlParameter("?DefinitionGuid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = defGuid },
+				new NpgsqlParameter("?SiteGuid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = siteGuid }
+			});
+
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.Text,
+				sqlCommand,
+				sqlParams.ToArray()
+			);
 		}
 
 		/// <summary>
@@ -615,20 +692,32 @@ namespace SuperFlexiData
         /// Gets an IDataReader with all items for module.
         /// </summary>
         /// <param name="itemID"> itemID </param>
-        public static IDataReader GetForModule(int moduleID, string sortDirection = "ASC")
+        public static IDataReader GetForModule(
+			int moduleID,
+			int pageNumber = 1,
+			int pageSize = 20,
+			string sortDirection = "ASC")
         {
 			sortDirection = santizeSortDirection(sortDirection);
 
 			var commandText = $@"
-				SELECT *
-				FROM  public.i7_sflexi_items
-				WHERE moduleid = :moduleid
-				ORDER BY SortOrder {sortDirection}";
+					SELECT *
+					FROM (
+						SELECT *, COUNT(*) OVER() AS TotalRows
+						FROM i7_sflexi_items i
+						WHERE i.ModuleID = :ModuleID ) t
+					WHERE TotalRows > 0
+					ORDER BY t.SortOrder {sortDirection}
+					{(pageSize > -1 ? "LIMIT :PageSize" : string.Empty)} 
+					{(pageNumber > 1 ? "OFFSET :OffsetRows" : string.Empty)};";
+
+			int offsetRows = (pageSize * pageNumber) - pageSize;
 
 			var commandParameters = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter(":moduleid", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = moduleID }
-
+				new NpgsqlParameter(":ModuleID", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = moduleID },
+				new NpgsqlParameter("?PageSize", NpgsqlDbType.Integer){ Direction = ParameterDirection.Input, Value = pageSize },
+				new NpgsqlParameter("?OffsetRows", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = offsetRows },
 			};
 
             return NpgsqlHelper.ExecuteReader(
@@ -638,25 +727,66 @@ namespace SuperFlexiData
 				commandParameters);
         }
 
-		public static IDataReader GetForModuleWithValues(int moduleID, string sortDirection)
+		public static IDataReader GetForModuleWithValues(
+			Guid moduleGuid,
+			int pageNumber = 1,
+			int pageSize = 20,
+			string searchTerm = "",
+			string searchField = "",
+			//string sortField = "",
+			string sortDirection = "ASC"
+			)
         {
-			sortDirection = santizeSortDirection(sortDirection);
+			string commandText;
 
-			var commandText = $@"
+			sortDirection = santizeSortDirection(sortDirection);
+			if (pageSize > 0)
+			{
+				//query with paging
+				commandText = $@"		
+					SELECT pg.*, f.Name AS FieldName, v.FieldValue
+					FROM (
+						SELECT i.*, COUNT(*) OVER() AS TotalRows
+						FROM i7_sflexi_items i
+						WHERE i.ItemGuid IN (
+							SELECT DISTINCT ItemGuid
+							FROM i7_sflexi_values v
+							{(!string.IsNullOrWhiteSpace(searchField) ? "JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid" : string.Empty)}
+							WHERE v.ItemGuid = i.ItemGuid
+							{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.FieldValue LIKE ?SearchTerm" : string.Empty)}
+							{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = ?SearchField" : string.Empty)}
+						) 
+						AND i.ModuleGuid = ?ModuleGuid
+						GROUP BY ItemID
+						ORDER BY SortOrder {sortDirection}, CreatedUtc {sortDirection}
+				 		LIMIT ?PageSize
+				 		OFFSET ?OffSetRows) pg
+					JOIN i7_sflexi_values v ON  v.ItemGuid = pg.ItemGuid
+					JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
+					WHERE TotalRows > 0;";
+			}
+			else 
+			{
+				commandText = $@"
 					SELECT *, f.Name AS FieldName, v.FieldValue
 					FROM public.i7_sflexi_items i
-					JOIN public.i7_sflexi_values v
-					ON v.ItemGuid = i.ItemGuid
-					JOIN public.i7_sflexi_fields f
-					ON f.FieldGuid = v.FieldGuid
-					WHERE moduleid = :moduleid
+					JOIN public.i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
+					JOIN public.i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid
+					WHERE i.ModuleGuid = :ModuleGuid
+					{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.FieldValue LIKE ?SearchTerm" : string.Empty)}
+					{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = ?SearchField" : string.Empty)}
 					ORDER BY i.SortOrder {sortDirection}";
+			}
+
+			int offsetRows = (pageSize * pageNumber) - pageSize;
 
 			var commandParameters = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter(":moduleid", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = moduleID }
-
-
+				new NpgsqlParameter("?PageSize", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = pageSize },
+				new NpgsqlParameter("?OffsetRows", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = offsetRows },
+				new NpgsqlParameter("?SearchTerm", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = "%" + searchTerm + "%"},
+				new NpgsqlParameter("?SearchField", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = searchField },
+				new NpgsqlParameter(":ModuleGuid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = moduleGuid }
 			};
 
             return NpgsqlHelper.ExecuteReader(
@@ -795,74 +925,89 @@ namespace SuperFlexiData
 		/// <summary>
 		/// Gets an IDataReader with all items for a single definition.
 		/// </summary>
-		public static IDataReader GetForDefinition(Guid definitionGuid, Guid siteGuid, string sortDirection)
+		public static IDataReader GetForDefinition(
+			Guid definitionGuid, 
+			Guid siteGuid, 
+			int pageNumber = 1, 
+			int pageSize = 20, 
+			string sortDirection = "ASC")
 		{
 			sortDirection = santizeSortDirection(sortDirection);
-
+			//string sqlCommand = $@"
+			//	IF  {sortDirection} = 'DESC'
+			//		SELECT
+			//				SiteGuid,
+			//				FeatureGuid,
+			//				i.ModuleGuid,
+			//				i.ModuleID,
+			//				DefinitionGuid,
+			//				ItemGuid,
+			//				ItemID,
+			//				i.SortOrder,
+			//				CreatedUtc,
+			//				LastModUtc,
+			//				i.ViewRoles,
+			//				i.EditRoles,
+			//				ms.SettingValue AS GlobalViewSortOrder
+			//		FROM
+			//				  public.i7_sflexi_items i
+			//				  left join
+			//							mp_ModuleSettings ms
+			//							ON
+			//									  ms.ModuleGuid = i.ModuleGuid
+			//		WHERE
+			//				  DefinitionGuid   = :DefinitionGuid
+			//				  AND i.SiteGuid   = :SiteGuid
+			//				  AND ms.SettingName = 'GlobalViewSortOrder'
+			//		ORDER BY
+			//				GlobalViewSortOrder DESC,
+			//				i.SortOrder DESC,
+			//				i.CreatedUtc DESC,
+			//	ELSE IF {sortDirection} = 'ASC' 
+			//		SELECT
+			//				SiteGuid,
+			//				FeatureGuid,
+			//				i.ModuleGuid,
+			//				i.ModuleID,
+			//				DefinitionGuid,
+			//				ItemGuid,
+			//				ItemID,
+			//				i.SortOrder,
+			//				CreatedUtc,
+			//				LastModUtc,
+			//				i.ViewRoles,
+			//				i.EditRoles,
+			//				ms.SettingValue AS GlobalViewSortOrder
+			//		FROM
+			//				  public.i7_sflexi_items i
+			//				  left join
+			//							mp_ModuleSettings ms
+			//							ON
+			//									  ms.ModuleGuid = i.ModuleGuid
+			//		WHERE
+			//				  DefinitionGuid   = :DefinitionGuid
+			//				  AND i.SiteGuid   = :SiteGuid
+			//				  AND ms.SettingName = 'GlobalViewSortOrder'
+			//		ORDER BY
+			//				GlobalViewSortOrder,
+			//				i.SortOrder,
+			//				i.CreatedUtc;";
 			string sqlCommand = $@"
-				IF  {sortDirection} = 'DESC'
-					SELECT
-							SiteGuid,
-							FeatureGuid,
-							i.ModuleGuid,
-							i.ModuleID,
-							DefinitionGuid,
-							ItemGuid,
-							ItemID,
-							i.SortOrder,
-							CreatedUtc,
-							LastModUtc,
-							i.ViewRoles,
-							i.EditRoles,
-							ms.SettingValue AS GlobalViewSortOrder
-					FROM
-							  public.i7_sflexi_items i
-							  left join
-										mp_ModuleSettings ms
-										ON
-												  ms.ModuleGuid = i.ModuleGuid
-					WHERE
-							  DefinitionGuid   = :DefinitionGuid
-							  AND i.SiteGuid   = :SiteGuid
-							  AND ms.SettingName = 'GlobalViewSortOrder'
-					ORDER BY
-							GlobalViewSortOrder DESC,
-							i.SortOrder DESC,
-							i.CreatedUtc DESC,
-				ELSE IF {sortDirection} = 'ASC' 
-					SELECT
-							SiteGuid,
-							FeatureGuid,
-							i.ModuleGuid,
-							i.ModuleID,
-							DefinitionGuid,
-							ItemGuid,
-							ItemID,
-							i.SortOrder,
-							CreatedUtc,
-							LastModUtc,
-							i.ViewRoles,
-							i.EditRoles,
-							ms.SettingValue AS GlobalViewSortOrder
-					FROM
-							  public.i7_sflexi_items i
-							  left join
-										mp_ModuleSettings ms
-										ON
-												  ms.ModuleGuid = i.ModuleGuid
-					WHERE
-							  DefinitionGuid   = :DefinitionGuid
-							  AND i.SiteGuid   = :SiteGuid
-							  AND ms.SettingName = 'GlobalViewSortOrder'
-					ORDER BY
-							GlobalViewSortOrder,
-							i.SortOrder,
-							i.CreatedUtc;";
+				SELECT i.*, ms.SettingValue AS GlobalViewSortOrder, Count(i.*) OVER() AS TotalRows
+				FROM i7_sflexi_items i
+				LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
+				WHERE DefinitionGuid = ?DefGuid AND i.SiteGuid = ?SiteGuid AND ms.SettingName = 'GlobalViewSortOrder' 
+				ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, SortOrder {sortDirection}, CreatedUtc {sortDirection})
+				LIMIT ?PageSize {(pageNumber > 1 ? "OFFSET ?OffsetRows" : string.Empty)};";
+
+			int offsetRows = (pageSize * pageNumber) - pageSize;
 
 			var sqlParams = new List<NpgsqlParameter> 
 			{
-				new NpgsqlParameter(":siteguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = siteGuid },
-				new NpgsqlParameter(":definitionguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = definitionGuid }
+				new NpgsqlParameter("?DefGuid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = definitionGuid },
+				new NpgsqlParameter("?SiteGuid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = siteGuid },
+				new NpgsqlParameter("?PageSize", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = pageSize },
+				new NpgsqlParameter("?OffsetRows", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = offsetRows },
 			};
 
 			return NpgsqlHelper.ExecuteReader(
@@ -874,81 +1019,138 @@ namespace SuperFlexiData
 		}
 
 
-		public static IDataReader GetForDefinitionWithValues(Guid definitionGuid, Guid siteGuid, string sortDirection)
+		public static IDataReader GetForDefinitionWithValues(
+			Guid defGuid,
+			Guid siteGuid,
+			int pageNumber = 1,
+			int pageSize = 25,
+			string searchTerm = "",
+			string searchField = "",
+			string sortDirection = "ASC"
+			)
 		{
 			sortDirection = santizeSortDirection(sortDirection);
+			string sqlCommand;
+			//sqlCommand = $@"
+			//	IF {sortDirection} = 'DESC' 
+			//		SELECT
+			//				i.*
+			//				ms.SettingValue AS GlobalViewSortOrder,
+			//				f.Name          AS FieldName,
+			//				v.FieldValue,
+			//				v.FieldGuid
+			//		FROM
+			//				public.i7_sflexi_items i
+			//				  LEFT JOIN
+			//						mp_ModuleSettings ms
+			//							ON
+			//									ms.ModuleGuid = i.ModuleGuid
+			//				  LEFT JOIN
+			//							public.i7_sflexi_values v
+			//							ON
+			//									v.ItemGuid = i.ItemGuid
+			//				  LEFT JOIN
+			//						public.i7_sflexi_fields f
+			//							ON
+			//									f.FieldGuid = v.FieldGuid
+			//		WHERE
+			//				i.DefinitionGuid = :DefinitionGuid
+			//				AND i.SiteGuid   = :SiteGuid
+			//				AND ms.SettingName = 'GlobalViewSortOrder'
+			//		ORDER BY
+			//				GlobalViewSortOrder DESC,
+			//				i.SortOrder DESC,
+			//				i.CreatedUtc DESC
+			//	ELSE IF {sortDirection} = 'ASC' 
+			//		SELECT
+			//				i.*
+			//				ms.SettingValue AS GlobalViewSortOrder,
+			//				f.Name          AS FieldName,
+			//				v.FieldValue,
+			//				v.FieldGuid
+			//		FROM
+			//				public.i7_sflexi_items i
+			//				  LEFT JOIN
+			//						mp_ModuleSettings ms
+			//							ON
+			//									ms.ModuleGuid = i.ModuleGuid
+			//				  LEFT JOIN
+			//							public.i7_sflexi_values v
+			//							ON
+			//									v.ItemGuid = i.ItemGuid
+			//				  LEFT JOIN
+			//							public.i7_sflexi_fields f
+			//							ON
+			//									f.FieldGuid = v.FieldGuid
+			//		WHERE
+			//				i.DefinitionGuid = :DefinitionGuid
+			//				AND i.SiteGuid   = :SiteGuid
+			//				AND ms.SettingName = 'GlobalViewSortOrder'
+			//		ORDER BY
+			//				GlobalViewSortOrder,
+			//				i.SortOrder,
+			//				i.CreatedUtc;";
 
-			string commandText = $@"
-				IF {sortDirection} = 'DESC' 
-					SELECT
-							i.*
-							ms.SettingValue AS GlobalViewSortOrder,
-							f.Name          AS FieldName,
-							v.FieldValue,
-							v.FieldGuid
-					FROM
-							public.i7_sflexi_items i
-							  LEFT JOIN
-									mp_ModuleSettings ms
-										ON
-												ms.ModuleGuid = i.ModuleGuid
-							  LEFT JOIN
-										public.i7_sflexi_values v
-										ON
-												v.ItemGuid = i.ItemGuid
-							  LEFT JOIN
-									public.i7_sflexi_fields f
-										ON
-												f.FieldGuid = v.FieldGuid
-					WHERE
-							i.DefinitionGuid = :DefinitionGuid
-							AND i.SiteGuid   = :SiteGuid
-							AND ms.SettingName = 'GlobalViewSortOrder'
-					ORDER BY
-							GlobalViewSortOrder DESC,
-							i.SortOrder DESC,
-							i.CreatedUtc DESC
-				ELSE IF {sortDirection} = 'ASC' 
-					SELECT
-							i.*
-							ms.SettingValue AS GlobalViewSortOrder,
-							f.Name          AS FieldName,
-							v.FieldValue,
-							v.FieldGuid
-					FROM
-							public.i7_sflexi_items i
-							  LEFT JOIN
-									mp_ModuleSettings ms
-										ON
-												ms.ModuleGuid = i.ModuleGuid
-							  LEFT JOIN
-										public.i7_sflexi_values v
-										ON
-												v.ItemGuid = i.ItemGuid
-							  LEFT JOIN
-										public.i7_sflexi_fields f
-										ON
-												f.FieldGuid = v.FieldGuid
-					WHERE
-							i.DefinitionGuid = :DefinitionGuid
-							AND i.SiteGuid   = :SiteGuid
-							AND ms.SettingName = 'GlobalViewSortOrder'
-					ORDER BY
-							GlobalViewSortOrder,
-							i.SortOrder,
-							i.CreatedUtc;";
+			if (pageSize > -1)
+			{
+				//query with paging
+				sqlCommand = $@"
+					SELECT pg.*, f.Name AS FieldName, v.FieldValue
+					FROM (
+						SELECT i.*, ms.SettingValue AS GlobalViewSortOrder, COUNT(i.*) OVER() AS TotalRows
+						FROM i7_sflexi_items i
+						LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
+						WHERE i.ItemGuid IN (
+							SELECT DISTINCT ItemGuid
+							FROM i7_sflexi_values v
+							{(!string.IsNullOrWhiteSpace(searchField) ? "JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid" : string.Empty)}
+							WHERE v.ItemGuid = i.ItemGuid
+							{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.FieldValue LIKE ?SearchTerm" : string.Empty)}
+							{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = ?SearchField" : string.Empty)}
+						) 
+						AND i.DefinitionGuid = ?DefinitionGuid
+						AND i.SiteGuid = ?SiteGuid
+						AND ms.SettingName = 'GlobalViewSortOrder' 
+						ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, i.SortOrder {sortDirection}, i.CreatedUtc {sortDirection}
+				 		LIMIT ?PageSize
+				 		OFFSET ?OffSetRows) pg
+					JOIN i7_sflexi_values v ON  v.ItemGuid = pg.ItemGuid
+					JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
+					LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = pg.ModuleGuid
+					WHERE TotalRows > 0;";
+			}
+			else
+			{
+				//query without paging
+				sqlCommand = $@"
+					SELECT i.*, f.Name AS FieldName, v.FieldValue, ms.SettingValue AS GlobalViewSortOrder
+					FROM i7_sflexi_items i
+					JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
+					JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
+					LEFT JOIN mp_ModuleSettings ms ON ms.ModuleGuid = i.ModuleGuid
+					WHERE DefinitionGuid = ?DefGuid AND i.SiteGuid = ?SiteGuid AND ms.SettingName = 'GlobalViewSortOrder' 
+					{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.FieldValue LIKE ?SearchTerm" : string.Empty)}
+					{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = ?SearchField" : string.Empty)}
+					ORDER BY GlobalViewSortOrder {sortDirection}, i.ModuleID {sortDirection}, i.SortOrder {sortDirection}, i.CreatedUtc {sortDirection};";
+			}
+			var offsetRows = (pageSize * pageNumber) - pageSize;
 
 			var commandParameters = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter(":siteguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = siteGuid },
-				new NpgsqlParameter(":definitionguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = definitionGuid }
+				new NpgsqlParameter("?PageSize", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = pageSize },
+				new NpgsqlParameter("?OffsetRows", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = offsetRows },
+				new NpgsqlParameter("?SearchTerm", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = "%" + searchTerm + "%"},
+				new NpgsqlParameter("?SearchField", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = searchField },
+				new NpgsqlParameter("?DefinitionGuid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = defGuid },
+				new NpgsqlParameter("?SiteGuid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = siteGuid },
 			};
 			return NpgsqlHelper.ExecuteReader(
 					ConnectionString.GetWriteConnectionString(),
 					CommandType.Text,
-					commandText,
+					sqlCommand,
 					commandParameters);
 		}
+
 		public static IDataReader GetForDefinitionWithValues_Paged(
 			Guid defGuid,
 			Guid siteGuid,

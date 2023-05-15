@@ -1,19 +1,14 @@
-﻿// Author:					i7MEDIA
-// Created:					2015-03-06
-// Last Modified:			2022-12-16
-// You must not remove this notice, or any other, from this software.
-
+﻿using SuperFlexiData;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
-using SuperFlexiData;
 
 namespace SuperFlexiBusiness
 {
 
-    public class Field : Hashtable, IComparable<Field>
+	public class Field : Hashtable, IComparable<Field>
 	{
 
 		#region Constructors
