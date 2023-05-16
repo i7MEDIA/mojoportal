@@ -75,26 +75,27 @@ namespace SuperFlexiUI
 			if (Config.MarkupDefinition != null)
 			{
 				displaySettings = Config.MarkupDefinition;
+
+				if (Config.ProcessItems)
+				{
+					//Fields come with the ItemsWithValues now
+					//fields = Field.GetAllForDefinition(Config.FieldDefinitionGuid);
+
+					if (Config.IsGlobalView)
+					{
+						//items = Item.GetAllForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, Config.DescendingSort);
+						//fieldValues = ItemFieldValue.GetItemValuesByDefinition(Config.FieldDefinitionGuid);
+						itemsWithValues = ItemWithValues.GetListForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, out _, out _, descending: Config.DescendingSort);
+					}
+					else
+					{
+						//items = Item.GetForModule(ModuleId, Config.DescendingSort);
+						//fieldValues = ItemFieldValue.GetItemValuesByModule(module.ModuleGuid);
+						itemsWithValues = ItemWithValues.GetListForModule(module.ModuleGuid, out _, out _, pageSize: 0, descending: Config.DescendingSort);
+					}
+				}
 			}
 
-			if (Config.ProcessItems)
-			{
-				//Fields come with the ItemsWithValues now
-				//fields = Field.GetAllForDefinition(Config.FieldDefinitionGuid);
-
-				if (Config.IsGlobalView)
-				{
-					//items = Item.GetAllForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, Config.DescendingSort);
-					//fieldValues = ItemFieldValue.GetItemValuesByDefinition(Config.FieldDefinitionGuid);
-					itemsWithValues = ItemWithValues.GetListForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, out _, out _, descending: Config.DescendingSort);
-				}
-				else
-				{
-					//items = Item.GetForModule(ModuleId, Config.DescendingSort);
-					//fieldValues = ItemFieldValue.GetItemValuesByModule(module.ModuleGuid);
-					itemsWithValues = ItemWithValues.GetListForModule(module.ModuleGuid, out _, out _, pageSize: 0, descending: Config.DescendingSort);
-				}
-			}
 
 			if (SiteUtils.IsMobileDevice() && Config.MobileMarkupDefinition != null)
 			{

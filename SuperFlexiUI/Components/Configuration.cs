@@ -455,7 +455,7 @@ namespace SuperFlexiUI
 				if (isMobile && !useStandardMarkupOnDesktopOnly)
 				{
 					// do this so mobile settings are added to desktop
-					workingMarkupDefinition = (MarkupDefinition)markupDefinition.Clone();
+					workingMarkupDefinition = (MarkupDefinition)MarkupDefinition.Clone();
 				}
 
 				foreach (XmlNode childNode in node)
@@ -584,7 +584,7 @@ namespace SuperFlexiUI
 				}
 				else
 				{
-					markupDefinition = workingMarkupDefinition;
+					MarkupDefinition = workingMarkupDefinition;
 				}
 			}
 		}
@@ -730,8 +730,7 @@ namespace SuperFlexiUI
 		private string markupDefinitionFile = string.Empty;
 		public string MarkupDefinitionFile { get { return markupDefinitionFile; } }
 
-		private MarkupDefinition markupDefinition = null;
-		public MarkupDefinition MarkupDefinition { get { return markupDefinition; } }
+		public MarkupDefinition MarkupDefinition { get; private set; } = null;
 
 		private string markupDefinitionContent = string.Empty;
 		public string MarkupDefinitionContent { get { return markupDefinitionContent; } }

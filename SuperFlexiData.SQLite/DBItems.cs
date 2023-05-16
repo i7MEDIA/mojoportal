@@ -723,8 +723,8 @@ namespace SuperFlexiData
 							{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = :SearchField" : string.Empty)}
 						) 
 						AND i.ModuleGuid = :ModuleGuid
-						GROUP BY ItemID
-						ORDER BY SortOrder {sortDirection}, CreatedUtc {sortDirection}
+						GROUP BY i.ItemID
+						ORDER BY i.SortOrder {sortDirection}, CreatedUtc {sortDirection}
 				 		LIMIT :PageSize
 				 		OFFSET :OffSetRows) pg
 					JOIN i7_sflexi_values v ON  v.ItemGuid = pg.ItemGuid
@@ -742,7 +742,7 @@ namespace SuperFlexiData
 					WHERE i.ModuleGuid = :ModuleGuid
 					{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.FieldValue LIKE :SearchTerm" : string.Empty)}
 					{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = :SearchField" : string.Empty)}
-					ORDER BY SortOrder {sortDirection}, CreatedUtc {sortDirection};";
+					ORDER BY i.SortOrder {sortDirection}, CreatedUtc {sortDirection};";
 			}
 
 			int offsetRows = (pageSize * pageNumber) - pageSize;
