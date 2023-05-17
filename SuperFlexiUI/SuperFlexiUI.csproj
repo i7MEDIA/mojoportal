@@ -250,6 +250,8 @@
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.2.5.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\pgsql\0.0.2.5.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\sqlite\0.0.2.5.config" />
+    <Content Include="Views\SuperFlexi\_DebugInfo.cshtml" />
+    <Content Include="Views\SuperFlexi\_SuperFlexiPaging.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

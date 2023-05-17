@@ -106,8 +106,8 @@ namespace SuperFlexiBusiness
 
 		private static List<ItemWithValues> LoadListFromReader(IDataReader reader, int pageSize, out int totalPages, out int totalRows)
 		{
-			List<ItemWithValues> itemList = new List<ItemWithValues>();
-			List<Field> fields = new List<Field>();
+			List<ItemWithValues> itemList = new();
+			List<Field> fields = new();
 			totalRows = 0;
 			totalPages = 1;
 
@@ -117,7 +117,7 @@ namespace SuperFlexiBusiness
 
 				while (reader.Read())
 				{
-					ItemWithValues itemWithValues = new ItemWithValues
+					ItemWithValues itemWithValues = new()
 					{
 						Item = new Item
 						{

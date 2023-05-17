@@ -1,0 +1,54 @@
+﻿@model SuperFlexiUI.Models.WidgetModel
+
+@using Resources;
+
+@{
+	var pagination = Model.Pagination;
+	var pageSize = pagination.PageSize > 0 ? pagination.PageSize : 20;
+	var totalPages = Decimal.Ceiling((decimal)pagination.TotalItems	/ pageSize);
+
+	var pnt = $"sf{Model.Module.Id}_PageNumber";
+	var pst = $"sf{Model.Module.Id}_PageSize";
+}
+
+@if (pagination.TotalItems > pageSize)
+{
+	<nav role="navigation">
+		<ul class="pagination">
+			<li class="disabled">
+				<span class="disabled">@Resource.CutePagerPageClause @pagination.PageNumber @Resource.CutePagerOfClause @totalPages</span>
+			</li>
+
+			@if (pagination.PageNumber > 1)
+			{
+			var href = $"{Model.Page.FullUrl}?{pnt}={1}&{pst}={pageSize}";
+
+			<li>
+				<a href="@href" title="@Resource.CutePagerBackToFirstClause">
+					<i class="fa fa-angle-double-left"></i>
+				</a>
+			</li>
+			}
+
+			@for (int index = 1; index <= pagination.PageCount; index++)
+			{
+			var href = $"{Model.Page.FullUrl}?{pnt}={index}&{pst}={pageSize}";
+
+			<li class="@(pagination.PageNumber == index ? " " : string.Empty)">
+				<a href="@href" title="@Resource.CutePagerNavigateToPageText @index">@index</a>
+			</li>
+			}
+
+			@if (pagination.PageNumber < totalPages)
+			{
+			var href = $"{Model.Page.FullUrl}?{pnt}={totalPages}&{pst}={pageSize}";
+
+			<li>
+				<a href="@href" title="@Resource.CutePagerGoToLastClause">
+					<i class="fa fa-angle-double-right"></i>
+				</a>
+			</li>
+			}
+		</ul>
+	</nav>
+}

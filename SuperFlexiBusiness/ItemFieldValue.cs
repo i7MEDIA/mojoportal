@@ -259,7 +259,7 @@ namespace SuperFlexiBusiness
                     }
                     catch(IndexOutOfRangeException ex)
 					{
-                        log.Debug("FieldName isn't used by here. Might want to fix that." + ex);
+                        log.Debug($"FieldName isn't used here. Might want to fix that.\n{ex}");
 					}
                     
 					
@@ -276,15 +276,13 @@ namespace SuperFlexiBusiness
 								_totalRows = Convert.ToInt32(reader["TotalRows"]);
 							}
 						}
-						catch (System.IndexOutOfRangeException ex)
+						catch (IndexOutOfRangeException ex)
 						{
-                            //log.Debug("TotalRows isn't used by here. Might want to fix that.");
-
+                            log.Debug($"TotalRows isn't used by here. This is probably expected.\n{ex}");
                         }
                     }
 
 					valueList.Add(value);
-
                 }
             }
             finally

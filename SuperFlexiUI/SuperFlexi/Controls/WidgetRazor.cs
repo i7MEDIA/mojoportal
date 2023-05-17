@@ -22,7 +22,7 @@ namespace SuperFlexiUI
 		private static readonly ILog log = LogManager.GetLogger(typeof(WidgetRazor));
 		protected TimeZoneInfo timeZone = null;
 
-		private int pageNumber = 0;
+		private int pageNumber = 1;
 		private int pageSize = 0;
 		private int totalPages = -1;
 		private int totalRows = -1;
@@ -313,6 +313,7 @@ namespace SuperFlexiUI
 				{
 					Id = CurrentPage.PageId,
 					Url = CurrentPage.Url,
+					FullUrl = SiteUtils.GetNavigationSiteRoot() + CurrentPage.Url.Replace("~/","/"),
 					Name = CurrentPage.PageName
 				},
 				Site = new SiteModel

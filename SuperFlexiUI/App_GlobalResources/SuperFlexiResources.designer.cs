@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
+        ///   Looks up a localized string similar to Add Item.
         /// </summary>
         internal static string AddItem {
             get {
@@ -241,7 +241,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to Edit Item.
         /// </summary>
         internal static string EditLink {
             get {
@@ -259,7 +259,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export Records.
+        ///   Looks up a localized string similar to Export Items.
         /// </summary>
         internal static string ExportTitle {
             get {
@@ -331,7 +331,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import Records.
+        ///   Looks up a localized string similar to Import Items.
         /// </summary>
         internal static string ImportTitle {
             get {

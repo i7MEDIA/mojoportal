@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddItem" xml:space="preserve">
-    <value>Add</value>
+    <value>Add Item</value>
   </data>
   <data name="CancelButton" xml:space="preserve">
     <value>Cancel</value>
@@ -142,7 +142,7 @@
     <value>Are you sure you want to delete this item?</value>
   </data>
   <data name="EditLink" xml:space="preserve">
-    <value>Edit</value>
+    <value>Edit Item</value>
   </data>
   <data name="ViewOrderRequiredHelp" xml:space="preserve">
     <value>You Must Enter a Valid View Order</value>
@@ -250,10 +250,10 @@
     <value>Permissions</value>
   </data>
   <data name="ImportTitle" xml:space="preserve">
-    <value>Import Records</value>
+    <value>Import Items</value>
   </data>
   <data name="ExportTitle" xml:space="preserve">
-    <value>Export Records</value>
+    <value>Export Items</value>
   </data>
   <data name="ImportInstructions" xml:space="preserve">
     <value>You can import from a CSV file. The first row of the file must contain the names of each column. Order of the columns is not important.</value>

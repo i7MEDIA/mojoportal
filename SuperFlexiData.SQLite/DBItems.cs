@@ -272,7 +272,7 @@ namespace SuperFlexiData
 
 					SELECT pg.*, f.Name AS FieldName, v.FieldValue
 					FROM (
-						SELECT i.*, COUNT(*) AS TotalRows
+						SELECT i.*, count(*) over() AS TotalRows
 						FROM i7_sflexi_items i
 						WHERE {getItems()}
 						AND i.DefinitionGuid = ?DefinitionGuid
@@ -312,8 +312,8 @@ namespace SuperFlexiData
 			{
 				new SqliteParameter("?PageSize", DbType.Int32){ Direction = ParameterDirection.Input, Value = pageSize },
 				new SqliteParameter("?OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
-				new SqliteParameter("?DefinitionGuid", DbType.Guid) { Direction = ParameterDirection.Input, Value = defGuid },
-				new SqliteParameter("?SiteGuid", DbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid }
+				new SqliteParameter("?DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = defGuid },
+				new SqliteParameter("?SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid }
 			});
 
 			return SqliteHelper.ExecuteReader(
@@ -661,7 +661,7 @@ namespace SuperFlexiData
             var commandText = $@"
                 SELECT *
 					FROM (
-						SELECT *, COUNT(*) AS TotalRows
+						SELECT *, count(*) over() AS TotalRows
 						FROM i7_sflexi_items i
 						WHERE i.ModuleID = :ModuleID) t
 					WHERE TotalRows > 0
@@ -710,39 +710,40 @@ namespace SuperFlexiData
 			{
 				//query with paging
 				sqlCommand = $@"		
-					SELECT pg.*, f.Name AS FieldName, v.FieldValue
-					FROM (
-						SELECT i.*, COUNT(*) AS TotalRows
-						FROM i7_sflexi_items i
-						WHERE i.ItemGuid IN (
-							SELECT DISTINCT ItemGuid
-							FROM i7_sflexi_values v
-							{(!string.IsNullOrWhiteSpace(searchField) ? "JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid" : string.Empty)}
-							WHERE v.ItemGuid = i.ItemGuid
-							{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.FieldValue LIKE :SearchTerm" : string.Empty)}
-							{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = :SearchField" : string.Empty)}
-						) 
-						AND i.ModuleGuid = :ModuleGuid
-						GROUP BY i.ItemID
-						ORDER BY i.SortOrder {sortDirection}, CreatedUtc {sortDirection}
-				 		LIMIT :PageSize
-				 		OFFSET :OffSetRows) pg
-					JOIN i7_sflexi_values v ON  v.ItemGuid = pg.ItemGuid
-					JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
-					WHERE TotalRows > 0;";
+SELECT pg.*, f.Name AS FieldName, v.FieldValue
+FROM (
+	SELECT i.*
+	,Count(*) OVER () AS TotalRows
+	FROM i7_sflexi_items i
+	WHERE i.ItemGuid IN (
+		SELECT DISTINCT ItemGuid
+		FROM i7_sflexi_values v
+		{(!string.IsNullOrWhiteSpace(searchField) ? "JOIN i7_sflexi_fields f ON f.FieldGuid = v.FieldGuid" : string.Empty)}
+		WHERE v.ItemGuid = i.ItemGuid
+		{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.FieldValue LIKE :SearchTerm" : string.Empty)}
+		{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = :SearchField" : string.Empty)}
+	) 
+	AND i.ModuleGuid = :ModuleGuid
+	GROUP BY i.ItemID
+	ORDER BY i.SortOrder {sortDirection}, CreatedUtc {sortDirection}
+	LIMIT :PageSize
+	OFFSET :OffSetRows) pg
+JOIN i7_sflexi_values v ON  v.ItemGuid = pg.ItemGuid
+JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
+WHERE TotalRows > 0;";
 			}
 			else
 			{
 				//query without paging
 				sqlCommand = $@"
-					SELECT i.*, f.Name AS FieldName, v.FieldValue
-					FROM i7_sflexi_items i
-					JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
-					JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
-					WHERE i.ModuleGuid = :ModuleGuid
-					{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.FieldValue LIKE :SearchTerm" : string.Empty)}
-					{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = :SearchField" : string.Empty)}
-					ORDER BY i.SortOrder {sortDirection}, CreatedUtc {sortDirection};";
+SELECT i.*, f.Name AS FieldName, v.FieldValue
+FROM i7_sflexi_items i
+JOIN i7_sflexi_values v ON v.ItemGuid = i.ItemGuid
+JOIN i7_sflexi_fields f ON v.FieldGuid = f.FieldGuid
+WHERE i.ModuleGuid = :ModuleGuid
+{(!string.IsNullOrWhiteSpace(searchTerm) ? "AND v.FieldValue LIKE :SearchTerm" : string.Empty)}
+{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.Name = :SearchField" : string.Empty)}
+ORDER BY i.SortOrder {sortDirection}, CreatedUtc {sortDirection};";
 			}
 
 			int offsetRows = (pageSize * pageNumber) - pageSize;
@@ -753,7 +754,7 @@ namespace SuperFlexiData
 				new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
 				new SqliteParameter(":SearchTerm", DbType.String, 255) { Direction = ParameterDirection.Input, Value = "%" + searchTerm + "%"},
 				new SqliteParameter(":SearchField", DbType.String, 50) { Direction = ParameterDirection.Input, Value = searchField },
-				new SqliteParameter(":ModuleGuid", DbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid }
+				new SqliteParameter(":ModuleGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = moduleGuid }
 			};
 
 			return SqliteHelper.ExecuteReader(
@@ -777,66 +778,66 @@ namespace SuperFlexiData
             if (string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
             {
                 commandText = $@"
-                    SELECT TOP (:PageSize) *
-                    FROM
-                        (
-                            SELECT RowID = ROWNUMBER() OVER (ORDER BY i.SortOrder),
-                                    TotalRows = Count(*) OVER (),
-                                    i.*,
-                                    v.FieldValue,
-                                    f.Name AS FieldName,
-                                    v.FieldGuid
-                            FROM i7_sflexi_items i
-                            JOIN
-                                (
-                                    SELECT DISTINCT ItemGuid, FieldValue, FieldGuid
-                                    FROM i7_sflexi_values
-                                    WHERE FieldValue LIKE '%' + :SearchTerm + '%'
-                                )
-                                v
-                            ON v.ItemGuid = i.ItemGuid
-                            JOIN i7_sflexi_fields f
-                            ON f.FieldGuid = v.FieldGuid
-                            WHERE ModueGuid = :ModuleGuid
-                        )
-                        a
-                    WHERE a.RowID > ((:PageNumber -1) * :PageSize)
-                    ORDER BY SortOrder {sortDirection}";
+SELECT TOP (:PageSize) *
+FROM
+    (
+        SELECT RowID = ROWNUMBER() OVER (ORDER BY i.SortOrder),
+                TotalRows = Count(*) OVER (),
+                i.*,
+                v.FieldValue,
+                f.Name AS FieldName,
+                v.FieldGuid
+        FROM i7_sflexi_items i
+        JOIN
+            (
+                SELECT DISTINCT ItemGuid, FieldValue, FieldGuid
+                FROM i7_sflexi_values
+                WHERE FieldValue LIKE '%' + :SearchTerm + '%'
+            )
+            v
+        ON v.ItemGuid = i.ItemGuid
+        JOIN i7_sflexi_fields f
+        ON f.FieldGuid = v.FieldGuid
+        WHERE ModueGuid = :ModuleGuid
+    )
+    a
+WHERE a.RowID > ((:PageNumber -1) * :PageSize)
+ORDER BY SortOrder {sortDirection}";
             }
             else if (!string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
             {
                 commandText = $@"
-                    SELECT ItemID, TotalRows = Count(*) OVER ()
-                    INTO TEMP TABLE ItemsToGet
-                    FROM i7_sflexi_values v
-                    JOIN
-                        (
-                            SELECT DISTINCT FieldGuid, Name AS FieldName
-                            FROM i7_sflexi_fields
-                            WHERE Name = :SearchField
-                        ) f
-                        ON f.FieldGuid = v.FieldGuid
-                    JOIN i7_sflexi_items items ON items.ItemGuid = v.ItemGuid
-                    WHERE FieldValue LIKE '%' + :SearchTerm + '%'
-                    AND v.ModuleGuid = :ModuleGuid
-                    ORDER BY SortOrder {sortDirection}
-                    OFFSET ((:PageNumber - 1) * :PageSize) ROWS
-                    FETCH NEXT :PageSize ROWS ONLY;
+SELECT ItemID, TotalRows = Count(*) OVER ()
+INTO TEMP TABLE ItemsToGet
+FROM i7_sflexi_values v
+JOIN
+    (
+        SELECT DISTINCT FieldGuid, Name AS FieldName
+        FROM i7_sflexi_fields
+        WHERE Name = :SearchField
+    ) f
+    ON f.FieldGuid = v.FieldGuid
+JOIN i7_sflexi_items items ON items.ItemGuid = v.ItemGuid
+WHERE FieldValue LIKE '%' + :SearchTerm + '%'
+AND v.ModuleGuid = :ModuleGuid
+ORDER BY SortOrder {sortDirection}
+OFFSET ((:PageNumber - 1) * :PageSize) ROWS
+FETCH NEXT :PageSize ROWS ONLY;
 
-                    SELECT TotalRows, i.*, v.FieldValue, f.FieldName, v.FieldGuid
-                    From i7_sflexi_items i 
-                    JOIN
-                        (
-                            SELECT DISTINCT ItemGuid, FieldGuid, FieldVlaue
-                            FROM i7_sflexi_values
-                        ) v ON v.ItemGuid = i.ItemGuid
-                    JOIN
-                        (
-                            SELECT DISTINCT FieldGiud, Name AS FieldName
-                            FROM i7_sflexi_fields
-                        ) f ON f.FeldGuid = v.FieldGuid
-                    JOIN ItemsToGet ON ItemsToGet.ItemID = i.ItemID;
-                    DROP TABLE ItemsToGet;";
+SELECT TotalRows, i.*, v.FieldValue, f.FieldName, v.FieldGuid
+From i7_sflexi_items i 
+JOIN
+    (
+        SELECT DISTINCT ItemGuid, FieldGuid, FieldVlaue
+        FROM i7_sflexi_values
+    ) v ON v.ItemGuid = i.ItemGuid
+JOIN
+    (
+        SELECT DISTINCT FieldGiud, Name AS FieldName
+        FROM i7_sflexi_fields
+    ) f ON f.FeldGuid = v.FieldGuid
+JOIN ItemsToGet ON ItemsToGet.ItemID = i.ItemID;
+DROP TABLE ItemsToGet;";
             }
             else
             {

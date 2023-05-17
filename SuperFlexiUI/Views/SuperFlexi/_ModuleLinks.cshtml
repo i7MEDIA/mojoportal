@@ -1,23 +1,24 @@
-﻿<span class="modulelinks">
-	<a class="ModuleEditLink flexi-settings" href="~/Admin/ModuleSettings.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id"><span class="fa fa-cog"></span> Settings</a>
+﻿@using Resources;
+<span class="modulelinks">
+	<a class="ModuleEditLink flexi-settings" href="~/Admin/ModuleSettings.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id"><span class="fa fa-cog"></span> @SuperFlexiResources.SettingsLinkLabel</a>
 	@if (Model.Config.MaxItems == -1 || Model.Config.MaxItems > Model.Items.Count)
 	{
-		<a class="ModuleEditLink flexi-item-add" href="~/SuperFlexi/Edit.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id"><span class="fa fa-plus"></span> Add Item</a>
+		<a class="ModuleEditLink flexi-item-add" href="~/SuperFlexi/Edit.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id"><span class="fa fa-plus"></span> @SuperFlexiResources.AddItem</a>
 	}
 	@if (Model.Config.UseHeader)
 	{
-		<a class="ModuleEditLink flexi-header-edit" href="~/SuperFlexi/EditHeader.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id"><span class="fa fa-edit"></span> Edit Header</a>
+		<a class="ModuleEditLink flexi-header-edit" href="~/SuperFlexi/EditHeader.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id"><span class="fa fa-edit"></span> @SuperFlexiResources.EditHeader</a>
 	}
 	@if (Model.Config.UseFooter)
 	{
-		<a class="ModuleEditLink flexi-footer-edit" href="~/SuperFlexi/EditFooter.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id"><span class="fa fa-edit"></span> Edit Footer</a>
+		<a class="ModuleEditLink flexi-footer-edit" href="~/SuperFlexi/EditFooter.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id"><span class="fa fa-edit"></span> @SuperFlexiResources.EditFooter</a>
 	}
 	@if (Model.Config.AllowImport)
 	{
-		<a class='ModuleEditLink flexi-import-link' href='~/SuperFlexi/Import.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id'><span class='fa fa-upload'></span>&nbsp;Import</a>
+		<a class='ModuleEditLink flexi-import-link' href='~/SuperFlexi/Import.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id'><span class='fa fa-upload'></span> @SuperFlexiResources.ImportTitle</a>
 	}
 	@if (Model.Config.AllowExport)
 	{
-		<a class='ModuleEditLink flexi-export-link' href='~/SuperFlexi/Export.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id'><span class='fa fa-download'></span>&nbsp;Export</a>
+		<a class='ModuleEditLink flexi-export-link' href='~/SuperFlexi/Export.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id'><span class='fa fa-download'></span> @SuperFlexiResources.ExportTitle</a>
 	}
 </span>
