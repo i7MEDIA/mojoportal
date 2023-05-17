@@ -432,3 +432,16 @@ Web/App_GlobalResources/BetterImageGalleryResources\.resx
 Web/Data/sqlitedb/mojo\.db\.config
 /Web/Data/skins/artisteer-sample
 /Web/ClientScript/air-datepicker
+/Web/Data/HelpFiles/en-US-EventCalendarDefaultUrlPrefix-help.config
+/Documents/xml
+/Web/JobBoard
+/Web/Setup/applications/JobBoard
+/Web/Setup/applications/Streaming
+/Web/Setup/initialcontent/supplementaladminmenulinks/00001_i7_Streaming.config
+/Web/Setup/ProviderConfig/contentdeletehandlers/jobboardcontentdeletehandler.config
+/Web/Setup/ProviderConfig/sitepredeletehandlers/701_jobboarddeleter.config
+/Web/Streaming
+/Web/Data/HelpFiles/en-US-JobBoard-NoJobsMessage-Help.config
+/Web/Data/style/JobBoard
+/Web/App_GlobalResources/StreamingResources.resx
+/Web/App_GlobalResources/JobBoardResources.resx
