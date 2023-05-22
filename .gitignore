@@ -445,3 +445,6 @@ Web/Data/sqlitedb/mojo\.db\.config
 /Web/Data/style/JobBoard
 /Web/App_GlobalResources/StreamingResources.resx
 /Web/App_GlobalResources/JobBoardResources.resx
+/Web/Views/Shared/_StreamingVideoList.cshtml
+/Web/Views/Shared/_StreamingTagList.cshtml
+/Web/Views/Shared/_StreamingChannelList.cshtml

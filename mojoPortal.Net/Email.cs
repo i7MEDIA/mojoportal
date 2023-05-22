@@ -632,8 +632,8 @@ namespace mojoPortal.Net
                 {
                     try
                     {
-                        MailAddress replyAddress = new MailAddress(replyTo);
-                        mail.ReplyTo = replyAddress;
+                        MailAddress replyAddress = new(replyTo);
+                        mail.ReplyToList.Add(replyAddress);
                     }
                     catch (ArgumentException)
                     {
