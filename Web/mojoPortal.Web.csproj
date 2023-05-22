@@ -587,6 +587,7 @@
     <Content Include="Controls\Microsoft\BingMapZoomSetting.ascx" />
     <Content Include="Controls\Microsoft\BingSearchControl.ascx" />
     <Content Include="Controls\ModuleWrapper.ascx" />
+    <Content Include="Controls\mojoRating.ascx" />
     <Content Include="Controls\NeatUploadStylesheet.ascx" />
     <Content Include="Controls\PageSelectorSetting.ascx" />
     <Content Include="Controls\PaymentLogList.ascx" />
@@ -1237,6 +1238,13 @@
     <Compile Include="Controls\Microsoft\BingSearchContainer.cs" />
     <Compile Include="Controls\MobileSkinLink.cs" />
     <Compile Include="Controls\mojoListBox.cs" />
+    <Compile Include="Controls\mojoRating.ascx.cs">
+      <DependentUpon>mojoRating.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\mojoRating.ascx.designer.cs">
+      <DependentUpon>mojoRating.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\mojoRegisterButton.cs" />
     <Compile Include="Controls\mojoScriptManager.cs" />
     <Compile Include="Controls\mojoTextBox.cs" />
