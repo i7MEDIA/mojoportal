@@ -1,0 +1,29 @@
+@model SuperFlexiUI.Models.WidgetModel
+
+@using mojoPortal.Business.WebHelpers;
+@using mojoPortal.Business;
+@using Resources;
+@Html.Partial("_ModuleTitle")
+@if (Model.Items.Count > 0)
+{
+    dynamic item = @Model.Items[0];
+    <script>
+    (function() {
+        const cookieConsent = new CookieConsent({
+            target: document.body,
+            props: {
+                backgroundColor: '@item.BackgroundColor',
+                color: '@item.Color',
+                content: '@item.Content',
+                editLinkUrl: '@Html.Raw(item.EditUrl)',
+                buttons: [{
+                    text: 'Accept',
+                    callback: 'close'
+                }]
+            }
+        });
+    })();
+    </script>
+}
+
+@Html.Partial("_DebugInfo")

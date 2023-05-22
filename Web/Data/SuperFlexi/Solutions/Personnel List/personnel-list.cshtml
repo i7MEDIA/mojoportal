@@ -1,0 +1,35 @@
+@model SuperFlexiUI.Models.WidgetModel
+
+@using mojoPortal.Business.WebHelpers;
+@using mojoPortal.Business;
+@using Resources;
+
+<div class="personnel-list" id="module@Model.Module.Id" data-contentsection="@Model.Config.ModuleFriendlyName">
+    @Html.Partial("_ModuleTitle")
+
+    @if(Model.Config.UseHeader && !string.IsNullOrWhiteSpace(Model.Config.HeaderContent))
+    {
+        <div class="personnel-list__header">@Html.Raw(Model.Config.HeaderContent)</div>
+
+    }
+    <div class="personnel-list__items row">
+        @foreach(dynamic item in Model.Items)
+        {
+            <div class="personnel-list__item col-sm-6 flex-children flex-row flex-stretch" data-photo="@item.img">
+                <div class="personnel-list__image">
+                    <img src="@item.img" alt="@item.name - @item.position"/>
+                </div>
+                <div class="personnel-list__details">
+                    <h4>@item.name <a class="ModuleEditLink flexi-item-edit" href="@item.EditUrl"><span class="fa fa-edit"></span> @SuperFlexiResources.EditLink</a></h4>
+                    <p class="personnel-list__position"> @item.position</p>
+                    <p class="personnel-list__description">@item.description</p>
+                </div>
+            </div>
+        }
+    </div>
+    @if(Model.Config.UseFooter && !string.IsNullOrWhiteSpace(Model.Config.FooterContent))
+    {
+        <div class="personnel-list__footer">@Html.Raw(Model.Config.FooterContent)</div>
+    }
+    @Html.Partial("_DebugInfo")
+</div>

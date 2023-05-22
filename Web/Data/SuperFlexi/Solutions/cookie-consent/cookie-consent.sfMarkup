@@ -16,43 +16,9 @@
 		hideInnerBodyPanel="true"
 		maxItems="1"
 		showSaveAsNewButton="false"
+		viewName="cookie-consent.cshtml"
+		debug="false"
 	>
-		<ModuleTitleFormat><![CDATA[<$_ModuleTitleElement_$ class="cookie-consent__title moduletitle" data-moduleid="module$_ModuleID_$">{0}</$_ModuleTitleElement_$>]]></ModuleTitleFormat>
-		<ModuleTitleMarkup><![CDATA[$_ModuleTitle_$ $_ModuleLinks_$]]></ModuleTitleMarkup>
-		<ModuleLinksFormat><![CDATA[<div class="cookie-consent__module-links modulelinks flexi-module-links">{0} {1} {2} {3}</div>]]></ModuleLinksFormat>
-
-		<ModuleInstanceMarkupTop></ModuleInstanceMarkupTop>
-		<ModuleInstanceMarkupBottom></ModuleInstanceMarkupBottom>
-
-		<ModuleSettingsLinkFormat><![CDATA[<a class="ModuleEditLink flexi-settings" href="{0}"><span class="fa fa-cog"></span> Cookie Consent Settings</a> ]]></ModuleSettingsLinkFormat>
-		<AddItemLinkFormat><![CDATA[<a class="ModuleEditLink flexi-item-add" href="{0}"><span class="fa fa-plus"></span> Add Cookie Consent</a> ]]></AddItemLinkFormat>
-		<EditHeaderLinkFormat><![CDATA[<a class="ModuleEditLink flexi-header-edit" href="{0}">Edit Header</a> ]]></EditHeaderLinkFormat>
-		<EditFooterLinkFormat><![CDATA[<a class="ModuleEditLink flexi-footer-edit" href="{0}">Edit Footer</a> ]]></EditFooterLinkFormat>
-		<ItemEditLinkFormat>{0}</ItemEditLinkFormat>
-
-		<HeaderContentFormat><![CDATA[<div class="cookie-consent__header">{0}</div>]]></HeaderContentFormat>
-		<FooterContentFormat><![CDATA[<div class="cookie-consent__footer">{0}</div>]]></FooterContentFormat>
-
-		<ItemsWrapperFormat><![CDATA[{0}]]></ItemsWrapperFormat>
-
-		<ItemMarkup><![CDATA[<script>
-(function() {
-	const cookieConsent = new CookieConsent({
-		target: document.body,
-		props: {
-			backgroundColor: '$BackgroundColor$',
-			color: '$Color$',
-			content: '$Content$',
-			editLinkUrl: '$_EditLink_$',
-			buttons: [{
-				text: 'Accept',
-				callback: 'close'
-			}]
-		}
-	});
-})();
-</script>]]></ItemMarkup>
-
 		<Styles>
 			<Style name="cookieConsentBaseCSS" href="css/cookie-consent.css"></Style>
 		</Styles>
