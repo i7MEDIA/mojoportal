@@ -1,6 +1,7 @@
 ﻿using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Configuration;
 using mojoPortal.Core.Helpers;
 using mojoPortal.FileSystem;
 using mojoPortal.Web.Framework;
@@ -23,6 +24,30 @@ namespace mojoPortal.Web.Controllers.FileManager
 		[HttpPost]
 		public FileService.ReturnObject UploadFiles()
 		{
+
+			if (!AppConfig.EnableUploads)
+			{
+				log.Info(Resource.UploadDisabledMessage);
+				return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = Resource.UploadDisabledMessage });
+			}
+
+			var context = HttpContext.Current;
+			HttpFileCollection files = context.Request.Files.Count > 0 ? context.Request.Files : null;
+
+			if (files.Count == 0)
+			{
+				log.Info(Resource.NoFileSelectedWarning);
+				return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = Resource.NoFileSelectedWarning });
+			}
+
+			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+
+			if (siteSettings == null)
+			{
+				return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = Resource.FileSystemSiteSettingsNotLoaded });
+			}
+
+			//ensure we can access file system
 			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
 			if (p == null)
 			{
@@ -38,11 +63,9 @@ namespace mojoPortal.Web.Controllers.FileManager
 			}
 
 			virtualPath = fileSystem.VirtualRoot;
-			var context = HttpContext.Current;
-			HttpFileCollection files = context.Request.Files.Count > 0 ? context.Request.Files : null;
+			
 			OpResult results = OpResult.Error;
-			StringBuilder errors = new StringBuilder();
-			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+			StringBuilder errors = new();
 			string uploadPath = virtualPath;
 			bool canUpload = (
 				WebUser.IsAdminOrContentAdmin ||
@@ -52,22 +75,7 @@ namespace mojoPortal.Web.Controllers.FileManager
 				WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor)
 			);
 
-			if (files.Count == 0)
-			{
-				log.Info(Resource.NoFileSelectedWarning);
-				return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = Resource.NoFileSelectedWarning });
-			}
 
-			if (WebConfigSettings.DisableFileManager)
-			{
-				log.Info(Resource.FileManagerDisabledMessage);
-				return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = Resource.FileManagerDisabledMessage });
-			}
-
-			if (siteSettings == null)
-			{
-				return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = Resource.FileSystemSiteSettingsNotLoaded });
-			}
 
 			if (!canUpload)
 			{
@@ -85,7 +93,7 @@ namespace mojoPortal.Web.Controllers.FileManager
 
 				if (fileUploadsRemaining < files.Count)
 				{
-					log.Info("upload rejected due to fileSystem.Permission.MaxFiles");
+					log.Warn("upload rejected due to fileSystem.Permission.MaxFiles");
 
 					string errorMessage;
 
