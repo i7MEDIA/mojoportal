@@ -6,10 +6,10 @@ using System.Text;
 
 namespace mojoPortal.Web.Framework
 {
-    /// <summary>
-    /// A helper class for various cultures that are not as well supported in ASP.nET
-    /// </summary>
-    public static class CultureHelper
+	/// <summary>
+	/// A helper class for various cultures that are not as well supported in ASP.nET
+	/// </summary>
+	public static class CultureHelper
     {
         public static CultureInfo GetPersianCulture()
         {
@@ -40,7 +40,7 @@ namespace mojoPortal.Web.Framework
             PersianCalendar cal = new PersianCalendar();
 
             // 2010-07-18 this part throws an error under .NET 4, Asad says it is still needed for 3.5
-            if (ConfigHelper.GetBoolProperty("UseNet35PersianHelper", false)) //this setting is true in the We.config for 3.5 .NET but not 4.0
+            if (Core.Configuration.ConfigHelper.GetBoolProperty("UseNet35PersianHelper", false)) //this setting is true in the Web.config for 3.5 .NET but not 4.0
             {
                 typeof(DateTimeFormatInfo).GetField("calendar", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).SetValue(info, cal);
                 object obj = typeof(DateTimeFormatInfo).GetField("m_cultureTableRecord",
