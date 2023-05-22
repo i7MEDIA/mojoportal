@@ -517,6 +517,7 @@
     <Content Include="Content\FileManager\src\templates\navbar.html" />
     <Content Include="Content\FileManager\src\templates\sidebar.html" />
     <Content Include="Content\FileManager\src\templates\spinner.html" />
+    <Content Include="Content\Templates\mojoModal.html" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />

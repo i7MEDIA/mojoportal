@@ -15,8 +15,8 @@ namespace mojoPortal.Web.Components
 		public string License { get; set; } = "EPL";
 		public string SupportUrl { get; set; } = "https://www.mojoportal.com";
 		public string HelpLinkScriptPath { get; set; } = "~/ClientScript/mojoHelpLinkScript.js";
-		public string ModalTemplatePath { get; set; } = "";
-		public string ModalScriptPath { get; set; } = "";
+		public string ModalTemplatePath { get; set; } = "~/Content/Templates/mojoModal.html";
+		public string ModalScriptPath { get; set; } = "~/ClientScript/mojoModalScript.js";
 		public string CompatibleWith { get; set; } = "n/a";
 		public List<SkinContentTemplate> Templates { get; set; } = new();
 		public List<SkinStyle> Styles { get; set; } = new();
@@ -108,6 +108,12 @@ namespace mojoPortal.Web.Components
 				skinConfig.HelpLinkScriptPath = resolveFilePath(skinConfig.HelpLinkScriptPath, skinUrlPath);
 				skinConfig.ModalScriptPath = resolveFilePath(skinConfig.ModalScriptPath, skinUrlPath);
 				skinConfig.ModalTemplatePath = resolveFilePath(skinConfig.ModalTemplatePath, skinUrlPath);
+			}
+			else
+			{
+				skinConfig.HelpLinkScriptPath = VirtualPathUtility.ToAbsolute(skinConfig.HelpLinkScriptPath);
+				skinConfig.ModalScriptPath = VirtualPathUtility.ToAbsolute(skinConfig.ModalScriptPath);
+				skinConfig.ModalTemplatePath = VirtualPathUtility.ToAbsolute(skinConfig.ModalTemplatePath);
 			}
 			return skinConfig;
 		}
