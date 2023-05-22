@@ -1882,19 +1882,9 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("AjaxToolkitUseCdnForBundle", true); }
 		}
 
-		//public static string AjaxToolkitJsBundleCdnUrl
-		//{
-		//	get { return ConfigHelper.GetStringProperty("AjaxToolkitJsBundleCdnUrl", "https://ajax.aspnetcdn.com/ajax/act/15.1.1/Scripts/AjaxControlToolkit/Bundle.js"); }
-		//}
-
-		//public static string AjaxToolkitCssBundleCdnUrl
-		//{
-		//	get { return ConfigHelper.GetStringProperty("AjaxToolkitCssBundleCdnUrl", "https://ajax.aspnetcdn.com/ajax/act/15.1.1/Content/AjaxControlToolkit/Styles/Bundle.css"); }
-		//}
-
 		public static bool DisableAjaxToolkitBundlesAndScriptReferences
 		{
-			get { return ConfigHelper.GetBoolProperty("DisableAjaxToolkitBundlesAndScriptReferences", false); }
+			get { return ConfigHelper.GetBoolProperty("DisableAjaxToolkitBundlesAndScriptReferences", true); }
 		}
 
 		public static string GoogleCDNjQueryVersion

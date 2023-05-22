@@ -64,7 +64,7 @@ namespace mojoPortal.Web.Optimization
                 ScriptManager.ScriptResourceMapping.AddDefinition("AjaxToolkitBundle", new ScriptResourceDefinition
                 {
                     Path = "~/Scripts/AjaxControlToolkit/Bundle",
-                    //CdnPath = $"{protocol}://ajax.aspnetcdn.com/ajax/act/16_1_0/Scripts/AjaxControlToolkit/Bundle.js",
+                    CdnPath = $"{protocol}://ajax.aspnetcdn.com/ajax/act/20_1_0/Scripts/AjaxControlToolkit/Bundle.js",
                     CdnSupportsSecureConnection = true
                 });
 
