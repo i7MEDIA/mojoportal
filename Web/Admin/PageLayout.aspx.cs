@@ -1,15 +1,3 @@
-// Author:                     
-// Created:                    2004-08-22
-// Last Modified:              2018-03-29
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software. 
-
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -186,6 +174,12 @@ namespace mojoPortal.Web.AdminUI
 			{
 				BindFeatureList();
 				BindPanes();
+
+				UIHelper.AddConfirmationDialog(LeftDeleteBtn, Resource.PageLayoutRemoveContentWarning);
+				UIHelper.AddConfirmationDialog(ContentDeleteBtn, Resource.PageLayoutRemoveContentWarning);
+				UIHelper.AddConfirmationDialog(RightDeleteBtn, Resource.PageLayoutRemoveContentWarning);
+				if (pageHasAltContent1) UIHelper.AddConfirmationDialog(btnDeleteAlt1, Resource.PageLayoutRemoveContentWarning);
+				if (pageHasAltContent2) UIHelper.AddConfirmationDialog(btnDeleteAlt2, Resource.PageLayoutRemoveContentWarning);
 			}
 
 		}
@@ -219,8 +213,6 @@ namespace mojoPortal.Web.AdminUI
 			{
 				BindPaneModules(contentPane, "altcontent2");
 			}
-
-
 		}
 
 		private void BindFeatureList()
@@ -277,7 +269,7 @@ namespace mojoPortal.Web.AdminUI
 
 				}
 			}
-
+			
 			return paneModules;
 		}
 
@@ -288,12 +280,21 @@ namespace mojoPortal.Web.AdminUI
 			{
 				if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, pane))
 				{
-					ListItem listItem = new ListItem(module.ModuleTitle.Coalesce(Resource.ContentNoTitle), module.ModuleId.ToInvariantString());
+					var moduleTitle = module.ModuleTitle.Coalesce(Resource.ContentNoTitle);
+					var useElementTitle = false;
+					if (module.ModuleTitle.Length > 50)
+					{
+						moduleTitle = moduleTitle.Substring(0, 48) + "...";
+						useElementTitle = true;
+					}
+					ListItem listItem = new(moduleTitle, module.ModuleId.ToInvariantString());
+					if (useElementTitle)
+					{
+						listItem.Attributes.Add("title", module.ModuleTitle);
+					}
 					listControl.Items.Add(listItem);
-
 				}
 			}
-
 		}
 
 
@@ -677,9 +678,9 @@ namespace mojoPortal.Web.AdminUI
 			if (listbox.SelectedIndex != -1)
 			{
 
-				int mid = Int32.Parse(listbox.SelectedItem.Value);
+				int mid = int.Parse(listbox.SelectedItem.Value);
 
-				Module m = new Module(mid);
+				//Module m = new Module(mid);
 
 				if (WebConfigSettings.LogIpAddressForContentDeletions)
 				{
@@ -690,12 +691,11 @@ namespace mojoPortal.Web.AdminUI
 						userName = currentUser.Name;
 					}
 
-					log.Info("user " + userName + " removed module " + m.ModuleTitle + " from page " + CurrentPage.PageName + " from ip address " + SiteUtils.GetIP4Address());
-
+					log.Info($"user {userName} with ip address {SiteUtils.GetIP4Address()}, removed module {listbox.SelectedItem.Text} from page {CurrentPage.PageName}");
 				}
 
 				Module.DeleteModuleInstance(mid, pageID);
-				mojoPortal.SearchIndex.IndexHelper.RebuildPageIndexAsync(new PageSettings(siteSettings.SiteId, pageID));
+				SearchIndex.IndexHelper.RebuildPageIndexAsync(new PageSettings(siteSettings.SiteId, pageID));
 
 			}
 
@@ -820,9 +820,6 @@ namespace mojoPortal.Web.AdminUI
 			btnDeleteAlt1.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
 			btnDeleteAlt1.Attributes.Add("title", Resource.PageLayoutAlt1EditButton);
 
-			UIHelper.AddConfirmationDialog(btnDeleteAlt1, Resource.PageLayoutRemoveContentWarning);
-
-
 			//
 			// Left
 			//
@@ -851,9 +848,6 @@ namespace mojoPortal.Web.AdminUI
 			LeftDeleteBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutDeleteButtonInnerHtml, Resource.PageLayoutLeftDeleteAlternateText)));
 			LeftDeleteBtn.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
 			LeftDeleteBtn.Attributes.Add("title", Resource.PageLayoutLeftDeleteAlternateText);
-
-			UIHelper.AddConfirmationDialog(LeftDeleteBtn, Resource.PageLayoutRemoveContentWarning);
-
 
 			//
 			// Center
@@ -901,9 +895,6 @@ namespace mojoPortal.Web.AdminUI
 			ContentDeleteBtn.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
 			ContentDeleteBtn.Attributes.Add("title", Resource.PageLayoutContentDeleteAlternateText);
 
-			UIHelper.AddConfirmationDialog(ContentDeleteBtn, Resource.PageLayoutRemoveContentWarning);
-
-
 			//
 			// Right
 			//
@@ -927,9 +918,6 @@ namespace mojoPortal.Web.AdminUI
 			RightDeleteBtn.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutDeleteButtonInnerHtml, Resource.PageLayoutRightDeleteAlternateText)));
 			RightDeleteBtn.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
 			RightDeleteBtn.Attributes.Add("title", Resource.PageLayoutRightDeleteAlternateText);
-
-			UIHelper.AddConfirmationDialog(RightDeleteBtn, Resource.PageLayoutRemoveContentWarning);
-
 
 			//
 			// Altcontent 2
@@ -959,8 +947,6 @@ namespace mojoPortal.Web.AdminUI
 			btnDeleteAlt2.Controls.Add(new LiteralControl(String.Format(displaySettings.PageLayoutDeleteButtonInnerHtml, Resource.PageLayoutAlt2DeleteButton)));
 			btnDeleteAlt2.Attributes.Add("class", displaySettings.PageLayoutDeleteButtonCssClass);
 			btnDeleteAlt2.Attributes.Add("title", Resource.PageLayoutAlt2EditButton);
-
-			UIHelper.AddConfirmationDialog(btnDeleteAlt2, Resource.PageLayoutRemoveContentWarning);
 
 
 			// Button Groups
