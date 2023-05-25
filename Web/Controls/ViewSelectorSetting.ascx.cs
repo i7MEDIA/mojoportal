@@ -19,36 +19,33 @@ namespace mojoPortal.Web.UI
         private string themesPath = string.Empty;
         private string globalThemesPath = string.Empty; //these are at a higher level than the current site, can be used by multiple sites
 		private string viewName = string.Empty;
-		private string controllerName = string.Empty;
+		private string controllerName = "BaseController";
 		private string viewPath = string.Empty;
+        private string currentValue = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             SecurityHelper.DisableBrowserCache();
+            EnsureItems();
         }
-        protected override void OnInit(EventArgs e)
+		protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
             if (HttpContext.Current == null) { return; }
-            EnsureItems();
-        }
+		}
 
-        private void EnsureItems()
+		private void EnsureItems()
         {
             if (ddlLayouts == null)
             {
-
                 ddlLayouts = new DropDownList();
                 if (this.Controls.Count == 0) { this.Controls.Add(ddlLayouts); }
             }
             if (ddlLayouts.Items.Count > 0) { return; }
 
             themesPath = SiteUtils.DetermineSkinBaseUrl(true, false, this.Page) + viewPath;
-
-            List<FileInfo> themeFiles = GetLayouts(themesPath);
-
-            List<ListItem> items = new();
-
-
+            globalThemesPath = "~/" + viewPath;
+            List<FileInfo> themeFiles = GetLayouts(globalThemesPath);
+            themeFiles.AddRange(GetLayouts(themesPath));
 
             if (themeFiles != null)
             {
@@ -63,9 +60,21 @@ namespace mojoPortal.Web.UI
 			}
 			else
 			{
-				ddlLayouts.Items.Insert(0, new ListItem(Resource.ViewSelectDropDown, string.Empty));
+                litNoLayouts.Text = string.Empty;
+				ddlLayouts.Enabled = true;
+				ddlLayouts.Visible = true;
 			}
-        }
+
+			if (currentValue != null)
+			{
+				ListItem item = ddlLayouts.Items.FindByValue(currentValue);
+				if (item != null)
+				{
+					ddlLayouts.ClearSelection();
+					item.Selected = true;
+				}
+			}
+		}
 
         private void PopulateDefinitionList(List<FileInfo> files, string path)
         {
@@ -75,8 +84,11 @@ namespace mojoPortal.Web.UI
                 {
                     if (file.Name == $"{viewName}.cshtml")
                     {
-                        ddlLayouts.Items.Add(new ListItem("Default", viewName));
-
+                        if (ddlLayouts.Items.Count > 0 && ddlLayouts.Items[0].Text == "Default")
+                        {
+                            continue;
+                        }
+                        ddlLayouts.Items.Insert(0, new ListItem("Default", viewName));
                     }
                     else
                     {
@@ -85,10 +97,11 @@ namespace mojoPortal.Web.UI
                 }
             }
         }
+
         private List<FileInfo> GetLayouts(string path)
         {
-            DirectoryInfo dir = new DirectoryInfo(HttpContext.Current.Server.MapPath(path));
-            List<FileInfo> files = new List<FileInfo>();
+            DirectoryInfo dir = new(HttpContext.Current.Server.MapPath(path));
+            List<FileInfo> files = new();
             if (dir.Exists)
             {
                 files.AddRange(dir.GetFiles($"{viewName}.cshtml"));
@@ -106,17 +119,8 @@ namespace mojoPortal.Web.UI
 
         public void SetValue(string val)
         {
-            EnsureItems();
-
-            if (val != null)
-            {
-                ListItem item = ddlLayouts.Items.FindByValue(val);
-                if (item != null)
-                {
-                    ddlLayouts.ClearSelection();
-                    item.Selected = true;
-                }
-            }
+            //EnsureItems();
+            currentValue = val;
         }
 
 		public void Attributes(IDictionary<string, string> attribs)
