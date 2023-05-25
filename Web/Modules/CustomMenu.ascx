@@ -1,5 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomMenu.ascx.cs"
-	Inherits="mojoPortal.Web.UI.CustomMenu" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomMenu.ascx.cs" Inherits="mojoPortal.Web.UI.CustomMenu" %>
     
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
     <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper custommenu">

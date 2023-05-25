@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI.WebControls;
-using mojoPortal.Business;
+﻿using mojoPortal.Web.UI;
 
 namespace mojoPortal.Web.Models
 {
 	public class CustomMenu
-	{
+	{ 
 		public CustomMenu()
 		{ }
-		public SiteMapDataSource MenuData { get; set; }
-		public PageSettings StartingPage { get; set; }
-		public PageSettings CurrentPage { get; set; }
-		public bool UseTreeView { get; set; }
+		public int Id { get; set; }
+		public MenuList Menu { get; set; }
+		public mojoMenuItem StartingPage { get; set; }
+		public mojoMenuItem CurrentPage { get; set; }
 		public bool ShowStartingNode { get; set; }
 		public int MaxDepth { get; set; }
 	}

@@ -1,35 +1,19 @@
-﻿// Author:					i7MEDIA (Joe Davis)
-// Created:					2010-03-15
-// Last Modified:			2019-04-23
-// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Web;
+﻿using System;
 using System.Web.UI.WebControls;
-using mojoPortal.Web;
-using mojoPortal.Web.Framework;
+using log4net;
 using mojoPortal.Business;
-using mojoPortal.Web.UI;
-using mojoPortal.Web.Models;
-using Resources;
+using mojoPortal.Web.Components;
+using mojoPortal.Web.Framework;
+
 namespace mojoPortal.Web.UI
 {
 	public partial class CustomMenu : SiteModuleControl
 	{
 		private bool showStartingNode = false;
 		private string viewName = "_CustomMenu";
-		private bool useTreeView = false;
 		private int maxDepth = -1;
 		private int startingPageId = -2;
-
-		//#region OnInit
-		//    protected override void OnInit(EventArgs e)
-		//    {
-		//        base.OnInit(e);
-		//        this.Load += new EventHandler(Page_Load);
-		//    }
-
-		//#endregion
+		private static readonly ILog log = LogManager.GetLogger(typeof(CustomMenu));
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -45,57 +29,69 @@ namespace mojoPortal.Web.UI
 				}
 			}
 
-			PageSettings pageSettings = new(siteSettings.SiteId, startingPageId);
+			PageSettings startingPage = new(siteSettings.SiteId, startingPageId);
+
 			SiteMapDataSource menuDataSource = new()
 			{
 				SiteMapProvider = "mojosite" + siteSettings.SiteId.ToInvariantString()
 			};
+
+			var startingNode = menuDataSource.Provider.RootNode;
+			if (startingPageId > -1 && startingPage != null)
+			{
+				startingNode = menuDataSource.Provider.FindSiteMapNode(startingPage.Url);
+			}
+
 			var model = new mojoPortal.Web.Models.CustomMenu
 			{
-				MenuData = menuDataSource,
-				StartingPage = pageSettings,
-				CurrentPage = currentPage,
-				UseTreeView = useTreeView,
+				Id = ModuleId,
+				Menu = new MenuList(startingNode, showStartingNode),
+				StartingPage = startingPage == null ? null : getMenuItemFromPageSettings(startingPage),
+				CurrentPage = getMenuItemFromPageSettings(currentPage),
 				ShowStartingNode = showStartingNode,
 				MaxDepth = maxDepth
 			};
 
-			if (pageSettings != null && pageSettings.PageId != -2)
+			mojoMenuItem getMenuItemFromPageSettings(PageSettings pageSettings)
 			{
-
-				SiteMapNode node = menuDataSource.Provider.FindSiteMapNode(pageSettings.Url);
-
-				if (node != null || pageSettings.PageId == -1)
+				return new mojoMenuItem
 				{
+					PageId = pageSettings.PageId,
+					Name = pageSettings.PageName,
+					Description = pageSettings.MenuDescription,
+					URL = WebUtils.ResolveUrl(pageSettings.Url),
+					CssClass = pageSettings.MenuCssClass,
+					Rel = pageSettings.LinkRel,
+					Clickable = pageSettings.IsClickable,
+					OpenInNewTab = pageSettings.OpenInNewWindow,
+					PublishMode = pageSettings.PublishMode,
+					LastModDate = pageSettings.LastModifiedUtc,
+					Current = currentPage.PageId == pageSettings.PageId
+				};
+			}
 
-					FlexMenu flexMenu = new()
-					{
-						MaxDataRenderDepth = maxDepth,
-						StartingNodePageId = startingPageId
-					};
+			try
+			{
+				lit1.Text = RazorBridge.RenderPartialToString(viewName, model, "Common");
+			}
+			catch (Exception ex)
+			{
+				renderDefaultView(ex.ToString());
+			}
 
-					if (showStartingNode)
-					{
-						string startingPageName = pageSettings.PageId == -1 ? "Root" : pageSettings.PageName;
-
-						if (currentPage.PageId == pageSettings.PageId)
-						{
-							flexMenu.ExtraTopMarkup += $@"<ul class='{flexMenu.RootUlCssClass} {flexMenu.UlSelectedCssClass}'>
-								<li class='{flexMenu.RootLevelLiCssClass} {flexMenu.LiSelectedCssClass}'>
-									<a href='{WebUtils.ResolveUrl(pageSettings.Url)}' class='{flexMenu.AnchorSelectedCssClass}'>{startingPageName}</a>";
-						}
-						else
-						{
-							flexMenu.ExtraTopMarkup += $@"<ul class='{flexMenu.RootUlCssClass} {flexMenu.UlChildSelectedCssClass}'>
-									<li class='{flexMenu.RootLevelLiCssClass} {flexMenu.LiChildSelectedCssClass}'>
-										<a href='{WebUtils.ResolveUrl(pageSettings.Url)}' class='{flexMenu.AnchorChildSelectedCssClass}'>{startingPageName}</a>";
-						}
-
-						flexMenu.ExtraBottomMarkup += "</li></ul>";
-					}
-
-					pnlInnerBody.Controls.Add(flexMenu);
+			void renderDefaultView(string error = "")
+			{
+				if (!string.IsNullOrWhiteSpace(error))
+				{
+					log.ErrorFormat(
+						"chosen layout ({0}) for _CustomMenu was not found in skin {1}. perhaps it is in a different skin. Error was: {2}",
+						viewName,
+					SiteUtils.GetSkinBaseUrl(true, Page),
+					error
+					);
 				}
+
+				lit1.Text = RazorBridge.RenderPartialToString("_CustomMenu", model, "Common");
 			}
 		}
 	}
