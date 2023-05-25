@@ -48,7 +48,7 @@ namespace mojoPortal.Features.UI
         private bool UseSimpleLayout = false;
         private bool ShowToolbar = false;
         private bool TrackInGoogleAnalytics = false;
-
+        private bool AllowOnSecurePages = true;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -70,6 +70,7 @@ namespace mojoPortal.Features.UI
 
             gt1.ShowToolbar = ShowToolbar;
             gt1.TrackInGoogleAnalytics = TrackInGoogleAnalytics;
+            gt1.AllowSecurePageTranslation = AllowOnSecurePages;
             if (UseSimpleLayout)
             {
                 gt1.Layout = "SIMPLE";
@@ -92,8 +93,8 @@ namespace mojoPortal.Features.UI
             UseSimpleLayout = WebUtils.ParseBoolFromHashtable(Settings, "UseSimpleLayout", UseSimpleLayout);
             ShowToolbar = WebUtils.ParseBoolFromHashtable(Settings, "ShowToolbar", ShowToolbar);
             TrackInGoogleAnalytics = WebUtils.ParseBoolFromHashtable(Settings, "TrackInGoogleAnalytics", TrackInGoogleAnalytics);
-
-        }
+            AllowOnSecurePages = WebUtils.ParseBoolFromHashtable(Settings, "AllowOnSecurePages", AllowOnSecurePages);
+		}
 
 
     }

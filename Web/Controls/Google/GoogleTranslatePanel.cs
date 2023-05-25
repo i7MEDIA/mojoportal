@@ -50,7 +50,7 @@ namespace mojoPortal.Web.UI
 			set { includeLanguages = value; }
 		}
 
-		private bool allowSecurePageTranslation = false;
+		private bool allowSecurePageTranslation = true;
 
 		/// <summary>
 		/// This is false by default so that the widget will not be displayed on pages protected with SSL

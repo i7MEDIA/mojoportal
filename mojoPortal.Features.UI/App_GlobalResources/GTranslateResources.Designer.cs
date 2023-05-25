@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option or rebuild the Visual Studio project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class GTranslateResources {
@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow on Secured (SSL) Pages.
+        /// </summary>
+        internal static string AllowOnSecurePages {
+            get {
+                return ResourceManager.GetString("AllowOnSecurePages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Google Translate.
         /// </summary>
         internal static string FeatureName {
@@ -70,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Toolbar?.
+        ///   Looks up a localized string similar to Show Toolbar.
         /// </summary>
         internal static string ShowToolbar {
             get {
@@ -79,7 +88,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Track In Google Analytics?.
+        ///   Looks up a localized string similar to Track In Google Analytics.
         /// </summary>
         internal static string TrackInGoogleAnalytics {
             get {
@@ -88,7 +97,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Simple Layout?.
+        ///   Looks up a localized string similar to Use Simple Layout.
         /// </summary>
         internal static string UseSimpleLayout {
             get {

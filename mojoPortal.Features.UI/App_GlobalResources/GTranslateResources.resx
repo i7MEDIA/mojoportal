@@ -117,16 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllowOnSecurePages" xml:space="preserve">
+    <value>Allow on Secured (SSL) Pages</value>
+  </data>
   <data name="FeatureName" xml:space="preserve">
     <value>Google Translate</value>
   </data>
   <data name="ShowToolbar" xml:space="preserve">
-    <value>Show Toolbar?</value>
+    <value>Show Toolbar</value>
   </data>
   <data name="TrackInGoogleAnalytics" xml:space="preserve">
-    <value>Track In Google Analytics?</value>
+    <value>Track In Google Analytics</value>
   </data>
   <data name="UseSimpleLayout" xml:space="preserve">
-    <value>Use Simple Layout?</value>
+    <value>Use Simple Layout</value>
   </data>
 </root>

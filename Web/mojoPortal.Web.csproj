@@ -1210,7 +1210,7 @@
     <Compile Include="Controls\FlexMenu.cs" />
     <Compile Include="Controls\FlexSearch.cs" />
     <Compile Include="Controls\FriendlyTreeView.cs" />
-    <Compile Include="Controls\GoogleTranslatePanel.cs" />
+    <Compile Include="Controls\Google\GoogleTranslatePanel.cs" />
     <Compile Include="Controls\Google\GoogleCustomSearchControl.cs" />
     <Compile Include="Controls\Google\LocationMap.cs" />
     <Compile Include="Controls\Google\QRCodeImage.cs" />
