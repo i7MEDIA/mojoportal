@@ -406,10 +406,9 @@ namespace mojoPortal.Web.BlogUI
 
 				if (SiteUtils.IsAllowedUploadBrowseFile(ext, WebConfigSettings.AllowedMediaFileExtensions))
 				{
-					FileAttachment f = new FileAttachment();
-
+					FileAttachment f = new();
 					f.CreatedBy = currentUser.UserGuid;
-					f.FileName = System.IO.Path.GetFileName(uploader.FileName);
+					f.FileName = Path.GetFileName(uploader.FileName);
 					f.ServerFileName = blog.ItemId.ToInvariantString() + f.FileName.ToCleanFileName(WebConfigSettings.ForceLowerCaseForUploadedFiles);
 					f.ModuleGuid = blog.ModuleGuid;
 					f.SiteGuid = siteSettings.SiteGuid;
@@ -426,8 +425,12 @@ namespace mojoPortal.Web.BlogUI
 						fileSystem.SaveFile(destPath, uploader.FileContent, mimeType, true);
 					}
 				}
+				else
+				{
+					return;
+				}
 			}
-
+			
 			WebUtils.SetupRedirect(this, Request.RawUrl);
 		}
 
@@ -1974,7 +1977,10 @@ namespace mojoPortal.Web.BlogUI
 				uploader.FormFieldClientId = hdnState.ClientID; // not really used but prevents submitting all the form 
 
 				string refreshFunction = "function refresh" + moduleId.ToInvariantString()
-						+ " () { window.location.reload(true); } ";
+						+ " (event) { " +
+						"console.log(event);" +
+						"if (!event.result.files.some(x=>x.ErrorMessage)) {" +
+						"window.location.reload(true);} } ";
 
 				uploader.UploadCompleteCallback = "refresh" + moduleId.ToInvariantString();
 
