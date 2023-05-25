@@ -11,9 +11,11 @@
 /// You must not remove this notice, or any other, from this software.
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Npgsql;
+using NpgsqlTypes;
 
 namespace mojoPortal.Data
 {
@@ -320,26 +322,34 @@ namespace mojoPortal.Data
         {
             NpgsqlParameter[] arParams = new NpgsqlParameter[3];
 
-            arParams[0] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
+			List<NpgsqlParameter> sqlParams = new() {
+				new NpgsqlParameter(":ModuleID", NpgsqlDbType.Integer) {Direction = ParameterDirection.Input,Value = moduleId },
+				new NpgsqlParameter(":BeginDate", NpgsqlDbType.Date){Direction = ParameterDirection.Input,Value = beginDate },
+				new NpgsqlParameter(":EndDate", NpgsqlDbType.Date){Direction = ParameterDirection.Input,Value = endDate }
+			};
 
-            arParams[1] = new NpgsqlParameter("begindate", NpgsqlTypes.NpgsqlDbType.Date);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = beginDate;
+			DataTable dt = new();
+			dt.Columns.Add("ItemID", typeof(int));
+			dt.Columns.Add("ModuleID", typeof(int));
+			dt.Columns.Add("Title", typeof(string));
+			dt.Columns.Add("Description", typeof(string));
+			dt.Columns.Add("ImageName", typeof(string));
+			dt.Columns.Add("EventDate", typeof(DateTime));
+			dt.Columns.Add("StartTime", typeof(DateTime));
+			dt.Columns.Add("EndTime", typeof(DateTime));
+			dt.Columns.Add("CreatedDate", typeof(DateTime));
+			dt.Columns.Add("UserID", typeof(int));
+			dt.Columns.Add("ItemGuid", typeof(Guid));
+			dt.Columns.Add("ModuleGuid", typeof(Guid));
+			dt.Columns.Add("UserGuid", typeof(Guid));
+			dt.Columns.Add("Location", typeof(string));
+			dt.Columns.Add("LastModUserGuid", typeof(Guid));
+			dt.Columns.Add("LastModUtc", typeof(DateTime));
+			dt.Columns.Add("TicketPrice", typeof(decimal));
+			dt.Columns.Add("RequiresTicket", typeof(bool));
+			dt.Columns.Add("ShowMap", typeof(bool));
 
-            arParams[2] = new NpgsqlParameter("enddate", NpgsqlTypes.NpgsqlDbType.Date);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = endDate;
-            
-            DataTable dt = new DataTable();
-
-            dt.Columns.Add("ItemID", typeof(int));
-            dt.Columns.Add("ModuleID", typeof(int));
-            dt.Columns.Add("Title", typeof(string));
-            dt.Columns.Add("EventDate", typeof(DateTime));
-
-            using (IDataReader reader = NpgsqlHelper.ExecuteReader(
+			using (IDataReader reader = NpgsqlHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 CommandType.StoredProcedure,
                 "mp_calendarevents_select_bydate(:moduleid,:begindate,:enddate)",
@@ -347,16 +357,29 @@ namespace mojoPortal.Data
             {
                 while (reader.Read())
                 {
-                    DataRow row = dt.NewRow();
-                    row["ItemID"] = reader["ItemID"];
-                    row["ModuleID"] = reader["ModuleID"];
-                    row["Title"] = reader["Title"];
-                    row["EventDate"] = reader["EventDate"];
+					DataRow row = dt.NewRow();
+					row["ItemID"] = reader["ItemID"];
+					row["ModuleID"] = reader["ModuleID"];
+					row["Title"] = reader["Title"];
+					row["Description"] = reader["Description"];
+					row["ImageName"] = reader["ImageName"];
+					row["EventDate"] = reader["EventDate"];
+					row["StartTime"] = reader["StartTime"];
+					row["EndTime"] = reader["EndTime"];
+					row["CreatedDate"] = reader["CreatedDate"];
+					row["UserID"] = reader["UserID"];
+					row["ItemGuid"] = reader["ItemGuid"];
+					row["ModuleGuid"] = reader["ModuleGuid"];
+					row["UserGuid"] = reader["UserGuid"];
+					row["Location"] = reader["Location"];
+					row["LastModUserGuid"] = reader["LastModUserGuid"];
+					row["LastModUtc"] = reader["LastModUtc"];
+					row["TicketPrice"] = reader["TicketPrice"];
+					row["RequiresTicket"] = reader["RequiresTicket"];
+					row["ShowMap"] = reader["ShowMap"];
 
-                    dt.Rows.Add(row);
-
+					dt.Rows.Add(row);
                 }
-
             }
 
             return dt;
