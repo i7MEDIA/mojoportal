@@ -54,6 +54,11 @@
                     <mp:SiteLabel id="SiteLabel2" runat="server" ForControl="ddControlType" ConfigKey="ModuleDefinitionsSettingControlTypeLabel" CssClass="settinglabel"/>
                     <asp:DropDownList ID="ddControlType" runat="server" SelectedValue='<%# Bind("ControlType") %>' CssClass="forminput">
 						<asp:ListItem Value="TextBox" Text="TextBox" />
+						<asp:ListItem Value="Number" Text="Number" />
+						<asp:ListItem Value="Color" Text="Color" />
+						<asp:ListItem Value="Password" Text="Password" />
+						<asp:ListItem Value="Range" Text="Range" />
+						<asp:ListItem Value="Email" Text="Email" />
                         <asp:ListItem Value="CheckBox" Text="CheckBox" />
 						<asp:ListItem Value="ISettingControl" Text="ISettingControl" />
 						<asp:ListItem Value="CustomField" Text="CustomField" />

@@ -482,6 +482,8 @@ namespace mojoPortal.Web.AdminUI
 			BasePanel panel = new BasePanel();
 			panel.Element = displaySettings.ModuleSettingsSettingPanelElement;
 
+			var controlMin = string.Empty;
+			var controlMax = string.Empty;
 			var attributes = UIHelper.GetDictionaryFromString(s.Attributes);
 
 			string panelClass = string.Empty;
@@ -507,7 +509,10 @@ namespace mojoPortal.Web.AdminUI
 
 			panel.CssClass = panelClass;
 
-			StringBuilder attribsMarkup = new StringBuilder();
+			attributes.TryGetValue("min", out controlMin);
+			attributes.TryGetValue("max", out controlMax);
+
+			StringBuilder attribsMarkup = new();
 			foreach (var attrib in attributes.Where(a => !a.Key.IsIn("panelClass", "labelClass", "controlClass")))
 			{
 				string attribValue = attrib.Value.StartsWith("Resource:") ? GetResourceString(resourceFile, attrib.Value.Substring(9)).ToString() : attrib.Value;
@@ -517,31 +522,52 @@ namespace mojoPortal.Web.AdminUI
 
 			string controlID = s.SettingName + moduleId.ToInvariantString();
 
-			Literal label = new Literal();
-			label.Text = $"<label class=\"{labelClass}\" for=\"{controlID}\">{settingLabel}</label>";
+			Literal label = new()
+			{
+				Text = $"<label class=\"{labelClass}\" for=\"{controlID}\">{settingLabel}</label>"
+			};
 			panel.Controls.Add(label);
 
 			//creating generic control here so we can cast it as whatever type we need to and still add it to the panel in a single location
-			Control control = new Control();
+			Control control = new();
 
 			//string txtBoxMarkupFormat = "<input name=\"{0}\" id=\"{0}\" type=\"text\" class=\"{1}\" value=\"{2}\"{3} />";
-
-			switch (s.SettingControlType)
+			var settingType = s.SettingControlType.ToLower();
+			switch (settingType)
 			{
-				case "TextBox":
-					Literal textBox = new Literal();
+				case "textbox":
+				case "number":
+				case "color":
+				case "password":
+				case "range":
+				case "email":
+					Literal textBox = new();
 					control = textBox;
 					//textBox.Text = string.Format(txtBoxMarkupFormat, controlID, controlClass, s.SettingValue.HtmlEscapeQuotes(), attribsMarkup);
-					textBox.Text = $"<input name=\"{controlID}\" id=\"{controlID}\" type=\"text\" class=\"{controlClass}\" value=\"{s.SettingValue.HtmlEscapeQuotes()}\"{attribsMarkup} />";
+					string type = "text";
+					if (settingType != "textbox")
+					{
+						type = settingType;
+					}
+
+					string min = string.Empty;
+					string max = string.Empty;
+					if (settingType == "number" || settingType == "range")
+					{
+						min = string.IsNullOrWhiteSpace(controlMin) ? string.Empty : $" min=\"{controlMin}\" ";
+						max = string.IsNullOrWhiteSpace(controlMax) ? string.Empty : $" max=\"{controlMax}\" ";
+					}
+
+					textBox.Text = $"<input name=\"{controlID}\" id=\"{controlID}\" type=\"{type}\"{min}{max}class=\"{controlClass}\" value=\"{s.SettingValue.HtmlEscapeQuotes()}\"{attribsMarkup} />";
 					break;
-				case "CheckBox":
+				case "checkbox":
 					Literal checkBox = new Literal();
 					control = checkBox;
 					string check = string.Equals(s.SettingValue, "true", StringComparison.InvariantCultureIgnoreCase) ? " checked" : string.Empty;
 					//checkBox.Text = string.Format(controlMarkupFormat, controlID, "checkbox", controlClass, s.SettingValue.HtmlEscapeQuotes(), attribsMarkup + (isChecked ? " checked" : ""));
-					checkBox.Text = $"<input name=\"{controlID}\" id=\"{controlID}\" type=\"checkbox\" class=\"{controlClass}\"{attribsMarkup.ToString()}{check}/>";
+					checkBox.Text = $"<input name=\"{controlID}\" id=\"{controlID}\" type=\"checkbox\" class=\"{controlClass}\"{attribsMarkup}{check}/>";
 					break;
-				case "DropDownList":
+				case "dropdownlist":
 					Literal ddl = new Literal();
 					control = ddl;
 					var options = UIHelper.GetDictionaryFromString(s.Options);
@@ -553,10 +579,10 @@ namespace mojoPortal.Web.AdminUI
 						string selected = s.SettingValue == op.Value ? " selected" : string.Empty;
 						optionsMarkup.Append($"<option value=\"{op.Value}\"{selected}>{optionName}</option>");
 					}
-					ddl.Text = $"<select name=\"{controlID}\" id=\"{controlID}\" class=\"{controlClass}\"{attribsMarkup.ToString()}>{optionsMarkup.ToString()}</select>";
+					ddl.Text = $"<select name=\"{controlID}\" id=\"{controlID}\" class=\"{controlClass}\"{attribsMarkup}>{optionsMarkup}</select>";
 					break;
-				case "ISettingControl":
-				case "CustomField":
+				case "isettingcontrol":
+				case "customfield":
 					if (s.ControlSrc.Length > 0)
 					{
 						if (s.ControlSrc.EndsWith(".ascx"))
@@ -642,10 +668,7 @@ namespace mojoPortal.Web.AdminUI
 			try
 			{
 				resourceString = GetGlobalResourceObject(resourceFile, resourceKey).ToString();
-				if (resourceString == null)
-				{
-					resourceString = resourceKey;
-				}
+				resourceString ??= resourceKey;
 			}
 			catch (NullReferenceException ex)
 			{
