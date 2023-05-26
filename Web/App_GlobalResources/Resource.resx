@@ -1657,10 +1657,10 @@
     <value>Password</value>
   </data>
   <data name="SignInRegisterLinkText" xml:space="preserve">
-    <value>register</value>
+    <value>Register</value>
   </data>
   <data name="SignInSendPasswordButton" xml:space="preserve">
-    <value>Recover Password</value>
+    <value>Forgot Password?</value>
   </data>
   <data name="SignInSendRememberMeLabel" xml:space="preserve">
     <value>Remember Me On This Computer</value>
@@ -6717,5 +6717,8 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="UploadDisabledMessage" xml:space="preserve">
     <value>Sorry, file uploads have been disabled on this site.</value>
+  </data>
+  <data name="SignInRegisterPrompt" xml:space="preserve">
+    <value>Need an Account?</value>
   </data>
 </root>

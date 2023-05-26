@@ -106,7 +106,7 @@ namespace mojoPortal.Web.UI
 			{
 				CssClass += " jqbutton ui-button ui-widget ui-state-default ui-corner-all";
 			}
-			TabIndex = 10;
+			
 
 			// I wasn't sure what the best way to handle 'Text' would
 			// be. Text is treated as another control which gets added

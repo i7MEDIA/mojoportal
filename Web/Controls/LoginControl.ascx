@@ -2,7 +2,7 @@
 
 <portal:SiteLogin ID="LoginCtrl" runat="server" CssClass="logincontrol">
 	<LayoutTemplate>
-		<asp:Panel ID="pnlLContainer" runat="server" DefaultButton="Login">
+		<asp:Panel ID="pnlLContainer" runat="server" DefaultButton="Login" CssClass="logincontrol">
 			<div class="settingrow idrow">
 				<mp:SiteLabel ID="lblEmail" runat="server" ForControl="UserName" ConfigKey="SignInEmailLabel" SkinID="settinglabel" />
 				<mp:SiteLabel ID="lblUserID" runat="server" ForControl="UserName" ConfigKey="ManageUsersLoginNameLabel" SkinID="settinglabel" />
@@ -12,6 +12,7 @@
 			<div class="settingrow passwordrow">
 				<mp:SiteLabel ID="lblPassword" runat="server" ForControl="Password" ConfigKey="SignInPasswordLabel" SkinID="settinglabel" />
 				<asp:TextBox ID="Password" runat="server" CssClass="normaltextbox passwordbox" TextMode="password" />
+				<asp:HyperLink ID="lnkPasswordRecovery" runat="server" CssClass="lnkpasswordrecovery" SkinID="LoginControlPasswordRecoveryLink"/>
 			</div>
 
 			<div class="settingrow rememberrow">
@@ -28,7 +29,7 @@
 			</div>
 
 			<div class="settingrow registerrow">
-				<asp:HyperLink ID="lnkPasswordRecovery" runat="server" CssClass="lnkpasswordrecovery" SkinID="LoginControlPasswordRecoveryLink"/>
+				<mp:SiteLabel ID="lblRegisterPrompt" runat="server" CssClass="registerprompt" EnableViewState="false" />				
 				<asp:HyperLink ID="lnkRegisterExtraLink" runat="server" CssClass="lnkregister" SkinID="LoginControlRegisterLink"/>
 			</div>
 		</asp:Panel>

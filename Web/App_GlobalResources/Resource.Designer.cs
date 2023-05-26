@@ -15245,7 +15245,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to register.
+        ///   Looks up a localized string similar to Register.
         /// </summary>
         internal static string SignInRegisterLinkText {
             get {
@@ -15254,7 +15254,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recover Password.
+        ///   Looks up a localized string similar to Need an Account?.
+        /// </summary>
+        internal static string SignInRegisterPrompt {
+            get {
+                return ResourceManager.GetString("SignInRegisterPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot Password?.
         /// </summary>
         internal static string SignInSendPasswordButton {
             get {

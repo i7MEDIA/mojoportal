@@ -1,26 +1,9 @@
-﻿// Author:					
-// Created:					2010-12-11
-// Last Modified:			2020-03-03
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-
-using System;
-using System.Configuration;
-using System.Globalization;
+﻿using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Controls;
-using mojoPortal.Web.UI;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -32,6 +15,7 @@ namespace mojoPortal.Web.UI
         //Constituent controls inside LoginControl
         private SiteLabel lblUserID;
         private SiteLabel lblEmail;
+        private SiteLabel lblRegisterPrompt;
         private TextBox txtUserName;
         private CheckBox chkRememberMe;
         private mojoButton btnLogin;
@@ -78,8 +62,9 @@ namespace mojoPortal.Web.UI
             btnLogin = (mojoButton)this.LoginCtrl.FindControl("Login");
             lnkRecovery = (HyperLink)this.LoginCtrl.FindControl("lnkPasswordRecovery");
             lnkExtraLink = (HyperLink)this.LoginCtrl.FindControl("lnkRegisterExtraLink");
-            
-            if (WebConfigSettings.DisableAutoCompleteOnLogin)
+			lblRegisterPrompt = (SiteLabel)this.LoginCtrl.FindControl("lblRegisterPrompt"); 
+
+			if (WebConfigSettings.DisableAutoCompleteOnLogin)
             {
                 txtUserName.AutoCompleteType = AutoCompleteType.Disabled;
                 txtPassword.AutoCompleteType = AutoCompleteType.Disabled;
@@ -100,31 +85,33 @@ namespace mojoPortal.Web.UI
 
             }
 
-            if ((siteSettings.UseEmailForLogin) && (!siteSettings.UseLdapAuth))
+            if (siteSettings.UseEmailForLogin && !siteSettings.UseLdapAuth)
             {
                 if (!WebConfigSettings.AllowLoginWithUsernameWhenSiteSettingIsUseEmailForLogin)
                 {
-                    EmailValidator regexEmail = new EmailValidator();
-                    regexEmail.ControlToValidate = txtUserName.ID;
-                    regexEmail.ErrorMessage = Resource.LoginFailedInvalidEmailFormatMessage;
-                    this.LoginCtrl.Controls.Add(regexEmail);
+					EmailValidator regexEmail = new()
+					{
+						ControlToValidate = txtUserName.ID,
+						ErrorMessage = Resource.LoginFailedInvalidEmailFormatMessage
+					};
+					this.LoginCtrl.Controls.Add(regexEmail);
                 }
-
-            }
-
-            if (siteSettings.UseEmailForLogin && !siteSettings.UseLdapAuth)
-            {
+				
                 this.lblUserID.Visible = false;
-            }
+                txtUserName.Attributes.Add("placeholder", Resource.SignInEmailLabel);
+			}
             else
             {
                 this.lblEmail.Visible = false;
-            }
+				txtUserName.Attributes.Add("placeholder", Resource.ManageUsersLoginNameLabel);
+			}
 
-            if (SetFocus) { txtUserName.Focus(); }
+            txtPassword.Attributes.Add("placeholder", Resource.SignInPasswordLabel);
 
-            lnkRecovery.Visible = ((siteSettings.AllowPasswordRetrieval ||siteSettings.AllowPasswordReset) && (!siteSettings.UseLdapAuth ||
-                                                                           (siteSettings.UseLdapAuth && siteSettings.AllowDbFallbackWithLdap)));
+			if (SetFocus) { txtUserName.Focus(); }
+
+			lnkRecovery.Visible = (siteSettings.AllowPasswordRetrieval || siteSettings.AllowPasswordReset) && (!siteSettings.UseLdapAuth ||
+                                                                           (siteSettings.UseLdapAuth && siteSettings.AllowDbFallbackWithLdap));
 
             lnkRecovery.NavigateUrl = this.LoginCtrl.PasswordRecoveryUrl;
             lnkRecovery.Text = this.LoginCtrl.PasswordRecoveryText;
@@ -152,9 +139,9 @@ namespace mojoPortal.Web.UI
             btnLogin.Text = this.LoginCtrl.LoginButtonText;
             //SiteUtils.SetButtonAccessKey(btnLogin, AccessKeys.LoginAccessKey);
 
-            
+            lblRegisterPrompt.ConfigKey = "SignInRegisterPrompt";
 
-        }
+		}
 
         private void PopulateLabels()
         {
