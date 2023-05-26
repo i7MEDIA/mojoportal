@@ -45,7 +45,7 @@
 											<mp:SiteLabel ID="SiteLabel2" runat="server" ForControl="ddPaneNames" CssClass="settinglabel" ConfigKey="PageLayoutLocationLabel" />
 											<asp:DropDownList ID="ddPaneNames" runat="server" EnableTheming="false" CssClass="forminput" DataTextField="key" DataValueField="value" />
 											<portal:mojoHelpLink ID="MojoHelpLink3" runat="server" HelpKey="pagelayoutmodulelocationhelp" />
-											<asp:HyperLink ID="lnkGlobalContent" runat="server" Visible="false" />
+											<asp:HyperLink ID="lnkGlobalContent" runat="server" Visible="false"/>
 											<asp:HiddenField ID="hdnModuleID" runat="server" />
 											<asp:ImageButton ID="btnAddExisting" runat="server" />
 										</div>

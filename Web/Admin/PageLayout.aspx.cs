@@ -991,6 +991,11 @@ namespace mojoPortal.Web.AdminUI
 			lnkGlobalContent.ToolTip = Resource.AddExistingContent;
 			lnkGlobalContent.Visible = ((globalContentCount > 0) && !WebConfigSettings.DisableGlobalContent);
 			lnkGlobalContent.NavigateUrl = SiteRoot + "/Dialog/GlobalContentDialog.aspx?pageid=" + pageID.ToInvariantString();
+			lnkGlobalContent.Attributes.Add("data-modal", "");
+			lnkGlobalContent.Attributes.Add("data-size", "fluid-large");
+			lnkGlobalContent.Attributes.Add("data-close-text", Resource.CloseDialogButton);
+			lnkGlobalContent.Attributes.Add("data-modal-type", "iframe");
+
 
 			reqModuleTitle.ErrorMessage = Resource.TitleRequiredWarning;
 			reqModuleTitle.Enabled = WebConfigSettings.RequireContentTitle;
@@ -1004,17 +1009,13 @@ namespace mojoPortal.Web.AdminUI
 		{
 
 
-			StringBuilder script = new StringBuilder();
+			StringBuilder script = new();
 
-			script.Append("\n<script type='text/javascript'>");
+			script.Append("\n<script data-loader=\"PageLayout\">");
 
-			script.Append("$('#" + lnkGlobalContent.ClientID + "').colorbox({width:\"80%\", height:\"80%\", iframe:true});");
+			//script.Append("$('#" + lnkGlobalContent.ClientID + "').colorbox({width:\"80%\", height:\"80%\", iframe:true});");
 
 			script.Append("function AddModule(moduleId) {");
-
-			//script.Append("GB_hide();");
-			//script.Append("alert(moduleId);");
-
 			script.Append("var hdnUI = document.getElementById('" + this.hdnModuleID.ClientID + "'); ");
 			script.Append("hdnUI.value = moduleId; ");
 
@@ -1022,7 +1023,7 @@ namespace mojoPortal.Web.AdminUI
 			script.Append("var btn = document.getElementById('" + this.btnAddExisting.ClientID + "');  ");
 			script.Append("btn.click(); ");
 
-			script.Append("$.colorbox.close(); ");
+			//script.Append("$.colorbox.close(); ");
 
 			script.Append("}");
 			script.Append("</script>");

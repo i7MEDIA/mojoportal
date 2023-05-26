@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html id="Html">
+<html id="Html" runat="server">
 <head id="Head1" runat="server">
 	<title></title>
 	<portal:StyleSheetCombiner ID="StyleSheetCombiner" runat="server" />

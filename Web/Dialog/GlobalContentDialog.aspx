@@ -2,7 +2,7 @@
 
 <asp:Content ContentPlaceHolderID="phHead" ID="HeadContent" runat="server"></asp:Content>
 <asp:Content ContentPlaceHolderID="phMain" ID="MainContent" runat="server">
-<div  style="padding: 5px 5px 5px 5px;" class="globalconentdialog">
+<div style="padding: 5px 5px 5px 5px;" class="globalconentdialog">
 
 <div class="settingrow">
 <mp:mojoGridView ID="grid" runat="server"
