@@ -103,7 +103,7 @@ namespace mojoPortal.Web
 		/// we are not processing cards directly, they are processed on external sites.
 		/// </summary>
 		public bool CanProcessStandardCards => paymentGateway != null;
-		public bool GoogleCheckoutIsEnabled => GoogleMerchantID.Length != 0 && GoogleMerchantKey.Length != 0;
+		public bool GoogleCheckoutIsEnabled => false;
 
 		public bool PayPalIsEnabled
 		{
@@ -134,8 +134,8 @@ namespace mojoPortal.Web
 		public string PayPalAPIUsername => PaymentGatewayUseTestMode ? payPalSandboxAPIUsername : payPalProductionAPIUsername;
 		public string PayPalAPIPassword => PaymentGatewayUseTestMode ? payPalSandboxAPIPassword : payPalProductionAPIPassword;
 		public string PayPalAPISignature => PaymentGatewayUseTestMode ? payPalSandboxAPISignature : payPalProductionAPISignature;
-		public string GoogleMerchantID => PaymentGatewayUseTestMode ? googleSandboxMerchantID : googleProductionMerchantID;
-		public string GoogleMerchantKey => PaymentGatewayUseTestMode ? googleSandboxMerchantKey : googleProductionMerchantKey;
+		//public string GoogleMerchantID => PaymentGatewayUseTestMode ? googleSandboxMerchantID : googleProductionMerchantID;
+		//public string GoogleMerchantKey => PaymentGatewayUseTestMode ? googleSandboxMerchantKey : googleProductionMerchantKey;
 		public int DefaultTimeoutInMilliseconds { get; } = 30000;
 		public string DefaultConfirmationEmailSubjectTemplate { get; private set; } = "DefaultOrderConfirmationEmailSubjectTemplate.config";
 		public string DefaultConfirmationEmailTextBodyTemplate { get; private set; } = "DefaultOrderConfirmationPlainTextEmailTemplate.config";
