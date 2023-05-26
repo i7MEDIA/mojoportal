@@ -173,7 +173,7 @@ namespace SuperFlexiUI
 			{
 				foreach (Field field in savedFields)
 				{
-					if (field.ControlType == "InstructionBlock")
+					if (field.ControlType.ToLower() == "instructionblock")
 					{
 
 						AddInstructionBlock(field);
@@ -213,7 +213,7 @@ namespace SuperFlexiUI
 
 				foreach (Field field in savedFields)
 				{
-					if (field.ControlType != "InstructionBlock")
+					if (field.ControlType.ToLower() != "instructionblock")
 					{
 						foreach (ItemFieldValue fieldValue in fieldValues)
 						{
@@ -261,10 +261,10 @@ namespace SuperFlexiUI
 			AttributeCollection attribs = null;
 
 			string pickerStartFolder = string.Empty;
-
-			switch (field.ControlType)
+			string controlType = field.ControlType.ToLower().ToLower();
+			switch (controlType)
 			{
-				case "TextBox":
+				case "textbox":
 				case "":
 				default:
 					TextBox textBox = new TextBox
@@ -275,56 +275,56 @@ namespace SuperFlexiUI
 					};
 					label.ForControl = textBox.ID;
 					
-					switch (field.TextBoxMode)
+					switch (field.TextBoxMode.ToLower())
 					{
-						case "SingleLine":
+						case "singleline":
 						case "":
 						default:
 							textBox.TextMode = TextBoxMode.SingleLine;
 							break;
-						case "MultiLine":
+						case "multiline":
 							textBox.TextMode = TextBoxMode.MultiLine;
 							break;
-						case "Password":
+						case "password":
 							textBox.TextMode = TextBoxMode.Password;
 							break;
-						case "Color":
+						case "color":
 							textBox.TextMode = TextBoxMode.Color;
 							break;
-						case "Date":
+						case "date":
 							textBox.TextMode = TextBoxMode.Date;
 							break;
-						case "DateTime":
+						case "datetime":
 							textBox.TextMode = TextBoxMode.DateTime;
 							break;
-						case "DateTimeLocal":
+						case "datetimelocal":
 							textBox.TextMode = TextBoxMode.DateTimeLocal;
 							break;
-						case "Email":
+						case "email":
 							textBox.TextMode = TextBoxMode.Email;
 							break;
-						case "Month":
+						case "month":
 							textBox.TextMode = TextBoxMode.Month;
 							break;
-						case "Number":
+						case "number":
 							textBox.TextMode = TextBoxMode.Number;
 							break;
-						case "Range":
+						case "range":
 							textBox.TextMode = TextBoxMode.Range;
 							break;
-						case "Search":
+						case "search":
 							textBox.TextMode = TextBoxMode.Search;
 							break;
-						case "Phone":
+						case "phone":
 							textBox.TextMode = TextBoxMode.Phone;
 							break;
-						case "Time":
+						case "time":
 							textBox.TextMode = TextBoxMode.Time;
 							break;
-						case "Url":
+						case "url":
 							textBox.TextMode = TextBoxMode.Url;
 							break;
-						case "Week":
+						case "week":
 							textBox.TextMode = TextBoxMode.Week;
 							break;
 
@@ -378,7 +378,7 @@ namespace SuperFlexiUI
 
 					break;
 
-                case "LinkPicker":
+                case "linkpicker":
 					TextBox linkPicker = new TextBox
 					{
 						TabIndex = 10,
@@ -439,7 +439,7 @@ namespace SuperFlexiUI
                     }
 
                     break;
-                case "ImagePicker":
+                case "imagepicker":
 
 					TextBox imagePicker = new TextBox
 					{
@@ -501,7 +501,7 @@ namespace SuperFlexiUI
                         if (regexValidator != null) panel.Controls.Add(regexValidator);
                     }
                     break;
-				case "CheckBox":
+				case "checkbox":
 					CheckBox checkBox = new CheckBox();
 					checkBox.TabIndex = 10;
 					checkBox.ID = field.Name;
@@ -540,7 +540,7 @@ namespace SuperFlexiUI
 
 					panel.Controls.Add(checkBox);
 					break;
-				case "CheckBoxList":
+				case "checkboxlist":
 					if (!String.IsNullOrWhiteSpace(field.Options))
 					{
 						CheckBoxList cbl = new CheckBoxList();
@@ -595,14 +595,14 @@ namespace SuperFlexiUI
 						panel.Controls.Add(cbl);
 					}
 					break;
-				case "DynamicCheckBoxList":
-				case "DynamicRadioButtonList":
+				case "dynamiccheckboxlist":
+				case "dynamicradiobuttonlist":
 					BasePanel dcblPanel = new BasePanel();
 					CheckBoxList dcbl = new CheckBoxList();
 					RadioButtonList drbl = new RadioButtonList();
 					WebControl dynamicListControl;
 					ListItemCollection dynamicListItems = new ListItemCollection();
-					if (field.ControlType == "DynamicCheckBoxList")
+					if (controlType == "dynamiccheckboxlist")
 					{
 						dynamicListControl = (WebControl)dcbl;
 						dynamicListItems = dcbl.Items;
@@ -682,7 +682,7 @@ namespace SuperFlexiUI
 								else
 								{
 									selected.Selected = true;
-									if (field.ControlType == "DynamicCheckBoxList")
+									if (field.ControlType.ToLower() == "dynamiccheckboxlist")
 									{
 										dcbl.Items.Add(selected);
 									}
@@ -701,7 +701,7 @@ namespace SuperFlexiUI
                     //ListItem[] listItemArray = new ListItem[dynamicListItems.Count];
                     //dynamicListItems.CopyTo(listItemArray, 0);
 
-                    if (field.ControlType == "DynamicCheckBoxList")
+                    if (controlType == "dynamiccheckboxlist")
                     {
 
                         //dcbl.Items.AddRange(listItemArray);
@@ -751,7 +751,7 @@ namespace SuperFlexiUI
 					panel.Controls.Add(dcblPanel);
 
 					break;
-				case "Dropdown":
+				case "dropdown":
 					if (!String.IsNullOrWhiteSpace(field.Options))
 					{
 						DropDownList ddl = new DropDownList();
@@ -782,7 +782,7 @@ namespace SuperFlexiUI
 						panel.Controls.Add(ddl);
 					}
 					break;
-				case "RadioButtons":
+				case "radiobuttons":
 					
 					if (!String.IsNullOrWhiteSpace(field.Options))
 					{
@@ -818,7 +818,7 @@ namespace SuperFlexiUI
 					}
 					
 					break;
-				case "DateTime":
+				case "datetime":
 					DatePickerControl datePicker = CreateDatePicker(field, fieldValue);
 					datePicker.TabIndex = 10;
 					datePicker.ID = field.Name;
@@ -855,7 +855,7 @@ namespace SuperFlexiUI
 					}
 
 					break;
-				case "Date":
+				case "date":
 					//CalendarExtender calendar = new CalendarExtender();
 					TextBox calTxt = new TextBox();
 					Label calBtn = new Label();
@@ -901,7 +901,7 @@ namespace SuperFlexiUI
 					}
 
 					break;
-				case "ISettingControl":
+				case "isettingcontrol":
                     if (field.ControlSrc.Length > 0)
                     {
                         if (field.ControlSrc.EndsWith(".ascx"))
@@ -970,8 +970,8 @@ namespace SuperFlexiUI
                         log.Error("could not add setting control for ISettingControl, missing controlsrc for " + field.Name);
                     }
                     break;
-                case "ICustomField":
-                case "CustomField":
+                case "icustomfield":
+                case "customfield":
 					if (field.ControlSrc.Length > 0)
 					{
 						if (field.ControlSrc.EndsWith(".ascx"))
@@ -1415,22 +1415,23 @@ namespace SuperFlexiUI
 			Control control = ControlExtensions.FindControlRecursive(controlsPanel, controlID);
 			if (control != null)
 			{
-				switch (field.ControlType)
+				string controlType = field.ControlType.ToLower();
+				switch (controlType)
 				{
-					case "ISettingControl":
+					case "isettingcontrol":
                         if (field.ControlSrc.Length > 0)
                         {
                             fieldValue.FieldValue = ((ISettingControl)control).GetValue();
                         }
                         break;
-                    case "ICustomField":
-                    case "CustomField":
+                    case "icustomfield":
+                    case "customfield":
 						if (field.ControlSrc.Length > 0)
 						{
 							fieldValue.FieldValue = ((ICustomField)control).GetValue();
 						}
 						break;
-					case "CheckBox":
+					case "checkbox":
 						CheckBox cbox = ((CheckBox)control);
 						if (field.CheckBoxReturnBool)
 						{
@@ -1458,7 +1459,7 @@ namespace SuperFlexiUI
                         //   }
                         //}
                         break;
-					case "CheckBoxList":
+					case "checkboxlist":
 						CheckBoxList cbl = (CheckBoxList)control;
 						string selected = string.Empty;
 						foreach (ListItem cboxItem in cbl.Items)
@@ -1467,12 +1468,12 @@ namespace SuperFlexiUI
 						}
 						fieldValue.FieldValue = selected.TrimEnd(';');
 						break;
-					case "DynamicCheckBoxList":
-					case "DynamicRadioButtonList":
+					case "dynamiccheckboxlist":
+					case "dynamicradiobuttonlist":
 						ListItemCollection dynamicListItems;
                         CheckBoxList dcbl;
                         RadioButtonList drbl;
-						if (field.ControlType == "DynamicCheckBoxList")
+						if (controlType == "dynamiccheckboxlist")
 						{
                             dcbl = (CheckBoxList)control;
                             dynamicListItems = dcbl.Items;
@@ -1487,7 +1488,7 @@ namespace SuperFlexiUI
 						string dynamicList_selected = string.Empty;
 
 						
-                        if (field.ControlType == "DynamicCheckBoxList")
+                        if (controlType == "dynamiccheckboxlist")
                         {
                             dynamicList_selectedItems.AddRange(newTxt.Text.SplitOnCharAndTrim(';'));
 
@@ -1518,17 +1519,17 @@ namespace SuperFlexiUI
 						fieldValue.FieldValue = dynamicList_selected.TrimEnd(';');
 
 						break;
-					case "RadioButtons":
+					case "radiobuttons":
 						fieldValue.FieldValue = ((RadioButtonList)control).SelectedValue.ToString();
 						break;
-					case "Dropdown":
+					case "dropdown":
 						fieldValue.FieldValue = ((DropDownList)control).SelectedValue.ToString();
 						break;
-					case "DateTime":
-					case "Date":
+					case "datetime":
+					case "date":
 						TextBox calText = null;
 						DatePickerControl dp = null;
-						if (field.ControlType == "Date")
+						if (controlType == "date")
 						{
 							calText = (TextBox)control;
 						}
@@ -1543,11 +1544,10 @@ namespace SuperFlexiUI
 							if (dp != null) textValue = dp.Text;
 							if (calText != null) textValue = calText.Text;
 
-							DateTime dt;
 							if (DateTime.TryParse(
 								textValue,
 								CultureInfo.CurrentCulture,
-								DateTimeStyles.AdjustToUniversal, out dt))
+								DateTimeStyles.AdjustToUniversal, out DateTime dt))
 							{
 
 								if (field.DatePickerIncludeTimeForDate)
@@ -1567,10 +1567,10 @@ namespace SuperFlexiUI
 							fieldValue.FieldValue = string.Empty;
 						}
 						break;
-					case "InstructionBlock":
+					case "instructionblock":
 						// don't do anything
 						break;
-					case "TextBox":
+					case "textbox":
 					case "":
 					default:
 						fieldValue.FieldValue = ((TextBox)control).Text;
