@@ -3038,7 +3038,7 @@ namespace mojoPortal.Web
 
 		public static bool AddSystemStyleTemplatesAboveSiteTemplates
 		{
-			get { return ConfigHelper.GetBoolProperty("AddSystemStyleTemplatesAboveSiteTemplates", false); }
+			get { return ConfigHelper.GetBoolProperty("AddSystemStyleTemplatesAboveSiteTemplates", true); }
 		}
 
 		public static bool AddSystemStyleTemplatesBelowSiteTemplates
