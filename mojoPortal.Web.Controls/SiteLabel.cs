@@ -15,6 +15,7 @@
 /// 2008-08-15  removed use of viewstate
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -34,7 +35,7 @@ namespace mojoPortal.Web.Controls
 		public bool UseLabelTag { get; set; } = true;
 		public string ForControl { get; set; } = string.Empty;
 		public bool ShowWarningOnMissingKey { get; set; } = true;
-		public string Format { get; set; } = "{0}";
+		//public string Format { get; set; } = "{0}";
 
 
 		#endregion
@@ -100,7 +101,8 @@ namespace mojoPortal.Web.Controls
 
                 writer.WriteAttribute("class", CssClass);
             }
-            writer.Write(HtmlTextWriter.TagRightChar);
+
+			writer.Write(HtmlTextWriter.TagRightChar);
 
             if ((ConfigKey != "EmptyLabel") && (ConfigKey != "spacer"))
             {
@@ -111,7 +113,7 @@ namespace mojoPortal.Web.Controls
 							   : ConfigKey;
 				}
 				// should we be html encoding here?
-				writer.WriteEncodedText(string.Format(Format,text));
+				writer.WriteEncodedText(text);
 
             }
 
@@ -138,7 +140,7 @@ namespace mojoPortal.Web.Controls
 				}
 
 				// should we be html encoding here?
-				writer.WriteEncodedText(string.Format(Format, text));
+				writer.WriteEncodedText(text);
 			}
 
             writer.WriteEndTag("span");
@@ -156,7 +158,6 @@ namespace mojoPortal.Web.Controls
 							   : ConfigKey;
 				}
 				// should we be html encoding here?
-				text = string.Format(Format, text);
 				writer.WriteEncodedText(text);
             }
         }
@@ -192,19 +193,27 @@ namespace mojoPortal.Web.Controls
 
             }
 
+            List<string> attribs = new List<string>();
 
-            if (CssClass.Length > 0)
+			foreach (string key in Attributes.Keys)
+			{
+				attribs.Add($"{key}=\"{Attributes[key]}\"");
+			}
+
+            var attribsString = string.Join(" ", attribs);
+            if (!string.IsNullOrWhiteSpace(attribsString))
             {
-                return UseLabelTag
-                           ? string.Format(Format,string.Format("<label " + forString + " class='{0}'>{1}</label>", CssClass, text))
-                           : string.Format(Format, string.Format("<span class='{0}'>{1}</span>", CssClass, text));
+                attribsString = $" {attribsString}";
             }
-            else
+
+            var cssString = string.Empty;
+            if (!string.IsNullOrWhiteSpace(CssClass))
             {
-                return UseLabelTag
-                           ? string.Format(Format, string.Format("<label " + forString + ">{0}</label>", text))
-                           : string.Format(Format, text);
+                cssString = $" class=\"{CssClass}\"";
             }
+            return UseLabelTag
+                ? $"<label {forString}{cssString}{attribsString}>{text}</label>"
+                : string.IsNullOrWhiteSpace(CssClass) ? text : $"<span{cssString}{attribsString}>{text}</span>";
         }
     }
 }

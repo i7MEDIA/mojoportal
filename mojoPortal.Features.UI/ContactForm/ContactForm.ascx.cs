@@ -1,7 +1,3 @@
-///	Author:					
-///	Created:				2004-12-16
-/// Last Modified:			2014-03-18
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,7 +16,7 @@ namespace mojoPortal.Web.ContactUI
 	public partial class ContactForm : SiteModuleControl
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(ContactForm));
-		private ContactFormConfiguration config = new ContactFormConfiguration();
+		private ContactFormConfiguration config = new();
 
 		protected override void OnInit(EventArgs e)
 		{
@@ -33,7 +29,6 @@ namespace mojoPortal.Web.ContactUI
 			LoadSettings();
 			PopulateLabels();
 		}
-
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -57,7 +52,6 @@ namespace mojoPortal.Web.ContactUI
 				}
 			}
 		}
-
 
 		private void btnSend_Click(object sender, EventArgs e)
 		{
@@ -253,9 +247,7 @@ namespace mojoPortal.Web.ContactUI
 
 			if (IsEditable)
 			{
-				mojoBasePage basePage = Page as mojoBasePage;
-
-				if (basePage != null)
+				if (Page is mojoBasePage basePage)
 				{
 					if (config.KeepMessages)
 					{
@@ -275,6 +267,8 @@ namespace mojoPortal.Web.ContactUI
 					}
 				}
 			}
+
+			lblMessageLabel.Attributes.Add("onclick", $"CKEDITOR != undefined ? CKEDITOR.instances['{edMessage.ClientID}innerEditor'].focus() : null;");
 		}
 
 		private void BindToList()

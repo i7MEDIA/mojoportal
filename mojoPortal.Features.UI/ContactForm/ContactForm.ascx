@@ -23,7 +23,7 @@
 						<asp:TextBox id="txtSubject" runat="server" cssclass="forminput widetextbox"  MaxLength="50" />
 					</div>
 					<div class="settingrow">
-					 <mp:SiteLabel id="lblMessageLabel" runat="server" ConfigKey="ContactFormMessageLabel" ResourceFile="ContactFormResources" CssClass="settinglabel" />
+					 <mp:SiteLabel id="lblMessageLabel" runat="server" ForControl="edMessage" ConfigKey="ContactFormMessageLabel" ResourceFile="ContactFormResources" CssClass="settinglabel" />
 					</div>
 					<div class="settingrow">
 						<mpe:EditorControl id="edMessage" runat="server" />

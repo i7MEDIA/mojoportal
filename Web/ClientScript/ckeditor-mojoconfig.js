@@ -1,5 +1,4 @@
 CKEDITOR.editorConfig = function(config) {
-	config.tabIndex = '10';
 	config.entities = false;
 	config.scayt_autoStartup = false;
 	config.disableNativeSpellChecker = false;
