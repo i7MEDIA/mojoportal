@@ -2,9 +2,11 @@
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
-<portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs">
-        <asp:hyperlink id="lnkAdminMenu" runat="server" navigateurl="~/Admin/AdminMenu.aspx" /><portal:AdminCrumbSeparator id="litLinkSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
-        <asp:hyperlink id="lnkCurrentPage" runat="server" cssclass="selectedcrumb" />
+<portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs"> 
+    <asp:hyperlink id="lnkAdminMenu" runat="server" navigateurl="~/Admin/AdminMenu.aspx" /><portal:AdminCrumbSeparator id="litLinkSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
+    <asp:hyperlink id="lnkSiteList" runat="server" navigateurl="~/Admin/SiteList.aspx" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator2" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />        
+    <asp:hyperlink id="lnkSiteSettings" runat="server" navigateurl="~/Admin/SiteSettings.aspx" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />        
+    <asp:hyperlink id="lnkCurrentPage" runat="server" cssclass="selectedcrumb" /> 
  </portal:AdminCrumbContainer>
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
 <mp:CornerRounderTop id="ctop1" runat="server" EnableViewState="false"  />

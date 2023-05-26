@@ -149,8 +149,8 @@
 										<asp:DropDownList ID="ddLogos" runat="server" TabIndex="10" EnableViewState="true"
 											DataValueField="Name" DataTextField="Name" CssClass="forminput">
 										</asp:DropDownList>
-										<img runat="server" alt="" src="" id="imgLogo" enableviewstate="false" />
 										<portal:mojoHelpLink runat="server" HelpKey="sitesettingssitelogohelp" />
+										<img runat="server" alt="" src="" id="imgLogo" enableviewstate="false" />
 									</portal:FormGroupPanel>
 									<portal:FormGroupPanel runat="server">
 										<mp:SiteLabel runat="server" ForControl="txtSlogan" CssClass="settinglabel" ConfigKey="SloganLabel" />

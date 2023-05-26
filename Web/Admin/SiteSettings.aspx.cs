@@ -1,13 +1,3 @@
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers;
-using mojoPortal.Net;
-using mojoPortal.Web.Controls.Captcha;
-using mojoPortal.Web.Editor;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.UI;
-using Resources;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,6 +9,16 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers;
+using mojoPortal.Net;
+using mojoPortal.Web.Controls.Captcha;
+using mojoPortal.Web.Editor;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.UI;
+using Resources;
 namespace mojoPortal.Web.AdminUI
 {
 
@@ -1959,7 +1959,12 @@ namespace mojoPortal.Web.AdminUI
 			lnkSiteSettings.NavigateUrl = SiteRoot + "/Admin/SiteSettings.aspx";
 
 			lnkEditClosedMessage.Text = Resource.SiteClosedMessageEditLink;
-			lnkEditClosedMessage.NavigateUrl = SiteRoot + "/Admin/EditSiteClosedMessage.aspx";
+			lnkEditClosedMessage.NavigateUrl = $"{SiteRoot}/Admin/EditSiteClosedMessage.aspx";
+
+			if (selectedSite.SiteId != siteSettings.SiteId)
+			{
+				lnkEditClosedMessage.NavigateUrl += $"?SiteId={selectedSite.SiteId}";
+			}
 
 			if (ddEditorProviders.Items.Count == 0)
 			{

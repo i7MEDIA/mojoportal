@@ -1,16 +1,5 @@
-﻿// Author:					
-// Created:					2011-10-07
-// Last Modified:			2018-03-28
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
+﻿using System;
+using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Editor;
 using mojoPortal.Web.Framework;
@@ -22,8 +11,10 @@ namespace mojoPortal.Web.AdminUI
 
     public partial class EditSiteClosedMessagePage : NonCmsBasePage
     {
-        
-        protected void Page_Load(object sender, EventArgs e)
+		private int selectedSiteID = -2;
+		private SiteSettings selectedSite;
+
+		protected void Page_Load(object sender, EventArgs e)
         {
 
 			if (!Request.IsAuthenticated)
@@ -54,18 +45,18 @@ namespace mojoPortal.Web.AdminUI
 
         private void PopulateControls()
         {
-            editor.Text = siteSettings.SiteIsClosedMessage;
+            editor.Text = selectedSite.SiteIsClosedMessage;
 
         }
 
         void btnSave_Click(object sender, EventArgs e)
         {
 
-            siteSettings.SiteIsClosedMessage = editor.Text;
+            selectedSite.SiteIsClosedMessage = editor.Text;
 
-            siteSettings.Save();
+			selectedSite.Save();
 
-            CacheHelper.ClearSiteSettingsCache(siteSettings.SiteId);
+            CacheHelper.ClearSiteSettingsCache(selectedSite.SiteId);
             WebUtils.SetupRedirect(this, Request.RawUrl);
 
         }
@@ -78,7 +69,18 @@ namespace mojoPortal.Web.AdminUI
             lnkAdminMenu.Text = Resource.AdminMenuLink;
             lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
 
-            lnkCurrentPage.Text = Resource.SiteClosedMessageLabel;
+			lnkSiteList.Text = Resource.SiteList;
+			lnkSiteList.NavigateUrl = SiteRoot + "/Admin/Siteist.aspx";
+
+			lnkSiteSettings.Text = Resource.AdminMenuSiteSettingsLink;
+			lnkSiteSettings.NavigateUrl = SiteRoot + "/Admin/SiteSettings.aspx";
+
+			if (selectedSite.SiteId != siteSettings.SiteId)
+			{
+				lnkSiteSettings.NavigateUrl += $"?SiteId={selectedSite.SiteId}";
+			}
+
+			lnkCurrentPage.Text = Resource.SiteClosedMessageLabel;
             lnkCurrentPage.NavigateUrl = SiteRoot + "/Admin/EditSiteClosedMessage.aspx";
 
             heading.Text = Resource.SiteClosedMessageLabel;
@@ -90,7 +92,21 @@ namespace mojoPortal.Web.AdminUI
 
         private void LoadSettings()
         {
-            editor.WebEditor.ToolBar = ToolBar.FullWithTemplates;
+
+			if (siteSettings.IsServerAdminSite && (Page.Request.Params.Get("SiteID") != null))
+			{
+				selectedSiteID = WebUtils.ParseInt32FromQueryString("SiteID", selectedSiteID);
+			}
+			if ((selectedSiteID != siteSettings.SiteId) && (selectedSiteID > -1))
+			{
+				selectedSite = new SiteSettings(selectedSiteID);
+			}
+			else
+			{
+				selectedSite = siteSettings;
+			}
+
+			editor.WebEditor.ToolBar = ToolBar.FullWithTemplates;
             AddClassToBody("administration editclosedmessage");
         }
 
