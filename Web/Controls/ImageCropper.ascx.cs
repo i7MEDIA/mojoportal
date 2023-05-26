@@ -18,10 +18,12 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.Ajax.Utilities;
 using mojoPortal.Business;
 using mojoPortal.FileSystem;
 using mojoPortal.Web.Framework;
 using Resources;
+using static Lucene.Net.Store.Lock;
 
 namespace mojoPortal.Web.UI
 {
@@ -223,17 +225,22 @@ namespace mojoPortal.Web.UI
             
             if (SiteUtils.IsImageFileExtension(ext))
             {
-                int x = 0;
-                int y = 0;
-                int w = 0;
-                int h = 0;
-                //TODO: validate that these are not 0
-                int.TryParse(X.Value, out x);
-                int.TryParse(Y.Value, out y);
-                int.TryParse(W.Value, out w);
-                int.TryParse(H.Value, out h);
+                decimal decx = 0;
+                decimal decy = 0;
+                decimal decw = 0;
+                decimal dech = 0;
 
-                if (allowUserToSetFinalFileSize)
+                decimal.TryParse(X.Value, out decx);
+                decimal.TryParse(Y.Value, out decy);
+                decimal.TryParse(W.Value, out decw);
+                decimal.TryParse(H.Value, out dech);
+
+                int x = Convert.ToInt32(decx);
+                int y = Convert.ToInt32(decy);
+                int w = Convert.ToInt32(decw);
+                int h = Convert.ToInt32(dech);
+
+				if (allowUserToSetFinalFileSize)
                 {
                     int.TryParse(txtFinalWidth.Text, out finalMaxWidth);
                     int.TryParse(txtFinalHeight.Text, out finalMaxHeight);
@@ -311,56 +318,86 @@ namespace mojoPortal.Web.UI
             lblCroppedFileName.Visible = allowUserToChooseCroppedFileName;
             txtCroppedFileName.Visible = allowUserToChooseCroppedFileName;
             pnlFinalSize.Visible = allowUserToSetFinalFileSize;
-            if (WebConfigSettings.ImageCropperWrapperDivStyle.Length > 0)
-            {
-                pnlImage.Attributes.Add("style", WebConfigSettings.ImageCropperWrapperDivStyle);
-            }
-            
+            //if (WebConfigSettings.ImageCropperWrapperDivStyle.Length > 0)
+            //{
+            //}
+            pnlImage.Attributes.Add("style", "margin: 20px 0; max-width: 180px; ");
+            imgToCrop.Attributes.Add("style", "max-width: 100%;");
 
         }
 
         private void SetupInstanceScript()
         {
-            StringBuilder script = new StringBuilder();
-            script.Append("\n<script type=\"text/javascript\">");
+            var script = $@"<script data-loader=""ImageCropper"">
+//import Cropper from 'cropperjs';
 
-            script.Append("function storeCoords" + imgToCrop.ClientID + "(c) {");
-            script.Append("jQuery('#" + X.ClientID + "').val(c.x);");
-            script.Append("jQuery('#" + Y.ClientID + "').val(c.y);");
-            script.Append("jQuery('#" + W.ClientID + "').val(c.w);");
-            script.Append("jQuery('#" + H.ClientID + "').val(c.h);");
-            script.Append("};");
+const image = document.getElementById('{imgToCrop.ClientID}');
+const X = document.getElementById('{X.ClientID}');
+const Y = document.getElementById('{Y.ClientID}');
+const W = document.getElementById('{W.ClientID}');
+const H = document.getElementById('{H.ClientID}');
 
-            script.Append("jQuery(document).ready(function() {");
-            script.Append("jQuery('#" + imgToCrop.ClientID + "').Jcrop({");
-            script.Append("onSelect: storeCoords" + imgToCrop.ClientID);
-            //script.Append(",onChange: storeCoords" + imgToCrop.ClientID);
-            script.Append(" ,bgColor:'" + bgColor + "'");
-            script.Append(",bgOpacity:" + bgOpacity.ToString(CultureInfo.InvariantCulture));
-            if (aspectRatio > 0) { script.Append(",aspectRatio:" + aspectRatio.ToString(CultureInfo.InvariantCulture)); }
-            if ((minWidth > 0) && (minHeight > 0))
-            {
-                script.Append(",minSize:[" + minWidth.ToInvariantString() + "," + minHeight.ToInvariantString() + "]");
-            }
+const cropper = new Cropper(image,{{
+    aspectRatio: 1,
+    viewMode: 3,
+    crop(event) {{
+//        console.log(event.detail.x);
+//        console.log(event.detail.y);
+//        console.log(event.detail.width);
+//        console.log(event.detail.height);
+//        console.log(event.detail.rotate);
+//        console.log(event.detail.scaleX);
+//        console.log(event.detail.scaleY);
+        X.value = event.detail.x;
+        Y.value = event.detail.y;
+        W.value = event.detail.width;
+        H.value = event.detail.height;
+    }},
+}});
+//cropper.setCropBoxData({{
+//    height: 90,
+//    width: 90
+//}});
+</script>
+";
 
-            if ((maxWidth > 0) && (maxHeight > 0))
-            {
-                script.Append(",maxSize:[" + maxWidth.ToInvariantString() + "," + maxHeight.ToInvariantString() + "]");
-            }
+            //script.Append("function storeCoords" + imgToCrop.ClientID + "(c) {");
+            //script.Append("jQuery('#" + X.ClientID + "').val(c.x);");
+            //script.Append("jQuery('#" + Y.ClientID + "').val(c.y);");
+            //script.Append("jQuery('#" + W.ClientID + "').val(c.w);");
+            //script.Append("jQuery('#" + H.ClientID + "').val(c.h);");
+            //script.Append("};");
 
-            if ((initialSelectionX > 0) && (initialSelectionY > 0) && (initialSelectionX2 > 0) && (initialSelectionY2 > 0))
-            {
-                script.Append(",setSelect:[" + initialSelectionX.ToInvariantString()
-                    + "," + initialSelectionY.ToInvariantString()
-                    + "," + initialSelectionX2.ToInvariantString()
-                    + "," + initialSelectionY2.ToInvariantString()
-                    + "]");
-            }
+            //script.Append("jQuery(document).ready(function() {");
+            //script.Append("jQuery('#" + imgToCrop.ClientID + "').Jcrop({");
+            //script.Append("onSelect: storeCoords" + imgToCrop.ClientID);
+            ////script.Append(",onChange: storeCoords" + imgToCrop.ClientID);
+            //script.Append(" ,bgColor:'" + bgColor + "'");
+            //script.Append(",bgOpacity:" + bgOpacity.ToString(CultureInfo.InvariantCulture));
+            //if (aspectRatio > 0) { script.Append(",aspectRatio:" + aspectRatio.ToString(CultureInfo.InvariantCulture)); }
+            //if ((minWidth > 0) && (minHeight > 0))
+            //{
+            //    script.Append(",minSize:[" + minWidth.ToInvariantString() + "," + minHeight.ToInvariantString() + "]");
+            //}
 
-            script.Append("});");
-            script.Append("});");
+            //if ((maxWidth > 0) && (maxHeight > 0))
+            //{
+            //    script.Append(",maxSize:[" + maxWidth.ToInvariantString() + "," + maxHeight.ToInvariantString() + "]");
+            //}
 
-            script.Append("</script>");
+            //if ((initialSelectionX > 0) && (initialSelectionY > 0) && (initialSelectionX2 > 0) && (initialSelectionY2 > 0))
+            //{
+            //    script.Append(",setSelect:[" + initialSelectionX.ToInvariantString()
+            //        + "," + initialSelectionY.ToInvariantString()
+            //        + "," + initialSelectionX2.ToInvariantString()
+            //        + "," + initialSelectionY2.ToInvariantString()
+            //        + "]");
+            //}
+
+            //script.Append("});");
+            //script.Append("});");
+
+            //script.Append("</script>");
 
             this.Page.ClientScript.RegisterStartupScript(
                 this.GetType(),
@@ -373,11 +410,8 @@ namespace mojoPortal.Web.UI
             //we are assuming that jquery is alreadyloaded in the page via script loader
 
             Page.ClientScript.RegisterClientScriptBlock(typeof(Page),
-                    "jcropmain", "\n<script  src=\""
-                    + Page.ResolveUrl("~/ClientScript/jcrop0912/jquery.Jcrop.min.js") + "\" type=\"text/javascript\" ></script>");
-
-            
-
+                    "cropperjs", $"\n<script src=\"{Page.ResolveUrl("~/ClientScript/cropperjs/cropper.js")}\" data-loader=\"ImageCropper\" ></script>");
+            Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "cropperjs-css", $"\n<link href=\"{Page.ResolveUrl("~/ClientScript/cropperjs/cropper.min.css")}\" rel=\"stylesheet\" data-loader=\"ImageCropper\"/>");
         }
 
 

@@ -172,7 +172,7 @@ namespace mojoPortal.Web.AdminUI
                 }
             }
 
-            SetupAvatarScript();
+            //SetupAvatarScript();
 
 			this.divUserGuid.Visible = false;
             divProfileApproved.Visible = false;
@@ -1244,8 +1244,13 @@ namespace mojoPortal.Web.AdminUI
                     allowGravatars = false;
                     disableAvatars = false;
                     lnkAvatarUpld.NavigateUrl = SiteRoot + "/Dialog/AvatarUploadDialog.aspx?u=" + userID.ToInvariantString();
-                    
-                    break;
+					lnkAvatarUpld.Attributes.Add("data-size", "fluid-xlarge");
+					lnkAvatarUpld.Attributes.Add("data-modal", string.Empty);
+					lnkAvatarUpld.Attributes.Add("data-close-text", Resource.CloseDialogButton);
+					lnkAvatarUpld.Attributes.Add("data-modal-type", "iframe");
+					lnkAvatarUpld.Attributes.Add("data-height", "full");
+
+					break;
 
                 case "none":
                 default:
@@ -1325,11 +1330,11 @@ namespace mojoPortal.Web.AdminUI
 
             //this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "gbcallback", callback);
 
-            string init = "<script type=\"text/javascript\">"
-                + "$('#" + lnkAvatarUpld.ClientID + "').colorbox({width:\"80%\", height:\"80%\", iframe:true, onClosed:GBCallback}); function GBCallback() { window.location.reload(true); } "
-                + "</script>";
+            //string init = "<script type=\"text/javascript\">"
+            //    + "$('#" + lnkAvatarUpld.ClientID + "').colorbox({width:\"80%\", height:\"80%\", iframe:true, onClosed:GBCallback}); function GBCallback() { window.location.reload(true); } "
+            //    + "</script>";
 
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "cbupinit", init, false);
+            //ScriptManager.RegisterStartupScript(this, this.GetType(), "cbupinit", init, false);
         }
         
 

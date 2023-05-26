@@ -1,19 +1,5 @@
-﻿//  Author:                     
-//  Created:                    2009-09-21
-//	Last Modified:              2011-08-22
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
@@ -25,11 +11,11 @@ using Resources;
 
 namespace mojoPortal.Web.Dialog
 {
-    /// <summary>
-    /// a page to upload and crop user avatars
-    /// </summary>
-    public partial class AvatarUploadDialog : Page
-    {
+	/// <summary>
+	/// a page to upload and crop user avatars
+	/// </summary>
+	public partial class AvatarUploadDialog : mojoDialogBasePage
+	{
         private int userId = -1;
         private bool disableAvatars = true;
         private bool canEdit = false;
@@ -191,6 +177,7 @@ namespace mojoPortal.Web.Dialog
             btnUploadAvatar.Text = Resource.UploadAvatarButton;
             regexAvatarFile.ErrorMessage = Resource.FileTypeNotAllowed;
             regexAvatarFile.ValidationExpression = SecurityHelper.GetRegexValidationForAllowedExtensions(WebConfigSettings.ImageFileExtensions);
+            lblUploadNewAvatar.Text = Resource.UploadAvatarLink;
         }
 
         private void LoadSettings()
@@ -199,7 +186,19 @@ namespace mojoPortal.Web.Dialog
             avatarBasePath = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/useravatars/";
             userId = WebUtils.ParseInt32FromQueryString("u", true, userId);
             currentUser = SiteUtils.GetCurrentSiteUser();
-            if ((currentUser != null) && (currentUser.UserId == userId) && (userId != -1)) 
+
+			//if (Page is mojoDialogBasePage)
+			//{
+			//	mojoDialogBasePage basePage = Page as mojoDialogBasePage;
+   //             PlaceHolder phHead = basePage.FindControl("phHead") as PlaceHolder;
+   //             if (phHead != null)
+   //             {
+   //                 phHead.Controls.Add(new Literal { Text = $"<script src=\"{WebUtils.ResolveUrl($"~/ClientScript/jcrop3/jcrop.js")}\" data-loader=\"AvatarUploadDialog\"></script>" });
+   //                 phHead.Controls.Add(new Literal { Text = $"<link rel=\"stylesheet\" href=\"{WebUtils.ResolveUrl($"~/ClientScript/jcrop3/jcrop.css")}\" data-loader=\"AvatarUploadDialog\"/>" });
+			//	}
+			//}
+
+			if ((currentUser != null) && (currentUser.UserId == userId) && (userId != -1)) 
             {
                 selectedUser = currentUser;
                 canEdit = true; 
