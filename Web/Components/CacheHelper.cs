@@ -395,41 +395,46 @@ namespace mojoPortal.Business.WebHelpers
         {
             if (HttpContext.Current == null) return null;
 
-            SiteSettings siteSettings = HttpContext.Current.Items["SiteSettings"] as SiteSettings;
-            if (siteSettings == null)
-            {
-                siteSettings = GetSiteSettingsFromCache();
-                if (siteSettings != null)
-                    HttpContext.Current.Items["SiteSettings"] = siteSettings;
-            }
-            return siteSettings;
+			if (HttpContext.Current.Items["SiteSettings"] is not SiteSettings siteSettings)
+			{
+				siteSettings = GetSiteSettingsFromCache();
+				if (siteSettings != null)
+					HttpContext.Current.Items["SiteSettings"] = siteSettings;
+			}
+			return siteSettings;
         }
-
 
         private static SiteSettings GetSiteSettingsFromCache()
         {
-    
             bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
             string cachekey;
             int siteId;
+
+            
 
             if (useFolderForSiteDetection)
             {
                 string siteFolderName = VirtualFolderEvaluator.VirtualFolderName();
                 if (siteFolderName.Length == 0) siteFolderName = "root";
-                siteId = SiteSettings.GetSiteIdByFolder(siteFolderName);
-                cachekey = "SiteSettings_" + siteId.ToInvariantString();
+
+				if (!Global.SiteHostMap.TryGetValue(siteFolderName, out siteId))
+                {
+					siteId = SiteSettings.GetSiteIdByFolder(siteFolderName);
+                    Global.SiteHostMap.Add(siteFolderName, siteId);
+                }
             }
             else
             {
-				//todo: cache number of sites in db when application starts (or when sites are added) then, if there's only one, we don't need to go to db to get the siteid
-				//maybe we could cache all of the hostnames and site ids?
                 String hostName = WebUtils.GetHostName();
-                siteId = SiteSettings.GetSiteIdByHostName(hostName);
-                cachekey = "SiteSettings_" + siteId.ToInvariantString();
-            }
+				if (!Global.SiteHostMap.TryGetValue(hostName, out siteId))
+                {
+					siteId = SiteSettings.GetSiteIdByHostName(hostName);
+				    Global.SiteHostMap.Add(hostName, siteId);
+                }
+			}
+			cachekey = "SiteSettings_" + siteId.ToInvariantString();
 
-            DateTime expiration = DateTime.Now.AddSeconds(WebConfigSettings.SiteSettingsCacheDurationInSeconds);
+			DateTime expiration = DateTime.Now.AddSeconds(WebConfigSettings.SiteSettingsCacheDurationInSeconds);
 
             try
             {

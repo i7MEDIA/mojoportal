@@ -40,6 +40,7 @@ using mojoPortal.Web.Optimization;
 using mojoPortal.Web.Routing;
 using Resources;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 using System.Security;
@@ -79,6 +80,8 @@ namespace mojoPortal.Web
 
 		public static SkinConfigManager SkinConfigManager { get; private set; }
 		public static SkinConfig SkinConfig { get; private set; }
+
+		public static Dictionary<string,int> SiteHostMap { get; } = new Dictionary<string,int>();
 
 		// this changes everytime the app starts and the token is required when calling /Services/FileService.ashx
 		// to help mitigate against xsrf attacks
