@@ -114,9 +114,6 @@ namespace SuperFlexiUI
 				displaySettings = Config.MarkupDefinition;
 			}
 
-			fields = Field.GetAllForDefinition(Config.FieldDefinitionGuid);
-
-			dynamicLists = fields.Where(f => f.IsDynamicListField()).ToList();
 
 			if (itemId > 0)
 			{
@@ -162,7 +159,6 @@ namespace SuperFlexiUI
 
 		private void GetItems()
 		{
-
 			if (dynamicQueryParams.Count > 0)
 			{
 				foreach (var set in dynamicQueryParams)
@@ -177,6 +173,16 @@ namespace SuperFlexiUI
 				}
 
 				itemsWithValues = itemsWithValues.Distinct(new SimpleItemWithValuesComparer()).ToList();
+			}
+			else if (Config.ProcessItems)
+			{
+				itemsWithValues.AddRange(GetItemsWithValues());
+				//getDynamicListValuesFromReturnedItems = true;
+			}
+
+			if (Config.GetDynamicListsInRazor)
+			{
+				dynamicLists = Field.GetAllForDefinition(Config.FieldDefinitionGuid).Where(f => f.IsDynamicListField()).ToList();
 
 				if (totalPages > 1 && dynamicLists.Count > 0)
 				{
@@ -193,52 +199,6 @@ namespace SuperFlexiUI
 					}
 				}
 			}
-			else if (Config.ProcessItems)
-			{
-				itemsWithValues.AddRange(GetItemsWithValues());
-				getDynamicListValuesFromReturnedItems = true;
-			}
-
-			//if (Config.IsGlobalView)
-			//{
-			//	if (pageNumber > -1)
-			//	{
-			//		items = Item.GetForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, pageNumber, pageSize, out totalPages, out totalRows, Config.DescendingSort);
-
-			//		if (totalPages > 1 && dynamicLists.Count > 0)
-			//		{
-			//			foreach (var dynamicListField in dynamicLists)
-			//			{
-			//				dynamicListValues.AddRange(ItemFieldValue.GetByFieldGuid(dynamicListField.FieldGuid));
-			//			}
-			//		}
-			//	}
-			//	else
-			//	{
-			//		items = Item.GetForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, Config.DescendingSort);
-			//		getDynamicListValuesFromReturnedItems = true;
-			//	}
-			//}
-			//else
-			//{
-			//	if (pageNumber > -1)
-			//	{
-			//		items = Item.GetForModule(ModuleId, pageNumber, pageSize, out totalPages, out totalRows, Config.DescendingSort);
-
-			//		if (totalPages > 1 && dynamicLists.Count > 0)
-			//		{
-			//			foreach (var dynamicListField in dynamicLists)
-			//			{
-			//				dynamicListValues.AddRange(ItemFieldValue.GetByFieldGuidForModule(dynamicListField.FieldGuid, module.ModuleGuid));
-			//			}
-			//		}
-			//	}
-			//	else
-			//	{
-			//		items = Item.GetForModule(ModuleId, Config.DescendingSort);
-			//		getDynamicListValuesFromReturnedItems = true;
-			//	}
-			//}
 		}
 
 		private List<ItemWithValues> GetItemsWithValues(string searchTerm = "", string searchField = "")
@@ -278,13 +238,13 @@ namespace SuperFlexiUI
 
 			featuredImageUrl = String.IsNullOrWhiteSpace(Config.InstanceFeaturedImage) ? featuredImageUrl : SiteUtils.GetNavigationSiteRoot() + Config.InstanceFeaturedImage;
 
-			bool publishedToCurrentPage = true;
+			//bool publishedToCurrentPage = true;
 
-			var pageModules = PageModule.GetPageModulesByModule(module.ModuleId);
-			if (pageModules.Where(pm => pm.PageId == CurrentPage.PageId).ToList().Count() == 0)
-			{
-				publishedToCurrentPage = false;
-			}
+			//var pageModules = PageModule.GetPageModulesByModule(module.ModuleId);
+			//if (pageModules.Where(pm => pm.PageId == CurrentPage.PageId).ToList().Count() == 0)
+			//{
+			//	publishedToCurrentPage = false;
+			//}
 
 			var superFlexiItemClass = new ClassBuilder(itemsWithValues)
 			{
@@ -302,13 +262,12 @@ namespace SuperFlexiUI
 					Guid = module.ModuleGuid,
 					IsEditable = IsEditable,
 					Pane = module.PaneName,
-					PublishedToPageId = publishedToCurrentPage ? CurrentPage.PageId : -1,
+					//PublishedToPageId = publishedToCurrentPage ? CurrentPage.PageId : -1,
 					ShowTitle = module.ShowTitle,
 					Title = module.ModuleTitle,
 					TitleElement = module.HeadElement
 				},
 				Config = Config,
-				//DynamicLists = new KeyValuePair<string, List<string>>(),
 				Page = new PageModel
 				{
 					Id = CurrentPage.PageId,
@@ -337,172 +296,32 @@ namespace SuperFlexiUI
 				}
 			};
 
-
-			//        foreach (Item item in items)
-			//        {
-			//            var itemObject = Activator.CreateInstance(superFlexiItemClass);
-
-			//            bool itemIsEditable = IsEditable || WebUser.IsInRoles(item.EditRoles);
-			//            bool itemIsViewable = WebUser.IsInRoles(item.ViewRoles) || itemIsEditable;
-
-			//            if (!itemIsViewable)
-			//            {
-			//                continue;
-			//            }
-
-			//            string itemEditUrl = SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + PageId + "&mid=" + item.ModuleID + "&itemid=" + item.ItemID;
-
-			//            SetItemClassProperty(itemObject, "Id", item.ItemID);
-			//            SetItemClassProperty(itemObject, "Guid", item.ItemGuid);
-			//            SetItemClassProperty(itemObject, "SortOrder", item.SortOrder);
-			//            SetItemClassProperty(itemObject, "EditUrl", itemEditUrl);
-			//            SetItemClassProperty(itemObject, "IsEditable", itemIsEditable);
-
-			//            List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
-
-			//foreach (Field field in fields)
-			//            {
-			//                foreach (ItemFieldValue fieldValue in fieldValues)
-			//                {
-			//                    if (field.FieldGuid == fieldValue.FieldGuid)
-			//                    {
-			//                        if (getDynamicListValuesFromReturnedItems && field.IsDynamicListField())
-			//                        {
-			//                            dynamicListValues.Add(fieldValue);
-			//                        }
-
-			//                        switch (field.ControlType)
-			//                        {
-			//                            case "CheckBox":
-			//                                if (field.CheckBoxReturnBool)
-			//                                {
-			//                                    SetItemClassProperty(itemObject, field.Name, Convert.ToBoolean(fieldValue.FieldValue));
-			//                                }
-			//                                else
-			//                                {
-			//                                    goto default;
-			//                                }
-
-			//                                break;
-			//                            case "CheckBoxList":
-			//                            case "DynamicCheckBoxList":
-			//                                SetItemClassProperty(itemObject, field.Name, fieldValue.FieldValue.SplitOnCharAndTrim(';'));
-			//                                break;
-			//                            case "DateTime":
-			//                            case "Date":
-			//                                if (!string.IsNullOrWhiteSpace(fieldValue.FieldValue))
-			//                                {
-			//                                    DateTime.TryParse(fieldValue.FieldValue, out DateTime dt);
-			//                                    SetItemClassProperty(itemObject, field.Name, TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(TimeZoneInfo.ConvertTimeToUtc(dt), DateTimeKind.Utc), timeZone));
-			//                                    SetItemClassProperty(itemObject, field.Name + "UTC", TimeZoneInfo.ConvertTimeToUtc(dt));
-
-			//                                    //var dt2 = TimeZoneInfo.ConvertTimeToUtc(DateTime.SpecifyKind(dt, DateTimeKind.Utc));
-			//                                }
-			//                                break;
-			//                            case "TextBox":
-			//                            default:
-			//                                if (field.IsDateField()) goto case "Date";
-
-			//                                SetItemClassProperty(itemObject, field.Name, fieldValue.FieldValue);
-			//                                break;
-			//                        }
-			//                    }
-			//                }
-			//            }
-
-			//            itemModels.Add(itemObject);
-			//        }
-
 			foreach (var dv in dynamicListValues)
 			{
 
 				var values = dynamicListValues.Where(list => list.FieldName == dv.FieldName).Select(v => v.FieldValue).ToList();
 				model.DynamicLists.Add(dv.FieldName, values);
-
 			}
-
-			//        foreach (var iwv in itemsWithValues)
-			//        {
-
-			//            bool itemIsEditable = IsEditable || WebUser.IsInRoles(iwv.Item.EditRoles);
-			//            bool itemIsViewable = WebUser.IsInRoles(iwv.Item.ViewRoles) || itemIsEditable;
-
-			//            if (!itemIsViewable)
-			//            {
-			//                continue;
-			//            }
-
-			//            //var itemObject = Activator.CreateInstance(superFlexiItemClass.Class);
-
-			//            string itemEditUrl =SiteUtils.GetNavigationSiteRoot() + "/SuperFlexi/Edit.aspx?pageid=" + PageId + "&mid=" + iwv.Item.ModuleID + "&itemid=" + iwv.Item.ItemID;
-
-			//            superFlexiItemClass.SetItemClassProperty("Id", iwv.Item.ItemID);
-			//superFlexiItemClass.SetItemClassProperty("Guid", iwv.Item.ItemGuid);
-			//superFlexiItemClass.SetItemClassProperty("SortOrder", iwv.Item.SortOrder);
-			//superFlexiItemClass.SetItemClassProperty("EditUrl", itemIsEditable? itemEditUrl : string.Empty);
-			//superFlexiItemClass.SetItemClassProperty("IsEditable", itemIsEditable);
-
-			//            //List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(iwv.Item.ItemGuid);
-
-			//            foreach (var fieldValue in iwv.Values)
-			//            {
-			//                var field = fields.FirstOrDefault(f => f.Name == fieldValue.Key);
-			//                if (field != null)
-			//                {
-			//                    switch (field.ControlType)
-			//                    {
-			//                        case "CheckBox":
-			//                            if (!field.CheckBoxReturnBool) goto default;
-
-			//				superFlexiItemClass.SetItemClassProperty(field.Name, Convert.ToBoolean(fieldValue.Value.ToString()));
-
-			//                            break;
-			//                        case "CheckBoxList":
-			//                        case "DynamicCheckBoxList":
-			//				superFlexiItemClass.SetItemClassProperty(field.Name, fieldValue.Value.ToString().SplitOnCharAndTrim(';'));
-			//                            break;
-			//                        case "DateTime":
-			//                        case "Date":
-			//                            if (!string.IsNullOrWhiteSpace(fieldValue.Value.ToString()))
-			//                            {
-			//                                DateTime.TryParse(fieldValue.Value.ToString(), out DateTime dt);
-			//					superFlexiItemClass.SetItemClassProperty(field.Name, TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(TimeZoneInfo.ConvertTimeToUtc(dt), DateTimeKind.Utc), timeZone));
-			//					superFlexiItemClass.SetItemClassProperty(field.Name + "UTC", TimeZoneInfo.ConvertTimeToUtc(dt));
-			//                            }
-			//                            break;
-			//                        case "TextBox":
-			//                        default:
-			//				if (field.IsDateField()) goto case "Date";
-
-			//				superFlexiItemClass.SetItemClassProperty(field.Name, fieldValue.Value.ToString());
-			//                            break;
-			//                    }
-			//                }
-			//            }
-
-			//            itemModels.Add(superFlexiItemClass.Item);
-			//        }
 
 			model.Items = superFlexiItemClass.Items;
 
 			var viewPath = Config.RelativeSolutionLocation + "/" + Config.ViewName;
 
-			mojoViewEngine mve = new mojoViewEngine();
+			mojoViewEngine mve = new();
 
 			model.Site.SkinViewPath = model.Site.SkinPath + "Views/" + Config.RelativeSolutionLocation.Replace("~/Data/", string.Empty).Replace("sites/" + model.Site.Id, string.Empty) + "/" + Config.ViewName;
 
-			List<string> masterLocationFormats = new List<string>(mve.MasterLocationFormats);
+			List<string> masterLocationFormats = new(mve.MasterLocationFormats);
 			masterLocationFormats.Insert(0, "~/Data/Sites/$SiteId$/skins/$Skin$/Views/SuperFlexi/{0}.cshtml");
 			mve.MasterLocationFormats = masterLocationFormats.ToArray();
 
-			List<string> partialViewLocationFormats = new List<string>(mve.PartialViewLocationFormats);
+			List<string> partialViewLocationFormats = new(mve.PartialViewLocationFormats);
 			partialViewLocationFormats.Insert(0, model.Site.SkinViewPath.Replace(Config.ViewName, string.Empty) + "/{0}.cshtml");
 			mve.PartialViewLocationFormats = partialViewLocationFormats.ToArray();
 
-			List<string> viewLocationFormats = new List<string>(mve.ViewLocationFormats);
+			List<string> viewLocationFormats = new(mve.ViewLocationFormats);
 			viewLocationFormats.Insert(0, model.Site.SkinViewPath.Replace(Config.ViewName, string.Empty) + "/{0}.cshtml");
 			mve.ViewLocationFormats = viewLocationFormats.ToArray();
-
 
 			string content;
 
@@ -551,115 +370,5 @@ namespace SuperFlexiUI
 		{
 			this.RenderContents(writer);
 		}
-
-		//     private Type CreateClass()
-		//     {
-		//         var className = "_" + Config.FieldDefinitionGuid.ToString("N");
-		//         var solutionName = Config.MarkupDefinitionName;
-
-		//         var classCode = $@"
-		//                 using System;
-		//                 using System.Collections.Generic;
-		//                 //using mojoPortal.Web.ModelBinders;
-		//                 /// <summary>
-		//                 /// Dynamically generated class for {solutionName}
-		//                 /// </summary>
-		//                 public class {className} {{
-		//                     public int Id {{get;set;}}
-		//                     public Guid Guid {{get;set;}}
-		//                     public int SortOrder {{get;set;}}
-		//                     public string EditUrl {{get;set;}}
-		//                     public bool IsEditable {{get;set;}}
-		//                     {getFields()}                        
-		//                 }}";
-
-		//string getFields()
-		//{
-
-		//	var sb = new StringBuilder();
-		//	var sbConstructor = new StringBuilder();
-		//	sbConstructor.AppendLine($"public {className}(){{");
-
-		//	foreach (Field field in fields)
-		//	{
-		//		switch (field.ControlType)
-		//		{
-		//			case "CheckBox":
-		//				if (field.CheckBoxReturnBool)
-		//				{
-		//					sb.AppendLine($"public bool {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
-		//				}
-		//				else
-		//				{
-		//					goto default;
-		//				}
-		//				break;
-		//			case "CheckBoxList":
-		//			case "DynamicCheckBoxList":
-		//				sb.AppendLine($"public List<string> {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
-		//				sbConstructor.AppendLine(field.Name + " = new List<string>();");
-		//				break;
-		//			case "DateTime":
-		//			case "Date":
-		//				sb.AppendLine($"public DateTime {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
-		//				sb.AppendLine($"public DateTime {field.Name.Replace(" ", string.Empty)}UTC {{get;set;}}");
-		//				break;
-		//			case "TextBox":
-		//			default:
-		//                         if (field.IsDateField()) goto case "Date";
-
-		//				sb.AppendLine($"public string {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
-		//				break;
-		//		}
-		//	}
-		//	if (sbConstructor.Length > 1)
-		//	{
-		//		sbConstructor.AppendLine("}");
-		//		sb.AppendLine(sbConstructor.ToString());
-		//	}
-		//	return sb.ToString();
-		//}
-
-		//log.Debug(classCode);
-		//         var options = new CompilerParameters
-		//         {
-		//             GenerateExecutable = false,
-		//             GenerateInMemory = true,
-
-		//         };
-		//         //options.ReferencedAssemblies.Add(System.Web.Hosting.HostingEnvironment.MapPath("~/bin/System.dll"));
-		//         options.ReferencedAssemblies.Add(Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8));
-		//         //options.ReferencedAssemblies.Add(AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(assembly => assembly.GetName().Name == "mojoPortal.Web").FullName);
-		//         options.ReferencedAssemblies.Add(Reflection.Assembly.GetAssembly(typeof(Global)).CodeBase.Substring(8));
-
-		//         var provider = new CSharpCodeProvider();
-		//         var compile = provider.CompileAssemblyFromSource(options, classCode);
-
-		//         if (compile != null)
-		//         {
-		//             if (compile.Errors.Count > 0)
-		//             {
-		//                 log.Error(compile.Errors);
-		//             }
-
-		//             return compile.CompiledAssembly.GetType(className);
-
-		//             //return Activator.CreateInstance(type);
-		//         }
-		//         else
-		//         {
-		//             log.Error("could not compile");
-		//             return null;
-		//         }
-		//     }
-
-		//public void SetItemClassProperty(object itemObject, string propName, object propValue)
-		//{
-		//    itemObject.GetType()
-		//        .GetProperty(propName, Reflection.BindingFlags.Public | Reflection.BindingFlags.Instance)
-		//        .SetValue(itemObject, propValue);
-		//}
 	}
-
-
 }

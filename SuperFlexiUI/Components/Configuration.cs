@@ -392,6 +392,8 @@ namespace SuperFlexiUI
 				allowImport = XmlUtils.ParseBoolFromAttribute(attrCollection, "allowImport", allowImport);
 				allowExport = XmlUtils.ParseBoolFromAttribute(attrCollection, "allowExport", allowExport);
 				Debug = XmlUtils.ParseBoolFromAttribute(attrCollection, "debug", Debug);
+				GetDynamicListsInRazor = XmlUtils.ParseBoolFromAttribute(attrCollection, "getDynamicListsInRazor", GetDynamicListsInRazor);
+
 				if (attrCollection["itemViewRolesFieldName"] != null)
 					ItemViewRolesFieldName = attrCollection["itemViewRolesFieldName"].Value;
 				if (attrCollection["itemEditRolesFieldName"] != null)
@@ -862,7 +864,7 @@ namespace SuperFlexiUI
 		public string ItemEditRolesFieldName { get; set; } = string.Empty;
 
 		public int PageSize { get; set; } = 0;
-
+		public bool GetDynamicListsInRazor = false;
 		#endregion
 	}
 
