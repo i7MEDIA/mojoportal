@@ -12,9 +12,10 @@
 			<div class="settingrow passwordrow">
 				<mp:SiteLabel ID="lblPassword" runat="server" ForControl="Password" ConfigKey="SignInPasswordLabel" SkinID="settinglabel" />
 				<asp:TextBox ID="Password" runat="server" CssClass="normaltextbox passwordbox" TextMode="password" />
+			</div>
+			<div class="settingrow forgotpasswordrow">
 				<asp:HyperLink ID="lnkPasswordRecovery" runat="server" CssClass="lnkpasswordrecovery" SkinID="LoginControlPasswordRecoveryLink"/>
 			</div>
-
 			<div class="settingrow rememberrow">
 				<asp:CheckBox ID="RememberMe" runat="server" />
 			</div>
