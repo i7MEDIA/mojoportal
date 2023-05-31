@@ -51,22 +51,18 @@ namespace mojoPortal.Features
 
             log.Info(BlogResources.BlogFeatureName + " indexing page - " + pageSettings.PageName);
 
-            //try
-            //{
-            Guid blogFeatureGuid = new Guid("026cbead-2b80-4491-906d-b83e37179ccf");
-            ModuleDefinition blogFeature = new ModuleDefinition(blogFeatureGuid);
+			//try
+			//{
+			Guid blogFeatureGuid = new("026cbead-2b80-4491-906d-b83e37179ccf");
+			ModuleDefinition blogFeature = new(blogFeatureGuid);
 
-            List<PageModule> pageModules
-                    = PageModule.GetPageModulesByPage(pageSettings.PageId);
+            List<PageModule> pageModules = PageModule.GetPageModulesByPage(pageSettings.PageId);
 
-            DataTable dataTable
-                = Blog.GetBlogsByPage(
-                pageSettings.SiteId,
-                pageSettings.PageId);
+            DataTable dataTable = Blog.GetBlogsByPage(pageSettings.SiteId, pageSettings.PageId);
 
             foreach (DataRow row in dataTable.Rows)
             {
-                bool includeInSearch = Convert.ToBoolean(row["IncludeInSearch"], CultureInfo.InvariantCulture);
+                bool includeInSearch = Convert.ToBoolean(row["IncludeInSearch"], CultureInfo.InvariantCulture) || !Convert.ToBoolean(row["IsPublished"], CultureInfo.InvariantCulture);
                 if (!includeInSearch) { continue; }
 
                 DateTime postEndDate = DateTime.MaxValue;
@@ -76,8 +72,8 @@ namespace mojoPortal.Features
 
                     if (postEndDate < DateTime.UtcNow) { continue; }
                 }
-                
-                bool excludeFromRecentContent = Convert.ToBoolean(row["ExcludeFromRecentContent"], CultureInfo.InvariantCulture);
+
+                bool excludeFromRecentContent = Convert.ToBoolean(row["ExcludeFromRecentContent"], CultureInfo.InvariantCulture);                
 
                 mojoPortal.SearchIndex.IndexItem indexItem = new mojoPortal.SearchIndex.IndexItem();
                 indexItem.SiteId = pageSettings.SiteId;

@@ -1919,10 +1919,7 @@ namespace mojoPortal.Web.BlogUI
 				chkShowAuthorName.Checked = BlogConfiguration.ShowAuthorNameCheckedByDefault;
 				chkShowAuthorAvatar.Checked = BlogConfiguration.ShowAuthorAvatarCheckedByDefault;
 				chkShowAuthorBio.Checked = BlogConfiguration.ShowAuthorBioCheckedByDefault;
-
-
 			}
-
 		}
 
 		private void LoadSettings()
