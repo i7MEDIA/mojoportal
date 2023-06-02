@@ -68,8 +68,45 @@ namespace mojoPortal.Web.Controls.DatePicker
 				};
 				csslink.Attributes.Add("rel", "stylesheet");
 				csslink.Attributes.Add("data-loader", "airdatepicker");
+				csslink.Attributes.Add("title", "airdatepickercss");
 				Page.Header.Controls.Add(csslink);
 			}
+			//this script is used to ensure the css is loaded. When the control is added inside of an updatepanel,
+			//the css isn't loaded so this script will check if the css exists, if it doesn't the script will load it.
+			ScriptManager.RegisterStartupScript(this.Page, GetType(), "airdatepickercss_loader", $@"
+<script data-loader=""airdatepicker"">
+(function() {{
+	let cssTitle = ""airdatepickercss"";
+	let cssPath = ""{ResolveUrl(StylePath)}"";
+	let debug = false;
+	let useFallback = false;
+	for (let i = 0; i < document.styleSheets.length; i++) {{
+		if (document.styleSheets[i].title && document.styleSheets[i].title.match(cssTitle)) {{
+			if (useFallback) {{
+				if (document.styleSheets[i].cssRules.length == 0) {{
+					// Fallback. There is a request for the css file, but it failed.
+					if (debug) {{console.log(`${{cssTitle}} failed to load. Path was ${{cssPath}}`);}}
+					break;
+				}} else {{
+					//it's loaded, move on...
+					if (debug) {{console.log(`${{cssTitle}} was loaded okay`);}}
+					break;
+				}}
+			}} else {{
+				break;
+			}}
+		}} else if (i == document.styleSheets.length - 1) {{
+			// css link element doesn't exist, we're probably in an updatepanel
+			if (debug) {{console.log(`${{cssTitle}} was not loaded, loading through JS because control is probably inside an updatepanel.`);}}
+			let link = document.createElement( ""link"" );
+			link.href = cssPath;
+			link.rel = ""stylesheet"";
+			link.title = ""airdatepickercss"";
+			document.getElementsByTagName(""head"")[0].appendChild(link);
+		}}
+	}}
+}})();
+</script>", false);
 
 			ScriptManager.RegisterStartupScript(this.Page, GetType(), "airDate", 
 $@"
@@ -98,8 +135,6 @@ window.airDatepickerExt = {{
 </script>
 ", false);
 
-			//string relatedPickerScript = string.Empty; //will be populated if RelatedPickerControl has value
-			//string onSelectEvents = string.Empty;
 			if (!string.IsNullOrWhiteSpace(RelatedPickerControl))
 			{
 				string relatedPickerBaseScript = $@"
