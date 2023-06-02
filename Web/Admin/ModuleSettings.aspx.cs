@@ -414,8 +414,10 @@ namespace mojoPortal.Web.AdminUI
 					if (groupsExist)
 					{
 						string localizedGroup = ResourceHelper.GetResourceString(s.ResourceFile, s.GroupName);
-						Literal groupHeader = new Literal();
-						groupHeader.Text = "<h3><a href=\"#\">" + localizedGroup + "</a></h3>";
+						Literal groupHeader = new()
+						{
+							Text = "<h3><a href=\"#\">" + localizedGroup + "</a></h3>"
+						};
 						pnlcustomSettings.Controls.Add(groupHeader);
 					}
 
