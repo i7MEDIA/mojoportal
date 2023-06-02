@@ -448,3 +448,8 @@ Web/Data/sqlitedb/mojo\.db\.config
 /Web/Views/Shared/_StreamingVideoList.cshtml
 /Web/Views/Shared/_StreamingTagList.cshtml
 /Web/Views/Shared/_StreamingChannelList.cshtml
+/MigrationBackup
+/Web/AjaxControlToolkit/Release
+/Web/Content/AjaxControlToolkit
+/Web/Scripts/AjaxControlToolkit/Release
+/Web/AjaxControlToolkit.config

@@ -748,18 +748,15 @@ namespace mojoPortal.Web.BlogUI
 			}
 
 			// This must be below blog.Save() in order to have blog.ItemId set
-			if (chkFeaturedPost.Checked == true)
+			if (chkFeaturedPost.Checked && blog.IsPublished && blog.StartDate <= DateTime.UtcNow && blog.EndDate > DateTime.UtcNow)
 			{
 				ModuleSettings.UpdateModuleSetting(module.ModuleGuid, moduleId, "FeaturedPostId", blog.ItemId.ToString());
 			}
 
-			if (config.FeaturedPostId == blog.ItemId)
+			if (config.FeaturedPostId == blog.ItemId && !chkFeaturedPost.Checked)
 			{
-				if (chkFeaturedPost.Checked == false)
-				{
-					ModuleSettings.UpdateModuleSetting(module.ModuleGuid, moduleId, "FeaturedPostId", "0");
-				}
-			}
+				ModuleSettings.UpdateModuleSetting(module.ModuleGuid, moduleId, "FeaturedPostId", "0");
+			}			
 
 			if (!friendlyUrl.FoundFriendlyUrl)
 			{
