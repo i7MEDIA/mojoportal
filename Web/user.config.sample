@@ -110,7 +110,7 @@
 	<add key="CombineCSS" value="true"/>
 	<add key="MinifyCSS" value="true"/> -->
 	
-	<!-- Showing the skin version could be a security risk IF a bug is found in a specific version -->
+	<!-- Showing the mojoPortal version could be a security risk IF a bug is found in a specific version -->
 	<add key="IncludeVersionInCssUrl" value="false" />
 	
 	<!-- Cache Settings -->

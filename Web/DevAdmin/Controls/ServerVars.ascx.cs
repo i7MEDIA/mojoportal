@@ -15,7 +15,7 @@ using System.Collections.Specialized;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-
+using mojoPortal.Web.Caching;
 
 namespace mojoPortal.Web.DevAdmin
 {
@@ -77,6 +77,13 @@ namespace mojoPortal.Web.DevAdmin
             siteSettings = CacheHelper.GetCurrentSiteSettings();
             serverVars = Request.ServerVariables;
 
+            foreach (string i in Session.Contents)
+            {
+                if (Session[i] != null)
+                {
+                    serverVars.Add(i, Session[i].ToString());
+                }
+            }
         }
 
 

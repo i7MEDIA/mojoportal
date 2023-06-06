@@ -65,11 +65,11 @@ namespace mojoPortal.Business.WebHelpers.PaymentGateway
         //private string payPalExpressProductionCheckoutUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=";
         //private string payPalExpressSandboxCheckoutUrl = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=";
 
-        private string payPalExpressProductionCheckoutUrl = ConfigHelper.GetStringProperty(
+        private string payPalExpressProductionCheckoutUrl = Core.Configuration.ConfigHelper.GetStringProperty(
             "PayPalExpressProductionUrl", 
             "https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=");
 
-        private string payPalExpressSandboxCheckoutUrl = ConfigHelper.GetStringProperty(
+        private string payPalExpressSandboxCheckoutUrl = Core.Configuration.ConfigHelper.GetStringProperty(
             "PayPalExpressSandboxUrl", 
             "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=");
         
