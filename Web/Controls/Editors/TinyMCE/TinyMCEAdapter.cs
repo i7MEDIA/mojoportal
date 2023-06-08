@@ -465,7 +465,10 @@ namespace mojoPortal.Web.Editor
 					};
 					if (style.ShouldSerializeElement())
 					{
-						tStyle.Classes = string.Join(" ", style.Attributes.Where(a => a.Key == "class").Select(a => a.Value).ToList());
+						if (style.ShouldSerializeAttributes())
+						{
+							tStyle.Classes = string.Join(" ", style.Attributes.Where(a => a.Key == "class").Select(a => a.Value).ToList());
+						}
 						if (style.Element.Count == 1)
 						{
 							tStyle.Selector = style.Element[0];
