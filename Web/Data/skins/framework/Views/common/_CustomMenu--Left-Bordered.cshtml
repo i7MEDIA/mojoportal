@@ -1,0 +1,44 @@
+@model mojoPortal.Web.Models.CustomMenu
+
+@using mojoPortal.Business.WebHelpers;
+@using mojoPortal.Business;
+@using mojoPortal.Web.UI;
+
+@ShowTree(Model.Menu)
+
+@helper ShowTree(List<mojoMenuItem> items, int currentDepth = 0) 
+{
+    if (currentDepth == 0) 
+    {
+        @Html.Raw("<nav class='custom-sidebar pagemenu'>");
+    }
+    currentDepth++;
+    if (Model.MaxDepth == -1 || currentDepth <= Model.MaxDepth) 
+    {
+        <ul>
+        @foreach(mojoMenuItem item in items)
+        {
+            var itemCssClass = item.CssClass + (item.Current ? " active" : "");
+            <li role="presentation"@Html.Raw(string.IsNullOrWhiteSpace(itemCssClass) ? "" : $" class=\"{itemCssClass}\"")>
+                @if(item.Clickable) 
+                { 
+                    <a href="@item.URL" title="@item.Name"@Html.Raw(item.OpenInNewTab ? " target=\"_blank\"" : "")>@item.Name</a>
+                }
+                else
+                {
+                    @item.Name 
+                }
+
+                @if (item.Children.Any())
+                {
+                    @ShowTree(item.Children, currentDepth)
+                }
+            </li>
+        }
+        </ul>
+    }
+    if (currentDepth == 0) 
+    {
+        @Html.Raw("</nav>");
+    }
+}

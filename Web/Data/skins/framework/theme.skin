@@ -125,7 +125,31 @@
 		TodayDayStyle-CssClass="ec-day ec-today"
 		WeekendDayStyle-CssClass="ec-day ec-weekend-day"
 	/>
+	
 	<ecp:EventDisplaySettings runat="server"
+		MonthViewCssClass="hide"
+		MonthViewHeaderMarkupTop="</td></tr></tbody></table><div class='ec-month-head row fb-parent fb-row fb-wrap fb-ai-center fb-j-between'>"
+		MonthViewHeaderMarkupBottom="</div><table class='event-cal-pro table table-condensed table-bordered table-responsive'><tbody><tr class='hide'><td>"
+		MonthViewDayHeaderCssClass="ec-head"
+		MonthViewDayCssClass="ec-day"
+		MonthViewTodayCssClass="ec-day ec-today"
+		MonthViewWeekendDayCssClass="ec-day ec-weekend-day"
+		MonthViewOtherMonthDayCssClass="ec-day ec-other-month"
+		MonthViewHeaderPreviousMonthContainer="<div class='ec-month-previous fb-child col-sm-3 text-xs-center text-md-left'>{0}</div>"
+		MonthViewHeaderPreviousMonthLinkFormat="<a href='{0}' class='eventNextPrevious previousMonth' {2}><span class='fa fa-angle-double-left'></span> <span class='monthName'>{1}</span></a>"
+		MonthViewHeaderNextMonthContainer="<div class='nextMonth ec-month-next fb-child col-sm-3 text-xs-center text-md-right'>{0}</div>"
+		MonthViewHeaderNextMonthLinkFormat="<a href='{0}' class='eventNextPrevious nextMonth' {2}><span class='monthName'>{1}</span> <span class='fa fa-angle-double-right'></span></a>"
+		MonthViewHeaderCurrentMonthFormat="<h3 class='currentMonth fb-child col-sm-6 fb-ai-center fb-j-center text-center'>{0}</h3>"
+		MonthViewEmptyDayFiller="<div class='ec-filler'></div>" 
+		MonthViewEventEditLinkFormat="<a href='{0}' title='{1}' class='editeventlink ModuleEditLink {3}' ><span class='fa fa-pencil-square-o'></span></a>"
+		MonthViewEventMarkupTop="<div class='eventcontainer {0}' style='{1} {2} {3}'>"
+		WeekViewPreviousFormat="<div class='row m-b-gutter-half m-t-gutter-half'><div class='col-sm-6 text-left'><a href='{0}' title='{1}' class='btn btn-sm btn-default' {3}>{2}</a></div>"
+		WeekViewNextFormat="<div class='col-sm-6 text-right'><a href='{0}' title='{1}' class='btn btn-sm btn-default' {3}>{2}</a></div></div>"
+		DayViewPreviousFormat="<div class='row m-b-gutter-half m-t-gutter-half'><div class='col-sm-6 text-left'><a href='{0}' title='{1}' class='btn btn-sm btn-default' {3}>{2}</a></div>"
+		DayViewNextFormat="<div class='col-sm-6 text-right'><a href='{0}' title='{1}' class='btn btn-sm btn-default' {3}>{2}</a></div></div>"
+	 />
+
+	 <ecp:EventDisplaySettings runat="server" SkinID="MonthViewModule"
 		MonthViewCssClass="hide"
 		MonthViewHeaderMarkupTop="</td></tr></tbody></table><div class='ec-month-head row fb-parent fb-row fb-wrap fb-ai-center fb-j-between'>"
 		MonthViewHeaderMarkupBottom="</div><table class='event-cal-pro table table-condensed table-bordered table-responsive'><tbody><tr class='hide'><td>"
@@ -347,7 +371,7 @@
 	SubPanelBottomMarkup="</div><!--end panel-body--></div><!--end panel><!--end SubPanelBottomMarkup-->"
 	SubPanelHeadingMarkupCollapsible = "<div class='panel panel-info'><div class='panel-heading'><a href='#{2}' data-toggle='collapse'><h3 class='panel-title'>{0} <small>{1}</small></h3></a></div><div class='panel-collapse collapse' id='{2}'><div class='panel-body'>"
 	SubPanelBottomMarkupCollapsible="</div></div></div><!--end SubPanelBottomMarkupCollapsible-->"
-	
+	ModuleSettingsSettingControlClass="form-control" 
 />
 
 <portal:FormGroupPanel runat="server" SkinID="ButtonPanel"
@@ -772,6 +796,21 @@ http://foundation.zurb.com/docs/ui.php
      UlSelectedCssClass=""
 />
 
+<portal:FlexMenu runat="server" SkinID="CustomMenu"
+	ContainerElement="nav"
+	ContainerCssClass="custom-sidebar pagemenu hidden-xs hidden-sm"
+	RootUlCssClass="sidenav affix-top"
+	ChildUlCssClass="sidenav-child-list"
+	AppendDepthToChildUlCssClass="false"
+	RenderLiCssClasses="true"
+	LiCssClass=""
+	LiSelectedCssClass="active"
+	LiChildSelectedCssClass="child-active"
+	RenderAnchorCss="false"
+	AnchorCssClass=""
+	AnchorSelectedCssClass=""
+/>
+
 <portal:mojoTreeView runat="server" SkinID="SiteMenu"
 	ContainerElement="nav"
 	ContainerCssClass="col-md-4"
@@ -790,6 +829,7 @@ http://foundation.zurb.com/docs/ui.php
 	MaxDataBindDepth="1"
 	/>
 
+	
 
 
 <portal:mojoTreeView runat="server" SkinID="PageMenu"

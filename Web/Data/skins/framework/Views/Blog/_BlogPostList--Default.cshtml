@@ -60,7 +60,7 @@
 
 				@if (item.ShowAuthorBio)
 				{
-					<div class="author__group author__group--blog-postlist media">
+					<div class="author__group author__group--blog-postlist media well">
 						@if (item.ShowAuthorAvatar)
 						{
 							@Html.Avatar(item.AuthorAvatar, item.AuthorEmail, item.AuthorUserId, new { Class = "author__avatar media-object" }, new { Class = "author__avatar-link media-left" }, true, true)

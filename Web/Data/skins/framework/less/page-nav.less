@@ -60,3 +60,116 @@
 		}
 	}
 }
+
+
+.custom-sidebar {
+	margin-top: 30px;
+	margin-bottom: 35px;
+
+	ul {
+		list-style-type: none;
+		padding: 0;
+
+		> li {
+
+			> a {
+				display: block;
+				padding: 8px 22px;
+				font-size: 16px;
+				font-weight: 500;
+				color: @gray-light; 
+				border-left: 1px solid @gray-midlight;
+
+				&:focus, 
+				&:hover {
+					color: @brand-primary;
+					text-decoration: none;
+					background-color: @gray-lighter;
+				}
+
+			}
+
+		}
+
+		> .active:focus,
+		> .active:hover,
+		> .active {
+			> a { 
+				font-weight: 700;
+				color: @brand-primary;
+				position: relative;
+
+				&::before {
+					content: "";
+					position: absolute;
+					width: 4px;
+					background-color: @brand-primary;
+					height: 100%;
+					top: 0;
+					left: -2px;
+					display: block;
+				}
+
+			}
+
+		}
+
+		li.expanded ul {
+			max-height: none;
+		} 
+
+		li.closed ul {
+			max-height: 0;
+			overflow: hidden;
+		}
+
+		li ul li ul {
+			margin-left: 0;
+
+			li {
+				margin-top: 0;
+
+				a {
+					padding-top: 5px;
+					padding-bottom: 5px;
+					font-size: 14px;
+					font-weight: 400;
+					padding-left: 40px;
+
+					&:focus,
+					&:hover {
+						
+					}
+				}
+
+				.active:focus > a,
+				.active:hover > a,
+				.active > a {
+					font-weight: 500;
+				}
+			}
+		}
+
+	}
+
+	&.right-bordered {
+		ul > li > a {
+			border-left: 0 none;
+			border-right: 1px solid @gray-midlight;
+		}
+		ul {
+			> .active:focus,
+			> .active:hover,
+			> .active {
+				> a { 
+	
+					&::before {
+						left: auto;
+						right: -3px;
+					}
+				}
+			}
+		}
+	}
+
+}

@@ -27,7 +27,7 @@
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/jquery/jquery-3.6.0.min.js" ScriptRefFormat="<script>window.jQuery || document.write('<script src=\'{0}\'><\/script>')</script>" RenderInPlace="true" />
 		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/nivo-slider/jquery.nivo.slider.pack.js" RenderInPlace="true" />
-		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/jquery/jquery-ui-1.12.1/jquery-ui.min.js" RenderInPlace="true" ScriptRefFormat="<script>window.jQuery || document.write('<script src=\'{0}\'><\/script>')</script>"/>
+		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/jquery/jquery-ui-1.12.1/jquery-ui.min.js" RenderInPlace="true" ScriptRefFormat="<script>window.jQuery.ui || document.write('<script src=\'{0}\'><\/script>')</script>"/>
 	    <portal:SkinFolderCssFile runat="server" CssFileName="js/vendors/jquery/jquery-ui-1.12.1/jquery-ui.min.css" LinkFormat="<script>window.jQuery.ui || document.write('<link rel=\'stylesheet\' href=\'{0}\'>')</script>" RenderInPlace="true" />
 
 		<!-- Change JQueryUI plugin names to fix name collision with Bootstrap. -->
@@ -136,6 +136,7 @@
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/smartmenus/jquery.smartmenus.bootstrap.min.js" RenderInPlace="true" />
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/main.min.js" RenderInPlace="true" />
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/administration.min.js" RenderInPlace="true" VisibleRoles="Authenticated Users" />
+		<!-- For the new modal template -->
 		<asp:PlaceHolder ID="phSiteFooter" runat="server" />
 	</body>
 </html>

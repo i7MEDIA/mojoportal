@@ -347,14 +347,17 @@ input[type='file'] {
 	display: inline-block;
 }
 
-select.forminput,
-input[type='text'].forminput {
-	&:extend(.form-control);
+select.forminput, 
+input[type='text'].forminput,
+input[type='number'].forminput,
+input[type='password'].forminput,
+input[type='email'].forminput {
+	&:extend(.form-control all);
 }
 
 @media (min-width: @screen-sm-min) {
 	// Keep input smaller on large screens
-	.form-control {
+	.form-control:not([type="checkbox"]) {
 		display: inline-block;
 		width: 260px;
 		vertical-align: middle;
@@ -367,6 +370,11 @@ input[type='text'].forminput {
 			}
 		}
 	}
+}
+
+// For some instances in module settings
+.settingrow .settingblock {
+    display: inline-block;
 }
 
 // Input Range & Output
@@ -720,27 +728,17 @@ div.forminput {
 }
 
 // Media
-.authorinfo {
-	&:extend(.media);
-}
+.authorinfo:not(.createdby):extend(.well) {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: flex-start;
+	justify-content: stretch;
+	gap: 10px;
+	margin: 15px 0;
 
-.authorbio {
-	&:extend(.media-body);
-}
-
-.authorinfo .avatar img {
-	&:extend(.media-object);
-	max-width: none;
-}
-
-.authorinfo .avatar {
-	&:extend(.media-left);
-}
-
-.authorbio,
-.authorinfo .avatar {
-	display: table-cell;
-	vertical-align: top;
+	.avatar {
+		flex: 0 0 70px;
+	}
 }
 
 // Tabs

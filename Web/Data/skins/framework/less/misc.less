@@ -62,6 +62,55 @@ span.cartnav {
 	padding: 10px 0 10px 15px;
 }
 
+// Allow some large features to scroll if they're added to the left/right panes
+.left-pane,
+.right-pane { 
+	[id$="_ctl00_pnlFile"],
+	.eventcalendar .modulecontent,
+	.AudioPlayer .modulecontent,
+	.VideoPlayer .modulecontent,
+	.GoogleTranslateModule .modulecontent {
+		max-width: 100%;
+		overflow-x: scroll;
+	}
+}
+
+// Fix case where Better Image Gallery thumbs get too small
+.big__thumbnails {
+	display: flex;
+    flex-flow: row wrap;
+    justify-content: stretch;
+    align-items: stretch;
+	container-type: inline-size;
+}
+.big__thumbnail {
+	min-width: 100px;
+}
+
+@container (max-width: 250px) {
+	.big__thumbnails .big__thumbnail {
+		flex: 1 1 100%;
+	}
+}
+
+@container (min-width: 250px) and (max-width: @screen-xs) {
+	.big__thumbnails .big__thumbnail {
+		flex: 0 1 50%;
+	}
+}
+
+@container (min-width: @screen-xs) and (max-width: @screen-sm) {
+	.big__thumbnails .big__thumbnail {
+		flex: 0 1 25%;
+	}
+}
+
+@container (min-width: @screen-sm) and (max-width: @screen-md) {
+	.big__thumbnails .big__thumbnail {
+		flex: 0 1 16.66666667%;
+	}
+}
+
 // Ensure sitelogo never interrupts positioning of navbar toggle
 @media (max-width: @screen-sm) {
 	.navbar-header {
@@ -384,6 +433,21 @@ div.txterror:extend(.alert all, .alert-danger all)  {
 	}
 }
 
+// File input
+input[type="file"] {
+    border: 1px solid @btn-default-border;
+    padding: @padding-base-vertical @padding-base-horizontal;
+    vertical-align: middle;
+    border-radius: @btn-border-radius-base;
+	color: @btn-default-color;
+}
+
+// Fix weird datepicker alignment in index browser
+.admin-index-browser .input-group .form-control.date-picker:not([type=checkbox]) {
+    margin: 5px 0;
+	border-top-left-radius: @input-border-radius !important;
+    border-bottom-left-radius: @input-border-radius !important;
+}
 
 // captcha
 .captcha {

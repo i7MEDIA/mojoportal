@@ -16,7 +16,7 @@
     padding-right: 0;
   }
 
-  .form-control {
+  .form-control:not([type="checkbox"]) {
     // Ensure that the input is always above the *appended* addon button for
     // proper border colors.
     position: relative;
@@ -41,12 +41,12 @@
 // Remix the default form control sizing classes into new ones for easier
 // manipulation.
 
-.input-group-lg > .form-control,
+.input-group-lg > .form-control:not([type="checkbox"]) ,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn {
   .input-lg();
 }
-.input-group-sm > .form-control,
+.input-group-sm > .form-control:not([type="checkbox"]) ,
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .btn {
   .input-sm();
@@ -57,7 +57,7 @@
 // -------------------------
 .input-group-addon,
 .input-group-btn,
-.input-group .form-control {
+.input-group .form-control:not([type="checkbox"])  {
   display: table-cell;
 
   &:not(:first-child):not(:last-child) {
@@ -105,7 +105,7 @@
 }
 
 // Reset rounded corners
-.input-group .form-control:first-child,
+.input-group .form-control:not([type="checkbox"]) :first-child,
 .input-group-addon:first-child,
 .input-group-btn:first-child > .btn,
 .input-group-btn:first-child > .btn-group > .btn,
@@ -117,7 +117,7 @@
 .input-group-addon:first-child {
   border-right: 0;
 }
-.input-group .form-control:last-child,
+.input-group .form-control:not([type="checkbox"]) :last-child,
 .input-group-addon:last-child,
 .input-group-btn:last-child > .btn,
 .input-group-btn:last-child > .btn-group > .btn,

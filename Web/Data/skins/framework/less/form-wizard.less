@@ -54,6 +54,10 @@
 #questionItemsMove {
 	display: inline-block;
 	vertical-align: top;
+
+	select {
+		height: auto;
+	}
 }
 
 .fw-addoptioninput {
@@ -218,4 +222,223 @@
 
 .range-w-output__range:focus::-ms-fill-upper {
 	background: none repeat scroll 0 0 lighten(@brand-primary, 30%);
+}
+
+//
+// Gridding & Layout Styles
+// --------------------------------------------------
+.grid-form:extend(.clearfix all) {
+
+	.outerbody {
+		float: none;
+		clear: both;
+	}
+
+	[id$="_pnlQuestions"] {
+		.make-row();
+		clear: both;
+
+		.settingrow:not([class*="col-"]):not(.fw-instructions) {
+			.make-xs-column(12);
+	
+			@media (max-width: @screen-xs-max) {
+				float: none;
+				max-width: none;
+			}
+		}
+	}
+
+	.settingrow:not([class*="col-"]):not(.fw-instructions):not(.captchadiv) + .btn-row {
+		max-width: none;
+	}
+
+	.settinglabel {
+		display: block;
+		width: 100%;
+	}
+
+	input[type="text"]:not(.slider-output),
+	select,
+	textarea {
+		width: 100%;
+	}
+
+	input[type="text"],
+	select {
+		height: 40px;
+		line-height: 40px;
+	}
+
+	.g-recaptcha {
+		@media (max-width: @screen-xs-max) {
+			display: table;
+			margin: 0 auto;
+		}
+	}
+
+	.formwizard .settingrow.btn-row,
+	&.formwizard .settingrow.btn-row {
+		text-align: center;
+		padding-right: 0;
+		padding-top: 15px;
+	}
+
+	.formwizard .settingrow[id$="_divCaptcha"],
+	&.formwizard .settingrow[id$="_divCaptcha"] {
+		width: 100%;
+		padding: 0;
+
+		@media (min-width: @screen-sm) {
+			width: 75%;
+			padding-left: 0;
+			padding-top: 15px;
+		}
+
+		.captcha {
+			align-items: center;
+			background: transparent;
+			border: 0 none;
+			display: flex;
+			flex-flow: row wrap;
+			width: 100%;
+			position: relative;
+			padding: 0;
+
+			@media (max-width: @screen-sm) {
+				justify-content: center;
+			}
+
+			img {
+				width: 175px;
+    			margin: 5px 10px 5px 0;
+			}
+
+			label {
+				display: none;
+			}
+			
+			input {
+				border: 1px solid @brand-danger;
+				height: 50px;
+				line-height: 50px;
+				padding: 6px 15px;
+			    font-size: 18px;
+			    font-weight: 700;
+			    letter-spacing: 0.5px;
+			    max-width: 100%;
+		        width: 260px;
+		        margin: 5px 0;
+			}
+
+			span[data-val-errormessage] {
+				background-color: @alert-danger-bg;
+				border: 1px solid @alert-danger-border;
+			    border-radius: 4px;
+			    bottom: 100%;
+				color: @alert-danger-text;
+			    left: 8px;
+			    margin-bottom: 8px;
+			    padding: 5px 15px;
+			    position: absolute;
+			    width: auto !important;
+
+				&::before {
+					content: "\f071";
+					font-family: FontAwesome;
+					margin-right: .5em;
+				}
+
+				&::after {
+					content: "";
+				    position: absolute;
+				    bottom: -8px;
+				    left: 10px;
+				    border-color: @alert-danger-border transparent transparent;
+				    border-style: solid;
+				    border-width: 8px 8px 0px 8px;
+				}
+
+			}
+
+			span[data-val-errormessage][style*="display:none"] {
+
+				& + input {
+					border: 1px solid @input-border;
+				}
+
+			}
+
+		}
+	}
+
+	.formwizard [id$="_divCaptcha"] + .settingrow.btn-row,
+	&.formwizard [id$="_divCaptcha"] + .settingrow.btn-row {
+		width: 25%;
+		text-align: right;
+
+		@media (max-width: @screen-sm) {
+			width: 100%;
+			text-align: center;
+			padding: 0;
+		}
+	}
+
+	&.inline-form {
+
+		fieldset {
+			display: flex;
+			flex-flow: row wrap;
+			align-items: center;
+			gap: 15px 0;
+
+			> * {
+				flex: 1 1 auto;
+			}
+
+			> [id$="_pnlQuestions"] {
+				flex: 1 1 80%;
+				gap: 15px 0;
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: center;
+				align-items: center;
+
+				&::before,
+				&::after {
+					display: none;
+					content: none;
+				}
+
+				.settingrow {
+					margin-bottom: 0;
+				}
+			}
+
+			.settingrow.btn-row {
+				flex: 1 1 20%;
+				margin-bottom: 0;
+				padding-top: 0;
+
+				@media (max-width: @screen-sm) {
+					flex: 0 0 100%;
+				}
+			}
+
+		}
+
+		.captchadiv {
+			order: 3;
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: center;
+			align-items: center;
+			flex: 0 0 100%
+		}
+
+	}
+
+}
+
+.labels-as-placeholders [id$="_pnlQuestions"] label {
+	display: none;
 }
