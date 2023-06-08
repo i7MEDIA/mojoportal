@@ -38,13 +38,7 @@
 	@* Pagination *@
 	@Html.Partial("_SuperFlexiPaging", Model)
 
-
-	@if (Model.Module.IsEditable && Model.Config.Debug)
-	{
-	<a href="#modelinfo@(Model.Module.Id)" data-toggle="collapse">show/hide model info</a>
-	<div class="collapse" id="modelinfo@(Model.Module.Id)">@ObjectInfo.Print(Model)</div>
-	}
-
 	<script>$(document).ready(function () { $('.accordion__items').each(function () { $(this).find('[data-toggle="collapse"]').eq(0).click() }) });</script>
 </div>
 
+@Html.Partial("_DebugInfo")

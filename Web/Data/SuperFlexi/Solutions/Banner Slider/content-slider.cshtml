@@ -1,11 +1,10 @@
+@model SuperFlexiUI.Models.WidgetModel
+
+
 @using mojoPortal.Business.WebHelpers;
 @using mojoPortal.Business;
 
-@{ 
-	var siteSettings = CacheHelper.GetCurrentSiteSettings();
-	var pageSettings = new PageSettings(Model.Site.Id, Model.Page.Id);
-	var module = new Module(Model.Module.Guid);
-}
+
 <div class="content-slider" id="module@(Model.Module.Id)" data-contentsection="@Model.Config.ModuleFriendlyName" data-customsettings="@Model.Config.CustomizableSettings">
 
 
@@ -13,44 +12,39 @@
 
 	@if (Model.Config.UseHeader && !string.IsNullOrWhiteSpace(Model.Config.HeaderContent))
 	{
-		<div class="content-slider__header">@Html.Raw(@Model.Config.HeaderContent)</div>
+	<div class="content-slider__header">@Html.Raw(@Model.Config.HeaderContent)</div>
 	}
 	<div class="content-slider__items" id="content-slider-@Model.Module.Id">
-		@foreach (var item in Model.Items)
+		@foreach (dynamic item in Model.Items)
 		{
-			<div class="content-slider__item">
-				<div class="content-slider__item--inner" data-orientation="@item.orientation" style="@(item.imgasbackground ? "background-image: url(" + @item.image +");": "")">
-					@if (item.IsEditable)
-					{
-						<a class="ModuleEditLink flexi-item-edit" href="@item.EditUrl"><span class="fa fa-edit"></span> Edit Slide</a>
-					}
-					@if (item.orientation.ToString() != "right" && item.includeimgtag) {
-						<div class="content-slider__img"><img src="@item.contentimage" alt="@item.title" /></div>
-					}
-					@if (item.showdescription)
-					{
-						<div class="content-slider__content">
-							<h2 class="decorated-title @((item.orientation == "center") ? "decoration-center" : "")">@item.title</h2>
-							<span class="content-slider__content-innerwrap">@Html.Raw(@item.content)</span>
-						</div>
-					}
-					@if (item.orientation.ToString() == "right" && item.includeimgtag) {
-						<div class="content-slider__img"><img src="@item.contentimage" alt="@item.title" /></div>
-					}
+		<div class="content-slider__item">
+			<div class="content-slider__item--inner" data-orientation="@item.orientation" style="@(item.imgasbackground ? " background-image: url(" + @item.image +");": "" )">
+				@if (item.IsEditable)
+				{
+				<a class="ModuleEditLink flexi-item-edit" href="@item.EditUrl"><span class="fa fa-edit"></span> Edit Slide</a>
+				}
+				@if (item.orientation.ToString() != "right" && item.includeimgtag) {
+				<div class="content-slider__img"><img src="@item.contentimage" alt="@item.title" /></div>
+				}
+				@if (item.showdescription)
+				{
+				<div class="content-slider__content">
+					<h2 class="decorated-title @((item.orientation == " center") ? "decoration-center" : "" )">@item.title</h2>
+					<span class="content-slider__content-innerwrap">@Html.Raw(@item.content)</span>
 				</div>
-			</div> 
+				}
+				@if (item.orientation.ToString() == "right" && item.includeimgtag) {
+				<div class="content-slider__img"><img src="@item.contentimage" alt="@item.title" /></div>
+				}
+			</div>
+		</div>
 		}
 	</div>
 	<div class="content-slider__controls"></div>
 	@if (Model.Config.UseFooter && !string.IsNullOrWhiteSpace(Model.Config.FooterContent))
 	{
-		<div class="content-slider__footer">@Html.Raw(@Model.Config.HeaderContent)</div>
+	<div class="content-slider__footer">@Html.Raw(@Model.Config.HeaderContent)</div>
 	}
-	@if (Model.Module.IsEditable && Model.Config.Debug)
-	{
-		<a href="#modelinfo@(Model.Module.Id)" data-toggle="collapse">show/hide model info</a>
-			<div class="collapse" id="modelinfo@(Model.Module.Id)">@ObjectInfo.Print(Model)</div>
-	}
-	<script>$(document).ready(function () {  });</script>
-	</div>
+</div>
 
+@Html.Partial("_DebugInfo")
