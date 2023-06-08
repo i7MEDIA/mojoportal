@@ -52,7 +52,7 @@ namespace mojoPortal.Web.Framework
         /// <returns></returns>
         public static string GetEmailRegexExpression()
         {
-            string overrideRegex = ConfigHelper.GetStringProperty("CustomEmailRegex", string.Empty);
+            string overrideRegex = Core.Configuration.ConfigHelper.GetStringProperty("CustomEmailRegex", string.Empty);
             if (overrideRegex.Length > 0) { return overrideRegex; }
             
 
@@ -355,7 +355,7 @@ namespace mojoPortal.Web.Framework
             byte[] buff = new byte[bytelength];
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
             rng.GetBytes(buff);
-            StringBuilder sb = new StringBuilder(bytelength * 2);
+			StringBuilder sb = new(bytelength * 2);
             for (int i = 0; i < buff.Length; i++)
             {
                 sb.Append(string.Format("{0:X2}", buff[i]));
@@ -367,7 +367,7 @@ namespace mojoPortal.Web.Framework
         {
             if (HttpContext.Current != null)
             {
-                HttpContext.Current.Response.Cache.SetExpires(new DateTime(1995, 5, 6, 12, 0, 0, DateTimeKind.Utc));
+                HttpContext.Current.Response.Cache.SetExpires(new DateTime(1942, 12, 30, 12, 0, 0, DateTimeKind.Utc));
                 HttpContext.Current.Response.Cache.SetNoStore();
                 HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Current.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);

@@ -39,7 +39,7 @@ namespace mojoPortal.Web.AdminUI
 		public string ModuleSettingsSettingLabelClass { get; set; } = "settinglabel";
 		public string ModuleSettingsSettingControlClass { get; set; } = "forminput";
 		public string RestartButtonClass { get; set; } = "btn btn-danger btn-sm ";
-		public string UpdateAvailableLinkMarkup { get; set; } = "<a href=\"{0}\">{1}</a>";
+		public string UpdateAvailableLinkMarkup { get; set; } = "<a href=\"{0}\" target=\"_blank\">{1}</a>";
 		public string HelpBlockMarkup { get; set; } = "<span class='help-block'>{0}</span>";
 
 
