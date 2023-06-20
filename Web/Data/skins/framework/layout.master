@@ -23,8 +23,8 @@
 
 		<!-- Scripts -->
 		<portal:ScriptLoader id="ScriptLoader1" runat="server" AssumejQueryIsLoaded="true" AssumejQueryUiIsLoaded="true" IncludeColorBox="false" IncludejQueryAccordion="true" />
-		<script src="//code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/jquery/jquery-3.6.0.min.js" ScriptRefFormat="<script>window.jQuery || document.write('<script src=\'{0}\'><\/script>')</script>" RenderInPlace="true" />
+		<script src="//code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/jquery/jquery-3.7.0.min.js" ScriptRefFormat="<script>window.jQuery || document.write('<script src=\'{0}\'><\/script>')</script>" RenderInPlace="true" />
 		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/nivo-slider/jquery.nivo.slider.pack.js" RenderInPlace="true" />
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/vendors/jquery/jquery-ui-1.12.1/jquery-ui.min.js" RenderInPlace="true" ScriptRefFormat="<script>window.jQuery.ui || document.write('<script src=\'{0}\'><\/script>')</script>"/>
