@@ -419,7 +419,7 @@ namespace SuperFlexiData
 			string sqlCommand = $@"
 					SELECT *
 					FROM (
-						SELECT *, COUNT(*) AS `TotalRows`
+						SELECT *, FOUND_ROWS() AS `TotalRows`
 						FROM `i7_sflexi_items` i
 						WHERE i.`ModuleID` = ?ModuleID ) t
 					WHERE `TotalRows` > 0

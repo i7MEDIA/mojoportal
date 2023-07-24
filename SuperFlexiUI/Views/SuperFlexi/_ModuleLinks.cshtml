@@ -11,7 +11,7 @@
 	}
 	@if (Model.Config.UseFooter)
 	{
-		<a class="ModuleEditLink flexi-footer-edit" href="~/SuperFlexi/EditFooter.aspx?pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id"><span class="fa fa-edit"></span> @SuperFlexiResources.EditFooter</a>
+		<a class="ModuleEditLink flexi-footer-edit" href="~/SuperFlexi/EditHeader.aspx?f=true&pageid=@Model.Module.PublishedToPageId&mid=@Model.Module.Id"><span class="fa fa-edit"></span> @SuperFlexiResources.EditFooter</a>
 	}
 	@if (Model.Config.AllowImport)
 	{

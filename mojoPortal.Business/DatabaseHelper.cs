@@ -38,7 +38,7 @@ namespace mojoPortal.Business
 			int major = 2;
 			int minor = 9;
 			int build = 0;
-			int revision = 0;
+			int revision = 1;
 
 			return new Version(major, minor, build, revision);
 		}

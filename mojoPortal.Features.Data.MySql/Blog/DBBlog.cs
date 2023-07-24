@@ -1,18 +1,6 @@
-﻿// Author:					
-// Created:				    2007-11-03
-// Last Modified:			2017-06-07
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-// 
-
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Text;
@@ -1976,52 +1964,40 @@ namespace mojoPortal.Data
 
 
         public static IDataReader GetBlogMonthArchive(int moduleId, DateTime currentTime)
-        {
+		{
+			var sqlCommand = @"
+SELECT  
+    MONTH(StartDate) AS `Month`, 
+    DATE_FORMAT(StartDate, '%M') AS `MonthName`, 
+    YEAR(StartDate) AS `Year`, 
+    1 AS `Day`, 
+    count(*) AS `Count` 
+FROM	
+    mp_Blogs 
+WHERE 
+    ModuleID = ?ModuleID  
+AND 
+    IsPublished = 1 
+AND 
+    StartDate <= ?CurrentDate
+GROUP BY 
+    `Year`, `Month`, `MonthName`  
+ORDER BY 	
+    `Year` desc, `Month` desc ;
+";
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  ");
-            sqlCommand.Append("MONTH(StartDate) AS Month, ");
-            sqlCommand.Append("DATE_FORMAT(StartDate, '%M') AS MonthName, ");
-            //sqlCommand.Append("DATE_FORMAT(StartDate, '%Y') AS Year, ");
-            sqlCommand.Append("YEAR(StartDate) AS Year, ");
-            sqlCommand.Append("1 AS Day, ");
-            sqlCommand.Append("count(*) AS Count ");
+			var sqlParams = new List<MySqlParameter>() {
+				new MySqlParameter("?ModuleID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = moduleId },
+				new MySqlParameter("?CurrentDate", MySqlDbType.DateTime) { Direction = ParameterDirection.Input, Value = currentTime }
+			};
 
-            sqlCommand.Append("FROM	mp_Blogs ");
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand.ToString(),
+				sqlParams.ToArray());
+		}
 
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND IsPublished = 1 ");
-            sqlCommand.Append("AND StartDate <= ?CurrentDate  ");
-            sqlCommand.Append("GROUP BY DATE_FORMAT(StartDate, '%Y'),  ");
-            sqlCommand.Append("MONTH(StartDate),  ");
-            sqlCommand.Append("DATE_FORMAT(StartDate, '%M')  ");
-
-            sqlCommand.Append("ORDER BY 	YEAR(StartDate) desc, MONTH(StartDate)  desc ;");
-
-
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?CurrentDate", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = currentTime;
-
-            return MySqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-
-        
-
-
-        public static IDataReader GetSingleBlog(int itemId, DateTime currentTime)
+		public static IDataReader GetSingleBlog(int itemId, DateTime currentTime)
         {
             
 

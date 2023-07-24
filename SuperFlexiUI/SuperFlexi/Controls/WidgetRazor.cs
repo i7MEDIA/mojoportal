@@ -28,6 +28,7 @@ namespace SuperFlexiUI
 		private int totalRows = -1;
 		private int itemId = 0;
 		private bool getDynamicListValuesFromReturnedItems = false;
+		private bool publishedToCurrentPage = false;
 
 		private SuperFlexiDisplaySettings displaySettings { get; set; }
 
@@ -76,10 +77,19 @@ namespace SuperFlexiUI
 
 		protected virtual void LoadSettings()
 		{
-			module = new Module(ModuleId);
+			module = new Module(ModuleId, PageId);
 			if (module == null)
 			{
-				return;
+				publishedToCurrentPage = false; 
+				module = new Module(ModuleId);
+				if (module == null)
+				{
+					return;
+				}
+			}
+			else
+			{
+				publishedToCurrentPage = true;
 			}
 			//moduleTitle = module.ModuleTitle;
 
@@ -238,8 +248,6 @@ namespace SuperFlexiUI
 
 			featuredImageUrl = String.IsNullOrWhiteSpace(Config.InstanceFeaturedImage) ? featuredImageUrl : SiteUtils.GetNavigationSiteRoot() + Config.InstanceFeaturedImage;
 
-			//bool publishedToCurrentPage = true;
-
 			//var pageModules = PageModule.GetPageModulesByModule(module.ModuleId);
 			//if (pageModules.Where(pm => pm.PageId == CurrentPage.PageId).ToList().Count() == 0)
 			//{
@@ -254,7 +262,7 @@ namespace SuperFlexiUI
 
 			//var itemModels = new List<object> ();
 
-			WidgetModel model = new WidgetModel
+			WidgetModel model = new()
 			{
 				Module = new ModuleModel
 				{
@@ -262,7 +270,7 @@ namespace SuperFlexiUI
 					Guid = module.ModuleGuid,
 					IsEditable = IsEditable,
 					Pane = module.PaneName,
-					//PublishedToPageId = publishedToCurrentPage ? CurrentPage.PageId : -1,
+					PublishedToPageId = publishedToCurrentPage ? CurrentPage.PageId : -1,
 					ShowTitle = module.ShowTitle,
 					Title = module.ModuleTitle,
 					TitleElement = module.HeadElement
