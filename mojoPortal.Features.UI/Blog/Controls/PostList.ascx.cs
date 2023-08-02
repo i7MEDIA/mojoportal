@@ -215,6 +215,7 @@ namespace mojoPortal.Web.BlogUI
 
 				if (config.FeaturedPostId != 0 && pageNumber == 1)
 				{
+					DateTime endDate = DateTime.MaxValue;
 					using IDataReader reader = Blog.GetSingleBlog(config.FeaturedPostId);
 					while (reader.Read())
 					{
@@ -225,7 +226,17 @@ namespace mojoPortal.Web.BlogUI
 						featuredRow["Heading"] = reader["Heading"];
 						featuredRow["SubTitle"] = reader["SubTitle"];
 						featuredRow["StartDate"] = Convert.ToDateTime(reader["StartDate"]);
-						featuredRow["EndDate"] = Convert.ToDateTime(reader["EndDate"]);
+						
+						if (reader["EndDate"] != DBNull.Value)
+						{
+							featuredRow["EndDate"] = Convert.ToDateTime(reader["EndDate"]);
+							endDate = Convert.ToDateTime(reader["EndDate"]);
+						}
+						else
+						{
+							featuredRow["EndDate"] = endDate;
+						}
+						
 						featuredRow["Description"] = reader["Description"];
 						featuredRow["Abstract"] = reader["Abstract"];
 						featuredRow["ItemUrl"] = reader["ItemUrl"];
@@ -360,7 +371,7 @@ namespace mojoPortal.Web.BlogUI
 						}
 					}
 					//we don't want the featured post if it's not published
-					if ((bool)featuredRow["IsPublished"] && (DateTime)featuredRow["StartDate"] <= DateTime.UtcNow && (DateTime)featuredRow["EndDate"] > DateTime.UtcNow)
+					if ((bool)featuredRow["IsPublished"] && (DateTime)featuredRow["StartDate"] <= DateTime.UtcNow && endDate > DateTime.UtcNow)
 					{
 						//look for featured post in datable
 						DataRow found = dsBlogPosts.Tables["Posts"].Rows.Find(config.FeaturedPostId);
