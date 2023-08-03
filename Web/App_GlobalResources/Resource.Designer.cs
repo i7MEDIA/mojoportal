@@ -12382,6 +12382,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email Address not found..
+        /// </summary>
+        internal static string PasswordRecoveryEmailAddressFailureText {
+            get {
+                return ResourceManager.GetString("PasswordRecoveryEmailAddressFailureText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter your Email Address..
+        /// </summary>
+        internal static string PasswordRecoveryEmailAddressRequiredWarning {
+            get {
+                return ResourceManager.GetString("PasswordRecoveryEmailAddressRequiredWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your {0} password..
         /// </summary>
         internal static string PasswordRecoveryEmailSubjectFormatString {

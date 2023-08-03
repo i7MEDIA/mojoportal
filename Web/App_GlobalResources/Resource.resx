@@ -6721,4 +6721,10 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="SignInRegisterPrompt" xml:space="preserve">
     <value>Need an Account?</value>
   </data>
+  <data name="PasswordRecoveryEmailAddressFailureText" xml:space="preserve">
+    <value>Email Address not found.</value>
+  </data>
+  <data name="PasswordRecoveryEmailAddressRequiredWarning" xml:space="preserve">
+    <value>You must enter your Email Address.</value>
+  </data>
 </root>

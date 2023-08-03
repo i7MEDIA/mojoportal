@@ -84,9 +84,11 @@ namespace mojoPortal.Web.UI.Pages
 
 			EnterUserNameLabel = (Label)this.PasswordRecovery1.UserNameTemplateContainer.FindControl("lblEnterUserName");
 
+			var useEmailForLogin = (siteSettings != null) && (siteSettings.UseEmailForLogin);
+
 			if (EnterUserNameLabel != null)
 			{
-				if ((siteSettings != null) && (siteSettings.UseEmailForLogin))
+				if (useEmailForLogin)
 				{
 					EnterUserNameLabel.Text = Resource.EnterEmailLabel;
 				}
@@ -110,7 +112,14 @@ namespace mojoPortal.Web.UI.Pages
 
 			if (reqUserName != null)
 			{
-				reqUserName.ErrorMessage = Resource.PasswordRecoveryUserNameRequiredWarning;
+				if (useEmailForLogin)
+				{
+					reqUserName.ErrorMessage = Resource.PasswordRecoveryEmailAddressRequiredWarning;
+				}
+				else
+				{
+					reqUserName.ErrorMessage = Resource.PasswordRecoveryUserNameRequiredWarning;
+				}
 			}
 
 			// Question Template
@@ -131,7 +140,15 @@ namespace mojoPortal.Web.UI.Pages
 
 			this.PasswordRecovery1.GeneralFailureText = string.Format(DisplaySettings.AlertErrorMarkup, Resource.PasswordRecoveryGeneralFailureText);
 			this.PasswordRecovery1.QuestionFailureText = string.Format(DisplaySettings.AlertErrorMarkup, Resource.PasswordRecoveryQuestionFailureText);
-			this.PasswordRecovery1.UserNameFailureText = string.Format(DisplaySettings.AlertErrorMarkup, Resource.PasswordRecoveryUserNameFailureText);
+
+			if (useEmailForLogin)
+			{
+				this.PasswordRecovery1.UserNameFailureText = string.Format(DisplaySettings.AlertErrorMarkup, Resource.PasswordRecoveryEmailAddressFailureText);
+			}
+			else
+			{
+				this.PasswordRecovery1.UserNameFailureText = string.Format(DisplaySettings.AlertErrorMarkup, Resource.PasswordRecoveryUserNameFailureText);
+			}
 
 			this.PasswordRecovery1.MailDefinition.From = siteSettings.DefaultEmailFromAddress;
 			this.PasswordRecovery1.MailDefinition.Subject
