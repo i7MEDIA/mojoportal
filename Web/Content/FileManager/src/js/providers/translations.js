@@ -61,7 +61,7 @@
 			date: 'Date',
 			selection: 'Selection',
 			no_files_in_folder: 'No files in this folder',
-			no_folders_in_folder: 'This folder not contains children folders',
+			no_folders_in_folder: 'This folder has no child folders',
 			select_this: 'Select this',
 			go_back: 'Go back',
 			wait: 'Wait',
