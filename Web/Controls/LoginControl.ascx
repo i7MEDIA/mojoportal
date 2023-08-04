@@ -25,10 +25,10 @@
 				<portal:mojoButton ID="Login" CommandName="Login" runat="server" Text="Login" SkinID="LoginControlLoginButton" />
 				<portal:mojoLabel ID="FailureText" runat="server" CssClass="txterror" EnableViewState="false" />
 			</div>
-			<div class="settingrow registerrow">
+			<portal:FormGroupPanel ID="pnlRegister" runat="server" CssClass="settingrow registerrow" SkinID="LoginRegisterPrompt">
 				<mp:SiteLabel ID="lblRegisterPrompt" runat="server" CssClass="registerprompt" EnableViewState="false" />
-				<asp:HyperLink ID="lnkRegisterExtraLink" runat="server" CssClass="lnkregister" SkinID="LoginControlRegisterLink" />
-			</div>
+				<asp:HyperLink ID="lnkRegister" runat="server" CssClass="lnkregister" SkinID="LoginControlRegisterLink" />
+			</portal:FormGroupPanel>
 		</asp:Panel>
 	</LayoutTemplate>
 </portal:SiteLogin>

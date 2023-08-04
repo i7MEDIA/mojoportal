@@ -20,8 +20,9 @@ namespace mojoPortal.Web.UI
         private CheckBox chkRememberMe;
         private mojoButton btnLogin;
         private HyperLink lnkRecovery;
-        private HyperLink lnkExtraLink;
+        private HyperLink lnkRegister;
         private TextBox txtPassword;
+        private FormGroupPanel pnlRegister;
         private Panel divCaptcha = null;
         private CaptchaControl captcha = null;
         private SiteSettings siteSettings = null;
@@ -32,7 +33,6 @@ namespace mojoPortal.Web.UI
 
 		protected void Page_Load(object sender, EventArgs e)
         {
-
             if (Request.IsAuthenticated)
             {
                 // user is logged in
@@ -40,16 +40,15 @@ namespace mojoPortal.Web.UI
                 return;
             }
 
-            LoadSettings();
-            PopulateLabels();
-
-            PopulateControls();
-
+			PopulateControls();
         }
 
         private void PopulateControls()
         {
-            if (siteSettings == null) { return; }
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
+			siteRoot = SiteUtils.GetNavigationSiteRoot();
+
+			if (siteSettings == null) { return; }
             if (siteSettings.DisableDbAuth) { this.Visible = false; return; }
 
             LoginCtrl.SetRedirectUrl = SetRedirectUrl;
@@ -61,7 +60,8 @@ namespace mojoPortal.Web.UI
             chkRememberMe = (CheckBox)this.LoginCtrl.FindControl("RememberMe");
             btnLogin = (mojoButton)this.LoginCtrl.FindControl("Login");
             lnkRecovery = (HyperLink)this.LoginCtrl.FindControl("lnkPasswordRecovery");
-            lnkExtraLink = (HyperLink)this.LoginCtrl.FindControl("lnkRegisterExtraLink");
+            pnlRegister = (FormGroupPanel)this.LoginCtrl.FindControl("pnlRegister");
+            lnkRegister = (HyperLink)this.LoginCtrl.FindControl("lnkRegister");
 			lblRegisterPrompt = (SiteLabel)this.LoginCtrl.FindControl("lblRegisterPrompt"); 
 
 			if (WebConfigSettings.DisableAutoCompleteOnLogin)
@@ -116,15 +116,25 @@ namespace mojoPortal.Web.UI
             lnkRecovery.NavigateUrl = this.LoginCtrl.PasswordRecoveryUrl;
             lnkRecovery.Text = this.LoginCtrl.PasswordRecoveryText;
 
-            lnkExtraLink.NavigateUrl = siteRoot + "/Secure/Register.aspx";
-            lnkExtraLink.Text = Resource.RegisterLink;
-            lnkExtraLink.Visible = siteSettings.AllowNewRegistration;
-
-            string returnUrlParam = Page.Request.Params.Get("returnurl");
-            if (!String.IsNullOrEmpty(returnUrlParam))
+            if (siteSettings.AllowNewRegistration)
             {
-                //string redirectUrl = returnUrlParam;
-                lnkExtraLink.NavigateUrl += "?returnurl=" + SecurityHelper.RemoveMarkup(returnUrlParam);
+                pnlRegister.Visible = true;
+				lnkRegister.NavigateUrl = siteRoot + "/Secure/Register.aspx";
+				lnkRegister.Text = Resource.RegisterLink;
+				lnkRegister.Visible = siteSettings.AllowNewRegistration;
+				lblRegisterPrompt.ConfigKey = "SignInRegisterPrompt";
+				lblRegisterPrompt.Visible = siteSettings.AllowNewRegistration;
+
+				string returnUrlParam = Page.Request.Params.Get("returnurl");
+				if (!String.IsNullOrEmpty(returnUrlParam))
+				{
+					//string redirectUrl = returnUrlParam;
+					lnkRegister.NavigateUrl += "?returnurl=" + SecurityHelper.RemoveMarkup(returnUrlParam);
+				}
+			}
+            else
+            {
+				pnlRegister.Visible = false;
             }
 
             chkRememberMe.Visible = siteSettings.AllowPersistentLogin;
@@ -137,44 +147,12 @@ namespace mojoPortal.Web.UI
             }
 
             btnLogin.Text = this.LoginCtrl.LoginButtonText;
-            //SiteUtils.SetButtonAccessKey(btnLogin, AccessKeys.LoginAccessKey);
-
-            lblRegisterPrompt.ConfigKey = "SignInRegisterPrompt";
-
 		}
-
-        private void PopulateLabels()
-        {
-
-
-        }
-
-        private void LoadSettings()
-        {
-            siteSettings = CacheHelper.GetCurrentSiteSettings();
-            siteRoot = SiteUtils.GetNavigationSiteRoot();
-
-        }
-
 
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
-            Load += new EventHandler(Page_Load);
-
-            //if (Request.IsAuthenticated)
-            //{
-            //    // user is logged in
-            //    this.Visible = false;
-            //    return;
-            //}
-
-            //LoadSettings();
-            //PopulateLabels();
-
-            //PopulateControls();
-
-            
+            Load += new EventHandler(Page_Load); 
         }
     }
 }
