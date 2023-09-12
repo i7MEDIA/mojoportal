@@ -258,8 +258,8 @@ namespace mojoPortal.Web.UI
 				if (File.Exists(basePath + "style.config"))
 				{
 					skinImageBasePath = siteRoot + WebConfigSettings.GlobalAddOnStyleFolder.Replace("~/", "/");
-					bool globalHasLess = false; // not supported/needed in global add on css
-					ProcessCssFileList(cssContent, basePath, siteRoot, skinImageBasePath, out globalHasLess);
+					// not supported/needed in global add on css
+					ProcessCssFileList(cssContent, basePath, siteRoot, skinImageBasePath, out _);
 				}
 			}
 
@@ -269,12 +269,17 @@ namespace mojoPortal.Web.UI
 				log.Error($"LESS parser has been removed from mojoPortal. Compile your LESS files to CSS using another tool (i.e., prepros) and then reference the CSS files in your skin style.config");
 			}
 
-			if (ShouldCacheOnServer() && WebConfigSettings.MinifyCSS)
+			if (WebConfigSettings.MinifyCSS)
 			{
-				// this method is expensive (7.87 seconds as measured by ANTS Profiler
-				// we do cache so its not called very often
-				return encoding.GetBytes(CssMinify.Minify(cssContent.ToString()));
+				log.Error($"CSS Minifier has been remove from mojoPortal. Your CSS should be minified outside of mojoPortal.");
 			}
+
+			//if (ShouldCacheOnServer() && WebConfigSettings.MinifyCSS)
+			//{
+			//	// this method is expensive (7.87 seconds as measured by ANTS Profiler
+			//	// we do cache so its not called very often
+			//	return encoding.GetBytes(CssMinify.Minify(cssContent.ToString()));
+			//}
 
 			return encoding.GetBytes(cssContent.ToString());
 		}

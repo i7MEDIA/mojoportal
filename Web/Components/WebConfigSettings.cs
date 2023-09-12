@@ -949,7 +949,7 @@ namespace mojoPortal.Web
 
 		public static bool MinifyCSS
 		{
-			get { return ConfigHelper.GetBoolProperty("MinifyCSS", true); }
+			get { return ConfigHelper.GetBoolProperty("MinifyCSS", false); }
 		}
 
 		public static bool CacheTimeZoneList
