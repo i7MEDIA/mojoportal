@@ -386,9 +386,14 @@ namespace mojoPortal.Business.WebHelpers
 
         #region SiteSettings
 
-        public static SiteSettings GetCurrentSiteSettings()
+        public static SiteSettings GetCurrentSiteSettings(int siteId = -1)
         {
-            return GetSiteSettingsFromContext();
+            if (siteId == -1)
+            {
+                return GetSiteSettingsFromContext();
+            }
+
+            return new SiteSettings(siteId);            
         }
 
         private static SiteSettings GetSiteSettingsFromContext()
@@ -425,8 +430,9 @@ namespace mojoPortal.Business.WebHelpers
             }
             else
             {
-                String hostName = WebUtils.GetHostName();
-				if (!Global.SiteHostMap.TryGetValue(hostName, out siteId))
+                string hostName = WebUtils.GetHostName();
+
+                if (!Global.SiteHostMap.TryGetValue(hostName, out siteId))
                 {
 					siteId = SiteSettings.GetSiteIdByHostName(hostName);
 				    Global.SiteHostMap.Add(hostName, siteId);
