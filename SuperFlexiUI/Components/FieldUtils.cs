@@ -170,30 +170,6 @@ namespace SuperFlexiUI
             }
         }
 
-        //public static List<MarkupScript> ParseScriptsFromXml(ModuleConfiguration config)
-        //{
-        //    List<MarkupScript> scripts = new List<MarkupScript>();
-        //    string fullPath = string.Empty;
-        //    XmlDocument doc = new XmlDocument();
-        //    if (DefinitionExists(config.FieldDefinitionSrc, out doc))
-        //    {
-        //        XmlNode node = doc.DocumentElement.SelectSingleNode("/Fields/Scripts");
-
-        //        if (node == null) return scripts;
-
-        //        try
-        //        {
-        //            scripts = SuperFlexiHelpers.ParseScriptsFromXmlNode(node);
-        //        }
-        //        catch (System.Xml.XmlException ex)
-        //        {
-        //            log.Error(ex);
-        //        }
-        //    }
-        //    return scripts;
-        //}
-
-
 
         /// <summary>
         /// Creates a list of Field from field definition xml file.

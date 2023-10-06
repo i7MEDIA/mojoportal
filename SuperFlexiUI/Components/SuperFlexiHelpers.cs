@@ -718,5 +718,72 @@ namespace SuperFlexiUI
 
 			return expando;
 		}
+
+		public static object GetFieldValueFromKVPWithType(KeyValuePair<string, object> fieldValue, Field field) 
+		{
+			object theValue;
+			var emptyValue = string.IsNullOrWhiteSpace(fieldValue.Value.ToString());
+
+			switch (field.DataType)
+			{
+				case "int":
+					if (field.IsList ||
+						field.IsCheckBoxListField() ||
+						field.IsDynamicListField())
+					{
+						goto case "string";
+					}
+
+					if (int.TryParse(fieldValue.Value.ToString(), out int intVal) && !emptyValue)
+					{
+						theValue = intVal;
+					}
+					else
+					{
+						theValue = null;
+					}
+
+					break;
+				case "bool":
+				case "boolean":
+					if (bool.TryParse(fieldValue.Value.ToString(), out bool boolVal) && !emptyValue)
+					{
+						theValue = boolVal;
+					}
+					else
+					{
+						theValue = null;
+					}
+					break;
+				case "string":
+				default:
+					if (field.ControlType == "CheckBox")
+					{
+						goto case "bool";
+					}
+
+					theValue = fieldValue.Value.ToString();
+					break;
+					//case "float":
+					//	theValue = Convert.ToSingle(emptyValue ? float.MinValue : fieldValue.Value);
+					//	break;
+					//case "decimal":
+					//	theValue = Convert.ToDecimal(fieldValue.Value);
+					//	break;
+					//case "double":
+					//	theValue = Convert.ToDouble(fieldValue.Value);
+					//	break;
+					//case "byte":
+					//	theValue = Convert.ToByte(fieldValue.Value);
+					//	break;
+					//case "char":
+					//	theValue = Convert.ToChar(fieldValue.Value);
+					//	break;
+			}
+
+			return theValue;
+
+		}
+
 	}
 }

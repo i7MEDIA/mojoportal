@@ -211,7 +211,7 @@ namespace SuperFlexiUI
 										fieldValue.ModuleGuid = module.ModuleGuid;
 										fieldValue.ItemGuid = importedItem.ItemGuid;
 
-										fieldValue.FieldValue = kvp.Value.ToString();
+										fieldValue.FieldValue = SuperFlexiHelpers.GetFieldValueFromKVPWithType(kvp, field).ToString();
 
 										if (!fieldValue.Save())
 										{
