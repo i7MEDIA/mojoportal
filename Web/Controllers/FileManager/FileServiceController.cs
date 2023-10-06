@@ -508,6 +508,11 @@ namespace mojoPortal.Web.Controllers
 						}
 						else
 						{
+							if (!AllowedExtension(e.FileName))
+							{
+								continue;
+							}
+
 							string file = e.FileName.Contains("/") ? e.FileName.Substring(e.FileName.LastIndexOf('/')) : e.FileName;
 							string dir = e.FileName.Substring(0, e.FileName.Contains("/") ? e.FileName.LastIndexOf('/') : 0);
 							List<string> dirs = dir.SplitOnCharAndTrim('/');
