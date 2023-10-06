@@ -84,15 +84,13 @@
 						</div>
 
 						<div class="forumpostuserattribute" id="divUntrustedSignature" runat="server" visible='<%# !Convert.ToBoolean(Eval("Trusted")) %>'>
-							<NeatHtml:UntrustedContent ID="UntrustedContent2" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'
-								ClientScriptUrl="~/ClientScript/NeatHtml.js">
+							<NeatHtml:UntrustedContent ID="UntrustedContent2" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'>
 								<%# Eval("PostAuthorSignature").ToString()%>
 							</NeatHtml:UntrustedContent>
 						</div>
 
 						<div class="forumpostuserattribute" id="divTrustedSignature" runat="server" visible='<%# Convert.ToBoolean(Eval("Trusted")) %>'>
-							<NeatHtml:UntrustedContent ID="UntrustedContent3" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'
-								ClientScriptUrl="~/ClientScript/NeatHtml.js">
+							<NeatHtml:UntrustedContent ID="UntrustedContent3" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'>
 								<%# Eval("PostAuthorSignature").ToString()%>
 							</NeatHtml:UntrustedContent>
 						</div>
@@ -112,8 +110,7 @@
 						</div>
 
 						<div class="postbody" id="divUntrustedPost" runat="server" visible='<%# !(Convert.ToBoolean(Eval("Trusted")) || filterContentFromTrustedUsers) %>'>
-							<NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'
-								ClientScriptUrl="~/ClientScript/NeatHtml.js">
+							<NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'>
 								<%# Eval("Post").ToString()%>
 							</NeatHtml:UntrustedContent>
 						</div>
@@ -204,8 +201,7 @@
 						<div class="forumpostuserattribute" id="divUntrustedSignature" runat="server" visible='<%# !Convert.ToBoolean(Eval("Trusted")) %>'>
 							<NeatHtml:UntrustedContent runat="server"
 								ID="UntrustedContent2"
-								TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'
-								ClientScriptUrl="~/ClientScript/NeatHtml.js">
+								TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'>
 								<%# Eval("PostAuthorSignature").ToString()%>
 							</NeatHtml:UntrustedContent>
 						</div>
@@ -213,8 +209,7 @@
 						<div class="forumpostuserattribute" id="divTrustedSignature" runat="server" visible='<%# Convert.ToBoolean(Eval("Trusted")) %>'>
 							<NeatHtml:UntrustedContent runat="server"
 								ID="UntrustedContent3"
-								TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'
-								ClientScriptUrl="~/ClientScript/NeatHtml.js">
+								TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'>
 								<%# Eval("PostAuthorSignature").ToString()%>
 							</NeatHtml:UntrustedContent>
 						</div>
@@ -234,8 +229,7 @@
 						</div>
 
 						<div class="postbody" id="divUntrustedPost" runat="server" visible='<%# !(Convert.ToBoolean(Eval("Trusted")) || filterContentFromTrustedUsers) %>'>
-							<NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'
-								ClientScriptUrl="~/ClientScript/NeatHtml.js">
+							<NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'>
 								<%# Eval("Post").ToString()%>
 							</NeatHtml:UntrustedContent>
 						</div>

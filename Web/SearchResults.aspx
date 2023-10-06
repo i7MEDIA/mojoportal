@@ -52,8 +52,7 @@
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <li class="searchresult">
-                                        <NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" TrustedImageUrlPattern='<%# mojoPortal.Web.Framework.SecurityHelper.RegexRelativeImageUrlPatern %>'
-                                            ClientScriptUrl="~/ClientScript/NeatHtml.js">
+                                        <NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" TrustedImageUrlPattern='<%# mojoPortal.Web.Framework.SecurityHelper.RegexRelativeImageUrlPatern %>'>
                                             <<%# displaySettings.ItemHeadingElement %>>
                                                 <asp:HyperLink ID="Hyperlink1" runat="server" 
                                                     NavigateUrl='<%# BuildUrl((mojoPortal.SearchIndex.IndexItem)Container.DataItem) %>'

@@ -185,7 +185,6 @@
 													<NeatHtml:UntrustedContent runat="server"
 														ID="UntrustedContent1"
 														TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'
-														ClientScriptUrl="~/ClientScript/NeatHtml.js"
 														Visible='<%# useNeatHtml %>'
 														EnableViewState="false">
 														<%# FormatBody(Eval("Description").ToString(), Eval("Link").ToString())%>

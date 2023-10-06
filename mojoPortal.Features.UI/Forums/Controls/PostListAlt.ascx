@@ -23,8 +23,7 @@
                     </div>
                     
                     <div class="postbody" id="divUntrustedPost" runat="server" visible='<%# !(Convert.ToBoolean(Eval("Trusted")) || filterContentFromTrustedUsers) %>'>
-                        <NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'
-                            ClientScriptUrl="~/ClientScript/NeatHtml.js">
+                        <NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'>
                             <%# Eval("Post").ToString()%>
                         </NeatHtml:UntrustedContent>
                     </div>
@@ -88,14 +87,12 @@
                         </tr>
                     </table>
                     <div class="forumpostuserattribute forumsig" id="divUntrustedSignature" runat="server" visible='<%# !Convert.ToBoolean(Eval("Trusted")) %>'>
-                        <NeatHtml:UntrustedContent ID="UntrustedContent2" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'
-                            ClientScriptUrl="~/ClientScript/NeatHtml.js">
+                        <NeatHtml:UntrustedContent ID="UntrustedContent2" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'>
                             <%# Eval("PostAuthorSignature").ToString()%>
                         </NeatHtml:UntrustedContent>
                     </div>
                     <div class="forumpostuserattribute forumsig" id="divTrustedSignature" runat="server" visible='<%# Convert.ToBoolean(Eval("Trusted")) %>'>
-                       <NeatHtml:UntrustedContent ID="UntrustedContent3" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'
-                            ClientScriptUrl="~/ClientScript/NeatHtml.js">
+                       <NeatHtml:UntrustedContent ID="UntrustedContent3" runat="server" TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'>
                             <%# Eval("PostAuthorSignature").ToString()%>
                         </NeatHtml:UntrustedContent>
                     </div>

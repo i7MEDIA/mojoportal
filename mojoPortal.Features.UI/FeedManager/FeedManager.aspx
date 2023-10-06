@@ -45,8 +45,7 @@
 											<div runat="server" id="divFeedBody" class="rsstext">
 												<NeatHtml:UntrustedContent runat="server"
 													ID="UntrustedContent1"
-													TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'
-													ClientScriptUrl="~/ClientScript/NeatHtml.js">
+													TrustedImageUrlPattern='<%# allowedImageUrlRegexPattern %>'>
 													<%# DataBinder.Eval(Container, "DataItem.Description").ToString()%>
 												</NeatHtml:UntrustedContent>
 											</div>

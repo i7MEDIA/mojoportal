@@ -217,8 +217,7 @@
 										<NeatHtml:UntrustedContent runat="server"
 											ID="UntrustedContent2"
 											EnableViewState="false"
-											TrustedImageUrlPattern='<%# RegexRelativeImageUrlPatern %>'
-											ClientScriptUrl="~/ClientScript/NeatHtml.js">
+											TrustedImageUrlPattern='<%# RegexRelativeImageUrlPatern %>'>
 											<asp:HyperLink runat="server"
 												ID="Hyperlink2"
 												EnableViewState="false"
@@ -233,8 +232,7 @@
 										<NeatHtml:UntrustedContent runat="server"
 											ID="UntrustedContent1"
 											EnableViewState="false"
-											TrustedImageUrlPattern='<%# RegexRelativeImageUrlPatern %>'
-											ClientScriptUrl="~/ClientScript/NeatHtml.js">
+											TrustedImageUrlPattern='<%# RegexRelativeImageUrlPatern %>'>
 											<asp:Literal runat="server"
 												ID="litComment"
 												EnableViewState="false"

@@ -31,8 +31,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" EnableViewState="false"
-                            ClientScriptUrl="~/ClientScript/NeatHtml.js">
+                        <NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" EnableViewState="false">
                             <%# Eval("Comments") %>
                         </NeatHtml:UntrustedContent>
                     </ItemTemplate>

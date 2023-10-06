@@ -47,7 +47,7 @@
 						<portal:CommentItemRightPanel ID="pnlRight" runat="server" CssClass='<%# RightPanelCssClass %>' RenderId="false">
 							<div id='post<%# Eval("Guid") %>'>
 								<portal:CommentItemInnerPanel ID="itemheaderpanel" runat="server" CssClass='<%# ItemHeaderCssClass %>' RenderId="false">
-									<NeatHtml:UntrustedContent ID="UntrustedContent0" runat="server" TrustedImageUrlPattern='<%# AllowedImageUrlRegexPatern %>' ClientScriptUrl="~/ClientScript/NeatHtml.js">
+									<NeatHtml:UntrustedContent ID="UntrustedContent0" runat="server" TrustedImageUrlPattern='<%# AllowedImageUrlRegexPatern %>'>
 											<portal:CommentItemTitlePanel ID="pnlTitle" runat="server" RenderId="false"
 												CssClass='<%# ItemTitleCssClass %>'
 												Visible='<%# UseCommentTitle %>'>
@@ -56,7 +56,7 @@
 									</NeatHtml:UntrustedContent>
 									<portal:CommentDateWrapper ID="dw1" runat="server" RenderId="false" CssClass='<%# DateWrapperCssClass %>'><%# FormatCommentDate(Convert.ToDateTime(Eval("CreatedUtc"))) %></portal:CommentDateWrapper>
 								</portal:CommentItemInnerPanel>
-								<NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" TrustedImageUrlPattern='<%# AllowedImageUrlRegexPatern %>' ClientScriptUrl="~/ClientScript/NeatHtml.js">
+								<NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" TrustedImageUrlPattern='<%# AllowedImageUrlRegexPatern %>'>
 									<portal:CommentItemBodyPanel ID="pnlBody" runat="server" CssClass='<%# ItemBodyCssClass %>' RenderId="false"><%# Eval("UserComment").ToString()%></portal:CommentItemBodyPanel>
 								</NeatHtml:UntrustedContent>
 							</div>

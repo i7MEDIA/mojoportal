@@ -39,13 +39,11 @@
                             InviteeDisplayName=""
                             OverrideCulture=""
                             UseTheme="false"
-                            ThemName=""
-                            
+                            ThemName=""                            
                         />
 		        </div>
-                 <NeatHtml:UntrustedContent ID="UntrustedContent2" runat="server"
-                            ClientScriptUrl="~/ClientScript/NeatHtml.js">
-		        <asp:Panel ID="pnlProfileProperties" runat="server"></asp:Panel>
+                <NeatHtml:UntrustedContent ID="UntrustedContent2" runat="server">
+					<asp:Panel ID="pnlProfileProperties" runat="server"></asp:Panel>
                 </NeatHtml:UntrustedContent>
 		        <div style="clear:left;">&nbsp;
 		            <portal:mojoLabel ID="lblMessage" runat="server" CssClass="txterror info" />
