@@ -562,6 +562,12 @@ namespace mojoPortal.Web.AdminUI
 
 					textBox.Text = $"<input name=\"{controlID}\" id=\"{controlID}\" type=\"{type}\"{min}{max}class=\"{controlClass}\" value=\"{s.SettingValue.HtmlEscapeQuotes()}\"{attribsMarkup} />";
 					break;
+				case "textarea":
+					Literal textarea = new();
+					control = textarea;
+					textarea.Text = $"<textarea name=\"{controlID}\" id=\"{controlID}\" class=\"{controlClass}\"{attribsMarkup} rows=\"3\">{s.SettingValue.HtmlEscapeQuotes()}</textarea>";
+					break;
+
 				case "checkbox":
 					Literal checkBox = new Literal();
 					control = checkBox;
