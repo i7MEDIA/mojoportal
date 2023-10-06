@@ -252,6 +252,14 @@
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\sqlite\0.0.2.5.config" />
     <Content Include="Views\SuperFlexi\_DebugInfo.cshtml" />
     <Content Include="Views\SuperFlexi\_SuperFlexiPaging.cshtml" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mysql\0.0.2.0.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mysql\0.0.2.5.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaInstallScripts\pgsql\0.0.2.0.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaInstallScripts\sqlite\0.0.2.0.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.2.6.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mysql\0.0.2.6.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\pgsql\0.0.2.6.config" />
+    <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\sqlite\0.0.2.6.config" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
