@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Configuration;
 using System.Web;
 
 namespace mojoPortal.Business.WebHelpers
@@ -9,14 +8,16 @@ namespace mojoPortal.Business.WebHelpers
 	{
 		public static bool IsInRole(string role)
 		{
-			if (HttpContext.Current == null || HttpContext.Current.User == null) { return false; }
-			//if (role == null) { return false; }
+			if (HttpContext.Current is null || HttpContext.Current.User is null) { return false; }
+			
 			if (string.IsNullOrWhiteSpace(role)) { return false; }
+			
 			if (role.Contains("All Users")) { return true; }
-			if (!HttpContext.Current.Request.IsAuthenticated) { return false; }
-			if (HttpContext.Current.User.IsInRole("Admins")) { return true; }
-			//if (String.IsNullOrEmpty(role)) { return false; }
 
+			if (!isAuthenticated()) { return false; }
+
+			if (HttpContext.Current.User.IsInRole("Admins")) { return true; }
+			
 			return HttpContext.Current.User.IsInRole(role);
 		}
 
@@ -24,9 +25,12 @@ namespace mojoPortal.Business.WebHelpers
 		public static bool IsInRoles(string roles)
 		{
 			if (IsInRole("Admins")) return true;
+
 			if (String.IsNullOrEmpty(roles)) return false;
+
 			if (roles.Contains("All Users;")) return true;
-			if (!HttpContext.Current.Request.IsAuthenticated) return false;
+
+			if (!isAuthenticated()) { return false; }
 
 			foreach (string role in roles.Split(new char[] { ';' }))
 			{
@@ -45,10 +49,11 @@ namespace mojoPortal.Business.WebHelpers
 
 			if (roles.Contains("All Users")) return true;
 
-			if (!HttpContext.Current.Request.IsAuthenticated) return false;
-
-
-
+			if (!isAuthenticated())
+			{
+				return false;
+			}
+			
 			foreach (string role in roles)
 			{
 				if (role.Contains("All Users")) return true;
@@ -62,15 +67,12 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-				try
-				{
-					if (!HttpContext.Current.Request.IsAuthenticated) return false;
-					return IsInRole("Admins");
+				if (!isAuthenticated()) 
+				{ 
+					return false; 
 				}
-				catch (System.NullReferenceException)
-				{
-					return false;
-				}
+
+				return IsInRole("Admins");
 			}
 		}
 
@@ -79,15 +81,12 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-				try
-				{
-					if (!HttpContext.Current.Request.IsAuthenticated) return false;
-					return IsInRole("Content Administrators");
-				}
-				catch (System.NullReferenceException)
+				if (!isAuthenticated())
 				{
 					return false;
 				}
+
+				return IsInRole("Content Administrators");
 			}
 		}
 
@@ -95,15 +94,12 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-				try
-				{
-					if (!HttpContext.Current.Request.IsAuthenticated) return false;
-					return IsInRole("Content Publishers");
-				}
-				catch (System.NullReferenceException)
+				if (!isAuthenticated())
 				{
 					return false;
 				}
+
+				return IsInRole("Content Publishers");
 			}
 		}
 
@@ -111,15 +107,12 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-				try
-				{
-					if (!HttpContext.Current.Request.IsAuthenticated) return false;
-					return IsInRole("Content Authors");
-				}
-				catch (System.NullReferenceException)
+				if (!isAuthenticated())
 				{
 					return false;
 				}
+				
+				return IsInRole("Content Authors");
 			}
 		}
 
@@ -127,15 +120,12 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-				try
-				{
-					if (!HttpContext.Current.Request.IsAuthenticated) return false;
-					return IsInRole("Role Admins");
-				}
-				catch (System.NullReferenceException)
+				if (!isAuthenticated())
 				{
 					return false;
 				}
+
+				return IsInRole("Role Admins");
 			}
 		}
 
@@ -143,15 +133,12 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-				try
-				{
-					if (!HttpContext.Current.Request.IsAuthenticated) return false;
-					return IsInRole("Newsletter Administrators");
-				}
-				catch (System.NullReferenceException)
+				if (!isAuthenticated())
 				{
 					return false;
 				}
+				
+				return IsInRole("Newsletter Administrators");
 			}
 		}
 
@@ -159,17 +146,19 @@ namespace mojoPortal.Business.WebHelpers
 		{
 			get
 			{
-				try
-				{
-					if (!HttpContext.Current.Request.IsAuthenticated) return false;
-					SiteSettings siteSettings = (SiteSettings)HttpContext.Current.Items["SiteSettings"];
-					if (siteSettings == null) return false;
-					return IsInRoles(siteSettings.RolesThatCanManageSkins);
-				}
-				catch (System.NullReferenceException)
+				if (!isAuthenticated())
 				{
 					return false;
 				}
+
+				SiteSettings siteSettings = (SiteSettings)HttpContext.Current?.Items["SiteSettings"];
+				
+				if (siteSettings == null)
+				{
+					return false;
+				}
+				
+				return IsInRoles(siteSettings.RolesThatCanManageSkins);
 			}
 		}
 
@@ -214,28 +203,6 @@ namespace mojoPortal.Business.WebHelpers
 			get { return IsAdmin || IsNewsletterAdmin; }
 		}
 
-		//public static bool IsNotAllowedToEditModuleSettings
-		//{
-		//    get 
-		//    {
-		//        if (!HttpContext.Current.Request.IsAuthenticated) return true;
-		//        if (IsAdmin) { return false; }
-		//        if (IsContentAdmin) { return false; }
-
-		//        if (ConfigurationManager.AppSettings["RolesNotAllowedToEditModuleSettings"] != null)
-		//        {
-		//            string forbiddenRoles = ConfigurationManager.AppSettings["RolesNotAllowedToEditModuleSettings"];
-		//            if (!string.IsNullOrEmpty(forbiddenRoles))
-		//            {
-		//                return IsInRoles(forbiddenRoles);
-		//            }
-		//        }
-
-		//        return true;
-		//    }
-		//}
-
-
 		public static bool HasEditPermissions(int siteId, int moduleId, int pageId)
 		{
 			if (HttpContext.Current == null || HttpContext.Current.User == null) return false;
@@ -249,8 +216,6 @@ namespace mojoPortal.Business.WebHelpers
 
 			if (pageSettings == null) return false;
 			if (pageSettings.PageId < 0) return false;
-
-
 
 			if (IsInRoles(pageSettings.EditRoles) || IsInRoles(module.AuthorizedEditRoles))
 			{
@@ -280,5 +245,9 @@ namespace mojoPortal.Business.WebHelpers
 		//    return IsInRoles(pageSettings.EditRoles);
 		//}
 
+		private static bool isAuthenticated()
+		{
+			return HttpContext.Current?.Request.IsAuthenticated ?? false;
+		}
 	}
 }
