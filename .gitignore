@@ -453,3 +453,6 @@ Web/Data/sqlitedb/mojo\.db\.config
 /Web/Content/AjaxControlToolkit
 /Web/Scripts/AjaxControlToolkit/Release
 /Web/AjaxControlToolkit.config
+/Web/MegaGallery
+/Web/Setup/applications/MegaGallery
+/Web/App_GlobalResources/MegaGalleryResource.resx

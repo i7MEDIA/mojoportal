@@ -201,7 +201,7 @@ namespace Brettle.Web.NeatHtml
 				if (!Page.ClientScript.IsClientScriptBlockRegistered("NeatHtmlJs"))
 				{
 					Page.ClientScript.RegisterClientScriptBlock(typeof(Page),"NeatHtmlJs", @"
-	<script type='text/javascript' language='javascript' src='" + ApplyAppPathModifier(ClientScriptUrl) + @"?guid=" 
+	<script data-loader='NeatHtmlUntrustedContentControl' src='" + ApplyAppPathModifier(ClientScriptUrl) + @"?guid=" 
 		+ CacheBustingGuid + @"'></script>");
 				}
 			}
