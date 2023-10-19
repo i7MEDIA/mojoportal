@@ -65,15 +65,11 @@ namespace mojoPortal.Web
 				}
 
 				// older skins may not have the script loader so we can add it below in OnInit if scriptLoaderFoundInMaster is false
-				if (scriptLoader == null)
-				{
-					scriptLoader = new ScriptLoader();
-				}
+				//scriptLoader ??= new ScriptLoader();
 
-				return scriptLoader;
+				return scriptLoader ??= new ScriptLoader();
 			}
 		}
-
 
 		public StyleSheetCombiner StyleCombiner
 		{

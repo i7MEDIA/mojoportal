@@ -1,18 +1,4 @@
-/// Author:				
-/// Created:			2004-08-22
-/// Last Modified:	    2013-04-07
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
 using System;
-using System.Configuration;
-using System.Globalization;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -20,20 +6,17 @@ using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
-using Resources;
-using mojoPortal.Core.Configuration;
 using mojoPortal.Core.Helpers;
-using mojoPortal.Core.API;
+using mojoPortal.Web.Framework;
 namespace mojoPortal.Web.UI
 {
 
-    public partial class CmsPage : mojoBasePage
+	public partial class CmsPage : mojoBasePage
 	{
 		private static readonly ILog log  = LogManager.GetLogger(typeof(CmsPage));
 
-		private HyperLink lnkEditPageSettings = new HyperLink();
-        private HyperLink lnkEditPageContent = new HyperLink();
+		private HyperLink lnkEditPageSettings = new();
+		private HyperLink lnkEditPageContent = new();
         
         //private bool isAdmin = false;
         //private bool isContentAdmin = false;

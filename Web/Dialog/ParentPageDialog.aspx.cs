@@ -164,8 +164,6 @@ namespace mojoPortal.Web.UI
 
             ScriptLoader scriptLoader = Page.Master.FindControl("ScriptInclude") as ScriptLoader;
             if (scriptLoader != null) { scriptLoader.IncludeAspTreeView = true; }
-
-           
         }
 
         
