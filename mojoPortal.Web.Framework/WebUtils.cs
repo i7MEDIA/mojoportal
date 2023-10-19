@@ -287,14 +287,14 @@ namespace mojoPortal.Web.Framework
         {
             if (HttpContext.Current == null) return String.Empty;
 
-            
+
             string hostname = HttpContext.Current.Items["hostname"] as string;
             if (hostname == null)
-            {
-                hostname = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
-                if (hostname != null)
-                    HttpContext.Current.Items["hostname"] = hostname;
-            }
+			{
+				hostname = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
+				if (hostname != null)
+					HttpContext.Current.Items["hostname"] = hostname;
+			}
             return hostname;
 
             //return HttpContext.Current.Request.ServerVariables["SERVER_NAME"].ToLower();
@@ -614,7 +614,16 @@ namespace mojoPortal.Web.Framework
             return true;
         }
 
-        public static Int32 ParseInt32FromHashtable(
+		public static string ParseStringFromHashtable(Hashtable settings, string key, string defaultIfNotFound = "")
+		{
+			if (settings.Contains(key))
+			{
+				return settings[key].ToString().Trim();
+			}
+			return defaultIfNotFound;
+		}
+
+		public static Int32 ParseInt32FromHashtable(
             Hashtable settings,
             String key, 
             Int32 defaultIfNotFound)
