@@ -728,8 +728,8 @@ namespace SuperFlexiUI
 			{
 				case "int":
 					if (field.IsList ||
-						field.IsCheckBoxListField() ||
-						field.IsDynamicListField())
+						field.						IsCheckBoxListField ||
+						field.						IsDynamicListField)
 					{
 						goto case "string";
 					}

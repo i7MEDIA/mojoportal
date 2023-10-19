@@ -122,7 +122,7 @@ namespace SuperFlexiUI
 							break;
 						case "TextBox":
 						default:
-							if (field.IsDateField()) goto case "Date";
+							if (field.IsDateField) goto case "Date";
 							if (field.IsList) goto case "List";
 							sb.AppendLine($"public {field.DataType} {fieldName} {{get;set;}}");
 
@@ -205,67 +205,6 @@ namespace SuperFlexiUI
 
 						object theValue = SuperFlexiHelpers.GetFieldValueFromKVPWithType(fieldValue, field);
 
-						//object theValue;
-						//var emptyValue = string.IsNullOrWhiteSpace(fieldValue.Value.ToString());
-						
-
-						//switch (field.DataType)
-						//{
-						//	case "int":
-						//		if (field.IsList ||
-						//			field.IsCheckBoxListField() ||
-						//			field.IsDynamicListField())
-						//		{
-						//			goto case "string";
-						//		}
-
-						//		if (int.TryParse(fieldValue.Value.ToString(), out int intVal) && !emptyValue)
-						//		{
-						//			theValue = intVal; 
-						//		}
-						//		else
-						//		{
-						//			theValue = null;
-						//		}
-								
-						//		break;
-						//	case "bool":
-						//	case "boolean":
-						//		if (bool.TryParse(fieldValue.Value.ToString(), out bool boolVal) && !emptyValue)
-						//		{
-						//			theValue = boolVal;
-						//		}
-						//		else
-						//		{
-						//			theValue = null;
-						//		}
-						//		break;
-						//	case "string":
-						//	default:
-						//		if (field.ControlType == "CheckBox")
-						//		{
-						//			goto case "bool";
-						//		}
-							
-						//		theValue = fieldValue.Value.ToString();
-						//		break;
-						//	//case "float":
-						//	//	theValue = Convert.ToSingle(emptyValue ? float.MinValue : fieldValue.Value);
-						//	//	break;
-						//	//case "decimal":
-						//	//	theValue = Convert.ToDecimal(fieldValue.Value);
-						//	//	break;
-						//	//case "double":
-						//	//	theValue = Convert.ToDouble(fieldValue.Value);
-						//	//	break;
-						//	//case "byte":
-						//	//	theValue = Convert.ToByte(fieldValue.Value);
-						//	//	break;
-						//	//case "char":
-						//	//	theValue = Convert.ToChar(fieldValue.Value);
-						//	//	break;
-						//}
-
 						switch (field.ControlType)
 						{
 							case "CheckBox":
@@ -302,7 +241,7 @@ namespace SuperFlexiUI
 								break;
 							case "TextBox":
 							default:
-								if (field.IsDateField())
+								if (field.IsDateField)
 								{
 									goto case "Date";
 								}

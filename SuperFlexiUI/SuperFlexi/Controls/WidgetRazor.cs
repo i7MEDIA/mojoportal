@@ -192,7 +192,7 @@ namespace SuperFlexiUI
 
 			if (Config.GetDynamicListsInRazor)
 			{
-				dynamicLists = Field.GetAllForDefinition(Config.FieldDefinitionGuid).Where(f => f.IsDynamicListField()).ToList();
+				dynamicLists = Field.GetAllForDefinition(Config.FieldDefinitionGuid).Where(f => f.IsDynamicListField).ToList();
 
 				if (totalPages > 1 && dynamicLists.Count > 0)
 				{

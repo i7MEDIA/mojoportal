@@ -314,7 +314,7 @@ namespace SuperFlexiUI
 							}
 							else
 							{
-								if (field.IsDateField())
+								if (field.IsDateField)
 								{
 									DateTime dateTime = new DateTime();
 									if (DateTime.TryParse(fieldValue, out dateTime))
@@ -327,7 +327,7 @@ namespace SuperFlexiUI
 									}
 								}
 
-								if (field.IsCheckBoxListField() || field.IsRadioButtonListField())
+								if (field.IsCheckBoxListField || field.IsRadioButtonListField)
 								{
 									foreach (CheckBoxListMarkup cblm in Config.CheckBoxListMarkups)
 									{
