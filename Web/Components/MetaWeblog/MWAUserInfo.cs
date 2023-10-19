@@ -1,7 +1,7 @@
 ﻿
 // borrowed from BlogEngine.NET
 // License: Microsoft Reciprocal License (Ms-RL) 
-namespace mojoPortal.Core.API.MetaWeblog
+namespace mojoPortal.MetaWeblog
 {
     /// <summary>
     /// MetaWeblog UserInfo struct

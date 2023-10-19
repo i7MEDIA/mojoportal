@@ -457,3 +457,5 @@ Web/Data/sqlitedb/mojo\.db\.config
 /Web/Setup/applications/MegaGallery
 /Web/App_GlobalResources/MegaGalleryResource.resx
 /Web/Modules/csDirectorySlider
+/Web/ClientScript/galleriffic
+/Web/Data/style/galleriffic
