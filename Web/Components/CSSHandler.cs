@@ -271,7 +271,7 @@ namespace mojoPortal.Web.UI
 
 			if (WebConfigSettings.MinifyCSS)
 			{
-				log.Error($"CSS Minifier has been remove from mojoPortal. Your CSS should be minified outside of mojoPortal.");
+				log.Error($"CSS Minifier has been removed from mojoPortal. Your CSS should be minified outside of mojoPortal.");
 			}
 
 			//if (ShouldCacheOnServer() && WebConfigSettings.MinifyCSS)
