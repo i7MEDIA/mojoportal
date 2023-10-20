@@ -1208,29 +1208,26 @@ namespace mojoPortal.Web
 						if (siteSettings.PreferredHostName != requestedHostName)
 						{
 							string redirectUrl;
-
+							string protocol = SiteUtils.SslIsAvailable() ? "https://" : "http://";
 							if (WebConfigSettings.RedirectToRootWhenEnforcingPreferredHostName)
 							{
-								redirectUrl = "http://" + siteSettings.PreferredHostName;
+								redirectUrl = protocol + siteSettings.PreferredHostName;
 							}
 							else
 							{
-								redirectUrl = "http://" + siteSettings.PreferredHostName + Request.RawUrl;
+								redirectUrl = protocol + siteSettings.PreferredHostName + Request.RawUrl;
 							}
 
 							if (WebConfigSettings.LogRedirectsToPreferredHostName)
 							{
-								log.Info("received a request for hostname " + requestedHostName + ", redirecting to preferred host name " + redirectUrl);
+								log.Info($"received a request for hostname {requestedHostName}{Request.RawUrl}, redirecting to preferred host name {redirectUrl}");
 							}
 
-#if !NET35
 							if (WebConfigSettings.Use301RedirectWhenEnforcingPreferredHostName)
 							{
 								Response.RedirectPermanent(redirectUrl, true);
 								return;
 							}
-#endif
-
 
 							Response.Redirect(redirectUrl, true);
 
