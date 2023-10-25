@@ -16,7 +16,7 @@ namespace SuperFlexiUI
 {
 	public partial class SuperFlexiModule : SiteModuleControl
 	{
-		protected ModuleConfiguration config = new ModuleConfiguration();
+		protected ModuleConfiguration config = new();
 
 
 		protected void Page_Load(object sender, EventArgs e)

@@ -59,7 +59,7 @@ namespace SuperFlexiUI
         }
 
         private int moduleID = -1;
-        public int ModuleID
+		public int ModuleID
         {
             get { return this.moduleID;}
             set 
@@ -141,7 +141,7 @@ namespace SuperFlexiUI
                                 //this will adjust the ModuleGuidToUse set on the control to have the SiteID for the first two characters.
                                 //doing this gives us the ability to create/load module instances in multi-site installs using skins containing SuperWrapper
                                 //with the same ModuleGuidToUse.
-                                StringBuilder sb = new StringBuilder(moduleGuidToUse.ToString());
+                                var sb = new StringBuilder(moduleGuidToUse.ToString());
 
                                 int siteIdLength = siteSettings.SiteId.ToString().Length;
 

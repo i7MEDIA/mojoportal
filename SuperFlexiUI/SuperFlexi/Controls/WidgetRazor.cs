@@ -63,9 +63,8 @@ namespace SuperFlexiUI
 
 			LoadSettings();
 
-			if (module == null)
+			if (module == null || module.ModuleId == -1)
 			{
-				//Visible = false;
 				return;
 			}
 
@@ -78,11 +77,11 @@ namespace SuperFlexiUI
 		protected virtual void LoadSettings()
 		{
 			module = new Module(ModuleId, PageId);
-			if (module == null)
+			if (module.ModuleId == -1)
 			{
 				publishedToCurrentPage = false; 
 				module = new Module(ModuleId);
-				if (module == null)
+				if (module.ModuleId == -1)
 				{
 					return;
 				}
@@ -91,8 +90,7 @@ namespace SuperFlexiUI
 			{
 				publishedToCurrentPage = true;
 			}
-			//moduleTitle = module.ModuleTitle;
-
+			
 			pageNumber = WebUtils.ParseInt32FromQueryString($"sf{ModuleId}_PageNumber", pageNumber);
 			pageSize = WebUtils.ParseInt32FromQueryString($"sf{ModuleId}_PageSize", Config.PageSize);
 			itemId = WebUtils.ParseInt32FromQueryString($"sf{ModuleId}_ItemId", itemId);
