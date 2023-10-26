@@ -52,6 +52,7 @@
 .social-links__item a.fa-gab::before,
 .social-links__item a.fa-gettr::before,
 .social-links__item a.fa-mewe::before,
+.social-links__item a.fa-nextdoor::before,
 .social-links__item a.fa-parler::before,
 .social-links__item a.fa-rumble::before,
 .social-links__item a.fa-tiktok::before {
@@ -122,6 +123,16 @@
 }
 .social-links__item a.fa-mewe:hover {
   background-color: #305095;
+}
+.social-links__item a.fa-nextdoor {
+  background-color: #92c83e;
+}
+.social-links__item a.fa-nextdoor::before {
+  background-image: url(../resources/Logos/nextdoor_icon.svg);
+  width: 45%;
+}
+.social-links__item a.fa-nextdoor:hover {
+  background-color: #a4e533;
 }
 .social-links__item a.fa-parler {
   background-color: #b91d2c;
