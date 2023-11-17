@@ -96,8 +96,9 @@ namespace mojoPortal.Web
     public class mojoThemeVirtualFile : VirtualFile
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(mojoThemeVirtualFile));
+        private const string fallBackSkin = "~/App_Themes/default/theme.skin";
 
-        private String pathToFile;
+		private String pathToFile;
         public mojoThemeVirtualFile(String virtualPath)
             : base(virtualPath)
         {
@@ -108,58 +109,67 @@ namespace mojoPortal.Web
         {
             SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
             PageSettings currentPage = CacheHelper.GetCurrentPage();
-            
+
+            string siteSkinPath = fallBackSkin;
+            string skinSetBy = "site";
+
+            if (siteSettings != null)
+            {
+				siteSkinPath = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/skins/{siteSettings.Skin}/theme.skin";
+			}
+
+
             if (
-                (siteSettings != null)
-                && ((siteSettings.AllowUserSkins) || ((WebConfigSettings.AllowEditingSkins) && (WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins))))
+                siteSettings != null
+                && (siteSettings.AllowUserSkins || (WebConfigSettings.AllowEditingSkins && WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins)))
                 )
             {
                 if (pathToFile.Contains("App_Themes/userpersonal"))
                 {
                     SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
-                    if ((currentUser != null)&&(currentUser.Skin.Length > 0))
+                    if (currentUser != null && currentUser.Skin.Length > 0)
                     {
-                        pathToFile = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/" + currentUser.Skin + "/theme.skin";
+                        pathToFile = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/skins/{currentUser.Skin}/theme.skin";
+                        skinSetBy = $"userprofile userId=[{currentUser.UserId}]";
                     }
                 }
             }
 
-            if (
-               (pathToFile.Contains("App_Themes/mobile"))
-                )
+            if (pathToFile.Contains("App_Themes/mobile"))
             {
                 if (siteSettings.MobileSkin.Length > 0)
                 {
-                    pathToFile = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/" + siteSettings.MobileSkin + "/theme.skin";
-                }
+                    pathToFile = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/skins/{siteSettings.MobileSkin}/theme.skin";
+					skinSetBy = "sitemobile";
 
-                if (WebConfigSettings.MobilePhoneSkin.Length > 0)
+				}
+
+				if (WebConfigSettings.MobilePhoneSkin.Length > 0)
                 {
-                    pathToFile = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/" + WebConfigSettings.MobilePhoneSkin + "/theme.skin";
-                }
-            }
+                    pathToFile = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/skins/{WebConfigSettings.MobilePhoneSkin}/theme.skin";
+					skinSetBy = "webconfigmobile";
+				}
+			}
             else if (
-                (currentPage != null)
-                &&(siteSettings.AllowPageSkins)
-                &&(currentPage.Skin.Length > 0)
-                &&(pathToFile.Contains("App_Themes/pageskin"))
+                currentPage != null 
+                && siteSettings.AllowPageSkins
+                && currentPage.Skin.Length > 0
+                && pathToFile.Contains("App_Themes/pageskin")
                 )
             {
-                pathToFile = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/" + currentPage.Skin + "/theme.skin";
-            }
-            else if (pathToFile.Contains("App_Themes/default"))
+                pathToFile = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/skins/{currentPage.Skin}/theme.skin";
+				skinSetBy = "page";
+			}
+			else if (pathToFile.Contains("App_Themes/default"))
             {
-                
-                pathToFile = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/" + siteSettings.Skin + "/theme.skin";
-            }
-            else if (pathToFile.Contains("App_Themes/mypage"))
-            {
-                pathToFile = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/" + siteSettings.MyPageSkin + "/theme.skin";
-            }
+                pathToFile = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/skins/{siteSettings.Skin}/theme.skin";
+				skinSetBy = "site";
+			}
             else if (pathToFile.Contains("App_Themes/preview_"))
             {
-                pathToFile = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/" + SiteUtils.GetSkinPreviewParam(siteSettings) + "/theme.skin";
-            }
+                pathToFile = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/skins/{SiteUtils.GetSkinPreviewParam(siteSettings)}/theme.skin";
+				skinSetBy = "queryparam";
+			}
 
             string filePath = HostingEnvironment.MapPath(pathToFile);
 
@@ -169,22 +179,22 @@ namespace mojoPortal.Web
             }
             catch (DirectoryNotFoundException ex)
             {
-                log.Error("Error trying to set theme", ex);
+                log.Error("\r\nError trying to set theme", ex);
             }
             catch (FileNotFoundException ex)
             {
-                log.Error("Error trying to set theme", ex);
+                log.Error("\r\nError trying to set theme", ex);
             }
 
+            log.Error($"could not find theme.skin in \"{filePath}\" set by \"{skinSetBy}\" setting. Will use site default and fallback to /App_Themes/default/theme.skin if site default doesn't work.");
 
-            log.Error("could not set theme to skin folder theme.skin will use /App_Themes/default/theme.skin");
-            
-            return File.OpenRead(HostingEnvironment.MapPath("~/App_Themes/default/theme.skin"));
+			if (File.Exists(HostingEnvironment.MapPath(siteSkinPath)))
+			{
+				return File.OpenRead(HostingEnvironment.MapPath(siteSkinPath));
+			}
 
-           
-           
+			return File.OpenRead(HostingEnvironment.MapPath(fallBackSkin));
         }
-
     }
 
 #endif
