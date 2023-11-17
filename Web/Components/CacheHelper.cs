@@ -386,6 +386,11 @@ namespace mojoPortal.Business.WebHelpers
 
         #region SiteSettings
 
+        public static SiteSettings GetCurrentSiteSettings()
+        {
+            return GetCurrentSiteSettings(-1);
+        }
+
         public static SiteSettings GetCurrentSiteSettings(int siteId = -1)
         {
             if (siteId == -1)
