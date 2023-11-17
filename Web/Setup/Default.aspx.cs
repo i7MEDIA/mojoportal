@@ -633,32 +633,19 @@ namespace mojoPortal.Web.UI.Pages
             mojoSetup.CreateDefaultSiteFolders(newSite.SiteId);
             mojoSetup.CreateOrRestoreSiteSkins(newSite.SiteId);
             WritePageContent(SetupResource.CreatingRolesAndAdminUserMessage, true);
-            mojoSetup.CreateRequiredRolesAndAdminUser(newSite);
-            
+            mojoSetup.CreateRequiredRolesAndAdminUser(newSite);   
         }
-
-        
 
         private void SetupFeatures(string applicationName)
         {
-            ContentFeatureConfiguration appFeatureConfig
-                = ContentFeatureConfiguration.GetConfig(applicationName);
-
-            //WritePageContent(
-            //    string.Format(SetupResource.ConfigureFeaturesMessage, 
-            //    applicationName));
+            var appFeatureConfig = ContentFeatureConfiguration.GetConfig(applicationName);
 
             foreach (ContentFeature feature in appFeatureConfig.ContentFeatures)
             {
-#if MONO
-                Guid WebPartGuid = new Guid("437a19b0-ef57-4963-b311-a1e13d9d883c");
-                if (feature.FeatureGuid != WebPartGuid)
-#endif
                 if (feature.SupportedDatabases.ToLower().Contains(dbPlatform.ToLower()))
                 {
                     SetupFeature(feature);
                 }
-
             }
         }
 
@@ -671,21 +658,23 @@ namespace mojoPortal.Web.UI.Pages
                     feature.FeatureNameReasourceKey))
                     , true);
 
-            ModuleDefinition moduleDefinition = new ModuleDefinition(feature.FeatureGuid);
-            moduleDefinition.ControlSrc = feature.ControlSource;
-            moduleDefinition.DefaultCacheTime = feature.DefaultCacheTime;
-            moduleDefinition.FeatureName = feature.FeatureNameReasourceKey;
-            moduleDefinition.Icon = feature.Icon;
-            moduleDefinition.IsAdmin = feature.ExcludeFromFeatureList;
-            moduleDefinition.SortOrder = feature.SortOrder;
-            moduleDefinition.ResourceFile = feature.ResourceFile;
-            moduleDefinition.IsCacheable = feature.IsCacheable;
-            moduleDefinition.IsSearchable = feature.IsSearchable;
-            moduleDefinition.SearchListName = feature.SearchListNameResourceKey;
-            moduleDefinition.SupportsPageReuse = feature.SupportsPageReuse;
-            moduleDefinition.DeleteProvider = feature.DeleteProvider;
-            moduleDefinition.PartialView = feature.PartialView;
-            moduleDefinition.Save();
+			ModuleDefinition moduleDefinition = new(feature.FeatureGuid)
+			{
+				ControlSrc = feature.ControlSource,
+				DefaultCacheTime = feature.DefaultCacheTime,
+				FeatureName = feature.FeatureNameReasourceKey,
+				Icon = feature.Icon,
+				IsAdmin = feature.ExcludeFromFeatureList,
+				SortOrder = feature.SortOrder,
+				ResourceFile = feature.ResourceFile,
+				IsCacheable = feature.IsCacheable,
+				IsSearchable = feature.IsSearchable,
+				SearchListName = feature.SearchListNameResourceKey,
+				SupportsPageReuse = feature.SupportsPageReuse,
+				DeleteProvider = feature.DeleteProvider,
+				PartialView = feature.PartialView
+			};
+			moduleDefinition.Save();
 
             foreach (ContentFeatureSetting featureSetting in feature.Settings)
             {
@@ -704,14 +693,8 @@ namespace mojoPortal.Web.UI.Pages
                     featureSetting.SortOrder,
 					featureSetting.Attributes,
 					featureSetting.Options);
-
             }
-
-            
-
         }
-
-        
 
         private void ShowSetupSuccess()
         {

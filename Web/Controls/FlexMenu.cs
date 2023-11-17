@@ -124,22 +124,35 @@ namespace mojoPortal.Web.UI
             siteSettings = CacheHelper.GetCurrentSiteSettings();
 
             isAdmin = WebUser.IsAdmin;
-            if (!isAdmin) { isContentAdmin = WebUser.IsContentAdmin; }
-            if ((!isAdmin) && (!isContentAdmin)) { isSiteEditor = SiteUtils.UserIsSiteEditor(); }
+            
+            //don't want to make a call to figure out isContentAdmin if we're an admin (performance, sorta a little)
+            if (!isAdmin) 
+            { 
+                isContentAdmin = WebUser.IsContentAdmin; 
+            }
+
+			//don't want to make a call to figure out UserIsSiteEditor if we're an admin or ContentAdmin (performance, sorta a little)
+			if (!isAdmin && !isContentAdmin) 
+            { 
+                isSiteEditor = SiteUtils.UserIsSiteEditor(); 
+            }
 
             resolveFullUrlsForMenuItemProtocolDifferences = WebConfigSettings.ResolveFullUrlsForMenuItemProtocolDifferences;
+
             if (resolveFullUrlsForMenuItemProtocolDifferences)
             {
                 secureSiteRoot = WebUtils.GetSecureSiteRoot();
                 insecureSiteRoot = WebUtils.GetInSecureSiteRoot();
             }
 
-            isSecureRequest = SiteUtils.IsSecureRequest();
+            isSecureRequest = Core.Helpers.WebHelper.IsSecureRequest();
 
-            siteMapDataSource = new SiteMapDataSource();
-            siteMapDataSource.SiteMapProvider = "mojosite" + siteSettings.SiteId.ToInvariantString();
+			siteMapDataSource = new SiteMapDataSource
+			{
+				SiteMapProvider = "mojosite" + siteSettings.SiteId.ToInvariantString()
+			};
 
-            rootNode = siteMapDataSource.Provider.RootNode;
+			rootNode = siteMapDataSource.Provider.RootNode;
             currentNode = SiteUtils.GetCurrentPageSiteMapNode(rootNode);
             startingNode = rootNode;
 
@@ -151,14 +164,9 @@ namespace mojoPortal.Web.UI
             {
                 startingNode = SiteUtils.GetOffsetNode(currentNode, StartingNodeOffset);
             }
-            //else if (isSubMenu)
-            //{
-            //    startingNode = SiteUtils.GetTopLevelParentNode(currentNode);
-            //}
-            
         }
 
-        private string BuildUlClass(mojoSiteMapNode mojoNode)
+        private string BuildChildUlClass(mojoSiteMapNode mojoNode)
         {
             string result = string.Empty;
             string spacer = string.Empty;
@@ -193,7 +201,6 @@ namespace mojoPortal.Web.UI
             }
 
             return result;
-
         }
 
         private string BuildAnchorClass(mojoSiteMapNode mojoNode)
@@ -474,14 +481,11 @@ namespace mojoPortal.Web.UI
             
         }
 
-
-        
-
         private void RenderChildNodes(HtmlTextWriter writer, SiteMapNode node)
         {
             writer.Write("<ul");
 
-            writer.Write(BuildUlClass((mojoSiteMapNode)node));
+            writer.Write(BuildChildUlClass((mojoSiteMapNode)node));
 
             writer.Write(">");
            
@@ -510,7 +514,7 @@ namespace mojoPortal.Web.UI
                     if ((itemsAdded == ChildNodesPerUl) && (trueItemsAdded < node.ChildNodes.Count))
                     {
                         //writer.Write("</ul><ul>");
-                        writer.Write("</ul><ul" + BuildUlClass((mojoSiteMapNode)childNode) + ">");
+                        writer.Write("</ul><ul" + BuildChildUlClass((mojoSiteMapNode)childNode) + ">");
                         itemsAdded = 0;
                     }
                 }

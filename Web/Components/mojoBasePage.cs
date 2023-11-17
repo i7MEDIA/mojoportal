@@ -1209,18 +1209,28 @@ namespace mojoPortal.Web
 						{
 							string redirectUrl;
 							string protocol = SiteUtils.SslIsAvailable() ? "https://" : "http://";
-							if (WebConfigSettings.RedirectToRootWhenEnforcingPreferredHostName)
+							string serverPort = HttpContext.Current.Request.ServerVariables["SERVER_PORT"];
+							if (!string.IsNullOrWhiteSpace(serverPort) && (serverPort == "80" || serverPort == "443")) 
 							{
-								redirectUrl = protocol + siteSettings.PreferredHostName;
+								serverPort = string.Empty;
 							}
 							else
 							{
-								redirectUrl = protocol + siteSettings.PreferredHostName + Request.RawUrl;
+								serverPort = $":{serverPort}";
+							}
+							
+							if (WebConfigSettings.RedirectToRootWhenEnforcingPreferredHostName)
+							{
+								redirectUrl = protocol + siteSettings.PreferredHostName + serverPort;
+							}
+							else
+							{
+								redirectUrl = protocol + siteSettings.PreferredHostName + serverPort + Request.RawUrl;
 							}
 
 							if (WebConfigSettings.LogRedirectsToPreferredHostName)
 							{
-								log.Info($"received a request for hostname {requestedHostName}{Request.RawUrl}, redirecting to preferred host name {redirectUrl}");
+								log.Info($"received a request for hostname {requestedHostName}{serverPort}{Request.RawUrl}, redirecting to preferred host name {redirectUrl}");
 							}
 
 							if (WebConfigSettings.Use301RedirectWhenEnforcingPreferredHostName)
