@@ -42,15 +42,8 @@ namespace mojoPortal.Web.BlogUI
 		protected string EditLinkImageUrl = string.Empty;
 		//private mojoBasePage basePage = null;
 		private Module module = null;
-		protected BlogConfiguration blogConfig = new BlogConfiguration();
-		protected BlogPostListAdvancedConfiguration config = new BlogPostListAdvancedConfiguration();
 		private bool useFriendlyUrls = true;
-		private int pageId = -1;
-		private int moduleId = -1;
 		private int categoryId = -1;
-		private bool isEditable = false;
-		private string siteRoot = string.Empty;
-		private string imageSiteRoot = string.Empty;
 		private string navigationSiteRoot = string.Empty;
 		private SiteSettings siteSettings = null;
 		protected string CategoriesResourceKey = "PostCategories";
@@ -66,61 +59,23 @@ namespace mojoPortal.Web.BlogUI
 
 		private SiteUser currentUser = null;
 
-		private int siteId = -1;
-		public int SiteId
-		{
-			get { return siteId; }
-		}
+		public int SiteId { get; private set; } = -1;
 
-		public int PageId
-		{
-			get { return pageId; }
-			set { pageId = value; }
-		}
+		public int PageId { get; set; } = -1;
 
-		public int ModuleId
-		{
-			get { return moduleId; }
-			set { moduleId = value; }
-		}
+		public int ModuleId { get; set; } = -1;
 
-		public string SiteRoot
-		{
-			get { return siteRoot; }
-			set { siteRoot = value; }
-		}
+		public string SiteRoot { get; set; } = string.Empty;
 
-		public string ImageSiteRoot
-		{
-			get { return imageSiteRoot; }
-			set { imageSiteRoot = value; }
-		}
+		public string ImageSiteRoot { get; set; } = string.Empty;
 
-		public BlogConfiguration BlogConfig
-		{
-			get { return blogConfig; }
-			set { blogConfig = value; }
-		}
+		public BlogConfiguration BlogConfig { get; set; } = new BlogConfiguration();
 
-		public BlogPostListAdvancedConfiguration Config
-		{
-			get { return config; }
-			set { config = value; }
-		}
+		public BlogPostListAdvancedConfiguration Config { get; set; } = new BlogPostListAdvancedConfiguration();
 
-		public bool IsEditable
-		{
-			get { return isEditable; }
-			set { isEditable = value; }
-		}
+		public bool IsEditable { get; set; } = false;
 
-		private string displayMode = "DescendingByDate";
-
-		public string DisplayMode
-		{
-			get { return displayMode; }
-			set { displayMode = value; }
-		}
+		public string DisplayMode { get; set; } = "DescendingByDate";
 
 		#endregion
 
@@ -146,16 +101,16 @@ namespace mojoPortal.Web.BlogUI
 		protected virtual void LoadSettings()
 		{
 			siteSettings = CacheHelper.GetCurrentSiteSettings();
-			siteId = siteSettings.SiteId;
+			SiteId = siteSettings.SiteId;
 			currentUser = SiteUtils.GetCurrentSiteUser();
 			TimeOffset = SiteUtils.GetUserTimeOffset();
 			timeZone = SiteUtils.GetUserTimeZone();
 			GmapApiKey = SiteUtils.GetGmapApiKey();
 			addThisAccountId = siteSettings.AddThisDotComUsername;
 
-			if (blogConfig.AddThisAccountId.Length > 0)
+			if (BlogConfig.AddThisAccountId.Length > 0)
 			{
-				addThisAccountId = blogConfig.AddThisAccountId;
+				addThisAccountId = BlogConfig.AddThisAccountId;
 			}
 
 			pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", pageNumber);
@@ -171,7 +126,7 @@ namespace mojoPortal.Web.BlogUI
 
 			//}
 
-			module = new Module(moduleId);
+			module = new Module(ModuleId);
 
 			//if (module == null)
 			//{
@@ -185,41 +140,41 @@ namespace mojoPortal.Web.BlogUI
 				CalendarDate = DateTime.UtcNow.Date;
 			}
 
-			if (blogConfig.UseExcerpt && !blogConfig.GoogleMapIncludeWithExcerpt)
+			if (BlogConfig.UseExcerpt && !BlogConfig.GoogleMapIncludeWithExcerpt)
 			{
 				ShowGoogleMap = false;
 			}
 
-			if (blogConfig.UseExcerpt)
+			if (BlogConfig.UseExcerpt)
 			{
 				EnableContentRating = false;
 			}
 
-			if (blogConfig.DisqusSiteShortName.Length > 0)
+			if (BlogConfig.DisqusSiteShortName.Length > 0)
 			{
-				DisqusSiteShortName = blogConfig.DisqusSiteShortName;
+				DisqusSiteShortName = BlogConfig.DisqusSiteShortName;
 			}
 			else
 			{
 				DisqusSiteShortName = siteSettings.DisqusSiteShortName;
 			}
 
-			if (blogConfig.IntenseDebateAccountId.Length > 0)
+			if (BlogConfig.IntenseDebateAccountId.Length > 0)
 			{
-				IntenseDebateAccountId = blogConfig.IntenseDebateAccountId;
+				IntenseDebateAccountId = BlogConfig.IntenseDebateAccountId;
 			}
 			else
 			{
 				IntenseDebateAccountId = siteSettings.IntenseDebateAccountId;
 			}
 
-			ShowTweetThisLink = blogConfig.ShowTweetThisLink && !blogConfig.UseExcerpt;
-			ShowPlusOneButton = blogConfig.ShowPlusOneButton && !blogConfig.UseExcerpt;
-			UseFacebookLikeButton = blogConfig.UseFacebookLikeButton && !blogConfig.UseExcerpt;
+			ShowTweetThisLink = BlogConfig.ShowTweetThisLink && !BlogConfig.UseExcerpt;
+			ShowPlusOneButton = BlogConfig.ShowPlusOneButton && !BlogConfig.UseExcerpt;
+			UseFacebookLikeButton = BlogConfig.UseFacebookLikeButton && !BlogConfig.UseExcerpt;
 
-			pageSize = config.ItemsPerPage;
+			pageSize = Config.ItemsPerPage;
 
-			useFriendlyUrls = BlogConfiguration.UseFriendlyUrls(moduleId);
+			useFriendlyUrls = BlogConfiguration.UseFriendlyUrls(ModuleId);
 
 			if (!WebConfigSettings.UseUrlReWriting)
 			{
@@ -229,12 +184,12 @@ namespace mojoPortal.Web.BlogUI
 			if (WebConfigSettings.UseFolderBasedMultiTenants)
 			{
 				navigationSiteRoot = SiteUtils.GetNavigationSiteRoot();
-				imageSiteRoot = WebUtils.GetSiteRoot();
+				ImageSiteRoot = WebUtils.GetSiteRoot();
 			}
 			else
 			{
 				navigationSiteRoot = WebUtils.GetHostRoot();
-				imageSiteRoot = navigationSiteRoot;
+				ImageSiteRoot = navigationSiteRoot;
 
 			}
 
@@ -244,21 +199,25 @@ namespace mojoPortal.Web.BlogUI
 		{
 			DataSet dsBlogs = null;
 
-			// Check for Featured Post, if it exists grab one less post to keep the count correct
-			if (blogConfig.FeaturedPostId == 0)
+			var getByCategory = !string.IsNullOrWhiteSpace(Config.Categories) && Config.Categories != "-1";
+
+			if (getByCategory)
 			{
-				dsBlogs = Blog.GetPageDataSet(config.BlogModuleId, DateTime.UtcNow, pageNumber, pageSize, out totalPages);
+				//Featured Post is not respected if getting by category
+				dsBlogs = Blog.GetBlogEntriesByCategory(Config.BlogModuleId, Convert.ToInt32(Config.Categories), DateTime.UtcNow, pageNumber, pageSize, out totalPages);
 			}
 			else
 			{
-				dsBlogs = Blog.GetPageDataSet(config.BlogModuleId, DateTime.UtcNow, pageNumber, (pageSize - 1), out totalPages);
+				// Check for Featured Post, if it exists grab one less post to keep the count correct
+				pageSize = BlogConfig.FeaturedPostId == 0 ? pageSize : pageSize - 1;
+				dsBlogs = Blog.GetPageDataSet(Config.BlogModuleId, DateTime.UtcNow, pageNumber, pageSize, out totalPages);
 			}
 
 			DataRow featuredRow = dsBlogs.Tables["Posts"].NewRow();
 
-			if (blogConfig.FeaturedPostId != 0 && pageNumber == 1)
+			if (BlogConfig.FeaturedPostId != 0 && pageNumber == 1 && !getByCategory)
 			{
-				using IDataReader reader = Blog.GetSingleBlog(blogConfig.FeaturedPostId);
+				using IDataReader reader = Blog.GetSingleBlog(BlogConfig.FeaturedPostId);
 				while (reader.Read())
 				{
 					featuredRow["ItemID"] = Convert.ToInt32(reader["ItemID"]);
@@ -410,7 +369,7 @@ namespace mojoPortal.Web.BlogUI
 				if ((bool)featuredRow["IsPublished"] && (DateTime)featuredRow["StartDate"] <= DateTime.UtcNow && (DateTime)featuredRow["EndDate"] > DateTime.UtcNow)
 				{
 					//look for featured post in datable
-					DataRow found = dsBlogs.Tables["Posts"].Rows.Find(blogConfig.FeaturedPostId);
+					DataRow found = dsBlogs.Tables["Posts"].Rows.Find(BlogConfig.FeaturedPostId);
 
 					if (found != null)
 					{
@@ -424,7 +383,7 @@ namespace mojoPortal.Web.BlogUI
 				}
 			}
 
-			List<PageModule> pageModules = PageModule.GetPageModulesByModule(config.BlogModuleId);
+			var pageModules = PageModule.GetPageModulesByModule(Config.BlogModuleId);
 
 			string blogPageUrl = string.Empty;
 
@@ -433,11 +392,11 @@ namespace mojoPortal.Web.BlogUI
 				blogPageUrl = pageModules[0].PageUrl;
 			}
 
-			List<BlogPostModel> models = new List<BlogPostModel>();
+			var models = new List<BlogPostModel>();
 
 			foreach (DataRow postRow in dsBlogs.Tables["posts"].Rows)
 			{
-				BlogPostModel model = new BlogPostModel();
+				var model = new BlogPostModel();
 
 				if (useFriendlyUrls && (postRow["ItemUrl"].ToString().Length > 0))
 				{
@@ -448,7 +407,7 @@ namespace mojoPortal.Web.BlogUI
 					model.ItemUrl = postRow["ItemID"].ToString() + "&mid=" + postRow["ModuleID"].ToString();
 				}
 
-				if (blogConfig.FeaturedPostId == Convert.ToInt32(postRow["ItemID"]) && pageNumber == 1)
+				if (BlogConfig.FeaturedPostId == Convert.ToInt32(postRow["ItemID"]) && pageNumber == 1)
 				{
 					model.FeaturedPost = true;
 				}
@@ -495,20 +454,12 @@ namespace mojoPortal.Web.BlogUI
 			postListObject.ModulePageUrl = Page.ResolveUrl(blogPageUrl);
 			postListObject.Posts = models;
 
-			string text = string.Empty;
+			string text;
 
 			try
 			{
-				text = RazorBridge.RenderPartialToString(config.Layout, postListObject, "Blog");
+				text = RazorBridge.RenderPartialToString(Config.Layout, postListObject, "Blog");
 			}
-			//catch (System.Web.HttpException ex)
-			//{
-			//	renderDefaultView(ex.ToString());
-			//}
-			//catch (ArgumentNullException ex)
-			//{
-			//	renderDefaultView(ex.ToString());
-			//}
 			catch (Exception ex)
 			{
 				renderDefaultView(ex.ToString());
@@ -518,12 +469,7 @@ namespace mojoPortal.Web.BlogUI
 			{
 				if (!string.IsNullOrWhiteSpace(error))
 				{
-					log.ErrorFormat(
-						"chosen layout ({0}) for _BlogPostList was not found in skin {1}. perhaps it is in a different skin. Error was: {2}",
-						config.Layout,
-						SiteUtils.GetSkinBaseUrl(true, Page),
-						error
-					);
+					log.Error($"\r\nChosen layout ({Config.Layout}) for _BlogPostList was not found in skin {SiteUtils.GetSkinBaseUrl(true, Page)}. perhaps it is in a different skin. Error was: {error}");
 				}
 
 				text = RazorBridge.RenderPartialToString("_BlogPostList", postListObject, "Blog");

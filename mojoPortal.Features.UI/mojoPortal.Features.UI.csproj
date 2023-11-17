@@ -196,6 +196,7 @@
     <Content Include="BetterImageGallery\BetterImageGalleryModule.ascx" />
     <Content Include="BetterImageGallery\LayoutSelector.ascx" />
     <Content Include="BingMap\BingMapModule.ascx" />
+    <Content Include="Blog\Controls\BlogInstanceCategoriesSetting.ascx" />
     <Content Include="Blog\Controls\BlogInstanceSetting.ascx" />
     <Content Include="Blog\Controls\PostListLayoutSelector.ascx" />
     <Content Include="Blog\PostListModule.ascx" />
@@ -385,6 +386,13 @@
     </Compile>
     <Compile Include="Blog\BlogCompare.aspx.designer.cs">
       <DependentUpon>BlogCompare.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogInstanceCategoriesSetting.ascx.cs">
+      <DependentUpon>BlogInstanceCategoriesSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogInstanceCategoriesSetting.ascx.designer.cs">
+      <DependentUpon>BlogInstanceCategoriesSetting.ascx</DependentUpon>
     </Compile>
     <Compile Include="Blog\Controls\BlogInstanceSetting.ascx.cs">
       <DependentUpon>BlogInstanceSetting.ascx</DependentUpon>

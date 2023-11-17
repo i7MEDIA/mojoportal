@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option or rebuild the Visual Studio project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class BlogResources {
@@ -129,6 +129,15 @@ namespace Resources {
         internal static string Administration {
             get {
                 return ResourceManager.GetString("Administration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Categories.
+        /// </summary>
+        internal static string AllCategories {
+            get {
+                return ResourceManager.GetString("AllCategories", resourceCulture);
             }
         }
         
@@ -876,6 +885,15 @@ namespace Resources {
         internal static string BlogHideAddThisButtonSetting {
             get {
                 return ResourceManager.GetString("BlogHideAddThisButtonSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Blog Instance is not set. Save the Module Settings with the Blog Instance set and this control can be used..
+        /// </summary>
+        internal static string BlogInstanceNotYetSet {
+            get {
+                return ResourceManager.GetString("BlogInstanceNotYetSet", resourceCulture);
             }
         }
         
@@ -2370,6 +2388,15 @@ namespace Resources {
         internal static string PostListBlogInstance {
             get {
                 return ResourceManager.GetString("PostListBlogInstance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        internal static string PostListBlogInstanceCategories {
+            get {
+                return ResourceManager.GetString("PostListBlogInstanceCategories", resourceCulture);
             }
         }
         

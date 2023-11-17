@@ -1,7 +1,4 @@
-// Created:				    2004-08-14
-// Last Modified:			2017-07-17
-
-using log4net;
+//using log4net;
 using mojoPortal.Data;
 using System;
 using System.Data;
@@ -14,12 +11,7 @@ namespace mojoPortal.Business
 	/// </summary>
 	public class Blog : IIndexableContent
 	{
-		private const string featureGuid = "026cbead-2b80-4491-906d-b83e37179ccf";
-
-		public static Guid FeatureGuid
-		{
-			get { return new Guid(featureGuid); }
-		}
+		public static Guid FeatureGuid => Guid.Parse("026cbead-2b80-4491-906d-b83e37179ccf");
 
 		#region Constructors
 
@@ -41,560 +33,149 @@ namespace mojoPortal.Business
 
 		#endregion
 
-		#region Private Properties
-
-		private static readonly ILog log = LogManager.GetLogger(typeof(Blog));
-
-		private int itemID = -1;
-		private int previousItemId = -1;
-		private int nextItemId = -1;
-		private Guid blogGuid = Guid.Empty;
-		private Guid moduleGuid = Guid.Empty;
-		private int moduleID = -1;
-		private string userName = string.Empty;
-		private string title = string.Empty;
-
-		private string location = string.Empty;
-
-		//aliased as Abstract
-		private string excerpt = string.Empty;
-
-		private string description = string.Empty;
-		private DateTime startDate = DateTime.UtcNow;
-		private bool isPublished = true;
-		private bool isInNewsletter = true;
-		private bool includeInFeed = true;
-		private string category = string.Empty;
-		private int allowCommentsForDays = 60;
-		private Guid userGuid = Guid.Empty;
-		private Guid lastModUserGuid = Guid.Empty;
-		private DateTime createdUtc = DateTime.UtcNow;
-		private DateTime lastModUtc = DateTime.UtcNow;
-		private string itemUrl = string.Empty;
-		private string previousPostUrl = string.Empty;
-		private string previousPostTitle = string.Empty;
-		private string nextPostUrl = string.Empty;
-		private string nextPostTitle = string.Empty;
-		private int commentCount = 0;
-
-		private string metaKeywords = string.Empty;
-		private string metaDescription = string.Empty;
-		private string compiledMeta = string.Empty;
-
-		private int siteId = -1;
-		private string searchIndexPath = string.Empty;
-
-
-
-
-
-		#endregion
+		//private static readonly ILog log = LogManager.GetLogger(typeof(Blog));
 
 		#region Public Properties
 
-		public Guid BlogGuid
-		{
-			get { return blogGuid; }
-
-		}
-
-		public Guid ModuleGuid
-		{
-			get { return moduleGuid; }
-			set { moduleGuid = value; }
-		}
-
-		public int ItemId
-		{
-			get { return itemID; }
-		}
-
-		public int PreviousItemId
-		{
-			get { return previousItemId; }
-		}
-
-		public int NextItemId
-		{
-			get { return nextItemId; }
-		}
-
-		public int ModuleId
-		{
-			get { return moduleID; }
-			set { moduleID = value; }
-		}
-
-		public string UserName
-		{
-			get { return userName; }
-			set { userName = value; }
-		}
-
-		public Guid UserGuid
-		{
-			get { return userGuid; }
-			set { userGuid = value; }
-		}
-
-		public Guid LastModUserGuid
-		{
-			get { return lastModUserGuid; }
-			set { lastModUserGuid = value; }
-		}
-
-		public string Title
-		{
-			get { return title; }
-			set { title = value; }
-		}
-
-		private string subTitle = string.Empty;
-
-		public string SubTitle
-		{
-			get { return subTitle; }
-			set { subTitle = value; }
-		}
-
-		public string Category
-		{
-			get { return category; }
-			set { category = value; }
-		}
-
-		public string Excerpt
-		{
-			get { return excerpt; }
-			set { excerpt = value; }
-		}
-
-		public string Description
-		{
-			get { return description; }
-			set { description = value; }
-		}
-
-		public string Location
-		{
-			get { return location; }
-			set { location = value; }
-		}
-
-		public string MetaKeywords
-		{
-			get { return metaKeywords; }
-			set { metaKeywords = value; }
-		}
-
-		public string MetaDescription
-		{
-			get { return metaDescription; }
-			set { metaDescription = value; }
-		}
-
-		public string CompiledMeta
-		{
-			get { return compiledMeta; }
-			set { compiledMeta = value; }
-		}
-
-		public DateTime StartDate
-		{
-			get { return startDate; }
-			set { startDate = value; }
-		}
-
-		private DateTime endDate = DateTime.MaxValue;
-
-		public DateTime EndDate
-		{
-			get { return endDate; }
-			set { endDate = value; }
-		}
-
-		private bool approved = true;
-
-		public bool Approved
-		{
-			get { return approved; }
-			set { approved = value; }
-		}
-
-		private Guid approvedBy = Guid.Empty;
-
-		public Guid ApprovedBy
-		{
-			get { return approvedBy; }
-			set { approvedBy = value; }
-		}
-
-		private DateTime approvedDate = DateTime.MaxValue;
-
-		public DateTime ApprovedDate
-		{
-			get { return approvedDate; }
-			set { approvedDate = value; }
-		}
-
-		public bool IsPublished
-		{
-			get { return isPublished; }
-			set { isPublished = value; }
-		}
-
-		public bool IsInNewsletter
-		{
-			get { return isInNewsletter; }
-			set { isInNewsletter = value; }
-		}
-
-		public bool IncludeInFeed
-		{
-			get { return includeInFeed; }
-			set { includeInFeed = value; }
-		}
-
-		public int AllowCommentsForDays
-		{
-			get { return allowCommentsForDays; }
-			set { allowCommentsForDays = value; }
-		}
-
-		public DateTime CreatedUtc
-		{
-			get { return createdUtc; }
-			set { createdUtc = value; }
-		}
-
-		public DateTime LastModUtc
-		{
-			get { return lastModUtc; }
-			set { lastModUtc = value; }
-		}
-
-		public string ItemUrl
-		{
-			get { return itemUrl; }
-			set { itemUrl = value; }
-		}
-
-		//
-
-		private bool showAuthorName = true;
-
-		public bool ShowAuthorName
-		{
-			get { return showAuthorName; }
-			set { showAuthorName = value; }
-		}
-
-		private bool showAuthorAvatar = true;
-
-		public bool ShowAuthorAvatar
-		{
-			get { return showAuthorAvatar; }
-			set { showAuthorAvatar = value; }
-		}
-
-		private bool showAuthorBio = true;
-
-		public bool ShowAuthorBio
-		{
-			get { return showAuthorBio; }
-			set { showAuthorBio = value; }
-		}
-
-		private bool includeInSearch = true;
-
-		public bool IncludeInSearch
-		{
-			get { return includeInSearch; }
-			set { includeInSearch = value; }
-		}
-
-		private bool useBingMap = false;
+		public Guid BlogGuid { get; set; } = Guid.Empty;
 
-		public bool UseBingMap
-		{
-			get { return useBingMap; }
-			set { useBingMap = value; }
-		}
+		public Guid ModuleGuid { get; set; } = Guid.Empty;
 
-		private string mapHeight = "300";
+		public int ItemId { get; private set; } = -1;
 
-		public string MapHeight
-		{
-			get { return mapHeight; }
-			set { mapHeight = value; }
-		}
+		public int PreviousItemId { get; private set; } = -1;
 
-		private string mapWidth = "500";
+		public int NextItemId { get; private set; } = -1;
 
-		public string MapWidth
-		{
-			get { return mapWidth; }
-			set { mapWidth = value; }
-		}
+		public int ModuleId { get; set; } = -1;
 
-		private bool showMapOptions = false;
+		public string UserName { get; set; } = string.Empty;
+		
+		public Guid UserGuid { get; set; } = Guid.Empty;
+		
+		public Guid LastModUserGuid { get; set; } = Guid.Empty;
 
-		public bool ShowMapOptions
-		{
-			get { return showMapOptions; }
-			set { showMapOptions = value; }
-		}
+		public string Title { get; set; } = string.Empty;
 
-		private bool showZoomTool = false;
+		public string SubTitle { get; set; } = string.Empty;
 
-		public bool ShowZoomTool
-		{
-			get { return showZoomTool; }
-			set { showZoomTool = value; }
-		}
+		public string Category { get; set; } = string.Empty;
 
-		private bool showLocationInfo = false;
+		public string Excerpt { get; set; } = string.Empty;
 
-		public bool ShowLocationInfo
-		{
-			get { return showLocationInfo; }
-			set { showLocationInfo = value; }
-		}
+		public string Description { get; set; } = string.Empty;
 
-		private bool useDrivingDirections = false;
+		public string Location { get; set; } = string.Empty;
 
-		public bool UseDrivingDirections
-		{
-			get { return useDrivingDirections; }
-			set { useDrivingDirections = value; }
-		}
+		public string MetaKeywords { get; set; } = string.Empty;
 
-		private string mapType = "G_SATELLITE_MAP";
+		public string MetaDescription { get; set; } = string.Empty;
 
-		public string MapType
-		{
-			get { return mapType; }
-			set { mapType = value; }
-		}
+		public string CompiledMeta { get; set; } = string.Empty;
 
-		private int mapZoom = 13;
+		public DateTime StartDate { get; set; } = DateTime.UtcNow;
 
-		public int MapZoom
-		{
-			get { return mapZoom; }
-			set { mapZoom = value; }
-		}
+		public DateTime EndDate { get; set; } = DateTime.MaxValue;
 
-		private bool showDownloadLink = false;
+		public bool Approved { get; set; } = true;
 
-		public bool ShowDownloadLink
-		{
-			get { return showDownloadLink; }
-			set { showDownloadLink = value; }
-		}
+		public Guid ApprovedBy { get; set; } = Guid.Empty;
 
-		private bool includeInSiteMap = true;
+		public DateTime ApprovedDate { get; set; } = DateTime.MaxValue;
 
-		public bool IncludeInSiteMap
-		{
-			get { return includeInSiteMap; }
-			set { includeInSiteMap = value; }
-		}
+		public bool IsPublished { get; set; } = true;
 
-		private bool excludeFromRecentContent = false;
+		public bool IsInNewsletter { get; set; } = true;
 
-		public bool ExcludeFromRecentContent
-		{
-			get { return excludeFromRecentContent; }
-			set { excludeFromRecentContent = value; }
-		}
+		public bool IncludeInFeed { get; set; } = true;
 
+		public int AllowCommentsForDays { get; set; } = 60;
 
+		public DateTime CreatedUtc { get; set; } = DateTime.UtcNow;
 
+		public DateTime LastModUtc { get; set; } = DateTime.UtcNow;
 
+		public string ItemUrl { get; set; } = string.Empty;
 
+		public bool ShowAuthorName { get; set; } = true;
 
-		public string PreviousPostUrl
-		{
-			get { return previousPostUrl; }
+		public bool ShowAuthorAvatar { get; set; } = true;
 
-		}
+		public bool ShowAuthorBio { get; set; } = true;
 
-		public string NextPostUrl
-		{
-			get { return nextPostUrl; }
+		public bool IncludeInSearch { get; set; } = true;
 
-		}
+		public bool UseBingMap { get; set; } = false;
 
-		public string PreviousPostTitle
-		{
-			get { return previousPostTitle; }
+		public string MapHeight { get; set; } = "300";
 
-		}
+		public string MapWidth { get; set; } = "500";
 
-		public string NextPostTitle
-		{
-			get { return nextPostTitle; }
+		public bool ShowMapOptions { get; set; } = false;
 
-		}
+		public bool ShowZoomTool { get; set; } = false;
 
-		public int CommentCount
-		{
-			get { return commentCount; }
-		}
+		public bool ShowLocationInfo { get; set; } = false;
 
-		private int userId = -1;
+		public bool UseDrivingDirections { get; set; } = false;
 
-		public int UserId
-		{
-			get { return userId; }
-		}
+		public string MapType { get; set; } = "G_SATELLITE_MAP";
 
-		private string userLoginName = string.Empty;
+		public int MapZoom { get; set; } = 13;
 
-		public string UserLoginName
-		{
-			get { return userLoginName; }
+		public bool ShowDownloadLink { get; set; } = false;
 
-		}
+		public bool IncludeInSiteMap { get; set; } = true;
 
-		private string userDisplayName = string.Empty;
+		public bool ExcludeFromRecentContent { get; set; } = false;
 
-		public string UserDisplayName
-		{
-			get { return userDisplayName; }
+		public string PreviousPostUrl { get; private set; } = string.Empty;
 
-		}
+		public string NextPostUrl { get; private set; } = string.Empty;
 
-		private string userFirstName = string.Empty;
+		public string PreviousPostTitle { get; private set; } = string.Empty;
 
-		public string UserFirstName
-		{
-			get { return userFirstName; }
+		public string NextPostTitle { get; private set; } = string.Empty;
 
-		}
+		public int CommentCount { get; private set; } = 0;
 
-		private string userLastName = string.Empty;
+		public int UserId { get; private set; } = -1;
 
-		public string UserLastName
-		{
-			get { return userLastName; }
+		public string UserLoginName { get; private set; } = string.Empty;
 
-		}
+		public string UserDisplayName { get; private set; } = string.Empty;
 
-		private string userEmail = string.Empty;
+		public string UserFirstName { get; private set; } = string.Empty;
 
-		public string UserEmail
-		{
-			get { return userEmail; }
+		public string UserLastName { get; private set; } = string.Empty;
 
-		}
+		public string UserEmail { get; private set; } = string.Empty;
 
-		private string userAvatar = string.Empty;
+		public string UserAvatar { get; private set; } = string.Empty;
 
-		public string UserAvatar
-		{
-			get { return userAvatar; }
+		public string AuthorBio { get; private set; } = string.Empty;
 
-		}
+		public bool IncludeInNews { get; set; } = false;
 
-		private string authorBio = string.Empty;
+		public string PubName { get; set; } = string.Empty;
 
-		public string AuthorBio
-		{
-			get { return authorBio; }
+		public string PubLanguage { get; set; } = string.Empty;
 
-		}
+		public string PubAccess { get; set; } = string.Empty;
 
-		private bool includeInNews = false;
+		public string PubGenres { get; set; } = string.Empty;
 
-		public bool IncludeInNews
-		{
-			get { return includeInNews; }
-			set { includeInNews = value; }
-		}
+		public string PubKeyWords { get; set; } = string.Empty;
 
-		private string pubName = string.Empty;
+		public string PubGeoLocations { get; set; } = string.Empty;
 
-		public string PubName
-		{
-			get { return pubName; }
-			set { pubName = value; }
-		}
+		public string PubStockTickers { get; set; } = string.Empty;
 
-		private string pubLanguage = string.Empty;
+		public string HeadlineImageUrl { get; set; } = string.Empty;
 
-		public string PubLanguage
-		{
-			get { return pubLanguage; }
-			set { pubLanguage = value; }
-		}
+		public bool IncludeImageInExcerpt { get; set; } = true;
 
-		private string pubAccess = string.Empty;
-
-		public string PubAccess
-		{
-			get { return pubAccess; }
-			set { pubAccess = value; }
-		}
-
-		private string pubGenres = string.Empty;
-
-		public string PubGenres
-		{
-			get { return pubGenres; }
-			set { pubGenres = value; }
-		}
-
-		private string pubKeyWords = string.Empty;
-
-		public string PubKeyWords
-		{
-			get { return pubKeyWords; }
-			set { pubKeyWords = value; }
-		}
-
-		private string pubGeoLocations = string.Empty;
-
-		public string PubGeoLocations
-		{
-			get { return pubGeoLocations; }
-			set { pubGeoLocations = value; }
-		}
-
-		private string pubStockTickers = string.Empty;
-
-		public string PubStockTickers
-		{
-			get { return pubStockTickers; }
-			set { pubStockTickers = value; }
-		}
-
-		private string headlineImageUrl = string.Empty;
-
-		public string HeadlineImageUrl
-		{
-			get { return headlineImageUrl; }
-			set { headlineImageUrl = value; }
-		}
-
-		private bool includeImageInExcerpt = true;
-
-		public bool IncludeImageInExcerpt
-		{
-			get { return includeImageInExcerpt; }
-			set { includeImageInExcerpt = value; }
-		}
-
-		private bool includeImageInPost = true;
-
-		public bool IncludeImageInPost
-		{
-			get { return includeImageInPost; }
-			set { includeImageInPost = value; }
-		}
-
-
+		public bool IncludeImageInPost { get; set; } = true;
 
 
 		/// <summary>
@@ -602,22 +183,14 @@ namespace mojoPortal.Business
 		/// Its a convenience because when we queue the task to index on a new thread we can only pass one object.
 		/// So we store extra properties here so we don't need any other objects.
 		/// </summary>
-		public int SiteId
-		{
-			get { return siteId; }
-			set { siteId = value; }
-		}
+		public int SiteId { get; set; } = -1;
 
 		/// <summary>
 		/// This is not persisted to the db. It is only set and used when indexing forum threads in the search index.
 		/// Its a convenience because when we queue the task to index on a new thread we can only pass one object.
 		/// So we store extra properties here so we don't need any other objects.
 		/// </summary>
-		public string SearchIndexPath
-		{
-			get { return searchIndexPath; }
-			set { searchIndexPath = value; }
-		}
+		public string SearchIndexPath { get; set; } = string.Empty;
 
 
 		#endregion
@@ -630,211 +203,209 @@ namespace mojoPortal.Business
 		/// <param name="itemID">The item ID.</param>
 		private void GetBlog(int itemId)
 		{
-			using (IDataReader reader = DBBlog.GetSingleBlog(itemId, DateTime.UtcNow))
+			using IDataReader reader = DBBlog.GetSingleBlog(itemId, DateTime.UtcNow);
+			if (reader.Read())
 			{
-				if (reader.Read())
+				this.ItemId = Convert.ToInt32(reader["ItemID"].ToString(), CultureInfo.InvariantCulture);
+				this.ModuleId = Convert.ToInt32(reader["ModuleID"].ToString(), CultureInfo.InvariantCulture);
+				this.UserName = reader["Name"].ToString();
+				this.Title = reader["Heading"].ToString();
+				this.Excerpt = reader["Abstract"].ToString();
+				this.Description = reader["Description"].ToString();
+
+				this.MetaKeywords = reader["MetaKeywords"].ToString();
+				this.MetaDescription = reader["MetaDescription"].ToString();
+
+				this.StartDate = Convert.ToDateTime(reader["StartDate"].ToString());
+
+				// this is to support dbs that don't have bit data type
+				//string inNews = reader["IsInNewsletter"].ToString();
+				//this.isInNewsletter = (inNews == "True" || inNews == "1");
+
+				this.IsInNewsletter = Convert.ToBoolean(reader["IsInNewsletter"]);
+
+				//string inFeed = reader["IncludeInFeed"].ToString();
+				//this.includeInFeed = (inFeed == "True" || inFeed == "1");
+
+				this.IncludeInFeed = Convert.ToBoolean(reader["IncludeInFeed"]);
+
+				if (reader["AllowCommentsForDays"] != DBNull.Value)
 				{
-					this.itemID = Convert.ToInt32(reader["ItemID"].ToString(), CultureInfo.InvariantCulture);
-					this.moduleID = Convert.ToInt32(reader["ModuleID"].ToString(), CultureInfo.InvariantCulture);
-					this.userName = reader["Name"].ToString();
-					this.title = reader["Heading"].ToString();
-					this.excerpt = reader["Abstract"].ToString();
-					this.description = reader["Description"].ToString();
+					this.AllowCommentsForDays = Convert.ToInt32(reader["AllowCommentsForDays"]);
+				}
 
-					this.metaKeywords = reader["MetaKeywords"].ToString();
-					this.metaDescription = reader["MetaDescription"].ToString();
+				this.BlogGuid = new Guid(reader["BlogGuid"].ToString());
+				this.ModuleGuid = new Guid(reader["ModuleGuid"].ToString());
+				this.Location = reader["Location"].ToString();
+				this.CompiledMeta = reader["CompiledMeta"].ToString();
 
-					this.startDate = Convert.ToDateTime(reader["StartDate"].ToString());
+				if (reader["CreatedDate"] != DBNull.Value)
+				{
+					this.CreatedUtc = Convert.ToDateTime(reader["CreatedDate"]);
+				}
 
-					// this is to support dbs that don't have bit data type
-					//string inNews = reader["IsInNewsletter"].ToString();
-					//this.isInNewsletter = (inNews == "True" || inNews == "1");
+				if (reader["LastModUtc"] != DBNull.Value)
+				{
+					this.LastModUtc = Convert.ToDateTime(reader["LastModUtc"]);
+				}
 
-					this.isInNewsletter = Convert.ToBoolean(reader["IsInNewsletter"]);
+				string var = reader["UserGuid"].ToString();
+				if (var.Length == 36) this.UserGuid = new Guid(var);
 
-					//string inFeed = reader["IncludeInFeed"].ToString();
-					//this.includeInFeed = (inFeed == "True" || inFeed == "1");
+				var = reader["LastModUserGuid"].ToString();
+				if (var.Length == 36) this.LastModUserGuid = new Guid(var);
 
-					this.includeInFeed = Convert.ToBoolean(reader["IncludeInFeed"]);
+				ItemUrl = reader["ItemUrl"].ToString();
 
-					if (reader["AllowCommentsForDays"] != DBNull.Value)
-					{
-						this.allowCommentsForDays = Convert.ToInt32(reader["AllowCommentsForDays"]);
-					}
+				PreviousPostUrl = reader["PreviousPost"].ToString();
+				PreviousPostTitle = reader["PreviousPostTitle"].ToString();
+				NextPostUrl = reader["NextPost"].ToString();
+				NextPostTitle = reader["NextPostTitle"].ToString();
 
-					this.blogGuid = new Guid(reader["BlogGuid"].ToString());
-					this.moduleGuid = new Guid(reader["ModuleGuid"].ToString());
-					this.location = reader["Location"].ToString();
-					this.compiledMeta = reader["CompiledMeta"].ToString();
+				CommentCount = Convert.ToInt32(reader["CommentCount"]);
 
-					if (reader["CreatedDate"] != DBNull.Value)
-					{
-						this.createdUtc = Convert.ToDateTime(reader["CreatedDate"]);
-					}
+				IsPublished = Convert.ToBoolean(reader["IsPublished"]);
 
-					if (reader["LastModUtc"] != DBNull.Value)
-					{
-						this.lastModUtc = Convert.ToDateTime(reader["LastModUtc"]);
-					}
+				this.PreviousItemId = Convert.ToInt32(reader["PreviousItemID"].ToString(), CultureInfo.InvariantCulture);
+				this.NextItemId = Convert.ToInt32(reader["NextItemID"].ToString(), CultureInfo.InvariantCulture);
 
-					string var = reader["UserGuid"].ToString();
-					if (var.Length == 36) this.userGuid = new Guid(var);
+				this.UserId = Convert.ToInt32(reader["UserID"]);
+				this.UserDisplayName = reader["Name"].ToString();
+				this.UserLoginName = reader["LoginName"].ToString();
+				this.UserFirstName = reader["FirstName"].ToString();
+				this.UserLastName = reader["LastName"].ToString();
+				this.UserEmail = reader["Email"].ToString();
+				this.UserAvatar = reader["AvatarUrl"].ToString();
+				this.AuthorBio = reader["AuthorBio"].ToString();
 
-					var = reader["LastModUserGuid"].ToString();
-					if (var.Length == 36) this.lastModUserGuid = new Guid(var);
+				this.SubTitle = reader["SubTitle"].ToString();
 
-					itemUrl = reader["ItemUrl"].ToString();
+				if (reader["EndDate"] != DBNull.Value)
+				{
+					this.EndDate = Convert.ToDateTime(reader["EndDate"]);
+				}
 
-					previousPostUrl = reader["PreviousPost"].ToString();
-					previousPostTitle = reader["PreviousPostTitle"].ToString();
-					nextPostUrl = reader["NextPost"].ToString();
-					nextPostTitle = reader["NextPostTitle"].ToString();
+				if (reader["ApprovedDate"] != DBNull.Value)
+				{
+					this.ApprovedDate = Convert.ToDateTime(reader["ApprovedDate"]);
+				}
 
-					commentCount = Convert.ToInt32(reader["CommentCount"]);
+				if (reader["ApprovedBy"] != DBNull.Value)
+				{
+					var = reader["ApprovedBy"].ToString();
+					if (var.Length == 36) ApprovedBy = new Guid(var);
+				}
 
-					isPublished = Convert.ToBoolean(reader["IsPublished"]);
-
-					this.previousItemId = Convert.ToInt32(reader["PreviousItemID"].ToString(), CultureInfo.InvariantCulture);
-					this.nextItemId = Convert.ToInt32(reader["NextItemID"].ToString(), CultureInfo.InvariantCulture);
-
-					this.userId = Convert.ToInt32(reader["UserID"]);
-					this.userDisplayName = reader["Name"].ToString();
-					this.userLoginName = reader["LoginName"].ToString();
-					this.userFirstName = reader["FirstName"].ToString();
-					this.userLastName = reader["LastName"].ToString();
-					this.userEmail = reader["Email"].ToString();
-					this.userAvatar = reader["AvatarUrl"].ToString();
-					this.authorBio = reader["AuthorBio"].ToString();
-
-					this.subTitle = reader["SubTitle"].ToString();
-
-					if (reader["EndDate"] != DBNull.Value)
-					{
-						this.endDate = Convert.ToDateTime(reader["EndDate"]);
-					}
-
-					if (reader["ApprovedDate"] != DBNull.Value)
-					{
-						this.approvedDate = Convert.ToDateTime(reader["ApprovedDate"]);
-					}
-
-					if (reader["ApprovedBy"] != DBNull.Value)
-					{
-						var = reader["ApprovedBy"].ToString();
-						if (var.Length == 36) this.approvedBy = new Guid(var);
-					}
-
-					if (reader["Approved"] != DBNull.Value)
-					{
-						this.approved = Convert.ToBoolean(reader["Approved"]);
-					}
+				if (reader["Approved"] != DBNull.Value)
+				{
+					this.Approved = Convert.ToBoolean(reader["Approved"]);
+				}
 
 
-					// below added 2012-12-06
+				// below added 2012-12-06
 
-					if (reader["ShowAuthorName"] != DBNull.Value)
-					{
-						this.showAuthorName = Convert.ToBoolean(reader["ShowAuthorName"]);
-					}
+				if (reader["ShowAuthorName"] != DBNull.Value)
+				{
+					this.ShowAuthorName = Convert.ToBoolean(reader["ShowAuthorName"]);
+				}
 
-					if (reader["ShowAuthorAvatar"] != DBNull.Value)
-					{
-						this.showAuthorAvatar = Convert.ToBoolean(reader["ShowAuthorAvatar"]);
-					}
+				if (reader["ShowAuthorAvatar"] != DBNull.Value)
+				{
+					this.ShowAuthorAvatar = Convert.ToBoolean(reader["ShowAuthorAvatar"]);
+				}
 
-					if (reader["ShowAuthorBio"] != DBNull.Value)
-					{
-						this.showAuthorBio = Convert.ToBoolean(reader["ShowAuthorBio"]);
-					}
+				if (reader["ShowAuthorBio"] != DBNull.Value)
+				{
+					this.ShowAuthorBio = Convert.ToBoolean(reader["ShowAuthorBio"]);
+				}
 
-					if (reader["IncludeInSearch"] != DBNull.Value)
-					{
-						this.includeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]);
-					}
+				if (reader["IncludeInSearch"] != DBNull.Value)
+				{
+					this.IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]);
+				}
 
-					if (reader["IncludeInSiteMap"] != DBNull.Value)
-					{
-						this.includeInSiteMap = Convert.ToBoolean(reader["IncludeInSiteMap"]);
-					}
+				if (reader["IncludeInSiteMap"] != DBNull.Value)
+				{
+					this.IncludeInSiteMap = Convert.ToBoolean(reader["IncludeInSiteMap"]);
+				}
 
-					if (reader["UseBingMap"] != DBNull.Value)
-					{
-						this.UseBingMap = Convert.ToBoolean(reader["UseBingMap"]);
-					}
+				if (reader["UseBingMap"] != DBNull.Value)
+				{
+					this.UseBingMap = Convert.ToBoolean(reader["UseBingMap"]);
+				}
 
-					if (reader["MapHeight"] != DBNull.Value)
-					{
-						this.mapHeight = reader["MapHeight"].ToString();
-					}
+				if (reader["MapHeight"] != DBNull.Value)
+				{
+					this.MapHeight = reader["MapHeight"].ToString();
+				}
 
-					if (reader["MapWidth"] != DBNull.Value)
-					{
-						this.mapWidth = reader["MapWidth"].ToString();
-					}
+				if (reader["MapWidth"] != DBNull.Value)
+				{
+					this.MapWidth = reader["MapWidth"].ToString();
+				}
 
-					if (reader["ShowMapOptions"] != DBNull.Value)
-					{
-						this.showMapOptions = Convert.ToBoolean(reader["ShowMapOptions"]);
-					}
+				if (reader["ShowMapOptions"] != DBNull.Value)
+				{
+					this.ShowMapOptions = Convert.ToBoolean(reader["ShowMapOptions"]);
+				}
 
-					if (reader["ShowZoomTool"] != DBNull.Value)
-					{
-						this.showZoomTool = Convert.ToBoolean(reader["ShowZoomTool"]);
-					}
+				if (reader["ShowZoomTool"] != DBNull.Value)
+				{
+					this.ShowZoomTool = Convert.ToBoolean(reader["ShowZoomTool"]);
+				}
 
-					if (reader["ShowLocationInfo"] != DBNull.Value)
-					{
-						this.showLocationInfo = Convert.ToBoolean(reader["ShowLocationInfo"]);
-					}
+				if (reader["ShowLocationInfo"] != DBNull.Value)
+				{
+					this.ShowLocationInfo = Convert.ToBoolean(reader["ShowLocationInfo"]);
+				}
 
-					if (reader["UseDrivingDirections"] != DBNull.Value)
-					{
-						this.useDrivingDirections = Convert.ToBoolean(reader["UseDrivingDirections"]);
-					}
+				if (reader["UseDrivingDirections"] != DBNull.Value)
+				{
+					this.UseDrivingDirections = Convert.ToBoolean(reader["UseDrivingDirections"]);
+				}
 
-					if (reader["MapType"] != DBNull.Value)
-					{
-						this.mapType = reader["MapType"].ToString();
-					}
+				if (reader["MapType"] != DBNull.Value)
+				{
+					this.MapType = reader["MapType"].ToString();
+				}
 
-					if (reader["MapZoom"] != DBNull.Value)
-					{
-						this.mapZoom = Convert.ToInt32(reader["MapZoom"]);
-					}
+				if (reader["MapZoom"] != DBNull.Value)
+				{
+					this.MapZoom = Convert.ToInt32(reader["MapZoom"]);
+				}
 
-					if (reader["ShowDownloadLink"] != DBNull.Value)
-					{
-						this.showDownloadLink = Convert.ToBoolean(reader["ShowDownloadLink"]);
-					}
+				if (reader["ShowDownloadLink"] != DBNull.Value)
+				{
+					this.ShowDownloadLink = Convert.ToBoolean(reader["ShowDownloadLink"]);
+				}
 
-					if (reader["ExcludeFromRecentContent"] != DBNull.Value)
-					{
-						this.excludeFromRecentContent = Convert.ToBoolean(reader["ExcludeFromRecentContent"]);
-					}
+				if (reader["ExcludeFromRecentContent"] != DBNull.Value)
+				{
+					this.ExcludeFromRecentContent = Convert.ToBoolean(reader["ExcludeFromRecentContent"]);
+				}
 
-					if (reader["IncludeInNews"] != DBNull.Value)
-					{
-						this.includeInNews = Convert.ToBoolean(reader["IncludeInNews"]);
-					}
+				if (reader["IncludeInNews"] != DBNull.Value)
+				{
+					this.IncludeInNews = Convert.ToBoolean(reader["IncludeInNews"]);
+				}
 
-					pubName = reader["PubName"].ToString();
-					pubLanguage = reader["PubLanguage"].ToString();
-					pubAccess = reader["PubAccess"].ToString();
-					pubGenres = reader["PubGenres"].ToString();
-					pubKeyWords = reader["PubKeyWords"].ToString();
-					pubGeoLocations = reader["PubGeoLocations"].ToString();
-					pubStockTickers = reader["PubStockTickers"].ToString();
-					headlineImageUrl = reader["HeadlineImageUrl"].ToString();
+				PubName = reader["PubName"].ToString();
+				PubLanguage = reader["PubLanguage"].ToString();
+				PubAccess = reader["PubAccess"].ToString();
+				PubGenres = reader["PubGenres"].ToString();
+				PubKeyWords = reader["PubKeyWords"].ToString();
+				PubGeoLocations = reader["PubGeoLocations"].ToString();
+				PubStockTickers = reader["PubStockTickers"].ToString();
+				HeadlineImageUrl = reader["HeadlineImageUrl"].ToString();
 
-					if (reader["IncludeImageInExcerpt"] != DBNull.Value)
-					{
-						includeImageInExcerpt = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
-					}
+				if (reader["IncludeImageInExcerpt"] != DBNull.Value)
+				{
+					IncludeImageInExcerpt = Convert.ToBoolean(reader["IncludeImageInExcerpt"]);
+				}
 
-					if (reader["IncludeImageInPost"] != DBNull.Value)
-					{
-						includeImageInPost = Convert.ToBoolean(reader["IncludeImageInPost"]);
-					}
+				if (reader["IncludeImageInPost"] != DBNull.Value)
+				{
+					IncludeImageInPost = Convert.ToBoolean(reader["IncludeImageInPost"]);
 				}
 			}
 		}
@@ -846,76 +417,76 @@ namespace mojoPortal.Business
 		private bool Create()
 		{
 			int newID = 0;
-			blogGuid = Guid.NewGuid();
-			createdUtc = DateTime.UtcNow;
+			BlogGuid = Guid.NewGuid();
+			CreatedUtc = DateTime.UtcNow;
 
-			if (approved)
+			if (Approved)
 			{
-				approvedDate = DateTime.UtcNow;
+				ApprovedDate = DateTime.UtcNow;
 			}
 
 			newID = DBBlog.AddBlog(
-				blogGuid,
-				moduleGuid,
-				moduleID,
-				userName,
-				title,
-				excerpt,
-				description,
-				startDate,
-				isInNewsletter,
-				includeInFeed,
-				allowCommentsForDays,
-				location,
-				userGuid,
-				createdUtc,
-				itemUrl,
-				metaKeywords,
-				metaDescription,
-				compiledMeta,
-				isPublished,
-				subTitle,
-				endDate,
-				approved,
-				approvedBy,
-				approvedDate,
-				showAuthorName,
-				showAuthorAvatar,
-				showAuthorBio,
-				includeInSearch,
-				useBingMap,
-				mapHeight,
+				BlogGuid,
+				ModuleGuid,
+				ModuleId,
+				UserName,
+				Title,
+				Excerpt,
+				Description,
+				StartDate,
+				IsInNewsletter,
+				IncludeInFeed,
+				AllowCommentsForDays,
+				Location,
+				UserGuid,
+				CreatedUtc,
+				ItemUrl,
+				MetaKeywords,
+				MetaDescription,
+				CompiledMeta,
+				IsPublished,
+				SubTitle,
+				EndDate,
+				Approved,
+				ApprovedBy,
+				ApprovedDate,
+				ShowAuthorName,
+				ShowAuthorAvatar,
+				ShowAuthorBio,
+				IncludeInSearch,
+				UseBingMap,
+				MapHeight,
 				MapWidth,
-				showMapOptions,
-				showZoomTool,
-				showLocationInfo,
-				useDrivingDirections,
-				mapType,
-				mapZoom,
-				showDownloadLink,
-				includeInSiteMap,
-				excludeFromRecentContent,
-				includeInNews,
-				pubName,
-				pubLanguage,
-				pubAccess,
-				pubGenres,
-				pubKeyWords,
-				pubGeoLocations,
-				pubStockTickers,
-				headlineImageUrl,
-				includeImageInExcerpt,
-				includeImageInPost
+				ShowMapOptions,
+				ShowZoomTool,
+				ShowLocationInfo,
+				UseDrivingDirections,
+				MapType,
+				MapZoom,
+				ShowDownloadLink,
+				IncludeInSiteMap,
+				ExcludeFromRecentContent,
+				IncludeInNews,
+				PubName,
+				PubLanguage,
+				PubAccess,
+				PubGenres,
+				PubKeyWords,
+				PubGeoLocations,
+				PubStockTickers,
+				HeadlineImageUrl,
+				IncludeImageInExcerpt,
+				IncludeImageInPost
 			);
 
-			itemID = newID;
+			ItemId = newID;
 
 			bool result = (newID > 0);
 
 			//IndexHelper.IndexItem(this);
 			if (result)
 			{
-				ContentChangedEventArgs e = new ContentChangedEventArgs();
+				var e = new ContentChangedEventArgs();
 				OnContentChanged(e);
 			}
 
@@ -928,64 +499,66 @@ namespace mojoPortal.Business
 		/// <returns></returns>
 		private bool Update()
 		{
-			lastModUtc = DateTime.UtcNow;
-			if ((approved) && (approvedDate == DateTime.MaxValue)) { approvedDate = DateTime.UtcNow; }
+			LastModUtc = DateTime.UtcNow;
+			if (Approved && ApprovedDate == DateTime.MaxValue) 
+			{ 
+				ApprovedDate = DateTime.UtcNow; 
+			}
 
 			bool result = DBBlog.UpdateBlog(
-				moduleID,
-				itemID,
-				userName,
-				title,
-				excerpt,
-				description,
-				startDate,
-				isInNewsletter,
-				includeInFeed,
-				allowCommentsForDays,
-				location,
-				lastModUserGuid,
-				lastModUtc,
-				itemUrl,
-				metaKeywords,
-				metaDescription,
-				compiledMeta,
-				isPublished,
-				subTitle,
-				endDate,
-				approved,
-				approvedBy,
-				approvedDate,
-				showAuthorName,
-				showAuthorAvatar,
-				showAuthorBio,
-				includeInSearch,
-				useBingMap,
-				mapHeight,
+				ModuleId,
+				ItemId,
+				UserName,
+				Title,
+				Excerpt,
+				Description,
+				StartDate,
+				IsInNewsletter,
+				IncludeInFeed,
+				AllowCommentsForDays,
+				Location,
+				LastModUserGuid,
+				LastModUtc,
+				ItemUrl,
+				MetaKeywords,
+				MetaDescription,
+				CompiledMeta,
+				IsPublished,
+				SubTitle,
+				EndDate,
+				Approved,
+				ApprovedBy,
+				ApprovedDate,
+				ShowAuthorName,
+				ShowAuthorAvatar,
+				ShowAuthorBio,
+				IncludeInSearch,
+				UseBingMap,
+				MapHeight,
 				MapWidth,
-				showMapOptions,
-				showZoomTool,
-				showLocationInfo,
-				useDrivingDirections,
-				mapType,
-				mapZoom,
-				showDownloadLink,
-				includeInSiteMap,
-				excludeFromRecentContent,
-				includeInNews,
-				pubName,
-				pubLanguage,
-				pubAccess,
-				pubGenres,
-				pubKeyWords,
-				pubGeoLocations,
-				pubStockTickers,
-				headlineImageUrl,
-				includeImageInExcerpt,
-				includeImageInPost
+				ShowMapOptions,
+				ShowZoomTool,
+				ShowLocationInfo,
+				UseDrivingDirections,
+				MapType,
+				MapZoom,
+				ShowDownloadLink,
+				IncludeInSiteMap,
+				ExcludeFromRecentContent,
+				IncludeInNews,
+				PubName,
+				PubLanguage,
+				PubAccess,
+				PubGenres,
+				PubKeyWords,
+				PubGeoLocations,
+				PubStockTickers,
+				HeadlineImageUrl,
+				IncludeImageInExcerpt,
+				IncludeImageInPost
 			);
 
-			//IndexHelper.IndexItem(this);
-			ContentChangedEventArgs e = new ContentChangedEventArgs();
+			var e = new ContentChangedEventArgs();
 			OnContentChanged(e);
 
 			return result;
@@ -998,19 +571,19 @@ namespace mojoPortal.Business
 
 		public void CreateHistory(Guid siteGuid)
 		{
-			if (blogGuid == Guid.Empty)
+			if (BlogGuid == Guid.Empty)
 			{
 				return;
 			}
 
-			Blog currentVersion = new Blog(itemID);
+			var currentVersion = new Blog(ItemId);
 
 			if (currentVersion.Description == Description)
 			{
 				return;
 			}
 
-			ContentHistory history = new ContentHistory();
+			var history = new ContentHistory();
 			history.ContentGuid = currentVersion.BlogGuid;
 			history.Title = currentVersion.Title;
 			history.ContentText = currentVersion.Description;
@@ -1027,7 +600,7 @@ namespace mojoPortal.Business
 		/// <returns></returns>
 		public bool Save()
 		{
-			if (itemID > 0)
+			if (ItemId > 0)
 			{
 				return Update();
 			}
@@ -1041,13 +614,13 @@ namespace mojoPortal.Business
 
 		public bool Delete()
 		{
-			DBBlog.DeleteItemCategories(itemID);
-			DBBlog.DeleteAllCommentsForBlog(itemID);
-			DBBlog.UpdateCommentStats(moduleID);
-			bool result = DBBlog.DeleteBlog(itemID);
-			DBBlog.UpdateEntryStats(moduleID);
+			DBBlog.DeleteItemCategories(ItemId);
+			DBBlog.DeleteAllCommentsForBlog(ItemId);
+			DBBlog.UpdateCommentStats(ModuleId);
+			bool result = DBBlog.DeleteBlog(ItemId);
+			DBBlog.UpdateEntryStats(ModuleId);
 
-			ContentChangedEventArgs e = new ContentChangedEventArgs();
+			var e = new ContentChangedEventArgs();
 			e.IsDeleted = true;
 			OnContentChanged(e);
 
@@ -1092,17 +665,15 @@ namespace mojoPortal.Business
 
 		public static DataSet GetBlogsForMetaWeblogApiDataSet(int moduleId, DateTime beginDate)
 		{
-			DataSet dataSet = new DataSet();
+			var dataSet = new DataSet();
 
-			DataTable posts = GetPostsTableStructure();
+			var posts = GetPostsTableStructure();
 
 			using (IDataReader reader = DBBlog.GetBlogsForMetaWeblogApi(moduleId, beginDate, DateTime.UtcNow))
 			{
 				while (reader.Read())
 				{
-					//posts.Load(reader);
-					DataRow row = posts.NewRow();
-
+					var row = posts.NewRow();
 
 					row["ItemID"] = Convert.ToInt32(reader["ItemID"]);
 					row["ModuleID"] = Convert.ToInt32(reader["ModuleID"]);
@@ -1134,14 +705,14 @@ namespace mojoPortal.Business
 			posts.TableName = "Posts";
 			dataSet.Tables.Add(posts);
 
-			DataTable categories = GetCategoryTableStructure();
+			var categories = GetCategoryTableStructure();
 
 			using (IDataReader reader = DBBlog.GetBlogCategoriesForMetaWeblogApi(moduleId, beginDate, DateTime.UtcNow))
 			{
 				while (reader.Read())
 				{
 					//categories.Load(reader);
-					DataRow row = categories.NewRow();
+					var row = categories.NewRow();
 
 					row["ID"] = reader["ID"];
 					row["ItemID"] = reader["ItemID"];
@@ -1171,7 +742,7 @@ namespace mojoPortal.Business
 
 		private static DataTable GetCategoryTableStructure()
 		{
-			DataTable dataTable = new DataTable();
+			var dataTable = new DataTable();
 
 			dataTable.Columns.Add("ID", typeof(int));
 			dataTable.Columns.Add("ItemID", typeof(int));
@@ -1184,7 +755,7 @@ namespace mojoPortal.Business
 
 		private static DataTable GetAttachmentsTableStructure()
 		{
-			DataTable dataTable = new DataTable();
+			var dataTable = new DataTable();
 
 			dataTable.Columns.Add("RowGuid", typeof(string));
 			dataTable.Columns.Add("ItemGuid", typeof(string));
@@ -1200,7 +771,7 @@ namespace mojoPortal.Business
 
 		private static DataTable GetPostsTableStructure()
 		{
-			DataTable dataTable = new DataTable();
+			var dataTable = new DataTable();
 
 
 
@@ -1265,14 +836,14 @@ namespace mojoPortal.Business
 		{
 			DataSet dataSet = new DataSet();
 
-			DataTable posts = GetPostsTableStructure();
+			var posts = GetPostsTableStructure();
 
 			using (IDataReader reader = GetPage(moduleId, beginDate, pageNumber, pageSize, out totalPages))
 			{
 				while (reader.Read())
 				{
 					//posts.Load(reader);
-					DataRow row = posts.NewRow();
+					var row = posts.NewRow();
 
 
 					row["ItemID"] = Convert.ToInt32(reader["ItemID"]);
@@ -1431,14 +1002,14 @@ namespace mojoPortal.Business
 			posts.TableName = "Posts";
 			dataSet.Tables.Add(posts);
 
-			DataTable categories = GetCategoryTableStructure();
+			var categories = GetCategoryTableStructure();
 
 			using (IDataReader reader = DBBlog.GetCategoriesForPage(moduleId, beginDate, DateTime.UtcNow, pageNumber, pageSize))
 			{
 				while (reader.Read())
 				{
 					//categories.Load(reader);
-					DataRow row = categories.NewRow();
+					var row = categories.NewRow();
 
 					row["ID"] = reader["ID"];
 					row["ItemID"] = reader["ItemID"];
@@ -1453,14 +1024,14 @@ namespace mojoPortal.Business
 			categories.TableName = "Categories";
 			dataSet.Tables.Add(categories);
 
-			DataTable attachments = GetAttachmentsTableStructure();
+			var attachments = GetAttachmentsTableStructure();
 
 			using (IDataReader reader = DBBlog.GetAttachmentsForPage(moduleId, beginDate, DateTime.UtcNow, pageNumber, pageSize))
 			{
 				while (reader.Read())
 				{
 					//categories.Load(reader);
-					DataRow row = attachments.NewRow();
+					var row = attachments.NewRow();
 
 					row["RowGuid"] = reader["RowGuid"];
 					row["ItemGuid"] = reader["ItemGuid"];
@@ -1520,14 +1091,14 @@ namespace mojoPortal.Business
 		{
 			DataSet dataSet = new DataSet();
 
-			DataTable posts = GetPostsTableStructure();
+			var posts = GetPostsTableStructure();
 
 			using (IDataReader reader = DBBlog.GetBlogEntriesByMonth(month, year, moduleId, currentTime, pageNumber, pageSize, out totalPages))
 			{
 				while (reader.Read())
 				{
 					//posts.Load(reader);
-					DataRow row = posts.NewRow();
+					var row = posts.NewRow();
 
 
 					row["ItemID"] = Convert.ToInt32(reader["ItemID"]);
@@ -1680,14 +1251,14 @@ namespace mojoPortal.Business
 			posts.TableName = "Posts";
 			dataSet.Tables.Add(posts);
 
-			DataTable categories = GetCategoryTableStructure();
+			var categories = GetCategoryTableStructure();
 
 			using (IDataReader reader = DBBlog.GetCategoriesForPage(month, year, moduleId, DateTime.UtcNow, pageNumber, pageSize))
 			{
 				while (reader.Read())
 				{
 					//categories.Load(reader);
-					DataRow row = categories.NewRow();
+					var row = categories.NewRow();
 
 					row["ID"] = reader["ID"];
 					row["ItemID"] = reader["ItemID"];
@@ -1712,14 +1283,14 @@ namespace mojoPortal.Business
 			catch (System.Data.ConstraintException) { }
 			catch (ArgumentException) { }
 
-			DataTable attachments = GetAttachmentsTableStructure();
+			var attachments = GetAttachmentsTableStructure();
 
 			using (IDataReader reader = DBBlog.GetAttachmentsForPage(month, year, moduleId, DateTime.UtcNow, pageNumber, pageSize))
 			{
 				while (reader.Read())
 				{
 
-					DataRow row = attachments.NewRow();
+					var row = attachments.NewRow();
 
 					row["RowGuid"] = reader["RowGuid"];
 					row["ItemGuid"] = reader["ItemGuid"];
@@ -1767,17 +1338,16 @@ namespace mojoPortal.Business
 			int pageSize,
 			out int totalPages)
 		{
-			DataSet dataSet = new DataSet();
+			var dataSet = new DataSet();
 
-			DataTable posts = GetPostsTableStructure();
+			var posts = GetPostsTableStructure();
 
 			using (IDataReader reader = DBBlog.GetEntriesByCategory(moduleId, categoryId, currentTime, pageNumber, pageSize, out totalPages))
 			{
 				while (reader.Read())
 				{
 					//posts.Load(reader);
-					DataRow row = posts.NewRow();
-
+					var row = posts.NewRow();
 
 					row["ItemID"] = Convert.ToInt32(reader["ItemID"]);
 					row["ModuleID"] = Convert.ToInt32(reader["ModuleID"]);
@@ -1796,6 +1366,12 @@ namespace mojoPortal.Business
 					row["IsPublished"] = true;
 					row["IncludeInFeed"] = Convert.ToBoolean(reader["IncludeInFeed"]);
 					row["CommentCount"] = Convert.ToInt32(reader["CommentCount"]);
+
+					if (reader["AllowCommentsForDays"] != DBNull.Value)
+					{
+						row["AllowCommentsForDays"] = reader["AllowCommentsForDays"];
+					}
+
 					row["UserID"] = Convert.ToInt32(reader["UserID"]);
 					row["Name"] = reader["Name"];
 					row["FirstName"] = reader["FirstName"];
@@ -1929,14 +1505,14 @@ namespace mojoPortal.Business
 			posts.TableName = "Posts";
 			dataSet.Tables.Add(posts);
 
-			DataTable categories = GetCategoryTableStructure();
+			var categories = GetCategoryTableStructure();
 
 			using (IDataReader reader = DBBlog.GetCategoriesForPage(moduleId, categoryId, DateTime.UtcNow, pageNumber, pageSize))
 			{
 				while (reader.Read())
 				{
 					//categories.Load(reader);
-					DataRow row = categories.NewRow();
+					var row = categories.NewRow();
 
 					row["ID"] = reader["ID"];
 					row["ItemID"] = reader["ItemID"];
@@ -1961,14 +1537,14 @@ namespace mojoPortal.Business
 			catch (System.Data.ConstraintException) { }
 			catch (ArgumentException) { }
 
-			DataTable attachments = GetAttachmentsTableStructure();
+			var attachments = GetAttachmentsTableStructure();
 
 			using (IDataReader reader = DBBlog.GetAttachmentsForPage(moduleId, categoryId, DateTime.UtcNow, pageNumber, pageSize))
 			{
 				while (reader.Read())
 				{
 					//categories.Load(reader);
-					DataRow row = attachments.NewRow();
+					var row = attachments.NewRow();
 
 					row["RowGuid"] = reader["RowGuid"];
 					row["ItemGuid"] = reader["ItemGuid"];
@@ -2001,9 +1577,8 @@ namespace mojoPortal.Business
 					dataSet.Tables["Posts"].Columns["BlogGuid"],
 					dataSet.Tables["Attachments"].Columns["ItemGuid"]);
 			}
-			catch (System.Data.ConstraintException) { }
+			catch (ConstraintException) { }
 			catch (ArgumentException) { }
-
 
 			return dataSet;
 		}
@@ -2014,17 +1589,16 @@ namespace mojoPortal.Business
 			int pageSize,
 			out int totalPages)
 		{
-			DataSet dataSet = new DataSet();
+			var dataSet = new DataSet();
 
-			DataTable posts = GetPostsTableStructure();
+			var posts = GetPostsTableStructure();
 
 			using (IDataReader reader = DBBlog.GetClosed(moduleId, DateTime.UtcNow, pageNumber, pageSize, out totalPages))
 			{
 				while (reader.Read())
 				{
 					//posts.Load(reader);
-					DataRow row = posts.NewRow();
-
+					var row = posts.NewRow();
 
 					row["ItemID"] = Convert.ToInt32(reader["ItemID"]);
 					row["ModuleID"] = Convert.ToInt32(reader["ModuleID"]);
@@ -2177,14 +1751,14 @@ namespace mojoPortal.Business
 			posts.TableName = "Posts";
 			dataSet.Tables.Add(posts);
 
-			DataTable categories = GetCategoryTableStructure();
+			var categories = GetCategoryTableStructure();
 
 			using (IDataReader reader = DBBlog.GetCategoriesForClosed(moduleId, DateTime.UtcNow, pageNumber, pageSize))
 			{
 				while (reader.Read())
 				{
 					//categories.Load(reader);
-					DataRow row = categories.NewRow();
+					var row = categories.NewRow();
 
 					row["ID"] = reader["ID"];
 					row["ItemID"] = reader["ItemID"];
@@ -2199,14 +1773,14 @@ namespace mojoPortal.Business
 			categories.TableName = "Categories";
 			dataSet.Tables.Add(categories);
 
-			DataTable attachments = GetAttachmentsTableStructure();
+			var attachments = GetAttachmentsTableStructure();
 
 			using (IDataReader reader = DBBlog.GetAttachmentsForClosed(moduleId, DateTime.UtcNow, pageNumber, pageSize))
 			{
 				while (reader.Read())
 				{
 					//categories.Load(reader);
-					DataRow row = attachments.NewRow();
+					var row = attachments.NewRow();
 
 					row["RowGuid"] = reader["RowGuid"];
 					row["ItemGuid"] = reader["ItemGuid"];
@@ -2315,23 +1889,6 @@ namespace mojoPortal.Business
 			return DBBlog.GetCountClosed(moduleId, DateTime.UtcNow);
 		}
 
-		//public static int CountOfDrafts(int moduleId)
-		//{
-		//    int result = 0;
-
-		//    using (IDataReader reader = GetDrafts(moduleId))
-		//    {
-		//        while (reader.Read())
-		//        {
-		//            result += 1;
-		//        }
-		//    }
-
-
-		//    return result;
-
-		//}
-
 		public static bool DeleteByModule(int moduleId)
 		{
 			return DBBlog.DeleteByModule(moduleId);
@@ -2356,12 +1913,11 @@ namespace mojoPortal.Business
 		/// <returns></returns>
 		public static DataTable GetRelatedPosts(int itemId, int maxToGet)
 		{
-			DataTable dataTable = new DataTable();
+			var dataTable = new DataTable();
 
 			dataTable.Columns.Add("ItemID", typeof(int));
 			dataTable.Columns.Add("Heading", typeof(string));
 			dataTable.Columns.Add("ItemUrl", typeof(string));
-
 
 			int counter = 1;
 
@@ -2371,7 +1927,7 @@ namespace mojoPortal.Business
 				{
 					if (counter > maxToGet) { continue; }
 
-					DataRow row = dataTable.NewRow();
+					var row = dataTable.NewRow();
 					row["ItemID"] = Convert.ToInt32(reader["ItemID"]);
 					row["Heading"] = reader["Heading"];
 					row["ItemUrl"] = reader["ItemUrl"];
@@ -2379,7 +1935,6 @@ namespace mojoPortal.Business
 
 					counter += 1;
 				}
-
 			}
 
 			return dataTable;
@@ -2400,23 +1955,6 @@ namespace mojoPortal.Business
 			return DBBlog.GetSingleBlog(itemId, DateTime.UtcNow);
 		}
 
-
-
-		//public static bool DeleteBlog(int itemID) 
-		//{
-		//    //TODO: make instance method to support ContentChanged event
-
-		//    Blog blog = new Blog(itemID);
-		//    bool result = dbBlog.Blog_DeleteBlog(itemID);
-		//    if (result)
-		//    {
-		//        result = dbBlog.Blog_DeleteItemCategories(itemID);
-		//        //IndexHelper.RemoveIndexItem(blog.ModuleID, itemID);
-		//    }
-
-		//    return result;
-		//}
-
 		public static IDataReader GetBlogComments(int moduleId, int itemId)
 		{
 			return DBBlog.GetBlogComments(moduleId, itemId);
@@ -2424,7 +1962,7 @@ namespace mojoPortal.Business
 
 		public static DataTable GetBlogCommentsTable(int moduleId, int itemId)
 		{
-			DataTable dataTable = new DataTable();
+			var dataTable = new DataTable();
 
 			dataTable.Columns.Add("Comment", typeof(string));
 			dataTable.Columns.Add("Name", typeof(string));
@@ -2433,7 +1971,7 @@ namespace mojoPortal.Business
 			{
 				while (reader.Read())
 				{
-					DataRow row = dataTable.NewRow();
+					var row = dataTable.NewRow();
 
 					row["Comment"] = reader["Comment"];
 					row["Name"] = reader["Name"];
@@ -2448,22 +1986,20 @@ namespace mojoPortal.Business
 		public static bool AddBlogComment(
 			int moduleId,
 			int itemId,
-			String name,
-			String title,
-			String url,
-			String comment,
+			string name,
+			string title,
+			string url,
+			string comment,
 			DateTime dateCreated)
 		{
-			if (name == null)
-			{
-				name = "unknown";
-			}
-			if (name.Length < 1)
+			if (string.IsNullOrWhiteSpace(name))
 			{
 				name = "unknown";
 			}
 
-			if ((title != null) && (url != null) && (comment != null))
+			if (!string.IsNullOrWhiteSpace(title) 
+				&& !string.IsNullOrWhiteSpace(url) 
+				&& !string.IsNullOrWhiteSpace(comment))
 			{
 				if (title.Length > 100)
 				{
@@ -2503,26 +2039,20 @@ namespace mojoPortal.Business
 			return DBBlog.DeleteBlogComment(commentId);
 		}
 
-
 		public static int AddBlogCategory(int moduleId, string category)
 		{
 			return DBBlog.AddBlogCategory(moduleId, category);
 		}
 
-		public static bool UpdateBlogCategory(
-			int categoryId,
-			string category)
+		public static bool UpdateBlogCategory(int categoryId, string category)
 		{
 			return DBBlog.UpdateBlogCategory(categoryId, category);
-
 		}
-
 
 		public static bool DeleteCategory(int categoryId)
 		{
 			return DBBlog.DeleteCategory(categoryId);
 		}
-
 
 		public static IDataReader GetCategories(int moduleId)
 		{
@@ -2533,7 +2063,6 @@ namespace mojoPortal.Business
 		{
 			return DBBlog.GetCategoriesList(moduleId);
 		}
-
 
 		public static int AddItemCategory(
 			int itemId,
@@ -2562,11 +2091,9 @@ namespace mojoPortal.Business
 			return DBBlog.GetCategory(categoryId);
 		}
 
-
-
 		public static DataTable GetBlogsByPage(int siteId, int pageId)
 		{
-			DataTable dataTable = new DataTable();
+			var dataTable = new DataTable();
 
 			dataTable.Columns.Add("ItemID", typeof(int));
 			dataTable.Columns.Add("ModuleID", typeof(int));
@@ -2593,7 +2120,7 @@ namespace mojoPortal.Business
 			{
 				while (reader.Read())
 				{
-					DataRow row = dataTable.NewRow();
+					var row = dataTable.NewRow();
 
 					row["ItemID"] = reader["ItemID"];
 					row["ModuleID"] = reader["ModuleID"];
@@ -2647,17 +2174,13 @@ namespace mojoPortal.Business
 					{
 						row["ExcludeFromRecentContent"] = false;
 					}
-
-
-
+					
 					dataTable.Rows.Add(row);
 				}
 			}
 
 			return dataTable;
 		}
-
-
 
 		#endregion
 
@@ -2667,19 +2190,8 @@ namespace mojoPortal.Business
 
 		protected void OnContentChanged(ContentChangedEventArgs e)
 		{
-			if (ContentChanged != null)
-			{
-				ContentChanged(this, e);
-			}
+			ContentChanged?.Invoke(this, e);
 		}
-
-
-
-
 		#endregion
-
-
-
-
 	}
 }

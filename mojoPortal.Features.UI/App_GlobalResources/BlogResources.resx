@@ -1017,4 +1017,13 @@
   <data name="AdditionalContentSettings" xml:space="preserve">
     <value>Page Content Settings</value>
   </data>
+  <data name="AllCategories" xml:space="preserve">
+    <value>All Categories</value>
+  </data>
+  <data name="PostListBlogInstanceCategories" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="BlogInstanceNotYetSet" xml:space="preserve">
+    <value>The Blog Instance is not set. Save the Module Settings with the Blog Instance set and this control can be used.</value>
+  </data>
 </root>

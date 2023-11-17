@@ -30,11 +30,7 @@ namespace mojoPortal.Web.BlogUI
             EnsureItems();
         }
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-
-        }
+        protected void Page_Load(object sender, EventArgs e){}
 
         private void EnsureItems()
         {
