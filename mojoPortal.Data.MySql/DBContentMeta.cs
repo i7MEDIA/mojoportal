@@ -12,6 +12,7 @@
 
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
@@ -80,76 +81,30 @@ namespace mojoPortal.Data
 			sqlCommand.Append("?LastModBy )");
 			sqlCommand.Append(";");
 
-			MySqlParameter[] arParams = new MySqlParameter[16];
-
-			arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = guid.ToString();
-
-			arParams[1] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36);
-			arParams[1].Direction = ParameterDirection.Input;
-			arParams[1].Value = siteGuid.ToString();
-
-			arParams[2] = new MySqlParameter("?ModuleGuid", MySqlDbType.VarChar, 36);
-			arParams[2].Direction = ParameterDirection.Input;
-			arParams[2].Value = moduleGuid.ToString();
-
-			arParams[3] = new MySqlParameter("?ContentGuid", MySqlDbType.VarChar, 36);
-			arParams[3].Direction = ParameterDirection.Input;
-			arParams[3].Value = contentGuid.ToString();
-
-			arParams[4] = new MySqlParameter("?Name", MySqlDbType.VarChar, 255);
-			arParams[4].Direction = ParameterDirection.Input;
-			arParams[4].Value = name;
-
-			arParams[5] = new MySqlParameter("?Scheme", MySqlDbType.VarChar, 255);
-			arParams[5].Direction = ParameterDirection.Input;
-			arParams[5].Value = scheme;
-
-			arParams[6] = new MySqlParameter("?LangCode", MySqlDbType.VarChar, 10);
-			arParams[6].Direction = ParameterDirection.Input;
-			arParams[6].Value = langCode;
-
-			arParams[7] = new MySqlParameter("?Dir", MySqlDbType.VarChar, 3);
-			arParams[7].Direction = ParameterDirection.Input;
-			arParams[7].Value = dir;
-
-			arParams[8] = new MySqlParameter("?MetaContent", MySqlDbType.Text);
-			arParams[8].Direction = ParameterDirection.Input;
-			arParams[8].Value = metaContent;
-
-			arParams[9] = new MySqlParameter("?SortRank", MySqlDbType.Int32);
-			arParams[9].Direction = ParameterDirection.Input;
-			arParams[9].Value = sortRank;
-
-			arParams[10] = new MySqlParameter("?CreatedUtc", MySqlDbType.DateTime);
-			arParams[10].Direction = ParameterDirection.Input;
-			arParams[10].Value = createdUtc;
-
-			arParams[11] = new MySqlParameter("?CreatedBy", MySqlDbType.VarChar, 36);
-			arParams[11].Direction = ParameterDirection.Input;
-			arParams[11].Value = createdBy.ToString();
-
-			arParams[12] = new MySqlParameter("?LastModUtc", MySqlDbType.DateTime);
-			arParams[12].Direction = ParameterDirection.Input;
-			arParams[12].Value = createdUtc;
-
-			arParams[13] = new MySqlParameter("?LastModBy", MySqlDbType.VarChar, 36);
-			arParams[13].Direction = ParameterDirection.Input;
-			arParams[13].Value = createdBy.ToString();
-
-			arParams[14] = new MySqlParameter("?NameProperty", MySqlDbType.VarChar, 255);
-			arParams[14].Direction = ParameterDirection.Input;
-			arParams[14].Value = name;
-
-			arParams[15] = new MySqlParameter("?ContentProperty", MySqlDbType.VarChar, 255);
-			arParams[15].Direction = ParameterDirection.Input;
-			arParams[15].Value = metaContent;
+			var sqlParams = new List<MySqlParameter>()
+			{
+				new("?Guid", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = guid.ToString() },
+				new("?SiteGuid", MySqlDbType.VarChar, 36) {Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
+				new("?ModuleGuid", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = moduleGuid.ToString() },
+				new("?ContentGuid", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = contentGuid.ToString() },
+				new("?Name", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = name },
+				new("?Scheme", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = scheme },
+				new("?LangCode", MySqlDbType.VarChar, 10) { Direction = ParameterDirection.Input, Value = langCode },
+				new("?Dir", MySqlDbType.VarChar, 3) { Direction = ParameterDirection.Input, Value = dir},
+				new("?MetaContent", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = metaContent},
+				new("?SortRank", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = sortRank },
+				new("?CreatedUtc", MySqlDbType.DateTime) { Direction = ParameterDirection.Input, Value = createdUtc},
+				new("?CreatedBy", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = createdBy.ToString()},
+				new("?LastModUtc", MySqlDbType.DateTime) { Direction = ParameterDirection.Input, Value = createdUtc },
+				new("?LastModBy", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = createdBy.ToString() },
+				new("?NameProperty", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = nameProperty },
+				new("?ContentProperty", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = contentProperty }
+			};
 
 			int rowsAffected = MySqlHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
-				arParams
+				sqlParams.ToArray()
 			);
 
 			return rowsAffected;
@@ -173,7 +128,7 @@ namespace mojoPortal.Data
 			DateTime lastModUtc,
 			Guid lastModBy)
 		{
-			StringBuilder sqlCommand = new StringBuilder();
+			var sqlCommand = new StringBuilder();
 
 			sqlCommand.Append("UPDATE mp_ContentMeta ");
 			sqlCommand.Append("SET  ");
@@ -194,56 +149,25 @@ namespace mojoPortal.Data
 			sqlCommand.Append("Guid = ?Guid ");
 			sqlCommand.Append(";");
 
-			MySqlParameter[] arParams = new MySqlParameter[11];
-
-			arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = guid.ToString();
-
-			arParams[1] = new MySqlParameter("?Name", MySqlDbType.VarChar, 255);
-			arParams[1].Direction = ParameterDirection.Input;
-			arParams[1].Value = name;
-
-			arParams[2] = new MySqlParameter("?Scheme", MySqlDbType.VarChar, 255);
-			arParams[2].Direction = ParameterDirection.Input;
-			arParams[2].Value = scheme;
-
-			arParams[3] = new MySqlParameter("?LangCode", MySqlDbType.VarChar, 10);
-			arParams[3].Direction = ParameterDirection.Input;
-			arParams[3].Value = langCode;
-
-			arParams[4] = new MySqlParameter("?Dir", MySqlDbType.VarChar, 3);
-			arParams[4].Direction = ParameterDirection.Input;
-			arParams[4].Value = dir;
-
-			arParams[5] = new MySqlParameter("?MetaContent", MySqlDbType.Text);
-			arParams[5].Direction = ParameterDirection.Input;
-			arParams[5].Value = metaContent;
-
-			arParams[6] = new MySqlParameter("?SortRank", MySqlDbType.Int32);
-			arParams[6].Direction = ParameterDirection.Input;
-			arParams[6].Value = sortRank;
-
-			arParams[7] = new MySqlParameter("?LastModUtc", MySqlDbType.DateTime);
-			arParams[7].Direction = ParameterDirection.Input;
-			arParams[7].Value = lastModUtc;
-
-			arParams[8] = new MySqlParameter("?LastModBy", MySqlDbType.VarChar, 36);
-			arParams[8].Direction = ParameterDirection.Input;
-			arParams[8].Value = lastModBy.ToString();
-
-			arParams[9] = new MySqlParameter("?NameProperty", MySqlDbType.VarChar, 255);
-			arParams[9].Direction = ParameterDirection.Input;
-			arParams[9].Value = name;
-
-			arParams[10] = new MySqlParameter("?ContentProperty", MySqlDbType.VarChar, 255);
-			arParams[10].Direction = ParameterDirection.Input;
-			arParams[10].Value = name;
+			var sqlParams = new List<MySqlParameter>()
+			{
+				new("?Guid", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = guid.ToString() },
+				new("?Name", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = name },
+				new("?Scheme", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = scheme },
+				new("?LangCode", MySqlDbType.VarChar, 10) { Direction = ParameterDirection.Input, Value = langCode },
+				new("?Dir", MySqlDbType.VarChar, 3) { Direction = ParameterDirection.Input, Value = dir},
+				new("?MetaContent", MySqlDbType.Text) { Direction = ParameterDirection.Input, Value = metaContent},
+				new("?SortRank", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = sortRank },
+				new("?LastModUtc", MySqlDbType.DateTime) { Direction = ParameterDirection.Input, Value = lastModUtc },
+				new("?LastModBy", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = lastModBy.ToString() },
+				new("?NameProperty", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = nameProperty },
+				new("?ContentProperty", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = contentProperty }
+			};
 
 			int rowsAffected = MySqlHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
-				arParams
+				sqlParams.ToArray()
 			);
 
 			return (rowsAffected > -1);

@@ -141,11 +141,11 @@ namespace mojoPortal.Data
 
 			arParams[14] = new NpgsqlParameter(":nameproperty", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[14].Direction = ParameterDirection.Input;
-			arParams[14].Value = name;
+			arParams[14].Value = nameProperty;
 
 			arParams[15] = new NpgsqlParameter(":contentproperty", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[15].Direction = ParameterDirection.Input;
-			arParams[15].Value = name;
+			arParams[15].Value = contentProperty;
 
 			int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
@@ -235,11 +235,11 @@ namespace mojoPortal.Data
 
 			arParams[9] = new NpgsqlParameter(":nameproperty", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[9].Direction = ParameterDirection.Input;
-			arParams[9].Value = name;
+			arParams[9].Value = nameProperty;
 
 			arParams[10] = new NpgsqlParameter(":contentproperty", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
 			arParams[10].Direction = ParameterDirection.Input;
-			arParams[10].Value = name;
+			arParams[10].Value = contentProperty;
 
 			int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
