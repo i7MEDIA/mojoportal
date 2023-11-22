@@ -838,6 +838,16 @@ namespace mojoPortal.Business
 
 			var posts = GetPostsTableStructure();
 
+			if (pageSize < 1)
+			{
+				pageSize = 1;
+			}
+
+			if (pageNumber < 1)
+			{
+				pageNumber = 1;
+			}
+
 			using (IDataReader reader = GetPage(moduleId, beginDate, pageNumber, pageSize, out totalPages))
 			{
 				while (reader.Read())

@@ -195,15 +195,6 @@ namespace mojoPortal.Web.BlogUI
 		protected global::System.Web.UI.WebControls.TextBox txtSubTitle;
 
 		/// <summary>
-		/// SiteLabel9 control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel9;
-
-		/// <summary>
 		/// edContent control.
 		/// </summary>
 		/// <remarks>

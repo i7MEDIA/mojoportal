@@ -357,13 +357,13 @@ namespace mojoPortal.Web.BlogUI
 		protected global::mojoPortal.Web.UI.BasePanel pnlAuthor;
 
 		/// <summary>
-		/// av1 control.
+		/// authorAvatar control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::mojoPortal.Web.UI.Avatar av1;
+		protected global::mojoPortal.Web.UI.Avatar authorAvatar;
 
 		/// <summary>
 		/// lblAuthorBio control.

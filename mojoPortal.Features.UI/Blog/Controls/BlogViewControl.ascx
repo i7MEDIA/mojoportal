@@ -79,7 +79,7 @@
 
 						<asp:Repeater ID="rptAttachments" runat="server" EnableViewState="false">
 							<ItemTemplate>
-								<portal:MediaElement ID="ml1" runat="server" AllowDownload='<%# blog.ShowDownloadLink %>' EnableViewState="false" FileUrl='<%# attachmentBaseUrl + Eval("ServerFileName") %>'/>
+								<portal:MediaElement ID="ml1" runat="server" AllowDownload='<%# blog.ShowDownloadLink %>' EnableViewState="false" FileUrl='<%# attachmentBaseUrl + Eval("ServerFileName") %>' />
 							</ItemTemplate>
 						</asp:Repeater>
 
@@ -108,7 +108,7 @@
 					</portal:BasePanel>
 
 					<portal:BasePanel runat="server" ID="pnlAuthor" EnableViewState="false" RenderId="false">
-						<portal:Avatar runat="server" ID="av1" />
+						<portal:Avatar runat="server" ID="authorAvatar" />
 						<asp:Label runat="server" ID="lblAuthorBio" />
 					</portal:BasePanel>
 
@@ -191,13 +191,11 @@
 											ImageUrl='<%# DeleteLinkImage %>'
 											CommandName="DeleteComment"
 											CommandArgument='<%# DataBinder.Eval(Container.DataItem,"BlogCommentID")%>'
-											Visible="<%# IsEditable%>"
-										/>
+											Visible="<%# IsEditable%>" />
 										<asp:Literal runat="server"
 											ID="litTitle"
 											EnableViewState="false"
-											Text='<%# Server.HtmlEncode(DataBinder.Eval(Container.DataItem,"Title").ToString()) %>'
-										/>
+											Text='<%# Server.HtmlEncode(DataBinder.Eval(Container.DataItem,"Title").ToString()) %>' />
 									</<%# CommentItemHeaderElement %>>
 
 									<div>

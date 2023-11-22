@@ -119,19 +119,7 @@ namespace mojoPortal.Web.BlogUI
 			Year = WebUtils.ParseInt32FromQueryString("year", Year);
 			attachmentBaseUrl = SiteUtils.GetFileAttachmentUploadPath();
 
-			//if (Page is mojoBasePage)
-			//{
-			//	basePage = Page as mojoBasePage;
-			//	module = basePage.GetModule(moduleId, config.FeatureGuid);
-
-			//}
-
 			module = new Module(ModuleId);
-
-			//if (module == null)
-			//{
-			//	return;
-			//}
 
 			CalendarDate = WebUtils.ParseDateFromQueryString("blogdate", DateTime.UtcNow).Date;
 
@@ -190,14 +178,12 @@ namespace mojoPortal.Web.BlogUI
 			{
 				navigationSiteRoot = WebUtils.GetHostRoot();
 				ImageSiteRoot = navigationSiteRoot;
-
 			}
-
 		}
 
 		protected override void RenderContents(HtmlTextWriter output)
 		{
-			DataSet dsBlogs = null;
+			DataSet dsBlogs;
 
 			var getByCategory = !string.IsNullOrWhiteSpace(Config.Categories) && Config.Categories != "-1";
 
@@ -209,7 +195,11 @@ namespace mojoPortal.Web.BlogUI
 			else
 			{
 				// Check for Featured Post, if it exists grab one less post to keep the count correct
-				pageSize = BlogConfig.FeaturedPostId == 0 ? pageSize : pageSize - 1;
+				if (BlogConfig.FeaturedPostId != 0 && pageSize > 1)
+				{
+					pageSize--;
+				}
+				
 				dsBlogs = Blog.GetPageDataSet(Config.BlogModuleId, DateTime.UtcNow, pageNumber, pageSize, out totalPages);
 			}
 
