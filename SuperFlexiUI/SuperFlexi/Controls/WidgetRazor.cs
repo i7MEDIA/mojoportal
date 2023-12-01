@@ -77,16 +77,16 @@ namespace SuperFlexiUI
 		protected virtual void LoadSettings()
 		{
 			module = new Module(ModuleId, PageId);
-			if (module.ModuleId == -1)
+			if (module?.ModuleId == -1)
 			{
 				publishedToCurrentPage = false; 
 				module = new Module(ModuleId);
-				if (module.ModuleId == -1)
+				if (module is null || module.ModuleId == -1)
 				{
 					return;
 				}
 			}
-			else
+			else if (module is not null)
 			{
 				publishedToCurrentPage = true;
 			}
@@ -121,7 +121,6 @@ namespace SuperFlexiUI
 			{
 				displaySettings = Config.MarkupDefinition;
 			}
-
 
 			if (itemId > 0)
 			{
