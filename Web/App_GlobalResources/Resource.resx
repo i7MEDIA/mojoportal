@@ -6698,7 +6698,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
     <value>Description of the role</value>
   </data>
   <data name="AttributeNotApplied" xml:space="preserve">
-    <value>The {0} attribute was not applied.</value>
+    <value>Attributes were not applied.</value>
   </data>
   <data name="ElementNotFound" xml:space="preserve">
     <value>The {0} element could not be found.</value>
@@ -6726,5 +6726,8 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="PasswordRecoveryEmailAddressRequiredWarning" xml:space="preserve">
     <value>You must enter your Email Address.</value>
+  </data>
+  <data name="LetterInfoEditNotAllowed" xml:space="preserve">
+    <value>You are not in an approved role to edit this newsletter's information.</value>
   </data>
 </root>

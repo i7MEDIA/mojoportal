@@ -943,7 +943,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The {0} attribute was not applied..
+        ///   Looks up a localized string similar to Attributes were not applied..
         /// </summary>
         internal static string AttributeNotApplied {
             get {
@@ -7014,6 +7014,15 @@ namespace Resources {
         internal static string LetterInfoEditHeading {
             get {
                 return ResourceManager.GetString("LetterInfoEditHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not in an approved role to edit this newsletter&apos;s information..
+        /// </summary>
+        internal static string LetterInfoEditNotAllowed {
+            get {
+                return ResourceManager.GetString("LetterInfoEditNotAllowed", resourceCulture);
             }
         }
         

@@ -487,10 +487,15 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("AdaptHtmlDirectionToCulture", false); }
 		}
 
+		public static bool AddLangToHtmlElement
+		{
+			get { return ConfigHelper.GetBoolProperty("AddLangToHtmlElement", true); }
+		}
+
 		/*
 		 * Menu hiding options. As of version 2.8, these are in the <portal:CoreDisplaySettings /> 
 		 * control used in the theme.skin.
-		 */ 
+		 */
 		public static bool HideAllMenusOnSiteClosedPage
 		{
 			get { return ConfigHelper.GetBoolProperty("HideAllMenusOnSiteClosedPage", true); }
