@@ -18,9 +18,11 @@ namespace mojoPortal.Web.Components
 		public string ModalTemplatePath { get; set; } = "~/Content/Templates/mojoModal.html";
 		public string ModalScriptPath { get; set; } = "~/ClientScript/mojoModalScript.js";
 		public string CompatibleWith { get; set; } = "n/a";
-		public List<SkinContentTemplate> Templates { get; set; } = new();
-		public List<SkinStyle> Styles { get; set; } = new();
-		public List<PanelOption> PanelOptions { get; set; } = new();
+		public MenuOptions Menu { get; set; } = new MenuOptions();
+		public MenuOptions PageMenu { get; set; } = new MenuOptions();
+		public List<SkinContentTemplate> Templates { get; set; } = [];
+		public List<SkinStyle> Styles { get; set; } = [];
+		public List<PanelOption> PanelOptions { get; set; } = [];
 	}
 	public class SkinContentTemplate
 	{
@@ -43,9 +45,34 @@ namespace mojoPortal.Web.Components
 		public string @Class { get; set; }
 	}
 
+	public class MenuOptions
+	{
+		public bool UseDescriptions { get; set; }
+
+		public bool UseImages { get; set; }
+
+		public bool UnclickableLinks { get; set; }
+
+		//public bool HideOnSiteClosed { get; set; } = WebConfigSettings.HideAllMenusOnSiteClosedPage;
+
+		//public bool HideOnLogin { get; set; } = WebConfigSettings.HideMenusOnLoginPage;
+
+		//public bool HideOnSiteMap { get; set; } = WebConfigSettings.HideMenusOnSiteMap;
+
+		//public bool HideOnRegister { get; set; } = WebConfigSettings.HideMenusOnRegisterPage;
+
+		//public bool HideOnPasswordRecovery { get; set; } = WebConfigSettings.HideMenusOnPasswordRecoveryPage;
+
+		//public bool HideOnChangePassword { get; set; } = WebConfigSettings.HideMenusOnChangePasswordPage;
+
+		//public bool HideOnProfile { get; set; } = WebConfigSettings.HideAllMenusOnProfilePage;
+
+		//public bool HideOnMemberList { get; set; } = WebConfigSettings.HidePageMenuOnMemberListPage;
+	}
+
 	public class SkinConfigManager
 	{
-		private Dictionary<string, SkinConfig> configs = new();
+		private Dictionary<string, SkinConfig> configs = [];
 
 		/// <summary>
 		/// Called from global.asax. Should not be called from anywhere else

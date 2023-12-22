@@ -1380,8 +1380,8 @@
   <data name="PageSettingsMainSettingsTab" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="PageSettingsMenuImageAtlText" xml:space="preserve">
-    <value>Page Icon</value>
+  <data name="PageSettingsMenuImage" xml:space="preserve">
+    <value>Menu Image</value>
   </data>
   <data name="PageSettingsMetaDataTab" xml:space="preserve">
     <value>Meta Settings</value>

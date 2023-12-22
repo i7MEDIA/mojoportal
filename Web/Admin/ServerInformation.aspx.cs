@@ -206,7 +206,7 @@ namespace mojoPortal.Web.AdminUI
 		{
 			log.Info($"Application Restart triggered by administrator userid={SiteUtils.GetCurrentSiteUser().UserId}, username={SiteUtils.GetCurrentSiteUser().LoginName}");
 			HttpRuntime.UnloadAppDomain();
-			//WebUtils.SetupRedirect(this, Request.RawUrl);
+			WebUtils.SetupRedirect(this, Request.RawUrl);
 			return;
 		}
 	}

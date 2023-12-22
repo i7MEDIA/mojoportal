@@ -105,8 +105,10 @@ namespace mojoPortal.Web.UI
 		/// doesn't work for TreeView
 		/// 2014-01-08 changed the default from false to to true because all newer skins use FlexMenu
 		/// which does support it, TreeView is now legacy
+        /// 2023-12-22 changed default to false because this is not good for SEO or UX unless you're building an
+        /// application, most mojo sites are websites, not applications
 		/// </summary>
-		public bool EnableNonClickablePageLinks { get; set; } = true;
+		public bool EnableNonClickablePageLinks { get; set; } = false;
 
         /// <summary>
         /// there are no good ways to expand MenuItem with additional properties so we are using a property for something other than its intended purposes

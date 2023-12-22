@@ -1153,17 +1153,17 @@ namespace mojoPortal.Web.UI
 			set { adminLinkCssClass = value; }
 		}
 
-		private bool showMenuDescription = false;
 		/// <summary>
-		/// most skins don't use menu description
-		/// only skins that use MegaMenu actually use it so by default it is not shown in pagesettings.aspx
+		/// most skins don't use menu descriptions so by default it is not shown in pagesettings.aspx
 		/// set this to true if you want to show this field and populate it for use in the menu
 		/// </summary>
-		public bool ShowMenuDescription
-		{
-			get { return showMenuDescription; }
-			set { showMenuDescription = value; }
-		}
+		public bool ShowMenuDescription { get; set; } = false;
+
+		/// <summary>
+		/// most skins don't use menu images so by default it is not shown in pagesettings.aspx
+		/// set this to true if you want to show this field and populate it for use in the menu
+		/// </summary>
+		public bool ShowMenuImage { get; set; } = false;
 
 		private string pageLayoutUpButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--up btn btn-sm btn-default";
 		public string PageLayoutUpButtonCssClass

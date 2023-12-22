@@ -296,12 +296,12 @@ namespace mojoPortal.Business
 
                 this.PageMetaKeyWords = reader["PageKeyWords"].ToString();
                 this.PageMetaDescription = reader["PageDescription"].ToString();
-                this.PageMetaEncoding = reader["PageEncoding"].ToString();
-                this.PageMetaAdditional = reader["AdditionalMetaTags"].ToString();
+                //this.PageMetaEncoding = reader["PageEncoding"].ToString();
+                //this.PageMetaAdditional = reader["AdditionalMetaTags"].ToString();
                 this.IncludeInMenu = Convert.ToBoolean(reader["IncludeInMenu"]);
 
-                string cf = reader["ChangeFrequency"].ToString();
-                switch (cf)
+                string changeFreq = reader["ChangeFrequency"].ToString();
+                switch (changeFreq)
                 {
                     case "Always":
                         this.ChangeFrequency = PageChangeFrequency.Always;

@@ -2,9 +2,9 @@
 
 namespace mojoPortal.Web.Models
 {
-	public class CustomMenu
+	public class MenuModel
 	{ 
-		public CustomMenu()
+		public MenuModel()
 		{ }
 		public int Id { get; set; }
 		public MenuList Menu { get; set; }

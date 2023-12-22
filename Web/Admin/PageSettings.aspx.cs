@@ -351,11 +351,19 @@ namespace mojoPortal.Web.AdminUI
 				//txtPageAdditionalMetaTags.Text = pageSettings.PageMetaAdditional;
 
 				txtMenuDesc.Text = pageSettings.MenuDescription;
+				txtMenuImage.Text = pageSettings.MenuImage;
+
+				if (!string.IsNullOrWhiteSpace(pageSettings.MenuImage))
+				{
+					imgMenuImagePreview.ImageUrl = pageSettings.MenuImage;
+				}
 
 				chkUseUrl.Checked = pageSettings.UseUrl;
 				txtUrl.Text = pageSettings.Url;
 				chkNewWindow.Checked = pageSettings.OpenInNewWindow;
+				
 				chkIsClickable.Checked = pageSettings.IsClickable;
+
 				chkShowChildMenu.Checked = pageSettings.ShowChildPageMenu;
 				chkIncludeInMenu.Checked = pageSettings.IncludeInMenu;
 				chkIncludeInSiteMap.Checked = pageSettings.IncludeInSiteMap;
@@ -430,6 +438,10 @@ namespace mojoPortal.Web.AdminUI
 			{
 				divHideMenu.Visible = false;
 			}
+
+			fbMenuImage.TextBoxClientId = txtMenuImage.ClientID;
+			fbMenuImage.PreviewImageClientId = imgMenuImagePreview.ClientID;
+			fbMenuImage.Text = Resource.Browse;
 
 			BindRoles(pageSettings);
 		}
@@ -968,6 +980,11 @@ namespace mojoPortal.Web.AdminUI
 			if (divMenuDesc.Visible)
 			{
 				pageSettings.MenuDescription = txtMenuDesc.Text;
+			}
+
+			if (divMenuImage.Visible)
+			{
+				pageSettings.MenuImage = txtMenuImage.Text;
 			}
 
 			pageSettings.OpenInNewWindow = chkNewWindow.Checked;
@@ -1863,7 +1880,7 @@ namespace mojoPortal.Web.AdminUI
 			pageId = WebUtils.ParseInt32FromQueryString("pageid", -1);
 			startPageId = WebUtils.ParseInt32FromQueryString("start", -1);
 			currentUser = SiteUtils.GetCurrentSiteUser();
-			divIsClickable.Visible = StyleCombiner.EnableNonClickablePageLinks;
+			divIsClickable.Visible = Global.SkinConfig.Menu.UnclickableLinks || StyleCombiner.EnableNonClickablePageLinks;
 			ScriptConfig.IncludeColorBox = true;
 			timeZone = SiteUtils.GetUserTimeZone();
 			
@@ -1894,7 +1911,9 @@ namespace mojoPortal.Web.AdminUI
 			litLinkSpacer1.Text = displaySettings.AdminLinkSeparator;
 			litLinkSpacer2.Text = displaySettings.AdminLinkSeparator;
 
-			divMenuDesc.Visible = displaySettings.ShowMenuDescription;
+
+			divMenuDesc.Visible = Global.SkinConfig.Menu.UseDescriptions || displaySettings.ShowMenuDescription;
+			divMenuImage.Visible = Global.SkinConfig.Menu.UseImages || displaySettings.ShowMenuImage;
 
 			SkinSetting.Enabled = WebUser.IsInRoles(siteSettings.RolesThatCanAssignSkinsToPages) || isSiteEditor || isAdminOrContentAdmin;
 

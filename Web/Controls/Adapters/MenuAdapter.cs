@@ -15,19 +15,14 @@
 /// 2011-03-04 added configurability of css classes and whether they are rendered
 
 using System;
-using System.IO;
-using System.Web;
-using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.Adapters;
-using System.Web.UI.HtmlControls;
 using mojoPortal.Web.UI;
 
 namespace mojoPortal.Web
 {
-    
-    public class MenuAdapter : System.Web.UI.WebControls.Adapters.MenuAdapter
+
+	public class MenuAdapter : System.Web.UI.WebControls.Adapters.MenuAdapter
     {
         private const string container_Element = "div";
         private const string ul_CssClass = "AspNet-Menu";

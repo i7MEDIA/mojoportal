@@ -7,36 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mojoPortal.Web.UI {
-    
-    
-    public partial class SiteMenu {
-        
-        /// <summary>
-        /// topRounder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderTop topRounder;
-        
-        /// <summary>
-        /// menuPlaceHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder menuPlaceHolder;
-        
-        /// <summary>
-        /// bottomRounder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderBottom bottomRounder;
-    }
+namespace mojoPortal.Web.UI
+{
+
+
+	public partial class SiteMenu
+	{
+
+		/// <summary>
+		/// menuPlaceHolder control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.PlaceHolder menuPlaceHolder;
+	}
 }

@@ -12058,11 +12058,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Page Icon.
+        ///   Looks up a localized string similar to Menu Image.
         /// </summary>
-        internal static string PageSettingsMenuImageAtlText {
+        internal static string PageSettingsMenuImage {
             get {
-                return ResourceManager.GetString("PageSettingsMenuImageAtlText", resourceCulture);
+                return ResourceManager.GetString("PageSettingsMenuImage", resourceCulture);
             }
         }
         

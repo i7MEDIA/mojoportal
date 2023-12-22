@@ -1206,6 +1206,7 @@
       <DependentUpon>FilePathSetting.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Link.cs" />
+    <Compile Include="Controls\Menu.cs" />
     <Compile Include="Controls\MenuList.cs" />
     <Compile Include="Controls\FlexMenu.cs" />
     <Compile Include="Controls\FlexSearch.cs" />
@@ -1774,6 +1775,7 @@
       <DependentUpon>layout.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Helpers\CustomHtmlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -2503,7 +2505,7 @@
     <Compile Include="Models\AdminMenuPage.cs" />
     <Compile Include="Components\BreadCrumb.cs" />
     <Compile Include="Models\BreadCrumbs.cs" />
-    <Compile Include="Models\CustomMenu.cs" />
+    <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\FileManager.cs" />
     <Compile Include="Models\FileService.cs" />
     <Compile Include="Models\MemberListModel.cs" />
@@ -2836,6 +2838,8 @@
     <Content Include="Views\Shared\_Pager.cshtml" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.0.min.map" />
+    <Content Include="Views\Shared\Menu.cshtml" />
+    <Content Include="Views\Common\_CustomMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />

@@ -653,8 +653,6 @@ namespace mojoPortal.Web.UI
             }
 
             return pageMenu;
-
-
         }
 
         void pageMenu_MenuItemDataBound(object sender, MenuEventArgs e)

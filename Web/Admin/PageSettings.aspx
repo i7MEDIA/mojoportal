@@ -12,8 +12,10 @@
 				<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
 					<portal:PageLayoutDisplaySettings ID="displaySettings" runat="server" />
 					<div id="divAdminLinks" runat="server">
-						<asp:HyperLink ID="lnkEditContent" EnableViewState="false" runat="server" /><asp:Literal ID="litLinkSpacer1" runat="server" EnableViewState="false" />
-						<asp:HyperLink ID="lnkViewPage" runat="server" EnableViewState="false"></asp:HyperLink><asp:Literal ID="litLinkSpacer2" runat="server" EnableViewState="false" />
+						<asp:HyperLink ID="lnkEditContent" EnableViewState="false" runat="server" />
+						<asp:Literal ID="litLinkSpacer1" runat="server" EnableViewState="false" />
+						<asp:HyperLink ID="lnkViewPage" runat="server" EnableViewState="false"></asp:HyperLink>
+						<asp:Literal ID="litLinkSpacer2" runat="server" EnableViewState="false" />
 						<asp:HyperLink ID="lnkPageTree" runat="server" />
 					</div>
 					<div class="pagetabs">
@@ -112,6 +114,17 @@
 									<asp:TextBox ID="txtMenuDesc" runat="server" TextMode="MultiLine" CssClass="forminput verywidetextbox"></asp:TextBox>
 									<portal:mojoHelpLink ID="MojoHelpLink19" runat="server" HelpKey="pagesettings-menudesc-help" />
 								</div>
+								<div id="divMenuImage" runat="server" visible="false" class="settingrow menuimage">
+									<mp:SiteLabel ID="Sitelabel35" runat="server" ForControl="txtMenuImage" CssClass="settinglabel" ConfigKey="PageSettingsMenuImage" />
+									<asp:TextBox ID="txtMenuImage" runat="server" MaxLength="255" CssClass="forminput verywidetextbox" />
+									<portal:FileBrowserTextBoxExtender ID="fbMenuImage" runat="server" BrowserType="image" />
+									<portal:mojoHelpLink ID="MojoHelpLink6" runat="server" HelpKey="pagesettings-menuimage-help" />
+
+									<div class="settingrow menuimage-preview">
+										<asp:Image ID="imgMenuImagePreview" runat="server" ImageUrl="~/Data/SiteImages/1x1.gif" />
+									</div>
+								</div>
+
 								<div id="divIsClickable" runat="server" class="settingrow" visible="false">
 									<mp:SiteLabel ID="Sitelabel25" runat="server" ForControl="chkIsClickable" CssClass="settinglabel"
 										ConfigKey="PageSettingsIsClickableLabel">
@@ -398,7 +411,7 @@
 										<asp:TextBox ID="txtPageDescription" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
 										<portal:mojoHelpLink ID="MojoHelpLink23" runat="server" HelpKey="pagesettingsmetadescriptionhelp" />
 									</div>
-<%--									<div id="divPageEncoding" runat="server" visible="false" class="settingrow">
+									<%--									<div id="divPageEncoding" runat="server" visible="false" class="settingrow">
 										<mp:SiteLabel ID="lblEncoding" runat="server" ForControl="txtPageEncoding" CssClass="settinglabel"
 											ConfigKey="PageLayoutMetaEncodingLabel">
 										</mp:SiteLabel>
@@ -480,7 +493,8 @@
 														<table>
 															<tr>
 																<td>
-																	<asp:Button ID="btnAddMetaLink" runat="server" />&nbsp;
+																	<asp:Button ID="btnAddMetaLink" runat="server" />
+																	&nbsp;
 																</td>
 																<td>
 																	<asp:UpdateProgress ID="prgMetaLinks" runat="server" AssociatedUpdatePanelID="updMetaLinks">
@@ -595,7 +609,8 @@
 														<table>
 															<tr>
 																<td>
-																	<asp:Button ID="btnAddMeta" runat="server" />&nbsp;
+																	<asp:Button ID="btnAddMeta" runat="server" />
+																	&nbsp;
 																</td>
 																<td>
 																	<asp:UpdateProgress ID="prgMeta" runat="server" AssociatedUpdatePanelID="upMeta">

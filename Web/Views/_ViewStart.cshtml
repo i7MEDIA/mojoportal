@@ -1,3 +1,20 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@using mojoPortal.Business.WebHelpers;
+@using mojoPortal.Business;
+@using mojoPortal.Web.UI;
+@using System.Linq;
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@functions
+{
+	IHtmlString attr(string str, string format = "{0}")
+	{
+		if (string.IsNullOrWhiteSpace(str))
+		{
+			return Html.Raw(string.Empty);
+		}
+		return Html.Raw(string.Format(format, str));
+	}
 }

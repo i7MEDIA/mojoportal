@@ -1,30 +1,15 @@
-// Author:					
-// Created:				    2004-08-28
-// Last Modified:			2013-07-15
-//		
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.	
-
 using System;
-using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web;
 using mojoPortal.Web.Framework;
 using Resources;
 
 namespace mojoPortal.Web.UI
 {
-	
+
 	public partial class SiteMenu : UserControl
 	{
 	
@@ -150,7 +135,6 @@ namespace mojoPortal.Web.UI
             set { suppressImages = value; }
         }
 
-
         public int StartingNodeOffset
         {
             get { return startingNodeOffset; }
@@ -230,40 +214,24 @@ namespace mojoPortal.Web.UI
 		
 		protected void Page_Load(object sender, EventArgs e)
 		{
-            String rawUrl = Request.RawUrl;
+            string rawUrl = Request.RawUrl;
+            
             resolveFullUrlsForMenuItemProtocolDifferences = WebConfigSettings.ResolveFullUrlsForMenuItemProtocolDifferences;
+            
             if (resolveFullUrlsForMenuItemProtocolDifferences)
             {
                 secureSiteRoot = WebUtils.GetSecureSiteRoot();
-                //insecureSiteRoot = secureSiteRoot.Replace("https", "http");
                 insecureSiteRoot = WebUtils.GetInSecureSiteRoot();
             }
 
-            isSecureRequest = SiteUtils.IsSecureRequest();
-            //useMenuTooltipForCustomCss = WebConfigSettings.UseMenuTooltipForCustomCss;
+            isSecureRequest = Core.Helpers.WebHelper.IsSecureRequest();
 
             if (Page is mojoBasePage)
             {
                 mojoBasePage basePage = Page as mojoBasePage;
                 enableUnclickableLinks = basePage.StyleCombiner.EnableNonClickablePageLinks;
                 useMenuTooltipForCustomCss = basePage.StyleCombiner.UseMenuTooltipForCustomCss;
-            }
-
-            //if(
-            //    (rawUrl.Contains("MyPage.aspx"))
-            //    && (this.direction != "Horizontal")
-            //    )
-            //{
-            //    this.Visible = false;
-            //    return;
-            //}
-
-            if ((Direction == "Horizontal") || (!includeCornerRounders))
-            {
-                topRounder.Visible = false;
-                bottomRounder.Visible = false;
-            }
-            
+            }          
 
             isAdmin = WebUser.IsAdmin;
             if (!isAdmin) { isContentAdmin = WebUser.IsContentAdmin; }
@@ -282,35 +250,28 @@ namespace mojoPortal.Web.UI
                 log.Error("tried to get currentPage in Page_Load of SiteMenu.ascx but it came back null");
             }
 
-            if (
-                (siteSettings != null)
-                && (currentPage != null)
-                )
+            if (siteSettings != null && currentPage != null)
             {
                 PopulateControls();
             } 
-           
-
         }
-
-        
 
         private void PopulateControls()
         {
-            bool hideMenu = siteSettings.AllowHideMenuOnPages && currentPage.HideMainMenu;
-            if (showPages && !hideMenu)
+            if (showPages && !(siteSettings.AllowHideMenuOnPages && currentPage.HideMainMenu))
             {
                 if (useFlexMenu)
                 {
-                    FlexMenu menu = new FlexMenu();
-                    menu.SkinID = menuSkinID;
-                    menu.EnableTheming = true;
-                    menu.IsMobileSkin = isMobileSkin;
-                    this.menuPlaceHolder.Controls.Add(menu);
+					FlexMenu menu = new()
+					{
+						SkinID = menuSkinID,
+						EnableTheming = true,
+						IsMobileSkin = isMobileSkin
+					};
+					this.menuPlaceHolder.Controls.Add(menu);
                 }
                 else
                 {
-
                     siteMapDataSource = (SiteMapDataSource)this.Page.Master.FindControl(dataSourceId);
                     if (siteMapDataSource == null) return;
 
@@ -328,11 +289,9 @@ namespace mojoPortal.Web.UI
                     {
                         RenderMenu();
                     }
-                }
-                
+                }                
             }
         }
-
         
         #region ASP.NET Menu
 
@@ -448,11 +407,8 @@ namespace mojoPortal.Web.UI
                         //=========
                         if (menuItem == null)
                         {
-#if NET35
-                            if (!string.IsNullOrEmpty(valuePath))
-#else
+
                             if (!string.IsNullOrWhiteSpace(valuePath))
-#endif
                             {
                                 int lastSeperatorIndex = valuePath.LastIndexOf(menu.PathSeparator);
                                 while (lastSeperatorIndex > 0)

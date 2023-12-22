@@ -1,24 +1,18 @@
-﻿// Author:          
-// Created:         2013-01-13
-// Last Modified:   2014-12-17
-
-using System;
-using System.Text;
+﻿using System;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web;
 using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.UI
 {
-    /// <summary>
-    /// an alternative to <asp:Menu and <asp:Treeview with no built in javascript
-    /// the only strength Treeview has over this menu is the support for expand and collapse like on a site map
-    /// </summary>
-    public class FlexMenu : WebControl
+	/// <summary>
+	/// an alternative to <asp:Menu and <asp:Treeview with no built in javascript
+	/// the only strength Treeview has over this menu is the support for expand and collapse like on a site map
+	/// </summary>
+	public class FlexMenu : WebControl
     {
         private SiteMapDataSource siteMapDataSource;
         private bool isAdmin = false;
@@ -55,7 +49,15 @@ namespace mojoPortal.Web.UI
 		public string RootUlCssClass { get; set; } = string.Empty;
 
 		public bool RenderDescription { get; set; } = true;
-		public string DescriptionCssClass { get; set; } = string.Empty;
+
+		
+        public string DescriptionCssClass { get; set; } = string.Empty;
+
+		public bool RenderImage { get; set; } = true;
+        
+        public string ImageWrapCssClass { get; set; } = string.Empty;
+
+        public bool LinkImageToPage { get; set; } = true;
 
 		public string ChildContainerElement { get; set; } = string.Empty;
 
@@ -408,12 +410,12 @@ namespace mojoPortal.Web.UI
             }
             if(mojoNode.LinkRel.Length > 0)
             {
-                writer.Write(" rel='" + mojoNode.LinkRel + "'");
+                writer.Write($" rel='{mojoNode.LinkRel}'");
             }
 
             if (mojoNode.IsClickable || (RenderHrefWhenUnclickable && !mojoNode.IsClickable))
             {
-                writer.Write(" href='" + FormatUrl(mojoNode) + "'>");
+                writer.Write($" href='{FormatUrl(mojoNode)}'>");
             }
             else
             {
@@ -434,16 +436,35 @@ namespace mojoPortal.Web.UI
 
             writer.Write("</a>");
 
-            if ((RenderDescription)&&(mojoNode.MenuDescription.Length > 0))
+            if (RenderImage && !string.IsNullOrWhiteSpace(mojoNode.MenuImage))
+            {
+                string imageElement = $"<img src=\"{mojoNode.MenuImage}\" alt=\"{mojoNode.Title}\" />";
+                string wrapCssClass = string.IsNullOrWhiteSpace(ImageWrapCssClass) ? string.Empty : $" class={ImageWrapCssClass}";
+                string elementToWrite;
+
+                if (LinkImageToPage && mojoNode.IsClickable)
+                {
+                    string linkTarget = mojoNode.OpenInNewWindow ? " target=\"_blank\"" : string.Empty;
+                    string linkRel = string.IsNullOrWhiteSpace(mojoNode.LinkRel) ? string.Empty : $" rel=\"{mojoNode.LinkRel}\"";
+                    
+                    elementToWrite = ($"<a href=\"{FormatUrl(mojoNode)}\"{linkTarget}{linkRel}>{imageElement}</a>");
+				}
+                else
+                {
+                    elementToWrite = imageElement;
+                }
+
+				writer.Write($"<span{wrapCssClass}>{elementToWrite}</span>");
+			} 
+
+            if (RenderDescription && !string.IsNullOrWhiteSpace(mojoNode.MenuDescription))
             {
                 writer.Write("<span");
-                if (DescriptionCssClass.Length > 0)
+                if (!string.IsNullOrWhiteSpace(DescriptionCssClass))
                 {
-                    writer.Write(" class='" + DescriptionCssClass + "'");
+                    writer.Write($" class='{DescriptionCssClass}'");
                 }
-                writer.Write(">");
-                writer.Write(mojoNode.MenuDescription);
-                writer.Write("</span>");
+                writer.Write($">{mojoNode.MenuDescription}</span>");
             }
 
             //if (mojoNode.ChildNodes.Count > 0)
