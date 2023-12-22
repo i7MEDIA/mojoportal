@@ -471,6 +471,11 @@ namespace mojoPortal.Web.Controllers
 						}
 					}
 
+					if (!compressedFilename.EndsWith(".zip"))
+					{
+						compressedFilename += ".zip";
+					}
+
 					zip.Save(FilePath(destination + "/" + CleanFileName(compressedFilename, "file"), true));
 					zip.Dispose();
 				}
