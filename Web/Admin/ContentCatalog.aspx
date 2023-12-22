@@ -12,21 +12,20 @@
 <portal:HeadingControl ID="heading" runat="server" />
 <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-    <asp:Panel ID="pnlNewContent" runat="server" CssClass="settingrow" DefaultButton="btnCreateNewContent">
-        <asp:DropDownList ID="ddModuleType" runat="server" DataValueField="ModuleDefID" DataTextField="FeatureName">
-        </asp:DropDownList>
+    <%--<asp:Panel ID="pnlNewContent" runat="server" CssClass="settingrow" DefaultButton="btnCreateNewContent">
+        <asp:DropDownList ID="ddModuleType" runat="server" DataValueField="ModuleDefID" DataTextField="FeatureName" />
         <asp:TextBox ID="txtModuleTitle" runat="server" Columns="40" Text="" CssClass="mediumtextbox"
             EnableViewState="false"></asp:TextBox>
         <portal:mojoButton ID="btnCreateNewContent" runat="server" ValidationGroup="contentcatalog" />
         <asp:RequiredFieldValidator ID="reqModuleTitle" runat="server" ControlToValidate="txtModuleTitle" ValidationGroup="contentcatalog" />
         <asp:CompareValidator ID="cvModuleTitle" runat="server" Operator="NotEqual" ControlToValidate="txtModuleTitle" ValidationGroup="contentcatalog" />
             
-    </asp:Panel>
+    </asp:Panel>--%>
     <asp:Panel ID="pnlFind" runat="server" CssClass="settingrow" DefaultButton="btnFind">
         <mp:SiteLabel ID="lblTitleFilter" runat="server" ConfigKey="ContentManagerTitleFilterLabel" ForControl="txtTitleFilter" />
         <asp:TextBox ID="txtTitleFilter" runat="server" MaxLength="255" CssClass="mediumtextbox" />
-        <portal:mojoButton ID="btnFind" runat="server" />
-        <asp:CheckBox ID="chkFilterByFeature" runat="server" />
+        <asp:DropDownList ID="ddModuleType" runat="server" DataValueField="ModuleDefID" DataTextField="FeatureName" />    
+        <portal:mojoButton ID="btnFind" runat="server" SkinID="InfoButton" />
     </asp:Panel>
 <div class="settingrow">
 <mp:mojoGridView ID="grdContent" runat="server"
