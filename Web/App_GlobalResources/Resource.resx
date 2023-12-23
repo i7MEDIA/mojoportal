@@ -172,7 +172,7 @@
     <value>Site Settings</value>
   </data>
   <data name="AdminMenuUrlManagerLink" xml:space="preserve">
-    <value>Url Manager</value>
+    <value>URL Manager</value>
   </data>
   <data name="AdminMenuVersionLabel" xml:space="preserve">
     <value>Version</value>
@@ -472,52 +472,52 @@
     <value>Forgotten Your Password?</value>
   </data>
   <data name="FriendlyUrlAddNewLabel" xml:space="preserve">
-    <value>Add New Url Mapping</value>
+    <value>Add Friendly URL</value>
   </data>
   <data name="FriendlyUrlCancelButton" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="FriendlyUrlDeleteConfirmWarning" xml:space="preserve">
-    <value>Are you sure you want to delete this url?</value>
+    <value>Are you sure you want to delete this URL?</value>
   </data>
   <data name="FriendlyUrlDeleteLabel" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="FriendlyUrlDuplicateWarning" xml:space="preserve">
-    <value>Sorry, that Url Mapping is already in use.</value>
+    <value>Sorry, that Friendly URL already exists.</value>
   </data>
   <data name="FriendlyUrlEditLabel" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="FriendlyUrlExpertEntryLabel" xml:space="preserve">
-    <value>Or Use Expert Manual Entry</value>
+    <value>Manual Entry</value>
   </data>
   <data name="FriendlyUrlHelp" xml:space="preserve">
-    <value>Note: On Windows servers, if your Friendly Url does not end with .aspx you must create a folder with the same name as your friendly url and add an empty text file named Default.aspx to the folder.</value>
+    <value />
   </data>
   <data name="FriendlyUrlInvalidEntryMessage" xml:space="preserve">
-    <value>You must enter both a friendly Url and a Real Url.</value>
+    <value>You must enter both a Friendly URL and a Real URL.</value>
   </data>
   <data name="FriendlyUrlInvalidFriendlyUrlMessage" xml:space="preserve">
-    <value>You must enter a friendly Url.</value>
+    <value>You must enter a Friendly URL.</value>
   </data>
   <data name="FriendlyUrlLabel" xml:space="preserve">
-    <value>Friendly Url</value>
+    <value>Friendly URL</value>
   </data>
   <data name="FriendlyUrlMapsToLabel" xml:space="preserve">
     <value>maps to</value>
   </data>
   <data name="FriendlyUrlRealUrlLabel" xml:space="preserve">
-    <value>Real Url</value>
+    <value>Real URL</value>
   </data>
   <data name="FriendlyUrlSaveLabel" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="FriendlyUrlSelectFromDropdownLabel" xml:space="preserve">
-    <value>Select Page from Dropdown List</value>
+    <value>Select Page</value>
   </data>
   <data name="FriendlyUrlViewLink" xml:space="preserve">
-    <value>View Friendly Url</value>
+    <value>View Friendly URL</value>
   </data>
   <data name="FriendlyUrlWouldMaskPhysicalPageWarning" xml:space="preserve">
     <value>Cannot create this url because it would mask a physical page.</value>
@@ -1321,10 +1321,10 @@
     <value>Show Child Pages Site Map?</value>
   </data>
   <data name="PageLayoutUrlLabel" xml:space="preserve">
-    <value>Url</value>
+    <value>URL</value>
   </data>
   <data name="PageLayoutUseUrlLabel" xml:space="preserve">
-    <value>Use Url?</value>
+    <value>Use URL?</value>
   </data>
   <data name="PagePropertiesEditText" xml:space="preserve">
     <value>Edit Settings For This Page</value>
@@ -1399,7 +1399,7 @@
     <value>Page Title Override</value>
   </data>
   <data name="PageSettingsPhysicalUrlWarning" xml:space="preserve">
-    <value>Warning: This Url will link to an existing physical page. If this is not intended please enter a different url for this page.</value>
+    <value>Warning: This URL will link to an existing physical page. If this is not intended please enter a different url for this page.</value>
   </data>
   <data name="PageSettingsPriorityLabel" xml:space="preserve">
     <value>Priority</value>
@@ -1432,7 +1432,7 @@
     <value>Move selected page up in list</value>
   </data>
   <data name="PageUrlInUseErrorMessage" xml:space="preserve">
-    <value>The Url is already in use. You cannot use the same Url for different pages, unless you use the full Url with http. However, doing this will result in multiple Menu Pages pointing to the same actual page.</value>
+    <value>The URL is already in use. You cannot use the same URL for different pages, unless you use the full URL with http. However, doing this will result in multiple Menu Pages pointing to the same actual page.</value>
   </data>
   <data name="PageViewPageLink" xml:space="preserve">
     <value>View This Page</value>
@@ -1732,7 +1732,7 @@
     <value>Clear Text in db</value>
   </data>
   <data name="SiteSettingsDefaultFriendlyUrlPatternLabel" xml:space="preserve">
-    <value>Default Friendly Url Pattern</value>
+    <value>Default Friendly URL Pattern</value>
   </data>
   <data name="SiteSettingsDeleteFolderMappingWarning" xml:space="preserve">
     <value>Are you sure you want to delete this folder mapping?</value>
@@ -3070,7 +3070,7 @@
     <value>Fullfillment Status</value>
   </data>
   <data name="GCheckoutNotificationHandlerUrlLabel" xml:space="preserve">
-    <value>GCheckout Notification Handler Url</value>
+    <value>GCheckout Notification Handler URL</value>
   </data>
   <data name="GCheckoutNotificationHeading" xml:space="preserve">
     <value>Google Checkout Notification Log</value>
@@ -3439,10 +3439,10 @@
     <value>Edit</value>
   </data>
   <data name="NewUrlRequiredMessage" xml:space="preserve">
-    <value>New Url is Required.</value>
+    <value>New URL is Required.</value>
   </data>
   <data name="OldUrlRequiredMessage" xml:space="preserve">
-    <value>Old Url is Required.</value>
+    <value>Old URL is Required.</value>
   </data>
   <data name="RedirectDeleteWarning" xml:space="preserve">
     <value>Are you sure you want to delete this 301 redirect?</value>
@@ -3610,7 +3610,7 @@
     <value>Default Country/State</value>
   </data>
   <data name="FriendlyUrlRegexWarning" xml:space="preserve">
-    <value>Url must start with ~/ or http:// or https:// and it should have no white spaces in it.</value>
+    <value>URL must start with ~/ or http:// or https:// and should not have spaces.</value>
   </data>
   <data name="MyPageSkinLabel" xml:space="preserve">
     <value>MyPage Skin</value>
@@ -3793,7 +3793,7 @@
     <value>Allow Live Messenger On User Profiles?</value>
   </data>
   <data name="WindowsLiveAppLogoLabel" xml:space="preserve">
-    <value>Windows Live Application Logo Url</value>
+    <value>Windows Live Application Logo URL</value>
   </data>
   <data name="PublicProfileLink" xml:space="preserve">
     <value>View my profile as others see it.</value>
@@ -3829,7 +3829,7 @@
     <value>Search</value>
   </data>
   <data name="SiteSettingsPrivacyUrlLabel" xml:space="preserve">
-    <value>Privacy Policy Url</value>
+    <value>Privacy Policy URL</value>
   </data>
   <data name="LiteralOr" xml:space="preserve">
     <value>Or</value>
@@ -4387,7 +4387,7 @@
     <value>Include in search engine site map?</value>
   </data>
   <data name="PageSettingsCanonicalOverride" xml:space="preserve">
-    <value>Canonical Url Override</value>
+    <value>Canonical URL Override</value>
   </data>
   <data name="DisableDbAuthentication" xml:space="preserve">
     <value>Disable Database Authentication?</value>
@@ -5659,7 +5659,7 @@
     <value>Title</value>
   </data>
   <data name="CommentUrl" xml:space="preserve">
-    <value>Url</value>
+    <value>URL</value>
   </data>
   <data name="CommentUserName" xml:space="preserve">
     <value>Name</value>
@@ -5845,7 +5845,7 @@
     <value>Enable Feed?</value>
   </data>
   <data name="FeedburnerFeedUrl" xml:space="preserve">
-    <value>Feedburner Feed Url</value>
+    <value>Feedburner Feed URL</value>
   </data>
   <data name="FeedCacheTimeInMinutes" xml:space="preserve">
     <value>Feed Cache Time In Minutes</value>
@@ -5992,10 +5992,10 @@
     <value>in the head element</value>
   </data>
   <data name="ScriptUrl" xml:space="preserve">
-    <value>Script Url</value>
+    <value>Script URL</value>
   </data>
   <data name="ScriptUrlPosition" xml:space="preserve">
-    <value>Script Url Position</value>
+    <value>Script URL Position</value>
   </data>
   <data name="TemplateNameRequired" xml:space="preserve">
     <value>Template Name is required</value>
@@ -6314,10 +6314,10 @@ Copy the machine key below to your site's configuration by following &lt;a href=
     <value>System Name cannot be changed.</value>
   </data>
   <data name="NewUrl" xml:space="preserve">
-    <value>New Url</value>
+    <value>New URL</value>
   </data>
   <data name="OldUrl" xml:space="preserve">
-    <value>Old Url</value>
+    <value>Old URL</value>
   </data>
   <data name="RedirectAddNew" xml:space="preserve">
     <value>Add New Redirect</value>
@@ -6545,7 +6545,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
     <value>System name is not valid.</value>
   </data>
   <data name="AdminIndexBrowserItemUrl" xml:space="preserve">
-    <value>Url</value>
+    <value>URL</value>
   </data>
   <data name="AddContent" xml:space="preserve">
     <value>Add Content</value>
@@ -6729,5 +6729,14 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="LetterInfoEditNotAllowed" xml:space="preserve">
     <value>You are not in an approved role to edit this newsletter's information.</value>
+  </data>
+  <data name="FriendlyUrlSearch" xml:space="preserve">
+    <value>Find URL</value>
+  </data>
+  <data name="FriendlyUrlEdit" xml:space="preserve">
+    <value>Edit Friendly URL</value>
+  </data>
+  <data name="FriendlyUrlViewRealLink" xml:space="preserve">
+    <value>View Real URL</value>
   </data>
 </root>

@@ -304,7 +304,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Url.
+        ///   Looks up a localized string similar to URL.
         /// </summary>
         internal static string AdminIndexBrowserItemUrl {
             get {
@@ -538,7 +538,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Url Manager.
+        ///   Looks up a localized string similar to URL Manager.
         /// </summary>
         internal static string AdminMenuUrlManagerLink {
             get {
@@ -1978,7 +1978,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Url.
+        ///   Looks up a localized string similar to URL.
         /// </summary>
         internal static string CommentUrl {
             get {
@@ -4507,7 +4507,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feedburner Feed Url.
+        ///   Looks up a localized string similar to Feedburner Feed URL.
         /// </summary>
         internal static string FeedburnerFeedUrl {
             get {
@@ -5299,7 +5299,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add New Url Mapping.
+        ///   Looks up a localized string similar to Add Friendly URL.
         /// </summary>
         internal static string FriendlyUrlAddNewLabel {
             get {
@@ -5317,7 +5317,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete this url?.
+        ///   Looks up a localized string similar to Are you sure you want to delete this URL?.
         /// </summary>
         internal static string FriendlyUrlDeleteConfirmWarning {
             get {
@@ -5335,11 +5335,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry, that Url Mapping is already in use..
+        ///   Looks up a localized string similar to Sorry, that Friendly URL already exists..
         /// </summary>
         internal static string FriendlyUrlDuplicateWarning {
             get {
                 return ResourceManager.GetString("FriendlyUrlDuplicateWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Friendly URL.
+        /// </summary>
+        internal static string FriendlyUrlEdit {
+            get {
+                return ResourceManager.GetString("FriendlyUrlEdit", resourceCulture);
             }
         }
         
@@ -5353,7 +5362,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Or Use Expert Manual Entry.
+        ///   Looks up a localized string similar to Manual Entry.
         /// </summary>
         internal static string FriendlyUrlExpertEntryLabel {
             get {
@@ -5362,7 +5371,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: On Windows servers, if your Friendly Url does not end with .aspx you must create a folder with the same name as your friendly url and add an empty text file named Default.aspx to the folder..
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string FriendlyUrlHelp {
             get {
@@ -5371,7 +5380,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must enter both a friendly Url and a Real Url..
+        ///   Looks up a localized string similar to You must enter both a Friendly URL and a Real URL..
         /// </summary>
         internal static string FriendlyUrlInvalidEntryMessage {
             get {
@@ -5380,7 +5389,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must enter a friendly Url..
+        ///   Looks up a localized string similar to You must enter a Friendly URL..
         /// </summary>
         internal static string FriendlyUrlInvalidFriendlyUrlMessage {
             get {
@@ -5389,7 +5398,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Friendly Url.
+        ///   Looks up a localized string similar to Friendly URL.
         /// </summary>
         internal static string FriendlyUrlLabel {
             get {
@@ -5407,7 +5416,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Real Url.
+        ///   Looks up a localized string similar to Real URL.
         /// </summary>
         internal static string FriendlyUrlRealUrlLabel {
             get {
@@ -5416,7 +5425,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Url must start with ~/ or http:// or https:// and it should have no white spaces in it..
+        ///   Looks up a localized string similar to URL must start with ~/ or http:// or https:// and should not have spaces..
         /// </summary>
         internal static string FriendlyUrlRegexWarning {
             get {
@@ -5434,7 +5443,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select Page from Dropdown List.
+        ///   Looks up a localized string similar to Find URL.
+        /// </summary>
+        internal static string FriendlyUrlSearch {
+            get {
+                return ResourceManager.GetString("FriendlyUrlSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Page.
         /// </summary>
         internal static string FriendlyUrlSelectFromDropdownLabel {
             get {
@@ -5443,11 +5461,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View Friendly Url.
+        ///   Looks up a localized string similar to View Friendly URL.
         /// </summary>
         internal static string FriendlyUrlViewLink {
             get {
                 return ResourceManager.GetString("FriendlyUrlViewLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Real URL.
+        /// </summary>
+        internal static string FriendlyUrlViewRealLink {
+            get {
+                return ResourceManager.GetString("FriendlyUrlViewRealLink", resourceCulture);
             }
         }
         
@@ -5497,7 +5524,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GCheckout Notification Handler Url.
+        ///   Looks up a localized string similar to GCheckout Notification Handler URL.
         /// </summary>
         internal static string GCheckoutNotificationHandlerUrlLabel {
             get {
@@ -10546,7 +10573,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Url.
+        ///   Looks up a localized string similar to New URL.
         /// </summary>
         internal static string NewUrl {
             get {
@@ -10555,7 +10582,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Url is Required..
+        ///   Looks up a localized string similar to New URL is Required..
         /// </summary>
         internal static string NewUrlRequiredMessage {
             get {
@@ -10672,7 +10699,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Old Url.
+        ///   Looks up a localized string similar to Old URL.
         /// </summary>
         internal static string OldUrl {
             get {
@@ -10681,7 +10708,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Old Url is Required..
+        ///   Looks up a localized string similar to Old URL is Required..
         /// </summary>
         internal static string OldUrlRequiredMessage {
             get {
@@ -11698,7 +11725,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Url.
+        ///   Looks up a localized string similar to URL.
         /// </summary>
         internal static string PageLayoutUrlLabel {
             get {
@@ -11707,7 +11734,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Url?.
+        ///   Looks up a localized string similar to Use URL?.
         /// </summary>
         internal static string PageLayoutUseUrlLabel {
             get {
@@ -11878,7 +11905,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Canonical Url Override.
+        ///   Looks up a localized string similar to Canonical URL Override.
         /// </summary>
         internal static string PageSettingsCanonicalOverride {
             get {
@@ -12121,7 +12148,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Warning: This Url will link to an existing physical page. If this is not intended please enter a different url for this page..
+        ///   Looks up a localized string similar to Warning: This URL will link to an existing physical page. If this is not intended please enter a different url for this page..
         /// </summary>
         internal static string PageSettingsPhysicalUrlWarning {
             get {
@@ -12292,7 +12319,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Url is already in use. You cannot use the same Url for different pages, unless you use the full Url with http. However, doing this will result in multiple Menu Pages pointing to the same actual page..
+        ///   Looks up a localized string similar to The URL is already in use. You cannot use the same URL for different pages, unless you use the full URL with http. However, doing this will result in multiple Menu Pages pointing to the same actual page..
         /// </summary>
         internal static string PageUrlInUseErrorMessage {
             get {
@@ -14425,7 +14452,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Script Url.
+        ///   Looks up a localized string similar to Script URL.
         /// </summary>
         internal static string ScriptUrl {
             get {
@@ -14434,7 +14461,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Script Url Position.
+        ///   Looks up a localized string similar to Script URL Position.
         /// </summary>
         internal static string ScriptUrlPosition {
             get {
@@ -15812,7 +15839,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default Friendly Url Pattern.
+        ///   Looks up a localized string similar to Default Friendly URL Pattern.
         /// </summary>
         internal static string SiteSettingsDefaultFriendlyUrlPatternLabel {
             get {
@@ -16514,7 +16541,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Privacy Policy Url.
+        ///   Looks up a localized string similar to Privacy Policy URL.
         /// </summary>
         internal static string SiteSettingsPrivacyUrlLabel {
             get {
@@ -19745,7 +19772,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Windows Live Application Logo Url.
+        ///   Looks up a localized string similar to Windows Live Application Logo URL.
         /// </summary>
         internal static string WindowsLiveAppLogoLabel {
             get {

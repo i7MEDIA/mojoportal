@@ -56,7 +56,6 @@
 						</span>
 					</div>
 				</div>
-				<div class="panel-footer"></div>
 			</div>
 		</asp:Panel>
 	</div>
@@ -95,7 +94,7 @@
 		<EditItemTemplate>
 			<asp:Table runat="server">
 				<asp:TableRow>
-					<asp:TableCell ColumnSpan="3" CssClass="text-left">
+					<asp:TableCell ColumnSpan="4" CssClass="text-left">
 						<div class="panel panel-info">
 							<div class="panel-heading">
 								<h3 class="panel-title"><%# Resources.Resource.RedirectEdit %></h3>
