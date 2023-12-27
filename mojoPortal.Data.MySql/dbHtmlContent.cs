@@ -1,29 +1,11 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2013-04-18
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-/// 
-/// Note moved into separate class file from dbPortal 2007-11-03
-
 using System;
-using System.Text;
 using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
+using System.Text;
 using MySql.Data.MySqlClient;
 
 namespace mojoPortal.Data
 {
-    public static class DBHtmlContent
+	public static class DBHtmlContent
     {
        
         public static int AddHtmlContent(
@@ -347,53 +329,53 @@ namespace mojoPortal.Data
 
         }
 
-        public static IDataReader GetHtmlContent(int moduleId, int itemId)
-        {
+        //public static IDataReader GetHtmlContent(int moduleId, int itemId)
+        //{
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT h.*, ");
+        //    StringBuilder sqlCommand = new StringBuilder();
+        //    sqlCommand.Append("SELECT h.*, ");
 
-            sqlCommand.Append("u1.Name AS CreatedByName, ");
-            sqlCommand.Append("u1.FirstName AS CreatedByFirstName, ");
-            sqlCommand.Append("u1.LastName AS CreatedByLastName, ");
-            sqlCommand.Append("u1.Email AS CreatedByEmail, ");
+        //    sqlCommand.Append("u1.Name AS CreatedByName, ");
+        //    sqlCommand.Append("u1.FirstName AS CreatedByFirstName, ");
+        //    sqlCommand.Append("u1.LastName AS CreatedByLastName, ");
+        //    sqlCommand.Append("u1.Email AS CreatedByEmail, ");
 
-            sqlCommand.Append("u1.AuthorBio, ");
-            sqlCommand.Append("u1.AvatarUrl, ");
-            sqlCommand.Append("COALESCE(u1.UserID, -1) As AuthorUserID, ");
+        //    sqlCommand.Append("u1.AuthorBio, ");
+        //    sqlCommand.Append("u1.AvatarUrl, ");
+        //    sqlCommand.Append("COALESCE(u1.UserID, -1) As AuthorUserID, ");
 
-            sqlCommand.Append("u2.Name AS LastModByName, ");
-            sqlCommand.Append("u2.FirstName AS LastModByFirstName, ");
-            sqlCommand.Append("u2.LastName AS LastModByLastName, ");
-            sqlCommand.Append("u2.Email AS LastModByEmail ");
+        //    sqlCommand.Append("u2.Name AS LastModByName, ");
+        //    sqlCommand.Append("u2.FirstName AS LastModByFirstName, ");
+        //    sqlCommand.Append("u2.LastName AS LastModByLastName, ");
+        //    sqlCommand.Append("u2.Email AS LastModByEmail ");
 
-            sqlCommand.Append("FROM	mp_HtmlContent h ");
+        //    sqlCommand.Append("FROM	mp_HtmlContent h ");
 
-            sqlCommand.Append("LEFT OUTER JOIN ");
-            sqlCommand.Append("mp_Users u1 ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("h.UserGuid = u1.UserGuid ");
+        //    sqlCommand.Append("LEFT OUTER JOIN ");
+        //    sqlCommand.Append("mp_Users u1 ");
+        //    sqlCommand.Append("ON ");
+        //    sqlCommand.Append("h.UserGuid = u1.UserGuid ");
 
-            sqlCommand.Append("LEFT OUTER JOIN ");
-            sqlCommand.Append("mp_Users u2 ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("h.LastModUserGuid = u2.UserGuid ");
+        //    sqlCommand.Append("LEFT OUTER JOIN ");
+        //    sqlCommand.Append("mp_Users u2 ");
+        //    sqlCommand.Append("ON ");
+        //    sqlCommand.Append("h.LastModUserGuid = u2.UserGuid ");
 
-            sqlCommand.Append("WHERE ItemID = ?ItemID  ;");
+        //    sqlCommand.Append("WHERE ItemID = ?ItemID  ;");
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+        //    MySqlParameter[] arParams = new MySqlParameter[1];
 
-            arParams[0] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = itemId;
+        //    arParams[0] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
+        //    arParams[0].Direction = ParameterDirection.Input;
+        //    arParams[0].Value = itemId;
 
-            return MySqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+        //    return MySqlHelper.ExecuteReader(
+        //        ConnectionString.GetReadConnectionString(),
+        //        sqlCommand.ToString(),
+        //        arParams);
 
 
-        }
+        //}
 
         public static IDataReader GetHtmlForMetaWeblogApi(int siteId)
         {

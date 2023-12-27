@@ -1,15 +1,3 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2013-04-18
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
 using System;
 using System.Data;
 using System.Text;
@@ -356,53 +344,53 @@ namespace mojoPortal.Data
             return (rowsAffected > -1);
         }
 
-        public static IDataReader GetHtmlContent(int moduleId, int itemId)
-        {
-            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
+        //public static IDataReader GetHtmlContent(int moduleId, int itemId)
+        //{
+        //    NpgsqlParameter[] arParams = new NpgsqlParameter[1];
             
-            arParams[0] = new NpgsqlParameter(":itemid", NpgsqlTypes.NpgsqlDbType.Integer);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = itemId;
+        //    arParams[0] = new NpgsqlParameter(":itemid", NpgsqlTypes.NpgsqlDbType.Integer);
+        //    arParams[0].Direction = ParameterDirection.Input;
+        //    arParams[0].Value = itemId;
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT h.*, ");
-            sqlCommand.Append("u1.name AS createdbyname, ");
-            sqlCommand.Append("u1.firstname AS createdbyfirstname, ");
-            sqlCommand.Append("u1.lastname AS createdbylastname, ");
-            sqlCommand.Append("u1.email AS createdbyemail, ");
+        //    StringBuilder sqlCommand = new StringBuilder();
+        //    sqlCommand.Append("SELECT h.*, ");
+        //    sqlCommand.Append("u1.name AS createdbyname, ");
+        //    sqlCommand.Append("u1.firstname AS createdbyfirstname, ");
+        //    sqlCommand.Append("u1.lastname AS createdbylastname, ");
+        //    sqlCommand.Append("u1.email AS createdbyemail, ");
 
-            sqlCommand.Append("u1.authorbio, ");
-            sqlCommand.Append("u1.avatarurl, ");
-            sqlCommand.Append("COALESCE(u1.userid, -1) As authoruserid, ");
+        //    sqlCommand.Append("u1.authorbio, ");
+        //    sqlCommand.Append("u1.avatarurl, ");
+        //    sqlCommand.Append("COALESCE(u1.userid, -1) As authoruserid, ");
 
-            sqlCommand.Append("u2.name AS lastmodbyname, ");
-            sqlCommand.Append("u2.firstname AS lastmodbyfirstname, ");
-            sqlCommand.Append("u2.lastname AS lastmodbylastname, ");
-            sqlCommand.Append("u2.email AS lastmodByemail ");
+        //    sqlCommand.Append("u2.name AS lastmodbyname, ");
+        //    sqlCommand.Append("u2.firstname AS lastmodbyfirstname, ");
+        //    sqlCommand.Append("u2.lastname AS lastmodbylastname, ");
+        //    sqlCommand.Append("u2.email AS lastmodByemail ");
 
-            sqlCommand.Append("FROM	mp_htmlcontent h ");
+        //    sqlCommand.Append("FROM	mp_htmlcontent h ");
 
-            sqlCommand.Append("LEFT OUTER JOIN ");
-            sqlCommand.Append("mp_users u1 ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("h.userguid = u1.userguid ");
+        //    sqlCommand.Append("LEFT OUTER JOIN ");
+        //    sqlCommand.Append("mp_users u1 ");
+        //    sqlCommand.Append("ON ");
+        //    sqlCommand.Append("h.userguid = u1.userguid ");
 
-            sqlCommand.Append("LEFT OUTER JOIN ");
-            sqlCommand.Append("mp_users u2 ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("h.lastmoduserguid = u2.userguid ");
+        //    sqlCommand.Append("LEFT OUTER JOIN ");
+        //    sqlCommand.Append("mp_users u2 ");
+        //    sqlCommand.Append("ON ");
+        //    sqlCommand.Append("h.lastmoduserguid = u2.userguid ");
 
-            sqlCommand.Append("WHERE h.itemid = :itemid  ;");
+        //    sqlCommand.Append("WHERE h.itemid = :itemid  ;");
 
 
 
-            return NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.Text,
-                sqlCommand.ToString(),
-                arParams);
+        //    return NpgsqlHelper.ExecuteReader(
+        //        ConnectionString.GetReadConnectionString(),
+        //        CommandType.Text,
+        //        sqlCommand.ToString(),
+        //        arParams);
 
-        }
+        //}
 
         public static IDataReader GetHtmlForMetaWeblogApi(int siteId)
         {

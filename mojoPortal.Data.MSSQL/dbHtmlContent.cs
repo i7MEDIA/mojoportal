@@ -134,12 +134,12 @@ namespace mojoPortal.Data
             return (rowsAffected > -1);
         }
 
-        public static IDataReader GetHtmlContent(int moduleId, int itemId)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_HtmlContent_SelectOne", 1);
-            sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemId);
-            return sph.ExecuteReader();
-        }
+        //public static IDataReader GetHtmlContent(int moduleId, int itemId)
+        //{
+        //    SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_HtmlContent_SelectOne", 1);
+        //    sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemId);
+        //    return sph.ExecuteReader();
+        //}
 
         public static IDataReader GetHtmlForMetaWeblogApi(int siteId)
         {

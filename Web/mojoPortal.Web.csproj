@@ -634,9 +634,6 @@
     <Content Include="HelpEdit.aspx" />
     <Content Include="HtmlEdit.aspx">
     </Content>
-    <Content Include="HtmlView.aspx">
-      <SubType>ASPXCodeBehind</SubType>
-    </Content>
     <Content Include="Logoff.aspx" />
     <Content Include="MemberList.aspx">
       <SubType>ASPXCodeBehind</SubType>
@@ -2480,13 +2477,6 @@
     </Compile>
     <Compile Include="HtmlEdit.aspx.designer.cs">
       <DependentUpon>HtmlEdit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="HtmlView.aspx.cs">
-      <DependentUpon>HtmlView.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="HtmlView.aspx.designer.cs">
-      <DependentUpon>HtmlView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Logoff.aspx.cs">
       <DependentUpon>Logoff.aspx</DependentUpon>

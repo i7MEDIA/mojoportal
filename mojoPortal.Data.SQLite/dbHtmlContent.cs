@@ -1,29 +1,13 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2013-04-18
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
 using System;
-using System.Text;
-using System.Data;
-using System.Data.Common;
 using System.Configuration;
-using System.Globalization;
-using System.IO;
-using System.Web;
+using System.Data;
+using System.Text;
 using Mono.Data.Sqlite;
 
 namespace mojoPortal.Data
 {
-   
-    public static class DBHtmlContent
+
+	public static class DBHtmlContent
     {
         
         private static string GetConnectionString()
@@ -358,68 +342,68 @@ namespace mojoPortal.Data
             return (rowsAffected > 0);
         }
 
-        public static IDataReader GetHtmlContent(int moduleId, int itemId)
-        {
+        //public static IDataReader GetHtmlContent(int moduleId, int itemId)
+        //{
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("h.ItemID AS ItemID, ");
-            sqlCommand.Append("h.ModuleID AS ModuleID, ");
-            sqlCommand.Append("h.Title AS Title, ");
-            //sqlCommand.Append("h.Excerpt AS Excerpt, ");
-            sqlCommand.Append("h.Body AS Body, ");
-            sqlCommand.Append("h.MoreLink AS MoreLink, ");
-            sqlCommand.Append("h.SortOrder AS SortOrder, ");
-            //sqlCommand.Append("h.BeginDate AS BeginDate, ");
-            //sqlCommand.Append("h.EndDate AS EndDate, ");
-            sqlCommand.Append("h.CreatedDate AS CreatedDate, ");
-            sqlCommand.Append("h.UserID AS UserID, ");
-            sqlCommand.Append("h.ItemGuid AS ItemGuid, ");
-            sqlCommand.Append("h.ModuleGuid AS ModuleGuid, ");
-            sqlCommand.Append("h.UserGuid AS UserGuid, ");
-            sqlCommand.Append("h.LastModUserGuid AS LastModUserGuid, ");
-            sqlCommand.Append("h.LastModUtc AS LastModUtc, ");
-            sqlCommand.Append("h.ExcludeFromRecentContent AS ExcludeFromRecentContent, ");
+        //    StringBuilder sqlCommand = new StringBuilder();
+        //    sqlCommand.Append("SELECT ");
+        //    sqlCommand.Append("h.ItemID AS ItemID, ");
+        //    sqlCommand.Append("h.ModuleID AS ModuleID, ");
+        //    sqlCommand.Append("h.Title AS Title, ");
+        //    //sqlCommand.Append("h.Excerpt AS Excerpt, ");
+        //    sqlCommand.Append("h.Body AS Body, ");
+        //    sqlCommand.Append("h.MoreLink AS MoreLink, ");
+        //    sqlCommand.Append("h.SortOrder AS SortOrder, ");
+        //    //sqlCommand.Append("h.BeginDate AS BeginDate, ");
+        //    //sqlCommand.Append("h.EndDate AS EndDate, ");
+        //    sqlCommand.Append("h.CreatedDate AS CreatedDate, ");
+        //    sqlCommand.Append("h.UserID AS UserID, ");
+        //    sqlCommand.Append("h.ItemGuid AS ItemGuid, ");
+        //    sqlCommand.Append("h.ModuleGuid AS ModuleGuid, ");
+        //    sqlCommand.Append("h.UserGuid AS UserGuid, ");
+        //    sqlCommand.Append("h.LastModUserGuid AS LastModUserGuid, ");
+        //    sqlCommand.Append("h.LastModUtc AS LastModUtc, ");
+        //    sqlCommand.Append("h.ExcludeFromRecentContent AS ExcludeFromRecentContent, ");
 
-            sqlCommand.Append("u1.Name AS CreatedByName, ");
-            sqlCommand.Append("u1.FirstName AS CreatedByFirstName, ");
-            sqlCommand.Append("u1.LastName AS CreatedByLastName, ");
-            sqlCommand.Append("u1.Email AS CreatedByEmail, ");
-            sqlCommand.Append("u1.AuthorBio, ");
-            sqlCommand.Append("u1.AvatarUrl, ");
-            sqlCommand.Append("COALESCE(u1.UserID, -1) As AuthorUserID, ");
-            sqlCommand.Append("u2.Name AS LastModByName, ");
-            sqlCommand.Append("u2.FirstName AS LastModByFirstName, ");
-            sqlCommand.Append("u2.LastName AS LastModByLastName, ");
-            sqlCommand.Append("u2.Email AS LastModByEmail ");
+        //    sqlCommand.Append("u1.Name AS CreatedByName, ");
+        //    sqlCommand.Append("u1.FirstName AS CreatedByFirstName, ");
+        //    sqlCommand.Append("u1.LastName AS CreatedByLastName, ");
+        //    sqlCommand.Append("u1.Email AS CreatedByEmail, ");
+        //    sqlCommand.Append("u1.AuthorBio, ");
+        //    sqlCommand.Append("u1.AvatarUrl, ");
+        //    sqlCommand.Append("COALESCE(u1.UserID, -1) As AuthorUserID, ");
+        //    sqlCommand.Append("u2.Name AS LastModByName, ");
+        //    sqlCommand.Append("u2.FirstName AS LastModByFirstName, ");
+        //    sqlCommand.Append("u2.LastName AS LastModByLastName, ");
+        //    sqlCommand.Append("u2.Email AS LastModByEmail ");
 
-            sqlCommand.Append("FROM	mp_HtmlContent h ");
+        //    sqlCommand.Append("FROM	mp_HtmlContent h ");
 
-            sqlCommand.Append("LEFT OUTER JOIN ");
-            sqlCommand.Append("mp_Users u1 ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("h.UserGuid = u1.UserGuid ");
+        //    sqlCommand.Append("LEFT OUTER JOIN ");
+        //    sqlCommand.Append("mp_Users u1 ");
+        //    sqlCommand.Append("ON ");
+        //    sqlCommand.Append("h.UserGuid = u1.UserGuid ");
 
-            sqlCommand.Append("LEFT OUTER JOIN ");
-            sqlCommand.Append("mp_Users u2 ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("h.LastModUserGuid = u2.UserGuid ");
+        //    sqlCommand.Append("LEFT OUTER JOIN ");
+        //    sqlCommand.Append("mp_Users u2 ");
+        //    sqlCommand.Append("ON ");
+        //    sqlCommand.Append("h.LastModUserGuid = u2.UserGuid ");
 
-            sqlCommand.Append("WHERE h.ItemID = :ItemID  ;");
+        //    sqlCommand.Append("WHERE h.ItemID = :ItemID  ;");
 
-            SqliteParameter[] arParams = new SqliteParameter[1];
+        //    SqliteParameter[] arParams = new SqliteParameter[1];
 
-            arParams[0] = new SqliteParameter(":ItemID", DbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = itemId;
+        //    arParams[0] = new SqliteParameter(":ItemID", DbType.Int32);
+        //    arParams[0].Direction = ParameterDirection.Input;
+        //    arParams[0].Value = itemId;
 
-            return SqliteHelper.ExecuteReader(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+        //    return SqliteHelper.ExecuteReader(
+        //        GetConnectionString(),
+        //        sqlCommand.ToString(),
+        //        arParams);
 
 
-        }
+        //}
 
         public static IDataReader GetHtmlForMetaWeblogApi(int siteId)
         {

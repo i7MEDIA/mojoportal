@@ -41,23 +41,23 @@ namespace mojoPortal.Business
             return null;
         }
 
-        public HtmlContent Fetch(int moduleId, int itemId)
-        {
-            if (moduleId < 0) { return null; }
-            if (itemId < 0) { return null; }
+        //public HtmlContent Fetch(int moduleId, int itemId)
+        //{
+        //    if (moduleId < 0) { return null; }
+        //    if (itemId < 0) { return null; }
 
-            using (IDataReader reader = DBHtmlContent.GetHtmlContent(moduleId, itemId))
-            {
-                if (reader.Read())
-                {
-                    HtmlContent content = new HtmlContent();
-                    LoadFromReader(content, reader);
-                    return content;
-                }
-            }
+        //    using (IDataReader reader = DBHtmlContent.GetHtmlContent(moduleId, itemId))
+        //    {
+        //        if (reader.Read())
+        //        {
+        //            HtmlContent content = new HtmlContent();
+        //            LoadFromReader(content, reader);
+        //            return content;
+        //        }
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
         private void LoadFromReader(HtmlContent content, IDataReader reader)
         {
