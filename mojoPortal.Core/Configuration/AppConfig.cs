@@ -123,5 +123,45 @@ namespace mojoPortal.Core.Configuration
 				return ConfigHelper.GetBoolProperty("EnableUploads", true);
 			}
 		}
+
+		public static string DefaultAdminUserEmailFormat
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("DefaultAdminUserEmailFormat", "admin{0}@admin.com");
+			}
+		}
+
+		public static string DefaultAdminUsernameFormat
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("DefaultAdminUsernameFormat", "admin{0}");
+			}
+		}
+
+		public static string DefaultAdminPassword
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("DefaultAdminPassword", "admin");
+			}
+		}
+
+		public static string DefaultAdminSecurityQuestion
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("DefaultAdminSecurityQuestion", "What is your username?");
+			}
+		}
+
+		public static string DefaultAdminSecurityAnswer
+		{
+			get
+			{
+				return ConfigHelper.GetStringProperty("DefaultAdminSecurityPassword", "admin");
+			}
+		}
 	}
 }
