@@ -1,14 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Web;
+using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Web;
-using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.UI.Pages
 {
@@ -101,10 +101,10 @@ namespace mojoPortal.Web.UI.Pages
 
 			if (Page.Header != null && CurrentPage.Url.Length > 0)
 			{
-				Literal link = new Literal
+				var link = new Literal
 				{
 					ID = "pageurl",
-					Text = $"\n<link rel='canonical' href='{SiteRoot}/MemberList.aspx' />"
+					Text = $"\n<link rel=\"canonical\" href=\"{SiteRoot}/MemberList.aspx\" />"
 				};
 
 				Page.Header.Controls.Add(link);
@@ -234,7 +234,6 @@ namespace mojoPortal.Web.UI.Pages
 			};
 		}
 
-
 		void BindLockedUsers()
 		{
 			if (!canManageUsers)
@@ -260,7 +259,6 @@ namespace mojoPortal.Web.UI.Pages
 				);
 			}
 		}
-
 
 		void BindNotApprovedUsers()
 		{
@@ -290,14 +288,12 @@ namespace mojoPortal.Web.UI.Pages
 			log.Debug($"found {siteUserPage.Count} users not approved");
 		}
 
-
 		private void PopulateLabels()
 		{
 			Title = SiteUtils.FormatPageTitle(siteSettings, Resource.MemberListLink);
 			MetaDescription = string.Format(CultureInfo.InvariantCulture,
 			Resource.MetaDescriptionMemberListFormat, siteSettings.SiteName);
 		}
-
 
 		private void LoadSettings()
 		{
@@ -349,7 +345,6 @@ namespace mojoPortal.Web.UI.Pages
 	}
 }
 
-
 namespace mojoPortal.Web.UI
 {
 	using System.Web;
@@ -378,7 +373,6 @@ namespace mojoPortal.Web.UI
 		public string TableCssClass { get; set; } = string.Empty;
 		public string TableAttributes { get; set; } = "cellspacing='0' width='100%'";
 
-
 		protected override void Render(HtmlTextWriter writer)
 		{
 			if (HttpContext.Current == null)
@@ -391,4 +385,3 @@ namespace mojoPortal.Web.UI
 		}
 	}
 }
-

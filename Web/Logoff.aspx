@@ -1,4 +1,5 @@
-<%@ Page language="c#" CodeBehind="Logoff.aspx.cs" AutoEventWireup="True" Inherits="mojoPortal.Web.UI.Pages.Logoff" %>
+<%@ Page Language="c#" CodeBehind="Logoff.aspx.cs" AutoEventWireup="True" Inherits="mojoPortal.Web.UI.Pages.Logoff" %>
+
 <%--
 
    The Logoff page is responsible for signing out a user from the cookie authentication, and

@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/DialogMaster.Master" CodeBehind="HtmlCompare.aspx.cs" Inherits="mojoPortal.Web.ContentUI.HtmlCompare" %>
 
-<asp:Content ContentPlaceHolderID="phHead" ID="HeadContent" runat="server"></asp:Content>
+<asp:Content ContentPlaceHolderID="phHead" ID="HeadContent" runat="server" />
 <asp:Content ContentPlaceHolderID="phMain" ID="MainContent" runat="server">
 	<div class="html-compare container-fluid">
 		<div class="html-compare__toggle-highlight form-group">

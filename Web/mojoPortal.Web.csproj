@@ -479,7 +479,7 @@
       <LastGenOutput>AccessKeys.designer.cs</LastGenOutput>
     </Content>
     <Content Include="BingSearch.aspx" />
-    <Content Include="blank.html" />
+    <Content Include="Content\Templates\blank.html" />
     <Content Include="closed.aspx" />
     <Content Include="ConfirmRegistration.aspx" />
     <Content Include="Content\FileManager\dist\angular-filemanager.min.css" />
@@ -2931,7 +2931,6 @@
     <Content Include="SearchResults.ashx" />
     <Content Include="SearchEngineInfo.ashx" />
     <Content Include="Services\RpxPluginResponseHandler.ashx" />
-    <Content Include="settings.map.config" />
     <Content Include="mojoEncryption.config" />
     <Content Include="Services\PayPalReturnHandler.ashx" />
     <Content Include="mojoSiteMap.config" />

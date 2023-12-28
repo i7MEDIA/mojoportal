@@ -2,7 +2,7 @@
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
-	<portal:memberlistdisplaysettings id="displaySettings" runat="server" />
+	<portal:MemberListDisplaySettings ID="displaySettings" runat="server" />
 	<asp:Literal ID="theLit" runat="server" />
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />
