@@ -47,79 +47,69 @@ public class SearchEngineInfo : IHttpHandler
 			}
 		}
 
-		using (XmlTextWriter xmlTextWriter = new XmlTextWriter(context.Response.OutputStream, encoding))
-		{
-			xmlTextWriter.Formatting = Formatting.Indented;
+		using var xmlTextWriter = new XmlTextWriter(context.Response.OutputStream, encoding);
+		xmlTextWriter.Formatting = Formatting.Indented;
 
-			xmlTextWriter.WriteStartDocument();
+		xmlTextWriter.WriteStartDocument();
 
-			xmlTextWriter.WriteStartElement("OpenSearchDescription");
-			xmlTextWriter.WriteAttributeString("xmlns", "http://a9.com/-/spec/opensearch/1.1/");
-			xmlTextWriter.WriteAttributeString("xmlns:moz", "http://www.mozilla.org/2006/browser/search/");
+		xmlTextWriter.WriteStartElement("OpenSearchDescription");
+		xmlTextWriter.WriteAttributeString("xmlns", "http://a9.com/-/spec/opensearch/1.1/");
+		xmlTextWriter.WriteAttributeString("xmlns:moz", "http://www.mozilla.org/2006/browser/search/");
 
-			xmlTextWriter.WriteStartElement("ShortName");
-			xmlTextWriter.WriteValue(shortName);
-			xmlTextWriter.WriteEndElement();
+		xmlTextWriter.WriteStartElement("ShortName");
+		xmlTextWriter.WriteValue(shortName);
+		xmlTextWriter.WriteEndElement();
 
-			xmlTextWriter.WriteStartElement("Description");
-			xmlTextWriter.WriteValue("The search engine included in mojoPortal Content Managment System");
-			xmlTextWriter.WriteEndElement();
+		xmlTextWriter.WriteStartElement("Description");
+		xmlTextWriter.WriteValue("The search engine included in mojoPortal Content Managment System");
+		xmlTextWriter.WriteEndElement();
 
-			xmlTextWriter.WriteStartElement("InputEncoding");
-			xmlTextWriter.WriteValue("UTF-8");
-			xmlTextWriter.WriteEndElement();
-
-
-			//URI to an icon representative of the search engine. When possible, search engines should offer a 16x16 image of type "image/x-icon" 
-			//and a 64x64 image of type "image/jpeg" or "image/png". 
-			//context.Response.Write("<Image width=\"16\" height=\"16\" type=\"image/x-icon\">data:image/x-icon;base64,imageData</Image>");
-			//context.Response.Write("<Image height="\16\" width=\"16\" type=\"image/x-icon\">http://example.com/favicon.ico</Image>");
-			xmlTextWriter.WriteStartElement("Image");
-			xmlTextWriter.WriteAttributeString("type", "image/x-icon");
-			xmlTextWriter.WriteAttributeString("width", "16");
-			xmlTextWriter.WriteAttributeString("height", "16");
-			xmlTextWriter.WriteValue(SiteUtils.GetSkinBaseUrl(false, null) + "favicon.ico");
-			xmlTextWriter.WriteEndElement();
-
-			//self update url
-			xmlTextWriter.WriteStartElement("Url");
-			xmlTextWriter.WriteAttributeString("type", "application/opensearchdescription+xml");
-			xmlTextWriter.WriteAttributeString("rel", "self");
-			xmlTextWriter.WriteAttributeString("template", siteRoot + "/SearchEngineInfo.ashx");
-			xmlTextWriter.WriteEndElement();
+		xmlTextWriter.WriteStartElement("InputEncoding");
+		xmlTextWriter.WriteValue("UTF-8");
+		xmlTextWriter.WriteEndElement();
 
 
-			//Atom url
-			xmlTextWriter.WriteStartElement("Url");
-			xmlTextWriter.WriteAttributeString("type", "application/atom+xml");
-			xmlTextWriter.WriteAttributeString("template", siteRoot + "/SearchResults.ashx?q={searchTerms}&p={startPage?}");
-			xmlTextWriter.WriteEndElement();
-			//context.Response.Write("<Url type=\"application/atom+xml\" template=\"http://example.com/?q={searchTerms}&amp;pw={startPage?}&amp;format=atom\"/>");
+		//URI to an icon representative of the search engine. When possible, search engines should offer a 16x16 image of type "image/x-icon" 
+		//and a 64x64 image of type "image/jpeg" or "image/png". 
+		//context.Response.Write("<Image width=\"16\" height=\"16\" type=\"image/x-icon\">data:image/x-icon;base64,imageData</Image>");
+		//context.Response.Write("<Image height="\16\" width=\"16\" type=\"image/x-icon\">http://example.com/favicon.ico</Image>");
+		xmlTextWriter.WriteStartElement("Image");
+		xmlTextWriter.WriteAttributeString("type", "image/x-icon");
+		xmlTextWriter.WriteAttributeString("width", "16");
+		xmlTextWriter.WriteAttributeString("height", "16");
+		xmlTextWriter.WriteValue(SiteUtils.GetSkinBaseUrl(false, null) + "favicon.ico");
+		xmlTextWriter.WriteEndElement();
 
-			//search url
-			xmlTextWriter.WriteStartElement("Url");
-			xmlTextWriter.WriteAttributeString("type", "text/html");
-			xmlTextWriter.WriteAttributeString("template", siteRoot + "/SearchResults.aspx?q={searchTerms}&p={startPage?}");
-			xmlTextWriter.WriteEndElement();
+		//self update url
+		xmlTextWriter.WriteStartElement("Url");
+		xmlTextWriter.WriteAttributeString("type", "application/opensearchdescription+xml");
+		xmlTextWriter.WriteAttributeString("rel", "self");
+		xmlTextWriter.WriteAttributeString("template", siteRoot + "/SearchEngineInfo.ashx");
+		xmlTextWriter.WriteEndElement();
 
+		//Atom url
+		xmlTextWriter.WriteStartElement("Url");
+		xmlTextWriter.WriteAttributeString("type", "application/atom+xml");
+		xmlTextWriter.WriteAttributeString("template", siteRoot + "/SearchResults.ashx?q={searchTerms}&p={startPage?}");
+		xmlTextWriter.WriteEndElement();
+		//context.Response.Write("<Url type=\"application/atom+xml\" template=\"http://example.com/?q={searchTerms}&amp;pw={startPage?}&amp;format=atom\"/>");
 
+		//search url
+		xmlTextWriter.WriteStartElement("Url");
+		xmlTextWriter.WriteAttributeString("type", "text/html");
+		xmlTextWriter.WriteAttributeString("template", siteRoot + "/SearchResults.aspx?q={searchTerms}&p={startPage?}");
+		xmlTextWriter.WriteEndElement();
 
-			//autosuggest
-			//context.Response.Write("<Url type=\"application/x-suggestions+json\" template=\"suggestionURL\"/>");
+		//autosuggest
+		//context.Response.Write("<Url type=\"application/x-suggestions+json\" template=\"suggestionURL\"/>");
 
-			//FF specific
-			xmlTextWriter.WriteStartElement("moz:SearchForm");
-			xmlTextWriter.WriteValue(siteRoot + "/SearchResults.aspx");
-			xmlTextWriter.WriteEndElement();
+		//FF specific
+		xmlTextWriter.WriteStartElement("moz:SearchForm");
+		xmlTextWriter.WriteValue(siteRoot + "/SearchResults.aspx");
+		xmlTextWriter.WriteEndElement();
 
-
-
-			xmlTextWriter.WriteEndElement();
-
-		}
-
+		xmlTextWriter.WriteEndElement();
 	}
-
 
 	public bool IsReusable
 	{

@@ -7,7 +7,6 @@
 	<asp:Panel ID="pnlRegister" runat="server" CssClass="panelwrapper register">
 		<div class="modulecontent">
 			<asp:Literal ID="litHeading" runat="server" />
-
 			<asp:Panel ID="pnlAuthenticated" runat="server" Visible="false">
 				<asp:Literal ID="litAlreadyAuthenticated" runat="server" />
 			</asp:Panel>
@@ -20,94 +19,66 @@
 									<div id="divPreamble" runat="server" class="regpreamble"></div>
 									<asp:Panel ID="pnlRequiredProfilePropertiesUpper" runat="server"></asp:Panel>
 									<asp:Panel ID="pnlUserName" runat="server" CssClass="settingrow">
-										<mp:SiteLabel ID="lblLoginName" runat="server" ForControl="UserName" CssClass="settinglabel"
-											ConfigKey="RegisterLoginNameLabel">
-										</mp:SiteLabel>
+										<mp:SiteLabel ID="lblLoginName" runat="server" ForControl="UserName" CssClass="settinglabel" ConfigKey="RegisterLoginNameLabel" />
 										<asp:TextBox ID="UserName" runat="server" TabIndex="0" MaxLength="50" CssClass="forminput mediumtextbox" />
-										<asp:RequiredFieldValidator ControlToValidate="UserName" ID="UserNameRequired" runat="server"
-											Display="None" ValidationGroup="profile" SkinID="Registration"></asp:RequiredFieldValidator>
-										<asp:RegularExpressionValidator ID="regexUserName" runat="server" ControlToValidate="UserName"
-											Display="None" ValidationExpression="" ValidationGroup="profile" Enabled="false" SkinID="Registration"></asp:RegularExpressionValidator>
-										<asp:CustomValidator ID="FailSafeUserNameValidator" runat="server" ControlToValidate="UserName"
-											Display="None" ValidationGroup="profile" EnableClientScript="false" SkinID="Registration"></asp:CustomValidator>
+										<asp:RequiredFieldValidator ControlToValidate="UserName" ID="UserNameRequired" runat="server" Display="None" ValidationGroup="profile" SkinID="Registration" />
+										<asp:RegularExpressionValidator ID="regexUserName" runat="server" ControlToValidate="UserName" Display="None" ValidationExpression="" ValidationGroup="profile" Enabled="false" SkinID="Registration" />
+										<asp:CustomValidator ID="FailSafeUserNameValidator" runat="server" ControlToValidate="UserName" Display="None" ValidationGroup="profile" EnableClientScript="false" SkinID="Registration" />
 										<asp:Panel ID="pnlUserNameHint" runat="server" CssClass="hint" Visible="false">
 											<asp:Label ID="lblUserNameHint" runat="server" />
 										</asp:Panel>
 									</asp:Panel>
 									<div class="settingrow">
-										<mp:SiteLabel ID="lblRegisterEmail1" runat="server" ForControl="Email" CssClass="settinglabel"
-											ConfigKey="RegisterEmailLabel">
-										</mp:SiteLabel>
-										<asp:TextBox ID="Email" runat="server" TabIndex="0" MaxLength="100" CssClass="forminput mediumtextbox"></asp:TextBox>
-										<asp:RequiredFieldValidator ControlToValidate="Email" ID="EmailRequired" runat="server"
-											Display="None" ValidationGroup="profile" SkinID="Registration"></asp:RequiredFieldValidator>
-										<portal:EmailValidator ID="EmailRegex" runat="server" ControlToValidate="Email"
-											Display="None" ValidationGroup="profile" SkinID="Registration"></portal:EmailValidator>
+										<mp:SiteLabel ID="lblRegisterEmail1" runat="server" ForControl="Email" CssClass="settinglabel" ConfigKey="RegisterEmailLabel" />
+										<asp:TextBox ID="Email" runat="server" TabIndex="0" MaxLength="100" CssClass="forminput mediumtextbox" />
+										<asp:RequiredFieldValidator ControlToValidate="Email" ID="EmailRequired" runat="server" Display="None" ValidationGroup="profile" SkinID="Registration" />
+										<portal:EmailValidator ID="EmailRegex" runat="server" ControlToValidate="Email" Display="None" ValidationGroup="profile" SkinID="Registration" />
 										<asp:Panel ID="pnlEmailHint" runat="server" CssClass="hint" Visible="false">
-											<mp:SiteLabel ID="SiteLabel4" runat="server" ConfigKey="RegisterEmailHint" UseLabelTag="false"></mp:SiteLabel>
+											<mp:SiteLabel ID="SiteLabel4" runat="server" ConfigKey="RegisterEmailHint" UseLabelTag="false" />
 										</asp:Panel>
 									</div>
 									<asp:Panel ID="divConfirmEmail" runat="server" Visible="false" CssClass="settingrow">
-										<mp:SiteLabel ID="SiteLabel7" runat="server" ForControl="EmailConfirm" CssClass="settinglabel"
-											ConfigKey="RegisterEmailConfirmLabel">
-										</mp:SiteLabel>
-										<asp:TextBox ID="ConfirmEmail" runat="server" TabIndex="0" MaxLength="100" CssClass="forminput mediumtextbox"></asp:TextBox>
-										<asp:RequiredFieldValidator ControlToValidate="ConfirmEmail" ID="ConfirmEmailRequired" runat="server"
-											Display="None" ValidationGroup="profile" Enabled="false" SkinID="Registration"></asp:RequiredFieldValidator>
-										<asp:CompareValidator ControlToCompare="Email" ControlToValidate="ConfirmEmail"
-											ID="EmailCompare" runat="server" Display="None" ValidationGroup="profile" Enabled="false" SkinID="Registration"></asp:CompareValidator>
+										<mp:SiteLabel ID="SiteLabel7" runat="server" ForControl="EmailConfirm" CssClass="settinglabel" ConfigKey="RegisterEmailConfirmLabel" />
+										<asp:TextBox ID="ConfirmEmail" runat="server" TabIndex="0" MaxLength="100" CssClass="forminput mediumtextbox" />
+										<asp:RequiredFieldValidator ControlToValidate="ConfirmEmail" ID="ConfirmEmailRequired" runat="server" Display="None" ValidationGroup="profile" Enabled="false" SkinID="Registration" />
+										<asp:CompareValidator ControlToCompare="Email" ControlToValidate="ConfirmEmail" ID="EmailCompare" runat="server" Display="None" ValidationGroup="profile" Enabled="false" SkinID="Registration" />
 										<asp:Panel ID="pnlEmailConfirmHint" runat="server" CssClass="hint" Visible="false">
-											<mp:SiteLabel ID="SiteLabel8" runat="server" ConfigKey="RegisterEmailConfirmHint" UseLabelTag="false"></mp:SiteLabel>
+											<mp:SiteLabel ID="SiteLabel8" runat="server" ConfigKey="RegisterEmailConfirmHint" UseLabelTag="false" />
 										</asp:Panel>
 									</asp:Panel>
 									<div class="settingrow">
-										<mp:SiteLabel ID="lblRegisterPassword1" runat="server" ForControl="Password" CssClass="settinglabel"
-											ConfigKey="RegisterPasswordLabel">
-										</mp:SiteLabel>
-										<asp:TextBox ID="Password" runat="server" TabIndex="0" TextMode="Password" MaxLength="20" CssClass="forminput mediumtextbox"></asp:TextBox>
-										<asp:RequiredFieldValidator ControlToValidate="Password" ID="PasswordRequired" Display="None"
-											runat="server" ValidationGroup="profile" SkinID="Registration"></asp:RequiredFieldValidator>
-										<asp:CustomValidator ID="PasswordRulesValidator" runat="server" ControlToValidate="Password"
-											Display="None" ValidationGroup="profile" EnableClientScript="false" SkinID="Registration"></asp:CustomValidator>
-										<asp:RegularExpressionValidator ID="PasswordRegex" runat="server" ControlToValidate="Password"
-											Display="None" ValidationGroup="profile" SkinID="Registration"></asp:RegularExpressionValidator>
+										<mp:SiteLabel ID="lblRegisterPassword1" runat="server" ForControl="Password" CssClass="settinglabel" ConfigKey="RegisterPasswordLabel" />
+										<asp:TextBox ID="Password" runat="server" TabIndex="0" TextMode="Password" MaxLength="20" CssClass="forminput mediumtextbox" />
+										<asp:RequiredFieldValidator ControlToValidate="Password" ID="PasswordRequired" Display="None" runat="server" ValidationGroup="profile" SkinID="Registration" />
+										<asp:CustomValidator ID="PasswordRulesValidator" runat="server" ControlToValidate="Password" Display="None" ValidationGroup="profile" EnableClientScript="false" SkinID="Registration" />
+										<asp:RegularExpressionValidator ID="PasswordRegex" runat="server" ControlToValidate="Password" Display="None" ValidationGroup="profile" SkinID="Registration" />
 										<asp:Panel ID="pnlPasswordHint" runat="server" CssClass="hint" Visible="false">
-											<mp:SiteLabel ID="SiteLabel5" runat="server" ConfigKey="RegisterPasswordHint" UseLabelTag="false"></mp:SiteLabel>
+											<mp:SiteLabel ID="SiteLabel5" runat="server" ConfigKey="RegisterPasswordHint" UseLabelTag="false" />
 										</asp:Panel>
 									</div>
 									<div class="settingrow">
-										<mp:SiteLabel ID="lblRegisterConfirmPassword1" runat="server" ForControl="ConfirmPassword"
-											CssClass="settinglabel" ConfigKey="RegisterConfirmPasswordLabel">
-										</mp:SiteLabel>
-										<asp:TextBox ID="ConfirmPassword" runat="server" TabIndex="0" TextMode="Password" MaxLength="20" CssClass="forminput mediumtextbox"></asp:TextBox>
-										<asp:RequiredFieldValidator ControlToValidate="ConfirmPassword" ID="ConfirmPasswordRequired"
-											runat="server" Display="None" ValidationGroup="profile" SkinID="Registration"></asp:RequiredFieldValidator>
-										<asp:CompareValidator ControlToCompare="Password" ControlToValidate="ConfirmPassword"
-											ID="PasswordCompare" runat="server" Display="None" ValidationGroup="profile" SkinID="Registration"></asp:CompareValidator>
+										<mp:SiteLabel ID="lblRegisterConfirmPassword1" runat="server" ForControl="ConfirmPassword" CssClass="settinglabel" ConfigKey="RegisterConfirmPasswordLabel" />
+										<asp:TextBox ID="ConfirmPassword" runat="server" TabIndex="0" TextMode="Password" MaxLength="20" CssClass="forminput mediumtextbox" />
+										<asp:RequiredFieldValidator ControlToValidate="ConfirmPassword" ID="ConfirmPasswordRequired" runat="server" Display="None" ValidationGroup="profile" SkinID="Registration" />
+										<asp:CompareValidator ControlToCompare="Password" ControlToValidate="ConfirmPassword" ID="PasswordCompare" runat="server" Display="None" ValidationGroup="profile" SkinID="Registration" />
 										<asp:Panel ID="pnlConfirmPasswordHint" runat="server" CssClass="hint" Visible="false">
-											<mp:SiteLabel ID="SiteLabel6" runat="server" ConfigKey="RegisterConfirmPasswordHint" UseLabelTag="false"></mp:SiteLabel>
+											<mp:SiteLabel ID="SiteLabel6" runat="server" ConfigKey="RegisterConfirmPasswordHint" UseLabelTag="false" />
 										</asp:Panel>
 									</div>
 									<div class="settingrow" id="divQuestion" runat="server">
-										<mp:SiteLabel ID="SiteLabel2" runat="server" ForControl="Question" CssClass="settinglabel"
-											ConfigKey="RegisterSecurityQuestion">
-										</mp:SiteLabel>
+										<mp:SiteLabel ID="SiteLabel2" runat="server" ForControl="Question" CssClass="settinglabel" ConfigKey="RegisterSecurityQuestion" />
 										<asp:TextBox ID="Question" runat="server" TabIndex="0" CssClass="forminput widetextbox" />
-										<asp:RequiredFieldValidator ControlToValidate="Question" ID="QuestionRequired" runat="server"
-											Display="None" ValidationGroup="profile" SkinID="Registration"></asp:RequiredFieldValidator>
+										<asp:RequiredFieldValidator ControlToValidate="Question" ID="QuestionRequired" runat="server" Display="None" ValidationGroup="profile" SkinID="Registration" />
 									</div>
 									<div class="settingrow" id="divAnswer" runat="server">
-										<mp:SiteLabel ID="SiteLabel1" runat="server" ForControl="Answer" CssClass="settinglabel"
-											ConfigKey="RegisterSecurityAnswer">
-										</mp:SiteLabel>
+										<mp:SiteLabel ID="SiteLabel1" runat="server" ForControl="Answer" CssClass="settinglabel" ConfigKey="RegisterSecurityAnswer" />
 										<asp:TextBox ID="Answer" runat="server" TabIndex="0" CssClass="forminput widetextbox" />
-										<asp:RequiredFieldValidator ControlToValidate="Answer" ID="AnswerRequired" runat="server"
-											Display="None" ValidationGroup="profile" SkinID="Registration"></asp:RequiredFieldValidator>
+										<asp:RequiredFieldValidator ControlToValidate="Answer" ID="AnswerRequired" runat="server" Display="None" ValidationGroup="profile" SkinID="Registration" />
 									</div>
-									<asp:Panel ID="pnlRequiredProfileProperties" runat="server"></asp:Panel>
+									<asp:Panel ID="pnlRequiredProfileProperties" runat="server" />
 									<asp:Panel ID="pnlSubscribe" runat="server" Visible="false">
 										<asp:Label ID="lblNewsletterListHeading" runat="server" CssClass="letterlist" />
-										<asp:CheckBoxList ID="clNewsletters" runat="server" DataTextField="Title" DataValueField="LetterInfoGuid" SkinID="RegisterNewsletters" TabIndex="0"></asp:CheckBoxList>
+										<asp:CheckBoxList ID="clNewsletters" runat="server" DataTextField="Title" DataValueField="LetterInfoGuid" SkinID="RegisterNewsletters" TabIndex="0" />
 
 										<span id="spnFormat" class="emailformat">
 											<asp:RadioButton ID="rbHtmlFormat" runat="server" Checked="true" GroupName="FormatPreference" />
@@ -119,8 +90,7 @@
 									</asp:Panel>
 									<div class="settingrow">
 										<asp:ValidationSummary ID="vSummary" runat="server" ValidationGroup="profile" SkinID="Registration" />
-										<asp:CustomValidator runat="server" ID="MustAgree" EnableClientScript="true"
-											OnClientValidate="CheckBoxRequired_ClientValidate" Enabled="false" Display="None" ValidationGroup="profile" SkinID="Registration"></asp:CustomValidator>
+										<asp:CustomValidator runat="server" ID="MustAgree" EnableClientScript="true" OnClientValidate="CheckBoxRequired_ClientValidate" Enabled="false" Display="None" ValidationGroup="profile" SkinID="Registration" />
 									</div>
 									<div class="regerror">
 										<portal:mojoLabel ID="ErrorMessage" runat="server" CssClass="txterror" />
@@ -130,30 +100,21 @@
 										<asp:CheckBox ID="chkAgree" runat="server" />
 									</div>
 									<div class="settingrow">
-										<mp:SiteLabel ID="SiteLabel3" runat="server" CssClass="settinglabel buttonspacer" ConfigKey="spacer"></mp:SiteLabel>
+										<mp:SiteLabel ID="SiteLabel3" runat="server" CssClass="settinglabel buttonspacer" ConfigKey="spacer" />
 										<portal:mojoRegisterButton ID="StartNextButton" runat="server" CommandName="MoveNext" Text="Next" ValidationGroup="profile" CausesValidation="true" TabIndex="0" />
 									</div>
 
 								</ContentTemplate>
-								<%--<CustomNavigationTemplate>
-									<portal:mojoButton ID="PreviousButtonID" runat="server" CommandName="MovePrevious" />
-									<portal:mojoButton ID="NextButtonID" runat="server" CommandName="MoveNext" />
-								</CustomNavigationTemplate>--%>
 							</asp:CreateUserWizardStep>
 							<asp:CompleteWizardStep ID="CompleteWizardStep1" runat="server">
 								<ContentTemplate>
-									<asp:Panel ID="pnComplete" runat="server">
-									</asp:Panel>
+									<asp:Panel ID="pnComplete" runat="server" />
 									<asp:Literal ID="CompleteMessage" runat="server" />
 									<div>
-
-										<asp:Button ID="ContinueButton" runat="server" CausesValidation="False" CommandName="Continue"
-											ValidationGroup="CreateUserWizard1" CssClass="art-button" />
-
+										<asp:Button ID="ContinueButton" runat="server" CausesValidation="False" CommandName="Continue" ValidationGroup="CreateUserWizard1" CssClass="art-button" />
 									</div>
 								</ContentTemplate>
 							</asp:CompleteWizardStep>
-
 						</WizardSteps>
 						<StartNavigationTemplate></StartNavigationTemplate>
 					</asp:CreateUserWizard>
@@ -182,7 +143,6 @@
 			</asp:Panel>
 		</div>
 	</asp:Panel>
-	<mp:CornerRounderBottom ID="cbottom1" runat="server" />
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />
 <asp:Content ContentPlaceHolderID="pageEditContent" ID="MPPageEdit" runat="server" />

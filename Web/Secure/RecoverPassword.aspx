@@ -4,11 +4,7 @@
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
 	<asp:Panel ID="pnlRecoverPassword" runat="server" CssClass="panelwrapper login recoverpassword">
 		<div class="modulecontent">
-
-			<%--<mp:SiteLabel ID="lblHead" runat="server" ConfigKey="ForgotPasswordLabel" Format="<%$ mojoCode:  coreDisplaySettings.DefaultPageHeaderMarkup %>" />--%>
-			<%--<asp:Label ID="lbl" runat="server" Text="<%$ mojoCode: string.Format(coreDisplaySettings.DefaultPageHeaderMarkup, Resources.Resource.ForgotPasswordLabel) %>" />--%>
 			<asp:Literal ID="litHeading" runat="server" />
-
 			<asp:Literal ID="litMessage" runat="server" />
 			<asp:PasswordRecovery ID="PasswordRecovery1" runat="server">
 				<UserNameTemplate>
@@ -17,8 +13,7 @@
 							<asp:Label ID="lblEnterUserName" AssociatedControlID="UserName" runat="server" Text="" />
 							<br />
 							<asp:TextBox ID="UserName" runat="server" MaxLength="100" CssClass="widetextbox" />
-							<asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName"
-								Display="Dynamic" ValidationGroup="PasswordRecovery1">*</asp:RequiredFieldValidator>
+							<asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" Display="Dynamic" ValidationGroup="PasswordRecovery1">*</asp:RequiredFieldValidator>
 						</div>
 						<div class="settingrow">
 							<asp:Button ID="SubmitButton" runat="server" CommandName="Submit" ValidationGroup="PasswordRecovery1" />
@@ -60,10 +55,8 @@
 			</asp:PasswordRecovery>
 			<portal:mojoLabel ID="lblMailError" runat="server" CssClass="txterror warning alert alert-danger" />
 			<asp:Literal ID="litMailError" runat="server" />
-
 		</div>
 	</asp:Panel>
-
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />
 <asp:Content ContentPlaceHolderID="pageEditContent" ID="MPPageEdit" runat="server" />

@@ -1,7 +1,3 @@
-// Author:                     
-// Created:                    2006-04-27
-// Last Modified:              2010-11-08
-//
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Web.Framework;
@@ -10,308 +6,226 @@ using System;
 using System.Web.Security;
 using System.Web.UI.WebControls;
 
-namespace mojoPortal.Web.UI.Pages
+namespace mojoPortal.Web.UI.Pages;
+
+public partial class ChangePassword : NonCmsBasePage
 {
+	private static readonly ILog log = LogManager.GetLogger(typeof(ChangePassword));
 
-    public partial class ChangePassword : NonCmsBasePage
-    {
-        private static readonly ILog log = LogManager.GetLogger(typeof(ChangePassword));
+	#region OnInit
+	override protected void OnInit(EventArgs e)
+	{
+		base.OnInit(e);
 
+		Load += new EventHandler(Page_Load);
+		ChangePassword1.ChangedPassword += new EventHandler(ChangePassword1_ChangedPassword);
 
-        #region OnInit
+		if (WebConfigSettings.HideMenusOnChangePasswordPage)
+		{
+			SuppressAllMenus();
+		}
+	}
+	#endregion
 
-        override protected void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-            
-            this.Load += new EventHandler(this.Page_Load);
-            ChangePassword1.ChangedPassword += new EventHandler(ChangePassword1_ChangedPassword);
+	protected void Page_Load(object sender, EventArgs e)
+	{
+		if (!Request.IsAuthenticated)
+		{
+			SiteUtils.RedirectToLoginPage(this);
+			return;
+		}
 
-            if (WebConfigSettings.HideMenusOnChangePasswordPage) { SuppressAllMenus(); }
-            
-        }
+		if (SiteUtils.SslIsAvailable())
+		{
+			SiteUtils.ForceSsl();
+		}
 
-        
+		SecurityHelper.DisableBrowserCache();
 
-        #endregion
-        
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!Request.IsAuthenticated)
-            {
-                SiteUtils.RedirectToLoginPage(this);
-                return;
-            }
+		PopulateLabels();
+	}
 
-            if (SiteUtils.SslIsAvailable()) SiteUtils.ForceSsl();
-            SecurityHelper.DisableBrowserCache();
+	private void PopulateLabels()
+	{
+		Title = SiteUtils.FormatPageTitle(siteSettings, Resource.ChangePasswordLabel);
 
-            PopulateLabels();
-        }
+		var changePasswordButton = (Button)ChangePassword1.ChangePasswordTemplateContainer.FindControl("ChangePasswordPushButton");
+		var cancelButton = (Button)ChangePassword1.ChangePasswordTemplateContainer.FindControl("CancelPushButton");
 
-        
+		if (changePasswordButton != null)
+		{
+			changePasswordButton.Text = Resource.ChangePasswordButton;
+			SiteUtils.SetButtonAccessKey(changePasswordButton, AccessKeys.ChangePasswordButtonAccessKey);
+		}
+		else
+		{
+			log.Debug("couldn't find changepasswordbutton so couldn't set label");
+		}
 
-        private void PopulateLabels()
-        {
-            Title = SiteUtils.FormatPageTitle(siteSettings, Resource.ChangePasswordLabel);
+		if (cancelButton != null)
+		{
+			cancelButton.Text = Resource.ChangePasswordCancelButton;
+			SiteUtils.SetButtonAccessKey(cancelButton, AccessKeys.ChangePasswordCancelButtonAccessKey);
+		}
+		else
+		{
+			log.Debug("couldn't find cancelbutton so couldn't set label");
+		}
 
-            Button changePasswordButton = (Button)ChangePassword1.ChangePasswordTemplateContainer.FindControl("ChangePasswordPushButton");
-            Button cancelButton = (Button)ChangePassword1.ChangePasswordTemplateContainer.FindControl("CancelPushButton");
+		ChangePassword1.CancelDestinationPageUrl = $"{SiteUtils.GetNavigationSiteRoot()}/Secure/UserProfile.aspx";
+		ChangePassword1.ChangePasswordFailureText = Resource.ChangePasswordFailureText;
 
-            if (changePasswordButton != null)
-            {
-                changePasswordButton.Text = Resource.ChangePasswordButton;
-                SiteUtils.SetButtonAccessKey(changePasswordButton, AccessKeys.ChangePasswordButtonAccessKey);
-            }
-            else
-            {
-                log.Debug("couldn't find changepasswordbutton so couldn't set label");
-            }
+		var newPasswordCompare = (CompareValidator)ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPasswordCompare");
 
-            if (cancelButton != null)
-            {
-                cancelButton.Text = Resource.ChangePasswordCancelButton;
-                SiteUtils.SetButtonAccessKey(cancelButton, AccessKeys.ChangePasswordCancelButtonAccessKey);
-            }
-            else
-            {
-                log.Debug("couldn't find cancelbutton so couldn't set label");
-            }
+		if (newPasswordCompare != null)
+		{
+			newPasswordCompare.ErrorMessage = Resource.ChangePasswordMustMatchConfirmMessage;
+		}
 
+		var confirmNewPasswordRequired = (RequiredFieldValidator)ChangePassword1.ChangePasswordTemplateContainer.FindControl("ConfirmNewPasswordRequired");
 
-            this.ChangePassword1.CancelDestinationPageUrl 
-                = SiteUtils.GetNavigationSiteRoot() + "/Secure/UserProfile.aspx";
+		if (confirmNewPasswordRequired != null)
+		{
+			confirmNewPasswordRequired.ErrorMessage = Resource.ChangePasswordConfirmPasswordRequiredMessage;
+		}
 
-            this.ChangePassword1.ChangePasswordFailureText
-                = Resource.ChangePasswordFailureText;
+		ChangePassword1.ContinueDestinationPageUrl = SiteUtils.GetNavigationSiteRoot();
 
-            CompareValidator newPasswordCompare
-                = (CompareValidator)ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPasswordCompare");
+		var newPasswordRequired = (RequiredFieldValidator)ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPasswordRequired");
 
-            if (newPasswordCompare != null)
-            {
-                newPasswordCompare.ErrorMessage = Resource.ChangePasswordMustMatchConfirmMessage;
-            }
+		if (newPasswordRequired != null)
+		{
+			newPasswordRequired.ErrorMessage = Resource.ChangePasswordNewPasswordRequired;
+		}
 
-            RequiredFieldValidator confirmNewPasswordRequired
-                = (RequiredFieldValidator)ChangePassword1.ChangePasswordTemplateContainer.FindControl("ConfirmNewPasswordRequired");
+		var currentPasswordRequired = (RequiredFieldValidator)ChangePassword1.ChangePasswordTemplateContainer.FindControl("CurrentPasswordRequired");
 
-            if (confirmNewPasswordRequired != null)
-            {
-                confirmNewPasswordRequired.ErrorMessage = Resource.ChangePasswordConfirmPasswordRequiredMessage;
-            }
+		if (currentPasswordRequired != null)
+		{
+			currentPasswordRequired.ErrorMessage = Resource.ChangePasswordCurrentPasswordRequiredWarning;
+		}
 
-            this.ChangePassword1.ContinueDestinationPageUrl 
-                = SiteUtils.GetNavigationSiteRoot();
+		var newPasswordRegex = (RegularExpressionValidator)ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPasswordRegex");
 
-            RequiredFieldValidator newPasswordRequired
-                = (RequiredFieldValidator)ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPasswordRequired");
+		if (newPasswordRegex != null)
+		{
+			newPasswordRegex.ErrorMessage = Resource.ChangePasswordPasswordRegexFailureMessage;
+			if (siteSettings.PasswordRegexWarning.Length > 0)
+			{
+				newPasswordRegex.ErrorMessage = siteSettings.PasswordRegexWarning;
+			}
 
-            if (newPasswordRequired != null)
-            {
-                newPasswordRequired.ErrorMessage = Resource.ChangePasswordNewPasswordRequired;
-            }
+			newPasswordRegex.ValidationExpression = Membership.PasswordStrengthRegularExpression;
 
-            
-            RequiredFieldValidator currentPasswordRequired
-                = (RequiredFieldValidator)ChangePassword1.ChangePasswordTemplateContainer.FindControl("CurrentPasswordRequired");
+			if (Membership.PasswordStrengthRegularExpression.Length == 0)
+			{
+				newPasswordRegex.Visible = false;
+				newPasswordRegex.ValidationGroup = "None";
+			}
+		}
 
-            if (currentPasswordRequired != null)
-            {
-                currentPasswordRequired.ErrorMessage = Resource.ChangePasswordCurrentPasswordRequiredWarning;
-            }
+		var newPasswordRulesValidator = (CustomValidator)ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPasswordRulesValidator");
+		if (newPasswordRulesValidator != null)
+		{
+			newPasswordRulesValidator.ServerValidate += new ServerValidateEventHandler(NewPasswordRulesValidator_ServerValidate);
+		}
 
-            RegularExpressionValidator newPasswordRegex
-                = (RegularExpressionValidator)ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPasswordRegex");
+		ChangePassword1.SuccessTitleText = string.Empty;
+		ChangePassword1.SuccessText = Resource.ChangePasswordSuccessText;
 
-            if (newPasswordRegex != null)
-            {
-                newPasswordRegex.ErrorMessage = Resource.ChangePasswordPasswordRegexFailureMessage;
-                if (siteSettings.PasswordRegexWarning.Length > 0)
-                {
-                    newPasswordRegex.ErrorMessage = siteSettings.PasswordRegexWarning;
-                }
+		AddClassToBody("changepassword");
+	}
 
-                newPasswordRegex.ValidationExpression = Membership.PasswordStrengthRegularExpression;
+	void ChangePassword1_ChangedPassword(object sender, EventArgs e)
+	{
+		//this is needed to prevent a script error in IE8 after the password is changed
+		var vSummary = (ValidationSummary)ChangePassword1.ChangePasswordTemplateContainer.FindControl("vSummary");
+		if (vSummary != null) { vSummary.Visible = false; }
+		if (WebConfigSettings.LogIpAddressForPasswordChanges)
+		{
+			SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
+			if (currentUser != null)
+			{
+				log.Info($"user {currentUser.Name} changed their password from ip address {SiteUtils.GetIP4Address()}");
+			}
+		}
+	}
 
-                if (Membership.PasswordStrengthRegularExpression.Length == 0)
-                {
-                    newPasswordRegex.Visible = false;
-                    newPasswordRegex.ValidationGroup = "None";
-                }
-            }
+	void NewPasswordRulesValidator_ServerValidate(object source, ServerValidateEventArgs args)
+	{
+		CustomValidator validator = source as CustomValidator;
+		validator.ErrorMessage = string.Empty;
 
-            CustomValidator newPasswordRulesValidator
-                = (CustomValidator)ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPasswordRulesValidator");
-            if (newPasswordRulesValidator != null)
-            {
-                newPasswordRulesValidator.ServerValidate += new ServerValidateEventHandler(NewPasswordRulesValidator_ServerValidate);
-            }
+		if (args.Value.Length < Membership.MinRequiredPasswordLength)
+		{
+			args.IsValid = false;
+			validator.ErrorMessage += $"{Resource.ChangePasswordMinimumLengthWarning} {Membership.MinRequiredPasswordLength.ToInvariantString()}<br />";
+		}
 
-            this.ChangePassword1.SuccessTitleText = String.Empty;
-            this.ChangePassword1.SuccessText = Resource.ChangePasswordSuccessText;
+		if (!HasEnoughNonAlphaNumericCharacters(args.Value))
+		{
+			args.IsValid = false;
+			validator.ErrorMessage += $"{Resource.ChangePasswordMinNonAlphanumericCharsWarning} {Membership.MinRequiredNonAlphanumericCharacters.ToInvariantString()}<br />";
 
-            //if (siteSettings.ShowPasswordStrengthOnRegistration)
-            //{
-            //    PasswordStrength passwordStrengthChecker = (PasswordStrength)ChangePassword1.ChangePasswordTemplateContainer.FindControl("passwordStrengthChecker");
-            //    if (passwordStrengthChecker != null)
-            //    {
-            //        passwordStrengthChecker.Enabled = true;
-            //        passwordStrengthChecker.RequiresUpperAndLowerCaseCharacters = true;
-            //        passwordStrengthChecker.MinimumLowerCaseCharacters = WebConfigSettings.PasswordStrengthMinimumLowerCaseCharacters;
-            //        passwordStrengthChecker.MinimumUpperCaseCharacters = WebConfigSettings.PasswordStrengthMinimumUpperCaseCharacters;
-            //        passwordStrengthChecker.MinimumSymbolCharacters = siteSettings.MinRequiredNonAlphanumericCharacters;
-            //        passwordStrengthChecker.PreferredPasswordLength = siteSettings.MinRequiredPasswordLength;
+		}
 
-            //        passwordStrengthChecker.PrefixText = Resource.PasswordStrengthPrefix;
-            //        passwordStrengthChecker.TextStrengthDescriptions = Resource.PasswordStrengthDescriptions;
-            //        passwordStrengthChecker.CalculationWeightings = WebConfigSettings.PasswordStrengthCalculationWeightings;
+		var currentPassword = (TextBox)ChangePassword1.ChangePasswordTemplateContainer.FindControl("CurrentPassword");
 
-            //        try
-            //        {
-            //            passwordStrengthChecker.StrengthIndicatorType = (StrengthIndicatorTypes)Enum.Parse(typeof(StrengthIndicatorTypes), WebConfigSettings.PasswordStrengthIndicatorType, true);
-            //        }
-            //        catch (ArgumentException)
-            //        {
-            //            passwordStrengthChecker.StrengthIndicatorType = StrengthIndicatorTypes.Text;
-            //        }
-            //        catch (OverflowException)
-            //        {
-            //            passwordStrengthChecker.StrengthIndicatorType = StrengthIndicatorTypes.Text;
-            //        }
+		var newPassword = (TextBox)ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPassword");
 
-            //        try
-            //        {
-            //            passwordStrengthChecker.DisplayPosition = (DisplayPosition)Enum.Parse(typeof(DisplayPosition), WebConfigSettings.PasswordStrengthDisplayPosition, true);
-            //        }
-            //        catch (ArgumentException)
-            //        {
-            //            passwordStrengthChecker.DisplayPosition = DisplayPosition.RightSide;
-            //        }
-            //        catch (OverflowException)
-            //        {
-            //            passwordStrengthChecker.DisplayPosition = DisplayPosition.RightSide;
-            //        }
-            //    }
+		SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
+		if (currentUser != null)
+		{
+			if (currentPassword != null)
+			{
+				switch (Membership.Provider.PasswordFormat)
+				{
+					case MembershipPasswordFormat.Clear:
+						if (currentPassword.Text != currentUser.Password)
+						{
+							args.IsValid = false;
+							validator.ErrorMessage += $"{Resource.ChangePasswordCurrentPasswordIncorrectWarning}<br />";
+						}
+						break;
 
-            //}
+					case MembershipPasswordFormat.Encrypted:
+						break;
 
-            AddClassToBody("changepassword");
-            
+					case MembershipPasswordFormat.Hashed:
+						break;
+				}
+			}
+		}
 
-        }
+		if (newPassword is not null && currentPassword is not null)
+		{
+			if (newPassword.Text == currentPassword.Text)
+			{
+				args.IsValid = false;
+				validator.ErrorMessage += $"{Resource.ChangePasswordNewMatchesOldWarning}<br />";
+			}
+		}
+	}
 
-        void ChangePassword1_ChangedPassword(object sender, EventArgs e)
-        {
-            //this is needed to prevent a script error in IE8 after the password is changed
-            ValidationSummary vSummary = (ValidationSummary)ChangePassword1.ChangePasswordTemplateContainer.FindControl("vSummary");
-            if (vSummary != null) { vSummary.Visible = false; }
-            if (WebConfigSettings.LogIpAddressForPasswordChanges)
-            {
-                SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
-                if (currentUser != null)
-                {
-                    log.Info("user " + currentUser.Name + " changed their password from ip address " + SiteUtils.GetIP4Address());
-                }
-            }
-        }
+	private bool HasEnoughNonAlphaNumericCharacters(string newPassword)
+	{
+		bool result = false;
+		string alphanumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		char[] passwordChars = newPassword.ToCharArray();
+		int nonAlphaNumericCharCount = 0;
+		foreach (char c in passwordChars)
+		{
+			if (!alphanumeric.Contains(c.ToString()))
+			{
+				nonAlphaNumericCharCount += 1;
+			}
+		}
 
-        void NewPasswordRulesValidator_ServerValidate(
-            object source, 
-            ServerValidateEventArgs args)
-        {
-            CustomValidator validator = source as CustomValidator;
-            validator.ErrorMessage = string.Empty;
+		if (nonAlphaNumericCharCount >= Membership.MinRequiredNonAlphanumericCharacters)
+		{
+			result = true;
+		}
 
-            if (args.Value.Length < Membership.MinRequiredPasswordLength)
-            {
-                args.IsValid = false;
-                validator.ErrorMessage 
-                    += Resource.ChangePasswordMinimumLengthWarning 
-                    + Membership.MinRequiredPasswordLength.ToInvariantString() + "<br />";
-            }
-
-            if (!HasEnoughNonAlphaNumericCharacters(args.Value))
-            {
-                args.IsValid = false;
-                validator.ErrorMessage
-                    += Resource.ChangePasswordMinNonAlphanumericCharsWarning
-                    + Membership.MinRequiredNonAlphanumericCharacters.ToInvariantString() + "<br />";
-
-            }
-
-            TextBox currentPassword
-                    = (TextBox)ChangePassword1.ChangePasswordTemplateContainer.FindControl("CurrentPassword");
-
-            TextBox newPassword
-                    = (TextBox)ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPassword");
-
-            SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
-            if (currentUser != null)
-            {
-                if (currentPassword != null)
-                {
-                    switch (Membership.Provider.PasswordFormat)
-                    {
-                        case MembershipPasswordFormat.Clear:
-                            if (currentPassword.Text != currentUser.Password)
-                            {
-                                args.IsValid = false;
-                                validator.ErrorMessage
-                                    += Resource.ChangePasswordCurrentPasswordIncorrectWarning + "<br />";
-                                    
-                            }
-                            break;
-
-                        case MembershipPasswordFormat.Encrypted:
-
-                            break;
-
-                        case MembershipPasswordFormat.Hashed:
-
-                            break;
-
-                    }
-                }
-
-            }
-
-            if ((newPassword != null) && (currentPassword != null))
-            {
-                if (newPassword.Text == currentPassword.Text)
-                {
-                    args.IsValid = false;
-                    validator.ErrorMessage
-                       += Resource.ChangePasswordNewMatchesOldWarning + "<br />";
-
-                }
-            }
-           
-
-        }
-
-        private bool HasEnoughNonAlphaNumericCharacters(string newPassword)
-        {
-            bool result = false;
-            string alphanumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            char[] passwordChars = newPassword.ToCharArray();
-            int nonAlphaNumericCharCount = 0;
-            foreach (char c in passwordChars)
-            {
-                if(!alphanumeric.Contains(c.ToString()))
-                {
-                    nonAlphaNumericCharCount += 1;
-                }
-            }
-
-            if (nonAlphaNumericCharCount >= Membership.MinRequiredNonAlphanumericCharacters)
-            {
-                result = true;
-            }
-
-            return result;
-        }
-
-        
-    }
+		return result;
+	}
 }

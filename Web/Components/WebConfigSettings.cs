@@ -1575,10 +1575,10 @@ namespace mojoPortal.Web
 			}
 		}
 
-		public static bool DisableDotNetOpenMail
-		{
-			get { return ConfigHelper.GetBoolProperty("DisableDotNetOpenMail", true); }
-		}
+		//public static bool DisableDotNetOpenMail
+		//{
+		//	get { return ConfigHelper.GetBoolProperty("DisableDotNetOpenMail", true); }
+		//}
 
 		public static bool ShowHistoryOnUpgradePage
 		{

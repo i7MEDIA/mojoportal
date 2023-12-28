@@ -313,15 +313,17 @@ namespace mojoPortal.Business
                     string foundName = reader["RoleName"].ToString();
                     if (foundName == roleName)
                     {
-                        role = new Role();
-                        role.RoleId = Convert.ToInt32(reader["RoleID"]);
-                        role.SiteId = Convert.ToInt32(reader["SiteID"]);
-                        role.DisplayName = reader["DisplayName"].ToString();
-                        role.Description = reader["Description"].ToString();
-                        role.RoleName = reader["RoleName"].ToString();
-                        role.RoleGuid = new Guid(reader["RoleGuid"].ToString());
-                        role.SiteGuid = new Guid(reader["SiteGuid"].ToString());
-                    }
+						role = new Role
+						{
+							RoleId = Convert.ToInt32(reader["RoleID"]),
+							SiteId = Convert.ToInt32(reader["SiteID"]),
+							DisplayName = reader["DisplayName"].ToString(),
+							Description = reader["Description"].ToString(),
+							RoleName = reader["RoleName"].ToString(),
+							RoleGuid = new Guid(reader["RoleGuid"].ToString()),
+							SiteGuid = new Guid(reader["SiteGuid"].ToString())
+						};
+					}
                 }
             }
 

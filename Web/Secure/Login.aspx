@@ -24,6 +24,3 @@
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />
 <asp:Content ContentPlaceHolderID="pageEditContent" ID="MPPageEdit" runat="server" />
-
-
-

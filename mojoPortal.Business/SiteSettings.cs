@@ -2847,12 +2847,7 @@ namespace mojoPortal.Business
 				// commented these out 2014-01-10 it should be possible to close folder sites independently from one another
 				//DBSiteSettingsEx.UpdateRelatedSitesProperty(masterSite.siteID, "SiteIsClosed", masterSite.SiteIsClosed.ToString(CultureInfo.InvariantCulture));
 				//DBSiteSettingsEx.UpdateRelatedSitesProperty(masterSite.siteID, "SiteIsClosedMessage", masterSite.SiteIsClosedMessage);
-
-
-
 			}
-
-
 		}
 
 		public static int GetSiteIdByHostName(string hostName)
