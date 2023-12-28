@@ -679,9 +679,7 @@ namespace mojoPortal.Data
 
         }
 
-        public static bool DatabaseHelperRunScript(
-            FileInfo scriptFile,
-            String overrideConnectionInfo)
+        public static bool DatabaseHelperRunScript(FileInfo scriptFile, string overrideConnectionInfo)
         {
             if (scriptFile == null) return false;
 
@@ -690,7 +688,6 @@ namespace mojoPortal.Data
             if ((script == null) || (script.Length == 0)) return true;
 
             return DatabaseHelperRunScript(script, overrideConnectionInfo);
-
         }
 
 

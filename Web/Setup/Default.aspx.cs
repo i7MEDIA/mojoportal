@@ -298,7 +298,7 @@ public partial class SetupHome : Page
 
 			string errorMessage = DatabaseHelper.RunScript(applicationId, scriptFile, overrideConnectionString);
 
-			if (string.IsNullOrEmpty(errorMessage))
+			if (!string.IsNullOrWhiteSpace(errorMessage))
 			{
 				WritePageContent(errorMessage, true);
 				return false;
