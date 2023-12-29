@@ -1,160 +1,96 @@
-﻿// Author:					
-// Created:					2009-10-27
-// Last Modified:			2013-01-17
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
+﻿using System;
 using mojoPortal.Web.Framework;
 
-namespace mojoPortal.Web.ELetterUI
+namespace mojoPortal.Web.ELetterUI;
+
+public partial class NewsLetterSubscribeModuleModule : SiteModuleControl
 {
+	// FeatureGuid 6c358bd7-6b78-4b3f-a56a-b1146dfa4c34
 
-    public partial class NewsLetterSubscribeModuleModule : SiteModuleControl
-    {
-        // FeatureGuid 6c358bd7-6b78-4b3f-a56a-b1146dfa4c34
+	private string NewsletterButtonTextSetting = string.Empty;
+	private string NewsletterWatermarkTextSetting = string.Empty;
+	private string NewsletterThankYouMessageSetting = string.Empty;
+	private bool NewsletterShowListSetting = true;
+	private bool NewsletterIncludeDescriptionInListSetting = false;
+	private bool NewsletterShowFormatOptionsSetting = false;
+	private bool NewsletterHtmlIsDefaultSetting = true;
+	private bool NewsletterShowmoreInfoLinkSetting = false;
+	private string NewsletterMoreInfoTextSetting = string.Empty;
+	private bool NewsletterShowPreviousEditionLinksSetting = false;
+	private int NewsletterOverrideInputWidthSetting = 0;
+	private string CustomCssClassSetting = string.Empty;
 
-        private string NewsletterButtonTextSetting = string.Empty;
-        private string NewsletterWatermarkTextSetting = string.Empty;
-        private string NewsletterThankYouMessageSetting = string.Empty;
-        private bool NewsletterShowListSetting = true;
-        private bool NewsletterIncludeDescriptionInListSetting = false;
-        private bool NewsletterShowFormatOptionsSetting = false;
-        private bool NewsletterHtmlIsDefaultSetting = true;
-        private bool NewsletterShowmoreInfoLinkSetting = false;
-        private string NewsletterMoreInfoTextSetting = string.Empty;
-        private bool NewsletterShowPreviousEditionLinksSetting = false;
-        private int NewsletterOverrideInputWidthSetting = 0;
-        private string CustomCssClassSetting = string.Empty;
+	protected void Page_Load(object sender, EventArgs e)
+	{
+		LoadSettings();
+		PopulateControls();
+	}
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
+	private void PopulateControls()
+	{
+		TitleControl.Visible = !RenderInWebPartMode;
+		if (ModuleConfiguration != null)
+		{
+			Title = ModuleConfiguration.ModuleTitle;
+			Description = ModuleConfiguration.FeatureName;
+		}
 
-            LoadSettings();
-            PopulateControls();
+		// make this usique in case multiple instances on the same page
+		subscribe1.ValidationGroup = $"subscribe{ModuleId.ToInvariantString()}";
 
-        }
+		if (!string.IsNullOrWhiteSpace(NewsletterButtonTextSetting))
+		{
+			subscribe1.ButtonText = NewsletterButtonTextSetting;
+		}
 
-        private void PopulateControls()
-        {
-            
-            TitleControl.Visible = !this.RenderInWebPartMode;
-            if (this.ModuleConfiguration != null)
-            {
-                this.Title = this.ModuleConfiguration.ModuleTitle;
-                this.Description = this.ModuleConfiguration.FeatureName;
-            }
+		if (!string.IsNullOrWhiteSpace(NewsletterWatermarkTextSetting))
+		{
+			subscribe1.WatermarkText = NewsletterWatermarkTextSetting;
+		}
 
-            // make this usique in case multiple instances on the same page
-            subscribe1.ValidationGroup = "subscribe" + ModuleId.ToInvariantString();
+		if (!string.IsNullOrWhiteSpace(NewsletterThankYouMessageSetting))
+		{
+			subscribe1.ThankYouMessage = NewsletterThankYouMessageSetting;
+		}
 
-            if (NewsletterButtonTextSetting.Length > 0)
-            {
-                subscribe1.ButtonText = NewsletterButtonTextSetting;
-            }
+		if (!string.IsNullOrWhiteSpace(NewsletterMoreInfoTextSetting))
+		{
+			subscribe1.MoreInfoText = NewsletterMoreInfoTextSetting;
+		}
 
-            if (NewsletterWatermarkTextSetting.Length > 0)
-            {
-                subscribe1.WatermarkText = NewsletterWatermarkTextSetting;
-            }
+		subscribe1.ShowList = NewsletterShowListSetting;
+		subscribe1.IncludeDescriptionInList = NewsletterIncludeDescriptionInListSetting;
+		subscribe1.ShowFormatOptions = NewsletterShowFormatOptionsSetting;
+		subscribe1.HtmlIsDefault = NewsletterHtmlIsDefaultSetting;
+		subscribe1.ShowMoreInfoLink = NewsletterShowmoreInfoLinkSetting;
+		subscribe1.ShowPreviousEditionsLink = NewsletterShowPreviousEditionLinksSetting;
+		subscribe1.OverrideInputWidth = NewsletterOverrideInputWidthSetting;
+	}
 
-            if (NewsletterThankYouMessageSetting.Length > 0)
-            {
-                subscribe1.ThankYouMessage = NewsletterThankYouMessageSetting;
-            }
+	private void LoadSettings()
+	{
+		NewsletterButtonTextSetting = WebUtils.ParseStringFromHashtable(Settings, "NewsletterButtonTextSetting", NewsletterButtonTextSetting);
+		NewsletterWatermarkTextSetting = WebUtils.ParseStringFromHashtable(Settings, "NewsletterWatermarkTextSetting", NewsletterWatermarkTextSetting);
+		NewsletterThankYouMessageSetting = WebUtils.ParseStringFromHashtable(Settings, "NewsletterThankYouMessageSetting", NewsletterThankYouMessageSetting);
+		NewsletterMoreInfoTextSetting = WebUtils.ParseStringFromHashtable(Settings, "NewsletterMoreInfoTextSetting", NewsletterMoreInfoTextSetting);
+		CustomCssClassSetting = WebUtils.ParseStringFromHashtable(Settings, "CustomCssClassSetting", CustomCssClassSetting);
+		NewsletterShowListSetting = WebUtils.ParseBoolFromHashtable(Settings, "NewsletterShowListSetting", NewsletterShowListSetting);
+		NewsletterIncludeDescriptionInListSetting = WebUtils.ParseBoolFromHashtable(Settings, "NewsletterIncludeDescriptionInListSetting", NewsletterIncludeDescriptionInListSetting);
+		NewsletterShowFormatOptionsSetting = WebUtils.ParseBoolFromHashtable(Settings, "NewsletterShowFormatOptionsSetting", NewsletterShowFormatOptionsSetting);
+		NewsletterHtmlIsDefaultSetting = WebUtils.ParseBoolFromHashtable(Settings, "NewsletterHtmlIsDefaultSetting", NewsletterHtmlIsDefaultSetting);
+		NewsletterShowmoreInfoLinkSetting = WebUtils.ParseBoolFromHashtable(Settings, "NewsletterShowmoreInfoLinkSetting", NewsletterShowmoreInfoLinkSetting);
+		NewsletterShowPreviousEditionLinksSetting = WebUtils.ParseBoolFromHashtable(Settings, "NewsletterShowPreviousEditionLinksSetting", NewsletterShowPreviousEditionLinksSetting);
+		NewsletterOverrideInputWidthSetting = WebUtils.ParseInt32FromHashtable(Settings, "NewsletterOverrideInputWidthSetting", NewsletterOverrideInputWidthSetting);
 
-            if (NewsletterMoreInfoTextSetting.Length > 0)
-            {
-                subscribe1.MoreInfoText = NewsletterMoreInfoTextSetting;
-            }
+		pnlOuterWrap.SetOrAppendCss(CustomCssClassSetting);
+	}
 
-            subscribe1.ShowList = NewsletterShowListSetting;
-            subscribe1.IncludeDescriptionInList = NewsletterIncludeDescriptionInListSetting;
-            subscribe1.ShowFormatOptions = NewsletterShowFormatOptionsSetting;
-            subscribe1.HtmlIsDefault = NewsletterHtmlIsDefaultSetting;
-            subscribe1.ShowMoreInfoLink = NewsletterShowmoreInfoLinkSetting;
-            subscribe1.ShowPreviousEditionsLink = NewsletterShowPreviousEditionLinksSetting;
-            subscribe1.OverrideInputWidth = NewsletterOverrideInputWidthSetting;
+	#region OnInit
 
-
-        }
-
-
-        private void LoadSettings()
-        {
-            if (Settings.Contains("NewsletterButtonTextSetting"))
-            {
-                NewsletterButtonTextSetting = Settings["NewsletterButtonTextSetting"].ToString();
-            }
-
-            if (Settings.Contains("NewsletterWatermarkTextSetting"))
-            {
-                NewsletterWatermarkTextSetting = Settings["NewsletterWatermarkTextSetting"].ToString();
-            }
-
-            if (Settings.Contains("NewsletterThankYouMessageSetting"))
-            {
-                NewsletterThankYouMessageSetting = Settings["NewsletterThankYouMessageSetting"].ToString();
-            }
-
-            if (Settings.Contains("NewsletterMoreInfoTextSetting"))
-            {
-                NewsletterMoreInfoTextSetting = Settings["NewsletterMoreInfoTextSetting"].ToString();
-            }
-
-            if (Settings.Contains("CustomCssClassSetting"))
-            {
-                CustomCssClassSetting = Settings["CustomCssClassSetting"].ToString();
-            }
-
-
-            if (CustomCssClassSetting.Length > 0)
-            {
-                pnlOuterWrap.SetOrAppendCss(CustomCssClassSetting); 
-            }
-
-            NewsletterShowListSetting = WebUtils.ParseBoolFromHashtable(
-                Settings, "NewsletterShowListSetting", NewsletterShowListSetting);
-
-            NewsletterIncludeDescriptionInListSetting = WebUtils.ParseBoolFromHashtable(
-                Settings, "NewsletterIncludeDescriptionInListSetting", NewsletterIncludeDescriptionInListSetting);
-
-            NewsletterShowFormatOptionsSetting = WebUtils.ParseBoolFromHashtable(
-                Settings, "NewsletterShowFormatOptionsSetting", NewsletterShowFormatOptionsSetting);
-
-            NewsletterHtmlIsDefaultSetting = WebUtils.ParseBoolFromHashtable(
-                Settings, "NewsletterHtmlIsDefaultSetting", NewsletterHtmlIsDefaultSetting);
-
-            NewsletterShowmoreInfoLinkSetting = WebUtils.ParseBoolFromHashtable(
-                Settings, "NewsletterShowmoreInfoLinkSetting", NewsletterShowmoreInfoLinkSetting);
-
-            NewsletterShowPreviousEditionLinksSetting = WebUtils.ParseBoolFromHashtable(
-                Settings, "NewsletterShowPreviousEditionLinksSetting", NewsletterShowPreviousEditionLinksSetting);
-
-            NewsletterOverrideInputWidthSetting = WebUtils.ParseInt32FromHashtable(
-                Settings, "NewsletterOverrideInputWidthSetting", NewsletterOverrideInputWidthSetting);
-
-            
-
-        }
-
-        #region OnInit
-
-        protected override void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-            this.Load += new EventHandler(Page_Load);
-
-        }
-
-        #endregion
-
-
-    }
+	protected override void OnInit(EventArgs e)
+	{
+		base.OnInit(e);
+		Load += new EventHandler(Page_Load);
+	}
+	#endregion
 }

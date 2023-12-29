@@ -2,16 +2,14 @@
 using mojoPortal.Business;
 using mojoPortal.Web.UI;
 
-namespace mojoPortal.Web.Models
+namespace mojoPortal.Web.Models;
+public class MemberListModel
 {
-	public class MemberListModel
+	public MemberListModel()
 	{
-		public MemberListModel()
-		{
-			Users = new List<SiteUser>();
-		}
-		public List<SiteUser> Users { get; set; }
-		public PagerInfo PagerInfo { get; set; }
-		public MemberListDisplaySettings DisplaySettings { get; set; }
+		Users = [];
 	}
+	public List<SiteUser> Users { get; set; }
+	public PagerInfo PagerInfo { get; set; }
+	public MemberListDisplaySettings DisplaySettings { get; set; }
 }

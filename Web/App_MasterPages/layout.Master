@@ -1,94 +1,98 @@
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="~/App_MasterPages/layout.Master.cs" Inherits="mojoPortal.Web.layout" %>
+
 <!DOCTYPE html>
 <html id="Html" runat="server">
 <head id="Head1" runat="server">
 	<title></title>
-    <portal:StyleSheetCombiner id="StyleSheetCombiner" runat="server" UseIconsForAdminLinks="false" />
-    <portal:MetaContent id="MetaContent" runat="server" />
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<portal:Favicon id="Favicon1"  runat="server" />
-	<portal:ScriptLoader id="ScriptLoader1" runat="server" />
+	<portal:StyleSheetCombiner ID="StyleSheetCombiner" runat="server" UseIconsForAdminLinks="false" />
+	<portal:MetaContent ID="MetaContent" runat="server" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<portal:Favicon ID="Favicon1" runat="server" />
+	<portal:ScriptLoader ID="ScriptLoader1" runat="server" />
 </head>
 <body class="pagebody">
-<form id="frmMain" runat="server">
-<asp:SiteMapDataSource ID="SiteMapData" runat="server" ShowStartingNode="false" />
-<asp:SiteMapDataSource ID="PageMapDataSource" runat="server" ShowStartingNode="false" />
-<asp:SiteMapDataSource ID="ChildPageSiteMapData" runat="server" ShowStartingNode="false" />
-<asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server" />
-<div id="wrapwebsite">
-    <div id="wrapheader">
-	    <portal:SiteTitle id="SiteTitle" runat="server"></portal:SiteTitle>
-	    <portal:SkipLink id="SkipLink1" runat="server" />
-	    <portal:SiteMenu id="SiteMenu1" runat="server" 
-		            UseTreeView="false" UseSpanInLinks="true" HideMenuOnSiteMap="false"
-			        Direction="Horizontal" TopLevelOnly="true"></portal:SiteMenu>
-	    <div class="topnav">
-            <ul>
-            <portal:WelcomeMessage id="WelcomeMessage" runat="server" RenderAsListItem="true" ListItemCSS="firstnav" />
-            <portal:HomeLink id="HomeLink" runat="server" RenderAsListItem="true" />
-            <portal:SiteMapLink id="SiteMapLink2" runat="server" CssClass="sitelink" RenderAsListItem="true"  />
-            <portal:UserProfileLink id="UserProfileLink" runat="server" RenderAsListItem="true" />
-            <portal:MemberListLink id="MemberListLink" runat="server" RenderAsListItem="true"  />
-            <portal:RegisterLink id="RegisterLink" runat="server" RenderAsListItem="true" />
-            <portal:SearchInput id="SearchInput1" LinkOnly="True" RenderAsListItem="true"  runat="server" />
-            <portal:LoginLink id="LoginLink" runat="server" RenderAsListItem="true" />
-            <portal:LogoutLink id="LogoutLink" runat="server" RenderAsListItem="true" />
-            </ul>  
-        </div>    
-        
-    </div>
-    <div id="wrapcenter">
-		<div class="alert alert-danger"><%= Resources.Resource.LayoutMasterError %></div>
-	    <asp:Panel id="divLeft" runat="server" cssclass="leftside" visible="True" SkinID="pnlPlain">
-		    <portal:PageMenu id="PageMenu1" runat="server" UseTreeView="true" TreeViewShowExpandCollapse="true"  />
-		    <a id="startcontent"></a>
-		    <asp:contentplaceholder ID="leftContent" runat="server"></asp:contentplaceholder>
-	    </asp:Panel>
-	    <asp:Panel id="divCenter" runat="server" visible="True" cssclass="center-rightandleftmargins" SkinID="pnlPlain">
-            <portal:Breadcrumbs id="Breadcrumbs" runat="server"></portal:Breadcrumbs>
-	        <portal:ChildPageMenu id="ChildPageMenu" runat="server" CssClass="txtnormal"></portal:ChildPageMenu>
-	        <asp:ContentPlaceHolder ID="mainContent" runat="server"></asp:ContentPlaceHolder>
-	    </asp:Panel>
-	    <asp:Panel id="divRight" runat="server" visible="True" cssclass="rightside" SkinID="pnlPlain">
-			    <asp:contentplaceholder ID="rightContent" runat="server"></asp:contentplaceholder>
-	    </asp:Panel>		
-	</div>
-	<div id="wrapfooter">
-	    <br class="clear" />
-	    <portal:SiteMapLink id="SiteMapLink1" runat="server" CssClass="sitemaplink" /> |
-	    <portal:SkinPreview id="SkinPreview1" runat="server"></portal:SkinPreview> | 
-	    <portal:CopyrightLabel ID="cl1" runat="server"   ShowYear="true" BeginYear="2008" />
-	    <br /><br />
-		<portal:mojoPortalLink id="lnkmojoportal" UseImage="false" runat="server" /> |
-		<portal:XhtmlValidatorLink id="lnkw3cValidator" UseImage="false" runat="server" Html5="true" /> |
-		<portal:CSSValidatorLink id="lnkCSSVal1" UseImage="false" runat="server" /> |
-	</div>
-</div>
+	<form id="frmMain" runat="server">
+		<asp:SiteMapDataSource ID="SiteMapData" runat="server" ShowStartingNode="false" />
+		<asp:SiteMapDataSource ID="PageMapDataSource" runat="server" ShowStartingNode="false" />
+		<asp:SiteMapDataSource ID="ChildPageSiteMapData" runat="server" ShowStartingNode="false" />
+		<asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server" />
+		<div id="wrapwebsite">
+			<div id="wrapheader">
+				<portal:SiteTitle ID="SiteTitle" runat="server"></portal:SiteTitle>
+				<portal:SkipLink ID="SkipLink1" runat="server" />
+				<portal:SiteMenu ID="SiteMenu1" runat="server" UseTreeView="false" UseSpanInLinks="true" HideMenuOnSiteMap="false" Direction="Horizontal" TopLevelOnly="true" />
+				<div class="topnav">
+					<ul>
+						<portal:WelcomeMessage ID="WelcomeMessage" runat="server" RenderAsListItem="true" ListItemCss="firstnav" />
+						<portal:HomeLink ID="HomeLink" runat="server" RenderAsListItem="true" />
+						<portal:SiteMapLink ID="SiteMapLink2" runat="server" CssClass="sitelink" RenderAsListItem="true" />
+						<portal:UserProfileLink ID="UserProfileLink" runat="server" RenderAsListItem="true" />
+						<portal:MemberListLink ID="MemberListLink" runat="server" RenderAsListItem="true" />
+						<portal:RegisterLink ID="RegisterLink" runat="server" RenderAsListItem="true" />
+						<portal:SearchInput ID="SearchInput1" LinkOnly="True" RenderAsListItem="true" runat="server" />
+						<portal:LoginLink ID="LoginLink" runat="server" RenderAsListItem="true" />
+						<portal:LogoutLink ID="LogoutLink" runat="server" RenderAsListItem="true" />
+					</ul>
+				</div>
+			</div>
+			<div id="wrapcenter">
+				<div class="alert alert-danger"><%= Resources.Resource.LayoutMasterError %></div>
+				<asp:Panel ID="divLeft" runat="server" CssClass="leftside" Visible="True" SkinID="pnlPlain">
+					<portal:PageMenu ID="PageMenu1" runat="server" UseTreeView="true" TreeViewShowExpandCollapse="true" />
+					<a id="startcontent"></a>
+					<asp:ContentPlaceHolder ID="leftContent" runat="server" />
+				</asp:Panel>
+				<asp:Panel ID="divCenter" runat="server" Visible="True" CssClass="center-rightandleftmargins" SkinID="pnlPlain">
+					<portal:Breadcrumbs ID="Breadcrumbs" runat="server" />
+					<portal:ChildPageMenu ID="ChildPageMenu" runat="server" CssClass="txtnormal" />
+					<asp:ContentPlaceHolder ID="mainContent" runat="server" />
+				</asp:Panel>
+				<asp:Panel ID="divRight" runat="server" Visible="True" CssClass="rightside" SkinID="pnlPlain">
+					<asp:ContentPlaceHolder ID="rightContent" runat="server" />
+				</asp:Panel>
+			</div>
+			<div id="wrapfooter">
+				<br class="clear" />
+				<portal:SiteMapLink ID="SiteMapLink1" runat="server" CssClass="sitemaplink" />
+				|
+	    <portal:SkinPreview ID="SkinPreview1" runat="server" />
+				| 
+	    <portal:CopyrightLabel ID="cl1" runat="server" ShowYear="true" BeginYear="2004" />
+				<br />
+				<br />
+				<portal:mojoPortalLink ID="lnkmojoportal" UseImage="false" runat="server" />
+				|
+		<portal:XhtmlValidatorLink ID="lnkw3cValidator" UseImage="false" runat="server" Html5="true" />
+				|
+		<portal:CssValidatorLink ID="lnkCSSVal1" UseImage="false" runat="server" />
+				|
+			</div>
+		</div>
 
-<portal:AutoHidePanel ID="ah1" runat="server">
-<div id="toolbarbut"> 
-<span class="showbar"><a href="#">show bar</a></span>
-</div>
-<div id="toolbar"> 
-<div class="toolbarleft"> 
-  &nbsp;
-</div>
-<div class="toolbarright"> 
-  <span class="downarr"> 
-  <a href="#"></a>
-  </span>
-  <portal:AdminMenuLink id="lnkAdminMenu" runat="server" />
-  <portal:FileManagerLink id="lnkFileManager" runat="server" />
-  <portal:NewPageLink id="lnkNewPage" runat="server" />
-  <portal:PageEditFeaturesLink id="lnkPageContent" runat="server" />
-  <portal:PageEditSettingsLink id="lnkPageSettings" runat="server" />
-  <asp:ContentPlaceHolder ID="pageEditContent" runat="server"></asp:ContentPlaceHolder>
-</div>
-</div>
-</portal:AutoHidePanel>
-<portal:mojoGoogleAnalyticsScript ID="mojoGoogleAnalyticsScript1" runat="server" />
-<portal:Woopra ID="woopra11" runat="server" />
-</form>
+		<portal:AutoHidePanel ID="ah1" runat="server">
+			<div id="toolbarbut">
+				<span class="showbar"><a href="#">show bar</a></span>
+			</div>
+			<div id="toolbar">
+				<div class="toolbarleft">
+					&nbsp;
+				</div>
+				<div class="toolbarright">
+					<span class="downarr">
+						<a href="#"></a>
+					</span>
+					<portal:AdminMenuLink ID="lnkAdminMenu" runat="server" />
+					<portal:FileManagerLink ID="lnkFileManager" runat="server" />
+					<portal:NewPageLink ID="lnkNewPage" runat="server" />
+					<portal:PageEditFeaturesLink ID="lnkPageContent" runat="server" />
+					<portal:PageEditSettingsLink ID="lnkPageSettings" runat="server" />
+					<asp:ContentPlaceHolder ID="pageEditContent" runat="server" />
+				</div>
+			</div>
+		</portal:AutoHidePanel>
+		<portal:mojoGoogleAnalyticsScript ID="mojoGoogleAnalyticsScript1" runat="server" />
+		<portal:Woopra ID="woopra11" runat="server" />
+	</form>
 	<asp:PlaceHolder ID="phSiteFooter" runat="server" />
 </body>
 </html>

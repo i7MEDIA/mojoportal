@@ -1,6 +1,3 @@
-
-#region using statements
-
 using System;
 using System.Data;
 using System.Configuration;
@@ -19,7 +16,7 @@ using log4net;
 using mojoPortal.Business;
 using Resources;
 
-#endregion
+
 
 namespace mojoPortal.Web.ContentUI
 {
@@ -85,7 +82,5 @@ namespace mojoPortal.Web.ContentUI
 
 
         }
-
-
     }
 }

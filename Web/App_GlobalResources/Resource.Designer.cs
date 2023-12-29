@@ -4453,6 +4453,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This feature is disabled because it depends on the search index which is also disabled..
+        /// </summary>
+        internal static string FeatureDisabledDueToSearchIndexDisabled {
+            get {
+                return ResourceManager.GetString("FeatureDisabledDueToSearchIndexDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  Users in selected roles will see this feature in the list of available features when adding features to pages or using the content manager to create new feature instances. Note that the user would have to have edit permissions on a page in order to be able to add any features. Typically, you will want to set All Users or Authenticated Users here unless there are specific roles that you don&apos;t want to be able to create new instances of the feature. It has no effect on a users permission to edit existing featu [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string FeaturePermissionInfo {

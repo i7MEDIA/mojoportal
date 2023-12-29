@@ -1,7 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="DialogMaster.master.cs" Inherits="mojoPortal.Web.DialogMaster" %>
 
 <!DOCTYPE html>
-
 <html id="Html" runat="server">
 <head id="Head1" runat="server">
 	<title></title>

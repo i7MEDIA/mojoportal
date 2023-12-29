@@ -6739,4 +6739,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="FriendlyUrlViewRealLink" xml:space="preserve">
     <value>View Real URL</value>
   </data>
+  <data name="FeatureDisabledDueToSearchIndexDisabled" xml:space="preserve">
+    <value>This feature is disabled because it depends on the search index which is also disabled.</value>
+  </data>
 </root>

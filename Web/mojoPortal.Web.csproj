@@ -562,9 +562,6 @@
     <Content Include="Content\ui-icons\custom-fontawesome-sprite.html" />
     <Content Include="Controls\BreadcrumbsControl.ascx">
     </Content>
-    <Content Include="Controls\ChildPageBreadcrumbs.ascx">
-      <SubType>UserControl</SubType>
-    </Content>
     <Content Include="Controls\ChildPageMenu.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -615,8 +612,6 @@
     <Content Include="DesignTools\Default.aspx" />
     <Content Include="DesignTools\DownloadSkin.aspx" />
     <Content Include="DesignTools\ManageSkin.aspx" />
-    <Content Include="DesignTools\MasterPageEditor.aspx" />
-    <Content Include="DesignTools\SkinFileEditor.aspx" />
     <Content Include="DesignTools\SkinList.aspx" />
     <Content Include="Dialog\GlobalContentDialog.aspx" />
     <Content Include="Dialog\ParentPageDialog.aspx" />
@@ -647,7 +642,6 @@
     <Content Include="Modules\LoginModule.ascx" />
     <Content Include="Modules\RecentContentModule.ascx" />
     <Content Include="Modules\SiteSearchModule.ascx" />
-    <Content Include="Modules\WebPartModule.ascx" />
     <Content Include="ProfileView.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -1453,20 +1447,6 @@
     <Compile Include="DesignTools\ManageSkin.aspx.designer.cs">
       <DependentUpon>ManageSkin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DesignTools\MasterPageEditor.aspx.cs">
-      <DependentUpon>MasterPageEditor.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DesignTools\MasterPageEditor.aspx.designer.cs">
-      <DependentUpon>MasterPageEditor.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DesignTools\SkinFileEditor.aspx.cs">
-      <DependentUpon>SkinFileEditor.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DesignTools\SkinFileEditor.aspx.designer.cs">
-      <DependentUpon>SkinFileEditor.aspx</DependentUpon>
-    </Compile>
     <Compile Include="DesignTools\SkinList.aspx.cs">
       <DependentUpon>SkinList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1888,7 +1868,6 @@
     <Compile Include="ConfirmRegistration.aspx.designer.cs">
       <DependentUpon>ConfirmRegistration.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AccessibilityCynthiaValidatorLink.cs" />
     <Compile Include="Controls\Adapters\ChangePasswordAdapter.cs" />
     <Compile Include="Controls\Adapters\CreateUserWizardAdapter.cs" />
     <Compile Include="Controls\Adapters\ExtGridViewAdapter.cs" />
@@ -1922,9 +1901,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls\ChangePasswordLink.cs" />
-    <Compile Include="Controls\ChildPageBreadcrumbs.ascx.designer.cs">
-      <DependentUpon>ChildPageBreadcrumbs.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ChildPageMenu.ascx.designer.cs">
       <DependentUpon>ChildPageMenu.ascx</DependentUpon>
     </Compile>
@@ -2128,10 +2104,6 @@
     </Compile>
     <Compile Include="Controls\BreadcrumbsControl.ascx.cs">
       <DependentUpon>BreadcrumbsControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ChildPageBreadcrumbs.ascx.cs">
-      <DependentUpon>ChildPageBreadcrumbs.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\ChildPageMenu.ascx.cs">
@@ -2569,13 +2541,6 @@
     </Compile>
     <Compile Include="Modules\SiteStatisticsModule.ascx.designer.cs">
       <DependentUpon>SiteStatisticsModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\WebPartModule.ascx.cs">
-      <DependentUpon>WebPartModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\WebPartModule.ascx.designer.cs">
-      <DependentUpon>WebPartModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="PageNotFound.aspx.cs">
       <DependentUpon>PageNotFound.aspx</DependentUpon>

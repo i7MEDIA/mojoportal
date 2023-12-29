@@ -1,192 +1,127 @@
-/// Created:			2004-12-26
-/// Last Modified:		2011-08-05
-
 using System;
 using System.Globalization;
 using System.IO;
 using System.Web;
-using System.Web.Caching;
 using System.Web.UI;
 using log4net;
 using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
 using mojoPortal.Web.Caching;
+using mojoPortal.Web.Framework;
 
-namespace mojoPortal.Web
+namespace mojoPortal.Web;
+
+public class CachedSiteModuleControl : Control
 {
-	
-	public class CachedSiteModuleControl : Control 
+	private string cachedOutput = null;
+	private static readonly ILog log = LogManager.GetLogger(typeof(CachedSiteModuleControl));
+	private bool debugLog = log.IsDebugEnabled;
+	private string cacheKey = string.Empty;
+
+
+	public Module ModuleConfiguration { get; set; }
+
+	public int ModuleId
 	{
-		private Module  moduleConfiguration;
-		private String  cachedOutput = null;
-		private int     siteID = 0;
-        private static readonly ILog log = LogManager.GetLogger(typeof(CachedSiteModuleControl));
-        private bool debugLog = log.IsDebugEnabled;
-        private string cacheKey = string.Empty;
+		get { return ModuleConfiguration.ModuleId; }
+	}
 
+	public int PageId
+	{
+		get { return ModuleConfiguration.PageId; }
+	}
 
-        public Module ModuleConfiguration
-        {
-            get { return moduleConfiguration; }
-            set { moduleConfiguration = value; }
-        }
+	public int SiteId { get; set; } = 0;
 
-        public int ModuleId
-        {
-            get { return moduleConfiguration.ModuleId; }
-        }
-
-		public int PageId
+	public string GetCacheKey()
+	{
+		bool canEdit = false;
+		if (Page is mojoBasePage basePage)
 		{
-            get { return moduleConfiguration.PageId; }
+			canEdit = basePage.UserCanEditModule(ModuleConfiguration.ModuleId, ModuleConfiguration.FeatureGuid);
 		}
 
-        public int SiteId
-        {
-            get { return siteID; }
-            set { siteID = value; }
-        }
+		return $"Module-{ModuleConfiguration.ModuleId.ToInvariantString()}{canEdit.ToString(CultureInfo.InvariantCulture)}";
+	}
 
-		public string GetCacheKey() 
+	protected override void CreateChildControls()
+	{
+		cacheKey = GetCacheKey();
+		if (!Page.IsPostBack && ModuleConfiguration.CacheTime > 0)
 		{
-            //get 
-            //{
-            //    return "Module-"
-            //        + CultureInfo.CurrentUICulture.Name
-            //        + moduleConfiguration.ModuleId.ToInvariantString()
-            //        + HttpContext.Current.Request.QueryString
-            //        + WebUser.IsInRoles("Admins;Content Administrators;" + moduleConfiguration.AuthorizedEditRoles);
-            //}
-
-            bool canEdit = false;
-            mojoBasePage basePage = Page as mojoBasePage;
-            if (basePage != null)
-            {
-                canEdit = basePage.UserCanEditModule(moduleConfiguration.ModuleId, moduleConfiguration.FeatureGuid);
-            }
-
-            return "Module-" + moduleConfiguration.ModuleId.ToInvariantString()
-                + canEdit.ToString(CultureInfo.InvariantCulture);
-
-		}
-
-        //public String CacheDependencyKey
-        //{
-        //    get
-        //    {
-        //        return "Module-" + moduleConfiguration.ModuleId.ToInvariantString();
-        //    }
-        //}
-
-		
-
-		protected override void CreateChildControls()
-		{
-            cacheKey = GetCacheKey();
-			if (
-                (!Page.IsPostBack)
-                &&(moduleConfiguration.CacheTime > 0)
-                )
+			cachedOutput = CacheManager.Cache.GetObject(cacheKey) as string;
+			if (debugLog)
 			{
-                //cachedOutput = (string)HttpRuntime.Cache[cacheKey];
-                cachedOutput = CacheManager.Cache.GetObject(cacheKey) as string;
-                if (debugLog)
-                {
-                    if (cachedOutput == null)
-                    {
-                        log.Debug("cached module content was null for cacheKey " + cacheKey);
-                    }
-                    else
-                    {
-                        log.Debug("cached module content was found for cacheKey " + cacheKey);
-                    }
-                }
-			}
-
-			if ((Page.IsPostBack)||(cachedOutput == null))
-			{
-
-				base.CreateChildControls();
-
-				SiteModuleControl module = (SiteModuleControl) Page.LoadControl(moduleConfiguration.ControlSource);
-                
-				module.ModuleConfiguration = this.ModuleConfiguration;
-				module.SiteId = this.SiteId;
-
-                try
-                {
-                    this.Controls.Add(module);
-                }
-                catch (HttpException ex)
-                {
-                    // when searching using the search input from a page
-                    // with viewstate enabled, this exception can be thrown
-                    // because when the  SearchResults page accesses the Page.PreviousPage
-                    // the viewstate is not the same
-                    // the user never sees this and the search works since we catch
-                    // the exception
-                    if (log.IsErrorEnabled)
-                    {
-                        if (HttpContext.Current != null)
-                        {
-                            log.Error("Exception caught and handled in CachedSiteModule for requested url:" 
-                                + HttpContext.Current.Request.RawUrl, ex);
-                        }
-                        else
-                        {
-                            log.Error("Exception caught and handled in CachedSiteModule", ex);
-                        }
-                    }
-
-                }
+				if (cachedOutput == null)
+				{
+					log.Debug($"cached module content was null for cacheKey {cacheKey}");
+				}
+				else
+				{
+					log.Debug($"cached module content was found for cacheKey {cacheKey}");
+				}
 			}
 		}
 
-
-		protected override void Render(HtmlTextWriter output)
+		if (Page.IsPostBack || cachedOutput is null)
 		{
-			if (
-                (Page.IsPostBack)
-                ||(moduleConfiguration.CacheTime == 0)
-                )
+			base.CreateChildControls();
+
+			SiteModuleControl module = (SiteModuleControl)Page.LoadControl(ModuleConfiguration.ControlSource);
+
+			module.ModuleConfiguration = ModuleConfiguration;
+			module.SiteId = SiteId;
+
+			try
 			{
-				base.Render(output);
-				return;
+				Controls.Add(module);
 			}
-
-            if (cacheKey.Length == 0) { return; }
-
-			if (cachedOutput == null)
+			catch (HttpException ex)
 			{
-
-                TextWriter tempWriter = new StringWriter(CultureInfo.InvariantCulture);
-				base.Render(new HtmlTextWriter(tempWriter));
-				cachedOutput = tempWriter.ToString();
-
-                DateTime absoluteExpiration = DateTime.Now.AddSeconds(moduleConfiguration.CacheTime);
-                CacheManager.Cache.Add(cacheKey, absoluteExpiration, cachedOutput);
-                if (debugLog) { log.Debug("added module content to cache for cachekey " + cacheKey); }
-
-                //CacheItemPriority priority = CacheItemPriority.Default;
-                //CacheItemRemovedCallback callback = null;
-
-                //HttpRuntime.Cache.Insert(
-                //    cacheKey,
-                //    cachedOutput,
-                //    null,
-                //    absoluteExpiration,
-                //    Cache.NoSlidingExpiration,
-                //    priority,
-                //    callback);
-
+				// when searching using the search input from a page
+				// with viewstate enabled, this exception can be thrown
+				// because when the  SearchResults page accesses the Page.PreviousPage
+				// the viewstate is not the same
+				// the user never sees this and the search works since we catch
+				// the exception
+				if (log.IsErrorEnabled)
+				{
+					if (HttpContext.Current != null)
+					{
+						log.Error($"Exception caught and handled in CachedSiteModule for requested url:{HttpContext.Current.Request.RawUrl}", ex);
+					}
+					else
+					{
+						log.Error("Exception caught and handled in CachedSiteModule", ex);
+					}
+				}
 			}
-
-			output.Write(cachedOutput);
 		}
 	}
 
-	
+	protected override void Render(HtmlTextWriter output)
+	{
+		if (Page.IsPostBack || ModuleConfiguration.CacheTime == 0)
+		{
+			base.Render(output);
+			return;
+		}
 
+		if (cacheKey.Length == 0) { return; }
 
+		if (cachedOutput is null)
+		{
+
+			TextWriter tempWriter = new StringWriter(CultureInfo.InvariantCulture);
+			base.Render(new HtmlTextWriter(tempWriter));
+			cachedOutput = tempWriter.ToString();
+
+			DateTime absoluteExpiration = DateTime.Now.AddSeconds(ModuleConfiguration.CacheTime);
+			CacheManager.Cache.Add(cacheKey, absoluteExpiration, cachedOutput);
+			if (debugLog)
+			{
+				log.Debug($"added module content to cache for cachekey {cacheKey}");
+			}
+		}
+		output.Write(cachedOutput);
+	}
 }

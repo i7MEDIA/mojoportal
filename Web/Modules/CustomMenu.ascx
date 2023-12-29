@@ -7,10 +7,7 @@
             <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
                 <asp:Literal ID="lit1" runat="server" />
             </portal:InnerBodyPanel>
-            <portal:EmptyPanel ID="divFooter" runat="server" CssClass="modulefooter" SkinID="modulefooter">
-            </portal:EmptyPanel>
+            <portal:EmptyPanel ID="divFooter" runat="server" CssClass="modulefooter" SkinID="modulefooter"/>
         </portal:OuterBodyPanel>
-        <portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared">
-        </portal:EmptyPanel>
     </portal:InnerWrapperPanel>
 </portal:OuterWrapperPanel>

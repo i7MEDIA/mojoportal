@@ -5,7 +5,6 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Components;
-using mojoPortal.Web.Models;
 using mojoPortal.Web.UI;
 using Newtonsoft.Json;
 namespace mojoPortal.Web.Controls

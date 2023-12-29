@@ -1,371 +1,286 @@
-///		Author:				
-///		Created:			2005-05-21
-///		Last Modified:		2011-11-10
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.	
-
-using System;
-using System.Data;
-using System.Drawing;
-using System.Globalization;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using Resources;
 
-namespace mojoPortal.Web.UI
+namespace mojoPortal.Web.UI;
+
+[Themeable(true)]
+public partial class ChildPageMenu : UserControl
 {
-    [Themeable(true)]
-	public partial class ChildPageMenu : UserControl
+	private PageSettings currentPage;
+	private SiteMapDataSource siteMapDataSource;
+	private bool treatChildPageIndexAsSiteMap = false;
+	private bool isAdmin = false;
+	private bool isContentAdmin = false;
+	private bool isSiteEditor = false;
+	private bool isMobileSkin = false;
+	private int mobileOnly = (int)ContentPublishMode.MobileOnly;
+	private int webOnly = (int)ContentPublishMode.WebOnly;
+
+	public int MaximumDynamicDisplayLevels { get; set; } = 20;
+	public bool UsePageImages { get; set; } = false;
+	public bool HidePagesNotInSiteMap { get; set; } = false;
+	public string CssClass { get; set; } = "txtnormal";
+	public bool ForceDisplay { get; set; } = false;
+	public int MaxRenderDepth { get; set; } = -1;
+	public bool HonorSiteMapExpandSettings { get; set; } = false;
+	public string Message { get; set; }
+
+	protected void Page_Load(object sender, System.EventArgs e)
 	{
-		private string cssClass = "txtnormal";
-        private PageSettings currentPage;
-        private SiteMapDataSource siteMapDataSource;
-        private bool usePageImages = false;
-        private bool hidePagesNotInSiteMap = false;
-        private int maximumDynamicDisplayLevels = 20;
-        private bool treatChildPageIndexAsSiteMap = false;
-        private bool isAdmin = false;
-        private bool isContentAdmin = false;
-        private bool isSiteEditor = false;
-        private bool forceDisplay = false;
-        private bool isMobileSkin = false;
-        private int mobileOnly = (int)ContentPublishMode.MobileOnly;
-        private int webOnly = (int)ContentPublishMode.WebOnly;
+		currentPage = CacheHelper.GetCurrentPage();
+		treatChildPageIndexAsSiteMap = WebConfigSettings.TreatChildPageIndexAsSiteMap;
 
-        public int MaximumDynamicDisplayLevels
-        {
-            get { return maximumDynamicDisplayLevels; }
-            set { maximumDynamicDisplayLevels = value; }
-        }
+		EnableViewState = false;
 
-        public bool UsePageImages
-        {
-            get { return usePageImages; }
-            set { usePageImages = value; }
-        }
-
-        public bool HidePagesNotInSiteMap
-        {
-            get { return hidePagesNotInSiteMap; }
-            set { hidePagesNotInSiteMap = value; }
-        }
-
-
-		public string CssClass
-		{	
-			get {return cssClass;}
-			set {cssClass = value;}
-		}
-
-       
-        public bool ForceDisplay
-        {
-            get { return forceDisplay; }
-            set { forceDisplay = value; }
-        }
-
-        private int maxRenderDepth = -1; // no limit
-
-        public int MaxRenderDepth
-        {
-            get { return maxRenderDepth; }
-            set { maxRenderDepth = value; }
-        }
-
-        private bool honorSiteMapExpandSettings = false;
-
-        public bool HonorSiteMapExpandSettings
-        {
-            get { return honorSiteMapExpandSettings; }
-            set { honorSiteMapExpandSettings = value; }
-        }
-        
-
-		protected void Page_Load(object sender, System.EventArgs e)
+		isAdmin = WebUser.IsAdmin;
+		if (!isAdmin)
 		{
-            currentPage = CacheHelper.GetCurrentPage();
-            treatChildPageIndexAsSiteMap = WebConfigSettings.TreatChildPageIndexAsSiteMap;
-
-            EnableViewState = false;
-
-            isAdmin = WebUser.IsAdmin;
-            if (!isAdmin) { isContentAdmin = WebUser.IsContentAdmin; }
-            if ((!isAdmin) && (!isContentAdmin)) { isSiteEditor = SiteUtils.UserIsSiteEditor(); }
-
-            isMobileSkin = SiteUtils.UseMobileSkin();
-
-            if (WebConfigSettings.UsePageImagesInSiteMap && treatChildPageIndexAsSiteMap)
-            {
-                usePageImages = true;
-            }
-            
-
-            if (
-                (currentPage != null)
-                && (((currentPage.ShowChildPageMenu) && (Page is CmsPage)) || forceDisplay)
-                
-                )
-            {
-                // moved and commented out 2007-08-07
-                //PreviousImplementation();
-                Visible = true;
-                ShowChildPageMap();
-
-
-            }
-            else
-            {
-                this.Visible = false;
-            }
-
+			isContentAdmin = WebUser.IsContentAdmin;
 		}
 
-        private void ShowChildPageMap()
-        {
-            if (!Visible) { return; }
+		if (!isAdmin && !isContentAdmin)
+		{
+			isSiteEditor = SiteUtils.UserIsSiteEditor();
+		}
 
-            SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-            if (siteSettings == null) return;
+		isMobileSkin = SiteUtils.UseMobileSkin();
 
-            siteMapDataSource
-                = (SiteMapDataSource)this.Page.Master.FindControl("ChildPageSiteMapData");
+		if (WebConfigSettings.UsePageImagesInSiteMap && treatChildPageIndexAsSiteMap)
+		{
+			UsePageImages = true;
+		}
 
-            if (siteMapDataSource == null) return;
+		if (currentPage != null
+			&& ((currentPage.ShowChildPageMenu && Page is CmsPage) || ForceDisplay)
+			)
+		{
+			Visible = true;
+			ShowChildPageMap();
+		}
+		else
+		{
+			Visible = false;
+		}
+	}
 
-            siteMapDataSource.SiteMapProvider
-                    = "mojosite" 
-                    + siteSettings.SiteId.ToInvariantString();
+	private void ShowChildPageMap()
+	{
+		if (!Visible)
+		{
+			return;
+		}
 
-            
+		var siteSettings = CacheHelper.GetCurrentSiteSettings();
+		if (siteSettings is null)
+		{
+			return;
+		}
 
-            if (WebConfigSettings.DisableViewStateOnSiteMapDataSource)
-            {
-                siteMapDataSource.EnableViewState = false;
-            }
+		if (Page.Master.FindControl("ChildPageSiteMapData") is not SiteMapDataSource siteMapDataSource)
+		{
+			return;
+		}
 
-            //SiteMapNode node
-            //    = siteMapDataSource.Provider.FindSiteMapNode(Request.RawUrl);
-            //if (node != null)
-            //{
-            //    siteMapDataSource.StartingNodeUrl = Request.RawUrl;
-            //}
+		siteMapDataSource.SiteMapProvider = $"mojosite{siteSettings.SiteId.ToInvariantString()}";
 
-            SiteMapNode node
-                = siteMapDataSource.Provider.FindSiteMapNode(currentPage.Url);
-            if (node != null)
-            {
-                siteMapDataSource.StartingNodeUrl = node.Url;
-            }
-            else
-            {
-                node = siteMapDataSource.Provider.FindSiteMapNode(Request.RawUrl);
-                if (node != null)
-                {
-                    siteMapDataSource.StartingNodeUrl = Request.RawUrl;
-                }
-            }
+		siteMapDataSource.EnableViewState = !WebConfigSettings.DisableViewStateOnSiteMapDataSource;
 
-#if NET35
+		if (siteMapDataSource.Provider.FindSiteMapNode(currentPage.Url) is SiteMapNode node)
+		{
+			siteMapDataSource.StartingNodeUrl = node.Url;
+		}
+		else
+		{
+			node = siteMapDataSource.Provider.FindSiteMapNode(Request.RawUrl);
+			if (node != null)
+			{
+				siteMapDataSource.StartingNodeUrl = Request.RawUrl;
+			}
+		}
 
-            SiteMap1.MenuItemDataBound += new MenuEventHandler(SiteMap_MenuItemDataBound);
-            SiteMap1.Orientation = Orientation.Vertical;
+		SiteMap1.Visible = false;
+		SiteMap2.Visible = true;
 
-            SiteMap1.PathSeparator = '|';
-            SiteMap1.MaximumDynamicDisplayLevels = maximumDynamicDisplayLevels;
+		SiteMap2.PathSeparator = '|';
+		SiteMap2.CollapseImageToolTip = Resource.TreeMenuCollapseTooltip;
+		SiteMap2.ExpandImageToolTip = Resource.TreeMenuExpandTooltip;
 
-            SiteMap1.DataSourceID = siteMapDataSource.ID;
-            SiteMap1.DataBind();
+		SiteMap2.TreeNodeDataBound += new TreeNodeEventHandler(SiteMap2_TreeNodeDataBound);
+		SiteMap2.DataSourceID = siteMapDataSource.ID;
+		SiteMap2.DataBind();
+	}
 
-#else
-            SiteMap1.Visible = false;
-            SiteMap2.Visible = true;
+	void SiteMap2_TreeNodeDataBound(object sender, TreeNodeEventArgs e)
+	{
+		if (sender is null)
+		{
+			return;
+		}
 
-            //SiteMap2.SkinID = menuSkinID;
-            SiteMap2.PathSeparator = '|';
-           
-            SiteMap2.CollapseImageToolTip = Resource.TreeMenuCollapseTooltip;
-            SiteMap2.ExpandImageToolTip = Resource.TreeMenuExpandTooltip;
+		if (e is null)
+		{
+			return;
+		}
 
-            SiteMap2.TreeNodeDataBound += new TreeNodeEventHandler(SiteMap2_TreeNodeDataBound);
-            SiteMap2.DataSourceID = siteMapDataSource.ID;
-            SiteMap2.DataBind();
+		TreeView menu = (TreeView)sender;
+		mojoSiteMapNode mapNode = (mojoSiteMapNode)e.Node.DataItem;
 
-#endif
+		if (e.Node is mojoTreeNode)
+		{
+			mojoTreeNode tn = e.Node as mojoTreeNode;
+			tn.HasVisibleChildren = mapNode.HasVisibleChildren();
+		}
 
-            
+		e.Node.Value = mapNode.PageGuid.ToString();
 
-           
+		bool remove = false;
 
+		if (mapNode.Roles == null)
+		{
+			if (!isAdmin && !isContentAdmin && !isSiteEditor)
+			{
+				remove = true;
+			}
+		}
+		else
+		{
+			if ((!isAdmin && mapNode.Roles.Count == 1 && mapNode.Roles[0].ToString() == "Admins")
+				|| (!isAdmin && !isContentAdmin && !isSiteEditor && !WebUser.IsInRoles(mapNode.Roles)))
+			{
+				remove = true;
+			}
+		}
 
-        }
+		if (!mapNode.IncludeInChildSiteMap)
+		{
+			remove = true;
+		}
 
-        void SiteMap2_TreeNodeDataBound(object sender, TreeNodeEventArgs e)
-        {
-            if (sender == null) return;
-            if (e == null) return;
-
-            TreeView menu = (TreeView)sender;
-            mojoSiteMapNode mapNode = (mojoSiteMapNode)e.Node.DataItem;
-
-            if (e.Node is mojoTreeNode)
-            {
-                mojoTreeNode tn = e.Node as mojoTreeNode;
-                tn.HasVisibleChildren = mapNode.HasVisibleChildren();
-
-            }
-
-            e.Node.Value = mapNode.PageGuid.ToString();
-
-            bool remove = false;
-
-            if (mapNode.Roles == null)
-            {
-                if ((!isAdmin) && (!isContentAdmin) && (!isSiteEditor)) { remove = true; }
-            }
-            else
-            {
-                if ((!isAdmin) && (mapNode.Roles.Count == 1) && (mapNode.Roles[0].ToString() == "Admins")) { remove = true; }
-
-                if ((!isAdmin) && (!isContentAdmin) && (!isSiteEditor) && (!WebUser.IsInRoles(mapNode.Roles))) { remove = true; }
-            }
-
-            //if (!mapNode.IncludeInMenu) remove = true;
-            if (!mapNode.IncludeInChildSiteMap) remove = true;
-            //if (mapNode.IsPending && !WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor) remove = true;
-            if (mapNode.IsPending)
-            {
-                if (
-                    (!isAdmin)
-                    && (!isContentAdmin)
-                    && (!isSiteEditor)
-                    && (!WebUser.IsInRoles(mapNode.EditRoles))
-                    && (!WebUser.IsInRoles(mapNode.DraftEditRoles))
-                    )
-                    remove = true;
-            }
-            
-            
-            if ((mapNode.HideAfterLogin) && (Request.IsAuthenticated)) remove = true;
-
-            if (isMobileSkin)
-            {
-                if (mapNode.PublishMode == webOnly) { remove = true; }
-            }
-            else
-            {
-                if (mapNode.PublishMode == mobileOnly) { remove = true; }
-            }
-
-            if (maxRenderDepth > -1)
-            {
-                if (e.Node.Depth > maxRenderDepth) { remove = true; }
-            }
-
-            if (remove)
-            {
-                if (e.Node.Depth == 0)
-                {
-                    menu.Nodes.Remove(e.Node);
-                }
-                else
-                {
-                    TreeNode parent = e.Node.Parent;
-                    if (parent != null)
-                    {
-                        parent.ChildNodes.Remove(e.Node);
-                    }
-                }
-            }
-            else
-            {
-                if (honorSiteMapExpandSettings && menu.ShowExpandCollapse)
-                {
-                    e.Node.Expanded = mapNode.ExpandOnSiteMap;
-                }
-            }
-        }
-
-        void SiteMap_MenuItemDataBound(object sender, MenuEventArgs e)
-        {
-            Menu menu = (Menu)sender;
-            mojoSiteMapNode mapNode = (mojoSiteMapNode)e.Item.DataItem;
-            if ((usePageImages) && (mapNode.MenuImage.Length > 0))
-            {
-                e.Item.ImageUrl = mapNode.MenuImage;
-            }
-
-            bool remove = false;
-
-            if (mapNode.Roles == null)
-            {
-                if ((!isAdmin) && (!isContentAdmin) && (!isSiteEditor)) { remove = true; }
-            }
-            else
-            {
-                if ((!isAdmin) && (mapNode.Roles.Count == 1) && (mapNode.Roles[0].ToString() == "Admins")) { remove = true; }
-
-                if ((!isAdmin) && (!isContentAdmin) && (!isSiteEditor) && (!WebUser.IsInRoles(mapNode.Roles))) { remove = true; }
-            }
-
-            if ((treatChildPageIndexAsSiteMap)||(hidePagesNotInSiteMap))
-            {
-                if (!mapNode.IncludeInSiteMap) { remove = true; }
-            }
-            else
-            {
-                if (!mapNode.IncludeInMenu) { remove = true; }
-            }
-
-            if ((mapNode.HideAfterLogin) && (Request.IsAuthenticated)) remove = true;
-
-            if (isMobileSkin)
-            {
-                if (mapNode.PublishMode == webOnly) { remove = true; }
-            }
-            else
-            {
-                if (mapNode.PublishMode == mobileOnly) { remove = true; }
-            }
-
-            if (remove)
-            {
-                if (e.Item.Depth == 0)
-                {
-                    menu.Items.Remove(e.Item);
-                }
-                else
-                {
-                    MenuItem parent = e.Item.Parent;
-                    if (parent != null)
-                    {
-                        parent.ChildItems.Remove(e.Item);
-                    }
-                }
-            }
-            
-        }
+		if (mapNode.IsPending)
+		{
+			if (!isAdmin
+				&& !isContentAdmin
+				&& !isSiteEditor
+				&& !WebUser.IsInRoles(mapNode.EditRoles)
+				&& !WebUser.IsInRoles(mapNode.DraftEditRoles)
+				)
+			{
+				remove = true;
+			}
+		}
 
 
-        //this is just to make it themeable
-        private string _message;
-        public string Message
-        {
-            get { return _message; }
-            set { _message = value; }
-        }
-       
+		if (mapNode.HideAfterLogin && Request.IsAuthenticated)
+		{
+			remove = true;
+		}
 
-		
+		if (isMobileSkin)
+		{
+			if (mapNode.PublishMode == webOnly)
+			{
+				remove = true;
+			}
+		}
+		else
+		{
+			if (mapNode.PublishMode == mobileOnly)
+			{
+				remove = true;
+			}
+		}
+
+		if (MaxRenderDepth > -1)
+		{
+			if (e.Node.Depth > MaxRenderDepth)
+			{
+				remove = true;
+			}
+		}
+
+		if (remove)
+		{
+			if (e.Node.Depth == 0)
+			{
+				menu.Nodes.Remove(e.Node);
+			}
+			else
+			{
+				TreeNode parent = e.Node.Parent;
+				parent?.ChildNodes.Remove(e.Node);
+			}
+		}
+		else
+		{
+			if (HonorSiteMapExpandSettings && menu.ShowExpandCollapse)
+			{
+				e.Node.Expanded = mapNode.ExpandOnSiteMap;
+			}
+		}
+	}
+
+	void SiteMap_MenuItemDataBound(object sender, MenuEventArgs e)
+	{
+		Menu menu = (Menu)sender;
+		mojoSiteMapNode mapNode = (mojoSiteMapNode)e.Item.DataItem;
+		if (UsePageImages && mapNode.MenuImage.Length > 0)
+		{
+			e.Item.ImageUrl = mapNode.MenuImage;
+		}
+
+		bool remove = false;
+
+		if (mapNode.Roles == null)
+		{
+			if ((!isAdmin) && (!isContentAdmin) && (!isSiteEditor)) { remove = true; }
+		}
+		else
+		{
+			if ((!isAdmin) && (mapNode.Roles.Count == 1) && (mapNode.Roles[0].ToString() == "Admins")) { remove = true; }
+
+			if ((!isAdmin) && (!isContentAdmin) && (!isSiteEditor) && (!WebUser.IsInRoles(mapNode.Roles))) { remove = true; }
+		}
+
+		if (treatChildPageIndexAsSiteMap || HidePagesNotInSiteMap)
+		{
+			if (!mapNode.IncludeInSiteMap) { remove = true; }
+		}
+		else
+		{
+			if (!mapNode.IncludeInMenu) { remove = true; }
+		}
+
+		if (mapNode.HideAfterLogin && Request.IsAuthenticated) remove = true;
+
+		if (isMobileSkin)
+		{
+			if (mapNode.PublishMode == webOnly) { remove = true; }
+		}
+		else
+		{
+			if (mapNode.PublishMode == mobileOnly) { remove = true; }
+		}
+
+		if (remove)
+		{
+			if (e.Item.Depth == 0)
+			{
+				menu.Items.Remove(e.Item);
+			}
+			else
+			{
+				MenuItem parent = e.Item.Parent;
+				if (parent != null)
+				{
+					parent.ChildItems.Remove(e.Item);
+				}
+			}
+		}
+
 	}
 }
