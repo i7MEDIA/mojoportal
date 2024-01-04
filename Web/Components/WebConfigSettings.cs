@@ -801,6 +801,22 @@ namespace mojoPortal.Web
 			get { return ConfigHelper.GetBoolProperty("CKeditor:EncodeBrackets", false); }
 		}
 
+		public static string CKEditor5Skin
+		{
+			get { return ConfigHelper.GetStringProperty("CKEditor5:Skin", "moono-lisa"); }
+		}
+
+		public static bool CKeditor5SuppressTitle
+		{
+			get { return ConfigHelper.GetBoolProperty("CKEditor5:SuppressTitle", true); }
+		}
+
+
+		public static bool CKeditor5EncodeBrackets
+		{
+			get { return ConfigHelper.GetBoolProperty("CKeditor:EncodeBrackets", false); }
+		}
+
 		public static bool UseSkinCssInEditor
 		{
 			get { return ConfigHelper.GetBoolProperty("UseSkinCssInEditor", true); }
@@ -3784,6 +3800,33 @@ namespace mojoPortal.Web
 		public static string CKEditorFullWithTemplatesToolbarDefinition
 		{
 			get { return ConfigHelper.GetStringProperty("CKEditor:FullWithTemplatesToolbarDefinition", "[['SelectAll', 'RemoveFormat', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Print'],['Undo','Redo','-','Find','Replace','Bold','Italic','Underline','Strike'],'/',['Blockquote','Styles'],['NumberedList','BulletedList'],['Link','Unlink','Anchor'],['Templates','Image','oembed','Table','HorizontalRule','Smiley','SpecialChar'],];"); }
+		}
+
+		public static string CKEditor5BasePath
+		{
+			get
+			{
+				string defaultPath = "~/ClientScript/ckeditor5/";
+				string path = ConfigHelper.GetStringProperty("CKEditor5:BasePath", defaultPath);
+
+				return String.IsNullOrWhiteSpace(path) ? defaultPath : path;
+			}
+		}
+
+		public static string CKEditor5ConfigPath
+		{
+			get
+			{
+				string defaultPath = "~/ClientScript/ckeditor5-mojoconfig.js";
+				string path = ConfigHelper.GetStringProperty("CKEditor5:ConfigPath", defaultPath);
+
+				return String.IsNullOrWhiteSpace(path) ? defaultPath : path;
+			}
+		}
+
+		public static string CKEditor5FullWithTemplatesToolbarDefinition
+		{
+			get { return ConfigHelper.GetStringProperty("CKEditor5:FullWithTemplatesToolbarDefinition", "[['SelectAll', 'RemoveFormat', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Print'],['Undo','Redo','-','Find','Replace','Bold','Italic','Underline','Strike'],'/',['Blockquote','Styles'],['NumberedList','BulletedList'],['Link','Unlink','Anchor'],['Templates','Image','oembed','Table','HorizontalRule','Smiley','SpecialChar'],];"); }
 		}
 
 		public static bool ResizeEditorUploadedImages
