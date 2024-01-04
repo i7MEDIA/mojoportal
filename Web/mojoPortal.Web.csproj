@@ -1172,6 +1172,9 @@
       <DependentUpon>CountryISOCode2Setting.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\EditLinkToggle.cs" />
+    <Compile Include="Controls\Editors\CKEditor5\CKEditor5Adapter.cs" />
+    <Compile Include="Controls\Editors\CKEditor5\CKEditor5Provider.cs" />
+    <Compile Include="Controls\Editors\CKEditor5\CKEditor5Control.cs" />
     <Compile Include="Controls\Editors\EditorStyle.cs" />
     <Compile Include="Controls\Editors\EditorTemplate.cs" />
     <Compile Include="Controls\Editors\mojoTextArea.cs" />
