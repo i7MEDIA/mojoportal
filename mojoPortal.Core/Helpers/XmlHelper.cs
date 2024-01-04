@@ -290,20 +290,26 @@ namespace mojoPortal.Core.Helpers
 
 		public static StringBuilder GetKeyValuePairsAsStringBuilder(XmlNodeList nodes)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			foreach (XmlNode node in nodes)
 			{
 				XmlAttributeCollection attribs = node.Attributes;
 				if (attribs["name"] != null)
 				{
-					if (!String.IsNullOrWhiteSpace(attribs["name"].Value))
+					if (!string.IsNullOrWhiteSpace(attribs["name"].Value))
 					{
 						string opValue = " ";
-						if (attribs["value"] != null && !String.IsNullOrWhiteSpace(attribs["value"].Value))
+						if (attribs["value"] != null && !string.IsNullOrWhiteSpace(attribs["value"].Value))
 						{
 							opValue = attribs["value"].Value;
 						}
-						string option = attribs["name"].Value + "|" + opValue;
+
+						string optGroup = string.Empty;
+						if (attribs["optgroup"] != null && !string.IsNullOrWhiteSpace(attribs["optgroup"].Value))
+						{
+							optGroup = $"^{attribs["optgroup"].Value}";
+						}
+						string option = $"{attribs["name"].Value}|{opValue}{optGroup}";
 						sb.Append(option + ";");
 					}
 				}

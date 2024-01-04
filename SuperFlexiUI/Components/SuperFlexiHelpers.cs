@@ -22,26 +22,26 @@ using System.Xml;
 
 namespace SuperFlexiUI
 {
-    public class SuperFlexiHelpers
+	public class SuperFlexiHelpers
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(SuperFlexiHelpers));
 
 		public static string GetModuleLinks(ModuleConfiguration config, SuperFlexiDisplaySettings displaySettings, int moduleId, int pageId)
 		{
 			StringBuilder litExtraMarkup = new StringBuilder();
-            string add = string.Empty;
+			string add = string.Empty;
 			string header = string.Empty;
 			string footer = string.Empty;
 			string import = string.Empty;
 			string export = string.Empty;
 			try
 			{
-                string settings = string.Format(
+				string settings = string.Format(
 					displaySettings.ModuleSettingsLinkFormat,
 					SiteUtils.GetNavigationSiteRoot() + "/Admin/ModuleSettings.aspx?pageid=" + pageId.ToString() + "&amp;mid=" + moduleId.ToString(),
 					SuperFlexiResources.SettingsLinkLabel);
 
-                if (!string.IsNullOrWhiteSpace(config.MarkupDefinitionName) && config.MarkupDefinitionName != "0")
+				if (!string.IsNullOrWhiteSpace(config.MarkupDefinitionName) && config.MarkupDefinitionName != "0")
 				{
 					if (!config.IsGlobalView && (config.MaxItems == -1 || Item.GetCountForModule(moduleId) < config.MaxItems))
 					{
@@ -169,6 +169,20 @@ namespace SuperFlexiUI
 			PageSettings pageSettings,
 			SiteSettings siteSettings,
 			out StringBuilder sb)
+		{
+			ReplaceStaticTokens(stringBuilder.ToString(), config, isEditable, displaySettings, module, pageSettings, siteSettings, out string newString);
+			sb = new StringBuilder(newString);
+		}
+
+		public static void ReplaceStaticTokens(
+			string stringBuilder,
+			ModuleConfiguration config,
+			bool isEditable,
+			SuperFlexiDisplaySettings displaySettings,
+			Module module,
+			PageSettings pageSettings,
+			SiteSettings siteSettings,
+			out string sb)
 		{
 			sb = stringBuilder;
 			int moduleId = module.ModuleId;
@@ -719,7 +733,7 @@ namespace SuperFlexiUI
 			return expando;
 		}
 
-		public static object GetFieldValueFromKVPWithType(KeyValuePair<string, object> fieldValue, Field field) 
+		public static object GetFieldValueFromKVPWithType(KeyValuePair<string, object> fieldValue, Field field)
 		{
 			object theValue;
 			var emptyValue = string.IsNullOrWhiteSpace(fieldValue.Value.ToString());
@@ -728,8 +742,8 @@ namespace SuperFlexiUI
 			{
 				case "int":
 					if (field.IsList ||
-						field.						IsCheckBoxListField ||
-						field.						IsDynamicListField)
+						field.IsCheckBoxListField ||
+						field.IsDynamicListField)
 					{
 						goto case "string";
 					}

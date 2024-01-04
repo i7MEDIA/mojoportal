@@ -250,6 +250,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to export.
+        /// </summary>
+        internal static string ExportFileNamePrefix {
+            get {
+                return ResourceManager.GetString("ExportFileNamePrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This tool will export all of your records to a CSV file. The CSV file can be used to move the data to another module instance or to another system entirely..
         /// </summary>
         internal static string ExportInstructions {

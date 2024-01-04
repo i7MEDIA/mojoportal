@@ -1,0 +1,11 @@
+@model mojoPortal.Web.UI.Razor.DropDownlistModel
+
+@if (!string.IsNullOrWhiteSpace(Model.DefaultOption))
+{
+	@Html.DropDownList(Model.ID, Model.Items, Model.DefaultOption, Model.Attributes)
+
+}
+else
+{
+	@Html.DropDownList(Model.ID, Model.Items, Model.Attributes)
+}

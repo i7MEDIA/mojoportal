@@ -288,4 +288,7 @@
   <data name="PageSize" xml:space="preserve">
     <value>Page Size</value>
   </data>
+  <data name="ExportFileNamePrefix" xml:space="preserve">
+    <value>export</value>
+  </data>
 </root>

@@ -1271,6 +1271,7 @@
     <Compile Include="Controls\PublishTypeSetting.ascx.designer.cs">
       <DependentUpon>PublishTypeSetting.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Razor\RazorDropDownList.cs" />
     <Compile Include="Controls\RelatedNewsletterSetting.ascx.cs">
       <DependentUpon>RelatedNewsletterSetting.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2795,6 +2796,7 @@
     <Content Include="Scripts\jquery-3.6.0.min.map" />
     <Content Include="Views\Shared\Menu.cshtml" />
     <Content Include="Views\Common\_CustomMenu.cshtml" />
+    <Content Include="Views\Controls\DropDownList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />
