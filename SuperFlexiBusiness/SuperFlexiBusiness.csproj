@@ -10,6 +10,8 @@
     <RootNamespace>SuperFlexiBusiness</RootNamespace>
     <AssemblyName>SuperFlexiBusiness</AssemblyName>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>

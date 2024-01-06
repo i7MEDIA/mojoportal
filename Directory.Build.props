@@ -3,12 +3,12 @@
 	<!-- Project Information -->
 	<PropertyGroup>
 		<Company>i7MEDIA, LLC</Company>
-		<Version>2.8.0.7</Version>
+		<Version>2.9.0.1</Version>
 	</PropertyGroup>
 
 	<!-- Framework Configuration -->
 	<PropertyGroup>
 		<LangVersion>latest</LangVersion>
-		<TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+		<TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
 	</PropertyGroup>
 </Project>
