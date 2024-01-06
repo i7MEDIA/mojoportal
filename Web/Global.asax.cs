@@ -1,34 +1,16 @@
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-// 
-// 
-// 3/13/2005  added handler in Application_BeginRequest 
-// for db404 error which is raised if pageid doesn't exist for siteid	
-// 
-// 6/22/2005  added log4net error logging	
-// 11/30/2005
-// 1/16/2006 JA added VirtualPathProvider
-// 1/29/2006 added Windows Auth support from Haluk Eryuksel
-// 2/4/2006  added mojoSetup 
-// 11/8/2006  added tracking user activity time in Application_EndRequest
-// 12/3/2006 added tracking of session count
-// 1/29/2007 added upgrade check to error handling
-// 2/9/2007 added rethrow unhandled error
-// 3/15/2007 refactor usercount increment
-// 2007/04/26 swap Principal in authenticate request
-// 2007-08-04 removed upgrade logic, its all done in Setup/Default.aspx now
-// 2007-09-20 added option to force a specific culture
-// 2009-06-24 some cleanup
-// 2009-11-20 use config settings for keepalivetask settings
-// 2011-03-14 added logic for .NET 4 to enable memory and excepton monitoring
-// 2011-08-05  refactored end request user activity tracking
-// 2014-07-11 added updated routing for web api and mvc
-// 2019-04-04 SystemInfoCaching
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Net;
+using System.Security.Cryptography;
+using System.Threading;
+using System.Web;
+using System.Web.Hosting;
+using System.Web.Http;
+using System.Web.Mvc;
+using System.Web.Optimization;
+using System.Web.Routing;
+using System.Web.UI;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -39,20 +21,6 @@ using mojoPortal.Web.Framework;
 using mojoPortal.Web.Optimization;
 using mojoPortal.Web.Routing;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Net;
-using System.Security;
-using System.Security.Cryptography;
-using System.Threading;
-using System.Web;
-using System.Web.Hosting;
-using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
-using System.Web.UI;
 //using mojoPortal.Web.ModelBinders;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
@@ -72,21 +40,14 @@ namespace mojoPortal.Web;
 public class Global : HttpApplication
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(Global));
-
 	private static bool debugLog = log.IsDebugEnabled;
-
 	public static bool RegisteredVirtualThemes { get; private set; } = false;
-
-
 	public static SkinConfigManager SkinConfigManager { get; private set; }
 	public static SkinConfig SkinConfig { get; private set; }
-
-	public static Dictionary<string, int> SiteHostMap { get; } = new Dictionary<string, int>();
+	public static Dictionary<string, int> SiteHostMap { get; } = [];
 
 	// this changes everytime the app starts and the token is required when calling /Services/FileService.ashx
 	// to help mitigate against xsrf attacks
-	//private static Guid fileSystemToken = Guid.NewGuid();
-
 	public static Guid FileSystemToken
 	{
 		get
@@ -102,12 +63,16 @@ public class Global : HttpApplication
 	private static Guid GetFileSystemToken()
 	{
 		var siteSettings = CacheHelper.GetCurrentSiteSettings();
-		Guid siteGuid = Guid.NewGuid();
-		if (siteSettings != null) siteGuid = siteSettings.SiteGuid;
+		var siteGuid = Guid.NewGuid();
 
-		string cacheKey = "fileSystemToken" + siteGuid.ToString();
+		if (siteSettings is not null)
+		{
+			siteGuid = siteSettings.SiteGuid;
+		}
 
-		DateTime absoluteExpiration = DateTime.Now.AddHours(1);
+		string cacheKey = $"fileSystemToken{siteGuid}";
+
+		var absoluteExpiration = DateTime.Now.AddHours(1);
 
 		try
 		{
@@ -126,70 +91,34 @@ public class Global : HttpApplication
 			log.Error("failed to get fileSystemToken from cache", ex);
 			return Guid.NewGuid();
 		}
-
 	}
 
 	// this changes everytime the app starts and is used for rss feed autodiscovery links so it will notredirect to feedburner
 	// after each app restart the variable will change so that after the user is subscribed it will begin redirecting to feedburner if using feedburner
-	private static Guid feedRedirectBypassToken = Guid.NewGuid();
-
-	public static Guid FeedRedirectBypassToken
-	{
-		get { return feedRedirectBypassToken; }
-	}
+	public static Guid FeedRedirectBypassToken { get; } = Guid.NewGuid();
 
 	private const string RequestExceptionKey = "__RequestExceptionKey";
 
-	private static bool appDomainMonitoringEnabled = false;
+	public static bool AppDomainMonitoringEnabled { get; } = false;
 
-	public static bool AppDomainMonitoringEnabled
-	{
-		get { return appDomainMonitoringEnabled; }
-	}
+	public static bool FirstChanceExceptionMonitoringEnabled { get; } = false;
 
-	private static bool firstChanceExceptionMonitoringEnabled = false;
-
-	public static bool FirstChanceExceptionMonitoringEnabled
-	{
-		get { return firstChanceExceptionMonitoringEnabled; }
-	}
-
-	protected void Application_Start(Object sender, EventArgs e)
+	protected void Application_Start(object sender, EventArgs e)
 	{
 		try
 		{
 			ServicePointManager.SecurityProtocol |= ServicePointManager.SecurityProtocol | SecurityProtocolType.Tls12;
 		}
-		catch (System.NotSupportedException)
+		catch (NotSupportedException)
 		{
 			log.Error("Application_Start could not set the chosen security protocol.");
 		}
 
 		if (WebConfigSettings.EnableVirtualPathProviders)
 		{
-			try
-			{
-				log.Info(Resource.ApplicationStartEventMessage);
-				RegisterVirtualPathProvider();
-
-			}
-			catch (MissingMethodException ex)
-			{   // this is broken on mono, not implemented 2006-02-04
-				log.Error("Application_Start Could not register VirtualPathProvider, missing method in Mono", ex);
-
-			}
-			catch (SecurityException se)
-			{
-				// must not be running in full trust
-				log.Error("Application_Start Could not register VirtualPathProvider, this error is expected when running in Medium trust or lower", se);
-
-			}
-			catch (UnauthorizedAccessException ae)
-			{
-				// must not be running in full trust
-				log.Error("Application_Start Could not register VirtualPathProvider, this error is expected when running in Medium trust or lower", ae);
-
-			}
+			log.Info(Resource.ApplicationStartEventMessage);
+			HostingEnvironment.RegisterVirtualPathProvider(new mojoVirtualPathProvider());
+			RegisteredVirtualThemes = true;
 		}
 
 		AutoMapperConfig.Configure();
@@ -197,57 +126,15 @@ public class Global : HttpApplication
 		AreaRegistration.RegisterAllAreas();
 		GlobalConfiguration.Configure(WebApiConfig.Register);
 		FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-
 		ViewEngines.Engines.Clear();
 
-		mojoViewEngine engine = new mojoViewEngine();
-		//engine.AddViewLocationFormat("~/Data/Sites/{2}/skins/Views/{1}/{0}.cshtml");
-		//engine.AddViewLocationFormat("~/Data/Sites/{2}/skins/Views/{1}/{0}.vbhtml");
-
-		// Add a shared location too, as the lines above are controller specific
-		//engine.AddPartialViewLocationFormat("~/Data/Sites/{1}/skins/Views/{0}.cshtml");
-		//engine.AddPartialViewLocationFormat("~/Data/Sites/{1}/skins/Views/{0}.vbhtml");
-
+		var engine = new mojoViewEngine();
 		ViewEngines.Engines.Add(engine);
-
-		//var razorEngine = ViewEngines.Engines.OfType<RazorViewEngine>().FirstOrDefault();
-		//razorEngine.ViewLocationFormats =
-		//    razorEngine.ViewLocationFormats.Concat(new string[] {
-		//        "~/MyVeryOwn/{1}/{0}.cshtml",
-		//        "~/MyVeryOwn/{0}.cshtml"
-		//        // add other folders here (if any)
-		//    }).ToArray();
-
 		AreaRegistration.RegisterAllAreas();
 		RouteRegistrar.RegisterRoutes(RouteTable.Routes);
 
-		//System.Web.Mvc.ModelBinders.Binders.Add(typeof(DateTime), new DateTimeBinder());
-		//System.Web.Mvc.ModelBinders.Binders.Add(typeof(DateTime?), new DateTimeBinder());
-		//System.Web.Mvc.ModelBinders.Binders.Add(typeof(DateTime), new DateTimeSiteTimeZoneBinder());
-
-
-		CreateSystemInfoCache();
-
 		StartOrResumeTasks();
 		PurgeOldLogEvents();
-
-		//#if !NET35
-		//            appDomainMonitoringEnabled = WebConfigSettings.AppDomainMonitoringEnabled;
-		//            firstChanceExceptionMonitoringEnabled = WebConfigSettings.FirstChanceExceptionMonitoringEnabled;
-		//            try
-		//            {
-		//                SetupMonitoring();
-		//            }
-		//            catch (MethodAccessException)
-		//            {
-		//                log.Info("Failed to setup application monitoring, not allowed under medium trust.");
-		//                appDomainMonitoringEnabled = false;
-		//                firstChanceExceptionMonitoringEnabled = false;
-		//            }
-
-		//#endif
-
-		//#if!NET35 && !NET40
 
 		if (WebConfigSettings.UnobtrusiveValidationMode == "WebForms")
 		{
@@ -260,38 +147,7 @@ public class Global : HttpApplication
 				jQuery.Path = "~/ClientScript/empty.js";
 				ScriptManager.ScriptResourceMapping.AddDefinition("jquery", jQuery);
 			}
-
 		}
-		//#endif
-
-
-
-
-	}
-
-	private void CreateSystemInfoCache()
-	{
-		//string cacheKey = "systemInfoCache";
-
-		//DateTime absoluteExpiration = DateTime.Now.AddHours(1);
-
-		//try
-		//{
-		//	SystemInfo systemInfo = CacheManager.Cache.Get<SystemInfo>(cacheKey, absoluteExpiration, () =>
-		//	{
-		//		// This is the anonymous function which gets called if the data is not in the cache.
-		//		// This method is executed and whatever is returned, is added to the cache with the passed in expiry time.
-		//		SystemInfo info = new SystemInfo()
-		//		{
-		//			SiteCount = SiteSettings.SiteCount(),
-		//			SiteMappings = SiteSettings.Host
-		//		};
-		//	});
-		//}
-		//catch (Exception ex)
-		//{
-		//	log.Error("failed to create systemInfoCache", ex);
-		//}
 	}
 
 	private void PurgeOldLogEvents()
@@ -311,55 +167,6 @@ public class Global : HttpApplication
 		}
 	}
 
-	//public static void RegisterRoutes(RouteCollection routes)
-	//{
-	//    routes.Clear();
-
-	//    RoutingHandler.Configure(routes);
-
-	//}
-
-	//#if!NET35
-	//        private void SetupMonitoring()
-	//        {
-
-	//            if (appDomainMonitoringEnabled)
-	//            {
-	//                AppDomain.MonitoringIsEnabled = true;
-	//            }
-	//            if (firstChanceExceptionMonitoringEnabled)
-	//            {
-	//                AppDomain.CurrentDomain.FirstChanceException += (object source, FirstChanceExceptionEventArgs e) =>
-	//                {
-	//                    if (HttpContext.Current == null)// If no context available, ignore it
-	//                        return;
-	//                    if (HttpContext.Current.Items[RequestExceptionKey] == null)
-	//                        HttpContext.Current.Items[RequestExceptionKey] = new RequestException { Exceptions = new List<Exception>() };
-	//                    (HttpContext.Current.Items[RequestExceptionKey] as RequestException).Exceptions.Add(e.Exception);
-	//                };
-	//            }
-	//        }
-
-	//        private void CaptureMonitoringData()
-	//        {
-	//            if (!firstChanceExceptionMonitoringEnabled) { return; }
-
-	//            if (Context.Items[RequestExceptionKey] != null)
-	//            {
-	//                //Only add the request if atleast one exception is raised
-	//                var reqExc = Context.Items[RequestExceptionKey] as RequestException;
-	//                reqExc.Url = Request.Url.AbsoluteUri;
-	//                Application.Lock();
-	//                if (Application["AllExc"] == null)
-	//                    Application["AllExc"] = new List<RequestException>();
-	//                (Application["AllExc"] as List<RequestException>).Add(reqExc);
-	//                Application.UnLock();
-	//            }
-	//        }
-
-	//#endif
-
-
 	private void StartOrResumeTasks()
 	{
 		// NOTE: In IIS 7 using integrated mode, HttpContext.Current will always be null in Application_Start
@@ -371,7 +178,7 @@ public class Global : HttpApplication
 			{
 				try
 				{
-					if ((HttpContext.Current != null) && (HttpContext.Current.Request != null))
+					if ((HttpContext.Current is not null) && (HttpContext.Current.Request is not null))
 					{
 						keepAlive = new AppKeepAliveTask
 						{
@@ -389,7 +196,6 @@ public class Global : HttpApplication
 					//we need to use an additional config setting to get the url to request for keep alive 
 					if (WebConfigSettings.AppKeepAliveUrl.Length > 0)
 					{
-
 						keepAlive = new AppKeepAliveTask
 						{
 							UrlToRequest = WebConfigSettings.AppKeepAliveUrl,
@@ -397,9 +203,7 @@ public class Global : HttpApplication
 							MinutesToSleep = WebConfigSettings.AppKeepAliveSleepMinutes
 						};
 						keepAlive.QueueTask();
-
 					}
-
 				}
 			}
 			catch (Exception ex)
@@ -419,17 +223,14 @@ public class Global : HttpApplication
 		// Application_Start, moving into a separate method works with a try catch
 		HostingEnvironment.RegisterVirtualPathProvider(new mojoVirtualPathProvider());
 		RegisteredVirtualThemes = true;
-
 	}
 
-
-	protected void Application_End(Object sender, EventArgs e)
+	protected void Application_End(object sender, EventArgs e)
 	{
 		if (log.IsInfoEnabled) log.Info("------Application Stopped------");
 	}
 
-
-	protected void Application_BeginRequest(Object sender, EventArgs e)
+	protected void Application_BeginRequest(object sender, EventArgs e)
 	{
 		var siteCount = SiteSettings.SiteCount();
 
@@ -462,9 +263,8 @@ public class Global : HttpApplication
 					break;
 
 				case "http":
-					string path = "https://" + Request.Url.Host + Request.Url.PathAndQuery;
 					Response.Status = "301 Moved Permanently";
-					Response.AddHeader("Location", path);
+					Response.AddHeader("Location", $"https://{Request.Url.Host}{Request.Url.PathAndQuery}");
 					Response.Cache.SetNoStore();
 					Response.Cache.SetCacheability(HttpCacheability.NoCache);
 					Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
@@ -474,23 +274,15 @@ public class Global : HttpApplication
 		//moved RegisterBundles here so it can properly check the request for SSL. Can't do that when called from Application_Start
 		BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-		if (siteCount > 0 && SkinConfigManager == null)
+		if (siteCount > 0)
 		{
-			SkinConfigManager = new SkinConfigManager();
+			SkinConfigManager ??= new SkinConfigManager();
 			SkinConfig = SkinConfigManager.GetConfig();
 		}
 	}
 
-	protected void Application_EndRequest(Object sender, EventArgs e)
+	protected void Application_EndRequest(object sender, EventArgs e)
 	{
-
-
-		//#if!NET35
-		//            CaptureMonitoringData();
-		//#endif
-
-
-
 		// this is needed otherwise tasks queued on a background thread report these values as they were on the last request handled by the thread
 		// so this eliminates the carry over of these settings when a thread is re-used for something other than a web request.
 		log4net.ThreadContext.Properties["ip"] = null;
@@ -522,28 +314,18 @@ public class Global : HttpApplication
 		{
 			SiteUtils.TrackUserActivity();
 		}
-
 	}
 
+	//protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+	//{
+	//	//2009-05-30, moved this functionality to /Components/AuthHandlerHttpModule.cs
+	//}
+	//protected void Application_AuthorizeRequest(Object sender, EventArgs e)
+	//{
+	//	//if (log.IsDebugEnabled) log.Debug("Global.asax.cs Application_AuthorizeRequest" );
+	//}
 
-
-
-
-	protected void Application_AuthenticateRequest(Object sender, EventArgs e)
-	{
-		//2009-05-30, moved this functionality to /Components/AuthHandlerHttpModule.cs
-
-
-	}
-
-
-	protected void Application_AuthorizeRequest(Object sender, EventArgs e)
-	{
-		//if (log.IsDebugEnabled) log.Debug("Global.asax.cs Application_AuthorizeRequest" );
-	}
-
-
-	protected void Application_Error(Object sender, EventArgs e)
+	protected void Application_Error(object sender, EventArgs e)
 	{
 		bool errorObtained = false;
 		Exception ex = null;
@@ -586,19 +368,15 @@ public class Global : HttpApplication
 				{
 					exceptionUserAgent = HttpContext.Current.Request.UserAgent;
 				}
-
 			}
-
 		}
 
 		if (errorObtained)
 		{
-
-
 			if (ex is UnauthorizedAccessException)
 			{
 				// swallow this for medium trust?
-				log.Error(" Referrer(" + exceptionReferrer + ")", ex);
+				log.Error($" Referrer({exceptionReferrer})", ex);
 				return;
 			}
 
@@ -611,21 +389,17 @@ public class Global : HttpApplication
 					log4net.ThreadContext.Properties["ip"] = exceptionIpAddress;
 				}
 
-				log.Error(exceptionIpAddress + " " + exceptionUrl + " Referrer(" + exceptionReferrer + ") useragent " + exceptionUserAgent, ex);
+				log.Error($"{exceptionIpAddress} {exceptionUrl} Referrer({exceptionReferrer}) useragent {exceptionUserAgent}", ex);
 				return;
-
 			}
 
 			if (ex.Message == "File does not exist.")
 			{
-
-				log.Error(" Referrer(" + exceptionReferrer + ") useragent " + exceptionUserAgent, ex);
+				log.Error($" Referrer({exceptionReferrer}) useragent {exceptionUserAgent}", ex);
 				return;
 			}
 
-
-
-			log.Error(" Referrer(" + exceptionReferrer + ") useragent " + exceptionUserAgent, ex);
+			log.Error($" Referrer({exceptionReferrer}) useragent {exceptionUserAgent}", ex);
 
 			if (ex is System.Security.Cryptography.CryptographicException)
 			{
@@ -649,8 +423,8 @@ public class Global : HttpApplication
 								RandomNumberGenerator prng = new RNGCryptoServiceProvider();
 								prng.GetBytes(delay);
 								Thread.Sleep((int)delay[0]);
-								IDisposable disposable = prng as IDisposable;
-								if (disposable != null) { disposable.Dispose(); }
+								IDisposable disposable = prng;
+								disposable?.Dispose();
 
 								HttpContext.Current.Response.StatusCode = 404;
 								HttpContext.Current.Response.End();
@@ -661,39 +435,31 @@ public class Global : HttpApplication
 					}
 					catch (HttpException)
 					{ }
-
 				}
-
 			}
-
 		}
-
 	}
 
-
-
-	protected void Session_Start(Object sender, EventArgs e)
+	protected void Session_Start(object sender, EventArgs e)
 	{
 		if (debugLog) log.Debug("------ Session Started ------");
 		IncrementUserCount();
 	}
 
-
-	protected void Session_End(Object sender, EventArgs e)
+	protected void Session_End(object sender, EventArgs e)
 	{
 		if (debugLog) log.Debug("------ Session Ended ------");
 		DecrementUserCount();
 	}
 
-
 	private void IncrementUserCount()
 	{
-		String key = WebUtils.GetHostName() + "_onlineCount";
+		string key = WebUtils.GetHostName() + "_onlineCount";
 		if (Session != null)
 		{
 			Session["onlinecountkey"] = key;
 		}
-		if (debugLog) log.Debug("IncrementUserCount key was " + key);
+		if (debugLog) log.Debug($"IncrementUserCount key was {key}");
 
 		Application.Lock();
 		Application[key] = Application[key] == null ? 1 : (int)Application[key] + 1;
@@ -706,7 +472,7 @@ public class Global : HttpApplication
 		{
 			if (Session["onlinecountkey"] != null)
 			{
-				String key = Session["onlinecountkey"].ToString();
+				string key = Session["onlinecountkey"].ToString();
 				if (key.Length > 0)
 				{
 					if (log.IsDebugEnabled) log.Debug("DecrementUserCount key was " + key);
@@ -720,5 +486,3 @@ public class Global : HttpApplication
 		}
 	}
 }
-
-
