@@ -159,7 +159,10 @@ namespace mojoPortal.Web.AdminUI
                 style.Element = txtElement.Text;
                 style.CssClass = txtCssClass.Text;
                 style.IsActive = chkIsActive.Checked;
-                style.Save();
+                if (style.Save())
+                {
+                    Global.SkinConfigManager.ClearAll();
+                }
             }
 
            
@@ -173,36 +176,43 @@ namespace mojoPortal.Web.AdminUI
             BindGrid();
 
             Button btnDelete = (Button)grid.Rows[e.NewEditIndex].Cells[0].FindControl("btnGridDelete");
-            if (btnDelete != null)
-            {
-                btnDelete.Attributes.Add("OnClick", "return confirm('"
-                    + Resource.ContentStyleDeleteWarning + "');");
-            }
+            btnDelete?.Attributes.Add("OnClick", $"return confirm('{Resource.ContentStyleDeleteWarning}');");
         }
 
         void grdStyles_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            GridView grid = (GridView)sender;
-            Guid guid = new Guid(grid.DataKeys[e.RowIndex].Value.ToString());
-            ContentStyle.Delete(guid);
+            var grid = (GridView)sender;
+            var guid = new Guid(grid.DataKeys[e.RowIndex].Value.ToString());
+            
+            if (ContentStyle.Delete(guid))
+            {
+                Global.SkinConfigManager.ClearAll();
+            }
+            
             WebUtils.SetupRedirect(this, Request.RawUrl);
         }
 
         void btnExportStyles_Click(object sender, EventArgs e)
         {
-            string fileName = "ContentStyles-" + siteSettings.SiteName + "-" + DateTimeHelper.GetDateTimeStringForFileName() + ".xml";
+            string fileName = $"styles-{siteSettings.SiteName}-{DateTimeHelper.GetDateTimeStringForFileName()}.json";
 
-            ExportHelper.ExportStringAsFile(HttpContext.Current, Encoding.Unicode, "text/xml", SkinHelper.GetStyleExportString(siteSettings.SiteGuid), fileName);
+            //old XML export
+            //ExportHelper.ExportStringAsFile(HttpContext.Current, Encoding.Unicode, "text/xml", SkinHelper.GetStyleExportString(siteSettings.SiteGuid), fileName);
+
+            //json export
+            ExportHelper.ExportStringAsFile(HttpContext.Current, Encoding.Unicode, "text/json", SkinHelper.GetStyleJson(siteSettings.SiteGuid), fileName);
         }
 
         void btnImportStyles_Click(object sender, EventArgs e)
         {
             if (uploader.HasFile)
             {
-                if (uploader.FileName.EndsWith(".xml"))
+                //if (uploader.FileName.EndsWith(".xml"))
+                if (uploader.FileName.EndsWith(".json") || uploader.FileName.EndsWith(".js"))
                 {
-                    SkinHelper.ImportStyles(uploader.FileContent, siteSettings.SiteGuid);
-                }
+					//SkinHelper.ImportStyles(uploader.FileContent, siteSettings.SiteGuid);
+					SkinHelper.ImportStyleJson(uploader.FileContent, siteSettings.SiteGuid);
+				}
             }
             WebUtils.SetupRedirect(this, Request.RawUrl);
         }

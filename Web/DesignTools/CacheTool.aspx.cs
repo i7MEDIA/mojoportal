@@ -55,6 +55,7 @@ public partial class CacheToolPage : NonCmsBasePage
 		}
 
 		CacheHelper.ResetThemeCache();
+		Global.SkinConfigManager.ClearAll();
 
 		WebUtils.SetupRedirect(this, Request.RawUrl);
 		return;
