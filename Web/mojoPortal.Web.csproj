@@ -216,6 +216,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\dotnetopenauth\DotNetOpenAuth.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
+    </Reference>
     <Reference Include="Google.GData.Analytics, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9e229226d7996434, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\gdata-1-9\Google.GData.Analytics.dll</HintPath>
@@ -233,9 +236,6 @@
     </Reference>
     <Reference Include="HtmlDiff">
       <HintPath>..\_libs\HtmlDiff.dll</HintPath>
-    </Reference>
-    <Reference Include="Ionic.Zip.Reduced">
-      <HintPath>..\_libs\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.15\lib\net45\log4net.dll</HintPath>
