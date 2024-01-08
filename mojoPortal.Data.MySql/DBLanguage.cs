@@ -215,10 +215,12 @@ namespace mojoPortal.Data
             sqlCommand.Append("FROM	mp_Language ");
             sqlCommand.Append(";");
 
-            return Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                null));
+            return Convert.ToInt32(
+                CommandHelper.ExecuteScalar(
+                    ConnectionString.GetReadConnectionString(),
+                    sqlCommand.ToString()
+                )
+            );
         }
 
         /// <summary>

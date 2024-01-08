@@ -347,10 +347,10 @@ namespace SurveyFeature.Data
 			sqlCommand.Append("SELECT  Count(*) ");
 			sqlCommand.Append("FROM	mp_Surveys; ");
 
-			return Convert.ToInt32(CommandHelper.ExecuteScalar(
-				ConnectionString.GetReadConnectionString(),
-				sqlCommand.ToString(),
-				null));
+			return Convert.ToInt32(
+				CommandHelper.ExecuteScalar(
+					ConnectionString.GetReadConnectionString(),
+					sqlCommand.ToString()));
 		}
 
 		/// <summary>
