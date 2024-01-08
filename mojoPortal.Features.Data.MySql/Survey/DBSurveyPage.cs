@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Configuration;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using mojoPortal.Data;
 
 namespace SurveyFeature.Data
@@ -84,7 +84,7 @@ namespace SurveyFeature.Data
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = intPageEnabled;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -156,7 +156,7 @@ namespace SurveyFeature.Data
             arParams[4] = new MySqlParameter("?PageEnabled", MySqlDbType.Int32);
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = intPageEnabled;
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -199,7 +199,7 @@ namespace SurveyFeature.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = pageGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -227,7 +227,7 @@ namespace SurveyFeature.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = pageGuid.ToString();
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -253,7 +253,7 @@ namespace SurveyFeature.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = surveyGuid.ToString();
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -275,7 +275,7 @@ namespace SurveyFeature.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = pageGuid.ToString();
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams));

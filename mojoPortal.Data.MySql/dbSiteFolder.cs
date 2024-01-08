@@ -19,7 +19,7 @@ using System.Data.Common;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace mojoPortal.Data
 {
@@ -60,7 +60,7 @@ namespace mojoPortal.Data
 
 
             int rowsAffected = 0;
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(), 
                 sqlCommand.ToString(), 
                 arParams);
@@ -100,7 +100,7 @@ namespace mojoPortal.Data
             arParams[2].Value = folderName;
 
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(), 
                 sqlCommand.ToString(), 
                 arParams);
@@ -124,7 +124,7 @@ namespace mojoPortal.Data
             arParams[0].Value = guid.ToString();
 
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(), 
                 sqlCommand.ToString(), 
                 arParams);
@@ -148,7 +148,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -169,7 +169,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteGuid.ToString();
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -192,7 +192,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("FROM mp_SiteFolders ");
             sqlCommand.Append("WHERE FolderName = ?FolderName ;");
 
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+            using (IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -214,10 +214,9 @@ namespace mojoPortal.Data
                 sqlCommand.Append("LIMIT 1 ;");
 
 
-                using (IDataReader reader = MySqlHelper.ExecuteReader(
+                using (IDataReader reader = CommandHelper.ExecuteReader(
                     ConnectionString.GetReadConnectionString(),
-                    sqlCommand.ToString(),
-                    null))
+                    sqlCommand.ToString()))
                 {
 
                     if (reader.Read())
@@ -245,7 +244,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = folderName;
 
-            int count = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams));

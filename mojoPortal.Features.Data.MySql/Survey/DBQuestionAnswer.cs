@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Configuration;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using mojoPortal.Data;
 
 namespace SurveyFeature.Data
@@ -84,7 +84,7 @@ namespace SurveyFeature.Data
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = DateTime.UtcNow;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -139,7 +139,7 @@ namespace SurveyFeature.Data
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = answer;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -170,7 +170,7 @@ namespace SurveyFeature.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = responseGuid.ToString();
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

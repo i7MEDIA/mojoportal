@@ -11,7 +11,7 @@
 // 
 // Note moved into separate class file from dbPortal 2007-11-03
 
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using System;
 using System.Data;
 using System.Text;
@@ -97,7 +97,7 @@ namespace mojoPortal.Data
 				Value = viewRoles
 			};
 
-			int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams).ToString());
@@ -167,7 +167,7 @@ namespace mojoPortal.Data
 				Value = viewRoles
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -192,7 +192,7 @@ namespace mojoPortal.Data
 				Value = folderId
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -218,7 +218,7 @@ namespace mojoPortal.Data
 				Value = folderId
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -248,7 +248,7 @@ namespace mojoPortal.Data
 				Value = moduleId
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -285,7 +285,7 @@ namespace mojoPortal.Data
 				Value = parentId
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -435,7 +435,7 @@ namespace mojoPortal.Data
 				Value = viewRoles
 			};
 
-			int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams).ToString());
@@ -560,7 +560,7 @@ namespace mojoPortal.Data
 				Value = viewRoles
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -588,7 +588,7 @@ namespace mojoPortal.Data
 				Value = itemId
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -613,7 +613,7 @@ namespace mojoPortal.Data
 				Value = itemId
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -638,7 +638,7 @@ namespace mojoPortal.Data
 				Value = moduleId
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -663,7 +663,7 @@ namespace mojoPortal.Data
 				Value = siteId
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -707,7 +707,7 @@ namespace mojoPortal.Data
 				Value = itemId
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -763,7 +763,7 @@ namespace mojoPortal.Data
 				Value = folderId
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -809,7 +809,7 @@ namespace mojoPortal.Data
 				Value = moduleId
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -874,7 +874,7 @@ namespace mojoPortal.Data
 				Value = pageId
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1012,7 +1012,7 @@ namespace mojoPortal.Data
 				Value = viewRoles
 			};
 
-			int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams).ToString());
@@ -1037,7 +1037,7 @@ namespace mojoPortal.Data
 				Value = id
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1062,7 +1062,7 @@ namespace mojoPortal.Data
 				Value = itemId
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1095,7 +1095,7 @@ namespace mojoPortal.Data
 				Value = itemId
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1120,7 +1120,7 @@ namespace mojoPortal.Data
 				Value = moduleId
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1144,7 +1144,7 @@ namespace mojoPortal.Data
 				Value = id
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);

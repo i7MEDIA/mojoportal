@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MySqlConnector;
 using System;
 using System.Data;
 using System.Globalization;
@@ -218,7 +218,7 @@ namespace mojoPortal.Data
 
 
 
-			int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams).ToString());
@@ -393,7 +393,7 @@ namespace mojoPortal.Data
 			arParams[19].Direction = ParameterDirection.Input;
 			arParams[19].Value = intAllowTrustedDirectNotify;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -419,7 +419,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = itemId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -443,7 +443,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -467,7 +467,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -510,7 +510,7 @@ namespace mojoPortal.Data
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = userId;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -536,7 +536,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = itemId;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -571,7 +571,7 @@ namespace mojoPortal.Data
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = mostRecentPostDate;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), arParams);
 
 			return (rowsAffected > -1);
@@ -596,7 +596,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = userId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -620,7 +620,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = forumId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -644,7 +644,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = forumId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -676,7 +676,7 @@ namespace mojoPortal.Data
 			sqlCommand.Append("ORDER BY MostRecentPostDate DESC ");
 			sqlCommand.Append("LIMIT 1 ;");
 
-			using (IDataReader reader = MySqlHelper.ExecuteReader(
+			using (IDataReader reader = CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams))
@@ -701,7 +701,7 @@ namespace mojoPortal.Data
 			sqlCommand.Append("FROM mp_ForumThreads ");
 			sqlCommand.Append("WHERE ForumID = ?ForumID ;");
 
-			using (IDataReader reader = MySqlHelper.ExecuteReader(
+			using (IDataReader reader = CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams))
@@ -739,7 +739,7 @@ namespace mojoPortal.Data
 			arParams[3].Direction = ParameterDirection.Input;
 			arParams[3].Value = postCount;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -762,7 +762,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = forumId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -786,7 +786,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = forumId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -823,7 +823,7 @@ namespace mojoPortal.Data
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = siteId;
 
-			return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			return Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams));
@@ -906,7 +906,7 @@ namespace mojoPortal.Data
 			arParams[3].Direction = ParameterDirection.Input;
 			arParams[3].Value = siteId;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -955,7 +955,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteId;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1028,7 +1028,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = forumId;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1047,7 +1047,7 @@ namespace mojoPortal.Data
 			StringBuilder sqlCommand = new StringBuilder();
 			sqlCommand.Append("SELECT COUNT(*) FROM mp_ForumPosts WHERE ThreadID = ?ThreadID; ");
 
-			int count = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams).ToString());
@@ -1073,7 +1073,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = forumId;
 
-			return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			return Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams));
@@ -1154,7 +1154,7 @@ namespace mojoPortal.Data
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = pageLowerBound;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1182,7 +1182,7 @@ namespace mojoPortal.Data
 
 			int subscriptionCount = 0;
 
-			using (IDataReader reader = MySqlHelper.ExecuteReader(
+			using (IDataReader reader = CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams))
@@ -1218,7 +1218,7 @@ namespace mojoPortal.Data
 				//sqlCommand.Append("UnSubscribeDate = Null ");
 				sqlCommand.Append("WHERE ForumID = ?ForumID AND UserID = ?UserID AND UnSubscribeDate IS NULL ;");
 
-				rowsAffected = MySqlHelper.ExecuteNonQuery(
+				rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1259,7 +1259,7 @@ namespace mojoPortal.Data
 			sqlCommand.Append("?SubscribeDate");
 			sqlCommand.Append(") ;");
 
-			rowsAffected = MySqlHelper.ExecuteNonQuery(
+			rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1285,7 +1285,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = subscriptionId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1309,7 +1309,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = subGuid.ToString();
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1335,7 +1335,7 @@ namespace mojoPortal.Data
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = DateTime.UtcNow;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1366,7 +1366,7 @@ namespace mojoPortal.Data
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = DateTime.UtcNow;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1393,7 +1393,7 @@ namespace mojoPortal.Data
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = DateTime.UtcNow;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1419,7 +1419,7 @@ namespace mojoPortal.Data
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = userId;
 
-			int count = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams));
@@ -1445,7 +1445,7 @@ namespace mojoPortal.Data
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = userId;
 
-			int count = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams));
@@ -1482,7 +1482,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = threadId;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1504,7 +1504,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = postId;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1549,7 +1549,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = forumId;
 
-			using (IDataReader reader = MySqlHelper.ExecuteReader(
+			using (IDataReader reader = CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams))
@@ -1667,7 +1667,7 @@ namespace mojoPortal.Data
 			arParams[13].Value = threadType;
 
 
-			int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams).ToString()
@@ -1705,7 +1705,7 @@ namespace mojoPortal.Data
 				}
 			};
 
-			var rowsAffected = MySqlHelper.ExecuteNonQuery(
+			var rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParams
@@ -1728,7 +1728,7 @@ namespace mojoPortal.Data
 				}
 			};
 
-			var rowsAffected = MySqlHelper.ExecuteNonQuery(
+			var rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParams
@@ -1752,7 +1752,7 @@ namespace mojoPortal.Data
 				}
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams
@@ -1885,7 +1885,7 @@ namespace mojoPortal.Data
 				arParams[14].Value = DBNull.Value;
 			}
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1921,7 +1921,7 @@ namespace mojoPortal.Data
 			arParams[2].Value = mostRecentPostDate;
 
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1948,7 +1948,7 @@ namespace mojoPortal.Data
 			int userId = 0;
 			DateTime postDate = DateTime.Now;
 
-			using (IDataReader reader = MySqlHelper.ExecuteReader(
+			using (IDataReader reader = CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams))
@@ -1983,7 +1983,7 @@ namespace mojoPortal.Data
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = postDate;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2005,7 +2005,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = threadId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2031,7 +2031,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = threadId;
 
-			using (IDataReader reader = MySqlHelper.ExecuteReader(
+			using (IDataReader reader = CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams))
@@ -2112,7 +2112,7 @@ namespace mojoPortal.Data
 			arParams[3].Direction = ParameterDirection.Input;
 			arParams[3].Value = endSequence;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2165,7 +2165,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = threadId;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2229,7 +2229,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = threadId;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2283,7 +2283,7 @@ namespace mojoPortal.Data
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = pageId;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2338,7 +2338,7 @@ namespace mojoPortal.Data
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = pageId;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2430,7 +2430,7 @@ namespace mojoPortal.Data
 
 			//String test = sqlCommand.ToString();
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2496,7 +2496,7 @@ namespace mojoPortal.Data
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = currentPostUserId;
 
-			return MySqlHelper.ExecuteDataset(
+			return CommandHelper.ExecuteDataset(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2519,7 +2519,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = subGuid.ToString();
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2547,7 +2547,7 @@ namespace mojoPortal.Data
 
 			int subscriptionCount = 0;
 
-			using (IDataReader reader = MySqlHelper.ExecuteReader(
+			using (IDataReader reader = CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams))
@@ -2585,7 +2585,7 @@ namespace mojoPortal.Data
 				//sqlCommand.Append("UnSubscribeDate = Null ");
 				sqlCommand.Append("WHERE ThreadID = ?ThreadID AND UserID = ?UserID AND UnSubscribeDate IS NULL ;");
 
-				rowsAffected = MySqlHelper.ExecuteNonQuery(
+				rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2632,7 +2632,7 @@ namespace mojoPortal.Data
 
 
 
-			rowsAffected = MySqlHelper.ExecuteNonQuery(
+			rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2659,7 +2659,7 @@ namespace mojoPortal.Data
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = DateTime.UtcNow;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2686,7 +2686,7 @@ namespace mojoPortal.Data
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = userId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2709,7 +2709,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = userId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2753,7 +2753,7 @@ namespace mojoPortal.Data
 
 			int threadSequence = 1;
 
-			using (IDataReader reader = MySqlHelper.ExecuteReader(
+			using (IDataReader reader = CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams))
@@ -2872,7 +2872,7 @@ namespace mojoPortal.Data
 			arParams[12].Value = modStatus;
 
 
-			int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams).ToString());
@@ -2964,7 +2964,7 @@ namespace mojoPortal.Data
 
 
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -2992,7 +2992,7 @@ namespace mojoPortal.Data
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = threadSequence;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -3014,7 +3014,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = postId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);

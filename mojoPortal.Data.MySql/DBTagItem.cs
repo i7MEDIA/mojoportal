@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace mojoPortal.Data
 {
@@ -88,7 +88,7 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams
@@ -115,7 +115,7 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams
@@ -138,7 +138,7 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams
@@ -161,7 +161,7 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams
@@ -184,7 +184,7 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams
@@ -207,7 +207,7 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams
@@ -230,7 +230,7 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams
@@ -253,7 +253,7 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams
@@ -295,7 +295,7 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				arParams
@@ -337,7 +337,7 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				arParams
@@ -379,7 +379,7 @@ namespace mojoPortal.Data
 				}
 			}.ToArray();
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				arParams

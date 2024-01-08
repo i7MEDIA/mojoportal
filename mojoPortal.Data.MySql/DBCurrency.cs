@@ -18,7 +18,7 @@ using System.Data.Common;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace mojoPortal.Data
 {
@@ -128,7 +128,7 @@ namespace mojoPortal.Data
             arParams[10].Direction = ParameterDirection.Input;
             arParams[10].Value = created;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -223,7 +223,7 @@ namespace mojoPortal.Data
             arParams[9].Direction = ParameterDirection.Input;
             arParams[9].Value = lastModified;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -251,7 +251,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -278,7 +278,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -295,10 +295,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("FROM	mp_Currency ");
             sqlCommand.Append(";");
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                null);
+                sqlCommand.ToString());
         }
 
         ///// <summary>
@@ -311,7 +310,7 @@ namespace mojoPortal.Data
         //    sqlCommand.Append("FROM	mp_Currency ");
         //    sqlCommand.Append(";");
 
-        //    return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+        //    return Convert.ToInt32(CommandHelper.ExecuteScalar(
         //        ConnectionString.GetReadConnectionString(),
         //        sqlCommand.ToString(),
         //        null));
@@ -366,7 +365,7 @@ namespace mojoPortal.Data
         //    arParams[1].Direction = ParameterDirection.Input;
         //    arParams[1].Value = pageSize;
 
-        //    return MySqlHelper.ExecuteReader(
+        //    return CommandHelper.ExecuteReader(
         //        ConnectionString.GetReadConnectionString(),
         //        sqlCommand.ToString(),
         //        arParams);

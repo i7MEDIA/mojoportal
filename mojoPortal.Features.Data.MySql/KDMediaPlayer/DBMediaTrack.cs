@@ -13,7 +13,7 @@
 using System;
 using System.Data;
 using System.Text;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using mojoPortal.Data;
 
 namespace mojoPortal.MediaPlayer.Data
@@ -90,7 +90,7 @@ namespace mojoPortal.MediaPlayer.Data
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = userGuid.ToString();
 
-            int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams).ToString());
@@ -162,7 +162,7 @@ namespace mojoPortal.MediaPlayer.Data
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = userGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -196,7 +196,7 @@ namespace mojoPortal.MediaPlayer.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = playerId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -224,7 +224,7 @@ namespace mojoPortal.MediaPlayer.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = trackId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -252,7 +252,7 @@ namespace mojoPortal.MediaPlayer.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = playerId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -275,7 +275,7 @@ namespace mojoPortal.MediaPlayer.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = moduleId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -299,7 +299,7 @@ namespace mojoPortal.MediaPlayer.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -327,7 +327,7 @@ namespace mojoPortal.MediaPlayer.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = playerId;
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams));
@@ -354,7 +354,7 @@ namespace mojoPortal.MediaPlayer.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = trackId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -381,7 +381,7 @@ namespace mojoPortal.MediaPlayer.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = playerId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
