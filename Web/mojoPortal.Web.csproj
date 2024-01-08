@@ -611,7 +611,9 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Controls\SkinSetting.ascx" />
-    <Content Include="cpl.txt" />
+    <Content Include="Controls\StyleSheet.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
     <Content Include="Default.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
