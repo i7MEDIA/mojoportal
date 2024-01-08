@@ -239,11 +239,14 @@ namespace mojoPortal.Data
             sqlCommand.Append("FROM	mp_IndexingQueue ");
             sqlCommand.Append(";");
 
-            return Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                null));
+            return Convert.ToInt32(
+                CommandHelper.ExecuteScalar(
+                    ConnectionString.GetReadConnectionString(),
+                    sqlCommand.ToString()
+                )
+            );
         }
+
 
         /// <summary>
         /// Gets an DataTable with rows from the mp_IndexingQueue table with the passed path.

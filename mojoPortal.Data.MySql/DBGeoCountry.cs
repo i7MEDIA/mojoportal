@@ -241,8 +241,7 @@ namespace mojoPortal.Data
 
             return Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                null));
+                sqlCommand.ToString()));
         }
 
         /// <summary>
