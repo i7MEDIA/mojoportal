@@ -1,5 +1,5 @@
 ﻿using mojoPortal.Data;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -57,7 +57,7 @@ namespace SuperFlexiData
 			};
 
 			int rowsAffected = Convert.ToInt32(
-				MySqlHelper.ExecuteNonQuery(
+				CommandHelper.ExecuteNonQuery(
 					ConnectionString.GetWriteConnectionString(),
 					sqlCommand,
 					sqlParams.ToArray()
@@ -109,7 +109,7 @@ namespace SuperFlexiData
 			};
 
 			int rowsAffected = Convert.ToInt32(
-				MySqlHelper.ExecuteNonQuery(
+				CommandHelper.ExecuteNonQuery(
 					ConnectionString.GetWriteConnectionString(),
 					sqlCommand,
 					sqlParams.ToArray()
@@ -130,7 +130,7 @@ namespace SuperFlexiData
 				Value = fieldDefGuid
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				sqlParam
@@ -150,7 +150,7 @@ namespace SuperFlexiData
 				Value = siteGuid
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -170,7 +170,7 @@ namespace SuperFlexiData
 				Value = guid
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -190,7 +190,7 @@ namespace SuperFlexiData
 				Value = fieldDefinitionGuid
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -208,7 +208,7 @@ namespace SuperFlexiData
 				Value = guid
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam

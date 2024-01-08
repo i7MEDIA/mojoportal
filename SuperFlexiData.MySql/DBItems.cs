@@ -1,5 +1,5 @@
 ﻿using mojoPortal.Data;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -69,7 +69,7 @@ namespace SuperFlexiData
 			};
 
 			return Convert.ToInt32(
-				MySqlHelper.ExecuteScalar(
+				CommandHelper.ExecuteScalar(
 					ConnectionString.GetWriteConnectionString(),
 					sqlCommand,
 					sqlParams.ToArray()
@@ -128,7 +128,7 @@ namespace SuperFlexiData
 			};
 
 			int rowsAffected = Convert.ToInt32(
-				MySqlHelper.ExecuteNonQuery(
+				CommandHelper.ExecuteNonQuery(
 					ConnectionString.GetWriteConnectionString(),
 					sqlCommand,
 					sqlParams.ToArray()
@@ -149,7 +149,7 @@ namespace SuperFlexiData
 
 			var sqlParam = new MySqlParameter("?ItemID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = itemID };
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -169,7 +169,7 @@ namespace SuperFlexiData
 
 			var sqlParam = new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid };
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -189,7 +189,7 @@ namespace SuperFlexiData
 
 			var sqlParam = new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid };
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -209,7 +209,7 @@ namespace SuperFlexiData
 
 		//    var sqlParam = new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = definitionGuid };
 
-		//    int rowsAffected = MySqlHelper.ExecuteNonQuery(
+		//    int rowsAffected = CommandHelper.ExecuteNonQuery(
 		//        ConnectionString.GetWriteConnectionString(),
 		//        sqlCommand,
 		//        sqlParam);
@@ -227,7 +227,7 @@ namespace SuperFlexiData
 
 			var sqlParam = new MySqlParameter("?ItemGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = itemGuid };
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -244,7 +244,7 @@ namespace SuperFlexiData
 
 			var sqlParam = new MySqlParameter("?ItemID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = itemId };
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -265,7 +265,7 @@ namespace SuperFlexiData
 
 			var sqlParam = new MySqlParameter("?ItemID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = itemId };
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -323,7 +323,7 @@ namespace SuperFlexiData
 				new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid }
 			});
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				sqlParams.ToArray()
@@ -338,7 +338,7 @@ namespace SuperFlexiData
 		//	string sqlCommand = "SELECT Count(*) FROM i7_sflexi_items;";
 
 		//	return Convert.ToInt32(
-		//		MySqlHelper.ExecuteScalar(
+		//		CommandHelper.ExecuteScalar(
 		//			ConnectionString.GetReadConnectionString(),
 		//			sqlCommand
 		//		)
@@ -357,7 +357,7 @@ namespace SuperFlexiData
 			var sqlParam = new MySqlParameter("?ModuleID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = moduleId };
 
 			return Convert.ToInt32(
-				MySqlHelper.ExecuteScalar(
+				CommandHelper.ExecuteScalar(
 					ConnectionString.GetReadConnectionString(),
 					sqlCommand,
 					sqlParam
@@ -375,7 +375,7 @@ namespace SuperFlexiData
 
 			var sqlParam = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar) { Direction = ParameterDirection.Input, Value = siteGuid };
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -396,7 +396,7 @@ namespace SuperFlexiData
 		//	{
 		//		new MySqlParameter("?ModuleID", MySqlDbType.Int32){ Direction = ParameterDirection.Input, Value = moduleID }
 		//	};
-		//	return MySqlHelper.ExecuteReader(
+		//	return CommandHelper.ExecuteReader(
 		//		ConnectionString.GetReadConnectionString(),
 		//		sqlCommand,
 		//		sqlParam
@@ -436,7 +436,7 @@ namespace SuperFlexiData
 				new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -506,7 +506,7 @@ namespace SuperFlexiData
 				new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid }
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				sqlParams
@@ -542,7 +542,7 @@ namespace SuperFlexiData
 				new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParams
@@ -618,7 +618,7 @@ namespace SuperFlexiData
 				new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid }
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				sqlParams
@@ -659,7 +659,7 @@ namespace SuperFlexiData
 				new MySqlParameter("?PageID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageId }
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParams.ToArray()
@@ -678,7 +678,7 @@ namespace SuperFlexiData
 			var sqlParam = new MySqlParameter("?ModuleID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = moduleId };
 
 			return Convert.ToInt32(
-				MySqlHelper.ExecuteScalar(
+				CommandHelper.ExecuteScalar(
 					ConnectionString.GetReadConnectionString(),
 					sqlCommand,
 					sqlParam

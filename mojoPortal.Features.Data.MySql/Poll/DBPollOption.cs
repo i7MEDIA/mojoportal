@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Configuration;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using mojoPortal.Data;
 
 namespace PollFeature.Data
@@ -80,7 +80,7 @@ namespace PollFeature.Data
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = order;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -129,7 +129,7 @@ namespace PollFeature.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = order;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -157,7 +157,7 @@ namespace PollFeature.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = optionGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -188,7 +188,7 @@ namespace PollFeature.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = pollGuid.ToString();
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -214,7 +214,7 @@ namespace PollFeature.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = optionGuid.ToString();
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -267,7 +267,7 @@ namespace PollFeature.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = userGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

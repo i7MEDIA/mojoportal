@@ -17,7 +17,7 @@ using System.Data.Common;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using System.Collections.Generic;
 
 namespace mojoPortal.Data
@@ -95,7 +95,7 @@ namespace mojoPortal.Data
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = expireUtc;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -148,7 +148,7 @@ namespace mojoPortal.Data
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = expireUtc;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -176,7 +176,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -203,7 +203,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowGuid.ToString();
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -239,7 +239,7 @@ namespace mojoPortal.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = DateTime.UtcNow;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -271,7 +271,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = oldUrl;
 
-            int count = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams));
@@ -313,7 +313,7 @@ namespace mojoPortal.Data
 				);
 			}
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand,
                 sqlParams.ToArray()));
@@ -391,7 +391,7 @@ namespace mojoPortal.Data
 				);
 			}
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				sqlParams.ToArray());

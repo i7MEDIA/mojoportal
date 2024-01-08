@@ -1,5 +1,5 @@
 ﻿using mojoPortal.Data;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -202,7 +202,7 @@ namespace SuperFlexiData
 			};
 
 			int rowsAffected = Convert.ToInt32(
-				MySqlHelper.ExecuteNonQuery(
+				CommandHelper.ExecuteNonQuery(
 					ConnectionString.GetWriteConnectionString(),
 					sqlCommand,
 					sqlParams.ToArray()
@@ -366,7 +366,7 @@ namespace SuperFlexiData
 			};
 
 			int rowsAffected = Convert.ToInt32(
-				MySqlHelper.ExecuteNonQuery(
+				CommandHelper.ExecuteNonQuery(
 					ConnectionString.GetWriteConnectionString(),
 					sqlCommand,
 					sqlParams.ToArray()
@@ -393,7 +393,7 @@ namespace SuperFlexiData
 				Value = fieldGuid
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -418,7 +418,7 @@ namespace SuperFlexiData
 				Value = siteGuid
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -443,7 +443,7 @@ namespace SuperFlexiData
 				Value = definitionGuid
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -467,7 +467,7 @@ namespace SuperFlexiData
 				Value = fieldGuid
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam
@@ -483,7 +483,7 @@ namespace SuperFlexiData
 			const string sqlCommand = "SELECT Count(*) FROM `i7_sflexi_fields`;";
 
 			return Convert.ToInt32(
-				MySqlHelper.ExecuteScalar(
+				CommandHelper.ExecuteScalar(
 					ConnectionString.GetReadConnectionString(),
 					sqlCommand.ToString()
 				)
@@ -498,7 +498,7 @@ namespace SuperFlexiData
 		{
 			const string sqlCommand = "SELECT * FROM `i7_sflexi_fields` WHERE `IsDeleted` = 0;";
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand
 			);
@@ -520,7 +520,7 @@ namespace SuperFlexiData
 				new MySqlParameter("?IncludeDeleted", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = includeDeleted }
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParams.ToArray()
@@ -569,7 +569,7 @@ namespace SuperFlexiData
 				new MySqlParameter("?OffsetRows", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageLowerBound }
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				sqlParams.ToArray()
@@ -592,7 +592,7 @@ namespace SuperFlexiData
 				Value = fieldGuid
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam

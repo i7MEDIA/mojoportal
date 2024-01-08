@@ -10,7 +10,7 @@
 //
 // You must not remove this notice, or any other, from this software.
 
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using System;
 using System.Data;
 using System.Text;
@@ -55,7 +55,7 @@ namespace mojoPortal.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = claimValue;
 
-            int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams).ToString());
@@ -79,7 +79,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = id;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -102,7 +102,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -131,7 +131,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = claimType;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -167,7 +167,7 @@ namespace mojoPortal.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = claimValue;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -190,7 +190,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -214,7 +214,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = userId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

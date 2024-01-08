@@ -1,24 +1,16 @@
-﻿///							DBTaskQueue.cs
-/// Author:					
-/// Created:				2007-12-30
-/// Last Modified:			2012-07-20
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
-using System;
+﻿using System;
 using System.Text;
 using System.Data;
 using System.Data.Common;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
-using MySql.Data.MySqlClient;
+//using MySqlConnector;
+using MySqlConnector;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
 
 namespace mojoPortal.Data
 {
@@ -211,14 +203,20 @@ namespace mojoPortal.Data
             arParams[16].Direction = ParameterDirection.Input;
             arParams[16].Value = serializedTaskType;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            //using (var command = new MySqlCommand())
+            //{
+            //    command.Connection = new(ConnectionString.GetWriteConnectionString());
+            //    command.CommandText = sqlCommand.ToString();
+            //    command.Parameters.AddRange(arParams);
+            //    int rowsAffected = command.ExecuteNonQuery();
+            //    return rowsAffected;
+            //};
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
             return rowsAffected;
-
         }
-
 
         /// <summary>
         /// Updates a row in the mp_TaskQueue table. Returns true if row updated.
@@ -283,7 +281,7 @@ namespace mojoPortal.Data
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = status;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -322,7 +320,7 @@ namespace mojoPortal.Data
             arParams[1].Value = notificationSentUTC;
 
            
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -350,7 +348,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -363,15 +361,11 @@ namespace mojoPortal.Data
         /// </summary>
         public static void DeleteCompleted()
         {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE ");
-            sqlCommand.Append("FROM	mp_TaskQueue ");
-            sqlCommand.Append("WHERE CompleteUTC IS NOT NULL; ");
+            var sqlCommand = "DELETE FROM mp_TaskQueue WHERE CompleteUTC IS NOT NULL;";
 
-            MySqlHelper.ExecuteNonQuery(
+            CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                null);
+                sqlCommand.ToString());
         }
 
         /// <summary>
@@ -393,7 +387,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -410,7 +404,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("FROM	mp_TaskQueue ");
             sqlCommand.Append(";");
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 null));
@@ -435,7 +429,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteGuid.ToString();
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams));
@@ -456,7 +450,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = taskType + "%";
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams));
@@ -476,7 +470,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = taskType + "%";
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -495,7 +489,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("CompleteUTC IS NULL ");
             sqlCommand.Append(";");
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 null));
@@ -521,7 +515,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteGuid.ToString();
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams));
@@ -539,10 +533,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("StartUTC IS NULL ");
             sqlCommand.Append(";");
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                null);
+                sqlCommand.ToString());
         }
 
         /// <summary>
@@ -559,10 +552,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("AND NotificationSentUTC IS NULL ");
             sqlCommand.Append(";");
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                null);
+                sqlCommand.ToString());
         }
 
         /// <summary>
@@ -577,10 +569,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("CompleteUTC IS NULL ");
             sqlCommand.Append(";");
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                null);
+                sqlCommand.ToString());
         }
 
 
@@ -604,7 +595,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteGuid.ToString();
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -658,7 +649,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = pageSize;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -718,7 +709,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = pageSize;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -773,7 +764,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = pageSize;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -835,7 +826,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = pageSize;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

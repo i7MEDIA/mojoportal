@@ -17,7 +17,7 @@ using System.Data.Common;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace mojoPortal.Data
 {
@@ -95,7 +95,7 @@ namespace mojoPortal.Data
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = extraGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -126,7 +126,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -149,7 +149,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = itemGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -171,7 +171,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = extraGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -193,7 +193,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = categoryGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -215,7 +215,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = moduleGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -237,7 +237,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = featureGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -259,7 +259,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

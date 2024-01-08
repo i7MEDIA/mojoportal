@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 using System.Text;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace mojoPortal.Data
 {
@@ -125,7 +125,7 @@ namespace mojoPortal.Data
             arParams[13].Value = exclude;
             
 
-            int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams).ToString());
@@ -213,7 +213,7 @@ namespace mojoPortal.Data
             arParams[10].Direction = ParameterDirection.Input;
             arParams[10].Value = exclude;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -234,7 +234,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = itemId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -257,7 +257,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("WHERE ContentGuid IN (SELECT ItemGuid FROM mp_HtmlContent WHERE ModuleID  ");
             sqlCommand.Append(" = ?ModuleID ); ");
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -267,7 +267,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("WHERE ContentGuid IN (SELECT ItemGuid FROM mp_HtmlContent WHERE ModuleID  ");
             sqlCommand.Append(" = ?ModuleID ); ");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -276,7 +276,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("DELETE FROM mp_HtmlContent ");
             sqlCommand.Append("WHERE ModuleID = ?ModuleID ;");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -299,7 +299,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("WHERE ContentGuid IN (SELECT ItemGuid FROM mp_HtmlContent WHERE ModuleID IN ");
             sqlCommand.Append("(SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ); ");
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -309,7 +309,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("WHERE ContentGuid IN (SELECT ItemGuid FROM mp_HtmlContent WHERE ModuleID IN ");
             sqlCommand.Append("(SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ); ");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -320,7 +320,7 @@ namespace mojoPortal.Data
 
             
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -369,7 +369,7 @@ namespace mojoPortal.Data
         //    arParams[0].Direction = ParameterDirection.Input;
         //    arParams[0].Value = itemId;
 
-        //    return MySqlHelper.ExecuteReader(
+        //    return CommandHelper.ExecuteReader(
         //        ConnectionString.GetReadConnectionString(),
         //        sqlCommand.ToString(),
         //        arParams);
@@ -449,7 +449,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -501,7 +501,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = beginDate;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -565,7 +565,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = pageId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

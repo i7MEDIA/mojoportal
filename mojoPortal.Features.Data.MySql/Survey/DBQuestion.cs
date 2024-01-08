@@ -13,7 +13,7 @@
 // You must not remove this notice, or any other, from this software.
 
 using mojoPortal.Data;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -121,7 +121,7 @@ namespace SurveyFeature.Data
 				}
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams.ToArray()
@@ -227,7 +227,7 @@ namespace SurveyFeature.Data
 				}
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams.ToArray());
@@ -262,7 +262,7 @@ namespace SurveyFeature.Data
 				}
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams.ToArray()
@@ -295,7 +295,7 @@ namespace SurveyFeature.Data
 				}
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				arParams.ToArray()
@@ -328,7 +328,7 @@ namespace SurveyFeature.Data
 				}
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				arParams.ToArray()

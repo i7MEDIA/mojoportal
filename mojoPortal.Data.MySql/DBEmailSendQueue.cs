@@ -17,7 +17,7 @@ using System.Data.Common;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace mojoPortal.Data
 {
@@ -181,7 +181,7 @@ namespace mojoPortal.Data
             arParams[16].Direction = ParameterDirection.Input;
             arParams[16].Value = createdUtc;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -209,7 +209,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = guid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -236,7 +236,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = currentTime;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

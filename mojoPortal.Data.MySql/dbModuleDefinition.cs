@@ -12,7 +12,7 @@
 /// 
 /// Note moved into separate class file from dbPortal 2007-11-03
 
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using System;
 using System.Data;
 using System.Globalization;
@@ -163,7 +163,7 @@ namespace mojoPortal.Data
 			int newID = -1;
 
 			newID = Convert.ToInt32(
-				MySqlHelper.ExecuteScalar(
+				CommandHelper.ExecuteScalar(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams).ToString());
@@ -196,7 +196,7 @@ namespace mojoPortal.Data
 				arParams[1].Direction = ParameterDirection.Input;
 				arParams[1].Value = newID;
 
-				MySqlHelper.ExecuteNonQuery(
+				CommandHelper.ExecuteNonQuery(
 					ConnectionString.GetWriteConnectionString(),
 					sqlCommand.ToString(),
 					arParams);
@@ -320,7 +320,7 @@ namespace mojoPortal.Data
 			arParams[14].Direction = ParameterDirection.Input;
 			arParams[14].Value = skinFileName;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -355,7 +355,7 @@ namespace mojoPortal.Data
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = authorizedRoles;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -378,7 +378,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleDefId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -400,7 +400,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleDefId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -424,7 +424,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleDefId;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -446,7 +446,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = featureGuid.ToString();
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -469,7 +469,7 @@ namespace mojoPortal.Data
 
 			int moduleDefId = -1;
 
-			using (IDataReader reader = MySqlHelper.ExecuteReader(
+			using (IDataReader reader = CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams))
@@ -516,10 +516,9 @@ namespace mojoPortal.Data
 			sqlCommand.Append(") ");
 			sqlCommand.Append(" ;");
 
-			MySqlHelper.ExecuteNonQuery(
+			CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
-				sqlCommand.ToString(),
-				null);
+				sqlCommand.ToString());
 
 		}
 
@@ -543,7 +542,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteGuid.ToString();
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -606,7 +605,7 @@ namespace mojoPortal.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = skinFileName;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				 ConnectionString.GetReadConnectionString(),
 				 sqlCommand.ToString(),
 				 arParams);
@@ -617,7 +616,7 @@ namespace mojoPortal.Data
 			StringBuilder sqlCommand = new StringBuilder();
 			sqlCommand.Append("SELECT SkinFileName FROM mp_ModuleDefinitions;");
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				 ConnectionString.GetReadConnectionString(),
 				 sqlCommand.ToString());
 		}
@@ -645,7 +644,7 @@ md.FeatureName";
 				}
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				commandText,
 				commandParameters
@@ -671,7 +670,7 @@ md.FeatureName";
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteId;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -691,7 +690,7 @@ md.FeatureName";
 		//    //sqlCommand.Append(" ");
 		//    sqlCommand.Append("; ");
 
-		//    MySqlHelper.ExecuteNonQuery(
+		//    CommandHelper.ExecuteNonQuery(
 		//        ConnectionString.GetWriteConnectionString(),
 		//        sqlCommand.ToString(),
 		//        null);
@@ -707,7 +706,7 @@ md.FeatureName";
 
 		//    sqlCommand.Append("; ");
 
-		//    MySqlHelper.ExecuteNonQuery(
+		//    CommandHelper.ExecuteNonQuery(
 		//        ConnectionString.GetWriteConnectionString(),
 		//        sqlCommand.ToString(),
 		//        null);
@@ -722,7 +721,7 @@ md.FeatureName";
 		//    sqlCommand.Append("AND mds.SettingName = mp_ModuleSettings.SettingName LIMIT 1 ), 100); ");
 		//    sqlCommand.Append(" ");
 
-		//    MySqlHelper.ExecuteNonQuery(
+		//    CommandHelper.ExecuteNonQuery(
 		//        ConnectionString.GetWriteConnectionString(),
 		//        sqlCommand.ToString(),
 		//        null);
@@ -737,7 +736,7 @@ md.FeatureName";
 		//    sqlCommand.Append("AND mds.SettingName = mp_ModuleSettings.SettingName LIMIT 1 ); ");
 		//    sqlCommand.Append(" ");
 
-		//    MySqlHelper.ExecuteNonQuery(
+		//    CommandHelper.ExecuteNonQuery(
 		//        ConnectionString.GetWriteConnectionString(),
 		//        sqlCommand.ToString(),
 		//        null);
@@ -752,7 +751,7 @@ md.FeatureName";
 		//    sqlCommand.Append("AND mds.SettingName = mp_ModuleSettings.SettingName LIMIT 1 ); ");
 		//    sqlCommand.Append(" ");
 
-		//    MySqlHelper.ExecuteNonQuery(
+		//    CommandHelper.ExecuteNonQuery(
 		//        ConnectionString.GetWriteConnectionString(),
 		//        sqlCommand.ToString(),
 		//        null);
@@ -798,7 +797,7 @@ md.FeatureName";
 			arParams[2].Direction = ParameterDirection.Input;
 			arParams[2].Value = featureGuid;
 
-			int count = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams).ToString());
@@ -879,7 +878,7 @@ md.FeatureName";
 				arParams[12].Direction = ParameterDirection.Input;
 				arParams[12].Value = options;
 
-				rowsAffected = MySqlHelper.ExecuteNonQuery(
+				rowsAffected = CommandHelper.ExecuteNonQuery(
 					ConnectionString.GetWriteConnectionString(),
 					sqlCommand.ToString(),
 					arParams);
@@ -977,7 +976,7 @@ md.FeatureName";
 				arParams[12].Direction = ParameterDirection.Input;
 				arParams[12].Value = options;
 
-				rowsAffected = MySqlHelper.ExecuteNonQuery(
+				rowsAffected = CommandHelper.ExecuteNonQuery(
 					ConnectionString.GetWriteConnectionString(),
 					sqlCommand.ToString(),
 					arParams);
@@ -1075,7 +1074,7 @@ md.FeatureName";
 			arParams[12].Direction = ParameterDirection.Input;
 			arParams[12].Value = options;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1097,7 +1096,7 @@ md.FeatureName";
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = id;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1119,7 +1118,7 @@ md.FeatureName";
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleDefId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -1151,7 +1150,7 @@ md.FeatureName";
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = settingName;
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);

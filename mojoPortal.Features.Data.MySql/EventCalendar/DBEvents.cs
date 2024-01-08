@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace mojoPortal.Data
 {
@@ -172,7 +172,7 @@ namespace mojoPortal.Data
 			arParams[15].Direction = ParameterDirection.Input;
 			arParams[15].Value = intShowMap;
 
-			int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams).ToString());
@@ -298,7 +298,7 @@ namespace mojoPortal.Data
 			arParams[13].Direction = ParameterDirection.Input;
 			arParams[13].Value = intShowMap;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -321,7 +321,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = itemId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -343,7 +343,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = moduleId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -365,7 +365,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -389,7 +389,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = itemId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -426,7 +426,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("ORDER BY	EventDate ");
             sqlCommand.Append(" ;");
 
-            return MySqlHelper.ExecuteDataset(
+            return CommandHelper.ExecuteDataset(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -476,7 +476,7 @@ ORDER BY EventDate;";
 			dt.Columns.Add("RequiresTicket", typeof(bool));
 			dt.Columns.Add("ShowMap", typeof(bool));
 
-			using (IDataReader reader = MySqlHelper.ExecuteReader(
+			using (IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand,
                 sqlParams.ToArray()))
@@ -547,7 +547,7 @@ ORDER BY EventDate;";
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = pageId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

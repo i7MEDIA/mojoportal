@@ -13,7 +13,7 @@
 // You must not remove this notice, or any other, from this software.
 
 using mojoPortal.Data;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -103,7 +103,7 @@ namespace SurveyFeature.Data
 				}
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams.ToArray()
@@ -185,7 +185,7 @@ namespace SurveyFeature.Data
 				}
 			};
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				arParams.ToArray()
@@ -241,7 +241,7 @@ namespace SurveyFeature.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = surveyGuid.ToString();
 
-			MySqlHelper.ExecuteNonQuery(
+			CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -300,7 +300,7 @@ namespace SurveyFeature.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteId;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -330,7 +330,7 @@ namespace SurveyFeature.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = surveyGuid.ToString();
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -347,7 +347,7 @@ namespace SurveyFeature.Data
 			sqlCommand.Append("SELECT  Count(*) ");
 			sqlCommand.Append("FROM	mp_Surveys; ");
 
-			return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			return Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				null));
@@ -371,7 +371,7 @@ namespace SurveyFeature.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = surveyGuid.ToString();
 
-			return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			return Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams));
@@ -407,7 +407,7 @@ namespace SurveyFeature.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = siteGuid.ToString();
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -431,7 +431,7 @@ namespace SurveyFeature.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = surveyGuid.ToString();
 
-			return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			return Convert.ToInt32(CommandHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams));
@@ -462,7 +462,7 @@ namespace SurveyFeature.Data
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = moduleId;
 
-			MySqlHelper.ExecuteNonQuery(
+			CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -486,7 +486,7 @@ namespace SurveyFeature.Data
 			arParams[1].Direction = ParameterDirection.Input;
 			arParams[1].Value = moduleId;
 
-			MySqlHelper.ExecuteNonQuery(
+			CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -506,7 +506,7 @@ namespace SurveyFeature.Data
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = moduleId;
 
-			MySqlHelper.ExecuteNonQuery(
+			CommandHelper.ExecuteNonQuery(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
@@ -537,7 +537,7 @@ namespace SurveyFeature.Data
 				}
 			};
 
-			object id = MySqlHelper.ExecuteScalar(
+			object id = CommandHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				arParams.ToArray()
@@ -577,7 +577,7 @@ namespace SurveyFeature.Data
 				}
 			};
 
-			object id = MySqlHelper.ExecuteScalar(
+			object id = CommandHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				arParams.ToArray()
@@ -633,7 +633,7 @@ namespace SurveyFeature.Data
 				}
 			};
 
-			object id = MySqlHelper.ExecuteScalar(
+			object id = CommandHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				arParams.ToArray()
@@ -689,7 +689,7 @@ namespace SurveyFeature.Data
 				}
 			};
 
-			object id = MySqlHelper.ExecuteScalar(
+			object id = CommandHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				arParams.ToArray()
@@ -741,7 +741,7 @@ namespace SurveyFeature.Data
 				}
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				arParams.ToArray()
@@ -796,7 +796,7 @@ namespace SurveyFeature.Data
 				}
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
 				arParams.ToArray()

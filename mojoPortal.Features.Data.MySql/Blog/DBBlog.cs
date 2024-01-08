@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -31,7 +31,7 @@ namespace mojoPortal.Data
 
             int rowsToShow = int.Parse(ConfigurationManager.AppSettings["DefaultBlogPageSize"]);
 
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+            using (IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -81,7 +81,7 @@ namespace mojoPortal.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = currentTime;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -122,7 +122,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = DateTime.UtcNow;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -149,7 +149,7 @@ namespace mojoPortal.Data
 
             int rowsToShow = 20;
 
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+            using (IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -199,7 +199,7 @@ namespace mojoPortal.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = currentTime;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -226,7 +226,7 @@ namespace mojoPortal.Data
 
             int rowsToShow = 100;
 
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+            using (IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -275,7 +275,7 @@ namespace mojoPortal.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = currentTime;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -302,7 +302,7 @@ namespace mojoPortal.Data
 
             int rowsToShow = 100;
 
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+            using (IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -371,7 +371,7 @@ namespace mojoPortal.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = currentTime;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -399,7 +399,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = currentTime;
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                  ConnectionString.GetReadConnectionString(),
                  sqlCommand.ToString(),
                  arParams));
@@ -484,7 +484,7 @@ namespace mojoPortal.Data
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = pageLowerBound;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -551,7 +551,7 @@ namespace mojoPortal.Data
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = pageLowerBound;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -624,7 +624,7 @@ namespace mojoPortal.Data
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = pageLowerBound;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -659,7 +659,7 @@ namespace mojoPortal.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = currentTime;
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                  ConnectionString.GetReadConnectionString(),
                  sqlCommand.ToString(),
                  arParams));
@@ -747,7 +747,7 @@ namespace mojoPortal.Data
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = pageLowerBound;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -785,7 +785,7 @@ namespace mojoPortal.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = currentTime;
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                  ConnectionString.GetReadConnectionString(),
                  sqlCommand.ToString(),
                  arParams));
@@ -875,7 +875,7 @@ namespace mojoPortal.Data
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = pageLowerBound;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -950,7 +950,7 @@ namespace mojoPortal.Data
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = pageLowerBound;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1028,7 +1028,7 @@ namespace mojoPortal.Data
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = pageLowerBound;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1109,7 +1109,7 @@ namespace mojoPortal.Data
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = pageLowerBound;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1190,7 +1190,7 @@ namespace mojoPortal.Data
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = pageLowerBound;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1233,7 +1233,7 @@ namespace mojoPortal.Data
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = currentTime;
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                  ConnectionString.GetReadConnectionString(),
                  sqlCommand.ToString(),
                  arParams));
@@ -1333,7 +1333,7 @@ namespace mojoPortal.Data
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = pageLowerBound;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1426,7 +1426,7 @@ namespace mojoPortal.Data
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = pageLowerBound;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1470,7 +1470,7 @@ namespace mojoPortal.Data
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = currentTime;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1511,7 +1511,7 @@ namespace mojoPortal.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = currentTime;
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                  ConnectionString.GetReadConnectionString(),
                  sqlCommand.ToString(),
                  arParams));
@@ -1607,7 +1607,7 @@ namespace mojoPortal.Data
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = pageLowerBound;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1687,7 +1687,7 @@ namespace mojoPortal.Data
             arParams[4].Direction = ParameterDirection.Input;
             arParams[4].Value = pageLowerBound;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1723,7 +1723,7 @@ namespace mojoPortal.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = currentTime;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1774,7 +1774,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = currentUtcDateTime;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1835,7 +1835,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = utcThresholdTime;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1867,7 +1867,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = DateTime.UtcNow;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1929,7 +1929,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = pageId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1955,7 +1955,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = moduleId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -1991,7 +1991,7 @@ ORDER BY
 				new MySqlParameter("?CurrentDate", MySqlDbType.DateTime) { Direction = ParameterDirection.Input, Value = currentTime }
 			};
 
-			return MySqlHelper.ExecuteReader(
+			return CommandHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				sqlParams.ToArray());
@@ -2041,7 +2041,7 @@ ORDER BY
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = currentTime;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2062,7 +2062,7 @@ ORDER BY
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = itemId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2085,7 +2085,7 @@ ORDER BY
             sqlCommand.Append(" = ?ModuleID ) ");
             sqlCommand.Append(";");
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2096,7 +2096,7 @@ ORDER BY
             sqlCommand.Append(" = ?ModuleID ) ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2107,7 +2107,7 @@ ORDER BY
             sqlCommand.Append(" = ?ModuleID ) ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2118,7 +2118,7 @@ ORDER BY
             sqlCommand.Append(" = ?ModuleID ) ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2128,7 +2128,7 @@ ORDER BY
             sqlCommand.Append("WHERE ModuleID = ?ModuleID ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2138,7 +2138,7 @@ ORDER BY
             sqlCommand.Append("WHERE ModuleID = ?ModuleID ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2148,7 +2148,7 @@ ORDER BY
             sqlCommand.Append("WHERE ModuleID = ?ModuleID ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2158,7 +2158,7 @@ ORDER BY
             sqlCommand.Append("WHERE ModuleID = ?ModuleID ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2181,7 +2181,7 @@ ORDER BY
             sqlCommand.Append("(SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ) ");
             sqlCommand.Append(";");
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2192,7 +2192,7 @@ ORDER BY
             sqlCommand.Append("(SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ) ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2203,7 +2203,7 @@ ORDER BY
             sqlCommand.Append("(SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ) ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2214,7 +2214,7 @@ ORDER BY
             sqlCommand.Append("(SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ) ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2225,7 +2225,7 @@ ORDER BY
             sqlCommand.Append("(SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ) ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2235,7 +2235,7 @@ ORDER BY
             sqlCommand.Append("WHERE ModuleID IN (SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2245,7 +2245,7 @@ ORDER BY
             sqlCommand.Append("WHERE ModuleID IN (SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2255,7 +2255,7 @@ ORDER BY
             sqlCommand.Append("WHERE ModuleID IN (SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2265,7 +2265,7 @@ ORDER BY
             sqlCommand.Append("WHERE ModuleID IN (SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ");
             sqlCommand.Append(";");
 
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
+            rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -2749,7 +2749,7 @@ ORDER BY
 			arParams[47].Value = intincludeImageInPost;
 
 
-			int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+			int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams).ToString());
@@ -2763,7 +2763,7 @@ ORDER BY
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = moduleId;
 
-            int rowCount = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            int rowCount = Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(), 
                 sqlCommand.ToString(), 
                 arParams).ToString());
@@ -2781,7 +2781,7 @@ ORDER BY
                 arParams[0].Direction = ParameterDirection.Input;
                 arParams[0].Value = moduleId;
 
-                MySqlHelper.ExecuteNonQuery(
+                CommandHelper.ExecuteNonQuery(
                     ConnectionString.GetWriteConnectionString(), 
                     sqlCommand.ToString(), 
                     arParams);
@@ -2804,7 +2804,7 @@ ORDER BY
                 arParams[1].Direction = ParameterDirection.Input;
                 arParams[1].Value = moduleGuid.ToString();
 
-                MySqlHelper.ExecuteNonQuery(
+                CommandHelper.ExecuteNonQuery(
                     ConnectionString.GetWriteConnectionString(), 
                     sqlCommand.ToString(), 
                     arParams);
@@ -3218,7 +3218,7 @@ ORDER BY
 			arParams[45].Direction = ParameterDirection.Input;
 			arParams[45].Value = intincludeImageInPost;
 
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -3245,7 +3245,7 @@ ORDER BY
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = commentCount;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -3308,7 +3308,7 @@ ORDER BY
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = dateCreated;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(), 
                 sqlCommand.ToString(), 
                 arParams);
@@ -3327,7 +3327,7 @@ ORDER BY
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = itemId;
 
-            MySqlHelper.ExecuteNonQuery(
+            CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(), 
                 sqlCommand.ToString(), 
                 arParams);
@@ -3342,7 +3342,7 @@ ORDER BY
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = moduleId;
 
-            MySqlHelper.ExecuteNonQuery(
+            CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(), 
                 sqlCommand.ToString(), 
                 arParams);
@@ -3365,7 +3365,7 @@ ORDER BY
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = itemId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -3389,7 +3389,7 @@ ORDER BY
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = moduleId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -3413,7 +3413,7 @@ ORDER BY
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = moduleId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -3441,7 +3441,7 @@ ORDER BY
             int moduleId = -1;
             int itemId = -1;
 
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+            using (IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -3464,7 +3464,7 @@ ORDER BY
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = blogCommentId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(), 
                 sqlCommand.ToString(), 
                 arParams);
@@ -3490,7 +3490,7 @@ ORDER BY
                 arParams[1].Direction = ParameterDirection.Input;
                 arParams[1].Value = itemId;
 
-                MySqlHelper.ExecuteNonQuery(
+                CommandHelper.ExecuteNonQuery(
                     ConnectionString.GetWriteConnectionString(),
                     sqlCommand.ToString(),
                     arParams);
@@ -3524,7 +3524,7 @@ ORDER BY
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = itemId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -3557,7 +3557,7 @@ ORDER BY
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = category;
 
-            int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams).ToString());
@@ -3588,7 +3588,7 @@ ORDER BY
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = category;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -3611,7 +3611,7 @@ ORDER BY
 
 
 
-            MySqlHelper.ExecuteNonQuery(
+            CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -3620,7 +3620,7 @@ ORDER BY
             sqlCommand.Append("DELETE FROM mp_BlogCategories ");
             sqlCommand.Append("WHERE CategoryID = ?CategoryID ;");
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -3644,7 +3644,7 @@ ORDER BY
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = categoryId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -3679,7 +3679,7 @@ ORDER BY
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = DateTime.UtcNow;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -3701,7 +3701,7 @@ ORDER BY
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = moduleId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -3733,7 +3733,7 @@ ORDER BY
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = categoryId;
 
-            int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams).ToString());
@@ -3755,7 +3755,7 @@ ORDER BY
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = itemId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -3782,7 +3782,7 @@ ORDER BY
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = itemId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

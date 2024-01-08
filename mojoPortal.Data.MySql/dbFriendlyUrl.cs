@@ -19,7 +19,7 @@ using System.Data.Common;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace mojoPortal.Data
 {
@@ -109,7 +109,7 @@ namespace mojoPortal.Data
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = itemGuid.ToString();
 
-            int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams).ToString());
@@ -171,7 +171,7 @@ namespace mojoPortal.Data
             arParams[5].Direction = ParameterDirection.Input;
             arParams[5].Value = pageGuid.ToString();
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -195,7 +195,7 @@ namespace mojoPortal.Data
             arParams[0].Value = urlId;
 
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), arParams);
 
             return (rowsAffected > 0);
@@ -210,8 +210,8 @@ namespace mojoPortal.Data
             sqlCommand.Append("RealUrl LIKE '%pageid=" + pageId.ToString() + "' ;");
 
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), null);
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
+                ConnectionString.GetWriteConnectionString(), sqlCommand.ToString());
 
             return (rowsAffected > 0);
 
@@ -231,7 +231,7 @@ namespace mojoPortal.Data
             arParams[0].Value = pageGuid.ToString();
 
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), arParams);
 
             return (rowsAffected > 0);
@@ -253,7 +253,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = urlId;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -284,7 +284,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("FROM mp_SiteHosts ");
             sqlCommand.Append("WHERE mp_SiteHosts.HostName = ?HostName ;");
 
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+            using (IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -307,7 +307,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteId;
 
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+            using (IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -351,7 +351,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteId;
 
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+            using (IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -396,7 +396,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = friendlyUrl;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -423,7 +423,7 @@ namespace mojoPortal.Data
             sqlCommand.Append(" SiteID = ?SiteID ");
             sqlCommand.Append("AND FriendlyUrl = ?FriendlyUrl ;");
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -450,7 +450,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = siteId;
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams));
@@ -514,7 +514,7 @@ namespace mojoPortal.Data
             arParams[2].Direction = ParameterDirection.Input;
             arParams[2].Value = pageSize;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -544,7 +544,7 @@ namespace mojoPortal.Data
             arParams[1].Direction = ParameterDirection.Input;
             arParams[1].Value = "%" + searchTerm + "%";
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams));
@@ -608,7 +608,7 @@ namespace mojoPortal.Data
             arParams[3].Direction = ParameterDirection.Input;
             arParams[3].Value = pageSize;
 
-            return MySqlHelper.ExecuteReader(
+            return CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

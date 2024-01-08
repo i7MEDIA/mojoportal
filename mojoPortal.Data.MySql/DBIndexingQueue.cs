@@ -18,7 +18,7 @@ using System.Data.Common;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace mojoPortal.Data
 {
@@ -97,7 +97,7 @@ namespace mojoPortal.Data
 
             try
             {
-                newID = Convert.ToInt64(MySqlHelper.ExecuteScalar(
+                newID = Convert.ToInt64(CommandHelper.ExecuteScalar(
                     ConnectionString.GetWriteConnectionString(),
                     sqlCommand.ToString(),
                     arParams).ToString());
@@ -174,7 +174,7 @@ namespace mojoPortal.Data
         //    arParams[4].Direction = ParameterDirection.Input;
         //    arParams[4].Value = intRemoveOnly;
 
-        //    int rowsAffected = MySqlHelper.ExecuteNonQuery(
+        //    int rowsAffected = CommandHelper.ExecuteNonQuery(
         //        ConnectionString.GetWriteConnectionString(),
         //        sqlCommand.ToString(),
         //        arParams);
@@ -202,7 +202,7 @@ namespace mojoPortal.Data
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = rowId;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -222,10 +222,9 @@ namespace mojoPortal.Data
            
             sqlCommand.Append(";");
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+            int rowsAffected = CommandHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                null);
+                sqlCommand.ToString());
             return (rowsAffected > 0);
 
         }
@@ -240,7 +239,7 @@ namespace mojoPortal.Data
             sqlCommand.Append("FROM	mp_IndexingQueue ");
             sqlCommand.Append(";");
 
-            return Convert.ToInt32(MySqlHelper.ExecuteScalar(
+            return Convert.ToInt32(CommandHelper.ExecuteScalar(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 null));
@@ -272,7 +271,7 @@ namespace mojoPortal.Data
             dt.Columns.Add("ItemKey", typeof(String));
             dt.Columns.Add("RemoveOnly", typeof(bool));
 
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+            using (IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -319,7 +318,7 @@ namespace mojoPortal.Data
             dt.Columns.Add("ItemKey", typeof(String));
             dt.Columns.Add("RemoveOnly", typeof(bool));
 
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+            using (IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -354,10 +353,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("ORDER BY IndexPath ");
             sqlCommand.Append(";");
 
-            IDataReader reader = MySqlHelper.ExecuteReader(
+            IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                null);
+                sqlCommand.ToString());
 
             return DBPortal.GetTableFromDataReader(reader);
         }
@@ -370,10 +368,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("ORDER BY SiteID ");
             sqlCommand.Append(";");
 
-            IDataReader reader = MySqlHelper.ExecuteReader(
+            IDataReader reader = CommandHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                null);
+                sqlCommand.ToString());
 
             return DBPortal.GetTableFromDataReader(reader);
 
