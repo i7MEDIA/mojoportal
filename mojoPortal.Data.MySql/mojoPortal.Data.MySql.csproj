@@ -224,14 +224,8 @@
     <Compile Include="dbWebPartContent.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="log4net">
       <Version>2.0.15</Version>
-    </PackageReference>
-    <PackageReference Include="MySql.Data">
-      <Version>8.2.0</Version>
     </PackageReference>
     <PackageReference Include="MySqlConnector">
       <Version>2.3.3</Version>

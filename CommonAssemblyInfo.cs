@@ -60,5 +60,4 @@ using System.Runtime.InteropServices;
 //[assembly: AssemblyKeyName("")]
 
 [assembly: ComVisible(false)]
-[assembly: CLSCompliant(true)]
 [assembly: AssemblyFileVersion("2.9.0.1")]
