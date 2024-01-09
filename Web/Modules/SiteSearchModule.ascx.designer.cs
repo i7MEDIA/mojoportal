@@ -111,7 +111,7 @@ namespace mojoPortal.Web.SearchUI
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::mojoPortal.Web.Controls.WatermarkTextBox txtSearch;
+		protected global::System.Web.UI.WebControls.TextBox txtSearch;
 
 		/// <summary>
 		/// btnSearch control.

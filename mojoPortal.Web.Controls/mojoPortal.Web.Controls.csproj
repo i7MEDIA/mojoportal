@@ -174,9 +174,7 @@
     <Compile Include="Captcha\SubkismetCaptchaProvider.cs" />
     <Compile Include="Captcha\SubkismetInvisibleCaptchaAdapter.cs" />
     <Compile Include="Captcha\SubkismetInvisibleCaptchaProvider.cs" />
-    <Compile Include="CollapseLinkButton.cs" />
-    <Compile Include="CornerRounderBottom.cs" />
-    <Compile Include="CornerRounderTop.cs" />
+    <Compile Include="CornerRounder.cs" />
     <Compile Include="CutePager.cs" />
     <Compile Include="DataCalendar.cs" />
     <Compile Include="DataCalendarItem.cs" />
@@ -195,8 +193,6 @@
     <Compile Include="EventCalendar\ItemTemplates.cs" />
     <Compile Include="EventCalendar\DayNumberDiv.cs" />
     <Compile Include="EventCalendar\EventCalendar.cs" />
-    <Compile Include="FancyPagerTemplate.cs" />
-    <Compile Include="FlexibleGridView.cs" />
     <Compile Include="FolderGallery\AlbumControl.cs" />
     <Compile Include="FolderGallery\AlbumFolderInfo.cs" />
     <Compile Include="FolderGallery\AlbumHandlerMode.cs" />
@@ -230,28 +226,14 @@
     <Compile Include="google\LocationMap.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GraphicalCheckBox.cs" />
-    <Compile Include="GraphicalControlsSettings.cs" />
-    <Compile Include="GraphicalRadioButton.cs" />
     <Compile Include="Gravatar\Gravatar.cs" />
-    <Compile Include="HelpLinkButton.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="InsecurePanel.cs" />
     <Compile Include="jsCalendarDatePicker.cs" />
     <Compile Include="mojoGridView.cs" />
     <Compile Include="Odiogo\OdiogoItem.cs" />
-    <Compile Include="SeparatorControl.cs" />
     <Compile Include="Sharing\AddThisButton.cs" />
     <Compile Include="SiteLabel.cs" />
-    <Compile Include="SmartCombo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="WatermarkTextBox.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GraphicalCheckBox.bmp" />
-    <Content Include="GraphicalRadioButton.bmp" />
     <Content Include="Gravatar\Gravatar.bmp" />
   </ItemGroup>
   <ItemGroup>

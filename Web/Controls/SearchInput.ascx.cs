@@ -1,15 +1,3 @@
-/// Author:
-/// Created:       2005-06-26
-/// Last Modified: 2017-07-17
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software. 
-
 using Resources;
 using System;
 using System.Web.UI.WebControls;
@@ -18,132 +6,44 @@ namespace mojoPortal.Web.UI
 {
 	public partial class SearchInput : System.Web.UI.UserControl
 	{
-		protected Literal searchLink = new Literal();
+		protected Literal searchLink = new();
 
-		// these separator properties are deprecated
-		// it is recommended not to use these properties
-		// but instead to use mojoPortal.Web.Controls.SeparatorControl
-		private bool useLeftSeparator = false;
+		public bool UseLeftSeparator { get; set; } = false;
+
+		public bool LinkOnly { get; set; } = true;
+
+		public bool UseHeading { get; set; } = true;
+
+		public bool UseWatermark { get; set; } = true;
+
+		public string ImageUrl { get; set; } = string.Empty;
+
+		public string ButtonCssClass { get; set; } = string.Empty;
+
+		public string TextBoxCssClass { get; set; } = string.Empty;
+
+		public bool RenderAsListItem { get; set; } = false;
+
+		public string ListItemCss { get; set; } = "topnavitem";
+
+		public string LinkCSS { get; set; } = "sitelink";
+
 		/// <summary>
-		/// deprecated
+		/// Adds 'Placeholder' attribute to element
 		/// </summary>
-		public bool UseLeftSeparator
-		{
-			get { return useLeftSeparator; }
-			set { useLeftSeparator = value; }
-		}
+		public string OverrideWatermark { get; set; } = Resource.SearchInputWatermark;
 
-		private bool linkOnly = true;
-		public bool LinkOnly
-		{
-			get { return linkOnly; }
-			set { linkOnly = value; }
-		}
+		public string OverrideButtonText { get; set; } = string.Empty;
 
-		private bool useHeading = true;
-		public bool UseHeading
-		{
-			get { return useHeading; }
-			set { useHeading = value; }
-		}
+		public bool HideOnSearchResultsPage { get; set; } = true;
 
-		private bool useWatermark = true;
-		public bool UseWatermark
-		{
-			get { return useWatermark; }
-			set { useWatermark = value; }
-		}
+		public bool HideOnSiteSettingsPage { get; set; } = true;
 
-		private string imageUrl = string.Empty;
-		public string ImageUrl
-		{
-			get { return imageUrl; }
-			set { imageUrl = value; }
-		}
+		public bool HideOnLoginPage { get; set; } = true;
 
-		private string buttonCssClass = string.Empty;
-		public string ButtonCssClass
-		{
-			get { return buttonCssClass; }
-			set { buttonCssClass = value; }
-		}
+		public bool HideOnRegistrationPage { get; set; } = true;
 
-		private string textBoxCssClass = string.Empty;
-		public string TextBoxCssClass
-		{
-			get { return textBoxCssClass; }
-			set { textBoxCssClass = value; }
-		}
-
-		private bool renderAsListItem = false;
-		public bool RenderAsListItem
-		{
-			get { return renderAsListItem; }
-			set { renderAsListItem = value; }
-		}
-
-		private string listItemCSS = "topnavitem";
-		public string ListItemCss
-		{
-			get { return listItemCSS; }
-			set { listItemCSS = value; }
-		}
-
-		private string linkCSS = "sitelink";
-		public string LinkCSS
-		{
-			get { return linkCSS; }
-			set { linkCSS = value; }
-		}
-
-		private string overrideWatermark = string.Empty;
-		public string OverrideWatermark
-		{
-			get { return overrideWatermark; }
-			set { overrideWatermark = value; }
-		}
-
-		private string overrideButtonText = string.Empty;
-		public string OverrideButtonText
-		{
-			get { return overrideButtonText; }
-			set { overrideButtonText = value; }
-		}
-
-		private bool hideOnSearchResultsPage = true;
-		public bool HideOnSearchResultsPage
-		{
-			get { return hideOnSearchResultsPage; }
-			set { hideOnSearchResultsPage = value; }
-		}
-
-		private bool hideOnSiteSettingsPage = true;
-		public bool HideOnSiteSettingsPage
-		{
-			get { return hideOnSiteSettingsPage; }
-			set { hideOnSiteSettingsPage = value; }
-		}
-
-		private bool hideOnLoginPage = true;
-		public bool HideOnLoginPage
-		{
-			get { return hideOnLoginPage; }
-			set { hideOnLoginPage = value; }
-		}
-
-		private bool hideOnRegistrationPage = true;
-		public bool HideOnRegistrationPage
-		{
-			get { return hideOnRegistrationPage; }
-			set { hideOnRegistrationPage = value; }
-		}
-
-		private bool hideOnPasswordRecoveryPage = true;
-		public bool HideOnPasswordRecoveryPage
-		{
-			get { return hideOnPasswordRecoveryPage; }
-			set { hideOnPasswordRecoveryPage = value; }
-		}
+		public bool HideOnPasswordRecoveryPage { get; set; } = true;
 
 		private Guid featureGuid = Guid.Empty;
 		/// <summary>
@@ -168,14 +68,14 @@ namespace mojoPortal.Web.UI
 			txtSearch.ToolTip = Resource.SiteSearchHeading;
 			string searchButtonText = Resources.Resource.SearchButtonText;
 
-			if (overrideButtonText.Length > 0)
+			if (OverrideButtonText.Length > 0)
 			{
-				searchButtonText = overrideButtonText;
+				searchButtonText = OverrideButtonText;
 			}
 
 			string urlToUse = SiteUtils.GetRelativeNavigationSiteRoot() + "/SearchResults.aspx";
 
-			if (linkOnly)
+			if (LinkOnly)
 			{
 				pnlSearch.Visible = false;
 				heading.Visible = false;
@@ -189,14 +89,14 @@ namespace mojoPortal.Web.UI
 				{
 					searchLink.Text = "<" + "span class='accent'>|</span>"
 						+ " <" + "a href='"
-						+ urlToUse + "' class='" + linkCSS + "'>"
+						+ urlToUse + "' class='" + LinkCSS + "'>"
 						+ searchButtonText + "<" + "/a>";
 				}
 				else
 				{
-					if (renderAsListItem)
+					if (RenderAsListItem)
 					{
-						searchLink.Text = "<li class='" + listItemCSS + "'><" + "a href='"
+						searchLink.Text = "<li class='" + ListItemCss + "'><" + "a href='"
 							+ urlToUse + "' class='sitelink'>"
 							+ searchButtonText + "<" + "/a></li>";
 					}
@@ -212,84 +112,80 @@ namespace mojoPortal.Web.UI
 			}
 			else
 			{
-				heading.Visible = useHeading;
+				heading.Visible = UseHeading;
 
 				if (
 					(
-					(!hideOnSearchResultsPage)
+					(!HideOnSearchResultsPage)
 					|| (Request.CurrentExecutionFilePath.IndexOf("SearchResults.aspx", StringComparison.InvariantCultureIgnoreCase) == -1)
 					|| (WebConfigSettings.ShowSkinSearchInputOnSearchResults)
 					)
 					&&
 					(
-					(!hideOnSiteSettingsPage)
+					(!HideOnSiteSettingsPage)
 					|| (Request.CurrentExecutionFilePath.IndexOf("SiteSettings.aspx", StringComparison.InvariantCultureIgnoreCase) == -1)
 					|| (WebConfigSettings.ShowSearchInputOnSiteSettings)
 					)
 					&&
 					(
-					(!hideOnLoginPage)
+					(!HideOnLoginPage)
 					|| (Request.CurrentExecutionFilePath.IndexOf("Login.aspx", StringComparison.InvariantCultureIgnoreCase) == -1)
 					)
 					&&
 					(
-					(!hideOnRegistrationPage)
+					(!HideOnRegistrationPage)
 					|| (Request.CurrentExecutionFilePath.IndexOf("Register.aspx", StringComparison.InvariantCultureIgnoreCase) == -1)
 					)
 					&&
 					(
-					(!hideOnPasswordRecoveryPage)
+					(!HideOnPasswordRecoveryPage)
 					|| (Request.CurrentExecutionFilePath.IndexOf("RecoverPassword.aspx", StringComparison.InvariantCultureIgnoreCase) == -1)
 					)
 					&&
 					(
-					(!hideOnPasswordRecoveryPage)
+					(!HideOnPasswordRecoveryPage)
 					|| (Request.CurrentExecutionFilePath.IndexOf("PasswordReset.aspx", StringComparison.InvariantCultureIgnoreCase) == -1)
 					)
 					)
 				{
 					btnSearch.Text = searchButtonText;
 
-					if (useWatermark)
+					if (UseWatermark)
 					{
-						if (overrideWatermark.Length > 0)
+						if (OverrideWatermark.Length > 0)
 						{
-							txtSearch.Watermark = overrideWatermark;
+							txtSearch.Attributes.Add("placeholder", OverrideWatermark);
 						}
 						else
 						{
-							txtSearch.Watermark = Resource.SearchInputWatermark;
+							txtSearch.Attributes.Add("placeholder", Resource.SearchInputWatermark);
 						}
 					}
-					else
+
+					if (ButtonCssClass.Length > 0)
 					{
-						txtSearch.Watermark = string.Empty;
+						btnSearch2.CssClass = ButtonCssClass;
+						btnSearch.CssClass = ButtonCssClass;
 					}
 
-					if (buttonCssClass.Length > 0)
+					if (TextBoxCssClass.Length > 0)
 					{
-						btnSearch2.CssClass = buttonCssClass;
-						btnSearch.CssClass = buttonCssClass;
-					}
-
-					if (textBoxCssClass.Length > 0)
-					{
-						txtSearch.CssClass = textBoxCssClass;
+						txtSearch.CssClass = TextBoxCssClass;
 					}
 
 					pnlSearch.Style.Add("display", "inline");
 
-					if (imageUrl.Length > 0)
+					if (ImageUrl.Length > 0)
 					{
-						if (imageUrl.Contains("skinbase_"))
+						if (ImageUrl.Contains("skinbase_"))
 						{
-							imageUrl = imageUrl.Replace("skinbase_", SiteUtils.GetSkinBaseUrl(Page));
+							ImageUrl = ImageUrl.Replace("skinbase_", SiteUtils.GetSkinBaseUrl(Page));
 						}
 
 						pnlSearch.DefaultButton = btnSearch2.ID;
 						btnSearch.Visible = false;
 						btnSearch2.Visible = true;
-						btnSearch2.ImageUrl = imageUrl;
+						btnSearch2.ImageUrl = ImageUrl;
 						btnSearch2.AlternateText = searchButtonText;
 					}
 					else

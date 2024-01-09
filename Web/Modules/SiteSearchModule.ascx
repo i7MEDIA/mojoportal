@@ -10,7 +10,8 @@
 					<asp:UpdatePanel ID="updPnl" UpdateMode="Conditional" runat="server">
 						<ContentTemplate>
 							<portal:SearchPanel ID="pnlS" runat="server">
-								<mp:WatermarkTextBox ID="txtSearch" runat="server" CssClass="watermarktextbox" />
+								<%--<mp:WatermarkTextBox ID="txtSearch" runat="server" CssClass="watermarktextbox" />--%>
+								<asp:TextBox ID="txtSearch" runat="server" />
 								<portal:mojoButton ID="btnSearch" runat="server" CausesValidation="false" SkinID="searchinput" />
 							</portal:SearchPanel>
 							<asp:Repeater ID="rptResults" runat="server" EnableViewState="False">

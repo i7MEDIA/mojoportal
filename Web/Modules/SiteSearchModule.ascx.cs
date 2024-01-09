@@ -236,13 +236,13 @@ namespace mojoPortal.Web.SearchUI
 				btnSearch.Text = displaySettings.OverrideButtonText;
 			}
 
-			if (displaySettings.OverrideWatermarkText.Length > 0)
+			Search.UseWatermark = displaySettings.UseWatermark;
+
+			if (displaySettings.OverrideWatermarkText.Length > 0 && Search.UseWatermark)
 			{
 				Search.OverrideWatermark = displaySettings.OverrideWatermarkText;
-				txtSearch.Watermark = displaySettings.OverrideWatermarkText;
+				txtSearch.Attributes.Add("placeholder", displaySettings.OverrideWatermarkText);
 			}
-
-			Search.UseWatermark = displaySettings.UseWatermark;
 
 			if (config.ShowResultsInsteadOfRedirect)
 			{
@@ -258,11 +258,6 @@ namespace mojoPortal.Web.SearchUI
 				if (displaySettings.OverridePageSize > 0)
 				{
 					pageSize = displaySettings.OverridePageSize;
-				}
-
-				if (!displaySettings.UseWatermark)
-				{
-					txtSearch.Watermark = string.Empty;
 				}
 			}
 			else
