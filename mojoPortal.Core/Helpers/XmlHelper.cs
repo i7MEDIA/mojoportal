@@ -1,5 +1,4 @@
-﻿using log4net;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
@@ -9,11 +8,12 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Xml.Xsl;
+using log4net;
 
-namespace mojoPortal.Core.Helpers
+namespace mojoPortal.Core.Helpers;
+
+public static class XmlHelper
 {
-	public static class XmlHelper
-	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(XmlHelper));
 
 		/// <summary>
@@ -371,10 +371,7 @@ namespace mojoPortal.Core.Helpers
 			Element.FromAttr(Context, targetExpression);
 			return this;
 		}
-	}
-
-
+}
 	
 
 
-}

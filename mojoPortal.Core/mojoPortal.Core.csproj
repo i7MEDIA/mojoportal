@@ -54,6 +54,8 @@
     <Compile Include="ExpressionBuilder.cs" />
     <Compile Include="Extensions\IndexedStringBuilder.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\WebHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Helpers\XmlSanitizer.cs" />
