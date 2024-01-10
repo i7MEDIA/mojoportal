@@ -1,327 +1,328 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2012-07-20
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-/// 
-/// Note moved into separate class file from dbPortal 2007-11-03
-
-using System;
-using System.Text;
-using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
 using MySqlConnector;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
-namespace mojoPortal.Data
+namespace mojoPortal.Data;
+
+public static class DBBannedIP
 {
-    public static class DBBannedIP
-    {
-       
-        /// <summary>
-        /// Inserts a row in the mp_BannedIPAddresses table. Returns new integer id.
-        /// </summary>
-        /// <param name="bannedIP"> bannedIP </param>
-        /// <param name="bannedUTC"> bannedUTC </param>
-        /// <param name="bannedReason"> bannedReason </param>
-        /// <returns>int</returns>
-        public static int Add(
-            string bannedIP,
-            DateTime bannedUtc,
-            string bannedReason)
-        {
 
-            #region Bit Conversion
+	/// <summary>
+	/// Inserts a row in the mp_BannedIPAddresses table. Returns new integer id.
+	/// </summary>
+	/// <param name="bannedIP"> bannedIP </param>
+	/// <param name="bannedUTC"> bannedUTC </param>
+	/// <param name="bannedReason"> bannedReason </param>
+	/// <returns>int</returns>
+	public static int Add(
+		string bannedIP,
+		DateTime bannedUtc,
+		string bannedReason)
+	{
 
-            #endregion
+		var sqlCommand = @"
+INSERT INTO mp_BannedIPAddresses (
+    BannedIP, 
+    BannedUTC, 
+    BannedReason )
+VALUES (
+    ?BannedIP, 
+    ?BannedUTC, 
+    ?BannedReason );
+SELECT LAST_INSERT_ID();";
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_BannedIPAddresses (");
-            sqlCommand.Append("BannedIP, ");
-            sqlCommand.Append("BannedUTC, ");
-            sqlCommand.Append("BannedReason )");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?BannedIP", MySqlDbType.VarChar, 50)
+			{
+				Direction = ParameterDirection.Input,
+				Value = bannedIP
+			},
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?BannedIP, ");
-            sqlCommand.Append("?BannedUTC, ");
-            sqlCommand.Append("?BannedReason );");
+			new("?BannedUTC", MySqlDbType.DateTime)
+			{
+			Direction = ParameterDirection.Input,
+			Value = bannedUtc
+			},
 
-            sqlCommand.Append("SELECT LAST_INSERT_ID();");
+			new("?BannedReason", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = bannedReason
+			}
+		};
 
-            MySqlParameter[] arParams = new MySqlParameter[3];
+		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams).ToString());
+		return newID;
 
-            arParams[0] = new MySqlParameter("?BannedIP", MySqlDbType.VarChar, 50);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = bannedIP;
-
-            arParams[1] = new MySqlParameter("?BannedUTC", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = bannedUtc;
-
-            arParams[2] = new MySqlParameter("?BannedReason", MySqlDbType.VarChar, 255);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = bannedReason;
-
-            int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams).ToString());
-            return newID;
-
-        }
-
-
-        /// <summary>
-        /// Updates a row in the mp_BannedIPAddresses table. Returns true if row updated.
-        /// </summary>
-        /// <param name="rowID"> rowID </param>
-        /// <param name="bannedIP"> bannedIP </param>
-        /// <param name="bannedUTC"> bannedUTC </param>
-        /// <param name="bannedReason"> bannedReason </param>
-        /// <returns>bool</returns>
-        public static bool Update(
-            int rowId,
-            string bannedIP,
-            DateTime bannedUtc,
-            string bannedReason)
-        {
-            #region Bit Conversion
+	}
 
 
-            #endregion
+	/// <summary>
+	/// Updates a row in the mp_BannedIPAddresses table. Returns true if row updated.
+	/// </summary>
+	/// <param name="rowID"> rowID </param>
+	/// <param name="bannedIP"> bannedIP </param>
+	/// <param name="bannedUTC"> bannedUTC </param>
+	/// <param name="bannedReason"> bannedReason </param>
+	/// <returns>bool</returns>
+	public static bool Update(
+		int rowId,
+		string bannedIP,
+		DateTime bannedUtc,
+		string bannedReason)
+	{
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_BannedIPAddresses ");
-            sqlCommand.Append("SET  ");
-            sqlCommand.Append("BannedIP = ?BannedIP, ");
-            sqlCommand.Append("BannedUTC = ?BannedUTC, ");
-            sqlCommand.Append("BannedReason = ?BannedReason ");
+		var sqlCommand = @"
+UPDATE mp_BannedIPAddresses 
+SET  
+    BannedIP = ?BannedIP, 
+    BannedUTC = ?BannedUTC, 
+    BannedReason = ?BannedReason 
+WHERE  
+    RowID = ?RowID;";
 
-            sqlCommand.Append("WHERE  ");
-            sqlCommand.Append("RowID = ?RowID ;");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?RowID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = rowId
+			},
 
-            MySqlParameter[] arParams = new MySqlParameter[4];
+			new("?BannedIP", MySqlDbType.VarChar, 50)
+			{
+			Direction = ParameterDirection.Input,
+			Value = bannedIP
+			},
 
-            arParams[0] = new MySqlParameter("?RowID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = rowId;
+			new("?BannedUTC", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = bannedUtc
+			},
 
-            arParams[1] = new MySqlParameter("?BannedIP", MySqlDbType.VarChar, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = bannedIP;
+			new("?BannedReason", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = bannedReason
+			},
+		};
 
-            arParams[2] = new MySqlParameter("?BannedUTC", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = bannedUtc;
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            arParams[3] = new MySqlParameter("?BannedReason", MySqlDbType.VarChar, 255);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = bannedReason;
+		return rowsAffected > -1;
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+	}
 
-            return (rowsAffected > -1);
+	/// <summary>
+	/// Deletes a row from the mp_BannedIPAddresses table. Returns true if row deleted.
+	/// </summary>
+	/// <param name="rowID"> rowID </param>
+	/// <returns>bool</returns>
+	public static bool Delete(
+		int rowId)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_BannedIPAddresses
+WHERE
+    RowID = ?RowID;";
 
-        }
+		var arParams = new List<MySqlParameter>
+		{
+			new("?RowID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = rowId
+			}
+		};
 
-        /// <summary>
-        /// Deletes a row from the mp_BannedIPAddresses table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="rowID"> rowID </param>
-        /// <returns>bool</returns>
-        public static bool Delete(
-            int rowId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_BannedIPAddresses ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("RowID = ?RowID ;");
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected > 0;
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+	}
 
-            arParams[0] = new MySqlParameter("?RowID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = rowId;
+	/// <summary>
+	/// Returns true if the passed in address is banned
+	/// </summary>
+	/// <param name="rowID"> rowID </param>
+	/// <returns>bool</returns>
+	public static bool IsBanned(string ipAddress)
+	{
+		string sqlCommand = @"
+SELECT  Count(*) 
+FROM    mp_BannedIPAddresses 
+WHERE 
+    BannedIP = ?BannedIP;";
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
+		var arParams = new List<MySqlParameter>
+		{
 
-        }
+		new("?BannedIP", MySqlDbType.VarChar, 50)
+			{
+				Direction = ParameterDirection.Input,
+				Value = ipAddress
+			}
+		};
 
-        /// <summary>
-        /// Returns true if the passed in address is banned
-        /// </summary>
-        /// <param name="rowID"> rowID </param>
-        /// <returns>bool</returns>
-        public static bool IsBanned(string ipAddress)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_BannedIPAddresses ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("BannedIP = ?BannedIP ;");
+		int foundRows = Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams));
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		return foundRows > 0;
+	}
 
-            arParams[0] = new MySqlParameter("?BannedIP", MySqlDbType.VarChar, 50);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = ipAddress;
+	/// <summary>
+	/// Gets an IDataReader with one row from the mp_BannedIPAddresses table.
+	/// </summary>
+	/// <param name="rowID"> rowID </param>
+	public static IDataReader GetOne(int rowId)
+	{
+		string sqlCommand = @"
+SELECT  * 
+FROM	mp_BannedIPAddresses 
+WHERE 
+    RowID = ?RowID;";
 
-            int foundRows =  Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams));
+		var arParams = new List<MySqlParameter>
+		{
+			new ("?RowID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = rowId
+			}
+		};
 
-            return (foundRows > 0);
-        }
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-        /// <summary>
-        /// Gets an IDataReader with one row from the mp_BannedIPAddresses table.
-        /// </summary>
-        /// <param name="rowID"> rowID </param>
-        public static IDataReader GetOne(int rowId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_BannedIPAddresses ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("RowID = ?RowID ;");
+	}
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+	/// <summary>
+	/// Gets an IDataReader with rows from the mp_BannedIPAddresses table.
+	/// </summary>
+	/// <param name="ipAddress"> ipAddress </param>
+	public static IDataReader GeByIpAddress(string ipAddress)
+	{
+		string sqlCommand = @"
+SELECT  * 
+FROM	mp_BannedIPAddresses 
+WHERE 
+    BannedIP = ?BannedIP;";
 
-            arParams[0] = new MySqlParameter("?RowID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = rowId;
+		var arParams = new List<MySqlParameter>
+		{
+			new("?BannedIP", MySqlDbType.VarChar, 50)
+			{
+				Direction = ParameterDirection.Input,
+				Value = ipAddress
+			}
+		};
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-        }
+	}
 
-        /// <summary>
-        /// Gets an IDataReader with rows from the mp_BannedIPAddresses table.
-        /// </summary>
-        /// <param name="ipAddress"> ipAddress </param>
-        public static IDataReader GeByIpAddress(string ipAddress)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_BannedIPAddresses ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("BannedIP = ?BannedIP ;");
+	/// <summary>
+	/// Gets an IDataReader with all rows in the mp_BannedIPAddresses table.
+	/// </summary>
+	public static IDataReader GetAll()
+	{
+		string sqlCommand = @"
+SELECT  *
+FROM	mp_BannedIPAddresses;";
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString());
+	}
 
-            arParams[0] = new MySqlParameter("?BannedIP", MySqlDbType.VarChar, 50);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = ipAddress;
+	/// <summary>
+	/// Gets a count of rows in the mp_BannedIPAddresses table.
+	/// </summary>
+	public static int GetCount()
+	{
+		string sqlCommand = @"
+SELECT  Count(*) 
+FROM	mp_BannedIPAddresses;";
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		return Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString()));
+	}
 
-        }
+	/// <summary>
+	/// Gets a page of data from the mp_BannedIPAddresses table.
+	/// </summary>
+	/// <param name="pageNumber">The page number.</param>
+	/// <param name="pageSize">Size of the page.</param>
+	/// <param name="totalPages">total pages</param>
+	public static IDataReader GetPage(
+		int pageNumber,
+		int pageSize,
+		out int totalPages)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+		totalPages = 1;
+		int totalRows = GetCount();
 
-        /// <summary>
-        /// Gets an IDataReader with all rows in the mp_BannedIPAddresses table.
-        /// </summary>
-        public static IDataReader GetAll()
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_BannedIPAddresses ;");
+		if (pageSize > 0) totalPages = totalRows / pageSize;
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString());
-        }
+		if (totalRows <= pageSize)
+		{
+			totalPages = 1;
+		}
+		else
+		{
+			int remainder;
+			Math.DivRem(totalRows, pageSize, out remainder);
+			if (remainder > 0)
+			{
+				totalPages += 1;
+			}
+		}
 
-        /// <summary>
-        /// Gets a count of rows in the mp_BannedIPAddresses table.
-        /// </summary>
-        public static int GetCount()
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_BannedIPAddresses ;");
+		string sqlCommand = @"
+SELECT	* 
+FROM	mp_BannedIPAddresses  
+ORDER BY  BannedIP 
+LIMIT " + pageLowerBound.ToString() + ", ?PageSize;";
 
-            return Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString()));
-        }
+		var arParams = new List<MySqlParameter>
+		{
+			new("?PageNumber", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageNumber
+			},
 
-        /// <summary>
-        /// Gets a page of data from the mp_BannedIPAddresses table.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="totalPages">total pages</param>
-        public static IDataReader GetPage(
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-            totalPages = 1;
-            int totalRows = GetCount();
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			}
 
-            if (pageSize > 0) totalPages = totalRows / pageSize;
+		};
 
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT	* ");
-            sqlCommand.Append("FROM	mp_BannedIPAddresses  ");
-            sqlCommand.Append("ORDER BY  BannedIP ");
-            sqlCommand.Append("LIMIT " + pageLowerBound.ToString() + ", ?PageSize  ; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?PageNumber", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = pageNumber;
-
-            arParams[1] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = pageSize;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-        }
-
-       
-
-
-    }
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+	}
 }
