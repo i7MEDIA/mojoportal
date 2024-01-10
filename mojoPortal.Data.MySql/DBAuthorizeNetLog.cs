@@ -1,12 +1,7 @@
-﻿using System;
-using System.Text;
-using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
-using MySqlConnector;
+﻿using MySqlConnector;
+using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace mojoPortal.Data;
 
