@@ -1,302 +1,307 @@
-﻿///							DBGeoCountry.cs
-/// Author:					
-/// Created:				2008-06-22
-/// Last Modified:			2012-07-20
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Text;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
 using MySqlConnector;
 
-namespace mojoPortal.Data
+namespace mojoPortal.Data;
+
+public static class DBGeoCountry
 {
-    public static class DBGeoCountry
-    {
 
-        /// <summary>
-        /// Inserts a row in the mp_GeoCountry table. Returns rows affected count.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <param name="name"> name </param>
-        /// <param name="iSOCode2"> iSOCode2 </param>
-        /// <param name="iSOCode3"> iSOCode3 </param>
-        /// <returns>int</returns>
-        public static int Create(
-            Guid guid,
-            string name,
-            string iSOCode2,
-            string iSOCode3)
-        {
+	/// <summary>
+	/// Inserts a row in the mp_GeoCountry table. Returns rows affected count.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	/// <param name="name"> name </param>
+	/// <param name="iSOCode2"> iSOCode2 </param>
+	/// <param name="iSOCode3"> iSOCode3 </param>
+	/// <returns>int</returns>
+	public static int Create(
+		Guid guid,
+		string name,
+		string iSOCode2,
+		string iSOCode3)
+	{
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_GeoCountry (");
-            sqlCommand.Append("Guid, ");
-            sqlCommand.Append("Name, ");
-            sqlCommand.Append("ISOCode2, ");
-            sqlCommand.Append("ISOCode3 )");
+		string sqlCommand = @"
+INSERT INTO mp_GeoCountry (
+        Guid, 
+        Name, 
+        ISOCode2, 
+        ISOCode3 
+    ) 
+VALUES (
+    ?Guid, 
+    ?Name, 
+    ?ISOCode2, 
+    ?ISOCode3 
+);";
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?Guid, ");
-            sqlCommand.Append("?Name, ");
-            sqlCommand.Append("?ISOCode2, ");
-            sqlCommand.Append("?ISOCode3 )");
-            sqlCommand.Append(";");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Guid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = guid.ToString()
+			},
 
-            MySqlParameter[] arParams = new MySqlParameter[4];
+			new("?Name", MySqlDbType.VarChar, 255) {
+			Direction = ParameterDirection.Input,
+			Value = name
+			},
 
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
+			new("?ISOCode2", MySqlDbType.VarChar, 2) {
+			Direction = ParameterDirection.Input,
+			Value = iSOCode2
+			},
 
-            arParams[1] = new MySqlParameter("?Name", MySqlDbType.VarChar, 255);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = name;
-
-            arParams[2] = new MySqlParameter("?ISOCode2", MySqlDbType.VarChar, 2);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = iSOCode2;
-
-            arParams[3] = new MySqlParameter("?ISOCode3", MySqlDbType.VarChar, 3);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = iSOCode3;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return rowsAffected;
-
-        }
+			new("?ISOCode3", MySqlDbType.VarChar, 3) {
+			Direction = ParameterDirection.Input,
+			Value = iSOCode3
+			}
+		};
 
 
-        /// <summary>
-        /// Updates a row in the mp_GeoCountry table. Returns true if row updated.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <param name="name"> name </param>
-        /// <param name="iSOCode2"> iSOCode2 </param>
-        /// <param name="iSOCode3"> iSOCode3 </param>
-        /// <returns>bool</returns>
-        public static bool Update(
-            Guid guid,
-            string name,
-            string iSOCode2,
-            string iSOCode3)
-        {
-            
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_GeoCountry ");
-            sqlCommand.Append("SET  ");
-            sqlCommand.Append("Name = ?Name, ");
-            sqlCommand.Append("ISOCode2 = ?ISOCode2, ");
-            sqlCommand.Append("ISOCode3 = ?ISOCode3 ");
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected;
 
-            sqlCommand.Append("WHERE  ");
-            sqlCommand.Append("Guid = ?Guid ");
-            sqlCommand.Append(";");
+	}
 
-            MySqlParameter[] arParams = new MySqlParameter[4];
 
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
+	/// <summary>
+	/// Updates a row in the mp_GeoCountry table. Returns true if row updated.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	/// <param name="name"> name </param>
+	/// <param name="iSOCode2"> iSOCode2 </param>
+	/// <param name="iSOCode3"> iSOCode3 </param>
+	/// <returns>bool</returns>
+	public static bool Update(
+		Guid guid,
+		string name,
+		string iSOCode2,
+		string iSOCode3)
+	{
 
-            arParams[1] = new MySqlParameter("?Name", MySqlDbType.VarChar, 255);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = name;
+		string sqlCommand = @"
+UPDATE 
+    mp_GeoCountry 
+SET  
+    Name = ?Name, 
+    ISOCode2 = ?ISOCode2, 
+    ISOCode3 = ?ISOCode3 
+WHERE  
+    Guid = ?Guid;";
 
-            arParams[2] = new MySqlParameter("?ISOCode2", MySqlDbType.VarChar, 2);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = iSOCode2;
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Guid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = guid.ToString()
+			},
 
-            arParams[3] = new MySqlParameter("?ISOCode3", MySqlDbType.VarChar, 3);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = iSOCode3;
+			new("?Name", MySqlDbType.VarChar, 255) {
+			Direction = ParameterDirection.Input,
+			Value = name
+			},
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+			new("?ISOCode2", MySqlDbType.VarChar, 2) {
+			Direction = ParameterDirection.Input,
+			Value = iSOCode2
+			},
 
-            return (rowsAffected > -1);
+			new("?ISOCode3", MySqlDbType.VarChar, 3) {
+			Direction = ParameterDirection.Input,
+			Value = iSOCode3
+			}
+		};
 
-        }
 
-        /// <summary>
-        /// Deletes a row from the mp_GeoCountry table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool Delete(Guid guid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_GeoCountry ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("Guid = ?Guid ");
-            sqlCommand.Append(";");
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		return rowsAffected > -1;
 
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
+	}
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
+	/// <summary>
+	/// Deletes a row from the mp_GeoCountry table. Returns true if row deleted.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	/// <returns>bool</returns>
+	public static bool Delete(Guid guid)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_GeoCountry 
+WHERE Guid = ?Guid;";
 
-        }
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Guid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = guid.ToString()
+			}
+		};
 
-        /// <summary>
-        /// Gets an IDataReader with one row from the mp_GeoCountry table.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        public static IDataReader GetOne(Guid guid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_GeoCountry ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("Guid = ?Guid ");
-            sqlCommand.Append(";");
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected > 0;
 
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
+	}
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+	/// <summary>
+	/// Gets an IDataReader with one row from the mp_GeoCountry table.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	public static IDataReader GetOne(Guid guid)
+	{
+		string sqlCommand = @"
+SELECT  * 
+FROM mp_GeoCountry 
+WHERE Guid = ?Guid;";
 
-        }
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Guid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = guid.ToString()
+			}
+		};
 
-        /// <summary>
-        /// Gets an IDataReader with one row from the mp_GeoCountry table.
-        /// </summary>
-        /// <param name="countryISOCode2"> countryISOCode2 </param>
-        public static IDataReader GetByISOCode2(string countryISOCode2)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_GeoCountry ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ISOCode2 = ?ISOCode2 ");
-            sqlCommand.Append(";");
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            arParams[0] = new MySqlParameter("?ISOCode2", MySqlDbType.VarChar, 2);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = countryISOCode2;
+	}
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+	/// <summary>
+	/// Gets an IDataReader with one row from the mp_GeoCountry table.
+	/// </summary>
+	/// <param name="countryISOCode2"> countryISOCode2 </param>
+	public static IDataReader GetByISOCode2(string countryISOCode2)
+	{
+		string sqlCommand = @"
+        sqlCommand.Append("SELECT * ");
 
-        }
+		sqlCommand.Append("FROM	mp_GeoCountry ");
+		sqlCommand.Append("WHERE ");
+		sqlCommand.Append("ISOCode2 = ?ISOCode2 ");
+		sqlCommand.Append(";");
 
-        /// <summary>
-        /// Gets an IDataReader with all rows in the mp_GeoCountry table.
-        /// </summary>
-        public static IDataReader GetAll()
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_GeoCountry ");
-            sqlCommand.Append("ORDER BY Name ");
-            sqlCommand.Append(";");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ISOCode2", MySqlDbType.VarChar, 2)
+			{
+				Direction = ParameterDirection.Input,
+				Value = countryISOCode2
+			}
+		};
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString());
-        }
 
-        /// <summary>
-        /// Gets a count of rows in the mp_GeoCountry table.
-        /// </summary>
-        public static int GetCount()
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_GeoCountry ");
-            sqlCommand.Append(";");
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            return Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString()));
-        }
+	}
 
-        /// <summary>
-        /// Gets a page of data from the mp_GeoCountry table.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="totalPages">total pages</param>
-        public static IDataReader GetPage(
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-            totalPages = 1;
-            int totalRows = GetCount();
+	/// <summary>
+	/// Gets an IDataReader with all rows in the mp_GeoCountry table.
+	/// </summary>
+	public static IDataReader GetAll()
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_GeoCountry 
+ORDER BY Name;";
 
-            if (pageSize > 0) totalPages = totalRows / pageSize;
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString());
+	}
 
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
+	/// <summary>
+	/// Gets a count of rows in the mp_GeoCountry table.
+	/// </summary>
+	public static int GetCount()
+	{
+		string sqlCommand = @"
+SELECT  Count(*) 
+FROM mp_GeoCountry;";
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT	* ");
-            sqlCommand.Append("FROM	mp_GeoCountry  ");
-            sqlCommand.Append("ORDER BY Name  ");
-            //sqlCommand.Append("  ");
-            sqlCommand.Append("LIMIT ?Offset, ?PageSize ");
-            sqlCommand.Append(";");
+		return Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString()));
+	}
 
-            MySqlParameter[] arParams = new MySqlParameter[2];
+	/// <summary>
+	/// Gets a page of data from the mp_GeoCountry table.
+	/// </summary>
+	/// <param name="pageNumber">The page number.</param>
+	/// <param name="pageSize">Size of the page.</param>
+	/// <param name="totalPages">total pages</param>
+	public static IDataReader GetPage(
+		int pageNumber,
+		int pageSize,
+		out int totalPages)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+		totalPages = 1;
+		int totalRows = GetCount();
 
-            arParams[0] = new MySqlParameter("?Offset", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = pageLowerBound;
+		if (pageSize > 0) totalPages = totalRows / pageSize;
 
-            arParams[1] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = pageSize;
+		if (totalRows <= pageSize)
+		{
+			totalPages = 1;
+		}
+		else
+		{
+			int remainder;
+			Math.DivRem(totalRows, pageSize, out remainder);
+			if (remainder > 0)
+			{
+				totalPages += 1;
+			}
+		}
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-        }
-    }
+		string sqlCommand = @"
+SELECT * 
+FROM mp_GeoCountry  
+ORDER BY Name  
+LIMIT ?Offset, ?PageSize;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Offset", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			},
+
+			new("?PageSize", MySqlDbType.Int32) {
+			Direction = ParameterDirection.Input,
+			Value = pageSize
+			}
+		};
+
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+	}
 }
