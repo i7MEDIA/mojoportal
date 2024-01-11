@@ -1,339 +1,346 @@
-﻿///							DBGeoZone.cs
-/// Author:					
-/// Created:				2008-06-22
-/// Last Modified:			2012-07-20
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Text;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
 using MySqlConnector;
 
-namespace mojoPortal.Data
+namespace mojoPortal.Data;
+
+public static class DBGeoZone
 {
-    public static class DBGeoZone
-    {
-        /// <summary>
-        /// Inserts a row in the mp_GeoZone table. Returns rows affected count.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <param name="countryGuid"> countryGuid </param>
-        /// <param name="name"> name </param>
-        /// <param name="code"> code </param>
-        /// <returns>int</returns>
-        public static int Create(
-            Guid guid,
-            Guid countryGuid,
-            string name,
-            string code)
-        {
+	/// <summary>
+	/// Inserts a row in the mp_GeoZone table. Returns rows affected count.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	/// <param name="countryGuid"> countryGuid </param>
+	/// <param name="name"> name </param>
+	/// <param name="code"> code </param>
+	/// <returns>int</returns>
+	public static int Create(
+		Guid guid,
+		Guid countryGuid,
+		string name,
+		string code)
+	{
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_GeoZone (");
-            sqlCommand.Append("Guid, ");
-            sqlCommand.Append("CountryGuid, ");
-            sqlCommand.Append("Name, ");
-            sqlCommand.Append("Code )");
+		string sqlCommand = @"
+INSERT INTO mp_GeoZone (
+    Guid, 
+    CountryGuid, 
+    Name, 
+    Code )
+        VALUES (
+    ?Guid, 
+    ?CountryGuid, 
+    ?Name, 
+    ?Code 
+);";
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?Guid, ");
-            sqlCommand.Append("?CountryGuid, ");
-            sqlCommand.Append("?Name, ");
-            sqlCommand.Append("?Code )");
-            sqlCommand.Append(";");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Guid", MySqlDbType.VarChar, 36)
+		{
+			Direction = ParameterDirection.Input,
+			Value = guid.ToString()
+		},
 
-            MySqlParameter[] arParams = new MySqlParameter[4];
+			new("?CountryGuid", MySqlDbType.VarChar, 36) {
+			Direction = ParameterDirection.Input,
+			Value = countryGuid.ToString()
+			},
 
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
+			new("?Name", MySqlDbType.VarChar, 255) {
+			Direction = ParameterDirection.Input,
+			Value = name
+			},
 
-            arParams[1] = new MySqlParameter("?CountryGuid", MySqlDbType.VarChar, 36);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = countryGuid.ToString();
+			new("?Code", MySqlDbType.VarChar, 255) {
+			Direction = ParameterDirection.Input,
+			Value = code
+			}
+		};
 
-            arParams[2] = new MySqlParameter("?Name", MySqlDbType.VarChar, 255);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = name;
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected;
 
-            arParams[3] = new MySqlParameter("?Code", MySqlDbType.VarChar, 255);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = code;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return rowsAffected;
-
-        }
+	}
 
 
-        /// <summary>
-        /// Updates a row in the mp_GeoZone table. Returns true if row updated.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <param name="countryGuid"> countryGuid </param>
-        /// <param name="name"> name </param>
-        /// <param name="code"> code </param>
-        /// <returns>bool</returns>
-        public static bool Update(
-            Guid guid,
-            Guid countryGuid,
-            string name,
-            string code)
-        {
-            
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_GeoZone ");
-            sqlCommand.Append("SET  ");
-            sqlCommand.Append("CountryGuid = ?CountryGuid, ");
-            sqlCommand.Append("Name = ?Name, ");
-            sqlCommand.Append("Code = ?Code ");
+	/// <summary>
+	/// Updates a row in the mp_GeoZone table. Returns true if row updated.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	/// <param name="countryGuid"> countryGuid </param>
+	/// <param name="name"> name </param>
+	/// <param name="code"> code </param>
+	/// <returns>bool</returns>
+	public static bool Update(
+		Guid guid,
+		Guid countryGuid,
+		string name,
+		string code)
+	{
 
-            sqlCommand.Append("WHERE  ");
-            sqlCommand.Append("Guid = ?Guid ");
-            sqlCommand.Append(";");
+		string sqlCommand = @"
+UPDATE 
+    mp_GeoZone 
+SET  
+    CountryGuid = ?CountryGuid, 
+    Name = ?Name, 
+    Code = ?Code 
+WHERE  
+    Guid = ?Guid;";
 
-            MySqlParameter[] arParams = new MySqlParameter[4];
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Guid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = guid.ToString()
+			},
 
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
+			new("?CountryGuid", MySqlDbType.VarChar, 36) {
+			Direction = ParameterDirection.Input,
+			Value = countryGuid.ToString()
+			},
 
-            arParams[1] = new MySqlParameter("?CountryGuid", MySqlDbType.VarChar, 36);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = countryGuid.ToString();
+			new("?Name", MySqlDbType.VarChar, 255) {
+			Direction = ParameterDirection.Input,
+			Value = name
+			},
 
-            arParams[2] = new MySqlParameter("?Name", MySqlDbType.VarChar, 255);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = name;
+			new("?Code", MySqlDbType.VarChar, 255) {
+			Direction = ParameterDirection.Input,
+			Value = code
+			}
+		};
 
-            arParams[3] = new MySqlParameter("?Code", MySqlDbType.VarChar, 255);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = code;
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		return rowsAffected > -1;
 
-            return (rowsAffected > -1);
+	}
 
-        }
+	/// <summary>
+	/// Deletes a row from the mp_GeoZone table. Returns true if row deleted.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	/// <returns>bool</returns>
+	public static bool Delete(Guid guid)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_GeoZone 
+WHERE Guid = ?Guid;";
 
-        /// <summary>
-        /// Deletes a row from the mp_GeoZone table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool Delete(Guid guid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_GeoZone ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("Guid = ?Guid ");
-            sqlCommand.Append(";");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Guid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = guid.ToString()
+			}
+		};
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected > 0;
 
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
+	}
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
+	/// <summary>
+	/// Gets an IDataReader with one row from the mp_GeoZone table.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	public static IDataReader GetOne(Guid guid)
+	{
+		string sqlCommand = @"
+SELECT  * 
+FROM	mp_GeoZone 
+WHERE 
+Guid = ?Guid;";
 
-        }
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Guid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = guid.ToString()
+			}
+		};
 
-        /// <summary>
-        /// Gets an IDataReader with one row from the mp_GeoZone table.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        public static IDataReader GetOne(Guid guid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_GeoZone ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("Guid = ?Guid ");
-            sqlCommand.Append(";");
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+	}
 
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
+	/// <summary>
+	/// Gets an IDataReader with one row from the mp_GeoZone table.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	public static IDataReader GetByCode(Guid countryGuid, string code)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_GeoZone 
+WHERE CountryGuid = ?CountryGuid 
+AND Code = ?Code;";
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		var arParams = new List<MySqlParameter>
+		{
+			new("?CountryGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = countryGuid.ToString()
+			},
 
-        }
+			new("?Code", MySqlDbType.VarChar, 255) {
+			Direction = ParameterDirection.Input,
+			Value = code
+			}
+		};
 
-        /// <summary>
-        /// Gets an IDataReader with one row from the mp_GeoZone table.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        public static IDataReader GetByCode(Guid countryGuid, string code)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_GeoZone ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("CountryGuid = ?CountryGuid ");
-            sqlCommand.Append("AND Code = ?Code ");
-            sqlCommand.Append(";");
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            MySqlParameter[] arParams = new MySqlParameter[2];
+	}
 
-            arParams[0] = new MySqlParameter("?CountryGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = countryGuid.ToString();
+	/// <summary>
+	/// Gets an IDataReader with all rows in the mp_GeoZone table.
+	/// </summary>
+	public static IDataReader GetByCountry(Guid countryGuid)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_GeoZone 
+WHERE CountryGuid = ?CountryGuid 
+ORDER BY Name;";
 
-            arParams[1] = new MySqlParameter("?Code", MySqlDbType.VarChar, 255);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = code;
+		var arParams = new List<MySqlParameter>
+		{
+			new("?CountryGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = countryGuid.ToString()
+			}
+		};
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+	}
 
-        }
+	/// <summary>
+	/// Gets a count of rows in the mp_GeoZone table.
+	/// </summary>
+	public static int GetCount(Guid countryGuid)
+	{
+		string sqlCommand = @"
+SELECT  Count(*) 
+FROM	mp_GeoZone 
+WHERE 
+CountryGuid = ?CountryGuid 
+;";
 
-        /// <summary>
-        /// Gets an IDataReader with all rows in the mp_GeoZone table.
-        /// </summary>
-        public static IDataReader GetByCountry(Guid countryGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_GeoZone ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("CountryGuid = ?CountryGuid ");
-            sqlCommand.Append("ORDER BY Name ");
-            sqlCommand.Append(";");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?CountryGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = countryGuid.ToString()
+			}
+		};
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		return Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams));
+	}
 
-            arParams[0] = new MySqlParameter("?CountryGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = countryGuid.ToString();
+	/// <summary>
+	/// Gets a page of data from the mp_GeoZone table.
+	/// </summary>
+	/// <param name="pageNumber">The page number.</param>
+	/// <param name="pageSize">Size of the page.</param>
+	/// <param name="totalPages">total pages</param>
+	public static IDataReader GetPage(
+		Guid countryGuid,
+		int pageNumber,
+		int pageSize,
+		out int totalPages)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+		totalPages = 1;
+		int totalRows = GetCount(countryGuid);
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-        }
+		if (pageSize > 0) totalPages = totalRows / pageSize;
 
-        /// <summary>
-        /// Gets a count of rows in the mp_GeoZone table.
-        /// </summary>
-        public static int GetCount(Guid countryGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_GeoZone ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("CountryGuid = ?CountryGuid ");
-            sqlCommand.Append(";");
+		if (totalRows <= pageSize)
+		{
+			totalPages = 1;
+		}
+		else
+		{
+			int remainder;
+			Math.DivRem(totalRows, pageSize, out remainder);
+			if (remainder > 0)
+			{
+				totalPages += 1;
+			}
+		}
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		string sqlCommand = @"
+SELECT gz.*, gc.Name As CountryName 
+FROM mp_GeoZone gz 
+JOIN mp_GeoCountry gc 
+ON gz.CountryGuid = gc.Guid 
+WHERE gz.CountryGuid = ?CountryGuid 
+ORDER BY gz.Name 
+LIMIT ?PageSize ";
 
-            arParams[0] = new MySqlParameter("?CountryGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = countryGuid.ToString();
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ";
+		}
+		sqlCommand += ";";
 
-            return Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams));
-        }
+		var arParams = new List<MySqlParameter>
+		{
+			new("?CountryGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = countryGuid.ToString()
+			},
 
-        /// <summary>
-        /// Gets a page of data from the mp_GeoZone table.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="totalPages">total pages</param>
-        public static IDataReader GetPage(
-            Guid countryGuid,
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-            totalPages = 1;
-            int totalRows = GetCount(countryGuid);
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
 
-            if (pageSize > 0) totalPages = totalRows / pageSize;
+			new ("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
 
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT	gz.*, ");
-            sqlCommand.Append("gc.Name As CountryName ");
-            sqlCommand.Append("FROM	mp_GeoZone gz ");
-            sqlCommand.Append("JOIN mp_GeoCountry gc ");
-            sqlCommand.Append("ON gz.CountryGuid = gc.Guid ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("gz.CountryGuid = ?CountryGuid ");
-            sqlCommand.Append("ORDER BY gz.Name ");
 
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[3];
-
-            arParams[0] = new MySqlParameter("?CountryGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = countryGuid.ToString();
-
-            arParams[1] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = pageSize;
-
-            arParams[2] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-        }
-    }
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+	}
 }
