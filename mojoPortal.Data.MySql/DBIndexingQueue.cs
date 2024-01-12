@@ -1,311 +1,303 @@
-﻿///							DBIndexingQueue.cs
-/// Author:					
-/// Created:				2008-06-18
-/// Last Modified:			2013-01-11
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
+﻿using MySqlConnector;
 using System;
-using System.Text;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
-using MySqlConnector;
 
-namespace mojoPortal.Data
+namespace mojoPortal.Data;
+
+public static class DBIndexingQueue
 {
-    public static class DBIndexingQueue
-    {
-        /// <summary>
-        /// Inserts a row in the mp_IndexingQueue table. Returns new integer id.
-        /// </summary>
-        /// <param name="indexPath"> indexPath </param>
-        /// <param name="serializedItem"> serializedItem </param>
-        /// <param name="itemKey"> itemKey </param>
-        /// <param name="removeOnly"> removeOnly </param>
-        /// <returns>int</returns>
-        public static Int64 Create(
-            int siteId,
-            string indexPath,
-            string serializedItem,
-            string itemKey,
-            bool removeOnly)
-        {
-            #region Bit Conversion
-            int intRemoveOnly;
-            if (removeOnly)
-            {
-                intRemoveOnly = 1;
-            }
-            else
-            {
-                intRemoveOnly = 0;
-            }
+	/// <summary>
+	/// Inserts a row in the mp_IndexingQueue table. Returns new integer id.
+	/// </summary>
+	/// <param name="indexPath"> indexPath </param>
+	/// <param name="serializedItem"> serializedItem </param>
+	/// <param name="itemKey"> itemKey </param>
+	/// <param name="removeOnly"> removeOnly </param>
+	/// <returns>int</returns>
+	public static Int64 Create(
+		int siteId,
+		string indexPath,
+		string serializedItem,
+		string itemKey,
+		bool removeOnly)
+	{
+		#region Bit Conversion
+		int intRemoveOnly;
+		if (removeOnly)
+		{
+			intRemoveOnly = 1;
+		}
+		else
+		{
+			intRemoveOnly = 0;
+		}
 
 
-            #endregion
+		#endregion
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_IndexingQueue (");
-            sqlCommand.Append("SiteID, ");
-            sqlCommand.Append("IndexPath, ");
-            sqlCommand.Append("SerializedItem, ");
-            sqlCommand.Append("ItemKey, ");
-            sqlCommand.Append("RemoveOnly )");
+		string sqlCommand = @"
+INSERT INTO 
+    mp_IndexingQueue (
+    SiteID, 
+    IndexPath, 
+    SerializedItem, 
+    ItemKey, 
+    RemoveOnly 
+    )
+VALUES (
+    ?SiteID, 
+    ?IndexPath, 
+    ?SerializedItem, 
+    ?ItemKey, 
+    ?RemoveOnly 
+);
+SELECT LAST_INSERT_ID();";
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?SiteID, ");
-            sqlCommand.Append("?IndexPath, ");
-            sqlCommand.Append("?SerializedItem, ");
-            sqlCommand.Append("?ItemKey, ");
-            sqlCommand.Append("?RemoveOnly )");
-            sqlCommand.Append(";");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?IndexPath", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = indexPath
+			},
 
-            sqlCommand.Append("SELECT LAST_INSERT_ID();");
+			new("?SerializedItem", MySqlDbType.LongText)
+			{
+				Direction = ParameterDirection.Input,
+				Value = serializedItem
+			},
 
-            MySqlParameter[] arParams = new MySqlParameter[5];
+			new("?ItemKey", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemKey
+			},
 
-            arParams[0] = new MySqlParameter("?IndexPath", MySqlDbType.VarChar, 255);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = indexPath;
+			new("?RemoveOnly", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intRemoveOnly
+			},
 
-            arParams[1] = new MySqlParameter("?SerializedItem", MySqlDbType.LongText);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = serializedItem;
+			new("?SiteID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteId
+			}
+		};
 
-            arParams[2] = new MySqlParameter("?ItemKey", MySqlDbType.VarChar, 255);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = itemKey;
+		Int64 newID = -1;
 
-            arParams[3] = new MySqlParameter("?RemoveOnly", MySqlDbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = intRemoveOnly;
+		try
+		{
+			newID = Convert.ToInt64(CommandHelper.ExecuteScalar(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand.ToString(),
+				arParams).ToString());
+		}
+		catch (MySqlException) { }
 
-            arParams[4] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = siteId;
+		return newID;
 
-            Int64 newID = -1;
+	}
 
-            try
-            {
-                newID = Convert.ToInt64(CommandHelper.ExecuteScalar(
-                    ConnectionString.GetWriteConnectionString(),
-                    sqlCommand.ToString(),
-                    arParams).ToString());
-            }
-            catch (MySqlException) { }
+	/// <summary>
+	/// Deletes a row from the mp_IndexingQueue table. Returns true if row deleted.
+	/// </summary>
+	/// <param name="rowId"> rowId </param>
+	/// <returns>bool</returns>
+	public static bool Delete(Int64 rowId)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_IndexingQueue 
+WHERE RowId = ?RowId;";
 
-            return newID;
-
-        }
-
-        /// <summary>
-        /// Deletes a row from the mp_IndexingQueue table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="rowId"> rowId </param>
-        /// <returns>bool</returns>
-        public static bool Delete(Int64 rowId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_IndexingQueue ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("RowId = ?RowId ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?RowId", MySqlDbType.Int64);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = rowId;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
-
-        }
-
-        /// <summary>
-        /// Deletes all rows from the mp_IndexingQueue table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="rowId"> rowId </param>
-        /// <returns>bool</returns>
-        public static bool DeleteAll()
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_IndexingQueue ");
-           
-            sqlCommand.Append(";");
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString());
-            return (rowsAffected > 0);
-
-        }
-
-        /// <summary>
-        /// Gets a count of rows in the mp_IndexingQueue table.
-        /// </summary>
-        public static int GetCount()
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_IndexingQueue ");
-            sqlCommand.Append(";");
-
-            return Convert.ToInt32(
-                CommandHelper.ExecuteScalar(
-                    ConnectionString.GetReadConnectionString(),
-                    sqlCommand.ToString()
-                )
-            );
-        }
+		var arParams = new List<MySqlParameter>
+		{
+			new("?RowId", MySqlDbType.Int64)
+			{
+				Direction = ParameterDirection.Input,
+				Value = rowId
+			}
+		};
 
 
-        /// <summary>
-        /// Gets an DataTable with rows from the mp_IndexingQueue table with the passed path.
-        /// </summary>
-        public static DataTable GetByPath(string indexPath)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_IndexingQueue ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("IndexPath = ?IndexPath ");
-            sqlCommand.Append("ORDER BY RowId ");
-            sqlCommand.Append(";");
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected > 0;
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+	}
 
-            arParams[0] = new MySqlParameter("?IndexPath", MySqlDbType.VarChar, 255);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = indexPath;
+	/// <summary>
+	/// Deletes all rows from the mp_IndexingQueue table. Returns true if row deleted.
+	/// </summary>
+	/// <param name="rowId"> rowId </param>
+	/// <returns>bool</returns>
+	public static bool DeleteAll()
+	{
+		string sqlCommand = @"
+DELETE FROM mp_IndexingQueue;";
 
-            DataTable dt = new DataTable();
-            dt.Columns.Add("RowId", typeof(int));
-            dt.Columns.Add("IndexPath", typeof(String));
-            dt.Columns.Add("SerializedItem", typeof(String));
-            dt.Columns.Add("ItemKey", typeof(String));
-            dt.Columns.Add("RemoveOnly", typeof(bool));
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString());
+		return rowsAffected > 0;
 
-            using (IDataReader reader = CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams))
-            {
+	}
 
-                while (reader.Read())
-                {
-                    DataRow row = dt.NewRow();
-                    row["RowId"] = reader["RowId"];
-                    row["IndexPath"] = reader["IndexPath"];
-                    row["SerializedItem"] = reader["SerializedItem"];
-                    row["ItemKey"] = reader["ItemKey"];
-                    row["RemoveOnly"] = Convert.ToBoolean(reader["RemoveOnly"]);
+	/// <summary>
+	/// Gets a count of rows in the mp_IndexingQueue table.
+	/// </summary>
+	public static int GetCount()
+	{
+		string sqlCommand = @"
+SELECT Count(*) 
+FROM mp_IndexingQueue;";
 
-                    dt.Rows.Add(row);
+		return Convert.ToInt32(
+			CommandHelper.ExecuteScalar(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand.ToString()
+			)
+		);
+	}
 
-                }
-            }
 
-            return dt;
+	/// <summary>
+	/// Gets an DataTable with rows from the mp_IndexingQueue table with the passed path.
+	/// </summary>
+	public static DataTable GetByPath(string indexPath)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_IndexingQueue 
+WHERE IndexPath = ?IndexPath 
+ORDER BY RowId;";
 
-        }
+		var arParams = new List<MySqlParameter>
+		{
+			new("?IndexPath", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = indexPath
+			}
+		};
 
-        public static DataTable GetBySite(int siteId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_IndexingQueue ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("SiteID = ?SiteID ");
-            sqlCommand.Append("ORDER BY RowId ");
-            sqlCommand.Append(";");
+		DataTable dt = new DataTable();
+		dt.Columns.Add("RowId", typeof(int));
+		dt.Columns.Add("IndexPath", typeof(String));
+		dt.Columns.Add("SerializedItem", typeof(String));
+		dt.Columns.Add("ItemKey", typeof(String));
+		dt.Columns.Add("RemoveOnly", typeof(bool));
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		using (IDataReader reader = CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams))
+		{
 
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
+			while (reader.Read())
+			{
+				DataRow row = dt.NewRow();
+				row["RowId"] = reader["RowId"];
+				row["IndexPath"] = reader["IndexPath"];
+				row["SerializedItem"] = reader["SerializedItem"];
+				row["ItemKey"] = reader["ItemKey"];
+				row["RemoveOnly"] = Convert.ToBoolean(reader["RemoveOnly"]);
 
-            DataTable dt = new DataTable();
-            dt.Columns.Add("RowId", typeof(int));
-            dt.Columns.Add("IndexPath", typeof(String));
-            dt.Columns.Add("SerializedItem", typeof(String));
-            dt.Columns.Add("ItemKey", typeof(String));
-            dt.Columns.Add("RemoveOnly", typeof(bool));
+				dt.Rows.Add(row);
 
-            using (IDataReader reader = CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams))
-            {
+			}
+		}
 
-                while (reader.Read())
-                {
-                    DataRow row = dt.NewRow();
-                    row["RowId"] = reader["RowId"];
-                    row["IndexPath"] = reader["IndexPath"];
-                    row["SerializedItem"] = reader["SerializedItem"];
-                    row["ItemKey"] = reader["ItemKey"];
-                    row["RemoveOnly"] = Convert.ToBoolean(reader["RemoveOnly"]);
+		return dt;
 
-                    dt.Rows.Add(row);
+	}
 
-                }
-            }
+	public static DataTable GetBySite(int siteId)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_IndexingQueue 
+WHERE SiteID = ?SiteID 
+ORDER BY RowId;";
 
-            return dt;
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteId
+			}
+		};
 
-        }
+		DataTable dt = new DataTable();
+		dt.Columns.Add("RowId", typeof(int));
+		dt.Columns.Add("IndexPath", typeof(String));
+		dt.Columns.Add("SerializedItem", typeof(String));
+		dt.Columns.Add("ItemKey", typeof(String));
+		dt.Columns.Add("RemoveOnly", typeof(bool));
 
-        /// <summary>
-        /// Gets an IDataReader with all rows in the mp_IndexingQueue table.
-        /// </summary>
-        public static DataTable GetIndexPaths()
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT DISTINCT  IndexPath ");
-            sqlCommand.Append("FROM	mp_IndexingQueue ");
-            sqlCommand.Append("ORDER BY IndexPath ");
-            sqlCommand.Append(";");
+		using (IDataReader reader = CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams))
+		{
 
-            IDataReader reader = CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString());
+			while (reader.Read())
+			{
+				DataRow row = dt.NewRow();
+				row["RowId"] = reader["RowId"];
+				row["IndexPath"] = reader["IndexPath"];
+				row["SerializedItem"] = reader["SerializedItem"];
+				row["ItemKey"] = reader["ItemKey"];
+				row["RemoveOnly"] = Convert.ToBoolean(reader["RemoveOnly"]);
 
-            return DBPortal.GetTableFromDataReader(reader);
-        }
+				dt.Rows.Add(row);
 
-        public static DataTable GetSiteIDs()
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT DISTINCT  SiteID ");
-            sqlCommand.Append("FROM	mp_IndexingQueue ");
-            sqlCommand.Append("ORDER BY SiteID ");
-            sqlCommand.Append(";");
+			}
+		}
 
-            IDataReader reader = CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString());
+		return dt;
 
-            return DBPortal.GetTableFromDataReader(reader);
+	}
 
-        }
+	/// <summary>
+	/// Gets an IDataReader with all rows in the mp_IndexingQueue table.
+	/// </summary>
+	public static DataTable GetIndexPaths()
+	{
+		string sqlCommand = @"
+SELECT DISTINCT IndexPath 
+FROM mp_IndexingQueue 
+ORDER BY IndexPath;";
 
-        
+		IDataReader reader = CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString());
 
-        
-    }
+		return DBPortal.GetTableFromDataReader(reader);
+	}
+
+	public static DataTable GetSiteIDs()
+	{
+		string sqlCommand = @"
+SELECT DISTINCT SiteID 
+FROM mp_IndexingQueue 
+ORDER BY SiteID;";
+
+		IDataReader reader = CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString());
+
+		return DBPortal.GetTableFromDataReader(reader);
+
+	}
+
+
+
+
 }
