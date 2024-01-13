@@ -139,6 +139,7 @@
     <Compile Include="DateTimeHelper.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="ExportHelper.cs" />
+    <Compile Include="GlobalUsings.cs" />
     <Compile Include="ImportHelper.cs" />
     <Compile Include="IOHelper.cs" />
     <Compile Include="NeatHtml\AttributeValueValidator.cs" />

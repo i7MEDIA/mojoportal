@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using mojoPortal.Core.Extensions;
+using mojoPortal.Core.Helpers;
 
 namespace mojoPortal.Web.Framework;
 
@@ -93,23 +95,6 @@ public static class UIHelper
 		c.CssClass = string.Join(" ", classes);
 	}
 
-	public static string ToInvariantString(this int i)
-	{
-		return i.ToString(CultureInfo.InvariantCulture);
-
-	}
-
-	public static string ToInvariantString(this float i)
-	{
-		return i.ToString(CultureInfo.InvariantCulture);
-
-	}
-
-	public static string ToInvariantString(this decimal i)
-	{
-		return i.ToString(CultureInfo.InvariantCulture);
-	}
-
 	/// <summary>
 	/// for easily converting an Enum to an IDictionary for data binding ie for a dropdown list
 	/// </summary>
@@ -182,7 +167,7 @@ public static class UIHelper
 	/// Convert a hex string to a .NET Color object. Returns Color.Blue on error
 	/// </summary>
 	/// <param name="hexColor">a hex string: "FFFFFF", "#000000"</param>
-	public static Color HexStringToColor(string hexColor)
+	public static Color HexStringToColor(this string hexColor)
 	{
 		string hc = ExtractHexDigits(hexColor);
 		if (hc.Length != 6)
