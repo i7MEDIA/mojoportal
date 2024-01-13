@@ -148,7 +148,6 @@
     <Compile Include="NeatHtml\XssFilterInfo.cs" />
     <Compile Include="ResourceHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScriptDeferFilter.cs" />
     <Compile Include="ScriptHandler.cs" />
     <Compile Include="SecurityHelper.cs" />
     <Compile Include="ServicePinger.cs" />
