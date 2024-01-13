@@ -225,9 +225,9 @@ window.airDatepickerExt.pickers.{ClientID} = new AirDatepicker('#{ClientID}', {{
 			ScriptManager.RegisterStartupScript(this.Page, GetType(), ClientID + "airdateScriptSingleton", airdateScriptSingleton, false);
 		}
 
-		public string ScriptPath { get; set; } = ConfigHelper.GetStringProperty("AirdateScriptPath", "~/ClientScript/air-datepicker/air-datepicker.js");
-		public string LocalePath { get; set; } = ConfigHelper.GetStringProperty("AirdateLocalePath", "~/ClientScript/air-datepicker/locale/");
-		public string StylePath { get; set; } = ConfigHelper.GetStringProperty("AirdateStylePath", "~/ClientScript/air-datepicker/air-datepicker.css");
+		public string ScriptPath { get; set; } = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("AirdateScriptPath", "~/ClientScript/air-datepicker/air-datepicker.js");
+		public string LocalePath { get; set; } = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("AirdateLocalePath", "~/ClientScript/air-datepicker/locale/");
+		public string StylePath { get; set; } = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("AirdateStylePath", "~/ClientScript/air-datepicker/air-datepicker.css");
 
 		/// <summary>
 		/// Disables (true) or enables (false) the timepicker. Can be set when initialising (first creating) the datepicker.

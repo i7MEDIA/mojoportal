@@ -1,98 +1,65 @@
-﻿// Author:					
-// Created:				2008-03-16
-// Last Modified:			2009-06-26
-//		
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.	
-
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
-using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using mojoPortal.Web.Framework;
+using mojoPortal.Core.Extensions;
 
+namespace mojoPortal.Web.Controls;
 
-namespace mojoPortal.Web.Controls
+public class OdiogoItem : Panel
 {
-    
-    public class OdiogoItem : Panel
-    {
-        const string ItemScriptTemplate = "\n<script type=\"text/javascript\">\n<!--\nshowOdiogoReadNowButton ('{0}', '{1}', '{2}', 290, 55);\n//-->\n</script>\n<script type=\"text/javascript\">\nshowInitialOdiogoReadNowFrame ('{0}', '{2}', 290, 0);\n//-->\n</script>\n";
+	const string ItemScriptTemplate = "\n<script data-loader=\"OdiogoItem\">\n<!--\nshowOdiogoReadNowButton ('{0}', '{1}', '{2}', 290, 55);\n//-->\n</script>" +
+		"\n<script data-loader=\"OdiogoItem\">\nshowInitialOdiogoReadNowFrame ('{0}', '{2}', 290, 0);\n//-->\n</script>\n";
 
-        private string odiogoFeedId = string.Empty;
-        private string itemTitle = string.Empty;
-        private string itemId = string.Empty;
+	public string OdiogoFeedId { get; set; } = string.Empty;
 
-        public string OdiogoFeedId
-        {
-            get { return odiogoFeedId; }
-            set { odiogoFeedId = value; }
-        }
+	public string ItemTitle { get; set; } = string.Empty;
 
-        public string ItemTitle
-        {
-            get { return itemTitle; }
-            set { itemTitle = value; }
-        }
+	public string ItemId { get; set; } = string.Empty;
 
-        public string ItemId
-        {
-            get { return itemId; }
-            set { itemId = value; }
-        }
+	protected override void OnInit(EventArgs e)
+	{
+		base.OnInit(e);
+		CssClass = "odiogo";
+	}
 
+	protected override void OnPreRender(EventArgs e)
+	{
+		base.OnPreRender(e);
+		SetupMainScript();
+		SetupItem();
 
-        
-        protected override void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-            this.CssClass = "odiogo";
-        }
+		Visible = OdiogoFeedId.Length > 0;
+	}
 
-        protected override void OnPreRender(EventArgs e)
-        {
-            base.OnPreRender(e);
-            SetupMainScript();
-            SetupItem();
+	private void SetupItem()
+	{
+		if (OdiogoFeedId.Length == 0) return;
+		if (ItemTitle.Length == 0) return;
+		if (ItemId.Length == 0) return;
 
-            this.Visible = (odiogoFeedId.Length > 0);
+		var litItem = new Literal
+		{
+			Text = string.Format(CultureInfo.InvariantCulture,
+			ItemScriptTemplate,
+			OdiogoFeedId,
+			ItemTitle.HtmlEscapeQuotes(),
+			ItemId)
+		};
 
-        }
+		Controls.Add(litItem);
+	}
 
-        private void SetupItem()
-        {
-            if (odiogoFeedId.Length == 0) return;
-            if (itemTitle.Length == 0) return;
-            if (itemId.Length == 0) return;
+	private void SetupMainScript()
+	{
+		if (string.IsNullOrWhiteSpace(OdiogoFeedId))
+		{
+			return;
+		}
 
-            Literal litItem = new Literal();
-            litItem.Text = string.Format(CultureInfo.InvariantCulture,
-                ItemScriptTemplate,
-                odiogoFeedId,
-                itemTitle.HtmlEscapeQuotes(),
-                itemId);
-
-            this.Controls.Add(litItem);
-
-        }
-
-        private void SetupMainScript()
-        {
-            if (odiogoFeedId.Length == 0) return;
-
-            Page.ClientScript.RegisterClientScriptBlock(
-                typeof(OdiogoItem),
-                "odiogofeed" + odiogoFeedId, "\n<script type=\"text/javascript\" src=\""
-                + "http://podcasts.odiogo.com/odiogo_js.php?feed_id=" + odiogoFeedId + "&amp;platform=mp" + "\" ></script>");
-
-        }
-
-    }
+		Page.ClientScript.RegisterClientScriptBlock(
+			typeof(OdiogoItem)
+			, $"odiogofeed{OdiogoFeedId}"
+			, $"\n<script data-loader=\"OdiogoItem\" src=\"http://podcasts.odiogo.com/odiogo_js.php?feed_id={OdiogoFeedId}&amp;platform=mp\" ></script>");
+	}
 }

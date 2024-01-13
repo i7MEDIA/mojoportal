@@ -50,7 +50,7 @@ namespace mojoPortal.Web.Controls
             set { ViewState["ResourceKey"] = value; }
         }
 
-        public bool IsValid
+        public new bool IsValid
         {
             get
             {
