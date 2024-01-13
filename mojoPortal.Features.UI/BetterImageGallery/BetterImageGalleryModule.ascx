@@ -7,9 +7,7 @@
 		<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 			<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
 				<feat:BetterImageGalleryRazor ID="gallery1" runat="server" />
-				<portal:EmptyPanel ID="divFooter" runat="server" CssClass="modulefooter" SkinID="modulefooter" />
 			</portal:InnerBodyPanel>
 		</portal:OuterBodyPanel>
-		<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared" />
 	</portal:InnerWrapperPanel>
 </portal:OuterWrapperPanel>
