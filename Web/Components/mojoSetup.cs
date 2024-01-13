@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Web;
@@ -10,7 +9,9 @@ using System.Web.Security;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.FileSystem;
 using mojoPortal.Web.Framework;
+using Resources;
 
 namespace mojoPortal.Web;
 
@@ -18,21 +19,13 @@ public sealed class mojoSetup
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(mojoSetup));
 
-	public const string DefaultPageEncoding = "<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=utf-8\" />";
+	public const string DefaultPageEncoding = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />";
+	private static readonly char pathSep = Path.DirectorySeparatorChar;
+	private const string testFilename = "test.config";
+	private const string sitesPath = "~/Data/Sites/";
+	private const string site1path = $"{sitesPath}1/";
 
 	#region File System Tests
-
-	private static void TestForWritableDataDirectory()
-	{
-		try
-		{
-			TouchTestFile();
-		}
-		catch (UnauthorizedAccessException ex)
-		{
-			throw new Exception("You need to make the Data folder and all its children writable by the ASP.NET worker process. ASPNET on XP, IISWPG on Win2003", ex);
-		}
-	}
 
 	public static bool DataFolderIsWritable()
 	{
@@ -43,23 +36,26 @@ public sealed class mojoSetup
 			TouchTestFile();
 			result = true;
 		}
-		catch (UnauthorizedAccessException) { }
-		//catch (ArgumentNullException) { }
-		//catch (NotSupportedException) { }
-		//catch (ArgumentException) { }
-		//catch (FileNotFoundException) { }
+		catch (UnauthorizedAccessException ex) 
+		{
+			var exception = ex;
+		}
 
 		return result;
 	}
 
-	public static void TouchTestFile(String pathToFile)
+	/// <summary>
+	/// Ensures path is writable
+	/// </summary>
+	/// <param name="pathToFile"></param>
+	public static void TouchTestFile(string pathToFile)
 	{
 		if (!WebConfigSettings.FileSystemIsWritable)
 		{
 			return;
 		}
 
-		if (pathToFile != null)
+		if (pathToFile is not null)
 		{
 			if (File.Exists(pathToFile))
 			{
@@ -80,72 +76,46 @@ public sealed class mojoSetup
 			return;
 		}
 
-		if (HttpContext.Current != null)
+		if (HttpContext.Current is not null)
 		{
-			String pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/test.config");
+			string pathToTestFile = HttpContext.Current.Server.MapPath($"~/Data/{testFilename}");
 			TouchTestFile(pathToTestFile);
 
-			if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/Data/Sites/1/")))
-			{
-				Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Data/Sites/1/"));
-			}
+			Global.FileSystem.CreateFolder("~/Data/systemfiles/");
 
-			pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/test.config");
+			Global.FileSystem.CreateFolder(site1path);
+
+			pathToTestFile = HttpContext.Current.Server.MapPath($"{site1path}{testFilename}");
 			TouchTestFile(pathToTestFile);
-
-			if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/Data/systemfiles/")))
-			{
-				Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Data/systemfiles/"));
-			}
 
 			if (WebConfigSettings.UseCacheDependencyFiles)
 			{
-				if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/Data/Sites/1/systemfiles/")))
-				{
-					Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Data/Sites/1/systemfiles/"));
-				}
+				Global.FileSystem.CreateFolder($"{site1path}systemfiles/");
 
-				pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/systemfiles/test.config");
+				pathToTestFile = HttpContext.Current.Server.MapPath($"{site1path}systemfiles/{testFilename}");
 				TouchTestFile(pathToTestFile);
 			}
 
-			if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/Data/Sites/1/GalleryImages/")))
-			{
-				Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Data/Sites/1/GalleryImages/"));
-			}
-
-			pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/GalleryImages/test.config");
+			Global.FileSystem.CreateFolder($"{site1path}GalleryImages/");
+			pathToTestFile = HttpContext.Current.Server.MapPath($"{site1path}GalleryImages/{testFilename}");
 			TouchTestFile(pathToTestFile);
 
-			if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/Data/Sites/1/FolderGalleries/")))
-			{
-				Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Data/Sites/1/FolderGalleries/"));
-			}
-
-			if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/Data/Sites/1/SharedFiles/")))
-			{
-				Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Data/Sites/1/SharedFiles/"));
-			}
-
-			pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/SharedFiles/test.config");
+			Global.FileSystem.CreateFolder($"{site1path}FolderGalleries/");
+			pathToTestFile = HttpContext.Current.Server.MapPath($"{site1path}FolderGalleries/{testFilename}");
 			TouchTestFile(pathToTestFile);
 
-			if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/Data/Sites/1/SharedFiles/History/")))
-			{
-				Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Data/Sites/1/SharedFiles/History/"));
-			}
+			Global.FileSystem.CreateFolder($"{site1path}SharedFiles/");
+			pathToTestFile = HttpContext.Current.Server.MapPath($"{site1path}SharedFiles/{testFilename}");
+			TouchTestFile(pathToTestFile);
 
-			pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/SharedFiles/History/test.config");
+			Global.FileSystem.CreateFolder($"{site1path}SharedFiles/History/");
+			pathToTestFile = HttpContext.Current.Server.MapPath($"{site1path}SharedFiles/History/{testFilename}");
 			TouchTestFile(pathToTestFile);
 
 			if (!WebConfigSettings.DisableSearchIndex)
 			{
-				if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/Data/Sites/1/index/")))
-				{
-					Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Data/Sites/1/index/"));
-				}
-
-				pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/index/test.config");
+				Global.FileSystem.CreateFolder($"{site1path}index/");
+				pathToTestFile = HttpContext.Current.Server.MapPath($"{site1path}index/{testFilename}");
 				TouchTestFile(pathToTestFile);
 
 				if (File.Exists(pathToTestFile))
@@ -158,14 +128,10 @@ public sealed class mojoSetup
 
 	public static void EnsureFolderGalleryFolder(SiteSettings siteSettings)
 	{
-		if (HttpContext.Current == null) return;
+		if (HttpContext.Current is null) return;
 
-		string path = "~/Data/Sites/" + siteSettings.SiteId.ToString(CultureInfo.InvariantCulture) + "/FolderGalleries/";
-
-		if (!Directory.Exists(HttpContext.Current.Server.MapPath(path)))
-		{
-			Directory.CreateDirectory(HttpContext.Current.Server.MapPath(path));
-		}
+		string path = Invariant($"{sitesPath}{siteSettings.SiteId}/FolderGalleries/");
+		EnsureDirectory(path);
 	}
 
 	#endregion
@@ -201,34 +167,28 @@ public sealed class mojoSetup
 
 	#region Schema Upgrade methods
 
-	public static void DoSchemaUpgrade(String overrideConnectionInfo)
+	public static void DoSchemaUpgrade(string overrideConnectionInfo)
 	{
 		log.Debug("mojoSetup entered DoSchemaUpgrade");
 		bool canAlterSchema = DatabaseHelper.CanAlterSchema(overrideConnectionInfo);
 
-		if ((HttpContext.Current != null) && canAlterSchema)
+		if (HttpContext.Current is not null && canAlterSchema)
 		{
 			Version currentSchemaVersion = DatabaseHelper.DBSchemaVersion();
 
 			Guid appID = DatabaseHelper.GetApplicationId();
-			String pathToScriptFolder =
-				HttpContext.Current.Server.MapPath("~/Setup/SchemaUpgradeScripts/" +
-					DatabaseHelper.DBPlatform().ToLowerInvariant() +
-					"/" +
-					DatabaseHelper.GetApplicationName().ToLowerInvariant() +
-					"/"
-				);
+			var pathToScriptFolder = HttpContext.Current.Server.MapPath(Invariant($"~/Setup/SchemaUpgradeScripts/{DatabaseHelper.DBPlatform()}/{DatabaseHelper.GetApplicationName()}/"));
 
 			if (Directory.Exists(pathToScriptFolder))
 			{
-				DirectoryInfo directoryInfo = new DirectoryInfo(pathToScriptFolder);
-				FileInfo[] scriptFiles = directoryInfo.GetFiles("*.config");
+				var directoryInfo = new DirectoryInfo(pathToScriptFolder);
+				var scriptFiles = directoryInfo.GetFiles("*.config");
 
-				foreach (FileInfo fileInfo in scriptFiles)
+				foreach (var fileInfo in scriptFiles)
 				{
 					Version scriptVersion = DatabaseHelper.ParseVersionFromFileName(fileInfo.Name);
 
-					if ((scriptVersion != null) && (scriptVersion > currentSchemaVersion) && !DatabaseHelper.SchemaScriptHasBeenRun(appID, fileInfo.Name))
+					if ((scriptVersion is not null) && (scriptVersion > currentSchemaVersion) && !DatabaseHelper.SchemaScriptHasBeenRun(appID, fileInfo.Name))
 					{
 						DatabaseHelper.RunScript(appID, fileInfo, overrideConnectionInfo);
 						DoPostScriptTasks(scriptVersion, overrideConnectionInfo);
@@ -237,7 +197,7 @@ public sealed class mojoSetup
 			}
 			else
 			{
-				log.Error("mojoSetup.DoSchemaUpgrade Error could not find path: " + pathToScriptFolder);
+				log.Error($"mojoSetup.DoSchemaUpgrade Error could not find path: {pathToScriptFolder}");
 			}
 		}
 		else
@@ -246,194 +206,89 @@ public sealed class mojoSetup
 		}
 	}
 
-	public static void DoPostScriptTasks(Version scriptVersion, String overrideConnectionInfo)
+	public static void DoPostScriptTasks(Version scriptVersion, string overrideConnectionInfo)
 	{
-		if (scriptVersion == new Version(2, 2, 3, 0))
-		{
-			DatabaseHelper.DoVersion2230PostUpgradeTasks(overrideConnectionInfo);
-		}
+		DatabaseHelper.RunPostUpgradeTasks(scriptVersion, overrideConnectionInfo);
 
-		if (scriptVersion == new Version(2, 2, 3, 4))
-		{
-			DatabaseHelper.DoVersion2234PostUpgradeTasks(overrideConnectionInfo);
-		}
-
-		if (scriptVersion == new Version(2, 2, 4, 7))
-		{
-			DatabaseHelper.DoVersion2247PostUpgradeTasks(overrideConnectionInfo);
-		}
-
-		if (scriptVersion == new Version(2, 2, 5, 3))
-		{
-			DatabaseHelper.DoVersion2253PostUpgradeTasks(overrideConnectionInfo);
-		}
-
-		if (scriptVersion == new Version(2, 3, 2, 0))
-		{
-			DatabaseHelper.DoVersion2320PostUpgradeTasks(overrideConnectionInfo);
-		}
-
-		//if (scriptVersion == new Version(2, 3, 9, 5))
+		//if (scriptVersion == new Version(2, 2, 3, 0))
 		//{
-		//    DatabaseHelper.DoVersion2320PostUpgradeTasks(overrideConnectionInfo);
+		//	DatabaseHelper.DoVersion2230PostUpgradeTasks(overrideConnectionInfo);
+		//}
+
+		//if (scriptVersion == new Version(2, 2, 3, 4))
+		//{
+		//	DatabaseHelper.DoVersion2234PostUpgradeTasks(overrideConnectionInfo);
+		//}
+
+		//if (scriptVersion == new Version(2, 2, 4, 7))
+		//{
+		//	DatabaseHelper.DoVersion2247PostUpgradeTasks(overrideConnectionInfo);
+		//}
+
+		//if (scriptVersion == new Version(2, 2, 5, 3))
+		//{
+		//	DatabaseHelper.DoVersion2253PostUpgradeTasks(overrideConnectionInfo);
+		//}
+
+		//if (scriptVersion == new Version(2, 3, 2, 0))
+		//{
+		//	DatabaseHelper.DoVersion2320PostUpgradeTasks(overrideConnectionInfo);
 		//}
 	}
-
 	#endregion
 
 	#region Create Initial Data
 
 	public static SiteSettings CreateNewSite()
 	{
-		String templateFolderPath = GetMessageTemplateFolder();
-		String templateFolder = templateFolderPath;
+		string templateFolderPath = GetMessageTemplateFolder();
+		string templateFolder = templateFolderPath;
 
-		SiteSettings newSite = new SiteSettings();
-
-		newSite.SiteName = GetMessageTemplate(templateFolder, "InitialSiteNameContent.config");
-		newSite.Skin = WebConfigSettings.DefaultInitialSkin;
-
-		newSite.Logo = GetMessageTemplate(templateFolder, "InitialSiteLogoContent.config");
-
-		newSite.AllowHideMenuOnPages = false;
-		newSite.AllowNewRegistration = true;
-		newSite.AllowPageSkins = false;
-		newSite.AllowUserFullNameChange = false;
-		newSite.AllowUserSkins = false;
-		newSite.AutoCreateLdapUserOnFirstLogin = true;
-		//newSite.DefaultFriendlyUrlPattern = SiteSettings.FriendlyUrlPattern.PageNameWithDotASPX;
-		newSite.EditorSkin = SiteSettings.ContentEditorSkin.normal;
-		//newSite.EncryptPasswords = false;
-		newSite.Icon = String.Empty;
-		newSite.IsServerAdminSite = true;
-		newSite.ReallyDeleteUsers = true;
-		newSite.SiteLdapSettings.Port = 389;
-		newSite.SiteLdapSettings.RootDN = String.Empty;
-		newSite.SiteLdapSettings.Server = String.Empty;
-		newSite.UseEmailForLogin = true;
-		newSite.UseLdapAuth = false;
-		newSite.UseSecureRegistration = false;
-		newSite.UseSslOnAllPages = WebConfigSettings.SslIsRequiredByWebServer;
-		//newSite.CreateInitialDataOnCreate = false;
-
-		newSite.AllowPasswordReset = true;
-		newSite.AllowPasswordRetrieval = true;
-		//0 = clear, 1= hashed, 2= encrypted
-		newSite.PasswordFormat = WebConfigSettings.InitialSitePasswordFormat;
-
-		newSite.RequiresQuestionAndAnswer = true;
-		newSite.MaxInvalidPasswordAttempts = 10;
-		newSite.PasswordAttemptWindowMinutes = 5;
-		newSite.RequiresUniqueEmail = true;
-		newSite.MinRequiredNonAlphanumericCharacters = 0;
-		newSite.MinRequiredPasswordLength = 7;
-		newSite.PasswordStrengthRegularExpression = String.Empty;
-		newSite.DefaultEmailFromAddress = GetMessageTemplate(templateFolder, "InitialEmailFromContent.config");
-		newSite.EnableMyPageFeature = false;
+		var newSite = new SiteSettings
+		{
+			SiteName = GetSetupTemplate(templateFolder, "InitialSiteNameContent.config"),
+			Skin = WebConfigSettings.DefaultInitialSkin,
+			Logo = GetSetupTemplate(templateFolder, "InitialSiteLogoContent.config"),
+			AllowHideMenuOnPages = false,
+			AllowNewRegistration = true,
+			AllowPageSkins = false,
+			AllowUserFullNameChange = false,
+			AllowUserSkins = false,
+			AutoCreateLdapUserOnFirstLogin = true,
+			EditorSkin = SiteSettings.ContentEditorSkin.normal,
+			Icon = string.Empty,
+			IsServerAdminSite = true,
+			ReallyDeleteUsers = true,
+			UseEmailForLogin = true,
+			UseLdapAuth = false,
+			SiteLdapSettings = new LdapSettings()
+			{
+				Port = 389,
+				RootDN = string.Empty,
+				Server = string.Empty
+			},
+			UseSecureRegistration = false,
+			UseSslOnAllPages = WebConfigSettings.SslIsRequiredByWebServer,
+			AllowPasswordReset = true,
+			AllowPasswordRetrieval = true,
+			PasswordFormat = WebConfigSettings.InitialSitePasswordFormat, //0 = clear, 1= hashed, 2= encrypted
+			RequiresQuestionAndAnswer = true,
+			MaxInvalidPasswordAttempts = 10,
+			PasswordAttemptWindowMinutes = 5,
+			RequiresUniqueEmail = true,
+			MinRequiredNonAlphanumericCharacters = 0,
+			MinRequiredPasswordLength = 7,
+			PasswordStrengthRegularExpression = string.Empty,
+			DefaultEmailFromAddress = GetSetupTemplate(templateFolder, "InitialEmailFromContent.config")
+		};
 
 		newSite.Save();
 
+		//newSite.DefaultFriendlyUrlPattern = SiteSettings.FriendlyUrlPattern.PageNameWithDotASPX;
+		//newSite.EncryptPasswords = false;
+		//newSite.CreateInitialDataOnCreate = false;
+
 		return newSite;
-	}
-
-	public static void CreateRequiredRolesAndAdminUser(SiteSettings site)
-	{
-		Role adminRole = new Role
-		{
-			RoleName = "Admins",
-			DisplayName = "Administrators",
-			SiteId = site.SiteId,
-			SiteGuid = site.SiteGuid
-		};
-		adminRole.Save();
-
-		Role roleAdminRole = new Role
-		{
-			RoleName = "Role Admins",
-			DisplayName = "Role Administrators",
-			SiteId = site.SiteId,
-			SiteGuid = site.SiteGuid
-		};
-		roleAdminRole.Save();
-
-		Role contentAdminRole = new Role
-		{
-			RoleName = "Content Administrators",
-			DisplayName = "Content Administrators",
-			SiteId = site.SiteId,
-			SiteGuid = site.SiteGuid
-		};
-		contentAdminRole.Save();
-
-		Role authenticatedUserRole = new Role
-		{
-			RoleName = "Authenticated Users",
-			DisplayName = "Authenticated Users",
-			SiteId = site.SiteId,
-			SiteGuid = site.SiteGuid
-		};
-		authenticatedUserRole.Save();
-
-		Role contentPublisherRole = new Role
-		{
-			RoleName = "Content Publishers",
-			DisplayName = "Content Publishers",
-			SiteId = site.SiteId,
-			SiteGuid = site.SiteGuid
-		};
-		contentPublisherRole.Save();
-
-		Role contentAuthorRole = new Role
-		{
-			RoleName = "Content Authors",
-			DisplayName = "Content Authors",
-			SiteId = site.SiteId,
-			SiteGuid = site.SiteGuid
-		};
-		contentAuthorRole.Save();
-
-		Role newsletterAdminRole = new Role
-		{
-			RoleName = "Newsletter Administrators",
-			DisplayName = "Newsletter Administrators",
-			SiteId = site.SiteId,
-			SiteGuid = site.SiteGuid
-		};
-		newsletterAdminRole.Save();
-
-		// if using related sites mode there is a problem if we already have user admin@admin.com
-		// and we create another one in the child site with the same email and login so we need to make it different
-		// we could just skip creating this user since in related sites mode all users come from the first site
-		// but then if the config were changed to not related sites mode there would be no admin user
-		// so in related sites mode we create one only as a backup in case settings are changed later
-		int countOfSites = SiteSettings.SiteCount();
-		string siteDifferentiator = string.Empty;
-		if ((countOfSites >= 1) && WebConfigSettings.UseRelatedSiteMode)
-		{
-			if (site.SiteId > 1)
-			{
-				siteDifferentiator = site.SiteId.ToInvariantString();
-			}
-		}
-
-		mojoMembershipProvider membership = Membership.Provider as mojoMembershipProvider;
-		bool overridRelatedSiteMode = true;
-		SiteUser adminUser = new SiteUser(site, overridRelatedSiteMode);
-		adminUser.Email = "admin" + siteDifferentiator + "@admin.com";
-		adminUser.Name = "Admin";
-		adminUser.LoginName = "admin" + siteDifferentiator;
-		adminUser.Password = "admin";
-
-		if (membership != null)
-		{
-			adminUser.Password = membership.EncodePassword(site, adminUser, "admin");
-		}
-
-		adminUser.PasswordQuestion = "What is your user name?";
-		adminUser.PasswordAnswer = "admin";
-		adminUser.Save();
-
-		Role.AddUser(adminRole.RoleId, adminUser.UserId, adminRole.RoleGuid, adminUser.UserGuid);
 	}
 
 	private static SiteUser EnsureAdminUser(SiteSettings site)
@@ -446,9 +301,9 @@ public sealed class mojoSetup
 		int countOfSites = SiteSettings.SiteCount();
 		string siteDifferentiator = string.Empty;
 
-		if ((countOfSites >= 1) && WebConfigSettings.UseRelatedSiteMode)
+		if (countOfSites >= 1 && WebConfigSettings.UseRelatedSiteMode)
 		{
-			siteDifferentiator = site.SiteId.ToString(CultureInfo.InvariantCulture);
+			siteDifferentiator = site.SiteId.ToInvariantString();
 		}
 
 		bool overridRelatedSiteMode = true;
@@ -529,12 +384,12 @@ public sealed class mojoSetup
 			Role.AddUser(adminRole.RoleId, adminUser.UserId, adminRole.RoleGuid, adminUser.UserGuid);
 		}
 
-		EnsureRole(site, "Role Admins", "Role Administrators");
-		EnsureRole(site, "Content Administrators", "Content Administrators");
-		EnsureRole(site, "Authenticated Users", "Authenticated Users");
-		EnsureRole(site, "Content Publishers", "Content Publishers");
-		EnsureRole(site, "Content Authors", "Content Authors");
-		EnsureRole(site, "Newsletter Administrators", "Newsletter Administrators");
+		EnsureRole(site, "Role Admins", SetupResource.RoleNameRoleAdministrators);
+		EnsureRole(site, "Content Administrators", SetupResource.RoleNameContentAdministrators);
+		EnsureRole(site, "Authenticated Users", SetupResource.RoleNameAuthenticated);
+		EnsureRole(site, "Content Publishers", SetupResource.RoleNameContentPublishers);
+		EnsureRole(site, "Content Authors", SetupResource.RoleNameContentAuthors);
+		EnsureRole(site, "Newsletter Administrators", SetupResource.RoleNameNewsletterAdministrators);
 	}
 
 	#endregion
@@ -543,9 +398,9 @@ public sealed class mojoSetup
 
 	public static void CreateNewSiteData(SiteSettings siteSettings)
 	{
-		CreateRequiredRolesAndAdminUser(siteSettings);
+		EnsureRolesAndAdminUser(siteSettings);
 		CreateDefaultSiteFolders(siteSettings.SiteId);
-		CreateOrRestoreSiteSkins(siteSettings.SiteId);
+		EnsureSkins(siteSettings.SiteId);
 
 		if (PageSettings.GetCountOfPages(siteSettings.SiteId) == 0)
 		{
@@ -567,26 +422,43 @@ public sealed class mojoSetup
 
 	public static void CreatePage(SiteSettings siteSettings, ContentPage contentPage, PageSettings parentPage)
 	{
-		PageSettings pageSettings = new PageSettings();
-		pageSettings.PageGuid = Guid.NewGuid();
+		var pageSettings = new PageSettings
+		{
+			PageGuid = Guid.NewGuid(),
+			SiteId = siteSettings.SiteId,
+			SiteGuid = siteSettings.SiteGuid,
+			AuthorizedRoles = contentPage.VisibleToRoles,
+			EditRoles = contentPage.EditRoles,
+			DraftEditOnlyRoles = contentPage.DraftEditRoles,
+			CreateChildPageRoles = contentPage.CreateChildPageRoles,
+			MenuImage = contentPage.MenuImage,
+			PageMetaKeyWords = contentPage.PageMetaKeyWords,
+			PageMetaDescription = contentPage.PageMetaDescription,
+			PageOrder = contentPage.PageOrder,
+			Url = contentPage.Url,
+			RequireSsl = contentPage.RequireSsl,
+			ShowBreadcrumbs = contentPage.ShowBreadcrumbs,
+			BodyCssClass = contentPage.BodyCssClass,
+			MenuCssClass = contentPage.MenuCssClass,
+			IncludeInMenu = contentPage.IncludeInMenu,
+			IsClickable = contentPage.IsClickable,
+			IncludeInSiteMap = contentPage.IncludeInSiteMap,
+			IncludeInChildSiteMap = contentPage.IncludeInChildPagesSiteMap,
+			AllowBrowserCache = contentPage.AllowBrowserCaching,
+			ShowChildPageBreadcrumbs = contentPage.ShowChildPageBreadcrumbs,
+			ShowHomeCrumb = contentPage.ShowHomeCrumb,
+			ShowChildPageMenu = contentPage.ShowChildPagesSiteMap,
+			HideAfterLogin = contentPage.HideFromAuthenticated,
+			EnableComments = contentPage.EnableComments
+		};
 
-		if (parentPage != null)
+		if (parentPage is not null)
 		{
 			pageSettings.ParentGuid = parentPage.PageGuid;
 			pageSettings.ParentId = parentPage.PageId;
 		}
 
-		pageSettings.SiteId = siteSettings.SiteId;
-		pageSettings.SiteGuid = siteSettings.SiteGuid;
-		pageSettings.AuthorizedRoles = contentPage.VisibleToRoles;
-		pageSettings.EditRoles = contentPage.EditRoles;
-		pageSettings.DraftEditOnlyRoles = contentPage.DraftEditRoles;
-		pageSettings.CreateChildPageRoles = contentPage.CreateChildPageRoles;
-		pageSettings.MenuImage = contentPage.MenuImage;
-		pageSettings.PageMetaKeyWords = contentPage.PageMetaKeyWords;
-		pageSettings.PageMetaDescription = contentPage.PageMetaDescription;
-
-		CultureInfo uiCulture = Thread.CurrentThread.CurrentUICulture;
+		var uiCulture = Thread.CurrentThread.CurrentUICulture;
 
 		if (WebConfigSettings.UseCultureOverride)
 		{
@@ -608,43 +480,26 @@ public sealed class mojoSetup
 			pageSettings.PageTitle = contentPage.Title;
 		}
 
-		pageSettings.PageOrder = contentPage.PageOrder;
-		pageSettings.Url = contentPage.Url;
-		pageSettings.RequireSsl = contentPage.RequireSsl;
-		pageSettings.ShowBreadcrumbs = contentPage.ShowBreadcrumbs;
-
-		pageSettings.BodyCssClass = contentPage.BodyCssClass;
-		pageSettings.MenuCssClass = contentPage.MenuCssClass;
-		pageSettings.IncludeInMenu = contentPage.IncludeInMenu;
-		pageSettings.IsClickable = contentPage.IsClickable;
-		pageSettings.IncludeInSiteMap = contentPage.IncludeInSiteMap;
-		pageSettings.IncludeInChildSiteMap = contentPage.IncludeInChildPagesSiteMap;
-		pageSettings.AllowBrowserCache = contentPage.AllowBrowserCaching;
-		pageSettings.ShowChildPageBreadcrumbs = contentPage.ShowChildPageBreadcrumbs;
-		pageSettings.ShowHomeCrumb = contentPage.ShowHomeCrumb;
-		pageSettings.ShowChildPageMenu = contentPage.ShowChildPagesSiteMap;
-		pageSettings.HideAfterLogin = contentPage.HideFromAuthenticated;
-		pageSettings.EnableComments = contentPage.EnableComments;
-
 		pageSettings.Save();
 
 		if (!FriendlyUrl.Exists(siteSettings.SiteId, pageSettings.Url))
 		{
 			if (!WebPageInfo.IsPhysicalWebPage(pageSettings.Url))
 			{
-				FriendlyUrl friendlyUrl = new FriendlyUrl();
-				friendlyUrl.SiteId = siteSettings.SiteId;
-				friendlyUrl.SiteGuid = siteSettings.SiteGuid;
-				friendlyUrl.PageGuid = pageSettings.PageGuid;
-				friendlyUrl.Url = pageSettings.Url.Replace("~/", string.Empty);
-				friendlyUrl.RealUrl = "~/Default.aspx?pageid=" + pageSettings.PageId.ToInvariantString();
+				FriendlyUrl friendlyUrl = new FriendlyUrl
+				{
+					SiteId = siteSettings.SiteId,
+					SiteGuid = siteSettings.SiteGuid,
+					PageGuid = pageSettings.PageGuid,
+					Url = pageSettings.Url.Replace("~/", string.Empty),
+					RealUrl = $"~/Default.aspx?pageid={pageSettings.PageId.ToInvariantString()}"
+				};
 				friendlyUrl.Save();
 			}
 		}
 
 		foreach (ContentPageItem pageItem in contentPage.PageItems)
 		{
-			// tni-20130624: moduleGuidxxxx handling
 			Guid moduleGuid2Use = Guid.Empty;
 			bool updateModule = false;
 
@@ -652,7 +507,7 @@ public sealed class mojoSetup
 
 			if (pageItem.ModuleGuidToPublish != Guid.Empty)
 			{
-				Module existingModule = new Module(pageItem.ModuleGuidToPublish);
+				var existingModule = new Module(pageItem.ModuleGuidToPublish);
 
 				if (existingModule.ModuleGuid == pageItem.ModuleGuidToPublish && existingModule.SiteId == siteSettings.SiteId)
 				{
@@ -667,7 +522,6 @@ public sealed class mojoSetup
 						DateTime.MinValue
 					);
 
-					// tni: I assume there's nothing else to do now so let's go to the next content... 
 					continue;
 				}
 			}
@@ -688,7 +542,7 @@ public sealed class mojoSetup
 				}
 			}
 
-			ModuleDefinition moduleDef = new ModuleDefinition(pageItem.FeatureGuid);
+			var moduleDef = new ModuleDefinition(pageItem.FeatureGuid);
 
 			// this only adds if its not already there
 			try
@@ -704,7 +558,7 @@ public sealed class mojoSetup
 			{
 				Module module = null;
 
-				if (updateModule && (findModule != null))
+				if (updateModule && (findModule is not null))
 				{
 					module = findModule;
 				}
@@ -744,7 +598,7 @@ public sealed class mojoSetup
 
 				module.Save();
 
-				if ((pageItem.Installer != null) && (pageItem.ConfigInfo.Length > 0))
+				if ((pageItem.Installer is not null) && (pageItem.ConfigInfo.Length > 0))
 				{
 					//this is the newer implementation for populating feature content
 					pageItem.Installer.InstallContent(module, pageItem.ConfigInfo);
@@ -754,16 +608,18 @@ public sealed class mojoSetup
 					// legacy implementation for backward compatibility
 					if ((pageItem.FeatureGuid == HtmlContent.FeatureGuid) && pageItem.ContentTemplate.EndsWith(".config"))
 					{
-						HtmlContent htmlContent = new HtmlContent();
-						htmlContent.ModuleId = module.ModuleId;
-						htmlContent.Body = ResourceHelper.GetMessageTemplate(uiCulture, pageItem.ContentTemplate);
-						htmlContent.ModuleGuid = module.ModuleGuid;
-						HtmlRepository repository = new HtmlRepository();
+						var htmlContent = new HtmlContent
+						{
+							ModuleId = module.ModuleId,
+							Body = ResourceHelper.GetMessageTemplate(uiCulture, pageItem.ContentTemplate),
+							ModuleGuid = module.ModuleGuid
+						};
+						var repository = new HtmlRepository();
 						repository.Save(htmlContent);
 					}
 				}
 
-				// tni-20130624: handling module settings
+				// handling module settings
 				foreach (KeyValuePair<string, string> item in pageItem.ModuleSettings)
 				{
 					ModuleSettings.UpdateModuleSetting(module.ModuleGuid, module.ModuleId, item.Key, item.Value);
@@ -777,13 +633,6 @@ public sealed class mojoSetup
 		}
 	}
 
-	private static void EnsureSiteFeature(Guid siteGuid, Guid featureGuid)
-	{
-		if ((siteGuid == Guid.Empty) || (featureGuid == Guid.Empty)) return;
-
-		SiteSettings.AddFeature(siteGuid, featureGuid);
-	}
-
 	#endregion
 
 	#region Site Folder Creation
@@ -795,223 +644,87 @@ public sealed class mojoSetup
 
 	public static bool CreateDefaultSiteFolders(int siteId, bool includeStandardFiles)
 	{
-		if (HttpContext.Current == null)
+		if (HttpContext.Current is null)
 		{
 			return false;
 		}
 
-		string siteFolderPath = HttpContext.Current.Server.MapPath(GetApplicationRoot() + "/Data/Sites/") + siteId.ToInvariantString() + Path.DirectorySeparatorChar;
-		string sourceFilesPath = HttpContext.Current.Server.MapPath(GetApplicationRoot() + "/Data/");
-		DirectoryInfo dir;
-		FileInfo[] theFiles;
+		//var pathSep = Path.DirectorySeparatorChar;
+		string siteFolderPath = Invariant($"{HttpContext.Current.Server.MapPath($"{GetApplicationRoot()}{pathSep}Data{pathSep}Sites{pathSep}")}{siteId}{pathSep}");
+		string sourceFilesPath = HttpContext.Current.Server.MapPath($"{GetApplicationRoot()}{pathSep}Data{pathSep}");
 
-		if (!Directory.Exists(siteFolderPath))
-		{
-			Directory.CreateDirectory(siteFolderPath);
-		}
+		//we only want to run the get for the FileSystem once so we create our own variable
+		var fileSystem = Global.FileSystem;
 
-		if (!Directory.Exists(siteFolderPath + "systemfiles"))
-		{
-			Directory.CreateDirectory(siteFolderPath + "systemfiles");
-		}
+		fileSystem.CreateFolder(siteFolderPath);
 
-		if (!Directory.Exists(siteFolderPath + "media"))
-		{
-			Directory.CreateDirectory(siteFolderPath + "media");
-		}
+		fileSystem.CreateFolder($"{siteFolderPath}systemfiles");
+		fileSystem.CreateFolder($"{siteFolderPath}media");
+		fileSystem.CreateFolder($"{siteFolderPath}index");
+		fileSystem.CreateFolder($"{siteFolderPath}SharedFiles");
+		fileSystem.CreateFolder($"{siteFolderPath}SharedFiles{pathSep}History");
+		fileSystem.CreateFolder($"{siteFolderPath}skins");
 
 		if (WebConfigSettings.SiteLogoUseMediaFolder)
 		{
-			if (!Directory.Exists(siteFolderPath + "media" + Path.DirectorySeparatorChar + "logos"))
-			{
-				Directory.CreateDirectory(siteFolderPath + "media" + Path.DirectorySeparatorChar + "logos");
-			}
+			fileSystem.CreateFolder($"{siteFolderPath}media{pathSep}logos");
 		}
 		else
 		{
-			if (!Directory.Exists(siteFolderPath + "logos"))
-			{
-				Directory.CreateDirectory(siteFolderPath + "logos");
-			}
+			fileSystem.CreateFolder($"{siteFolderPath}logos");
 		}
 
 		if (WebConfigSettings.HtmlFragmentUseMediaFolder)
 		{
-			if (!Directory.Exists(siteFolderPath + "media" + Path.DirectorySeparatorChar + "htmlfragments"))
-			{
-				Directory.CreateDirectory(siteFolderPath + "media" + Path.DirectorySeparatorChar + "htmlfragments");
-			}
+			fileSystem.CreateFolder($"{siteFolderPath}media{pathSep}htmlfragments");
 		}
 		else
 		{
-			if (!Directory.Exists(siteFolderPath + "htmlfragments"))
-			{
-				Directory.CreateDirectory(siteFolderPath + "htmlfragments");
-			}
-		}
-
-		if (!Directory.Exists(siteFolderPath + "index"))
-		{
-			Directory.CreateDirectory(siteFolderPath + "index");
-		}
-
-		if (!Directory.Exists(siteFolderPath + "SharedFiles"))
-		{
-			Directory.CreateDirectory(siteFolderPath + "SharedFiles");
-		}
-
-		if (!Directory.Exists(siteFolderPath + "SharedFiles" + Path.DirectorySeparatorChar + "History"))
-		{
-			Directory.CreateDirectory(siteFolderPath + "SharedFiles" + Path.DirectorySeparatorChar + "History");
-		}
-
-		if (!Directory.Exists(siteFolderPath + "skins"))
-		{
-			Directory.CreateDirectory(siteFolderPath + "skins");
+			fileSystem.CreateFolder($"{siteFolderPath}htmlfragments");
 		}
 
 		if (WebConfigSettings.XmlUseMediaFolder)
 		{
-			if (!Directory.Exists(siteFolderPath + "media" + Path.DirectorySeparatorChar + "xml"))
-			{
-				Directory.CreateDirectory(siteFolderPath + "media" + Path.DirectorySeparatorChar + "xml");
-			}
+			fileSystem.CreateFolder($"{siteFolderPath}media{pathSep}xml");
 
-			if (!Directory.Exists(siteFolderPath + "media" + Path.DirectorySeparatorChar + "xsl"))
-			{
-				Directory.CreateDirectory(siteFolderPath + "media" + Path.DirectorySeparatorChar + "xsl");
-			}
+			fileSystem.CreateFolder($"{siteFolderPath}media{pathSep}xsl");
 		}
 		else
 		{
-			if (!Directory.Exists(siteFolderPath + "xml"))
-			{
-				Directory.CreateDirectory(siteFolderPath + "xml");
-			}
+			fileSystem.CreateFolder($"{siteFolderPath}xml");
 
-			if (!Directory.Exists(siteFolderPath + "xsl"))
-			{
-				Directory.CreateDirectory(siteFolderPath + "xsl");
-			}
+			fileSystem.CreateFolder($"{siteFolderPath}xsl");
 		}
 
 		if (includeStandardFiles)
 		{
-
-			if (Directory.Exists(sourceFilesPath + Path.DirectorySeparatorChar + "logos"))
+			if (WebConfigSettings.SiteLogoUseMediaFolder)
 			{
-				dir = new DirectoryInfo(sourceFilesPath + Path.DirectorySeparatorChar + "logos");
-
-				theFiles = dir.GetFiles();
-				string destinationFolder;
-
-				if (WebConfigSettings.SiteLogoUseMediaFolder)
-				{
-					destinationFolder = siteFolderPath
-					+ Path.DirectorySeparatorChar + "media"
-					+ Path.DirectorySeparatorChar + "logos"
-					+ Path.DirectorySeparatorChar;
-				}
-				else
-				{
-					destinationFolder = siteFolderPath
-					+ Path.DirectorySeparatorChar + "logos"
-					+ Path.DirectorySeparatorChar;
-				}
-
-				foreach (FileInfo f in theFiles)
-				{
-					if (!File.Exists(destinationFolder + f.Name))
-					{
-						File.Copy(f.FullName, destinationFolder + f.Name);
-					}
-				}
+				
+				copyFiles($"{sourceFilesPath}logos", $"{siteFolderPath}media{pathSep}logos{pathSep}");
+			}
+			else
+			{
+				copyFiles($"{sourceFilesPath}logos", $"{siteFolderPath}logos{pathSep}");
 			}
 
-			if (Directory.Exists(sourceFilesPath + Path.DirectorySeparatorChar + "xml"))
+			if (WebConfigSettings.XmlUseMediaFolder)
 			{
-				dir = new DirectoryInfo(sourceFilesPath + Path.DirectorySeparatorChar + "xml");
-
-				theFiles = dir.GetFiles();
-				string destinationFolder;
-
-				if (WebConfigSettings.XmlUseMediaFolder)
-				{
-					destinationFolder = siteFolderPath
-					+ Path.DirectorySeparatorChar + "media"
-					+ Path.DirectorySeparatorChar + "xml"
-					+ Path.DirectorySeparatorChar;
-				}
-				else
-				{
-					destinationFolder = siteFolderPath
-					+ Path.DirectorySeparatorChar + "xml"
-					+ Path.DirectorySeparatorChar;
-				}
-
-				foreach (FileInfo f in theFiles)
-				{
-					if (!File.Exists(destinationFolder + f.Name))
-					{
-						File.Copy(f.FullName, destinationFolder + f.Name);
-					}
-				}
+				copyFiles($"{sourceFilesPath}xml", $"{siteFolderPath}media{pathSep}xml{pathSep}");
+				copyFiles($"{sourceFilesPath}xsl", $"{siteFolderPath}media{pathSep}xsl{pathSep}");
 			}
-
-			if (Directory.Exists(sourceFilesPath + Path.DirectorySeparatorChar + "xsl"))
+			else
 			{
-				dir = new DirectoryInfo(sourceFilesPath + Path.DirectorySeparatorChar + "xsl");
-
-				theFiles = dir.GetFiles();
-				string destinationFolder;
-
-				if (WebConfigSettings.XmlUseMediaFolder)
-				{
-					destinationFolder = siteFolderPath + Path.DirectorySeparatorChar + "media" + Path.DirectorySeparatorChar + "xsl" + Path.DirectorySeparatorChar;
-				}
-				else
-				{
-					destinationFolder = siteFolderPath + Path.DirectorySeparatorChar + "xsl" + Path.DirectorySeparatorChar;
-				}
-
-				foreach (FileInfo f in theFiles)
-				{
-					if (!File.Exists(destinationFolder + f.Name))
-					{
-						File.Copy(f.FullName, destinationFolder + f.Name);
-					}
-				}
+				copyFiles($"{sourceFilesPath}xml", $"{siteFolderPath}xml{pathSep}");
+				copyFiles($"{sourceFilesPath}xsl", $"{siteFolderPath}xsl{pathSep}");
 			}
-
-			if (Directory.Exists(sourceFilesPath + Path.DirectorySeparatorChar + "htmlfragments"))
+			if (WebConfigSettings.HtmlFragmentUseMediaFolder)
 			{
-				dir = new DirectoryInfo(sourceFilesPath + Path.DirectorySeparatorChar + "htmlfragments");
-
-				theFiles = dir.GetFiles();
-				string destinationFolder;
-
-				if (WebConfigSettings.HtmlFragmentUseMediaFolder)
-				{
-					destinationFolder = siteFolderPath
-					+ Path.DirectorySeparatorChar + "media"
-					+ Path.DirectorySeparatorChar + "htmlfragments"
-					+ Path.DirectorySeparatorChar;
-				}
-				else
-				{
-					destinationFolder = siteFolderPath
-					+ Path.DirectorySeparatorChar + "htmlfragments"
-					+ Path.DirectorySeparatorChar;
-
-				}
-
-				foreach (FileInfo f in theFiles)
-				{
-					if (!File.Exists(destinationFolder + f.Name))
-					{
-						File.Copy(f.FullName, destinationFolder + f.Name);
-					}
-				}
+				copyFiles($"{sourceFilesPath}htmlfragments", $"{siteFolderPath}media{pathSep}htmlfragments{pathSep}");
+			}
+			else
+			{
+				copyFiles($"{sourceFilesPath}htmlfragments", $"{siteFolderPath}htmlfragments{pathSep}");
 			}
 		}
 
@@ -1027,125 +740,50 @@ public sealed class mojoSetup
 		{
 			int siteId = Convert.ToInt32(row["SiteID"]);
 			EnsureAdditionalSiteFolders(siteId);
-
 		}
 	}
 
 	public static void EnsureAdditionalSiteFolders(int siteId)
 	{
-		string siteFolderPath =
-			HttpContext.Current.Server.MapPath(GetApplicationRoot() +
-			"/Data/Sites/" +
-			siteId.ToString(CultureInfo.InvariantCulture) + "/");
+		string siteFolderPath = HttpContext.Current.Server.MapPath(Invariant($"{GetApplicationRoot()}{pathSep}Data{pathSep}Sites{pathSep}{siteId}{pathSep}"));
+		string sourceFilesPath = HttpContext.Current.Server.MapPath($"{GetApplicationRoot()}{pathSep}Data{pathSep}");
 
-		EnsureTemplateImageFolder(siteFolderPath);
-		EnsureUserFilesFolder(siteFolderPath);
+		//EnsureTemplateImageFolder(siteFolderPath);
+		EnsureDirectory($"{siteFolderPath}htmltemplateimages");
+		copyFiles(sourceFilesPath, $"{siteFolderPath}htmltemplateimages{pathSep}");
+		//EnsureUserFilesFolder(siteFolderPath);
+		EnsureDirectory($"{siteFolderPath}userfiles");
 	}
 
-	public static void EnsureTemplateImageFolder(string siteFolderPath)
+	public static bool EnsureSkins(int siteId, bool restore = false, bool copyNew = false)
 	{
-		try
+		if (HttpContext.Current is null)
 		{
-			if (Directory.Exists(siteFolderPath + "htmltemplateimages"))
-			{
-				return;
-			}
-			else
-			{
-				Directory.CreateDirectory(siteFolderPath + "htmltemplateimages");
-			}
-
-			string sourceFilesPath = HttpContext.Current.Server.MapPath(GetApplicationRoot() + "/Data/");
-
-			DirectoryInfo dir;
-			FileInfo[] theFiles;
-
-			if (Directory.Exists(sourceFilesPath + Path.DirectorySeparatorChar + "htmltemplateimages"))
-			{
-				dir = new DirectoryInfo(sourceFilesPath + Path.DirectorySeparatorChar + "htmltemplateimages");
-
-				theFiles = dir.GetFiles();
-				string destinationFolder =
-					siteFolderPath +
-					Path.DirectorySeparatorChar +
-					"htmltemplateimages" +
-					Path.DirectorySeparatorChar;
-
-				foreach (FileInfo f in theFiles)
-				{
-					if (!File.Exists(destinationFolder + f.Name))
-					{
-						File.Copy(f.FullName, destinationFolder + f.Name);
-					}
-				}
-			}
+			return false;
 		}
-		catch (IOException ex)
-		{
-			log.Error("failed to ensure content template image folder or files", ex);
-		}
-	}
 
-	public static void EnsureUserFilesFolder(string siteFolderPath)
-	{
-		if (Directory.Exists(siteFolderPath + "userfiles"))
-		{
-			return;
-		}
-		else
-		{
-			try
-			{
-				Directory.CreateDirectory(siteFolderPath + "userfiles");
-			}
-			catch (IOException ex)
-			{
-				log.Error("failed to ensure user files folder", ex);
-			}
-		}
-	}
-
-	public static void EnsureSkins(int siteId)
-	{
-		if (HttpContext.Current == null) { return; }
-
-		string skinFolderPath = HttpContext.Current.Server.MapPath(GetApplicationRoot() + "/Data/Sites/")
-			+ siteId.ToString(CultureInfo.InvariantCulture)
-			+ Path.DirectorySeparatorChar
-			+ "skins";
-
-		if (!Directory.Exists(skinFolderPath))
-		{
-			CreateOrRestoreSiteSkins(siteId);
-		}
-	}
-
-	public static bool CreateOrRestoreSiteSkins(int siteId)
-	{
-		if (HttpContext.Current == null) { return false; }
-
-		string siteFolderPath = HttpContext.Current.Server.MapPath(GetApplicationRoot() + "/Data/Sites/") + siteId.ToString(CultureInfo.InvariantCulture) + Path.DirectorySeparatorChar;
-		string sourceFilesPath = HttpContext.Current.Server.MapPath(GetApplicationRoot() + "/Data/");
+		string siteFolderPath = Invariant($"{GetApplicationRoot()}{pathSep}Data{pathSep}Sites{pathSep}{siteId}{pathSep}skins");
+		string sourceFilesPath = HttpContext.Current.Server.MapPath($"{GetApplicationRoot()}{pathSep}Data{pathSep}skins");
 		DirectoryInfo dir;
 		DirectoryInfo dirDest;
 
-		if (!Directory.Exists(siteFolderPath + "skins"))
-		{
-			Directory.CreateDirectory(siteFolderPath + "skins");
-		}
+		var opResult = Global.FileSystem.CreateFolder(siteFolderPath);
 
-		if (Directory.Exists(sourceFilesPath + Path.DirectorySeparatorChar + "skins"))
+		if (opResult == OpResult.AlreadyExist && (restore || copyNew))
 		{
-			dirDest = new DirectoryInfo(siteFolderPath + Path.DirectorySeparatorChar + "skins");
-			dir = new DirectoryInfo(sourceFilesPath + Path.DirectorySeparatorChar + "skins");
+			if (Directory.Exists(sourceFilesPath))
+			{
+				dirDest = new DirectoryInfo(siteFolderPath);
+				dir = new DirectoryInfo(sourceFilesPath);
 
-			CopySkinFilesRecursively(dir, dirDest);
+				CopySkinFilesRecursively(dir, dirDest, copyNew);
+			}
 		}
 
 		return true;
 	}
 
-	public static void CopySkinFilesRecursively(DirectoryInfo source, DirectoryInfo target)
+	public static void CopySkinFilesRecursively(DirectoryInfo source, DirectoryInfo target, bool copyNew = false)
 	{
 		if (!source.Name.StartsWith(".")) // Make sure to not copy .git, .svn, .vs, etc, folders from the Data/Sites/skins folder
 		{
@@ -1153,7 +791,18 @@ public sealed class mojoSetup
 			{
 				if (!dir.Name.StartsWith(".")) // Make sure to not copy .git, .svn, .vs, etc, folders from the current skin folder
 				{
-					CopySkinFilesRecursively(dir, target.CreateSubdirectory(dir.Name));
+					// if we're copying new skins we want to check if the dir exists in the target. If it does, we want to 
+					// skip this dir because we only want to copy new skins.
+					if (copyNew)
+					{
+						var targetDirChild = new DirectoryInfo(target.FullName + pathSep + dir.Name);
+						if (targetDirChild.Exists)
+						{
+							continue;
+						}
+					}
+
+					CopySkinFilesRecursively(dir, target.CreateSubdirectory(dir.Name), copyNew);
 				}
 			}
 
@@ -1170,22 +819,28 @@ public sealed class mojoSetup
 
 	public static void CreateDefaultLetterTemplates(Guid siteGuid)
 	{
-		if (HttpContext.Current == null) return;
+		if (HttpContext.Current is null)
+		{
+			return;
+		}
 
 		string pathToTemplates = HttpContext.Current.Server.MapPath("~/Data/emailtemplates");
 
-		if (!Directory.Exists(pathToTemplates)) return;
+		if (!Directory.Exists(pathToTemplates))
+		{
+			return;
+		}
 
-		DirectoryInfo dir = new DirectoryInfo(pathToTemplates);
+		var dir = new DirectoryInfo(pathToTemplates);
 		FileInfo[] templates = dir.GetFiles("*.config");
 		foreach (FileInfo template in templates)
 		{
-			LetterHtmlTemplate emailTemplate = new LetterHtmlTemplate();
-			emailTemplate.SiteGuid = siteGuid;
-			emailTemplate.Title = template.Name.Replace(".config", string.Empty);
-			StreamReader contentStream = template.OpenText();
-			emailTemplate.Html = contentStream.ReadToEnd();
-			contentStream.Close();
+			var emailTemplate = new LetterHtmlTemplate
+			{
+				SiteGuid = siteGuid,
+				Title = template.Name.Replace(".config", string.Empty),
+				Html = template.OpenText().ReadToEnd()
+			};
 			emailTemplate.Save();
 		}
 	}
@@ -1194,52 +849,48 @@ public sealed class mojoSetup
 
 	#region Helper Methods
 
-	public static string GetMessageTemplate(String templateFolder, String templateFile)
+	public static string GetSetupTemplate(string templateFolder, string templateFile)
 	{
-		if (templateFile != null)
+		if (templateFile is not null)
 		{
-			string culture = ConfigurationManager.AppSettings["Culture"];
-			if (culture == null)
-			{
-				culture = "en-US-";
-			}
-
+			string culture = ConfigurationManager.AppSettings["Culture"] ?? "en-US-";
 			string messageFile;
 
-			if (File.Exists(templateFolder + culture + "-" + templateFile))
+			if (File.Exists($"{templateFolder}{culture}-{templateFile}"))
 			{
-				messageFile = templateFolder + culture + "-" + templateFile;
+				messageFile = $"{templateFolder}{culture}-{templateFile}";
 			}
 			else
 			{
-				messageFile = templateFolder + "en-US-" + templateFile;
-
+				messageFile = $"{templateFolder}en-US-{templateFile}";
 			}
 
-			FileInfo file = new FileInfo(messageFile);
-			StreamReader sr = file.OpenText();
-			string message = sr.ReadToEnd();
-			sr.Close();
-			return message;
+			//var file = new FileInfo(messageFile);
+
+			using var reader = new StreamReader(new FileStream(messageFile, FileMode.Open));
+			return reader.ReadToEnd();
+
+			//StreamReader sr = file.OpenText();
+			//string message = file.OpenText().ReadToEnd();
+			//sr.Close();
+			//return message;
 		}
 		else
 		{
-			return String.Empty;
+			return string.Empty;
 		}
 	}
 
-	public static String GetMessageTemplateFolder()
+	public static string GetMessageTemplateFolder()
 	{
-		string result = String.Empty;
+		string result = string.Empty;
 
-		if (HttpContext.Current != null)
+		if (HttpContext.Current is not null)
 		{
-			result = HttpContext.Current.Server.MapPath(GetApplicationRoot()
-				+ "/Data/MessageTemplates") + Path.DirectorySeparatorChar;
+			result = HttpContext.Current.Server.MapPath($"{GetApplicationRoot()}{pathSep}Data{pathSep}MessageTemplates{pathSep}");
 		}
 		return result;
 	}
-
 
 	public static string GetApplicationRoot()
 	{
@@ -1253,7 +904,11 @@ public sealed class mojoSetup
 		}
 	}
 
-	// Returns hostname[:port] to use when constructing the site root URL.
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="protocol"></param>
+	/// <returns>hostname[:port] to use when constructing the site root URL</returns>
 	private static string GetHost(string protocol)
 	{
 		string serverName = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
@@ -1261,9 +916,8 @@ public sealed class mojoSetup
 
 		// Most proxies add an X-Forwarded-Host header which contains the original Host header
 		// including any non-default port.
-
 		string forwardedHosts = HttpContext.Current.Request.Headers["X-Forwarded-Host"];
-		if (forwardedHosts != null)
+		if (forwardedHosts is not null)
 		{
 			// If the request passed thru multiple proxies, they will be separated by commas.
 			// We only care about the first one.
@@ -1274,7 +928,6 @@ public sealed class mojoSetup
 			if (serverAndPort.Length > 1)
 			{
 				serverPort = serverAndPort[1];
-
 			}
 		}
 
@@ -1289,26 +942,23 @@ public sealed class mojoSetup
 		// added to fix issue reported by user running normal on port 80 but ssl on port 472
 		if (protocol == "https" && serverPort == "80")
 		{
-			//string blnMapSSLPort = ConfigurationManager.AppSettings["MapAlternateSSLPort"];
 			if (WebConfigSettings.MapAlternateSSLPort)
 			{
 				string alternatSSLPort = ConfigurationManager.AppSettings["AlternateSSLPort"];
-				if (alternatSSLPort != null)
+				if (alternatSSLPort is not null)
 				{
 					serverPort = alternatSSLPort;
 				}
-
 			}
 		}
 
 		string host = serverName;
 
-		if (serverPort != null)
+		if (serverPort is not null)
 		{
-			//string mapPortSetting = ConfigurationManager.AppSettings["MapAlternatePort"];
 			if (WebConfigSettings.MapAlternatePort)
 			{
-				host += ":" + serverPort;
+				host += $":{serverPort}";
 			}
 		}
 		return host;
@@ -1323,13 +973,12 @@ public sealed class mojoSetup
 		}
 
 		string host = GetHost(protocol);
-		return protocol + "://" + host + GetApplicationRoot();
+		return $"{protocol}://{host}{GetApplicationRoot()}";
 	}
 
 	public static string GetHostName()
 	{
 		string serverName = HttpContext.Current.Request.ServerVariables["SERVER_NAME"].ToLower();
-
 		return serverName;
 	}
 
@@ -1337,14 +986,38 @@ public sealed class mojoSetup
 	{
 		string protocol = "https";
 		string host = GetHost(protocol);
-		return protocol + "://" + host + GetApplicationRoot();
+		return $"{protocol}://{host}{GetApplicationRoot()}";
 	}
 
 	public static string GetVirtualRoot()
 	{
 		string serverName = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
+		return $"/{serverName}{GetApplicationRoot()}";
+	}
 
-		return "/" + serverName + GetApplicationRoot();
+	public static void EnsureDirectory(string path)
+	{
+		if (!Directory.Exists(path))
+		{
+			Directory.CreateDirectory(path);
+		}
+	}
+
+	private static void copyFiles(string source, string dest)
+	{
+		if (Directory.Exists(source))
+		{
+			var dirInfo = new DirectoryInfo(source);
+			var files = dirInfo.GetFiles();
+
+			foreach (FileInfo file in files)
+			{
+				if (!File.Exists(dest + file.Name))
+				{
+					File.Copy(file.FullName, dest + file.Name);
+				}
+			}
+		}
 	}
 	#endregion
 }

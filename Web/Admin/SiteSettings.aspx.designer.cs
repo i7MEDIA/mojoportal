@@ -537,6 +537,15 @@ namespace mojoPortal.Web.AdminUI
 		protected global::mojoPortal.Web.UI.SkinSetting SkinSetting;
 
 		/// <summary>
+		/// btnCopyNewSkins control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.mojoButton btnCopyNewSkins;
+
+		/// <summary>
 		/// btnRestoreSkins control.
 		/// </summary>
 		/// <remarks>

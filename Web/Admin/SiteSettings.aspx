@@ -1,4 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="false" MaintainScrollPositionOnPostback="true" MasterPageFile="~/App_MasterPages/layout.Master" CodeBehind="SiteSettings.aspx.cs" Inherits="mojoPortal.Web.AdminUI.SiteSettingsPage" %>
+
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server"></asp:Content>
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
 	<portalAdmin:AdminDisplaySettings ID="adminDisplaySettings" runat="server" />
@@ -6,7 +7,7 @@
 	<portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs">
 		<asp:HyperLink ID="lnkAdminMenu" runat="server" NavigateUrl="~/Admin/AdminMenu.aspx" CssClass="unselectedcrumb" />
 		<portal:AdminCrumbSeparator ID="litLinkSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
-		<asp:HyperLink ID="lnkSiteList" runat="server" NavigateUrl="~/Admin/AdminMenu.aspx" 
+		<asp:HyperLink ID="lnkSiteList" runat="server" NavigateUrl="~/Admin/AdminMenu.aspx"
 			CssClass="unselectedcrumb" /><portal:AdminCrumbSeparator ID="litLinkSeparator2" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
 		<asp:HyperLink ID="lnkSiteSettings" runat="server" CssClass="selectedcrumb" />
 	</portal:AdminCrumbContainer>
@@ -121,7 +122,8 @@
 										<mp:SiteLabel ID="lblSkin" ForControl="ddSkins" runat="server" CssClass="settinglabel" ConfigKey="SiteSettingsSiteSkinLabel" />
 										<portal:SkinList ID="SkinSetting" runat="server" />
 										<portal:mojoHelpLink runat="server" HelpKey="sitesettingssiteskinhelp" />
-										<portal:mojoButton ID="btnRestoreSkins" runat="server" Visible="false" />
+										<portal:mojoButton ID="btnCopyNewSkins" runat="server" Visible="false" SkinID="WarningButton" />
+										<portal:mojoButton ID="btnRestoreSkins" runat="server" Visible="false" SkinID="DangerButton" />
 									</portal:FormGroupPanel>
 									<portal:FormGroupPanel runat="server">
 										<mp:SiteLabel runat="server" CssClass="settinglabel" ConfigKey="MobileSkin"></mp:SiteLabel>
@@ -181,7 +183,7 @@
 										<portal:mojoHelpLink runat="server" HelpKey="sitesetting-user-editor-help" />
 									</portal:FormGroupPanel>
 								</portal:FormGroupPanel>
-								
+
 							</div>
 
 							<div id="tabSecurity" runat="server">
@@ -264,7 +266,7 @@
 												<mp:SiteLabel runat="server" ForControl="chkAllowPersistentLogin" CssClass="settinglabel" ConfigKey="AllowPersistentLogin" />
 												<asp:CheckBox ID="chkAllowPersistentLogin" runat="server" TabIndex="10" CssClass="forminput" />
 												<portal:mojoHelpLink runat="server" HelpKey="sitesettings-AllowPersistentLogin-help" />
-												<mp:SiteLabel runat="server" CssClass="help-block" ConfigKey="AllowPersistentLoginDescription" UseLabelTag="false"/>
+												<mp:SiteLabel runat="server" CssClass="help-block" ConfigKey="AllowPersistentLoginDescription" UseLabelTag="false" />
 
 											</portal:FormGroupPanel>
 											<portal:FormGroupPanel runat="server">
@@ -360,7 +362,8 @@
 												</portal:FormGroupPanel>
 											</portal:FormGroupPanel>
 										</portal:FormGroupPanel>
-									</div><!--end tab General Security-->
+									</div>
+									<!--end tab General Security-->
 
 									<div id="tabLDAP" runat="server">
 										<portal:FormGroupPanel runat="server" ID="fgpUseLdap">
@@ -387,7 +390,8 @@
 										</portal:FormGroupPanel>
 										<portal:FormGroupPanel runat="server" ID="fgpLdapPort">
 											<mp:SiteLabel ID="lblLdapPort" ForControl="txtLdapPort" CssClass="settinglabel" ConfigKey="SiteSettingsLdapPort"
-												runat="server"></mp:SiteLabel>
+												runat="server">
+											</mp:SiteLabel>
 											<asp:TextBox ID="txtLdapPort" Columns="55" runat="server" TabIndex="10" MaxLength="255" CssClass="forminput smalltextbox"></asp:TextBox>
 											<portal:mojoHelpLink runat="server" HelpKey="sitesettingsldapporthelp" />
 										</portal:FormGroupPanel>
@@ -419,7 +423,8 @@
 											<asp:CheckBox ID="chkAllowEmailLoginWithLdapDbFallback" runat="server" TabIndex="10" CssClass="forminput"></asp:CheckBox>
 											<portal:mojoHelpLink runat="server" HelpKey="sitesetting-AllowEmailLoginWithLdapDbFallback-help" />
 										</portal:FormGroupPanel>
-									</div><!--end tab LDAP-->
+									</div>
+									<!--end tab LDAP-->
 
 									<div id="tabthirdpartyauth" runat="server">
 										<portal:FormGroupPanel runat="server" ID="fgpOpenIDSettings" SkinID="OpenIDSettings">
@@ -449,7 +454,7 @@
 												<asp:HyperLink ID="lnkRpxAdmin" runat="server" Visible="false" />
 												<portal:mojoButton ID="btnSetupRpx" runat="server" />
 											</portal:FormGroupPanel>
-											
+
 										</portal:FormGroupPanel>
 										<portal:FormGroupPanel runat="server" ID="fgpWinLiveID" SkinID="WindowsLiveIDSettings">
 											<asp:Literal ID="litWindowsLiveIDSettingsHeader" runat="server" EnableViewState="false" />
@@ -488,7 +493,8 @@
 											<asp:CheckBox ID="chkDisableDbAuthentication" runat="server" TabIndex="10" CssClass="forminput" />
 											<portal:mojoHelpLink runat="server" HelpKey="sitesettings-DisableDbAuthentication-help" />
 										</portal:FormGroupPanel>
-									</div><!--end tab 3rd party-->
+									</div>
+									<!--end tab 3rd party-->
 
 									<div id="tabAntiSpam">
 										<asp:UpdatePanel ID="updCaptcha" runat="server" UpdateMode="Conditional" RenderMode="Block" EnableViewState="true">
@@ -566,9 +572,12 @@
 												<mp:SiteLabel runat="server" ConfigKey="SiteSettingsForceBadWordCheckingQuickHelp" CssClass="help-block" UseLabelTag="false" />
 											</portal:FormGroupPanel>
 										</portal:FormGroupPanel>
-									</div><!--end tab SPAM-->
-								</div><!-- end Security Tabs Wrapper-->
-							</div><!-- end tab Security -->
+									</div>
+									<!--end tab SPAM-->
+								</div>
+								<!-- end Security Tabs Wrapper-->
+							</div>
+							<!-- end tab Security -->
 							<div id="tabCompanyInfo">
 								<portal:FormGroupPanel runat="server" ID="fgpCompanyInfo" SkinID="SettingsPanel">
 									<asp:Literal ID="litCompanyInfoHeader" runat="server" EnableViewState="false" />
@@ -615,7 +624,8 @@
 										<asp:TextBox ID="txtPublicEmail" runat="server" TabIndex="10" MaxLength="100" CssClass="forminput widetextbox" TextMode="Email" />
 									</portal:FormGroupPanel>
 								</portal:FormGroupPanel>
-							</div><!--end tab Company -->
+							</div>
+							<!--end tab Company -->
 
 							<div id="tabCommerce" runat="server">
 								<portal:FormGroupPanel runat="server" ID="fgpDefaultCountry" SkinID="SettingsPanel">
@@ -674,7 +684,7 @@
 										</portal:FormGroupPanel>
 									</ContentTemplate>
 								</asp:UpdatePanel>
-								<asp:UpdatePanel ID="upFolderNames" UpdateMode="Conditional" runat="server" >
+								<asp:UpdatePanel ID="upFolderNames" UpdateMode="Conditional" runat="server">
 									<ContentTemplate>
 										<portal:FormGroupPanel ID="fgpFolderNames" runat="server" SkinID="FolderNames">
 											<asp:Literal ID="litFolderNamesListHeader" runat="server" EnableViewState="false" />
@@ -734,7 +744,7 @@
 										</ContentTemplate>
 									</asp:UpdatePanel>
 									<%-- This script determines how many items the selects have and sets the size to that many items --%>
-<%--									<script>
+									<%--									<script>
 										(function () {
 											Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(updateSelectsHeight);
 
@@ -753,7 +763,7 @@
 								</portal:FormGroupPanel>
 							</div>
 
-						
+
 
 							<div id="tabApiKeys">
 								<portal:FormGroupPanel runat="server">
@@ -868,7 +878,7 @@
 												<portal:FormGroupPanel runat="server">
 													<mp:SiteLabel runat="server" ForControl="txtSMTPPassword" CssClass="settinglabel" ConfigKey="SMTPPassword" />
 													<asp:TextBox ID="txtSMTPPassword" TextMode="Password" MaxLength="100" Columns="45" runat="server" CssClass="forminput widetextbox" TabIndex="10" />
-												</portal:FormGroupPanel>										
+												</portal:FormGroupPanel>
 											</ContentTemplate>
 										</asp:UpdatePanel>
 										<portal:FormGroupPanel runat="server" ID="fgpSMTPEncoding">
@@ -908,27 +918,27 @@
 									</portal:BasePanel>
 									<script>
 										<!-- 
-										var prm = Sys.WebForms.PageRequestManager.getInstance();
-										prm.add_initializeRequest(InitializeRequest);
-										prm.add_endRequest(EndRequest);
-										var postBackElement;
-										function InitializeRequest(sender, args) {
-											if (prm.get_isInAsyncPostBack()) {
-												args.set_cancel(true);
-											}
-											postBackElement = args.get_postBackElement();
-											if (postBackElement.id == 'btnTestSMTPSettings') {
-												$get('btnTestSMTPSettings').value = 'Attempting to send ...';
-												$get('btnTestSMTPSettings').disabled = true;
-											}
-										}
-										function EndRequest(sender, args) {
-											if (postBackElement.id == 'btnTestSMTPSettings') {
-												$get('btnTestSMTPSettings').value = 'Send Test Message';
-												$get('btnTestSMTPSettings').disabled = false;
-											}
-										}
-										// -->
+	var prm = Sys.WebForms.PageRequestManager.getInstance();
+	prm.add_initializeRequest(InitializeRequest);
+	prm.add_endRequest(EndRequest);
+	var postBackElement;
+	function InitializeRequest(sender, args) {
+		if (prm.get_isInAsyncPostBack()) {
+			args.set_cancel(true);
+		}
+		postBackElement = args.get_postBackElement();
+		if (postBackElement.id == 'btnTestSMTPSettings') {
+			$get('btnTestSMTPSettings').value = 'Attempting to send ...';
+			$get('btnTestSMTPSettings').disabled = true;
+		}
+	}
+	function EndRequest(sender, args) {
+		if (postBackElement.id == 'btnTestSMTPSettings') {
+			$get('btnTestSMTPSettings').value = 'Send Test Message';
+			$get('btnTestSMTPSettings').disabled = false;
+		}
+	}
+	// -->
 									</script>
 								</portal:FormGroupPanel>
 							</div>

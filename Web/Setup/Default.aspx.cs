@@ -536,9 +536,9 @@ public partial class SetupHome : Page
 		WritePageContent(SetupResource.CreatingSiteMessage, true);
 		SiteSettings newSite = mojoSetup.CreateNewSite();
 		mojoSetup.CreateDefaultSiteFolders(newSite.SiteId);
-		mojoSetup.CreateOrRestoreSiteSkins(newSite.SiteId);
+		mojoSetup.EnsureSkins(newSite.SiteId);
 		WritePageContent(SetupResource.CreatingRolesAndAdminUserMessage, true);
-		mojoSetup.CreateRequiredRolesAndAdminUser(newSite);
+		mojoSetup.EnsureRolesAndAdminUser(newSite);
 	}
 
 	private void SetupFeatures(string applicationName)
