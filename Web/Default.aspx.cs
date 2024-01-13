@@ -5,7 +5,6 @@ using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Helpers;
 using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.UI;
@@ -33,7 +32,7 @@ public partial class CmsPage : mojoBasePage
 	protected override void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
-		this.Load += new EventHandler(Page_Load);
+		Load += new EventHandler(Page_Load);
 	}
 
 	void Page_Load(object sender, EventArgs e)
@@ -43,7 +42,7 @@ public partial class CmsPage : mojoBasePage
 		if (CurrentPage == null) return;
 
 		EnforceSecuritySettings();
-		
+
 		bool redirected = RedirectIfNeeded();
 		if (redirected) { return; }
 
@@ -60,8 +59,8 @@ public partial class CmsPage : mojoBasePage
 		{
 			// this is needed to override some hide logic in
 			// layout.Master.cs
-			this.MPContent.Visible = true;
-			this.MPContent.Parent.Visible = true;
+			MPContent.Visible = true;
+			MPContent.Parent.Visible = true;
 		}
 
 		if (CurrentPage.BodyCssClass.Length > 0)
@@ -207,45 +206,45 @@ public partial class CmsPage : mojoBasePage
 			if (module.ControlSource == "Modules/LoginModule.ascx")
 			{
 				LoginModuleDisplaySettings loginSettings = new LoginModuleDisplaySettings();
-				this.MPContent.Controls.Add(loginSettings); ///theme is not applied until its loaded
+				MPContent.Controls.Add(loginSettings); ///theme is not applied until its loaded
 				if ((Request.IsAuthenticated) && (loginSettings.HideWhenAuthenticated)) { continue; }
 			}
 
-			Control parent = this.MPContent;
+			Control parent = MPContent;
 
-			if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "leftpane"))
+			if (module.PaneName.IsCaseInsensitiveMatch("leftpane"))
 			{
-				parent = this.MPLeftPane;
+				parent = MPLeftPane;
 			}
 
-			if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "rightpane"))
+			if (module.PaneName.IsCaseInsensitiveMatch("rightpane"))
 			{
-				parent = this.MPRightPane;
+				parent = MPRightPane;
 			}
 
-			if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent1"))
+			if (module.PaneName.IsCaseInsensitiveMatch("altcontent1"))
 			{
 				if (AltPane1 != null)
 				{
-					parent = this.AltPane1;
+					parent = AltPane1;
 				}
 				else
 				{
 					log.Error("Content is assigned to altcontent1 placeholder but it does not exist in layout.master so using center.");
-					parent = this.MPContent;
+					parent = MPContent;
 				}
 			}
 
-			if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent2"))
+			if (module.PaneName.IsCaseInsensitiveMatch("altcontent2"))
 			{
 				if (AltPane2 != null)
 				{
-					parent = this.AltPane2;
+					parent = AltPane2;
 				}
 				else
 				{
 					log.Error("Content is assigned to altcontent2 placeholder but it does not exist in layout.master so using center.");
-					parent = this.MPContent;
+					parent = MPContent;
 				}
 
 			}
@@ -284,9 +283,8 @@ public partial class CmsPage : mojoBasePage
 					Control c = Page.LoadControl("~/" + module.ControlSource);
 					if (c == null) { continue; }
 
-					if (c is SiteModuleControl)
+					if (c is SiteModuleControl siteModule)
 					{
-						SiteModuleControl siteModule = (SiteModuleControl)c;
 						siteModule.SiteId = siteSettings.SiteId;
 						siteModule.ModuleConfiguration = module;
 
@@ -448,12 +446,12 @@ public partial class CmsPage : mojoBasePage
 		// 2010-01-04 made it possible to add these links directly in layout.master so they can be arranged and styled easier
 		if (Page.Master.FindControl("lnkPageContent") == null)
 		{
-			this.MPPageEdit.Controls.Add(new PageEditFeaturesLink());
+			MPPageEdit.Controls.Add(new PageEditFeaturesLink());
 		}
 
 		if (Page.Master.FindControl("lnkPageSettings") == null)
 		{
-			this.MPPageEdit.Controls.Add(new PageEditSettingsLink());
+			MPPageEdit.Controls.Add(new PageEditSettingsLink());
 		}
 
 		SetupWorkflowControls(forceShowWorkflow);
