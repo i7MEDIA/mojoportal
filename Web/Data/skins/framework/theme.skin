@@ -294,9 +294,6 @@
 <asp:TextBox runat="server" SkinId="regex"
 	CssClass="form-control pwd-regex"
 />
-<mp:WatermarkTextBox runat="server"
-	CssClass="form-control watermarktextbox"
-/>
 <asp:ListBox  runat="server" SkinID="PageTree"
 	CssClass="form-control page-tree"
 />
