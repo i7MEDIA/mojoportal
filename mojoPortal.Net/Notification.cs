@@ -112,9 +112,9 @@ namespace mojoPortal.Net
         //    {
         //        if (notificationInfo.Subscribers.Tables[0].Rows.Count > 0)
         //        {
-        //            int timeoutBetweenMessages = ConfigHelper.GetIntProperty("SmtpTimeoutBetweenMessages", 1000);
+        //            int timeoutBetweenMessages = mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("SmtpTimeoutBetweenMessages", 1000);
         //            // use the same setting as newsletter to throttle the send rate, sending too fast can make you appear as a spammer
-        //            int maxPerMinute = ConfigHelper.GetIntProperty("Forum:NotificationMaxToSendPerMinute", 0);
+        //            int maxPerMinute = mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("Forum:NotificationMaxToSendPerMinute", 0);
 
         //            int sentSoFar = 0;
 
