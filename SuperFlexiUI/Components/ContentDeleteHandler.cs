@@ -26,14 +26,14 @@ namespace SuperFlexiUI
 
             //having field definitions in the database when the fields aren't used by any module is just clutter.
             //we'll delete the field definitions from the database when they aren't used but of course we don't touch the actual field definition XML files.
-            bool deleteOrphanFields = ConfigHelper.GetBoolProperty("SuperFlexi:DeleteFieldDefinitionsWhenNotUsed", true);
+            bool deleteOrphanFields = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("SuperFlexi:DeleteFieldDefinitionsWhenNotUsed", true);
 
             //we didn't implement the delete handler for a year or so after building superflexi so we have a lot of instances in the wild that probably have orphaned items
             //if we upgrade those to this version, create a module instance, and then delete it, these orphaned items will be removed
-            bool deleteOrphanItems = ConfigHelper.GetBoolProperty("SuperFlexi:DeleteOrphanedItemsWhenDeletingModules", true);
+            bool deleteOrphanItems = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("SuperFlexi:DeleteOrphanedItemsWhenDeletingModules", true);
 
             //clean up search definitions 
-            bool deleteOrphanSearchDefinitions = ConfigHelper.GetBoolProperty("SuperFlexi:DeleteOrphanedSearchDefinitions", true);
+            bool deleteOrphanSearchDefinitions = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("SuperFlexi:DeleteOrphanedSearchDefinitions", true);
 
             if ( deleteOrphanFields || deleteOrphanItems || deleteOrphanSearchDefinitions)
             {
