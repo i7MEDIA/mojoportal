@@ -240,9 +240,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HtmlRepository.cs" />
-    <Compile Include="ImageHelper.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="IndexingQueue.cs" />
     <Compile Include="Interfaces\ContentChangedEventArgs.cs" />
     <Compile Include="Interfaces\IIndexableContent.cs" />
@@ -319,6 +316,10 @@
     <Compile Include="WebPartContent.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{fea72210-0415-4133-bdf9-8877683ba832}</Project>
+      <Name>mojoPortal.Core</Name>
+    </ProjectReference>
     <ProjectReference Condition="'$(Configuration)'=='Debug'" Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
       <Project>{6DDFE292-37AA-4A02-B2F0-BA7968A026EF}</Project>
       <Name>mojoPortal.Data.MSSQL</Name>
