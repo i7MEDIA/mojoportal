@@ -1,3 +1,34 @@
+// The use and distribution terms for this software are covered by the 
+// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+// which can be found in the file CPL.TXT at the root of this distribution.
+// By using this software in any fashion, you are agreeing to be bound by 
+// the terms of this license.
+//
+// You must not remove this notice, or any other, from this software.
+// 
+// 
+// 3/13/2005  added handler in Application_BeginRequest 
+// for db404 error which is raised if pageid doesn't exist for siteid	
+// 
+// 6/22/2005  added log4net error logging	
+// 11/30/2005
+// 1/16/2006 JA added VirtualPathProvider
+// 1/29/2006 added Windows Auth support from Haluk Eryuksel
+// 2/4/2006  added mojoSetup 
+// 11/8/2006  added tracking user activity time in Application_EndRequest
+// 12/3/2006 added tracking of session count
+// 1/29/2007 added upgrade check to error handling
+// 2/9/2007 added rethrow unhandled error
+// 3/15/2007 refactor usercount increment
+// 2007/04/26 swap Principal in authenticate request
+// 2007-08-04 removed upgrade logic, its all done in Setup/Default.aspx now
+// 2007-09-20 added option to force a specific culture
+// 2009-06-24 some cleanup
+// 2009-11-20 use config settings for keepalivetask settings
+// 2011-03-14 added logic for .NET 4 to enable memory and excepton monitoring
+// 2011-08-05  refactored end request user activity tracking
+// 2014-07-11 added updated routing for web api and mvc
+// 2019-04-04 SystemInfoCaching
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,6 +45,7 @@ using System.Web.UI;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.FileSystem;
 using mojoPortal.Web.App_Start;
 using mojoPortal.Web.Caching;
 using mojoPortal.Web.Components;
@@ -21,6 +53,7 @@ using mojoPortal.Web.Framework;
 using mojoPortal.Web.Optimization;
 using mojoPortal.Web.Routing;
 using Resources;
+
 //using mojoPortal.Web.ModelBinders;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
@@ -45,6 +78,7 @@ public class Global : HttpApplication
 	public static SkinConfigManager SkinConfigManager { get; private set; }
 	public static SkinConfig SkinConfig { get; private set; }
 	public static Dictionary<string, int> SiteHostMap { get; } = [];
+	public static IFileSystem FileSystem { get; private set; }
 
 	// this changes everytime the app starts and the token is required when calling /Services/FileService.ashx
 	// to help mitigate against xsrf attacks
@@ -279,6 +313,25 @@ public class Global : HttpApplication
 			SkinConfigManager ??= new SkinConfigManager();
 			SkinConfig = SkinConfigManager.GetConfig();
 		}
+
+		#region FileSystem Init
+		if (FileSystem is null)
+		{
+			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+
+			if (p == null)
+			{
+				log.Fatal(string.Format(Resource.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider));
+			}
+
+			FileSystem = p.GetFileSystem();
+
+			if (FileSystem == null)
+			{
+				log.Fatal(string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider));
+			}
+		}
+		#endregion
 	}
 
 	protected void Application_EndRequest(object sender, EventArgs e)
