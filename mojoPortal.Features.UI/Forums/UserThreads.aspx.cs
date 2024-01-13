@@ -42,7 +42,7 @@ namespace mojoPortal.Web.ForumUI
             SiteUtils.AddNoIndexFollowMeta(Page);
             PopulateControls();
 
-            AnalyticsSection = ConfigHelper.GetStringProperty("AnalyticsForumSection", "forums");
+            AnalyticsSection = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("AnalyticsForumSection", "forums");
 
         }
 

@@ -107,12 +107,12 @@ namespace mojoPortal.Web.GalleryUI
 
         public static int MaxFilesToUploadAtOnce
         {
-            get { return ConfigHelper.GetIntProperty("FolderGallery:MaxFilesToUploadAtOnce", 20); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("FolderGallery:MaxFilesToUploadAtOnce", 20); }
         }
 
         public static string BasePathFormat
         {
-            get { return ConfigHelper.GetStringProperty("FolderGallery:BasePathFormat", "~/Data/Sites/{0}/media/FolderGalleries/"); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("FolderGallery:BasePathFormat", "~/Data/Sites/{0}/media/FolderGalleries/"); }
         }
     }
 }

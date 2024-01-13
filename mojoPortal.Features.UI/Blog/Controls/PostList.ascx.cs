@@ -571,7 +571,7 @@ namespace mojoPortal.Web.BlogUI
 
 				if (basePage.AnalyticsSection.Length == 0)
 				{
-					basePage.AnalyticsSection = ConfigHelper.GetStringProperty("AnalyticsBlogSection", "blog");
+					basePage.AnalyticsSection = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("AnalyticsBlogSection", "blog");
 				}
 			}
 

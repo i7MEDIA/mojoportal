@@ -104,7 +104,7 @@ namespace mojoPortal.Web.ForumUI
             PopulateLabels();
 			PopulateControls();
 
-            AnalyticsSection = ConfigHelper.GetStringProperty("AnalyticsForumSection", "forums");
+            AnalyticsSection = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("AnalyticsForumSection", "forums");
 
 
             LoadSideContent(config.ShowLeftContent, config.ShowRightContent);
@@ -184,7 +184,7 @@ namespace mojoPortal.Web.ForumUI
                                 + "&amp;pagenumber=" + (pageNumber - 1).ToInvariantString();
                 }
 
-                if (SiteUtils.IsSecureRequest() && (!CurrentPage.RequireSsl) && (!siteSettings.UseSslOnAllPages))
+                if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest() && (!CurrentPage.RequireSsl) && (!siteSettings.UseSslOnAllPages))
                 {
                     if (WebConfigSettings.ForceHttpForCanonicalUrlsThatDontRequireSsl)
                     {

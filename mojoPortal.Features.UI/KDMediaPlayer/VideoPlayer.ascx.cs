@@ -286,7 +286,7 @@ namespace mojoPortal.MediaPlayerUI
         private void LoadSettings()
         {
             //siteRoot = WebUtils.GetSiteRoot();
-            //if (SiteUtils.IsSecureRequest())
+            //if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest())
             //{
             //    siteRoot = siteRoot.Replace("http:", "https:");
             //}

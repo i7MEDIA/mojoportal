@@ -56,7 +56,7 @@ namespace mojoPortal.Web.BlogUI
             {
                 SiteUtils.ClearSsl();
             }
-            AnalyticsSection = ConfigHelper.GetStringProperty("AnalyticsBlogSection", "blog");
+            AnalyticsSection = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("AnalyticsBlogSection", "blog");
 
             LoadParams();
 

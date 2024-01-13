@@ -1212,12 +1212,12 @@ namespace mojoPortal.Web.BlogUI
 
 		public static bool Create301OnPostRename
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:Create301OnPostRename", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:Create301OnPostRename", true); }
 		}
 
 		public static string BingMapDistanceUnit
 		{
-			get { return ConfigHelper.GetStringProperty("Blog:BingMapDistanceUnit", "VERouteDistanceUnit.Mile"); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("Blog:BingMapDistanceUnit", "VERouteDistanceUnit.Mile"); }
 		}
 
 		/// <summary>
@@ -1225,7 +1225,7 @@ namespace mojoPortal.Web.BlogUI
 		/// </summary>
 		public static bool ShowTopContent
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:ShowTopContent", false); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:ShowTopContent", false); }
 		}
 
 		/// <summary>
@@ -1233,12 +1233,12 @@ namespace mojoPortal.Web.BlogUI
 		/// </summary>
 		public static bool ShowBottomContent
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:ShowBottomContent", false); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:ShowBottomContent", false); }
 		}
 
 		public static bool UseExcerptFromMetawblogAsMetaDescription
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:UseExcerptFromMetawblogAsMetaDescription", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:UseExcerptFromMetawblogAsMetaDescription", true); }
 		}
 
 		/// <summary>
@@ -1246,7 +1246,7 @@ namespace mojoPortal.Web.BlogUI
 		/// </summary>
 		public static int MetaDescriptionMaxLengthToGenerate
 		{
-			get { return ConfigHelper.GetIntProperty("Blog:MetaDescriptionMaxLengthToGenerate", 165); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("Blog:MetaDescriptionMaxLengthToGenerate", 165); }
 		}
 
 		/// <summary>
@@ -1254,7 +1254,7 @@ namespace mojoPortal.Web.BlogUI
 		/// </summary>
 		public static int PostTitleMaxLength
 		{
-			get { return ConfigHelper.GetIntProperty("Blog:PostTitleMaxLength", 255); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("Blog:PostTitleMaxLength", 255); }
 		}
 
 		/// <summary>
@@ -1262,120 +1262,120 @@ namespace mojoPortal.Web.BlogUI
 		/// </summary>
 		public static int NewsMapMaxHoursOld
 		{
-			get { return ConfigHelper.GetIntProperty("Blog:NewsMapMaxHoursOld", 48); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("Blog:NewsMapMaxHoursOld", 48); }
 		}
 
 		public static bool UseRedirectForFeedburner
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:UseRedirectForFeedburner", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:UseRedirectForFeedburner", true); }
 		}
 
 		public static bool IncludeAuthorEmailInFeed
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:IncludeAuthorEmailInFeed", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:IncludeAuthorEmailInFeed", true); }
 		}
 
 		public static bool AllowAttachments
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:AllowAttachments", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:AllowAttachments", true); }
 		}
 
 		public static bool ShowJanrainWidgetForLoginPrompt
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:ShowJanrainWidgetForLoginPrompt", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:ShowJanrainWidgetForLoginPrompt", true); }
 		}
 
 		public static bool UseCategoryFeedurlOnCategoryPage
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:UseCategoryFeedurlOnCategoryPage", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:UseCategoryFeedurlOnCategoryPage", true); }
 		}
 
 		public static int MaxAttachmentsToUploadAtOnce
 		{
-			get { return ConfigHelper.GetIntProperty("Blog:MaxAttachmentsToUploadAtOnce", 15); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("Blog:MaxAttachmentsToUploadAtOnce", 15); }
 		}
 
 		public static bool UseFriendlyUrls(int moduleId)
 		{
 
-			bool globalRule =  ConfigHelper.GetBoolProperty("Blog:UseFriendlyUrls", true);
+			bool globalRule = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:UseFriendlyUrls", true);
 			if (!globalRule) { return false; }
 
-			bool moduleRule = ConfigHelper.GetBoolProperty("Blog:UseFriendlyUrls-" + moduleId.ToInvariantString(), true);
+			bool moduleRule = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:UseFriendlyUrls-" + moduleId.ToInvariantString(), true);
 			return moduleRule;
 
 		}
 
 		public static bool BlogViewSuppressPageMenu
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:BlogViewSuppressPageMenu", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:BlogViewSuppressPageMenu", true); }
 		}
 
 		public static bool EditPostSuppressPageMenu
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:EditPostSuppressPageMenu", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:EditPostSuppressPageMenu", true); }
 		}
 
 		public static bool UseNoIndexFollowMetaOnLists
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:UseNoIndexFollowMetaOnLists", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:UseNoIndexFollowMetaOnLists", true); }
 		}
 
 		public static bool UseHtmlDiff
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:UseHtmlDiff", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:UseHtmlDiff", true); }
 		}
 
 		public static bool UseLegacyCommentSystem
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:UseLegacyCommentSystem", false); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:UseLegacyCommentSystem", false); }
 		}
 
 		public static bool SecurePostsByUser
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:SecurePostsByUser", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:SecurePostsByUser", true); }
 		}
 
 
 		public static bool IncludeInFeedCheckedByDefault
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:IncludeInFeedCheckedByDefault", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:IncludeInFeedCheckedByDefault", true); }
 		}
 
 		public static bool IncludeInSearchIndexCheckedByDefault
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:IncludeInSearchIndexCheckedByDefault", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:IncludeInSearchIndexCheckedByDefault", true); }
 		}
 
 		public static bool ExcludeFromRecentContentCheckedByDefault
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:ExcludeFromRecentContentCheckedByDefault", false); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:ExcludeFromRecentContentCheckedByDefault", false); }
 		}
 
 		public static bool IncludeInSiteMapCheckedByDefault
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:IncludeInSiteMapCheckedByDefault", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:IncludeInSiteMapCheckedByDefault", true); }
 		}
 
 		public static bool IsPublishedCheckedByDefault
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:IsPublishedCheckedByDefault", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:IsPublishedCheckedByDefault", true); }
 		}
 
 		public static bool ShowAuthorNameCheckedByDefault
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:ShowAuthorNameCheckedByDefault", true); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:ShowAuthorNameCheckedByDefault", true); }
 		}
 
 
 		public static bool ShowAuthorAvatarCheckedByDefault
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:ShowAuthorAvatarCheckedByDefault", false); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:ShowAuthorAvatarCheckedByDefault", false); }
 		}
 
 		public static bool ShowAuthorBioCheckedByDefault
 		{
-			get { return ConfigHelper.GetBoolProperty("Blog:ShowAuthorBioCheckedByDefault", false); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:ShowAuthorBioCheckedByDefault", false); }
 		}
 
 		public static List<ContentModule> ContentModules { get; set; }

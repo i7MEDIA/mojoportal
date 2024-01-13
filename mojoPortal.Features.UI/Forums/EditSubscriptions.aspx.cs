@@ -68,7 +68,7 @@ namespace mojoPortal.Web.ForumUI
 
 			PopulateLabels();
 			
-            AnalyticsSection = ConfigHelper.GetStringProperty("AnalyticsForumSection", "forums");
+            AnalyticsSection = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("AnalyticsForumSection", "forums");
 		}
 
 		

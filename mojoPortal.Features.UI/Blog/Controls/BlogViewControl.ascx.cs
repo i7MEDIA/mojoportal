@@ -153,7 +153,7 @@ public partial class BlogViewControl : UserControl, IRefreshAfterPostback, IUpda
 		{
 			expired.Visible = true;
 
-			if (ConfigHelper.GetBoolProperty("Blog:Use410StatusOnExpiredPosts", true))
+			if (mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Blog:Use410StatusOnExpiredPosts", true))
 			{
 				//http://support.google.com/webmasters/bin/answer.py?hl=en&answer=40132
 				// 410 means the resource is gone but once existed

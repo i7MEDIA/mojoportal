@@ -119,7 +119,7 @@ namespace mojoPortal.Web.BlogUI
 
             LoadSideContent(config.ShowLeftContent, config.ShowRightContent);
             LoadAltContent(BlogConfiguration.ShowTopContent, BlogConfiguration.ShowBottomContent);
-            AnalyticsSection = ConfigHelper.GetStringProperty("AnalyticsBlogSection", "blog");
+            AnalyticsSection = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("AnalyticsBlogSection", "blog");
 
 		}
 

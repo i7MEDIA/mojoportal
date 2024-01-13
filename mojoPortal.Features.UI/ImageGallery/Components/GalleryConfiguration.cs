@@ -255,17 +255,17 @@ namespace mojoPortal.Web.GalleryUI
 
         public static bool UseGreybox
         {
-            get { return ConfigHelper.GetBoolProperty("ImageGallery:UseGreybox", false); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("ImageGallery:UseGreybox", false); }
         }
 
         public static bool DeleteImagesWhenModuleIsDeleted
         {
-            get { return ConfigHelper.GetBoolProperty("ImageGallery:DeleteImagesWhenModuleIsDeleted", false); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("ImageGallery:DeleteImagesWhenModuleIsDeleted", false); }
         }
 
         public static int MaxFilesToUploadAtOnce
         {
-            get { return ConfigHelper.GetIntProperty("ImageGallery:MaxFilesToUploadAtOnce", 20); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("ImageGallery:MaxFilesToUploadAtOnce", 20); }
         }
 
     }

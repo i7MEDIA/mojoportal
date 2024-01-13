@@ -333,7 +333,7 @@ namespace PollFeature.UI
             }
             
             showMyPollHistoryLink 
-                = ConfigHelper.GetBoolProperty("PollShowMyPollHistoryButtonSetting_Default", showMyPollHistoryLink);
+                = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("PollShowMyPollHistoryButtonSetting_Default", showMyPollHistoryLink);
 
             showMyPollHistoryLink = WebUtils.ParseBoolFromHashtable(
                 Settings, "PollShowMyPollHistoryButtonSetting", showMyPollHistoryLink);

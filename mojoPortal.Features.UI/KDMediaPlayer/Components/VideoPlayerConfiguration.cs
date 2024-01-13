@@ -106,17 +106,17 @@ namespace mojoPortal.MediaPlayerUI
 
         public static bool EditPageSuppressPageMenu
         {
-            get { return ConfigHelper.GetBoolProperty("KDMediaPlayer:EditSuppressPageMenu", true); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("KDMediaPlayer:EditSuppressPageMenu", true); }
         }
 
         public static bool EnableWarnings
         {
-            get { return ConfigHelper.GetBoolProperty("KDMediaPlayer:EnableWarnings", false); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("KDMediaPlayer:EnableWarnings", false); }
         }
 
         public static bool EnableErrors
         {
-            get { return ConfigHelper.GetBoolProperty("KDMediaPlayer:EnableErrors", true); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("KDMediaPlayer:EnableErrors", true); }
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace mojoPortal.MediaPlayerUI
         /// </summary>
         public static string VideoWindowMode
         {
-            get { return ConfigHelper.GetStringProperty("KDMediaPlayer:VideoWindowMode", "opaque"); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("KDMediaPlayer:VideoWindowMode", "opaque"); }
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace mojoPortal.MediaPlayerUI
         /// </summary>
         public static string VideoPreload
         {
-            get { return ConfigHelper.GetStringProperty("KDMediaPlayer:VideoPreload", "metadata"); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("KDMediaPlayer:VideoPreload", "metadata"); }
         }
     }
 }

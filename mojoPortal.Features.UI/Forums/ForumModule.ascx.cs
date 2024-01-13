@@ -81,7 +81,7 @@ namespace mojoPortal.Web.ForumUI
                     basePage.ScriptConfig.IncludeColorBox = true;
                     if (basePage.AnalyticsSection.Length == 0)
                     {
-                        basePage.AnalyticsSection = ConfigHelper.GetStringProperty("AnalyticsForumSection", "forums");
+                        basePage.AnalyticsSection = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("AnalyticsForumSection", "forums");
                     }
                 }
             }

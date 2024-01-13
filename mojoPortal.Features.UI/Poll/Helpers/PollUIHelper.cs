@@ -24,7 +24,7 @@ namespace PollFeature.UI.Helpers
 		{
 			Unit imgWidth =  Unit.Percentage(option.VotePercentage == null || option.VotePercentage == 0 ? 1 : option.VotePercentage.Value);
 
-			Color color = UIHelper.HexStringToColor(hexColor);
+			Color color = hexColor.HexStringToColor();
 			Label lbl = new Label();
 			lbl.BackColor = color;
 			lbl.Height = Unit.Pixel(10);

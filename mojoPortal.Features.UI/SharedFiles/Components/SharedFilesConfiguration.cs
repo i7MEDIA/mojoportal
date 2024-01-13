@@ -131,27 +131,27 @@ namespace mojoPortal.Web.SharedFilesUI
 
         public static bool TreatPdfAsAttachment
         {
-            get { return ConfigHelper.GetBoolProperty("SharedFiles:TreatPdfAsAttachment", false); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("SharedFiles:TreatPdfAsAttachment", false); }
         }
 
         public static bool DownloadLinksOpenNewWindow
         {
-            get { return ConfigHelper.GetBoolProperty("SharedFiles:DownloadLinksOpenNewWindow", true); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("SharedFiles:DownloadLinksOpenNewWindow", true); }
         }
 
         public static bool DeleteFilesOnModuleDelete
         {
-            get { return ConfigHelper.GetBoolProperty("SharedFiles:DeleteFilesOnModuleDelete", true); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("SharedFiles:DeleteFilesOnModuleDelete", true); }
         }
 
         public static bool DeleteFilesOnSiteDelete
         {
-            get { return ConfigHelper.GetBoolProperty("SharedFiles:DeleteFilesOnSiteDelete", true); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("SharedFiles:DeleteFilesOnSiteDelete", true); }
         }
 
         public static int MaxFilesToUploadAtOnce
         {
-            get { return ConfigHelper.GetIntProperty("SharedFiles:MaxFilesToUploadAtOnce", 10); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("SharedFiles:MaxFilesToUploadAtOnce", 10); }
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace mojoPortal.Web.SharedFilesUI
         /// </summary>
         public static int NonAttachmentDownloadExpireDays
         {
-            get { return ConfigHelper.GetIntProperty("SharedFiles:NonAttachmentDownloadExpireDays", 10); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("SharedFiles:NonAttachmentDownloadExpireDays", 10); }
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace mojoPortal.Web.SharedFilesUI
         /// </summary>
         public static int AttachmentDownloadExpireDays
         {
-            get { return ConfigHelper.GetIntProperty("SharedFiles:AttachmentDownloadExpireDays", 0); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("SharedFiles:AttachmentDownloadExpireDays", 0); }
         }
         
 

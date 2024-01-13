@@ -56,7 +56,7 @@ namespace mojoPortal.Web.FeedUI
 		public bool UseScroller { get; private set; } = false;
 		public static bool UseReadWriteLockForCacheMenagement
 		{
-			get { return ConfigHelper.GetBoolProperty("FeedManager:UseReadWriteLockForCacheMenagement", false); }
+			get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("FeedManager:UseReadWriteLockForCacheMenagement", false); }
 		}
 
 		#endregion Properties

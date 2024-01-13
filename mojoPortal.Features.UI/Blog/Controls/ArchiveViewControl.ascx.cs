@@ -49,19 +49,14 @@ namespace mojoPortal.Web.BlogUI
         protected string SiteRoot = string.Empty;
         protected string ImageSiteRoot = string.Empty;
         private SiteSettings siteSettings = null;
-        protected BlogConfiguration config = new BlogConfiguration();
-        private bool useFriendlyUrls = true;
+		private bool useFriendlyUrls = true;
         protected bool IsEditable = false;
         protected bool AllowComments = false;
 
-        public BlogConfiguration Config
-        {
-            get { return config; }
-            set { config = value; }
-        }
+		public BlogConfiguration Config { get; set; } = new BlogConfiguration();
 
-        #region OnInit
-        override protected void OnInit(EventArgs e)
+		#region OnInit
+		override protected void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(this.Page_Load);
             base.OnInit(e);
@@ -88,7 +83,7 @@ namespace mojoPortal.Web.BlogUI
             
             
             LoadSettings();
-            if (!config.NavigationOnRight)
+            if (!Config.NavigationOnRight)
             {
                 this.divblog.CssClass = "blogcenter-leftnav";
 
@@ -139,7 +134,7 @@ namespace mojoPortal.Web.BlogUI
                
             }
 
-            basePage.LoadSideContent(config.ShowLeftContent, config.ShowRightContent);
+            basePage.LoadSideContent(Config.ShowLeftContent, Config.ShowRightContent);
             basePage.LoadAltContent(BlogConfiguration.ShowTopContent, BlogConfiguration.ShowBottomContent);
 
         }
@@ -173,19 +168,19 @@ namespace mojoPortal.Web.BlogUI
 
             //config = new BlogConfiguration(moduleSettings);
 
-            if (config.DisqusSiteShortName.Length > 0)
+            if (Config.DisqusSiteShortName.Length > 0)
             {
-                DisqusSiteShortName = config.DisqusSiteShortName;
+                DisqusSiteShortName = Config.DisqusSiteShortName;
             }
             else
             {
                 DisqusSiteShortName = siteSettings.DisqusSiteShortName;
             }
 
-            AllowComments = config.AllowComments && !displaySettings.ArchiveViewHideFeedbackLink;
+            AllowComments = Config.AllowComments && !displaySettings.ArchiveViewHideFeedbackLink;
             
 
-            if ((DisqusSiteShortName.Length > 0) && (config.CommentSystem == "disqus")) 
+            if ((DisqusSiteShortName.Length > 0) && (Config.CommentSystem == "disqus")) 
             { 
                 navTop.ShowCommentCount = false;
                 navBottom.ShowCommentCount = false;
@@ -194,26 +189,26 @@ namespace mojoPortal.Web.BlogUI
             navTop.ModuleId = ModuleId;
             navTop.PageId = PageId;
             navTop.IsEditable = IsEditable;
-            navTop.Config = config;
+            navTop.Config = Config;
             navTop.SiteRoot = SiteRoot;
             navTop.ImageSiteRoot = ImageSiteRoot;
 
             navBottom.ModuleId = ModuleId;
             navBottom.PageId = PageId;
             navBottom.IsEditable = IsEditable;
-            navBottom.Config = config;
+            navBottom.Config = Config;
             navBottom.SiteRoot = SiteRoot;
             navBottom.ImageSiteRoot = ImageSiteRoot;
 
             navTop.Visible = false;
 
-            if (config.ShowArchives
-                || config.ShowAddFeedLinks
-                || config.ShowCategories
-                || config.ShowFeedLinks
-                || config.ShowStatistics
-                || (config.UpperSidebar.Length > 0)
-                || (config.LowerSidebar.Length > 0)
+            if (Config.ShowArchives
+                || Config.ShowAddFeedLinks
+                || Config.ShowCategories
+                || Config.ShowFeedLinks
+                || Config.ShowStatistics
+                || (Config.UpperSidebar.Length > 0)
+                || (Config.LowerSidebar.Length > 0)
                 )
             {
                 navTop.Visible = true;
@@ -243,11 +238,11 @@ namespace mojoPortal.Web.BlogUI
         {
             if (timeZone != null)
             {
-                return TimeZoneInfo.ConvertTimeFromUtc(startDate, timeZone).ToString(config.DateTimeFormat);
+                return TimeZoneInfo.ConvertTimeFromUtc(startDate, timeZone).ToString(Config.DateTimeFormat);
 
             }
 
-            return startDate.AddHours(TimeOffset).ToString(config.DateTimeFormat);
+            return startDate.AddHours(TimeOffset).ToString(Config.DateTimeFormat);
 
         }
 
@@ -274,7 +269,7 @@ namespace mojoPortal.Web.BlogUI
                 + "&amp;pageid=" + PageId.ToInvariantString();
 
 
-            if (SiteUtils.IsSecureRequest() && (!basePage.CurrentPage.RequireSsl) && (!siteSettings.UseSslOnAllPages))
+            if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest() && (!basePage.CurrentPage.RequireSsl) && (!siteSettings.UseSslOnAllPages))
             {
                 if (WebConfigSettings.ForceHttpForCanonicalUrlsThatDontRequireSsl)
                 {

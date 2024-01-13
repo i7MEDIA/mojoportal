@@ -137,7 +137,7 @@ namespace mojoPortal.Web.LinksUI
 
         public static bool UseProtocolDropdown
         {
-            get { return ConfigHelper.GetBoolProperty("List:UseProtocolDropdown", false); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("List:UseProtocolDropdown", false); }
         }
 
     }
