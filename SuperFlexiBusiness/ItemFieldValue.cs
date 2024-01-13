@@ -8,31 +8,31 @@ namespace SuperFlexiBusiness
 {
 
 	public class ItemFieldValue
-    {
+	{
 
-        #region Constructors
+		#region Constructors
 
-        public ItemFieldValue()
-        { }
+		public ItemFieldValue()
+		{ }
 
 
-        public ItemFieldValue(Guid valueGuid)
-        {
-            GetValue(valueGuid);
-        }
+		public ItemFieldValue(Guid valueGuid)
+		{
+			GetValue(valueGuid);
+		}
 
 		#endregion
 		#region Private Properties
 		//used to output total number of rows which match a query when using paging
 		private static int _totalRows;
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(ItemFieldValue));
+		private static readonly ILog log = LogManager.GetLogger(typeof(ItemFieldValue));
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        public Guid ValueGuid { get; set; } = Guid.Empty;
+		public Guid ValueGuid { get; set; } = Guid.Empty;
 		public Guid SiteGuid { get; set; } = Guid.Empty;
 		public Guid FeatureGuid { get; set; } = Guid.Empty;
 		public Guid ModuleGuid { get; set; } = Guid.Empty;
@@ -50,94 +50,94 @@ namespace SuperFlexiBusiness
 		/// </summary>
 		/// <param name="valueGuid"> valueGuid </param>
 		private void GetValue(Guid valueGuid)
-        {
-            using (IDataReader reader = DBItemFieldValues.GetOne(valueGuid))
-            {
-                PopulateFromReader(reader);
-            }
+		{
+			using (IDataReader reader = DBItemFieldValues.GetOne(valueGuid))
+			{
+				PopulateFromReader(reader);
+			}
 
-        }
+		}
 
-        private void PopulateFromReader(IDataReader reader)
-        {
-            if (reader.Read())
-            {
-                this.ValueGuid = new Guid(reader["ValueGuid"].ToString());
-                this.SiteGuid = new Guid(reader["SiteGuid"].ToString());
-                this.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
-                this.ModuleGuid = new Guid(reader["ModuleGuid"].ToString());
-                this.ItemGuid = new Guid(reader["ItemGuid"].ToString());
-                this.FieldGuid = new Guid(reader["FieldGuid"].ToString());
-                this.FieldValue = reader["FieldValue"].ToString();
+		private void PopulateFromReader(IDataReader reader)
+		{
+			if (reader.Read())
+			{
+				this.ValueGuid = new Guid(reader["ValueGuid"].ToString());
+				this.SiteGuid = new Guid(reader["SiteGuid"].ToString());
+				this.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
+				this.ModuleGuid = new Guid(reader["ModuleGuid"].ToString());
+				this.ItemGuid = new Guid(reader["ItemGuid"].ToString());
+				this.FieldGuid = new Guid(reader["FieldGuid"].ToString());
+				this.FieldValue = reader["FieldValue"].ToString();
 				this.FieldName = reader["FieldName"].ToString();
 
-            }
+			}
 
-        }
+		}
 
-        /// <summary>
-        /// Persists a new instance of value. Returns true on success.
-        /// </summary>
-        /// <returns></returns>
-        private bool Create()
-        {
-            this.ValueGuid = Guid.NewGuid();
+		/// <summary>
+		/// Persists a new instance of value. Returns true on success.
+		/// </summary>
+		/// <returns></returns>
+		private bool Create()
+		{
+			this.ValueGuid = Guid.NewGuid();
 
-            int rowsAffected = DBItemFieldValues.Create(
-                this.ValueGuid,
-                this.SiteGuid,
-                this.FeatureGuid,
-                this.ModuleGuid,
-                this.ItemGuid,
-                this.FieldGuid,
-                this.FieldValue);
+			int rowsAffected = DBItemFieldValues.Create(
+				this.ValueGuid,
+				this.SiteGuid,
+				this.FeatureGuid,
+				this.ModuleGuid,
+				this.ItemGuid,
+				this.FieldGuid,
+				this.FieldValue);
 
-            return (rowsAffected > 0);
+			return (rowsAffected > 0);
 
-        }
-
-
-        /// <summary>
-        /// Updates this instance of value. Returns true on success.
-        /// </summary>
-        /// <returns>bool</returns>
-        private bool Update()
-        {
-
-            return DBItemFieldValues.Update(
-                this.ValueGuid,
-                this.SiteGuid,
-                this.FeatureGuid,
-                this.ModuleGuid,
-                this.ItemGuid,
-                this.FieldGuid,
-                this.FieldValue);
-
-        }
+		}
 
 
+		/// <summary>
+		/// Updates this instance of value. Returns true on success.
+		/// </summary>
+		/// <returns>bool</returns>
+		private bool Update()
+		{
+
+			return DBItemFieldValues.Update(
+				this.ValueGuid,
+				this.SiteGuid,
+				this.FeatureGuid,
+				this.ModuleGuid,
+				this.ItemGuid,
+				this.FieldGuid,
+				this.FieldValue);
+
+		}
 
 
 
-        #endregion
 
-        #region Public Methods
 
-        /// <summary>
-        /// Saves this instance of value. Returns true on success.
-        /// </summary>
-        /// <returns>bool</returns>
-        public bool Save()
-        {
-            if (this.ValueGuid != Guid.Empty)
-            {
-                return Update();
-            }
-            else
-            {
-                return Create();
-            }
-        }
+		#endregion
+
+		#region Public Methods
+
+		/// <summary>
+		/// Saves this instance of value. Returns true on success.
+		/// </summary>
+		/// <returns>bool</returns>
+		public bool Save()
+		{
+			if (this.ValueGuid != Guid.Empty)
+			{
+				return Update();
+			}
+			else
+			{
+				return Create();
+			}
+		}
 
 		#endregion
 
@@ -149,9 +149,9 @@ namespace SuperFlexiBusiness
 		/// <param name="itemGuid"></param>
 		/// <returns></returns>
 		public static List<ItemFieldValue> GetItemValues(Guid itemGuid)
-        {
-            return LoadListFromReader(DBItemFieldValues.GetByItemGuid(itemGuid));
-        }
+		{
+			return LoadListFromReader(DBItemFieldValues.GetByItemGuid(itemGuid));
+		}
 
 		/// <summary>
 		/// Gets all values for items with ModuleGuid. Returns List<ItemFieldValue>
@@ -179,91 +179,95 @@ namespace SuperFlexiBusiness
 		/// <param name="valueGuid"> valueGuid </param>
 		/// <returns>bool</returns>
 		public static bool Delete(
-            Guid valueGuid)
-        {
-            return DBItemFieldValues.Delete(
-                valueGuid);
-        }
+			Guid valueGuid)
+		{
+			return DBItemFieldValues.Delete(
+				valueGuid);
+		}
 
-        /// <summary>
-        /// Deletes Items by Site. Returns true on success.
-        /// </summary>
-        public static bool DeleteBySite(Guid siteGuid)
-        {
-            return DBItemFieldValues.DeleteBySite(siteGuid);
-        }
+		/// <summary>
+		/// Deletes Items by Site. Returns true on success.
+		/// </summary>
+		public static bool DeleteBySite(Guid siteGuid)
+		{
+			return DBItemFieldValues.DeleteBySite(siteGuid);
+		}
 
-        /// <summary>
-        /// Deletes Items by Module. Returns true on success.
-        /// </summary>
-        /// <param name="moduleGuid"> moduleGuid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByModule(Guid moduleGuid)
-        {
-            return DBItemFieldValues.DeleteByModule(moduleGuid);
-        }
+		/// <summary>
+		/// Deletes Items by Module. Returns true on success.
+		/// </summary>
+		/// <param name="moduleGuid"> moduleGuid </param>
+		/// <returns>bool</returns>
+		public static bool DeleteByModule(Guid moduleGuid)
+		{
+			return DBItemFieldValues.DeleteByModule(moduleGuid);
+		}
 
-        /// <summary>
-        /// Deletes Item Values by FieldGuild. Returns true on success.
-        /// </summary>
-        /// <param name="fieldGuid"></param>
-        /// <returns></returns>
-        public static bool DeleteByField(Guid fieldGuid)
-        {
-            return DBItemFieldValues.DeleteByField(fieldGuid);
-        }
+		/// <summary>
+		/// Deletes Item Values by FieldGuild. Returns true on success.
+		/// </summary>
+		/// <param name="fieldGuid"></param>
+		/// <returns></returns>
+		public static bool DeleteByField(Guid fieldGuid)
+		{
+			return DBItemFieldValues.DeleteByField(fieldGuid);
+		}
 
-        /// <summary>
-        /// Deletes Item Values by ItemGuild. Returns true on success.
-        /// </summary>
-        /// <param name="itemGuid"></param>
-        /// <returns></returns>
-        public static bool DeleteByItem(Guid itemGuid)
-        {
-            return DBItemFieldValues.DeleteByItem(itemGuid);
-        }
+		/// <summary>
+		/// Deletes Item Values by ItemGuild. Returns true on success.
+		/// </summary>
+		/// <param name="itemGuid"></param>
+		/// <returns></returns>
+		public static bool DeleteByItem(Guid itemGuid)
+		{
+			return DBItemFieldValues.DeleteByItem(itemGuid);
+		}
 
-        /// <summary>
-        /// Gets a count of value. 
-        /// </summary>
-        public static int GetCount()
-        {
-            return DBItemFieldValues.GetCount();
-        }
+		/// <summary>
+		/// Gets a count of value. 
+		/// </summary>
+		public static int GetCount()
+		{
+			return DBItemFieldValues.GetCount();
+		}
 
 		private static List<ItemFieldValue> LoadListFromReader(IDataReader reader, bool getTotalRows = false)
-        {
-            List<ItemFieldValue> valueList = new List<ItemFieldValue>();
-            try
-            {
-                while (reader.Read())
-                {
-                    ItemFieldValue value = new ItemFieldValue
-                    {
-                        ValueGuid = new Guid(reader["ValueGuid"].ToString()),
-                        SiteGuid = new Guid(reader["SiteGuid"].ToString()),
-                        FeatureGuid = new Guid(reader["FeatureGuid"].ToString()),
-                        ModuleGuid = new Guid(reader["ModuleGuid"].ToString()),
-                        ItemGuid = new Guid(reader["ItemGuid"].ToString()),
-                        FieldGuid = new Guid(reader["FieldGuid"].ToString()),
-                        FieldValue = reader["FieldValue"].ToString()
-                    };
+		{
+			List<ItemFieldValue> valueList = new List<ItemFieldValue>();
+			try
+			{
+				while (reader.Read())
+				{
+					ItemFieldValue value = new ItemFieldValue
+					{
+						ValueGuid = new Guid(reader["ValueGuid"].ToString()),
+						SiteGuid = new Guid(reader["SiteGuid"].ToString()),
+						FeatureGuid = new Guid(reader["FeatureGuid"].ToString()),
+						ModuleGuid = new Guid(reader["ModuleGuid"].ToString()),
+						ItemGuid = new Guid(reader["ItemGuid"].ToString()),
+						FieldGuid = new Guid(reader["FieldGuid"].ToString()),
+						FieldValue = reader["FieldValue"].ToString()
+					};
 
 
-                    try
+					try
 					{
-                        if (reader["FieldName"] != DBNull.Value)
-                        {
-                            value.FieldName = reader["FieldName"].ToString();
-                        }
-                    }
-                    catch(IndexOutOfRangeException ex)
-					{
-                        log.Debug($"FieldName isn't used here. Might want to fix that.\n{ex}");
+						if (reader["FieldName"] != DBNull.Value)
+						{
+							value.FieldName = reader["FieldName"].ToString();
+						}
 					}
-                    
-					
-                    // Not all methods will use TotalRows but there is no sense in having an extra method to load the reader
+					catch (IndexOutOfRangeException ex)
+					{
+						log.Debug($"FieldName isn't used here. Might want to fix that.\n{ex}");
+					}
+					catch (ArgumentOutOfRangeException ex)
+					{
+						log.Debug($"FieldName isn't used here. Might want to fix that.\n{ex}");
+					}
+
+
+					// Not all methods will use TotalRows but there is no sense in having an extra method to load the reader
 					// so, we'll catch the error and do nothing with it because we are expecting it
 					// the if statement should keep any problems at bay but we still use try/catch in case someone inadvertently 
 					// set getTotalRows = true
@@ -278,21 +282,25 @@ namespace SuperFlexiBusiness
 						}
 						catch (IndexOutOfRangeException ex)
 						{
-                            log.Debug($"TotalRows isn't used by here. This is probably expected.\n{ex}");
-                        }
-                    }
+							log.Debug($"TotalRows isn't used by here. This is probably expected.\n{ex}");
+						}
+						catch (ArgumentOutOfRangeException ex)
+						{
+							log.Debug($"TotalRows isn't used by here. This is probably expected.\n{ex}");
+						}
+					}
 
 					valueList.Add(value);
-                }
-            }
-            finally
-            {
-                reader.Close();
-            }
+				}
+			}
+			finally
+			{
+				reader.Close();
+			}
 
-            return valueList;
+			return valueList;
 
-        }
+		}
 
 		/// <summary>
 		/// Gets a List of ItemFieldValue using an array of ItemID
@@ -309,11 +317,11 @@ namespace SuperFlexiBusiness
 		/// Gets an IList with all instances of value.
 		/// </summary>
 		public static List<ItemFieldValue> GetAll()
-        {
-            IDataReader reader = DBItemFieldValues.GetAll();
-            return LoadListFromReader(reader);
+		{
+			IDataReader reader = DBItemFieldValues.GetAll();
+			return LoadListFromReader(reader);
 
-        }
+		}
 
 
 		public static List<ItemFieldValue> GetPageOfValues(
@@ -364,29 +372,29 @@ namespace SuperFlexiBusiness
 		/// <param name="pageSize">Size of the page.</param>
 		/// <param name="totalPages">total pages</param>
 		public static List<ItemFieldValue> GetPage(int pageNumber, int pageSize, out int totalPages)
-        {
-            totalPages = 1;
-            IDataReader reader = DBItemFieldValues.GetPage(pageNumber, pageSize, out totalPages);
-            return LoadListFromReader(reader);
-        }
+		{
+			totalPages = 1;
+			IDataReader reader = DBItemFieldValues.GetPage(pageNumber, pageSize, out totalPages);
+			return LoadListFromReader(reader);
+		}
 
-        public static List<ItemFieldValue> GetByFieldGuid(Guid fieldGuid)
-        {
-            IDataReader reader = DBItemFieldValues.GetByFieldGuid(fieldGuid);
-            return LoadListFromReader(reader);
-        }
+		public static List<ItemFieldValue> GetByFieldGuid(Guid fieldGuid)
+		{
+			IDataReader reader = DBItemFieldValues.GetByFieldGuid(fieldGuid);
+			return LoadListFromReader(reader);
+		}
 
-        public static List<ItemFieldValue> GetByFieldGuidForModule(Guid fieldGuid, Guid moduleGuid)
-        {
-            IDataReader reader = DBItemFieldValues.GetByGuidForModule(fieldGuid, moduleGuid);
-            return LoadListFromReader(reader);
-        }
+		public static List<ItemFieldValue> GetByFieldGuidForModule(Guid fieldGuid, Guid moduleGuid)
+		{
+			IDataReader reader = DBItemFieldValues.GetByGuidForModule(fieldGuid, moduleGuid);
+			return LoadListFromReader(reader);
+		}
 
-        public static List<ItemFieldValue> GetByFieldGuidForModule(Guid fieldGuid, int moduleId)
-        {
-            IDataReader reader = DBItemFieldValues.GetByGuidForModule(fieldGuid, moduleId);
-            return LoadListFromReader(reader);
-        }
+		public static List<ItemFieldValue> GetByFieldGuidForModule(Guid fieldGuid, int moduleId)
+		{
+			IDataReader reader = DBItemFieldValues.GetByGuidForModule(fieldGuid, moduleId);
+			return LoadListFromReader(reader);
+		}
 
 		public static List<ItemFieldValue> GetByFieldGuidForDefinition(Guid fieldGuid)
 		{
@@ -402,16 +410,16 @@ namespace SuperFlexiBusiness
 		/// Compares 2 instances of value.
 		/// </summary>
 		public static int CompareByFieldValue(ItemFieldValue value1, ItemFieldValue value2)
-        {
-            return value1.FieldValue.CompareTo(value2.FieldValue);
-        }
+		{
+			return value1.FieldValue.CompareTo(value2.FieldValue);
+		}
 
-        #endregion
-
-
+		#endregion
 
 
-    }
+
+
+	}
 
 }
 

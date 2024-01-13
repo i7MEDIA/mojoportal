@@ -1066,10 +1066,11 @@ public partial class EditItems : NonCmsBasePage
 			//var opt = option.SplitOnCharAndTrim('|');
 			var opt = option.Split(['|', '^']).Select(x => x.Trim()).ToList();
 
-			if (string.IsNullOrWhiteSpace(opt[1]))
+			if (opt.Count < 2)
 				{
 				//no value so we set the value equal to the name
-				opt[1] = opt[0];
+				opt.Add(opt[0]);
+				//opt[1] = opt[0];
 				}
 
 			var item = new ListItem
