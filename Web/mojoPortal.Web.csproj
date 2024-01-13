@@ -987,6 +987,7 @@
       <DependentUpon>closed.aspx</DependentUpon>
     </Compile>
     <Compile Include="Components\BundleConfig.cs" />
+    <Compile Include="Components\GlobalUsings.cs" />
     <Compile Include="Components\ICustomField.cs" />
     <Compile Include="Components\MenuItem.cs" />
     <Compile Include="Components\mojoViewEngine.cs" />
@@ -2022,8 +2023,6 @@
     <Compile Include="Controls\mojoUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\MyPageLink.cs">
-    </Compile>
     <Compile Include="Controls\NeatUploadStylesheet.ascx.cs">
       <DependentUpon>NeatUploadStylesheet.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2183,7 +2182,6 @@
     <Compile Include="Controls\TimeZoneSetting.ascx.designer.cs">
       <DependentUpon>TimeZoneSetting.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TwitterWidget.cs" />
     <Compile Include="Controls\UpdateProgressSpan.cs" />
     <Compile Include="Controls\UserCommerceHistory.ascx.cs">
       <DependentUpon>UserCommerceHistory.ascx</DependentUpon>
@@ -2710,9 +2708,6 @@
     <Compile Include="Services\HtmlTemplates.ashx.cs">
       <DependentUpon>HtmlTemplates.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Services\jqueryFileTreeMediaBrowser.ashx.cs">
-      <DependentUpon>jqueryFileTreeMediaBrowser.ashx</DependentUpon>
-    </Compile>
     <Compile Include="Services\MathMLHandler.ashx.cs">
       <DependentUpon>MathMLHandler.ashx</DependentUpon>
     </Compile>
@@ -2912,7 +2907,6 @@
     <Content Include="Services\TaskProgress.ashx" />
     <Content Include="Services\CKeditorStyles.ashx" />
     <Content Include="Services\CKeditorTemplates.ashx" />
-    <Content Include="Services\jqueryFileTreeMediaBrowser.ashx" />
     <Content Include="Services\TinyMceTemplates.ashx" />
     <Content Include="robots.ashx" />
     <Content Include="SearchResults.ashx" />

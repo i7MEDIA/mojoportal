@@ -294,6 +294,7 @@
     </Compile>
     <Compile Include="Components\ClassBuilder.cs" />
     <Compile Include="Components\ContentDeleteHandler.cs" />
+    <Compile Include="Components\GlobalUsings.cs" />
     <Compile Include="Components\PopulatedItem.cs" />
     <Compile Include="Components\RouteRegistrar.cs" />
     <Compile Include="Components\SuperFlexiBase.cs" />

@@ -663,6 +663,7 @@
     <Compile Include="Comments\CommentsModule.ascx.designer.cs">
       <DependentUpon>CommentsModule.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Components\GlobalUsings.cs" />
     <Compile Include="ContactForm\Components\ContactFormConfiguration.cs" />
     <Compile Include="ContactForm\Components\ContactFormContentDeleteHandler.cs" />
     <Compile Include="ContactForm\Components\SitePreDeleteContactFormHandler.cs" />

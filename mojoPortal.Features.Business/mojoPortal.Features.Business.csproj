@@ -125,6 +125,7 @@
     <Compile Include="Forums\ForumThread.cs" />
     <Compile Include="Forums\ForumThreadMovedArgs.cs" />
     <Compile Include="Forums\RSSForum.cs" />
+    <Compile Include="GlobalUsings.cs" />
     <Compile Include="ImageGallery\Gallery.cs" />
     <Compile Include="ImageGallery\GalleryImage.cs" />
     <Compile Include="KDMediaPlayer\MediaFile.cs" />
