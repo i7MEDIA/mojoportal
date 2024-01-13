@@ -129,7 +129,6 @@
     <Compile Include="BrowserHelper.cs" />
     <Compile Include="CombineScripts.cs" />
     <Compile Include="Compressor.cs" />
-    <Compile Include="ConfigHelper.cs" />
     <Compile Include="CookieHelper.cs" />
     <Compile Include="Crypto\CryptoHelper.cs" />
     <Compile Include="Crypto\mojoEncryptionConfiguration.cs" />
@@ -154,10 +153,8 @@
     <Compile Include="ServicePinger.cs" />
     <Compile Include="SpamPreventionQuestion.cs" />
     <Compile Include="StatisticsHelper.cs" />
-    <Compile Include="StringHelper.cs" />
     <Compile Include="UIHelper.cs" />
     <Compile Include="WebUtils.cs" />
-    <Compile Include="XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

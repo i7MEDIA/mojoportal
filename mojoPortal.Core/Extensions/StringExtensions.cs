@@ -10,24 +10,31 @@ namespace mojoPortal.Core.Extensions;
 
 public static class StringExtensions
 {
-	public static string ToInvariantString(this int i)
+	public static string ToInvariantString(this int i, string format = null)
 	{
-		return i.ToString(CultureInfo.InvariantCulture);
+		if (format is null)
+		{
+			return i.ToString(CultureInfo.InvariantCulture);
+		}
+		return i.ToString(format, CultureInfo.InvariantCulture);
 	}
 
-	public static string ToInvariantString(this float i)
+	public static string ToInvariantString(this float i, string format = null)
 	{
-		return i.ToString(CultureInfo.InvariantCulture);
+		if (format is null)
+		{
+			return i.ToString(CultureInfo.InvariantCulture);
+		}
+		return i.ToString(format, CultureInfo.InvariantCulture);
 	}
 
-	public static string ToInvariantString(this decimal i)
+	public static string ToInvariantString(this decimal i, string format = null)
 	{
-		return GetInvariantString(i);
-	}
-
-	public static string GetInvariantString(decimal i)
-	{
-		return i.ToString(CultureInfo.InvariantCulture);
+		if (format is null)
+		{
+			return i.ToString(CultureInfo.InvariantCulture);
+		}
+		return i.ToString(format, CultureInfo.InvariantCulture);
 	}
 
 	public static bool ContainsCaseInsensitive(this string source, string value)
@@ -40,60 +47,6 @@ public static class StringExtensions
 	{
 		return string.Equals(str1, str2, StringComparison.InvariantCultureIgnoreCase);
 
-	}
-	/// <summary>
-	/// Encodes a string to be represented as a string literal. The format
-	/// is essentially a JSON string.
-	/// 
-	/// The string returned includes outer quotes 
-	/// Example Output: "Hello \"Rick\"!\r\nRock on"
-	/// </summary>
-	/// <param name="s"></param>
-	/// <returns></returns>
-	public static string JsonEscape(this string s)
-	{
-		var sb = new StringBuilder();
-		//sb.Append("\"");
-		foreach (char c in s)
-		{
-			switch (c)
-			{
-				case '\"':
-					sb.Append("\\\"");
-					break;
-				case '\\':
-					sb.Append("\\\\");
-					break;
-				case '\b':
-					sb.Append("\\b");
-					break;
-				case '\f':
-					sb.Append("\\f");
-					break;
-				case '\n':
-					sb.Append("\\n");
-					break;
-				case '\r':
-					sb.Append("\\r");
-					break;
-				case '\t':
-					sb.Append("\\t");
-					break;
-				default:
-					int i = (int)c;
-					if (i < 32 || i > 127)
-					{
-						sb.AppendFormat("\\u{0:X04}", i);
-					}
-					else
-					{
-						sb.Append(c);
-					}
-					break;
-			}
-		}
-
-		return sb.ToString();
 	}
 
 	public static string ToSerialDate(this string s)
@@ -193,7 +146,7 @@ public static class StringExtensions
 		//http://www.mojoportal.com/Forums/Thread.aspx?thread=9176&mid=34&pageid=5&ItemID=9&pagenumber=1#post38114
 
 		int len = s.Length;
-		StringBuilder sb = new StringBuilder(len);
+		var sb = new StringBuilder(len);
 		char c;
 
 		for (int i = 0; i < len; i++)
