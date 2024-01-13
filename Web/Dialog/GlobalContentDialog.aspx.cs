@@ -2,6 +2,7 @@
 using System.Data;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
+using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 using Resources;
 

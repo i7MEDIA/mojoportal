@@ -52,7 +52,7 @@ namespace mojoPortal.Web.UI
         {
             base.OnLoad(e);
 
-            if (SiteUtils.IsSecureRequest()) { protocol = "https"; }
+            if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest()) { protocol = "https"; }
         }
 
         protected override void OnPreRender(EventArgs e)

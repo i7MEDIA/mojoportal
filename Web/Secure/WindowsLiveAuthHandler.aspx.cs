@@ -6,6 +6,7 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.UserSignInHandlers;
+using mojoPortal.Core.Extensions;
 using mojoPortal.Net;
 using mojoPortal.Web.Framework;
 using ConsentToken = mojoPortal.Web.WindowsLiveLogin.ConsentToken;

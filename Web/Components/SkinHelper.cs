@@ -22,6 +22,7 @@ using Ionic.Zip;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Controls.Editors;
 using mojoPortal.Web.Framework;
 using Newtonsoft.Json;
@@ -34,7 +35,7 @@ namespace mojoPortal.Web.Components
 		{
 
 			debug = WebConfigSettings.DebugSkinImporter;
-			allowedExtensions = StringHelper.SplitOnPipes(WebConfigSettings.AllowedSkinFileExtensions);
+			allowedExtensions = WebConfigSettings.AllowedSkinFileExtensions.SplitOnPipes();
 		}
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(SkinHelper));

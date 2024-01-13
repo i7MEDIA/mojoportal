@@ -40,7 +40,7 @@ namespace mojoPortal.SearchIndex
             PageSettings pageSettings,
             string indexPath)
         {
-            bool disableSearchIndex = ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
+            bool disableSearchIndex = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
             if (disableSearchIndex) { return; }
 
             if (pageSettings == null)
@@ -161,7 +161,7 @@ namespace mojoPortal.SearchIndex
             object sender,
             ContentChangedEventArgs e)
         {
-            bool disableSearchIndex = ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
+            bool disableSearchIndex = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
             if (disableSearchIndex) { return; }
 
             if (sender == null) return;
@@ -203,7 +203,7 @@ namespace mojoPortal.SearchIndex
 
         private static void IndexItem(object o)
         {
-            bool disableSearchIndex = ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
+            bool disableSearchIndex = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
             if (disableSearchIndex) { return; }
 
             if (o == null) return;
@@ -216,7 +216,7 @@ namespace mojoPortal.SearchIndex
 
         private static void IndexItem(HtmlContent content)
         {
-            bool disableSearchIndex = ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
+            bool disableSearchIndex = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
             if (disableSearchIndex) { return; }
 
             Module module = new Module(content.ModuleId);

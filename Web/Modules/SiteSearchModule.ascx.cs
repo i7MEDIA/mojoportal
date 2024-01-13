@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
+using mojoPortal.Core.Extensions;
 using mojoPortal.SearchIndex;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;

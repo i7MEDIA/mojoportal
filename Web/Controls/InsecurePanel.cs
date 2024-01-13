@@ -37,7 +37,7 @@ namespace mojoPortal.Web.UI
             if (HttpContext.Current == null) { return; }
 
 
-            if (SiteUtils.IsSecureRequest())
+            if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest())
             {
                 if (!showIfSsl)
                 {

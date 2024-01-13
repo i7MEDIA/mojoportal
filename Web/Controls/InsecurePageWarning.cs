@@ -12,7 +12,7 @@ namespace mojoPortal.Web.UI
             base.OnPreRender(e);
 
 
-            if (SiteUtils.IsSecureRequest())
+            if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest())
             {
                 this.Visible = false;
                 return;

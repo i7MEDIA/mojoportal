@@ -366,4 +366,22 @@ You can get more information or download npgsql from here: http://npgsql.project
   <data name="TryingToCreateDatabase" xml:space="preserve">
     <value>Trying To Create Database</value>
   </data>
+  <data name="RoleNameAuthenticated" xml:space="preserve">
+    <value>Authenticated Users</value>
+  </data>
+  <data name="RoleNameContentAdministrators" xml:space="preserve">
+    <value>Content Administrators</value>
+  </data>
+  <data name="RoleNameContentAuthors" xml:space="preserve">
+    <value>Content Authors</value>
+  </data>
+  <data name="RoleNameContentPublishers" xml:space="preserve">
+    <value>Content Publishers</value>
+  </data>
+  <data name="RoleNameNewsletterAdministrators" xml:space="preserve">
+    <value>Newsletter Administrators</value>
+  </data>
+  <data name="RoleNameRoleAdministrators" xml:space="preserve">
+    <value>Role Administrators</value>
+  </data>
 </root>

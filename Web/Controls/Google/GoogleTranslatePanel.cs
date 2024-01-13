@@ -113,7 +113,7 @@ namespace mojoPortal.Web.UI
 			}
 
 			// don't pass secure content to the translater
-			if (!allowSecurePageTranslation && SiteUtils.IsSecureRequest())
+			if (!allowSecurePageTranslation && mojoPortal.Core.Helpers.WebHelper.IsSecureRequest())
 			{
 				Visible = false;
 			}

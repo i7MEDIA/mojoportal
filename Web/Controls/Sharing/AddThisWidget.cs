@@ -153,7 +153,7 @@ namespace mojoPortal.Web.UI
             }
             analyticsId = siteSettings.GoogleAnalyticsAccountCode;
 
-            if (SiteUtils.IsSecureRequest()) 
+            if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest()) 
             { 
                 //protocol = "https";
                 if (!renderOnSecurePages) { Visible = false; }

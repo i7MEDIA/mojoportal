@@ -309,7 +309,7 @@ namespace mojoPortal.Web.ContentUI
 
         public static bool UseHtmlDiff
         {
-            get { return ConfigHelper.GetBoolProperty("HtmlContent:UseHtmlDiff", true); }
+            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("HtmlContent:UseHtmlDiff", true); }
         }
 
 

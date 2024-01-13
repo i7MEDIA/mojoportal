@@ -234,7 +234,7 @@ namespace mojoPortal.Web.UI
                 script.ToString(),
                 false);
 
-            //if (SiteUtils.IsSecureRequest())
+            //if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest())
             //{
             //    Page.ClientScript.RegisterStartupScript(typeof(Page),
             //            "rpxmain", "\n<script  src=\"https://rpxnow.com/js/lib/" + realm + "/engage.js\" type=\"text/javascript\" ></script>");

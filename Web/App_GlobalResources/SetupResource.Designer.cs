@@ -610,6 +610,60 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Authenticated Users.
+        /// </summary>
+        internal static string RoleNameAuthenticated {
+            get {
+                return ResourceManager.GetString("RoleNameAuthenticated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content Administrators.
+        /// </summary>
+        internal static string RoleNameContentAdministrators {
+            get {
+                return ResourceManager.GetString("RoleNameContentAdministrators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content Authors.
+        /// </summary>
+        internal static string RoleNameContentAuthors {
+            get {
+                return ResourceManager.GetString("RoleNameContentAuthors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content Publishers.
+        /// </summary>
+        internal static string RoleNameContentPublishers {
+            get {
+                return ResourceManager.GetString("RoleNameContentPublishers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Newsletter Administrators.
+        /// </summary>
+        internal static string RoleNameNewsletterAdministrators {
+            get {
+                return ResourceManager.GetString("RoleNameNewsletterAdministrators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role Administrators.
+        /// </summary>
+        internal static string RoleNameRoleAdministrators {
+            get {
+                return ResourceManager.GetString("RoleNameRoleAdministrators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Running script {0} - {1}.
         /// </summary>
         internal static string RunningScriptMessage {

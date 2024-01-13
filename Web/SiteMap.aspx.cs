@@ -4,11 +4,11 @@ using System.Web;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 using Resources;
 
 namespace mojoPortal.Web.UI.Pages;
-
 
 public partial class SiteMapPage : NonCmsBasePage
 {
@@ -92,7 +92,7 @@ public partial class SiteMapPage : NonCmsBasePage
 			insecureSiteRoot = secureSiteRoot.Replace("https", "http");
 		}
 
-		isSecureRequest = SiteUtils.IsSecureRequest();
+		isSecureRequest = mojoPortal.Core.Helpers.WebHelper.IsSecureRequest();
 		isMobileSkin = SiteUtils.UseMobileSkin();
 		isAdmin = WebUser.IsAdmin;
 		if (!isAdmin) { isContentAdmin = WebUser.IsContentAdmin; }

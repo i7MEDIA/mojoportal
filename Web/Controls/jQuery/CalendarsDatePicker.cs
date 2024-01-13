@@ -76,7 +76,7 @@ namespace mojoPortal.Web.UI
             if (CssClass.Length == 0) { CssClass = "normaltextbox forminput datepicker"; }
 
 
-            //if (SiteUtils.IsSecureRequest()) { protocol = "https"; }
+            //if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest()) { protocol = "https"; }
 
             if (AutoLocalize)
             {

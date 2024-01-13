@@ -1,5 +1,4 @@
-﻿using Resources;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -11,9 +10,11 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
 using mojoPortal.Business.WebHelpers.UserSignInHandlers;
+using mojoPortal.Core.Extensions;
 using mojoPortal.Net;
 using mojoPortal.Web.Configuration;
 using mojoPortal.Web.Framework;
+using Resources;
 
 namespace mojoPortal.Web.UI;
 
@@ -336,7 +337,7 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 
 		if (returnUrl.Length > 0)
 		{
-			if (SiteUtils.IsSecureRequest())
+			if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest())
 			{
 				if (returnUrl.StartsWith("http:"))
 				{
@@ -349,7 +350,7 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 
 		}
 
-		if (SiteUtils.IsSecureRequest())
+		if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest())
 		{
 			if (SiteRoot.StartsWith("http:"))
 			{

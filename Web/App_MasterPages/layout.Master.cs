@@ -283,27 +283,27 @@ public class layout : MasterPage
 
 				if (ModuleIsVisible(module))
 				{
-					if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "leftpane"))
+					if (module.PaneName.IsCaseInsensitiveMatch("leftpane"))
 					{
 						leftModuleCount++;
 					}
 
-					if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "rightpane"))
+					if (module.PaneName.IsCaseInsensitiveMatch("rightpane"))
 					{
 						rightModuleCount++;
 					}
 
-					if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "contentpane"))
+					if (module.PaneName.IsCaseInsensitiveMatch("contentpane"))
 					{
 						centerModuleCount++;
 					}
 
-					if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent1"))
+					if (module.PaneName.IsCaseInsensitiveMatch("altcontent1"))
 					{
 						alt1ModuleCount++;
 					}
 
-					if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent2"))
+					if (module.PaneName.IsCaseInsensitiveMatch("altcontent2"))
 					{
 						alt2ModuleCount++;
 					}

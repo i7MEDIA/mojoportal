@@ -2986,11 +2986,38 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy/Restore Skins From Catalog.
+        ///   Looks up a localized string similar to Copy New Skins.
+        /// </summary>
+        internal static string CopyNewSkinsButton {
+            get {
+                return ResourceManager.GetString("CopyNewSkinsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copies skins from local catalog which do not exist in this site..
+        /// </summary>
+        internal static string CopyNewSkinsButtonToolTip {
+            get {
+                return ResourceManager.GetString("CopyNewSkinsButtonToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore Skins.
         /// </summary>
         internal static string CopyRestoreSkinsButton {
             get {
                 return ResourceManager.GetString("CopyRestoreSkinsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore skins from local catalog, overwriting local skins..
+        /// </summary>
+        internal static string CopyRestoreSkinsButtonToolTip {
+            get {
+                return ResourceManager.GetString("CopyRestoreSkinsButtonToolTip", resourceCulture);
             }
         }
         

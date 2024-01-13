@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Drawing.Printing;
 using System.Web;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.UI;
@@ -41,14 +41,14 @@ public class MenuList : List<mojoMenuItem>
 
 		isAdmin = WebUser.IsAdmin;
 
-		if (!isAdmin) 
-		{ 
-			isContentAdmin = WebUser.IsContentAdmin; 
+		if (!isAdmin)
+		{
+			isContentAdmin = WebUser.IsContentAdmin;
 		}
-		
-		if (!isAdmin && !isContentAdmin) 
-		{ 
-			isSiteEditor = SiteUtils.UserIsSiteEditor(); 
+
+		if (!isAdmin && !isContentAdmin)
+		{
+			isSiteEditor = SiteUtils.UserIsSiteEditor();
 		}
 
 		siteMapDataSource = new SiteMapDataSource
@@ -115,52 +115,52 @@ public class MenuList : List<mojoMenuItem>
 
 		if (mapNode.Roles == null)
 		{
-			if (!isAdmin && !isContentAdmin && !isSiteEditor) 
+			if (!isAdmin && !isContentAdmin && !isSiteEditor)
 			{
-				remove = true; 
+				remove = true;
 			}
 		}
 		else
 		{
-			if (!isAdmin 
-				&& mapNode.Roles.Count == 1 
-				&& mapNode.Roles[0].ToString() == "Admins") 
-			{ 
-				remove = true; 
+			if (!isAdmin
+				&& mapNode.Roles.Count == 1
+				&& mapNode.Roles[0].ToString() == "Admins")
+			{
+				remove = true;
 			}
 
-			if (!isAdmin 
-				&& !isContentAdmin 
+			if (!isAdmin
+				&& !isContentAdmin
 				&& !isSiteEditor
 				&& !WebUser.IsInRoles(mapNode.Roles))
-			{ 
-				remove = true; 
+			{
+				remove = true;
 			}
 		}
 
 		if (!isAdmin
 			&& !isContentAdmin
-			&& !isSiteEditor 
-			&& !WebUser.IsInRoles(mapNode.ViewRoles)) 
-		{ 
-			remove = true; 
+			&& !isSiteEditor
+			&& !WebUser.IsInRoles(mapNode.ViewRoles))
+		{
+			remove = true;
 		}
 
-		if (!mapNode.IncludeInMenu) 
-		{ 
-			remove = true; 
+		if (!mapNode.IncludeInMenu)
+		{
+			remove = true;
 		}
 
-		if (mapNode.IsPending 
-			&& !WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor) 
-		{ 
-			remove = true; 
+		if (mapNode.IsPending
+			&& !WebUser.IsAdminOrContentAdminOrContentPublisherOrContentAuthor)
+		{
+			remove = true;
 		}
 
-		if (mapNode.HideAfterLogin 
-			&& WebUser.IsInRole("Authenticated")) 
-		{ 
-			remove = true; 
+		if (mapNode.HideAfterLogin
+			&& WebUser.IsInRole("Authenticated"))
+		{
+			remove = true;
 		}
 
 		return !remove;

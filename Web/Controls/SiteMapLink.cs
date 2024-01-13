@@ -81,7 +81,7 @@ namespace mojoPortal.Web.UI
             string urlToUse = SiteUtils.GetRelativeNavigationSiteRoot() + "/SiteMap.aspx";
             if (CssClass.Length == 0) CssClass = "sitelink";
 
-            //if (SiteUtils.IsSecureRequest())
+            //if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest())
             //{
             //    SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
             //    if ((siteSettings != null) && (!siteSettings.UseSslOnAllPages))

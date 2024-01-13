@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Drawing;
 using mojoPortal.Business;
+using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 using Resources;
 using ZedGraph;

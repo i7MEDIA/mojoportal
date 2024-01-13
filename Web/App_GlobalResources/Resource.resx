@@ -3507,9 +3507,6 @@
   <data name="PlainTextTab" xml:space="preserve">
     <value>Plain Text</value>
   </data>
-  <data name="CopyRestoreSkinsButton" xml:space="preserve">
-    <value>Copy/Restore Skins From Catalog</value>
-  </data>
   <data name="ColorPickerBlueIndicator" xml:space="preserve">
     <value>B</value>
   </data>
@@ -6741,5 +6738,17 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="FeatureDisabledDueToSearchIndexDisabled" xml:space="preserve">
     <value>This feature is disabled because it depends on the search index which is also disabled.</value>
+  </data>
+  <data name="CopyNewSkinsButton" xml:space="preserve">
+    <value>Copy New Skins</value>
+  </data>
+  <data name="CopyNewSkinsButtonToolTip" xml:space="preserve">
+    <value>Copies skins from local catalog which do not exist in this site.</value>
+  </data>
+  <data name="CopyRestoreSkinsButton" xml:space="preserve">
+    <value>Restore Skins</value>
+  </data>
+  <data name="CopyRestoreSkinsButtonToolTip" xml:space="preserve">
+    <value>Restore skins from local catalog, overwriting local skins.</value>
   </data>
 </root>

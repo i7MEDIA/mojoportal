@@ -3,7 +3,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
+using mojoPortal.Core.Extensions;
 using Resources;
 
 namespace mojoPortal.Web.UI;

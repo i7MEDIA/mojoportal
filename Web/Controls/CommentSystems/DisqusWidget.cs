@@ -104,7 +104,7 @@ namespace mojoPortal.Web.UI
         {
             base.OnLoad(e);
 
-            //if ((alwaysUseSsl)||(SiteUtils.IsSecureRequest())) { protocol = "https"; }
+            //if ((alwaysUseSsl)||(mojoPortal.Core.Helpers.WebHelper.IsSecureRequest())) { protocol = "https"; }
         }
 
         protected override void OnPreRender(EventArgs e)

@@ -1,8 +1,8 @@
-﻿
-using System;
+﻿using System;
 using System.Globalization;
 using Helpers;
 using mojoPortal.Business;
+using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 using Resources;
 

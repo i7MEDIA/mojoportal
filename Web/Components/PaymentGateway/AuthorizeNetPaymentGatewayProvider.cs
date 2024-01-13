@@ -1,118 +1,117 @@
-﻿using mojoPortal.Business;
+﻿using System.Configuration;
+using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.PaymentGateway;
-using mojoPortal.Web.Framework;
-using System.Configuration;
+using mojoPortal.Core.Extensions;
 
-namespace mojoPortal.Web.Commerce
+namespace mojoPortal.Web.Commerce;
+
+public class AuthorizeNetPaymentGatewayProvider : PaymentGatewayProvider
 {
-	public class AuthorizeNetPaymentGatewayProvider : PaymentGatewayProvider
+	#region Fields
+
+	private const string PaymentGatewayUseTestModeConfig = "PaymentGatewayUseTestMode";
+
+	private const string AuthorizeNetProductionAPILoginConfig = "AuthorizeNetProductionAPILogin";
+	private const string AuthorizeNetProductionAPITransactionKeyConfig = "AuthorizeNetProductionAPITransactionKey";
+
+	private const string AuthorizeNetSandboxAPILoginConfig = "AuthorizeNetSandboxAPILogin";
+	private const string AuthorizeNetSandboxAPITransactionKeyConfig = "AuthorizeNetSandboxAPITransactionKey";
+
+	private string configPrefix = string.Empty;
+	private bool paymentGatewayUseTestMode = false;
+	private string authorizeNetAPILogin = string.Empty;
+	private string authorizeNetAPITransactionKey = string.Empty;
+	private bool didLoadSettings = false;
+
+	#endregion
+
+
+	#region Public Methods
+
+	public override IPaymentGateway GetPaymentGateway()
 	{
-		#region Fields
-
-		private const string PaymentGatewayUseTestModeConfig = "PaymentGatewayUseTestMode";
-
-		private const string AuthorizeNetProductionAPILoginConfig = "AuthorizeNetProductionAPILogin";
-		private const string AuthorizeNetProductionAPITransactionKeyConfig = "AuthorizeNetProductionAPITransactionKey";
-
-		private const string AuthorizeNetSandboxAPILoginConfig = "AuthorizeNetSandboxAPILogin";
-		private const string AuthorizeNetSandboxAPITransactionKeyConfig = "AuthorizeNetSandboxAPITransactionKey";
-
-		private string configPrefix = string.Empty;
-		private bool paymentGatewayUseTestMode = false;
-		private string authorizeNetAPILogin = string.Empty;
-		private string authorizeNetAPITransactionKey = string.Empty;
-		private bool didLoadSettings = false;
-
-		#endregion
-
-
-		#region Public Methods
-
-		public override IPaymentGateway GetPaymentGateway()
+		if (!didLoadSettings)
 		{
-			if (!didLoadSettings)
-			{
-				LoadSettings();
-			}
-
-			if (authorizeNetAPILogin.Length > 0 && authorizeNetAPITransactionKey.Length > 0)
-			{
-				AuthorizeNETPaymentGateway gateway = new AuthorizeNETPaymentGateway(authorizeNetAPILogin, authorizeNetAPITransactionKey)
-				{
-					UseTestMode = paymentGatewayUseTestMode
-				};
-
-				return gateway;
-			}
-
-			return null;
+			LoadSettings();
 		}
 
-		#endregion
-
-
-		#region Private Methods
-
-		private void LoadSettings()
+		if (authorizeNetAPILogin.Length > 0 && authorizeNetAPITransactionKey.Length > 0)
 		{
-			if (WebConfigSettings.CommerceUseGlobalSettings) //false by default
+			AuthorizeNETPaymentGateway gateway = new AuthorizeNETPaymentGateway(authorizeNetAPILogin, authorizeNetAPITransactionKey)
 			{
-				paymentGatewayUseTestMode = WebConfigSettings.CommerceGlobalUseTestMode;
+				UseTestMode = paymentGatewayUseTestMode
+			};
 
-				if (paymentGatewayUseTestMode)
+			return gateway;
+		}
+
+		return null;
+	}
+
+	#endregion
+
+
+	#region Private Methods
+
+	private void LoadSettings()
+	{
+		if (WebConfigSettings.CommerceUseGlobalSettings) //false by default
+		{
+			paymentGatewayUseTestMode = WebConfigSettings.CommerceGlobalUseTestMode;
+
+			if (paymentGatewayUseTestMode)
+			{
+				authorizeNetAPILogin = WebConfigSettings.CommerceGlobalAuthorizeNetSandboxAPILogin;
+				authorizeNetAPITransactionKey = WebConfigSettings.CommerceGlobalAuthorizeNetSandboxAPITransactionKey;
+			}
+			else
+			{
+				authorizeNetAPILogin = WebConfigSettings.CommerceGlobalAuthorizeNetProductionAPILogin;
+				authorizeNetAPITransactionKey = WebConfigSettings.CommerceGlobalAuthorizeNetProductionAPITransactionKey;
+			}
+		}
+		else
+		{
+			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+
+			if (siteSettings == null)
+			{
+				return;
+			}
+
+			configPrefix = "Site" + siteSettings.SiteId.ToInvariantString() + "-";
+
+			paymentGatewayUseTestMode = Core.Configuration.ConfigHelper.GetBoolProperty(configPrefix + PaymentGatewayUseTestModeConfig, paymentGatewayUseTestMode);
+
+			if (paymentGatewayUseTestMode)
+			{
+				if (ConfigurationManager.AppSettings[configPrefix + AuthorizeNetSandboxAPILoginConfig] != null)
 				{
-					authorizeNetAPILogin = WebConfigSettings.CommerceGlobalAuthorizeNetSandboxAPILogin;
-					authorizeNetAPITransactionKey = WebConfigSettings.CommerceGlobalAuthorizeNetSandboxAPITransactionKey;
+					authorizeNetAPILogin = ConfigurationManager.AppSettings[configPrefix + AuthorizeNetSandboxAPILoginConfig];
 				}
-				else
+
+				if (ConfigurationManager.AppSettings[configPrefix + AuthorizeNetSandboxAPITransactionKeyConfig] != null)
 				{
-					authorizeNetAPILogin = WebConfigSettings.CommerceGlobalAuthorizeNetProductionAPILogin;
-					authorizeNetAPITransactionKey = WebConfigSettings.CommerceGlobalAuthorizeNetProductionAPITransactionKey;
+					authorizeNetAPITransactionKey = ConfigurationManager.AppSettings[configPrefix + AuthorizeNetSandboxAPITransactionKeyConfig];
 				}
 			}
 			else
 			{
-				SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-
-				if (siteSettings == null)
+				if (ConfigurationManager.AppSettings[configPrefix + AuthorizeNetProductionAPILoginConfig] != null)
 				{
-					return;
+					authorizeNetAPILogin = ConfigurationManager.AppSettings[configPrefix + AuthorizeNetProductionAPILoginConfig];
 				}
 
-				configPrefix = "Site" + siteSettings.SiteId.ToInvariantString() + "-";
-
-				paymentGatewayUseTestMode = Core.Configuration.ConfigHelper.GetBoolProperty(configPrefix + PaymentGatewayUseTestModeConfig, paymentGatewayUseTestMode);
-
-				if (paymentGatewayUseTestMode)
+				if (ConfigurationManager.AppSettings[configPrefix + AuthorizeNetProductionAPITransactionKeyConfig] != null)
 				{
-					if (ConfigurationManager.AppSettings[configPrefix + AuthorizeNetSandboxAPILoginConfig] != null)
-					{
-						authorizeNetAPILogin = ConfigurationManager.AppSettings[configPrefix + AuthorizeNetSandboxAPILoginConfig];
-					}
-
-					if (ConfigurationManager.AppSettings[configPrefix + AuthorizeNetSandboxAPITransactionKeyConfig] != null)
-					{
-						authorizeNetAPITransactionKey = ConfigurationManager.AppSettings[configPrefix + AuthorizeNetSandboxAPITransactionKeyConfig];
-					}
-				}
-				else
-				{
-					if (ConfigurationManager.AppSettings[configPrefix + AuthorizeNetProductionAPILoginConfig] != null)
-					{
-						authorizeNetAPILogin = ConfigurationManager.AppSettings[configPrefix + AuthorizeNetProductionAPILoginConfig];
-					}
-
-					if (ConfigurationManager.AppSettings[configPrefix + AuthorizeNetProductionAPITransactionKeyConfig] != null)
-					{
-						authorizeNetAPITransactionKey = ConfigurationManager.AppSettings[configPrefix + AuthorizeNetProductionAPITransactionKeyConfig];
-					}
+					authorizeNetAPITransactionKey = ConfigurationManager.AppSettings[configPrefix + AuthorizeNetProductionAPITransactionKeyConfig];
 				}
 			}
-
-			didLoadSettings = true;
 		}
 
-		#endregion
+		didLoadSettings = true;
 	}
+
+	#endregion
 }

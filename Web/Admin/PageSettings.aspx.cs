@@ -2,6 +2,7 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.PageEventHandlers;
+using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;

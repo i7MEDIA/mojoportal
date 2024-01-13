@@ -78,13 +78,13 @@ namespace mojoPortal.Web.AdminUI
 
 			selectedPage = WebUtils.ParseInt32FromQueryString("selpage", -1);
 
-			promptOnDelete = ConfigHelper.GetBoolProperty("PageManager:PromptOnDelete", promptOnDelete);
-			promptOnMove = ConfigHelper.GetBoolProperty("PageManager:PromptOnMove", promptOnMove);
-			promptOnSort = ConfigHelper.GetBoolProperty("PageManager:PromptOnSort", promptOnSort);
-			showAltPageManagerLink = ConfigHelper.GetBoolProperty("PageManager:ShowAltPageManagerLink", showAltPageManagerLink);
-			//showDemoInfo = ConfigHelper.GetBoolProperty("PageManager:ShowDemoInfo", showDemoInfo);
-			productUrl = ConfigHelper.GetStringProperty("PageManager:ProductUrl", productUrl);
-			linkToViewPermissions = ConfigHelper.GetBoolProperty("PageManager:LinkToViewPermissions", linkToViewPermissions);
+			promptOnDelete = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("PageManager:PromptOnDelete", promptOnDelete);
+			promptOnMove = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("PageManager:PromptOnMove", promptOnMove);
+			promptOnSort = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("PageManager:PromptOnSort", promptOnSort);
+			showAltPageManagerLink = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("PageManager:ShowAltPageManagerLink", showAltPageManagerLink);
+			//showDemoInfo = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("PageManager:ShowDemoInfo", showDemoInfo);
+			productUrl = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("PageManager:ProductUrl", productUrl);
+			linkToViewPermissions = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("PageManager:LinkToViewPermissions", linkToViewPermissions);
 
 
 			AddClassToBody("administration");
@@ -603,7 +603,7 @@ namespace mojoPortal.Web.AdminUI
 
 			if (Page.Header.FindControl("jqtreecss") == null)
 			{
-				string pageManagerCss = ConfigHelper.GetStringProperty("PageManager:TreeCss", "~/Data/style/jqtree.css");
+				string pageManagerCss = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("PageManager:TreeCss", "~/Data/style/jqtree.css");
 
 				Literal cssLink = new Literal();
 				cssLink.ID = "jqtreecss";
@@ -683,8 +683,8 @@ namespace mojoPortal.Web.AdminUI
 			base.OnInit(e);
 			this.Load += new EventHandler(this.Page_Load);
 
-			bool suppressMainMenu = ConfigHelper.GetBoolProperty("PageManager:SuppressMainMenu", false);
-			bool suppressPageMenu = ConfigHelper.GetBoolProperty("PageManager:SuppressPageMenu", true);
+			bool suppressMainMenu = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("PageManager:SuppressMainMenu", false);
+			bool suppressPageMenu = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("PageManager:SuppressPageMenu", true);
 		   
 			SuppressMenuSelection();
 

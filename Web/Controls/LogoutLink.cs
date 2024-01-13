@@ -99,7 +99,7 @@ namespace mojoPortal.Web.UI
             }
 
             string urlToUse = SiteUtils.GetRelativeNavigationSiteRoot() + "/Logoff.aspx";
-            // if ((!WebConfigSettings.SslIsRequiredByWebServer)&&(SiteUtils.IsSecureRequest())) { urlToUse = urlToUse.Replace("https", "http"); }
+            // if ((!WebConfigSettings.SslIsRequiredByWebServer)&&(mojoPortal.Core.Helpers.WebHelper.IsSecureRequest())) { urlToUse = urlToUse.Replace("https", "http"); }
 
             if (CssClass.Length == 0) { CssClass = "sitelink"; }
             

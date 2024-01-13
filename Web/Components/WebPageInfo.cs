@@ -1,281 +1,264 @@
-// Author:					
-// Created:				    2007-04-11
-// Last Modified:			2008-08-26
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
 using System;
-using System.IO;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Web;
 using System.Web.Caching;
 using log4net;
-using mojoPortal.Web.Framework;
+using mojoPortal.Core.Extensions;
 
+namespace mojoPortal.Web;
 
-namespace mojoPortal.Web
+public class WebPageInfo
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public class WebPageInfo
-    {
-        private static readonly ILog log 
-            = LogManager.GetLogger(typeof(WebPageInfo));
+	private static readonly ILog log
+		= LogManager.GetLogger(typeof(WebPageInfo));
 
-        #region Constructors
+	#region Constructors
 
-        public WebPageInfo(FileInfo webPageFile)
-        {
-            
-            this.webPageFile = webPageFile;
-        }
+	public WebPageInfo(FileInfo webPageFile)
+	{
 
-        #endregion
+		this.webPageFile = webPageFile;
+	}
 
-        #region Private Properties
+	#endregion
 
-   
-        private FileInfo webPageFile;
+	#region Private Properties
 
-        #endregion
 
-        #region Public Properties
+	private FileInfo webPageFile;
 
-       
-        #endregion
+	#endregion
 
-        #region Public Methods
+	#region Public Properties
 
-        public bool Equals(string url)
-        {
-            bool result = false;
-            if (HttpContext.Current != null)
-            {
-                //if (HttpContext.Current.Server.MapPath(url).ToLower() 
-                //    == this.webPageFile.FullName.ToLower())
-                //    result = true;
-                try
-                {
-                    if (StringHelper.IsCaseInsensitiveMatch(HttpContext.Current.Server.MapPath(url), webPageFile.FullName))
-                    {
-                        result = true;
-                    }
-                }
-                catch (HttpException) { }
-            }
 
-            return result;
-        }
+	#endregion
 
-        #endregion
+	#region Public Methods
 
-        #region static methods
+	public bool Equals(string url)
+	{
+		bool result = false;
+		if (HttpContext.Current != null)
+		{
+			//if (HttpContext.Current.Server.MapPath(url).ToLower() 
+			//    == this.webPageFile.FullName.ToLower())
+			//    result = true;
+			try
+			{
+				if (HttpContext.Current.Server.MapPath(url).IsCaseInsensitiveMatch(webPageFile.FullName))
+				{
+					result = true;
+				}
+			}
+			catch (HttpException) { }
+		}
 
-        public static Collection<WebPageInfo> GetPhysicalPages()
-        {
-            return GetPhysicalPages("*.aspx");
-        }
+		return result;
+	}
 
-        public static Collection<WebPageInfo> GetPhysicalPages(
-            string fileExtensionPattern)
-        {
-            Collection<WebPageInfo> physicalPages = null;
-            string cachekey = "physicalwebpages" + fileExtensionPattern;
+	#endregion
 
-            if (
-                (HttpContext.Current != null)
-                && (HttpRuntime.Cache[cachekey] == null)
-                )
-            {
-                log.Debug("couldn't find cache item " + cachekey + " creating cache item now.");
+	#region static methods
 
-                physicalPages = LoadPhysicalPages(fileExtensionPattern);
+	public static Collection<WebPageInfo> GetPhysicalPages()
+	{
+		return GetPhysicalPages("*.aspx");
+	}
 
-                AggregateCacheDependency aggregateCacheDependency = new AggregateCacheDependency();
-                aggregateCacheDependency.Add(new CacheDependency(HttpContext.Current.Server.MapPath("~/Web.config")));
+	public static Collection<WebPageInfo> GetPhysicalPages(
+		string fileExtensionPattern)
+	{
+		Collection<WebPageInfo> physicalPages = null;
+		string cachekey = "physicalwebpages" + fileExtensionPattern;
 
-                DateTime absoluteExpiration = DateTime.Now.AddMinutes(WebConfigSettings.WebPageInfoCacheMinutes);
-                TimeSpan slidingExpiration = TimeSpan.Zero;
-                CacheItemPriority priority = CacheItemPriority.Default;
-                CacheItemRemovedCallback callback = null;
+		if (
+			(HttpContext.Current != null)
+			&& (HttpRuntime.Cache[cachekey] == null)
+			)
+		{
+			log.Debug("couldn't find cache item " + cachekey + " creating cache item now.");
 
-                HttpRuntime.Cache.Insert(
-                    cachekey,
-                    physicalPages,
-                    aggregateCacheDependency,
-                    absoluteExpiration,
-                    slidingExpiration,
-                    priority,
-                    callback);
+			physicalPages = LoadPhysicalPages(fileExtensionPattern);
 
-            }
+			AggregateCacheDependency aggregateCacheDependency = new AggregateCacheDependency();
+			aggregateCacheDependency.Add(new CacheDependency(HttpContext.Current.Server.MapPath("~/Web.config")));
 
-            physicalPages = HttpRuntime.Cache[cachekey] as Collection<WebPageInfo>;
+			DateTime absoluteExpiration = DateTime.Now.AddMinutes(WebConfigSettings.WebPageInfoCacheMinutes);
+			TimeSpan slidingExpiration = TimeSpan.Zero;
+			CacheItemPriority priority = CacheItemPriority.Default;
+			CacheItemRemovedCallback callback = null;
 
-            return physicalPages;
+			HttpRuntime.Cache.Insert(
+				cachekey,
+				physicalPages,
+				aggregateCacheDependency,
+				absoluteExpiration,
+				slidingExpiration,
+				priority,
+				callback);
 
-        }
+		}
 
-        private static Collection<WebPageInfo> LoadPhysicalPages(
-            string fileExtensionPattern)
-        {
-            Collection<WebPageInfo> physicalPages = new Collection<WebPageInfo>();
-            if (HttpContext.Current != null)
-            {
-                try
-                {
-                    PopulatePagesCollection(
-                        HttpContext.Current,
-                        physicalPages,
-                        fileExtensionPattern);
-                }
-                catch (UnauthorizedAccessException) { }
-                catch (System.Security.SecurityException) { }
-            }
+		physicalPages = HttpRuntime.Cache[cachekey] as Collection<WebPageInfo>;
 
-            return physicalPages;
+		return physicalPages;
 
-        }
+	}
 
-        private static void PopulatePagesCollection(
-            HttpContext httpContext,
-            Collection<WebPageInfo> webPages,
-            string fileExtensionPattern)
-        {
-            if (httpContext == null) return;
+	private static Collection<WebPageInfo> LoadPhysicalPages(
+		string fileExtensionPattern)
+	{
+		Collection<WebPageInfo> physicalPages = new Collection<WebPageInfo>();
+		if (HttpContext.Current != null)
+		{
+			try
+			{
+				PopulatePagesCollection(
+					HttpContext.Current,
+					physicalPages,
+					fileExtensionPattern);
+			}
+			catch (UnauthorizedAccessException) { }
+			catch (System.Security.SecurityException) { }
+		}
 
-            string siteBasePath = httpContext.Server.MapPath("~/");
-            DirectoryInfo rootDirectory = new DirectoryInfo(siteBasePath);
-            AddPhysicalPages(webPages, rootDirectory, fileExtensionPattern);
+		return physicalPages;
 
-            //  recurse through sub folders
-            // how deep is too deep?
-            // I don't think it should be endless
-            // start with 4 levels which should satify most use cases
-            // while minimizing performance issues
-            DirectoryInfo[] firstLevelSubDirectories;
-            try
-            {
-                firstLevelSubDirectories = rootDirectory.GetDirectories();
+	}
 
-                foreach (DirectoryInfo firstLevelSubDirectory in firstLevelSubDirectories)
-                {
-                    try
-                    {
-                        AddPhysicalPages(webPages, firstLevelSubDirectory, fileExtensionPattern);
-                    }
-                    catch (UnauthorizedAccessException) { }
-                    catch (System.Security.SecurityException) { }
-                    // catch these errors because there can be other folders in the root that are not part of mojoportal
-                    // don't fail to read the folders we can read just because we can't read others
-                    //http://www.mojoportal.com/ForumThreadView.aspx?thread=1875&forumid=2&ItemID=2&pageid=5&pagenumber=1#post7654
-                }
+	private static void PopulatePagesCollection(
+		HttpContext httpContext,
+		Collection<WebPageInfo> webPages,
+		string fileExtensionPattern)
+	{
+		if (httpContext == null) return;
 
-                foreach (DirectoryInfo firstLevelSubDirectory in firstLevelSubDirectories)
-                {
-                    try
-                    {
-                        DirectoryInfo[] secondLevelSubDirectories
-                        = firstLevelSubDirectory.GetDirectories();
+		string siteBasePath = httpContext.Server.MapPath("~/");
+		DirectoryInfo rootDirectory = new DirectoryInfo(siteBasePath);
+		AddPhysicalPages(webPages, rootDirectory, fileExtensionPattern);
 
-                        foreach (DirectoryInfo secondLevelSubDirectory in secondLevelSubDirectories)
-                        {
-                            try
-                            {
-                                AddPhysicalPages(webPages, secondLevelSubDirectory, fileExtensionPattern);
-                            }
-                            catch (UnauthorizedAccessException) { }
-                            catch (System.Security.SecurityException) { }
-                        }
+		//  recurse through sub folders
+		// how deep is too deep?
+		// I don't think it should be endless
+		// start with 4 levels which should satify most use cases
+		// while minimizing performance issues
+		DirectoryInfo[] firstLevelSubDirectories;
+		try
+		{
+			firstLevelSubDirectories = rootDirectory.GetDirectories();
 
-                        foreach (DirectoryInfo secondLevelSubDirectory in secondLevelSubDirectories)
-                        {
-                            try
-                            {
-                                DirectoryInfo[] thirdLevelSubDirectories
-                                    = secondLevelSubDirectory.GetDirectories();
+			foreach (DirectoryInfo firstLevelSubDirectory in firstLevelSubDirectories)
+			{
+				try
+				{
+					AddPhysicalPages(webPages, firstLevelSubDirectory, fileExtensionPattern);
+				}
+				catch (UnauthorizedAccessException) { }
+				catch (System.Security.SecurityException) { }
+				// catch these errors because there can be other folders in the root that are not part of mojoportal
+				// don't fail to read the folders we can read just because we can't read others
+				//http://www.mojoportal.com/ForumThreadView.aspx?thread=1875&forumid=2&ItemID=2&pageid=5&pagenumber=1#post7654
+			}
 
-                                foreach (DirectoryInfo thirdLevelSubDirectory in thirdLevelSubDirectories)
-                                {
-                                    try
-                                    {
-                                        AddPhysicalPages(webPages, thirdLevelSubDirectory, fileExtensionPattern);
-                                    }
-                                    catch (UnauthorizedAccessException) { }
-                                    catch (System.Security.SecurityException) { }
-                                }
+			foreach (DirectoryInfo firstLevelSubDirectory in firstLevelSubDirectories)
+			{
+				try
+				{
+					DirectoryInfo[] secondLevelSubDirectories
+					= firstLevelSubDirectory.GetDirectories();
 
-                                foreach (DirectoryInfo thirdLevelSubDirectory in thirdLevelSubDirectories)
-                                {
-                                    try
-                                    {
-                                        DirectoryInfo[] fourthLevelSubDirectories
-                                            = thirdLevelSubDirectory.GetDirectories();
+					foreach (DirectoryInfo secondLevelSubDirectory in secondLevelSubDirectories)
+					{
+						try
+						{
+							AddPhysicalPages(webPages, secondLevelSubDirectory, fileExtensionPattern);
+						}
+						catch (UnauthorizedAccessException) { }
+						catch (System.Security.SecurityException) { }
+					}
 
-                                        foreach (DirectoryInfo fourthLevelSubDirectory in fourthLevelSubDirectories)
-                                        {
-                                            try
-                                            {
-                                                AddPhysicalPages(webPages, fourthLevelSubDirectory, fileExtensionPattern);
-                                            }
-                                            catch (UnauthorizedAccessException) { }
-                                            catch (System.Security.SecurityException) { }
-                                        }
-                                    }
-                                    catch (UnauthorizedAccessException) { }
-                                    catch (System.Security.SecurityException) { }
+					foreach (DirectoryInfo secondLevelSubDirectory in secondLevelSubDirectories)
+					{
+						try
+						{
+							DirectoryInfo[] thirdLevelSubDirectories
+								= secondLevelSubDirectory.GetDirectories();
 
-                                }
-                            }
-                            catch (UnauthorizedAccessException) { }
-                            catch (System.Security.SecurityException) { }
-                        }
-                    }
-                    catch (UnauthorizedAccessException) { }
-                    catch (System.Security.SecurityException) { }
-                }
+							foreach (DirectoryInfo thirdLevelSubDirectory in thirdLevelSubDirectories)
+							{
+								try
+								{
+									AddPhysicalPages(webPages, thirdLevelSubDirectory, fileExtensionPattern);
+								}
+								catch (UnauthorizedAccessException) { }
+								catch (System.Security.SecurityException) { }
+							}
 
-            }
-            catch (UnauthorizedAccessException) { }
-            catch (System.Security.SecurityException) { }
-            // catch these errors because there can be other folders in the root that are not part of mojoportal
-            // don't fail to read the folders we can read just because we can't read others
+							foreach (DirectoryInfo thirdLevelSubDirectory in thirdLevelSubDirectories)
+							{
+								try
+								{
+									DirectoryInfo[] fourthLevelSubDirectories
+										= thirdLevelSubDirectory.GetDirectories();
 
-            
-        }
+									foreach (DirectoryInfo fourthLevelSubDirectory in fourthLevelSubDirectories)
+									{
+										try
+										{
+											AddPhysicalPages(webPages, fourthLevelSubDirectory, fileExtensionPattern);
+										}
+										catch (UnauthorizedAccessException) { }
+										catch (System.Security.SecurityException) { }
+									}
+								}
+								catch (UnauthorizedAccessException) { }
+								catch (System.Security.SecurityException) { }
 
-        private static void AddPhysicalPages(
-            Collection<WebPageInfo> physicalPages,
-            DirectoryInfo directoryInfo,
-            string fileExtensionPattern)
-        {
-            FileInfo[] matchingFiles = directoryInfo.GetFiles(fileExtensionPattern);
-            foreach (FileInfo matchingFile in matchingFiles)
-            {
-                WebPageInfo webPageInfo = new WebPageInfo(matchingFile);
-                physicalPages.Add(webPageInfo);
-            }
-        }
+							}
+						}
+						catch (UnauthorizedAccessException) { }
+						catch (System.Security.SecurityException) { }
+					}
+				}
+				catch (UnauthorizedAccessException) { }
+				catch (System.Security.SecurityException) { }
+			}
 
-        public static bool IsPhysicalWebPage(string url)
-        {
-            bool result = false;
-            Collection<WebPageInfo> physicalPages = GetPhysicalPages();
-            foreach (WebPageInfo webPage in physicalPages)
-            {
-                if (webPage.Equals(url)) result = true;
-            }
+		}
+		catch (UnauthorizedAccessException) { }
+		catch (System.Security.SecurityException) { }
+		// catch these errors because there can be other folders in the root that are not part of mojoportal
+		// don't fail to read the folders we can read just because we can't read others
 
-            return result;
-        }
 
-        #endregion
-    }
+	}
+
+	private static void AddPhysicalPages(
+		Collection<WebPageInfo> physicalPages,
+		DirectoryInfo directoryInfo,
+		string fileExtensionPattern)
+	{
+		FileInfo[] matchingFiles = directoryInfo.GetFiles(fileExtensionPattern);
+		foreach (FileInfo matchingFile in matchingFiles)
+		{
+			WebPageInfo webPageInfo = new WebPageInfo(matchingFile);
+			physicalPages.Add(webPageInfo);
+		}
+	}
+
+	public static bool IsPhysicalWebPage(string url)
+	{
+		bool result = false;
+		Collection<WebPageInfo> physicalPages = GetPhysicalPages();
+		foreach (WebPageInfo webPage in physicalPages)
+		{
+			if (webPage.Equals(url)) result = true;
+		}
+
+		return result;
+	}
+
+	#endregion
 }

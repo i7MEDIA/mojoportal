@@ -91,7 +91,7 @@ namespace mojoPortal.Web.UI
 
             if (!Visible) { return; }
 
-            if (SiteUtils.IsSecureRequest()) { protocol = "https"; }
+            if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest()) { protocol = "https"; }
 
             Page.ClientScript.RegisterClientScriptBlock(typeof(Page),
                          "twitterwidgets", "\n<script src=\""

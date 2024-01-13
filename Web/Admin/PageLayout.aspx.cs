@@ -12,6 +12,7 @@ using System.Text;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using mojoPortal.Core.Extensions;
 
 namespace mojoPortal.Web.AdminUI
 {
@@ -242,18 +243,18 @@ namespace mojoPortal.Web.AdminUI
 
 		private ArrayList GetPaneModules(string pane)
 		{
-			ArrayList paneModules = new ArrayList();
+			var paneModules = new ArrayList();
 
 			foreach (Module module in CurrentPage.Modules)
 			{
-				if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, pane))
+				if (module.PaneName.IsCaseInsensitiveMatch(pane))
 				{
 					paneModules.Add(module);
 				}
 
 				if (!pageHasAltContent1)
 				{
-					if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent1"))
+					if (module.PaneName.IsCaseInsensitiveMatch("altcontent1"))
 					{
 						paneModules.Add(module);
 					}
@@ -262,7 +263,7 @@ namespace mojoPortal.Web.AdminUI
 
 				if (!pageHasAltContent2)
 				{
-					if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, "altcontent2"))
+					if (module.PaneName.IsCaseInsensitiveMatch("altcontent2"))
 					{
 						paneModules.Add(module);
 					}
@@ -278,7 +279,7 @@ namespace mojoPortal.Web.AdminUI
 
 			foreach (Module module in CurrentPage.Modules)
 			{
-				if (StringHelper.IsCaseInsensitiveMatch(module.PaneName, pane))
+				if (module.PaneName.IsCaseInsensitiveMatch(pane))
 				{
 					var moduleTitle = module.ModuleTitle.Coalesce(Resource.ContentNoTitle);
 					var useElementTitle = false;

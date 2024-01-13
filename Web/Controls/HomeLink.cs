@@ -122,7 +122,7 @@ namespace mojoPortal.Web.UI
 
             string urlToUse = SiteUtils.GetRelativeNavigationSiteRoot();
 
-            //if ((!siteSettings.UseSslOnAllPages) && (SiteUtils.IsSecureRequest()))
+            //if ((!siteSettings.UseSslOnAllPages) && (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest()))
             //{ 
             //    urlToUse = urlToUse.Replace("https", "http"); 
             //}
