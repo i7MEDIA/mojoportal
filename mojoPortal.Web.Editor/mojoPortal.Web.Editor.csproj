@@ -128,10 +128,6 @@
     <Compile Include="TextArea\TextAreaEditorControl.cs" />
     <Compile Include="TextArea\TextAreaProvider.cs" />
     <Compile Include="ToolBarEnum.cs" />
-    <Compile Include="XStandard\XStandardAdapter.cs" />
-    <Compile Include="XStandard\XStandardControl.cs" />
-    <Compile Include="XStandard\XStandardDesigner.cs" />
-    <Compile Include="XStandard\XStandardProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">
