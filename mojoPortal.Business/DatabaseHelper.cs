@@ -12,32 +12,17 @@ public static class DatabaseHelper
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(DatabaseHelper));
 
-	public static string GetApplicationName()
-	{
-		return "mojoportal-core";
-	}
+	public static string GetApplicationName() => "mojoportal-core";
 
-	public static Guid GetApplicationId()
-	{
-		var appGuid = new Guid("077e4857-f583-488e-836e-34a4b04be855");
-		return appGuid;
-	}
+	public static Guid GetApplicationId() => new("077e4857-f583-488e-836e-34a4b04be855");
 
-	public static string DBPlatform()
-	{
-		return DBPortal.DBPlatform();
-	}
+	public static string DBPlatform() => DBPortal.DBPlatform();
 
-	public static Version DBCodeVersion()
-	{
-		// this must be maintained/updated in code to make it run the new version upgrade script
-		int major = 2;
-		int minor = 9;
-		int build = 0;
-		int revision = 2;
-
-		return new Version(major, minor, build, revision);
-	}
+	/// <summary>
+	/// Maintained/updated in code to make Setup run the new version upgrade script
+	/// </summary>
+	/// <returns>Version</returns>
+	public static Version DBCodeVersion() => new(2, 9, 0, 2);
 
 	public static Version DBSchemaVersion()
 	{
@@ -83,10 +68,7 @@ public static class DatabaseHelper
 		return new Version(major, minor, build, revision);
 	}
 
-	public static void EnsureDatabase()
-	{
-		DBPortal.EnsureDatabase();
-	}
+	public static void EnsureDatabase() => DBPortal.EnsureDatabase();
 
 	public static bool UpdateSchemaVersion(
 		Guid applicationId,
@@ -119,10 +101,7 @@ public static class DatabaseHelper
 		);
 	}
 
-	public static bool DeleteSchemaVersion(Guid applicationId)
-	{
-		return DBPortal.SchemaVersionDeleteSchemaVersion(applicationId);
-	}
+	public static bool DeleteSchemaVersion(Guid applicationId) => DBPortal.SchemaVersionDeleteSchemaVersion(applicationId);
 
 	public static Version GetSchemaVersion(string applicationName)
 	{
@@ -184,30 +163,15 @@ public static class DatabaseHelper
 		);
 	}
 
-	public static bool DeleteSchemaScriptHistory(int id)
-	{
-		return DBPortal.SchemaScriptHistoryDeleteSchemaScriptHistory(id);
-	}
+	public static bool DeleteSchemaScriptHistory(int id) => DBPortal.SchemaScriptHistoryDeleteSchemaScriptHistory(id);
 
-	public static IDataReader SchemaVersionGetNonCore()
-	{
-		return DBPortal.SchemaVersionGetNonCore();
-	}
+	public static IDataReader SchemaVersionGetNonCore() => DBPortal.SchemaVersionGetNonCore();
 
-	public static IDataReader GetSchemaScriptHistory(int id)
-	{
-		return DBPortal.SchemaScriptHistoryGetSchemaScriptHistory(id);
-	}
+	public static IDataReader GetSchemaScriptHistory(int id) => DBPortal.SchemaScriptHistoryGetSchemaScriptHistory(id);
 
-	public static IDataReader GetSchemaScriptHistory(Guid applicationId)
-	{
-		return DBPortal.SchemaScriptHistoryGetSchemaScriptHistory(applicationId);
-	}
+	public static IDataReader GetSchemaScriptHistory(Guid applicationId) => DBPortal.SchemaScriptHistoryGetSchemaScriptHistory(applicationId);
 
-	public static IDataReader GetSchemaScriptErrorHistory(Guid applicationId)
-	{
-		return DBPortal.SchemaScriptHistoryGetSchemaScriptErrorHistory(applicationId);
-	}
+	public static IDataReader GetSchemaScriptErrorHistory(Guid applicationId) => DBPortal.SchemaScriptHistoryGetSchemaScriptErrorHistory(applicationId);
 
 	public static bool SchemaScriptHasBeenRun(Guid applicationId, string scriptFile)
 	{
@@ -215,27 +179,23 @@ public static class DatabaseHelper
 		{
 			return DBPortal.SchemaScriptHistoryExists(applicationId, scriptFile);
 		}
-		catch (DbException)
-		{ }
+		catch (DbException ex)
+		{
+			log.Error("Exception caught when checking for Schema Script History.", ex);
+		}
 
 		return false;
 	}
 
-	public static bool CanAccessDatabase()
-	{
-		return DBPortal.DatabaseHelperCanAccessDatabase();
-	}
+	public static bool CanAccessDatabase() => DBPortal.DatabaseHelperCanAccessDatabase();
 
-	public static DbException GetConnectionError(string overrideConnectionInfo)
-	{
-		return DBPortal.DatabaseHelperGetConnectionError(overrideConnectionInfo);
-	}
+	public static DbException GetConnectionError(string overrideConnectionInfo) => DBPortal.DatabaseHelperGetConnectionError(overrideConnectionInfo);
 
 	public static bool CanAlterSchema(string overrideConnectionInfo)
 	{
 		try
 		{
-			return DBPortal.DatabaseHelperCanAlterSchema(overrideConnectionInfo);
+			return DBPortal.DatabaseHelperCanAlterSchema("MyISAM", overrideConnectionInfo);
 		}
 		catch (DbException ex)
 		{
@@ -245,10 +205,7 @@ public static class DatabaseHelper
 		}
 	}
 
-	public static bool SchemaHasBeenCreated()
-	{
-		return DBPortal.DatabaseHelperSitesTableExists();
-	}
+	public static bool SchemaHasBeenCreated() => DBPortal.DatabaseHelperSitesTableExists();
 
 	public static int ExistingSiteCount()
 	{
@@ -301,25 +258,14 @@ public static class DatabaseHelper
 		return resultMessage;
 	}
 
-	public static IDataReader GetReader(string query)
-	{
-		return GetReader(string.Empty, query);
-	}
+	public static IDataReader GetReader(string query) => GetReader(string.Empty, query);
 
-	public static IDataReader GetReader(string connectionString, string query)
-	{
-		return DBPortal.DatabaseHelperGetReader(connectionString, query);
-	}
+	public static IDataReader GetReader(string connectionString, string query) => DBPortal.DatabaseHelperGetReader(connectionString, query);
 
-	public static int ExecteNonQuery(string query)
-	{
-		return ExecteNonQuery(string.Empty, query);
-	}
+	public static int ExecteNonQuery(string query) => ExecteNonQuery(string.Empty, query);
 
-	public static int ExecteNonQuery(string connectionString, string query)
-	{
-		return DBPortal.DatabaseHelperExecteNonQuery(connectionString, query);
-	}
+	public static int ExecteNonQuery(string connectionString, string query) => DBPortal.DatabaseHelperExecteNonQuery(connectionString, query);
+
 
 	public static Version ParseVersionFromFileName(String fileName)
 	{
@@ -458,30 +404,9 @@ public static class DatabaseHelper
 	}
 
 	#region Version Specific tasks
-
-	public static void DoVersion2320PostUpgradeTasks(string overrideConnectionInfo)
+	public static bool RunPostUpgradeTasks(Version version, string overrideConnectionString)
 	{
-		DBPortal.DatabaseHelperDoVersion2320PostUpgradeTasks(overrideConnectionInfo);
-	}
-
-	public static void DoVersion2230PostUpgradeTasks(string overrideConnectionInfo)
-	{
-		DBPortal.DatabaseHelperDoVersion2230PostUpgradeTasks(overrideConnectionInfo);
-	}
-
-	public static void DoVersion2234PostUpgradeTasks(string overrideConnectionInfo)
-	{
-		DBPortal.DatabaseHelperDoVersion2234PostUpgradeTasks(overrideConnectionInfo);
-	}
-
-	public static void DoVersion2247PostUpgradeTasks(string overrideConnectionInfo)
-	{
-		DBPortal.DatabaseHelperDoVersion2247PostUpgradeTasks(overrideConnectionInfo);
-	}
-
-	public static void DoVersion2253PostUpgradeTasks(string overrideConnectionInfo)
-	{
-		DBPortal.DatabaseHelperDoVersion2253PostUpgradeTasks(overrideConnectionInfo);
+		return DBPortal.RunPostUpgradeTask(version, overrideConnectionString);
 	}
 
 	public static void DoForumVersion2202PostUpgradeTasks(string overrideConnectionInfo)
@@ -493,6 +418,8 @@ public static class DatabaseHelper
 	{
 		DBPortal.DatabaseHelperDoForumVersion2203PostUpgradeTasks(overrideConnectionInfo);
 	}
+
+
 	#endregion
 
 	public static DataTable GetTableFromDataReader(IDataReader reader)

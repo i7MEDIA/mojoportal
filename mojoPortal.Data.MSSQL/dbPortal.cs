@@ -431,7 +431,7 @@ namespace mojoPortal.Data
             return DatabaseHelperCanAccessDatabase(null);
         }
 
-        public static bool DatabaseHelperCanAlterSchema(string overrideConnectionInfo)
+        public static bool DatabaseHelperCanAlterSchema(string engine, string overrideConnectionInfo)
         {
 
             bool result = true;
@@ -1032,23 +1032,16 @@ namespace mojoPortal.Data
 
         }
 
-        public static void DatabaseHelperDoVersion2230PostUpgradeTasks(String overrideConnectionInfo)
-        {
-        }
-
-        public static void DatabaseHelperDoVersion2234PostUpgradeTasks(String overrideConnectionInfo)
-        {
-        }
-
-        public static void DatabaseHelperDoVersion2247PostUpgradeTasks(String overrideConnectionInfo)
-        {
-        }
-
-        public static void DatabaseHelperDoVersion2253PostUpgradeTasks(
-            String overrideConnectionInfo)
-        {
-            
-
+		/// <summary>
+		/// Runs tasks after Upgrade scripts.
+		/// </summary>
+		/// <param name="version"></param>
+		/// <param name="overrideConnectionString"></param>
+		/// <returns>True if tasks for versions completed successfully, false if they did not.</returns>
+		public static bool RunPostUpgradeTask(Version version, string overrideConnectionString)
+		{
+            //MSSQL does not have any post upgrade tasks to run.
+            return true;
         }
 
         public static bool DatabaseHelperSitesTableExists()
