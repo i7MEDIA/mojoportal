@@ -371,7 +371,7 @@ namespace mojoPortal.Business.WebHelpers.PaymentGateway
 			}
 			else
 			{
-				// TODO: error message?
+				// TODO: show and log error message?
 				Response = PaymentGatewayResponse.Error;
 
 				return false;

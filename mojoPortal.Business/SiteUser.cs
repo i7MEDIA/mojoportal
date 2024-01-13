@@ -1204,9 +1204,6 @@ namespace mojoPortal.Business
 			{
 				yield return new RuleViolation(Resources.SiteUserInvalidEmailFormat);
 			}
-
-			//TODO: more checks
-
 			yield break;
 		}
 

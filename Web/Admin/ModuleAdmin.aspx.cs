@@ -78,8 +78,7 @@ namespace mojoPortal.Web.AdminUI
 
         private void DefsList_ItemCommand(object sender, DataListCommandEventArgs e)
         {
-            // TODO: why not make this a link instead of
-            // postback then redirect? JA
+            // TODO: make this a link instead of postback then redirect? JA
 
             int moduleDefID = (int)defsList.DataKeys[e.Item.ItemIndex];
             string redirectUrl

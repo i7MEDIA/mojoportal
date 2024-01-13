@@ -190,7 +190,7 @@ namespace mojoPortal.Web.Controls
         {
             if (HttpContext.Current == null)
             {
-                // TODO: show a bmp or some other design time thing?
+                
                 writer.Write("[" + this.ID + "]");
             }
             else

@@ -1419,18 +1419,9 @@ public static class IndexHelper
 
 	private static bool IsSpam(string queryText)
 	{
-		// Commented out the below on 2009-05-25 because now that we are using query string params for search instead
-		// of a form field, we can no longer assume abuse simply by the query being longer than 255 chars
-		//if (queryText.Length > 255) { return true; }
-
-		// TODO: determine by key words?
-
+		// TODO: implement keyword blocking/checking
 		return false;
 	}
-
-
-
-
 
 	public static Regex MarkupRegex = new Regex("<[/a-zA-Z]+[^>]*>|<!--(?!-->)*-->");
 
@@ -1841,8 +1832,7 @@ public static class IndexHelper
 			PageSettings pageSettings = (PageSettings)o;
 			IndexHelper.RebuildPageIndex(pageSettings);
 
-			// TODO: could add some form of notification to let the admin know if
-			// it was able to index all the content
+			// TODO: could add some form of notification to let the admin know if it was able to index all the content
 		}
 		catch (TypeInitializationException ex)
 		{

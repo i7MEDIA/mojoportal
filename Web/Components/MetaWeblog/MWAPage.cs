@@ -14,7 +14,7 @@ namespace mojoPortal.MetaWeblog
     /// In wordpress a page has a one to one correspondence to the html content on the page
     /// represented here by the description.
     /// In mojoPortal a page is just a container for feature instances of which there can be muliple on any given page
-    /// so it is not a one to one correspndence. We will simulate it by defining the page content as the firs tinstance 
+    /// so it is not a one to one correspndence. We will simulate it by defining the page content as the first instance 
     /// of the Html content feature in the center pane of the page for which the user has edit permissions.
     /// We will store the module id of the html instance in the struct in a custom field for ease of updating the instance.
     /// When creating a new page we will create it with a single html content instance in the center pane.

@@ -100,8 +100,8 @@ namespace mojoPortal.Web.Services
                             }
                             else
                             {
-                                // no redeirectUrl returned from provider
-                                //TODO: what? log  it?
+                                // no redirectUrl returned from provider
+                                //TODO: log redirectUrl missing
 
                                 WebUtils.SetupRedirect(this, lastResortRedirectUrl);
                                 return;
@@ -128,7 +128,6 @@ namespace mojoPortal.Web.Services
                     else
                     {
                         // provider not specified on StandardCheckoutLog
-                        //TODO: what? log  it?
                         PayPalLog unhandledLog = new PayPalLog();
                         unhandledLog.ProviderName = "unhandled";
                         unhandledLog.RawResponse = pdtResponse;

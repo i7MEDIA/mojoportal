@@ -71,7 +71,4 @@ using System.Reflection;
 [assembly: CLSCompliant(true)]
 [assembly: AssemblyFileVersion("2.7.0.9")]
 
-
-
-// TODO: what other permissions should be specified here?
 //[assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution = true)]

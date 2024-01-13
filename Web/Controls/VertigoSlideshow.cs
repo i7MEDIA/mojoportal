@@ -100,7 +100,7 @@ public class VertigoSlideshow : WebControl
 	{
 		if (this.Site != null && this.Site.DesignMode)
 		{
-			// TODO: show a bmp or some other design time thing?
+			
 			writer.Write("[" + this.ID + "]");
 		}
 		else

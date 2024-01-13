@@ -279,7 +279,6 @@ namespace mojoPortal.Web.ELetterUI
 
             letterInfo.RolesThatCanSend = sendRoles;
 
-            // TODO:
             //letterInfo.SendMode = txtSendMode.Text;
 
             letterInfo.Save();

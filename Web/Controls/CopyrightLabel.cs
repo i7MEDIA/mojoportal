@@ -37,7 +37,7 @@ public class CopyrightLabel : WebControl
 
 		if (HttpContext.Current == null)
 		{
-			// TODO: show a bmp or some other design time thing?
+			
 			writer.Write("[" + this.ID + "]");
 		}
 

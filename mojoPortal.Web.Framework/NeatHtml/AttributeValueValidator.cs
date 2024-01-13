@@ -78,7 +78,6 @@ namespace mojoPortal.Web.Framework
                 Debug.WriteLine("Checking " + attr.Value + " against " + re.ToString());
                 if (!re.IsMatch(attr.Value))
                 {
-                    // TODO: i18n
                     throw new XmlSchemaException("Invalid value for " + attr.LocalName + " attribute: " + attr.Value, null);
                 }
             }

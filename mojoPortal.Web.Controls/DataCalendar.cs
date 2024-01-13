@@ -286,7 +286,7 @@ namespace mojoPortal.Web.Controls
         {
             if (this.Site != null && this.Site.DesignMode)
             {
-                // TODO: show a bmp or some other design time thing?
+                
                 html.Write("[" + this.ID + "]");
             }
             else

@@ -5,7 +5,7 @@ using System.Web.UI;
 using mojoPortal.Core.Extensions;
 
 namespace mojoPortal.Web.UI;
-
+//todo: remove SlidePanel
 /// <summary>
 /// A wrapper control for http://malsup.com/jquery/cycle/
 /// Using a panel which renders as a div any first child elements of the panel can be cycled
@@ -114,7 +114,6 @@ public class SlidePanel : BasePanel
 	/// </summary>
 	public string End { get; set; } = string.Empty;
 
-	//TODO: implement? Requires easing plugin
 	// easing method for both in and out transitions 
 	private string easing = string.Empty;
 	// easing for "in" transition 

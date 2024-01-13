@@ -19,7 +19,7 @@ namespace mojoPortal.Web.UI;
 /// This is more simple than using latitude longitude, lat and long are derived automatically if possible
 /// from the location. Alternatively you can set the coordinates.
 /// 
-/// TODO: implement more of the optional features like overlays etc
+/// TODO: maps: implement more of the optional features like overlays etc
 /// </summary>
 public class LocationMap : Panel
 {

@@ -251,7 +251,6 @@ namespace mojoPortal.Business
         }
 
         /*
-        // TODO: uncomment and implement if needed
         public static DataTable GetPage(int pageNumber, int pageSize)
         {
             DataTable dataTable = new DataTable();

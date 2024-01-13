@@ -154,7 +154,7 @@ namespace mojoPortal.Web.Editor
         {
             if (HttpContext.Current == null)
             {
-                // TODO: show a bmp or some other design time thing?
+                
                 writer.Write("[" + this.ID + "]");
                 return;
             }

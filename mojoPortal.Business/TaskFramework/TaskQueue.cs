@@ -519,7 +519,7 @@ public class TaskQueue
 
 	public static bool IsStalled(TaskQueue task)
 	{
-		// TODO: make config setting
+		// TODO: make taskTimeoutPadding a config setting
 		int taskTimeoutPaddingSeconds = 300; //5 minutes
 
 		return (DateTime.UtcNow > task.LastStatusUpdateUTC.AddSeconds(task.UpdateFrequency + taskTimeoutPaddingSeconds));

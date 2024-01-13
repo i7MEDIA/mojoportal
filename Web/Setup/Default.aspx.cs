@@ -389,9 +389,7 @@ public partial class SetupHome : Page
 
 		if (scriptFiles.Length == 0)
 		{
-			//todo: what are we doing here? Should we log this, show it?
-			string warning = string.Format(SetupResource.NoUpgradeScriptsFound, applicationName);
-
+			log.WarnFormat(SetupResource.NoUpgradeScriptsFound, applicationName);
 			return false;
 		}
 

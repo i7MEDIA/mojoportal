@@ -7,8 +7,5 @@ public class TaskMonitor
 {
 	public TaskMonitor()
 	{
-		//
-		// TODO: Add constructor logic here
-		//
 	}
 }

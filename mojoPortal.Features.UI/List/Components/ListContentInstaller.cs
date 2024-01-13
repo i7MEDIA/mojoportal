@@ -24,7 +24,7 @@ namespace mojoPortal.Features.UI
     {
         public void InstallContent(Module module, string configInfo)
         {
-            //TODO: implement
+
         }
     }
 }

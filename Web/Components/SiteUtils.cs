@@ -2027,8 +2027,6 @@ namespace mojoPortal.Web
 
 		public static string GetImageSiteRoot(Page page)
 		{
-			//TODO: could implement support for using a CDN
-
 			string imageRoot = page.ResolveUrl("~/");
 			if (imageRoot.EndsWith("/")) { imageRoot = imageRoot.Remove(imageRoot.Length - 1, 1); }
 

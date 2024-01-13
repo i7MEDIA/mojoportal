@@ -76,18 +76,7 @@ namespace mojoPortal.Web.AdminUI
 
 		private void grdBannedIPAddresses_Sorting(object sender, GridViewSortEventArgs e)
 		{
-			// TODO: 
-			//String redirectUrl = WebUtils.GetSiteRoot()
-			//    + "/YourPath/AdminBannedIPAddresses.aspx?pageid=" + PageID.ToString(CultureInfo.InvariantCulture)
-			//    + "&mid=" + ModuleID.ToString(CultureInfo.InvariantCulture)
-			//    + "&pagenumber"
-			//    + ModuleID.ToString(CultureInfo.InvariantCulture)
-			//    + "=" + pageNumber.ToString(CultureInfo.InvariantCulture)
-			//    + "&sort"
-			//    + ModuleID.ToString(CultureInfo.InvariantCulture)
-			//    + "=" + e.SortExpression;
-
-			//WebUtils.SetupRedirect(this, redirectUrl);
+			// TODO: Implement Sorting
 		}
 
 

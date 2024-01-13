@@ -38,7 +38,7 @@ namespace mojoPortal.Web.Services
             siteSettings = CacheHelper.GetCurrentSiteSettings();
             if (siteSettings == null)
             {
-                //TODO: should we return some xml with an error message?
+                //TODO: LOG THIS
                 return;
             }
 

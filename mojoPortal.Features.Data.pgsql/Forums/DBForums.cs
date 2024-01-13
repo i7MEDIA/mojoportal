@@ -1847,8 +1847,7 @@ namespace mojoPortal.Data
 
             sqlCommand.Append("ft.forumid As forumid, ");
             sqlCommand.Append("ft.islocked As islocked, ");
-            // TODO:
-            //using 'Guest' here is not culture neutral, need to pass in a label
+            // TODO: using 'Guest' here is not culture neutral, need to pass in a label
             sqlCommand.Append("COALESCE(u.name, 'Guest') As mostrecentpostuser, ");
             sqlCommand.Append("COALESCE(s.name, 'Guest') As startedby, ");
             sqlCommand.Append("COALESCE(up.name, 'Guest') As postauthor, ");
@@ -1916,8 +1915,7 @@ namespace mojoPortal.Data
 
             sqlCommand.Append("ft.forumid As forumid, ");
             sqlCommand.Append("ft.islocked As islocked, ");
-            // TODO:
-            //using 'Guest' here is not culture neutral, need to pass in a label
+            // TODO: using 'Guest' here is not culture neutral, need to pass in a label
             sqlCommand.Append("COALESCE(u.name, 'Guest') As mostrecentpostuser, ");
             sqlCommand.Append("COALESCE(s.name, 'Guest') As startedby, ");
             sqlCommand.Append("COALESCE(up.name, 'Guest') As postauthor, ");
@@ -1970,8 +1968,7 @@ namespace mojoPortal.Data
 
             sqlCommand.Append("ft.forumid As forumid, ");
             sqlCommand.Append("ft.islocked As islocked, ");
-            // TODO:
-            //using 'Guest' here is not culture neutral, need to pass in a label
+            // TODO: using 'Guest' here is not culture neutral, need to pass in a label
             sqlCommand.Append("COALESCE(u.name, 'Guest') As mostrecentpostuser, ");
             sqlCommand.Append("COALESCE(s.name, 'Guest') As startedby, ");
             sqlCommand.Append("COALESCE(up.name, 'Guest') As postauthor, ");

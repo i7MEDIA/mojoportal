@@ -348,10 +348,7 @@ namespace mojoPortal.Data
 
         public static bool DatabaseHelperCanAccessDatabase(String overrideConnectionInfo)
         {
-            // TODO: FxCop says not to swallow nonspecific exceptions
-            // need to find all possible exceptions that could happen here and
-            // catch them specifically
-            // ultimately we want to return false on any exception
+            // TODO: catch specific exceptions
 
             bool result = false;
 

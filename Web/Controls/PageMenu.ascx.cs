@@ -414,8 +414,6 @@ public partial class PageMenuControl : UserControl
 
 	private void DoMenuSelection(Menu menu)
 	{
-		// TODO: clean up this hairy mess without breaking anything
-
 		MenuItem menuItem = null;
 		bool didSelect = false;
 		string valuePath;

@@ -365,7 +365,6 @@ namespace PollFeature.UI
 
             String votesText = (votes == 1) ? PollResources.PollVoteText : PollResources.PollVotesText;
 
-            // TODO: Some pattern based resource...
             String text = orderNumber + answer + ", " + votes + " " + votesText;
 
             poll = new Poll(ModuleId);

@@ -93,7 +93,7 @@ public class CssHandler : IHttpHandler
 
 				if (ShouldCacheOnServer())
 				{
-					// TODO: maybe we should cache it to disk instead of memory
+					// TODO: Cache CSS to disk instead of memory or make it configurable
 					lock (this)
 					{
 						string cahceKey = GetCacheKey(siteId, skinName, isCompressed);

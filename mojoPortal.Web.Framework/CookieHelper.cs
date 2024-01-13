@@ -26,7 +26,7 @@ namespace mojoPortal.Web.Framework
             {
                 string cartKey = "cart" + storeGuid.ToString();
 
-                // TODO encrypt, sign?
+                //TODO: encrypt, sign cart cookie?
 
                 SetPersistentCookie(cartKey, cartGuid.ToString());
 
@@ -49,7 +49,7 @@ namespace mojoPortal.Web.Framework
 
             string cartKey = GetCartKey(storeGuid);
 
-            // TODO: decrypt and verify?
+            // TODO: decrypt and verify cart cookie?
 
             return CookieHelper.GetCookieValue(cartKey);
 

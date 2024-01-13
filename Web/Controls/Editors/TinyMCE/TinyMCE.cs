@@ -704,14 +704,6 @@ public class TinyMCE : Control, IPostBackDataHandler
 				setupScript.Append(",plugin_preview_height:'900'");
 
 			}
-
-			//TODO: populate from style templates for a element
-			//http://wiki.moxiecode.com/index.php/TinyMCE:Plugins/advlink
-			//This option should contain a semicolon separated list of class titles and class names separated by =
-			//advlink_styles : “Code=code;Excel=excel;Flash=flash;Sound=sound;Office=office;PDF=pdf;Image=image;PowerPoint=powerpoint;Word=word;Video=video”
-			//advlink_styles
-
-			//setupScript.Append(",media_strict:false");
 		}
 
 		//setupScript.Append(",apply_source_formatting:true");

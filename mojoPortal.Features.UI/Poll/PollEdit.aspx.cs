@@ -188,9 +188,7 @@ namespace PollFeature.UI
                 if (dpActiveFrom.Text.Length > 0 && poll.ActiveFrom >= DateTime.UtcNow)
                 {
                     // You can't change date if poll has started.
-
-                    // TODO: promt user if invalid format/date
-                    
+                  
                     DateTime activeFrom;
                     DateTime.TryParse(dpActiveFrom.Text, out activeFrom);
 
@@ -208,7 +206,6 @@ namespace PollFeature.UI
 
                 if (dpActiveTo.Text.Length > 0)
                 {
-                    // TODO: promt user if invalid format/date
                     DateTime activeTo;
                     DateTime.TryParse(dpActiveTo.Text, out activeTo);
 

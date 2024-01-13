@@ -39,7 +39,7 @@ namespace mojoPortal.Web.UI
 
             if (HttpContext.Current == null)
             {
-                // TODO: show a bmp or some other design time thing?
+                
                 writer.Write("[" + this.ID + "]");
             }
             else

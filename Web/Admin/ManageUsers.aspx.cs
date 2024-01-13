@@ -313,7 +313,6 @@ namespace mojoPortal.Web.AdminUI
 					{
 						try
 						{
-
 							mojoMembershipProvider mojoMembership = (mojoMembershipProvider)Membership.Provider;
 							string password = mojoMembership.UnencodePassword(siteUser.Password, MembershipPasswordFormat.Encrypted);
 							if (siteUser.PasswordSalt.Length > 0)

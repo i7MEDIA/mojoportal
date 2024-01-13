@@ -302,9 +302,7 @@ public class mojoProfilePropertyDefinition
 					break;
 
 				case "System.DateTime":
-					// TODO: to really make this culture aware we should store the users
-					// culture as well and use the user's culture to 
-					// parse the date
+					// TODO: to really make this culture aware we should store the users culture as well and use the user's culture to parse the date
 					var datePicker = CreateDatePicker(propertyDefinition, propertyValue, legacyTimeZoneOffset, timeZone, siteRoot);
 
 					datePicker.TabIndex = 0;

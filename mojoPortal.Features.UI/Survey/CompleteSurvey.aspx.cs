@@ -213,11 +213,11 @@ namespace SurveyFeature.UI
 				{
 					SubmitResponse();
 					//We need to go back to the module main page
-					WebUtils.SetupRedirect(this, $"{SiteRoot}/Default.aspx?pageId={PageId}&SurveyEnd={surveyGuid}"); //TODO: Fix to redirect by pageId
+					WebUtils.SetupRedirect(this, Invariant($"{SiteRoot}/Default.aspx?pageId={PageId}&SurveyEnd={surveyGuid}"));
 				}
 				else
 				{
-					WebUtils.SetupRedirect(this, $"{SiteRoot}/Survey/CompleteSurvey.aspx?SurveyGuid={surveyGuid}&PageId={PageId}&mid={ModuleId}&SurveyPageGuid={nextSurveyPageGuid}");
+					WebUtils.SetupRedirect(this, Invariant($"{SiteRoot}/Survey/CompleteSurvey.aspx?SurveyGuid={surveyGuid}&PageId={PageId}&mid={ModuleId}&SurveyPageGuid={nextSurveyPageGuid}"));
 				}
 			}
 		}

@@ -1691,8 +1691,6 @@ public class SiteSettings
 		set { SetExpandoProperty("RequireApprovalBeforeLogin", value.ToString()); }
 	}
 
-	// TODO: 
-
 	//public bool AllowPersistentLogin
 	//{
 	//    get
@@ -2718,19 +2716,6 @@ public class SiteSettings
 
 	//}
 
-
-	//public static int GetSiteIdFromFolderName(string folderName)
-	//{
-	//    int siteID = 1;
-
-	//    // TODO: implement, this is just test logic
-	//    if (folderName.ToLower() == "joefolder") siteID = 2;
-
-
-
-	//    return siteID;
-
-	//}
 
 	//public static IDataReader GetSettingsExList(int siteId)
 	//{

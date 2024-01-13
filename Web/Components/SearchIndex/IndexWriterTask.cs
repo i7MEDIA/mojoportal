@@ -580,15 +580,6 @@ namespace mojoPortal.SearchIndex
 
         }
 
-
-        //private bool IsStalled(TaskQueue task)
-        //{
-        //    // TODO: make config setting ?
-        //    int taskTimeoutPaddingSeconds = 2;
-        //    return (DateTime.UtcNow > task.LastStatusUpdateUTC.AddSeconds(task.UpdateFrequency + taskTimeoutPaddingSeconds));
-
-        //}
-
         private bool IsAlreadyRunning()
         {
             List<TaskQueue> unfinishedTasks = TaskQueue.GetUnfinished();

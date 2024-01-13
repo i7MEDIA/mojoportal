@@ -933,7 +933,6 @@ namespace mojoPortal.Web.BlogUI
 			pageSize = config.PageSize;
 			AllowComments = Config.AllowComments && ShowCommentCounts;
 
-			//TODO: should we use separate settings for each displaymode?
 			switch (DisplayMode)
 			{
 				case "ByCategory":

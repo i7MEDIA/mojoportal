@@ -258,7 +258,6 @@ namespace PollFeature.UI
 
             String votesText = (option.Votes == 1) ? PollResources.PollVoteText : PollResources.PollVotesText;
 
-            // TODO: Some pattern based resource...
             String text = orderNumber + option.Answer + ", " + option.Votes + " " + votesText;
 
             if (option.Poll.TotalVotes != 0)

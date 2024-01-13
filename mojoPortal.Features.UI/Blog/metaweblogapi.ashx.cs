@@ -1552,11 +1552,6 @@ public class metaweblogapi : IHttpHandler
 				throw new MetaWeblogException("11", MetaweblogResources.NotAllowedToCreateRootPages);
 			}
 
-			// TODO: promote these to site settings?
-			//page.AuthorizedRoles = WebConfigSettings.DefaultPageRoles;
-			//page.EditRoles = WebConfigSettings.DefaultRootPageEditRoles;
-			//page.CreateChildPageRoles = WebConfigSettings.DefaultRootPageCreateChildPageRoles;
-
 			page.AuthorizedRoles = siteSettings.DefaultRootPageViewRoles;
 			page.EditRoles = siteSettings.DefaultRootPageEditRoles;
 			page.CreateChildPageRoles = siteSettings.DefaultRootPageCreateChildPageRoles;

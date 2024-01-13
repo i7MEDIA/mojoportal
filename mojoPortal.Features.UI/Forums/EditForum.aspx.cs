@@ -109,7 +109,7 @@ namespace mojoPortal.Web.ForumUI
             Title = SiteUtils.FormatPageTitle(siteSettings, ForumResources.ForumEditForumLabel);
             heading.Text = ForumResources.ForumEditForumLabel;
 
-            // TODO: implement
+            // TODO: implement moderation
             divIsModerated.Visible = false;
             divIsActive.Visible = false;
 

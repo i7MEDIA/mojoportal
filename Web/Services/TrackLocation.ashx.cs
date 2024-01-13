@@ -16,7 +16,6 @@ namespace mojoPortal.Web.Services
 
         public void ProcessRequest(HttpContext context)
         {
-            // TODO:
             context.Response.ContentType = "text/plain";
             context.Response.Write("Hello World");
         }

@@ -267,7 +267,6 @@ public partial class WindowsLiveAuthHandler : Page
 				}
 				else
 				{
-					// TODO: use return url cookie if normal login
 					//WebUtils.SetupRedirect(
 					//    this,
 					//    SiteUtils.GetNavigationSiteRoot());

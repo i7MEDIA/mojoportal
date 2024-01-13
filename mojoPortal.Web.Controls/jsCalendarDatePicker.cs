@@ -24,7 +24,6 @@ namespace mojoPortal.Web.Controls
 		{
 			EnsureChildControls();
 			
-			// TODO: make it an option to use an image for the button
 			this.btnPickDate.InnerText = "...";
 			this.btnPickDate.ID = this.btnPickDate.UniqueID;
 			this.txtPickDate.ID = this.txtPickDate.UniqueID;
@@ -445,9 +444,6 @@ namespace mojoPortal.Web.Controls
 			
 			
 			*/
-
-			// TODO: remove hard coded settings and make properties
-			// though I can't think of a reason to change the last 2 hard coded ones
 
             StringBuilder script = new StringBuilder();
 

@@ -345,7 +345,7 @@ public class AnalyticsAsyncTopScript : WebControl
 	{
 		if (string.IsNullOrEmpty(section)) { return; }
 
-		// TODO:? I think custom dimensions have to be setup in the account and we don't know what they are
+		// TODO: custom dimensions have to be setup in the account and we don't know what they are
 		//ga('set', 'dimension2', 'Paid');
 		//https://support.google.com/analytics/answer/2709829
 
@@ -359,7 +359,7 @@ public class AnalyticsAsyncTopScript : WebControl
 	{
 		if (string.IsNullOrEmpty(memberLabel)) { return; }
 
-		// TODO:? I think custom dimensions have to be setup in the account and we don't know what they are
+		// TODO: custom dimensions have to be setup in the account and we don't know what they are
 		//ga('set', 'dimension1', 'Paid');
 		//https://support.google.com/analytics/answer/2709829
 

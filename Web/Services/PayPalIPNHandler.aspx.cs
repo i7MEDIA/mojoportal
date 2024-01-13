@@ -94,7 +94,6 @@ namespace mojoPortal.Web.Services
                     //}
                     //else
                     //{
-                    //    // TODO: what? log it?
 
                     //    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                     //    Response.Flush();
@@ -108,7 +107,7 @@ namespace mojoPortal.Web.Services
                 else
                 {
                     // failed verification 
-                    // TODO: what log it?
+                    // TODO: log failed verification
 
 
                     Response.StatusCode = (int)System.Net.HttpStatusCode.OK;

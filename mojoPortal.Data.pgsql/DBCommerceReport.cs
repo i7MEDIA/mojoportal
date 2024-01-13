@@ -514,7 +514,7 @@ namespace mojoPortal.Data
 
         public static IDataReader GetItemRevenueBySite(Guid siteGuid)
         {
-            // TODO: implement proc
+            // TODO: implement sproc
 
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT  ");
@@ -549,7 +549,7 @@ namespace mojoPortal.Data
 
         public static IDataReader GetItemRevenueByModule(Guid moduleGuid)
         {
-            // TODO: implement proc
+            // TODO: implement sproc
 
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT  ");
@@ -584,7 +584,7 @@ namespace mojoPortal.Data
 
         public static IDataReader GetItemRevenueByUser(Guid userGuid)
         {
-            // TODO: implement proc
+            // TODO: implement sproc
 
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT  ");

@@ -797,7 +797,7 @@ namespace mojoPortal.Web.Controls
 
             // Selected is always defined because it has default effects
             int styleMask = STYLEMASK_SELECTED;
-            //TODO: All of these were checking if the style was empty
+
             if (dayStyle != null)
                 styleMask |= STYLEMASK_DAY;
             if (todayDayStyle != null)

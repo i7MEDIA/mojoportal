@@ -206,7 +206,7 @@ namespace mojoPortal.Business
         //    //{
         //       return Create();
         //    //}
-        //    // TODO: delete and create?
+        //    
         //    //return false;
         //}
 
