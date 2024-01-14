@@ -1147,7 +1147,7 @@
     <Compile Include="Controls\AdminMenuLink.cs" />
     <Compile Include="Controls\Artisteer\MenuAdapterArtisteerVertical.cs" />
     <Compile Include="Controls\Artisteer\mojoMenuArtisteerVertical.cs" />
-    <Compile Include="Controls\AutoHidePanel.cs" />
+    <Compile Include="Controls\Panels\AutoHidePanel.cs" />
     <Compile Include="Controls\Captcha\CaptchaVerificationResponse.cs" />
     <Compile Include="Controls\Captcha\RecaptchaControl.cs" />
     <Compile Include="Controls\Captcha\RecaptchaResponse.cs" />
@@ -1160,11 +1160,6 @@
       <DependentUpon>ColorBoxTransitionSetting.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\CommentSystems\Controls\CommentDateWrapper.cs" />
-    <Compile Include="Controls\CommentSystems\Controls\CommentItemBodyPanel.cs" />
-    <Compile Include="Controls\CommentSystems\Controls\CommentItemInnerPanel.cs" />
-    <Compile Include="Controls\CommentSystems\Controls\CommentItemLeftPanel.cs" />
-    <Compile Include="Controls\CommentSystems\Controls\CommentItemRightPanel.cs" />
-    <Compile Include="Controls\CommentSystems\Controls\CommentItemTitlePanel.cs" />
     <Compile Include="Controls\CommentSystems\Controls\CommentItemWrapper.cs" />
     <Compile Include="Controls\CommentSystems\Controls\CommentEditor.ascx.cs">
       <DependentUpon>CommentEditor.ascx</DependentUpon>
@@ -1173,8 +1168,7 @@
     <Compile Include="Controls\CommentSystems\Controls\CommentEditor.ascx.designer.cs">
       <DependentUpon>CommentEditor.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CommentSystems\Controls\CommentsInnerPanel.cs" />
-    <Compile Include="Controls\CommentSystems\Controls\CommentsOuterPanel.cs" />
+    <Compile Include="Controls\CommentSystems\Controls\CommentPanels.cs" />
     <Compile Include="Controls\CommentSystems\CommentsWidget.ascx.cs">
       <DependentUpon>CommentsWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1227,7 +1221,7 @@
     <Compile Include="Controls\Google\LocationMap.cs" />
     <Compile Include="Controls\Google\QRCodeImage.cs" />
     <Compile Include="Controls\Gravatar\Avatar.cs" />
-    <Compile Include="Controls\jPlayerPanel.cs" />
+    <Compile Include="Controls\Panels\jPlayerPanel.cs" />
     <Compile Include="Controls\jQuery\bxSlider.cs" />
     <Compile Include="Controls\jQuery\CalendarDatePickerAdapter.cs" />
     <Compile Include="Controls\jQuery\CalendarDatePickerProvider.cs" />
@@ -1271,12 +1265,10 @@
     </Compile>
     <Compile Include="Controls\PageTreeLink.cs" />
     <Compile Include="Controls\Panels\AdminCrumbContainer.cs" />
-    <Compile Include="Controls\Panels\AlertPanel.cs" />
     <Compile Include="Controls\Panels\BreadcrumbContainer.cs" />
     <Compile Include="Controls\Panels\FormGroupPanel.cs" />
-    <Compile Include="Controls\Panels\LayoutPanel.cs" />
     <Compile Include="Controls\Panels\MobileViewPanel.cs" />
-    <Compile Include="Controls\Panels\SearchPanel.cs" />
+    <Compile Include="Controls\Panels\Panels.cs" />
     <Compile Include="Controls\PaymentLogList.ascx.cs">
       <DependentUpon>PaymentLogList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1322,7 +1314,7 @@
     <Compile Include="Controls\HtmlSetting.ascx.designer.cs">
       <DependentUpon>HtmlSetting.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\InsecurePanel.cs" />
+    <Compile Include="Controls\Panels\InsecurePanel.cs" />
     <Compile Include="Controls\jQuery\Carousel.cs" />
     <Compile Include="Controls\jQuery\EasySlider.cs" />
     <Compile Include="Controls\jQuery\ExtrudeConfigurator.cs" />
@@ -1378,11 +1370,6 @@
     <Compile Include="Controls\PageEditFeaturesLink.cs" />
     <Compile Include="Controls\PageEditSettingsLink.cs" />
     <Compile Include="Controls\Panels\BasePanel.cs" />
-    <Compile Include="Controls\Panels\EmptyPanel.cs" />
-    <Compile Include="Controls\Panels\InnerBodyPanel.cs" />
-    <Compile Include="Controls\Panels\InnerWrapperPanel.cs" />
-    <Compile Include="Controls\Panels\OuterBodyPanel.cs" />
-    <Compile Include="Controls\Panels\OuterWrapperPanel.cs" />
     <Compile Include="Controls\PrivacyPageLink.cs" />
     <Compile Include="Controls\Sharing\DeliciousLink.cs" />
     <Compile Include="Controls\Sharing\DiggLink.cs" />
@@ -1841,7 +1828,7 @@
     <Compile Include="Controls\ImageCropper.ascx.designer.cs">
       <DependentUpon>ImageCropper.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ModulePanel.cs" />
+    <Compile Include="Controls\Panels\ModulePanel.cs" />
     <Compile Include="Components\mojoAdminCatalogPart.cs" />
     <Compile Include="Components\mojoDialogBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -2011,7 +1998,7 @@
     <Compile Include="Controls\mojoMenuWithSpanInLinks.cs" />
     <Compile Include="Controls\mojoOpenIdLogin.cs" />
     <Compile Include="Controls\mojoOpenIdRegister.cs" />
-    <Compile Include="Controls\mojoPanel.cs" />
+    <Compile Include="Controls\Panels\mojoPanel.cs" />
     <Compile Include="Controls\mojoPortalLink.cs" />
     <Compile Include="Controls\mojoSiteMapMenu.cs" />
     <Compile Include="Controls\mojoSiteMapPath.cs" />
@@ -2149,7 +2136,7 @@
     <Compile Include="Controls\SkinPreview.cs">
     </Compile>
     <Compile Include="Controls\SkipLink.cs" />
-    <Compile Include="Controls\SlidePanel.cs" />
+    <Compile Include="Controls\Panels\SlidePanel.cs" />
     <Compile Include="Controls\StyleSheet.ascx.cs">
       <DependentUpon>StyleSheet.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3057,6 +3044,10 @@
     <Folder Include="bin\" />
     <Folder Include="ClientScript\" />
     <Folder Include="Components\api\" />
+    <Folder Include="Content\failsafeskin\css\" />
+    <Folder Include="Content\failsafeskin\img\" />
+    <Folder Include="Content\failsafeskin\includes\" />
+    <Folder Include="Content\failsafeskin\js\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\RazorPartialBridge\" />
   </ItemGroup>

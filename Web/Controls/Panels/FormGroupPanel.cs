@@ -1,10 +1,8 @@
-﻿
-namespace mojoPortal.Web.UI
-{
-	public class FormGroupPanel : BasePanel
-	{
-		public override string CssClass { get; set; } = "settingrow";
+﻿namespace mojoPortal.Web.UI;
 
-		public override bool RenderId { get; set; } = false;
-	}
+public class FormGroupPanel : BasePanel
+{
+	public override string CssClass { get; set; } = "settingrow";
+
+	public override bool RenderId { get; set; } = false;
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Web.UI;
-using mojoPortal.Core.Extensions;
 
 namespace mojoPortal.Web.UI;
 //todo: remove SlidePanel
@@ -10,6 +9,7 @@ namespace mojoPortal.Web.UI;
 /// A wrapper control for http://malsup.com/jquery/cycle/
 /// Using a panel which renders as a div any first child elements of the panel can be cycled
 /// </summary>
+[Obsolete()]
 public class SlidePanel : BasePanel
 {
 	/// <summary>
@@ -77,12 +77,7 @@ public class SlidePanel : BasePanel
 	/// </summary>
 	public string Pager { get; set; } = string.Empty;
 
-	private bool pagerBefore = false;
-	public bool PagerBefore
-	{
-		get { return PagerBefore; }
-		set { pagerBefore = value; }
-	}
+	public bool PagerBefore { get; set; } = false;
 
 	/// <summary>
 	/// callback fn for pager clicks:  function(zeroBasedSlideIndex, slideElement)
@@ -267,7 +262,7 @@ public class SlidePanel : BasePanel
 		{
 			script.Append("$('#" + this.ClientID + "  div." + SlideContainerClass + "')");
 
-			if (Pager.Length > 0 && pagerBefore)
+			if (Pager.Length > 0 && PagerBefore)
 			{
 				script.Append(".before('<div id=\"" + this.ClientID + Pager + "\" class=\"cyclenav\"></div>').cycle({");
 			}
@@ -284,7 +279,7 @@ public class SlidePanel : BasePanel
 		{
 			script.Append("$('#" + this.ClientID + "')");
 
-			if (Pager.Length > 0 && pagerBefore)
+			if (Pager.Length > 0 && PagerBefore)
 			{
 				script.Append(".before('<div id=\"" + this.ClientID + Pager + "\" class=\"cyclenav\"></div>').cycle({");
 			}
