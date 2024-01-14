@@ -1,0 +1,77 @@
+<asp:LoginView runat="server"><LoggedInTemplate>
+<span class="admin-drawer__open" data-admin-drawer=".admin-drawer"><span class="fa fa-cog"></span></span>
+<div class="admin-drawer" id="admin-drawer">
+	<div class="admin-drawer__user">
+		<portal:Avatar runat="server" CssClass="admin-drawer__avatar" AutoConfigure="true" DisableUseLinkWithAutoConfigure="false" LinkUrl="/Secure/UserProfile.aspx" LinkTitle="My Account" size="40" />
+		<portal:WelcomeMessage runat="server" CssClass="admin-drawer__name" RenderAsListItem="false" OverrideFormat="<a href='/Secure/UserProfile.aspx' title='My Account'>{0}</a>" />
+	</div></LoggedInTemplate>
+</asp:LoginView>
+
+	<portal:AutoHidePanel runat="server" CssClass="admin-drawer__page-links">
+		<ul class="admin-drawer__list admin-drawer__list--big nav nav-pills nav-stacked">
+			<li>
+				<span class="admin-drawer__list-icon admin-drawer__list-icon--page fa-stack"><i class="fa fa-file fa-stack-2x"></i><i class="fa fa-wrench fa-inverse fa-stack-1x"></i></span>
+				<portal:PageEditFeaturesLink runat="server" id="lnkPageContent" />
+			</li>
+			<li>
+				<span class="admin-drawer__list-icon admin-drawer__list-icon--page fa-stack"><i class="fa fa-file fa-stack-2x"></i><i class="fa fa-cog fa-inverse fa-stack-1x"></i></span>
+				<portal:PageEditSettingsLink runat="server" id="lnkPageSettings" />
+			</li>
+			<li class="workflow-type">
+				<span class="admin-drawer__list-icon admin-drawer__list-icon--page fa-stack"><i class="fa fa-file fa-stack-2x"></i><i class="fa fa-code-fork fa-inverse fa-stack-1x"></i></span>
+				<span class="sr-only"><asp:ContentPlaceHolder id="pageEditContent" runat="server"></asp:ContentPlaceHolder></span>
+				<a href="">
+					Workflow:
+					<span class="slider-switch workflow-switch">
+						<span class="slider-switch__track-left">Live</span>
+						<span class="slider-switch__track-right">Draft</span>
+						<span class="slider-switch__thumb"></span>
+					</span>
+				</a>
+			</li>
+		</ul>
+	</portal:AutoHidePanel>
+
+	<portal:AutoHidePanel runat="server" CssClass="admin-drawer__site-links">
+		<ul class="admin-drawer__list admin-drawer__list--big nav nav-pills nav-stacked">
+			<li>
+				<span class="admin-drawer__list-icon fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-cogs fa-inverse fa-stack-1x"></i></span>
+				<portal:AdminMenuLink runat="server" id="lnkAdminMenu" />
+			</li>
+			<li>
+				<span class="admin-drawer__list-icon fa-stack"><i class="fa fa-folder-open fa-stack-2x"></i></span><portal:FileManagerLink runat="server" id="lnkFileManager" ModalHookValue="data-modal:,data-size:fluid-xlarge,data-close-text:Close,data-modal-type:iframe,data-height:full" ModalHookType="Attributes" />
+			</li>
+			<li>
+				<span class="admin-drawer__list-icon admin-drawer__list-icon--page fa-stack"><i class="fa fa-file fa-stack-2x"></i><i class="fa fa-plus fa-inverse fa-stack-1x"></i></span>
+				<portal:NewPageLink runat="server" id="lnkNewPage" />
+			</li>
+			<li>
+				<span class="admin-drawer__list-icon admin-drawer__list-icon--page fa-stack"><i class="fa fa-file fa-stack-2x"></i><i class="fa fa-navicon fa-inverse fa-stack-1x"></i></span>
+				<portal:PageTreeLink runat="server" id="lnkPageTree" />
+			</li>
+		</ul>
+	</portal:AutoHidePanel>
+
+	<asp:LoginView runat="server">
+		<LoggedInTemplate>
+		<ul class="admin-drawer__list nav nav-pills nav-stacked">
+			<li><portal:MemberListLink  runat="server" /></li>
+			<li>
+				<portal:RoleEnabledHyperLink runat="server" CssClass="edit-link-toggle" Text="Edit Links" RelativeUrl="/#" AllowedRoles="Role Administrators;Content Authors;Content Publishers;Content Administrators;Newsletter Administrators">
+					Hide Edit Links<span class="mdl-switch edit-link-toggle-button pull-right"><span class="mdl-switch__track"></span><span class="mdl-switch__thumb"></span></span>
+				</portal:RoleEnabledHyperLink>
+			</li>
+			<li><portal:LogoutLink runat="server" /></li>
+		</ul>
+		<div class="admin-drawer__collapse-drawer">
+			<ul class="admin-drawer__list nav nav-pills nav-stacked">
+				<li><a href="#" class="admin-drawer__close"  data-admin-drawer=".admin-drawer">Hide Bar <span class="fa fa-angle-double-left pull-right lead"></span></a></li>
+			</ul>
+		</div>
+</div>
+</LoggedInTemplate></asp:LoginView>
+<% if (WebUser.IsInRole("Admins")) {%>
+		<script>var hideAdminDrawerInitially = false;</script>
+<% } else { %>
+		<script>var hideAdminDrawerInitially = true;</script>
+<% } %>

@@ -28,7 +28,7 @@
 
 	var pagePath = siteRoot + "/MemberList.aspx";
 	var pagerFormat = pagePath + "?pagenumber={0}" + "&letter=" + filterLetter + "&sd=" + sortMode;
-	var siteAvatarPath = siteRoot + "/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/useravatars";
+	var siteAvatarPath = System.FormattableString.Invariant($"{siteRoot}/Data/Sites/{siteSettings.SiteId}/useravatars");
 
 	var displaySettings = Model.DisplaySettings;
 	var showEmailInMemberList = WebConfigSettings.ShowEmailInMemberList || displaySettings.ShowEmail;
