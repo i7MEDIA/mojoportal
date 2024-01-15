@@ -4,8 +4,7 @@ namespace mojoPortal.Net;
 
 public class SmtpSettings
 {
-	public SmtpSettings()
-	{ }
+	public SmtpSettings() { }
 
 	public string User { get; set; } = string.Empty;
 
@@ -39,7 +38,5 @@ public class SmtpSettings
 
 			return true;
 		}
-
 	}
-
 }

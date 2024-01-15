@@ -8,8 +8,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using log4net;
+using mojoPortal.Core.Configuration;
 using mojoPortal.Web.Framework;
-
 namespace mojoPortal.Net;
 
 /// <summary>
@@ -17,7 +17,6 @@ namespace mojoPortal.Net;
 /// </summary>
 public static class Email
 {
-
 	private static readonly ILog log = LogManager.GetLogger(typeof(Email));
 	private static bool debugLog = log.IsDebugEnabled;
 
@@ -57,10 +56,7 @@ public static class Email
 
 		SendEmailNormal(smtpSettings, from, to, cc, bcc, subject, messageBody, html, priority);
 		return;
-
-
 	}
-
 
 	public static void SendEmail(
 		SmtpSettings smtpSettings,
@@ -315,9 +311,7 @@ public static class Email
 
 					break;
 			}
-
 		}
-
 	}
 
 	/// <summary>
@@ -383,7 +377,6 @@ public static class Email
 	{
 		return Send(smtpSettings, from, fromAlias, replyTo, to, cc, bcc, subject, messageBody, html, priority, out _);
 	}
-
 
 	public static bool Send(
 	SmtpSettings smtpSettings,
@@ -461,24 +454,24 @@ public static class Email
 	/// This method uses the built in .NET classes to send mail.
 	/// </summary>
 	public static bool Send(
-	SmtpSettings smtpSettings,
-	string from,
-	string fromAlias,
-	string replyTo,
-	string to,
-	string cc,
-	string bcc,
-	string subject,
-	string messageBody,
-	bool html,
-	string priority,
-	string[] attachmentPaths,
-	string[] attachmentNames,
+		SmtpSettings smtpSettings,
+		string from,
+		string fromAlias,
+		string replyTo,
+		string to,
+		string cc,
+		string bcc,
+		string subject,
+		string messageBody,
+		bool html,
+		string priority,
+		string[] attachmentPaths,
+		string[] attachmentNames,
 		out string result)
 	{
 
 		// add attachments if there are any
-		List<Attachment> attachments = new List<Attachment>();
+		var attachments = new List<Attachment>();
 		if ((attachmentPaths.Length > 0) && (attachmentNames.Length == attachmentPaths.Length))
 		{
 			for (int i = 0; i < attachmentPaths.Length; i++)
@@ -570,179 +563,161 @@ public static class Email
 
 		if (debugLog) log.Debug($"In Email.Send({from}, {to}, {cc}, {bcc}, {subject}, {messageBody}, {html}, {priority})");
 
-		using (MailMessage mail = new MailMessage())
+		using var mail = new MailMessage();
+		SetMessageEncoding(smtpSettings, mail);
+
+		MailAddress fromAddress;
+		try
 		{
-			SetMessageEncoding(smtpSettings, mail);
-
-
-			MailAddress fromAddress;
-			try
+			if (fromAlias.Length > 0)
 			{
-				if (fromAlias.Length > 0)
-				{
-					fromAddress = new MailAddress(from, fromAlias);
-				}
-				else
-				{
-					fromAddress = new MailAddress(from);
-				}
-			}
-			catch (ArgumentException)
-			{
-				result = $"invalid from address {from}";
-				log.Error(result);
-				log.Info("no valid from address was provided so not sending message " + messageBody);
-				return false;
-			}
-			catch (FormatException)
-			{
-				result = $"invalid from address {from}";
-				log.Error(result);
-				log.Info("no valid from address was provided so not sending message " + messageBody);
-				return false;
-			}
-
-			mail.From = fromAddress;
-
-			List<string> toAddresses = to.Replace(";", ",").SplitOnChar(',');
-			foreach (string toAddress in toAddresses)
-			{
-				try
-				{
-					MailAddress a = new MailAddress(toAddress);
-					mail.To.Add(a);
-				}
-				catch (ArgumentException)
-				{
-					log.Error("ignoring invalid to address " + toAddress);
-				}
-				catch (FormatException)
-				{
-					log.Error("ignoring invalid to address " + toAddress);
-				}
-
-			}
-
-			if (mail.To.Count == 0)
-			{
-				result = $"no valid to address was provided so not sending message {messageBody}";
-				log.Error(result);
-				return false;
-			}
-
-			if (replyTo.Length > 0)
-			{
-				try
-				{
-					MailAddress replyAddress = new(replyTo);
-					mail.ReplyToList.Add(replyAddress);
-				}
-				catch (ArgumentException)
-				{
-					log.Error("ignoring invalid replyto address " + replyTo);
-				}
-				catch (FormatException)
-				{
-					log.Error("ignoring invalid replyto address " + replyTo);
-				}
-			}
-
-			if (cc.Length > 0)
-			{
-				List<string> ccAddresses = cc.Replace(";", ",").SplitOnChar(',');
-
-				foreach (string ccAddress in ccAddresses)
-				{
-					try
-					{
-						MailAddress a = new MailAddress(ccAddress);
-						mail.CC.Add(a);
-					}
-					catch (ArgumentException)
-					{
-						log.Error("ignoring invalid cc address " + ccAddress);
-					}
-					catch (FormatException)
-					{
-						log.Error("ignoring invalid cc address " + ccAddress);
-					}
-				}
-
-			}
-
-			if (bcc.Length > 0)
-			{
-				List<string> bccAddresses = bcc.Replace(";", ",").SplitOnChar(',');
-
-				foreach (string bccAddress in bccAddresses)
-				{
-					try
-					{
-						MailAddress a = new MailAddress(bccAddress);
-						mail.Bcc.Add(a);
-					}
-					catch (ArgumentException)
-					{
-						log.Error("invalid bcc address " + bccAddress);
-					}
-					catch (FormatException)
-					{
-						log.Error("invalid bcc address " + bccAddress);
-					}
-				}
-
-			}
-
-			mail.Subject = subject.RemoveLineBreaks();
-
-			switch (priority)
-			{
-				case PriorityHigh:
-					mail.Priority = MailPriority.High;
-					break;
-
-				case PriorityLow:
-					mail.Priority = MailPriority.Low;
-					break;
-
-				case PriorityNormal:
-				default:
-					mail.Priority = MailPriority.Normal;
-					break;
-
-			}
-
-
-
-			if (html)
-			{
-				mail.IsBodyHtml = true;
-				// this char can reportedly cause problems in some email clients so replace it if it exists
-				mail.Body = messageBody.Replace("\xA0", "&nbsp;");
+				fromAddress = new MailAddress(from, fromAlias);
 			}
 			else
 			{
-				mail.Body = messageBody;
+				fromAddress = new MailAddress(from);
+			}
+		}
+		catch (ArgumentException)
+		{
+			result = $"invalid from address {from}";
+			log.Error(result);
+			log.Info($"no valid from address was provided so not sending message {messageBody}");
+			return false;
+		}
+		catch (FormatException)
+		{
+			result = $"invalid from address {from}";
+			log.Error(result);
+			log.Info($"no valid from address was provided so not sending message {messageBody}");
+			return false;
+		}
+
+		mail.From = fromAddress;
+
+		var toAddresses = to.Replace(";", ",").SplitOnChar(',');
+		foreach (string toAddress in toAddresses)
+		{
+			try
+			{
+				var a = new MailAddress(toAddress);
+				mail.To.Add(a);
+			}
+			catch (ArgumentException)
+			{
+				log.Error($"ignoring invalid to address {toAddress}");
+			}
+			catch (FormatException)
+			{
+				log.Error($"ignoring invalid to address {toAddress}");
 			}
 
-			// add attachments if there are any
-			if (attachments != null)
+		}
+
+		if (mail.To.Count == 0)
+		{
+			result = $"no valid to address was provided so not sending message {messageBody}";
+			log.Error(result);
+			return false;
+		}
+
+		if (replyTo.Length > 0)
+		{
+			try
 			{
-				foreach (Attachment a in attachments)
+				var replyAddress = new MailAddress(replyTo);
+				mail.ReplyToList.Add(replyAddress);
+			}
+			catch (ArgumentException)
+			{
+				log.Error($"ignoring invalid replyto address {replyTo}");
+			}
+			catch (FormatException)
+			{
+				log.Error($"ignoring invalid replyto address {replyTo}");
+			}
+		}
+
+		if (cc.Length > 0)
+		{
+			var ccAddresses = cc.Replace(";", ",").SplitOnChar(',');
+
+			foreach (string ccAddress in ccAddresses)
+			{
+				try
 				{
-					mail.Attachments.Add(a);
+					var a = new MailAddress(ccAddress);
+					mail.CC.Add(a);
+				}
+				catch (ArgumentException)
+				{
+					log.Error($"ignoring invalid cc address {ccAddress}");
+				}
+				catch (FormatException)
+				{
+					log.Error($"ignoring invalid cc address {ccAddress}");
 				}
 			}
 
-			if (smtpSettings.AddBulkMailHeader)
+		}
+
+		if (bcc.Length > 0)
+		{
+			var bccAddresses = bcc.Replace(";", ",").SplitOnChar(',');
+
+			foreach (string bccAddress in bccAddresses)
 			{
-				mail.Headers.Add("Precedence", "bulk");
+				try
+				{
+					var a = new MailAddress(bccAddress);
+					mail.Bcc.Add(a);
+				}
+				catch (ArgumentException)
+				{
+					log.Error($"invalid bcc address {bccAddress}");
+				}
+				catch (FormatException)
+				{
+					log.Error($"invalid bcc address {bccAddress}");
+				}
 			}
+		}
 
-			return Send(smtpSettings, mail, out result);
+		mail.Subject = subject.RemoveLineBreaks();
 
-		}// end using MailMessage
+		mail.Priority = priority switch
+		{
+			PriorityHigh => MailPriority.High,
+			PriorityLow => MailPriority.Low,
+			_ => MailPriority.Normal,
+		};
+		if (html)
+		{
+			mail.IsBodyHtml = true;
+			// this char can reportedly cause problems in some email clients so replace it if it exists
+			mail.Body = messageBody.Replace("\xA0", "&nbsp;");
+		}
+		else
+		{
+			mail.Body = messageBody;
+		}
 
+		// add attachments if there are any
+		if (attachments != null)
+		{
+			foreach (Attachment a in attachments)
+			{
+				mail.Attachments.Add(a);
+			}
+		}
+
+		if (smtpSettings.AddBulkMailHeader)
+		{
+			mail.Headers.Add("Precedence", "bulk");
+		}
+
+		return Send(smtpSettings, mail, out result);
+		// end using MailMessage
 	}
 
 	private static string GetGlobalBccAddress()
@@ -756,12 +731,12 @@ public static class Email
 		}
 
 		return string.Empty;
-
 	}
 	public static bool Send(SmtpSettings smtpSettings, MailMessage message)
 	{
 		return Send(smtpSettings, message, out _);
 	}
+
 	public static bool Send(SmtpSettings smtpSettings, MailMessage message, out string result)
 	{
 		if (message.To.ToString() == "admin@admin.com")
@@ -774,33 +749,33 @@ public static class Email
 		string globalBcc = GetGlobalBccAddress();
 		if (globalBcc.Length > 0)
 		{
-			MailAddress bcc = new MailAddress(globalBcc);
+			var bcc = new MailAddress(globalBcc);
 			message.Bcc.Add(bcc);
 		}
 
-		int timeoutMilliseconds = mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("SMTPTimeoutInMilliseconds", 15000);
-		SmtpClient smtpClient = new SmtpClient(smtpSettings.Server, smtpSettings.Port);
-		smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-		smtpClient.EnableSsl = smtpSettings.UseSsl;
-		smtpClient.Timeout = timeoutMilliseconds;
+		int timeoutMilliseconds = ConfigHelper.GetIntProperty("SMTPTimeoutInMilliseconds", 15000);
+		var smtpClient = new SmtpClient(smtpSettings.Server, smtpSettings.Port)
+		{
+			DeliveryMethod = SmtpDeliveryMethod.Network,
+			EnableSsl = smtpSettings.UseSsl,
+			Timeout = timeoutMilliseconds
+		};
 
 		if (smtpSettings.RequiresAuthentication)
 		{
 
-			NetworkCredential smtpCredential
-				= new NetworkCredential(
-					smtpSettings.User,
-					smtpSettings.Password);
+			var smtpCredential = new NetworkCredential(smtpSettings.User, smtpSettings.Password);
 
-			CredentialCache myCache = new CredentialCache();
-			myCache.Add(smtpSettings.Server, smtpSettings.Port, "LOGIN", smtpCredential);
+			var myCache = new CredentialCache
+			{
+				{ smtpSettings.Server, smtpSettings.Port, "LOGIN", smtpCredential }
+			};
 
 			smtpClient.UseDefaultCredentials = false;
 			smtpClient.Credentials = myCache;
 		}
 		else
 		{
-			//aded 2010-01-22 JA
 			smtpClient.UseDefaultCredentials = true;
 		}
 
@@ -809,55 +784,54 @@ public static class Email
 			message.Headers.Add(header.Name, header.Value);
 		}
 
-		//message.Headers.Add(smtpSettings.AdditionalHeaders);
 		if (!string.IsNullOrWhiteSpace(smtpSettings.SenderHeader))
+		{
 			message.Headers.Add("X-mojo-Sender", smtpSettings.SenderHeader);
+		}
 
 		try
 		{
 			smtpClient.Send(message);
-			//log.Debug("Sent Message: " + subject);
-			//log.Info("Sent Message: " + subject);
 
-			bool logEmail = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("LogAllEmailsWithSubject", false);
+			bool logEmail = ConfigHelper.GetBoolProperty("LogAllEmailsWithSubject", false);
 
 			if (logEmail)
 			{
-				log.Info("Sent message " + message.Subject + " to " + message.To[0].Address);
+				log.Info($"Sent message {message.Subject} to {message.To[0].Address}");
 			}
 			result = "sent";
 			return true;
 		}
-		catch (System.Net.Mail.SmtpException ex)
+		catch (SmtpException ex)
 		{
 			//log.Error("error sending email to " + to + " from " + from, ex);
 			result = $"error: {ex}";
-			log.Error("error sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", will retry", ex);
+			log.Error($"error sending email to {message.To} from {message.From}, will retry", ex);
 			return RetrySend(message, smtpClient, ex);
 
 		}
 		catch (WebException ex)
 		{
 			result = $"error: {ex}";
-			log.Error("error sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", message was: " + message.Body, ex);
+			log.Error($"error sending email to {message.To} from {message.From}, message was: {message.Body}", ex);
 			return false;
 		}
 		catch (SocketException ex)
 		{
 			result = $"error: {ex}";
-			log.Error("error sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", message was: " + message.Body, ex);
+			log.Error($"error sending email to {message.To} from {message.From}, message was: {message.Body}", ex);
 			return false;
 		}
 		catch (InvalidOperationException ex)
 		{
 			result = $"error: {ex}";
-			log.Error("error sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", message was: " + message.Body, ex);
+			log.Error($"error sending email to {message.To} from {message.From}, message was: {message.Body}", ex);
 			return false;
 		}
 		catch (FormatException ex)
 		{
 			result = $"error: {ex}";
-			log.Error("error sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", message was: " + message.Body, ex);
+			log.Error($"error sending email to {message.To} from {message.From}, message was: {message.Body}", ex);
 			return false;
 		}
 
@@ -868,11 +842,10 @@ public static class Email
 		return RetrySend(message, smtp, ex, out _);
 	}
 
-
 	private static bool RetrySend(MailMessage message, SmtpClient smtp, Exception ex, out string result)
 	{
 		//retry
-		int timesToRetry = mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("TimesToRetryOnSmtpError", 3);
+		int timesToRetry = ConfigHelper.GetIntProperty("TimesToRetryOnSmtpError", 3);
 		for (int i = 1; i <= timesToRetry;)
 		{
 			if (RetrySend(message, smtp, i)) { result = "sent"; return true; }
@@ -884,10 +857,12 @@ public static class Email
 		if (ConfigurationManager.AppSettings["BackupSmtpServer"] != null)
 		{
 			string backupServer = ConfigurationManager.AppSettings["BackupSmtpServer"];
-			int timeoutMilliseconds = mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("SMTPTimeoutInMilliseconds", 15000);
-			int backupSmtpPort = mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("BackupSmtpPort", 25);
-			SmtpClient smtpClient = new SmtpClient(backupServer, backupSmtpPort);
-			smtpClient.UseDefaultCredentials = true;
+			int timeoutMilliseconds = ConfigHelper.GetIntProperty("SMTPTimeoutInMilliseconds", 15000);
+			int backupSmtpPort = ConfigHelper.GetIntProperty("BackupSmtpPort", 25);
+			var smtpClient = new SmtpClient(backupServer, backupSmtpPort)
+			{
+				UseDefaultCredentials = true
+			};
 
 			try
 			{
@@ -896,7 +871,7 @@ public static class Email
 				result = "sent";
 				return true;
 			}
-			catch (System.Net.Mail.SmtpException) { }
+			catch (SmtpException) { }
 			catch (WebException) { }
 			catch (SocketException) { }
 			catch (InvalidOperationException) { }
@@ -904,11 +879,9 @@ public static class Email
 
 		}
 
-		//log.Info("all retries failed sending email to " + message.To.ToString() + " from " + message.From);
-		log.Error("all retries failed sending email to " + message.To.ToString() + " from " + message.From.ToString() + ", message was: " + message.Body, ex);
+		log.Error($"all retries failed sending email to {message.To} from {message.From}, message was: {message.Body}", ex);
 		result = "fail";
 		return false;
-
 	}
 
 	private static bool RetrySend(MailMessage message, SmtpClient smtp, int tryNumber)
@@ -916,10 +889,10 @@ public static class Email
 		try
 		{
 			smtp.Send(message);
-			log.Info("success on retry " + tryNumber.ToInvariantString() + " sending email to " + message.To.ToString() + " from " + message.From);
+			log.Info(Invariant($"success on retry {tryNumber} sending email to {message.To} from {message.From}"));
 			return true;
 		}
-		catch (System.Net.Mail.SmtpException) { }
+		catch (SmtpException) { }
 		catch (WebException) { }
 		catch (SocketException) { }
 		catch (InvalidOperationException) { }
@@ -931,21 +904,5 @@ public static class Email
 	public static bool IsValidEmailAddressSyntax(string emailAddress)
 	{
 		return SecurityHelper.IsValidEmailAddress(emailAddress);
-		//Regex emailPattern;
-		////emailPattern = new Regex("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
-		//emailPattern = new Regex(SecurityHelper.GetEmailRegexExpression());
-
-		//Match emailAddressToValidate = emailPattern.Match(emailAddress);
-
-		//if (emailAddressToValidate.Success)
-		//{
-		//    return true;
-		//}
-		//else
-		//{
-		//    return false;
-		//}
-
 	}
-
 }
