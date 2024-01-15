@@ -71,7 +71,10 @@ public partial class CmsPage : mojoBasePage
 		// solves background problems with some skin in WLW
 		if ((StyleCombiner != null) && (StyleCombiner.AddBodyClassForLiveWriter))
 		{
-			if (BrowserHelper.IsWindowsLiveWriter())
+			if (HttpContext.Current != null 
+				&& HttpContext.Current.Request != null 
+				&& HttpContext.Current.Request.UserAgent != null
+				&& HttpContext.Current.Request.UserAgent.ToLower().Contains("windows live writer"))
 			{
 				AddClassToBody("wysiwygeditor");
 			}

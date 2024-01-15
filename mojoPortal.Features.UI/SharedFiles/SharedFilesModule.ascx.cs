@@ -663,14 +663,6 @@ namespace mojoPortal.Web.SharedFilesUI
 
 			newWindowMarkup = displaySettings.NewWindowLinkMarkup;
 
-			if (BrowserHelper.IsIE())
-			{
-				//this is a needed hack because IE 8 doesn't work correctly with window.open
-				// a "security feature" of IE 8
-				// unfortunately this is not valid xhtml to use target but it works in IE
-				newWindowMarkup = displaySettings.IeNewWindowLinkMarkup;
-			}
-
 			if (!SharedFilesConfiguration.DownloadLinksOpenNewWindow)
 			{
 				newWindowMarkup = string.Empty;

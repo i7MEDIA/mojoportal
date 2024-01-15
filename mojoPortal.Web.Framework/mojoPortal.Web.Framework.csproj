@@ -126,7 +126,6 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="BrowserHelper.cs" />
     <Compile Include="CombineScripts.cs" />
     <Compile Include="Compressor.cs" />
     <Compile Include="CookieHelper.cs" />

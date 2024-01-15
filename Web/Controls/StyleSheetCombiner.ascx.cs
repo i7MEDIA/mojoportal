@@ -135,20 +135,6 @@ public partial class StyleSheetCombiner : UserControl
 		return " ";
 	}
 
-	protected void Page_Load(object sender, EventArgs e)
-	{
-		//if (WebConfigSettings.AlwaysLoadYuiTabs) { IncludeYuiTabs = true; }
-
-		if (AddBodyClassForiPad && Page is mojoBasePage)
-		{
-			if (Framework.BrowserHelper.IsIpad())
-			{
-				mojoBasePage basePage = Page as mojoBasePage;
-				basePage.AddClassToBody("ipad");
-			}
-		}
-	}
-
 	protected override void OnPreRender(EventArgs e)
 	{
 		base.OnPreRender(e);

@@ -1,9 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Globalization;
 using System.Threading;
 using System.Web.UI;
-using mojoPortal.Web.Framework;
 using Resources;
 
 namespace mojoPortal.Web;
@@ -18,13 +16,16 @@ public partial class PageNotFoundPage : NonCmsBasePage
 		Response.StatusCode = 404;
 
 		pnlGoogle404Enhancement.Visible = WebConfigSettings.EnableGoogle404Enhancement;
-		if (BrowserHelper.IsIE()) { pnlGoogle404Enhancement.Visible = false; }
 
-		Control registerLink = Page.Master.FindControl("RegisterLink");
-		if (registerLink != null) { registerLink.Visible = false; }
+		if (Page.Master.FindControl("RegisterLink") is Control registerLink)
+		{
+			registerLink.Visible = false;
+		}
 
-		Control loginLink = Page.Master.FindControl("LoginLink");
-		if (loginLink != null) { loginLink.Visible = false; }
+		if (Page.Master.FindControl("LoginLink") is Control loginLink)
+		{
+			loginLink.Visible = false;
+		}
 
 		litErrorMessage.Text = $"{Resource.PageNotFoundMessage} {Resource.PageNotFoundPleaseTry} <a href=\"{SiteRoot}/SiteMap.aspx\" class=\"pnflink\">{Resource.SiteMapLink}</a>";
 
@@ -40,16 +41,15 @@ public partial class PageNotFoundPage : NonCmsBasePage
 	override protected void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
-		this.Load += new EventHandler(this.Page_Load);
+		Load += new EventHandler(Page_Load);
 		EnableViewState = false;
 
-		if (Request.Params.Get("c") != null)
+		if (Request.Params.Get("c") is string culture)
 		{
-			string culture = Request.Params.Get("c");
 			try
 			{
 				CultureInfo requestCulture = CultureInfo.GetCultureInfo(culture);
-				if ((requestCulture != null) && (!requestCulture.IsNeutralCulture))
+				if (requestCulture != null && !requestCulture.IsNeutralCulture)
 				{
 					Thread.CurrentThread.CurrentCulture = requestCulture;
 					Thread.CurrentThread.CurrentUICulture = requestCulture;

@@ -428,19 +428,6 @@ public class BingMap : Panel
 
 	private void SetupMainScript()
 	{
-		//Firefox 4 broke bing map when plotting points like in In Site Analytics Pro
-		// found this workaround http://social.msdn.microsoft.com/Forums/en-CA/vemapcontroldev/thread/17efab17-d70c-40b3-9e50-75c65d59385e
-		if (WebConfigSettings.UseBingMapWorkaroundForFirefox4) // make it possible to back this out if it gets fixed somehow in FF or in Bing
-		{
-			// 2011-06-25 the same problem persists in Firefox 5 so changed to always inlcud ehtis for all versions of FF
-			// it may not be needed in older versions of FF but there is no side effects other than the extra http request for loading this extra script
-			if (BrowserHelper.IsFF())
-			{
-				Page.ClientScript.RegisterClientScriptBlock(typeof(Page),
-					"bmapcompat", "\n<script  src=\""
-					+ protocol + "://dev.virtualearth.net/mapcontrol/v6.3/js/atlascompat.js\" type=\"text/javascript\" ></script>");
-			}
-		}
 
 		Page.ClientScript.RegisterClientScriptBlock(typeof(Page),
 				"bmapmain", "\n<script  src=\""
