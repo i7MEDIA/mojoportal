@@ -194,12 +194,9 @@ WHERE Guid = ?Guid;";
 	public static IDataReader GetByISOCode2(string countryISOCode2)
 	{
 		string sqlCommand = @"
-        sqlCommand.Append("SELECT * ");
-
-		sqlCommand.Append("FROM	mp_GeoCountry ");
-		sqlCommand.Append("WHERE ");
-		sqlCommand.Append("ISOCode2 = ?ISOCode2 ");
-		sqlCommand.Append(";");
+SELECT * 
+FROM mp_GeoCountry 
+WHERE ISOCode2 = ?ISOCode2;";
 
 		var arParams = new List<MySqlParameter>
 		{
