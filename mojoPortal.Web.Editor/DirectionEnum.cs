@@ -1,8 +1,7 @@
-namespace mojoPortal.Web.Editor
+namespace mojoPortal.Web.Editor;
+
+public enum Direction
 {
-    public enum Direction
-    {
-        LeftToRight,
-        RightToLeft
-    }
+	LeftToRight,
+	RightToLeft
 }

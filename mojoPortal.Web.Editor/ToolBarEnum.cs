@@ -1,15 +1,13 @@
-namespace mojoPortal.Web.Editor
+namespace mojoPortal.Web.Editor;
+public enum ToolBar
 {
-    public enum ToolBar
-    {
-        Full,
-        FullWithTemplates,
-        Forum,
-        ForumWithImages,
-        AnonymousUser,
-        SimpleWithSource,
-        Newsletter,
-        Custom1,
-        Custom2
-    }
+	Full,
+	FullWithTemplates,
+	Forum,
+	ForumWithImages,
+	AnonymousUser,
+	SimpleWithSource,
+	Newsletter,
+	Custom1,
+	Custom2
 }

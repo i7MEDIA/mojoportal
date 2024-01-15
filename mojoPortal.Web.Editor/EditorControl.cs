@@ -1,168 +1,119 @@
-// Author:		        
-// Created:            2007-05-25
-// Last Modified:      2011-02-26
-// 
-// Licensed under the terms of the GNU Lesser General Public License:
-//	http://www.opensource.org/licenses/lgpl-license.php
-//
-// You must not remove this notice, or any other, from this software.
-
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using log4net;
 
+namespace mojoPortal.Web.Editor;
 
-namespace mojoPortal.Web.Editor
+public class EditorControl : Panel
 {
-    
-    public class EditorControl : Panel
-    {
-        private static readonly ILog log = LogManager.GetLogger(typeof(EditorControl));
-        private EditorProvider editorProvider = null;
-        private IWebEditor editor;
-        private string providerName = "CKEditorProvider";
-        private string failsafeProviderName = "CKEditorProvider";
-        private string providerNameFromViewState = string.Empty;
-        private string scriptBaseUrl = "~/ClientScript";
+	private static readonly ILog log = LogManager.GetLogger(typeof(EditorControl));
+	private EditorProvider editorProvider = null;
+	private string providerName = "CKEditorProvider";
+	private string failsafeProviderName = "CKEditorProvider";
 
-        public IWebEditor WebEditor
-        { 
-            get { return editor; } 
-        }
+	public IWebEditor WebEditor { get; private set; }
 
-        public string Text
-        {
-            get { return editor.Text; }
-            set { editor.Text = value; }
-        }
+	public string ScriptBaseUrl { get; set; } = "~/ClientScript";
 
-        public string ScriptBaseUrl
-        {
-            get { return scriptBaseUrl; }
-            set { scriptBaseUrl = value; }
-        }
+	public string Text
+	{
+		get { return WebEditor.Text; }
+		set { WebEditor.Text = value; }
+	}
 
-      
-        /// <summary>
-        /// This should be set in Page PreInit event
-        /// </summary>
-        public string ProviderName
-        {
-            get { return providerName; }
-            set 
-            {
-                if (HttpContext.Current == null) { return; }
-                if (this.Site != null && this.Site.DesignMode)
-                {
-                    
-                }
-                else
-                {
-                    if (
-                    (value != providerName)
-                    ||(editorProvider == null)
-                    )
-                    {
-                        providerName = value;
-                        SetupProvider();
-                     
-                    }
-                    
-                }
-                
-            }
-        }
+	/// <summary>
+	/// This should be set in Page PreInit event
+	/// </summary>
+	public string ProviderName
+	{
+		get { return providerName; }
+		set
+		{
+			if (HttpContext.Current == null) { return; }
+			if (Site != null && Site.DesignMode)
+			{
+				//this seem dumb
+			}
+			else
+			{
+				if (value != providerName || editorProvider == null)
+				{
+					providerName = value;
+					SetupProvider();
+				}
+			}
+		}
+	}
 
-        public EditorProvider Provider
-        {
-            get { return editorProvider; }
-        }
+	public EditorProvider Provider
+	{
+		get { return editorProvider; }
+	}
 
-        protected override void OnInit(EventArgs e)
-        {
-            if (HttpContext.Current == null) { return; }
+	protected override void OnInit(EventArgs e)
+	{
+		if (HttpContext.Current == null) { return; }
+		base.OnInit(e);
+		DoInit();
+	}
 
-            base.OnInit(e);
+	private void DoInit()
+	{
+		Page.RegisterRequiresControlState(this);
+		// an exception always happens here in design mode
+		// this try is just to fix the display in design view in VS
+		if (editorProvider == null)
+		{
+			SetupProvider();
+		}
+	}
 
-            DoInit();  
-               
-            
-        }
+	protected override void OnLoad(EventArgs e)
+	{
+		base.OnLoad(e);
+		if (providerName != editorProvider.Name)
+		{
+			SetupProvider();
+		}
+	}
 
-        private void DoInit()
-        {
-#if NET35
-            if (WebConfigSettings.DisablePageViewStateByDefault) {Page.EnableViewState = true; }
-#endif
-            Page.RegisterRequiresControlState(this);
-            // an exception always happens here in design mode
-            // this try is just to fix the display in design view in VS
-            if (editorProvider == null)
-            {
-                SetupProvider();
-            }
+	private void SetupProvider()
+	{
+		try
+		{
+			if (EditorManager.Providers[providerName] is not null)
+			{
+				editorProvider = EditorManager.Providers[providerName];
+			}
+			else
+			{
+				editorProvider = EditorManager.Providers[failsafeProviderName];
+			}
+			WebEditor = editorProvider.GetEditor();
+			WebEditor.ControlID = $"{ID}innerEditor";
 
-        }
+			WebEditor.SiteRoot = Page.ResolveUrl("~/");
+			WebEditor.ScriptBaseUrl = Page.ResolveUrl(ScriptBaseUrl);
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            if (providerName != editorProvider.Name)
-            {
-                SetupProvider();
-            }
-        }
+			Controls.Clear();
+			Controls.Add(WebEditor.GetEditorControl());
+		}
+		catch (TypeInitializationException ex)
+		{
+			log.Error(ex);
+		}
+	}
 
-        
+	protected override void Render(HtmlTextWriter writer)
+	{
+		if (HttpContext.Current is null)
+		{
+			writer.Write("[" + ID + "]");
+			return;
+		}
 
-        private void SetupProvider()
-        {
-            
-            try
-            {
-                if (EditorManager.Providers[providerName] != null)
-                {
-                    editorProvider = EditorManager.Providers[providerName];
-                }
-                else
-                {
-                    editorProvider = EditorManager.Providers[failsafeProviderName];
-                }
-                editor = editorProvider.GetEditor();
-                editor.ControlID = this.ID + "innerEditor";
-
-                editor.SiteRoot = Page.ResolveUrl("~/");
-                editor.ScriptBaseUrl = Page.ResolveUrl(scriptBaseUrl);
-                
-
-                this.Controls.Clear();
-                this.Controls.Add(editor.GetEditorControl());
-            }
-            catch (TypeInitializationException ex)
-            {
-                log.Error(ex);
-            }
-
-
-        }
-
-        protected override void Render(HtmlTextWriter writer)
-        {
-            if (HttpContext.Current == null)
-            {
-                
-                writer.Write("[" + this.ID + "]");
-                return;
-            }
-            
-            base.Render(writer);
-            
-        }
-
-        
-    }
+		base.Render(writer);
+	}
 }
