@@ -66,8 +66,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="SpicNSpan" AfterTargets="Clean">
+  <!-- <Target Name="SpicNSpan" BeforeTargets="_GetAllRestoreProjectPathItems">
     <RemoveDir Directories="$(TargetDir)" />
     <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
-  </Target>
+  </Target> -->
 </Project>

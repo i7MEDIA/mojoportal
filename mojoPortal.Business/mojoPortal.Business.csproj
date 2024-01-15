@@ -352,10 +352,6 @@
       <Project>{C224A35B-AB21-4476-A411-CA5BA406598B}</Project>
       <Name>mojoPortal.Data.SQLite</Name>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Net\mojoPortal.Net.csproj">
-      <Project>{30916752-1A97-49CA-95D6-81A5F784EEB5}</Project>
-      <Name>mojoPortal.Net</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -378,8 +374,8 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Target Name="SpicNSpan" AfterTargets="Clean">
+  <!-- <Target Name="SpicNSpan" BeforeTargets="_GetAllRestoreProjectPathItems">
     <RemoveDir Directories="$(TargetDir)" />
     <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
-  </Target>
+  </Target> -->
 </Project>

@@ -1243,10 +1243,6 @@
       <Project>{65849992-8F44-4480-9494-1CA0D6325795}</Project>
       <Name>mojoPortal.Features.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Net\mojoPortal.Net.csproj">
-      <Project>{30916752-1A97-49CA-95D6-81A5F784EEB5}</Project>
-      <Name>mojoPortal.Net</Name>
-    </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
       <Project>{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}</Project>
       <Name>mojoPortal.Web.Controls</Name>
@@ -1752,9 +1748,6 @@
     <Content Include="Blog\news-map.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Forums\Mod.ashx" />
   </ItemGroup>
   <ItemGroup>
@@ -2012,6 +2005,9 @@
   <ItemGroup>
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.2.1.config" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -2135,10 +2131,10 @@ xcopy /s /y /d "$(ProjectDir)Comments\*.ascx" "$(SolutionDir)Web\Comments\"
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
-  <Target Name="SpicNSpan" AfterTargets="Clean">
+  <!-- <Target Name="SpicNSpan" BeforeTargets="_GetAllRestoreProjectPathItems">
     <RemoveDir Directories="$(TargetDir)" />
     <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
-  </Target>
+  </Target> -->
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
