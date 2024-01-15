@@ -35,15 +35,15 @@ public class layout : MasterPage
 	private bool useArtisteer3 = false;
 	private bool hideEmptyAlt1 = true;
 	private bool hideEmptyAlt2 = true;
-	private string leftSideNoRightSideCss = "art-layout-cell art-sidebar1 leftside left2column";
-	private string rightSideNoLeftSideCss = "art-layout-cell art-sidebar2 rightside right2column";
+	private string leftSideNoRightSideCss = "left-center";
+	private string rightSideNoLeftSideCss = "right-center";
 	private string leftAndRightNoCenterCss = string.Empty;
 	private string leftOnlyCss = string.Empty;
 	private string rightOnlyCss = string.Empty;
-	private string centerNoLeftSideCss = "art-layout-cell art-content center-rightmargin cmszone";
-	private string centerNoRightSideCss = "art-layout-cell art-content center-leftmargin cmszone";
-	private string centerNoLeftOrRightSideCss = "art-layout-cell art-content-wide center-nomargins cmszone";
-	private string centerWithLeftAndRightSideCss = "art-layout-cell  art-content-narrow center-rightandleftmargins cmszone";
+	private string centerNoLeftSideCss = "col-md-9 center-right";
+	private string centerNoRightSideCss = "col-md-9 center-left";
+	private string centerNoLeftOrRightSideCss = "col-md-12 nomargins";
+	private string centerWithLeftAndRightSideCss = "col-md-6 center-left-right";
 	private string emptyCenterCss = string.Empty;
 	private bool hideEmptyCenterIfOnlySidesHaveContent = false;
 
