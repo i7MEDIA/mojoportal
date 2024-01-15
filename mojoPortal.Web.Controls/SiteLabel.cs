@@ -62,7 +62,6 @@ public class SiteLabel : WebControl, INamingContainer
 		string forString = string.Empty;
 		if (ForControl.Length > 0)
 		{
-			Control c = NamingContainer.FindControl(ForControl);
 			if (NamingContainer.FindControl(ForControl) is Control c)
 			{
 				forString = $" for='{c.ClientID}' ";
