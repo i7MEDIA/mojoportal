@@ -448,35 +448,21 @@ SELECT
     p.EnableComments, 
     p.IsPending, 
     pp.PageName As ParentName 
-FROM
-    mp_PageModules pm 
-JOIN 
-    mp_Modules m 
-ON 
-    pm.ModuleID = m.ModuleID 
-LEFT OUTER JOIN 
-    mp_HtmlContent h 
-ON 
-    h.ModuleID = m.ModuleID 
-JOIN 
-    mp_ModuleDefinitions md 
-ON 
-    md.ModuleDefID = m.ModuleDefID 
-JOIN 
-    mp_Pages p 
-ON 
-    pm.PageID = p.PageID 
-LEFT OUTER JOIN 
-    mp_Pages pp 
-ON 
-    pp.PageID = p.ParentID 
+FROM mp_PageModules pm 
+JOIN mp_Modules m 
+ON pm.ModuleID = m.ModuleID 
+LEFT OUTER JOIN mp_HtmlContent h 
+ON h.ModuleID = m.ModuleID 
+JOIN mp_ModuleDefinitions md 
+ON md.ModuleDefID = m.ModuleDefID 
+JOIN mp_Pages p 
+ON pm.PageID = p.PageID 
+LEFT OUTER JOIN mp_Pages pp 
+ON pp.PageID = p.ParentID 
 WHERE p.SiteID = ?SiteID  
-AND 
-    md.Guid = '881e4e00-93e4-444c-b7b0-6672fb55de10' 
-AND 
-    pm.PaneName = 'contentpane' 
-ORDER BY 
-    p.PageName, pm.ModuleOrder;";
+AND md.Guid = '881e4e00-93e4-444c-b7b0-6672fb55de10' 
+AND pm.PaneName = 'contentpane' 
+ORDER BY p.PageName, pm.ModuleOrder;";
 
 		var arParams = new List<MySqlParameter>
 		{
@@ -512,24 +498,15 @@ SELECT
     u2.FirstName AS LastModByFirstName, 
     u2.LastName AS LastModByLastName, 
     u2.Email AS LastModByEmail 
-FROM
-    mp_HtmlContent h 
-LEFT OUTER JOIN 
-    mp_Users u1 
-ON 
-    h.UserGuid = u1.UserGuid 
-LEFT OUTER JOIN 
-    mp_Users u2 
-ON 
-    h.LastModUserGuid = u2.UserGuid 
-WHERE 
-    h.ModuleID = ?ModuleID  
-AND 
-    h.BeginDate <= ?BeginDate  
-AND 
-    h.EndDate >= ?BeginDate  
-ORDER BY 
-    h.BeginDate DESC;";
+FROM mp_HtmlContent h 
+LEFT OUTER JOIN mp_Users u1 
+ON h.UserGuid = u1.UserGuid 
+LEFT OUTER JOIN mp_Users u2 
+ON h.LastModUserGuid = u2.UserGuid 
+WHERE h.ModuleID = ?ModuleID  
+AND h.BeginDate <= ?BeginDate  
+AND h.EndDate >= ?BeginDate  
+ORDER BY h.BeginDate DESC;";
 
 		var arParams = new List<MySqlParameter>
 		{
@@ -569,32 +546,19 @@ SELECT
     u1.AuthorBio, 
     u1.AvatarUrl, 
     COALESCE(u1.UserID, -1) As AuthorUserID 
-FROM 
-    mp_HtmlContent h 
-JOIN 
-    mp_Modules m 
-ON 
-    h.ModuleID = m.ModuleID 
-JOIN 
-    mp_ModuleDefinitions md 
-ON 
-    m.ModuleDefID = md.ModuleDefID 
-JOIN 
-    mp_PageModules pm 
-ON 
-    m.ModuleID = pm.ModuleID 
-JOIN 
-    mp_Pages p 
-ON 
-    p.PageID = pm.PageID 
-LEFT OUTER JOIN 
-    mp_Users u1 
-ON 
-    h.UserGuid = u1.UserGuid 
-WHERE 
-p.SiteID = ?SiteID 
-AND 
-    pm.PageID = ?PageID;";
+FROM mp_HtmlContent h 
+JOIN mp_Modules m 
+ON h.ModuleID = m.ModuleID 
+JOIN mp_ModuleDefinitions md 
+ON m.ModuleDefID = md.ModuleDefID 
+JOIN mp_PageModules pm 
+ON m.ModuleID = pm.ModuleID 
+JOIN mp_Pages p 
+ON p.PageID = pm.PageID 
+LEFT OUTER JOIN mp_Users u1 
+ON h.UserGuid = u1.UserGuid 
+WHERE p.SiteID = ?SiteID 
+AND pm.PageID = ?PageID;";
 
 		var arParams = new List<MySqlParameter>
 		{
@@ -602,9 +566,7 @@ AND
 			{
 				Direction = ParameterDirection.Input,
 				Value = siteId
-			}
-
-
+			},
 
 			new("?PageID", MySqlDbType.Int32)
 			{
