@@ -7,6 +7,8 @@ using System.Net;
 
 // http://www.codeproject.com/KB/aspnet/fastload.aspx
 
+
+//TODO: research if this is something we should use
 namespace mojoPortal.Web.Framework
 {
     public class ScriptHandler : IHttpHandler

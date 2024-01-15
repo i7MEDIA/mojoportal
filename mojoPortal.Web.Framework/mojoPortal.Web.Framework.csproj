@@ -131,7 +131,6 @@
     <Compile Include="CookieHelper.cs" />
     <Compile Include="Crypto\CryptoHelper.cs" />
     <Compile Include="Crypto\mojoEncryptionConfiguration.cs" />
-    <Compile Include="CssMinify.cs" />
     <Compile Include="CultureHelpers\PersianDateHelper.cs" />
     <Compile Include="CultureHelpers\CultureHelper.cs" />
     <Compile Include="CurrencyHelper.cs" />
