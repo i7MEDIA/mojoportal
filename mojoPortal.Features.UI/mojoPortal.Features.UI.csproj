@@ -213,7 +213,6 @@
   <ItemGroup>
     <Content Include="BetterImageGallery\BetterImageGalleryModule.ascx" />
     <Content Include="BetterImageGallery\LayoutSelector.ascx" />
-    <Content Include="BingMap\BingMapModule.ascx" />
     <Content Include="Blog\Controls\BlogInstanceCategoriesSetting.ascx" />
     <Content Include="Blog\Controls\BlogInstanceSetting.ascx" />
     <Content Include="Blog\Controls\PostListLayoutSelector.ascx" />
@@ -390,14 +389,6 @@
     <Compile Include="BetterImageGallery\LayoutSelector.ascx.designer.cs">
       <DependentUpon>LayoutSelector.ascx</DependentUpon>
     </Compile>
-    <Compile Include="BingMap\BingMapModule.ascx.cs">
-      <DependentUpon>BingMapModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BingMap\BingMapModule.ascx.designer.cs">
-      <DependentUpon>BingMapModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="BingMap\Components\BingMapConfiguration.cs" />
     <Compile Include="Blog\BlogCompare.aspx.cs">
       <DependentUpon>BlogCompare.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -419,6 +410,7 @@
     <Compile Include="Blog\Controls\BlogInstanceSetting.ascx.designer.cs">
       <DependentUpon>BlogInstanceSetting.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Blog\Controls\BlogPanels.cs" />
     <Compile Include="Blog\Controls\PostListLayoutSelector.ascx.cs">
       <DependentUpon>PostListLayoutSelector.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -495,18 +487,6 @@
     <Compile Include="Blog\Controls\SearchBox.ascx.designer.cs">
       <DependentUpon>SearchBox.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Blog\Controls\Panels\BlogPostListWrapperPanel.cs" />
-    <Compile Include="Blog\Controls\Panels\BlogArchiveListPanel.cs" />
-    <Compile Include="Blog\Controls\Panels\BlogBottomSideBarPanel.cs" />
-    <Compile Include="Blog\Controls\Panels\BlogCatListPanel.cs" />
-    <Compile Include="Blog\Controls\Panels\BlogCommentPanel.cs" />
-    <Compile Include="Blog\Controls\Panels\BlogDatePanel.cs" />
-    <Compile Include="Blog\Controls\Panels\BlogNavPanel.cs" />
-    <Compile Include="Blog\Controls\Panels\BlogPagerPanel.cs" />
-    <Compile Include="Blog\Controls\Panels\BlogPostListItemPanel.cs" />
-    <Compile Include="Blog\Controls\Panels\BlogStatsPanel.cs" />
-    <Compile Include="Blog\Controls\Panels\BlogTopSideBarPanel.cs" />
-    <Compile Include="Blog\Controls\Panels\BlogWrapperPanel.cs" />
     <Compile Include="Blog\Controls\CategoryListControl.ascx.cs">
       <DependentUpon>CategoryListControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
