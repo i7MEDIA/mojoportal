@@ -416,10 +416,6 @@
       <Project>{fea72210-0415-4133-bdf9-8877683ba832}</Project>
       <Name>mojoPortal.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Net\mojoPortal.Net.csproj">
-      <Project>{30916752-1A97-49CA-95D6-81A5F784EEB5}</Project>
-      <Name>mojoPortal.Net</Name>
-    </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
       <Project>{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}</Project>
       <Name>mojoPortal.Web.Controls</Name>
@@ -1108,6 +1104,12 @@
     <Compile Include="Components\SiteMapHelper.cs" />
     <Compile Include="Components\SkinConfig.cs" />
     <Compile Include="Components\SkinHelper.cs" />
+    <Compile Include="Components\SMTP\Email.cs" />
+    <Compile Include="Components\SMTP\ForumNotificationInfo.cs" />
+    <Compile Include="Components\SMTP\Notification.cs" />
+    <Compile Include="Components\SMTP\SmtpHeader.cs" />
+    <Compile Include="Components\SMTP\SmtpSettings.cs" />
+    <Compile Include="Components\SMTP\TrustAllCertificatePolicy.cs" />
     <Compile Include="Components\SystemLogAppender.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FileManager\FileManagerController.cs" />

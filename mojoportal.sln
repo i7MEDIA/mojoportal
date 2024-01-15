@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mojoPortal.Web", "Web\mojoP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mojoPortal.Web.Controls", "mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj", "{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mojoPortal.Net", "mojoPortal.Net\mojoPortal.Net.csproj", "{30916752-1A97-49CA-95D6-81A5F784EEB5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mojoPortal.Web.Framework", "mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj", "{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mojoPortal.Business.WebHelpers", "mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj", "{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}"
