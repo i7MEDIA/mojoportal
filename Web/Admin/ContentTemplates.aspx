@@ -39,7 +39,7 @@
                 <asp:HyperLink ID="lnkExportBottom" runat="server" SkinID="InfoButton" />
             </div>
             <portal:mojoCutePager ID="pgrBottom" runat="server" />
-            <portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+            
         </portal:InnerBodyPanel>
         </portal:OuterBodyPanel>
     </portal:InnerWrapperPanel>

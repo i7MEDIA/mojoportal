@@ -37,10 +37,10 @@
 </mp:mojoGridView>
     <portal:mojoCutePager ID="pgrLetter" runat="server" />
    <asp:HyperLink ID="lnkAddNew" runat="server" />
-<portal:EmptyPanel id="divCleared1" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+
 </portal:InnerBodyPanel>
 </portal:OuterBodyPanel>
-<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+
 </portal:InnerWrapperPanel>
 
 </portal:OuterWrapperPanel>

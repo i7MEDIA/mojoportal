@@ -10,7 +10,6 @@
 		<asp:HyperLink ID="lnkPageCrumb" runat="server" CssClass="unselectedcrumb"></asp:HyperLink>
 	</div>
 	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-		
 		<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper forumview" EnableViewState="false">
 			<portal:HeadingControl ID="heading" runat="server" />
 			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
@@ -19,17 +18,13 @@
 					<portal:FormGroupPanel runat="server" ID="fgpDescription" ExtraCssClasses="forumdesc">
 						<asp:Literal ID="litForumDescription" runat="server" />
 					</portal:FormGroupPanel>
-
 					<forum:SearchBox ID="searchBoxTop" runat="server" />
 					<forum:ThreadList ID="threadList" runat="server" />
 					<forum:ThreadListAlt ID="threadListAlt" runat="server" Visible="false" />
 					<forum:SearchBox ID="searchBoxBottom" runat="server" Visible="false" />
-					<portal:EmptyPanel ID="divFooter" runat="server" CssClass="modulefooter" SkinID="modulefooter">&nbsp;</portal:EmptyPanel>
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>
-			<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
 		</portal:InnerWrapperPanel>
-		
 	</portal:OuterWrapperPanel>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />

@@ -3,8 +3,10 @@
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
 	<div class="breadcrumbs">
-		<asp:HyperLink ID="lnkPageCrumb" runat="server" CssClass="unselectedcrumb" /> &gt;
-		<asp:HyperLink runat="server" ID="lnkSurveys" CssClass="unselectedcrumb" /> &gt;
+		<asp:HyperLink ID="lnkPageCrumb" runat="server" CssClass="unselectedcrumb" />
+		&gt;
+		<asp:HyperLink runat="server" ID="lnkSurveys" CssClass="unselectedcrumb" />
+		&gt;
 		<asp:HyperLink runat="server" ID="lnkPages" CssClass="selectedcrumb" />
 	</div>
 
@@ -84,11 +86,11 @@
 					<div class="modulepager">
 						<asp:HyperLink ID="lnkAddNew" runat="server" />
 					</div>
-					<portal:EmptyPanel ID="divCleared1" runat="server" CssClass="cleared" SkinID="cleared" />
+
 					<asp:Label ID="lblMessages" runat="server" EnableViewState="False" />
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>
-			<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared" />
+
 		</portal:InnerWrapperPanel>
 	</portal:OuterWrapperPanel>
 </asp:Content>

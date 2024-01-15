@@ -37,7 +37,7 @@
 </div>
 </portal:InnerBodyPanel>	
 </portal:OuterBodyPanel>
-<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+
 </portal:InnerWrapperPanel>
 
 </portal:OuterWrapperPanel>

@@ -106,7 +106,7 @@
 					<portal:mojoButton ID="btnClearCache" runat="server" CausesValidation="False" />
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>
-			<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+			
 		</portal:InnerWrapperPanel>
 	</portal:OuterWrapperPanel>
 </asp:Content>

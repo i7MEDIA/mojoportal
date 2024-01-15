@@ -36,10 +36,10 @@
 	<br /><asp:HyperLink ID="lnkAddNew" runat="server" />
 </div>
     <portal:mojoCutePager ID="pgrLetterHtmlTemplate" runat="server" />
-<portal:EmptyPanel id="divCleared1" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+
 </portal:InnerBodyPanel>
 </portal:OuterBodyPanel>
-<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+
 </portal:InnerWrapperPanel>
 
 </portal:OuterWrapperPanel>

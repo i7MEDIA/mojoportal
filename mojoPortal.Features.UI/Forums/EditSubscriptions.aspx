@@ -17,7 +17,7 @@
     <forum:ForumListAlt ID="forumListAlt" runat="server" ShowSubscribeCheckboxes="true" Visible="false" />
 	</portal:InnerBodyPanel>
 	</portal:OuterBodyPanel>
-	<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+	
 </portal:InnerWrapperPanel>
 	
 </portal:OuterWrapperPanel>

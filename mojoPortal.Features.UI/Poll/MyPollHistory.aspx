@@ -35,7 +35,7 @@
 					<portal:SessionKeepAliveControl ID="ka1" runat="server" />
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>
-			<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+			
 		</portal:InnerWrapperPanel>
 	</portal:OuterWrapperPanel>
 </asp:Content>

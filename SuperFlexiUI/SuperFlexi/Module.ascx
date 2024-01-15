@@ -13,7 +13,6 @@
                 <asp:PlaceHolder ID="belowMarkupDefinitionScripts" runat="server" EnableViewState="false" />
             </portal:InnerBodyPanel>
         </portal:OuterBodyPanel>
-        <portal:EmptyPanel id="divCleared" runat="server" EnableViewState="false" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
     </portal:InnerWrapperPanel>
 </portal:OuterWrapperPanel>
 <asp:Literal ID="litFoot" runat="server" />

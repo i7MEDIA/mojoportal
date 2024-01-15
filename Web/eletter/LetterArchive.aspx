@@ -55,10 +55,10 @@
 <div class="settingrow">
 <portal:mojoButton ID="btnPurgeSendLogs" runat="server" />
 </div>
-<portal:EmptyPanel id="divCleared1" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+
 </portal:InnerBodyPanel>
 </portal:OuterBodyPanel>
-<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+
 </portal:InnerWrapperPanel>
 
 </portal:OuterWrapperPanel>

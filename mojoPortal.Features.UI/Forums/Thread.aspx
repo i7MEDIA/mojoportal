@@ -25,7 +25,7 @@
 					<forum:PostListAlt ID="postListAlt" runat="server" Visible="false" />
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>
-			<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+			
 		</portal:InnerWrapperPanel>
 		
 	</portal:OuterWrapperPanel>

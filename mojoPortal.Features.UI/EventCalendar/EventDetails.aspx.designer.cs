@@ -136,7 +136,7 @@ namespace mojoPortal.Web.EventCalendarUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.UI.EmptyPanel divCleared;
+        
         
         /// <summary>
         /// cbottom1 control.

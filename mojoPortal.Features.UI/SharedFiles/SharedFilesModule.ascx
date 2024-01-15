@@ -257,6 +257,5 @@
 				</asp:UpdatePanel>
 			</portal:InnerBodyPanel>
 		</portal:OuterBodyPanel>
-		<portal:EmptyPanel ID="divCleared" runat="server" EnableViewState="false" CssClass="cleared" SkinID="cleared" />
 	</portal:InnerWrapperPanel>
 </portal:OuterWrapperPanel>

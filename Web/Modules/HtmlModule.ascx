@@ -21,7 +21,7 @@
 				</asp:Panel>
 				<portal:FacebookLikeButton ID="fbLike" runat="server" Visible="false" />
 			</portal:InnerBodyPanel>
-			<portal:EmptyPanel ID="divFooter" runat="server" CssClass="modulefooter" SkinID="modulefooter"></portal:EmptyPanel>
+			
 		</portal:OuterBodyPanel>
 	</portal:InnerWrapperPanel>
 </portal:OuterWrapperPanel>

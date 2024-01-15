@@ -79,11 +79,11 @@
 							</asp:TemplateField>
 						</Columns>
 					</mp:mojoGridView>
-					<portal:EmptyPanel ID="divCleared1" runat="server" CssClass="cleared" SkinID="cleared" />
+					
 					<asp:Label ID="lblMessages" runat="server" EnableViewState="False" />
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>
-			<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared" />
+			
 		</portal:InnerWrapperPanel>
 	</portal:OuterWrapperPanel>
 </asp:Content>

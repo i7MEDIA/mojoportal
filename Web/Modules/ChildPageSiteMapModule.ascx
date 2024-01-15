@@ -6,7 +6,6 @@
 			<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
 				<portal:ChildPageMenu id="ChildPageMenu1" runat="server" CssClass="txtnormal" ForceDisplay="true" />
 			</portal:InnerBodyPanel>
-			<portal:EmptyPanel id="divFooter" runat="server" CssClass="modulefooter" SkinID="modulefooter" />
 		</portal:OuterBodyPanel>
 	</portal:InnerWrapperPanel>
 </portal:OuterWrapperPanel>

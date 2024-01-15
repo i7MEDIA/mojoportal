@@ -81,7 +81,7 @@
                 </span>
             </div>
                 <portal:mojoCutePager ID="pgrBottom" runat="server" />
-             <portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+             
        </portal:InnerBodyPanel>
        </portal:OuterBodyPanel>
 </portal:InnerWrapperPanel>

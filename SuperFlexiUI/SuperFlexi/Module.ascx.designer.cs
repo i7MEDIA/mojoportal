@@ -105,15 +105,6 @@ namespace SuperFlexiUI
 		protected global::System.Web.UI.WebControls.PlaceHolder belowMarkupDefinitionScripts;
 
 		/// <summary>
-		/// divCleared control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.UI.EmptyPanel divCleared;
-
-		/// <summary>
 		/// litFoot control.
 		/// </summary>
 		/// <remarks>

@@ -83,7 +83,7 @@
     <portal:mojoLabel ID="lblErrorMessage" runat="server" CssClass="txterror warning" /> 
 </portal:InnerBodyPanel>	
 	</portal:OuterBodyPanel>
-	<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+	
 </portal:InnerWrapperPanel>
 
 </portal:OuterWrapperPanel>

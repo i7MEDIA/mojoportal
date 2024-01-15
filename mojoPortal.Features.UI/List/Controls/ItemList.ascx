@@ -62,6 +62,6 @@
                         </AlternatingItemTemplate>
                     </asp:Repeater>
                     <portal:mojoCutePager ID="pgr" runat="server" Visible="false" />
-                <portal:EmptyPanel id="divFooter" runat="server" CssClass="modulefooter" SkinID="modulefooter"></portal:EmptyPanel>
+                
             </ContentTemplate>
         </asp:UpdatePanel>

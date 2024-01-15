@@ -19,6 +19,6 @@
 				</portal:FormGroupPanel>
 			</portal:InnerBodyPanel>
 		</portal:OuterBodyPanel>
-		<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared" />
+		
 	</portal:InnerWrapperPanel>
 </portal:OuterWrapperPanel>

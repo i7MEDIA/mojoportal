@@ -8,7 +8,7 @@
 				<asp:Literal ID="litScriptUrl" runat="server" EnableViewState="false" />
 				<asp:Literal ID="litScript" runat="server" EnableViewState="false" />
 			</portal:InnerBodyPanel>
-			<portal:EmptyPanel ID="divFooter" runat="server" CssClass="modulefooter" SkinID="modulefooter" />
+			
 		</portal:OuterBodyPanel>
 	</portal:InnerWrapperPanel>
 </portal:OuterWrapperPanel>

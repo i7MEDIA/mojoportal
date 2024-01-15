@@ -13,10 +13,10 @@
                 <blog:SearchBox id="searchBoxTop" runat="server" />
                 <blog:PostList ID="postList" runat="server" />
             </blog:BlogWrapperPanel>
-            <portal:EmptyPanel id="divFooter" runat="server" CssClass="modulefooter" SkinID="modulefooter"></portal:EmptyPanel>
+            
             </portal:InnerBodyPanel>
         </portal:OuterBodyPanel>
-        <portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
+        
     </portal:InnerWrapperPanel>
 
 </portal:OuterWrapperPanel>

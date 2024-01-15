@@ -389,14 +389,17 @@
 								DayHeaderStyle-BorderWidth="0px"
 								ShowGridLines="true">
 								<itemtemplate>
-								   <div class="eventcontainer">
+									<div class="eventcontainer">
 										<asp:HyperLink ID="lnkItemUrl" runat="server" EnableViewState="false" NavigateUrl='<%# Container.DataItem["Link"] %>' Text='<%# Container.DataItem["Title"] %>' />
-									</div>								
+									</div>
 								</itemtemplate>
 
 								<noeventstemplate>
-									<% if (config.UseFillerOnEmptyDays) { %>
-									<br /><br /><br />
+									<% if (config.UseFillerOnEmptyDays)
+										{ %>
+									<br />
+									<br />
+									<br />
 									<% } %>
 								</noeventstemplate>
 							</mp:DataCalendar>
@@ -405,6 +408,5 @@
 				</ContentTemplate>
 			</asp:UpdatePanel>
 		</portal:OuterBodyPanel>
-		<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared" EnableViewState="false"></portal:EmptyPanel>
 	</portal:InnerWrapperPanel>
 </portal:OuterWrapperPanel>
