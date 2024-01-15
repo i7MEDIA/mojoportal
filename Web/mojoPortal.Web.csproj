@@ -473,7 +473,6 @@
     <Content Include="Admin\ModuleSettings.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="Admin\Monitor.aspx" />
     <Content Include="Admin\PageLayout.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -891,13 +890,6 @@
     </Compile>
     <Compile Include="Admin\ModulePermissions.aspx.designer.cs">
       <DependentUpon>ModulePermissions.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Monitor.aspx.cs">
-      <DependentUpon>Monitor.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Monitor.aspx.designer.cs">
-      <DependentUpon>Monitor.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\PageManager.aspx.cs">
       <DependentUpon>PageManager.aspx</DependentUpon>
@@ -1998,7 +1990,6 @@
     <Compile Include="Controls\mojoMenuWithSpanInLinks.cs" />
     <Compile Include="Controls\mojoOpenIdLogin.cs" />
     <Compile Include="Controls\mojoOpenIdRegister.cs" />
-    <Compile Include="Controls\Panels\mojoPanel.cs" />
     <Compile Include="Controls\mojoPortalLink.cs" />
     <Compile Include="Controls\mojoSiteMapMenu.cs" />
     <Compile Include="Controls\mojoSiteMapPath.cs" />

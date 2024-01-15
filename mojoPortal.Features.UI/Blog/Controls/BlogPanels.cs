@@ -1,4 +1,5 @@
-﻿namespace mojoPortal.Web.BlogUI;
+﻿using mojoPortal.Web.UI;
+namespace mojoPortal.Web.BlogUI;
 public class BlogArchiveListPanel : BasePanel { }
 public class BlogBottomSideBarPanel : BasePanel { }
 public class BlogCatListPanel : BasePanel { }
