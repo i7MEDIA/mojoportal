@@ -12,7 +12,6 @@
 			<asp:Literal ID="litEditLink" runat="server" />
 			<asp:Literal ID="litHelp" runat="server" />
 		</asp:Panel>
-		<portal:mojoGoogleAnalyticsScript ID="mojoGoogleAnalyticsScript1" runat="server" />
 	</form>
 </body>
 </html>

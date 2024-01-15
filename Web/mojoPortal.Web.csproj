@@ -456,7 +456,6 @@
     <Content Include="Admin\ContentValidation.aspx" />
     <Content Include="Admin\Controls\PageContentWizard.ascx" />
     <Content Include="Admin\Controls\UserRoles.ascx" />
-    <Content Include="Admin\dbUtils.aspx" />
     <Content Include="Admin\EditLoginInfo.aspx" />
     <Content Include="Admin\EditRegistrationAgreement.aspx" />
     <Content Include="Admin\EditSiteClosedMessage.aspx" />
@@ -601,7 +600,6 @@
     <Content Include="Controls\Microsoft\BingSearchControl.ascx" />
     <Content Include="Controls\ModuleWrapper.ascx" />
     <Content Include="Controls\mojoRating.ascx" />
-    <Content Include="Controls\NeatUploadStylesheet.ascx" />
     <Content Include="Controls\PageSelectorSetting.ascx" />
     <Content Include="Controls\PaymentLogList.ascx" />
     <Content Include="Controls\ViewSelectorSetting.ascx" />
@@ -616,9 +614,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Controls\SkinSetting.ascx" />
-    <Content Include="Controls\StyleSheet.ascx">
-      <SubType>UserControl</SubType>
-    </Content>
     <Content Include="cpl.txt" />
     <Content Include="Default.aspx">
       <SubType>ASPXCodeBehind</SubType>
@@ -1129,9 +1124,6 @@
     <Compile Include="Controls\AdditionalContentSetting.ascx.designer.cs">
       <DependentUpon>AdditionalContentSetting.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Analytics\AnalyticsAsyncBottomScript.cs" />
-    <Compile Include="Controls\Analytics\AnalyticsAsyncTopScript.cs" />
-    <Compile Include="Controls\Analytics\mojoGoogleAnalyticsScript.cs" />
     <Compile Include="Controls\AppleTouchIcon.cs" />
     <Compile Include="Controls\Artisteer\ArtisteerTreeView.cs" />
     <Compile Include="Controls\Artisteer\ArtisteerTreeViewAdapter.cs" />
@@ -1191,7 +1183,6 @@
     <Compile Include="Controls\EmailTemplates\EmailTemplateEditor.ascx.designer.cs">
       <DependentUpon>EmailTemplateEditor.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\EmbedSVGSprite.cs" />
     <Compile Include="Controls\FeedDiscoveryLink.cs" />
     <Compile Include="Controls\FileBrowserTextBoxExtender.cs" />
     <Compile Include="Controls\FileManagerLink.cs" />
@@ -1202,12 +1193,10 @@
     <Compile Include="Controls\FilePathSetting.ascx.designer.cs">
       <DependentUpon>FilePathSetting.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Link.cs" />
     <Compile Include="Controls\Menu.cs" />
     <Compile Include="Controls\MenuList.cs" />
     <Compile Include="Controls\FlexMenu.cs" />
     <Compile Include="Controls\FlexSearch.cs" />
-    <Compile Include="Controls\FriendlyTreeView.cs" />
     <Compile Include="Controls\Google\GoogleTranslatePanel.cs" />
     <Compile Include="Controls\Google\GoogleCustomSearchControl.cs" />
     <Compile Include="Controls\Google\LocationMap.cs" />
@@ -1245,7 +1234,6 @@
     </Compile>
     <Compile Include="Controls\mojoRegisterButton.cs" />
     <Compile Include="Controls\mojoScriptManager.cs" />
-    <Compile Include="Controls\mojoTextBox.cs" />
     <Compile Include="Controls\NoFollowHyperlink.cs" />
     <Compile Include="Controls\PageHeading.cs" />
     <Compile Include="Controls\PageSelectorSetting.ascx.cs">
@@ -1296,7 +1284,6 @@
     <Compile Include="Controls\Sharing\FacebookSdk.cs" />
     <Compile Include="Controls\Sharing\JanrainSharingElement.cs" />
     <Compile Include="Controls\Sharing\JanrainSharingScript.cs" />
-    <Compile Include="Controls\Sharing\PlusOneButton.cs" />
     <Compile Include="Controls\Gravatar\Gravatar.cs" />
     <Compile Include="Controls\HeadingControl.cs" />
     <Compile Include="Controls\HtmlSetting.ascx.cs">
@@ -1351,7 +1338,6 @@
       <DependentUpon>BingSearchControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Microsoft\MsTranslatorControl.cs" />
-    <Compile Include="Controls\ModuleContainer.cs" />
     <Compile Include="Controls\mojoButton.cs" />
     <Compile Include="Controls\mojoCutePager.cs" />
     <Compile Include="Controls\mojoDropDownList.cs" />
@@ -1363,8 +1349,6 @@
     <Compile Include="Controls\PageEditSettingsLink.cs" />
     <Compile Include="Controls\Panels\BasePanel.cs" />
     <Compile Include="Controls\PrivacyPageLink.cs" />
-    <Compile Include="Controls\Sharing\DeliciousLink.cs" />
-    <Compile Include="Controls\Sharing\DiggLink.cs" />
     <Compile Include="Controls\Sharing\FacebookLikeButton.cs" />
     <Compile Include="Controls\Sharing\FacebookLikeButtonThemeSetting.ascx.cs">
       <DependentUpon>FacebookLikeButtonThemeSetting.ascx</DependentUpon>
@@ -1373,7 +1357,6 @@
     <Compile Include="Controls\Sharing\FacebookLikeButtonThemeSetting.ascx.designer.cs">
       <DependentUpon>FacebookLikeButtonThemeSetting.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Sharing\StumbleUponLink.cs" />
     <Compile Include="Controls\Sharing\TweetThisLink.cs" />
     <Compile Include="Controls\Sharing\TwitterFollowButton.cs" />
     <Compile Include="Controls\SiteSlogan.cs" />
@@ -1523,13 +1506,6 @@
     </Compile>
     <Compile Include="Admin\CoreData.aspx.designer.cs">
       <DependentUpon>CoreData.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\dbUtils.aspx.cs">
-      <DependentUpon>dbUtils.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\dbUtils.aspx.designer.cs">
-      <DependentUpon>dbUtils.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -1920,8 +1896,6 @@
     <Compile Include="Controls\CountryStateSetting.ascx.designer.cs">
       <DependentUpon>CountryStateSetting.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CSSIncludeExtJs.cs" />
-    <Compile Include="Controls\CSSValidatorLink.cs" />
     <Compile Include="Controls\CultureFlag.ascx.cs">
       <DependentUpon>CultureFlag.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1953,10 +1927,7 @@
     <Compile Include="Controls\GMapZoomLevelSetting.ascx.designer.cs">
       <DependentUpon>GMapZoomLevelSetting.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\HomeLink.cs" />
-    <Compile Include="Controls\IEStyleIncludes.cs" />
     <Compile Include="Controls\InsecurePageWarning.cs" />
-    <Compile Include="Controls\LiveMessengerControl.cs" />
     <Compile Include="Controls\LoginLink.cs" />
     <Compile Include="Controls\LogoutLink.cs" />
     <Compile Include="Controls\MemberListLink.cs">
@@ -1982,7 +1953,6 @@
     <Compile Include="Controls\mojoAddThisButton.cs" />
     <Compile Include="Controls\mojoDataList.cs" />
     <Compile Include="Controls\mojoHelpLink.cs" />
-    <Compile Include="Controls\mojoLiteral.cs" />
     <Compile Include="Controls\mojoMenu.cs" />
     <Compile Include="Controls\mojoMenuSuperfish.cs" />
     <Compile Include="Controls\mojoMenuSuperfishVertical.cs" />
@@ -1997,13 +1967,6 @@
     <Compile Include="Controls\mojoTreeView.cs" />
     <Compile Include="Controls\mojoUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\NeatUploadStylesheet.ascx.cs">
-      <DependentUpon>NeatUploadStylesheet.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\NeatUploadStylesheet.ascx.designer.cs">
-      <DependentUpon>NeatUploadStylesheet.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\OnlineMemberListControl.ascx.cs">
       <DependentUpon>OnlineMemberListControl.ascx</DependentUpon>
@@ -2084,7 +2047,6 @@
     <Compile Include="Controls\SignInOrRegisterPrompt.ascx.designer.cs">
       <DependentUpon>SignInOrRegisterPrompt.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SilktideSiteScoreLink.cs" />
     <Compile Include="Controls\SiteLogin.cs" />
     <Compile Include="Controls\SiteLogo.cs">
     </Compile>
@@ -2119,22 +2081,12 @@
       <DependentUpon>SiteMenu.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\SiteScript.cs">
-    </Compile>
     <Compile Include="Controls\SiteTitle.cs">
     </Compile>
     <Compile Include="Controls\SkinFolderImage.cs" />
     <Compile Include="Controls\SkinPreview.cs">
     </Compile>
-    <Compile Include="Controls\SkipLink.cs" />
     <Compile Include="Controls\Panels\SlidePanel.cs" />
-    <Compile Include="Controls\StyleSheet.ascx.cs">
-      <DependentUpon>StyleSheet.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\StyleSheet.ascx.designer.cs">
-      <DependentUpon>StyleSheet.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\StyleSheetCombiner.ascx.cs">
       <DependentUpon>StyleSheetCombiner.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2157,7 +2109,6 @@
     <Compile Include="Controls\TimeZoneSetting.ascx.designer.cs">
       <DependentUpon>TimeZoneSetting.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\UpdateProgressSpan.cs" />
     <Compile Include="Controls\UserCommerceHistory.ascx.cs">
       <DependentUpon>UserCommerceHistory.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2167,22 +2118,7 @@
     </Compile>
     <Compile Include="Controls\UserProfileLink.cs">
     </Compile>
-    <Compile Include="Controls\VertigoSlideshow.cs" />
-    <Compile Include="Controls\VertigoThemeSetting.ascx.cs">
-      <DependentUpon>VertigoThemeSetting.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\VertigoThemeSetting.ascx.designer.cs">
-      <DependentUpon>VertigoThemeSetting.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\WelcomeMessage.cs">
-    </Compile>
-    <Compile Include="Controls\WindowsLiveLoginControl.ascx.cs">
-      <DependentUpon>WindowsLiveLoginControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\WindowsLiveLoginControl.ascx.designer.cs">
-      <DependentUpon>WindowsLiveLoginControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\WoopraScript.ascx.cs">
       <DependentUpon>WoopraScript.ascx</DependentUpon>
@@ -2191,7 +2127,6 @@
     <Compile Include="Controls\WoopraScript.ascx.designer.cs">
       <DependentUpon>WoopraScript.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\XhtmlValidatorLink.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2488,13 +2423,6 @@
     </Compile>
     <Compile Include="Modules\CustomScript.ascx.designer.cs">
       <DependentUpon>CustomScript.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\EmptyModule.ascx.cs">
-      <DependentUpon>EmptyModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\EmptyModule.ascx.designer.cs">
-      <DependentUpon>EmptyModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="Modules\HtmlModule.ascx.cs">
       <DependentUpon>HtmlModule.ascx</DependentUpon>
@@ -2826,9 +2754,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Modules\EmptyModule.ascx" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Services\HtmlTemplates.ashx" />
   </ItemGroup>
   <ItemGroup>
@@ -2861,7 +2786,6 @@
     <Content Include="eletter\SendLog.aspx" />
     <Content Include="eletter\Unsubscribe.aspx" />
     <Content Include="Secure\UpdateOpenID.aspx" />
-    <Content Include="Controls\WindowsLiveLoginControl.ascx" />
     <Content Include="Controls\OpenIDLoginControl.ascx" />
     <Content Include="Secure\RegisterWithOpenID.aspx" />
     <Content Include="Secure\RegisterWithWindowsLiveID.aspx" />
@@ -2993,7 +2917,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controls\CommentSystems\CommentSystemSetting.ascx" />
-    <Content Include="Controls\VertigoThemeSetting.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\ContentRatingService.ashx" />

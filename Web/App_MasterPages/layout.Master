@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="/Content/failsafeskin/js/vendors/nivo-slider/themes/bar/bar.css">
 	<link rel="stylesheet" href="/Content/failsafeskin/js/vendors/nivo-slider/nivo-slider.css">
 	<portal:StyleSheetCombiner ID="StyleSheetCombiner" runat="server" IncludejQueryUI="false" UseIconsForAdminLinks="false" EnableNonClickablePageLinks="true" IncludeColorBox="true" />
+	<link rel="stylesheet" href="/Content/failsafeskin/css/main.css">
 
 	<!-- Scripts -->
 	<portal:ScriptLoader ID="ScriptLoader1" runat="server" AssumejQueryIsLoaded="true" AssumejQueryUiIsLoaded="true" IncludeColorBox="false" IncludejQueryAccordion="true" />
@@ -37,9 +38,9 @@
 </head>
 <body class="pagebody" id="Body" runat="server">
 	<portal:FacebookSdk ID="fbsdk" runat="server" />
-	<portal:AnalyticsAsyncTopScript ID="analyticsTop" runat="server" />
 	<portal:LayoutDisplaySettings ID="LayoutDisplaySettings1" runat="server" />
 	<form id="frmMain" runat="server" class="main-form">
+		<a href="#main-content" class="sr-only skiplink"><%= Resources.Resource.SkipLink %></a>
 		<asp:SiteMapDataSource ID="SiteMapData" runat="server" ShowStartingNode="false" />
 		<asp:SiteMapDataSource ID="PageMapDataSource" runat="server" ShowStartingNode="false" />
 		<asp:SiteMapDataSource ID="ChildPageSiteMapData" runat="server" ShowStartingNode="false" />
@@ -83,7 +84,7 @@
 			</header>
 
 
-			<main class="main-content">
+			<main class="main-content" id="main-content">
 				<div class="alert alert-danger text-center text-bold"><%= Resources.Resource.LayoutMasterError %></div>
 				<portal:LayoutPanel ID="divAlt1" runat="server" SkinID="TopPane">
 					<asp:ContentPlaceHolder ID="altContent1" runat="server"></asp:ContentPlaceHolder>
@@ -132,8 +133,6 @@
 			</div>
 		</footer>
 	</form>
-
-	<portal:AnalyticsAsyncBottomScript ID="analyticsBottom" runat="server" />
 
 	<!-- Main Script -->
 	<script src="/Content/failsafeskin/js/bootstrap.min.js"></script>

@@ -367,12 +367,15 @@ namespace mojoPortal.Web.ForumUI
             if (thread == null) { return; }
             if (thread.Subject.Length == 0) { return; }
 
-            AnalyticsAsyncTopScript asyncAnalytics = Page.Master.FindControl("analyticsTop") as AnalyticsAsyncTopScript;
-            if (asyncAnalytics != null)
-            {
-                string urlToTrack = ForumConfiguration.FakeTrackingBaseUrl + SiteUtils.SuggestFriendlyUrl(thread.Subject, siteSettings);
-                asyncAnalytics.PageToTrack = urlToTrack;
-            }
+            //TODO: Ensure Forums are tracked properly in analytics, see old code below and note on ForumConfiguration.FakeTrackingBaseUrl
+            var foo = ForumConfiguration.FakeTrackingBaseUrl;
+
+			//AnalyticsAsyncTopScript asyncAnalytics = Page.Master.FindControl("analyticsTop") as AnalyticsAsyncTopScript;
+   //         if (asyncAnalytics != null)
+   //         {
+   //             string urlToTrack = ForumConfiguration.FakeTrackingBaseUrl + SiteUtils.SuggestFriendlyUrl(thread.Subject, siteSettings);
+   //             asyncAnalytics.PageToTrack = urlToTrack;
+   //         }
 
         }
 

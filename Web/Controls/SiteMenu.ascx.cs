@@ -656,47 +656,12 @@ public partial class SiteMenu : UserControl
 		treeMenu1.UseMenuTooltipForCustomCss = useMenuTooltipForCustomCss;
 
 		this.menuPlaceHolder.Controls.Add(treeMenu1);
-
-
-#if !MONO
 		treeMenu1.PopulateNodesFromClient = treeViewPopulateOnDemand;
-#endif
 		treeMenu1.CollapseImageToolTip = Resource.TreeMenuCollapseTooltip;
 		treeMenu1.ExpandImageToolTip = Resource.TreeMenuExpandTooltip;
-
 		treeMenu1.ExpandDepth = 0;
-
-
-		//treeMenu1.TreeNodePopulate += new TreeNodeEventHandler(treeMenu1_TreeNodePopulate);
 		treeMenu1.TreeNodeDataBound += new TreeNodeEventHandler(treeMenu1_TreeNodeDataBound);
-
-
-
-		//older skins have this
-		StyleSheet stylesheet = (StyleSheet)Page.Master.FindControl("StyleSheet");
-		if (stylesheet != null)
-		{
-			if (stylesheet.FindControl("treeviewcss") == null)
-			{
-				Literal cssLink = new Literal();
-				cssLink.ID = "treeviewcss";
-				cssLink.Text = "\n<link href='"
-				+ SiteUtils.GetSkinBaseUrl(Page)
-				+ "styletreeview.css' type='text/css' rel='stylesheet' media='screen' />";
-
-				stylesheet.Controls.Add(cssLink);
-				log.Debug("added stylesheet for treeiew");
-			}
-		}
-
-
 		treeMenu1.ExpandDepth = treeViewExpandDepth;
-		//log.Debug("set ExpandDepth to " + treeViewExpandDepth.ToString(CultureInfo.InvariantCulture));
-
-
-
-
-
 
 		if (Page.IsPostBack)
 		{

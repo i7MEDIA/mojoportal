@@ -22,7 +22,6 @@
                 </span>
                 <div class="sitetitle">
                     <portal:SiteTitle ID="SiteTitle" runat="server"></portal:SiteTitle>
-                    <portal:SkipLink ID="SkipLink1" runat="server" />
                 </div>
             </div>
             <div class="topnav">

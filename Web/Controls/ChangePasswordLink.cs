@@ -1,8 +1,6 @@
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Resources;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
 
 namespace mojoPortal.Web.UI;
 

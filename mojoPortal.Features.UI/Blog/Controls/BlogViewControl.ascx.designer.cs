@@ -474,15 +474,6 @@ namespace mojoPortal.Web.BlogUI
 		protected global::mojoPortal.Web.UI.FacebookLikeButton fblike;
 
 		/// <summary>
-		/// btnPlusOne control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.UI.PlusOneButton btnPlusOne;
-
-		/// <summary>
 		/// divBottomPager control.
 		/// </summary>
 		/// <remarks>

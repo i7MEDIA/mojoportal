@@ -5,7 +5,6 @@ using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Configuration;
 using mojoPortal.Web.Framework;
 using Resources;
-using ConsentToken = mojoPortal.Web.WindowsLiveLogin.ConsentToken;
 
 namespace mojoPortal.Web.UI.Pages;
 
@@ -125,8 +124,6 @@ public partial class ProfileView : NonCmsBasePage
 			{
 				ShowAnonymousProperties(siteUser);
 			}
-
-			PopulateMessenger();
 		}
 		else
 		{
@@ -183,47 +180,6 @@ public partial class ProfileView : NonCmsBasePage
 		if (displaySettings.HidePostCount) { divForumPosts.Visible = false; }
 
 		AddClassToBody("profileview");
-	}
-
-	private void PopulateMessenger()
-	{
-		if (WebConfigSettings.GloballyDisableMemberUseOfWindowsLiveMessenger) { return; }
-		if (!siteSettings.AllowWindowsLiveMessengerForMembers) { return; }
-		if (siteUser == null) { return; }
-		if (!siteUser.EnableLiveMessengerOnProfile) { return; }
-		if (siteUser.LiveMessengerId.Length == 0) { return; }
-
-		divLiveMessenger.Visible = true;
-		chat1.Invitee = siteUser.LiveMessengerId;
-
-		if (WebConfigSettings.TestLiveMessengerDelegation)
-		{
-			WindowsLiveLogin wl = WindowsLiveHelper.GetWindowsLiveLogin();
-			WindowsLiveMessenger m = new WindowsLiveMessenger(wl);
-			ConsentToken token = m.DecodeToken(siteUser.LiveMessengerDelegationToken);
-			ConsentToken refreshedToken = m.RefreshConsent(token);
-			if (refreshedToken != null)
-			{
-				chat1.DelegationToken = refreshedToken.DelegationToken;
-				string signedParams = WindowsLiveMessenger.SignParameters(
-					refreshedToken.SessionKey,
-					siteUser.Name,
-					string.Empty,
-					string.Empty);
-				chat1.SignedParams = signedParams;
-			}
-			else
-			{
-				chat1.DelegationToken = token.DelegationToken;
-				string signedParams = WindowsLiveMessenger.SignParameters(
-					token.SessionKey,
-					siteUser.Name,
-					string.Empty,
-					string.Empty);
-
-				chat1.SignedParams = signedParams;
-			}
-		}
 	}
 
 	private void ShowAuthenticatedProperties(SiteUser siteUser)

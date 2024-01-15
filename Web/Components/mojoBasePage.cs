@@ -9,7 +9,6 @@ using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
@@ -38,7 +37,6 @@ public class mojoBasePage : Page
 	private PageViewMode viewMode = PageViewMode.WorkInProgress;
 
 	protected SiteSettings siteSettings = null;
-	protected StyleSheet StyleSheetControl;
 	protected bool IsChangePasswordPage = false;
 
 	public string MasterPageName = "layout.Master";
@@ -1125,7 +1123,14 @@ public class mojoBasePage : Page
 		{
 			log.Error($"Error setting master page. This is likely because the master page file listed in the error below doesn't exist in the current skin.  mojoPortal will use the master page file from the default skin.\r\n{CultureInfo.CurrentCulture} - {SiteUtils.GetIP4Address()}", ex);
 
-			SetupFailsafeMasterPage();
+			try
+			{
+				SetupFailsafeMasterPage();
+			}
+			catch (HttpException ex2)
+			{
+				log.Error($"Error setting failsafe master page. This is likely because the master page file listed in the error below doesn't exist in the current skin.\r\n{CultureInfo.CurrentCulture} - {SiteUtils.GetIP4Address()}", ex2);
+			}
 		}
 
 		if (SetMasterInBasePage)
@@ -1317,8 +1322,6 @@ public class mojoBasePage : Page
 				PhMain = (ContentPlaceHolder)Master.FindControl("phMain");
 				break;
 		}
-
-		StyleSheetControl = (StyleSheet)Master.FindControl("StyleSheet");
 	}
 
 	protected bool ShouldShowModule(Module m)

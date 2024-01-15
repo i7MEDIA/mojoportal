@@ -60,8 +60,8 @@
 					</blog:BlogDatePanel>
 
 					<blog:BlogPagerPanel ID="divTopPager" runat="server" CssClass="blogpager">
-						<asp:HyperLink ID="lnkPreviousPostTop" runat="server" Visible="false" CssClass="postlink prevpost" EnableViewState="false"></asp:HyperLink>
-						<asp:HyperLink ID="lnkNextPostTop" runat="server" Visible="false" CssClass="postlink nextpost" EnableViewState="false"></asp:HyperLink>
+						<asp:HyperLink ID="lnkPreviousPostTop" runat="server" Visible="false" CssClass="postlink prevpost" EnableViewState="false" />
+						<asp:HyperLink ID="lnkNextPostTop" runat="server" Visible="false" CssClass="postlink nextpost" EnableViewState="false" />
 					</blog:BlogPagerPanel>
 
 					<asp:Literal ID="litSubtitle" runat="server" EnableViewState="false" />
@@ -164,15 +164,13 @@
 						<div id="divAddThis" runat="server" class="blogaddthis" enableviewstate="false">
 							<portal:AddThisWidget ID="addThisWidget" runat="server" EnableViewState="false" SkinID="BlogPostDetail" />
 						</div>
-
 						<portal:TweetThisLink ID="tweetThis1" runat="server" EnableViewState="false" />
 						<portal:FacebookLikeButton ID="fblike" runat="server" Visible="false" EnableViewState="false" />
-						<portal:PlusOneButton ID="btnPlusOne" runat="server" Visible="false" SkinID="BlogDetail" EnableViewState="false" />
 					</div>
 
 					<blog:BlogPagerPanel ID="divBottomPager" runat="server" EnableViewState="false" CssClass="blogpager blogpagerbottom">
-						<asp:HyperLink ID="lnkPreviousPost" runat="server" CssClass="postlink prevpost" Visible="false" EnableViewState="false"></asp:HyperLink>
-						<asp:HyperLink ID="lnkNextPost" runat="server" Visible="false" CssClass="postlink nextpost" EnableViewState="false"></asp:HyperLink>
+						<asp:HyperLink ID="lnkPreviousPost" runat="server" CssClass="postlink prevpost" Visible="false" EnableViewState="false" />
+						<asp:HyperLink ID="lnkNextPost" runat="server" Visible="false" CssClass="postlink nextpost" EnableViewState="false" />
 					</blog:BlogPagerPanel>
 
 					<portal:CommentsWidget ID="InternalCommentSystem" runat="server" Visible="false" SkinID="Blog" />
@@ -222,7 +220,7 @@
 												Visible='<%# (bool) (DataBinder.Eval(Container.DataItem, "URL").ToString().Length != 0) %>'
 												Text='<%# Server.HtmlEncode(DataBinder.Eval(Container.DataItem,"Name").ToString()) %>'
 												NavigateUrl='<%# Server.HtmlEncode(DataBinder.Eval(Container.DataItem,"URL").ToString())%>'
-												CssClass="blogcommentposter"></asp:HyperLink>
+												CssClass="blogcommentposter" />
 										</NeatHtml:UntrustedContent>
 									</div>
 
@@ -335,11 +333,8 @@
 
 					<blog:RelatedPostsList ID="relatedPosts" runat="server" />
 				</portal:BasePanel>
-
-				<%--<blog:NavControl ID="navBottom" runat="server" />--%>
 				<asp:PlaceHolder runat="server" ID="phNavRight" />
 			</portal:BasePanel>
-
 		</portal:InnerBodyPanel>
 	</portal:OuterBodyPanel>
 </portal:InnerWrapperPanel>

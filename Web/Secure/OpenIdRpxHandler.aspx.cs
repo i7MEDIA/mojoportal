@@ -10,7 +10,6 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
 using mojoPortal.Business.WebHelpers.UserSignInHandlers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Net;
 using mojoPortal.Web.Configuration;
 using mojoPortal.Web.Framework;
@@ -442,22 +441,25 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 			hdnEmail.Value = authInfo.Email;
 			//email is verified go ahead and track new registration in analytics
 			//or we won't have another opportunity to track it 
-			if (authInfo.VerifiedEmail.Length > 0)
-			{
-				AnalyticsAsyncTopScript asyncAnalytics = Page.Master.FindControl("analyticsTop") as AnalyticsAsyncTopScript;
-				if (asyncAnalytics != null)
-				{
-					asyncAnalytics.PageToTrack = "/RegistrationConfirmed.aspx";
-				}
-				else
-				{
-					mojoGoogleAnalyticsScript analytics = Page.Master.FindControl("mojoGoogleAnalyticsScript1") as mojoGoogleAnalyticsScript;
-					if (analytics != null)
-					{
-						analytics.PageToTrack = "/RegistrationConfirmed.aspx";
-					}
-				}
-			}
+
+			//TODO: implement analytics tracking for new registrations
+
+			//if (authInfo.VerifiedEmail.Length > 0)
+			//{
+			//	AnalyticsAsyncTopScript asyncAnalytics = Page.Master.FindControl("analyticsTop") as AnalyticsAsyncTopScript;
+			//	if (asyncAnalytics != null)
+			//	{
+			//		asyncAnalytics.PageToTrack = "/RegistrationConfirmed.aspx";
+			//	}
+			//	else
+			//	{
+			//		mojoGoogleAnalyticsScript analytics = Page.Master.FindControl("mojoGoogleAnalyticsScript1") as mojoGoogleAnalyticsScript;
+			//		if (analytics != null)
+			//		{
+			//			analytics.PageToTrack = "/RegistrationConfirmed.aspx";
+			//		}
+			//	}
+			//}
 		}
 		else
 		{

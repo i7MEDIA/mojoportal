@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
-using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -202,7 +200,7 @@ public partial class BlogViewControl : UserControl, IRefreshAfterPostback, IUpda
 			{
 				basePage.PageHeading.Title.Text = blogTitle;
 				heading.Visible = false;
-			}			
+			}
 		}
 
 		if (displaySettings.ShowSubTitleOnDetailPage && (blogSubTitle.Length > 0))
@@ -254,9 +252,6 @@ public partial class BlogViewControl : UserControl, IRefreshAfterPostback, IUpda
 		fblike.WidthInPixels = config.FacebookLikeButtonWidth;
 		fblike.UrlToLike = FormatBlogUrl(blog.ItemUrl, blog.ItemId);
 
-		btnPlusOne.Visible = config.ShowPlusOneButton;
-		btnPlusOne.TargetUrl = FormatBlogUrl(blog.ItemUrl, blog.ItemId);
-
 		string timeFormat = displaySettings.OverrideDateFormat;
 		if (timeFormat.Length == 0) { timeFormat = config.DateTimeFormat; }
 
@@ -274,9 +269,9 @@ public partial class BlogViewControl : UserControl, IRefreshAfterPostback, IUpda
 		odiogoPlayer.ItemId = blog.ItemId.ToString(CultureInfo.InvariantCulture);
 		odiogoPlayer.ItemTitle = blogTitle;
 
-		if (blogAuthor.Length == 0) 
-		{ 
-			blogAuthor = blog.UserName; 
+		if (blogAuthor.Length == 0)
+		{
+			blogAuthor = blog.UserName;
 		}
 
 		if (config.BlogAuthor.Length > 0)
@@ -492,7 +487,7 @@ public partial class BlogViewControl : UserControl, IRefreshAfterPostback, IUpda
 			PopulateControls();
 			return;
 		}
-		
+
 		if (blog == null) { return; }
 
 		if (blog.AllowCommentsForDays < 0)
@@ -666,7 +661,6 @@ HTTP_REFERER: {Page.Request.ServerVariables["HTTP_REFERER"]}
 				divAddThis.Visible = false;
 				tweetThis1.Visible = false;
 				fblike.Visible = false;
-				btnPlusOne.Visible = false;
 				bsocial.Visible = false;
 			}
 		}
@@ -778,7 +772,8 @@ HTTP_REFERER: {Page.Request.ServerVariables["HTTP_REFERER"]}
 				break;
 		}
 
-		if (!pnlExcerpt.Visible) {
+		if (!pnlExcerpt.Visible)
+		{
 			pnlDetails.RenderContentsOnly = !displaySettings.PostViewRenderPostPanel;
 		}
 		else
@@ -819,8 +814,8 @@ HTTP_REFERER: {Page.Request.ServerVariables["HTTP_REFERER"]}
 		authorAvatar.CssClass = displaySettings.AvatarCssClass;
 		authorAvatar.ExtraCssClass = displaySettings.AvatarExtraCssClass;
 
-		if (disableAvatars 
-			|| displaySettings.HideAvatarInPostList 
+		if (disableAvatars
+			|| displaySettings.HideAvatarInPostList
 			|| !blog.ShowAuthorAvatar
 		)
 		{
@@ -1013,9 +1008,9 @@ HTTP_REFERER: {Page.Request.ServerVariables["HTTP_REFERER"]}
 		{
 			DateTime endDate = blog.StartDate.AddDays((double)blog.AllowCommentsForDays);
 
-			if (endDate > DateTime.UtcNow) 
-			{ 
-				return true; 
+			if (endDate > DateTime.UtcNow)
+			{
+				return true;
 			}
 		}
 
@@ -1295,8 +1290,8 @@ HTTP_REFERER: {Page.Request.ServerVariables["HTTP_REFERER"]}
 	private string GetRssUrl()
 	{
 		if (config.FeedburnerFeedUrl.Length > 0 && !BlogConfiguration.UseRedirectForFeedburner)
-		{ 
-			return config.FeedburnerFeedUrl; 
+		{
+			return config.FeedburnerFeedUrl;
 		}
 
 		if (config.FeedburnerFeedUrl.Length > 0)

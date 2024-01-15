@@ -29,22 +29,12 @@
 							<mp:SiteLabel ID="SiteLabel2" runat="server" CssClass="settinglabel" ConfigKey="TimeZone" />
 							&nbsp;<asp:Label ID="lblTimeZone" runat="server" />
 						</asp:Panel>
-						<div id="divLiveMessenger" runat="server" visible="false" class="settingrow messengerpanel">
-							<mp:SiteLabel ID="SiteLabel1" runat="server" CssClass="settinglabel" ConfigKey="spacer" />
-							<portal:LiveMessengerControl ID="chat1" runat="server" SkinID="profile"
-								Width="400"
-								Height="300"
-								Invitee=""
-								InviteeDisplayName=""
-								OverrideCulture=""
-								UseTheme="false"
-								ThemName="" />
-						</div>
 						<NeatHtml:UntrustedContent ID="UntrustedContent2" runat="server">
 							<asp:Panel ID="pnlProfileProperties" runat="server" />
 						</NeatHtml:UntrustedContent>
 						<div style="clear: left;">
-							<portal:mojoLabel ID="lblMessage" runat="server" CssClass="txterror info" /></div>
+							<portal:mojoLabel ID="lblMessage" runat="server" CssClass="txterror info" />
+						</div>
 					</portal:InnerBodyPanel>
 				</asp:Panel>
 			</portal:OuterBodyPanel>

@@ -2,13 +2,9 @@
 <%@ Register Namespace="mojoPortal.Web.GalleryUI" Assembly="mojoPortal.Features.UI" TagPrefix="gallery" %>
 <gallery:GalleryDisplaySettings ID="displaySettings" runat="server" />
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-	
 	<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper gallerymodule">
 		<portal:ModuleTitleControl ID="Title1" runat="server" />
 		<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
-			<portal:InnerBodyPanel ID="pnlSl" runat="server" Visible="false" CssClass="modulecontent">
-				<portal:VertigoSlideshow ID="slideShow" runat="server" />
-			</portal:InnerBodyPanel>
 			<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
 				<asp:UpdatePanel ID="upGallery" UpdateMode="Conditional" runat="server">
 					<ContentTemplate>
@@ -59,7 +55,7 @@
 				</asp:Panel>
 			</portal:InnerBodyPanel>
 		</portal:OuterBodyPanel>
-		
+
 	</portal:InnerWrapperPanel>
-	
+
 </portal:OuterWrapperPanel>

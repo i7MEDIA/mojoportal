@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="ServerVariables.aspx.cs" Inherits="mojoPortal.Web.AdminUI.ServerVariablesPage" %>
+
 <%@ Register TagPrefix="dev" TagName="ServerVars" Src="~/DevAdmin/Controls/ServerVars.ascx" %>
 <!DOCTYPE html>
 <html id="Html" runat="server">
@@ -22,7 +23,6 @@
 		<div class="modulecontent">
 			<dev:ServerVars ID="sv1" runat="server" />
 		</div>
-		<portal:mojoGoogleAnalyticsScript ID="mojoGoogleAnalyticsScript1" runat="server" />
 		<portal:Woopra ID="woopra11" runat="server" />
 	</form>
 </body>

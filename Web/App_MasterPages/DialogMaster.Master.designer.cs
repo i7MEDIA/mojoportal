@@ -87,15 +87,6 @@ namespace mojoPortal.Web
 		protected global::System.Web.UI.WebControls.ContentPlaceHolder phMain;
 
 		/// <summary>
-		/// mojoGoogleAnalyticsScript1 control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.UI.mojoGoogleAnalyticsScript mojoGoogleAnalyticsScript1;
-
-		/// <summary>
 		/// woopra11 control.
 		/// </summary>
 		/// <remarks>

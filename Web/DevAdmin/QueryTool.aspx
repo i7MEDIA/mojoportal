@@ -2,7 +2,7 @@
 
 <%@ Register TagPrefix="dev" TagName="QueryTool" Src="~/DevAdmin/Controls/QueryTool.ascx" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 	<title>Query Tool</title>
@@ -22,7 +22,6 @@
 		<div>
 			<dev:QueryTool ID="qt1" runat="server" />
 		</div>
-		<portal:mojoGoogleAnalyticsScript ID="mojoGoogleAnalyticsScript1" runat="server" />
 		<portal:Woopra ID="woopra11" runat="server" />
 	</form>
 </body>

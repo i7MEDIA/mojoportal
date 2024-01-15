@@ -1,8 +1,6 @@
 using System;
 using System.Web.Security;
-using System.Web.UI;
 using mojoPortal.Business;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -50,19 +48,21 @@ public partial class ConfirmRegistration : NonCmsBasePage
 
 			}
 
-			AnalyticsAsyncTopScript asyncAnalytics = Page.Master.FindControl("analyticsTop") as AnalyticsAsyncTopScript;
-			if (asyncAnalytics != null)
-			{
-				asyncAnalytics.PageToTrack = "/RegistrationConfirmed.aspx";
-			}
-			else
-			{
-				mojoGoogleAnalyticsScript analytics = Page.Master.FindControl("mojoGoogleAnalyticsScript1") as mojoGoogleAnalyticsScript;
-				if (analytics != null)
-				{
-					analytics.PageToTrack = "/RegistrationConfirmed.aspx";
-				}
-			}
+			//TODO: implement analytics tracking for new registrations
+
+			//AnalyticsAsyncTopScript asyncAnalytics = Page.Master.FindControl("analyticsTop") as AnalyticsAsyncTopScript;
+			//if (asyncAnalytics != null)
+			//{
+			//	asyncAnalytics.PageToTrack = "/RegistrationConfirmed.aspx";
+			//}
+			//else
+			//{
+			//	mojoGoogleAnalyticsScript analytics = Page.Master.FindControl("mojoGoogleAnalyticsScript1") as mojoGoogleAnalyticsScript;
+			//	if (analytics != null)
+			//	{
+			//		analytics.PageToTrack = "/RegistrationConfirmed.aspx";
+			//	}
+			//}
 		}
 		else
 		{

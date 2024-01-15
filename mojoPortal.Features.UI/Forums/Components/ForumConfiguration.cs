@@ -201,13 +201,13 @@ namespace mojoPortal.Web.ForumUI
 
         public static bool UsePageNameInThreadTitle
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:UsePageNameInThreadTitle", false); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:UsePageNameInThreadTitle", false); }
         }
         
 
         public static bool FilterContentFromTrustedUsers
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:FilterContentFromTrustedUsers", false); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:FilterContentFromTrustedUsers", false); }
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace mojoPortal.Web.ForumUI
         /// </summary>
         public static bool TrackFakeTopicUrlInAnalytics
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:TrackFakeTopicUrlInAnalytics", false); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:TrackFakeTopicUrlInAnalytics", false); }
         }
 
         /// <summary>
@@ -229,62 +229,62 @@ namespace mojoPortal.Web.ForumUI
         /// </summary>
         public static string FakeTrackingBaseUrl
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("Forum:FakeTrackingBaseUrl", "/nofollow/forum/"); }
+            get { return Core.Configuration.ConfigHelper.GetStringProperty("Forum:FakeTrackingBaseUrl", "/nofollow/forum/"); }
         }
 
         public static string ForumThreadImage
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("ForumThreadImage", "folder.png"); }
+            get { return Core.Configuration.ConfigHelper.GetStringProperty("ForumThreadImage", "folder.png"); }
         }
 
         public static string SmtpServer
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("Forum:SmtpServer", string.Empty); }
+            get { return Core.Configuration.ConfigHelper.GetStringProperty("Forum:SmtpServer", string.Empty); }
         }
 
         public static int SmtpServerPort
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("Forum:SmtpServerPort", 25); }
+            get { return Core.Configuration.ConfigHelper.GetIntProperty("Forum:SmtpServerPort", 25); }
         }
 
         public static string SmtpUser
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("Forum:SmtpUser", string.Empty); }
+            get { return Core.Configuration.ConfigHelper.GetStringProperty("Forum:SmtpUser", string.Empty); }
         }
 
         public static string SmtpUserPassword
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("Forum:SmtpUserPassword", string.Empty); }
+            get { return Core.Configuration.ConfigHelper.GetStringProperty("Forum:SmtpUserPassword", string.Empty); }
         }
 
         public static bool SmtpRequiresAuthentication
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:SmtpRequiresAuthentication", false); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:SmtpRequiresAuthentication", false); }
         }
 
         public static bool SmtpUseSsl
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:SmtpUseSsl", false); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:SmtpUseSsl", false); }
         }
 
         public static string SmtpPreferredEncoding
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("Forum:SmtpPreferredEncoding", string.Empty); }
+            get { return Core.Configuration.ConfigHelper.GetStringProperty("Forum:SmtpPreferredEncoding", string.Empty); }
         }
 
         public static bool AggregateSearchIndexPerThread
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:AggregateSearchIndexPerThread", false); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:AggregateSearchIndexPerThread", false); }
         }
 
         public static bool EnableSiteMap
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:EnableSiteMap", true); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:EnableSiteMap", true); }
         }
 
         public static int SiteMapCacheMinutes
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("Forum:SiteMapCacheMinutes", 15); }
+            get { return Core.Configuration.ConfigHelper.GetIntProperty("Forum:SiteMapCacheMinutes", 15); }
         }
 
         /// <summary>
@@ -295,22 +295,22 @@ namespace mojoPortal.Web.ForumUI
         /// </summary>
         public static bool AllowExternalImages
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:AllowExternalImages", false); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:AllowExternalImages", false); }
         }
 
         public static bool UseMetaDescriptionOnThreads
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:UseMetaDescriptionOnThreads", false); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:UseMetaDescriptionOnThreads", false); }
         }
 
         public static bool CombineUrlParams
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:CombineUrlParams", true); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:CombineUrlParams", true); }
         }
 
         public static bool ShowPagerViewAllLink
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:ShowPagerViewAllLink", true); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:ShowPagerViewAllLink", true); }
         }
 
         /// <summary>
@@ -318,12 +318,12 @@ namespace mojoPortal.Web.ForumUI
         /// </summary>
         public static bool UseOldParamsForGoogleReader
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:UseOldParamsForGoogleReader", true); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:UseOldParamsForGoogleReader", true); }
         }
 
         public static bool DisableThreadCanonicalUrl
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:DisableThreadCanonicalUrl", false); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:DisableThreadCanonicalUrl", false); }
         }
 
         /// <summary>
@@ -331,7 +331,7 @@ namespace mojoPortal.Web.ForumUI
         /// </summary>
         public static bool ShowTopContent
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:ShowTopContent", false); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:ShowTopContent", false); }
         }
 
         /// <summary>
@@ -339,21 +339,21 @@ namespace mojoPortal.Web.ForumUI
         /// </summary>
         public static bool ShowBottomContent
         {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("Forum:ShowBottomContent", false); }
+            get { return Core.Configuration.ConfigHelper.GetBoolProperty("Forum:ShowBottomContent", false); }
         }
 
         public static SmtpSettings GetSmtpSettings()
         {
-            if (ForumConfiguration.SmtpServer.Length > 0)
+            if (SmtpServer.Length > 0)
             {
                 SmtpSettings smtpSettings = new SmtpSettings();
-                smtpSettings.Server = ForumConfiguration.SmtpServer;
-                smtpSettings.Port = ForumConfiguration.SmtpServerPort;
-                smtpSettings.User = ForumConfiguration.SmtpUser;
-                smtpSettings.Password = ForumConfiguration.SmtpUserPassword;
-                smtpSettings.UseSsl = ForumConfiguration.SmtpUseSsl;
-                smtpSettings.RequiresAuthentication = ForumConfiguration.SmtpRequiresAuthentication;
-                smtpSettings.PreferredEncoding = ForumConfiguration.SmtpPreferredEncoding;
+                smtpSettings.Server = SmtpServer;
+                smtpSettings.Port = SmtpServerPort;
+                smtpSettings.User = SmtpUser;
+                smtpSettings.Password = SmtpUserPassword;
+                smtpSettings.UseSsl = SmtpUseSsl;
+                smtpSettings.RequiresAuthentication = SmtpRequiresAuthentication;
+                smtpSettings.PreferredEncoding = SmtpPreferredEncoding;
 
                 return smtpSettings;
 
