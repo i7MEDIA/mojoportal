@@ -3,7 +3,7 @@
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
-    <mp:CornerRounderTop ID="ctop1" runat="server" />
+    
     <asp:Panel ID="pnlWrapper" runat="server" CssClass="panelwrapper xmlmodule">
         <div class="modulecontent">
             <fieldset class="foldergallery">
@@ -44,7 +44,7 @@
             </asp:Panel>
         </div>
     </asp:Panel>
-    <mp:CornerRounderBottom ID="cbottom1" runat="server" />
+    
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />
 <asp:Content ContentPlaceHolderID="pageEditContent" ID="MPPageEdit" runat="server" />

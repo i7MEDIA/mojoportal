@@ -9,7 +9,7 @@
         <asp:HyperLink ID="lnkTemplates" runat="server" NavigateUrl="~/Admin/ContentTemplates.aspx" /><portal:AdminCrumbSeparator id="AdminCrumbSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
         <asp:HyperLink ID="lnkThisPage" runat="server" CssClass="selectedcrumb" />
     </portal:AdminCrumbContainer>
-    <mp:CornerRounderTop ID="ctop1" runat="server" EnableViewState="false" />
+    
     <asp:Panel ID="pnl1" runat="server" CssClass="panelwrapper contenttemplates yui-skin-sam">
         <div class="modulecontent">
             <div class="settingrow">
@@ -65,7 +65,7 @@
             </div>
         </div>
     </asp:Panel>
-    <mp:CornerRounderBottom ID="cbottom1" runat="server" EnableViewState="false" />
+    
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" 
     runat="server" >

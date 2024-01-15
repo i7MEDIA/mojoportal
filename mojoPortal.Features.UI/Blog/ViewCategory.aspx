@@ -5,7 +5,7 @@
 <asp:content contentplaceholderid="leftContent" id="MPLeftPane" runat="server" />
 <asp:content contentplaceholderid="mainContent" id="MPContent" runat="server">
     <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-        <mp:CornerRounderTop ID="ctop1" runat="server" />
+        
         <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper blogmodule blogcategories ">
             <portal:HeadingControl ID="heading" runat="server" />
             <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
@@ -19,7 +19,7 @@
             <portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared">
             </portal:EmptyPanel>
         </portal:InnerWrapperPanel>
-        <mp:CornerRounderBottom ID="cbottom1" runat="server" />
+        
     </portal:OuterWrapperPanel>
 </asp:content>
 <asp:content contentplaceholderid="rightContent" id="MPRightPane" runat="server" />

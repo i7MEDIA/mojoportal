@@ -3,7 +3,7 @@
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
-    <mp:CornerRounderTop ID="ctop1" runat="server" />
+    
     <asp:Panel ID="pnlWrapper" runat="server" CssClass="panelwrapper editpage admin htmlmodule workflow ">
         <asp:Panel ID="pnlReject" runat="server" CssClass="modulecontent" DefaultButton="btnUpdate">
             <fieldset class="htmledit">
@@ -26,7 +26,7 @@
             </fieldset>
         </asp:Panel>
     </asp:Panel>
-    <mp:CornerRounderBottom ID="cbottom1" runat="server" />
+    
     <portal:SessionKeepAliveControl ID="ka1" runat="server" />
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />

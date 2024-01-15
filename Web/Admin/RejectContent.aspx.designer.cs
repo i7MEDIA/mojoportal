@@ -20,7 +20,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderTop ctop1;
+        
         
         /// <summary>
         /// pnlWrapper control.
@@ -119,7 +119,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderBottom cbottom1;
+        
         
         /// <summary>
         /// ka1 control.

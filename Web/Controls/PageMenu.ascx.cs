@@ -186,12 +186,6 @@ public partial class PageMenuControl : UserControl
 		if (!isAdmin) { isContentAdmin = WebUser.IsContentAdmin; }
 		if ((!isAdmin) && (!isContentAdmin)) { isSiteEditor = SiteUtils.UserIsSiteEditor(); }
 
-		if ((Direction == "Horizontal") || (!includeCornerRounders))
-		{
-			topRounder.Visible = false;
-			bottomRounder.Visible = false;
-		}
-
 		siteSettings = CacheHelper.GetCurrentSiteSettings();
 		if (siteSettings == null) { return; }
 

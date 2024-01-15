@@ -8,7 +8,7 @@
         <asp:hyperlink id="lnkCurrentPage" runat="server" cssclass="selectedcrumb" />
     </portal:AdminCrumbContainer>
     <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-        <mp:CornerRounderTop ID="ctop1" runat="server" EnableViewState="false" />
+        
         <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" cssclass="panelwrapper admin adminregagreement ">
             <portal:HeadingControl id="heading" runat="server" />
             <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
@@ -32,7 +32,7 @@
             </portal:OuterBodyPanel>
             <portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
         </portal:InnerWrapperPanel>
-        <mp:CornerRounderBottom ID="cbottom1" runat="server" EnableViewState="false" />
+        
     </portal:OuterWrapperPanel>
 </asp:content>
 <asp:content contentplaceholderid="rightContent" id="MPRightPane" runat="server" />

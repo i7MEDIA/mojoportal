@@ -10,7 +10,7 @@
 		<asp:HyperLink ID="lnkPageCrumb" runat="server" CssClass="unselectedcrumb"></asp:HyperLink>
 	</div>
 	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-		<mp:CornerRounderTop ID="ctop1" runat="server" EnableViewState="false" />
+		
 		<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper forumview" EnableViewState="false">
 			<portal:HeadingControl ID="heading" runat="server" />
 			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
@@ -29,7 +29,7 @@
 			</portal:OuterBodyPanel>
 			<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
 		</portal:InnerWrapperPanel>
-		<mp:CornerRounderBottom ID="cbottom1" runat="server" EnableViewState="false" />
+		
 	</portal:OuterWrapperPanel>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />

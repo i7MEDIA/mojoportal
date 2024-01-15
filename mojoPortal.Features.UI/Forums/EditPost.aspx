@@ -11,7 +11,7 @@
         <asp:Label ID="lblThreadDescription" runat="server"></asp:Label>
     </div>
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-<mp:CornerRounderTop id="ctop1" runat="server" />
+
 <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper forummodule forumeditpost">
 <portal:HeadingControl ID="heading" runat="server" />
 <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
@@ -74,7 +74,7 @@
 	</portal:OuterBodyPanel>
 	<portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
 </portal:InnerWrapperPanel>
-<mp:CornerRounderBottom id="cbottom1" runat="server" />
+
 </portal:OuterWrapperPanel>
     <portal:SessionKeepAliveControl ID="ka1" runat="server" />
 </asp:Content>

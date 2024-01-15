@@ -82,7 +82,7 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderTop ctop1;
+        
         
         /// <summary>
         /// pnlInnerWrap control.
@@ -253,6 +253,6 @@ namespace mojoPortal.Web.AdminUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderBottom cbottom1;
+        
     }
 }

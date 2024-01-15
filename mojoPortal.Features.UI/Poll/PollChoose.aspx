@@ -10,7 +10,7 @@
 		<asp:HyperLink runat="server" ID="lnkPolls" CssClass="selectedcrumb"></asp:HyperLink>
 	</div>
 	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-		<mp:CornerRounderTop ID="ctop1" runat="server" />
+		
 		<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper poll">
 			<portal:HeadingControl ID="heading" runat="server" />
 			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
@@ -45,7 +45,7 @@
 			</portal:OuterBodyPanel>
 			<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
 		</portal:InnerWrapperPanel>
-		<mp:CornerRounderBottom ID="cbottom1" runat="server" />
+		
 	</portal:OuterWrapperPanel>
 	<portal:SessionKeepAliveControl ID="ka1" runat="server" />
 </asp:Content>

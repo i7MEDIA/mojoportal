@@ -11,7 +11,7 @@
 		<forum:CrumbSeparatorLiteral ID="CrumbSeparatorLiteral1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" /><asp:Literal ID="litThreadDescription" runat="server" />
 	</forum:ThreadCrumbContainer>
 	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-		<mp:CornerRounderTop ID="ctop1" runat="server" EnableViewState="false" />
+		
 		<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper forumthreadview" EnableViewState="false">
 			<forum:ForumDisplaySettings ID="displaySettings" runat="server" />
 			<portal:HeadingControl ID="heading" runat="server" CssClass="threadheading" />
@@ -27,7 +27,7 @@
 			</portal:OuterBodyPanel>
 			<portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
 		</portal:InnerWrapperPanel>
-		<mp:CornerRounderBottom ID="cbottom1" runat="server" EnableViewState="false" />
+		
 	</portal:OuterWrapperPanel>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />

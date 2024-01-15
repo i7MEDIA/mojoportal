@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="VideoPlayer.ascx.cs"
     Inherits="mojoPortal.MediaPlayerUI.VideoPlayer" %>
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-    <mp:CornerRounderTop ID="ctop1" runat="server" />
+    
     <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper AudioPlayer">
         <portal:ModuleTitleControl runat="server" ID="TitleControl" />
         <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
@@ -71,5 +71,5 @@
         <portal:EmptyPanel ID="divCleared" runat="server" CssClass="cleared" SkinID="cleared">
         </portal:EmptyPanel>
     </portal:InnerWrapperPanel>
-    <mp:CornerRounderBottom ID="cbottom1" runat="server" />
+    
 </portal:OuterWrapperPanel>
