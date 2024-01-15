@@ -1,382 +1,396 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2012-07-20
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-/// 
-/// Note moved into separate class file from dbPortal 2007-11-03
-
 using System;
-using System.Text;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
 using MySqlConnector;
 
-namespace mojoPortal.Data
+namespace mojoPortal.Data;
+
+public static class DBModuleSettings
 {
-    public static class DBModuleSettings
-    {
-
-        public static bool DeleteModuleSettings(int moduleId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_ModuleSettings ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ModuleID = ?ModuleID ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-        }
-
-
-        public static IDataReader GetModuleSettings(int moduleId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT DISTINCT ");
-            sqlCommand.Append("ms.ID, ");
-            sqlCommand.Append("ms.ModuleID, ");
-            sqlCommand.Append("ms.SettingName, ");
-            sqlCommand.Append("ms.SettingValue, ");
-            sqlCommand.Append("mds.ModuleDefID, ");
-            sqlCommand.Append("mds.FeatureGuid, ");
-            sqlCommand.Append("mds.ControlType, ");
-            sqlCommand.Append("mds.RegexValidationExpression, ");
-            sqlCommand.Append("mds.SortOrder, ");
-            sqlCommand.Append("mds.ControlSrc, ");
-            sqlCommand.Append("mds.HelpKey, ");
-            sqlCommand.Append("mds.GroupName, ");
-            sqlCommand.Append("mds.Attributes, ");
-            sqlCommand.Append("mds.Options, ");
-			sqlCommand.Append("mds.ResourceFile ");
-
-            sqlCommand.Append("FROM	mp_ModuleSettings ms ");
-
-            sqlCommand.Append("JOIN	mp_Modules m ");
-            sqlCommand.Append("ON ms.ModuleID = m.ModuleID ");
-
-            sqlCommand.Append("JOIN mp_ModuleDefinitionSettings mds ");
-            sqlCommand.Append("ON m.ModuleDefID = mds.ModuleDefID ");
-            sqlCommand.Append("AND mds.SettingName = ms.SettingName ");
-
-            sqlCommand.Append("WHERE ms.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("ORDER BY mds.SortOrder, mds.GroupName ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-        }
-
-
-        public static bool CreateModuleSetting(
-            Guid settingGuid,
-            Guid moduleGuid,
-            int moduleId,
-            string settingName,
-            string settingValue,
-            string controlType,
-            string regexValidationExpression,
-            string controlSrc,
-            string helpKey,
-            int sortOrder)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            sqlCommand.Append("INSERT INTO mp_ModuleSettings (");
-            sqlCommand.Append("ModuleID, ");
-            sqlCommand.Append("SettingName, ");
-            sqlCommand.Append("SettingValue, ");
-            sqlCommand.Append("ControlType, ");
-            sqlCommand.Append("ControlSrc, ");
-            sqlCommand.Append("HelpKey, ");
-            sqlCommand.Append("SortOrder, ");
-            sqlCommand.Append("RegexValidationExpression, ");
-            sqlCommand.Append("SettingGuid, ");
-            sqlCommand.Append("ModuleGuid )");
-
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?ModuleID, ");
-            sqlCommand.Append("?SettingName, ");
-            sqlCommand.Append("?SettingValue, ");
-            sqlCommand.Append("?ControlType, ");
-            sqlCommand.Append("?ControlSrc, ");
-            sqlCommand.Append("?HelpKey, ");
-            sqlCommand.Append("?SortOrder, ");
-            sqlCommand.Append("?RegexValidationExpression, ");
-            sqlCommand.Append("?SettingGuid, ");
-            sqlCommand.Append("?ModuleGuid )");
-            sqlCommand.Append(";");
 
+	public static bool DeleteModuleSettings(int moduleId)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_ModuleSettings 
+WHERE ModuleID = ?ModuleID;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		return rowsAffected > 0;
+
+	}
+
+
+	public static IDataReader GetModuleSettings(int moduleId)
+	{
+		string sqlCommand = @"
+SELECT DISTINCT 
+    ms.ID, 
+    ms.ModuleID, 
+    ms.SettingName, 
+    ms.SettingValue, 
+    mds.ModuleDefID, 
+    mds.FeatureGuid, 
+    mds.ControlType, 
+    mds.RegexValidationExpression, 
+    mds.SortOrder, 
+    mds.ControlSrc, 
+    mds.HelpKey, 
+    mds.GroupName, 
+    mds.Attributes, 
+    mds.Options, 
+    mds.ResourceFile 
+FROM 
+    mp_ModuleSettings ms 
+JOIN 
+    mp_Modules m 
+ON 
+    ms.ModuleID = m.ModuleID 
+JOIN 
+    mp_ModuleDefinitionSettings mds 
+ON 
+    m.ModuleDefID = mds.ModuleDefID 
+AND 
+    mds.SettingName = ms.SettingName 
+WHERE 
+    ms.ModuleID = ?ModuleID  
+ORDER BY 
+    mds.SortOrder, mds.GroupName;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+	}
+
+
+	public static bool CreateModuleSetting(
+		Guid settingGuid,
+		Guid moduleGuid,
+		int moduleId,
+		string settingName,
+		string settingValue,
+		string controlType,
+		string regexValidationExpression,
+		string controlSrc,
+		string helpKey,
+		int sortOrder)
+	{
+		string sqlCommand = @"
+INSERT INTO 
+    mp_ModuleSettings (
+        ModuleID, 
+        SettingName, 
+        SettingValue, 
+        ControlType, 
+        ControlSrc, 
+        HelpKey, 
+        SortOrder, 
+        RegexValidationExpression, 
+        SettingGuid, 
+        ModuleGuid 
+    )
+VALUES (
+    ?ModuleID, 
+    ?SettingName, 
+    ?SettingValue, 
+    ?ControlType, 
+    ?ControlSrc, 
+    ?HelpKey, 
+    ?SortOrder, 
+    ?RegexValidationExpression, 
+    ?SettingGuid, 
+    ?ModuleGuid 
+);";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?SettingName", MySqlDbType.VarChar, 50)
+			{
+				Direction = ParameterDirection.Input,
+				Value = settingName
+			},
+
+			new("?SettingValue", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = settingValue
+			},
+
+			new("?ControlType", MySqlDbType.VarChar, 50)
+			{
+				Direction = ParameterDirection.Input,
+				Value = controlType
+			},
+
+			new("?RegexValidationExpression", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = regexValidationExpression
+			},
+
+			new ("?SettingGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = settingGuid.ToString()
+			},
+
+			new ("?ModuleGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleGuid.ToString()
+			},
+
+			new("?ControlSrc", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = controlSrc
+			},
+
+			new("?HelpKey", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = helpKey
+			},
+
+			new("?SortOrder", MySqlDbType.Int16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = sortOrder
+			}
+		};
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		return rowsAffected > 0;
+
+	}
+
+	public static bool UpdateModuleSetting(
+		Guid moduleGuid,
+		int moduleId,
+		string settingName,
+		string settingValue)
+	{
+		string sqlCommand = @"
+SELECT count(*) 
+FROM mp_ModuleSettings 
+WHERE ModuleID = ?ModuleID  
+AND SettingName = ?SettingName;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?SettingName", MySqlDbType.VarChar, 50)
+			{
+				Direction = ParameterDirection.Input,
+				Value = settingName
+			}
+		};
+
+		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams).ToString());
+
+
+		int rowsAffected = 0;
+
+		if (count > 0)
+		{
+			string sqlCommand1 = @"
+UPDATE mp_ModuleSettings 
+SET SettingValue = ?SettingValue  
+WHERE ModuleID = ?ModuleID  
+AND SettingName = ?SettingName";
+
+			var arParams1 = new List<MySqlParameter>
+			{
+				new("?ModuleID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = moduleId
+				},
+
+				new("?SettingName", MySqlDbType.VarChar, 50)
+				{
+					Direction = ParameterDirection.Input,
+					Value = settingName
+				},
+
+				new("?SettingValue", MySqlDbType.Text)
+				{
+					Direction = ParameterDirection.Input,
+					Value = settingValue
+				}
+			};
+
+			rowsAffected = CommandHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand1.ToString(),
+				arParams1);
+
+			return rowsAffected > 0;
+
+		}
+		else
+		{
+			//should not reach here
+
+
+			return false;
+
+			//return CreateModuleSetting(
+			//    Guid.NewGuid(),
+			//    moduleGuid,
+			//    moduleId,
+			//    settingName,
+			//    settingValue,
+			//    "TextBox",
+			//    string.Empty);
+
+
+
+		}
+
+	}
+
+
+	public static IDataReader GetDefaultModuleSettings(int moduleDefId)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_ModuleDefinitionSettings 
+WHERE ModuleDefID = ?ModuleDefID 
+ORDER BY SortOrder, GroupName;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleDefID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleDefId
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+	}
+
+
+	public static DataTable GetDefaultModuleSettingsForModule(int moduleId)
+	{
+		string sqlCommand = @"
+SELECT 
+    m.ModuleID,  
+    m.Guid AS ModuleGuid,  
+    ds.SettingName, 
+    ds.SettingValue, 
+    ds.ControlType, 
+    ds.ControlSrc, 
+    ds.HelpKey, 
+    ds.SortOrder, 
+    ds.GroupName, 
+    ds.RegexValidationExpression 
+FROM
+    mp_Modules m 
+JOIN
+    mp_ModuleDefinitionSettings ds 
+ON 
+    ds.ModuleDefID = m.ModuleDefID 
+WHERE 
+    m.ModuleID = ?ModuleID 
+ORDER BY 
+    ds.SortOrder, ds.GroupName;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		IDataReader reader = CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		return DBPortal.GetTableFromDataReader(reader);
+
+	}
+
+
+	public static bool CreateDefaultModuleSettings(int moduleId)
+	{
+		DataTable dataTable = GetDefaultModuleSettingsForModule(moduleId);
+
+		foreach (DataRow row in dataTable.Rows)
+		{
+			int sortOrder = 100;
+			if (row["SortOrder"] != DBNull.Value)
+				sortOrder = Convert.ToInt32(row["SortOrder"]);
+
+			CreateModuleSetting(
+				Guid.NewGuid(),
+				new Guid(row["ModuleGuid"].ToString()),
+				moduleId,
+				row["SettingName"].ToString(),
+				row["SettingValue"].ToString(),
+				row["ControlType"].ToString(),
+				row["RegexValidationExpression"].ToString(),
+				row["ControlSrc"].ToString(),
+				row["HelpKey"].ToString(),
+				sortOrder);
+
+		}
+
+		return (dataTable.Rows.Count > 0);
+
+
+	}
 
-            arParams = new MySqlParameter[10];
 
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
 
-            arParams[1] = new MySqlParameter("?SettingName", MySqlDbType.VarChar, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = settingName;
 
-            arParams[2] = new MySqlParameter("?SettingValue", MySqlDbType.Text);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = settingValue;
 
-            arParams[3] = new MySqlParameter("?ControlType", MySqlDbType.VarChar, 50);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = controlType;
 
-            arParams[4] = new MySqlParameter("?RegexValidationExpression", MySqlDbType.Text);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = regexValidationExpression;
-
-            arParams[5] = new MySqlParameter("?SettingGuid", MySqlDbType.VarChar, 36);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = settingGuid.ToString();
-
-            arParams[6] = new MySqlParameter("?ModuleGuid", MySqlDbType.VarChar, 36);
-            arParams[6].Direction = ParameterDirection.Input;
-            arParams[6].Value = moduleGuid.ToString();
-
-            arParams[7] = new MySqlParameter("?ControlSrc", MySqlDbType.VarChar, 255);
-            arParams[7].Direction = ParameterDirection.Input;
-            arParams[7].Value = controlSrc;
-
-            arParams[8] = new MySqlParameter("?HelpKey", MySqlDbType.VarChar, 255);
-            arParams[8].Direction = ParameterDirection.Input;
-            arParams[8].Value = helpKey;
-
-            arParams[9] = new MySqlParameter("?SortOrder", MySqlDbType.Int16);
-            arParams[9].Direction = ParameterDirection.Input;
-            arParams[9].Value = sortOrder;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-        }
-
-        public static bool UpdateModuleSetting(
-            Guid moduleGuid,
-            int moduleId,
-            string settingName,
-            string settingValue)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT count(*) ");
-            sqlCommand.Append("FROM	mp_ModuleSettings ");
-
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND SettingName = ?SettingName  ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?SettingName", MySqlDbType.VarChar, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = settingName;
-
-
-
-            int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams).ToString());
-
-            sqlCommand = new StringBuilder();
-
-            int rowsAffected = 0;
-
-            if (count > 0)
-            {
-                sqlCommand.Append("UPDATE mp_ModuleSettings ");
-                sqlCommand.Append("SET SettingValue = ?SettingValue  ");
-
-                sqlCommand.Append("WHERE ModuleID = ?ModuleID  ");
-                sqlCommand.Append("AND SettingName = ?SettingName  ");
-
-                arParams = new MySqlParameter[3];
-
-                arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-                arParams[0].Direction = ParameterDirection.Input;
-                arParams[0].Value = moduleId;
-
-                arParams[1] = new MySqlParameter("?SettingName", MySqlDbType.VarChar, 50);
-                arParams[1].Direction = ParameterDirection.Input;
-                arParams[1].Value = settingName;
-
-                arParams[2] = new MySqlParameter("?SettingValue", MySqlDbType.Text);
-                arParams[2].Direction = ParameterDirection.Input;
-                arParams[2].Value = settingValue;
-
-                rowsAffected = CommandHelper.ExecuteNonQuery(
-                    ConnectionString.GetWriteConnectionString(),
-                    sqlCommand.ToString(),
-                    arParams);
-
-                return (rowsAffected > 0);
-
-            }
-            else
-            {
-                //should not reach here
-
-                
-                return false;
-
-                //return CreateModuleSetting(
-                //    Guid.NewGuid(),
-                //    moduleGuid,
-                //    moduleId,
-                //    settingName,
-                //    settingValue,
-                //    "TextBox",
-                //    string.Empty);
-
-                
-
-            }
-
-        }
-
-
-
-        public static IDataReader GetDefaultModuleSettings(int moduleDefId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT * ");
-
-            sqlCommand.Append("FROM	mp_ModuleDefinitionSettings ");
-
-            sqlCommand.Append("WHERE ModuleDefID = ?ModuleDefID ");
-            sqlCommand.Append("ORDER BY SortOrder, GroupName ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleDefID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleDefId;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-        }
-
-
-        public static DataTable GetDefaultModuleSettingsForModule(int moduleId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("m.ModuleID,  ");
-            sqlCommand.Append("m.Guid AS ModuleGuid,  ");
-            sqlCommand.Append("ds.SettingName, ");
-            sqlCommand.Append("ds.SettingValue, ");
-            sqlCommand.Append("ds.ControlType, ");
-            sqlCommand.Append("ds.ControlSrc, ");
-            sqlCommand.Append("ds.HelpKey, ");
-            sqlCommand.Append("ds.SortOrder, ");
-            sqlCommand.Append("ds.GroupName, ");
-            sqlCommand.Append("ds.RegexValidationExpression ");
-
-            sqlCommand.Append("FROM	mp_Modules m ");
-            sqlCommand.Append("JOIN	mp_ModuleDefinitionSettings ds ");
-            sqlCommand.Append("ON ds.ModuleDefID = m.ModuleDefID ");
-            sqlCommand.Append("WHERE m.ModuleID = ?ModuleID ");
-
-            sqlCommand.Append("ORDER BY	ds.SortOrder, ds.GroupName ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            IDataReader reader = CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return DBPortal.GetTableFromDataReader(reader);
-
-            
-
-        }
-
-
-
-
-        public static bool CreateDefaultModuleSettings(int moduleId)
-        {
-            DataTable dataTable = GetDefaultModuleSettingsForModule(moduleId);
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                int sortOrder = 100;
-                if (row["SortOrder"] != DBNull.Value)
-                    sortOrder = Convert.ToInt32(row["SortOrder"]);
-
-                CreateModuleSetting(
-                    Guid.NewGuid(),
-                    new Guid(row["ModuleGuid"].ToString()),
-                    moduleId,
-                    row["SettingName"].ToString(),
-                    row["SettingValue"].ToString(),
-                    row["ControlType"].ToString(),
-                    row["RegexValidationExpression"].ToString(),
-                    row["ControlSrc"].ToString(),
-                    row["HelpKey"].ToString(),
-                    sortOrder);
-
-            }
-
-            return (dataTable.Rows.Count > 0);
-
-
-        }
-
-
-        
-        
-
-
-    }
 }
