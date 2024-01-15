@@ -8,27 +8,11 @@ using mojoPortal.Core.Extensions;
 
 namespace mojoPortal.Web.Controls;
 
-/// <summary>
-/// See http://www.addthis.com
-/// </summary>
 public class AddThisButton : HyperLink
 {
 	#region Private Properties
 
-	private string accountId = string.Empty;
-	private bool useMouseOverWidget = true;
-	private string customLogoUrl = string.Empty;
-	private string customLogoBackgroundColor = string.Empty;
-	private string customLogoColor = string.Empty;
-	private string customBrand = string.Empty;
-	private string customOptions = string.Empty;
-	private int customOffsetTop = -999;
-	private int customOffsetLeft = -999;
-	private string buttonImageUrl = "~/Data/SiteImages/addthissharebutton.gif";
 	private string protocol = "http";
-
-	private string urlToShare = string.Empty;
-	private string titleOfUrlToShare = string.Empty;
 
 	#endregion
 
@@ -40,59 +24,35 @@ public class AddThisButton : HyperLink
 	/// Your addthis.com username.
 	/// If this is not set the control will not render.
 	/// </summary>
-	public string AccountId
-	{
-		get { return accountId; }
-		set { accountId = value; }
-	}
+	public string AccountId { get; set; } = string.Empty;
 
 	/// <summary>
 	/// if true will show widget in the page
 	/// </summary>
-	public bool UseMouseOverWidget
-	{
-		get { return useMouseOverWidget; }
-		set { useMouseOverWidget = value; }
-	}
+	public bool UseMouseOverWidget { get; set; } = true;
 
 	/// <summary>
 	/// The logo to display on the popup window (about 200x50 pixels). 
 	/// The popup window is show when the user selects the 'More' choice
 	/// </summary>
-	public string CustomLogoUrl
-	{
-		get { return customLogoUrl; }
-		set { customLogoUrl = value; }
-	}
+	public string CustomLogoUrl { get; set; } = string.Empty;
 
 	/// <summary>
 	/// The color to use as a background around the logo in the popup 
 	/// </summary>
-	public string CustomLogoBackgroundColor
-	{
-		get { return customLogoBackgroundColor; }
-		set { customLogoBackgroundColor = value; }
-	}
+	public string CustomLogoBackgroundColor { get; set; } = string.Empty;
 
 
 	/// <summary>
 	/// The color to use for the text next to the logo in the popup 
 	/// </summary>
-	public string CustomLogoColor
-	{
-		get { return customLogoColor; }
-		set { customLogoColor = value; }
-	}
+	public string CustomLogoColor { get; set; } = string.Empty;
 
 
 	/// <summary>
 	/// The brand name to display in the drop-down (top right)
 	/// </summary>
-	public string CustomBrand
-	{
-		get { return customBrand; }
-		set { customBrand = value; }
-	}
+	public string CustomBrand { get; set; } = string.Empty;
 
 
 	/// <summary>
@@ -105,11 +65,7 @@ public class AddThisButton : HyperLink
 	/// reddit, newsvine, 
 	/// live, more', in that order).
 	/// </summary>
-	public string CustomOptions
-	{
-		get { return customOptions; }
-		set { customOptions = value; }
-	}
+	public string CustomOptions { get; set; } = string.Empty;
 
 	/// <summary>
 	/// Vertical offset for the drop-down window widget (in pixels) 
@@ -117,11 +73,7 @@ public class AddThisButton : HyperLink
 	/// this will result in the defaults from addthis.com
 	/// not sure what the defsault is
 	/// </summary>
-	public int CustomOffsetTop
-	{
-		get { return customOffsetTop; }
-		set { customOffsetTop = value; }
-	}
+	public int CustomOffsetTop { get; set; } = -999;
 
 	/// <summary>
 	/// Horizontal offset for the drop-down window widget (in pixels) 
@@ -129,29 +81,13 @@ public class AddThisButton : HyperLink
 	/// this will result in the defaults from addthis.com
 	/// not sure what the defsault is
 	/// </summary>
-	public int CustomOffsetLeft
-	{
-		get { return customOffsetLeft; }
-		set { customOffsetLeft = value; }
-	}
+	public int CustomOffsetLeft { get; set; } = -999;
 
-	public string ButtonImageUrl
-	{
-		get { return buttonImageUrl; }
-		set { buttonImageUrl = value; }
-	}
+	public string ButtonImageUrl { get; set; } = "~/Data/SiteImages/addthissharebutton.gif";
 
-	public string UrlToShare
-	{
-		get { return urlToShare; }
-		set { urlToShare = value; }
-	}
+	public string UrlToShare { get; set; } = string.Empty;
 
-	public string TitleOfUrlToShare
-	{
-		get { return titleOfUrlToShare; }
-		set { titleOfUrlToShare = value; }
-	}
+	public string TitleOfUrlToShare { get; set; } = string.Empty;
 
 
 	#endregion
@@ -161,7 +97,7 @@ public class AddThisButton : HyperLink
 		base.OnPreRender(e);
 		if (HttpContext.Current == null) { return; }
 
-		if (accountId.Length == 0)
+		if (AccountId.Length == 0)
 		{
 			this.Visible = false;
 			return;
@@ -172,10 +108,10 @@ public class AddThisButton : HyperLink
 
 		SetupScripts();
 
-		this.ImageUrl = Page.ResolveUrl(buttonImageUrl);
+		this.ImageUrl = Page.ResolveUrl(ButtonImageUrl);
 		this.NavigateUrl = "http://www.addthis.com/bookmark.php";
 
-		if (useMouseOverWidget)
+		if (UseMouseOverWidget)
 			SetupWidget();
 		else
 			SetupNormalLink();
@@ -186,18 +122,18 @@ public class AddThisButton : HyperLink
 	{
 		StringBuilder onClickAttribute = new StringBuilder();
 
-		if (urlToShare.Length > 0)
+		if (UrlToShare.Length > 0)
 		{
-			onClickAttribute.Append("addthis_url = '" + urlToShare + "'; ");
+			onClickAttribute.Append("addthis_url = '" + UrlToShare + "'; ");
 		}
 		else
 		{
 			onClickAttribute.Append("addthis_url = location.href; ");
 		}
 
-		if (titleOfUrlToShare.Length > 0)
+		if (TitleOfUrlToShare.Length > 0)
 		{
-			onClickAttribute.Append("addthis_title ='" + titleOfUrlToShare.HtmlEscapeQuotes() + "'; ");
+			onClickAttribute.Append("addthis_title ='" + TitleOfUrlToShare.HtmlEscapeQuotes() + "'; ");
 		}
 		else
 		{
@@ -219,18 +155,18 @@ public class AddThisButton : HyperLink
 
 		mouseOverAttribute.Append("try {return addthis_open(this, '',");
 
-		if (urlToShare.Length > 0)
+		if (UrlToShare.Length > 0)
 		{
-			mouseOverAttribute.Append("'" + urlToShare + "', ");
+			mouseOverAttribute.Append("'" + UrlToShare + "', ");
 		}
 		else
 		{
 			mouseOverAttribute.Append("'[URL]', ");
 		}
 
-		if (titleOfUrlToShare.Length > 0)
+		if (TitleOfUrlToShare.Length > 0)
 		{
-			mouseOverAttribute.Append("'" + titleOfUrlToShare.HtmlEscapeQuotes() + "' ");
+			mouseOverAttribute.Append("'" + TitleOfUrlToShare.HtmlEscapeQuotes() + "' ");
 		}
 		else
 		{
@@ -250,31 +186,31 @@ public class AddThisButton : HyperLink
 	private void SetupScripts()
 	{
 		StringBuilder script = new StringBuilder();
-		script.Append("<script type=\"text/javascript\"> ");
+		script.Append("<script data-loader=\"addThisButton.cs\"> ");
 		script.Append("\n<!-- \n");
 
-		script.Append("var addthis_pub = '" + accountId + "';");
+		script.Append("var addthis_pub = '" + AccountId + "';");
 
-		if (customLogoUrl.Length > 0)
-			script.Append("var addthis_logo = '" + customLogoUrl + "';");
+		if (CustomLogoUrl.Length > 0)
+			script.Append("var addthis_logo = '" + CustomLogoUrl + "';");
 
-		if (customLogoBackgroundColor.Length > 0)
-			script.Append("var addthis_logo_background = '" + customLogoBackgroundColor + "';");
+		if (CustomLogoBackgroundColor.Length > 0)
+			script.Append("var addthis_logo_background = '" + CustomLogoBackgroundColor + "';");
 
-		if (customLogoColor.Length > 0)
-			script.Append("var addthis_logo_color = '" + customLogoColor + "';");
+		if (CustomLogoColor.Length > 0)
+			script.Append("var addthis_logo_color = '" + CustomLogoColor + "';");
 
-		if (customBrand.Length > 0)
-			script.Append("var addthis_brand = '" + customBrand + "';");
+		if (CustomBrand.Length > 0)
+			script.Append("var addthis_brand = '" + CustomBrand + "';");
 
-		if (customOptions.Length > 0)
-			script.Append("var addthis_options = '" + customOptions + "';");
+		if (CustomOptions.Length > 0)
+			script.Append("var addthis_options = '" + CustomOptions + "';");
 
-		if (customOffsetTop != -999)
-			script.Append("var addthis_offset_top = " + customOffsetTop.ToString(CultureInfo.InvariantCulture) + ";");
+		if (CustomOffsetTop != -999)
+			script.Append("var addthis_offset_top = " + CustomOffsetTop.ToString(CultureInfo.InvariantCulture) + ";");
 
-		if (customOffsetLeft != -999)
-			script.Append("var addthis_offset_left = " + customOffsetLeft.ToString(CultureInfo.InvariantCulture) + ";");
+		if (CustomOffsetLeft != -999)
+			script.Append("var addthis_offset_left = " + CustomOffsetLeft.ToString(CultureInfo.InvariantCulture) + ";");
 
 
 		script.Append("\n//--> ");
@@ -286,19 +222,14 @@ public class AddThisButton : HyperLink
 			"addthisbutton",
 			script.ToString());
 
-		if (useMouseOverWidget)
+		if (UseMouseOverWidget)
 			Page.ClientScript.RegisterStartupScript(
 				typeof(AddThisButton),
-				"addthisbuttonsetup", "\n<script type=\"text/javascript\" src=\""
-				+ protocol + "://s7.addthis.com/js/152/addthis_widget.js"
-				+ "\" ></script>");
+				"addthisbuttonsetup", $"\n<script data-loader=\"addThisButton.cs\" src=\"{protocol}://s7.addthis.com/js/152/addthis_widget.js\" ></script>");
 		else
 			Page.ClientScript.RegisterStartupScript(
 				typeof(AddThisButton),
-				"addthisbuttonsetup", "\n<script type=\"text/javascript\" src=\""
-				+ protocol + "://s9.addthis.com/js/widget.php?v=10"
-				+ "\" ></script>");
-
+				"addthisbuttonsetup", $"\n<script data-loader=\"addThisButton.cs\" src=\"{protocol}://s9.addthis.com/js/widget.php?v=10\" ></script>");
 	}
 
 
@@ -311,9 +242,5 @@ public class AddThisButton : HyperLink
 		}
 
 		base.Render(writer);
-
-
 	}
-
-
 }
