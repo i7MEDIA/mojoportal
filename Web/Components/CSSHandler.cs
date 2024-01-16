@@ -167,30 +167,20 @@ public class CssHandler : IHttpHandler
 			response.AppendHeader("Content-Encoding", "gzip");
 		}
 
-		bool isIE6 = BrowserHelper.IsIE6();
-
 		if (ShouldCacheInBrowser())
 		{
 			context.Response.Cache.SetCacheability(HttpCacheability.Public);
 			context.Response.Cache.SetExpires(DateTime.Now.Add(CACHE_DURATION));
 			context.Response.Cache.SetMaxAge(CACHE_DURATION);
-
-			if (!isIE6)
-			{
-				context.Response.Cache.AppendCacheExtension("must-revalidate, proxy-revalidate");
-			}
 		}
 		else
 		{
-			if (!ShouldCacheOnServer() && !isIE6)
-			{
-				//if both cache settings are off it must be a designer so make it easy
-				context.Response.Cache.SetExpires(new DateTime(1995, 5, 6, 12, 0, 0, DateTimeKind.Utc));
-				context.Response.Cache.SetNoStore();
-				context.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-				context.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
-				context.Response.Cache.AppendCacheExtension("post-check=0,pre-check=0");
-			}
+			//if both cache settings are off it must be a designer so make it easy
+			context.Response.Cache.SetExpires(new DateTime(1995, 5, 6, 12, 0, 0, DateTimeKind.Utc));
+			context.Response.Cache.SetNoStore();
+			context.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+			context.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+			context.Response.Cache.AppendCacheExtension("post-check=0,pre-check=0");
 		}
 
 		response.OutputStream.Write(bytes, 0, bytes.Length);
